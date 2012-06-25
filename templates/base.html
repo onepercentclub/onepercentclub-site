@@ -1,0 +1,33 @@
+{% load compress %}<!DOCTYPE HTML>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>{% block htmltitle %}bluebottle{% endblock %}</title>
+
+    {% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
+
+	{% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
+	{% endcompress %}
+
+	{% compress js %}
+	    <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
+	{% endcompress %}
+
+	{% block htmlheader %}{% endblock %}
+</head>
+
+<body>
+    {% block content %}{% endblock %}
+
+    <script type="text/javascript">
+    var _urq = _urq || [];
+    _urq.push(['initSite', '6b390f06-ad91-4a87-8217-0d591dfb02d7']);
+    (function() {
+    var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+    ur.src = 'http://sdscdn.userreport.com/userreport.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+    })();
+    </script>
+</body>
+</html>

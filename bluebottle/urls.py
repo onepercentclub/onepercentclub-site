@@ -7,6 +7,8 @@ admin.autodiscover()
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 
+from .views import HomeView
+
 
 # Serve django-staticfiles (only works in DEBUG)
 urlpatterns = staticfiles_urlpatterns()
@@ -14,11 +16,11 @@ urlpatterns = staticfiles_urlpatterns()
 # Serve media files (only works in DEBUG)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-
 handler500 = 'bluebottle.views.handler500'
 
+
 urlpatterns += patterns('',
-    #(r'^/', include('foo.urls')),
+    url(r'^$', HomeView.as_view(), name='home'),
 
     # Django Admin, docs and password reset
     url(r'^admin/password_reset/$', 'django.contrib.auth.views.password_reset', name='admin_password_reset'),

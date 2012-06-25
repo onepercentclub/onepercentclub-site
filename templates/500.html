@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block htmltitle %}Internal server error{% endblock %}
+{% block htmltitle %}{{ block.super }} | Internal server error{% endblock %}
 
 {% block content %}
 <h1>Internal server error</h1>
