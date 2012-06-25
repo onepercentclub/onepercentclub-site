@@ -35,3 +35,6 @@ pip-log.txt
 bluebottle/settings/local.py
 bluebottle/settings/secret.py
 env
+
+model_graphs/*.pdf
+model_graphs/*.dot
