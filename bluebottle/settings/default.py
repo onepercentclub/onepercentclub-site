@@ -157,6 +157,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'raven.contrib.django',
     'djcelery',
+    'south'
 ]
 
 # A sample logging configuration. The only tangible logging

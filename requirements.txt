@@ -3,3 +3,4 @@ django_extensions
 django_debug_toolbar
 raven
 django-celery
+South
