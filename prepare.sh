@@ -17,7 +17,7 @@ MANAGE_PY="$ENVDIR/bin/python ./manage.py"
 
 echo "Checking PIP and virtualenv availability"
 pip install 'pip>=1.1' 'virtualenv>=1.7.1.2'
-if [ $? == 0 ]; then
+if [ $? -eq 0 ]; then
     echo 'PIP and virtualenv installed allright'
 else
     echo 'Error installing PIP and virtualenv, breaking off'
