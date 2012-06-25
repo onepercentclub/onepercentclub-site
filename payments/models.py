@@ -39,7 +39,6 @@ class PaymentCluster(models.Model):
     profile_exhortation2 = models.CharField(max_length=255, blank=True)
     description = models.CharField(max_length=255, blank=True)
 
-
     class Meta:
         db_table = u'pay_payment_clusters'
 
