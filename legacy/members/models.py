@@ -36,7 +36,8 @@ class Member(models.Model):
     activated = models.BooleanField()
     ignore_activity = models.SmallIntegerField()
     validated = models.NullBooleanField(null=True, blank=True)
-    hash = models.CharField(max_length=255, blank=True)
+    # hash = models.CharField(max_length=255, blank=True)
+    # Hashes will not be used and must be thrown away
 
     class Meta:
         db_table = u'mem_members'
