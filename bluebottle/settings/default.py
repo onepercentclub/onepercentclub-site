@@ -156,6 +156,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
     'raven.contrib.django',
+    'djcelery',
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -186,3 +187,7 @@ LOGGING = {
         },
     }
 }
+
+""" djcelery """
+import djcelery
+djcelery.setup_loader()

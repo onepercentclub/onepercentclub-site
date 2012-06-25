@@ -2,3 +2,4 @@ Django==1.4
 django_extensions
 django_debug_toolbar
 raven
+django-celery
