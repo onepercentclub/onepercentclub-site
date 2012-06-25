@@ -48,7 +48,10 @@ fi
 if [ ! -f $SETTINGS_DIR/secret.py ]; then
     echo
     echo 'Generating secret key in settings_secret.py.'
-    SECRET_KEY=`$MANAGE_PY generate_secret_key`
+    # The generate_secret_key command produces a superfluous warning message
+    # that needs to be removed by filtering out only the last line of the
+    # output.
+    SECRET_KEY=`$MANAGE_PY generate_secret_key | tail -1`
 
     echo "# Add passwords passwords and other secrets data in this file" >> $SETTINGS_DIR/secret.py
     echo >> $SETTINGS_DIR/secret.py
