@@ -1,17 +1,33 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'bluebottle.views.home', name='home'),
-    # url(r'^bluebottle/', include('bluebottle.foo.urls')),
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+# Serve django-staticfiles (only works in DEBUG)
+urlpatterns = staticfiles_urlpatterns()
+
+# Serve media files (only works in DEBUG)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+handler500 = 'bluebottle.views.handler500'
+
+urlpatterns += patterns('',
+    #(r'^/', include('foo.urls')),
+
+    # Django Admin, docs and password reset
+    url(r'^admin/password_reset/$', 'django.contrib.auth.views.password_reset', name='admin_password_reset'),
+    (r'^admin/password_reset/done/$', 'django.contrib.auth.views.password_reset_done'),
+    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    (r'^admin/', include(admin.site.urls)),
+
+    # Password reset
+    (r'^accounts/reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm'),
+    (r'^accounts/reset/done/$', 'django.contrib.auth.views.password_reset_complete')
 )
+
