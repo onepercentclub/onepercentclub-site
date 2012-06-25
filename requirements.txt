@@ -9,4 +9,5 @@ django-nose
 # CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
 cssmin
 jsmin
+BeautifulSoup==3.2.1
 django_compressor
