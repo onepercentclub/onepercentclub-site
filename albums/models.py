@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Catalog(models.Model):
-    """ Catalog. A catalog holds Albums. Every Project has a reference to a Catalog """
+    """ A catalog holds Albums. Every Project has a reference to a Catalog """
     id = models.IntegerField(primary_key=True)
     description = models.TextField(blank=True)
 
@@ -29,7 +29,7 @@ class Album(models.Model):
 
 
 class Picture(models.Model):
-    """ Picture. Has info about a picture. The file is filemanager.models.File """
+    """ Has info about a picture. The file is filemanager.models.File """
 
     id = models.IntegerField(primary_key=True)
     album = models.ForeignKey(Album)

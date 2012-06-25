@@ -17,7 +17,9 @@ class Batch(models.Model):
     """ Batches of Coupons (fka CouCouponsBatches) """
 
     id = models.IntegerField(primary_key=True)
-    order = models.ForeignKey('payments.PaymentCluster', null=True, blank=True)
+    order = models.ForeignKey('payments.PaymentCluster',
+        null=True, blank=True
+    )
     member = models.ForeignKey('members.Member')
     coupon_amount = models.FloatField()
     total_amount = models.FloatField()
@@ -36,10 +38,14 @@ class OrderLine(models.Model):
     member_id = models.IntegerField()
     design_id = models.IntegerField()
     coupontype = models.CharField(max_length=16, blank=True)
-    from_field = models.CharField(max_length=255, db_column='from', blank=True) # Field renamed because it was a Python reserved word.
+    from_field = models.CharField(
+        max_length=255, db_column='from', blank=True
+    ) # Field renamed because it was a Python reserved word.
     to = models.CharField(max_length=255)
     message = models.CharField(max_length=300)
-    amount = models.DecimalField(null=True, max_digits=65535, decimal_places=65535, blank=True)
+    amount = models.DecimalField(
+        null=True, max_digits=65535, decimal_places=65535, blank=True
+    )
     receiver_email = models.CharField(max_length=255, blank=True)
     receiver_name = models.CharField(max_length=255, blank=True)
     receiver_address = models.CharField(max_length=255, blank=True)

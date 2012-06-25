@@ -17,9 +17,13 @@ class Donation(models.Model):
     meta_considered_safe = models.SmallIntegerField()
     created = models.DateTimeField()
     changed_to_safe = models.DateTimeField(null=True, blank=True)
-    payment_cluster = models.ForeignKey('payments.PaymentCluster', null=True, blank=True, db_column='order_id')
+    payment_cluster = models.ForeignKey('payments.PaymentCluster',
+        null=True, blank=True, db_column='order_id'
+    )
     automatic_donation = models.SmallIntegerField()
-    projects = models.ManyToManyField('projects.Project', through='DonationLine', related_name='projectdonations')
+    projects = models.ManyToManyField('projects.Project',
+        through='DonationLine', related_name='projectdonations'
+    )
 
     class Meta:
         db_table = u'don_donations'
@@ -29,7 +33,7 @@ class Donation(models.Model):
 
 
 class DonationLine(models.Model):
-    """ Donation Line. Links a project to a donation """
+    """ Links a project to a donation """
 
     id = models.IntegerField(primary_key=True)
     donation = models.ForeignKey('donations.Donation')
@@ -45,7 +49,9 @@ class DonationLine(models.Model):
 
 
 class Thanks(models.Model):
-    """" Thanks. Video message as thank-you to a donation made during Toeter-campagne """
+    """"
+    Video message as thank-you to a donation made during Toeter-campagne
+    """
 
     id = models.IntegerField(primary_key=True)
     donation = models.ForeignKey(Donation)
@@ -98,7 +104,9 @@ class External(models.Model):
     type = models.CharField(max_length=255, blank=True)
     params = models.TextField(blank=True)
     status = models.CharField(max_length=255, blank=True)
-    amount = models.DecimalField(null=True, max_digits=12, decimal_places=3, blank=True)
+    amount = models.DecimalField(
+        null=True, max_digits=12, decimal_places=3, blank=True
+    )
     currency = models.CharField(max_length=3, blank=True)
     donation = models.ForeignKey(Donation)
     order_id = models.CharField(max_length=255, blank=True)

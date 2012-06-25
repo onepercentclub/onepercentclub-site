@@ -79,8 +79,10 @@ class TaskTag(models.Model):
 
 
 class Document(models.Model):
-    """ ProjectDocument. A document that is linked to a Project... or in this case to as ProjectTask """
-    """ Mind you this is the same table as projects.models.Document """
+    """
+    ProjectDocument.
+    A document that is linked to a Project. Or in this case to as ProjectTask.
+    """
     id = models.IntegerField(primary_key=True)
     project = models.ForeignKey('projects.Project', null=True, blank=True)
     title = models.CharField(max_length=255, blank=True)

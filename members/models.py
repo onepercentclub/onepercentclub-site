@@ -2,7 +2,10 @@ from django.db import models
 
 
 class Type(models.Model):
-    """ Member Type. Can be either Guest, Person, Company, Group, Foundation (organization) """
+    """
+    Member Type
+    Can be either Guest, Person, Company, Group, Foundation (organization).
+    """
 
     id = models.IntegerField(primary_key=True)
     label = models.CharField(max_length=32)
@@ -17,7 +20,7 @@ class Type(models.Model):
 
 
 class Member(models.Model):
-    """ Member. """
+    """ Member """
 
     id = models.BigIntegerField(primary_key=True)
     email = models.CharField(max_length=255)
@@ -65,7 +68,10 @@ class Member(models.Model):
 
 
 class Profile(models.Model):
-    """ Member Profile contains extra data. Not all Members have a profile set! """
+    """
+    Member Profile contains extra data.
+    Not all Members have a profile set!
+    """
 
     id = models.BigIntegerField(primary_key=True)
     member = models.ForeignKey(Member, verbose_name='member')
@@ -89,7 +95,8 @@ class Profile(models.Model):
     photo = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True)
     country = models.ForeignKey('system.Country', null=True, blank=True)
-    recurring_donation_amount = models.DecimalField(null=True, max_digits=12, decimal_places=2, blank=True)
+    recurring_donation_amount = models.DecimalField(
+        null=True, max_digits=12, decimal_places=2, blank=True)
     authorize_capture = models.SmallIntegerField()
     contribution = models.CharField(max_length=255, blank=True)
     available_time = models.CharField(max_length=255, blank=True)
@@ -131,7 +138,8 @@ class Alert(models.Model):
     mail_friends_invite = models.NullBooleanField(null=True, blank=True)
     mail_profile_newmessage = models.NullBooleanField(null=True, blank=True)
     mail_new_donation = models.NullBooleanField(null=True, blank=True)
-    mail_profile_new_public_message = models.NullBooleanField(null=True, blank=True)
+    mail_profile_new_public_message = models.NullBooleanField(
+        null=True, blank=True)
 
     class Meta:
         db_table = u'mem_alert'

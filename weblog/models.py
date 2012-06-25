@@ -18,7 +18,9 @@ class Message(models.Model):
 
     id = models.IntegerField(primary_key=True)
     weblog = models.ForeignKey(Weblog)
-    member = models.ForeignKey('members.Member', related_name='weblog_message_set')
+    member = models.ForeignKey('members.Member',
+        related_name='weblog_message_set'
+    )
     title = models.CharField(max_length=255)
     content = models.TextField()
     created = models.DateTimeField()

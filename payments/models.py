@@ -12,7 +12,9 @@ class PaymentCluster(models.Model):
     payment_cluster_process = models.CharField(max_length=64)
     last_partial_payment_process = models.CharField(max_length=32, blank=True)
     last_partial_payment_method = models.CharField(max_length=128, blank=True)
-    last_partial_payment_method_readable = models.CharField(max_length=128, blank=True)
+    last_partial_payment_method_readable = models.CharField(
+        max_length=128, blank=True
+    )
     transaction_amount = models.DecimalField(max_digits=18, decimal_places=2)
     transaction_currency = models.CharField(max_length=16)
     used_payment_profile = models.CharField(max_length=255, blank=True)
@@ -99,7 +101,9 @@ class RequestLog(models.Model):
 
 class Payment(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    payment_cluster = models.ForeignKey(PaymentCluster, db_column="payment_cluster_order_id")
+    payment_cluster = models.ForeignKey(PaymentCluster,
+        db_column="payment_cluster_order_id"
+    )
     created = models.DateTimeField()
     modified = models.DateTimeField()
     method = models.CharField(max_length=128, blank=True)
@@ -171,7 +175,9 @@ class PaymentStateTransition(models.Model):
 
 class PaymentClusterStateTransition(models.Model):
     id = models.IntegerField(primary_key=True)
-    payment_cluster = models.ForeignKey(PaymentCluster, max_length=255, blank=True)
+    payment_cluster = models.ForeignKey(PaymentCluster,
+        max_length=255, blank=True
+    )
     from_state = models.CharField(max_length=64, blank=True)
     to_state = models.CharField(max_length=64, blank=True)
     comment = models.TextField(blank=True)
@@ -193,7 +199,9 @@ class PaymentClusterQueue(models.Model):
 class Capture(models.Model):
     id = models.IntegerField(primary_key=True)
     donation = models.ForeignKey('donations.Donation', unique=True)
-    capture_batch = models.ForeignKey('consolidations.CaptureBatch', null=True, blank=True)
+    capture_batch = models.ForeignKey('consolidations.CaptureBatch',
+        null=True, blank=True
+    )
     status = models.CharField(max_length=12)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     account_number = models.CharField(max_length=10)

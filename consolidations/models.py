@@ -30,9 +30,15 @@ class Settlement(models.Model):
     amount_registered = models.DecimalField(max_digits=14, decimal_places=4)
     amount_psp_fee = models.DecimalField(max_digits=14, decimal_places=4)
     amount_service_fee = models.DecimalField(max_digits=14, decimal_places=4)
-    amount_organization_fee = models.DecimalField(max_digits=14, decimal_places=4)
-    amount_bank_costs_direct = models.DecimalField(max_digits=14, decimal_places=4)
-    amount_bank_costs_indirect = models.DecimalField(max_digits=14, decimal_places=4)
+    amount_organization_fee = models.DecimalField(
+        max_digits=14, decimal_places=4
+    )
+    amount_bank_costs_direct = models.DecimalField(
+        max_digits=14, decimal_places=4
+    )
+    amount_bank_costs_indirect = models.DecimalField(
+        max_digits=14, decimal_places=4
+    )
     amount_collected = models.DecimalField(max_digits=14, decimal_places=4)
 
     class Meta:
@@ -53,9 +59,18 @@ class SettlementLine(models.Model):
     amount_bank_costs_direct = models.DecimalField(max_digits=14, decimal_places=4)
     amount_bank_costs_indirect = models.DecimalField(max_digits=14, decimal_places=4)
     amount_collected = models.DecimalField(max_digits=14, decimal_places=4)
-    settlement_id_project = models.ForeignKey(Settlement, null=True, db_column='settlement_id_project', blank=True, related_name = 'project_settlement')
-    settlement_id_organization = models.ForeignKey(Settlement, null=True, db_column='settlement_id_organization', blank=True, related_name = 'organization_settlement')
-    settlement_id_service = models.ForeignKey(Settlement, null=True, db_column='settlement_id_service', blank=True, related_name = 'service_settlement')
+    settlement_id_project = models.ForeignKey(Settlement, null=True,
+        db_column='settlement_id_project', blank=True,
+        related_name='project_settlement'
+    )
+    settlement_id_organization = models.ForeignKey(Settlement, null=True,
+        db_column='settlement_id_organization', blank=True,
+        related_name='organization_settlement'
+    )
+    settlement_id_service = models.ForeignKey(Settlement, null=True,
+        db_column='settlement_id_service', blank=True,
+        related_name='service_settlement'
+    )
 
     class Meta:
         db_table = u'con_settlement_lines'

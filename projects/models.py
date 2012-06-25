@@ -17,7 +17,9 @@ class Project(models.Model):
     title = models.CharField(max_length=255, blank=True)
     country = models.ForeignKey('system.Country')
 
-    organization = models.ForeignKey('organizations.Organization', db_column='owner_org_id')
+    organization = models.ForeignKey('organizations.Organization',
+        db_column='owner_org_id'
+    )
     """
     Owner_org is a Member row that refers to the organization 'user'
     That user has a reference to the Organization model
@@ -36,12 +38,17 @@ class Project(models.Model):
     realised = models.DateTimeField(null=True, blank=True)
     closed = models.DateTimeField(null=True, blank=True)
     validated = models.DateTimeField(null=True, blank=True)
-    """ These dates relate to the website. When was the project put online, fully funded etc. """
+    """
+    These dates relate to the website.
+    When was the project put online, fully funded etc.
+    """
 
 
     startdate = models.DateField(null=True, blank=True)
     enddate = models.DateField(null=True, blank=True)
-    """ These dates are the planned dates for the implementation of this project """
+    """
+    These dates are the planned dates for the implementation of this project
+    """
 
     latitude = models.CharField(max_length=20)
     longitude = models.CharField(max_length=20)
@@ -76,9 +83,13 @@ class Project(models.Model):
     earth_charter = models.IntegerField(null=True, blank=True)
     """ Two 'special' types, kinda whitelabeling """
 
-    catalog = models.ForeignKey('albums.Catalog', unique=True, null=True, blank=True)
+    catalog = models.ForeignKey('albums.Catalog',
+        unique=True, null=True, blank=True
+    )
     """ Picture catalogs """
-    weblog = models.ForeignKey('weblog.Weblog', unique=True, null=True, blank=True)
+    weblog = models.ForeignKey('weblog.Weblog',
+        unique=True, null=True, blank=True
+    )
 
     tags = models.ManyToManyField('system.Tag', through='ProjectTag')
 
@@ -252,7 +263,9 @@ class Message(models.Model):
 
     id = models.IntegerField(primary_key=True)
     project = models.ForeignKey(Project)
-    member = models.ForeignKey('members.Member', related_name='project_message_set')
+    member = models.ForeignKey('members.Member',
+        related_name='project_message_set'
+    )
     text = models.TextField()
     created = models.DateTimeField()
     deleted = models.DateTimeField(null=True, blank=True)
