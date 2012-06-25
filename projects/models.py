@@ -101,14 +101,20 @@ class Project(models.Model):
 
     def donated(self):
         """ Money donated """
-        amount = self.donationline_set.all().filter(donation__status__in=['started','paid','closed']).aggregate(Sum('amount'))
-        return amount['amount__sum']
+
+        qs = self.donationline_set.all()
+        qs = qs.filter(donation__status__in=['started','paid','closed'])
+
+        return qs.aggregate(Sum('amount'))['amount__sum']
 
     def needed(self):
         """ Money still needed """
+
         needed = self.asked() - self.donated()
+
         if needed < 0:
             return 0
+
         return needed
 
     def asked(self):
@@ -117,8 +123,11 @@ class Project(models.Model):
 
     def donations(self):
         qs = self.donationline_set.select_related(depth=1).all()
+
         qs = qs.order_by('-donation__created')
         qs = qs.filter(donation__status__in=['started','paid','closed'])
+
+        # Note: this is probably the same as [:5], what is this meant to do?
         return qs[0:5]
 
     def tasks(self):

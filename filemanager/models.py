@@ -28,7 +28,7 @@ class File(models.Model):
         db_table = u'flm_files'
 
     def smallUrl(self):
-        return 'http://www.1procentclub.nl/cache/65x50_fit/' + self.file
+        return 'http://www.1procentclub.nl/cache/65x50_fit/%s' % self.file
 
     def url(self):
-        return 'http://www.1procentclub.nl/cache/640x480_fit/' + self.file
+        return 'http://www.1procentclub.nl/cache/640x480_fit/%s' % self.file

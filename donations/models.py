@@ -70,10 +70,11 @@ class Thanks(models.Model):
         db_table = u'don_donation_thanks'
 
     def image(self):
-        return 'http://i1.ytimg.com/vi/' + self.video_link + '/1.jpg'
+        return 'http://i1.ytimg.com/vi/%s/1.jpg' % self.video_link
 
     def link(self):
-        return 'http://www.youtube.com/embed/' + self.video_link + '?wmode=transparent'
+        return 'http://www.youtube.com/embed/%s?wmode=transparent' \
+            % self.video_link
 
     def getName(self):
         if self.anonymous:

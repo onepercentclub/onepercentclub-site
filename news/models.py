@@ -21,9 +21,27 @@ class Item(models.Model):
         return self.created
 
     def html(self):
+        """
+        Replace task URL's in the content.
+
+        This stuff is REALLY ugly. *brrrr*
+        """
         html = self.content
-        html = html.replace('http://www.1procentclub.nl/doen/task?id=', '/tasks/view/')
-        html = html.replace('http://www.1procentclub.nl/projects/search/', '/projects/search/')
-        html = html.replace('http://www.1procentclub.nl/projects/', '/projects/view/')
-        html = html.replace('/assets', 'http://1procentclub.nl/assets')
+
+        html = html.replace(
+            'http://www.1procentclub.nl/doen/task?id=',
+            '/tasks/view/'
+        )
+        html = html.replace(
+            'http://www.1procentclub.nl/projects/search/',
+            '/projects/search/'
+        )
+        html = html.replace(
+            'http://www.1procentclub.nl/projects/',
+            '/projects/view/'
+        )
+        html = html.replace(
+            '/assets',
+            'http://1procentclub.nl/assets'
+        )
         return html
