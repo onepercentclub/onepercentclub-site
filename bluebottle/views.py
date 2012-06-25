@@ -4,6 +4,8 @@ logger = logging.getLogger(__name__)
 from django.template import RequestContext, Context, loader
 from django.http import HttpResponseServerError
 
+from django.views.generic import TemplateView
+
 
 def handler500(request, template_name='500.html'):
     """
@@ -24,3 +26,17 @@ def handler500(request, template_name='500.html'):
 
     t = loader.get_template('500.html') # You need to create a 500.html template.
     return HttpResponseServerError(t.render(context))
+
+
+class HomeView(TemplateView):
+    """
+    Home view for the site.
+    """
+
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        """ Add some extra context. """
+        context = {}
+
+        return context

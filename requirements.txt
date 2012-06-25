@@ -2,3 +2,11 @@ Django==1.4
 django_extensions
 django_debug_toolbar
 raven
+django-celery
+South
+django-nose
+
+# CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
+cssmin
+jsmin
+django_compressor

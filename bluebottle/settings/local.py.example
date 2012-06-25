@@ -46,6 +46,21 @@ if DEBUG:
     # Send email to console by default
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+    """
+    When debugging, we don't want to worry about Celery AND be able to
+    test it. Hence we're executing tasks synchroneously and will use the
+    Django database as a backend.
+    """
+    # Make Celery use Django DB as transport
+    INSTALLED_APPS.append('kombu.transport.django')
+    BROKER_URL = 'django://'
+
+    # Make Celery debugging a whole lot easier by executing tasks directly
+    # and allowing them to propagate exceptions.
+
+    CELERY_ALWAYS_EAGER = True
+    CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+
 else:
     # No debuggin and log errors & warnings to sentry
     logging.basicConfig(level=logging.WARNING,
