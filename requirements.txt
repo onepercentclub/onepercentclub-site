@@ -4,3 +4,4 @@ django_debug_toolbar
 raven
 django-celery
 South
+django-nose

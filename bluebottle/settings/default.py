@@ -157,7 +157,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'raven.contrib.django',
     'djcelery',
-    'south'
+    'south',
+    'django_nose'
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -192,3 +193,8 @@ LOGGING = {
 """ djcelery """
 import djcelery
 djcelery.setup_loader()
+
+""" django-nose """
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = ['--detailed-errors', '--auto-color']
+
