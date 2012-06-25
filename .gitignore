@@ -32,7 +32,6 @@ pip-log.txt
 *.sw?
 /static/media
 /static/apps
-portnumber
-settings_local.py
-settings_secret.py
+bluebottle/settings/local.py
+bluebottle/settings/secret.py
 env
