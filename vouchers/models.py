@@ -44,7 +44,7 @@ class OrderLine(models.Model):
     to = models.CharField(max_length=255)
     message = models.CharField(max_length=300)
     amount = models.DecimalField(
-        null=True, max_digits=65535, decimal_places=65535, blank=True
+        null=True, max_digits=14, decimal_places=2, blank=True
     )
     receiver_email = models.CharField(max_length=255, blank=True)
     receiver_name = models.CharField(max_length=255, blank=True)
