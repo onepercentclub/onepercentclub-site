@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}Internal server error{% endblock %}
+
+{% block content %}
+<h1>Internal server error</h1>
+<p>There was an error while trying to serve the requested page. Please try again. If the error persists, please contact the webmaster about it. In any case, we have been notified of this error.</p>
+
+{% if request.sentry.id %}
+    <p>If you need assistance, you may reference this error as <strong>{{ request.sentry.id }}</strong>.</p>
+{% endif %}
+{% endblock %}
+
