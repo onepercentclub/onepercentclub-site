@@ -159,7 +159,23 @@ INSTALLED_APPS = [
     'djcelery',
     'south',
     'django_nose',
-    'compressor'
+    'compressor',
+    'actions',
+    'albums',
+    'cms',
+    'consolidations',
+    'donations',
+    'events',
+    'filemanager',
+    'members',
+    'news',
+    'organizations',
+    'payments',
+    'projects',
+    'system',
+    'tasks',
+    'vouchers',
+    'weblog'
 ]
 
 # A sample logging configuration. The only tangible logging
