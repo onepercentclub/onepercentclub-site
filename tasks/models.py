@@ -1,42 +1,49 @@
 from django.db import models
-from members.models import Member
-from projects.models import Project
-# Create your models here.
+
 
 class Expertise(models.Model):
     """ Expertises used to connect Tasks """
+
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255, blank=True)
     name_en = models.CharField(max_length=255, blank=True)
     name_es = models.CharField(max_length=255, blank=True)
+
     class Meta:
         db_table = u'expertises'
+
     def __unicode__(self):
         return self.name_en
 
 
 class TaskExpertise(models.Model):
     """ Expertise for a ProjectTask """
+
     id = models.IntegerField(primary_key=True)
     task = models.ForeignKey('Task')
-    expertise = models.ForeignKey('Expertise')
+    expertise = models.ForeignKey(Expertise)
+
     class Meta:
-        db_table = u'prj_project_tasks_expertises'        
+        db_table = u'prj_project_tasks_expertises'
+
 
 class TaskMember(models.Model):
     task = models.ForeignKey('Task')
-    member = models.ForeignKey(Member)
+    member = models.ForeignKey('members.Member')
     status = models.IntegerField(null=True, blank=True)
     comment = models.TextField(blank=True)
     recommendation_rating = models.IntegerField(null=True, blank=True)
     recommendation_text = models.TextField(blank=True)
+
     class Meta:
         db_table = u'prj_project_task_members'
 
+
 class Task(models.Model):
     """ 1%TASK. Conected to a Project """
+
     id = models.IntegerField(primary_key=True)
-    project = models.ForeignKey(Project, null=True, blank=True)
+    project = models.ForeignKey('projects.Project', null=True, blank=True)
     title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     description_short = models.TextField(blank=True)
@@ -47,15 +54,18 @@ class Task(models.Model):
     create_date = models.DateTimeField()
     photo = models.CharField(max_length=255, blank=True)
     expertises = models.ManyToManyField(Expertise, through=TaskExpertise)
-    members = models.ManyToManyField(Member, through=TaskMember)
+    members = models.ManyToManyField('members.Member', through=TaskMember)
     tags = models.ManyToManyField('Tag', through='TaskTag')
+
     class Meta:
         db_table = u'prj_project_tasks'
+
 
 class Tag(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255, unique=True)
     count = models.IntegerField()
+
     class Meta:
         db_table = u'sys_task_tags'
 
@@ -63,21 +73,24 @@ class Tag(models.Model):
 class TaskTag(models.Model):
     task = models.ForeignKey(Task)
     tag = models.ForeignKey(Tag)
+
     class Meta:
         db_table = u'prj_project_tasks_tags'
+
 
 class Document(models.Model):
     """ ProjectDocument. A document that is linked to a Project... or in this case to as ProjectTask """
     """ Mind you this is the same table as projects.models.Document """
     id = models.IntegerField(primary_key=True)
-    project = models.ForeignKey(Project, null=True, blank=True)
+    project = models.ForeignKey('projects.Project', null=True, blank=True)
     title = models.CharField(max_length=255, blank=True)
     filename = models.CharField(max_length=255, blank=True)
     location = models.CharField(max_length=255, blank=True)
     create_date = models.DateTimeField()
-    member = models.ForeignKey(Member, null=True, blank=True)
+    member = models.ForeignKey('members.Member', null=True, blank=True)
     task = models.ForeignKey(Task, null=True, blank=True)
     doc_type = models.CharField(max_length=20, blank=True)
+
     class Meta:
         db_table = u'prj_project_documents'
 
@@ -85,10 +98,11 @@ class Document(models.Model):
 class TaskMessage(models.Model):
     id = models.IntegerField(primary_key=True)
     task = models.ForeignKey(Task)
-    member = models.ForeignKey(Member)
+    member = models.ForeignKey('members.Member')
     text = models.TextField()
     created = models.DateTimeField()
     deleted = models.DateTimeField(null=True, blank=True)
     document_id = models.IntegerField(null=True, blank=True)
+
     class Meta:
         db_table = u'task_messages'

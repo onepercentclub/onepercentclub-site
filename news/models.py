@@ -1,10 +1,9 @@
 from django.db import models
 
-# Create your models here.
-
 
 class Item(models.Model):
     """ News item """
+
     id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=255)
     content = models.TextField()

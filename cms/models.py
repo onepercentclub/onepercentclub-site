@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 """ Some intricate way of storing cms pages """
 
 class InnerTemplate(models.Model):
@@ -9,7 +8,7 @@ class InnerTemplate(models.Model):
     contents = models.TextField()
     created = models.DateTimeField()
     updated = models.DateTimeField()
-    
+
     class Meta:
         db_table = u'cms_inner_templates'
 
@@ -30,24 +29,25 @@ class Page(models.Model):
 
     class Meta:
         db_table = u'cms_pages'
-        
+
+
 class Block(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     internal_url = models.CharField(max_length=255)
-    
+
     class Meta:
         db_table = u'blk_blocks'
 
-        
-class Configurations(models.Model):
+
+class Configuration(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
     meta = models.CharField(max_length=255, blank=True)
     block = models.ForeignKey(Block)
     default_value = models.CharField(max_length=255, blank=True)
-    
+
     class Meta:
         db_table = u'blk_configurations'
 
@@ -58,7 +58,7 @@ class PageBlock(models.Model):
     block = models.ForeignKey(Block)
     placeholder = models.CharField(max_length=255)
     ordering = models.IntegerField()
-    
+
     class Meta:
         db_table = u'blk_page_blocks'
 
@@ -68,7 +68,7 @@ class PageConfiguration(models.Model):
     page_block = models.ForeignKey(PageBlock)
     configuration = models.ForeignKey(Configuration)
     value = models.CharField(max_length=255, blank=True)
-    
+
     class Meta:
         db_table = u'blk_pages_configurations'
 

@@ -1,5 +1,5 @@
 from django.db import models
-from members.models import Member,Type
+
 
 class Organization(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -26,29 +26,32 @@ class Organization(models.Model):
     account_bank_country_id = models.IntegerField(null=True, blank=True)
     account_iban = models.CharField(max_length=255, blank=True)
     account_bicswift = models.CharField(max_length=255, blank=True)
-    
+
     class Meta:
         db_table = u'org_organizations'
-    
+
     def __unicode__(self):
         return self.name
-    
-    
+
+
 class OrganizationMember(models.Model):
     org = models.ForeignKey(Organization)
-    mem = models.ForeignKey(Member)
+    mem = models.ForeignKey('members.Member')
+
     class Meta:
         db_table = u'org_organizations_members'
-        
+
 
 class Referrals(models.Model):
     """ Rererrals (Referenten) """
+
     id = models.BigIntegerField(primary_key=True)
     org = models.ForeignKey(Organization)
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     person_description = models.CharField(max_length=255)
     connection = models.CharField(max_length=255)
+
     class Meta:
         db_table = u'org_referrals'
 

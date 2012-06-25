@@ -1,11 +1,9 @@
 from django.db import models
 
-from members.models import Member
-#from donations.models import Donation
-from consolidations.models import CaptureBatch
-
 
 class PaymentCluster(models.Model):
+    # It's unique, but it's not the PK? I am confused...
+    id = models.IntegerField(unique=True)
     order_id = models.IntegerField(primary_key=True)
     payment_cluster_id = models.BigIntegerField()
     created = models.DateTimeField(null=True, blank=True)
@@ -27,7 +25,7 @@ class PaymentCluster(models.Model):
     meta_charged_back = models.CharField(max_length=8)
     payment_cluster_key = models.CharField(max_length=255, blank=True)
     payout_process = models.CharField(max_length=32, blank=True)
-    client = models.ForeignKey(Member, null=True, blank=True)
+    client = models.ForeignKey('members.Member', null=True, blank=True)
     client_firstname = models.CharField(max_length=255, blank=True)
     client_lastname = models.CharField(max_length=255, blank=True)
     client_address = models.CharField(max_length=255, blank=True)
@@ -40,22 +38,23 @@ class PaymentCluster(models.Model):
     profile_exhortation1 = models.CharField(max_length=255, blank=True)
     profile_exhortation2 = models.CharField(max_length=255, blank=True)
     description = models.CharField(max_length=255, blank=True)
-    id = models.IntegerField(unique=True)
-    
+
+
     class Meta:
         db_table = u'pay_payment_clusters'
-        
+
     def fullname(self):
         return self.client_firstname + ' ' + self.client_lastname
-    
+
     def method(self):
         return self.last_partial_payment_method
-    
+
     def donation(self):
         if self.donation_set.count():
             return self.donation_set.all()[0]
         return None
-        
+
+
 class BankStatement(models.Model):
     id = models.IntegerField(primary_key=True)
     processed_date = models.DateTimeField()
@@ -64,11 +63,11 @@ class BankStatement(models.Model):
     last_mutation = models.DateTimeField(null=True, blank=True)
     begin_balance = models.DecimalField(null=True, max_digits=12, decimal_places=2, blank=True)
     end_balance = models.DecimalField(null=True, max_digits=12, decimal_places=2, blank=True)
-    
+
     class Meta:
         db_table = u'pay_bank_statements'
 
-        
+
 class BankStatementLine(models.Model):
     id = models.IntegerField(primary_key=True)
     bank_statement = models.ForeignKey(BankStatement)
@@ -79,7 +78,7 @@ class BankStatementLine(models.Model):
     status = models.CharField(max_length=10)
     type = models.CharField(max_length=12, blank=True)
     item_id = models.BigIntegerField(null=True, blank=True)
-    
+
     class Meta:
         db_table = u'pay_bank_statement_lines'
 
@@ -94,7 +93,7 @@ class RequestLog(models.Model):
     request_post = models.CharField(max_length=255, blank=True)
     error_code = models.CharField(max_length=255, blank=True)
     order_id = models.BigIntegerField(null=True, blank=True)
-    
+
     class Meta:
         db_table = u'pay_request_log'
 
@@ -140,7 +139,7 @@ class PaymentMethod(models.Model):
     cost_minimum = models.DecimalField(max_digits=12, decimal_places=2)
     cost_maximum = models.DecimalField(max_digits=12, decimal_places=2)
     chargeback_period = models.TextField() # This field type is a guess.
-    
+
     class Meta:
         db_table = u'pay_payment_methods'
 
@@ -154,11 +153,11 @@ class Log(models.Model):
     client_id = models.CharField(max_length=255, blank=True)
     created = models.DateTimeField(null=True, blank=True)
     order_id = models.CharField(max_length=255, blank=True)
-    
+
     class Meta:
         db_table = u'pay_log'
-        
-        
+
+
 class PaymentStateTransition(models.Model):
     id = models.IntegerField(primary_key=True)
     payment = models.ForeignKey(Payment, null=True, blank=True)
@@ -166,10 +165,9 @@ class PaymentStateTransition(models.Model):
     to_state = models.CharField(max_length=64, blank=True)
     reason = models.TextField(blank=True)
     date = models.DateTimeField(null=True, blank=True)
-    
+
     class Meta:
         db_table = u'pay_payment_state_transitions'
-
 
 
 class PaymentClusterStateTransition(models.Model):
@@ -179,33 +177,33 @@ class PaymentClusterStateTransition(models.Model):
     to_state = models.CharField(max_length=64, blank=True)
     comment = models.TextField(blank=True)
     date = models.DateTimeField(null=True, blank=True)
-    
+
     class Meta:
         db_table = u'pay_payment_cluster_state_transitions'
-
 
 
 class PaymentClusterQueue(models.Model):
     order_id = models.BigIntegerField(unique=True)
     modified = models.DateTimeField()
     id = models.IntegerField(primary_key=True)
-    
+
     class Meta:
         db_table = u'pay_payment_cluster_queue'
-        
+
+
 class Capture(models.Model):
     id = models.IntegerField(primary_key=True)
-    #donation = models.ForeignKey('Donation', unique=True)
-    capture_batch = models.ForeignKey(CaptureBatch, null=True, blank=True)
+    donation = models.ForeignKey('donations.Donation', unique=True)
+    capture_batch = models.ForeignKey('consolidations.CaptureBatch', null=True, blank=True)
     status = models.CharField(max_length=12)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     account_number = models.CharField(max_length=10)
     account_name = models.CharField(max_length=35)
     account_city = models.CharField(max_length=35)
     created = models.DateTimeField()
-    
+
     class Meta:
         db_table = u'pay_captures'
-        
+
     def donation(self):
         return self.donation_set.all()[0:1]

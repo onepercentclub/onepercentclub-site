@@ -4,37 +4,36 @@ Created on May 24, 2012
 @author: gannetson
 '''
 from django.db import models
-from members.models import Member
-from projects.models import Project
-from payments.models import PaymentCluster
 
 
 class Donation(models.Model):
     """ Donations."""
+
     id = models.IntegerField(primary_key=True)
-    member = models.ForeignKey(Member)
+    member = models.ForeignKey('members.Member')
     type = models.CharField(max_length=10)
     status = models.CharField(max_length=12)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     meta_considered_safe = models.SmallIntegerField()
     created = models.DateTimeField()
     changed_to_safe = models.DateTimeField(null=True, blank=True)
-    payment_cluster = models.ForeignKey(PaymentCluster, null=True, blank=True, db_column='order_id')
+    payment_cluster = models.ForeignKey('payments.PaymentCluster', null=True, blank=True, db_column='order_id')
     automatic_donation = models.SmallIntegerField()
-    projects = models.ManyToManyField(Project, through='DonationLine', related_name='projectdonations')
+    projects = models.ManyToManyField('projects.Project', through='DonationLine', related_name='projectdonations')
 
     class Meta:
         db_table = u'don_donations'
-    
+
     def lines(self):
         return DonationLine.objects.filter(donation=self)
 
 
 class DonationLine(models.Model):
     """ Donation Line. Links a project to a donation """
+
     id = models.IntegerField(primary_key=True)
-    donation = models.ForeignKey(Donation)
-    project = models.ForeignKey(Project)
+    donation = models.ForeignKey('donations.Donation')
+    project = models.ForeignKey('projects.Project')
     amount = models.DecimalField(max_digits=12, decimal_places=2)
 
     class Meta:
@@ -42,11 +41,12 @@ class DonationLine(models.Model):
 
     def status(self):
         return self.donation.status
-    
+
 
 
 class Thanks(models.Model):
     """" Thanks. Video message as thank-you to a donation made during Toeter-campagne """
+
     id = models.IntegerField(primary_key=True)
     donation = models.ForeignKey(Donation)
     twitter = models.CharField(max_length=255, blank=True)
@@ -59,38 +59,41 @@ class Thanks(models.Model):
     active = models.NullBooleanField(null=True, blank=True)
     firstname = models.CharField(max_length=255, blank=True)
     lastname = models.CharField(max_length=255, blank=True)
+
     class Meta:
         db_table = u'don_donation_thanks'
-        
+
     def image(self):
         return 'http://i1.ytimg.com/vi/' + self.video_link + '/1.jpg'
-        
+
     def link(self):
         return 'http://www.youtube.com/embed/' + self.video_link + '?wmode=transparent'
-    
+
     def getName(self):
         if self.anonymous:
             return 'I'
         return self.firstname.upper()
-    
+
     def amount(self):
         return self.donation.amount
-    
+
 
 class PortfolioLine(models.Model):
     """ Projects specifically selected for monthly payments by members """
+
     id = models.IntegerField(primary_key=True)
-    member = models.ForeignKey(Member)
-    project = models.ForeignKey(Project)
+    member = models.ForeignKey('members.Member')
+    project = models.ForeignKey('projects.Project')
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     created = models.DateTimeField()
+
     class Meta:
         db_table = u'don_portfolio_lines'
 
 
-
 class External(models.Model):
     """ External Donation. Currently used for the Mpesa pilot """
+
     id = models.IntegerField(primary_key=True)
     type = models.CharField(max_length=255, blank=True)
     params = models.TextField(blank=True)
@@ -100,7 +103,7 @@ class External(models.Model):
     donation = models.ForeignKey(Donation)
     order_id = models.CharField(max_length=255, blank=True)
     date_created = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'don_donation_external'
 
-        
