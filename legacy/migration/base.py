@@ -1,6 +1,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
+from django.db import transaction
+
 
 class MigrateModel(object):
     """
@@ -152,16 +154,20 @@ class MigrateModel(object):
         # Grab a qs of object to migrate
         from_qs = self.list_from()
 
-        for from_instance in from_qs:
-            to_instance = self.get_to(from_instance)
+        # Execute all of this within a single transaction
+        with transaction.commit_on_success():
 
-            # Not existing? Create one!
-            if not to_instance:
-                to_instance = self.to_model()
+            # Iterate over all instances
+            for from_instance in from_qs:
+                to_instance = self.get_to(from_instance)
 
-            self.migrate_single(from_instance, to_instance)
+                # Not existing? Create one!
+                if not to_instance:
+                    to_instance = self.to_model()
 
-            to_instance.save(using=self.to_db)
+                self.migrate_single(from_instance, to_instance)
 
-        self.test_multiple(from_qs)
+                to_instance.save(using=self.to_db)
+
+            self.test_multiple(from_qs)
 
