@@ -87,6 +87,21 @@ class MigrateMemberAuth(MigrateModel):
         # Not every user has a profile, so don't worry
         return {}
 
+    def migrate_single(self, from_instance, to_instance):
+        super(MigrateMemberAuth, self).migrate_single(from_instance, to_instance)
+
+        # Check whether this username already exists. If so, add a number
+        counter = 1
+
+        while User.objects.exclude(pk=to_instance.pk).filter(username=to_instance.username).exists():
+            to_instance.username = '%s%d' % (from_instance.username, counter)
+            logger.warn('Duplicate username %s, changing to %s',
+                from_instance.username, to_instance.username
+            )
+
+            counter += 1
+
+
     from_model = Member
     to_model = User
 
