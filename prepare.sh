@@ -14,61 +14,20 @@ ENVDIR=env
 SETTINGS_DIR=$PWD/bluebottle/settings
 MANAGE_PY="$ENVDIR/bin/python ./manage.py"
 
-OSNAME=`uname -s`
-
 echo "Checking PIP and virtualenv availability"
+pip install 'pip>=1.0' 'virtualenv>=1.7.1.2'
 
-# Deal with getting pip and viritualenv for various platforms.
-if [ $OSNAME = "Linux" ]; then
-    # Require pip >= 1.7.1.2. The version requirement comes from what's
-    # available in Ubuntu 12.04. Other versions might work as well.
-    which pip
-    if [ $? -eq 0 ]; then
-        OS_PIP_VERSION=`pip --version | cut -d ' ' -f 2 | sed -e "s/\.//g"`
-        if [ $OS_PIP_VERSION -lt 10 ]; then
-            echo "Please install pip >= 1.0."
-            exit 1
-        fi
-    else
-        echo "Please install pip with your package manager."
-        exit 1
-    fi
-
-    # Require virtualenv >= 1.7.1.2. The version requirement comes from what's
-    # available in Ubuntu 12.04. Other versions might work as well.
-    which virtualenv
-    if [ $? -eq 0 ]; then
-        OS_VIRTUALENV_VERSION=`virtualenv --version | sed -e "s/\.//g"`
-        if [ $OS_VIRTUALENV_VERSION -lt 1712 ]; then
-            echo "Please install virtualenv >= 1.7.1.2."
-            exit 1
-        fi
-    else
-        echo "Please install virtualenv with your package manager."
-        exit 1
-    fi
-
+if [ $? -eq 0 ]; then
+    echo 'PIP and virtualenv available'
 else
-    # OS X and possibly others.
-
-    pip install 'pip>=1.1' 'virtualenv>=1.7.1.2'
-    if [ $? -eq 0 ]; then
-        echo 'PIP and virtualenv installed allright'
-    else
-        echo 'Error installing PIP and virtualenv, breaking off'
-        echo 'Please execute the following command manually, and watch for errors:'
-        echo "    pip install 'pip>=1.1' 'virtualenv>=1.7.1.2'"
-        exit 1
-    fi
-
+    echo 'Error installing PIP and virtualenv, breaking off.'
+    echo 'Please install PIP >= 1.0 and VirtualEnv >= 1.7.1.2 manually.'
+    exit 1
 fi
 
 if [ ! -d $ENVDIR ]; then
     echo "Preparing virtualenv environment in $ENVDIR directory"
     $VIRTUALENV $ENVDIR
-    if [ $OSNAME = "Linux" ]; then
-        $ENVDIR/bin/pip install --upgrade pip
-    fi
 fi
 
 echo 'Installing required packages'
