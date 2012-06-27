@@ -7,5 +7,14 @@
 {% endblock %}
 
 {% block content %}
+
+{% if user.is_authenticated %}
+	{{ user.username }} |
+	<a href="{% url django.contrib.auth.views.logout %}?next={% firstof request.path "/" %}">Logout</a>
+{% else %}
+	<a href="{% url django.contrib.auth.views.login %}?next={% firstof request.path "/" %}">Login</a> |
+	<span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
+{% endif %}
+
 <h1 id="home">Home</h1>
 {% endblock %}
