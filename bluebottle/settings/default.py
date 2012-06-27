@@ -179,7 +179,8 @@ LEGACY_APPS = [
     'system',
     'tasks',
     'vouchers',
-    'weblog'
+    'weblog',
+    'migration' # The latter is a meta-app for migrating legacy to new data
 ]
 
 INSTALLED_APPS += map(lambda app: 'legacy.'+app, LEGACY_APPS)
