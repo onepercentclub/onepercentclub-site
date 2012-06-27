@@ -97,12 +97,12 @@ class MigrateMemberAuth(MigrateModel):
 
     field_mapping = {
         'id': None, # None means just copy the field
-        'email': None,
+        'email': lambda x: {'username': crop_field(x, 75)},
 
         'username': lambda x: {'username': crop_field(x, 30)},
         'profile': migrate_profile,
 
-        'password': lambda p: {'password': p},
+        'password': lambda p: {'password': '$legacy$%s' % p},
         # A function can be specified to yield a dictionary
 
         'created': lambda x: {'date_joined': localize_datetime(x)},
