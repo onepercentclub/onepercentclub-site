@@ -1,7 +1,7 @@
 import logging
 logger = logging.getLogger(__name__)
 
-from django.db import transaction
+from django.db import transaction, IntegrityError
 
 
 class MigrateModel(object):
@@ -27,9 +27,6 @@ class MigrateModel(object):
         """
 
         for field, mapping in self.field_mapping.iteritems():
-            # if field == 'updated':
-            #     import ipdb; ipdb.set_trace()
-
             value = getattr(from_instance, field)
 
             if not mapping:
@@ -144,7 +141,7 @@ class MigrateModel(object):
     def migrate_single(self, from_instance, to_instance):
         """ Migrate a single object. """
 
-        logger.info("Migrating '%s' to '%s'", from_instance, to_instance)
+        logger.debug("Migrating '%s' to '%s'", from_instance, to_instance)
 
         self.copy_fields(from_instance, to_instance)
 
@@ -153,6 +150,9 @@ class MigrateModel(object):
 
         # Grab a qs of object to migrate
         from_qs = self.list_from()
+
+        counter = 0
+        errors = 0
 
         # Execute all of this within a single transaction
         with transaction.commit_on_success():
@@ -167,7 +167,20 @@ class MigrateModel(object):
 
                 self.migrate_single(from_instance, to_instance)
 
-                to_instance.save(using=self.to_db)
+                try:
+                    to_instance.save(using=self.to_db)
+                    counter += 1
+
+                except IntegrityError:
+                    logger.error('Duplicate object %s, not migrated')
+                    errors += 1
+
+                # Print a progress message very 10 objects
+                if (counter % 50) == 0:
+                    logger.info('%d objects migrated', counter)
 
             self.test_multiple(from_qs)
 
+        logger.info('Migration %s complete.', self.__class__.__name__)
+        logger.info('%d objects migrated', counter)
+        logger.info('%d objects ignored', errors)
