@@ -14,6 +14,7 @@ class Type(models.Model):
 
     class Meta:
         db_table = u'mem_types'
+        managed = False
 
     def __unicode__(self):
         return self.label_en
@@ -39,6 +40,7 @@ class Member(models.Model):
 
     class Meta:
         db_table = u'mem_members'
+        managed = False
 
     def fullname(self):
         """ return first + lastname or username if no profile set """
@@ -107,6 +109,7 @@ class Profile(models.Model):
 
     class Meta:
         db_table = u'mem_profile'
+        managed = False
 
     def __unicode__(self):
         return self.firstname
@@ -127,6 +130,7 @@ class Activation(models.Model):
 
     class Meta:
         db_table = u'mem_activations'
+        managed = False
 
 
 class Alert(models.Model):
@@ -143,6 +147,7 @@ class Alert(models.Model):
 
     class Meta:
         db_table = u'mem_alert'
+        managed = False
 
 
 class Language(models.Model):
@@ -155,6 +160,7 @@ class Language(models.Model):
 
     class Meta:
         db_table = u'mem_languages'
+        managed = False
 
 
 class Invite(models.Model):
@@ -170,6 +176,7 @@ class Invite(models.Model):
 
     class Meta:
         db_table = u'mem_invite'
+        managed = False
 
 
 class PasswordRequest(models.Model):
@@ -186,6 +193,7 @@ class PasswordRequest(models.Model):
 
     class Meta:
         db_table = u'mem_password_requests'
+        managed = False
 
 
 class Message(models.Model):
@@ -205,6 +213,7 @@ class Message(models.Model):
 
     class Meta:
         db_table = u'mem_message'
+        managed = False
 
 
 class MemberTag(models.Model):
@@ -215,5 +224,4 @@ class MemberTag(models.Model):
 
     class Meta:
         db_table = u'mem_tags'
-
-
+        managed = False

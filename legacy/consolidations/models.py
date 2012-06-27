@@ -18,6 +18,7 @@ class Consolidation(models.Model):
 
     class Meta:
         db_table = u'con_consolidations'
+        managed = False
 
 
 class Settlement(models.Model):
@@ -43,6 +44,7 @@ class Settlement(models.Model):
 
     class Meta:
         db_table = u'con_settlements'
+        managed = False
 
     def line(self):
         return self.project_settlement_set.all()
@@ -74,6 +76,7 @@ class SettlementLine(models.Model):
 
     class Meta:
         db_table = u'con_settlement_lines'
+        managed = False
 
 
 class CaptureBatch(models.Model):
@@ -83,6 +86,7 @@ class CaptureBatch(models.Model):
 
     class Meta:
         db_table = u'con_capture_batches'
+        managed = False
 
     def captures(self):
         return self.capture_set.all()[0:5]
@@ -95,6 +99,7 @@ class RemittanceBatch(models.Model):
 
     class Meta:
         db_table = u'con_remittance_batches'
+        managed = False
 
 
 class Remittance(models.Model):
@@ -112,4 +117,4 @@ class Remittance(models.Model):
 
     class Meta:
         db_table = u'con_remittances'
-
+        managed = False

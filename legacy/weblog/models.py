@@ -11,6 +11,7 @@ class Weblog(models.Model):
 
     class Meta:
         db_table = u'web_weblog'
+        managed = False
 
 
 class Message(models.Model):
@@ -27,5 +28,4 @@ class Message(models.Model):
 
     class Meta:
         db_table = u'web_weblog_message'
-
-
+        managed = False

@@ -29,6 +29,7 @@ class Organization(models.Model):
 
     class Meta:
         db_table = u'org_organizations'
+        managed = False
 
     def __unicode__(self):
         return self.name
@@ -40,6 +41,7 @@ class OrganizationMember(models.Model):
 
     class Meta:
         db_table = u'org_organizations_members'
+        managed = False
 
 
 class Referrals(models.Model):
@@ -54,4 +56,4 @@ class Referrals(models.Model):
 
     class Meta:
         db_table = u'org_referrals'
-
+        managed = False

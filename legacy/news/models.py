@@ -16,6 +16,7 @@ class Item(models.Model):
 
     class Meta:
         db_table = u'nws_news'
+        managed = False
 
     def date(self):
         return self.created

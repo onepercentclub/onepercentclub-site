@@ -27,6 +27,7 @@ class Donation(models.Model):
 
     class Meta:
         db_table = u'don_donations'
+        managed = False
 
     def lines(self):
         return DonationLine.objects.filter(donation=self)
@@ -42,6 +43,7 @@ class DonationLine(models.Model):
 
     class Meta:
         db_table = u'don_donation_lines'
+        managed = False
 
     def status(self):
         return self.donation.status
@@ -68,6 +70,7 @@ class Thanks(models.Model):
 
     class Meta:
         db_table = u'don_donation_thanks'
+        managed = False
 
     def image(self):
         return 'http://i1.ytimg.com/vi/%s/1.jpg' % self.video_link
@@ -96,6 +99,7 @@ class PortfolioLine(models.Model):
 
     class Meta:
         db_table = u'don_portfolio_lines'
+        managed = False
 
 
 class External(models.Model):
@@ -115,4 +119,5 @@ class External(models.Model):
 
     class Meta:
         db_table = u'don_donation_external'
+        managed = False
 

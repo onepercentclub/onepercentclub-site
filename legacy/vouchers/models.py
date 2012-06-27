@@ -11,6 +11,7 @@ class Design(models.Model):
 
     class Meta:
         db_table = u'cou_designs'
+        managed = False
 
 
 class Batch(models.Model):
@@ -29,6 +30,7 @@ class Batch(models.Model):
 
     class Meta:
         db_table = u'cou_coupons_batches'
+        managed = False
 
 
 class OrderLine(models.Model):
@@ -54,6 +56,7 @@ class OrderLine(models.Model):
 
     class Meta:
         db_table = u'cou_order_lines'
+        managed = False
 
 
 class Voucher(models.Model):
@@ -80,3 +83,4 @@ class Voucher(models.Model):
 
     class Meta:
         db_table = u'cou_coupons'
+        managed = False

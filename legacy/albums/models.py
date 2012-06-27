@@ -8,6 +8,7 @@ class Catalog(models.Model):
 
     class Meta:
         db_table = u'alb_catalogs'
+        managed = False
 
 
 class Album(models.Model):
@@ -23,6 +24,7 @@ class Album(models.Model):
 
     class Meta:
         db_table = u'alb_albums'
+        managed = False
 
     def pictures(self):
         return self.picture_set.select_related(depth=1).all()
@@ -43,4 +45,5 @@ class Picture(models.Model):
 
     class Meta:
         db_table = u'alb_fotos'
+        managed = False
 

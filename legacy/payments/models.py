@@ -43,6 +43,7 @@ class PaymentCluster(models.Model):
 
     class Meta:
         db_table = u'pay_payment_clusters'
+        managed = False
 
     def fullname(self):
         return self.client_firstname + ' ' + self.client_lastname
@@ -67,6 +68,7 @@ class BankStatement(models.Model):
 
     class Meta:
         db_table = u'pay_bank_statements'
+        managed = False
 
 
 class BankStatementLine(models.Model):
@@ -82,6 +84,7 @@ class BankStatementLine(models.Model):
 
     class Meta:
         db_table = u'pay_bank_statement_lines'
+        managed = False
 
 
 class RequestLog(models.Model):
@@ -97,6 +100,7 @@ class RequestLog(models.Model):
 
     class Meta:
         db_table = u'pay_request_log'
+        managed = False
 
 
 class Payment(models.Model):
@@ -133,6 +137,7 @@ class Payment(models.Model):
 
     class Meta:
         db_table = u'pay_payments'
+        managed = False
 
 
 class PaymentMethod(models.Model):
@@ -145,6 +150,7 @@ class PaymentMethod(models.Model):
 
     class Meta:
         db_table = u'pay_payment_methods'
+        managed = False
 
 
 class Log(models.Model):
@@ -159,6 +165,7 @@ class Log(models.Model):
 
     class Meta:
         db_table = u'pay_log'
+        managed = False
 
 
 class PaymentStateTransition(models.Model):
@@ -171,6 +178,7 @@ class PaymentStateTransition(models.Model):
 
     class Meta:
         db_table = u'pay_payment_state_transitions'
+        managed = False
 
 
 class PaymentClusterStateTransition(models.Model):
@@ -185,6 +193,7 @@ class PaymentClusterStateTransition(models.Model):
 
     class Meta:
         db_table = u'pay_payment_cluster_state_transitions'
+        managed = False
 
 
 class PaymentClusterQueue(models.Model):
@@ -194,6 +203,7 @@ class PaymentClusterQueue(models.Model):
 
     class Meta:
         db_table = u'pay_payment_cluster_queue'
+        managed = False
 
 
 class Capture(models.Model):
@@ -211,6 +221,7 @@ class Capture(models.Model):
 
     class Meta:
         db_table = u'pay_captures'
+        managed = False
 
     def donation(self):
         return self.donation_set.all()[0:1]

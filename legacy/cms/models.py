@@ -11,6 +11,7 @@ class InnerTemplate(models.Model):
 
     class Meta:
         db_table = u'cms_inner_templates'
+        managed = False
 
 
 class Page(models.Model):
@@ -29,6 +30,7 @@ class Page(models.Model):
 
     class Meta:
         db_table = u'cms_pages'
+        managed = False
 
 
 class Block(models.Model):
@@ -38,6 +40,7 @@ class Block(models.Model):
 
     class Meta:
         db_table = u'blk_blocks'
+        managed = False
 
 
 class Configuration(models.Model):
@@ -50,6 +53,7 @@ class Configuration(models.Model):
 
     class Meta:
         db_table = u'blk_configurations'
+        managed = False
 
 
 class PageBlock(models.Model):
@@ -61,6 +65,7 @@ class PageBlock(models.Model):
 
     class Meta:
         db_table = u'blk_page_blocks'
+        managed = False
 
 
 class PageConfiguration(models.Model):
@@ -71,5 +76,6 @@ class PageConfiguration(models.Model):
 
     class Meta:
         db_table = u'blk_pages_configurations'
+        managed = False
 
 

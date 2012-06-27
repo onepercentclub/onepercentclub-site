@@ -11,6 +11,7 @@ class Expertise(models.Model):
 
     class Meta:
         db_table = u'expertises'
+        managed = False
 
     def __unicode__(self):
         return self.name_en
@@ -25,6 +26,7 @@ class TaskExpertise(models.Model):
 
     class Meta:
         db_table = u'prj_project_tasks_expertises'
+        managed = False
 
 
 class TaskMember(models.Model):
@@ -37,6 +39,7 @@ class TaskMember(models.Model):
 
     class Meta:
         db_table = u'prj_project_task_members'
+        managed = False
 
 
 class Task(models.Model):
@@ -59,6 +62,7 @@ class Task(models.Model):
 
     class Meta:
         db_table = u'prj_project_tasks'
+        managed = False
 
 
 class Tag(models.Model):
@@ -68,6 +72,7 @@ class Tag(models.Model):
 
     class Meta:
         db_table = u'sys_task_tags'
+        managed = False
 
 
 class TaskTag(models.Model):
@@ -76,6 +81,7 @@ class TaskTag(models.Model):
 
     class Meta:
         db_table = u'prj_project_tasks_tags'
+        managed = False
 
 
 class Document(models.Model):
@@ -95,6 +101,7 @@ class Document(models.Model):
 
     class Meta:
         db_table = u'prj_project_documents'
+        managed = False
 
 
 class TaskMessage(models.Model):
@@ -108,3 +115,4 @@ class TaskMessage(models.Model):
 
     class Meta:
         db_table = u'task_messages'
+        managed = False

@@ -95,6 +95,7 @@ class Project(models.Model):
 
     class Meta:
         db_table = u'prj_projects'
+        managed = False
 
     def documents(self):
         return self.document_set.filter(task = None).all()
@@ -149,6 +150,7 @@ class MillenniumGoal(models.Model):
 
     class Meta:
         db_table = u'prj_millennium_goals'
+        managed = False
 
 
 class Goal(models.Model):
@@ -160,6 +162,7 @@ class Goal(models.Model):
 
     class Meta:
         db_table = u'prj_project_millennium_goals'
+        managed = False
 
 
 class Link(models.Model):
@@ -175,6 +178,7 @@ class Link(models.Model):
 
     class Meta:
         db_table = u'prj_project_links'
+        managed = False
 
 
 class NeedCategory(models.Model):
@@ -190,6 +194,7 @@ class NeedCategory(models.Model):
 
     class Meta:
         db_table = u'prj_need_category'
+        managed = False
 
     def __unicode__(self):
         return self.name
@@ -204,6 +209,7 @@ class Need(models.Model):
 
     class Meta:
         db_table = u'prj_project_needs'
+        managed = False
 
 
 class Reported(models.Model):
@@ -219,6 +225,7 @@ class Reported(models.Model):
 
     class Meta:
         db_table = u'prj_project_reported'
+        managed = False
 
 
 class Testimonial(models.Model):
@@ -231,6 +238,7 @@ class Testimonial(models.Model):
 
     class Meta:
         db_table = u'prj_testimonials'
+        managed = False
 
 
 class ProjectTag(models.Model):
@@ -239,6 +247,7 @@ class ProjectTag(models.Model):
 
     class Meta:
         db_table = u'prj_project_tags'
+        managed = False
 
 
 class Video(models.Model):
@@ -252,6 +261,7 @@ class Video(models.Model):
 
     class Meta:
         db_table = u'prj_project_videos'
+        managed = False
 
 
 class Rating(models.Model):
@@ -265,6 +275,7 @@ class Rating(models.Model):
 
     class Meta:
         db_table = u'prj_project_rating'
+        managed = False
 
 
 class Message(models.Model):
@@ -281,3 +292,4 @@ class Message(models.Model):
 
     class Meta:
         db_table = u'prj_messages'
+        managed = False

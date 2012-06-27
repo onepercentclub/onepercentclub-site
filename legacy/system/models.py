@@ -17,6 +17,7 @@ class Continent(models.Model):
 
     class Meta:
         db_table = u'sys_continents'
+        managed = False
 
 
 class Region(models.Model):
@@ -28,6 +29,7 @@ class Region(models.Model):
 
     class Meta:
         db_table = u'sys_regions'
+        managed = False
 
     def __unicode__(self):
         return self.name
@@ -48,6 +50,7 @@ class Country(models.Model):
 
     class Meta:
         db_table = u'sys_countries'
+        managed = False
 
     def __unicode__(self):
         return self.name
@@ -63,6 +66,7 @@ class Tag(models.Model):
 
     class Meta:
         db_table = u'sys_tags'
+        managed = False
 
 
 class Log(models.Model):
@@ -81,6 +85,7 @@ class Log(models.Model):
 
     class Meta:
         db_table = u'sys_log'
+        managed = False
 
 
 class GoogleApiKey(models.Model):
@@ -92,6 +97,7 @@ class GoogleApiKey(models.Model):
 
     class Meta:
         db_table = u'sys_google_api_keys'
+        managed = False
 
 
 class Login(models.Model):
@@ -104,6 +110,7 @@ class Login(models.Model):
 
     class Meta:
         db_table = u'sys_logins'
+        managed = False
 
 
 class Session(models.Model):
@@ -117,6 +124,7 @@ class Session(models.Model):
 
     class Meta:
         db_table = u'sys_sessions'
+        managed = False
 
 
 class Site(models.Model):
@@ -130,5 +138,4 @@ class Site(models.Model):
 
     class Meta:
         db_table = u'sys_sites'
-
-
+        managed = False

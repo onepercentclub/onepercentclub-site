@@ -13,6 +13,7 @@ class Folder(models.Model):
 
     class Meta:
         db_table = u'flm_folders'
+        managed = False
 
 
 class File(models.Model):
@@ -26,6 +27,7 @@ class File(models.Model):
 
     class Meta:
         db_table = u'flm_files'
+        managed = False
 
     def smallUrl(self):
         return 'http://www.1procentclub.nl/cache/65x50_fit/%s' % self.file

@@ -21,4 +21,4 @@ class Action(models.Model):
 
     class Meta:
         db_table = u'act_action'
-
+        managed = False
