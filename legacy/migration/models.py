@@ -1,3 +1,3 @@
 from django.db import models
 
-# Create your models here.
+# This module exists just to allow Django to import this app.
