@@ -33,11 +33,12 @@ class MigrateMemberAuth(MigrateModel):
         than 30 characters (default on auth_user). Until there is a clear
         mapping, this should cause at least the username to fail.
         """
-        assert from_instance.username == to_instance.username
-        # assert from_instance.username[:30] == to_instance.username
+        assert from_instance.username[:30] == to_instance.username
 
-        # assert from_instance.profile.first_name[:30] == to_instance.firstname
-        # assert from_instance.profile.last_name[:30] == to_instance.lastname
+        assert from_instance.email[:75] == to_instance.username
+
+        assert from_instance.profile.first_name[:30] == to_instance.firstname
+        assert from_instance.profile.last_name[:30] == to_instance.lastname
 
     def list_from(self):
         """
@@ -86,18 +87,12 @@ class MigrateMemberAuth(MigrateModel):
         # Not every user has a profile, so don't worry
         return {}
 
-    def migrate_username(username):
-        """ Crop the username and assert it's not empty. """
-        assert username, 'No username for current object.'
-
-        return {'username': username}
-
     from_model = Member
     to_model = User
 
     field_mapping = {
         'id': None, # None means just copy the field
-        'email': lambda x: {'username': crop_field(x, 75)},
+        'email': lambda x: {'email': crop_field(x, 75)},
 
         'username': lambda x: {'username': crop_field(x, 30)},
         'profile': migrate_profile,
