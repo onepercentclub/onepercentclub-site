@@ -13,3 +13,5 @@ BeautifulSoup==3.2.1
 django_compressor
 
 pytz
+
+git+https://github.com/Psycojoker/ipdb.git@edea61ce5f#egg=ipdb
