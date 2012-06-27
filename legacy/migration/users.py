@@ -1,8 +1,12 @@
+import logging
+logger = logging.getLogger(__name__)
+
 from django.contrib.auth.models import User
 
 from legacy.members.models import Member
 
 from .base import MigrateModel
+from .utils import localize_datetime, crop_field
 
 
 class MigrateMemberAuth(MigrateModel):
@@ -39,7 +43,7 @@ class MigrateMemberAuth(MigrateModel):
         """
         5. Some users don't have a mem_profile set, so they don't have a first/lastname. I set the username as first/lastname. We could leave them empty though.
         """
-        qs = super(MigrateMemberAuth, self).super()
+        qs = super(MigrateMemberAuth, self).list_from()
 
         # type_id = 2. Only migrate normal 'member' accounts.
         # Let's migrate 'organization', 'company' and 'school' accounts later.
@@ -55,7 +59,6 @@ class MigrateMemberAuth(MigrateModel):
 
         return qs
 
-    @staticmethod
     def migrate_admin(admin):
         """
         1. admin = 1 should turn into is_superuser = TRUE (otherwise FALSE)
@@ -69,16 +72,25 @@ class MigrateMemberAuth(MigrateModel):
 
         return {}
 
-    @staticmethod
     def migrate_profile(profile):
         """
         firstname = mem_profile.first_name, see 5
         lastname  = mem_profile.last_name, see 5
         """
-        return {
-            'firstname': profile.first_name, #Should have[:30]
-            'lastname': profile.last_name
-        }
+        if profile:
+            return {
+                'firstname': crop_field(profile.firstname, 30),
+                'lastname': crop_field(profile.lastname, 30)
+            }
+
+        # Not every user has a profile, so don't worry
+        return {}
+
+    def migrate_username(username):
+        """ Crop the username and assert it's not empty. """
+        assert username, 'No username for current object.'
+
+        return {'username': username}
 
     from_model = Member
     to_model = User
@@ -87,14 +99,14 @@ class MigrateMemberAuth(MigrateModel):
         'id': None, # None means just copy the field
         'email': None,
 
-        'username': None, # This should become lambda x: x[:30]
+        'username': lambda x: {'username': crop_field(x, 30)},
         'profile': migrate_profile,
 
         'password': lambda p: {'password': p},
         # A function can be specified to yield a dictionary
 
-        'created': 'date_joined',
-        'updated': 'last_login',
+        'created': lambda x: {'date_joined': localize_datetime(x)},
+        'updated': lambda x: {'last_login': localize_datetime(x)},
         # A string can be passed to map to a different field
 
         'admin': migrate_admin

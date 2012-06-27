@@ -1,3 +1,7 @@
+import logging
+logger = logging.getLogger(__name__)
+
+
 class MigrateModel(object):
     """
     Generic migration class, from one model class to another.
@@ -20,26 +24,32 @@ class MigrateModel(object):
             }
         """
 
-        for (field, mapping) in self.field_mapping:
+        for field, mapping in self.field_mapping.iteritems():
+            # if field == 'updated':
+            #     import ipdb; ipdb.set_trace()
+
             value = getattr(from_instance, field)
 
             if not mapping:
                 # None means just copy the field
-                mapping = lambda x: {field, x}
+                mapping = lambda x: {field: x}
 
             elif isinstance(mapping, basestring):
                 # A string can be passed to map to a different field
-                mapping = lambda x: {mapping, x}
+                new_field = mapping
+                mapping = lambda x: {new_field: x}
 
             # By this time mapping should be a callable yielding a dict
-            assert isinstance(mapping, callable)
+            assert callable(mapping)
 
             value_dict = mapping(value)
 
             assert isinstance(value_dict, dict), \
                 'Mapping does not return a dict.'
 
-            for (new_field, new_value) in value_dict:
+            for (new_field, new_value) in value_dict.iteritems():
+                assert isinstance(new_field, basestring)
+
                 setattr(to_instance, new_field, new_value)
 
     def list_from(self):
@@ -131,6 +141,8 @@ class MigrateModel(object):
 
     def migrate_single(self, from_instance, to_instance):
         """ Migrate a single object. """
+
+        logger.info("Migrating '%s' to '%s'", from_instance, to_instance)
 
         self.copy_fields(from_instance, to_instance)
 
