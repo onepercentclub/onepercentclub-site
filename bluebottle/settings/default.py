@@ -160,6 +160,10 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'compressor',
+]
+
+# Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
+LEGACY_APPS = [
     'actions',
     'albums',
     'cms',
@@ -177,6 +181,8 @@ INSTALLED_APPS = [
     'vouchers',
     'weblog'
 ]
+
+INSTALLED_APPS += map(lambda app: 'legacy.'+app, LEGACY_APPS)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
