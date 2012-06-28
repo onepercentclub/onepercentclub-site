@@ -20,7 +20,7 @@ def localize_datetime(value, instance):
             return default_tz.localize(value)
         except AmbiguousTimeError:
             logger.warning("Ambiguous time '%s' accounted for '%s', assuming DST.",
-                value, instance
+                value, repr(instance)
             )
 
             return default_tz.localize(value, is_dst=True)
@@ -33,7 +33,7 @@ def crop_field(value, instance, length):
     """ Generic cropping code for strings, logging. """
     if value and len(value) > length:
         logger.warning("Field value '%s' for '%s' too long, cropping to %d characters.",
-            value, instance, length)
+            value, repr(instance), length)
 
         return value[:length]
 
