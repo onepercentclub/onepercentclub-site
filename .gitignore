@@ -38,3 +38,5 @@ env
 
 model_graphs/*.pdf
 model_graphs/*.dot
+
+docs/_build
