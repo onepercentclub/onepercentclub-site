@@ -2,8 +2,11 @@
 #
 
 # You can set these variables from the command line.
+PROJECT_ROOT  = ..
+PYTHON        = ${PROJECT_ROOT}/env/bin/python
+
 SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
+SPHINXBUILD   = ${PYTHON} $(shell which sphinx-build)
 PAPER         =
 BUILDDIR      = _build
 

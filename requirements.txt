@@ -11,3 +11,5 @@ cssmin
 jsmin
 BeautifulSoup==3.2.1
 django_compressor
+
+sphinx # Sphinx documentation
