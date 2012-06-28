@@ -12,6 +12,11 @@ Contents:
    :maxdepth: 2
 
 
+Project state diagram (test)
+============================
+
+.. graphviz:: projects-state-diagram.dot
+
 
 Indices and tables
 ==================
