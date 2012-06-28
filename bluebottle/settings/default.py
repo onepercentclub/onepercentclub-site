@@ -263,3 +263,9 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'legacy.legacyauth.hashers.LegacyPasswordHasher'
 )
+
+# Support email login
+AUTHENTICATION_BACKENDS = (
+    'legacy.legacyauth.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend'
+)
