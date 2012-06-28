@@ -7,7 +7,7 @@ PYTHON        = ${PROJECT_ROOT}/env/bin/python
 
 SPHINXOPTS    =
 SPHINXBUILD   = ${PYTHON} $(shell which sphinx-build)
-PAPER         =
+PAPER         = a4
 BUILDDIR      = _build
 
 # Internal variables.
