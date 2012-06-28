@@ -33,12 +33,45 @@ class MigrateMemberAuth(MigrateModel):
         than 30 characters (default on auth_user). Until there is a clear
         mapping, this should cause at least the username to fail.
         """
-        assert from_instance.username[:30] == to_instance.username
 
-        assert from_instance.email[:75] == to_instance.username
+        success = super(MigrateMemberAuth, self).test_single(from_instance, to_instance)
 
-        assert from_instance.profile.first_name[:30] == to_instance.firstname
-        assert from_instance.profile.last_name[:30] == to_instance.lastname
+        if from_instance.username[:30] != to_instance.username:
+            logger.error('No correspondence in username between %s and %s',
+                repr(from_instance), repr(to_instance)
+            )
+
+            success = False
+
+        if from_instance.email[:75] != to_instance.email:
+            logger.error('No correspondence in email between %s and %s',
+                repr(from_instance), repr(to_instance)
+            )
+
+            success = False
+
+        if from_instance.profile:
+            profile = from_instance.profile
+
+            if profile.firstname and \
+                profile.firstname[:30] != to_instance.first_name:
+
+                logger.error('No correspondence in first name between %s and %s',
+                    repr(from_instance), repr(to_instance)
+                )
+
+                success = False
+
+            if profile.lastname and \
+                from_instance.profile.lastname[:30] != to_instance.last_name:
+
+                logger.error('No correspondence in last name between %s and %s',
+                    repr(from_instance), repr(to_instance)
+                )
+
+                success = False
+
+        return success
 
     def list_from(self):
         """
@@ -93,8 +126,13 @@ class MigrateMemberAuth(MigrateModel):
         # Check whether this username already exists. If so, add a number
         counter = 1
 
-        while User.objects.exclude(pk=to_instance.pk).filter(username=to_instance.username).exists():
+        # Detect and change duplicate usernames
+        qs = self.list_to()
+        qs.exclude(pk=to_instance.pk)
+
+        while qs.filter(username=to_instance.username).exists():
             to_instance.username = '%s%d' % (from_instance.username, counter)
+
             logger.warn('Duplicate username %s, changing to %s',
                 from_instance.username, to_instance.username
             )

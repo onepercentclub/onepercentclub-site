@@ -110,39 +110,57 @@ class MigrateModel(object):
     def test_single(self, from_instance, to_instance):
         """
         Test the migration for a single object. Override this.
+
+        Returns True on success, False on error.
         """
 
-        pass
+        logger.debug("Testing migration of '%s' to '%s'",
+            repr(from_instance), repr(to_instance))
+
+        return True
 
     def test_multiple(self, from_qs):
         """
         Test the migration for all objects in to_qs.
 
         By default, make sure we have at least correspondance.
+
+        Returns True on success, False on error.
         """
+
+        success = True
 
         # Test bi-directional correspondance
         for from_instance in from_qs:
-            assert self.get_to(from_instance), \
-                'No forwards correspondence from %s' % from_instance
+            if not self.get_to(from_instance):
+                logger.error('No forwards correspondence from %s',
+                    repr(from_instance))
+
+                success = False
 
         for to_instance in self.list_to():
             from_instance = self.get_from(to_instance)
 
-            assert from_instance, \
-                'No backwards correspondence to %s.' % to_instance
+            if not from_instance:
+                logger.error('No backwards correspondence to %s.',
+                    repr(to_instance))
+                success = False
 
-            assert from_instance in from_qs, \
-                'Correspondence %s not found in source queryset.' \
-                    % from_instance
+            if not from_instance in from_qs:
+                logger.error('Correspondence %s not found in source queryset.',
+                    repr(from_instance))
+                success = False
 
-            # Full correspondence found, execute single object tests for it
-            self.test_single(from_instance, to_instance)
+            if not self.test_single(from_instance, to_instance):
+                success = False
+
+        return success
 
     def migrate_single(self, from_instance, to_instance):
         """ Migrate a single object. """
 
-        logger.debug("Migrating '%s' to '%s'", from_instance, to_instance)
+        logger.debug("Migrating '%s' to '%s'",
+            repr(from_instance), repr(to_instance))
 
         self.copy_fields(from_instance, to_instance)
 
@@ -174,7 +192,10 @@ class MigrateModel(object):
                 if (counter % 50) == 0:
                     logger.info('%d objects migrated', counter)
 
-            self.test_multiple(from_qs)
+            logger.info('Done migrating, performing integrity tests.')
+
+            if not self.test_multiple(from_qs):
+                raise Exception('Integrity tests failed, not committing changes.')
 
         logger.info('Migration %s complete.', self.__class__.__name__)
         logger.info('%d objects migrated', counter)
