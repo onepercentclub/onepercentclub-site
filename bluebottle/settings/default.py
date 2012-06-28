@@ -184,7 +184,8 @@ LEGACY_APPS = [
     'legacytasks',
     'legacyvouchers',
     'legacyweblog',
-    'legacymigration' # The latter is a meta-app for migrating legacy to new data
+    'legacymigration', # The latter is a meta-app for migrating legacy to new data
+    'legacyauth' # Just for reference (this isn't actually an app) - legacy auth
 ]
 
 INSTALLED_APPS += map(lambda app: 'legacy.'+app, LEGACY_APPS)
@@ -225,7 +226,7 @@ djcelery.setup_loader()
 
 
 """ django-nose """
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = ['--detailed-errors', '--auto-color']
 
 
@@ -256,3 +257,9 @@ COMPRESS_CSS_FILTERS = [
 # The default URL to send users to after login. This will be used when the
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
+
+# Support legacy passwords
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'legacy.legacyauth.hashers.LegacyPasswordHasher'
+)

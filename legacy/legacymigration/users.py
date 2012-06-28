@@ -150,7 +150,7 @@ class MigrateMemberAuth(MigrateModel):
         'username': lambda x, i: {'username': crop_field(x, i, 30)},
         'profile': migrate_profile,
 
-        'password': lambda p, i: {'password': '$legacy$%s' % p},
+        'password': lambda p, i: {'password': 'legacy$%s' % p},
         # A function can be specified to yield a dictionary
 
         'created': lambda x, i: {'date_joined': localize_datetime(x, i)},
