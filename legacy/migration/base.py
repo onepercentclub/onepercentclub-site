@@ -31,17 +31,18 @@ class MigrateModel(object):
 
             if not mapping:
                 # None means just copy the field
-                mapping = lambda x: {field: x}
+                mapping = lambda x, i: {field: x}
 
             elif isinstance(mapping, basestring):
                 # A string can be passed to map to a different field
                 new_field = mapping
-                mapping = lambda x: {new_field: x}
+                mapping = lambda x, i: {new_field: x}
 
             # By this time mapping should be a callable yielding a dict
             assert callable(mapping)
 
-            value_dict = mapping(value)
+            # Mapping functions have the signature mappping(value, instance)
+            value_dict = mapping(value, from_instance)
 
             assert isinstance(value_dict, dict), \
                 'Mapping does not return a dict.'

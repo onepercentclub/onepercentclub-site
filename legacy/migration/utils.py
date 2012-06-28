@@ -10,7 +10,7 @@ from django.utils import timezone
 default_tz = timezone.get_default_timezone()
 
 
-def localize_datetime(value):
+def localize_datetime(value, instance):
     """ Assume all datetimes are in local time and convert them. """
 
     assert isinstance(value, datetime)
@@ -19,7 +19,9 @@ def localize_datetime(value):
         try:
             return default_tz.localize(value)
         except AmbiguousTimeError:
-            logger.warning('Ambiguous time accounted, assuming DST.')
+            logger.warning("Ambiguous time '%s' accounted for '%s', assuming DST.",
+                value, instance
+            )
 
             return default_tz.localize(value, is_dst=True)
 
@@ -27,11 +29,11 @@ def localize_datetime(value):
     return value
 
 
-def crop_field(value, length):
+def crop_field(value, instance, length):
     """ Generic cropping code for strings, logging. """
     if value and len(value) > length:
-        logger.warning("Field value '%s' too long, cropping to %d characters.",
-            value, length)
+        logger.warning("Field value '%s' for '%s' too long, cropping to %d characters.",
+            value, instance, length)
 
         return value[:length]
 

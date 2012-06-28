@@ -60,7 +60,7 @@ class MigrateMemberAuth(MigrateModel):
 
         return qs
 
-    def migrate_admin(admin):
+    def migrate_admin(admin, instance):
         """
         1. admin = 1 should turn into is_superuser = TRUE (otherwise FALSE)
         2. admin > 0 should turn into is_staff = TRUE (otherwise FALSE)
@@ -73,15 +73,15 @@ class MigrateMemberAuth(MigrateModel):
 
         return {}
 
-    def migrate_profile(profile):
+    def migrate_profile(profile, instance):
         """
-        firstname = mem_profile.first_name, see 5
-        lastname  = mem_profile.last_name, see 5
+        first_name = mem_profile.firstname, see 5
+        last_name  = mem_profile.lastname, see 5
         """
         if profile:
             return {
-                'firstname': crop_field(profile.firstname, 30),
-                'lastname': crop_field(profile.lastname, 30)
+                'first_name': crop_field(profile.firstname, instance, 30) or '',
+                'last_name': crop_field(profile.lastname, instance, 30) or ''
             }
 
         # Not every user has a profile, so don't worry
@@ -107,16 +107,16 @@ class MigrateMemberAuth(MigrateModel):
 
     field_mapping = {
         'id': None, # None means just copy the field
-        'email': lambda x: {'email': crop_field(x, 75)},
+        'email': lambda x, i: {'email': crop_field(x, i, 75)},
 
-        'username': lambda x: {'username': crop_field(x, 30)},
+        'username': lambda x, i: {'username': crop_field(x, i, 30)},
         'profile': migrate_profile,
 
-        'password': lambda p: {'password': '$legacy$%s' % p},
+        'password': lambda p, i: {'password': '$legacy$%s' % p},
         # A function can be specified to yield a dictionary
 
-        'created': lambda x: {'date_joined': localize_datetime(x)},
-        'updated': lambda x: {'last_login': localize_datetime(x)},
+        'created': lambda x, i: {'date_joined': localize_datetime(x, i)},
+        'updated': lambda x, i: {'last_login': localize_datetime(x, i)},
         # A string can be passed to map to a different field
 
         'admin': migrate_admin
