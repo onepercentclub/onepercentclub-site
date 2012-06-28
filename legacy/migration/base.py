@@ -1,7 +1,7 @@
 import logging
 logger = logging.getLogger(__name__)
 
-from django.db import transaction, IntegrityError
+from django.db import transaction
 
 
 class MigrateModel(object):
@@ -152,7 +152,6 @@ class MigrateModel(object):
         from_qs = self.list_from()
 
         counter = 0
-        errors = 0
 
         # Execute all of this within a single transaction
         with transaction.commit_on_success():
@@ -167,13 +166,8 @@ class MigrateModel(object):
 
                 self.migrate_single(from_instance, to_instance)
 
-                try:
-                    to_instance.save(using=self.to_db)
-                    counter += 1
-
-                except IntegrityError:
-                    logger.error('Duplicate object %s, not migrated')
-                    errors += 1
+                to_instance.save(using=self.to_db)
+                counter += 1
 
                 # Print a progress message very 10 objects
                 if (counter % 50) == 0:
@@ -183,4 +177,3 @@ class MigrateModel(object):
 
         logger.info('Migration %s complete.', self.__class__.__name__)
         logger.info('%d objects migrated', counter)
-        logger.info('%d objects ignored', errors)
