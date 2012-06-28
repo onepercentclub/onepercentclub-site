@@ -86,7 +86,7 @@ class MigrateModel(object):
         try:
             correspondence_args = self.get_correspondence_args(from_instance)
 
-            return self.to_model.objects.get(**correspondence_args)
+            return self.list_to().get(**correspondence_args)
 
         except self.to_model.DoesNotExist:
             return None
@@ -101,7 +101,7 @@ class MigrateModel(object):
         try:
             correspondence_args = self.get_correspondence_args(to_instance)
 
-            return self.from_model.objects.get(**correspondence_args)
+            return self.list_from().get(**correspondence_args)
 
         except self.from_model.DoesNotExist:
             return None
@@ -122,7 +122,7 @@ class MigrateModel(object):
 
         # Test bi-directional correspondance
         for from_instance in from_qs:
-            assert self.to_instance(from_instance), \
+            assert self.get_to(from_instance), \
                 'No forwards correspondence from %s' % from_instance
 
         for to_instance in self.list_to():
