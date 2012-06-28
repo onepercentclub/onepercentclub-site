@@ -46,10 +46,7 @@ class Member(models.Model):
     def __unicode__(self):
         """ return first + lastname or username if no profile set """
 
-        if self.profile:
-            return self.profile.fullname()
-
-        return self.username
+        return '%s: %s' % (self.pk, self.username)
 
     @property
     def profile(self):
