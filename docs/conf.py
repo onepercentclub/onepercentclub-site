@@ -97,7 +97,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'agogo'
+html_theme = 'nature'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -297,3 +297,6 @@ intersphinx_mapping = {
     'django': ('http://docs.djangoproject.com/en/1.4/', 'http://docs.djangoproject.com/en/dev/_objects/'),
     'sorl': ('http://thumbnail.sorl.net/', None)
 }
+
+# Graphviz options
+# graphviz_dot_args =
