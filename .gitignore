@@ -35,3 +35,4 @@ pip-log.txt
 bluebottle/settings/local.py
 bluebottle/settings/secret.py
 env
+docs/_build
