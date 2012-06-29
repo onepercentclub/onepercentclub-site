@@ -12,6 +12,11 @@ jsmin
 BeautifulSoup==3.2.1
 django_compressor
 
+# Custom version of ipdb, allowing for automatic debugging on exceptions
+git+https://github.com/Psycojoker/ipdb.git@edea61ce5f#egg=ipdb
+
+# pytz is "highly recommended" by the Django timezone documentation since we're using Django timezone support
+# https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 pytz
 
-git+https://github.com/Psycojoker/ipdb.git@edea61ce5f#egg=ipdb
+sphinx # Sphinx documentation

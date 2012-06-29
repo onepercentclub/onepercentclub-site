@@ -25,7 +25,13 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.viewcode']
+extensions = [
+    'sphinx.ext.autodoc', # Automagically grab docstrings
+    'sphinx.ext.intersphinx', # Links to other Sphinx projects
+    'sphinx.ext.viewcode', # Links for viewing formatted code
+    'sphinx.ext.graphviz', # Render Graphviz .dot files
+    'sphinx.ext.inheritance_diagram' # Inheritance diagrams
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -41,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'bluebottle'
-copyright = u'2012, Loek van Gent, Ben Konrath, Mathijs de Bruin'
+copyright = u'2012, 1%CLUB'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -91,7 +97,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'nature'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -247,8 +253,8 @@ texinfo_documents = [
 # Bibliographic Dublin Core info.
 epub_title = u'bluebottle'
 epub_author = u'Loek van Gent, Ben Konrath, Mathijs de Bruin'
-epub_publisher = u'Loek van Gent, Ben Konrath, Mathijs de Bruin'
-epub_copyright = u'2012, Loek van Gent, Ben Konrath, Mathijs de Bruin'
+epub_publisher = u'1%CLUB'
+epub_copyright = u'2012, 1%CLUB'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
@@ -285,5 +291,12 @@ epub_copyright = u'2012, Loek van Gent, Ben Konrath, Mathijs de Bruin'
 #epub_tocdup = True
 
 
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'http://docs.python.org/': None}
+# Intersphinx mapping to Python, Django and Sorl-thumbnail (more to follow)
+intersphinx_mapping = {
+    'python': ('http://docs.python.org/2.6', None),
+    'django': ('http://docs.djangoproject.com/en/1.4/', 'http://docs.djangoproject.com/en/dev/_objects/'),
+    'sorl': ('http://thumbnail.sorl.net/', None)
+}
+
+# Graphviz options
+# graphviz_dot_args =

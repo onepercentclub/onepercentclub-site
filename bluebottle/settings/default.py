@@ -44,6 +44,8 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
+# pytz is in requirements.txt because it's "highly recommended" when using timezone support
+# https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 USE_TZ = True
 
 """
@@ -166,23 +168,23 @@ INSTALLED_APPS = [
 
 # Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
 LEGACY_APPS = [
-    'actions',
-    'albums',
-    'cms',
-    'consolidations',
-    'donations',
-    'events',
-    'filemanager',
-    'members',
-    'news',
-    'organizations',
-    'payments',
-    'projects',
-    'system',
-    'tasks',
-    'vouchers',
-    'weblog',
-    'migration' # The latter is a meta-app for migrating legacy to new data
+    'legacyactions',
+    'legacyalbums',
+    'legacycms',
+    'legacyconsolidations',
+    'legacydonations',
+    'legacyevents',
+    'legacyfilemanager',
+    'legacymembers',
+    'legacynews',
+    'legacyorganizations',
+    'legacypayments',
+    'legacyprojects',
+    'legacysystem',
+    'legacytasks',
+    'legacyvouchers',
+    'legacyweblog',
+    'legacymigration' # The latter is a meta-app for migrating legacy to new data
 ]
 
 INSTALLED_APPS += map(lambda app: 'legacy.'+app, LEGACY_APPS)
