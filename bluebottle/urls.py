@@ -28,13 +28,8 @@ urlpatterns += patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
 
-    # Password reset
-    (r'^accounts/reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm'),
-    (r'^accounts/reset/done/$', 'django.contrib.auth.views.password_reset_complete'),
-
-    # Account login
-    (r'^accounts/login/$', 'django.contrib.auth.views.login'),
-    (r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
+    # account login/logout, password reset, and password change
+    (r'^accounts/', include('django.contrib.auth.urls')),
 
 )
 
