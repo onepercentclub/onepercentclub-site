@@ -161,7 +161,9 @@ INSTALLED_APPS = [
     'djcelery',
     'south',
     'django_nose',
-    'compressor'
+    'compressor',
+    'organizations',
+    'projects'
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -193,6 +195,10 @@ LOGGING = {
     }
 }
 
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+)
 
 """ djcelery """
 import djcelery
@@ -231,3 +237,4 @@ COMPRESS_CSS_FILTERS = [
 # The default URL to send users to after login. This will be used when the
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
+

@@ -5,6 +5,7 @@ raven
 django-celery
 South
 django-nose
+django_countries
 
 # CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
 cssmin
