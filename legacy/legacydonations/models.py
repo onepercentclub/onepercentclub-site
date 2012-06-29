@@ -92,8 +92,8 @@ class PortfolioLine(models.Model):
     """ Projects specifically selected for monthly payments by members """
 
     id = models.IntegerField(primary_key=True)
-    member = models.ForeignKey('members.Member')
-    project = models.ForeignKey('projects.Project')
+    member = models.ForeignKey('legacymembers.Member')
+    project = models.ForeignKey('legacyprojects.Project')
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     created = models.DateTimeField()
 
