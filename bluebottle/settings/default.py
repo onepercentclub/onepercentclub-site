@@ -44,6 +44,8 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
+# pytz is in requirements.txt because it's "highly recommended" when using timezone support
+# https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 USE_TZ = True
 
 """
@@ -130,6 +132,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.static',
     # 'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
+    # Makes the 'request' variable (the current HttpRequest) available in templates
+    'django.core.context_processors.request',
 ]
 
 ROOT_URLCONF = 'bluebottle.urls'
@@ -247,3 +251,7 @@ COMPRESS_CSS_FILTERS = [
 #    ('text/x-sass', 'sass {infile} {outfile}'),
 #    ('text/x-scss', 'sass --scss {infile} {outfile}'),
 #)
+
+# The default URL to send users to after login. This will be used when the
+# 'next' URL parameter hasn't been set.
+LOGIN_REDIRECT_URL = '/'

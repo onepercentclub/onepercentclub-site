@@ -9,4 +9,11 @@ django-nose
 # CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
 cssmin
 jsmin
+BeautifulSoup==3.2.1
 django_compressor
+
+# pytz is "highly recommended" by the Django timezone documentation since we're using Django timezone support
+# https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
+pytz
+
+sphinx # Sphinx documentation

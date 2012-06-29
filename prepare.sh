@@ -14,18 +14,16 @@ ENVDIR=env
 SETTINGS_DIR=$PWD/bluebottle/settings
 MANAGE_PY="$ENVDIR/bin/python ./manage.py"
 
-
 echo "Checking PIP and virtualenv availability"
-pip install 'pip>=1.1' 'virtualenv>=1.7.1.2'
-if [ $? == 0 ]; then
-    echo 'PIP and virtualenv installed allright'
+pip install 'pip>=1.0' 'virtualenv>=1.7.1.2'
+
+if [ $? -eq 0 ]; then
+    echo 'PIP and virtualenv available'
 else
-    echo 'Error installing PIP and virtualenv, breaking off'
-    echo 'Please execute the following command manually, and watch for errors:'
-    echo "    pip install 'pip>=1.1' 'virtualenv>=1.7.1.2'"
+    echo 'Error installing PIP and virtualenv, breaking off.'
+    echo 'Please install PIP >= 1.0 and VirtualEnv >= 1.7.1.2 manually.'
     exit 1
 fi
-
 
 if [ ! -d $ENVDIR ]; then
     echo "Preparing virtualenv environment in $ENVDIR directory"
@@ -48,7 +46,10 @@ fi
 if [ ! -f $SETTINGS_DIR/secret.py ]; then
     echo
     echo 'Generating secret key in settings_secret.py.'
-    SECRET_KEY=`$MANAGE_PY generate_secret_key`
+    # The generate_secret_key command produces a superfluous warning message
+    # that needs to be removed by filtering out only the last line of the
+    # output.
+    SECRET_KEY=`$MANAGE_PY generate_secret_key | tail -1`
 
     echo "# Add passwords passwords and other secrets data in this file" >> $SETTINGS_DIR/secret.py
     echo >> $SETTINGS_DIR/secret.py
