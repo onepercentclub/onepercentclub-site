@@ -168,22 +168,22 @@ INSTALLED_APPS = [
 
 # Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
 LEGACY_APPS = [
-    'actions',
-    'albums',
-    'cms',
-    'consolidations',
-    'donations',
-    'events',
-    'filemanager',
-    'members',
-    'news',
-    'organizations',
-    'payments',
-    'projects',
-    'system',
-    'tasks',
-    'vouchers',
-    'weblog'
+    'legacyactions',
+    'legacyalbums',
+    'legacycms',
+    'legacyconsolidations',
+    'legacydonations',
+    'legacyevents',
+    'legacyfilemanager',
+    'legacymembers',
+    'legacynews',
+    'legacyorganizations',
+    'legacypayments',
+    'legacyprojects',
+    'legacysystem',
+    'legacytasks',
+    'legacyvouchers',
+    'legacyweblog'
 ]
 
 INSTALLED_APPS += map(lambda app: 'legacy.'+app, LEGACY_APPS)
