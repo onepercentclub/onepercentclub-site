@@ -208,6 +208,8 @@ NOSE_ARGS = [
     '--with-color' # Colouring of output using rudolf
 ]
 
+SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
+
 
 """ django-compressor http://pypi.python.org/pypi/django_compressor """
 STATICFILES_FINDERS += [
