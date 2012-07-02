@@ -1,9 +1,9 @@
 Django==1.4
 django_extensions
 django_debug_toolbar
-raven
-django-celery
 
+raven # Sentry client (remote logging)
+django-celery # Asynchronous task server
 django-nose # Django Nose integration (for test suites)
 rudolf # Nice coloring for Nose
 
