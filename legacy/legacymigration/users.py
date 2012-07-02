@@ -1,7 +1,10 @@
+# coding=utf8
+
 import logging
 logger = logging.getLogger(__name__)
 
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 from legacy.legacymembers.models import Member
 
@@ -72,6 +75,32 @@ class MigrateMemberAuth(MigrateModel):
                 success = False
 
         return success
+
+    def test_multiple(self, from_qs):
+        """
+        Test whether the login of just a few users actually works.
+        """
+
+        # First, call the method from the superclass
+        success = super(MigrateMemberAuth, self).test_multiple(from_qs)
+
+        # Now, test a bunch of users
+        test_users = (
+            ('usermigrationtest2', 'pohji8'), # Activated user
+            ('mathijs@visualspace.nl', 'pohji8'), # Activated user usermigrationtest2
+            ('glavangadje', 'ภาษาไทย'), # Thai, in Thai
+            ('drbob@dokterbob.net', 'ภาษาไทย') # Previous user glavangadje
+        )
+
+        for user in test_users:
+            if not authenticate(username=user[0], password=user[1]):
+                logger.error("Test user '%s' could not login with password '%s'",
+                    user[0], user[1]
+                )
+                success = False
+
+        return success
+
 
     def list_from(self):
         """
