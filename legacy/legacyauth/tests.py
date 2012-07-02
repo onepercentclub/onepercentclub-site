@@ -1,6 +1,9 @@
 from django.test import TestCase
 
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import (
+    is_password_usable, check_password, make_password, get_hasher
+)
 
 
 class LegacyHashTest(TestCase):
@@ -19,6 +22,28 @@ class LegacyHashTest(TestCase):
         )
 
         user.save()
+
+    def test_lowlevel(self):
+        """ Lowlevel test, based on django.contrib.auth.tests.hashers. """
+
+        encoded = make_password('huubhuubbarbatruuk', 'seasalt', 'legacy')
+        self.assertEqual(encoded,
+                         'legacy$fd054714ea93060e80c3cac98ff47a424a2acfd1')
+        self.assertTrue(is_password_usable(encoded))
+        self.assertTrue(check_password(u'huubhuubbarbatruuk', encoded))
+        self.assertFalse(check_password('plopperdeplop', encoded))
+
+    def test_safesummary(self):
+        """ Test to see whether safe_summary works. """
+        hasher = get_hasher('legacy')
+
+        self.assertEquals(
+            hasher.safe_summary('legacy$fd054714ea93060e80c3cac98ff47a424a2acfd1'),
+            {
+                'algorithm': 'legacy',
+                'hash': 'fd0547**********************************'
+            }
+        )
 
     def test_success(self):
         """ Test whether we can login with a legacy hash password. """
