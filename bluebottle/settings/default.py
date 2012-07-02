@@ -203,7 +203,10 @@ djcelery.setup_loader()
 
 """ django-nose """
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-NOSE_ARGS = ['--detailed-errors', '--auto-color']
+NOSE_ARGS = [
+    '--detailed-errors',
+    '--with-color' # Colouring of output using rudolf
+]
 
 
 """ django-compressor http://pypi.python.org/pypi/django_compressor """
