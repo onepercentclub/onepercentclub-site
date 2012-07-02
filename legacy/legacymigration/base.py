@@ -17,6 +17,7 @@ class MigrateModel(object):
         Copy all fields from one object to another.
 
         Example field mapping::
+
             field_mapping = {
                 'id': None, # None means just copy the field
                 'email': None,
@@ -24,6 +25,7 @@ class MigrateModel(object):
                 'password': lambda p: {'password': p}, # A function can be specified to yield a dictionary
                 'created': 'date_joined', # A string can be passed to map to a different field
             }
+
         """
 
         for field, mapping in self.field_mapping.iteritems():
