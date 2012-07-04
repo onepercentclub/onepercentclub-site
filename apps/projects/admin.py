@@ -1,4 +1,4 @@
-from projects.models import (Project, IdeaPhase, PlanPhase, ActPhase, 
+from apps.projects.models import (Project, IdeaPhase, PlanPhase, ActPhase,
     ResultsPhase, BudgetLine, Message, Testimonial, BudgetCategory)
 from django.contrib import admin
 
@@ -24,7 +24,7 @@ class ResultsPhaseInline(admin.StackedInline):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    inlines = [BudgetInline, IdeaPhaseInline, 
+    inlines = [BudgetInline, IdeaPhaseInline,
                PlanPhaseInline, ActPhaseInline, ResultsPhaseInline]
 
 

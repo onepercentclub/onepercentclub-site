@@ -162,8 +162,11 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'compressor',
-    'organizations',
-    'projects'
+    'django_countries',
+
+
+    'apps.organizations',
+    'apps.projects'
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -196,9 +199,6 @@ LOGGING = {
 }
 
 
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-)
 
 """ djcelery """
 import djcelery
