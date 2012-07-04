@@ -12,3 +12,6 @@ class Address(models.Model):
     state = models.CharField(max_length=100, blank=True)
     country = CountryField()
     zip_code = models.CharField(max_length=20, blank=True)
+
+    class Meta:
+        abstract = True
