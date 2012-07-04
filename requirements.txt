@@ -16,8 +16,15 @@ jsmin
 BeautifulSoup==3.2.1
 django_compressor
 
-# pytz is "highly recommended" by the Django timezone documentation since we're using Django timezone support
+# pytz is "highly recommended" by the Django timezone documentation since
+# we're using Django timezone support
 # https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 pytz
 
 sphinx # Sphinx documentation
+
+# http://pypi.python.org/pypi/sorl-thumbnail/11.12
+sorl-thumbnail==11.12
+
+# http://pypi.python.org/pypi/django-choices/1.1.9
+django-choices==1.1.9

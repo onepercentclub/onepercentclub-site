@@ -160,6 +160,8 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
 
     # bluebottle apps
+    'apps.bluebottle_utils',
+    'apps.accounts',
 
     # 3rd party apps
     'django_extensions',
@@ -171,6 +173,7 @@ INSTALLED_APPS = [
     'compressor',
     # http://pypi.python.org/pypi/django-countries/1.2
     'django_countries',
+    'sorl.thumbnail',
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -245,3 +248,8 @@ COMPRESS_CSS_FILTERS = [
 # The default URL to send users to after login. This will be used when the
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
+
+# user profile setting as described here:
+# https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
