@@ -7,6 +7,9 @@ django-celery # Asynchronous task server
 django-nose # Django Nose integration (for test suites)
 rudolf # Nice coloring for Nose
 
+# http://pypi.python.org/pypi/django-countries/1.2
+django-countries==1.2
+
 # CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
 cssmin
 jsmin
