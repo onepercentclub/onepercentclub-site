@@ -159,23 +159,22 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
 
-    # bluebottle apps
-    'apps.bluebottle_utils',
-    'apps.accounts',
-    'apps.organizations',
-    'apps.projects',
-
-    # 3rd party apps
     'django_extensions',
     'debug_toolbar',
     'raven.contrib.django',
     'djcelery',
     'south',
     'django_nose',
-    'compressor',
-    # http://pypi.python.org/pypi/django-countries/1.2
-    'django_countries',
+    'compressor'
+
+    'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
+
+    # bluebottle apps
+    'apps.bluebottle_utils',
+    'apps.accounts',
+    'apps.organizations',
+    'apps.projects',
 ]
 
 # A sample logging configuration. The only tangible logging
