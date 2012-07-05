@@ -178,7 +178,7 @@ class MigrateMemberAuth(MigrateModel):
     to_model = User
 
     field_mapping = {
-        'id': None, # None means just copy the field
+        'id': True, # True means just copy the field
         'email': lambda i, f: {'email': crop_field(i, f, 75)},
 
         'username': lambda i, f: {'username': crop_field(i, f, 30)},

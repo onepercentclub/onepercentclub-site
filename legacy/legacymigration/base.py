@@ -19,9 +19,9 @@ class MigrateModel(object):
         Example field mapping::
 
             field_mapping = {
-                'id': None, # None means just copy the field
-                'email': None,
-                'username': None,
+                'id': True, # True means just copy the field
+                'email': True,
+                'username': True,
                 'password': lambda instance, fieldname: {'password': getattr(instance, fieldname)}, # A function can be specified to yield a dictionary
                 'created': 'date_joined', # A string can be passed to map to a different field
             }
@@ -29,8 +29,8 @@ class MigrateModel(object):
         """
 
         for field, mapping in self.field_mapping.iteritems():
-            if not mapping:
-                # None means just copy the field
+            if mapping == True:
+                # True means just copy the field
                 mapping = lambda instance, field: {field: getattr(instance, field)}
 
             elif isinstance(mapping, basestring):
