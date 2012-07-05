@@ -4,26 +4,21 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices import DjangoChoices, ChoiceItem
 from django.utils.translation import ugettext as _
 
+from apps.bluebottle_utils.models import Address
+
 
 class Organization(models.Model):
-    """ 
-        Organizations can run Projects. 
-        Organization has one or more members 
+    """
+        Organizations can run Projects.
+        An organization has one or more members.
     """
 
-    id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=255)
     slug = models.CharField(max_length=255)
     description = models.TextField(blank=True)
 
     legal_status = models.TextField(null=True)
     """ The legal status of the organization (e.g. Foundation) """
-
-    street = models.CharField(max_length=255, blank=True)
-    street_number = models.CharField(max_length=255, blank=True)
-    zip_code = models.CharField(max_length=255, blank=True)
-    city = models.CharField(max_length=255, blank=True)
-    country = CountryField(null=True)
 
     phone_number = models.CharField(max_length=255, blank=True)
     email = models.CharField(max_length=255, blank=True)
@@ -61,9 +56,20 @@ class OrganizationMember(models.Model):
         editor = ChoiceItem('editor', label=_('editor'))
         member = ChoiceItem('member', label=_('member'))
 
-
     organization = models.ForeignKey(Organization)
     member = models.ForeignKey('auth.User')
     function = models.CharField(max_length=20, choices=MemberFunctions.choices)
     """ Function might determine Role later on """
 
+
+class OrganizationAddress(Address):
+    class AddressType(DjangoChoices):
+        physical = ChoiceItem('physical', label="Physical")
+        postal = ChoiceItem('postal', label="Postal")
+        other = ChoiceItem('other', label="Other")
+
+    type = models.CharField(max_length=8, blank=True, choices=AddressType.choices)
+    organization = models.ForeignKey(Organization)
+
+    class Meta:
+        verbose_name_plural = "Organization Addresses"
