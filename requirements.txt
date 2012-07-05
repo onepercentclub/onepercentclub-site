@@ -1,15 +1,23 @@
 Django==1.4
-django-extensions
-django-debug-toolbar
-raven
-django-celery
-South
-django-nose
-django-countries
-django-choices
+django_extensions
+django_debug_toolbar
+
+raven # Sentry client (remote logging)
+django-celery # Asynchronous task server
+django-nose # Django Nose integration (for test suites)
+rudolf # Nice coloring for Nose
+
+# http://pypi.python.org/pypi/django-countries/1.2
+django-countries==1.2
 
 # CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
 cssmin
 jsmin
 BeautifulSoup==3.2.1
 django_compressor
+
+# pytz is "highly recommended" by the Django timezone documentation since we're using Django timezone support
+# https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
+pytz
+
+sphinx # Sphinx documentation

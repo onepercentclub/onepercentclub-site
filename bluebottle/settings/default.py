@@ -44,6 +44,8 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
+# pytz is in requirements.txt because it's "highly recommended" when using timezone support
+# https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 USE_TZ = True
 
 """
@@ -147,6 +149,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -155,6 +158,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+
+    # bluebottle apps
+    'apps.organizations',
+    'apps.projects',
+
+    # 3rd party apps
     'django_extensions',
     'debug_toolbar',
     'raven.contrib.django',
@@ -162,11 +171,8 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'compressor',
+    # http://pypi.python.org/pypi/django-countries/1.2
     'django_countries',
-
-
-    'apps.organizations',
-    'apps.projects'
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -207,7 +213,12 @@ djcelery.setup_loader()
 
 """ django-nose """
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-NOSE_ARGS = ['--detailed-errors', '--auto-color']
+NOSE_ARGS = [
+    '--detailed-errors',
+    '--with-color' # Colouring of output using rudolf
+]
+
+SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
 
 
 """ django-compressor http://pypi.python.org/pypi/django_compressor """
