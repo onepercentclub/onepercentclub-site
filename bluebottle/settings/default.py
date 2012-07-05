@@ -33,6 +33,15 @@ TIME_ZONE = 'Europe/Amsterdam'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
+# This is defined here as a do-nothing function because we can't import
+# django.utils.translation -- that module depends on the settings.
+gettext_noop = lambda s: s
+
+LANGUAGES = (
+    ('nl', gettext_noop('Dutch')),
+    ('en', gettext_noop('English'))
+)
+
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
