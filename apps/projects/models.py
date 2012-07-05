@@ -50,6 +50,8 @@ class Project(models.Model):
 
 
 class AbstractPhase(models.Model):
+    """ Abstract base class for project phases. """
+
     class PhaseStatuses(DjangoChoices):
         hidden = ChoiceItem('hidden', label=_('hidden'))
         progress = ChoiceItem('progress', label=_('progress'))
@@ -71,6 +73,8 @@ class AbstractPhase(models.Model):
 
 class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here """
+
+    pass
 
 
 class PlanPhase(AbstractPhase):
@@ -135,11 +139,12 @@ class BudgetCategory(models.Model):
         ordering = ['ordering']
         verbose_name_plural = 'Budget Categories'
 
+
 class BudgetLine(models.Model):
-    """ 
-        BudgetLine: Entries to the Project Budget sheet.
-        This is the budget for the amount asked from this
-        website. 
+    """
+    BudgetLine: Entries to the Project Budget sheet.
+    This is the budget for the amount asked from this
+    website.
     """
 
     project = models.ForeignKey(Project)
@@ -149,10 +154,10 @@ class BudgetLine(models.Model):
 
 
 class OtherSourcesLines(models.Model):
-    """ 
-        Other sources of money to fund this project.
-        Every entry is an application (-to apply-) 
-        for a grant or other probable source of money.
+    """
+    Other sources of money to fund this project.
+    Every entry is an application (-to apply-)
+    for a grant or other probable source of money.
     """
 
     class Statuses(DjangoChoices):
@@ -170,10 +175,11 @@ class OtherSourcesLines(models.Model):
 
 
 # Now some stuff connected to Projects
-# Can we think of a better place to put this??    
+# Can we think of a better place to put this??
 
 class Link(models.Model):
     """ Links (urls) connected to a Project """
+
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=255)
     url = models.URLField()
@@ -187,6 +193,7 @@ class Link(models.Model):
 
 class Testimonial(models.Model):
     """ Any member can write something nice about a project """
+
     project = models.ForeignKey(Project)
     member = models.ForeignKey('auth.User')
     description = models.TextField()
@@ -199,6 +206,7 @@ class Testimonial(models.Model):
 
 class Message(models.Model):
     """ Message by a user on the Project wall """
+
     project = models.ForeignKey(Project)
     member = models.ForeignKey('auth.User')
     description = models.TextField()

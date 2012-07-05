@@ -12,8 +12,8 @@ from apps.bluebottle_utils.models import Address
 
 class Organization(models.Model):
     """
-        Organizations can run Projects.
-        An organization has one or more members.
+    Organizations can run Projects.
+    An organization has one or more members.
     """
 
     title = models.CharField(max_length=255)
@@ -66,6 +66,8 @@ class OrganizationMember(models.Model):
 
 
 class OrganizationAddress(Address):
+    """ Address model for Organizations. """
+
     class AddressType(DjangoChoices):
         physical = ChoiceItem('physical', label="Physical")
         postal = ChoiceItem('postal', label="Postal")

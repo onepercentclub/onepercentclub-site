@@ -1,6 +1,10 @@
-from apps.projects.models import (Project, IdeaPhase, PlanPhase, ActPhase,
-    ResultsPhase, BudgetLine, Message, Testimonial, BudgetCategory)
 from django.contrib import admin
+
+from .models import (
+    Project, IdeaPhase, PlanPhase, ActPhase,
+    ResultsPhase, BudgetLine, Message, Testimonial, BudgetCategory
+)
+
 
 class IdeaPhaseInline(admin.StackedInline):
     model = IdeaPhase
