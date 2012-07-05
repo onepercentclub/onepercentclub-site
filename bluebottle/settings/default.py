@@ -160,6 +160,8 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
 
     # bluebottle apps
+    'apps.organizations',
+    'apps.projects',
 
     # 3rd party apps
     'django_extensions',
@@ -203,6 +205,7 @@ LOGGING = {
 }
 
 
+
 """ djcelery """
 import djcelery
 djcelery.setup_loader()
@@ -244,3 +247,4 @@ COMPRESS_CSS_FILTERS = [
 # The default URL to send users to after login. This will be used when the
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
+
