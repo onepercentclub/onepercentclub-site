@@ -22,29 +22,27 @@ class MigrateModel(object):
                 'id': None, # None means just copy the field
                 'email': None,
                 'username': None,
-                'password': lambda p: {'password': p}, # A function can be specified to yield a dictionary
+                'password': lambda instance, fieldname: {'password': getattr(instance, fieldname)}, # A function can be specified to yield a dictionary
                 'created': 'date_joined', # A string can be passed to map to a different field
             }
 
         """
 
         for field, mapping in self.field_mapping.iteritems():
-            value = getattr(from_instance, field)
-
             if not mapping:
                 # None means just copy the field
-                mapping = lambda x, i: {field: x}
+                mapping = lambda instance, field: {field: getattr(instance, field)}
 
             elif isinstance(mapping, basestring):
                 # A string can be passed to map to a different field
                 new_field = mapping
-                mapping = lambda x, i: {new_field: x}
+                mapping = lambda instance, field: {new_field: getattr(instance, field)}
 
             # By this time mapping should be a callable yielding a dict
             assert callable(mapping)
 
             # Mapping functions have the signature mappping(value, instance)
-            value_dict = mapping(value, from_instance)
+            value_dict = mapping(from_instance, field)
 
             assert isinstance(value_dict, dict), \
                 'Mapping does not return a dict.'

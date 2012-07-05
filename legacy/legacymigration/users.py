@@ -122,11 +122,13 @@ class MigrateMemberAuth(MigrateModel):
 
         return qs
 
-    def migrate_admin(admin, instance):
+    def migrate_admin(instance, fieldname):
         """
         1. admin = 1 should turn into is_superuser = TRUE (otherwise FALSE)
         2. admin > 0 should turn into is_staff = TRUE (otherwise FALSE)
         """
+        admin = getattr(instance, fieldname)
+
         if admin > 0:
             if admin == 1:
                 return {'is_superuser': True}
@@ -135,15 +137,18 @@ class MigrateMemberAuth(MigrateModel):
 
         return {}
 
-    def migrate_profile(profile, instance):
+    def migrate_profile(instance, fieldname):
         """
         first_name = mem_profile.firstname, see 5
         last_name  = mem_profile.lastname, see 5
         """
+
+        profile = getattr(instance, fieldname)
+
         if profile:
             return {
-                'first_name': crop_field(profile.firstname, instance, 30) or '',
-                'last_name': crop_field(profile.lastname, instance, 30) or ''
+                'first_name': crop_field(profile, 'firstname', 30) or '',
+                'last_name': crop_field(profile, 'lastname', 30) or ''
             }
 
         # Not every user has a profile, so don't worry
@@ -174,16 +179,16 @@ class MigrateMemberAuth(MigrateModel):
 
     field_mapping = {
         'id': None, # None means just copy the field
-        'email': lambda x, i: {'email': crop_field(x, i, 75)},
+        'email': lambda i, f: {'email': crop_field(i, f, 75)},
 
-        'username': lambda x, i: {'username': crop_field(x, i, 30)},
+        'username': lambda i, f: {'username': crop_field(i, f, 30)},
         'profile': migrate_profile,
 
-        'password': lambda p, i: {'password': 'legacy$%s' % p},
+        'password': lambda i, f: {'password': 'legacy$%s' % getattr(i, f)},
         # A function can be specified to yield a dictionary
 
-        'created': lambda x, i: {'date_joined': localize_datetime(x, i)},
-        'updated': lambda x, i: {'last_login': localize_datetime(x, i)},
+        'created': lambda i, f: {'date_joined': localize_datetime(i, f)},
+        'updated': lambda i, f: {'last_login': localize_datetime(i, f)},
         # A string can be passed to map to a different field
 
         'admin': migrate_admin
