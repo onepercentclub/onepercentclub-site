@@ -165,7 +165,7 @@ INSTALLED_APPS = [
     'djcelery',
     'south',
     'django_nose',
-    'compressor'
+    'compressor',
 
     'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
