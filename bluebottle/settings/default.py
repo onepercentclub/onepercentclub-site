@@ -149,6 +149,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -157,6 +158,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+
     'django_extensions',
     'debug_toolbar',
     'raven.contrib.django',
@@ -165,6 +167,14 @@ INSTALLED_APPS = [
     'django_nose',
     'compressor',
     'legacyauth' # Just for reference (this is actually just a module, not an app)
+    'django_countries', # http://pypi.python.org/pypi/django-countries
+    'sorl.thumbnail',
+
+    # bluebottle apps
+    'apps.bluebottle_utils',
+    'apps.accounts',
+    'apps.organizations',
+    'apps.projects',
 ]
 
 # Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
@@ -220,6 +230,7 @@ LOGGING = {
 }
 
 
+
 """ djcelery """
 import djcelery
 djcelery.setup_loader()
@@ -229,7 +240,6 @@ djcelery.setup_loader()
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--detailed-errors',
-    # '--with-color' # Colouring of output using rudolf
 ]
 
 SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
@@ -274,3 +284,7 @@ AUTHENTICATION_BACKENDS = (
     'legacyauth.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend'
 )
+
+# user profile setting as described here:
+# https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'

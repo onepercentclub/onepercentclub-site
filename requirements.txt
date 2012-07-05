@@ -5,7 +5,9 @@ django_debug_toolbar
 raven # Sentry client (remote logging)
 django-celery # Asynchronous task server
 django-nose # Django Nose integration (for test suites)
-rudolf # Nice coloring for Nose
+
+# http://pypi.python.org/pypi/django-countries/1.2
+django-countries==1.2
 
 # CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
 cssmin
@@ -16,7 +18,8 @@ django_compressor
 # Custom version of ipdb, allowing for automatic debugging on exceptions
 git+https://github.com/Psycojoker/ipdb.git@edea61ce5f#egg=ipdb
 
-# pytz is "highly recommended" by the Django timezone documentation since we're using Django timezone support
+# pytz is "highly recommended" by the Django timezone documentation since
+# we're using Django timezone support
 # https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 pytz
 
@@ -24,3 +27,9 @@ sphinx # Sphinx documentation
 
 # Legacy authentication module (use SSH for common auth)
 -e git+ssh://git@github.com/onepercentclub/legacyauth.git#egg=legacyauth
+
+# http://pypi.python.org/pypi/sorl-thumbnail/11.12
+sorl-thumbnail==11.12
+
+# http://pypi.python.org/pypi/django-choices/1.1.9
+django-choices==1.1.9
