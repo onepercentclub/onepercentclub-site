@@ -21,3 +21,6 @@ git+https://github.com/Psycojoker/ipdb.git@edea61ce5f#egg=ipdb
 pytz
 
 sphinx # Sphinx documentation
+
+# Legacy authentication module (use SSH for common auth)
+-e git+ssh://git@github.com/onepercentclub/legacyauth.git#egg=legacyauth

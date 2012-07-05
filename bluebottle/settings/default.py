@@ -164,6 +164,7 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'compressor',
+    'legacyauth' # Just for reference (this is actually just a module, not an app)
 ]
 
 # Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
@@ -185,7 +186,6 @@ LEGACY_APPS = [
     'legacyvouchers',
     'legacyweblog',
     'legacymigration', # The latter is a meta-app for migrating legacy to new data
-    'legacyauth' # Just for reference (this isn't actually an app) - legacy auth
 ]
 
 INSTALLED_APPS += map(lambda app: 'legacy.'+app, LEGACY_APPS)
@@ -229,7 +229,7 @@ djcelery.setup_loader()
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--detailed-errors',
-    '--with-color' # Colouring of output using rudolf
+    # '--with-color' # Colouring of output using rudolf
 ]
 
 SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
@@ -266,11 +266,11 @@ LOGIN_REDIRECT_URL = '/'
 # Support legacy passwords
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'legacy.legacyauth.hashers.LegacyPasswordHasher'
+    'legacyauth.hashers.LegacyPasswordHasher'
 )
 
 # Support email login
 AUTHENTICATION_BACKENDS = (
-    'legacy.legacyauth.backends.EmailBackend',
+    'legacyauth.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend'
 )
