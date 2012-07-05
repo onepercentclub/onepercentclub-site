@@ -215,7 +215,6 @@ djcelery.setup_loader()
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--detailed-errors',
-    '--with-color' # Colouring of output using rudolf
 ]
 
 SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
