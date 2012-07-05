@@ -59,11 +59,6 @@ def generate_picture_filename(instance, filename):
     return os.path.normpath(os.path.join(upload_directory, normalized_filename))
 
 
-class UserAddress(Address):
-    class Meta:
-        verbose_name_plural = "User Addresses"
-
-
 # The UserProfile class is setup as per the recommendations in the Django
 # documentation:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
@@ -94,7 +89,6 @@ class UserProfile(models.Model):
     picture = ImageField(upload_to=generate_picture_filename,
                          null=True, blank=True)
     languages = models.ManyToManyField(Language, blank=True)
-    address = models.ForeignKey(UserAddress, null=True)
     deleted = models.DateTimeField(null=True, blank=True)
 
     # In-depth profile information
@@ -128,3 +122,15 @@ def sync_user_profile(sender, instance, created, **kwargs):
         user_profile.save()
 
 post_save.connect(sync_user_profile, sender=User)
+
+
+class UserAddress(Address):
+    class AddressType(DjangoChoices):
+        home = ChoiceItem('home', label="Home")
+        other = ChoiceItem('other', label="Other")
+
+    type = models.CharField(max_length=6, blank=True, choices=AddressType.choices)
+    user_profile = models.ForeignKey(UserProfile)
+
+    class Meta:
+        verbose_name_plural = "User Addresses"

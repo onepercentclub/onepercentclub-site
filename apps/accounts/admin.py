@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
 
+class UserAddressAdmin(admin.StackedInline):
+    model = UserAddress
+    extra = 1
+
+
 class UserProfileAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,
@@ -16,7 +21,7 @@ class UserProfileAdmin(admin.ModelAdmin):
             ),
         ("Basic Profile Information",
              {'fields': ['birthdate', 'gender', 'location', 'website',
-                         'picture', 'address', 'languages', 'deleted']}
+                         'picture', 'languages', 'deleted']}
             ),
         ("In-depth Profile Information",
              {'fields': ['about', 'why', 'contribution',
@@ -24,6 +29,7 @@ class UserProfileAdmin(admin.ModelAdmin):
             ),
     ]
 
+    inlines = (UserAddressAdmin,)
     filter_horizontal = ('languages',)
     readonly_fields = ('user_link',)
 
