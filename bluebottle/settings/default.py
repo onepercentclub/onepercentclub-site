@@ -164,6 +164,7 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'compressor',
+    'legacyauth' # Just for reference (this is actually just a module, not an app)
 ]
 
 # Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
@@ -183,7 +184,8 @@ LEGACY_APPS = [
     'legacysystem',
     'legacytasks',
     'legacyvouchers',
-    'legacyweblog'
+    'legacyweblog',
+    'legacymigration', # The latter is a meta-app for migrating legacy to new data
 ]
 
 INSTALLED_APPS += map(lambda app: 'legacy.'+app, LEGACY_APPS)
@@ -225,7 +227,12 @@ djcelery.setup_loader()
 
 """ django-nose """
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-NOSE_ARGS = ['--detailed-errors', '--auto-color']
+NOSE_ARGS = [
+    '--detailed-errors',
+    # '--with-color' # Colouring of output using rudolf
+]
+
+SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
 
 
 """ django-compressor http://pypi.python.org/pypi/django_compressor """
@@ -255,3 +262,15 @@ COMPRESS_CSS_FILTERS = [
 # The default URL to send users to after login. This will be used when the
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
+
+# Support legacy passwords
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'legacyauth.hashers.LegacyPasswordHasher'
+)
+
+# Support email login
+AUTHENTICATION_BACKENDS = (
+    'legacyauth.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend'
+)

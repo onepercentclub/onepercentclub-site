@@ -36,6 +36,8 @@ bluebottle/settings/local.py
 bluebottle/settings/secret.py
 env
 
+# Documentation
 docs/model_graphs/*.pdf
 docs/model_graphs/*.dot
 docs/_build
+.idea

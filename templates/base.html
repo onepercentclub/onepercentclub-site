@@ -1,3 +1,6 @@
+{% comment %} Use url tag from Django 1.5. {% endcomment %}
+{% load url from future %}
+
 {% load compress %}<!DOCTYPE HTML>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -18,6 +21,15 @@
 </head>
 
 <body>
+
+    {% if user.is_authenticated %}
+    {{ user.username }} |
+    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
+    {% else %}
+    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">Login</a> |
+    <span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
+    {% endif %}
+
     {% block content %}{% endblock %}
 
     <script type="text/javascript">
