@@ -13,5 +13,8 @@ class Address(models.Model):
     country = CountryField()
     zip_code = models.CharField(max_length=20, blank=True)
 
+    def __unicode__(self):
+        return self.address_line1[:80]
+
     class Meta:
         abstract = True
