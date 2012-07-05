@@ -1,8 +1,11 @@
 from django.db import models
-from django_countries import CountryField
-from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField, AutoSlugField
-from djchoices import DjangoChoices, ChoiceItem
 from django.utils.translation import ugettext as _
+
+from django_countries import CountryField
+from django_extensions.db.fields import (
+    ModificationDateTimeField, CreationDateTimeField
+)
+from djchoices import DjangoChoices, ChoiceItem
 
 from apps.bluebottle_utils.models import Address
 
@@ -17,8 +20,8 @@ class Organization(models.Model):
     slug = models.CharField(max_length=255)
     description = models.TextField(blank=True)
 
-    legal_status = models.TextField(null=True)
-    """ The legal status of the organization (e.g. Foundation) """
+    legal_status = models.TextField(null=True, blank=True,
+                                    help_text="The legal status of the organization (e.g. Foundation)")
 
     phone_number = models.CharField(max_length=255, blank=True)
     email = models.CharField(max_length=255, blank=True)
@@ -27,7 +30,7 @@ class Organization(models.Model):
 
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
-    deleted = models.DateTimeField(null=True)
+    deleted = models.DateTimeField(null=True, blank=True)
 
     partner_organisations = models.TextField(blank=True)
 
@@ -51,15 +54,15 @@ class OrganizationMember(models.Model):
     """ Members from a Organization """
 
     class MemberFunctions(DjangoChoices):
-        owner = ChoiceItem('owner', label=_('owner'))
-        admin = ChoiceItem('admin', label=_('admin'))
-        editor = ChoiceItem('editor', label=_('editor'))
-        member = ChoiceItem('member', label=_('member'))
+        owner = ChoiceItem('owner', label=_("Owner"))
+        admin = ChoiceItem('admin', label=_("Admin"))
+        editor = ChoiceItem('editor', label=_("Editor"))
+        member = ChoiceItem('member', label=_("Member"))
 
     organization = models.ForeignKey(Organization)
     member = models.ForeignKey('auth.User')
-    function = models.CharField(max_length=20, choices=MemberFunctions.choices)
-    """ Function might determine Role later on """
+    function = models.CharField(max_length=20, choices=MemberFunctions.choices,
+                                help_text="Function might determine Role later on.")
 
 
 class OrganizationAddress(Address):
