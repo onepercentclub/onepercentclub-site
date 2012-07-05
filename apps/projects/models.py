@@ -3,7 +3,9 @@ from django.utils.translation import ugettext as _
 
 from django_countries import CountryField
 from djchoices import DjangoChoices, ChoiceItem
-from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField, AutoSlugField
+from django_extensions.db.fields import (
+    ModificationDateTimeField, CreationDateTimeField
+)
 
 
 class Project(models.Model):
