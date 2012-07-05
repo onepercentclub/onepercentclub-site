@@ -1,11 +1,14 @@
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 from django_countries import CountryField
 from djchoices import DjangoChoices, ChoiceItem
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
 )
+
+from sorl.thumbnail import ImageField
 
 
 class Project(models.Model):
@@ -20,25 +23,30 @@ class Project(models.Model):
     slug = models.SlugField(max_length=100)
     title = models.CharField(max_length=255)
 
-    photo = models.CharField(max_length=255, blank=True)
-    """ Main project picture """
+    image = ImageField(max_length=255, blank=True,
+        upload_to='project_images/',
+        help_text=_('Main project picture'))
 
     organization = models.ForeignKey('organizations.Organization')
     owner = models.ForeignKey('auth.User')
 
-    phase = models.CharField(max_length=20, choices=ProjectPhases.choices)
-    """ Phase this project is in right now """
+    phase = models.CharField(max_length=20, choices=ProjectPhases.choices,
+        help_text=_('Phase this project is in right now.')
+    )
 
-    created = CreationDateTimeField()
-    """ When was this project created """
+    created = CreationDateTimeField(
+        help_text=_('When was this project created')
+    )
 
     country = CountryField(null=True)
     latitude = models.CharField(max_length=30)
     longitude = models.CharField(max_length=30)
     """ Location of this project """
 
-    project_language = models.CharField(max_length=6)
-    """ Main language (now 'en' or 'nl') """
+    project_language = models.CharField(max_length=6,
+        choices=settings.LANGUAGES,
+        help_text=_('Project main language')
+    )
 
     def __unicode__(self):
         if self.title:
@@ -87,17 +95,38 @@ class PlanPhase(AbstractPhase):
         waiting = ChoiceItem('waiting', label=_('waiting'))
         completed = ChoiceItem('completed', label=_('completed'))
 
-    money_total = models.DecimalField(max_digits=9, decimal_places=2)
-    """ Amount needed for this project (total) """
-    money_asked = models.DecimalField(max_digits=9, decimal_places=2)
-    """ Amount asked from this website """
+    money_total = models.DecimalField(max_digits=9, decimal_places=2,
+        help_text=_('Total amount needed for this project.')
+    )
+    money_asked = models.DecimalField(max_digits=9, decimal_places=2,
+        help_text=_('Amount asked for from this website.')
+    )
 
-    what = models.TextField(_("What do you want to do?"), blank=True)
-    goal = models.TextField(_("What is your goal?"), blank=True)
-    who = models.TextField(_("Who are you helping?"), blank=True)
-    how = models.TextField(_("In which way?"), blank=True)
-    sustainability = models.TextField(_("How can next generations profit from this?"), blank=True)
-    target = models.TextField(_("What is your target?"), blank=True)
+    what = models.TextField(
+        blank=True,
+        help_text=_("What do you want to do?")
+    )
+    goal = models.TextField(
+        blank=True,
+        help_text=_("What is your goal?")
+    )
+    who = models.TextField(
+        blank=True,
+        help_text=_("Who are you helping?")
+    )
+    how = models.TextField(
+        blank=True,
+        help_text=_("In which way?")
+    )
+    sustainability = models.TextField(
+        blank=True,
+        help_text=_("How can next generations profit from this?")
+    )
+    target = models.TextField(
+        blank=True,
+        help_text=_("What is your target?")
+    )
+
     needed_expertise = models.TextField(blank=True)
     needed_volunteers = models.TextField(blank=True)
 
@@ -117,11 +146,26 @@ class ActPhase(AbstractPhase):
 class ResultsPhase(AbstractPhase):
     """ ResultsPhase: Tell about how things worked out """
 
-    what = models.TextField(_("What and how?"), blank=True)
-    tips = models.TextField(_("Tips and tricks?"), blank=True)
-    change = models.TextField(_("What has changed for the target group?"), blank=True)
-    financial = models.TextField(_("How was the money spend?"), blank=True)
-    next = models.TextField(_("What's next?"), blank=True)
+    what = models.TextField(
+        help_text=_("What and how?"),
+        blank=True
+    )
+    tips = models.TextField(
+        help_text=_("Tips and tricks?"),
+        blank=True
+    )
+    change = models.TextField(
+        help_text=_("What has changed for the target group?"),
+        blank=True
+    )
+    financial = models.TextField(
+        help_text=_("How was the money spend?"),
+        blank=True
+    )
+    next = models.TextField(
+        help_text=_("What's next?"),
+        blank=True
+    )
     """ Five questions that get asked after the project is done """
 
 
@@ -214,7 +258,9 @@ class Message(models.Model):
     deleted = models.DateTimeField(null=True)
 
     def __unicode__(self):
-        return str(self.created.date()) + ' : ' + self.description[:80] + '...'
+        return '%s : %s...' % (
+            self.created.date(), self.description[:80]
+        )
 
     class Meta:
         ordering = ['-created']
