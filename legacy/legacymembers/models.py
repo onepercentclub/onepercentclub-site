@@ -36,33 +36,37 @@ class Member(models.Model):
     activated = models.BooleanField()
     ignore_activity = models.SmallIntegerField()
     validated = models.NullBooleanField(null=True, blank=True)
-    hash = models.CharField(max_length=255, blank=True)
+    # hash = models.CharField(max_length=255, blank=True)
+    # Hashes will not be used and must be thrown away
 
     class Meta:
         db_table = u'mem_members'
         managed = False
 
-    def fullname(self):
+    def __unicode__(self):
         """ return first + lastname or username if no profile set """
-        if self.profile():
-            return self.profile().fullname()
-        return self.username
 
+        return '%s: %s' % (self.pk, self.username)
+
+    @property
     def profile(self):
         """ Try to load a profile or return None """
         if self.profile_set.count():
             return self.profile_set.all()[0];
         return None
 
+    @property
     def donations(self):
         """ Get all legacydonations (successful or not) """
         donations = self.donation_set.all()
         return donations
 
+    @property
     def donation_count(self):
         """ The number of succesful donation by this member """
         return self.donation_set.filter(status='closed').count()
 
+    @property
     def project_count(self):
         """ The number of projects this member is supporting """
         """ DOES NOT WORK YET """
@@ -112,10 +116,11 @@ class Profile(models.Model):
         managed = False
 
     def __unicode__(self):
-        return self.firstname
+        """ This is the same as a member. """
+        return unicode(self.member)
 
     def fullname(self):
-        return self.firstname + ' ' + self.lastname
+        return '%s %s' % (self.firstname, self.lastname)
 
 
 class Activation(models.Model):

@@ -11,10 +11,11 @@
 #
 # Which apps are graphed and the way they are grouped can be condigured in `model_graphs/Makefile`.
 
-PYTHON = ../env/bin/python
+PROJECT_ROOT = ../..
+PYTHON = ${PROJECT_ROOT}/env/bin/python
 
 GRAPH_DIR = model_graphs
-MAKEGRAPH = ${PYTHON} ../manage.py graph_models -e -g
+MAKEGRAPH = ${PYTHON} ${PROJECT_ROOT}/manage.py graph_models -e -g
 DOTRENDER = dot
 VERSION = $(shell git rev-parse HEAD | head -c 5)
 DATE = $(shell date)

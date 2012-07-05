@@ -6,7 +6,7 @@ PROJECT_ROOT  = ..
 PYTHON        = ${PROJECT_ROOT}/env/bin/python
 
 SPHINXOPTS    =
-SPHINXBUILD   = ${PYTHON} $(shell which sphinx-build)
+SPHINXBUILD   = env PYTHONPATH=${PROJECT_ROOT} DJANGO_SETTINGS_MODULE=bluebottle.settings ${PYTHON} $(shell which sphinx-build)
 PAPER         = a4
 BUILDDIR      = _build
 
