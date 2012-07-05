@@ -5,7 +5,6 @@ django_debug_toolbar
 raven # Sentry client (remote logging)
 django-celery # Asynchronous task server
 django-nose # Django Nose integration (for test suites)
-rudolf # Nice coloring for Nose
 
 # http://pypi.python.org/pypi/django-countries/1.2
 django-countries==1.2
