@@ -162,6 +162,8 @@ INSTALLED_APPS = [
     # bluebottle apps
     'apps.bluebottle_utils',
     'apps.accounts',
+    'apps.organizations',
+    'apps.projects',
 
     # 3rd party apps
     'django_extensions',
@@ -204,6 +206,7 @@ LOGGING = {
         },
     }
 }
+
 
 
 """ djcelery """
@@ -251,4 +254,3 @@ LOGIN_REDIRECT_URL = '/'
 # user profile setting as described here:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-
