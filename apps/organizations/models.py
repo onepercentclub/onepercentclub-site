@@ -24,7 +24,7 @@ class Organization(models.Model):
                                     help_text="The legal status of the organization (e.g. Foundation)")
 
     phone_number = models.CharField(max_length=255, blank=True)
-    email = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(blank=True)
 
     website = models.CharField(max_length=255, blank=True)
 

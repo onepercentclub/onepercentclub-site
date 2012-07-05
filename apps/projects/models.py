@@ -174,7 +174,7 @@ class Link(models.Model):
     """ Links (urls) connected to a Project """
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=255)
-    url = models.CharField(max_length=255)
+    url = models.URLField()
     description = models.TextField(blank=True)
     ordering = models.IntegerField()
     created = CreationDateTimeField()
