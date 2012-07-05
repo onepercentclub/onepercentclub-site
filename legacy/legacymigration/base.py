@@ -33,6 +33,10 @@ class MigrateModel(object):
                 # True means just copy the field
                 mapping = lambda instance, field: {field: getattr(instance, field)}
 
+            elif mapping == None:
+                # None means: throw away the data
+                mapping = lambda instance, field: {}
+
             elif isinstance(mapping, basestring):
                 # A string can be passed to map to a different field
                 new_field = mapping
@@ -171,6 +175,16 @@ class MigrateModel(object):
         from_qs = self.list_from()
 
         counter = 0
+
+        # Check whether all fields are properly mapped and issue
+        # a warning if this is not the case.
+        from_fields = from_qs.model._meta.get_all_field_names()
+
+        for from_field in from_fields:
+            if from_field not in self.field_mapping:
+                logger.warning("Field '%s' is not mapped and will be thrown away. To get rid of this warning, please map the field to `None` to throw away the data.",
+                    from_field
+                )
 
         # Execute all of this within a single transaction
         with transaction.commit_on_success():

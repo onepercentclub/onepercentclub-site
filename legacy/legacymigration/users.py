@@ -39,6 +39,9 @@ class MigrateMemberAuth(MigrateModel):
 
         success = super(MigrateMemberAuth, self).test_single(from_instance, to_instance)
 
+
+        # TODO: Test migration of activated
+
         if from_instance.username[:30] != to_instance.username:
             logger.error('No correspondence in username between %s and %s',
                 repr(from_instance), repr(to_instance)
@@ -173,6 +176,21 @@ class MigrateMemberAuth(MigrateModel):
 
             counter += 1
 
+    def migrate_activated(instance, fieldname):
+        """
+        Make sure that deleted users cannot login, as well as unactivated users.
+        """
+        activated = getattr(instance, fieldname)
+        assert instance.activated == activated
+
+        deleted = instance.deleted
+
+        # Deleted users should not be able to log in
+        if deleted:
+            activated = False
+
+        return {'is_active': activated}
+
 
     from_model = Member
     to_model = User
@@ -191,5 +209,39 @@ class MigrateMemberAuth(MigrateModel):
         'updated': lambda i, f: {'last_login': localize_datetime(i, f)},
         # A string can be passed to map to a different field
 
-        'admin': migrate_admin
+        'admin': migrate_admin,
+        'activated':  migrate_activated,
+
+        # Explcitly map stuff to /dev/null
+        'accepte_user': None,
+        'activation': None,
+        'alert': None,
+        'batch': None,
+        'deleted': None, # Mapped by migrate_activated
+        'document': None,
+        'donation': None,
+        'ignore_activity': None,
+        'invitee': None,
+        'inviter': None,
+        'language': None,
+        'login': None,
+        'membertag': None,
+        'organizationmember': None,
+        'passwordrequest': None,
+        'paymentcluster': None,
+        'portfolioline': None,
+        'project': None,
+        'project_message_set': None,
+        'rating': None,
+        'receiver': None,
+        'reported': None,
+        'sender': None,
+        'task': None,
+        'taskmember': None,
+        'taskmessage': None,
+        'testimonial': None,
+        'type': None,
+        'validated': None,
+        'voucher': None,
+        'weblog_message_set': None
     }
