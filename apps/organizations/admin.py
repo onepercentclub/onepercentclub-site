@@ -1,5 +1,8 @@
-from apps.organizations.models import Organization, OrganizationAddress
 from django.contrib import admin
+
+from apps.organizations.models import (
+    Organization, OrganizationAddress, OrganizationMember
+)
 
 
 class OrganizationAddressAdmin(admin.StackedInline):
@@ -12,3 +15,5 @@ class OrganizationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Organization, OrganizationAdmin)
+
+admin.site.register(OrganizationMember)
