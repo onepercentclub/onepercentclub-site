@@ -32,6 +32,7 @@ class Language(models.Model):
         return dict(LANGUAGES)[self.language]
 
 
+""" TODO: Make this generic for all user file uploads. """
 def generate_picture_filename(instance, filename):
     """
     Creates a random directory and file name for uploaded pictures.
@@ -86,7 +87,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=6, blank=True, choices=Gender.choices)
     location = models.CharField(max_length=100, blank=True)
     website = models.URLField(blank=True, max_length=255)
-    picture = ImageField(upload_to=generate_picture_filename,
+    picture = ImageField(upload_to='profiles/',
                          null=True, blank=True)
     languages = models.ManyToManyField(Language, blank=True)
     deleted = models.DateTimeField(null=True, blank=True)
