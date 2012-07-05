@@ -166,7 +166,7 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'compressor',
-    'legacyauth' # Just for reference (this is actually just a module, not an app)
+    'legacyauth', # Just for reference (this is actually just a module, not an app)
     'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
 
