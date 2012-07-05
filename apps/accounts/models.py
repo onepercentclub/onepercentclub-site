@@ -60,7 +60,8 @@ def generate_picture_filename(instance, filename):
 
 
 class UserAddress(Address):
-    pass
+    class Meta:
+        verbose_name_plural = "User Addresses"
 
 
 # The UserProfile class is setup as per the recommendations in the Django
@@ -93,7 +94,7 @@ class UserProfile(models.Model):
     picture = ImageField(upload_to=generate_picture_filename,
                          null=True, blank=True)
     languages = models.ManyToManyField(Language, blank=True)
-    address = models.ForeignKey(Address, null=True)
+    address = models.ForeignKey(UserAddress, null=True)
     deleted = models.DateTimeField(null=True, blank=True)
 
     # In-depth profile information
@@ -109,6 +110,9 @@ class UserProfile(models.Model):
     @property
     def get_username(self):
         return self.user.username
+
+    class Meta:
+        verbose_name_plural = "User Profiles"
 
 
 # Ensures that UserProfile and User instances stay in sync.
