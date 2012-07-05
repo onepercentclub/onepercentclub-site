@@ -20,8 +20,8 @@ class Project(models.Model):
         act = ChoiceItem('act', label=_('act'))
         results = ChoiceItem('results', label=_('results'))
 
-    slug = models.SlugField(max_length=100)
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=100)
 
     image = ImageField(max_length=255, blank=True,
         upload_to='project_images/',

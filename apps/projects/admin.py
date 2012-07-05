@@ -28,6 +28,8 @@ class ResultsPhaseInline(admin.StackedInline):
 
 
 class ProjectAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
+
     inlines = [BudgetInline, IdeaPhaseInline,
                PlanPhaseInline, ActPhaseInline, ResultsPhaseInline]
 

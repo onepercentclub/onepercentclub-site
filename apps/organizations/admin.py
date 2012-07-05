@@ -11,6 +11,8 @@ class OrganizationAddressAdmin(admin.StackedInline):
 
 
 class OrganizationAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
+
     inlines = (OrganizationAddressAdmin,)
 
 

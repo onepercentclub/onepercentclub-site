@@ -17,7 +17,8 @@ class Organization(models.Model):
     """
 
     title = models.CharField(max_length=255)
-    slug = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=100)
+
     description = models.TextField(blank=True)
 
     legal_status = models.TextField(null=True, blank=True,
