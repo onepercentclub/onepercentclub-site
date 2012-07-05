@@ -20,7 +20,7 @@ The `migrate_all` method will:
 4. After having migrated all the objects, run `test_multiple` on the QuerySet with legacy objects, which (by default) does bi-directional correspondence tests and calls `test_single` on every pair of migrated objects.
 5. If `test_multiple` returns `True`, it will commit the changes to the database (all operations run within a single transaction).
 
-Field mappins
+Field mappings
 **************
 Field mappings from the old model to the new model, as executed by the `copy_fields` method, can be specified in three
 different ways:
