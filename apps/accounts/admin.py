@@ -1,9 +1,11 @@
-from .models import Language, UserAddress, UserProfile
-from django.utils.safestring import mark_safe
 from django.core import urlresolvers
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
+
+from .models import Language, UserAddress, UserProfile
 
 
 class UserAddressAdmin(admin.StackedInline):
@@ -37,7 +39,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     def user_link(self, obj):
         change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.user.id,))
         return mark_safe('<a href="%s">%s</a>' % (change_url, obj.user.username))
-    user_link.short_description = "User"
+    user_link.short_description = _("User")
 
 admin.site.register(UserProfile, UserProfileAdmin)
 
@@ -51,15 +53,11 @@ class CustomUserAdmin(UserAdmin):
         profile = obj.get_profile()
         change_url = urlresolvers.reverse('admin:accounts_userprofile_change', args=(profile.id,))
         return mark_safe('<a href="%s">%s</a>' % (change_url, obj.username))
-    user_profile_link.short_description = "User Profile"
+    user_profile_link.short_description = _("User Profile")
 
-
-# Admin registrations
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
 # Hopefully this model will be pre-populated with data and we won't need an
 # Admin page for it.
 admin.site.register(Language)
-
-admin.site.register(UserAddress)

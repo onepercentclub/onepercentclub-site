@@ -2,9 +2,12 @@ import os
 import random
 import string
 
+from django.conf import settings, global_settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
+from django.utils.translation import ugettext_lazy as _
+
 from django_extensions.db.fields import AutoSlugField
 from sorl.thumbnail import ImageField
 from djchoices.choices import DjangoChoices, ChoiceItem
@@ -12,24 +15,17 @@ from djchoices.choices import DjangoChoices, ChoiceItem
 from apps.bluebottle_utils.models import Address
 
 
-# TODO Add a list of Languages with translations.
-# list of languages here but it seems like a personal project:
-# https://github.com/exalted/djangomissing
-LANGUAGES = (
-    ('en', "English"),
-    ('fr', "French"),
-    ('nl', "Dutch"),
-)
-
-
 class Language(models.Model):
     """
-    A spoken / written Language.
+    A Language that user can speak write. This is separate from the user
+    interface language.
     """
-    language = models.CharField(max_length=2, unique=True, choices=LANGUAGES)
+    # TODO Pre-populate this model with the languages from global_settings.
+    language = models.CharField(max_length=5, unique=True,
+                                choices=global_settings.LANGUAGES)
 
     def __unicode__(self):
-        return dict(LANGUAGES)[self.language]
+        return self.get_language_display()
 
 
 """ TODO: Make this generic for all user file uploads. """
@@ -43,20 +39,19 @@ def generate_picture_filename(instance, filename):
     when a directory has thousands of files.
 
     An example return value is of this method is:
-        'profiles/tw/s9ea4eqaj37xnu24svp2vwndsytzysa.jpg'
+        'profiles/tw/tws9ea4eqaj37xnu24svp2vwndsytzysa.jpg'
     """
     # Create the upload directory string.
     char_set = string.ascii_lowercase + string.digits
     random_string = ''.join(random.choice(char_set) for i in range(33))
-    dir_length = 2
-    upload_directory = os.path.join('profiles', random_string[0:dir_length])
+    upload_directory = os.path.join('profiles', random_string[0:2])
 
     # Get the file extension from the original filename.
     original_filename = os.path.basename(filename)
     file_extension = os.path.splitext(original_filename)[1]
 
     # Create the normalized path.
-    normalized_filename = random_string[dir_length:] + file_extension
+    normalized_filename = random_string + file_extension
     return os.path.normpath(os.path.join(upload_directory, normalized_filename))
 
 
@@ -68,9 +63,9 @@ class UserProfile(models.Model):
     Additional information about a user.
     """
     class Gender(DjangoChoices):
-        male = ChoiceItem('male', label="Male")
-        female = ChoiceItem('female', label="Female")
-        other = ChoiceItem('other', label="Other")
+        male = ChoiceItem('male', label=_("Male"))
+        female = ChoiceItem('female', label=_("Female"))
+        other = ChoiceItem('other', label=_("Other"))
 
     # The Django User model
     user = models.OneToOneField(User)
@@ -78,17 +73,17 @@ class UserProfile(models.Model):
                          populate_from=('get_username',), overwrite=True)
 
     # Settings
-    # TODO This should show a list of all the translations we have.
-    interface_language = models.CharField(max_length=5)
-    newsletter = models.BooleanField('Send Newsletter', default=False)
+    interface_language = models.CharField(max_length=5,
+                                          choices=settings.LANGUAGES)
+    newsletter = models.BooleanField(_("Send Newsletter"), default=False)
 
     # Basic profile information
     birthdate = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=6, blank=True, choices=Gender.choices)
     location = models.CharField(max_length=100, blank=True)
     website = models.URLField(blank=True, max_length=255)
-    picture = ImageField(upload_to='profiles/',
-                         null=True, blank=True)
+    # TODO Use generate_picture_filename (or something) for upload_to
+    picture = ImageField(upload_to='profiles', null=True, blank=True)
     languages = models.ManyToManyField(Language, blank=True)
     deleted = models.DateTimeField(null=True, blank=True)
 
@@ -107,7 +102,7 @@ class UserProfile(models.Model):
         return self.user.username
 
     class Meta:
-        verbose_name_plural = "User Profiles"
+        verbose_name_plural = _("User Profiles")
 
 
 # Ensures that UserProfile and User instances stay in sync.
@@ -127,11 +122,12 @@ post_save.connect(sync_user_profile, sender=User)
 
 class UserAddress(Address):
     class AddressType(DjangoChoices):
-        home = ChoiceItem('home', label="Home")
-        other = ChoiceItem('other', label="Other")
+        home = ChoiceItem('home', label=_("Home"))
+        other = ChoiceItem('other', label=_("Other"))
 
-    type = models.CharField(max_length=6, blank=True, choices=AddressType.choices)
+    type = models.CharField(max_length=6, blank=True,
+                            choices=AddressType.choices)
     user_profile = models.ForeignKey(UserProfile)
 
     class Meta:
-        verbose_name_plural = "User Addresses"
+        verbose_name_plural = _("User Addresses")

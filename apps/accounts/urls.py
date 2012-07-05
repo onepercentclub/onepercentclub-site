@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+
 from .views import UserProfileList, UserProfileDetail
 
 # TODO Add 'members' as a setting option.
