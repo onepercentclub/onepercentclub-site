@@ -107,8 +107,8 @@ Example migration (users)
 
         # This is the real cheese
         field_mapping = {
-            'id': None, # None means just copy the field
-            'email': None,
+            'id': True, # True means just copy the field
+            'email': None, # None means ignore the field
 
             'username': None,
             'profile': migrate_profile, # Execute a named function
