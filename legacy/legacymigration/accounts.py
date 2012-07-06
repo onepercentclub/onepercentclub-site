@@ -39,7 +39,7 @@ class ActivatedMapping(Mapping):
         old_deleted = from_instance.deleted
         new_activated = to_instance.is_active
 
-        return (old_deleted or not old_activated) == new_activated
+        return not old_deleted and old_activated == new_activated
 
 
 class AdminMapping(Mapping):
@@ -60,13 +60,13 @@ class AdminMapping(Mapping):
         return {}
 
     def check(self, from_instance, to_instance, from_field):
-        admin = getattr(from_instance, from_field)
+        old_value = getattr(from_instance, from_field)
 
         superuser = to_instance.is_superuser
         staff = to_instance.is_staff
 
-        return (superuser and admin == 1) or (staff and admin > 1) or \
-            not (superuser or admin)
+        return (superuser and old_value == 1) or (staff and old_value > 1) or \
+            not (superuser or old_value)
 
 
 class MigrateMemberAuth(MigrateModel):
