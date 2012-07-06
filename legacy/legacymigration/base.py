@@ -3,6 +3,8 @@ logger = logging.getLogger(__name__)
 
 from django.db import transaction
 
+from .mappings import IdentityMapping, NullMapping, RelatedObjectMapping
+
 
 class MigrateModel(object):
     """
@@ -12,7 +14,35 @@ class MigrateModel(object):
     from_db = 'legacy'
     to_db = 'default'
 
-    def copy_fields(self, from_instance, to_instance):
+    def get_mapping(self, field):
+        """
+        Get the mapping object for the specified field from `field_mapping`.
+        """
+        mapping = self.field_mapping.get(field)
+
+        if mapping == True:
+            # True means just copy the field
+            mapping = IdentityMapping()
+
+        elif mapping == None:
+            # None means: throw away the data
+            mapping = NullMapping()
+
+        elif isinstance(mapping, basestring):
+            # A string can be passed to map to a different field
+            mapping = IdentityMapping(mapping)
+
+        elif isinstance(mapping, dict):
+            # Instance maps a related object to a destination object
+            mapping = RelatedObjectMapping(mapping)
+
+        # By this time mapping should be a callable yielding a dict
+        assert callable(mapping), \
+            'No forward mapping defined for mapping %s' % mapping
+
+        return mapping
+
+    def map_fields(self, from_instance, to_instance):
         """
         Copy all fields from one object to another.
 
@@ -28,28 +58,15 @@ class MigrateModel(object):
 
         """
 
-        for field, mapping in self.field_mapping.iteritems():
-            if mapping == True:
-                # True means just copy the field
-                mapping = lambda instance, field: {field: getattr(instance, field)}
+        for field in self.field_mapping.iterkeys():
+            # Get the mapping
+            mapping = self.get_mapping(field)
 
-            elif mapping == None:
-                # None means: throw away the data
-                mapping = lambda instance, field: {}
-
-            elif isinstance(mapping, basestring):
-                # A string can be passed to map to a different field
-                new_field = mapping
-                mapping = lambda instance, field: {new_field: getattr(instance, field)}
-
-            # By this time mapping should be a callable yielding a dict
-            assert callable(mapping)
-
-            # Mapping functions have the signature mappping(value, instance)
             value_dict = mapping(from_instance, field)
 
             assert isinstance(value_dict, dict), \
-                'Mapping does not return a dict.'
+                'Mapping %s returned %s instead of a dict.' % \
+                    (mapping, value_dict)
 
             for (new_field, new_value) in value_dict.iteritems():
                 assert isinstance(new_field, basestring)
@@ -111,17 +128,34 @@ class MigrateModel(object):
         except self.from_model.DoesNotExist:
             return None
 
+    def test_map_fields(self, from_instance, to_instance):
+        """ Test mapping of fields. """
+
+        success = True
+
+        for from_field in self.field_mapping.iterkeys():
+            # Get the mapping
+            mapping = self.get_mapping(from_field)
+
+            success = \
+                not mapping.check(from_instance, to_instance, from_field)
+
+        return success
+
+
     def test_single(self, from_instance, to_instance):
         """
         Test the migration for a single object. Override this.
 
         Returns True on success, False on error.
         """
+        assert from_instance
+        assert to_instance
 
         logger.debug("Testing migration of '%s' to '%s'",
             repr(from_instance), repr(to_instance))
 
-        return True
+        return self.test_map_fields(from_instance, to_instance)
 
     def test_multiple(self, from_qs):
         """
@@ -146,9 +180,11 @@ class MigrateModel(object):
             from_instance = self.get_from(to_instance)
 
             if not from_instance:
-                logger.error('No backwards correspondence to %s.',
+                logger.error('No backwards correspondence to %s, skipping tests for this object.',
                     repr(to_instance))
                 success = False
+
+                continue
 
             if not from_instance in from_qs:
                 logger.error('Correspondence %s not found in source queryset.',
@@ -166,7 +202,7 @@ class MigrateModel(object):
         logger.debug("Migrating '%s' to '%s'",
             repr(from_instance), repr(to_instance))
 
-        self.copy_fields(from_instance, to_instance)
+        self.map_fields(from_instance, to_instance)
 
     def migrate_all(self):
         """ Migrate all the objects returned by list_from(). """

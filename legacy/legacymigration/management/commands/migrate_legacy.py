@@ -4,7 +4,7 @@ from ipdb import launch_ipdb_on_exception
 
 from django.core.management.base import BaseCommand
 
-from ...users import MigrateMemberAuth
+from ...accounts import MigrateMemberAuth
 
 
 class Command(BaseCommand):

@@ -1,0 +1,3 @@
+MIGRATE_APPS = (
+    'accounts',
+)
