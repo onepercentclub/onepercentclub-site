@@ -23,4 +23,5 @@ class MigrateProfile(MigrateModel):
         return {'member__pk': other_object.user.pk}
 
     field_mapping = {
+        'member_id': 'user_id'
     }
