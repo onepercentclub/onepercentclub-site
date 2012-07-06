@@ -93,7 +93,15 @@ class MigrateModel(object):
         # Default is to return all objects
         return self.to_model.objects.using(self.to_db).all()
 
-    def get_correspondence_args(self, other_object):
+    def get_to_correspondence(self, other_object):
+        """
+        Return the kwargs used for finding correspondence between one object
+        and another. By default, correspondence by PK is used.
+        """
+
+        return {'pk': other_object.pk}
+
+    def get_from_correspondence(self, other_object):
         """
         Return the kwargs used for finding correspondence between one object
         and another. By default, correspondence by PK is used.
@@ -109,7 +117,7 @@ class MigrateModel(object):
 
         # Default is to look up by id
         try:
-            correspondence_args = self.get_correspondence_args(from_instance)
+            correspondence_args = self.get_to_correspondence(from_instance)
 
             return self.list_to().get(**correspondence_args)
 
@@ -124,7 +132,7 @@ class MigrateModel(object):
 
         # Default is to look up by id
         try:
-            correspondence_args = self.get_correspondence_args(to_instance)
+            correspondence_args = self.get_from_correspondence(to_instance)
 
             return self.list_from().get(**correspondence_args)
 
