@@ -3,6 +3,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
+from django.db.models import Q
+
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
@@ -94,6 +96,7 @@ class MigrateMemberAuth(MigrateModel):
         success = super(MigrateMemberAuth, self).test_multiple(from_qs)
 
         # Now, test a bunch of users
+        # (these users have been manually added for testing purposes)
         test_users = (
             ('usermigrationtest2', 'pohji8'), # Activated user
             ('mathijs@visualspace.nl', 'pohji8'), # Activated user usermigrationtest2
@@ -119,12 +122,17 @@ class MigrateMemberAuth(MigrateModel):
 
         # type_id = 2. Only migrate normal 'member' accounts.
         # Let's migrate 'organization', 'company' and 'school' accounts later.
-        qs = qs.filter(type_id=2)
+        qs = qs.filter(type_id__gt=1)
 
         # Don't migrate users with username 'guest' and 'weg'.
         # Users 'weg' should be deleted at some point.
         # Users 'guest' should be turned into 'guest' users.
         qs = qs.exclude(username='guest').exclude(username='weg')
+
+        # Exclude all Loek's accounts that are not Loek himself
+        qs = qs.exclude(
+            Q(email='loek@1procentclub.nl') & ~Q(username='gannetson')
+        )
 
         # Include profile in query, speeding it up a bit
         qs.select_related('profile')
