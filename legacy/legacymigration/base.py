@@ -148,8 +148,11 @@ class MigrateModel(object):
             # Get the mapping
             mapping = self.get_mapping(from_field)
 
-            success = \
-                not mapping.check(from_instance, to_instance, from_field)
+            if not mapping.check(from_instance, to_instance, from_field):
+                logger.error("Mapping check from '%s' to '%s' for field '%s' failed",
+                    repr(from_instance), repr(to_instance), from_field)
+
+                success = False
 
         return success
 
@@ -179,7 +182,9 @@ class MigrateModel(object):
 
         success = True
 
-        # Test bi-directional correspondance
+        # Test bi-directional correspondence
+        logger.info('Testing bi-drectional correspondence.')
+
         for from_instance in from_qs:
             if not self.get_to(from_instance):
                 logger.error('No forwards correspondence from %s',
@@ -187,23 +192,63 @@ class MigrateModel(object):
 
                 success = False
 
+        # Make sure we have the same number of source and destination objects
+        from_count = self.list_from().count()
+        to_count = self.list_to().count()
+        if from_count != to_count:
+            logger.error(
+                'Source queryset contains %d objects while destination queryset contains %d',
+                from_count, to_count
+            )
+
+            success = False
+
+        # Do per-object checks
+        counter = 0
+        errors = 0
+
         for to_instance in self.list_to():
+            check_success = True
+
             from_instance = self.get_from(to_instance)
 
-            if not from_instance:
-                logger.error('No backwards correspondence to %s, skipping tests for this object.',
-                    repr(to_instance))
+            if from_instance:
+                logger.debug(
+                    "Backwards correspondence found from '%s' to '%s'.",
+                    repr(from_instance), repr(to_instance)
+                )
+
+                if from_instance in from_qs:
+                    if not self.test_single(from_instance, to_instance):
+                        check_success = False
+
+                else:
+                    logger.error(
+                        'Correspondence %s not found in source queryset.',
+                        repr(from_instance)
+                    )
+
+                    check_success = False
+
+            else:
+                logger.error(
+                    'No backwards correspondence to %s, skipping tests for this object.',
+                    repr(to_instance)
+                )
+
+                check_success = False
+
+            counter += 1
+
+            if not check_success:
+                errors += 1
                 success = False
 
-                continue
+            # Print a progress message very 10 objects
+            if (counter % 50) == 0:
+                logger.info('%d objects tested', counter)
 
-            if not from_instance in from_qs:
-                logger.error('Correspondence %s not found in source queryset.',
-                    repr(from_instance))
-                success = False
-
-            if not self.test_single(from_instance, to_instance):
-                success = False
+        logger.info('%d objects tested, %d fails', counter, errors)
 
         return success
 
@@ -260,7 +305,5 @@ class MigrateModel(object):
             if not self.test_multiple(from_qs):
                 raise Exception('Integrity tests failed, not committing changes.')
 
-        logger.info('Migration %s complete.', self.__class__.__name__)
         logger.info('%d objects migrated', counter)
-
-        logger.info("Migration '<%s>' done", repr(self))
+        logger.info('Migration %s complete.', self.__class__.__name__)
