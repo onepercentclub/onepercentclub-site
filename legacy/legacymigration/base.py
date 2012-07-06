@@ -14,6 +14,9 @@ class MigrateModel(object):
     from_db = 'legacy'
     to_db = 'default'
 
+    def __repr__(self):
+        return self.__class__.__name__
+
     def get_mapping(self, field):
         """
         Get the mapping object for the specified field from `field_mapping`.
@@ -207,6 +210,8 @@ class MigrateModel(object):
     def migrate_all(self):
         """ Migrate all the objects returned by list_from(). """
 
+        logger.info("Starting '<%s>'", repr(self))
+
         # Grab a qs of object to migrate
         from_qs = self.list_from()
 
@@ -249,3 +254,5 @@ class MigrateModel(object):
 
         logger.info('Migration %s complete.', self.__class__.__name__)
         logger.info('%d objects migrated', counter)
+
+        logger.info("Migration '<%s>' done", repr(self))
