@@ -90,7 +90,7 @@ class UserProfile(models.Model):
     # In-depth profile information
     about = models.TextField(blank=True)
     why = models.TextField(blank=True)
-    contribution = models.CharField(max_length=255, blank=True)
+    contribution = models.TextField(blank=True)
     availability = models.CharField(max_length=255, blank=True)
     working_location = models.CharField(max_length=255, blank=True)
 
