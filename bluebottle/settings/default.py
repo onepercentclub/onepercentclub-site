@@ -119,9 +119,14 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Browsers will block our pages from loading in an iframe no matter which site
+# made the request. This setting can be overridden on a per response or a per
+# view basis with the @xframe decorators.
+X_FRAME_OPTIONS = 'DENY'
 
 TEMPLATE_CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',
