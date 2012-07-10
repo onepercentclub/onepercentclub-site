@@ -9,8 +9,8 @@ from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 
 from django_extensions.db.fields import AutoSlugField
-from sorl.thumbnail import ImageField
 from djchoices.choices import DjangoChoices, ChoiceItem
+from sorl.thumbnail import ImageField
 
 from apps.bluebottle_utils.models import Address
 
@@ -53,6 +53,11 @@ def generate_picture_filename(instance, filename):
     # Create the normalized path.
     normalized_filename = random_string + file_extension
     return os.path.normpath(os.path.join(upload_directory, normalized_filename))
+
+
+class UserProfileCreationError(Exception):
+    "The UserPofile could not be created."
+    pass
 
 
 # The UserProfile class is setup as per the recommendations in the Django
@@ -100,6 +105,18 @@ class UserProfile(models.Model):
     @property
     def get_username(self):
         return self.user.username
+
+    # Override save() to prevent UserProfiles from being created
+    # without a corresponding User.
+    # http://stackoverflow.com/questions/2307943/django-overriding-the-model-create-method
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # The object is not in the database yet because it doesn't have a pk.
+            if not hasattr(self, 'user'):
+                    raise UserProfileCreationError("A UserProfile cannot be created without a User. " + \
+                                                   "Creating a User will automatically create the UserProfile.")
+
+            super(UserProfile, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = _("User Profiles")
