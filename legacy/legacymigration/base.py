@@ -5,6 +5,8 @@ from django.db import transaction
 
 from .mappings import IdentityMapping, NullMapping, RelatedObjectMapping
 
+from .utils import Timer
+
 
 class MigrateModel(object):
     """
@@ -288,27 +290,35 @@ class MigrateModel(object):
         # Execute all of this within a single transaction
         with transaction.commit_on_success():
 
-            # Iterate over all instances
-            for from_instance in from_qs:
-                to_instance = self.get_to(from_instance)
+            with Timer() as t:
+                # Iterate over all instances
+                for from_instance in from_qs:
+                    to_instance = self.get_to(from_instance)
 
-                # Not existing? Create one!
-                if not to_instance:
-                    to_instance = self.to_model()
+                    # Not existing? Create one!
+                    if not to_instance:
+                        to_instance = self.to_model()
 
-                self.migrate_single(from_instance, to_instance)
+                    self.migrate_single(from_instance, to_instance)
 
-                to_instance.save(using=self.to_db)
-                counter += 1
+                    to_instance.save(using=self.to_db)
+                    counter += 1
 
-                # Print a progress message very 10 objects
-                if (counter % 50) == 0:
-                    logger.info('%d objects migrated', counter)
+                    # Print a progress message very 10 objects
+                    if (counter % 50) == 0:
+                        logger.info('%d objects migrated', counter)
 
-            logger.info('Done migrating, performing integrity tests.')
+            logger.info('Migration performed in %.03f seconds.', t.interval)
+            logger.info('Starting integrity tests.')
 
-            if not self.test_multiple(from_qs):
-                raise Exception('Integrity tests failed, not committing changes.')
+            with Timer() as t:
+                if not self.test_multiple(from_qs):
+                    raise Exception('Integrity tests failed, not committing changes.')
+
+            logger.info(
+                'Integrity tests completed in %.03f seconds.',
+                t.interval
+            )
 
         logger.info('%d objects migrated', counter)
         logger.info('Migration %s complete.', self.__class__.__name__)
