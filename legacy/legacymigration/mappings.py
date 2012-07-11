@@ -61,8 +61,10 @@ class IdentityMapping(Mapping):
 
         if old_value is not new_value:
             if self.verbose:
-                logger.warning("Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
-                    from_field, repr(instance), old_value, new_value, repr(self)
+                logger.warning(
+                    "Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
+                    from_field, repr(instance),
+                    old_value, new_value, repr(self)
                 )
 
         return {self.get_to_field(from_field): new_value}
@@ -134,7 +136,8 @@ class EducateDateTimeMapping(IdentityMapping):
             try:
                 return self.tz.localize(old_value)
             except AmbiguousTimeError:
-                logger.warning("Ambiguous datetime '%s' encountered, assuming DST.",
+                logger.warning(
+                    "Ambiguous datetime '%s' encountered, assuming DST.",
                     old_value
                 )
 
@@ -227,7 +230,11 @@ class RelatedObjectMapping(Mapping):
                 # Get the mapping
                 mapping = self.get_mapping(from_field)
 
-                if not mapping.check(from_related_instance, to_instance, from_field):
+                check_result = mapping.check(
+                    from_related_instance, to_instance, from_field
+                )
+
+                if not check_result:
                     success = False
 
         return success

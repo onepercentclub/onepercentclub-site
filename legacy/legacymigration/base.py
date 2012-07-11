@@ -55,8 +55,10 @@ class MigrateModel(object):
                 'id': True, # True means just copy the field
                 'email': True,
                 'username': True,
-                'password': lambda instance, fieldname: {'password': getattr(instance, fieldname)}, # A function can be specified to yield a dictionary
-                'created': 'date_joined', # A string can be passed to map to a different field
+                # A function can be specified to yield a dictionary
+                'password': lambda instance,fieldname: {'password': getattr(instance, fieldname)},
+                # A string can be passed to map to a different field
+                'created': 'date_joined',
             }
 
         """
@@ -149,8 +151,10 @@ class MigrateModel(object):
             mapping = self.get_mapping(from_field)
 
             if not mapping.check(from_instance, to_instance, from_field):
-                logger.error("Mapping check from '%s' to '%s' for field '%s' failed",
-                    repr(from_instance), repr(to_instance), from_field)
+                logger.error(
+                    u"Mapping '%s' for field '%s' on '%s' does not correspond",
+                    mapping, from_field, repr(from_instance)
+                )
 
                 success = False
 
@@ -276,7 +280,8 @@ class MigrateModel(object):
 
         for from_field in from_fields:
             if from_field not in self.field_mapping:
-                logger.warning("Field '%s' is not mapped and will be thrown away. To get rid of this warning, please map the field to `None` to throw away the data.",
+                logger.warning(
+                    "Field '%s' is not mapped and will be thrown away. To get rid of this warning, please map the field to `None` to throw away the data.",
                     from_field
                 )
 

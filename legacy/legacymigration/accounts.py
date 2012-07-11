@@ -12,7 +12,7 @@ from legacy.legacymembers.models import Member
 
 from .base import MigrateModel
 
-from mappings import (
+from .mappings import (
     CropMapping, EducateDateTimeMapping, SubstitutionMapping, Mapping,
     NoneToStringCroppingMapping
 )
@@ -65,8 +65,8 @@ class AdminMapping(Mapping):
         superuser = to_instance.is_superuser
         staff = to_instance.is_staff
 
-        return (superuser and old_value == 1) or (staff and old_value > 1) or \
-            not (superuser or old_value)
+        return (superuser and old_value == 1) or (staff and old_value > 1) \
+            or not (superuser or old_value)
 
 
 class MigrateMemberAuth(MigrateModel):
@@ -83,7 +83,8 @@ class MigrateMemberAuth(MigrateModel):
         password = mem_members.password
         is_staff = see 2
         is_superuser = see 1
-        last_login = mem_members.updated (don't think we actually have a 'lastlogin', this comes closest)
+        last_login = mem_members.updated (don't think we actually have a
+                     'lastlogin', this comes closest)
         date_joined = mem_members.created
     """
 
@@ -106,7 +107,8 @@ class MigrateMemberAuth(MigrateModel):
 
         for user in test_users:
             if not authenticate(username=user[0], password=user[1]):
-                logger.error("Test user '%s' could not login with password '%s'",
+                logger.error(
+                    "Test user '%s' could not login with password '%s'",
                     user[0], user[1]
                 )
                 success = False
@@ -116,7 +118,9 @@ class MigrateMemberAuth(MigrateModel):
 
     def list_from(self):
         """
-        5. Some users don't have a mem_profile set, so they don't have a first/lastname. I set the username as first/lastname. We could leave them empty though.
+        5. Some users don't have a mem_profile set, so they don't have a
+        first/lastname. I set the username as first/lastname. We could leave
+        them empty though.
         """
         qs = super(MigrateMemberAuth, self).list_from()
 
@@ -140,7 +144,10 @@ class MigrateMemberAuth(MigrateModel):
         return qs
 
     def migrate_single(self, from_instance, to_instance):
-        super(MigrateMemberAuth, self).migrate_single(from_instance, to_instance)
+        super(MigrateMemberAuth, self).migrate_single(
+            from_instance,
+            to_instance
+        )
 
         # Check whether this username already exists. If so, add a number
         counter = 1
