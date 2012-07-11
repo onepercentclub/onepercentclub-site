@@ -39,7 +39,7 @@ class ActivatedMapping(Mapping):
         old_deleted = from_instance.deleted
         new_activated = to_instance.is_active
 
-        return not old_deleted and old_activated == new_activated
+        return (not old_deleted and old_activated) is new_activated
 
 
 class AdminMapping(Mapping):
@@ -180,7 +180,7 @@ class MigrateMemberAuth(MigrateModel):
             tz=None, to_field='date_joined', verbose=False
         ),
         'updated': EducateDateTimeMapping(
-            tz=None, to_field='date_joined', verbose=False
+            tz=None, to_field='last_login', verbose=False
         ),
 
         'admin': AdminMapping(),
