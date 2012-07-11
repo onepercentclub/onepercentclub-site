@@ -79,7 +79,10 @@ class UserProfile(models.Model):
 
     # Basic profile information
     birthdate = models.DateField(null=True, blank=True)
-    gender = models.CharField(max_length=6, blank=True, choices=Gender.choices)
+    gender = models.CharField(_('gender'),
+        max_length=6, blank=True,
+        null=True, choices=Gender.choices
+    )
     location = models.CharField(max_length=100, blank=True)
     website = models.URLField(blank=True, max_length=255)
     # TODO Use generate_picture_filename (or something) for upload_to
