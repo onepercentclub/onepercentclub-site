@@ -2,6 +2,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 from django.db import transaction
+from django.core.exceptions import (
+    ValidationError, NON_FIELD_ERRORS, ObjectDoesNotExist
+)
 
 from .mappings import IdentityMapping, NullMapping, RelatedObjectMapping
 
@@ -258,6 +261,35 @@ class MigrateModel(object):
 
         return success
 
+    def validate_single(self, instance):
+        """
+        Perform model validation for an instance and report back any errors.
+        """
+
+        try:
+            instance.full_clean()
+
+        except ValidationError as e:
+            for (field, errors) in e.message_dict.iteritems():
+                for error in errors:
+                    if field is NON_FIELD_ERRORS:
+                        logger.warning("General validation error for '%s': %s",
+                            instance, error
+                        )
+                    else:
+                        try:
+                            value = getattr(instance, field)
+                        except ObjectDoesNotExist:
+                            value = '<Not Found>'
+
+                        logger.warning("Validation error for field '%s' with value '%s' of '%s': %s",
+                            field, value, instance, error
+                        )
+
+            # Eventually, we should *not* let these errors pass
+            # raise e
+
+
     def migrate_single(self, from_instance, to_instance):
         """ Migrate a single object. """
 
@@ -301,6 +333,11 @@ class MigrateModel(object):
 
                     self.migrate_single(from_instance, to_instance)
 
+                    # Validate the model
+                    # (before saving, to find any errors in a timely fashion)
+                    self.validate_single(to_instance)
+
+                    # Save to the database
                     to_instance.save(using=self.to_db)
                     counter += 1
 
