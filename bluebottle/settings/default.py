@@ -277,16 +277,13 @@ COMPRESS_CSS_FILTERS = [
 LOGIN_REDIRECT_URL = '/'
 
 # Support legacy passwords
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'legacyauth.hashers.LegacyPasswordHasher'
-)
+PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + \
+    ('legacyauth.hashers.LegacyPasswordHasher',)
 
 # Support email login
-AUTHENTICATION_BACKENDS = (
-    'legacyauth.backends.EmailBackend',
-    'django.contrib.auth.backends.ModelBackend'
-)
+AUTHENTICATION_BACKENDS = ('legacyauth.backends.EmailBackend', ) \
+    + global_settings.AUTHENTICATION_BACKENDS
+
 
 # user profile setting as described here:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
