@@ -242,3 +242,34 @@ class RelatedObjectMapping(Mapping):
 
 class NoneToStringCroppingMapping(CropMapping, NoneToStringMapping):
     pass
+
+
+class MappingMapping(IdentityMapping):
+    """
+    Maps a given dictionary of old values as keys to new values.
+    """
+
+    def __init__(self, mapping, **kwargs):
+        """
+        Specify the `mapping` and, optionally, a `default`.
+        """
+
+        self.mapping = mapping
+
+        self.default_set = False
+        if 'default' in kwargs:
+            self.default = kwargs.pop('default')
+            self.default_set = True
+
+        super(MappingMapping, self).__init__(**kwargs)
+
+    def map_value(self, old_value):
+        if old_value in self.mapping:
+            return self.mapping[old_value]
+
+        if self.default_set:
+            return self.default
+
+        raise Exception("No mapping found for value '%s'." % old_value)
+
+
