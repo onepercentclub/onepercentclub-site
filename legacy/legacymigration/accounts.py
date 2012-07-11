@@ -113,6 +113,8 @@ class MigrateMemberAuth(MigrateModel):
         )
 
         for user in test_users:
+            logger.info('Attempting login for test user %s', user)
+
             if not authenticate(username=user[0], password=user[1]):
                 logger.error(
                     "Test user '%s' could not login with password '%s'",
@@ -147,7 +149,6 @@ class MigrateMemberAuth(MigrateModel):
 
         # Marco and Edith have duplicate user names
         # We do not like them for that reason
-        logger.warning("Ignoring (duplicate) usernames 'edith' and 'marco' for now.")
         qs = qs.exclude(
             Q(username='edith') | Q(username='marco')
         )
