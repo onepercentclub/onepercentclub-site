@@ -130,6 +130,10 @@ class EducateDateTimeMapping(IdentityMapping):
     def map_value(self, old_value):
         old_value = super(EducateDateTimeMapping, self).map_value(old_value)
 
+        # Ain't no localized None
+        if old_value is None:
+                return old_value
+
         assert isinstance(old_value, datetime)
 
         if timezone.is_naive(old_value):
