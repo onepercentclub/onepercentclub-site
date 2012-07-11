@@ -73,7 +73,7 @@ class UserProfile(models.Model):
                          populate_from=('get_username',), overwrite=True)
 
     # Settings
-    interface_language = models.CharField(max_length=5,
+    interface_language = models.CharField(max_length=5, null=True, blank=True,
                                           choices=settings.LANGUAGES)
     newsletter = models.BooleanField(_("Send Newsletter"), default=False)
 
