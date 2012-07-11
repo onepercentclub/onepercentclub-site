@@ -29,7 +29,12 @@ MANAGERS = ADMINS
 # system time zone.
 TIME_ZONE = 'Europe/Amsterdam'
 
-# Language code for this installation. All choices can be found here:
+
+"""
+Available user interface translations
+Ref: https://docs.djangoproject.com/en/1.4/ref/settings/#languages
+"""
+# Default language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
@@ -41,6 +46,7 @@ LANGUAGES = (
     ('nl', gettext_noop('Dutch')),
     ('en', gettext_noop('English'))
 )
+
 
 SITE_ID = 1
 
