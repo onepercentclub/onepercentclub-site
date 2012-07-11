@@ -99,10 +99,17 @@ class MigrateMemberAuth(MigrateModel):
         # Now, test a bunch of users
         # (these users have been manually added for testing purposes)
         test_users = (
-            ('usermigrationtest2', 'pohji8'), # Activated user
-            ('mathijs@visualspace.nl', 'pohji8'), # Activated user usermigrationtest2
-            ('glavangadje', 'ภาษาไทย'), # Thai, in Thai
-            ('drbob@dokterbob.net', 'ภาษาไทย') # Previous user glavangadje
+            # Activated user
+            ('usermigrationtest2', 'pohji8'),
+
+            # Activated user usermigrationtest2
+            ('mathijs@visualspace.nl', 'pohji8'),
+
+            # Thai, in Thai
+            ('glavangadje', 'ภาษาไทย'),
+
+            # Previous user glavangadje
+            ('drbob@dokterbob.net', 'ภาษาไทย')
         )
 
         for user in test_users:
@@ -138,32 +145,17 @@ class MigrateMemberAuth(MigrateModel):
             Q(email='loek@1procentclub.nl') & ~Q(username='gannetson')
         )
 
+        # Marco and Edith have duplicate user names
+        # We do not like them for that reason
+        logger.warning("Ignoring (duplicate) usernames 'edith' and 'marco' for now.")
+        qs = qs.exclude(
+            Q(username='edith') | Q(username='marco')
+        )
+
         # Include profile in query, speeding it up a bit
         qs.select_related('profile')
 
         return qs
-
-    def migrate_single(self, from_instance, to_instance):
-        super(MigrateMemberAuth, self).migrate_single(
-            from_instance,
-            to_instance
-        )
-
-        # Check whether this username already exists. If so, add a number
-        counter = 1
-
-        # Detect and change duplicate usernames
-        qs = self.list_to()
-        qs.exclude(pk=to_instance.pk)
-
-        while qs.filter(username=to_instance.username).exists():
-            to_instance.username = '%s%d' % (from_instance.username, counter)
-
-            logger.warn('Duplicate username %s, changing to %s',
-                from_instance.username, to_instance.username
-            )
-
-            counter += 1
 
     from_model = Member
     to_model = User
