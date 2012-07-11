@@ -1,5 +1,8 @@
 # Django settings for bluebottle project.
 
+# Import global settings for overriding without throwing away defaults
+from django.conf import global_settings
+
 from os import path
 
 # Set PROJECT_ROOT to the dir of the current file
