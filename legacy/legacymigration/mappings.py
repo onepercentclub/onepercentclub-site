@@ -176,6 +176,10 @@ class SlugifyMapping(IdentityMapping):
         return slugify(old_value)
 
 
+class SlugifyCroppingMapping(CropMapping, SlugifyMapping):
+    pass
+
+
 class OneToManyMapping(Mapping):
     """
     Mapping from one field to many, each using their particular mapping.
