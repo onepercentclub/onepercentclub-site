@@ -98,6 +98,9 @@ class MigrateProfile(MigrateModel):
         return qs
 
     field_mapping = {
+        # ID's do not correspond for profiles
+        'id': None,
+
         'member_id': 'user_id',
         'primary_language': 'interface_language',
         'newsletter': MappingMapping({
@@ -126,9 +129,26 @@ class MigrateProfile(MigrateModel):
         'firstname': None,
         'lastname': None,
         'created': None,
+        'updated': None, # Warning: This one is not directly mapped to user
 
         # This will be used by the social auth application
         # (whatever it will be)
         'facebook_connect_enabled': None,
-        'facebook_id': None
+        'facebook_id': None,
+
+        # Migrate to address
+        'address': None,
+        'zipcode': None,
+        'city': None,
+        'country': None,
+
+        # Don't know what to do with these for now
+        'authorize_capture': None,
+        'billingcity': None,
+        'billingname': None,
+        'billingnumber': None,
+        'recurring_donation_amount': None,
+
+        # We will deal with file migrations later
+        'photo': None
     }
