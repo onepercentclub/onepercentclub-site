@@ -98,7 +98,10 @@ class UserProfile(models.Model):
     working_location = models.CharField(max_length=255, blank=True)
 
     def __unicode__(self):
-        return self.user.username
+        try:
+            return self.user.username
+        except User.DoesNotExist:
+            return str(self.pk)
 
     @property
     def get_username(self):
