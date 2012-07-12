@@ -9,7 +9,7 @@ from .base import MigrateModel
 from .accounts import MigrateMemberAuth
 
 from .mappings import (
-    EducateDateTimeMapping, IdentityMapping, Mapping,
+    EducateDateTimeMapping, NoneToStringCountryMapping, Mapping,
     NoneToStringMapping, MappingMapping, NoneToStringCroppingMapping
 )
 
@@ -154,15 +154,6 @@ class MigrateProfile(MigrateModel):
     }
 
 
-class CountryMapping(IdentityMapping):
-    """ Map a Country instance to it's two-letter representation. """
-    def map_value(self, old_value):
-        if old_value:
-            return old_value.code2
-        else:
-            return ''
-
-
 class MemberMapping(Mapping):
     """ Set the target profile through the profile. """
 
@@ -210,7 +201,7 @@ class MigrateUserAddress(MigrateProfile):
         'address': NoneToStringMapping('line1', verbose=False),
         'zipcode': NoneToStringMapping('zip_code', verbose=False),
         'city': NoneToStringMapping(verbose=False),
-        'country': CountryMapping(verbose=False),
+        'country': NoneToStringCountryMapping(verbose=False),
 
         # Dump all the other stuff
         'id': None,

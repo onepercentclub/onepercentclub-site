@@ -277,3 +277,62 @@ class MappingMapping(IdentityMapping):
         raise Exception("No mapping found for value '%s'." % old_value)
 
 
+class CountryMapping(IdentityMapping):
+    """
+    Map a Country instance to it's two-letter representation, or an empty
+    string if no country value had been set before.
+
+    When an error occurs in the lookup, assume a f*ckup and set to NULL.
+    """
+
+    def map(self, instance, from_field):
+        country_id = getattr(instance, from_field+'_id')
+
+        if country_id == 0:
+            new_value = None
+
+            logger.warning(
+                "No country found for field '%s' on '%s', mapped to None.",
+                    from_field, repr(instance)
+            )
+
+        else:
+            old_value = getattr(instance, from_field)
+
+            if old_value:
+                new_value = old_value.code2
+
+            if old_value is not new_value:
+                if self.verbose:
+                    logger.warning(
+                        "Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
+                        from_field, repr(instance),
+                        old_value, new_value, repr(self)
+                    )
+
+        return {self.get_to_field(from_field): new_value}
+
+    def check(self, from_instance, to_instance, from_field):
+        new_value = getattr(to_instance, self.get_to_field(from_field))
+        country_id = getattr(from_instance, from_field+'_id')
+
+        if country_id == 0:
+            return new_value == None
+        else:
+            old_value = getattr(from_instance, from_field)
+
+            return new_value == old_value.code2
+
+        return self.check_value(old_value, new_value)
+
+
+class NoneToStringCountryMapping(CountryMapping):
+    """
+    Map a Country instance to it's two-letter representation, or an empty
+    string if no country value had been set before.
+    """
+    def map_value(self, old_value):
+        if old_value is None:
+            return ''
+
+        return super(NoneToStringCountryMapping, self).map_value(old_value)
