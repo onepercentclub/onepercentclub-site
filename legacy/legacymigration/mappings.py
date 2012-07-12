@@ -176,6 +176,49 @@ class SlugifyMapping(IdentityMapping):
         return slugify(old_value)
 
 
+class OneToManyMapping(Mapping):
+    """
+    Mapping from one field to many, each using their particular mapping.
+
+    Use as such::
+
+        OneToManyMapping(
+            MyMapping(to_field='Banaan'),
+            ...
+        )
+    """
+    def __init__(self, *args):
+        """ Interpret all positional arguments as Mapping objects. """
+        self.mappings = args
+
+    def map(self, instance, from_field):
+        result_dict = {}
+
+        for mapping in self.mappings:
+            value_dict = mapping(instance, from_field)
+
+            assert isinstance(value_dict, dict), \
+                'Mapping %s returned %s instead of a dict.' % \
+                    (mapping, value_dict)
+
+            result_dict.update(value_dict)
+
+        return result_dict
+
+    def check(self, from_instance, to_instance, from_field):
+        success = True
+
+        for mapping in self.mappings:
+            check_result = mapping.check(
+                from_instance, to_instance, from_field
+            )
+
+            if not check_result:
+                success = False
+
+        return success
+
+
 class RelatedObjectMapping(Mapping):
     """
     Tool to use 'mappings inside a mapping' to map related objects onto the
