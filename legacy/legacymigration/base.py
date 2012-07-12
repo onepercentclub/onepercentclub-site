@@ -46,7 +46,7 @@ class MigrateModel(object):
 
         # By this time mapping should be a callable yielding a dict
         assert callable(mapping), \
-            'No forward mapping defined for mapping %s' % mapping
+            u'No forward mapping defined for mapping %s' % mapping
 
         return mapping
 
@@ -175,7 +175,7 @@ class MigrateModel(object):
         assert from_instance
         assert to_instance
 
-        logger.debug("Testing migration of '%s' to '%s'",
+        logger.debug(u"Testing migration of '%s' to '%s'",
             repr(from_instance), repr(to_instance))
 
         return self.test_map_fields(from_instance, to_instance)
@@ -196,7 +196,7 @@ class MigrateModel(object):
 
         for from_instance in from_qs:
             if not self.get_to(from_instance):
-                logger.error('No forwards correspondence from %s',
+                logger.error(u'No forwards correspondence from %s',
                     repr(from_instance))
 
                 success = False
@@ -206,7 +206,7 @@ class MigrateModel(object):
         to_count = self.list_to().count()
         if from_count != to_count:
             logger.error(
-                'Source queryset contains %d objects while destination queryset contains %d',
+                u'Source queryset contains %d objects while destination queryset contains %d',
                 from_count, to_count
             )
 
@@ -223,7 +223,7 @@ class MigrateModel(object):
 
             if from_instance:
                 logger.debug(
-                    "Backwards correspondence found from '%s' to '%s'.",
+                    u"Backwards correspondence found from '%s' to '%s'.",
                     repr(from_instance), repr(to_instance)
                 )
 
@@ -233,7 +233,7 @@ class MigrateModel(object):
 
                 else:
                     logger.error(
-                        'Correspondence %s not found in source queryset.',
+                        u'Correspondence %s not found in source queryset.',
                         repr(from_instance)
                     )
 
@@ -241,7 +241,7 @@ class MigrateModel(object):
 
             else:
                 logger.error(
-                    'No backwards correspondence to %s, skipping tests for this object.',
+                    u'No backwards correspondence to %s, skipping tests for this object.',
                     repr(to_instance)
                 )
 
@@ -273,7 +273,8 @@ class MigrateModel(object):
             for (field, errors) in e.message_dict.iteritems():
                 for error in errors:
                     if field is NON_FIELD_ERRORS:
-                        logger.warning("General validation error for '%s': %s",
+                        logger.warning(
+                            u"General validation error for '%s': %s",
                             instance, error
                         )
                     else:
@@ -282,7 +283,8 @@ class MigrateModel(object):
                         except ObjectDoesNotExist:
                             value = '<Not Found>'
 
-                        logger.warning("Validation error for field '%s' with value '%s' of '%s': %s",
+                        logger.warning(
+                            u"Validation error for field '%s' with value '%s' of '%s': %s",
                             field, value, instance, error
                         )
 
@@ -293,7 +295,7 @@ class MigrateModel(object):
     def migrate_single(self, from_instance, to_instance):
         """ Migrate a single object. """
 
-        logger.debug("Migrating '%s' to '%s'",
+        logger.debug(u"Migrating '%s' to '%s'",
             repr(from_instance), repr(to_instance))
 
         self.map_fields(from_instance, to_instance)
@@ -301,7 +303,7 @@ class MigrateModel(object):
     def migrate_all(self):
         """ Migrate all the objects returned by list_from(). """
 
-        logger.info("Starting '<%s>'", repr(self))
+        logger.info(u"Starting '<%s>'", repr(self))
 
         # Grab a qs of object to migrate
         from_qs = self.list_from()
@@ -315,7 +317,7 @@ class MigrateModel(object):
         for from_field in from_fields:
             if from_field not in self.field_mapping:
                 logger.warning(
-                    "Field '%s' is not mapped and will be thrown away. To get rid of this warning, please map the field to `None` to throw away the data.",
+                    u"Field '%s' is not mapped and will be thrown away. To get rid of this warning, please map the field to `None` to throw away the data.",
                     from_field
                 )
 
@@ -343,19 +345,19 @@ class MigrateModel(object):
 
                     # Print a progress message very 10 objects
                     if (counter % 50) == 0:
-                        logger.info('%d objects migrated', counter)
+                        logger.info(u'%d objects migrated', counter)
 
-            logger.info('Migration performed in %.03f seconds.', t.interval)
-            logger.info('Starting integrity tests.')
+            logger.info(u'Migration performed in %.03f seconds.', t.interval)
+            logger.info(u'Starting integrity tests.')
 
             with Timer() as t:
                 if not self.test_multiple(from_qs):
                     raise Exception('Integrity tests failed, not committing changes.')
 
             logger.info(
-                'Integrity tests completed in %.03f seconds.',
+                u'Integrity tests completed in %.03f seconds.',
                 t.interval
             )
 
-        logger.info('%d objects migrated', counter)
-        logger.info('Migration %s complete.', self.__class__.__name__)
+        logger.info(u'%d objects migrated', counter)
+        logger.info(u'Migration %s complete.', self.__class__.__name__)

@@ -18,7 +18,7 @@ class Mapping(object):
         return self.map(instance, from_field)
 
     def __repr__(self):
-        return '<%s>' % self.__class__.__name__
+        return u'<%s>' % self.__class__.__name__
 
 
 class NullMapping(Mapping):
@@ -64,7 +64,7 @@ class IdentityMapping(Mapping):
         if old_value is not new_value:
             if self.verbose:
                 logger.warning(
-                    "Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
+                    u"Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
                     from_field, repr(instance),
                     old_value, new_value, repr(self)
                 )
@@ -143,7 +143,7 @@ class EducateDateTimeMapping(IdentityMapping):
                 return self.tz.localize(old_value)
             except AmbiguousTimeError:
                 logger.warning(
-                    "Ambiguous datetime '%s' encountered, assuming DST.",
+                    u"Ambiguous datetime '%s' encountered, assuming DST.",
                     old_value
                 )
 
@@ -349,7 +349,7 @@ class CountryMapping(IdentityMapping):
             new_value = None
 
             logger.warning(
-                "No country found for field '%s' on '%s', mapped to None.",
+                u"No country found for field '%s' on '%s', mapped to None.",
                     from_field, repr(instance)
             )
 
@@ -362,7 +362,7 @@ class CountryMapping(IdentityMapping):
             if old_value is not new_value:
                 if self.verbose:
                     logger.warning(
-                        "Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
+                        u"Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
                         from_field, repr(instance),
                         old_value, new_value, repr(self)
                     )

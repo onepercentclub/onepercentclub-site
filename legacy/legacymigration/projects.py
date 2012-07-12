@@ -49,7 +49,7 @@ class PhaseMapping(IdentityMapping):
             phase = phases.results
 
         else:
-            raise Exception("Could not map '%s' to a phase.", old_value)
+            raise Exception(u"Could not map '%s' to a phase.", old_value)
 
         return phase
 
