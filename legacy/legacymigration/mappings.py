@@ -6,6 +6,8 @@ from pytz.exceptions import AmbiguousTimeError
 from datetime import datetime
 from django.utils import timezone
 
+from django.template.defaultfilters import slugify
+
 
 class Mapping(object):
     """ Base class for mappings. """
@@ -165,6 +167,15 @@ class SubstitutionMapping(IdentityMapping):
         return self.substitution % old_value
 
 
+class SlugifyMapping(IdentityMapping):
+    """
+    Mapping to create a slug out of the original value.
+    """
+
+    def map_value(self, old_value):
+        return slugify(old_value)
+
+
 class RelatedObjectMapping(Mapping):
     """
     Tool to use 'mappings inside a mapping' to map related objects onto the
@@ -200,7 +211,6 @@ class RelatedObjectMapping(Mapping):
         # By this time mapping should be a callable yielding a dict
         assert callable(mapping), \
             'No forward mapping defined for mapping %s' % mapping
-
         return mapping
 
     def map(self, instance, from_field):
