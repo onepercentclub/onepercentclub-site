@@ -164,7 +164,7 @@ class MemberMapping(Mapping):
         return {'user_profile': to_profile}
 
     def check(self, from_instance, to_instance, from_field):
-        return from_instance == to_instance.user_profile
+        return from_instance.member.pk == to_instance.user_profile.user.pk
 
 
 class MigrateUserAddress(MigrateProfile):
