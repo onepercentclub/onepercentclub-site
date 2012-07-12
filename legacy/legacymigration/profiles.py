@@ -2,14 +2,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 from legacy.legacymembers.models import Profile
-from apps.accounts.models import UserProfile
+from apps.accounts.models import UserProfile, UserAddress
 
 from .base import MigrateModel
 
 from .accounts import MigrateMemberAuth
 
 from .mappings import (
-    CropMapping, EducateDateTimeMapping, SubstitutionMapping, Mapping,
+    EducateDateTimeMapping, IdentityMapping, Mapping,
     NoneToStringMapping, MappingMapping, NoneToStringCroppingMapping
 )
 
@@ -151,4 +151,93 @@ class MigrateProfile(MigrateModel):
 
         # We will deal with file migrations later
         'photo': None
+    }
+
+
+class CountryMapping(IdentityMapping):
+    """ Map a Country instance to it's two-letter representation. """
+    def map_value(self, old_value):
+        if old_value:
+            return old_value.code2
+        else:
+            return ''
+
+
+class MemberMapping(Mapping):
+    """ Set the target profile through the profile. """
+
+    def map(self, instance, from_field):
+        profile_mapper = MigrateProfile()
+        to_profile = profile_mapper.get_to(instance)
+
+        return {'user_profile': to_profile}
+
+    def check(self, from_instance, to_instance, from_field):
+        return from_instance == to_instance.user_profile
+
+
+class MigrateUserAddress(MigrateProfile):
+    """
+    Migrate from Profile to UserAddres, respecting the member/user pk
+    correspondence as with the profiles.
+    """
+    from_model = Profile
+    to_model = UserAddress
+
+    def get_to_correspondence(self, other_object):
+        return {'user_profile__user__pk': other_object.member.pk}
+
+    def get_from_correspondence(self, other_object):
+        return {'member__pk': other_object.user_profile.user.pk}
+
+    def list_to(self):
+        """
+        Make sure only profiles that have a corresponding legacy profile are
+        mapped back.
+        """
+        qs = super(MigrateProfile, self).list_to()
+
+        # Exclude all the user/member id's for which no profile has been set.
+        qs = qs.exclude(
+            user_profile__user__pk__in=self._get_noprofile_member_pks()
+        )
+
+        return qs
+
+    field_mapping = {
+        'member': MemberMapping(),
+
+        'address': NoneToStringMapping('line1', verbose=False),
+        'zipcode': NoneToStringMapping('zip_code', verbose=False),
+        'city': NoneToStringMapping(verbose=False),
+        'country': CountryMapping(verbose=False),
+
+        # Dump all the other stuff
+        'id': None,
+        'member_id': None,
+        'primary_language': None,
+        'newsletter': None,
+        'birthdate': None,
+        'gender': None,
+        'location': None,
+        'website': None,
+        'deleted': None,
+        'about': None,
+        'why': None,
+        'contribution': None,
+        'available_time': None,
+        'working_location': None,
+        'firstname': None,
+        'lastname': None,
+        'created': None,
+        'updated': None,
+        'facebook_connect_enabled': None,
+        'facebook_id': None,
+        'authorize_capture': None,
+        'billingcity': None,
+        'billingname': None,
+        'billingnumber': None,
+        'recurring_donation_amount': None,
+        'photo': None
+
     }
