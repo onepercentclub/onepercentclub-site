@@ -34,19 +34,19 @@ open_graphs: render_graphs
 
 # Specific commands to yield specific graphs, so we can do manual grouping
 projects.dot:
-	${MAKEGRAPH} projects > $@
+	${MAKEGRAPH} legacyprojects > $@
 
 members_organizations.dot:
-	${MAKEGRAPH} members organizations > $@
+	${MAKEGRAPH} legacymembers legacyorganizations > $@
 
 tasks.dot:
-	${MAKEGRAPH} tasks > $@
+	${MAKEGRAPH} legacytasks > $@
 
 donations_payments.dot:
-	${MAKEGRAPH} payments consolidations donations vouchers > $@
+	${MAKEGRAPH} legacypayments legacyconsolidations legacydonations legacyvouchers > $@
 
 misc.dot:
-	${MAKEGRAPH} actions system albums cms events news filemanager weblog > $@
+	${MAKEGRAPH} legacyactions legacysystem legacyalbums legacycms legacyevents legacynews legacyfilemanager legacyweblog > $@
 
 # Generic rule for rendering PDF files out of a .dot
 %.pdf: %.dot
