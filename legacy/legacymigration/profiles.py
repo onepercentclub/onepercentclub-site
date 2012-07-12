@@ -10,26 +10,9 @@ from .accounts import MigrateMemberAuth
 
 from .mappings import (
     EducateDateTimeMapping, NoneToStringCountryMapping, Mapping,
-    NoneToStringMapping, MappingMapping, NoneToStringCroppingMapping
+    NoneToStringMapping, MappingMapping, NoneToStringCroppingMapping,
+    WebsiteMapping
 )
-
-
-class WebsiteMapping(NoneToStringMapping):
-    """
-    Mapping for cleanup up website addresses.
-    """
-    def map_value(self, old_value):
-        old_value = super(WebsiteMapping, self).map_value(old_value)
-
-        old_value = old_value.strip()
-
-        if old_value and old_value.startswith('//'):
-            old_value = 'http:' + old_value
-
-        if old_value and old_value.startswith('/'):
-            old_value = 'http:/' + old_value
-
-        return old_value
 
 
 class MigrateProfile(MigrateModel):
