@@ -345,9 +345,9 @@ class CountryMapping(IdentityMapping):
     def map(self, instance, from_field):
         country_id = getattr(instance, from_field+'_id')
 
-        if country_id == 0:
-            new_value = None
+        new_value = ''
 
+        if country_id == 0:
             logger.warning(
                 u"No country found for field '%s' on '%s', mapped to None.",
                     from_field, repr(instance)
@@ -359,13 +359,13 @@ class CountryMapping(IdentityMapping):
             if old_value:
                 new_value = old_value.code2
 
-            if old_value is not new_value:
-                if self.verbose:
-                    logger.warning(
-                        u"Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
-                        from_field, repr(instance),
-                        old_value, new_value, repr(self)
-                    )
+                if old_value is not new_value:
+                    if self.verbose:
+                        logger.warning(
+                            u"Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
+                            from_field, repr(instance),
+                            old_value, new_value, repr(self)
+                        )
 
         return {self.get_to_field(from_field): new_value}
 
@@ -378,21 +378,12 @@ class CountryMapping(IdentityMapping):
         else:
             old_value = getattr(from_instance, from_field)
 
-            return new_value == old_value.code2
+            if old_value:
+                return new_value == old_value.code2
+
+            return new_value == ''
 
         return self.check_value(old_value, new_value)
-
-
-class NoneToStringCountryMapping(CountryMapping):
-    """
-    Map a Country instance to it's two-letter representation, or an empty
-    string if no country value had been set before.
-    """
-    def map_value(self, old_value):
-        if old_value is None:
-            return ''
-
-        return super(NoneToStringCountryMapping, self).map_value(old_value)
 
 
 class WebsiteMapping(NoneToStringMapping):
