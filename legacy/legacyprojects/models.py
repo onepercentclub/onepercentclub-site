@@ -137,6 +137,9 @@ class Project(models.Model):
     def messages(self):
         return self.message_set.all()[0:5]
 
+    def __unicode__(self):
+        return self.title or self.name or str(self.id)
+
 
 class MillenniumGoal(models.Model):
     """ DISCONTINUED """
