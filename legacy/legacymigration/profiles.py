@@ -46,16 +46,54 @@ class MigrateProfile(MigrateModel):
     def get_from_correspondence(self, other_object):
         return {'member__pk': other_object.user.pk}
 
-    def list_from(self):
-        qs = super(MigrateProfile, self).list_from()
-
-        # Make sure we only migrate profiles for which the user is migrated
-        # as well
+    def _get_members(self):
+        """ Return all members to migrate. """
 
         user_migrator = MigrateMemberAuth()
-        member_set = user_migrator.list_from()
 
-        qs = qs.filter(member__in=member_set)
+        # Make sure we only fetch ID's from the database
+        return user_migrator.list_from().only('id')
+
+    def list_from(self):
+        """
+        Make sure we only migrate profiles for which the user is migrated
+        as well.
+        """
+
+        qs = super(MigrateProfile, self).list_from()
+
+        # Only migrate profiles for migrated members
+        qs = qs.filter(member__in=self._get_members())
+
+        return qs
+
+    def _get_noprofile_member_pks(self):
+        """
+        In order to sort-of efficiently filter out members without a profile,
+        use this caching helper function.
+        """
+        if not getattr(self, '_noprofile_member_pks', None):
+            # Cache the values
+            members = self._get_members()
+
+            # Make a list of all members without a profile
+            members = members.filter(profile=None)
+            member_pks = members.values_list('id', flat=True).order_by('id')
+
+            self._noprofile_member_pks = list(member_pks)
+
+        return self._noprofile_member_pks
+
+    def list_to(self):
+        """
+        Make sure only profiles that have a corresponding legacy profile are
+        mapped back.
+        """
+
+        qs = super(MigrateProfile, self).list_to()
+
+        # Exclude all the user/member id's for which no profile has been set.
+        qs = qs.exclude(user__pk__in=self._get_noprofile_member_pks())
 
         return qs
 
