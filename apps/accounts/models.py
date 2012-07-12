@@ -98,13 +98,14 @@ class UserProfile(models.Model):
     working_location = models.CharField(max_length=255, blank=True)
 
     def __unicode__(self):
-        return self.get_username()
-
-    def get_username(self):
         try:
             return self.user.username
         except User.DoesNotExist:
-            return self.slug
+            return str(self.pk)
+
+    @property
+    def get_username(self):
+        return self.user.username
 
     @models.permalink
     def get_absolute_url(self):
