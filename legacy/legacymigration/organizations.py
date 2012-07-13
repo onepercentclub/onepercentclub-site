@@ -29,6 +29,7 @@ class MigrateOrganization(MigrateModel):
         """ Filter out organizations with no name set. """
         qs = super(MigrateOrganization, self).list_from()
 
+        # Exclude unnamed organizations
         qs = qs.exclude(name='')
 
         return qs

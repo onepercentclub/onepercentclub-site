@@ -23,6 +23,9 @@ from .mappings import (
     NoneToStringCroppingMapping, SlugifyMapping, IdentityMapping
 )
 
+from .organizations import MigrateOrganization
+
+
 # We want a handy reference to these status objects
 phases = Project.ProjectPhases
 statuses = PlanPhase.PhaseStatuses
@@ -63,6 +66,10 @@ class MigrateProject(MigrateModel):
         For now, skip projects which we cannot migrate.
         """
         qs = super(MigrateProject, self).list_from()
+
+        # Only migrate for available organizations
+        m = MigrateOrganization()
+        qs = qs.filter(organization__in=m.list_from())
 
         # We don't know how to map declined projects
         qs = qs.exclude(status='declined')
