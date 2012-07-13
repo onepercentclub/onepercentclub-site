@@ -61,7 +61,7 @@ class OrganizationMember(models.Model):
         member = ChoiceItem('member', label=_("Member"))
 
     organization = models.ForeignKey(Organization)
-    member = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User')
     function = models.CharField(max_length=20, choices=MemberFunctions.choices,
                                 help_text="Function might determine Role later on.")
 

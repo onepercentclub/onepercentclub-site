@@ -236,10 +236,10 @@ class Link(models.Model):
 
 
 class Testimonial(models.Model):
-    """ Any member can write something nice about a project """
+    """ Any user can write something nice about a project """
 
     project = models.ForeignKey(Project)
-    member = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User')
     description = models.TextField()
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
@@ -252,7 +252,7 @@ class Message(models.Model):
     """ Message by a user on the Project wall """
 
     project = models.ForeignKey(Project)
-    member = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User')
     body = models.TextField()
     created = CreationDateTimeField()
     deleted = models.DateTimeField(null=True, blank=True)
