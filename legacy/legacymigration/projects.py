@@ -505,7 +505,7 @@ class MigrateMessage(MigrateLink):
         'member': None,
         'member_id': True,
 
-        'text': 'description',
+        'text': 'body',
 
         'created': EducateDateTimeMapping(verbose=False),
         'deleted': EducateDateTimeMapping(verbose=False)
