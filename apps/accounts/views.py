@@ -5,7 +5,7 @@ from .models import UserProfile
 
 
 class UserProfileBase(object):
-    model = UserProfile
+    queryset = UserProfile.objects.all().select_related('user')
 
 
 class UserProfileList(UserProfileBase, ListView):
