@@ -30,7 +30,7 @@ urlpatterns += patterns('',
 
     # account login/logout, password reset, and password change
     (r'^accounts/', include('django.contrib.auth.urls')),
-    (r'^accounts/', include('apps.accounts.urls')),
+    (r'^members/', include('apps.accounts.urls')),
 
     (r'^projects/', include('apps.projects.urls')),
 )
