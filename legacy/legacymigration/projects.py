@@ -7,12 +7,13 @@ from legacy.legacyprojects.models import (
     Project as LegacyProject,
     Link as LegacyLink,
     Testimonial as LegacyTestimonial,
-    Message as LegacyMessage
+    Message as LegacyMessage,
+    NeedCategory, Need
 )
 
 from apps.projects.models import (
     Project, IdeaPhase, PlanPhase, ActPhase, ResultsPhase,
-    Link, Testimonial, Message
+    Link, Testimonial, Message, BudgetCategory, BudgetLine
 )
 
 from .base import MigrateModel
@@ -445,6 +446,17 @@ class MigrateLink(MigrateModel):
     from_model = LegacyLink
     to_model = Link
 
+    def list_from(self):
+        """ Filter by project status. """
+        qs = super(MigrateLink, self).list_from()
+
+        m = MigrateProject()
+        project_list = m.list_from()
+
+        qs = qs.filter(project__in=project_list)
+
+        return qs
+
     field_mapping = {
         'id': True,
 
@@ -459,7 +471,7 @@ class MigrateLink(MigrateModel):
     }
 
 
-class MigrateTestimonial(MigrateModel):
+class MigrateTestimonial(MigrateLink):
     from_model = LegacyTestimonial
     to_model = Testimonial
 
@@ -474,12 +486,13 @@ class MigrateTestimonial(MigrateModel):
 
         'description': True,
 
-        'created': EducateDateTimeMapping(),
-        'updated': EducateDateTimeMapping()
+        'created': EducateDateTimeMapping(verbose=False),
+        # Skip for now (automagically overridden)
+        #'updated': EducateDateTimeMapping()
     }
 
 
-class MigrateMessage(MigrateModel):
+class MigrateMessage(MigrateLink):
     from_model = LegacyMessage
     to_model = Message
 
@@ -492,6 +505,62 @@ class MigrateMessage(MigrateModel):
         'member': None,
         'member_id': True,
 
-        'created': EducateDateTimeMapping(),
-        'deleted': EducateDateTimeMapping()
+        'text': 'description',
+
+        'created': EducateDateTimeMapping(verbose=False),
+        'deleted': EducateDateTimeMapping(verbose=False)
+    }
+
+
+class MigrateBudgetCategory(MigrateModel):
+    from_model = NeedCategory
+    to_model = BudgetCategory
+
+    field_mapping = {
+        'id': True,
+
+        'name': True,
+        'description': NoneToStringMapping(verbose=False),
+        'ordering': True,
+
+        # It seems as though we are throwing away the hierarchical relation
+        # here - which seems a rather bad idea.
+        # 'parent': ...,
+
+        'need': None,
+        'needcategory': None,
+        'name_en': None,
+        'name_es': None,
+
+    }
+
+
+class MigrateBudgetLine(MigrateLink):
+    from_model = Need
+    to_model = BudgetLine
+
+    def list_from(self):
+        """ Selectively skip objects with nonesense data. """
+        qs = super(MigrateBudgetLine, self).list_from()
+
+        # There is exactly one item with a money_needed of
+        # 564564654.<something>, with a bogus description.
+        # It has too many decimals, so ignore it for now.
+        qs = qs.exclude(pk=1469)
+
+        return qs
+
+
+    field_mapping = {
+        'id': True,
+
+        'project': None,
+        'project_id': True,
+
+        'category': None,
+        'category_id': True,
+
+        'description': NoneToStringMapping(verbose=False),
+
+        'money_needed': StringToDecimalMapping('money_amount', verbose=False),
     }

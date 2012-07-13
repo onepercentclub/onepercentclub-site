@@ -3,7 +3,8 @@ from .profiles import MigrateProfile, MigrateUserAddress
 from .organizations import MigrateOrganization
 from .projects import (
     MigrateProject, MigrateIdea, MigratePlan, MigrateAct, MigrateResults,
-    MigrateLink, MigrateTestimonial, MigrateMessage
+    MigrateLink, MigrateTestimonial, MigrateMessage, MigrateBudgetCategory,
+    MigrateBudgetLine
 )
 
 MIGRATIONS = (
@@ -18,5 +19,7 @@ MIGRATIONS = (
     MigrateResults,
     MigrateLink,
     MigrateTestimonial,
-    MigrateMessage
+    MigrateMessage,
+    MigrateBudgetCategory,
+    MigrateBudgetLine
 )
