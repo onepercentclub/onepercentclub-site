@@ -53,6 +53,14 @@ class Project(models.Model):
             return self.title
         return self.slug
 
+    @models.permalink
+    def get_absolute_url(self):
+        """ Get the URL for the current project.. """
+
+        return ('project_detail', (), {
+            'slug': self.slug
+        })
+
     class Meta:
         ordering = ['title']
 

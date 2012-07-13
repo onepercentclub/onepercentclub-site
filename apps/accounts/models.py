@@ -107,6 +107,14 @@ class UserProfile(models.Model):
     def get_username(self):
         return self.user.username
 
+    @models.permalink
+    def get_absolute_url(self):
+        """ Get the URL for the current user's profile. """
+
+        return ('userprofile_detail', (), {
+            'slug': self.slug
+        })
+
     class Meta:
         verbose_name_plural = _("User Profiles")
 

@@ -1,10 +1,11 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns
+
+from surlex.dj import surl
 
 from .views import UserProfileList, UserProfileDetail
 
-# TODO Add 'members' as a setting option.
+
 urlpatterns = patterns('',
-    url(r'^members/$', UserProfileList.as_view(), name='profile'),
-    url(r'^members/(?P<userslug>[0-9a-z\-]{1,30})$',
-        UserProfileDetail.as_view(), name='user'),
+    surl(r'^$', UserProfileList.as_view(), name='userprofile_list'),
+    surl(r'^<slug:s>/$', UserProfileDetail.as_view(), name='userprofile_detail'),
 )
