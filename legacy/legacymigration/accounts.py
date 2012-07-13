@@ -53,7 +53,10 @@ class AdminMapping(Mapping):
 
         if admin > 0:
             if admin == 1:
-                return {'is_superuser': True}
+                return {
+                    'is_superuser': True,
+                    'is_staff': True
+                }
             else:
                 return {'is_staff': True}
 
@@ -65,8 +68,9 @@ class AdminMapping(Mapping):
         superuser = to_instance.is_superuser
         staff = to_instance.is_staff
 
-        return (superuser and old_value == 1) or (staff and old_value > 1) \
-            or not (superuser or old_value)
+        return (superuser and staff and old_value == 1) or \
+            (staff and old_value > 1) or \
+            not (superuser or old_value)
 
 
 class MigrateMemberAuth(MigrateModel):
