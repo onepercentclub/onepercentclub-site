@@ -494,7 +494,7 @@ class MigrateTestimonial(MigrateLink):
         'project_id': True,
 
         'member': None,
-        'member_id': True,
+        'member_id': 'user_id',
 
         'description': True,
 
@@ -515,7 +515,7 @@ class MigrateMessage(MigrateTestimonial):
         'project_id': True,
 
         'member': None,
-        'member_id': True,
+        'member_id': 'user_id',
 
         'text': 'body',
 
