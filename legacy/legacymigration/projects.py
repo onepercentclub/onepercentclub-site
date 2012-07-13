@@ -20,7 +20,7 @@ from .base import MigrateModel
 from .mappings import (
     MappingMapping, EducateDateTimeMapping,
     NoneToStringMapping, OneToManyMapping, CountryMapping,
-    SlugifyMapping, IdentityMapping,
+    SlugifyMapping, IdentityMapping, WebsiteMapping,
     StringToDecimalMapping, ConcatenatingStringMapping
 )
 
@@ -441,13 +441,21 @@ class MigrateResults(MigrateProject):
     field_mapping.update(MigrateAct.mapped_in_idea)
 
 
-# These migrations are not ready for consumption (yet)
 class MigrateLink(MigrateModel):
     from_model = LegacyLink
     to_model = Link
 
     field_mapping = {
         'id': True,
+
+        'project': None,
+        'project_id': True,
+
+        'name': True,
+        'url': WebsiteMapping(),
+        'description': True,
+        'ordering': True
+
     }
 
 
@@ -457,6 +465,17 @@ class MigrateTestimonial(MigrateModel):
 
     field_mapping = {
         'id': True,
+
+        'project': None,
+        'project_id': True,
+
+        'member': None,
+        'member_id': True,
+
+        'description': True,
+
+        'created': EducateDateTimeMapping(),
+        'updated': EducateDateTimeMapping()
     }
 
 
@@ -466,4 +485,13 @@ class MigrateMessage(MigrateModel):
 
     field_mapping = {
         'id': True,
+
+        'project': None,
+        'project_id': True,
+
+        'member': None,
+        'member_id': True,
+
+        'created': EducateDateTimeMapping(),
+        'deleted': EducateDateTimeMapping()
     }
