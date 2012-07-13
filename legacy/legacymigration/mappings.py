@@ -1,6 +1,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
+from decimal import Decimal
+
 from pytz.exceptions import AmbiguousTimeError
 
 from datetime import datetime
@@ -57,10 +59,7 @@ class IdentityMapping(Mapping):
 
         return old_value
 
-    def map(self, instance, from_field):
-        old_value = getattr(instance, from_field)
-        new_value = self.map_value(old_value)
-
+    def log_change(self, from_field, instance, old_value, new_value):
         if old_value is not new_value:
             if self.verbose:
                 logger.warning(
@@ -68,6 +67,12 @@ class IdentityMapping(Mapping):
                     from_field, repr(instance),
                     old_value, new_value, repr(self)
                 )
+
+    def map(self, instance, from_field):
+        old_value = getattr(instance, from_field)
+        new_value = self.map_value(old_value)
+
+        self.log_change(from_field, instance, old_value, new_value)
 
         return {self.get_to_field(from_field): new_value}
 
@@ -402,3 +407,47 @@ class WebsiteMapping(NoneToStringMapping):
             old_value = 'http:/' + old_value
 
         return old_value
+
+
+class StringToDecimalMapping(IdentityMapping):
+    """ Map a string to Python Decimal object. """
+
+    def map_value(self, old_value):
+        old_value = super(StringToDecimalMapping, self).map_value(old_value)
+
+        return Decimal(old_value)
+
+
+class ConcatenatingStringMapping(IdentityMapping):
+    """ Map several fields to one by concatenation. """
+
+    def __init__(self, concatenate_with, to_field=None, 
+                 verbose=True, concatenate_str=''):
+        self.concatenate_with = concatenate_with
+
+        self.to_field = to_field
+        self.verbose = verbose
+        self.concatenate_str = concatenate_str
+
+    def map(self, instance, from_field):
+        old_value = getattr(instance, from_field)
+        new_value = old_value
+
+        for concat_field in self.concatenate_with:
+            concat_value = getattr(instance, concat_field)
+            new_value += self.concatenate_str + concat_value
+
+        self.log_change(from_field, instance, old_value, new_value)
+
+        return {self.get_to_field(from_field): new_value}
+
+    def check(self, from_instance, to_instance, from_field):
+        old_value = getattr(from_instance, from_field)
+
+        for concat_field in self.concatenate_with:
+            concat_value = getattr(from_instance, concat_field)
+            old_value += self.concatenate_str + concat_value
+
+        new_value = getattr(to_instance, self.get_to_field(from_field))
+
+        return self.check_value(old_value, new_value)

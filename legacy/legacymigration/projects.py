@@ -18,9 +18,10 @@ from apps.projects.models import (
 from .base import MigrateModel
 
 from .mappings import (
-    MappingMapping, EducateDateTimeMapping, SubstitutionMapping, Mapping,
+    MappingMapping, EducateDateTimeMapping,
     NoneToStringMapping, OneToManyMapping, CountryMapping,
-    NoneToStringCroppingMapping, SlugifyMapping, IdentityMapping
+    SlugifyMapping, IdentityMapping,
+    StringToDecimalMapping, ConcatenatingStringMapping
 )
 
 from .organizations import MigrateOrganization
@@ -88,6 +89,54 @@ class MigrateProject(MigrateModel):
 
         return qs
 
+    # Fields handled by project migration
+
+    # Project fields we'll throw away
+    throw_away_fields = {
+        'action': None,
+        'admin_comments': None,
+        'sess_id': None,
+        'catalog': None,
+        'closed': None,
+        'deleted': None,
+        'derde_helft': None,
+        'document': None,
+        'earth_charter': None,
+        'folder': None,
+        'goal': None,
+        'picture': None,
+        'planning': None,
+        'portfolioline': None,
+        'project_goals': None,
+        'realised': None,
+        'video': None,
+        'reported': None,
+        'testimonial': None,
+        'validated': None,
+
+        # To be migrated later
+        'link': None,
+        'message': None,
+        'task': None,
+        'weblog': None,
+
+        'projecttag': None,
+        'tags': None,
+
+        'rate_count': None,
+        'rate_current': None,
+        'rating': None,
+
+        # Donations and money
+        'donationline': None,
+        'settlement': None,
+        'projectdonations': None,
+
+        'money_needed_for': None,
+        'need': None,
+
+
+    }
 
     field_mapping = {
         'id': True,
@@ -114,32 +163,6 @@ class MigrateProject(MigrateModel):
 
         'project_language': True,
 
-        # Throw away all the rest, for now
-        'action': None,
-        'admin_comments': None,
-        'sess_id': None,
-        'catalog': None,
-        'closed': None,
-        'deleted': None,
-        'derde_helft': None,
-        'document': None,
-        'earth_charter': None,
-        'expected_other_sources': None,
-        'folder': None,
-        'how_support': None,
-        'legacy_budget': None,
-        'goal': None,
-        'picture': None,
-        'planning': None,
-        'portfolioline': None,
-        'project_goals': None,
-        'realised': None,
-        'video': None,
-        'volunteers': None,
-        'reported': None,
-        'testimonial': None,
-        'validated': None,
-
         # Mapped to phase
         'description': None,
         'startdate': None,
@@ -151,40 +174,22 @@ class MigrateProject(MigrateModel):
         'description_duurzaamheid': None,
         'expected_results': None,
         'how_support': None,
-
-        # To be migrated later
-        'link': None,
-        'message': None,
-        'task': None,
-        'weblog': None,
-
-        'projecttag': None,
-        'tags': None,
-
-        'rate_count': None,
-        'rate_current': None,
-        'rating': None,
-
-        # Donations and money
-        'donationline': None,
-        'settlement': None,
+        'volunteers': None,
         'money_needed_club': None,
-        'projectdonations': None,
+        'legacy_budget': None,
         'received_other_sources': None,
-
-        'money_needed_for': None,
-        'need': None,
-
+        'expected_other_sources': None,
     }
 
+    field_mapping.update(throw_away_fields)
 
-class MigrateIdea(MigrateModel):
-    from_model = LegacyProject
+
+class MigrateIdea(MigrateProject):
     to_model = IdeaPhase
 
     def list_from(self):
         """ Filter by project status. """
-        qs = super(MigrateIdea, self).list_from(self)
+        qs = super(MigrateIdea, self).list_from()
 
         qs = qs.filter(
             status__in=(
@@ -197,14 +202,30 @@ class MigrateIdea(MigrateModel):
 
     def list_to(self):
         """ Filter by projects past idea phase. """
-        qs = super(MigrateIdea, self).list_to(self)
+        qs = super(MigrateIdea, self).list_to()
 
         qs = qs.filter(
-            phase__in=(phases.idea, phases.plan, phases.results)
+            project__phase__in=(phases.idea, phases.plan, phases.results)
         )
 
         return qs
 
+    mapped_in_project = {
+        'name': None,
+        'photo': None,
+        'owner_usr': None,
+        'owner_usr_id': None,
+        'organization': None,
+        'organization_id': None,
+
+        'created': None,
+
+        'country': None,
+        'latitude': None,
+        'longitude': None,
+
+        'project_language': None
+    }
 
     field_mapping = {
         'id': OneToManyMapping(
@@ -223,26 +244,21 @@ class MigrateIdea(MigrateModel):
             'confirmed': statuses.completed,
             'realised': statuses.completed,
 
-            'wizard': statuses.hidden
-        }),
+            'wizard': statuses.hidden,
+        }, verbose=False),
 
-        'longdescription': 'what',
-        'project_goals': 'goal',
-        'target_audience': 'who',
-        'solve_poverty': 'how',
-        'description_duurzaamheid': 'sustainability',
-        'expected_results': 'target',
-        'how_support': 'needed_expertise',
     }
 
+    field_mapping.update(MigrateProject.throw_away_fields)
+    field_mapping.update(mapped_in_project)
 
-class MigratePlan(MigrateModel):
-    from_model = LegacyProject
+
+class MigratePlan(MigrateProject):
     to_model = PlanPhase
 
     def list_from(self):
         """ Filter by project status. """
-        qs = super(MigratePlan, self).list_from(self)
+        qs = super(MigratePlan, self).list_from()
 
         qs = qs.filter(
             status__in=(
@@ -255,10 +271,10 @@ class MigratePlan(MigrateModel):
 
     def list_to(self):
         """ Filter by projects past idea phase. """
-        qs = super(MigratePlan, self).list_to(self)
+        qs = super(MigratePlan, self).list_to()
 
         qs = qs.filter(
-            phase__in=(phases.plan, phases.results)
+            project__phase__in=(phases.plan, phases.results)
         )
 
         return qs
@@ -281,18 +297,46 @@ class MigratePlan(MigrateModel):
 
             'confirmed': statuses.progress,
             'validated': statuses.progress
-        })
+        }, verbose=False),
+
+        'longdescription': 'what',
+        'project_goals': 'goal',
+        'target_audience': 'who',
+        'solve_poverty': 'how',
+        'description_duurzaamheid':
+            NoneToStringMapping('sustainability', verbose=False),
+        'expected_results': 'target',
+        'how_support': NoneToStringMapping('needed_expertise'),
+        'volunteers': 'needed_volunteers',
+
+        'money_needed_club': OneToManyMapping(
+            StringToDecimalMapping('money_asked', verbose=False),
+            StringToDecimalMapping('money_total', verbose=False)
+        ),
+
+        'legacy_budget': 'budget_description',
+
+        'received_other_sources': ConcatenatingStringMapping(
+            to_field='money_other_sources',
+            concatenate_with=('expected_other_sources',),
+            concatenate_str='<br/>',
+            verbose=False
+        ),
+
+        'expected_other_sources': None, #Already mapped above
 
     }
 
+    field_mapping.update(MigrateProject.throw_away_fields)
+    field_mapping.update(MigrateIdea.mapped_in_project)
 
-class MigrateAct(MigrateModel):
-    from_model = LegacyProject
+
+class MigrateAct(MigrateProject):
     to_model = ActPhase
 
     def list_from(self):
         """ Filter by project status. """
-        qs = super(MigrateAct, self).list_from(self)
+        qs = super(MigrateAct, self).list_from()
 
         qs = qs.filter(
             status__in=('done', 'closed', )
@@ -302,13 +346,31 @@ class MigrateAct(MigrateModel):
 
     def list_to(self):
         """ Filter by projects past idea phase. """
-        qs = super(MigrateAct, self).list_to(self)
+        qs = super(MigrateAct, self).list_to()
 
         qs = qs.filter(
-            phase__in=(phases.results, )
+            project__phase__in=(phases.results, )
         )
 
         return qs
+
+    mapped_in_idea = {
+        'longdescription': None,
+        'project_goals': None,
+        'target_audience': None,
+        'solve_poverty': None,
+        'description_duurzaamheid': None,
+        'expected_results': None,
+        'how_support': None,
+        'volunteers': None,
+
+        'money_needed_club': None,
+
+        'legacy_budget': None,
+
+        'received_other_sources': None,
+        'expected_other_sources': None
+    }
 
 
     field_mapping = {
@@ -324,17 +386,22 @@ class MigrateAct(MigrateModel):
         'status': MappingMapping({
             'done': statuses.completed,
             'closed': statuses.completed,
-        })
+        }, verbose=False),
+
+        'planning': True
     }
 
+    field_mapping.update(MigrateProject.throw_away_fields)
+    field_mapping.update(MigrateIdea.mapped_in_project)
+    field_mapping.update(mapped_in_idea)
 
-class MigrateResults(MigrateModel):
-    from_model = LegacyProject
+
+class MigrateResults(MigrateProject):
     to_model = ResultsPhase
 
     def list_from(self):
         """ Filter by project status. """
-        qs = super(MigrateResults, self).list_from(self)
+        qs = super(MigrateResults, self).list_from()
 
         qs = qs.filter(
             status__in=('done', 'closed', )
@@ -344,10 +411,10 @@ class MigrateResults(MigrateModel):
 
     def list_to(self):
         """ Filter by projects past idea phase. """
-        qs = super(MigrateResults, self).list_to(self)
+        qs = super(MigrateResults, self).list_to()
 
         qs = qs.filter(
-            phase__in=(phases.results, )
+            project__phase__in=(phases.results, )
         )
 
         return qs
@@ -366,10 +433,15 @@ class MigrateResults(MigrateModel):
         'status': MappingMapping({
             'done': statuses.completed,
             'closed': statuses.completed,
-        })
+        }, verbose=False),
     }
 
+    field_mapping.update(MigrateProject.throw_away_fields)
+    field_mapping.update(MigrateIdea.mapped_in_project)
+    field_mapping.update(MigrateAct.mapped_in_idea)
 
+
+# These migrations are not ready for consumption (yet)
 class MigrateLink(MigrateModel):
     from_model = LegacyLink
     to_model = Link

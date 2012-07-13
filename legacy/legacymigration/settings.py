@@ -1,7 +1,9 @@
 from .accounts import MigrateMemberAuth
 from .profiles import MigrateProfile, MigrateUserAddress
 from .organizations import MigrateOrganization
-from .projects import MigrateProject
+from .projects import (
+    MigrateProject, MigrateIdea, MigratePlan, MigrateAct, MigrateResults
+)
 
 MIGRATIONS = (
     MigrateMemberAuth,
@@ -9,4 +11,8 @@ MIGRATIONS = (
     MigrateUserAddress,
     MigrateOrganization,
     MigrateProject,
+    MigrateIdea,
+    MigratePlan,
+    MigrateAct,
+    MigrateResults
 )
