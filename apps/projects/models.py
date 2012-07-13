@@ -253,13 +253,13 @@ class Message(models.Model):
 
     project = models.ForeignKey(Project)
     member = models.ForeignKey('auth.User')
-    description = models.TextField()
+    body = models.TextField()
     created = CreationDateTimeField()
-    deleted = models.DateTimeField(null=True)
+    deleted = models.DateTimeField(null=True, blank=True)
 
     def __unicode__(self):
-        return '%s : %s...' % (
-            self.created.date(), self.description[:80]
+        return u'%s : %s...' % (
+            self.created.date(), self.body[:20]
         )
 
     class Meta:
