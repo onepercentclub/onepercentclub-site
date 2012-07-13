@@ -92,4 +92,7 @@ class MigrateOrganizationMember(MigrateModel):
 
     field_mapping = {
         'id': True,
+
+        'member': None,
+        'member_id': 'user_id',
     }
