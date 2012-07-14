@@ -379,7 +379,7 @@ class CountryMapping(IdentityMapping):
         country_id = getattr(from_instance, from_field+'_id')
 
         if country_id == 0:
-            return new_value == None
+            return not new_value
         else:
             old_value = getattr(from_instance, from_field)
 
@@ -421,7 +421,7 @@ class StringToDecimalMapping(IdentityMapping):
 class ConcatenatingStringMapping(IdentityMapping):
     """ Map several fields to one by concatenation. """
 
-    def __init__(self, concatenate_with, to_field=None, 
+    def __init__(self, concatenate_with, to_field=None,
                  verbose=True, concatenate_str=''):
         self.concatenate_with = concatenate_with
 
@@ -435,7 +435,10 @@ class ConcatenatingStringMapping(IdentityMapping):
 
         for concat_field in self.concatenate_with:
             concat_value = getattr(instance, concat_field)
-            new_value += self.concatenate_str + concat_value
+
+            # Only concatenate for non-empty values
+            if concat_value:
+                new_value += self.concatenate_str + concat_value
 
         self.log_change(from_field, instance, old_value, new_value)
 
@@ -446,7 +449,10 @@ class ConcatenatingStringMapping(IdentityMapping):
 
         for concat_field in self.concatenate_with:
             concat_value = getattr(from_instance, concat_field)
-            old_value += self.concatenate_str + concat_value
+
+            # Only concatenate for non-empty values
+            if concat_value:
+                old_value += self.concatenate_str + concat_value
 
         new_value = getattr(to_instance, self.get_to_field(from_field))
 

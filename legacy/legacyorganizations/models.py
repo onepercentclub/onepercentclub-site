@@ -16,7 +16,7 @@ class Organization(models.Model):
     account_number = models.CharField(max_length=255, blank=True)
     account_name = models.CharField(max_length=255, blank=True)
     account_city = models.CharField(max_length=255, blank=True)
-    country_id = models.IntegerField(null=True, blank=True)
+    country = models.ForeignKey('legacysystem.Country')
     created = models.DateTimeField()
     updated = models.DateTimeField()
     deleted = models.DateTimeField(null=True, blank=True)

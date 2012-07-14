@@ -13,12 +13,13 @@ from apps.organizations.models import (
 from .base import MigrateModel
 
 from .mappings import (
-    MappingMapping, EducateDateTimeMapping, SubstitutionMapping,
+    EducateDateTimeMapping,
     NoneToStringMapping, OneToManyMapping, CountryMapping,
-    NoneToStringCroppingMapping, IdentityMapping,
-    WebsiteMapping, SlugifyCroppingMapping
+    IdentityMapping,
+    WebsiteMapping, SlugifyCroppingMapping,
+    ConcatenatingStringMapping,
+    NoneToStringCroppingMapping
 )
-
 
 
 class MigrateOrganization(MigrateModel):
@@ -126,4 +127,68 @@ class MigrateOrganizationMember(MigrateModel):
 
         'org': None,
         'org_id': 'organization_id'
+    }
+
+
+class MigrateOrganizationAddress(MigrateOrganization):
+    from_model = LegacyOrganization
+    to_model = OrganizationAddress
+
+    def list_from(self):
+        """ Explicitly skip a single objects with a rather long address. """
+        qs = super(MigrateOrganizationAddress, self).list_from()
+
+        # TODO: Split the street into multiple address lines
+        qs = qs.exclude(pk__in=(1311, 1015, 1568))
+
+        return qs
+
+    field_mapping = {
+        'id': OneToManyMapping(
+            IdentityMapping('id'),
+            IdentityMapping('organization_id')
+        ),
+
+        # Will be mapped through the address
+        'street': ConcatenatingStringMapping(
+            concatenate_with=('street_number', ),
+            to_field='line1',
+            concatenate_str=' ',
+            verbose=False
+        ),
+        'street_number': None,
+        'postalcode': NoneToStringCroppingMapping(20, to_field='zip_code'),
+        'city': True,
+
+        'country': CountryMapping(verbose=False),
+
+        # Already mapped fields
+
+        'name': None,
+        'legalstatus': None,
+        'phonenumber': None,
+        'email': None,
+        'website': None,
+        'description': None,
+        'created': None,
+        'deleted': None,
+        'partner_organisations': None,
+        'account_number': None,
+        'account_name': None,
+        'account_city': None,
+        'account_bank_name': None,
+        'account_bank_address': None,
+        'account_bank_country_id': None,
+        'account_iban': None,
+        'account_bicswift': None,
+
+        # Will be mapped through OrganizationMember
+        'organizationmember': None,
+
+        # Should be mapped later
+        'referrals': None,
+
+        # Should not be mapped from the reverse side
+        'project': None
+
     }
