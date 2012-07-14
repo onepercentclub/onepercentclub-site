@@ -36,7 +36,11 @@ class Organization(models.Model):
 
 
 class OrganizationMember(models.Model):
-    org = models.ForeignKey(Organization)
+    # Note: this is a fake primary key, because Django goes nuts for
+    # tables that have none.
+
+    # Ref: https://code.djangoproject.com/ticket/373
+    org = models.ForeignKey(Organization, primary_key=True)
     mem = models.ForeignKey('legacymembers.Member')
 
     class Meta:

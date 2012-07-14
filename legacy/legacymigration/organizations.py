@@ -13,9 +13,9 @@ from apps.organizations.models import (
 from .base import MigrateModel
 
 from .mappings import (
-    MappingMapping, EducateDateTimeMapping, SubstitutionMapping, Mapping,
+    MappingMapping, EducateDateTimeMapping, SubstitutionMapping,
     NoneToStringMapping, OneToManyMapping, CountryMapping,
-    NoneToStringCroppingMapping, SlugifyMapping, IdentityMapping,
+    NoneToStringCroppingMapping, IdentityMapping,
     WebsiteMapping, SlugifyCroppingMapping
 )
 
@@ -90,9 +90,40 @@ class MigrateOrganizationMember(MigrateModel):
     from_model = LegacyOrganizationMember
     to_model = OrganizationMember
 
-    field_mapping = {
-        'id': True,
+    def list_from(self):
+        """ Only migrate members for migrated organizations. """
+        qs = super(MigrateOrganizationMember, self).list_from()
 
-        'member': None,
-        'member_id': 'user_id',
+        m = MigrateOrganization()
+        organization_list = m.list_from()
+
+        qs = qs.filter(org__in=organization_list)
+
+        return qs
+
+    def get_to_correspondence(self, other_object):
+        """ Do correspondence by the member and organization id's. """
+
+        return {
+            'user_id': other_object.mem.id,
+            'organization_id': other_object.org.id
+        }
+
+    def get_from_correspondence(self, other_object):
+        """ Do correspondence by the member and organization id's. """
+
+        return {
+            'mem_id': other_object.user.id,
+            'org_id': other_object.organization.id
+        }
+
+    field_mapping = {
+        # This legacy table has no pk (!?)
+        # 'id': True,
+
+        'mem': None,
+        'mem_id': 'user_id',
+
+        'org': None,
+        'org_id': 'organization_id'
     }
