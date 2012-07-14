@@ -478,7 +478,7 @@ class MigrateTestimonial(MigrateLink):
 
     def list_from(self):
         """ Only filter addresses for migrated members. """
-        qs = super(MigrateMessage, self).list_from()
+        qs = super(MigrateTestimonial, self).list_from()
 
         m = MigrateMemberAuth()
         member_list = m.list_from()
