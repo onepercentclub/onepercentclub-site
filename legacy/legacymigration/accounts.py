@@ -144,17 +144,17 @@ class MigrateMemberAuth(MigrateModel):
         # Don't migrate users with username 'guest' and 'weg'.
         # Users 'weg' should be deleted at some point.
         # Users 'guest' should be turned into 'guest' users.
-        qs = qs.exclude(username='guest').exclude(username='weg')
+        # Marco and Edith have duplicate user names
+        # We do not like them for that reason
+        qs = qs.exclude(
+            Q(username='guest') | Q(username='weg') | \
+            Q(username='testaccountacceptemagverwijderd') |
+            Q(username='edith') | Q(username='marco')
+        )
 
         # Exclude all Loek's accounts that are not Loek himself
         qs = qs.exclude(
             Q(email='loek@1procentclub.nl') & ~Q(username='gannetson')
-        )
-
-        # Marco and Edith have duplicate user names
-        # We do not like them for that reason
-        qs = qs.exclude(
-            Q(username='edith') | Q(username='marco')
         )
 
         # Include profile in query, speeding it up a bit
