@@ -1,0 +1,25 @@
+#toppanel {
+	border: 3px solid blue;
+	padding: 10px;
+	margin: 10px;
+	
+}
+#midpanel {
+	border: 3px solid red;
+	padding: 10px;
+	margin: 10px;
+	
+}
+
+.widget {
+	border: 2px solid black;
+	width: 250px;
+	padding: 5px;
+	margin: 5px;
+	display: inline-block;
+}
+
+
+h3 {
+	margin: 2px 0px;
+}

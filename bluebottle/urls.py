@@ -7,7 +7,7 @@ admin.autodiscover()
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 
-from .views import HomeView
+from .views import HomeView, BlueBoneView
 
 
 # Serve django-staticfiles (only works in DEBUG)
@@ -25,6 +25,7 @@ handler500 = 'bluebottle.views.handler500'
 
 urlpatterns += patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^bluebone/$', BlueBoneView.as_view(), name='bluebone'),
 
     # Django Admin, docs and password reset
     url(r'^admin/password_reset/$', 'django.contrib.auth.views.password_reset', name='admin_password_reset'),

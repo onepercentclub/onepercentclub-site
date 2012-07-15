@@ -9,13 +9,16 @@
 
     {% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
 
-	{% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
-	{% endcompress %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
 
-	{% compress js %}
-	    <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
-	{% endcompress %}
+    <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
+	<script src="{{ STATIC_URL }}global/js/lib/jquery-1.7.2.min.js"></script>
+	<script src="{{ STATIC_URL }}global/js/lib/underscore-min.js"></script>
+	<script src="{{ STATIC_URL }}global/js/lib/backbone-min.js"></script>
+	<script src="{{ STATIC_URL }}global/js/lib/bootstrap.js"></script>
+	<script src="{{ STATIC_URL }}global/js/lib/backbone-tastypie.js"></script>
+	<script src="{{ STATIC_URL }}global/js/bluebone/app.js"></script>
+	<script src="{{ STATIC_URL }}global/js/blueapp.js"></script>
 
 	{% block htmlheader %}{% endblock %}
 </head>
@@ -30,16 +33,22 @@
     <span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
     {% endif %}
 
-    {% block content %}{% endblock %}
-
-    <script type="text/javascript">
-    var _urq = _urq || [];
-    _urq.push(['initSite', '6b390f06-ad91-4a87-8217-0d591dfb02d7']);
-    (function() {
-    var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
-    ur.src = 'http://sdscdn.userreport.com/userreport.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
-    })();
-    </script>
+	<div id="topmenu">
+	    {% block topmenu %}{% endblock %}
+	</div>
+	<div id="toppanel">
+	    {% block toppanel %}{% endblock %}
+	</div>
+	<div id="midpanel">
+	    {% block midpanel %}{% endblock %}
+	</div>
+	<div id="footer">
+	    {% block footer %}{% endblock %}
+	</div>
+	<script>
+	    {% block widgets %}{% endblock %}
+	</script>	
+	
+	
 </body>
 </html>

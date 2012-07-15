@@ -28,6 +28,20 @@ def handler500(request, template_name='500.html'):
     return HttpResponseServerError(t.render(context))
 
 
+class BlueBoneView(TemplateView):
+    """
+    BlueBone (backbone-pilot) view for the site.
+    """
+
+    template_name = 'bluebone.html'
+
+    def get_context_data(self, **kwargs):
+        """ Add some extra context. """
+        context = {}
+
+        return context
+
+
 class HomeView(TemplateView):
     """
     Home view for the site.
