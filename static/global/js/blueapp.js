@@ -6,13 +6,15 @@ BlueApp.views.add('TopMenu', {
     el: '#topmenu'
 });
 
-BlueApp.models.addApiResource('Project', {url: '/projects/api/project'});
+BlueApp.models.addApiResource('Project', {url: '/projects/api/project/'});
 
-BlueApp.widgets.add('RecentProjects');
+BlueApp.widgets.addListWidget('RecentProjects', {resource: 'Project', itemView: 'ProjectListItem'});
+
 BlueApp.widgets.add('About');
+
 BlueApp.widgets.add('New', {tpl: 'About'});
 
-BlueApp.views.add('Project', {model: 'Project'});
+BlueApp.views.add('Project');
 
 BlueApp.routers.Main = new (Bluebone.Router.extend({
     routes: {
@@ -26,7 +28,11 @@ BlueApp.routers.Main = new (Bluebone.Router.extend({
     
     project: function(id) {
     	var project = new BlueApp.models.Project({id: id});
-	   	//BlueApp.views.Project.renderTo('#toppanel');
+    	project.fetch({
+    		success: function(){
+    			BlueApp.views.Project.renderTo('#toppanel', project);
+    		}
+    	});
 			   	
     }
 		
