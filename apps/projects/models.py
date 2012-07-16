@@ -15,10 +15,10 @@ class Project(models.Model):
     """ The base Project model """
 
     class ProjectPhases(DjangoChoices):
-        idea = ChoiceItem('idea', label=_('idea'))
-        plan = ChoiceItem('plan', label=_('plan'))
-        act = ChoiceItem('act', label=_('act'))
-        results = ChoiceItem('results', label=_('results'))
+        idea = ChoiceItem('idea', label=_("Idea"))
+        plan = ChoiceItem('plan', label=_("Plan"))
+        act = ChoiceItem('act', label=_("Act"))
+        results = ChoiceItem('results', label=_("Results"))
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=100)
@@ -53,6 +53,14 @@ class Project(models.Model):
             return self.title
         return self.slug
 
+    @models.permalink
+    def get_absolute_url(self):
+        """ Get the URL for the current project.. """
+
+        return ('project_detail', (), {
+            'slug': self.slug
+        })
+
     class Meta:
         ordering = ['title']
 
@@ -61,9 +69,9 @@ class AbstractPhase(models.Model):
     """ Abstract base class for project phases. """
 
     class PhaseStatuses(DjangoChoices):
-        hidden = ChoiceItem('hidden', label=_('hidden'))
-        progress = ChoiceItem('progress', label=_('progress'))
-        completed = ChoiceItem('completed', label=_('completed'))
+        hidden = ChoiceItem('hidden', label=_("Hidden"))
+        progress = ChoiceItem('progress', label=_("Progress"))
+        completed = ChoiceItem('completed', label=_("Completed"))
 
     project = models.OneToOneField(Project)
     title = models.CharField(max_length=255, blank=True)
@@ -89,11 +97,11 @@ class PlanPhase(AbstractPhase):
     """ PlanPhase: fill out some forms for project plan """
 
     class PhaseStatuses(DjangoChoices):
-        hidden = ChoiceItem('hidden', label=_('hidden'))
-        progress = ChoiceItem('progress', label=_('progress'))
-        feedback = ChoiceItem('feedback', label=_('feedback'))
-        waiting = ChoiceItem('waiting', label=_('waiting'))
-        completed = ChoiceItem('completed', label=_('completed'))
+        hidden = ChoiceItem('hidden', label=_("Hidden"))
+        progress = ChoiceItem('progress', label=_("Progress"))
+        feedback = ChoiceItem('feedback', label=_("Feedback"))
+        waiting = ChoiceItem('waiting', label=_("Waiting"))
+        completed = ChoiceItem('completed', label=_("Completed"))
 
     money_total = models.DecimalField(max_digits=9, decimal_places=2,
         help_text=_('Total amount needed for this project.')
@@ -205,10 +213,10 @@ class OtherSourcesLines(models.Model):
     """
 
     class Statuses(DjangoChoices):
-        progress = ChoiceItem('progress', label=_('progress'))
-        applied = ChoiceItem('applied', label=_('applied'))
-        granted = ChoiceItem('granted', label=_('granted'))
-        received = ChoiceItem('received', label=_('received'))
+        progress = ChoiceItem('progress', label=_("Progress"))
+        applied = ChoiceItem('applied', label=_("Applied"))
+        granted = ChoiceItem('granted', label=_("Granted"))
+        received = ChoiceItem('received', label=_("Received"))
 
     project = models.ForeignKey(Project)
     source = models.CharField(max_length=255)
@@ -236,10 +244,10 @@ class Link(models.Model):
 
 
 class Testimonial(models.Model):
-    """ Any member can write something nice about a project """
+    """ Any user can write something nice about a project """
 
     project = models.ForeignKey(Project)
-    member = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User')
     description = models.TextField()
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
@@ -252,14 +260,14 @@ class Message(models.Model):
     """ Message by a user on the Project wall """
 
     project = models.ForeignKey(Project)
-    member = models.ForeignKey('auth.User')
-    description = models.TextField()
+    user = models.ForeignKey('auth.User')
+    body = models.TextField()
     created = CreationDateTimeField()
-    deleted = models.DateTimeField(null=True)
+    deleted = models.DateTimeField(null=True, blank=True)
 
     def __unicode__(self):
-        return '%s : %s...' % (
-            self.created.date(), self.description[:80]
+        return u'%s : %s...' % (
+            self.created.date(), self.body[:20]
         )
 
     class Meta:

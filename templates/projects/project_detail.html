@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<h1 id="projects">Projects</h1>
+
+<pre>
+	{{ project|pprint }}
+</pre>
+
+{% endblock %}

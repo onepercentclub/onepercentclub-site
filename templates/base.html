@@ -7,14 +7,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>{% block htmltitle %}bluebottle{% endblock %}</title>
 
-    {% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
+	{% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
 
 	{% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
+		<link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
 	{% endcompress %}
 
 	{% compress js %}
-	    <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
+		<script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
 	{% endcompress %}
 
 	{% block htmlheader %}{% endblock %}
@@ -22,24 +22,35 @@
 
 <body>
 
-    {% if user.is_authenticated %}
-    {{ user.username }} |
-    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
-    {% else %}
-    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">Login</a> |
-    <span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
-    {% endif %}
+	<header>
+		<nav id="login">
+			{% if user.is_authenticated %}
+				<a href="{{ user.get_profile.get_absolute_url }}">{{ user.username }}</a> |
+				<a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
+			{% else %}
+				<a href="{% url 'login' %}?next={% firstof request.path "/" %}">Login</a> |
+				<span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
+			{% endif %}
+		</nav>
 
-    {% block content %}{% endblock %}
+		<nav id="menu">
+			<ul>
+				<li><a href="{% url 'project_list' %}">Projects</a></li>
+				<li><a href="{% url 'userprofile_list' %}">Members</a></li>
+			</ul>
+		</nav>
+	</header>
 
-    <script type="text/javascript">
-    var _urq = _urq || [];
-    _urq.push(['initSite', '6b390f06-ad91-4a87-8217-0d591dfb02d7']);
-    (function() {
-    var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
-    ur.src = 'http://sdscdn.userreport.com/userreport.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
-    })();
-    </script>
+	{% block content %}{% endblock %}
+
+	<script type="text/javascript">
+	var _urq = _urq || [];
+	_urq.push(['initSite', '6b390f06-ad91-4a87-8217-0d591dfb02d7']);
+	(function() {
+	var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+	ur.src = 'http://sdscdn.userreport.com/userreport.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+	})();
+	</script>
 </body>
 </html>
