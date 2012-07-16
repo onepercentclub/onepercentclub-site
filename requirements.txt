@@ -39,3 +39,6 @@ surlex==0.1.2
 
 # http://pypi.python.org/pypi/South/0.7.5
 south==0.7.5
+
+# Posgres bindings - http://pypi.python.org/pypi/psycopg2/2.4.5
+psycopg2==2.4.2
