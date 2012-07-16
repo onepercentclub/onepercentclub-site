@@ -24,25 +24,40 @@
 </head>
 
 <body>
+	<div id="container">
+		<div id="top-panel">
+		    {% block topPanel %}{% endblock %}
+		</div>
+		<div id="mid-panel">
+		    {% block midPanel %}{% endblock %}
+		</div>
+		<div id="my-menu">
+		    {% if user.is_authenticated %}
+		    {{ user.username }} |
+		    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
+		    {% else %}
+		    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">Login</a> |
+		    <span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
+		    {% endif %}
+		</div>
+		<div id="top-menu">
+			<div class="menu">
+				
+				<ul>
+					<li>1%CLUB</li>
+					<li class="divider">&nbsp;</li>
+					<li>1%SHOW</li>
+					<li class="divider">&nbsp;</li>
+					<li>1%EVENT</li>
+					<li class="divider">&nbsp;</li>
+					<li>1%BOOKSHOP</li>
+					<li class="divider">&nbsp;</li>
+					<li>1%TOOLBOX</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-    {% if user.is_authenticated %}
-    {{ user.username }} |
-    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
-    {% else %}
-    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">Login</a> |
-    <span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
-    {% endif %}
 
-    {% block content %}{% endblock %}
-
-    <script type="text/javascript">
-    var _urq = _urq || [];
-    _urq.push(['initSite', '6b390f06-ad91-4a87-8217-0d591dfb02d7']);
-    (function() {
-    var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
-    ur.src = 'http://sdscdn.userreport.com/userreport.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
-    })();
-    </script>
 </body>
 </html>

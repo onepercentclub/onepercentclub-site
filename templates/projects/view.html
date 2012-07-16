@@ -6,8 +6,16 @@
 {{ block.super }}
 {% endblock %}
 
-{% block content %}
-
-<h1 id="home">{{ project.title }}</h1>
+{% block topPanel %}
+	<h1 id="home">{{ project.title }}</h1>
+	<table>
+		<tr>
+			<td>
+				<div class="profile-image">
+					<img src="" />
+				</div>
+			</td>
+		</tr>
+	</table>
 
 {% endblock %}
