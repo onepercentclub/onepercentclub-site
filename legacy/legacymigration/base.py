@@ -300,6 +300,22 @@ class MigrateModel(object):
 
         self.map_fields(from_instance, to_instance)
 
+    def _migrate_from(self, from_instance):
+        to_instance = self.get_to(from_instance)
+
+        # Not existing? Create one!
+        if not to_instance:
+            to_instance = self.to_model()
+
+        self.migrate_single(from_instance, to_instance)
+
+        # Validate the model
+        # (before saving, to find any errors in a timely fashion)
+        self.validate_single(to_instance)
+
+        # Save to the database
+        to_instance.save(using=self.to_db)
+
     def migrate_all(self):
         """ Migrate all the objects returned by list_from(). """
 
@@ -327,20 +343,8 @@ class MigrateModel(object):
             with Timer() as t:
                 # Iterate over all instances
                 for from_instance in from_qs:
-                    to_instance = self.get_to(from_instance)
+                    self._migrate_from(from_instance)
 
-                    # Not existing? Create one!
-                    if not to_instance:
-                        to_instance = self.to_model()
-
-                    self.migrate_single(from_instance, to_instance)
-
-                    # Validate the model
-                    # (before saving, to find any errors in a timely fashion)
-                    self.validate_single(to_instance)
-
-                    # Save to the database
-                    to_instance.save(using=self.to_db)
                     counter += 1
 
                     # Print a progress message very 10 objects
