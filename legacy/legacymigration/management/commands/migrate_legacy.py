@@ -3,6 +3,7 @@ import logging
 from ipdb import launch_ipdb_on_exception
 
 from django.core.management.base import BaseCommand
+from django.conf import settings
 
 from ...settings import MIGRATIONS
 
@@ -32,15 +33,23 @@ class Command(BaseCommand):
         m = migration_class()
         m.migrate_all()
 
+    def _run_migrations(self, *args):
+        for migration in MIGRATIONS:
+            # Execute all migrations, unless a set of migration classes
+            # have been specified on the command line
+            if not args or migration.__name__ in args:
+                self._run_migration(migration)
+
     def handle(self, *args, **options):
         # Setup the log level for root logger
         loglevel = self.verbosity_loglevel.get(options['verbosity'])
         logging.getLogger().setLevel(loglevel)
 
-        # Exception launches ipdb https://github.com/Psycojoker/ipdb#use
-        with launch_ipdb_on_exception():
-            for migration in MIGRATIONS:
-                # Execute all migrations, unless a set of migration classes
-                # have been specified on the command line
-                if not args or migration.__name__ in args:
-                    self._run_migration(migration)
+        # When debugging, launch ipdb on exception
+        if getattr(settings, 'DEBUG_LEGACY_MIGRATIONS', True):
+            # Exception launches ipdb https://github.com/Psycojoker/ipdb#use
+            with launch_ipdb_on_exception():
+                self._run_migrations(*args)
+        else:
+            # Just run the migrations
+            self._run_migrations(*args)
