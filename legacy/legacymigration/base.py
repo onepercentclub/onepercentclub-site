@@ -191,16 +191,6 @@ class MigrateModel(object):
 
         success = True
 
-        # Test bi-directional correspondence
-        logger.info('Testing bi-drectional correspondence.')
-
-        for from_instance in from_qs:
-            if not self.get_to(from_instance):
-                logger.error(u'No forwards correspondence from %s',
-                    repr(from_instance))
-
-                success = False
-
         # Make sure we have the same number of source and destination objects
         from_count = self.list_from().count()
         to_count = self.list_to().count()
@@ -222,8 +212,15 @@ class MigrateModel(object):
             from_instance = self.get_from(to_instance)
 
             if from_instance:
+                if self.get_to(from_instance) != to_instance:
+                    # TODO: This error should cause the other tests not to run AFAIK
+                    logger.error(u'No bi-directional correspondence from %s to %s',
+                        repr(from_instance), repr(to_instance))
+
+                    check_success = False
+
                 logger.debug(
-                    u"Backwards correspondence found from '%s' to '%s'.",
+                    u"Correspondence found from '%s' to '%s'.",
                     repr(from_instance), repr(to_instance)
                 )
 
