@@ -48,6 +48,9 @@ class MigrateProfile(MigrateModel):
         # Only migrate profiles for migrated members
         qs = qs.filter(member__in=self._get_members())
 
+        # Select related members as well, to reduce queries
+        qs = qs.select_related('member')
+
         return qs
 
     def _get_noprofile_member_pks(self):
@@ -77,6 +80,9 @@ class MigrateProfile(MigrateModel):
 
         # Exclude all the user/member id's for which no profile has been set.
         qs = qs.exclude(user__pk__in=self._get_noprofile_member_pks())
+
+        # Get related user as well, to reduce queries
+        qs = qs.select_related('user')
 
         return qs
 
@@ -175,6 +181,9 @@ class MigrateUserAddress(MigrateProfile):
         qs = qs.exclude(
             user_profile__user__pk__in=self._get_noprofile_member_pks()
         )
+
+        # Select related profile user to optimize query
+        qs = qs.select_related('user_profile__user')
 
         return qs
 
