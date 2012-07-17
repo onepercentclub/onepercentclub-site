@@ -16,3 +16,6 @@ DATABASES = {
 
 # Do not run legacy migrations in debugger on testing server
 DEBUG_LEGACY_MIGRATIONS = False
+
+# Turn off debugging for added speed and (hopefully) less memory usage
+DEBUG=False
