@@ -6,7 +6,7 @@
 @mainwidth: 1024px;
 
 body {
-  background-color: #000;
+  background-color: #FFF;
   font-family: @font;
   padding: 0px;
   margin: 0px;
@@ -17,16 +17,17 @@ body {
   background-color: #fff;
   width: @mainwidth;
   position: relative;
-  margin: 0px auto;
-  min-height: 1200px;
+  margin: 0px auto 40px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
 }
 
 #my-menu {
   position: absolute;
   right: 0px;
-  top: 40px;
+  top: 30px;
   font-size: 0.8em;
-  padding: 4px;
+  padding: 4px 8px;
+  border-radius: 0px 0px 0px 8px;
   background-color: @green;
   a {
     color: white;
@@ -69,6 +70,7 @@ body {
 
 #top-panel {
   padding: 40px 20px 10px 20px;
+  height: 400px;
   .profile-image {
     border: 1px solid black;
     background-color: @sepia;
@@ -84,6 +86,32 @@ body {
   background-color: #888;
   min-height: 300px;
   
+}
+
+#footer {
+  padding: 10px 20px;
+  background-color: @green;
+  min-height: 300px;
+  h3 {
+    font-family: @futura;
+    margin: 0px 0px 4px;
+    color: white;
+    
+  }
+  h4 {
+    font-family: @futura;
+    margin: 2px 0px 2px;
+    color: white;
+    font-size: 0.7em;
+    
+  }
+  table.footer {
+    width: 100%;
+    td {
+      vertical-align: top;
+      width: 25%;
+    }
+  }
 }
 
 h1 {

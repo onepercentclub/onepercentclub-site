@@ -26,20 +26,15 @@
 <body>
 	<div id="container">
 		<div id="top-panel">
-		    {% block topPanel %}{% endblock %}
+		    {% block content %}{% endblock %}
 		</div>
 		<div id="mid-panel">
 		    {% block midPanel %}{% endblock %}
 		</div>
-		<div id="my-menu">
-		    {% if user.is_authenticated %}
-		    {{ user.username }} |
-		    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
-		    {% else %}
-		    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">Login</a> |
-		    <span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
-		    {% endif %}
+		<div id="footer">
+		    {% include "footer.html" %}
 		</div>
+
 		<div id="top-menu">
 			<ul>
 				<li>1%CLUB</li>
@@ -52,9 +47,16 @@
 				<li class="divider">&nbsp;</li>
 				<li>1%TOOLBOX</li>
 			</ul>
+			<div id="my-menu">
+			    {% if user.is_authenticated %}
+			    	{{ user.username }} 
+				    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
+			    {% else %}
+				    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
+			    {% endif %}
+			</div>
+
 		</div>
 	</div>
-
-
 </body>
 </html>
