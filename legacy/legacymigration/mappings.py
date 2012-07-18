@@ -3,10 +3,14 @@ logger = logging.getLogger(__name__)
 
 from decimal import Decimal
 
+from os import path
+
 from pytz.exceptions import AmbiguousTimeError
 
 from datetime import datetime
 from django.utils import timezone
+
+from django.core.files import File
 
 from django.template.defaultfilters import slugify
 
@@ -457,3 +461,79 @@ class ConcatenatingStringMapping(IdentityMapping):
         new_value = getattr(to_instance, self.get_to_field(from_field))
 
         return self.check_value(old_value, new_value)
+
+
+class PathToFileMapping(IdentityMapping):
+    """ Map chars with paths to Django file objects. """
+
+    def __init__(self, root_path, allow_missing=False, **kwargs):
+
+        self.root_path = root_path
+        self.allow_missing = allow_missing
+
+        super(PathToFileMapping, self).__init__(**kwargs)
+
+    def map_value(self, old_value):
+        """
+        Convenient wrapping function for filtering values.
+        """
+        if old_value:
+            if old_value[0] == '/':
+                old_value = old_value[1:]
+
+            full_path = path.join(self.root_path, old_value)
+
+            if old_value[-1] == '/':
+                logger.warning(
+                    u"File '%s' is a folder, not a filename. Skipping.",
+                    full_path
+                )
+
+                return None
+
+            if path.isfile(full_path):
+                old_value = File(open(full_path))
+            else:
+                logger.warning(
+                    u"File '%s' could not be found.",
+                    full_path
+                )
+
+                if self.allow_missing:
+                    return None
+                else:
+                    raise Exception('Source file %s is missing, or not a file.' % full_path)
+        else:
+            return None
+
+        return old_value
+
+    def check_value(self, old_value, new_value):
+        """
+        When a FileField is set to None it's not *equal* to None.
+        Account for the exceptions in map_value function.
+        """
+
+        if new_value:
+            old_value = self.map_value(old_value)
+
+            # Check that the old filename is present in the new one
+            if path.basename(old_value.name) != path.basename(new_value.name):
+                logger.warning(u"Old filename '%s' does not correspond with new filename '%s'.",
+                    old_value.name, new_value.name
+                )
+
+                return False
+
+            # Check filesize
+            if old_value.size != new_value.size:
+                logger.warning(u"Old filesize '%s' does not correspond with new filesize '%s'.",
+                    old_value.size, new_value.size
+                )
+
+                return False
+
+            return True
+
+        # New value is not set, assume the old_value to be None
+        return self.map_value(old_value) == None

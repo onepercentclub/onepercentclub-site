@@ -1,6 +1,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
+import settings
+
 from django.db.models import Q
 
 from legacy.legacyprojects.models import (
@@ -22,7 +24,8 @@ from .mappings import (
     MappingMapping, EducateDateTimeMapping,
     NoneToStringMapping, OneToManyMapping, CountryMapping,
     SlugifyMapping, IdentityMapping, WebsiteMapping,
-    StringToDecimalMapping, ConcatenatingStringMapping
+    StringToDecimalMapping, ConcatenatingStringMapping,
+    PathToFileMapping
 )
 
 from .organizations import MigrateOrganization
@@ -147,7 +150,12 @@ class MigrateProject(MigrateModel):
         'title': NoneToStringMapping(),
 
         # We'll do file objects later
-        'photo': None,
+        'photo': PathToFileMapping(
+            root_path=settings.LEGACY_MEDIA_ROOT,
+            allow_missing=True,
+            to_field='image',
+            verbose=False
+        ),
 
         # Map related PK's for owner and organization directly
         'owner_usr': None,
