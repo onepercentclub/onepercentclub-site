@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | {{ userprofile }}{% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<h1 id="userprofiles">{{ userprofile}}</h1>
+
+<pre>
+	{{ userprofile|pprint }}
+</pre>
+
+{% endblock %}

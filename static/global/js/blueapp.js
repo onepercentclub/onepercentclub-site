@@ -8,11 +8,11 @@ BlueApp.views.add('TopMenu', {
 
 BlueApp.models.addApiResource('Project', {url: '/projects/api/project/'});
 
-BlueApp.widgets.addListWidget('RecentProjects', {resource: 'Project', itemView: 'ProjectListItem'});
+BlueApp.views.addList('RecentProjects', {resource: 'Project', itemView: 'ProjectListItem'});
 
-BlueApp.widgets.add('About');
+BlueApp.views.add('About');
 
-BlueApp.widgets.add('New', {tpl: 'About'});
+BlueApp.views.add('New', {tpl: 'About'});
 
 BlueApp.views.add('Project');
 

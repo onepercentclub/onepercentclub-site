@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<h1 id="home">{{ project.title }}</h1>
+	<table>
+		<tr>
+			<td>
+				<div class="profile-image">
+					<img src="" />
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<script>
+		BlueApp.views.load([
+			{
+				container: '#midpanel',
+				//method: 'replace',
+				//lifetime: 60,
+				'widgets' : [ 
+					{
+						name: 'RecentProjects',
+						//lifetime: 60,
+					},
+					{
+						name: 'New',
+					}]
+			}
+		]);	
+		
+	</script>
+	
+{% endblock %}

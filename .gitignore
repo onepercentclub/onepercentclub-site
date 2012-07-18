@@ -37,3 +37,4 @@ bluebottle/settings/secret.py
 env
 docs/_build
 .idea
+.noseids

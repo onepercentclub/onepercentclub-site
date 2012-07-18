@@ -9,24 +9,18 @@
 	Bluebone.routers = {};
 	Bluebone.models = {};
 	Bluebone.views = {};
-	Bluebone.widgets = {};
 	Bluebone.templates = {};
 	
+	/* MODELS */
 
-	// Load a template either from memory or through ajax
-	Bluebone.templates.load = function(name, callback) {
-		if (undefined == Bluebone.templates[name]) {
-			$.get('/static/global/tpl/' + name + '.html', function(data) {
-	            Bluebone.templates[name] = data;
-				//console.log(Bluebone.templates[name]);
-	            callback(data);
-	        });			 
-		} else {
-	        callback(Bluebone.templates[name]);
-		}	
-
-	}
-
+	// Shortcut to load a model class
+	Bluebone.models.get = function(model) {
+		if (undefined === Bluebone.models[model]) {
+			console.log('Model [' + model + '] not defined.');
+		}
+		return Bluebone.models[model];
+	};
+	
 	// Add a Model and Collection with REST connection for a given name
 	Bluebone.models.addApiResource = function(name, cfg) {
 		if (undefined == cfg || undefined == cfg.url) {
@@ -42,21 +36,26 @@
 		Bluebone.models[collectionName] = Bluebone.Model.extend(cfg);
 	}
 	
-	Bluebone.widgets.addListWidget = function(name, cfg) {
-		if (undefined == cfg) {
-			var cfg = {};
-		} 
-		if (undefined == cfg.itemView) {
-			cfg.itemView = name + 'Item';
-		}
-		if (undefined == cfg.tpl) {
-			cfg.tpl = name
-		}
-		var itemCfg = {tpl: cfg.itemView}; 
-		Bluebone.views[cfg.itemView] = new(Bluebone.ListItemView.extend(itemCfg));
-		Bluebone.widgets[name] = new(Bluebone.ListWidget.extend(cfg));
+	
+	/* TEMPLATES */
+
+	// Load a template either from memory or through ajax
+	Bluebone.templates.load = function(name, callback) {
+		if (undefined == Bluebone.templates[name]) {
+			$.get('/static/global/tpl/' + name + '.html', function(data) {
+	            Bluebone.templates[name] = data;
+				//console.log(Bluebone.templates[name]);
+	            callback(data);
+	        });			 
+		} else {
+	        callback(Bluebone.templates[name]);
+		}	
+
 	}
 	
+	
+	/* VIEWS */
+
 	
 	// We set a standard behavior for our Views
 	Bluebone.View = Backbone.View.extend({
@@ -81,14 +80,6 @@
 	});
 
 
-	// Shortcut to load a model class
-	Bluebone.models.get = function(model) {
-		if (undefined === Bluebone.models[model]) {
-			console.log('Model [' + model + '] not defined.');
-		}
-		return Bluebone.models[model];
-	};
-
 	// Shortcut to load a view instance
 	Bluebone.views.get = function(view) {
 		if (undefined === Bluebone.views[view]) {
@@ -108,31 +99,34 @@
 	};
 	
 
-	// A custom View for our Widgets	
-	Bluebone.Widget = Bluebone.View.extend({
-	    initialize: function() {
-	    	return this;
-	    },
-	    
-	    renderTo: function(el){
-	    	var tpl = this.tpl;
-	    	Bluebone.templates.load(this.tpl, function(template){
-	            $(el).html(_.template(template));
-	    	});
-	        return this;
-	    },			
-	});
+	
+	Bluebone.views.addList = function(name, cfg) {
+		if (undefined == cfg) {
+			var cfg = {};
+		} 
+		if (undefined == cfg.itemView) {
+			cfg.itemView = name + 'Item';
+		}
+		if (undefined == cfg.tpl) {
+			cfg.tpl = name
+		}
+		var itemCfg = {tpl: cfg.itemView}; 
+		Bluebone.views[cfg.itemView] = new(Bluebone.ListItemView.extend(itemCfg));
+		Bluebone.views[name] = new(Bluebone.Listview.extend(cfg));
+	}
+	
+	
 
-
-
-	Bluebone.ListWidget = Bluebone.View.extend({
+	// Create a view with a list of items
+	// TODO: Stick addApiResource in here (?)
+	Bluebone.Listview = Bluebone.View.extend({
 		class: 'list',
 	    initialize: function() {
 	    	if (undefined === this.itemView) {
-	    		console.log('No itemView set for ListWidget ' + this.tpl);
+	    		console.log('No itemView set for Listview ' + this.tpl);
 	    	};
 	    	if (undefined === this.resource) {
-	    		console.log('No resource set for ListWidget ' + this.tpl);
+	    		console.log('No resource set for Listview ' + this.tpl);
 	    	}
 	    	var collectionName = this.resource + 'Collection';
 	    	//this.collection = new Bluebone.models.get(this.resource + 'Collection');
@@ -175,46 +169,30 @@
 	    },
 	});
 
-	// Shortcut to load a widget instance from array
-	Bluebone.widgets.get = function(widget) {
-		if (undefined === Bluebone.widgets[widget]) {
-			console.log('Widget [' + widget + '] not loaded!');
-		}
-		return Bluebone.widgets[widget];
-	};
 
-	Bluebone.widgets.add = function(name, cfg) {
-		if (undefined == cfg) {
-			cfg = {};
-		}
-		if (undefined === cfg.tpl) {
-			cfg.tpl = name;
-		} 
-		Bluebone.widgets[name] = new (Bluebone.Widget.extend(cfg));
-	};
-	
-
-	// Load mulitple widgets
+	// Load mulitple views
 	// cfg should be in te for of :
 	// [{
-	//		widget: 'RecentProjects',
+	//		view: 'RecentProjects',
 	//		container: '#midpanel'
 	//	},
 	//	{
-	//		widget: 'About',
+	//		view: 'About',
 	//		container: '#midpanel'
 	//	},
 	//]
-	// 'widget' is the widget (view) to use
+	// 'view' is the view (view) to use
 	// 'container' the DOM element to put it in
-	Bluebone.widgets.load = function(cfg) {
-		$.each(cfg, function(i, wdg){
-			if ($(wdg.container).children('#' + wdg.widget).attr('id')) {
-				console.log('Widget ' + wdg.widget + ' already loaded...');
-			} else {
-				$('<div />', {class: 'widget', id: wdg.widget}).appendTo(wdg.container);
-				Bluebone.widgets.get(wdg.widget).renderTo('#' + wdg.widget);
-			}
+	Bluebone.views.load = function(cfg) {
+		$.each(cfg, function(i, container){
+			$.each(container.widgets, function(j, widget) {			
+				if ($(container.container).children('#' + widget.name).attr('id')) {
+					console.log('view ' + widget.name + ' already loaded...');
+				} else {
+					$('<div />', {class: 'widget', id: widget.name}).appendTo(container.container);
+					Bluebone.views.get(widget.name).renderTo('#' + widget.name);
+				}
+			});
 		});
 	};
 

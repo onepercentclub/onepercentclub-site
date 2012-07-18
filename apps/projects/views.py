@@ -1,4 +1,13 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.views.generic import ListView, DetailView
 
-def test(request):
-    return render_to_response('projects/test.html')
+from .models import Project
+
+class ProjectViewBase(object):
+    model = Project
+
+class ProjectListView(ProjectViewBase, ListView):
+    pass
+
+
+class ProjectDetailView(ProjectViewBase, DetailView):
+    pass

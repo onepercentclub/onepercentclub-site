@@ -1,14 +1,17 @@
 from django.conf.urls.defaults import patterns, url, include
+
+from surlex.dj import surl
+
 from .api import ProjectResource, IdeaPhaseResource
+from .views import ProjectListView, ProjectDetailView
 
 project_resource = ProjectResource()
 ideaphase_resource = IdeaPhaseResource()
 
 
 urlpatterns = patterns('apps.projects.views',
-    url(r'^test/', 'test'),
-#    url(r'^overview/', 'overview'),
-#    url(r'^view/(?P<name>.+)/$', 'view'),
+    surl(r'^$', ProjectListView.as_view(), name='project_list'),
+    surl(r'^<slug:s>/$', ProjectDetailView.as_view(), name='project_detail'),
 )
 
 # API urls
