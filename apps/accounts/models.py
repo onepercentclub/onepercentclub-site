@@ -20,7 +20,8 @@ class Language(models.Model):
     A Language that user can speak write. This is separate from the user
     interface language.
     """
-    # TODO Pre-populate this model with the languages from global_settings.
+
+    # TODO: Pre-populate this model with the languages from global_settings.
     language = models.CharField(max_length=5, unique=True,
                                 choices=global_settings.LANGUAGES)
 
@@ -28,7 +29,7 @@ class Language(models.Model):
         return self.get_language_display()
 
 
-""" TODO: Make this generic for all user file uploads. """
+# TODO: Make this generic for all user file uploads.
 def generate_picture_filename(instance, filename):
     """
     Creates a random directory and file name for uploaded pictures.
@@ -41,6 +42,7 @@ def generate_picture_filename(instance, filename):
     An example return value is of this method is:
         'profiles/tw/tws9ea4eqaj37xnu24svp2vwndsytzysa.jpg'
     """
+
     # Create the upload directory string.
     char_set = string.ascii_lowercase + string.digits
     random_string = ''.join(random.choice(char_set) for i in range(33))
@@ -56,7 +58,8 @@ def generate_picture_filename(instance, filename):
 
 
 class UserProfileCreationError(Exception):
-    "The UserPofile could not be created."
+    """ The UserPofile could not be created. """
+
     pass
 
 
@@ -67,6 +70,7 @@ class UserProfile(models.Model):
     """
     Additional information about a user.
     """
+
     class Gender(DjangoChoices):
         male = ChoiceItem('male', label=_("Male"))
         female = ChoiceItem('female', label=_("Female"))
@@ -116,7 +120,7 @@ class UserProfile(models.Model):
                     raise UserProfileCreationError("A UserProfile cannot be created without a User. " + \
                                                    "Creating a User will automatically create the UserProfile.")
 
-            super(UserProfile, self).save(*args, **kwargs)
+        super(UserProfile, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = _("User Profiles")
