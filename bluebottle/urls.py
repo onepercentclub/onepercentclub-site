@@ -23,9 +23,8 @@ urlpatterns = patterns('',
 
     # account login/logout, password reset, and password change
     (r'^accounts/', include('django.contrib.auth.urls')),
-    (r'^members/', include('apps.accounts.urls')),
-
     (r'^projects/', include('apps.projects.urls')),
+    (r'^members/', include('apps.accounts.urls')),
 )
 
 # Serve django-staticfiles (only works in DEBUG)

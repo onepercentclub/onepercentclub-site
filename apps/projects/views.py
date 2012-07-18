@@ -13,4 +13,3 @@ class ProjectListView(ProjectViewBase, ListView):
 
 class ProjectDetailView(ProjectViewBase, DetailView):
     pass
-

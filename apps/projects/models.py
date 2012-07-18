@@ -273,3 +273,17 @@ class Message(models.Model):
     class Meta:
         ordering = ['-created']
 
+
+class Category(models.Model):
+    """ Categories for Projects """
+
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    ordering = models.IntegerField()
+
+    class Meta:
+        ordering = ['ordering']
+
+
+
+
