@@ -3,9 +3,9 @@ import logging
 from ipdb import launch_ipdb_on_exception
 
 from django.core.management.base import BaseCommand
-from django.conf import settings
 
-from ...settings import MIGRATIONS
+from ...settings import MIGRATIONS, DEBUG_MIGRATIONS
+from ...utils import get_migration
 
 
 class Command(BaseCommand):
@@ -28,17 +28,13 @@ class Command(BaseCommand):
         '3': logging.DEBUG
     }
 
-    def _run_migration(self, migration_class):
-        """ Run a single migration. """
-        m = migration_class()
-        m.migrate_all()
-
     def _run_migrations(self, *args):
         for migration in MIGRATIONS:
             # Execute all migrations, unless a set of migration classes
             # have been specified on the command line
-            if not args or migration.__name__ in args:
-                self._run_migration(migration)
+            if not args or migration.rsplit('.', 1)[1] in args:
+                migration_instance = get_migration(migration)
+                migration_instance.migrate_all()
 
     def handle(self, *args, **options):
         # Setup the log level for root logger
@@ -46,7 +42,7 @@ class Command(BaseCommand):
         logging.getLogger().setLevel(loglevel)
 
         # When debugging, launch ipdb on exception
-        if getattr(settings, 'DEBUG_LEGACY_MIGRATIONS', True):
+        if DEBUG_MIGRATIONS:
             # Exception launches ipdb https://github.com/Psycojoker/ipdb#use
             with launch_ipdb_on_exception():
                 self._run_migrations(*args)
