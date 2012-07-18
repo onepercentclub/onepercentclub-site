@@ -32,6 +32,11 @@ class Donation(models.Model):
     def lines(self):
         return DonationLine.objects.filter(donation=self)
 
+    def __unicode__(self):
+        return u'%f on %s from %s' % (
+            self.amount, self.created, self.member
+        )
+
 
 class DonationLine(models.Model):
     """ Links a project to a donation """
@@ -48,6 +53,10 @@ class DonationLine(models.Model):
     def status(self):
         return self.donation.status
 
+    def __unicode__(self):
+        return u'%f from donation %s to %s' % (
+            self.amount, self.donation, self.project
+        )
 
 
 class Thanks(models.Model):
@@ -87,6 +96,9 @@ class Thanks(models.Model):
     def amount(self):
         return self.donation.amount
 
+    def __unicode__(self):
+        return u'For donation %s' % self.donation
+
 
 class PortfolioLine(models.Model):
     """ Projects specifically selected for monthly payments by members """
@@ -100,6 +112,11 @@ class PortfolioLine(models.Model):
     class Meta:
         db_table = u'don_portfolio_lines'
         managed = False
+
+    def __unicode__(self):
+        return u'%f on %s from %s to %s' % (
+            self.amount, self.created, self.member, self.project
+        )
 
 
 class External(models.Model):
@@ -121,3 +138,7 @@ class External(models.Model):
         db_table = u'don_donation_external'
         managed = False
 
+    def __unicode__(self):
+        return u'%f for %s' % (
+            self.amount, self.donation
+        )
