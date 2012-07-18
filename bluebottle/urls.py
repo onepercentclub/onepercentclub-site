@@ -15,8 +15,6 @@ urlpatterns = staticfiles_urlpatterns()
 
 # Serve media files (only works in DEBUG)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.GLOBAL_URL, document_root=settings.GLOBAL_ROOT)
-
 
 
 handler500 = 'bluebottle.views.handler500'

@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns
+
 from surlex.dj import surl
 
 from .views import ProjectListView, ProjectDetailView
