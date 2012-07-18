@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | Projects{% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<h1 id="projects">Projects</h1>
+
+<ul>
+{% for project in project_list %}
+	<li><a href="{{ project.get_absolute_url }}">{{ project }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
