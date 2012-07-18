@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load thumbnail %}
+
 {% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
 
 {% block htmlheader %}
@@ -7,7 +9,11 @@
 {% endblock %}
 
 {% block content %}
-<h1 id="projects">Projects</h1>
+<h1 id="projects">{{ project.title }}</h1>
+
+{% thumbnail project.image "200x200" crop="center" as picture %}
+	<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}">
+{% endthumbnail %}
 
 <pre>
 	{{ project|pprint }}
