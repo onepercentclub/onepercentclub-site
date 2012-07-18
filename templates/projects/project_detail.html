@@ -7,10 +7,14 @@
 {% endblock %}
 
 {% block content %}
-<h1 id="projects">Projects</h1>
-
-<pre>
-	{{ project|pprint }}
-</pre>
-
+	<h1 id="home">{{ project.title }}</h1>
+	<table>
+		<tr>
+			<td>
+				<div class="profile-image">
+					<img src="" />
+				</div>
+			</td>
+		</tr>
+	</table>
 {% endblock %}
