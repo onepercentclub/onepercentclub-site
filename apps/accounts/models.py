@@ -73,13 +73,16 @@ class UserProfile(models.Model):
                          populate_from=('get_username',), overwrite=True)
 
     # Settings
-    interface_language = models.CharField(max_length=5,
+    interface_language = models.CharField(max_length=5, null=True, blank=True,
                                           choices=settings.LANGUAGES)
     newsletter = models.BooleanField(_("Send Newsletter"), default=False)
 
     # Basic profile information
     birthdate = models.DateField(null=True, blank=True)
-    gender = models.CharField(max_length=6, blank=True, choices=Gender.choices)
+    gender = models.CharField(_('gender'),
+        max_length=6, blank=True,
+        null=True, choices=Gender.choices
+    )
     location = models.CharField(max_length=100, blank=True)
     website = models.URLField(blank=True, max_length=255)
     # TODO Use generate_picture_filename (or something) for upload_to
@@ -90,16 +93,27 @@ class UserProfile(models.Model):
     # In-depth profile information
     about = models.TextField(blank=True)
     why = models.TextField(blank=True)
-    contribution = models.CharField(max_length=255, blank=True)
+    contribution = models.TextField(blank=True)
     availability = models.CharField(max_length=255, blank=True)
     working_location = models.CharField(max_length=255, blank=True)
 
     def __unicode__(self):
-        return self.user.username
+        try:
+            return self.user.username
+        except User.DoesNotExist:
+            return str(self.pk)
 
     @property
     def get_username(self):
         return self.user.username
+
+    @models.permalink
+    def get_absolute_url(self):
+        """ Get the URL for the current user's profile. """
+
+        return ('userprofile_detail', (), {
+            'slug': self.slug
+        })
 
     class Meta:
         verbose_name_plural = _("User Profiles")

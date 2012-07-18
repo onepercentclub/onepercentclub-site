@@ -61,7 +61,7 @@ class OrganizationMember(models.Model):
         member = ChoiceItem('member', label=_("Member"))
 
     organization = models.ForeignKey(Organization)
-    member = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User')
     function = models.CharField(max_length=20, choices=MemberFunctions.choices,
                                 help_text="Function might determine Role later on.")
 
@@ -70,9 +70,9 @@ class OrganizationAddress(Address):
     """ Address model for Organizations. """
 
     class AddressType(DjangoChoices):
-        physical = ChoiceItem('physical', label="Physical")
-        postal = ChoiceItem('postal', label="Postal")
-        other = ChoiceItem('other', label="Other")
+        physical = ChoiceItem('physical', label=_("Physical"))
+        postal = ChoiceItem('postal', label=_("Postal"))
+        other = ChoiceItem('other', label=_("Other"))
 
     type = models.CharField(max_length=8, blank=True, choices=AddressType.choices)
     organization = models.ForeignKey(Organization)

@@ -7,14 +7,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>{% block htmltitle %}bluebottle{% endblock %}</title>
 
-    {% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
+	{% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
 
 	{% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
+		<link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
 	{% endcompress %}
 
 	{% compress js %}
-	    <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
+		<script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
 	{% endcompress %}
 
 	<link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}global/css/main.less">

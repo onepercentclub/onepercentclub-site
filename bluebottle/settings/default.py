@@ -1,5 +1,8 @@
 # Django settings for bluebottle project.
 
+# Import global settings for overriding without throwing away defaults
+from django.conf import global_settings
+
 from os import path
 
 # Set PROJECT_ROOT to the dir of the current file
@@ -29,9 +32,24 @@ MANAGERS = ADMINS
 # system time zone.
 TIME_ZONE = 'Europe/Amsterdam'
 
-# Language code for this installation. All choices can be found here:
+
+"""
+Available user interface translations
+Ref: https://docs.djangoproject.com/en/1.4/ref/settings/#languages
+"""
+# Default language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
+
+# This is defined here as a do-nothing function because we can't import
+# django.utils.translation -- that module depends on the settings.
+gettext_noop = lambda s: s
+
+LANGUAGES = (
+    ('nl', gettext_noop('Dutch')),
+    ('en', gettext_noop('English'))
+)
+
 
 SITE_ID = 1
 
@@ -129,9 +147,14 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Browsers will block our pages from loading in an iframe no matter which site
+# made the request. This setting can be overridden on a per response or a per
+# view basis with the @xframe decorators.
+X_FRAME_OPTIONS = 'DENY'
 
 TEMPLATE_CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',

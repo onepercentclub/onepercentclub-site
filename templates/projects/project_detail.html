@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block htmltitle %}{{ block.super }} | Home{% endblock %}
+{% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
 
 {% block htmlheader %}
 {{ block.super }}
@@ -17,5 +17,4 @@
 			</td>
 		</tr>
 	</table>
-
 {% endblock %}
