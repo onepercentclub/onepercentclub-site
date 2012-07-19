@@ -9,8 +9,8 @@ from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 
 from django_extensions.db.fields import AutoSlugField
-from sorl.thumbnail import ImageField
 from djchoices.choices import DjangoChoices, ChoiceItem
+from sorl.thumbnail import ImageField
 
 from apps.bluebottle_utils.models import Address
 
@@ -20,7 +20,8 @@ class Language(models.Model):
     A Language that user can speak write. This is separate from the user
     interface language.
     """
-    # TODO Pre-populate this model with the languages from global_settings.
+
+    # TODO: Pre-populate this model with the languages from global_settings.
     language = models.CharField(max_length=5, unique=True,
                                 choices=global_settings.LANGUAGES)
 
@@ -28,7 +29,7 @@ class Language(models.Model):
         return self.get_language_display()
 
 
-""" TODO: Make this generic for all user file uploads. """
+# TODO: Make this generic for all user file uploads.
 def generate_picture_filename(instance, filename):
     """
     Creates a random directory and file name for uploaded pictures.
@@ -41,6 +42,7 @@ def generate_picture_filename(instance, filename):
     An example return value is of this method is:
         'profiles/tw/tws9ea4eqaj37xnu24svp2vwndsytzysa.jpg'
     """
+
     # Create the upload directory string.
     char_set = string.ascii_lowercase + string.digits
     random_string = ''.join(random.choice(char_set) for i in range(33))
@@ -55,6 +57,12 @@ def generate_picture_filename(instance, filename):
     return os.path.normpath(os.path.join(upload_directory, normalized_filename))
 
 
+class UserProfileCreationError(Exception):
+    """ The UserPofile could not be created. """
+
+    pass
+
+
 # The UserProfile class is setup as per the recommendations in the Django
 # documentation:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
@@ -62,6 +70,7 @@ class UserProfile(models.Model):
     """
     Additional information about a user.
     """
+
     class Gender(DjangoChoices):
         male = ChoiceItem('male', label=_("Male"))
         female = ChoiceItem('female', label=_("Female"))
@@ -106,6 +115,18 @@ class UserProfile(models.Model):
     @property
     def get_username(self):
         return self.user.username
+
+    # Override save() to prevent UserProfiles from being created
+    # without a corresponding User.
+    # http://stackoverflow.com/questions/2307943/django-overriding-the-model-create-method
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # The object is not in the database yet because it doesn't have a pk.
+            if not hasattr(self, 'user'):
+                raise UserProfileCreationError("A UserProfile cannot be created without a User. " + \
+                                               "Creating a User will automatically create the UserProfile.")
+
+        super(UserProfile, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):
