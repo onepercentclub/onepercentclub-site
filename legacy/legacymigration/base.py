@@ -53,19 +53,6 @@ class MigrateModel(object):
     def map_fields(self, from_instance, to_instance):
         """
         Copy all fields from one object to another.
-
-        Example field mapping::
-
-            field_mapping = {
-                'id': True, # True means just copy the field
-                'email': True,
-                'username': True,
-                # A function can be specified to yield a dictionary
-                'password': lambda instance,fieldname: {'password': getattr(instance, fieldname)},
-                # A string can be passed to map to a different field
-                'created': 'date_joined',
-            }
-
         """
 
         for field in self.field_mapping.iterkeys():
