@@ -123,8 +123,8 @@ class UserProfile(models.Model):
         if not self.pk:
             # The object is not in the database yet because it doesn't have a pk.
             if not hasattr(self, 'user'):
-                    raise UserProfileCreationError("A UserProfile cannot be created without a User. " + \
-                                                   "Creating a User will automatically create the UserProfile.")
+                raise UserProfileCreationError("A UserProfile cannot be created without a User. " + \
+                                               "Creating a User will automatically create the UserProfile.")
 
         super(UserProfile, self).save(*args, **kwargs)
 
