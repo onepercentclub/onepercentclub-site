@@ -1,13 +1,18 @@
-from django.utils import unittest
 from django.contrib.auth.models import User
+from django.utils import unittest
+
+from apps.accounts.models import UserProfile, UserProfileCreationError
 
 
 class UserProfileTestCase(unittest.TestCase):
+    """ Tests for the UserProfile model. """
+
     def test_slug_update(self):
         """
         This test checks that UserProfile.slug is updated when User.username
         changed.
         """
+
         # Check that the slug is the same as the username.
         test_username1 = 'testuser23'
         user = User(username=test_username1)
@@ -23,3 +28,19 @@ class UserProfileTestCase(unittest.TestCase):
 
         # Remove the test user.
         user.delete()
+
+    def test_create_without_user(self):
+        """
+        This test checks that creating a UserProfile object correctly throws an
+        exception as this operation is prohibited.
+        """
+
+        user_profile = UserProfile()
+        try:
+            user_profile.save()
+        except UserProfileCreationError:
+            pass
+        except:
+            raise
+        else:
+            self.fail("Expected exception not thrown.")
