@@ -5,6 +5,7 @@
 @white: #ffffff;
 @gray: #a7a7a7;
 @lightgray: #e8e8e8;
+@static-url: "../../";
 
 @font: Arial, Helvetica;
 @futura: 'Futura Std Book', @font;
@@ -68,7 +69,7 @@ body {
       text-indent: 0px;
     }
     li.active {
-      background: url(/static/global/images/elements/pointer.png) center bottom no-repeat;
+      background: url("@{static-url}/global/images/elements/pointer.png") center bottom no-repeat;
     }
   }
   a {

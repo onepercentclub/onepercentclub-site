@@ -40,7 +40,7 @@
 	Bluebone.templates.load = function(name, callback) {
 		if (undefined == Bluebone.templates[name]) {
 			console.log('Load template: ' + name);
-			$.get('/static/global/tpl/' + name + '.tpl', function(data) {
+			$.get('/static/assets/global/tpl/' + name + '.tpl', function(data) {
 	            Bluebone.templates[name] = data;
 				//console.log(Bluebone.templates[name]);
 	            callback(data);
