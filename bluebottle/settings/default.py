@@ -188,6 +188,8 @@ INSTALLED_APPS = [
     'raven.contrib.django',
     'djcelery',
     'south',
+    # Nose is temporarily not the default testrunner due to
+    # https://github.com/jbalogh/django-nose/issues/85
     # 'django_nose',
     'compressor',
 
@@ -238,6 +240,8 @@ djcelery.setup_loader()
 
 
 """ django-nose """
+# Nose is temporarily not the default testrunner due to
+# https://github.com/jbalogh/django-nose/issues/85
 # TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # NOSE_ARGS = [
 #     '--detailed-errors',
