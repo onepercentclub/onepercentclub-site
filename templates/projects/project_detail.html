@@ -7,32 +7,28 @@
 {% endblock %}
 
 {% block content %}
-	<table class="layout">
-		<tr>
-			<td>
-				<div class="profile-image">
-					<img src="" />
-				</div>
-			</td>
-			<td class="double">
-				<h4>Project</h4>
-				<h1>{{ project.title }}</h1>
-				
-				<h4>Organization</h4>
-				<p>{{ project.organization.name }}</p>
-				
-				<h4>Location</h4>
-				<p>{{ project.location }}</p>
-				
-				<h4>Costs</h4>
-				<p>&euro; {{ project.planphase.money_asked }}</p>
-				
-			</td>
-			<td class="rightcolumn">
-				
-			</td>
-		</tr>
-	</table>
+	<div class="row">
+  		<div class="column grid_1">
+			<div class="profile-image">
+				<img src="" />
+			</div>
+  		</div>
+  		<div class="column grid_2">
+			<h4>Project</h4>
+			<h1>{{ project.title }}</h1>
+			
+			<h4>Organization</h4>
+			<p>{{ project.organization.name }}</p>
+			
+			<h4>Location</h4>
+			<p>{{ project.location }}</p>
+			
+			<h4>Costs</h4>
+			<p>&euro; {{ project.planphase.money_asked }}</p>
+  		</div>
+  		<div class="column grid_1">
+  		</div>
+	</div>
 
 	<script>
 		$(document).ready(function(){

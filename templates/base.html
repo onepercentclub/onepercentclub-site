@@ -10,6 +10,8 @@
 	{% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
 
     {% compress css %}
+		<link rel="stylesheet" href="{{ STATIC_URL }}global/css/960/reset-min.css" type="text/css" />
+		<link rel="stylesheet" href="{{ STATIC_URL }}global/css/960/960-min.css" type="text/css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
 	{% endcompress %}
 
