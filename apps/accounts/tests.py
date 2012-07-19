@@ -36,6 +36,8 @@ class UserProfileTestCase(unittest.TestCase):
         """
 
         user_profile = UserProfile()
+        # This somewhat awkward test strategy is used because AssertRaises is
+        # not working for some reason.
         try:
             user_profile.save()
         except UserProfileCreationError:
