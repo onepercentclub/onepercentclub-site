@@ -94,16 +94,6 @@ GLOBAL_URL = '/static/global/'
 
 
 
-# Absolute filesystem path to the directory that will hold global files.
-# Example: "/home/media/media.lawrence.com/media/"
-GLOBAL_ROOT = path.join(PROJECT_ROOT, 'static', 'global')
-
-# URL that handles the media served from GLOBAL_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/static/global/", "http://example.com/global/"
-GLOBAL_URL = '/static/global/'
-
-
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
@@ -197,11 +187,12 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
 
     'django_extensions',
+    'django_extensions.tests',
     'debug_toolbar',
     'raven.contrib.django',
     'djcelery',
     'south',
-    'django_nose',
+    # 'django_nose',
     'compressor',
 
     'django_countries', # http://pypi.python.org/pypi/django-countries
@@ -251,10 +242,10 @@ djcelery.setup_loader()
 
 
 """ django-nose """
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-NOSE_ARGS = [
-    '--detailed-errors',
-]
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+# NOSE_ARGS = [
+#     '--detailed-errors',
+# ]
 
 SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
 
