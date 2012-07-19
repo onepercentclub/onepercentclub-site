@@ -17,7 +17,7 @@
 					{% thumbnail project.image "200x200" crop="center" as picture %}
 						<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ project.title }}">
 					{% else %}
-						<img src="http://placekitten.com/200/200" title="{{ project.title }}">
+						<img src="http://placehold.it/200x200" title="{{ project.title }}">
 					{% endthumbnail %}
 				</div>
 			</td>
