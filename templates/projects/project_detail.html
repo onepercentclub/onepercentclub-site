@@ -17,4 +17,11 @@
 			</td>
 		</tr>
 	</table>
+
+	<ul>
+		{% for category in project.categories.all %}
+			<li>{{ category.name }}</li>
+		{% endfor %}
+	</ul>
+
 {% endblock %}

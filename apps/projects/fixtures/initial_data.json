@@ -1,0 +1,82 @@
+[
+  {
+    "pk": 2,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Agriculture",
+      "description": ""
+    }
+  },
+  {
+    "pk": 10,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Climate",
+      "description": ""
+    }
+  },
+  {
+    "pk": 5,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Culture",
+      "description": ""
+    }
+  },
+  {
+    "pk": 1,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Education",
+      "description": ""
+    }
+  },
+  {
+    "pk": 3,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Health",
+      "description": ""
+    }
+  },
+  {
+    "pk": 4,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Social Entrepreneurship",
+      "description": ""
+    }
+  },
+  {
+    "pk": 6,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Sports",
+      "description": ""
+    }
+  },
+  {
+    "pk": 9,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Water",
+      "description": ""
+    }
+  },
+  {
+    "pk": 8,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Women",
+      "description": ""
+    }
+  },
+  {
+    "pk": 7,
+    "model": "projects.projectcategory",
+    "fields": {
+      "name": "Youth",
+      "description": ""
+    }
+  }
+]
