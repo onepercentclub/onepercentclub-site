@@ -69,6 +69,9 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
                 logger.exception('An error occurred while scaling an image in the admin.')
                 return value % ''
             else:
+                # We might need this later, for explicitly linking and/or
+                # formatting of the image and/or link.
+                #
                 # output = (
                 #     u'<div style="float:left">'
                 #     u'<a style="width:%spx;display:block;margin:0 0 10px" class="thumbnail" target="_blank" href="%s">'
