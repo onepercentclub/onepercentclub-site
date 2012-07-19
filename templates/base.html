@@ -32,6 +32,12 @@
 
 <body>
 	<div id="container">
+		<div id="header">
+			<div class="logo">
+				<img src="/static/global/images/elements/logo.png" alt="1%CLUB" />
+				<img src="/static/global/images/elements/payoff.gif" alt="YOU MAKE IT WORK!" />
+			</div>
+		</div>
 		<div id="toppanel">
 		    {% block content %}{% endblock %}
 		</div>
@@ -44,19 +50,15 @@
 		    {% include "footer.html" %}
 		</div>
 
-		<div id="top-menu">
+		<div id="topmenu">
 			<ul>
-				<li>1%CLUB</li>
-				<li class="divider">&nbsp;</li>
+				<li class="active">1%CLUB</li>
 				<li>1%SHOW</li>
-				<li class="divider">&nbsp;</li>
 				<li>1%EVENT</li>
-				<li class="divider">&nbsp;</li>
 				<li>1%BOOKSHOP</li>
-				<li class="divider">&nbsp;</li>
 				<li>1%TOOLBOX</li>
 			</ul>
-			<div id="my-menu">
+			<div id="mymenu">
 			    {% if user.is_authenticated %}
 			    	{{ user.username }} 
 				    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
@@ -64,6 +66,15 @@
 				    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
 			    {% endif %}
 			</div>
+		</div>
+		<div id="submenu">
+			<ul>
+				<li class="active">HOME</li>
+				<li>1%PROJECTS</li>
+				<li>1%TASKS</li>
+				<li>1%ACTIONS</li>
+				<li>LEARN MORE</li>
+			</ul>
 
 		</div>
 	</div>

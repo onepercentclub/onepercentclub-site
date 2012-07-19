@@ -1,10 +1,7 @@
 // Have a NameSpaced App
 var BlueApp = Bluebone;
 
-BlueApp.views.add('TopMenu', {
-    tpl: 'TopMenu',
-    el: '#topmenu'
-});
+BlueApp.views.add('TopMenu');
 
 BlueApp.models.addApiResource('Project', {url: '/projects/api/project/'});
 
@@ -23,7 +20,7 @@ BlueApp.routers.Main = new (Bluebone.Router.extend({
     },
 
     initialize: function () {
-        BlueApp.views.TopMenu.renderTo('#topmenu');
+        console.log('Initializing BlueApp');
     },
     
     project: function(id) {

@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block content %}
-	<h1 id="home">{{ project.title }}</h1>
 	<table>
 		<tr>
 			<td>
@@ -15,25 +14,45 @@
 					<img src="" />
 				</div>
 			</td>
+			<td>
+				<h4>Project</h4>
+				<h1>{{ project.title }}</h1>
+				
+				<h4>Organization</h4>
+				<p>{{ project.organization.name }}</p>
+				
+				<h4>Location</h4>
+				<p>{{ project.location }}</p>
+				
+				<h4>Costs</h4>
+				<p>&euro; {{ project.planphase.money_asked }}</p>
+				
+			</td>
+			<td class="rightcolumn">
+				
+			</td>
 		</tr>
 	</table>
 
 	<script>
-		BlueApp.views.load([
-			{
-				container: '#midpanel',
-				//method: 'replace',
-				//lifetime: 60,
-				'widgets' : [ 
-					{
-						name: 'RecentProjects',
-						//lifetime: 60,
-					},
-					{
-						name: 'New',
-					}]
-			}
-		]);	
+		$(document).ready(function(){
+			BlueApp.views.load([
+				{
+					container: '#midpanel',
+					//method: 'replace',
+					//lifetime: 60,
+					'widgets' : [ 
+						{
+							name: 'RecentProjects',
+							//lifetime: 60,
+						},
+						{
+							name: 'New',
+						}]
+				}
+			]);	
+			
+		})
 		
 	</script>
 	

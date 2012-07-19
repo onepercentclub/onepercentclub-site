@@ -1,6 +1,7 @@
 // We're gonna extend Backbone a bit...
 // Let's get funky!
 
+
 (function() {
 	var Bluebone;
 	Bluebone = this.Bluebone = Backbone;
@@ -22,6 +23,8 @@
 	};
 	
 	// Add a Model and Collection with REST connection for a given name
+	// TODO: THIS ISN'T WORKING YET!!
+	// If it works replace some harcoded stuff in Bluebone.ListView
 	Bluebone.models.addApiResource = function(name, cfg) {
 		if (undefined == cfg || undefined == cfg.url) {
 			console.log('Need some configuration to set a resource. Trye {url: <apiUrl>}');
@@ -42,7 +45,8 @@
 	// Load a template either from memory or through ajax
 	Bluebone.templates.load = function(name, callback) {
 		if (undefined == Bluebone.templates[name]) {
-			$.get('/static/global/tpl/' + name + '.html', function(data) {
+			console.log('Load template: ' + name);
+			$.get('/static/global/tpl/' + name + '.tpl', function(data) {
 	            Bluebone.templates[name] = data;
 				//console.log(Bluebone.templates[name]);
 	            callback(data);
@@ -80,7 +84,7 @@
 	});
 
 
-	// Shortcut to load a view instance
+	// Get a view from views array
 	Bluebone.views.get = function(view) {
 		if (undefined === Bluebone.views[view]) {
 			console.log('View [' + view + '] not loaded!');
@@ -88,6 +92,7 @@
 		return Bluebone.views[view];
 	};
 	
+	// Add a view to views array
 	Bluebone.views.add = function(name, cfg) {
 		if (undefined == cfg) {
 			cfg = {};
@@ -119,6 +124,7 @@
 
 	// Create a view with a list of items
 	// TODO: Stick addApiResource in here (?)
+	// TODO: No hard coded stuff for this.collection pleazzzzz
 	Bluebone.Listview = Bluebone.View.extend({
 		class: 'list',
 	    initialize: function() {
@@ -129,7 +135,7 @@
 	    		console.log('No resource set for Listview ' + this.tpl);
 	    	}
 	    	var collectionName = this.resource + 'Collection';
-	    	//this.collection = new Bluebone.models.get(this.resource + 'Collection');
+	    	//this.collection = new (Bluebone.models.get(this.resource + 'Collection'));
 	    	this.collection = new (Backbone.Collection.extend({url: '/projects/api/project'}))
 	    	
 	    	return this;
@@ -144,8 +150,10 @@
 				success: function(){
 					var items = thisView.collection.models;
 					for (item in items) {
-						Bluebone.views.get(thisView.itemView).html(items[item], function(item){
-							$(el).children('ul.'+thisView.class).append(item);	
+						console.log('Adding item');
+						Bluebone.views.get(thisView.itemView).render(items[item], function(item){
+							var li = $('<li />').append(item);
+							$('ul.' + thisView.class, el).append(li);	
 						})
 						
 					}
@@ -161,7 +169,7 @@
 			return this;
 		},
 
-	    html: function(model, callback) {
+	    render: function(model, callback) {
 	    	var html;
 	    	Bluebone.templates.load(this.tpl, function(template){
 		    	callback(_.template(template, model.attributes));
