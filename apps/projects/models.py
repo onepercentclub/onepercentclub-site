@@ -7,12 +7,11 @@ from djchoices import DjangoChoices, ChoiceItem
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
 )
-
 from sorl.thumbnail import ImageField
 
 
 class Project(models.Model):
-    """ The base Project model """
+    """ The base Project model. """
 
     class ProjectPhases(DjangoChoices):
         idea = ChoiceItem('idea', label=_("Idea"))
@@ -25,28 +24,23 @@ class Project(models.Model):
 
     image = ImageField(max_length=255, blank=True,
         upload_to='project_images/',
-        help_text=_('Main project picture'))
+        help_text=_("Main project picture"))
 
     organization = models.ForeignKey('organizations.Organization')
     owner = models.ForeignKey('auth.User')
-
     phase = models.CharField(max_length=20, choices=ProjectPhases.choices,
-        help_text=_('Phase this project is in right now.')
-    )
-
+        help_text=_("Phase this project is in right now."))
     created = CreationDateTimeField(
-        help_text=_('When was this project created')
-    )
+        help_text=_("When this project was created."))
 
     country = CountryField(null=True)
+    # Location of this project
     latitude = models.CharField(max_length=30)
     longitude = models.CharField(max_length=30)
-    """ Location of this project """
 
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,
-        help_text=_('Project main language')
-    )
+        help_text=_("Main language of the project."))
 
     def __unicode__(self):
         if self.title:
@@ -55,7 +49,7 @@ class Project(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        """ Get the URL for the current project.. """
+        """ Get the URL for the current project. """
 
         return ('project_detail', (), {
             'slug': self.slug
@@ -77,9 +71,9 @@ class AbstractPhase(models.Model):
     title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
 
+    # Date the phase has started/ended.
     startdate = models.DateField(null=True)
     enddate = models.DateField(null=True)
-    """ Date the phase has started/ended """
 
     status = models.CharField(max_length=20, choices=PhaseStatuses.choices)
 
@@ -88,13 +82,13 @@ class AbstractPhase(models.Model):
 
 
 class IdeaPhase(AbstractPhase):
-    """ IdeaPhase: Got a nice idea here """
+    """ IdeaPhase: Got a nice idea here. """
 
     pass
 
 
 class PlanPhase(AbstractPhase):
-    """ PlanPhase: fill out some forms for project plan """
+    """ PlanPhase: Fill out some forms for project plan. """
 
     class PhaseStatuses(DjangoChoices):
         hidden = ChoiceItem('hidden', label=_("Hidden"))
@@ -104,36 +98,28 @@ class PlanPhase(AbstractPhase):
         completed = ChoiceItem('completed', label=_("Completed"))
 
     money_total = models.DecimalField(max_digits=9, decimal_places=2,
-        help_text=_('Total amount needed for this project.')
-    )
+        help_text=_("Total amount needed for this project."))
     money_asked = models.DecimalField(max_digits=9, decimal_places=2,
-        help_text=_('Amount asked for from this website.')
-    )
+        help_text=_("Amount asked for from this website."))
 
     what = models.TextField(
         blank=True,
-        help_text=_("What do you want to do?")
-    )
+        help_text=_("What do you want to do?"))
     goal = models.TextField(
         blank=True,
-        help_text=_("What is your goal?")
-    )
+        help_text=_("What is your goal?"))
     who = models.TextField(
         blank=True,
-        help_text=_("Who are you helping?")
-    )
+        help_text=_("Who are you helping?"))
     how = models.TextField(
         blank=True,
-        help_text=_("In which way?")
-    )
+        help_text=_("In which way?"))
     sustainability = models.TextField(
         blank=True,
-        help_text=_("How can next generations profit from this?")
-    )
+        help_text=_("How can next generations profit from this?"))
     target = models.TextField(
         blank=True,
-        help_text=_("What is your target?")
-    )
+        help_text=_("What is your target?"))
 
     needed_expertise = models.TextField(blank=True)
     needed_volunteers = models.TextField(blank=True)
@@ -142,9 +128,8 @@ class PlanPhase(AbstractPhase):
     money_other_sources = models.TextField(blank=True)
 
 
-
 class ActPhase(AbstractPhase):
-    """ ActPhase Funding complete lets DO it! """
+    """ ActPhase Funding complete. Let's DO it! """
 
     planning = models.TextField(blank=True)
     planned_start_date = models.DateField(null=True)
@@ -152,33 +137,28 @@ class ActPhase(AbstractPhase):
 
 
 class ResultsPhase(AbstractPhase):
-    """ ResultsPhase: Tell about how things worked out """
+    """ ResultsPhase: Tell about how things worked out. """
 
+    # Five questions that get asked after the project is done.
     what = models.TextField(
         help_text=_("What and how?"),
-        blank=True
-    )
+        blank=True)
     tips = models.TextField(
         help_text=_("Tips and tricks?"),
-        blank=True
-    )
+        blank=True)
     change = models.TextField(
         help_text=_("What has changed for the target group?"),
-        blank=True
-    )
+        blank=True)
     financial = models.TextField(
         help_text=_("How was the money spend?"),
-        blank=True
-    )
+        blank=True)
     next = models.TextField(
         help_text=_("What's next?"),
-        blank=True
-    )
-    """ Five questions that get asked after the project is done """
+        blank=True)
 
 
 class BudgetCategory(models.Model):
-    """ BudgetCategory: Categories for BudgetLines """
+    """ BudgetCategory: Categories for BudgetLines. """
 
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -219,18 +199,18 @@ class OtherSourcesLines(models.Model):
         received = ChoiceItem('received', label=_("Received"))
 
     project = models.ForeignKey(Project)
-    source = models.CharField(max_length=255)
-    """ Who's giving the money """
+    source = models.CharField(max_length=255,
+        help_text=_("Who's giving the money."))
+
     description = models.TextField(blank=True)
     money_amount = models.DecimalField(max_digits=9, decimal_places=2)
     status = models.CharField(max_length=20, choices=Statuses.choices)
 
 
 # Now some stuff connected to Projects
-# Can we think of a better place to put this??
-
+# FIXME: Can we think of a better place to put this??
 class Link(models.Model):
-    """ Links (urls) connected to a Project """
+    """ Links (URLs) connected to a Project. """
 
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=255)
@@ -244,7 +224,7 @@ class Link(models.Model):
 
 
 class Testimonial(models.Model):
-    """ Any user can write something nice about a project """
+    """ Any user can write something nice about a project. """
 
     project = models.ForeignKey(Project)
     user = models.ForeignKey('auth.User')
@@ -257,7 +237,7 @@ class Testimonial(models.Model):
 
 
 class Message(models.Model):
-    """ Message by a user on the Project wall """
+    """ Message by a user on the Project wall. """
 
     project = models.ForeignKey(Project)
     user = models.ForeignKey('auth.User')
@@ -273,3 +253,13 @@ class Message(models.Model):
     class Meta:
         ordering = ['-created']
 
+
+class Category(models.Model):
+    """ Categories for Projects. """
+
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    ordering = models.IntegerField()
+
+    class Meta:
+        ordering = ['ordering']

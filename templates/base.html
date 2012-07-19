@@ -17,40 +17,47 @@
 		<script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
 	{% endcompress %}
 
+	<link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}global/css/main.less">
+	<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/less-1.3.0.min.js"></script>
+
 	{% block htmlheader %}{% endblock %}
 </head>
 
 <body>
+	<div id="container">
+		<div id="top-panel">
+			<a href="{% url 'project_list' %}">Projects</a> |
+			<a href="{% url 'userprofile_list' %}">Members</a>
+			{% block content %}{% endblock %}
+		</div>
+		<div id="mid-panel">
+		    {% block midPanel %}{% endblock %}
+		</div>
+		<div id="footer">
+		    {% include "footer.html" %}
+		</div>
 
-	<header>
-		<nav id="login">
-			{% if user.is_authenticated %}
-				<a href="{{ user.get_profile.get_absolute_url }}">{{ user.username }}</a> |
-				<a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
-			{% else %}
-				<a href="{% url 'login' %}?next={% firstof request.path "/" %}">Login</a> |
-				<span style="opacity:0.4;-moz-user-select: none;-khtml-user-select:none;user-select:none;">Register</span>
-			{% endif %}
-		</nav>
-
-		<nav id="menu">
+		<div id="top-menu">
 			<ul>
-				<li><a href="{% url 'project_list' %}">Projects</a></li>
-				<li><a href="{% url 'userprofile_list' %}">Members</a></li>
+				<li>1%CLUB</li>
+				<li class="divider">&nbsp;</li>
+				<li>1%SHOW</li>
+				<li class="divider">&nbsp;</li>
+				<li>1%EVENT</li>
+				<li class="divider">&nbsp;</li>
+				<li>1%BOOKSHOP</li>
+				<li class="divider">&nbsp;</li>
+				<li>1%TOOLBOX</li>
 			</ul>
-		</nav>
-	</header>
-
-	{% block content %}{% endblock %}
-
-	<script type="text/javascript">
-	var _urq = _urq || [];
-	_urq.push(['initSite', '6b390f06-ad91-4a87-8217-0d591dfb02d7']);
-	(function() {
-	var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
-	ur.src = 'http://sdscdn.userreport.com/userreport.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
-	})();
-	</script>
+			<div id="my-menu">
+			    {% if user.is_authenticated %}
+			    	{{ user.username }} 
+				    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
+			    {% else %}
+				    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
+			    {% endif %}
+			</div>
+		</div>
+	</div>
 </body>
 </html>

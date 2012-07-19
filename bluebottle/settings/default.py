@@ -183,11 +183,12 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
 
     'django_extensions',
+    'django_extensions.tests',
     'debug_toolbar',
     'raven.contrib.django',
     'djcelery',
     'south',
-    'django_nose',
+    # 'django_nose',
     'compressor',
 
     'django_countries', # http://pypi.python.org/pypi/django-countries
@@ -237,10 +238,10 @@ djcelery.setup_loader()
 
 
 """ django-nose """
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-NOSE_ARGS = [
-    '--detailed-errors',
-]
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+# NOSE_ARGS = [
+#     '--detailed-errors',
+# ]
 
 SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
 
