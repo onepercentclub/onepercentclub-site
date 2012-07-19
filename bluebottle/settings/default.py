@@ -183,6 +183,7 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
 
     'django_extensions',
+    'django_extensions.tests',
     'debug_toolbar',
     'raven.contrib.django',
     'djcelery',
