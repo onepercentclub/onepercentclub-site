@@ -10,6 +10,7 @@
 @futura: 'Futura Std Book', @font;
 @mainwidth: 1024px;
 
+
 td {
   vertical-align: top;
 }
@@ -32,12 +33,12 @@ body {
 
 #mymenu {
   position: absolute;
-  right: 0px;
-  top: 30px;
-  font-size: 0.8em;
-  padding: 4px 8px;
-  border-radius: 0px 0px 0px 8px;
-  background-color: @green;
+  width: 220px;
+  right: 40px;
+  top: 0px;
+  font-size: 0.9em;
+  padding: 6px 8px;
+  background-color: @black;
   a {
     color: white;
     text-decoration: none;
@@ -52,24 +53,22 @@ body {
   background-color: @green;
   color: white;
   font-size: 0.9em;
-  padding: 4px 0px; 
+  padding: 0px;
   font-family: @futura;
   font-weight: bold;
 
   ul {
     list-style: none;
-    margin: 0px;
+    margin: 4px 0px 0px;
     padding: 0px 10px 0px 20px;
     li {
       float: left;
       margin: 0px;
-      padding: 2px 6px 0px;
+      padding: 6px;
       text-indent: 0px;
     }
-    li.divider {
-      color: #555;
-      padding: 0px;
-      border-right: 1px solid white;
+    li.active {
+      background: url(/static/global/images/elements/pointer.png) center bottom no-repeat;
     }
   }
   a {
@@ -79,22 +78,24 @@ body {
 }
 
 #submenu {
-  top: 26px;
+  top: 36px;
   background-color: @white;
   color: @gray;
+  ul li {
+    padding: 2px 6px;
+  }
   ul li.active {
     color: @green;
   }
 }
 
 #header {
-  padding: 57px 10px 10px 24px;
+  padding: 64px 10px 10px 24px;
 }
 
 
 #toppanel {
   padding: 10px 20px 10px 20px;
-  height: 400px;
   background-color: #e8e8e8;
   font-size: 0.8em; 
   h1 {

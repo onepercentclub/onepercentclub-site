@@ -3,9 +3,7 @@ var BlueApp = Bluebone;
 
 BlueApp.views.add('TopMenu');
 
-BlueApp.models.addApiResource('Project', {url: '/projects/api/project/'});
-
-BlueApp.views.addList('RecentProjects', {resource: 'Project', itemView: 'ProjectListItem'});
+BlueApp.views.addList('RecentProjects', {resource: 'Project', itemView: 'ProjectListItem', url: '/projects/api/project/'});
 
 BlueApp.views.add('About');
 

@@ -22,23 +22,17 @@
 		return Bluebone.models[model];
 	};
 	
-	// Add a Model and Collection with REST connection for a given name
-	// TODO: THIS ISN'T WORKING YET!!
-	// If it works replace some harcoded stuff in Bluebone.ListView
-	Bluebone.models.addApiResource = function(name, cfg) {
+	// Add a Collection with REST connection for a given name
+	Bluebone.models.newApiCollection = function(name, cfg) {
 		if (undefined == cfg || undefined == cfg.url) {
 			console.log('Need some configuration to set a resource. Trye {url: <apiUrl>}');
 		}
 		if (undefined == cfg.method) {
 			cfg.method = 'rest'
 		}
-		cfg.rootUrl = cfg.url;
-		Bluebone.models[name] = Bluebone.Model.extend(cfg);
-		//cfg.model = Bluebone.models[name];
-		var collectionName = name + 'Collection';
-		Bluebone.models[collectionName] = Bluebone.Model.extend(cfg);
-	}
-	
+		Bluebone.models[name] = new(Bluebone.Collection.extend(cfg));
+		return Bluebone.models[name];
+	}	
 	
 	/* TEMPLATES */
 
@@ -123,21 +117,12 @@
 	
 
 	// Create a view with a list of items
-	// TODO: Stick addApiResource in here (?)
-	// TODO: No hard coded stuff for this.collection pleazzzzz
+	// specify a api-url
 	Bluebone.Listview = Bluebone.View.extend({
 		class: 'list',
 	    initialize: function() {
-	    	if (undefined === this.itemView) {
-	    		console.log('No itemView set for Listview ' + this.tpl);
-	    	};
-	    	if (undefined === this.resource) {
-	    		console.log('No resource set for Listview ' + this.tpl);
-	    	}
 	    	var collectionName = this.resource + 'Collection';
-	    	//this.collection = new (Bluebone.models.get(this.resource + 'Collection'));
-	    	this.collection = new (Backbone.Collection.extend({url: '/projects/api/project'}))
-	    	
+	    	this.collection = Bluebone.models.newApiCollection(collectionName, {test: 'test', url: this.url});
 	    	return this;
 	    },
 		renderTo: function(el) {
@@ -149,32 +134,31 @@
 			this.collection.fetch({
 				success: function(){
 					var items = thisView.collection.models;
-					for (item in items) {
-						console.log('Adding item');
-						Bluebone.views.get(thisView.itemView).render(items[item], function(item){
-							var li = $('<li />').append(item);
-							$('ul.' + thisView.class, el).append(li);	
-						})
-						
-					}
+					// Get the template for ListItems 
+			    	Bluebone.templates.load(thisView.itemView, function(template){
+						for (item in items) {
+							Bluebone.views.get(thisView.itemView).render(template, items[item], function(item){
+								var li = $('<li />').append(item);
+								$('ul.' + thisView.class, el).append(li);	
+							})
+							
+						}
+					});
 				}
 			});
 			
 		}		
 	});
 
-
+	// ListItemView. This should be only called from ListView
 	Bluebone.ListItemView = Bluebone.View.extend({
 		initialize: function() {
 			return this;
 		},
 
-	    render: function(model, callback) {
-	    	var html;
-	    	Bluebone.templates.load(this.tpl, function(template){
-		    	callback(_.template(template, model.attributes));
-	    	});
-	    },
+	    render: function(template, model, callback) {
+	    	callback(_.template(template, model.attributes));
+    	}
 	});
 
 
