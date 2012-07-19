@@ -10,13 +10,7 @@ from django_extensions.db.fields import (
 
 from djchoices import DjangoChoices, ChoiceItem
 
-
-class MoneyField(models.DecimalField):
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault('max_digits', 9)
-        kwargs.setdefault('decimal_places', 2)
-
-        super(MoneyField, self).__init__(*args, **kwargs)
+from apps.bluebottle_utils.fields import MoneyField
 
 
 class Donation(models.Model):

@@ -9,6 +9,8 @@ from django_extensions.db.fields import (
 )
 from sorl.thumbnail import ImageField
 
+from apps.bluebottle_utils.fields import MoneyField
+
 
 class ProjectCategory(models.Model):
     """ Categories for Projects. """
@@ -118,9 +120,9 @@ class PlanPhase(AbstractPhase):
         waiting = ChoiceItem('waiting', label=_("Waiting"))
         completed = ChoiceItem('completed', label=_("Completed"))
 
-    money_total = models.DecimalField(max_digits=9, decimal_places=2,
+    money_total = MoneyField(_('money total'),
         help_text=_("Total amount needed for this project."))
-    money_asked = models.DecimalField(max_digits=9, decimal_places=2,
+    money_asked = MoneyField(_('money asked'),
         help_text=_("Amount asked for from this website."))
 
     what = models.TextField(
@@ -203,7 +205,7 @@ class BudgetLine(models.Model):
     project = models.ForeignKey(Project)
     category = models.ForeignKey(BudgetCategory)
     description = models.TextField(blank=True)
-    money_amount = models.DecimalField(max_digits=9, decimal_places=2)
+    money_amount = MoneyField()
 
 
 class OtherSourcesLines(models.Model):
@@ -224,7 +226,7 @@ class OtherSourcesLines(models.Model):
         help_text=_("Who's giving the money."))
 
     description = models.TextField(blank=True)
-    money_amount = models.DecimalField(max_digits=9, decimal_places=2)
+    money_amount = MoneyField()
     status = models.CharField(max_length=20, choices=Statuses.choices)
 
 
