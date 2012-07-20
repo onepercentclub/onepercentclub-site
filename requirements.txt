@@ -4,7 +4,11 @@ django_debug_toolbar
 
 raven # Sentry client (remote logging)
 django-celery # Asynchronous task server
-django-nose # Django Nose integration (for test suites)
+
+# Django Nose integration (for test suites)
+# Nose is temporarily not the default testrunner due to
+# https://github.com/jbalogh/django-nose/issues/85
+# django-nose
 
 # http://pypi.python.org/pypi/django-countries/1.2
 django-countries==1.2
@@ -42,3 +46,6 @@ south==0.7.5
 
 # Posgres bindings - http://pypi.python.org/pypi/psycopg2/2.4.5
 psycopg2==2.4.2
+
+# Tastypie, for the API!
+django-tastypie

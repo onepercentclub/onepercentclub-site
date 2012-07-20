@@ -31,6 +31,14 @@ if [ ! -d $ENVDIR ]; then
 fi
 
 echo 'Installing required packages'
+# Install Django first because django-countries requires Django to be fully
+# installed before it will install.
+DJANGO=`grep "Django==" requirements.txt`
+$ENVDIR/bin/pip install $DJANGO
+if [ $? -ne 0 ]; then
+    echo "Error installing $DJANGO."
+    exit 1
+fi
 if $ENVDIR/bin/pip install -r requirements.txt; then
     echo 'That went allright, continue'
 else

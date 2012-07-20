@@ -10,16 +10,9 @@ from django.conf.urls.static import static
 from .views import HomeView
 
 
-# Serve django-staticfiles (only works in DEBUG)
-urlpatterns = staticfiles_urlpatterns()
-
-# Serve media files (only works in DEBUG)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 handler500 = 'bluebottle.views.handler500'
 
-
-urlpatterns += patterns('',
+urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
 
     # Django Admin, docs and password reset
@@ -30,8 +23,14 @@ urlpatterns += patterns('',
 
     # account login/logout, password reset, and password change
     (r'^accounts/', include('django.contrib.auth.urls')),
-    (r'^members/', include('apps.accounts.urls')),
-
     (r'^projects/', include('apps.projects.urls')),
+    (r'^members/', include('apps.accounts.urls')),
 )
 
+# Serve django-staticfiles (only works in DEBUG)
+# https://docs.djangoproject.com/en/dev/howto/static-files/#serving-static-files-in-development
+urlpatterns += staticfiles_urlpatterns()
+
+# Serve media files (only works in DEBUG)
+# https://docs.djangoproject.com/en/dev/howto/static-files/#django.conf.urls.static.static
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
