@@ -16,7 +16,7 @@ class ProjectCategory(models.Model):
     # The name is marked as unique so that users can't create duplicate
     # category names.
     name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField(blank=True)
 
     def __unicode__(self):
