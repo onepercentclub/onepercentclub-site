@@ -33,7 +33,7 @@ class HomeView(TemplateView):
     Home view for the site.
     """
 
-    template_name = 'bluebone.html'
+    template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
         """ Add some extra context. """
