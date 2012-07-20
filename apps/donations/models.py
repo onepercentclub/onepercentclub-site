@@ -28,10 +28,10 @@ class Donation(models.Model):
         (ie. payout operations, project and member notifications).
         """
         closed = ChoiceItem('closed', label=_('Closed'))
-        expired = ChoiceItem('closed', label=_('Expired'))
-        paid = ChoiceItem('closed', label=_('Paid'))
+        expired = ChoiceItem('expired', label=_('Expired'))
+        paid = ChoiceItem('paid', label=_('Paid'))
         canceled = ChoiceItem('canceled', label=_('Canceled'))
-        chargedback = ChoiceItem('canceled', label=_('Chargedback'))
+        chargedback = ChoiceItem('chargedback', label=_('Chargedback'))
         new = ChoiceItem('new', label=_('New'))
         started = ChoiceItem('started', label=_('Started'))
 
