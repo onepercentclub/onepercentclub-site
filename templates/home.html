@@ -2,12 +2,21 @@
 
 {% block htmltitle %}{{ block.super }} | Home{% endblock %}
 
-{% block htmlheader %}
-{{ block.super }}
+{% block toppanel %}
+	<h1>BlueBone start... </h1>
+	No place like home!
 {% endblock %}
 
-{% block content %}
 
-<h1 id="home">Home</h1>
-
+{% block widgets %}
+	BlueApp.widgets.load([
+		{
+			widget: 'RecentProjects',
+			container: '#midpanel'
+		},
+		{
+			widget: 'New',
+			container: '#midpanel'
+		}
+	])
 {% endblock %}

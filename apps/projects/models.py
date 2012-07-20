@@ -47,6 +47,9 @@ class Project(models.Model):
             return self.title
         return self.slug
 
+    def location(self):
+        return self.country.name
+
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
