@@ -32,13 +32,15 @@ MANAGERS = ADMINS
 # system time zone.
 TIME_ZONE = 'Europe/Amsterdam'
 
+
+"""
+Available user interface translations
+Ref: https://docs.djangoproject.com/en/1.4/ref/settings/#languages
+"""
 # Default language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-# Available user interface translations
-# Ref: https://docs.djangoproject.com/en/1.4/ref/settings/#languages
-#
 # This is defined here as a do-nothing function because we can't import
 # django.utils.translation -- that module depends on the settings.
 gettext_noop = lambda s: s
@@ -60,24 +62,25 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-# pytz is in requirements.txt because it's "highly recommended" when using
-# timezone support.
+# pytz is in requirements.txt because it's "highly recommended" when using timezone support
 # https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 USE_TZ = True
 
-# staticfiles and media
-#
-# For staticfiles and media, the following convention is used:
-#
-# * '/static/media/': Application media default path
-# * '/static/global/': Global static media
-# * '/static/apps/<app_name>/': Static assets after running `collectstatic`
-#
-# The respective URL's (available only when `DEBUG=True`) are in `urls.py`.
-#
-# More information:
-# https://docs.djangoproject.com/en/1.4/ref/contrib/staticfiles/
-#
+"""
+staticfiles and media
+
+For staticfiles and media, the following convention is used:
+
+* '/static/media/': Application media default path
+* '/static/global/': Global static media
+* '/static/apps/<app_name>/': Static assets after running `collectstatic`
+
+The respective URL's (available only when `DEBUG=True`) are in `urls.py`.
+
+More information:
+https://docs.djangoproject.com/en/1.4/ref/contrib/staticfiles/
+"""
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = path.join(PROJECT_ROOT, 'static', 'media')
@@ -120,13 +123,14 @@ TEMPLATE_LOADERS = [
 #     'django.template.loaders.eggs.Loader',
 ]
 
+"""
+These are basically the default values from the Django configuration, written
+as a list for easy manipulation. This way one can:
 
-# These are basically the default values from the Django configuration, written
-# as a list for easy manipulation. This way one can:
-#
-# 1. Easily add, remove or replace elements in the list, ie. overriding.
-# 2. Know what the defaults are, if you want to change them right here. This
-#   way you won't have to look them up everytime you want to change.
+1. Easily add, remove or replace elements in the list, ie. overriding.
+2. Know what the defaults are, if you want to change them right here. This
+   way you won't have to look them up everytime you want to change.
+"""
 MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -151,8 +155,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.static',
     # 'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
-    # Makes the 'request' variable (the current HttpRequest) available
-    # in templates
+    # Makes the 'request' variable (the current HttpRequest) available in templates
     'django.core.context_processors.request',
 ]
 
@@ -162,8 +165,8 @@ ROOT_URLCONF = 'bluebottle.urls'
 WSGI_APPLICATION = 'bluebottle.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or
-    # "C:/www/django/templates". Always use forward slashes, even on Windows.
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     path.join(PROJECT_ROOT, 'templates')
 )
@@ -179,7 +182,6 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
 
-    # 3rd party apps
     'django_extensions',
     'django_extensions.tests',
     'debug_toolbar',
@@ -190,7 +192,8 @@ INSTALLED_APPS = [
     # https://github.com/jbalogh/django-nose/issues/85
     # 'django_nose',
     'compressor',
-    'django_countries',  # http://pypi.python.org/pypi/django-countries
+
+    'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
 
     # bluebottle apps
@@ -230,12 +233,13 @@ LOGGING = {
 }
 
 
-# djcelery
+
+""" djcelery """
 import djcelery
 djcelery.setup_loader()
 
 
-# django-nose
+""" django-nose """
 # Nose is temporarily not the default testrunner due to
 # https://github.com/jbalogh/django-nose/issues/85
 # TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -243,14 +247,12 @@ djcelery.setup_loader()
 #     '--detailed-errors',
 # ]
 
-
-# Make south shut up during tests.
-SOUTH_TESTS_MIGRATE = False
+SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
 
 
-# django-compressor staticfiles
-# http://pypi.python.org/pypi/django_compressor
+""" django-compressor http://pypi.python.org/pypi/django_compressor """
 STATICFILES_FINDERS += [
+    # django-compressor staticfiles
     'compressor.finders.CompressorFinder',
 ]
 
