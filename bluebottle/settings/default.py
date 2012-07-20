@@ -62,7 +62,8 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-# pytz is in requirements.txt because it's "highly recommended" when using timezone support
+# pytz is in requirements.txt because it's "highly recommended" when using
+# timezone support.
 # https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 USE_TZ = True
 
@@ -155,7 +156,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.static',
     # 'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
-    # Makes the 'request' variable (the current HttpRequest) available in templates
+    # Makes the 'request' variable (the current HttpRequest)
+    # available in templates
     'django.core.context_processors.request',
 ]
 
@@ -165,7 +167,7 @@ ROOT_URLCONF = 'bluebottle.urls'
 WSGI_APPLICATION = 'bluebottle.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     path.join(PROJECT_ROOT, 'templates')
@@ -231,7 +233,6 @@ LOGGING = {
         },
     }
 }
-
 
 
 """ djcelery """
