@@ -49,6 +49,11 @@ class Donation(models.Model):
         verbose_name = _('donation')
         verbose_name_plural = _('donations')
 
+    def __unicode__(self):
+        return u'%f on %s from %s' % (
+            self.amount, self.created, self.user
+        )
+
 
 class DonationLine(models.Model):
     """
@@ -66,6 +71,11 @@ class DonationLine(models.Model):
     class Meta:
         verbose_name = _('donation line')
         verbose_name_plural = _('donation lines')
+
+    def __unicode__(self):
+        return u'%f from donation %s to %s' % (
+            self.amount, self.donation, self.project
+        )
 
     def clean(self):
         """
