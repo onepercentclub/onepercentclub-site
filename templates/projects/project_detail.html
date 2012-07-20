@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load thumbnail %}
+
 {% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
 
 {% block htmlheader %}
@@ -7,22 +9,59 @@
 {% endblock %}
 
 {% block content %}
-	<h1 id="home">{{ project.title }}</h1>
-	<table>
-		<tr>
-			<td>
-				<div class="profile-image">
-					<img src="" />
-				</div>
-			</td>
-		</tr>
-	</table>
+	<div class="row">
+  		<div class="column grid_1">
+			<div class="profile-image">
+				{% thumbnail project.image "200x200" crop="center" as picture %}
+					<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ project.title }}">
+				{% empty %}
+					<img src="http://placehold.it/200x200" title="{{ project.title }}">
+				{% endthumbnail %}
+			</div>
+  		</div>
+  		<div class="column grid_2">
+			<h4>Project</h4>
+			<h1>{{ project.title }}</h1>
+			
+			<h4>Organization</h4>
+			<p>{{ project.organization.name }}</p>
+			
+			<h4>Location</h4>
+			<p>{{ project.location }}</p>
+			
+			<h4>Costs</h4>
+			<p>&euro; {{ project.planphase.money_asked }}</p>
 
-	<h1>Categories</h1>
+ 			<h1>Categories</h1>
 	<ul>
 		{% for category in project.categories.all %}
 			<li>{{ category.name }}</li>
 		{% endfor %}
 	</ul>
+ 		</div>
+  		<div class="column grid_1">
+  		</div>
+	</div>
 
+	<script>
+		$(document).ready(function(){
+			BlueApp.views.load([
+				{
+					container: '#midpanel',
+					//method: 'replace',
+					//lifetime: 60,
+					'widgets' : [ 
+						{
+							name: 'RecentProjects',
+							//lifetime: 60,
+						},
+						{
+							name: 'New',
+						}]
+				}
+			]);	
+			
+		})
+		
+	</script>
 {% endblock %}

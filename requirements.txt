@@ -6,6 +6,8 @@ raven # Sentry client (remote logging)
 django-celery # Asynchronous task server
 
 # Django Nose integration (for test suites)
+# Nose is temporarily not the default testrunner due to
+# https://github.com/jbalogh/django-nose/issues/85
 # django-nose
 
 # http://pypi.python.org/pypi/django-countries/1.2
@@ -35,3 +37,6 @@ surlex==0.1.2
 
 # http://pypi.python.org/pypi/South/0.7.5
 south==0.7.5
+
+# Tastypie, for the API!
+django-tastypie

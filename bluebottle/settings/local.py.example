@@ -24,7 +24,7 @@ if DEBUG:
     logging.getLogger('django.db.backends').setLevel(logging.WARNING)
 
     DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS' : False,
+        'INTERCEPT_REDIRECTS': False,
     }
 
     # Consider ourself as internal IP
@@ -142,4 +142,3 @@ else:
 #         },
 #     },
 # }
-

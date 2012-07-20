@@ -62,7 +62,8 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-# pytz is in requirements.txt because it's "highly recommended" when using timezone support
+# pytz is in requirements.txt because it's "highly recommended" when using
+# timezone support.
 # https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 USE_TZ = True
 
@@ -90,6 +91,8 @@ MEDIA_ROOT = path.join(PROJECT_ROOT, 'static', 'media')
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = '/static/media/'
 
+
+
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
@@ -98,7 +101,7 @@ STATIC_ROOT = path.join(PROJECT_ROOT, 'static', 'apps')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/apps/'
+STATIC_URL = '/static/assets/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -155,7 +158,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.static',
     # 'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
-    # Makes the 'request' variable (the current HttpRequest) available in templates
+    # Makes the 'request' variable (the current HttpRequest)
+    # available in templates
     'django.core.context_processors.request',
 ]
 
@@ -165,7 +169,7 @@ ROOT_URLCONF = 'bluebottle.urls'
 WSGI_APPLICATION = 'bluebottle.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     path.join(PROJECT_ROOT, 'templates')
@@ -188,6 +192,8 @@ INSTALLED_APPS = [
     'raven.contrib.django',
     'djcelery',
     'south',
+    # Nose is temporarily not the default testrunner due to
+    # https://github.com/jbalogh/django-nose/issues/85
     # 'django_nose',
     'compressor',
 
@@ -231,13 +237,14 @@ LOGGING = {
 }
 
 
-
 """ djcelery """
 import djcelery
 djcelery.setup_loader()
 
 
 """ django-nose """
+# Nose is temporarily not the default testrunner due to
+# https://github.com/jbalogh/django-nose/issues/85
 # TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # NOSE_ARGS = [
 #     '--detailed-errors',
