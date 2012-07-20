@@ -18,8 +18,8 @@ function initMore(){
 		return false;
 	});
 	$('.less').click(function(){
-		$(this).parent().parent()('p').children('.long').hide();
-		$(this).parent().parent()('p').children('.short').show();
+		$(this).parent().parent().children('.long').hide();
+		$(this).parent().parent().children('.short').show();
 		return false;
 	});
 	
