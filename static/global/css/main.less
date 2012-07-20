@@ -1,9 +1,20 @@
 @pink: #ffA961;
 @green: #00C051;
 @sepia: #ddccbb;
+@black: #000000;
+@white: #ffffff;
+@gray: #a7a7a7;
+@lightgray: #e8e8e8;
+@static-url: "../../";
+
 @font: Arial, Helvetica;
 @futura: 'Futura Std Book', @font;
-@mainwidth: 1024px;
+@mainwidth: 1020px;
+
+
+td {
+  vertical-align: top;
+}
 
 body {
   background-color: #FFF;
@@ -21,45 +32,44 @@ body {
   box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
 }
 
-#my-menu {
+#mymenu {
   position: absolute;
-  right: 0px;
-  top: 30px;
-  font-size: 0.8em;
-  padding: 4px 8px;
-  border-radius: 0px 0px 0px 8px;
-  background-color: @green;
+  width: 220px;
+  right: 40px;
+  top: 0px;
+  font-size: 0.9em;
+  padding: 6px 8px;
+  background-color: @black;
   a {
     color: white;
     text-decoration: none;
   }
 }
 
-#top-menu {
+#topmenu,
+#submenu {
   position: fixed;
   width: @mainwidth;
   top: 0px;
   background-color: @green;
   color: white;
   font-size: 0.9em;
-  padding: 4px 0px; 
+  padding: 0px;
   font-family: @futura;
   font-weight: bold;
 
   ul {
     list-style: none;
-    margin: 0px;
+    margin: 4px 0px 0px;
     padding: 0px 10px 0px 20px;
     li {
       float: left;
       margin: 0px;
-      padding: 2px 6px 0px;
+      padding: 6px;
       text-indent: 0px;
     }
-    li.divider {
-      color: #555;
-      padding: 0px;
-      border-right: 1px solid white;
+    li.active {
+      background: url("@{static-url}/global/images/elements/pointer.png") center bottom no-repeat;
     }
   }
   a {
@@ -68,10 +78,45 @@ body {
   }
 }
 
+#submenu {
+  top: 30px;
+  background-color: @white;
+  color: @gray;
+  border-bottom: 1px solid @green;
+  ul li {
+    padding: 4px 6px;
+  }
+  ul li.active {
+    color: @green;
+  }
+}
 
-#top-panel {
-  padding: 40px 20px 10px 20px;
-  height: 400px;
+#header {
+  padding: 64px 10px 10px 24px;
+}
+
+
+#toppanel {
+  padding: 10px;
+  background-color: #e8e8e8;
+  font-size: 0.8em; 
+  h1 {
+    font-family: @futura;
+    color: @green;
+    text-transform: uppercase;
+    margin: 0px 0px 12px 0px;
+    padding: 0px;
+    font-size: 1.4em;
+  }
+  h4 {
+    font-family: @font;
+    margin: 2px 0px 2px 0px;
+    text-transform: uppercase;
+    font-size: 0.8em; 
+  }
+  p {
+    margin: 0px 0px 12px 0px;
+  }
   .profile-image {
     border: 1px solid black;
     background-color: @sepia;
@@ -82,7 +127,7 @@ body {
   }
 }
 
-#mid-panel {
+#midpanel {
   padding: 10px;
   background-color: #888;
   min-height: 300px;
@@ -90,7 +135,7 @@ body {
 }
 
 #footer {
-  padding: 10px 20px;
+  padding: 10px;
   background-color: @green;
   min-height: 300px;
   h3 {
@@ -115,10 +160,31 @@ body {
   }
 }
 
-h1 {
-  font-family: @font;
-  margin: 0px;
-  padding: 4px;
-  font-size: 1.4em;
-}
  
+.widget {
+  width: 240px;
+  background-color: @white;
+  
+  h3 {
+    font-family: @futura;
+    background-color: @green;
+    color: white;
+    margin: 0px;
+    padding: 4px 6px 0px 6px;
+    text-transform: uppercase;
+  }
+  .contents {
+    margin: 4px;
+    font-size: 0.8em;
+  }
+  ul.list {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    li {
+      padding: 4px 2px;
+      margin: 0px;
+      border-bottom: 1px solid @green;
+    }
+  }
+}
