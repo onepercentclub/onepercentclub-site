@@ -9,7 +9,8 @@ class UserTestsMixin(object):
     def create_user(self, username=None, password=None):
         """ Create, save and return a new user. """
 
-        if not username:
+        # If no username is set, create a random unique username
+        while not username or User.objects.filter(username=username).exists():
             # Generate a random username
             username = str(uuid.uuid4())[:30]
 
