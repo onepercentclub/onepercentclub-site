@@ -40,4 +40,9 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Message)
 admin.site.register(Testimonial)
 admin.site.register(BudgetCategory)
-admin.site.register(ProjectCategory)
+
+
+class ProjectCategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
+admin.site.register(ProjectCategory, ProjectCategoryAdmin)

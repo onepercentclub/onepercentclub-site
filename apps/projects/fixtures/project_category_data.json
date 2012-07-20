@@ -3,80 +3,90 @@
     "pk": 2,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Agriculture",
-      "description": ""
+      "slug": "agriculture"
     }
   },
   {
     "pk": 10,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Climate",
-      "description": ""
+      "slug": "climate"
     }
   },
   {
     "pk": 5,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Culture",
-      "description": ""
+      "slug": "culture"
     }
   },
   {
     "pk": 1,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Education",
-      "description": ""
+      "slug": "education"
     }
   },
   {
     "pk": 3,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Health",
-      "description": ""
+      "slug": "health"
     }
   },
   {
-    "pk": 4,
+    "pk": 11,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Social Entrepreneurship",
-      "description": ""
+      "slug": "social-entrepreneurship"
     }
   },
   {
     "pk": 6,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Sports",
-      "description": ""
+      "slug": "sports"
     }
   },
   {
     "pk": 9,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Water",
-      "description": ""
+      "slug": "water"
     }
   },
   {
     "pk": 8,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Women",
-      "description": ""
+      "slug": "women"
     }
   },
   {
     "pk": 7,
     "model": "projects.projectcategory",
     "fields": {
+      "description": "",
       "name": "Youth",
-      "description": ""
+      "slug": "youth"
     }
   }
 ]

@@ -13,7 +13,10 @@ from sorl.thumbnail import ImageField
 class ProjectCategory(models.Model):
     """ Categories for Projects. """
 
+    # The name is marked as unique so that users can't create duplicate
+    # category names.
     name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100)
     description = models.TextField(blank=True)
 
     def __unicode__(self):
@@ -267,4 +270,3 @@ class Message(models.Model):
 
     class Meta:
         ordering = ['-created']
-

@@ -24,4 +24,24 @@ Getting started
 
 Moreover
 --------
-Requirements for the virtual environment can be found in `requirements.txt` and the environment itself is in `env` in the project's root dir. It is automatically ignored through `.gitignore`.
+
+Requirements for the virtual environment can be found in `requirements.txt` and
+the environment itself is in `env` in the project's root dir. It is
+automatically ignored through `.gitignore`.
+
+Default Data
+------------
+
+Some models have default data which can be loaded after you run syncdb
+with this command:
+
+    ./manage.py loaddata <name of json file without extension>
+
+For example, this command loads the default Project Categories:
+
+    ./manage.py loaddata project_category_data
+
+You can find a list of data files with this command run from the bluebottle
+directory:
+
+    find apps -name \*.json
