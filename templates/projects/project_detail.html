@@ -8,10 +8,10 @@
 
 {% block content %}
 	<h1 id="home">{{ project.title }}</h1>
-	<table>
-		<tr>
-			<td>
-				<div class="profile-image">
+	<div class="row">
+  		<div class="column grid_`">
+  			<div class="pofile-viewer">
+				<div class="pane image">
 					<img src="" />
 				</div>
 				<div class="videos pane hidden">
@@ -89,27 +89,4 @@
   			
   		</div>
 	</div>
-
-	<script>
-		$(document).ready(function(){
-			BlueApp.views.load([
-				{
-					container: '#midpanel',
-					//method: 'replace',
-					//lifetime: 60,
-					'widgets' : [ 
-						{
-							name: 'RecentProjects',
-							//lifetime: 60,
-						},
-						{
-							name: 'New',
-						}]
-				}
-			]);	
-			
-		})
-		
-	</script>
-	
 {% endblock %}
