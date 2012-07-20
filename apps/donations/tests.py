@@ -84,3 +84,19 @@ class DonationTests(TestCase, ProjectTestsMixin, UserTestsMixin):
         donationline = DonationLine(donation=donation, project=self.project)
         donationline.amount = Decimal('15.00')
         donationline.full_clean()
+
+    def test_donationupdate(self):
+        """ Regression test for updating donationlines. """
+
+        donation = Donation(user=self.user)
+        donation.amount = Decimal('20.00')
+        donation.save()
+
+        # 21 should raise an error because it's more than 20
+        donationline = DonationLine(donation=donation, project=self.project)
+        donationline.amount = Decimal('20.00')
+        donationline.save()
+
+        # Updating to 19 should be fine
+        donationline.amount = Decimal('19.00')
+        donationline.full_clean()

@@ -98,9 +98,8 @@ class DonationLine(models.Model):
         Donation amount.
         """
 
-        total_amount = self.__class__.objects.filter(
-            project=self.project, donation__user=self.donation.user
-        ).aggregate(models.Sum('amount'))['amount__sum']
+        donationlines = self.donation.donationline_set.exclude(pk=self.pk)
+        total_amount = donationlines.aggregate(models.Sum('amount'))['amount__sum']
 
         if not total_amount:
             total_amount = Decimal('0.00')
