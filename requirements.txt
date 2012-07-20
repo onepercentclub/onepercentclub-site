@@ -37,3 +37,6 @@ surlex==0.1.2
 
 # http://pypi.python.org/pypi/South/0.7.5
 south==0.7.5
+
+# Tastypie, for the API!
+django-tastypie
