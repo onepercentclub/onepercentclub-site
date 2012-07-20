@@ -7,8 +7,8 @@ from sorl.thumbnail.admin import AdminImageMixin
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 from .models import (
-    Project, IdeaPhase, PlanPhase, ActPhase,
-    ResultsPhase, BudgetLine, Message, Testimonial, BudgetCategory
+    Project, IdeaPhase, PlanPhase, ActPhase, ResultsPhase, BudgetLine,
+    Testimonial, BudgetCategory, Message, ProjectCategory
 )
 
 
@@ -38,7 +38,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ('phase', 'project_language', 'country')
+    list_filter = ('phase', 'project_language', 'categories', 'country')
     list_display = ('thumbnail', 'title', 'organization', 'country')
     list_display_links = ('thumbnail', 'title')
 
@@ -46,6 +46,8 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
         BudgetInline, IdeaPhaseInline,
         PlanPhaseInline, ActPhaseInline, ResultsPhaseInline
     ]
+
+    filter_horizontal = ('categories',)
 
     search_fields = (
         'title', 'organization__title',
@@ -87,3 +89,9 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Message)
 admin.site.register(Testimonial)
 admin.site.register(BudgetCategory)
+
+
+class ProjectCategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
+admin.site.register(ProjectCategory, ProjectCategoryAdmin)
