@@ -31,7 +31,14 @@
 			
 			<h4>Costs</h4>
 			<p>&euro; {{ project.planphase.money_asked }}</p>
-  		</div>
+
+ 			<h4>Categories</h4>
+			<ul>
+				{% for category in project.categories.all %}
+					<li>{{ category.name }}</li>
+				{% endfor %}
+			</ul>
+ 		</div>
   		<div class="column grid_1">
   		</div>
 	</div>

@@ -10,6 +10,23 @@ from django_extensions.db.fields import (
 from sorl.thumbnail import ImageField
 
 
+class ProjectCategory(models.Model):
+    """ Categories for Projects. """
+
+    # The name is marked as unique so that users can't create duplicate
+    # category names.
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = _("Project Categories")
+
+
 class Project(models.Model):
     """ The base Project model. """
 
@@ -30,6 +47,7 @@ class Project(models.Model):
     owner = models.ForeignKey('auth.User')
     phase = models.CharField(max_length=20, choices=ProjectPhases.choices,
         help_text=_("Phase this project is in right now."))
+    categories = models.ManyToManyField(ProjectCategory, blank=True)
     created = CreationDateTimeField(
         help_text=_("When this project was created."))
 
@@ -255,14 +273,3 @@ class Message(models.Model):
 
     class Meta:
         ordering = ['-created']
-
-
-class Category(models.Model):
-    """ Categories for Projects. """
-
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    ordering = models.IntegerField()
-
-    class Meta:
-        ordering = ['ordering']
