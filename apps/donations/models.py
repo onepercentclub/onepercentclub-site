@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
+from django.db.models.base import ObjectDoesNotExist
 
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
@@ -50,9 +51,17 @@ class Donation(models.Model):
         verbose_name_plural = _('donations')
 
     def __unicode__(self):
-        return u'%f on %s from %s' % (
-            self.amount, self.created, self.user
-        )
+        if self.amount:
+            try:
+                return u'%f on %s from %s' % (
+                    self.amount, self.created, self.user
+                )
+            except ObjectDoesNotExist:
+                return u'%f on %s' % (
+                    self.amount, self.created
+                )
+
+        return str(self.pk)
 
 
 class DonationLine(models.Model):
@@ -73,9 +82,15 @@ class DonationLine(models.Model):
         verbose_name_plural = _('donation lines')
 
     def __unicode__(self):
-        return u'%f from donation %s to %s' % (
-            self.amount, self.donation, self.project
-        )
+        if self.amount:
+            try:
+                return u'%f from donation %s to %s' % (
+                    self.amount, self.donation, self.project
+                )
+            except ObjectDoesNotExist:
+                return u'%f' % self.amount
+
+        return str(self.pk)
 
     def clean(self):
         """
