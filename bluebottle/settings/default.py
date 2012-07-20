@@ -321,15 +321,19 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 """ Legacy migrations. """
 LEGACY_MIGRATIONS = [
+    # Users
     'legacy.legacymigration.accounts.MigrateMemberAuth',
 
+    # User profiles
     'legacy.legacymigration.profiles.MigrateProfile',
     'legacy.legacymigration.profiles.MigrateUserAddress',
 
+    # Organizations
     'legacy.legacymigration.organizations.MigrateOrganization',
     'legacy.legacymigration.organizations.MigrateOrganizationMember',
     'legacy.legacymigration.organizations.MigrateOrganizationAddress',
 
+    # Projects
     'legacy.legacymigration.projects.MigrateProject',
     'legacy.legacymigration.projects.MigrateIdea',
     'legacy.legacymigration.projects.MigratePlan',
@@ -339,5 +343,9 @@ LEGACY_MIGRATIONS = [
     'legacy.legacymigration.projects.MigrateTestimonial',
     'legacy.legacymigration.projects.MigrateMessage',
     'legacy.legacymigration.projects.MigrateBudgetCategory',
-    'legacy.legacymigration.projects.MigrateBudgetLine'
+    'legacy.legacymigration.projects.MigrateBudgetLine',
+
+    # Donations
+    'legacy.legacymigration.donations.MigrateDonation',
+    'legacy.legacymigration.donations.MigrateDonationLine',
 ]
