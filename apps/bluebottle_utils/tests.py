@@ -9,13 +9,18 @@ class UserTestsMixin(object):
     def create_user(self, username=None, password=None):
         """ Create, save and return a new user. """
 
-        # If no username is set, create a random unique username
-        while not username or User.objects.filter(username=username).exists():
-            # Generate a random username
-            username = str(uuid.uuid4())[:30]
+        def generate_username():
+            return str(uuid.uuid4())[:30]
+
+        # If username is set and not unique, it will raise a clearly
+        # interpretable IntegrityError.
+        # If auto-generated, make sure it's unique.
+
+        if not username:
+            username = generate_username()
+            while User.objects.filter(username=username).exists():
+                 username = generate_username()
 
         user = User.objects.create_user(username=username)
 
         return user
-
-
