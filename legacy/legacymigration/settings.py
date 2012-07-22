@@ -1,0 +1,7 @@
+from django.conf import settings
+
+
+MIGRATIONS = settings.LEGACY_MIGRATIONS
+
+DEBUG_MIGRATIONS = getattr(settings, 'LEGACY_MIGRATIONS_DEBUG', True)
+LEGACY_MEDIA_ROOT = settings.LEGACY_MIGRATIONS_MEDIA_ROOT

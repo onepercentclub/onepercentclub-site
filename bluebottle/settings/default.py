@@ -316,3 +316,27 @@ AUTHENTICATION_BACKENDS = ('legacyauth.backends.EmailBackend', ) \
 # user profile setting as described here:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+
+""" Legacy migrations. """
+LEGACY_MIGRATIONS = [
+    'legacy.legacymigration.accounts.MigrateMemberAuth',
+
+    'legacy.legacymigration.profiles.MigrateProfile',
+    'legacy.legacymigration.profiles.MigrateUserAddress',
+
+    'legacy.legacymigration.organizations.MigrateOrganization',
+    'legacy.legacymigration.organizations.MigrateOrganizationMember',
+    'legacy.legacymigration.organizations.MigrateOrganizationAddress',
+
+    'legacy.legacymigration.projects.MigrateProject',
+    'legacy.legacymigration.projects.MigrateIdea',
+    'legacy.legacymigration.projects.MigratePlan',
+    'legacy.legacymigration.projects.MigrateAct',
+    'legacy.legacymigration.projects.MigrateResults',
+    'legacy.legacymigration.projects.MigrateLink',
+    'legacy.legacymigration.projects.MigrateTestimonial',
+    'legacy.legacymigration.projects.MigrateMessage',
+    'legacy.legacymigration.projects.MigrateBudgetCategory',
+    'legacy.legacymigration.projects.MigrateBudgetLine'
+]

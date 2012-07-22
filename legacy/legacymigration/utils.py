@@ -1,45 +1,51 @@
-import logging
-logger = logging.getLogger(__name__)
+import time
 
-from pytz.exceptions import AmbiguousTimeError
-
-from datetime import datetime
-from django.utils import timezone
-
-# For now, assume all datetimes are in the default timezone (not in GMT)
-default_tz = timezone.get_default_timezone()
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.datastructures import SortedDict
+from django.utils.functional import memoize
+from django.utils.importlib import import_module
 
 
-def localize_datetime(instance, fieldname):
-    """ Assume all datetimes are in local time and convert them. """
+class Timer:
+    """
+    Generic timer class.
 
-    value = getattr(instance, fieldname)
+    Source:
+    http://preshing.com/20110924/timing-your-code-using-pythons-with-statement
+    """
+    def __enter__(self):
+        self.start = time.clock()
+        return self
 
-    assert isinstance(value, datetime)
-
-    if timezone.is_naive(value):
-        try:
-            return default_tz.localize(value)
-        except AmbiguousTimeError:
-            logger.warning("Ambiguous time '%s' accounted field '%s' on '%s', assuming DST.",
-                value, fieldname, repr(instance)
-            )
-
-            return default_tz.localize(value, is_dst=True)
-
-    # 'Educated' datetime, do nothing
-    return value
+    def __exit__(self, *args):
+        self.end = time.clock()
+        self.interval = self.end - self.start
 
 
-def crop_field(instance, fieldname, length):
-    """ Generic cropping code for strings, logging. """
+_migrations = SortedDict()
 
-    value = getattr(instance, fieldname)
+def _get_migration(import_path):
+    """
+    Imports the staticfiles migration class described by import_path, where
+    import_path is the full Python path to the class.
 
-    if value and len(value) > length:
-        logger.warning("Value '%s' for field '%s' on '%s' too long, cropping to %d characters.",
-            value, fieldname, repr(instance), length)
+    This code has been borrowed from Django's staticfiles contrib.
+    """
+    from .base import MigrateModel
 
-        return value[:length]
-
-    return value
+    module, attr = import_path.rsplit('.', 1)
+    try:
+        mod = import_module(module)
+    except ImportError, e:
+        raise ImproperlyConfigured('Error importing module %s: "%s"' %
+                                   (module, e))
+    try:
+        Migration = getattr(mod, attr)
+    except AttributeError:
+        raise ImproperlyConfigured('Module "%s" does not define a "%s" '
+                                   'class.' % (module, attr))
+    if not issubclass(Migration, MigrateModel):
+        raise ImproperlyConfigured('Migration "%s" is not a subclass of "%s"' %
+                                   (Migration, MigrateModel))
+    return Migration()
+get_migration = memoize(_get_migration, _migrations, 1)
