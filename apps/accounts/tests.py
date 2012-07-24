@@ -1,10 +1,11 @@
-from django.contrib.auth.models import User
-from django.utils import unittest
+from django.utils.unittest import TestCase
 
 from apps.accounts.models import UserProfile, UserProfileCreationError
 
+from apps.bluebottle_utils.tests import UserTestsMixin
 
-class UserProfileTestCase(unittest.TestCase):
+
+class UserProfileTestCase(TestCase, UserTestsMixin):
     """ Tests for the UserProfile model. """
 
     def test_slug_update(self):
@@ -15,8 +16,9 @@ class UserProfileTestCase(unittest.TestCase):
 
         # Check that the slug is the same as the username.
         test_username1 = 'testuser23'
-        user = User(username=test_username1)
-        user.save()
+
+        user = self.create_user(username=test_username1)
+
         profile = user.get_profile()
         self.assertEqual(test_username1, profile.slug)
 
@@ -26,23 +28,13 @@ class UserProfileTestCase(unittest.TestCase):
         user.save()
         self.assertEqual(test_username2, profile.slug)
 
-        # Remove the test user.
-        user.delete()
-
     def test_create_without_user(self):
         """
-        This test checks that creating a UserProfile object correctly throws an
-        exception as this operation is prohibited.
+        This test checks that creating a UserProfile object correctly throws
+        an exception as this operation is prohibited.
         """
 
+        # Test a fail
         user_profile = UserProfile()
-        # This somewhat awkward test strategy is used because AssertRaises is
-        # not working for some reason.
-        try:
-            user_profile.save()
-        except UserProfileCreationError:
-            pass
-        except:
-            raise
-        else:
-            self.fail("Expected exception not thrown.")
+
+        self.assertRaises(UserProfileCreationError, user_profile.save)
