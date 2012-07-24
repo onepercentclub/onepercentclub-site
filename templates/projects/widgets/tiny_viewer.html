@@ -1,0 +1,22 @@
+{% load thumbnail %}
+
+<div class="profile-viewer">
+	<div class="pictures pane">
+		{% thumbnail project.image "220x220" crop="center" as picture %}
+			<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ project.title }}">
+		{% empty %}
+			<img src="http://placehold.it/220x220" title="{{ project.title }}">
+		{% endthumbnail %}
+	</div>
+	<div class="videos pane hidden">
+		VIDEOS
+	</div>
+	<div class="map pane hidden">
+		<a href="/projects/{{ project.slug }}/map">
+			<img id="static_mini_map" src="http://maps.googleapis.com/maps/api/staticmap?center={{ project.latitude }},{{ project.longitude }}&amp;maptype=roadmap&amp;zoom=6&amp;size=220x220&amp;markers=icon:http://tinyurl.com/3h9h74c|{{ project.latitude }},{{ project.longitude }}&amp;sensor=true" alt="MAP">				
+		</a>
+	</div>
+	<a href="/projects/{{ project.slug }}/pictures/" for="pictures" class="ajax panelink">PICTURES</a>
+	<a href="/projects/{{ project.slug }}/videos/" for="videos" class="ajax panelink">VIDEOS</a>
+	<a href="/projects/{{ project.slug }}/map/" for="map" class="ajax panelink">MAP</a>
+</div>
