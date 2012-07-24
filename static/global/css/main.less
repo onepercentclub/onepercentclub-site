@@ -1,20 +1,31 @@
-@pink: #ffA961;
+@pink: #FF619A;
 @green: #00C051;
-@sepia: #ddccbb;
+@lightgreen: #9EB;
+@sepia: #DDCCBB;
 @black: #000000;
-@white: #ffffff;
-@gray: #a7a7a7;
-@lightgray: #e8e8e8;
+@white: #FFFFFF;
+@gray: #A7A7A7;
+@midgray: #EEEEEE;
+@lightgray: #E8E8E8;
 @static-url: "../../";
 
 @font: Arial, Helvetica;
 @futura: 'Futura Std Book', @font;
 @mainwidth: 1020px;
 
+.hidden,
+.long {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
 
 td {
   vertical-align: top;
 }
+
 
 body {
   background-color: #FFF;
@@ -100,6 +111,11 @@ body {
   padding: 10px;
   background-color: #e8e8e8;
   font-size: 0.8em; 
+  a {
+    font-weight: bold;
+    color: @green;
+  }
+  
   h1 {
     font-family: @futura;
     color: @green;
@@ -117,13 +133,13 @@ body {
   p {
     margin: 0px 0px 12px 0px;
   }
-  .profile-image {
-    border: 1px solid black;
-    background-color: @sepia;
-    img {
+  .profile-viewer {
+    .pane {
+      border: 1px solid @white;
+      background-color: @sepia;
       width: 200px;
       height: 200px;
-    }  
+    }
   }
 }
 
@@ -162,17 +178,36 @@ body {
 
  
 .widget {
-  width: 240px;
+  width: 225px;
   background-color: @white;
   
   h3 {
     font-family: @futura;
     background-color: @green;
     color: white;
+    font-size: 1.1em;
     margin: 0px;
-    padding: 4px 6px 0px 6px;
+    padding: 12px;
     text-transform: uppercase;
   }
+  
+  h3.light {
+    background-color: @white;
+    color: @green;
+  }
+  h3.link {
+    background-color: @pink;
+    color: @white;
+  }
+
+  h3 .icon {
+    width: 16px;
+    height: 14px;
+    background: @pink url("@{static-url}/global/images/icons/love.png") left center no-repeat;
+    float: left;
+    margin-right: 6px;
+  }
+  
   .contents {
     margin: 4px;
     font-size: 0.8em;
@@ -187,4 +222,44 @@ body {
       border-bottom: 1px solid @green;
     }
   }
+}
+
+.progressbar {
+  background-color: @midgray;
+  position: relative;
+  padding: 20px 10px;
+  .asked {
+    height: 10px;
+    background-color: @lightgreen;
+    position: relative;
+  }
+  .donated {
+    top: 0px;
+    left: 0px;
+    height: 10px;
+    position: absolute;
+    background-color: @green;
+  }
+
+  .amount-donated.right {
+    color: @green;
+    border-right: 1px solid @green;
+    padding: 0px 4px 4px;
+    text-align: right;
+    margin-right: -1px;
+    
+  }
+  
+  .amount-donated.left {
+    margin-left: -1px;
+    color: @green;
+    border-left: 1px solid @green;
+    padding: 0px 4px 4px;
+  }
+  
+  .amount-asked {
+    color: @green;
+    text-align: right;
+  }
+  
 }
