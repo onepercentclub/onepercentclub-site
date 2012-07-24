@@ -100,3 +100,40 @@ class DonationTests(TestCase, ProjectTestsMixin, UserTestsMixin):
         # Updating to 19 should be fine
         donationline.amount = Decimal('19.00')
         donationline.full_clean()
+
+    def test_supporters(self):
+        """
+        Test whether project supporters are properly returned.
+
+        TODO: This *might* belong in the projects app *but* this would
+        yield a cyclical import. Solution: turn tests into module with
+        base classes in `base.py` instead of having everything in one file.
+        """
+
+        donation = Donation(user=self.user)
+        donation.amount = Decimal('20.00')
+        donation.save()
+
+        donationline = DonationLine(donation=donation, project=self.project)
+        donationline.amount = Decimal('5.00')
+        donationline.save()
+
+        # Test wether a single supporter is properly listed
+        supporters = list(self.project.get_supporters())
+
+        self.assertEqual(supporters, [self.user])
+
+        # Add another
+        other_user = self.create_user()
+
+        donation = Donation(user=other_user)
+        donation.amount = Decimal('20.00')
+        donation.save()
+
+        donationline = DonationLine(donation=donation, project=self.project)
+        donationline.amount = Decimal('5.00')
+        donationline.save()
+
+        supporters = self.project.get_supporters()
+        self.assertTrue(other_user in supporters)
+        self.assertEquals(supporters.count(), 2)

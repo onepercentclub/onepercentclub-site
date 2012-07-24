@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from django_countries import CountryField
 from djchoices import DjangoChoices, ChoiceItem
@@ -77,6 +78,14 @@ class Project(models.Model):
         return ('project_detail', (), {
             'slug': self.slug
         })
+
+    def get_supporters(self):
+        """ Get a queryset of donating users for this project. """
+
+        # TODO: Add filter for 'succesful' donations on a somewhat higher
+        # level, perhaps a custom Manager on Donation/DonationLine classes.
+
+        return User.objects.filter(donation__donationline__project=self)
 
     class Meta:
         ordering = ['title']
