@@ -8,9 +8,8 @@
 	{% endthumbnail %}
 </div>
 <div class="title">
-	<a href="{{ project.absolute_url  }}" class="ajax">
+	<a href="{{ project.get_absolute_url }}" class="ajax">
 	    <h3>{{ project.title }}</h3>
-	    {{ project.get_absolute_url }}
 	</a>
 </div>
 
