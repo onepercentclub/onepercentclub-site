@@ -22,33 +22,33 @@ class Donation(models.Model):
 
     class DonationStatuses(DjangoChoices):
         """
-        All legacy values for DonationStatusus.
-
-        TODO: Currently these are related to the payments. This should change
-        to information required by the actual use cases
-        (ie. payout operations, project and member notifications).
+        These statuses are based on the legacy models and need to be updated
+        when we actually sort out payments / donations properly, modelled
+        after the actual use cases (ie. payout operations, project and
+        member notifications). (TODO)
         """
-        closed = ChoiceItem('closed', label=_('Closed'))
-        expired = ChoiceItem('expired', label=_('Expired'))
-        paid = ChoiceItem('paid', label=_('Paid'))
-        canceled = ChoiceItem('canceled', label=_('Canceled'))
-        chargedback = ChoiceItem('chargedback', label=_('Chargedback'))
-        new = ChoiceItem('new', label=_('New'))
-        started = ChoiceItem('started', label=_('Started'))
+        closed = ChoiceItem('closed', label=_("Closed"))
+        expired = ChoiceItem('expired', label=_("Expired"))
+        paid = ChoiceItem('paid', label=_("Paid"))
+        canceled = ChoiceItem('canceled', label=_("Canceled"))
+        chargedback = ChoiceItem('chargedback', label=_("Chargedback"))
+        new = ChoiceItem('new', label=_("New"))
+        started = ChoiceItem('started', label=_("Started"))
 
     user = models.ForeignKey('auth.User')
-    amount = MoneyField(_('amount'))
+    amount = MoneyField(_("amount"))
 
-    status = models.CharField(_('status'),
+    # Note: having an index here allows for efficient filtering by status.
+    status = models.CharField(_("status"),
         max_length=20, choices=DonationStatuses.choices, db_index=True
     )
 
-    created = CreationDateTimeField(_('created'))
-    updated = ModificationDateTimeField(_('updated'))
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
 
     class Meta:
-        verbose_name = _('donation')
-        verbose_name_plural = _('donations')
+        verbose_name = _("donation")
+        verbose_name_plural = _("donations")
 
     def __unicode__(self):
         if self.amount:
@@ -72,14 +72,11 @@ class DonationLine(models.Model):
     donation = models.ForeignKey(Donation)
 
     project = models.ForeignKey('projects.Project')
-    amount = MoneyField(_('amount'))
-
-    created = CreationDateTimeField(_('created'))
-    updated = ModificationDateTimeField(_('updated'))
+    amount = MoneyField(_("amount"))
 
     class Meta:
-        verbose_name = _('donation line')
-        verbose_name_plural = _('donation lines')
+        verbose_name = _("donation line")
+        verbose_name_plural = _("donation lines")
 
     def __unicode__(self):
         if self.amount:
