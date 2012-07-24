@@ -22,13 +22,13 @@
   		<div class="column grid_2">
 			<h4>Project</h4>
 			<h1>{{ project.title }}</h1>
-			
+
 			<h4>Organization</h4>
 			<p>{{ project.organization.name }}</p>
-			
+
 			<h4>Location</h4>
 			<p>{{ project.location }}</p>
-			
+
 			<h4>Costs</h4>
 			<p>&euro; {{ project.planphase.money_asked }}</p>
 
@@ -36,6 +36,13 @@
 			<ul>
 				{% for category in project.categories.all %}
 					<li>{{ category.name }}</li>
+				{% endfor %}
+			</ul>
+
+			<h4>Supporters</h4>
+			<ul>
+				{% for supporter in project.get_supporters %}
+					<li>{{ supporter }}</li>
 				{% endfor %}
 			</ul>
  		</div>
@@ -50,7 +57,7 @@
 					container: '#midpanel',
 					//method: 'replace',
 					//lifetime: 60,
-					'widgets' : [ 
+					'widgets' : [
 						{
 							name: 'RecentProjects',
 							//lifetime: 60,
@@ -59,9 +66,9 @@
 							name: 'New',
 						}]
 				}
-			]);	
-			
+			]);
+
 		})
-		
+
 	</script>
 {% endblock %}
