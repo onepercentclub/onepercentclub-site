@@ -53,8 +53,9 @@ class Project(models.Model):
 
     country = CountryField(null=True)
     # Location of this project
-    latitude = models.CharField(max_length=30)
-    longitude = models.CharField(max_length=30)
+    latitude = models.DecimalField(max_digits=12,decimal_places=8)
+    longitude = models.DecimalField(max_digits=12, decimal_places=8)
+
 
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,
