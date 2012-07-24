@@ -9,7 +9,8 @@ from .models import Project
 class ProjectTestsMixin(OrganiationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
-    def create_project(self, organization=None, owner=None):
+    def create_project(self, organization=None, owner=None, title='',
+                       slug=''):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
@@ -25,7 +26,9 @@ class ProjectTestsMixin(OrganiationTestsMixin, UserTestsMixin):
             # Create a new user with a random username
             owner = self.create_user()
 
-        project = Project(organization=organization, owner=owner)
+        project = Project(
+            organization=organization, owner=owner, title=title, slug=slug
+        )
 
         return project
 
@@ -33,4 +36,30 @@ class ProjectTestsMixin(OrganiationTestsMixin, UserTestsMixin):
 class ProjectTests(TestCase, ProjectTestsMixin):
     """ Tests for projcts. """
 
-    pass
+    def setUp(self):
+        """ Every test in this suite requires a project. """
+        self.project = self.create_project(
+            title='Banana Project',
+            slug='banana'
+        )
+        self.project.save()
+
+    def test_detailview(self):
+        """ Test whether requesting of a project detail view works. """
+
+        url = self.project.get_absolute_url()
+
+        self.assertTrue(url)
+
+        # The project slug should be in the URL
+        self.assertIn(self.project.slug, url)
+
+        # Try and get the details
+        response = self.client.get(url)
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+
+        # The project title should be in the page, somewhere
+        self.assertContains(response, self.project.title)
+
