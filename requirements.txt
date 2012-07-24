@@ -40,3 +40,9 @@ south==0.7.5
 
 # Tastypie, for the API!
 django-tastypie
+
+# Jenkins integration
+django-jenkins==0.13.0
+
+# Coverage in tests
+coverage
