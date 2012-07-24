@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.conf import settings
+import random
 
 from django_countries import CountryField
 from djchoices import DjangoChoices, ChoiceItem
@@ -60,11 +61,34 @@ class Project(models.Model):
         choices=settings.LANGUAGES,
         help_text=_("Main language of the project."))
 
+    # temporary to do random donated thing 
+    donated = 0
+
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
+    """ Money asked, rounded to the lower end """
+    def money_asked(self):
+        return int(float(self.planphase.money_asked) - 0.45)
+
+    """ Money donated. For now this is random """
+    """ TODO: connect this to actual donations. Duh! """
+    def money_donated(self):
+        if self.donated == 0:
+            self.donated = int(random.randrange(5, self.money_asked()))
+        return self.donated
+
+    def money_donated_percentage(self):
+        if self.money_asked() == None:
+            return 0
+        return int(100 * (float(self.money_donated()) / float(self.money_asked())))
+
+    def money_needed(self):
+        return self.money_asked() - self.money_donated()
+
+    # TODO: Have a Region/Continent her too
     def location(self):
         return self.country.name
 

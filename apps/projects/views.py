@@ -11,3 +11,7 @@ class ProjectListView(ProjectViewBase, ListView):
 
 class ProjectDetailView(ProjectViewBase, DetailView):
     pass
+
+
+class ProjectMapView(ProjectViewBase, DetailView):
+    template_name = 'projects/map.html'
