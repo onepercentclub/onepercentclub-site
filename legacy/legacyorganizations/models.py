@@ -16,7 +16,7 @@ class Organization(models.Model):
     account_number = models.CharField(max_length=255, blank=True)
     account_name = models.CharField(max_length=255, blank=True)
     account_city = models.CharField(max_length=255, blank=True)
-    country_id = models.IntegerField(null=True, blank=True)
+    country = models.ForeignKey('legacysystem.Country')
     created = models.DateTimeField()
     updated = models.DateTimeField()
     deleted = models.DateTimeField(null=True, blank=True)
@@ -36,7 +36,11 @@ class Organization(models.Model):
 
 
 class OrganizationMember(models.Model):
-    org = models.ForeignKey(Organization)
+    # Note: this is a fake primary key, because Django goes nuts for
+    # tables that have none.
+
+    # Ref: https://code.djangoproject.com/ticket/373
+    org = models.ForeignKey(Organization, primary_key=True)
     mem = models.ForeignKey('legacymembers.Member')
 
     class Meta:

@@ -4,7 +4,8 @@ from ipdb import launch_ipdb_on_exception
 
 from django.core.management.base import BaseCommand
 
-from ...users import MigrateMemberAuth
+from ...settings import MIGRATIONS, DEBUG_MIGRATIONS
+from ...utils import get_migration
 
 
 class Command(BaseCommand):
@@ -19,7 +20,7 @@ class Command(BaseCommand):
     1 means normal output (default).
     2 means verbose output.
     3 means very verbose output.
-    """    
+    """
     verbosity_loglevel = {
         '0': logging.ERROR,
         '1': logging.WARNING,
@@ -27,13 +28,24 @@ class Command(BaseCommand):
         '3': logging.DEBUG
     }
 
+    def _run_migrations(self, *args):
+        for migration in MIGRATIONS:
+            # Execute all migrations, unless a set of migration classes
+            # have been specified on the command line
+            if not args or migration.rsplit('.', 1)[1] in args:
+                migration_instance = get_migration(migration)
+                migration_instance.migrate_all()
+
     def handle(self, *args, **options):
         # Setup the log level for root logger
         loglevel = self.verbosity_loglevel.get(options['verbosity'])
         logging.getLogger().setLevel(loglevel)
 
-        # Exception launches ipdb https://github.com/Psycojoker/ipdb#use
-        with launch_ipdb_on_exception():
-            m = MigrateMemberAuth()
-            m.migrate_all()
-
+        # When debugging, launch ipdb on exception
+        if DEBUG_MIGRATIONS:
+            # Exception launches ipdb https://github.com/Psycojoker/ipdb#use
+            with launch_ipdb_on_exception():
+                self._run_migrations(*args)
+        else:
+            # Just run the migrations
+            self._run_migrations(*args)
