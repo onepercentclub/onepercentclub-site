@@ -53,7 +53,7 @@ class Donation(models.Model):
     def __unicode__(self):
         if self.amount:
             try:
-                return u'%f on %s from %s' % (
+                return u'%s on %s from %s' % (
                     self.amount, self.created, self.user
                 )
             except ObjectDoesNotExist:
@@ -81,7 +81,7 @@ class DonationLine(models.Model):
     def __unicode__(self):
         if self.amount:
             try:
-                return u'%f from donation %s to %s' % (
+                return u'%s from donation %s to %s' % (
                     self.amount, self.donation, self.project
                 )
             except ObjectDoesNotExist:

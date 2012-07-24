@@ -41,10 +41,17 @@ class DonationTests(TestCase, ProjectTestsMixin, UserTestsMixin):
     def test_unicode(self):
         """ Test to see wheter unicode representations will fail or not. """
         donation = Donation(user=self.user)
-        self.assertTrue(unicode(donation))
+        donation.amount = Decimal('21.00')
+        donation_str = unicode(donation)
+        self.assertTrue(donation_str)
+        self.assertIn('21.00 on', donation_str)
 
         donationline = DonationLine(donation=donation, project=self.project)
-        self.assertTrue(unicode(donationline))
+        donationline.amount = Decimal('21.00')
+
+        donation_str = unicode(donationline)
+        self.assertTrue(donation_str)
+        self.assertIn('21.00 from donation', donation_str)
 
     def test_donationvalidation(self):
         """ Test validation for DonationLine objects. """
@@ -135,5 +142,5 @@ class DonationTests(TestCase, ProjectTestsMixin, UserTestsMixin):
         donationline.save()
 
         supporters = self.project.get_supporters()
-        self.assertTrue(other_user in supporters)
+        self.assertIn(other_user, supporters)
         self.assertEquals(supporters.count(), 2)
