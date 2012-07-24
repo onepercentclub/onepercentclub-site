@@ -45,7 +45,7 @@ surlex==0.1.2
 south==0.7.5
 
 # Posgres bindings - http://pypi.python.org/pypi/psycopg2/2.4.5
-psycopg2==2.4.2
+psycopg2
 
 # Tastypie, for the API!
 django-tastypie
