@@ -11,12 +11,23 @@
 {% block content %}
 	<div class="row">
   		<div class="column grid_1">
-			<div class="profile-image">
-				{% thumbnail project.image "200x200" crop="center" as picture %}
-					<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ project.title }}">
-				{% empty %}
-					<img src="http://placehold.it/200x200" title="{{ project.title }}">
-				{% endthumbnail %}
+			<div class="profile-viewer">
+				<div class="pictures pane">
+					{% thumbnail project.image "200x200" crop="center" as picture %}
+						<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ project.title }}">
+					{% empty %}
+						<img src="http://placehold.it/200x200" title="{{ project.title }}">
+					{% endthumbnail %}
+				</div>
+				<div class="videos pane hidden">
+					VIDEOS
+				</div>
+				<div class="map pane hidden">
+					<img id="static_mini_map" src="http://maps.googleapis.com/maps/api/staticmap?center={{ project.latitude }},{{ project.longitude }}&amp;maptype=roadmap&amp;zoom=6&amp;size=200x200&amp;markers=icon:http://tinyurl.com/3h9h74c|{{ project.latitude }},{{ project.longitude }}&amp;sensor=true" alt="MAP">				
+				</div>
+				<a href="" for="pictures" class="active panelink">PICTURES</a>
+				<a href="" for="videos" class="panelink">VIDEOS</a>
+				<a href="" for="map" class="panelink">MAP</a>
 			</div>
   		</div>
   		<div class="column grid_2">
@@ -38,30 +49,38 @@
 					<li>{{ category.name }}</li>
 				{% endfor %}
 			</ul>
- 		</div>
+
+			<h4>Description</h4>
+			<p>
+				<span class="short">
+					{{ project.planphase.description|truncatewords:50 }}
+					<a href="" class="more">more</a>
+				</span>
+				<span class="long">
+					{{ project.planphase.description }}
+					<a href="" class="less">less</a>
+				</span>
+			</p>
+
+			<h4>Funding needed for</h4>
+			<p>
+				<span class="short">
+					{{ project.planphase.what|truncatewords:50 }}
+					<a href="" class="more">more</a>
+				</span>
+				<span class="long">
+					{{ project.planphase.what }}
+					<a href="" class="less">less</a>
+				</span>
+			</p>
+
+  		</div>
   		<div class="column grid_1">
+			{% include "projects/phases.html" %}  			
+  			<br />
+			{% include "projects/funding_needed.html" %}  			
+  			
   		</div>
 	</div>
 
-	<script>
-		$(document).ready(function(){
-			BlueApp.views.load([
-				{
-					container: '#midpanel',
-					//method: 'replace',
-					//lifetime: 60,
-					'widgets' : [ 
-						{
-							name: 'RecentProjects',
-							//lifetime: 60,
-						},
-						{
-							name: 'New',
-						}]
-				}
-			]);	
-			
-		})
-		
-	</script>
 {% endblock %}
