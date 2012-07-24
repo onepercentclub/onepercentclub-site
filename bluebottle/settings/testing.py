@@ -1,6 +1,8 @@
 # Settings for use on testing server
 from .local import *
 
+INSTALLED_APPS.append('django_jenkins')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -22,3 +24,21 @@ DEBUG=False
 
 # On the devserver we expect static assets to live here
 LEGACY_MIGRATIONS_MEDIA_ROOT = '/home/onepercent/data/live'
+
+# Test all INSTALLED_APPS by default
+PROJECT_APPS = list(INSTALLED_APPS)
+
+# Some of these tests fail, and it's not our fault
+PROJECT_APPS.remove('django.contrib.auth')
+# https://code.djangoproject.com/ticket/17966
+
+PROJECT_APPS.remove('django_extensions')
+PROJECT_APPS.remove('django_extensions.tests')
+# https://github.com/django-extensions/django-extensions/issues/154
+
+# Disable pylint becasue it seems to be causing problems
+JENKINS_TASKS = (
+    # 'django_jenkins.tasks.run_pylint',
+    'django_jenkins.tasks.with_coverage',
+    'django_jenkins.tasks.django_tests',
+)

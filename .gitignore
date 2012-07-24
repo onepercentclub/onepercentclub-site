@@ -30,10 +30,16 @@ pip-log.txt
 .DS\_Store
 *.sqlite
 *.sw?
+
+# Static files
 /static/media
 /static/apps
+
+# Local settings overrides
 bluebottle/settings/local.py
 bluebottle/settings/secret.py
+
+# Misc stuff
 env
 
 # Documentation
@@ -42,3 +48,6 @@ docs/model_graphs/*.dot
 docs/_build
 .idea
 .noseids
+
+# CI reports
+reports
