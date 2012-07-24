@@ -105,7 +105,7 @@ class Project(models.Model):
     def get_absolute_url(self):
         """ Get the URL for the current project. """
 
-        return ('detail', (), {
+        return ('project_detail', (), {
             'slug': self.slug
         })
 
