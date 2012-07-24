@@ -1,4 +1,4 @@
-@pink: #ffA961;
+@pink: #FF619A;
 @green: #00C051;
 @sepia: #ddccbb;
 @black: #000000;
@@ -10,6 +10,26 @@
 @font: Arial, Helvetica;
 @futura: 'Futura Std Book', @font;
 @mainwidth: 1020px;
+
+.hidden {
+  display: none;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 
 
 td {
@@ -161,30 +181,60 @@ body {
 }
 
  
-.widget {
-  width: 240px;
-  background-color: @white;
-  
-  h3 {
-    font-family: @futura;
+.widget, 
+.results ul.list li {
+  float: left;
+  width: 225px;
+  margin: 7px 7px 0px 0px;
+  .title,
+  .support {
+    font-size: 1em;
+    color: @white;
+    padding: 8px 8px 4px;
+  }
+  .title {
+    height: 80px;
     background-color: @green;
-    color: white;
-    margin: 0px;
-    padding: 4px 6px 0px 6px;
-    text-transform: uppercase;
-  }
-  .contents {
-    margin: 4px;
-    font-size: 0.8em;
-  }
-  ul.list {
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
-    li {
-      padding: 4px 2px;
-      margin: 0px;
-      border-bottom: 1px solid @green;
+    font-weight: bold;
+    overflow: hidden;
+    a {
+      color: @white;
+    }
+    h3 {
+      text-transform: uppercase;
+      font-family: @futura;
+      padding: 0px;
     }
   }
+  .support {
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @futura;
+    background-color: @pink;
+  }
+  .progressbar {
+    font-size: 0.8em;  
+  }
+}
+
+
+/* MAPS */
+
+#bigmap {
+  width: 686px;
+  height: 400px;
+  border: 1px solid @white;
+  
+}
+
+#maploading {
+  position: absolute;
+  top: 5px;
+  left: 247px;
+  padding: 8px 30px;
+  color: @white;
+  background-color: @green;
+  border: 3px solid @white;
+  font-weight: bold;
 }
