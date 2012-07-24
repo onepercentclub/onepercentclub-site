@@ -33,6 +33,13 @@
 				{% endfor %}
 			</ul>
 
+            <h4>Supporters</h4>
+            <ul>
+                    {% for supporter in project.get_supporters %}
+                            <li>{{ supporter }}</li>
+                    {% endfor %}
+            </ul>
+
 			<h4>Description</h4>
 			<p>
 				<span class="short">

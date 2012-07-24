@@ -1,16 +1,24 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
 
+from .models import Organization
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+
+class OrganiationTestsMixin(object):
+    """ Mixin base class for tests using organizations. """
+
+    def create_organization(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Create a 'default' organization with some standard values so it can be
+        saved to the database, but allow for overriding.
+
+        The returned object is not yet saved to the database.
         """
-        self.assertEqual(1 + 1, 2)
+        organization = Organization()
+
+        return organization
+
+
+class OrganizationTests(TestCase, OrganiationTestsMixin):
+    """ Tests for organizations. """
+
+    pass
