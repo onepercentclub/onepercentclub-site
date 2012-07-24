@@ -11,6 +11,7 @@ from .models import Donation, DonationLine
 
 class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
     """ Base class for tests using donations. """
+
     def create_donation(self, user=None, amount=None):
         if not user:
             user = self.create_user()
@@ -34,7 +35,8 @@ class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
 
         return DonationLine(donation=donation, project=project, amount=amount)
 
-class DonationTests(TestCase, DonationTestsMixin):
+
+class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
     """ Tests for donations. """
 
     def test_donationsave(self):
@@ -121,6 +123,7 @@ class DonationTests(TestCase, DonationTestsMixin):
         donationline.amount = Decimal('19.00')
         donationline.full_clean()
 
+
     def test_supporters(self):
         """
         Test whether project supporters are properly returned.
@@ -129,12 +132,17 @@ class DonationTests(TestCase, DonationTestsMixin):
         yield a cyclical import. Solution: turn tests into module with
         base classes in `base.py` instead of having everything in one file.
         """
+        project = self.create_project(
+            title='Banana Project',
+            slug='banana'
+        )
+        project.save()
 
-        donationline = self.create_donationline()
+        donationline = self.create_donationline(project=project)
         donationline.save()
 
         # Test wether a single supporter is properly listed
-        supporters = list(donationline.project.get_supporters())
+        supporters = list(project.get_supporters())
 
         self.assertEqual(supporters, [donationline.donation.user])
 
@@ -145,10 +153,55 @@ class DonationTests(TestCase, DonationTestsMixin):
         donation.save()
 
         donationline = self.create_donationline(
-            donation=donation, project=donationline.project
+            donation=donation, project=project
         )
         donationline.save()
 
         supporters = donationline.project.get_supporters()
         self.assertIn(other_user, supporters)
         self.assertEquals(supporters.count(), 2)
+
+    def test_detailview_supporters(self):
+        """
+        Test whether all a project's supporters are listed in the project's
+        detail view.
+
+        TODO: This clearly belongs in the tests for the projects app *but*
+        we need to factor out tests to a seperate module for that to work
+        ie.:
+
+        tests/
+            base.py
+            <otherfiles>
+
+        This way we can import from the tests' base mixins without ending up
+        in Cyclic Import Hell.
+        """
+
+        project = self.create_project(
+            title='Banana Project',
+            slug='banana'
+        )
+        project.save()
+
+        donationline = self.create_donationline(project=project)
+        donationline.save()
+
+        # Add another
+        other_user = self.create_user()
+
+        donation = self.create_donation(user=other_user)
+        donation.save()
+
+        donationline = self.create_donationline(
+            donation=donation, project=project
+        )
+        donationline.save()
+
+        # Create a donationline
+        url = project.get_absolute_url()
+        response = self.client.get(url)
+
+        supporters = project.get_supporters()
+        for supporter in supporters:
+            self.assertContains(response, unicode(supporter))
