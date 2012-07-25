@@ -4,11 +4,12 @@ from django.conf import settings
 from django.contrib.auth.models import User
 
 from django_countries import CountryField
-from djchoices import DjangoChoices, ChoiceItem
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
 )
+from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
+from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
 
@@ -54,14 +55,16 @@ class Project(models.Model):
     created = CreationDateTimeField(
         help_text=_("When this project was created."))
 
-    country = CountryField(null=True)
     # Location of this project
+    country = CountryField(null=True)
     latitude = models.CharField(max_length=30)
     longitude = models.CharField(max_length=30)
 
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,
         help_text=_("Main language of the project."))
+
+    tags = TaggableManager(blank=True)
 
     def __unicode__(self):
         if self.title:

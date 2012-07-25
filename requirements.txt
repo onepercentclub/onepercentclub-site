@@ -46,3 +46,9 @@ django-jenkins==0.13.0
 
 # Coverage in tests
 coverage
+
+# The official django-taggit doesn't seem to be maintained anymore. This
+# version is the currently maintained version for Django 1.4. More information
+# can be found in the merge request to the official version:
+# https://github.com/alex/django-taggit/pull/99
+-e git+https://github.com/hcarvalhoalves/django-taggit.git@53497637f019af738f12d4e6f1e5ab2833ff173e#egg=django_taggit

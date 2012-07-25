@@ -16,7 +16,7 @@ class UserAddressAdmin(admin.StackedInline):
 class UserProfileAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,
-            {'fields': ['user_link']}
+            {'fields': ['user_link', 'tags']}
             ),
         ("Settings",
              {'fields': ['interface_language', 'newsletter']}
