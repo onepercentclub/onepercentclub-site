@@ -5,11 +5,12 @@ from django.contrib.auth.models import User
 import random
 
 from django_countries import CountryField
-from djchoices import DjangoChoices, ChoiceItem
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
 )
+from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
+from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
 
@@ -55,11 +56,11 @@ class Project(models.Model):
     created = CreationDateTimeField(
         help_text=_("When this project was created."))
 
-    country = CountryField(null=True)
     # Location of this project
-    latitude = models.DecimalField(max_digits=12, decimal_places=8)
-    longitude = models.DecimalField(max_digits=12, decimal_places=8)
+    latitude = models.CharField(max_length=30)
+    longitude = models.CharField(max_length=30)
 
+    country = CountryField(null=True)
 
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,
@@ -86,6 +87,9 @@ class Project(models.Model):
 
     def money_needed(self):
         return self.money_asked() - self.money_donated()
+
+    tags = TaggableManager(blank=True)
+
 
     def __unicode__(self):
         if self.title:

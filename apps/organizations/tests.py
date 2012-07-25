@@ -3,7 +3,7 @@ from django.test import TestCase
 from .models import Organization
 
 
-class OrganiationTestsMixin(object):
+class OrganizationTestsMixin(object):
     """ Mixin base class for tests using organizations. """
 
     def create_organization(self):
@@ -18,7 +18,7 @@ class OrganiationTestsMixin(object):
         return organization
 
 
-class OrganizationTests(TestCase, OrganiationTestsMixin):
+class OrganizationTests(TestCase, OrganizationTestsMixin):
     """ Tests for organizations. """
 
     pass
