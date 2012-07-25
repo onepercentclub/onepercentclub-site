@@ -40,6 +40,13 @@
                     {% endfor %}
             </ul>
 
+         	<h1>Tags</h1>
+            <ul>
+                {% for tag in project.tags.all %}
+                    <li>{{ tag }}</li>
+                {% endfor %}
+            </ul>
+
 			<h4>Description</h4>
 			<p>
 				<span class="short">
