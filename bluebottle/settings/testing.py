@@ -6,13 +6,13 @@ INSTALLED_APPS.append('django_jenkins')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'migrated',
-        'USER': 'eenprocent'
+        'NAME': 'onepercentsite',
+        'USER': 'jenkins'
     },
     'legacy': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'legacy',
-        'USER': 'eenprocent'
+        'USER': 'jenkins'
     }
 }
 
@@ -20,7 +20,7 @@ DATABASES = {
 DEBUG_LEGACY_MIGRATIONS = False
 
 # Turn off debugging for added speed and (hopefully) less memory usage
-DEBUG=False
+DEBUG = False
 
 # Test all INSTALLED_APPS by default
 PROJECT_APPS = list(INSTALLED_APPS)
