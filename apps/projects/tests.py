@@ -1,12 +1,12 @@
 from django.test import TestCase
 
 from apps.bluebottle_utils.tests import UserTestsMixin
-from apps.organizations.tests import OrganiationTestsMixin
+from apps.organizations.tests import OrganizationTestsMixin
 
 from .models import Project
 
 
-class ProjectTestsMixin(OrganiationTestsMixin, UserTestsMixin):
+class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
     def create_project(self, organization=None, owner=None, title='',
