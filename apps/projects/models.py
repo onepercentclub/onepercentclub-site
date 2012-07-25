@@ -73,16 +73,16 @@ class Project(models.Model):
             return self.title
         return self.slug
 
-    """ Money asked, rounded to the lower end """
     def money_asked(self):
-        return int(float(self.planphase.money_asked) - 0.45)
+        return int(self.planphase.money_asked)
 
-    """ Money donated. For now this is random """
-    """ TODO: connect this to actual donations. Duh! """
+    """ Money donated, rounded to the lower end... """
+    # Money donated. For now this is random
+    # TODO: connect this to actual donations. Duh!
     def money_donated(self):
         if self.donated == 0:
             self.donated = int(random.randrange(5, self.money_asked()))
-        return self.donated
+        return int(self.donated)
 
     def money_needed(self):
         return self.money_asked() - self.money_donated()

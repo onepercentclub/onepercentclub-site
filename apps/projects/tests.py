@@ -3,14 +3,14 @@ from django.test import TestCase
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.organizations.tests import OrganiationTestsMixin
 
-from .models import Project
+from .models import Project, PlanPhase
 
 
 class ProjectTestsMixin(OrganiationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
     def create_project(self, organization=None, owner=None, title='',
-                       slug=''):
+                       slug='', latitude= -11.2352, longitude= -84.123):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
@@ -27,17 +27,18 @@ class ProjectTestsMixin(OrganiationTestsMixin, UserTestsMixin):
             owner = self.create_user()
 
         project = Project(
-            organization=organization, owner=owner, title=title, slug=slug
+            organization=organization, owner=owner, title=title, slug=slug,
+            latitude=latitude, longitude=longitude
         )
 
         return project
 
 class PlanPhaseTestMixin(object):
-    def add_planphase(self, project):
-        planphase = PlanPhase(project=project)
-        return project
+    def create_planphase(self, project, money_total=15000, money_asked=5000):
+        planphase = PlanPhase(project=project, money_total=money_total, money_asked=money_asked)
+        return planphase.save()
 
-class ProjectTests(TestCase, ProjectTestsMixin):
+class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
     """ Tests for projects. """
 
     def setUp(self):
@@ -67,11 +68,27 @@ class ProjectTests(TestCase, ProjectTestsMixin):
         # The project title should be in the page, somewhere
         self.assertContains(response, self.project.title)
 
-    def test_amounts(self): 
+    def test_amounts(self):
         """ Test calculation of donation amounts """
-        
-        self.project = self.add_planphase(project)
-        
-        self.project.planphase.money_asked = 3520
-        
-        self.assertEquals(self.project.amount_asked(), 3520)
+
+        self.create_planphase(self.project, 12000, 3520)
+
+        self.assertEquals(self.project.money_asked(), 3520)
+
+        self.project.donated = 2155
+
+        self.assertEquals(self.project.money_donated(), 2155)
+
+        self.project.donated = 2715.3
+
+        self.assertEquals(self.project.money_donated(), 2715)
+
+        self.project.donated = 1322.8
+
+        self.assertEquals(self.project.money_donated(), 1322)
+
+        self.project.donated = 2312
+        self.project.planphase.money_asked = 3500
+
+        self.assertEquals(self.project.money_needed(), 1188)
+
