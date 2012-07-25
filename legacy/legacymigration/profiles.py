@@ -1,6 +1,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
+import settings
+
 from legacy.legacymembers.models import Profile
 from apps.accounts.models import UserProfile, UserAddress
 
@@ -11,7 +13,7 @@ from .accounts import MigrateMemberAuth
 from .mappings import (
     EducateDateTimeMapping, CountryMapping, Mapping,
     NoneToStringMapping, MappingMapping, NoneToStringCroppingMapping,
-    WebsiteMapping
+    WebsiteMapping, PathToFileMapping
 )
 
 
@@ -138,8 +140,12 @@ class MigrateProfile(MigrateModel):
         'billingnumber': None,
         'recurring_donation_amount': None,
 
-        # We will deal with file migrations later
-        'photo': None
+        'photo': PathToFileMapping(
+            root_path=settings.LEGACY_MEDIA_ROOT + '/assets/files/images/profiles/',
+            allow_missing=True,
+            to_field='picture',
+            verbose=False
+        ),
     }
 
 

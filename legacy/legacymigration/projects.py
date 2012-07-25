@@ -149,7 +149,6 @@ class MigrateProject(MigrateModel):
         'name': SlugifyMapping('slug', verbose=False),
         'title': NoneToStringMapping(),
 
-        # We'll do file objects later
         'photo': PathToFileMapping(
             root_path=settings.LEGACY_MEDIA_ROOT,
             allow_missing=True,
