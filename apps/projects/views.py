@@ -5,9 +5,14 @@ from .models import Project
 class ProjectViewBase(object):
     model = Project
 
+
 class ProjectListView(ProjectViewBase, ListView):
-    pass
+    template_name = 'projects/list.html'
 
 
 class ProjectDetailView(ProjectViewBase, DetailView):
-    pass
+    template_name = 'projects/detail.html'
+
+
+class ProjectMapView(ProjectViewBase, DetailView):
+    template_name = 'projects/map.html'
