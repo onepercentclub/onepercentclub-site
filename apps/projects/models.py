@@ -57,8 +57,8 @@ class Project(models.Model):
         help_text=_("When this project was created."))
 
     # Location of this project
-    latitude = models.CharField(max_length=30)
-    longitude = models.CharField(max_length=30)
+    latitude = models.DecimalField(max_digits=12, decimal_places=8)
+    longitude = models.DecimalField(max_digits=12, decimal_places=8)
 
     country = CountryField(null=True)
 
@@ -312,3 +312,4 @@ class Message(models.Model):
 
     class Meta:
         ordering = ['-created']
+
