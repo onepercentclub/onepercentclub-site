@@ -6,6 +6,7 @@ from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
 )
 from djchoices import DjangoChoices, ChoiceItem
+from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.models import Address
 
@@ -43,6 +44,8 @@ class Organization(models.Model):
     account_number = models.CharField(max_length=255, blank=True)
     account_name = models.CharField(max_length=255, blank=True)
     account_city = models.CharField(max_length=255, blank=True)
+
+    tags = TaggableManager(blank=True)
 
     def __unicode__(self):
         return self.title
