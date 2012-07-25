@@ -201,6 +201,8 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'taggit',
 
+    'legacyauth', # Legacy password authentication
+
     # bluebottle apps
     'apps.bluebottle_utils',
     'apps.accounts',
@@ -286,3 +288,15 @@ LOGIN_REDIRECT_URL = '/'
 # user profile setting as described here:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+# Support legacy passwords
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'legacyauth.hashers.LegacyPasswordHasher'
+)
+
+# Support email login
+AUTHENTICATION_BACKENDS = (
+    'legacyauth.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend'
+)
