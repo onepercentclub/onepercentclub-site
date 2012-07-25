@@ -6,13 +6,13 @@ INSTALLED_APPS.append('django_jenkins')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'onepercentsite',
-        'USER': 'jenkins'
+        'NAME': 'migrated',
+        'USER': 'eenprocent'
     },
     'legacy': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'legacy',
-        'USER': 'jenkins'
+        'USER': 'eenprocent'
     }
 }
 

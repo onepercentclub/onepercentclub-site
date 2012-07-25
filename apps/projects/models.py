@@ -84,14 +84,8 @@ class Project(models.Model):
             self.donated = int(random.randrange(5, self.money_asked()))
         return self.donated
 
-    def money_donated_percentage(self):
-        if self.money_asked() == None:
-            return 0
-        return int(100 * (float(self.money_donated()) / float(self.money_asked())))
-
     def money_needed(self):
         return self.money_asked() - self.money_donated()
-
 
     def __unicode__(self):
         if self.title:

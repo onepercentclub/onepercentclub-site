@@ -32,9 +32,13 @@ class ProjectTestsMixin(OrganiationTestsMixin, UserTestsMixin):
 
         return project
 
+class PlanPhaseTestMixin(object):
+    def add_planphase(self, project):
+        planphase = PlanPhase(project=project)
+        return project
 
 class ProjectTests(TestCase, ProjectTestsMixin):
-    """ Tests for projcts. """
+    """ Tests for projects. """
 
     def setUp(self):
         """ Every test in this suite requires a project. """
@@ -63,3 +67,11 @@ class ProjectTests(TestCase, ProjectTestsMixin):
         # The project title should be in the page, somewhere
         self.assertContains(response, self.project.title)
 
+    def test_amounts(self): 
+        """ Test calculation of donation amounts """
+        
+        self.project = self.add_planphase(project)
+        
+        self.project.planphase.money_asked = 3520
+        
+        self.assertEquals(self.project.amount_asked(), 3520)
