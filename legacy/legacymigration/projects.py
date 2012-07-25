@@ -167,8 +167,8 @@ class MigrateProject(MigrateModel):
         'created': EducateDateTimeMapping(verbose=False),
 
         'country': CountryMapping(verbose=False),
-        'latitude': True,
-        'longitude': True,
+        'latitude': StringToDecimalMapping(verbose=False),
+        'longitude': StringToDecimalMapping(verbose=False),
 
         'project_language': True,
 
