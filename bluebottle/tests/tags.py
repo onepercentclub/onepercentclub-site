@@ -26,13 +26,13 @@ class TestTags(unittest.TestCase,  ProjectTestsMixin, OrganizationTestsMixin,  U
 
         organization = self.create_organization()
         organization.save()
+
         organization.tags.add(tag_name)
-        organization.save()
 
         project = self.create_project()
         project.save()
+
         project.tags.add(tag_name)
-        project.save()
 
         # Check that we only have one tag created.
         self.assertEquals(1, Tag.objects.count())
