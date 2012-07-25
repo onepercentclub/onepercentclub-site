@@ -20,7 +20,7 @@ DATABASES = {
 DEBUG_LEGACY_MIGRATIONS = False
 
 # Turn off debugging for added speed and (hopefully) less memory usage
-DEBUG=False
+DEBUG = False
 
 # Test all INSTALLED_APPS by default
 PROJECT_APPS = list(INSTALLED_APPS)

@@ -1,10 +1,12 @@
 @pink: #FF619A;
 @green: #00C051;
+@lightgreen: #99EEBB;
 @sepia: #ddccbb;
 @black: #000000;
 @white: #ffffff;
 @gray: #a7a7a7;
-@lightgray: #e8e8e8;
+@lightgray: #E8E8E8;
+@midgray: #EEEEEE;
 @static-url: "../../";
 
 @font: Arial, Helvetica;
@@ -12,6 +14,10 @@
 @mainwidth: 1020px;
 
 .hidden {
+  display: none;
+}
+
+.long {
   display: none;
 }
 
@@ -192,6 +198,36 @@ body {
     color: @white;
     padding: 8px 8px 4px;
   }
+  
+  h3 {
+    background-color: @green;
+    color: @white;
+    font-weight: bold;
+    overflow: hidden;
+    text-transform: uppercase;
+    font-family: @futura;
+    font-size: 1.1em;
+    padding: 12px 12px 8px;
+  }
+
+  h3.light {
+    background-color: @white;
+    color: @green;
+  }
+
+  h3.link {
+    background-color: @pink;
+    color: @white;
+  }
+
+  h3 .icon {
+    width: 16px;
+    height: 14px;
+    background: @pink url("@{static-url}/global/images/icons/love.png") left center no-repeat;
+    float: left;
+    margin-right: 6px;
+  }
+      
   .title {
     height: 80px;
     background-color: @green;
@@ -212,9 +248,6 @@ body {
     text-transform: uppercase;
     font-family: @futura;
     background-color: @pink;
-  }
-  .progressbar {
-    font-size: 0.8em;  
   }
 }
 
@@ -238,3 +271,93 @@ body {
   border: 3px solid @white;
   font-weight: bold;
 }
+
+
+/* PROGRESS BAR */
+
+.progressbar {
+  background-color: @midgray;
+  position: relative;
+  padding: 20px 10px;
+  .asked-bar {
+    height: 10px;
+    background-color: @lightgreen;
+    position: relative;
+  }
+  .donated-bar {
+    top: 0px;
+    left: 0px;
+    height: 10px;
+    position: absolute;
+    background-color: @green;
+    border-right: 1px solid @green;
+  }
+
+  .donated-text.right {
+    color: @green;
+    border-right: 1px solid @green;
+    padding: 0px 4px 4px;
+    text-align: right;
+    margin-right: -1px;
+    
+  }
+  
+  .donated-text.left {
+    margin-left: -1px;
+    color: @green;
+    border-left: 1px solid @green;
+    padding: 0px 4px 4px;
+  }
+  
+  .asked-text {
+    color: @green;
+    text-align: right;
+  }
+  
+}
+
+.profile-viewer {
+  
+  .pane {
+    width: 220px;
+    height: 220px;
+    border: 1px solid @white;
+  }
+  a.panelink {
+    color: @green;
+    font-weight: bold;
+  }
+
+}
+
+
+.phases {
+  background-color: @white;
+  height: 26px;
+  padding: 4px;
+}
+
+.phases li {
+  text-align: center;
+  color: @white;
+  background-color: @gray;
+  padding: 6px 6px 4px;
+  font-family: @futura;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 2px;
+  float: left;
+  border-radius: 12px;
+}
+
+.phases.idea .idea,
+.phases.plan .idea,
+.phases.plan .plan,
+.phases.act .idea,
+.phases.act .plan,
+.phases.act .act,
+.phases.results li
+{
+  background-color: @green;
+}
+
