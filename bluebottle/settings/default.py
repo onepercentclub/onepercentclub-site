@@ -205,6 +205,7 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.organizations',
     'apps.projects',
+    'apps.donations'
 ]
 
 # Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
