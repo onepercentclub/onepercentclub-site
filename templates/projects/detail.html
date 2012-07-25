@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% load thumbnail %}
-
 {% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
 
 {% block htmlheader %}
@@ -11,13 +9,7 @@
 {% block content %}
 	<div class="row">
   		<div class="column grid_1">
-			<div class="profile-image">
-				{% thumbnail project.image "200x200" crop="center" as picture %}
-					<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ project.title }}">
-				{% empty %}
-					<img src="http://placehold.it/200x200" title="{{ project.title }}">
-				{% endthumbnail %}
-			</div>
+			{% include "projects/widgets/tiny_viewer.html" %}
   		</div>
   		<div class="column grid_2">
 			<h4>Project</h4>
@@ -26,48 +18,66 @@
 			<h4>Organization</h4>
 			<p>{{ project.organization.name }}</p>
 
-			<h4>Owner</h4>
-			{% with project.owner.get_profile as owner_profile %}
-
-				{% thumbnail owner_profile.picture "72x72" crop="center" as picture %}
-					<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ owner_profile }}">
-				{% empty %}
-					<img src="http://placehold.it/72x72" title="{{ owner_profile }}">
-				{% endthumbnail %}
-
-			{% endwith %}
-
-
 			<h4>Location</h4>
 			<p>{{ project.location }}</p>
 
 			<h4>Costs</h4>
-			<p>&euro; {{ project.planphase.money_asked }}</p>
+			<p>&euro; {{ project.money_asked }}</p>
 
  			<h4>Categories</h4>
 			<ul>
 				{% for category in project.categories.all %}
 					<li>{{ category.name }}</li>
+				{% empty %}
+					<li><i>none</i></li>
 				{% endfor %}
 			</ul>
 
-            <h1>Tags</h1>
+            <h4>Supporters</h4>
+            <ul>
+                    {% for supporter in project.get_supporters %}
+                            <li>{{ supporter }}</li>
+                    {% endfor %}
+            </ul>
+
+         	<h1>Tags</h1>
             <ul>
                 {% for tag in project.tags.all %}
                     <li>{{ tag }}</li>
                 {% endfor %}
             </ul>
 
-            <h4>Supporters</h4>
-			<ul>
-				{% for supporter in project.get_supporters %}
-					<li>{{ supporter }}</li>
-				{% endfor %}
-			</ul>
- 		</div>
+			<h4>Description</h4>
+			<p>
+				<span class="short">
+					{{ project.planphase.description|truncatewords:50 }}
+					<a href="" class="more">more</a>
+				</span>
+				<span class="long">
+					{{ project.planphase.description }}
+					<a href="" class="less">less</a>
+				</span>
+			</p>
+
+			<h4>Funding needed for</h4>
+			<p>
+				<span class="short">
+					{{ project.planphase.what|truncatewords:50 }}
+					<a href="" class="more">more</a>
+				</span>
+				<span class="long">
+					{{ project.planphase.what }}
+					<a href="" class="less">less</a>
+				</span>
+			</p>
+
+  		</div>
   		<div class="column grid_1">
+			{% include "projects/widgets/phases.html" %}
+			<br />  			
+			{% include "projects/widgets/funding_needed.html" %}  			
   		</div>
 	</div>
 
-
 {% endblock %}
+
