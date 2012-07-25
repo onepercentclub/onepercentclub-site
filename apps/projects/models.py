@@ -55,10 +55,14 @@ class Project(models.Model):
     created = CreationDateTimeField(
         help_text=_("When this project was created."))
 
-    # Location of this project
     country = CountryField(null=True)
-    latitude = models.CharField(max_length=30)
-    longitude = models.CharField(max_length=30)
+
+    # Location of this project
+    # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
+    # hold the legacy data.
+    # Ref http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
+    latitude = models.DecimalField(max_digits=21, decimal_places=18)
+    longitude = models.DecimalField(max_digits=21, decimal_places=18)
 
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,
