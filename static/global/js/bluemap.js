@@ -4,22 +4,22 @@ this.BlueMap = function(elementId, project){
     
     this.projectApiUrl = '/projects/api/project/';
     
-    this.CUSTOM_MAP_STYLE = '1pct'
+    this.CUSTOM_MAP_STYLE = '1pct';
     
     // Our favorite settings for Google Maps
     this.cfg = {
-          mapTypeId: google.maps.MapTypeId.ROADMAP,            
+        mapTypeId: google.maps.MapTypeId.ROADMAP,            
         zoom: 7, 
-         mapTypeControl: true,
+        mapTypeControl: true,
         zoomControl: true,
         panControl: false,
         scaleControl: true,    
         streetViewControl: false,
-         zoomControlOptions: {
+        zoomControlOptions: {
             style: google.maps.ZoomControlStyle.SMALL
         },
         mapTypeControlOptions: {
-            mapTypeIds: [
+        mapTypeIds: [
                     google.maps.MapTypeId.ROADMAP, 
                     google.maps.MapTypeId.TERRAIN, 
                     google.maps.MapTypeId.SATELLITE, 
@@ -201,9 +201,7 @@ this.BlueMap = function(elementId, project){
     
     // Get it going!
     this.map = this.getMap();
-    
     return this;
-
     
 };
 
