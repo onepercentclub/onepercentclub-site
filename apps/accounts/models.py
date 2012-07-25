@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import AutoSlugField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
+from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.models import Address
 
@@ -105,6 +106,8 @@ class UserProfile(models.Model):
     contribution = models.TextField(blank=True)
     availability = models.CharField(max_length=255, blank=True)
     working_location = models.CharField(max_length=255, blank=True)
+
+    tags = TaggableManager(blank=True)
 
     def __unicode__(self):
         try:

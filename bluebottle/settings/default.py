@@ -199,12 +199,14 @@ INSTALLED_APPS = [
     'legacyauth', # Just for reference (this is actually just a module, not an app)
     'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
+    'taggit',
 
     # bluebottle apps
     'apps.bluebottle_utils',
     'apps.accounts',
     'apps.organizations',
     'apps.projects',
+    'apps.donations'
 ]
 
 # Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
