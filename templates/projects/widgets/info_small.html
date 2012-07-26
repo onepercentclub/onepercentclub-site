@@ -1,0 +1,18 @@
+{% load thumbnail %}
+
+<div class="image">
+	{% thumbnail project.image "225x120" crop="center" as picture %}
+		<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ project.title }}">
+	{% empty %}
+		<img src="http://placehold.it/225x120" title="{{ project.title }}">
+	{% endthumbnail %}
+</div>
+<div class="title">
+	<a href="{{ project.get_absolute_url }}" class="ajax">
+	    <h3>{{ project.title }}</h3>
+	</a>
+</div>
+
+<div class="support">
+	SUPPORT THIS PROJECT
+</div>

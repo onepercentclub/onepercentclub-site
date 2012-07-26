@@ -20,7 +20,7 @@ DATABASES = {
 LEGACY_MIGRATIONS_DEBUG = False
 
 # Turn off debugging for added speed and (hopefully) less memory usage
-DEBUG=False
+DEBUG = False
 
 # On the devserver we expect static assets to live here
 LEGACY_MIGRATIONS_MEDIA_ROOT = '/home/onepercent/data/live'

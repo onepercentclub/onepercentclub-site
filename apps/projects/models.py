@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.contrib.auth.models import User
+import random
 
 from django_countries import CountryField
 from django_extensions.db.fields import (
@@ -68,7 +69,30 @@ class Project(models.Model):
         choices=settings.LANGUAGES,
         help_text=_("Main language of the project."))
 
+   # temporary to do hold random 'donated' 
+    donated = 0
+
+    def __unicode__(self):
+        if self.title:
+            return self.title
+        return self.slug
+
+    def money_asked(self):
+        return int(self.planphase.money_asked)
+
+    """ Money donated, rounded to the lower end... """
+    # Money donated. For now this is random
+    # TODO: connect this to actual donations. Duh!
+    def money_donated(self):
+        if self.donated == 0:
+            self.donated = int(random.randrange(5, self.money_asked()))
+        return int(self.donated)
+
+    def money_needed(self):
+        return self.money_asked() - self.money_donated()
+
     tags = TaggableManager(blank=True)
+
 
     def __unicode__(self):
         if self.title:
@@ -291,3 +315,4 @@ class Message(models.Model):
 
     class Meta:
         ordering = ['-created']
+

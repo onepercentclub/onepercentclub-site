@@ -1,15 +1,41 @@
-@pink: #ffA961;
+@pink: #FF619A;
 @green: #00C051;
+@lightgreen: #99EEBB;
 @sepia: #ddccbb;
 @black: #000000;
 @white: #ffffff;
 @gray: #a7a7a7;
-@lightgray: #e8e8e8;
+@lightgray: #E8E8E8;
+@midgray: #EEEEEE;
 @static-url: "../../";
 
 @font: Arial, Helvetica;
 @futura: 'Futura Std Book', @font;
 @mainwidth: 1020px;
+
+.hidden {
+  display: none;
+}
+
+.long {
+  display: none;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 
 
 td {
@@ -161,30 +187,177 @@ body {
 }
 
  
-.widget {
-  width: 240px;
-  background-color: @white;
+.widget, 
+.results ul.list li {
+  float: left;
+  width: 225px;
+  margin: 7px 7px 0px 0px;
+  .title,
+  .support {
+    font-size: 1em;
+    color: @white;
+    padding: 8px 8px 4px;
+  }
   
   h3 {
-    font-family: @futura;
     background-color: @green;
-    color: white;
-    margin: 0px;
-    padding: 4px 6px 0px 6px;
+    color: @white;
+    font-weight: bold;
+    overflow: hidden;
     text-transform: uppercase;
+    font-family: @futura;
+    font-size: 1.1em;
+    padding: 12px 12px 8px;
   }
-  .contents {
-    margin: 4px;
-    font-size: 0.8em;
+
+  h3.light {
+    background-color: @white;
+    color: @green;
   }
-  ul.list {
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
-    li {
-      padding: 4px 2px;
-      margin: 0px;
-      border-bottom: 1px solid @green;
+
+  h3.link {
+    background-color: @pink;
+    color: @white;
+  }
+
+  h3 .icon {
+    width: 16px;
+    height: 14px;
+    background: @pink url("@{static-url}/global/images/icons/love.png") left center no-repeat;
+    float: left;
+    margin-right: 6px;
+  }
+      
+  .title {
+    height: 80px;
+    background-color: @green;
+    font-weight: bold;
+    overflow: hidden;
+    a {
+      color: @white;
+    }
+    h3 {
+      text-transform: uppercase;
+      font-family: @futura;
+      padding: 0px;
     }
   }
+  .support {
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @futura;
+    background-color: @pink;
+  }
 }
+
+
+/* MAPS */
+
+#bigmap {
+  width: 686px;
+  height: 400px;
+  border: 1px solid @white;
+  
+}
+
+#maploading {
+  position: absolute;
+  top: 5px;
+  left: 247px;
+  padding: 8px 30px;
+  color: @white;
+  background-color: @green;
+  border: 3px solid @white;
+  font-weight: bold;
+}
+
+
+/* PROGRESS BAR */
+
+.progressbar {
+  background-color: @midgray;
+  position: relative;
+  padding: 20px 10px;
+  .asked-bar {
+    height: 10px;
+    background-color: @lightgreen;
+    position: relative;
+  }
+  .donated-bar {
+    top: 0px;
+    left: 0px;
+    height: 10px;
+    position: absolute;
+    background-color: @green;
+    border-right: 1px solid @green;
+  }
+
+  .donated-text.right {
+    color: @green;
+    border-right: 1px solid @green;
+    padding: 0px 4px 4px;
+    text-align: right;
+    margin-right: -1px;
+    
+  }
+  
+  .donated-text.left {
+    margin-left: -1px;
+    color: @green;
+    border-left: 1px solid @green;
+    padding: 0px 4px 4px;
+  }
+  
+  .asked-text {
+    color: @green;
+    text-align: right;
+  }
+  
+}
+
+.profile-viewer {
+  
+  .pane {
+    width: 220px;
+    height: 220px;
+    border: 1px solid @white;
+  }
+  a.panelink {
+    color: @green;
+    font-weight: bold;
+  }
+
+}
+
+
+.phases {
+  background-color: @white;
+  height: 26px;
+  padding: 4px;
+}
+
+.phases li {
+  text-align: center;
+  color: @white;
+  background-color: @gray;
+  padding: 6px 6px 4px;
+  font-family: @futura;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 2px;
+  float: left;
+  border-radius: 12px;
+}
+
+.phases.idea .idea,
+.phases.plan .idea,
+.phases.plan .plan,
+.phases.act .idea,
+.phases.act .plan,
+.phases.act .act,
+.phases.results li
+{
+  background-color: @green;
+}
+

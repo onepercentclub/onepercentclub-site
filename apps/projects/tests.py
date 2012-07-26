@@ -1,22 +1,30 @@
+from decimal import Decimal
+
 from django.test import TestCase
 
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.organizations.tests import OrganizationTestsMixin
 
-from .models import Project
+from .models import Project, PlanPhase
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
     def create_project(self, organization=None, owner=None, title='',
-                       slug=''):
+                       slug='', latitude=None, longitude=None):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
 
         The returned object is not yet saved to the database.
         """
+
+        if not latitude:
+            latitude = Decimal('-11.2352')
+
+        if not longitude:
+            longitude = Decimal('-84.123')
 
         if not organization:
             organization = self.create_organization()
@@ -27,14 +35,19 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             owner = self.create_user()
 
         project = Project(
-            organization=organization, owner=owner, title=title, slug=slug
+            organization=organization, owner=owner, title=title, slug=slug,
+            latitude=latitude, longitude=longitude
         )
 
         return project
 
+class PlanPhaseTestMixin(object):
+    def create_planphase(self, project, money_total=15000, money_asked=5000):
+        planphase = PlanPhase(project=project, money_total=money_total, money_asked=money_asked)
+        return planphase.save()
 
-class ProjectTests(TestCase, ProjectTestsMixin):
-    """ Tests for projcts. """
+class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
+    """ Tests for projects. """
 
     def setUp(self):
         """ Every test in this suite requires a project. """
@@ -62,4 +75,28 @@ class ProjectTests(TestCase, ProjectTestsMixin):
 
         # The project title should be in the page, somewhere
         self.assertContains(response, self.project.title)
+
+    def test_amounts(self):
+        """ Test calculation of donation amounts """
+
+        self.create_planphase(self.project, 12000, 3520)
+
+        self.assertEquals(self.project.money_asked(), 3520)
+
+        self.project.donated = 2155
+
+        self.assertEquals(self.project.money_donated(), 2155)
+
+        self.project.donated = 2715.3
+
+        self.assertEquals(self.project.money_donated(), 2715)
+
+        self.project.donated = 1322.8
+
+        self.assertEquals(self.project.money_donated(), 1322)
+
+        self.project.donated = 2312
+        self.project.planphase.money_asked = 3500
+
+        self.assertEquals(self.project.money_needed(), 1188)
 
