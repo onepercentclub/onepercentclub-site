@@ -30,7 +30,7 @@ from .mappings import (
 
 from .organizations import MigrateOrganization
 from .accounts import MigrateMemberAuth
-from .tags import copy_tags
+from .tags import copy_tags, test_tags
 
 
 # We want a handy reference to these status objects
@@ -76,6 +76,17 @@ class MigrateProject(MigrateModel):
         super(MigrateProject, self).migrate_single(from_instance, to_instance)
 
         copy_tags(from_instance, to_instance)
+
+    def test_single(self, from_instance, to_instance):
+        """
+        Override test_single so that the tags that have been copied over using
+        the Taggit manager can be tested.
+        """
+        super_result = super(MigrateProject, self).test_single(from_instance, to_instance)
+
+        tags_result = test_tags(from_instance, to_instance, logger)
+
+        return super_result and tags_result
 
     def list_from(self):
         """
