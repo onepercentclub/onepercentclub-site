@@ -30,6 +30,7 @@ from .mappings import (
 
 from .organizations import MigrateOrganization
 from .accounts import MigrateMemberAuth
+from .tags import copy_tags, test_tags
 
 
 # We want a handy reference to these status objects
@@ -66,6 +67,26 @@ class PhaseMapping(IdentityMapping):
 class MigrateProject(MigrateModel):
     from_model = LegacyProject
     to_model = Project
+
+    def migrate_single(self, from_instance, to_instance):
+        """
+        Override migrate_single so that tags can be copied over using the
+        Taggit manager.
+        """
+        super(MigrateProject, self).migrate_single(from_instance, to_instance)
+
+        copy_tags(from_instance, to_instance)
+
+    def test_single(self, from_instance, to_instance):
+        """
+        Override test_single so that the tags that have been copied over using
+        the Taggit manager can be tested.
+        """
+        super_result = super(MigrateProject, self).test_single(from_instance, to_instance)
+
+        tags_result = test_tags(from_instance, to_instance, logger)
+
+        return super_result and tags_result
 
     def list_from(self):
         """
@@ -126,7 +147,6 @@ class MigrateProject(MigrateModel):
         'weblog': None,
 
         'projecttag': None,
-        'tags': None,
 
         'rate_count': None,
         'rate_current': None,
@@ -171,6 +191,9 @@ class MigrateProject(MigrateModel):
         'longitude': StringToDecimalMapping(verbose=False),
 
         'project_language': True,
+
+        # Tags are copied over in migrate_single().
+        'tags': None,
 
         # Mapped to phase
         'description': None,

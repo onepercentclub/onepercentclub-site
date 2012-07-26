@@ -245,7 +245,10 @@ class Testimonial(models.Model):
 
 
 class ProjectTag(models.Model):
-    project = models.ForeignKey(Project)
+    # Note: this is a fake primary key, because Django goes nuts for
+    # tables that have none.
+    # Ref: https://code.djangoproject.com/ticket/373
+    project = models.ForeignKey(Project, primary_key=True)
     tag = models.ForeignKey('legacysystem.Tag')
 
     class Meta:
