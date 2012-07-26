@@ -18,7 +18,9 @@ class Album(models.Model):
     """ Album containing media objects. """
 
     title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
+    # This is populated from the project slug in legacy and should have
+    # the same length
+    slug = models.SlugField(unique=True, max_length=100)
     description = models.TextField(blank=True)
 
     created = CreationDateTimeField()
