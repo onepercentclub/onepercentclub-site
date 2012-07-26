@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load thumbnail %}
+
 {% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
 
 {% block htmlheader %}
@@ -23,6 +25,17 @@
 				<i>none</i>
 			{% endif %}
 			</p>
+
+			<h4>Owner</h4>
+			{% with project.owner.get_profile as owner_profile %}
+
+				{% thumbnail owner_profile.picture "72x72" crop="center" as picture %}
+					<img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ owner_profile }}">
+				{% empty %}
+					<img src="http://placehold.it/72x72" title="{{ owner_profile }}">
+				{% endthumbnail %}
+
+			{% endwith %}
 
 			<h4>Location</h4>
 			<p>
