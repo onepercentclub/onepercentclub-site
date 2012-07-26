@@ -1,5 +1,8 @@
+import uuid
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 
 from .models import Album, LocalPicture, EmbeddedVideo
 
@@ -7,8 +10,17 @@ from .models import Album, LocalPicture, EmbeddedVideo
 class MediaTestsMixin(object):
     """ Mixin class for the media app. """
 
-    def create_album(self, slug='default'):
+    def create_album(self, slug=None):
         """ Create and return (but not save) an album. """
+
+        def generate_slug():
+            return str(uuid.uuid4())[:30]
+
+        if not slug:
+            slug = generate_slug()
+            while Album.objects.filter(slug=slug).exists():
+                 slug = generate_slug()
+
 
         album = Album(slug=slug)
         return album
@@ -81,6 +93,11 @@ class SaveTests(TestCase, MediaTestsMixin):
         self.assertTrue(video.html)
         self.assertTrue(video.thumbnail_url)
         self.assertEquals(video.title, 'Future Crew - Second Reality demo - HD')
+
+        # Test a fail
+        video = self.create_embeddedvideo()
+        video.url = 'http://www.youtube.com/watch?v=bnanana'
+        self.assertRaises(ValidationError, video.full_clean)
 
 
 class ViewTests(TestCase, MediaTestsMixin):

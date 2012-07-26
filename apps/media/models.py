@@ -4,6 +4,8 @@ logger = logging.getLogger(__name__)
 import micawber
 
 from django.db import models
+from django.utils.translation import ugettext as _
+from django.core.exceptions import ValidationError
 
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
@@ -78,7 +80,10 @@ class OembedAbstractBase(models.Model):
         providers = micawber.bootstrap_basic()
 
         # Get the data
-        oembed_data = providers.request(self.url)
+        try:
+            oembed_data = providers.request(self.url)
+        except micawber.ProviderException:
+            raise ValidationError(_('Could not find metadata for object.'))
 
         logger.debug(
             u'Found OEmbed data on %s for %s',
