@@ -16,13 +16,31 @@
 			<h1>{{ project.title }}</h1>
 
 			<h4>Organization</h4>
-			<p>{{ project.organization.name }}</p>
+			<p>
+			{% if project.organization.name %}
+				{{ project.organization.name }}
+			{% else %}
+				<i>none</i>
+			{% endif %}
+			</p>
 
 			<h4>Location</h4>
-			<p>{{ project.location }}</p>
+			<p>
+			{% if project.location %}
+				{{ project.location }}
+			{% else %}
+				<i>none</i>
+			{% endif %}
+			</p>
 
 			<h4>Costs</h4>
-			<p>&euro; {{ project.money_asked }}</p>
+			<p>
+			{% if project.money_asked %}
+				&euro; {{ project.money_asked }}</p>
+			{% else %}
+				<i>none</i>
+			{% endif %}
+			</p>
 
  			<h4>Categories</h4>
 			<ul>
@@ -35,40 +53,53 @@
 
             <h4>Supporters</h4>
             <ul>
-                    {% for supporter in project.get_supporters %}
-                            <li>{{ supporter }}</li>
-                    {% endfor %}
+				{% for supporter in project.get_supporters %}
+					<li>{{ supporter }}</li>
+				{% empty %}
+					{% comment %} TODO: Change this into a link to donate become the first supporter. {% endcomment %}
+					<li><i>none</i></li>
+				{% endfor %}
             </ul>
 
-         	<h1>Tags</h1>
-            <ul>
-                {% for tag in project.tags.all %}
-                    <li>{{ tag }}</li>
-                {% endfor %}
-            </ul>
+			<h4>Tags</h4>
+			<ul>
+				{% for tag in project.tags.all %}
+					<li>{{ tag }}</li>
+				{% empty %}
+					<li><i>none</i></li>
+				{% endfor %}
+			</ul>
 
 			<h4>Description</h4>
 			<p>
-				<span class="short">
-					{{ project.planphase.description|truncatewords:50 }}
-					<a href="" class="more">more</a>
-				</span>
-				<span class="long">
-					{{ project.planphase.description }}
-					<a href="" class="less">less</a>
-				</span>
+				{% if project.planphase.description %}
+					<span class="short">
+						{{ project.planphase.description|truncatewords:50 }}
+						<a href="" class="more">more</a>
+					</span>
+					<span class="long">
+						{{ project.planphase.description }}
+						<a href="" class="less">less</a>
+					</span>
+				{% else %}
+					<i>none</i>
+				{% endif %}
 			</p>
 
 			<h4>Funding needed for</h4>
 			<p>
-				<span class="short">
-					{{ project.planphase.what|truncatewords:50 }}
-					<a href="" class="more">more</a>
-				</span>
-				<span class="long">
-					{{ project.planphase.what }}
-					<a href="" class="less">less</a>
-				</span>
+				{% if project.planphase.what %}
+					<span class="short">
+						{{ project.planphase.what|truncatewords:50 }}
+						<a href="" class="more">more</a>
+					</span>
+					<span class="long">
+						{{ project.planphase.what }}
+						<a href="" class="less">less</a>
+					</span>
+				{% else %}
+					<i>none</i>
+				{% endif %}
 			</p>
 
   		</div>
