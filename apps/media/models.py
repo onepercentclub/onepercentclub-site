@@ -1,3 +1,8 @@
+import logging
+logger = logging.getLogger(__name__)
+
+import micawber
+
 from django.db import models
 
 from django_extensions.db.fields import (
@@ -51,7 +56,7 @@ class OembedAbstractBase(models.Model):
     """ Abstract base class for classes populated through OEmbed. """
 
     # Title included in MediaObjectBase
-    url = models.URLField(verify_exists=True)
+    url = models.URLField()
 
     thumbnail_url = models.URLField(blank=True, verify_exists=True)
     thumbnail_width = models.SmallIntegerField(blank=True, null=True)
@@ -65,6 +70,30 @@ class OembedAbstractBase(models.Model):
 
     class Meta:
         abstract = True
+
+    def clean(self):
+        """ Get OEmbed metadata on save. """
+
+        # load up rules for some default providers, such as youtube and flickr
+        providers = micawber.bootstrap_basic()
+
+        # Get the data
+        oembed_data = providers.request(self.url)
+
+        logger.debug(
+            u'Found OEmbed data on %s for %s',
+            self.url, self
+        )
+
+        for (key, value) in oembed_data.iteritems():
+            try:
+                if not getattr(self, key):
+                    logger.debug(
+                        u'Setting field %s on %s to %s', key, self, value
+                    )
+                    setattr(self, key, value)
+            except AttributeError:
+                pass
 
 
 class LocalPicture(MediaObjectBase):

@@ -23,14 +23,15 @@ class MediaTestsMixin(object):
         picture = LocalPicture(album=album)
         return picture
 
-    def create_embeddedvideo(self, album=None):
+    def create_embeddedvideo(
+        self, album=None, url='http://www.youtube.com/watch?v=54XHDUOHuzU'):
         """ Create an return (but not save) an embedded video. """
 
         if not album:
             album = self.create_album()
             album.save()
 
-        video = EmbeddedVideo(album=album)
+        video = EmbeddedVideo(album=album, url=url)
         return video
 
 
@@ -67,6 +68,19 @@ class SaveTests(TestCase, MediaTestsMixin):
         self.assertTrue(unicode(video))
 
         video.save()
+
+    def test_embeddedvideo_oembed(self):
+        """ Test OEmbed functionality for video. """
+
+        video = self.create_embeddedvideo()
+        video.url = 'http://www.youtube.com/watch?v=54XHDUOHuzU'
+        video.full_clean()
+        video.save()
+
+        video = EmbeddedVideo.objects.get(pk=video.pk)
+        self.assertTrue(video.html)
+        self.assertTrue(video.thumbnail_url)
+        self.assertEquals(video.title, 'Future Crew - Second Reality demo - HD')
 
 
 class ViewTests(TestCase, MediaTestsMixin):
