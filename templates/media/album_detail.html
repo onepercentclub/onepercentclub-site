@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | {{ album.title }}{% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+{{ album.title }}
+
+<h2>Picture</h2>
+<ul>
+	{% for picture in album.localpicture_set.all %}
+		<li><a href="{{ picture.get_absolute_url }}">{{ picture }}</a></li>
+	{% endfor %}
+</ul>
+
+<h2>Videos</h2>
+<ul>
+	{% for video in album.embeddedvideo_set.all %}
+		<li><a href="{{ video.get_absolute_url }}">{{ video }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

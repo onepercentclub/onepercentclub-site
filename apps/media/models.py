@@ -1,0 +1,120 @@
+from django.db import models
+
+from django_extensions.db.fields import (
+    ModificationDateTimeField, CreationDateTimeField
+)
+
+from sorl.thumbnail import ImageField
+
+
+class Album(models.Model):
+    """ Album containing media objects. """
+
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    description = models.TextField(blank=True)
+
+    created = CreationDateTimeField()
+    updated = ModificationDateTimeField()
+
+    def __unicode__(self):
+        return self.title or unicode(self.pk)
+
+    @models.permalink
+    def get_absolute_url(self):
+        """ Get the URL for the current album. """
+
+        return ('album_detail', (), {
+            'slug': self.slug
+        })
+
+
+class MediaObjectBase(models.Model):
+    """ Abstract base class for media objects contained in albums. """
+
+    album = models.ForeignKey(Album)
+
+    title = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+
+    created = CreationDateTimeField()
+    updated = ModificationDateTimeField()
+
+    class Meta:
+        abstract = True
+
+    def __unicode__(self):
+        return self.title or unicode(self.pk)
+
+
+class OembedAbstractBase(models.Model):
+    """ Abstract base class for classes populated through OEmbed. """
+
+    # Title included in MediaObjectBase
+    url = models.URLField(verify_exists=True)
+
+    thumbnail_url = models.URLField(blank=True, verify_exists=True)
+    thumbnail_width = models.SmallIntegerField(blank=True, null=True)
+    thumbnail_height = models.SmallIntegerField(blank=True, null=True)
+
+    provider_name = models.CharField(blank=True, max_length=255)
+    provider_url = models.CharField(blank=True, max_length=255)
+
+    author_name = models.CharField(blank=True, max_length=255)
+    author_url = models.URLField(blank=True, verify_exists=False)
+
+    class Meta:
+        abstract = True
+
+
+class LocalPicture(MediaObjectBase):
+    """ Picture stored locally. """
+
+    picture = ImageField(upload_to='pictures/')
+
+    @models.permalink
+    def get_absolute_url(self):
+        """ Get the URL for the picture. """
+
+        return ('localpicture_detail', (), {
+            'album_slug': self.album.slug,
+            'pk': str(self.pk)
+        })
+
+
+class EmbeddedVideo(MediaObjectBase, OembedAbstractBase):
+    """ Embedded video, hosted remotely. """
+
+    html = models.TextField(blank=True)
+    width = models.SmallIntegerField(blank=True, null=True)
+    height = models.SmallIntegerField(blank=True, null=True)
+
+    duration = models.SmallIntegerField(blank=True, null=True)
+
+    @models.permalink
+    def get_absolute_url(self):
+        """ Get the URL for the video. """
+
+        return ('embeddedvideo_detail', (), {
+            'album_slug': self.album.slug,
+            'pk': str(self.pk)
+        })
+
+
+"""
+Some more code I had lying around:
+
+class Link(OembedAbstractBase):
+    pass
+
+
+class EmbeddedRich(OembedAbstractBase):
+    html = models.TextField(blank=True)
+    width = models.SmallIntegerField(blank=True, null=True)
+    height = models.SmallIntegerField(blank=True, null=True)
+
+
+class EmbeddedPhoto(OembedAbstractBase):
+    width = models.SmallIntegerField(blank=True, null=True)
+    height = models.SmallIntegerField(blank=True, null=True)
+"""

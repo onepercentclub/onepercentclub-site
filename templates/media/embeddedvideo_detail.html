@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | {{ embeddedvideo }}{% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {{ embeddedvideo }} in <a href="{{ embeddedvideo.album.get_absolute_url }}">{{ embeddedvideo.album }}</a>
+
+    {% comment %}
+        Take care of security considerations (load code from different domain,
+        in iframe). http://oembed.com/#section3
+    {% endcomment %}
+
+    {{ embeddedvideo.html|safe }}
+{% endblock %}

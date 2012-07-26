@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block htmltitle %}{{ block.super }} | {{ localpicture }}{% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {{ localpicture }} in <a href="{{ localpicture.album.get_absolute_url }}">{{ localpicture.album }}</a>
+
+    {% thumbnail localpicture.picture "220x220" as picture %}
+        <img src="{{ picture.url }}" height="{{ picture.height }}" width="{{ picture.width }}" title="{{ localpicture.title }}">
+    {% empty %}
+        <img src="http://placehold.it/220x220" title="{{ localpicture.title }}">
+    {% endthumbnail %}
+{% endblock %}
