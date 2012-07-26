@@ -11,6 +11,8 @@ class TestTags(unittest.TestCase,  ProjectTestsMixin, OrganizationTestsMixin,  U
     """ Tests for tags. """
 
     def tearDown(self):
+        # This shouldn't be necessary but the tests fail without it. There's
+        # probably a bug somewhere but it's not worth tracking down right now.
         Tag.objects.all().delete()
 
     def test_tagging_multiple_models(self):
