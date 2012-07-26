@@ -1,0 +1,29 @@
+{% comment %} Use url tag from Django 1.5. {% endcomment %}
+{% load url from future %}
+
+<div id="topmenu">
+	<ul>
+		<li class="active">1%CLUB</li>
+		<li>1%SHOW</li>
+		<li>1%EVENT</li>
+		<li>1%BOOKSHOP</li>
+		<li>1%TOOLBOX</li>
+	</ul>
+	<div id="mymenu">
+	    {% if user.is_authenticated %}
+	    	{{ user.username|upper }} |
+		    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
+	    {% else %}
+		    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
+	    {% endif %}
+	</div>
+</div>
+<div id="submenu">
+	<ul>
+		<li class="active">HOME</li>
+		<li class="">1%PROJECTS</li>
+		<li>1%TASKS</li>
+		<li>1%ACTIONS</li>
+		<li>LEARN MORE</li>
+	</ul>
+</div>

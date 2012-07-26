@@ -11,6 +11,8 @@
     Bluebone.models = {};
     Bluebone.views = {};
     Bluebone.templates = {};
+    Bluebone.snippets = {};
+
 
     /* MODELS */
 
@@ -32,7 +34,7 @@
         }
         Bluebone.models[name] = new(Bluebone.Collection.extend(cfg));
         return Bluebone.models[name];
-    }
+    };
 
     /* TEMPLATES */
 
@@ -41,6 +43,24 @@
         if (undefined == Bluebone.templates[name]) {
             console.log('Load template: ' + name);
             $.get('/static/assets/global/tpl/' + name + '.tpl', function(data) {
+                Bluebone.templates[name] = data;
+                //console.log(Bluebone.templates[name]);
+                callback(data);
+            });
+        } else {
+            callback(Bluebone.templates[name]);
+        }
+
+    }
+
+    /* SNIPPETS */
+
+    // Load a html snippets either from memory or through ajax
+    Bluebone.snippets.load = function(url, callback) {
+    	var name = url.replace(/\//g, ".");
+        if (undefined == Bluebone.templates[name]) {
+            console.log('Load template: ' + name + ' : ' + url);
+            $.get(url, function(data) {
                 Bluebone.templates[name] = data;
                 //console.log(Bluebone.templates[name]);
                 callback(data);
@@ -65,11 +85,16 @@
         renderTo: function(el, model) {
             var self = this;
             Bluebone.templates.load(this.tpl, function(template){
-                //console.log(model);
                 if (undefined == model) {
                     $(el).html(template);
+	                if (undefined != Bluebone.views.callback) {
+	                	Bluebone.views.callback(el);
+	                }
                 } else {
                     $(el).html(_.template(template, model.attributes));
+	                if (undefined != Bluebone.views.callback) {
+	                	Bluebone.views.callback(el);
+	                }
                 }
             });
             return this;
@@ -78,6 +103,7 @@
     });
 
 
+	
     // Get a view from views array
     Bluebone.views.get = function(view) {
         if (undefined === Bluebone.views[view]) {
@@ -97,6 +123,38 @@
         Bluebone.views[name] = new (Bluebone.View.extend(cfg));
     };
 
+
+	// Special view for loading HTML snippets
+    Bluebone.snippets.View = new (Backbone.View.extend({
+
+        initialize: function() {
+            return this;
+        },
+
+        renderTo: function(el, url) {
+            var self = this;
+            Bluebone.snippets.load(url, function(html){
+                $(el).html(html);
+                if (undefined != Bluebone.snippets.callback) {
+                	Bluebone.snippets.callback(el);
+                }
+            });
+            return this;
+        },
+
+    }));
+
+	Bluebone.snippets.renderTo = function(el, url){
+		Bluebone.snippets.View.renderTo(el, url);
+	}
+
+	Bluebone.snippets.setCallback = function(func) {
+		Bluebone.snippets.callback = func;
+	}
+
+	Bluebone.views.setCallback = function(func) {
+		Bluebone.views.callback = func;
+	}
 
 
     Bluebone.views.addList = function(name, cfg) {
@@ -125,13 +183,20 @@
             this.collection = Bluebone.models.newApiCollection(collectionName, {test: 'test', url: this.url});
             return this;
         },
-        renderTo: function(el) {
+        renderTo: function(el, params) {
+        	if (undefined == params) {
+        		params = {};
+        	}
+        	if (undefined == params.limit) {
+        		params.limit = 9;
+        	}
             var thisView = this;
             var ul = $('<ul></ul>').addClass(thisView.class);
             Bluebone.templates.load(thisView.tpl, function(template){
                 $(el).html(_.template(template, {list: ul.wrap('<p>').parent().html()}));
             });
             this.collection.fetch({
+            	data: params,
                 success: function(){
                     var items = thisView.collection.models;
                     // Get the template for ListItems
@@ -140,6 +205,9 @@
                             Bluebone.views.get(thisView.itemView).render(template, items[item], function(item){
                                 var li = $('<li />').append(item);
                                 $('ul.' + thisView.class, el).append(li);
+				                if (undefined != Bluebone.views.callback) {
+				                	Bluebone.views.callback(el);
+				                }
                             })
 
                         }
@@ -177,11 +245,24 @@
     // 'container' the DOM element to put it in
     Bluebone.views.load = function(cfg) {
         $.each(cfg, function(i, container){
+        	if (undefined == container.wrapper) {
+				var target = $(container.container);        		
+        	} else {
+        		var wrapper = $('<' + container.wrapper + '/>');
+        		if (container.className) {
+        			wrapper.addClass(container.className);
+        		}	
+        		wrapper.appendTo(container.container)
+        		var target = wrapper;
+        	}
             $.each(container.widgets, function(j, widget) {
-                if ($(container.container).children('#' + widget.name).attr('id')) {
+                if (target.children('#' + widget.name).attr('id')) {
                     console.log('view ' + widget.name + ' already loaded...');
                 } else {
-                    $('<div />', {class: 'widget', id: widget.name}).appendTo(container.container);
+                	if (undefined == widget.className) {
+                		widget.className = 'widget';
+                	};
+                    $('<div />', {class: widget.className, id: widget.name}).appendTo(target);
                     Bluebone.views.get(widget.name).renderTo('#' + widget.name);
                 }
             });

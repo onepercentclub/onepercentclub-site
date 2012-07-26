@@ -69,7 +69,13 @@ class Project(models.Model):
         choices=settings.LANGUAGES,
         help_text=_("Main language of the project."))
 
-   # temporary to do hold random 'donated' 
+    tags = TaggableManager(blank=True)
+
+    # CHange this to the description of the active phase
+    def description(self):
+        return self.planphase.description
+
+    # temporary to do random donated thing 
     donated = 0
 
     def __unicode__(self):
@@ -99,6 +105,7 @@ class Project(models.Model):
             return self.title
         return self.slug
 
+    # TODO: Have a Region/Continent her too
     def location(self):
         return self.country.name
 

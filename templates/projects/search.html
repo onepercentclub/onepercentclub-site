@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<h1>ZOEKEN MAAR.....</h1>
+
+	<script>
+		$(document).ready(function(){
+			BlueApp.views.load([
+				{
+					container: '#midpanel',
+					wrapper: 'div',
+					className: 'row',
+					//method: 'replace',
+					//lifetime: 60,
+					'widgets' : [ 
+						{
+							name: 'ProjectsSearchResults',
+							wrapper: 'div',
+							className: 'column grid_3 searchResults'
+							//lifetime: 60,
+						},
+						{
+							name: 'ProjectSearchForm',
+							wrapper: 'div',
+							className: 'column black grid_1'
+						}
+						]
+				}
+			]);	
+			
+		});
+		
+	</script>
+	
+{% endblock %}

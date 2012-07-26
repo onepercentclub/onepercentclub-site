@@ -204,5 +204,3 @@ this.BlueMap = function(elementId, project){
     return this;
     
 };
-
-

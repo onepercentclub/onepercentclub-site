@@ -47,6 +47,9 @@ django-jenkins==0.13.0
 # Coverage in tests
 coverage
 
+# Haystack search functionality
+haystack
+
 # The official django-taggit doesn't seem to be maintained anymore. This
 # version is the currently maintained version for Django 1.4. More information
 # can be found in the merge request to the official version:

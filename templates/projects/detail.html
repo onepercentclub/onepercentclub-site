@@ -35,15 +35,19 @@
 
             <h4>Supporters</h4>
             <ul>
-                    {% for supporter in project.get_supporters %}
-                            <li>{{ supporter }}</li>
-                    {% endfor %}
+                {% for supporter in project.get_supporters %}
+                    <li>{{ supporter }}</li>
+				{% empty %}
+					<li><i>none</i></li>
+                {% endfor %}
             </ul>
 
-         	<h1>Tags</h1>
+         	<h4>Tags</h4>
             <ul>
                 {% for tag in project.tags.all %}
                     <li>{{ tag }}</li>
+				{% empty %}
+					<li><i>none</i></li>
                 {% endfor %}
             </ul>
 
