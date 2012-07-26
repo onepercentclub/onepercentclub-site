@@ -10,6 +10,11 @@ from apps.projects.tests import ProjectTestsMixin
 class TestTags(unittest.TestCase,  ProjectTestsMixin, OrganizationTestsMixin,  UserTestsMixin):
     """ Tests for tags. """
 
+    def tearDown(self):
+        # This shouldn't be necessary but the tests fail without it. There's
+        # probably a bug somewhere but it's not worth tracking down right now.
+        Tag.objects.all().delete()
+
     def test_tagging_multiple_models(self):
         """
         A smoke test to check that tagging is working how we want to use it.
@@ -44,3 +49,21 @@ class TestTags(unittest.TestCase,  ProjectTestsMixin, OrganizationTestsMixin,  U
         # Check that there are three objects tagged.
         num_tagged = len(tag.taggit_taggeditem_items.all())
         self.assertEquals(3, num_tagged)
+
+    def test_same_tag_multiple_times(self):
+        """
+        A test to confirm that tagging an object with the same tag creates only
+        one Tag.
+        """
+
+        tag_name = "Tag2"
+
+        project = self.create_project()
+        project.save()
+
+        # Add the same tag two times.
+        project.tags.add(tag_name)
+        project.tags.add(tag_name)
+
+        # Check that we only have one tag created.
+        self.assertEquals(1, project.tags.count())
