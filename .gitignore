@@ -33,7 +33,7 @@ pip-log.txt
 
 # Static files
 /static/media
-/static/apps
+/static/assets
 
 # Local settings overrides
 bluebottle/settings/local.py
