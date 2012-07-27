@@ -1,18 +1,20 @@
+{% load url from future %}
+
 <div class="row">
 	<div class="column grid_1">
 		<h3>MENU</h3>
-		<h4>HOME</h4>
-		<h4>1%PROJECTS</h4>
-		<h4>1%TASKS</h4>
-		<h4>1%ACTIONS</h4>
-		<h4>1%MEMBERS</h4>
-		<h4>1%ORGANIZATIONS</h4>
-		<h4>1%PARTNERS</h4>
-		<h4>1%BUSINESS</h4>
-		<h4>LEARN MORE</h4>
-		<h4>IN THE MEDIA</h4>
-		<h4>FAQ</h4>
-		<h4>CONTACT</h4>
+		<h4><a href="{% url 'home' %}">HOME</a></h4>
+		<h4><a href="{% url 'project_list' %}">1%PROJECTS</a></h4>
+		<h4><a>1%TASKS</a></h4>
+		<h4><a>1%ACTIONS</a></h4>
+		<h4><a href="{% url 'userprofile_list' %}">1%MEMBERS</a></h4>
+		<h4><a>1%ORGANIZATIONS</a></h4>
+		<h4><a>1%PARTNERS</a></h4>
+		<h4><a>1%BUSINESS</a></h4>
+		<h4><a>LEARN MORE</a></h4>
+		<h4><a>IN THE MEDIA</a></h4>
+		<h4><a>FAQ</a></h4>
+		<h4><a>CONTACT</a></h4>
 	</div>
 	<div class="column grid_1">
 		<h3>1%NEWS</h3>
@@ -28,11 +30,11 @@
 <div class="row">
 	<div class="column grid_1">
 		<h3>MORE 1%</h3>
-		<h4>MORE ABOUT</h4>
-		<h4>LEARN MORE</h4>
-		<h4>IN THE MEDIA</h4>
-		<h4>FAQ</h4>
-		<h4>CONTACT</h4>
+		<h4><a>MORE ABOUT</a></h4>
+		<h4><a>LEARN MORE</a></h4>
+		<h4><a>IN THE MEDIA</a></h4>
+		<h4><a>FAQ</a></h4>
+		<h4><a>CONTACT</a></h4>
 	</div>
 	<div class="column grid_1">
 		<h3>1%TWEET</h3>
