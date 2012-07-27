@@ -43,7 +43,6 @@
 		</div>
 		<div id="toppanel">
 		{% block content %}
-			<a href="{% url 'project_list' %}">Projects</a> |
 			<a href="{% url 'userprofile_list' %}">Members</a>
 		{% endblock %}
 		</div>
@@ -73,13 +72,14 @@
 			    {% endif %}
 			</div>
 		</div>
+
 		<div id="submenu">
 			<ul>
-				<li class="active">HOME</li>
-				<li>1%PROJECTS</li>
-				<li>1%TASKS</li>
-				<li>1%ACTIONS</li>
-				<li>LEARN MORE</li>
+				<li><a href="{% url 'home' %}">HOME</a></li>
+				<li><a href="{% url 'project_list' %}">1%PROJECTS</a></li>
+				<li><a>1%TASKS</a></li>
+				<li><a>1%ACTIONS</a></li>
+				<li><a>LEARN MORE</a></li>
 			</ul>
 		</div>
 	</div>
