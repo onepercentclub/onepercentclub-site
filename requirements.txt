@@ -55,3 +55,7 @@ coverage
 
 # Legacy authentication module (use SSH for common auth)
 -e git+ssh://git@github.com/onepercentclub/legacyauth.git#egg=legacyauth
+
+# Gunicorn WSGI server
+gunicorn
+
