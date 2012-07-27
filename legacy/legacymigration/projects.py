@@ -64,35 +64,15 @@ class PhaseMapping(IdentityMapping):
         return phase
 
 
-class MigrateProject(MigrateModel):
+class MigrateProjectBase(MigrateModel):
     from_model = LegacyProject
     to_model = Project
-
-    def migrate_single(self, from_instance, to_instance):
-        """
-        Override migrate_single so that tags can be copied over using the
-        Taggit manager.
-        """
-        super(MigrateProject, self).migrate_single(from_instance, to_instance)
-
-        copy_tags(from_instance, to_instance)
-
-    def test_single(self, from_instance, to_instance):
-        """
-        Override test_single so that the tags that have been copied over using
-        the Taggit manager can be tested.
-        """
-        super_result = super(MigrateProject, self).test_single(from_instance, to_instance)
-
-        tags_result = test_tags(from_instance, to_instance, logger)
-
-        return super_result and tags_result
 
     def list_from(self):
         """
         For now, skip projects which we cannot migrate.
         """
-        qs = super(MigrateProject, self).list_from()
+        qs = super(MigrateProjectBase, self).list_from()
 
         # Only migrate for available organizations
         m = MigrateOrganization()
@@ -163,6 +143,29 @@ class MigrateProject(MigrateModel):
 
     }
 
+
+class MigrateProject(MigrateProjectBase):
+    def migrate_single(self, from_instance, to_instance):
+        """
+        Override migrate_single so that tags can be copied over using the
+        Taggit manager.
+        """
+        super(MigrateProject, self).migrate_single(from_instance, to_instance)
+
+        copy_tags(from_instance, to_instance)
+
+    def test_single(self, from_instance, to_instance):
+        """
+        Override test_single so that the tags that have been copied over using
+        the Taggit manager can be tested.
+        """
+        super_result = super(MigrateProject, self).test_single(from_instance, to_instance)
+
+        tags_result = test_tags(from_instance, to_instance, logger)
+
+        return super_result and tags_result
+
+
     field_mapping = {
         'id': True,
 
@@ -213,10 +216,9 @@ class MigrateProject(MigrateModel):
         'expected_other_sources': None,
     }
 
-    field_mapping.update(throw_away_fields)
+    field_mapping.update(MigrateProjectBase.throw_away_fields)
 
-
-class MigrateIdea(MigrateProject):
+class MigrateIdea(MigrateProjectBase):
     to_model = IdeaPhase
 
     def list_from(self):
@@ -281,11 +283,11 @@ class MigrateIdea(MigrateProject):
 
     }
 
-    field_mapping.update(MigrateProject.throw_away_fields)
+    field_mapping.update(MigrateProjectBase.throw_away_fields)
     field_mapping.update(mapped_in_project)
 
 
-class MigratePlan(MigrateProject):
+class MigratePlan(MigrateProjectBase):
     to_model = PlanPhase
 
     def list_from(self):
@@ -359,11 +361,11 @@ class MigratePlan(MigrateProject):
 
     }
 
-    field_mapping.update(MigrateProject.throw_away_fields)
+    field_mapping.update(MigrateProjectBase.throw_away_fields)
     field_mapping.update(MigrateIdea.mapped_in_project)
 
 
-class MigrateAct(MigrateProject):
+class MigrateAct(MigrateProjectBase):
     to_model = ActPhase
 
     def list_from(self):
@@ -423,12 +425,12 @@ class MigrateAct(MigrateProject):
         'planning': True
     }
 
-    field_mapping.update(MigrateProject.throw_away_fields)
+    field_mapping.update(MigrateProjectBase.throw_away_fields)
     field_mapping.update(MigrateIdea.mapped_in_project)
     field_mapping.update(mapped_in_idea)
 
 
-class MigrateResults(MigrateProject):
+class MigrateResults(MigrateProjectBase):
     to_model = ResultsPhase
 
     def list_from(self):
@@ -468,7 +470,7 @@ class MigrateResults(MigrateProject):
         }, verbose=False),
     }
 
-    field_mapping.update(MigrateProject.throw_away_fields)
+    field_mapping.update(MigrateProjectBase.throw_away_fields)
     field_mapping.update(MigrateIdea.mapped_in_project)
     field_mapping.update(MigrateAct.mapped_in_idea)
 
