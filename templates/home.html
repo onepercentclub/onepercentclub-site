@@ -7,7 +7,6 @@
 	No place like home!
 {% endblock %}
 
-
 {% block widgets %}
 	BlueApp.widgets.load([
 		{
@@ -19,4 +18,10 @@
 			container: '#midpanel'
 		}
 	])
+{% endblock %}
+
+{% block content %}
+
+<img src="{{ STATIC_URL }}global/images/elements/1pcpony.png" alt="1%PONY" />
+
 {% endblock %}
