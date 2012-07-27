@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.test import TestCase
 
 from apps.bluebottle_utils.tests import UserTestsMixin
@@ -10,13 +12,19 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
     def create_project(self, organization=None, owner=None, title='',
-                       slug='', latitude= -11.2352, longitude= -84.123):
+                       slug='', latitude=None, longitude=None):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
 
         The returned object is not yet saved to the database.
         """
+
+        if not latitude:
+            latitude = Decimal('-11.2352')
+
+        if not longitude:
+            longitude = Decimal('-84.123')
 
         if not organization:
             organization = self.create_organization()
