@@ -22,6 +22,22 @@ class MigrateModel(object):
     def __repr__(self):
         return self.__class__.__name__
 
+    def _list_from(self):
+        """ Caching wrapper for list_from() method. """
+
+        if not hasattr(self, '_from_qs'):
+            self._from_qs = self.list_from()
+
+        return self._from_qs
+
+    def _list_to(self):
+        """ Caching wrapper for list_to() method. """
+
+        if not hasattr(self, '_to_qs'):
+            self._to_qs = self.list_to()
+
+        return self._to_qs
+
     def get_mapping(self, field):
         """
         Get the mapping object for the specified field from `field_mapping`.
@@ -113,7 +129,7 @@ class MigrateModel(object):
         try:
             correspondence_args = self.get_to_correspondence(from_instance)
 
-            return self.list_to().get(**correspondence_args)
+            return self._list_to().get(**correspondence_args)
 
         except self.to_model.DoesNotExist:
             return None
@@ -128,7 +144,7 @@ class MigrateModel(object):
         try:
             correspondence_args = self.get_from_correspondence(to_instance)
 
-            return self.list_from().get(**correspondence_args)
+            return self._list_from().get(**correspondence_args)
 
         except self.from_model.DoesNotExist:
             return None
@@ -179,8 +195,8 @@ class MigrateModel(object):
         success = True
 
         # Make sure we have the same number of source and destination objects
-        from_count = self.list_from().count()
-        to_count = self.list_to().count()
+        from_count = self._list_from().count()
+        to_count = self._list_to().count()
         if from_count != to_count:
             logger.error(
                 u'Source queryset contains %d objects while destination queryset contains %d',
@@ -193,7 +209,7 @@ class MigrateModel(object):
         counter = 0
         errors = 0
 
-        for to_instance in self.list_to().iterator():
+        for to_instance in self._list_to().iterator():
             check_success = True
 
             from_instance = self.get_from(to_instance)
@@ -306,7 +322,7 @@ class MigrateModel(object):
         logger.info(u"Starting '<%s>'", repr(self))
 
         # Grab a qs of object to migrate
-        from_qs = self.list_from()
+        from_qs = self._list_from()
 
         counter = 0
 
