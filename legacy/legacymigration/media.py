@@ -84,6 +84,9 @@ class MigrateAlbum(MigrateModel):
         # This ignores about 6 albums
         qs = qs.exclude(Q(name='*') | Q(name='.'))
 
+        # Exclude albums without pictures
+        qs = qs.exclude(picture=None)
+
         return qs
 
     def migrate_single(self, from_instance, to_instance):
@@ -139,6 +142,9 @@ class MigratePicture(MigrateModel):
         # Only migrate albums for migrated projects
         qs = qs.filter(album__in=album_list)
 
+        # Exclude pictures that have no file set
+        qs = qs.exclude(Q(file=None) | Q(file__file=None))
+
         return qs
 
     field_mapping = {
@@ -174,6 +180,10 @@ class MigrateVideo(MigrateModel):
     def list_from(self):
         qs = super(MigrateVideo, self).list_from()
 
+        # Don't migrate videos for which no project has been set
+        qs = qs.exclude(project=None)
+
+        # Don't migrate video's for projects we're not migrating
         m = MigrateProject()
         project_list = m.list_from()
         qs = qs.filter(project__in=project_list)
