@@ -1,8 +1,8 @@
-import uuid
-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+
+from apps.bluebottle_utils.tests import generate_slug
 
 from .models import Album, LocalPicture, EmbeddedVideo
 
@@ -13,14 +13,10 @@ class MediaTestsMixin(object):
     def create_album(self, slug=None):
         """ Create and return (but not save) an album. """
 
-        def generate_slug():
-            return str(uuid.uuid4())[:30]
-
         if not slug:
             slug = generate_slug()
             while Album.objects.filter(slug=slug).exists():
                  slug = generate_slug()
-
 
         album = Album(slug=slug)
         return album
