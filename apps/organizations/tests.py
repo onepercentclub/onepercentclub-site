@@ -15,12 +15,12 @@ class OrganizationTestsMixin(object):
 
         The returned object is not yet saved to the database.
         """
-        organization = Organization()
-
         if not slug:
             slug = generate_slug()
             while Organization.objects.filter(slug=slug).exists():
                  slug = generate_slug()
+
+        organization = Organization(slug=slug)
 
         return organization
 
