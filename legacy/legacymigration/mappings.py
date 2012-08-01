@@ -1,6 +1,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
+from surlex import Surlex
+
 from decimal import Decimal
 
 from os import path
@@ -187,6 +189,38 @@ class SlugifyMapping(IdentityMapping):
 
 class SlugifyCroppingMapping(CropMapping, SlugifyMapping):
     pass
+
+
+class TolerantSlugifyCroppingMapping(SlugifyCroppingMapping):
+    """
+    Ignore changes to original slug in order to be able to make it
+    unique.
+    """
+
+    slug_surlex = Surlex('<slug:s>-<counter:#>')
+
+    def check(self, from_instance, to_instance, from_field):
+        if not super(TolerantSlugifyCroppingMapping, self).check(
+            from_instance, to_instance, from_field
+        ):
+            old_value = getattr(from_instance, from_field)
+            mapped_value = self.map_value(old_value)
+
+            new_value = getattr(to_instance, self.get_to_field(from_field))
+
+            logger.warning('Field %s has been made unique with value %s',
+                from_field, new_value
+            )
+
+            result = self.slug_surlex.match(new_value)
+
+            if not result or result.get('slug', None) != mapped_value:
+                logger.error("Original slug '%s' does not match new one '%s' for '%s'",
+                    old_value, new_value, repr(to_instance)
+                )
+                return False
+
+        return True
 
 
 class OneToManyMapping(Mapping):
