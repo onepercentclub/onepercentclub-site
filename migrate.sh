@@ -15,10 +15,10 @@ touch database.sqlite
 bash prepare.sh
 
 # Get into our environment
-. env/bin/activate
+source env/bin/activate
 
 # Set Django settings
-export DJANGO_SETTINGS_MODULE=settings=bluebottle.settings.testing
+export DJANGO_SETTINGS_MODULE=bluebottle.settings.testing
 
 # Setup new database and start migration
 python manage.py syncdb --noinput --migrate
