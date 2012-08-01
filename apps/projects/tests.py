@@ -49,8 +49,13 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
 
 class PlanPhaseTestMixin(object):
     def create_planphase(self, project, money_total=15000, money_asked=5000):
-        planphase = PlanPhase(project=project, money_total=money_total, money_asked=money_asked)
-        return planphase.save()
+        """ Create (but not save) a plan phase. """
+        planphase = PlanPhase(
+            project=project, money_total=money_total, money_asked=money_asked
+        )
+
+        return planphase
+
 
 
 class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
@@ -83,10 +88,13 @@ class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
         # The project title should be in the page, somewhere
         self.assertContains(response, self.project.title)
 
+        self.assertContains(response, self.project.owner)
+
     def test_amounts(self):
         """ Test calculation of donation amounts """
 
-        self.create_planphase(self.project, 12000, 3520)
+        phase = self.create_planphase(self.project, 12000, 3520)
+        phase.save()
 
         self.assertEquals(self.project.money_asked(), 3520)
 
@@ -106,4 +114,3 @@ class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
         self.project.planphase.money_asked = 3500
 
         self.assertEquals(self.project.money_needed(), 1188)
-
