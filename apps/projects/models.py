@@ -42,7 +42,7 @@ class Project(models.Model):
         results = ChoiceItem('results', label=_("Results"))
 
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
 
     image = ImageField(max_length=255, blank=True,
         upload_to='project_images/',
@@ -92,12 +92,6 @@ class Project(models.Model):
         return self.money_asked() - self.money_donated()
 
     tags = TaggableManager(blank=True)
-
-
-    def __unicode__(self):
-        if self.title:
-            return self.title
-        return self.slug
 
     def location(self):
         return self.country.name

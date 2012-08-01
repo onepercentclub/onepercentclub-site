@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
-from apps.bluebottle_utils.tests import UserTestsMixin
+from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
 from apps.organizations.tests import OrganizationTestsMixin
 
 from .models import Project, PlanPhase
@@ -34,6 +34,11 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             # Create a new user with a random username
             owner = self.create_user()
 
+        if not slug:
+            slug = generate_slug()
+            while Project.objects.filter(slug=slug).exists():
+                 slug = generate_slug()
+
         project = Project(
             organization=organization, owner=owner, title=title, slug=slug,
             latitude=latitude, longitude=longitude
@@ -41,10 +46,16 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
 
         return project
 
+
 class PlanPhaseTestMixin(object):
     def create_planphase(self, project, money_total=15000, money_asked=5000):
-        planphase = PlanPhase(project=project, money_total=money_total, money_asked=money_asked)
-        return planphase.save()
+        """ Create (but not save) a plan phase. """
+        planphase = PlanPhase(
+            project=project, money_total=money_total, money_asked=money_asked
+        )
+
+        return planphase
+
 
 class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
     """ Tests for projects. """
@@ -76,10 +87,13 @@ class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
         # The project title should be in the page, somewhere
         self.assertContains(response, self.project.title)
 
+        self.assertContains(response, self.project.owner)
+
     def test_amounts(self):
         """ Test calculation of donation amounts """
 
-        self.create_planphase(self.project, 12000, 3520)
+        phase = self.create_planphase(self.project, 12000, 3520)
+        phase.save()
 
         self.assertEquals(self.project.money_asked(), 3520)
 
@@ -99,4 +113,3 @@ class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
         self.project.planphase.money_asked = 3500
 
         self.assertEquals(self.project.money_needed(), 1188)
-
