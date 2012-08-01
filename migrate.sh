@@ -1,11 +1,11 @@
-#!/bin/sh -ex
+#!/bin/bash -ex
 
 # First set resource limits
 ulimit -v 500000
 
 # Drop database and remove existing files (allways succeed)
-echo 'DROP DATABASE onepercentsite' | psql onepercentsite
-rm -rf static/media
+dropdb onepercentsite; true
+rm -rf static/media; true
 
 # Create new database
 createdb -T template0 -E utf8 onepercentsite
