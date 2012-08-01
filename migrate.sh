@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-# First set resource limits
+# First set resource limits to 500MB max.
 ulimit -v 500000
 
 # Drop database and remove existing files (allways succeed)
