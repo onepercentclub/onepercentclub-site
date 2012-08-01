@@ -193,7 +193,7 @@ class MigrateModel(object):
         counter = 0
         errors = 0
 
-        for to_instance in self.list_to():
+        for to_instance in self.list_to().iterator():
             check_success = True
 
             from_instance = self.get_from(to_instance)
@@ -326,7 +326,7 @@ class MigrateModel(object):
 
             with Timer() as t:
                 # Iterate over all instances
-                for from_instance in from_qs:
+                for from_instance in from_qs.iterator():
                     self._migrate_from(from_instance)
 
                     counter += 1
