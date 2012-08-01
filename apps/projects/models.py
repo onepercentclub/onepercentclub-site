@@ -93,12 +93,6 @@ class Project(models.Model):
 
     tags = TaggableManager(blank=True)
 
-
-    def __unicode__(self):
-        if self.title:
-            return self.title
-        return self.slug
-
     def location(self):
         return self.country.name
 
