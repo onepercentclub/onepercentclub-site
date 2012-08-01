@@ -4,8 +4,8 @@
 ulimit -v 500000
 
 # Drop database and remove existing files (allways succeed)
-dropdb onepercentsite; true
-rm -rf static/media; true
+dropdb onepercentsite || true
+rm -rf static/media || true
 
 # Create new database
 createdb -T template0 -E utf8 onepercentsite
