@@ -10,19 +10,19 @@ from apps.organizations.models import (
     Organization, OrganizationMember, OrganizationAddress
 )
 
-from .base import MigrateModel
+from .base import MigrateModel, UniqueSlugMixin
 
 from .mappings import (
     EducateDateTimeMapping,
     NoneToStringMapping, OneToManyMapping, CountryMapping,
     IdentityMapping,
-    WebsiteMapping, SlugifyCroppingMapping,
+    WebsiteMapping, TolerantSlugifyCroppingMapping,
     ConcatenatingStringMapping,
     NoneToStringCroppingMapping
 )
 
 
-class MigrateOrganization(MigrateModel):
+class MigrateOrganization(UniqueSlugMixin, MigrateModel):
     from_model = LegacyOrganization
     to_model = Organization
 
@@ -39,7 +39,7 @@ class MigrateOrganization(MigrateModel):
         'id': True,
         'name': OneToManyMapping(
             IdentityMapping('title'),
-            SlugifyCroppingMapping(100, to_field='slug', verbose=False)
+            TolerantSlugifyCroppingMapping(100, to_field='slug', verbose=False)
         ),
         'legalstatus': 'legal_status',
         'phonenumber': NoneToStringMapping('phone_number'),

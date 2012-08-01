@@ -18,12 +18,12 @@ from apps.projects.models import (
     Link, Testimonial, Message, BudgetCategory, BudgetLine
 )
 
-from .base import MigrateModel
+from .base import MigrateModel, UniqueSlugMixin
 
 from .mappings import (
     MappingMapping, EducateDateTimeMapping,
     NoneToStringMapping, OneToManyMapping, CountryMapping,
-    SlugifyMapping, IdentityMapping, WebsiteMapping,
+    TolerantSlugifyCroppingMapping, IdentityMapping, WebsiteMapping,
     StringToDecimalMapping, ConcatenatingStringMapping,
     PathToFileMapping
 )
@@ -95,6 +95,7 @@ class MigrateProjectBase(MigrateModel):
 
         return qs
 
+
     # Fields handled by project migration
 
     # Project fields we'll throw away
@@ -144,7 +145,7 @@ class MigrateProjectBase(MigrateModel):
     }
 
 
-class MigrateProject(MigrateProjectBase):
+class MigrateProject(UniqueSlugMixin, MigrateProjectBase):
     def migrate_single(self, from_instance, to_instance):
         """
         Override migrate_single so that tags can be copied over using the
@@ -169,7 +170,9 @@ class MigrateProject(MigrateProjectBase):
     field_mapping = {
         'id': True,
 
-        'name': SlugifyMapping('slug', verbose=False),
+        'name': TolerantSlugifyCroppingMapping(
+            100, to_field='slug', verbose=False
+        ),
         'title': NoneToStringMapping(),
 
         'photo': PathToFileMapping(

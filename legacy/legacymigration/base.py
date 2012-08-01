@@ -365,3 +365,41 @@ class MigrateModel(object):
 
         logger.info(u'%d objects migrated', counter)
         logger.info(u'Migration %s complete.', self.__class__.__name__)
+
+
+class UniqueSlugMixin(object):
+    """ Mixin overriding the slug field to be unique. """
+
+    # Default name for (new) slug field, can be overridden
+    slug_field = 'slug'
+
+    def _get_slug(self, instance):
+        """ Get the slug for an instance. """
+
+        return getattr(instance, self.slug_field)
+
+    def migrate_single(self, from_instance, to_instance):
+        """ After calling super migration method, change slug if needed. """
+
+        super(UniqueSlugMixin, self).migrate_single(
+            from_instance,
+            to_instance
+        )
+
+        # Check whether this username already exists. If so, add a number
+        counter = 1
+
+        # Make sure we exclude the current object
+        qs = self.list_to().exclude(pk=to_instance.pk)
+
+        # Detect and change duplicate slug
+        original_slug = self._get_slug(to_instance)
+
+        while qs.filter(**{self.slug_field: self._get_slug(to_instance)}).exists():
+            to_instance.slug = '%s-%d' % (original_slug, counter)
+
+            logger.warn('Duplicate slug %s, changing to %s',
+                original_slug, to_instance.slug
+            )
+
+            counter += 1
