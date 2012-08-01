@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
-from apps.bluebottle_utils.tests import UserTestsMixin
+from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
 from apps.organizations.tests import OrganizationTestsMixin
 
 from .models import Project, PlanPhase
@@ -34,6 +34,11 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             # Create a new user with a random username
             owner = self.create_user()
 
+        if not slug:
+            slug = generate_slug()
+            while Project.objects.filter(slug=slug).exists():
+                 slug = generate_slug()
+
         project = Project(
             organization=organization, owner=owner, title=title, slug=slug,
             latitude=latitude, longitude=longitude
@@ -41,6 +46,8 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
 
         return project
 
+
+class PlanPhaseTestMixin(object):
     def create_planphase(self, project, money_total=15000, money_asked=5000):
         """ Create (but not save) a plan phase. """
         planphase = PlanPhase(
@@ -50,7 +57,7 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         return planphase
 
 
-class ProjectTests(TestCase, ProjectTestsMixin):
+class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
     """ Tests for projects. """
 
     def setUp(self):
@@ -106,4 +113,3 @@ class ProjectTests(TestCase, ProjectTestsMixin):
         self.project.planphase.money_asked = 3500
 
         self.assertEquals(self.project.money_needed(), 1188)
-
