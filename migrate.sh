@@ -19,11 +19,11 @@ bash prepare.sh
 
 # Setup new database and start migration
 python manage.py syncdb --noinput --migrate --settings=bluebottle.settings.testing
-python manage.py migrate_legacy -v 2 
+python manage.py migrate_legacy -v 2 --settings=bluebottle.settings.testing
 
 # Load fixtures
 python manage.py --settings=bluebottle.settings.testing
-python manage.py loaddata project_category_data
+python manage.py loaddata project_category_data --settings=bluebottle.settings.testing
 
 # Dump database and archive media
 pg_dump -x onepercentsite | bzip2 -c > migrated_data.sql.bz2
