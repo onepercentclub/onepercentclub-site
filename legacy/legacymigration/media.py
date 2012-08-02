@@ -15,13 +15,13 @@ from legacy.legacyalbums.models import (
 from apps.media.models import Album, EmbeddedVideo, LocalPicture
 from apps.projects.models import Project
 
-from .base import MigrateModel
+from .base import MigrateModel, UniqueSlugMixin
 
 from .projects import MigrateProject
 
 from .mappings import (
     IdentityMapping, EducateDateTimeMapping, OneToManyMapping,
-    SlugifyCroppingMapping, PathToFileMapping
+    TolerantSlugifyCroppingMapping, PathToFileMapping
 )
 
 
@@ -45,30 +45,7 @@ class ProjectToAlbumMapping(IdentityMapping):
         return album
 
 
-class IgnorantSlugifyCroppingMapping(SlugifyCroppingMapping):
-    """ Ignore changes to original slug in order to make unique. """
-
-    def check(self, from_instance, to_instance, from_field):
-        if not super(IgnorantSlugifyCroppingMapping, self).check(
-            from_instance, to_instance, from_field
-        ):
-            old_value = getattr(from_instance, from_field)
-            mapped_value = self.map_value(old_value)
-
-            new_value = getattr(to_instance, self.get_to_field(from_field))
-
-            logger.warning('Field %s has been renamed on %s',
-                from_field, to_instance
-            )
-
-            if not mapped_value+'-' in new_value:
-                logger.error('Wowowoww')
-                return False
-
-        return True
-
-
-class MigrateAlbum(MigrateModel):
+class MigrateAlbum(UniqueSlugMixin, MigrateModel):
     from_model = LegacyAlbum
     to_model = Album
 
@@ -89,35 +66,12 @@ class MigrateAlbum(MigrateModel):
 
         return qs
 
-    def migrate_single(self, from_instance, to_instance):
-        super(MigrateAlbum, self).migrate_single(
-            from_instance,
-            to_instance
-        )
-
-        # Check whether this username already exists. If so, add a number
-        counter = 1
-
-        # Detect and change duplicate usernames
-        qs = self.list_to().exclude(pk=to_instance.pk)
-
-        original_slug = to_instance.slug
-
-        while qs.filter(slug=to_instance.slug).exists():
-            to_instance.slug = '%s-%d' % (original_slug, counter)
-
-            logger.warn('Duplicate slug %s, changing to %s',
-                original_slug, to_instance.slug
-            )
-
-            counter += 1
-
 
     field_mapping = {
         'id': True,
         'name': OneToManyMapping(
             IdentityMapping('title'),
-            IgnorantSlugifyCroppingMapping(
+            TolerantSlugifyCroppingMapping(
                 100, to_field='slug', verbose=False)
         ),
         'description': True,
