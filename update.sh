@@ -7,6 +7,8 @@ cd /var/www/bluebottle
 sudo -u bluebottle tar xvf /var/lib/jenkins/jobs/legacydb/lastSuccessful/archive/migrated_media.tar
 sudo -u onepercentadmin git pull
 sudo -u onepercentadmin git merge origin/master
+sudo -u onepercentadmin env/bin/pip install -r requirements.txt
+#sudo -u bluebottle env/bin/python manage.py test
 sudo -u bluebottle env/bin/python manage.py collectstatic --settings=bluebottle.settings.user_testing -l --noinput
 sudo supervisorctl restart bluebottle
 
