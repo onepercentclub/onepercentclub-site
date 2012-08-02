@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 import random
 
-from django_countries import CountryField
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
 )
@@ -13,6 +12,7 @@ from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
+from apps.geo.models import Country
 
 
 class ProjectCategory(models.Model):
@@ -63,13 +63,13 @@ class Project(models.Model):
     latitude = models.DecimalField(max_digits=21, decimal_places=18)
     longitude = models.DecimalField(max_digits=21, decimal_places=18)
 
-    country = CountryField(null=True)
+    country = models.ForeignKey(Country, blank=True, null=True)
 
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,
         help_text=_("Main language of the project."))
 
-   # temporary to do hold random 'donated' 
+    # temporary to do hold random 'donated'
     donated = 0
 
     def __unicode__(self):

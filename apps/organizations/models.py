@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from django_countries import CountryField
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
 )
@@ -9,6 +8,7 @@ from djchoices import DjangoChoices, ChoiceItem
 from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.models import Address
+from apps.geo.models import Country
 
 
 class Organization(models.Model):
@@ -38,7 +38,7 @@ class Organization(models.Model):
 
     account_bank_name = models.CharField(max_length=255, blank=True)
     account_bank_address = models.CharField(max_length=255, blank=True)
-    account_bank_country = CountryField(blank=True)
+    account_bank_country = models.ForeignKey(Country, blank=True, null=True)
     account_iban = models.CharField(max_length=255, blank=True)
     account_bicswift = models.CharField(max_length=255, blank=True)
     account_number = models.CharField(max_length=255, blank=True)
