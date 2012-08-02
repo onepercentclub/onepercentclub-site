@@ -22,6 +22,11 @@ class OrganizationTestsMixin(object):
 
         organization = Organization(slug=slug)
 
+        if not slug:
+            slug = generate_slug()
+            while Organization.objects.filter(slug=slug).exists():
+                 slug = generate_slug()
+
         return organization
 
 
