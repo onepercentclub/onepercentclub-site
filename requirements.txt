@@ -55,4 +55,4 @@ coverage
 
 # Embedding videos and other media
 # https://github.com/coleifer/micawber
-micawber
+-e git+https://github.com/coleifer/micawber.git@36d06b70b601f12de7d7fa9709288d99dbb84d24#egg=micawber
