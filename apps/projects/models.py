@@ -94,7 +94,10 @@ class Project(models.Model):
     tags = TaggableManager(blank=True)
 
     def location(self):
-        return self.country.name
+        if self.country:
+            return self.country.name
+        else:
+            return ""
 
     @models.permalink
     def get_absolute_url(self):
