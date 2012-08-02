@@ -390,7 +390,7 @@ class UniqueSlugMixin(object):
         counter = 1
 
         # Make sure we exclude the current object
-        qs = self.list_to().exclude(pk=to_instance.pk)
+        qs = self._list_to().exclude(pk=to_instance.pk)
 
         # Detect and change duplicate slug
         original_slug = self._get_slug(to_instance)
