@@ -68,6 +68,8 @@ class Project(models.Model):
         choices=settings.LANGUAGES,
         help_text=_("Main language of the project."))
 
+    albums = models.ManyToManyField('media.Album', blank=True, null=True)
+
     # temporary to do hold random 'donated'
     donated = 0
 

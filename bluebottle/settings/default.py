@@ -199,6 +199,7 @@ INSTALLED_APPS = [
     'compressor',
     'sorl.thumbnail',
     'taggit',
+    'micawber.contrib.mcdjango', # Embedding videos
 
     # bluebottle apps
     'apps.bluebottle_utils',
@@ -206,7 +207,8 @@ INSTALLED_APPS = [
     'apps.organizations',
     'apps.projects',
     'apps.donations',
-    'apps.geo'
+    'apps.media'
+    'apps.geo',
 ]
 
 # A sample logging configuration. The only tangible logging
