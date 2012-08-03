@@ -10,36 +10,40 @@ from apps.organizations.models import (
     Organization, OrganizationMember, OrganizationAddress
 )
 
-from .base import MigrateModel
+from .base import MigrateModel, UniqueSlugMixin
 
 from .mappings import (
     EducateDateTimeMapping,
     NoneToStringMapping, OneToManyMapping, CountryMapping,
     IdentityMapping,
-    WebsiteMapping, SlugifyCroppingMapping,
+    WebsiteMapping, TolerantSlugifyCroppingMapping,
     ConcatenatingStringMapping,
     NoneToStringCroppingMapping
 )
 
 
-class MigrateOrganization(MigrateModel):
+class MigrateOrganizationBase(MigrateModel):
+    """ Base class for migrations departing from organizations. """
     from_model = LegacyOrganization
-    to_model = Organization
 
     def list_from(self):
         """ Filter out organizations with no name set. """
-        qs = super(MigrateOrganization, self).list_from()
+        qs = super(MigrateOrganizationBase, self).list_from()
 
         # Exclude unnamed organizations
         qs = qs.exclude(name='')
 
         return qs
 
+
+class MigrateOrganization(UniqueSlugMixin, MigrateOrganizationBase):
+    to_model = Organization
+
     field_mapping = {
         'id': True,
         'name': OneToManyMapping(
             IdentityMapping('title'),
-            SlugifyCroppingMapping(100, to_field='slug', verbose=False)
+            TolerantSlugifyCroppingMapping(100, to_field='slug', verbose=False)
         ),
         'legalstatus': 'legal_status',
         'phonenumber': NoneToStringMapping('phone_number'),
@@ -130,8 +134,7 @@ class MigrateOrganizationMember(MigrateModel):
     }
 
 
-class MigrateOrganizationAddress(MigrateOrganization):
-    from_model = LegacyOrganization
+class MigrateOrganizationAddress(MigrateOrganizationBase):
     to_model = OrganizationAddress
 
     def list_from(self):
