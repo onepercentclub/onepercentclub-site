@@ -99,20 +99,25 @@ class MigrateAlbum(UniqueSlugMixin, MigrateModel):
                 new_project = Project.objects.get(pk=project.pk)
                 to_instance.project_set.add(new_project)
 
-    def list_from(self):
-        qs = super(MigrateAlbum, self).list_from()
-
-        m = MigrateProject()
-        project_list = m.list_from()
-
-        # Only migrate albums for migrated projects
-        qs = qs.filter(catalog__project__in=project_list)
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
 
         # This ignores about 6 albums
         qs = qs.exclude(Q(name='*') | Q(name='.'))
 
         # Exclude albums without pictures
         qs = qs.exclude(picture=None)
+
+        return qs
+
+    def list_from(self):
+        qs = super(MigrateAlbum, self).list_from()
+
+        m = MigrateProject()
+        project_list = m._list_from()
+
+        # Only migrate albums for migrated projects
+        qs = qs.filter(catalog__project__in=project_list)
 
         return qs
 
@@ -149,17 +154,22 @@ class MigratePicture(MigrateModel):
     from_model = LegacyPicture
     to_model = LocalPicture
 
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
+
+        # Exclude pictures that have no file set
+        qs = qs.exclude(Q(file=None) | Q(file__file=None))
+
+        return qs
+
     def list_from(self):
         qs = super(MigratePicture, self).list_from()
 
         # Only migrate pictures for migrated albums
         m = MigrateAlbum()
-        album_list = m.list_from()
+        album_list = m._list_from()
 
         qs = qs.filter(album__in=album_list)
-
-        # Exclude pictures that have no file set
-        qs = qs.exclude(Q(file=None) | Q(file__file=None))
 
         return qs
 
@@ -200,7 +210,7 @@ class MigrateVideo(MigrateModel):
 
         # Don't migrate video's for projects we're not migrating
         m = MigrateProject()
-        project_list = m.list_from()
+        project_list = m._list_from()
         qs = qs.filter(project__in=project_list)
 
         return qs

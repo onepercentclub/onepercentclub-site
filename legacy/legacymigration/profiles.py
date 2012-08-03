@@ -37,7 +37,7 @@ class MigrateProfile(MigrateModel):
         user_migrator = MigrateMemberAuth()
 
         # Make sure we only fetch ID's from the database
-        return user_migrator.list_from().only('id')
+        return user_migrator._list_from().only('id')
 
     def list_from(self):
         """

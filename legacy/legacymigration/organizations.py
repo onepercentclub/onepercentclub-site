@@ -26,9 +26,8 @@ class MigrateOrganizationBase(MigrateModel):
     """ Base class for migrations departing from organizations. """
     from_model = LegacyOrganization
 
-    def list_from(self):
-        """ Filter out organizations with no name set. """
-        qs = super(MigrateOrganizationBase, self).list_from()
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
 
         # Exclude unnamed organizations
         qs = qs.exclude(name='')
@@ -100,7 +99,7 @@ class MigrateOrganizationMember(MigrateModel):
         qs = super(MigrateOrganizationMember, self).list_from()
 
         m = MigrateOrganization()
-        organization_list = m.list_from()
+        organization_list = m._list_from()
 
         qs = qs.filter(org__in=organization_list)
 
@@ -137,12 +136,18 @@ class MigrateOrganizationMember(MigrateModel):
 class MigrateOrganizationAddress(MigrateOrganizationBase):
     to_model = OrganizationAddress
 
-    def list_from(self):
-        """ Explicitly skip a single objects with a rather long address. """
-        qs = super(MigrateOrganizationAddress, self).list_from()
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
+        qs = super(MigrateOrganizationAddress, self).list_from_exclusions(qs)
 
         # TODO: Split the street into multiple address lines
         qs = qs.exclude(pk__in=(1311, 1015, 1568))
+
+        return qs
+
+    def list_from(self):
+        """ Explicitly skip a single objects with a rather long address. """
+        qs = super(MigrateOrganizationAddress, self).list_from()
 
         return qs
 
