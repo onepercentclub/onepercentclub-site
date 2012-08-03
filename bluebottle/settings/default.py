@@ -207,7 +207,7 @@ INSTALLED_APPS = [
     'apps.organizations',
     'apps.projects',
     'apps.donations',
-    'apps.media'
+    'apps.media',
     'apps.geo',
 ]
 
