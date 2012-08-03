@@ -186,6 +186,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
 
+    # 3rd party apps
     'django_extensions',
     'django_extensions.tests',
     'debug_toolbar',
@@ -197,7 +198,6 @@ INSTALLED_APPS = [
     # 'django_nose',
     'compressor',
     'legacyauth', # Just for reference (this is actually just a module, not an app)
-    'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
     'taggit',
     'micawber.contrib.mcdjango', # Embedding videos
@@ -208,7 +208,8 @@ INSTALLED_APPS = [
     'apps.organizations',
     'apps.projects',
     'apps.donations',
-    'apps.media'
+    'apps.media',
+    'apps.geo',
 ]
 
 # Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
