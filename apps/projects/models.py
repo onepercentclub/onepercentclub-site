@@ -12,7 +12,6 @@ from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
-from apps.geo.models import Country
 
 
 class ProjectCategory(models.Model):
@@ -63,7 +62,7 @@ class Project(models.Model):
     latitude = models.DecimalField(max_digits=21, decimal_places=18)
     longitude = models.DecimalField(max_digits=21, decimal_places=18)
 
-    country = models.ForeignKey(Country, blank=True, null=True)
+    country = models.ForeignKey('geo.Country', blank=True, null=True)
 
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,

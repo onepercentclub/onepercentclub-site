@@ -1,7 +1,5 @@
 from django.db import models
 
-from apps.geo.models import Country
-
 
 class Address(models.Model):
     """
@@ -11,7 +9,7 @@ class Address(models.Model):
     line2 = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
-    country = models.ForeignKey(Country, blank=True, null=True)
+    country = models.ForeignKey('geo.Country', blank=True, null=True)
     zip_code = models.CharField(max_length=20, blank=True)
 
     def __unicode__(self):

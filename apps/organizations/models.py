@@ -8,7 +8,6 @@ from djchoices import DjangoChoices, ChoiceItem
 from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.models import Address
-from apps.geo.models import Country
 
 
 class Organization(models.Model):
@@ -38,7 +37,7 @@ class Organization(models.Model):
 
     account_bank_name = models.CharField(max_length=255, blank=True)
     account_bank_address = models.CharField(max_length=255, blank=True)
-    account_bank_country = models.ForeignKey(Country, blank=True, null=True)
+    account_bank_country = models.ForeignKey('geo.Country', blank=True, null=True)
     account_iban = models.CharField(max_length=255, blank=True)
     account_bicswift = models.CharField(max_length=255, blank=True)
     account_number = models.CharField(max_length=255, blank=True)
