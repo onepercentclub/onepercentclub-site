@@ -186,6 +186,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
 
+    # 3rd party apps
     'django_extensions',
     'django_extensions.tests',
     'debug_toolbar',
@@ -196,8 +197,6 @@ INSTALLED_APPS = [
     # https://github.com/jbalogh/django-nose/issues/85
     # 'django_nose',
     'compressor',
-
-    'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
     'taggit',
 
@@ -206,7 +205,8 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.organizations',
     'apps.projects',
-    'apps.donations'
+    'apps.donations',
+    'apps.geo'
 ]
 
 # A sample logging configuration. The only tangible logging

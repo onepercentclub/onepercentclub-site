@@ -1,0 +1,3144 @@
+[
+  {
+    "pk": 1,
+    "model": "geo.region",
+    "fields": {
+      "name": "Africa",
+      "numeric_code": "002"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "geo.region",
+    "fields": {
+      "name": "Americas",
+      "numeric_code": "019"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "geo.region",
+    "fields": {
+      "name": "Asia",
+      "numeric_code": "142"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "geo.region",
+    "fields": {
+      "name": "Europe",
+      "numeric_code": "150"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "geo.region",
+    "fields": {
+      "name": "Oceania",
+      "numeric_code": "009"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 1,
+      "name": "Eastern Africa",
+      "numeric_code": "014"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 1,
+      "name": "Middle Africa",
+      "numeric_code": "017"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 1,
+      "name": "Northern Africa",
+      "numeric_code": "015"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 1,
+      "name": "Southern Africa",
+      "numeric_code": "018"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 1,
+      "name": "Western Africa",
+      "numeric_code": "011"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 17,
+      "name": "Caribbean",
+      "numeric_code": "029"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 17,
+      "name": "Central America",
+      "numeric_code": "013"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 17,
+      "name": "South America",
+      "numeric_code": "005"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 17,
+      "name": "Northern America",
+      "numeric_code": "021"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 16,
+      "name": "Central Asia",
+      "numeric_code": "143"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 16,
+      "name": "Southern Asia",
+      "numeric_code": "034"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 16,
+      "name": "South-Eastern Asia",
+      "numeric_code": "035"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 16,
+      "name": "Western Asia",
+      "numeric_code": "145"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 14,
+      "name": "Eastern Europe",
+      "numeric_code": "151"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 14,
+      "name": "Northern Europe",
+      "numeric_code": "154"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 14,
+      "name": "Southern Europe",
+      "numeric_code": "039"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 14,
+      "name": "Western Europe",
+      "numeric_code": "155"
+    }
+  },
+  {
+    "pk": 18,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 15,
+      "name": "Australia and New Zealand",
+      "numeric_code": "053"
+    }
+  },
+  {
+    "pk": 19,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 15,
+      "name": "Melanesia",
+      "numeric_code": "054"
+    }
+  },
+  {
+    "pk": 20,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 15,
+      "name": "Micronesia",
+      "numeric_code": "057"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 15,
+      "name": "Polynesia",
+      "numeric_code": "061"
+    }
+  },
+  {
+    "pk": 22,
+    "model": "geo.subregion",
+    "fields": {
+      "region": 16,
+      "name": "Eastern Asia",
+      "numeric_code": "030"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "geo.country",
+    "fields": {
+      "name": "Albania",
+      "alpha2_code": "AL",
+      "alpha3_code": "ALB",
+      "numeric_code": "008",
+      "subregion": 16,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 2,
+    "model": "geo.country",
+    "fields": {
+      "name": "\u00c5land Islands",
+      "alpha2_code": "AX",
+      "alpha3_code": "ALA",
+      "numeric_code": "248",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 4,
+    "model": "geo.country",
+    "fields": {
+      "name": "Algeria",
+      "alpha2_code": "DZ",
+      "alpha3_code": "DZA",
+      "numeric_code": "012",
+      "subregion": 3,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 7,
+    "model": "geo.country",
+    "fields": {
+      "name": "Angola",
+      "alpha2_code": "AO",
+      "alpha3_code": "AGO",
+      "numeric_code": "024",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 5,
+    "model": "geo.country",
+    "fields": {
+      "name": "American Samoa",
+      "alpha2_code": "AS",
+      "alpha3_code": "ASM",
+      "numeric_code": "016",
+      "subregion": 21,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 6,
+    "model": "geo.country",
+    "fields": {
+      "name": "Andorra",
+      "alpha2_code": "AD",
+      "alpha3_code": "AND",
+      "numeric_code": "020",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 8,
+    "model": "geo.country",
+    "fields": {
+      "name": "Anguilla",
+      "alpha2_code": "AI",
+      "alpha3_code": "AIA",
+      "numeric_code": "660",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 9,
+    "model": "geo.country",
+    "fields": {
+      "name": "Antigua and Barbuda",
+      "alpha2_code": "AG",
+      "alpha3_code": "ATG",
+      "numeric_code": "028",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 10,
+    "model": "geo.country",
+    "fields": {
+      "name": "Argentina",
+      "alpha2_code": "AR",
+      "alpha3_code": "ARG",
+      "numeric_code": "032",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 11,
+    "model": "geo.country",
+    "fields": {
+      "name": "Armenia",
+      "alpha2_code": "AM",
+      "alpha3_code": "ARM",
+      "numeric_code": "051",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 15,
+    "model": "geo.country",
+    "fields": {
+      "name": "Azerbaijan",
+      "alpha2_code": "AZ",
+      "alpha3_code": "AZE",
+      "numeric_code": "031",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 12,
+    "model": "geo.country",
+    "fields": {
+      "name": "Aruba",
+      "alpha2_code": "AW",
+      "alpha3_code": "ABW",
+      "numeric_code": "533",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 13,
+    "model": "geo.country",
+    "fields": {
+      "name": "Australia",
+      "alpha2_code": "AU",
+      "alpha3_code": "AUS",
+      "numeric_code": "036",
+      "subregion": 18,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 14,
+    "model": "geo.country",
+    "fields": {
+      "name": "Austria",
+      "alpha2_code": "AT",
+      "alpha3_code": "AUT",
+      "numeric_code": "040",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 18,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bangladesh",
+      "alpha2_code": "BD",
+      "alpha3_code": "BGD",
+      "numeric_code": "050",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 16,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bahamas",
+      "alpha2_code": "BS",
+      "alpha3_code": "BHS",
+      "numeric_code": "044",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 17,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bahrain",
+      "alpha2_code": "BH",
+      "alpha3_code": "BHR",
+      "numeric_code": "048",
+      "subregion": 13,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 20,
+    "model": "geo.country",
+    "fields": {
+      "name": "Belarus",
+      "alpha2_code": "BY",
+      "alpha3_code": "BLR",
+      "numeric_code": "112",
+      "subregion": 14,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 19,
+    "model": "geo.country",
+    "fields": {
+      "name": "Barbados",
+      "alpha2_code": "BB",
+      "alpha3_code": "BRB",
+      "numeric_code": "052",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 22,
+    "model": "geo.country",
+    "fields": {
+      "name": "Belize",
+      "alpha2_code": "BZ",
+      "alpha3_code": "BLZ",
+      "numeric_code": "084",
+      "subregion": 7,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 21,
+    "model": "geo.country",
+    "fields": {
+      "name": "Belgium",
+      "alpha2_code": "BE",
+      "alpha3_code": "BEL",
+      "numeric_code": "056",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 23,
+    "model": "geo.country",
+    "fields": {
+      "name": "Benin",
+      "alpha2_code": "BJ",
+      "alpha3_code": "BEN",
+      "numeric_code": "204",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 25,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bhutan",
+      "alpha2_code": "BT",
+      "alpha3_code": "BTN",
+      "numeric_code": "064",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 24,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bermuda",
+      "alpha2_code": "BM",
+      "alpha3_code": "BMU",
+      "numeric_code": "060",
+      "subregion": 9,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 28,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bosnia and Herzegovina",
+      "alpha2_code": "BA",
+      "alpha3_code": "BIH",
+      "numeric_code": "070",
+      "subregion": 16,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 29,
+    "model": "geo.country",
+    "fields": {
+      "name": "Botswana",
+      "alpha2_code": "BW",
+      "alpha3_code": "BWA",
+      "numeric_code": "072",
+      "subregion": 4,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 30,
+    "model": "geo.country",
+    "fields": {
+      "name": "Brazil",
+      "alpha2_code": "BR",
+      "alpha3_code": "BRA",
+      "numeric_code": "076",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 34,
+    "model": "geo.country",
+    "fields": {
+      "name": "Burkina Faso",
+      "alpha2_code": "BF",
+      "alpha3_code": "BFA",
+      "numeric_code": "854",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 32,
+    "model": "geo.country",
+    "fields": {
+      "name": "Brunei Darussalam",
+      "alpha2_code": "BN",
+      "alpha3_code": "BRN",
+      "numeric_code": "096",
+      "subregion": 12,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 33,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bulgaria",
+      "alpha2_code": "BG",
+      "alpha3_code": "BGR",
+      "numeric_code": "100",
+      "subregion": 14,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 35,
+    "model": "geo.country",
+    "fields": {
+      "name": "Burundi",
+      "alpha2_code": "BI",
+      "alpha3_code": "BDI",
+      "numeric_code": "108",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 36,
+    "model": "geo.country",
+    "fields": {
+      "name": "Cambodia",
+      "alpha2_code": "KH",
+      "alpha3_code": "KHM",
+      "numeric_code": "116",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 37,
+    "model": "geo.country",
+    "fields": {
+      "name": "Cameroon",
+      "alpha2_code": "CM",
+      "alpha3_code": "CMR",
+      "numeric_code": "120",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 39,
+    "model": "geo.country",
+    "fields": {
+      "name": "Cape Verde",
+      "alpha2_code": "CV",
+      "alpha3_code": "CPV",
+      "numeric_code": "132",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 38,
+    "model": "geo.country",
+    "fields": {
+      "name": "Canada",
+      "alpha2_code": "CA",
+      "alpha3_code": "CAN",
+      "numeric_code": "124",
+      "subregion": 9,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 42,
+    "model": "geo.country",
+    "fields": {
+      "name": "Chad",
+      "alpha2_code": "TD",
+      "alpha3_code": "TCD",
+      "numeric_code": "148",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 40,
+    "model": "geo.country",
+    "fields": {
+      "name": "Cayman Islands",
+      "alpha2_code": "KY",
+      "alpha3_code": "CYM",
+      "numeric_code": "136",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 50,
+    "model": "geo.country",
+    "fields": {
+      "name": "Congo",
+      "alpha2_code": "CG",
+      "alpha3_code": "COG",
+      "numeric_code": "178",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 44,
+    "model": "geo.country",
+    "fields": {
+      "name": "Chile",
+      "alpha2_code": "CL",
+      "alpha3_code": "CHL",
+      "numeric_code": "152",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 45,
+    "model": "geo.country",
+    "fields": {
+      "name": "China",
+      "alpha2_code": "CN",
+      "alpha3_code": "CHN",
+      "numeric_code": "156",
+      "subregion": 22,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 48,
+    "model": "geo.country",
+    "fields": {
+      "name": "Colombia",
+      "alpha2_code": "CO",
+      "alpha3_code": "COL",
+      "numeric_code": "170",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 49,
+    "model": "geo.country",
+    "fields": {
+      "name": "Comoros",
+      "alpha2_code": "KM",
+      "alpha3_code": "COM",
+      "numeric_code": "174",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 51,
+    "model": "geo.country",
+    "fields": {
+      "name": "Cook Islands",
+      "alpha2_code": "CK",
+      "alpha3_code": "COK",
+      "numeric_code": "184",
+      "subregion": 21,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 53,
+    "model": "geo.country",
+    "fields": {
+      "name": "C\u00f4te d'Ivoire ",
+      "alpha2_code": "CI",
+      "alpha3_code": "CIV",
+      "numeric_code": "384",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 52,
+    "model": "geo.country",
+    "fields": {
+      "name": "Costa Rica",
+      "alpha2_code": "CR",
+      "alpha3_code": "CRI",
+      "numeric_code": "188",
+      "subregion": 7,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 55,
+    "model": "geo.country",
+    "fields": {
+      "name": "Cuba",
+      "alpha2_code": "CU",
+      "alpha3_code": "CUB",
+      "numeric_code": "192",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 59,
+    "model": "geo.country",
+    "fields": {
+      "name": "Democratic People's Republic of Korea",
+      "alpha2_code": "KP",
+      "alpha3_code": "PRK",
+      "numeric_code": "408",
+      "subregion": 22,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 54,
+    "model": "geo.country",
+    "fields": {
+      "name": "Croatia",
+      "alpha2_code": "HR",
+      "alpha3_code": "HRV",
+      "numeric_code": "191",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 63,
+    "model": "geo.country",
+    "fields": {
+      "name": "Dominica",
+      "alpha2_code": "DM",
+      "alpha3_code": "DMA",
+      "numeric_code": "212",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 56,
+    "model": "geo.country",
+    "fields": {
+      "name": "Cura\u00e7ao",
+      "alpha2_code": "CW",
+      "alpha3_code": "CUW",
+      "numeric_code": "531",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 57,
+    "model": "geo.country",
+    "fields": {
+      "name": "Cyprus",
+      "alpha2_code": "CY",
+      "alpha3_code": "CYP",
+      "numeric_code": "196",
+      "subregion": 13,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 58,
+    "model": "geo.country",
+    "fields": {
+      "name": "Czech Republic",
+      "alpha2_code": "CZ",
+      "alpha3_code": "CZE",
+      "numeric_code": "203",
+      "subregion": 14,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 61,
+    "model": "geo.country",
+    "fields": {
+      "name": "Denmark",
+      "alpha2_code": "DK",
+      "alpha3_code": "DNK",
+      "numeric_code": "208",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 65,
+    "model": "geo.country",
+    "fields": {
+      "name": "Ecuador",
+      "alpha2_code": "EC",
+      "alpha3_code": "ECU",
+      "numeric_code": "218",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 66,
+    "model": "geo.country",
+    "fields": {
+      "name": "Egypt",
+      "alpha2_code": "EG",
+      "alpha3_code": "EGY",
+      "numeric_code": "818",
+      "subregion": 3,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 67,
+    "model": "geo.country",
+    "fields": {
+      "name": "El Salvador",
+      "alpha2_code": "SV",
+      "alpha3_code": "SLV",
+      "numeric_code": "222",
+      "subregion": 7,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 68,
+    "model": "geo.country",
+    "fields": {
+      "name": "Equatorial Guinea",
+      "alpha2_code": "GQ",
+      "alpha3_code": "GNQ",
+      "numeric_code": "226",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 69,
+    "model": "geo.country",
+    "fields": {
+      "name": "Eritrea",
+      "alpha2_code": "ER",
+      "alpha3_code": "ERI",
+      "numeric_code": "232",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 71,
+    "model": "geo.country",
+    "fields": {
+      "name": "Ethiopia",
+      "alpha2_code": "ET",
+      "alpha3_code": "ETH",
+      "numeric_code": "231",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 70,
+    "model": "geo.country",
+    "fields": {
+      "name": "Estonia",
+      "alpha2_code": "EE",
+      "alpha3_code": "EST",
+      "numeric_code": "233",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 74,
+    "model": "geo.country",
+    "fields": {
+      "name": "Fiji",
+      "alpha2_code": "FJ",
+      "alpha3_code": "FJI",
+      "numeric_code": "242",
+      "subregion": 19,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 72,
+    "model": "geo.country",
+    "fields": {
+      "name": "Faeroe Islands",
+      "alpha2_code": "FO",
+      "alpha3_code": "FRO",
+      "numeric_code": "234",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 79,
+    "model": "geo.country",
+    "fields": {
+      "name": "Gabon",
+      "alpha2_code": "GA",
+      "alpha3_code": "GAB",
+      "numeric_code": "266",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 75,
+    "model": "geo.country",
+    "fields": {
+      "name": "Finland",
+      "alpha2_code": "FI",
+      "alpha3_code": "FIN",
+      "numeric_code": "246",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 76,
+    "model": "geo.country",
+    "fields": {
+      "name": "France",
+      "alpha2_code": "FR",
+      "alpha3_code": "FRA",
+      "numeric_code": "250",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 77,
+    "model": "geo.country",
+    "fields": {
+      "name": "French Guiana",
+      "alpha2_code": "GF",
+      "alpha3_code": "GUF",
+      "numeric_code": "254",
+      "subregion": 8,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 78,
+    "model": "geo.country",
+    "fields": {
+      "name": "French Polynesia",
+      "alpha2_code": "PF",
+      "alpha3_code": "PYF",
+      "numeric_code": "258",
+      "subregion": 21,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 80,
+    "model": "geo.country",
+    "fields": {
+      "name": "Gambia",
+      "alpha2_code": "GM",
+      "alpha3_code": "GMB",
+      "numeric_code": "270",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 81,
+    "model": "geo.country",
+    "fields": {
+      "name": "Georgia",
+      "alpha2_code": "GE",
+      "alpha3_code": "GEO",
+      "numeric_code": "268",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 83,
+    "model": "geo.country",
+    "fields": {
+      "name": "Ghana",
+      "alpha2_code": "GH",
+      "alpha3_code": "GHA",
+      "numeric_code": "288",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 87,
+    "model": "geo.country",
+    "fields": {
+      "name": "Grenada",
+      "alpha2_code": "GD",
+      "alpha3_code": "GRD",
+      "numeric_code": "308",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 84,
+    "model": "geo.country",
+    "fields": {
+      "name": "Gibraltar",
+      "alpha2_code": "GI",
+      "alpha3_code": "GIB",
+      "numeric_code": "292",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 85,
+    "model": "geo.country",
+    "fields": {
+      "name": "Greece",
+      "alpha2_code": "GR",
+      "alpha3_code": "GRC",
+      "numeric_code": "300",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 86,
+    "model": "geo.country",
+    "fields": {
+      "name": "Greenland",
+      "alpha2_code": "GL",
+      "alpha3_code": "GRL",
+      "numeric_code": "304",
+      "subregion": 9,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 90,
+    "model": "geo.country",
+    "fields": {
+      "name": "Guatemala",
+      "alpha2_code": "GT",
+      "alpha3_code": "GTM",
+      "numeric_code": "320",
+      "subregion": 7,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 88,
+    "model": "geo.country",
+    "fields": {
+      "name": "Guadeloupe",
+      "alpha2_code": "GP",
+      "alpha3_code": "GLP",
+      "numeric_code": "312",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 89,
+    "model": "geo.country",
+    "fields": {
+      "name": "Guam",
+      "alpha2_code": "GU",
+      "alpha3_code": "GUM",
+      "numeric_code": "316",
+      "subregion": 20,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 92,
+    "model": "geo.country",
+    "fields": {
+      "name": "Guinea",
+      "alpha2_code": "GN",
+      "alpha3_code": "GIN",
+      "numeric_code": "324",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 91,
+    "model": "geo.country",
+    "fields": {
+      "name": "Guernsey",
+      "alpha2_code": "GG",
+      "alpha3_code": "GGY",
+      "numeric_code": "831",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 93,
+    "model": "geo.country",
+    "fields": {
+      "name": "Guinea-Bissau",
+      "alpha2_code": "GW",
+      "alpha3_code": "GNB",
+      "numeric_code": "624",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 94,
+    "model": "geo.country",
+    "fields": {
+      "name": "Guyana",
+      "alpha2_code": "GY",
+      "alpha3_code": "GUY",
+      "numeric_code": "328",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 95,
+    "model": "geo.country",
+    "fields": {
+      "name": "Haiti",
+      "alpha2_code": "HT",
+      "alpha3_code": "HTI",
+      "numeric_code": "332",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 97,
+    "model": "geo.country",
+    "fields": {
+      "name": "Honduras",
+      "alpha2_code": "HN",
+      "alpha3_code": "HND",
+      "numeric_code": "340",
+      "subregion": 7,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 96,
+    "model": "geo.country",
+    "fields": {
+      "name": "Holy See",
+      "alpha2_code": "VA",
+      "alpha3_code": "VAT",
+      "numeric_code": "336",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 100,
+    "model": "geo.country",
+    "fields": {
+      "name": "India",
+      "alpha2_code": "IN",
+      "alpha3_code": "IND",
+      "numeric_code": "356",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 46,
+    "model": "geo.country",
+    "fields": {
+      "name": "Hong Kong",
+      "alpha2_code": "HK",
+      "alpha3_code": "HKG",
+      "numeric_code": "344",
+      "subregion": 22,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 98,
+    "model": "geo.country",
+    "fields": {
+      "name": "Hungary",
+      "alpha2_code": "HU",
+      "alpha3_code": "HUN",
+      "numeric_code": "348",
+      "subregion": 14,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 99,
+    "model": "geo.country",
+    "fields": {
+      "name": "Iceland",
+      "alpha2_code": "IS",
+      "alpha3_code": "ISL",
+      "numeric_code": "352",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 101,
+    "model": "geo.country",
+    "fields": {
+      "name": "Indonesia",
+      "alpha2_code": "ID",
+      "alpha3_code": "IDN",
+      "numeric_code": "360",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 102,
+    "model": "geo.country",
+    "fields": {
+      "name": "Iran",
+      "alpha2_code": "IR",
+      "alpha3_code": "IRN",
+      "numeric_code": "364",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 103,
+    "model": "geo.country",
+    "fields": {
+      "name": "Iraq",
+      "alpha2_code": "IQ",
+      "alpha3_code": "IRQ",
+      "numeric_code": "368",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 108,
+    "model": "geo.country",
+    "fields": {
+      "name": "Jamaica",
+      "alpha2_code": "JM",
+      "alpha3_code": "JAM",
+      "numeric_code": "388",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 105,
+    "model": "geo.country",
+    "fields": {
+      "name": "Isle of Man",
+      "alpha2_code": "IM",
+      "alpha3_code": "IMN",
+      "numeric_code": "833",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 106,
+    "model": "geo.country",
+    "fields": {
+      "name": "Israel",
+      "alpha2_code": "IL",
+      "alpha3_code": "ISR",
+      "numeric_code": "376",
+      "subregion": 13,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 107,
+    "model": "geo.country",
+    "fields": {
+      "name": "Italy",
+      "alpha2_code": "IT",
+      "alpha3_code": "ITA",
+      "numeric_code": "380",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 111,
+    "model": "geo.country",
+    "fields": {
+      "name": "Jordan",
+      "alpha2_code": "JO",
+      "alpha3_code": "JOR",
+      "numeric_code": "400",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 109,
+    "model": "geo.country",
+    "fields": {
+      "name": "Japan",
+      "alpha2_code": "JP",
+      "alpha3_code": "JPN",
+      "numeric_code": "392",
+      "subregion": 22,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 110,
+    "model": "geo.country",
+    "fields": {
+      "name": "Jersey",
+      "alpha2_code": "JE",
+      "alpha3_code": "JEY",
+      "numeric_code": "832",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 112,
+    "model": "geo.country",
+    "fields": {
+      "name": "Kazakhstan",
+      "alpha2_code": "KZ",
+      "alpha3_code": "KAZ",
+      "numeric_code": "398",
+      "subregion": 10,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 113,
+    "model": "geo.country",
+    "fields": {
+      "name": "Kenya",
+      "alpha2_code": "KE",
+      "alpha3_code": "KEN",
+      "numeric_code": "404",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 114,
+    "model": "geo.country",
+    "fields": {
+      "name": "Kiribati",
+      "alpha2_code": "KI",
+      "alpha3_code": "KIR",
+      "numeric_code": "296",
+      "subregion": 20,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 119,
+    "model": "geo.country",
+    "fields": {
+      "name": "Lebanon",
+      "alpha2_code": "LB",
+      "alpha3_code": "LBN",
+      "numeric_code": "422",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 116,
+    "model": "geo.country",
+    "fields": {
+      "name": "Kyrgyzstan",
+      "alpha2_code": "KG",
+      "alpha3_code": "KGZ",
+      "numeric_code": "417",
+      "subregion": 10,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 115,
+    "model": "geo.country",
+    "fields": {
+      "name": "Kuwait",
+      "alpha2_code": "KW",
+      "alpha3_code": "KWT",
+      "numeric_code": "414",
+      "subregion": 13,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 242,
+    "model": "geo.country",
+    "fields": {
+      "name": "Kosovo",
+      "alpha2_code": "XK",
+      "alpha3_code": "",
+      "numeric_code": "900",
+      "subregion": 16,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 118,
+    "model": "geo.country",
+    "fields": {
+      "name": "Latvia",
+      "alpha2_code": "LV",
+      "alpha3_code": "LVA",
+      "numeric_code": "428",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 120,
+    "model": "geo.country",
+    "fields": {
+      "name": "Lesotho",
+      "alpha2_code": "LS",
+      "alpha3_code": "LSO",
+      "numeric_code": "426",
+      "subregion": 4,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 121,
+    "model": "geo.country",
+    "fields": {
+      "name": "Liberia",
+      "alpha2_code": "LR",
+      "alpha3_code": "LBR",
+      "numeric_code": "430",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 122,
+    "model": "geo.country",
+    "fields": {
+      "name": "Libya",
+      "alpha2_code": "LY",
+      "alpha3_code": "LBY",
+      "numeric_code": "434",
+      "subregion": 3,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 126,
+    "model": "geo.country",
+    "fields": {
+      "name": "Madagascar",
+      "alpha2_code": "MG",
+      "alpha3_code": "MDG",
+      "numeric_code": "450",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 123,
+    "model": "geo.country",
+    "fields": {
+      "name": "Liechtenstein",
+      "alpha2_code": "LI",
+      "alpha3_code": "LIE",
+      "numeric_code": "438",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 124,
+    "model": "geo.country",
+    "fields": {
+      "name": "Lithuania",
+      "alpha2_code": "LT",
+      "alpha3_code": "LTU",
+      "numeric_code": "440",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 125,
+    "model": "geo.country",
+    "fields": {
+      "name": "Luxembourg",
+      "alpha2_code": "LU",
+      "alpha3_code": "LUX",
+      "numeric_code": "442",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 1,
+    "model": "geo.country",
+    "fields": {
+      "name": "Afghanistan",
+      "alpha2_code": "AF",
+      "alpha3_code": "AFG",
+      "numeric_code": "004",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 127,
+    "model": "geo.country",
+    "fields": {
+      "name": "Malawi",
+      "alpha2_code": "MW",
+      "alpha3_code": "MWI",
+      "numeric_code": "454",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 128,
+    "model": "geo.country",
+    "fields": {
+      "name": "Malaysia",
+      "alpha2_code": "MY",
+      "alpha3_code": "MYS",
+      "numeric_code": "458",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 129,
+    "model": "geo.country",
+    "fields": {
+      "name": "Maldives",
+      "alpha2_code": "MV",
+      "alpha3_code": "MDV",
+      "numeric_code": "462",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 41,
+    "model": "geo.country",
+    "fields": {
+      "name": "Central African Republic",
+      "alpha2_code": "CF",
+      "alpha3_code": "CAF",
+      "numeric_code": "140",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 47,
+    "model": "geo.country",
+    "fields": {
+      "name": "Macao",
+      "alpha2_code": "MO",
+      "alpha3_code": "MAC",
+      "numeric_code": "446",
+      "subregion": 22,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 31,
+    "model": "geo.country",
+    "fields": {
+      "name": "Virgin Islands, British",
+      "alpha2_code": "VG",
+      "alpha3_code": "VGB",
+      "numeric_code": "092",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 43,
+    "model": "geo.country",
+    "fields": {
+      "name": "Channel Islands",
+      "alpha2_code": "",
+      "alpha3_code": "",
+      "numeric_code": "830",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 62,
+    "model": "geo.country",
+    "fields": {
+      "name": "Djibouti",
+      "alpha2_code": "DJ",
+      "alpha3_code": "DJI",
+      "numeric_code": "262",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 27,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bonaire, Saint Eustatius and Saba",
+      "alpha2_code": "BQ",
+      "alpha3_code": "BES",
+      "numeric_code": "535",
+      "subregion": 1,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 64,
+    "model": "geo.country",
+    "fields": {
+      "name": "Dominican Republic",
+      "alpha2_code": "DO",
+      "alpha3_code": "DOM",
+      "numeric_code": "214",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 130,
+    "model": "geo.country",
+    "fields": {
+      "name": "Mali",
+      "alpha2_code": "ML",
+      "alpha3_code": "MLI",
+      "numeric_code": "466",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 73,
+    "model": "geo.country",
+    "fields": {
+      "name": "Falkland Islands (Malvinas)",
+      "alpha2_code": "FK",
+      "alpha3_code": "FLK",
+      "numeric_code": "238",
+      "subregion": 8,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 82,
+    "model": "geo.country",
+    "fields": {
+      "name": "Germany",
+      "alpha2_code": "DE",
+      "alpha3_code": "DEU",
+      "numeric_code": "276",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 104,
+    "model": "geo.country",
+    "fields": {
+      "name": "Ireland",
+      "alpha2_code": "IE",
+      "alpha3_code": "IRL",
+      "numeric_code": "372",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 173,
+    "model": "geo.country",
+    "fields": {
+      "name": "Republic of Korea",
+      "alpha2_code": "KR",
+      "alpha3_code": "KOR",
+      "numeric_code": "410",
+      "subregion": 22,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 138,
+    "model": "geo.country",
+    "fields": {
+      "name": "Micronesia (Federated States of)",
+      "alpha2_code": "FM",
+      "alpha3_code": "FSM",
+      "numeric_code": "583",
+      "subregion": 20,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 132,
+    "model": "geo.country",
+    "fields": {
+      "name": "Marshall Islands",
+      "alpha2_code": "MH",
+      "alpha3_code": "MHL",
+      "numeric_code": "584",
+      "subregion": 20,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 131,
+    "model": "geo.country",
+    "fields": {
+      "name": "Malta",
+      "alpha2_code": "MT",
+      "alpha3_code": "MLT",
+      "numeric_code": "470",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 134,
+    "model": "geo.country",
+    "fields": {
+      "name": "Mauritania",
+      "alpha2_code": "MR",
+      "alpha3_code": "MRT",
+      "numeric_code": "478",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 133,
+    "model": "geo.country",
+    "fields": {
+      "name": "Martinique",
+      "alpha2_code": "MQ",
+      "alpha3_code": "MTQ",
+      "numeric_code": "474",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 135,
+    "model": "geo.country",
+    "fields": {
+      "name": "Mauritius",
+      "alpha2_code": "MU",
+      "alpha3_code": "MUS",
+      "numeric_code": "480",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 137,
+    "model": "geo.country",
+    "fields": {
+      "name": "Mexico",
+      "alpha2_code": "MX",
+      "alpha3_code": "MEX",
+      "numeric_code": "484",
+      "subregion": 7,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 136,
+    "model": "geo.country",
+    "fields": {
+      "name": "Mayotte",
+      "alpha2_code": "YT",
+      "alpha3_code": "MYT",
+      "numeric_code": "175",
+      "subregion": 1,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 140,
+    "model": "geo.country",
+    "fields": {
+      "name": "Mongolia",
+      "alpha2_code": "MN",
+      "alpha3_code": "MNG",
+      "numeric_code": "496",
+      "subregion": 22,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 174,
+    "model": "geo.country",
+    "fields": {
+      "name": "Republic of Moldova",
+      "alpha2_code": "MD",
+      "alpha3_code": "MDA",
+      "numeric_code": "498",
+      "subregion": 14,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 180,
+    "model": "geo.country",
+    "fields": {
+      "name": "Saint Helena",
+      "alpha2_code": "SH",
+      "alpha3_code": "SHN",
+      "numeric_code": "654",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 139,
+    "model": "geo.country",
+    "fields": {
+      "name": "Monaco",
+      "alpha2_code": "MC",
+      "alpha3_code": "MCO",
+      "numeric_code": "492",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 141,
+    "model": "geo.country",
+    "fields": {
+      "name": "Montenegro",
+      "alpha2_code": "ME",
+      "alpha3_code": "MNE",
+      "numeric_code": "499",
+      "subregion": 16,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 142,
+    "model": "geo.country",
+    "fields": {
+      "name": "Montserrat",
+      "alpha2_code": "MS",
+      "alpha3_code": "MSR",
+      "numeric_code": "500",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 143,
+    "model": "geo.country",
+    "fields": {
+      "name": "Morocco",
+      "alpha2_code": "MA",
+      "alpha3_code": "MAR",
+      "numeric_code": "504",
+      "subregion": 3,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 144,
+    "model": "geo.country",
+    "fields": {
+      "name": "Mozambique",
+      "alpha2_code": "MZ",
+      "alpha3_code": "MOZ",
+      "numeric_code": "508",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 145,
+    "model": "geo.country",
+    "fields": {
+      "name": "Myanmar",
+      "alpha2_code": "MM",
+      "alpha3_code": "MMR",
+      "numeric_code": "104",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 146,
+    "model": "geo.country",
+    "fields": {
+      "name": "Namibia",
+      "alpha2_code": "NA",
+      "alpha3_code": "NAM",
+      "numeric_code": "516",
+      "subregion": 4,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 147,
+    "model": "geo.country",
+    "fields": {
+      "name": "Nauru",
+      "alpha2_code": "NR",
+      "alpha3_code": "NRU",
+      "numeric_code": "520",
+      "subregion": 20,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 148,
+    "model": "geo.country",
+    "fields": {
+      "name": "Nepal",
+      "alpha2_code": "NP",
+      "alpha3_code": "NPL",
+      "numeric_code": "524",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 152,
+    "model": "geo.country",
+    "fields": {
+      "name": "Nicaragua",
+      "alpha2_code": "NI",
+      "alpha3_code": "NIC",
+      "numeric_code": "558",
+      "subregion": 7,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 149,
+    "model": "geo.country",
+    "fields": {
+      "name": "Netherlands",
+      "alpha2_code": "NL",
+      "alpha3_code": "NLD",
+      "numeric_code": "528",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 150,
+    "model": "geo.country",
+    "fields": {
+      "name": "New Caledonia",
+      "alpha2_code": "NC",
+      "alpha3_code": "NCL",
+      "numeric_code": "540",
+      "subregion": 19,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 151,
+    "model": "geo.country",
+    "fields": {
+      "name": "New Zealand",
+      "alpha2_code": "NZ",
+      "alpha3_code": "NZL",
+      "numeric_code": "554",
+      "subregion": 18,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 153,
+    "model": "geo.country",
+    "fields": {
+      "name": "Niger",
+      "alpha2_code": "NE",
+      "alpha3_code": "NER",
+      "numeric_code": "562",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 154,
+    "model": "geo.country",
+    "fields": {
+      "name": "Nigeria",
+      "alpha2_code": "NG",
+      "alpha3_code": "NGA",
+      "numeric_code": "566",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 155,
+    "model": "geo.country",
+    "fields": {
+      "name": "Niue",
+      "alpha2_code": "NU",
+      "alpha3_code": "NIU",
+      "numeric_code": "570",
+      "subregion": 21,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 161,
+    "model": "geo.country",
+    "fields": {
+      "name": "Pakistan",
+      "alpha2_code": "PK",
+      "alpha3_code": "PAK",
+      "numeric_code": "586",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 157,
+    "model": "geo.country",
+    "fields": {
+      "name": "Northern Mariana Islands",
+      "alpha2_code": "MP",
+      "alpha3_code": "MNP",
+      "numeric_code": "580",
+      "subregion": 20,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 158,
+    "model": "geo.country",
+    "fields": {
+      "name": "Norway",
+      "alpha2_code": "NO",
+      "alpha3_code": "NOR",
+      "numeric_code": "578",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 160,
+    "model": "geo.country",
+    "fields": {
+      "name": "Oman",
+      "alpha2_code": "OM",
+      "alpha3_code": "OMN",
+      "numeric_code": "512",
+      "subregion": 13,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 162,
+    "model": "geo.country",
+    "fields": {
+      "name": "Palau",
+      "alpha2_code": "PW",
+      "alpha3_code": "PLW",
+      "numeric_code": "585",
+      "subregion": 20,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 163,
+    "model": "geo.country",
+    "fields": {
+      "name": "Panama",
+      "alpha2_code": "PA",
+      "alpha3_code": "PAN",
+      "numeric_code": "591",
+      "subregion": 7,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 117,
+    "model": "geo.country",
+    "fields": {
+      "name": "Lao People's Democratic Republic",
+      "alpha2_code": "LA",
+      "alpha3_code": "LAO",
+      "numeric_code": "418",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 164,
+    "model": "geo.country",
+    "fields": {
+      "name": "Papua New Guinea",
+      "alpha2_code": "PG",
+      "alpha3_code": "PNG",
+      "numeric_code": "598",
+      "subregion": 19,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 165,
+    "model": "geo.country",
+    "fields": {
+      "name": "Paraguay",
+      "alpha2_code": "PY",
+      "alpha3_code": "PRY",
+      "numeric_code": "600",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 166,
+    "model": "geo.country",
+    "fields": {
+      "name": "Peru",
+      "alpha2_code": "PE",
+      "alpha3_code": "PER",
+      "numeric_code": "604",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 167,
+    "model": "geo.country",
+    "fields": {
+      "name": "Philippines",
+      "alpha2_code": "PH",
+      "alpha3_code": "PHL",
+      "numeric_code": "608",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 178,
+    "model": "geo.country",
+    "fields": {
+      "name": "Rwanda",
+      "alpha2_code": "RW",
+      "alpha3_code": "RWA",
+      "numeric_code": "646",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 168,
+    "model": "geo.country",
+    "fields": {
+      "name": "Pitcairn",
+      "alpha2_code": "PN",
+      "alpha3_code": "PCN",
+      "numeric_code": "612",
+      "subregion": 21,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 169,
+    "model": "geo.country",
+    "fields": {
+      "name": "Poland",
+      "alpha2_code": "PL",
+      "alpha3_code": "POL",
+      "numeric_code": "616",
+      "subregion": 14,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 170,
+    "model": "geo.country",
+    "fields": {
+      "name": "Portugal",
+      "alpha2_code": "PT",
+      "alpha3_code": "PRT",
+      "numeric_code": "620",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 171,
+    "model": "geo.country",
+    "fields": {
+      "name": "Puerto Rico",
+      "alpha2_code": "PR",
+      "alpha3_code": "PRI",
+      "numeric_code": "630",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 172,
+    "model": "geo.country",
+    "fields": {
+      "name": "Qatar",
+      "alpha2_code": "QA",
+      "alpha3_code": "QAT",
+      "numeric_code": "634",
+      "subregion": 13,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 175,
+    "model": "geo.country",
+    "fields": {
+      "name": "R\u00e9union",
+      "alpha2_code": "RE",
+      "alpha3_code": "REU",
+      "numeric_code": "638",
+      "subregion": 1,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 176,
+    "model": "geo.country",
+    "fields": {
+      "name": "Romania",
+      "alpha2_code": "RO",
+      "alpha3_code": "ROU",
+      "numeric_code": "642",
+      "subregion": 14,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 177,
+    "model": "geo.country",
+    "fields": {
+      "name": "Russian Federation",
+      "alpha2_code": "RU",
+      "alpha3_code": "RUS",
+      "numeric_code": "643",
+      "subregion": 14,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 186,
+    "model": "geo.country",
+    "fields": {
+      "name": "Samoa",
+      "alpha2_code": "WS",
+      "alpha3_code": "WSM",
+      "numeric_code": "882",
+      "subregion": 21,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 179,
+    "model": "geo.country",
+    "fields": {
+      "name": "Saint-Barth\u00e9lemy",
+      "alpha2_code": "BL",
+      "alpha3_code": "BLM",
+      "numeric_code": "652",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 181,
+    "model": "geo.country",
+    "fields": {
+      "name": "Saint Kitts and Nevis",
+      "alpha2_code": "KN",
+      "alpha3_code": "KNA",
+      "numeric_code": "659",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 182,
+    "model": "geo.country",
+    "fields": {
+      "name": "Saint Lucia",
+      "alpha2_code": "LC",
+      "alpha3_code": "LCA",
+      "numeric_code": "662",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 185,
+    "model": "geo.country",
+    "fields": {
+      "name": "Saint Vincent and the Grenadines",
+      "alpha2_code": "VC",
+      "alpha3_code": "VCT",
+      "numeric_code": "670",
+      "subregion": 6,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 183,
+    "model": "geo.country",
+    "fields": {
+      "name": "Saint-Martin (French part)",
+      "alpha2_code": "MF",
+      "alpha3_code": "MAF",
+      "numeric_code": "663",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 184,
+    "model": "geo.country",
+    "fields": {
+      "name": "Saint Pierre and Miquelon",
+      "alpha2_code": "PM",
+      "alpha3_code": "SPM",
+      "numeric_code": "666",
+      "subregion": 9,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 211,
+    "model": "geo.country",
+    "fields": {
+      "name": "Syrian Arab Republic",
+      "alpha2_code": "SY",
+      "alpha3_code": "SYR",
+      "numeric_code": "760",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 191,
+    "model": "geo.country",
+    "fields": {
+      "name": "Senegal",
+      "alpha2_code": "SN",
+      "alpha3_code": "SEN",
+      "numeric_code": "686",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 187,
+    "model": "geo.country",
+    "fields": {
+      "name": "San Marino",
+      "alpha2_code": "SM",
+      "alpha3_code": "SMR",
+      "numeric_code": "674",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 188,
+    "model": "geo.country",
+    "fields": {
+      "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+      "alpha2_code": "ST",
+      "alpha3_code": "STP",
+      "numeric_code": "678",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 190,
+    "model": "geo.country",
+    "fields": {
+      "name": "Saudi Arabia",
+      "alpha2_code": "SA",
+      "alpha3_code": "SAU",
+      "numeric_code": "682",
+      "subregion": 13,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 192,
+    "model": "geo.country",
+    "fields": {
+      "name": "Serbia",
+      "alpha2_code": "RS",
+      "alpha3_code": "SRB",
+      "numeric_code": "688",
+      "subregion": 16,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 193,
+    "model": "geo.country",
+    "fields": {
+      "name": "Seychelles",
+      "alpha2_code": "SC",
+      "alpha3_code": "SYC",
+      "numeric_code": "690",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 194,
+    "model": "geo.country",
+    "fields": {
+      "name": "Sierra Leone",
+      "alpha2_code": "SL",
+      "alpha3_code": "SLE",
+      "numeric_code": "694",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 199,
+    "model": "geo.country",
+    "fields": {
+      "name": "Solomon Islands",
+      "alpha2_code": "SB",
+      "alpha3_code": "SLB",
+      "numeric_code": "090",
+      "subregion": 19,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 195,
+    "model": "geo.country",
+    "fields": {
+      "name": "Singapore",
+      "alpha2_code": "SG",
+      "alpha3_code": "SGP",
+      "numeric_code": "702",
+      "subregion": 12,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 196,
+    "model": "geo.country",
+    "fields": {
+      "name": "Sint Maarten (Dutch part)",
+      "alpha2_code": "SX",
+      "alpha3_code": "SXM",
+      "numeric_code": "534",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 197,
+    "model": "geo.country",
+    "fields": {
+      "name": "Slovakia",
+      "alpha2_code": "SK",
+      "alpha3_code": "SVK",
+      "numeric_code": "703",
+      "subregion": 14,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 198,
+    "model": "geo.country",
+    "fields": {
+      "name": "Slovenia",
+      "alpha2_code": "SI",
+      "alpha3_code": "SVN",
+      "numeric_code": "705",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 200,
+    "model": "geo.country",
+    "fields": {
+      "name": "Somalia",
+      "alpha2_code": "SO",
+      "alpha3_code": "SOM",
+      "numeric_code": "706",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 201,
+    "model": "geo.country",
+    "fields": {
+      "name": "South Africa",
+      "alpha2_code": "ZA",
+      "alpha3_code": "ZAF",
+      "numeric_code": "710",
+      "subregion": 4,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 202,
+    "model": "geo.country",
+    "fields": {
+      "name": "South Sudan",
+      "alpha2_code": "SS",
+      "alpha3_code": "SSD",
+      "numeric_code": "728",
+      "subregion": 3,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 204,
+    "model": "geo.country",
+    "fields": {
+      "name": "Sri Lanka",
+      "alpha2_code": "LK",
+      "alpha3_code": "LKA",
+      "numeric_code": "144",
+      "subregion": 11,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 203,
+    "model": "geo.country",
+    "fields": {
+      "name": "Spain",
+      "alpha2_code": "ES",
+      "alpha3_code": "ESP",
+      "numeric_code": "724",
+      "subregion": 16,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 205,
+    "model": "geo.country",
+    "fields": {
+      "name": "Sudan",
+      "alpha2_code": "SD",
+      "alpha3_code": "SDN",
+      "numeric_code": "729",
+      "subregion": 3,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 206,
+    "model": "geo.country",
+    "fields": {
+      "name": "Suriname",
+      "alpha2_code": "SR",
+      "alpha3_code": "SUR",
+      "numeric_code": "740",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 208,
+    "model": "geo.country",
+    "fields": {
+      "name": "Swaziland",
+      "alpha2_code": "SZ",
+      "alpha3_code": "SWZ",
+      "numeric_code": "748",
+      "subregion": 4,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 207,
+    "model": "geo.country",
+    "fields": {
+      "name": "Svalbard and Jan Mayen Islands",
+      "alpha2_code": "SJ",
+      "alpha3_code": "SJM",
+      "numeric_code": "744",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 212,
+    "model": "geo.country",
+    "fields": {
+      "name": "Tajikistan",
+      "alpha2_code": "TJ",
+      "alpha3_code": "TJK",
+      "numeric_code": "762",
+      "subregion": 10,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 209,
+    "model": "geo.country",
+    "fields": {
+      "name": "Sweden",
+      "alpha2_code": "SE",
+      "alpha3_code": "SWE",
+      "numeric_code": "752",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 210,
+    "model": "geo.country",
+    "fields": {
+      "name": "Switzerland",
+      "alpha2_code": "CH",
+      "alpha3_code": "CHE",
+      "numeric_code": "756",
+      "subregion": 17,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 236,
+    "model": "geo.country",
+    "fields": {
+      "name": "Viet Nam",
+      "alpha2_code": "VN",
+      "alpha3_code": "VNM",
+      "numeric_code": "704",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 229,
+    "model": "geo.country",
+    "fields": {
+      "name": "Tanzania",
+      "alpha2_code": "TZ",
+      "alpha3_code": "TZA",
+      "numeric_code": "834",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 213,
+    "model": "geo.country",
+    "fields": {
+      "name": "Thailand",
+      "alpha2_code": "TH",
+      "alpha3_code": "THA",
+      "numeric_code": "764",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 215,
+    "model": "geo.country",
+    "fields": {
+      "name": "Timor-Leste",
+      "alpha2_code": "TL",
+      "alpha3_code": "TLS",
+      "numeric_code": "626",
+      "subregion": 12,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 216,
+    "model": "geo.country",
+    "fields": {
+      "name": "Togo",
+      "alpha2_code": "TG",
+      "alpha3_code": "TGO",
+      "numeric_code": "768",
+      "subregion": 5,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 217,
+    "model": "geo.country",
+    "fields": {
+      "name": "Tokelau",
+      "alpha2_code": "TK",
+      "alpha3_code": "TKL",
+      "numeric_code": "772",
+      "subregion": 21,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 218,
+    "model": "geo.country",
+    "fields": {
+      "name": "Tonga",
+      "alpha2_code": "TO",
+      "alpha3_code": "TON",
+      "numeric_code": "776",
+      "subregion": 21,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 220,
+    "model": "geo.country",
+    "fields": {
+      "name": "Tunisia",
+      "alpha2_code": "TN",
+      "alpha3_code": "TUN",
+      "numeric_code": "788",
+      "subregion": 3,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 219,
+    "model": "geo.country",
+    "fields": {
+      "name": "Trinidad and Tobago",
+      "alpha2_code": "TT",
+      "alpha3_code": "TTO",
+      "numeric_code": "780",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 221,
+    "model": "geo.country",
+    "fields": {
+      "name": "Turkey",
+      "alpha2_code": "TR",
+      "alpha3_code": "TUR",
+      "numeric_code": "792",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 222,
+    "model": "geo.country",
+    "fields": {
+      "name": "Turkmenistan",
+      "alpha2_code": "TM",
+      "alpha3_code": "TKM",
+      "numeric_code": "795",
+      "subregion": 10,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 224,
+    "model": "geo.country",
+    "fields": {
+      "name": "Tuvalu",
+      "alpha2_code": "TV",
+      "alpha3_code": "TUV",
+      "numeric_code": "798",
+      "subregion": 21,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 223,
+    "model": "geo.country",
+    "fields": {
+      "name": "Turks and Caicos Islands",
+      "alpha2_code": "TC",
+      "alpha3_code": "TCA",
+      "numeric_code": "796",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 225,
+    "model": "geo.country",
+    "fields": {
+      "name": "Uganda",
+      "alpha2_code": "UG",
+      "alpha3_code": "UGA",
+      "numeric_code": "800",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 214,
+    "model": "geo.country",
+    "fields": {
+      "name": "The former Yugoslav Republic of Macedonia",
+      "alpha2_code": "MK",
+      "alpha3_code": "MKD",
+      "numeric_code": "807",
+      "subregion": 16,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 226,
+    "model": "geo.country",
+    "fields": {
+      "name": "Ukraine",
+      "alpha2_code": "UA",
+      "alpha3_code": "UKR",
+      "numeric_code": "804",
+      "subregion": 14,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 232,
+    "model": "geo.country",
+    "fields": {
+      "name": "Uruguay",
+      "alpha2_code": "UY",
+      "alpha3_code": "URY",
+      "numeric_code": "858",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 227,
+    "model": "geo.country",
+    "fields": {
+      "name": "United Arab Emirates",
+      "alpha2_code": "AE",
+      "alpha3_code": "ARE",
+      "numeric_code": "784",
+      "subregion": 13,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 228,
+    "model": "geo.country",
+    "fields": {
+      "name": "United Kingdom",
+      "alpha2_code": "GB",
+      "alpha3_code": "GBR",
+      "numeric_code": "826",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 230,
+    "model": "geo.country",
+    "fields": {
+      "name": "United States of America",
+      "alpha2_code": "US",
+      "alpha3_code": "USA",
+      "numeric_code": "840",
+      "subregion": 9,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 233,
+    "model": "geo.country",
+    "fields": {
+      "name": "Uzbekistan",
+      "alpha2_code": "UZ",
+      "alpha3_code": "UZB",
+      "numeric_code": "860",
+      "subregion": 10,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 234,
+    "model": "geo.country",
+    "fields": {
+      "name": "Vanuatu",
+      "alpha2_code": "VU",
+      "alpha3_code": "VUT",
+      "numeric_code": "548",
+      "subregion": 19,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 235,
+    "model": "geo.country",
+    "fields": {
+      "name": "Venezuela",
+      "alpha2_code": "VE",
+      "alpha3_code": "VEN",
+      "numeric_code": "862",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 239,
+    "model": "geo.country",
+    "fields": {
+      "name": "Yemen",
+      "alpha2_code": "YE",
+      "alpha3_code": "YEM",
+      "numeric_code": "887",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 231,
+    "model": "geo.country",
+    "fields": {
+      "name": "Virgin Islands, U.S.",
+      "alpha2_code": "VI",
+      "alpha3_code": "VIR",
+      "numeric_code": "850",
+      "subregion": 6,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 189,
+    "model": "geo.country",
+    "fields": {
+      "name": "Sark",
+      "alpha2_code": "",
+      "alpha3_code": "",
+      "numeric_code": "680",
+      "subregion": 15,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 159,
+    "model": "geo.country",
+    "fields": {
+      "name": "Occupied Palestinian Territory",
+      "alpha2_code": "PS",
+      "alpha3_code": "PSE",
+      "numeric_code": "275",
+      "subregion": 13,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 26,
+    "model": "geo.country",
+    "fields": {
+      "name": "Bolivia",
+      "alpha2_code": "BO",
+      "alpha3_code": "BOL",
+      "numeric_code": "068",
+      "subregion": 8,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 238,
+    "model": "geo.country",
+    "fields": {
+      "name": "Western Sahara",
+      "alpha2_code": "EH",
+      "alpha3_code": "ESH",
+      "numeric_code": "732",
+      "subregion": 3,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 240,
+    "model": "geo.country",
+    "fields": {
+      "name": "Zambia",
+      "alpha2_code": "ZM",
+      "alpha3_code": "ZMB",
+      "numeric_code": "894",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 241,
+    "model": "geo.country",
+    "fields": {
+      "name": "Zimbabwe",
+      "alpha2_code": "ZW",
+      "alpha3_code": "ZWE",
+      "numeric_code": "716",
+      "subregion": 1,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 156,
+    "model": "geo.country",
+    "fields": {
+      "name": "Norfolk Island",
+      "alpha2_code": "NF",
+      "alpha3_code": "NFK",
+      "numeric_code": "574",
+      "subregion": 18,
+      "oda_recipient": false
+    }
+  },
+  {
+    "pk": 237,
+    "model": "geo.country",
+    "fields": {
+      "name": "Wallis and Futuna",
+      "alpha2_code": "WF",
+      "alpha3_code": "WLF",
+      "numeric_code": "876",
+      "subregion": 21,
+      "oda_recipient": true
+    }
+  },
+  {
+    "pk": 60,
+    "model": "geo.country",
+    "fields": {
+      "name": "Democratic Republic of the Congo",
+      "alpha2_code": "CD",
+      "alpha3_code": "COD",
+      "numeric_code": "180",
+      "subregion": 2,
+      "oda_recipient": true
+    }
+  }
+]
