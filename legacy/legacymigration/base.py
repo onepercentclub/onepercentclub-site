@@ -178,8 +178,9 @@ class MigrateModel(object):
         assert from_instance
         assert to_instance
 
-        logger.debug(u"Testing migration of '%s' to '%s'",
-            repr(from_instance), repr(to_instance))
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug(u"Testing migration of '%s' to '%s'",
+                repr(from_instance), repr(to_instance))
 
         return self.test_map_fields(from_instance, to_instance)
 
@@ -222,10 +223,11 @@ class MigrateModel(object):
 
                     check_success = False
 
-                logger.debug(
-                    u"Correspondence found from '%s' to '%s'.",
-                    repr(from_instance), repr(to_instance)
-                )
+                if logger.isEnabledFor(logging.DEBUG):
+                    logger.debug(
+                        u"Correspondence found from '%s' to '%s'.",
+                        repr(from_instance), repr(to_instance)
+                    )
 
                 if from_instance in from_qs:
                     if not self.test_single(from_instance, to_instance):
@@ -295,8 +297,9 @@ class MigrateModel(object):
     def migrate_single(self, from_instance, to_instance):
         """ Migrate a single object. """
 
-        logger.debug(u"Migrating '%s' to '%s'",
-            repr(from_instance), repr(to_instance))
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug(u"Migrating '%s' to '%s'",
+                repr(from_instance), repr(to_instance))
 
         self.map_fields(from_instance, to_instance)
 
