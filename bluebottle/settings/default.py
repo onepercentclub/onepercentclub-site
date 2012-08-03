@@ -200,13 +200,15 @@ INSTALLED_APPS = [
     'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
     'taggit',
+    'micawber.contrib.mcdjango', # Embedding videos
 
     # bluebottle apps
     'apps.bluebottle_utils',
     'apps.accounts',
     'apps.organizations',
     'apps.projects',
-    'apps.donations'
+    'apps.donations',
+    'apps.media'
 ]
 
 # A sample logging configuration. The only tangible logging
