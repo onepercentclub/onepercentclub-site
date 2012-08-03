@@ -152,9 +152,13 @@ class MigrateProfile(MigrateModel):
 class MemberMapping(Mapping):
     """ Set the target profile through the profile. """
 
+    def __init__(self, *args, **kwargs):
+        # Cache the profile migrator as to enable queryset generation caching
+        self.profile_mapper = MigrateProfile()
+        super(MemberMapping, self).__init__(*args, **kwargs)
+
     def map(self, instance, from_field):
-        profile_mapper = MigrateProfile()
-        to_profile = profile_mapper.get_to(instance)
+        to_profile = self.profile_mapper.get_to(instance)
 
         return {'user_profile': to_profile}
 

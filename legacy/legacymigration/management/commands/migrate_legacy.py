@@ -28,13 +28,20 @@ class Command(BaseCommand):
         '3': logging.DEBUG
     }
 
+    def _run_migration(self, migration):
+        """ Run a single migration. """
+
+        migration_instance = get_migration(migration)
+        migration_instance.migrate_all()
+
     def _run_migrations(self, *args):
+        """ Run a series of migrations. """
+
         for migration in MIGRATIONS:
             # Execute all migrations, unless a set of migration classes
             # have been specified on the command line
             if not args or migration.rsplit('.', 1)[1] in args:
-                migration_instance = get_migration(migration)
-                migration_instance.migrate_all()
+                self._run_migration(migration)
 
     def handle(self, *args, **options):
         # Setup the log level for root logger
