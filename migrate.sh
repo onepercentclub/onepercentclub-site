@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
-# First set resource limits to 800MB max.
-ulimit -v 800000
+# First set resource limits to 1300MB max.
+ulimit -v 1300000
 
 # Drop database and remove existing files (allways succeed)
 dropdb onepercentsite || true
