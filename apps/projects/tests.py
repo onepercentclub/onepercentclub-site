@@ -57,6 +57,7 @@ class PlanPhaseTestMixin(object):
         return planphase
 
 
+
 class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
     """ Tests for projects. """
 

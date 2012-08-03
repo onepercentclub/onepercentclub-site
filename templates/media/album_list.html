@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | Albums {% endblock %}
+
+{% block htmlheader %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<ul>
+	{% for album in albums %}
+		<li><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

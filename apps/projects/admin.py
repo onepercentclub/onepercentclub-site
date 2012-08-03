@@ -47,7 +47,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
         PlanPhaseInline, ActPhaseInline, ResultsPhaseInline
     ]
 
-    filter_horizontal = ('categories',)
+    filter_horizontal = ('categories', 'albums')
 
     search_fields = (
         'title', 'organization__title',
