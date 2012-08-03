@@ -1,6 +1,6 @@
 <h2>Search Projects</h2>
 
-<form action="/project/search" class="ajax" method="get">
+<form action="/projects/search" class="ajax" method="get">
 	<input name="text" type="text" />
 	<select name="country__contains">
 		<option value="">All countries</option>

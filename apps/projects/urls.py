@@ -3,7 +3,7 @@ from django.conf.urls.defaults import patterns, url, include
 from surlex.dj import surl
 
 from .api import ProjectResource, ProjectMembersResource, IdeaPhaseResource
-from .views import ProjectListView, ProjectDetailView, ProjectMapView, ProjectPicturesView, ProjectSearchView
+from .views import ProjectListView, ProjectDetailView, ProjectMapView, ProjectSearchView
 
 project_resource = ProjectResource()
 projectmembers_resource = ProjectMembersResource()
@@ -15,7 +15,6 @@ urlpatterns = patterns('apps.projects.views',
     surl(r'^search/$', ProjectSearchView.as_view(), name='project_search'),
     surl(r'^<slug:s>/$', ProjectDetailView.as_view(), name='project_detail'),
     surl(r'^<slug:s>/map/$', ProjectMapView.as_view(), name='project_map'),
-    surl(r'^<slug:s>/pictures/$', ProjectPicturesView.as_view(), name='project_pictures'),
 )
 
 # API urls
@@ -24,4 +23,3 @@ urlpatterns += patterns('',
     url(r'^api/', include(projectmembers_resource.urls)),
     url(r'^api/', include(ideaphase_resource.urls)),
 )
-

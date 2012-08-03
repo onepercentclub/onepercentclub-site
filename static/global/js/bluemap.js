@@ -24,10 +24,10 @@ this.BlueMap = function(elementId, project){
                     google.maps.MapTypeId.TERRAIN, 
                     google.maps.MapTypeId.SATELLITE, 
                     google.maps.MapTypeId.HYBRID,
-                    this.CUSTOM_MAP_STYLE,
+                    this.CUSTOM_MAP_STYLE
                 ]
         },
-        overviewMapControl: true,
+        overviewMapControl: true
     };
     
     if (undefined != project) {
@@ -49,7 +49,7 @@ this.BlueMap = function(elementId, project){
         stylers: [
           { color: "#FFFFFF" },
           { weight: 1 },
-          { lightness: 1 },
+          { lightness: 1 }
         ]
       },{
         elementType: "labels.text.stroke",
@@ -63,7 +63,7 @@ this.BlueMap = function(elementId, project){
         stylers: [
           { color: "#000000" },
           { weight: 1 },
-          { lightness: 1 },
+          { lightness: 1 }
         ]
       },{
         featureType: "road",
@@ -88,7 +88,7 @@ this.BlueMap = function(elementId, project){
         featureType: "water",
         stylers: [
           { color: "#FEAAC7" },
-          { color: "#99EEBB" },
+          { color: "#99EEBB" }
         ]
       },{
       }
