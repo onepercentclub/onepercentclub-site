@@ -103,7 +103,6 @@ class MigrateProjectBase(MigrateModel):
         'action': None,
         'admin_comments': None,
         'sess_id': None,
-        'catalog': None,
         'closed': None,
         'deleted': None,
         'derde_helft': None,
@@ -120,6 +119,9 @@ class MigrateProjectBase(MigrateModel):
         'reported': None,
         'testimonial': None,
         'validated': None,
+
+        # Explicitly mapped by MigrateProjectAlbums
+        'catalog': None,
 
         # To be migrated later
         'link': None,
@@ -146,6 +148,8 @@ class MigrateProjectBase(MigrateModel):
 
 
 class MigrateProject(UniqueSlugMixin, MigrateProjectBase):
+    """ Migrations for projects. """
+
     def migrate_single(self, from_instance, to_instance):
         """
         Override migrate_single so that tags can be copied over using the
@@ -220,6 +224,7 @@ class MigrateProject(UniqueSlugMixin, MigrateProjectBase):
     }
 
     field_mapping.update(MigrateProjectBase.throw_away_fields)
+
 
 class MigrateIdea(MigrateProjectBase):
     to_model = IdeaPhase

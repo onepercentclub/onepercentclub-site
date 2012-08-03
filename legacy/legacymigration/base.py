@@ -316,6 +316,8 @@ class MigrateModel(object):
         # Save to the database
         to_instance.save(using=self.to_db)
 
+        return to_instance
+
     def _update_pk_sequence(self):
         """
         Explicitly truncate the table and reset sequences.
