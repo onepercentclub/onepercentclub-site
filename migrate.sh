@@ -20,11 +20,16 @@ source env/bin/activate
 # Set Django settings
 export DJANGO_SETTINGS_MODULE=bluebottle.settings.testing
 
-# Setup new database and start migration
+# Setup new database
 python manage.py syncdb --noinput --migrate
+
+# The fixtures for geo app are needed for the migration to work.
+python manage.py loaddata region_subregion_country_dump
+
+# Do the migration.
 python manage.py migrate_legacy -v 2
 
-# Load fixtures
+# Load fixtures for the project categories.
 python manage.py loaddata project_category_data
 
 # Dump database and archive media

@@ -90,9 +90,6 @@ class MigrateProjectBase(MigrateModel):
             Q(name__contains='proef') | Q(title__contains='proef')
         )
 
-        # We don't know what to do with projects without a country set
-        # qs = qs.exclude(country_id=0)
-
         return qs
 
 

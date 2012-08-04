@@ -16,6 +16,7 @@ from django.core.files import File
 
 from django.template.defaultfilters import slugify
 
+from apps.geo.models import Country
 
 class Mapping(object):
     """ Base class for mappings. """
@@ -382,51 +383,74 @@ class CountryMapping(IdentityMapping):
     Map a Country instance to it's two-letter representation, or an empty
     string if no country value had been set before.
 
-    When an error occurs in the lookup, assume a f*ckup and set to NULL.
+    When an error occurs in the lookup, assume messed up data and set to NULL.
     """
+
+    # TODO: These exclusions need to be removed.
+    def _exclude_instance(self, old_value, instance=None):
+        if old_value.code2 in ('BV', 'AN', 'AQ'):
+            if instance:
+                logger.warn("Excluding %s because Country '%s' is not in the new Country table.",
+                    repr(instance), old_value.code2)
+            return True
+
 
     def map(self, instance, from_field):
         country_id = getattr(instance, from_field+'_id')
 
-        new_value = ''
-
-        if country_id == 0:
-            logger.warning(
-                u"No country found for field '%s' on '%s', mapped to None.",
-                    from_field, repr(instance)
-            )
-
-        else:
+        if country_id:
+            # non-NULL country id, empty value falls through to last return statement
             old_value = getattr(instance, from_field)
 
-            if old_value:
-                new_value = old_value.code2
+            if not old_value:
+                logger.error(u"Country object not retrieved propperly for %s.",
+                    repr(instance))
+                import ipdb; ipdb.set_trace()
 
-                if old_value is not new_value:
-                    if self.verbose:
-                        logger.warning(
-                            u"Field '%s' on '%s' mapped from '%s' to '%s' by '%s'.",
-                            from_field, repr(instance),
-                            old_value, new_value, repr(self)
-                        )
+            if old_value.code2:
+                # non-empty value for code2, empty value falls through to last return statement
 
-        return {self.get_to_field(from_field): new_value}
+                # TODO: This exclusions need to be removed.
+                if self._exclude_instance(old_value, instance):
+                    return {}
+
+                try:
+                    new_value = Country.objects.get(alpha2_code=old_value.code2)
+                except Country.DoesNotExist:
+                    logger.error("Country code %s on %s not found in new Country table. " +
+                        "Is the fixture for the geo app loaded?.",
+                        old_value.code2, repr(instance))
+                    import ipdb; ipdb.set_trace()
+
+                logger.debug("Setting Country %s on %s.", old_value.code2, repr(instance))
+                return {self.get_to_field(from_field+'_id'): new_value.id}
+
+        logger.debug("Not setting Country for %s.", repr(instance))
+        return {}
+
 
     def check(self, from_instance, to_instance, from_field):
         new_value = getattr(to_instance, self.get_to_field(from_field))
         country_id = getattr(from_instance, from_field+'_id')
 
-        if country_id == 0:
-            return not new_value
-        else:
+        if country_id:
+            # non-NULL country id
             old_value = getattr(from_instance, from_field)
 
-            if old_value:
-                return new_value == old_value.code2
+            if not old_value:
+                logger.error("Country object not retrieved propperly for %s.",
+                    repr(from_instance))
+                return False
 
-            return new_value == ''
+            # TODO: This exclusions need to be removed.
+            if self._exclude_instance(old_value):
+                return True
 
-        return self.check_value(old_value, new_value)
+            return new_value.alpha2_code == old_value.code2
+
+        else:
+            # NULL country id
+            return not new_value
 
 
 class WebsiteMapping(NoneToStringMapping):
