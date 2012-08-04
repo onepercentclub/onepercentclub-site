@@ -26,6 +26,20 @@
 			{% endif %}
 			</p>
 
+			<h4>Albums</h4>
+			{% comment %} Use a with statement in order to prevent double queries to the database upon calling album_set.all() {% endcomment %}
+			{% with project.albums.all as albums %}
+				{% if albums %}
+					<ul>
+						{% for album in albums %}
+							<li><a href="{{ album.get_absolute_url }}">{{ album }}</a></li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					No albums for this project.
+				{% endif %}
+			{% endwith %}
+
 			<h4>Owner</h4>
 			{% with project.owner.get_profile as owner_profile %}
 
