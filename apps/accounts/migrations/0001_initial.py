@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('geo', '0001_initial'),
+    )
+
     def forwards(self, orm):
         # Adding model 'Language'
         db.create_table('accounts_language', (
