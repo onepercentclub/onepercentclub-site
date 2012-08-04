@@ -358,3 +358,6 @@ LEGACY_MIGRATIONS = [
     'legacy.legacymigration.media.MigratePicture',
     'legacy.legacymigration.media.MigrateVideo'
 ]
+
+# Explicitly turn on exclusions for unclean data
+LEGACY_MIGRATIONS_ENABLE_EXCLUSIONS = True
