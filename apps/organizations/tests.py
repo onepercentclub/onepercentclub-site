@@ -28,4 +28,10 @@ class OrganizationTestsMixin(object):
 class OrganizationTests(TestCase, OrganizationTestsMixin):
     """ Tests for organizations. """
 
-    pass
+    def test_save_unicode(self):
+        """ Test save method and unicode representation."""
+        organization = self.create_organization()
+
+        unicode(organization)
+
+        organization.save()
