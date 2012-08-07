@@ -319,6 +319,43 @@ class MigrateModel(object):
         # Save to the database
         to_instance.save(using=self.to_db)
 
+        return to_instance
+
+    def _update_pk_sequence(self):
+        """
+        Explicitly truncate the table and reset sequences.
+        """
+        from django.db.models import Max
+
+        # Get the field name
+        pk_field_name = self.to_model._meta.pk.name
+
+        # Find the latest pk
+        qs = self.to_model.objects.using(self.to_db).aggregate(latest=Max(pk_field_name))
+        latest_pk = qs['latest']
+
+        assert latest_pk
+
+        sequence_name = \
+            '%s_%s_seq' % (self.to_model._meta.db_table, pk_field_name)
+
+        logger.info(u"Updating sequence %s for primary key %s on %s to %d",
+            sequence_name, pk_field_name, self.to_model, latest_pk
+        )
+
+        # Custom SQL to restart the sequence
+        from django.db import connections
+        cursor = connections[self.to_db].cursor()
+
+        # Note: This should be standard SQL
+        # Ref: http://stackoverflow.com/a/7655273/231332
+
+        cursor.execute('ALTER SEQUENCE %s RESTART WITH %d' % (
+            sequence_name, latest_pk+1
+        ))
+
+        transaction.commit_unless_managed(using=self.to_db)
+
     def migrate_all(self):
         """ Migrate all the objects returned by list_from(). """
 
@@ -339,7 +376,6 @@ class MigrateModel(object):
                     u"Field '%s' is not mapped and will be thrown away. To get rid of this warning, please map the field to `None` to throw away the data.",
                     from_field
                 )
-
         # Execute all of this within a single transaction
         with transaction.commit_on_success():
 
@@ -366,7 +402,10 @@ class MigrateModel(object):
                 t.interval
             )
 
+        self._update_pk_sequence()
+
         logger.info(u'%d objects migrated', counter)
+
         logger.info(u'Migration %s complete.', self.__class__.__name__)
 
 
