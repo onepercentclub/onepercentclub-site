@@ -337,7 +337,7 @@ class MigrateModel(object):
             '%s_%s_seq' % (self.to_model._meta.db_table, pk_field_name)
 
         logger.info(u"Updating sequence %s for primary key %s on %s to %d",
-            sequence_name, pk_field_name, self.to_model.__class__, latest_pk
+            sequence_name, pk_field_name, self.to_model, latest_pk
         )
 
         # Custom SQL to restart the sequence
