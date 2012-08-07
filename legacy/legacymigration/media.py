@@ -154,10 +154,10 @@ class MigratePicture(MigrateModel):
     def list_from(self):
         qs = super(MigratePicture, self).list_from()
 
+        # Only migrate pictures for migrated albums
         m = MigrateAlbum()
         album_list = m.list_from()
 
-        # Only migrate albums for migrated projects
         qs = qs.filter(album__in=album_list)
 
         # Exclude pictures that have no file set
@@ -174,8 +174,6 @@ class MigratePicture(MigrateModel):
         'created': EducateDateTimeMapping(verbose=False),
         #'updated': EducateDateTimeMapping(verbose=False),
 
-        # For now, only migrate pictures related to albums
-        # Note: in the source database, an album is required
         'project': None,
 
         'file': {
@@ -212,8 +210,10 @@ class MigrateVideo(MigrateModel):
         # Orig. error: Album <Album: TOILETTEN> should be related to project
         # <Project: Toiletten voor de Sundayschool> but is related to
         # [<Project: Train de Trainer: Seksuele gezondheid>] instead
+        #
+        # We need to change the slug for the 'toiletten' album on
+        # Train de Trainer OR prefix the albums with the project slug.
         qs = qs.exclude(pk=381)
-
 
         return qs
 
