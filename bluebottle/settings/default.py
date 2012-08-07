@@ -351,4 +351,9 @@ LEGACY_MIGRATIONS = [
     # Donations
     'legacy.legacymigration.donations.MigrateDonation',
     'legacy.legacymigration.donations.MigrateDonationLine',
+
+    # Migrate media
+    'legacy.legacymigration.media.MigrateAlbum',
+    'legacy.legacymigration.media.MigratePicture',
+    'legacy.legacymigration.media.MigrateVideo'
 ]
