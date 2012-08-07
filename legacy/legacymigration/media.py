@@ -27,13 +27,20 @@ from .mappings import (
 class ProjectToAlbumMapping(IdentityMapping):
     """ Map a project to an album with the same slug. """
 
+    def __init__(self, *args, **kwargs):
+        """ Allow for setting a prefix to the generated album's slug. """
+
+        self.slug_prefix = kwargs.pop('prefix', '')
+
+        super(ProjectToAlbumMapping, self).__init__(*args, **kwargs)
+
     def map_value(self, old_value):
         project = Project.objects.get(pk=old_value.pk)
 
         # Either create or find a 'default' album for a project by
         # project slug
         (album, created) = Album.objects.get_or_create(
-            slug=project.slug
+            slug='%s-%s' % (self.slug_prefix, project.slug)
         )
 
         # If created, set title
@@ -78,26 +85,8 @@ class ProjectToAlbumMapping(IdentityMapping):
 class MigrateAlbum(UniqueSlugMixin, MigrateModel):
     """
     Migrate albums from old website to new.
-
-    TODO: there's a known issue here where migrating albums *again*
-    *after* video's have been migrated causes correspondence errors due
-    to the fact that new albums get created during migration of the videos.
-
-    We should figure out some way to mark the created albums differently
-    and thus filter them from the destination queryset *or* simply
-    disable the correspondence check.
-
-    For now, use the following SQL to clean things up again::
-
-        TRUNCATE TABLE "media_album" CASCADE;
-
-    This will clear out the following tables:
-
-      * "projects_project_albums"
-      * "media_localpicture"
-      * "media_embeddedvideo"
-
     """
+
     from_model = LegacyAlbum
     to_model = Album
 
@@ -124,6 +113,14 @@ class MigrateAlbum(UniqueSlugMixin, MigrateModel):
 
         # Exclude albums without pictures
         qs = qs.exclude(picture=None)
+
+        return qs
+
+    def list_to(self):
+        """ Prevent video albums from being mapped back. """
+        qs = super(MigrateAlbum, self).list_to()
+
+        qs = qs.exclude(slug__startswith='videos-')
 
         return qs
 
@@ -206,17 +203,6 @@ class MigrateVideo(MigrateModel):
         project_list = m.list_from()
         qs = qs.filter(project__in=project_list)
 
-        # This particular video is associated with an album that yields
-        # a duplicate slug - for now: skip it!
-        #
-        # Orig. error: Album <Album: TOILETTEN> should be related to project
-        # <Project: Toiletten voor de Sundayschool> but is related to
-        # [<Project: Train de Trainer: Seksuele gezondheid>] instead
-        #
-        # We need to change the slug for the 'toiletten' album on
-        # Train de Trainer OR prefix the albums with the project slug.
-        qs = qs.exclude(pk=381)
-
         return qs
 
     field_mapping = {
@@ -225,7 +211,9 @@ class MigrateVideo(MigrateModel):
         'url': None,
         'created': EducateDateTimeMapping(verbose=False),
         'name': 'title',
-        'project': ProjectToAlbumMapping('album', verbose=False),
+        'project': ProjectToAlbumMapping(
+            'album',verbose=False, prefix='videos'
+        ),
 
         # This will all be automatic now
         'thumb': None,
