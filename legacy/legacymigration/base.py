@@ -333,6 +333,13 @@ class MigrateModel(object):
 
         assert latest_pk
 
+        sequence_name = \
+            '%s_%s_seq' % (self.to_model._meta.db_table, pk_field_name)
+
+        logger.info(u"Updating sequence %s for primary key %s on %s to %d",
+            sequence_name, pk_field_name, self.to_model.__class__, latest_pk
+        )
+
         # Custom SQL to restart the sequence
         from django.db import connections
         cursor = connections[self.to_db].cursor()
@@ -340,8 +347,8 @@ class MigrateModel(object):
         # Note: This should be standard SQL
         # Ref: http://stackoverflow.com/a/7655273/231332
 
-        cursor.execute('ALTER SEQUENCE %s_%s_seq RESTART WITH %d' % (
-            self.to_model._meta.db_table, pk_field_name, latest_pk+1
+        cursor.execute('ALTER SEQUENCE %s RESTART WITH %d' % (
+            sequence_name, latest_pk+1
         ))
 
         transaction.commit_unless_managed(using=self.to_db)
