@@ -137,6 +137,7 @@ class MigrateAlbum(UniqueSlugMixin, MigrateModel):
         'description': True,
 
         'created': EducateDateTimeMapping(verbose=False),
+        # Skip for now (automagically overridden)
         #'updated': EducateDateTimeMapping(verbose=False),
 
         # Not migrated
@@ -172,6 +173,7 @@ class MigratePicture(MigrateModel):
         'name': 'title',
         'description': True,
         'created': EducateDateTimeMapping(verbose=False),
+        # Skip for now (automagically overridden)
         #'updated': EducateDateTimeMapping(verbose=False),
 
         'project': None,

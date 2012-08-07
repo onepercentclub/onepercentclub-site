@@ -539,7 +539,7 @@ class MigrateTestimonial(MigrateLink):
         'description': True,
 
         'created': EducateDateTimeMapping(verbose=False),
-        # Skip for now (automagically overridden)
+        # Skip for now (automagically overridden in database)
         #'updated': EducateDateTimeMapping()
     }
 
