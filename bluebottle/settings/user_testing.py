@@ -4,8 +4,8 @@ from .testing import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bluebottle_user_testing',
-        'USER': 'bluebottle'
+        'NAME': 'onepercentsite_testing',
+        'USER': 'onepercentsite'
     },
 }
 
