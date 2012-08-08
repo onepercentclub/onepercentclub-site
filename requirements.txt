@@ -63,3 +63,8 @@ gunicorn
 # Current git revision in request object for use in templates and views
 # http://pypi.python.org/pypi/django-gitrevision
 django-gitrevision
+
+# Fabric deployment helper
+# WARNING: Make sure it's installed in your environment and not system-wide!
+#          The Fabric script depends on gitpython which needs to be available.
+fabric
