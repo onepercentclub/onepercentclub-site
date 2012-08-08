@@ -383,15 +383,6 @@ class CountryMapping(IdentityMapping):
     Map an instance with a LegacyCountry to the same Country in the geo app.
     """
 
-    # TODO: These exclusions need to be removed.
-    def _exclude_instance(self, old_value, instance=None):
-        if old_value.code2 in ('BV', 'AN', 'AQ'):
-            if instance:
-                logger.warn("Excluding %s because Country '%s' is not in the new Country table.",
-                    repr(instance), old_value.code2)
-            return True
-
-
     def map(self, instance, from_field):
         country_id = getattr(instance, from_field+'_id')
 
@@ -406,10 +397,6 @@ class CountryMapping(IdentityMapping):
 
             if old_value.code2:
                 # non-empty value for code2, empty value falls through to last return statement
-
-                # TODO: This exclusions need to be removed.
-                if self._exclude_instance(old_value, instance):
-                    return {}
 
                 try:
                     new_value = Country.objects.get(alpha2_code=old_value.code2)
@@ -438,10 +425,6 @@ class CountryMapping(IdentityMapping):
                 logger.error("Country object not retrieved propperly for %s.",
                     repr(from_instance))
                 return False
-
-            # TODO: This exclusions need to be removed.
-            if self._exclude_instance(old_value):
-                return True
 
             return new_value.alpha2_code == old_value.code2
 
