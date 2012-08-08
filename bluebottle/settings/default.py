@@ -290,9 +290,9 @@ LOGIN_REDIRECT_URL = '/'
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 # Support legacy passwords
-PASSWORD_HASHERS = [
+PASSWORD_HASHERS = list(global_settings.PASSWORD_HASHERS) + [
     'legacyauth.hashers.LegacyPasswordHasher'
-] + list(global_settings.PASSWORD_HASHERS)
+]
 
 # Support email login
 AUTHENTICATION_BACKENDS = list(global_settings.AUTHENTICATION_BACKENDS) + [
