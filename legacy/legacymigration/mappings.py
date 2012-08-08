@@ -380,10 +380,7 @@ class MappingMapping(IdentityMapping):
 
 class CountryMapping(IdentityMapping):
     """
-    Map a Country instance to it's two-letter representation, or an empty
-    string if no country value had been set before.
-
-    When an error occurs in the lookup, assume messed up data and set to NULL.
+    Map an instance with a LegacyCountry to the same Country in the geo app.
     """
 
     # TODO: These exclusions need to be removed.
@@ -418,7 +415,7 @@ class CountryMapping(IdentityMapping):
                     new_value = Country.objects.get(alpha2_code=old_value.code2)
                 except Country.DoesNotExist:
                     logger.error("Country code %s on %s not found in new Country table. " +
-                        "Is the fixture for the geo app loaded?.",
+                        "Is the fixture for the geo app loaded?",
                         old_value.code2, repr(instance))
                     import ipdb; ipdb.set_trace()
 
