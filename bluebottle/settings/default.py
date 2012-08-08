@@ -290,13 +290,11 @@ LOGIN_REDIRECT_URL = '/'
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 # Support legacy passwords
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+PASSWORD_HASHERS = [
     'legacyauth.hashers.LegacyPasswordHasher'
-)
+] + list(global_settings.PASSWORD_HASHERS)
 
 # Support email login
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = list(global_settings.AUTHENTICATION_BACKENDS) + [
     'legacyauth.backends.EmailBackend',
-    'django.contrib.auth.backends.ModelBackend'
-)
+]
