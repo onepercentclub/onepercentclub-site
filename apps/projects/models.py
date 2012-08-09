@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 import random
 
-from django_countries import CountryField
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
 )
@@ -56,8 +55,6 @@ class Project(models.Model):
     created = CreationDateTimeField(
         help_text=_("When this project was created."))
 
-    country = CountryField(null=True)
-
     # Location of this project
     # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
     # hold the legacy data.
@@ -65,11 +62,12 @@ class Project(models.Model):
     latitude = models.DecimalField(max_digits=21, decimal_places=18)
     longitude = models.DecimalField(max_digits=21, decimal_places=18)
 
+    country = models.ForeignKey('geo.Country', blank=True, null=True)
+    albums = models.ManyToManyField('media.Album', blank=True, null=True)
+
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,
         help_text=_("Main language of the project."))
-
-    albums = models.ManyToManyField('media.Album', blank=True, null=True)
 
     # temporary to do hold random 'donated'
     donated = 0
@@ -96,7 +94,10 @@ class Project(models.Model):
     tags = TaggableManager(blank=True)
 
     def location(self):
-        return self.country.name
+        if self.country:
+            return self.country.name
+        else:
+            return ""
 
     @models.permalink
     def get_absolute_url(self):
