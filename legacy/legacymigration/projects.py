@@ -44,7 +44,7 @@ class PhaseMapping(IdentityMapping):
     def map_value(self, old_value):
         # Warning: realised is not part of the current phase mapping
 
-        if old_value in ('wizard',):
+        if old_value in ('wizard', 'created', 'declined'):
             # Idea phase
             phase = phases.idea
 
@@ -77,9 +77,6 @@ class MigrateProjectBase(MigrateModel):
         # Only migrate for available organizations
         m = MigrateOrganization()
         qs = qs.filter(organization__in=m.list_from())
-
-        # We don't know how to map declined projects
-        qs = qs.exclude(status='declined')
 
         # Exclude projects without a name or title, for now
         qs = qs.exclude(Q(name='') | Q(title=''))
