@@ -161,6 +161,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     # Makes the 'request' variable (the current HttpRequest)
     # available in templates
     'django.core.context_processors.request',
+    'gitrevision.context_processors.gitrevision',
 ]
 
 ROOT_URLCONF = 'bluebottle.urls'
@@ -186,6 +187,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
 
+    # 3rd party apps
     'django_extensions',
     'django_extensions.tests',
     'debug_toolbar',
@@ -196,10 +198,10 @@ INSTALLED_APPS = [
     # https://github.com/jbalogh/django-nose/issues/85
     # 'django_nose',
     'compressor',
-
-    'django_countries', # http://pypi.python.org/pypi/django-countries
     'sorl.thumbnail',
     'taggit',
+    'micawber.contrib.mcdjango', # Embedding videos
+    'gitrevision', # Display git revision
 
     'legacyauth', # Legacy password authentication
 
@@ -208,7 +210,9 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.organizations',
     'apps.projects',
-    'apps.donations'
+    'apps.donations',
+    'apps.media',
+    'apps.geo',
 ]
 
 # A sample logging configuration. The only tangible logging
