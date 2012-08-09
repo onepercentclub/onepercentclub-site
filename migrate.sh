@@ -28,5 +28,5 @@ python manage.py migrate_legacy -v 2
 python manage.py loaddata project_category_data
 
 # Dump database and archive media
-pg_dump -x onepercentsite | bzip2 -c > migrated_data.sql.bz2
+pg_dump -x --no-owner onepercentsite | bzip2 -c > migrated_data.sql.bz2
 tar cvf migrated_media.tar static/media
