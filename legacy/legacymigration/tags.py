@@ -19,6 +19,7 @@ def copy_tags(from_instance, to_instance):
 
         # Some of the source tags have multiple tags so they need to be split.
         for tag in from_tag.split(','):
+            # Strip out some garbage characters when adding the tag.
             stripped_tag = tag.strip('-"\' ;')
 
             if stripped_tag.isupper():
@@ -28,7 +29,6 @@ def copy_tags(from_instance, to_instance):
                 stripped_tag = stripped_tag.lower()
 
             if stripped_tag:
-                # Strip out some garbage characters when adding the tag.
                 to_instance.tags.add(stripped_tag)
 
 
