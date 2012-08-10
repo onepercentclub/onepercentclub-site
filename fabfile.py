@@ -238,6 +238,18 @@ def restart_site():
 
 @roles('testing')
 @task
+def create_superuser():
+    """ Create a Django superuser. """
+    require('django_settings')
+
+    with virtualenv():
+        run_web('./manage.py createsuperuser --settings=%s' % \
+            env.django_settings
+        )
+
+
+@roles('testing')
+@task
 def deploy_testing(revspec='onepercentsite'):
     """
     Update the testing server to the specified revspec, or default to the
