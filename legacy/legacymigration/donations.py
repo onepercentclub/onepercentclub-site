@@ -30,7 +30,7 @@ class MigrateDonation(MigrateModel):
         qs = super(MigrateDonation, self).list_from()
 
         m = MigrateMemberAuth()
-        member_list = m.list_from()
+        member_list = m._list_from()
 
         # Only migrate profiles for migrated members
         qs = qs.filter(member__in=member_list)
@@ -85,10 +85,10 @@ class MigrateDonationLine(MigrateModel):
         qs = super(MigrateDonationLine, self).list_from()
 
         m = MigrateDonation()
-        donation_list = m.list_from()
+        donation_list = m._list_from()
 
         m = MigrateProject()
-        project_list = m.list_from()
+        project_list = m._list_from()
 
         # Only migrate profiles for migrated members
         qs = qs.filter(donation__in=donation_list, project__in=project_list)

@@ -129,13 +129,8 @@ class MigrateMemberAuth(MigrateModel):
         return success
 
 
-    def list_from(self):
-        """
-        5. Some users don't have a mem_profile set, so they don't have a
-        first/lastname. I set the username as first/lastname. We could leave
-        them empty though.
-        """
-        qs = super(MigrateMemberAuth, self).list_from()
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
 
         # type_id = 2. Only migrate normal 'member' accounts.
         # Let's migrate 'organization', 'company' and 'school' accounts later.
@@ -156,6 +151,12 @@ class MigrateMemberAuth(MigrateModel):
         qs = qs.exclude(
             Q(email='loek@1procentclub.nl') & ~Q(username='gannetson')
         )
+
+        return qs
+
+
+    def list_from(self):
+        qs = super(MigrateMemberAuth, self).list_from()
 
         # Include profile in query, speeding it up a bit
         qs.select_related('profile')
