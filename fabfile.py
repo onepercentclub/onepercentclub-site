@@ -6,6 +6,7 @@ from fabric.api import (
     env, roles, sudo, prefix, cd, task, require, run, local, settings
 )
 from fabric.contrib.console import confirm
+from fabric.colors import red, green
 
 from contextlib import contextmanager
 
@@ -70,6 +71,12 @@ def run_web(*args, **kwargs):
     return sudo(*args, **kwargs)
 
 
+def status_update(message):
+    """ Print status update message. """
+
+    print(green(message))
+
+
 def find_commit(revspec):
     """
     Find the specified commit by revspec and check that it's in deploy_branch.
@@ -81,7 +88,7 @@ def find_commit(revspec):
 
     # Get the commit from the repo
     commit = r.commit(revspec)
-    print('Deploying commit %s: %s' % (commit.hexsha, commit.summary))
+    status_update('Deploying commit %s: %s' % (commit.hexsha, commit.summary))
 
     # Check whether it's a deploy commit
     deploy_commits = r.iter_commits(env.deploy_branch)
@@ -97,11 +104,32 @@ def tag_commit(commit_id, tag):
     Tag the specified commit and push it to the server.
     Overwriting old tags with the same name.
     """
-    with settings(warn_only=True):
-        local('git tag -d %s' % tag)
-
     local('git tag %s %s' % (tag, commit_id))
     local('git push --tags origin %s' % tag)
+
+
+def find_available_tag(tag):
+    """
+    Find the latest available version for a versioned tag ofthe form tag-N.
+    """
+
+    def make_tag(tag, version):
+        return '%s-%d' % (tag, version)
+
+    r = Repo()
+
+    version = 1
+    new_tag = make_tag(tag, version)
+
+    while new_tag in r.tags:
+        version += 1
+        new_tag = make_tag(tag, version)
+
+    status_update(
+        'Latest version for tag %s is %d: %s' % (tag, version, new_tag)
+    )
+
+    return new_tag
 
 
 def confirm_deploy(commit):
@@ -176,12 +204,12 @@ def load_dbdump(database, dbdump):
 def sync_migrated_data():
     """ Sync data of latest stable migration. """
 
-    print('Synching migrated data.')
+    status_update('Synching migrated data.')
 
     sync_migrated_media()
     sync_migrated_db()
 
-    print('Reloading database.')
+    status_update('Reloading database.')
 
     require('database')
     recreate_db(env.database)
@@ -191,11 +219,17 @@ def sync_migrated_data():
 
 
 @task
+def git_fetch_local():
+    """ Fetch local GIT updates. """
+    local('git fetch -q')
+
+
+@task
 def update_git(commit_id):
     """ Update the repo to given commit_id. """
     require('directory')
 
-    print('Updating git repository to %s.' % commit_id)
+    status_update('Updating git repository to %s.' % commit_id)
 
     with cd(env.directory):
         # Make sure only to fetch the required branch
@@ -209,7 +243,7 @@ def prepare_django():
     """ Prepare a deployment. """
     require('django_settings')
 
-    print('Preparing deployment.')
+    status_update('Preparing deployment.')
 
     with virtualenv():
         run('pip install -q -r requirements.txt')
@@ -265,15 +299,24 @@ def deploy_testing(revspec='onepercentsite'):
     """
     require('deploy_branch')
 
+    # Update git locally
+    git_fetch_local()
+
     # Find commit for revspec
     commit = find_commit(revspec)
+    tag = find_available_tag('testing')
 
     # Confirm commit with user
     confirm_deploy(commit)
 
-    # Tag the commit for testing
-    tag_commit(commit.hexsha, 'testing')
+    # Make sure the remote git repo is up to date
+    update_git(commit)
 
-    update_git('testing')
+    # Get Django ready
     prepare_django()
+
+    # Restart app server
     restart_site()
+
+    # Deploy complete, tag commit
+    tag_commit(commit.hexsha, tag)
