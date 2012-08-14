@@ -145,12 +145,6 @@ class MigrateOrganizationAddress(MigrateOrganizationBase):
 
         return qs
 
-    def list_from(self):
-        """ Explicitly skip a single objects with a rather long address. """
-        qs = super(MigrateOrganizationAddress, self).list_from()
-
-        return qs
-
     field_mapping = {
         'id': OneToManyMapping(
             IdentityMapping('id'),
