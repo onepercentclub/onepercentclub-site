@@ -68,15 +68,8 @@ class MigrateProjectBase(MigrateModel):
     from_model = LegacyProject
     to_model = Project
 
-    def list_from(self):
-        """
-        For now, skip projects which we cannot migrate.
-        """
-        qs = super(MigrateProjectBase, self).list_from()
-
-        # Only migrate for available organizations
-        m = MigrateOrganization()
-        qs = qs.filter(organization__in=m.list_from())
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
 
         # Exclude projects without a name or title, for now
         qs = qs.exclude(Q(name='') | Q(title=''))
@@ -86,6 +79,18 @@ class MigrateProjectBase(MigrateModel):
             Q(name__contains='test') | Q(title__contains='test') | \
             Q(name__contains='proef') | Q(title__contains='proef')
         )
+
+        return qs
+
+    def list_from(self):
+        """
+        For now, skip projects which we cannot migrate.
+        """
+        qs = super(MigrateProjectBase, self).list_from()
+
+        # Only migrate for available organizations
+        m = MigrateOrganization()
+        qs = qs.filter(organization__in=m._list_from())
 
         return qs
 
@@ -486,7 +491,7 @@ class MigrateLink(MigrateModel):
         qs = super(MigrateLink, self).list_from()
 
         m = MigrateProject()
-        project_list = m.list_from()
+        project_list = m._list_from()
 
         qs = qs.filter(project__in=project_list)
 
@@ -515,7 +520,7 @@ class MigrateTestimonial(MigrateLink):
         qs = super(MigrateTestimonial, self).list_from()
 
         m = MigrateMemberAuth()
-        member_list = m.list_from()
+        member_list = m._list_from()
 
         qs = qs.filter(member__in=member_list)
 
@@ -585,9 +590,8 @@ class MigrateBudgetLine(MigrateLink):
     from_model = Need
     to_model = BudgetLine
 
-    def list_from(self):
-        """ Selectively skip objects with nonesense data. """
-        qs = super(MigrateBudgetLine, self).list_from()
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
 
         # There is exactly one item with a money_needed of
         # 564564654.<something>, with a bogus description.
@@ -595,7 +599,6 @@ class MigrateBudgetLine(MigrateLink):
         qs = qs.exclude(pk=1469)
 
         return qs
-
 
     field_mapping = {
         'id': True,

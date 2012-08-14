@@ -8,6 +8,8 @@ from django.core.exceptions import (
 
 from .mappings import IdentityMapping, NullMapping, RelatedObjectMapping
 
+from .settings import ENABLE_EXCLUSIONS
+
 from .utils import Timer
 
 
@@ -22,11 +24,19 @@ class MigrateModel(object):
     def __repr__(self):
         return self.__class__.__name__
 
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
+
+        return qs
+
     def _list_from(self):
         """ Caching wrapper for list_from() method. """
 
         if not hasattr(self, '_from_qs'):
             self._from_qs = self.list_from()
+
+            if ENABLE_EXCLUSIONS:
+                self._from_qs = self.list_from_exclusions(self._from_qs)
 
         return self._from_qs
 
