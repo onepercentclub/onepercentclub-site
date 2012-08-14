@@ -57,20 +57,15 @@ class MigrateProfile(MigrateModel):
 
     def _get_noprofile_member_pks(self):
         """
-        In order to sort-of efficiently filter out members without a profile,
-        use this caching helper function.
+        Filter out members without a profile.
         """
-        if not getattr(self, '_noprofile_member_pks', None):
-            # Cache the values
-            members = self._get_members()
+        members = self._get_members()
 
-            # Make a list of all members without a profile
-            members = members.filter(profile=None)
-            member_pks = members.values_list('id', flat=True).order_by('id')
+        # Make a list of all members without a profile
+        members = members.filter(profile=None)
+        member_pks = members.values_list('id', flat=True).order_by('id')
 
-            self._noprofile_member_pks = list(member_pks)
-
-        return self._noprofile_member_pks
+        return list(member_pks)
 
     def list_to(self):
         """
