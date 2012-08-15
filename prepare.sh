@@ -46,28 +46,32 @@ else
     exit 1
 fi
 
-if [ ! -f $SETTINGS_DIR/local.py ]; then
-    echo 'No local settings file found.'
-    cp -v $SETTINGS_DIR/local.py.example $SETTINGS_DIR/local.py
+LOCAL_SETTINGS=$SETTINGS_DIR/local.py
+LOCAL_SETTINGS_EXAMPLE=$SETTINGS_DIR/local.py.example
+if [ ! -f $LOCAL_SETTINGS ]; then
+    echo "No local settings file found, copying from $LOCAL_SETTINGS_EXAMPLE"
+    cp -v $LOCAL_SETTINGS_EXAMPLE $LOCAL_SETTINGS
 fi
 
-if [ ! -f $SETTINGS_DIR/secret.py ]; then
+SECRETS_FILE=$SETTINGS_DIR/secrets.py
+if [ ! -f $SECRETS_FILE ]; then
     echo
-    echo 'Generating secret key in settings_secret.py.'
+    echo "Generating secret key in $SECRETS_FILE"
     # The generate_secret_key command produces a superfluous warning message
     # that needs to be removed by filtering out only the last line of the
     # output.
     SECRET_KEY=`$MANAGE_PY generate_secret_key | tail -1`
 
-    echo "# Add passwords passwords and other secrets data in this file" >> $SETTINGS_DIR/secret.py
-    echo >> $SETTINGS_DIR/secret.py
-    echo "# Make this unique, and don't share it with anybody." >> $SETTINGS_DIR/secret.py
-    echo "SECRET_KEY = '$SECRET_KEY'" >> $SETTINGS_DIR/secret.py
-    echo >> $SETTINGS_DIR/secret.py
+    if [ $SECRET_KEY  ]; then
+        echo "# Add passwords passwords and other secrets data in this file" >> $SECRETS_FILE
+        echo >> $SECRETS_FILE
+        echo "# Make this unique, and don't share it with anybody." >> $SECRETS_FILE
+        echo "SECRET_KEY = '$SECRET_KEY'" >> $SECRETS_FILE
+        echo >> $SECRETS_FILE
+    else
+        echo 'Error generating secret key, breaking off.'
+        exit 1
+    fi
 fi
 
-if [ ! -f database.sqlite ]; then
-    echo 'No database found, running syncdb and migrate.'
-    $MANAGE_PY syncdb
-    $MANAGE_PY migrate
-fi
+echo "Please configure your local database in $SECRETS_FILE and run './manage.py syncdb --migrate to get you started.'"

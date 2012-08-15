@@ -37,7 +37,7 @@ pip-log.txt
 
 # Local settings overrides
 bluebottle/settings/local.py
-bluebottle/settings/secret.py
+bluebottle/settings/secrets.py
 
 # Misc stuff
 env

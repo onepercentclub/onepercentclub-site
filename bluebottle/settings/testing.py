@@ -1,5 +1,9 @@
-# Settings for use on testing server
-from .local import *
+# Import default settings
+
+from defaults import *
+from secrets import *
+
+# Put your environment specific overrides below
 
 INSTALLED_APPS.append('django_jenkins')
 
