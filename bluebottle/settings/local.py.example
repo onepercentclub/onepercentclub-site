@@ -48,14 +48,11 @@ else:
     logging.basicConfig(level=logging.WARNING,
                         format='%(levelname)-8s %(message)s')
 
-
 """ nose testrunner """
-INSTALLED_APPS.append('django_nose')
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--detailed-errors',
 ]
-
 
 """
 sorl-thumbnail
