@@ -29,6 +29,7 @@ env.roledefs = {
 
 # Admin user
 env.user = 'onepercentadmin'
+
 # User running the web service
 env.web_user = 'onepercentsite'
 
@@ -77,12 +78,17 @@ def status_update(message):
     print(green(message))
 
 
-def find_commit(revspec):
+def find_commit(revspec=None):
     """
     Find the specified commit by revspec and check that it's in deploy_branch.
     """
 
     require('deploy_branch')
+
+    local_deploy_branch = 'origin/' + env.deploy_branch
+
+    if not revspec:
+        revspec = local_deploy_branch
 
     r = Repo()
 
@@ -91,7 +97,7 @@ def find_commit(revspec):
     status_update('Deploying commit %s: %s' % (commit.hexsha, commit.summary))
 
     # Check whether it's a deploy commit
-    deploy_commits = r.iter_commits(env.deploy_branch)
+    deploy_commits = r.iter_commits(local_deploy_branch)
 
     if not commit in deploy_commits:
         sys.exit('Commit not in branch %s' % env.deploy_branch)
@@ -284,7 +290,7 @@ def create_superuser():
 
 @roles('testing')
 @task
-def deploy_testing(revspec='onepercentsite'):
+def deploy_testing(revspec=env.deploy_branch):
     """
     Update the testing server to the specified revspec, or default to the
     local HEAD of onepercentsite.
