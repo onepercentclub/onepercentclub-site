@@ -290,7 +290,7 @@ def create_superuser():
 
 @roles('testing')
 @task
-def deploy_testing(revspec=env.deploy_branch):
+def deploy_testing(revspec=None):
     """
     Update the testing server to the specified revspec, or default to the
     local HEAD of onepercentsite.
