@@ -65,4 +65,6 @@ gunicorn
 django-gitrevision
 
 # Fabric deployment helper
+# WARNING: Make sure it's installed in your environment and not system-wide!
+#          The Fabric script depends on gitpython which needs to be available.
 fabric
