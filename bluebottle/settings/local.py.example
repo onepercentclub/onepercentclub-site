@@ -1,13 +1,15 @@
-# Load the default settings from settings_default.py
-from .default import *
+# Import default development settings
+from .development import *
 
-# Attempt to load 'secret' settings, containing (ie.) passwords
-# from settings_secret.py - but fail silently if this is not possible.
+# Import secret settings
+# Give warning on ImportError as to allow settings to be created in the
+# first place.
 try:
-    from .secret import *
+    from .secrets import *
 except ImportError:
-    print 'Warning: could not import secrets!'
-    pass
+    print('Warning: secrets settings does not exist, please run prepare.sh')
+
+# Put your local settings overrides below
 
 # Uncomment to disable debugging
 # DEBUG = False
@@ -23,25 +25,13 @@ if DEBUG:
     # Increase DB debug level
     logging.getLogger('django.db.backends').setLevel(logging.WARNING)
 
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
-
     # Consider ourself as internal IP
-    from socket import gethostname, gethostbyname
-    try:
-        hostname = gethostbyname(gethostname())
-        INTERNAL_IPS = ('127.0.0.1', hostname)
-    except:
-        INTERNAL_IPS = ('127.0.0.1', )
-
-    # Default to SQLite database for debugging
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': path.join(PROJECT_ROOT, 'database.sqlite')
-        }
-    }
+    # from socket import gethostname, gethostbyname
+    # try:
+    #     hostname = gethostbyname(gethostname())
+    #     INTERNAL_IPS = ('127.0.0.1', hostname)
+    # except:
+    #     INTERNAL_IPS = ('127.0.0.1', )
 
     # Send email to console by default
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -62,83 +52,22 @@ if DEBUG:
     CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 
 else:
-    # No debuggin and log errors & warnings to sentry
+    # No debugging and log errors & warnings
     logging.basicConfig(level=logging.WARNING,
                         format='%(levelname)-8s %(message)s')
 
+""" nose testrunner """
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--detailed-errors',
+]
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': '',
-#         'USER': '',
-#         'PASSWORD': '',
-#         'HOST': '',
-#         'PORT': ''
-#     }
-# }
+"""
+sorl-thumbnail
+http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
+"""
+# Raise exceptions for failing thumbnails
+# THUMBNAIL_DEBUG = True
 
-
-# Just append to the default value
-# INSTALLED_APPS += [
-# 	'my_little_app',
-# ]
-
-
-# Email settings
-# EMAIL_HOST = ''
-# DEFAULT_FROM_EMAIL = ''
-
-
-# Cache settings
-# CACHE_BACKEND = 'locmem://'
-# CACHE_PREFIX = DJANGO_PROJECT
-# CACHE_TIMEOUT = 60
-
-
-# Enable debug_toolbar
-# INSTALLED_APPS.append('debug_toolbar')
-# MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
-
-
-# Sentry/Raven logging
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': True,
-#     'root': {
-#         'level': 'WARNING',
-#         'handlers': ['sentry'],
-#     },
-#     'formatters': {
-#         'verbose': {
-#             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-#         },
-#     },
-#     'handlers': {
-#         'sentry': {
-#             'level': 'ERROR',
-
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'verbose'
-#         }
-#     },
-#     'loggers': {
-#         'django.db.backends': {
-#             'level': 'ERROR',
-#             'handlers': ['console'],
-#             'propagate': False,
-#         },
-#         'raven': {
-#             'level': 'DEBUG',
-#             'handlers': ['console'],
-#             'propagate': False,
-#         },
-#         'sentry.errors': {
-#             'level': 'DEBUG',
-#             'handlers': ['console'],
-#             'propagate': False,
-#         },
-#     },
-# }
+# Render dummy thumbnails when real images are not available
+# THUMBNAIL_DUMMY = False
