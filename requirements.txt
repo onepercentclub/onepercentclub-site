@@ -50,6 +50,12 @@ coverage==3.5.2
 # https://github.com/alex/django-taggit/pull/99
 -e git+https://github.com/hcarvalhoalves/django-taggit.git@53497637f019af738f12d4e6f1e5ab2833ff173e#egg=django_taggit
 
+# Legacy authentication module (use SSH for common auth)
+-e git+ssh://git@github.com/onepercentclub/legacyauth.git#egg=legacyauth
+
+# Gunicorn WSGI server
+gunicorn
+
 # Embedding videos and other media
 # https://github.com/coleifer/micawber
 -e git+https://github.com/coleifer/micawber.git@36d06b70b601f12de7d7fa9709288d99dbb84d24#egg=micawber
@@ -58,3 +64,8 @@ coverage==3.5.2
 # http://pypi.python.org/pypi/django-gitrevision
 gitpython>=0.3.2.RC1
 django-gitrevision==0.1.4
+
+# Fabric deployment helper
+# WARNING: Make sure it's installed in your environment and not system-wide!
+#          The Fabric script depends on gitpython which needs to be available.
+fabric

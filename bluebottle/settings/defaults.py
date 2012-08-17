@@ -201,6 +201,11 @@ INSTALLED_APPS = [
     'micawber.contrib.mcdjango', # Embedding videos
     'gitrevision', # Display git revision
 
+    # Deployment-specific
+    'gunicorn', # Gunicorn app server
+
+    'legacyauth', # Legacy password authentication
+
     # bluebottle apps
     'apps.bluebottle_utils',
     'apps.accounts',
@@ -288,3 +293,13 @@ LOGIN_REDIRECT_URL = '/'
 # user profile setting as described here:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+# Support legacy passwords
+PASSWORD_HASHERS = list(global_settings.PASSWORD_HASHERS) + [
+    'legacyauth.hashers.LegacyPasswordHasher'
+]
+
+# Support email login
+AUTHENTICATION_BACKENDS = list(global_settings.AUTHENTICATION_BACKENDS) + [
+    'legacyauth.backends.EmailBackend',
+]
