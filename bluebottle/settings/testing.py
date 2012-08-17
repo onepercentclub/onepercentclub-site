@@ -35,6 +35,10 @@ PROJECT_APPS = list(INSTALLED_APPS)
 PROJECT_APPS.remove('django.contrib.auth')
 # https://code.djangoproject.com/ticket/17966
 
+PROJECT_APPS.remove('django_extensions')
+PROJECT_APPS.remove('django_extensions.tests')
+# https://github.com/django-extensions/django-extensions/issues/154
+
 # Disable pylint becasue it seems to be causing problems
 JENKINS_TASKS = (
     # 'django_jenkins.tasks.run_pylint',
