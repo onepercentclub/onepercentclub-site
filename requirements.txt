@@ -3,7 +3,7 @@ django_extensions
 django_debug_toolbar
 
 raven # Sentry client (remote logging)
-django-celery # Asynchronous task server
+django-celery==3.0.4 # Asynchronous task server
 
 # Django Nose integration (for test suites)
 # Nose is not the default testrunner due to
