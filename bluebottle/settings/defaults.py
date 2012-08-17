@@ -161,6 +161,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     # Makes the 'request' variable (the current HttpRequest)
     # available in templates
     'django.core.context_processors.request',
+    'gitrevision.context_processors.gitrevision',
 ]
 
 ROOT_URLCONF = 'bluebottle.urls'
@@ -193,14 +194,13 @@ INSTALLED_APPS = [
     'raven.contrib.django',
     'djcelery',
     'south',
-    # Nose is temporarily not the default testrunner due to
-    # https://github.com/jbalogh/django-nose/issues/85
-    # 'django_nose',
+    'django_nose',
     'compressor',
     'legacyauth', # Just for reference (this is actually just a module, not an app)
     'sorl.thumbnail',
     'taggit',
     'micawber.contrib.mcdjango', # Embedding videos
+    'gitrevision', # Display git revision
 
     # bluebottle apps
     'apps.bluebottle_utils',

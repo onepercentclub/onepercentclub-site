@@ -4,6 +4,7 @@ from django.test import TestCase
 
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
 from apps.organizations.tests import OrganizationTestsMixin
+from apps.media.tests import MediaTestsMixin
 
 from .models import Project, PlanPhase
 
@@ -58,7 +59,8 @@ class PlanPhaseTestMixin(object):
 
 
 
-class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
+class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin,
+                   MediaTestsMixin):
     """ Tests for projects. """
 
     def setUp(self):
@@ -89,6 +91,24 @@ class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin):
         self.assertContains(response, self.project.title)
 
         self.assertContains(response, self.project.owner)
+
+    def test_detailviewalbums(self):
+        """
+        Test whether links to albums are displayed on a project's detail
+        view.
+        """
+
+        album = self.create_album()
+        album.save()
+
+        self.project.albums.add(album)
+
+        url = self.project.get_absolute_url()
+        response = self.client.get(url)
+
+        self.assertContains(response, album.title)
+        self.assertContains(response, album.get_absolute_url())
+
 
     def test_amounts(self):
         """ Test calculation of donation amounts """

@@ -1,14 +1,14 @@
-Django==1.4
+Django==1.4.1
 django_extensions
 django_debug_toolbar
 
 raven # Sentry client (remote logging)
-django-celery # Asynchronous task server
+django-celery==3.0.4 # Asynchronous task server
 
 # Django Nose integration (for test suites)
-# Nose is temporarily not the default testrunner due to
+# Nose is not the default testrunner due to
 # https://github.com/jbalogh/django-nose/issues/85
-# django-nose
+django-nose
 
 # CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
 cssmin
@@ -62,3 +62,8 @@ coverage
 # Embedding videos and other media
 # https://github.com/coleifer/micawber
 -e git+https://github.com/coleifer/micawber.git@36d06b70b601f12de7d7fa9709288d99dbb84d24#egg=micawber
+
+# Current git revision in request object for use in templates and views
+# http://pypi.python.org/pypi/django-gitrevision
+gitpython>=0.3.2.RC1
+django-gitrevision==0.1.4

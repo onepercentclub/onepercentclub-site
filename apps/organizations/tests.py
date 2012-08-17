@@ -22,15 +22,16 @@ class OrganizationTestsMixin(object):
 
         organization = Organization(slug=slug)
 
-        if not slug:
-            slug = generate_slug()
-            while Organization.objects.filter(slug=slug).exists():
-                 slug = generate_slug()
-
         return organization
 
 
 class OrganizationTests(TestCase, OrganizationTestsMixin):
     """ Tests for organizations. """
 
-    pass
+    def test_save_unicode(self):
+        """ Test save method and unicode representation."""
+        organization = self.create_organization()
+
+        unicode(organization)
+
+        organization.save()
