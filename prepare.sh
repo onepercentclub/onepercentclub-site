@@ -58,7 +58,7 @@ if [ ! -f $SECRETS_FILE ]; then
 
     if [ $RAND_SECRET  ]; then
         # Update SECRET_KEY
-        sed -i -e "s/^SECRET_KEY.*/SECRET_KEY = \'$RAND_SECRET\'/" $SECRETS_FILE
+        sed -i '' -e "s/^SECRET_KEY.*/SECRET_KEY = \'$RAND_SECRET\'/" $SECRETS_FILE
     else
         echo 'Error generating secret key, breaking off.'
 
