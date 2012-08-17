@@ -1,24 +1,25 @@
 #!/bin/bash -ex
 
+DB_NAME=onepercentsite_migration
+
 # First set resource limits to 1300MB max.
 ulimit -v 1300000
 
 # Drop database and remove existing files (allways succeed)
-dropdb onepercentsite || true
+dropdb $DB_NAME || true
 rm -rf static/media || true
 
 # Create new database
-createdb -T template0 -E utf8 onepercentsite
+createdb -T template0 -E utf8 $DB_NAME
 
-# Manually take care of creating database (fixme in prepare.sh)
-touch database.sqlite
+# Setup datastructure and project
 bash prepare.sh
 
 # Get into our environment
 source env/bin/activate
 
 # Set Django settings
-export DJANGO_SETTINGS_MODULE=bluebottle.settings.testing
+export DJANGO_SETTINGS_MODULE=bluebottle.settings.migration
 
 # Setup new database
 python manage.py syncdb --noinput --migrate
@@ -33,5 +34,5 @@ python manage.py migrate_legacy -v 2
 python manage.py loaddata project_category_data
 
 # Dump database and archive media
-pg_dump -x --no-owner onepercentsite | bzip2 -c > migrated_data.sql.bz2
+pg_dump -x --no-owner $DB_NAME | bzip2 -c > migrated_data.sql.bz2
 tar cvf migrated_media.tar static/media
