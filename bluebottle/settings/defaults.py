@@ -194,9 +194,7 @@ INSTALLED_APPS = [
     'raven.contrib.django',
     'djcelery',
     'south',
-    # Nose is temporarily not the default testrunner due to
-    # https://github.com/jbalogh/django-nose/issues/85
-    # 'django_nose',
+    'django_nose',
     'compressor',
     'sorl.thumbnail',
     'taggit',
