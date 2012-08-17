@@ -1,5 +1,5 @@
 Django==1.4.1
-django_extensions==0.9 # This version has unittest-issues fixed
+django_extensions
 django_debug_toolbar
 
 raven # Sentry client (remote logging)
