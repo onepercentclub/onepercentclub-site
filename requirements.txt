@@ -42,7 +42,7 @@ django-tastypie
 django-jenkins==0.13.0
 
 # Coverage in tests
-coverage
+coverage==3.5.2
 
 # The official django-taggit doesn't seem to be maintained anymore. This
 # version is the currently maintained version for Django 1.4. More information
