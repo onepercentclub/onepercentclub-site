@@ -201,6 +201,9 @@ INSTALLED_APPS = [
     'micawber.contrib.mcdjango', # Embedding videos
     'gitrevision', # Display git revision
 
+    # Deployment-specific
+    'gunicorn', # Gunicorn app server
+
     'legacyauth', # Legacy password authentication
 
     # bluebottle apps
