@@ -1,7 +1,6 @@
 # Import default settings
 
-from defaults import *
-from secrets import *
+from .defaults import *
 
 # Put your environment specific overrides below
 

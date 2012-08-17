@@ -1,5 +1,13 @@
 # Import default development settings
-from development import *
+from .development import *
+
+# Import secret settings
+# Give warning on ImportError as to allow settings to be created in the
+# first place.
+try:
+    from .secrets import *
+except ImportError:
+    print('Warning: secrets settings does not exist, please run prepare.sh')
 
 # Put your local settings overrides below
 
