@@ -46,22 +46,24 @@ if [ ! -f $LOCAL_SETTINGS ]; then
 fi
 
 SECRETS_FILE=$SETTINGS_DIR/secrets.py
+SECRETS_FILE_EXAMPLE=$SETTINGS_DIR/secrets.py.example
 if [ ! -f $SECRETS_FILE ]; then
     echo
-    echo "Generating secret key in $SECRETS_FILE"
-    # The generate_secret_key command produces a superfluous warning message
-    # that needs to be removed by filtering out only the last line of the
-    # output.
-    SECRET_KEY=`$MANAGE_PY generate_secret_key | tail -1`
+    echo "No secrets file found, copying from $SECRETS_FILE_EXAMPLE"
+    cp -v $SECRETS_FILE_EXAMPLE $SECRETS_FILE
 
-    if [ $SECRET_KEY  ]; then
-        echo "# Add passwords passwords and other secrets data in this file" >> $SECRETS_FILE
-        echo >> $SECRETS_FILE
-        echo "# Make this unique, and don't share it with anybody." >> $SECRETS_FILE
-        echo "SECRET_KEY = '$SECRET_KEY'" >> $SECRETS_FILE
-        echo >> $SECRETS_FILE
+    echo "Generating secret key"
+    # Ref: https://build.opensuse.org/package/view_file?file=fix-initscript.dif&package=cobbler&project=systemsmanagement
+    RAND_SECRET=$(openssl rand -base64 40 | sed 's/\//\\\//g')
+
+    if [ $RAND_SECRET  ]; then
+        # Update SECRET_KEY
+        sed -i -e "s/^SECRET_KEY.*/SECRET_KEY = \'$RAND_SECRET\'/" $SECRETS_FILE
     else
         echo 'Error generating secret key, breaking off.'
+
+        # Cleanup after ourselves
+        rm -f $SECRETS_FILE
         exit 1
     fi
 fi
