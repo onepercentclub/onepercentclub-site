@@ -31,14 +31,6 @@ if [ ! -d $ENVDIR ]; then
 fi
 
 echo 'Installing required packages'
-# Install Django first because django-countries requires Django to be fully
-# installed before it will install.
-DJANGO=`grep "Django==" requirements.txt`
-$ENVDIR/bin/pip install $DJANGO
-if [ $? -ne 0 ]; then
-    echo "Error installing $DJANGO."
-    exit 1
-fi
 if $ENVDIR/bin/pip install -r requirements.txt; then
     echo 'That went allright, continue'
 else
@@ -46,28 +38,34 @@ else
     exit 1
 fi
 
-if [ ! -f $SETTINGS_DIR/local.py ]; then
-    echo 'No local settings file found.'
-    cp -v $SETTINGS_DIR/local.py.example $SETTINGS_DIR/local.py
+LOCAL_SETTINGS=$SETTINGS_DIR/local.py
+LOCAL_SETTINGS_EXAMPLE=$SETTINGS_DIR/local.py.example
+if [ ! -f $LOCAL_SETTINGS ]; then
+    echo "No local settings file found, copying from $LOCAL_SETTINGS_EXAMPLE"
+    cp -v $LOCAL_SETTINGS_EXAMPLE $LOCAL_SETTINGS
 fi
 
-if [ ! -f $SETTINGS_DIR/secret.py ]; then
+SECRETS_FILE=$SETTINGS_DIR/secrets.py
+SECRETS_FILE_EXAMPLE=$SETTINGS_DIR/secrets.py.example
+if [ ! -f $SECRETS_FILE ]; then
     echo
-    echo 'Generating secret key in settings_secret.py.'
-    # The generate_secret_key command produces a superfluous warning message
-    # that needs to be removed by filtering out only the last line of the
-    # output.
-    SECRET_KEY=`$MANAGE_PY generate_secret_key | tail -1`
+    echo "No secrets file found, copying from $SECRETS_FILE_EXAMPLE"
+    cp -v $SECRETS_FILE_EXAMPLE $SECRETS_FILE
 
-    echo "# Add passwords passwords and other secrets data in this file" >> $SETTINGS_DIR/secret.py
-    echo >> $SETTINGS_DIR/secret.py
-    echo "# Make this unique, and don't share it with anybody." >> $SETTINGS_DIR/secret.py
-    echo "SECRET_KEY = '$SECRET_KEY'" >> $SETTINGS_DIR/secret.py
-    echo >> $SETTINGS_DIR/secret.py
+    echo "Generating secret key"
+    # Ref: https://build.opensuse.org/package/view_file?file=fix-initscript.dif&package=cobbler&project=systemsmanagement
+    RAND_SECRET=$(openssl rand -base64 40 | sed 's/\//\\\//g')
+
+    if [ $RAND_SECRET  ]; then
+        # Update SECRET_KEY
+        sed -i -e "s/^SECRET_KEY.*/SECRET_KEY = \'$RAND_SECRET\'/" $SECRETS_FILE
+    else
+        echo 'Error generating secret key, breaking off.'
+
+        # Cleanup after ourselves
+        rm -f $SECRETS_FILE
+        exit 1
+    fi
 fi
 
-if [ ! -f database.sqlite ]; then
-    echo 'No database found, running syncdb and migrate.'
-    $MANAGE_PY syncdb
-    $MANAGE_PY migrate
-fi
+echo "Please configure your local database in $SECRETS_FILE and run './manage.py syncdb --migrate to get you started.'"
