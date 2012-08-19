@@ -3,22 +3,15 @@ import sys
 from git import Repo
 
 from fabric.api import (
-    env, roles, sudo, prefix, cd, task, require, run, local, settings
+    env, roles, sudo, prefix, cd, task, require, run, local
 )
 from fabric.contrib.console import confirm
-from fabric.colors import red, green
+from fabric.colors import green
 
 from contextlib import contextmanager
 
 # If True, enables forwarding of your local SSH agent to the remote end.
 env.forward_agent = True
-
-# Define the hosts we'll be using
-env.hosts = [
-    'staging.onepercentclub.com',
-    'testing.onepercentclub.com',
-    'dev.onepercentclub.com'
-]
 
 # Assign the hosts to roles, for convenient reference and scaling
 env.roledefs = {
@@ -45,9 +38,6 @@ env.deploy_branch = 'onepercentsite'
 # Name of the database
 env.database = 'onepercentsite'
 
-# Django settings used
-env.django_settings = 'bluebottle.settings.user_testing'
-
 # Migrated data
 env.migrated_data_root = '/var/lib/jenkins/jobs/legacydb/lastStable/archive/'
 env.migrated_media_file = 'migrated_media.tar'
@@ -56,12 +46,21 @@ env.migrated_db_file = 'migrated_data.sql.bz2'
 env.migrated_db_path = env.migrated_data_root + env.migrated_db_file
 env.migration_server = 'localdev'
 
+# By default, confirm recreation of database
+env.confirm_recreate_db = True
+
 
 @contextmanager
 def virtualenv():
     with cd(env.directory):
         with prefix('source env/bin/activate'):
             yield
+
+
+def set_django_settings():
+    """ Environment-dependant Django settings. """
+    environment = env.host.split('.', 1)[0]
+    env.django_settings = 'bluebottle.settings.%s' % environment
 
 
 def run_web(*args, **kwargs):
@@ -190,7 +189,8 @@ def confirm_recreate_db(database):
 
 def recreate_db(database):
     """ Drop and create a database. """
-    confirm_recreate_db(database)
+    if env.confirm_recreate_db:
+        confirm_recreate_db(database)
 
     run_web('dropdb %s' % database)
     run_web('createdb -T template0 -E utf8 %s ' % database)
@@ -205,7 +205,6 @@ def load_dbdump(database, dbdump):
         ))
 
 
-@roles('testing')
 @task
 def sync_migrated_data():
     """ Sync data of latest stable migration. """
@@ -247,6 +246,8 @@ def update_git(commit_id):
 @task
 def prepare_django():
     """ Prepare a deployment. """
+    set_django_settings()
+
     require('django_settings')
 
     status_update('Preparing deployment.')
@@ -260,7 +261,7 @@ def prepare_django():
         # ERROR: test_site_profile_not_available (django.contrib.auth.tests.models.ProfileTestCase)
         #run_web('./manage.py test -v 0')
 
-        run_web('./manage.py syncdb --migrate -v 0 --settings=%s' % \
+        run_web('./manage.py syncdb --migrate -v 0 --noinput --settings=%s' % \
             env.django_settings
         )
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % \
@@ -276,10 +277,11 @@ def restart_site():
     run('supervisorctl restart %s' % env.service_name)
 
 
-@roles('testing')
 @task
 def create_superuser():
     """ Create a Django superuser. """
+    set_django_settings()
+
     require('django_settings')
 
     with virtualenv():
@@ -326,3 +328,32 @@ def deploy_testing(revspec=None):
 
     # Deploy complete, tag commit
     tag_commit(commit.hexsha, tag)
+
+
+@roles('dev')
+@task
+def deploy_dev(revspec=None):
+    """
+    Update the dev server to the specified revspec, or default to the
+    local HEAD of onepercentsite.
+    """
+    require('deploy_branch')
+
+    # Update git locally
+    git_fetch_local()
+
+    # Find commit for revspec
+    commit = find_commit(revspec)
+
+    # Make sure the remote git repo is up to date
+    update_git(commit)
+
+    # Get Django ready
+    prepare_django()
+
+    # Sync migrated data
+    env.confirm_recreate_db = False
+    sync_migrated_data()
+
+    # Restart app server
+    restart_site()
