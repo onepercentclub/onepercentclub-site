@@ -58,6 +58,18 @@ If no settings are explicitly chosen using `DJANGO_SETTINGS_MODEL`, the
 `local.py` settings are loaded, defaulting to override `dev.py`
 settings.
 
+Deployment
+----------
+For deployment, we're using `Fabric
+<http://docs.fabfile.org/en/1.4.3/index.html>`_. In order to deploy, the user
+should have his/her SSH public key authorized for the user `onepercentadmin`
+on the development, testing, staging and production environments. After this
+has been done, make sure you use the environment and run::
+
+    fab --list
+
+This will display all the available Fabric commands, which are defined in `fabfile.py <https://github.com/onepercentclub/bluebottle/blob/onepercentsite/fabfile.py>`_.
+
 Rationale
 *********
 As to allow for convenient overriding a chaining import pattern is used, where
