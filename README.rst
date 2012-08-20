@@ -37,10 +37,11 @@ Settings
 The project has settings for every environment in the DTAP scheme. They can be
 found in `bluebottle/settings`:
 
-    * `development.py`
-    * `testing.py`
-    * `staging.py`
-    * `production.py`
+    * `jenkins.py`: Settings for continuous integration environment.
+    * `dev.py`: Settings for development environment.
+    * `testing.py`: Settings for testing environment.
+    * `staging.py`: Settings for staging environment.
+    * `production.py`: Production settings.
 
 Specific settings can be used by setting the environment variable
 `DJANGO_SETTINGS_MODULE` to `bluebottle.settings.environment`::
@@ -51,11 +52,23 @@ Apart from these environment-specific settings, the following settings exist:
 
     * `defaults.py`: Project defaults used in any settings environment.
     * `secrets.py`: Used for storing passwords, API keys etcetera, kept out of the scope of Git.
-    * `local.py`: Local settings overrides, based off `development.py`. Not stored in Git.
+    * `local.py`: Local settings overrides, based off `dev.py`. Not stored in Git.
 
 If no settings are explicitly chosen using `DJANGO_SETTINGS_MODEL`, the
-`local.py` settings are loaded, defaulting to override `development.py`
+`local.py` settings are loaded, defaulting to override `dev.py`
 settings.
+
+Deployment
+----------
+For deployment, we're using `Fabric
+<http://docs.fabfile.org/en/1.4.3/index.html>`_. In order to deploy, the user
+should have his/her SSH public key authorized for the user `onepercentadmin`
+on the development, testing, staging and production environments. After this
+has been done, make sure you use the environment and run::
+
+    fab --list
+
+This will display all the available Fabric commands, which are defined in `fabfile.py <https://github.com/onepercentclub/bluebottle/blob/onepercentsite/fabfile.py>`_.
 
 Rationale
 *********
