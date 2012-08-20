@@ -2,5 +2,7 @@
 
 from .defaults import *
 
-# Put your environment specific overrides below
+# Import secrets
+from .secrets import *
 
+# Put your environment specific overrides below
