@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -u
 
 # Go to current directory
 cd `dirname $0`

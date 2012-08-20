@@ -2,7 +2,7 @@
 from .development import *
 
 # Import secrets
-from secrets import *
+from .secrets import *
 
 # Put your local settings overrides below
 
