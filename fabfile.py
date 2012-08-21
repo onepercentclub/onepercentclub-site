@@ -356,6 +356,32 @@ def create_superuser():
         )
 
 
+@roles('dev')
+@task
+def deploy_dev(revspec=None):
+    """
+    Update the dev server to the specified revspec, or HEAD of deploy branch.
+    """
+    # Update git locally
+    git_fetch_local()
+
+    # Find commit for revspec
+    commit = find_commit(revspec)
+
+    # Make sure the remote git repo is up to date
+    update_git(commit.hexsha)
+
+    # Get Django ready
+    prepare_django()
+
+    # Sync migrated data
+    env.confirm_recreate_db = False
+    sync_migrated_data()
+
+    # Restart app server
+    restart_site()
+
+
 @roles('testing')
 @task
 def deploy_testing(revspec=None):
@@ -386,32 +412,6 @@ def deploy_testing(revspec=None):
 
     # Optionally, sync migrated data
     sync_migrated_data()
-
-
-@roles('dev')
-@task
-def deploy_dev(revspec=None):
-    """
-    Update the dev server to the specified revspec, or HEAD of deploy branch.
-    """
-    # Update git locally
-    git_fetch_local()
-
-    # Find commit for revspec
-    commit = find_commit(revspec)
-
-    # Make sure the remote git repo is up to date
-    update_git(commit.hexsha)
-
-    # Get Django ready
-    prepare_django()
-
-    # Sync migrated data
-    env.confirm_recreate_db = False
-    sync_migrated_data()
-
-    # Restart app server
-    restart_site()
 
 
 @roles('staging')
