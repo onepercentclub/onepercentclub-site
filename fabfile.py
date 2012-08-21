@@ -257,32 +257,11 @@ def assert_release_tag(commit, tag):
             sys.exit('Confirmation required to continue.')
 
 
-""" Fabric tasks """
-@task
-def sync_migrated_data():
-    """ Sync data of latest stable migration. """
-
-    status_update('Synching migrated data.')
-
-    sync_migrated_media()
-    sync_migrated_db()
-
-    status_update('Reloading database.')
-
-    require('database')
-    recreate_db(env.database)
-
-    require('migrated_db_file')
-    load_dbdump(env.database, env.migrated_db_file)
-
-
-@task
 def git_fetch_local():
     """ Fetch local GIT updates. """
     local('git fetch -q')
 
 
-@task
 def update_git(commit_id):
     """ Update the repo to given commit_id. """
     require('directory')
@@ -296,7 +275,6 @@ def update_git(commit_id):
         run('git checkout -q %s' % commit_id)
 
 
-@task
 def update_tar(commit_id):
     """ Update the remote to given commit_id using tar. """
     require('directory')
@@ -314,7 +292,6 @@ def update_tar(commit_id):
     local('rm -f %s' % filename)
 
 
-@task
 def prepare_django():
     """ Prepare a deployment. """
     set_django_settings()
@@ -340,12 +317,30 @@ def prepare_django():
         )
 
 
-@task
 def restart_site():
     """ Gracefully restart gunicorn using supervisor. """
     require('service_name')
 
     run('supervisorctl restart %s' % env.service_name)
+
+
+""" Fabric tasks """
+@task
+def sync_migrated_data():
+    """ Sync data of latest stable migration. """
+
+    status_update('Synching migrated data.')
+
+    sync_migrated_media()
+    sync_migrated_db()
+
+    status_update('Reloading database.')
+
+    require('database')
+    recreate_db(env.database)
+
+    require('migrated_db_file')
+    load_dbdump(env.database, env.migrated_db_file)
 
 
 @task
