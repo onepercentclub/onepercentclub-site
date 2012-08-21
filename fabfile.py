@@ -59,8 +59,8 @@ env.migrated_db_file = 'migrated_data.sql.bz2'
 env.migrated_db_path = env.migrated_data_root + env.migrated_db_file
 env.migration_server = 'localdev'
 
-# By default, confirm recreation of database
-env.confirm_recreate_db = True
+# By default, confirm everywhere
+env.noinput = False
 
 
 """ Utility functions """
@@ -173,12 +173,81 @@ def find_available_tag(tag):
 
 def confirm_deploy(commit):
     """ Confirm the deployment. """
+    require('noinput')
 
-    confirmed = confirm(
-        'Are you sure you want to deploy %s?' % commit.hexsha, default=False
-    )
-    if not confirmed:
-        sys.exit('Confirmation required to continue.')
+    if not env.noinput:
+        confirmed = confirm(
+            'Are you sure you want to deploy %s?' % commit.hexsha, default=False
+        )
+
+        if not confirmed:
+            sys.exit('Confirmation required to continue.')
+
+
+def confirm_extract_migrated_media():
+    """ Confirm deleting existing media files. """
+    require('noinput')
+
+    status_update('Extracting media files.')
+
+    if not env.noinput:
+        confirmed = confirm(
+            'This will overwrite existing media files. Are you sure?',
+            default=False
+        )
+
+        if not confirmed:
+            sys.exit('Confirmation required to continue.')
+
+
+def confirm_recreate_db(database):
+    """ Confirm recreation of the database. """
+    require('noinput')
+
+    status_update('Recreating database.')
+
+    if not env.noinput:
+        confirmed = confirm(
+            'This will completely destroy the database %s. Are you sure?' % \
+            database, default=False
+        )
+
+        if not confirmed:
+            sys.exit('Confirmation required to continue.')
+
+
+def confirm_wrong_tag(commit, tag):
+    print(red('WARNING: This commit does not have the %s tag.' % tag))
+
+    if not env.noinput:
+        confirmed = confirm(
+            'Are you really sure you want to deploy %s?' % commit.hexsha,
+            default=False
+        )
+
+        if not confirmed:
+            sys.exit('Confirmation required to continue.')
+
+
+def confirm_sync_migrated_data():
+    status_update('Synching migrated data.')
+
+    if not env.noinput:
+        confirmed = confirm(
+            'Do you want to load to the latest migrated data?',
+            default=False
+        )
+
+        if not confirmed:
+            sys.exit('Confirmation required to continue.')
+
+
+def extract_migrated_media():
+    """ Extract migrated media. """
+    confirm_extract_migrated_media()
+
+    with cd(env.directory):
+        run_web('tar xmf %s' % env.migrated_media_file)
 
 
 def sync_migrated_media():
@@ -194,8 +263,6 @@ def sync_migrated_media():
             env.user, env.migration_server, env.migrated_media_path
         ))
 
-        run_web('tar xmf %s' % env.migrated_media_file)
-
 
 def sync_migrated_db():
     """ Sync database for latest stable migration. """
@@ -209,22 +276,9 @@ def sync_migrated_db():
         ))
 
 
-def confirm_recreate_db(database):
-    """ Confirm recreation of the database. """
-
-    confirmed = confirm(
-        'This will completely destroy the database %s. Are you sure?' % \
-        database, default=False
-    )
-
-    if not confirmed:
-        sys.exit('Confirmation required to continue.')
-
-
 def recreate_db(database):
     """ Drop and create a database. """
-    if env.confirm_recreate_db:
-        confirm_recreate_db(database)
+    confirm_recreate_db(database)
 
     run_web('dropdb %s' % database)
     run_web('createdb -T template0 -E utf8 %s ' % database)
@@ -246,15 +300,7 @@ def assert_release_tag(commit, tag):
 
     # Note: this method of determining tags *might* not be reliable
     if not ('tags/%s' % tag) in commit.name_rev:
-        print(red('WARNING: This commit does not have the %s tag.' % tag))
-
-        confirmed = confirm(
-            'Are you really sure you want to deploy %s?' % commit.hexsha,
-            default=False
-        )
-
-        if not confirmed:
-            sys.exit('Confirmation required to continue.')
+        confirm_wrong_tag(commit, tag)
 
 
 def git_fetch_local():
@@ -329,12 +375,13 @@ def restart_site():
 def sync_migrated_data():
     """ Sync data of latest stable migration. """
 
-    status_update('Synching migrated data.')
+    # Confirm commit with user
+    confirm_sync_migrated_data()
 
     sync_migrated_media()
     sync_migrated_db()
 
-    status_update('Reloading database.')
+    extract_migrated_media()
 
     require('database')
     recreate_db(env.database)
@@ -362,6 +409,9 @@ def deploy_dev(revspec=None):
     """
     Update the dev server to the specified revspec, or HEAD of deploy branch.
     """
+    # Don't ask for confirmation
+    env.noinput = True
+
     # Update git locally
     git_fetch_local()
 
@@ -375,7 +425,6 @@ def deploy_dev(revspec=None):
     prepare_django()
 
     # Sync migrated data
-    env.confirm_recreate_db = False
     sync_migrated_data()
 
     # Restart app server
