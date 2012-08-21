@@ -360,7 +360,7 @@ def create_superuser():
 @task
 def deploy_testing(revspec=None):
     """
-    Update the testing server to the specified revspec, or HEAD of deploy branch.
+    Update the testing server to the specified revspec, or HEAD of deploy branch and optionally sync migrated data.
     """
     # Update git locally
     git_fetch_local()
@@ -383,6 +383,9 @@ def deploy_testing(revspec=None):
 
     # Deploy complete, tag commit
     tag_commit(commit.hexsha, tag)
+
+    # Optionally, sync migrated data
+    sync_migrated_data()
 
 
 @roles('dev')
@@ -415,7 +418,7 @@ def deploy_dev(revspec=None):
 @task
 def deploy_staging(revspec=None):
     """
-    Update the staging server to the specified revspec, or the latest testing release.
+    Update the staging server to the specified revspec, or the latest testing release and optionally sync migrated data.
     """
 
     # Update git locally
@@ -449,3 +452,7 @@ def deploy_staging(revspec=None):
 
     # Deploy complete, tag commit
     tag_commit(commit.hexsha, tag)
+
+    # Optionally, sync migrated data
+    sync_migrated_data()
+
