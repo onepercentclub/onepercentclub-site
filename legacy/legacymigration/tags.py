@@ -6,10 +6,6 @@ def copy_tags(from_instance, to_instance):
     instance. This method has not been included in a Migration class so that
     it can be used for both Projects and Tasks.
     """
-    # Ignore the tags on this project because it has a tag that is > 100 chars.
-    if from_instance.title == u'Fair Trade and Safe Workplace for Waste Pickers Sustainable Livelihoods':
-        return
-
     # Remove the tags from the destination instance so that migration can be
     # run multiple times with the same result.
     to_instance.tags.clear()
