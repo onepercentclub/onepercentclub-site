@@ -129,8 +129,8 @@ Alternately, only a limited number of migrations can be executed by specifying t
 
 These migrations will be executed in the order in which they have been specified in `LEGACY_MIGRATIONS`.
 
-Other features
---------------
+Additional features
+-------------------
 
 .. _exclusions:
 
@@ -160,8 +160,22 @@ Migrating of files
 
 .. _logging:
 
-Logging
-*******
+Verbosity and Logging
+*********************
+
+Several messages are logged during the migrations, depending on the verbosity
+level. Like all Django management commands, `migrate_legacy` takes a `-v`
+option with a  verbosity value of `0`, `1` or `2`.
+
+With the default value of `0`, only errors and warning are logged. A verbosity
+value of `1` also logs info messages and a value of `2` logs debug messages.
+
+The following information is logger for the respective log levels:
+
+* `DEBUG`: Log every individual object that is being migrated or tested.
+* `INFO`: Checkpointing, timing information and other general status updates.
+* `WARNING`: Information that the user needs to be aware of, like fields that are not migrated, model validation errors and values that are changed during mappings (when `verbose=True`).
+* `ERROR`: Messages about problems that will prohibit the migration from completing succesfully, like failures of integrity tests.
 
 Auto-generated documentation
 ----------------------------
