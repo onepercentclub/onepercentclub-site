@@ -3,22 +3,16 @@ Legacy migration
 
 `legacymigration` App Overview
 -------------------------------
-Migrations are governed from `legacymigration ` app. Within the app, a base module called  `MigrateModel` defines a generic correspondence-based migration strategy from one model in one database to another model in another database.
+Migrations are executed from the `legacymigration` app. Within the app, a base module called  `MigrateModel` defines a generic correspondence-based migration strategy from one model instance in one database to a model instance in another database.
 
-Actual migrations are performed by subclassing the `MigrateModel` class, defining the `from_model`, `to_model` and `field_mapping` attributes. Also, the `from_db` and `to_db` attributes can be specified, which default to migrating from database `legacy` to `default`. 
+Actual migrations are performed by subclassing the `MigrateModel` class, defining (at the very least) the `from_model`, `to_model` and `field_mapping` attributes. Also, the `from_db` and `to_db` attributes can be specified, which default to migrating from database `legacy` to `default`.
 
-After having defined the class, we can instantiate the class and initiate a full migration by calling the `migrate_all` method on the class, like such::
+After having defined a migration class, the particular migration can be
+activated by adding it to the `LEGACY_MIGRATIONS` configuration option, which
+should be a list. The migrations in this list can be performed by running
+the :ref:`management-command`.
 
-        m = MigrateMemberAuth()
-        m.migrate_all()
-
-The `migrate_all` method will:
-
-1. Get a QuerySet with all legacy objects to migrate.
-2. Get the corresponding new object to migrate to using the `get_to` method, which in turn uses `get_correspondence_args` to define the conditions of the correspondence relation.
-3. Call the `migrate_single` call for every object and saving the result.
-4. After having migrated all the objects, run `test_multiple` on the QuerySet with legacy objects, which (by default) does bi-directional correspondence tests and calls `test_single` on every pair of migrated objects.
-5. If `test_multiple` returns `True`, it will commit the changes to the database (all operations run within a single transaction).
+.. _field-mappings:
 
 Field mappings
 **************
@@ -28,6 +22,8 @@ different ways:
 1. A value of `True` for the mapping means the field will be copied as-is to the new model.
 2. A string value causes the legacy field to be mapped to the new field with the string as name.
 3. A function with signature `f(instance, fieldname) -> dict` will cause all of the values returned by the function to be set on the destination model.
+
+.. _file-structure:
 
 File structure
 ***************
@@ -39,15 +35,29 @@ The app is structured as follows:
 * `utils.py`: Misc. helper utils.
 * `<app_domain>.py`: Migrations of specific logical domains.
 
+.. _settings:
+
 Settings
 ********
 
 * `LEGACY_MIGRATIONS`: Iterable of strings referring to migration classes to execute.
-* `LEGACY_MIGRATIONS_DEBUG`: Whether or not to bail out into ipdb when a migration fails. Defaults to `True`.
+* `LEGACY_MIGRATIONS_DEBUG`: Trigger `ipdb <https://github.com/gotcha/ipdb>`_ on exceptions during migration. Defaults to `True`.
 * `LEGACY_MIGRATIONS_MEDIA_ROOT`: Root path for file migrations.
+
+.. _migration-workflow:
 
 Migration workflow
 --------------------
+
+The general workflow for running migrations is as follows:
+
+#. Configure the :ref:`database-structure` and load the `legacy` data.
+#. Create Django models for the existing data using `inspectdb <https://docs.djangoproject.com/en/dev/howto/legacy-databases/#auto-generate-the-models>`_.
+#. Configure migration :ref:`settings`.
+#. Create :class:`MigrationModel` subclasses for the legacy models you want to migrate.
+#. Run the :ref:`management-command`.
+
+.. _database-structure:
 
 Database structure
 ******************
@@ -81,6 +91,8 @@ After this we can initialize the new database in the ordinary way::
 
 These steps are only needed once, after which legacy migrations can be maintained using the `legacy_migrate` command.
 
+.. _management-command:
+
 `migrate_legacy` Django management command
 *******************************************
 A series of migrations can be scripted through the `migrate_legacy` command, defined in `legacymigration/management/commands/migrate_legacy.py`. This command allows for easy specification of verbosity level (logging) using the `--verbosity {0,1,2,3}` argument and will run all migrations such that exceptions will throw you straight into an interactive debugger.
@@ -97,9 +109,11 @@ The `migrate_legacy` command can be executed as such::
     [05/Jul/2012 11:19:12] WARNING  Field value '<some_value>' for '<Member: 457: somevalue>' too long, cropping to 30 characters.
     ...
 
-Alternately, only a limited number of migrations can be executed by specifying their class names as parameters to the `migrate_legacy` command, ie.::
+Alternately, only a limited number of migrations can be executed by specifying their class names as parameters to the `migrate_legacy` command::
 
     ./manage.py migrate_legacy -v 2 MigrateProfile MigrateUserAddress
+
+These migrations will be executed in the order in which they have been specified in `LEGACY_MIGRATIONS`.
 
 Auto-generated documentation
 ----------------------------

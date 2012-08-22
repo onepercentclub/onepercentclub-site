@@ -23,6 +23,14 @@ import sys, os
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
+# This is needed to be able to make autodoc work with required settings
+from django.conf import global_settings
+
+setattr(global_settings, 'LEGACY_MIGRATIONS_MEDIA_ROOT', '#doc')
+
+from django.core.management import setup_environ
+setup_environ(global_settings)
+
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
