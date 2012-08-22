@@ -24,18 +24,18 @@ digraph G {
 	// Idea: waiting for approval
 	idea_waiting_for_approval -> idea_in_progress  [ label=" Not Aprroved\n with Comments" ];
 	idea_waiting_for_approval -> idea_rejected [ label=" Not Approved" ];
-	idea_waiting_for_approval -> plan_in_progress [ label=" Approved / Coach Assigned" ];
+	idea_waiting_for_approval -> funing_in_progress [ label=" Approved / Coach Assigned" ];
 
 	// Plan: in progress
-	plan_in_progress -> plan_in_progress [ label=" Save",style=dotted ];
-	plan_in_progress -> plan_waiting_for_approval [ label=" Ask for Approval" ];
+	funing_in_progress -> funing_in_progress [ label=" Save",style=dotted ];
+	funing_in_progress -> funing_waiting_for_approval [ label=" Ask for Approval" ];
 
 	// Plan: waiting for approval
-	plan_waiting_for_approval -> plan_in_progress  [ label=" Not Aprroved\n with Comments" ];
-	plan_waiting_for_approval -> plan_waiting_for_funding [ label=" Approved" ];
+	funing_waiting_for_approval -> funing_in_progress  [ label=" Not Aprroved\n with Comments" ];
+	funing_waiting_for_approval -> funing_waiting_for_funding [ label=" Approved" ];
 
 	// Plan: waiting for funding
-	plan_waiting_for_funding -> act_in_progress [ label=" Project Funded" ];
+	funing_waiting_for_funding -> act_in_progress [ label=" Project Funded" ];
 
 	// Act: in progress
 	act_in_progress -> results_in_progress [ label=" Mark as Complete" ];
@@ -60,10 +60,10 @@ digraph G {
 	idea_waiting_for_approval [ label="Idea\nwaiting for\napproval" ];
 	idea_rejected [ label="Idea\nrejected",shape=circle ];
 
-	// Plan
-	plan_in_progress [ label="Plan\nin progress",shape=circle ];
-	plan_waiting_for_approval [ label="Plan\nwaiting for\napproval" ];
-	plan_waiting_for_funding [ label="Plan\nwaiting for\nfunding" ];
+	// Funding
+	funing_in_progress [ label="Funding\nin progress",shape=circle ];
+	funing_waiting_for_approval [ label="Funding\nwaiting for\napproval" ];
+	funing_waiting_for_funding [ label="Funding\nwaiting for\nfunding" ];
 
 	// Act
 	act_in_progress [ label="Act\nin progress" ];
@@ -75,8 +75,8 @@ digraph G {
 	/*
 	 * Node levels
 	 */
-	{ rank=same; plan_in_progress project_complete };
-	{ rank=same; plan_waiting_for_approval results_waiting_for_approval };
-	{ rank=same; plan_waiting_for_funding results_in_progress };
+	{ rank=same; funing_in_progress project_complete };
+	{ rank=same; funing_waiting_for_approval results_waiting_for_approval };
+	{ rank=same; funing_waiting_for_funding results_in_progress };
 }
 
