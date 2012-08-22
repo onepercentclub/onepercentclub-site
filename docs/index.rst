@@ -3,19 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to bluebottle's documentation!
-======================================
+Welcome to Project Bluebottle's documentation!
+===============================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-
-Project state diagram (test)
-============================
-
-.. graphviz:: projects-state-diagram.dot
+   projects/index.rst
 
 
 Indices and tables
