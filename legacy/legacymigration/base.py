@@ -27,7 +27,10 @@ class MigrateModel(object):
         return self.__class__.__name__
 
     def list_from_exclusions(self, qs):
-        """ Perform explicit exclusions on the queryset for dirty data. """
+        """
+        Take a source queryset and perform explicit filtering on
+        'unclean' data.
+        """
 
         return qs
 
