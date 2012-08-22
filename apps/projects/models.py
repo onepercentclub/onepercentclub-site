@@ -106,7 +106,6 @@ class Project(models.Model):
 
     def get_supporters(self):
         """ Get a queryset of donating users for this project. """
-
         # TODO: Add filter for 'succesful' donations on a somewhat higher
         # level, perhaps a custom Manager on Donation/DonationLine classes.
         donators = User.objects
