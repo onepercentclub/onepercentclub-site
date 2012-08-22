@@ -423,6 +423,8 @@ def prepare_django():
     status_update('Preparing deployment.')
 
     with virtualenv():
+        # TODO: Filter out the following messages:
+        # "Could not find a tag or branch '<commit_id>', assuming commit."
         run('pip install -q -r requirements.txt')
 
         run('./manage.py compile_pyc')
