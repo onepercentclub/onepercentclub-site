@@ -374,7 +374,7 @@ def update_tar(commit_id):
     put(filename, env.directory)
 
     with cd(env.directory):
-        run('tar xvf %s' % filename)
+        run('tar xjf %s' % filename)
         run('rm %s' % filename)
 
     local('rm -f %s' % filename)
