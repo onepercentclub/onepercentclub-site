@@ -24,18 +24,18 @@ digraph G {
 	// Idea: waiting for approval
 	idea_waiting_for_approval -> idea_in_progress  [ label=" Not Aprroved\n with Comments" ];
 	idea_waiting_for_approval -> idea_rejected [ label=" Not Approved" ];
-	idea_waiting_for_approval -> funing_in_progress [ label=" Approved / Coach Assigned" ];
+	idea_waiting_for_approval -> funding_in_progress [ label=" Approved / Coach Assigned" ];
 
 	// Plan: in progress
-	funing_in_progress -> funing_in_progress [ label=" Save",style=dotted ];
-	funing_in_progress -> funing_waiting_for_approval [ label=" Ask for Approval" ];
+	funding_in_progress -> funding_in_progress [ label=" Save",style=dotted ];
+	funding_in_progress -> funding_waiting_for_approval [ label=" Ask for Approval" ];
 
 	// Plan: waiting for approval
-	funing_waiting_for_approval -> funing_in_progress  [ label=" Not Aprroved\n with Comments" ];
-	funing_waiting_for_approval -> funing_waiting_for_funding [ label=" Approved" ];
+	funding_waiting_for_approval -> funding_in_progress  [ label=" Not Aprroved\n with Comments" ];
+	funding_waiting_for_approval -> funding_waiting_for_funding [ label=" Approved" ];
 
 	// Plan: waiting for funding
-	funing_waiting_for_funding -> act_in_progress [ label=" Project Funded" ];
+	funding_waiting_for_funding -> act_in_progress [ label=" Project Funded" ];
 
 	// Act: in progress
 	act_in_progress -> results_in_progress [ label=" Mark as Complete" ];
@@ -61,9 +61,9 @@ digraph G {
 	idea_rejected [ label="Idea\nrejected",shape=circle ];
 
 	// Funding
-	funing_in_progress [ label="Funding\nin progress",shape=circle ];
-	funing_waiting_for_approval [ label="Funding\nwaiting for\napproval" ];
-	funing_waiting_for_funding [ label="Funding\nwaiting for\nfunding" ];
+	funding_in_progress [ label="Funding\nin progress",shape=circle ];
+	funding_waiting_for_approval [ label="Funding\nwaiting for\napproval" ];
+	funding_waiting_for_funding [ label="Funding\nwaiting for\nfunding" ];
 
 	// Act
 	act_in_progress [ label="Act\nin progress" ];
@@ -75,8 +75,8 @@ digraph G {
 	/*
 	 * Node levels
 	 */
-	{ rank=same; funing_in_progress project_complete };
-	{ rank=same; funing_waiting_for_approval results_waiting_for_approval };
-	{ rank=same; funing_waiting_for_funding results_in_progress };
+	{ rank=same; funding_in_progress project_complete };
+	{ rank=same; funding_waiting_for_approval results_waiting_for_approval };
+	{ rank=same; funding_waiting_for_funding results_in_progress };
 }
 
