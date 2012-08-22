@@ -11,11 +11,11 @@ class OrganizationAddressAdmin(admin.StackedInline):
 
 
 class OrganizationAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("title",)}
+    prepopulated_fields = {"slug": ("name",)}
 
     inlines = (OrganizationAddressAdmin,)
 
-    search_fields = ('title', 'description')
+    search_fields = ('name', 'description')
 
 
 admin.site.register(Organization, OrganizationAdmin)

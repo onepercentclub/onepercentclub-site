@@ -16,7 +16,7 @@ class Organization(models.Model):
     An organization has one or more members.
     """
 
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=100, unique=True)
 
     description = models.TextField(blank=True)
@@ -47,10 +47,10 @@ class Organization(models.Model):
     tags = TaggableManager(blank=True)
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
     class Meta:
-        ordering = ['title']
+        ordering = ['name']
 
 
 class OrganizationMember(models.Model):

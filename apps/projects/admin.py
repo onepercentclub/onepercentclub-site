@@ -7,8 +7,8 @@ from sorl.thumbnail.admin import AdminImageMixin
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 from .models import (
-    Project, IdeaPhase, PlanPhase, ActPhase, ResultsPhase, BudgetLine,
-    Testimonial, BudgetCategory, Message, ProjectCategory
+    Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, BudgetLine,
+    Testimonial, Message, ProjectTheme, PartnerOrganization
 )
 
 
@@ -21,8 +21,8 @@ class BudgetInline(admin.TabularInline):
     model = BudgetLine
 
 
-class PlanPhaseInline(admin.StackedInline):
-    model = PlanPhase
+class FundPhaseInline(admin.StackedInline):
+    model = FundPhase
 
 
 class ActPhaseInline(admin.StackedInline):
@@ -38,19 +38,21 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ('phase', 'project_language', 'categories', 'country')
-    list_display = ('thumbnail', 'title', 'organization', 'country')
-    list_display_links = ('thumbnail', 'title')
-
+    list_filter = ('phase', 'project_language', 'themes', 'country')
+    list_display = ('title', 'organization', 'country')
+    # TODO: decide if we want to have thumbnails here
+    #list_display = ('thumbnail', 'title', 'organization', 'country')
+    #list_display_links = ('thumbnail', 'title')
+    
     inlines = [
         BudgetInline, IdeaPhaseInline,
-        PlanPhaseInline, ActPhaseInline, ResultsPhaseInline
+        FundPhaseInline, ActPhaseInline, ResultsPhaseInline
     ]
 
-    filter_horizontal = ('categories', 'albums')
+    filter_horizontal = ('themes', 'albums')
 
     search_fields = (
-        'title', 'organization__title',
+        'title', 'organization__name',
         'owner__first_name', 'owner__last_name'
     )
 
@@ -88,10 +90,15 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Message)
 admin.site.register(Testimonial)
-admin.site.register(BudgetCategory)
 
 
-class ProjectCategoryAdmin(admin.ModelAdmin):
+class PartnerOrganizationAdmin(AdminImageMixin, admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
-admin.site.register(ProjectCategory, ProjectCategoryAdmin)
+admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
+
+
+class ProjectThemeAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
+admin.site.register(ProjectTheme, ProjectThemeAdmin)

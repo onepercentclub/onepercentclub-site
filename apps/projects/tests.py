@@ -6,7 +6,7 @@ from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
 
-from .models import Project, PlanPhase
+from .models import Project, FundPhase
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -48,18 +48,18 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         return project
 
 
-class PlanPhaseTestMixin(object):
-    def create_planphase(self, project, money_total=15000, money_asked=5000):
-        """ Create (but not save) a plan phase. """
-        planphase = PlanPhase(
-            project=project, money_total=money_total, money_asked=money_asked
+class FundPhaseTestMixin(object):
+    def create_fundphase(self, project, budget_total=15000, money_asked=5000):
+        """ Create (but not save) a fund phase. """
+        fundphase = FundPhase(
+            project=project, budget_total=budget_total, money_asked=money_asked
         )
 
-        return planphase
+        return fundphase
 
 
 
-class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin,
+class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
                    MediaTestsMixin):
     """ Tests for projects. """
 
@@ -113,7 +113,7 @@ class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin,
     def test_amounts(self):
         """ Test calculation of donation amounts """
 
-        phase = self.create_planphase(self.project, 12000, 3520)
+        phase = self.create_fundphase(self.project, 12000, 3520)
         phase.save()
 
         self.assertEquals(self.project.money_asked(), 3520)
@@ -131,6 +131,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, PlanPhaseTestMixin,
         self.assertEquals(self.project.money_donated(), 1322)
 
         self.project.donated = 2312
-        self.project.planphase.money_asked = 3500
+        self.project.fundphase.money_asked = 3500
 
         self.assertEquals(self.project.money_needed(), 1188)
