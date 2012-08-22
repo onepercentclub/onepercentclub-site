@@ -117,13 +117,20 @@ class Project(models.Model):
     class Meta:
         ordering = ['title']
 
+
 class PartnerOrganization(models.Model):
     """ 
         Some projects are run in cooperation with a partner 
         organization like EarthCharter & MacroMicro
     """
-    title = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)    
+    name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
+
+    def __unicode__(self):
+        if self.name:
+            return self.name
+        return self.slug
+
 
 class AbstractPhase(models.Model):
     """ Abstract base class for project phases. """
@@ -150,7 +157,6 @@ class AbstractPhase(models.Model):
 class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here. """
     knowledge_description = models.TextField(blank=True)
-
 
 
 class FundPhase(AbstractPhase):
@@ -193,7 +199,6 @@ class FundPhase(AbstractPhase):
     impact_indirect_female = models.IntegerField(max_length=6, default=0)
 
 
-
 class ActPhase(AbstractPhase):
     """ ActPhase Funding complete. Let's DO it! """
 
@@ -222,6 +227,7 @@ class ResultsPhase(AbstractPhase):
         help_text=_("What's next?"),
         blank=True)
 
+
 class Referals(models.Model):
     """ People that are named as referals """
     name = models.CharField(max_length=255)
@@ -238,6 +244,7 @@ class BudgetLine(models.Model):
     project = models.ForeignKey(Project)
     description = models.TextField(blank=True)
     money_amount = MoneyField()
+
 
 # Now some stuff connected to Projects
 # FIXME: Can we think of a better place to put this??
