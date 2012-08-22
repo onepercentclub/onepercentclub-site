@@ -217,6 +217,8 @@ def confirm_recreate_db(database):
 
 
 def confirm_wrong_tag(commit, tag):
+    """ Confirm deployment when commit does not have expected tag. """
+
     print(red('WARNING: This commit does not have the %s tag.' % tag))
 
     if not env.noinput:
@@ -227,6 +229,20 @@ def confirm_wrong_tag(commit, tag):
 
         if not confirmed:
             sys.exit('Confirmation required to continue.')
+
+
+def confirm_prune_unref_files(unreferenced_files):
+    """ Confirm pruning of unreferenced files. Returns boolean. """
+
+    if not env.noinput:
+        return confirm(
+            'Do you want to prune %d unreferenced files?' % \
+                len(unreferenced_files),
+            default=False
+        )
+
+    # No confirmation needed, always return True.
+    return True
 
 
 def prompt_role():
@@ -380,6 +396,24 @@ def update_tar(commit_id):
     local('rm -f %s' % filename)
 
 
+def prune_unreferenced_files():
+    """ Prune unreferenced files """
+
+    # Find unreferenced files
+    with virtualenv():
+        unreferenced_files = run_web('./manage.py unreferenced_files --settings=%s | grep -v cache' % \
+            env.django_settings
+        ).splitlines()
+
+    # If found, prompt for deletion
+    if unreferenced_files:
+        if confirm_prune_unref_files(unreferenced_files):
+            status_update('Pruning %d unreferenced files' % len(unreferenced_files))
+
+            for unref_file in unreferenced_files:
+                run_web('rm %s' % unref_file)
+
+
 def prepare_django():
     """ Prepare a deployment. """
     set_django_settings()
@@ -403,6 +437,8 @@ def prepare_django():
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % \
             env.django_settings
         )
+
+        prune_unreferenced_files()
 
 
 def restart_site():
