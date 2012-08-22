@@ -47,7 +47,7 @@ class Organization(models.Model):
     tags = TaggableManager(blank=True)
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
     class Meta:
         ordering = ['name']

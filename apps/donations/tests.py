@@ -12,14 +12,14 @@ from .models import Donation, DonationLine
 class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
     """ Base class for tests using donations. """
 
-    def create_donation(self, user=None, amount=None):
+    def create_donation(self, user=None, amount=None, status='closed'):
         if not user:
             user = self.create_user()
 
         if not amount:
             amount = Decimal('10.00')
 
-        return Donation(user=user, amount=amount)
+        return Donation(user=user, amount=amount, status=status)
 
     def create_donationline(self, donation=None, project=None, amount=None):
         if not project:
@@ -148,7 +148,6 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
 
         # Add another
         other_user = self.create_user()
-
         donation = self.create_donation(user=other_user)
         donation.save()
 
@@ -160,6 +159,34 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
         supporters = donationline.project.get_supporters()
         self.assertIn(other_user, supporters)
         self.assertEquals(supporters.count(), 2)
+
+        # second payment by the other_user
+        donation = self.create_donation(user=other_user)
+        donation.save()
+
+        donationline = self.create_donationline(
+            donation=donation, project=project
+        )
+        donationline.save()
+        # other_user should only be listed once
+        supporters = donationline.project.get_supporters()
+        self.assertEquals(supporters.count(), 2)
+        
+        # Add a poor guy 
+        poor_guy = self.create_user()
+        donation = self.create_donation(user=poor_guy,status='cancelled')
+        donation.save()
+
+        donationline = self.create_donationline(
+            donation=donation, project=project
+        )
+        donationline.save()
+        # Since donation was cancelled it still should be 2 supporters 
+        supporters = donationline.project.get_supporters()
+        self.assertEquals(supporters.count(), 2)
+        
+
+
 
     def test_detailview_supporters(self):
         """

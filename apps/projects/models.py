@@ -28,7 +28,6 @@ class ProjectTheme(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name_plural = _("Project Categories")
 
 
 class Project(models.Model):
@@ -71,13 +70,16 @@ class Project(models.Model):
 
     albums = models.ManyToManyField('media.Album', blank=True, null=True)
 
+    tags = TaggableManager(blank=True)
+
+    # temporary to do hold random 'donated'
+    donated = 0
+
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
-    # temporary to do hold random 'donated'
-    donated = 0
 
     def money_asked(self):
         return int(self.fundphase.money_asked)
@@ -92,8 +94,6 @@ class Project(models.Model):
 
     def money_needed(self):
         return self.money_asked() - self.money_donated()
-
-    tags = TaggableManager(blank=True)
 
     @models.permalink
     def get_absolute_url(self):
@@ -168,6 +168,7 @@ class FundPhase(AbstractPhase):
         youth = ChoiceItem('youth', label=_("Youth"))
         adults = ChoiceItem('adults', label=_("Adults"))
 
+    description_long = models.TextField(blank=True)
 
     budget_total = MoneyField(_('money total'),
         help_text=_("Total amount needed for this project."))
@@ -224,7 +225,7 @@ class ResultsPhase(AbstractPhase):
 class Referals(models.Model):
     """ People that are named as referals """
     name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
+    email = models.EmailField()
     description = models.TextField(blank=True)
 
 
