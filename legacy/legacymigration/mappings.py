@@ -479,7 +479,9 @@ class ConcatenatingStringMapping(IdentityMapping):
             concat_value = getattr(instance, concat_field)
 
             # Only concatenate for non-empty values
-            if concat_value:
+            if self.concatenate_str is None:
+                new_value = concat_value
+            elif concat_value:
                 new_value += self.concatenate_str + concat_value
 
         self.log_change(from_field, instance, old_value, new_value)

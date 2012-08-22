@@ -41,7 +41,7 @@ class MigrateOrganization(UniqueSlugMixin, MigrateOrganizationBase):
     field_mapping = {
         'id': True,
         'name': OneToManyMapping(
-            IdentityMapping('title'),
+            IdentityMapping('name'),
             TolerantSlugifyCroppingMapping(100, to_field='slug', verbose=False)
         ),
         'legalstatus': 'legal_status',

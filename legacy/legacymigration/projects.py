@@ -14,8 +14,8 @@ from legacy.legacyprojects.models import (
 )
 
 from apps.projects.models import (
-    Project, IdeaPhase, PlanPhase, ActPhase, ResultsPhase,
-    Link, Testimonial, Message, BudgetCategory, BudgetLine
+    Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase,
+    Link, Testimonial, Message, BudgetLine
 )
 
 from .base import MigrateModel, UniqueSlugMixin
@@ -35,7 +35,7 @@ from .tags import copy_tags, test_tags
 
 # We want a handy reference to these status objects
 phases = Project.ProjectPhases
-statuses = PlanPhase.PhaseStatuses
+statuses = FundPhase.PhaseStatuses
 
 
 class PhaseMapping(IdentityMapping):
@@ -49,8 +49,8 @@ class PhaseMapping(IdentityMapping):
             phase = phases.idea
 
         elif old_value in ('validated', 'confirmed'):
-            # Plan phase
-            phase = phases.plan
+            # Fund phase
+            phase = phases.fund
 
         elif old_value in ('done', 'closed'):
             # There is no way to discriminate by 'act' or 'results' phases
@@ -246,7 +246,7 @@ class MigrateIdea(MigrateProjectBase):
         qs = super(MigrateIdea, self).list_to()
 
         qs = qs.filter(
-            project__phase__in=(phases.idea, phases.plan, phases.results)
+            project__phase__in=(phases.idea, phases.fund, phases.results)
         )
 
         return qs
@@ -277,6 +277,15 @@ class MigrateIdea(MigrateProjectBase):
         'description': NoneToStringMapping(),
         'startdate': True,
         'enddate': True,
+        
+        'volunteers': ConcatenatingStringMapping(
+            to_field='knowledge_description',
+            concatenate_with=('how_support',),
+            concatenate_str='<br />',
+            verbose=False
+        ),
+                     
+        'money_needed_for': NoneToStringMapping('money_description'),
 
         'status': MappingMapping({
             'done': statuses.completed,
@@ -294,12 +303,12 @@ class MigrateIdea(MigrateProjectBase):
     field_mapping.update(mapped_in_project)
 
 
-class MigratePlan(MigrateProjectBase):
-    to_model = PlanPhase
+class MigrateFund(MigrateProjectBase):
+    to_model = FundPhase
 
     def list_from(self):
         """ Filter by project status. """
-        qs = super(MigratePlan, self).list_from()
+        qs = super(MigrateFund, self).list_from()
 
         qs = qs.filter(
             status__in=(
@@ -312,10 +321,10 @@ class MigratePlan(MigrateProjectBase):
 
     def list_to(self):
         """ Filter by projects past idea phase. """
-        qs = super(MigratePlan, self).list_to()
+        qs = super(MigrateFund, self).list_to()
 
         qs = qs.filter(
-            project__phase__in=(phases.plan, phases.results)
+            project__phase__in=(phases.fund, phases.results)
         )
 
         return qs
@@ -340,22 +349,20 @@ class MigratePlan(MigrateProjectBase):
             'validated': statuses.progress
         }, verbose=False),
 
-        'longdescription': 'what',
-        'project_goals': 'goal',
-        'target_audience': 'who',
-        'solve_poverty': 'how',
+        'longdescription': ConcatenatingStringMapping(
+            to_field='description_long',
+            concatenate_with=('project_goals', 'expected_results',),
+            concatenate_str='<br/>',
+            verbose=False
+        ),
+        'target_audience': 'social_impact',
         'description_duurzaamheid':
             NoneToStringMapping('sustainability', verbose=False),
-        'expected_results': 'target',
-        'how_support': NoneToStringMapping('needed_expertise'),
-        'volunteers': 'needed_volunteers',
-
+        'expected_results': None, #Already mapped above
         'money_needed_club': OneToManyMapping(
             StringToDecimalMapping('money_asked', verbose=False),
-            StringToDecimalMapping('money_total', verbose=False)
+            StringToDecimalMapping('budget_total', verbose=False)
         ),
-
-        'legacy_budget': 'budget_description',
 
         'received_other_sources': ConcatenatingStringMapping(
             to_field='money_other_sources',
@@ -563,29 +570,6 @@ class MigrateMessage(MigrateTestimonial):
     }
 
 
-class MigrateBudgetCategory(MigrateModel):
-    from_model = NeedCategory
-    to_model = BudgetCategory
-
-    field_mapping = {
-        'id': True,
-
-        'name': True,
-        'description': NoneToStringMapping(verbose=False),
-        'ordering': True,
-
-        # It seems as though we are throwing away the hierarchical relation
-        # here - which seems a rather bad idea.
-        # 'parent': ...,
-
-        'need': None,
-        'needcategory': None,
-        'name_en': None,
-        'name_es': None,
-
-    }
-
-
 class MigrateBudgetLine(MigrateLink):
     from_model = Need
     to_model = BudgetLine
@@ -607,7 +591,7 @@ class MigrateBudgetLine(MigrateLink):
         'project_id': True,
 
         'category': None,
-        'category_id': True,
+        'category_id': None,
 
         'description': NoneToStringMapping(verbose=False),
 
