@@ -43,7 +43,7 @@ class Project(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=100, unique=True)
 
-    partner_organization = models.OneToOneField('PartnerOrganization', blank=True, null=True)
+    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True)
 
     image = ImageField(max_length=255, blank=True,
         upload_to='project_images/',
@@ -122,7 +122,7 @@ class PartnerOrganization(models.Model):
         Some projects are run in cooperation with a partner 
         organization like EarthCharter & MacroMicro
     """
-    title = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=100, unique=True)    
 
 class AbstractPhase(models.Model):
