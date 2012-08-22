@@ -16,6 +16,8 @@ from .utils import Timer
 class MigrateModel(object):
     """
     Generic migration class, from one model class to another.
+
+    Migrations can be run by calling :meth:`migrate_all`.
     """
 
     from_db = 'legacy'
@@ -25,7 +27,10 @@ class MigrateModel(object):
         return self.__class__.__name__
 
     def list_from_exclusions(self, qs):
-        """ Perform explicit exclusions on the queryset for dirty data. """
+        """
+        Take a source queryset and perform explicit filtering on
+        'unclean' data.
+        """
 
         return qs
 
@@ -367,7 +372,28 @@ class MigrateModel(object):
         transaction.commit_unless_managed(using=self.to_db)
 
     def migrate_all(self):
-        """ Migrate all the objects returned by list_from(). """
+        """
+        Migrate all the objects returned by list_from().
+
+        This method performs the following tasks:
+
+        1. List all objects to migrate by calling :meth:`_list_from`, the
+           caching wrapper around :meth:`list_from`.
+        2. Log warnings for fields which are not explicitly mapped.
+        3. Start a transaction.
+        4. Migrate all the individual objects from the source queryset
+           by calling :meth:`_migrate_from`.
+        5. Perform integrity tests by calling :meth:`test_multiple` on the
+           migrated queryset and raise an exception if any of the tests have
+           failed.
+        6. Commit the transaction.
+        7. Manually update the sequence counter for the target database table
+           so new primary keys are generated properly after the migration.
+
+        During the process this method will print out timing information for
+        the migration and testing process and will give out progress reports
+        for every 50 objects migrated.
+        """
 
         logger.info(u"Starting '<%s>'", repr(self))
 
@@ -420,7 +446,13 @@ class MigrateModel(object):
 
 
 class UniqueSlugMixin(object):
-    """ Mixin overriding the slug field to be unique. """
+    """
+    Mixin overriding the slug field to be unique.
+
+    The name of the slug field can be overridden by setting the `slug_field`
+    property on the migration class. It defaults to `slug` when not specified.
+
+    """
 
     # Default name for (new) slug field, can be overridden
     slug_field = 'slug'

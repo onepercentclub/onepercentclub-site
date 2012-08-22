@@ -28,7 +28,6 @@ class ProjectTheme(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name_plural = _("Project Categories")
 
 
 class Project(models.Model):
@@ -71,14 +70,16 @@ class Project(models.Model):
         help_text=_("Main language of the project."))
 
     albums = models.ManyToManyField('media.Album', blank=True, null=True)
+    tags = TaggableManager(blank=True)
+
+    # temporary to do hold random 'donated'
+    donated = 0
 
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
-    # temporary to do hold random 'donated'
-    donated = 0
 
     def money_asked(self):
         return int(self.fundphase.money_asked)
@@ -93,8 +94,6 @@ class Project(models.Model):
 
     def money_needed(self):
         return self.money_asked() - self.money_donated()
-
-    tags = TaggableManager(blank=True)
 
     @models.permalink
     def get_absolute_url(self):
@@ -117,6 +116,7 @@ class Project(models.Model):
     class Meta:
         ordering = ['title']
 
+
 class PartnerOrganization(models.Model):
     """ 
         Some projects are run in cooperation with a partner 
@@ -124,6 +124,11 @@ class PartnerOrganization(models.Model):
     """
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=100, unique=True)    
+
+    def __unicode__(self):
+        if self.name:
+            return self.name
+        return self.slug
 
 class AbstractPhase(models.Model):
     """ Abstract base class for project phases. """
@@ -150,7 +155,6 @@ class AbstractPhase(models.Model):
 class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here. """
     knowledge_description = models.TextField(blank=True)
-
 
 
 class FundPhase(AbstractPhase):
@@ -193,7 +197,6 @@ class FundPhase(AbstractPhase):
     impact_indirect_female = models.IntegerField(max_length=6, default=0)
 
 
-
 class ActPhase(AbstractPhase):
     """ ActPhase Funding complete. Let's DO it! """
 
@@ -222,10 +225,11 @@ class ResultsPhase(AbstractPhase):
         help_text=_("What's next?"),
         blank=True)
 
+
 class Referals(models.Model):
     """ People that are named as referals """
     name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
+    email = models.EmailField()
     description = models.TextField(blank=True)
 
 
@@ -238,6 +242,7 @@ class BudgetLine(models.Model):
     project = models.ForeignKey(Project)
     description = models.TextField(blank=True)
     money_amount = MoneyField()
+
 
 # Now some stuff connected to Projects
 # FIXME: Can we think of a better place to put this??
