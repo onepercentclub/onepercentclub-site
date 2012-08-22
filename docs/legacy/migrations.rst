@@ -18,13 +18,14 @@ the :ref:`management-command`.
 
 Field mappings
 **************
-Field mappings from the old model to the new model, as executed by the :meth:`~base.MigrateModel.map_fields` method, can be specified in three
+Field mappings from the old model to the new model, as executed by the :meth:`~base.MigrateModel.map_fields` method, can be specified in several
 different ways:
 
 1. A value of `True` for the mapping means the field will be copied as-is to the new model.
 2. A value of `None` for explicitly throwing away a particular field (rather than having the migration script emit warnings for unmigrated data).
 3. A string value to specify the field name to map the current value to.
-4. A dictionary to map field values of a related objects, for example::
+4. Instances of subclasses from :class:`Mapping`, performing field-specific operations like the :class:`CroppingMapping`, :class:`SlugifyMapping`.
+5. A dictionary to map field values of a related objects, for example::
 
         field_mappings = {
             'user': {
@@ -34,7 +35,6 @@ different ways:
 
    The specified `<Mapping>` is an ordinary field mapping and can be specified
    as such.
-5. Instances of subclasses from :class:`Mapping`, performing field-specific operations like the :class:`CroppingMapping`, :class:`SlugifyMapping`.
 
 .. _file-structure:
 
@@ -103,7 +103,7 @@ After this we can initialize the new database in the ordinary way::
     sudo -u postgres createdb -T template0 -E utf8 <new_database>
     ./manage.py syncdb --migrate
 
-These steps are only needed once, after which legacy migrations can be maintained using the `legacy_migrate` command.
+These steps are only needed once, after which legacy migrations can be maintained using the :ref:`management-command`.
 
 .. _management-command:
 
