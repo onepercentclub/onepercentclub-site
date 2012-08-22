@@ -40,6 +40,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_filter = ('phase', 'project_language', 'themes', 'country')
     list_display = ('title', 'organization', 'country')
+    # TODO: decide if we want to have thumbnails here
     #list_display = ('thumbnail', 'title', 'organization', 'country')
     #list_display_links = ('thumbnail', 'title')
     
