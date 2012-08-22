@@ -14,7 +14,7 @@ import sys
 from git import Repo
 
 from fabric.api import (
-    env, roles, sudo, prefix, cd, task, require, run, local, put
+    env, roles, sudo, prefix, cd, task, require, run, local, put, prompt
 )
 from fabric.contrib.console import confirm
 from fabric.colors import green, red
@@ -161,7 +161,7 @@ def find_latest_tag_version(tag):
 
 def find_available_tag(tag):
     """
-    Find the latest available version for a versioned tag ofthe form tag-N.
+    Find the latest available version for a versioned tag of the form tag-N.
     """
 
     latest_version = find_latest_tag_version(tag)
@@ -229,8 +229,36 @@ def confirm_wrong_tag(commit, tag):
             sys.exit('Confirmation required to continue.')
 
 
+def prompt_role():
+    """
+    Query the user for the role (and thus host) to use and store results in env.
+    """
+    if not env.host_string:
+        role_options = ', '.join([role for role in env.roledefs.keys()])
+
+        def validate(value):
+            if not value in env.roledefs.keys():
+                raise Exception('Role should be one of %s' % role_options)
+
+            return value
+
+        role = prompt(
+            'Please specify a role (one of %s): ' % role_options,
+            validate=validate
+        )
+
+        # Warning: this is a rather hackish solution - Fabric doesn't seem
+        # to like the hosts for a task to be changed in the middle of a
+        # process. This works ok, but limits us to one host per role.
+        assert len(env.roledefs[role]) == 1, \
+            'This is a hackish solution that does not work for a role with multiple hosts.'
+
+        env.host = env.roledefs[role][0]
+        env.host_string = env.host
+
+
 def confirm_sync_migrated_data():
-    status_update('Synching migrated data.')
+    status_update('Synching migrated data to %s.' % env.host_string)
 
     if not env.noinput:
         confirmed = confirm(
@@ -375,6 +403,9 @@ def restart_site():
 def sync_migrated_data():
     """ Sync data of latest stable migration. """
 
+    # Prompt the user for a role (if not already set)
+    prompt_role()
+
     # Confirm commit with user
     confirm_sync_migrated_data()
 
@@ -393,6 +424,13 @@ def sync_migrated_data():
 @task
 def create_superuser():
     """ Create a Django superuser. """
+    # Prompt the user for a role (if not already set)
+    prompt_role()
+
+    require('host_string')
+
+    status_update('Creating Django user for %s' % env.host_string)
+
     set_django_settings()
 
     require('django_settings')
