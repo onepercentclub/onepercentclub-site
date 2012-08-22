@@ -324,11 +324,25 @@ def load_dbdump(database, dbdump):
 def assert_release_tag(commit, tag):
     """
     Make sure the given commit has the given tag and confirm if not so.
+
+    It turns out there is no elegant and efficient way to do this without
+    resorting to Perl-like shell scripts.
+
+    Ref: http://stackoverflow.com/questions/4545370/how-to-list-all-tags-pointing-to-a-specific-commit-in-git
     """
 
-    # Note: this method of determining tags *might* not be reliable
-    if not ('tags/%s' % tag) in commit.name_rev:
-        confirm_wrong_tag(commit, tag)
+    r = Repo()
+
+    for current_tag in r.tags:
+        if current_tag.commit == commit:
+            # This tag refers to current commit
+
+            if tag in current_tag.name:
+                # The required tag is found, bail out
+                return
+
+    # It's not found, yield a warning
+    confirm_wrong_tag(commit, tag)
 
 
 def git_fetch_local():
