@@ -2,7 +2,7 @@ from tastypie.resources import ModelResource
 from tastypie import fields, utils
 from tastypie.authorization import DjangoAuthorization
 
-from .models import Project, IdeaPhase, PlanPhase, ActPhase, ResultsPhase
+from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase
 
 class ResourceBase(ModelResource):
     class Meta:
@@ -37,11 +37,11 @@ class IdeaPhaseResource(ResourceBase):
         queryset = IdeaPhase.objects.select_related('IdeaPhase').all()
 
 
-class PlanPhaseResource(ResourceBase):
+class FundPhaseResource(ResourceBase):
     project = fields.OneToOneField(ProjectResource, 'project')
 
     class Meta:
-        queryset = PlanPhase.objects.all()
+        queryset = FundPhase.objects.all()
 
 
 class ActPhaseResource(ResourceBase):

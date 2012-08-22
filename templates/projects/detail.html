@@ -69,10 +69,10 @@
 			{% endif %}
 			</p>
 
- 			<h4>Categories</h4>
+ 			<h4>Themes</h4>
 			<ul>
-				{% for category in project.categories.all %}
-					<li>{{ category.name }}</li>
+				{% for theme in project.themes.all %}
+					<li>{{ theme.name }}</li>
 				{% empty %}
 					<li><i>none</i></li>
 				{% endfor %}

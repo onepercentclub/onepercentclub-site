@@ -14,11 +14,11 @@ from taggit.managers import TaggableManager
 from apps.bluebottle_utils.fields import MoneyField
 
 
-class ProjectCategory(models.Model):
-    """ Categories for Projects. """
+class ProjectTheme(models.Model):
+    """ Themes for Projects. """
 
     # The name is marked as unique so that users can't create duplicate
-    # category names.
+    # theme names.
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField(blank=True)
@@ -36,12 +36,14 @@ class Project(models.Model):
 
     class ProjectPhases(DjangoChoices):
         idea = ChoiceItem('idea', label=_("Idea"))
-        plan = ChoiceItem('plan', label=_("Plan"))
+        fund = ChoiceItem('fund', label=_("Fund"))
         act = ChoiceItem('act', label=_("Act"))
         results = ChoiceItem('results', label=_("Results"))
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=100, unique=True)
+
+    partner_organization = models.OneToOneField('PartnerOrganization', blank=True, null=True)
 
     image = ImageField(max_length=255, blank=True,
         upload_to='project_images/',
@@ -51,7 +53,7 @@ class Project(models.Model):
     owner = models.ForeignKey('auth.User')
     phase = models.CharField(max_length=20, choices=ProjectPhases.choices,
         help_text=_("Phase this project is in right now."))
-    categories = models.ManyToManyField(ProjectCategory, blank=True)
+    themes = models.ManyToManyField(ProjectTheme, blank=True)
     created = CreationDateTimeField(
         help_text=_("When this project was created."))
 
@@ -61,7 +63,6 @@ class Project(models.Model):
     # Ref http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
     latitude = models.DecimalField(max_digits=21, decimal_places=18)
     longitude = models.DecimalField(max_digits=21, decimal_places=18)
-
     country = models.ForeignKey('geo.Country', blank=True, null=True)
 
     project_language = models.CharField(max_length=6,
@@ -70,16 +71,16 @@ class Project(models.Model):
 
     albums = models.ManyToManyField('media.Album', blank=True, null=True)
 
-    # temporary to do hold random 'donated'
-    donated = 0
-
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
+    # temporary to do hold random 'donated'
+    donated = 0
+
     def money_asked(self):
-        return int(self.planphase.money_asked)
+        return int(self.fundphase.money_asked)
 
     """ Money donated, rounded to the lower end... """
     # Money donated. For now this is random
@@ -94,12 +95,6 @@ class Project(models.Model):
 
     tags = TaggableManager(blank=True)
 
-    def location(self):
-        if self.country:
-            return self.country.name
-        else:
-            return ""
-
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
@@ -113,12 +108,22 @@ class Project(models.Model):
 
         # TODO: Add filter for 'succesful' donations on a somewhat higher
         # level, perhaps a custom Manager on Donation/DonationLine classes.
-
-        return User.objects.filter(donation__donationline__project=self)
+        donators = User.objects
+        donators = donators.filter(donation__donationline__project=self)
+        donators = donators.filter(donation__status__in=['closed','paid','started'])
+        donators = donators.distinct()
+        return donators
 
     class Meta:
         ordering = ['title']
 
+class PartnerOrganization(models.Model):
+    """ 
+        Some projects are run in cooperation with a partner 
+        organization like EarthCharter & MacroMicro
+    """
+    title = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)    
 
 class AbstractPhase(models.Model):
     """ Abstract base class for project phases. """
@@ -144,12 +149,12 @@ class AbstractPhase(models.Model):
 
 class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here. """
+    knowledge_description = models.TextField(blank=True)
 
-    pass
 
 
-class PlanPhase(AbstractPhase):
-    """ PlanPhase: Fill out some forms for project plan. """
+class FundPhase(AbstractPhase):
+    """ FundPhase: Fill out some forms for project plan. """
 
     class PhaseStatuses(DjangoChoices):
         hidden = ChoiceItem('hidden', label=_("Hidden"))
@@ -158,35 +163,34 @@ class PlanPhase(AbstractPhase):
         waiting = ChoiceItem('waiting', label=_("Waiting"))
         completed = ChoiceItem('completed', label=_("Completed"))
 
-    money_total = MoneyField(_('money total'),
+    class ImpactGroups(DjangoChoices):
+        children = ChoiceItem('children', label=_("Children"))
+        youth = ChoiceItem('youth', label=_("Youth"))
+        adults = ChoiceItem('adults', label=_("Adults"))
+
+
+    budget_total = MoneyField(_('money total'),
         help_text=_("Total amount needed for this project."))
     money_asked = MoneyField(_('money asked'),
         help_text=_("Amount asked for from this website."))
 
-    what = models.TextField(
-        blank=True,
-        help_text=_("What do you want to do?"))
-    goal = models.TextField(
-        blank=True,
-        help_text=_("What is your goal?"))
-    who = models.TextField(
-        blank=True,
-        help_text=_("Who are you helping?"))
-    how = models.TextField(
-        blank=True,
-        help_text=_("In which way?"))
     sustainability = models.TextField(
         blank=True,
         help_text=_("How can next generations profit from this?"))
-    target = models.TextField(
-        blank=True,
-        help_text=_("What is your target?"))
 
-    needed_expertise = models.TextField(blank=True)
-    needed_volunteers = models.TextField(blank=True)
-
-    budget_description = models.TextField(blank=True)
     money_other_sources = models.TextField(blank=True)
+
+
+    """ Social Impact: who are we helping, direct and indirect """
+    social_impact = models.TextField(
+        blank=True,
+        help_text=_("Who are you helping?"))
+    impact_group = models.CharField(max_length=20, choices=ImpactGroups.choices, blank=True)
+    impact_direct_male = models.IntegerField(max_length=6, default=0)
+    impact_direct_female = models.IntegerField(max_length=6, default=0)
+    impact_indirect_male = models.IntegerField(max_length=6, default=0)
+    impact_indirect_female = models.IntegerField(max_length=6, default=0)
+
 
 
 class ActPhase(AbstractPhase):
@@ -217,20 +221,11 @@ class ResultsPhase(AbstractPhase):
         help_text=_("What's next?"),
         blank=True)
 
-
-class BudgetCategory(models.Model):
-    """ BudgetCategory: Categories for BudgetLines. """
-
+class Referals(models.Model):
+    """ People that are named as referals """
     name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    ordering = models.IntegerField(max_length=3)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['ordering']
-        verbose_name_plural = 'Budget Categories'
 
 
 class BudgetLine(models.Model):
@@ -239,34 +234,9 @@ class BudgetLine(models.Model):
     This is the budget for the amount asked from this
     website.
     """
-
     project = models.ForeignKey(Project)
-    category = models.ForeignKey(BudgetCategory)
     description = models.TextField(blank=True)
     money_amount = MoneyField()
-
-
-class OtherSourcesLines(models.Model):
-    """
-    Other sources of money to fund this project.
-    Every entry is an application (-to apply-)
-    for a grant or other probable source of money.
-    """
-
-    class Statuses(DjangoChoices):
-        progress = ChoiceItem('progress', label=_("Progress"))
-        applied = ChoiceItem('applied', label=_("Applied"))
-        granted = ChoiceItem('granted', label=_("Granted"))
-        received = ChoiceItem('received', label=_("Received"))
-
-    project = models.ForeignKey(Project)
-    source = models.CharField(max_length=255,
-        help_text=_("Who's giving the money."))
-
-    description = models.TextField(blank=True)
-    money_amount = MoneyField()
-    status = models.CharField(max_length=20, choices=Statuses.choices)
-
 
 # Now some stuff connected to Projects
 # FIXME: Can we think of a better place to put this??
