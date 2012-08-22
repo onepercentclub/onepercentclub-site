@@ -18,12 +18,23 @@ the :ref:`management-command`.
 
 Field mappings
 **************
-Field mappings from the old model to the new model, as executed by the `copy_fields` method, can be specified in three
+Field mappings from the old model to the new model, as executed by the :meth:`~base.MigrateModel.map_fields` method, can be specified in three
 different ways:
 
 1. A value of `True` for the mapping means the field will be copied as-is to the new model.
-2. A string value causes the legacy field to be mapped to the new field with the string as name.
-3. A function with signature `f(instance, fieldname) -> dict` will cause all of the values returned by the function to be set on the destination model.
+2. A value of `None` for explicitly throwing away a particular field (rather than having the migration script emit warnings for unmigrated data).
+3. A string value to specify the field name to map the current value to.
+4. A dictionary to map field values of a related objects, for example::
+
+        field_mappings = {
+            'user': {
+                'profile': <Mapping>
+            }
+        }
+
+   The specified `<Mapping>` is an ordinary field mapping and can be specified
+   as such.
+5. Instances of subclasses from :class:`Mapping`, performing field-specific operations like the :class:`CroppingMapping`, :class:`SlugifyMapping`.
 
 .. _file-structure:
 
@@ -44,7 +55,8 @@ Settings
 
 * `LEGACY_MIGRATIONS`: Iterable of strings referring to migration classes to execute.
 * `LEGACY_MIGRATIONS_DEBUG`: Trigger `ipdb <https://github.com/gotcha/ipdb>`_ on exceptions during migration. Defaults to `True`.
-* `LEGACY_MIGRATIONS_MEDIA_ROOT`: Root path for file migrations.
+* `LEGACY_MIGRATIONS_MEDIA_ROOT`: Root path for :ref:`files that are to be migrated <migrating-files>` along with the models.
+* `LEGACY_MIGRATIONS_ENABLE_EXCLUSIONS`: Whether or not :ref:`exclusions` are enabled. Defaults to `False`.
 
 .. _migration-workflow:
 
@@ -116,6 +128,40 @@ Alternately, only a limited number of migrations can be executed by specifying t
     ./manage.py migrate_legacy -v 2 MigrateProfile MigrateUserAddress
 
 These migrations will be executed in the order in which they have been specified in `LEGACY_MIGRATIONS`.
+
+Other features
+--------------
+
+.. _exclusions:
+
+Exclusions for 'unclean' data
+*****************************
+
+Often, during legacy migrations, some data cannot easily be migrated to fit
+into the new datastructure. Rather, it has to be updated manually in the
+source dataset, which takes time and often depends on people other than the
+ones performing the migrations.
+
+In order allow for a non-blocking development of migrations, so that
+migrations can be performed even with 'unclean' source data, the migration
+mechanism provides a facility for explicitly excluding data from the source
+queryset.
+
+These exclusions can easily be toggled using a :ref:`Django setting <settings>`, so that whenever new data comes in it is simple to check whether
+the state of the source data is 'clean' now.
+
+Exclusions can be defined in the :py:meth:`~base.MigrateModel.list_from_exclusions` method on the migration instance.
+
+.. _migrating-files:
+
+Migrating of files
+******************
+
+
+.. _logging:
+
+Logging
+*******
 
 Auto-generated documentation
 ----------------------------
