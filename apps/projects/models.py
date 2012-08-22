@@ -42,7 +42,7 @@ class Project(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=100, unique=True)
 
-    partner_organization = models.OneToOneField('PartnerOrganization', blank=True, null=True)
+    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True)
 
     image = ImageField(max_length=255, blank=True,
         upload_to='project_images/',
