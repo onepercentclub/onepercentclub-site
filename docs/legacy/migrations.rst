@@ -1,6 +1,8 @@
 Legacy migration
 ================
 
+.. currentmodule:: legacy.legacymigration
+
 `legacymigration` App Overview
 -------------------------------
 Migrations are executed from the `legacymigration` app. Within the app, a base module called  `MigrateModel` defines a generic correspondence-based migration strategy from one model instance in one database to a model instance in another database.

@@ -41,6 +41,8 @@ extensions = [
     'sphinx.ext.inheritance_diagram' # Inheritance diagrams
 ]
 
+autodoc_default_flags = ['members', 'show-inheritance', ]
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -88,7 +90,7 @@ exclude_patterns = ['_build']
 
 # If true, the current module name will be prepended to all description
 # unit titles (such as .. function::).
-#add_module_names = True
+add_module_names = False
 
 # If true, sectionauthor and moduleauthor directives will be shown in the
 # output. They are ignored by default.
