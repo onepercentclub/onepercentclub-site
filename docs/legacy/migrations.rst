@@ -157,6 +157,33 @@ Exclusions can be defined in the :py:meth:`~base.MigrateModel.list_from_exclusio
 Migrating of files
 ******************
 
+During the migration of legacy data, we often need to migrate media from the
+legacy models to the new application. This can be done by using the
+:class:`~mappings.PathToFileMapping`, which maps string references
+to source files to Django File objects.
+
+As often the source files for the different source models are structured
+differently from the new models, so the path to these files needs to be
+specified explicitly as `root_path` when instantiating the
+:class:`~mappings.PathToFileMapping`.
+
+However, files are usually in subdirectories of a common root, for which the
+setting :ref:`LEGACY_MIGRATIONS_MEDIA_ROOT <settings>` is used. This setting
+should then be explicitly imported whenever files are migrated. An example::
+
+    from .settings import LEGACY_MIGRATIONS_MEDIA_ROOT
+
+    class MyFunkyMigration(MigrateModel):
+        field_mapping = {
+            'file':
+                PathToFileMapping(
+                    root_path=LEGACY_MEDIA_ROOT + '/assets/files/filemanager',
+                    allow_missing=True,
+                    to_field='picture',
+                    verbose=False
+                ),
+        }
+
 
 .. _logging:
 
