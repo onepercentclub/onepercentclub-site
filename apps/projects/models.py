@@ -63,12 +63,11 @@ class Project(models.Model):
     longitude = models.DecimalField(max_digits=21, decimal_places=18)
 
     country = models.ForeignKey('geo.Country', blank=True, null=True)
+    albums = models.ManyToManyField('media.Album', blank=True, null=True)
 
     project_language = models.CharField(max_length=6,
         choices=settings.LANGUAGES,
         help_text=_("Main language of the project."))
-
-    albums = models.ManyToManyField('media.Album', blank=True, null=True)
 
     # temporary to do hold random 'donated'
     donated = 0

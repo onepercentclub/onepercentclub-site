@@ -23,6 +23,14 @@ import sys, os
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
+# This is needed to be able to make autodoc work with required settings
+from django.conf import global_settings
+
+setattr(global_settings, 'LEGACY_MIGRATIONS_MEDIA_ROOT', '#doc')
+
+from django.core.management import setup_environ
+setup_environ(global_settings)
+
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
@@ -32,6 +40,8 @@ extensions = [
     'sphinx.ext.graphviz', # Render Graphviz .dot files
     'sphinx.ext.inheritance_diagram' # Inheritance diagrams
 ]
+
+autodoc_default_flags = ['members', 'show-inheritance', ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -80,7 +90,7 @@ exclude_patterns = ['_build']
 
 # If true, the current module name will be prepended to all description
 # unit titles (such as .. function::).
-#add_module_names = True
+add_module_names = False
 
 # If true, sectionauthor and moduleauthor directives will be shown in the
 # output. They are ignored by default.

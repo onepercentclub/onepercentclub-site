@@ -41,6 +41,10 @@ bluebottle/settings/secrets.py
 
 # Misc stuff
 env
+
+# Documentation
+docs/model_graphs/*.pdf
+docs/model_graphs/*.dot
 docs/_build
 .idea
 .noseids

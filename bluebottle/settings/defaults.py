@@ -196,6 +196,7 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'compressor',
+    'legacyauth', # Just for reference (this is actually just a module, not an app)
     'sorl.thumbnail',
     'taggit',
     'micawber.contrib.mcdjango', # Embedding videos
@@ -210,6 +211,29 @@ INSTALLED_APPS = [
     'apps.media',
     'apps.geo',
 ]
+
+# Instead of writing legacy.blabla for every legacy app, we'll use a shortcut
+LEGACY_APPS = [
+    'legacyactions',
+    'legacyalbums',
+    'legacycms',
+    'legacyconsolidations',
+    'legacydonations',
+    'legacyevents',
+    'legacyfilemanager',
+    'legacymembers',
+    'legacynews',
+    'legacyorganizations',
+    'legacypayments',
+    'legacyprojects',
+    'legacysystem',
+    'legacytasks',
+    'legacyvouchers',
+    'legacyweblog',
+    'legacymigration', # The latter is a meta-app for migrating legacy to new data
+]
+
+INSTALLED_APPS += map(lambda app: 'legacy.'+app, LEGACY_APPS)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -285,6 +309,55 @@ COMPRESS_CSS_FILTERS = [
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
 
+# Support legacy passwords
+PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + \
+    ('legacyauth.hashers.LegacyPasswordHasher',)
+
+# Support email login
+AUTHENTICATION_BACKENDS = ('legacyauth.backends.EmailBackend', ) \
+    + global_settings.AUTHENTICATION_BACKENDS
+
+
 # user profile setting as described here:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+
+""" Legacy migrations. """
+LEGACY_MIGRATIONS = [
+    # Users
+    'legacy.legacymigration.accounts.MigrateMemberAuth',
+
+    # User profiles
+    'legacy.legacymigration.profiles.MigrateProfile',
+    'legacy.legacymigration.profiles.MigrateUserAddress',
+
+    # Organizations
+    'legacy.legacymigration.organizations.MigrateOrganization',
+    'legacy.legacymigration.organizations.MigrateOrganizationMember',
+    'legacy.legacymigration.organizations.MigrateOrganizationAddress',
+
+    # Projects
+    'legacy.legacymigration.projects.MigrateProject',
+    'legacy.legacymigration.projects.MigrateIdea',
+    'legacy.legacymigration.projects.MigratePlan',
+    'legacy.legacymigration.projects.MigrateAct',
+    'legacy.legacymigration.projects.MigrateResults',
+    'legacy.legacymigration.projects.MigrateLink',
+    'legacy.legacymigration.projects.MigrateTestimonial',
+    'legacy.legacymigration.projects.MigrateMessage',
+    'legacy.legacymigration.projects.MigrateBudgetCategory',
+    'legacy.legacymigration.projects.MigrateBudgetLine',
+
+    # Donations
+    'legacy.legacymigration.donations.MigrateDonation',
+    'legacy.legacymigration.donations.MigrateDonationLine',
+
+    # Migrate media
+    'legacy.legacymigration.media.MigrateAlbum',
+    'legacy.legacymigration.media.MigratePicture',
+    'legacy.legacymigration.media.MigrateVideo'
+]
+
+# Explicitly turn on exclusions for unclean data
+LEGACY_MIGRATIONS_ENABLE_EXCLUSIONS = True

@@ -16,12 +16,18 @@ jsmin
 BeautifulSoup==3.2.1
 django_compressor
 
+# Custom version of ipdb, allowing for automatic debugging on exceptions
+git+https://github.com/Psycojoker/ipdb.git@edea61ce5f#egg=ipdb
+
 # pytz is "highly recommended" by the Django timezone documentation since
 # we're using Django timezone support
 # https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 pytz
 
 sphinx # Sphinx documentation
+
+# Legacy authentication module (use SSH for common auth)
+-e git+ssh://git@github.com/onepercentclub/legacyauth.git#egg=legacyauth
 
 # http://pypi.python.org/pypi/sorl-thumbnail/11.12
 sorl-thumbnail==11.12
@@ -34,6 +40,9 @@ surlex==0.1.2
 
 # http://pypi.python.org/pypi/South/0.7.5
 south==0.7.5
+
+# Posgres bindings - http://pypi.python.org/pypi/psycopg2/2.4.5
+psycopg2
 
 # Tastypie, for the API!
 django-tastypie

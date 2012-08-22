@@ -1,106 +1,196 @@
-# coding=utf8
-
 import logging
 logger = logging.getLogger(__name__)
 
-#from django.contrib.auth.models import User
-#from django.contrib.auth import authenticate
+from legacy.legacyorganizations.models import (
+    Organization as LegacyOrganization,
+    OrganizationMember as LegacyOrganizationMember,
+)
 
-from legacy.legacyorganizations.models import Organization as LegacyOrganization
-from apps.organizations.models import Organization as NewOrganization
+from apps.organizations.models import (
+    Organization, OrganizationMember, OrganizationAddress
+)
 
-from .base import MigrateModel
-from .utils import localize_datetime, crop_field
+from .base import MigrateModel, UniqueSlugMixin
 
-
-class MigrateOrganization(MigrateModel):
-    """
-    Migrate legacy projects to projects + phases.
-
-    """
-
-    def test_single(self, from_instance, to_instance):
-        success = super(MigrateOrganization, self).test_single(from_instance, to_instance)
-        return success
-
-    def test_multiple(self, from_qs):
-        # First, call the method from the superclass
-        success = super(MigrateOrganization, self).test_multiple(from_qs)
-        return success
+from .mappings import (
+    EducateDateTimeMapping,
+    NoneToStringMapping, OneToManyMapping, CountryMapping,
+    IdentityMapping,
+    WebsiteMapping, TolerantSlugifyCroppingMapping,
+    ConcatenatingStringMapping,
+    NoneToStringCroppingMapping
+)
 
 
-    def list_from(self):
-        qs = super(MigrateOrganization, self).list_from()
+class MigrateOrganizationBase(MigrateModel):
+    """ Base class for migrations departing from organizations. """
+    from_model = LegacyOrganization
 
-        # Include profile in query, speeding it up a bit
-        qs.select_related('profile')
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
+
+        # Exclude unnamed organizations
+        qs = qs.exclude(name='')
 
         return qs
 
-    def migrate_single(self, from_instance, to_instance):
-        super(MigrateOrganization, self).migrate_single(from_instance, to_instance)
 
-        # Check whether this username already exists. If so, add a number
-        counter = 1
-
-        # Detect and change duplicate usernames
-        qs = self.list_to()
-        qs.exclude(pk=to_instance.pk)
-
-    from_model = LegacyOrganization
-    to_model = NewOrganization
-
-    def migrate_name(instance, fieldname):
-        """
-        Migrate name to name and slug
-        """
-        name = getattr(instance, fieldname)
-        slug = name.replace(' ','')[:100]
-        return {'name': name, 'slug': slug}
-
-    def migrate_website(instance, fieldname):
-        """ Migrate website url """
-        website = getattr(instance, fieldname)
-        if website[:4] <> 'http':
-            website = 'http://' . website
-        return {'website': website}
-            
-    def migrate_deleted(instance, fieldname):
-        """ Migrate deleted date """
-        deleted = getattr(instance, fieldname)
-        if deleted > '':
-            deleted = localize_datetime(instance, fieldname)
-        else:
-            delete = None
-        return {'deleted': deleted}
-            
+class MigrateOrganization(UniqueSlugMixin, MigrateOrganizationBase):
+    to_model = Organization
 
     field_mapping = {
-        'id': True, # True means just copy the field
-        'name': migrate_name,
-        'description': True,
-        'legal_status': True,
-        'phonenumber': 'phone_number',
-        'email': True,
-        'website': migrate_website,
+        'id': True,
+        'name': OneToManyMapping(
+            IdentityMapping('title'),
+            TolerantSlugifyCroppingMapping(100, to_field='slug', verbose=False)
+        ),
+        'legalstatus': 'legal_status',
+        'phonenumber': NoneToStringMapping('phone_number'),
+        'email': NoneToStringMapping(verbose=False),
+        'website': WebsiteMapping(verbose=False),
+        'description': NoneToStringMapping(),
 
-        'created': lambda i, f: {'created': localize_datetime(i, f)},
-        'updated': lambda i, f: {'updated': localize_datetime(i, f)},
-        'deleted': migrate_deleted,
+        'created': EducateDateTimeMapping(verbose=False),
+        # TODO
+        # This one gets overridden by the current time and thus casues
+        # errrors: find workaround
+        # 'updated': EducateDateTimeMapping(verbose=False),
+        'deleted': EducateDateTimeMapping(verbose=False),
 
-        'partner_organizations': True,
-        'account_bank_name': True,
-        'account_bank_address': True,
-        'account_bank_country': True,
-        'account_iban': True,
-        'account_bicswift': True,
+        'partner_organisations': NoneToStringMapping(verbose=False),
+
+        # Bank account details
         'account_number': True,
         'account_name': True,
         'account_city': True,
+        'account_bank_name': NoneToStringMapping(verbose=False),
+        'account_bank_address': NoneToStringMapping(verbose=False),
 
-        
+        # For now, don't map this until we have an actual FK on countries
+        'account_bank_country_id': None,
+
+        'account_iban': NoneToStringMapping(verbose=False),
+        'account_bicswift': NoneToStringMapping(verbose=False),
+
+        # Will be mapped through the address
+        'street': None,
+        'street_number': None,
+        'postalcode': None,
+        'city': None,
+        'country_id': None,
+
+        # Will be mapped through OrganizationMember
+        'organizationmember': None,
+
+        # Should be mapped later
+        'referrals': None,
+
+        # Should not be mapped from the reverse side
+        'project': None
+    }
 
 
-        # Explcitly map stuff to /dev/null
-    
+class MigrateOrganizationMember(MigrateModel):
+    from_model = LegacyOrganizationMember
+    to_model = OrganizationMember
+
+    def list_from(self):
+        """ Only migrate members for migrated organizations. """
+        qs = super(MigrateOrganizationMember, self).list_from()
+
+        m = MigrateOrganization()
+        organization_list = m._list_from()
+
+        qs = qs.filter(org__in=organization_list)
+
+        return qs
+
+    def get_to_correspondence(self, other_object):
+        """ Do correspondence by the member and organization id's. """
+
+        return {
+            'user_id': other_object.mem.id,
+            'organization_id': other_object.org.id
+        }
+
+    def get_from_correspondence(self, other_object):
+        """ Do correspondence by the member and organization id's. """
+
+        return {
+            'mem_id': other_object.user.id,
+            'org_id': other_object.organization.id
+        }
+
+    field_mapping = {
+        # This legacy table has no pk (!?)
+        # 'id': True,
+
+        'mem': None,
+        'mem_id': 'user_id',
+
+        'org': None,
+        'org_id': 'organization_id'
+    }
+
+
+class MigrateOrganizationAddress(MigrateOrganizationBase):
+    to_model = OrganizationAddress
+
+    def list_from_exclusions(self, qs):
+        """ Perform explicit exclusions on the queryset for dirty data. """
+        qs = super(MigrateOrganizationAddress, self).list_from_exclusions(qs)
+
+        # TODO: Split the street into multiple address lines
+        qs = qs.exclude(pk__in=(1311, 1015, 1568))
+
+        return qs
+
+    field_mapping = {
+        'id': OneToManyMapping(
+            IdentityMapping('id'),
+            IdentityMapping('organization_id')
+        ),
+
+        # Will be mapped through the address
+        'street': ConcatenatingStringMapping(
+            concatenate_with=('street_number', ),
+            to_field='line1',
+            concatenate_str=' ',
+            verbose=False
+        ),
+        'street_number': None,
+        'postalcode': NoneToStringCroppingMapping(20, to_field='zip_code'),
+        'city': True,
+
+        'country': CountryMapping(verbose=False),
+
+        # Already mapped fields
+
+        'name': None,
+        'legalstatus': None,
+        'phonenumber': None,
+        'email': None,
+        'website': None,
+        'description': None,
+        'created': None,
+        'deleted': None,
+        'partner_organisations': None,
+        'account_number': None,
+        'account_name': None,
+        'account_city': None,
+        'account_bank_name': None,
+        'account_bank_address': None,
+        'account_bank_country_id': None,
+        'account_iban': None,
+        'account_bicswift': None,
+
+        # Will be mapped through OrganizationMember
+        'organizationmember': None,
+
+        # Should be mapped later
+        'referrals': None,
+
+        # Should not be mapped from the reverse side
+        'project': None
+
     }
