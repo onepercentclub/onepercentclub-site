@@ -9,12 +9,11 @@ This file is structured as follows:
 
 """
 
-import sys
-
 from git import Repo
 
 from fabric.api import (
-    env, roles, sudo, prefix, cd, task, require, run, local, put, prompt
+    env, roles, sudo, prefix, cd, task, require, run, local, put,
+    prompt, abort
 )
 from fabric.contrib.console import confirm
 from fabric.colors import green, red
@@ -122,7 +121,7 @@ def find_commit(revspec=None):
     deploy_commits = r.iter_commits(local_deploy_branch)
 
     if not commit in deploy_commits:
-        sys.exit('Commit not in branch %s' % env.deploy_branch)
+        abort('Commit not in branch %s' % env.deploy_branch)
 
     return commit
 
@@ -181,7 +180,7 @@ def confirm_deploy(commit):
         )
 
         if not confirmed:
-            sys.exit('Confirmation required to continue.')
+            abort('Confirmation required to continue.')
 
 
 def confirm_extract_migrated_media():
@@ -197,7 +196,7 @@ def confirm_extract_migrated_media():
         )
 
         if not confirmed:
-            sys.exit('Confirmation required to continue.')
+            abort('Confirmation required to continue.')
 
 
 def confirm_recreate_db(database):
@@ -213,7 +212,7 @@ def confirm_recreate_db(database):
         )
 
         if not confirmed:
-            sys.exit('Confirmation required to continue.')
+            abort('Confirmation required to continue.')
 
 
 def confirm_wrong_tag(commit, tag):
@@ -228,7 +227,7 @@ def confirm_wrong_tag(commit, tag):
         )
 
         if not confirmed:
-            sys.exit('Confirmation required to continue.')
+            abort('Confirmation required to continue.')
 
 
 def confirm_prune_unref_files(unreferenced_files):
@@ -283,7 +282,7 @@ def confirm_sync_migrated_data():
         )
 
         if not confirmed:
-            sys.exit('Confirmation required to continue.')
+            abort('Confirmation required to continue.')
 
 
 def extract_migrated_media():
