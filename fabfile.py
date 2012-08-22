@@ -303,9 +303,12 @@ def sync_migrated_media():
 
     # Sync data as the web user
     with cd(env.directory):
-        run('rsync --inplace --chmod=g=r %s@%s:%s .' % (
+        run('rsync --inplace %s@%s:%s .' % (
             env.user, env.migration_server, env.migrated_media_path
         ))
+
+        # Make sure the web user can read the file
+        run('chmod g+r %s' % env.migrated_media_file)
 
 
 def sync_migrated_db():
@@ -313,11 +316,15 @@ def sync_migrated_db():
     require('user')
     require('migration_server')
     require('migrated_db_path')
+    require('migrated_db_file')
 
     with cd(env.directory):
-        run('rsync --inplace --chmod=g=r %s@%s:%s .' % (
+        run('rsync --inplace %s@%s:%s .' % (
             env.user, env.migration_server, env.migrated_db_path
         ))
+
+        # Make sure the web user can read the file
+        run('chmod g+r %s' % env.migrated_db_file)
 
 
 def recreate_db(database):
