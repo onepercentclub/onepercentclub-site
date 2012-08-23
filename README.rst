@@ -1,7 +1,8 @@
-bluebottle
-==========
+Project Bluebottle
+==================
 
-The central repository for the bluebottle project.
+The repository for Project Bluebottle, the crowdsourcing framework initiated
+by the 1%CLUB.
 
 Getting started
 ---------------
@@ -82,3 +83,8 @@ You can find a list of data files with this command run from the bluebottle
 directory::
 
     find apps -name \*.json
+
+License
+-------
+Project Bluebottle is distributed under a 3-clause BSD license. For more
+information, please refer to the `license <https://github.com/onepercentclub/bluebottle/blob/master/LICENSE>`_.
