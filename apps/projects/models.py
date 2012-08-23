@@ -70,7 +70,6 @@ class Project(models.Model):
         help_text=_("Main language of the project."))
 
     albums = models.ManyToManyField('media.Album', blank=True, null=True)
-
     tags = TaggableManager(blank=True)
 
     # temporary to do hold random 'donated'
@@ -106,7 +105,6 @@ class Project(models.Model):
 
     def get_supporters(self):
         """ Get a queryset of donating users for this project. """
-
         # TODO: Add filter for 'succesful' donations on a somewhat higher
         # level, perhaps a custom Manager on Donation/DonationLine classes.
         donators = User.objects
@@ -125,13 +123,12 @@ class PartnerOrganization(models.Model):
         organization like EarthCharter & MacroMicro
     """
     name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)    
 
     def __unicode__(self):
         if self.name:
             return self.name
         return self.slug
-
 
 class AbstractPhase(models.Model):
     """ Abstract base class for project phases. """

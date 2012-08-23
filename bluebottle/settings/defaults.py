@@ -340,13 +340,12 @@ LEGACY_MIGRATIONS = [
     # Projects
     'legacy.legacymigration.projects.MigrateProject',
     'legacy.legacymigration.projects.MigrateIdea',
-    'legacy.legacymigration.projects.MigratePlan',
+    'legacy.legacymigration.projects.MigrateFund',
     'legacy.legacymigration.projects.MigrateAct',
     'legacy.legacymigration.projects.MigrateResults',
     'legacy.legacymigration.projects.MigrateLink',
     'legacy.legacymigration.projects.MigrateTestimonial',
     'legacy.legacymigration.projects.MigrateMessage',
-    'legacy.legacymigration.projects.MigrateBudgetCategory',
     'legacy.legacymigration.projects.MigrateBudgetLine',
 
     # Donations

@@ -3,9 +3,4 @@
 
 import sys
 
-try:
-    from .local import *
-except ImportError:
-    # Throw a return value of 1 and exit with a SystemExit exception
-    # Ref: http://docs.python.org/library/sys.html#sys.exit
-    sys.exit('Local settings file not found. Please run `prepare.sh` to create one.')
+from .local import *

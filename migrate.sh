@@ -24,14 +24,15 @@ export DJANGO_SETTINGS_MODULE=bluebottle.settings.migration
 # Setup new database
 python manage.py syncdb --noinput --migrate
 
-# The fixtures for geo app are needed for the migration to work.
+# Fixtures that are needed for the migration to work.
 python manage.py loaddata region_subregion_country_dump
+python manage.py loaddata project_partnerorganization_data
 
 # Do the migration.
 python manage.py migrate_legacy -v 2
 
-# Load fixtures for the project categories.
-python manage.py loaddata project_category_data
+# Load fixtures for the project themes.
+python manage.py loaddata project_theme_data
 
 # Dump database and archive media
 pg_dump -x --no-owner $DB_NAME | bzip2 -c > migrated_data.sql.bz2

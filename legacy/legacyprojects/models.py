@@ -81,6 +81,7 @@ class Project(models.Model):
 
     derde_helft = models.IntegerField(null=True, blank=True)
     earth_charter = models.IntegerField(null=True, blank=True)
+    macro_micro = models.IntegerField(null=True, blank=True)
     """ Two 'special' types, kinda whitelabeling """
 
     catalog = models.ForeignKey('legacyalbums.Catalog',

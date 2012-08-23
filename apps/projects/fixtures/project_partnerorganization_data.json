@@ -1,0 +1,26 @@
+[
+  {
+    "pk": 1,
+    "model": "projects.partnerorganization",
+    "fields": {
+      "name": "Derde Helft",
+      "slug": "derde_helft"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "projects.partnerorganization",
+    "fields": {
+      "name": "Earth Charter",
+      "slug": "earth_charter"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "projects.partnerorganization",
+    "fields": {
+      "name": "Macro Micro",
+      "slug": "macro_micro"
+    }
+  }
+]

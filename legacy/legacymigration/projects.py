@@ -14,8 +14,8 @@ from legacy.legacyprojects.models import (
 )
 
 from apps.projects.models import (
-    Project, IdeaPhase, PlanPhase, ActPhase, ResultsPhase,
-    Link, Testimonial, Message, BudgetCategory, BudgetLine
+    Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase,
+    Link, Testimonial, Message, BudgetLine, PartnerOrganization
 )
 
 from .base import MigrateModel, UniqueSlugMixin
@@ -35,7 +35,7 @@ from .tags import copy_tags, test_tags
 
 # We want a handy reference to these status objects
 phases = Project.ProjectPhases
-statuses = PlanPhase.PhaseStatuses
+statuses = FundPhase.PhaseStatuses
 
 
 class PhaseMapping(IdentityMapping):
@@ -49,8 +49,8 @@ class PhaseMapping(IdentityMapping):
             phase = phases.idea
 
         elif old_value in ('validated', 'confirmed'):
-            # Plan phase
-            phase = phases.plan
+            # Fund phase
+            phase = phases.fund
 
         elif old_value in ('done', 'closed'):
             # There is no way to discriminate by 'act' or 'results' phases
@@ -62,6 +62,59 @@ class PhaseMapping(IdentityMapping):
             raise Exception(u"Could not map '%s' to a phase.", old_value)
 
         return phase
+
+
+class PartnerMapping(IdentityMapping):
+    """ migrate projects with partner organizations """
+    
+    def get_partner_organization(self, slug):
+        try:
+            org = PartnerOrganization.objects.get(slug=slug)
+            return org
+        except PartnerOrganization.DoesNotExist:
+            logger.error(u"PartnerOrganization %s not foud. " +
+              "Did you load fixture project_partnerorganization_data.json.", slug)
+        return False
+    
+    def map(self, instance, from_field):
+        old_value = getattr(instance, from_field)
+        new_value = None
+        
+        if getattr(instance, 'derde_helft'):
+            new_value = self.get_partner_organization('derde_helft')
+        if getattr(instance, 'earth_charter'):
+            new_value = self.get_partner_organization('earth_charter')
+        if getattr(instance, 'macro_micro'):
+            new_value = self.get_partner_organization('macro_micro')
+        return {self.get_to_field(from_field): new_value}
+    
+       
+    def check(self, from_instance, to_instance, from_field):
+        org = getattr(to_instance, 'partner_organization')
+        if org == None:
+            # If there's no partner org then these
+            # values shouldnt be set
+            if getattr(from_instance, 'derde_helft'):
+                return False
+            if getattr(from_instance, 'earth_charter'):
+                return False
+            if getattr(from_instance, 'macro_micro'):
+                return False
+            return True      
+        elif getattr(from_instance, 'derde_helft'):
+            if org.slug == 'derde_helft':
+                return True
+            return False
+        elif getattr(from_instance, 'earth_charter'):
+            if org.slug == 'earth_charter':
+                return True
+            return False
+        elif getattr(from_instance, 'macro_micro'):
+            if org.slug == 'macro_micro':
+                return True
+            return False
+        return False
+
 
 
 class MigrateProjectBase(MigrateModel):
@@ -95,7 +148,53 @@ class MigrateProjectBase(MigrateModel):
         return qs
 
 
-    # Fields handled by project migration
+    # Fields handled by project & phaser
+    mapped_in_project = {
+        'name': None,
+        'status': None,
+        'photo': None,
+        'owner_usr': None,
+        'owner_usr_id': None,
+        'organization': None,
+        'organization_id': None,
+        'derde_helft': None,
+        'macro_micro': None,
+        'earth_charter': None,
+        'created': None,
+        'country': None,
+        'latitude': None,
+        'longitude': None,
+        'project_language': None
+    }
+    
+    mapped_in_idea = {
+        'how_support': None,
+        'volunteers': None,
+        'money_needed_for': None
+    }
+
+    mapped_in_fund = {
+        'expected_results': None,
+        'longdescription':None,
+        'money_needed_club': None,
+        'target_audience': None,
+        'solve_poverty': None,              
+        'description_duurzaamheid':None,
+        'received_other_sources':None,
+        'expected_other_sources': None    
+    }
+
+    mapped_in_act = {
+        'planning': None,
+        'startdate': None,
+        'enddate': None,
+    }
+    
+    
+    mapped_in_results = {
+    }
+    
+    
 
     # Project fields we'll throw away
     throw_away_fields = {
@@ -104,9 +203,7 @@ class MigrateProjectBase(MigrateModel):
         'sess_id': None,
         'closed': None,
         'deleted': None,
-        'derde_helft': None,
         'document': None,
-        'earth_charter': None,
         'folder': None,
         'goal': None,
         'picture': None,
@@ -118,6 +215,7 @@ class MigrateProjectBase(MigrateModel):
         'reported': None,
         'testimonial': None,
         'validated': None,
+        'legacy_budget': None,
 
         # Explicitly mapped by MigrateProjectAlbums
         'catalog': None,
@@ -127,6 +225,7 @@ class MigrateProjectBase(MigrateModel):
         'message': None,
         'task': None,
         'weblog': None,
+        'tags' : None,
 
         'projecttag': None,
 
@@ -199,30 +298,25 @@ class MigrateProject(UniqueSlugMixin, MigrateProjectBase):
         'latitude': StringToDecimalMapping(verbose=False),
         'longitude': StringToDecimalMapping(verbose=False),
 
+        'derde_helft': PartnerMapping('partner_organization', verbose=False),
+        'earth_charter': None, # one by derde_helft 
+        'macro_micro': None, # Done by derde_helft
+
         'project_language': True,
 
         # Tags are copied over in migrate_single().
         'tags': None,
+        
+        # Migrated in phases
+        'description': None
 
-        # Mapped to phase
-        'description': None,
-        'startdate': None,
-        'enddate': None,
-        'longdescription': None,
-        'project_goals': None,
-        'target_audience': None,
-        'solve_poverty': None,
-        'description_duurzaamheid': None,
-        'expected_results': None,
-        'how_support': None,
-        'volunteers': None,
-        'money_needed_club': None,
-        'legacy_budget': None,
-        'received_other_sources': None,
-        'expected_other_sources': None,
     }
 
     field_mapping.update(MigrateProjectBase.throw_away_fields)
+    field_mapping.update(MigrateProjectBase.mapped_in_idea)
+    field_mapping.update(MigrateProjectBase.mapped_in_fund)
+    field_mapping.update(MigrateProjectBase.mapped_in_act)
+    field_mapping.update(MigrateProjectBase.mapped_in_results)
 
 
 class MigrateIdea(MigrateProjectBase):
@@ -246,27 +340,10 @@ class MigrateIdea(MigrateProjectBase):
         qs = super(MigrateIdea, self).list_to()
 
         qs = qs.filter(
-            project__phase__in=(phases.idea, phases.plan, phases.results)
+            project__phase__in=(phases.idea, phases.fund, phases.results)
         )
 
         return qs
-
-    mapped_in_project = {
-        'name': None,
-        'photo': None,
-        'owner_usr': None,
-        'owner_usr_id': None,
-        'organization': None,
-        'organization_id': None,
-
-        'created': None,
-
-        'country': None,
-        'latitude': None,
-        'longitude': None,
-
-        'project_language': None
-    }
 
     field_mapping = {
         'id': OneToManyMapping(
@@ -277,6 +354,15 @@ class MigrateIdea(MigrateProjectBase):
         'description': NoneToStringMapping(),
         'startdate': True,
         'enddate': True,
+        
+        'volunteers': ConcatenatingStringMapping(
+            to_field='knowledge_description',
+            concatenate_with=('how_support',),
+            concatenate_str='<br />',
+            verbose=False
+        ),
+                     
+        'money_needed_for': NoneToStringMapping('money_description'),
 
         'status': MappingMapping({
             'done': statuses.completed,
@@ -287,19 +373,22 @@ class MigrateIdea(MigrateProjectBase):
 
             'wizard': statuses.hidden,
         }, verbose=False),
-
+                     
     }
 
     field_mapping.update(MigrateProjectBase.throw_away_fields)
-    field_mapping.update(mapped_in_project)
+    field_mapping.update(MigrateProjectBase.mapped_in_project)
+    field_mapping.update(MigrateProjectBase.mapped_in_fund)
+    field_mapping.update(MigrateProjectBase.mapped_in_act)
+    field_mapping.update(MigrateProjectBase.mapped_in_results)
 
 
-class MigratePlan(MigrateProjectBase):
-    to_model = PlanPhase
+class MigrateFund(MigrateProjectBase):
+    to_model = FundPhase
 
     def list_from(self):
         """ Filter by project status. """
-        qs = super(MigratePlan, self).list_from()
+        qs = super(MigrateFund, self).list_from()
 
         qs = qs.filter(
             status__in=(
@@ -307,17 +396,14 @@ class MigratePlan(MigrateProjectBase):
                 'realised'
             )
         )
-
         return qs
 
     def list_to(self):
         """ Filter by projects past idea phase. """
-        qs = super(MigratePlan, self).list_to()
-
+        qs = super(MigrateFund, self).list_to()
         qs = qs.filter(
-            project__phase__in=(phases.plan, phases.results)
+            project__phase__in=(phases.fund, phases.results)
         )
-
         return qs
 
 
@@ -340,23 +426,26 @@ class MigratePlan(MigrateProjectBase):
             'validated': statuses.progress
         }, verbose=False),
 
-        'longdescription': 'what',
-        'project_goals': 'goal',
-        'target_audience': 'who',
-        'solve_poverty': 'how',
+        'longdescription': ConcatenatingStringMapping(
+            to_field='description_long',
+            concatenate_with=('project_goals', 'expected_results',),
+            concatenate_str='<br/>',
+            verbose=False
+        ),
+        'target_audience': ConcatenatingStringMapping(
+            to_field='social_impact',
+            concatenate_with=('solve_poverty',),
+            concatenate_str='<br/>',
+            verbose=False,
+        ),
+        'solve_poverty': None, # Already mapped above             
         'description_duurzaamheid':
             NoneToStringMapping('sustainability', verbose=False),
-        'expected_results': 'target',
-        'how_support': NoneToStringMapping('needed_expertise'),
-        'volunteers': 'needed_volunteers',
-
+        'expected_results': None, # Already mapped above
         'money_needed_club': OneToManyMapping(
             StringToDecimalMapping('money_asked', verbose=False),
-            StringToDecimalMapping('money_total', verbose=False)
+            StringToDecimalMapping('budget_total', verbose=False)
         ),
-
-        'legacy_budget': 'budget_description',
-
         'received_other_sources': ConcatenatingStringMapping(
             to_field='money_other_sources',
             concatenate_with=('expected_other_sources',),
@@ -369,7 +458,10 @@ class MigratePlan(MigrateProjectBase):
     }
 
     field_mapping.update(MigrateProjectBase.throw_away_fields)
-    field_mapping.update(MigrateIdea.mapped_in_project)
+    field_mapping.update(MigrateProjectBase.mapped_in_project)
+    field_mapping.update(MigrateProjectBase.mapped_in_idea)
+    field_mapping.update(MigrateProjectBase.mapped_in_act)
+    field_mapping.update(MigrateProjectBase.mapped_in_results)
 
 
 class MigrateAct(MigrateProjectBase):
@@ -395,24 +487,6 @@ class MigrateAct(MigrateProjectBase):
 
         return qs
 
-    mapped_in_idea = {
-        'longdescription': None,
-        'project_goals': None,
-        'target_audience': None,
-        'solve_poverty': None,
-        'description_duurzaamheid': None,
-        'expected_results': None,
-        'how_support': None,
-        'volunteers': None,
-
-        'money_needed_club': None,
-
-        'legacy_budget': None,
-
-        'received_other_sources': None,
-        'expected_other_sources': None
-    }
-
 
     field_mapping = {
         'id': OneToManyMapping(
@@ -433,8 +507,10 @@ class MigrateAct(MigrateProjectBase):
     }
 
     field_mapping.update(MigrateProjectBase.throw_away_fields)
-    field_mapping.update(MigrateIdea.mapped_in_project)
-    field_mapping.update(mapped_in_idea)
+    field_mapping.update(MigrateProjectBase.mapped_in_project)
+    field_mapping.update(MigrateProjectBase.mapped_in_idea)
+    field_mapping.update(MigrateProjectBase.mapped_in_fund)
+    field_mapping.update(MigrateProjectBase.mapped_in_results)
 
 
 class MigrateResults(MigrateProjectBase):
@@ -478,8 +554,10 @@ class MigrateResults(MigrateProjectBase):
     }
 
     field_mapping.update(MigrateProjectBase.throw_away_fields)
-    field_mapping.update(MigrateIdea.mapped_in_project)
-    field_mapping.update(MigrateAct.mapped_in_idea)
+    field_mapping.update(MigrateProjectBase.mapped_in_project)
+    field_mapping.update(MigrateProjectBase.mapped_in_idea)
+    field_mapping.update(MigrateProjectBase.mapped_in_fund)
+    field_mapping.update(MigrateProjectBase.mapped_in_act)
 
 
 class MigrateLink(MigrateModel):
@@ -563,29 +641,6 @@ class MigrateMessage(MigrateTestimonial):
     }
 
 
-class MigrateBudgetCategory(MigrateModel):
-    from_model = NeedCategory
-    to_model = BudgetCategory
-
-    field_mapping = {
-        'id': True,
-
-        'name': True,
-        'description': NoneToStringMapping(verbose=False),
-        'ordering': True,
-
-        # It seems as though we are throwing away the hierarchical relation
-        # here - which seems a rather bad idea.
-        # 'parent': ...,
-
-        'need': None,
-        'needcategory': None,
-        'name_en': None,
-        'name_es': None,
-
-    }
-
-
 class MigrateBudgetLine(MigrateLink):
     from_model = Need
     to_model = BudgetLine
@@ -607,7 +662,7 @@ class MigrateBudgetLine(MigrateLink):
         'project_id': True,
 
         'category': None,
-        'category_id': True,
+        'category_id': None,
 
         'description': NoneToStringMapping(verbose=False),
 

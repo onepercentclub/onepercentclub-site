@@ -1,7 +1,7 @@
 [
   {
     "pk": 2,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Agriculture",
@@ -10,7 +10,7 @@
   },
   {
     "pk": 10,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Climate",
@@ -19,7 +19,7 @@
   },
   {
     "pk": 5,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Culture",
@@ -28,7 +28,7 @@
   },
   {
     "pk": 1,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Education",
@@ -37,7 +37,7 @@
   },
   {
     "pk": 3,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Health",
@@ -46,7 +46,7 @@
   },
   {
     "pk": 11,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Social Entrepreneurship",
@@ -55,7 +55,7 @@
   },
   {
     "pk": 6,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Sports",
@@ -64,7 +64,7 @@
   },
   {
     "pk": 9,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Water",
@@ -73,7 +73,7 @@
   },
   {
     "pk": 8,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Women",
@@ -82,7 +82,7 @@
   },
   {
     "pk": 7,
-    "model": "projects.projectcategory",
+    "model": "projects.projecttheme",
     "fields": {
       "description": "",
       "name": "Youth",
