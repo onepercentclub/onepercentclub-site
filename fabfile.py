@@ -99,6 +99,33 @@ def status_update(message):
     print(green(message))
 
 
+def get_commit_tags(commit):
+    """ Get all tags for a commit. """
+
+    r = Repo()
+
+    tags = set()
+
+    for tag in r.tags:
+        if tag.commit == commit:
+            tags.add(tag.name)
+
+    return tags
+
+
+def describe_commit(commit):
+    """
+    Return a verbose commit name based on shortened hash, tags and summary.
+    """
+
+    tags = ' '.join(get_commit_tags(commit))
+
+    if tags:
+        return '%s %s: %s' % (commit.hexsha[:7], tags, commit.summary)
+    else:
+        return '%s: %s' % (commit.hexsha[:7], commit.summary)
+
+
 def find_commit(revspec=None):
     """
     Find the specified commit by revspec and check that it's in deploy_branch.
@@ -115,7 +142,7 @@ def find_commit(revspec=None):
 
     # Get the commit from the repo
     commit = r.commit(revspec)
-    status_update('Deploying commit %s: %s' % (commit.hexsha, commit.summary))
+    status_update('Deploying commit %s' % describe_commit(commit))
 
     # Check whether it's a deploy commit
     deploy_commits = r.iter_commits(local_deploy_branch)
@@ -176,7 +203,8 @@ def confirm_deploy(commit):
 
     if not env.noinput:
         confirmed = confirm(
-            'Are you sure you want to deploy %s?' % commit.hexsha, default=False
+            'Are you sure you want to deploy %s?' % commit.hexsha[:7],
+            default=False
         )
 
         if not confirmed:
@@ -346,25 +374,13 @@ def load_dbdump(database, dbdump):
 def assert_release_tag(commit, tag):
     """
     Make sure the given commit has the given tag and confirm if not so.
-
-    It turns out there is no elegant and efficient way to do this without
-    resorting to Perl-like shell scripts.
-
-    Ref: http://stackoverflow.com/questions/4545370/how-to-list-all-tags-pointing-to-a-specific-commit-in-git
     """
 
-    r = Repo()
+    tags = get_commit_tags(commit)
 
-    for current_tag in r.tags:
-        if current_tag.commit == commit:
-            # This tag refers to current commit
-
-            if tag in current_tag.name:
-                # The required tag is found, bail out
-                return
-
-    # It's not found, yield a warning
-    confirm_wrong_tag(commit, tag)
+    if not tag in tags:
+        # It's not found, confirm with user
+        confirm_wrong_tag(commit, tag)
 
 
 def git_fetch_local():
@@ -372,17 +388,17 @@ def git_fetch_local():
     local('git fetch -q')
 
 
-def update_git(commit_id):
+def update_git(commit):
     """ Update the repo to given commit_id. """
     require('directory')
 
-    status_update('Updating git repository to %s.' % commit_id)
+    status_update('Updating git repository to %s' % describe_commit(commit))
 
     with cd(env.directory):
         # Make sure only to fetch the required branch
         # This script should fail if we are updating to a non-deploy commit
         run('git fetch -q -t origin %s' % env.deploy_branch)
-        run('git checkout -q %s' % commit_id)
+        run('git checkout -q %s' % commit.hexsha)
 
 
 def update_tar(commit_id):
@@ -521,7 +537,7 @@ def deploy_dev(revspec=None):
     commit = find_commit(revspec)
 
     # Make sure the remote git repo is up to date
-    update_git(commit.hexsha)
+    update_git(commit)
 
     # Get Django ready
     prepare_django()
@@ -550,7 +566,7 @@ def deploy_testing(revspec=None):
     confirm_deploy(commit)
 
     # Make sure the remote git repo is up to date
-    update_git(commit.hexsha)
+    update_git(commit)
 
     # Get Django ready
     prepare_django()
