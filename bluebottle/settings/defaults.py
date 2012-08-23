@@ -346,7 +346,6 @@ LEGACY_MIGRATIONS = [
     'legacy.legacymigration.projects.MigrateLink',
     'legacy.legacymigration.projects.MigrateTestimonial',
     'legacy.legacymigration.projects.MigrateMessage',
-    'legacy.legacymigration.projects.MigrateBudgetCategory',
     'legacy.legacymigration.projects.MigrateBudgetLine',
 
     # Donations

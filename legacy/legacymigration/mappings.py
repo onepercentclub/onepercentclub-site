@@ -469,40 +469,43 @@ class ConcatenatingStringMapping(IdentityMapping):
 
         self.to_field = to_field
         self.verbose = verbose
-        self.concatenate_str = concatenate_str
 
-    def map(self, instance, from_field):
-        old_value = getattr(instance, from_field)
-        new_value = old_value
+        # Ensure that self.concatenate_str is never None.
+        if concatenate_str is not None:
+            self.concatenate_str = concatenate_str
+        else:
+            self.concatenate_str = ""
+
+    def _get_concatenated_value(self, instance, old_value):
+        new_value = ""  # The default return value.
+
+        if old_value is not None:
+            new_value = old_value
 
         for concat_field in self.concatenate_with:
             concat_value = getattr(instance, concat_field)
 
             # Only concatenate for non-empty values
-            if new_value == None:
-                new_value = concat_value
-            elif concat_value:
+            if concat_value is not None:
                 new_value += self.concatenate_str + concat_value
 
-        self.log_change(from_field, instance, old_value, new_value)
+        return new_value
 
-        return {self.get_to_field(from_field): new_value}
+    def map(self, instance, from_field):
+        old_value = getattr(instance, from_field)
+        concatenated_value = self._get_concatenated_value(instance, old_value)
+
+        self.log_change(from_field, instance, old_value, concatenated_value)
+
+        return {self.get_to_field(from_field): concatenated_value}
 
     def check(self, from_instance, to_instance, from_field):
         old_value = getattr(from_instance, from_field)
-
-        for concat_field in self.concatenate_with:
-            concat_value = getattr(from_instance, concat_field)
-
-            # Only concatenate for non-empty values
-            if old_value == None:
-                old_value = concat_value
-            elif concat_value:
-                old_value += self.concatenate_str + concat_value
+        concatenated_old_value = self._get_concatenated_value(from_instance, old_value)
 
         new_value = getattr(to_instance, self.get_to_field(from_field))
 
-        return self.check_value(old_value, new_value)
+        return self.check_value(concatenated_old_value, new_value)
 
 
 class PathToFileMapping(IdentityMapping):

@@ -31,8 +31,8 @@ python manage.py loaddata project_partnerorganization_data
 # Do the migration.
 python manage.py migrate_legacy -v 2
 
-# Load fixtures for the project categories.
-python manage.py loaddata project_category_data
+# Load fixtures for the project themes.
+python manage.py loaddata project_theme_data
 
 # Dump database and archive media
 pg_dump -x --no-owner $DB_NAME | bzip2 -c > migrated_data.sql.bz2
