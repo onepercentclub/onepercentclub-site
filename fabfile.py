@@ -403,11 +403,16 @@ def update_tar(commit_id):
 
 
 def prune_unreferenced_files():
-    """ Prune unreferenced files """
+    """
+    Prune unreferenced files.
+
+    WARNING: This deletes cached thumbnails as well. This should be fixed and
+    not used until.
+    """
 
     # Find unreferenced files
     with virtualenv():
-        unreferenced_files = run_web('./manage.py unreferenced_files --settings=%s | grep -v cache' % \
+        unreferenced_files = run_web('./manage.py unreferenced_files --settings=%s' % \
             env.django_settings
         ).splitlines()
 
@@ -446,7 +451,8 @@ def prepare_django():
             env.django_settings
         )
 
-        prune_unreferenced_files()
+        # Disabled for now; it unjustly deletes cached thumbnails
+        # prune_unreferenced_files()
 
 
 def restart_site():
