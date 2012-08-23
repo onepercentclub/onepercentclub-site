@@ -318,6 +318,8 @@ def extract_migrated_media():
     confirm_extract_migrated_media()
 
     with cd(env.directory):
+        # Delete existing media files
+        run_web('rm -rf media/*')
         run_web('tar xmf %s' % env.migrated_media_file)
 
 
