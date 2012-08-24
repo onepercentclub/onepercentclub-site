@@ -74,9 +74,9 @@ with this command::
 
     ./manage.py loaddata <name of json file without extension>
 
-For example, this command loads the default Project Categories::
+For example, this command loads the default Project Themes::
 
-    ./manage.py loaddata project_category_data
+    ./manage.py loaddata project_theme_data
 
 You can find a list of data files with this command run from the bluebottle
 directory::
