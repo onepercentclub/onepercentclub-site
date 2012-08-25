@@ -25,7 +25,6 @@ class GeoBaseModel(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['name']
 
 
 class Region(GeoBaseModel):
@@ -34,7 +33,8 @@ class Region(GeoBaseModel):
     geoscheme.
     '''
 
-    pass
+    class Meta:
+        ordering = ['name']
 
 
 class SubRegion(GeoBaseModel):
@@ -45,6 +45,7 @@ class SubRegion(GeoBaseModel):
     region = models.ForeignKey(Region)
 
     class Meta:
+        ordering = ['name']
         verbose_name = _("Sub Region")
         verbose_name_plural = _("Sub Regions")
 
@@ -68,4 +69,5 @@ class Country(GeoBaseModel):
         help_text=_("Whether a country is a recipient of Official Development Assistance from the OECD's Development Assistance Committee."))
 
     class Meta:
+        ordering = ['name']
         verbose_name_plural = _("Countries")
