@@ -1,47 +1,48 @@
 (function() {
 
   // Create the application
-  window.App = Ember.Application.create({
+  window.App = Em.Application.create({
     rootElement : '#content',
 
     // Define the main application controller. This is automatically picked up by
     // the application and initialized.
-    ApplicationController : Ember.Controller.extend({
+    ApplicationController : Em.Controller.extend({
     }),
 
-    ApplicationView : Ember.View.extend({
+    ApplicationView : Em.View.extend({
       templateName : 'application'
     }),
 
     // Use this to clear an outlet
-    EmptyView : Ember.View.extend({
+    EmptyView : Em.View.extend({
       template : ''
     }),
 
     /* Home */
-    HomeView : Ember.View.extend({
+    HomeView : Em.View.extend({
       templateName : 'home'
     }),
 
     /* Projects */
-    ProjectsController : Ember.Controller.extend({
+    ProjectDetailController : Em.Controller.extend({
     }),
 
-    ProjectsHomeView : Ember.View.extend({
-      templateName : 'projects-home'
+    ProjectHomeView : Em.View.extend({
+      templateName : 'project-home'
     }),
 
-    ProjectsSearchFormView : Ember.View.extend({
-      templateName : 'projects-search-form'
+    ProjectSearchFormView : Em.View.extend({
+      templateName : 'project-search-form'
     }),
 
-    ProjectsSearchResultsView : Ember.View.extend({
-      templateName : 'projects-search-results'
+    ProjectSearchResultsView : Em.View.extend({
+      templateName : 'project-search-results'
     }),
+
 
     /* Routing */
-    Router : Ember.Router.extend({
-      root : Ember.Route.extend({
+    Router : Em.Router.extend({
+      root : Em.Route.extend({
         // Used for navigation
         gotoHome : function(router, event) {
           router.transitionTo('home');
@@ -50,7 +51,7 @@
           router.transitionTo('projects');
         },
         // The actual routing
-        home : Ember.Route.extend({
+        home : Em.Route.extend({
           route : '/',
           connectOutlets : function(router, event) {
             router.get('applicationController').connectOutlet('topPanel', 'home');
@@ -58,12 +59,12 @@
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
           }
         }),
-        projects : Ember.Route.extend({
+        projects : Em.Route.extend({
           route : '/projects',
           connectOutlets : function(router, event) {
-            router.get('applicationController').connectOutlet('topPanel', 'projectsHome');
-            router.get('applicationController').connectOutlet('midPanel', 'projectsSearchForm');
-            router.get('applicationController').connectOutlet('bottomPanel', 'projectsSearchResults');
+            router.get('applicationController').connectOutlet('topPanel', 'projectHome');
+            router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
+            router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResults');
           }
         }),
       })
@@ -75,4 +76,5 @@
     App.initialize();
   });
 
-})(); 
+
+})();

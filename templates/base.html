@@ -20,6 +20,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.pre.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-rest-ac525e5e4d-local-mods.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}global/js/app.js"></script>
     {% endcompress %}
 
@@ -38,6 +39,14 @@
             </div>
         </div>
         <div id="content">
+            <div id="mymenu">
+                {% if user.is_authenticated %}
+                    {{ user.username }} 
+                    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
+                {% endif %}
+            </div>
             {% tplhandlebars "application" %}
                 <div id="submenu">
                     <ul>
@@ -64,11 +73,7 @@
             {% block content %}
             {% endblock %}
         </div>
-        <div id="footer">
-            {% include "footer.html" %}
-        </div>
-
-        <div id="topmenu">
+        <div id="sitemenu">
             <ul>
                 <li class="active">1%CLUB</li>
                 <li>1%SHOW</li>
@@ -76,15 +81,11 @@
                 <li>1%BOOKSHOP</li>
                 <li>1%TOOLBOX</li>
             </ul>
-            <div id="mymenu">
-                {% if user.is_authenticated %}
-                    {{ user.username }} 
-                    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
-                {% else %}
-                    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
-                {% endif %}
-            </div>
         </div>
+        <div id="footer">
+            {% include "footer.html" %}
+        </div>
+
     </div>
 
     <div id="git-revision">Revision: {{ GIT_REVISION }}</div>

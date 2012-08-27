@@ -1,17 +1,39 @@
 @pink: #FF619A;
+
 @green: #00C051;
-@lightgreen: #99EEBB;
+@midgreen: #7DDFA6;
+@lightgreen: #D6FFE7;
+@backgroundgreen: #ebfff3;
+
 @sepia: #ddccbb;
 @black: #000000;
 @white: #ffffff;
 @gray: #a7a7a7;
-@lightgray: #E8E8E8;
-@midgray: #EEEEEE;
+@darkgray: #555555;
+@lightgray: #EEEEEE;
+@midgray: #BBBBBB;
 @static-url: "../../";
 
 @font: Arial, Helvetica;
-@futura: 'Futura Std Book', @font;
-@mainwidth: 1020px;
+@futura: 'Futura Std', 'Futura Std Book', 'Futura Std Bold', @font;
+@mainwidth: 1000px;
+
+.row {
+  
+}
+
+.row.black {
+  background-color: @black;
+}
+
+img.center {
+  margin: 0px auto;
+  display: block;
+}
+
+.clear {
+  clear: both;
+}
 
 .hidden {
   display: none;
@@ -31,10 +53,29 @@
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {
   text-decoration: underline;
+  cursor: pointer;
+}
+
+h2 {
+  color: @green;
+  font-family: @futura;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  padding: 10px 10px 2px 10px;
+}
+
+
+h3 {
+  color: @green;
+  font-family: @futura;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  padding: 6px 4px 2px 4px;
 }
 
 
@@ -55,11 +96,10 @@ body {
   width: @mainwidth;
   position: relative;
   margin: 0px auto 40px;
-  box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
 }
 
 #mymenu {
-  position: absolute;
+  position: fixed;
   width: 220px;
   right: 40px;
   top: 0px;
@@ -72,11 +112,10 @@ body {
   }
 }
 
-#topmenu,
+
+#sitemenu,
 #submenu {
-  position: fixed;
   width: @mainwidth;
-  top: 0px;
   background-color: @green;
   color: white;
   font-size: 0.9em;
@@ -86,10 +125,9 @@ body {
 
   ul {
     list-style: none;
-    margin: 4px 0px 0px;
-    padding: 0px 10px 0px 20px;
+    padding: 8px 10px 8px 20px;
     li {
-      float: left;
+      display: inline;
       margin: 0px;
       padding: 6px;
       text-indent: 0px;
@@ -104,17 +142,20 @@ body {
   }
 }
 
+
 #submenu {
-  top: 30px;
-  background-color: @white;
-  border-bottom: 1px solid @green;
+  position: fixed;
+  width: 700px;
+  top: 0px;
+  background-color: @black;
   ul li {
     padding: 4px 6px;
   }
   ul li a {
-    color: @gray;
+    color: @white;
   }
-  ul li a.active, ul li a:hover {
+  ul li a.active,
+  ul li a:hover {
     color: @green;
   }
 }
@@ -125,16 +166,18 @@ body {
 
 
 #toppanel {
-  padding: 10px;
-  background-color: #e8e8e8;
+  position: relative;
+  
+  //background-color: @backgroundgreen;
+  //border: 1px solid @midgreen;
   font-size: 0.8em; 
   h1 {
     font-family: @futura;
-    color: @green;
+    color: @black;
     text-transform: uppercase;
-    margin: 0px 0px 12px 0px;
+    margin: 6px 0px 12px 0px;
     padding: 0px;
-    font-size: 1.4em;
+    font-size: 1.6em;
   }
   h4 {
     font-family: @font;
@@ -142,7 +185,7 @@ body {
     text-transform: uppercase;
     font-size: 0.8em; 
   }
-  p, ul, img {
+  p, ul {
     margin: 0px 0px 12px 0px;
   }
   .profile-image {
@@ -156,26 +199,24 @@ body {
 }
 
 #midpanel {
-  padding: 10px;
-  background-color: #888;
+  font-size: 0.8em;
+  background-color: @white;
   min-height: 300px;
-  
 }
 
 #footer {
   padding: 10px;
-  background-color: @green;
+  background-color: @white;
   min-height: 300px;
   h3 {
     font-family: @futura;
     margin: 0px 0px 4px;
-    color: white;
-    
+    color: @green;
   }
   h4 a {
     font-family: @futura;
     margin: 2px 0px 2px;
-    color: white;
+    color: @green;
     font-size: 0.7em;
   }
   h4 a:hover {
@@ -190,78 +231,12 @@ body {
   }
 }
 
- 
-.widget, 
-.results ul.list li {
-  float: left;
-  width: 225px;
-  margin: 7px 7px 0px 0px;
-  .title,
-  .support {
-    font-size: 1em;
-    color: @white;
-    padding: 8px 8px 4px;
-  }
-  
-  h3 {
-    background-color: @green;
-    color: @white;
-    font-weight: bold;
-    overflow: hidden;
-    text-transform: uppercase;
-    font-family: @futura;
-    font-size: 1.1em;
-    padding: 12px 12px 8px;
-  }
-
-  h3.light {
-    background-color: @white;
-    color: @green;
-  }
-
-  h3.link {
-    background-color: @pink;
-    color: @white;
-  }
-
-  h3 .icon {
-    width: 16px;
-    height: 14px;
-    background: @pink url("@{static-url}/global/images/icons/love.png") left center no-repeat;
-    float: left;
-    margin-right: 6px;
-  }
-      
-  .title {
-    height: 80px;
-    background-color: @green;
-    font-weight: bold;
-    overflow: hidden;
-    a {
-      color: @white;
-    }
-    h3 {
-      text-transform: uppercase;
-      font-family: @futura;
-      padding: 0px;
-    }
-  }
-  .support {
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-    font-family: @futura;
-    background-color: @pink;
-  }
-}
-
 
 /* MAPS */
 
 #bigmap {
-  width: 686px;
-  height: 400px;
-  border: 1px solid @white;
+  width: 474px;
+  height: 355px;
   
 }
 
@@ -280,21 +255,31 @@ body {
 /* PROGRESS BAR */
 
 .progressbar {
-  background-color: @midgray;
+  background-color: @white;
   position: relative;
-  padding: 20px 10px;
-  .asked-bar {
-    height: 10px;
-    background-color: @lightgreen;
+  padding: 12px 8px;
+  .bar {
+    height: 12px;
     position: relative;
+    border: 1px solid @white;
   }
+  .asked-bar,
   .donated-bar {
+    width: 100%;
+    margin: -1px;
+    background-color: @lightgray;
     top: 0px;
     left: 0px;
     height: 10px;
     position: absolute;
+    border: 1px solid @midgray;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+  .donated-bar {
     background-color: @green;
-    border-right: 1px solid @green;
+    border: 1px solid @green;
+    //border-right: 1px solid @green;
   }
 
   .donated-text.right {
@@ -309,13 +294,14 @@ body {
   .donated-text.left {
     margin-left: -1px;
     color: @green;
-    border-left: 1px solid @green;
+    border-left: 2px solid @green;
     padding: 0px 4px 4px;
   }
   
   .asked-text {
     color: @green;
     text-align: right;
+    padding: 4px;
   }
   
 }
@@ -334,6 +320,26 @@ body {
 
 }
 
+.column.black {
+  background-color: @black;
+  color: @white;
+  padding: 8px;
+}
+
+.column.lightgray {
+  background-color: @midgray;
+  color: @darkgray;
+  padding: 8px;
+  h2, h3 {
+    color: @darkgray;
+    background-color: @midgray;
+  }
+  h3 {
+    margin-top: 8px;
+    
+  }  
+}
+
 
 .phases {
   background-color: @white;
@@ -345,7 +351,7 @@ body {
   text-align: center;
   color: @white;
   background-color: @gray;
-  padding: 6px 6px 4px;
+  padding: 6px 5px 4px;
   font-family: @futura;
   font-weight: bold;
   font-size: 1em;
@@ -365,3 +371,324 @@ body {
   background-color: @green;
 }
 
+
+form {
+  input[type=text],
+  input[type=password] {
+    border: 1px solid @darkgray;
+    padding: 4px;
+    color: @green;
+    font-weight: bold;
+  }
+
+  input[type=radio],
+  input[type=checkbox] {
+    display: none;
+  }
+  
+  input[type=radio] + label,
+  input[type=checkbox] + label {
+    cursor: pointer;
+    padding-left: 20px;
+  }
+
+  input[disabled] + label {
+    color: @gray;
+    font-style: italic; 
+  }
+  
+  .count {
+    margin-left: 5px;
+    font-style: italic;
+    color: @gray;
+  }
+  
+  input[type=radio]:checked + label,
+  input[type=checkbox]:checked + label {
+    color: @green;
+    font-weight: bold;
+    background: url("@{static-url}/global/images/icons/icons.png") 0px 0px no-repeat;
+    
+  }
+  input[type=radio]:checked + label {
+    background: url("@{static-url}/global/images/icons/icons.png") 0px -188px no-repeat;
+  }
+
+}
+
+
+.widget.support {
+  border: 1px solid @pink;
+  margin: 10px 0px;
+  width: 220px;
+  
+  .link {
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @futura;
+    background-color: @pink;
+    color: @white;
+    padding: 8px 4px 4px;
+    
+  }
+}
+ 
+.widget, 
+.results ul.list li {
+  display: inline-block;
+  width: 225px;
+  h3.light {
+    background-color: @white;
+    color: @green;
+  }
+
+  h3.link {
+    background-color: @pink;
+    color: @white;
+  }
+
+  h3 .icon {
+    width: 16px;
+    height: 14px;
+    background: @pink url("@{static-url}/global/images/icons/love.png") left center no-repeat;
+    float: left;
+    margin-right: 6px;
+  }
+      
+}
+
+.results {
+  position: relative;
+  .paginator {
+    position: absolute;
+    width: 30px;
+    height: 40px;
+    overflow: hidden;
+    text-indent: 200px;
+    top: 45%;
+    border: 0px;
+    cursor: pointer;
+  }
+  .next {
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px -80px no-repeat;
+    right: -30px;
+  }
+  .previous {
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px -120px no-repeat;
+    left: -30px;
+  }
+  .next:hover {
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px 0px no-repeat;
+   }
+  .previous:hover {
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px -40px no-repeat;
+  }
+}
+
+
+.project-mid {
+  border: 1px solid @green;
+  margin: 10px;
+  a {
+    color: @white;
+  }
+  .image {
+    position: relative;
+    width: 225px;
+    height: 150px;
+    .info {
+      position: absolute;
+      bottom: 0px;
+      height: 68px;
+      width: 225px;
+      opacity: 0.5;
+      background-color: @black;
+    }
+    .title,
+    .location {
+      position: absolute;
+      color: @white;
+      padding: 8px;
+      font-weight: bold; 
+      bottom: 0px;
+      text-shadow: 2px 2px 2px rgba(0,0,0,0.2)
+    }
+    .title {
+      height: 52px;
+      text-transform: uppercase;
+      font-family: @futura;
+      font-weight: bold;
+    }
+    .location {
+      right: 0px; 
+    }
+  }
+  .support {
+    background-color: @green;
+    color: @white;
+    padding: 8px;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.section {
+  margin-bottom: 10px;
+  padding: 6px 0px;
+}
+
+.lightgreen {
+  background-color: @backgroundgreen;
+  border: 1px solid @midgreen;
+}
+
+.lightgray {
+  background-color: @lightgray;
+  border: 1px solid @midgray;
+}
+
+
+
+form.search {
+}
+
+#searchForm,
+#searchResults {
+  margin-top: 10px;
+  background-color: @backgroundgreen;
+  border: 1px solid @midgreen;
+}
+
+#toppanel .location {
+  background-color: @lightgreen;
+  h4 {
+    font-size: 1.3em;
+    font-weight: bold;
+    text-transform: none;
+  }
+  padding: 10px;
+  img {
+    float: left;
+    margin-right: 4px;
+  }
+  margin-bottom: 10px;
+}
+
+.viewer {
+  height: 360px;
+  overflow: auto;
+  width: 480px;
+  background-color: @lightgreen;
+}
+
+.viewer .text {
+  margin: 8px;
+}
+
+.videoviewer,
+.imageviewer {
+  height: 360px;
+  overflow: hidden;
+  width: 480px;
+  text-align: center;
+}
+
+.nav-viewer {
+  width: 480px;
+  border-top: 2px solid @black;
+  background-color: @lightgreen;
+  padding: 0px 2px 6px 2px;
+  li {
+    display: inline-block;
+    margin: 0px;
+    padding: 4px 8px;
+    border-radius: 0px 0px 4px 4px;
+    border: 1px solid @midgreen;
+    border-top: 0px;
+    background-color: @green;
+    color: @white;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: @futura;
+  }
+  li.active {
+    background-color: @black;
+  }
+}
+
+
+ul.categories, 
+ul.tags {
+  li {
+    padding: 2px 4px;
+    margin: 2px;
+    background-color: @green;
+    border-radius: 4px;
+    display: inline-block;
+    color: @white;
+    
+  }
+}
+
+ul.categories {
+  li {
+    background-color: @black;
+    font-size: 1em;
+    font-weight: bold
+  }
+}
+
+.owner {
+  background-color: @lightgreen;
+  padding: 4px;
+  height: 100px;
+  img {
+    border: 1px solid @white;
+    float: left;
+    margin-right: 4px;
+  }
+  a.dm {
+    font-weight: bold;
+    color: @green;
+  }
+}
+
+
+#toppanel .half.left {
+  margin-right: 5px;
+}
+
+#toppanel .half {
+  width: 90px;
+  color: @white;
+  font-family: @futura;
+  display: inline-block;
+  h1 {
+    font-size: 3em;
+    //color: @white;
+    color: @gray;
+  }
+  border-radius: 12px;
+  padding: 8px;
+  //background-color: @gray;
+  background-color: @white;
+  border: 2px solid @gray;
+  width: 84px;
+  color: @gray;
+   
+}
+
+
+#toppanel .half.green {
+  
+//  background-color: @green;
+  color: @green;
+  h1 {
+    color: @green;
+  }
+  border: 2px solid @green;
+  background-color: @white;
+  width: 84px;
+}
