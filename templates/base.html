@@ -1,5 +1,6 @@
 {% comment %} Use url tag from Django 1.5. {% endcomment %}
 {% load url from future %}
+{% load templatetag_handlebars %}
 
 {% load compress %}<!DOCTYPE HTML>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -16,20 +17,15 @@
 	{% endcompress %}
 
 	{% compress js %}
-	    <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/underscore-min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/backbone-min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/bootstrap.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/backbone-tastypie.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/bluebone/app.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/blueapp.js"></script>
-		<script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.pre.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}global/js/app.js"></script>
 	{% endcompress %}
 
 	<link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}global/css/main.less">
-	<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/less-1.3.0.min.js"></script>
-
-
+	<script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/less-1.3.0.min.js"></script>
+    
 	{% block htmlheader %}{% endblock %}
 </head>
 
@@ -41,14 +37,9 @@
 				<img src="{{ STATIC_URL }}global/images/elements/payoff.gif" alt="YOU MAKE IT WORK!" />
 			</div>
 		</div>
-		<div id="toppanel">
-		{% block content %}
-		{% endblock %}
-		</div>
-		<div id="midpanel">
-			{% comment %}
-				This bit will be populated by javascript
-			{% endcomment %}
+		<div id="content">
+    		{% block content %}
+    		{% endblock %}
 		</div>
 		<div id="footer">
 		    {% include "footer.html" %}

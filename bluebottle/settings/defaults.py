@@ -200,6 +200,7 @@ INSTALLED_APPS = [
     'taggit',
     'micawber.contrib.mcdjango', # Embedding videos
     'gitrevision', # Display git revision
+    'templatetag_handlebars',
 
     # bluebottle apps
     'apps.bluebottle_utils',
@@ -288,3 +289,7 @@ LOGIN_REDIRECT_URL = '/'
 # user profile setting as described here:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+
+# Required for handlebars_template to work properly
+USE_EMBER_STYLE_ATTRS = True

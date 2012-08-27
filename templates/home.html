@@ -1,27 +1,25 @@
 {% extends "base.html" %}
 
+{% load templatetag_handlebars %}
+
 {% block htmltitle %}{{ block.super }} | Home{% endblock %}
 
-{% block toppanel %}
-	<h1>BlueBone start... </h1>
-	No place like home!
-{% endblock %}
-
-{% block widgets %}
-	BlueApp.widgets.load([
-		{
-			widget: 'RecentProjects',
-			container: '#midpanel'
-		},
-		{
-			widget: 'New',
-			container: '#midpanel'
-		}
-	])
-{% endblock %}
 
 {% block content %}
+    {% tplhandlebars "application" %}
+        <div id="top-panel">
+            {{outlet topPanel}}            
+        </div>
+        <div id="mid-panel">
+            {{outlet midPanel}}            
+        </div>
+        <div id="bottom-panel">
+            {{outlet bottomPanel}}            
+        </div>
+    {% endtplhandlebars %}
 
-<img src="{{ STATIC_URL }}global/images/elements/1pcpony.png" alt="1%PONY" />
-
+    {% tplhandlebars "home" %}
+        <h1>HOMEPAGE</h1>
+    {% endtplhandlebars %}
+            
 {% endblock %}
