@@ -6,20 +6,22 @@
 
 
 {% block content %}
-    {% tplhandlebars "application" %}
-        <div id="top-panel">
-            {{outlet topPanel}}            
-        </div>
-        <div id="mid-panel">
-            {{outlet midPanel}}            
-        </div>
-        <div id="bottom-panel">
-            {{outlet bottomPanel}}            
-        </div>
-    {% endtplhandlebars %}
 
     {% tplhandlebars "home" %}
         <h1>HOMEPAGE</h1>
     {% endtplhandlebars %}
+
+    {% tplhandlebars "projects-home" %}
+        <h1>PROJECTS HOME</h1>
+    {% endtplhandlebars %}
+            
+    {% tplhandlebars "projects-search-form" %}
+        <h1>PROJECTS SEARCH FORM</h1>
+    {% endtplhandlebars %}
+            
+    {% tplhandlebars "projects-search-results" %}
+        <h1>PROJECTS SEARCH RESULTS</h1>
+    {% endtplhandlebars %}
+            
             
 {% endblock %}
