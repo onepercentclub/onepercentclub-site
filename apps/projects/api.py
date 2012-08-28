@@ -71,11 +71,16 @@ class ProjectResource(ResourceBase):
 
     class Meta(ResourceBase.Meta):
         queryset = Project.objects.all()
+        detail_uri_name = 'slug'
         filtering = {
              "latitude": ('gte', 'lte'),
              "longitude": ('gte', 'lte'),
              "title": ('istartswith', 'icontains')
         }
+
+    # Make sure we give resource uri's with slugs
+    def dehydrate_resource_uri(self, bundle=None):
+        return '/projects/api/project/' + bundle.obj.slug + '/'
 
     def filter_text(self, query):
         """ Custom filter for free text search. """
