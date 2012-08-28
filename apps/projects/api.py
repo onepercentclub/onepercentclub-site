@@ -148,7 +148,10 @@ class ProjectDetailResource(ProjectResource):
         bundle.data['money_donated'] = bundle.obj.money_donated()
         bundle.data['money_asked'] = bundle.obj.money_asked()
         bundle.data['money_needed'] = bundle.obj.money_needed()
-        bundle.data['description'] = bundle.obj.ideaphase.description
+        try:
+            bundle.data['description'] = bundle.obj.ideaphase.description
+        except IdeaPhase.DoesNotExist:
+            bundle.data['description'] = ""
          
         try:
             ownerimage = '/static/media/' + unicode(
@@ -164,12 +167,9 @@ class ProjectDetailResource(ProjectResource):
         
         if bundle.obj.phase in ['fund', 'act', 'results']:
             bundle.data['description'] = bundle.obj.fundphase.description
-            bundle.data['what'] = bundle.obj.fundphase.what
-            bundle.data['goal'] = bundle.obj.fundphase.goal
-            bundle.data['who'] = bundle.obj.fundphase.who
-            bundle.data['how'] = bundle.obj.fundphase.how
+            bundle.data['description_long'] = bundle.obj.fundphase.description_long
             bundle.data['sustainability'] = bundle.obj.fundphase.sustainability
-            bundle.data['target'] = bundle.obj.fundphase.target
+            bundle.data['social_impact'] = bundle.obj.fundphase.social_impact
         
         bundle.data['tags'] = list(bundle.obj.tags.values_list('name').all())
         bundle.data['themes'] = list(bundle.obj.themes.values_list('name').all());
@@ -203,7 +203,7 @@ class ProjectDetailResource(ProjectResource):
 
     # Make sure we give resource uri's with slugs
     def dehydrate_resource_uri(self, bundle=None):
-        return '/projects/api/project/' + bundle.obj.slug + '/'
+        return '/projects/api/projectdetail/' + bundle.obj.slug + '/'
 
 
 
