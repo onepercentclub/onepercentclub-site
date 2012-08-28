@@ -2,20 +2,33 @@ from django.db.models import Q, Count, Sum
 from django.conf.urls.defaults import *
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
-from django.core.serializers import serialize
+from django.core.serializers import serialize,json
 from django.utils import simplejson
+
 
 from tastypie.resources import ModelResource, Resource
 from tastypie import fields, utils
 from tastypie.authorization import DjangoAuthorization
 from tastypie.utils import trailing_slash
 from tastypie.paginator import Paginator
+from tastypie.serializers import Serializer
 from sorl.thumbnail import get_thumbnail
 
-from apps.accounts.api import PrettyJSONSerializer
 from apps.media.models import EmbeddedVideo
 
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, ProjectTheme
+
+class PrettyJSONSerializer(Serializer):
+   json_indent = 2
+   
+   def to_html(self, data, options=None):
+        options = options or {}
+        data = self.to_simple(data, options)
+        pre = simplejson.dumps(data, cls=json.DjangoJSONEncoder,
+                sort_keys=True, ensure_ascii=False, indent=self.json_indent)
+
+        return '<html><head></head><body><pre>%s</pre></body></html>' % pre
+
 
 class ResourceBase(ModelResource):
     class Meta:
@@ -24,6 +37,7 @@ class ResourceBase(ModelResource):
         detail_allowed_methods = ['get']
         serializer = PrettyJSONSerializer()
         always_return_data = True
+
 
 class ProjectFilters(object):
     """ 

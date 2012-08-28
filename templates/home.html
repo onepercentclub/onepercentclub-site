@@ -13,6 +13,11 @@
 
     {% tplhandlebars "project-home" %}
         <h1>PROJECTS HOME</h1>
+        <a {{action gotoProjectInfo}}>INFO</a>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-info" %}
+        <h1>PROJECTS INFO</h1>
     {% endtplhandlebars %}
             
     {% tplhandlebars "project-search-form" %}
