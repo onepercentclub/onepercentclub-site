@@ -193,12 +193,19 @@ class ProjectDetailResource(ProjectResource):
         return bundle
 
     class Meta(ResourceBase.Meta):
+        detail_uri_name = 'slug'
         queryset = Project.objects.all()
         filtering = {
              "latitude": ('gte', 'lte'),
              "longitude": ('gte', 'lte'),
              "title": ('istartswith', 'icontains')
         }
+
+    # Make sure we give resource uri's with slugs
+    def dehydrate_resource_uri(self, bundle=None):
+        return '/projects/api/project/' + bundle.obj.slug + '/'
+
+
 
 
 class SearchFormElement(object):
