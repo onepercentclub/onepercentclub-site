@@ -2,6 +2,9 @@ App = Em.Application.create({
   rootElement : '#content',
   
   updateRouter: function() {
+    var router = this.get('router');
+    router.init();
+    console.log(router)
     console.log('Don\'t know how to update the router, yet....')
   },
 
@@ -30,22 +33,35 @@ App = Em.Application.create({
 
 // Set basic Project route
 App.ProjectRoute = Em.Route.extend({
-    route : '/projects',
+  route : '/projects',
+  connectOutlets : function(router, event) {
+  	require(['app/projects'], function(){
+      router.get('applicationController').connectOutlet('topPanel', 'projectHome');
+      router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
+      router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResults');
+  	});
+  },
+  info : Em.Route.extend({
+    route : '/info',
     connectOutlets : function(router, event) {
-    	require(['app/projects'], function(){
-        router.get('applicationController').connectOutlet('topPanel', 'projectHome');
-        router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
-        router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResults');
-    	});
-    	
+      router.get('applicationController').connectOutlet('topPanel', 'projectInfo');
+      router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
+      router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResults');
     }
- });
-  
+  })
+});
+
+
+
+
   
 App.RootRoute =  Em.Route.extend({
   // Used for navigation
   gotoHome : function(router, event) {
     router.transitionTo('home');
+  },
+  gotoProjectInfo: function(router, event) {
+      router.transitionTo('projects.info');
   },
   gotoProjects : function(router, event) {
     router.transitionTo('projects');
