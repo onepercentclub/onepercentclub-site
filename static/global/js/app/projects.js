@@ -1,27 +1,29 @@
 /*
  * Project Search and List
  */
-App.projectPreviewModel = Em.Object.create({
-    url: 'project'
+// FIXME: We're not using this Model right now.
+App.ProjectPreviewModel = Em.Object.extend({
 });
 
 
-App.ProjectSearchController = Em.Object.create({
+App.ProjectSearchController = Em.ArrayController.create({
     query: {
         order: 'alphabetically',
         limit: 4
     },
 
-    content: null,
+    content: [],
 
     init: function() {
+        this._super();
         this.populate();
     },
 
     populate: function() {
         var controller = this;
         require(['app/data_source'], function(){
-            App.dataSource.get(App.projectPreviewModel.url, controller.query, function(data) {
+            //
+            App.dataSource.get('project', controller.query, function(data) {
                 controller.set('content', data['objects']);
             });
         });
@@ -33,12 +35,26 @@ App.ProjectPreviewView = Em.View.extend({
     templateName: 'project-preview'
 });
 
-App.ProjectSearchFormView = Em.View.extend({
+App.ProjectSearchFormView = Em.CollectionView.extend({
     templateName: 'project-search-form'
 });
 
-App.ProjectSearchResultsView = Em.View.extend({
-    templateName: 'project-search-results'
+App.ProjectSearchResultsView = Em.CollectionView.extend({
+    templateName: 'project-search-results',
+    contentBinding: 'App.ProjectSearchController',
+    itemViewClass: 'App.ProjectSearchResultsItemView',
+    tagName: 'ul',
+    classNames: 'list'
+});
+
+App.ProjectSearchResultsItemView = Em.View.extend({
+    tagName: 'li',
+    templateName: 'search-results-item',
+    classNames: ['project-mid']
+    // FIXME: We're going to handle clicks with Ember's target/action.
+    // click: function(){
+    //    ProjectApp.ApplicationController.projectId = this.content.id;
+    // }
 });
 
 
