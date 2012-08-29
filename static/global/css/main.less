@@ -99,22 +99,56 @@ body {
 }
 
 #mymenu {
-  position: fixed;
+  position: absolute;
   width: 220px;
   right: 40px;
-  top: 0px;
-  font-size: 0.9em;
-  padding: 6px 8px;
-  background-color: @black;
+  top: 40px;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: white;
+  .menu {
+    padding: 6px;
+    background-color: @green;
+    width: 208px;
+    
+  }
+  .search {
+    margin-top: 6px;
+    padding: 5px 6px;
+    border: 1px solid @green;
+    width: 206px;
+    color: @gray;
+  }
   a {
     color: white;
     text-decoration: none;
+  }
+  #my1pc {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 6px;
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 24px;
+      right: 0px;
+      padding: 4px;
+      width: 100px;
+      background-color: @green;
+      
+    }
+  }
+  #my1pc:hover {
+    .submenu {
+      display: block;
+    }
   }
 }
 
 
 #sitemenu,
-#submenu {
+#topmenu {
   width: @mainwidth;
   background-color: @green;
   color: white;
@@ -140,12 +174,24 @@ body {
     color: white;
     text-decoration: none;
   }
+  .languages {
+    font-family: @font;
+    font-size: 0.8em;
+    position: absolute;
+    right: 40px;
+    top: 10px;
+    a {
+      color: @gray;
+    }
+    a.active {
+      color: @white;
+    }
+  }
 }
 
 
-#submenu {
+#topmenu {
   position: fixed;
-  width: 700px;
   top: 0px;
   background-color: @black;
   ul li {

@@ -41,16 +41,8 @@
             </div>
         </div>
         <div id="content">
-            <div id="mymenu">
-                {% if user.is_authenticated %}
-                    {{ user.username }} 
-                    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
-                {% else %}
-                    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
-                {% endif %}
-            </div>
             {% tplhandlebars "application" %}
-                <div id="submenu">
+                <div id="topmenu">
                     <ul>
                         <li><a {{action "gotoHome"}} href="">HOME</a></li>
                         <li><a {{action "gotoProjects"}} href="">1%PROJECTS</a></li>
@@ -58,7 +50,12 @@
                         <li><a>1%ACTIONS</a></li>
                         <li><a>LEARN MORE</a></li>
                     </ul>
+                    <div class="languages">
+                        <a {{action "switchLanguage"}} id="lang-en" class="active" href="">ENGLISH</a>
+                        <a {{action "switchLanguage"}} id="lang-nl" href="">NEDERLANDS</a>
+                    </div>
                 </div>
+                
 
                 <div id="top-panel">
                     {{outlet topPanel}}
@@ -75,6 +72,25 @@
             {% block content %}
             {% endblock %}
         </div>
+        <div id="mymenu">
+            <div class="menu">
+                {% if user.is_authenticated %}
+                    NOTIFICATIONS (8) |
+                    <div id="my1pc">
+                        MY1% -&gt;
+                        <div class="submenu" id="mysubmenu">
+                            <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
+                {% endif %}
+            </div>
+            <div class="search">
+                SEARCH
+            </div>
+        </div>
+
         <div id="sitemenu">
             <ul>
                 <li class="active">1%CLUB</li>
