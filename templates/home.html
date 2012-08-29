@@ -28,6 +28,10 @@
         <h1>PROJECT SEARCH RESULTS</h1>
     {% endtplhandlebars %}
 
+    {% tplhandlebars "project-search-form-element" %}
+        <h3>{{view.content.title}}</h3>
+    {% endtplhandlebars %}
+
     {% tplhandlebars "project-preview" %}
         <a {{bindAttr href="view.content.url"}}>
         <div class="image">
