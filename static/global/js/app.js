@@ -36,7 +36,7 @@ App.ProjectRoute = Em.Route.extend({
   route : '/projects',
   connectOutlets : function(router, event) {
   	require(['app/projects'], function(){
-      router.get('applicationController').connectOutlet('topPanel', 'projectHome');
+      router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
       router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
       router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResults');
   	});
