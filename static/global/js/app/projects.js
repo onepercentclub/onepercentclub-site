@@ -31,10 +31,6 @@ App.ProjectSearchController = Em.ArrayController.create({
 });
 
 
-App.ProjectPreviewView = Em.View.extend({
-    templateName: 'project-preview'
-});
-
 App.ProjectSearchFormView = Em.CollectionView.extend({
     templateName: 'project-search-form'
 });
@@ -42,14 +38,14 @@ App.ProjectSearchFormView = Em.CollectionView.extend({
 App.ProjectSearchResultsView = Em.CollectionView.extend({
     templateName: 'project-search-results',
     contentBinding: 'App.ProjectSearchController',
-    itemViewClass: 'App.ProjectSearchResultsItemView',
+    itemViewClass: 'App.ProjectPreviewView',
     tagName: 'ul',
     classNames: 'list'
 });
 
-App.ProjectSearchResultsItemView = Em.View.extend({
+App.ProjectPreviewView  = Em.View.extend({
     tagName: 'li',
-    templateName: 'search-results-item',
+    templateName: 'project-preview',
     classNames: ['project-mid']
     // FIXME: We're going to handle clicks with Ember's target/action.
     // click: function(){
