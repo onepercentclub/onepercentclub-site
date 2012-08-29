@@ -26,6 +26,10 @@ class Album(models.Model):
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
 
+    class Meta:
+        verbose_name = _("album")
+        verbose_name_plural = _("albums")
+
     def __unicode__(self):
         return self.title or unicode(self.pk)
 
@@ -111,6 +115,10 @@ class LocalPicture(MediaObjectBase):
 
     picture = ImageField(upload_to='pictures/')
 
+    class Meta:
+        verbose_name = _("local picture")
+        verbose_name_plural = _("local pictures")
+
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the picture. """
@@ -129,6 +137,10 @@ class EmbeddedVideo(MediaObjectBase, OembedAbstractBase):
     height = models.SmallIntegerField(blank=True, null=True)
 
     duration = models.SmallIntegerField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("embedded video")
+        verbose_name_plural = _("embedded videos")
 
     @models.permalink
     def get_absolute_url(self):

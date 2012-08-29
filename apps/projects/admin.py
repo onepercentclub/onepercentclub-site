@@ -70,7 +70,9 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
                     instance.image, '80x80', upscale=False, crop='center'
                 )
             except Exception:
-                logger.exception('An error occurred while scaling an image in the admin.')
+                logger.exception(
+                    "An error occurred while scaling an image in the admin."
+                )
                 return value % ''
             else:
                 # We might need this later, for explicitly linking and/or

@@ -18,14 +18,14 @@ class UserProfileAdmin(admin.ModelAdmin):
         (None,
             {'fields': ['user_link', 'tags']}
             ),
-        ("Settings",
+        (_("Settings"),
              {'fields': ['interface_language', 'newsletter']}
             ),
-        ("Basic Profile Information",
+        (_("Basic Profile Information"),
              {'fields': ['birthdate', 'gender', 'location', 'website',
                          'picture', 'languages', 'deleted']}
             ),
-        ("In-depth Profile Information",
+        (_("In-depth Profile Information"),
              {'fields': ['about', 'why', 'contribution',
                          'availability', 'working_location']}
             ),
@@ -37,21 +37,30 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     # http://stackoverflow.com/questions/5330598/making-django-readonly-foreignkey-field-in-admin-render-as-a-link
     def user_link(self, obj):
-        change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.user.id,))
-        return mark_safe('<a href="%s">%s</a>' % (change_url, obj.user.username))
+        change_url = urlresolvers.reverse(
+            'admin:auth_user_change', args=(obj.user.id,)
+        )
+
+        return mark_safe('<a href="%s">%s</a>' \
+            % (change_url, obj.user.username))
     user_link.short_description = _("User")
 
 admin.site.register(UserProfile, UserProfileAdmin)
 
 
 class CustomUserAdmin(UserAdmin):
-    fieldsets = UserAdmin.fieldsets + ((None, {'fields': ('user_profile_link',)}),)
+    fieldsets = \
+        UserAdmin.fieldsets + ((None, {'fields': ('user_profile_link',)}),)
     readonly_fields = ('user_profile_link',)
 
     # http://stackoverflow.com/questions/5330598/making-django-readonly-foreignkey-field-in-admin-render-as-a-link
     def user_profile_link(self, obj):
         profile = obj.get_profile()
-        change_url = urlresolvers.reverse('admin:accounts_userprofile_change', args=(profile.id,))
+
+        change_url = urlresolvers.reverse('admin:accounts_userprofile_change',
+            args=(profile.id,)
+        )
+
         return mark_safe('<a href="%s">%s</a>' % (change_url, obj.username))
     user_profile_link.short_description = _("User Profile")
 

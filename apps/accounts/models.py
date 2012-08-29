@@ -126,8 +126,10 @@ class UserProfile(models.Model):
         if not self.pk:
             # The object is not in the database yet because it doesn't have a pk.
             if not hasattr(self, 'user'):
-                raise UserProfileCreationError("A UserProfile cannot be created without a User. " + \
-                                               "Creating a User will automatically create the UserProfile.")
+                raise UserProfileCreationError(
+                    "A UserProfile cannot be created without a User. "
+                    "Creating a User will automatically create the UserProfile."
+                )
 
         super(UserProfile, self).save(*args, **kwargs)
 
@@ -140,7 +142,8 @@ class UserProfile(models.Model):
         })
 
     class Meta:
-        verbose_name_plural = _("User Profiles")
+        verbose_name = _("user profile")
+        verbose_name_plural = _("user profiles")
 
 
 # Ensures that UserProfile and User instances stay in sync.
@@ -168,4 +171,5 @@ class UserAddress(Address):
     user_profile = models.ForeignKey(UserProfile)
 
     class Meta:
-        verbose_name_plural = _("User Addresses")
+        verbose_name = _("user address")
+        verbose_name_plural = _("user addresses")
