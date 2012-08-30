@@ -5,7 +5,7 @@
  */
 
 App.DataSource = Em.Object.extend({
-    tastypieApiUrl: "projects/api/",
+    tastypieApiUrl: "api/",
 
     get: function(url, query, callback) {
         this._ajax(url, "GET", {
