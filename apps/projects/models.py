@@ -74,6 +74,8 @@ class Project(models.Model):
 
     tags = TaggableManager(blank=True)
 
+
+    """ TODO: calculate & store popularity """
     popularity = 0
 
     def calucalulate_popularity(self):
@@ -84,6 +86,7 @@ class Project(models.Model):
             return self.title
         return self.slug
 
+    # TODO: Move all mney related stuff to FundPhase...
     def money_asked(self):
         try:
             self.fundphase
@@ -91,9 +94,9 @@ class Project(models.Model):
             return 0
         return int(self.fundphase.money_asked)
 
+
     """ Money donated, rounded to the lower end... """
     # Money donated. For now this is random
-    # TODO: connect this to actual donations. Duh!
     def money_donated(self):
         if self.money_asked() == 0:
             return 0
