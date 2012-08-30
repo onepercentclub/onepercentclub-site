@@ -21,18 +21,35 @@
     {% tplhandlebars "project-info" %}
         <h1>PROJECTS INFO</h1>
     {% endtplhandlebars %}
-            
-    {% tplhandlebars "project-search-form" %}
-        <h1>PROJECTS SEARCH FORM</h1>
-    {% endtplhandlebars %}
-            
+
     {% tplhandlebars "project-search-results" %}
         <h1>PROJECT SEARCH RESULTS</h1>
+    {% endtplhandlebars %}
+
+
+    {% tplhandlebars "project-search-form" %}
+        <h1>BROWSE 400 1%PROJECTS</h1>
+
+        {{ view App.ProjectSearchTextField }}
+
+        {{view Ember.Select viewName="select"
+                            contentBinding="App.projectSearchController.filteredRegions"
+                            optionLabelPath="content.name"
+                            optionValuePath="content.id"
+                            prompt="Region"}}
+
+        {{view Ember.Select viewName="select"
+                            contentBinding="App.projectSearchController.filteredCountries"
+                            optionLabelPath="content.name"
+                            optionValuePath="content.id"
+                            prompt="Country"}}
     {% endtplhandlebars %}
 
     {% tplhandlebars "project-search-form-element" %}
         <h3>{{view.content.title}}</h3>
     {% endtplhandlebars %}
+
+
 
     {% tplhandlebars "project-preview" %}
         <a {{bindAttr href="view.content.url"}}>
