@@ -313,7 +313,7 @@ class ProjectSearchFormResource(Resource):
 
         regions = request.GET.get('regions', None)
         if regions and skip != 'regions':
-            filtered_objects = filtered_objects.filter(country__region__numeric_code__in=regions.split(','))
+            filtered_objects = filtered_objects.filter(country__subregion__numeric_code__in=regions.split(','))
 
         countries = request.GET.get('countries', None)
         if countries and skip != 'countries':

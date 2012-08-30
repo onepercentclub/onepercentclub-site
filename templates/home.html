@@ -26,30 +26,30 @@
         <h1>PROJECT SEARCH RESULTS</h1>
     {% endtplhandlebars %}
 
-
     {% tplhandlebars "project-search-form" %}
+
         <h1>BROWSE 400 1%PROJECTS</h1>
 
-        {{ view App.ProjectSearchTextField }}
+        {{view Ember.TextField valueBinding="App.projectSearchController.searchText"}}
+        <button type="submit">
+            <img src="http://placehold.it/15x15">
+        </button>
 
         {{view Ember.Select viewName="select"
                             contentBinding="App.projectSearchController.filteredRegions"
                             optionLabelPath="content.name"
                             optionValuePath="content.id"
-                            prompt="Region"}}
+                            prompt="Region"
+                            selectionBinding="App.projectSearchController.selectedRegion"}}
 
         {{view Ember.Select viewName="select"
                             contentBinding="App.projectSearchController.filteredCountries"
                             optionLabelPath="content.name"
                             optionValuePath="content.id"
-                            prompt="Country"}}
+                            prompt="Country"
+                            selectionBinding="App.projectSearchController.selectedCountry"}}
+
     {% endtplhandlebars %}
-
-    {% tplhandlebars "project-search-form-element" %}
-        <h3>{{view.content.title}}</h3>
-    {% endtplhandlebars %}
-
-
 
     {% tplhandlebars "project-preview" %}
         <a {{bindAttr href="view.content.url"}}>
