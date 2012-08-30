@@ -13,6 +13,11 @@ from djchoices import DjangoChoices, ChoiceItem
 
 from apps.bluebottle_utils.fields import MoneyField
 
+class RecentDonationManager(models.Manager):
+    def get_query_set(self):
+        now = datetime.datetime.now()
+        return super(RecentDonationsManager, self).get_query_set().filter(created__month=now.month)
+
 
 class Donation(models.Model):
     """
@@ -45,6 +50,8 @@ class Donation(models.Model):
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
+
+    recent_objects = RecentDonationManager()
 
     class Meta:
         verbose_name = _("donation")
