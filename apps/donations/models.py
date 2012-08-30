@@ -60,13 +60,16 @@ class Donation(models.Model):
     def __unicode__(self):
         if self.amount:
             try:
-                return u'%s on %s from %s' % (
-                    self.amount, self.created, self.user
-                )
+                return _(u"%(amount)s on %(date)s from %(user)s") % {
+                    'amount': self.amount,
+                    'date': self.created,
+                    'user': self.user
+                }
             except ObjectDoesNotExist:
-                return u'%f on %s' % (
-                    self.amount, self.created
-                )
+                return _(u"%(amount)s on %(date)s") % {
+                    'amount': self.amount,
+                    'date': self.created
+                }
 
         return str(self.pk)
 
@@ -88,11 +91,17 @@ class DonationLine(models.Model):
     def __unicode__(self):
         if self.amount:
             try:
-                return u'%s from donation %s to %s' % (
-                    self.amount, self.donation, self.project
-                )
+                return _(
+                    u"%(amount)s from donation %(donation)s "
+                    u"to %(project)s"
+                ) % {
+                    'amount': self.amount,
+                    'donation': self.donation,
+                    'project': self.project
+                }
+
             except ObjectDoesNotExist:
-                return u'%f' % self.amount
+                return u"%s" % self.amount
 
         return str(self.pk)
 
@@ -103,7 +112,8 @@ class DonationLine(models.Model):
         """
 
         donationlines = self.donation.donationline_set.exclude(pk=self.pk)
-        total_amount = donationlines.aggregate(models.Sum('amount'))['amount__sum']
+        total_amount = \
+            donationlines.aggregate(models.Sum('amount'))['amount__sum']
 
         if not total_amount:
             total_amount = Decimal('0.00')
@@ -112,5 +122,5 @@ class DonationLine(models.Model):
 
         if total_amount > self.donation.amount:
             raise ValidationError(
-                'Requested amount not available.'
+                _("Requested amount not available.")
             )

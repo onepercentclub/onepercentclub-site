@@ -289,13 +289,11 @@ class ProjectSearchFormResource(Resource):
         qset = (
                 Q(title__icontains=query) |
                 Q(actphase__description__icontains=query) |
-                Q(fundphase__description__icontains=query) |
-                Q(fundphase__what__icontains=query) |
-                Q(fundphase__goal__icontains=query) |
-                Q(fundphase__who__icontains=query) |
-                Q(fundphase__how__icontains=query) |
+                Q(fundphase__description_long__icontains=query) |
                 Q(fundphase__sustainability__icontains=query) |
-                Q(fundphase__target__icontains=query) |
+                Q(fundphase__money_other_sources__icontains=query) |
+                Q(fundphase__social_impact__icontains=query) |
+                Q(fundphase__impact_group__icontains=query) |
                 Q(slug__icontains=query)
                 )
         return qset

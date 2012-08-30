@@ -29,6 +29,8 @@ class ProjectTheme(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = _("project theme")
+        verbose_name_plural = _("project themes")
 
 class Project(models.Model):
     """ The base Project model. """
@@ -126,6 +128,8 @@ class Project(models.Model):
 
     class Meta:
         ordering = ['title']
+        verbose_name = _("project")
+        verbose_name_plural = _("projects")
 
 
 class PartnerOrganization(models.Model):
@@ -135,6 +139,10 @@ class PartnerOrganization(models.Model):
     """
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
+
+    class Meta:
+        verbose_name = _("partner organization")
+        verbose_name_plural = _("partner organizations")
 
     def __unicode__(self):
         if self.name:
@@ -168,6 +176,10 @@ class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here. """
     knowledge_description = models.TextField(blank=True)
 
+    class Meta:
+        verbose_name = _("idea phase")
+        verbose_name_plural = _("idea phases")
+
 
 class FundPhase(AbstractPhase):
     """ FundPhase: Fill out some forms for project plan. """
@@ -200,7 +212,6 @@ class FundPhase(AbstractPhase):
 
     money_other_sources = models.TextField(blank=True)
 
-
     """ Social Impact: who are we helping, direct and indirect """
     social_impact = models.TextField(
         blank=True,
@@ -225,6 +236,10 @@ class FundPhase(AbstractPhase):
             self.save()
         return self.money_donated
 
+    class Meta:
+        verbose_name = _("fund phase")
+        verbose_name_plural = _("fund phases")
+
 
 class ActPhase(AbstractPhase):
     """ ActPhase Funding complete. Let's DO it! """
@@ -232,6 +247,10 @@ class ActPhase(AbstractPhase):
     planning = models.TextField(blank=True)
     planned_start_date = models.DateField(null=True)
     planned_end_date = models.DateField(null=True)
+
+    class Meta:
+        verbose_name = _("act phase")
+        verbose_name_plural = _("act phases")
 
 
 class ResultsPhase(AbstractPhase):
@@ -254,12 +273,24 @@ class ResultsPhase(AbstractPhase):
         help_text=_("What's next?"),
         blank=True)
 
+    class Meta:
+        verbose_name = _("results phase")
+        verbose_name_plural = _("results phases")
+
 
 class Referals(models.Model):
-    """ People that are named as referals """
+    """
+    People that are named as referals.
+    
+    TODO: Fix spelling error and make singular.
+    """
     name = models.CharField(max_length=255)
     email = models.EmailField()
     description = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = _("referral")
+        verbose_name_plural = _("referrals")
 
 
 class BudgetLine(models.Model):
@@ -271,6 +302,10 @@ class BudgetLine(models.Model):
     project = models.ForeignKey(Project)
     description = models.TextField(blank=True)
     money_amount = MoneyField()
+
+    class Meta:
+        verbose_name = _("budget line")
+        verbose_name_plural = _("budget lines")
 
 
 # Now some stuff connected to Projects
@@ -287,6 +322,8 @@ class Link(models.Model):
 
     class Meta:
         ordering = ['ordering']
+        verbose_name = _("link")
+        verbose_name_plural = _("links")
 
 
 class Testimonial(models.Model):
@@ -300,6 +337,8 @@ class Testimonial(models.Model):
 
     class Meta:
         ordering = ['-created']
+        verbose_name = _("testimonial")
+        verbose_name_plural = _("testimonials")
 
 
 class Message(models.Model):
@@ -318,4 +357,5 @@ class Message(models.Model):
 
     class Meta:
         ordering = ['-created']
-
+        verbose_name = _("message")
+        verbose_name_plural = _("messages")

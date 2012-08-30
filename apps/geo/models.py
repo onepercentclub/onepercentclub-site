@@ -33,8 +33,10 @@ class Region(GeoBaseModel):
     geoscheme.
     '''
 
-    class Meta:
+    class Meta(GeoBaseModel.Meta):
         ordering = ['name']
+        verbose_name = _("region")
+        verbose_name_plural = _("regions")
 
 
 class SubRegion(GeoBaseModel):
@@ -44,10 +46,10 @@ class SubRegion(GeoBaseModel):
 
     region = models.ForeignKey(Region)
 
-    class Meta:
+    class Meta(GeoBaseModel.Meta):
         ordering = ['name']
-        verbose_name = _("Sub Region")
-        verbose_name_plural = _("Sub Regions")
+        verbose_name = _("sub region")
+        verbose_name_plural = _("sub regions")
 
 
 class Country(GeoBaseModel):
@@ -68,6 +70,7 @@ class Country(GeoBaseModel):
     oda_recipient = models.BooleanField(_("ODA recipient"), default=False,
         help_text=_("Whether a country is a recipient of Official Development Assistance from the OECD's Development Assistance Committee."))
 
-    class Meta:
+    class Meta(GeoBaseModel.Meta):
         ordering = ['name']
-        verbose_name_plural = _("Countries")
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
