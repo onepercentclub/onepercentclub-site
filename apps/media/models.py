@@ -26,6 +26,10 @@ class Album(models.Model):
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
 
+    class Meta:
+        verbose_name = _("album")
+        verbose_name_plural = _("albums")
+
     def __unicode__(self):
         return self.title or unicode(self.pk)
 
@@ -62,7 +66,7 @@ class OembedAbstractBase(models.Model):
     # Title included in MediaObjectBase
     url = models.URLField()
 
-    thumbnail_url = models.URLField(blank=True, verify_exists=True)
+    thumbnail_url = models.URLField(blank=True)
     thumbnail_width = models.SmallIntegerField(blank=True, null=True)
     thumbnail_height = models.SmallIntegerField(blank=True, null=True)
 
@@ -70,7 +74,7 @@ class OembedAbstractBase(models.Model):
     provider_url = models.CharField(blank=True, max_length=255)
 
     author_name = models.CharField(blank=True, max_length=255)
-    author_url = models.URLField(blank=True, verify_exists=False)
+    author_url = models.URLField(blank=True)
 
     class Meta:
         abstract = True
@@ -111,6 +115,10 @@ class LocalPicture(MediaObjectBase):
 
     picture = ImageField(upload_to='pictures/')
 
+    class Meta:
+        verbose_name = _("local picture")
+        verbose_name_plural = _("local pictures")
+
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the picture. """
@@ -129,6 +137,10 @@ class EmbeddedVideo(MediaObjectBase, OembedAbstractBase):
     height = models.SmallIntegerField(blank=True, null=True)
 
     duration = models.SmallIntegerField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("embedded video")
+        verbose_name_plural = _("embedded videos")
 
     @models.permalink
     def get_absolute_url(self):

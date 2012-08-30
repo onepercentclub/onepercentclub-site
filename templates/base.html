@@ -19,10 +19,10 @@
     {% compress js %}
     
     {% endcompress %}
-        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.pre.js"></script>
-        <script type="text/javascript" data-main="{{ STATIC_URL }}global/js/app" src="{{ STATIC_URL }}global/js/libs/require.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.pre.js"></script>
+    <script type="text/javascript" data-main="{{ STATIC_URL }}global/js/app" src="{{ STATIC_URL }}global/js/libs/require.js"></script>
 
 
 
@@ -34,40 +34,42 @@
 
 <body>
     <div id="container">
-        <div id="header">
-            <div class="logo">
-                <img src="{{ STATIC_URL }}global/images/elements/logo.png" alt="1%CLUB" />
-                <img src="{{ STATIC_URL }}global/images/elements/payoff.gif" alt="YOU MAKE IT WORK!" />
+        <div class="siteblock">
+            <div id="header">
+                <div class="logo">
+                    <img src="{{ STATIC_URL }}global/images/elements/logo.png" alt="1%CLUB" />
+                    <img src="{{ STATIC_URL }}global/images/elements/payoff.gif" alt="YOU MAKE IT WORK!" />
+                </div>
             </div>
         </div>
         <div id="content">
-            <div id="mymenu">
-                {% if user.is_authenticated %}
-                    {{ user.username }} 
-                    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
-                {% else %}
-                    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
-                {% endif %}
-            </div>
             {% tplhandlebars "application" %}
-                <div id="submenu">
-                    <ul>
-                        <li><a {{action "gotoHome"}} href="">HOME</a></li>
-                        <li><a {{action "gotoProjects"}} href="">1%PROJECTS</a></li>
-                        <li><a>1%TASKS</a></li>
-                        <li><a>1%ACTIONS</a></li>
-                        <li><a>LEARN MORE</a></li>
-                    </ul>
+                <div class="sitebar black" id="topmenu">
+                    <div class="menu siteblock">
+                        <ul>
+                            <li><a {{action "gotoHome"}} class="active" href="">HOME</a></li>
+                            <li><a {{action "gotoProjects"}} href="">1%PROJECTS</a></li>
+                            <li><a>1%TASKS</a></li>
+                            <li><a>1%ACTIONS</a></li>
+                            <li><a>LEARN MORE</a></li>
+                        </ul>
+                        <div class="languages">
+                            <a {{action "switchLanguage"}} id="lang-en" class="active" href="">ENGLISH</a> |
+                            <a {{action "switchLanguage"}} id="lang-nl" href="">NEDERLANDS</a>
+                        </div>
+                    </div>
                 </div>
-
-                <div id="top-panel">
-                    {{outlet topPanel}}
-                </div>
-                <div id="mid-panel">
-                    {{outlet midPanel}}
-                </div>
-                <div id="bottom-panel">
-                    {{outlet bottomPanel}}
+                
+                <div class="siteblock">
+                    <div id="top-panel">
+                        {{outlet topPanel}}
+                    </div>
+                    <div id="mid-panel">
+                        {{outlet midPanel}}
+                    </div>
+                    <div id="bottom-panel" class="lightgreen section">
+                        {{outlet bottomPanel}}
+                    </div>
                 </div>
             {% endtplhandlebars %}
 
@@ -75,21 +77,61 @@
             {% block content %}
             {% endblock %}
         </div>
-        <div id="sitemenu">
-            <ul>
-                <li class="active">1%CLUB</li>
-                <li>1%SHOW</li>
-                <li>1%EVENT</li>
-                <li>1%BOOKSHOP</li>
-                <li>1%TOOLBOX</li>
-            </ul>
+        
+        <div id="mymenu">
+            <div class="siteblock">
+                <div class="menu">
+                    {% if user.is_authenticated %}
+                        NOTIFICATIONS <span class="notification-count">8</span> |
+                        <div id="my1pc">
+                            MY1% -&gt;
+                            <div class="submenu" id="mysubmenu">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Log out</a>
+                                    </li>
+                                    <li>
+                                        <a href="/">My Projects</a>
+                                    </li>
+                                    <li>
+                                        <a href="/">My Tasks</a>
+                                    </li>
+                                    <li>
+                                        <a href="/">My Donations</a>
+                                    </li>
+                                    <li>
+                                        <a href="/">My Profile</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
+                    {% endif %}
+                </div>
+                <div class="search">
+                    SEARCH
+                </div>
+            </div>
         </div>
-        <div id="footer">
-            {% include "footer.html" %}
+        <div class="sitebar green">
+            <div id="sitemenu" class="siteblock">
+                <ul>
+                    <li class="active">1%CLUB</li>
+                    <li>1%SHOW</li>
+                    <li>1%EVENT</li>
+                    <li>1%BOOKSHOP</li>
+                    <li>1%TOOLBOX</li>
+                </ul>
+            </div>
         </div>
-
+        <div class="siteblock">
+            <div id="footer">
+                {% include "footer.html" %}
+                <div id="git-revision">Git Revision: {{ GIT_REVISION }}</div>
+            </div>
+        </div>
     </div>
 
-    <div id="git-revision">Revision: {{ GIT_REVISION }}</div>
 </body>
 </html>

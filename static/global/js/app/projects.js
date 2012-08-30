@@ -56,7 +56,7 @@ App.ProjectSearchFilterElementView = Em.View.extend({
 App.ProjectSearchResultsView = Em.CollectionView.extend({
     tagName: 'ul',
     templateName: 'project-search-results',
-    classNames: ['list'],
+    classNames: ['list', 'row'],
 
     contentBinding: 'App.ProjectSearchController.searchResults',
     itemViewClass: 'App.ProjectPreviewView'
@@ -65,7 +65,7 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
 App.ProjectPreviewView  = Em.View.extend({
     tagName: 'li',
     templateName: 'project-preview',
-    classNames: ['project-mid']
+    classNames: ['project-mid', 'grid_1', 'column']
 
     // FIXME: We're going to handle clicks with Ember's target/action.
     // click: function(){

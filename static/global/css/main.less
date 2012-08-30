@@ -93,29 +93,106 @@ body {
 
 #container {
   background-color: #fff;
-  width: @mainwidth;
   position: relative;
-  margin: 0px auto 40px;
+}
+
+.siteblock {
+  width: @mainwidth;
+  margin: 0px auto 0px;
+
+}
+
+.sitebar {
+  background-color: @black;
+}
+
+.sitebar.green {
+  background-color: @green;
 }
 
 #mymenu {
+  font-family: @font;
   position: fixed;
-  width: 220px;
-  right: 40px;
-  top: 0px;
-  font-size: 0.9em;
-  padding: 6px 8px;
-  background-color: @black;
+  width: 100%;
+  top: 40px;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: white;
+  .notification-count {
+    background-color: @white;
+    display: inline;
+    padding: 0px 4px;
+    text-align: center;
+    border-radius: 10px;
+    color: @green;
+  }
+  .menu,
+  .search {
+    position: relative;
+    margin: 0px 40px 0px auto;
+  }
+  .menu {
+    padding: 6px;
+    background-color: @green;
+    width: 208px;
+    
+  }
+  .search {
+    margin-top: 6px;
+    padding: 5px 6px;
+    border: 1px solid @green;
+    background-color: @white;
+    width: 206px;
+    color: @gray;
+  }
   a {
     color: white;
     text-decoration: none;
+  }
+  #my1pc {
+    position: absolute;
+    z-index: 10;
+    right: 0px;
+    top: 0px;
+    padding: 6px;
+    .submenu {
+      a {
+        color: @green;
+      }
+      display: none;
+      position: absolute;
+      top: 25px;
+      right: 0px;
+      width: 100px;
+      border: 1px solid @green;
+      border-top: 0px;
+      background-color: @lightgreen;
+      ul {
+        li {
+          padding: 4px;
+          a {
+            display: block;
+          }
+        }
+        li:hover {
+          background-color: @green;
+          a {
+            color: @white;
+          }
+        }
+      }
+    }
+  }
+  #my1pc:hover {
+    .submenu {
+      display: block;
+    }
   }
 }
 
 
 #sitemenu,
-#submenu {
-  width: @mainwidth;
+#topmenu {
   background-color: @green;
   color: white;
   font-size: 0.9em;
@@ -125,7 +202,7 @@ body {
 
   ul {
     list-style: none;
-    padding: 8px 10px 8px 20px;
+    padding: 7px 20px 4px 20px;
     li {
       display: inline;
       margin: 0px;
@@ -140,12 +217,37 @@ body {
     color: white;
     text-decoration: none;
   }
+  a:hover {
+    text-decoration: underline;
+  }
+  .languages {
+    font-family: @font;
+    font-size: 0.7em;
+    font-weight: bold;
+    position: absolute;
+    right: 40px;
+    top: 8px;
+    color: @gray;
+    a {
+      color: @gray;
+    }
+    a.active {
+      color: @white;
+    }
+    a:hover {
+      color: @green;
+    }
+  }
 }
 
 
-#submenu {
+#topmenu {
+  width: 100%;
+  border-bottom: 1px solid @white;
+  .menu {
+    position: relative;
+  }
   position: fixed;
-  width: 700px;
   top: 0px;
   background-color: @black;
   ul li {
@@ -229,6 +331,19 @@ body {
       width: 25%;
     }
   }
+  #git-revision {
+    text-align: right;
+    font-size: 0.8em;
+    color: @green;
+    padding: 4px;
+    margin-top: 10px;
+    border-top: 1px solid @green;
+  }
+}
+
+.home {
+  background-color: @black;
+  margin-bottom: 10px;
 }
 
 
