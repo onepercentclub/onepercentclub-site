@@ -30,7 +30,6 @@ class ProjectTheme(models.Model):
     class Meta:
         ordering = ['name']
 
-
 class Project(models.Model):
     """ The base Project model. """
 
@@ -72,6 +71,11 @@ class Project(models.Model):
     albums = models.ManyToManyField('media.Album', blank=True, null=True)
 
     tags = TaggableManager(blank=True)
+
+    popularity = 0
+
+    def calucalulate_popularity(self):
+        pass
 
     def __unicode__(self):
         if self.title:
@@ -207,6 +211,11 @@ class FundPhase(AbstractPhase):
     impact_indirect_male = models.IntegerField(max_length=6, default=0)
     impact_indirect_female = models.IntegerField(max_length=6, default=0)
 
+    """ 
+        This updates the 'cached' donated amount.
+        Whe should run this evenrytime a doantion is made or
+        changes status.
+    """
     def update_money_donated(self):
         donationlines = DonationLine.objects.filter(project=self.project)
         donationlines = donationlines.filter(donation__status__in=['closed','paid','started'])
