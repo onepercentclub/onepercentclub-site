@@ -122,9 +122,13 @@ class ProjectPreviewResource(ResourceBase):
         if text:
             filtered_objects = filtered_objects.filter(self.filter_text(text))
 
+        regions = request.GET.get('regions', None)
+        if regions:
+            filtered_objects = filtered_objects.filter(country__subregion__numeric_code__in=regions.split(','))
+
         countries = request.GET.get('countries', None)
         if countries:
-            filtered_objects = filtered_objects.filter(country__alpha2_code__in=countries.split(','))
+            filtered_objects = filtered_objects.filter(country__numeric_code__in=countries.split(','))
 
         phases = request.GET.get('phases', None)
         if phases:
