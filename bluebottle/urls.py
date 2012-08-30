@@ -26,6 +26,9 @@ urlpatterns = patterns('',
     (r'^projects/', include('apps.projects.urls')),
     (r'^members/', include('apps.accounts.urls')),
     (r'^albums/', include('apps.media.urls')),
+
+    (r'^api/', include('apps.projects.apiurls')),
+
 )
 
 # Serve django-staticfiles (only works in DEBUG)
