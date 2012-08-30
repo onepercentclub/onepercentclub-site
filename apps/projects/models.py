@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -12,7 +13,7 @@ from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
-
+from apps.donations.models import DonationLine
 
 class ProjectTheme(models.Model):
     """ Themes for Projects. """
@@ -30,7 +31,6 @@ class ProjectTheme(models.Model):
         ordering = ['name']
         verbose_name = _("project theme")
         verbose_name_plural = _("project themes")
-
 
 class Project(models.Model):
     """ The base Project model. """
@@ -74,15 +74,19 @@ class Project(models.Model):
 
     tags = TaggableManager(blank=True)
 
-    # temporary to do hold random 'donated'
-    donated = 0
+
+    """ TODO: calculate & store popularity """
+    popularity = 0
+
+    def calucalulate_popularity(self):
+        pass
 
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
-
+    # TODO: Move all mney related stuff to FundPhase...
     def money_asked(self):
         try:
             self.fundphase
@@ -90,15 +94,18 @@ class Project(models.Model):
             return 0
         return int(self.fundphase.money_asked)
 
+
     """ Money donated, rounded to the lower end... """
     # Money donated. For now this is random
-    # TODO: connect this to actual donations. Duh!
     def money_donated(self):
         if self.money_asked() == 0:
             return 0
-        if self.donated == 0:
-            self.donated = int(random.randrange(5, self.money_asked()))
-        return int(self.donated)
+        try:
+            if not self.fundphase.money_donated:
+                self.fundphase.update_money_donated()
+            return int(self.fundphase.money_donated)
+        except FundPhase.DoesNotExist:
+            return 0
 
     def money_needed(self):
         return self.money_asked() - self.money_donated()
@@ -199,6 +206,9 @@ class FundPhase(AbstractPhase):
     money_asked = MoneyField(_('money asked'),
         help_text=_("Amount asked for from this website."))
 
+    money_donated= MoneyField(_('money donated'),
+        help_text=_("This field is updated on every donation(change)"))
+
     sustainability = models.TextField(
         blank=True,
         help_text=_("How can next generations profit from this?"))
@@ -214,6 +224,20 @@ class FundPhase(AbstractPhase):
     impact_direct_female = models.IntegerField(max_length=6, default=0)
     impact_indirect_male = models.IntegerField(max_length=6, default=0)
     impact_indirect_female = models.IntegerField(max_length=6, default=0)
+
+    """ 
+        This updates the 'cached' donated amount.
+        Whe should run this evenrytime a doantion is made or
+        changes status.
+    """
+    def update_money_donated(self):
+        donationlines = DonationLine.objects.filter(project=self.project)
+        donationlines = donationlines.filter(donation__status__in=['closed','paid','started'])
+        total = donationlines.aggregate(total=Sum('amount'))['total']
+        if self.money_donated != total:
+            self.money_donated = total
+            self.save()
+        return self.money_donated
 
     class Meta:
         verbose_name = _("fund phase")
