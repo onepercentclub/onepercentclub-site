@@ -48,7 +48,7 @@ class ProjectFilters(object):
     pass
 
 
-class ProjectResource(ResourceBase):
+class ProjectPreviewResource(ResourceBase):
     """ Filter the projects """
 
     # Might want to use this later
@@ -117,7 +117,7 @@ class ProjectResource(ResourceBase):
     def apply_filters(self, request, applicable_filters):
         """ Apply custom filters """
         """ Get the objects with standard filters """
-        filtered_objects = super(ProjectResource, self).apply_filters(request, applicable_filters)
+        filtered_objects = super(ProjectPreviewResource, self).apply_filters(request, applicable_filters)
 
         text = request.GET.get('text', None)
         if text:
@@ -152,7 +152,7 @@ class ProjectResource(ResourceBase):
         return filtered_objects.distinct()
 
 
-class ProjectDetailResource(ProjectResource):
+class ProjectDetailResource(ProjectPreviewResource):
     def dehydrate(self, bundle):
         """ Add some more fields to project objects """
         bundle.data['location'] = {
@@ -258,8 +258,8 @@ class SearchFormElement(object):
             options = []
             for opt in opts:
                 options.append({
-                         'title': opt[0], 
-                         'name': opt[1],
+                         'name': opt[0], 
+                         'id': opt[1],
                          'count': opt[2] 
                          })
             element = {
@@ -313,9 +313,13 @@ class ProjectSearchFormResource(Resource):
         if phases and skip != 'phases':
             filtered_objects = filtered_objects.filter(phase__in=phases.split(','))
 
+        regions = request.GET.get('regions', None)
+        if regions and skip != 'regions':
+            filtered_objects = filtered_objects.filter(country__region__numeric_code__in=regions.split(','))
+
         countries = request.GET.get('countries', None)
         if countries and skip != 'countries':
-            filtered_objects = filtered_objects.filter(country__alpha2_code__in=countries.split(','))
+            filtered_objects = filtered_objects.filter(country__numeric_code__in=countries.split(','))
 
         languages = request.GET.get('languages', None)
         if languages and skip != 'languages':
@@ -371,8 +375,17 @@ class ProjectSearchFormResource(Resource):
         countries.type = 'select'
         countries.name = 'countries'
         countries.option_title = 'country__name'
-        countries.option_value = 'country__alpha2_code'
+        countries.option_value = 'country__numeric_code'
         countries.order = 'country'
+
+        regions = SearchFormElement()
+        regions.queryset = self.custom_filters(request, Project.objects, 'regions')
+        regions.title = 'Regions'
+        regions.type = 'select'
+        regions.name = 'regions'
+        regions.option_title = 'country__subregion__name'
+        regions.option_value = 'country__subregion__numeric_code'
+        regions.order = 'country__subregion'
 
         themes = SearchFormElement()
         themes.queryset = self.custom_filters(request, Project.objects, 'themes').filter(themes__isnull=False)
@@ -381,7 +394,7 @@ class ProjectSearchFormResource(Resource):
         themes.name = 'themes'
         themes.option_title = 'themes__name'
         themes.option_value = 'themes__slug'
-        themes.order = 'categories'
+        themes.order = 'themes'
 
         tags = SearchFormElement()
         tags.queryset =  self.custom_filters(request, Project.objects, 'tags').filter(tags__isnull=False)
@@ -393,8 +406,7 @@ class ProjectSearchFormResource(Resource):
         tags.order = '-count'
         tags.limit = 12
 
-        #items = [text.compose(), phases.compose(), countries.compose(), tags.compose(), themes.compose()]
-        items = [text.compose(), phases.compose(), countries.compose()]
+        items = [text.compose(), phases.compose(), regions.compose(), countries.compose(), tags.compose(), themes.compose()]
            
         return items
 
@@ -403,28 +415,28 @@ class ProjectSearchFormResource(Resource):
         limit = 0
 
 class IdeaPhaseResource(ResourceBase):
-    project = fields.OneToOneField(ProjectResource, 'project')
+    project = fields.OneToOneField(ProjectPreviewResource, 'project')
 
     class Meta:
         queryset = IdeaPhase.objects.select_related('IdeaPhase').all()
 
 
 class FundPhaseResource(ResourceBase):
-    project = fields.OneToOneField(ProjectResource, 'project')
+    project = fields.OneToOneField(ProjectPreviewResource, 'project')
 
     class Meta:
         queryset = FundPhase.objects.all()
 
 
 class ActPhaseResource(ResourceBase):
-    project = fields.OneToOneField(ProjectResource, 'project')
+    project = fields.OneToOneField(ProjectPreviewResource, 'project')
 
     class Meta:
         queryset = ActPhase.objects.all()
 
 
 class ResultsPhaseResource(ResourceBase):
-    project = fields.OneToOneField(ProjectResource, 'project')
+    project = fields.OneToOneField(ProjectPreviewResource, 'project')
 
     class Meta:
         queryset = ResultsPhase.objects.all()
