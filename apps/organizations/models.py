@@ -22,7 +22,8 @@ class Organization(models.Model):
     description = models.TextField(blank=True)
 
     legal_status = models.TextField(null=True, blank=True,
-                                    help_text="The legal status of the organization (e.g. Foundation)")
+        help_text=_("The legal status of the organization (e.g. Foundation).")
+    )
 
     phone_number = models.CharField(max_length=255, blank=True)
     email = models.EmailField(blank=True)
@@ -37,7 +38,9 @@ class Organization(models.Model):
 
     account_bank_name = models.CharField(max_length=255, blank=True)
     account_bank_address = models.CharField(max_length=255, blank=True)
-    account_bank_country = models.ForeignKey('geo.Country', blank=True, null=True)
+    account_bank_country = models.ForeignKey('geo.Country',
+        blank=True, null=True
+    )
     account_iban = models.CharField(max_length=255, blank=True)
     account_bicswift = models.CharField(max_length=255, blank=True)
     account_number = models.CharField(max_length=255, blank=True)
@@ -51,6 +54,8 @@ class Organization(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = _("organization")
+        verbose_name_plural = _("organizations")
 
 
 class OrganizationMember(models.Model):
@@ -65,7 +70,12 @@ class OrganizationMember(models.Model):
     organization = models.ForeignKey(Organization)
     user = models.ForeignKey('auth.User')
     function = models.CharField(max_length=20, choices=MemberFunctions.choices,
-                                help_text="Function might determine Role later on.")
+        help_text=_("Function might determine Role later on.")
+    )
+
+    class Meta:
+        verbose_name = _("organization member")
+        verbose_name_plural = _("organization members")
 
 
 class OrganizationAddress(Address):
@@ -76,8 +86,11 @@ class OrganizationAddress(Address):
         postal = ChoiceItem('postal', label=_("Postal"))
         other = ChoiceItem('other', label=_("Other"))
 
-    type = models.CharField(max_length=8, blank=True, choices=AddressType.choices)
+    type = models.CharField(
+        max_length=8, blank=True, choices=AddressType.choices
+    )
     organization = models.ForeignKey(Organization)
 
     class Meta:
-        verbose_name_plural = "Organization Addresses"
+        verbose_name = _("organization address")
+        verbose_name_plural = _("organization addresses")
