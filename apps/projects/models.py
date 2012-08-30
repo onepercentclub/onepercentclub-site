@@ -227,14 +227,17 @@ class FundPhase(AbstractPhase):
 
     """ 
         This updates the 'cached' donated amount.
-        Whe should run this evenrytime a doantion is made or
+        We should run this every time a donation is made or
         changes status.
     """
     def update_money_donated(self):
         donationlines = DonationLine.objects.filter(project=self.project)
         donationlines = donationlines.filter(donation__status__in=['closed','paid','started'])
         total = donationlines.aggregate(total=Sum('amount'))['total']
-        if self.money_donated != total:
+        if total is None:
+            self.money_donated = 0
+            self.save()
+        elif self.money_donated != total:
             self.money_donated = total
             self.save()
         return self.money_donated
