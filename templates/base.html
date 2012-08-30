@@ -19,10 +19,10 @@
     {% compress js %}
     
     {% endcompress %}
-        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.pre.js"></script>
-        <script type="text/javascript" data-main="{{ STATIC_URL }}global/js/app" src="{{ STATIC_URL }}global/js/libs/require.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.pre.js"></script>
+    <script type="text/javascript" data-main="{{ STATIC_URL }}global/js/app" src="{{ STATIC_URL }}global/js/libs/require.js"></script>
 
 
 
@@ -67,7 +67,7 @@
                     <div id="mid-panel">
                         {{outlet midPanel}}
                     </div>
-                    <div id="bottom-panel">
+                    <div id="bottom-panel" class="lightgreen section">
                         {{outlet bottomPanel}}
                     </div>
                 </div>

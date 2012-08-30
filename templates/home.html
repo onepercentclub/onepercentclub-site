@@ -13,8 +13,8 @@
         </div>
     {% endtplhandlebars %}
 
-    {% tplhandlebars "project-home" %}
-        <h1>PROJECTS HOME</h1>
+    {% tplhandlebars "project-detail" %}
+        <h1>PROJECT DETAIL</h1>
         <a {{action gotoProjectInfo}}>INFO</a>
     {% endtplhandlebars %}
 
@@ -29,6 +29,40 @@
     {% tplhandlebars "project-search-results" %}
         <h1>PROJECT SEARCH RESULTS</h1>
     {% endtplhandlebars %}
-            
+
+    {% tplhandlebars "project-search-form-element" %}
+        <h3>{{view.content.title}}</h3>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-preview" %}
+        <a {{bindAttr href="view.content.url"}}>
+        <div class="image">
+            <img {{bindAttr src="view.content.thumbnail"}}/>
+            <div class="info"></div>
+            <div class="title">
+                {{view.content.title}}
+            </div>
+            <div class="location">
+                {{view.content.location.country}}
+            </div>
+        </div> </a>
+        <div class="progressbar">
+            <div class="donated-text right">
+                NOW <b>€<span class="donated-amount">{{view.content.money_donated}}</span></b>
+            </div>
+            <div class="bar">
+                <div class="asked-bar"></div>
+                <div style="width: 45%;" class="donated-bar">
+
+                </div>
+            </div>
+            <div class="asked-text">
+                NEEDED <b>€<span class="asked-amount">{{view.content.money_asked}}</span></b>
+            </div>
+        </div>
+        <div class="title support">
+            SUPPORT
+        </div>
+    {% endtplhandlebars %}
             
 {% endblock %}
