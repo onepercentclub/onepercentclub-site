@@ -1,6 +1,7 @@
 {% comment %} Use url tag from Django 1.5. {% endcomment %}
 {% load url from future %}
 
+{% load i18n %}
 {% load compress %}<!DOCTYPE HTML>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -61,6 +62,18 @@
 				<li>1%EVENT</li>
 				<li>1%BOOKSHOP</li>
 				<li>1%TOOLBOX</li>
+			</ul>
+			<ul class="language">
+			    {% comment %}
+			        TODO
+
+			        Rather than always redirecting to root, use a template
+			        tag that generates a link to the current request path in
+			        the target language.
+			    {% endcomment %}
+				{% for lang in LANGUAGES %}
+				    <li {% if LANGUAGE_CODE == lang.0 %}class="active"{% endif %}><a href="/{{ lang.0 }}/">{{ lang.0|language_name_local }}</a></li>
+				{% endfor %}
 			</ul>
 			<div id="mymenu">
 			    {% if user.is_authenticated %}
