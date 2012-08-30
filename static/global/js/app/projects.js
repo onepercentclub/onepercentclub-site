@@ -6,7 +6,7 @@ App.ProjectPreviewModel = Em.Object.extend({
 });
 
 
-App.ProjectSearchController = Em.ArrayController.create({
+App.projectSearchController = Em.ArrayController.create({
     query: {
         order: 'alphabetically',
         limit: 4
@@ -14,7 +14,9 @@ App.ProjectSearchController = Em.ArrayController.create({
 
     searchResults: null,
 
-    searchFormElements: null,
+    filteredRegions: null,
+
+    filteredCountries: null,
 
     init: function() {
         this._super();
@@ -24,12 +26,30 @@ App.ProjectSearchController = Em.ArrayController.create({
     populate: function() {
         var controller = this;
         require(['app/data_source'], function(){
-            //
-            App.dataSource.get('project', controller.query, function(data) {
+
+            App.dataSource.get('projectpreview', controller.query, function(data) {
                 controller.set('searchResults', data['objects']);
             });
+
             App.dataSource.get('projectsearchform', controller.query, function(data) {
-                controller.set('searchFormElements', data['objects']);
+                var objects = data['objects'];
+                for (var i = 0; i < objects.length; i++) {
+                    switch (objects[i].name) {
+                        case "countries":
+                            controller.set('filteredCountries', objects[i].options);
+                            break;
+                        case "regions":
+                            controller.set('filteredRegions', objects[i].options);
+                            break;
+                        case "text":
+                            console.log("Text Search not implemented yet.");
+                            break;
+                        default:
+                            console.log("Ignoring unknown project search element: " + objects[i].name);
+                            break;
+                    }
+                }
+
             });
 
         });
@@ -37,20 +57,18 @@ App.ProjectSearchController = Em.ArrayController.create({
 });
 
 /* The search form. */
-App.ProjectSearchFormView = Em.CollectionView.extend({
+App.ProjectSearchFormView = Em.View.extend({
     tagName : 'form',
     templateName: 'project-search-form',
-    classNames: ['search', 'row'],
-
-    contentBinding: 'App.ProjectSearchController.searchFormElements',
-    itemViewClass: 'App.ProjectSearchFilterElementView'
+    classNames: ['search', 'row']
 });
 
-App.ProjectSearchFilterElementView = Em.View.extend({
-    tagName: 'div',
-    templateName: 'project-search-form-element',
-    classNames: ['form-element', 'column', 'grid_1']
+App.ProjectSearchTextField = Ember.TextField.extend({
+    change: function (evt) {
+        console.log("ProjectSearchTextField change event fired");
+    }
 });
+
 
 /* The search results. */
 App.ProjectSearchResultsView = Em.CollectionView.extend({
@@ -58,7 +76,7 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
     templateName: 'project-search-results',
     classNames: ['list', 'row'],
 
-    contentBinding: 'App.ProjectSearchController.searchResults',
+    contentBinding: 'App.projectSearchController.searchResults',
     itemViewClass: 'App.ProjectPreviewView'
 });
 
