@@ -234,10 +234,11 @@ class FundPhase(AbstractPhase):
         donationlines = DonationLine.objects.filter(project=self.project)
         donationlines = donationlines.filter(donation__status__in=['closed','paid','started'])
         total = donationlines.aggregate(total=Sum('amount'))['total']
-        if total is None and self.money_donated != 0:
-            # Only set money_donated to 0 when total is None and it's not already 0.
-            self.money_donated = 0
-            self.save()
+        if total is None:
+            if self.money_donated != 0:
+                # Only set money_donated to 0 when it's not already 0.
+                self.money_donated = 0
+                self.save()
         elif self.money_donated != total:
             self.money_donated = total
             self.save()
