@@ -1,16 +1,17 @@
+{% load i18n %}
 <div class="widget">
-	<h3 class="light">Crowdfunding needed</h3>
+	<h3 class="light">{% trans "Crowdfunding needed" %}</h3>
 
 	<div class="progressbar">
 		<div class="donated-text" style="margin-left: 0px; opacity: 1; ">
-			Now: <b>&euro;<span class="donated-amount">{{ project.money_donated }}</span></b>					
+			{% blocktrans with project.money_donated as money_donated %}Now: <b>&euro;<span class="donated-amount">{{ money_donated }}</span></b>{% endblocktrans %}
 		</div>
 		<div class="asked-bar">
 			<div class="donated-bar" style="width:0px; "></div>
 		</div>
 		<div class="asked-text">
-			Needed: <b>&euro;<span class="asked-amount">{{ project.money_asked }}</span></b>
+		    {% blocktrans with project.money_asked as money_asked %}Needed: <b>&euro;<span class="asked-amount">{{ money_asked }}</span></b>{% endblocktrans %}
 		</div>
 	</div>	
-	<h3 class="link"><div class="icon love"></div>Support this Project</h3>
+	<h3 class="link"><div class="icon love"></div>{% trans "Support this project" %}</h3>
 </div>

@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% comment %} Use url tag from Django 1.5. {% endcomment %}
 {% load url from future %}
 
@@ -78,24 +80,24 @@
 			<div id="mymenu">
 			    {% if user.is_authenticated %}
 			    	{{ user.username }} 
-				    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">LOG OUT</a>
+				    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">{% trans "Log out" %}</a>
 			    {% else %}
-				    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">LOG IN</a>
+				    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">{% trans "Log in" %}</a>
 			    {% endif %}
 			</div>
 		</div>
 
 		<div id="submenu">
 			<ul>
-				<li><a href="{% url 'home' %}">HOME</a></li>
-				<li><a href="{% url 'project_list' %}">1%PROJECTS</a></li>
-				<li><a>1%TASKS</a></li>
-				<li><a>1%ACTIONS</a></li>
-				<li><a>LEARN MORE</a></li>
+				<li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+				<li><a href="{% url 'project_list' %}">{% trans "Projects" %}</a></li>
+				<li><a>{% trans "Tasks" %}</a></li>
+				<li><a>{% trans "Actions" %}</a></li>
+				<li><a>{% trans "Learn more" %}</a></li>
 			</ul>
 		</div>
 	</div>
 
-	<div id="git-revision">Revision: {{ GIT_REVISION }}</div>
+	<div id="git-revision">{% blocktrans %}Revision: {{ GIT_REVISION }}{% endblocktrans %}</div>
 </body>
 </html>

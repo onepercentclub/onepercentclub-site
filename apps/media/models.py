@@ -17,14 +17,14 @@ from sorl.thumbnail import ImageField
 class Album(models.Model):
     """ Album containing media objects. """
 
-    title = models.CharField(max_length=255)
+    title = models.CharField(_("title"), max_length=255)
     # This is populated from the project slug in legacy and should have
     # the same length
-    slug = models.SlugField(unique=True, max_length=100)
-    description = models.TextField(blank=True)
+    slug = models.SlugField(_("slug"), unique=True, max_length=100)
+    description = models.TextField(_("description"), blank=True)
 
-    created = CreationDateTimeField()
-    updated = ModificationDateTimeField()
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
 
     class Meta:
         verbose_name = _("album")
@@ -45,13 +45,13 @@ class Album(models.Model):
 class MediaObjectBase(models.Model):
     """ Abstract base class for media objects contained in albums. """
 
-    album = models.ForeignKey(Album)
+    album = models.ForeignKey(Album, verbose_name=_("album"))
 
-    title = models.CharField(max_length=255, blank=True)
-    description = models.TextField(blank=True)
+    title = models.CharField(_("title"), max_length=255, blank=True)
+    description = models.TextField(_("description"), blank=True)
 
-    created = CreationDateTimeField()
-    updated = ModificationDateTimeField()
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
 
     class Meta:
         abstract = True
@@ -64,17 +64,31 @@ class OembedAbstractBase(models.Model):
     """ Abstract base class for classes populated through OEmbed. """
 
     # Title included in MediaObjectBase
-    url = models.URLField()
+    url = models.URLField(_("URL"))
 
-    thumbnail_url = models.URLField(blank=True)
-    thumbnail_width = models.SmallIntegerField(blank=True, null=True)
-    thumbnail_height = models.SmallIntegerField(blank=True, null=True)
+    thumbnail_url = models.URLField(
+        _("thumbnail URL"), blank=True
+    )
+    thumbnail_width = models.SmallIntegerField(
+        _("thumbnail width"), blank=True, null=True
+    )
+    thumbnail_height = models.SmallIntegerField(
+        _("thumbnail height"), blank=True, null=True
+    )
 
-    provider_name = models.CharField(blank=True, max_length=255)
-    provider_url = models.CharField(blank=True, max_length=255)
+    provider_name = models.CharField(
+        _("providr name"), blank=True, max_length=255
+    )
+    provider_url = models.CharField(
+        _("provider URL"), blank=True, max_length=255
+    )
 
-    author_name = models.CharField(blank=True, max_length=255)
-    author_url = models.URLField(blank=True)
+    author_name = models.CharField(
+        _("author name"), blank=True, max_length=255
+    )
+    author_url = models.URLField(
+        _("author URL"), blank=True
+    )
 
     class Meta:
         abstract = True
@@ -113,7 +127,7 @@ class OembedAbstractBase(models.Model):
 class LocalPicture(MediaObjectBase):
     """ Picture stored locally. """
 
-    picture = ImageField(upload_to='pictures/')
+    picture = ImageField(_("picture"), upload_to='pictures/')
 
     class Meta:
         verbose_name = _("local picture")
@@ -132,11 +146,11 @@ class LocalPicture(MediaObjectBase):
 class EmbeddedVideo(MediaObjectBase, OembedAbstractBase):
     """ Embedded video, hosted remotely. """
 
-    html = models.TextField(blank=True)
-    width = models.SmallIntegerField(blank=True, null=True)
-    height = models.SmallIntegerField(blank=True, null=True)
+    html = models.TextField(_("HTML"), blank=True)
+    width = models.SmallIntegerField(_("width"), blank=True, null=True)
+    height = models.SmallIntegerField(_("height"), blank=True, null=True)
 
-    duration = models.SmallIntegerField(blank=True, null=True)
+    duration = models.SmallIntegerField(_("duration"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("embedded video")
