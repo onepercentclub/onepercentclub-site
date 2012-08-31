@@ -60,7 +60,7 @@ App.projectSearchController = Em.ArrayController.create({
 App.ProjectSearchFormView = Em.View.extend({
     tagName : 'form',
     templateName: 'project-search-form',
-    classNames: ['search', 'row']
+    classNames: ['search']
 });
 
 App.ProjectSearchTextField = Ember.TextField.extend({
@@ -74,7 +74,7 @@ App.ProjectSearchTextField = Ember.TextField.extend({
 App.ProjectSearchResultsView = Em.CollectionView.extend({
     tagName: 'ul',
     templateName: 'project-search-results',
-    classNames: ['list', 'row'],
+    classNames: ['row'],
 
     contentBinding: 'App.projectSearchController.searchResults',
     itemViewClass: 'App.ProjectPreviewView'

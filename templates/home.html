@@ -28,21 +28,36 @@
 
 
     {% tplhandlebars "project-search-form" %}
-        <h1>BROWSE 400 1%PROJECTS</h1>
-
-        {{ view App.ProjectSearchTextField }}
-
-        {{view Ember.Select viewName="select"
-                            contentBinding="App.projectSearchController.filteredRegions"
-                            optionLabelPath="content.name"
-                            optionValuePath="content.id"
-                            prompt="Region"}}
-
-        {{view Ember.Select viewName="select"
-                            contentBinding="App.projectSearchController.filteredCountries"
-                            optionLabelPath="content.name"
-                            optionValuePath="content.id"
-                            prompt="Country"}}
+        <div class="section lightgreen">
+            <div class="row">
+                <div class="column grid_4">
+                    <h1>BROWSE 400 1%PROJECTS</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column grid_1">
+                    {{ view App.ProjectSearchTextField }}
+                </div>
+                <div class="column grid_1">
+                    {{view Ember.Select viewName="select"
+                                        contentBinding="App.projectSearchController.filteredRegions"
+                                        optionLabelPath="content.name"
+                                        optionValuePath="content.id"
+                                        prompt="Region"}}
+                </div>
+                <div class="column grid_1">
+                    {{view Ember.Select viewName="select"
+                                        contentBinding="App.projectSearchController.filteredCountries"
+                                        optionLabelPath="content.name"
+                                        optionValuePath="content.id"
+                                        prompt="Country"}}
+                    
+                </div>
+                <div class="column grid_1">
+                    
+                </div>
+            </div>
+        </div>
     {% endtplhandlebars %}
 
     {% tplhandlebars "project-search-form-element" %}
