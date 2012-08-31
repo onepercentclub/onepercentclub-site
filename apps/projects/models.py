@@ -19,9 +19,9 @@ class ProjectTheme(models.Model):
 
     # The name is marked as unique so that users can't create duplicate
     # theme names.
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
-    description = models.TextField(blank=True)
+    name = models.CharField(_("name"), max_length=100, unique=True)
+    slug = models.SlugField(_("slug"), max_length=100, unique=True)
+    description = models.TextField(_("description"), blank=True)
 
     def __unicode__(self):
         return self.name
@@ -41,38 +41,57 @@ class Project(models.Model):
         act = ChoiceItem('act', label=_("Act"))
         results = ChoiceItem('results', label=_("Results"))
 
-    title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=100, unique=True)
+    title = models.CharField(_("title"), max_length=255)
+    slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
-    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True)
+    partner_organization = models.ForeignKey(
+        'PartnerOrganization', blank=True, null=True,
+        verbose_name=_('partner organization')
+    )
 
-    image = ImageField(max_length=255, blank=True,
+    image = ImageField(_("image"), max_length=255, blank=True,
         upload_to='project_images/',
         help_text=_("Main project picture"))
 
-    organization = models.ForeignKey('organizations.Organization')
-    owner = models.ForeignKey('auth.User')
-    phase = models.CharField(max_length=20, choices=ProjectPhases.choices,
-        help_text=_("Phase this project is in right now."))
-    themes = models.ManyToManyField(ProjectTheme, blank=True)
-    created = CreationDateTimeField(
-        help_text=_("When this project was created."))
+    organization = models.ForeignKey(
+        'organizations.Organization', verbose_name=_("organization")
+    )
+    owner = models.ForeignKey('auth.User', verbose_name=_("owner"))
+    phase = models.CharField(_("phase"),
+        max_length=20, choices=ProjectPhases.choices,
+        help_text=_("Phase this project is in right now.")
+    )
+    themes = models.ManyToManyField(
+        ProjectTheme, blank=True, verbose_name=_("themes")
+    )
+    created = CreationDateTimeField(_("created"),
+        help_text=_("When this project was created.")
+    )
 
     # Location of this project
     # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
     # hold the legacy data.
     # Ref http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
-    latitude = models.DecimalField(max_digits=21, decimal_places=18)
-    longitude = models.DecimalField(max_digits=21, decimal_places=18)
-    country = models.ForeignKey('geo.Country', blank=True, null=True)
+    latitude = models.DecimalField(
+        _("latitude"), max_digits=21, decimal_places=18
+    )
+    longitude = models.DecimalField(
+        _("longitude"), max_digits=21, decimal_places=18
+    )
+    country = models.ForeignKey(
+        'geo.Country', blank=True, null=True, verbose_name=_("country")
+    )
 
-    project_language = models.CharField(max_length=6,
-        choices=settings.LANGUAGES,
-        help_text=_("Main language of the project."))
+    project_language = models.CharField(
+        _("language"), max_length=6, choices=settings.LANGUAGES,
+        help_text=_("Main language of the project.")
+    )
 
-    albums = models.ManyToManyField('media.Album', blank=True, null=True)
+    albums = models.ManyToManyField(
+        'media.Album', blank=True, null=True, verbose_name=_("albums")
+    )
 
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     # temporary to do hold random 'donated'
     donated = 0
@@ -123,12 +142,12 @@ class Project(models.Model):
 
 
 class PartnerOrganization(models.Model):
-    """ 
-        Some projects are run in cooperation with a partner 
+    """
+        Some projects are run in cooperation with a partner
         organization like EarthCharter & MacroMicro
     """
-    name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    name = models.CharField(_("name"), max_length=255, unique=True)
+    slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
     class Meta:
         verbose_name = _("partner organization")
@@ -148,15 +167,17 @@ class AbstractPhase(models.Model):
         progress = ChoiceItem('progress', label=_("Progress"))
         completed = ChoiceItem('completed', label=_("Completed"))
 
-    project = models.OneToOneField(Project)
-    title = models.CharField(max_length=255, blank=True)
-    description = models.TextField(blank=True)
+    project = models.OneToOneField(Project, verbose_name=_("project"))
+    title = models.CharField(_("title"), max_length=255, blank=True)
+    description = models.TextField(_("description"), blank=True)
 
     # Date the phase has started/ended.
-    startdate = models.DateField(null=True)
-    enddate = models.DateField(null=True)
+    startdate = models.DateField(_("start date"), null=True)
+    enddate = models.DateField(_("end date"), null=True)
 
-    status = models.CharField(max_length=20, choices=PhaseStatuses.choices)
+    status = models.CharField(
+        _("status"), max_length=20, choices=PhaseStatuses.choices
+    )
 
     class Meta:
         abstract = True
@@ -164,7 +185,9 @@ class AbstractPhase(models.Model):
 
 class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here. """
-    knowledge_description = models.TextField(blank=True)
+    knowledge_description = models.TextField(
+        _("knowledge"), blank=True, help_text=_("Description of knowledge.")
+    )
 
     class Meta:
         verbose_name = _("idea phase")
@@ -186,28 +209,50 @@ class FundPhase(AbstractPhase):
         youth = ChoiceItem('youth', label=_("Youth"))
         adults = ChoiceItem('adults', label=_("Adults"))
 
-    description_long = models.TextField(blank=True)
+    description_long = models.TextField(
+        _("description"), blank=True, help_text=_("Longer description.")
+    )
 
-    budget_total = MoneyField(_('money total'),
+    budget_total = MoneyField(_("money total"),
         help_text=_("Total amount needed for this project."))
-    money_asked = MoneyField(_('money asked'),
+    money_asked = MoneyField(_("money asked"),
         help_text=_("Amount asked for from this website."))
 
     sustainability = models.TextField(
+        _("sustainability"),
         blank=True,
-        help_text=_("How can next generations profit from this?"))
+        help_text=_("How can next generations profit from this?")
+    )
 
-    money_other_sources = models.TextField(blank=True)
+    money_other_sources = models.TextField(
+        _("money from other sources"), blank=True,
+        help_text=_("Money received from other sources.")
+    )
 
     """ Social Impact: who are we helping, direct and indirect """
     social_impact = models.TextField(
+        _("social impact"),
         blank=True,
-        help_text=_("Who are you helping?"))
-    impact_group = models.CharField(max_length=20, choices=ImpactGroups.choices, blank=True)
-    impact_direct_male = models.IntegerField(max_length=6, default=0)
-    impact_direct_female = models.IntegerField(max_length=6, default=0)
-    impact_indirect_male = models.IntegerField(max_length=6, default=0)
-    impact_indirect_female = models.IntegerField(max_length=6, default=0)
+        help_text=_("Who are you helping?")
+    )
+    impact_group = models.CharField(
+        _("impact group"),
+        max_length=20, choices=ImpactGroups.choices, blank=True
+    )
+    impact_direct_male = models.IntegerField(
+        _("impact direct male"), max_length=6, default=0
+    )
+    impact_direct_female = models.IntegerField(
+        _("impact direct female"), max_length=6, default=0
+    )
+    impact_indirect_male = models.IntegerField(
+        _("impact indirect male"),
+        max_length=6, default=0
+    )
+    impact_indirect_female = models.IntegerField(
+        _("impact indirect female"),
+        max_length=6, default=0
+    )
 
     class Meta:
         verbose_name = _("fund phase")
@@ -217,9 +262,9 @@ class FundPhase(AbstractPhase):
 class ActPhase(AbstractPhase):
     """ ActPhase Funding complete. Let's DO it! """
 
-    planning = models.TextField(blank=True)
-    planned_start_date = models.DateField(null=True)
-    planned_end_date = models.DateField(null=True)
+    planning = models.TextField(_("planning"), blank=True)
+    planned_start_date = models.DateField(_("planned start date"), null=True)
+    planned_end_date = models.DateField(_("planned end date"), null=True)
 
     class Meta:
         verbose_name = _("act phase")
@@ -231,19 +276,19 @@ class ResultsPhase(AbstractPhase):
 
     # Five questions that get asked after the project is done.
     what = models.TextField(
-        help_text=_("What and how?"),
+        _("what"), help_text=_("What and how?"),
         blank=True)
     tips = models.TextField(
-        help_text=_("Tips and tricks?"),
+        _("tips"), help_text=_("Tips and tricks?"),
         blank=True)
     change = models.TextField(
-        help_text=_("What has changed for the target group?"),
+        _("change"), help_text=_("What has changed for the target group?"),
         blank=True)
     financial = models.TextField(
-        help_text=_("How was the money spend?"),
+        _("financial"), help_text=_("How was the money spend?"),
         blank=True)
     next = models.TextField(
-        help_text=_("What's next?"),
+        _("next"), help_text=_("What's next?"),
         blank=True)
 
     class Meta:
@@ -254,12 +299,12 @@ class ResultsPhase(AbstractPhase):
 class Referals(models.Model):
     """
     People that are named as referals.
-    
+
     TODO: Fix spelling error and make singular.
     """
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    description = models.TextField(blank=True)
+    name = models.CharField(_("name"), max_length=255)
+    email = models.EmailField(_("email"))
+    description = models.TextField(_("description"), blank=True)
 
     class Meta:
         verbose_name = _("referral")
@@ -272,9 +317,9 @@ class BudgetLine(models.Model):
     This is the budget for the amount asked from this
     website.
     """
-    project = models.ForeignKey(Project)
-    description = models.TextField(blank=True)
-    money_amount = MoneyField()
+    project = models.ForeignKey(Project, verbose_name=_("project"))
+    description = models.TextField(_("description"), blank=True)
+    money_amount = MoneyField(_("money amount"))
 
     class Meta:
         verbose_name = _("budget line")
@@ -286,12 +331,12 @@ class BudgetLine(models.Model):
 class Link(models.Model):
     """ Links (URLs) connected to a Project. """
 
-    project = models.ForeignKey(Project)
-    name = models.CharField(max_length=255)
-    url = models.URLField()
-    description = models.TextField(blank=True)
-    ordering = models.IntegerField()
-    created = CreationDateTimeField()
+    project = models.ForeignKey(Project, verbose_name=_("project"))
+    name = models.CharField(_("name"), max_length=255)
+    url = models.URLField(_("URL"))
+    description = models.TextField(_("description"), blank=True)
+    ordering = models.IntegerField(_("ordering"))
+    created = CreationDateTimeField(_("created"))
 
     class Meta:
         ordering = ['ordering']
@@ -302,11 +347,11 @@ class Link(models.Model):
 class Testimonial(models.Model):
     """ Any user can write something nice about a project. """
 
-    project = models.ForeignKey(Project)
-    user = models.ForeignKey('auth.User')
-    description = models.TextField()
-    created = CreationDateTimeField()
-    updated = ModificationDateTimeField()
+    project = models.ForeignKey(Project, verbose_name=_("project"))
+    user = models.ForeignKey('auth.User', verbose_name=_("user"))
+    description = models.TextField(_("description"))
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
 
     class Meta:
         ordering = ['-created']
@@ -317,11 +362,11 @@ class Testimonial(models.Model):
 class Message(models.Model):
     """ Message by a user on the Project wall. """
 
-    project = models.ForeignKey(Project)
-    user = models.ForeignKey('auth.User')
-    body = models.TextField()
-    created = CreationDateTimeField()
-    deleted = models.DateTimeField(null=True, blank=True)
+    project = models.ForeignKey(Project, verbose_name=_("project"))
+    user = models.ForeignKey('auth.User', verbose_name=_("user"))
+    body = models.TextField(_("body"))
+    created = CreationDateTimeField(_("created"))
+    deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
     def __unicode__(self):
         return u'%s : %s...' % (

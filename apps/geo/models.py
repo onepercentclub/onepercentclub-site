@@ -13,12 +13,14 @@ class GeoBaseModel(models.Model):
           https://en.wikipedia.org/wiki/UN_M.49
     '''
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(_("name"), max_length=100)
     # https://en.wikipedia.org/wiki/ISO_3166-1_numeric
     # http://unstats.un.org/unsd/methods/m49/m49alpha.htm
-    numeric_code = models.CharField(max_length=3, unique=True,
-                                    help_text=_("ISO 3166-1 or M.49 numeric code"),
-                                    validators=[NumericCodeValidator])
+    numeric_code = models.CharField(_("numeric code"),
+        max_length=3,unique=True,
+        help_text=_("ISO 3166-1 or M.49 numeric code"),
+        validators=[NumericCodeValidator]
+    )
 
     def __unicode__(self):
         return self.name
@@ -44,7 +46,7 @@ class SubRegion(GeoBaseModel):
     Geographical sub-region as defined by the UN M.49 geoscheme.
     '''
 
-    region = models.ForeignKey(Region)
+    region = models.ForeignKey(Region, verbose_name=_("region"))
 
     class Meta(GeoBaseModel.Meta):
         ordering = ['name']
@@ -58,17 +60,21 @@ class Country(GeoBaseModel):
     geoscheme.
     '''
 
-    subregion = models.ForeignKey(SubRegion)
+    subregion = models.ForeignKey(SubRegion, verbose_name=_("sub region"))
     # https://en.wikipedia.org/wiki/ISO_3166-1
-    alpha2_code = models.CharField(max_length=2, blank=True,
+    alpha2_code = models.CharField(_("alpha2 code"), max_length=2, blank=True,
                                    help_text=_("ISO 3166-1 alpha-2 code"),
                                    validators=[Alpha2CodeValidator])
-    alpha3_code = models.CharField(max_length=3, blank=True,
+    alpha3_code = models.CharField(_("alpha3 code"), max_length=3, blank=True,
                                    help_text=_("ISO 3166-1 alpha-3 code"),
                                    validators=[Alpha3CodeValidator])
     # http://www.oecd.org/dac/aidstatistics/daclistofodarecipients.htm
     oda_recipient = models.BooleanField(_("ODA recipient"), default=False,
-        help_text=_("Whether a country is a recipient of Official Development Assistance from the OECD's Development Assistance Committee."))
+        help_text=_(
+            "Whether a country is a recipient of Official Development"
+            "Assistance from the OECD's Development Assistance Committee."
+        )
+    )
 
     class Meta(GeoBaseModel.Meta):
         ordering = ['name']

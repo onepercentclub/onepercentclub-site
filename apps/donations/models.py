@@ -35,7 +35,7 @@ class Donation(models.Model):
         new = ChoiceItem('new', label=_("New"))
         started = ChoiceItem('started', label=_("Started"))
 
-    user = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User', verbose_name=_("user"))
     amount = MoneyField(_("amount"))
 
     # Note: having an index here allows for efficient filtering by status.
@@ -72,9 +72,9 @@ class DonationLine(models.Model):
     DonationLine, allocating part of a Donation to a specific Project.
     """
 
-    donation = models.ForeignKey(Donation)
+    donation = models.ForeignKey(Donation, verbose_name=_("donation"))
 
-    project = models.ForeignKey('projects.Project')
+    project = models.ForeignKey('projects.Project', verbose_name=_("project"))
     amount = MoneyField(_("amount"))
 
     class Meta:

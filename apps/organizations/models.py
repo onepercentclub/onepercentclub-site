@@ -16,38 +16,58 @@ class Organization(models.Model):
     An organization has one or more members.
     """
 
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=100, unique=True)
+    name = models.CharField(_("name"), max_length=255)
+    slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
-    description = models.TextField(blank=True)
+    description = models.TextField(_("description"), blank=True)
 
-    legal_status = models.TextField(null=True, blank=True,
+    legal_status = models.TextField(
+        _("legal status"), null=True, blank=True,
         help_text=_("The legal status of the organization (e.g. Foundation).")
     )
 
-    phone_number = models.CharField(max_length=255, blank=True)
-    email = models.EmailField(blank=True)
+    phone_number = models.CharField(
+        _("phone number"), max_length=255, blank=True
+    )
+    email = models.EmailField(_("email"), blank=True)
 
-    website = models.CharField(max_length=255, blank=True)
+    website = models.CharField(_("website"), max_length=255, blank=True)
 
-    created = CreationDateTimeField()
-    updated = ModificationDateTimeField()
-    deleted = models.DateTimeField(null=True, blank=True)
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
+    deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
-    partner_organisations = models.TextField(blank=True)
+    partner_organisations = models.TextField(
+        _("partner organizations"), blank=True
+    )
 
-    account_bank_name = models.CharField(max_length=255, blank=True)
-    account_bank_address = models.CharField(max_length=255, blank=True)
+    account_bank_name = models.CharField(
+        _("account bank name"), max_length=255, blank=True
+    )
+    account_bank_address = models.CharField(
+        _("account bank address"), max_length=255, blank=True
+    )
     account_bank_country = models.ForeignKey('geo.Country',
+        verbose_name=_("account bank country"),
         blank=True, null=True
     )
-    account_iban = models.CharField(max_length=255, blank=True)
-    account_bicswift = models.CharField(max_length=255, blank=True)
-    account_number = models.CharField(max_length=255, blank=True)
-    account_name = models.CharField(max_length=255, blank=True)
-    account_city = models.CharField(max_length=255, blank=True)
+    account_iban = models.CharField(
+        _("account IBAN"), max_length=255, blank=True
+    )
+    account_bicswift = models.CharField(
+        _("account BIC SWIFT"), max_length=255, blank=True
+    )
+    account_number = models.CharField(
+        _("account number"), max_length=255, blank=True
+    )
+    account_name = models.CharField(
+        _("account name"), max_length=255, blank=True
+    )
+    account_city = models.CharField(
+        _("account city"), max_length=255, blank=True
+    )
 
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     def __unicode__(self):
         return self.name
@@ -67,9 +87,12 @@ class OrganizationMember(models.Model):
         editor = ChoiceItem('editor', label=_("Editor"))
         member = ChoiceItem('member', label=_("Member"))
 
-    organization = models.ForeignKey(Organization)
-    user = models.ForeignKey('auth.User')
-    function = models.CharField(max_length=20, choices=MemberFunctions.choices,
+    organization = models.ForeignKey(
+        Organization, verbose_name=_("organization")
+    )
+    user = models.ForeignKey('auth.User', verbose_name=_("user"))
+    function = models.CharField(
+        _("function"), max_length=20, choices=MemberFunctions.choices,
         help_text=_("Function might determine Role later on.")
     )
 
@@ -87,9 +110,12 @@ class OrganizationAddress(Address):
         other = ChoiceItem('other', label=_("Other"))
 
     type = models.CharField(
+        _("type"), help_text=_("Address type."),
         max_length=8, blank=True, choices=AddressType.choices
     )
-    organization = models.ForeignKey(Organization)
+    organization = models.ForeignKey(
+        Organization, verbose_name=_("organization")
+    )
 
     class Meta:
         verbose_name = _("organization address")
