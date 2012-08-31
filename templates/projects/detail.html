@@ -22,7 +22,7 @@
 			<h4>{% trans "Organization" %}</h4>
 			<p>{{ project.organization.name }}</p>
 
-			<h4>{% trans "Albums" }</h4>
+			<h4>{% trans "Albums" %}</h4>
 			{% comment %} Use a with statement in order to prevent double queries to the database upon calling album_set.all() {% endcomment %}
 			{% with project.albums.all as albums %}
 				{% if albums %}

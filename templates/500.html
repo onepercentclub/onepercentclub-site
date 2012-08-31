@@ -9,7 +9,7 @@
 <p>{% trans "There was an error while trying to serve the requested page. Please try again. If the error persists, please contact the webmaster about it. In any case, we have been notified of this error." %}</p>
 
 {% if request.sentry.id %}
-    <p>{% blocktrans with as request.sentry.id as error_id %}If you need assistance, you may reference this error as <strong>{{ error_id }}</strong>.{% endblocktrans %}</p>
+    <p>{% blocktrans with request.sentry.id as error_id %}If you need assistance, you may reference this error as <strong>{{ error_id }}</strong>.{% endblocktrans %}</p>
 {% endif %}
 {% endblock %}
 
