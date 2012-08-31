@@ -94,6 +94,7 @@ body {
 #container {
   background-color: #fff;
   position: relative;
+  margin-bottom: 30px;
 }
 
 .siteblock {
@@ -338,6 +339,14 @@ body {
     padding: 4px;
     margin-top: 10px;
     border-top: 1px solid @green;
+  }
+}
+
+#footerbar {
+  padding: 10px 20px;
+  color: @white;
+  h3 {
+    font-family: @futura;
   }
 }
 
@@ -603,6 +612,7 @@ form {
 
 
 .project-mid {
+  font-size: 0.8em;
   border: 1px solid @green;
   margin: 10px;
   a {
@@ -666,6 +676,22 @@ form {
 
 
 form.search {
+  input {
+    width: 210px;
+    border: 1px solid @midgreen;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  select {
+    width: 220px;
+    background-color: @lightgreen;
+    border: 1px solid @midgreen;
+    padding: 4px;
+    border-radius: 4px;
+    option {
+      background-color: @lightgreen;
+    }
+  }
 }
 
 #searchForm,
