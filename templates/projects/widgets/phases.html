@@ -1,6 +1,7 @@
+{% load i18n %}
 <ul class="phases {{ project.phase }}">
-	<li class="idea">IDEA</li>
-	<li class="plan">FUND</li>
-	<li class="act">ACT</li>
-	<li class="results">RESULTS</li>
+	<li class="idea">{% trans "Idea" %}</li>
+	<li class="plan">{% trans "Fund" %}</li>
+	<li class="act">{% trans "Act" %}</li>
+	<li class="results">{% trans "Results" %}</li>
 </ul>

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
 
 {% block htmlheader %}
@@ -12,7 +14,7 @@
 		<div class="relative">
 			<div id="bigmap"></div>
 			<div id="maploading" class="hidden">
-				LOADING PROJECTS
+			    {% trans "Loading projects" %}
 			</div>
 		</div>
 	</div>

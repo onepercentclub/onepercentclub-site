@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
-{% block htmltitle %}{{ block.super }} | Members{% endblock %}
+{% load i18n %}
+
+{% block htmltitle %}{{ block.super }} | {% trans "Members" %}{% endblock %}
 
 {% block htmlheader %}
 {{ block.super }}
 {% endblock %}
 
 {% block content %}
-<h1 id="userprofiles">Members</h1>
+<h1 id="userprofiles">{% trans "Members" %}</h1>
 
 <ul>
 {% for userprofile in userprofile_list %}

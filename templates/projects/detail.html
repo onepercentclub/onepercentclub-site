@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% load thumbnail %}
 
 {% block htmltitle %}{{ block.super }} | {{ project }}{% endblock %}
@@ -14,19 +16,13 @@
 			{% include "projects/widgets/tiny_viewer.html" %}
   		</div>
   		<div class="column grid_2">
-			<h4>Project</h4>
+			<h4>{% trans "Project" %}</h4>
 			<h1>{{ project.title }}</h1>
 
-			<h4>Organization</h4>
-			<p>
-			{% if project.organization.name %}
-				{{ project.organization.name }}
-			{% else %}
-				<i>none</i>
-			{% endif %}
-			</p>
+			<h4>{% trans "Organization" %}</h4>
+			<p>{{ project.organization.name }}</p>
 
-			<h4>Albums</h4>
+			<h4>{% trans "Albums" %}</h4>
 			{% comment %} Use a with statement in order to prevent double queries to the database upon calling album_set.all() {% endcomment %}
 			{% with project.albums.all as albums %}
 				{% if albums %}
@@ -36,11 +32,11 @@
 						{% endfor %}
 					</ul>
 				{% else %}
-					No albums for this project.
+					{% trans "No albums for this project." %}
 				{% endif %}
 			{% endwith %}
 
-			<h4>Owner</h4>
+			<h4>{% trans "Owner" %}</h4>
 			{% with project.owner.get_profile as owner_profile %}
 
 				{% thumbnail owner_profile.picture "72x72" crop="center" as picture %}
@@ -51,81 +47,81 @@
 
 			{% endwith %}
 
-			<h4>Location</h4>
+			<h4>{% trans "Location" %}</h4>
 			<p>
 			{% if project.location %}
 				{{ project.location }}
 			{% else %}
-				<i>none</i>
+				{% trans "Not specified." %}
 			{% endif %}
 			</p>
 
-			<h4>Costs</h4>
+			<h4>{% trans "Costs" %}</h4>
 			<p>
 			{% if project.money_asked %}
 				&euro; {{ project.money_asked }}</p>
 			{% else %}
-				<i>none</i>
+				{% trans "Not specified." %}
 			{% endif %}
 			</p>
 
- 			<h4>Themes</h4>
+ 			<h4>{% trans "Themes" %}</h4>
 			<ul>
 				{% for theme in project.themes.all %}
 					<li>{{ theme.name }}</li>
 				{% empty %}
-					<li><i>none</i></li>
+					<li><i>{% trans "None specified." %}</i></li>
 				{% endfor %}
 			</ul>
 
-            <h4>Supporters</h4>
+            <h4>{% trans "Supporters" %}</h4>
             <ul>
 				{% for supporter in project.get_supporters %}
 					<li>{{ supporter }}</li>
 				{% empty %}
 					{% comment %} TODO: Change this into a link to donate become the first supporter. {% endcomment %}
-					<li><i>none</i></li>
+					<li><i>{% trans "None specified." %}</i></li>
 				{% endfor %}
             </ul>
 
-			<h4>Tags</h4>
+			<h4>{% trans "Tags" %}</h4>
 			<ul>
 				{% for tag in project.tags.all %}
 					<li>{{ tag }}</li>
 				{% empty %}
-					<li><i>none</i></li>
+					<li><i>{% trans "None specified." %}</i></li>
 				{% endfor %}
 			</ul>
 
-			<h4>Description</h4>
+			<h4>{% trans "Description" %}</h4>
 			<p>
 				{% if project.planphase.description %}
 					<span class="short">
 						{{ project.planphase.description|truncatewords:50 }}
-						<a href="" class="more">more</a>
+						<a href="" class="more">{% trans "More" %}</a>
 					</span>
 					<span class="long">
 						{{ project.planphase.description }}
-						<a href="" class="less">less</a>
+						<a href="" class="less">{% trans "Less" %}</a>
 					</span>
 				{% else %}
-					<i>none</i>
+				    {% trans "Not specified." %}
 				{% endif %}
 			</p>
 
-			<h4>Funding needed for</h4>
+			<h4>{% trans "Funding needed for" %}</h4>
 			<p>
 				{% if project.planphase.what %}
 					<span class="short">
 						{{ project.planphase.what|truncatewords:50 }}
-						<a href="" class="more">more</a>
+						<a href="" class="more">{% trans "More" %}</a>
 					</span>
 					<span class="long">
 						{{ project.planphase.what }}
-						<a href="" class="less">less</a>
+						<a href="" class="less">{% trans "Less" %}</a>
 					</span>
 				{% else %}
-					<i>none</i>
+				    {% trans "Not specified." %}
 				{% endif %}
 			</p>
 

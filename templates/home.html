@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{% block htmltitle %}{{ block.super }} | Home{% endblock %}
+{% load i18n %}
+
+{% block htmltitle %}{{ block.super }} | {% trans "Home" %}{% endblock %}
 
 {% block toppanel %}
 	<h1>BlueBone start... </h1>
