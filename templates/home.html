@@ -15,7 +15,6 @@
 
     {% tplhandlebars "project-detail" %}
         <h1>PROJECT DETAIL</h1>
-        <a {{action gotoProjectInfo}}>INFO</a>
     {% endtplhandlebars %}
 
     {% tplhandlebars "project-info" %}
@@ -64,6 +63,11 @@
         <h3>{{view.content.title}}</h3>
     {% endtplhandlebars %}
 
+    {% tplhandlebars "project-search-results-section" %}
+        {{view App.ProjectSearchResultsView}}
+        {{view App.ProjectSearchResultsNextView}}
+        {{view App.ProjectSearchResultsPreviousView}}
+    {% endtplhandlebars %}
 
 
     {% tplhandlebars "project-preview" %}

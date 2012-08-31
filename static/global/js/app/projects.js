@@ -13,6 +13,7 @@ App.projectSearchController = Em.ArrayController.create({
     },
 
     searchResults: null,
+    searchResultsMeta: [],
 
     filteredRegions: null,
 
@@ -23,12 +24,25 @@ App.projectSearchController = Em.ArrayController.create({
         this.populate();
     },
 
+    nextSearchResult: function() {
+        var meta  = this.get('searchResultsMeta');
+        next = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.next)||[,null])[1]
+        return next;
+    }.property('searchResultsMeta'),
+    
+    previousSearchResult: function() {
+        var meta  = this.get('searchResultsMeta');
+        previous = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.previous)||[,null])[1]
+        return previous;
+    }.property('searchResultsMeta'),
+    
     populate: function() {
         var controller = this;
         require(['app/data_source'], function(){
 
             App.dataSource.get('projectpreview', controller.query, function(data) {
                 controller.set('searchResults', data['objects']);
+                controller.set('searchResultsMeta', data['meta']);
             });
 
             App.dataSource.get('projectsearchform', controller.query, function(data) {
@@ -63,7 +77,7 @@ App.ProjectSearchFormView = Em.View.extend({
     classNames: ['search']
 });
 
-App.ProjectSearchTextField = Ember.TextField.extend({
+App.ProjectSearchTextField = Em.TextField.extend({
     change: function (evt) {
         console.log("ProjectSearchTextField change event fired");
     }
@@ -71,6 +85,57 @@ App.ProjectSearchTextField = Ember.TextField.extend({
 
 
 /* The search results. */
+App.ProjectSearchResultsSectionView  = Em.View.extend({
+    tagName: 'div',
+    classNames: 'lightgray section results',
+    templateName: 'project-search-results-section',
+});
+
+
+App.ProjectSearchResultsNextView = Em.View.extend({
+  nextBinding : 'App.projectSearchController.nextSearchResult',
+  template: '',
+  tagName : 'div',
+  classNames: 'paginator next',
+  classNameBindings: ['disabled'],
+  disabled: function(){
+    if (this.next == null) return true;
+    return false;
+  }.property('next'),
+  click: function(){
+    if (this.next) {
+      App.projectSearchController.changeFilterElement({
+        searchFilter : 'offset',
+        value : this.next
+      })
+    }
+  }
+});
+
+
+App.ProjectSearchResultsPreviousView = Em.View.extend({
+  previousBinding : 'App.projectSearchController.previousSearchResult',
+  template: '',
+  tagName : 'div',
+  classNames: 'paginator previous',
+  //TODO: Do hidden smarter (template?)
+  classNameBindings: ['disabled'],
+  disabled: function(){
+    if (this.previous == null) return true;
+    return false;
+  }.property('previous'),
+  //TODO: Use Ember solution
+  click: function(){
+    if (this.next) {
+      App.projectSearchController.changeFilterElement({
+        searchFilter : 'offset',
+        value : this.next
+      })
+    }
+  }
+});
+
+
 App.ProjectSearchResultsView = Em.CollectionView.extend({
     tagName: 'ul',
     templateName: 'project-search-results',
