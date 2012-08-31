@@ -12,6 +12,8 @@
 @darkgray: #555555;
 @lightgray: #EEEEEE;
 @midgray: #BBBBBB;
+@backgroundgray: #F8F8F8;
+
 @static-url: "../../";
 
 @font: Arial, Helvetica;
@@ -587,7 +589,7 @@ form {
   .paginator {
     position: absolute;
     width: 30px;
-    height: 40px;
+    height: 35px;
     overflow: hidden;
     text-indent: 200px;
     top: 45%;
@@ -595,18 +597,26 @@ form {
     cursor: pointer;
   }
   .next {
-    background: url("@{static-url}/global/images/icons/arrows.png") 0px -80px no-repeat;
-    right: -30px;
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px 0px no-repeat;
+    right: -17px;
   }
   .previous {
-    background: url("@{static-url}/global/images/icons/arrows.png") 0px -120px no-repeat;
-    left: -30px;
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px -70px no-repeat;
+    left: -17px;
+  }
+  .next.disabled,
+  .next.disabled:hover {
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px -35px no-repeat;
+   }
+  .previous.disabled,
+  .previous.disabled:hover {
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px -105px no-repeat;
   }
   .next:hover {
-    background: url("@{static-url}/global/images/icons/arrows.png") 0px 0px no-repeat;
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px -140px no-repeat;
    }
   .previous:hover {
-    background: url("@{static-url}/global/images/icons/arrows.png") 0px -40px no-repeat;
+    background: url("@{static-url}/global/images/icons/arrows.png") 0px -175px no-repeat;
   }
 }
 
@@ -669,8 +679,8 @@ form {
 }
 
 .lightgray {
-  background-color: @lightgray;
-  border: 1px solid @midgray;
+  background-color: @backgroundgray;
+  border: 1px solid @midgreen;
 }
 
 

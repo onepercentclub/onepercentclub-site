@@ -12,6 +12,7 @@ App.projectSearchController = Em.ArrayController.create({
 
     // Project preview search results.
     searchResults: null,
+    searchResultsMeta: [],
 
     // List of regions and countries returned from the search form filter.
     filteredRegions: [],
@@ -27,6 +28,18 @@ App.projectSearchController = Em.ArrayController.create({
         this.populate();
     },
 
+    nextSearchResult: function() {
+        var meta  = this.get('searchResultsMeta');
+        next = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.next)||[,null])[1]
+        return next;
+    }.property('searchResultsMeta'),
+    
+    previousSearchResult: function() {
+        var meta  = this.get('searchResultsMeta');
+        previous = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.previous)||[,null])[1]
+        return previous;
+    }.property('searchResultsMeta'),
+    
     populate: function() {
         var controller = this;
         require(['app/data_source'], function(){
@@ -37,6 +50,7 @@ App.projectSearchController = Em.ArrayController.create({
             var projectPreviewQuery = $.extend({limit: 4}, query);
             App.dataSource.get('projectpreview', projectPreviewQuery, function(data) {
                 controller.set('searchResults', data['objects']);
+                controller.set('searchResultsMeta', data['meta']);
             });
 
             // Get the project search data using the same query.
@@ -122,12 +136,63 @@ App.ProjectSearchFormView = Em.View.extend({
 //        template tag or (2) create the anonymous handlebar scripts in HTML and load
 //        them manually. The best option is probably (2) because we want that functionality
 //        for other reasons.
-//
+
     }
 });
 
 
 /* The search results. */
+App.ProjectSearchResultsSectionView  = Em.View.extend({
+    tagName: 'div',
+    classNames: 'lightgray section results',
+    templateName: 'project-search-results-section',
+});
+
+
+App.ProjectSearchResultsNextView = Em.View.extend({
+  nextBinding : 'App.projectSearchController.nextSearchResult',
+  template: '',
+  tagName : 'div',
+  classNames: 'paginator next',
+  classNameBindings: ['disabled'],
+  disabled: function(){
+    if (this.next == null) return true;
+    return false;
+  }.property('next'),
+  click: function(){
+    if (this.next) {
+      App.projectSearchController.changeFilterElement({
+        searchFilter : 'offset',
+        value : this.next
+      })
+    }
+  }
+});
+
+
+App.ProjectSearchResultsPreviousView = Em.View.extend({
+  previousBinding : 'App.projectSearchController.previousSearchResult',
+  template: '',
+  tagName : 'div',
+  classNames: 'paginator previous',
+  //TODO: Do hidden smarter (template?)
+  classNameBindings: ['disabled'],
+  disabled: function(){
+    if (this.previous == null) return true;
+    return false;
+  }.property('previous'),
+  //TODO: Use Ember solution
+  click: function(){
+    if (this.next) {
+      App.projectSearchController.changeFilterElement({
+        searchFilter : 'offset',
+        value : this.next
+      })
+    }
+  }
+});
+
+
 App.ProjectSearchResultsView = Em.CollectionView.extend({
     tagName: 'ul',
     templateName: 'project-search-results',
