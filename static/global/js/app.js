@@ -34,13 +34,36 @@ App = Em.Application.create({
 // Set basic Project route
 App.ProjectRoute = Em.Route.extend({
     route : '/projects',
+    projectDetail: function(router, event) {
+        router.transitionTo('projects.detail', event.context);
+    },
     connectOutlets : function(router, event) {
         require(['app/projects'], function(){
-            router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
+            router.get('applicationController').connectOutlet('topPanel', 'projectStart');
             router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
             router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResultsSection');
         });
-    }
+    },
+    detail: Em.Route.extend({
+        route: '/:project',
+        deserialize: function(router, params) {
+            return params.project
+        },
+        serialize: function(router, context) {
+            require(['app/projects'], function(){
+                // Is called for action and loading by bookmarked url
+                // FIXME: Why can't we get this trough router.get()??
+                App.projectDetailController.populate(context);
+                return {project: context}
+            });
+        },
+        connectOutlets : function(router, event) {
+            require(['app/projects'], function(){
+                router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
+            });
+        }
+        
+    }) 
 });
 
 App.RootRoute = Em.Route.extend({
