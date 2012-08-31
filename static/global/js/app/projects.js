@@ -87,7 +87,7 @@ App.ProjectSearchTextField = Em.TextField.extend({
 /* The search results. */
 App.ProjectSearchResultsSectionView  = Em.View.extend({
     tagName: 'div',
-    classNames: 'lightgreen section results',
+    classNames: 'lightgray section results',
     templateName: 'project-search-results-section',
 });
 
@@ -97,8 +97,8 @@ App.ProjectSearchResultsNextView = Em.View.extend({
   template: '',
   tagName : 'div',
   classNames: 'paginator next',
-  classNameBindings: ['hidden'],
-  hidden: function(){
+  classNameBindings: ['disabled'],
+  disabled: function(){
     if (this.next == null) return true;
     return false;
   }.property('next'),
@@ -119,8 +119,8 @@ App.ProjectSearchResultsPreviousView = Em.View.extend({
   tagName : 'div',
   classNames: 'paginator previous',
   //TODO: Do hidden smarter (template?)
-  classNameBindings: ['hidden'],
-  hidden: function(){
+  classNameBindings: ['disabled'],
+  disabled: function(){
     if (this.previous == null) return true;
     return false;
   }.property('previous'),
