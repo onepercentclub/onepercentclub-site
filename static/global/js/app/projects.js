@@ -100,7 +100,7 @@ App.projectSearchController = Em.ArrayController.create({
 App.ProjectSearchFormView = Em.View.extend({
     tagName : 'form',
     templateName: 'project-search-form',
-    classNames: ['search', 'row'],
+    classNames: ['search'],
 
     submit: function(event) {
         // inspired by http://jsfiddle.net/dgeb/RBbpS/
@@ -123,7 +123,6 @@ App.ProjectSearchFormView = Em.View.extend({
 //        them manually. The best option is probably (2) because we want that functionality
 //        for other reasons.
 //
-
     }
 });
 
@@ -132,7 +131,7 @@ App.ProjectSearchFormView = Em.View.extend({
 App.ProjectSearchResultsView = Em.CollectionView.extend({
     tagName: 'ul',
     templateName: 'project-search-results',
-    classNames: ['list', 'row'],
+    classNames: ['row'],
 
     contentBinding: 'App.projectSearchController.searchResults',
     itemViewClass: 'App.ProjectPreviewView'
