@@ -46,6 +46,9 @@ App.ProjectRoute = Em.Route.extend({
     },
     detail: Em.Route.extend({
         route: '/:project',
+        doMediaPictures: function(router, event){
+            router.transitionTo('projects.detail.pictures', event.context);
+        },
         deserialize: function(router, params) {
             return params.project
         },
@@ -61,8 +64,7 @@ App.ProjectRoute = Em.Route.extend({
             require(['app/projects'], function(){
                 router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
             });
-        }
-        
+        },
     }) 
 });
 

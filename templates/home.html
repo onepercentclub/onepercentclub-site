@@ -46,32 +46,39 @@
                     <a href="" class="dm">SEND DM</a>
                 </div>
             </div>
-            <div class="column grid_2">
+            <div class="column grid_2wide">
                 {{view "App.ProjectMediaView"}}
             </div>
             <div class="column grid_1">
                 {{view "App.ProjectStatsView"}}
+            </div>
+            <div class="resize">
+                <a href>SHOW ALL PROJECT DETAILS</a>
             </div>
         </div>
     {% endtplhandlebars %}
     
     {% tplhandlebars "project-media" %}
         <div class="viewer">
-            {{outlet}}
+            <ul>
+                <li>
+                    <div class="imageviewer">
+                        <img {{bindAttr src="view.content.picture"}}/>
+                    </div>
+                </li>
+                <li class="hidden">{{view "App.ProjectMediaPlanView"}}</li>
+                <li class="hidden">{{view "App.ProjectMediaVideosView"}}</li>
+                <li class="hidden">{{view "App.ProjectMediaMapView"}}</li>
+            </ul>
         </div>
         <ul class ="nav nav-viewer">
-            <li {{bindAttr class="isSectionPictures:active"}}><a {{action "doMediaPictures"}}>Pictures</a></li>
-            <li {{bindAttr class="isSectionProjectPlan:active"}}><a {{action "doMediaPlan"}}>Project Plan</a></li>
-            <li {{bindAttr class="isSectionVideos:active"}}><a {{action "doMediaVideos"}}>Videos</a></li>
-            <li {{bindAttr class="isSectionMap:active"}}><a {{action "doMediaMap"}}>Map</a></li>
+            <li><a {{action "changeMedia"}}>Pictures</a></li>
+            <li><a {{action "changeMedia"}}>Project Plan</a></li>
+            <li><a {{action "changeMedia"}}>Videos</a></li>
+            <li><a {{action "changeMedia"}}>Map</a></li>
         </ul>
     {% endtplhandlebars %}
 
-    {% tplhandlebars "project-media-pictures" %}
-        <div class="imageviewer">
-            <img {{bindAttr src="view.content.picture"}}/>
-        </div>
-    {% endtplhandlebars %}
     
     {% tplhandlebars "project-media-plan" %}
         <div class="text">
@@ -192,7 +199,6 @@
             </div>
             <div class="resize">
                 <a href>OPEN ADVANCED SEARCH</a>
-                
             </div>
         </div>
     {% endtplhandlebars %}

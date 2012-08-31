@@ -251,6 +251,7 @@ App.ProjectStatsView = Em.View.extend({
 });
 
 App.ProjectMediaView = Em.View.extend({
+    contentBinding: 'App.projectDetailController.content',
     templateName:'project-media'
 });
 
