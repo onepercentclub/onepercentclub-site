@@ -37,7 +37,7 @@ south==0.7.5
 
 # Tastypie, for the API!
 # django-tastypie
--e git+https://github.com/toastdriven/django-tastypie.git@1367d7a45587b2af9969d16c3c641a255a8d5b8e#egg=tastypie
+-e git+https://github.com/toastdriven/django-tastypie.git@f5ae8bf995f8777a0f917c08723c2e8ef049dd76#egg=tastypie
 
 # Jenkins integration
 django-jenkins==0.13.0
