@@ -1,0 +1,44 @@
+[main]
+host = https://www.transifex.com
+
+[bluebottle.accounts_django]
+file_filter = apps/accounts/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/accounts/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.donations_django]
+file_filter = apps/donations/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/donations/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.geo_django]
+file_filter = apps/geo/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/geo/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.media_django]
+file_filter = apps/media/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/media/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.organizations_django]
+file_filter = apps/organizations/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/organizations/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.projects_django]
+file_filter = apps/projects/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/projects/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.templates]
+file_filter = locale/<lang>/LC_MESSAGES/django.po
+source_file = locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
