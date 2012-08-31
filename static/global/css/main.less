@@ -623,7 +623,7 @@ form {
 
 .project-mid {
   font-size: 0.8em;
-  border: 1px solid @green;
+  border: 1px solid @gray;
   margin: 10px;
   a {
     color: @white;
@@ -637,8 +637,7 @@ form {
       bottom: 0px;
       height: 68px;
       width: 225px;
-      opacity: 0.5;
-      background-color: @black;
+      background: rgba(0,0,0,0.5);
     }
     .title,
     .location {
@@ -668,9 +667,20 @@ form {
   }
 }
 
+.project-mid.active {
+  border: 1px solid @green;
+  .image {
+    .info {
+      background: rgba(0,192,81,0.5);
+    }
+  }
+}
+
+
 .section {
-  margin-bottom: 10px;
-  padding: 6px 0px;
+  margin-bottom: 20px;
+  padding: 6px 0px 12px;
+  position: relative;
 }
 
 .lightgreen {
@@ -686,20 +696,35 @@ form {
 
 
 form.search {
-  input {
-    width: 210px;
+  input[type=submit] {
+    border: 0px;
+    background: url("@{static-url}/global/images/icons/search.png") no-repeat right @white;
+    width: 26px;
+    height: 23px;
+  }
+  input[type=text] {
+    width: 170px;
     border: 1px solid @midgreen;
-    padding: 4px;
-    border-radius: 4px;
+    padding: 2px;
+    margin:0px;
+  }
+  .select {
+    background: url("@{static-url}/global/images/icons/pulldown.png") no-repeat right @white;
+    border: 1px solid @midgreen;
+    width: 216px;
+    overflow: hidden;
   }
   select {
-    width: 220px;
-    background-color: @lightgreen;
-    border: 1px solid @midgreen;
-    padding: 4px;
-    border-radius: 4px;
+    margin:0px;
+    border: 0px;
+    background: transparent;
+    width: 240px;
+    color: @darkgray;
+    padding: 2px;
     option {
-      background-color: @lightgreen;
+      background-color: @white;
+      color: @darkgray;
+      padding: 2px;
     }
   }
 }
@@ -842,4 +867,21 @@ ul.categories {
   border: 2px solid @green;
   background-color: @white;
   width: 84px;
+}
+
+.resize {
+  a {
+    display: block;
+    color: @green;
+    margin: 8px 12px;
+  }
+  font-weight: bold;
+  text-align: right;
+  font-size: 0.8em;
+  background: url("@{static-url}/global/images/elements/resize-tab.png") center bottom no-repeat @backgroundgreen;
+  width: 228px;
+  height: 25px;
+  position: absolute;
+  right: 20px;
+  bottom: -14px;
 }

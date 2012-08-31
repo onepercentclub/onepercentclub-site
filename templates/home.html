@@ -163,36 +163,36 @@
     {% tplhandlebars "project-search-form" %}
         <div class="section lightgreen">
             <div class="row">
-                <div class="column grid_4">
-                    <h1>BROWSE 400 1%PROJECTS</h1>
+                <div class="column grid_1">
+                    <h3>400 1%PROJECTS</h3>
+                </div>
+                <div class="column grid_1">
+                    {{view Ember.TextField valueBinding="App.projectSearchController.searchText"}}<input type="submit" class="search" value="" />
+                </div>
+                <div class="column grid_1">
+                    <div class="select">
+                        {{view Ember.Select viewName="select"
+                                            contentBinding="App.projectSearchController.filteredRegions"
+                                            optionLabelPath="content.name"
+                                            optionValuePath="content.id"
+                                            prompt="Region"
+                                            selectionBinding="App.projectSearchController.selectedRegion"}}
+                    </div>
+                </div>
+                <div class="column grid_1">
+                    <div class="select">
+                        {{view Ember.Select viewName="select"
+                                            contentBinding="App.projectSearchController.filteredCountries"
+                                            optionLabelPath="content.name"
+                                            optionValuePath="content.id"
+                                            prompt="Country"
+                                            selectionBinding="App.projectSearchController.selectedCountry"}}
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="column grid_1">
-                    {{view Ember.TextField valueBinding="App.projectSearchController.searchText"}}
-                    <button type="submit">
-                        <img src="http://placehold.it/15x15">
-                    </button>
-                </div>
-                <div class="column grid_1">
-                    {{view Ember.Select viewName="select"
-                                        contentBinding="App.projectSearchController.filteredRegions"
-                                        optionLabelPath="content.name"
-                                        optionValuePath="content.id"
-                                        prompt="Region"
-                                        selectionBinding="App.projectSearchController.selectedRegion"}}
-                </div>
-                <div class="column grid_1">
-                    {{view Ember.Select viewName="select"
-                                        contentBinding="App.projectSearchController.filteredCountries"
-                                        optionLabelPath="content.name"
-                                        optionValuePath="content.id"
-                                        prompt="Country"
-                                        selectionBinding="App.projectSearchController.selectedCountry"}}
-                </div>
-                <div class="column grid_1">
-                    
-                </div>
+            <div class="resize">
+                <a href>OPEN ADVANCED SEARCH</a>
+                
             </div>
         </div>
     {% endtplhandlebars %}
