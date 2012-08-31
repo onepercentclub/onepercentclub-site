@@ -1,4 +1,5 @@
 {% load thumbnail %}
+{% load i18n %}
 {% load url from future %}
 
 <div class="profile-viewer">
@@ -10,14 +11,14 @@
 		{% endthumbnail %}
 	</div>
 	<div class="videos pane hidden">
-		VIDEOS
+		{% trans "Videos" %}
 	</div>
 	<div class="map pane hidden">
 		<a href="{% url "project_map" project.slug  %}">
 			<img id="static_mini_map" src="http://maps.googleapis.com/maps/api/staticmap?center={{ project.latitude }},{{ project.longitude }}&amp;maptype=roadmap&amp;zoom=6&amp;size=220x220&amp;markers=icon:http://tinyurl.com/3h9h74c|{{ project.latitude }},{{ project.longitude }}&amp;sensor=true" alt="MAP">				
 		</a>
 	</div>
-	<a href="/" for="pictures" class="ajax panelink">PICTURES</a>
-	<a href="/" for="videos" class="ajax panelink">VIDEOS</a>
-	<a href="{% url "project_map" project.slug %}" for="map" class="ajax panelink">MAP</a>
+	<a href="/" for="pictures" class="ajax panelink">{% trans "Pictures" %}</a>
+	<a href="/" for="videos" class="ajax panelink">{% trans "Videos" %}</a>
+	<a href="{% url "project_map" project.slug %}" for="map" class="ajax panelink">{% trans "Map" %}</a>
 </div>
