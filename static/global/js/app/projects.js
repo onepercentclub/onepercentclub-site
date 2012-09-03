@@ -112,7 +112,7 @@ App.projectSearchController = Em.ArrayController.create({
     },
 
     // Updates the query based on the queryParam and populates the data.
-    updateParam: function(queryParam, addOrRemove) {
+    updateParam: function(queryParam, remove) {
         var query = this.get('query');
         var tempQuery = $.extend({}, query);
 
@@ -130,19 +130,19 @@ App.projectSearchController = Em.ArrayController.create({
         }
 
         // Create an updated query.
-        if (addOrRemove) {
-            var updatedQuery = $.extend(queryParam, tempQuery);
-        } else {
+        if (remove) {
             var updatedQuery = tempQuery;
+        } else {
+            var updatedQuery = $.extend(queryParam, tempQuery);
         }
 
-        // Set the query updated query.
+        // Set the updated query.
         this.set('query', updatedQuery);
     },
 
     // Functions to handle specific interactions from the UI
     submitSearchForm: function(event) {
-        this.updateParam({'offset': 0}, false);
+        this.updateParam({'offset': null}, true);
         this.update();
         this.populate();
     },
@@ -150,7 +150,7 @@ App.projectSearchController = Em.ArrayController.create({
     clickPrevNext: function(event, offset) {
         var param = {};
         param['offset'] = offset;
-        this.updateParam(param, true);
+        this.updateParam(param);
         this.populate();
     }
 
