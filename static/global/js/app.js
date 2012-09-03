@@ -46,8 +46,8 @@ App.ProjectRoute = Em.Route.extend({
     },
     detail: Em.Route.extend({
         route: '/:project',
-        doMediaPictures: function(router, event){
-            router.transitionTo('projects.detail.pictures', event.context);
+        changeMediaViewer: function(router, event){
+            console.log(event);
         },
         deserialize: function(router, params) {
             return params.project

@@ -72,10 +72,10 @@
             </ul>
         </div>
         <ul class ="nav nav-viewer">
-            <li><a {{action "changeMedia"}}>Pictures</a></li>
-            <li><a {{action "changeMedia"}}>Project Plan</a></li>
-            <li><a {{action "changeMedia"}}>Videos</a></li>
-            <li><a {{action "changeMedia"}}>Map</a></li>
+            <li><a {{action "changeMediaViewer" media-name="pictures"}}>Pictures</a></li>
+            <li><a {{action "changeMediaViewer"}} name="plan">Project Plan</a></li>
+            <li><a {{action "changeMediaViewer"}}>Videos</a></li>
+            <li><a {{action "changeMediaViewer"}}>Map</a></li>
         </ul>
     {% endtplhandlebars %}
 
