@@ -25,7 +25,7 @@ App = Em.Application.create({
     /* Home */
     HomeView : Em.View.extend({
         templateName : 'home'
-    }),
+    })
 
 });
 
