@@ -196,6 +196,7 @@ body {
 
 #sitemenu,
 #topmenu {
+  z-index: 20;
   background-color: @green;
   color: white;
   font-size: 0.9em;
@@ -270,7 +271,7 @@ body {
 }
 
 
-#toppanel {
+#top-panel {
   position: relative;
   
   //background-color: @backgroundgreen;
@@ -292,6 +293,9 @@ body {
   }
   p, ul {
     margin: 0px 0px 12px 0px;
+  }
+  .viewer ul {
+    margin: 0px;
   }
   .profile-image {
     border: 1px solid black;
@@ -736,7 +740,7 @@ form.search {
   border: 1px solid @midgreen;
 }
 
-#toppanel .location {
+#top-panel .location {
   background-color: @lightgreen;
   h4 {
     font-size: 1.3em;
@@ -832,11 +836,11 @@ ul.categories {
 }
 
 
-#toppanel .half.left {
+#top-panel .half.left {
   margin-right: 5px;
 }
 
-#toppanel .half {
+#top-panel .half {
   width: 90px;
   color: @white;
   font-family: @futura;
@@ -846,25 +850,24 @@ ul.categories {
     //color: @white;
     color: @gray;
   }
-  border-radius: 12px;
   padding: 8px;
   //background-color: @gray;
   background-color: @white;
-  border: 2px solid @gray;
+  border: 1px solid @gray;
   width: 84px;
   color: @gray;
    
 }
 
 
-#toppanel .half.green {
+#top-panel .half.green {
   
 //  background-color: @green;
   color: @green;
   h1 {
     color: @green;
   }
-  border: 2px solid @green;
+  border: 1px solid @green;
   background-color: @white;
   width: 84px;
 }

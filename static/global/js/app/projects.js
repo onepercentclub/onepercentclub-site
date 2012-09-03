@@ -5,6 +5,9 @@
 App.ProjectPreviewModel = Em.Object.extend({
 });
 
+App.ProjectModel = Em.Object.extend({
+});
+
 
 App.projectSearchController = Em.ArrayController.create({
     // The saved query state.
@@ -268,11 +271,54 @@ App.projectModel = Em.Object.create({
     url:'projectdetail'
 });
 
-
-App.projectController = Em.Controller.create({
-});
+App.projectDetailController = Em.ObjectController.create({
+    //content: null,
+    populate: function(slug){
+        var controller = this;
+        require(['app/data_source'], function(){
+            var query = controller.get('queextendry');
+            App.dataSource.get('projectdetail/' + slug, {}, function(data) {
+                controller.set('content', data);
+            });
+        })
+    }
+    
+})
 
 
 App.ProjectDetailView = Em.View.extend({
-    templateName:'project-detail'
+    contentBinding: 'App.projectDetailController.content',
+    templateName:'project-detail',
+    classNames: ['lightgreen', 'section']
 });
+
+App.ProjectStatsView = Em.View.extend({
+    templateName:'project-stats'
+});
+
+App.ProjectMediaView = Em.View.extend({
+    contentBinding: 'App.projectDetailController.content',
+    templateName:'project-media'
+});
+
+App.ProjectMediaPicturesView = Em.View.extend({
+    templateName:'project-media-pictures'
+});
+
+App.ProjectMediaPlanView = Em.View.extend({
+    templateName:'project-media-plan'
+});
+
+App.ProjectMediaVideosView = Em.View.extend({
+    templateName:'project-media-videos'
+});
+
+App.ProjectMediaMapView = Em.View.extend({
+    templateName:'project-media-map'
+});
+
+
+App.ProjectStartView = Em.View.extend({
+    templateName:'project-start'
+});
+
