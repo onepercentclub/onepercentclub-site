@@ -178,7 +178,7 @@
                 </div>
                 <div class="column grid_1">
                     <div class="select">
-                        {{view Ember.Select viewName="select"
+                        {{view App.ProjectSearchSelect viewName="select"
                                             contentBinding="App.projectSearchController.filteredRegions"
                                             optionLabelPath="content.name"
                                             optionValuePath="content.id"
@@ -188,7 +188,7 @@
                 </div>
                 <div class="column grid_1">
                     <div class="select">
-                        {{view Ember.Select viewName="select"
+                        {{view App.ProjectSearchSelect viewName="select"
                                             contentBinding="App.projectSearchController.filteredCountries"
                                             optionLabelPath="content.name"
                                             optionValuePath="content.id"
