@@ -33,10 +33,12 @@ App = Em.Application.create({
 
 // Set basic Project route
 App.ProjectRoute = Em.Route.extend({
-    route : '/projects',
+    route: '/projects',
+
     projectDetail: function(router, event) {
         router.transitionTo('projects.detail', event.context);
     },
+
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){
             router.get('applicationController').connectOutlet('topPanel', 'projectStart');
@@ -44,6 +46,12 @@ App.ProjectRoute = Em.Route.extend({
             router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResultsSection');
         });
     },
+
+    // Route for the main projects view.
+    index: Em.Route.extend({
+        route: "/"
+    }),
+
     detail: Em.Route.extend({
         route: '/:project',
         changeMediaViewer: function(router, event){
@@ -55,7 +63,7 @@ App.ProjectRoute = Em.Route.extend({
         serialize: function(router, context) {
             return {project: context.slug};
         },
-        connectOutlets : function(router, context) {
+        connectOutlets: function(router, context) {
             require(['app/projects'], function(){
                 App.projectDetailController.populate(context.slug);
                 router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
@@ -69,11 +77,8 @@ App.RootRoute = Em.Route.extend({
     gotoHome : function(router, event) {
         router.transitionTo('home');
     },
-    gotoProjectInfo : function(router, event) {
-        router.transitionTo('projects.info');
-    },
     gotoProjects : function(router, event) {
-        router.transitionTo('projects');
+        router.transitionTo('projects.index');
     },
     // Language switching
     switchLanguage : function(router, event) {
@@ -83,7 +88,7 @@ App.RootRoute = Em.Route.extend({
         $(event.srcElement).addClass('active');
     },
     // The actual routing
-    home : Em.Route.extend({
+    home: Em.Route.extend({
         route : '/',
         connectOutlets: function(router, context) {
             router.get('applicationController').connectOutlet('topPanel', 'home');
