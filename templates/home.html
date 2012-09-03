@@ -214,7 +214,7 @@
     {% endtplhandlebars %}
 
     {% tplhandlebars "project-preview" %}
-        <a {{action projectDetail view.content.slug}}>
+        <a {{action projectDetail view.content}}>
         <div class="image">
             <img {{bindAttr src="view.content.thumbnail"}}/>
             <div class="info"></div>

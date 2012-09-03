@@ -37,7 +37,7 @@ App.ProjectRoute = Em.Route.extend({
     projectDetail: function(router, event) {
         router.transitionTo('projects.detail', event.context);
     },
-    connectOutlets : function(router, event) {
+    connectOutlets : function(router, context) {
         require(['app/projects'], function(){
             router.get('applicationController').connectOutlet('topPanel', 'projectStart');
             router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
@@ -50,21 +50,17 @@ App.ProjectRoute = Em.Route.extend({
             console.log(event);
         },
         deserialize: function(router, params) {
-            return params.project
+            return {slug: params.project}
         },
         serialize: function(router, context) {
-            require(['app/projects'], function(){
-                // Is called for action and loading by bookmarked url
-                // FIXME: Why can't we get this trough router.get()??
-                App.projectDetailController.populate(context);
-                return {project: context}
-            });
+            return {project: context.slug};
         },
-        connectOutlets : function(router, event) {
+        connectOutlets : function(router, context) {
             require(['app/projects'], function(){
+                App.projectDetailController.populate(context.slug);
                 router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
             });
-        },
+        }
     }) 
 });
 
@@ -89,18 +85,18 @@ App.RootRoute = Em.Route.extend({
     // The actual routing
     home : Em.Route.extend({
         route : '/',
-        connectOutlets : function(router, event) {
+        connectOutlets: function(router, context) {
             router.get('applicationController').connectOutlet('topPanel', 'home');
             router.get('applicationController').connectOutlet('midPanel', 'empty');
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         }
     }),
-    projects : App.ProjectRoute
+    projects: App.ProjectRoute
 });
 
 App.Router = Em.Router.extend({
     history: 'hash',
-    root : App.RootRoute
+    root: App.RootRoute
 });
 
 $(function() {
