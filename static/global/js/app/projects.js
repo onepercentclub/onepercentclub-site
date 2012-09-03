@@ -28,18 +28,22 @@ App.projectSearchController = Em.ArrayController.create({
         this.populate();
     },
 
+
+    // Computed properties used for pagination.
     nextSearchResult: function() {
         var meta  = this.get('searchResultsMeta');
-        next = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.next)||[,null])[1]
+        var next = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.next)||[,null])[1]
         return next;
     }.property('searchResultsMeta'),
     
     previousSearchResult: function() {
         var meta  = this.get('searchResultsMeta');
-        previous = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.previous)||[,null])[1]
+        var previous = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.previous)||[,null])[1]
         return previous;
     }.property('searchResultsMeta'),
-    
+
+
+    // Functions for loading the data.
     populate: function() {
         var controller = this;
         require(['app/data_source'], function(){
@@ -97,7 +101,6 @@ App.projectSearchController = Em.ArrayController.create({
 
         // Add or remove the country query parameter.
         var selectedCountry = this.get('selectedCountry');
-        console.log(selectedCountry);
         if (selectedCountry != null && selectedCountry['id'].length > 0) {
             query.countries = selectedCountry['id'];
         } else {
@@ -105,9 +108,52 @@ App.projectSearchController = Em.ArrayController.create({
         }
 
         // Set the query and re-populate the data.
-        this.set('query', query)
+        this.set('query', query);
+    },
+
+    // Updates the query based on the queryParam and populates the data.
+    updateParam: function(queryParam, addOrRemove) {
+        var query = this.get('query');
+        var tempQuery = $.extend({}, query);
+
+        // Delete the param if it's already in the query. This lets us update
+        // the param or leave it deleted depending on what's requested.
+        var i = 0;
+        for (var property in queryParam) {
+            if (i > 0) {
+                break;  // Only use the first property in queryParam.
+            }
+            if (undefined != tempQuery[property]) {
+                delete tempQuery[property];
+            }
+            i++;
+        }
+
+        // Create an updated query.
+        if (addOrRemove) {
+            var updatedQuery = $.extend(queryParam, tempQuery);
+        } else {
+            var updatedQuery = tempQuery;
+        }
+
+        // Set the query updated query.
+        this.set('query', updatedQuery);
+    },
+
+    // Functions to handle specific interactions from the UI
+    submitSearchForm: function(event) {
+        this.updateParam({'offset': 0}, false);
+        this.update();
+        this.populate();
+    },
+
+    clickPrevNext: function(event, offset) {
+        var param = {};
+        param['offset'] = offset;
+        this.updateParam(param, true);
         this.populate();
     }
+
 });
 
 /* The search form. */
@@ -119,7 +165,7 @@ App.ProjectSearchFormView = Em.View.extend({
     submit: function(event) {
         // inspired by http://jsfiddle.net/dgeb/RBbpS/
         event.preventDefault();
-        App.projectSearchController.update();
+        App.projectSearchController.submitSearchForm(event);
 //        We want to do something generic like this:
 //
 //        this.get('controller').update();
@@ -144,52 +190,52 @@ App.ProjectSearchFormView = Em.View.extend({
 /* The search results. */
 App.ProjectSearchResultsSectionView  = Em.View.extend({
     tagName: 'div',
-    classNames: 'lightgray section results',
-    templateName: 'project-search-results-section',
+    classNames: ['lightgray', 'section', 'results'],
+    templateName: 'project-search-results-section'
 });
 
 
 App.ProjectSearchResultsNextView = Em.View.extend({
-  nextBinding : 'App.projectSearchController.nextSearchResult',
-  template: '',
-  tagName : 'div',
-  classNames: 'paginator next',
-  classNameBindings: ['disabled'],
-  disabled: function(){
-    if (this.next == null) return true;
-    return false;
-  }.property('next'),
-  click: function(){
-    if (this.next) {
-      App.projectSearchController.changeFilterElement({
-        searchFilter : 'offset',
-        value : this.next
-      })
+    tagName: 'div',
+    classNames: ['paginator', 'next'],
+
+    nextBinding: 'App.projectSearchController.nextSearchResult',
+    //TODO: Do hidden smarter (template?)
+    classNameBindings:['disabled'],
+
+    disabled: function () {
+        if (this.next == null) return true;
+        return false;
+    }.property('next'),
+
+    click: function(event) {
+        if (this.next) {
+            // TODO: Can we make this independent of the controller?
+            App.projectSearchController.clickPrevNext(event, this.next);
+        }
     }
-  }
 });
 
 
 App.ProjectSearchResultsPreviousView = Em.View.extend({
-  previousBinding : 'App.projectSearchController.previousSearchResult',
-  template: '',
-  tagName : 'div',
-  classNames: 'paginator previous',
-  //TODO: Do hidden smarter (template?)
-  classNameBindings: ['disabled'],
-  disabled: function(){
-    if (this.previous == null) return true;
-    return false;
-  }.property('previous'),
-  //TODO: Use Ember solution
-  click: function(){
-    if (this.next) {
-      App.projectSearchController.changeFilterElement({
-        searchFilter : 'offset',
-        value : this.next
-      })
+    tagName: 'div',
+    classNames: ['paginator', 'previous'],
+
+    previousBinding: 'App.projectSearchController.previousSearchResult',
+    // TODO: Do hidden smarter (template?)
+    classNameBindings: ['disabled'],
+
+    disabled: function() {
+        if (this.previous == null) return true;
+        return false;
+    }.property('previous'),
+
+    click: function(event) {
+        if (this.previous) {
+            // TODO: Can we make this independent of the controller?
+            App.projectSearchController.clickPrevNext(event, this.previous);
+        }
     }
-  }
 });
 
 
