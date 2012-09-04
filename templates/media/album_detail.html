@@ -18,7 +18,7 @@
 	{% endfor %}
 </ul>
 
-<h2>{% trans "Videos" }</h2>
+<h2>{% trans "Videos" %}</h2>
 <ul>
 	{% for video in album.embeddedvideo_set.all %}
 		<li><a href="{{ video.get_absolute_url }}">{{ video }}</a></li>
