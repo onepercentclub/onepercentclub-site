@@ -5,7 +5,7 @@
 {% load compress %}<!DOCTYPE HTML>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>{% block htmltitle %}bluebottle{% endblock %}</title>
 
     {% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
@@ -47,8 +47,8 @@
                 <div class="sitebar black" id="topmenu">
                     <div class="menu siteblock">
                         <ul>
-                            <li><a {{action "gotoHome"}} class="active" href="">HOME</a></li>
-                            <li><a {{action "gotoProjects"}} href="">1%PROJECTS</a></li>
+                            <li><a {{action showHome href=true}} class="active">HOME</a></li>
+                            <li><a {{action showProjectStart href=true}}>1%PROJECTS</a></li>
                             <li><a>1%TASKS</a></li>
                             <li><a>1%ACTIONS</a></li>
                             <li><a>LEARN MORE</a></li>
