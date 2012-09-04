@@ -2,7 +2,7 @@ this.BlueMap = function(elementId, project){
     
     this.el = document.getElementById(elementId);
     
-    this.projectApiUrl = '/api/project/';
+    this.projectApiUrl = '/api/projectpreview/';
     
     this.CUSTOM_MAP_STYLE = '1pct';
     
@@ -149,6 +149,9 @@ this.BlueMap = function(elementId, project){
             this.projectFilters = filters;
         };
         var my = this;
+        if (undefined == my.markers) {
+            my.markers = [];
+        }
 
         var coords = my.map.getBounds();
         var url = my.projectApiUrl;
@@ -160,8 +163,9 @@ this.BlueMap = function(elementId, project){
 
         $('#maploading').show();
         $.getJSON(url, function(data){
+          
             for (m in my.markers) {
-                my.markers[m].setMap(null);
+                //my.markers[m].setMap(null);
             };
             $('#maploading').hide();
             var projects = data.objects;

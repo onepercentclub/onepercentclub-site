@@ -322,13 +322,16 @@ App.ProjectMediaMapView = Em.View.extend({
     templateName:'project-media-map',
     map: {},
     didInsertElement: function(){
-        // TODO: Find out why this.content doesn't work...
-        var project = 'App.projectDetailController.content';
-        this.map = new BlueMap('bigmap', {
-            slug: project.slug,
-            latitude: project.latitude,
-            longitude: project.longitude
-        }).showProjects(); 
+        var view = this;
+        Ember.run.later(function(){
+          var project = view.get('content');
+          console.log(project);
+          this.map = new BlueMap('bigmap', {
+              slug: project.slug,
+              latitude: project.latitude,
+              longitude: project.longitude
+          }).showProjects(); 
+        }, 1000)
     },
 });
 
