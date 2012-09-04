@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-04 09:46+0200\n"
+"POT-Creation-Date: 2012-09-04 13:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -43,8 +44,8 @@ msgstr ""
 #: 500.html:12
 #, python-format
 msgid ""
-"If you need assistance, you may reference this error as <strong>%(error_id)"
-"s</strong>."
+"If you need assistance, you may reference this error as <strong>"
+"%(error_id)s</strong>."
 msgstr ""
 
 #: base.html:87
@@ -143,6 +144,11 @@ msgstr ""
 
 #: media/album_detail.html:14 projects/widgets/tiny_viewer.html:21
 msgid "Pictures"
+msgstr ""
+
+#: media/album_detail.html:21 projects/widgets/tiny_viewer.html:14
+#: projects/widgets/tiny_viewer.html:22
+msgid "Videos"
 msgstr ""
 
 #: media/album_list.html:5 projects/detail.html:25
@@ -244,10 +250,6 @@ msgstr ""
 
 #: projects/widgets/phases.html:6
 msgid "Results"
-msgstr ""
-
-#: projects/widgets/tiny_viewer.html:14 projects/widgets/tiny_viewer.html:22
-msgid "Videos"
 msgstr ""
 
 #: projects/widgets/tiny_viewer.html:23
