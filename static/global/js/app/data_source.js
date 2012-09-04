@@ -10,7 +10,7 @@ App.DataSource = Em.Object.extend({
     get: function(url, query, callback) {
         this._ajax(url, "GET", {
             data: query,
-            success:function (json) {
+            success: function (json) {
                 callback(json);
             }
         });

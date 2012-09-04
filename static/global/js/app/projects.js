@@ -273,18 +273,17 @@ App.projectModel = Em.Object.create({
 });
 
 App.projectDetailController = Em.ObjectController.create({
-    //content: null,
+    content: null,
+
     populate: function(slug){
         var controller = this;
         require(['app/data_source'], function(){
-            var query = controller.get('queextendry');
-            App.dataSource.get('projectdetail/' + slug, {}, function(data) {
+            App.dataSource.get('projectdetail' + slug, {}, function(data) {
                 controller.set('content', data);
             });
         })
     }
-    
-})
+});
 
 
 App.ProjectDetailView = Em.View.extend({
