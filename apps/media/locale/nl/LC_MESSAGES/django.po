@@ -1,0 +1,119 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <mathijs@mathijsfietst.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2012-08-31 12:02+0200\n"
+"PO-Revision-Date: 2012-08-31 14:25+0000\n"
+"Last-Translator: dokterbob <mathijs@mathijsfietst.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:20 models.py:50
+msgid "title"
+msgstr "titel"
+
+#: models.py:23
+msgid "slug"
+msgstr "slug"
+
+#: models.py:24 models.py:51
+msgid "description"
+msgstr "beschrijving"
+
+#: models.py:26 models.py:53
+msgid "created"
+msgstr "aangemaakt"
+
+#: models.py:27 models.py:54
+msgid "updated"
+msgstr "aangepast"
+
+#: models.py:30 models.py:48
+msgid "album"
+msgstr "album"
+
+#: models.py:31
+msgid "albums"
+msgstr "albums"
+
+#: models.py:67
+msgid "URL"
+msgstr "URL"
+
+#: models.py:70
+msgid "thumbnail URL"
+msgstr "URL thumbnai"
+
+#: models.py:73
+msgid "thumbnail width"
+msgstr "breedte thumbnail"
+
+#: models.py:76
+msgid "thumbnail height"
+msgstr "hoogte thumbnail"
+
+#: models.py:80
+msgid "providr name"
+msgstr "naam provider"
+
+#: models.py:83
+msgid "provider URL"
+msgstr "URL provider"
+
+#: models.py:87
+msgid "author name"
+msgstr "naam auteur"
+
+#: models.py:90
+msgid "author URL"
+msgstr "URL auteur"
+
+#: models.py:106
+msgid "Could not find metadata for object."
+msgstr "Kon geen metadata vinden voor object."
+
+#: models.py:130
+msgid "picture"
+msgstr "afbeelding"
+
+#: models.py:133
+msgid "local picture"
+msgstr "lokale foto"
+
+#: models.py:134
+msgid "local pictures"
+msgstr "lokale foto's"
+
+#: models.py:149
+msgid "HTML"
+msgstr "HTML"
+
+#: models.py:150
+msgid "width"
+msgstr "breedte"
+
+#: models.py:151
+msgid "height"
+msgstr "hoogte"
+
+#: models.py:153
+msgid "duration"
+msgstr "duur"
+
+#: models.py:156
+msgid "embedded video"
+msgstr "ingebedde video"
+
+#: models.py:157
+msgid "embedded videos"
+msgstr "ingebedde video's"

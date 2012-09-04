@@ -1,0 +1,175 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <mathijs@mathijsfietst.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2012-08-31 12:02+0200\n"
+"PO-Revision-Date: 2012-08-31 14:29+0000\n"
+"Last-Translator: dokterbob <mathijs@mathijsfietst.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:19
+msgid "name"
+msgstr "naam"
+
+#: models.py:20
+msgid "slug"
+msgstr "slug"
+
+#: models.py:22
+msgid "description"
+msgstr "beschrijving"
+
+#: models.py:25
+msgid "legal status"
+msgstr "juridische status"
+
+#: models.py:26
+msgid "The legal status of the organization (e.g. Foundation)."
+msgstr "De juridische status van de organisatie (b.v. Stichting)."
+
+#: models.py:30
+msgid "phone number"
+msgstr "telefoonnummer"
+
+#: models.py:32
+msgid "email"
+msgstr "email"
+
+#: models.py:34
+msgid "website"
+msgstr "website"
+
+#: models.py:36
+msgid "created"
+msgstr "aangemaakt"
+
+#: models.py:37
+msgid "updated"
+msgstr "aangepast"
+
+#: models.py:38
+msgid "deleted"
+msgstr "verwijderd"
+
+#: models.py:41
+msgid "partner organizations"
+msgstr "partner organisaties"
+
+#: models.py:45
+msgid "account bank name"
+msgstr "banknaam rekening"
+
+#: models.py:48
+msgid "account bank address"
+msgstr "adres voor rekening"
+
+#: models.py:51
+msgid "account bank country"
+msgstr "land voor rekening"
+
+#: models.py:55
+msgid "account IBAN"
+msgstr "IBAN rekening"
+
+#: models.py:58
+msgid "account BIC SWIFT"
+msgstr "BIC SWIFT rekening"
+
+#: models.py:61
+msgid "account number"
+msgstr "nummer rekening"
+
+#: models.py:64
+msgid "account name"
+msgstr "naam rekening"
+
+#: models.py:67
+msgid "account city"
+msgstr "stad rekening"
+
+#: models.py:70
+msgid "tags"
+msgstr "tags"
+
+#: models.py:77 models.py:91 models.py:117
+msgid "organization"
+msgstr "organisatie"
+
+#: models.py:78
+msgid "organizations"
+msgstr "organisaties"
+
+#: models.py:85
+msgid "Owner"
+msgstr "Eigenaar"
+
+#: models.py:86
+msgid "Admin"
+msgstr "Beheerder"
+
+#: models.py:87
+msgid "Editor"
+msgstr "Redacteur"
+
+#: models.py:88
+msgid "Member"
+msgstr "Lid"
+
+#: models.py:93
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:95
+msgid "function"
+msgstr "functie"
+
+#: models.py:96
+msgid "Function might determine Role later on."
+msgstr "Functie zou later de rol kunnen bepalen."
+
+#: models.py:100
+msgid "organization member"
+msgstr "organisatielid"
+
+#: models.py:101
+msgid "organization members"
+msgstr "organisatieleden"
+
+#: models.py:108
+msgid "Physical"
+msgstr "Fysiek"
+
+#: models.py:109
+msgid "Postal"
+msgstr "Post"
+
+#: models.py:110
+msgid "Other"
+msgstr "Anders"
+
+#: models.py:113
+msgid "type"
+msgstr "type"
+
+#: models.py:113
+msgid "Address type."
+msgstr "Adrestype."
+
+#: models.py:121
+msgid "organization address"
+msgstr "organisatieadres"
+
+#: models.py:122
+msgid "organization addresses"
+msgstr "organisatieadressen"
