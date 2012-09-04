@@ -40,9 +40,7 @@ App = Em.Application.create({
 App.ProjectRoute = Em.Route.extend({
     route: '/projects',
 
-    projectDetail: function(router, event) {
-        router.transitionTo('projects.detail', event.context);
-    },
+    showProjectDetail: Em.Route.transitionTo('projects.detail'),
 
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){
@@ -52,13 +50,14 @@ App.ProjectRoute = Em.Route.extend({
         });
     },
 
-    // Route for the main projects view.
-    index: Em.Route.extend({
+    // The project start state.
+    start: Em.Route.extend({
         route: "/"
     }),
 
+    // The project detail state.
     detail: Em.Route.extend({
-        route: '/:project',
+        route: '/:project_slug',
         changeMediaViewer: function(router, event){
             //TODO: is there a better way to do this?
             $(event.srcElement).parents('ul.nav').find('li').removeClass('active');
@@ -69,10 +68,10 @@ App.ProjectRoute = Em.Route.extend({
             
         },
         deserialize: function(router, params) {
-            return {slug: params.project}
+            return {slug: params.project_slug}
         },
         serialize: function(router, context) {
-            return {project: context.slug};
+            return {project_slug: context.slug};
         },
         connectOutlets: function(router, context) {
             require(['app/projects'], function(){
@@ -85,12 +84,10 @@ App.ProjectRoute = Em.Route.extend({
 
 App.RootRoute = Em.Route.extend({
     // Used for navigation
-    gotoHome : function(router, event) {
-        router.transitionTo('home');
-    },
-    gotoProjects : function(router, event) {
-        router.transitionTo('projects.index');
-    },
+    showHome: Em.Route.transitionTo('home'),
+
+    showProjectStart: Em.Route.transitionTo('projects.start'),
+
     // Language switching
     switchLanguage : function(router, event) {
         //TODO: implement language switch

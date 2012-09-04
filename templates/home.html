@@ -148,6 +148,7 @@
             <div class="link">SUPPORT THIS PROJECT</div>
         </div>
     {% endtplhandlebars %}
+
     {% tplhandlebars "project-start" %}
         <h1>PROJECT START</h1>
     {% endtplhandlebars %}
@@ -208,7 +209,7 @@
     {% endtplhandlebars %}
 
     {% tplhandlebars "project-preview" %}
-        <a {{action projectDetail view.content}}>
+        <a {{action showProjectDetail view.content href=true}}>
         <div class="image">
             <img {{bindAttr src="view.content.thumbnail"}}/>
             <div class="info"></div>
