@@ -18,11 +18,22 @@
 
 @font: Arial, Helvetica;
 @futura: 'Futura Std', 'Futura Std Book', 'Futura Std Bold', @font;
-@mainwidth: 1000px;
+@mainwidth: 1040px;
 
-.row {
-  
-}
+.grid_1 {width: 230px;}
+.grid_2 {width: 480px;}
+.grid_3 {width: 730px;}
+.grid_4 {width: 960px;}
+.column {margin: 0 10px 0 10px;
+         overflow: hidden;
+         float: left;
+         display: inline;}
+.row {width: 1000px;
+         margin: 0 auto;
+         overflow: hidden;}
+.row .row {margin: 0 -10px 0 -10px;
+         width: auto;
+         display: inline-block;}
 
 .row.black {
   background-color: @black;
@@ -361,8 +372,8 @@ body {
 /* MAPS */
 
 #bigmap {
-  width: 474px;
-  height: 355px;
+  width: 480px;
+  height: 360px;
   
 }
 
@@ -563,7 +574,7 @@ form {
 .widget, 
 .results ul.list li {
   display: inline-block;
-  width: 225px;
+  width: 230px;
   h3.light {
     background-color: @white;
     color: @green;
@@ -625,18 +636,19 @@ form {
   font-size: 0.8em;
   border: 1px solid @gray;
   margin: 10px;
+  width: 228px;
   a {
     color: @white;
   }
   .image {
     position: relative;
-    width: 225px;
+    width: 228px;
     height: 150px;
     .info {
       position: absolute;
       bottom: 0px;
       height: 68px;
-      width: 225px;
+      width: 228px;
       background: rgba(0,0,0,0.5);
     }
     .title,
@@ -753,7 +765,7 @@ form.search {
 
 .viewer {
   height: 360px;
-  overflow: auto;
+  overflow: hidden;
   width: 480px;
   background-color: @lightgreen;
 }
@@ -772,25 +784,27 @@ form.search {
 
 .nav-viewer {
   width: 480px;
-  border-top: 2px solid @black;
+  border-top: 2px solid @green;
   background-color: @lightgreen;
   padding: 0px 2px 6px 2px;
   li {
     display: inline-block;
     margin: 0px;
-    padding: 4px 8px;
+    padding: 4px 8px 2px;
     border-radius: 0px 0px 4px 4px;
-    border: 1px solid @midgreen;
+    border: 2px solid @midgreen;
     border-top: 0px;
-    background-color: @green;
-    color: @white;
+    color: @green;
+    //background-color: @midgreen;
     text-transform: uppercase;
     font-size: 1.2em;
     font-weight: bold;
     font-family: @futura;
   }
   li.active {
-    background-color: @black;
+    background-color: @green;
+    color: @white;
+    border-color: @green;
   }
 }
 
@@ -837,7 +851,7 @@ ul.categories {
 }
 
 #top-panel .half {
-  width: 90px;
+  width: 92px;
   color: @white;
   font-family: @futura;
   display: inline-block;
@@ -846,11 +860,10 @@ ul.categories {
     //color: @white;
     color: @gray;
   }
-  padding: 8px;
+  padding: 6px;
   //background-color: @gray;
   background-color: @white;
   border: 1px solid @gray;
-  width: 84px;
   color: @gray;
    
 }
@@ -865,7 +878,6 @@ ul.categories {
   }
   border: 1px solid @green;
   background-color: @white;
-  width: 84px;
 }
 
 .resize {

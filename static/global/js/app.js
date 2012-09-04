@@ -60,6 +60,7 @@ App.ProjectRoute = Em.Route.extend({
     detail: Em.Route.extend({
         route: '/:project',
         changeMediaViewer: function(router, event){
+            //TODO: is there a better way to do this?
             $(event.srcElement).parents('ul.nav').find('li').removeClass('active');
             $(event.srcElement).parent('li').addClass('active');
             var name = event.srcElement.name;

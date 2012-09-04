@@ -135,7 +135,7 @@ this.BlueMap = function(elementId, project){
           var MyMapType = new google.maps.StyledMapType(styles, {name: title});
 
         my.map.mapTypes.set(my.CUSTOM_MAP_STYLE, MyMapType);            
-        my.map.setMapTypeId(my.CUSTOM_MAP_STYLE);        
+        my.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);        
     };
     
     /**
@@ -149,9 +149,6 @@ this.BlueMap = function(elementId, project){
             this.projectFilters = filters;
         };
         var my = this;
-        if (undefined == my.markers) {
-            my.markers = [];
-        }
 
         var coords = my.map.getBounds();
         var url = my.projectApiUrl;
@@ -163,31 +160,36 @@ this.BlueMap = function(elementId, project){
 
         $('#maploading').show();
         $.getJSON(url, function(data){
-          
-            for (m in my.markers) {
-                //my.markers[m].setMap(null);
-            };
+            // Check if we have markers set and clear them when moving or zooming the map
+            if (my.markers) {
+                for (var i = 0; i < my.markers.length; i++ ) {
+                    my.markers[i].setMap(null);
+                }
+            }
             $('#maploading').hide();
             var projects = data.objects;
             for (i in projects) {
-                var pos = new google.maps.LatLng(projects[i].latitude, projects[i].longitude);
-                if (projects[i].slug == my.project.slug) {
-                     var marker = new google.maps.Marker({
-                             position: pos,
-                            map: my.map,
-                            icon: my.icons.pink,
-                            shadow: my.icons.shadow
-                        });
-                } else {
-                     var marker = new google.maps.Marker({
-                             position: pos,
-                            map: my.map,
-                            icon: my.icons.green,
-                            shadow: my.icons.shadow
-                        });
-                };
-                my.markers.push(marker);
-            };
+                // Do a double check if we have a project, somtimes it coughs
+                if (projects[i]) {
+                    var pos = new google.maps.LatLng(projects[i].latitude, projects[i].longitude);
+                    if (projects[i].slug == my.project.slug) {
+                         var marker = new google.maps.Marker({
+                                 position: pos,
+                                map: my.map,
+                                icon: my.icons.pink,
+                                shadow: my.icons.shadow
+                            });
+                    } else {
+                         var marker = new google.maps.Marker({
+                                position: pos,
+                                map: my.map,
+                                icon: my.icons.green,
+                                shadow: my.icons.shadow
+                            });
+                    };
+                    my.markers.push(marker);
+                }
+            }
         });
         
     };

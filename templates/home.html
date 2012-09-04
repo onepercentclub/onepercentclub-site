@@ -46,7 +46,7 @@
                     <a href="" class="dm">SEND DM</a>
                 </div>
             </div>
-            <div class="column grid_2wide">
+            <div class="column grid_2">
                 {{view "App.ProjectMediaView"}}
             </div>
             <div class="column grid_1">
@@ -61,7 +61,6 @@
     {% tplhandlebars "project-media" %}
         <div class="viewer">
             <ul>
-                <li id="pane_map" class="hidden">{{view "App.ProjectMediaMapView"}}</li>
                 <li id="pane_pictures">
                     <div class="imageviewer">
                         <img {{bindAttr src="view.content.picture"}}/>
@@ -69,6 +68,7 @@
                 </li>
                 <li id="pane_plan" class="hidden">{{view "App.ProjectMediaPlanView"}}</li>
                 <li id="pane_videos" class="hidden">{{view "App.ProjectMediaVideosView"}}</li>
+                <li id="pane_map">{{view "App.ProjectMediaMapView"}}</li>
             </ul>
         </div>
         <ul class ="nav nav-viewer">

@@ -326,7 +326,6 @@ App.ProjectMediaMapView = Em.View.extend({
         var view = this;
         Ember.run.later(function(){
           var project = view.get('content');
-          console.log(project);
           this.map = new BlueMap('bigmap', {
               slug: project.slug,
               latitude: project.latitude,
