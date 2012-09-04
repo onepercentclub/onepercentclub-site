@@ -278,7 +278,7 @@ App.projectDetailController = Em.ObjectController.create({
     populate: function(slug){
         var controller = this;
         require(['app/data_source'], function(){
-            App.dataSource.get('projectdetail' + slug, {}, function(data) {
+            App.dataSource.get('projectdetail/' + slug, {}, function(data) {
                 controller.set('content', data);
             });
         })
