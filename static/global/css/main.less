@@ -212,17 +212,22 @@ body {
       margin: 0px;
       padding: 6px;
       text-indent: 0px;
+      a {
+        color: @gray;
+        text-decoration: none;
+      }
+      a:hover {
+        color: @white;
+        text-decoration: underline;
+      }
     }
     li.active {
       background: url("@{static-url}/global/images/elements/pointer.png") center bottom no-repeat;
+      a {
+        color: @white;
+        text-decoration: none;
+      }
     }
-  }
-  a {
-    color: white;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
   }
   .languages {
     font-family: @font;
@@ -254,16 +259,6 @@ body {
   position: fixed;
   top: 0px;
   background-color: @black;
-  ul li {
-    padding: 4px 6px;
-  }
-  ul li a {
-    color: @white;
-  }
-  ul li a.active,
-  ul li a:hover {
-    color: @green;
-  }
 }
 
 #header {
@@ -320,7 +315,8 @@ body {
   h3 {
     font-family: @futura;
     margin: 0px 0px 4px;
-    color: @green;
+    padding: 0px;
+    color: @gray;
   }
   h4 a {
     font-family: @futura;

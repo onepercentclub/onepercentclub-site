@@ -1,5 +1,10 @@
 App = Em.Application.create({
     rootElement : '#content',
+    
+    // Check if a current state is in projects
+    inProjects: function() {
+        return false;
+    },
 
     updateRouter : function() {
         var router = this.get('router');
@@ -47,7 +52,12 @@ App.ProjectRoute = Em.Route.extend({
     detail: Em.Route.extend({
         route: '/:project',
         changeMediaViewer: function(router, event){
-            console.log(event);
+            $(event.srcElement).parents('ul.nav').find('li').removeClass('active');
+            $(event.srcElement).parent('li').addClass('active');
+            var name = event.srcElement.name;
+            $("li", ".viewer").addClass("hidden");
+            $("#pane_"+name).removeClass("hidden");
+            
         },
         deserialize: function(router, params) {
             return params.project

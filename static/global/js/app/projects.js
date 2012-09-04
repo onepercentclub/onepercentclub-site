@@ -302,19 +302,34 @@ App.ProjectMediaView = Em.View.extend({
 });
 
 App.ProjectMediaPicturesView = Em.View.extend({
+    contentBinding: 'App.projectDetailController.content',
     templateName:'project-media-pictures'
 });
 
 App.ProjectMediaPlanView = Em.View.extend({
+    contentBinding: 'App.projectDetailController.content',
     templateName:'project-media-plan'
 });
 
 App.ProjectMediaVideosView = Em.View.extend({
+    contentBinding: 'App.projectDetailController.content',
     templateName:'project-media-videos'
 });
 
 App.ProjectMediaMapView = Em.View.extend({
-    templateName:'project-media-map'
+    content: {},
+    contentBinding: 'App.projectDetailController.content',
+    templateName:'project-media-map',
+    map: {},
+    didInsertElement: function(){
+        // TODO: Find out why this.content doesn't work...
+        var project = 'App.projectDetailController.content';
+        this.map = new BlueMap('bigmap', {
+            slug: project.slug,
+            latitude: project.latitude,
+            longitude: project.longitude
+        }).showProjects(); 
+    },
 });
 
 

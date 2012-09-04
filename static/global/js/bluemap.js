@@ -2,7 +2,7 @@ this.BlueMap = function(elementId, project){
     
     this.el = document.getElementById(elementId);
     
-    this.projectApiUrl = '/projects/api/project/';
+    this.projectApiUrl = '/api/project/';
     
     this.CUSTOM_MAP_STYLE = '1pct';
     
