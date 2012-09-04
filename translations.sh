@@ -19,7 +19,7 @@ case "$1" in
             done
 
             echo "Generating PO-file for templates"
-            $MAKEMESSAGES -i env
+            mv locale templates/ && cd templates/ && $MAKEMESSAGES && mv locale ../
 
             ;;
 

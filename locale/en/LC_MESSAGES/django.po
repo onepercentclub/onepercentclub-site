@@ -8,1080 +8,256 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-31 12:02+0200\n"
+"POT-Creation-Date: 2012-09-04 09:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: apps/accounts/admin.py:21
-msgid "Settings"
-msgstr ""
-
-#: apps/accounts/admin.py:24
-msgid "Basic Profile Information"
-msgstr ""
-
-#: apps/accounts/admin.py:28
-msgid "In-depth Profile Information"
-msgstr ""
-
-#: apps/accounts/admin.py:46
-msgid "User"
-msgstr ""
-
-#: apps/accounts/admin.py:65
-msgid "User Profile"
-msgstr ""
-
-#: apps/accounts/models.py:26 apps/projects/models.py:86
-msgid "language"
-msgstr ""
-
-#: apps/accounts/models.py:76
-msgid "Male"
-msgstr ""
-
-#: apps/accounts/models.py:77
-msgid "Female"
-msgstr ""
-
-#: apps/accounts/models.py:78 apps/accounts/models.py:179
-#: apps/organizations/models.py:110
-msgid "Other"
-msgstr ""
-
-#: apps/accounts/models.py:81 apps/donations/models.py:38
-#: apps/organizations/models.py:93 apps/projects/models.py:351
-#: apps/projects/models.py:366
-msgid "user"
-msgstr ""
-
-#: apps/accounts/models.py:82 apps/media/models.py:23
-#: apps/organizations/models.py:20 apps/projects/models.py:23
-#: apps/projects/models.py:45 apps/projects/models.py:150
-msgid "slug"
-msgstr ""
-
-#: apps/accounts/models.py:86
-msgid "interface language"
-msgstr ""
-
-#: apps/accounts/models.py:90
-msgid "newsletter"
-msgstr ""
-
-#: apps/accounts/models.py:90
-msgid "Subscribe to newsletter."
-msgstr ""
-
-#: apps/accounts/models.py:95
-msgid "birthdate"
-msgstr ""
-
-#: apps/accounts/models.py:96
-msgid "gender"
-msgstr ""
-
-#: apps/accounts/models.py:100
-msgid "location"
-msgstr ""
-
-#: apps/accounts/models.py:101 apps/organizations/models.py:34
-msgid "website"
-msgstr ""
-
-#: apps/accounts/models.py:103 apps/media/models.py:130
-msgid "picture"
-msgstr ""
-
-#: apps/accounts/models.py:107
-msgid "languages"
-msgstr ""
-
-#: apps/accounts/models.py:109 apps/organizations/models.py:38
-#: apps/projects/models.py:369
-msgid "deleted"
-msgstr ""
-
-#: apps/accounts/models.py:112
-msgid "about"
-msgstr ""
-
-#: apps/accounts/models.py:113
-msgid "why"
-msgstr ""
-
-#: apps/accounts/models.py:114
-msgid "contribution"
-msgstr ""
-
-#: apps/accounts/models.py:115
-msgid "availability"
-msgstr ""
-
-#: apps/accounts/models.py:118
-msgid "working location"
-msgstr ""
-
-#: apps/accounts/models.py:122 apps/organizations/models.py:70
-#: apps/projects/models.py:94
-msgid "tags"
-msgstr ""
-
-#: apps/accounts/models.py:157 apps/accounts/models.py:184
-msgid "user profile"
-msgstr ""
-
-#: apps/accounts/models.py:158
-msgid "user profiles"
-msgstr ""
-
-#: apps/accounts/models.py:178 templates/base.html:96 templates/footer.html:8
-#: templates/home.html:5
-msgid "Home"
-msgstr ""
-
-#: apps/accounts/models.py:181
-msgid "address type"
-msgstr ""
-
-#: apps/accounts/models.py:188
-msgid "user address"
-msgstr ""
-
-#: apps/accounts/models.py:189
-msgid "user addresses"
-msgstr ""
-
-#: apps/donations/models.py:30
-msgid "Closed"
-msgstr ""
-
-#: apps/donations/models.py:31
-msgid "Expired"
-msgstr ""
-
-#: apps/donations/models.py:32
-msgid "Paid"
-msgstr ""
-
-#: apps/donations/models.py:33
-msgid "Canceled"
-msgstr ""
-
-#: apps/donations/models.py:34
-msgid "Chargedback"
-msgstr ""
-
-#: apps/donations/models.py:35
-msgid "New"
-msgstr ""
-
-#: apps/donations/models.py:36
-msgid "Started"
-msgstr ""
-
-#: apps/donations/models.py:39 apps/donations/models.py:78
-msgid "amount"
-msgstr ""
-
-#: apps/donations/models.py:42 apps/projects/models.py:179
-msgid "status"
-msgstr ""
-
-#: apps/donations/models.py:46 apps/media/models.py:26 apps/media/models.py:53
-#: apps/organizations/models.py:36 apps/projects/models.py:67
-#: apps/projects/models.py:339 apps/projects/models.py:353
-#: apps/projects/models.py:368
-msgid "created"
-msgstr ""
-
-#: apps/donations/models.py:47 apps/media/models.py:27 apps/media/models.py:54
-#: apps/organizations/models.py:37 apps/projects/models.py:354
-msgid "updated"
-msgstr ""
-
-#: apps/donations/models.py:50 apps/donations/models.py:75
-msgid "donation"
-msgstr ""
-
-#: apps/donations/models.py:51
-msgid "donations"
-msgstr ""
-
-#: apps/donations/models.py:56
-#, python-format
-msgid "%(amount)s on %(date)s from %(user)s"
-msgstr ""
-
-#: apps/donations/models.py:62
-#, python-format
-msgid "%(amount)s on %(date)s"
-msgstr ""
-
-#: apps/donations/models.py:77 apps/projects/models.py:140
-#: apps/projects/models.py:170 apps/projects/models.py:320
-#: apps/projects/models.py:334 apps/projects/models.py:350
-#: apps/projects/models.py:365
-msgid "project"
-msgstr ""
-
-#: apps/donations/models.py:81
-msgid "donation line"
-msgstr ""
-
-#: apps/donations/models.py:82
-msgid "donation lines"
-msgstr ""
-
-#: apps/donations/models.py:88
-#, python-format
-msgid "%(amount)s from donation %(donation)s to %(project)s"
-msgstr ""
-
-#: apps/donations/models.py:118
-msgid "Requested amount not available."
-msgstr ""
-
-#: apps/geo/models.py:16 apps/organizations/models.py:19
-#: apps/projects/models.py:22 apps/projects/models.py:149
-#: apps/projects/models.py:305 apps/projects/models.py:335
-msgid "name"
-msgstr ""
-
-#: apps/geo/models.py:19
-msgid "numeric code"
-msgstr ""
-
-#: apps/geo/models.py:21
-msgid "ISO 3166-1 or M.49 numeric code"
-msgstr ""
-
-#: apps/geo/models.py:40 apps/geo/models.py:49
-msgid "region"
-msgstr ""
-
-#: apps/geo/models.py:41
-msgid "regions"
-msgstr ""
-
-#: apps/geo/models.py:53 apps/geo/models.py:63
-msgid "sub region"
-msgstr ""
-
-#: apps/geo/models.py:54
-msgid "sub regions"
-msgstr ""
-
-#: apps/geo/models.py:65
-msgid "alpha2 code"
-msgstr ""
-
-#: apps/geo/models.py:66
-msgid "ISO 3166-1 alpha-2 code"
-msgstr ""
-
-#: apps/geo/models.py:68
-msgid "alpha3 code"
-msgstr ""
-
-#: apps/geo/models.py:69
-msgid "ISO 3166-1 alpha-3 code"
-msgstr ""
-
-#: apps/geo/models.py:72
-msgid "ODA recipient"
-msgstr ""
-
-#: apps/geo/models.py:74
-msgid ""
-"Whether a country is a recipient of Official DevelopmentAssistance from the "
-"OECD's Development Assistance Committee."
-msgstr ""
-
-#: apps/geo/models.py:81 apps/projects/models.py:82
-msgid "country"
-msgstr ""
-
-#: apps/geo/models.py:82
-msgid "countries"
-msgstr ""
-
-#: apps/geo/validators.py:8
-msgid "Enter 3 numeric characters."
-msgstr ""
-
-#: apps/geo/validators.py:11
-msgid "Enter 2 capital letters."
-msgstr ""
-
-#: apps/geo/validators.py:14
-msgid "Enter 3 capital letters."
-msgstr ""
-
-#: apps/media/models.py:20 apps/media/models.py:50 apps/projects/models.py:44
-#: apps/projects/models.py:171
-msgid "title"
-msgstr ""
-
-#: apps/media/models.py:24 apps/media/models.py:51
-#: apps/organizations/models.py:22 apps/projects/models.py:24
-#: apps/projects/models.py:172 apps/projects/models.py:213
-#: apps/projects/models.py:307 apps/projects/models.py:321
-#: apps/projects/models.py:337 apps/projects/models.py:352
-msgid "description"
-msgstr ""
-
-#: apps/media/models.py:30 apps/media/models.py:48
-msgid "album"
-msgstr ""
-
-#: apps/media/models.py:31 apps/projects/models.py:91
-msgid "albums"
-msgstr ""
-
-#: apps/media/models.py:67 apps/projects/models.py:336
-msgid "URL"
-msgstr ""
-
-#: apps/media/models.py:70
-msgid "thumbnail URL"
-msgstr ""
-
-#: apps/media/models.py:73
-msgid "thumbnail width"
-msgstr ""
-
-#: apps/media/models.py:76
-msgid "thumbnail height"
-msgstr ""
-
-#: apps/media/models.py:80
-msgid "providr name"
-msgstr ""
-
-#: apps/media/models.py:83
-msgid "provider URL"
-msgstr ""
-
-#: apps/media/models.py:87
-msgid "author name"
-msgstr ""
-
-#: apps/media/models.py:90
-msgid "author URL"
-msgstr ""
-
-#: apps/media/models.py:106
-msgid "Could not find metadata for object."
-msgstr ""
-
-#: apps/media/models.py:133
-msgid "local picture"
-msgstr ""
-
-#: apps/media/models.py:134
-msgid "local pictures"
-msgstr ""
-
-#: apps/media/models.py:149
-msgid "HTML"
-msgstr ""
-
-#: apps/media/models.py:150
-msgid "width"
-msgstr ""
-
-#: apps/media/models.py:151
-msgid "height"
-msgstr ""
-
-#: apps/media/models.py:153
-msgid "duration"
-msgstr ""
-
-#: apps/media/models.py:156
-msgid "embedded video"
-msgstr ""
-
-#: apps/media/models.py:157
-msgid "embedded videos"
-msgstr ""
-
-#: apps/organizations/models.py:25
-msgid "legal status"
-msgstr ""
-
-#: apps/organizations/models.py:26
-msgid "The legal status of the organization (e.g. Foundation)."
-msgstr ""
-
-#: apps/organizations/models.py:30
-msgid "phone number"
-msgstr ""
-
-#: apps/organizations/models.py:32 apps/projects/models.py:306
-msgid "email"
-msgstr ""
-
-#: apps/organizations/models.py:41 apps/projects/models.py:154
-msgid "partner organizations"
-msgstr ""
-
-#: apps/organizations/models.py:45
-msgid "account bank name"
-msgstr ""
-
-#: apps/organizations/models.py:48
-msgid "account bank address"
-msgstr ""
-
-#: apps/organizations/models.py:51
-msgid "account bank country"
-msgstr ""
-
-#: apps/organizations/models.py:55
-msgid "account IBAN"
-msgstr ""
-
-#: apps/organizations/models.py:58
-msgid "account BIC SWIFT"
-msgstr ""
-
-#: apps/organizations/models.py:61
-msgid "account number"
-msgstr ""
-
-#: apps/organizations/models.py:64
-msgid "account name"
-msgstr ""
-
-#: apps/organizations/models.py:67
-msgid "account city"
-msgstr ""
-
-#: apps/organizations/models.py:77 apps/organizations/models.py:91
-#: apps/organizations/models.py:117 apps/projects/models.py:57
-msgid "organization"
-msgstr ""
-
-#: apps/organizations/models.py:78
-msgid "organizations"
-msgstr ""
-
-#: apps/organizations/models.py:85 templates/projects/detail.html:40
-msgid "Owner"
-msgstr ""
-
-#: apps/organizations/models.py:86
-msgid "Admin"
-msgstr ""
-
-#: apps/organizations/models.py:87
-msgid "Editor"
-msgstr ""
-
-#: apps/organizations/models.py:88
-msgid "Member"
-msgstr ""
-
-#: apps/organizations/models.py:95
-msgid "function"
-msgstr ""
-
-#: apps/organizations/models.py:96
-msgid "Function might determine Role later on."
-msgstr ""
-
-#: apps/organizations/models.py:100
-msgid "organization member"
-msgstr ""
-
-#: apps/organizations/models.py:101
-msgid "organization members"
-msgstr ""
-
-#: apps/organizations/models.py:108
-msgid "Physical"
-msgstr ""
-
-#: apps/organizations/models.py:109
-msgid "Postal"
-msgstr ""
-
-#: apps/organizations/models.py:113
-msgid "type"
-msgstr ""
-
-#: apps/organizations/models.py:113
-msgid "Address type."
-msgstr ""
-
-#: apps/organizations/models.py:121
-msgid "organization address"
-msgstr ""
-
-#: apps/organizations/models.py:122
-msgid "organization addresses"
-msgstr ""
-
-#: apps/projects/models.py:31
-msgid "project theme"
-msgstr ""
-
-#: apps/projects/models.py:32
-msgid "project themes"
-msgstr ""
-
-#: apps/projects/models.py:39 templates/projects/widgets/phases.html:3
-msgid "Idea"
-msgstr ""
-
-#: apps/projects/models.py:40 templates/projects/widgets/phases.html:4
-msgid "Fund"
-msgstr ""
-
-#: apps/projects/models.py:41 templates/projects/widgets/phases.html:5
-msgid "Act"
-msgstr ""
-
-#: apps/projects/models.py:42 templates/projects/widgets/phases.html:6
-msgid "Results"
-msgstr ""
-
-#: apps/projects/models.py:49 apps/projects/models.py:153
-msgid "partner organization"
-msgstr ""
-
-#: apps/projects/models.py:52
-msgid "image"
-msgstr ""
-
-#: apps/projects/models.py:54
-msgid "Main project picture"
-msgstr ""
-
-#: apps/projects/models.py:59
-msgid "owner"
-msgstr ""
-
-#: apps/projects/models.py:60
-msgid "phase"
-msgstr ""
-
-#: apps/projects/models.py:62
-msgid "Phase this project is in right now."
-msgstr ""
-
-#: apps/projects/models.py:65
-msgid "themes"
-msgstr ""
-
-#: apps/projects/models.py:68
-msgid "When this project was created."
-msgstr ""
-
-#: apps/projects/models.py:76
-msgid "latitude"
-msgstr ""
-
-#: apps/projects/models.py:79
-msgid "longitude"
-msgstr ""
-
-#: apps/projects/models.py:87
-msgid "Main language of the project."
-msgstr ""
-
-#: apps/projects/models.py:141
-msgid "projects"
-msgstr ""
-
-#: apps/projects/models.py:166 apps/projects/models.py:201
-msgid "Hidden"
-msgstr ""
-
-#: apps/projects/models.py:167 apps/projects/models.py:202
-msgid "Progress"
-msgstr ""
-
-#: apps/projects/models.py:168 apps/projects/models.py:205
-msgid "Completed"
-msgstr ""
-
-#: apps/projects/models.py:175
-msgid "start date"
-msgstr ""
-
-#: apps/projects/models.py:176
-msgid "end date"
-msgstr ""
-
-#: apps/projects/models.py:189
-msgid "knowledge"
-msgstr ""
-
-#: apps/projects/models.py:189
-msgid "Description of knowledge."
-msgstr ""
-
-#: apps/projects/models.py:193
-msgid "idea phase"
-msgstr ""
-
-#: apps/projects/models.py:194
-msgid "idea phases"
-msgstr ""
-
-#: apps/projects/models.py:203
-msgid "Feedback"
-msgstr ""
-
-#: apps/projects/models.py:204
-msgid "Waiting"
-msgstr ""
-
-#: apps/projects/models.py:208
-msgid "Children"
-msgstr ""
-
-#: apps/projects/models.py:209
-msgid "Youth"
-msgstr ""
-
-#: apps/projects/models.py:210
-msgid "Adults"
-msgstr ""
-
-#: apps/projects/models.py:213
-msgid "Longer description."
-msgstr ""
-
-#: apps/projects/models.py:216
-msgid "money total"
-msgstr ""
-
-#: apps/projects/models.py:217
-msgid "Total amount needed for this project."
-msgstr ""
-
-#: apps/projects/models.py:218
-msgid "money asked"
-msgstr ""
-
-#: apps/projects/models.py:219
-msgid "Amount asked for from this website."
-msgstr ""
-
-#: apps/projects/models.py:222
-msgid "sustainability"
-msgstr ""
-
-#: apps/projects/models.py:224
-msgid "How can next generations profit from this?"
-msgstr ""
-
-#: apps/projects/models.py:228
-msgid "money from other sources"
-msgstr ""
-
-#: apps/projects/models.py:229
-msgid "Money received from other sources."
-msgstr ""
-
-#: apps/projects/models.py:234
-msgid "social impact"
-msgstr ""
-
-#: apps/projects/models.py:236
-msgid "Who are you helping?"
-msgstr ""
-
-#: apps/projects/models.py:239
-msgid "impact group"
-msgstr ""
-
-#: apps/projects/models.py:243
-msgid "impact direct male"
-msgstr ""
-
-#: apps/projects/models.py:246
-msgid "impact direct female"
-msgstr ""
-
-#: apps/projects/models.py:249
-msgid "impact indirect male"
-msgstr ""
-
-#: apps/projects/models.py:253
-msgid "impact indirect female"
-msgstr ""
-
-#: apps/projects/models.py:258
-msgid "fund phase"
-msgstr ""
-
-#: apps/projects/models.py:259
-msgid "fund phases"
-msgstr ""
-
-#: apps/projects/models.py:265
-msgid "planning"
-msgstr ""
-
-#: apps/projects/models.py:266
-msgid "planned start date"
-msgstr ""
-
-#: apps/projects/models.py:267
-msgid "planned end date"
-msgstr ""
-
-#: apps/projects/models.py:270
-msgid "act phase"
-msgstr ""
-
-#: apps/projects/models.py:271
-msgid "act phases"
-msgstr ""
-
-#: apps/projects/models.py:279
-msgid "what"
-msgstr ""
-
-#: apps/projects/models.py:279
-msgid "What and how?"
-msgstr ""
-
-#: apps/projects/models.py:282
-msgid "tips"
-msgstr ""
-
-#: apps/projects/models.py:282
-msgid "Tips and tricks?"
-msgstr ""
-
-#: apps/projects/models.py:285
-msgid "change"
-msgstr ""
-
-#: apps/projects/models.py:285
-msgid "What has changed for the target group?"
-msgstr ""
-
-#: apps/projects/models.py:288
-msgid "financial"
-msgstr ""
-
-#: apps/projects/models.py:288
-msgid "How was the money spend?"
-msgstr ""
-
-#: apps/projects/models.py:291
-msgid "next"
-msgstr ""
-
-#: apps/projects/models.py:291
-msgid "What's next?"
-msgstr ""
-
-#: apps/projects/models.py:295
-msgid "results phase"
-msgstr ""
-
-#: apps/projects/models.py:296
-msgid "results phases"
-msgstr ""
-
-#: apps/projects/models.py:310
-msgid "referral"
-msgstr ""
-
-#: apps/projects/models.py:311
-msgid "referrals"
-msgstr ""
-
-#: apps/projects/models.py:322
-msgid "money amount"
-msgstr ""
-
-#: apps/projects/models.py:325
-msgid "budget line"
-msgstr ""
-
-#: apps/projects/models.py:326
-msgid "budget lines"
-msgstr ""
-
-#: apps/projects/models.py:338
-msgid "ordering"
-msgstr ""
-
-#: apps/projects/models.py:343
-msgid "link"
-msgstr ""
-
-#: apps/projects/models.py:344
-msgid "links"
-msgstr ""
-
-#: apps/projects/models.py:358
-msgid "testimonial"
-msgstr ""
-
-#: apps/projects/models.py:359
-msgid "testimonials"
-msgstr ""
-
-#: apps/projects/models.py:367
-msgid "body"
-msgstr ""
-
-#: apps/projects/models.py:378
-msgid "message"
-msgstr ""
-
-#: apps/projects/models.py:379
-msgid "messages"
-msgstr ""
-
-#: bluebottle/settings/defaults.py:49
-msgid "Dutch"
-msgstr ""
-
-#: bluebottle/settings/defaults.py:50
-msgid "English"
-msgstr ""
-
-#: templates/404.html:5 templates/404.html.py:8
+#: 404.html:5 404.html.py:8
 msgid "Page not found"
 msgstr ""
 
-#: templates/404.html:9
+#: 404.html:9
 msgid "The requested page could not be found on this website."
 msgstr ""
 
-#: templates/404.html:12
+#: 404.html:12
 #, python-format
 msgid "Click <a href=\"%(home_url)s\">here</a> to return to the homepage."
 msgstr ""
 
-#: templates/500.html:5 templates/500.html.py:8
+#: 500.html:5 500.html.py:8
 msgid "Internal server error"
 msgstr ""
 
-#: templates/500.html:9
+#: 500.html:9
 msgid ""
 "There was an error while trying to serve the requested page. Please try "
 "again. If the error persists, please contact the webmaster about it. In any "
 "case, we have been notified of this error."
 msgstr ""
 
-#: templates/500.html:12
+#: 500.html:12
 #, python-format
 msgid ""
-"If you need assistance, you may reference this error as <strong>"
-"%(error_id)s</strong>."
+"If you need assistance, you may reference this error as <strong>%(error_id)"
+"s</strong>."
 msgstr ""
 
-#: templates/base.html:87
+#: base.html:87
 msgid "Log out"
 msgstr ""
 
-#: templates/base.html:89
+#: base.html:89
 msgid "Log in"
 msgstr ""
 
-#: templates/base.html:97 templates/footer.html:9
-#: templates/projects/list.html:5 templates/projects/list.html.py:12
+#: base.html:96 footer.html:8 home.html:5
+msgid "Home"
+msgstr ""
+
+#: base.html:97 footer.html:9 projects/list.html:5 projects/list.html.py:12
 msgid "Projects"
 msgstr ""
 
-#: templates/base.html:98 templates/footer.html:10
+#: base.html:98 footer.html:10
 msgid "Tasks"
 msgstr ""
 
-#: templates/base.html:99 templates/footer.html:11
+#: base.html:99 footer.html:11
 msgid "Actions"
 msgstr ""
 
-#: templates/base.html:100 templates/footer.html:16
-#: templates/footer.html.py:36
+#: base.html:100 footer.html:16 footer.html.py:36
 msgid "Learn more"
 msgstr ""
 
-#: templates/base.html:105
+#: base.html:105
 #, python-format
 msgid "Revision: %(GIT_REVISION)s"
 msgstr ""
 
-#: templates/footer.html:7
+#: footer.html:7
 msgid "Menu"
 msgstr ""
 
-#: templates/footer.html:12 templates/accounts/userprofile_list.html:5
-#: templates/accounts/userprofile_list.html:12
+#: footer.html:12 accounts/userprofile_list.html:5
+#: accounts/userprofile_list.html.py:12
 msgid "Members"
 msgstr ""
 
-#: templates/footer.html:13
+#: footer.html:13
 msgid "Organizations"
 msgstr ""
 
-#: templates/footer.html:14
+#: footer.html:14
 msgid "Partners"
 msgstr ""
 
-#: templates/footer.html:15
+#: footer.html:15
 msgid "Business"
 msgstr ""
 
-#: templates/footer.html:17 templates/footer.html.py:37
+#: footer.html:17 footer.html.py:37
 msgid "In the media"
 msgstr ""
 
-#: templates/footer.html:18 templates/footer.html.py:38
+#: footer.html:18 footer.html.py:38
 msgid "FAQ"
 msgstr ""
 
-#: templates/footer.html:19 templates/footer.html.py:39
+#: footer.html:19 footer.html.py:39
 msgid "Contact"
 msgstr ""
 
-#: templates/footer.html:22
+#: footer.html:22
 msgid "News"
 msgstr ""
 
-#: templates/footer.html:25
+#: footer.html:25
 msgid "Join"
 msgstr ""
 
-#: templates/footer.html:28
+#: footer.html:28
 msgid "Tell a friend"
 msgstr ""
 
-#: templates/footer.html:34 templates/projects/detail.html:103
-#: templates/projects/detail.html.py:119
+#: footer.html:34 projects/detail.html:103 projects/detail.html.py:119
 msgid "More"
 msgstr ""
 
-#: templates/footer.html:35
+#: footer.html:35
 msgid "About"
 msgstr ""
 
-#: templates/footer.html:42
+#: footer.html:42
 msgid "Tweet"
 msgstr ""
 
-#: templates/footer.html:45
+#: footer.html:45
 msgid "We like you too"
 msgstr ""
 
-#: templates/media/album_detail.html:14
-#: templates/projects/widgets/tiny_viewer.html:21
+#: media/album_detail.html:14 projects/widgets/tiny_viewer.html:21
 msgid "Pictures"
 msgstr ""
 
-#: templates/media/album_list.html:5 templates/projects/detail.html:25
+#: media/album_list.html:5 projects/detail.html:25
 msgid "Albums"
 msgstr ""
 
-#: templates/projects/detail.html:19
+#: projects/detail.html:19
 msgid "Project"
 msgstr ""
 
-#: templates/projects/detail.html:22
+#: projects/detail.html:22
 msgid "Organization"
 msgstr ""
 
-#: templates/projects/detail.html:36
+#: projects/detail.html:36
 msgid "No albums for this project."
 msgstr ""
 
-#: templates/projects/detail.html:51
+#: projects/detail.html:40
+msgid "Owner"
+msgstr ""
+
+#: projects/detail.html:51
 msgid "Location"
 msgstr ""
 
-#: templates/projects/detail.html:56 templates/projects/detail.html.py:65
-#: templates/projects/detail.html:110 templates/projects/detail.html.py:126
+#: projects/detail.html:56 projects/detail.html.py:65 projects/detail.html:110
+#: projects/detail.html.py:126
 msgid "Not specified."
 msgstr ""
 
-#: templates/projects/detail.html:60
+#: projects/detail.html:60
 msgid "Costs"
 msgstr ""
 
-#: templates/projects/detail.html:69
+#: projects/detail.html:69
 msgid "Themes"
 msgstr ""
 
-#: templates/projects/detail.html:74 templates/projects/detail.html.py:85
-#: templates/projects/detail.html:94
+#: projects/detail.html:74 projects/detail.html.py:85 projects/detail.html:94
 msgid "None specified."
 msgstr ""
 
-#: templates/projects/detail.html:78
+#: projects/detail.html:78
 msgid "Supporters"
 msgstr ""
 
-#: templates/projects/detail.html:89
+#: projects/detail.html:89
 msgid "Tags"
 msgstr ""
 
-#: templates/projects/detail.html:98
+#: projects/detail.html:98
 msgid "Description"
 msgstr ""
 
-#: templates/projects/detail.html:107 templates/projects/detail.html.py:123
+#: projects/detail.html:107 projects/detail.html.py:123
 msgid "Less"
 msgstr ""
 
-#: templates/projects/detail.html:114
+#: projects/detail.html:114
 msgid "Funding needed for"
 msgstr ""
 
-#: templates/projects/map.html:17
+#: projects/map.html:17
 msgid "Loading projects"
 msgstr ""
 
-#: templates/projects/widgets/funding_needed.html:3
+#: projects/widgets/funding_needed.html:3
 msgid "Crowdfunding needed"
 msgstr ""
 
-#: templates/projects/widgets/funding_needed.html:7
+#: projects/widgets/funding_needed.html:7
 #, python-format
 msgid ""
 "Now: <b>&euro;<span class=\"donated-amount\">%(money_donated)s</span></b>"
 msgstr ""
 
-#: templates/projects/widgets/funding_needed.html:13
+#: projects/widgets/funding_needed.html:13
 #, python-format
 msgid ""
 "Needed: <b>&euro;<span class=\"asked-amount\">%(money_asked)s</span></b>"
 msgstr ""
 
-#: templates/projects/widgets/funding_needed.html:16
-#: templates/projects/widgets/info_small.html:18
+#: projects/widgets/funding_needed.html:16 projects/widgets/info_small.html:18
 msgid "Support this project"
 msgstr ""
 
-#: templates/projects/widgets/tiny_viewer.html:14
-#: templates/projects/widgets/tiny_viewer.html:22
+#: projects/widgets/phases.html:3
+msgid "Idea"
+msgstr ""
+
+#: projects/widgets/phases.html:4
+msgid "Fund"
+msgstr ""
+
+#: projects/widgets/phases.html:5
+msgid "Act"
+msgstr ""
+
+#: projects/widgets/phases.html:6
+msgid "Results"
+msgstr ""
+
+#: projects/widgets/tiny_viewer.html:14 projects/widgets/tiny_viewer.html:22
 msgid "Videos"
 msgstr ""
 
-#: templates/projects/widgets/tiny_viewer.html:23
+#: projects/widgets/tiny_viewer.html:23
 msgid "Map"
 msgstr ""
 
-#: templates/registration/logged_out.html:9
+#: registration/logged_out.html:9
 msgid "Logged out."
 msgstr ""
 
-#: templates/registration/login.html:10
+#: registration/login.html:10
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
