@@ -172,7 +172,7 @@
                 </div>
                 <div class="column grid_1">
                     <div class="select">
-                        {{view Ember.Select viewName="select"
+                        {{view App.ProjectSearchSelect viewName="select"
                                             contentBinding="App.projectSearchController.filteredRegions"
                                             optionLabelPath="content.name"
                                             optionValuePath="content.id"
@@ -182,7 +182,7 @@
                 </div>
                 <div class="column grid_1">
                     <div class="select">
-                        {{view Ember.Select viewName="select"
+                        {{view App.ProjectSearchSelect viewName="select"
                                             contentBinding="App.projectSearchController.filteredCountries"
                                             optionLabelPath="content.name"
                                             optionValuePath="content.id"
@@ -208,7 +208,7 @@
     {% endtplhandlebars %}
 
     {% tplhandlebars "project-preview" %}
-        <a {{action projectDetail view.content.slug}}>
+        <a {{action projectDetail view.content}}>
         <div class="image">
             <img {{bindAttr src="view.content.thumbnail"}}/>
             <div class="info"></div>

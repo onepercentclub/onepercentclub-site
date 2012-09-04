@@ -38,17 +38,25 @@ App = Em.Application.create({
 
 // Set basic Project route
 App.ProjectRoute = Em.Route.extend({
-    route : '/projects',
+    route: '/projects',
+
     projectDetail: function(router, event) {
         router.transitionTo('projects.detail', event.context);
     },
-    connectOutlets : function(router, event) {
+
+    connectOutlets : function(router, context) {
         require(['app/projects'], function(){
             router.get('applicationController').connectOutlet('topPanel', 'projectStart');
             router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
             router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResultsSection');
         });
     },
+
+    // Route for the main projects view.
+    index: Em.Route.extend({
+        route: "/"
+    }),
+
     detail: Em.Route.extend({
         route: '/:project',
         changeMediaViewer: function(router, event){
@@ -60,21 +68,17 @@ App.ProjectRoute = Em.Route.extend({
             
         },
         deserialize: function(router, params) {
-            return params.project
+            return {slug: params.project}
         },
         serialize: function(router, context) {
-            require(['app/projects'], function(){
-                // Is called for action and loading by bookmarked url
-                // FIXME: Why can't we get this trough router.get()??
-                App.projectDetailController.populate(context);
-                return {project: context}
-            });
+            return {project: context.slug};
         },
-        connectOutlets : function(router, event) {
+        connectOutlets: function(router, context) {
             require(['app/projects'], function(){
+                App.projectDetailController.populate(context.slug);
                 router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
             });
-        },
+        }
     }) 
 });
 
@@ -83,11 +87,8 @@ App.RootRoute = Em.Route.extend({
     gotoHome : function(router, event) {
         router.transitionTo('home');
     },
-    gotoProjectInfo : function(router, event) {
-        router.transitionTo('projects.info');
-    },
     gotoProjects : function(router, event) {
-        router.transitionTo('projects');
+        router.transitionTo('projects.index');
     },
     // Language switching
     switchLanguage : function(router, event) {
@@ -97,20 +98,20 @@ App.RootRoute = Em.Route.extend({
         $(event.srcElement).addClass('active');
     },
     // The actual routing
-    home : Em.Route.extend({
+    home: Em.Route.extend({
         route : '/',
-        connectOutlets : function(router, event) {
+        connectOutlets: function(router, context) {
             router.get('applicationController').connectOutlet('topPanel', 'home');
             router.get('applicationController').connectOutlet('midPanel', 'empty');
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         }
     }),
-    projects : App.ProjectRoute
+    projects: App.ProjectRoute
 });
 
 App.Router = Em.Router.extend({
     history: 'hash',
-    root : App.RootRoute
+    root: App.RootRoute
 });
 
 $(function() {

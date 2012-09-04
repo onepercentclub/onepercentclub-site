@@ -143,9 +143,9 @@ App.projectSearchController = Em.ArrayController.create({
         this.set('query', updatedQuery);
     },
 
-    // Functions to handle specific interactions from the UI
+    /* Methods to handle specific interactions from the UI */
     submitSearchForm: function(event) {
-        this.updateParam({'offset': null}, true);
+        this.updateParam({'offset': null}, true); // delete offset param
         this.update();
         this.populate();
     },
@@ -251,15 +251,16 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
     itemViewClass: 'App.ProjectPreviewView'
 });
 
-App.ProjectPreviewView  = Em.View.extend({
+App.ProjectPreviewView = Em.View.extend({
     tagName: 'li',
     templateName: 'project-preview',
     classNames: ['project-mid', 'grid_1', 'column']
+});
 
-    // FIXME: We're going to handle clicks with Ember's target/action.
-    // click: function(){
-    //    ProjectApp.ApplicationController.projectId = this.content.id;
-    // }
+App.ProjectSearchSelect = Em.Select.extend({
+    change: function(event){
+        App.projectSearchController.submitSearchForm(event);
+    }
 });
 
 
