@@ -101,8 +101,6 @@ class Project(models.Model):
         if self.money_asked() == 0:
             return 0
         try:
-            if not self.fundphase.money_donated:
-                self.fundphase.update_money_donated()
             return int(self.fundphase.money_donated)
         except FundPhase.DoesNotExist:
             return 0
@@ -121,7 +119,7 @@ class Project(models.Model):
     def get_supporters(self):
         """ Get a queryset of donating users for this project. """
 
-        # TODO: Add filter for 'succesful' donations on a somewhat higher
+        # TODO: Add filter for 'successful' donations on a somewhat higher
         # level, perhaps a custom Manager on Donation/DonationLine classes.
         donators = User.objects
         donators = donators.filter(donation__donationline__project=self)
@@ -225,7 +223,7 @@ class FundPhase(AbstractPhase):
     impact_indirect_male = models.IntegerField(max_length=6, default=0)
     impact_indirect_female = models.IntegerField(max_length=6, default=0)
 
-    """ 
+    """
         This updates the 'cached' donated amount.
         We should run this every time a donation is made or
         changes status.
@@ -243,6 +241,16 @@ class FundPhase(AbstractPhase):
             self.money_donated = total
             self.save()
         return self.money_donated
+
+    # Override save() to set a default amount for money_donated.
+    # http://stackoverflow.com/questions/2307943/django-overriding-the-model-create-method
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # The object is not in the database yet because it doesn't have a pk.
+            if self.money_donated is None:
+                self.money_donated = 0
+
+        super(FundPhase, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("fund phase")
