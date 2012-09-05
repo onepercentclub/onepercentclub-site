@@ -14,7 +14,7 @@ from djchoices import DjangoChoices, ChoiceItem
 
 from apps.bluebottle_utils.fields import MoneyField
 
-
+# FIXME This is not currently being used because it breaks migrations.
 class RecentDonationManager(models.Manager):
     def get_query_set(self):
         now = timezone.now()
@@ -53,7 +53,8 @@ class Donation(models.Model):
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
-    recent_objects = RecentDonationManager()
+    # FIXME: This breaks migrations.
+    # recent_objects = RecentDonationManager()
 
     class Meta:
         verbose_name = _("donation")
