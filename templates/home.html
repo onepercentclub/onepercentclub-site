@@ -137,22 +137,26 @@
         </div>
 
         <div class="widget support">
-            <div class="progressbar">
-                <div  class="donated-text right" style="margin-right: 50%">
-                    NOW 
-                    <b>€<span class="donated-amount">{{view.content.money_donated}}</span></b>
-                </div>
-                <div class="bar">
-                    <div class="asked-bar"></div>
-                    <div style="width:50%" class="donated-bar"></div> 
-                </div>
-                <div class="asked-text">
-                    NEEDED 
-                    <b>€<span class="asked-amount">{{view.content.money_asked}}</span></b>
-                </div>
-            </div> 
+            {{view "App.ProjectProgressBarView"}}
             <div class="link">SUPPORT THIS PROJECT</div>
         </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-progress-bar" %}
+        <div class="progressbar">
+            <div  class="donated-text left">
+                NOW 
+                <b>€{{view.content.money_donated}}</b>
+            </div>
+            <div class="bar">
+                <div class="asked-bar"></div>
+                <div class="donated-bar"></div> 
+            </div>
+            <div class="asked-text">
+                NEEDED 
+                <b>€{{view.content.money_asked}}</b>
+            </div>
+        </div> 
     {% endtplhandlebars %}
 
     {% tplhandlebars "project-start" %}

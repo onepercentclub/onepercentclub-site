@@ -293,7 +293,14 @@ App.ProjectDetailView = Em.View.extend({
 });
 
 App.ProjectStatsView = Em.View.extend({
+    contentBinding: 'App.projectDetailController',
     templateName:'project-stats'
+});
+
+App.ProjectProgressBarView = Em.View.extend({
+    contentBinding: 'App.projectDetailController',
+    templateName:'project-progress-bar',
+    
 });
 
 App.ProjectMediaView = Em.View.extend({
