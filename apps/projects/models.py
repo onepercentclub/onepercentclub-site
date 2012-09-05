@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -12,7 +13,7 @@ from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
-
+from apps.donations.models import DonationLine
 
 class ProjectTheme(models.Model):
     """ Themes for Projects. """
@@ -30,7 +31,6 @@ class ProjectTheme(models.Model):
         ordering = ['name']
         verbose_name = _("project theme")
         verbose_name_plural = _("project themes")
-
 
 class Project(models.Model):
     """ The base Project model. """
@@ -93,25 +93,36 @@ class Project(models.Model):
 
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
-    # temporary to do hold random 'donated'
-    donated = 0
+
+    """ TODO: calculate & store popularity """
+    popularity = 0
+
+    def calucalulate_popularity(self):
+        pass
 
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
-
+    # TODO: Move all mney related stuff to FundPhase...
     def money_asked(self):
+        try:
+            self.fundphase
+        except FundPhase.DoesNotExist:
+            return 0
         return int(self.fundphase.money_asked)
+
 
     """ Money donated, rounded to the lower end... """
     # Money donated. For now this is random
-    # TODO: connect this to actual donations. Duh!
     def money_donated(self):
-        if self.donated == 0:
-            self.donated = int(random.randrange(5, self.money_asked()))
-        return int(self.donated)
+        if self.money_asked() == 0:
+            return 0
+        try:
+            return int(self.fundphase.money_donated)
+        except FundPhase.DoesNotExist:
+            return 0
 
     def money_needed(self):
         return self.money_asked() - self.money_donated()
@@ -127,7 +138,7 @@ class Project(models.Model):
     def get_supporters(self):
         """ Get a queryset of donating users for this project. """
 
-        # TODO: Add filter for 'succesful' donations on a somewhat higher
+        # TODO: Add filter for 'successful' donations on a somewhat higher
         # level, perhaps a custom Manager on Donation/DonationLine classes.
         donators = User.objects
         donators = donators.filter(donation__donationline__project=self)
@@ -218,6 +229,9 @@ class FundPhase(AbstractPhase):
     money_asked = MoneyField(_("money asked"),
         help_text=_("Amount asked for from this website."))
 
+    money_donated= MoneyField(_('money donated'),
+        help_text=_("This field is updated on every donation(change)"))
+
     sustainability = models.TextField(
         _("sustainability"),
         blank=True,
@@ -253,6 +267,35 @@ class FundPhase(AbstractPhase):
         _("impact indirect female"),
         max_length=6, default=0
     )
+
+    """
+        This updates the 'cached' donated amount.
+        We should run this every time a donation is made or
+        changes status.
+    """
+    def update_money_donated(self):
+        donationlines = DonationLine.objects.filter(project=self.project)
+        donationlines = donationlines.filter(donation__status__in=['closed','paid','started'])
+        total = donationlines.aggregate(total=Sum('amount'))['total']
+        if total is None:
+            if self.money_donated != 0:
+                # Only set money_donated to 0 when it's not already 0.
+                self.money_donated = 0
+                self.save()
+        elif self.money_donated != total:
+            self.money_donated = total
+            self.save()
+        return self.money_donated
+
+    # Override save() to set a default amount for money_donated.
+    # http://stackoverflow.com/questions/2307943/django-overriding-the-model-create-method
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # The object is not in the database yet because it doesn't have a pk.
+            if self.money_donated is None:
+                self.money_donated = 0
+
+        super(FundPhase, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("fund phase")

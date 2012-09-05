@@ -118,19 +118,19 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
 
         self.assertEquals(self.project.money_asked(), 3520)
 
-        self.project.donated = 2155
+        self.project.fundphase.money_donated = 2155
 
         self.assertEquals(self.project.money_donated(), 2155)
 
-        self.project.donated = 2715.3
+        self.project.fundphase.money_donated = 2715.3
 
         self.assertEquals(self.project.money_donated(), 2715)
 
-        self.project.donated = 1322.8
+        self.project.fundphase.money_donated = 1322.8
 
         self.assertEquals(self.project.money_donated(), 1322)
 
-        self.project.donated = 2312
+        self.project.fundphase.money_donated = 2312
         self.project.fundphase.money_asked = 3500
 
         self.assertEquals(self.project.money_needed(), 1188)

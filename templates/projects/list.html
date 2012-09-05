@@ -13,7 +13,10 @@
 
 <ul>
 {% for project in project_list %}
-	<li><a href="{{ project.get_absolute_url }}">{{ project }}</a></li>
+    {% comment %}
+        Let's do money_donated calculation here...
+    {% endcomment %}
+	<li><a href="{{ project.get_absolute_url }}">{{ project }}</a> {{ project.money_donated }}</li>
 {% endfor %}
 </ul>
 

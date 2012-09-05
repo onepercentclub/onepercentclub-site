@@ -1,29 +1,248 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load templatetag_handlebars %}
 
 {% block htmltitle %}{{ block.super }} | {% trans "Home" %}{% endblock %}
 
-{% block toppanel %}
-	<h1>BlueBone start... </h1>
-	No place like home!
-{% endblock %}
-
-{% block widgets %}
-	BlueApp.widgets.load([
-		{
-			widget: 'RecentProjects',
-			container: '#midpanel'
-		},
-		{
-			widget: 'New',
-			container: '#midpanel'
-		}
-	])
-{% endblock %}
-
 {% block content %}
 
-<img src="{{ STATIC_URL }}global/images/elements/1pcpony.png" alt="1%PONY" />
+    {% tplhandlebars "home" %}
+        <div class="home">
+            <img src="/static/assets/global/images/home/big_banner.png" class="center"/>
+        </div>
+    {% endtplhandlebars %}
 
+    {% tplhandlebars "project-detail" %}
+        <div class="row">
+            <div class="column grid_4">
+                <h1>{{view.content.title}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column grid_1">
+                <div class="location">
+                    <img src="/static/assets/global/images/icons/world.png" />
+                    <h4>{{view.content.location.country}}</h4>
+                    {{view.content.location.subregion}}
+                </div>
+                <ul class="categories">
+                    {{#each view.content.categories}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+
+                <ul class="tags">
+                    {{#each view.content.tags}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+                <div class="owner">
+                    <img {{bindAttr src="view.content.owner.image"}} />
+                    <h4>PROJECT INITIATOR</h4>
+                    <br/><br/>
+                    {{view.content.owner.first_name}} {{view.content.owner.last_name}}
+                    <br/><br/> 
+                    <a href="" class="dm">SEND DM</a>
+                </div>
+            </div>
+            <div class="column grid_2wide">
+                {{view "App.ProjectMediaView"}}
+            </div>
+            <div class="column grid_1">
+                {{view "App.ProjectStatsView"}}
+            </div>
+            <div class="resize">
+                <a href>SHOW ALL PROJECT DETAILS</a>
+            </div>
+        </div>
+    {% endtplhandlebars %}
+    
+    {% tplhandlebars "project-media" %}
+        <div class="viewer">
+            <ul>
+                <li>
+                    <div class="imageviewer">
+                        <img {{bindAttr src="view.content.picture"}}/>
+                    </div>
+                </li>
+                <li class="hidden">{{view "App.ProjectMediaPlanView"}}</li>
+                <li class="hidden">{{view "App.ProjectMediaVideosView"}}</li>
+                <li class="hidden">{{view "App.ProjectMediaMapView"}}</li>
+            </ul>
+        </div>
+        <ul class ="nav nav-viewer">
+            <li><a {{action "changeMediaViewer" media-name="pictures"}}>Pictures</a></li>
+            <li><a {{action "changeMediaViewer"}} name="plan">Project Plan</a></li>
+            <li><a {{action "changeMediaViewer"}}>Videos</a></li>
+            <li><a {{action "changeMediaViewer"}}>Map</a></li>
+        </ul>
+    {% endtplhandlebars %}
+
+    
+    {% tplhandlebars "project-media-plan" %}
+        <div class="text">
+            <h1>Project Plan</h1>
+            {{view.content.title}}
+            {{view.content.description}}
+            <h2>What</h2>
+            {{view.content.what}}
+            <h2>Goal</h2>
+            {{view.content.what}}
+            <h2>Who</h2>
+            {{view.content.who}}
+            <h2>How</h2>
+            {{view.content.how}}
+            <h2>Sustainability</h2>
+            {{view.content.sustainability}}
+            <h2>Target</h2>
+            {{view.content.target}}
+        </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-media-videos" %}
+        <div class="imageviewer">
+            <img {{bindAttr src="view.content.video"}} />
+        </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-media-map" %}
+        <div class="relative">
+            <div id="bigmap"></div>
+            <div id="maploading" class="hidden">
+                LOADING PROJECTS
+            </div>
+        </div>
+    {% endtplhandlebars %}
+
+
+    {% tplhandlebars "project-stats" %}
+        <ul class="phases">
+            <li>Idea</li>
+            <li>Fund</li>
+            <li>Act</li>
+            <li>Results</li>
+        </ul><div class="widget">
+        
+        <div>    
+            <div class="half green left">
+                <h1>12</h1>
+                DAYS TO GO
+            </div>
+            
+            <div class="half gray">
+                <h1>35</h1>
+                SUPPORTERS
+            </div>
+        </div>
+
+        <div class="widget support">
+            <div class="progressbar">
+                <div  class="donated-text right" style="margin-right: 50%">
+                    NOW 
+                    <b>€<span class="donated-amount">{{view.content.money_donated}}</span></b>
+                </div>
+                <div class="bar">
+                    <div class="asked-bar"></div>
+                    <div style="width:50%" class="donated-bar"></div> 
+                </div>
+                <div class="asked-text">
+                    NEEDED 
+                    <b>€<span class="asked-amount">{{view.content.money_asked}}</span></b>
+                </div>
+            </div> 
+            <div class="link">SUPPORT THIS PROJECT</div>
+        </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-start" %}
+        <h1>PROJECT START</h1>
+    {% endtplhandlebars %}
+
+
+    {% tplhandlebars "project-info" %}
+        <h1>PROJECTS INFO</h1>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-search-results" %}
+        <h1>PROJECT SEARCH RESULTS</h1>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-search-form" %}
+        <div class="section lightgreen">
+            <div class="row">
+                <div class="column grid_1">
+                    <h3>400 1%PROJECTS</h3>
+                </div>
+                <div class="column grid_1">
+                    {{view Ember.TextField valueBinding="App.projectSearchController.searchText"}}<input type="submit" class="search" value="" />
+                </div>
+                <div class="column grid_1">
+                    <div class="select">
+                        {{view App.ProjectSearchSelect viewName="select"
+                                            contentBinding="App.projectSearchController.filteredRegions"
+                                            optionLabelPath="content.name"
+                                            optionValuePath="content.id"
+                                            prompt="Region"
+                                            selectionBinding="App.projectSearchController.selectedRegion"}}
+                    </div>
+                </div>
+                <div class="column grid_1">
+                    <div class="select">
+                        {{view App.ProjectSearchSelect viewName="select"
+                                            contentBinding="App.projectSearchController.filteredCountries"
+                                            optionLabelPath="content.name"
+                                            optionValuePath="content.id"
+                                            prompt="Country"
+                                            selectionBinding="App.projectSearchController.selectedCountry"}}
+                    </div>
+                </div>
+            </div>
+            <div class="resize">
+                <a href>OPEN ADVANCED SEARCH</a>
+            </div>
+        </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-search-form-element" %}
+        <h3>{{content.title}}</h3>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-search-results-section" %}
+        {{view App.ProjectSearchResultsView}}
+        {{view App.ProjectSearchResultsNextView}}
+        {{view App.ProjectSearchResultsPreviousView}}
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-preview" %}
+        <a {{action showProjectDetail view.content href=true}}>
+        <div class="image">
+            <img {{bindAttr src="view.content.thumbnail"}}/>
+            <div class="info"></div>
+            <div class="title">
+                {{view.content.title}}
+            </div>
+            <div class="location">
+                {{view.content.location.country}}
+            </div>
+        </div> </a>
+        <div class="progressbar">
+            <div class="donated-text right">
+                NOW <b>€<span class="donated-amount">{{view.content.money_donated}}</span></b>
+            </div>
+            <div class="bar">
+                <div class="asked-bar"></div>
+                <div style="width: 45%;" class="donated-bar">
+
+                </div>
+            </div>
+            <div class="asked-text">
+                NEEDED <b>€<span class="asked-amount">{{view.content.money_asked}}</span></b>
+            </div>
+        </div>
+        <div class="title support">
+            SUPPORT
+        </div>
+    {% endtplhandlebars %}
+            
 {% endblock %}

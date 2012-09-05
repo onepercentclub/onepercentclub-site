@@ -2,102 +2,158 @@
 
 {% comment %} Use url tag from Django 1.5. {% endcomment %}
 {% load url from future %}
+{% load templatetag_handlebars %}
 
 {% load i18n %}
 {% load compress %}<!DOCTYPE HTML>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>{% block htmltitle %}bluebottle{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block htmltitle %}bluebottle{% endblock %}</title>
 
-	{% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
+    {% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
 
     {% compress css %}
-		<link rel="stylesheet" href="{{ STATIC_URL }}global/css/960/reset-min.css" type="text/css" />
-		<link rel="stylesheet" href="{{ STATIC_URL }}global/css/960/960-min.css" type="text/css" />
-		<link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
-	{% endcompress %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/960/reset-min.css" type="text/css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/960/960-min.css" type="text/css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
+    {% endcompress %}
 
-	{% compress js %}
-	    <script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/underscore-min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/backbone-min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/bootstrap.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/backbone-tastypie.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/bluebone/app.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}global/js/blueapp.js"></script>
-		<script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}global/js/main.js"></script>
-	{% endcompress %}
-
-	<link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}global/css/main.less">
-	<script type="text/javascript" src="{{ STATIC_URL }}global/js/lib/less-1.3.0.min.js"></script>
+    {% compress js %}
+    
+    {% endcompress %}
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.pre.js"></script>
+    <script type="text/javascript" data-main="{{ STATIC_URL }}global/js/app" src="{{ STATIC_URL }}global/js/libs/require.js"></script>
 
 
-	{% block htmlheader %}{% endblock %}
+
+    <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}global/css/main.less">
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/less-1.3.0.min.js"></script>
+    
+    {% block htmlheader %}{% endblock %}
 </head>
 
 <body>
-	<div id="container">
-		<div id="header">
-			<div class="logo">
-				<img src="{{ STATIC_URL }}global/images/elements/logo.png" alt="1%CLUB" />
-				<img src="{{ STATIC_URL }}global/images/elements/payoff.gif" alt="YOU MAKE IT WORK!" />
-			</div>
-		</div>
-		<div id="toppanel">
-		{% block content %}
-		{% endblock %}
-		</div>
-		<div id="midpanel">
-			{% comment %}
-				This bit will be populated by javascript
-			{% endcomment %}
-		</div>
-		<div id="footer">
-		    {% include "footer.html" %}
-		</div>
+    <div id="container">
+        <div class="siteblock">
+            <div id="header">
+                <div class="logo">
+                    <img src="{{ STATIC_URL }}global/images/elements/logo.png" alt="1%CLUB" />
+                    <img src="{{ STATIC_URL }}global/images/elements/payoff.gif" alt="YOU MAKE IT WORK!" />
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            {% tplhandlebars "application" %}
+                <div class="sitebar black" id="topmenu">
+                    <div class="menu siteblock">
+                        <ul>
+                            <li><a {{action showHome href=true}} class="active">HOME</a></li>
+                            <li><a {{action showProjectStart href=true}}>1%PROJECTS</a></li>
+                            <li><a>1%TASKS</a></li>
+                            <li><a>1%ACTIONS</a></li>
+                            <li><a>LEARN MORE</a></li>
+                        </ul>
+                        <div class="languages">
+                            <a {{action "switchLanguage"}} id="lang-en" class="active" href="">ENGLISH</a> |
+                            <a {{action "switchLanguage"}} id="lang-nl" href="">NEDERLANDS</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="siteblock">
+                    <div id="top-panel">
+                        {{outlet topPanel}}
+                    </div>
+                    <div id="mid-panel">
+                        {{outlet midPanel}}
+                    </div>
+                    <div id="bottom-panel">
+                        {{outlet bottomPanel}}
+                    </div>
+                </div>
+            {% endtplhandlebars %}
 
-		<div id="topmenu">
-			<ul>
-				<li class="active">1%CLUB</li>
-				<li>1%SHOW</li>
-				<li>1%EVENT</li>
-				<li>1%BOOKSHOP</li>
-				<li>1%TOOLBOX</li>
-			</ul>
-			<ul class="language">
-			    {% comment %}
-			        TODO
+            {% block content %}
+            {% endblock %}
+        </div>
+        
+        <div id="mymenu">
+            <div class="siteblock">
+                <div class="menu">
+                    {% if user.is_authenticated %}
+                        NOTIFICATIONS <span class="notification-count">8</span> |
+                        <div id="my1pc">
+                            MY1% -&gt;
+                            <div class="submenu" id="mysubmenu">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Log out</a>
+                                    </li>
+                                    <li>
+                                        <a href="/">My Projects</a>
+                                    </li>
+                                    <li>
+                                        <a href="/">My Tasks</a>
+                                    </li>
+                                    <li>
+                                        <a href="/">My Donations</a>
+                                    </li>
+                                    <li>
+                                        <a href="/">My Profile</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}?next={% firstof request.path "/" %}">Log in</a>
+                    {% endif %}
+                </div>
+                <div class="search">
+                    SEARCH
+                </div>
+            </div>
+        </div>
+        <div class="sitebar green">
+            <div id="sitemenu" class="siteblock">
+                <ul>
+                    <li class="active">1%CLUB</li>
+                    <li>1%SHOW</li>
+                    <li>1%EVENT</li>
+                    <li>1%BOOKSHOP</li>
+                    <li>1%TOOLBOX</li>
+                </ul>
+            </div>
+        </div>
+        <div class="siteblock">
+            <div id="footer">
+                {% include "footer.html" %}
+                <div id="git-revision">Git Revision: {{ GIT_REVISION }}</div>
+            </div>
+        </div>
+        <div class="sitebar black">
+            <div class="siteblock">
+                <div class="row">
+                    <div class="column grid_1">
+                        <h3>1%TWEETS</h3>
+                    </div>
+                    <div class="column grid_1">
+                        
+                    </div>
+                    <div class="column grid_1">
+                        
+                    </div>
+                    <div class="column grid_1">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-			        Rather than always redirecting to root, use a template
-			        tag that generates a link to the current request path in
-			        the target language.
-			    {% endcomment %}
-				{% for lang in LANGUAGES %}
-				    <li {% if LANGUAGE_CODE == lang.0 %}class="active"{% endif %}><a href="/{{ lang.0 }}/">{{ lang.0|language_name_local }}</a></li>
-				{% endfor %}
-			</ul>
-			<div id="mymenu">
-			    {% if user.is_authenticated %}
-			    	{{ user.username }} 
-				    <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">{% trans "Log out" %}</a>
-			    {% else %}
-				    <a href="{% url 'login' %}?next={% firstof request.path "/" %}">{% trans "Log in" %}</a>
-			    {% endif %}
-			</div>
-		</div>
+    <div id="git-revision">{% blocktrans %}Revision: {{ GIT_REVISION }}{% endblocktrans %}</div>
 
-		<div id="submenu">
-			<ul>
-				<li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
-				<li><a href="{% url 'project_list' %}">{% trans "Projects" %}</a></li>
-				<li><a>{% trans "Tasks" %}</a></li>
-				<li><a>{% trans "Actions" %}</a></li>
-				<li><a>{% trans "Learn more" %}</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div id="git-revision">{% blocktrans %}Revision: {{ GIT_REVISION }}{% endblocktrans %}</div>
 </body>
 </html>
