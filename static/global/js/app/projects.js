@@ -332,16 +332,18 @@ App.ProjectMediaVideosView = Em.View.extend({
     templateName:'project-media-videos'
 });
 
+// MediaViewer: panes with media come after this
 App.ProjectMediaMapView = Em.View.extend({
     // Explicit call to App.projectDetailController.content
     // because it doesn't work with App.projectMediaViewerController
+    //contentBinding: 'App.projectMediaViewerController',
     contentBinding: 'App.projectDetailController.content',
     templateName:'project-media-map',
     map: {},
     didInsertElement: function(){
         var view = this;
         // Delayed loading here so we're sure it's rendered
-        // Otherwise gmap will cough
+        // Otherwise gmap might cough
         Ember.run.later(function(){
           var project = view.get('content');
           this.map = new BlueMap('bigmap', {
@@ -353,6 +355,23 @@ App.ProjectMediaMapView = Em.View.extend({
     },
 });
 
+// Used as Mediaviewer panes
+App.ProjectMediaPaneView = Em.View.extend({
+    contentBinding: 'App.projectMediaViewerController',
+    activePaneBinding: 'App.projectMediaViewerController.activePane',
+    classNames: ['pane'],
+    classNameBindings: ['active'], 
+    active: function(){
+        if (this.get('activePane') == this.get('value')) {
+            return true;
+        }
+        return false;
+    }.property('activePane'),
+    tagName: 'div',
+});
+
+
+// Used for Mediaviewer buttons to switch panes
 App.ProjectMediaButtonView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
     activePaneBinding: 'App.projectMediaViewerController.activePane',
@@ -368,20 +387,6 @@ App.ProjectMediaButtonView = Em.View.extend({
     click: function(){
         this.set('activePane', this.get('value'));
     }
-});
-
-App.ProjectMediaPaneView = Em.View.extend({
-    contentBinding: 'App.projectMediaViewerController',
-    activePaneBinding: 'App.projectMediaViewerController.activePane',
-    classNames: ['pane'],
-    classNameBindings: ['active'], 
-    active: function(){
-        if (this.get('activePane') == this.get('value')) {
-            return true;
-        }
-        return false;
-    }.property('activePane'),
-    tagName: 'div',
 });
 
 
