@@ -134,3 +134,26 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         self.project.fundphase.money_asked = 3500
 
         self.assertEquals(self.project.money_needed(), 1188)
+
+    def test_money_donated_default(self):
+        """
+        Tests for the overridden save() method in FundPhase.
+        """
+
+        # Saving a new phase should have money_donated set to 0.
+        phase = self.create_fundphase(self.project)
+        phase.save()
+        self.assertEquals(phase.money_donated, 0)
+
+        # Saving the phase again with money_donated set shouldn't it back to 0.
+        phase.money_donated = 10
+        phase.save()
+        self.assertNotEqual(phase.money_donated, 0)
+
+        # Saving a phase with money_donated set before save() shouldn't set it to 0.
+        funProject = self.create_project(title='Fun Project')
+        funProject.save()
+        phase = self.create_fundphase(funProject)
+        phase.money_donated = 20
+        phase.save()
+        self.assertNotEqual(phase.money_donated, 0)
