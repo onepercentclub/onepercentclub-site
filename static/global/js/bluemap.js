@@ -8,7 +8,7 @@ this.BlueMap = function(elementId, project){
     
     // Our favorite settings for Google Maps
     this.cfg = {
-        mapTypeId: google.maps.MapTypeId.ROADMAP,            
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
         zoom: 7, 
         mapTypeControl: true,
         zoomControl: true,
@@ -20,7 +20,7 @@ this.BlueMap = function(elementId, project){
         },
         mapTypeControlOptions: {
         mapTypeIds: [
-                    google.maps.MapTypeId.ROADMAP, 
+                    google.maps.MapTypeId.ROADMAP,
                     google.maps.MapTypeId.TERRAIN, 
                     google.maps.MapTypeId.SATELLITE, 
                     google.maps.MapTypeId.HYBRID,

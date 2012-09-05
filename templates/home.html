@@ -59,24 +59,36 @@
     {% endtplhandlebars %}
     
     {% tplhandlebars "project-media" %}
-        <div class="viewer">
-            <ul>
-                <li id="pane_pictures">
-                    <div class="imageviewer">
-                        <img {{bindAttr src="view.content.picture"}}/>
-                    </div>
-                </li>
-                <li id="pane_plan" class="hidden">{{view "App.ProjectMediaPlanView"}}</li>
-                <li id="pane_videos" class="hidden">{{view "App.ProjectMediaVideosView"}}</li>
-                <li id="pane_map">{{view "App.ProjectMediaMapView"}}</li>
-            </ul>
+        <div class="mediaviewer">
+            {{#view "App.ProjectMediaPaneView" value="pictures" }}
+                <div class="imageviewer">
+                    <img {{bindAttr src="view.content.picture"}}/>
+                </div>
+            {{/view}}
+            {{#view "App.ProjectMediaPaneView" value="plan" }}
+                {{view "App.ProjectMediaPlanView"}}
+            {{/view}}
+            {{#view "App.ProjectMediaPaneView" value="videos" }}
+                {{view "App.ProjectMediaVideosView"}}
+            {{/view}}
+            {{#view "App.ProjectMediaPaneView" value="map" classNames="active" }}
+                {{view "App.ProjectMediaMapView"}}
+            {{/view}}
         </div>
-        <ul class ="nav nav-viewer">
-            <li class="active"><a {{action "changeMediaViewer"}} name="pictures">Pictures</a></li>
-            <li><a {{action "changeMediaViewer"}} name="plan">Project Plan</a></li>
-            <li><a {{action "changeMediaViewer"}} name="videos">Videos</a></li>
-            <li><a {{action "changeMediaViewer"}} name="map">Map</a></li>
-        </ul>
+        <div class="nav-mediaviewer">
+            {{#view "App.ProjectMediaButtonView" value="pictures"}}
+                Pictures
+            {{/view}}
+            {{#view "App.ProjectMediaButtonView" value="plan"}}
+                Project Plan
+            {{/view}}
+            {{#view "App.ProjectMediaButtonView" value="videos"}}
+                Videos
+            {{/view}}
+            {{#view "App.ProjectMediaButtonView" value="map"}}
+                Map
+            {{/view}}
+        </div>
     {% endtplhandlebars %}
 
     

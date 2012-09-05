@@ -264,6 +264,11 @@ App.ProjectSearchSelect = Em.Select.extend({
 });
 
 
+App.ProjectStartView = Em.View.extend({
+    templateName:'project-start'
+});
+
+
 
 /*
  * Project Detail
@@ -274,6 +279,7 @@ App.projectModel = Em.Object.create({
 
 App.projectDetailController = Em.ObjectController.create({
     content: null,
+    activePane: 'pictures',
 
     populate: function(slug){
         var controller = this;
@@ -287,7 +293,7 @@ App.projectDetailController = Em.ObjectController.create({
 
 
 App.ProjectDetailView = Em.View.extend({
-    contentBinding: 'App.projectDetailController.content',
+    contentBinding: 'App.projectDetailController',
     templateName:'project-detail',
     classNames: ['lightgreen', 'section']
 });
@@ -296,33 +302,46 @@ App.ProjectStatsView = Em.View.extend({
     templateName:'project-stats'
 });
 
+
+/* 
+ * Media Viewer 
+ */
+
+App.projectMediaViewerController = Em.ObjectController.create({
+    contentBinding: 'App.projectDetailController',
+    activePane: 'pictures',
+});
+
 App.ProjectMediaView = Em.View.extend({
-    contentBinding: 'App.projectDetailController.content',
-    templateName:'project-media'
+    contentBinding: 'App.projectMediaViewerController',
+    templateName:'project-media',
 });
 
 App.ProjectMediaPicturesView = Em.View.extend({
-    contentBinding: 'App.projectDetailController.content',
+    contentBinding: 'App.projectMediaViewerController',
     templateName:'project-media-pictures'
 });
 
 App.ProjectMediaPlanView = Em.View.extend({
-    contentBinding: 'App.projectDetailController.content',
+    contentBinding: 'App.projectMediaViewerController',
     templateName:'project-media-plan'
 });
 
 App.ProjectMediaVideosView = Em.View.extend({
-    contentBinding: 'App.projectDetailController.content',
+    contentBinding: 'App.projectMediaViewerController',
     templateName:'project-media-videos'
 });
 
 App.ProjectMediaMapView = Em.View.extend({
-    content: {},
+    // Explicit call to App.projectDetailController.content
+    // because it doesn't work with App.projectMediaViewerController
     contentBinding: 'App.projectDetailController.content',
     templateName:'project-media-map',
     map: {},
     didInsertElement: function(){
         var view = this;
+        // Delayed loading here so we're sure it's rendered
+        // Otherwise gmap will cough
         Ember.run.later(function(){
           var project = view.get('content');
           this.map = new BlueMap('bigmap', {
@@ -334,8 +353,35 @@ App.ProjectMediaMapView = Em.View.extend({
     },
 });
 
-
-App.ProjectStartView = Em.View.extend({
-    templateName:'project-start'
+App.ProjectMediaButtonView = Em.View.extend({
+    contentBinding: 'App.projectMediaViewerController',
+    activePaneBinding: 'App.projectMediaViewerController.activePane',
+    classNameBindings: ['active'], 
+    tagName: 'button',
+    active: function(){
+        if (this.get('activePane') == this.get('value')) {
+            return true;
+        }
+        return false;
+    }.property('activePane'),
+    classNameBindings: ['active'],
+    click: function(){
+        this.set('activePane', this.get('value'));
+    }
 });
+
+App.ProjectMediaPaneView = Em.View.extend({
+    contentBinding: 'App.projectMediaViewerController',
+    activePaneBinding: 'App.projectMediaViewerController.activePane',
+    classNames: ['pane'],
+    classNameBindings: ['active'], 
+    active: function(){
+        if (this.get('activePane') == this.get('value')) {
+            return true;
+        }
+        return false;
+    }.property('activePane'),
+    tagName: 'div',
+});
+
 
