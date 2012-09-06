@@ -472,33 +472,31 @@ body {
 
 
 .phases {
-  background-color: @white;
-  height: 26px;
-  padding: 4px;
+  background: url("@{static-url}/global/images/icons/phases.png") 0px 0px;
+  height: 23px;
+  width: 220px;
+}
+
+.phases.fund {
+  background-position: 0px -23px;
+}
+
+.phases.act {
+  background-position: 0px -46px;
+}
+
+.phases.results {
+  background-position: 0px -69px;
 }
 
 .phases li {
+  font-size: 0.8em;
   text-align: center;
   color: @white;
-  background-color: @gray;
-  padding: 6px 5px 4px;
-  font-family: @futura;
-  font-weight: bold;
-  font-size: 1em;
-  margin: 2px;
   float: left;
-  border-radius: 12px;
-}
-
-.phases.idea .idea,
-.phases.plan .idea,
-.phases.plan .plan,
-.phases.act .idea,
-.phases.act .plan,
-.phases.act .act,
-.phases.results li
-{
-  background-color: @green;
+  width: 40px;
+  padding: 7px;
+  font-weight: bold;
 }
 
 
