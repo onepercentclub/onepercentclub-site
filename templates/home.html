@@ -53,11 +53,52 @@
             <div class="column grid_1">
                 {{view "App.ProjectStatsView"}}
             </div>
-            <div class="resize">
-                <a href>SHOW ALL PROJECT DETAILS</a>
+        </div>
+        <div class="row advanced hidden">
+            <div class="column grid_1">
+                <h3>MEER INFO</h3>
+            </div>
+            <div class="column grid_1">
+                <h3>MEER INFO</h3>
+            </div>
+            <div class="column grid_1">
+                <h3>MEER INFO</h3>
+            </div>
+            <div class="column grid_1">
+                <h3>MEER INFO</h3>
             </div>
         </div>
+        <div class="row advanced hidden">
+            <div class="column grid_1">
+                <h3>MEER INFO</h3>
+            </div>
+            <div class="column grid_1">
+                <h3>MEER INFO</h3>
+            </div>
+            <div class="column grid_1">
+                <h3>MEER INFO</h3>
+            </div>
+            <div class="column grid_1">
+                <h3>MEER INFO</h3>
+            </div>
+        </div>
+        {{view "App.ResizeSectionView" }}
     {% endtplhandlebars %}
+
+    {% tplhandlebars "resize-section" %}
+        <div class="resize">
+            {{#view "App.ResizeSectionToggleView"}}
+                <span class="up">
+                    OPEN ADVANCED VIEW <span class="resize-up"></span>
+                </span>
+                <span class="down">
+                    CLOSE ADVANCED VIEW <span class="resize-down"></span>
+                </span>
+            {{/view}}
+        </div>
+    {% endtplhandlebars %}
+    
+    
     
     {% tplhandlebars "project-media" %}
         <div class="mediaviewer">
@@ -129,7 +170,7 @@
             <li>Fund</li>
             <li>Act</li>
             <li>Results</li>
-        </ul><div class="widget">
+        </ul>
         
         <div>    
             <div class="half green left">
@@ -199,9 +240,21 @@
                     </div>
                 </div>
             </div>
-            <div class="resize">
-                <a href>OPEN ADVANCED SEARCH</a>
+            <div class="advanced hidden row">
+                <div class="column grid_1">
+                    A
+                </div>
+                <div class="column grid_1">
+                    A
+                </div>
+                <div class="column grid_1">
+                    A
+                </div>
+                <div class="column grid_1">
+                    A
+                </div>
             </div>
+            {{view "App.ResizeSectionView" }}
         </div>
     {% endtplhandlebars %}
 
