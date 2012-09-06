@@ -26,17 +26,18 @@
                     <h4>{{view.content.location.country}}</h4>
                     {{view.content.location.subregion}}
                 </div>
-                <ul class="categories">
-                    {{#each view.content.categories}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-
-                <ul class="tags">
-                    {{#each view.content.tags}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
+                <div class="types">
+                    <ul class="categories">
+                        {{#each view.content.categories}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                    <ul class="tags">
+                        {{#each view.content.tags}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
                 <div class="owner">
                     <img {{bindAttr src="view.content.owner.image"}} />
                     <h4>PROJECT INITIATOR</h4>
@@ -217,6 +218,13 @@
         {{view App.ProjectSearchResultsNextView}}
         {{view App.ProjectSearchResultsPreviousView}}
     {% endtplhandlebars %}
+
+    {% tplhandlebars "project-no-results" %}
+        <div class="column grid_4">
+            <h1 class="no-results">NO PROJECTS FOUND</h1>
+        </div>
+    {% endtplhandlebars %}
+    
 
     {% tplhandlebars "project-preview" %}
         <a {{action showProjectDetail view.content href=true}}>

@@ -281,8 +281,13 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
     templateName: 'project-search-results',
     classNames: ['row'],
     contentBinding: 'App.projectSearchController.searchResults',
-    itemViewClass: 'App.ProjectPreviewView'
+    itemViewClass: 'App.ProjectPreviewView',
+    emptyView: Ember.View.extend({
+      templateName: 'project-no-results'
+    })
 });
+
+
 
 App.ProjectPreviewView = Em.View.extend(App.progressBarAnimationMixin, {
     tagName: 'li',
