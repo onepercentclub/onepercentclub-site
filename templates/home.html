@@ -26,17 +26,18 @@
                     <h4>{{view.content.location.country}}</h4>
                     {{view.content.location.subregion}}
                 </div>
-                <ul class="categories">
-                    {{#each view.content.categories}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-
-                <ul class="tags">
-                    {{#each view.content.tags}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
+                <div class="types">
+                    <ul class="categories">
+                        {{#each view.content.categories}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                    <ul class="tags">
+                        {{#each view.content.tags}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
                 <div class="owner">
                     <img {{bindAttr src="view.content.owner.image"}} />
                     <h4>PROJECT INITIATOR</h4>
@@ -123,7 +124,7 @@
 
 
     {% tplhandlebars "project-stats" %}
-        <ul class="phases">
+        <ul class="phases" {{bindAttr class="view.content.phase"}}>
             <li>Idea</li>
             <li>Fund</li>
             <li>Act</li>
@@ -143,22 +144,26 @@
         </div>
 
         <div class="widget support">
-            <div class="progressbar">
-                <div  class="donated-text right" style="margin-right: 50%">
-                    NOW 
-                    <b>€<span class="donated-amount">{{view.content.money_donated}}</span></b>
-                </div>
-                <div class="bar">
-                    <div class="asked-bar"></div>
-                    <div style="width:50%" class="donated-bar"></div> 
-                </div>
-                <div class="asked-text">
-                    NEEDED 
-                    <b>€<span class="asked-amount">{{view.content.money_asked}}</span></b>
-                </div>
-            </div> 
+            {{view "App.ProjectProgressBarView"}}
             <div class="link">SUPPORT THIS PROJECT</div>
         </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "project-progress-bar" %}
+        <div class="progressbar">
+            <div  class="donated-text left">
+                NOW 
+                <b>€{{view.content.money_donated}}</b>
+            </div>
+            <div class="bar">
+                <div class="asked-bar"></div>
+                <div class="donated-bar"></div> 
+            </div>
+            <div class="asked-text">
+                NEEDED 
+                <b>€{{view.content.money_asked}}</b>
+            </div>
+        </div> 
     {% endtplhandlebars %}
 
     {% tplhandlebars "project-start" %}
@@ -210,6 +215,13 @@
         {{view App.ProjectSearchResultsPreviousView}}
     {% endtplhandlebars %}
 
+    {% tplhandlebars "project-no-results" %}
+        <div class="column grid_4">
+            <h1 class="no-results">NO PROJECTS FOUND</h1>
+        </div>
+    {% endtplhandlebars %}
+    
+
     {% tplhandlebars "project-preview" %}
         <a {{action showProjectDetail view.content href=true}}>
         <div class="image">
@@ -223,17 +235,17 @@
             </div>
         </div> </a>
         <div class="progressbar">
-            <div class="donated-text right">
-                NOW <b>€<span class="donated-amount">{{view.content.money_donated}}</span></b>
+            <div class="donated-text left">
+                NOW <b>€{{view.content.money_donated}}</b>
             </div>
             <div class="bar">
                 <div class="asked-bar"></div>
-                <div style="width: 45%;" class="donated-bar">
+                <div class="donated-bar">
 
                 </div>
             </div>
             <div class="asked-text">
-                NEEDED <b>€<span class="asked-amount">{{view.content.money_asked}}</span></b>
+                NEEDED <b>€{{view.content.money_asked}}</b>
             </div>
         </div>
         <div class="title support">
