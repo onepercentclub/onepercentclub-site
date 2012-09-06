@@ -340,19 +340,17 @@ App.ProjectMediaMapView = Em.View.extend({
     contentBinding: 'App.projectDetailController.content',
     templateName:'project-media-map',
     map: {},
-    didInsertElement: function(){
+    loadMap: function(){
         var view = this;
         // Delayed loading here so we're sure it's rendered
         // Otherwise gmap might cough
-        Ember.run.later(function(){
-          var project = view.get('content');
-          this.map = new BlueMap('bigmap', {
-              slug: project.slug,
-              latitude: project.latitude,
-              longitude: project.longitude
-          }).showProjects(); 
-        }, 1000)
-    },
+        var project = view.get('content');
+        this.map = new BlueMap('bigmap', {
+            slug: project.slug,
+            latitude: project.latitude,
+            longitude: project.longitude
+        }).showProjects(); 
+    }.observes('content'),
 });
 
 // Used as Mediaviewer panes

@@ -1,18 +1,6 @@
 App = Em.Application.create({
     rootElement : '#content',
     
-    // Check if a current state is in projects
-    inProjects: function() {
-        return false;
-    },
-
-    updateRouter : function() {
-        var router = this.get('router');
-        router.init();
-        console.log(router)
-        console.log('Don\'t know how to update the router, yet....')
-    },
-
     // Define the main application controller. This is automatically picked up by
     // the application and initialized.
     ApplicationController : Em.Controller.extend({
