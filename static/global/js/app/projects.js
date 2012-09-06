@@ -10,57 +10,67 @@ App.ProjectModel = Em.Object.extend({
 
 
 App.projectSearchController = Em.ArrayController.create({
-    // The saved query state.
-    query: {},
-
-    // Project preview search results.
-    searchResults: null,
-    searchResultsMeta: [],
-
-    // List of regions and countries returned from the search form filter.
-    filteredRegions: [],
-    filteredCountries: [],
-
-    // The text, selected region and country to use when building the query.
-    searchText: "",
-    selectedRegion: null,
-    selectedCountry: null,
-
     init: function() {
         this._super();
         this.populate();
     },
 
+    // The saved queryFilter state.
+    queryFilter: {},
 
-    // Computed properties used for pagination.
+    // Project preview search results and meta data from tastypie:
+    content: [],
+    contentMeta: {},
+
+    // List of regions and countries returned from the search form filter. These
+    // are content bindings for the filter elements (e.g. select) in the Views.
+    filteredRegions: [],
+    filteredCountries: [],
+
+
+    // Query filters that react after a button click or enter from the keyboard:
+    searchText: "",
+    submitTextSearchForm: function(event) {
+        var searchText = this.get('searchText');
+        this.updateQueryFilter({'text': searchText});
+        this.populate();
+    },
+
+
+    // Pagination:
     nextSearchResult: function() {
-        var meta  = this.get('searchResultsMeta');
+        var meta  = this.get('contentMeta');
         var next = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.next)||[,null])[1]
         return next;
-    }.property('searchResultsMeta'),
+    }.property('contentMeta'),
     
     previousSearchResult: function() {
-        var meta  = this.get('searchResultsMeta');
+        var meta  = this.get('contentMeta');
         var previous = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.previous)||[,null])[1]
         return previous;
-    }.property('searchResultsMeta'),
+    }.property('contentMeta'),
 
+    // We can't use an observer for this because it will loop continually.
+    clickPrevNext: function(event, offset) {
+        this.updateQueryFilter({'offset': offset});
+        this.populate();
+    },
 
-    // Functions for loading the data.
+    // Loads the data from the server based on the current value of queryFilter.
     populate: function() {
         var controller = this;
         require(['app/data_source'], function(){
-            var query = controller.get('query');
+            var query = controller.get('queryFilter');
 
-            // Get the project preview data using the current query.
+            // Get the project preview data using the current queryFilter.
             // We're limiting the number of returned items to 4.
             var projectPreviewQuery = $.extend({limit: 4}, query);
             App.dataSource.get('projectpreview', projectPreviewQuery, function(data) {
-                controller.set('searchResults', data['objects']);
-                controller.set('searchResultsMeta', data['meta']);
+                controller.set('content', data['objects']);
+                controller.set('contentMeta', data['meta']);
             });
 
-            // Get the project search data using the same query.
+            // Get the project search data using the same queryFilter.
             // Note that we're *not* limiting the number of returned items as above.
             App.dataSource.get('projectsearchform', query, function(data) {
                 var objects = data['objects'];
@@ -82,48 +92,18 @@ App.projectSearchController = Em.ArrayController.create({
         });
     },
 
-    // Updates the query and populates the data.
-    update: function() {
-        var query = this.get('query');
-
-        // Add or remove the text query parameter.
-        var searchText = this.get('searchText');
-        if (searchText.length > 0) {
-            query.text = searchText;
-        } else {
-            delete query.text;
-        }
-
-        // Add or remove the region query parameter.
-        var selectedRegion = this.get('selectedRegion');
-        if (selectedRegion != null && selectedRegion['id'].length > 0) {
-            query.regions = selectedRegion['id'];
-        } else {
-            delete query.regions;
-        }
-
-        // Add or remove the country query parameter.
-        var selectedCountry = this.get('selectedCountry');
-        if (selectedCountry != null && selectedCountry['id'].length > 0) {
-            query.countries = selectedCountry['id'];
-        } else {
-            delete query.countries;
-        }
-
-        // Set the query and re-populate the data.
-        this.set('query', query);
-    },
-
-    // Updates the query based on the queryParam and populates the data.
-    updateParam: function(queryParam, remove) {
-        var query = this.get('query');
+    // Updates the queryFilter based on the queryParam. Parameters  with a null
+    // or empty value are removed from the filter list.
+    updateQueryFilter: function(queryParam) {
+        var query = this.get('queryFilter');
         var tempQuery = $.extend({}, query);
 
-        // Delete the param if it's already in the query. This lets us update
+        // Delete the param if it's already in the queryFilter. This lets us update
         // the param or leave it deleted depending on what's requested.
         var i = 0;
         for (var property in queryParam) {
             if (i > 0) {
+                // TODO: Support multiple queryFilter parameter updates.
                 break;  // Only use the first property in queryParam.
             }
             if (undefined != tempQuery[property]) {
@@ -132,31 +112,28 @@ App.projectSearchController = Em.ArrayController.create({
             i++;
         }
 
-        // Create an updated query.
-        if (remove) {
+        // The offset parameter needs to be deleted on every filter update.
+        if (undefined != tempQuery['offset']) {
+            delete tempQuery['offset'];
+        }
+
+        // Create an updated queryFilter.
+        if (queryParam[property] == null || queryParam[property].length == 0 ) {
+            // QueryParam[property] is null or empty string. Ignore it.
             var updatedQuery = tempQuery;
         } else {
             var updatedQuery = $.extend(queryParam, tempQuery);
         }
 
-        // Set the updated query.
-        this.set('query', updatedQuery);
+        // Set the updated queryFilter and populate the data.
+        this.set('queryFilter', updatedQuery);
     },
 
-    /* Methods to handle specific interactions from the UI */
-    submitSearchForm: function(event) {
-        this.updateParam({'offset': null}, true); // delete offset param
-        this.update();
-        this.populate();
-    },
-
-    clickPrevNext: function(event, offset) {
-        var param = {};
-        param['offset'] = offset;
-        this.updateParam(param);
+    // Convenience method that combines updateQueryFilter() and populate().
+    applyFilter: function(queryParam) {
+        this.updateQueryFilter(queryParam);
         this.populate();
     }
-
 });
 
 /* The search form. */
@@ -168,7 +145,7 @@ App.ProjectSearchFormView = Em.View.extend({
     submit: function(event) {
         // inspired by http://jsfiddle.net/dgeb/RBbpS/
         event.preventDefault();
-        App.projectSearchController.submitSearchForm(event);
+        App.projectSearchController.submitTextSearchForm(event);
 //        We want to do something generic like this:
 //
 //        this.get('controller').update();
@@ -247,7 +224,7 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
     templateName: 'project-search-results',
     classNames: ['row'],
 
-    contentBinding: 'App.projectSearchController.searchResults',
+    contentBinding: 'App.projectSearchController.content',
     itemViewClass: 'App.ProjectPreviewView'
 });
 
@@ -257,12 +234,37 @@ App.ProjectPreviewView = Em.View.extend({
     classNames: ['project-mid', 'grid_1', 'column']
 });
 
-App.ProjectSearchSelect = Em.Select.extend({
+
+// Views that change the query filter.
+App.FilterSelect = Em.Select.extend({
     change: function(event){
-        App.projectSearchController.submitSearchForm(event);
+        event.preventDefault();
+        var queryParam = {};
+        // TODO Add support for multi-selection by looping through selection object.
+        queryParam[this.get('name')] = this.get('selection').id;
+        this.get('controller').applyFilter(queryParam);
     }
 });
 
+App.ProjectRegionSelect = App.FilterSelect.extend({
+    controller: App.projectSearchController,
+    name: "regions",
+    viewName: "ProjectRegionSelect",
+    contentBinding: "App.projectSearchController.filteredRegions",
+    optionLabelPath: "content.name",
+    optionValuePath: "content.id",
+    prompt: "Region"
+});
+
+App.ProjectCountrySelect = App.FilterSelect.extend({
+    controller: App.projectSearchController,
+    name: "countries",
+    viewName: "ProjectCountrySelect",
+    contentBinding: "App.projectSearchController.filteredCountries",
+    optionLabelPath: "content.name",
+    optionValuePath: "content.id",
+    prompt: "Country"
+});
 
 App.ProjectStartView = Em.View.extend({
     templateName:'project-start'
