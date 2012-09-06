@@ -413,12 +413,12 @@ body {
   .donated-bar {
     background-color: @green;
     border: 1px solid @green;
-    //border-right: 1px solid @green;
+    width: 0px;
   }
 
   .donated-text.right {
     color: @green;
-    border-right: 1px solid @green;
+    border-right: 2px solid @green;
     padding: 0px 4px 4px;
     text-align: right;
     margin-right: -1px;
@@ -462,33 +462,31 @@ body {
 
 
 .phases {
-  background-color: @white;
-  height: 26px;
-  padding: 4px;
+  background: url("@{static-url}/global/images/icons/phases.png") 0px 0px;
+  height: 23px;
+  width: 220px;
+}
+
+.phases.fund {
+  background-position: 0px -23px;
+}
+
+.phases.act {
+  background-position: 0px -46px;
+}
+
+.phases.results {
+  background-position: 0px -69px;
 }
 
 .phases li {
+  font-size: 0.8em;
   text-align: center;
   color: @white;
-  background-color: @gray;
-  padding: 6px 5px 4px;
-  font-family: @futura;
-  font-weight: bold;
-  font-size: 1em;
-  margin: 2px;
   float: left;
-  border-radius: 12px;
-}
-
-.phases.idea .idea,
-.phases.plan .idea,
-.phases.plan .plan,
-.phases.act .idea,
-.phases.act .plan,
-.phases.act .act,
-.phases.results li
-{
-  background-color: @green;
+  width: 40px;
+  padding: 7px;
+  font-weight: bold;
 }
 
 
@@ -540,7 +538,7 @@ form {
 .widget.support {
   border: 1px solid @pink;
   margin: 10px 0px;
-  width: 220px;
+  width: 218px;
   
   .link {
     font-weight: bold;
@@ -671,6 +669,12 @@ form {
   }
 }
 
+h1.no-results {
+  color: @gray;
+  margin: 120px;
+  text-align: center;
+}
+
 
 .section {
   margin-bottom: 20px;
@@ -785,12 +789,12 @@ form.search {
     margin: 0px;
     padding: 4px 8px 2px;
     border-radius: 0px 0px 4px 4px;
-    border: 2px solid @midgreen;
+    border: 1px solid @midgreen;
     border-top: 0px;
     color: @green;
     background-color: @lightgreen;
     text-transform: uppercase;
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: bold;
     font-family: @futura;
   }
@@ -801,6 +805,11 @@ form.search {
   }
 }
 
+
+
+div.types {
+  height: 214px;
+}
 
 ul.categories, 
 ul.tags {

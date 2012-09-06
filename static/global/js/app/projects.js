@@ -167,6 +167,40 @@ App.ProjectSearchFormView = Em.View.extend({
 });
 
 
+App.progressBarAnimationMixin = Em.Mixin.create({
+    donatedPercentage: function(){
+        var project = this.get('content');
+        if (project.money_asked) {
+            return 100 * project.money_donated / project.money_asked;
+        }
+        return 0;
+    }.property('content'),
+    animateBar: function() {
+        var p = this.get('donatedPercentage');
+        var bar = this.$('.donated-bar');
+        var label = this.$('.donated-text');
+        // Only animate
+        if (p > 0) {
+            label.fadeTo(0,0);
+            if (p < 40) {
+                label.css({marginRight: '-1px', marginLeft: p + '%'});
+                label.removeClass('right');
+                label.addClass('left');
+            } else {
+                var pr = 100 - p;
+                label.css({marginLeft: '-1px',marginRight : pr + '%'});
+                label.removeClass('left');
+                label.addClass('right');
+            }
+            bar.animate({width: p +'%'}, 1000,
+                function(){label.fadeTo(200, 1);}
+            );
+        }
+    }.observes('donatedPercentage')
+    
+});
+
+
 /* The search results. */
 App.ProjectSearchResultsSectionView  = Em.View.extend({
     tagName: 'div',
@@ -223,15 +257,25 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
     tagName: 'ul',
     templateName: 'project-search-results',
     classNames: ['row'],
-
+    emptyView: Ember.View.extend({
+      templateName: 'project-no-results'
+    }),
     contentBinding: 'App.projectSearchController.content',
     itemViewClass: 'App.ProjectPreviewView'
 });
 
-App.ProjectPreviewView = Em.View.extend({
+
+
+App.ProjectPreviewView = Em.View.extend(App.progressBarAnimationMixin, {
     tagName: 'li',
     templateName: 'project-preview',
-    classNames: ['project-mid', 'grid_1', 'column']
+    classNames: ['project-mid', 'grid_1', 'column'],
+    // Trigger animateBar manualy because it doesn't get
+    // called properly (content trigger on donatedPercentage doesn't work)
+    didInsertElement: function() {
+        this._super();
+        this.animateBar();
+    },
 });
 
 
@@ -301,10 +345,15 @@ App.ProjectDetailView = Em.View.extend({
 });
 
 App.ProjectStatsView = Em.View.extend({
+    contentBinding: 'App.projectDetailController',
     templateName:'project-stats'
 });
 
 
+App.ProjectProgressBarView = Em.View.extend(App.progressBarAnimationMixin, {
+    contentBinding: 'App.projectDetailController.content',
+    templateName:'project-progress-bar',
+});
 /* 
  * Media Viewer 
  */
