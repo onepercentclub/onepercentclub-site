@@ -9,6 +9,62 @@ App.ProjectModel = Em.Object.extend({
 });
 
 
+App.IndexOfObjPropMixin = Ember.Mixin.create({
+    // Inspired by Ember's Array.indexOf():
+    indexOfObjectProperty: function(object, property, startAt) {
+        var idx, len = this.get('length');
+
+        if (startAt === undefined) startAt = 0;
+        if (startAt < 0) startAt += len;
+
+        for(idx=startAt;idx<len;idx++) {
+            if (this.objectAt(idx)[property] == object[property]) return idx ;
+        }
+        return -1;
+    }
+});
+
+App.SelectFilterController = Em.ArrayController.extend(App.IndexOfObjPropMixin, {
+    content: Em.A(),
+    sortProperties: ['name'],
+    updateContent: function (data) {
+        var updatedList = Em.ArrayProxy.create(App.IndexOfObjPropMixin, {content: Em.A(data)});
+
+        // Remove items not in current list.
+        var currentListCopy = this.slice(0);
+        var numRemovals = 0;
+        Em.beginPropertyChanges();
+        currentListCopy.forEach(function (item, index, enumerable) {
+            if (this.updatedList.indexOfObjectProperty(item, 'id') < 0) {
+                // Item not in updated list; remove it.
+                this.currentList.removeAt(index - numRemovals);
+                numRemovals++;
+            }
+        }, {updatedList: updatedList, currentList: this, numRemovals: numRemovals});
+
+        // Add items not in current list and update counts for existing items.
+        updatedList.forEach(function (item, index, enumerable) {
+            var idx = this.indexOfObjectProperty(item, 'id');
+            if (idx >= 0) {
+                // Update the count.
+                this.objectAt(idx)['count'] = item['count'];
+            } else {
+                // Item not in current list; add it.
+                this.pushObject(item)
+
+            }
+        }, this);
+        Em.endPropertyChanges();
+
+        // Clear out some variables we're done with.
+        updatedList = null;
+        currentListCopy = null;
+        numRemovals = null;
+    }
+});
+
+
+
 App.projectSearchController = Em.ArrayController.create({
     init: function() {
         this._super();
@@ -24,8 +80,8 @@ App.projectSearchController = Em.ArrayController.create({
 
     // List of regions and countries returned from the search form filter. These
     // are content bindings for the filter elements (e.g. select) in the Views.
-    filteredRegions: [],
-    filteredCountries: [],
+    filteredRegions: App.SelectFilterController.create(),
+    filteredCountries: App.SelectFilterController.create(),
 
 
     // Query filters that react after a button click or enter from the keyboard:
@@ -77,10 +133,10 @@ App.projectSearchController = Em.ArrayController.create({
                 for (var i = 0; i < objects.length; i++) {
                     switch (objects[i].name) {
                         case "countries":
-                            controller.set('filteredCountries', objects[i].options);
+                            controller.get('filteredCountries').updateContent(objects[i].options);
                             break;
                         case "regions":
-                            controller.set('filteredRegions', objects[i].options);
+                            controller.get('filteredRegions').updateContent(objects[i].options);
                             break;
                         default:
                             break;
@@ -257,7 +313,7 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
     tagName: 'ul',
     templateName: 'project-search-results',
     classNames: ['row'],
-    emptyView: Ember.View.extend({
+    emptyView: Em.View.extend({
       templateName: 'project-no-results'
     }),
     contentBinding: 'App.projectSearchController.content',
@@ -275,7 +331,7 @@ App.ProjectPreviewView = Em.View.extend(App.progressBarAnimationMixin, {
     didInsertElement: function() {
         this._super();
         this.animateBar();
-    },
+    }
 });
 
 
@@ -285,7 +341,8 @@ App.FilterSelect = Em.Select.extend({
         event.preventDefault();
         var queryParam = {};
         // TODO Add support for multi-selection by looping through selection object.
-        queryParam[this.get('name')] = this.get('selection').id;
+        var selection = this.get('selection')
+        queryParam[this.get('name')] = selection != null ? selection.id : null;
         this.get('controller').applyFilter(queryParam);
     }
 });
@@ -309,6 +366,8 @@ App.ProjectCountrySelect = App.FilterSelect.extend({
     optionValuePath: "content.id",
     prompt: "Country"
 });
+
+
 
 App.ProjectStartView = Em.View.extend({
     templateName:'project-start'
@@ -352,20 +411,21 @@ App.ProjectStatsView = Em.View.extend({
 
 App.ProjectProgressBarView = Em.View.extend(App.progressBarAnimationMixin, {
     contentBinding: 'App.projectDetailController.content',
-    templateName:'project-progress-bar',
+    templateName:'project-progress-bar'
 });
+
+
 /* 
  * Media Viewer 
  */
-
 App.projectMediaViewerController = Em.ObjectController.create({
     contentBinding: 'App.projectDetailController',
-    activePane: 'pictures',
+    activePane: 'pictures'
 });
 
 App.ProjectMediaView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media',
+    templateName:'project-media'
 });
 
 App.ProjectMediaPicturesView = Em.View.extend({
@@ -401,7 +461,7 @@ App.ProjectMediaMapView = Em.View.extend({
             latitude: project.latitude,
             longitude: project.longitude
         }).showProjects(); 
-    }.observes('content'),
+    }.observes('content')
 });
 
 // Used as Mediaviewer panes
@@ -416,7 +476,7 @@ App.ProjectMediaPaneView = Em.View.extend({
         }
         return false;
     }.property('activePane'),
-    tagName: 'div',
+    tagName: 'div'
 });
 
 
