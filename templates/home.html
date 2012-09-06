@@ -179,22 +179,22 @@
                 </div>
                 <div class="column grid_1">
                     <div class="select">
-                        {{view App.ProjectSearchSelect viewName="select"
-                                            contentBinding="App.projectSearchController.filteredRegions"
-                                            optionLabelPath="content.name"
-                                            optionValuePath="content.id"
-                                            prompt="Region"
-                                            selectionBinding="App.projectSearchController.selectedRegion"}}
+                        {{view Em.Select viewName="ProjectRegionSelect"
+                                         contentBinding="App.projectSearchController.filteredRegions"
+                                         optionLabelPath="content.name"
+                                         optionValuePath="content.id"
+                                         prompt="Region"
+                                         selectionBinding="App.projectSearchController.selectedRegion"}}
                     </div>
                 </div>
                 <div class="column grid_1">
                     <div class="select">
-                        {{view App.ProjectSearchSelect viewName="select"
-                                            contentBinding="App.projectSearchController.filteredCountries"
-                                            optionLabelPath="content.name"
-                                            optionValuePath="content.id"
-                                            prompt="Country"
-                                            selectionBinding="App.projectSearchController.selectedCountry"}}
+                        {{view Em.Select viewName="ProjectCountrySelect"
+                                         contentBinding="App.projectSearchController.filteredCountries"
+                                         optionLabelPath="content.name"
+                                         optionValuePath="content.id"
+                                         prompt="Country"
+                                         selectionBinding="App.projectSearchController.selectedCountry"}}
                     </div>
                 </div>
             </div>
