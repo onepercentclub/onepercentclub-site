@@ -298,8 +298,34 @@ App.ProjectStatsView = Em.View.extend({
 });
 
 App.ProjectProgressBarView = Em.View.extend({
-    contentBinding: 'App.projectDetailController',
+    contentBinding: 'App.projectDetailController.content',
     templateName:'project-progress-bar',
+    donatedPercentage: function(){
+        var project = this.get('content');
+        if (project.money_asked) {
+            return 100 * project.money_donated / project.money_asked;
+        }
+        return 0;
+    }.property('content'),
+    animateBar: function() {
+        var p = this.get('donatedPercentage');
+        var bar = this.$('.donated-bar');
+        var label = this.$('.donated-text');
+        label.fadeTo(0);
+        if (p < 40) {
+            label.css({marginRight: '-1px', marginLeft: p + '%'});
+            label.removeClass('right');
+            label.addClass('left');
+        } else {
+            var pr = 100 - p;
+            label.css({marginLeft: '-1px',marginRight : pr + '%'});
+            label.removeClass('left');
+            label.addClass('right');
+        }
+        bar.animate({width: p +'%'}, 1000,
+            function(){label.fadeTo(1);}
+        );
+    }.observes('donatedPercentage')
     
 });
 
