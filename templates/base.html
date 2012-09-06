@@ -31,6 +31,9 @@
 
     <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}global/css/main.less">
     <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/less-1.3.0.min.js"></script>
+
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/bluemap.js"></script>
     
     {% block htmlheader %}{% endblock %}
 </head>
@@ -50,7 +53,7 @@
                 <div class="sitebar black" id="topmenu">
                     <div class="menu siteblock">
                         <ul>
-                            <li><a {{action showHome href=true}} class="active">HOME</a></li>
+                            <li class="active"><a {{action showHome href=true}}>HOME</a></li>
                             <li><a {{action showProjectStart href=true}}>1%PROJECTS</a></li>
                             <li><a>1%TASKS</a></li>
                             <li><a>1%ACTIONS</a></li>

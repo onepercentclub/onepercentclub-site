@@ -47,7 +47,7 @@
                     <a href="" class="dm">SEND DM</a>
                 </div>
             </div>
-            <div class="column grid_2wide">
+            <div class="column grid_2">
                 {{view "App.ProjectMediaView"}}
             </div>
             <div class="column grid_1">
@@ -60,24 +60,36 @@
     {% endtplhandlebars %}
     
     {% tplhandlebars "project-media" %}
-        <div class="viewer">
-            <ul>
-                <li>
-                    <div class="imageviewer">
-                        <img {{bindAttr src="view.content.picture"}}/>
-                    </div>
-                </li>
-                <li class="hidden">{{view "App.ProjectMediaPlanView"}}</li>
-                <li class="hidden">{{view "App.ProjectMediaVideosView"}}</li>
-                <li class="hidden">{{view "App.ProjectMediaMapView"}}</li>
-            </ul>
+        <div class="mediaviewer">
+            {{#view "App.ProjectMediaPaneView" value="pictures" }}
+                <div class="imageviewer">
+                    <img {{bindAttr src="view.content.picture"}}/>
+                </div>
+            {{/view}}
+            {{#view "App.ProjectMediaPaneView" value="plan" }}
+                {{view "App.ProjectMediaPlanView"}}
+            {{/view}}
+            {{#view "App.ProjectMediaPaneView" value="videos" }}
+                {{view "App.ProjectMediaVideosView"}}
+            {{/view}}
+            {{#view "App.ProjectMediaPaneView" value="map" classNames="active" }}
+                {{view "App.ProjectMediaMapView"}}
+            {{/view}}
         </div>
-        <ul class ="nav nav-viewer">
-            <li><a {{action "changeMediaViewer" media-name="pictures"}}>Pictures</a></li>
-            <li><a {{action "changeMediaViewer"}} name="plan">Project Plan</a></li>
-            <li><a {{action "changeMediaViewer"}}>Videos</a></li>
-            <li><a {{action "changeMediaViewer"}}>Map</a></li>
-        </ul>
+        <div class="nav-mediaviewer">
+            {{#view "App.ProjectMediaButtonView" value="pictures"}}
+                Pictures
+            {{/view}}
+            {{#view "App.ProjectMediaButtonView" value="plan"}}
+                Project Plan
+            {{/view}}
+            {{#view "App.ProjectMediaButtonView" value="videos"}}
+                Videos
+            {{/view}}
+            {{#view "App.ProjectMediaButtonView" value="map"}}
+                Map
+            {{/view}}
+        </div>
     {% endtplhandlebars %}
 
     
@@ -87,13 +99,7 @@
             {{view.content.title}}
             {{view.content.description}}
             <h2>What</h2>
-            {{view.content.what}}
-            <h2>Goal</h2>
-            {{view.content.what}}
-            <h2>Who</h2>
-            {{view.content.who}}
-            <h2>How</h2>
-            {{view.content.how}}
+            {{view.content.description_long}}
             <h2>Sustainability</h2>
             {{view.content.sustainability}}
             <h2>Target</h2>
@@ -184,22 +190,12 @@
                 </div>
                 <div class="column grid_1">
                     <div class="select">
-                        {{view App.ProjectSearchSelect viewName="select"
-                                            contentBinding="App.projectSearchController.filteredRegions"
-                                            optionLabelPath="content.name"
-                                            optionValuePath="content.id"
-                                            prompt="Region"
-                                            selectionBinding="App.projectSearchController.selectedRegion"}}
+                        {{view App.ProjectRegionSelect }}
                     </div>
                 </div>
                 <div class="column grid_1">
                     <div class="select">
-                        {{view App.ProjectSearchSelect viewName="select"
-                                            contentBinding="App.projectSearchController.filteredCountries"
-                                            optionLabelPath="content.name"
-                                            optionValuePath="content.id"
-                                            prompt="Country"
-                                            selectionBinding="App.projectSearchController.selectedCountry"}}
+                        {{view App.ProjectCountrySelect }}
                     </div>
                 </div>
             </div>

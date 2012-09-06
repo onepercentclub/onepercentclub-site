@@ -18,11 +18,22 @@
 
 @font: Arial, Helvetica;
 @futura: 'Futura Std', 'Futura Std Book', 'Futura Std Bold', @font;
-@mainwidth: 1000px;
+@mainwidth: 1040px;
 
-.row {
-  
-}
+.grid_1 {width: 230px;}
+.grid_2 {width: 480px;}
+.grid_3 {width: 730px;}
+.grid_4 {width: 960px;}
+.column {margin: 0 10px 0 10px;
+         overflow: hidden;
+         float: left;
+         display: inline;}
+.row {width: 1000px;
+         margin: 0 auto;
+         overflow: hidden;}
+.row .row {margin: 0 -10px 0 -10px;
+         width: auto;
+         display: inline-block;}
 
 .row.black {
   background-color: @black;
@@ -212,17 +223,22 @@ body {
       margin: 0px;
       padding: 6px;
       text-indent: 0px;
+      a {
+        color: @gray;
+        text-decoration: none;
+      }
+      a:hover {
+        color: @white;
+        text-decoration: underline;
+      }
     }
     li.active {
       background: url("@{static-url}/global/images/elements/pointer.png") center bottom no-repeat;
+      a {
+        color: @white;
+        text-decoration: none;
+      }
     }
-  }
-  a {
-    color: white;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
   }
   .languages {
     font-family: @font;
@@ -254,16 +270,6 @@ body {
   position: fixed;
   top: 0px;
   background-color: @black;
-  ul li {
-    padding: 4px 6px;
-  }
-  ul li a {
-    color: @white;
-  }
-  ul li a.active,
-  ul li a:hover {
-    color: @green;
-  }
 }
 
 #header {
@@ -294,9 +300,6 @@ body {
   p, ul {
     margin: 0px 0px 12px 0px;
   }
-  .viewer ul {
-    margin: 0px;
-  }
   .profile-image {
     border: 1px solid black;
     background-color: @sepia;
@@ -320,7 +323,8 @@ body {
   h3 {
     font-family: @futura;
     margin: 0px 0px 4px;
-    color: @green;
+    padding: 0px;
+    color: @gray;
   }
   h4 a {
     font-family: @futura;
@@ -365,8 +369,8 @@ body {
 /* MAPS */
 
 #bigmap {
-  width: 474px;
-  height: 355px;
+  width: 480px;
+  height: 360px;
   
 }
 
@@ -434,20 +438,6 @@ body {
     padding: 4px;
   }
   
-}
-
-.profile-viewer {
-  
-  .pane {
-    width: 220px;
-    height: 220px;
-    border: 1px solid @white;
-  }
-  a.panelink {
-    color: @green;
-    font-weight: bold;
-  }
-
 }
 
 .column.black {
@@ -565,7 +555,7 @@ form {
 .widget, 
 .results ul.list li {
   display: inline-block;
-  width: 225px;
+  width: 230px;
   h3.light {
     background-color: @white;
     color: @green;
@@ -627,18 +617,19 @@ form {
   font-size: 0.8em;
   border: 1px solid @gray;
   margin: 10px;
+  width: 228px;
   a {
     color: @white;
   }
   .image {
     position: relative;
-    width: 225px;
+    width: 228px;
     height: 150px;
     .info {
       position: absolute;
       bottom: 0px;
       height: 68px;
-      width: 225px;
+      width: 228px;
       background: rgba(0,0,0,0.5);
     }
     .title,
@@ -759,15 +750,24 @@ form.search {
   margin-bottom: 10px;
 }
 
-.viewer {
+.mediaviewer {
   height: 360px;
-  overflow: auto;
+  overflow: hidden;
   width: 480px;
   background-color: @lightgreen;
+  .pane {
+    display: none;
+  }
+  .pane.active {
+    display: block;
+  }
 }
 
-.viewer .text {
-  margin: 8px;
+.mediaviewer .text {
+  padding: 10px;
+  overflow: auto;
+  height: 340px;
+  width: 460px;
 }
 
 .videoviewer,
@@ -778,27 +778,30 @@ form.search {
   text-align: center;
 }
 
-.nav-viewer {
+.nav-mediaviewer {
   width: 480px;
-  border-top: 2px solid @black;
+  border-top: 2px solid @green;
   background-color: @lightgreen;
   padding: 0px 2px 6px 2px;
-  li {
+  button {
+    cursor: pointer;
     display: inline-block;
     margin: 0px;
-    padding: 4px 8px;
+    padding: 4px 8px 2px;
     border-radius: 0px 0px 4px 4px;
-    border: 1px solid @midgreen;
+    border: 2px solid @midgreen;
     border-top: 0px;
-    background-color: @green;
-    color: @white;
+    color: @green;
+    background-color: @lightgreen;
     text-transform: uppercase;
     font-size: 1.2em;
     font-weight: bold;
     font-family: @futura;
   }
-  li.active {
-    background-color: @black;
+  button.active {
+    background-color: @green;
+    color: @white;
+    border-color: @green;
   }
 }
 
@@ -850,7 +853,7 @@ ul.categories {
 }
 
 #top-panel .half {
-  width: 90px;
+  width: 92px;
   color: @white;
   font-family: @futura;
   display: inline-block;
@@ -859,7 +862,7 @@ ul.categories {
     //color: @white;
     color: @gray;
   }
-  padding: 8px;
+  padding: 6px;
   //background-color: @gray;
   background-color: @white;
   border: 1px solid @gray;
