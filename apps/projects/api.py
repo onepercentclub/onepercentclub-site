@@ -77,9 +77,9 @@ class ProjectPreviewResource(ResourceBase):
         try:
             bundle.data['thumbnail'] = '/static/media/' + unicode(
                                              get_thumbnail(bundle.obj.image,
-                                            '225x150', crop='center', quality=85))
+                                            '230x150', crop='center', quality=85))
         except:
-            bundle.data['thumbnail'] = 'http://placehold.it/225x150'
+            bundle.data['thumbnail'] = 'http://placehold.it/230x150'
 
         return bundle
 

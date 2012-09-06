@@ -1,13 +1,6 @@
 App = Em.Application.create({
     rootElement : '#content',
-
-    updateRouter : function() {
-        var router = this.get('router');
-        router.init();
-        console.log(router)
-        console.log('Don\'t know how to update the router, yet....')
-    },
-
+    
     // Define the main application controller. This is automatically picked up by
     // the application and initialized.
     ApplicationController : Em.Controller.extend({
@@ -53,9 +46,6 @@ App.ProjectRoute = Em.Route.extend({
     // The project detail state.
     detail: Em.Route.extend({
         route: '/:project_slug',
-        changeMediaViewer: function(router, event){
-            console.log(event);
-        },
         deserialize: function(router, params) {
             return {slug: params.project_slug}
         },
