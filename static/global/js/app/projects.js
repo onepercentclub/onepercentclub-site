@@ -19,11 +19,11 @@ App.projectSearchController = Em.ArrayController.create({
     queryFilter: {},
 
     // Project preview search results and meta data from tastypie:
-    content: null,
-    contentMeta: [],
+    content: [],
+    contentMeta: {},
 
     // List of regions and countries returned from the search form filter. These
-    // hold the information that will be presented in the UI.
+    // are content bindings for the filter elements (e.g. select) in the Views.
     filteredRegions: [],
     filteredCountries: [],
 
@@ -35,21 +35,6 @@ App.projectSearchController = Em.ArrayController.create({
         this.updateQueryFilter({'text': searchText});
         this.populate();
     },
-
-    // Query filters that react immediately to user input:
-    selectedRegion: null,
-    selectedRegionChanged: function() {
-        var selectedRegion = this.get('selectedRegion');
-        this.updateQueryFilter({'regions': selectedRegion['id']});
-        this.populate()
-    }.observes('selectedRegion'),
-
-    selectedCountry: null,
-    selectedCountryChanged: function() {
-        var selectedCountry = this.get('selectedCountry');
-        this.updateQueryFilter({'countries': selectedCountry['id']});
-        this.populate()
-    }.observes('selectedCountry'),
 
 
     // Pagination:
@@ -142,8 +127,13 @@ App.projectSearchController = Em.ArrayController.create({
 
         // Set the updated queryFilter and populate the data.
         this.set('queryFilter', updatedQuery);
-    }
+    },
 
+    // Convenience method that combines updateQueryFilter() and populate().
+    applyFilter: function(queryParam) {
+        this.updateQueryFilter(queryParam);
+        this.populate();
+    }
 });
 
 /* The search form. */
@@ -245,6 +235,36 @@ App.ProjectPreviewView = Em.View.extend({
 });
 
 
+// Views that change the query filter.
+App.FilterSelect = Em.Select.extend({
+    change: function(event){
+        event.preventDefault();
+        var queryParam = {};
+        // TODO Add support for multi-selection by looping through selection object.
+        queryParam[this.get('name')] = this.get('selection').id;
+        this.get('controller').applyFilter(queryParam);
+    }
+});
+
+App.ProjectRegionSelect = App.FilterSelect.extend({
+    controller: App.projectSearchController,
+    name: "regions",
+    viewName: "ProjectRegionSelect",
+    contentBinding: "App.projectSearchController.filteredRegions",
+    optionLabelPath: "content.name",
+    optionValuePath: "content.id",
+    prompt: "Region"
+});
+
+App.ProjectCountrySelect = App.FilterSelect.extend({
+    controller: App.projectSearchController,
+    name: "countries",
+    viewName: "ProjectCountrySelect",
+    contentBinding: "App.projectSearchController.filteredCountries",
+    optionLabelPath: "content.name",
+    optionValuePath: "content.id",
+    prompt: "Country"
+});
 
 
 /*
