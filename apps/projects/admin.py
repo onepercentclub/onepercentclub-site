@@ -12,25 +12,30 @@ from .models import (
 )
 
 
-class IdeaPhaseInline(admin.StackedInline):
+class PhaseInlineBase(admin.StackedInline):
+    max_num = 1
+    extra = 0
+
+
+class IdeaPhaseInline(PhaseInlineBase):
     model = IdeaPhase
     can_delete = False
 
 
-class BudgetInline(admin.TabularInline):
-    model = BudgetLine
-
-
-class FundPhaseInline(admin.StackedInline):
+class FundPhaseInline(PhaseInlineBase):
     model = FundPhase
 
 
-class ActPhaseInline(admin.StackedInline):
+class ActPhaseInline(PhaseInlineBase):
     model = ActPhase
 
 
-class ResultsPhaseInline(admin.StackedInline):
+class ResultsPhaseInline(PhaseInlineBase):
     model = ResultsPhase
+
+
+class BudgetInline(admin.TabularInline):
+    model = BudgetLine
 
 
 class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
@@ -43,7 +48,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
     # TODO: decide if we want to have thumbnails here
     #list_display = ('thumbnail', 'title', 'organization', 'country')
     #list_display_links = ('thumbnail', 'title')
-    
+
     inlines = [
         BudgetInline, IdeaPhaseInline,
         FundPhaseInline, ActPhaseInline, ResultsPhaseInline

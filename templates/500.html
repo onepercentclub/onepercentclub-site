@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
-{% block htmltitle %}{{ block.super }} | Internal server error{% endblock %}
+{% load i18n %}
+
+{% block htmltitle %}{{ block.super }} | {% trans "Internal server error" %}{% endblock %}
 
 {% block content %}
-<h1>Internal server error</h1>
-<p>There was an error while trying to serve the requested page. Please try again. If the error persists, please contact the webmaster about it. In any case, we have been notified of this error.</p>
+<h1>{% trans "Internal server error" %}</h1>
+<p>{% trans "There was an error while trying to serve the requested page. Please try again. If the error persists, please contact the webmaster about it. In any case, we have been notified of this error." %}</p>
 
 {% if request.sentry.id %}
-    <p>If you need assistance, you may reference this error as <strong>{{ request.sentry.id }}</strong>.</p>
+    <p>{% blocktrans with request.sentry.id as error_id %}If you need assistance, you may reference this error as <strong>{{ error_id }}</strong>.{% endblocktrans %}</p>
 {% endif %}
 {% endblock %}
 

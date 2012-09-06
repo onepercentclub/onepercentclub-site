@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
-{% block htmltitle %}{{ block.super }} | Projects{% endblock %}
+{% load i18n %}
+
+{% block htmltitle %}{{ block.super }} | {% trans "Projects" %}{% endblock %}
 
 {% block htmlheader %}
 {{ block.super }}
 {% endblock %}
 
 {% block content %}
-<h1 id="projects">Projects</h1>
+<h1 id="projects">{% trans "Projects" %}</h1>
 
 <ul>
 {% for project in project_list %}

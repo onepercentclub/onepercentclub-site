@@ -60,5 +60,8 @@ coverage==3.5.2
 gitpython>=0.3.2.RC1
 django-gitrevision==0.1.4
 
-# Handlebars in teplates
+# Transifex - for translations!
+transifex-client
+
+# Handlebars in templates
 django-templatetag-handlebars

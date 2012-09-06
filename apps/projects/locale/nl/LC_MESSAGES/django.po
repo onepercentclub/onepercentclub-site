@@ -1,0 +1,413 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <mathijs@mathijsfietst.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2012-08-31 12:02+0200\n"
+"PO-Revision-Date: 2012-09-04 07:42+0000\n"
+"Last-Translator: dokterbob <mathijs@mathijsfietst.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:22 models.py:149 models.py:305 models.py:335
+msgid "name"
+msgstr "naam"
+
+#: models.py:23 models.py:45 models.py:150
+msgid "slug"
+msgstr "slug"
+
+#: models.py:24 models.py:172 models.py:213 models.py:307 models.py:321
+#: models.py:337 models.py:352
+msgid "description"
+msgstr "beschrijving"
+
+#: models.py:31
+msgid "project theme"
+msgstr "projectthema"
+
+#: models.py:32
+msgid "project themes"
+msgstr "projectthema's"
+
+#: models.py:39
+msgid "Idea"
+msgstr "Idea"
+
+#: models.py:40
+msgid "Fund"
+msgstr "Fund"
+
+#: models.py:41
+msgid "Act"
+msgstr "Act"
+
+#: models.py:42
+msgid "Results"
+msgstr "Results"
+
+#: models.py:44 models.py:171
+msgid "title"
+msgstr "titel"
+
+#: models.py:49 models.py:153
+msgid "partner organization"
+msgstr "partnerorganizatie"
+
+#: models.py:52
+msgid "image"
+msgstr "afbeelding"
+
+#: models.py:54
+msgid "Main project picture"
+msgstr "Hoofdafbeelding project"
+
+#: models.py:57
+msgid "organization"
+msgstr "organisatie"
+
+#: models.py:59
+msgid "owner"
+msgstr "eigenaar"
+
+#: models.py:60
+msgid "phase"
+msgstr "fase"
+
+#: models.py:62
+msgid "Phase this project is in right now."
+msgstr "Huidige fase voor dit project."
+
+#: models.py:65
+msgid "themes"
+msgstr "thema's"
+
+#: models.py:67 models.py:339 models.py:353 models.py:368
+msgid "created"
+msgstr "aangemaakt"
+
+#: models.py:68
+msgid "When this project was created."
+msgstr "Moment van aanmaken voor dit project."
+
+#: models.py:76
+msgid "latitude"
+msgstr "breedte"
+
+#: models.py:79
+msgid "longitude"
+msgstr "lengte"
+
+#: models.py:82
+msgid "country"
+msgstr "land"
+
+#: models.py:86
+msgid "language"
+msgstr "taal"
+
+#: models.py:87
+msgid "Main language of the project."
+msgstr "Hoofdtaal voor dit project."
+
+#: models.py:91
+msgid "albums"
+msgstr "albums"
+
+#: models.py:94
+msgid "tags"
+msgstr "tags"
+
+#: models.py:140 models.py:170 models.py:320 models.py:334 models.py:350
+#: models.py:365
+msgid "project"
+msgstr "project"
+
+#: models.py:141
+msgid "projects"
+msgstr "projecten"
+
+#: models.py:154
+msgid "partner organizations"
+msgstr "partnerorganisaties"
+
+#: models.py:166 models.py:201
+msgid "Hidden"
+msgstr "Verborgen"
+
+#: models.py:167 models.py:202
+msgid "Progress"
+msgstr "Voortgang"
+
+#: models.py:168 models.py:205
+msgid "Completed"
+msgstr "Afgerond"
+
+#: models.py:175
+msgid "start date"
+msgstr "startdatum"
+
+#: models.py:176
+msgid "end date"
+msgstr "eindatum"
+
+#: models.py:179
+msgid "status"
+msgstr "status"
+
+#: models.py:189
+msgid "knowledge"
+msgstr "kennis"
+
+#: models.py:189
+msgid "Description of knowledge."
+msgstr "Beschrijving van kennis."
+
+#: models.py:193
+msgid "idea phase"
+msgstr "'idea'-fase"
+
+#: models.py:194
+msgid "idea phases"
+msgstr "'idea'-fases"
+
+#: models.py:203
+msgid "Feedback"
+msgstr "Feedback"
+
+#: models.py:204
+msgid "Waiting"
+msgstr "In de wacht"
+
+#: models.py:208
+msgid "Children"
+msgstr "Kinderen"
+
+#: models.py:209
+msgid "Youth"
+msgstr "Jeugd"
+
+#: models.py:210
+msgid "Adults"
+msgstr "Volwassenen"
+
+#: models.py:213
+msgid "Longer description."
+msgstr "Langere beschrijving."
+
+#: models.py:216
+msgid "money total"
+msgstr "geld totaal"
+
+#: models.py:217
+msgid "Total amount needed for this project."
+msgstr "Totale hoeveelheid geld nodig voor dit project."
+
+#: models.py:218
+msgid "money asked"
+msgstr "geld gevraagd"
+
+#: models.py:219
+msgid "Amount asked for from this website."
+msgstr "Hoeveelheid geld gevraagd via deze website."
+
+#: models.py:222
+msgid "sustainability"
+msgstr "duurzaamheid"
+
+#: models.py:224
+msgid "How can next generations profit from this?"
+msgstr "Hoe kunnen volgende generaties hiervan profiteren?"
+
+#: models.py:228
+msgid "money from other sources"
+msgstr "geld uit andere bronnen"
+
+#: models.py:229
+msgid "Money received from other sources."
+msgstr "Geld ontvangen uit andere bronnen."
+
+#: models.py:234
+msgid "social impact"
+msgstr "sociale impact"
+
+#: models.py:236
+msgid "Who are you helping?"
+msgstr "Wie help je hiermee?"
+
+#: models.py:239
+msgid "impact group"
+msgstr "impactgroep"
+
+#: models.py:243
+msgid "impact direct male"
+msgstr "directe impact mannen"
+
+#: models.py:246
+msgid "impact direct female"
+msgstr "directe impact vrouwen"
+
+#: models.py:249
+msgid "impact indirect male"
+msgstr "indirecte impact mannen"
+
+#: models.py:253
+msgid "impact indirect female"
+msgstr "indirecte impact vrouwen"
+
+#: models.py:258
+msgid "fund phase"
+msgstr "'fund'-fase"
+
+#: models.py:259
+msgid "fund phases"
+msgstr "'fund'-fases"
+
+#: models.py:265
+msgid "planning"
+msgstr "planning"
+
+#: models.py:266
+msgid "planned start date"
+msgstr "geplande startdatum"
+
+#: models.py:267
+msgid "planned end date"
+msgstr "geplande einddatum"
+
+#: models.py:270
+msgid "act phase"
+msgstr "'act'-fase"
+
+#: models.py:271
+msgid "act phases"
+msgstr "'act'-fases"
+
+#: models.py:279
+msgid "what"
+msgstr "wat"
+
+#: models.py:279
+msgid "What and how?"
+msgstr "Wat en hoe?"
+
+#: models.py:282
+msgid "tips"
+msgstr "tips"
+
+#: models.py:282
+msgid "Tips and tricks?"
+msgstr "Tips en trucs?"
+
+#: models.py:285
+msgid "change"
+msgstr "verandering"
+
+#: models.py:285
+msgid "What has changed for the target group?"
+msgstr "Wat is er veranderd voor de doelgroep?"
+
+#: models.py:288
+msgid "financial"
+msgstr "financieel"
+
+#: models.py:288
+msgid "How was the money spend?"
+msgstr "Hoe is het geld uitgegeven?"
+
+#: models.py:291
+msgid "next"
+msgstr "volgende"
+
+#: models.py:291
+msgid "What's next?"
+msgstr "Wat gaat er hierna gebeuren?"
+
+#: models.py:295
+msgid "results phase"
+msgstr "'resuls'-fase"
+
+#: models.py:296
+msgid "results phases"
+msgstr "'results'-fases"
+
+#: models.py:306
+msgid "email"
+msgstr "email"
+
+#: models.py:310
+msgid "referral"
+msgstr ""
+
+#: models.py:311
+msgid "referrals"
+msgstr ""
+
+#: models.py:322
+msgid "money amount"
+msgstr "geldbedrag"
+
+#: models.py:325
+msgid "budget line"
+msgstr "budgetregel"
+
+#: models.py:326
+msgid "budget lines"
+msgstr "budgetregels"
+
+#: models.py:336
+msgid "URL"
+msgstr "URL"
+
+#: models.py:338
+msgid "ordering"
+msgstr "volgorde"
+
+#: models.py:343
+msgid "link"
+msgstr "link"
+
+#: models.py:344
+msgid "links"
+msgstr "links"
+
+#: models.py:351 models.py:366
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:354
+msgid "updated"
+msgstr "aangepast"
+
+#: models.py:358
+msgid "testimonial"
+msgstr "testimonium"
+
+#: models.py:359
+msgid "testimonials"
+msgstr "testimoniums"
+
+#: models.py:367
+msgid "body"
+msgstr "body"
+
+#: models.py:369
+msgid "deleted"
+msgstr "verwijderd"
+
+#: models.py:378
+msgid "message"
+msgstr "bericht"
+
+#: models.py:379
+msgid "messages"
+msgstr "berichten"

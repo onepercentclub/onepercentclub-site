@@ -33,6 +33,12 @@ Requirements for the virtual environment can be found in `requirements.txt`
 and the environment itself is in `env` in the project's root dir. It is
 automatically ignored through `.gitignore`.
 
+Translations
+------------
+Translations are managed using Transifex. Feel free to contribute and
+collaborate at the
+`Transifex project page <https://www.transifex.com/projects/p/bluebottle/>`_.
+
 Settings
 --------
 The project has settings for every environment in the DTAP scheme. They can be

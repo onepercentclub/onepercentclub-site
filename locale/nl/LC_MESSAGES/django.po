@@ -1,0 +1,263 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <mathijs@mathijsfietst.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2012-09-04 09:46+0200\n"
+"PO-Revision-Date: 2012-09-04 08:22+0000\n"
+"Last-Translator: dokterbob <mathijs@mathijsfietst.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: 404.html:5 404.html.py:8
+msgid "Page not found"
+msgstr "Pagina niet gevonden"
+
+#: 404.html:9
+msgid "The requested page could not be found on this website."
+msgstr "De opgevraagde pagina kon niet gevonden worden op deze website."
+
+#: 404.html:12
+#, python-format
+msgid "Click <a href=\"%(home_url)s\">here</a> to return to the homepage."
+msgstr "Klik <a href=\"%(home_url)s\">hier</a> om terug te gaan naar de homepage."
+
+#: 500.html:5 500.html.py:8
+msgid "Internal server error"
+msgstr "Interne serverfout"
+
+#: 500.html:9
+msgid ""
+"There was an error while trying to serve the requested page. Please try "
+"again. If the error persists, please contact the webmaster about it. In any "
+"case, we have been notified of this error."
+msgstr "Er heeft zich een interne serverfout voorgedaan tijdens het ophalen van de verzochte pagina. Probeer het nog eens. Als de fout zich blijft voordoen, neem dan contact op met de webmaster. Hoe dan ook zijn wij op de hoogte gebracht van deze fout."
+
+#: 500.html:12
+#, python-format
+msgid ""
+"If you need assistance, you may reference this error as "
+"<strong>%(error_id)s</strong>."
+msgstr "Als je hulp nodig hebt kan je naar deze fout verwijzen als <strong>%(error_id)s</strong>."
+
+#: base.html:87
+msgid "Log out"
+msgstr "Log uit"
+
+#: base.html:89
+msgid "Log in"
+msgstr "Log in"
+
+#: base.html:96 footer.html:8 home.html:5
+msgid "Home"
+msgstr "Home"
+
+#: base.html:97 footer.html:9 projects/list.html:5 projects/list.html.py:12
+msgid "Projects"
+msgstr "Projecten"
+
+#: base.html:98 footer.html:10
+msgid "Tasks"
+msgstr "Taken"
+
+#: base.html:99 footer.html:11
+msgid "Actions"
+msgstr "Acties"
+
+#: base.html:100 footer.html:16 footer.html.py:36
+msgid "Learn more"
+msgstr "Meer informatie"
+
+#: base.html:105
+#, python-format
+msgid "Revision: %(GIT_REVISION)s"
+msgstr "Revisie: %(GIT_REVISION)s"
+
+#: footer.html:7
+msgid "Menu"
+msgstr "Menu"
+
+#: footer.html:12 accounts/userprofile_list.html:5
+#: accounts/userprofile_list.html.py:12
+msgid "Members"
+msgstr "Leden"
+
+#: footer.html:13
+msgid "Organizations"
+msgstr "Organisaties"
+
+#: footer.html:14
+msgid "Partners"
+msgstr "Partners"
+
+#: footer.html:15
+msgid "Business"
+msgstr "Zaken"
+
+#: footer.html:17 footer.html.py:37
+msgid "In the media"
+msgstr "In de media"
+
+#: footer.html:18 footer.html.py:38
+msgid "FAQ"
+msgstr "FAQ"
+
+#: footer.html:19 footer.html.py:39
+msgid "Contact"
+msgstr "Contact"
+
+#: footer.html:22
+msgid "News"
+msgstr "Nieuws"
+
+#: footer.html:25
+msgid "Join"
+msgstr "Doe mee"
+
+#: footer.html:28
+msgid "Tell a friend"
+msgstr "Stuur door"
+
+#: footer.html:34 projects/detail.html:103 projects/detail.html.py:119
+msgid "More"
+msgstr "Meer"
+
+#: footer.html:35
+msgid "About"
+msgstr "Over"
+
+#: footer.html:42
+msgid "Tweet"
+msgstr "Tweet"
+
+#: footer.html:45
+msgid "We like you too"
+msgstr "We like you too"
+
+#: media/album_detail.html:14 projects/widgets/tiny_viewer.html:21
+msgid "Pictures"
+msgstr "Afbeeldingen"
+
+#: media/album_list.html:5 projects/detail.html:25
+msgid "Albums"
+msgstr "Albums"
+
+#: projects/detail.html:19
+msgid "Project"
+msgstr "Project"
+
+#: projects/detail.html:22
+msgid "Organization"
+msgstr "Organisatie"
+
+#: projects/detail.html:36
+msgid "No albums for this project."
+msgstr "Geen albums voor dit project."
+
+#: projects/detail.html:40
+msgid "Owner"
+msgstr "Eigenaar"
+
+#: projects/detail.html:51
+msgid "Location"
+msgstr "Lokatie"
+
+#: projects/detail.html:56 projects/detail.html.py:65 projects/detail.html:110
+#: projects/detail.html.py:126
+msgid "Not specified."
+msgstr "Niet opgegeven."
+
+#: projects/detail.html:60
+msgid "Costs"
+msgstr "Kosten"
+
+#: projects/detail.html:69
+msgid "Themes"
+msgstr "Thema's"
+
+#: projects/detail.html:74 projects/detail.html.py:85 projects/detail.html:94
+msgid "None specified."
+msgstr "Niet opgegeven."
+
+#: projects/detail.html:78
+msgid "Supporters"
+msgstr "Supporters"
+
+#: projects/detail.html:89
+msgid "Tags"
+msgstr "Tags"
+
+#: projects/detail.html:98
+msgid "Description"
+msgstr "Beschrijving"
+
+#: projects/detail.html:107 projects/detail.html.py:123
+msgid "Less"
+msgstr "Minder"
+
+#: projects/detail.html:114
+msgid "Funding needed for"
+msgstr "Financiering nodig voor"
+
+#: projects/map.html:17
+msgid "Loading projects"
+msgstr "Projecten laden"
+
+#: projects/widgets/funding_needed.html:3
+msgid "Crowdfunding needed"
+msgstr "Crowdfunding nodig"
+
+#: projects/widgets/funding_needed.html:7
+#, python-format
+msgid "Now: <b>&euro;<span class=\"donated-amount\">%(money_donated)s</span></b>"
+msgstr "Nu: <b>&euro;<span class=\"donated-amount\">%(money_donated)s</span></b>"
+
+#: projects/widgets/funding_needed.html:13
+#, python-format
+msgid "Needed: <b>&euro;<span class=\"asked-amount\">%(money_asked)s</span></b>"
+msgstr "Nodig: <b>&euro;<span class=\"asked-amount\">%(money_asked)s</span></b>"
+
+#: projects/widgets/funding_needed.html:16 projects/widgets/info_small.html:18
+msgid "Support this project"
+msgstr "Steun dit project"
+
+#: projects/widgets/phases.html:3
+msgid "Idea"
+msgstr "Idea"
+
+#: projects/widgets/phases.html:4
+msgid "Fund"
+msgstr "Fund"
+
+#: projects/widgets/phases.html:5
+msgid "Act"
+msgstr "Act"
+
+#: projects/widgets/phases.html:6
+msgid "Results"
+msgstr "Results"
+
+#: projects/widgets/tiny_viewer.html:14 projects/widgets/tiny_viewer.html:22
+msgid "Videos"
+msgstr "Video's"
+
+#: projects/widgets/tiny_viewer.html:23
+msgid "Map"
+msgstr "Kaart"
+
+#: registration/logged_out.html:9
+msgid "Logged out."
+msgstr "Uitgelogd."
+
+#: registration/login.html:10
+msgid "Your username and password didn't match. Please try again."
+msgstr "Je gebruikersnaam en wachtwoord kwamen niet overeen. Probeer het nog eens."

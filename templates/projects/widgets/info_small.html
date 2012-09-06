@@ -1,4 +1,5 @@
 {% load thumbnail %}
+{% load i18n %}
 
 <div class="image">
 	{% thumbnail project.image "225x120" crop="center" as picture %}
@@ -14,5 +15,5 @@
 </div>
 
 <div class="support">
-	SUPPORT THIS PROJECT
+	{% trans "Support this project" %}
 </div>

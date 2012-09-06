@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <mathijs@mathijsfietst.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2012-08-31 12:02+0200\n"
+"PO-Revision-Date: 2012-08-31 14:18+0000\n"
+"Last-Translator: dokterbob <mathijs@mathijsfietst.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:21
+msgid "Settings"
+msgstr "Instellingen"
+
+#: admin.py:24
+msgid "Basic Profile Information"
+msgstr "Basis profielinformatie"
+
+#: admin.py:28
+msgid "In-depth Profile Information"
+msgstr "Uitgebreide profielinformatie"
+
+#: admin.py:46
+msgid "User"
+msgstr "Gebruiker"
+
+#: admin.py:65
+msgid "User Profile"
+msgstr "Gebruikersprofiel"
+
+#: models.py:26
+msgid "language"
+msgstr "taal"
+
+#: models.py:76
+msgid "Male"
+msgstr "Man"
+
+#: models.py:77
+msgid "Female"
+msgstr "Vrouw"
+
+#: models.py:78 models.py:179
+msgid "Other"
+msgstr "Anders"
+
+#: models.py:81
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:82
+msgid "slug"
+msgstr "slug"
+
+#: models.py:86
+msgid "interface language"
+msgstr "interface-taal"
+
+#: models.py:90
+msgid "newsletter"
+msgstr "nieuwsbrief"
+
+#: models.py:90
+msgid "Subscribe to newsletter."
+msgstr "Abboneer op nieuwsbrief."
+
+#: models.py:95
+msgid "birthdate"
+msgstr "geboortedatum"
+
+#: models.py:96
+msgid "gender"
+msgstr "geslacht"
+
+#: models.py:100
+msgid "location"
+msgstr "lokatie"
+
+#: models.py:101
+msgid "website"
+msgstr "website"
+
+#: models.py:103
+msgid "picture"
+msgstr "foto"
+
+#: models.py:107
+msgid "languages"
+msgstr "talen"
+
+#: models.py:109
+msgid "deleted"
+msgstr "verwijderd"
+
+#: models.py:112
+msgid "about"
+msgstr "over"
+
+#: models.py:113
+msgid "why"
+msgstr "waarom"
+
+#: models.py:114
+msgid "contribution"
+msgstr "bijdrage"
+
+#: models.py:115
+msgid "availability"
+msgstr "beschikbaarheid"
+
+#: models.py:118
+msgid "working location"
+msgstr "werklokatie"
+
+#: models.py:122
+msgid "tags"
+msgstr "tags"
+
+#: models.py:157 models.py:184
+msgid "user profile"
+msgstr "gebruikersprofiel"
+
+#: models.py:158
+msgid "user profiles"
+msgstr "gebruikersprofielen"
+
+#: models.py:178
+msgid "Home"
+msgstr "Home"
+
+#: models.py:181
+msgid "address type"
+msgstr "adrestype"
+
+#: models.py:188
+msgid "user address"
+msgstr "gebruikersadres"
+
+#: models.py:189
+msgid "user addresses"
+msgstr "gebruikersadressen"

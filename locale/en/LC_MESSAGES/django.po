@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-04 13:35+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: 404.html:5 404.html.py:8
+msgid "Page not found"
+msgstr ""
+
+#: 404.html:9
+msgid "The requested page could not be found on this website."
+msgstr ""
+
+#: 404.html:12
+#, python-format
+msgid "Click <a href=\"%(home_url)s\">here</a> to return to the homepage."
+msgstr ""
+
+#: 500.html:5 500.html.py:8
+msgid "Internal server error"
+msgstr ""
+
+#: 500.html:9
+msgid ""
+"There was an error while trying to serve the requested page. Please try "
+"again. If the error persists, please contact the webmaster about it. In any "
+"case, we have been notified of this error."
+msgstr ""
+
+#: 500.html:12
+#, python-format
+msgid ""
+"If you need assistance, you may reference this error as <strong>"
+"%(error_id)s</strong>."
+msgstr ""
+
+#: base.html:87
+msgid "Log out"
+msgstr ""
+
+#: base.html:89
+msgid "Log in"
+msgstr ""
+
+#: base.html:96 footer.html:8 home.html:5
+msgid "Home"
+msgstr ""
+
+#: base.html:97 footer.html:9 projects/list.html:5 projects/list.html.py:12
+msgid "Projects"
+msgstr ""
+
+#: base.html:98 footer.html:10
+msgid "Tasks"
+msgstr ""
+
+#: base.html:99 footer.html:11
+msgid "Actions"
+msgstr ""
+
+#: base.html:100 footer.html:16 footer.html.py:36
+msgid "Learn more"
+msgstr ""
+
+#: base.html:105
+#, python-format
+msgid "Revision: %(GIT_REVISION)s"
+msgstr ""
+
+#: footer.html:7
+msgid "Menu"
+msgstr ""
+
+#: footer.html:12 accounts/userprofile_list.html:5
+#: accounts/userprofile_list.html.py:12
+msgid "Members"
+msgstr ""
+
+#: footer.html:13
+msgid "Organizations"
+msgstr ""
+
+#: footer.html:14
+msgid "Partners"
+msgstr ""
+
+#: footer.html:15
+msgid "Business"
+msgstr ""
+
+#: footer.html:17 footer.html.py:37
+msgid "In the media"
+msgstr ""
+
+#: footer.html:18 footer.html.py:38
+msgid "FAQ"
+msgstr ""
+
+#: footer.html:19 footer.html.py:39
+msgid "Contact"
+msgstr ""
+
+#: footer.html:22
+msgid "News"
+msgstr ""
+
+#: footer.html:25
+msgid "Join"
+msgstr ""
+
+#: footer.html:28
+msgid "Tell a friend"
+msgstr ""
+
+#: footer.html:34 projects/detail.html:103 projects/detail.html.py:119
+msgid "More"
+msgstr ""
+
+#: footer.html:35
+msgid "About"
+msgstr ""
+
+#: footer.html:42
+msgid "Tweet"
+msgstr ""
+
+#: footer.html:45
+msgid "We like you too"
+msgstr ""
+
+#: media/album_detail.html:14 projects/widgets/tiny_viewer.html:21
+msgid "Pictures"
+msgstr ""
+
+#: media/album_detail.html:21 projects/widgets/tiny_viewer.html:14
+#: projects/widgets/tiny_viewer.html:22
+msgid "Videos"
+msgstr ""
+
+#: media/album_list.html:5 projects/detail.html:25
+msgid "Albums"
+msgstr ""
+
+#: projects/detail.html:19
+msgid "Project"
+msgstr ""
+
+#: projects/detail.html:22
+msgid "Organization"
+msgstr ""
+
+#: projects/detail.html:36
+msgid "No albums for this project."
+msgstr ""
+
+#: projects/detail.html:40
+msgid "Owner"
+msgstr ""
+
+#: projects/detail.html:51
+msgid "Location"
+msgstr ""
+
+#: projects/detail.html:56 projects/detail.html.py:65 projects/detail.html:110
+#: projects/detail.html.py:126
+msgid "Not specified."
+msgstr ""
+
+#: projects/detail.html:60
+msgid "Costs"
+msgstr ""
+
+#: projects/detail.html:69
+msgid "Themes"
+msgstr ""
+
+#: projects/detail.html:74 projects/detail.html.py:85 projects/detail.html:94
+msgid "None specified."
+msgstr ""
+
+#: projects/detail.html:78
+msgid "Supporters"
+msgstr ""
+
+#: projects/detail.html:89
+msgid "Tags"
+msgstr ""
+
+#: projects/detail.html:98
+msgid "Description"
+msgstr ""
+
+#: projects/detail.html:107 projects/detail.html.py:123
+msgid "Less"
+msgstr ""
+
+#: projects/detail.html:114
+msgid "Funding needed for"
+msgstr ""
+
+#: projects/map.html:17
+msgid "Loading projects"
+msgstr ""
+
+#: projects/widgets/funding_needed.html:3
+msgid "Crowdfunding needed"
+msgstr ""
+
+#: projects/widgets/funding_needed.html:7
+#, python-format
+msgid ""
+"Now: <b>&euro;<span class=\"donated-amount\">%(money_donated)s</span></b>"
+msgstr ""
+
+#: projects/widgets/funding_needed.html:13
+#, python-format
+msgid ""
+"Needed: <b>&euro;<span class=\"asked-amount\">%(money_asked)s</span></b>"
+msgstr ""
+
+#: projects/widgets/funding_needed.html:16 projects/widgets/info_small.html:18
+msgid "Support this project"
+msgstr ""
+
+#: projects/widgets/phases.html:3
+msgid "Idea"
+msgstr ""
+
+#: projects/widgets/phases.html:4
+msgid "Fund"
+msgstr ""
+
+#: projects/widgets/phases.html:5
+msgid "Act"
+msgstr ""
+
+#: projects/widgets/phases.html:6
+msgid "Results"
+msgstr ""
+
+#: projects/widgets/tiny_viewer.html:23
+msgid "Map"
+msgstr ""
+
+#: registration/logged_out.html:9
+msgid "Logged out."
+msgstr ""
+
+#: registration/login.html:10
+msgid "Your username and password didn't match. Please try again."
+msgstr ""

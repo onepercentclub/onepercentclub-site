@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load templatetag_handlebars %}
 
-{% block htmltitle %}{{ block.super }} | Home{% endblock %}
-
+{% block htmltitle %}{{ block.super }} | {% trans "Home" %}{% endblock %}
 
 {% block content %}
 

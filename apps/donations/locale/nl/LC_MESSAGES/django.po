@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <mathijs@mathijsfietst.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2012-08-31 12:02+0200\n"
+"PO-Revision-Date: 2012-08-31 14:21+0000\n"
+"Last-Translator: dokterbob <mathijs@mathijsfietst.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:30
+msgid "Closed"
+msgstr "Gesloten"
+
+#: models.py:31
+msgid "Expired"
+msgstr "Verlopen"
+
+#: models.py:32
+msgid "Paid"
+msgstr "Betaald"
+
+#: models.py:33
+msgid "Canceled"
+msgstr "Geannuleerd"
+
+#: models.py:34
+msgid "Chargedback"
+msgstr "Terugbetaald"
+
+#: models.py:35
+msgid "New"
+msgstr "Nieuw"
+
+#: models.py:36
+msgid "Started"
+msgstr "Gestart"
+
+#: models.py:38
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:39 models.py:78
+msgid "amount"
+msgstr "bedrag"
+
+#: models.py:42
+msgid "status"
+msgstr "status"
+
+#: models.py:46
+msgid "created"
+msgstr "aangemaakt"
+
+#: models.py:47
+msgid "updated"
+msgstr "aangepast"
+
+#: models.py:50 models.py:75
+msgid "donation"
+msgstr "donatie"
+
+#: models.py:51
+msgid "donations"
+msgstr "donaties"
+
+#: models.py:56
+#, python-format
+msgid "%(amount)s on %(date)s from %(user)s"
+msgstr "%(amount)s op %(date)s van %(user)s"
+
+#: models.py:62
+#, python-format
+msgid "%(amount)s on %(date)s"
+msgstr "%(amount)s op %(date)s"
+
+#: models.py:77
+msgid "project"
+msgstr "project"
+
+#: models.py:81
+msgid "donation line"
+msgstr "donatieregel"
+
+#: models.py:82
+msgid "donation lines"
+msgstr "donatieregels"
+
+#: models.py:88
+#, python-format
+msgid "%(amount)s from donation %(donation)s to %(project)s"
+msgstr "%(amount)s in donatie %(donation)s aan %(project)s"
+
+#: models.py:118
+msgid "Requested amount not available."
+msgstr "Verzochte bedrag niet beschikbaar."

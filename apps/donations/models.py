@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 from django.db.models.base import ObjectDoesNotExist
@@ -12,11 +13,6 @@ from django_extensions.db.fields import (
 from djchoices import DjangoChoices, ChoiceItem
 
 from apps.bluebottle_utils.fields import MoneyField
-
-class RecentDonationManager(models.Manager):
-    def get_query_set(self):
-        now = datetime.datetime.now()
-        return super(RecentDonationsManager, self).get_query_set().filter(created__month=now.month)
 
 
 class Donation(models.Model):
@@ -40,7 +36,7 @@ class Donation(models.Model):
         new = ChoiceItem('new', label=_("New"))
         started = ChoiceItem('started', label=_("Started"))
 
-    user = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User', verbose_name=_("user"))
     amount = MoneyField(_("amount"))
 
     # Note: having an index here allows for efficient filtering by status.
@@ -50,8 +46,6 @@ class Donation(models.Model):
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
-
-    recent_objects = RecentDonationManager()
 
     class Meta:
         verbose_name = _("donation")
@@ -79,9 +73,9 @@ class DonationLine(models.Model):
     DonationLine, allocating part of a Donation to a specific Project.
     """
 
-    donation = models.ForeignKey(Donation)
+    donation = models.ForeignKey(Donation, verbose_name=_("donation"))
 
-    project = models.ForeignKey('projects.Project')
+    project = models.ForeignKey('projects.Project', verbose_name=_("project"))
     amount = MoneyField(_("amount"))
 
     class Meta:

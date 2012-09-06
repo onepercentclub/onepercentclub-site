@@ -1,0 +1,412 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-04 13:35+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:22 models.py:149 models.py:305 models.py:335
+msgid "name"
+msgstr ""
+
+#: models.py:23 models.py:45 models.py:150
+msgid "slug"
+msgstr ""
+
+#: models.py:24 models.py:172 models.py:213 models.py:307 models.py:321
+#: models.py:337 models.py:352
+msgid "description"
+msgstr ""
+
+#: models.py:31
+msgid "project theme"
+msgstr ""
+
+#: models.py:32
+msgid "project themes"
+msgstr ""
+
+#: models.py:39
+msgid "Idea"
+msgstr ""
+
+#: models.py:40
+msgid "Fund"
+msgstr ""
+
+#: models.py:41
+msgid "Act"
+msgstr ""
+
+#: models.py:42
+msgid "Results"
+msgstr ""
+
+#: models.py:44 models.py:171
+msgid "title"
+msgstr ""
+
+#: models.py:49 models.py:153
+msgid "partner organization"
+msgstr ""
+
+#: models.py:52
+msgid "image"
+msgstr ""
+
+#: models.py:54
+msgid "Main project picture"
+msgstr ""
+
+#: models.py:57
+msgid "organization"
+msgstr ""
+
+#: models.py:59
+msgid "owner"
+msgstr ""
+
+#: models.py:60
+msgid "phase"
+msgstr ""
+
+#: models.py:62
+msgid "Phase this project is in right now."
+msgstr ""
+
+#: models.py:65
+msgid "themes"
+msgstr ""
+
+#: models.py:67 models.py:339 models.py:353 models.py:368
+msgid "created"
+msgstr ""
+
+#: models.py:68
+msgid "When this project was created."
+msgstr ""
+
+#: models.py:76
+msgid "latitude"
+msgstr ""
+
+#: models.py:79
+msgid "longitude"
+msgstr ""
+
+#: models.py:82
+msgid "country"
+msgstr ""
+
+#: models.py:86
+msgid "language"
+msgstr ""
+
+#: models.py:87
+msgid "Main language of the project."
+msgstr ""
+
+#: models.py:91
+msgid "albums"
+msgstr ""
+
+#: models.py:94
+msgid "tags"
+msgstr ""
+
+#: models.py:140 models.py:170 models.py:320 models.py:334 models.py:350
+#: models.py:365
+msgid "project"
+msgstr ""
+
+#: models.py:141
+msgid "projects"
+msgstr ""
+
+#: models.py:154
+msgid "partner organizations"
+msgstr ""
+
+#: models.py:166 models.py:201
+msgid "Hidden"
+msgstr ""
+
+#: models.py:167 models.py:202
+msgid "Progress"
+msgstr ""
+
+#: models.py:168 models.py:205
+msgid "Completed"
+msgstr ""
+
+#: models.py:175
+msgid "start date"
+msgstr ""
+
+#: models.py:176
+msgid "end date"
+msgstr ""
+
+#: models.py:179
+msgid "status"
+msgstr ""
+
+#: models.py:189
+msgid "knowledge"
+msgstr ""
+
+#: models.py:189
+msgid "Description of knowledge."
+msgstr ""
+
+#: models.py:193
+msgid "idea phase"
+msgstr ""
+
+#: models.py:194
+msgid "idea phases"
+msgstr ""
+
+#: models.py:203
+msgid "Feedback"
+msgstr ""
+
+#: models.py:204
+msgid "Waiting"
+msgstr ""
+
+#: models.py:208
+msgid "Children"
+msgstr ""
+
+#: models.py:209
+msgid "Youth"
+msgstr ""
+
+#: models.py:210
+msgid "Adults"
+msgstr ""
+
+#: models.py:213
+msgid "Longer description."
+msgstr ""
+
+#: models.py:216
+msgid "money total"
+msgstr ""
+
+#: models.py:217
+msgid "Total amount needed for this project."
+msgstr ""
+
+#: models.py:218
+msgid "money asked"
+msgstr ""
+
+#: models.py:219
+msgid "Amount asked for from this website."
+msgstr ""
+
+#: models.py:222
+msgid "sustainability"
+msgstr ""
+
+#: models.py:224
+msgid "How can next generations profit from this?"
+msgstr ""
+
+#: models.py:228
+msgid "money from other sources"
+msgstr ""
+
+#: models.py:229
+msgid "Money received from other sources."
+msgstr ""
+
+#: models.py:234
+msgid "social impact"
+msgstr ""
+
+#: models.py:236
+msgid "Who are you helping?"
+msgstr ""
+
+#: models.py:239
+msgid "impact group"
+msgstr ""
+
+#: models.py:243
+msgid "impact direct male"
+msgstr ""
+
+#: models.py:246
+msgid "impact direct female"
+msgstr ""
+
+#: models.py:249
+msgid "impact indirect male"
+msgstr ""
+
+#: models.py:253
+msgid "impact indirect female"
+msgstr ""
+
+#: models.py:258
+msgid "fund phase"
+msgstr ""
+
+#: models.py:259
+msgid "fund phases"
+msgstr ""
+
+#: models.py:265
+msgid "planning"
+msgstr ""
+
+#: models.py:266
+msgid "planned start date"
+msgstr ""
+
+#: models.py:267
+msgid "planned end date"
+msgstr ""
+
+#: models.py:270
+msgid "act phase"
+msgstr ""
+
+#: models.py:271
+msgid "act phases"
+msgstr ""
+
+#: models.py:279
+msgid "what"
+msgstr ""
+
+#: models.py:279
+msgid "What and how?"
+msgstr ""
+
+#: models.py:282
+msgid "tips"
+msgstr ""
+
+#: models.py:282
+msgid "Tips and tricks?"
+msgstr ""
+
+#: models.py:285
+msgid "change"
+msgstr ""
+
+#: models.py:285
+msgid "What has changed for the target group?"
+msgstr ""
+
+#: models.py:288
+msgid "financial"
+msgstr ""
+
+#: models.py:288
+msgid "How was the money spend?"
+msgstr ""
+
+#: models.py:291
+msgid "next"
+msgstr ""
+
+#: models.py:291
+msgid "What's next?"
+msgstr ""
+
+#: models.py:295
+msgid "results phase"
+msgstr ""
+
+#: models.py:296
+msgid "results phases"
+msgstr ""
+
+#: models.py:306
+msgid "email"
+msgstr ""
+
+#: models.py:310
+msgid "referral"
+msgstr ""
+
+#: models.py:311
+msgid "referrals"
+msgstr ""
+
+#: models.py:322
+msgid "money amount"
+msgstr ""
+
+#: models.py:325
+msgid "budget line"
+msgstr ""
+
+#: models.py:326
+msgid "budget lines"
+msgstr ""
+
+#: models.py:336
+msgid "URL"
+msgstr ""
+
+#: models.py:338
+msgid "ordering"
+msgstr ""
+
+#: models.py:343
+msgid "link"
+msgstr ""
+
+#: models.py:344
+msgid "links"
+msgstr ""
+
+#: models.py:351 models.py:366
+msgid "user"
+msgstr ""
+
+#: models.py:354
+msgid "updated"
+msgstr ""
+
+#: models.py:358
+msgid "testimonial"
+msgstr ""
+
+#: models.py:359
+msgid "testimonials"
+msgstr ""
+
+#: models.py:367
+msgid "body"
+msgstr ""
+
+#: models.py:369
+msgid "deleted"
+msgstr ""
+
+#: models.py:378
+msgid "message"
+msgstr ""
+
+#: models.py:379
+msgid "messages"
+msgstr ""

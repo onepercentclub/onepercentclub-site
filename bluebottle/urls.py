@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 
 from django.contrib import admin
@@ -12,7 +13,8 @@ from .views import HomeView
 
 handler500 = 'bluebottle.views.handler500'
 
-urlpatterns = patterns('',
+urlpatterns = i18n_patterns('',
+    # These URL's will be automatically prefixed with the locale (e.g. '/nl/')
     url(r'^$', HomeView.as_view(), name='home'),
 
     # Django Admin, docs and password reset
@@ -29,6 +31,11 @@ urlpatterns = patterns('',
 
     (r'^api/', include('apps.projects.apiurls')),
 
+)
+
+urlpatterns += patterns('',
+    # Put your language-independant-views here
+    (r'^i18n/', include('django.conf.urls.i18n')),
 )
 
 # Serve django-staticfiles (only works in DEBUG)
