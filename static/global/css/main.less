@@ -279,23 +279,18 @@ body {
 
 #top-panel {
   position: relative;
-  
-  //background-color: @backgroundgreen;
-  //border: 1px solid @midgreen;
-  font-size: 0.8em; 
   h1 {
     font-family: @futura;
     color: @black;
     text-transform: uppercase;
     margin: 6px 0px 12px 0px;
     padding: 0px;
-    font-size: 1.6em;
+    font-size: 1.2em;
   }
   h4 {
     font-family: @font;
     margin: 2px 0px 2px 0px;
     text-transform: uppercase;
-    font-size: 0.8em; 
   }
   p, ul {
     margin: 0px 0px 12px 0px;
@@ -464,7 +459,8 @@ body {
 .phases {
   background: url("@{static-url}/global/images/icons/phases.png") 0px 0px;
   height: 23px;
-  width: 220px;
+  width: 218px;
+  padding-left: 2px;
 }
 
 .phases.fund {
@@ -480,7 +476,7 @@ body {
 }
 
 .phases li {
-  font-size: 0.8em;
+  font-size: 0.7em;
   text-align: center;
   color: @white;
   float: left;
@@ -539,7 +535,7 @@ form {
   border: 1px solid @pink;
   margin: 10px 0px;
   width: 218px;
-  
+  font-size: 0.8em;
   .link {
     font-weight: bold;
     text-align: center;
@@ -737,8 +733,9 @@ form.search {
 
 #top-panel .location {
   background-color: @lightgreen;
+  font-size: 0.9em;
   h4 {
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: bold;
     text-transform: none;
   }
@@ -764,6 +761,7 @@ form.search {
 }
 
 .mediaviewer .text {
+  font-size: 0.8em;
   padding: 10px;
   overflow: auto;
   height: 340px;
@@ -794,7 +792,7 @@ form.search {
     color: @green;
     background-color: @lightgreen;
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: bold;
     font-family: @futura;
   }
@@ -814,6 +812,7 @@ div.types {
 ul.categories, 
 ul.tags {
   li {
+    font-size: 0.8em;
     padding: 2px 4px;
     margin: 2px;
     background-color: @green;
@@ -836,6 +835,7 @@ ul.categories {
   background-color: @lightgreen;
   padding: 4px;
   height: 100px;
+  font-size: 0.8em;
   img {
     border: 1px solid @white;
     float: left;
@@ -857,9 +857,9 @@ ul.categories {
   color: @white;
   font-family: @futura;
   display: inline-block;
+  font-size: 0.8em;
   h1 {
-    font-size: 3em;
-    //color: @white;
+    font-size: 2em;
     color: @gray;
   }
   padding: 6px;
@@ -872,8 +872,6 @@ ul.categories {
 
 
 #top-panel .half.green {
-  
-//  background-color: @green;
   color: @green;
   h1 {
     color: @green;
@@ -883,11 +881,27 @@ ul.categories {
 }
 
 .resize {
-  a {
-    display: block;
-    color: @green;
-    margin: 8px 12px;
+  .up .up,
+  .down .down {
+    display: none;
   }
+  div {
+    color: @green;
+    margin: 6px;
+    cursor: pointer;
+  }
+  .resize-up,
+  .resize-down {
+    width: 14px;
+    height: 13px;
+    display: inline-block;
+    background: url("@{static-url}/global/images/icons/resize.png") 0px -13px no-repeat;
+  }
+  
+  .resize-down {
+    background: url("@{static-url}/global/images/icons/resize.png") 0px 0px no-repeat;
+  }
+  
   font-weight: bold;
   text-align: right;
   font-size: 0.8em;

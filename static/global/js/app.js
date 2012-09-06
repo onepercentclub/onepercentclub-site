@@ -29,6 +29,14 @@ App.ProjectRoute = Em.Route.extend({
     route: '/projects',
 
     showProjectDetail: Em.Route.transitionTo('projects.detail'),
+    toggleAdvancedSearch: function(router, event){
+        console.log(event);
+        var section = $(event.srcElement).parents('.section');
+        
+        $('.advanced', section).slideToggle(500);
+        $('.resize a', section).toggleClass('hidden');
+        
+    },
 
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){
@@ -90,6 +98,33 @@ App.Router = Em.Router.extend({
     history: 'hash',
     root: App.RootRoute
 });
+
+
+// Views to to show/hide advanced view 
+App.ResizeSectionView = Em.View.extend({
+    templateName: 'resize-section',
+});
+
+App.ResizeSectionToggleView = Em.View.extend({
+    tagName: 'div',
+    classNameBindings: ['status'],
+    status: 'down',
+    toggleStatus: function(){
+        if (this.get('status') == 'down') {
+            this.set('status', 'up');
+        } else {
+            this.set('status', 'down');
+        }
+        this.$('.up').parents('.section').find('.advanced').slideToggle();
+    },
+    
+    click: function(){
+        this.toggleStatus();
+        console.log(this.status)
+    }
+    
+});
+
 
 $(function() {
     App.initialize();
