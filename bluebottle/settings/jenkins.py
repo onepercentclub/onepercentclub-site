@@ -1,5 +1,4 @@
 # Import default settings
-
 from .defaults import *
 
 # Import secrets
