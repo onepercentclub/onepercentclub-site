@@ -1,6 +1,3 @@
-# Import default development settings
-from .dev import *
-
 # Import secrets
 from .secrets import *
 
