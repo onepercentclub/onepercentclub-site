@@ -44,10 +44,11 @@ Settings
 The project has settings for every environment in the DTAP scheme. They can be
 found in `bluebottle/settings`:
 
-    * `dev.py`
-    * `testing.py`
-    * `staging.py`
-    * `production.py`
+    * `jenkins.py`: Settings for continuous integration environment.
+    * `dev.py`: Settings for development environment.
+    * `testing.py`: Settings for testing environment.
+    * `staging.py`: Settings for staging environment.
+    * `production.py`: Production settings.
 
 Specific settings can be used by setting the environment variable
 `DJANGO_SETTINGS_MODULE` to `bluebottle.settings.environment`::
