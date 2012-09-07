@@ -16,7 +16,7 @@ App.projectSearchController = Em.ArrayController.create({
     },
 
     // The saved queryFilter state.
-    queryFilter: {},
+    queryFilter: {phases: 'fund'}, // FIXME Limit projects to fund phase until projects are cleaned up.
 
     // Project preview search results and meta data from tastypie:
     content: [],
