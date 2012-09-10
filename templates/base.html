@@ -133,7 +133,7 @@
         <div class="siteblock">
             <div id="footer">
                 {% include "footer.html" %}
-                <div id="git-revision">Git Revision: {{ GIT_REVISION }}</div>
+                <div id="git-revision">{% blocktrans %}Git Revision: <a target="_blank" href="https://github.com/onepercentclub/bluebottle/commit/{{ GIT_REVISION }}">{{ GIT_REVISION }}</a>{% endblocktrans %}</div>
             </div>
         </div>
         <div class="sitebar black">
@@ -155,8 +155,6 @@
             </div>
         </div>
     </div>
-
-    <div id="git-revision">{% blocktrans %}Revision: {{ GIT_REVISION }}{% endblocktrans %}</div>
 
 </body>
 </html>

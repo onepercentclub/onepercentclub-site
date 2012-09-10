@@ -361,7 +361,7 @@ class BudgetLine(models.Model):
     website.
     """
     project = models.ForeignKey(Project, verbose_name=_("project"))
-    description = models.TextField(_("description"), blank=True)
+    description = models.CharField(_("description"), max_length=255)
     money_amount = MoneyField(_("money amount"))
 
     class Meta:

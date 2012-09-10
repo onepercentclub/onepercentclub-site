@@ -1,6 +1,9 @@
 # Import default settings
 from .defaults import *
 
+# Import secrets
+from .secrets import *
+
 # Put your environment specific overrides below
 
 INSTALLED_APPS.append('django_jenkins')
@@ -10,16 +13,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'onepercentsite',
         'USER': 'jenkins'
-    },
-    'legacy': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'legacy',
-        'USER': 'jenkins'
     }
 }
-
-# Do not run legacy migrations in debugger on testing server
-DEBUG_LEGACY_MIGRATIONS = False
 
 # Turn off debugging for added speed and (hopefully) less memory usage
 DEBUG = False

@@ -29,12 +29,14 @@ urlpatterns = i18n_patterns('',
     (r'^members/', include('apps.accounts.urls')),
     (r'^albums/', include('apps.media.urls')),
 
-    (r'^api/', include('apps.projects.apiurls')),
-
 )
 
 urlpatterns += patterns('',
-    # Put your language-independant-views here
+    # Put your language-independent-views here
+
+    # The api urls are in the /i18n/ url namespace so that they're not redirected to /en/
+    (r'^i18n/api/', include('apps.projects.apiurls')),
+
     (r'^i18n/', include('django.conf.urls.i18n')),
 )
 

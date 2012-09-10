@@ -44,10 +44,11 @@ Settings
 The project has settings for every environment in the DTAP scheme. They can be
 found in `bluebottle/settings`:
 
-    * `dev.py`
-    * `testing.py`
-    * `staging.py`
-    * `production.py`
+    * `jenkins.py`: Settings for continuous integration environment.
+    * `dev.py`: Settings for development environment.
+    * `testing.py`: Settings for testing environment.
+    * `staging.py`: Settings for staging environment.
+    * `production.py`: Production settings.
 
 Specific settings can be used by setting the environment variable
 `DJANGO_SETTINGS_MODULE` to `bluebottle.settings.environment`::
@@ -58,10 +59,10 @@ Apart from these environment-specific settings, the following settings exist:
 
     * `defaults.py`: Project defaults used in any settings environment.
     * `secrets.py`: Used for storing passwords, API keys etcetera, kept out of the scope of Git.
-    * `local.py`: Local settings overrides, based off `dev.py`. Not stored in Git.
+    * `local.py`: Local settings overrides, based off `defaults.py`. Not stored in Git.
 
 If no settings are explicitly chosen using `DJANGO_SETTINGS_MODEL`, the
-`local.py` settings are loaded, defaulting to override `dev.py`
+`local.py` settings are loaded, defaulting to override `defaults.py`
 settings.
 
 Rationale
