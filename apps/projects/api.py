@@ -173,7 +173,7 @@ class ProjectDetailResource(ProjectPreviewResource):
         try:
             ownerimage = '/static/media/' + unicode(
                                              get_thumbnail(bundle.obj.owner.userprofile.picture,
-                                            '90x90', crop='center', quality=85))
+                                            '90x90', fit='center', quality=85))
         except:
             ownerimage = 'http://placehold.it/90x90'
         bundle.data['owner'] = {
@@ -200,7 +200,7 @@ class ProjectDetailResource(ProjectPreviewResource):
         try:
             bundle.data['picture'] = '/static/media/' + unicode(
                                              get_thumbnail(bundle.obj.image,
-                                            '480x360', crop='center', quality=90))
+                                            '480x360', fit='center', quality=90))
         except:
             bundle.data['picture'] = 'http://placehold.it/480x360'
         

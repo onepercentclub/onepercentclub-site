@@ -1,5 +1,17 @@
 this.BlueMap = function(elementId, project){
     
+    // This checks if google maps api is loaded
+    // Otherwise mock an empty function
+    // Mainly for when running the site offline
+    try {google} catch (e) {
+        console.log('Google Maps Api not loaded');
+        return {
+            showProjects: function(){
+                return null;
+            }
+        };
+    }
+    
     this.el = document.getElementById(elementId);
     
     this.projectApiUrl = '/api/projectpreview/';

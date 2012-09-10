@@ -4,10 +4,18 @@ App = Em.Application.create({
     // Define the main application controller. This is automatically picked up by
     // the application and initialized.
     ApplicationController : Em.Controller.extend({
+        // TODO: Is there a better way of dointg this?
+        currentMenu: function(){
+            var currentState  = this.get('target.location.lastSetURL');
+            var menu = currentState.split("/");
+            currentState = menu[1]||'home';
+            
+            return currentState;
+        }.property('target.location.lastSetURL')
     }),
 
     ApplicationView : Em.View.extend({
-        templateName : 'application'
+        templateName : 'application',
     }),
 
     // Use this to clear an outlet
@@ -29,6 +37,7 @@ App.ProjectRoute = Em.Route.extend({
     route: '/projects',
 
     showProjectDetail: Em.Route.transitionTo('projects.detail'),
+    
 
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){

@@ -52,12 +52,12 @@
             {% tplhandlebars "application" %}
                 <div class="sitebar black" id="topmenu">
                     <div class="menu siteblock">
-                        <ul>
-                            <li class="active"><a {{action showHome href=true}}>HOME</a></li>
-                            <li><a {{action showProjectStart href=true}}>1%PROJECTS</a></li>
-                            <li><a>1%TASKS</a></li>
-                            <li><a>1%ACTIONS</a></li>
-                            <li><a>LEARN MORE</a></li>
+                        <ul {{bindAttr class="currentMenu"}}>
+                            <li id="home-menu"><a {{action showHome href=true}}>HOME</a></li>
+                            <li id="projects-menu"><a {{action showProjectStart href=true}}>1%PROJECTS</a></li>
+                            <li id="tasks-menu"><a>1%TASKS</a></li>
+                            <li id="actions-menu"><a>1%ACTIONS</a></li>
+                            <li id="more-menu"><a>LEARN MORE</a></li>
                         </ul>
                         <div class="languages">
                             <a {{action "switchLanguage"}} id="lang-en" class="active" href="">ENGLISH</a> |
