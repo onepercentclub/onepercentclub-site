@@ -59,7 +59,7 @@ def generate_picture_filename(instance, filename):
 
 
 class UserProfileCreationError(Exception):
-    """ The UserPofile could not be created. """
+    """ The UserProfile could not be created. """
 
     pass
 
