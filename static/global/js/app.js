@@ -96,7 +96,7 @@ App.RootRoute = Em.Route.extend({
 });
 
 App.Router = Em.Router.extend({
-    history: 'hash',
+    location: 'hash',
     root: App.RootRoute
 });
 
