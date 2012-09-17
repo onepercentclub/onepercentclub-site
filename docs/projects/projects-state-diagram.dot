@@ -8,7 +8,7 @@ digraph G {
 	/*
 	 * Global graph settings
 	 */
-    size="7.87,11.29"; // fit on A4 paper (size in inches)
+        size="7.87,11.29"; // fit on A4 paper (size in inches)
 	ratio=fill;
 	margin="0.2";
 	node [ shape=circle ];
@@ -19,80 +19,80 @@ digraph G {
 	// Idea: in progress
 	start -> idea_working_on_idea;
 	idea_working_on_idea -> idea_working_on_idea [ label=" User:\nWorks on &\n  Saves Idea  ", tailport=w ];
-	idea_working_on_idea -> idea_waiting_for_project_acceptance [ label="User:\n Asks for Project Acceptance " ];
-	idea_working_on_idea -> idea_waiting_for_feedback [ label="User:\n  Asks for 1%Feedback" ];
+	idea_working_on_idea -> idea_creating_funding_plan [ label="User:\n Wants Funding for Project\n Idea status: Feedback Closed          " ];
+	idea_working_on_idea -> idea_open_for_feedback [ label="User:\n  Wants 1%Feedback" ];
 
-	// Idea: waiting for feedback
-	idea_waiting_for_feedback -> idea_feedback_received [ label="  1%Members:\n  Provide Feedback" ];
+	// Idea: open for feedback
+	idea_open_for_feedback -> idea_creating_funding_plan [ label="User:\nWants Funding for Project\n Idea status: 'Open for Feedback' until closed by User" ];
 
-	// Idea: feedback received
-    idea_feedback_received -> idea_waiting_for_project_acceptance[ label="User:\nAsks for Project Acceptance" ];
+	// Idea: creating funding plan
+	idea_creating_funding_plan -> idea_creating_funding_plan [ label="User:\n Works on & Saves Funding Plan" ];
+	idea_creating_funding_plan -> idea_waiting_for_plan_approval [ label="User:\nAsks for Funding Plan Approval" ];
 
-	// Idea: waiting for approval
-	idea_waiting_for_project_acceptance -> idea_working_on_idea  [ label="Project Team:\n  Gives suggestions to Improve Project Idea" ];
-	idea_waiting_for_project_acceptance -> idea_project_not_accepted [ label="Project Team:\n  Doesn't Accept Project" ];
-    idea_waiting_for_project_acceptance -> fund_creating_funding_plan [ label="Project Team:\n Accepts Project & Assigns Coach" ];
+	// Idea: waiting for plan approval
+	idea_waiting_for_plan_approval -> idea_creating_funding_plan  [ label="Project Team:\n Gives suggestions to Improve Funding Plan" ];
+	idea_waiting_for_plan_approval -> fund_open_for_funding [ label="Project Team:\n Accepts Funding Plan & Assigns 1%Coach" ];
+	idea_waiting_for_plan_approval -> idea_funding_plan_not_approved [ label="Project Team:\n Doesn't Accept Funding Plan" ];
 
-	// Fund: creating funding plan
-	fund_creating_funding_plan -> fund_creating_funding_plan [ label="User:\n Works on & Saves Funding Plan" ];
-	fund_creating_funding_plan -> fund_waiting_for_plan_approval [ label="User:\nAsks for Funding Plan Approval" ];
+	// Fund: open for funding 
+	fund_open_for_funding -> act_project_waiting_for_payment [ label="1%Members:\n Provide Requested Donations\nFund status: 'Fully Funded'" ];
+	fund_open_for_funding -> fund_funding_goal_not_completed [ label="1%Members:\n Don't Provide Requested\nDonation Amount in Time" ];
+	fund_open_for_funding -> fund_closed_for_funding [ label="Project Team:\n Closes Funding Early" ];
 
-	// Fund: waiting for plan approval
-	fund_waiting_for_plan_approval -> fund_creating_funding_plan  [ label="Project Team:\n Gives suggestions to Improve Funding Plan" ];
-	fund_waiting_for_plan_approval -> fund_funding_in_progress [ label="Project Team:\n Accepts Funding Plan" ];
+	// Fund: closed for funding
+	fund_closed_for_funding -> fund_open_for_funding [ label="Project Team:\n Re-opens Funding" ];
 
-	// Fund: funding in progress
-	fund_funding_in_progress -> fund_project_waiting_for_payment [ label="1%Members:\n Provide Requested Donations" ];
-
-	// Fund: funding in progress
-	fund_project_waiting_for_payment -> act_working_on_project [ label="1%CLUB:\n  Sends Money to Project" ];
+	// Act: project waiting for payment
+	act_project_waiting_for_payment -> act_working_on_project [ label="1%CLUB:\n  Sends Money to Project" ];
 
 	// Act: in progress
-	act_working_on_project -> results_in_progress [ label="User:\n Marks project as Finished" ];
+	act_working_on_project -> act_evaluation_in_progress [ label="User:\n Marks project as Finished" ];
 
-	// Results: in progress
-	results_in_progress -> results_in_progress [ label=" User:\n Works on & Saves Results" ];
-	results_in_progress -> results_waiting_for_approval [ label=" User:\n Posts Results / Asks for Approval" ];
+	// Act: eval in progress
+	act_evaluation_in_progress -> act_evaluation_in_progress [ label=" User:\n Works on & Saves Results" ];
+	act_evaluation_in_progress -> results_waiting_for_approval [ label=" User:\n Posts Results / Asks for Approval" ];
 
 	// Results: waiting for approval
-	results_waiting_for_approval -> results_in_progress [ label=" Project Team:\n  Gives suggestions to Improve Results" ];
+	results_waiting_for_approval -> act_evaluation_in_progress [ label=" Project Team:\n  Gives suggestions to Improve Results" ];
 	results_waiting_for_approval -> results_project_complete [ label=" Project Team:\n Approves Results" ];
+
+	// Results: project complete
+	results_project_complete -> idea_working_on_idea:nw [ label="User:\nCan Create a New Idea" ];
 
 	/*
 	 * Node properties
 	 */
 	// start / end
-	start [ label="User: Starts Idea", shape=plaintext ];
+	start [ label="User: Creates Idea", shape=plaintext ];
 
 	// Idea
 	idea_working_on_idea [ label="Idea\n\nWorking on Idea" ];
-	idea_waiting_for_project_acceptance [ label="Idea\n\nWaiting for\nProject Acceptance" ];
-	idea_project_not_accepted [ label="Idea\n\nProject Not Accepted",shape=circle ];
-	idea_waiting_for_feedback [ label="Idea\n\nWaiting for Feedback",shape=circle ];
-	idea_feedback_received [ label="Idea\n\n1%Feedback Received",shape=circle ];
+	idea_open_for_feedback [ label="Idea\n\nOpen for Feedback", ];
+	idea_creating_funding_plan [ label="Idea\n\nCreating Funding Plan",shape=circle ];
+	idea_waiting_for_plan_approval [ label="Idea\n\nWaiting for\nFunding Plan Approval" ];
+	idea_funding_plan_not_approved [ label="Idea\n\nFunding Plan Not Approved" ];
 
 	// Funding
-	fund_creating_funding_plan [ label="Fund\n\nCreating Funding Plan",shape=circle ];
-	fund_waiting_for_plan_approval [ label="Fund\n\nWaiting for\nFunding Plan Approval" ];
-	fund_funding_in_progress [ label="Fund\n\nFunding In Progress" ];
-	fund_project_waiting_for_payment [ label="Fund\n\nProject Waiting for Payment",shape=circle ];
+	fund_open_for_funding [ label="Fund\n\nOpen for Funding" ];
+	fund_closed_for_funding [ label="Fund\n\nClosed for Funding" ];
+	fund_funding_goal_not_completed [ label="Fund\n\nFunding Goal Not Completed" ];
 
 	// Act
+	act_project_waiting_for_payment [ label="Act\n\nProject Waiting for Payment" ];
 	act_working_on_project [ label="Act\n\nWorking on Project" ];
+	act_evaluation_in_progress [ label="Act\n\nEvaluation In Progress" ];
 
 	// Results
-	results_in_progress [ label="Results\n\nIn Progress" ];
 	results_waiting_for_approval [ label="Results\n\nWaiting for Approval" ];
 	results_project_complete [ label="Results\n\nProject Complete" ];
 
 	/*
 	 * Node levels
 	 */
-	{ rank=same; idea_working_on_idea idea_waiting_for_feedback };
-	{ rank=same; idea_feedback_received idea_waiting_for_project_acceptance results_project_complete };
-	{ rank=same; fund_creating_funding_plan results_waiting_for_approval };
-	{ rank=same; fund_waiting_for_plan_approval results_in_progress };
-	{ rank=same; fund_funding_in_progress };
-	{ rank=same; fund_project_waiting_for_payment act_working_on_project };
+	{ rank=same; idea_working_on_idea idea_open_for_feedback results_project_complete };
+	{ rank=same; idea_creating_funding_plan results_waiting_for_approval };
+	{ rank=same; idea_waiting_for_plan_approval act_evaluation_in_progress };
+	{ rank=same; fund_open_for_funding act_working_on_project };
+	{ rank=same; act_project_waiting_for_payment }; 
 }
 
