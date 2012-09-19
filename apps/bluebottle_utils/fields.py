@@ -7,3 +7,7 @@ class MoneyField(models.DecimalField):
         kwargs.setdefault('decimal_places', 2)
 
         super(MoneyField, self).__init__(*args, **kwargs)
+
+# Make it work with south introspection
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^apps\.bluebottle_utils\.fields\.MoneyField"])
