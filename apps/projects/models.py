@@ -184,7 +184,7 @@ class AbstractPhase(models.Model):
 
     # Date the phase has started/ended.
     startdate = models.DateField(_("start date"), null=True)
-    enddate = models.DateField(_("end date"), null=True)
+    enddate = models.DateField(_("end date"), blank=True, null=True)
 
     status = models.CharField(
         _("status"), max_length=20, choices=PhaseStatuses.choices
