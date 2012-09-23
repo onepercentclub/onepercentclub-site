@@ -53,7 +53,11 @@ coverage==3.5.2
 
 # Embedding videos and other media
 # https://github.com/coleifer/micawber
--e git+https://github.com/coleifer/micawber.git@36d06b70b601f12de7d7fa9709288d99dbb84d24#egg=micawber
+#-e git+https://github.com/coleifer/micawber.git@36d06b70b601f12de7d7fa9709288d99dbb84d24#egg=micawber
+# Use our patched version for now until this bug is fixed upstream:
+# https://github.com/coleifer/micawber/pull/8
+# FIXME: downloading with git+https isn't working for some reason.
+-e git+git@github.com:onepercentclub/micawber.git@12b1ab760c00d71e68c4c247676d0a98cd0409c6#egg=micawber
 
 # Current git revision in request object for use in templates and views
 # http://pypi.python.org/pypi/django-gitrevision

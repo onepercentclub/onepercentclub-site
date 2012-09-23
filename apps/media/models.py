@@ -102,10 +102,8 @@ class OembedAbstractBase(models.Model):
         # Get the data
         try:
             oembed_data = providers.request(self.url)
-        except micawber.ProviderException:
-            msg = _('Could not find metadata for object.')
-
-            logger.exception(msg)
+        except micawber.ProviderException as e:
+            msg = _(u"Could not find metadata for object: %s" % e.message)
             raise ValidationError(msg)
 
         logger.debug(
