@@ -295,15 +295,6 @@ class FundPhase(AbstractPhase):
             self.save()
         return self.money_donated
 
-    # Override save() to set a default amount for money_donated.
-    # http://stackoverflow.com/questions/2307943/django-overriding-the-model-create-method
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            # The object is not in the database yet because it doesn't have a pk.
-            if self.money_donated is None:
-                self.money_donated = 0
-
-        super(FundPhase, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("fund phase")
