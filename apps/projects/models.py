@@ -225,7 +225,7 @@ class IdeaPhase(AbstractPhase):
 
     class Meta:
         verbose_name = _("idea phase")
-        verbose_name_plural = _("idea phases")
+        verbose_name_plural = _("idea phase")
 
 
 class FundPhase(AbstractPhase):
@@ -313,7 +313,7 @@ class FundPhase(AbstractPhase):
 
     class Meta:
         verbose_name = _("fund phase")
-        verbose_name_plural = _("fund phases")
+        verbose_name_plural = _("fund phase")
 
 
 class ActPhase(AbstractPhase):
@@ -323,7 +323,7 @@ class ActPhase(AbstractPhase):
 
     class Meta:
         verbose_name = _("act phase")
-        verbose_name_plural = _("act phases")
+        verbose_name_plural = _("act phase")
 
 
 class ResultsPhase(AbstractPhase):
@@ -348,7 +348,7 @@ class ResultsPhase(AbstractPhase):
 
     class Meta:
         verbose_name = _("results phase")
-        verbose_name_plural = _("results phases")
+        verbose_name_plural = _("results phase")
 
 
 class Referals(models.Model):
