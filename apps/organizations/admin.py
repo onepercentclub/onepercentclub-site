@@ -7,7 +7,7 @@ from apps.organizations.models import (
 
 class OrganizationAddressAdmin(admin.StackedInline):
     model = OrganizationAddress
-    extra = 1
+    extra = 0
 
 
 class OrganizationAdmin(admin.ModelAdmin):

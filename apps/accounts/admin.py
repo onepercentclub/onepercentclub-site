@@ -10,7 +10,7 @@ from .models import Language, UserAddress, UserProfile
 
 class UserAddressAdmin(admin.StackedInline):
     model = UserAddress
-    extra = 1
+    extra = 0
 
 
 class UserProfileAdmin(admin.ModelAdmin):
