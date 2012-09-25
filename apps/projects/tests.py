@@ -1,4 +1,6 @@
 from decimal import Decimal
+from datetime import timedelta
+from django.utils import timezone
 
 from django.test import TestCase
 
@@ -6,7 +8,7 @@ from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
 
-from .models import Project, FundPhase
+from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -56,7 +58,6 @@ class FundPhaseTestMixin(object):
         )
 
         return fundphase
-
 
 
 class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
@@ -114,6 +115,7 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         """ Test calculation of donation amounts """
 
         phase = self.create_fundphase(self.project, 12000, 3520)
+        phase.startdate = timezone.now().date()
         phase.save()
 
         self.assertEquals(self.project.money_asked(), 3520)
@@ -137,11 +139,12 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
 
     def test_money_donated_default(self):
         """
-        Tests for the overridden save() method in FundPhase.
+        Tests for the default value of money_donated.
         """
 
         # Saving a new phase should have money_donated set to 0.
         phase = self.create_fundphase(self.project)
+        phase.startdate = timezone.now().date()
         phase.save()
         self.assertEquals(phase.money_donated, 0)
 
@@ -154,6 +157,56 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         funProject = self.create_project(title='Fun Project')
         funProject.save()
         phase = self.create_fundphase(funProject)
+        phase.startdate = timezone.now().date()
         phase.money_donated = 20
         phase.save()
         self.assertNotEqual(phase.money_donated, 0)
+
+    def test_phase_dates_sync(self):
+        """
+        Tests that the auto-sync phase start / end date code works.
+        """
+
+        # Basic test for the auto-setting previous enddate.
+        ideaphase = IdeaPhase(project=self.project)
+        ideaphase.startdate = timezone.now().date()
+        ideaphase.save()
+        fundphase = self.create_fundphase(self.project)
+        fundphase.startdate = timezone.now().date()
+        fundphase.save()
+
+        # Refresh the data and test:
+        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
+        self.assertTrue(fundphase.startdate == ideaphase.enddate)
+
+
+        # More elaborate test for the auto-setting previous enddate.
+        fundphase.startdate = timezone.now().date() - timedelta(days=2)
+        fundphase.save()
+
+        # Refresh the data and test:
+        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
+        self.assertTrue(fundphase.startdate == ideaphase.enddate)
+
+
+        # Test for the auto-setting next startdate.
+        resultsphase = ResultsPhase(project=self.project)
+        resultsphase.startdate = timezone.now().date() + timedelta(days=2)
+        resultsphase.save()
+        actphase = ActPhase(project=self.project)
+        actphase.startdate = timezone.now().date()
+        actphase.enddate = timezone.now().date() + timedelta(weeks=1)
+        actphase.save()
+
+        # Refresh the data and test:
+        resultsphase = ResultsPhase.objects.get(id=resultsphase.id)
+        self.assertTrue(resultsphase.startdate == actphase.enddate)
+
+        # Final refresh and tests:
+        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
+        fundphase = FundPhase.objects.get(id=fundphase.id)
+        actphase = ActPhase.objects.get(id=actphase.id)
+        resultsphase = ResultsPhase.objects.get(id=resultsphase.id)
+        self.assertTrue(ideaphase.enddate == fundphase.startdate)
+        self.assertTrue(fundphase.enddate == actphase.startdate)
+        self.assertTrue(actphase.enddate == resultsphase.startdate)
