@@ -36,6 +36,7 @@ class ResultsPhaseInline(PhaseInlineBase):
 
 class BudgetInline(admin.TabularInline):
     model = BudgetLine
+    extra = 0
 
 
 class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
