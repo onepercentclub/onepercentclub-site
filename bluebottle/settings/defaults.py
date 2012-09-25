@@ -126,18 +126,19 @@ TEMPLATE_LOADERS = [
 #     'django.template.loaders.eggs.Loader',
 ]
 
-"""
-These are basically the default values from the Django configuration, written
-as a list for easy manipulation. This way one can:
-
-1. Easily add, remove or replace elements in the list, ie. overriding.
-2. Know what the defaults are, if you want to change them right here. This
-   way you won't have to look them up everytime you want to change.
-"""
+# These are basically the default values from the Django configuration, written
+# as a list for easy manipulation. This way one can:
+#
+# 1. Easily add, remove or replace elements in the list, ie. overriding.
+# 2. Know what the defaults are, if you want to change them right here. This
+#   way you won't have to look them up everytime you want to change.
+#
+# Note: The first three middleware classes need to be in this order: Session, Locale, Common
+# http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
