@@ -167,7 +167,7 @@ def sync_user_profile(sender, instance, created, **kwargs):
         # Save the UserProfile to update the AutoSlugField when a User is saved.
         user_profile = instance.get_profile()
         # TODO In Django 1.5 this can be changed to only save the 'slug' field:
-        # https://docs.djangoproject.com/en/dev/ref/models/instances/#the-pk-property
+        # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
         user_profile.save()
 
 post_save.connect(sync_user_profile, sender=User)
