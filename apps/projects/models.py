@@ -1,9 +1,11 @@
 from django.db import models
 from django.db.models import Sum
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.contrib.auth.models import User
-import random
+from django.core.exceptions import ValidationError
 
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
@@ -94,11 +96,11 @@ class Project(models.Model):
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
-        help_text=_("The project owner's notion of the project start date."
+        help_text=_("The project owner's notion of the project start date. "
                     "This date is independant of the various phase start dates.")
     )
     planned_end_date = models.DateField(_("planned end date"), blank=True, null=True,
-        help_text=_("The project owner's notion of the project end date."
+        help_text=_("The project owner's notion of the project end date. "
                     "This date is independant of the various phase end dates.")
     )
 
@@ -113,7 +115,7 @@ class Project(models.Model):
             return self.title
         return self.slug
 
-    # TODO: Move all mney related stuff to FundPhase...
+    # TODO: Move all money related stuff to FundPhase...
     def money_asked(self):
         try:
             self.fundphase
@@ -191,12 +193,24 @@ class AbstractPhase(models.Model):
     description = models.TextField(_("description"), blank=True)
 
     # Date the phase has started/ended.
-    startdate = models.DateField(_("start date"), null=True)
+    startdate = models.DateField(_("start date"))
     enddate = models.DateField(_("end date"), blank=True, null=True)
 
     status = models.CharField(
         _("status"), max_length=20, choices=PhaseStatuses.choices
     )
+
+    def clean(self):
+        if self.startdate and self.enddate:
+            if self.enddate < self.startdate:
+                raise ValidationError(_(
+                    u"%s: End date %s can not be earlier than start date %s" %
+                    (self.__class__.__name__, self.enddate, self.startdate))
+                )
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super(AbstractPhase, self).save(*args, **kwargs)
 
     class Meta:
         abstract = True
@@ -204,6 +218,7 @@ class AbstractPhase(models.Model):
 
 class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here. """
+
     knowledge_description = models.TextField(
         _("knowledge"), blank=True, help_text=_("Description of knowledge.")
     )
@@ -417,3 +432,72 @@ class Message(models.Model):
         ordering = ['-created']
         verbose_name = _("message")
         verbose_name_plural = _("messages")
+
+
+#
+# The Phase start / end date synchronization logic.
+#
+def set_previous_phase_enddate(current_phase, previous_phase):
+    """
+    Sets the enddate of the previous phase to the startdate of the current phase.
+    """
+
+    if previous_phase.enddate != current_phase.startdate:
+        previous_phase.enddate = current_phase.startdate
+        if previous_phase.enddate < previous_phase.startdate:
+            previous_phase.startdate = previous_phase.enddate
+        # TODO In Django 1.5 this can be changed to only save the 'enddate' field:
+        # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
+        previous_phase.save()
+
+
+def set_next_phase_startdate(current_phase, next_phase):
+    """
+    Sets the startdate of the next phase to the enddate of the current phase.
+    """
+
+    if next_phase.startdate != current_phase.enddate:
+        next_phase.startdate = current_phase.enddate
+        if next_phase.enddate is not None and next_phase.startdate > next_phase.enddate:
+            next_phase.enddate = next_phase.startdate
+        # TODO In Django 1.5 this can be changed to only save the 'startdate' field:
+        # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
+        next_phase.save()
+
+@receiver(post_save, weak=False, sender=IdeaPhase)
+def sync_idea_phase_dates(sender, instance, created, **kwargs):
+    try:
+        set_next_phase_startdate(instance, instance.project.fundphase)
+    except FundPhase.DoesNotExist:
+        pass
+
+@receiver(post_save, weak=False, sender=FundPhase)
+def sync_fund_phase_dates(sender, instance, created, **kwargs):
+    try:
+        set_previous_phase_enddate(instance, instance.project.ideaphase)
+    except IdeaPhase.DoesNotExist:
+        pass
+
+    try:
+        set_next_phase_startdate(instance, instance.project.actphase)
+    except ActPhase.DoesNotExist:
+        pass
+
+@receiver(post_save, weak=False, sender=ActPhase)
+def sync_act_phase_dates(sender, instance, created, **kwargs):
+    try:
+        set_previous_phase_enddate(instance, instance.project.fundphase)
+    except FundPhase.DoesNotExist:
+        pass
+
+    try:
+        set_next_phase_startdate(instance, instance.project.resultsphase)
+    except ResultsPhase.DoesNotExist:
+        pass
+
+@receiver(post_save, weak=False, sender=ResultsPhase)
+def sync_results_phase_dates(sender, instance, created, **kwargs):
+    try:
+        set_previous_phase_enddate(instance, instance.project.actphase)
+    except ActPhase.DoesNotExist:
+        pass
