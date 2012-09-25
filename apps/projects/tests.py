@@ -1,14 +1,15 @@
 from decimal import Decimal
 from datetime import timedelta
-from django.utils import timezone
 
+from django.core.exceptions import ValidationError
 from django.test import TestCase
+from django.utils import timezone
 
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
 
-from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase
+from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -210,3 +211,24 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         self.assertTrue(ideaphase.enddate == fundphase.startdate)
         self.assertTrue(fundphase.enddate == actphase.startdate)
         self.assertTrue(actphase.enddate == resultsphase.startdate)
+
+    def test_phase_validation(self):
+        """
+        Tests that the phase validation is working.
+        """
+
+        # Setup sample phase.
+        phase = self.create_fundphase(self.project)
+        phase.startdate = timezone.now().date()
+        phase.status = AbstractPhase.PhaseStatuses.progress
+        phase.save()
+
+        # Check that the validation error is raised.
+        phase.enddate =  timezone.now().date() - timedelta(weeks=2)
+        self.assertRaises(ValidationError, phase.full_clean)
+
+        # Set a correct value and confirm there's no problem.
+        phase.enddate =  timezone.now().date() + timedelta(weeks=2)
+        phase.full_clean()
+        phase.save()
+

@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.contrib.auth.models import User
-
+from django.core.exceptions import ValidationError
 
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField
@@ -200,6 +200,10 @@ class AbstractPhase(models.Model):
         _("status"), max_length=20, choices=PhaseStatuses.choices
     )
 
+    def clean(self):
+        if self.startdate and self.enddate:
+            if self.enddate < self.startdate:
+                raise ValidationError(_(u"End date can not be earlier than start date: %s" % self.startdate))
     class Meta:
         abstract = True
 
