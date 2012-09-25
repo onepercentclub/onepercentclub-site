@@ -167,13 +167,16 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         """
         Tests that the auto-sync phase start / end date code works.
         """
+        today = timezone.now().date()
+        two_days_timedelta = timedelta(days=2)
+        one_week_timedelta = timedelta(weeks=1)
 
         # Basic test for the auto-setting previous enddate.
         ideaphase = IdeaPhase(project=self.project)
-        ideaphase.startdate = timezone.now().date()
+        ideaphase.startdate = today
         ideaphase.save()
         fundphase = self.create_fundphase(self.project)
-        fundphase.startdate = timezone.now().date()
+        fundphase.startdate = today
         fundphase.save()
 
         # Refresh the data and test:
@@ -181,8 +184,9 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         self.assertTrue(fundphase.startdate == ideaphase.enddate)
 
 
-        # More elaborate test for the auto-setting previous enddate.
-        fundphase.startdate = timezone.now().date() - timedelta(days=2)
+        # Tests that previous phase start date is adjusted when the previous
+        # phase end date is eariler than the previous phase start date.
+        fundphase.startdate = today - two_days_timedelta
         fundphase.save()
 
         # Refresh the data and test:
@@ -192,16 +196,38 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
 
         # Test for the auto-setting next startdate.
         resultsphase = ResultsPhase(project=self.project)
-        resultsphase.startdate = timezone.now().date() + timedelta(days=2)
+        resultsphase.startdate = today + two_days_timedelta
         resultsphase.save()
         actphase = ActPhase(project=self.project)
-        actphase.startdate = timezone.now().date()
-        actphase.enddate = timezone.now().date() + timedelta(weeks=1)
+        actphase.startdate = today
+        actphase.enddate = today + one_week_timedelta
         actphase.save()
 
         # Refresh the data and test:
         resultsphase = ResultsPhase.objects.get(id=resultsphase.id)
         self.assertTrue(resultsphase.startdate == actphase.enddate)
+
+        # Tests that next phase end date is adjusted when the next phase start
+        # date is later than the next phase end date.
+        actphase = ActPhase.objects.get(id=actphase.id)
+        fundphase = FundPhase.objects.get(id=fundphase.id)
+
+        # The current state of things:
+        self.assertEquals(fundphase.startdate, today - two_days_timedelta)
+        self.assertEquals(fundphase.enddate, today)
+        self.assertEquals(actphase.startdate, fundphase.enddate) # today
+        self.assertEquals(actphase.enddate, today + one_week_timedelta)
+
+        # Change the fund phase end date to be later than act phase end date.
+        fundphase.enddate = today + timedelta(weeks=2)
+        fundphase.save()
+
+        # Refresh the data and test:
+        actphase = ActPhase.objects.get(id=actphase.id)
+        self.assertEquals(fundphase.enddate, actphase.startdate)
+        # This is the important test.
+        self.assertEquals(actphase.enddate, actphase.startdate)
+
 
         # Final refresh and tests:
         ideaphase = IdeaPhase.objects.get(id=ideaphase.id)

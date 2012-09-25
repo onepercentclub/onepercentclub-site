@@ -203,7 +203,15 @@ class AbstractPhase(models.Model):
     def clean(self):
         if self.startdate and self.enddate:
             if self.enddate < self.startdate:
-                raise ValidationError(_(u"End date can not be earlier than start date: %s" % self.startdate))
+                raise ValidationError(_(
+                    u"%s: End date %s can not be earlier than start date %s" %
+                    (self.__class__.__name__, self.enddate, self.startdate))
+                )
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super(AbstractPhase, self).save(*args, **kwargs)
+
     class Meta:
         abstract = True
 
@@ -436,6 +444,8 @@ def set_previous_phase_enddate(current_phase, previous_phase):
 
     if previous_phase.enddate != current_phase.startdate:
         previous_phase.enddate = current_phase.startdate
+        if previous_phase.enddate < previous_phase.startdate:
+            previous_phase.startdate = previous_phase.enddate
         # TODO In Django 1.5 this can be changed to only save the 'enddate' field:
         # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
         previous_phase.save()
@@ -448,6 +458,8 @@ def set_next_phase_startdate(current_phase, next_phase):
 
     if next_phase.startdate != current_phase.enddate:
         next_phase.startdate = current_phase.enddate
+        if next_phase.enddate is not None and next_phase.startdate > next_phase.enddate:
+            next_phase.enddate = next_phase.startdate
         # TODO In Django 1.5 this can be changed to only save the 'startdate' field:
         # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
         next_phase.save()
