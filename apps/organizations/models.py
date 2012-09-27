@@ -29,7 +29,6 @@ class Organization(models.Model):
     phone_number = models.CharField(
         _("phone number"), max_length=255, blank=True
     )
-    email = models.EmailField(_("email"), blank=True)
 
     website = models.CharField(_("website"), max_length=255, blank=True)
 
