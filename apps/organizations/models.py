@@ -30,7 +30,7 @@ class Organization(models.Model):
         _("phone number"), max_length=255, blank=True
     )
 
-    website = models.CharField(_("website"), max_length=255, blank=True)
+    website = models.URLField(_("website"), max_length=255, blank=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
