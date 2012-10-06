@@ -82,17 +82,14 @@ class OrganizationMember(models.Model):
 
     class MemberFunctions(DjangoChoices):
         owner = ChoiceItem('owner', label=_("Owner"))
-        admin = ChoiceItem('admin', label=_("Admin"))
         editor = ChoiceItem('editor', label=_("Editor"))
-        member = ChoiceItem('member', label=_("Member"))
 
     organization = models.ForeignKey(
         Organization, verbose_name=_("organization")
     )
     user = models.ForeignKey('auth.User', verbose_name=_("user"))
     function = models.CharField(
-        _("function"), max_length=20, choices=MemberFunctions.choices,
-        help_text=_("Function might determine Role later on.")
+        _("function"), max_length=20, choices=MemberFunctions.choices
     )
 
     class Meta:
