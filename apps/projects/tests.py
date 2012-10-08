@@ -73,45 +73,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         )
         self.project.save()
 
-    def test_detailview(self):
-        """ Test whether requesting of a project detail view works. """
-
-        url = self.project.get_absolute_url()
-
-        self.assertTrue(url)
-
-        # The project slug should be in the URL
-        self.assertIn(self.project.slug, url)
-
-        # Try and get the details
-        response = self.client.get(url)
-
-        # Check that the response is 200 OK.
-        self.assertEqual(response.status_code, 200)
-
-        # The project title should be in the page, somewhere
-        self.assertContains(response, self.project.title)
-
-        self.assertContains(response, self.project.owner)
-
-    def test_detailviewalbums(self):
-        """
-        Test whether links to albums are displayed on a project's detail
-        view.
-        """
-
-        album = self.create_album()
-        album.save()
-
-        self.project.albums.add(album)
-
-        url = self.project.get_absolute_url()
-        response = self.client.get(url)
-
-        self.assertContains(response, album.title)
-        self.assertContains(response, album.get_absolute_url())
-
-
     def test_amounts(self):
         """ Test calculation of donation amounts """
 
