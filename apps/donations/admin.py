@@ -1,18 +1,10 @@
 from django.contrib import admin
 
-from .models import Donation, DonationLine
-
-
-class DonationLineInline(admin.StackedInline):
-    model = DonationLine
-    max_num = 0
-    can_delete = False
+from .models import Donation
 
 
 class DonationAdmin(admin.ModelAdmin):
     model = Donation
-
-    inlines = [DonationLineInline, ]
 
     date_hierarchy = 'created'
 
