@@ -17,7 +17,13 @@ class OrganizationAdmin(admin.ModelAdmin):
 
     search_fields = ('name', 'description')
 
-
 admin.site.register(Organization, OrganizationAdmin)
 
-admin.site.register(OrganizationMember)
+
+class OrganizationMemberAdmin(admin.ModelAdmin):
+    list_display = ('user', 'function', 'organization')
+    list_filter = ('function',)
+    search_fields = ('user__first_name', 'user__last_name',
+                     'user__username', 'organization__name')
+
+admin.site.register(OrganizationMember, OrganizationMemberAdmin)

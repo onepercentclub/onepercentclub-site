@@ -73,7 +73,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         )
         self.project.save()
 
-
     def test_amounts(self):
         """ Test calculation of donation amounts """
 

@@ -105,5 +105,3 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
         # Since donation was cancelled it still should be 2 supporters 
         supporters = project.get_supporters()
         self.assertEquals(supporters.count(), 2)
-        
-
