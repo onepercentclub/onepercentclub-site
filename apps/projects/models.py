@@ -297,9 +297,9 @@ class FundPhase(AbstractPhase):
         changes status.
     """
     def update_money_donated(self):
-        donation = Donation.objects.filter(project=self.project)
-        donation = donationlines.filter(status__in=['closed','paid','started'])
-        total = donation.aggregate(total=Sum('amount'))['total']
+        donations = Donation.objects.filter(project=self.project)
+        donations = donations.filter(status__in=['closed','paid','started'])
+        total = donations.aggregate(total=Sum('amount'))['total']
         if total is None:
             if self.money_donated != 0:
                 # Only set money_donated to 0 when it's not already 0.

@@ -20,7 +20,7 @@ class DonationAdmin(admin.ModelAdmin):
     list_filter = ('status', )
 
     search_fields = (
-        'user__first_name', 'user__last_name', 'donationline__project__title'
+        'user__first_name', 'user__last_name', 'project__title'
     )
 
 
