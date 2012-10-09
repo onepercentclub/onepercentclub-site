@@ -15,7 +15,7 @@ from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
-from apps.donations.models import DonationLine
+from apps.donations.models import Donation
 
 class ProjectTheme(models.Model):
     """ Themes for Projects. """
@@ -148,10 +148,10 @@ class Project(models.Model):
     def get_supporters(self):
         """ Get a queryset of donating users for this project. """
 
-        # TODO: Add filter for 'successful' donations on a somewhat higher
-        # level, perhaps a custom Manager on Donation/DonationLine classes.
+        # TODO: Add filter for 'succesful' donations on a somewhat higher
+        # level, perhaps a custom Manager on Donatio class.
         donators = User.objects
-        donators = donators.filter(donation__donationline__project=self)
+        donators = donators.filter(donation__project=self)
         donators = donators.filter(donation__status__in=['closed','paid','started'])
         donators = donators.distinct()
         return donators
@@ -297,9 +297,9 @@ class FundPhase(AbstractPhase):
         changes status.
     """
     def update_money_donated(self):
-        donationlines = DonationLine.objects.filter(project=self.project)
-        donationlines = donationlines.filter(donation__status__in=['closed','paid','started'])
-        total = donationlines.aggregate(total=Sum('amount'))['total']
+        donation = Donation.objects.filter(project=self.project)
+        donation = donationlines.filter(status__in=['closed','paid','started'])
+        total = donation.aggregate(total=Sum('amount'))['total']
         if total is None:
             if self.money_donated != 0:
                 # Only set money_donated to 0 when it's not already 0.

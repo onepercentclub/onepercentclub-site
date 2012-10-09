@@ -36,8 +36,9 @@ class Donation(models.Model):
         new = ChoiceItem('new', label=_("New"))
         started = ChoiceItem('started', label=_("Started"))
 
-    user = models.ForeignKey('auth.User', verbose_name=_("user"))
+    user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True, blank=True)
     amount = MoneyField(_("amount"))
+    project = models.ForeignKey('projects.Project', verbose_name=_("project"))
 
     # Note: having an index here allows for efficient filtering by status.
     status = models.CharField(_("status"),
@@ -52,69 +53,4 @@ class Donation(models.Model):
         verbose_name_plural = _("donations")
 
     def __unicode__(self):
-        if self.amount:
-            try:
-                return _(u"%(amount)s on %(date)s from %(user)s") % {
-                    'amount': self.amount,
-                    'date': self.created,
-                    'user': self.user
-                }
-            except ObjectDoesNotExist:
-                return _(u"%(amount)s on %(date)s") % {
-                    'amount': self.amount,
-                    'date': self.created
-                }
-
-        return str(self.pk)
-
-
-class DonationLine(models.Model):
-    """
-    DonationLine, allocating part of a Donation to a specific Project.
-    """
-
-    donation = models.ForeignKey(Donation, verbose_name=_("donation"))
-
-    project = models.ForeignKey('projects.Project', verbose_name=_("project"))
-    amount = MoneyField(_("amount"))
-
-    class Meta:
-        verbose_name = _("donation line")
-        verbose_name_plural = _("donation lines")
-
-    def __unicode__(self):
-        if self.amount:
-            try:
-                return _(
-                    u"%(amount)s from donation %(donation)s "
-                    u"to %(project)s"
-                ) % {
-                    'amount': self.amount,
-                    'donation': self.donation,
-                    'project': self.project
-                }
-
-            except ObjectDoesNotExist:
-                return u"%s" % self.amount
-
-        return str(self.pk)
-
-    def clean(self):
-        """
-        Validate that the total DonationLine amount is never more than the
-        Donation amount.
-        """
-
-        donationlines = self.donation.donationline_set.exclude(pk=self.pk)
-        total_amount = \
-            donationlines.aggregate(models.Sum('amount'))['amount__sum']
-
-        if not total_amount:
-            total_amount = Decimal('0.00')
-
-        total_amount += self.amount
-
-        if total_amount > self.donation.amount:
-            raise ValidationError(
-                _("Requested amount not available.")
-            )
+        return str(self.id) + ' : ' + self.project.title + ' : EUR ' + str(self.amount)
