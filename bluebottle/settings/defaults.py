@@ -298,7 +298,5 @@ USE_EMBER_STYLE_ATTRS = True
 
 # Sorl Thumbnail settings
 # http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
-# TODO: Disable this and chose a default image in the front-end
-THUMBNAIL_DUMMY = True
 THUMBNAIL_QUALITY = 85
 # TODO: Configure Sorl with Redis.

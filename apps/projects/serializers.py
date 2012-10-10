@@ -3,11 +3,14 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from .models import Project
 from rest_framework import serializers
-from rest_framework.fields import CharField, RelatedField, ManyRelatedField, Field
+from rest_framework.reverse import reverse
+from rest_framework.fields import RelatedField, ManyRelatedField, Field, HyperlinkedIdentityField
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 
 # TODO move this to utils class
+# TODO Think about adding a feature to set thumbnail quality based on country.
+#      This would be useful for countries with slow internet connections.
 class SorlImageField(Field):
 
     def __init__(self, source, geometry_string, **options):
@@ -16,11 +19,25 @@ class SorlImageField(Field):
         self.options = options
 
     def to_native(self, value):
-        if value:
-            return settings.MEDIA_URL + \
-                   unicode(get_thumbnail(value, self.geometry_string, **self.options))
-        else:
+
+        if not value:
             return ""
+        thumbnail = unicode(get_thumbnail(value, self.geometry_string, **self.options))
+        request = self.context.get('request')
+        relative_url = settings.MEDIA_URL + thumbnail
+        if request:
+            return request.build_absolute_uri(relative_url)
+        return relative_url
+
+
+# TODO: make a patch for DRF2 to set the look field other than pk.
+# TODO: Don't send HyperlinkedFields in json? Not sure if this is a big deal or not.
+class SlugHyperlinkedIdentityField(HyperlinkedIdentityField):
+    def field_to_native(self, obj, field_name):
+        request = self.context.get('request', None)
+        view_name = self.view_name or self.parent.opts.view_name
+        view_kwargs = {'slug': obj.slug}
+        return reverse(view_name, kwargs=view_kwargs, request=request)
 
 
 class ProjectCountrySerializer(serializers.ModelSerializer):
@@ -49,14 +66,16 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     phase = Field(source='get_phase_display')
     tags = ManyRelatedField()
-    url = CharField(source='get_absolute_url', readonly=True)
+    url = SlugHyperlinkedIdentityField(view_name='project-instance')
+    money_asked = Field(source='money_asked')
+    money_donated = Field(source='money_donated')
 
     class Meta:
         model = Project
-        fields = ('country', 'created', 'id', 'image', 'language',
-                  'latitude', 'longitude', 'organization', 'owner', 'phase',
-                  'planned_end_date', 'planned_start_date', 'slug', 'tags',
-                  'themes', 'title', 'url')
+        fields = ('country', 'created', 'id', 'image', 'language', 'latitude',
+                  'longitude', 'money_asked', 'money_donated', 'organization',
+                  'owner', 'phase', 'planned_end_date', 'planned_start_date',
+                  'tags', 'themes', 'title', 'url')
 
 
 class ProjectPreviewSerializer(ProjectDetailSerializer):
@@ -64,6 +83,5 @@ class ProjectPreviewSerializer(ProjectDetailSerializer):
 
     class Meta:
         model = Project
-        fields = ('country', 'created', 'id', 'image', 'language',
-                  'latitude', 'longitude', 'organization', 'phase', 'slug',
+        fields = ('country', 'id', 'image', 'money_asked', 'money_donated',
                   'title', 'url')
