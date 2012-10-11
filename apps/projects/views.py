@@ -5,6 +5,7 @@ from rest_framework import permissions
 from .models import Project
 from .serializers import ProjectPreviewSerializer, ProjectDetailSerializer
 
+
 # API views
 
 class ProjectRoot(mixins.ListModelMixin,
@@ -13,6 +14,7 @@ class ProjectRoot(mixins.ListModelMixin,
     serializer_class = ProjectPreviewSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 4
+    filter_fields = ('phase',)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

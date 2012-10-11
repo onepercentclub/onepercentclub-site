@@ -79,9 +79,9 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
 
 
 class ProjectPreviewSerializer(ProjectDetailSerializer):
-    image = SorlImageField('image', '225x150', crop='center')
+    image = SorlImageField('image', '230x150', crop='center')
 
     class Meta:
         model = Project
         fields = ('country', 'id', 'image', 'money_asked', 'money_donated',
-                  'title', 'url')
+                  'slug', 'title', 'url')
