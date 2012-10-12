@@ -41,7 +41,7 @@ class SlugHyperlinkedIdentityField(HyperlinkedIdentityField):
 
 
 class ProjectCountrySerializer(serializers.ModelSerializer):
-    subregion = RelatedField()
+    subregion = Field()
 
     class Meta:
         model = Country
