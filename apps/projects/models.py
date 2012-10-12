@@ -197,9 +197,6 @@ class AbstractPhase(models.Model):
 class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here. """
 
-    # This overrides the project field in AbstractPhase to add 'blank=True'.
-    # This is needed because Ideas can be created without projects.
-#    project = models.OneToOneField(Project, verbose_name=_("project"), blank=True)
     knowledge_description = models.TextField(
         _("knowledge"), blank=True, help_text=_("Description of knowledge.")
     )
