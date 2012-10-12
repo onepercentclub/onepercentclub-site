@@ -7,7 +7,7 @@ from apps.organizations.tests import  OrganizationTestsMixin
 from apps.projects.tests import ProjectTestsMixin
 
 
-class TestTags(unittest.TestCase,  ProjectTestsMixin, OrganizationTestsMixin,  UserTestsMixin):
+class TestTags(unittest.TestCase, ProjectTestsMixin, OrganizationTestsMixin, UserTestsMixin):
     """ Tests for tags. """
 
     def tearDown(self):
