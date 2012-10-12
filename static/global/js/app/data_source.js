@@ -16,6 +16,14 @@ App.DataSource = Em.Object.extend({
         });
     },
 
+    post: function(url, query, callback) {
+//        TODO: implement
+    },
+
+    put: function(url, query, callback) {
+//        TODO: implement
+    },
+
     _ajax: function(url, type, hash) {
         if (url.match('^http') || url.match('^\/')) {
             hash.url = url;
