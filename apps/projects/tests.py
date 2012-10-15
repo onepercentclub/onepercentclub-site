@@ -1,6 +1,5 @@
 from decimal import Decimal
 from datetime import timedelta
-from apps.projects.views import ProjectRoot, ProjectInstance
 
 from django.core.exceptions import ValidationError
 from django.test import TestCase
@@ -10,6 +9,7 @@ from django.utils import timezone
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
+from apps.projects.views import ProjectRoot, ProjectInstance
 
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
 

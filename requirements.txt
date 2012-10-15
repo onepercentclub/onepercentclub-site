@@ -37,7 +37,7 @@ south==0.7.5
 
 # Django-REST-Framework
 -e git+https://github.com/onepercentclub/django-filter.git@django-1.3-compat#egg=django-filter
--e git+git@github.com:onepercentclub/django-rest-framework.git@restframework2-filter#egg=djangorestframework
+-e git+https://github.com/onepercentclub/django-rest-framework.git@restframework2-filter#egg=rest_framework
 
 # Jenkins integration
 django-jenkins==0.13.0

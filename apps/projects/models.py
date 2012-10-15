@@ -226,10 +226,9 @@ class FundPhase(AbstractPhase):
     )
 
     budget_total = MoneyField(_("budget total"),
-        help_text=_("Total amount needed for this project."))
-    # TODO: What's money_asked used for? How is it different than budget_total?
+        help_text=_("Amount of money needed for a project including money from other sources."))
     money_asked = MoneyField(_("money asked"),
-        help_text=_("Amount asked for from this website."))
+        help_text=_("Amount of money asked for a project from this website."))
     money_donated= MoneyField(_('money donated'),
         help_text=_("This field is updated on every donation(change)"))
 
@@ -239,7 +238,6 @@ class FundPhase(AbstractPhase):
         help_text=_("How can next generations profit from this?")
     )
 
-    # TODO: Should this be a MoneyField?
     money_other_sources = models.TextField(
         _("money from other sources"), blank=True,
         help_text=_("Money received from other sources.")
