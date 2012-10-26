@@ -4,6 +4,11 @@ Project Bluebottle
 The repository for Project Bluebottle, the crowdsourcing framework initiated
 by the 1%CLUB.
 
+:build status: |build-image|
+
+.. |build-image| image:: https://secure.travis-ci.org/onepercentclub/bluebottle.png?branch=master
+                 :target: https://secure.travis-ci.org/onepercentclub/bluebottle
+
 Getting started
 ---------------
 
