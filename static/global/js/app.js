@@ -76,13 +76,6 @@ App.RootRoute = Em.Route.extend({
 
     showProjectStart: Em.Route.transitionTo('projects.start'),
 
-    // Language switching
-    switchLanguage : function(router, event) {
-        //TODO: implement language switch
-        //TODO: Do class switch in a proper Ember way...
-        $('a', '.languages').removeClass('active');
-        $(event.srcElement).addClass('active');
-    },
     // The actual routing
     home: Em.Route.extend({
         route : '/',
