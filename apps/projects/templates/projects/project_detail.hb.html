@@ -1,0 +1,52 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+
+{% tplhandlebars "project_detail" %}
+    <div class="row">
+        <div class="column grid_4">
+            <h1>{{view.content.title}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column grid_1">
+            <div class="location">
+                <img src="/static/assets/global/images/icons/world.png" />
+                <h4>{{view.content.country.name}}</h4>
+                {{view.content.country.subregion}}
+            </div>
+            <div class="types">
+                <ul class="categories">
+                    {{#each view.content.themes}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+                <ul class="tags">
+                    {{#each view.content.tags}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="owner">
+                <img {{bindAttr src="view.content.owner.picture"}} />
+                <h4>PROJECT INITIATOR</h4>
+                <br/><br/>
+                {{view.content.owner.first_name}} {{view.content.owner.last_name}}
+                <br/><br/>
+                <a href="" class="dm">SEND DM</a>
+            </div>
+        </div>
+        <div class="column grid_2">
+            {{view "App.ProjectMediaView"}}
+        </div>
+        <div class="column grid_1">
+            {{view "App.ProjectStatsView"}}
+        </div>
+        <div class="resize">
+            <a href>SHOW ALL PROJECT DETAILS</a>
+        </div>
+        <div>
+            {% trans "Name" %}
+        </div>
+    </div>
+{% endtplhandlebars %}
+
