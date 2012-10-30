@@ -29,6 +29,8 @@ urlpatterns = i18n_patterns('',
     (r'^members/', include('apps.accounts.urls')),
     (r'^albums/', include('apps.media.urls')),
 
+    # handlebar templates
+    url(r'^templates/', include('apps.hbtemplates.urls'))
 )
 
 urlpatterns += patterns('',
