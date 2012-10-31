@@ -1,11 +1,18 @@
-from apps.geo.models import Country
+import logging
+logger = logging.getLogger(__name__)
+
+import sys
+
 from django.conf import settings
 from django.contrib.auth.models import User
-from .models import Project
+
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 from rest_framework.fields import RelatedField, ManyRelatedField, Field, HyperlinkedIdentityField
 from sorl.thumbnail.shortcuts import get_thumbnail
+
+from apps.geo.models import Country
+from .models import Project
 
 
 # TODO move this to utils class
@@ -19,10 +26,18 @@ class SorlImageField(Field):
         self.options = options
 
     def to_native(self, value):
-
         if not value:
             return ""
-        thumbnail = unicode(get_thumbnail(value, self.geometry_string, **self.options))
+        # The get_thumbnail() helper doesn't respect the THUMBNAIL_DEBUG setting
+        # so we need to deal with exceptions like is done in the template tag.
+        thumbnail = ""
+        try:
+            thumbnail = unicode(get_thumbnail(value, self.geometry_string, **self.options))
+        except Exception:
+            if settings.THUMBNAIL_DEBUG:
+                raise
+            logger.error('Thumbnail failed:', exc_info=sys.exc_info())
+            return ""
         request = self.context.get('request')
         relative_url = settings.MEDIA_URL + thumbnail
         if request:

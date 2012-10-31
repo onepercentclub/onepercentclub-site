@@ -1,6 +1,6 @@
 from decimal import Decimal
+
 from django.db import models
-from django.db.backends import util
 from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
