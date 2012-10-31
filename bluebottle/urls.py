@@ -27,6 +27,8 @@ urlpatterns = i18n_patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^projects/', include('apps.projects.urls')),
 
+    # handlebar templates
+    url(r'^templates/', include('apps.hbtemplates.urls'))
 )
 
 urlpatterns += patterns('',

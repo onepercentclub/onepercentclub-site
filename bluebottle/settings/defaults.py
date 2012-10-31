@@ -213,6 +213,7 @@ INSTALLED_APPS = [
     'apps.donations',
     'apps.media',
     'apps.geo',
+    'apps.hbtemplates',
 ]
 
 # A sample logging configuration. The only tangible logging
