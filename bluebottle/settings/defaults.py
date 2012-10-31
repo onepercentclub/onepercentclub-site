@@ -151,20 +151,14 @@ MIDDLEWARE_CLASSES = [
 # view basis with the @xframe decorators.
 X_FRAME_OPTIONS = 'DENY'
 
-TEMPLATE_CONTEXT_PROCESSORS = [
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.request',
-    'django.core.context_processors.static',
-    # 'django.core.context_processors.tz',
-    'django.contrib.messages.context_processors.messages',
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     # Makes the 'request' variable (the current HttpRequest)
     # available in templates
     'django.core.context_processors.request',
+    # Used for setting the git revision in the Django templates.
     'gitrevision.context_processors.gitrevision',
-]
+)
 
 ROOT_URLCONF = 'bluebottle.urls'
 
