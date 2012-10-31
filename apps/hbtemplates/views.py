@@ -33,18 +33,17 @@ class HBTemplateView(TemplateView):
     http_method_names = ['get']
 
     def get(self, request, *args, **kwargs):
-        if kwargs.has_key('app') and kwargs.has_key('hbtemplate'):
-            app = kwargs.get('app')
+        if kwargs.has_key('hbtemplate'):
             hbtemplate = kwargs.get('hbtemplate')
-            if not self._check_template_exists(app, hbtemplate):
+            if not self._check_template_exists(hbtemplate):
                 raise http.Http404
-            self.template_name = os.path.join(app, hbtemplate)
+            self.template_name = os.path.join(hbtemplate)
             return super(HBTemplateView, self).get(request, *args, **kwargs)
         else:
             raise http.Http404
 
-    def _check_template_exists(self, app, hbtemplate):
+    def _check_template_exists(self, hbtemplate):
         for template_dir in bb_app_template_dirs:
-            if template_dir.endswith(os.path.join(app, 'templates')):
-                return os.path.isfile(os.path.join(template_dir, app, hbtemplate))
+            if template_dir.endswith('templates'):
+                return os.path.isfile(os.path.join(template_dir, hbtemplate))
         return False

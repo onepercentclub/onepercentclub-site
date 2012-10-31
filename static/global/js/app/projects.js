@@ -125,6 +125,7 @@ App.projectSearchController = Em.ArrayController.create({
                 controller.set('previousLink', data['previous']);
             });
 
+            /* Don't refresh the searchform quite yet....
             // Get the project search data using the same queryFilter.
             // Note that we're *not* limiting the number of returned items as above.
             App.dataSource.get('projectsearchform', query, function(data) {
@@ -143,7 +144,7 @@ App.projectSearchController = Em.ArrayController.create({
                 }
 
             });
-
+            */
         });
     },
 
@@ -260,7 +261,8 @@ App.progressBarAnimationMixin = Em.Mixin.create({
 App.ProjectSearchResultsSectionView  = Em.View.extend({
     tagName: 'div',
     classNames: ['lightgray', 'section', 'results'],
-    templateName: 'project-search-results-section'
+    templateName: 'project_searchresults',
+
 });
 
 
@@ -316,7 +318,9 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
       templateName: 'project-no-results'
     }),
     contentBinding: 'App.projectSearchController.content',
-    itemViewClass: 'App.ProjectPreviewView'
+    itemViewClass: 'App.ProjectPreviewView',
+
+
 });
 
 
@@ -396,8 +400,39 @@ App.projectDetailController = Em.ObjectController.create({
 
 App.ProjectDetailView = Em.View.extend({
     contentBinding: 'App.projectDetailController',
-    templateName:'project-detail',
-    classNames: ['lightgreen', 'section']
+    templateName: 'project_detail',
+    classNames: ['lightgreen', 'section'],
+ 
+    templateForName: function(name, type) {
+        if (!name) {
+            return "";
+        }
+        var templates = Em.get(this, 'templates'),
+            template = Em.get(templates, name),
+            view = this;
+        if (template) {
+            return template;
+        } else {
+            view.set('templateName', 'waiting');
+            require(['app/data_source'], function(){
+                App.dataSource.getTemplate(name, function(data) {
+                    // Iterate through handlebar tags
+                    $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                        // Only load the template we're looking for
+                        if (name == $(this).attr('data-template-name')) {
+                            var raw = $(this).html();
+                            var template = Em.Handlebars.compile(raw);
+                            Em.TEMPLATES[name] = template;
+                            view.set('templateName', name);
+                            view.rerender();
+                            
+                        }
+                    });
+                });
+            });
+        }
+    }
+    
 });
 
 App.ProjectStatsView = Em.View.extend({

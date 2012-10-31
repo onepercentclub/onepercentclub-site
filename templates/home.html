@@ -7,6 +7,10 @@
 
 {% block content %}
 
+    {% tplhandlebars "waiting" %}
+        <h2>Wait for it......</h2>
+    {% endtplhandlebars %}
+
     {% tplhandlebars "home" %}
         <div class="big-home">
             <img src="/static/assets/global/images/home/big_banner.png" class="center"/>
@@ -209,7 +213,7 @@
         <h3>{{content.title}}</h3>
     {% endtplhandlebars %}
 
-    {% tplhandlebars "project-search-results-section" %}
+    {% tplhandlebars "project_searchresults" %}
         {{view App.ProjectSearchResultsView}}
         {{view App.ProjectSearchResultsNextView}}
         {{view App.ProjectSearchResultsPreviousView}}

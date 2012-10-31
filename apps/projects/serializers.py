@@ -1,3 +1,4 @@
+import os
 from apps.geo.models import Country
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -6,6 +7,7 @@ from rest_framework import serializers
 from rest_framework.reverse import reverse
 from rest_framework.fields import RelatedField, ManyRelatedField, Field, HyperlinkedIdentityField
 from sorl.thumbnail.shortcuts import get_thumbnail
+
 
 
 # TODO move this to utils class
