@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.db.backends import util
 from django.db.models import Sum
@@ -112,21 +113,18 @@ class Project(models.Model):
         try:
             self.fundphase
         except FundPhase.DoesNotExist:
-            mf = MoneyField()
-            return util.format_number(0, mf.max_digits, mf.decimal_places)
+            return Decimal('0.00')
         return self.fundphase.money_asked
 
     # This is here to provide a consistent way to get money_donated.
     @property
     def money_donated(self):
-        if self.money_asked == 0:
-            mf = MoneyField()
-            return util.format_number(0, mf.max_digits, mf.decimal_places)
+        if self.money_asked == Decimal('0.00'):
+            return Decimal('0.00')
         try:
             return self.fundphase.money_donated
         except FundPhase.DoesNotExist:
-            mf = MoneyField()
-            return util.format_number(0, mf.max_digits, mf.decimal_places)
+            return Decimal('0.00')
 
     @models.permalink
     def get_absolute_url(self):
