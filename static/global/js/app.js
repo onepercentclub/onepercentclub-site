@@ -4,7 +4,7 @@ App = Em.Application.create({
     // Define the main application controller. This is automatically picked up by
     // the application and initialized.
     ApplicationController : Em.Controller.extend({
-        // TODO: Is there a better way of dointg this?
+        // TODO: Is there a better way of doing this?
         currentMenu: function(){
             var currentState  = this.get('target.location.lastSetURL');
             var menu = currentState.split("/");
@@ -15,7 +15,7 @@ App = Em.Application.create({
     }),
 
     ApplicationView : Em.View.extend({
-        templateName : 'application',
+        templateName : 'application'
     }),
 
     // Use this to clear an outlet

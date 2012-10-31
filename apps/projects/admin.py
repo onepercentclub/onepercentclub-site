@@ -44,7 +44,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ('phase', 'project_language', 'themes', 'country')
+    list_filter = ('phase', 'language', 'themes', 'country')
     list_display = ('title', 'organization', 'country')
     # TODO: decide if we want to have thumbnails here
     #list_display = ('thumbnail', 'title', 'organization', 'country')

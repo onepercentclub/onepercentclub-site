@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+{% load i18n %}
+{% load thumbnail %}
+{% comment %} Use url tag from Django 1.5. {% endcomment %}
+{% load url from future %}
+
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>{{ project.title }} | 1%CLUB</title>
+
+</head>
+
+<body>
+
+    <h4>{% trans "Project" %}</h4>
+    <p>{{ project.title }}</p>
+
+    <h4>{% trans "Project Phase" %}</h4>
+    <p>{{ project.phase }}</p>
+
+    <h4>{% trans "Organization" %}</h4>
+    <p>{{ project.organization.name }}</p>
+
+    <h4>{% trans "Project Owner" %}</h4>
+    <p>
+        {{ project.owner.first_name }} {{ project.owner.last_name }}
+    </p>
+
+    <h4>{% trans "Location" %}</h4>
+    <p>
+    {% if project.location %}
+        {{ project.location }}
+    {% else %}
+        {% trans "Not specified." %}
+    {% endif %}
+    </p>
+
+    <h4>{% trans "Costs" %}</h4>
+    <p>
+    {% if project.money_asked %}
+        &euro; {{ project.money_asked }}</p>
+    {% else %}
+        {% trans "Not specified." %}
+    {% endif %}
+    </p>
+
+    <h4>{% trans "Money Asked" %}</h4>
+    <p>
+        {{ project.money_asked }}
+    </p>
+
+    <h4>{% trans "Current Donations" %}</h4>
+    <p>
+       {{ project.money_donated }}
+    </p>
+
+    <h4>{% trans "Themes" %}</h4>
+    <p>
+        <ul>
+            {% for theme in project.themes.all %}
+                <li>{{ theme.name }}</li>
+            {% empty %}
+                <li>{% trans "None specified." %}</li>
+            {% endfor %}
+        </ul>
+    </p>
+
+    <h4>{% trans "Supporters" %}</h4>
+    <p>
+        <ul>
+            {% for supporter in project.get_supporters %}
+                <li>{{ supporter }}</li>
+            {% empty %}
+                <li>{% trans "None specified." %}</li>
+            {% endfor %}
+        </ul>
+    </p>
+
+
+    <h4>{% trans "Tags" %}</h4>
+    <p>
+        <ul>
+            {% for tag in project.tags.all %}
+                <li>{{ tag }}</li>
+            {% empty %}
+                <li>{% trans "None specified." %}</li>
+            {% endfor %}
+        </ul>
+    </p>
+
+    <h4>{% trans "Description" %}</h4>
+    <p>
+        {% if project.planphase.description %}
+            <span>
+                {{ project.planphase.description }}
+            </span>
+        {% else %}
+            {% trans "Not specified." %}
+        {% endif %}
+    </p>
+
+    <h4>{% trans "Funding needed for" %}</h4>
+    <p>
+        {% if project.planphase.what %}
+            <span>
+                {{ project.planphase.what }}
+            </span>
+        {% else %}
+            {% trans "Not specified." %}
+        {% endif %}
+    </p>
+
+</body>
+
+</html>
