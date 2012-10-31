@@ -203,6 +203,7 @@ INSTALLED_APPS = [
     'micawber.contrib.mcdjango', # Embedding videos
     'gitrevision', # Display git revision
     'templatetag_handlebars',
+    'rest_framework',
 
     # bluebottle apps
     'apps.bluebottle_utils',
@@ -295,3 +296,8 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 # Required for handlebars_template to work properly
 USE_EMBER_STYLE_ATTRS = True
+
+# Sorl Thumbnail settings
+# http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
+THUMBNAIL_QUALITY = 85
+# TODO: Configure Sorl with Redis.

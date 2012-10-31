@@ -19,15 +19,13 @@ urlpatterns = i18n_patterns('',
 
     # Django Admin, docs and password reset
     url(r'^admin/password_reset/$', 'django.contrib.auth.views.password_reset', name='admin_password_reset'),
-    (r'^admin/password_reset/done/$', 'django.contrib.auth.views.password_reset_done'),
-    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    (r'^admin/', include(admin.site.urls)),
+    url(r'^admin/password_reset/done/$', 'django.contrib.auth.views.password_reset_done'),
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/', include(admin.site.urls)),
 
     # account login/logout, password reset, and password change
-    (r'^accounts/', include('django.contrib.auth.urls')),
-    (r'^projects/', include('apps.projects.urls')),
-    (r'^members/', include('apps.accounts.urls')),
-    (r'^albums/', include('apps.media.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^projects/', include('apps.projects.urls')),
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls'))
@@ -37,9 +35,12 @@ urlpatterns += patterns('',
     # Put your language-independent-views here
 
     # The api urls are in the /i18n/ url namespace so that they're not redirected to /en/
-    (r'^i18n/api/', include('apps.projects.apiurls')),
+    url(r'^i18n/api/projects/', include('apps.projects.urlsapi')),
 
-    (r'^i18n/', include('django.conf.urls.i18n')),
+    # Needed for the self-documenting API in Django Rest Framework
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 )
 
 # Serve django-staticfiles (only works in DEBUG)

@@ -1,15 +1,14 @@
+from decimal import Decimal
+
 from django.db import models
 from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from django_extensions.db.fields import (
-    ModificationDateTimeField, CreationDateTimeField
-)
+from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
@@ -20,8 +19,7 @@ from apps.donations.models import Donation
 class ProjectTheme(models.Model):
     """ Themes for Projects. """
 
-    # The name is marked as unique so that users can't create duplicate
-    # theme names.
+    # The name is marked as unique so that users can't create duplicate theme names.
     name = models.CharField(_("name"), max_length=100, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
     description = models.TextField(_("description"), blank=True)
@@ -73,7 +71,8 @@ class Project(models.Model):
     # Location of this project
     # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
     # hold the legacy data.
-    # Ref http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
+    # Ref:
+    # http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
     latitude = models.DecimalField(
         _("latitude"), max_digits=21, decimal_places=18
     )
@@ -84,8 +83,7 @@ class Project(models.Model):
         'geo.Country', blank=True, null=True, verbose_name=_("country")
     )
 
-    project_language = models.CharField(
-        _("language"), max_length=6, choices=settings.LANGUAGES,
+    language = models.CharField(max_length=6, choices=settings.LANGUAGES,
         help_text=_("Main language of the project.")
     )
 
@@ -104,57 +102,35 @@ class Project(models.Model):
                     "This date is independant of the various phase end dates.")
     )
 
-    """ TODO: calculate & store popularity """
-    popularity = 0
-
-    def calucalulate_popularity(self):
-        pass
-
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
-    # TODO: Move all money related stuff to FundPhase...
+    # This is here to provide a consistent way to get money_asked.
+    @property
     def money_asked(self):
         try:
             self.fundphase
         except FundPhase.DoesNotExist:
-            return 0
-        return int(self.fundphase.money_asked)
+            return Decimal('0.00')
+        return self.fundphase.money_asked
 
-
-    """ Money donated, rounded to the lower end... """
-    # Money donated. For now this is random
+    # This is here to provide a consistent way to get money_donated.
+    @property
     def money_donated(self):
-        if self.money_asked() == 0:
-            return 0
+        if self.money_asked == Decimal('0.00'):
+            return Decimal('0.00')
         try:
-            return int(self.fundphase.money_donated)
+            return self.fundphase.money_donated
         except FundPhase.DoesNotExist:
-            return 0
-
-    def money_needed(self):
-        return self.money_asked() - self.money_donated()
+            return Decimal('0.00')
 
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
+        return 'project-instance', (), {'slug': self.slug}
 
-        return ('project_detail', (), {
-            'slug': self.slug
-        })
-
-    def get_supporters(self):
-        """ Get a queryset of donating users for this project. """
-
-        # TODO: Add filter for 'succesful' donations on a somewhat higher
-        # level, perhaps a custom Manager on Donatio class.
-        donators = User.objects
-        donators = donators.filter(donation__project=self)
-        donators = donators.filter(donation__status__in=['closed','paid','started'])
-        donators = donators.distinct()
-        return donators
 
     class Meta:
         ordering = ['title']
@@ -247,11 +223,10 @@ class FundPhase(AbstractPhase):
         _("description"), blank=True, help_text=_("Longer description.")
     )
 
-    budget_total = MoneyField(_("money total"),
-        help_text=_("Total amount needed for this project."))
+    budget_total = MoneyField(_("budget total"),
+        help_text=_("Amount of money needed for a project including money from other sources."))
     money_asked = MoneyField(_("money asked"),
-        help_text=_("Amount asked for from this website."))
-
+        help_text=_("Amount of money asked for a project from this website."))
     money_donated= MoneyField(_('money donated'),
         help_text=_("This field is updated on every donation(change)"))
 
@@ -266,7 +241,7 @@ class FundPhase(AbstractPhase):
         help_text=_("Money received from other sources.")
     )
 
-    """ Social Impact: who are we helping, direct and indirect """
+    # Social Impact: who are we helping, direct and indirect
     social_impact = models.TextField(
         _("social impact"),
         blank=True,
@@ -291,11 +266,9 @@ class FundPhase(AbstractPhase):
         max_length=6, default=0
     )
 
-    """
-        This updates the 'cached' donated amount.
-        We should run this every time a donation is made or
-        changes status.
-    """
+    # This updates the 'cached' donated amount. This should be run everytime a
+    # donation is made or changes status.
+    # TODO: Add out of band integrity checks (e.g. as a separate cron task)
     def update_money_donated(self):
         donations = Donation.objects.filter(project=self.project)
         donations = donations.filter(status__in=['closed','paid','started'])
@@ -351,11 +324,10 @@ class ResultsPhase(AbstractPhase):
         verbose_name_plural = _("results phase")
 
 
-class Referals(models.Model):
+# TODO: What is the for? Is is supposed to be reference? How is it related to Projects?
+class Referral(models.Model):
     """
-    People that are named as referals.
-
-    TODO: Fix spelling error and make singular.
+    People that are named as a referral.
     """
     name = models.CharField(_("name"), max_length=255)
     email = models.EmailField(_("email"))
@@ -414,6 +386,7 @@ class Testimonial(models.Model):
         verbose_name_plural = _("testimonials")
 
 
+# TODO: This should be the new comments system.
 class Message(models.Model):
     """ Message by a user on the Project wall. """
 
@@ -424,9 +397,7 @@ class Message(models.Model):
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
     def __unicode__(self):
-        return u'%s : %s...' % (
-            self.created.date(), self.body[:20]
-        )
+        return u'%s : %s...' % (self.created.date(), self.body[:20])
 
     class Meta:
         ordering = ['-created']

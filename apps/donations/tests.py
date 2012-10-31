@@ -53,55 +53,58 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
         donation.save()
 
 
-    def test_supporters(self):
-        """
-        Test whether project supporters are properly returned.
-
-        TODO: This *might* belong in the projects app *but* this would
-        yield a cyclical import. Solution: turn tests into module with
-        base classes in `base.py` instead of having everything in one file.
-        """
-        project = self.create_project(
-            title='Banana Project',
-            slug='banana'
-        )
-        project.save()
-
-        other_user = self.create_user()
-        donation = self.create_donation(project=project, user=other_user)
-        donation.save()
-
-        # Test wether a single supporter is properly listed
-        supporters = list(project.get_supporters())
-
-        self.assertEqual(supporters, [donation.user])
-
-        # Add another
-        other_user = self.create_user()
-        donation = self.create_donation(project=project, user=other_user)
-        donation.save()
-
-
-        supporters = project.get_supporters()
-        self.assertIn(other_user, supporters)
-        self.assertEquals(supporters.count(), 2)
-
-        # second payment by the other_user
-        donation = self.create_donation(project=project, user=other_user)
-        donation.save()
-
-        # other_user should only be listed once
-        supporters = project.get_supporters()
-        self.assertEquals(supporters.count(), 2)
-        
-        # Add a poor guy 
-        poor_guy = self.create_user()
-        donation = self.create_donation(
-                            project=project, 
-                            user=poor_guy,
-                            status='cancelled')
-        donation.save()
-
-        # Since donation was cancelled it still should be 2 supporters 
-        supporters = project.get_supporters()
-        self.assertEquals(supporters.count(), 2)
+#   TODO: get_supporters() has been removed from the Project model. I'm keeping
+#   this code around because the logic will be useful for when it's re-enabled.
+#   See BB-79.
+#    def test_supporters(self):
+#        """
+#        Test whether project supporters are properly returned.
+#
+#        TODO: This *might* belong in the projects app *but* this would
+#        yield a cyclical import. Solution: turn tests into module with
+#        base classes in `base.py` instead of having everything in one file.
+#        """
+#        project = self.create_project(
+#            title='Banana Project',
+#            slug='banana'
+#        )
+#        project.save()
+#
+#        other_user = self.create_user()
+#        donation = self.create_donation(project=project, user=other_user)
+#        donation.save()
+#
+#        # Test wether a single supporter is properly listed
+#        supporters = list(project.get_supporters())
+#
+#        self.assertEqual(supporters, [donation.user])
+#
+#        # Add another
+#        other_user = self.create_user()
+#        donation = self.create_donation(project=project, user=other_user)
+#        donation.save()
+#
+#
+#        supporters = project.get_supporters()
+#        self.assertIn(other_user, supporters)
+#        self.assertEquals(supporters.count(), 2)
+#
+#        # second payment by the other_user
+#        donation = self.create_donation(project=project, user=other_user)
+#        donation.save()
+#
+#        # other_user should only be listed once
+#        supporters = project.get_supporters()
+#        self.assertEquals(supporters.count(), 2)
+#
+#        # Add a poor guy
+#        poor_guy = self.create_user()
+#        donation = self.create_donation(
+#                            project=project,
+#                            user=poor_guy,
+#                            status='cancelled')
+#        donation.save()
+#
+#        # Since donation was cancelled it still should be 2 supporters
+#        supporters = project.get_supporters()
+#        self.assertEquals(supporters.count(), 2)

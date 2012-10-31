@@ -35,9 +35,9 @@ surlex==0.1.2
 # http://pypi.python.org/pypi/South/0.7.5
 south==0.7.5
 
-# Tastypie, for the API!
-# django-tastypie
--e git+https://github.com/toastdriven/django-tastypie.git@f5ae8bf995f8777a0f917c08723c2e8ef049dd76#egg=tastypie
+# Django-REST-Framework
+-e git+https://github.com/onepercentclub/django-filter.git@django-1.3-compat#egg=django-filter
+-e git+https://github.com/onepercentclub/django-rest-framework.git@restframework2-filter#egg=rest_framework
 
 # Jenkins integration
 django-jenkins==0.13.0
