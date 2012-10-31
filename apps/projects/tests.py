@@ -334,3 +334,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(len(response.data['results']), 4)
         self.assertNotEquals(response.data['next'], None)
         self.assertNotEquals(response.data['previous'], None)
+
+    # TODO: Add test for DRF2 project detail view.
+    def test_drf2_detail_view(self):
+        pass
