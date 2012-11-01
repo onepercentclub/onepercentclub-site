@@ -23,6 +23,9 @@ urlpatterns = i18n_patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
+    # Other modules that need URLs exposed
+    url(r'^admin/utils/tinymce/', include('tinymce.urls')),
+
     # account login/logout, password reset, and password change
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^projects/', include('apps.projects.urls')),

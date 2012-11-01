@@ -176,6 +176,7 @@ INSTALLED_APPS = [
     # Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.comments',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
@@ -199,7 +200,16 @@ INSTALLED_APPS = [
     'templatetag_handlebars',
     'rest_framework',
 
+    # CMS page contents
+    'fluent_contents',
+    'fluent_contents.plugins.text',
+    'fluent_contents.plugins.oembeditem',
+    'fluent_contents.plugins.rawhtml',
+    'django_wysiwyg',
+    'tinymce',
+
     # bluebottle apps
+    'apps.blogs',
     'apps.bluebottle_utils',
     'apps.accounts',
     'apps.organizations',
@@ -287,6 +297,10 @@ LOGIN_REDIRECT_URL = '/'
 # user profile setting as described here:
 # https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+# Blog/news content configuration
+FLUENT_CONTENTS_CACHE_OUTPUT = True
+DJANGO_WYSIWYG_FLAVOR = 'tinymce'
 
 # Required for handlebars_template to work properly
 USE_EMBER_STYLE_ATTRS = True
