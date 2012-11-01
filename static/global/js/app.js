@@ -58,7 +58,6 @@ Em.View.reopen({
                             Em.TEMPLATES[name] = template;
                             view.set('templateName', name);
                             view.rerender();
-                            
                         }
                     });
                 });
@@ -108,26 +107,6 @@ App.ProjectRoute = Em.Route.extend({
 });
 
 
-// Set basic Project route
-App.SupportRoute = Em.Route.extend({
-    route: '/support',
-
-    connectOutlets : function(router, context) {
-        require(['app/support'], function(){
-            router.get('applicationController').connectOutlet('topPanel', 'supportSelect');
-            router.get('applicationController').connectOutlet('midPanel', 'empty');
-            router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-        });
-    },
-
-    // The project start state.
-    start: Em.Route.extend({
-        route: "/"
-    }),
-
-});
-
-
 App.RootRoute = Em.Route.extend({
     // Used for navigation
     showHome: Em.Route.transitionTo('home'),
@@ -143,8 +122,7 @@ App.RootRoute = Em.Route.extend({
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         }
     }),
-    projects: App.ProjectRoute,
-    support: App.SupportRoute,
+    projects: App.ProjectRoute
 });
 
 App.Router = Em.Router.extend({
