@@ -1,9 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from django_extensions.db.fields import (
-    ModificationDateTimeField, CreationDateTimeField
-)
+from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
 from djchoices import DjangoChoices, ChoiceItem
 
@@ -36,9 +34,7 @@ class Donation(models.Model):
     project = models.ForeignKey('projects.Project', verbose_name=_("project"))
 
     # Note: having an index here allows for efficient filtering by status.
-    status = models.CharField(_("status"),
-        max_length=20, choices=DonationStatuses.choices, db_index=True
-    )
+    status = models.CharField(_("status"), max_length=20, choices=DonationStatuses.choices, db_index=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
