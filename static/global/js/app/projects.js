@@ -402,37 +402,6 @@ App.ProjectDetailView = Em.View.extend({
     contentBinding: 'App.projectDetailController',
     templateName: 'project_detail',
     classNames: ['lightgreen', 'section'],
- 
-    templateForName: function(name, type) {
-        if (!name) {
-            return "";
-        }
-        var templates = Em.get(this, 'templates'),
-            template = Em.get(templates, name),
-            view = this;
-        if (template) {
-            return template;
-        } else {
-            view.set('templateName', 'waiting');
-            require(['app/data_source'], function(){
-                App.dataSource.getTemplate(name, function(data) {
-                    // Iterate through handlebar tags
-                    $(data).filter('script[type="text/x-handlebars"]').each(function() {
-                        // Only load the template we're looking for
-                        if (name == $(this).attr('data-template-name')) {
-                            var raw = $(this).html();
-                            var template = Em.Handlebars.compile(raw);
-                            Em.TEMPLATES[name] = template;
-                            view.set('templateName', name);
-                            view.rerender();
-                            
-                        }
-                    });
-                });
-            });
-        }
-    }
-    
 });
 
 App.ProjectStatsView = Em.View.extend({
