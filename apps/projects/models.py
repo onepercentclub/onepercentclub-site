@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.text import truncate_words
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -384,6 +385,9 @@ class Testimonial(models.Model):
         ordering = ['-created']
         verbose_name = _("testimonial")
         verbose_name_plural = _("testimonials")
+
+    def __unicode__(self):
+        return truncate_words(self.description, 20)
 
 
 # TODO: This should be the new comments system.
