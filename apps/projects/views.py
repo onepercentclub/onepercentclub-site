@@ -9,7 +9,7 @@ from .serializers import ProjectPreviewSerializer, ProjectDetailSerializer
 # API views
 
 class ProjectRoot(mixins.ListModelMixin,
-                  generics.MultipleObjectBaseView):
+                  generics.MultipleObjectAPIView):
     model = Project
     serializer_class = ProjectPreviewSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -21,7 +21,7 @@ class ProjectRoot(mixins.ListModelMixin,
 
 
 class ProjectInstance(mixins.RetrieveModelMixin,
-                      generics.SingleObjectBaseView):
+                      generics.SingleObjectAPIView):
     model = Project
     serializer_class = ProjectDetailSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
