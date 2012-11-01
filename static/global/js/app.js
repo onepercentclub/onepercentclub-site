@@ -4,7 +4,7 @@ App = Em.Application.create({
     // Define the main application controller. This is automatically picked up by
     // the application and initialized.
     ApplicationController : Em.Controller.extend({
-        // TODO: Is there a better way of dointg this?
+        // TODO: Is there a better way of doing this?
         currentMenu: function(){
             var currentState  = this.get('target.location.lastSetURL');
             var menu = currentState.split("/");
@@ -15,7 +15,7 @@ App = Em.Application.create({
     }),
 
     ApplicationView : Em.View.extend({
-        templateName : 'application',
+        templateName : 'application'
     }),
 
     // Use this to clear an outlet
@@ -28,6 +28,43 @@ App = Em.Application.create({
         templateName : 'home'
     })
 
+});
+
+
+/**
+ * Reopen Ember View to add on-the-fly loading of templates
+ * 
+ */
+Em.View.reopen({
+    templateForName: function(name, type) {
+        if (!name) {
+            return "";
+        }
+        var templates = Em.get(this, 'templates'),
+            template = Em.get(templates, name),
+            view = this;
+        if (template) {
+            return template;
+        } else {
+            view.set('templateName', 'waiting');
+            require(['app/data_source'], function(){
+                App.dataSource.getTemplate(name, function(data) {
+                    // Iterate through handlebar tags
+                    $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                        // Only load the template we're looking for
+                        if (name == $(this).attr('data-template-name')) {
+                            var raw = $(this).html();
+                            var template = Em.Handlebars.compile(raw);
+                            Em.TEMPLATES[name] = template;
+                            view.set('templateName', name);
+                            view.rerender();
+                            
+                        }
+                    });
+                });
+            });
+        }
+    }
 });
 
 /* Routing */
@@ -70,6 +107,27 @@ App.ProjectRoute = Em.Route.extend({
     }) 
 });
 
+
+// Set basic Project route
+App.SupportRoute = Em.Route.extend({
+    route: '/support',
+
+    connectOutlets : function(router, context) {
+        require(['app/support'], function(){
+            router.get('applicationController').connectOutlet('topPanel', 'supportSelect');
+            router.get('applicationController').connectOutlet('midPanel', 'empty');
+            router.get('applicationController').connectOutlet('bottomPanel', 'empty');
+        });
+    },
+
+    // The project start state.
+    start: Em.Route.extend({
+        route: "/"
+    }),
+
+});
+
+
 App.RootRoute = Em.Route.extend({
     // Used for navigation
     showHome: Em.Route.transitionTo('home'),
@@ -85,7 +143,8 @@ App.RootRoute = Em.Route.extend({
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         }
     }),
-    projects: App.ProjectRoute
+    projects: App.ProjectRoute,
+    support: App.SupportRoute,
 });
 
 App.Router = Em.Router.extend({

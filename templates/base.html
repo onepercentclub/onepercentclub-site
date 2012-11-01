@@ -8,152 +8,121 @@
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>{% block htmltitle %}bluebottle{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    {% comment %}Script/CSS order: http://developer.yahoo.com/performance/rules.html{% endcomment %}
+    <title>{% block title %}{% endblock %} &#8211; 1%ACTIES &#8211; 1%CLUB</title>
 
+    <!-- Stylesheets -->
     {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/960/reset-min.css" type="text/css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/960/960-min.css" type="text/css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}global/css/main.css" type="text/css" />
     {% endcompress %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/global.less" type="text/less" />
+
 
     {% compress js %}
-    
     {% endcompress %}
-    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.pre.js"></script>
-    <script type="text/javascript" data-main="{{ STATIC_URL }}global/js/app" src="{{ STATIC_URL }}global/js/libs/require.js"></script>
-
-
-
-    <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}global/css/main.less">
-    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/less-1.3.0.min.js"></script>
-
+    <!-- Scripts -->
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/vendor/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/vendor/less-1.3.0.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/vendor/handlebars-1.0.0.beta.6.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/vendor/ember-1.0.pre.js"></script>
+    <script type="text/javascript" data-main="{{ STATIC_URL }}global/js/app" src="{{ STATIC_URL }}global/js/vendor/require.js"></script>
     <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}global/js/bluemap.js"></script>
-    
-    {% block htmlheader %}{% endblock %}
-</head>
 
-<body>
-    <div id="container">
-        <div class="siteblock">
-            <div id="header">
-                <div class="logo">
-                    <img src="{{ STATIC_URL }}global/images/elements/logo.png" alt="1%CLUB" />
-                    <img src="{{ STATIC_URL }}global/images/elements/payoff.gif" alt="YOU MAKE IT WORK!" />
-                </div>
-            </div>
+    {% block htmlheader %}
+    {% endblock %}
+
+
+    {% tplhandlebars "home" %}
+        <div class="main-title">
+            <div class="banners">
+                <h1 class="tagline">
+                    <em>Deel 1%</em> van je tijd, kennis of geld<br />
+                    en <em>zie direct</em> waar het terecht komt!
+                </h1>
+            </div>  
         </div>
-        <div id="content">
-            {% tplhandlebars "application" %}
-                <div class="sitebar black" id="topmenu">
-                    <div class="menu siteblock">
+    {% endtplhandlebars %}
+    
+    {% tplhandlebars "application" %}
+        <div id="l-header-wrap">
+            <!-- main header -->
+            <header id="l-header">
+                <a href="/" id="logo">
+                    <img src="/static/assets/global/img/1procentclub.png" width="100" height="38" alt="1%Club" />
+                    <h1 id="site-name">1%Club</h1>
+                    <h2 id="subtitle"><em>You</em> Make It Work</h2>
+                </a>
+                <div class="nav">
+                    <!-- main navigation -->
+                    <nav class="nav-main">
                         <ul {{bindAttr class="currentMenu"}}>
                             <li id="home-menu"><a {{action showHome href=true}}>HOME</a></li>
                             <li id="projects-menu"><a {{action showProjectStart href=true}}>1%PROJECTS</a></li>
                             <li id="tasks-menu"><a>1%TASKS</a></li>
-                            <li id="actions-menu"><a>1%ACTIONS</a></li>
                             <li id="more-menu"><a>LEARN MORE</a></li>
                         </ul>
                         <div class="languages">
                             <a id="lang-en" class="active" href="#">ENGLISH</a> |
                             <a id="lang-nl" href="#">NEDERLANDS</a>
                         </div>
-                    </div>
+                    </nav>
+                    <nav class="nav-member member-login">
+                        <h1 class="nav-title">Profiel</h1>
+                        <ul>
+                            <li class="nav-my1percent">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
+                            {% else %}
+                                <a href="/accounts/login" class="loginbox">Login</a>
+                            {% endif %}
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                
-                <div class="siteblock">
-                    <div id="top-panel">
-                        {{outlet topPanel}}
-                    </div>
-                    <div id="mid-panel">
-                        {{outlet midPanel}}
-                    </div>
-                    <div id="bottom-panel">
-                        {{outlet bottomPanel}}
-                    </div>
-                </div>
-            {% endtplhandlebars %}
-
-            {% block content %}
-            {% endblock %}
+            </header>
         </div>
         
-        <div id="mymenu">
+        <section id="action">
             <div class="siteblock">
-                <div class="menu">
-                    {% if user.is_authenticated %}
-                        NOTIFICATIONS <span class="notification-count">8</span> |
-                        <div id="my1pc">
-                            MY1% -&gt;
-                            <div class="submenu" id="mysubmenu">
-                                <ul>
-                                    <li>
-                                        <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Log out</a>
-                                    </li>
-                                    <li>
-                                        <a href="/">My Projects</a>
-                                    </li>
-                                    <li>
-                                        <a href="/">My Tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="/">My Donations</a>
-                                    </li>
-                                    <li>
-                                        <a href="/">My Profile</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    {% else %}
-                        <a href="{% url 'login' %}?next={% firstof request.path "/" %}">Log in</a>
-                    {% endif %}
+                <div class="home-header" id="top-panel">
+                    <header class="l-wrapper">
+                        {{outlet topPanel}}
+                    </header>
                 </div>
-                <div class="search">
-                    SEARCH
+                <div id="mid-panel">
+                    {{outlet midPanel}}
+                </div>
+                <div id="bottom-panel">
+                    {{outlet bottomPanel}}
                 </div>
             </div>
-        </div>
-        <div class="sitebar green">
-            <div id="sitemenu" class="siteblock">
-                <ul>
-                    <li class="active">1%CLUB</li>
-                    <li>1%SHOW</li>
-                    <li>1%EVENT</li>
-                    <li>1%BOOKSHOP</li>
-                    <li>1%TOOLBOX</li>
+        </section>
+
+        <!-- footer -->
+        <div id="l-footer-wrap">
+            <footer id="l-footer">
+                <p>1%CLUB is het crowdfunding platform dat mensen met slimme ideeën in ontwikkelingslanden verbindt met mensen, geld en kennis over de hele wereld. </p>
+                <ul class="social">
+                    <li><a target="_new" href="http://www.facebook.com/onepercentclub"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/facebook.jpg" alt="Facebook" title="Facebook" class="servicelogo"/></a>
+                    <li><a target="_new" href="http://twitter.com/1percentclub"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/twitter.jpg" alt="Twitter" title="Twitter" class="servicelogo"/></a>
+                    <li><a target="_new" href="http://www.flickr.com/photos/1procentclub/"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/flickr.jpg" alt="Flickr" title="Flickr" class="servicelogo"/></a>
+                    <li><a target="_new" href="http://www.linkedin.com/groups?gid=1071287&amp;trk=hb_side_g"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/linkedin.jpg" alt="Linked In" title="Linked In" class="servicelogo"/></a>
+                    <li><a target="_new" href="http://www.youtube.com/onepercentclubmovies"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/youtube.jpg" alt="Youtube" title="Youtube" class="servicelogo"/></a>
                 </ul>
-            </div>
+                <br />
+                <br />
+            </footer>
         </div>
-        <div class="siteblock">
-            <div id="footer">
-                {% include "footer.html" %}
-                <div id="git-revision">{% blocktrans %}Git Revision: <a target="_blank" href="https://github.com/onepercentclub/bluebottle/commit/{{ GIT_REVISION }}">{{ GIT_REVISION }}</a>{% endblocktrans %}</div>
-            </div>
-        </div>
-        <div class="sitebar black">
-            <div class="siteblock">
-                <div class="row">
-                    <div class="column grid_1">
-                        <h3>1%TWEETS</h3>
-                    </div>
-                    <div class="column grid_1">
-                        
-                    </div>
-                    <div class="column grid_1">
-                        
-                    </div>
-                    <div class="column grid_1">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% endtplhandlebars %}
+
+</head>
+<body id="content">
+    <!-- scripts -->
+    <div id="fb-root"></div>
+    <!--[if lt IE 9]><script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
 </body>
 </html>
+
+
