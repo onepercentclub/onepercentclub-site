@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Grid Calculator (Semantic.gs) - Frans Twisk (frans@franstwisk.nl) - 2012
+   ========================================================================== */
+
+// Specify the number of columns and set column and gutter widths
+@columns: 12;
+@column-width: 70;
+@gutter-width: 20;
+
+// Utility variable — you should never need to modify this
+@gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
+
+// Set @total-width to 100% for a fluid layout
+// @total-width: @gridsystem-width;
+@total-width: 100%;
+
+// Set margins
+@row-margin: @total-width*(((@gutter-width*.5)/@gridsystem-width)*-1);
+@column-margin: @total-width*((@gutter-width*.5)/@gridsystem-width);
+
+body {
+	.clearfix;
+}
+
+.grid-width() {
+	margin: 0 auto;
+	max-width: 1240px;
+	min-width: 1240px;
+	width: 1240px;
+	//overflow: auto;
+	.clearfix();
+	.box-sizing(border-box);
+}
+
+// Row
+.row(@columns:@columns) {
+	display: block;
+	width: @total-width*((@gutter-width + @gridsystem-width)/@gridsystem-width);
+	margin: 0 @row-margin;
+	.box-sizing(border-box);
+	.clearfix;
+}
+
+// Column
+.column(@x,@columns:@columns) {
+	display: inline;
+	float: left;
+	width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+	margin: 0 @column-margin;
+	.box-sizing(border-box);
+}
+
+// Indent left
+.push(@offset:1) {
+	margin-left: @total-width*(((@gutter-width+@column-width)*@offset) / @gridsystem-width) + @total-width*((@gutter-width*.5)/@gridsystem-width);
+}
+
+// Indent right
+.pull(@offset:1) {
+	margin-right: @total-width*(((@gutter-width+@column-width)*@offset) / @gridsystem-width) + @total-width*((@gutter-width*.5)/@gridsystem-width);
+}

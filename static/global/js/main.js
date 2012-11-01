@@ -1,74 +1,102 @@
 $(document).ready(function(){
-	init();
-});
+    initProgress();
+    initLightbox();
+    initJiraFeedback();
+})
 
-function init(container){
-	initMore(container);
-	initProfileViewer(container);
-	initProgressBar(container);
+function initLightbox(){
+  
+    // open external data in lightbox on specific links
+    $('a.open-in-lightbox').live('click',function(e){
+    
+      e.preventDefault();
+      
+      $.colorbox({
+        href: this.href,
+        fixed: true,
+        overlayClose: false,
+        escKey: true,
+        opacity: '0.7',
+        scrolling: true,
+        transition: 'none',
+        width: 880,
+        maxHeight: '90%',
+        top: '40px',
+        onComplete: function(){
+            initInputCountdown('#colorbox');
+        }
+      });
+      
+      return false;
+      
+    });
+    
+    // custom lightbox close actions
+    $("#lightbox-cancel, #lightbox-save").live("click", function(e){
+        $.colorbox.close();
+    });
+
+    $(".loginbox").colorbox({
+        fixed: true,
+        overlayClose: false,
+        escKey: true,
+        opacity: '0.7',
+        scrolling: false,
+        transition: 'none',
+        width: 400,
+        height: 300,
+        iframe: true
+    });
+
 }
 
-function initMore(){
-	$('.more').each(function(){
-		if ($(this).parent().parent().find('.long').html().length 
-				== $(this).parent().parent().find('.short').html().length) {
-			$(this).hide();
-		}
-	});
-	$('.more').unbind('click');
-	$('.more').click(function(){
-		$(this).parent().parent().find('.long').show();
-		$(this).parent().parent().find('.short').hide();
-		return false;
-	});
-	$('.less').unbind('click');
-	$('.less').click(function(){
-		$(this).parent().parent().find('.long').hide();
-		$(this).parent().parent().find('.short').show();
-		return false;
-	});
-	
+function initProgress(){
+    $('.donate-static').each(function(){
+        var donated = Math.round($('.donated', this).html()); 
+        var asked = Math.round($('.asked', this).html());
+        if (donated > asked) {
+            perc = 100;
+        } else if (asked) {
+            perc = 100 * donated / asked;
+        } else {
+            perc = 100;
+        }
+        perc = Math.round(perc);
+        $('.donate-percentage', this).css({width: perc +'%'});
+    });
+
+    $('.donate-status').each(function(){
+        var donated = Math.round($('.donated', this).html()); 
+        var asked = Math.round($('.asked', this).html());
+        if (donated > asked) {
+            perc = 100;
+        } else if (asked) {
+            perc = 100 * donated / asked;
+        } else {
+            perc = 100;
+        }
+        perc = Math.round(perc);
+        if (perc == 0) {
+            $('.donate-percentage', this).addClass('is-empty');
+        } else if(perc == 100) {
+            $('.donate-percentage', this).addClass('is-full');
+            
+        } else {
+            $('.donate-percentage', this).addClass('is-in-progress');
+        }
+        
+        $('.donate-percentage', this).animate({width: perc +'%'}, 2000);
+        
+    });
 }
 
 
-function initProfileViewer(){
-	$('.panelink').unbind('mouseover');
-	$('.panelink').mouseover(function(){
-		var name = $(this).attr('for');
-		$(this).parent().find('.pane').hide();
-		$(this).parent().find('.' + name).show();
-		return false;
-	});
-}
-
-
-function initProgressBar(){
-	$('.progressbar').each(function(){
-		var pb = $(this);
-		var donated = pb.find('.donated-amount').html();
-		var asked = pb.find('.asked-amount').html();
-		var donText = pb.find('.donated-text');
-		var donBar = pb.find('.donated-bar');
-		var pct = 0;
-		if (asked) {
-			pct = 100 * donated /asked;
-			pct = Math.round(pct);
-		}		
-		donText.css({opacity: 0});
-		donBar.css({width: 0});
-		donBar.animate({width: pct + '%'}, 2000,function(){
-			donText.css({opacity: 1});
-		});
-		if (pct < 40) {
-			pct = pct + '%';
-			donText.addClass('left');
-			donText.css({'margin-left': pct});
-			
-		} else {
-			pct = 100 - pct +'%';
-			donText.addClass('right');
-			donText.css({'margin-right': pct});
-		}
-			
-	});
+function initJiraFeedback() {
+    // Requires jQuery!
+    jQuery.ajax({
+        url: "https://onepercentclub.atlassian.net/s/en_USfyzlz7-418945332/809/42/1.2.5/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=8a8cc0df",
+        type: "get",
+        cache: true,
+        dataType: "script"
+    });
 }
