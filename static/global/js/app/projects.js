@@ -72,11 +72,12 @@ App.projectSearchController = Em.ArrayController.create({
     },
 
     // The saved queryFilter state.
-    queryFilter: {phases: 'fund'}, // FIXME Limit projects to fund phase until projects are cleaned up.
+    queryFilter: {phase: 'fund'}, // FIXME Limit projects to fund phase until projects are cleaned up.
 
-    // Project preview search results and meta data from tastypie:
+    // Project preview search results and meta data from the API.
     content: [],
-    contentMeta: {},
+    nextLink: null,
+    previousLink: null,
 
     // List of regions and countries returned from the search form filter. These
     // are content bindings for the filter elements (e.g. select) in the Views.
@@ -95,20 +96,20 @@ App.projectSearchController = Em.ArrayController.create({
 
     // Pagination:
     nextSearchResult: function() {
-        var meta  = this.get('contentMeta');
-        var next = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.next)||[,null])[1]
+        var nextLink  = this.get('nextLink');
+        var next = (RegExp('page=' + '(.+?)(&|$)').exec(nextLink)||[,null])[1]
         return next;
-    }.property('contentMeta'),
+    }.property('nextLink'),
     
     previousSearchResult: function() {
-        var meta  = this.get('contentMeta');
-        var previous = (RegExp('offset=' + '(.+?)(&|$)').exec(meta.previous)||[,null])[1]
+        var previousLink  = this.get('previousLink');
+        var previous = (RegExp('page=' + '(.+?)(&|$)').exec(previousLink)||[,null])[1]
         return previous;
-    }.property('contentMeta'),
+    }.property('previousLink'),
 
     // We can't use an observer for this because it will loop continually.
     clickPrevNext: function(event, offset) {
-        this.updateQueryFilter({'offset': offset});
+        this.updateQueryFilter({'page': offset});
         this.populate();
     },
 
@@ -118,12 +119,10 @@ App.projectSearchController = Em.ArrayController.create({
         require(['app/data_source'], function(){
             var query = controller.get('queryFilter');
 
-            // Get the project preview data using the current queryFilter.
-            // We're limiting the number of returned items to 4.
-            var projectPreviewQuery = $.extend({limit: 4}, query);
-            App.dataSource.get('projectpreview', projectPreviewQuery, function(data) {
-                controller.set('content', data['objects']);
-                controller.set('contentMeta', data['meta']);
+            App.dataSource.get('projects/', query, function(data) {
+                controller.set('content', data['results']);
+                controller.set('nextLink', data['next']);
+                controller.set('previousLink', data['previous']);
             });
 
             // Get the project search data using the same queryFilter.
@@ -274,7 +273,7 @@ App.ProjectSearchResultsNextView = Em.View.extend({
     classNameBindings:['disabled'],
 
     disabled: function () {
-        if (this.next == null) return true;
+        if (this.get('next') == null) return true;
         return false;
     }.property('next'),
 
@@ -296,7 +295,7 @@ App.ProjectSearchResultsPreviousView = Em.View.extend({
     classNameBindings: ['disabled'],
 
     disabled: function() {
-        if (this.previous == null) return true;
+        if (this.get('previous') == null) return true;
         return false;
     }.property('previous'),
 
@@ -378,9 +377,7 @@ App.ProjectStartView = Em.View.extend({
 /*
  * Project Detail
  */
-App.projectModel = Em.Object.create({
-    url:'projectdetail'
-});
+App.projectModel = Em.Object.create({});
 
 App.projectDetailController = Em.ObjectController.create({
     content: null,
@@ -389,7 +386,7 @@ App.projectDetailController = Em.ObjectController.create({
     populate: function(slug){
         var controller = this;
         require(['app/data_source'], function(){
-            App.dataSource.get('projectdetail/' + slug, {}, function(data) {
+            App.dataSource.get('projects/' + slug, {}, function(data) {
                 controller.set('content', data);
             });
         })

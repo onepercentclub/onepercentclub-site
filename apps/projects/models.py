@@ -1,15 +1,15 @@
+from decimal import Decimal
+
 from django.db import models
 from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.text import truncate_words
 from django.utils.translation import ugettext as _
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from django_extensions.db.fields import (
-    ModificationDateTimeField, CreationDateTimeField
-)
+from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
@@ -20,8 +20,7 @@ from apps.donations.models import Donation
 class ProjectTheme(models.Model):
     """ Themes for Projects. """
 
-    # The name is marked as unique so that users can't create duplicate
-    # theme names.
+    # The name is marked as unique so that users can't create duplicate theme names.
     name = models.CharField(_("name"), max_length=100, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
     description = models.TextField(_("description"), blank=True)
@@ -46,53 +45,25 @@ class Project(models.Model):
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
-    partner_organization = models.ForeignKey(
-        'PartnerOrganization', blank=True, null=True,
-        verbose_name=_('partner organization')
-    )
-
-    image = ImageField(_("image"), max_length=255, blank=True,
-        upload_to='project_images/',
-        help_text=_("Main project picture"))
-
-    organization = models.ForeignKey(
-        'organizations.Organization', verbose_name=_("organization")
-    )
+    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True,verbose_name=_('partner organization'))
+    image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/',help_text=_("Main project picture"))
+    organization = models.ForeignKey('organizations.Organization', verbose_name=_("organization"))
     owner = models.ForeignKey('auth.User', verbose_name=_("owner"))
-    phase = models.CharField(_("phase"),
-        max_length=20, choices=ProjectPhases.choices,
-        help_text=_("Phase this project is in right now.")
-    )
-    themes = models.ManyToManyField(
-        ProjectTheme, blank=True, verbose_name=_("themes")
-    )
-    created = CreationDateTimeField(_("created"),
-        help_text=_("When this project was created.")
-    )
+    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices,help_text=_("Phase this project is in right now."))
+    themes = models.ManyToManyField(ProjectTheme, blank=True, verbose_name=_("themes"))
+    created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
 
     # Location of this project
     # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
     # hold the legacy data.
-    # Ref http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
-    latitude = models.DecimalField(
-        _("latitude"), max_digits=21, decimal_places=18
-    )
-    longitude = models.DecimalField(
-        _("longitude"), max_digits=21, decimal_places=18
-    )
-    country = models.ForeignKey(
-        'geo.Country', blank=True, null=True, verbose_name=_("country")
-    )
+    # Ref:
+    # http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
+    latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18)
+    longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18)
+    country = models.ForeignKey('geo.Country', blank=True, null=True, verbose_name=_("country"))
 
-    project_language = models.CharField(
-        _("language"), max_length=6, choices=settings.LANGUAGES,
-        help_text=_("Main language of the project.")
-    )
-
-    albums = models.ManyToManyField(
-        'media.Album', blank=True, null=True, verbose_name=_("albums")
-    )
-
+    language = models.CharField(max_length=6, choices=settings.LANGUAGES, help_text=_("Main language of the project."))
+    albums = models.ManyToManyField('media.Album', blank=True, null=True, verbose_name=_("albums"))
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
@@ -104,57 +75,35 @@ class Project(models.Model):
                     "This date is independant of the various phase end dates.")
     )
 
-    """ TODO: calculate & store popularity """
-    popularity = 0
-
-    def calucalulate_popularity(self):
-        pass
-
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
-    # TODO: Move all money related stuff to FundPhase...
+    # This is here to provide a consistent way to get money_asked.
+    @property
     def money_asked(self):
         try:
             self.fundphase
         except FundPhase.DoesNotExist:
-            return 0
-        return int(self.fundphase.money_asked)
+            return Decimal('0.00')
+        return self.fundphase.money_asked
 
-
-    """ Money donated, rounded to the lower end... """
-    # Money donated. For now this is random
+    # This is here to provide a consistent way to get money_donated.
+    @property
     def money_donated(self):
-        if self.money_asked() == 0:
-            return 0
+        if self.money_asked == Decimal('0.00'):
+            return Decimal('0.00')
         try:
-            return int(self.fundphase.money_donated)
+            return self.fundphase.money_donated
         except FundPhase.DoesNotExist:
-            return 0
-
-    def money_needed(self):
-        return self.money_asked() - self.money_donated()
+            return Decimal('0.00')
 
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
+        return 'project-instance', (), {'slug': self.slug}
 
-        return ('project_detail', (), {
-            'slug': self.slug
-        })
-
-    def get_supporters(self):
-        """ Get a queryset of donating users for this project. """
-
-        # TODO: Add filter for 'succesful' donations on a somewhat higher
-        # level, perhaps a custom Manager on Donatio class.
-        donators = User.objects
-        donators = donators.filter(donation__project=self)
-        donators = donators.filter(donation__status__in=['closed','paid','started'])
-        donators = donators.distinct()
-        return donators
 
     class Meta:
         ordering = ['title']
@@ -196,9 +145,7 @@ class AbstractPhase(models.Model):
     startdate = models.DateField(_("start date"))
     enddate = models.DateField(_("end date"), blank=True, null=True)
 
-    status = models.CharField(
-        _("status"), max_length=20, choices=PhaseStatuses.choices
-    )
+    status = models.CharField(_("status"), max_length=20, choices=PhaseStatuses.choices)
 
     def clean(self):
         if self.startdate and self.enddate:
@@ -219,9 +166,7 @@ class AbstractPhase(models.Model):
 class IdeaPhase(AbstractPhase):
     """ IdeaPhase: Got a nice idea here. """
 
-    knowledge_description = models.TextField(
-        _("knowledge"), blank=True, help_text=_("Description of knowledge.")
-    )
+    knowledge_description = models.TextField(_("knowledge"), blank=True, help_text=_("Description of knowledge."))
 
     class Meta:
         verbose_name = _("idea phase")
@@ -247,55 +192,24 @@ class FundPhase(AbstractPhase):
         _("description"), blank=True, help_text=_("Longer description.")
     )
 
-    budget_total = MoneyField(_("money total"),
-        help_text=_("Total amount needed for this project."))
-    money_asked = MoneyField(_("money asked"),
-        help_text=_("Amount asked for from this website."))
+    budget_total = MoneyField(_("budget total"), help_text=_("Amount of money needed for a project including money from other sources."))
+    money_asked = MoneyField(_("money asked"), help_text=_("Amount of money asked for a project from this website."))
+    money_donated= MoneyField(_('money donated'), help_text=_("This field is updated on every donation(change)"))
 
-    money_donated= MoneyField(_('money donated'),
-        help_text=_("This field is updated on every donation(change)"))
+    sustainability = models.TextField(_("sustainability"), blank=True,help_text=_("How can next generations profit from this?"))
+    money_other_sources = models.TextField(_("money from other sources"), blank=True, help_text=_("Money received from other sources."))
 
-    sustainability = models.TextField(
-        _("sustainability"),
-        blank=True,
-        help_text=_("How can next generations profit from this?")
-    )
+    # Social Impact: who are we helping, direct and indirect
+    social_impact = models.TextField(_("social impact"), blank=True,help_text=_("Who are you helping?"))
+    impact_group = models.CharField(_("impact group"), max_length=20, choices=ImpactGroups.choices, blank=True)
+    impact_direct_male = models.IntegerField(_("impact direct male"), max_length=6, default=0)
+    impact_direct_female = models.IntegerField(_("impact direct female"), max_length=6, default=0)
+    impact_indirect_male = models.IntegerField(_("impact indirect male"),max_length=6, default=0)
+    impact_indirect_female = models.IntegerField(_("impact indirect female"), max_length=6, default=0)
 
-    money_other_sources = models.TextField(
-        _("money from other sources"), blank=True,
-        help_text=_("Money received from other sources.")
-    )
-
-    """ Social Impact: who are we helping, direct and indirect """
-    social_impact = models.TextField(
-        _("social impact"),
-        blank=True,
-        help_text=_("Who are you helping?")
-    )
-    impact_group = models.CharField(
-        _("impact group"),
-        max_length=20, choices=ImpactGroups.choices, blank=True
-    )
-    impact_direct_male = models.IntegerField(
-        _("impact direct male"), max_length=6, default=0
-    )
-    impact_direct_female = models.IntegerField(
-        _("impact direct female"), max_length=6, default=0
-    )
-    impact_indirect_male = models.IntegerField(
-        _("impact indirect male"),
-        max_length=6, default=0
-    )
-    impact_indirect_female = models.IntegerField(
-        _("impact indirect female"),
-        max_length=6, default=0
-    )
-
-    """
-        This updates the 'cached' donated amount.
-        We should run this every time a donation is made or
-        changes status.
-    """
+    # This updates the 'cached' donated amount. This should be run everytime a
+    # donation is made or changes status.
+    # TODO: Add out of band integrity checks (e.g. as a separate cron task)
     def update_money_donated(self):
         donations = Donation.objects.filter(project=self.project)
         donations = donations.filter(status__in=['closed','paid','started'])
@@ -330,32 +244,21 @@ class ResultsPhase(AbstractPhase):
     """ ResultsPhase: Tell about how things worked out. """
 
     # Five questions that get asked after the project is done.
-    what = models.TextField(
-        _("what"), help_text=_("What and how?"),
-        blank=True)
-    tips = models.TextField(
-        _("tips"), help_text=_("Tips and tricks?"),
-        blank=True)
-    change = models.TextField(
-        _("change"), help_text=_("What has changed for the target group?"),
-        blank=True)
-    financial = models.TextField(
-        _("financial"), help_text=_("How was the money spend?"),
-        blank=True)
-    next = models.TextField(
-        _("next"), help_text=_("What's next?"),
-        blank=True)
+    what = models.TextField(_("what"), help_text=_("What and how?"), blank=True)
+    tips = models.TextField(_("tips"), help_text=_("Tips and tricks?"), blank=True)
+    change = models.TextField(_("change"), help_text=_("What has changed for the target group?"), blank=True)
+    financial = models.TextField(_("financial"), help_text=_("How was the money spend?"), blank=True)
+    next = models.TextField(_("next"), help_text=_("What's next?"), blank=True)
 
     class Meta:
         verbose_name = _("results phase")
         verbose_name_plural = _("results phase")
 
 
-class Referals(models.Model):
+# TODO: What is the for? Is is supposed to be reference? How is it related to Projects?
+class Referral(models.Model):
     """
-    People that are named as referals.
-
-    TODO: Fix spelling error and make singular.
+    People that are named as a referral.
     """
     name = models.CharField(_("name"), max_length=255)
     email = models.EmailField(_("email"))
@@ -413,7 +316,11 @@ class Testimonial(models.Model):
         verbose_name = _("testimonial")
         verbose_name_plural = _("testimonials")
 
+    def __unicode__(self):
+        return truncate_words(self.description, 20)
 
+
+# TODO: This should be the new comments system.
 class Message(models.Model):
     """ Message by a user on the Project wall. """
 
@@ -424,9 +331,7 @@ class Message(models.Model):
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
     def __unicode__(self):
-        return u'%s : %s...' % (
-            self.created.date(), self.body[:20]
-        )
+        return u'%s : %s...' % (self.created.date(), self.body[:20])
 
     class Meta:
         ordering = ['-created']

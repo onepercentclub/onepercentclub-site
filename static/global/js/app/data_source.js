@@ -5,7 +5,7 @@
  */
 
 App.DataSource = Em.Object.extend({
-    tastypieApiUrl: "/i18n/api/",
+    apiUrl: "/i18n/api/",
 
     get: function(url, query, callback) {
         this._ajax(url, "GET", {
@@ -16,8 +16,20 @@ App.DataSource = Em.Object.extend({
         });
     },
 
+    post: function(url, query, callback) {
+//        TODO: implement
+    },
+
+    put: function(url, query, callback) {
+//        TODO: implement
+    },
+
     _ajax: function(url, type, hash) {
-        hash.url = this.tastypieApiUrl + url + "/";
+        if (url.match('^http') || url.match('^\/')) {
+            hash.url = url;
+        } else {
+            hash.url = this.apiUrl + url;
+        }
         hash.type = type;
         hash.dataType = "json";
         hash.contentType = 'application/json';

@@ -23,8 +23,7 @@ class Language(models.Model):
     """
 
     # TODO: Pre-populate this model with the languages from global_settings.
-    language = models.CharField(_("language"), max_length=5, unique=True,
-                                choices=global_settings.LANGUAGES)
+    language = models.CharField(_("language"), max_length=5, unique=True, choices=global_settings.LANGUAGES)
 
     def __unicode__(self):
         return self.get_language_display()
@@ -79,45 +78,28 @@ class UserProfile(models.Model):
 
     # The Django User model
     user = models.OneToOneField(User, verbose_name=_("user"))
-    slug = AutoSlugField(_("slug"), max_length=30, unique=True,
-                         populate_from=('get_username',), overwrite=True)
+    slug = AutoSlugField(_("slug"), max_length=30, unique=True, populate_from=('get_username',), overwrite=True)
 
     # Settings
-    interface_language = models.CharField(_("interface language"),
-        max_length=5, null=True, blank=True, choices=settings.LANGUAGES
-    )
-    newsletter = models.BooleanField(
-        _("newsletter"), help_text=_("Subscribe to newsletter."),
-        default=False
-    )
+    interface_language = models.CharField(_("interface language"), max_length=5, null=True, blank=True, choices=settings.LANGUAGES)
+    newsletter = models.BooleanField(_("newsletter"), help_text=_("Subscribe to newsletter."), default=False)
 
     # Basic profile information
     birthdate = models.DateField(_("birthdate"), null=True, blank=True)
-    gender = models.CharField(_("gender"),
-        max_length=6, blank=True,
-        null=True, choices=Gender.choices
-    )
+    gender = models.CharField(_("gender"), max_length=6, blank=True,null=True, choices=Gender.choices)
     location = models.CharField(_("location"), max_length=100, blank=True)
     website = models.URLField(_("website"), blank=True, max_length=255)
     # TODO Use generate_picture_filename (or something) for upload_to
-    picture = ImageField(_("picture"),
-        upload_to='profiles', null=True, blank=True
-    )
-    languages = models.ManyToManyField(Language,
-        blank=True, verbose_name=_("languages")
-    )
+    picture = ImageField(_("picture"), upload_to='profiles', null=True, blank=True)
+    languages = models.ManyToManyField(Language, blank=True, verbose_name=_("languages"))
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
     # In-depth profile information
     about = models.TextField(_("about"), blank=True)
     why = models.TextField(_("why"), blank=True)
     contribution = models.TextField(_("contribution"), blank=True)
-    availability = models.CharField(_("availability"),
-        max_length=255, blank=True
-    )
-    working_location = models.CharField(_("working location"),
-        max_length=255, blank=True
-    )
+    availability = models.CharField(_("availability"), max_length=255, blank=True)
+    working_location = models.CharField(_("working location"), max_length=255, blank=True)
 
     tags = TaggableManager(verbose_name=_("tags"), blank=True)
 
@@ -178,11 +160,8 @@ class UserAddress(Address):
         home = ChoiceItem('home', label=_("Home"))
         other = ChoiceItem('other', label=_("Other"))
 
-    type = models.CharField(_("address type"), max_length=6, blank=True,
-                            choices=AddressType.choices)
-    user_profile = models.ForeignKey(UserProfile,
-        verbose_name=_("user profile")
-    )
+    type = models.CharField(_("address type"), max_length=6, blank=True, choices=AddressType.choices)
+    user_profile = models.ForeignKey(UserProfile, verbose_name=_("user profile"))
 
     class Meta:
         verbose_name = _("user address")
