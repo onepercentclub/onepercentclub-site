@@ -1,10 +1,5 @@
-from decimal import Decimal
-
 from django.db import models
-from django.utils import timezone
 from django.utils.translation import ugettext as _
-from django.core.exceptions import ValidationError
-from django.db.models.base import ObjectDoesNotExist
 
 from django_extensions.db.fields import (
     ModificationDateTimeField, CreationDateTimeField

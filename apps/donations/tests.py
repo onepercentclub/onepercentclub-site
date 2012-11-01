@@ -1,7 +1,6 @@
 from decimal import Decimal
 
 from django.test import TestCase
-from django.core.exceptions import ValidationError
 
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin
