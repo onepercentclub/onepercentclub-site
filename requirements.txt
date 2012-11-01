@@ -36,6 +36,7 @@ surlex==0.1.2
 south==0.7.5
 
 # Django-REST-Framework
+-e git+https://github.com/alex/django-filter.git@0e4b3d703b31574922ab86fc78a86164aad0c1d0#egg=django-filter
 -e git+https://github.com/onepercentclub/django-rest-framework.git@restframework2-filter#egg=rest_framework
 
 # Jenkins integration
