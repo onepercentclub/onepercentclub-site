@@ -60,6 +60,7 @@ micawber==0.2.5
 django-fluent-contents==0.8.1
 django-wysiwyg==0.5
 django-tinymce==1.5.1b2
+html5lib==0.95
 
 # Current git revision in request object for use in templates and views
 # http://pypi.python.org/pypi/django-gitrevision
