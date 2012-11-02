@@ -1,7 +1,7 @@
-from datetime import datetime
 from django.conf import settings
 from django.contrib import admin
 from django.forms import ModelForm
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from fluent_contents.admin.placeholderfield import PlaceholderFieldAdmin
 from apps.blogs.models import BlogPost
@@ -49,7 +49,7 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         if not obj.publication_date:
             # auto_now_add makes the field uneditable.
             # default fills the field before the post is written (too early)
-            obj.publication_date = datetime.now()
+            obj.publication_date = now()
         obj.save()
 
 

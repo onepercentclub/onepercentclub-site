@@ -1,10 +1,10 @@
 """
 The manager class for the blog models
 """
-from datetime import datetime
 from django.db import models
 from django.db.models.query import QuerySet
 from django.db.models.query_utils import Q
+from django.utils.timezone import now
 
 
 class BlogPostQuerySet(QuerySet):
@@ -17,10 +17,10 @@ class BlogPostQuerySet(QuerySet):
             .filter(status=BlogPost.PostStatus.published)\
             .filter(
                 Q(publication_date__isnull=True) |
-                Q(publication_date__lte=datetime.now())
+                Q(publication_date__lte=now())
             ).filter(
                 Q(publication_end_date__isnull=True) |
-                Q(publication_end_date__gte=datetime.now())
+                Q(publication_end_date__gte=now())
             )
 
 
