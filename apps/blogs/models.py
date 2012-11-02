@@ -4,6 +4,7 @@ from django.contrib import comments
 from django.contrib.contenttypes.generic import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from fluent_contents.models import PlaceholderField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
@@ -54,8 +55,8 @@ class BlogPost(models.Model):
 
     # Metadata
     author = models.ForeignKey(User, verbose_name=_('author'), editable=False)
-    creation_date = models.DateTimeField(_('creation date'), editable=False, auto_now_add=True)
-    modification_date = models.DateTimeField(_('last modification'), editable=False, auto_now=True)
+    creation_date = CreationDateTimeField(_('creation date'))
+    modification_date = ModificationDateTimeField(_('last modification'))
 
     # Taxonomy
     categories = models.ManyToManyField(BlogCategory, verbose_name=_("Categories"), blank=True)
