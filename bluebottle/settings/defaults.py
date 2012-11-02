@@ -195,6 +195,7 @@ INSTALLED_APPS = [
     'compressor',
     'sorl.thumbnail',
     'taggit',
+    'taggit_autocomplete_modified',
     'micawber.contrib.mcdjango', # Embedding videos
     'gitrevision', # Display git revision
     'templatetag_handlebars',

@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from djchoices import DjangoChoices, ChoiceItem
 from fluent_contents.models import PlaceholderField
-from taggit.managers import TaggableManager
+from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 from sorl.thumbnail import ImageField
 from apps.geo.models import Country
 from .managers import BlogPostManager

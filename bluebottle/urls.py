@@ -24,6 +24,7 @@ urlpatterns = i18n_patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # Other modules that need URLs exposed
+    url(r'^admin/utils/taggit-autocomplete/', include('taggit_autocomplete_modified.urls')),
     url(r'^admin/utils/tinymce/', include('tinymce.urls')),
 
     # account login/logout, password reset, and password change
