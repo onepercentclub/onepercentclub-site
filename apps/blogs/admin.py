@@ -10,7 +10,7 @@ from apps.blogs.models import BlogPost
 class BlogPostForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BlogPostForm, self).__init__(*args, **kwargs)
-        self.fields['publication_date'].required = False
+        self.fields['publication_date'].required = False  # The admin's .save() method fills in a default.
 
 
 class BlogPostAdmin(PlaceholderFieldAdmin):
@@ -28,7 +28,7 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         (_('Publication settings'), {
             'fields': ('status', 'publication_date', 'publication_end_date', 'allow_comments'),
         }),
-        (("Taxonomy"), {
+        (_("Taxonomy"), {
             'fields': ('categories', 'tags', 'countries'),
         }),
     )
@@ -52,9 +52,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
             obj.publication_date = datetime.now()
         obj.save()
 
-
-
-    # ---- List code ----
 
     STATUS_ICONS = {
         BlogPost.PostStatus.published: 'icon-yes.gif',

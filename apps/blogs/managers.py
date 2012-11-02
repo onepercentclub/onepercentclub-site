@@ -27,7 +27,7 @@ class BlogPostQuerySet(QuerySet):
 
 class BlogPostManager(models.Manager):
     """
-    Extra methods attached to ``Entry.objects`` .
+    Extra methods attached to ``BlogPost.objects`` .
     """
     def get_query_set(self):
         return BlogPostQuerySet(self.model, using=self._db)

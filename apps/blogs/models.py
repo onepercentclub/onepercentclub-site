@@ -68,7 +68,9 @@ class BlogPost(models.Model):
 
     @property
     def comments(self):
-        """Return the visible comments."""
+        """
+        Return the visible comments.
+        """
         return comments.get_model().objects.for_model(self).filter(is_public=True)
 
 
