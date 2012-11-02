@@ -3,19 +3,19 @@
 {% tplhandlebars "project_detail" %}
     <div class="row">
         <div class="column grid_4">
-            <h1>{{view.content.title}}</h1>
+            <h2>{{view.content.title}}</h2>
         </div>
     </div>
     <div class="row">
         <div class="column grid_1">
             <div class="location">
                 <img src="/static/assets/global/images/icons/world.png" />
-                <h4>{{view.content.location.country}}</h4>
-                {{view.content.location.subregion}}
+                <h4>{{view.content.country.name}}</h4>
+                {{view.content.country.subregion}}
             </div>
             <div class="types">
                 <ul class="categories">
-                    {{#each view.content.categories}}
+                    {{#each view.content.themes}}
                         <li>{{this}}</li>
                     {{/each}}
                 </ul>
@@ -46,7 +46,8 @@
     </div>
 {% endtplhandlebars %}
 
-{% tplhandlebars "project-media" %}
+
+{% tplhandlebars "project_media" %}
     <div class="mediaviewer">
         {{#view "App.ProjectMediaPaneView" value="pictures" }}
             <div class="imageviewer">
@@ -80,7 +81,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "project-media-plan" %}
+{% tplhandlebars "project_media_plan" %}
     <div class="text">
         <h1>Project Plan</h1>
         {{view.content.title}}
@@ -94,13 +95,13 @@
     </div>
 {% endtplhandlebars %}
 
-{% tplhandlebars "project-media-videos" %}
+{% tplhandlebars "project_media_videos" %}
     <div class="imageviewer">
         <img {{bindAttr src="view.content.video"}} />
     </div>
 {% endtplhandlebars %}
 
-{% tplhandlebars "project-media-map" %}
+{% tplhandlebars "project_media_map" %}
     <div class="relative">
         <div id="bigmap"></div>
         <div id="maploading" class="hidden">
@@ -110,7 +111,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "project-stats" %}
+{% tplhandlebars "project_stats" %}
     <ul class="phases" {{bindAttr class="view.content.phase"}}>
         <li>Idea</li>
         <li>Fund</li>
@@ -136,7 +137,7 @@
     </div>
 {% endtplhandlebars %}
 
-{% tplhandlebars "project-progress-bar" %}
+{% tplhandlebars "project_progress_bar" %}
     <div class="progressbar">
         <div  class="donated-text left">
             NOW 
@@ -153,3 +154,11 @@
     </div> 
 {% endtplhandlebars %}
 
+{% tplhandlebars "project_start" %}
+    <h1>PROJECT START</h1>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_info" %}
+    <h1>PROJECTS INFO</h1>
+{% endtplhandlebars %}

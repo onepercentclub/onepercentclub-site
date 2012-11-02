@@ -10,21 +10,19 @@ Em.View.reopen({
             return template;
         } else {
             view.set('templateName', 'waiting');
-            // Check if a templateFile is set and use that
-            var file = view.get('templateFile') ? view.get('templateFile') : name;
             require(['app/data_source'], function(){
+                // Check if a templateFile is specified otherwise use templateName (name)
+                var file = view.get('templateFile') ? view.get('templateFile') : name; 
                 App.dataSource.getTemplate(file, function(data) {
                     // Iterate through handlebar tags
                     $(data).filter('script[type="text/x-handlebars"]').each(function() {
                         // Only load the template we're looking for
                         if (name == $(this).attr('data-template-name')) {
-                            console.log('Found tpl '+ name + ' in file '+ file);
                             var raw = $(this).html();
                             var template = Em.Handlebars.compile(raw);
                             Em.TEMPLATES[name] = template;
                             view.set('templateName', name);
                             view.rerender();
-                            
                         }
                     });
                 });
@@ -137,6 +135,8 @@ App.ProjectRoute = Em.Route.extend({
             require(['app/projects'], function(){
                 App.projectDetailController.populate(context.slug);
                 router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
+                router.get('applicationController').connectOutlet('midPanel', 'empty');
+                router.get('applicationController').connectOutlet('bottomPanel', 'empty');
             });
         }
     }) 

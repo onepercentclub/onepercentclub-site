@@ -15,6 +15,7 @@ from apps.geo.models import Country
 from .models import Project
 
 
+
 # TODO move this to utils class
 # TODO Think about adding a feature to set thumbnail quality based on country.
 #      This would be useful for countries with slow internet connections.

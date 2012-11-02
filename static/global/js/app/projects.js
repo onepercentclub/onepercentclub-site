@@ -402,21 +402,19 @@ App.ProjectDetailView = Em.View.extend({
     contentBinding: 'App.projectDetailController',
     templateName: 'project_detail',
     classNames: ['lightgreen', 'section'],
-
-    
 });
 
 App.ProjectStatsView = Em.View.extend({
     contentBinding: 'App.projectDetailController',
-    templateName:'project-stats',
-    templateFile: 'project_detail',
+    templateName:'project_stats',
+    templateFile:'project_detail'
 });
 
 
 App.ProjectProgressBarView = Em.View.extend(App.progressBarAnimationMixin, {
     contentBinding: 'App.projectDetailController.content',
-    templateName:'project-progress-bar',
-    templateFile: 'project_detail',
+    templateName:'project_progress_bar',
+    templateFile:'project_detail'
 });
 
 
@@ -430,27 +428,26 @@ App.projectMediaViewerController = Em.ObjectController.create({
 
 App.ProjectMediaView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media',
-    templateFile: 'project_detail',
-
+    templateName:'project_media',
+    templateFile:'project_detail'
 });
 
 App.ProjectMediaPicturesView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-pictures',
-    templateFile: 'project_detail',
+    templateName:'project_media_pictures',
+    templateFile:'project_detail'
 });
 
 App.ProjectMediaPlanView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-plan',
-    templateFile: 'project_detail',
+    templateName:'project_media_plan',
+    templateFile:'project_detail'
 });
 
 App.ProjectMediaVideosView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-videos',
-    templateFile: 'project_detail',
+    templateName:'project_media_videos',
+    templateFile:'project_detail'
 });
 
 // MediaViewer: panes with media come after this
@@ -459,8 +456,8 @@ App.ProjectMediaMapView = Em.View.extend({
     // because it doesn't work with App.projectMediaViewerController
     //contentBinding: 'App.projectMediaViewerController',
     contentBinding: 'App.projectDetailController.content',
-    templateName:'project-media-map',
-    templateFile: 'project_detail',
+    templateName:'project_media_map',
+    templateFile:'project_detail',
     map: {},
     loadMap: function(){
         var view = this;
