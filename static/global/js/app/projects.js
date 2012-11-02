@@ -406,13 +406,15 @@ App.ProjectDetailView = Em.View.extend({
 
 App.ProjectStatsView = Em.View.extend({
     contentBinding: 'App.projectDetailController',
-    templateName:'project-stats'
+    templateName:'project_stats',
+    templateFile:'project_detail'
 });
 
 
 App.ProjectProgressBarView = Em.View.extend(App.progressBarAnimationMixin, {
     contentBinding: 'App.projectDetailController.content',
-    templateName:'project-progress-bar'
+    templateName:'project_progress_bar',
+    templateFile:'project_detail'
 });
 
 
@@ -426,22 +428,26 @@ App.projectMediaViewerController = Em.ObjectController.create({
 
 App.ProjectMediaView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media'
+    templateName:'project_media',
+    templateFile:'project_detail'
 });
 
 App.ProjectMediaPicturesView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-pictures'
+    templateName:'project_media_pictures',
+    templateFile:'project_detail'
 });
 
 App.ProjectMediaPlanView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-plan'
+    templateName:'project_media_plan',
+    templateFile:'project_detail'
 });
 
 App.ProjectMediaVideosView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-videos'
+    templateName:'project_media_videos',
+    templateFile:'project_detail'
 });
 
 // MediaViewer: panes with media come after this
@@ -450,7 +456,8 @@ App.ProjectMediaMapView = Em.View.extend({
     // because it doesn't work with App.projectMediaViewerController
     //contentBinding: 'App.projectMediaViewerController',
     contentBinding: 'App.projectDetailController.content',
-    templateName:'project-media-map',
+    templateName:'project_media_map',
+    templateFile:'project_detail',
     map: {},
     loadMap: function(){
         var view = this;

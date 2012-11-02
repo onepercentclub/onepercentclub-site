@@ -45,5 +45,6 @@ class HBTemplateView(TemplateView):
     def _check_template_exists(self, hbtemplate):
         for template_dir in bb_app_template_dirs:
             if template_dir.endswith('templates'):
-                return os.path.isfile(os.path.join(template_dir, hbtemplate))
+                if os.path.isfile(os.path.join(template_dir, hbtemplate)):
+                    return True
         return False

@@ -35,7 +35,7 @@ class SorlImageField(Field):
         try:
             thumbnail = unicode(get_thumbnail(value, self.geometry_string, **self.options))
         except Exception:
-            if settings.THUMBNAIL_DEBUG:
+            if getattr(settings, 'THUMBNAIL_DEBUG', None):
                 raise
             logger.error('Thumbnail failed:', exc_info=sys.exc_info())
             return ""
