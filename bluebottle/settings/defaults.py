@@ -208,6 +208,7 @@ INSTALLED_APPS = [
     'apps.media',
     'apps.geo',
     'apps.hbtemplates',
+    'apps.blogs',
 ]
 
 # A sample logging configuration. The only tangible logging

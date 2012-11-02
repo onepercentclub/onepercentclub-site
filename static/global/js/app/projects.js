@@ -125,6 +125,7 @@ App.projectSearchController = Em.ArrayController.create({
                 controller.set('previousLink', data['previous']);
             });
 
+            /* Don't refresh the searchform quite yet....
             // Get the project search data using the same queryFilter.
             // Note that we're *not* limiting the number of returned items as above.
             App.dataSource.get('projectsearchform', query, function(data) {
@@ -143,7 +144,7 @@ App.projectSearchController = Em.ArrayController.create({
                 }
 
             });
-
+            */
         });
     },
 
@@ -260,7 +261,8 @@ App.progressBarAnimationMixin = Em.Mixin.create({
 App.ProjectSearchResultsSectionView  = Em.View.extend({
     tagName: 'div',
     classNames: ['lightgray', 'section', 'results'],
-    templateName: 'project-search-results-section'
+    templateName: 'project_searchresults',
+
 });
 
 
@@ -316,7 +318,9 @@ App.ProjectSearchResultsView = Em.CollectionView.extend({
       templateName: 'project-no-results'
     }),
     contentBinding: 'App.projectSearchController.content',
-    itemViewClass: 'App.ProjectPreviewView'
+    itemViewClass: 'App.ProjectPreviewView',
+
+
 });
 
 
@@ -396,19 +400,23 @@ App.projectDetailController = Em.ObjectController.create({
 
 App.ProjectDetailView = Em.View.extend({
     contentBinding: 'App.projectDetailController',
-    templateName:'project-detail',
-    classNames: ['lightgreen', 'section']
+    templateName: 'project_detail',
+    classNames: ['lightgreen', 'section'],
+
+    
 });
 
 App.ProjectStatsView = Em.View.extend({
     contentBinding: 'App.projectDetailController',
-    templateName:'project-stats'
+    templateName:'project-stats',
+    templateFile: 'project_detail',
 });
 
 
 App.ProjectProgressBarView = Em.View.extend(App.progressBarAnimationMixin, {
     contentBinding: 'App.projectDetailController.content',
-    templateName:'project-progress-bar'
+    templateName:'project-progress-bar',
+    templateFile: 'project_detail',
 });
 
 
@@ -422,22 +430,27 @@ App.projectMediaViewerController = Em.ObjectController.create({
 
 App.ProjectMediaView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media'
+    templateName:'project-media',
+    templateFile: 'project_detail',
+
 });
 
 App.ProjectMediaPicturesView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-pictures'
+    templateName:'project-media-pictures',
+    templateFile: 'project_detail',
 });
 
 App.ProjectMediaPlanView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-plan'
+    templateName:'project-media-plan',
+    templateFile: 'project_detail',
 });
 
 App.ProjectMediaVideosView = Em.View.extend({
     contentBinding: 'App.projectMediaViewerController',
-    templateName:'project-media-videos'
+    templateName:'project-media-videos',
+    templateFile: 'project_detail',
 });
 
 // MediaViewer: panes with media come after this
@@ -447,6 +460,7 @@ App.ProjectMediaMapView = Em.View.extend({
     //contentBinding: 'App.projectMediaViewerController',
     contentBinding: 'App.projectDetailController.content',
     templateName:'project-media-map',
+    templateFile: 'project_detail',
     map: {},
     loadMap: function(){
         var view = this;

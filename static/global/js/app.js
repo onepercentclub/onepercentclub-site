@@ -1,3 +1,38 @@
+Em.View.reopen({
+    templateForName: function(name, type) {
+        if (!name) {
+            return "";
+        }
+        var templates = Em.get(this, 'templates'),
+            template = Em.get(templates, name),
+            view = this;
+        if (template) {
+            return template;
+        } else {
+            view.set('templateName', 'waiting');
+            // Check if a templateFile is set and use that
+            var file = view.get('templateFile') ? view.get('templateFile') : name;
+            require(['app/data_source'], function(){
+                App.dataSource.getTemplate(file, function(data) {
+                    // Iterate through handlebar tags
+                    $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                        // Only load the template we're looking for
+                        if (name == $(this).attr('data-template-name')) {
+                            console.log('Found tpl '+ name + ' in file '+ file);
+                            var raw = $(this).html();
+                            var template = Em.Handlebars.compile(raw);
+                            Em.TEMPLATES[name] = template;
+                            view.set('templateName', name);
+                            view.rerender();
+                            
+                        }
+                    });
+                });
+            });
+        }
+    }
+});
+
 App = Em.Application.create({
     rootElement : '#content',
     
@@ -30,43 +65,44 @@ App = Em.Application.create({
 
 });
 
+/* Routing */
 
-/**
- * Reopen Ember View to add on-the-fly loading of templates
- * 
- */
-Em.View.reopen({
-    templateForName: function(name, type) {
-        if (!name) {
-            return "";
-        }
-        var templates = Em.get(this, 'templates'),
-            template = Em.get(templates, name),
-            view = this;
-        if (template) {
-            return template;
-        } else {
-            view.set('templateName', 'waiting');
-            require(['app/data_source'], function(){
-                App.dataSource.getTemplate(name, function(data) {
-                    // Iterate through handlebar tags
-                    $(data).filter('script[type="text/x-handlebars"]').each(function() {
-                        // Only load the template we're looking for
-                        if (name == $(this).attr('data-template-name')) {
-                            var raw = $(this).html();
-                            var template = Em.Handlebars.compile(raw);
-                            Em.TEMPLATES[name] = template;
-                            view.set('templateName', name);
-                            view.rerender();
-                        }
-                    });
-                });
+
+// Set basic Project route
+App.BlogsRoute = Em.Route.extend({
+    route: '/blogs',
+
+    showBlogInstance: Em.Route.transitionTo('blogs.detail'),
+    
+
+    connectOutlets : function(router, context) {
+        require(['app/blogs'], function(){
+            //App.blogSearchController.populate();
+            router.get('applicationController').connectOutlet('topPanel', 'blogSearch');
+        });
+    },
+
+    start: Em.Route.extend({
+        route: "/"
+    }),
+
+    detail: Em.Route.extend({
+        route: '/:slug',
+        deserialize: function(router, params) {
+            return {slug: params.slug}
+        },
+        serialize: function(router, context) {
+            return {slug: context.slug};
+        },
+        connectOutlets: function(router, context) {
+            require(['app/blogs'], function(){
+                //App.blogDetailController.get(context.slug);
+                router.get('applicationController').connectOutlet('topPanel', 'blogDetail');
             });
         }
-    }
+    }) 
 });
 
-/* Routing */
 
 // Set basic Project route
 App.ProjectRoute = Em.Route.extend({
@@ -106,7 +142,6 @@ App.ProjectRoute = Em.Route.extend({
     }) 
 });
 
-
 App.RootRoute = Em.Route.extend({
     // Used for navigation
     showHome: Em.Route.transitionTo('home'),
@@ -122,7 +157,8 @@ App.RootRoute = Em.Route.extend({
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         }
     }),
-    projects: App.ProjectRoute
+    projects: App.ProjectRoute,
+    blogs: App.BlogsRoute
 });
 
 App.Router = Em.Router.extend({
