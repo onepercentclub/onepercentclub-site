@@ -12,7 +12,7 @@ from django.core.exceptions import ValidationError
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
-from taggit.managers import TaggableManager
+from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
 from apps.donations.models import Donation
