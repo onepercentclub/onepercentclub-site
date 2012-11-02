@@ -1,3 +1,5 @@
+from apps.bluebottle_utils.serializers import SorlImageField, SlugHyperlinkedIdentityField
+from django.contrib.auth.models import User
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
 from .models import BlogPost
@@ -11,14 +13,25 @@ class BlogPostContentsField(serializers.Field):
         return contents_html
 
 
+class BlogPostAuthorSerializer(serializers.ModelSerializer):
+    picture = SorlImageField('userprofile.picture', '90x90', crop='center')
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'picture')
+
+
 class BlogPostDetailSerializer(serializers.ModelSerializer):
     contents = BlogPostContentsField('contents')
+    author = BlogPostAuthorSerializer()
+    url = SlugHyperlinkedIdentityField(view_name='blogpost-instance')
 
     class Meta:
         model = BlogPost
+        exclude = ('id',)
 
-
-class BlogPostPreviewSerializer(serializers.ModelSerializer):
+class BlogPostPreviewSerializer(BlogPostDetailSerializer):
 
     class Meta:
         model = BlogPost
+        exclude = ('id',)
