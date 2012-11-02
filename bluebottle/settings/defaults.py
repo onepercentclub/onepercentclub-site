@@ -176,7 +176,6 @@ INSTALLED_APPS = [
     # Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.comments',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
