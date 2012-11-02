@@ -15,6 +15,7 @@ from apps.geo.models import Country
 from .models import Project
 
 
+
 # TODO move this to utils class
 # TODO Think about adding a feature to set thumbnail quality based on country.
 #      This would be useful for countries with slow internet connections.
@@ -34,7 +35,7 @@ class SorlImageField(Field):
         try:
             thumbnail = unicode(get_thumbnail(value, self.geometry_string, **self.options))
         except Exception:
-            if settings.THUMBNAIL_DEBUG:
+            if getattr(settings, 'THUMBNAIL_DEBUG', None):
                 raise
             logger.error('Thumbnail failed:', exc_info=sys.exc_info())
             return ""

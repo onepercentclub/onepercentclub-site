@@ -1,0 +1,8 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+
+{% tplhandlebars "project_searchresults" %}
+    {{view App.ProjectSearchResultsView}}
+    {{view App.ProjectSearchResultsNextView}}
+    {{view App.ProjectSearchResultsPreviousView}}
+{% endtplhandlebars %}

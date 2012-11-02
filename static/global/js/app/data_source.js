@@ -6,6 +6,8 @@
 
 App.DataSource = Em.Object.extend({
     apiUrl: "/i18n/api/",
+    templateUrl: "/en/templates/",
+    templatePostfix: ".hb.html",
 
     get: function(url, query, callback) {
         this._ajax(url, "GET", {
@@ -14,6 +16,16 @@ App.DataSource = Em.Object.extend({
                 callback(json);
             }
         });
+    },
+
+    getTemplate: function(template, callback) {
+        var hash = {};
+        hash.url = this.templateUrl + template + this.templatePostfix;
+        hash.type = 'GET';
+        hash.dataType = 'html';
+        hash.contentType = 'application/json';
+        hash.success = callback;
+        jQuery.ajax(hash);
     },
 
     post: function(url, query, callback) {
