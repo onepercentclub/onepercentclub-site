@@ -106,8 +106,10 @@ App.BlogsRoute = Em.Route.extend({
 // Base Controller
 App.ObjectController = Em.ObjectController.extend({
     content: null,
-    dataUrl: null,
-    filterParams: {},
+    // Api resource for the data
+    dataUrl: null, 
+    // Filters to passed on to the API
+    filterParams: {}, 
 
     setFilterParams: function(filterParams) {
         this.set('filterParams', filterParams);
