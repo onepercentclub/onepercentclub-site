@@ -1,32 +1,14 @@
-/*
- * Project Detail
- */
-App.blogModel = Em.Object.create({});
-
-App.blogSearchController = Em.ObjectController.create({
+App.blogListController = App.ListController.create({
     content: null,
-    populate: function(slug){
-        var controller = this;
-        require(['app/data_source'], function(){
-            App.dataSource.get('blogs/' + slug, {}, function(data) {
-                controller.set('content', data);
-            });
-        })
-    }
+    dataUrl: 'blogs/',
+    filterParams: {'order':'-created'},
 });
 
-App.blogDetailController = Em.ObjectController.create({
-    content: null,
-    get: function(slug){
-        var controller = this;
-        require(['app/data_source'], function(){
-            App.dataSource.get('blogs/' + slug, {}, function(data) {
-                controller.set('content', data);
-            });
-        })
-    }
-});
 
+App.blogDetailController = App.DetailController.create({
+    content: null,
+    dataUrl: 'blogs/',
+});
 
 
 App.BlogDetailView = Em.View.extend({

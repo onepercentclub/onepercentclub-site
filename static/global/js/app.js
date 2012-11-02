@@ -75,7 +75,8 @@ App.BlogsRoute = Em.Route.extend({
 
     connectOutlets : function(router, context) {
         require(['app/blogs'], function(){
-            //App.blogSearchController.populate();
+            App.blogListController.getList();
+            console.log(App.blogListController);
             router.get('applicationController').connectOutlet('topPanel', 'blogSearch');
         });
     },
@@ -94,11 +95,84 @@ App.BlogsRoute = Em.Route.extend({
         },
         connectOutlets: function(router, context) {
             require(['app/blogs'], function(){
-                //App.blogDetailController.get(context.slug);
+                App.blogDetailController.getDetail({'slug': context.slug});
                 router.get('applicationController').connectOutlet('topPanel', 'blogDetail');
             });
         }
     }) 
+});
+
+
+// Base Controller
+App.ObjectController = Em.ObjectController.extend({
+    content: null,
+    dataUrl: null,
+    filterParams: {},
+
+    setFilterParams: function(filterParams) {
+        this.set('filterParams', filterParams);
+        return this;
+    },
+    
+    getFilterParams: function(){
+        return this.get('filterParams', {});
+    },
+    
+    getDataUrl: function(){
+        if (!this.dataUrl) {
+            Ember.Logger.warn("WARNING: dataUrl not sset in Controller");
+        }
+        return this.dataUrl;
+    },
+
+});
+
+// Controller to get lists from API
+App.ListController = App.ObjectController.extend({
+    getList: function(filterParams){
+        if (filterParams) {
+            this.setFilterParams(filterParams);
+        }
+        var controller = this;
+        require(['app/data_source'], function(){
+            App.dataSource.get(controller.getDataUrl(), controller.getFilterParams(), function(data) {
+                controller.set('content', data);
+            });
+        })
+    }
+    
+});
+
+// Controller to get single records from API
+App.DetailController = App.ObjectController.extend({
+    getDataUrl: function(){
+        if (!this.dataUrl) {
+            Ember.Logger.warn("WARNING: dataUrl not sset in Controller");
+        }
+        var url = this.get('dataUrl');
+        var params = this.getFilterParams();
+        if (undefined !== params['slug']) {
+            url += params['slug'];
+        } else if (undefined !== params['id']) {
+            url += params['id'];
+        } else if (undefined !== params['pk']) {
+            url += params['pk'];
+        }
+        return url;
+    }, 
+
+    getDetail: function(filterParams){
+        if (filterParams) {
+            this.setFilterParams(filterParams);
+        }
+        var controller = this;
+        require(['app/data_source'], function(){
+            App.dataSource.get(controller.getDataUrl(), controller.getFilterParams(), function(data) {
+                controller.set('content', data);
+            });
+        })
+    }
+    
 });
 
 
