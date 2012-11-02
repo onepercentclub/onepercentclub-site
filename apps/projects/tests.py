@@ -79,20 +79,10 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
 
         phase = self.create_fundphase(self.project, 12000, 3520)
         phase.save()
-
         self.assertEquals(self.project.money_asked, 3520)
 
         self.project.fundphase.money_donated = 2155
-
         self.assertEquals(self.project.money_donated, 2155)
-
-        self.project.fundphase.money_donated = 2715.3
-
-        self.assertEquals(self.project.money_donated, 2715.3)
-
-        self.project.fundphase.money_donated = 1322.8
-
-        self.assertEquals(self.project.money_donated, 1322.8)
 
     def test_money_donated_default(self):
         """
@@ -344,3 +334,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(len(response.data['results']), 4)
         self.assertNotEquals(response.data['next'], None)
         self.assertNotEquals(response.data['previous'], None)
+
+    # TODO: Add test for DRF2 project detail view.
+    def test_drf2_detail_view(self):
+        pass

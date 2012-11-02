@@ -1,0 +1,80 @@
+/* TYPOGRAPHY */
+
+@font-face {
+  font-family: 'Futura';
+  src: url('../fonts/futuralt-condensedbold-webfont.eot');
+  src: url('../fonts/futuralt-condensedbold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futuralt-condensedbold-webfont.woff') format('woff'),
+       url('../fonts/futuralt-condensedbold-webfont.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+	text-stretch: condensed;
+}
+
+@font-face {
+  font-family: 'Futura';
+  src: url('../fonts/futuralt-bold-webfont.eot');
+  src: url('../fonts/futuralt-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futuralt-bold-webfont.woff') format('woff'),
+       url('../fonts/futuralt-bold-webfont.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura';
+  src: url('../fonts/futuralt-webfont.eot');
+  src: url('../fonts/futuralt-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futuralt-webfont.woff') format('woff'),
+       url('../fonts/futuralt-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-family-futura() {
+	font-family: "Futura", "Times New Roman", Arial, sans-serif;
+}
+
+.button {
+    .font-family-futura();
+}
+
+.main-heading() {
+	.font-family-futura();
+	.font-size(30px);
+	font-weight: bold;
+	text-transform: uppercase;
+	color: @black;
+}
+
+.main-title {
+	.main-heading();
+	.margin-bottom(8px);
+}
+
+.main-title em {
+	font-weight: normal;
+	font-style: normal;
+}
+
+.sub-heading-light() {
+	.font-family-futura();
+}
+
+.sub-heading() {
+	.font-family-futura();
+	.font-size(18px);
+	font-weight: bold;
+	text-transform: uppercase;
+	color: @black;
+}
+
+.sub-title {
+	.sub-heading();
+}
+
+.sub-title em {
+	color: @dark-grey;
+	font-weight: normal;
+	font-style: normal;
+}

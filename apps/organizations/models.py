@@ -1,9 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from django_extensions.db.fields import (
-    ModificationDateTimeField, CreationDateTimeField
-)
+from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from taggit.managers import TaggableManager
 
@@ -20,51 +18,24 @@ class Organization(models.Model):
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
     description = models.TextField(_("description"), blank=True)
-
-    legal_status = models.TextField(
-        _("legal status"), null=True, blank=True,
-        help_text=_("The legal status of the organization (e.g. Foundation).")
-    )
-
-    phone_number = models.CharField(
-        _("phone number"), max_length=255, blank=True
-    )
-
+    legal_status = models.TextField(_("legal status"), null=True, blank=True, help_text=_("The legal status of the organization (e.g. Foundation)."))
+    phone_number = models.CharField(_("phone number"), max_length=255, blank=True)
     website = models.URLField(_("website"), max_length=255, blank=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
-    partner_organisations = models.TextField(
-        _("partner organizations"), blank=True
-    )
+    partner_organisations = models.TextField(_("partner organizations"), blank=True)
 
-    account_bank_name = models.CharField(
-        _("account bank name"), max_length=255, blank=True
-    )
-    account_bank_address = models.CharField(
-        _("account bank address"), max_length=255, blank=True
-    )
-    account_bank_country = models.ForeignKey('geo.Country',
-        verbose_name=_("account bank country"),
-        blank=True, null=True
-    )
-    account_iban = models.CharField(
-        _("account IBAN"), max_length=255, blank=True
-    )
-    account_bicswift = models.CharField(
-        _("account BIC SWIFT"), max_length=255, blank=True
-    )
-    account_number = models.CharField(
-        _("account number"), max_length=255, blank=True
-    )
-    account_name = models.CharField(
-        _("account name"), max_length=255, blank=True
-    )
-    account_city = models.CharField(
-        _("account city"), max_length=255, blank=True
-    )
+    account_bank_name = models.CharField(_("account bank name"), max_length=255, blank=True)
+    account_bank_address = models.CharField(_("account bank address"), max_length=255, blank=True)
+    account_bank_country = models.ForeignKey('geo.Country', verbose_name=_("account bank country"),blank=True, null=True)
+    account_iban = models.CharField(_("account IBAN"), max_length=255, blank=True)
+    account_bicswift = models.CharField(_("account BIC SWIFT"), max_length=255, blank=True)
+    account_number = models.CharField(_("account number"), max_length=255, blank=True)
+    account_name = models.CharField(_("account name"), max_length=255, blank=True)
+    account_city = models.CharField(_("account city"), max_length=255, blank=True)
 
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
@@ -84,13 +55,9 @@ class OrganizationMember(models.Model):
         owner = ChoiceItem('owner', label=_("Owner"))
         editor = ChoiceItem('editor', label=_("Editor"))
 
-    organization = models.ForeignKey(
-        Organization, verbose_name=_("organization")
-    )
+    organization = models.ForeignKey(Organization, verbose_name=_("organization"))
     user = models.ForeignKey('auth.User', verbose_name=_("user"))
-    function = models.CharField(
-        _("function"), max_length=20, choices=MemberFunctions.choices
-    )
+    function = models.CharField(_("function"), max_length=20, choices=MemberFunctions.choices)
 
     class Meta:
         verbose_name = _("organization member")
@@ -105,13 +72,8 @@ class OrganizationAddress(Address):
         postal = ChoiceItem('postal', label=_("Postal"))
         other = ChoiceItem('other', label=_("Other"))
 
-    type = models.CharField(
-        _("type"), help_text=_("Address type."),
-        max_length=8, blank=True, choices=AddressType.choices
-    )
-    organization = models.ForeignKey(
-        Organization, verbose_name=_("organization")
-    )
+    type = models.CharField(_("type"), help_text=_("Address type."), max_length=8, blank=True, choices=AddressType.choices)
+    organization = models.ForeignKey(Organization, verbose_name=_("organization"))
 
     class Meta:
         verbose_name = _("organization address")

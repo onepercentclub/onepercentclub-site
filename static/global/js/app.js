@@ -62,6 +62,42 @@ App = Em.Application.create({
 
 });
 
+
+/**
+ * Reopen Ember View to add on-the-fly loading of templates
+ * 
+ */
+Em.View.reopen({
+    templateForName: function(name, type) {
+        if (!name) {
+            return "";
+        }
+        var templates = Em.get(this, 'templates'),
+            template = Em.get(templates, name),
+            view = this;
+        if (template) {
+            return template;
+        } else {
+            view.set('templateName', 'waiting');
+            require(['app/data_source'], function(){
+                App.dataSource.getTemplate(name, function(data) {
+                    // Iterate through handlebar tags
+                    $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                        // Only load the template we're looking for
+                        if (name == $(this).attr('data-template-name')) {
+                            var raw = $(this).html();
+                            var template = Em.Handlebars.compile(raw);
+                            Em.TEMPLATES[name] = template;
+                            view.set('templateName', name);
+                            view.rerender();
+                        }
+                    });
+                });
+            });
+        }
+    }
+});
+
 /* Routing */
 
 // Set basic Project route
@@ -101,6 +137,7 @@ App.ProjectRoute = Em.Route.extend({
         }
     }) 
 });
+
 
 App.RootRoute = Em.Route.extend({
     // Used for navigation
