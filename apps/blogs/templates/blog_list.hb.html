@@ -1,0 +1,15 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% tplhandlebars "blog_preview" %}
+    <li>
+        <a>{{ view.content.title }}</a>
+    </li>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "blog_no_items" %}
+    <li>
+        <a>No blogs found</a>
+    </li>
+{% endtplhandlebars %}
+

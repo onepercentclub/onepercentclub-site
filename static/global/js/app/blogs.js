@@ -1,12 +1,21 @@
 App.blogListController = App.ListController.create({
-    content: null,
+    init: function() {
+        this._super();
+        this.getList();
+    },
     dataUrl: 'blogs/',
-    filterParams: {'order':'-created'},
+    getList: function(){
+        var controller = this;
+        require(['app/data_source'], function(){
+            App.dataSource.get(controller.getDataUrl(), controller.getFilterParams(), function(data) {
+                controller.set('content', data['results']);
+            });
+        })
+    }
 });
 
 
 App.blogDetailController = App.DetailController.create({
-    content: null,
     dataUrl: 'blogs/',
 });
 
@@ -17,9 +26,23 @@ App.BlogDetailView = Em.View.extend({
     classNames: ['lightgreen', 'section'],
 });
 
-App.BlogSearchView = Em.View.extend({
-    contentBinding: 'App.blogSearchController',
-    templateName: 'blog_search',
-    classNames: ['lightgreen', 'section'],
+App.BlogPreviewView = Em.View.extend({
+    templateName: 'blog_preview',
+    templateFile: 'blog_list'
+    
+});
+
+App.BlogNoItemsView = Em.View.extend({
+    templateName: 'blog_no_items',
+    templateFile: 'blog_list'
+    
+});
+
+
+App.BlogListView = Em.CollectionView.extend({
+    tagName: 'ul',
+    contentBinding: 'App.blogListController',
+    emptyViewClass: 'App.BlogNoItemsView',
+    itemViewClass: 'App.BlogPreviewView',
 });
 

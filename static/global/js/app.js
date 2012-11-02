@@ -63,48 +63,10 @@ App = Em.Application.create({
 
 });
 
-/* Routing */
+/* Base Controllers */
 
-
-// Set basic Project route
-App.BlogsRoute = Em.Route.extend({
-    route: '/blogs',
-
-    showBlogInstance: Em.Route.transitionTo('blogs.detail'),
-    
-
-    connectOutlets : function(router, context) {
-        require(['app/blogs'], function(){
-            App.blogListController.getList();
-            console.log(App.blogListController);
-            router.get('applicationController').connectOutlet('topPanel', 'blogSearch');
-        });
-    },
-
-    start: Em.Route.extend({
-        route: "/"
-    }),
-
-    detail: Em.Route.extend({
-        route: '/:slug',
-        deserialize: function(router, params) {
-            return {slug: params.slug}
-        },
-        serialize: function(router, context) {
-            return {slug: context.slug};
-        },
-        connectOutlets: function(router, context) {
-            require(['app/blogs'], function(){
-                App.blogDetailController.getDetail({'slug': context.slug});
-                router.get('applicationController').connectOutlet('topPanel', 'blogDetail');
-            });
-        }
-    }) 
-});
-
-
-// Base Controller
-App.ObjectController = Em.ObjectController.extend({
+// Base Controller Mixin
+App.BaseControllerMixin = App.IndexOfObjPropMixin = Ember.Mixin.create({
     content: null,
     // Api resource for the data
     dataUrl: null, 
@@ -122,7 +84,7 @@ App.ObjectController = Em.ObjectController.extend({
     
     getDataUrl: function(){
         if (!this.dataUrl) {
-            Ember.Logger.warn("WARNING: dataUrl not sset in Controller");
+            Ember.Logger.warn("WARNING: dataUrl not set in Controller");
         }
         return this.dataUrl;
     },
@@ -130,7 +92,7 @@ App.ObjectController = Em.ObjectController.extend({
 });
 
 // Controller to get lists from API
-App.ListController = App.ObjectController.extend({
+App.ListController = Em.ArrayController.extend(App.BaseControllerMixin, {
     getList: function(filterParams){
         if (filterParams) {
             this.setFilterParams(filterParams);
@@ -146,7 +108,7 @@ App.ListController = App.ObjectController.extend({
 });
 
 // Controller to get single records from API
-App.DetailController = App.ObjectController.extend({
+App.DetailController = Em.ObjectController.extend(App.BaseControllerMixin, {
     getDataUrl: function(){
         if (!this.dataUrl) {
             Ember.Logger.warn("WARNING: dataUrl not sset in Controller");
@@ -177,6 +139,43 @@ App.DetailController = App.ObjectController.extend({
     
 });
 
+
+/* Routing */
+
+// Set basic Project route
+App.BlogsRoute = Em.Route.extend({
+    route: '/blogs',
+
+    showBlogInstance: Em.Route.transitionTo('blogs.detail'),
+    
+
+    connectOutlets : function(router, context) {
+        require(['app/blogs'], function(){
+            //App.blogListController.getList();
+            router.get('applicationController').connectOutlet('topPanel', 'blogList');
+        });
+    },
+
+    start: Em.Route.extend({
+        route: "/"
+    }),
+
+    detail: Em.Route.extend({
+        route: '/:slug',
+        deserialize: function(router, params) {
+            return {slug: params.slug}
+        },
+        serialize: function(router, context) {
+            return {slug: context.slug};
+        },
+        connectOutlets: function(router, context) {
+            require(['app/blogs'], function(){
+                App.blogDetailController.getDetail({'slug': context.slug});
+                router.get('applicationController').connectOutlet('topPanel', 'blogDetail');
+            });
+        }
+    }) 
+});
 
 // Set basic Project route
 App.ProjectRoute = Em.Route.extend({
@@ -217,6 +216,8 @@ App.ProjectRoute = Em.Route.extend({
         }
     }) 
 });
+
+
 
 App.RootRoute = Em.Route.extend({
     // Used for navigation
