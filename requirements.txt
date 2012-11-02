@@ -50,10 +50,16 @@ coverage==3.5.2
 # can be found in the merge request to the official version:
 # https://github.com/alex/django-taggit/pull/99
 -e git+https://github.com/hcarvalhoalves/django-taggit.git@e0f9642d7b94c8e6c0feb520d96bb6ae4d78a4d0#egg=django_taggit
+django-taggit-autocomplete-modified==0.1.0b4
 
 # Embedding videos and other media
 # https://github.com/coleifer/micawber
 micawber==0.2.5
+
+# Blog/news contents is created using blocks
+django-fluent-contents==0.8.0
+django-wysiwyg==0.5
+django-tinymce==1.5.1b2
 
 # Current git revision in request object for use in templates and views
 # http://pypi.python.org/pypi/django-gitrevision

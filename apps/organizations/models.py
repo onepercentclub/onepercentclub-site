@@ -3,7 +3,7 @@ from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
-from taggit.managers import TaggableManager
+from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
 from apps.bluebottle_utils.models import Address
 

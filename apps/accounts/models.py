@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import AutoSlugField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
-from taggit.managers import TaggableManager
+from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
 from apps.bluebottle_utils.models import Address
 
