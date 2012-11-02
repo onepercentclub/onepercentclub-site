@@ -1,9 +1,14 @@
 from django.conf import settings
+from django.conf.urls import patterns, url
 from django.contrib import admin
 from django.forms import ModelForm
+from django.http import HttpResponse
+from django.utils import simplejson
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from fluent_contents.admin.placeholderfield import PlaceholderFieldAdmin
+from fluent_contents.models import Placeholder
+from fluent_contents.rendering import render_placeholder
 from apps.blogs.models import BlogPost, BlogPostProxy, NewsPostProxy
 
 
@@ -38,6 +43,40 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         'status': admin.HORIZONTAL,
         'language': admin.HORIZONTAL,
     }
+
+
+    def get_urls(self):
+        # Include extra API views in this admin page
+        base_urls = super(BlogPostAdmin, self).get_urls()
+        urlpatterns = patterns('',
+            url(r'^(?P<pk>\d+)/get_preview/$', self.admin_site.admin_view(self.get_preview_html), name="blogs_blogpost_get_preview")
+        )
+
+        return urlpatterns + base_urls
+
+
+    def get_preview_html(self, request, pk):
+        """
+        Ajax view to return the preview.
+        """
+        pk = long(pk)
+        if pk:
+            blogpost = self.get_object(request, pk)
+            placeholder = blogpost.contents
+        else:
+            blogpost = self.model()
+            placeholder = Placeholder()
+
+        # Get fluent-contents placeholder
+        contents_html = render_placeholder(request, placeholder, parent_object=blogpost)
+
+        status = 200
+        json = {
+            'success': True,
+            'title': blogpost.title,
+            'contents': contents_html,
+        }
+        return HttpResponse(simplejson.dumps(json), content_type='application/javascript', status=status)
 
 
     def save_model(self, request, obj, form, change):

@@ -1,0 +1,111 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify %}
+{% load url from future %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}global/vendor/colorbox/colorbox.css"/>
+{% endblock %}
+
+{% block object-tools-items %}
+    <li><a href="#" id="preview-button">{% trans "Preview" %}</a></li>
+    {{ block.super }}
+{% endblock %}
+
+{# override submit buttons in the admin with JavaScript, since the {% submit_row %} is inflexible. #}
+{% block extrahead %}{{ block.super }}
+    <script type="text/javascript">
+        // *sigh* taggit-autocomplete also brings in their own jQuery.
+        // Preserve that so the autocomplete still works.
+        var jQuery_taggit_autocomplete = window.jQuery;
+    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/vendor/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/plugins/jquery.colorbox.js"></script>{# jquery already loaded via taggit-autocomplete-modified #}
+    <script type="text/javascript">
+        (function($){
+            var $submit,
+                $addanother,
+                $continue,
+                $statusField,
+                submitValue,
+                addanotherValue,
+                continueValue;
+
+            $.fn.ready(function(){
+                // Fetch DOM objects
+                $submit = $('.submit-row input.default');
+                $addanother = $('.submit-row input[name=_addanother]');
+                $continue = $('.submit-row input[name=_continue]');
+
+                // Save original
+                submitValue = $submit.val();
+                addanotherValue = $addanother.val();
+                continueValue = $continue.val();
+
+                // Add preview button
+                var $previewButton = $('<input type="submit" name="_preview" value="{% trans "Preview" %}"/>');
+                $continue
+                    .after('&nbsp;')
+                    .after($previewButton)
+                    .after('&nbsp;');
+
+                // Bind events
+                $("#id_status input").change(setSubmitButtonText);
+                $previewButton.click(onPreviewClick);
+                $("#preview-button").click(onPreviewClick);
+
+                setSubmitButtonText();
+            });
+
+            function onPreviewClick(event) {
+                event.preventDefault();
+
+                // Retrieve an server-side generated HTML preview,
+                // and display that in a lightbox.
+                var $form = $("form#blogpost_form");
+                var postdata = $form.serialize();
+                $.ajax({
+                    'url': "{% url 'admin:blogs_blogpost_get_preview' pk=original.pk|default:0 %}",
+                    'type': 'POST',
+                    dataType: 'json',
+                    data: postdata,
+                    success: function(data){
+                        var html = data.contents;  // TODO: wrap in an iframe.
+                        $.colorbox({
+                            transition: 'node',  // or fade
+                            //width: "50%",
+                            //height: "50%",
+                            title: $("#id_title").val(),
+                            html: html
+                        });
+                    },
+                    error: function() {
+                        alert("Internal CMS error: failed to fetch preview data!");
+                    }
+                });
+            }
+
+            function setSubmitButtonText() {
+                if($("#id_status input[value=published]")[0].checked) {
+                    showPublishedButtons();
+                }
+                else {
+                    showDraftButtons();
+                }
+            }
+
+            function showPublishedButtons() {
+                $submit.val('{% trans "Publish" %}');
+                $addanother.val('{% trans "Publish and add another" %}');
+                $continue.val('{% trans "Publish and continue editing" %}');
+            }
+
+            function showDraftButtons() {
+                $submit.val(submitValue);
+                $addanother.val(addanotherValue);
+                $continue.val(continueValue);
+            }
+        })(window.jQuery);
+
+        window.jQuery = jQuery_taggit_autocomplete;
+    </script>
+{% endblock %}
