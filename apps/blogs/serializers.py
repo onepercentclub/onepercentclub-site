@@ -22,9 +22,10 @@ class BlogPostAuthorSerializer(serializers.ModelSerializer):
 
 
 class BlogPostDetailSerializer(serializers.ModelSerializer):
-    contents = BlogPostContentsField('contents')
+    contents = BlogPostContentsField(source='contents')
     author = BlogPostAuthorSerializer()
     url = SlugHyperlinkedIdentityField(view_name='blogpost-instance')
+    main_image = SorlImageField('main_image', '300x200', crop='center')
 
     class Meta:
         model = BlogPost
