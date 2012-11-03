@@ -176,7 +176,6 @@ INSTALLED_APPS = [
     # Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.comments',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
@@ -301,6 +300,8 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 # Blog/news content configuration
 FLUENT_CONTENTS_CACHE_OUTPUT = True
+FLUENT_TEXT_CLEAN_HTML = True
+FLUENT_TEXT_SANITIZE_HTML = True
 DJANGO_WYSIWYG_FLAVOR = 'tinymce'
 
 # Required for handlebars_template to work properly
