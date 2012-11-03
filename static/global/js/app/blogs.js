@@ -1,23 +1,18 @@
 App.blogListController = App.ListController.create({
-    init: function() {
-        this._super();
-        this.getList();
-    },
     dataUrl: 'blogs/',
-    getList: function(){
-        var controller = this;
-        require(['app/data_source'], function(){
-            App.dataSource.get(controller.getDataUrl(), controller.getFilterParams(), function(data) {
-                controller.set('content', data['results']);
-            });
-        })
-    }
 });
 
 
 App.blogDetailController = App.DetailController.create({
     dataUrl: 'blogs/',
 });
+
+App.BlogHeaderView = Em.View.extend({
+    templateName: 'blog_header',
+    templateFile: 'blog_list'
+    
+});
+
 
 
 App.BlogDetailView = Em.View.extend({
@@ -41,7 +36,7 @@ App.BlogNoItemsView = Em.View.extend({
 
 App.BlogListView = Em.CollectionView.extend({
     tagName: 'ul',
-    contentBinding: 'App.blogListController',
+    contentBinding: 'App.blogListController.content',
     emptyViewClass: 'App.BlogNoItemsView',
     itemViewClass: 'App.BlogPreviewView',
 });

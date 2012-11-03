@@ -1,9 +1,15 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
+
+{% tplhandlebars "blog_header" %}
+    <h2>Niels berichten</h2>
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "blog_preview" %}
-    <li>
-        <a>{{ view.content.title }}</a>
-    </li>
+    
+    <a>News item: {{ view.content.title }}</a><br />
+    {{view.content.slug}}
 {% endtplhandlebars %}
 
 

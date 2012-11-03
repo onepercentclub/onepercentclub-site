@@ -93,6 +93,7 @@ App.BaseControllerMixin = App.IndexOfObjPropMixin = Ember.Mixin.create({
 
 // Controller to get lists from API
 App.ListController = Em.ArrayController.extend(App.BaseControllerMixin, {
+    
     getList: function(filterParams){
         if (filterParams) {
             this.setFilterParams(filterParams);
@@ -100,7 +101,7 @@ App.ListController = Em.ArrayController.extend(App.BaseControllerMixin, {
         var controller = this;
         require(['app/data_source'], function(){
             App.dataSource.get(controller.getDataUrl(), controller.getFilterParams(), function(data) {
-                controller.set('content', data);
+                controller.set('content', data['results']);
             });
         })
     }
@@ -151,8 +152,9 @@ App.BlogsRoute = Em.Route.extend({
 
     connectOutlets : function(router, context) {
         require(['app/blogs'], function(){
-            //App.blogListController.getList();
-            router.get('applicationController').connectOutlet('topPanel', 'blogList');
+            App.blogListController.getList();
+            router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
+            router.get('applicationController').connectOutlet('midPanel', 'blogList');
         });
     },
 
@@ -171,7 +173,8 @@ App.BlogsRoute = Em.Route.extend({
         connectOutlets: function(router, context) {
             require(['app/blogs'], function(){
                 App.blogDetailController.getDetail({'slug': context.slug});
-                router.get('applicationController').connectOutlet('topPanel', 'blogDetail');
+                router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
+                router.get('applicationController').connectOutlet('midPanel', 'blogDetail');
             });
         }
     }) 
