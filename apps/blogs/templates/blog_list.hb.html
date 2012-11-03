@@ -8,8 +8,7 @@
 
 {% tplhandlebars "blog_preview" %}
     
-    <a>News item: {{ view.content.title }}</a><br />
-    {{view.content.slug}}
+    <a {{action showBlogDetail view.content href=true}}>{{ view.content.title }}</a><br />
 {% endtplhandlebars %}
 
 

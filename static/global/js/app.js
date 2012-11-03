@@ -147,7 +147,7 @@ App.DetailController = Em.ObjectController.extend(App.BaseControllerMixin, {
 App.BlogsRoute = Em.Route.extend({
     route: '/blogs',
 
-    showBlogInstance: Em.Route.transitionTo('blogs.detail'),
+    showBlogDetail: Em.Route.transitionTo('blogs.detail'),
     
 
     connectOutlets : function(router, context) {
