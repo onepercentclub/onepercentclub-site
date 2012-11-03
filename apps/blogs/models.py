@@ -1,7 +1,5 @@
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib import comments
-from django.contrib.contenttypes.generic import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
@@ -64,15 +62,6 @@ class BlogPost(models.Model):
     countries = models.ManyToManyField(Country, verbose_name=_("Countries"), blank=True, null=True)
 
     objects = BlogPostManager()
-    all_comments = GenericRelation(comments.get_model(), verbose_name=_("Comments"), object_id_field='object_pk')
-
-
-    @property
-    def comments(self):
-        """
-        Return the visible comments.
-        """
-        return comments.get_model().objects.for_model(self).filter(is_public=True)
 
 
     @property
