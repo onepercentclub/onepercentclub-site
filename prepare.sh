@@ -8,7 +8,7 @@ BASEPATH=`basename $PWD`
 
 GIT=git
 VIRTUALENV="virtualenv --system-site-packages --distribute --prompt=($BASEPATH)"
-PIP="pip --timeout 30 -q"
+PIP="pip --timeout 30 -q --use-mirrors"
 ENVDIR=env
 
 SETTINGS_DIR=$PWD/bluebottle/settings
@@ -31,8 +31,9 @@ if [ ! -d $ENVDIR ]; then
 fi
 
 echo 'Installing required packages'
-# Install Django first because django-countries requires Django to be fully
-# installed before it will install.
+
+# Install Django first because some Django apps require Django to be fully
+# installed before they will install properly.
 DJANGO=`grep "Django==" requirements.txt`
 $ENVDIR/bin/pip install $DJANGO
 if [ $? -ne 0 ]; then
@@ -40,7 +41,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 if $ENVDIR/bin/pip install -r requirements.txt; then
-    echo 'That went allright, continue'
+    echo 'That went alright, continue'
 else
     echo 'Error installing dependencies, breaking off'
     exit 1
