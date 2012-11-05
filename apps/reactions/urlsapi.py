@@ -1,11 +1,10 @@
 from django.conf.urls import patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
-from surlex.dj import surl
-from .views import ReactionRoot, ReactionInstance
+from .views import ReactionList, ReactionDetail
 
 urlpatterns = patterns('',
-    url(r'^$', ReactionRoot.as_view(), name='reaction-root'),
-    surl(r'^<slug:s>$', ReactionInstance.as_view(), name='reaction-instance'),
+    url(r'^$', ReactionList.as_view(), name='reaction-list'),
+    url(r'^(?P<pk>[0-9]+)$', ReactionDetail.as_view(), name='reaction-detail'),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)
