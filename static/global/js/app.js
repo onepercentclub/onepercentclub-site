@@ -66,22 +66,13 @@ App = Em.Application.create({
 /* Base Controllers */
 
 // Base Controller Mixin
-App.BaseControllerMixin = App.IndexOfObjPropMixin = Ember.Mixin.create({
+App.BaseControllerMixin = Ember.Mixin.create({
     content: null,
     // Api resource for the data
     dataUrl: null, 
     // Filters to passed on to the API
     filterParams: {}, 
 
-    setFilterParams: function(filterParams) {
-        this.set('filterParams', filterParams);
-        return this;
-    },
-    
-    getFilterParams: function(){
-        return this.get('filterParams', {});
-    },
-    
     getDataUrl: function(){
         if (!this.dataUrl) {
             Ember.Logger.warn("WARNING: dataUrl not set in Controller");
@@ -96,11 +87,11 @@ App.ListController = Em.ArrayController.extend(App.BaseControllerMixin, {
     
     getList: function(filterParams){
         if (filterParams) {
-            this.setFilterParams(filterParams);
+            this.set('filterParams', filterParams);
         }
         var controller = this;
         require(['app/data_source'], function(){
-            App.dataSource.get(controller.getDataUrl(), controller.getFilterParams(), function(data) {
+            App.dataSource.get(controller.getDataUrl(), controller.get('filterParams'), function(data) {
                 controller.set('content', data['results']);
             });
         })
@@ -111,11 +102,8 @@ App.ListController = Em.ArrayController.extend(App.BaseControllerMixin, {
 // Controller to get single records from API
 App.DetailController = Em.ObjectController.extend(App.BaseControllerMixin, {
     getDataUrl: function(){
-        if (!this.dataUrl) {
-            Ember.Logger.warn("WARNING: dataUrl not sset in Controller");
-        }
-        var url = this.get('dataUrl');
-        var params = this.getFilterParams();
+        var url = this._super();
+        var params = this.get('filterParams');
         if (undefined !== params['slug']) {
             url += params['slug'];
         } else if (undefined !== params['id']) {
@@ -128,11 +116,11 @@ App.DetailController = Em.ObjectController.extend(App.BaseControllerMixin, {
 
     getDetail: function(filterParams){
         if (filterParams) {
-            this.setFilterParams(filterParams);
+            this.set('filterParams', filterParams);
         }
         var controller = this;
         require(['app/data_source'], function(){
-            App.dataSource.get(controller.getDataUrl(), controller.getFilterParams(), function(data) {
+            App.dataSource.get(controller.getDataUrl(), controller.get('filterParams'), function(data) {
                 controller.set('content', data);
             });
         })
