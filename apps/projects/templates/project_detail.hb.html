@@ -1,6 +1,5 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
-
 {% tplhandlebars "project_detail" %}
     <div class="row">
         <div class="column grid_4">
@@ -27,11 +26,11 @@
                 </ul>
             </div>
             <div class="owner">
-                <img {{bindAttr src="view.content.owner.picture"}} />
+                <img {{bindAttr src="view.content.owner.image"}} />
                 <h4>PROJECT INITIATOR</h4>
                 <br/><br/>
                 {{view.content.owner.first_name}} {{view.content.owner.last_name}}
-                <br/><br/>
+                <br/><br/> 
                 <a href="" class="dm">SEND DM</a>
             </div>
         </div>
@@ -43,9 +42,6 @@
         </div>
         <div class="resize">
             <a href>SHOW ALL PROJECT DETAILS</a>
-        </div>
-        <div>
-            {% trans "Name" %}
         </div>
     </div>
 {% endtplhandlebars %}

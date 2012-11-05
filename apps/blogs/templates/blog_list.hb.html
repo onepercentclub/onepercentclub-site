@@ -1,0 +1,20 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+
+{% tplhandlebars "blog_header" %}
+    <h2>Niels berichten</h2>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "blog_preview" %}
+    
+    <a {{action showBlogDetail view.content href=true}}>{{ view.content.title }}</a><br />
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "blog_no_items" %}
+    <li>
+        <a>No blogs found</a>
+    </li>
+{% endtplhandlebars %}
+

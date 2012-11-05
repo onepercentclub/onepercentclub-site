@@ -63,8 +63,110 @@ App = Em.Application.create({
 
 });
 
+/* Base Controllers */
+
+// Base Controller Mixin
+App.BaseControllerMixin = Ember.Mixin.create({
+    content: null,
+    // Api resource for the data
+    dataUrl: null, 
+    // Filters to passed on to the API
+    filterParams: {}, 
+
+    getDataUrl: function(){
+        if (!this.dataUrl) {
+            Ember.Logger.warn("WARNING: dataUrl not set in Controller");
+        }
+        return this.dataUrl;
+    },
+
+});
+
+// Controller to get lists from API
+App.ListController = Em.ArrayController.extend(App.BaseControllerMixin, {
+    
+    getList: function(filterParams){
+        if (filterParams) {
+            this.set('filterParams', filterParams);
+        }
+        var controller = this;
+        require(['app/data_source'], function(){
+            App.dataSource.get(controller.getDataUrl(), controller.get('filterParams'), function(data) {
+                controller.set('content', data['results']);
+            });
+        })
+    }
+    
+});
+
+// Controller to get single records from API
+App.DetailController = Em.ObjectController.extend(App.BaseControllerMixin, {
+    getDataUrl: function(){
+        var url = this._super();
+        var params = this.get('filterParams');
+        if (undefined !== params['slug']) {
+            url += params['slug'];
+        } else if (undefined !== params['id']) {
+            url += params['id'];
+        } else if (undefined !== params['pk']) {
+            url += params['pk'];
+        }
+        return url;
+    }, 
+
+    getDetail: function(filterParams){
+        if (filterParams) {
+            this.set('filterParams', filterParams);
+        }
+        var controller = this;
+        require(['app/data_source'], function(){
+            App.dataSource.get(controller.getDataUrl(), controller.get('filterParams'), function(data) {
+                controller.set('content', data);
+            });
+        })
+    }
+    
+});
+
 
 /* Routing */
+
+// Set basic Project route
+App.BlogsRoute = Em.Route.extend({
+    route: '/blogs',
+
+    showBlogDetail: Em.Route.transitionTo('blogs.detail'),
+    
+
+    connectOutlets : function(router, context) {
+        require(['app/blogs'], function(){
+            App.blogListController.getList();
+            router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
+            router.get('applicationController').connectOutlet('midPanel', 'blogList');
+        });
+    },
+
+    start: Em.Route.extend({
+        route: "/"
+    }),
+
+    detail: Em.Route.extend({
+        route: '/:slug',
+        deserialize: function(router, params) {
+            return {slug: params.slug}
+        },
+        serialize: function(router, context) {
+            return {slug: context.slug};
+        },
+        connectOutlets: function(router, context) {
+            require(['app/blogs'], function(){
+                App.blogDetailController.getDetail({'slug': context.slug});
+                router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
+                router.get('applicationController').connectOutlet('midPanel', 'blogDetail');
+            });
+        }
+    }) 
+});
 
 // Set basic Project route
 App.ProjectRoute = Em.Route.extend({
@@ -107,6 +209,7 @@ App.ProjectRoute = Em.Route.extend({
 });
 
 
+
 App.RootRoute = Em.Route.extend({
     // Used for navigation
     showHome: Em.Route.transitionTo('home'),
@@ -122,7 +225,8 @@ App.RootRoute = Em.Route.extend({
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         }
     }),
-    projects: App.ProjectRoute
+    projects: App.ProjectRoute,
+    blogs: App.BlogsRoute
 });
 
 App.Router = Em.Router.extend({
