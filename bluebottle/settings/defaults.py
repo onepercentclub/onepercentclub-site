@@ -180,8 +180,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
 
     # 3rd party apps
     'django_extensions',
@@ -210,6 +208,7 @@ INSTALLED_APPS = [
 
     # bluebottle apps
     'apps.blogs',
+    'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
     'apps.accounts',
     'apps.organizations',
@@ -218,7 +217,15 @@ INSTALLED_APPS = [
     'apps.media',
     'apps.geo',
     'apps.hbtemplates',
-    'apps.blogs',
+
+    # Custom dashboard
+    'fluent_dashboard',
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -304,6 +311,11 @@ FLUENT_CONTENTS_CACHE_OUTPUT = True
 FLUENT_TEXT_CLEAN_HTML = True
 FLUENT_TEXT_SANITIZE_HTML = True
 DJANGO_WYSIWYG_FLAVOR = 'tinymce'
+
+# Custom dashboard configuration
+ADMIN_TOOLS_INDEX_DASHBOARD = 'fluent_dashboard.dashboard.FluentIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'fluent_dashboard.dashboard.FluentAppIndexDashboard'
+ADMIN_TOOLS_MENU = 'fluent_dashboard.menu.FluentMenu'
 
 # Required for handlebars_template to work properly
 USE_EMBER_STYLE_ATTRS = True

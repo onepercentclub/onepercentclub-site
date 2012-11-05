@@ -26,6 +26,7 @@ urlpatterns = i18n_patterns('',
     # Other modules that need URLs exposed
     url(r'^admin/utils/taggit-autocomplete/', include('taggit_autocomplete_modified.urls')),
     url(r'^admin/utils/tinymce/', include('tinymce.urls')),
+    url(r'^admin/utils/admintools/', include('admin_tools.urls')),
 
     # account login/logout, password reset, and password change
     url(r'^accounts/', include('django.contrib.auth.urls')),
