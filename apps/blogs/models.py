@@ -64,6 +64,10 @@ class BlogPost(models.Model):
     objects = BlogPostManager()
 
 
+    def __unicode__(self):
+        return self.title
+
+
     @property
     def previous_entry(self):
         """
