@@ -1,0 +1,136 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_tools_menu_tags staticfiles %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+{% if user.is_active and user.is_staff and not is_popup %}
+    {% admin_tools_render_menu_css %}
+{% endif %}
+    <style type="text/css">
+
+        /* Header */
+
+        div#header { background-image: none; }
+        #header #branding {
+            background: #00C051;
+        }
+
+        #header #branding h1#site-name {
+            padding: 7px 0 0 0;
+            color: #fff;
+        }
+
+
+        /* Login variation */
+
+        body.login #header {
+            background: #fff url('{{ STATIC_URL }}bluebottle_dashboard/img/1procentclub-logo.png') 50% 13px no-repeat;
+            padding-top: 65px;
+        }
+
+        body.login #header #branding {
+            background-color: #fff;
+        }
+
+        body.login #branding h1#site-name {
+            background: url('{{ STATIC_URL }}bluebottle_dashboard/img/payoff.gif') 50% 0 no-repeat;
+            color: #27BFEE;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            width: auto;
+            height: 20px;
+        }
+
+        body.login .password-reset-link {
+            clear: both;
+            padding-top: 15px;
+        }
+
+        body.login #footer {
+            padding: 5px;
+        }
+
+
+
+        /* Object-tools (right top bottons) */
+
+        .object-tools li {
+            background-image: url("{{ STATIC_URL }}bluebottle_dashboard/img/tool-left.gif");
+        }
+
+        .object-tools a:link,
+        .object-tools a:visited,
+        .object-tools a.addlink,
+        .object-tools a.viewsitelink,
+        .object-tools a.golink {
+            background-color: #FDAAC6;
+        }
+
+        .object-tools a:link,
+        .object-tools a:visited {
+            background-image: url("{{ STATIC_URL }}bluebottle_dashboard/img/tool-right.gif");
+        }
+
+        .object-tools a.viewsitelink,
+        .object-tools a.golink {
+            background-image: url("{{ STATIC_URL }}bluebottle_dashboard/img/tooltag-arrowright.gif");
+        }
+
+        .object-tools a.addlink {
+            background-image: url("{{ STATIC_URL }}bluebottle_dashboard/img/tooltag-add.gif");
+        }
+
+
+        /* Fieldset titles */
+
+        .module h2, .module caption, .inline-group h2  {
+            background: #00C051
+        }
+
+
+        /* Form submit buttons */
+
+        .button.default, input.default[type="submit"], .submit-row input.default {
+            background: #FF639D;
+            border-color: #ff478a;
+        }
+
+
+        /* Footer */
+
+        html, body { height: 100%; }
+        #container { min-height: 100%; }
+        .login #container { min-height: 0; }
+
+        #footerspace { padding-bottom: 40px; }
+        #footer {
+            color: #aaa;
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            padding:  0;
+            margin:  0;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">{% trans '1%Club' %}</h1>
+{% endblock %}
+
+{% block nav-global %}
+{% if user.is_active and user.is_staff and not is_popup %}
+    {% load admin_tools_menu_tags %}
+    {% admin_tools_render_menu %}
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+<div id="footerspace"></div>
+<div id="footer"><p><small>1%Club admin</small></p></div>
+{% endblock %}
