@@ -14,12 +14,15 @@
 
         div#header { background-image: none; }
         #header #branding {
-            background: #00C051;
+            background: #000;
         }
 
         #header #branding h1#site-name {
             padding: 7px 0 0 0;
             color: #fff;
+            background-image: url('{{ STATIC_URL }}bluebottle_dashboard/img/1procentclub-logo2.png');
+            height: 60px;
+            width: 110px;
         }
 
 
@@ -54,36 +57,6 @@
         }
 
 
-
-        /* Object-tools (right top bottons) */
-
-        .object-tools li {
-            background-image: url("{{ STATIC_URL }}bluebottle_dashboard/img/tool-left.gif");
-        }
-
-        .object-tools a:link,
-        .object-tools a:visited,
-        .object-tools a.addlink,
-        .object-tools a.viewsitelink,
-        .object-tools a.golink {
-            background-color: #FDAAC6;
-        }
-
-        .object-tools a:link,
-        .object-tools a:visited {
-            background-image: url("{{ STATIC_URL }}bluebottle_dashboard/img/tool-right.gif");
-        }
-
-        .object-tools a.viewsitelink,
-        .object-tools a.golink {
-            background-image: url("{{ STATIC_URL }}bluebottle_dashboard/img/tooltag-arrowright.gif");
-        }
-
-        .object-tools a.addlink {
-            background-image: url("{{ STATIC_URL }}bluebottle_dashboard/img/tooltag-add.gif");
-        }
-
-
         /* Fieldset titles */
 
         .module h2, .module caption, .inline-group h2  {
@@ -93,9 +66,18 @@
 
         /* Form submit buttons */
 
-        .button.default, input.default[type="submit"], .submit-row input.default {
+        .button.default,
+        input.default[type="submit"],
+        .submit-row input.default {
             background: #FF639D;
             border-color: #ff478a;
+        }
+
+        .button.default:active,
+        input.default[type="submit"]:active,
+        .submit-row input.default:active {
+            background: #ff478a;
+            border-color: #FF639D;
         }
 
 
@@ -132,5 +114,5 @@
 
 {% block footer %}
 <div id="footerspace"></div>
-<div id="footer"><p><small>1%Club admin</small></p></div>
+<div id="footer"><p><small>1%Club admin interface</small></p></div>
 {% endblock %}
