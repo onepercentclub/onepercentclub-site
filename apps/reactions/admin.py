@@ -5,16 +5,16 @@ from .models import Reaction
 
 class ReactionAdmin(admin.ModelAdmin):
     fieldsets = (
-        (None,
-         {'fields': ('content_type', 'object_pk')}
-            ),
-        (_('Content'),
-         {'fields': ('author', 'editor', 'reaction')}
-            ),
-        (_('Metadata'),
-         {'fields': ('deleted', 'ip_address')}
-            ),
-        )
+        (None, {
+            'fields': ('content_type', 'object_pk'),
+        }),
+        (_('Content'), {
+            'fields': ('author', 'editor', 'reaction'),
+        }),
+        (_('Metadata'), {
+            'fields': ('deleted', 'ip_address'),
+        }),
+    )
 
     list_display = ('author_full_name', 'content_type', 'object_pk', 'ip_address', 'created', 'updated', 'deleted')
     list_filter = ('created', 'updated', 'deleted')

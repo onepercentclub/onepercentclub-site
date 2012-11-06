@@ -45,7 +45,7 @@ class Reaction(models.Model):
         verbose_name_plural = _('reactions')
 
     def __unicode__(self):
-        s =  "{0}: {1}".format(self.author.get_full_name(), self.reaction)
+        s = "{0}: {1}".format(self.author.get_full_name(), self.reaction)
         return Truncator(s).words(10)
 
     def save(self, *args, **kwargs):
