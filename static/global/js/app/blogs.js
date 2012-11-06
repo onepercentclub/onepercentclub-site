@@ -1,10 +1,20 @@
+App.Blog = DS.Model.extend({
+    primaryKey: 'slug',
+    url: 'blogs/%@',
+    title: DS.attr('string'),
+    slug: DS.attr('string'),
+    url: DS.attr('string'),
+    contents: DS.attr('string'),
+});
+
+
 App.blogListController = App.ListController.create({
-    dataUrl: 'blogs/',
+    model: 'App.Blog',
 });
 
 
 App.blogDetailController = App.DetailController.create({
-    dataUrl: 'blogs/',
+    model: 'App.Blog',
 });
 
 App.BlogHeaderView = Em.View.extend({

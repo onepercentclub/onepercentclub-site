@@ -63,67 +63,48 @@ App = Em.Application.create({
 
 });
 
-/* Base Controllers */
 
-// Base Controller Mixin
-App.BaseControllerMixin = Ember.Mixin.create({
-    content: null,
-    // Api resource for the data
-    dataUrl: null, 
-    // Filters to passed on to the API
-    filterParams: {}, 
-
-    getDataUrl: function(){
-        if (!this.dataUrl) {
-            Ember.Logger.warn("WARNING: dataUrl not set in Controller");
-        }
-        return this.dataUrl;
-    },
-
+App.store =  DS.Store.create({
+  title: DS.attr('string'),
+  revision: 7,
+  adapter: DS.DRF2Adapter.create()
 });
 
+
+/* Base Controllers */
+
 // Controller to get lists from API
-App.ListController = Em.ArrayController.extend(App.BaseControllerMixin, {
+App.ListController = Em.ArrayController.extend({
     
+    filterParams: {},
     getList: function(filterParams){
-        if (filterParams) {
-            this.set('filterParams', filterParams);
-        }
-        var controller = this;
-        require(['app/data_source'], function(){
-            App.dataSource.get(controller.getDataUrl(), controller.get('filterParams'), function(data) {
-                controller.set('content', data['results']);
-            });
-        })
+        this.set("content", App.store.findAll(App.Blog));
     }
     
 });
 
 // Controller to get single records from API
-App.DetailController = Em.ObjectController.extend(App.BaseControllerMixin, {
-    getDataUrl: function(){
-        var url = this._super();
+App.DetailController = Em.ObjectController.extend({
+    filterParams: {},
+    getPkValue: function(){
         var params = this.get('filterParams');
         if (undefined !== params['slug']) {
-            url += params['slug'];
+            pk = params['slug'];
         } else if (undefined !== params['id']) {
-            url += params['id'];
+            pk = params['id'];
         } else if (undefined !== params['pk']) {
-            url += params['pk'];
+            pk = params['pk'];
         }
-        return url;
+        return pk;
     }, 
 
     getDetail: function(filterParams){
         if (filterParams) {
             this.set('filterParams', filterParams);
         }
-        var controller = this;
-        require(['app/data_source'], function(){
-            App.dataSource.get(controller.getDataUrl(), controller.get('filterParams'), function(data) {
-                controller.set('content', data);
-            });
-        })
+        var filterParams = this.get('filterParams');
+        var slug = this.getPkValue();
+        this.set("content", App.store.find(App.Blog, slug));
     }
     
 });
