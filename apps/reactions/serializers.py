@@ -15,23 +15,21 @@ class ReactionOwnerSerializer(serializers.ModelSerializer):
 
 class ReactionDetailSerializer(serializers.ModelSerializer):
     # Read-only fields.
-    object_pk = serializers.Field()
     created = serializers.Field()
-    updated = serializers.Field()
-    deleted = serializers.Field()
-    ip_address = serializers.Field()
 
     # Custom fields.
     owner = ReactionOwnerSerializer()
-    url = HyperlinkedIdentityField(view_name='reaction-detail')
+#    TODO: This isn't work with the pattern: api/blogs/<slug>/reactions/<pk>
+#          Delete or fix this ... we don't really need it so removing it is ok but it's nice to have.
+#    url = HyperlinkedIdentityField(view_name='reactions:reaction-detail')
 
     class Meta:
         model = Reaction
-        exclude = ('editor',)
+        fields = ('created', 'owner', 'reaction')
 
 
 class ReactionListSerializer(ReactionDetailSerializer):
 
     class Meta:
         model = Reaction
-        exclude = ('editor',)
+        fields = ('created', 'owner', 'reaction')
