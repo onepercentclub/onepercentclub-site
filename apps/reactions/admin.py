@@ -18,8 +18,8 @@ class ReactionAdmin(admin.ModelAdmin):
 
     list_display = ('author_full_name', 'content_type', 'object_pk', 'ip_address', 'created', 'updated', 'deleted')
     list_filter = ('created', 'updated', 'deleted')
-    date_hierarchy = 'updated'
-    ordering = ('-updated',)
+    date_hierarchy = 'created'
+    ordering = ('-created',)
     raw_id_fields = ('author', 'editor')
     search_fields = ('reaction', 'author__username', 'author__email', 'author__first_name', 'author__last_name', 'ip_address')
 
