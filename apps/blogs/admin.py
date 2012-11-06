@@ -88,10 +88,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         """
         #old_items = list(blogpost.placeholder.get_content_items(blogpost)) if blogpost.pk else []
         new_items = []
-        if blogpost.pk:
-            placeholder_id = blogpost.contents.pk or -1
-        else:
-            placeholder_id = -1 # Be invalid on purpose
 
         # Simulate the django-admin POST process, without saving:
 
