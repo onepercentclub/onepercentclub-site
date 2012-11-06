@@ -9,26 +9,26 @@ class ReactionAdmin(admin.ModelAdmin):
          {'fields': ('content_type', 'object_pk')}
             ),
         (_('Content'),
-         {'fields': ('owner', 'editor', 'reaction')}
+         {'fields': ('author', 'editor', 'reaction')}
             ),
         (_('Metadata'),
          {'fields': ('deleted', 'ip_address')}
             ),
         )
 
-    list_display = ('owner_full_name', 'content_type', 'object_pk', 'ip_address', 'created', 'updated', 'deleted')
+    list_display = ('author_full_name', 'content_type', 'object_pk', 'ip_address', 'created', 'updated', 'deleted')
     list_filter = ('created', 'updated', 'deleted')
     date_hierarchy = 'updated'
     ordering = ('-updated',)
-    raw_id_fields = ('owner', 'editor')
+    raw_id_fields = ('author', 'editor')
     search_fields = ('reaction', 'author__username', 'author__email', 'author__first_name', 'author__last_name', 'ip_address')
 
-    def owner_full_name(self, obj):
-        full_name = obj.owner.get_full_name()
+    def author_full_name(self, obj):
+        full_name = obj.author.get_full_name()
         if not full_name:
-            return obj.owner.username
+            return obj.author.username
         else:
             return full_name
-    owner_full_name.short_description = _('Author')
+    author_full_name.short_description = _('Author')
 
 admin.site.register(Reaction, ReactionAdmin)

@@ -24,7 +24,7 @@ class Reaction(models.Model):
     content_object = generic.GenericForeignKey(ct_field="content_type", fk_field="object_pk")
 
     # Who posted this reaction. User will need to be logged in to make re
-    owner = models.ForeignKey(User, verbose_name=_('author'), related_name="%(class)s_reactions")
+    author = models.ForeignKey(User, verbose_name=_('author'), related_name="%(class)s_reactions")
     editor = models.ForeignKey(User, verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this reaction."))
 
     # The reaction text.
@@ -45,9 +45,9 @@ class Reaction(models.Model):
         verbose_name_plural = _('reactions')
 
     def __unicode__(self):
-        return "{0}: {1}...".format(self.owner.get_full_name(), self.reaction[:50])
+        return "{0}: {1}...".format(self.author.get_full_name(), self.reaction[:50])
 
     def save(self, *args, **kwargs):
         if self.editor is None:
-            self.editor = self.owner
+            self.editor = self.author
         super(Reaction, self).save(*args, **kwargs)

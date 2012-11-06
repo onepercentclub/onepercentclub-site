@@ -2,7 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from rest_framework import generics
 from rest_framework import permissions
 from .models import Reaction
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsAuthorOrReadOnly
 from .serializers import ReactionListSerializer, ReactionDetailSerializer
 
 
@@ -20,7 +20,7 @@ class ReactionList(generics.ListCreateAPIView):
     serializer_class = ReactionListSerializer
     paginate_by = 10
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly,)
+                          IsAuthorOrReadOnly,)
 
     def pre_save(self, obj):
         obj.owner = self.request.user
@@ -43,7 +43,7 @@ class ReactionDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Reaction
     serializer_class = ReactionDetailSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly,)
+                          IsAuthorOrReadOnly,)
 
     def pre_save(self, obj):
         obj.editor = self.request.user

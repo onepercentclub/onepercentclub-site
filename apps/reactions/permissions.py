@@ -1,9 +1,9 @@
 from rest_framework import permissions
 
-# TODO Add write permission for logged in user or 1%CREW.
-class IsOwnerOrReadOnly(permissions.BasePermission):
+# TODO Add write permission for 1%CREW / Assitants.
+class IsAuthorOrReadOnly(permissions.BasePermission):
     """
-    Custom permission to only allow owners of an object to edit it.
+    Custom permission to only allow author of an object to edit it.
     """
 
     def has_permission(self, request, view, obj=None):
@@ -15,5 +15,5 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        # Write permissions are only allowed to the owner of the reaction.
-        return obj.owner == request.user
+        # Write permissions are only allowed to the author of the reaction.
+        return obj.author == request.user
