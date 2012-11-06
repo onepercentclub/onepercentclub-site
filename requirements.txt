@@ -63,7 +63,7 @@ django-tinymce==1.5.1b2
 html5lib==0.95
 
 # Admin dashboard improvements
-django-fluent-dashboard==0.3.1
+django-fluent-dashboard==0.3.2
 django-admin-tools>=0.4.1
 
 # Current git revision in request object for use in templates and views
