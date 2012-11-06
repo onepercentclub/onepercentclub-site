@@ -8,7 +8,7 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from fluent_contents.admin.placeholderfield import PlaceholderFieldAdmin
 from fluent_contents.models import Placeholder
-from fluent_contents.rendering import render_placeholder
+from fluent_contents.rendering import render_content_items
 from apps.blogs.models import BlogPost, BlogPostProxy, NewsPostProxy
 
 
@@ -62,13 +62,12 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         pk = long(pk)
         if pk:
             blogpost = self.get_object(request, pk)
-            placeholder = blogpost.contents
         else:
             blogpost = self.model()
-            placeholder = Placeholder()
 
         # Get fluent-contents placeholder
-        contents_html = render_placeholder(request, placeholder, parent_object=blogpost)
+        items = self._get_preview_items(request, blogpost)
+        contents_html = render_content_items(request, items)
 
         status = 200
         json = {
@@ -77,6 +76,83 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
             'contents': contents_html,
         }
         return HttpResponse(simplejson.dumps(json), content_type='application/javascript', status=status)
+
+
+    def _get_preview_items(self, request, blogpost):
+        """
+        Construct all ContentItem models with the latest unsaved client-side data applied to them.
+
+        This functionality could ideally be included in django-fluent-contents directly,
+        however that would require more testing and dealing with the "placeholder editor" interface too,
+        in contrast to a single "placeholder field", the placeholder editor allows to move ContentItems between placeholders.
+        """
+        #old_items = list(blogpost.placeholder.get_content_items(blogpost)) if blogpost.pk else []
+        new_items = []
+        if blogpost.pk:
+            placeholder_id = blogpost.contents.pk or -1
+        else:
+            placeholder_id = -1 # Be invalid on purpose
+
+        # Simulate the django-admin POST process, without saving:
+
+        # Update parent model
+        ModelForm = self.get_form(request)
+        form = ModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_object = form.save(commit=False)
+        else:
+            new_object = blogpost
+
+        # Each ContentItem type is hosted in the Django admin as an inline with a formset.
+        prefixes = {}
+        inline_instances = self.get_inline_instances(request)
+        for FormSet, inline in zip(self.get_formsets(request), inline_instances):
+            if not getattr(inline, 'is_fluent_editor_inline', False) or inline.model is Placeholder:
+                continue
+
+            prefix = FormSet.get_default_prefix()
+            prefixes[prefix] = prefixes.get(prefix, 0) + 1
+            if prefixes[prefix] != 1 or not prefix:
+                prefix = "{0}-{1}".format(prefix, prefixes[prefix])
+
+            formset = FormSet(
+                data=request.POST, files=request.FILES, instance=new_object, save_as_new=True,
+                prefix=prefix, queryset=inline.queryset(request)
+            )
+
+            # Extract all items out of the formset
+            # NOTE: no filtering of items for a placeholder, assume there is only one PlaceholderField in the page.
+            new_items += self._get_formset_objects(formset)
+
+        # Reorder items by ordering
+        new_items = sorted(new_items, key=lambda ci: ci.sort_order)
+
+        return new_items
+
+
+    def _get_formset_objects(self, formset):
+        all_objects = []
+        def dummy_save_base(*args, **kwargs):
+            pass
+
+        # Based on BaseModelFormSet.save_existing_objects()
+        # +  BaseModelFormSet.save_new_objects()
+        for form in formset.initial_forms + formset.extra_forms:
+            if formset.can_delete and formset._should_delete_form(form):
+                continue
+
+            if not form.is_valid():
+                object = form.instance  # Keep old data
+                # TODO: merge validated fields into object.
+                # Before Django 1.5 that means manually constructing the values as form.cleaned_data is removed.
+            else:
+                object = form.save(commit=False)
+                object.save_base = dummy_save_base  # Disable actual saving code.
+                object.save()  # Trigger any pre-save code (e.g. fetch OEmbedItem, render CodeItem)
+
+            all_objects.append(object)
+
+        return all_objects
 
 
     def save_model(self, request, obj, form, change):
