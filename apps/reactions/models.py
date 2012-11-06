@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
 from django.conf import settings
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from .managers import ReactionManager
@@ -45,7 +45,8 @@ class Reaction(models.Model):
         verbose_name_plural = _('reactions')
 
     def __unicode__(self):
-        return "{0}: {1}...".format(self.author.get_full_name(), self.reaction[:50])
+        s =  "{0}: {1}".format(self.author.get_full_name(), self.reaction)
+        return Truncator(s).words(10)
 
     def save(self, *args, **kwargs):
         if self.editor is None:
