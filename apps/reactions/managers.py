@@ -20,7 +20,6 @@ class ReactionManager(models.Manager):
 
     def for_content_type(self, content_type):
         """
-        QuerySet for all comments for a particular model (either an instance or
-        a class).
+        QuerySet for all reactions for particular content_type.
         """
         return self.get_query_set().filter(content_type=content_type)
