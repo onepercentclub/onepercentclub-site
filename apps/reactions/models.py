@@ -23,7 +23,7 @@ class Reaction(models.Model):
     object_pk = models.TextField(_('object ID'))
     content_object = generic.GenericForeignKey(ct_field="content_type", fk_field="object_pk")
 
-    # Who posted this reaction. User will need to be logged in to make re
+    # Who posted this reaction. User will need to be logged in to make a reaction.
     author = models.ForeignKey(User, verbose_name=_('author'), related_name="%(class)s_reactions")
     editor = models.ForeignKey(User, verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this reaction."))
 
