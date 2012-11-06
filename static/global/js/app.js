@@ -78,7 +78,7 @@ App.ListController = Em.ArrayController.extend({
     
     filterParams: {},
     getList: function(filterParams){
-        this.set("content", App.store.findAll(App.Blog));
+        this.set("content", App.store.findAll(this.get('model')));
     }
     
 });
@@ -88,6 +88,7 @@ App.DetailController = Em.ObjectController.extend({
     filterParams: {},
     getPkValue: function(){
         var params = this.get('filterParams');
+        pk = "";
         if (undefined !== params['slug']) {
             pk = params['slug'];
         } else if (undefined !== params['id']) {
@@ -104,7 +105,7 @@ App.DetailController = Em.ObjectController.extend({
         }
         var filterParams = this.get('filterParams');
         var slug = this.getPkValue();
-        this.set("content", App.store.find(App.Blog, slug));
+        this.set("content", App.store.find(this.get('model'), slug));
     }
     
 });

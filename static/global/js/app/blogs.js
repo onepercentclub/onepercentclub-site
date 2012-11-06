@@ -1,6 +1,6 @@
 App.Blog = DS.Model.extend({
     primaryKey: 'slug',
-    url: 'blogs/%@',
+    //url: '/blogs/%@',
     title: DS.attr('string'),
     slug: DS.attr('string'),
     url: DS.attr('string'),
@@ -9,12 +9,12 @@ App.Blog = DS.Model.extend({
 
 
 App.blogListController = App.ListController.create({
-    model: 'App.Blog',
+    model: App.Blog,
 });
 
 
 App.blogDetailController = App.DetailController.create({
-    model: 'App.Blog',
+    model: App.Blog,
 });
 
 App.BlogHeaderView = Em.View.extend({
