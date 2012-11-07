@@ -33,7 +33,6 @@ class Reaction(models.Model):
     # Metadata about the reaction.
     created = CreationDateTimeField(_('created'))
     updated = ModificationDateTimeField(_('updated'))
-    deleted = models.DateTimeField(_('deleted'), blank=True, null=True)
     ip_address = models.IPAddressField(_('IP address'))
 
     # Manager
