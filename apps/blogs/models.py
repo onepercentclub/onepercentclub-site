@@ -36,7 +36,7 @@ class BlogPost(models.Model):
         blog = ChoiceItem('blog', label=_("Blog"))
         news = ChoiceItem('news', label=_("News"))
 
-    post_type = models.CharField(_("Type"), max_length=20, choices=PostType.choices)
+    post_type = models.CharField(_("Type"), max_length=20, choices=PostType.choices, db_index=True)
     title = models.CharField(_("Title"), max_length=200)
     slug = models.SlugField(_("Slug"))
 
