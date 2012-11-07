@@ -42,7 +42,7 @@ class BlogPost(models.Model):
 
     # Contents
     main_image = ImageField(_("Main photo"), upload_to='blogs', blank=True)
-    language = models.CharField(_("language"), max_length=5, unique=True, choices=settings.LANGUAGES)
+    language = models.CharField(_("language"), max_length=5, choices=settings.LANGUAGES)
     contents = PlaceholderField("blog_contents")
 
     # Publication
@@ -62,6 +62,11 @@ class BlogPost(models.Model):
     countries = models.ManyToManyField(Country, verbose_name=_("Countries"), blank=True, null=True)
 
     objects = BlogPostManager()
+
+    class Meta:
+        verbose_name = _("Blog post")
+        verbose_name_plural = _("Blog posts")
+        unique_together = ('slug', 'language',)
 
 
     def __unicode__(self):
