@@ -94,7 +94,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         however that would require more testing and dealing with the "placeholder editor" interface too,
         in contrast to a single "placeholder field", the placeholder editor allows to move ContentItems between placeholders.
         """
-        #old_items = list(blogpost.placeholder.get_content_items(blogpost)) if blogpost.pk else []
         new_items = []
 
         # Simulate the django-admin POST process, without saving:

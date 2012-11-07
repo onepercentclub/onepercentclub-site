@@ -14,12 +14,13 @@
 {# override submit buttons in the admin with JavaScript, since the {% submit_row %} is inflexible. #}
 {% block extrahead %}{{ block.super }}
     <script type="text/javascript">
-        // *sigh* taggit-autocomplete also brings in their own jQuery.
+        // *sigh* taggit-autocomplete also brings in their own jQuery
+        // which is an older version that jquery.colorbox can't use.
         // Preserve that so the autocomplete still works.
         var jQuery_taggit_autocomplete = window.jQuery;
     </script>
     <script type="text/javascript" src="{{ STATIC_URL }}global/js/vendor/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}global/js/plugins/jquery.colorbox.js"></script>{# jquery already loaded via taggit-autocomplete-modified #}
+    <script type="text/javascript" src="{{ STATIC_URL }}global/js/plugins/jquery.colorbox.js"></script>
     <script type="text/javascript">
         (function($){
             var $submit,
