@@ -1,3 +1,5 @@
+$(function() {
+
 Em.View.reopen({
     templateForName: function(name, type) {
         if (!name) {
@@ -105,6 +107,8 @@ App.DetailController = Em.ObjectController.extend({
         }
         var filterParams = this.get('filterParams');
         var slug = this.getPkValue();
+        console.log('slug '+ slug);
+        console.log(filterParams);
         this.set("content", App.store.find(this.get('model'), slug));
     }
     
@@ -134,8 +138,9 @@ App.BlogsRoute = Em.Route.extend({
 
     detail: Em.Route.extend({
         route: '/:slug',
-        deserialize: function(router, params) {
-            return {slug: params.slug}
+        deserialize: function(router, context) {
+            var slug = context.slug ? context.slug : context.get('slug');
+            return {slug: slug}
         },
         serialize: function(router, context) {
             var slug = context.slug ? context.slug : context.get('slug');
@@ -143,7 +148,8 @@ App.BlogsRoute = Em.Route.extend({
         },
         connectOutlets: function(router, context) {
             require(['app/blogs'], function(){
-                App.blogDetailController.getDetail({'slug': context.slug});
+                var slug = context.slug ? context.slug : context.get('slug');
+                App.blogDetailController.getDetail({'slug': slug});
                 router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
                 router.get('applicationController').connectOutlet('midPanel', 'blogDetail');
             });
@@ -217,3 +223,5 @@ App.Router = Em.Router.extend({
     root: App.RootRoute
 });
 
+
+});
