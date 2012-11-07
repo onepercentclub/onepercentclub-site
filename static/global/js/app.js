@@ -233,8 +233,3 @@ App.Router = Em.Router.extend({
     location: 'hash',
     root: App.RootRoute
 });
-
-$(function() {
-    App.initialize();
-});
-
