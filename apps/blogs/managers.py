@@ -32,6 +32,7 @@ class BlogPostManager(models.Manager):
     def get_query_set(self):
         return BlogPostQuerySet(self.model, using=self._db)
 
+
     def published(self):
         """
         Return only published entries
@@ -45,3 +46,8 @@ class BlogPostProxyManager(BlogPostManager):
     """
     def get_query_set(self):
         return super(BlogPostProxyManager, self).get_query_set().filter(post_type=self.model.limit_to_post_type)
+
+
+    def create(self, **kwargs):
+        kwargs.setdefault('post_type', self.model.limit_to_post_type)
+        super(BlogPostProxyManager, self).create(**kwargs)

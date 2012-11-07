@@ -212,6 +212,7 @@ INSTALLED_APPS = [
     'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
     'apps.accounts',
+    'apps.love',
     'apps.organizations',
     'apps.projects',
     'apps.donations',
