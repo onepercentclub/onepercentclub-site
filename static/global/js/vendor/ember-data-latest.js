@@ -3533,16 +3533,16 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
     var observers = get(this.constructor, 'associationNames').belongsTo;
     var self = this;
 
-    // try {
-      // this._suspendedAssociations = true;
-      // Ember._suspendObservers(self, observers, null, 'belongsToDidChange', function() {
-        // Ember._suspendBeforeObservers(self, observers, null, 'belongsToWillChange', function() {
-          // callback.call(binding || self);
-        // });
-      // });
-    // } finally {
+    try {
+      this._suspendedAssociations = true;
+      Ember._suspendObservers(self, observers, null, 'belongsToDidChange', function() {
+        Ember._suspendBeforeObservers(self, observers, null, 'belongsToWillChange', function() {
+          callback.call(binding || self);
+        });
+      });
+    } finally {
       this._suspendedAssociations = false;
-    //}
+    }
   },
 
   becameInFlight: function() {

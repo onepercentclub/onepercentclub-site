@@ -1,9 +1,8 @@
 App.Blog = DS.Model.extend({
-    primaryKey: 'slug',
-    //url: '/blogs/%@',
+    id: 'slug',
     title: DS.attr('string'),
     slug: DS.attr('string'),
-    url: DS.attr('string'),
+    //url: DS.attr('string'),
     contents: DS.attr('string'),
 });
 
