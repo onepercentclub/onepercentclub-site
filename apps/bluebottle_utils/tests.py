@@ -24,4 +24,7 @@ class UserTestsMixin(object):
 
         user = User.objects.create_user(username=username)
 
+        if not password:
+            user.set_password('password')
+
         return user
