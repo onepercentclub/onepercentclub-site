@@ -318,7 +318,7 @@ ADMIN_TOOLS_INDEX_DASHBOARD = 'fluent_dashboard.dashboard.FluentIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'fluent_dashboard.dashboard.FluentAppIndexDashboard'
 ADMIN_TOOLS_MENU = 'fluent_dashboard.menu.FluentMenu'
 
-# Further customize the
+# Further customize the dashboard
 FLUENT_DASHBOARD_DEFAULT_MODULE = 'admin_tools.dashboard.modules.AppList'
 FLUENT_DASHBOARD_APP_GROUPS = (
     (_('Site content'), {
@@ -331,7 +331,6 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Projects'), {
         'models': (
-            #'apps.projects.*',
             'apps.projects.models.Donation',
             'apps.projects.models.Message',
             'apps.projects.models.Project',
@@ -353,14 +352,20 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
     }),
+    # The '*' selector acts like a fallback for all other apps. This section mainly displays models
+    # with tabular data that is rarely touched. The important models have an icon.
     (_('Applications'), {
         'models': ('*',),
         'module': FLUENT_DASHBOARD_DEFAULT_MODULE,
         'collapsible': False,
     }),
-    #(_('Developer tools'), ()),
 )
 
+# Icon filenames can either be relative to the theme directory (if no path separators are used),
+# or be a relative to the STATIC_URL (if path separators are used in the icon name)
+# The dictionary key is appname/modelname, identical to the slugs used in the admin page URLs
+# django-fluent-dashboard ships with a set of commonly useful icons. To get the whole Oxygen set,
+# download http://download.kde.org/stable/4.9.0/src/oxygen-icons-4.9.0.tar.xz It's LGPL3 licensed.
 FLUENT_DASHBOARD_APP_ICONS = {
     'accounts/userprofile': 'user-identity.png',
     'blogs/blogpost': 'view-pim-journal.png',  # 'view-calendar-list.png',
