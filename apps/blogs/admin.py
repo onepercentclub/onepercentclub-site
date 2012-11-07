@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from fluent_contents.admin.placeholderfield import PlaceholderFieldAdmin
-from apps.blogs.models import BlogPost
+from apps.blogs.models import BlogPost, BlogPostProxy, NewsPostProxy
 
 
 class BlogPostForm(ModelForm):
@@ -35,7 +35,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
 
     prepopulated_fields = {'slug': ('title',),}
     radio_fields = {
-        'post_type': admin.HORIZONTAL,
         'status': admin.HORIZONTAL,
         'language': admin.HORIZONTAL,
     }
@@ -83,4 +82,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
     make_published.short_description = _("Mark selected entries as published")
 
 
-admin.site.register(BlogPost, BlogPostAdmin)
+
+admin.site.register(BlogPostProxy, BlogPostAdmin)
+admin.site.register(NewsPostProxy, BlogPostAdmin)

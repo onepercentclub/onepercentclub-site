@@ -3,26 +3,31 @@
 {% load url from future %}
 {% load templatetag_handlebars %}
 {% load compress %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
+<!DOCTYPE HTML>
+<html lang="{{ LANGUAGE_CODE }}"> 
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-    <title>{% block title %}{% endblock %} &#8211; 1%ACTIES &#8211; 1%CLUB</title>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width" />
+    
+    <title>{% block title %}{% endblock %} &#8211; 1%Club</title>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
     <!-- Stylesheets -->
     {% compress css %}
     {% endcompress %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/global.less" type="text/less" />
-
-
+    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/style.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/custom-development.css" />
+    
     {% compress js %}
     {% endcompress %}
+    
     <!-- Scripts -->
     <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/less-1.3.0.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/handlebars-1.0.0.beta.6.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}global/js/libs/ember-1.0.0-pre.2.js"></script>
     <script type="text/javascript" data-main="{{ STATIC_URL }}global/js/app" src="{{ STATIC_URL }}global/js/libs/require-2.1.1.min.js"></script>
@@ -34,74 +39,88 @@
 
 
     {% tplhandlebars "home" %}
-        <div class="main-title">
-            <div class="banners">
-                <h1 class="tagline">
-                    <em>Deel 1%</em> van je tijd, kennis of geld<br />
-                    en <em>zie direct</em> waar het terecht komt!
-                </h1>
-            </div>  
-        </div>
+        <h1 class="tagline">
+            <em>Deel 1%</em> van je tijd, kennis of geld<br />
+            en <em>zie direct</em> waar het terecht komt!
+        </h1>
     {% endtplhandlebars %}
     
     {% tplhandlebars "application" %}
-        <div id="l-header-wrap">
-            <!-- main header -->
-            <header id="l-header">
-                <a href="/" id="logo">
-                    <img src="/static/assets/global/img/1procentclub.png" width="100" height="38" alt="1%Club" />
-                    <h1 id="site-name">1%Club</h1>
-                    <h2 id="subtitle"><em>You</em> Make It Work</h2>
-                </a>
-                <div class="nav">
-                    <!-- main navigation -->
-                    <nav class="nav-main">
-                        <ul {{bindAttr class="currentMenu"}}>
-                            <li id="home-menu"><a {{action showHome href=true}}>HOME</a></li>
-                            <li id="projects-menu"><a {{action showProjectStart href=true}}>1%PROJECTS</a></li>
-                            <li id="tasks-menu"><a>1%TASKS</a></li>
-                            <li id="more-menu"><a>LEARN MORE</a></li>
-                        </ul>
-                        <div class="languages">
-                            <a id="lang-en" class="active" href="#">ENGLISH</a> |
-                            <a id="lang-nl" href="#">NEDERLANDS</a>
-                        </div>
-                    </nav>
-                    <nav class="nav-member member-login">
-                        <h1 class="nav-title">Profiel</h1>
-                        <ul>
-                            <li class="nav-my1percent">
-                            {% if user.is_authenticated %}
-                                <a href="{% url 'logout' %}?next={% firstof request.path "/" %}">Logout</a>
-                            {% else %}
-                                <a href="/accounts/login" class="loginbox">Login</a>
-                            {% endif %}
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
+        <div class="container" id="navigation">
+        	<!-- main header -->
+        	<header class="wrapper">
+        	    <!-- logo -->
+        		<a {{action showHome href=true}} id="logo">
+        			<img src="{% get_static_prefix %}global/images/1procentclub.png" width="100" height="38" alt="1%Club" />
+        			<h1 id="title">1%Club</h1>
+        			<h2 id="subtitle"><em>You</em> Make It Work</h2>
+        		</a>
+        		<!-- end: logo -->
+        		<div class="nav">
+        			<!-- main navigation -->
+        			<nav class="nav-main">
+        				<h1 class="nav-title">Navigation</h1>
+        				<ul {{bindAttr class="currentMenu"}}>
+        				    <!--<li id="home-menu"><a {{action showHome href=true}}>HOME</a></li>-->
+        				    <li class="nav-projects"><a {{action showProjectStart href=true}} class="is-active">1%Projects</a></li>
+        				    <li class="nav-tasks"><a>1%Tasks</a></li>
+        				    <li class="nav-actions"><a>1%Actions</a></li>
+        				    <li class="nav-more"><a>More &#9660;</a></li>
+        				</ul>
+        			</nav>
+        			<nav class="nav-member member-login">
+        				<h1 class="nav-title">Profile</h1>
+        				{% if user.is_authenticated %}
+        				<a href="{% url 'logout' %}?next={% firstof request.path "/" %}" class="nav-my1percent"><img src="{% get_static_prefix %}global/dummy/avatar-color.jpg" width="40" height="40" alt="Bart Lacroix" /><strong>Logout</strong></a>
+        				<a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
+        				{% else %}
+        				<a href="/accounts/login" class="nav-login">Login</a>
+        				<a href="/accounts/signup" class="nav-signup">Signup</a>
+        				{% endif %}
+        				<div class="nav-language">
+        				    <a id="nav-lang-en" class="is-active" href="#">EN</a>
+        				    <a id="nav-lang-nl" href="#">NL</a>
+        				</div>
+        			</nav>
+        			<!-- end: main navigation -->
+        		</div>
+        	</header>
+        	<!-- end: main header -->
         </div>
         
-        <section id="action">
-            <div class="siteblock">
-                <div class="home-header" id="top-panel">
-                    <header class="l-wrapper">
-                        {{outlet topPanel}}
-                    </header>
-                </div>
-                <div id="mid-panel">
-                    {{outlet midPanel}}
-                </div>
-                <div id="bottom-panel">
-                    {{outlet bottomPanel}}
-                </div>
-            </div>
-        </section>
+        
+        <!-- main content -->
+        <div class="container section">
+           
+            <section class="wrapper">
+                {{outlet topPanel}}
+            </section>
+                
+        </div>
+        
+        <div class="container">
+           
+            <section class="wrapper">
+                {{outlet midPanel}}
+            </section>
+                
+        </div>
+        
+        <div class="container section">
+           
+            <section class="wrapper">
+                {{outlet bottomPanel}}
+            </section>
+                
+        </div>
+        
+  
+        <!-- end: main content -->
 
-        <!-- footer -->
-        <div id="l-footer-wrap">
-            <footer id="l-footer">
+        {% comment %}
+        <!-- main footer -->
+        <div id="footer">
+            <footer>
                 <p>1%CLUB is het crowdfunding platform dat mensen met slimme ideeën in ontwikkelingslanden verbindt met mensen, geld en kennis over de hele wereld. </p>
                 <ul class="social">
                     <li><a target="_new" href="http://www.facebook.com/onepercentclub"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/facebook.jpg" alt="Facebook" title="Facebook" class="servicelogo"/></a>
@@ -114,14 +133,16 @@
                 <br />
             </footer>
         </div>
+        <!-- end: main footer -->
+        {% endcomment %}
+        
     {% endtplhandlebars %}
 
 </head>
 <body id="content">
-    <!-- scripts -->
+    <!-- Scripts -->
     <div id="fb-root"></div>
     <!--[if lt IE 9]><script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
 </body>
 </html>
 

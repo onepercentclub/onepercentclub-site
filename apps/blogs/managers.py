@@ -37,3 +37,11 @@ class BlogPostManager(models.Manager):
         Return only published entries
         """
         return self.get_query_set().published()
+
+
+class BlogPostProxyManager(BlogPostManager):
+    """
+    Limit a Blog post proxy model to a specific subset.
+    """
+    def get_query_set(self):
+        return super(BlogPostProxyManager, self).get_query_set().filter(post_type=self.model.limit_to_post_type)

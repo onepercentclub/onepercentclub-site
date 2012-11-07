@@ -1,0 +1,151 @@
+.reaction-box {
+    clear: both;
+}
+
+.reaction-box {
+    
+    @include clearfix;
+    @include rem(margin-bottom, 64px);
+    
+    .reaction-form {
+    
+        position: relative;
+        background-color: $color-back;
+        @include rem(padding, 16px);
+        @include clearfix;
+        
+        &.is-selected {
+            border: 1px solid red;
+        }
+        
+        label {
+            display: none;
+        }
+        
+        .user-img {
+            position: absolute;
+            @include rem(left, 32px);
+            @include rem(top, 32px);
+            margin: 0;
+            @include rem(width, 48px);
+        }
+        
+        textarea {
+            padding-left: 110px; // TODO: make fluid 
+            @include rem(min-height, 88px);
+        }
+        
+        button {
+            float: right;
+        }
+    }
+    
+    .reaction-actions {
+        
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        @include rem(font-size, 13px);
+        font-weight: bold;
+        float: left;
+        @include rem(margin-top, -38px);
+        
+        li {
+            display: inline;
+            
+            a, strong {
+                display: inline-block;
+                color: #666;
+                @include rem(padding, 4px);
+                @include rem(margin, 0 8px 0 8px);
+                
+                cursor: hand;
+                cursor: pointer;
+                
+                &:hover, &:active {
+                    color: $black;
+                }
+                
+                &.toggle-comments {
+                    
+                }
+                
+                &.toggle-love {
+                    
+                }
+                
+            }
+        }
+        
+        .share {
+            
+            .share-actions {
+                display: none;
+            }
+        }
+    }
+    
+}
+
+.reactions {
+    background-color: $color-back;
+    @include rem(padding, 16px);
+    @include clearfix;
+    margin: 0;
+    list-style: none;
+    
+    @include rem(font-size, 14px);
+    
+    li {
+        display: block;
+        position: relative;
+        overflow: auto;
+        @include rem(margin, 16px 0);
+         
+        .user-img {
+            position: absolute;
+            @include rem(left, 32px);
+            margin: 0;
+            @include rem(width, 48px);
+            @include rem(top, 2px);
+        } 
+        
+        
+        &.initiator .comment {
+            border-color: $green;
+            
+            &::after {
+                background: url('../images/reaction-box-initiator.png') transparent no-repeat 0 0;
+            }
+        }
+        
+        .comment {
+            position: relative;
+            @include grid(48, 10, 0);
+            background: $white;
+            border: 1px solid darken($white, 25%);
+            color: #333;
+            @include rem(padding, 12px 16px 0 16px);
+            @include border-radius(0.2em);
+            vertical-align: baseline;
+            
+            .user {
+                @include rem(font-size, 14px);
+                strong {
+                    text-transform: uppercase;
+                }
+            }
+            
+            &::after {
+                position: absolute;
+                @include rem(top, 16px);
+                left: -25px;
+                content: ' ';
+                display: block;
+                width: 25px;
+                height: 21px;
+                background: url('../images/reaction-box.png') transparent no-repeat 0 0;
+            }
+        }
+    }
+}

@@ -369,7 +369,8 @@ FLUENT_DASHBOARD_APP_GROUPS = (
 # download http://download.kde.org/stable/4.9.0/src/oxygen-icons-4.9.0.tar.xz It's LGPL3 licensed.
 FLUENT_DASHBOARD_APP_ICONS = {
     'accounts/userprofile': 'user-identity.png',
-    'blogs/blogpost': 'view-pim-journal.png',  # 'view-calendar-list.png',
+    'blogs/blogpostproxy': 'view-pim-journal.png',
+    'blogs/newspostproxy': 'view-calendar-list.png',
     'media/album': 'folder-image.png',
     'donations/donation': 'help-donate.png',
     'organizations/organization': 'x-office-address-book.png',

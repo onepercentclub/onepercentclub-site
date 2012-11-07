@@ -1,0 +1,65 @@
+#wallpost-form {
+
+    fieldset {
+        @include rem(border-bottom, 4px solid #e5e5e5);
+    }
+    
+    button {
+        float: right;
+    }
+
+    .sidebar {
+        background: $white;
+        border: 1px solid $green;
+    }
+    
+}
+
+.wallpost {
+    @include grid(32, 1, 1);
+    position: relative;
+    
+    &:hover .manage {
+        display: block;
+    }
+    
+    header {
+        @include grid(48, 10, 1);
+        
+        .timestamp {
+            position: absolute;
+            @include rem(top, 140px);
+            left: 0;
+        }
+        
+        .manage {
+            display: none;
+            float: right;
+        }
+    }
+    
+    .content {
+        position: relative;
+        @include grid(48, 10, 0);
+    }
+    
+    .reaction-box {
+        display: block;
+        position: relative;
+    }
+ 
+    .user-img {
+        position: absolute;
+        @include rem(width, 100px);
+        @include rem(margin-top, 32px);
+        left: 0;
+        top: 0;
+    }
+}
+
+.wallpost-filter {
+    @include rem(margin-top, 32px);
+    background-color: $color-back;
+}
+
+

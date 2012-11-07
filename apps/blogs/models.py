@@ -8,7 +8,7 @@ from fluent_contents.models import PlaceholderField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 from sorl.thumbnail import ImageField
 from apps.geo.models import Country
-from .managers import BlogPostManager
+from .managers import BlogPostManager, BlogPostProxyManager
 
 
 class BlogCategory(models.Model):
@@ -89,3 +89,39 @@ class BlogPost(models.Model):
         """
         entries = self.__class__.objects.published().filter(publication_date__gt=self.publication_date).order_by('publication_date')[:1]
         return entries[0] if entries else None
+
+
+# The proxy models are only here to have a separation in the Django admin interface.
+
+class BlogPostProxy(BlogPost):
+    """
+    A subset of the ``BlogPost`` model that only displays real blog posts.
+    """
+    limit_to_post_type = BlogPost.PostType.blog
+    objects = BlogPostProxyManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = _("Blog post")
+        verbose_name_plural = _("Blog posts")
+
+    def save(self, *args, **kwargs):
+        self.post_type = self.limit_to_post_type
+        super(BlogPostProxy, self).save(*args, **kwargs)
+
+
+class NewsPostProxy(BlogPost):
+    """
+    A subset of the ``BlogPost`` model that only displays news items.
+    """
+    limit_to_post_type = BlogPost.PostType.news
+    objects = BlogPostProxyManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = _("News")
+        verbose_name_plural = _("News")
+
+    def save(self, *args, **kwargs):
+        self.post_type = self.limit_to_post_type
+        super(NewsPostProxy, self).save(*args, **kwargs)
