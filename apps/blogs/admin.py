@@ -74,7 +74,7 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         rows_updated = queryset.update(status=BlogPost.PostStatus.published)
 
         if rows_updated == 1:
-            message = "1 BlogPost was marked as published."
+            message = "1 entry was marked as published."
         else:
             message = "{0} entries were marked as published.".format(rows_updated)
         self.message_user(request, message)
