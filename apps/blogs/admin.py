@@ -3,9 +3,11 @@ from django.conf.urls import patterns, url
 from django.contrib import admin
 from django.forms import ModelForm
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.utils import simplejson
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 from fluent_contents.admin.placeholderfield import PlaceholderFieldAdmin
 from fluent_contents.models import Placeholder
 from fluent_contents.rendering import render_content_items
@@ -49,10 +51,16 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         # Include extra API views in this admin page
         base_urls = super(BlogPostAdmin, self).get_urls()
         urlpatterns = patterns('',
+            url(r'^preview-canvas/$', self.admin_site.admin_view(self.preview_canvas), name="blogs_blogpost_preview_loader"),
             url(r'^(?P<pk>\d+)/get_preview/$', self.admin_site.admin_view(self.get_preview_html), name="blogs_blogpost_get_preview")
         )
 
         return urlpatterns + base_urls
+
+
+    @xframe_options_sameorigin
+    def preview_canvas(self, request):
+        return render(request, 'admin/blogs/blogpost/preview_canvas.html', {})
 
 
     def get_preview_html(self, request, pk):

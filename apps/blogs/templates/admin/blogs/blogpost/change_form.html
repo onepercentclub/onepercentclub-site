@@ -65,27 +65,34 @@
                     tinymce.editors[i].save()
                 }
 
-                // Retrieve an server-side generated HTML preview,
-                // and display that in a lightbox.
-                var $form = $("form#blogpost_form");
-                var postdata = $form.serialize();
-                $.ajax({
-                    'url': "{% url 'admin:blogs_blogpost_get_preview' pk=original.pk|default:0 %}",
-                    'type': 'POST',
-                    dataType: 'json',
-                    data: postdata,
-                    success: function(data){
-                        var html = data.contents;  // TODO: wrap in an iframe.
-                        $.colorbox({
-                            transition: 'node',  // or fade
-                            width: "600px",
-                            //height: "50%",
-                            title: $("#id_title").val(),
-                            html: html
+                $.colorbox({
+                    transition: 'none',  // or fade
+                    width: "800px",
+                    height: "600px",
+                    title: $("#id_title").val(),
+                    iframe: true,
+                    fastIframe: false,
+                    href: "{% url 'admin:blogs_blogpost_preview_loader' %}",
+                    onComplete: function() {
+                        // Iframe with preview frame is loaded.
+
+                        // Retrieve an server-side generated HTML preview,
+                        // and display that in a lightbox.
+                        var $form = $("form#blogpost_form");
+                        var postdata = $form.serialize();
+                        $.ajax({
+                            'url': "{% url 'admin:blogs_blogpost_get_preview' pk=original.pk|default:0 %}",
+                            'type': 'POST',
+                            dataType: 'json',
+                            data: postdata,
+                            success: function(data) {
+                                $('#colorbox iframe.cboxIframe').contents().find('#preview_contents').html(data.contents);
+                            },
+                            error: function() {
+                                alert("Internal CMS error: failed to fetch preview data!");
+                            }
                         });
-                    },
-                    error: function() {
-                        alert("Internal CMS error: failed to fetch preview data!");
+
                     }
                 });
             }
