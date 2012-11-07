@@ -51,7 +51,7 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         # Include extra API views in this admin page
         base_urls = super(BlogPostAdmin, self).get_urls()
         urlpatterns = patterns('',
-            url(r'^preview-canvas/$', self.admin_site.admin_view(self.preview_canvas), name="blogs_blogpost_preview_loader"),
+            url(r'^preview-canvas/$', self.admin_site.admin_view(self.preview_canvas), name="blogs_blogpost_preview_canvas"),
             url(r'^(?P<pk>\d+)/get_preview/$', self.admin_site.admin_view(self.get_preview_html), name="blogs_blogpost_get_preview")
         )
 

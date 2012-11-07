@@ -23,6 +23,9 @@
     <script type="text/javascript" src="{{ STATIC_URL }}global/js/plugins/jquery.colorbox.js"></script>
     <script type="text/javascript">
         (function($){
+            var preview_canvas_url = "{% url 'admin:blogs_blogpost_preview_canvas' %}";
+            var get_preview_url = "{% url 'admin:blogs_blogpost_get_preview' pk=original.pk|default:0 %}";
+
             var $submit,
                 $addanother,
                 $continue,
@@ -68,12 +71,13 @@
 
                 $.colorbox({
                     transition: 'none',  // or fade
-                    width: "800px",
-                    height: "600px",
+                    innerWidth: "800px",
+                    innerHeight: "600px",
+                    width: 900,
                     title: $("#id_title").val(),
                     iframe: true,
                     fastIframe: false,
-                    href: "{% url 'admin:blogs_blogpost_preview_loader' %}",
+                    href: preview_canvas_url,
                     onComplete: function() {
                         // Iframe with preview frame is loaded.
 
@@ -82,7 +86,7 @@
                         var $form = $("form#blogpost_form");
                         var postdata = $form.serialize();
                         $.ajax({
-                            'url': "{% url 'admin:blogs_blogpost_get_preview' pk=original.pk|default:0 %}",
+                            'url': get_preview_url,
                             'type': 'POST',
                             dataType: 'json',
                             data: postdata,
