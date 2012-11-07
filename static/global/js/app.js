@@ -105,11 +105,7 @@ App.DetailController = Em.ObjectController.extend({
         if (filterParams) {
             this.set('filterParams', filterParams);
         }
-        var filterParams = this.get('filterParams');
-        var slug = this.getPkValue();
-        console.log('slug '+ slug);
-        console.log(filterParams);
-        this.set("content", App.store.find(this.get('model'), slug));
+        this.set("content", App.store.find(this.get('model'), this.getPkValue()));
     }
     
 });
@@ -139,15 +135,20 @@ App.BlogsRoute = Em.Route.extend({
     detail: Em.Route.extend({
         route: '/:slug',
         deserialize: function(router, context) {
+            // TODO: See if we can stick to just  context.get('slug')
+            // Now the Ember action and the 'bookmarked' page need \
+            // different approach
             var slug = context.slug ? context.slug : context.get('slug');
             return {slug: slug}
         },
         serialize: function(router, context) {
+            // TODO: See if we can stick to just  context.get('slug')
             var slug = context.slug ? context.slug : context.get('slug');
             return {slug: slug};
         },
         connectOutlets: function(router, context) {
             require(['app/blogs'], function(){
+                // TODO: See if we can stick to just  context.get('slug')
                 var slug = context.slug ? context.slug : context.get('slug');
                 App.blogDetailController.getDetail({'slug': slug});
                 router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
