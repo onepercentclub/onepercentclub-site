@@ -1,9 +1,9 @@
 App.Blog = DS.Model.extend({
-    id: 'slug',
-    title: DS.attr('string'),
+    url: DS.attr('string'),
     slug: DS.attr('string'),
-    //url: DS.attr('string'),
+    title: DS.attr('string'),
     contents: DS.attr('string'),
+    
 });
 
 

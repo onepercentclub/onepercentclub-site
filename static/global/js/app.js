@@ -138,7 +138,8 @@ App.BlogsRoute = Em.Route.extend({
             return {slug: params.slug}
         },
         serialize: function(router, context) {
-            return {slug: context.slug};
+            var slug = context.slug ? context.slug : context.get('slug');
+            return {slug: slug};
         },
         connectOutlets: function(router, context) {
             require(['app/blogs'], function(){
@@ -215,3 +216,4 @@ App.Router = Em.Router.extend({
     location: 'hash',
     root: App.RootRoute
 });
+
