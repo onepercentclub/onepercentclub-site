@@ -2,6 +2,7 @@
 
 # Import global settings for overriding without throwing away defaults
 from django.conf import global_settings
+from django.utils.translation import ugettext as _
 
 from os import path
 
@@ -180,8 +181,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
 
     # 3rd party apps
     'django_extensions',
@@ -210,6 +209,7 @@ INSTALLED_APPS = [
 
     # bluebottle apps
     'apps.blogs',
+    'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
     'apps.accounts',
     'apps.organizations',
@@ -218,7 +218,15 @@ INSTALLED_APPS = [
     'apps.media',
     'apps.geo',
     'apps.hbtemplates',
-    'apps.blogs',
+
+    # Custom dashboard
+    'fluent_dashboard',
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -304,6 +312,66 @@ FLUENT_CONTENTS_CACHE_OUTPUT = True
 FLUENT_TEXT_CLEAN_HTML = True
 FLUENT_TEXT_SANITIZE_HTML = True
 DJANGO_WYSIWYG_FLAVOR = 'tinymce'
+
+# Custom dashboard configuration
+ADMIN_TOOLS_INDEX_DASHBOARD = 'fluent_dashboard.dashboard.FluentIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'fluent_dashboard.dashboard.FluentAppIndexDashboard'
+ADMIN_TOOLS_MENU = 'fluent_dashboard.menu.FluentMenu'
+
+# Further customize the
+FLUENT_DASHBOARD_DEFAULT_MODULE = 'admin_tools.dashboard.modules.AppList'
+FLUENT_DASHBOARD_APP_GROUPS = (
+    (_('Site content'), {
+        'models': [
+            'apps.blogs.*',
+            'apps.media.*',
+        ],
+        'module': 'fluent_dashboard.modules.AppIconList',
+        'collapsible': False,
+    }),
+    (_('Projects'), {
+        'models': (
+            #'apps.projects.*',
+            'apps.projects.models.Donation',
+            'apps.projects.models.Message',
+            'apps.projects.models.Project',
+            'apps.projects.models.Testimonial',
+            'apps.organizations.*',
+            'apps.donations.*',
+        ),
+        'module': 'fluent_dashboard.modules.AppIconList',
+        'collapsible': False,
+    }),
+    (_('Administration'), {
+        'models': (
+            '*.UserProfile',
+            'django.contrib.auth.*',
+            'django.contrib.sites.*',
+            'dashboardmods.*',
+            'google_analytics.*',
+        ),
+        'module': 'fluent_dashboard.modules.AppIconList',
+        'collapsible': False,
+    }),
+    (_('Applications'), {
+        'models': ('*',),
+        'module': FLUENT_DASHBOARD_DEFAULT_MODULE,
+        'collapsible': False,
+    }),
+    #(_('Developer tools'), ()),
+)
+
+FLUENT_DASHBOARD_APP_ICONS = {
+    'accounts/userprofile': 'user-identity.png',
+    'blogs/blogpost': 'view-pim-journal.png',  # 'view-calendar-list.png',
+    'media/album': 'folder-image.png',
+    'donations/donation': 'help-donate.png',
+    'organizations/organization': 'x-office-address-book.png',
+    'organizations/organizationmember': 'x-office-contact.png',
+    'projects/message': 'accessories-text-editor.png',  # 'view-conversation-balloon.png',
+    'projects/testimonial': 'help-feedback.png',
+    'projects/project': 'view-time-schedule.png',
+}
 
 # Required for handlebars_template to work properly
 USE_EMBER_STYLE_ATTRS = True
