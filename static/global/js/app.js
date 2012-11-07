@@ -1,3 +1,5 @@
+$(function() {
+
 Em.View.reopen({
     templateForName: function(name, type) {
         if (!name) {
@@ -232,4 +234,7 @@ App.RootRoute = Em.Route.extend({
 App.Router = Em.Router.extend({
     location: 'hash',
     root: App.RootRoute
+});
+
+
 });
