@@ -83,7 +83,7 @@
 
                         // Retrieve an server-side generated HTML preview,
                         // and display that in a lightbox.
-                        var $form = $("form#blogpost_form");
+                        var $form = $("#content-main form");
                         var postdata = $form.serialize();
                         $.ajax({
                             'url': get_preview_url,

@@ -60,7 +60,7 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
 
     @xframe_options_sameorigin
     def preview_canvas(self, request):
-        return render(request, 'admin/blogs/blogpost/preview_canvas.html', {})
+        return render(request, 'admin/blogs/preview_canvas.html', {})
 
 
     def get_preview_html(self, request, pk):

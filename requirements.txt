@@ -57,7 +57,7 @@ django-taggit-autocomplete-modified==0.1.0b4
 micawber==0.2.5
 
 # Blog/news contents is created using blocks
-django-fluent-contents==0.8.1
+django-fluent-contents==0.8.2
 django-wysiwyg==0.5
 django-tinymce==1.5.1b2
 html5lib==0.95
