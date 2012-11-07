@@ -1,0 +1,124 @@
+.video {
+    @include rem(margin, 32px 0);
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.video iframe,
+.video object,
+.video embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.photo-viewer {
+    @include rem(margin, 32px 0);
+    @include clearfix;
+    
+    ul {
+        @include rem(margin, 8px 0 0 0);
+        padding: 0;
+        list-style: none;
+        @include clearfix;
+        
+        li {
+            display: block;
+            @include grid(8, 0, 1);
+            overflow: hidden;
+            border-bottom: 4px solid transparent;
+            
+            &:hover {
+                border-color: $green;
+            }
+            
+            &:first-child {
+                @include grid(8, 0, 1);
+            }
+        
+            &.more {
+                display: block;
+            
+                @include grid(8, 0, 0);
+            
+                background-color: $green;
+                
+                a {
+                    display: block;
+                    color: $white;
+                }
+            }
+        }
+    }
+    
+}
+
+
+.user {
+    
+    .user-img {
+        
+        &:hover  {
+            border: 1px solid $pink;
+        }
+    
+    }
+    
+    @include rem(font-size, 18px);
+    
+    strong {
+        font-weight: normal;
+    }
+    
+    em {
+        font-style: normal;
+        @include rem(font-size, 12px);
+        color: $white;
+        background-color: #ccc;
+        @include rem(padding, 2px);
+        text-transform: uppercase;
+    }
+}
+
+.user-img {
+    border: 1px solid #999;
+    overflow: hidden;
+} 
+
+.timestamp {
+    text-transform: uppercase;
+    color: $black;
+    @include rem(font-size, 10px);
+}
+
+.manage {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include rem(font-size, 14px);
+    
+    li {
+        display: inline;
+        
+        a {
+            display: inline-block;
+            color: #666;
+            
+            &:hover, &:active {
+                color: $black;
+            }
+            
+            &.edit {
+                
+            }
+            
+            &.delete {
+                
+            }
+            
+        }
+    }
+}

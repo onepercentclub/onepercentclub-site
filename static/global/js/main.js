@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    initProgress();
+    //initProgress();
     initLightbox();
     initJiraFeedback();
 })
@@ -92,7 +92,6 @@ function initProgress(){
 
 
 function initJiraFeedback() {
-    // Requires jQuery!
     jQuery.ajax({
         url: "https://onepercentclub.atlassian.net/s/en_USfyzlz7-418945332/809/42/1.2.5/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=8a8cc0df",
         type: "get",

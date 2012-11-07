@@ -1,0 +1,57 @@
+﻿//  Taiga Boilerplate 1.0
+//  Copyright 2012 by Studio Wolf
+//  Licensed under the MIT license
+
+/* ========================= Variables ================================== */
+
+$font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+$font-size: 16px;
+
+$grid-columns: 48;
+$min-width: 980px;
+$max-width: 1280px;
+$margin-bottom: 1.25em;
+
+$color-brand: #0e8a41;
+$color-error: #d24226;
+$color-success: #5DA423;
+
+$black: #050505;
+$white: #fff;
+$green: #00c051;
+$pink: #ff619a;
+
+$color-deselect: #bfbfbf;
+$color-back: #f3f3f3;
+
+/* ========================= Includes ============================= */
+
+/* Base */
+@import "library/_reset";
+@import "mixins/_mixins";
+@import "mixins/_rem";
+@import "library/_grid";
+@import "library/_typography";
+@import "library/_layout";
+@import "library/_navigation";
+
+/* Style */
+@import "library/_forms";
+@import "library/_tables";
+@import "library/_labels";
+@import "library/_buttons";
+@import "library/_icons";
+@import "library/_messages";
+@import "library/_pagination";
+@import "library/_lightbox";
+@import "library/_tabs";
+@import "library/_panels";
+
+
+/* Modules */
+@import "modules/_global";
+@import "modules/_wallposts";
+@import "modules/_reactions";
+
+/* Extra */
+@import "library/_print";
