@@ -10,7 +10,8 @@ body { line-height: 1.5em; }
 
 // full width container
 .container {
-    //border: 1px solid red;
+    width: 100%;
+    min-width: $min-width;
 }
 
 // wraps grid min & max size
@@ -47,12 +48,7 @@ body { line-height: 1.5em; }
     background-color: $black;
     color: $white;
     vertical-align: middle;
-
-    
 }
-
-
-
 
 /* Example for types.html
 header { @include grid(48, 1); }

@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
 from apps.bluebottle_utils.tests import generate_slug
