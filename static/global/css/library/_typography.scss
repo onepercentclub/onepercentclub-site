@@ -91,7 +91,7 @@ p {
     }
 }
 
-a, a:visited { 
+a { 
     color: $green; 
     text-decoration: none; 
     &:hover, &:active { color: $pink; }

@@ -58,16 +58,11 @@
 
 
 .user {
-    
-    .user-img {
-        
-        &:hover  {
-            border: 1px solid $pink;
-        }
-    
-    }
-    
     @include rem(font-size, 18px);
+    
+    &:hover .user-img {
+        border: 1px solid $pink;
+    }
     
     strong {
         font-weight: normal;
