@@ -150,8 +150,9 @@ App.BlogsRoute = Em.Route.extend({
     connectOutlets : function(router, context) {
         require(['app/blogs'], function(){
             App.blogListController.getList();
-            router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
-            router.get('applicationController').connectOutlet('midPanel', 'blogList');
+            router.get('applicationController').connectOutlet('topPanel', 'blogList');
+            router.get('applicationController').connectOutlet('midPanel', 'empty');
+            router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         });
     },
 
@@ -182,7 +183,9 @@ App.BlogsRoute = Em.Route.extend({
                 App.reactionListController.getList({'type': 'blogs', 'slug': slug});
                 router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
                 router.get('applicationController').connectOutlet('midPanel', 'blogDetail');
-                router.get('applicationController').connectOutlet('bottomPanel', 'reactionList');
+                router.get('applicationController').connectOutlet('bottomPanel', 'reactionBox');
+                router.get('applicationController').connectOutlet('reactionForm', 'reactionForm');
+                router.get('applicationController').connectOutlet('reactionList', 'reactionList');
             });
         } 
     }) 
@@ -215,7 +218,9 @@ App.ProjectsRoute = Em.Route.extend({
             return {slug: params.project_slug}
         },
         serialize: function(router, context) {
-            return {project_slug: context.slug};
+            return {project_slug: context.slug};                router.get('applicationController').connectOutlet('midPanel', 'empty');
+                router.get('applicationController').connectOutlet('bottomPanel', 'empty');
+
         },
         connectOutlets: function(router, context) {
             require(['app/projects'], function(){

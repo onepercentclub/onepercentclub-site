@@ -2,31 +2,36 @@
 {% load i18n %}
 
 {% tplhandlebars "reaction_form" %}
-     <form action="#" method="post" class="reaction-form">
-        <fieldset>
-            <label for="reaction-1">Comment</label>
-            <span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
-            <textarea id="reaction-1" name="reaction" placeholder="Hey Bart, leave a comment behind!"></textarea>
-        </fieldset>
-        
-        <button type="submit" id="reaction-post">Post</button>
+    <fieldset>
+        <label for="reaction-1">Comment</label>
+        <span class="user-img"><img src="/static/assets/global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
+        <textarea id="reaction-1" name="reaction" placeholder="Hey Bart, leave a comment behind!"></textarea>
+    </fieldset>
+    
+    <button type="submit" id="reaction-post">Post</button>
  
-                    <ul class="reaction-actions">
-            <li class="toggle-reactions is-shown"><a href="#">2 Comments</a></li>
-            <li class="toggle-love is-loved"><a href="#">22 love this</a></li>
-            <li class="share">
-                <strong>Share</strong>
-                <ul class="share-actions">
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li>Url: fdsdsf</li>
-                </ul>
-            </li>
-        </ul>
-     </form>
-{% endtplhandlebars" %}
+    <ul class="reaction-actions">
+        <li class="toggle-reactions is-shown"><a href="#">2 Comments</a></li>
+        <li class="toggle-love is-loved"><a href="#">22 love this</a></li>
+        <li class="share">
+            <strong>Share</strong>
+            <ul class="share-actions">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li>Url: fdsdsf</li>
+            </ul>
+        </li>
+    </ul>
+{% endtplhandlebars %}
      
 {% tplhandlebars "reaction_box" %}
-    {{view reactionFormView}}
-    {{view reactionListView}}
-{% tplhandlebars "reaction_box" %}
+    <section class="wrapper">
+        <!-- wallpost -->
+        <article class="wallpost">
+            <div class="reaction-box">
+                {{outlet reactionForm}}
+                {{outlet reactionList}}
+            </div>
+        </article>
+    </section>
+{% endtplhandlebars %}

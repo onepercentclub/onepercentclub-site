@@ -19,11 +19,15 @@ App.reactionListController = App.ListController.create({
     
 });
 
+App.reactionBoxController = Em.Controller.create({
+});
+
+
 
 App.ReactionBoxView = Em.View.extend({
     templateName: 'reaction_box',
     templateFile: 'reaction_box',
-    className: ['reaction-box']
+    classNames: ['container']
 });
 
 
@@ -31,7 +35,7 @@ App.ReactionFormView = Em.View.extend({
     templateName: 'reaction_form',
     templateFile: 'reaction_box',
     tagName: 'form',
-    className: ['reaction-box']
+    classNames: ['reaction-form']
 });
 
 
@@ -43,8 +47,7 @@ App.ReactionPreviewView = Em.View.extend({
 
 App.ReactionNoItemsView = Em.View.extend({
     templateName: 'reaction_no_items',
-    templateFile: 'reaction_list'
-    
+    templateFile: 'reaction_list',
 });
 
 

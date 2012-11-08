@@ -1,11 +1,31 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
 {% tplhandlebars "blog_detail" %}
-    
-    <h2>{{ view.content.title}}</h2>
-    <i>By: {{ view.content.author.first_name }}</i>
-    <p>
-        {{{ view.content.contents }}}
-    </p>
-
+    <section class="wrapper">
+        <!-- wallpost -->
+        <article class="wallpost">
+            <header>
+                <h3>{{ view.content.title}}</h3>
+                <small class="timestamp">4 days ago</small>
+                <a href="#" class="user initiator">
+                    <span class="user-img"><img src="/static/assets/global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
+                    <strong>Jessica Jansen</strong> <em>Project Initiator</em>
+                </a>
+                
+                <ul class="manage">
+                    <li class="manage-edit"><a href="#">Edit</a></li>
+                    <li class="manage-remove"><a href="#">Delete</a></li>
+                </ul>
+            </header>
+            
+            <div class="content">   
+                {{{ view.content.contents }}}
+            </div>
+        </article>
+        
+        <sidebar class="wallpost-filter">
+            {{view App.BlogListView }}
+        </sidebar>
+        <!-- end: wallpost -->
+    </section>
 {% endtplhandlebars %}
