@@ -1,11 +1,11 @@
-from django.utils.unittest import TestCase
+from django.test import TestCase
 
 from apps.accounts.models import UserProfile, UserProfileCreationError
 
 from apps.bluebottle_utils.tests import UserTestsMixin
 
 
-class UserProfileTestCase(TestCase, UserTestsMixin):
+class UserProfileTestCase(UserTestsMixin, TestCase):
     """ Tests for the UserProfile model. """
 
     def test_slug_update(self):

@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.utils.unittest import TestCase
+from django.test import TestCase
 
 from .models import Region, SubRegion, Country
 
