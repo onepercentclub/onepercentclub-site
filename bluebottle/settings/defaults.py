@@ -211,6 +211,7 @@ INSTALLED_APPS = [
     'apps.blogs',
     'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
+    'apps.contentplugins',
     'apps.accounts',
     'apps.love',
     'apps.organizations',
