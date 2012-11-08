@@ -20,7 +20,7 @@ class Reaction(models.Model):
 
     # Content-object field.
     content_type = models.ForeignKey(ContentType, verbose_name=_('content type'), related_name="content_type_set_for_%(class)s")
-    object_pk = models.TextField(_('object ID'))
+    object_pk = models.PositiveIntegerField(_('object ID'))
     content_object = generic.GenericForeignKey(ct_field="content_type", fk_field="object_pk")
 
     # Who posted this reaction. User will need to be logged in to make a reaction.
@@ -33,7 +33,6 @@ class Reaction(models.Model):
     # Metadata about the reaction.
     created = CreationDateTimeField(_('created'))
     updated = ModificationDateTimeField(_('updated'))
-    deleted = models.DateTimeField(_('deleted'), blank=True, null=True)
     ip_address = models.IPAddressField(_('IP address'))
 
     # Manager

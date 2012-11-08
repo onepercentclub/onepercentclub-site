@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from apps.bluebottle_utils.tests import generate_slug
+from apps.bluebottle_utils.tests import generate_random_slug
 
 from .models import Organization
 
@@ -16,9 +16,9 @@ class OrganizationTestsMixin(object):
         The returned object is not yet saved to the database.
         """
         if not slug:
-            slug = generate_slug()
+            slug = generate_random_slug()
             while Organization.objects.filter(slug=slug).exists():
-                 slug = generate_slug()
+                 slug = generate_random_slug()
 
         organization = Organization(slug=slug)
 

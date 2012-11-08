@@ -23,8 +23,8 @@ class ReactionList(generics.ListCreateAPIView):
                           IsAuthorOrReadOnly,)
 
     def pre_save(self, obj):
-        obj.owner = self.request.user
-        obj.editor = obj.owner
+        obj.author = self.request.user
+        obj.editor = obj.author
         obj.ip_address = get_client_ip(self.request)
         reaction_to_instance = self._get_reaction_to_instance()
         obj.content_object = reaction_to_instance

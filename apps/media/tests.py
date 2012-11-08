@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
-from apps.bluebottle_utils.tests import generate_slug
+from apps.bluebottle_utils.tests import generate_random_slug
 
 from .models import Album, LocalPicture, EmbeddedVideo
 
@@ -13,9 +13,9 @@ class MediaTestsMixin(object):
         """ Create and return (but not save) an album. """
 
         if not slug:
-            slug = generate_slug()
+            slug = generate_random_slug()
             while Album.objects.filter(slug=slug).exists():
-                 slug = generate_slug()
+                 slug = generate_random_slug()
 
         album = Album(slug=slug)
         return album

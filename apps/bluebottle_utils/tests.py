@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 
 
-def generate_slug():
+def generate_random_slug():
     return str(uuid.uuid4())[:30]
 
 
@@ -22,11 +22,14 @@ class UserTestsMixin(object):
         # If auto-generated, make sure it's unique.
 
         if not username:
-            username = generate_slug()
+            username = generate_random_slug()
             while User.objects.filter(username=username).exists():
-                 username = generate_slug()
+                 username = generate_random_slug()
 
         user = User.objects.create_user(username=username)
+
+        if not password:
+            user.set_password('password')
 
         return user
 
