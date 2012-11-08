@@ -1,21 +1,35 @@
 App.Reaction = DS.Model.extend({
     url: 'reactions',
     reaction: DS.attr('string'),
+    created: DS.attr('string'),
+    relativetime: function(){
+        var date = new Date(this.get('created'));
+        return date;
+        return humanize.relativeTime(date);
+    }.property('created')
 });
 
 
 App.reactionListController = App.ListController.create({
     model: App.Reaction,
+    getUrl: function(){
+        
+    },
     getList: function(filterParams){
         var slug = filterParams['slug'];
         var type = filterParams['type'];
-        var url =  type + '/' + slug + '/reactions';
+        var url =  type + '/' + slug + '/reactions/';
         var model =  this.get('model');
         model.reopen({
             url: url
         });
         this.set("content", App.store.findAll(model));
+    },
+    addReaction: function(reaction){
+        App.Reaction.createRecord({'reaction': reaction});
+        App.store.commit();
     }
+    
     
 });
 
@@ -35,7 +49,15 @@ App.ReactionFormView = Em.View.extend({
     templateName: 'reaction_form',
     templateFile: 'reaction_box',
     tagName: 'form',
-    classNames: ['reaction-form']
+    classNames: ['reaction-form'],
+    reaction: 'leeg',
+    submit: function(event){
+        event.preventDefault();
+        var reaction = event.srcElement[1].value;
+        event.srcElement[1].value = "";
+        App.reactionListController.addReaction(reaction);
+    }
+    
 });
 
 

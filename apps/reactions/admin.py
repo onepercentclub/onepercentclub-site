@@ -12,12 +12,12 @@ class ReactionAdmin(admin.ModelAdmin):
             'fields': ('author', 'editor', 'reaction'),
         }),
         (_('Metadata'), {
-            'fields': ('ip_address'),
+            'fields': ('ip_address', ),
         }),
     )
 
     list_display = ('author_full_name', 'content_type', 'object_pk', 'ip_address', 'created', 'updated')
-    list_filter = ('created', 'updated', 'deleted')
+    list_filter = ('created', 'updated')
     date_hierarchy = 'created'
     ordering = ('-created',)
     raw_id_fields = ('author', 'editor')

@@ -4,7 +4,7 @@
 {% tplhandlebars "reaction_preview" %}
     <span class="user-img"><img src="/static/assets/global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
     <div class="comment">
-        <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
+        <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>{{view.content.relativetime}}</small></a>
         <p> {{ view.content.reaction }}</p>
     </div>
 {% endtplhandlebars %}

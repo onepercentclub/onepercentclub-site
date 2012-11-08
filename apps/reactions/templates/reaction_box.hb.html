@@ -5,7 +5,8 @@
     <fieldset>
         <label for="reaction-1">Comment</label>
         <span class="user-img"><img src="/static/assets/global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
-        <textarea id="reaction-1" name="reaction" placeholder="Hey Bart, leave a comment behind!"></textarea>
+        {{view Ember.TextArea valueBinding="reaction" name="reaction" placeholder="Hey Bart, leave a comment behind!"}}
+        
     </fieldset>
     
     <button type="submit" id="reaction-post">Post</button>

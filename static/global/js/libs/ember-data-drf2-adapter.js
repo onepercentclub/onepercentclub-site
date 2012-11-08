@@ -3,7 +3,6 @@ var get = Ember.get, set = Ember.set;
 DS.DRF2Serializer = DS.Serializer.extend({
 
   extractBelongsTo: function(record, hash, relationship) {
-    console.log(record);
     var key = relationship.key;
     var value = hash[key];
     if (!!value) {
@@ -54,6 +53,20 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     store.load(type, id, json);
   },
 
+
+  createRecord: function(store, type, record) {
+    var data, root = this.rootForType(type);
+
+    data = record.toJSON();
+
+    this.ajax(this.buildURL(root), "POST", {
+      data: data,
+      success: function(json) {
+        this.didCreateRecord(store, record, json);
+      }
+    });
+  },
+  
   rootForType: function(type) {
     var object = new type;
     if (object['url']){
