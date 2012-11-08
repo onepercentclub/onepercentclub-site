@@ -194,10 +194,10 @@ p {
   p.lead {
     font-weight: bold; }
 
-a, a:visited {
+a {
   color: #00c051;
   text-decoration: none; }
-  a:hover, a:active, a:visited:hover, a:visited:active {
+  a:hover, a:active {
     color: #ff619a; }
 
 small {
@@ -296,6 +296,10 @@ html {
 
 body {
   line-height: 1.5em; }
+
+.container {
+  width: 100%;
+  min-width: 980px; }
 
 .wrapper {
   *zoom: 1;
@@ -432,6 +436,7 @@ section {
   margin-right: 2.083%;
   position: relative; }
   .nav-main li a, .nav-main li a:visited {
+    white-space: nowrap;
     width: 25%; }
 
 .nav-member {
@@ -453,16 +458,17 @@ section {
     height: 2.25rem;
     float: left;
     vertical-align: top; }
-  .nav-member a, .nav-member a:visited {
+  .nav-member a {
     color: white;
     text-transform: uppercase;
+    white-space: nowrap;
     border-right: 1px solid #050505;
     display: inline-block;
     float: left;
     background: #00c051;
     padding: 6px 8px 6px 8px;
     padding: 0.375rem 0.5rem 0.375rem 0.5rem; }
-    .nav-member a:hover, .nav-member a:active, .nav-member a.is-selected, .nav-member a:visited:hover, .nav-member a:visited:active, .nav-member a:visited.is-selected {
+    .nav-member a:hover, .nav-member a:active, .nav-member a.is-selected {
       color: #050505; }
   .nav-member .nav-my1percent {
     width: 35%;
@@ -492,10 +498,12 @@ section {
     padding: 0.188rem;
     border-radius: 8px;
     border-radius: 0.5rem; }
-  .nav-member .nav-login {
+  .nav-member .nav-login, .nav-member .nav-signup {
     width: 35%; }
+    .nav-member .nav-login:hover, .nav-member .nav-login:active, .nav-member .nav-login.is-active, .nav-member .nav-signup:hover, .nav-member .nav-signup:active, .nav-member .nav-signup.is-active {
+      color: #00c051;
+      background-color: white; }
   .nav-member .nav-signup {
-    width: 35%;
     background-color: #ff619a; }
   .nav-member .nav-language {
     float: left;
@@ -1364,7 +1372,7 @@ ul.steps {
 .user {
   font-size: 18px;
   font-size: 1.125rem; }
-  .user .user-img:hover {
+  .user:hover .user-img {
     border: 1px solid #ff619a; }
   .user strong {
     font-weight: normal; }

@@ -85,6 +85,7 @@
 	
     li a, li a:visited {
         @extend .nav-item;
+        white-space: nowrap;
         width: 25%;
     }
 }
@@ -105,10 +106,10 @@
         vertical-align: top;
     }
     
-    a, a:visited {
+    a {
         color: $white;
         text-transform: uppercase;
-	    
+	    white-space: nowrap;
 	    border-right: 1px solid $black;
 	    display: inline-block;
 	    float: left;
@@ -158,13 +159,17 @@
 	}
 	
 	
-	.nav-login {
+	.nav-login, .nav-signup {
 	    width: 35%;
+	    
+	    &:hover, &:active, &.is-active {
+	        color: $green;
+	        background-color: $white;
+	    }
 	}
 	
 	
 	.nav-signup {
-	    width: 35%;
 	    background-color: $pink;
 	}
 	
