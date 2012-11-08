@@ -1,0 +1,7 @@
+<div class="image align-{{ instance.align }}">
+    {% if instance.image %}
+        <img src="{{ instance.image.url }}" width="{{ instance.image.width }}" height="{{ instance.image.height }}" alt="" />
+    {% else %}
+        (no image uploaded yet)
+    {% endif %}
+</div>
