@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.utils import timezone
 
-from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
+from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
 from apps.projects.views import ProjectRoot, ProjectInstance
@@ -41,9 +41,9 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             owner = self.create_user()
 
         if not slug:
-            slug = generate_slug()
+            slug = generate_random_slug()
             while Project.objects.filter(slug=slug).exists():
-                 slug = generate_slug()
+                 slug = generate_random_slug()
 
         project = Project(
             organization=organization, owner=owner, title=title, slug=slug,

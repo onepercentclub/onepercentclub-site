@@ -71,3 +71,11 @@ html, body { height: 100%; }
     margin:  0;
     text-align: center;
 }
+
+
+/* Other fixes */
+
+input.ac_input {
+    /* Make the django-taggit field larger, same size as vLargeTextField */
+    width: 610px;
+}
