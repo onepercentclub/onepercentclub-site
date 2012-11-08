@@ -3,13 +3,7 @@ App.Blog = DS.Model.extend({
     slug: DS.attr('string'),
     title: DS.attr('string'),
     contents: DS.attr('string'),
-    author: DS.belongsTo('App.Member', {embedded: true}),
-    author_name: function(){
-        var auth = this.get('author');
-        
-        return'yeah ' + auth.first_name;
-    }.property('author')
-    
+    author: DS.belongsTo('App.Member'),
 });
 
 
