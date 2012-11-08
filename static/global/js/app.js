@@ -1,4 +1,5 @@
 $(function() {
+require(['app/members']);
 
 Em.View.reopen({
     templateForName: function(name, type) {
@@ -67,7 +68,6 @@ App = Em.Application.create({
 
 
 App.store =  DS.Store.create({
-  title: DS.attr('string'),
   revision: 7,
   adapter: DS.DRF2Adapter.create()
 });
@@ -107,7 +107,6 @@ App.DetailController = Em.ObjectController.extend({
         }
         this.set("content", App.store.find(this.get('model'), this.getPkValue()));
     }
-    
 });
 
 App.FormController = Em.ObjectController.extend({
@@ -175,14 +174,17 @@ App.BlogsRoute = Em.Route.extend({
             return {slug: slug};
         },
         connectOutlets: function(router, context) {
-            require(['app/blogs'], function(){
+            require(['app/blogs', 'app/reactions'], function(){
                 // TODO: See if we can stick to just  context.get('slug')
                 var slug = context.slug ? context.slug : context.get('slug');
                 App.blogDetailController.getDetail({'slug': slug});
+                // TODO: use the detail from the line above to pass to call below
+                App.reactionListController.getList({'type': 'blogs', 'slug': slug});
                 router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
                 router.get('applicationController').connectOutlet('midPanel', 'blogDetail');
+                router.get('applicationController').connectOutlet('bottomPanel', 'reactionList');
             });
-        }
+        } 
     }) 
 });
 
