@@ -75,16 +75,16 @@
                     <nav class="nav-member member-login">
                         <h1 class="nav-title">Profile</h1>
                         {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}?next={% firstof request.path "/" %}" class="nav-my1percent"><img src="{% get_static_prefix %}global/dummy/avatar-color.jpg" width="40" height="40" alt="Bart Lacroix" /><strong>Logout</strong></a>
-                        <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
+                            <a href="{% url 'logout' %}?next={% firstof request.path "/" %}" class="nav-my1percent"><img src="{% get_static_prefix %}global/dummy/avatar-color.jpg" width="40" height="40" alt="Bart Lacroix" /><strong>Logout</strong></a>
+                            <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
                         {% else %}
-                        <a href="/accounts/login" class="nav-login">Login</a>
-                        <a href="/accounts/signup" class="nav-signup">Signup</a>
+                            <a href="/accounts/login" class="nav-login">Login</a>
+                            <a href="/accounts/signup" class="nav-signup">Signup</a>
+                            <div class="nav-language">
+                                <a id="nav-lang-en" class="is-active" href="#">EN</a>
+                                <a id="nav-lang-nl" href="#">NL</a>
+                            </div>
                         {% endif %}
-                        <div class="nav-language">
-                            <a id="nav-lang-en" class="is-active" href="#">EN</a>
-                            <a id="nav-lang-nl" href="#">NL</a>
-                        </div>
                     </nav>
                     <!-- end: main navigation -->
                 </div>
@@ -127,6 +127,8 @@
     <!-- Scripts -->
     <div id="fb-root"></div>
     <!--[if lt IE 9]><script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
 
