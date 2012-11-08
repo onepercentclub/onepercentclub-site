@@ -8,7 +8,6 @@ from fluent_contents.models import PlaceholderField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 from sorl.thumbnail import ImageField
 from apps.geo.models import Country
-from apps.love.models import LovableModel
 from .managers import BlogPostManager, BlogPostProxyManager
 
 
@@ -25,7 +24,7 @@ class BlogCategory(models.Model):
 
 # Based on https://github.com/edoburu/django-fluent-blogs/
 # which doesn't offer custom base class models yet.
-class BlogPost(LovableModel):
+class BlogPost(models.Model):
     """
     Blog post / news item.
     """

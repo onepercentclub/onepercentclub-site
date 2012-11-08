@@ -1,21 +1,33 @@
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.test import TestCase
-from apps.blogs.models import BlogPostProxy
 from apps.love.models import LoveDeclaration
+from apps.bluebottle_utils.tests import CustomSettingsTestCase
+from .models import TestBlogPost
 
 
-class LoveTest(TestCase):
+class LoveTest(CustomSettingsTestCase):
+    new_settings = dict(
+        INSTALLED_APPS=(
+            'django.contrib.contenttypes',
+            'django.contrib.auth',
+            'apps.love',
+            'apps.love.tests',
+        )
+    )
+
+
     @classmethod
     def setUpClass(cls):
+        super(LoveTest, cls).setUpClass()
+
         # Define the basic database content to use.
         # This code runs before the transaction wrapper
 
         user1 = User.objects.create_user('user1', 'test1@example.com')
         user2 = User.objects.create_user('user2', 'test2@example.com')
-        post1 = BlogPostProxy.objects.create(title="Post 1", slug='post-1', author=user1)
-        post2 = BlogPostProxy.objects.create(title="Post 2", slug='post-2', author=user1)  # not loved as test
-        post3 = BlogPostProxy.objects.create(title="Post 3", slug='post-3', author=user1)
+        post1 = TestBlogPost.objects.create(title="Post 1", slug='post-1')
+        post2 = TestBlogPost.objects.create(title="Post 2", slug='post-2')  # not loved as test
+        post3 = TestBlogPost.objects.create(title="Post 3", slug='post-3')
 
         LoveDeclaration.objects.all().delete()
 
@@ -30,9 +42,9 @@ class LoveTest(TestCase):
         # Post3: loved by user2 only
         user1 = User.objects.get(username='user1')
         user2 = User.objects.get(username='user2')
-        post1 = BlogPostProxy.objects.get(slug="post-1")
-        post2 = BlogPostProxy.objects.get(slug="post-2")
-        post3 = BlogPostProxy.objects.get(slug="post-3")
+        post1 = TestBlogPost.objects.get(slug="post-1")
+        post2 = TestBlogPost.objects.get(slug="post-2")
+        post3 = TestBlogPost.objects.get(slug="post-3")
 
         # Assign via the object API
         post1.mark_as_loved(user1)
@@ -63,10 +75,10 @@ class LoveTest(TestCase):
         self.assertEqual(sorted(post1.loves.values_list('user__username', flat=True)), ['user1', 'user2'])
 
         # Test whether the query filter of the generic relation works
-        self.assertEqual(sorted(BlogPostProxy.objects.filter(loves__user=user2).values_list('slug', flat=True)), ['post-1', 'post-3'], "Expected query filter to work")
+        self.assertEqual(sorted(TestBlogPost.objects.filter(loves__user=user2).values_list('slug', flat=True)), ['post-1', 'post-3'], "Expected query filter to work")
 
         # Test bulk methods
-        all_blog_loves = LoveDeclaration.objects.for_objects(BlogPostProxy.objects.all())
+        all_blog_loves = LoveDeclaration.objects.for_objects(TestBlogPost.objects.all())
         self.assertEqual(all_blog_loves[post1.pk]['count'], 2)
         self.assertEqual(all_blog_loves[post3.pk]['count'], 1)
 
@@ -80,7 +92,7 @@ class LoveTest(TestCase):
         Loving an object twice is nice but perhaps a bit too much for the database to handle.
         """
         user1 = User.objects.get(username='user1')
-        post1 = BlogPostProxy.objects.get(slug="post-1")
+        post1 = TestBlogPost.objects.get(slug="post-1")
 
         # Via object:
         post1.mark_as_loved(user1)
