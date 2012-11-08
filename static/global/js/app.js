@@ -1,3 +1,5 @@
+$(function() {
+
 Em.View.reopen({
     templateForName: function(name, type) {
         if (!name) {
@@ -63,67 +65,47 @@ App = Em.Application.create({
 
 });
 
-/* Base Controllers */
 
-// Base Controller Mixin
-App.BaseControllerMixin = Ember.Mixin.create({
-    content: null,
-    // Api resource for the data
-    dataUrl: null, 
-    // Filters to passed on to the API
-    filterParams: {}, 
-
-    getDataUrl: function(){
-        if (!this.dataUrl) {
-            Ember.Logger.warn("WARNING: dataUrl not set in Controller");
-        }
-        return this.dataUrl;
-    },
-
+App.store =  DS.Store.create({
+  title: DS.attr('string'),
+  revision: 7,
+  adapter: DS.DRF2Adapter.create()
 });
 
+
+/* Base Controllers */
+
 // Controller to get lists from API
-App.ListController = Em.ArrayController.extend(App.BaseControllerMixin, {
+App.ListController = Em.ArrayController.extend({
     
+    filterParams: {},
     getList: function(filterParams){
-        if (filterParams) {
-            this.set('filterParams', filterParams);
-        }
-        var controller = this;
-        require(['app/data_source'], function(){
-            App.dataSource.get(controller.getDataUrl(), controller.get('filterParams'), function(data) {
-                controller.set('content', data['results']);
-            });
-        })
+        this.set("content", App.store.findAll(this.get('model')));
     }
     
 });
 
 // Controller to get single records from API
-App.DetailController = Em.ObjectController.extend(App.BaseControllerMixin, {
-    getDataUrl: function(){
-        var url = this._super();
+App.DetailController = Em.ObjectController.extend({
+    filterParams: {},
+    getPkValue: function(){
         var params = this.get('filterParams');
+        pk = "";
         if (undefined !== params['slug']) {
-            url += params['slug'];
+            pk = params['slug'];
         } else if (undefined !== params['id']) {
-            url += params['id'];
+            pk = params['id'];
         } else if (undefined !== params['pk']) {
-            url += params['pk'];
+            pk = params['pk'];
         }
-        return url;
+        return pk;
     }, 
 
     getDetail: function(filterParams){
         if (filterParams) {
             this.set('filterParams', filterParams);
         }
-        var controller = this;
-        require(['app/data_source'], function(){
-            App.dataSource.get(controller.getDataUrl(), controller.get('filterParams'), function(data) {
-                controller.set('content', data);
-            });
-        })
+        this.set("content", App.store.find(this.get('model'), this.getPkValue()));
     }
     
 });
@@ -184,15 +166,23 @@ App.BlogsRoute = Em.Route.extend({
 
     detail: Em.Route.extend({
         route: '/:slug',
-        deserialize: function(router, params) {
-            return {slug: params.slug}
+        deserialize: function(router, context) {
+            // TODO: See if we can stick to just  context.get('slug')
+            // Now the Ember action and the 'bookmarked' page need \
+            // different approach
+            var slug = context.slug ? context.slug : context.get('slug');
+            return {slug: slug}
         },
         serialize: function(router, context) {
-            return {slug: context.slug};
+            // TODO: See if we can stick to just  context.get('slug')
+            var slug = context.slug ? context.slug : context.get('slug');
+            return {slug: slug};
         },
         connectOutlets: function(router, context) {
             require(['app/blogs'], function(){
-                App.blogDetailController.getDetail({'slug': context.slug});
+                // TODO: See if we can stick to just  context.get('slug')
+                var slug = context.slug ? context.slug : context.get('slug');
+                App.blogDetailController.getDetail({'slug': slug});
                 router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
                 router.get('applicationController').connectOutlet('midPanel', 'blogDetail');
             });
@@ -265,4 +255,7 @@ App.RootRoute = Em.Route.extend({
 App.Router = Em.Router.extend({
     location: 'hash',
     root: App.RootRoute
+});
+
+
 });
