@@ -1,6 +1,6 @@
 from apps.blogs.models import BlogPost
 from apps.blogs.views import BlogPostList, BlogPostDetail
-from apps.bluebottle_utils.tests import UserTestsMixin, generate_slug
+from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from django.test import TestCase
 from rest_framework import status
 from rest_framework.tests.authentication import Client
@@ -15,10 +15,10 @@ class BlogPostCreationMixin(UserTestsMixin):
             title = 'We Make it Work!'
 
         if not slug:
-            slug = generate_slug()
+            slug = generate_random_slug()
             # Ensure generated slug is unique.
             while BlogPost.objects.filter(slug=slug).exists():
-                slug = generate_slug()
+                slug = generate_random_slug()
 
         if not language:
             language = 'nl'
@@ -48,7 +48,7 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
         self.detail_view = BlogPostDetail.as_view()
         self.api_base = '/i18n/api/blogs/'
         self.reaction_api_name = '/reactions/'
-        self.reactions_url = self.api_base + self.blogpost.slug + self.reaction_api_name
+        self.reactions_url = "{0}{1}{2}".format(self.api_base, self.blogpost.slug, self.reaction_api_name)
 
         self.client = Client(enforce_csrf_checks=False)
         self.client.login(username=self.blogpost.author.username, password='password')
@@ -68,7 +68,7 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
         self.assertEqual(response.data['reaction'], reaction_text)
 
         # Retrieve reaction.
-        reaction_detail_url = self.reactions_url + str(response.data['id'])
+        reaction_detail_url = "{0}{1}".format(self.reactions_url, str(response.data['id']))
         response = self.client.get(reaction_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['reaction'], reaction_text)
@@ -107,11 +107,13 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
 
         # Create a reaction on second blog post.
         second_blogpost = self.create_blogpost(title='Ben Jij Rijk?')
-        second_reactions_url = self.api_base + second_blogpost.slug + self.reaction_api_name
+        second_reactions_url = "{0}{1}{2}".format(self.api_base, second_blogpost.slug, self.reaction_api_name)
         reaction_text_3 = 'Super!'
         response = self.client.post(second_reactions_url, {'reaction': reaction_text_3})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['reaction'], reaction_text_3)
+        # Save the detail url to be used in the authorization test below.
+        second_reaction_detail_url = "{0}{1}".format(second_reactions_url, response.data['id'])
 
         # Check that the size and data in the first reaction list is correct.
         response = self.client.get(self.reactions_url)
@@ -129,6 +131,5 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
         # Test that a reaction update from a user who is not the author is forbidden.
         client2 = Client(enforce_csrf_checks=False)
         client2.login(username=second_blogpost.author.username, password='password')
-        response = client2.get(self.reactions_url)
-        response = client2.post(self.reactions_url + str(response.data['results'][0]['id']), {'reaction': 'Can I update this reaction?'})
+        response = client2.post(second_reaction_detail_url, {'reaction': 'Can I update this reaction?'})
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
