@@ -85,7 +85,7 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         blogpost = self.get_base_object(pk)
 
         # Get fluent-contents placeholder
-        items = self._get_preview_items(request)
+        items = self._get_preview_items(request, blogpost)
         contents_html = render_content_items(request, items)
 
         status = 200
@@ -97,7 +97,7 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         return HttpResponse(simplejson.dumps(json), content_type='application/javascript', status=status)
 
 
-    def _get_preview_items(self, request):
+    def _get_preview_items(self, request, blogpost):
         """
         Construct all ContentItem models with the latest unsaved client-side data applied to them.
 
@@ -108,13 +108,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         new_items = []
 
         # Simulate the django-admin POST process, without saving.
-        # Pretend that there were no existing forms to restore, only new forms.
-        # Certainly, it could be useful to pass `blogpost` + a queryset to the FormSet so it can reuse database objects
-        # instead of fetching remote data again (e.g. in OEmbedItem.save()) but this is safer and avoids rendering caching issues.
-        postdata = request.POST.copy()
-        for key in postdata.iterkeys():
-            if key.endswith('-INITIAL_FORMS'):
-                postdata[key] = u'0'
 
         # Each ContentItem type is hosted in the Django admin as an inline with a formset.
         prefixes = {}
@@ -128,7 +121,10 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
             if prefixes[prefix] != 1 or not prefix:
                 prefix = "{0}-{1}".format(prefix, prefixes[prefix])
 
-            formset = FormSet(data=postdata, files=request.FILES, instance=None, save_as_new=True, prefix=prefix)
+            formset = FormSet(
+                data=request.POST, files=request.FILES, prefix=prefix,
+                instance=blogpost, queryset=inline.queryset(request)
+            )
 
             # Extract all items out of the formset
             # NOTE: no filtering of items for a placeholder, assume there is only one PlaceholderField in the page.
