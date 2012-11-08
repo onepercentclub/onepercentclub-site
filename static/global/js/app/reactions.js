@@ -3,8 +3,8 @@ App.Reaction = DS.Model.extend({
     reaction: DS.attr('string'),
     created: DS.attr('string'),
     relativetime: function(){
-        var date = new Date(this.get('created'));
-        return date;
+        var date = new Date(this.get('created')).getTime();
+        //return date;
         return humanize.relativeTime(date);
     }.property('created')
 });
@@ -26,7 +26,11 @@ App.reactionListController = App.ListController.create({
         this.set("content", App.store.findAll(model));
     },
     addReaction: function(reaction){
-        App.Reaction.createRecord({'reaction': reaction});
+        
+        App.Reaction.createRecord({
+                'reaction': reaction,
+                'created': new Date()
+                });
         App.store.commit();
     }
     
