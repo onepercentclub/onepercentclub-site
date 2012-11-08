@@ -1,0 +1,16 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+
+{% tplhandlebars "reaction_preview" %}
+    <span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
+    <div class="comment">
+        <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
+        <p> {{ view.content.reaction }}</p>
+    </div>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "reaction_no_items" %}
+    No reactions yet
+{% endtplhandlebars %}
+

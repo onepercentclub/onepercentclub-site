@@ -1,0 +1,46 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+
+{% tplhandlebars "reaction_form" %}
+     <form action="#" method="post" class="reaction-form">
+        <fieldset>
+            <label for="reaction-1">Comment</label>
+            <span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
+            <textarea id="reaction-1" name="reaction" placeholder="Hey Bart, leave a comment behind!"></textarea>
+        </fieldset>
+        
+        <button type="submit" id="reaction-post">Post</button>
+ 
+                    <ul class="reaction-actions">
+            <li class="toggle-reactions is-shown"><a href="#">2 Comments</a></li>
+            <li class="toggle-love is-loved"><a href="#">22 love this</a></li>
+            <li class="share">
+                <strong>Share</strong>
+                <ul class="share-actions">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li>Url: fdsdsf</li>
+                </ul>
+            </li>
+        </ul>
+     </form>
+{% endtplhandlebars" %}
+     
+{% tplhandlebars "reaction_box" %}
+     <ul class="reactions">
+        <li class="initiator">
+            <span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
+            <div class="comment">
+                <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+            </div>
+        </li>
+        <li>
+            <span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
+            <div class="comment">
+                <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+            </div>
+        </li>
+     </ul>
+{% tplhandlebars "reaction_box" %}

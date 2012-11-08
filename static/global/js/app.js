@@ -110,6 +110,10 @@ App.DetailController = Em.ObjectController.extend({
     
 });
 
+App.FormController = Em.ObjectController.extend({
+    filterParams: {}
+});
+
 
 /* Routing */
 
@@ -117,16 +121,8 @@ App.DetailController = Em.ObjectController.extend({
 App.WallpostsRoute = Em.Route.extend({
     route: '/wallposts',
 
-    showBlogDetail: Em.Route.transitionTo('blogs.detail'),
+    showWallpostForm: Em.Route.transitionTo('wallposts.form'),
     
-
-    connectOutlets : function(router, context) {
-        require(['app/wallposts'], function(){
-            App.blogListController.getList();
-            router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
-            router.get('applicationController').connectOutlet('midPanel', 'blogList');
-        });
-    },
 
     start: Em.Route.extend({
         route: "/"
@@ -136,7 +132,7 @@ App.WallpostsRoute = Em.Route.extend({
         route: '/form',
         connectOutlets: function(router, context) {
             require(['app/wallposts'], function(){
-                router.get('applicationController').connectOutlet('topPanel', 'wallpostsForm');
+                router.get('applicationController').connectOutlet('topPanel', 'wallpostForm');
                 router.get('applicationController').connectOutlet('midPanel', 'empty');
                 router.get('applicationController').connectOutlet('bottomPanel', 'empty');
             });
@@ -191,7 +187,7 @@ App.BlogsRoute = Em.Route.extend({
 });
 
 // Set basic Project route
-App.ProjectRoute = Em.Route.extend({
+App.ProjectsRoute = Em.Route.extend({
     route: '/projects',
 
     showProjectDetail: Em.Route.transitionTo('projects.detail'),
@@ -248,7 +244,7 @@ App.RootRoute = Em.Route.extend({
         }
     }),
     wallposts: App.WallpostsRoute,
-    projects: App.ProjectRoute,
+    projects: App.ProjectsRoute,
     blogs: App.BlogsRoute
 });
 

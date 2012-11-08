@@ -219,6 +219,7 @@ INSTALLED_APPS = [
     'apps.geo',
     'apps.hbtemplates',
     'apps.reactions',
+    'apps.wallposts',
 
     # Custom dashboard
     'fluent_dashboard',
