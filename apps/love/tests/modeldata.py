@@ -63,8 +63,8 @@ class LoveTest(CustomSettingsTestCase):
         self.assertEquals(LoveDeclaration.objects.for_object(post2).count(), 0, "expected no love for post-2")
 
         # Test via user dimension
-        self.assertEquals(LoveDeclaration.objects.for_user(user1).count(), 1, "expected 1 love by user1")
-        self.assertEquals(LoveDeclaration.objects.for_user(user2).count(), 2, "expected 2 loves by user2")
+        self.assertEquals(LoveDeclaration.objects.by_user(user1).count(), 1, "expected 1 love by user1")
+        self.assertEquals(LoveDeclaration.objects.by_user(user2).count(), 2, "expected 2 loves by user2")
 
         # Test via object dimension
         self.assertEquals(sorted(LoveDeclaration.objects.for_object(post1).values_list('user__username', flat=True)), ['user1', 'user2'], "expected 2 love entries for post-1")
@@ -100,8 +100,8 @@ class LoveTest(CustomSettingsTestCase):
         post1.mark_as_loved(user1)
         post1.mark_as_loved(user1)  # This should be a no-op
 
-        self.assertEqual(LoveDeclaration.objects.for_model(post1).for_user(user1).count(), 1, "Expected second love to be a no-op")
-        self.assertEqual(post1.loves.for_user(user1).count(), 1, "Expected second love to be a no-op")
+        self.assertEqual(LoveDeclaration.objects.for_model(post1).by_user(user1).count(), 1, "Expected second love to be a no-op")
+        self.assertEqual(post1.loves.by_user(user1).count(), 1, "Expected second love to be a no-op")
 
 
     def test_duplicate_unlove(self):
@@ -116,4 +116,4 @@ class LoveTest(CustomSettingsTestCase):
         post1.unmark_as_loved(user1)
         post1.unmark_as_loved(user1)
 
-        self.assertEqual(post1.loves.for_user(user1).count(), 0, "Expected post1 to have 0 loves")
+        self.assertEqual(post1.loves.by_user(user1).count(), 0, "Expected post1 to have 0 loves")

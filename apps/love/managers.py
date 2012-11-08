@@ -10,7 +10,7 @@ class LoveDeclarationQueryMixin(object):
     # QueryMixin design thanks to http://hunterford.me/django-custom-model-manager-chaining/
     # Methods based on https://github.com/liberation/django-favorites
 
-    def for_user(self, user):
+    def by_user(self, user):
         """
         Returns LoveDeclaration objects for a specific user
         """
@@ -99,7 +99,7 @@ class LoveDeclarationManager(LoveDeclarationQueryMixin, models.Manager):
         """
         Unmark an object as loved.
         """
-        self.for_object(content_object).for_user(user).delete()
+        self.for_object(content_object).by_user(user).delete()
 
 
     mark_as_loved.alters_data = True
