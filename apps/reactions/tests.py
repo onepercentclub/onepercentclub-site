@@ -40,9 +40,9 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
     """
     Integration tests for the BlogPost API.
     """
+    # TODO: Add a test for reaction on another type of content.
 
     def setUp(self):
-        # TODO: Add a test for reaction on another type of content.
         self.blogpost = self.create_blogpost()
         self.list_view = BlogPostList.as_view()
         self.detail_view = BlogPostDetail.as_view()
@@ -125,3 +125,10 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['reaction'], reaction_text_3)
+
+        # Test that a reaction update from a user who is not the author is forbidden.
+        client2 = Client(enforce_csrf_checks=False)
+        client2.login(username=second_blogpost.author.username, password='password')
+        response = client2.get(self.reactions_url)
+        response = client2.post(self.reactions_url + str(response.data['results'][0]['id']), {'reaction': 'Can I update this reaction?'})
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
