@@ -173,7 +173,6 @@ App.BlogsRoute = Em.Route.extend({
     route: '/blogs',
 
     showBlogDetail: Em.Route.transitionTo('blogs.detail'),
-    
 
     connectOutlets : function(router, context) {
         require(['app/blogs'], function(){
@@ -268,6 +267,7 @@ App.RootRoute = Em.Route.extend({
     showHome: Em.Route.transitionTo('home'),
 
     showProjectStart: Em.Route.transitionTo('projects.start'),
+    showBlogStart: Em.Route.transitionTo('blogs.start'),
 
     // The actual routing
     home: Em.Route.extend({
