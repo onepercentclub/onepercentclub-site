@@ -38,7 +38,7 @@ class BlogPostCreationMixin(UserTestsMixin):
 
 class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
     """
-    Integration tests for the BlogPost API.
+    Integration tests for the Reaction API.
     """
     # TODO: Add a test for reaction on another type of content.
 
@@ -86,7 +86,7 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
 
     def test_reactions_on_multiple_objects(self):
         """
-        Tests for creating, retrieving, updating and deleting a reaction.
+        Tests for multiple reactions and unauthorized reaction updates.
         """
 
         # Create two reactions.
