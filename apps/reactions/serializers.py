@@ -18,7 +18,8 @@ class ReactionDetailSerializer(serializers.ModelSerializer):
     created = serializers.Field()
 
     # Custom fields.
-    author = ReactionAuthorSerializer()
+#   TODO: Enable embedded models in Ember Data and re-enable this.
+#    author = ReactionAuthorSerializer()
 #    TODO: This isn't work with the pattern: api/blogs/<slug>/reactions/<pk>
 #          Delete or fix this ... we don't really need it so removing it is ok but it's nice to have.
 #    url = HyperlinkedIdentityField(view_name='reactions:reaction-detail')

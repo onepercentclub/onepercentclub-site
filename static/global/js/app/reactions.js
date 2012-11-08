@@ -1,11 +1,12 @@
 App.Reaction = DS.Model.extend({
     url: 'reactions',
     reaction: DS.attr('string'),
+    author: DS.belongsTo('App.Member'),
     created: DS.attr('string'),
     relativetime: function(){
-        var date = new Date(this.get('created')).getTime();
-        //return date;
-        return humanize.relativeTime(date);
+        var date = new Date(this.get('created'));
+        return date;
+        return humanize.relativeTime(date.getTime());
     }.property('created')
 });
 

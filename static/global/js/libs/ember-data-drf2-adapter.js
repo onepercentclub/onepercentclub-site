@@ -2,20 +2,7 @@ var get = Ember.get, set = Ember.set;
 
 DS.DRF2Serializer = DS.Serializer.extend({
 
-  extractBelongsTo: function(record, hash, relationship) {
-    var key = relationship.key;
-    var value = hash[key];
-    if (!!value) {
-      if  (relationship.options.embedded) {
-          relationship.type.createRecord(value);
-          
-          App.Blog.find(record.id).get('author');
-      } else {
-          value = this._deurlify(value);
-      }
-    }
-    return 'value';
-  }
+// TODO: Remove this serializer stuff we're not using. Removing it causes things to fail.
 
 });
 
