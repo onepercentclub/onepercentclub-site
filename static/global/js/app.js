@@ -131,7 +131,39 @@ App.DetailController = Em.ObjectController.extend(App.BaseControllerMixin, {
 
 /* Routing */
 
-// Set basic Project route
+// Set wallpost route
+App.WallpostsRoute = Em.Route.extend({
+    route: '/wallposts',
+
+    showBlogDetail: Em.Route.transitionTo('blogs.detail'),
+    
+
+    connectOutlets : function(router, context) {
+        require(['app/wallposts'], function(){
+            App.blogListController.getList();
+            router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
+            router.get('applicationController').connectOutlet('midPanel', 'blogList');
+        });
+    },
+
+    start: Em.Route.extend({
+        route: "/"
+    }),
+    
+    form: Em.Route.extend({
+        route: '/form',
+        connectOutlets: function(router, context) {
+            require(['app/wallposts'], function(){
+                router.get('applicationController').connectOutlet('topPanel', 'wallpostsForm');
+                router.get('applicationController').connectOutlet('midPanel', 'empty');
+                router.get('applicationController').connectOutlet('bottomPanel', 'empty');
+            });
+        }
+    }) 
+});
+
+
+// Set blogs route
 App.BlogsRoute = Em.Route.extend({
     route: '/blogs',
 
@@ -225,6 +257,7 @@ App.RootRoute = Em.Route.extend({
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         }
     }),
+    wallposts: App.WallpostsRoute,
     projects: App.ProjectRoute,
     blogs: App.BlogsRoute
 });
