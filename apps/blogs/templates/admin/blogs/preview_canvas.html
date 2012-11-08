@@ -1,17 +1,42 @@
 {% load i18n %}<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <title>Blogpost preview</title>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width" />
+    <title>Blogpost preview &#8211; 1%Club</title>
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/style.css" />
 </head>
-<body>
+<body style="overflow-x: hidden;">
+{# wrapper has a fixed width because everything is relative to that. #}
+{# Hence the body receives an overflow-x instead of shrinking the wrapper.  #}
 
-    <div id="preview_contents">
+<section class="wrapper preview">
 
-        <!-- Show loader at exactly the same location as colorbox shows a loader before the iframe -->
-        <img src="{{ STATIC_URL }}global/vendor/colorbox/images/loading.gif" width="32" height="32" />
+    <!-- wallpost -->
+    <article class="wallpost">
 
-    </div>
+        <header>
+            <h3>{% if blogpost.title %}{{ blogpost.title }}{% else %}{% trans "Blog post preview" %}{% endif %}</h3>
+            <small class="timestamp">{% trans "now" %}</small>
+            <a href="#" class="user initiator">
+                <span class="user-img"><img src="{{ STATIC_URL }}global/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
+                <strong>{{ request.user.get_full_name|default:request.user.username }}</strong> <em>1%CLUB team</em>
+            </a>
+        </header>
+
+        <div class="content">
+
+            <div id="preview_contents">
+                <!-- Show loader at exactly the same location as colorbox shows a loader before the iframe -->
+                <img src="{{ STATIC_URL }}global/vendor/colorbox/images/loading.gif" width="32" height="32" />
+            </div>
+
+        </div>
+
+    </article>
+</section>
 
 </body>
 </html>

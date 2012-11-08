@@ -23,8 +23,9 @@
     <script type="text/javascript" src="{{ STATIC_URL }}global/js/plugins/jquery.colorbox.js"></script>
     <script type="text/javascript">
         (function($){
-            var preview_canvas_url = "{% url 'admin:blogs_blogpost_preview_canvas' %}";
-            var get_preview_url = "{% url 'admin:blogs_blogpost_get_preview' pk=original.pk|default:0 %}";
+            // NOTE: doesn't deal with blogs/news distinction.
+            var preview_canvas_url = "{{ preview_canvas_url }}";
+            var get_preview_url = "{{ get_preview_url }}";
 
             var $submit,
                 $addanother,

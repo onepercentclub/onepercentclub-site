@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import patterns, url
 from django.contrib import admin
+from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -50,28 +51,38 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
     def get_urls(self):
         # Include extra API views in this admin page
         base_urls = super(BlogPostAdmin, self).get_urls()
+        info = self.model._meta.app_label, self.model._meta.module_name
         urlpatterns = patterns('',
-            url(r'^preview-canvas/$', self.admin_site.admin_view(self.preview_canvas), name="blogs_blogpost_preview_canvas"),
-            url(r'^(?P<pk>\d+)/get_preview/$', self.admin_site.admin_view(self.get_preview_html), name="blogs_blogpost_get_preview")
+            url(r'^(?P<pk>\d+)/preview-canvas/$', self.admin_site.admin_view(self.preview_canvas), name="{0}_{1}_preview_canvas".format(*info)),
+            url(r'^(?P<pk>\d+)/get_preview/$', self.admin_site.admin_view(self.get_preview_html), name="{0}_{1}_get_preview".format(*info))
         )
 
         return urlpatterns + base_urls
 
 
+    def get_base_object(self, pk):
+        # Give a workable object, no matter whether it's a news or blogpost.
+        pk = long(pk)
+        if pk:
+            return BlogPost.objects.get(pk=pk)
+        else:
+            return BlogPost()
+
+
     @xframe_options_sameorigin
-    def preview_canvas(self, request):
-        return render(request, 'admin/blogs/preview_canvas.html', {})
+    def preview_canvas(self, request, pk):
+        # Avoid the proxy model stuff, allow both to work.
+        blogpost = self.get_base_object(pk)
+        return render(request, 'admin/blogs/preview_canvas.html', {
+            'blogpost': blogpost,
+        })
 
 
     def get_preview_html(self, request, pk):
         """
         Ajax view to return the preview.
         """
-        pk = long(pk)
-        if pk:
-            blogpost = self.get_object(request, pk) or self.model()
-        else:
-            blogpost = self.model()
+        blogpost = self.get_base_object(pk)
 
         # Get fluent-contents placeholder
         items = self._get_preview_items(request)
@@ -152,6 +163,14 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
             all_objects.append(object)
 
         return all_objects
+
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        info = self.model._meta.app_label, self.model._meta.module_name
+        context.update({
+            'preview_canvas_url': reverse('admin:{0}_{1}_preview_canvas'.format(*info), kwargs={'pk': obj.pk if obj else 0}),
+            'get_preview_url': reverse('admin:{0}_{1}_get_preview'.format(*info), kwargs={'pk': obj.pk if obj else 0}),
+        })
+        return super(BlogPostAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
 
     def save_model(self, request, obj, form, change):
