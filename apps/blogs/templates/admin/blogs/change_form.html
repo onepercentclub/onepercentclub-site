@@ -63,11 +63,18 @@
             function onPreviewClick(event) {
                 event.preventDefault();
 
+                // Perform actions that usually happen during the form submit.
+                var $form = $("#content-main form");
+                $form.triggerHandler('submit');
+
                 // Save all WYSYWYG editors to the form.
                 // NOTE: currently doesn't use django_wysiwyg abstraction, as it doesn't provide a .save() method.
                 for(var i = 0; i < tinymce.editors.length; i++) {
-                    tinymce.editors[i].save()
+                    tinymce.editors[i].save();
                 }
+
+                // Get post data after all submit handler updates
+                var postdata = $form.serialize();
 
                 $.colorbox({
                     transition: 'none',  // or fade
@@ -80,21 +87,20 @@
                     href: preview_canvas_url,
                     onComplete: function() {
                         // Iframe with preview frame is loaded.
+                        var $preview_div = $('#colorbox iframe.cboxIframe').contents().find('#preview_contents');
 
                         // Retrieve an server-side generated HTML preview,
                         // and display that in a lightbox.
-                        var $form = $("#content-main form");
-                        var postdata = $form.serialize();
                         $.ajax({
                             'url': get_preview_url,
                             'type': 'POST',
                             dataType: 'json',
                             data: postdata,
                             success: function(data) {
-                                $('#colorbox iframe.cboxIframe').contents().find('#preview_contents').html(data.contents);
+                                $preview_div.html(data.contents);
                             },
                             error: function() {
-                                alert("Internal CMS error: failed to fetch preview data!");
+                                $preview_div.html('<p>{% trans "Internal CMS error: failed to fetch preview data!" %}</p>');
                             }
                         });
 
