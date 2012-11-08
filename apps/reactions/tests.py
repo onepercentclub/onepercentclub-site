@@ -49,8 +49,6 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
         self.api_base = '/i18n/api/blogs/'
         self.reaction_api_name = '/reactions/'
         self.reactions_url = "{0}{1}{2}".format(self.api_base, self.blogpost.slug, self.reaction_api_name)
-
-        self.client = Client(enforce_csrf_checks=False)
         self.client.login(username=self.blogpost.author.username, password='password')
 
     def tearDown(self):
@@ -129,7 +127,7 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
         self.assertEqual(response.data['results'][0]['reaction'], reaction_text_3)
 
         # Test that a reaction update from a user who is not the author is forbidden.
-        client2 = Client(enforce_csrf_checks=False)
-        client2.login(username=second_blogpost.author.username, password='password')
-        response = client2.post(second_reaction_detail_url, {'reaction': 'Can I update this reaction?'})
+        self.client.logout()
+        self.client.login(username=second_blogpost.author.username, password='password')
+        response = self.client.post(second_reaction_detail_url, {'reaction': 'Can I update this reaction?'})
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
