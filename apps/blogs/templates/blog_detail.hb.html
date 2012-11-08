@@ -3,6 +3,7 @@
 {% tplhandlebars "blog_detail" %}
     
     <h2>{{ view.content.title}}</h2>
+    <i>By: {{ view.content.author.first_name }}</i>
     <p>
         {{{ view.content.contents }}}
     </p>

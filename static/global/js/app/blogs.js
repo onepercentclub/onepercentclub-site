@@ -1,8 +1,15 @@
+App.Member = DS.Model.extend({
+    first_name: DS.attr('string'),
+    last_name: DS.attr('string'),
+    picture: DS.attr('string'),
+});
+
 App.Blog = DS.Model.extend({
+    url: 'blogs',
     slug: DS.attr('string'),
     title: DS.attr('string'),
     contents: DS.attr('string'),
-    
+    author: DS.belongsTo('App.Member', {embedded: true}),
 });
 
 
