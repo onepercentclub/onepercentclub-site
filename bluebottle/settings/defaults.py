@@ -218,6 +218,7 @@ INSTALLED_APPS = [
     'apps.media',
     'apps.geo',
     'apps.hbtemplates',
+    'apps.reactions',
 
     # Custom dashboard
     'fluent_dashboard',
