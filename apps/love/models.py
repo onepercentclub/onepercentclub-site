@@ -40,8 +40,6 @@ class LovableModel(models.Model):
     class Meta:
         abstract = True
 
-    # This could also have been a mixin, but a base class seems fine here.
-
     #: The received loves for a specific model.
     loves = LoveDeclarationRelation()
 
