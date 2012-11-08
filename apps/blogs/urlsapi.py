@@ -1,11 +1,12 @@
-from django.conf.urls import patterns, url
-from rest_framework.urlpatterns import format_suffix_patterns
+from django.conf.urls import patterns, url, include
+from django.contrib.contenttypes.models import ContentType
 from surlex.dj import surl
-from .views import BlogPostRoot, BlogPostInstance
+from .views import BlogPostList, BlogPostDetail
+from .models import BlogPost
 
 urlpatterns = patterns('',
-    url(r'^$', BlogPostRoot.as_view(), name='blogpost-root'),
-    surl(r'^<slug:s>$', BlogPostInstance.as_view(), name='blogpost-instance'),
-)
+    url(r'^$', BlogPostList.as_view(), name='blogpost-root'),
+    surl(r'^<slug:s>/reactions/', include('apps.reactions.urlsapi', namespace='reactions'), {'content_type': ContentType.objects.get_for_model(BlogPost).id}),
+    surl(r'^<slug:s>$', BlogPostDetail.as_view(), name='blogpost-instance'),
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+)
