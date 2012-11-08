@@ -51,72 +51,52 @@
     
     {% tplhandlebars "application" %}
         <div class="container" id="navigation">
-        	<!-- main header -->
-        	<header class="wrapper">
-        	    <!-- logo -->
-        		<a {{action showHome href=true}} id="logo">
-        			<img src="{% get_static_prefix %}global/images/1procentclub.png" width="100" height="38" alt="1%Club" />
-        			<h1 id="title">1%Club</h1>
-        			<h2 id="subtitle"><em>You</em> Make It Work</h2>
-        		</a>
-        		<!-- end: logo -->
-        		<div class="nav">
-        			<!-- main navigation -->
-        			<nav class="nav-main">
-        				<h1 class="nav-title">Navigation</h1>
-        				<ul {{bindAttr class="currentMenu"}}>
-        				    <!--<li id="home-menu"><a {{action showHome href=true}}>HOME</a></li>-->
-        				    <li class="nav-projects"><a {{action showProjectStart href=true}} class="is-active">1%Projects</a></li>
-        				    <li class="nav-tasks"><a>1%Tasks</a></li>
-        				    <li class="nav-actions"><a>1%Actions</a></li>
-        				    <li class="nav-more"><a>More &#9660;</a></li>
-        				</ul>
-        			</nav>
-        			<nav class="nav-member member-login">
-        				<h1 class="nav-title">Profile</h1>
-        				{% if user.is_authenticated %}
-        				<a href="{% url 'logout' %}?next={% firstof request.path "/" %}" class="nav-my1percent"><img src="{% get_static_prefix %}global/dummy/avatar-color.jpg" width="40" height="40" alt="Bart Lacroix" /><strong>Logout</strong></a>
-        				<a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
-        				{% else %}
-        				<a href="/accounts/login" class="nav-login">Login</a>
-        				<a href="/accounts/signup" class="nav-signup">Signup</a>
-        				{% endif %}
-        				<div class="nav-language">
-        				    <a id="nav-lang-en" class="is-active" href="#">EN</a>
-        				    <a id="nav-lang-nl" href="#">NL</a>
-        				</div>
-        			</nav>
-        			<!-- end: main navigation -->
-        		</div>
-        	</header>
-        	<!-- end: main header -->
+            <!-- main header -->
+            <header class="wrapper">
+                <!-- logo -->
+                <a {{action showHome href=true}} id="logo">
+                    <img src="{% get_static_prefix %}global/images/1procentclub.png" width="100" height="38" alt="1%Club" />
+                    <h1 id="title">1%Club</h1>
+                    <h2 id="subtitle"><em>You</em> Make It Work</h2>
+                </a>
+                <!-- end: logo -->
+                <div class="nav">
+                    <!-- main navigation -->
+                    <nav class="nav-main">
+                        <h1 class="nav-title">Navigation</h1>
+                        <ul {{bindAttr class="currentMenu"}}>
+                            <!--<li id="home-menu"><a {{action showHome href=true}}>HOME</a></li>-->
+                            <li class="nav-projects"><a {{action showProjectStart href=true}} class="is-active">1%Projects</a></li>
+                            <li class="nav-tasks"><a>1%Tasks</a></li>
+                            <li class="nav-actions"><a>1%Actions</a></li>
+                            <li class="nav-more"><a>More &#9660;</a></li>
+                        </ul>
+                    </nav>
+                    <nav class="nav-member member-login">
+                        <h1 class="nav-title">Profile</h1>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}?next={% firstof request.path "/" %}" class="nav-my1percent"><img src="{% get_static_prefix %}global/dummy/avatar-color.jpg" width="40" height="40" alt="Bart Lacroix" /><strong>Logout</strong></a>
+                        <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
+                        {% else %}
+                        <a href="/accounts/login" class="nav-login">Login</a>
+                        <a href="/accounts/signup" class="nav-signup">Signup</a>
+                        {% endif %}
+                        <div class="nav-language">
+                            <a id="nav-lang-en" class="is-active" href="#">EN</a>
+                            <a id="nav-lang-nl" href="#">NL</a>
+                        </div>
+                    </nav>
+                    <!-- end: main navigation -->
+                </div>
+            </header>
+            <!-- end: main header -->
         </div>
         
         
         <!-- main content -->
-        <div class="container section">
-           
-            <section class="wrapper">
-                {{outlet topPanel}}
-            </section>
-                
-        </div>
-        
-        <div class="container">
-           
-            <section class="wrapper">
-                {{outlet midPanel}}
-            </section>
-                
-        </div>
-        
-        <div class="container section">
-           
-            <section class="wrapper">
-                {{outlet bottomPanel}}
-            </section>
-                
-        </div>
+        {{outlet topPanel}}
+        {{outlet midPanel}}
+        {{outlet bottomPanel}}
         
   
         <!-- end: main content -->

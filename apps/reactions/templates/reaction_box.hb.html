@@ -27,20 +27,6 @@
 {% endtplhandlebars" %}
      
 {% tplhandlebars "reaction_box" %}
-     <ul class="reactions">
-        <li class="initiator">
-            <span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
-            <div class="comment">
-                <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-            </div>
-        </li>
-        <li>
-            <span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
-            <div class="comment">
-                <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-            </div>
-        </li>
-     </ul>
+    {{view reactionFormView}}
+    {{view reactionListView}}
 {% tplhandlebars "reaction_box" %}

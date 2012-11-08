@@ -33,7 +33,7 @@ App.BlogHeaderView = Em.View.extend({
 App.BlogDetailView = Em.View.extend({
     contentBinding: 'App.blogDetailController',
     templateName: 'blog_detail',
-    classNames: ['lightgreen', 'section'],
+    classNames: ['container', 'section'],
 });
 
 App.BlogPreviewView = Em.View.extend({
