@@ -1,5 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
+from django.db import models, IntegrityError
 from django.db.models.query import QuerySet
 
 
@@ -81,13 +81,18 @@ class LoveDeclarationManager(LoveDeclarationQueryMixin, models.Manager):
         """
         Mark an object as loved.
         """
-        content_type = ContentType.objects.get_for_model(type(content_object))
-        return self.create(
+        args = dict(
             user=user,
-            content_type=content_type,
-            object_id=content_object.pk,
-            content_object=content_object,
+            content_type=ContentType.objects.get_for_model(type(content_object)),
+            object_id=content_object.pk
         )
+
+        try:
+            return self.get_or_create(**args)
+        except IntegrityError:
+            # Close call, got race condition.
+            return self.get(**args)
+
 
 
     def unmark_as_loved(self, content_object, user):

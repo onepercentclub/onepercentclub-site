@@ -1,5 +1,7 @@
+"""
+Tests for the love app concerning model data.
+"""
 from django.contrib.auth.models import User
-from django.db import IntegrityError
 from apps.love.models import LoveDeclaration
 from apps.bluebottle_utils.tests import CustomSettingsTestCase
 from .models import TestBlogPost
@@ -96,11 +98,22 @@ class LoveTest(CustomSettingsTestCase):
 
         # Via object:
         post1.mark_as_loved(user1)
-        self.assertRaises(IntegrityError, lambda: post1.mark_as_loved(user1))
+        post1.mark_as_loved(user1)  # This should be a no-op
 
-        # Via manager:
-        #LoveDeclaration.objects.mark_as_loved(post1, user1)
-        #self.assertRaises(IntegrityError, lambda: LoveDeclaration.objects.mark_as_loved(post1, user1))
+        self.assertEqual(LoveDeclaration.objects.for_model(post1).for_user(user1).count(), 1, "Expected second love to be a no-op")
+        self.assertEqual(post1.loves.for_user(user1).count(), 1, "Expected second love to be a no-op")
 
-        # No I didn't make up that IntegrityError.. :)
 
+    def test_duplicate_unlove(self):
+        """
+        Unloving an object twice shouldn't hurt anyone.
+        """
+        user1 = User.objects.get(username='user1')
+        post1 = TestBlogPost.objects.get(slug="post-1")
+
+        # Via object:
+        post1.mark_as_loved(user1)
+        post1.unmark_as_loved(user1)
+        post1.unmark_as_loved(user1)
+
+        self.assertEqual(post1.loves.for_user(user1).count(), 0, "Expected post1 to have 0 loves")
