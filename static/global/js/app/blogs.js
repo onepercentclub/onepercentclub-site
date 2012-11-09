@@ -8,6 +8,9 @@ App.Blog = DS.Model.extend({
 
 
 App.blogListController = App.ListController.create({
+    init: function(){
+        this._super();
+    },
     model: App.Blog,
 });
 

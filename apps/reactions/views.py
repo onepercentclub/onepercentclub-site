@@ -38,7 +38,6 @@ class ReactionList(generics.ListCreateAPIView):
     def _get_reaction_to_instance(self):
         reaction_to_type = ContentType.objects.get_for_id(self.kwargs['content_type'])
         reaction_to_instance = reaction_to_type.get_object_for_this_type(slug=self.kwargs['slug'])
-        #reaction_to_instance = reaction_to_instance.order_by('-created') 
         return reaction_to_instance
 
 

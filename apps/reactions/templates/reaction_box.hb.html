@@ -4,11 +4,9 @@
 {% tplhandlebars "reaction_form" %}
     <fieldset>
         <label for="reaction-1">Comment</label>
-        <span class="user-img"><img src="/static/assets/global/dummy/avatar.jpg" width="100%" alt="Avatar"></span>
-        {{view Ember.TextArea valueBinding="reaction" name="reaction" placeholder="Hey Bart, leave a comment behind!"}}
-        
+        <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
+        {{view Ember.TextArea valueBinding="reaction" name="reaction" placeholder="Hey, leave a comment!"}}
     </fieldset>
-    
     <button type="submit" id="reaction-post">Post</button>
  
     <ul class="reaction-actions">

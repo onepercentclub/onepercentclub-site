@@ -18,6 +18,19 @@ class MemberDetail(generics.RetrieveAPIView):
     model = User
     serializer_class = MemberDetailSerializer
 
+class MemberCurrent(generics.RetrieveAPIView):
+    model = User
+    serializer_class = MemberDetailSerializer
+            
+    def get_object(self):
+        """
+        Override default to add support for object-level permissions.
+        """
+        if self.request.user:
+            user = User.objects.filter(pk=self.request.user.id).get()
+            return user
+        return None
+
 
 # Django template Views
 

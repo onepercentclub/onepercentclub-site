@@ -47,6 +47,7 @@
 
     {% tplhandlebars "home" %}
         <h1 class="tagline">
+            Hallo {{ view.user.first_name }},
             <em>Deel 1%</em> van je tijd, kennis of geld<br />
             en <em>zie direct</em> waar het terecht komt!
         </h1>
@@ -69,24 +70,26 @@
                         <h1 class="nav-title">Navigation</h1>
                         <ul {{bindAttr class="currentMenu"}}>
                             <!--<li id="home-menu"><a {{action showHome href=true}}>HOME</a></li>-->
-                            <li class="nav-actions"><a {{action showBlogStart href=true}}>1%Blog</a></li>
+                            <li class="nav-actions"><a {{action showBlogStart href=true}}>1%News</a></li>
                             <li class="nav-projects"><a {{action showProjectStart href=true}} class="is-active">1%Projects</a></li>
                             <li class="nav-more"><a>More &#9660;</a></li>
                         </ul>
                     </nav>
                     <nav class="nav-member member-login">
                         <h1 class="nav-title">Profile</h1>
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'logout' %}?next={% firstof request.path "/" %}" class="nav-my1percent"><img src="{% get_static_prefix %}global/dummy/avatar-color.jpg" width="40" height="40" alt="Bart Lacroix" /><strong>Logout</strong></a>
+                        {{#if view.user.first_name }}
+                            <a href="/en/accounts/logout/?next=/en/" class="nav-my1percent"><img width="40" {{bindAttr src="view.user.picture"}} height="40" alt="Avatar" />
+                                <strong>Logout</strong>
+                            </a>
                             <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
-                        {% else %}
+                        {{else}}
                             <a href="/accounts/login" class="nav-login">Login</a>
                             <a href="/accounts/signup" class="nav-signup">Signup</a>
                             <div class="nav-language">
                                 <a id="nav-lang-en" class="is-active" href="#">EN</a>
                                 <a id="nav-lang-nl" href="#">NL</a>
                             </div>
-                        {% endif %}
+                        {{/if}}
                     </nav>
                     <!-- end: main navigation -->
                 </div>
