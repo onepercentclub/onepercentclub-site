@@ -1,11 +1,12 @@
 import uuid
-from apps.blogs.models import BlogPost
+from apps.blogs.models import BlogPost, BlogPostProxy
 
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.db.models import loading
 from django.test import TestCase
 from django.test.utils import override_settings
+from fluent_contents.models import Placeholder
 
 
 def generate_random_slug():
@@ -68,7 +69,7 @@ class CustomSettingsTestCase(TestCase):
 class BlogPostCreationMixin(UserTestsMixin):
 
     def create_blogpost(self, title=None, slug=None, language=None, user=None):
-        bp = BlogPost()
+        bp = BlogPostProxy()
 
         if not title:
             title = 'We Make it Work!'
@@ -91,5 +92,9 @@ class BlogPostCreationMixin(UserTestsMixin):
         bp.slug = slug
         bp.author = user
         bp.save()
+
+
+        ph = Placeholder.objects.create_for_object(bp, 'blog_contents')
+        ph.save()
 
         return bp
