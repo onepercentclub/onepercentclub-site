@@ -1,6 +1,5 @@
 import uuid
-from apps.blogs.models import BlogPost, BlogPostProxy
-
+from apps.blogs.models import BlogPostProxy
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.db.models import loading
@@ -77,7 +76,7 @@ class BlogPostCreationMixin(UserTestsMixin):
         if not slug:
             slug = generate_random_slug()
             # Ensure generated slug is unique.
-            while BlogPost.objects.filter(slug=slug).exists():
+            while BlogPostProxy.objects.filter(slug=slug).exists():
                 slug = generate_random_slug()
 
         if not language:
@@ -93,7 +92,7 @@ class BlogPostCreationMixin(UserTestsMixin):
         bp.author = user
         bp.save()
 
-
+        # The contents needs to be created separately.
         ph = Placeholder.objects.create_for_object(bp, 'blog_contents')
         ph.save()
 
