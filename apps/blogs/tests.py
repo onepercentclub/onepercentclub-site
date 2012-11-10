@@ -6,7 +6,7 @@ from rest_framework import status
 
 class BlogPostApiIntegrationTest(BlogPostCreationMixin, TestCase):
     """
-    Integration tests for the Blogpost API.
+    Integration tests for the BlogPost API.
     """
 
     def setUp(self):
@@ -18,7 +18,7 @@ class BlogPostApiIntegrationTest(BlogPostCreationMixin, TestCase):
 
     def test_blogpost_retrieve(self):
         """
-        Tests for retrieving blogpost.
+        Test retrieving a BlogPost.
         """
 
         # Retrieve reaction.
