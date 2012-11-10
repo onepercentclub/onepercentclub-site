@@ -1,39 +1,7 @@
-from apps.blogs.models import BlogPost
 from apps.blogs.views import BlogPostList, BlogPostDetail
-from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
+from apps.bluebottle_utils.tests import BlogPostCreationMixin
 from django.test import TestCase
 from rest_framework import status
-from rest_framework.tests.authentication import Client
-
-
-class BlogPostCreationMixin(UserTestsMixin):
-
-    def create_blogpost(self, title=None, slug=None, language=None, user=None):
-        bp = BlogPost()
-
-        if not title:
-            title = 'We Make it Work!'
-
-        if not slug:
-            slug = generate_random_slug()
-            # Ensure generated slug is unique.
-            while BlogPost.objects.filter(slug=slug).exists():
-                slug = generate_random_slug()
-
-        if not language:
-            language = 'nl'
-
-        if not user:
-            user = self.create_user()
-            user.save()
-
-        bp.title = title
-        bp.language = language
-        bp.slug = slug
-        bp.author = user
-        bp.save()
-
-        return bp
 
 
 class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
