@@ -13,18 +13,8 @@ class BlogPostContentsField(serializers.Field):
         return contents_html
 
 
-class BlogPostAuthorSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', crop='center')
-
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'picture')
-
-
 class BlogPostDetailSerializer(serializers.ModelSerializer):
     contents = BlogPostContentsField(source='contents')
-#   TODO: Enable embedded models in Ember Data and re-enable this.
-#    author = BlogPostAuthorSerializer()
     url = SlugHyperlinkedIdentityField(view_name='blogpost-instance')
     main_image = SorlImageField('main_image', '300x200', crop='center')
 
