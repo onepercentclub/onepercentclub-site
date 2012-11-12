@@ -1722,10 +1722,10 @@ ul.steps {
     .reaction-box .reaction-actions:after {
       clear: both; }
     .reaction-box .reaction-actions li {
-      display: inline; }
+      display: inline !important; }
       .reaction-box .reaction-actions li a, .reaction-box .reaction-actions li strong {
         white-space: nowrap;
-        display: inline-block;
+        display: inline-block !important;
         color: #666;
         padding: 4px 8px 4px 8px;
         padding: 0.25rem 0.5rem 0.25rem 0.5rem;

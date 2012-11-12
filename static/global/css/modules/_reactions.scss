@@ -61,11 +61,11 @@
         background: $color-back;
         
         li {
-            display: inline;
+            display: inline !important;
             
             a, strong {
                 white-space: nowrap;
-                display: inline-block;
+                display: inline-block !important;
                 color: #666;
                 @include rem(padding, 4px 8px 4px 8px);
                 @include rem(margin, 0 8px 0 8px);
