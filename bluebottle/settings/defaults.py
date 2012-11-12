@@ -211,6 +211,7 @@ INSTALLED_APPS = [
     'apps.blogs',
     'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
+    'apps.contentplugins',
     'apps.accounts',
     'apps.love',
     'apps.organizations',
@@ -220,6 +221,7 @@ INSTALLED_APPS = [
     'apps.geo',
     'apps.hbtemplates',
     'apps.reactions',
+    'apps.wallposts',
 
     # Custom dashboard
     'fluent_dashboard',

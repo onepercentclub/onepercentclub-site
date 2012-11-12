@@ -1,0 +1,18 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+
+{% tplhandlebars "accounts_login" %}
+    <H1>THIS NEEDS WORK!!!</H1>
+    <div style="display:none">
+        <input type="hidden" name="csrfmiddlewaretoken" value="qbjptAcDXGdYfndv2q7dAKWESW3GBuH3">
+    </div>
+    
+    <table>
+          <tbody><tr><th><label for="id_username">Username:</label></th><td><input id="id_username" type="text" name="username" maxlength="30"></td></tr>
+    <tr><th><label for="id_password">Password:</label></th><td><input type="password" name="password" id="id_password"></td></tr>
+    </tbody></table>
+    
+    <input type="submit" value="Login">
+    <input type="hidden" name="next" value="">
+
+{% endtplhandlebars %}

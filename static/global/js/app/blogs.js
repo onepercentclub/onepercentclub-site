@@ -1,8 +1,9 @@
 App.Blog = DS.Model.extend({
+    url: 'blogs',
     slug: DS.attr('string'),
     title: DS.attr('string'),
     contents: DS.attr('string'),
-    
+    author: DS.belongsTo('App.Member'),
 });
 
 
@@ -17,7 +18,8 @@ App.blogDetailController = App.DetailController.create({
 
 App.BlogHeaderView = Em.View.extend({
     templateName: 'blog_header',
-    templateFile: 'blog_list'
+    templateFile: 'blog_list',
+    classNames: ['container', 'black'],
     
 });
 
@@ -26,7 +28,7 @@ App.BlogHeaderView = Em.View.extend({
 App.BlogDetailView = Em.View.extend({
     contentBinding: 'App.blogDetailController',
     templateName: 'blog_detail',
-    classNames: ['lightgreen', 'section'],
+    classNames: ['container'],
 });
 
 App.BlogPreviewView = Em.View.extend({

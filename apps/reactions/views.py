@@ -31,12 +31,12 @@ class ReactionList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         reaction_to_instance = self._get_reaction_to_instance()
-        return self.model.objects.for_content_type(self.kwargs['content_type']).filter(object_pk=reaction_to_instance.pk)
+        objects = self.model.objects.for_content_type(self.kwargs['content_type'])
+        return objects.filter(object_pk=reaction_to_instance.pk)
 
     def _get_reaction_to_instance(self):
         reaction_to_type = ContentType.objects.get_for_id(self.kwargs['content_type'])
-        reaction_to_instance = reaction_to_type.get_object_for_this_type(slug=self.kwargs['slug'])
-        return reaction_to_instance
+        return reaction_to_type.get_object_for_this_type(slug=self.kwargs['slug'])
 
 
 class ReactionDetail(generics.RetrieveUpdateDestroyAPIView):

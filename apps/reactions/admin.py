@@ -12,7 +12,7 @@ class ReactionAdmin(admin.ModelAdmin):
             'fields': ('author', 'editor', 'reaction'),
         }),
         (_('Metadata'), {
-            'fields': ('ip_address',),
+            'fields': ('ip_address', ),
         }),
     )
 
