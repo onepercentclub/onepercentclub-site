@@ -1,5 +1,5 @@
 $(function() {
-require(['app/members', 'libs/humanize']);
+require(['libs/humanize']);
 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -18,6 +18,7 @@ function sameOrigin(url) {
         // or any other URL that isn't scheme relative or absolute i.e relative.
         !(/^(\/\/|http:|https:).*/.test(url));
 }
+
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -30,6 +31,9 @@ $.ajaxSetup({
 });
 
 Em.View.reopen({
+    userBinding: "App.userController.content",
+    isLoggedInBinding: "App.userController.isLoggedIn",
+    
     templateForName: function(name, type) {
         if (!name) {
             return "";
@@ -68,14 +72,6 @@ App = Em.Application.create({
     // Define the main application controller. This is automatically picked up by
     // the application and initialized.
     ApplicationController : Em.Controller.extend({
-        // TODO: Is there a better way of doing this?
-        currentMenu: function(){
-            var currentState  = this.get('target.location.lastSetURL');
-            var menu = currentState.split("/");
-            currentState = menu[1]||'home';
-            
-            return currentState;
-        }.property('target.location.lastSetURL')
     }),
 
     ApplicationView : Em.View.extend({
@@ -94,21 +90,18 @@ App = Em.Application.create({
 
 });
 
-
 App.store =  DS.Store.create({
   revision: 7,
   adapter: DS.DRF2Adapter.create()
 });
 
-
 /* Base Controllers */
 
 // Controller to get lists from API
 App.ListController = Em.ArrayController.extend({
-    
     filterParams: {},
     getList: function(filterParams){
-        this.set("content", App.store.findAll(this.get('model')));
+        this.set("content", App.store.find(this.get('model')));
     }
     
 });
@@ -140,6 +133,34 @@ App.DetailController = Em.ObjectController.extend({
 App.FormController = Em.ObjectController.extend({
     filterParams: {}
 });
+
+App.Member = DS.Model.extend({
+    url: 'members/users',
+    first_name: DS.attr('string'),
+    last_name: DS.attr('string'),
+    picture: DS.attr('string'),
+    full_name: function() {
+        return this.get('first_name') + ' ' + this.get('last_name');
+    }.property('first_name', 'last_name')
+});
+
+
+App.User = App.Member.extend({
+    url: 'members'
+});
+
+
+App.userController = App.DetailController.create({
+    model: App.User,
+    init: function(){
+        this._super();
+        this.getCurrent();
+    },
+    getCurrent: function(filterParams){
+        var user = App.store.find(this.get('model'), 'current');
+        this.set("content", user);
+    }
+})
 
 
 /* Routing */
@@ -265,7 +286,6 @@ App.ProjectsRoute = Em.Route.extend({
 App.RootRoute = Em.Route.extend({
     // Used for navigation
     showHome: Em.Route.transitionTo('home'),
-
     showProjectStart: Em.Route.transitionTo('projects.start'),
     showBlogStart: Em.Route.transitionTo('blogs.start'),
 
@@ -287,6 +307,7 @@ App.Router = Em.Router.extend({
     location: 'hash',
     root: App.RootRoute
 });
+
 
 
 });

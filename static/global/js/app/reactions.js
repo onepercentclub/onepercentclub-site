@@ -28,10 +28,7 @@ App.reactionListController = App.ListController.create({
     },
     addReaction: function(reaction){
         
-        App.Reaction.createRecord({
-                'reaction': reaction,
-                'created': new Date()
-                });
+        App.Reaction.createRecord({'reaction': reaction});
         App.store.commit();
     }
     

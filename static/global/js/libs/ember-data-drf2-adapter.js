@@ -11,9 +11,8 @@ DS.DRF2Serializer = DS.Serializer.extend({
 DS.DRF2Adapter = DS.RESTAdapter.extend({
   namespace: "i18n/api",
 
-/**
-    Serializer object to manage JSON transformations
-  */
+  // If you want to remove our DRF2 serializer use this instead:
+  // serializer: DS.RESTSerializer,
   serializer: DS.DRF2Serializer,
 
   init: function() {
@@ -32,7 +31,15 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
   },
 
   didFindAll: function(store, type, json) {
-    store.loadMany(type, json.results);
+    // If there's multiple items they
+    // will be in .results
+    if (json.results) {
+        store.loadMany(type, json.results);
+    } else {
+        var id = json.id ? json.id : null;
+        var result = store.load(type, id, json);
+        console.log(result);
+    }
     store.didUpdateAll(type);
   },
 
