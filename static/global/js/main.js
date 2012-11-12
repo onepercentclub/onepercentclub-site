@@ -1,8 +1,62 @@
 $(document).ready(function(){
     //initProgress();
-    initLightbox();
-    initJiraFeedback();
+    //initLightbox();
+    //initJiraFeedback();
+    
+    // added by Frans
+    // initFileUpload();
+    initToggleText();
+    $("label.inline").inFieldLabels(); 
+    $("textarea").autogrow();
 })
+
+function initToggleText(){
+    
+    $('.toggle-reactions').live('click', function(e) {
+        $('.reactions', $(this).closest('.reaction-box')).toggle();
+    });
+
+    // toggles content and classnames on click, mouseenter & mouseleave
+    $('.toggle-reactions, .toggle-love')
+        .live('click', function(e) {
+            $(this)
+                .toggleClass('is-active')
+                .addClass('is-activated')
+                .trigger('mouseleave');
+            e.preventDefault();
+        })
+        .live('mouseenter', function(e) {
+            if ( $(this).hasClass('is-active') ) {
+                $(this).html( $(this).data('content-toggled-hover') );
+            } else {
+                $(this).html( $(this).data('content-hover') );
+            }
+            $(this).removeClass('is-activated');
+        })
+        .live('mouseleave', function(e) {
+            if ( $(this).hasClass('is-active') ) {
+                $(this).html( $(this).data('content-toggled') );
+            } else {
+                $(this).html( $(this).data('content') );
+            }
+        });
+    
+    $('.share')
+        .live('mouseenter', function(e) {
+            $('.share-actions', $(this)).show();
+        })
+        .live('mouseleave', function(e) {
+            $('.share-actions', $(this)).hide();
+        });
+};
+
+function initFileUpload(){
+
+    // replace with multiple file uploader
+    $('.fileupload').fileupload({
+
+    });
+}
 
 function initLightbox(){
   

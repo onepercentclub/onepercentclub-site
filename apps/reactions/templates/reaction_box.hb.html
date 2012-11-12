@@ -3,24 +3,27 @@
 
 {% tplhandlebars "reaction_form" %}
     <fieldset>
-        <label for="reaction-1">Comment</label>
         <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
-        {{view Ember.TextArea valueBinding="reaction" name="reaction" placeholder="Hey, leave a comment!"}}
+        <label for="reaction-1" class="inline">Hey {{view.user.first_name}}, leave a comment behind!</label>
+        {{view Ember.TextArea valueBinding="reaction" name="reaction" id="reaction-1"}}
     </fieldset>
     <button type="submit" id="reaction-post">Post</button>
- 
+    
+    {# TODO: reacton-action should be below the reaction-post form #} 
+     
     <ul class="reaction-actions">
-        <li class="toggle-reactions is-shown"><a href="#">2 Comments</a></li>
-        <li class="toggle-love is-loved"><a href="#">22 love this</a></li>
+        <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>
+        <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
         <li class="share">
-            <strong>Share</strong>
+            <strong>Share this</strong>
             <ul class="share-actions">
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li>Url: fdsdsf</li>
+                <li class="share-facebook">Share on Facebook</li>
+                <li class="share-twitter"><a href="#">Share on Twitter</a></li>
+                <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
             </ul>
         </li>
     </ul>
+        
 {% endtplhandlebars %}
      
 {% tplhandlebars "reaction_box" %}
@@ -28,8 +31,8 @@
         <!-- wallpost -->
         <article class="wallpost">
             <div class="reaction-box">
-                {{outlet reactionList}}
                 {{outlet reactionForm}}
+                {{outlet reactionList}}
             </div>
         </article>
     </section>

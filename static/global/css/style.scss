@@ -47,6 +47,9 @@ $color-back: #f3f3f3;
 @import "library/_tabs";
 @import "library/_panels";
 
+/* Plugins */
+@import "plugins/_jquery.fileupload-ui.scss";
+@import "plugins/_colorbox.scss";
 
 /* Modules */
 @import "modules/_global";

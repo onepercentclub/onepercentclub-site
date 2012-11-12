@@ -19,24 +19,29 @@
         }
         
         label {
-            display: none;
+            @include grid(48, 10, 0);
+            @include rem(top, 28px);
+            padding: 0;
+            
         }
         
         .user-img {
             position: absolute;
             @include rem(left, 32px);
             @include rem(top, 32px);
+            @include grid(3);
             margin: 0;
-            @include rem(width, 48px);
         }
         
         textarea {
-            padding-left: 110px; // TODO: make fluid 
+            padding-left: $grid-column * 9; // TODO Firefox: won't accept percentage as padding in form elements
             @include rem(min-height, 88px);
         }
         
         button {
             float: right;
+            position: relative;
+            z-index: 2;
         }
     }
     
@@ -45,18 +50,24 @@
         margin: 0;
         padding: 0;
         list-style: none;
-        @include rem(font-size, 13px);
+        
+        position: relative;
+        z-index: 1;
+        @include clearfix;
+        
+        @include rem(font-size, 12px);
         font-weight: bold;
-        float: left;
-        @include rem(margin-top, -38px);
+        @include rem(top, -54px);
+        background: $color-back;
         
         li {
-            display: inline;
+            display: inline !important;
             
             a, strong {
-                display: inline-block;
+                white-space: nowrap;
+                display: inline-block !important;
                 color: #666;
-                @include rem(padding, 4px);
+                @include rem(padding, 4px 8px 4px 8px);
                 @include rem(margin, 0 8px 0 8px);
                 
                 cursor: hand;
@@ -66,21 +77,94 @@
                     color: $black;
                 }
                 
-                &.toggle-comments {
+                &.toggle-reactions {
+                    width: 20%;
+                    margin-left: $grid-column * 6;
+                    @include rem(padding-left, 30px);
+                    background-image: url('../images/sprites/icon-reactions.png');
+                    background-repeat: no-repeat;
+                    background-position: 0 7px;
                     
+                    &:hover, &.is-active {
+                        color: $black;
+                        background-position: 0 -33px;
+                    }
                 }
                 
                 &.toggle-love {
+                    width: 24%;
+                    @include rem(padding-left, 33px);
+                    background-image: url('../images/sprites/icon-love.png');
+                    background-repeat: no-repeat;
+                    background-position: 0 7px;
                     
+                    &:hover {
+                        color: $pink;
+                        background-position: 0 -24px;
+                    }
+                    
+                    &.is-active:hover {
+                        color: $black;
+                        background-position: 0 -94px;
+                    }
+                    
+                    &.is-active, &.is-activated, &.is-activated:hover {
+                        color: $pink;
+                        background-position: 0 -59px;
+                    }
+                }
+            }
+            
+            &.share {
+                
+                strong {
+                    @include rem(padding-left, 30px);
+                    background-image: url('../images/sprites/icon-share.png');
+                    background-repeat: no-repeat;
+                    background-position: 0 6px; 
+                    
+                    &:hover, &.is-active {
+                        color: $green;
+                        background-position: 0 -35px;
+                    }
                 }
                 
-            }
-        }
-        
-        .share {
-            
-            .share-actions {
-                display: none;
+                .share-actions {
+                    display: none;
+                    @include rem(padding, 16px 0 8px 0);    
+                    
+                    li {
+                        display: inline-block;
+                        text-align: center;
+                        
+                        &.share-facebook {
+                            width: 25%;
+                            margin-left: $grid-column * 6;
+                        }
+                        
+                        &.share-twitter {
+                            width: 25%;
+                        }
+                        
+                        &.share-url {
+                            
+                            code {
+                                @include rem(font-size, 11px);
+                                font-color: #ccc !important;
+                                padding: 0.4em 0.2em;
+                                border: 1px solid #333;
+                                background: $white;
+                            }
+                            
+                            .share-url-copy {
+                                background-color: #ccc;
+                                color: $white;
+                                padding: 0 4px;
+                                
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -88,11 +172,15 @@
 }
 
 .reactions {
+    position: relative;
+    @include rem(top, -54px);
     background-color: $color-back;
     @include rem(padding, 16px);
     @include clearfix;
     margin: 0;
     list-style: none;
+    
+    display: none;
     
     @include rem(font-size, 14px);
     
@@ -104,10 +192,10 @@
          
         .user-img {
             position: absolute;
-            @include rem(left, 32px);
-            margin: 0;
-            @include rem(width, 48px);
+            @include grid(3);
+            @include rem(left, 16px);
             @include rem(top, 2px);
+            margin: 0;
         } 
         
         
@@ -115,7 +203,7 @@
             border-color: $green;
             
             &::after {
-                background: url('../images/reaction-box-initiator.png') transparent no-repeat 0 0;
+                background: url('../images/sprites/reaction-box-initiator.png') transparent no-repeat 0 0;
             }
         }
         
@@ -144,7 +232,7 @@
                 display: block;
                 width: 25px;
                 height: 21px;
-                background: url('../images/reaction-box.png') transparent no-repeat 0 0;
+                background: url('../images/sprites/reaction-box.png') transparent no-repeat 0 0;
             }
         }
     }
