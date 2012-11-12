@@ -63,31 +63,36 @@
             <form id="" action="/" method="post">
                 <fieldset>
                     <ul>
-                        <li>
-                            <label for="wallpost-title">Title of your update</label>
-                            <div><input type="text" id="wallpost-title" name="wallpost-title" placeholder="Title of your update" /></div>
+                        <li class="error">
+                            <label for="wallpost-title" class="inline">Title of your update - Required</label>
+                            <input type="text" id="wallpost-title" name="wallpost-title" />
                         </li>
                         <li>
-                            <label for="wallpost-update">Your update</label>
-                            <div><textarea cols="50" rows="6" id="wallpost-update" name="wallpost-update" placeholder="Your update"></textarea></div>
+                            <label for="wallpost-update" class="inline">Your update</label>
+                            <textarea cols="50" rows="4" id="wallpost-update" name="wallpost-update"></textarea>
                         </li>
                         <li>
-                            <label for="wallpost-video">Link to video on <a href="#">YouTube</a> or <a href="#">Vimeo</a></label>
-                            <div><input type="text" id="wallpost-video" name="wallpost-video" placeholder="Link to video on YouTube or Vimeo" /></div>
+                            <label for="wallpost-video" class="inline">Link to video on <a href="#">YouTube</a> or <a href="#">Vimeo</a></label>
+                            <input type="text" id="wallpost-video" name="wallpost-video" />
+                            
                         </li>
                         <li>
-                            <label for="wallpost-photo">Upload & add Photo's <small>(620 x 380 minimum for best results)</small></label>
-                            <div><input type="file" id="wallpost-photo" name="wallpost-photo" placeholder="Upload & add Photo's (620 x 380 minimum for best results)" /></div>
+                            <label for="wallpost-photos">Upload & add Photo's <small>(620 x 380 minimum for best results)</small></label>
+                            <span class="fileinput-button image">
+                                <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>
+                            </span>
                         </li>
                     </ul>
                 </fieldset>
                 
-                <button type="submit" class="large">Post Update</button>
+                <button type="submit">Post Update</button>
                 
             </form>
             
-            <div class="sidebar">
-                Need some inspiration and tips on how to engage with your peers? Here’s some of our secrets:
+            <div class="sidebar tip">
+                <h3>Need some inspiration and tips on how to engage with your peers? Here’s some of our secrets:</h3>
+                <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+                <p><a href="#">Read some more</a></p>
             </div>
             
             <!-- end: wallpost form -->
@@ -140,28 +145,28 @@
              <!-- reaction-box -->
              <div class="reaction-box">
              
-                 <form action="#" method="post" class="reaction-form">
-                 	<fieldset>
-                 		<label for="reaction-1">Comment</label>
-                 		<span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
-                 		<textarea id="reaction-1" name="reaction" placeholder="Hey Bart, leave a comment behind!"></textarea>
-                 	</fieldset>
-                 	
-                 	<button type="submit" id="reaction-post">Post</button>
- 
-                 	<ul class="reaction-actions">
-                 	    <li class="toggle-reactions is-shown"><a href="#">2 Comments</a></li>
-                 	    <li class="toggle-love is-loved"><a href="#">22 love this</a></li>
-                 	    <li class="share">
-                 	        <strong>Share</strong>
-                 	        <ul class="share-actions">
-                 	            <li><a href="#">Facebook</a></li>
-                 	            <li><a href="#">Twitter</a></li>
-                 	            <li>Url: fdsdsf</li>
-                 	        </ul>
-                 	    </li>
-                 	</ul>
-                 </form>
+                <form action="#" method="post" class="reaction-form">
+                	<fieldset>
+                        <span class="user-img"><img src="../global/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
+                        <label for="reaction-1" class="inline">Hey Bart, leave a comment behind!</label>
+                        <textarea id="reaction-1" name="reaction"></textarea>
+                	</fieldset>
+                	
+                	<button type="submit" id="reaction-post">Post</button>
+                </form>
+                 
+             	<ul class="reaction-actions">
+             	    <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>
+             	    <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
+             	    <li class="share">
+             	        <strong>Share this</strong>
+             	        <ul class="share-actions">
+             	            <li class="share-facebook">Share on Facebook</li>
+             	            <li class="share-twitter"><a href="#">Share on Twitter</a></li>
+             	            <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
+             	        </ul>
+             	    </li>
+             	</ul>
                  
                  <ul class="reactions">
                  	<li class="initiator">
@@ -200,11 +205,15 @@
     
         
     <!-- scripts -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../global/js/libraries/jquery-1.8.2.min.js"><\/script>')</script>
+    <script src="../global/js/libs/jquery-1.7.2.min.js"></script>
+    <script src="../global/js/libs/jquery.ui.widget.js"></script>
+    <script src="../global/js/plugins/jquery.iframe-transport.js"></script>
+    <script src="../global/js/plugins/jquery.fileupload.js"></script>
+    <script src="../global/js/plugins/jquery.fileupload-ui.js"></script>
     
     <script src="../global/js/plugins/jquery.colorbox.js"></script>
     <script src="../global/js/plugins.js"></script>
+    
     <script src="../global/js/main.js"></script>
     
     <!-- analytics -->

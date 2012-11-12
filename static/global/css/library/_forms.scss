@@ -36,6 +36,7 @@ textarea {
 }
 
 form {
+
     legend { 
         display: block; 
         margin-bottom: 0.25em; 
@@ -43,58 +44,86 @@ form {
         line-height: 1.5em;
         font-size: 1.6em;
     }
+    
     fieldset { 
         @include rem(margin-bottom, 16px);
     }
+    
+    label.inline {
+        position: absolute; 
+        top: 0; 
+        left: 0;
+        
+        font-family: $font-family;
+        line-height: 1.5em;
+        margin: -1px 0.5em 0px 0px;
+        padding: 0.6em;
+        width: 100%;
+        vertical-align: baseline;
+    }
+    
     ul {
         clear: both;
         list-style: none;
         margin: 0 0 $margin-bottom 0;
+        
         > li {
-            > label {
-                /*clear: left;
-                cursor: pointer;
-                font-weight: bold;
-                @include grid(16, 0, 1);
-                padding-top: 0.55em;
-                text-align: right;
-                &:hover { color: $black; }*/
-                display: none;
-            }
-            div {
-                margin-bottom: 0.5em;
-                p, small {
-                    display: block;
-                    margin: 0.6em 0.6em 0.25em 0px;
+            position: relative;
+            margin-bottom: $margin-bottom;
+            @include clearfix;
+            
+            > label  { 
+                
+                padding-left: 0.6em;
+                display: block;
+                color: #999;
+                
+                
+                
+                small {
+                    display: inline-block;
                 }
-                ul.checklist {
-                    margin: 0.6em 0.6em 0.6em 0px;
-                    > li { margin: 0.5em 0; }
-                    input { 
-                        display: inline-block; 
-                        margin-right: 0.5em;
-                    }
-                    label {
-                        @include grid-reset;
-                        font-weight: normal;
-                        &:hover { 
-                            color: #000; 
-                            cursor: pointer; 
-                        }
+            }
+            
+            p, small {
+                display: block;
+                margin: 0.6em 0.6em 0.25em 0px;
+            }
+            
+            ul.checklist {
+                margin: 0.6em 0.6em 0.6em 0px;
+                
+                > li { margin: 0.5em 0; }
+                
+                input { 
+                    display: inline-block; 
+                    margin-right: 0.5em;
+                }
+                
+                label {
+                    @include grid-reset;
+                    font-weight: normal;
+                    &:hover { 
+                        color: #000; 
+                        cursor: pointer; 
                     }
                 }
             }
         }
+        
         li.error {
+        
             label { 
                 color: $color-error; 
                 &:hover { color: darken($color-error, 25%); }
             }
+            
             input {
                 border: 1px solid $color-error; 
                 @include box-shadow((0px 0px 3px lighten($color-error, 10%), inset 0 0 0));
                 &:focus { border: 1px solid $color-error; }
             }
+            
             ul.errors {
                 color: $color-error; 
                 margin: 0.6em 0.6em 0.6em 0px;

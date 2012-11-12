@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ========================= Variables ================================== */
 /* ========================= Includes ============================= */
 /* Base */
@@ -578,39 +579,57 @@ form legend {
 form fieldset {
   margin-bottom: 16px;
   margin-bottom: 1rem; }
+form label.inline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  line-height: 1.5em;
+  margin: -1px 0.5em 0px 0px;
+  padding: 0.6em;
+  width: 100%;
+  vertical-align: baseline; }
 form ul {
   clear: both;
   list-style: none;
   margin: 0 0 1.25em 0; }
-  form ul > li > label {
-    /*clear: left;
-    cursor: pointer;
-    font-weight: bold;
-    @include grid(16, 0, 1);
-    padding-top: 0.55em;
-    text-align: right;
-    &:hover { color: $black; }*/
-    display: none; }
-  form ul > li div {
-    margin-bottom: 0.5em; }
-    form ul > li div p, form ul > li div small {
+  form ul > li {
+    position: relative;
+    margin-bottom: 1.25em;
+    *zoom: 1; }
+    form ul > li:before, form ul > li:after {
+      display: block;
+      height: 0 !important;
+      line-height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      content: "."; }
+    form ul > li:after {
+      clear: both; }
+    form ul > li > label {
+      padding-left: 0.6em;
+      display: block;
+      color: #999; }
+      form ul > li > label small {
+        display: inline-block; }
+    form ul > li p, form ul > li small {
       display: block;
       margin: 0.6em 0.6em 0.25em 0px; }
-    form ul > li div ul.checklist {
+    form ul > li ul.checklist {
       margin: 0.6em 0.6em 0.6em 0px; }
-      form ul > li div ul.checklist > li {
+      form ul > li ul.checklist > li {
         margin: 0.5em 0; }
-      form ul > li div ul.checklist input {
+      form ul > li ul.checklist input {
         display: inline-block;
         margin-right: 0.5em; }
-      form ul > li div ul.checklist label {
+      form ul > li ul.checklist label {
         clear: both;
         float: none;
         margin-left: 0;
         margin-right: 0;
         width: auto;
         font-weight: normal; }
-        form ul > li div ul.checklist label:hover {
+        form ul > li ul.checklist label:hover {
           color: #000;
           cursor: pointer; }
   form ul li.error label {
@@ -1296,6 +1315,150 @@ ul.steps {
     color: white;
     text-shadow: 1px 1px 0 rgba(5, 5, 5, 0.5); }
 
+/* Plugins */
+/*
+ * jQuery File Upload UI Plugin CSS 6.10
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  float: left;
+  margin-right: 4px; }
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer; }
+
+.fileinput-button.image {
+  display: block;
+  float: left;
+  width: 14.583%;
+  margin-left: 0%;
+  margin-right: 2.083%;
+  height: 70px;
+  border: 3px dotted #00c051;
+  background: url(../images/fileinput-image.png) center no-repeat; }
+  .fileinput-button.image:hover, .fileinput-button.image:active {
+    border-color: #050505; }
+
+.fileupload-buttonbar .btn,
+.fileupload-buttonbar .toggle {
+  margin-bottom: 5px; }
+
+.files .progress {
+  width: 200px; }
+
+.progress-animated .bar {
+  background: url(../images/progressbar.gif) !important;
+  filter: none; }
+
+.fileupload-loading {
+  position: absolute;
+  left: 50%;
+  width: 128px;
+  height: 128px;
+  background: url(../images/loading.gif) center no-repeat;
+  display: none; }
+
+.fileupload-processing .fileupload-loading {
+  display: block; }
+
+/* Fix for IE 6: */
+* html .fileinput-button {
+  line-height: 24px;
+  margin: 1px -3px 0 0; }
+
+/* Fix for IE 7: */
+* + html .fileinput-button {
+  padding: 2px 15px;
+  margin: 1px 0 0 0; }
+
+@media (max-width: 767px) {
+  .files .btn span {
+    display: none; }
+
+  .files .preview * {
+    width: 40px; }
+
+  .files .name * {
+    width: 80px;
+    display: inline-block;
+    word-wrap: break-word; }
+
+  .files .progress {
+    width: 20px; }
+
+  .files .delete {
+    width: 60px; } }
+/*
+    ColorBox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  overflow: hidden; }
+
+#cboxOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%; }
+
+#cboxMiddleLeft, #cboxBottomLeft {
+  clear: left; }
+
+#cboxContent {
+  position: relative; }
+
+#cboxLoadedContent {
+  overflow: auto; }
+
+#cboxTitle {
+  margin: 0; }
+
+#cboxLoadingOverlay, #cboxLoadingGraphic {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow {
+  cursor: pointer; }
+
+.cboxPhoto {
+  float: left;
+  margin: auto;
+  border: 0;
+  display: block;
+  max-width: none; }
+
+.cboxIframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0; }
+
+#colorbox, #cboxContent, #cboxLoadedContent {
+  box-sizing: content-box; }
+
 /* Modules */
 .video {
   margin: 32px 0;
@@ -1377,14 +1540,27 @@ ul.steps {
   .user strong {
     font-weight: normal; }
   .user em {
+    position: relative;
     font-style: normal;
     font-size: 12px;
     font-size: 0.75rem;
     color: white;
     background-color: #ccc;
-    padding: 2px;
-    padding: 0.125rem;
-    text-transform: uppercase; }
+    padding: 2px 8px 2px 12px;
+    padding: 0.125rem 0.5rem 0.125rem 0.75rem;
+    margin: 0 10px 0 4px;
+    margin: 0 0.625rem 0 0.25rem;
+    text-transform: uppercase;
+    -webkit-border-radius: 0 2px 2px 0;
+    -moz-border-radius: 0 2px 2px 0;
+    -ms-border-radius: 0 2px 2px 0;
+    -o-border-radius: 0 2px 2px 0;
+    border-radius: 0 2px 2px 0;
+    background-image: url("../images/user-type-back.png");
+    background-repeat: no-repeat;
+    background-position: 0 center; }
+  .user:hover em {
+    background-color: #bfbfbf; }
 
 .user-img {
   border: 1px solid #999;
@@ -1497,55 +1673,139 @@ ul.steps {
     .reaction-box .reaction-form.is-selected {
       border: 1px solid red; }
     .reaction-box .reaction-form label {
-      display: none; }
+      float: left;
+      width: 79.167%;
+      margin-left: 20.833%;
+      margin-right: 0%;
+      top: 28px;
+      top: 1.75rem;
+      padding: 0; }
     .reaction-box .reaction-form .user-img {
       position: absolute;
       left: 32px;
       left: 2rem;
       top: 32px;
       top: 2rem;
-      margin: 0;
-      width: 48px;
-      width: 3rem; }
+      float: left;
+      width: 6.25%;
+      margin-left: 0%;
+      margin-right: 0%;
+      margin: 0; }
     .reaction-box .reaction-form textarea {
-      padding-left: 110px;
+      padding-left: 18.75%;
       min-height: 88px;
       min-height: 5.5rem; }
     .reaction-box .reaction-form button {
-      float: right; }
+      float: right;
+      position: relative;
+      z-index: 2; }
   .reaction-box .reaction-actions {
     margin: 0;
     padding: 0;
     list-style: none;
-    font-size: 13px;
-    font-size: 0.813rem;
+    position: relative;
+    z-index: 1;
+    *zoom: 1;
+    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: bold;
-    float: left;
-    margin-top: -38px;
-    margin-top: -2.375rem; }
+    top: -54px;
+    top: -3.375rem;
+    background: #f3f3f3; }
+    .reaction-box .reaction-actions:before, .reaction-box .reaction-actions:after {
+      display: block;
+      height: 0 !important;
+      line-height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      content: "."; }
+    .reaction-box .reaction-actions:after {
+      clear: both; }
     .reaction-box .reaction-actions li {
       display: inline; }
       .reaction-box .reaction-actions li a, .reaction-box .reaction-actions li strong {
+        white-space: nowrap;
         display: inline-block;
         color: #666;
-        padding: 4px;
-        padding: 0.25rem;
+        padding: 4px 8px 4px 8px;
+        padding: 0.25rem 0.5rem 0.25rem 0.5rem;
         margin: 0 8px 0 8px;
         margin: 0 0.5rem 0 0.5rem;
         cursor: hand;
         cursor: pointer; }
         .reaction-box .reaction-actions li a:hover, .reaction-box .reaction-actions li a:active, .reaction-box .reaction-actions li strong:hover, .reaction-box .reaction-actions li strong:active {
           color: #050505; }
-    .reaction-box .reaction-actions .share .share-actions {
-      display: none; }
+        .reaction-box .reaction-actions li a.toggle-reactions, .reaction-box .reaction-actions li strong.toggle-reactions {
+          width: 20%;
+          margin-left: 12.5%;
+          padding-left: 30px;
+          padding-left: 1.875rem;
+          background-image: url("../images/sprites/icon-reactions.png");
+          background-repeat: no-repeat;
+          background-position: 0 7px; }
+          .reaction-box .reaction-actions li a.toggle-reactions:hover, .reaction-box .reaction-actions li a.toggle-reactions.is-active, .reaction-box .reaction-actions li strong.toggle-reactions:hover, .reaction-box .reaction-actions li strong.toggle-reactions.is-active {
+            color: #050505;
+            background-position: 0 -33px; }
+        .reaction-box .reaction-actions li a.toggle-love, .reaction-box .reaction-actions li strong.toggle-love {
+          width: 24%;
+          padding-left: 33px;
+          padding-left: 2.063rem;
+          background-image: url("../images/sprites/icon-love.png");
+          background-repeat: no-repeat;
+          background-position: 0 7px; }
+          .reaction-box .reaction-actions li a.toggle-love:hover, .reaction-box .reaction-actions li strong.toggle-love:hover {
+            color: #ff619a;
+            background-position: 0 -24px; }
+          .reaction-box .reaction-actions li a.toggle-love.is-active:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active:hover {
+            color: #050505;
+            background-position: 0 -94px; }
+          .reaction-box .reaction-actions li a.toggle-love.is-active, .reaction-box .reaction-actions li a.toggle-love.is-activated, .reaction-box .reaction-actions li a.toggle-love.is-activated:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active, .reaction-box .reaction-actions li strong.toggle-love.is-activated, .reaction-box .reaction-actions li strong.toggle-love.is-activated:hover {
+            color: #ff619a;
+            background-position: 0 -59px; }
+      .reaction-box .reaction-actions li.share strong {
+        padding-left: 30px;
+        padding-left: 1.875rem;
+        background-image: url("../images/sprites/icon-share.png");
+        background-repeat: no-repeat;
+        background-position: 0 6px; }
+        .reaction-box .reaction-actions li.share strong:hover, .reaction-box .reaction-actions li.share strong.is-active {
+          color: #00c051;
+          background-position: 0 -35px; }
+      .reaction-box .reaction-actions li.share .share-actions {
+        display: none;
+        padding: 16px 0 8px 0;
+        padding: 1rem 0 0.5rem 0; }
+        .reaction-box .reaction-actions li.share .share-actions li {
+          display: inline-block;
+          text-align: center; }
+          .reaction-box .reaction-actions li.share .share-actions li.share-facebook {
+            width: 25%;
+            margin-left: 12.5%; }
+          .reaction-box .reaction-actions li.share .share-actions li.share-twitter {
+            width: 25%; }
+          .reaction-box .reaction-actions li.share .share-actions li.share-url code {
+            font-size: 11px;
+            font-size: 0.688rem;
+            font-color: #ccc !important;
+            padding: 0.4em 0.2em;
+            border: 1px solid #333;
+            background: white; }
+          .reaction-box .reaction-actions li.share .share-actions li.share-url .share-url-copy {
+            background-color: #ccc;
+            color: white;
+            padding: 0 4px; }
 
 .reactions {
+  position: relative;
+  top: -54px;
+  top: -3.375rem;
   background-color: #f3f3f3;
   padding: 16px;
   padding: 1rem;
   *zoom: 1;
   margin: 0;
   list-style: none;
+  display: none;
   font-size: 14px;
   font-size: 0.875rem; }
   .reactions:before, .reactions:after {
@@ -1565,17 +1825,19 @@ ul.steps {
     margin: 1rem 0; }
     .reactions li .user-img {
       position: absolute;
-      left: 32px;
-      left: 2rem;
-      margin: 0;
-      width: 48px;
-      width: 3rem;
+      float: left;
+      width: 6.25%;
+      margin-left: 0%;
+      margin-right: 0%;
+      left: 16px;
+      left: 1rem;
       top: 2px;
-      top: 0.125rem; }
+      top: 0.125rem;
+      margin: 0; }
     .reactions li.initiator .comment {
       border-color: #00c051; }
       .reactions li.initiator .comment::after {
-        background: url("../images/reaction-box-initiator.png") transparent no-repeat 0 0; }
+        background: url("../images/sprites/reaction-box-initiator.png") transparent no-repeat 0 0; }
     .reactions li .comment {
       position: relative;
       float: left;
@@ -1607,7 +1869,7 @@ ul.steps {
         display: block;
         width: 25px;
         height: 21px;
-        background: url("../images/reaction-box.png") transparent no-repeat 0 0; }
+        background: url("../images/sprites/reaction-box.png") transparent no-repeat 0 0; }
 
 /* Extra */
 /* =========== Print */
