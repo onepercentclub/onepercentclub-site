@@ -1,8 +1,7 @@
-from apps.bluebottle_utils.serializers import SorlImageField, SlugHyperlinkedIdentityField
+from apps.bluebottle_utils.serializers import SorlImageField
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Reaction
-from rest_framework.fields import HyperlinkedIdentityField
 
 
 class ReactionAuthorSerializer(serializers.ModelSerializer):
