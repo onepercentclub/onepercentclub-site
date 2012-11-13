@@ -1,8 +1,8 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from rest_framework import generics
-from .serializers import MemberListSerializer, MemberDetailSerializer
+from .serializers import MemberListSerializer, MemberDetailSerializer, AuthenticatedMemberSerializer
 from .models import UserProfile
 
 
@@ -18,15 +18,17 @@ class MemberDetail(generics.RetrieveAPIView):
     model = User
     serializer_class = MemberDetailSerializer
 
-class MemberCurrent(generics.RetrieveAPIView):
+
+class AuthenticatedMember(generics.RetrieveAPIView):
     model = User
-    serializer_class = MemberDetailSerializer
+    serializer_class = AuthenticatedMemberSerializer
             
     def get_object(self):
         """
         Override default to add support for object-level permissions.
         """
-        if self.request.user:
+
+        if not isinstance(self.request.user, AnonymousUser):
             user = User.objects.filter(pk=self.request.user.id).get()
             return user
         return None
