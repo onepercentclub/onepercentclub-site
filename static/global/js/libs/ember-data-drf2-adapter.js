@@ -1,8 +1,40 @@
 var get = Ember.get, set = Ember.set;
 
+var passthrough = {
+  fromJSON: function(value) {
+    return value;
+  },
+
+  toJSON: function(value) {
+    return value;
+  }
+};
+
+
 DS.DRF2Serializer = DS.Serializer.extend({
 
 // TODO: Remove this serializer stuff we're not using. Removing it causes things to fail.
+
+  init: function() {
+    // By default, the JSON types are passthrough transforms
+    this.transforms = {
+      'string': passthrough,
+      'number': passthrough,
+      'boolean': passthrough,
+      'array':  {
+                fromJSON: function(serialized) {
+                  return Ember.none(serialized) ? null : eval(serialized);
+                },
+    
+                toJSON: function(deserialized) {
+                  return Ember.none(deserialized) ? null : deserialized.toJSON();
+                }
+            }
+    };
+    this.mappings = Ember.Map.create();
+  },
+
+    
 
 });
 
@@ -76,6 +108,46 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     return name;
   },
 
+  loadValue: function(store, type, value) {
+    if (value instanceof Array) {
+      store.loadMany(type, value);
+    } else {
+      store.load(type, value);
+    }
+  },
+
 
 });
 
+var hasAssociation = function(type, options, one) {
+  options = options || {};
+  var meta = { type: type, isAssociation: true, options: options, kind: 'belongsTo' };
+
+  return Ember.computed(function(key, value) {
+    if (arguments.length === 2) {
+      return value === undefined ? null : value;
+    }
+
+    var data = get(this, 'data').belongsTo,
+        store = get(this, 'store'), id;
+
+    if (typeof type === 'string') {
+      type = get(this, type, false) || get(window, type);
+    }
+
+    var id = data[key];
+    if (options.embedded == true && typeof(id) !== 'string') {
+        var obj = data[key];
+        if (obj !== undefined) {
+            id = obj.id ? obj.id : obj.name ? obj.name : obj.username;
+            store.load(type, id, obj);
+        }
+    }
+    return id ? store.find(type, id) : null;
+  }).property('data').meta(meta);
+};
+
+DS.belongsTo = function(type, options) {
+  Ember.assert("The type passed to DS.belongsTo must be defined", !!type);
+  return hasAssociation(type, options);
+};

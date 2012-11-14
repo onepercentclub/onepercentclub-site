@@ -1,0 +1,217 @@
+.project-detail {
+    @include grid(32, 1, 1);
+    position: relative;
+}
+
+h1 .phase {
+  color: white;
+  background-color: #CCC;
+  @include rem(font-size, 14px);
+  padding: 3px 20px 3px 12px;
+  background: #ccc url(../images/sprites/pointer.png) right center no-repeat;
+  @include border-radius(0.3em);
+  display: inline;
+}
+
+.icon-world {
+  width: 24px;
+  height: 24px;
+  background: url(../images/sprites/icon-world.png) left top no-repeat;
+  display: inline-block;
+}
+
+.project-location {
+}
+
+.wrapper sidebar.project-support {
+  padding: 0px;
+}
+
+.project-support h3 {
+  margin: 0;
+  color: silver;
+  font-family: "Futura", "Times New Roman", Arial, sans-serif;
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+ul.tags {
+  margin: 0px;
+  li {
+    list-style: none;
+    float: left;
+  }
+}
+
+/* DONATE BOX */
+.donate-box-wrap {
+  display: inline;
+  float: left;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.donate-box {
+  background: #fff;
+  padding: 16px;
+  padding: 1rem;
+  *zoom: 1;
+}
+.donate-box:before,
+.donate-box:after {
+  content: "";
+  display: table;
+}
+.donate-box:after {
+  clear: both;
+}
+.donate-box h1 {
+  margin: 0;
+  color: #c0c0c0;
+  font-family: "Futura", "Times New Roman", Arial, sans-serif;
+  font-size: 18px;
+  font-size: 1.125rem;
+}
+.donate-box .read-more {
+  display: block;
+  color: #000;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-size: 0.75rem;
+}
+/* DONATE  STATUS */
+.donate-status {
+  clear: both;
+  margin: 24px 0 32px 0;
+  position: relative;
+}
+.donate-amount {
+  text-align: center;
+  margin-bottom: 6px;
+  margin-bottom: 0.375rem;
+}
+.donate-slider {
+  font-family: "Futura", "Times New Roman", Arial, sans-serif;
+  display: block;
+  background-color: #e9e9e9;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  border: 3px solid #e9e9e9;
+  overflow: hidden;
+}
+.donate-percentage {
+  display: block;
+  background-color: #00c051;
+  color: #ffffff;
+  text-indent: 0.5em;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+.donate-percentage.is-in-progress:before {
+  position: absolute;
+  display: none;
+  width: 0;
+  top: -17px;
+  right: 5px;
+  height: 10px;
+  content: "";
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid red;
+  border-left: 6px solid transparent;
+}
+.button.donate {
+  padding-left: 70px;
+  background-position: 15px 10px;
+  background-repeat: no-repeat;
+  text-align: left;
+  background-image: url('../images/sprites/button-icon-donate.png');
+}
+/* DONATE SUPPORTERS / DAYS LEFT */
+.donate-supporters {
+  float: left;
+  margin: 0;
+  width: 50%;
+  text-align: center;
+}
+.donate-days-left {
+  float: right;
+  margin: 0;
+  width: 50%;
+  text-align: right;
+  text-align: center;
+}
+.donate-supporters span,
+.donate-days-left span {
+  display: inline-block;
+  margin-right: 3px;
+  text-align: center;
+  font-weight: normal;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background: #ffffff;
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d3d3d3 100%);
+  background-image: -webkit-linear-gradient(top, #ffffff 0%, #d3d3d3 100%);
+  background-image: -o-linear-gradient(top, #ffffff 0%, #d3d3d3 100%);
+  background-image: linear-gradient(to bottom, #ffffff 0%, #d3d3d3 100%);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#d3d3d3, GradientType=0);
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  width: 24px;
+  width: 1.5rem;
+  font-size: 26px;
+  font-size: 1.625rem;
+  line-height: 36px;
+  line-height: 2.25rem;
+}
+.donate-supporters span:before,
+.donate-days-left span:before {
+  position: relative;
+  top: 0.8em;
+  display: block;
+  width: 100%;
+  border-top: 1px double #c0c0c0;
+  content: '';
+  opacity: 0.35;
+  filter: alpha(opacity= 35 );
+}
+.donate-supporters em,
+.donate-days-left em {
+  display: block;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: condensed;
+  font-family: "Futura";
+  font-size: 10px;
+  font-size: 0.625rem;
+  padding-top: 4px;
+  padding-top: 0.25rem;
+}
+
+.donate-supporters span, .donate-days-left span {
+  display: inline-block;
+  margin-right: 3px;
+  text-align: center;
+  font-weight: normal;
+  @include border-radius(0.2em);
+  background: white;
+  background-image: -moz-linear-gradient(top, white 0%, lightGrey 100%);
+  background-image: -webkit-linear-gradient(top, white 0%, lightGrey 100%);
+  background-image: -o-linear-gradient(top, white 0%, lightGrey 100%);
+  background-image: linear-gradient(to bottom, white 0%, lightGrey 100%);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#d3d3d3, GradientType=0);
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  width: 24px;
+  width: 1.5rem;
+  font-size: 26px;
+  font-size: 1.625rem;
+  line-height: 36px;
+  line-height: 2.25rem;
+}

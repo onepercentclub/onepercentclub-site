@@ -30,6 +30,7 @@ $.ajaxSetup({
     }
 });
 
+
 Em.View.reopen({
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
@@ -101,7 +102,8 @@ App.store =  DS.Store.create({
 App.ListController = Em.ArrayController.extend({
     filterParams: {},
     getList: function(filterParams){
-        this.set("content", App.store.find(this.get('model')));
+        
+        this.set("content", App.store.find(this.get('model'), filterParams));
     }
     
 });
@@ -248,9 +250,10 @@ App.ProjectsRoute = Em.Route.extend({
 
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){
-            router.get('applicationController').connectOutlet('topPanel', 'projectStart');
-            router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
-            router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResultsSection');
+            App.projectSearchController.getList();
+            router.get('applicationController').connectOutlet('topPanel', 'empty');
+            router.get('applicationController').connectOutlet('midPanel', 'projectSearch');
+            router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         });
     },
 
@@ -266,13 +269,11 @@ App.ProjectsRoute = Em.Route.extend({
             return {slug: params.project_slug}
         },
         serialize: function(router, context) {
-            return {project_slug: context.slug};                router.get('applicationController').connectOutlet('midPanel', 'empty');
-                router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-
+            return {project_slug: context.slug};
         },
         connectOutlets: function(router, context) {
             require(['app/projects'], function(){
-                App.projectDetailController.populate(context.slug);
+                App.projectDetailController.getDetail({slug: context.slug});
                 router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
                 router.get('applicationController').connectOutlet('midPanel', 'empty');
                 router.get('applicationController').connectOutlet('bottomPanel', 'empty');

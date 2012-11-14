@@ -34,7 +34,7 @@
     	}
     }
     
-    &:hover {
+    :hover {
     
         img {
 	        background: $green;
@@ -139,7 +139,7 @@
 	.nav-notifications {
 	    width: 65%;
 		
-		&:hover, &active {
+		&:hover, &:active {
 		    
 		    .nav-notifications-nr {
 		        background-color: $black;

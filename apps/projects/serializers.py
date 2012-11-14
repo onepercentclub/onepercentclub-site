@@ -11,7 +11,7 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Country
-        fields = ('name', 'subregion')
+        fields = ('id', 'name', 'subregion')
 
 
 class ProjectOwnerSerializer(serializers.ModelSerializer):
@@ -19,12 +19,11 @@ class ProjectOwnerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'picture')
+        fields = ('id', 'first_name', 'last_name', 'picture')
 
 
 class ProjectDetailSerializer(serializers.ModelSerializer):
     country = ProjectCountrySerializer()
-    image = SorlImageField('image', '480x360', fit='center')
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     language = Field(source='get_language_display')
     organization = RelatedField()
@@ -35,13 +34,15 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
     url = SlugHyperlinkedIdentityField(view_name='project-instance')
     money_asked = Field(source='money_asked')
     money_donated = Field(source='money_donated')
+    image = SorlImageField('image', '800x450', crop='center')
+    description = Field(source='description')
 
     class Meta:
         model = Project
         fields = ('country', 'created', 'id', 'image', 'language', 'latitude',
                   'longitude', 'money_asked', 'money_donated', 'organization',
                   'owner', 'phase', 'planned_end_date', 'planned_start_date',
-                  'tags', 'themes', 'title', 'url')
+                  'tags', 'themes', 'title', 'url', 'image', 'description')
 
 
 class ProjectPreviewSerializer(ProjectDetailSerializer):
