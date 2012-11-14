@@ -4,16 +4,16 @@
 {% tplhandlebars "reaction_form" %}
     <fieldset>
         <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
-        <label for="reaction-1" class="inline">Hey {{view.user.first_name}}, leave a comment behind!</label>
-        {{view Ember.TextArea valueBinding="reaction" name="reaction" id="reaction-1"}}
+        <label for="reaction-1" class="inline">Hey {{view.user.first_name}}, leave a reaction!</label>
+        {{view Ember.TextArea valueBinding="view.reaction" name="reaction" id="reaction-1"}}
     </fieldset>
     <button type="submit" id="reaction-post">Post</button>
-    
-    {# TODO: reacton-action should be below the reaction-post form #} 
-     
+{% endtplhandlebars %}
+
+{% tplhandlebars "reaction_actions" %}
     <ul class="reaction-actions">
-        <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>
-        <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
+        <li><a class="toggle-reactions" data-content="# Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments"># Comments</a></li>
+        <li><a class="toggle-love" data-content="# love this" data-content-hover="Show your love!" data-content-toggled="# - You loved this" data-content-toggled-hover="Unlove?"># Love this</a></li>
         <li class="share">
             <strong>Share this</strong>
             <ul class="share-actions">
@@ -23,8 +23,8 @@
             </ul>
         </li>
     </ul>
-        
 {% endtplhandlebars %}
+
      
 {% tplhandlebars "reaction_box" %}
     <section class="wrapper">
@@ -32,6 +32,7 @@
         <article class="wallpost">
             <div class="reaction-box">
                 {{outlet reactionForm}}
+                {{outlet reactionActions}}
                 {{outlet reactionList}}
             </div>
         </article>

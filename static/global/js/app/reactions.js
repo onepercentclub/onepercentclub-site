@@ -22,12 +22,11 @@ App.reactionListController = App.ListController.create({
         var url =  type + '/' + slug + '/reactions/';
         var model =  this.get('model');
         model.reopen({
-            url: url
+            'url': url
         });
         this.set("content", App.store.findAll(model));
     },
     addReaction: function(reaction){
-        
         App.Reaction.createRecord({'reaction': reaction});
         App.store.commit();
     }
@@ -52,12 +51,10 @@ App.ReactionFormView = Em.View.extend({
     templateFile: 'reaction_box',
     tagName: 'form',
     classNames: ['reaction-form'],
-    reaction: 'leeg',
-    submit: function(event){
-        event.preventDefault();
-        var reaction = event.srcElement[1].value;
-        event.srcElement[1].value = "";
-        App.reactionListController.addReaction(reaction);
+    reaction: '',
+    submit: function(e){
+        e.preventDefault();
+        App.reactionListController.addReaction(this.get('reaction'));
     }
     
 });
@@ -72,6 +69,13 @@ App.ReactionPreviewView = Em.View.extend({
 App.ReactionNoItemsView = Em.View.extend({
     templateName: 'reaction_no_items',
     templateFile: 'reaction_list',
+});
+
+
+App.ReactionActionsView = Em.View.extend({
+    templateName: 'reaction_actions',
+    templateFile: 'reaction_box'
+    
 });
 
 

@@ -34,6 +34,17 @@ $.ajaxSetup({
 Em.View.reopen({
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
+    didInsertElement: function() {
+        // Re-init all behaviours defined in main.js
+        // TODO: Move all behaviour to Ember app?
+        try {
+            initBehaviour(this.get('$'));
+        } catch(err) {
+            // Some views cough on this...
+            // TODO: Find out which views (the first?) causes problems and why
+        }
+        this._super();
+    },
     
     templateForName: function(name, type) {
         if (!name) {
@@ -76,7 +87,7 @@ App = Em.Application.create({
     }),
 
     ApplicationView : Em.View.extend({
-        templateName : 'application'
+        templateName : 'application',
     }),
 
     // Use this to clear an outlet
@@ -235,6 +246,7 @@ App.BlogsRoute = Em.Route.extend({
                 router.get('applicationController').connectOutlet('midPanel', 'blogDetail');
                 router.get('applicationController').connectOutlet('bottomPanel', 'reactionBox');
                 router.get('applicationController').connectOutlet('reactionForm', 'reactionForm');
+                router.get('applicationController').connectOutlet('reactionActions', 'reactionActions');
                 router.get('applicationController').connectOutlet('reactionList', 'reactionList');
             });
         } 
