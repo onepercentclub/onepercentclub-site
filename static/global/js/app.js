@@ -33,6 +33,10 @@ $.ajaxSetup({
 Em.View.reopen({
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
+    didInsertElement: function() {
+        initBehaviour(this.$);
+        this._super();
+    },
     
     templateForName: function(name, type) {
         if (!name) {
