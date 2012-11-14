@@ -47,7 +47,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     store.load(type, id, json);
   },
 
-
   createRecord: function(store, type, record) {
     var data, root = this.rootForType(type);
 
@@ -60,8 +59,12 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
       }
     });
   },
-  
+ 
+ 
   rootForType: function(type) {
+    if (type.url){
+        return type.url;
+    }  
     var object = new type;
     if (object['url']){
         return object['url']; 

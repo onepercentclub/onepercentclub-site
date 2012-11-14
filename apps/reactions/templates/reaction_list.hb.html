@@ -1,17 +1,13 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
 
-<ul class="reactions">
 {% tplhandlebars "reaction_preview" %}
-    <li class="initiator">
-    	<span class="user-img"><img {{bindAttr src="view.content.author.picture" }} width="100%" alt="Avatar" /></span>
-    	<div class="comment">
-    	    <a href="#" class="user">By <strong>{{ view.content.author.full_name }}</strong> <em>Member</em> <small>{{view.content.relativetime}}</small></a>
-    		<p>{{ view.content.reaction }}</p>
-    	</div>
-    </li>
+	<span class="user-img"><img {{bindAttr src="view.content.author.picture" }} width="100%" alt="Avatar" /></span>
+	<div class="comment">
+	    <a href="#" class="user">By <strong>{{ view.content.author.full_name }}</strong> <em>Member</em> <small>{{view.content.relativetime}}</small></a>
+		<p>{{ view.content.reaction }}</p>
+	</div>
 {% endtplhandlebars %}
-</ul>
 
 {% tplhandlebars "reaction_no_items" %}
     No reactions yet
