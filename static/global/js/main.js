@@ -1,3 +1,17 @@
+/**
+ * Init
+ * 
+ * Put everything here that can't be handled by a $().live() thingy
+ * 
+ * 
+ * @param {Object} container
+ */
+function initBehaviour(container) {
+    $("label.inline", container).inFieldLabels(); 
+    $("textarea", container).autogrow();
+
+}
+
 $(document).ready(function(){
     //initProgress();
     //initLightbox();
@@ -6,9 +20,10 @@ $(document).ready(function(){
     // added by Frans
     // initFileUpload();
     initToggleText();
-    $("label.inline").inFieldLabels(); 
-    $("textarea").autogrow();
-})
+});
+
+
+
 
 function initToggleText(){
     

@@ -18,7 +18,7 @@ def get_client_ip(request):
 class ReactionList(generics.ListCreateAPIView):
     model = Reaction
     serializer_class = ReactionListSerializer
-    paginate_by = 10
+    paginate_by = 100
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsAuthorOrReadOnly,)
 
@@ -32,6 +32,7 @@ class ReactionList(generics.ListCreateAPIView):
     def get_queryset(self):
         reaction_to_instance = self._get_reaction_to_instance()
         objects = self.model.objects.for_content_type(self.kwargs['content_type'])
+        objects = objects.order_by("-created")
         return objects.filter(object_pk=reaction_to_instance.pk)
 
     def _get_reaction_to_instance(self):

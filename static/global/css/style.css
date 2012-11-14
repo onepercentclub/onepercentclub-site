@@ -282,10 +282,10 @@ dl {
     float: left;
     width: 31.25%;
     margin-left: 0%;
-    margin-right: 2.083%; }
+    margin-right: 2.08333%; }
   dl.advanced dd {
     float: left;
-    width: 66.667%;
+    width: 66.66667%;
     margin-left: 0%;
     margin-right: 0%; }
 
@@ -319,29 +319,29 @@ body {
 
 .wrapper > header {
   float: left;
-  width: 95.833%;
-  margin-left: 2.083%;
-  margin-right: 2.083%; }
+  width: 95.83333%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%; }
 
 .wrapper > form {
   float: left;
   width: 62.5%;
-  margin-left: 2.083%;
-  margin-right: 2.083%; }
+  margin-left: 2.08333%;
+  margin-right: 2.08333%; }
 
 .wrapper > .sidebar, .wrapper > sidebar {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
   padding: 16px;
   padding: 1rem; }
 
 .wrapper > .content {
   float: left;
-  width: 95.833%;
-  margin-left: 2.083%;
-  margin-right: 2.083%; }
+  width: 95.83333%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%; }
 
 .section {
   background-color: #f3f3f3;
@@ -378,7 +378,7 @@ section {
 #logo {
   float: left;
   width: 12.5%;
-  margin-left: 2.083%;
+  margin-left: 2.08333%;
   margin-right: 0%;
   margin-top: 10px;
   margin-top: 0.625rem;
@@ -387,7 +387,7 @@ section {
     background: white; }
   #logo #subtitle {
     font-size: 11px;
-    font-size: 0.688rem;
+    font-size: 0.6875rem;
     display: inline-block !important;
     font-weight: normal;
     text-transform: uppercase;
@@ -434,7 +434,7 @@ section {
   float: left;
   width: 50%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
   position: relative; }
   .nav-main li a, .nav-main li a:visited {
     white-space: nowrap;
@@ -446,9 +446,9 @@ section {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
   font-size: 13px;
-  font-size: 0.813rem;
+  font-size: 0.8125rem;
   color: white;
   overflow: hidden;
   text-align: center; }
@@ -484,7 +484,7 @@ section {
       padding: 0 0.75rem 0 0.5rem; }
   .nav-member .nav-notifications {
     width: 65%; }
-    .nav-member .nav-notifications:hover .nav-notifications-nr, .nav-member .nav-notifications active .nav-notifications-nr {
+    .nav-member .nav-notifications:hover .nav-notifications-nr, .nav-member .nav-notifications:active .nav-notifications-nr {
       background-color: #050505;
       color: white !important; }
   .nav-member .nav-notifications-nr {
@@ -496,7 +496,7 @@ section {
     margin-right: 8px;
     margin-right: 0.5rem;
     padding: 3px;
-    padding: 0.188rem;
+    padding: 0.1875rem;
     border-radius: 8px;
     border-radius: 0.5rem; }
   .nav-member .nav-login, .nav-member .nav-signup {
@@ -1076,7 +1076,7 @@ ul.pagination {
 #lightbox nav {
   font-weight: bold;
   font-size: 13px;
-  font-size: 0.813rem; }
+  font-size: 0.8125rem; }
   #lightbox nav ul {
     float: right;
     margin: 0;
@@ -1103,7 +1103,7 @@ ul.pagination {
 #lightbox-content {
   color: #6a6a6a;
   font-size: 15px;
-  font-size: 0.938rem;
+  font-size: 0.9375rem;
   padding: 0 32px 72px 32px;
   padding: 0 2rem 4.5rem 2rem; }
   #lightbox-content button {
@@ -1347,9 +1347,9 @@ ul.steps {
 .fileinput-button.image {
   display: block;
   float: left;
-  width: 14.583%;
+  width: 14.58333%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
   height: 70px;
   border: 3px dotted #00c051;
   background: url(../images/fileinput-image.png) center no-repeat; }
@@ -1509,22 +1509,22 @@ ul.steps {
     .photo-viewer ul li {
       display: block;
       float: left;
-      width: 14.583%;
+      width: 14.58333%;
       margin-left: 0%;
-      margin-right: 2.083%;
+      margin-right: 2.08333%;
       overflow: hidden;
       border-bottom: 4px solid transparent; }
       .photo-viewer ul li:hover {
         border-color: #00c051; }
       .photo-viewer ul li:first-child {
         float: left;
-        width: 14.583%;
+        width: 14.58333%;
         margin-left: 0%;
-        margin-right: 2.083%; }
+        margin-right: 2.08333%; }
       .photo-viewer ul li.more {
         display: block;
         float: left;
-        width: 16.667%;
+        width: 16.66667%;
         margin-left: 0%;
         margin-right: 0%;
         background-color: #00c051; }
@@ -1598,16 +1598,16 @@ ul.steps {
 .wallpost {
   float: left;
   width: 62.5%;
-  margin-left: 2.083%;
-  margin-right: 2.083%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
   position: relative; }
   .wallpost:hover .manage {
     display: block; }
   .wallpost header {
     float: left;
-    width: 77.083%;
-    margin-left: 20.833%;
-    margin-right: 2.083%; }
+    width: 77.08333%;
+    margin-left: 20.83333%;
+    margin-right: 2.08333%; }
     .wallpost header .timestamp {
       position: absolute;
       top: 140px;
@@ -1619,8 +1619,8 @@ ul.steps {
   .wallpost .content {
     position: relative;
     float: left;
-    width: 79.167%;
-    margin-left: 20.833%;
+    width: 79.16667%;
+    margin-left: 20.83333%;
     margin-right: 0%; }
   .wallpost .reaction-box {
     display: block;
@@ -1674,8 +1674,8 @@ ul.steps {
       border: 1px solid red; }
     .reaction-box .reaction-form label {
       float: left;
-      width: 79.167%;
-      margin-left: 20.833%;
+      width: 79.16667%;
+      margin-left: 20.83333%;
       margin-right: 0%;
       top: 28px;
       top: 1.75rem;
@@ -1749,7 +1749,7 @@ ul.steps {
         .reaction-box .reaction-actions li a.toggle-love, .reaction-box .reaction-actions li strong.toggle-love {
           width: 24%;
           padding-left: 33px;
-          padding-left: 2.063rem;
+          padding-left: 2.0625rem;
           background-image: url("../images/sprites/icon-love.png");
           background-repeat: no-repeat;
           background-position: 0 7px; }
@@ -1785,7 +1785,7 @@ ul.steps {
             width: 25%; }
           .reaction-box .reaction-actions li.share .share-actions li.share-url code {
             font-size: 11px;
-            font-size: 0.688rem;
+            font-size: 0.6875rem;
             font-color: #ccc !important;
             padding: 0.4em 0.2em;
             border: 1px solid #333;
@@ -1841,8 +1841,8 @@ ul.steps {
     .reactions li .comment {
       position: relative;
       float: left;
-      width: 79.167%;
-      margin-left: 20.833%;
+      width: 79.16667%;
+      margin-left: 20.83333%;
       margin-right: 0%;
       background: white;
       border: 1px solid #bfbfbf;
