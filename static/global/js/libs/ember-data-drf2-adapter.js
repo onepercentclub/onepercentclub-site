@@ -82,3 +82,50 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
 });
 
+
+var hasAssociation = function(type, options, one) {
+  options = options || {};
+  var meta = { type: type, isAssociation: true, options: options, kind: 'belongsTo' };
+
+  return Ember.computed(function(key, value) {
+    if (arguments.length === 2) {
+      return value === undefined ? null : value;
+    }
+
+    var data = get(this, 'data').belongsTo,
+        store = get(this, 'store'), id;
+
+    if (typeof type === 'string') {
+      type = get(this, type, false) || get(window, type);
+    }
+
+    // Mind you! This might be an ID or an entire object
+    var id = data[key];
+    
+    // This is our addition to make 'embedded' option work
+    
+    // Only do embedded if we have an object here
+    if (options.embedded == true && typeof(id) !== 'string') {
+        // load the object
+        console.log('doewiedoe');
+        var obj = data[key];
+        if (obj !== undefined) {
+            // Guess the primary key
+            // TODO: revert to defined primaryKey
+            id = obj.id ? obj.id : obj.name ? obj.name : obj.username;
+            // Load the embedded object in store
+            console.log(data);
+            store.load(type, id, obj);
+        }
+    }
+    // End of our addition
+    return id ? store.find(type, id) : null;
+  }).property('data').meta(meta);
+};
+
+// Redefine belongsTo again with our own hasAssociation function
+DS.belongsTo = function(type, options) {
+  Ember.assert("The type passed to DS.belongsTo must be defined", !!type);
+  return hasAssociation(type, options);
+};
+
