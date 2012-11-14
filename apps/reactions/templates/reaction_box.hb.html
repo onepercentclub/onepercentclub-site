@@ -5,7 +5,7 @@
     <fieldset>
         <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
         <label for="reaction-1" class="inline">Hey {{view.user.first_name}}, leave a reaction!</label>
-        {{view Ember.TextArea valueBinding="reaction" name="reaction" id="reaction-1"}}
+        {{view Ember.TextArea valueBinding="view.reaction" name="reaction" id="reaction-1"}}
     </fieldset>
     <button type="submit" id="reaction-post">Post</button>
 {% endtplhandlebars %}

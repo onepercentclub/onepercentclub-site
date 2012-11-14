@@ -51,12 +51,10 @@ App.ReactionFormView = Em.View.extend({
     templateFile: 'reaction_box',
     tagName: 'form',
     classNames: ['reaction-form'],
-    reaction: 'leeg',
-    submit: function(event){
-        event.preventDefault();
-        var reaction = event.srcElement[1].value;
-        event.srcElement[1].value = "";
-        App.reactionListController.addReaction(reaction);
+    reaction: '',
+    submit: function(e){
+        e.preventDefault();
+        App.reactionListController.addReaction(this.get('reaction'));
     }
     
 });
