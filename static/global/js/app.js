@@ -34,7 +34,12 @@ Em.View.reopen({
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
     didInsertElement: function() {
-        initBehaviour(this.$);
+        try {
+            initBehaviour(this.get('$'));
+        } catch(err) {
+            // Some views cough on this...
+            // TODO: Find out which views (the first?) causes problems and why
+        }
         this._super();
     },
     
@@ -79,7 +84,7 @@ App = Em.Application.create({
     }),
 
     ApplicationView : Em.View.extend({
-        templateName : 'application'
+        templateName : 'application',
     }),
 
     // Use this to clear an outlet

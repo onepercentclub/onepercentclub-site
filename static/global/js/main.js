@@ -20,7 +20,6 @@ $(document).ready(function(){
     // added by Frans
     // initFileUpload();
     initToggleText();
-    initBehaviour($('body'));
 });
 
 
