@@ -70,18 +70,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     } else {
         var id = json.id ? json.id : null;
         var result = store.load(type, id, json);
-        console.log(result);
     }
-    if (store.meta == undefined) {
-        store.meta = new Array()
-    }
-    
-    
-    store.setMeta(type, {
-        'count': json.count,
-        'previous': json.previous,
-        'next': json.next,
-    });
     store.didUpdateAll(type);
   },
 
