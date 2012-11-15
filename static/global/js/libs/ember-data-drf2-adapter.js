@@ -22,8 +22,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     this._super();
 
     namespace = get(this, 'namespace');
-    Em.assert("tastypie namespace parameter is mandatory.", !!namespace);
-
     // Make the adapter available for the serializer
     serializer = get(this, 'serializer');
     set(serializer, 'adapter', this);
@@ -38,7 +36,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     } else {
         var id = json.id ? json.id : null;
         var result = store.load(type, id, json);
-        console.log(result);
     }
     store.didUpdateAll(type);
   },
@@ -107,14 +104,12 @@ var hasAssociation = function(type, options, one) {
     // Only do embedded if we have an object here
     if (options.embedded == true && typeof(id) !== 'string') {
         // load the object
-        console.log('doewiedoe');
         var obj = data[key];
         if (obj !== undefined) {
             // Guess the primary key
             // TODO: revert to defined primaryKey
             id = obj.id ? obj.id : obj.name ? obj.name : obj.username;
             // Load the embedded object in store
-            console.log(data);
             store.load(type, id, obj);
         }
     }
