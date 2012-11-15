@@ -73,6 +73,7 @@ App.ReactionNoItemsView = Em.View.extend({
 
 
 App.ReactionActionsView = Em.View.extend({
+    countBinding: 'App.reactionListController.count',
     templateName: 'reaction_actions',
     templateFile: 'reaction_box'
     

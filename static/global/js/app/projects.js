@@ -19,12 +19,12 @@ App.Project = DS.Model.extend({
 })
 
 App.projectSearchController = App.ListController.create({
-    content: [],
     model: App.Project,
 });
 
 /* The search results. */
 App.ProjectSearchView  = Em.View.extend({
+    countBinding: 'App.projectSearchController.count',
     tagName: 'div',
     templateName: 'project_search',
     classNames: ['container'],

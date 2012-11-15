@@ -31,6 +31,7 @@ $.ajaxSetup({
 });
 
 
+
 Em.View.reopen({
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
@@ -103,8 +104,31 @@ App = Em.Application.create({
 });
 
 App.store =  DS.Store.create({
-  revision: 7,
-  adapter: DS.DRF2Adapter.create()
+    revision: 7,
+    adapter: DS.DRF2Adapter.create(),
+    // Add meta data functionality to DS.Store
+    // We can use this for count, previous and next in lists
+    meta: {},
+    getMeta: function(type){
+        if (typeof(type) !== 'string') {
+            type = type.toString();
+        }
+        var meta = this.get('meta');
+        if (meta[type] == undefined) {
+            meta[type] = {
+                    count: 0, 
+                    next: null, 
+                    previous: null
+                };
+        }
+        return meta[type];
+    },
+    setMeta: function(type, metaData) {
+        if (typeof(type) !== 'string') {
+            type = type.toString();
+        }
+        this.meta[type] = metaData;
+    }  
 });
 
 /* Base Controllers */
@@ -112,9 +136,14 @@ App.store =  DS.Store.create({
 // Controller to get lists from API
 App.ListController = Em.ArrayController.extend({
     filterParams: {},
+    meta: function(){
+        return App.store.getMeta(this.get('model'));
+    }.property('content'),
+    count: function(){
+        return this.get('meta')['count'];
+    }.property('meta'),
     getList: function(filterParams){
-        
-        this.set("content", App.store.find(this.get('model'), filterParams));
+        this.set('content', App.store.findAll(this.get('model'), filterParams));
     }
     
 });
@@ -262,7 +291,7 @@ App.ProjectsRoute = Em.Route.extend({
 
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){
-            App.projectSearchController.getList();
+            App.projectSearchController.getList({phase: 'Fund'});
             router.get('applicationController').connectOutlet('topPanel', 'empty');
             router.get('applicationController').connectOutlet('midPanel', 'projectSearch');
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');
