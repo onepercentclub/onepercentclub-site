@@ -6,14 +6,13 @@
             <h1 class="main-title">
                 <span class="phase">{{ view.content.phase }}</span> {{ view.content.title }}
             </h1>
-            <span class="icon-world"></span>
-            <span class="project-location">{{ view.content.country.name}}, {{ view.content.country.subregion}}</span> 
-            <span class="icon-tags">TAGS&gt;</span>
-            <ul class="tags">
-                {{#each view.content.tags }}
-                    <li>{{this}}&nbsp;&nbsp;</li>
-                {{/each}}
-            </ul>
+            <div class="detail-line">
+                <span class="icon icon-world"></span>
+                <span class="project-location">{{ view.content.country.name}}, {{ view.content.country.subregion}}</span> 
+                <span class="icon icon-tags"></span>
+                {{view App.ProjectTagsView }}
+                {{view App.ProjectTagsMoreView }}
+            </div>
         </header>
         <article class="project-detail">
             <span class="media">
@@ -37,49 +36,112 @@
                             <strong style="width: 40%;" class="donate-percentage update-percentage is-in-progress">0%</strong>
                         </span>
                     </div>
+        
                     <p class="donate-supporters">
-                        <span>
-                                        1
-                                    </span><span>
-                                    3
-                                </span>
-                            <em>1%Supporters</em>
-                        </p>
+                        {{{ view.content.supporter_count_span }}}
+                        <em>1%Supporters</em>
+                    </p>
                         
-                        <p class="donate-days-left">
-                            <span>
-                                        3
-                                    </span><span>
-                                    1
-                                </span>
-                            <em>Dagen te gaan</em>
-                        </p>
-                    </div>
-                    
-                        <a href="http://1procentclub.nl/support/step-amount/cashthetrash" class="button donate">Steun deze actie</a>
-                    
-                    
+        
+                    <p class="donate-days-left">
+                        {{{ view.content.days_left_span }}}
+                        <em>Dagen te gaan</em>
+                    </p>
                 </div>
             </div>
+            <a href="http://1procentclub.nl/support/step-amount/cashthetrash" class="button button-donate">Steun deze actie</a>
         </sidebar>
-        
-        {{view App.ProjectSupportersView}}
-    </section>
 
+        {{view App.ProjectSupportersView}}
+
+    </section>
+        
+
+{% endtplhandlebars %}
+
+{% tplhandlebars "project_tag_item" %}
+    {{ view.content }}
+{% endtplhandlebars %}
+
+{% tplhandlebars "project_tags_more" %}
+    {{ view.more }} more
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "project_supporters" %}
-    <div class="supporters">
-        
-        <h2 class="sub-title">1%SUPPORTERS <em>(13)</em></h2>
+    <article class="project-team">
         <ul>
             <li>
-                <a class="supporter" href="http://1procentclub.nl/members/martin">
-                    <img src="/media/cache/a6/d4/a6d4d900fd90b947c1d2fb481d46c546.jpg" width="45" height="45" title="martin venema">
-                </a>
+                <h4>Initiator</h4>
+                <ul>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <strong>{{ view.content.owner.full_name }}</strong>
+                        <br />
+                        <em>{{ view.content.organization }}</em>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h4>Project Team</h4>
+                <ul>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h4>1%COACH</h4>
+                <ul>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h4>1%PROMOTERS</h4>
+                <ul>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
         
-    </div>
+    </article>
 {% endtplhandlebars %}

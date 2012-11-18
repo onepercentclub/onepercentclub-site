@@ -883,6 +883,19 @@ a.button, a.btn, input[type="submit"], button {
   .ico.icon {
     background: url("../images/icons.png") 0px 0px no-repeat; }
 
+.icon {
+  width: 24px;
+  height: 24px;
+  background: url(../images/sprites/basic2a.png) 0px 0px no-repeat;
+  display: inline-block;
+  vertical-align: middle; }
+
+.icon-world {
+  background-position: -189px -234px; }
+
+.icon-tags {
+  background-position: -47px -281px; }
+
 /* =========== Messages */
 ul.messages {
   list-style: none;
@@ -1878,7 +1891,13 @@ ul.steps {
   margin-right: 2.08333%;
   position: relative; }
 
+h1 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
 h1 .phase {
+  vertical-align: top;
   color: white;
   background-color: #CCC;
   font-size: 14px;
@@ -1892,12 +1911,6 @@ h1 .phase {
   border-radius: 0.3em;
   display: inline; }
 
-.icon-world {
-  width: 24px;
-  height: 24px;
-  background: url(../images/sprites/icon-world.png) left top no-repeat;
-  display: inline-block; }
-
 .wrapper sidebar.project-support {
   padding: 0px; }
 
@@ -1909,47 +1922,39 @@ h1 .phase {
   font-size: 1.125rem;
   font-weight: bold; }
 
-ul.tags {
-  margin: 0px; }
-  ul.tags li {
+.detail-line {
+  margin: 4px 0px 8px 0px; }
+
+.project-location {
+  margin: 0px 20px 0px 0px;
+  vertical-align: middle; }
+
+ul.project-tags {
+  vertical-align: middle;
+  margin: 0px;
+  text-indent: 0px;
+  display: inline; }
+  ul.project-tags li {
+    color: #00c051;
+    margin: 2px;
     list-style: none;
-    float: left; }
+    display: inline;
+    text-transform: capitalize; }
+    ul.project-tags li.out-of-range {
+      display: none; }
 
-/* DONATE BOX */
 .donate-box-wrap {
-  display: inline;
-  float: left;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box; }
+  background-color: white;
+  padding: 20px;
+  padding: 1.25rem;
+  margin-bottom: 12px; }
 
-.donate-box {
-  background: #fff;
-  padding: 16px;
-  padding: 1rem;
-  *zoom: 1; }
-
-.donate-box:before,
-.donate-box:after {
-  content: "";
-  display: table; }
-
-.donate-box:after {
-  clear: both; }
-
-.donate-box h1 {
+.donate-box h3 {
   margin: 0;
   color: #c0c0c0;
   font-family: "Futura", "Times New Roman", Arial, sans-serif;
   font-size: 18px;
   font-size: 1.125rem; }
-
-.donate-box .read-more {
-  display: block;
-  color: #000;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-size: 0.75rem; }
 
 /* DONATE  STATUS */
 .donate-status {
@@ -1966,9 +1971,11 @@ ul.tags {
   font-family: "Futura", "Times New Roman", Arial, sans-serif;
   display: block;
   background-color: #e9e9e9;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -ms-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
   border: 3px solid #e9e9e9;
   overflow: hidden; }
 
@@ -1993,24 +2000,31 @@ ul.tags {
   border-bottom: 10px solid red;
   border-left: 6px solid transparent; }
 
-.button.donate {
+.button.button-donate, .button.button-donate:visited,
+.button.button-donate:hover {
   padding-left: 70px;
-  background-position: 15px 10px;
+  background-position: 15px 6px;
   background-repeat: no-repeat;
   text-align: left;
-  background-image: url("../images/sprites/button-icon-donate.png"); }
+  background-image: url("../images/sprites/button-icon-donate.png");
+  width: 100%;
+  background-color: #ff619a;
+  border-color: #ff619a; }
+
+.button.button-donate:hover {
+  background-color: #050505; }
 
 /* DONATE SUPPORTERS / DAYS LEFT */
 .donate-supporters {
-  float: left;
+  display: inline-block;
   margin: 0;
-  width: 50%;
+  width: 48%;
   text-align: center; }
 
 .donate-days-left {
-  float: right;
+  display: inline-block;
   margin: 0;
-  width: 50%;
+  width: 48%;
   text-align: right;
   text-align: center; }
 
@@ -2063,31 +2077,38 @@ ul.tags {
   padding-top: 4px;
   padding-top: 0.25rem; }
 
-.donate-supporters span, .donate-days-left span {
-  display: inline-block;
-  margin-right: 3px;
-  text-align: center;
-  font-weight: normal;
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  -ms-border-radius: 0.2em;
-  -o-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background: white;
-  background-image: -moz-linear-gradient(top, white 0%, lightgrey 100%);
-  background-image: -webkit-linear-gradient(top, white 0%, lightgrey 100%);
-  background-image: -o-linear-gradient(top, white 0%, lightgrey 100%);
-  background-image: linear-gradient(to bottom, white 0%, lightgrey 100%);
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#d3d3d3, GradientType=0);
-  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-  -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-  width: 24px;
-  width: 1.5rem;
-  font-size: 26px;
-  font-size: 1.625rem;
-  line-height: 36px;
-  line-height: 2.25rem; }
+.project-team,
+.project-supporters {
+  float: left;
+  width: 62.5%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+  position: relative;
+  margin-top: 12px; }
+  .project-team ul,
+  .project-supporters ul {
+    display: inline;
+    margin: 0px; }
+    .project-team ul li,
+    .project-supporters ul li {
+      vertical-align: top;
+      display: inline-block;
+      margin-right: 20px;
+      font-size: 12px;
+      font-size: 0.75rem; }
+      .project-team ul li h4,
+      .project-supporters ul li h4 {
+        margin: 4px 0px 0px 0px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-size: 0.75rem; }
+      .project-team ul li ul,
+      .project-supporters ul li ul {
+        display: block; }
+        .project-team ul li ul li,
+        .project-supporters ul li ul li {
+          margin-right: 4px; }
 
 /* Extra */
 /* =========== Print */

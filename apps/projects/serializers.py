@@ -15,7 +15,7 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
 
 class ProjectOwnerSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', crop='center')
+    picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
 
     class Meta:
         model = User
