@@ -3,7 +3,7 @@ App.Blog = DS.Model.extend({
     slug: DS.attr('string'),
     title: DS.attr('string'),
     contents: DS.attr('string'),
-    author: DS.belongsTo('App.Member'),
+    author: DS.belongsTo('App.Member', { embedded: true }),
 });
 
 
