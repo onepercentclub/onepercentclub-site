@@ -279,16 +279,19 @@ App.ProjectsRoute = Em.Route.extend({
 
     // The project detail state.
     detail: Em.Route.extend({
-        route: '/:project_slug',
-        deserialize: function(router, params) {
-            return {slug: params.project_slug}
+        route: '/:slug',
+        deserialize: function(router, context) {
+            var slug = context.slug ? context.slug : context.get('slug');
+            return {slug: slug}
         },
         serialize: function(router, context) {
-            return {project_slug: context.slug};
+            var slug = context.slug ? context.slug : context.get('slug');
+            return {slug: slug};
         },
         connectOutlets: function(router, context) {
             require(['app/projects'], function(){
-                App.projectDetailController.getDetail({slug: context.slug});
+                var slug = context.slug ? context.slug : context.get('slug');
+                App.projectDetailController.getDetail({slug: slug});
                 router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
                 router.get('applicationController').connectOutlet('midPanel', 'empty');
                 router.get('applicationController').connectOutlet('bottomPanel', 'empty');

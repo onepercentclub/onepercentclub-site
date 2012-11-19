@@ -62,15 +62,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     set(serializer, 'namespace', namespace);
   },
 
-  findQuery: function(store, type, query, recordArray) {
-    var root = this.rootForType(type);
-    this.ajax(this.buildURL(root), "GET", {
-      data: query,
-      success: function(json) {
-        this.didFindAll(store, type, json);
-      }
-    });
-  },
 
   didFindAll: function(store, type, json) {
     // If there's multiple items they
@@ -88,6 +79,15 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     store.load(type, id, json);
   },
 
+  didFindQuery: function(store, type, json, recordArray) {
+    var root = this.pluralize(this.rootForType(type));
+
+    // TODO: Re-enable this line... Seems to be
+    // workign without, but probably has some purpose :-P
+    //this.sideload(store, type, json, root);
+    recordArray.load(json.results);
+  },
+  
   createRecord: function(store, type, record) {
     var data, root = this.rootForType(type);
 

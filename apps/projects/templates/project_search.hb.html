@@ -19,7 +19,9 @@
 
 {% tplhandlebars "project_preview" %}
     <div>
-        {{ view.content.title }}
+        <a {{action showProjectDetail view.content href=true }}>
+            {{ view.content.title }}
+        </a>
     </div>
 {% endtplhandlebars %}
 

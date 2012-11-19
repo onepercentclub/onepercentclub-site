@@ -120,6 +120,9 @@ App.ProjectTagsMoreView = Em.View.extend({
     limit: 4,
     contentBinding: "App.projectDetailController.content.tags",
     more: function(){
+        if (this.get('content') == undefined) {
+            return 0;
+        }
         return this.get('content').length - this.get('limit');
     }.property('limit', 'content'),
     classNameBindings: ['outOfRange'],
