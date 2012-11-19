@@ -62,6 +62,16 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     set(serializer, 'namespace', namespace);
   },
 
+  findQuery: function(store, type, query, recordArray) {
+    var root = this.rootForType(type);
+    this.ajax(this.buildURL(root), "GET", {
+      data: query,
+      success: function(json) {
+        this.didFindAll(store, type, json);
+      }
+    });
+  },
+
   didFindAll: function(store, type, json) {
     // If there's multiple items they
     // will be in .results

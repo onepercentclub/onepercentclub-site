@@ -64,7 +64,7 @@
 {% endtplhandlebars %}
 
 {% tplhandlebars "project_tags_more" %}
-    {{ view.more }} more
+    +{{ view.more }}
 {% endtplhandlebars %}
 
 
@@ -76,7 +76,7 @@
                 <ul>
                     <li>
                         <a class="supporter" href="http://1procentclub.nl/members/martin">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                            <img {{ bindAttr src="view.content.owner.picture" info="ciew.content.owner.first_name" }} width="45" height="45" />
                         </a>
                     </li>
                     <li>
@@ -91,12 +91,12 @@
                 <ul>
                     <li>
                         <a class="supporter" href="http://1procentclub.nl/members/martin">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                            <img {{ bindAttr src="view.content.owner.picture"  info="ciew.content.owner.full_name" }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
                     <li>
                         <a class="supporter" href="http://1procentclub.nl/members/martin">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                            <img {{ bindAttr src="view.content.owner.picture"  info="ciew.content.owner.fullname"  }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
                     <li>

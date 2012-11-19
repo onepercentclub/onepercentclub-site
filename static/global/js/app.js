@@ -114,7 +114,10 @@ App.store =  DS.Store.create({
 App.ListController = Em.ArrayController.extend({
     filterParams: {},
     getList: function(filterParams){
-        this.set('content', App.store.findAll(this.get('model'), filterParams));
+        if (undefined !== filterParams) {
+            this.set('filterParams', filterParams);
+        }
+        this.set('content', App.store.find(this.get('model'), this.get('filterParams')));
     }
     
 });
@@ -262,7 +265,7 @@ App.ProjectsRoute = Em.Route.extend({
 
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){
-            App.projectSearchController.getList({phase: 'Fund'});
+            App.projectSearchController.getList({phase: 'fund'});
             router.get('applicationController').connectOutlet('topPanel', 'empty');
             router.get('applicationController').connectOutlet('midPanel', 'projectSearch');
             router.get('applicationController').connectOutlet('bottomPanel', 'empty');

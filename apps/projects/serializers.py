@@ -51,4 +51,4 @@ class ProjectPreviewSerializer(ProjectDetailSerializer):
     class Meta:
         model = Project
         fields = ('country', 'id', 'image', 'money_asked', 'money_donated',
-                  'slug', 'title', 'url')
+                  'slug', 'title', 'url', 'phase')
