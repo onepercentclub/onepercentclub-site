@@ -50,8 +50,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     this._super();
 
     namespace = get(this, 'namespace');
-    Em.assert("tastypie namespace parameter is mandatory.", !!namespace);
-
     // Make the adapter available for the serializer
     serializer = get(this, 'serializer');
     set(serializer, 'adapter', this);
@@ -145,18 +143,29 @@ var hasAssociation = function(type, options, one) {
       type = get(this, type, false) || get(window, type);
     }
 
+    // Mind you! This might be an ID or an entire object
     var id = data[key];
+    
+    // This is our addition to make 'embedded' option work
+    
+    // Only do embedded if we have an object here
     if (options.embedded == true && typeof(id) !== 'string') {
+        // load the object
         var obj = data[key];
         if (obj !== undefined) {
+            // Guess the primary key
+            // TODO: revert to defined primaryKey
             id = obj.id ? obj.id : obj.name ? obj.name : obj.username;
+            // Load the embedded object in store
             store.load(type, id, obj);
         }
     }
+    // End of our addition
     return id ? store.find(type, id) : null;
   }).property('data').meta(meta);
 };
 
+// Redefine belongsTo again with our own hasAssociation function
 DS.belongsTo = function(type, options) {
   Ember.assert("The type passed to DS.belongsTo must be defined", !!type);
   return hasAssociation(type, options);
