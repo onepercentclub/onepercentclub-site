@@ -1,164 +1,147 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
 {% tplhandlebars "project_detail" %}
-    <div class="row">
-        <div class="column grid_4">
-            <h2>{{view.content.title}}</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column grid_1">
-            <div class="location">
-                <img src="/static/assets/global/images/icons/world.png" />
-                <h4>{{view.content.country.name}}</h4>
-                {{view.content.country.subregion}}
+    <section class="wrapper">
+        <header class="l-wrapper">
+            <h1 class="main-title">
+                <span class="phase">{{ view.content.phase }}</span> {{ view.content.title }}
+            </h1>
+            <div class="detail-line">
+                <span class="icon icon-world"></span>
+                <span class="project-location">{{ view.content.country.name}}, {{ view.content.country.subregion}}</span> 
+                <span class="icon icon-tags"></span>
+                {{view App.ProjectTagsView }}
+                {{view App.ProjectTagsMoreView }}
             </div>
-            <div class="types">
-                <ul class="categories">
-                    {{#each view.content.themes}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-                <ul class="tags">
-                    {{#each view.content.tags}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="owner">
-                <img {{bindAttr src="view.content.owner.image"}} />
-                <h4>PROJECT INITIATOR</h4>
-                <br/><br/>
-                {{view.content.owner.first_name}} {{view.content.owner.last_name}}
-                <br/><br/> 
-                <a href="" class="dm">SEND DM</a>
-            </div>
-        </div>
-        <div class="column grid_2">
-            {{view "App.ProjectMediaView"}}
-        </div>
-        <div class="column grid_1">
-            {{view "App.ProjectStatsView"}}
-        </div>
-        <div class="resize">
-            <a href>SHOW ALL PROJECT DETAILS</a>
-        </div>
-    </div>
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "project_media" %}
-    <div class="mediaviewer">
-        {{#view "App.ProjectMediaPaneView" value="pictures" }}
-            <div class="imageviewer">
-                <img {{bindAttr src="view.content.picture"}}/>
-            </div>
-        {{/view}}
-        {{#view "App.ProjectMediaPaneView" value="plan" }}
-            {{view "App.ProjectMediaPlanView"}}
-        {{/view}}
-        {{#view "App.ProjectMediaPaneView" value="videos" }}
-            {{view "App.ProjectMediaVideosView"}}
-        {{/view}}
-        {{#view "App.ProjectMediaPaneView" value="map" classNames="active" }}
-            {{view "App.ProjectMediaMapView"}}
-        {{/view}}
-    </div>
-    <div class="nav-mediaviewer">
-        {{#view "App.ProjectMediaButtonView" value="pictures"}}
-            Pictures
-        {{/view}}
-        {{#view "App.ProjectMediaButtonView" value="plan"}}
-            Project Plan
-        {{/view}}
-        {{#view "App.ProjectMediaButtonView" value="videos"}}
-            Videos
-        {{/view}}
-        {{#view "App.ProjectMediaButtonView" value="map"}}
-            Map
-        {{/view}}
-    </div>
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "project_media_plan" %}
-    <div class="text">
-        <h1>Project Plan</h1>
-        {{view.content.title}}
-        {{view.content.description}}
-        <h2>What</h2>
-        {{view.content.description_long}}
-        <h2>Sustainability</h2>
-        {{view.content.sustainability}}
-        <h2>Target</h2>
-        {{view.content.target}}
-    </div>
-{% endtplhandlebars %}
-
-{% tplhandlebars "project_media_videos" %}
-    <div class="imageviewer">
-        <img {{bindAttr src="view.content.video"}} />
-    </div>
-{% endtplhandlebars %}
-
-{% tplhandlebars "project_media_map" %}
-    <div class="relative">
-        <div id="bigmap"></div>
-        <div id="maploading" class="hidden">
-            LOADING PROJECTS
-        </div>
-    </div>
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "project_stats" %}
-    <ul class="phases" {{bindAttr class="view.content.phase"}}>
-        <li>Idea</li>
-        <li>Fund</li>
-        <li>Act</li>
-        <li>Results</li>
-    </ul><div class="widget">
-    
-    <div>    
-        <div class="half green left">
-            <h1>12</h1>
-            DAYS TO GO
-        </div>
+        </header>
+        <article class="project-detail">
+            <span class="media">
+                <img {{bindAttr src="view.content.image"}} width="100%">
+            </span>
+        </article>
+        <sidebar class="project-support">
+            <div class="donate-box-wrap">
+                <div class="donate-box">
+                    <h3>{{view.content.description}}</h3>
+                    <div class="donate-status">
+                        <p class="donate-amount">
+                            <strong>
+                                €<span class="donated">{{view.content.money_donated}}</span> 
+                                {% trans "of" %}
+                                €<span class="asked">{{view.content.money_asked}}</span>
+                                {% trans "raised" %}
+                            </strong>
+                        </p>
+                        <span class="donate-slider">
+                            <strong style="width: 40%;" class="donate-percentage update-percentage is-in-progress">0%</strong>
+                        </span>
+                    </div>
         
-        <div class="half gray">
-            <h1>35</h1>
-            SUPPORTERS
-        </div>
-    </div>
+                    <p class="donate-supporters">
+                        {{{ view.content.supporter_count_span }}}
+                        <em>1%Supporters</em>
+                    </p>
+                        
+        
+                    <p class="donate-days-left">
+                        {{{ view.content.days_left_span }}}
+                        <em>{% trans "days to go" %}</em>
+                    </p>
+                </div>
+            </div>
+            <a href="#" class="button button-donate">{% trans "Support this project" %}</a>
+        </sidebar>
 
-    <div class="widget support">
-        {{view "App.ProjectProgressBarView"}}
-        <div class="link">SUPPORT THIS PROJECT</div>
-    </div>
+        {{view App.ProjectSupportersView}}
+
+    </section>
+        
+
 {% endtplhandlebars %}
 
-{% tplhandlebars "project_progress_bar" %}
-    <div class="progressbar">
-        <div  class="donated-text left">
-            NOW 
-            <b>€{{view.content.money_donated}}</b>
-        </div>
-        <div class="bar">
-            <div class="asked-bar"></div>
-            <div class="donated-bar"></div> 
-        </div>
-        <div class="asked-text">
-            NEEDED 
-            <b>€{{view.content.money_asked}}</b>
-        </div>
-    </div> 
+{% tplhandlebars "project_tag_item" %}
+    {{ view.content }}
 {% endtplhandlebars %}
 
-{% tplhandlebars "project_start" %}
-    <h1>PROJECT START</h1>
+{% tplhandlebars "project_tags_more" %}
+    +{{ view.more }}
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "project_info" %}
-    <h1>PROJECTS INFO</h1>
+{% tplhandlebars "project_supporters" %}
+    <article class="project-team">
+        <ul>
+            <li>
+                <h4>Initiator</h4>
+                <ul>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture" info="ciew.content.owner.first_name" }} width="45" height="45" />
+                        </a>
+                    </li>
+                    <li>
+                        <strong>{{ view.content.owner.full_name }}</strong>
+                        <br />
+                        <em>{{ view.content.organization }}</em>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h4>Project Team</h4>
+                <ul>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture"  info="ciew.content.owner.full_name" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture"  info="ciew.content.owner.fullname"  }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h4>1%COACH</h4>
+                <ul>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h4>1%PROMOTERS</h4>
+                <ul>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="supporter" href="#">
+                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
+    </article>
 {% endtplhandlebars %}

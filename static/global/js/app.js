@@ -30,6 +30,8 @@ $.ajaxSetup({
     }
 });
 
+
+
 Em.View.reopen({
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
@@ -102,8 +104,8 @@ App = Em.Application.create({
 });
 
 App.store =  DS.Store.create({
-  revision: 7,
-  adapter: DS.DRF2Adapter.create()
+    revision: 7,
+    adapter: DS.DRF2Adapter.create(),
 });
 
 /* Base Controllers */
@@ -112,7 +114,10 @@ App.store =  DS.Store.create({
 App.ListController = Em.ArrayController.extend({
     filterParams: {},
     getList: function(filterParams){
-        this.set("content", App.store.find(this.get('model')));
+        if (undefined !== filterParams) {
+            this.set('filterParams', filterParams);
+        }
+        this.set('content', App.store.find(this.get('model'), this.get('filterParams')));
     }
     
 });
@@ -260,9 +265,10 @@ App.ProjectsRoute = Em.Route.extend({
 
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){
-            router.get('applicationController').connectOutlet('topPanel', 'projectStart');
-            router.get('applicationController').connectOutlet('midPanel', 'projectSearchForm');
-            router.get('applicationController').connectOutlet('bottomPanel', 'projectSearchResultsSection');
+            App.projectSearchController.getList({phase: 'fund'});
+            router.get('applicationController').connectOutlet('topPanel', 'empty');
+            router.get('applicationController').connectOutlet('midPanel', 'projectSearch');
+            router.get('applicationController').connectOutlet('bottomPanel', 'empty');
         });
     },
 
@@ -273,18 +279,19 @@ App.ProjectsRoute = Em.Route.extend({
 
     // The project detail state.
     detail: Em.Route.extend({
-        route: '/:project_slug',
-        deserialize: function(router, params) {
-            return {slug: params.project_slug}
+        route: '/:slug',
+        deserialize: function(router, context) {
+            var slug = context.slug ? context.slug : context.get('slug');
+            return {slug: slug}
         },
         serialize: function(router, context) {
-            return {project_slug: context.slug};                router.get('applicationController').connectOutlet('midPanel', 'empty');
-                router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-
+            var slug = context.slug ? context.slug : context.get('slug');
+            return {slug: slug};
         },
         connectOutlets: function(router, context) {
             require(['app/projects'], function(){
-                App.projectDetailController.populate(context.slug);
+                var slug = context.slug ? context.slug : context.get('slug');
+                App.projectDetailController.getDetail({slug: slug});
                 router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
                 router.get('applicationController').connectOutlet('midPanel', 'empty');
                 router.get('applicationController').connectOutlet('bottomPanel', 'empty');
