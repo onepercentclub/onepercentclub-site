@@ -6,7 +6,10 @@ html {
     font-size: $font-size;
 }
 
-body { line-height: 1.5em; }
+body { 
+    line-height: 1.5em; 
+    overflow-y: scroll;    
+}
 
 // full width container
 .container {

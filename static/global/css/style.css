@@ -292,11 +292,12 @@ dl {
 /* =========== Layout */
 html {
   color: #454545;
-  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  font-family: Futura, "Trebuchet MS", Helvetica, Arial, sans-serif;
   font-size: 16px; }
 
 body {
-  line-height: 1.5em; }
+  line-height: 1.5em;
+  overflow-y: scroll; }
 
 .container {
   width: 100%;
@@ -370,7 +371,11 @@ section {
 /* Retina */
 /* =========== Main Navigation */
 #navigation {
-  background-color: #050505; }
+  background-color: #050505;
+  /*    position: fixed;
+      opacity:  0.8;
+      margin-bottom: 100px;
+      z-index: 9999;*/ }
 
 #title, .nav-title {
   display: none; }
@@ -530,7 +535,7 @@ section {
 input[type=text], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select {
   border: 1px solid #bfbfbf;
   color: #333;
-  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  font-family: Futura, "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
   margin: -1px 0.5em 0px 0px;
   padding: 0.6em;
@@ -583,7 +588,7 @@ form label.inline {
   position: absolute;
   top: 0;
   left: 0;
-  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  font-family: Futura, "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
   margin: -1px 0.5em 0px 0px;
   padding: 0.6em;
