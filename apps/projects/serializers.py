@@ -42,7 +42,7 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
         fields = ('country', 'created', 'id', 'image', 'language', 'latitude',
                   'longitude', 'money_asked', 'money_donated', 'organization',
                   'owner', 'phase', 'planned_end_date', 'planned_start_date',
-                  'tags', 'themes', 'title', 'url', 'image', 'description')
+                  'tags', 'themes', 'title', 'url', 'description')
 
 
 class ProjectPreviewSerializer(ProjectDetailSerializer):

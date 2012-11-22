@@ -16,9 +16,13 @@ App.Project = DS.Model.extend({
     tags: DS.attr('array'),
     owner: DS.belongsTo('App.Member', {embedded: true}),
     country: DS.belongsTo('App.Country', {embedded: true}),
-    supporter_count: DS.attr('number', {defaultValue: 73}),
-    days_left: DS.attr('number', {defaultValue: 107}),
-    
+   // For now we set some default values here because we don't have actual numbers
+    supporter_count: DS.attr('number', {defaultValue: 777}),
+    days_left: DS.attr('number', {defaultValue: 777}),
+
+
+    // For now we do some html generating here.
+    // TODO: solve this in Ember or Handlebars helper
     days_left_span: function(){
         var dl = this.get('days_left').toString();
         var html = '';
@@ -27,6 +31,7 @@ App.Project = DS.Model.extend({
         }
         return html;
     }.property('days_left'),
+
     supporter_count_span: function(){
         var dl = this.get('supporter_count').toString();
         var html = '';

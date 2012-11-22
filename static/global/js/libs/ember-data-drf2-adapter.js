@@ -13,8 +13,6 @@ var passthrough = {
 
 DS.DRF2Serializer = DS.Serializer.extend({
 
-// TODO: Remove this serializer stuff we're not using. Removing it causes things to fail.
-
   init: function() {
     // By default, the JSON types are passthrough transforms
     this.transforms = {
@@ -43,8 +41,6 @@ DS.DRF2Serializer = DS.Serializer.extend({
 DS.DRF2Adapter = DS.RESTAdapter.extend({
   namespace: "i18n/api",
 
-  // If you want to remove our DRF2 serializer use this instead:
-  // serializer: DS.RESTSerializer,
   serializer: DS.DRF2Serializer,
 
   init: function() {
@@ -80,11 +76,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
   },
 
   didFindQuery: function(store, type, json, recordArray) {
-    var root = this.pluralize(this.rootForType(type));
-
-    // TODO: Re-enable this line... Seems to be
-    // workign without, but probably has some purpose :-P
-    //this.sideload(store, type, json, root);
     recordArray.load(json.results);
   },
   

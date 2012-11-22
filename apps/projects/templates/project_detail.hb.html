@@ -27,9 +27,9 @@
                         <p class="donate-amount">
                             <strong>
                                 €<span class="donated">{{view.content.money_donated}}</span> 
-                                van de 
-                                €<span class="asked">{{view.content.money_asked}}</span> 
-                                bereikt
+                                {% trans "of" %}
+                                €<span class="asked">{{view.content.money_asked}}</span>
+                                {% trans "raised" %}
                             </strong>
                         </p>
                         <span class="donate-slider">
@@ -45,11 +45,11 @@
         
                     <p class="donate-days-left">
                         {{{ view.content.days_left_span }}}
-                        <em>Dagen te gaan</em>
+                        <em>{% trans "days to go" %}</em>
                     </p>
                 </div>
             </div>
-            <a href="http://1procentclub.nl/support/step-amount/cashthetrash" class="button button-donate">Steun deze actie</a>
+            <a href="#" class="button button-donate">{% trans "Support this project" %}</a>
         </sidebar>
 
         {{view App.ProjectSupportersView}}
@@ -75,7 +75,7 @@
                 <h4>Initiator</h4>
                 <ul>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture" info="ciew.content.owner.first_name" }} width="45" height="45" />
                         </a>
                     </li>
@@ -90,17 +90,17 @@
                 <h4>Project Team</h4>
                 <ul>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture"  info="ciew.content.owner.full_name" }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture"  info="ciew.content.owner.fullname"  }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
@@ -110,7 +110,7 @@
                 <h4>1%COACH</h4>
                 <ul>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
@@ -120,22 +120,22 @@
                 <h4>1%PROMOTERS</h4>
                 <ul>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
                     <li>
-                        <a class="supporter" href="http://1procentclub.nl/members/martin">
+                        <a class="supporter" href="#">
                             <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" title="Photo" />
                         </a>
                     </li>
