@@ -10,3 +10,20 @@
     width: 16px;
     &.icon { background: url('../images/icons.png') 0px 0px no-repeat; }
 }
+
+.icon {
+  width: 24px;
+  height: 24px;
+  background: url(../images/sprites/basic2a.png) 0px 0px no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon-world {
+  background-position: -189px -234px;
+}
+
+.icon-tags {
+  background-position: -47px -281px;
+}
+
