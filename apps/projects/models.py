@@ -104,6 +104,12 @@ class Project(models.Model):
         """ Get the URL for the current project. """
         return 'project-instance', (), {'slug': self.slug}
 
+    @property
+    def description(self):
+        try:
+            return self.fundphase.description
+        except FundPhase.DoesNotExist:
+            return self.ideaphase.description
 
     class Meta:
         ordering = ['title']

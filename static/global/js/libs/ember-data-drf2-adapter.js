@@ -1,8 +1,38 @@
 var get = Ember.get, set = Ember.set;
 
+var passthrough = {
+  fromJSON: function(value) {
+    return value;
+  },
+
+  toJSON: function(value) {
+    return value;
+  }
+};
+
+
 DS.DRF2Serializer = DS.Serializer.extend({
 
-// TODO: Remove this serializer stuff we're not using. Removing it causes things to fail.
+  init: function() {
+    // By default, the JSON types are passthrough transforms
+    this.transforms = {
+      'string': passthrough,
+      'number': passthrough,
+      'boolean': passthrough,
+      'array':  {
+                fromJSON: function(serialized) {
+                  return Ember.none(serialized) ? null : eval(serialized);
+                },
+    
+                toJSON: function(deserialized) {
+                  return Ember.none(deserialized) ? null : deserialized.toJSON();
+                }
+            }
+    };
+    this.mappings = Ember.Map.create();
+  },
+
+    
 
 });
 
@@ -11,8 +41,6 @@ DS.DRF2Serializer = DS.Serializer.extend({
 DS.DRF2Adapter = DS.RESTAdapter.extend({
   namespace: "i18n/api",
 
-  // If you want to remove our DRF2 serializer use this instead:
-  // serializer: DS.RESTSerializer,
   serializer: DS.DRF2Serializer,
 
   init: function() {
@@ -27,6 +55,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     set(serializer, 'adapter', this);
     set(serializer, 'namespace', namespace);
   },
+
 
   didFindAll: function(store, type, json) {
     // If there's multiple items they
@@ -44,6 +73,10 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     store.load(type, id, json);
   },
 
+  didFindQuery: function(store, type, json, recordArray) {
+    recordArray.load(json.results);
+  },
+  
   createRecord: function(store, type, record) {
     var data, root = this.rootForType(type);
 
@@ -83,9 +116,16 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     return name;
   },
 
+  loadValue: function(store, type, value) {
+    if (value instanceof Array) {
+      store.loadMany(type, value);
+    } else {
+      store.load(type, value);
+    }
+  },
+
 
 });
-
 
 var hasAssociation = function(type, options, one) {
   options = options || {};
@@ -130,4 +170,3 @@ DS.belongsTo = function(type, options) {
   Ember.assert("The type passed to DS.belongsTo must be defined", !!type);
   return hasAssociation(type, options);
 };
-
