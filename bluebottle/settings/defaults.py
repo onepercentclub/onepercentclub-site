@@ -390,3 +390,7 @@ USE_EMBER_STYLE_ATTRS = True
 # http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
 THUMBNAIL_QUALITY = 85
 # TODO: Configure Sorl with Redis.
+
+REST_FRAMEWORK = {
+    'FILTER_BACKEND': 'rest_framework.filters.DjangoFilterBackend'
+}
