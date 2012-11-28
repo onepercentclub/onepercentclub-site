@@ -45,11 +45,11 @@ class Project(models.Model):
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
-    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True,verbose_name=_('partner organization'))
-    image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/',help_text=_("Main project picture"))
+    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True, verbose_name=_('partner organization'))
+    image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Main project picture"))
     organization = models.ForeignKey('organizations.Organization', verbose_name=_("organization"))
     owner = models.ForeignKey('auth.User', verbose_name=_("owner"))
-    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices,help_text=_("Phase this project is in right now."))
+    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
     themes = models.ManyToManyField(ProjectTheme, blank=True, verbose_name=_("themes"))
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
 
