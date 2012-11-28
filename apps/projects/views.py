@@ -3,24 +3,24 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import permissions
 from .models import Project
-from .serializers import ProjectPreviewSerializer, ProjectDetailSerializer
+from .serializers import ProjectListSerializer, ProjectDetailSerializer
 
 
 # API views
 
-class ProjectRoot(mixins.ListModelMixin,
+class ProjectList(mixins.ListModelMixin,
                   generics.MultipleObjectAPIView):
     model = Project
-    serializer_class = ProjectPreviewSerializer
+    serializer_class = ProjectListSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 4
-    filter_fields = ('phase',)
+    filter_fields = ('phase', 'slug')
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
 
-class ProjectInstance(mixins.RetrieveModelMixin,
+class ProjectDetail(mixins.RetrieveModelMixin,
                       generics.SingleObjectAPIView):
     model = Project
     serializer_class = ProjectDetailSerializer

@@ -45,7 +45,7 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
                   'tags', 'themes', 'title', 'url', 'description')
 
 
-class ProjectPreviewSerializer(ProjectDetailSerializer):
+class ProjectListSerializer(ProjectDetailSerializer):
     image = SorlImageField('image', '230x150', crop='center')
 
     class Meta:
