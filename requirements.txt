@@ -1,5 +1,7 @@
 Django==1.4.2
-django_extensions
+
+django_extensions==1.0.1
+
 django_debug_toolbar
 
 raven # Sentry client (remote logging)
