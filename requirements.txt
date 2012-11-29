@@ -34,8 +34,8 @@ django-choices==1.1.9
 # http://pypi.python.org/pypi/surlex/0.1.2
 surlex==0.1.2
 
-# http://pypi.python.org/pypi/South/0.7.5
-south==0.7.5
+# http://pypi.python.org/pypi/South/0.7.6
+south==0.7.6
 
 # Django-REST-Framework
 django-filter==0.5.4
