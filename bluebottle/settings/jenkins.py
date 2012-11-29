@@ -1,9 +1,10 @@
-# Import default settings
+# NOTE: local.py must be an empty file when using this configuration.
+
 from .defaults import *
 
-# Put jenkins specific overrides below
+# Put jenkins environment specific overrides below.
 
-INSTALLED_APPS.append('django_jenkins')
+INSTALLED_APPS += ('django_jenkins',)
 
 SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
 
@@ -13,6 +14,9 @@ DATABASES = {
         'NAME': ':memory:',
     },
 }
+
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 # Test all INSTALLED_APPS by default
 PROJECT_APPS = list(INSTALLED_APPS)

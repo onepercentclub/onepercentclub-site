@@ -1,40 +1,9 @@
-# Import default settings
+# NOTE: local.py must be an empty file when using this configuration.
+
 from .defaults import *
 
-# Put your environment specific overrides below
+# Put testing environment specific overrides below.
 
-INSTALLED_APPS.append('django_jenkins')
+DEBUG = False
+TEMPLATE_DEBUG = False
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'onepercentsite',
-        'USER': 'jenkins'
-    },
-    'legacy': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'legacy',
-        'USER': 'jenkins'
-    }
-}
-
-# Do not run legacy migrations in debugger on testing server
-DEBUG_LEGACY_MIGRATIONS = False
-
-# Test all INSTALLED_APPS by default
-PROJECT_APPS = list(INSTALLED_APPS)
-
-# Some of these tests fail, and it's not our fault
-# https://code.djangoproject.com/ticket/17966
-PROJECT_APPS.remove('django.contrib.auth')
-
-# https://github.com/django-extensions/django-extensions/issues/154
-PROJECT_APPS.remove('django_extensions')
-PROJECT_APPS.remove('django_extensions.tests')
-
-# Disable pylint becasue it seems to be causing problems
-JENKINS_TASKS = (
-    # 'django_jenkins.tasks.run_pylint',
-    'django_jenkins.tasks.with_coverage',
-    'django_jenkins.tasks.django_tests',
-)

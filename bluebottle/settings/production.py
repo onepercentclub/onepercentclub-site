@@ -1,7 +1,8 @@
-# Import default settings
+# NOTE: local.py must be an empty file when using this configuration.
+
 from .defaults import *
 
-# Import secrets
-from .secrets import *
+# Put production environment specific overrides below.
 
-# Put your environment specific overrides below
+DEBUG = False
+TEMPLATE_DEBUG = False

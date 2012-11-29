@@ -11,6 +11,7 @@ install:
   - "pip install $DJANGO --use-mirrors"
   - "pip install -r requirements.txt --use-mirrors"
   - "touch bluebottle/settings/local.py"
+  - "touch bluebottle/settings/secrets.py"
 
 script:
   - python ./manage.py test --settings=bluebottle.settings.travis -v 2
