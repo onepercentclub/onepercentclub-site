@@ -263,32 +263,35 @@ LOGGING = {
 }
 
 
-""" djcelery """
+# Django Celery - asynchronous task server
 import djcelery
 djcelery.setup_loader()
 
 
-""" django-nose """
-# Nose is temporarily not the default testrunner due to
-# https://github.com/jbalogh/django-nose/issues/85
-# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-# NOSE_ARGS = [
-#     '--detailed-errors',
-# ]
+# We're using nose because it limits the tests to our apps (i.e. no Django and
+# 3rd party app tests). We need this because tests in contrib.auth.user are
+# failing in Django 1.4.1. Here's the ticket for the failing test:
+# https://code.djangoproject.com/ticket/17966
+# The new test runner in Django 1.5 will be more flexible:
+#https://code.djangoproject.com/ticket/17365
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--detailed-errors',
+]
+
 
 SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
 
 
-""" django-compressor http://pypi.python.org/pypi/django_compressor """
+# django-compressor http://pypi.python.org/pypi/django_compressor
 STATICFILES_FINDERS += [
     # django-compressor staticfiles
     'compressor.finders.CompressorFinder',
 ]
 
-# Enable by default
+# Enable compressor by default
 COMPRESS_ENABLED = True
 COMPRESS_OUTPUT_DIR = 'compressed'
-
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     #'compressor.filters.datauri.DataUriFilter',
