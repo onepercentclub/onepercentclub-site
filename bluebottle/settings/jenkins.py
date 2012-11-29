@@ -21,11 +21,6 @@ PROJECT_APPS = list(INSTALLED_APPS)
 # https://code.djangoproject.com/ticket/17966
 PROJECT_APPS.remove('django.contrib.auth')
 
-# Don't run DRF2 tests for now because it's still in development and they fail.
-# This is actually weird considering they are passing in Travis:
-# https://travis-ci.org/#!/tomchristie/django-rest-framework
-PROJECT_APPS.remove('rest_framework')
-
 # https://github.com/django-extensions/django-extensions/issues/154
 PROJECT_APPS.remove('django_extensions')
 PROJECT_APPS.remove('django_extensions.tests')
