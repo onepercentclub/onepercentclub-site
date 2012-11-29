@@ -6,14 +6,6 @@ from django.conf import global_settings
 from django.utils.translation import ugettext as _
 
 
-# Import secrets.
-try:
-    from .secrets import *
-except ImportError:
-    import sys
-    sys.exit('secrets.py settings file not found. Please run `prepare.sh` to create one.')
-
-
 # Set PROJECT_ROOT to the dir of the current file
 # Find the project's containing directory and normalize it to refer to
 # the project's root more easily
