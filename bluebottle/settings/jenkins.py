@@ -1,19 +1,17 @@
 # Import default settings
 from .defaults import *
 
-# Import secrets
-from .secrets import *
-
-# Put your environment specific overrides below
+# Put jenkins specific overrides below
 
 INSTALLED_APPS.append('django_jenkins')
 
+SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'onepercentsite',
-        'USER': 'jenkins'
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    },
 }
 
 # Test all INSTALLED_APPS by default
