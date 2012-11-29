@@ -13,8 +13,8 @@ from .secrets import *
 
 # Log debug messages to standard output by default
 # logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s %(levelname)-8s %(message)s',
-                    datefmt='[%d/%b/%Y %H:%M:%S]')
+#                    format='%(asctime)s %(levelname)-8s %(message)s',
+#                    datefmt='[%d/%b/%Y %H:%M:%S]')
 
 # Increase DB debug level
 # logging.getLogger('django.db.backends').setLevel(logging.WARNING)
