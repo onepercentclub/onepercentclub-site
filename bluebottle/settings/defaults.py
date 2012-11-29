@@ -15,8 +15,8 @@ PROJECT_ROOT = path.dirname(path.normpath(path.join(__file__, '..', '..')))
 # (defaults to the basename of PROJECT_ROOT)
 DJANGO_PROJECT = path.basename(PROJECT_ROOT.rstrip('/'))
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),

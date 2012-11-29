@@ -6,8 +6,8 @@ from .secrets import *
 
 # Put your local settings overrides below
 
-# Uncomment to disable debugging
-# DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = True
 
 import logging
 
