@@ -8,8 +8,9 @@ BASEPATH=`basename $PWD`
 
 GIT=git
 VIRTUALENV="virtualenv --system-site-packages --distribute --prompt=($BASEPATH)"
-PIP="pip --timeout 30 -q --use-mirrors"
 ENVDIR=env
+PIP="$ENVDIR/bin/pip --timeout 30 -q --use-mirrors"
+
 
 SETTINGS_DIR=$PWD/bluebottle/settings
 MANAGE_PY="$ENVDIR/bin/python ./manage.py"
@@ -35,12 +36,12 @@ echo 'Installing required packages'
 # Install Django first because some Django apps require Django to be fully
 # installed before they will install properly.
 DJANGO=`grep "Django==" requirements.txt`
-$ENVDIR/bin/pip install $DJANGO
+$PIP install $DJANGO
 if [ $? -ne 0 ]; then
     echo "Error installing $DJANGO."
     exit 1
 fi
-if $ENVDIR/bin/pip install -r requirements.txt; then
+if $PIP install -r requirements.txt; then
     echo 'That went alright, continue'
 else
     echo 'Error installing dependencies, breaking off'
@@ -63,11 +64,11 @@ if [ ! -f $SECRETS_FILE ]; then
 
     echo "Generating secret key"
     # Ref: https://build.opensuse.org/package/view_file?file=fix-initscript.dif&package=cobbler&project=systemsmanagement
-    RAND_SECRET=$(openssl rand -base64 40 | sed 's/\//\\\//g')
+    RAND_SECRET=$(openssl rand -base64 42 | sed 's/\//\\\//g')
 
     if [ $RAND_SECRET  ]; then
         # Update SECRET_KEY
-        sed -i -e "s/^SECRET_KEY.*/SECRET_KEY = \'$RAND_SECRET\'/" $SECRETS_FILE
+        sed -i "s/^SECRET_KEY.*/SECRET_KEY = \'$RAND_SECRET\'/" $SECRETS_FILE
     else
         echo 'Error generating secret key, breaking off.'
 
