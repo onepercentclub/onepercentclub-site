@@ -262,6 +262,11 @@ LOGGING = {
     }
 }
 
+# log errors & warnings
+import logging
+logging.basicConfig(level=logging.WARNING,
+    format='%(levelname)-8s %(message)s')
+
 
 # Django Celery - asynchronous task server
 import djcelery

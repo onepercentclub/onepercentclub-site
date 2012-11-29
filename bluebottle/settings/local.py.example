@@ -11,53 +11,42 @@ TEMPLATE_DEBUG = True
 
 import logging
 
-if DEBUG:
-    # Log debug messages to standard output by default
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(asctime)s %(levelname)-8s %(message)s',
-                        datefmt='[%d/%b/%Y %H:%M:%S]')
+# Log debug messages to standard output by default
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(levelname)-8s %(message)s',
+                    datefmt='[%d/%b/%Y %H:%M:%S]')
 
-    # Increase DB debug level
-    logging.getLogger('django.db.backends').setLevel(logging.WARNING)
-
-    # Consider ourself as internal IP
-    # from socket import gethostname, gethostbyname
-    # try:
-    #     hostname = gethostbyname(gethostname())
-    #     INTERNAL_IPS = ('127.0.0.1', hostname)
-    # except:
-    #     INTERNAL_IPS = ('127.0.0.1', )
-
-    # Send email to console by default
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-    """
-    When debugging, we don't want to worry about Celery AND be able to
-    test it. Hence we're executing tasks synchroneously and will use the
-    Django database as a backend.
-    """
-    # Make Celery use Django DB as transport
-    INSTALLED_APPS.append('kombu.transport.django')
-    BROKER_URL = 'django://'
-
-    # Make Celery debugging a whole lot easier by executing tasks directly
-    # and allowing them to propagate exceptions.
-
-    CELERY_ALWAYS_EAGER = True
-    CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
-
-else:
-    # No debugging and log errors & warnings
-    logging.basicConfig(level=logging.WARNING,
-                        format='%(levelname)-8s %(message)s')
+# Increase DB debug level
+logging.getLogger('django.db.backends').setLevel(logging.WARNING)
 
 
-"""
-sorl-thumbnail
-http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
-"""
+# Consider ourself as internal IP
+# from socket import gethostname, gethostbyname
+# try:
+#     hostname = gethostbyname(gethostname())
+#     INTERNAL_IPS = ('127.0.0.1', hostname)
+# except:
+#     INTERNAL_IPS = ('127.0.0.1', )
+
+
+# Send email to console by default
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# We don't want to worry about Celery AND be able to test it. Hence we're
+# executing tasks synchronously and will use the Django database as a backend.
+# Make Celery use Django DB as transport
+INSTALLED_APPS.append('kombu.transport.django')
+BROKER_URL = 'django://'
+
+# Make Celery debugging a whole lot easier by executing tasks directly
+# and allowing them to propagate exceptions.
+CELERY_ALWAYS_EAGER = True
+CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+
+
+# sorl-thumbnail - http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
 # Raise exceptions for failing thumbnails
-# THUMBNAIL_DEBUG = True
-
+THUMBNAIL_DEBUG = True
 # Render dummy thumbnails when real images are not available
 # THUMBNAIL_DUMMY = False
