@@ -60,7 +60,7 @@ Specific settings can be used by setting the environment variable
 
     export DJANGO_SETTINGS_MODULE=bluebottle.settings.production
 
-Apart from these environment-specific settings, the following settings exist:
+Apart from these environment specific settings, the following settings exist:
 
     * `defaults.py`: Project defaults used in any settings environment.
     * `secrets.py`: Used for storing passwords, API keys etcetera, kept out of the scope of Git.
@@ -69,6 +69,9 @@ Apart from these environment-specific settings, the following settings exist:
 If no settings are explicitly chosen using `DJANGO_SETTINGS_MODEL`, the
 `local.py` settings are loaded, defaulting to override `defaults.py`
 settings.
+
+When not using the default settings imported from `local.py`, you must ensure that `local.py`
+is an empty file otherwise the site will not work properly.
 
 Rationale
 *********

@@ -63,11 +63,11 @@ if [ ! -f $SECRETS_FILE ]; then
 
     echo "Generating secret key"
     # Ref: https://build.opensuse.org/package/view_file?file=fix-initscript.dif&package=cobbler&project=systemsmanagement
-    RAND_SECRET=$(openssl rand -base64 40 | sed 's/\//\\\//g')
+    RAND_SECRET=$(openssl rand -base64 42 | sed 's/\//\\\//g')
 
     if [ $RAND_SECRET  ]; then
         # Update SECRET_KEY
-        sed -i -e "s/^SECRET_KEY.*/SECRET_KEY = \'$RAND_SECRET\'/" $SECRETS_FILE
+        sed -i "s/^SECRET_KEY.*/SECRET_KEY = \'$RAND_SECRET\'/" $SECRETS_FILE
     else
         echo 'Error generating secret key, breaking off.'
 

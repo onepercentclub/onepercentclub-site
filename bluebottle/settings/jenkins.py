@@ -1,23 +1,28 @@
-# Import default settings
+# NOTE: local.py must be an empty file when using this configuration.
+
+try:
+    from .secrets import *
+except ImportError:
+    import sys
+    sys.exit('secrets.py settings file not found. Please run `prepare.sh` to create one.')
+
 from .defaults import *
 
-# Import secrets
-from .secrets import *
+# Put jenkins environment specific overrides below.
 
-# Put your environment specific overrides below
+INSTALLED_APPS += ('django_jenkins',)
 
-INSTALLED_APPS.append('django_jenkins')
+SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'onepercentsite',
-        'USER': 'jenkins'
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    },
 }
 
-# Turn off debugging for added speed and (hopefully) less memory usage
 DEBUG = False
+TEMPLATE_DEBUG = False
 
 # Test all INSTALLED_APPS by default
 PROJECT_APPS = list(INSTALLED_APPS)
@@ -25,11 +30,6 @@ PROJECT_APPS = list(INSTALLED_APPS)
 # Some of these tests fail, and it's not our fault
 # https://code.djangoproject.com/ticket/17966
 PROJECT_APPS.remove('django.contrib.auth')
-
-# Don't run DRF2 tests for now because it's still in development and they fail.
-# This is actually weird considering they are passing in Travis:
-# https://travis-ci.org/#!/tomchristie/django-rest-framework
-PROJECT_APPS.remove('rest_framework')
 
 # https://github.com/django-extensions/django-extensions/issues/154
 PROJECT_APPS.remove('django_extensions')

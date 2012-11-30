@@ -32,8 +32,10 @@ pip-log.txt
 *.sw?
 
 # Static files
-/static/media
-/static/assets
+/static/media/*
+!/static/media/.gitkeep
+/static/assets/*
+!/static/assets/.gitkeep
 
 # Local settings overrides
 bluebottle/settings/local.py

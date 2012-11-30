@@ -9,7 +9,7 @@ from django.utils import timezone
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
-from apps.projects.views import ProjectRoot, ProjectInstance
+from apps.projects.views import ProjectList, ProjectDetail
 
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
 
@@ -225,8 +225,8 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
                 project.phase = Project.ProjectPhases.fund
                 project.save()
 
-        self.root_view = ProjectRoot.as_view()
-        self.instance_view = ProjectInstance.as_view()
+        self.root_view = ProjectList.as_view()
+        self.instance_view = ProjectDetail.as_view()
         self.api_base = '/i18n/projects/'
 
     def test_drf2_root_view(self):

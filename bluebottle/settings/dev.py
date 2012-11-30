@@ -1,8 +1,11 @@
-# Import default settings
+# NOTE: local.py must be an empty file when using this configuration.
+
+try:
+    from .secrets import *
+except ImportError:
+    import sys
+    sys.exit('secrets.py settings file not found. Please run `prepare.sh` to create one.')
 
 from .defaults import *
 
-# Import secrets
-from .secrets import *
-
-# Put your environment specific overrides below
+# Put dev environment specific overrides below.

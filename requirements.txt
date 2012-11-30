@@ -1,5 +1,7 @@
 Django==1.4.2
-django_extensions
+
+django_extensions==1.0.1
+
 django_debug_toolbar
 
 raven # Sentry client (remote logging)
@@ -32,12 +34,12 @@ django-choices==1.1.9
 # http://pypi.python.org/pypi/surlex/0.1.2
 surlex==0.1.2
 
-# http://pypi.python.org/pypi/South/0.7.5
-south==0.7.5
+# http://pypi.python.org/pypi/South/0.7.6
+south==0.7.6
 
 # Django-REST-Framework
--e git+https://github.com/alex/django-filter.git@0e4b3d703b31574922ab86fc78a86164aad0c1d0#egg=django-filter
--e git+https://github.com/onepercentclub/django-rest-framework.git@restframework2-filter#egg=rest_framework
+django-filter==0.5.4
+djangorestframework==2.1.6
 
 # Jenkins integration
 django-jenkins==0.13.0
@@ -49,7 +51,7 @@ coverage==3.5.2
 # version is the currently maintained version for Django 1.4. More information
 # can be found in the merge request to the official version:
 # https://github.com/alex/django-taggit/pull/99
--e git+https://github.com/hcarvalhoalves/django-taggit.git@e0f9642d7b94c8e6c0feb520d96bb6ae4d78a4d0#egg=django_taggit
+https://github.com/hcarvalhoalves/django-taggit/archive/e0f9642d7b94c8e6c0feb520d96bb6ae4d78a4d0.zip
 django-taggit-autocomplete-modified==0.1.0b4
 
 # Embedding videos and other media
