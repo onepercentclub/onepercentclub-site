@@ -21,8 +21,23 @@ $(document).ready(function(){
     
     // added by Frans
     // initFileUpload();
-    initToggleText();
+    initToggleText( $('.toggle-reactions, .toggle-love, #subtitle') );
     initPopup()
+    
+    // show/hide reactions
+    $('.toggle-reactions').live('click', function(e) {
+        $('.reactions', $(this).closest('.reaction-box')).toggle();
+    });
+    
+    // show/hide sharing options
+    $('.share')
+        .live('mouseenter', function(e) {
+            $('.share-actions', $(this)).show();
+        })
+        .live('mouseleave', function(e) {
+            $('.share-actions', $(this)).hide();
+        });
+    
 });
 
 
@@ -48,7 +63,7 @@ function initPopup() {
                 .fadeIn(40);
         }
         // check if we have a pending execution and clear it if necessary
-        if(toutId != null) {
+        if(popupTimer != null) {
             clearTimeout(popupTimer);
             popupTimer = null;
         }
@@ -64,17 +79,15 @@ function initPopup() {
 };
 
 
+
+
+
+
 // toggles content and classnames on click, mouseenter & mouseleave
 // TODO: make generic
-function initToggleText(){
-    
-    // show/hide reactions
-    $('.toggle-reactions').live('click', function(e) {
-        $('.reactions', $(this).closest('.reaction-box')).toggle();
-    });
-
+function initToggleText(el){
     // swap text & classnames
-    $('.toggle-reactions, .toggle-love')
+    $(el)
         .live('click', function(e) {
             $(this)
                 .toggleClass('is-active')
@@ -96,14 +109,6 @@ function initToggleText(){
             } else {
                 $(this).html( $(this).data('content') );
             }
-        });
-    
-    $('.share')
-        .live('mouseenter', function(e) {
-            $('.share-actions', $(this)).show();
-        })
-        .live('mouseleave', function(e) {
-            $('.share-actions', $(this)).hide();
         });
 };
 
