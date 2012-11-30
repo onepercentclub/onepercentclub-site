@@ -1,0 +1,183 @@
+/* =========== Project members */
+
+.member-box {
+    @include grid(48, 0, 1);
+    position: relative;
+    padding: 1em 0 1em $grid-column;
+    @include clearfix;
+    overflow: hidden;
+    
+    ul {
+        display: inline;
+        margin: 0;
+        list-style: none;
+        position: relative;
+        display: block;
+        padding: 0;
+        white-space: nowrap;
+        width: 100%;
+
+        li {
+            position: relative;
+            vertical-align: top;
+            overflow: visible;
+            display: inline-block;
+            margin: 0 3em 0 0;
+            padding: 2em 0 0 0;
+            @include rem(font-size, 14px);
+            
+            h4 {
+                position: absolute;
+                left: 0;
+                top: 0;
+                margin: 0;
+                font-weight: bold;
+                text-transform: uppercase;
+                @include rem(font-size, 14px);
+            }
+            
+            ul {
+            
+                li {
+                    display: inline;
+                    margin: 0;
+                    
+                    a {
+                        position: relative;
+                        display: block;
+                        float: left;
+                        margin-bottom: 1px;
+                        line-height: 1em;
+                        
+                        img {
+                            border-width: 1px 1px 1px 0;
+                            border-style: solid;
+                            border-color: #fff;
+                            vertical-align: middle;
+                            float: left;
+                            @include transition(0.1s);
+                        }    
+                        
+                        .member-name {
+                            display: block;
+                            padding: 0.3em !important;
+                        }
+                        
+                        .member-organisation {
+                            display: block;
+                            padding: 0 0.3em;
+                            color: #999;
+                            font-style: normal;
+                        }
+                    
+                        &:hover {
+                            
+                            
+                            img {
+                                
+                                @include scale(1.2);
+                                z-index: 2;
+                                border: 1px solid #fff;
+                                
+                            }
+                        }
+                    }
+                    
+                    .popup {
+                        left: 0;
+                        bottom: 60px;
+                    }
+                    
+                    &:first-child a img {
+                        border-left: 1px solid #fff;
+                    }
+                }
+            }
+            
+            &.member-initiator ul li a {
+                
+                margin-right: 3em;
+                
+                img {
+                    margin-right: 0.5em;
+                }
+            }
+            
+            &.member-supporters ul {
+                width: 9999px;
+            }
+            
+            &.member-project-team a, &.member-coaches a, &.member-promotors a, &.member-supporters a {
+                @extend .placeholder;
+            }
+        }
+    }
+    
+    #show-all-supporters {
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 1px;
+        margin: 0;
+        padding: 0;
+        
+        a {
+            width: 47px;
+            height: 47px;
+            text-transform: uppercase;
+            @include rem(font-size, 12px);
+            line-height: 1em;
+            display: table-cell; 
+            vertical-align: middle; 
+            text-align: center; 
+            color: #fff;
+            white-space: normal;
+            background-color: #ccc;
+        }
+    }
+}
+
+
+/* =========== Popup */
+
+.popup {
+    visibility: hidden;
+    position: absolute;
+    background: $green;
+    color: $white;
+    z-index: 10;
+    padding: 1em 1.5em;
+    line-height: 1.5em;
+    @include border-radius(5px);
+    
+    
+    @include box-shadow(2px -2px 2px rgba($black, 0.2));
+    
+    span {
+        display: block;
+    }
+    
+    .action {
+        text-transform: uppercase;
+    }
+    
+    .comment {
+        color: $black;
+    }
+    
+    .profile {
+        text-decoration: underline;
+    }
+
+    &:before {
+        position: absolute;
+        width: 0;
+        bottom: -27px;
+        left: 20px;
+        height: 10px;
+        content: "";
+        border-right: 15px solid transparent;
+        border-top: 20px solid $green;
+    }
+    
+}

@@ -1,0 +1,141 @@
+/* =========== Donate box */
+
+.status-box {
+    padding: 1em;
+    background-color: $white;
+    @include clearfix;
+    @include rem(margin-bottom, 16px);
+
+    h3 {
+        margin: 0;
+        color: #c0bfbf;
+        font-weight: bold;
+        @include rem(font-size, 15px);
+    }
+}
+
+/* ========================= Responsive ================================== */
+
+/* Desktop */
+@media only screen and (min-width: 1140px) {
+    .widget-box h3 {
+        @include rem(font-size, 18px);
+    }
+}
+
+/* ======================================================================= */
+
+.donate-status {
+    clear: both;
+    margin: 1.5em 0 2em 0;
+    position: relative;
+    
+    .donate-amount {
+        text-align: center;
+        margin-bottom: 0.5em;
+    }
+    
+    .donate-slider {
+        display: block;
+        line-height: 0;
+        background-color: $color-back;
+        @include border-radius(1em);
+        border: 3px solid #e9e9e9;
+        overflow: hidden;
+        padding: 0;
+        .donate-progress {
+            position: relative;
+            display: block;
+            line-height: 1.3em;
+            color: $white;
+            background-color: #00c051;
+            white-space: nowrap;
+            text-align: right;
+            
+            em {
+                font-style: normal;
+                padding: 0 0.5em;
+            }
+            
+            .donate-percentage {
+                visibility: hidden;
+            }
+            
+            .donate-amount {
+                
+            }
+            
+            /* Arrow to top
+            &.is-in-progress:before {
+                position: absolute;
+                width: 0;
+                top: -17px;
+                right: 5px;
+                height: 10px;
+                content: "";
+                border-right: 6px solid transparent;
+                border-bottom: 10px solid $green;
+                border-left: 6px solid transparent;
+            }
+            */
+        }
+    }
+}
+
+
+
+/* =========== Number of supports / Days left */
+
+.donate-supporters {
+	float: left;
+	margin: 0;
+	width: 50%;
+	text-align: center;
+	
+}
+
+.donate-days-left {
+	float: right;
+	margin: 0;
+	width: 50%;
+	text-align: right;
+	text-align: center;
+}
+
+.donate-supporters span, .donate-days-left span {
+	display: inline-block;
+	margin-right: 3px;
+	
+	@include rem(font-size, 28px);
+	line-height: 1.6em;
+	text-align: center;
+	font-weight: normal;
+	width: 1.2em;
+	
+	@include border-radius(0.2em);
+	@include box-shadow( inset 0 0 0 1px rgba(#fff, 0.9) );
+	
+	@include background( linear-gradient(top, #fff, #fff, #d3d3d3) );
+	border: 1px solid rgba(#000, 0.25);
+}
+
+.donate-supporters span:before, .donate-days-left span:before {
+	position: relative;
+	top: 0.8em;
+	display: block;
+	width: 100%;
+	border-top: 1px double rgba(#999, 0.35);
+	content: '';
+}
+
+.donate-supporters em, .donate-days-left em {
+	display: block;
+	font-family: $font-family-condensed;
+	@include rem(font-size, 12px);
+	text-transform: uppercase;
+	font-weight: bold;
+	font-style: normal;
+	font-stretch: condensed;
+	font-family: $font-family-condensed;
+	padding-top: 0.25em;
+}

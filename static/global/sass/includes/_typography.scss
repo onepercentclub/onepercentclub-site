@@ -1,0 +1,174 @@
+/* =========== Typography */
+
+.left { float: left; }
+.right { float: right; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.nowrap { white-space: nowrap; }
+
+@font-face {
+  font-family: 'Futura Alt';
+  src: url('../fonts/futuralt-webfont.eot');
+  src: url('../fonts/futuralt-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futuralt-webfont.woff') format('woff'),
+       url('../fonts/futuralt-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura Alt';
+  src: url('../fonts/futuralt-bold-webfont.eot');
+  src: url('../fonts/futuralt-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futuralt-bold-webfont.woff') format('woff'),
+       url('../fonts/futuralt-bold-webfont.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura Alt Condensed';
+  src: url('../../fonts/futuralt-condensedbold-webfont.eot');
+  src: url('fonts/futuralt-condensedbold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futuralt-condensedbold-webfont.woff') format('woff'),
+       url('../fonts/futuralt-condensedbold-webfont.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @include rem(margin, 32px 0 8px 0); 
+    &.soft {
+        font-weight: 300;
+        color: lighten($black, 50%);
+    }
+}
+
+h1 { 
+    @include rem(font-size, 30px);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.main-title h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+h2 { 
+    @include rem(font-size, 26px);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+h3 { 
+    @include rem(font-size, 24px); 
+}
+
+h4 { 
+    @include rem(font-size, 18px); 
+}
+
+h5 { @include rem(font-size, 16px); }
+
+.tagline {
+
+    color: $green;
+    text-align: center;
+    
+    em {
+        color: $pink;
+        font-weight: bold;
+        font-style: normal;
+    }
+    
+    @include rem(font-size, 48px);
+    line-height: 1.2em;
+    @include rem(margin, 64px 0);
+}
+
+p { 
+    margin-bottom: $margin-bottom; 
+    &.lead { 
+        font-weight: bold;
+    }
+}
+
+a { 
+    color: $green; 
+    text-decoration: none; 
+    @include transition(color 0.2s ease-in, color 0.25s ease-out);
+    
+    &:hover { 
+        color: $pink;
+    }
+    
+    &:active {
+        color: $pink;
+        position: relative;
+        top: 1px;
+    }
+    
+}
+
+small { font-size: 0.85em; color: lighten($black, 50%); }
+
+em { font-style: italic; }
+
+strong { font-weight: bold; }
+
+code, pre { font-family: 'courier new', monospace; }
+
+abbr { border-bottom: 1px dotted lighten($black, 50%); }
+
+del { text-decoration: line-through; }
+
+mark { background-color: lighten(yellow, 35%); }
+
+hr { 
+    background-color: transparent; 
+    border: solid darken($white, 25%);
+    border-width: 1px 0 0; 
+    clear: both; 
+    margin: 2em $margin-bottom; 
+}
+
+blockquote { 
+    color: lighten($black, 25%);
+    font-style: italic; 
+    
+    cite {
+        color: lighten($black, 35%);
+        display: block;
+        font-size: 0.85em;
+        &:before {  content: "\2014 \0020"; }
+    }
+}
+
+figure {
+    display: inline-block;
+    max-width: 100%;
+    img { 
+        display: block;
+        width: 100%;
+    }
+    figcaption {
+        color: blue;
+    }
+}
+
+ul, ol { margin: 0 0 $margin-bottom 1.5em; }
+ul { list-style: disc; }
+ol { list-style: decimal; }
+
+dl {
+    margin-bottom: $margin-bottom;
+    dt { font-weight: bold; }
+    dd { margin-left: $margin-bottom; }
+    &.advanced {
+        dt { @include grid(16, 0, 1); }
+        dd { @include grid(32); }
+    }
+}

@@ -20,8 +20,9 @@
     <!-- Stylesheets -->
     {% compress css %}
     {% endcompress %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/style.css" />
-    
+    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/screen.css" media="screen" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}global/css/print.css" media="print" />
+
     {% compress js %}
     {% endcompress %}
     

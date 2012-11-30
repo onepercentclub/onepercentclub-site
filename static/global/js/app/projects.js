@@ -17,8 +17,8 @@ App.Project = DS.Model.extend({
     owner: DS.belongsTo('App.Member', {embedded: true}),
     country: DS.belongsTo('App.Country', {embedded: true}),
    // For now we set some default values here because we don't have actual numbers
-    supporter_count: DS.attr('number', {defaultValue: 777}),
-    days_left: DS.attr('number', {defaultValue: 777}),
+    supporter_count: DS.attr('number', {defaultValue: 123}),
+    days_left: DS.attr('number', {defaultValue: 123}),
 
 
     // For now we do some html generating here.

@@ -47,3 +47,6 @@ docs/_build
 
 # CI reports
 reports
+
+# SASS
+.sass-cache

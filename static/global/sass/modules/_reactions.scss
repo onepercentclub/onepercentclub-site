@@ -1,0 +1,235 @@
+/* =========== Reactions */
+
+.reaction-box {
+    @include clearfix; 
+    clear: both;
+    
+    .reaction-form {
+        @include rem(padding, 16px);
+    
+        position: relative;
+        background-color: $color-back;
+        
+        &.is-selected {
+            border: 1px solid red;
+        }
+        
+        label {
+            @include rem(top, 28px);
+            @include grid(48, 10, 0);
+            padding: 0;
+            
+        }
+        
+        .user-img {
+            @include rem(top, 32px);
+            @include rem(left, 32px);
+            @include grid(3);
+            position: absolute;
+            margin: 0;
+        }
+        
+        textarea {
+            @include rem(min-height, 88px);
+            padding-left: $grid-column * 9; // TODO Firefox: won't accept percentage as padding in form elements
+        }
+        
+        button {
+            position: relative;
+            z-index: 2;
+            float: right;
+        }
+        @include clearfix;
+    }
+    
+    .reaction-actions {
+        @include clearfix;
+        @include rem(top, -54px);
+        
+        position: relative;
+        z-index: 1;
+        
+        margin: 0;
+        padding: 0;
+        background: $color-back;
+        list-style: none;
+        font-weight: bold;
+        
+        li {
+            display: inline !important;
+            
+            a, strong {
+                @include rem(margin, 0 8px 0 8px);
+                @include rem(padding, 4px 8px 4px 8px);
+                display: inline-block !important;
+                color: #666;
+                white-space: nowrap;
+                
+                cursor: hand;
+                cursor: pointer;
+                
+                &:hover, &:active {
+                    color: $black;
+                }
+                
+                &.toggle-reactions {
+                    @include rem(padding-left, 30px);
+                    margin-left: $grid-column * 6;
+                    width: 20%;
+                    background-image: url('../images/sprites/icon-reactions.png');
+                    background-position: 0 7px;
+                    background-repeat: no-repeat;
+                    
+                    &:hover, &.is-active {
+                        background-position: 0 -33px;
+                        color: $black;
+                    }
+                }
+                
+                &.toggle-love {
+                    @include rem(padding-left, 33px);
+                    width: 24%;
+                    background-image: url('../images/sprites/icon-love.png');
+                    background-position: 0 7px;
+                    background-repeat: no-repeat;
+                    
+                    &:hover {
+                        background-position: 0 -24px;
+                        color: $pink;
+                    }
+                    
+                    &.is-active:hover {
+                        background-position: 0 -94px;
+                        color: $black;
+                    }
+                    
+                    &.is-active, &.is-activated, &.is-activated:hover {
+                        background-position: 0 -59px;
+                        color: $pink;
+                    }
+                }
+            }
+            
+            &.share {
+                
+                strong {
+                    @include rem(padding-left, 30px);
+                    background-image: url('../images/sprites/icon-share.png');
+                    background-position: 0 6px;
+                    background-repeat: no-repeat; 
+                    
+                    &:hover, &.is-active {
+                        background-position: 0 -35px;
+                        color: $green;
+                    }
+                }
+                
+                .share-actions {
+                    @include rem(padding, 16px 0 8px 0);
+                    display: none;    
+                    
+                    li {
+                        display: inline-block;
+                        text-align: center;
+                        
+                        &.share-facebook {
+                            margin-left: $grid-column * 6;
+                            width: 25%;
+                        }
+                        
+                        &.share-twitter {
+                            width: 25%;
+                        }
+                        
+                        &.share-url {
+                            
+                            code {
+                                @include rem(font-size, 11px);
+                                padding: 0.4em 0.2em;
+                                border: 1px solid #333;
+                                background: $white;
+                                font-color: #ccc !important;
+                            }
+                            
+                            .share-url-copy {
+                                padding: 0 4px;
+                                background-color: #ccc;
+                                color: $white;
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        @include rem(font-size, 12px);
+    }
+    @include rem(margin-bottom, 64px);
+    
+}
+
+.reactions {
+    @include rem(top, -54px);
+    @include rem(padding, 16px);
+    @include clearfix;
+    @include rem(font-size, 14px);
+    position: relative;
+    display: none;
+    margin: 0;
+    background-color: $color-back;
+    list-style: none;
+    
+    li {
+        @include rem(margin, 16px 0);
+        position: relative;
+        display: block;
+        overflow: auto;
+         
+        .user-img {
+            @include grid(3);
+            @include rem(top, 2px);
+            @include rem(left, 16px);
+            position: absolute;
+            margin: 0;
+        } 
+        
+        
+        &.initiator .comment {
+            border-color: $green;
+            
+            &::after {
+                background: url('../images/sprites/reaction-box-initiator.png') transparent no-repeat 0 0;
+            }
+        }
+        
+        .comment {
+            @include grid(48, 10, 0);
+            @include rem(padding, 12px 16px 0 16px);
+            @include border-radius(0.2em);
+            position: relative;
+            border: 1px solid darken($white, 25%);
+            background: $white;
+            color: #333;
+            vertical-align: baseline;
+            
+            .user {
+                @include rem(font-size, 14px);
+                strong {
+                    text-transform: uppercase;
+                }
+            }
+            
+            &::after {
+                @include rem(top, 16px);
+                position: absolute;
+                left: -25px;
+                display: block;
+                width: 25px;
+                height: 21px;
+                background: url('../images/sprites/reaction-box.png') transparent no-repeat 0 0;
+                content: ' ';
+            }
+        }
+    }
+}

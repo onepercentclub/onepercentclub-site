@@ -1,0 +1,62 @@
+/* =========== Video wrapper for responsive video's */
+
+.video {
+    @include rem(margin, 32px 0);
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.video iframe,
+.video object,
+.video embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* =========== Photo viewer */
+
+.photo-viewer {
+    @include rem(margin, 32px 0);
+    @include clearfix;
+    
+    ul {
+        @include rem(margin, 8px 0 0 0);
+        padding: 0;
+        list-style: none;
+        @include clearfix;
+        
+        li {
+            display: block;
+            @include grid(8, 0, 1);
+            overflow: hidden;
+            border-bottom: 4px solid transparent;
+            
+            &:hover {
+                border-color: $green;
+            }
+            
+            &:first-child {
+                @include grid(8, 0, 1);
+            }
+        
+            &.more {
+                display: block;
+            
+                @include grid(8, 0, 0);
+            
+                background-color: $green;
+                
+                a {
+                    display: block;
+                    color: $white;
+                }
+            }
+        }
+    }
+    
+}
+

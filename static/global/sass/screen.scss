@@ -1,0 +1,67 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+/* ========================= Variables ================================== */
+
+$font-family: 'Futura Alt', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-condensed: 'Futura Alt Condensed', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-size: 16px;
+
+$grid-columns: 48;
+$min-width: 980px;
+$max-width: 1280px;
+$margin-bottom: 1.25em;
+
+$color-brand: #0e8a41;
+$color-error: #d24226;
+$color-success: #5DA423;
+
+$black: #050505;
+$white: #fff;
+$green: #00c051;
+$pink: #ff619a;
+
+$color-deselect: #bfbfbf;
+$color-back: #e9e9e9;
+
+/* ========================= Includes ============================= */
+
+/* Compass & Mixins */
+@import "compass/reset";
+@import "compass/css3";
+@import "mixins/_rem";
+
+/* Base */
+@import "includes/_base";
+@import "includes/_grid";
+@import "includes/_typography";
+@import "includes/_layout";
+@import "includes/_navigation";
+
+/* Elements */
+@import "includes/_forms";
+@import "includes/_tables";
+@import "includes/_labels";
+@import "includes/_buttons";
+@import "includes/_icons";
+@import "includes/_messages";
+@import "includes/_pagination";
+@import "includes/_lightbox";
+@import "includes/_tabs";
+@import "includes/_panels";
+
+/* Plugins */
+@import "plugins/_jquery.fileupload-ui.scss";
+@import "plugins/_colorbox.scss";
+
+/* Modules */
+@import "modules/_detail-top";
+@import "modules/_status-box";
+@import "modules/_member-box";
+@import "modules/_media";
+@import "modules/_users";
+@import "modules/_wallposts";
+@import "modules/_reactions";
+@import "modules/_misc";

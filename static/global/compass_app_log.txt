@@ -1,0 +1,1132 @@
+2012-11-28 17:20:32    create stylesheets/style.css 
+2012-11-28 17:21:13 overwrite stylesheets/style.css 
+2012-11-28 17:21:29 overwrite stylesheets/screen.css 
+2012-11-28 17:21:34 identical stylesheets/screen.css 
+2012-11-28 17:22:03 identical stylesheets/screen.css 
+2012-11-28 17:22:03    create stylesheets/style.css 
+2012-11-28 17:26:42    create stylesheets/ie.css 
+2012-11-28 17:26:42    create stylesheets/print.css 
+2012-11-28 17:26:43     error sass/screen.scss (Line 33: File to import not found or unreadable: mixins/_reset.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-28 17:26:43    create stylesheets/screen.css 
+2012-11-28 17:26:50     error sass/screen.scss (Line 32: File to import not found or unreadable: mixins/_reset.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-28 17:26:50 overwrite stylesheets/screen.css 
+2012-11-28 17:27:24     error sass/screen.scss (Line 32: File to import not found or unreadable: mixins/_reset.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-28 17:27:24 overwrite css/screen.css 
+2012-11-28 17:27:48 overwrite css/screen.css 
+2012-11-28 17:28:53 overwrite css/screen.css 
+2012-11-28 17:33:12 overwrite css/screen.css 
+2012-11-28 17:33:20 overwrite css/screen.css 
+2012-11-28 17:33:31 overwrite css/screen.css 
+2012-11-28 17:33:59 overwrite css/screen.css 
+2012-11-28 17:34:17 overwrite css/screen.css 
+2012-11-28 17:34:40 overwrite css/screen.css 
+2012-11-29 11:37:46 overwrite css/screen.css 
+2012-11-29 11:55:32     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:32 overwrite css/screen.css 
+2012-11-29 11:55:32     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:32 identical css/screen.css 
+2012-11-29 11:55:32     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:32 identical css/screen.css 
+2012-11-29 11:55:32     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:32 identical css/screen.css 
+2012-11-29 11:55:33     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:33 identical css/screen.css 
+2012-11-29 11:55:33     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:33 identical css/screen.css 
+2012-11-29 11:55:33     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:33 identical css/screen.css 
+2012-11-29 11:55:34     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:34 identical css/screen.css 
+2012-11-29 11:55:34     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:34 identical css/screen.css 
+2012-11-29 11:55:34     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:34 identical css/screen.css 
+2012-11-29 11:55:34     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:34 identical css/screen.css 
+2012-11-29 11:55:34     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:34 identical css/screen.css 
+2012-11-29 11:55:34     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:34 identical css/screen.css 
+2012-11-29 11:55:35     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:35 identical css/screen.css 
+2012-11-29 11:55:35     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:35 identical css/screen.css 
+2012-11-29 11:55:35     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:35 identical css/screen.css 
+2012-11-29 11:55:35     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:35 overwrite css/screen.css 
+2012-11-29 11:55:35     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:35 identical css/screen.css 
+2012-11-29 11:55:36     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:36 identical css/screen.css 
+2012-11-29 11:55:36     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:36 identical css/screen.css 
+2012-11-29 11:55:36     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:36 identical css/screen.css 
+2012-11-29 11:55:36     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:36 identical css/screen.css 
+2012-11-29 11:55:37     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:37 identical css/screen.css 
+2012-11-29 11:55:37     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:37 identical css/screen.css 
+2012-11-29 11:55:37     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:37 identical css/screen.css 
+2012-11-29 11:55:37     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:37 identical css/screen.css 
+2012-11-29 11:55:37     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:37 identical css/screen.css 
+2012-11-29 11:55:38     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:38 identical css/screen.css 
+2012-11-29 11:55:38     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:38 identical css/screen.css 
+2012-11-29 11:55:38     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:38 identical css/screen.css 
+2012-11-29 11:55:38     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:38 identical css/screen.css 
+2012-11-29 11:55:39     error sass/screen.scss (Line 62: File to import not found or unreadable: library/_grid.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-29 11:55:39 identical css/screen.css 
+2012-11-29 11:55:46 overwrite css/screen.css 
+2012-11-29 12:09:40     error sass/screen.scss (Line 10 of sass/includes/_labels.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:09:40 overwrite css/screen.css 
+2012-11-29 12:10:22     error sass/screen.scss (Line 42 of sass/includes/_buttons.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:10:22 overwrite css/screen.css 
+2012-11-29 12:11:25     error sass/screen.scss (Line 10 of sass/includes/_labels.scss: Undefined mixin 'linear-gradient'.)
+2012-11-29 12:11:25 overwrite css/screen.css 
+2012-11-29 12:11:28     error sass/screen.scss (Line 10 of sass/includes/_labels.scss: Undefined mixin 'lineasr-gradient'.)
+2012-11-29 12:11:28 overwrite css/screen.css 
+2012-11-29 12:11:31     error sass/screen.scss (Line 10 of sass/includes/_labels.scss: Undefined mixin 'linear-gradient'.)
+2012-11-29 12:11:31 overwrite css/screen.css 
+2012-11-29 12:13:29     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "...linear-gradient": expected "{", was "(color-stops(li...")
+2012-11-29 12:13:29 overwrite css/screen.css 
+2012-11-29 12:13:46     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "...linear-gradient": expected "{", was "(color-stops(li...")
+2012-11-29 12:13:46 identical css/screen.css 
+2012-11-29 12:14:47     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "...linear-gradient": expected "{", was "(color-stops( l...")
+2012-11-29 12:14:47 overwrite css/screen.css 
+2012-11-29 12:15:16     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "...linear-gradient": expected "{", was "(color-stops( w...")
+2012-11-29 12:15:16 overwrite css/screen.css 
+2012-11-29 12:15:17     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "...linear-gradient": expected "{", was "(color-stops( w...")
+2012-11-29 12:15:17 identical css/screen.css 
+2012-11-29 12:15:19     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "...linear-gradient": expected "{", was "(color-stops( w...")
+2012-11-29 12:15:19 identical css/screen.css 
+2012-11-29 12:15:31     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "... 40%), $black))": expected "}", was ", top);")
+2012-11-29 12:15:31 overwrite css/screen.css 
+2012-11-29 12:15:58     error sass/screen.scss (Line 9 of sass/includes/_labels.scss: Invalid CSS after "    +border-radius": expected "{", was "(0.4em)")
+2012-11-29 12:15:58 overwrite css/screen.css 
+2012-11-29 12:16:07     error sass/screen.scss (Line 9 of sass/includes/_labels.scss: Invalid CSS after "    +border-radius": expected "{", was "(0.4em);")
+2012-11-29 12:16:07 overwrite css/screen.css 
+2012-11-29 12:16:16     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "... 40%), $black))": expected "}", was ", top)")
+2012-11-29 12:16:16 overwrite css/screen.css 
+2012-11-29 12:16:19     error sass/screen.scss (Line 12 of sass/includes/_labels.scss: Invalid CSS after "... 40%), $black))": expected "}", was ", top);")
+2012-11-29 12:16:19 overwrite css/screen.css 
+2012-11-29 12:17:50     error sass/screen.scss (Line 42 of sass/includes/_buttons.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:17:50 overwrite css/screen.css 
+2012-11-29 12:18:04     error sass/screen.scss (Line 42 of sass/includes/_buttons.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:18:04 identical css/screen.css 
+2012-11-29 12:19:45     error sass/screen.scss (Line 67 of sass/includes/_buttons.scss: Invalid CSS after "...($white, 10%) )": expected ")", was ";")
+2012-11-29 12:19:45 overwrite css/screen.css 
+2012-11-29 12:20:13     error sass/screen.scss (Line 42 of sass/includes/_buttons.scss: Invalid CSS after "...n($green, 5%) )": expected ")", was ";")
+2012-11-29 12:20:13 overwrite css/screen.css 
+2012-11-29 12:20:47     error sass/screen.scss (Line 55 of sass/includes/_buttons.scss: Invalid CSS after "...40%), $black) )": expected "}", was ");")
+2012-11-29 12:20:47 overwrite css/screen.css 
+2012-11-29 12:21:07     error sass/screen.scss (Line 85 of sass/includes/_buttons.scss: Invalid CSS after "...success, 10%) )": expected ")", was ";")
+2012-11-29 12:21:07 overwrite css/screen.css 
+2012-11-29 12:21:19     error sass/screen.scss (Line 94 of sass/includes/_buttons.scss: Invalid CSS after "...r-error, 10%) )": expected ")", was ";")
+2012-11-29 12:21:19 overwrite css/screen.css 
+2012-11-29 12:21:34     error sass/screen.scss (Line 96 of sass/includes/_buttons.scss: Invalid CSS after "...r-error, 10%) )": expected ")", was ";")
+2012-11-29 12:21:34 overwrite css/screen.css 
+2012-11-29 12:22:03     error sass/screen.scss (Line 98 of sass/includes/_buttons.scss: Invalid CSS after "...r-error, 10%) )": expected ")", was ";")
+2012-11-29 12:22:03 overwrite css/screen.css 
+2012-11-29 12:22:11     error sass/screen.scss (Line 96 of sass/includes/_buttons.scss: Invalid CSS after "...r-error, 10%) )": expected ")", was ";")
+2012-11-29 12:22:11 overwrite css/screen.css 
+2012-11-29 12:22:15     error sass/screen.scss (Line 56 of sass/includes/_buttons.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:22:15 overwrite css/screen.css 
+2012-11-29 12:22:38     error sass/screen.scss (Line 56 of sass/includes/_buttons.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:22:38 identical css/screen.css 
+2012-11-29 12:23:27     error sass/screen.scss (Line 57 of sass/includes/_buttons.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:23:27 overwrite css/screen.css 
+2012-11-29 12:23:44     error sass/screen.scss (Line 74 of sass/includes/_buttons.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:23:44 overwrite css/screen.css 
+2012-11-29 12:24:08     error sass/screen.scss (Line 74 of sass/includes/_buttons.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:24:08 identical css/screen.css 
+2012-11-29 12:24:18     error sass/screen.scss (Line 21 of sass/includes/_messages.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:24:18 overwrite css/screen.css 
+2012-11-29 12:26:19     error sass/screen.scss (Line 21 of sass/includes/_messages.scss: Invalid CSS after "...-success, 40%))": expected ")", was ";")
+2012-11-29 12:26:19 overwrite css/screen.css 
+2012-11-29 12:27:05     error sass/screen.scss (Line 14 of sass/includes/_pagination.scss: Undefined mixin 'gradient'.)
+2012-11-29 12:27:05 overwrite css/screen.css 
+2012-11-29 14:14:28     error sass/screen.scss (Line 26 of sass/includes/_pagination.scss: Undefined mixin 'gradient'.)
+2012-11-29 14:14:28 overwrite css/screen.css 
+2012-11-29 14:14:50     error sass/screen.scss (Line 40 of sass/includes/_pagination.scss: Undefined mixin 'gradient'.)
+2012-11-29 14:14:50 overwrite css/screen.css 
+2012-11-29 14:15:09     error sass/screen.scss (Line 8 of sass/includes/_tabs.scss: Undefined mixin 'displayfix'.)
+2012-11-29 14:15:09 overwrite css/screen.css 
+2012-11-29 14:15:29     error sass/screen.scss (Line 8 of sass/includes/_tabs.scss: Undefined mixin 'displayfix'.)
+2012-11-29 14:15:29 identical css/screen.css 
+2012-11-29 14:15:40     error sass/screen.scss (Line 190 of sass/modules/_detail-top.scss: Undefined mixin 'gradient'.)
+2012-11-29 14:15:40 overwrite css/screen.css 
+2012-11-29 14:16:08     error sass/screen.scss (Line 190 of sass/modules/_detail-top.scss: Undefined mixin 'gradient'.)
+2012-11-29 14:16:08 identical css/screen.css 
+2012-11-29 14:16:11     error sass/screen.scss (Line 190 of sass/modules/_detail-top.scss: Undefined mixin 'gradient'.)
+2012-11-29 14:16:11 identical css/screen.css 
+2012-11-29 14:16:24     error sass/screen.scss (Line 190 of sass/modules/_detail-top.scss: Undefined mixin 'gradient'.)
+2012-11-29 14:16:24 identical css/screen.css 
+2012-11-29 14:16:49     error sass/screen.scss (Line 190 of sass/modules/_detail-top.scss: Undefined mixin 'gradient'.)
+2012-11-29 14:16:49 identical css/screen.css 
+2012-11-29 14:16:54 overwrite css/screen.css 
+2012-11-29 14:17:22 overwrite css/screen.css 
+2012-11-29 14:18:01 identical css/screen.css 
+2012-11-30 10:26:49 overwrite css/screen.css 
+2012-11-30 10:28:16 identical css/screen.css 
+2012-11-30 10:28:20 identical css/screen.css 
+2012-11-30 10:28:24 identical css/screen.css 
+2012-11-30 10:28:54 overwrite css/screen.css 
+2012-11-30 10:29:30 identical css/screen.css 
+2012-11-30 10:30:26 identical css/screen.css 
+2012-11-30 10:30:43 overwrite css/screen.css 
+2012-11-30 10:31:33 overwrite css/screen.css 
+2012-11-30 10:31:53 overwrite css/screen.css 
+2012-11-30 10:31:58 overwrite css/screen.css 
+2012-11-30 10:32:18 overwrite css/screen.css 
+2012-11-30 10:32:22 identical css/screen.css 
+2012-11-30 10:33:11 overwrite css/screen.css 
+2012-11-30 10:33:52 identical css/screen.css 
+2012-11-30 10:34:02 overwrite css/screen.css 
+2012-11-30 10:36:00 overwrite css/screen.css 
+2012-11-30 10:36:32 overwrite css/screen.css 
+2012-11-30 10:36:45 overwrite css/screen.css 
+2012-11-30 10:37:01 overwrite css/screen.css 
+2012-11-30 10:37:13 overwrite css/screen.css 
+2012-11-30 10:44:25 overwrite css/screen.css 
+2012-11-30 10:44:35 identical css/screen.css 
+2012-11-30 10:45:25 overwrite css/screen.css 
+2012-11-30 10:47:52 overwrite css/screen.css 
+2012-11-30 10:48:22 overwrite css/screen.css 
+2012-11-30 10:48:27 identical css/screen.css 
+2012-11-30 10:48:56 overwrite css/screen.css 
+2012-11-30 10:51:34 overwrite css/screen.css 
+2012-11-30 10:51:47 overwrite css/screen.css 
+2012-11-30 10:53:51 overwrite css/screen.css 
+2012-11-30 10:54:16 identical css/screen.css 
+2012-11-30 10:54:37 overwrite css/print.css 
+2012-11-30 10:54:42 identical css/print.css 
+2012-11-30 10:55:25 overwrite css/screen.css 
+2012-11-30 10:55:30 overwrite css/screen.css 
+2012-11-30 10:55:41 overwrite css/screen.css 
+2012-11-30 10:56:09 identical css/ie.css 
+2012-11-30 10:58:14 overwrite css/screen.css 
+2012-11-30 10:58:59 overwrite css/screen.css 
+2012-11-30 10:59:34 overwrite css/screen.css 
+2012-11-30 11:00:01 overwrite css/screen.css 
+2012-11-30 11:00:14 identical css/screen.css 
+2012-11-30 11:01:31 overwrite css/screen.css 
+2012-11-30 11:01:52 overwrite css/screen.css 
+2012-11-30 11:02:11 identical css/screen.css 
+2012-11-30 11:03:42 overwrite css/screen.css 
+2012-11-30 11:34:45    create css/modules/media.css 
+2012-11-30 11:35:19 overwrite css/screen.css 
+2012-11-30 11:36:04 overwrite css/screen.css 
+2012-11-30 11:36:42 overwrite css/screen.css 
+2012-11-30 11:36:53     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:36:53 overwrite css/screen.css 
+2012-11-30 11:36:55     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:36:55 overwrite css/screen.css 
+2012-11-30 11:37:33     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:37:33 overwrite css/screen.css 
+2012-11-30 11:37:35     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:37:35 identical css/screen.css 
+2012-11-30 11:40:08     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:40:08 identical css/screen.css 
+2012-11-30 11:40:24     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:40:24 overwrite css/screen.css 
+2012-11-30 11:40:35     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:40:35 overwrite css/screen.css 
+2012-11-30 11:41:09     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:41:09 overwrite css/screen.css 
+2012-11-30 11:41:11     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:41:11 overwrite css/screen.css 
+2012-11-30 11:41:14     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:41:14 overwrite css/screen.css 
+2012-11-30 11:42:03     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:42:03 overwrite css/screen.css 
+2012-11-30 11:42:09     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:42:09 overwrite css/screen.css 
+2012-11-30 11:42:12     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:42:12 overwrite css/screen.css 
+2012-11-30 11:42:39     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:42:39 overwrite css/screen.css 
+2012-11-30 11:42:50     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:42:50 identical css/screen.css 
+2012-11-30 11:43:00     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:43:00 identical css/screen.css 
+2012-11-30 11:45:31     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:45:31 overwrite css/screen.css 
+2012-11-30 11:45:33    create css/ie.css 
+2012-11-30 11:45:34     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:45:34 overwrite css/screen.css 
+2012-11-30 11:45:57     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:45:57 overwrite css/screen.css 
+2012-11-30 11:46:27     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:46:27 overwrite css/screen.css 
+2012-11-30 11:47:11     error sass/screen.scss (Line 60: File to import not found or unreadable: modules/_global.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:47:11 identical css/screen.css 
+2012-11-30 11:48:34     error sass/screen.scss (Line 61: File to import not found or unreadable: modules/_donation-box.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:48:34 overwrite css/screen.css 
+2012-11-30 11:49:17     error sass/screen.scss (Line 61: File to import not found or unreadable: modules/_donation-box.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:49:17 overwrite css/screen.css 
+2012-11-30 11:49:53     error sass/screen.scss (Line 61: File to import not found or unreadable: modules/_donation-box.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:49:53 overwrite css/screen.css 
+2012-11-30 11:49:55     error sass/screen.scss (Line 61: File to import not found or unreadable: modules/_donation-box.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:49:55 overwrite css/screen.css 
+2012-11-30 11:49:57     error sass/screen.scss (Line 61: File to import not found or unreadable: modules/_donation-box.
+Load paths:
+  /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-f4bfe8555a7d2cae09bc/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/heygrady-compass-html5-boilerplate-4cc8815/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.2.1.0/vendor/assets/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.4/sass
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sassy-math-1.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/modular-scale-1.0.2/stylesheets
+  /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-3.2.2/scss
+  Compass::SpriteImporter)
+2012-11-30 11:49:57 overwrite css/screen.css 
+2012-11-30 11:50:09 overwrite css/screen.css 
+2012-11-30 11:50:18 identical css/screen.css 
+2012-11-30 12:23:21    remove ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-social.png
+2012-11-30 12:23:21    create ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-sefdc7a052f.png
+2012-11-30 12:23:24 overwrite css/screen.css 
+2012-11-30 12:25:10     error sass/screen.scss (Line 3 of sass/includes/_icons.scss: Invalid CSS after "...s/icons/*.png" ": expected selector or at-rule, was "$icon-spacing: ...")
+2012-11-30 12:25:10 overwrite css/screen.css 
+2012-11-30 12:25:18     error sass/screen.scss (Line 3 of sass/includes/_icons.scss: Invalid CSS after "...s/icons/*.png" ": expected selector or at-rule, was "$icon-spacing: ...")
+2012-11-30 12:25:18 overwrite css/screen.css 
+2012-11-30 12:27:33     error sass/screen.scss (Line 4 of sass/includes/_icons.scss: Invalid CSS after "@import ": expected file to import (string or url()), was "$icons;")
+2012-11-30 12:27:33 overwrite css/screen.css 
+2012-11-30 12:27:56     error sass/screen.scss (Line 4 of sass/includes/_icons.scss: Invalid CSS after "@import ": expected file to import (string or url()), was "$icons;")
+2012-11-30 12:27:56 overwrite css/screen.css 
+2012-11-30 12:28:07     error sass/screen.scss (Line 4 of sass/includes/_icons.scss: Undefined mixin 'all-icons-sprites'.)
+2012-11-30 12:28:07 overwrite css/screen.css 
+2012-11-30 12:30:08    create ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:30:10 overwrite css/screen.css 
+2012-11-30 12:31:01 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:31:02 overwrite css/screen.css 
+2012-11-30 12:31:09 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:31:11 overwrite css/screen.css 
+2012-11-30 12:42:47 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:42:49 overwrite css/screen.css 
+2012-11-30 12:43:12 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:43:14 overwrite css/screen.css 
+2012-11-30 12:45:09     error sass/screen.scss (Line 32: Invalid CSS after "...ass & Mixins */": expected selector or at-rule, was "@import "compas...")
+2012-11-30 12:45:09 overwrite css/screen.css 
+2012-11-30 12:46:16 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:46:17 identical css/screen.css 
+2012-11-30 12:49:06 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:49:08 identical css/screen.css 
+2012-11-30 12:49:45 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:49:45 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 12:49:46 overwrite css/screen.css 
+2012-11-30 13:36:38 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:36:38 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:36:39 identical css/screen.css 
+2012-11-30 13:40:33 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:40:33 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:40:35 identical css/screen.css 
+2012-11-30 13:41:05 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:41:05 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:41:06 overwrite css/screen.css 
+2012-11-30 13:41:20 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:41:20 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:41:21 overwrite css/screen.css 
+2012-11-30 13:41:27 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:41:27 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:41:28 overwrite css/screen.css 
+2012-11-30 13:42:11 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:42:11 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:42:13 overwrite css/screen.css 
+2012-11-30 13:42:56 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:42:56 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:42:57 overwrite css/screen.css 
+2012-11-30 13:43:17 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:43:17 unchanged ../Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/images/sprites/icons-s88d7e88a60.png
+2012-11-30 13:43:18 overwrite css/screen.css 

@@ -1,0 +1,45 @@
+/* =========== User box */
+
+.user {
+    @include rem(font-size, 18px);
+    
+    &:hover .user-img {
+        border: 1px solid $pink;
+    }
+    
+    strong {
+        font-weight: normal;
+    }
+    
+    em {
+        position: relative;
+        font-style: normal;
+        @include rem(font-size, 12px);
+        color: $white;
+        background-color: #ccc;
+        @include rem(padding, 2px 8px 2px 12px);
+        @include rem(margin, 0 10px 0 4px);
+        
+        text-transform: uppercase;
+        @include border-radius(0 2px 2px 0);
+        
+        background-image: url('../images/user-type-back.png');
+        background-repeat: no-repeat;
+        background-position: 0 center;  
+    }
+    
+    &:hover em {
+        background-color: darken(#ccc, 5%);
+    }
+}
+
+.user-img {
+    border: 1px solid #999;
+    overflow: hidden;
+} 
+
+.timestamp {
+    text-transform: uppercase;
+    color: $black;
+    @include rem(font-size, 10px);
+}
