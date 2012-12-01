@@ -16,8 +16,8 @@ from .defaults import *
 
 ## Increase DB debug level
 #logging.getLogger('django.db.backends').setLevel(logging.WARNING)
-#
-#
+
+
 ## Consider ourself as internal IP
 #from socket import gethostname, gethostbyname
 #try:

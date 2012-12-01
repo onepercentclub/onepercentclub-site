@@ -108,7 +108,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     # You can also name this tuple like: ('css', '/path/to/css')
-    (path.join(PROJECT_ROOT, 'static', 'global')),
+    (os.path.join(PROJECT_ROOT, 'static', 'global')),
 )
 
 # List of finder classes that know how to find static files in
