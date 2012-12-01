@@ -5,6 +5,7 @@ function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
+
 function sameOrigin(url) {
     // test that a given url is a same-origin URL
     // url could be relative or scheme relative or absolute
@@ -31,7 +32,6 @@ $.ajaxSetup({
 });
 
 
-
 Em.View.reopen({
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
@@ -46,33 +46,44 @@ Em.View.reopen({
         }
         this._super();
     },
-    
-    templateForName: function(name, type) {
-        if (!name) {
+
+
+    getTemplate: function(template, callback) {
+        var hash = {};
+        // TODO: Move templates URL to a language independent location.
+        hash.url = '/en/templates/' + template + '.hb.html';
+        hash.type = 'GET';
+        hash.dataType = 'html';
+        hash.contentType = 'application/json';
+        hash.success = callback;
+        hash.error = function(jqXHR, textStatus, errorThrown) {
+            throw errorThrown + ' ' + hash.url;
+        };
+        jQuery.ajax(hash);
+    },
+
+
+    templateForName: function(templateName, type) {
+        if (!templateName) {
             return "";
         }
-        var templates = Em.get(this, 'templates'),
-            template = Em.get(templates, name),
-            view = this;
-        if (template) {
-            return template;
+        if (Em.TEMPLATES[templateName]) {
+            return Em.TEMPLATES[templateName];
         } else {
-            view.set('templateName', 'waiting');
-            require(['app/data_source'], function(){
-                // Check if a templateFile is specified otherwise use templateName (name)
-                var file = view.get('templateFile') ? view.get('templateFile') : name; 
-                App.dataSource.getTemplate(file, function(data) {
-                    // Iterate through handlebar tags
-                    $(data).filter('script[type="text/x-handlebars"]').each(function() {
-                        // Only load the template we're looking for
-                        if (name == $(this).attr('data-template-name')) {
-                            var raw = $(this).html();
-                            var template = Em.Handlebars.compile(raw);
-                            Em.TEMPLATES[name] = template;
-                            view.set('templateName', name);
-                            view.rerender();
-                        }
-                    });
+            this.set('templateName', 'waiting');
+            // Check if a templateFile is specified otherwise use templateName as the template filename.
+            var templateFile = this.get('templateFile') ? this.get('templateFile') : templateName;
+            var view = this;
+            this.getTemplate(templateFile, function(data) {
+                // Iterate through handlebar tags
+                $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                    var curTemplateName = $(this).attr('data-template-name')
+                    var raw = $(this).html();
+                    Em.TEMPLATES[curTemplateName] = Em.Handlebars.compile(raw);
+                    if (templateName == curTemplateName) {
+                        view.set('templateName', templateName);
+                        view.rerender();
+                    }
                 });
             });
         }
@@ -88,7 +99,7 @@ App = Em.Application.create({
     }),
 
     ApplicationView : Em.View.extend({
-        templateName : 'application',
+        templateName : 'application'
     }),
 
     // Use this to clear an outlet
@@ -105,7 +116,7 @@ App = Em.Application.create({
 
 App.store =  DS.Store.create({
     revision: 7,
-    adapter: DS.DRF2Adapter.create(),
+    adapter: DS.DRF2Adapter.create()
 });
 
 /* Base Controllers */
@@ -188,8 +199,8 @@ App.WallpostsRoute = Em.Route.extend({
     showWallpostForm: Em.Route.transitionTo('wallposts.form'),
     
 
-    start: Em.Route.extend({
-        route: "/"
+    index: Em.Route.extend({
+        route: '/'
     }),
     
     form: Em.Route.extend({
@@ -220,8 +231,8 @@ App.BlogsRoute = Em.Route.extend({
         });
     },
 
-    start: Em.Route.extend({
-        route: "/"
+    index: Em.Route.extend({
+        route: '/'
     }),
 
     detail: Em.Route.extend({
@@ -261,7 +272,7 @@ App.ProjectsRoute = Em.Route.extend({
     route: '/projects',
 
     showProjectDetail: Em.Route.transitionTo('projects.detail'),
-    
+
 
     connectOutlets : function(router, context) {
         require(['app/projects'], function(){
@@ -273,8 +284,8 @@ App.ProjectsRoute = Em.Route.extend({
     },
 
     // The project start state.
-    start: Em.Route.extend({
-        route: "/"
+    index: Em.Route.extend({
+        route: '/'
     }),
 
     // The project detail state.
@@ -305,12 +316,12 @@ App.ProjectsRoute = Em.Route.extend({
 App.RootRoute = Em.Route.extend({
     // Used for navigation
     showHome: Em.Route.transitionTo('home'),
-    showProjectStart: Em.Route.transitionTo('projects.start'),
-    showBlogStart: Em.Route.transitionTo('blogs.start'),
+    showProjectStart: Em.Route.transitionTo('projects.index'),
+    showBlogStart: Em.Route.transitionTo('blogs.index'),
 
     // The actual routing
     home: Em.Route.extend({
-        route : '/',
+        route: '/',
         connectOutlets: function(router, context) {
             router.get('applicationController').connectOutlet('topPanel', 'home');
             router.get('applicationController').connectOutlet('midPanel', 'empty');
@@ -326,7 +337,6 @@ App.Router = Em.Router.extend({
     location: 'hash',
     root: App.RootRoute
 });
-
 
 
 });
