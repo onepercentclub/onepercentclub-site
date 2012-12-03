@@ -102,13 +102,11 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         if (object['url']) {
             return object['url'];
         }
-        // use the last part of the name as the URL
-        var parts = type.toString().split(".");
-        var name = parts[parts.length - 1];
-        return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
+        Em.assert("The model " + type + " must define a 'url' field for the API resource.", false);
     },
 
     pluralize: function(name) {
+        // Our pluralize method does nothing because we're manually defining out API resource locations in the url field.
         return name;
     },
 
