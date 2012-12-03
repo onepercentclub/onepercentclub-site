@@ -75,9 +75,8 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     },
 
     createRecord: function(store, type, record) {
-        var data, root = this.rootForType(type);
-
-        data = record.toJSON();
+        var root = this.rootForType(type);
+        var data = record.toJSON();
 
         this.ajax(this.buildURL(root), "POST", {
             data: data,
@@ -116,6 +115,17 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         } else {
             store.load(type, value);
         }
+    },
+
+    findQuery: function(store, type, query, recordArray) {
+        var root = this.rootForType(type) + '/';
+
+        this.ajax(this.buildURL(root), "GET", {
+            data: query,
+            success: function(json) {
+                this.didFindQuery(store, type, json, recordArray);
+            }
+        });
     }
 
 });
