@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from rest_framework.fields import RelatedField, ManyRelatedField, Field
-from apps.bluebottle_utils.serializers import SorlImageField, SlugHyperlinkedIdentityField
+from rest_framework.fields import RelatedField, ManyRelatedField, Field, HyperlinkedIdentityField
+from apps.bluebottle_utils.serializers import SorlImageField
 from apps.geo.models import Country
 from .models import Project
 
@@ -31,7 +31,7 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     phase = Field(source='get_phase_display')
     tags = ManyRelatedField()
-    url = SlugHyperlinkedIdentityField(view_name='project-instance')
+    url = HyperlinkedIdentityField(view_name='project-detail')
     money_asked = Field(source='money_asked')
     money_donated = Field(source='money_donated')
     image = SorlImageField('image', '800x450', crop='center')

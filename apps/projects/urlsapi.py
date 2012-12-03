@@ -4,8 +4,8 @@ from surlex.dj import surl
 from .views import ProjectDetail, ProjectList
 
 urlpatterns = patterns('',
-    url(r'^$', ProjectList.as_view(), name='project-root'),
-    surl(r'^<slug:s>$', ProjectDetail.as_view(), name='project-instance'),
+    url(r'^$', ProjectList.as_view(), name='project-list'),
+    surl(r'^<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

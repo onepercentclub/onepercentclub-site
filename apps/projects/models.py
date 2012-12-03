@@ -102,7 +102,7 @@ class Project(models.Model):
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
-        return 'project-instance', (), {'slug': self.slug}
+        return 'project-detail', (), {'slug': self.slug}
 
     @property
     def description(self):
