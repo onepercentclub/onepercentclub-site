@@ -1239,7 +1239,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 .button-donate {
   font-size: 19px;
   font-size: 1.1875rem;
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
+  background-image: url('../images/sprites/icons-sc8650e7d7b.png');
   background-repeat: no-repeat;
   background-position: 5% 16px;
   padding: 0.6em 0 0.6em 20%;
@@ -1266,7 +1266,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 /* =========== Icons */
 /* line 3, ../sass/includes/_icons.scss */
 .location {
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
+  background-image: url('../images/sprites/icons-sc8650e7d7b.png');
   background-repeat: no-repeat;
   background-position: 0 -46px;
   padding-left: 36px;
@@ -1275,9 +1275,9 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 
 /* line 10, ../sass/includes/_icons.scss */
 .tags {
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
+  background-image: url('../images/sprites/icons-sc8650e7d7b.png');
   background-repeat: no-repeat;
-  background-position: 0 -451px;
+  background-position: 0 -400px;
   padding-left: 36px;
   padding-left: 2.25rem;
 }
@@ -1888,31 +1888,31 @@ ul.steps li.selected a {
   margin-right: 2.08333%;
   height: 70px;
   border: 3px dotted #00c051;
-  background: url(../images/fileinput-image.png) center no-repeat;
+  background: url(../images/upload.png) center no-repeat;
 }
-/* line 41, ../sass/plugins/_jquery.fileupload-ui.scss */
+/* line 42, ../sass/plugins/_jquery.fileupload-ui.scss */
 .fileinput-button.image:hover, .fileinput-button.image:active {
   border-color: #050505;
 }
 
-/* line 48, ../sass/plugins/_jquery.fileupload-ui.scss */
+/* line 49, ../sass/plugins/_jquery.fileupload-ui.scss */
 .fileupload-buttonbar .btn,
 .fileupload-buttonbar .toggle {
   margin-bottom: 5px;
 }
 
-/* line 51, ../sass/plugins/_jquery.fileupload-ui.scss */
+/* line 52, ../sass/plugins/_jquery.fileupload-ui.scss */
 .files .progress {
   width: 200px;
 }
 
-/* line 54, ../sass/plugins/_jquery.fileupload-ui.scss */
+/* line 55, ../sass/plugins/_jquery.fileupload-ui.scss */
 .progress-animated .bar {
   background: url(../images/progressbar.gif) !important;
   filter: none;
 }
 
-/* line 58, ../sass/plugins/_jquery.fileupload-ui.scss */
+/* line 59, ../sass/plugins/_jquery.fileupload-ui.scss */
 .fileupload-loading {
   position: absolute;
   left: 50%;
@@ -1922,49 +1922,49 @@ ul.steps li.selected a {
   display: none;
 }
 
-/* line 66, ../sass/plugins/_jquery.fileupload-ui.scss */
+/* line 67, ../sass/plugins/_jquery.fileupload-ui.scss */
 .fileupload-processing .fileupload-loading {
   display: block;
 }
 
 /* Fix for IE 6: */
-/* line 71, ../sass/plugins/_jquery.fileupload-ui.scss */
+/* line 72, ../sass/plugins/_jquery.fileupload-ui.scss */
 * html .fileinput-button {
   line-height: 24px;
   margin: 1px -3px 0 0;
 }
 
 /* Fix for IE 7: */
-/* line 77, ../sass/plugins/_jquery.fileupload-ui.scss */
+/* line 78, ../sass/plugins/_jquery.fileupload-ui.scss */
 * + html .fileinput-button {
   padding: 2px 15px;
   margin: 1px 0 0 0;
 }
 
 @media (max-width: 767px) {
-  /* line 83, ../sass/plugins/_jquery.fileupload-ui.scss */
+  /* line 84, ../sass/plugins/_jquery.fileupload-ui.scss */
   .files .btn span {
     display: none;
   }
 
-  /* line 86, ../sass/plugins/_jquery.fileupload-ui.scss */
+  /* line 87, ../sass/plugins/_jquery.fileupload-ui.scss */
   .files .preview * {
     width: 40px;
   }
 
-  /* line 89, ../sass/plugins/_jquery.fileupload-ui.scss */
+  /* line 90, ../sass/plugins/_jquery.fileupload-ui.scss */
   .files .name * {
     width: 80px;
     display: inline-block;
     word-wrap: break-word;
   }
 
-  /* line 94, ../sass/plugins/_jquery.fileupload-ui.scss */
+  /* line 95, ../sass/plugins/_jquery.fileupload-ui.scss */
   .files .progress {
     width: 20px;
   }
 
-  /* line 97, ../sass/plugins/_jquery.fileupload-ui.scss */
+  /* line 98, ../sass/plugins/_jquery.fileupload-ui.scss */
   .files .delete {
     width: 60px;
   }
@@ -2655,11 +2655,17 @@ ul.steps li.selected a {
 }
 /* line 11, ../sass/modules/_wallposts.scss */
 #wallpost-form .sidebar {
+  padding: 16px;
+  padding: 1rem;
   border: 1px solid #00c051;
   background: white;
 }
+/* line 16, ../sass/modules/_wallposts.scss */
+#wallpost-form .sidebar h3 {
+  margin: 0;
+}
 
-/* line 18, ../sass/modules/_wallposts.scss */
+/* line 23, ../sass/modules/_wallposts.scss */
 .wallpost {
   float: left;
   width: 62.5%;
@@ -2667,30 +2673,30 @@ ul.steps li.selected a {
   margin-right: 2.08333%;
   position: relative;
 }
-/* line 22, ../sass/modules/_wallposts.scss */
+/* line 27, ../sass/modules/_wallposts.scss */
 .wallpost:hover .manage {
   display: block;
 }
-/* line 26, ../sass/modules/_wallposts.scss */
+/* line 31, ../sass/modules/_wallposts.scss */
 .wallpost header {
   float: left;
   width: 77.08333%;
   margin-left: 20.83333%;
   margin-right: 2.08333%;
 }
-/* line 29, ../sass/modules/_wallposts.scss */
+/* line 34, ../sass/modules/_wallposts.scss */
 .wallpost header .timestamp {
   top: 140px;
   top: 8.75rem;
   position: absolute;
   left: 0;
 }
-/* line 35, ../sass/modules/_wallposts.scss */
+/* line 40, ../sass/modules/_wallposts.scss */
 .wallpost header .manage {
   display: none;
   float: right;
 }
-/* line 41, ../sass/modules/_wallposts.scss */
+/* line 46, ../sass/modules/_wallposts.scss */
 .wallpost .content {
   float: left;
   width: 79.16667%;
@@ -2698,12 +2704,12 @@ ul.steps li.selected a {
   margin-right: 0%;
   position: relative;
 }
-/* line 46, ../sass/modules/_wallposts.scss */
+/* line 51, ../sass/modules/_wallposts.scss */
 .wallpost .reaction-box {
   position: relative;
   display: block;
 }
-/* line 51, ../sass/modules/_wallposts.scss */
+/* line 56, ../sass/modules/_wallposts.scss */
 .wallpost .user-img {
   width: 100px;
   width: 6.25rem;
@@ -2714,7 +2720,7 @@ ul.steps li.selected a {
   left: 0;
 }
 
-/* line 60, ../sass/modules/_wallposts.scss */
+/* line 65, ../sass/modules/_wallposts.scss */
 .wallpost-filter {
   margin-top: 32px;
   margin-top: 2rem;
@@ -2856,13 +2862,13 @@ ul.steps li.selected a {
   padding-left: 1.875rem;
   margin-left: 12.5%;
   width: 20%;
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
+  background-image: url('../images/sprites/icons-sc8650e7d7b.png');
   background-repeat: no-repeat;
-  background-position: 0 -289px;
+  background-position: 0 -238px;
 }
 /* line 84, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-reactions:hover, .reaction-box .reaction-actions li a.toggle-reactions.is-active, .reaction-box .reaction-actions li strong.toggle-reactions:hover, .reaction-box .reaction-actions li strong.toggle-reactions.is-active {
-  background-position: 0 -329px;
+  background-position: 0 -278px;
   color: #050505;
 }
 /* line 90, ../sass/modules/_reactions.scss */
@@ -2870,9 +2876,9 @@ ul.steps li.selected a {
   padding-left: 33px;
   padding-left: 2.0625rem;
   width: 24%;
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
+  background-image: url('../images/sprites/icons-sc8650e7d7b.png');
   background-repeat: no-repeat;
-  background-position: 0 -213px;
+  background-position: 0 -162px;
   /*background-image: url('../images/sprites/icon-love.png');
   background-position: 0 7px;
   background-repeat: no-repeat;*/
@@ -2884,7 +2890,7 @@ ul.steps li.selected a {
 }
 /* line 109, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active:hover {
-  background-position: 0 -251px;
+  background-position: 0 -200px;
   color: #050505;
 }
 /* line 114, ../sass/modules/_reactions.scss */
@@ -2896,16 +2902,16 @@ ul.steps li.selected a {
 .reaction-box .reaction-actions li.share strong {
   padding-left: 30px;
   padding-left: 1.875rem;
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
+  background-image: url('../images/sprites/icons-sc8650e7d7b.png');
   background-repeat: no-repeat;
-  background-position: 0 -369px;
+  background-position: 0 -318px;
   /*background-image: url('../images/sprites/icon-share.png');
   background-position: 0 6px;
   background-repeat: no-repeat; */
 }
 /* line 135, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong:hover, .reaction-box .reaction-actions li.share strong.is-active {
-  background-position: 0 -410px;
+  background-position: 0 -359px;
   color: #00c051;
 }
 /* line 141, ../sass/modules/_reactions.scss */

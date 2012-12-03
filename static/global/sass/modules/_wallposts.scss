@@ -9,8 +9,13 @@
     }
 
     .sidebar {
+        @include rem(padding, 16px);
         border: 1px solid $green;
         background: $white;
+        
+        h3 {
+            margin: 0;  
+        }
     }
     
 }

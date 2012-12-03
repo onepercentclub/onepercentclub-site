@@ -36,7 +36,8 @@
     @include grid(8, 0, 1);
     height: 70px; // TODO: make fluid, depending on height
     border: 3px dotted $green;
-    background: url(../images/fileinput-image.png) center no-repeat;
+    
+    background: url(../images/upload.png) center no-repeat;
     
     &:hover, &:active {
         border-color: $black;
