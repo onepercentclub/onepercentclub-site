@@ -2633,7 +2633,7 @@ ul.steps li.selected a {
 /* line 36, ../sass/modules/_users.scss */
 .user-img {
   border: 1px solid #999;
-  overflow: hidden;
+  white-space: nowrap;
 }
 
 /* line 41, ../sass/modules/_users.scss */
@@ -3005,7 +3005,7 @@ ul.steps li.selected a {
 }
 /* line 215, ../sass/modules/_reactions.scss */
 .reactions li.initiator .comment::after {
-  background: url("../images/sprites/reaction-box-initiator.png") transparent no-repeat 0 0;
+  background: url("../images/reaction-box-initiator.png") transparent no-repeat 0 0;
 }
 /* line 220, ../sass/modules/_reactions.scss */
 .reactions li .comment {
@@ -3044,7 +3044,7 @@ ul.steps li.selected a {
   display: block;
   width: 25px;
   height: 21px;
-  background: url("../images/sprites/reaction-box.png") transparent no-repeat 0 0;
+  background: url("../images/reaction-box.png") transparent no-repeat 0 0;
   content: ' ';
 }
 
