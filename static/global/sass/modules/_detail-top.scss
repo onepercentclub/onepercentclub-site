@@ -31,6 +31,8 @@
 
 .meta {
     
+    margin: 16px 0;
+    
     .location {
         float: left;
         display: block;
@@ -40,8 +42,6 @@
     
     .tags {
         
-        @include rem(padding, 12px 0 12px 36px);
-        background: transparent url('../images/sprites/icon-tag.png') no-repeat 0 53%;
         display: block;
         width: auto;
         

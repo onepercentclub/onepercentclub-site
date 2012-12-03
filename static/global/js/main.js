@@ -26,9 +26,8 @@ $(document).ready(function(){
     toggleText( $('#subtitle'), $('#logo') );
     
     initPopup()
-    
-    
-    
+    initBehaviour('body');
+
     // show/hide reactions
     $('.toggle-reactions').live('click', function(e) {
         $('.reactions', $(this).closest('.reaction-box')).toggle();

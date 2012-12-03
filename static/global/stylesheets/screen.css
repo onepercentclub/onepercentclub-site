@@ -1239,16 +1239,14 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 .button-donate {
   font-size: 19px;
   font-size: 1.1875rem;
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
-  background-repeat: no-repeat;
-  background-position: 5% 16px;
+  background: #ff619a url("../images/sprites/button-icon-donate.png") no-repeat 5% 50%;
   padding: 0.6em 0 0.6em 20%;
   width: 100%;
   border-color: #ff619a;
   background-color: #ff619a;
 }
 
-/* line 135, ../sass/includes/_buttons.scss */
+/* line 132, ../sass/includes/_buttons.scss */
 .button.button-donate:hover {
   background-color: #050505;
 }
@@ -1256,7 +1254,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 /* ========================= Responsive ================================== */
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-  /* line 144, ../sass/includes/_buttons.scss */
+  /* line 141, ../sass/includes/_buttons.scss */
   .button-donate {
     font-size: 22px;
     font-size: 1.375rem;
@@ -1264,22 +1262,18 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 }
 /* ======================================================================= */
 /* =========== Icons */
-/* line 3, ../sass/includes/_icons.scss */
+/* line 5, ../sass/includes/_icons.scss */
 .location {
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
-  background-repeat: no-repeat;
-  background-position: 0 -46px;
+  background: url('/images/sprites/icons-s88d7e88a60.png') 0 -46px no-repeat;
   padding-left: 36px;
   padding-left: 2.25rem;
 }
 
 /* line 10, ../sass/includes/_icons.scss */
 .tags {
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
-  background-repeat: no-repeat;
-  background-position: 0 -451px;
-  padding-left: 36px;
-  padding-left: 2.25rem;
+  background: url('/images/sprites/icons-s88d7e88a60.png') 0 -457px no-repeat;
+  padding: 0.75em 0 0.75em 36px;
+  padding: 0.75em 0 0.75em 2.25rem;
 }
 
 /* =========== Messages */
@@ -2086,11 +2080,7 @@ ul.steps li.selected a {
   background: #cccccc url("../images/phase-back.png") no-repeat right center;
 }
 
-/* line 32, ../sass/modules/_detail-top.scss */
-.meta {
-  margin: 16px 0;
-}
-/* line 36, ../sass/modules/_detail-top.scss */
+/* line 34, ../sass/modules/_detail-top.scss */
 .meta .location {
   float: left;
   display: block;
@@ -2098,8 +2088,11 @@ ul.steps li.selected a {
   margin-right: 32px;
   margin-right: 2rem;
 }
-/* line 43, ../sass/modules/_detail-top.scss */
+/* line 41, ../sass/modules/_detail-top.scss */
 .meta .tags {
+  padding: 12px 0 12px 36px;
+  padding: 0.75rem 0 0.75rem 2.25rem;
+  background: transparent url("../images/sprites/icon-tag.png") no-repeat 0 53%;
   display: block;
   width: auto;
   white-space: nowrap;
@@ -2190,7 +2183,7 @@ ul.steps li.selected a {
   overflow: hidden;
   padding: 0;
 }
-/* line 47, ../sass/modules/_status-box.scss */
+/* line 46, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress {
   position: relative;
   display: block;
@@ -2213,18 +2206,18 @@ ul.steps li.selected a {
   }
   */
 }
-/* line 56, ../sass/modules/_status-box.scss */
+/* line 55, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress em {
   font-style: normal;
   padding: 0 0.5em;
 }
-/* line 61, ../sass/modules/_status-box.scss */
+/* line 60, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress .donate-percentage {
   visibility: hidden;
 }
 
 /* =========== Number of supports / Days left */
-/* line 90, ../sass/modules/_status-box.scss */
+/* line 89, ../sass/modules/_status-box.scss */
 .donate-supporters {
   float: left;
   margin: 0;
@@ -2232,7 +2225,7 @@ ul.steps li.selected a {
   text-align: center;
 }
 
-/* line 98, ../sass/modules/_status-box.scss */
+/* line 97, ../sass/modules/_status-box.scss */
 .donate-days-left {
   float: right;
   margin: 0;
@@ -2241,7 +2234,7 @@ ul.steps li.selected a {
   text-align: center;
 }
 
-/* line 106, ../sass/modules/_status-box.scss */
+/* line 105, ../sass/modules/_status-box.scss */
 .donate-supporters span, .donate-days-left span {
   display: inline-block;
   margin-right: 3px;
@@ -2267,7 +2260,7 @@ ul.steps li.selected a {
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
-/* line 123, ../sass/modules/_status-box.scss */
+/* line 122, ../sass/modules/_status-box.scss */
 .donate-supporters span:before, .donate-days-left span:before {
   position: relative;
   top: 0.8em;
@@ -2277,7 +2270,7 @@ ul.steps li.selected a {
   content: '';
 }
 
-/* line 132, ../sass/modules/_status-box.scss */
+/* line 131, ../sass/modules/_status-box.scss */
 .donate-supporters em, .donate-days-left em {
   display: block;
   font-family: "Futura Alt Condensed", "Trebuchet MS", Helvetica, Arial, sans-serif;
@@ -2644,22 +2637,22 @@ ul.steps li.selected a {
   font-size: 0.625rem;
 }
 
-/* line 3, ../sass/modules/_wallposts.scss */
+/* line 5, ../sass/modules/_wallposts.scss */
 #wallpost-form fieldset {
   border-bottom: 4px solid #e5e5e5;
   border-bottom: 0.25rem solid #e5e5e5;
 }
-/* line 7, ../sass/modules/_wallposts.scss */
+/* line 9, ../sass/modules/_wallposts.scss */
 #wallpost-form button {
   float: right;
 }
-/* line 11, ../sass/modules/_wallposts.scss */
+/* line 13, ../sass/modules/_wallposts.scss */
 #wallpost-form .sidebar {
   border: 1px solid #00c051;
   background: white;
 }
 
-/* line 18, ../sass/modules/_wallposts.scss */
+/* line 20, ../sass/modules/_wallposts.scss */
 .wallpost {
   float: left;
   width: 62.5%;
@@ -2667,30 +2660,30 @@ ul.steps li.selected a {
   margin-right: 2.08333%;
   position: relative;
 }
-/* line 22, ../sass/modules/_wallposts.scss */
+/* line 24, ../sass/modules/_wallposts.scss */
 .wallpost:hover .manage {
   display: block;
 }
-/* line 26, ../sass/modules/_wallposts.scss */
+/* line 28, ../sass/modules/_wallposts.scss */
 .wallpost header {
   float: left;
   width: 77.08333%;
   margin-left: 20.83333%;
   margin-right: 2.08333%;
 }
-/* line 29, ../sass/modules/_wallposts.scss */
+/* line 31, ../sass/modules/_wallposts.scss */
 .wallpost header .timestamp {
   top: 140px;
   top: 8.75rem;
   position: absolute;
   left: 0;
 }
-/* line 35, ../sass/modules/_wallposts.scss */
+/* line 37, ../sass/modules/_wallposts.scss */
 .wallpost header .manage {
   display: none;
   float: right;
 }
-/* line 41, ../sass/modules/_wallposts.scss */
+/* line 43, ../sass/modules/_wallposts.scss */
 .wallpost .content {
   float: left;
   width: 79.16667%;
@@ -2698,12 +2691,12 @@ ul.steps li.selected a {
   margin-right: 0%;
   position: relative;
 }
-/* line 46, ../sass/modules/_wallposts.scss */
+/* line 48, ../sass/modules/_wallposts.scss */
 .wallpost .reaction-box {
   position: relative;
   display: block;
 }
-/* line 51, ../sass/modules/_wallposts.scss */
+/* line 53, ../sass/modules/_wallposts.scss */
 .wallpost .user-img {
   width: 100px;
   width: 6.25rem;
@@ -2714,7 +2707,7 @@ ul.steps li.selected a {
   left: 0;
 }
 
-/* line 60, ../sass/modules/_wallposts.scss */
+/* line 62, ../sass/modules/_wallposts.scss */
 .wallpost-filter {
   margin-top: 32px;
   margin-top: 2rem;
@@ -2856,79 +2849,73 @@ ul.steps li.selected a {
   padding-left: 1.875rem;
   margin-left: 12.5%;
   width: 20%;
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
+  background-image: url("../images/sprites/icon-reactions.png");
+  background-position: 0 7px;
   background-repeat: no-repeat;
-  background-position: 0 -289px;
 }
-/* line 84, ../sass/modules/_reactions.scss */
+/* line 83, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-reactions:hover, .reaction-box .reaction-actions li a.toggle-reactions.is-active, .reaction-box .reaction-actions li strong.toggle-reactions:hover, .reaction-box .reaction-actions li strong.toggle-reactions.is-active {
-  background-position: 0 -329px;
+  background-position: 0 -33px;
   color: #050505;
 }
-/* line 90, ../sass/modules/_reactions.scss */
+/* line 89, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love, .reaction-box .reaction-actions li strong.toggle-love {
   padding-left: 33px;
   padding-left: 2.0625rem;
   width: 24%;
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
-  background-repeat: no-repeat;
-  background-position: 0 -213px;
-  /*background-image: url('../images/sprites/icon-love.png');
+  background-image: url("../images/sprites/icon-love.png");
   background-position: 0 7px;
-  background-repeat: no-repeat;*/
+  background-repeat: no-repeat;
 }
-/* line 104, ../sass/modules/_reactions.scss */
+/* line 96, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love:hover, .reaction-box .reaction-actions li strong.toggle-love:hover {
-  background-position: 0 -123px;
+  background-position: 0 -24px;
   color: #ff619a;
 }
-/* line 109, ../sass/modules/_reactions.scss */
+/* line 101, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active:hover {
-  background-position: 0 -251px;
+  background-position: 0 -94px;
   color: #050505;
 }
-/* line 114, ../sass/modules/_reactions.scss */
+/* line 106, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active, .reaction-box .reaction-actions li a.toggle-love.is-activated, .reaction-box .reaction-actions li a.toggle-love.is-activated:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active, .reaction-box .reaction-actions li strong.toggle-love.is-activated, .reaction-box .reaction-actions li strong.toggle-love.is-activated:hover {
-  background-position: 0 -83px;
+  background-position: 0 -59px;
   color: #ff619a;
 }
-/* line 123, ../sass/modules/_reactions.scss */
+/* line 115, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong {
   padding-left: 30px;
   padding-left: 1.875rem;
-  background-image: url('../images/sprites/icons-s88d7e88a60.png');
-  background-repeat: no-repeat;
-  background-position: 0 -369px;
-  /*background-image: url('../images/sprites/icon-share.png');
+  background-image: url("../images/sprites/icon-share.png");
   background-position: 0 6px;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
 }
-/* line 135, ../sass/modules/_reactions.scss */
+/* line 121, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong:hover, .reaction-box .reaction-actions li.share strong.is-active {
-  background-position: 0 -410px;
+  background-position: 0 -35px;
   color: #00c051;
 }
-/* line 141, ../sass/modules/_reactions.scss */
+/* line 127, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions {
   padding: 16px 0 8px 0;
   padding: 1rem 0 0.5rem 0;
   display: none;
 }
-/* line 145, ../sass/modules/_reactions.scss */
+/* line 131, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li {
   display: inline-block;
   text-align: center;
 }
-/* line 149, ../sass/modules/_reactions.scss */
+/* line 135, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-facebook {
   margin-left: 12.5%;
   width: 25%;
 }
-/* line 154, ../sass/modules/_reactions.scss */
+/* line 140, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-twitter {
   width: 25%;
 }
-/* line 160, ../sass/modules/_reactions.scss */
+/* line 146, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url code {
   font-size: 11px;
   font-size: 0.6875rem;
@@ -2937,14 +2924,14 @@ ul.steps li.selected a {
   background: white;
   font-color: #ccc !important;
 }
-/* line 168, ../sass/modules/_reactions.scss */
+/* line 154, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url .share-url-copy {
   padding: 0 4px;
   background-color: #ccc;
   color: white;
 }
 
-/* line 186, ../sass/modules/_reactions.scss */
+/* line 172, ../sass/modules/_reactions.scss */
 .reactions {
   top: -54px;
   top: -3.375rem;
@@ -2972,7 +2959,7 @@ ul.steps li.selected a {
 .reactions:after {
   clear: both;
 }
-/* line 197, ../sass/modules/_reactions.scss */
+/* line 183, ../sass/modules/_reactions.scss */
 .reactions li {
   margin: 16px 0;
   margin: 1rem 0;
@@ -2980,7 +2967,7 @@ ul.steps li.selected a {
   display: block;
   overflow: auto;
 }
-/* line 203, ../sass/modules/_reactions.scss */
+/* line 189, ../sass/modules/_reactions.scss */
 .reactions li .user-img {
   float: left;
   width: 6.25%;
@@ -2993,15 +2980,15 @@ ul.steps li.selected a {
   position: absolute;
   margin: 0;
 }
-/* line 212, ../sass/modules/_reactions.scss */
+/* line 198, ../sass/modules/_reactions.scss */
 .reactions li.initiator .comment {
   border-color: #00c051;
 }
-/* line 215, ../sass/modules/_reactions.scss */
+/* line 201, ../sass/modules/_reactions.scss */
 .reactions li.initiator .comment::after {
   background: url("../images/sprites/reaction-box-initiator.png") transparent no-repeat 0 0;
 }
-/* line 220, ../sass/modules/_reactions.scss */
+/* line 206, ../sass/modules/_reactions.scss */
 .reactions li .comment {
   float: left;
   width: 79.16667%;
@@ -3020,16 +3007,16 @@ ul.steps li.selected a {
   color: #333;
   vertical-align: baseline;
 }
-/* line 230, ../sass/modules/_reactions.scss */
+/* line 216, ../sass/modules/_reactions.scss */
 .reactions li .comment .user {
   font-size: 14px;
   font-size: 0.875rem;
 }
-/* line 232, ../sass/modules/_reactions.scss */
+/* line 218, ../sass/modules/_reactions.scss */
 .reactions li .comment .user strong {
   text-transform: uppercase;
 }
-/* line 237, ../sass/modules/_reactions.scss */
+/* line 223, ../sass/modules/_reactions.scss */
 .reactions li .comment::after {
   top: 16px;
   top: 1rem;

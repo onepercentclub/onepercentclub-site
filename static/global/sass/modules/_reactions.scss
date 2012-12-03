@@ -76,12 +76,13 @@
                     @include rem(padding-left, 30px);
                     margin-left: $grid-column * 6;
                     width: 20%;
-                    background-image: url('../images/sprites/icon-reactions.png');
-                    background-position: 0 7px;
+                    
+                    background-image: $icons;
                     background-repeat: no-repeat;
+                    background-position: sprite-position($icons, reactions, 0, 6px);
                     
                     &:hover, &.is-active {
-                        background-position: 0 -33px;
+                        background-position: sprite-position($icons, reactions-hover, 0, 6px);
                         color: $black;
                     }
                 }
@@ -89,22 +90,29 @@
                 &.toggle-love {
                     @include rem(padding-left, 33px);
                     width: 24%;
-                    background-image: url('../images/sprites/icon-love.png');
-                    background-position: 0 7px;
+                   
+                    
+                    background-image: $icons;
                     background-repeat: no-repeat;
+                    background-position: sprite-position($icons, love, 0, 6px);
+                    
+                   
+                    /*background-image: url('../images/sprites/icon-love.png');
+                    background-position: 0 7px;
+                    background-repeat: no-repeat;*/
                     
                     &:hover {
-                        background-position: 0 -24px;
+                        background-position: sprite-position($icons, love-hover, 0, 6px);
                         color: $pink;
                     }
                     
                     &.is-active:hover {
-                        background-position: 0 -94px;
+                        background-position: sprite-position($icons, loved, 0, 6px);
                         color: $black;
                     }
                     
                     &.is-active, &.is-activated, &.is-activated:hover {
-                        background-position: 0 -59px;
+                        background-position: sprite-position($icons, unlove, 0, 6px);
                         color: $pink;
                     }
                 }
@@ -114,12 +122,18 @@
                 
                 strong {
                     @include rem(padding-left, 30px);
-                    background-image: url('../images/sprites/icon-share.png');
+                    
+                    background-image: $icons;
+                    background-repeat: no-repeat;
+                    background-position: sprite-position($icons, share, 0, 6px);
+                    
+                    
+                    /*background-image: url('../images/sprites/icon-share.png');
                     background-position: 0 6px;
-                    background-repeat: no-repeat; 
+                    background-repeat: no-repeat; */
                     
                     &:hover, &.is-active {
-                        background-position: 0 -35px;
+                        background-position: sprite-position($icons, share-hover, 0, 6px);
                         color: $green;
                     }
                 }
