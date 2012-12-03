@@ -5,7 +5,7 @@ App.Country = DS.Model.extend({
 
 
 App.Project = DS.Model.extend({
-    url: 'projects',
+    url: 'projects/',
 
     // Model fields
     slug: DS.attr('string'),
