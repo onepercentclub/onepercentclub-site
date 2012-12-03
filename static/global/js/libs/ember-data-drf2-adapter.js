@@ -93,7 +93,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         //store.didSaveRecord(record, json);
     },
 
-
     rootForType: function(type) {
         if (type.url) {
             return type.url;
@@ -106,10 +105,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         var parts = type.toString().split(".");
         var name = parts[parts.length - 1];
         return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
-    },
-
-    pluralize: function(name) {
-        return name;
     },
 
     loadValue: function(store, type, value) {
