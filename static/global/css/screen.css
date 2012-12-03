@@ -281,7 +281,7 @@ h1 {
 }
 
 /* line 54, ../sass/includes/_typography.scss */
-.main-title h1 {
+h1.main-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

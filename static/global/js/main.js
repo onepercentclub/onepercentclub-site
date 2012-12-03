@@ -21,8 +21,13 @@ $(document).ready(function(){
     
     // added by Frans
     // initFileUpload();
-    initToggleText( $('.toggle-reactions, .toggle-love, #subtitle') );
+    toggleText( $('.toggle-reactions') );
+    toggleText( $('.toggle-love') );
+    toggleText( $('#subtitle'), $('#logo') );
+    
     initPopup()
+    
+    
     
     // show/hide reactions
     $('.toggle-reactions').live('click', function(e) {
@@ -45,12 +50,14 @@ $(document).ready(function(){
 // Needed because we can't render elements outside parent with overview: hidden
 // TODO IN PROGRESS 
 function initPopup() {
+    popupTimer = null;
     $('.member, .popup').live('mouseenter', function(e) {
+        
         // if his has a .popup as child
         if( $('.popup', this).exists() ) {
             // hide & remove any previous popups
             $('.clone').fadeOut(40, function() {
-                this.remove();
+                $(this).remove();
             });
             // clone to bottom of DOM & display
             $('.popup', this)
@@ -79,15 +86,13 @@ function initPopup() {
 };
 
 
-
-
-
-
 // toggles content and classnames on click, mouseenter & mouseleave
 // TODO: make generic
-function initToggleText(el){
+function toggleText(el, parent){
     // swap text & classnames
-    $(el)
+    parent = typeof parent !== 'undefined' ? parent : el;
+    
+    $(parent)
         .live('click', function(e) {
             $(this)
                 .toggleClass('is-active')
