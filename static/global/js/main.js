@@ -11,23 +11,20 @@ jQuery.fn.exists = function(){return this.length>0;}
 function initBehaviour(container) {
     $("label.inline", container).inFieldLabels(); 
     $("textarea", container).autogrow();
+    
+    // initFileUpload();
+    toggleText( $('.toggle-reactions', container) );
+    toggleText( $('.toggle-love', container) );
+    toggleText( $('#subtitle'), $('#logo', container) );
 }
 
 // Initializing
 $(document).ready(function(){
-    //initProgress();
+
+    initProgress();
     //initLightbox();
     //initJiraFeedback();
     
-    // added by Frans
-    // initFileUpload();
-    toggleText( $('.toggle-reactions') );
-    toggleText( $('.toggle-love') );
-    toggleText( $('#subtitle'), $('#logo') );
-    
-    initPopup()
-    initBehaviour('body');
-
     // show/hide reactions
     $('.toggle-reactions').live('click', function(e) {
         $('.reactions', $(this).closest('.reaction-box')).toggle();
@@ -41,6 +38,11 @@ $(document).ready(function(){
         .live('mouseleave', function(e) {
             $('.share-actions', $(this)).hide();
         });
+    
+    // DEVELOPMENT: needed for static template
+    initPopup()
+    initBehaviour('body');
+    
     
 });
 
@@ -78,7 +80,7 @@ function initPopup() {
     $('.member, .clone').live('mouseleave', function(e) {
         popupTimer = setTimeout(function() {
             $('.clone').fadeOut(40, function() {
-                this.remove();
+                $(this).remove();
             });
         }, 200);
     });
@@ -92,26 +94,26 @@ function toggleText(el, parent){
     parent = typeof parent !== 'undefined' ? parent : el;
     
     $(parent)
-        .live('click', function(e) {
-            $(this)
+        .live('click',{el: el}, function(e, el) {
+            $(el)
                 .toggleClass('is-active')
                 .addClass('is-activated')
                 .trigger('mouseleave');
             e.preventDefault();
         })
-        .live('mouseenter', function(e) {
-            if ( $(this).hasClass('is-active') ) {
-                $(this).html( $(this).data('content-toggled-hover') );
+        .live('mouseenter',{el: el}, function(e) {
+            if ( $(el).hasClass('is-active') ) {
+                $(el).html( $(el).data('content-toggled-hover') );
             } else {
-                $(this).html( $(this).data('content-hover') );
+                $(el).html( $(el).data('content-hover') );
             }
-            $(this).removeClass('is-activated');
+            $(el).removeClass('is-activated');
         })
-        .live('mouseleave', function(e) {
-            if ( $(this).hasClass('is-active') ) {
-                $(this).html( $(this).data('content-toggled') );
+        .live('mouseleave',{el: el}, function(e) {
+            if ( $(el).hasClass('is-active') ) {
+                $(el).html( $(el).data('content-toggled') );
             } else {
-                $(this).html( $(this).data('content') );
+                $(el).html( $(el).data('content') );
             }
         });
 };

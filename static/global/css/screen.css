@@ -2633,10 +2633,9 @@ ul.steps li.selected a {
 /* line 36, ../sass/modules/_users.scss */
 .user-img {
   border: 1px solid #999;
-  white-space: nowrap;
 }
 
-/* line 41, ../sass/modules/_users.scss */
+/* line 40, ../sass/modules/_users.scss */
 .timestamp {
   text-transform: uppercase;
   color: #050505;
