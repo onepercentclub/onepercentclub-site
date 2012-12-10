@@ -52,3 +52,6 @@ reports
 
 # SASS
 .sass-cache
+
+# Espresso
+.esproj
