@@ -15,15 +15,16 @@ function initBehaviour(container) {
     // initFileUpload();
     toggleText( $('.toggle-reactions', container) );
     toggleText( $('.toggle-love', container) );
-    toggleText( $('#subtitle'), $('#logo', container) );
 }
 
 // Initializing
 $(document).ready(function(){
-
+    // swap text in logo
+    toggleText( $('#subtitle'), $('#logo') );
     initProgress();
+    initPopup()
     //initLightbox();
-    //initJiraFeedback();
+    //initFileUpload();
     
     // show/hide reactions
     $('.toggle-reactions').live('click', function(e) {
@@ -40,16 +41,14 @@ $(document).ready(function(){
         });
     
     // DEVELOPMENT: needed for static template
-    initPopup()
     initBehaviour('body');
-    
-    
+    toggleText( $('.toggle-reactions') );
+    toggleText( $('.toggle-love') );
 });
 
 
 // show popup on hover of element, styled and positioned by css. 
 // Needed because we can't render elements outside parent with overview: hidden
-// TODO IN PROGRESS 
 function initPopup() {
     popupTimer = null;
     $('.member, .popup').live('mouseenter', function(e) {
@@ -77,7 +76,7 @@ function initPopup() {
         }
     });
     // hide onmouseout of parent & popup iself. Needs timer for the later
-    $('.member, .clone').live('mouseleave', function(e) {
+    $('.member, .popup').live('mouseleave', function(e) {
         popupTimer = setTimeout(function() {
             $('.clone').fadeOut(40, function() {
                 $(this).remove();
@@ -88,11 +87,10 @@ function initPopup() {
 
 
 // toggles content and classnames on click, mouseenter & mouseleave
-// TODO: make generic
 function toggleText(el, parent){
-    // swap text & classnames
+    // if it doesn't have a parent, bind on itself
     parent = typeof parent !== 'undefined' ? parent : el;
-    
+    // swap text & classnames
     $(parent)
         .live('click',{el: el}, function(e, el) {
             $(el)
@@ -217,16 +215,5 @@ function initProgress(){
         
         $('.donate-percentage', this).animate({width: perc +'%'}, 2000);
         
-    });
-}
-
-
-// direct feedback into Jira
-function initJiraFeedback() {
-    jQuery.ajax({
-        url: "https://onepercentclub.atlassian.net/s/en_USfyzlz7-418945332/809/42/1.2.5/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=8a8cc0df",
-        type: "get",
-        cache: true,
-        dataType: "script"
     });
 }

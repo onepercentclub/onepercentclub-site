@@ -36,12 +36,3 @@ class SorlImageField(Field):
             return request.build_absolute_uri(relative_url)
         return relative_url
 
-
-# TODO: make a patch for DRF2 to set the look field other than pk.
-# TODO: Don't send HyperlinkedFields in json? Not sure if this is a big deal or not.
-class SlugHyperlinkedIdentityField(HyperlinkedIdentityField):
-    def field_to_native(self, obj, field_name):
-        request = self.context.get('request', None)
-        view_name = self.view_name or self.parent.opts.view_name
-        view_kwargs = {'slug': obj.slug}
-        return reverse(view_name, kwargs=view_kwargs, request=request)

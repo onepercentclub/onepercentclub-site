@@ -1,7 +1,8 @@
-from apps.bluebottle_utils.serializers import SorlImageField, SlugHyperlinkedIdentityField
 from django.contrib.auth.models import User
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
+from rest_framework.fields import HyperlinkedIdentityField
+from apps.bluebottle_utils.serializers import SorlImageField
 from .models import BlogPost
 
 class BlogPostAuthorSerializer(serializers.ModelSerializer):
@@ -22,7 +23,7 @@ class BlogPostContentsField(serializers.Field):
 
 class BlogPostDetailSerializer(serializers.ModelSerializer):
     contents = BlogPostContentsField(source='contents')
-    url = SlugHyperlinkedIdentityField(view_name='blogpost-instance')
+    url = HyperlinkedIdentityField(view_name='blogpost-instance')
     main_image = SorlImageField('main_image', '300x200', crop='center')
     author = BlogPostAuthorSerializer()
     class Meta:

@@ -75,9 +75,8 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     },
 
     createRecord: function(store, type, record) {
-        var data, root = this.rootForType(type);
-
-        data = record.toJSON();
+        var root = this.rootForType(type);
+        var data = record.toJSON();
 
         this.ajax(this.buildURL(root), "POST", {
             data: data,
@@ -102,13 +101,11 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         if (object['url']) {
             return object['url'];
         }
-        // use the last part of the name as the URL
-        var parts = type.toString().split(".");
-        var name = parts[parts.length - 1];
-        return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
+        Em.assert("The model " + type + " must define a 'url' field for the API resource.", false);
     },
 
     pluralize: function(name) {
+        // Our pluralize method does nothing because we're manually defining out API resource locations in the url field.
         return name;
     },
 
@@ -118,6 +115,17 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         } else {
             store.load(type, value);
         }
+    },
+
+    findQuery: function(store, type, query, recordArray) {
+        var root = this.rootForType(type) + '/';
+
+        this.ajax(this.buildURL(root), "GET", {
+            data: query,
+            success: function(json) {
+                this.didFindQuery(store, type, json, recordArray);
+            }
+        });
     }
 
 });

@@ -263,8 +263,8 @@ button::-moz-focus-inner {
 
 /* line 40, ../sass/includes/_typography.scss */
 h1, h2, h3, h4, h5, h6 {
-  margin: 32px 0 8px 0;
-  margin: 2rem 0 0.5rem 0;
+  padding: 32px 0 8px 0;
+  padding: 2rem 0 0.5rem 0;
 }
 /* line 42, ../sass/includes/_typography.scss */
 h1.soft, h2.soft, h3.soft, h4.soft, h5.soft, h6.soft {
@@ -2344,17 +2344,18 @@ ul.steps li.selected a {
   left: 0;
   top: 0;
   margin: 0;
+  padding: 0;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 14px;
   font-size: 0.875rem;
 }
-/* line 41, ../sass/modules/_member-box.scss */
+/* line 42, ../sass/modules/_member-box.scss */
 .member-box ul li ul li {
   display: inline;
   margin: 0;
 }
-/* line 45, ../sass/modules/_member-box.scss */
+/* line 46, ../sass/modules/_member-box.scss */
 .member-box ul li ul li a {
   position: relative;
   display: block;
@@ -2362,7 +2363,7 @@ ul.steps li.selected a {
   margin-bottom: 1px;
   line-height: 1em;
 }
-/* line 52, ../sass/modules/_member-box.scss */
+/* line 53, ../sass/modules/_member-box.scss */
 .member-box ul li ul li a img {
   border-width: 1px 1px 1px 0;
   border-style: solid;
@@ -2374,19 +2375,19 @@ ul.steps li.selected a {
   -o-transition: 0.1s;
   transition: 0.1s;
 }
-/* line 61, ../sass/modules/_member-box.scss */
+/* line 62, ../sass/modules/_member-box.scss */
 .member-box ul li ul li a .member-name {
   display: block;
   padding: 0.3em !important;
 }
-/* line 66, ../sass/modules/_member-box.scss */
+/* line 67, ../sass/modules/_member-box.scss */
 .member-box ul li ul li a .member-organisation {
   display: block;
   padding: 0 0.3em;
   color: #999;
   font-style: normal;
 }
-/* line 76, ../sass/modules/_member-box.scss */
+/* line 77, ../sass/modules/_member-box.scss */
 .member-box ul li ul li a:hover img {
   -webkit-transform: scale(1.2, 1.2);
   -moz-transform: scale(1.2, 1.2);
@@ -2396,28 +2397,28 @@ ul.steps li.selected a {
   z-index: 2;
   border: 1px solid #fff;
 }
-/* line 86, ../sass/modules/_member-box.scss */
+/* line 87, ../sass/modules/_member-box.scss */
 .member-box ul li ul li .popup {
   left: 0;
   bottom: 60px;
 }
-/* line 91, ../sass/modules/_member-box.scss */
+/* line 92, ../sass/modules/_member-box.scss */
 .member-box ul li ul li:first-child a img {
   border-left: 1px solid #fff;
 }
-/* line 97, ../sass/modules/_member-box.scss */
+/* line 98, ../sass/modules/_member-box.scss */
 .member-box ul li.member-initiator ul li a {
   margin-right: 3em;
 }
-/* line 101, ../sass/modules/_member-box.scss */
+/* line 102, ../sass/modules/_member-box.scss */
 .member-box ul li.member-initiator ul li a img {
   margin-right: 0.5em;
 }
-/* line 106, ../sass/modules/_member-box.scss */
+/* line 107, ../sass/modules/_member-box.scss */
 .member-box ul li.member-supporters ul {
   width: 9999px;
 }
-/* line 116, ../sass/modules/_member-box.scss */
+/* line 117, ../sass/modules/_member-box.scss */
 .member-box #show-all-supporters {
   display: block;
   position: absolute;
@@ -2426,7 +2427,7 @@ ul.steps li.selected a {
   margin: 0;
   padding: 0;
 }
-/* line 124, ../sass/modules/_member-box.scss */
+/* line 125, ../sass/modules/_member-box.scss */
 .member-box #show-all-supporters a {
   width: 47px;
   height: 47px;
@@ -2443,7 +2444,7 @@ ul.steps li.selected a {
 }
 
 /* =========== Popup */
-/* line 143, ../sass/modules/_member-box.scss */
+/* line 144, ../sass/modules/_member-box.scss */
 .popup {
   visibility: hidden;
   position: absolute;
@@ -2461,23 +2462,23 @@ ul.steps li.selected a {
   -moz-box-shadow: 2px -2px 2px rgba(5, 5, 5, 0.2);
   box-shadow: 2px -2px 2px rgba(5, 5, 5, 0.2);
 }
-/* line 156, ../sass/modules/_member-box.scss */
+/* line 157, ../sass/modules/_member-box.scss */
 .popup span {
   display: block;
 }
-/* line 160, ../sass/modules/_member-box.scss */
+/* line 161, ../sass/modules/_member-box.scss */
 .popup .action {
   text-transform: uppercase;
 }
-/* line 164, ../sass/modules/_member-box.scss */
+/* line 165, ../sass/modules/_member-box.scss */
 .popup .comment {
   color: #050505;
 }
-/* line 168, ../sass/modules/_member-box.scss */
+/* line 169, ../sass/modules/_member-box.scss */
 .popup .profile {
   text-decoration: underline;
 }
-/* line 172, ../sass/modules/_member-box.scss */
+/* line 173, ../sass/modules/_member-box.scss */
 .popup:before {
   position: absolute;
   width: 0;
