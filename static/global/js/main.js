@@ -15,12 +15,12 @@ function initBehaviour(container) {
     // initFileUpload();
     toggleText( $('.toggle-reactions', container) );
     toggleText( $('.toggle-love', container) );
+    toggleText( $('#subtitle'), $('#logo') );
 }
 
 // Initializing
 $(document).ready(function(){
     // swap text in logo
-    toggleText( $('#subtitle'), $('#logo') );
     initProgress();
     initPopup()
     //initLightbox();
