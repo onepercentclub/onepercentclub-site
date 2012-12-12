@@ -221,17 +221,17 @@ $(function() {
 
         showBlogDetail: Em.Route.transitionTo('blogs.detail'),
 
-        connectOutlets: function(router, context) {
-            require(['app/blogs'], function() {
-                App.blogListController.getList();
-                router.get('applicationController').connectOutlet('topPanel', 'blogList');
-                router.get('applicationController').connectOutlet('midPanel', 'empty');
-                router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-            });
-        },
 
         index: Em.Route.extend({
-            route: '/'
+            route: '/',
+            connectOutlets: function(router, context) {
+                require(['app/blogs'], function() {
+                    App.blogListController.getList();
+                    router.get('applicationController').connectOutlet('topPanel', 'blogList');
+                    router.get('applicationController').connectOutlet('midPanel', 'empty');
+                    router.get('applicationController').connectOutlet('bottomPanel', 'empty');
+                });
+            }
         }),
 
         detail: Em.Route.extend({
@@ -272,19 +272,17 @@ $(function() {
 
         showProjectDetail: Em.Route.transitionTo('projects.detail'),
 
-
-        connectOutlets: function(router, context) {
-            require(['app/projects'], function() {
-                App.projectSearchController.getList({phase: 'fund'});
-                router.get('applicationController').connectOutlet('topPanel', 'empty');
-                router.get('applicationController').connectOutlet('midPanel', 'projectSearch');
-                router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-            });
-        },
-
         // The project start state.
         index: Em.Route.extend({
-            route: '/'
+            route: '/',
+            connectOutlets: function(router, context) {
+                require(['app/projects'], function() {
+                    App.projectSearchController.getList({phase: 'fund'});
+                    router.get('applicationController').connectOutlet('topPanel', 'empty');
+                    router.get('applicationController').connectOutlet('midPanel', 'projectSearch');
+                    router.get('applicationController').connectOutlet('bottomPanel', 'empty');
+                });
+            },
         }),
 
         // The project detail state.
