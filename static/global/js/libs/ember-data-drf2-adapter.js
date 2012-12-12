@@ -118,6 +118,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     },
 
     findQuery: function(store, type, query, recordArray) {
+        // This is the same as the parent function with an added trailing slash on root.
         var root = this.rootForType(type) + '/';
 
         this.ajax(this.buildURL(root), "GET", {
