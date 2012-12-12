@@ -1,5 +1,3 @@
-from apps.bluebottle_utils.serializers import SorlImageField
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Reaction
 

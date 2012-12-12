@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
 from rest_framework.fields import HyperlinkedIdentityField
-from apps.bluebottle_utils.serializers import SorlImageField
+from apps.drf2serializers.serializers import SorlImageField
 from .models import BlogPost
 
 class BlogPostAuthorSerializer(serializers.ModelSerializer):

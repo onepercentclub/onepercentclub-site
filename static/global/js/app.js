@@ -92,8 +92,7 @@ $(function() {
     App = Em.Application.create({
         rootElement: '#content',
 
-        // Define the main application controller. This is automatically picked up by
-        // the application and initialized.
+        // Define the main application controller. This is automatically picked up by the application and initialized.
         ApplicationController: Em.Controller.extend({
         }),
 
@@ -191,30 +190,6 @@ $(function() {
 
     /* Routing */
 
-    // Set wallpost route
-    App.WallpostsRoute = Em.Route.extend({
-        route: '/wallposts',
-
-        showWallpostForm: Em.Route.transitionTo('wallposts.form'),
-
-
-        index: Em.Route.extend({
-            route: '/'
-        }),
-
-        form: Em.Route.extend({
-            route: '/form',
-            connectOutlets: function(router, context) {
-                require(['app/wallposts'], function() {
-                    router.get('applicationController').connectOutlet('topPanel', 'wallpostForm');
-                    router.get('applicationController').connectOutlet('midPanel', 'empty');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-                });
-            }
-        })
-    });
-
-
     // Set blogs route
     App.BlogsRoute = Em.Route.extend({
         route: '/blogs',
@@ -282,7 +257,7 @@ $(function() {
                     router.get('applicationController').connectOutlet('midPanel', 'projectSearch');
                     router.get('applicationController').connectOutlet('bottomPanel', 'empty');
                 });
-            },
+            }
         }),
 
         // The project detail state.
@@ -297,12 +272,14 @@ $(function() {
                 return {slug: slug};
             },
             connectOutlets: function(router, context) {
-                require(['app/projects'], function() {
+                require(['app/projects', 'app/wallposts'], function() {
                     var slug = context.slug ? context.slug : context.get('slug');
                     App.projectDetailController.getDetail({slug: slug});
+                    // TODO: use the detail from the line above to pass to call below
+                    App.wallPostListController.getList({'type': 'projects', 'slug': slug});
                     router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
                     router.get('applicationController').connectOutlet('midPanel', 'empty');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'empty');
+                    router.get('applicationController').connectOutlet('bottomPanel', 'WallPost');
                 });
             }
         })
@@ -324,7 +301,6 @@ $(function() {
                 router.get('applicationController').connectOutlet('bottomPanel', 'empty');
             }
         }),
-        wallposts: App.WallpostsRoute,
         projects: App.ProjectsRoute,
         blogs: App.BlogsRoute
     });
