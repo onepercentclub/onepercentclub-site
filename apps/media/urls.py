@@ -1,10 +1,6 @@
 from django.conf.urls.defaults import patterns
-
 from surlex.dj import surl
-
-from .views import (
-    AlbumListView, AlbumDetailView, LocalPictureView, EmbeddedVideoView
-)
+from .views import AlbumListView, AlbumDetailView, LocalPictureView, EmbeddedVideoView
 
 
 urlpatterns = patterns('',
@@ -13,13 +9,7 @@ urlpatterns = patterns('',
     surl(r'^<slug:s>/$', AlbumDetailView.as_view(), name='album_detail'),
 
     # Media views
-    surl(r'^<album_slug:s>/localpicture/<pk:#>/$',
-         LocalPictureView.as_view(),
-         name='localpicture_detail'
-    ),
-    surl(r'^<album_slug:s>/embeddedvideo/<pk:#>/$',
-         EmbeddedVideoView.as_view(),
-         name='embeddedvideo_detail'
-    ),
+    surl(r'^<album_slug:s>/localpicture/<pk:#>/$', LocalPictureView.as_view(),name='localpicture_detail'),
+    surl(r'^<album_slug:s>/embeddedvideo/<pk:#>/$', EmbeddedVideoView.as_view(),name='embeddedvideo_detail'),
 )
 

@@ -1,5 +1,4 @@
 from django.views.generic import ListView, DetailView
-
 from .models import Album, LocalPicture, EmbeddedVideo
 
 
