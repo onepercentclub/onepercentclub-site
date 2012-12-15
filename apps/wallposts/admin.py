@@ -3,19 +3,12 @@ from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModel
 from .models import WallPost, MediaWallPost, TextWallPost
 
 
-class WallPostChildAdmin(PolymorphicChildModelAdmin):
-    """ Base admin class for all child models """
+class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
 
 
-class MediaWallPostAdmin(WallPostChildAdmin):
-    # define custom features here
-    pass
-
-
-class TextWallPostAdmin(WallPostChildAdmin):
-    # define custom features here
-    pass
+class TextWallPostAdmin(PolymorphicChildModelAdmin):
+    base_model = WallPost
 
 
 class WallPostParentAdmin(PolymorphicParentModelAdmin):
