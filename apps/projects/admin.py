@@ -8,7 +8,7 @@ from sorl.thumbnail.shortcuts import get_thumbnail
 
 from .models import (
     Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, BudgetLine,
-    Testimonial, Message, ProjectTheme, PartnerOrganization
+    Testimonial, ProjectTheme, PartnerOrganization
 )
 
 
@@ -96,7 +96,6 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
     thumbnail.allow_tags = True
 
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Message)
 admin.site.register(Testimonial)
 
 

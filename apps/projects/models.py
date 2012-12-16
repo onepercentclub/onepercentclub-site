@@ -326,25 +326,6 @@ class Testimonial(models.Model):
         return truncate_words(self.description, 20)
 
 
-# TODO: This should be the new comments system.
-class Message(models.Model):
-    """ Message by a user on the Project wall. """
-
-    project = models.ForeignKey(Project, verbose_name=_("project"))
-    user = models.ForeignKey('auth.User', verbose_name=_("user"))
-    body = models.TextField(_("body"))
-    created = CreationDateTimeField(_("created"))
-    deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
-
-    def __unicode__(self):
-        return u'%s : %s...' % (self.created.date(), self.body[:20])
-
-    class Meta:
-        ordering = ['-created']
-        verbose_name = _("message")
-        verbose_name_plural = _("messages")
-
-
 #
 # The Phase start / end date synchronization logic.
 #
@@ -360,7 +341,6 @@ def set_previous_phase_enddate(current_phase, previous_phase):
         # TODO In Django 1.5 this can be changed to only save the 'enddate' field:
         # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
         previous_phase.save()
-
 
 def set_next_phase_startdate(current_phase, next_phase):
     """
