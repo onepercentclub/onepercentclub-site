@@ -71,12 +71,12 @@
                     <small class="timestamp">{{timesince}} {% trans "ago" %}</small>
                     <a href="#" class="user initiator">
                         <span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
-                        <strong>{{author.full_name}}</strong> <em style="color:red;">{% trans "Project Initiator" %}</em>
+                        <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
                     </a>
 
-                    <ul class="manage">
-                        <li class="manage-edit"><a href="#" style="color:red;">{% trans "Edit" %}</a></li>
-                        <li class="manage-remove"><a href="#" style="color:red;">{% trans "Delete" %}</a></li>
+                    <ul class="manage not-implemented">
+                        <li class="manage-edit"><a href="#" >{% trans "Edit" %}</a></li>
+                        <li class="manage-remove"><a href="#" >{% trans "Delete" %}</a></li>
                     </ul>
                 </header>
 
@@ -159,12 +159,12 @@
             <!-- end: wallpost -->
         {{/each}}
 
-        <sidebar class="wallpost-filter">
+        <sidebar class="wallpost-filter not-implemented">
             <ul>
-                <li><a style="color:red;" href="#">All items</a></li>
-                <li><a style="color:red;" href="#">All photos</a></li>
-                <li><a style="color:red;" href="#">All videos</a></li>
-                <li><a style="color:red;" href="#">All comments</a></li>
+                <li><a href="#">All items</a></li>
+                <li><a href="#">All photos</a></li>
+                <li><a href="#">All videos</a></li>
+                <li><a href="#">All comments</a></li>
             </ul>
         </sidebar>
 
