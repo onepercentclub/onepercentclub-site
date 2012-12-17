@@ -6,7 +6,14 @@ from django_extensions.utils.text import truncate_letters
 from polymorphic import PolymorphicModel
 
 
+# This base class will never be used directly because  the content of the wall posts is always defined in the child
+# classes. Normally this would be an abstract class but it's not possible to make this an abstract class and have the
+# polymorphic behaviour of sorting on the common fields.
 class WallPost(PolymorphicModel):
+    # The user who wrote the wall post. This can be empty to support wall posts without users (e.g. anonymous text wall
+    # posts, system wall posts)
+    author = models.ForeignKey('auth.User', blank=True, null=True)
+
     # The metadata for the wall post.
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
@@ -19,10 +26,7 @@ class WallPost(PolymorphicModel):
 
 
 class MediaWallPost(WallPost):
-    # The user who wrote the wall post.
-    author = models.ForeignKey('auth.User')
-
-    # The content of the wall post
+    # The content of the wall post.
     title = models.CharField(max_length=60)
     text = models.TextField(max_length=300, blank=True)
     video_url = models.URLField(max_length=100, blank=True)
@@ -31,15 +35,12 @@ class MediaWallPost(WallPost):
         text = ""
         if self.text:
             text = ": " + truncate_letters(self.text, 50)
-        return self.__class__.__name__ + text
+        return "MediaWallPost" + text
 
 
 class TextWallPost(WallPost):
-    # The user who wrote the wall post - can be empty to support anonymous text wallposts.
-    author = models.ForeignKey('auth.User', blank=True, null=True)
-
-    # The content of the wall post
+    # The content of the wall post.
     text = models.TextField(max_length=300)
 
     def __unicode__(self):
-        return self.__class__.__name__ + ": " + truncate_letters(self.text, 50)
+        return "TextWallPost: " + truncate_letters(self.text, 50)

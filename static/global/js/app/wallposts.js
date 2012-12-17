@@ -7,9 +7,7 @@ App.WallPost = DS.Model.extend({
     author: DS.belongsTo('App.Member', {embedded: true}),
     title: DS.attr('string'),
     text: DS.attr('string'),
-    date: DS.attr('string'),
     timesince: DS.attr('string'),
-    video_url: DS.attr('string'),
     video_html: DS.attr('string')
 });
 
