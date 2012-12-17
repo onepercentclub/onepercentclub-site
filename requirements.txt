@@ -61,7 +61,7 @@ micawber==0.2.5
 # Our changes to polymorphic are going to be in the bluebottle integration branch. This allows us
 # to push issues upstream in separate branches while at the same time have a central place to use
 # our fixes.
-https://github.com/onepercentclub/django_polymorphic/archive/bluebottle-integration.zip
+https://github.com/onepercentclub/django_polymorphic/archive/ef9be87709f7f757058884ba255b685abd43a718.zip
 
 # Blog/news contents is created using blocks
 django-fluent-contents==0.8.3
