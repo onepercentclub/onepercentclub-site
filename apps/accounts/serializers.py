@@ -1,4 +1,4 @@
-from apps.bluebottle_utils.serializers import SorlImageField
+from apps.drf2serializers.serializers import SorlImageField
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.fields import HyperlinkedIdentityField

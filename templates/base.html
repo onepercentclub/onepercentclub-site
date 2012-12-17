@@ -48,13 +48,12 @@
     </script>
     
     
-    {% block htmlheader %}
-    {% endblock %}
+    {% block htmlheader %}{% endblock %}
 
 
     {% tplhandlebars "home" %}
         <h1 class="tagline">
-            Hallo {{ view.user.first_name }},
+            Hallo {{view.user.first_name}},
             <em>Deel 1%</em> van je tijd, kennis of geld<br />
             en <em>zie direct</em> waar het terecht komt!
         </h1>
@@ -84,6 +83,7 @@
                     </nav>
                     <nav class="nav-member member-login">
                         <h1 class="nav-title">Profile</h1>
+                        {# TODO: Create proper way to check for authenticated user. #}
                         {{#if view.user.first_name }}
                             <a href="/en/accounts/logout/?next=/en/" class="nav-my1percent"><img width="40" {{bindAttr src="view.user.picture"}} height="40" alt="Avatar" />
                                 <strong>Logout</strong>

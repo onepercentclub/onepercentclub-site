@@ -197,6 +197,7 @@ INSTALLED_APPS = (
     'gitrevision', # Display git revision
     'templatetag_handlebars',
     'rest_framework',
+    'polymorphic',
 
     # CMS page contents
     'fluent_contents',
@@ -210,6 +211,7 @@ INSTALLED_APPS = (
     'apps.blogs',
     'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
+    'apps.drf2serializers',
     'apps.contentplugins',
     'apps.accounts',
     'apps.love',
