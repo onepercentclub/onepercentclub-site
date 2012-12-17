@@ -2,17 +2,18 @@
 {% load i18n %}
 
 {% tplhandlebars "project_detail" %}
+
     <section class="wrapper" id="detail">
     
         <header class="l-wrapper">
         
             <h1 class="main-title">
-                <span class="phase">{{ view.content.phase }}</span> {{ view.content.title }}
+                <span class="phase">{{view.content.phase}}</span> {{view.content.title}}
             </h1>
             
             <div class="meta">
-                <span class="location">{{ view.content.country.name}}, {{ view.content.country.subregion}}</span> 
-                <span class="tags">{{view App.ProjectTagsView }}</span>
+                <span class="location">{{view.content.country.name}}, {{view.content.country.subregion}}</span>
+                <span class="tags">{{view App.ProjectTagsView}}</span>
             </div>
             
         </header>
@@ -40,12 +41,12 @@
                 </div>
     
                 <p class="donate-supporters">
-                    {{{ view.content.supporter_count_span }}}
+                    {{{view.content.supporter_count_span}}}
                     <em>1%Supporters</em>
                 </p>
                     
                 <p class="donate-days-left">
-                    {{{ view.content.days_left_span }}}
+                    {{{view.content.days_left_span}}}
                     <em>{% trans "days to go" %}</em>
                 </p>
             </div>
@@ -57,16 +58,17 @@
         {{view App.ProjectSupportersView}}
 
     </section>
-        
 
 {% endtplhandlebars %}
+
 
 {% tplhandlebars "project_tag_item" %}
-    {{ view.content }}
+    {{view.content}}
 {% endtplhandlebars %}
 
+
 {% tplhandlebars "project_tags_more" %}
-    +{{ view.more }}
+    +{{view.more}}
 {% endtplhandlebars %}
 
 
@@ -78,9 +80,9 @@
                 <ul>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" info="ciew.content.owner.first_name" }} width="45" height="45" />
-                            <strong class="member-name">{{ view.content.owner.full_name }}</strong>
-                            <em class="member-organisation">{{ view.content.organization }}</em>
+                            <img {{bindAttr src="view.content.owner.picture" info="view.content.owner.first_name"}} width="45" height="45" />
+                            <strong class="member-name">{{view.content.owner.full_name}}</strong>
+                            <em class="member-organisation">{{view.content.organization}}</em>
                         </a>
                     </li>
                 </ul>
@@ -90,7 +92,7 @@
                 <ul>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture"  info="ciew.content.owner.full_name" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"  info="ciew.content.owner.full_name"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -99,7 +101,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture"  info="ciew.content.owner.fullname"  }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"  info="ciew.content.owner.fullname"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -108,7 +110,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -126,7 +128,7 @@
                 <ul>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -140,7 +142,7 @@
                 <ul>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -149,7 +151,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -158,7 +160,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -167,7 +169,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -181,7 +183,7 @@
                 <ul>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -190,7 +192,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -199,7 +201,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -208,7 +210,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -217,7 +219,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -226,7 +228,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -235,7 +237,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -244,7 +246,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -253,7 +255,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -262,7 +264,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -271,7 +273,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -280,7 +282,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -289,7 +291,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -298,7 +300,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -307,7 +309,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -316,7 +318,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -325,7 +327,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -334,7 +336,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -343,7 +345,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -352,7 +354,7 @@
                     </li>
                     <li>
                         <a href="#" class="member">
-                            <img {{ bindAttr src="view.content.owner.picture" }} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
