@@ -3,9 +3,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import force_unicode
 
 
-class ReactionManager(models.Manager):
+class GenericForeignKeyManagerMixin(object):
     """
-    Manager for the Reaction model based on CommentManager from django.crontrib.comments.
+    Manager for models that use generic foreign keys based on CommentManager from django.crontrib.comments.
     """
 
     def for_model(self, model):
@@ -15,11 +15,11 @@ class ReactionManager(models.Manager):
         ct = ContentType.objects.get_for_model(model)
         qs = self.get_query_set().filter(content_type=ct)
         if isinstance(model, models.Model):
-            qs = qs.filter(object_pk=force_unicode(model._get_pk_val()))
+            qs = qs.filter(object_id=force_unicode(model._get_pk_val()))
         return qs
 
     def for_content_type(self, content_type):
         """
-        QuerySet for all reactions for particular content_type.
+        QuerySet for all models for particular content_type.
         """
         return self.get_query_set().filter(content_type=content_type)
