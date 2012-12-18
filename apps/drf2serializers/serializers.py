@@ -4,7 +4,9 @@ from django.utils.timesince import timesince
 from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
-from rest_framework.fields import Field
+from rest_framework.fields import Field, is_simple_callable
+from rest_framework.serializers import SerializerOptions, ModelSerializerOptions
+from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 import logging
@@ -76,3 +78,32 @@ class OEmbedField(Field):
             return ""
         else:
             return full_handler(url, response, **self.params)
+
+
+#
+# Serializers for django_polymorphic models. See WallPost Serializers for an example on how to use this.
+#
+class PolymorphicSerializerOptions(SerializerOptions):
+
+    def __init__(self, meta):
+        super(PolymorphicSerializerOptions, self).__init__(meta)
+        self.child_models = getattr(meta, 'child_models', None)
+
+
+class PolymorphicSerializer(serializers.Serializer):
+
+    _options_class = PolymorphicSerializerOptions
+
+    def __init__(self, **kwargs):
+        super(PolymorphicSerializer, self).__init__(**kwargs)
+        self._child_models = {}
+        for Model, Serializer in self.opts.child_models:
+            self._child_models[Model] = Serializer()
+
+    def field_to_native(self, obj, field_name):
+        """
+        Override so that we can use the child_model serializers.
+        """
+        obj = getattr(obj, self.source or field_name)
+
+        return [self._child_models[item.__class__].to_native(item) for item in obj.all()]
