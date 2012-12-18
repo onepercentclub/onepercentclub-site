@@ -1,9 +1,15 @@
+from apps.bluebottle_utils.managers import GenericForeignKeyManagerMixin
 from django.db import models
+from django.utils.text import Truncator
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
-from django_extensions.utils.text import truncate_letters
-from polymorphic import PolymorphicModel
+from polymorphic import PolymorphicModel, PolymorphicManager
+
+
+class WallPostManager(GenericForeignKeyManagerMixin, PolymorphicManager):
+    pass
 
 
 # This base class will never be used directly because  the content of the wall posts is always defined in the child
@@ -12,17 +18,21 @@ from polymorphic import PolymorphicModel
 class WallPost(PolymorphicModel):
     # The user who wrote the wall post. This can be empty to support wall posts without users (e.g. anonymous text wall
     # posts, system wall posts)
-    author = models.ForeignKey('auth.User', blank=True, null=True)
+    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_reactions", blank=True, null=True)
 
     # The metadata for the wall post.
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
     deleted = models.DateTimeField(blank=True, null=True)
+    ip_address = models.IPAddressField(_('IP address'))
 
     # Generic foreign key so we can connect it to any object.
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType, verbose_name=_('content type'), related_name="content_type_set_for_%(class)s")
+    object_id = models.PositiveIntegerField(_('object ID'))
     content_object = generic.GenericForeignKey('content_type', 'object_id')
+
+    # Manager
+    objects = WallPostManager()
 
     class Meta:
         ordering = ('created',)
@@ -35,10 +45,8 @@ class MediaWallPost(WallPost):
     video_url = models.URLField(max_length=100, blank=True)
 
     def __unicode__(self):
-        text = ""
-        if self.text:
-            text = ": " + truncate_letters(self.text, 50)
-        return "MediaWallPost" + text
+        s = "MediaWallPost: {0}".format(self.text)
+        return Truncator(s).words(10)
 
 
 class TextWallPost(WallPost):
@@ -46,4 +54,5 @@ class TextWallPost(WallPost):
     text = models.TextField(max_length=300)
 
     def __unicode__(self):
-        return "TextWallPost: " + truncate_letters(self.text, 50)
+        s = "TextWallPost: {0}".format(self.text)
+        return Truncator(s).words(10)
