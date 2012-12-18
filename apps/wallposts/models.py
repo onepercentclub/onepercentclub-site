@@ -24,6 +24,9 @@ class WallPost(PolymorphicModel):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
+    class Meta:
+        ordering = ('created',)
+
 
 class MediaWallPost(WallPost):
     # The content of the wall post.
