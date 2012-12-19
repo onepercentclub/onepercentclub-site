@@ -24,7 +24,7 @@ class WallPost(PolymorphicModel):
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
     deleted = models.DateTimeField(blank=True, null=True)
-    ip_address = models.IPAddressField(_('IP address'))
+    ip_address = models.IPAddressField(_('IP address'), blank=True, null=True)
 
     # Generic foreign key so we can connect it to any object.
     content_type = models.ForeignKey(ContentType, verbose_name=_('content type'), related_name="content_type_set_for_%(class)s")
