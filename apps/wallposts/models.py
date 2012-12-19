@@ -34,6 +34,12 @@ class WallPost(PolymorphicModel):
     # Manager
     objects = WallPostManager()
 
+    def save(self, *args, **kwargs):
+        # We overwrite save to enable 'empty' IP
+        if self.ip_address == "":
+            self.ip_address = None
+        super(WallPost, self).save(*args, **kwargs)
+
     class Meta:
         ordering = ('created',)
 
