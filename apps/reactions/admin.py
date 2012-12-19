@@ -6,7 +6,7 @@ from .models import Reaction
 class ReactionAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('content_type', 'object_pk'),
+            'fields': ('content_type', 'object_id'),
         }),
         (_('Content'), {
             'fields': ('author', 'editor', 'reaction'),
@@ -16,7 +16,7 @@ class ReactionAdmin(admin.ModelAdmin):
         }),
     )
 
-    list_display = ('author_full_name', 'content_type', 'object_pk', 'ip_address', 'created', 'updated')
+    list_display = ('author_full_name', 'content_type', 'object_id', 'ip_address', 'created', 'updated')
     list_filter = ('created', 'updated')
     date_hierarchy = 'created'
     ordering = ('-created',)
