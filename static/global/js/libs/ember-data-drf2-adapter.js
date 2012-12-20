@@ -55,8 +55,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
 
     didFindAll: function(store, type, json) {
-        // If there's multiple items they
-        // will be in .results
+        // If there's multiple items they will be in .results
         if (json.results) {
             store.loadMany(type, json.results);
         } else {
