@@ -13,6 +13,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class WallPostChildSerializer(serializers.ModelSerializer):
+    id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
     timesince = TimeSinceField(source='created')
 
@@ -26,7 +27,7 @@ class MediaWallPostSerializer(WallPostChildSerializer):
 
     class Meta:
         model = MediaWallPost
-        fields = ('author', 'title', 'text', 'timesince', 'video_html')
+        fields = ('id', 'author', 'title', 'text', 'timesince', 'video_html')
 
 
 # Note: There is no separate list and detail serializer for TextWallPosts.
@@ -36,7 +37,7 @@ class TextWallPostSerializer(WallPostChildSerializer):
 
     class Meta:
         model = TextWallPost
-        fields = ('author', 'text', 'timesince')
+        fields = ('id', 'author', 'text', 'timesince')
 
 
 class WallPostSerializer(PolymorphicSerializer):
