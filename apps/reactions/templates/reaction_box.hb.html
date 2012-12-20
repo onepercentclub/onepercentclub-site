@@ -10,6 +10,7 @@
     <button type="submit" id="reaction-post">Post</button>
 {% endtplhandlebars %}
 
+
 {% tplhandlebars "reaction_actions" %}
     <ul class="reaction-actions">
         <li><a class="toggle-reactions" data-content-hover="Show comments" data-content-toggled="Hide comments">{{ view.count }} Comments</a></li>
@@ -27,14 +28,9 @@
 
      
 {% tplhandlebars "reaction_box" %}
-    <section class="wrapper">
-        <!-- wallpost -->
-        <article class="wallpost">
-            <div class="reaction-box">
-                {{outlet reactionForm}}
-                {{outlet reactionActions}}
-                {{outlet reactionList}}
-            </div>
-        </article>
-    </section>
+    <div class="reaction-box">
+        {{outlet reactionForm}}
+        {{outlet reactionActions}}
+        {{outlet reactionList}}
+    </div>
 {% endtplhandlebars %}
