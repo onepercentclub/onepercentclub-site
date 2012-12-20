@@ -30,13 +30,10 @@ App.reactionListController = App.ListController.create({
         App.Reaction.createRecord({'reaction': reaction});
         App.store.commit();
     }
-    
-    
 });
 
 App.reactionBoxController = Em.Controller.create({
 });
-
 
 
 App.ReactionBoxView = Em.View.extend({
@@ -66,9 +63,10 @@ App.ReactionPreviewView = Em.View.extend({
     
 });
 
+
 App.ReactionNoItemsView = Em.View.extend({
     templateName: 'reaction_no_items',
-    templateFile: 'reaction_list',
+    templateFile: 'reaction_list'
 });
 
 
@@ -76,7 +74,6 @@ App.ReactionActionsView = Em.View.extend({
     countBinding: 'App.reactionListController.count',
     templateName: 'reaction_actions',
     templateFile: 'reaction_box'
-    
 });
 
 
@@ -85,6 +82,6 @@ App.ReactionListView = Em.CollectionView.extend({
     classNames: ['reactions'],
     contentBinding: 'App.reactionListController.content',
     emptyViewClass: 'App.ReactionNoItemsView',
-    itemViewClass: 'App.ReactionPreviewView',
+    itemViewClass: 'App.ReactionPreviewView'
 });
 
