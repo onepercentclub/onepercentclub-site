@@ -58,116 +58,82 @@
 
 
 {% tplhandlebars "wallpost" %}
+    <header>
+        <h3>{{view.content.title}}</h3>
+        <small class="timestamp">{{view.content.timesince}} {% trans "ago" %}</small>
+        <a href="#" class="user initiator">
+            <span class="user-img"><img {{bindAttr src="view.content.author.picture"}} width="100%" alt="Avatar" /></span>
+            <strong>{{view.content.author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
+        </a>
 
-    <section class="wrapper">
+        <ul class="manage not-implemented">
+            <li class="manage-edit"><a href="#" >{% trans "Edit" %}</a></li>
+            <li class="manage-remove"><a href="#" >{% trans "Delete" %}</a></li>
+        </ul>
+    </header>
 
-        {{#each App.wallPostListController}}
+    <div class="content">
 
-            <!-- wallpost -->
-            <article class="wallpost">
+        {{#if view.content.video_html}}
+            <div class="video">{{{view.content.video_html}}}</div>
+        {{/if}}
 
-                <header>
-                    <h3>{{title}}</h3>
-                    <small class="timestamp">{{timesince}} {% trans "ago" %}</small>
-                    <a href="#" class="user initiator">
-                        <span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
-                        <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
-                    </a>
+        {{view.content.text}}
 
-                    <ul class="manage not-implemented">
-                        <li class="manage-edit"><a href="#" >{% trans "Edit" %}</a></li>
-                        <li class="manage-remove"><a href="#" >{% trans "Delete" %}</a></li>
-                    </ul>
-                </header>
+    </div>
 
-                <div class="content">
+    <!-- reaction-box -->
+    <div class="reaction-box">
 
-                    <div class="video">{{{video_html}}}</div>
+        <form action="#" method="post" class="reaction-form">
+            <fieldset>
+                <span class="user-img"><img {{bindAttr src="view.user.picture"}} width="100%" alt="Avatar" /></span>
+                <label for="reaction-1" class="inline">
+                    {# TODO: Create proper way to check for authenticated user. #}
+                    {{#if view.user.first_name }}
+                        Hey {{view.user.first_name}}, leave a comment behind!
+                    {{else}}
+                        {# TODO: Figure out a way to do composed translations - fragment sentences are hard for translators to deal with. #}
+                        <a href="/accounts/login">{% trans "Login" %}</a> {% trans "to leave a comment." %}
+                    {{/if}}
+                </label>
+                <textarea id="reaction-1" name="reaction"></textarea>
+            </fieldset>
 
-                    {{text}}
+            <button type="submit" id="reaction-post">{% trans "Post" %}</button>
+        </form>
 
-    {# TODO: Implement photos in MediaWallPost. #}
-    {#                <div class="photo-viewer">#}
-    {#                    <span class="photo"><a href="#"><img src="/static/assets/dummy/wallpost-image.jpg" width="100%" alt="Gallery" /></a></span>#}
-    {#                    <ul>#}
-    {#                        <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>#}
-    {#                        <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>#}
-    {#                        <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>#}
-    {#                        <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>#}
-    {#                        <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>#}
-    {#                        <li class="more"><a href="#"><strong>6</strong> more photos</a></li>#}
-    {#                    </ul>#}
-    {#                </div>#}
+        <ul class="reaction-actions">
+            <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>
+            <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
+            <li class="share">
+                <strong>Share this</strong>
+                <ul class="share-actions">
+                    <li class="share-facebook">Share on Facebook</li>
+                    <li class="share-twitter"><a href="#">Share on Twitter</a></li>
+                    <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
+                </ul>
+            </li>
+        </ul>
 
+        <ul class="reactions">
+            <li class="initiator">
+                <span class="user-img"><img src="/static/assets/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
+                <div class="comment">
+                    <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum do
                 </div>
-
-                <!-- reaction-box -->
-                <div class="reaction-box">
-
-                    <form action="#" method="post" class="reaction-form">
-                        <fieldset>
-                            <span class="user-img"><img {{bindAttr src="view.user.picture"}} width="100%" alt="Avatar" /></span>
-                            <label for="reaction-1" class="inline">
-                                {# TODO: Create proper way to check for authenticated user. #}
-                                {{#if view.user.first_name }}
-                                    Hey {{view.user.first_name}}, leave a comment behind!
-                                {{else}}
-                                    {# TODO: Figure out a way to do composed translations - fragment sentences are hard for translators to deal with. #}
-                                    <a href="/accounts/login">{% trans "Login" %}</a>{% trans "to leave a comment." %}
-                                {{/if}}
-                            </label>
-                            <textarea id="reaction-1" name="reaction"></textarea>
-                        </fieldset>
-
-                        <button type="submit" id="reaction-post">{% trans "Post" %}</button>
-                    </form>
-
-                    <ul class="reaction-actions">
-                        <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>
-                        <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
-                        <li class="share">
-                            <strong>{% trans "Share this" %}</strong>
-                            <ul class="share-actions">
-                                <li class="share-facebook">{% trans "Share on Facebook" %}</li>
-                                <li class="share-twitter"><a href="#">{% trans "Share on Twitter" %}</a></li>
-                                <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">{% trans "Copy" %}</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <ul class="reactions">
-                        <li class="initiator">
-                            <span class="user-img"><img src="/static/assets/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
-                            <div class="comment">
-                                <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="user-img"><img src="/static/assets/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
-                            <div class="comment">
-                                <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                            </div>
-                        </li>
-                    </ul>
-
+            </li>
+            <li>
+                <span class="user-img"><img src="/static/assets/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
+                <div class="comment">
+                    <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum do
                 </div>
-                <!-- end: reaction-box -->
+            </li>
+       </ul>
 
-            </article>
-            <!-- end: wallpost -->
-        {{/each}}
-
-        <sidebar class="wallpost-filter not-implemented">
-            <ul>
-                <li><a href="#">All items</a></li>
-                <li><a href="#">All photos</a></li>
-                <li><a href="#">All videos</a></li>
-                <li><a href="#">All comments</a></li>
-            </ul>
-        </sidebar>
-
-    </section>
+    </div>
+    <!-- end: reaction-box -->
 
 {% endtplhandlebars %}

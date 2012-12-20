@@ -97,7 +97,7 @@ $(function() {
                 this.getTemplate(templateFile, function(data) {
                     // Iterate through handlebar tags
                     $(data).filter('script[type="text/x-handlebars"]').each(function() {
-                        var curTemplateName = $(this).attr('data-template-name')
+                        var curTemplateName = $(this).attr('data-template-name');
                         var raw = $(this).html();
                         Em.TEMPLATES[curTemplateName] = Em.Handlebars.compile(raw);
                         if (templateName == curTemplateName) {
@@ -206,7 +206,7 @@ $(function() {
             var user = App.store.find(this.get('model'), 'current');
             this.set("content", user);
         }
-    })
+    });
 
 
     /* Routing */
@@ -300,7 +300,7 @@ $(function() {
                     App.wallPostListController.getList({'type': 'projects', 'slug': slug});
                     router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
                     router.get('applicationController').connectOutlet('midPanel', 'empty');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'WallPost');
+                    router.get('applicationController').connectOutlet('bottomPanel', 'wallPostList');
                 });
             }
         })

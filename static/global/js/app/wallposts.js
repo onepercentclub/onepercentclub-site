@@ -12,10 +12,10 @@ App.WallPost = DS.Model.extend({
 });
 
 
-App.wallPostListController = App.ListController.create({
+App.wallPostListController = Em.ArrayController.create({
     model: App.WallPost,
 
-    getList: function(filterParams){
+    getList: function(filterParams) {
         var slug = filterParams['slug'];
         var type = filterParams['type'];
         var url =  type + '/' + slug + '/wallposts/';
@@ -29,6 +29,16 @@ App.wallPostListController = App.ListController.create({
 
 
 App.WallPostView = Em.View.extend({
+    tagName: 'article',
+    classNames: ['wallpost'],
     templateName: 'wallpost',
     templateFile: 'wallpost'
+});
+
+
+App.WallPostListView = Em.CollectionView.extend({
+    tagName: 'section',
+    classNames: ['wrapper'],
+    contentBinding: 'App.wallPostListController',
+    itemViewClass: 'App.WallPostView'
 });
