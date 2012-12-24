@@ -6,6 +6,7 @@ from .models import WallPost
 
 
 class WallPostList(generics.ListAPIView):
+    # Please extend this. We probably don't want to use this directly. 
     model = WallPost
     serializer_class = WallPostSerializer
     paginate_by = 10
@@ -47,8 +48,10 @@ class ProjectWallPostList(WallPostList):
 
 
 class ProjectWallPostDetail(WallPostDetail):
-    # We don't need to set the content_type and project_id for this
-    # resource, because wallposts will be unique across different wp types 
+    # We're not using this view quite yet. Keeping it for reference though.
+    # When we're implementing this view we should check 
+    # if it's an actual project wallpost and check 
+    # permissions for update/delete
     pass
 
 
