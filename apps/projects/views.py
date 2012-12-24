@@ -8,26 +8,18 @@ from .serializers import ProjectSerializer
 
 # API views
 
-class ProjectList(mixins.ListModelMixin,
-                  generics.MultipleObjectAPIView):
+class ProjectList(generics.ListAPIView):
     model = Project
     serializer_class = ProjectSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 10
     filter_fields = ('phase', 'slug')
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
 
-
-class ProjectDetail(mixins.RetrieveModelMixin,
-                    generics.SingleObjectAPIView):
+class ProjectDetail(generics.RetrieveAPIView):
     model = Project
     serializer_class = ProjectSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
 
 
 # Django template Views
