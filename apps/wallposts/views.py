@@ -1,8 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import generics
-
 from apps.projects.models import Project
-
 from .serializers import WallPostSerializer
 from .models import WallPost
 
