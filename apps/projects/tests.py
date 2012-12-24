@@ -282,7 +282,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
 
-    def test_drf2_root_view_query_filters(self):
+    def test_drf2_list_view_query_filters(self):
         """
         Tests for Project Root view with filters. These basic tests are here
         because Project is the first API to use DRF2 and DRF2 hasn't been
@@ -318,6 +318,16 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
 
-    # TODO: Add test for DRF2 project detail view.
     def test_drf2_detail_view(self):
-        pass
+        """ Tests retrieving a project detail from the API. """
+
+        # Get the list of projects.
+        request = factory.get(self.api_base)
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+        # Test retrieving the first project detail from the list.
+        project = response.data['results'][0]
+        request = factory.get(self.api_base + str(project['id']))
+        response = self.detail_view(request, pk=project['id']).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
