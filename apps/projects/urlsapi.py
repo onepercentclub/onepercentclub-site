@@ -8,5 +8,5 @@ from .models import Project
 urlpatterns = patterns('',
     url(r'^$', ProjectList.as_view(), name='project-list'),
     surl(r'^<slug:s>/wallposts/', include('apps.wallposts.urlsapi', namespace='wallposts'), {'content_type': ContentType.objects.get_for_model(Project).id}),
-    surl(r'^<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
+    url(r'^(?P<pk>[0-9]+)$', ProjectDetail.as_view(), name='project-detail'),
 )

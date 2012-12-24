@@ -22,7 +22,7 @@ class ProjectOwnerSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'picture')
 
 
-class ProjectDetailSerializer(serializers.ModelSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     country = ProjectCountrySerializer()
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     language = Field(source='get_language_display')
@@ -42,13 +42,4 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
         fields = ('country', 'created', 'id', 'image', 'language', 'latitude',
                   'longitude', 'money_asked', 'money_donated', 'organization',
                   'owner', 'phase', 'planned_end_date', 'planned_start_date',
-                  'tags', 'themes', 'title', 'url', 'description')
-
-
-class ProjectListSerializer(ProjectDetailSerializer):
-    image = SorlImageField('image', '230x150', crop='center')
-
-    class Meta:
-        model = Project
-        fields = ('country', 'id', 'image', 'money_asked', 'money_donated',
-                  'slug', 'title', 'url', 'phase')
+                  'slug', 'tags', 'themes', 'title', 'url', 'description')

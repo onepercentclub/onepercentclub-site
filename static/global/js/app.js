@@ -135,9 +135,10 @@ $(function() {
 
     App.store = DS.Store.create({
         revision: 7,
-        adapter: DS.DRF2Adapter.create()
+        adapter: DS.DRF2Adapter.create({
+            namespace: "i18n/api"
+        })
     });
-
 
     /* Base Controllers */
 
@@ -149,30 +150,6 @@ $(function() {
                 this.set('filterParams', filterParams);
             }
             this.set('content', App.store.find(this.get('model'), this.get('filterParams')));
-        }
-    });
-
-    // Controller to get single records from API
-    App.DetailController = Em.ObjectController.extend({
-        filterParams: {},
-        getPkValue: function() {
-            var params = this.get('filterParams');
-            pk = "";
-            if (undefined !== params['slug']) {
-                pk = params['slug'];
-            } else if (undefined !== params['id']) {
-                pk = params['id'];
-            } else if (undefined !== params['pk']) {
-                pk = params['pk'];
-            }
-            return pk;
-        },
-
-        getDetail: function(filterParams) {
-            if (filterParams) {
-                this.set('filterParams', filterParams);
-            }
-            this.set("content", App.store.find(this.get('model'), this.getPkValue()));
         }
     });
 
@@ -196,7 +173,7 @@ $(function() {
     });
 
 
-    App.userController = App.DetailController.create({
+    App.userController = Em.ObjectController.create({
         model: App.User,
         init: function() {
             this._super();
@@ -232,17 +209,11 @@ $(function() {
 
         detail: Em.Route.extend({
             route: '/:slug',
-            deserialize: function(router, context) {
-                // TODO: See if we can stick to just  context.get('slug')
-                // Now the Ember action and the 'bookmarked' page need \
-                // different approach
-                var slug = context.slug ? context.slug : context.get('slug');
-                return {slug: slug}
+            deserialize: function(router, params) {
+                return {slug: Em.get(params, 'slug')}
             },
-            serialize: function(router, context) {
-                // TODO: See if we can stick to just  context.get('slug')
-                var slug = context.slug ? context.slug : context.get('slug');
-                return {slug: slug};
+            serialize: function(router, blog) {
+                return {slug: Em.get(blog, 'slug')};
             },
             connectOutlets: function(router, context) {
                 require(['app/blogs', 'app/reactions'], function() {
@@ -273,9 +244,9 @@ $(function() {
             route: '/',
             connectOutlets: function(router, context) {
                 require(['app/projects'], function() {
-                    App.projectSearchController.getList({phase: 'fund'});
+                    App.projectListController.set('content', App.Project.find({phase: 'fund'}));
                     router.get('applicationController').connectOutlet('topPanel', 'empty');
-                    router.get('applicationController').connectOutlet('midPanel', 'projectSearch');
+                    router.get('applicationController').connectOutlet('midPanel', 'projectList');
                     router.get('applicationController').connectOutlet('bottomPanel', 'empty');
                 });
             }
@@ -284,23 +255,35 @@ $(function() {
         // The project detail state.
         detail: Em.Route.extend({
             route: '/:slug',
-            deserialize: function(router, context) {
-                var slug = context.slug ? context.slug : context.get('slug');
-                return {slug: slug}
+            deserialize: function(router, params) {
+                return {slug: Em.get(params, 'slug')}
             },
-            serialize: function(router, context) {
-                var slug = context.slug ? context.slug : context.get('slug');
-                return {slug: slug};
+            serialize: function(router, project) {
+                return {slug: Em.get(project, 'slug')};
             },
-            connectOutlets: function(router, context) {
+            connectOutlets: function(router, project) {
                 require(['app/projects', 'app/wallposts'], function() {
-                    var slug = context.slug ? context.slug : context.get('slug');
-                    App.projectDetailController.getDetail({slug: slug});
-                    // TODO: use the detail from the line above to pass to call below
-                    App.wallPostListController.getList({'type': 'projects', 'slug': slug});
+                    var id = Em.get(project, 'id'),
+                        slug = Em.get(project, 'slug');
+                    if (id) {
+                        App.projectDetailController.set('content', App.Project.find(id));
+                    } else if (slug) {
+                        // There could be a race condition here because the observer is setup after the empty list of
+                        // projects is created.
+                        var projects = App.Project.find({slug: slug});
+                        projects.addObserver('content', function(sender, key) {
+                            // TODO implement 404 page:
+                            // if (this.length < 1)
+                            //     Em.Route.transitionTo('404');
+                            App.projectDetailController.set('content', this.objectAt(0));
+                        });
+                    } else {
+                        Em.assert("Project id and slug cannot be determined. Can't continue.", false);
+                    }
+
                     router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
                     router.get('applicationController').connectOutlet('midPanel', 'empty');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'wallPostList');
+                    router.get('applicationController').connectOutlet('bottomPanel', 'empty');
                 });
             }
         })
