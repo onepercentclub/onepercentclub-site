@@ -102,3 +102,51 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     }
 
 });
+
+/*
+Changes from default:
+ - add embedded support
+*/
+var hasAssociation = function(type, options, one) {
+    options = options || {};
+
+    var meta = { type: type, isAssociation: true, options: options, kind: 'belongsTo' };
+
+    return Ember.computed(function(key, value) {
+        if (arguments.length === 2) {
+            return value === undefined ? null : value;
+        }
+
+        var data = get(this, 'data').belongsTo,
+            store = get(this, 'store'), id;
+
+        if (typeof type === 'string') {
+            type = get(this, type, false) || get(window, type);
+        }
+
+        id = data[key];
+
+        // start: embedded support
+        if (options.embedded == true && typeof(id) !== 'string') {
+            // load the object
+            var obj = data[key];
+            if (obj !== undefined) {
+                id = obj.id
+                // Load the embedded object in store
+                store.load(type, id, obj);
+            }
+        }
+        // end: embedded support
+
+        return id ? store.find(type, id) : null;
+    }).property('data').meta(meta);
+}
+
+/*
+Changes from default:
+ - redefine belongsTo() with our own hasAssociation() function
+*/
+DS.belongsTo = function(type, options) {
+    Em.assert("The type passed to DS.belongsTo must be defined", !!type);
+    return hasAssociation(type, options);
+};
