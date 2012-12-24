@@ -51,8 +51,7 @@ class MediaWallPost(WallPost):
     video_url = models.URLField(max_length=100, blank=True)
 
     def __unicode__(self):
-        s = "MediaWallPost: {0}".format(self.text)
-        return Truncator(s).words(10)
+        return Truncator(self.text).words(10)
 
 
 class TextWallPost(WallPost):
@@ -60,5 +59,4 @@ class TextWallPost(WallPost):
     text = models.TextField(max_length=300)
 
     def __unicode__(self):
-        s = "TextWallPost: {0}".format(self.text)
-        return Truncator(s).words(10)
+        return Truncator(self.text).words(10)
