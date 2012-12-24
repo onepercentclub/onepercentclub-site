@@ -1,7 +1,7 @@
 App.Country = DS.Model.extend({
     name: DS.attr('string'),
     subregion: DS.attr('string')
-})
+});
 
 
 App.Project = DS.Model.extend({
@@ -43,38 +43,37 @@ App.Project = DS.Model.extend({
         }
         return html;
     }.property('supporter_count')
-})
+});
 
 
-App.projectSearchController = App.ListController.create({
+App.projectListController = App.ListController.create({
     model: App.Project
 });
 
 
-/* The search results. */
-App.ProjectSearchView = Em.View.extend({
-    countBinding: 'App.projectSearchController.count',
+/* Project List. */
+App.ProjectListView = Em.View.extend({
     tagName: 'div',
-    templateName: 'project_search',
+    templateName: 'project_list',
+    templateFile: 'project_list',
     classNames: ['container']
 });
 
-
-App.ProjectSearchResultsView = Em.CollectionView.extend({
-    contentBinding: "App.projectSearchController",
+App.ProjectListCollectionView = Em.CollectionView.extend({
+    contentBinding: "App.projectListController",
     tagName: 'ul',
     emptyView: Em.View.extend({
-        templateName: 'project_no_results',
-        templateFile: 'project_search'
+        templateName: 'project_no_items',
+        templateFile: 'project_list'
     }),
-    itemViewClass: 'App.ProjectPreviewView'
+    itemViewClass: 'App.ProjectListItemView'
 });
 
 
-App.ProjectPreviewView = Em.View.extend({
+App.ProjectListItemView = Em.View.extend({
     tagName: 'li',
-    templateName: 'project_preview',
-    templateFile: 'project_search'
+    templateName: 'project_list_item',
+    templateFile: 'project_list'
 });
 
 
@@ -86,7 +85,7 @@ App.ProjectSupportersView = Em.View.extend({
 });
 
 
-App.projectDetailController = App.DetailController.create({
+App.projectDetailController = Em.ObjectController.create({
     model: App.Project
 });
 

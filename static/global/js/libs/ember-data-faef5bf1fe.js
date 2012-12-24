@@ -5537,7 +5537,6 @@ DS.RESTAdapter = DS.Adapter.extend({
   },
 
   rootForType: function(type) {
-    console.log(type);
     if (type.url) { return type.url; }
     // use the last part of the name as the URL
     var parts = type.toString().split(".");

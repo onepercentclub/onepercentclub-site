@@ -106,10 +106,14 @@ class Project(models.Model):
 
     @property
     def description(self):
+        # TODO We need to figure out the best spot for description once the interaction design is worked.
         try:
             return self.fundphase.description
         except FundPhase.DoesNotExist:
-            return self.ideaphase.description
+            try:
+                return self.ideaphase.description
+            except IdeaPhase.DoesNotExist:
+                return ""
 
     class Meta:
         ordering = ['title']
