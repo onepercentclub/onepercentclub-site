@@ -2462,23 +2462,23 @@ ul.steps li.selected a {
   -moz-box-shadow: 2px -2px 2px rgba(5, 5, 5, 0.2);
   box-shadow: 2px -2px 2px rgba(5, 5, 5, 0.2);
 }
-/* line 157, ../sass/modules/_member-box.scss */
+/* line 155, ../sass/modules/_member-box.scss */
 .popup span {
   display: block;
 }
-/* line 161, ../sass/modules/_member-box.scss */
+/* line 159, ../sass/modules/_member-box.scss */
 .popup .action {
   text-transform: uppercase;
 }
-/* line 165, ../sass/modules/_member-box.scss */
+/* line 163, ../sass/modules/_member-box.scss */
 .popup .comment {
   color: #050505;
 }
-/* line 169, ../sass/modules/_member-box.scss */
+/* line 167, ../sass/modules/_member-box.scss */
 .popup .profile {
   text-decoration: underline;
 }
-/* line 173, ../sass/modules/_member-box.scss */
+/* line 171, ../sass/modules/_member-box.scss */
 .popup:before {
   position: absolute;
   width: 0;

@@ -40,7 +40,7 @@ $(document).ready(function(){
             $('.share-actions', $(this)).hide();
         });
     
-    // DEVELOPMENT: needed for static template
+    // DEVelOPMENT: needed for static template
     initBehaviour('body');
     toggleText( $('.toggle-reactions') );
     toggleText( $('.toggle-love') );
@@ -89,10 +89,10 @@ function initPopup() {
 // toggles content and classnames on click, mouseenter & mouseleave
 function toggleText(el, parent){
     // if it doesn't have a parent, bind on itself
-    parent = typeof parent !== 'undefined' ? parent : el;
+    this.parent = typeof parent !== 'undefined' ? parent : el;
     // swap text & classnames
-    $(parent)
-        .live('click',{el: el}, function(e, el) {
+    $(this.parent)
+        .live('click',{el: el}, function(e) {
             $(el)
                 .toggleClass('is-active')
                 .addClass('is-activated')
