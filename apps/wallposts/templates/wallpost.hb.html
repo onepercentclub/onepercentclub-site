@@ -59,7 +59,7 @@
 
 {% tplhandlebars "wallpost" %}
     <header>
-        <h3>{{view.content.title}}</h3>
+        <h3>{{view.content.title}} Not Empty</h3>
         <small class="timestamp">{{view.content.timesince}} {% trans "ago" %}</small>
         <a href="#" class="user initiator">
             <span class="user-img"><img {{bindAttr src="view.content.author.picture"}} width="100%" alt="Avatar" /></span>
@@ -119,14 +119,14 @@
         <ul class="reactions">
             <li class="initiator">
                 <span class="user-img"><img src="/static/assets/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
-                <div class="comment">
+                <div class="reaction">
                     <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum do
                 </div>
             </li>
             <li>
                 <span class="user-img"><img src="/static/assets/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
-                <div class="comment">
+                <div class="reaction">
                     <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis posuere turpis, a dapibus ligula. Lorem ipsum do
                 </div>
