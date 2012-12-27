@@ -95,10 +95,22 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     pluralize: function(name) {
         if (this.plurals[name])
             return this.plurals[name];
-        else if (name.substr(name.length - 1) === 's')
+        else if (name.charAt(name.length - 1) === 's')
             return name;
         else
             return name + 's';
+    },
+
+    /*
+     Changes from default:
+     - add trailing slash for lists.
+     */
+    buildURL: function(record, suffix) {
+        var url = this._super(record, suffix);
+        if (suffix === undefined && url.charAt(url.length - 1) !== '/') {
+            url += '/';
+        }
+        return url;
     }
 
 });
