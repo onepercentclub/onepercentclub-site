@@ -8,7 +8,7 @@ input[type=text], input[type=number], input[type=search], input[type=email], inp
     margin: -1px 0.5em 0px 0px;
     padding: 0.6em;
     width: 100%;
-    @include border-radius(0.2em);
+    @include border-radius(0.3em);
     @include box-shadow(inset 0px 1px 3px rgba($black, 0.1));
     @include transition(border 0.1s);
     vertical-align: baseline;

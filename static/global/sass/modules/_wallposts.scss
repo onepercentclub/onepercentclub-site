@@ -29,7 +29,7 @@
     }
     
     header {
-        @include grid(48, 10, 1);
+        @include grid(48, 9, 1);
         
         .timestamp {
             @include rem(top, 140px);
@@ -44,8 +44,10 @@
     }
     
     .content {
-        @include grid(48, 10, 0);
+        @include grid(48, 9, 0);
         position: relative;
+        @include rem(min-height, 64px);
+        @include rem(margin-bottom, 16px);
     }
     
     .reaction-box {

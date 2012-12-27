@@ -42,6 +42,16 @@ $(document).ready(function(){
     
     // DEVelOPMENT: needed for static template
     initBehaviour('body');
+    
+    // expande reactio-box on focus
+    $('.reaction-form textarea')
+        .live('focus', function(e) {
+            $(this).closest('.reaction-form').addClass('is-selected');
+        })
+        .live('blur', function(e) {
+            $(this).closest('.reaction-form').removeClass('is-selected');
+        });
+        
     toggleText( $('.toggle-reactions') );
     toggleText( $('.toggle-love') );
 });
