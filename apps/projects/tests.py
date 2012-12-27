@@ -1,17 +1,16 @@
 from decimal import Decimal
 from datetime import timedelta
-
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.utils import timezone
-
+from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
 from apps.projects.views import ProjectList, ProjectDetail
-
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
+
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -225,11 +224,12 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
                 project.phase = Project.ProjectPhases.fund
                 project.save()
 
-        self.root_view = ProjectList.as_view()
-        self.instance_view = ProjectDetail.as_view()
-        self.api_base = '/i18n/projects/'
+        self.list_view = ProjectList.as_view()
+        self.list_view_count = 10
+        self.detail_view = ProjectDetail.as_view()
+        self.api_base = '/i18n/api/projects/'
 
-    def test_drf2_root_view(self):
+    def test_drf2_list_view(self):
         """
         Tests for Project Root view. These basic tests are here because Project
         is the first API to use DRF2 and DRF2 hasn't been released yet. Not all
@@ -238,51 +238,51 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
 
         # Basic test of DRF2.
         request = factory.get(self.api_base)
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), 4)
+        self.assertEquals(len(response.data['results']), self.list_view_count)
         self.assertNotEquals(response.data['next'], None)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the next link works.
         request = factory.get(response.data['next'])
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), 4)
+        self.assertEquals(len(response.data['results']), self.list_view_count)
         self.assertNotEquals(response.data['next'], None)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link works.
         request = factory.get(response.data['previous'])
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), 4)
+        self.assertEquals(len(response.data['results']), self.list_view_count)
         self.assertNotEquals(response.data['next'], None)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the last page works.
-        request = factory.get(self.api_base + '?page=7')
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
+        request = factory.get(self.api_base + '?page=3')
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), 2)
+        self.assertEquals(len(response.data['results']), 26 % self.list_view_count)
         self.assertEquals(response.data['next'], None)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link from the last page works.
         request = factory.get(response.data['previous'])
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), 4)
+        self.assertEquals(len(response.data['results']), self.list_view_count)
         self.assertNotEquals(response.data['next'], None)
         self.assertNotEquals(response.data['previous'], None)
 
 
-    def test_drf2_root_view_query_filters(self):
+    def test_drf2_list_view_query_filters(self):
         """
         Tests for Project Root view with filters. These basic tests are here
         because Project is the first API to use DRF2 and DRF2 hasn't been
@@ -292,49 +292,42 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
 
         # Tests that the phase filter works.
         request = factory.get(self.api_base + '?phase=fund')
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), 4)
+        self.assertEquals(len(response.data['results']), self.list_view_count)
         self.assertNotEquals(response.data['next'], None)
         self.assertEquals(response.data['previous'], None)
 
-        # Tests that the next link works with a filter.
+        # Tests that the next link works with a filter (this is also the last page).
         request = factory.get(response.data['next'])
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), 4)
-        self.assertNotEquals(response.data['next'], None)
+        self.assertEquals(len(response.data['results']), 13 % self.list_view_count)
+        self.assertEquals(response.data['next'], None)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link works with a filter.
         request = factory.get(response.data['previous'])
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), 4)
+        self.assertEquals(len(response.data['results']), self.list_view_count)
         self.assertNotEquals(response.data['next'], None)
         self.assertEquals(response.data['previous'], None)
 
-        # Tests that the last page works with a filter.
-        request = factory.get(self.api_base + '?page=4&phase=fund')
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
-        self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), 1)
-        self.assertEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
 
-        # Tests that the previous link from the last page works with a filter.
-        request = factory.get(response.data['previous'])
-        response = self.root_view(request).render()
-        self.assertEquals(response.status_code, 200)  # HTTP 200 - OK
-        self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), 4)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
-
-    # TODO: Add test for DRF2 project detail view.
     def test_drf2_detail_view(self):
-        pass
+        """ Tests retrieving a project detail from the API. """
+
+        # Get the list of projects.
+        request = factory.get(self.api_base)
+        response = self.list_view(request).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+        # Test retrieving the first project detail from the list.
+        project = response.data['results'][0]
+        request = factory.get(self.api_base + str(project['id']))
+        response = self.detail_view(request, pk=project['id']).render()
+        self.assertEquals(response.status_code, status.HTTP_200_OK)

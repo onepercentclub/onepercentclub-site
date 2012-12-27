@@ -1,26 +1,26 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
 
-{% tplhandlebars "project_search" %}
+{% tplhandlebars "project_list" %}
     <section class="wrapper">
         <article>
             <header>
                 <h2>Projects</h2>
-                {{view App.ProjectSearchResultsView}}
+                {{view App.ProjectListCollectionView}}
             </header>
         </article>
     </section>
 {% endtplhandlebars %}
 
-{% tplhandlebars "project_no_results" %}
+{% tplhandlebars "project_no_items" %}
     No results
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "project_preview" %}
+{% tplhandlebars "project_list_item" %}
     <div>
-        <a {{action showProjectDetail view.content href=true }}>
-            {{ view.content.title }}
+        <a {{action showProjectDetail view.content href=true}}>
+            {{view.content.title}}
         </a>
     </div>
 {% endtplhandlebars %}
