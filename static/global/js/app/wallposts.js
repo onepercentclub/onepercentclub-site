@@ -1,7 +1,7 @@
 
 
-App.WallPost = DS.Model.extend({
-    url: 'wallposts',
+App.ProjectWallPost = DS.Model.extend({
+    url: 'wallposts/projectwallposts',
 
     // Model fields
     author: DS.belongsTo('App.Member', {embedded: true}),
@@ -12,19 +12,13 @@ App.WallPost = DS.Model.extend({
 });
 
 
-App.wallPostListController = Em.ArrayController.create({
-    model: App.WallPost,
+App.projectWallPostListController = Em.ArrayController.create({
+    model: App.ProjectWallPost,
 
-    getList: function(filterParams) {
-        var slug = filterParams['slug'];
-        var type = filterParams['type'];
-        var url =  type + '/' + slug + '/wallposts/';
-        var model =  this.get('model');
-        model.reopen({
-            'url': url
-        });
-        this.set('content', App.store.findAll(model));
-    }
+    projectIdChanged: function(sender, key) {
+        var projectId = App.projectDetailController.get('content').get('id')
+        this.set('content', App.ProjectWallPost.find({project_id: projectId}));
+    }.observes('App.projectDetailController.content')
 });
 
 
@@ -36,9 +30,9 @@ App.WallPostView = Em.View.extend({
 });
 
 
-App.WallPostListView = Em.CollectionView.extend({
+App.ProjectWallPostListView = Em.CollectionView.extend({
     tagName: 'section',
     classNames: ['wrapper'],
-    contentBinding: 'App.wallPostListController',
+    contentBinding: 'App.projectWallPostListController',
     itemViewClass: 'App.WallPostView'
 });

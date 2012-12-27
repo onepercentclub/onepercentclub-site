@@ -283,7 +283,7 @@ $(function() {
 
                     router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
                     router.get('applicationController').connectOutlet('midPanel', 'empty');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'empty');
+                    router.get('applicationController').connectOutlet('bottomPanel', 'projectWallPostList');
                 });
             }
         })
