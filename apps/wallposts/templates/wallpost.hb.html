@@ -1,63 +1,64 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
 
+
+{% tplhandlebars "wallpost_form_container" %}
+
+    <section class="wrapper" id="wallpost-form">
+
+        <!-- wallpost form -->
+        <header>
+            <h2>Comments &amp; Updates</h2>
+            <p class="not-implemented">Hi Bart, your last update about this project was 16 days ago.</p>
+        </header>
+
+        {{view App.WallPostFormView}}
+
+        <div class="sidebar tip not-implemented">
+            <h3>Need some inspiration and tips on how to engage with your peers? Here’s some of our secrets:</h3>
+            <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+            <p><a href="#">Read some more</a></p>
+        </div>
+        <!-- end: wallpost form -->
+
+    </section>
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "wallpost_form" %}
 
-    <div class="container section">
+    <fieldset>
+        <ul>
+            <li class="error">
+                <label for="wallpost-title" class="inline">{% trans "Title of your update - Required" %}</label>
+                {{view Ember.TextField valueBinding="view.wallpost.title" id="wallpost-title" name="wallpost-title"}}
+            </li>
+            <li>
+                <label for="wallpost-update" class="inline">{% trans "Your update" %}</label>
+                {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+            </li>
+            <li>
+                <label for="wallpost-video" class="inline">Link to video on <a href="#">YouTube</a> or <a href="#">Vimeo</a></label>
+                {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
+            </li>
+{#            TODO: Implment photos #}
+{#            <li>#}
+{#                <label for="wallpost-photos">Upload & add Photo's <small>(620 x 380 minimum for best results)</small></label>#}
+{#                <span class="fileinput-button image">#}
+{#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
+{#                </span>#}
+{#            </li>#}
+        </ul>
+    </fieldset>
 
-        <section class="wrapper" id="wallpost-form">
-
-            <!-- wallpost form -->
-            <header>
-                <h2>Comments &amp; Updates</h2>
-                <p>Hi Bart, your last update about this project was 16 days ago.</p>
-            </header>
-
-            <form id="" action="/" method="post">
-                <fieldset>
-                    <ul>
-                        <li class="error">
-                            <label for="wallpost-title" class="inline">Title of your update - Required</label>
-                            <input type="text" id="wallpost-title" name="wallpost-title" />
-                        </li>
-                        <li>
-                            <label for="wallpost-update" class="inline">Your update</label>
-                            <textarea cols="50" rows="4" id="wallpost-update" name="wallpost-update"></textarea>
-                        </li>
-                        <li>
-                            <label for="wallpost-video" class="inline">Link to video on <a href="#">YouTube</a> or <a href="#">Vimeo</a></label>
-                            <input type="text" id="wallpost-video" name="wallpost-video" />
-
-                        </li>
-                        <li>
-                            <label for="wallpost-photos">Upload & add Photo's <small>(620 x 380 minimum for best results)</small></label>
-                            <span class="fileinput-button image">
-                                <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>
-                            </span>
-                        </li>
-                    </ul>
-                </fieldset>
-
-                <button type="submit">Post Update</button>
-
-            </form>
-
-            <div class="sidebar tip">
-                <h3>Need some inspiration and tips on how to engage with your peers? Here’s some of our secrets:</h3>
-                <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
-                <p><a href="#">Read some more</a></p>
-            </div>
-
-            <!-- end: wallpost form -->
-
-        </section>
-
-    </div>
+    <button type="submit">Post Update</button>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "wallpost" %}
+
     <header>
         <h3>{{view.content.title}} Not Empty</h3>
         <small class="timestamp">{{view.content.timesince}} {% trans "ago" %}</small>

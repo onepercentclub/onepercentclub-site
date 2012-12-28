@@ -72,6 +72,32 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
+     - don't embed record within 'root' in the json.
+     */
+    createRecord: function(store, type, record) {
+        var root = this.rootForType(type);
+        var data = this.toJSON(record, { includeId: true });
+
+        this.ajax(this.buildURL(root), "POST", {
+            data: data,
+            context: this,
+            success: function(json) {
+                this.didCreateRecord(store, type, record, json);
+            }
+        });
+    },
+
+    /*
+     Changes from default:
+     - don't call sideload() because DRF2 doesn't support it.
+     - get result from json directly.
+     */
+    didCreateRecord: function(store, type, record, json) {
+        this.didSaveRecord(store, record, json);
+    },
+
+    /*
+     Changes from default:
      - don't replace CamelCase with '_'.
      - also check for 'url' defined in the class.
      */
