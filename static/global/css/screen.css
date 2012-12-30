@@ -950,7 +950,7 @@ form ul > li ul.checklist label:hover {
   cursor: pointer;
 }
 /* line 116, ../sass/includes/_forms.scss */
-form ul li.error label {
+form ul label .error {
   color: #d24226;
 }
 /* line 118, ../sass/includes/_forms.scss */

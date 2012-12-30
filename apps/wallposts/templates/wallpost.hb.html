@@ -12,7 +12,7 @@
             <p class="not-implemented">Hi Bart, your last update about this project was 16 days ago.</p>
         </header>
 
-        {{view App.WallPostFormView}}
+        {{view App.MediaWallPostFormView}}
 
         <div class="sidebar tip not-implemented">
             <h3>Need some inspiration and tips on how to engage with your peers? Here’s some of our secrets:</h3>
@@ -26,14 +26,56 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "wallpost_form" %}
+{% tplhandlebars "media_wallpost_form" %}
 
     <fieldset>
         <ul>
-            <li class="error">
-                <label for="wallpost-title" class="inline">{% trans "Title of your update - Required" %}</label>
+            <li>
+                <label for="wallpost-title" class="inline">
+                    {% trans "Title of your update." %}
+                    {{#each view.wallpost.errors.title}}
+                        <span class="error">{{this}}</span>
+                    {{/each}}
+                </label>
                 {{view Ember.TextField valueBinding="view.wallpost.title" id="wallpost-title" name="wallpost-title"}}
             </li>
+            <li>
+                <label for="wallpost-update" class="inline">
+                    {% trans "Your update." %}
+                    {{#each view.wallpost.errors.text}}
+                        <span class="error">{{this}}</span>
+                    {{/each}}
+                </label>
+                {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+            </li>
+            <li>
+                <label for="wallpost-video" class="inline">
+                    {% trans "Link to video on YouTube or Vimeo." %}
+                    {{#each view.wallpost.errors.video_url}}
+                        <span class="error">{{this}}</span>
+                    {{/each}}
+                </label>
+                {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
+            </li>
+{#            TODO: Implment photos #}
+{#            <li>#}
+{#                <label for="wallpost-photos">Upload & add Photo's <small>(620 x 380 minimum for best results)</small></label>#}
+{#                <span class="fileinput-button image">#}
+{#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
+{#                </span>#}
+{#            </li>#}
+        </ul>
+    </fieldset>
+
+    <button type="submit">Post Update</button>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "text_wallpost_form" %}
+
+    <fieldset>
+        <ul>
             <li>
                 <label for="wallpost-update" class="inline">{% trans "Your update" %}</label>
                 {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
@@ -60,7 +102,7 @@
 {% tplhandlebars "wallpost" %}
 
     <header>
-        <h3>{{view.content.title}} Not Empty</h3>
+        <h3>{{view.content.title}}</h3>
         <small class="timestamp">{{view.content.timesince}} {% trans "ago" %}</small>
         <a href="#" class="user initiator">
             <span class="user-img"><img {{bindAttr src="view.content.author.picture"}} width="100%" alt="Avatar" /></span>

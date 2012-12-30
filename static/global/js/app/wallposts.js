@@ -18,19 +18,10 @@ App.ProjectWallPost = DS.Model.extend({
 
 
 // Temporary model for projectmediawallposts list/create.
-App.ProjectMediaWallPost = DS.Model.extend({
+App.ProjectMediaWallPost = App.ProjectWallPost.extend({
     url: 'wallposts/projectmediawallposts',
 
-    // Model fields
-    // Should we be using DS.belongsTo here?
-    project_id: DS.attr('number'),
-    author: DS.belongsTo('App.Member', {embedded: true}),
-    title: DS.attr('string'),
-    text: DS.attr('string'),
-    video_url: DS.attr('string'),
-    timesince: DS.attr('string'),
-    video_html: DS.attr('string'),
-
+    // TODO: (how) do we want to use this??
     didCreate: function() {
         console.log('greate');
     },
@@ -54,10 +45,15 @@ App.projectWallPostListController = Em.ArrayController.create({
 
     addMediaWallPost: function(wallpost) {
         // TODO: Why is this called when the project page is first loaded?
-        // Add project_id to the wallpost
-        wallpost.project_id = this.get('content.query.project_id');
-        this.get('model').createRecord(wallpost);
-        App.store.commit()
+        // If we have a standard object then convert into the right model
+        if (!(wallpost instanceof this.get('model'))) {
+            // Add project_id to the wallpost
+            wallpost.project_id = this.get('content.query.project_id');
+            var wallpost = this.get('model').createRecord(wallpost);
+        } 
+        App.store.commit();
+        // Return the model (with errors) for the form to parse it.
+        return wallpost;
         // TODO: Deal with the response when wallpost is created - it returns the newly created WallPost.
     }
 });
@@ -74,14 +70,28 @@ App.WallPostFormContainerView = Em.View.extend({
 });
 
 
-App.WallPostFormView = Em.View.extend({
-    templateName: 'wallpost_form',
+App.MediaWallPostFormView = Em.View.extend({
+    templateName: 'media_wallpost_form',
     templateFile: 'wallpost',
     tagName: 'form',
     wallpost: {},
     submit: function(e){
         e.preventDefault();
-        App.projectWallPostListController.addMediaWallPost(this.get('wallpost'));
+        // Send the object to controller
+        // This will return a DS.Model with optional error codes
+        // We'll replace this.wallpost with the proper DS.Model to bind errors
+        this.set('wallpost',  App.projectWallPostListController.addMediaWallPost(this.get('wallpost')));
+    }
+});
+
+App.TextWallPostFormView = Em.View.extend({
+    templateName: 'text_wallpost_form',
+    templateFile: 'wallpost',
+    tagName: 'form',
+    wallpost: {},
+    submit: function(e){
+        e.preventDefault();
+        App.projectWallPostListController.addTextWallPost(this.get('wallpost'));
     }
 });
 

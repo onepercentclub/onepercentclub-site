@@ -83,8 +83,20 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             context: this,
             success: function(json) {
                 this.didCreateRecord(store, type, record, json);
+            },
+            error: function(xhr) {
+                this.didError(store, type, record, xhr);
             }
         });
+    },
+
+    didError: function(store, type, record, xhr) {
+        if (xhr.status === 422 || xhr.status == 400) {
+            var data = JSON.parse(xhr.responseText);
+            store.recordWasInvalid(record, data);
+        } else {
+            store.recordWasError(record);
+        }
     },
 
     /*
