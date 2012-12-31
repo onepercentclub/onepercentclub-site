@@ -27,6 +27,9 @@
     <!-- Scripts -->
     {% compress js %}
     {% endcompress %}
+
+    <script type="text/javascript" src="https://onepercentclub.atlassian.net/s/en_US-pw1a5o-418945332/6007/42/1.3.2/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=16939b76"></script>
+
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery.ui.widget.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.iframe-transport.js"></script>
@@ -131,7 +134,8 @@
     {% endtplhandlebars %}
 
 </head>
-<body id="content">
+<body id="body">
+    <div id="content"></div>
     <!-- Scripts -->
     <div id="fb-root"></div>
     <!--[if lt IE 9]><script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->

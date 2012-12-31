@@ -42,7 +42,7 @@ $(document).ready(function(){
     
     // DEVelOPMENT: needed for static template
     initBehaviour('body');
-    
+
     // expande reactio-box on focus
     $('.reaction-form textarea')
         .live('focus', function(e) {
@@ -55,6 +55,8 @@ $(document).ready(function(){
     toggleText( $('.toggle-reactions') );
     toggleText( $('.toggle-love') );
 });
+
+
 
 
 // show popup on hover of element, styled and positioned by css. 
