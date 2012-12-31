@@ -159,6 +159,7 @@ $(function() {
 
     App.Member = DS.Model.extend({
         url: 'members/users',
+        username: DS.attr('string'),
         first_name: DS.attr('string'),
         last_name: DS.attr('string'),
         picture: DS.attr('string'),

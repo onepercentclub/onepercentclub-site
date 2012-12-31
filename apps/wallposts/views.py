@@ -3,14 +3,14 @@ from rest_framework import generics
 from rest_framework import mixins
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
-from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer
-from .models import WallPost, MediaWallPost
+from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
+from .models import WallPost, MediaWallPost, TextWallPost
 
 
 
 
 
-class WallPostList(generics.ListAPIView):
+class WallPostList(generics.ListCreateAPIView):
     # Please extend this. We probably don't want to use this directly. 
     model = WallPost
     serializer_class = WallPostSerializer
@@ -83,6 +83,10 @@ class ProjectMediaWallPostList(generics.ListCreateAPIView):
     def get_queryset(self):
         project_type = ContentType.objects.get_for_model(Project)
         return self.model.objects.filter(content_type__pk=project_type.id)
+
+class ProjectTextWallPostList(ProjectMediaWallPostList):
+    model = TextWallPost
+    serializer_class = ProjectTextWallPostSerializer
 
 
 class ProjectMediaWallPostDetail(generics.RetrieveUpdateDestroyAPIView):

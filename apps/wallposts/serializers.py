@@ -13,7 +13,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'picture')
+        fields = ('id', 'first_name', 'last_name', 'picture', 'username')
 
 
 class WallPostTypeField(fields.Field):
