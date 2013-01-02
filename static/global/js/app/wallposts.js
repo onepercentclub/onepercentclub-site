@@ -46,19 +46,13 @@ App.projectWallPostListController = Em.ArrayController.create({
         'text': App.ProjectTextWallPost
     },
     
-    // Get the project id from projectDetail controller
-    projectId: function(){
-        if (App.projectDetailController && App.projectDetailController.content) {
-            return App.projectDetailController.get('content').id;
-        }
-        return false;
-    }.property('App.projectDetailController.content'),
+    projectBinding: "App.projectDetailController.content",
     
     content: function(){
-        if (this.get('projectId')) {
-            return App.ProjectWallPost.find({project_id: this.get('projectId')})
+        if (this.get('project.id')) {
+            return App.ProjectWallPost.find({project_id: this.get('project.id')})
         }
-    }.property('projectId'),
+    }.property('project'),
 
     addWallPost: function(wallpost) {
         // Load the right model based on type
@@ -66,7 +60,7 @@ App.projectWallPostListController = Em.ArrayController.create({
         // If we have a standard object then convert into the right model
         if (!(wallpost instanceof model)) {
             // Add project_id to the wallpost
-            wallpost.project_id = this.get('projectId');
+            wallpost.project_id = this.get('project.id');
             var wallpost = model.createRecord(wallpost);
         } 
         App.store.commit();
