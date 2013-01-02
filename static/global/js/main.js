@@ -21,7 +21,7 @@ function initBehaviour(container) {
 // Initializing
 $(document).ready(function(){
     // swap text in logo
-    initProgress();
+    //initProgress();
     initPopup()
     //initLightbox();
     //initFileUpload();

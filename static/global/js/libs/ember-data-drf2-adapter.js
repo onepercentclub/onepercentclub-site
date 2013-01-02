@@ -84,13 +84,20 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             success: function(json) {
                 this.didCreateRecord(store, type, record, json);
             },
+            // Make sure we parse any errors.
             error: function(xhr) {
                 this.didError(store, type, record, xhr);
             }
         });
     },
 
+    /**
+     * Add an error text to a record
+     */
     didError: function(store, type, record, xhr) {
+        // 422 [The request was well-formed but was unable to be followed due to semantic errors] 
+        // seems the right API response. 
+        // Because DRF2 returns invalid records with 400 code we catch those too.  
         if (xhr.status === 422 || xhr.status == 400) {
             var data = JSON.parse(xhr.responseText);
             store.recordWasInvalid(record, data);

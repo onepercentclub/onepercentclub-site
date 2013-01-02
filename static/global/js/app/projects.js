@@ -86,10 +86,7 @@ App.ProjectSupportersView = Em.View.extend({
 
 
 App.projectDetailController = Em.ObjectController.create({
-    model: App.Project,
-    content: function(){
-        return App.Project.all().content[0];
-    }.observes('App.Project.all().content')
+    model: App.Project
 });
 
 
