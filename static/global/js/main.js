@@ -10,7 +10,7 @@ jQuery.fn.exists = function(){return this.length>0;}
 
 function initBehaviour(container) {
     $("label.inline", container).inFieldLabels(); 
-    $("textarea", container).autogrow();
+    //$("textarea", container).autogrow();
     
     // initFileUpload();
     toggleText( $('.toggle-reactions', container) );

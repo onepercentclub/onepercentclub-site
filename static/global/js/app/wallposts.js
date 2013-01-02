@@ -15,7 +15,7 @@ App.ProjectWallPost = DS.Model.extend({
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
 
-    // TODO: (how) do we want to use this??
+    // TODO: Find a better way to refresh the list
     didCreate: function() {
         App.store.find(App.ProjectWallPost, this.get('id'));
         App.projectWallPostListController.set('content', App.store.all(App.ProjectWallPost));
@@ -45,27 +45,32 @@ App.projectWallPostListController = Em.ArrayController.create({
         'media': App.ProjectMediaWallPost,
         'text': App.ProjectTextWallPost
     },
-    projectIdChanged: function(sender, key) {
-        var projectId = App.projectDetailController.get('content').get('id')
-        this.set('content', App.ProjectWallPost.find({project_id: projectId}));
-    }.observes('App.projectDetailController.content'),
-
+    
+    // Get the project id from projectDetail controller
+    projectId: function(){
+        if (App.projectDetailController && App.projectDetailController.content) {
+            return App.projectDetailController.get('content').id;
+        }
+        return false;
+    }.property('App.projectDetailController.content'),
+    
+    content: function(){
+        if (this.get('projectId')) {
+            return App.ProjectWallPost.find({project_id: this.get('projectId')})
+        }
+    }.property('projectId'),
 
     addWallPost: function(wallpost) {
-        var model = this.get('models.'+wallpost.type);
-        // TODO: Why is this called when the project page is first loaded? 
-        // Loek says: Is it?
-        
+        // Load the right model based on type
+        var model = this.get('models.' + wallpost.type);
         // If we have a standard object then convert into the right model
         if (!(wallpost instanceof model)) {
             // Add project_id to the wallpost
-            wallpost.project_id = this.get('content.query.project_id');
+            wallpost.project_id = this.get('projectId');
             var wallpost = model.createRecord(wallpost);
         } 
         App.store.commit();
-        // TODO: Make sure the wallpost lists gets updated if the post was successful
-        
-        // Return the model (with errors) for the form to parse it.
+        // Return the model (with errors) for the form to return it to the user.
         return wallpost;
     }
 });
@@ -100,23 +105,21 @@ App.MediaWallPostFormView = Em.View.extend({
         e.preventDefault();
         // Send the object to controller
         // This will return a DS.Model with optional error codes
-        // We'll replace this.wallpost with the proper DS.Model to bind errors
-        this.set('wallpost',  App.projectWallPostListController.addWallPost(this.get('wallpost')));
+        var wallpost = App.projectWallPostListController.addWallPost(this.get('wallpost'));
+        if (wallpost.errors) {
+            // We'll replace this.wallpost with the proper DS.Model to bind errors
+            this.set('wallpost', wallpost);
+        } else {
+            // Wallpost was created succesfully so clear the form:
+            this.set('wallpost', {type: wallpost.type});
+        }
     }
 });
 
-App.TextWallPostFormView = Em.View.extend({
+
+App.TextWallPostFormView = App.MediaWallPostFormView.extend({
     templateName: 'text_wallpost_form',
-    templateFile: 'wallpost',
-    tagName: 'form',
     wallpost: {type: 'text'},
-    submit: function(e){
-        e.preventDefault();
-        // Send the object to controller
-        // This will return a DS.Model with optional error codes
-        // We'll replace this.wallpost with the proper DS.Model to bind errors
-        this.set('wallpost',  App.projectWallPostListController.addWallPost(this.get('wallpost')));
-    }
 });
 
 
@@ -141,26 +144,26 @@ App.WallPostView = Em.View.extend({
         return false;
     }.property('user', 'content'), 
     editWallPost: function(e) {
-        //alert("About to edit wallpost:\n" + this.get('content.text'));
         var post = this.get('content');
-        console.log(post);
-        App.TextWallPostFormView.set('wallpost', post);
-        App.MediaWallPostFormView.set('wallpost', post);
+        //App.TextWallPostFormView.set('wallpost', post);
+        //App.MediaWallPostFormView.set('wallpost', post);
         e.preventDefault();
         
     },
     deleteWallPost: function(e) {
-        alert("About to delete wallpost:\n" + this.get('content.text'));
-        e.preventDefault();
-        var post = this.get('content');
-        // Clear author here
-        // TODO: Have a proper solution for belongsTo fields in adapter
-        post.reopen({
-            author: null
-        })
-        post.deleteRecord();
-        App.store.commit()
-        
+        if (confirm("Delete this wallpost?")) {
+            e.preventDefault();
+            var post = this.get('content');
+            // Clear author here
+            // TODO: Have a proper solution for belongsTo fields in adapter
+            post.reopen({
+                author: null
+            })
+            post.deleteRecord();
+            App.store.commit()
+            var self = this;
+            this.$().slideUp(1000, function(){self.remove();});
+        }
     }
 });
 
