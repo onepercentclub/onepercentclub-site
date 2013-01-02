@@ -58,7 +58,7 @@ class ProjectWallPostList(WallPostList):
         obj.ip_address = get_client_ip(self.request)
 
 
-class ProjectWallPostDetail(generics.RetrieveAPIView):
+class ProjectWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
 

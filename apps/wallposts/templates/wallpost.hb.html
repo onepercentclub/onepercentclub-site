@@ -105,8 +105,8 @@
 
         {{#if view.isAuthor}}
             <ul class="manage not-implemented">
-                <li class="manage-edit"><a {{action "editWallPost"}}>{% trans "Edit" %}</a></li>
-                <li class="manage-remove"><a href="#" >{% trans "Delete" %}</a></li>
+                <li class="manage-edit"><a {{action "editWallPost" target="view"}}>{% trans "Edit" %}</a></li>
+                <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
             </ul>
         {{/if}}
     </header>

@@ -17,7 +17,7 @@ App.ProjectWallPost = DS.Model.extend({
 
     // TODO: (how) do we want to use this??
     didCreate: function() {
-        App.store.findAll(App.ProjectWallPost);
+        App.store.find(App.ProjectWallPost, this.get('id'));
         App.projectWallPostListController.set('content', App.store.all(App.ProjectWallPost));
     }
 
@@ -83,8 +83,8 @@ App.WallPostFormContainerView = Em.View.extend({
     canEdit: function() {
         var user = this.get('user');
         var owner = this.get('content.owner'); 
-        if (user && owner && user.username !== undefined) {
-            return user.username == owner.username;
+        if (user && owner && user.get('username')) {
+            return user.get('username') == owner.get('username');
         }
         return false;
     }.property('user', 'content.owner')
@@ -141,8 +141,25 @@ App.WallPostView = Em.View.extend({
         return false;
     }.property('user', 'content'), 
     editWallPost: function(e) {
-        alert("About to edit wallpost:\n" + this.get('content').text)
+        //alert("About to edit wallpost:\n" + this.get('content.text'));
+        var post = this.get('content');
+        console.log(post);
+        App.TextWallPostFormView.set('wallpost', post);
+        App.MediaWallPostFormView.set('wallpost', post);
         e.preventDefault();
+        
+    },
+    deleteWallPost: function(e) {
+        alert("About to delete wallpost:\n" + this.get('content.text'));
+        e.preventDefault();
+        var post = this.get('content');
+        // Clear author here
+        // TODO: Have a proper solution for belongsTo fields in adapter
+        post.reopen({
+            author: null
+        })
+        post.deleteRecord();
+        App.store.commit()
         
     }
 });
