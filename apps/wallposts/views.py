@@ -93,6 +93,7 @@ class ProjectMediaWallPostList(generics.ListCreateAPIView):
 class ProjectTextWallPostList(ProjectMediaWallPostList):
     model = TextWallPost
     serializer_class = ProjectTextWallPostSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class ProjectMediaWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
