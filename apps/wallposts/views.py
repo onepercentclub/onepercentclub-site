@@ -1,8 +1,11 @@
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import generics
 from rest_framework import mixins
+from rest_framework import permissions
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
+from apps.projects.permissions import IsProjectOwner, IsProjectOwnerOrReadOnly
+from .permissions import IsAuthor, IsAuthorOrReadOnly
 from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
 from .models import WallPost, MediaWallPost, TextWallPost
 
@@ -61,6 +64,7 @@ class ProjectWallPostList(WallPostList):
 class ProjectWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
 
     def get_queryset(self):
         project_type = ContentType.objects.get_for_model(Project)
@@ -72,6 +76,7 @@ class ProjectWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
 class ProjectMediaWallPostList(generics.ListCreateAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
+    permission_classes = (IsProjectOwnerOrReadOnly,)
     paginate_by = 10
 
     def pre_save(self, obj):
@@ -79,6 +84,7 @@ class ProjectMediaWallPostList(generics.ListCreateAPIView):
         # TODO: Add editor to WallPost model
         # obj.editor = obj.author
         obj.ip_address = get_client_ip(self.request)
+
 
     def get_queryset(self):
         project_type = ContentType.objects.get_for_model(Project)
@@ -92,6 +98,7 @@ class ProjectTextWallPostList(ProjectMediaWallPostList):
 class ProjectMediaWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
 
     def get_queryset(self):
         project_type = ContentType.objects.get_for_model(Project)
@@ -101,3 +108,8 @@ class ProjectMediaWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
         # TODO: Add last editor to WallPost model
         # obj.editor = self.request.user
         obj.ip_address = get_client_ip(self.request)
+
+
+class ProjectTextWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = TextWallPost
+    serializer_class = ProjectTextWallPostSerializer

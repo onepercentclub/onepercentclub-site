@@ -27,3 +27,4 @@ class ProjectDetail(generics.RetrieveAPIView):
 class ProjectDetailView(DetailView):
     model = Project
     template_name = 'project_detail.html'
+    
