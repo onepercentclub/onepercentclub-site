@@ -10,9 +10,6 @@ from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectM
 from .models import WallPost, MediaWallPost, TextWallPost
 
 
-
-
-
 class WallPostList(generics.ListCreateAPIView):
     # Please extend this. We probably don't want to use this directly. 
     model = WallPost

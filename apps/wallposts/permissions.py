@@ -12,6 +12,7 @@ class IsAuthor(permissions.IsAuthenticated):
             return True
         return False
 
+
 class IsAuthorOrReadOnly(IsAuthor):
     """
     Allows write access to author otherwise read access.
