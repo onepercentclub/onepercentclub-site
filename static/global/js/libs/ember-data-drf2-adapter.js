@@ -72,6 +72,53 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
+     - don't embed record within 'root' in the json.
+     - check for errors and call didError
+     */
+    createRecord: function(store, type, record) {
+        var root = this.rootForType(type);
+        var data = this.toJSON(record, { includeId: true });
+
+        this.ajax(this.buildURL(root), "POST", {
+            data: data,
+            context: this,
+            success: function(json) {
+                this.didCreateRecord(store, type, record, json);
+            },
+            // Make sure we parse any errors.
+            error: function(xhr) {
+                this.didError(store, type, record, xhr);
+            }
+        });
+    },
+
+    /**
+     * Add an error text to a record
+     */
+    didError: function(store, type, record, xhr) {
+        // 422 [The request was well-formed but was unable to be followed due to semantic errors] 
+        // seems the right API response. 
+        // Because DRF2 returns invalid records with 400 code we catch those too.
+        // TODO: File pull request to DRF2 with 422 support
+        if (xhr.status === 422 || xhr.status === 400) {
+            var data = JSON.parse(xhr.responseText);
+            store.recordWasInvalid(record, data);
+        } else {
+            store.recordWasError(record);
+        }
+    },
+
+    /*
+     Changes from default:
+     - don't call sideload() because DRF2 doesn't support it.
+     - get result from json directly.
+     */
+    didCreateRecord: function(store, type, record, json) {
+        this.didSaveRecord(store, record, json);
+    },
+
+    /*
+     Changes from default:
      - don't replace CamelCase with '_'.
      - also check for 'url' defined in the class.
      */

@@ -1,9 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import generics
 from rest_framework import mixins
+from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
-from .serializers import WallPostSerializer, ProjectWallPostSerializer
-from .models import WallPost
+from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
+from .models import WallPost, MediaWallPost, TextWallPost
 
 
 class WallPostList(generics.ListAPIView):
@@ -13,8 +14,7 @@ class WallPostList(generics.ListAPIView):
     paginate_by = 10
 
     def get_content_type(self):
-        # Have a separate function for this so we can easily
-        # overwrite it for specific wallpost APIs
+        # Have a separate function for this so we can easily override it for specific WallPost APIs.
         return self.request.QUERY_PARAMS.get('content_type', None)
 
     def get_object_id(self):
@@ -50,11 +50,51 @@ class ProjectWallPostList(WallPostList):
         # and therefore doesn't work. This could be a bug in the DRF2 auto-filter support.
         return self.request.QUERY_PARAMS.get('project_id', None)
 
+    def pre_save(self, obj):
+        obj.author = self.request.user
+        obj.ip_address = get_client_ip(self.request)
 
-class ProjectWallPostDetail(generics.RetrieveAPIView):
+
+class ProjectWallPostDetail(generics.RetrieveDestroyAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
 
     def get_queryset(self):
         project_type = ContentType.objects.get_for_model(Project)
+        return self.model.objects.filter(content_type__pk=project_type.id).order_by('object_id').distinct('object_id')
+
+
+# Views specific to the ProjectMediaWallPosts:
+
+class ProjectMediaWallPostList(generics.ListCreateAPIView):
+    model = MediaWallPost
+    serializer_class = ProjectMediaWallPostSerializer
+    paginate_by = 10
+
+    def pre_save(self, obj):
+        obj.author = self.request.user
+        # TODO: Add editor to WallPost model
+        # obj.editor = obj.author
+        obj.ip_address = get_client_ip(self.request)
+
+    def get_queryset(self):
+        project_type = ContentType.objects.get_for_model(Project)
         return self.model.objects.filter(content_type__pk=project_type.id)
+
+class ProjectTextWallPostList(ProjectMediaWallPostList):
+    model = TextWallPost
+    serializer_class = ProjectTextWallPostSerializer
+
+
+class ProjectMediaWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = MediaWallPost
+    serializer_class = ProjectMediaWallPostSerializer
+
+    def get_queryset(self):
+        project_type = ContentType.objects.get_for_model(Project)
+        return self.model.objects.filter(content_type__pk=project_type.id).order_by('object_id').distinct('object_id')
+
+    def pre_save(self, obj):
+        # TODO: Add last editor to WallPost model
+        # obj.editor = self.request.user
+        obj.ip_address = get_client_ip(self.request)

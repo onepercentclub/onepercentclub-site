@@ -53,7 +53,6 @@ App.ReactionFormView = Em.View.extend({
         e.preventDefault();
         App.reactionListController.addReaction(this.get('reaction'));
     }
-    
 });
 
 
