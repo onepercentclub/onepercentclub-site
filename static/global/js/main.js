@@ -9,7 +9,9 @@
 jQuery.fn.exists = function(){return this.length>0;}
 
 function initBehaviour(container) {
-    $("label.inline", container).inFieldLabels(); 
+    $("label.inline", container).inFieldLabels();
+
+    // Loek: Removed this because it was jerky
     //$("textarea", container).autogrow();
     
     // initFileUpload();
@@ -21,7 +23,6 @@ function initBehaviour(container) {
 // Initializing
 $(document).ready(function(){
     // swap text in logo
-    //initProgress();
     initPopup()
     //initLightbox();
     //initFileUpload();
@@ -42,7 +43,7 @@ $(document).ready(function(){
     
     // DEVelOPMENT: needed for static template
     initBehaviour('body');
-    
+
     // expande reactio-box on focus
     $('.reaction-form textarea')
         .live('focus', function(e) {
@@ -55,6 +56,8 @@ $(document).ready(function(){
     toggleText( $('.toggle-reactions') );
     toggleText( $('.toggle-love') );
 });
+
+
 
 
 // show popup on hover of element, styled and positioned by css. 

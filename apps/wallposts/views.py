@@ -10,8 +10,8 @@ from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectM
 from .models import WallPost, MediaWallPost, TextWallPost
 
 
-class WallPostList(generics.ListCreateAPIView):
-    # Please extend this. We probably don't want to use this directly. 
+class WallPostList(generics.ListAPIView):
+    # Please extend this. We probably don't want to use this directly.
     model = WallPost
     serializer_class = WallPostSerializer
     paginate_by = 10
@@ -58,7 +58,7 @@ class ProjectWallPostList(WallPostList):
         obj.ip_address = get_client_ip(self.request)
 
 
-class ProjectWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
+class ProjectWallPostDetail(generics.RetrieveDestroyAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
     permission_classes = (IsAuthorOrReadOnly,)

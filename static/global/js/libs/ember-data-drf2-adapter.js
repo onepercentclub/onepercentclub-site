@@ -73,6 +73,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     /*
      Changes from default:
      - don't embed record within 'root' in the json.
+     - check for errors and call didError
      */
     createRecord: function(store, type, record) {
         var root = this.rootForType(type);
@@ -97,8 +98,9 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     didError: function(store, type, record, xhr) {
         // 422 [The request was well-formed but was unable to be followed due to semantic errors] 
         // seems the right API response. 
-        // Because DRF2 returns invalid records with 400 code we catch those too.  
-        if (xhr.status === 422 || xhr.status == 400) {
+        // Because DRF2 returns invalid records with 400 code we catch those too.
+        // TODO: File pull request to DRF2 with 422 support
+        if (xhr.status === 422 || xhr.status === 400) {
             var data = JSON.parse(xhr.responseText);
             store.recordWasInvalid(record, data);
         } else {

@@ -355,8 +355,6 @@ a:hover {
 /* line 108, ../sass/includes/_typography.scss */
 a:active {
   color: #ff619a;
-  position: relative;
-  top: 1px;
 }
 
 /* line 116, ../sass/includes/_typography.scss */
