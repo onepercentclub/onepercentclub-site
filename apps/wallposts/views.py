@@ -1,10 +1,25 @@
 from django.contrib.contenttypes.models import ContentType
+from datetime import datetime
 from rest_framework import generics
-from rest_framework import mixins
+from rest_framework import response
+from rest_framework import status
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
 from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
 from .models import WallPost, MediaWallPost, TextWallPost
+
+
+class SoftDeleteModelMixin(object):
+    """
+    Mark an object as deleted
+    Should be mixed in with `SingleObjectBaseView`.
+    Should precede a generics.RetrieveDestroyAPIView in class definition.
+    """
+    def destroy(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.deleted = datetime.now()
+        self.object.save()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class WallPostList(generics.ListAPIView):
@@ -27,6 +42,7 @@ class WallPostList(generics.ListAPIView):
         if self.get_object_id():
             # TODO: We should really throw a warning if content_type is not set here.
             objects = objects.filter(object_id=self.get_object_id())
+        objects = objects.filter(deleted__isnull = True)
         objects = objects.order_by("-created")
         return objects
 
@@ -55,13 +71,15 @@ class ProjectWallPostList(WallPostList):
         obj.ip_address = get_client_ip(self.request)
 
 
-class ProjectWallPostDetail(generics.RetrieveDestroyAPIView):
+class ProjectWallPostDetail(SoftDeleteModelMixin, generics.RetrieveDestroyAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
 
     def get_queryset(self):
         project_type = ContentType.objects.get_for_model(Project)
         return self.model.objects.filter(content_type__pk=project_type.id).order_by('object_id').distinct('object_id')
+
+
 
 
 # Views specific to the ProjectMediaWallPosts:
@@ -86,7 +104,7 @@ class ProjectTextWallPostList(ProjectMediaWallPostList):
     serializer_class = ProjectTextWallPostSerializer
 
 
-class ProjectMediaWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
+class ProjectMediaWallPostDetail(SoftDeleteModelMixin, generics.RetrieveDestroyAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
 
