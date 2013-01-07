@@ -871,7 +871,6 @@ form fieldset {
 /* line 52, ../sass/includes/_forms.scss */
 form label.inline {
   position: absolute;
-  top: 0;
   left: 0;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
@@ -948,7 +947,7 @@ form ul > li ul.checklist label:hover {
   cursor: pointer;
 }
 /* line 116, ../sass/includes/_forms.scss */
-form ul li.error label {
+form ul .error {
   color: #d24226;
 }
 /* line 118, ../sass/includes/_forms.scss */
