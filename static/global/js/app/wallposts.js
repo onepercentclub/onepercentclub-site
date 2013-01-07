@@ -3,6 +3,8 @@
  Models
  */
 
+// This is union of all different wallposts
+// TODO: see if we can teach Ember Data to use a combined list of all wallposts
 App.ProjectWallPost = DS.Model.extend({
     url: 'wallposts/projectwallposts',
 
@@ -11,6 +13,7 @@ App.ProjectWallPost = DS.Model.extend({
     author: DS.belongsTo('App.Member', {embedded: true}),
     title: DS.attr('string'),
     text: DS.attr('string'),
+    created: DS.attr('string'),
     timesince: DS.attr('string'),
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
@@ -24,15 +27,13 @@ App.ProjectWallPost = DS.Model.extend({
 });
 
 
-// Temporary model for projectmediawallposts list/create.
 App.ProjectMediaWallPost = App.ProjectWallPost.extend({
-    url: 'wallposts/projectmediawallposts',
+    url: 'wallposts/projectmediawallposts'
 
 });
 
-// Temporary model for projectmediawallposts list/create.
 App.ProjectTextWallPost = App.ProjectWallPost.extend({
-    url: 'wallposts/projecttextwallposts',
+    url: 'wallposts/projecttextwallposts'
 });
 
 
@@ -41,6 +42,7 @@ App.ProjectTextWallPost = App.ProjectWallPost.extend({
  */
 
 App.projectWallPostListController = Em.ArrayController.create({
+    // Use store transactions so we set the model properly and don't start with an empty '{}'...
     models: {
         'media': App.ProjectMediaWallPost,
         'text': App.ProjectTextWallPost
@@ -100,7 +102,9 @@ App.MediaWallPostFormView = Em.View.extend({
         // Send the object to controller
         // This will return a DS.Model with optional error codes
         var wallpost = App.projectWallPostListController.addWallPost(this.get('wallpost'));
-        if (wallpost.errors) {
+        // For now always return true so we get the errors
+        // TODO: Find out how we can properly check for errors
+        if (1 || wallpost.errors) {
             // We'll replace this.wallpost with the proper DS.Model to bind errors
             this.set('wallpost', wallpost);
         } else {
@@ -137,13 +141,6 @@ App.WallPostView = Em.View.extend({
         }
         return false;
     }.property('user', 'content'), 
-    editWallPost: function(e) {
-        var post = this.get('content');
-        //App.TextWallPostFormView.set('wallpost', post);
-        //App.MediaWallPostFormView.set('wallpost', post);
-        e.preventDefault();
-        
-    },
     deleteWallPost: function(e) {
         if (confirm("Delete this wallpost?")) {
             e.preventDefault();

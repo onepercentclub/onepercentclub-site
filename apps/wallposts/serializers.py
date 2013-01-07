@@ -27,30 +27,34 @@ class WallPostTypeField(fields.Field):
         return self.type
 
 
-# Note: There is no separate list and detail serializer for MediaWallPosts
-class MediaWallPostSerializer(serializers.ModelSerializer):
+class WallPostSerializerBase(serializers.ModelSerializer):
+    """
+        Base class serializer for wallposts.
+        This is not used directly. Please subclass it.
+    """
     id = fields.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
     timesince = TimeSinceField(source='created')
+
+    class Meta:
+        fields = ('id', 'url', 'type', 'author', 'created', 'timesince')
+
+
+class MediaWallPostSerializer(WallPostSerializerBase):
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     type = WallPostTypeField(type='media')
 
     class Meta:
         model = MediaWallPost
-        # Question: Is it possible to have a write only field (e.g. for video_url)?
-        fields = ('id', 'url', 'type', 'author', 'title', 'text', 'timesince', 'video_html', 'video_url')
+        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url')
 
 
-# Note: There is no separate list and detail serializer for TextWallPosts.
-class TextWallPostSerializer(serializers.ModelSerializer):
-    id = fields.Field(source='wallpost_ptr_id')
-    author = AuthorSerializer()
-    timesince = TimeSinceField(source='created')
+class TextWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='text')
 
     class Meta:
         model = TextWallPost
-        fields = ('id', 'url', 'type', 'author', 'text', 'timesince')
+        fields = WallPostSerializerBase.Meta.fields + ('text',)
 
 
 class WallPostSerializer(PolymorphicSerializer):

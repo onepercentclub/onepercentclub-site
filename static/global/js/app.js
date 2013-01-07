@@ -270,10 +270,10 @@ $(function() {
                         App.projectDetailController.set('content', App.Project.find(id));
                     } else if (slug) {
                         var projects = App.Project.find({slug: slug});
-                        // observe the length of projects, so if the project is loaded (eg lengtth 0 -> 1)
+                        // observe the length of projects, so if the project is loaded (eg length 0 -> 1)
                         // we can update projectDetailController
                         // TODO: Every 5 refresh it returns a project detail page without project details
-                        projects.addObserver('length', function(sender, key) {
+                        projects.addObserver('content', function(sender, key) {
                             // TODO implement 404 page:
                             // if (this.length < 1)
                             //     Em.Route.transitionTo('404');
