@@ -2,13 +2,15 @@
     
     figure.media {
         @include grid(32, 1);
-        height: 450px;
+        margin-bottom: $margin;
+        //height: 450px;
         border: 1px solid #ccc;
         background-color: #ccc;
         overflow: hidden;
         @include box-shadow(inset 0px 1px 6px rgba($black, 0.1));
         
         img {
+          /*
             margin: 0 auto;
             width: auto !important;
             position: relative;
@@ -16,7 +18,12 @@
             left: 50%;
             margin-top: -225px;
             margin-left: -400px;
+          */
         }
+    }
+    
+    sidebar {
+        margin-bottom: $margin;
     }
 }
 
@@ -30,8 +37,7 @@
 }
 
 .meta {
-    
-    margin: 16px 0;
+    @include rem(margin, 8px 0);
     
     .location {
         float: left;
@@ -57,7 +63,7 @@
             list-style: none;
             
             li {
-                //color: $green;
+                color: $green;
                 display: inline;
                 text-transform: capitalize;
                 

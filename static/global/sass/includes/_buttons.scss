@@ -2,7 +2,7 @@
 
 // Choose a div or ul to group up your buttons
 div.buttons, ul.buttons {
-    margin: 0 0 $margin-bottom 0;
+    margin: 0 0 $margin 0;
     @include clearfix;
     li { 
         a.button, a.btn, input[type="submit"], button {

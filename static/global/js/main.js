@@ -46,14 +46,15 @@ $(document).ready(function(){
     // expande reactio-box on focus
     $('.reaction-form textarea')
         .live('focus', function(e) {
-            $(this).closest('.reaction-form').addClass('is-selected');
+            $(e.currentTarget).closest('.reaction-form').addClass('is-selected');
         })
         .live('blur', function(e) {
-            $(this).closest('.reaction-form').removeClass('is-selected');
+            $(e.currentTarget).closest('.reaction-form').removeClass('is-selected');
         });
         
     toggleText( $('.toggle-reactions') );
     toggleText( $('.toggle-love') );
+    
 });
 
 

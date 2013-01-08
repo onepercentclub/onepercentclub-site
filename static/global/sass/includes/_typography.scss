@@ -38,7 +38,7 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @include rem(padding, 32px 0 8px 0); 
+    @include rem(padding, 24px 0 8px 0); 
     &.soft {
         font-weight: 300;
         color: lighten($black, 50%);
@@ -90,7 +90,7 @@ h5 { @include rem(font-size, 16px); }
 }
 
 p { 
-    margin-bottom: $margin-bottom; 
+    margin-bottom: $margin; 
     &.lead { 
         font-weight: bold;
     }
@@ -132,7 +132,7 @@ hr {
     border: solid darken($white, 25%);
     border-width: 1px 0 0; 
     clear: both; 
-    margin: 2em $margin-bottom; 
+    margin: 2em $margin; 
 }
 
 blockquote { 
@@ -159,14 +159,14 @@ figure {
     }
 }
 
-ul, ol { margin: 0 0 $margin-bottom 1.5em; }
+ul, ol { margin: 0 0 $margin 1.5em; }
 ul { list-style: disc; }
 ol { list-style: decimal; }
 
 dl {
-    margin-bottom: $margin-bottom;
+    margin-bottom: $margin;
     dt { font-weight: bold; }
-    dd { margin-left: $margin-bottom; }
+    dd { margin-left: $margin; }
     &.advanced {
         dt { @include grid(16, 0, 1); }
         dd { @include grid(32); }

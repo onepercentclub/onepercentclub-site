@@ -204,8 +204,8 @@ button::-moz-focus-inner {
     You can also use negative margins.
     
 */
-/* Use this mixin to reset your grid by example for your mobile articles */
-/* The clearfix mixin is necessary for the floats */
+/* reset your grid */
+/* need to reset floats */
 /* =========== Typography */
 /* line 3, ../sass/includes/_typography.scss */
 .left {
@@ -263,8 +263,8 @@ button::-moz-focus-inner {
 
 /* line 40, ../sass/includes/_typography.scss */
 h1, h2, h3, h4, h5, h6 {
-  padding: 32px 0 8px 0;
-  padding: 2rem 0 0.5rem 0;
+  padding: 24px 0 8px 0;
+  padding: 1.5rem 0 0.5rem 0;
 }
 /* line 42, ../sass/includes/_typography.scss */
 h1.soft, h2.soft, h3.soft, h4.soft, h5.soft, h6.soft {
@@ -355,6 +355,8 @@ a:hover {
 /* line 108, ../sass/includes/_typography.scss */
 a:active {
   color: #ff619a;
+  position: relative;
+  top: 1px;
 }
 
 /* line 116, ../sass/includes/_typography.scss */
@@ -480,29 +482,42 @@ dl.advanced dd {
 html {
   color: #454545;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-/* line 9, ../sass/includes/_layout.scss */
+@media only screen and (min-width: 1080px) {
+  /* line 11, ../sass/includes/_layout.scss */
+  html {
+    font-size: 15px;
+  }
+}
+@media only screen and (min-width: 1180px) {
+  /* line 18, ../sass/includes/_layout.scss */
+  html {
+    font-size: 16px;
+  }
+}
+/* line 23, ../sass/includes/_layout.scss */
 body {
   line-height: 1.5em;
   overflow-y: scroll;
 }
 
-/* line 15, ../sass/includes/_layout.scss */
+/* line 29, ../sass/includes/_layout.scss */
 .container, .section {
   width: 100%;
   min-width: 980px;
 }
 
-/* line 21, ../sass/includes/_layout.scss */
+/* line 35, ../sass/includes/_layout.scss */
 .wrapper {
   *zoom: 1;
   min-width: 980px;
-  max-width: 80em;
+  max-width: 91.42857em;
   margin: auto;
+  padding: 0 16px;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .wrapper:before, .wrapper:after {
   display: block;
   height: 0 !important;
@@ -511,12 +526,12 @@ body {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .wrapper:after {
   clear: both;
 }
 
-/* line 29, ../sass/includes/_layout.scss */
+/* line 43, ../sass/includes/_layout.scss */
 .wrapper > header {
   float: left;
   width: 95.83333%;
@@ -524,7 +539,7 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 33, ../sass/includes/_layout.scss */
+/* line 47, ../sass/includes/_layout.scss */
 .wrapper > form {
   float: left;
   width: 62.5%;
@@ -532,7 +547,7 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 37, ../sass/includes/_layout.scss */
+/* line 51, ../sass/includes/_layout.scss */
 .wrapper > .sidebar, .wrapper > sidebar {
   float: left;
   width: 31.25%;
@@ -540,7 +555,7 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 42, ../sass/includes/_layout.scss */
+/* line 56, ../sass/includes/_layout.scss */
 .wrapper > .content {
   float: left;
   width: 95.83333%;
@@ -548,14 +563,14 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 46, ../sass/includes/_layout.scss */
+/* line 60, ../sass/includes/_layout.scss */
 .section {
   background-color: #e9e9e9;
   padding: 0 0 32px 0;
   padding: 0 0 2rem 0;
 }
 
-/* line 51, ../sass/includes/_layout.scss */
+/* line 65, ../sass/includes/_layout.scss */
 .top {
   background-color: #050505;
   color: white;
@@ -892,7 +907,7 @@ form ul > li {
   margin-bottom: 1.25em;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 form ul > li:before, form ul > li:after {
   display: block;
   height: 0 !important;
@@ -901,7 +916,7 @@ form ul > li:before, form ul > li:after {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 form ul > li:after {
   clear: both;
 }
@@ -1038,7 +1053,7 @@ div.buttons, ul.buttons {
   margin: 0 0 1.25em 0;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 div.buttons:before, div.buttons:after, ul.buttons:before, ul.buttons:after {
   display: block;
   height: 0 !important;
@@ -1047,7 +1062,7 @@ div.buttons:before, div.buttons:after, ul.buttons:before, ul.buttons:after {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 div.buttons:after, ul.buttons:after {
   clear: both;
 }
@@ -1484,7 +1499,7 @@ ul.pagination li.gap {
   padding: 1.5rem 2rem 1rem 2rem;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 #lightbox header:before, #lightbox header:after {
   display: block;
   height: 0 !important;
@@ -1493,7 +1508,7 @@ ul.pagination li.gap {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 #lightbox header:after {
   clear: both;
 }
@@ -1613,7 +1628,7 @@ ul.pagination li.gap {
 #lightbox-content form {
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 #lightbox-content form:before, #lightbox-content form:after {
   display: block;
   height: 0 !important;
@@ -1622,7 +1637,7 @@ ul.pagination li.gap {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 #lightbox-content form:after {
   clear: both;
 }
@@ -2050,7 +2065,7 @@ ul.steps li.selected a {
   width: 62.5%;
   margin-left: 2.08333%;
   margin-right: 2.08333%;
-  height: 450px;
+  margin-bottom: 1.25em;
   border: 1px solid #ccc;
   background-color: #ccc;
   overflow: hidden;
@@ -2058,18 +2073,24 @@ ul.steps li.selected a {
   -moz-box-shadow: inset 0px 1px 6px rgba(5, 5, 5, 0.1);
   box-shadow: inset 0px 1px 6px rgba(5, 5, 5, 0.1);
 }
-/* line 11, ../sass/modules/_detail-top.scss */
+/* line 12, ../sass/modules/_detail-top.scss */
 #detail figure.media img {
-  margin: 0 auto;
-  width: auto !important;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  margin-top: -225px;
-  margin-left: -400px;
+  /*
+    margin: 0 auto;
+    width: auto !important;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -225px;
+    margin-left: -400px;
+  */
+}
+/* line 25, ../sass/modules/_detail-top.scss */
+#detail sidebar {
+  margin-bottom: 1.25em;
 }
 
-/* line 23, ../sass/modules/_detail-top.scss */
+/* line 30, ../sass/modules/_detail-top.scss */
 .phase {
   font-size: 14px;
   font-size: 0.875rem;
@@ -2084,11 +2105,12 @@ ul.steps li.selected a {
   background: #cccccc url("../images/phase-back.png") no-repeat right center;
 }
 
-/* line 32, ../sass/modules/_detail-top.scss */
+/* line 39, ../sass/modules/_detail-top.scss */
 .meta {
-  margin: 16px 0;
+  margin: 8px 0;
+  margin: 0.5rem 0;
 }
-/* line 36, ../sass/modules/_detail-top.scss */
+/* line 42, ../sass/modules/_detail-top.scss */
 .meta .location {
   float: left;
   display: block;
@@ -2096,7 +2118,7 @@ ul.steps li.selected a {
   margin-right: 32px;
   margin-right: 2rem;
 }
-/* line 43, ../sass/modules/_detail-top.scss */
+/* line 49, ../sass/modules/_detail-top.scss */
 .meta .tags {
   display: block;
   width: auto;
@@ -2104,7 +2126,7 @@ ul.steps li.selected a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 52, ../sass/modules/_detail-top.scss */
+/* line 58, ../sass/modules/_detail-top.scss */
 .meta .tags ul {
   vertical-align: middle;
   margin: 0;
@@ -2112,12 +2134,13 @@ ul.steps li.selected a {
   display: inline;
   list-style: none;
 }
-/* line 59, ../sass/modules/_detail-top.scss */
+/* line 65, ../sass/modules/_detail-top.scss */
 .meta .tags ul li {
+  color: #00c051;
   display: inline;
   text-transform: capitalize;
 }
-/* line 64, ../sass/modules/_detail-top.scss */
+/* line 70, ../sass/modules/_detail-top.scss */
 .meta .tags ul li.out-of-range {
   display: none;
 }
@@ -2131,7 +2154,7 @@ ul.steps li.selected a {
   margin-bottom: 16px;
   margin-bottom: 1rem;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .status-box:before, .status-box:after {
   display: block;
   height: 0 !important;
@@ -2140,41 +2163,44 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .status-box:after {
   clear: both;
 }
 /* line 9, ../sass/modules/_status-box.scss */
 .status-box h3 {
   margin: 0;
+  padding: 0;
   color: #c0bfbf;
   font-weight: bold;
-  font-size: 15px;
-  font-size: 0.9375rem;
+  font-size: 20px;
+  font-size: 1.25rem;
+  height: 140px;
+  overflow: hidden;
 }
 
 /* ========================= Responsive ================================== */
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-  /* line 21, ../sass/modules/_status-box.scss */
+  /* line 27, ../sass/modules/_status-box.scss */
   .widget-box h3 {
     font-size: 18px;
     font-size: 1.125rem;
   }
 }
 /* ======================================================================= */
-/* line 28, ../sass/modules/_status-box.scss */
+/* line 34, ../sass/modules/_status-box.scss */
 .donate-status {
   clear: both;
   margin: 1.5em 0 2em 0;
   position: relative;
 }
-/* line 33, ../sass/modules/_status-box.scss */
+/* line 39, ../sass/modules/_status-box.scss */
 .donate-status .donate-amount {
   text-align: center;
   margin-bottom: 0.5em;
 }
-/* line 38, ../sass/modules/_status-box.scss */
+/* line 44, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider {
   display: block;
   line-height: 0;
@@ -2188,7 +2214,7 @@ ul.steps li.selected a {
   overflow: hidden;
   padding: 0;
 }
-/* line 47, ../sass/modules/_status-box.scss */
+/* line 53, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress {
   position: relative;
   display: block;
@@ -2211,18 +2237,18 @@ ul.steps li.selected a {
   }
   */
 }
-/* line 56, ../sass/modules/_status-box.scss */
+/* line 62, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress em {
   font-style: normal;
   padding: 0 0.5em;
 }
-/* line 61, ../sass/modules/_status-box.scss */
+/* line 67, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress .donate-percentage {
   visibility: hidden;
 }
 
 /* =========== Number of supports / Days left */
-/* line 90, ../sass/modules/_status-box.scss */
+/* line 96, ../sass/modules/_status-box.scss */
 .donate-supporters {
   float: left;
   margin: 0;
@@ -2230,7 +2256,7 @@ ul.steps li.selected a {
   text-align: center;
 }
 
-/* line 98, ../sass/modules/_status-box.scss */
+/* line 104, ../sass/modules/_status-box.scss */
 .donate-days-left {
   float: right;
   margin: 0;
@@ -2239,7 +2265,7 @@ ul.steps li.selected a {
   text-align: center;
 }
 
-/* line 106, ../sass/modules/_status-box.scss */
+/* line 112, ../sass/modules/_status-box.scss */
 .donate-supporters span, .donate-days-left span {
   display: inline-block;
   margin-right: 3px;
@@ -2265,7 +2291,7 @@ ul.steps li.selected a {
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
-/* line 123, ../sass/modules/_status-box.scss */
+/* line 129, ../sass/modules/_status-box.scss */
 .donate-supporters span:before, .donate-days-left span:before {
   position: relative;
   top: 0.8em;
@@ -2275,7 +2301,7 @@ ul.steps li.selected a {
   content: '';
 }
 
-/* line 132, ../sass/modules/_status-box.scss */
+/* line 138, ../sass/modules/_status-box.scss */
 .donate-supporters em, .donate-days-left em {
   display: block;
   font-family: "Futura Alt Condensed", "Trebuchet MS", Helvetica, Arial, sans-serif;
@@ -2297,11 +2323,11 @@ ul.steps li.selected a {
   margin-left: 0%;
   margin-right: 2.08333%;
   position: relative;
-  padding: 1em 0 1em 2.08333%;
+  padding: 0 0 0 2.08333%;
   *zoom: 1;
   overflow: hidden;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .member-box:before, .member-box:after {
   display: block;
   height: 0 !important;
@@ -2310,7 +2336,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .member-box:after {
   clear: both;
 }
@@ -2331,8 +2357,8 @@ ul.steps li.selected a {
   vertical-align: top;
   overflow: visible;
   display: inline-block;
-  margin: 0 3em 0 0;
-  padding: 2em 0 0 0;
+  margin: 0 2.5em 0 0;
+  padding: 2.5em 0 0 0;
   font-size: 14px;
   font-size: 0.875rem;
 }
@@ -2518,7 +2544,7 @@ ul.steps li.selected a {
   margin: 2rem 0;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .photo-viewer:before, .photo-viewer:after {
   display: block;
   height: 0 !important;
@@ -2527,7 +2553,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .photo-viewer:after {
   clear: both;
 }
@@ -2539,7 +2565,7 @@ ul.steps li.selected a {
   list-style: none;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .photo-viewer ul:before, .photo-viewer ul:after {
   display: block;
   height: 0 !important;
@@ -2548,7 +2574,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .photo-viewer ul:after {
   clear: both;
 }
@@ -2736,7 +2762,7 @@ ul.steps li.selected a {
   clear: both;
   margin: 0;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .reaction-box:before, .reaction-box:after {
   display: block;
   height: 0 !important;
@@ -2745,7 +2771,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .reaction-box:after {
   clear: both;
 }
@@ -2790,7 +2816,7 @@ ul.steps li.selected a {
   visibility: hidden;
   top: -8px;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .reaction-box .reaction-form:before, .reaction-box .reaction-form:after {
   display: block;
   height: 0 !important;
@@ -2799,7 +2825,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .reaction-box .reaction-form:after {
   clear: both;
 }
@@ -2832,7 +2858,7 @@ ul.steps li.selected a {
   list-style: none;
   font-weight: bold;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .reaction-box .reaction-actions:before, .reaction-box .reaction-actions:after {
   display: block;
   height: 0 !important;
@@ -2841,7 +2867,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .reaction-box .reaction-actions:after {
   clear: both;
 }
@@ -2970,7 +2996,7 @@ ul.steps li.selected a {
   background-color: #e9e9e9;
   list-style: none;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .reactions:before, .reactions:after {
   display: block;
   height: 0 !important;
@@ -2979,7 +3005,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .reactions:after {
   clear: both;
 }

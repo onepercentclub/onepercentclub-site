@@ -65,11 +65,11 @@ form {
     ul {
         clear: both;
         list-style: none;
-        margin: 0 0 $margin-bottom 0;
+        margin: 0 0 $margin 0;
         
         > li {
             position: relative;
-            margin-bottom: $margin-bottom;
+            margin-bottom: $margin;
             @include clearfix;
             
             > label  { 

@@ -8,16 +8,22 @@
 
     h3 {
         margin: 0;
+        padding: 0;
         color: #c0bfbf;
         font-weight: bold;
-        @include rem(font-size, 15px);
+        @include rem(font-size, 20px);
+        height: 140px;
+        overflow: hidden;
     }
+    
+    
 }
 
 /* ========================= Responsive ================================== */
 
 /* Desktop */
 @media only screen and (min-width: 1140px) {
+    
     .widget-box h3 {
         @include rem(font-size, 18px);
     }

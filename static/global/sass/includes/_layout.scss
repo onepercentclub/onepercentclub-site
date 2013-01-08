@@ -6,9 +6,23 @@ html {
     font-size: $font-size;
 }
 
+@media only screen and (min-width: 1080px) {
+    
+    html {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (min-width: 1180px) {
+    
+    html {
+        font-size: 16px;
+    }
+}
+
 body { 
-    line-height: 1.5em; 
-    overflow-y: scroll;    
+    line-height: 1.5em;
+    overflow-y: scroll;
 }
 
 // full width container
@@ -23,7 +37,7 @@ body {
     min-width: $min-width;
     max-width: $max-width;
     margin: auto;
-    
+    padding: 0 16px;
 }
 
 .wrapper > header {
