@@ -4,8 +4,11 @@ from django.contrib.contenttypes.models import ContentType
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost
 from apps.wallposts.views import WallPostList, WallPostDetail, MediaWallPostDetail, TextWallPostDetail
 from apps.bluebottle_utils.utils import get_client_ip
+from apps.wallposts.permissions import IsAuthorOrReadOnly
 from .models import Project
 from .serializers import ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
+from .permissions import IsProjectOwnerOrReadOnly
+
 
 
 # API views
@@ -28,6 +31,7 @@ class ProjectDetail(generics.RetrieveAPIView):
 
 class ProjectWallPostList(WallPostList):
     serializer_class = ProjectWallPostSerializer
+    permission_classes = (IsProjectOwnerOrReadOnly,)
 
     def get_content_type(self):
         return ContentType.objects.get_for_model(Project).id
@@ -63,6 +67,7 @@ class ProjectDetailMixin():
 class ProjectWallPostDetail(WallPostDetail, ProjectDetailMixin):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
+    permissions_classes = (IsAuthorOrReadOnly,)
 
 
 class ProjectMediaWallPostDetail(MediaWallPostDetail, ProjectDetailMixin):

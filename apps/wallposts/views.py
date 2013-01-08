@@ -3,12 +3,15 @@ from apps.bluebottle_utils.utils import get_client_ip
 from .serializers import WallPostSerializer, TextWallPostSerializer, MediaWallPostSerializer
 from apps.bluebottle_drf2.mixins import SoftDeleteModelMixin
 from .models import WallPost, MediaWallPost, TextWallPost
+from rest_framework import permissions
+from .permissions import IsAuthorOrReadOnly
 
 
 class WallPostList(generics.ListCreateAPIView):
-    # Please extend this in specific app. We probably don't want to use this directly.
+    # Please extend this. We probably don't want to use this directly.
     model = WallPost
     serializer_class = WallPostSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 10
 
     def get_content_type(self):
@@ -16,7 +19,7 @@ class WallPostList(generics.ListCreateAPIView):
         return self.request.QUERY_PARAMS.get('content_type', None)
 
     def get_object_id(self):
-        return self.request.QUERY_PARAMS.get('object_id', None)
+        return self.request.QUERY_PARAMS.get('project_id', None)
 
     def get_queryset(self):
         objects = self.model.objects
@@ -38,12 +41,13 @@ class WallPostDetail(SoftDeleteModelMixin, generics.RetrieveDestroyAPIView):
     # Please extend this in specific app. We probably don't want to use this directly.
     model = WallPost
     serializer_class = WallPostSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
+
 
 
 class MediaWallPostDetail(WallPostDetail):
     model = MediaWallPost
     serializer_class = MediaWallPostSerializer
-
 
 class TextWallPostDetail(WallPostDetail):
     model = TextWallPost

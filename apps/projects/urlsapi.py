@@ -2,7 +2,8 @@ from django.conf.urls import patterns, url, include
 from django.contrib.contenttypes.models import ContentType
 from surlex.dj import surl
 from .models import Project
-from .views import ProjectDetail, ProjectList, ProjectWallPostList, ProjectWallPostDetail, ProjectMediaWallPostList, ProjectMediaWallPostDetail, ProjectTextWallPostList
+from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWallPostDetail,
+                    ProjectMediaWallPostList, ProjectMediaWallPostDetail, ProjectTextWallPostList)
 
 
 urlpatterns = patterns('',
