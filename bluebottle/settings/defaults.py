@@ -211,7 +211,7 @@ INSTALLED_APPS = (
     'apps.blogs',
     'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
-    'apps.drf2serializers',
+    'apps.bluebottle_drf2',
     'apps.contentplugins',
     'apps.accounts',
     'apps.love',

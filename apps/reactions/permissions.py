@@ -1,6 +1,7 @@
 from rest_framework import permissions
 
-# TODO Add write permission for 1%CREW / Assistants.
+
+# TODO: Add write permission for 1%CREW / Assistants.
 class IsAuthorOrReadOnly(permissions.BasePermission):
     """
     Custom permission to only allow author of an object to edit it.
