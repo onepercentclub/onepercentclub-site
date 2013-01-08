@@ -47,8 +47,8 @@ class WallPost(PolymorphicModel):
 class MediaWallPost(WallPost):
     # The content of the wall post.
     title = models.CharField(max_length=60)
-    text = models.TextField(max_length=300, blank=True)
-    video_url = models.URLField(max_length=100, blank=True)
+    text = models.TextField(max_length=300, blank=True, default='')
+    video_url = models.URLField(max_length=100, blank=True, default='')
 
     def __unicode__(self):
         return Truncator(self.text).words(10)

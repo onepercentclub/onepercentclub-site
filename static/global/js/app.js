@@ -159,6 +159,7 @@ $(function() {
 
     App.Member = DS.Model.extend({
         url: 'members/users',
+        username: DS.attr('string'),
         first_name: DS.attr('string'),
         last_name: DS.attr('string'),
         picture: DS.attr('string'),
@@ -268,9 +269,10 @@ $(function() {
                     if (id) {
                         App.projectDetailController.set('content', App.Project.find(id));
                     } else if (slug) {
-                        // There could be a race condition here because the observer is setup after the empty list of
-                        // projects is created.
                         var projects = App.Project.find({slug: slug});
+                        // observe the length of projects, so if the project is loaded (eg length 0 -> 1)
+                        // we can update projectDetailController
+                        // TODO: Every 5 refresh it returns a project detail page without project details
                         projects.addObserver('content', function(sender, key) {
                             // TODO implement 404 page:
                             // if (this.length < 1)
@@ -282,7 +284,7 @@ $(function() {
                     }
 
                     router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
-                    router.get('applicationController').connectOutlet('midPanel', 'empty');
+                    router.get('applicationController').connectOutlet('midPanel', 'wallPostFormContainer');
                     router.get('applicationController').connectOutlet('bottomPanel', 'projectWallPostList');
                 });
             }

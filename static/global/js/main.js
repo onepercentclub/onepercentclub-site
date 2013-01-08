@@ -9,8 +9,10 @@
 jQuery.fn.exists = function(){return this.length>0;}
 
 function initBehaviour(container) {
-    $("label.inline", container).inFieldLabels(); 
-    $("textarea", container).autogrow();
+    $("label.inline", container).inFieldLabels();
+
+    // Loek: Removed this because it was jerky
+    //$("textarea", container).autogrow();
     
     // initFileUpload();
     toggleText( $('.toggle-reactions', container) );
@@ -21,7 +23,6 @@ function initBehaviour(container) {
 // Initializing
 $(document).ready(function(){
     // swap text in logo
-    initProgress();
     initPopup()
     //initLightbox();
     //initFileUpload();
