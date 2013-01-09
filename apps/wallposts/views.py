@@ -1,5 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveDeleteAPIView, RetrieveUpdateDeleteAPIView
+from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
 from .serializers import ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
