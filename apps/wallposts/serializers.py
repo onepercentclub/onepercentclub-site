@@ -103,11 +103,11 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
         # Add the project_id field.
         fields = TextWallPostSerializer.Meta.fields + ('project_id',)
 
-    def save(self, save_m2m=True):
+    def save(self):
         # Save the project content type on save.
         project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
-        super(ProjectTextWallPostSerializer, self).save(save_m2m)
+        super(ProjectTextWallPostSerializer, self).save()
 
 
 class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
