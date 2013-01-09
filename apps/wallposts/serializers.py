@@ -1,4 +1,4 @@
-from apps.drf2serializers.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer
 from apps.projects.models import Project
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
