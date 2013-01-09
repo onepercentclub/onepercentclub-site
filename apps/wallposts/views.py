@@ -1,13 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
-from rest_framework import generics
 from rest_framework import permissions
+from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
 from .permissions import IsAuthorOrReadOnly
-from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
+from .serializers import ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
 from .models import WallPost, MediaWallPost, TextWallPost
-from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView
 
 
 class ProjectWallPostMixin(object):

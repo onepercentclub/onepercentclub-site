@@ -4,6 +4,7 @@ from rest_framework import serializers
 from apps.bluebottle_drf2.serializers import SorlImageField
 from .models import BlogPost
 
+
 class BlogPostAuthorSerializer(serializers.ModelSerializer):
     picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace='GRAY')
 
@@ -28,6 +29,7 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         exclude = ('id',)
+
 
 class BlogPostPreviewSerializer(BlogPostDetailSerializer):
 
