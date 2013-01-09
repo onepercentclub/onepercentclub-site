@@ -1,5 +1,4 @@
-from apps.drf2serializers.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer
-from apps.projects.models import Project
+from apps.bluebottle_drf2.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django import forms
@@ -66,8 +65,6 @@ class WallPostSerializer(PolymorphicSerializer):
             )
 
 
-# Serializers specific to the ProjectWallPosts:
-
 class ObjectIdField(fields.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey. """
 
@@ -93,46 +90,3 @@ class ObjectIdField(fields.RelatedField):
     def field_to_native(self, obj, field_name):
         return self.to_native(obj)
 
-
-class ProjectTextWallPostSerializer(TextWallPostSerializer):
-    """ TextWallPostSerializer with project specific customizations. """
-
-    project_id = ObjectIdField(model=MediaWallPost, to_model=Project)
-    url = fields.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
-
-    class Meta(TextWallPostSerializer.Meta):
-        # Add the project_id field.
-        fields = TextWallPostSerializer.Meta.fields + ('project_id',)
-
-    def save(self, save_m2m=True):
-        # Save the project content type on save.
-        project_type = ContentType.objects.get_for_model(Project)
-        self.object.content_type_id = project_type.id
-        super(ProjectTextWallPostSerializer, self).save(save_m2m)
-
-
-class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
-    """ MediaWallPostSerializer with project specific customizations. """
-
-    project_id = ObjectIdField(model=MediaWallPost, to_model=Project)
-    url = fields.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
-
-    class Meta(MediaWallPostSerializer.Meta):
-        # Add the project_id field.
-        fields = MediaWallPostSerializer.Meta.fields + ('project_id',)
-
-    def save(self, save_m2m=True):
-        # Save the project content type on save.
-        project_type = ContentType.objects.get_for_model(Project)
-        self.object.content_type_id = project_type.id
-        super(ProjectMediaWallPostSerializer, self).save(save_m2m)
-
-
-class ProjectWallPostSerializer(PolymorphicSerializer):
-    """ Polymorphic WallPostSerializer with project specific customizations. """
-
-    class Meta:
-        child_models = (
-            (TextWallPost, ProjectTextWallPostSerializer),
-            (MediaWallPost, ProjectMediaWallPostSerializer),
-            )

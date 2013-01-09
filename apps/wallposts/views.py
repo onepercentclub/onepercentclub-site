@@ -1,16 +1,17 @@
-from django.contrib.contenttypes.models import ContentType
 from rest_framework import generics
-from rest_framework import mixins
 from apps.bluebottle_utils.utils import get_client_ip
-from apps.projects.models import Project
-from .serializers import WallPostSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
+from .serializers import WallPostSerializer, TextWallPostSerializer, MediaWallPostSerializer
+from apps.bluebottle_drf2.mixins import SoftDeleteModelMixin
 from .models import WallPost, MediaWallPost, TextWallPost
+from rest_framework import permissions
+from .permissions import IsAuthorOrReadOnly
 
 
-class WallPostList(generics.ListAPIView):
-    # Please extend this. We probably don't want to use this directly. 
+class WallPostList(generics.ListCreateAPIView):
+    # Please extend this. We probably don't want to use this directly.
     model = WallPost
     serializer_class = WallPostSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 10
 
     def get_content_type(self):
@@ -18,7 +19,7 @@ class WallPostList(generics.ListAPIView):
         return self.request.QUERY_PARAMS.get('content_type', None)
 
     def get_object_id(self):
-        return self.request.QUERY_PARAMS.get('object_id', None)
+        return self.request.QUERY_PARAMS.get('project_id', None)
 
     def get_queryset(self):
         objects = self.model.objects
@@ -27,74 +28,27 @@ class WallPostList(generics.ListAPIView):
         if self.get_object_id():
             # TODO: We should really throw a warning if content_type is not set here.
             objects = objects.filter(object_id=self.get_object_id())
+        objects = objects.filter(deleted__isnull = True)
         objects = objects.order_by("-created")
         return objects
 
+    def pre_save(self, obj):
+        obj.author = self.request.user
+        obj.ip_address = get_client_ip(self.request)
 
-class WallPostDetail(generics.RetrieveAPIView):
+
+class WallPostDetail(SoftDeleteModelMixin, generics.RetrieveDestroyAPIView):
+    # Please extend this in specific app. We probably don't want to use this directly.
     model = WallPost
     serializer_class = WallPostSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
 
-
-# Views specific to the ProjectWallPosts:
-
-class ProjectWallPostList(WallPostList):
-    serializer_class = ProjectWallPostSerializer
-
-    def get_content_type(self):
-        return ContentType.objects.get_for_model(Project).id
-
-    def get_object_id(self):
-        # We want to be specific and use project_id here.
-        # Note: We're not using the filter_fields auto-filter generation because 'project_id' is not defined on the model
-        # and therefore doesn't work. This could be a bug in the DRF2 auto-filter support.
-        return self.request.QUERY_PARAMS.get('project_id', None)
-
-    def pre_save(self, obj):
-        obj.author = self.request.user
-        obj.ip_address = get_client_ip(self.request)
-
-
-class ProjectWallPostDetail(generics.RetrieveDestroyAPIView):
-    model = WallPost
-    serializer_class = ProjectWallPostSerializer
-
-    def get_queryset(self):
-        project_type = ContentType.objects.get_for_model(Project)
-        return self.model.objects.filter(content_type__pk=project_type.id).order_by('object_id').distinct('object_id')
-
-
-# Views specific to the ProjectMediaWallPosts:
-
-class ProjectMediaWallPostList(generics.ListCreateAPIView):
+class MediaWallPostDetail(WallPostDetail):
     model = MediaWallPost
-    serializer_class = ProjectMediaWallPostSerializer
-    paginate_by = 10
+    serializer_class = MediaWallPostSerializer
 
-    def pre_save(self, obj):
-        obj.author = self.request.user
-        # TODO: Add editor to WallPost model
-        # obj.editor = obj.author
-        obj.ip_address = get_client_ip(self.request)
 
-    def get_queryset(self):
-        project_type = ContentType.objects.get_for_model(Project)
-        return self.model.objects.filter(content_type__pk=project_type.id)
-
-class ProjectTextWallPostList(ProjectMediaWallPostList):
+class TextWallPostDetail(WallPostDetail):
     model = TextWallPost
-    serializer_class = ProjectTextWallPostSerializer
+    serializer_class = TextWallPostSerializer
 
-
-class ProjectMediaWallPostDetail(generics.RetrieveUpdateDestroyAPIView):
-    model = MediaWallPost
-    serializer_class = ProjectMediaWallPostSerializer
-
-    def get_queryset(self):
-        project_type = ContentType.objects.get_for_model(Project)
-        return self.model.objects.filter(content_type__pk=project_type.id).order_by('object_id').distinct('object_id')
-
-    def pre_save(self, obj):
-        # TODO: Add last editor to WallPost model
-        # obj.editor = self.request.user
-        obj.ip_address = get_client_ip(self.request)
