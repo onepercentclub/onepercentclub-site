@@ -1,5 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveDeleteAPIView
+from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveDeleteAPIView, RetrieveUpdateDeleteAPIView
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
 from .serializers import ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
@@ -34,7 +34,7 @@ class ProjectWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     paginate_by = 10
 
 
-class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveDeleteAPIView):
+class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
 
@@ -45,7 +45,7 @@ class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     paginate_by = 10
 
 
-class ProjectMediaWallPostDetail(ProjectWallPostMixin, RetrieveDeleteAPIView):
+class ProjectMediaWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
 
@@ -56,7 +56,7 @@ class ProjectTextWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     paginate_by = 10
 
 
-class ProjectTextWallPostDetail(ProjectWallPostMixin, RetrieveDeleteAPIView):
+class ProjectTextWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     model = TextWallPost
     serializer_class = ProjectTextWallPostSerializer
 
