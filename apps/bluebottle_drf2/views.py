@@ -1,5 +1,5 @@
 from rest_framework import generics
-from django.utils.timezone import datetime
+from django.utils import timezone
 from rest_framework import response
 from rest_framework import status
 
@@ -10,7 +10,7 @@ class SoftDeleteModelMixin(object):
     """
     def destroy(self, request, *args, **kwargs):
         self.object = self.get_object()
-        self.object.deleted = datetime.now()
+        self.object.deleted = timezone.now()
         self.object.save()
         return response.Response(status=status.HTTP_204_NO_CONTENT)
 

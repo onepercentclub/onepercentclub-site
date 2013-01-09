@@ -5,6 +5,7 @@ from .models import Project
 class IsProjectOwner(permissions.BasePermission):
     """
     Allows access only to project owner.
+
     """
     def get_project_from_request(self, request):
         if request.DATA:
@@ -14,18 +15,22 @@ class IsProjectOwner(permissions.BasePermission):
         if project_id:
             project = Project.objects.get(pk=project_id)
         if not project_id or not project:
-            # TODO: Should throw some Exception here?
             return None
         return project
     
 
     def has_permission(self, request, view, obj=None):
-        # If called from projects API we can expect obj to be a Project
-        # or it might be available through view.get_object()
-        # for now we just get it from the request.
+
+        # Test for project model object-level
+        if isinstance(obj, Project) and obj.owner == request.user:
+            return True
+
+        # Test for objects/lists related to a Project (e.g WallPosts).
+        # Get the project form the request
         project = self.get_project_from_request(request)
         if project and project.owner == request.user:
             return True
+
         return False
 
 
@@ -34,9 +39,8 @@ class IsProjectOwnerOrReadOnly(IsProjectOwner):
     Allows access only to project owner.
     """
     def has_permission(self, request, view, obj=None):
-        if not obj:
-            project = self.get_project_from_request(request)
-        if (request.method in permissions.SAFE_METHODS or 
-            project and project.owner == request.user):
+
+        if request.method in permissions.SAFE_METHODS:
             return True
-        return False
+
+        return super(IsProjectOwnerOrReadOnly, self).has_permission(request, view, obj)
