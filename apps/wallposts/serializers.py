@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django import forms
 from rest_framework import serializers
-from rest_framework import fields
 from .models import MediaWallPost, TextWallPost
 
 
@@ -16,7 +15,7 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'picture', 'username')
 
 
-class WallPostTypeField(fields.Field):
+class WallPostTypeField(serializers.Field):
     """ A DRF2 Field for adding a type to WallPosts. """
 
     def __init__(self, type, **kwargs):
@@ -32,7 +31,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
         Base class serializer for wallposts.
         This is not used directly. Please subclass it.
     """
-    id = fields.Field(source='wallpost_ptr_id')
+    id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
     timesince = TimeSinceField(source='created')
 
@@ -68,7 +67,7 @@ class WallPostSerializer(PolymorphicSerializer):
 
 # Serializers specific to the ProjectWallPosts:
 
-class ObjectIdField(fields.RelatedField):
+class ObjectIdField(serializers.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey. """
 
     default_read_only = False
@@ -98,7 +97,7 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
     project_id = ObjectIdField(model=MediaWallPost, to_model=Project)
-    url = fields.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
         # Add the project_id field.
@@ -115,17 +114,17 @@ class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
     """ MediaWallPostSerializer with project specific customizations. """
 
     project_id = ObjectIdField(model=MediaWallPost, to_model=Project)
-    url = fields.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
 
     class Meta(MediaWallPostSerializer.Meta):
         # Add the project_id field.
         fields = MediaWallPostSerializer.Meta.fields + ('project_id',)
 
-    def save(self, save_m2m=True):
+    def save(self):
         # Save the project content type on save.
         project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
-        super(ProjectMediaWallPostSerializer, self).save(save_m2m)
+        super(ProjectMediaWallPostSerializer, self).save()
 
 
 class ProjectWallPostSerializer(PolymorphicSerializer):

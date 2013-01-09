@@ -12,8 +12,6 @@ class ReactionApiIntegrationTest(BlogPostCreationMixin, TestCase):
 
     def setUp(self):
         self.blogpost = self.create_blogpost()
-        self.list_view = BlogPostList.as_view()
-        self.detail_view = BlogPostDetail.as_view()
         self.api_base = '/i18n/api/blogs/'
         self.reaction_api_name = '/reactions/'
         self.reactions_url = "{0}{1}{2}".format(self.api_base, self.blogpost.slug, self.reaction_api_name)
