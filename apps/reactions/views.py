@@ -11,8 +11,7 @@ class ReactionList(generics.ListCreateAPIView):
     model = Reaction
     serializer_class = ReactionListSerializer
     paginate_by = 100
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsAuthorOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def _get_reactions_to_instance(self):
         reaction_to_type = ContentType.objects.get_for_id(self.kwargs['content_type'])

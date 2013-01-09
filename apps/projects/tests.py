@@ -1,14 +1,13 @@
 from decimal import Decimal
 from datetime import timedelta
 from django.core.exceptions import ValidationError
-from django.test import TestCase
-from django.test.client import RequestFactory
+from django.test import TestCase, RequestFactory
 from django.utils import timezone
 from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
-from apps.projects.views import ProjectList, ProjectDetail
+from .views import ProjectList, ProjectDetail
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
 
 
@@ -331,3 +330,48 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         request = factory.get(self.api_base + str(project['id']))
         response = self.detail_view(request, pk=project['id']).render()
         self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+
+class ProjectMediaWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
+    """
+    Integration tests for the Project Media WallPost API.
+    """
+
+    def setUp(self):
+        self.project = self.create_project(title='aaa', slug='aaa')
+        self.project.save()
+        user = self.create_user()
+        user.save()
+        self.project_media_wallpost_url = '/i18n/api/wallposts/projectmediawallposts/'
+        self.client.login(username=user.username, password='password')
+
+    def tearDown(self):
+        self.client.logout()
+
+    def test_project_media_wallpost_crud(self):
+        """
+        Tests for creating, retrieving, updating and deleting a Project Media WallPost.
+        """
+
+        # Create a Project Media WallPost.
+        # Note: This test will fail when we require at least a video and/or a text but that's what we want.
+        wallpost_title = 'This is my super project!'
+        response = self.client.post(self.project_media_wallpost_url, {'title': wallpost_title, 'project_id': self.project.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['title'], wallpost_title)
+
+        # Retrieve the created Project Media WallPost.
+        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallpost_url, str(response.data['id']))
+        response = self.client.get(project_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['title'], wallpost_title)
+
+        # Update the created Project Media WallPost with POST.
+        new_wallpost_title = 'This is my super-duper project!'
+        response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'project_id': self.project.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['title'], new_wallpost_title)
+
+        # Delete reaction.
+        response = self.client.delete(project_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response)
