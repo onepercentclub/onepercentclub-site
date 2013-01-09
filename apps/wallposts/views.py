@@ -43,11 +43,10 @@ class WallPostDetail(SoftDeleteModelMixin, generics.RetrieveDestroyAPIView):
     serializer_class = WallPostSerializer
     permission_classes = (IsAuthorOrReadOnly,)
 
-
-
 class MediaWallPostDetail(WallPostDetail):
     model = MediaWallPost
     serializer_class = MediaWallPostSerializer
+
 
 class TextWallPostDetail(WallPostDetail):
     model = TextWallPost
