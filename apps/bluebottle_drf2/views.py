@@ -38,7 +38,7 @@ class RetrieveDeleteAPIView(SoftDeleteModelMixin, NonDeletedModelMixin, generics
     pass
 
 
-class RetrieveUpdateDeleteAPIView(SoftDeleteModelMixin, generics.RetrieveUpdateDestroyAPIView):
+class RetrieveUpdateDeleteAPIView(SoftDeleteModelMixin, NonDeletedModelMixin, generics.RetrieveUpdateDestroyAPIView):
     pass
 
 
