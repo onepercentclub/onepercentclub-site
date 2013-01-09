@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.fields import RelatedField, ManyRelatedField, Field, HyperlinkedIdentityField
-from apps.drf2serializers.serializers import SorlImageField
+from apps.bluebottle_drf2.serializers import SorlImageField
 from apps.geo.models import Country
 from .models import Project
 
