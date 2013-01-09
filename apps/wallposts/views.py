@@ -4,7 +4,7 @@ from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAP
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
-from .permissions import IsAuthorOrReadOnly
+from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from .serializers import ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
 from .models import WallPost, MediaWallPost, TextWallPost
 

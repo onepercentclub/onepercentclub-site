@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from apps.bluebottle_utils.utils import get_client_ip
 from .models import Reaction
-from .permissions import IsAuthorOrReadOnly
+from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from .serializers import ReactionListSerializer, ReactionDetailSerializer
 
 
