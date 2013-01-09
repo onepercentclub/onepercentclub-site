@@ -4,8 +4,8 @@ from django.utils.timesince import timesince
 from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
-from rest_framework.fields import Field, is_simple_callable
-from rest_framework.serializers import SerializerOptions, ModelSerializerOptions
+from rest_framework.fields import Field
+from rest_framework.serializers import SerializerOptions
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
 
