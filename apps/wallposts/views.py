@@ -22,9 +22,7 @@ class ProjectWallPostMixin(object):
         if not obj.author:
             obj.author = self.request.user
         else:
-            # TODO: Add editor to model then enable this
-            # obj.editor = self.request.user
-            pass
+            obj.editor = self.request.user
         obj.ip_address = get_client_ip(self.request)
 
 
