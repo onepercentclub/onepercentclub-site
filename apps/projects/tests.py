@@ -372,6 +372,6 @@ class ProjectMediaWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, 
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['title'], new_wallpost_title)
 
-        # Delete reaction.
+        # Delete the created Project Media WallPost.
         response = self.client.delete(project_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response)
