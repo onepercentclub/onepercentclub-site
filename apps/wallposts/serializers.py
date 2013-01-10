@@ -77,17 +77,17 @@ class ToModelIdField(serializers.RelatedField):
     def __init__(self, to_model, *args, **kwargs):
         self.to_model = to_model
         queryset = self.to_model.objects.order_by('id').all()
-        super(ToModelIdField, self).__init__(*args, source='id', queryset=queryset, **kwargs)
+        super(ToModelIdField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
 
     def label_from_instance(self, obj):
-        return "{0} - {1}".format(str(getattr(obj, self.source)), smart_str(self.to_model.__unicode__(obj)))
+        return "{0} - {1}".format(str(obj.id), smart_str(self.to_model.__unicode__(obj)))
 
     def prepare_value(self, obj):
         return self.to_native(obj)
 
     def to_native(self, obj):
         # The actual serialization.
-        return obj.serializable_value(self.source)
+        return obj.serializable_value('id')
 
     def field_to_native(self, obj, field_name):
         return self.to_native(obj)
