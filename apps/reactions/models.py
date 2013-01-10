@@ -22,7 +22,7 @@ class Reaction(models.Model):
     """
 
     # Who posted this reaction. User will need to be logged in to make a reaction.
-    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_reactions")
+    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_reaction")
     editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this reaction."))
 
     # The reaction text.
