@@ -34,7 +34,7 @@ class ReactionList(generics.ListCreateAPIView):
 class ReactionDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Reaction
     serializer_class = ReactionDetailSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthorOrReadOnly,)
 
     def pre_save(self, obj):
         obj.editor = self.request.user

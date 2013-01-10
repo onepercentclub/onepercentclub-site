@@ -1,1 +1,0 @@
-# Moved IsAuthorOrReadOnly to bluebottle_drf2/permissions.py so we can use it for wallposts too

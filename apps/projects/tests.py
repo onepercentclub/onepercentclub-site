@@ -93,12 +93,14 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
 
         # Saving the phase again with money_donated set shouldn't it back to 0.
         phase.money_donated = 10
+        phase.save()
         self.assertNotEqual(phase.money_donated, 0)
 
         # Saving a phase with money_donated set before save() shouldn't set it to 0.
         funProject = self.create_project(title='Fun Project')
         phase = self.create_fundphase(funProject)
         phase.money_donated = 20
+        phase.save()
         self.assertNotEqual(phase.money_donated, 0)
 
     def test_phase_dates_sync(self):
@@ -325,19 +327,22 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
-class ProjectMediaWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
+class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
     """
     Integration tests for the Project Media WallPost API.
     """
 
     def setUp(self):
-        self.some_project = self.create_project(title='aaa', slug='aaa')
+        self.some_project = self.create_project()
+        self.another_project = self.create_project()
         self.some_user = self.create_user()
-        self.project_media_wallpost_url = '/i18n/api/wallposts/projectmediawallposts/'
-        self.project_wallpost_url = '/i18n/api/wallposts/projectwallposts/'
+        self.project_media_wallposts_url = '/i18n/api/wallposts/projectmediawallposts/'
+        self.project_text_wallposts_url = '/i18n/api/wallposts/projecttextwallposts/'
+        self.project_wallposts_url = '/i18n/api/wallposts/projectwallposts/'
 
-    def tearDown(self):
-        self.client.logout()
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+
 
     def test_project_media_wallpost_crud(self):
         """
@@ -348,12 +353,12 @@ class ProjectMediaWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, 
         # Create a Project Media WallPost by Project Owner
         # Note: This test will fail when we require at least a video and/or a text but that's what we want.
         wallpost_title = 'This is my super project!'
-        response = self.client.post(self.project_media_wallpost_url, {'title': wallpost_title, 'project_id': self.some_project.id})
+        response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
 
         # Retrieve the created Project Media WallPost.
-        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallpost_url, str(response.data['id']))
+        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, str(response.data['id']))
         response = self.client.get(project_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
@@ -369,8 +374,8 @@ class ProjectMediaWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response)
 
         # Create Project Media WallPost and retrieve by another user
-        response = self.client.post(self.project_media_wallpost_url, {'title': wallpost_title, 'project_id': self.some_project.id})
-        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallpost_url, str(response.data['id']))
+        response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project_id': self.some_project.id})
+        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, str(response.data['id']))
         self.client.logout()
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(project_wallpost_detail_url)
@@ -379,46 +384,30 @@ class ProjectMediaWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, 
 
         # Write Project Media WallPost by someone else then Project Owner should fail
         new_wallpost_title = 'This is not my project...'
-        response = self.client.post(self.project_media_wallpost_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
+        response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Write Project Media WallPost by Project Owner rto another Project should fail
+        self.client.logout()
+        self.client.login(username=self.some_project.owner.username, password='password')
+        new_wallpost_title = 'This is not my project, although I do have a project'
+        response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project_id': self.another_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Update Project Media WallPost by someone else then Project Owner should fail
-        self.client.logout()
-        self.client.login(username=self.some_project.owner.username, password='password')
         second_wallpost_title = "My project rocks!"
-        response = self.client.post(self.project_media_wallpost_url, {'title': second_wallpost_title, 'project_id': self.some_project.id})
+        response = self.client.post(self.project_media_wallposts_url, {'title': second_wallpost_title, 'project_id': self.some_project.id})
         self.client.logout()
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Retrieve a list of the two Project Media WallPosts that we've just added should work
-        response = self.client.get(self.project_wallpost_url,  {'project_id': self.some_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 2)
         self.assertEqual(response.data['results'][0]['title'], second_wallpost_title)
         self.assertEqual(response.data['results'][1]['title'], wallpost_title)
-
-
-
-class ProjectTextWallPostApiIntegrationTest(ProjectTestsMixin, TestCase):
-    """
-    Integration tests for the ProjectWallPost API.
-    """
-    def setUp(self):
-
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
-
-        self.some_project = self.create_project()
-        self.another_project = self.create_project()
-
-        self.wallposts_url = '/i18n/api/wallposts/projectwallposts/'
-        self.mediawallposts_url = '/i18n/api/wallposts/projectmediawallposts/'
-        self.textwallposts_url = '/i18n/api/wallposts/projecttextwallposts/'
-
-
-    def tearDown(self):
         self.client.logout()
 
     def test_projecttextwallpost_crud(self):
@@ -428,24 +417,24 @@ class ProjectTextWallPostApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Create text wallpost as not logged in guest should be denied
         text1 = 'Great job!'
-        response = self.client.post(self.textwallposts_url, {'text': text1, 'project_id': self.some_project.id})
+        response = self.client.post(self.project_text_wallposts_url, {'text': text1, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         self.client.login(username=self.some_user.username, password='password')
 
         # Create TextWallPost as a logged in member should be allowed
-        response = self.client.post(self.textwallposts_url, {'text': text1, 'project_id': self.some_project.id})
+        response = self.client.post(self.project_text_wallposts_url, {'text': text1, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['text'], text1)
 
         # Retrieve text wallpost through WallPosts api
-        wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
+        wallpost_detail_url = "{0}{1}".format(self.project_wallposts_url, str(response.data['id']))
         response = self.client.get(wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['text'], text1)
 
         # Retrieve text wallpost through TextWallPosts api
-        wallpost_detail_url = "{0}{1}".format(self.textwallposts_url, str(response.data['id']))
+        wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
         response = self.client.get(wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['text'], text1)
@@ -454,27 +443,26 @@ class ProjectTextWallPostApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.client.login(username=self.another_user.username, password='password')
 
         # Retrieve text wallpost through projectwallposts api by another user
-        wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
+        wallpost_detail_url = "{0}{1}".format(self.project_wallposts_url, str(response.data['id']))
         response = self.client.get(wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['text'], text1)
 
         # Create TextWallPost without a text should return an error and
-        response = self.client.post(self.textwallposts_url, {'text': '', 'project_id': self.some_project.id})
+        response = self.client.post(self.project_text_wallposts_url, {'text': '', 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
         self.assertIsNotNone(response.data['text'])
 
         text2 = "I liek this project!"
 
         # Create TextWallPost as another logged in member should be allowed
-        response = self.client.post(self.textwallposts_url, {'text': text2, 'project_id': self.some_project.id})
+        response = self.client.post(self.project_text_wallposts_url, {'text': text2, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['text'], text2)
 
-
         # Update TextWallPost by author is allowed
         text2a = 'I like this project!'
-        wallpost_detail_url = "{0}{1}".format(self.textwallposts_url, str(response.data['id']))
+        wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
         response = self.client.put(wallpost_detail_url, {'text': text2a, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['text'], text2a)
@@ -484,57 +472,54 @@ class ProjectTextWallPostApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Update TextWallPost by another user (not the author) is allowed
         text2b = 'Mess this up!'
-        wallpost_detail_url = "{0}{1}".format(self.textwallposts_url, str(response.data['id']))
+        wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
         response = self.client.put(wallpost_detail_url, {'text': text2b, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
 
-class ProjectWallPostListApiIntegrationTest(ProjectTestsMixin, TestCase):
-    """
-    Integration tests for the ProjectWallPost API.
-    """
-    def setUp(self):
-
-        self.some_user = self.create_user()
-        self.some_project = self.create_project()
-        self.project_wallpost_url = '/i18n/api/wallposts/projectwallposts/'
-        self.project_textwallposts_url = '/i18n/api/wallposts/projecttextwallposts/'
-
-        self.client.login(username=self.some_user.username, password='password')
-
-        # create a bunch of Project Text WallPosts
-        for char in 'abcdefghijklmnopqrstuvwxyz':
-            text = char * 15
-            self.client.post(self.project_textwallposts_url, {'text': text, 'project_id': self.some_project.id})
-
-    def tearDown(self):
-        self.client.logout()
-
-    def test_projecttextwallpost_list(self):
+    def test_projectwallpost_list(self):
         """
         Tests for list and (soft)deleting wallposts
         """
+
+        # Create a bunch of Project Text WallPosts
+        self.client.login(username=self.some_user.username, password='password')
+        for char in 'abcdefghijklmnopqrstuv':
+            text = char * 15
+            self.client.post(self.project_text_wallposts_url, {'text': text, 'project_id': self.some_project.id})
+
+        self.client.logout()
+
+        # And a bunch of Project Media WallPosts
+        self.client.login(username=self.some_project.owner.username, password='password')
+        for char in 'wxyz':
+            title = char * 15
+            self.client.post(self.project_media_wallposts_url, {'title': title, 'project_id': self.some_project.id})
+
+
         # Retrieve a list of the 26 Project WallPosts
 
         # View Project WallPost list works for author
-        response = self.client.get(self.project_wallpost_url,  {'project_id': self.some_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 10)
         self.assertEqual(response.data['count'], 26)
+        self.assertEqual(response.data['results'][0]['type'], 'media')
+        self.assertEqual(response.data['results'][4]['type'], 'text')
 
-        # Delete a WallPost and check that we can't retrieve it anymore
-        project_wallpost_detail_url = "{0}{1}".format(self.project_textwallposts_url, str(response.data['results'][0]['id']))
-        self.client.delete(project_wallpost_detail_url)
+        # Delete a Media WallPost and check that we can't retrieve it anymore
+        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, str(response.data['results'][0]['id']))
+        response = self.client.delete(project_wallpost_detail_url)
         response = self.client.get(project_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
         # WallPost List count should have decreased after deleting one
-        response = self.client.get(self.project_wallpost_url,  {'project_id': self.some_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
         self.assertEqual(response.data['count'], 25)
 
         # View Project WallPost list works for guest
         self.client.logout()
-        response = self.client.get(self.project_wallpost_url,  {'project_id': self.some_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 10)
         self.assertEqual(response.data['count'], 25)
