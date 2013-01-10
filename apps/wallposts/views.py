@@ -1,6 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import permissions
-from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView
+from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
@@ -31,10 +31,9 @@ class ProjectWallPostMixin(object):
         obj.ip_address = get_client_ip(self.request)
 
 
-class ProjectWallPostList(ProjectWallPostMixin, ListCreateAPIView):
+class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
-    permission_classes = (IsProjectOwnerOrReadOnly,)
     paginate_by = 10
 
 
