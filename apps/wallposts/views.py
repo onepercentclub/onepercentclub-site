@@ -1,7 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
-from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView
+from rest_framework import permissions
+from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.models import Project
+from apps.projects.permissions import IsProjectOwnerOrReadOnly
+from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from .serializers import ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
 from .models import WallPost, MediaWallPost, TextWallPost
 
@@ -26,7 +29,7 @@ class ProjectWallPostMixin(object):
         obj.ip_address = get_client_ip(self.request)
 
 
-class ProjectWallPostList(ProjectWallPostMixin, ListCreateAPIView):
+class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
     paginate_by = 10
@@ -35,26 +38,31 @@ class ProjectWallPostList(ProjectWallPostMixin, ListCreateAPIView):
 class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
 
 
 class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
+    permission_classes = (IsProjectOwnerOrReadOnly,)
     paginate_by = 10
 
 
 class ProjectMediaWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
 
 
 class ProjectTextWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     model = TextWallPost
     serializer_class = ProjectTextWallPostSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 10
 
 
 class ProjectTextWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     model = TextWallPost
     serializer_class = ProjectTextWallPostSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
 
