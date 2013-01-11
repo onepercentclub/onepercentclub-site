@@ -335,13 +335,13 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
     def setUp(self):
         self.some_project = self.create_project()
         self.another_project = self.create_project()
-        self.some_user = self.create_user()
-        self.project_media_wallposts_url = '/i18n/api/wallposts/projectmediawallposts/'
-        self.project_text_wallposts_url = '/i18n/api/wallposts/projecttextwallposts/'
-        self.project_wallposts_url = '/i18n/api/wallposts/projectwallposts/'
 
         self.some_user = self.create_user()
         self.another_user = self.create_user()
+
+        self.project_media_wallposts_url = '/i18n/api/wallposts/projectmediawallposts/'
+        self.project_text_wallposts_url = '/i18n/api/wallposts/projecttextwallposts/'
+        self.project_wallposts_url = '/i18n/api/wallposts/projectwallposts/'
 
 
     def test_project_media_wallpost_crud(self):
@@ -387,14 +387,14 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
-        # Write Project Media WallPost by Project Owner rto another Project should fail
+        # Write Project Media WallPost by Project Owner to another Project should fail
         self.client.logout()
         self.client.login(username=self.some_project.owner.username, password='password')
         new_wallpost_title = 'This is not my project, although I do have a project'
         response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project_id': self.another_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
-        # Update Project Media WallPost by someone else then Project Owner should fail
+        # Update Project Media WallPost by someone else than Project Owner should fail
         second_wallpost_title = "My project rocks!"
         response = self.client.post(self.project_media_wallposts_url, {'title': second_wallpost_title, 'project_id': self.some_project.id})
         self.client.logout()
@@ -470,7 +470,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.client.logout()
         self.client.login(username=self.some_user.username, password='password')
 
-        # Update TextWallPost by another user (not the author) is allowed
+        # Update TextWallPost by another user (not the author) is not allowed
         text2b = 'Mess this up!'
         wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
         response = self.client.put(wallpost_detail_url, {'text': text2b, 'project_id': self.some_project.id})
