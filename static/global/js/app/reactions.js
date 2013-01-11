@@ -2,12 +2,7 @@ App.Reaction = DS.Model.extend({
     url: 'reactions',
     reaction: DS.attr('string'),
     author: DS.belongsTo('App.Member'),
-    created: DS.attr('string'),
-    relativetime: function(){
-        var date = new Date(this.get('created'));
-        return date;
-        return humanize.relativeTime(date.getTime());
-    }.property('created')
+    created: DS.attr('date'),
 });
 
 
@@ -48,6 +43,7 @@ App.ReactionFormView = Em.View.extend({
     templateFile: 'reaction_box',
     tagName: 'form',
     classNames: ['reaction-form'],
+    parentBinding: parentView.content,
     reaction: '',
     submit: function(e){
         e.preventDefault();

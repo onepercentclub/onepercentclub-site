@@ -1,5 +1,8 @@
 from apps.bluebottle_drf2.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer
 from apps.projects.models import Project
+from apps.reactions.models import Reaction
+from apps.reactions.serializers import ReactionSerializer
+from apps.wallposts.models import WallPost
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django import forms
@@ -74,8 +77,7 @@ class ObjectIdField(serializers.RelatedField):
     form_field_class = forms.ChoiceField
 
     def __init__(self, model, to_model, *args, **kwargs):
-        model_type = ContentType.objects.get_for_model(to_model)
-        queryset = model.objects.filter(content_type__pk=model_type.id).order_by('object_id').distinct('object_id')
+        queryset = to_model.objects.all()
         super(ObjectIdField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
 
     def label_from_instance(self, obj):
@@ -135,3 +137,12 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
             (TextWallPost, ProjectTextWallPostSerializer),
             (MediaWallPost, ProjectMediaWallPostSerializer),
             )
+
+
+
+class WallpostReactionSerializer(ReactionSerializer):
+    # TODO: Change this to wallpost_id
+    wallpost_id = ObjectIdField(model=Reaction, to_model=WallPost)
+
+    class Meta(ReactionSerializer.Meta):
+        fields = ReactionSerializer.Meta.fields + ('wallpost_id', )
