@@ -336,9 +336,9 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.some_project = self.create_project()
         self.another_project = self.create_project()
         self.some_user = self.create_user()
-        self.project_media_wallposts_url = '/i18n/api/wallposts/projectmediawallposts/'
-        self.project_text_wallposts_url = '/i18n/api/wallposts/projecttextwallposts/'
-        self.project_wallposts_url = '/i18n/api/wallposts/projectwallposts/'
+        self.project_media_wallposts_url = '/i18n/api/projects/wallposts/media/'
+        self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'
+        self.project_wallposts_url = '/i18n/api/project/wallposts/'
 
         self.some_user = self.create_user()
         self.another_user = self.create_user()
