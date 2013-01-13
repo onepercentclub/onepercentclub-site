@@ -402,6 +402,10 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
+        # Deleting a Project Media WallPost by non-author user should fail.
+        response = self.client.delete(project_wallpost_detail_url)  # some_user is still logged in.
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
+
         # Retrieve a list of the two Project Media WallPosts that we've just added should work
         response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
