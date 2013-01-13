@@ -218,16 +218,13 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
                 project.phase = Project.ProjectPhases.fund
                 project.save()
 
-        self.list_view = ProjectList.as_view()
         self.list_view_count = 10
-        self.detail_view = ProjectDetail.as_view()
         self.projects_url = '/i18n/api/projects/'
 
-    def test_drf2_list_view(self):
+    def test_project_list_view(self):
         """
-        Tests for Project Root view. These basic tests are here because Project
-        is the first API to use DRF2 and DRF2 hasn't been released yet. Not all
-        DRF views need thorough integration testing like this.
+        Tests for Project List view. These basic tests are here because Project is the
+        first API to use DRF2. Not all APIs need thorough integration testing like this.
         """
 
         # Basic test of DRF2.
@@ -271,12 +268,10 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
 
-    def test_drf2_list_view_query_filters(self):
+    def test_project_list_view_query_filters(self):
         """
-        Tests for Project Root view with filters. These basic tests are here
-        because Project is the first API to use DRF2 and DRF2 hasn't been
-        released yet. Not all DRF views need thorough integration testing like
-        this.
+        Tests for Project Root view with filters. These basic tests are here because Project is the
+        first API to use DRF2. Not all APIs need thorough integration testing like this.
         """
 
         # Tests that the phase filter works.
@@ -304,7 +299,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
 
-    def test_drf2_detail_view(self):
+    def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
 
         # Get the list of projects.
