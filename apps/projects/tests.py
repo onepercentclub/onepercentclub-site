@@ -221,7 +221,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.list_view = ProjectList.as_view()
         self.list_view_count = 10
         self.detail_view = ProjectDetail.as_view()
-        self.api_base = '/i18n/api/projects/'
+        self.projects_url = '/i18n/api/projects/'
 
     def test_drf2_list_view(self):
         """
@@ -231,8 +231,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         """
 
         # Basic test of DRF2.
-        request = factory.get(self.api_base)
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -240,8 +239,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the next link works.
-        request = factory.get(response.data['next'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['next'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -249,8 +247,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link works.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -258,8 +255,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the last page works.
-        request = factory.get(self.api_base + '?page=3')
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url + '?page=3')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), 26 % self.list_view_count)
@@ -267,8 +263,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link from the last page works.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -285,8 +280,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         """
 
         # Tests that the phase filter works.
-        request = factory.get(self.api_base + '?phase=fund')
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url + '?phase=fund')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -294,8 +288,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the next link works with a filter (this is also the last page).
-        request = factory.get(response.data['next'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['next'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), 13 % self.list_view_count)
@@ -303,8 +296,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link works with a filter.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -316,14 +308,12 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         """ Tests retrieving a project detail from the API. """
 
         # Get the list of projects.
-        request = factory.get(self.api_base)
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
         # Test retrieving the first project detail from the list.
         project = response.data['results'][0]
-        request = factory.get(self.api_base + str(project['id']))
-        response = self.detail_view(request, pk=project['id']).render()
+        response = self.client.get(self.projects_url + str(project['id']))
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
