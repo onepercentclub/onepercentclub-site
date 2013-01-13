@@ -270,7 +270,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
 
     def test_project_list_view_query_filters(self):
         """
-        Tests for Project Root view with filters. These basic tests are here because Project is the
+        Tests for Project List view with filters. These basic tests are here because Project is the
         first API to use DRF2. Not all APIs need thorough integration testing like this.
         """
 
