@@ -66,7 +66,7 @@ App.projectWallPostListController = Em.ArrayController.create({
         if (!(wallpost instanceof model)) {
             // Add project_id to the wallpost
             wallpost.project_id = this.get('project.id');
-            var wallpost = App.ProjectMediaWallPost.createRecord(wallpost);
+            var wallpost = model.createRecord(wallpost);
         }
         // Not a race condition because ember-data only starts its machinery when App.store.commit() is called.
         wallpost.on('didCreate', function(record) {
