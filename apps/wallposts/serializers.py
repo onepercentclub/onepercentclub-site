@@ -3,6 +3,7 @@ from apps.projects.models import Project
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django import forms
+from django.utils.encoding import smart_str
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost
 
@@ -68,27 +69,26 @@ class WallPostSerializer(PolymorphicSerializer):
 
 # Serializers specific to the ProjectWallPosts:
 
-class ObjectIdField(serializers.RelatedField):
+class ToModelIdField(serializers.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey. """
 
     default_read_only = False
     form_field_class = forms.ChoiceField
 
-    def __init__(self, model, to_model, *args, **kwargs):
-        model_type = ContentType.objects.get_for_model(to_model)
-        queryset = model.objects.filter(content_type__pk=model_type.id).order_by('object_id').distinct('object_id')
-        super(ObjectIdField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
+    def __init__(self, to_model, *args, **kwargs):
+        self.to_model = to_model
+        queryset = self.to_model.objects.order_by('id').all()
+        super(ToModelIdField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
 
     def label_from_instance(self, obj):
-        # TODO Make a better label here with project name or slug.
-        return str(getattr(obj, self.source))
+        return "{0} - {1}".format(str(obj.id), smart_str(self.to_model.__unicode__(obj)))
 
     def prepare_value(self, obj):
         return self.to_native(obj)
 
     def to_native(self, obj):
         # The actual serialization.
-        return obj.serializable_value(self.source)
+        return obj.serializable_value('id')
 
     def field_to_native(self, obj, field_name):
         return self.to_native(obj)
@@ -97,7 +97,7 @@ class ObjectIdField(serializers.RelatedField):
 class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
-    project_id = ObjectIdField(model=MediaWallPost, to_model=Project)
+    project_id = ToModelIdField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-textwallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
@@ -114,7 +114,7 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
 class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
     """ MediaWallPostSerializer with project specific customizations. """
 
-    project_id = ObjectIdField(model=MediaWallPost, to_model=Project)
+    project_id = ToModelIdField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
 
     class Meta(MediaWallPostSerializer.Meta):
