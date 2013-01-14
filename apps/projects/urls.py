@@ -1,7 +1,5 @@
 from django.conf.urls import patterns
-
 from surlex.dj import surl
-
 from .views import ProjectDetailView
 
 urlpatterns = patterns('',
