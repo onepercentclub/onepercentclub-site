@@ -1,3 +1,4 @@
+from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
@@ -10,6 +11,8 @@ from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost
 from .models import Project
 from .serializers import ProjectSerializer
 
+
+# API views
 
 class ProjectList(generics.ListAPIView):
     model = Project
@@ -82,3 +85,10 @@ class ProjectTextWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIVie
     serializer_class = ProjectTextWallPostSerializer
     permission_classes = (IsAuthorOrReadOnly,)
 
+
+# Django template Views
+
+class ProjectDetailView(DetailView):
+    """ This is the project view that search engines will use. """
+    model = Project
+    template_name = 'project_detail.html'
