@@ -1,6 +1,8 @@
 import sys
 from django.conf import settings
 from django.utils.timesince import timesince
+from django import forms
+from django.utils.encoding import smart_str
 from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
@@ -121,3 +123,30 @@ class PolymorphicSerializer(serializers.Serializer):
             ret[key] = value
             ret.fields[key] = field
         return ret
+
+
+class ToModelIdField(serializers.RelatedField):
+    """ A field serializer for the object_id field in a GenericForeignKey. """
+
+    default_read_only = False
+    form_field_class = forms.ChoiceField
+
+    def __init__(self, to_model, *args, **kwargs):
+        self.to_model = to_model
+        queryset = self.to_model.objects.order_by('id').all()
+        super(ToModelIdField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
+
+    def label_from_instance(self, obj):
+        return "{0} - {1}".format(str(obj.id), smart_str(self.to_model.__unicode__(obj)))
+
+    def prepare_value(self, obj):
+        # Called when preparing the ChoiceField widget from the to_model queryset.
+        return obj.serializable_value('id')
+
+    def to_native(self, obj):
+        # Serialize using self.source (i.e. 'object_id').
+        return obj.serializable_value(self.source)
+
+    def field_to_native(self, obj, field_name):
+        # Defer the serialization to the to_native() method.
+        return self.to_native(obj)
