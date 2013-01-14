@@ -44,6 +44,9 @@ class WallPost(PolymorphicModel):
     class Meta:
         ordering = ('created',)
 
+    def __unicode__(self):
+        return self.id
+
 
 class MediaWallPost(WallPost):
     # The content of the wall post.

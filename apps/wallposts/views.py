@@ -3,9 +3,8 @@ from apps.bluebottle_utils.utils import get_client_ip
 from apps.wallposts.serializers import WallpostReactionSerializer
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
-from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
+from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView
 from apps.reactions.models import Reaction
-from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
 
 
@@ -15,7 +14,8 @@ class WallPostReactionMixin(object):
         queryset = super(WallPostReactionMixin, self).get_queryset()
         content_type = ContentType.objects.get_for_model(WallPost)
         queryset = queryset.filter(content_type=content_type)
-        wallpost_id = self.request.QUERY_PARAMS.get('wallpost_id')
+        wallpost_id = self.request.QUERY_PARAMS.get('wallpost_id', None)
+        print wallpost_id
         if wallpost_id:
             queryset = queryset.filter(object_id=wallpost_id)
         queryset = queryset.order_by("-created")

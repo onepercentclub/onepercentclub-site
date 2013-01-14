@@ -74,16 +74,12 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         self.assertEqual(response.data['reaction'], new_reaction_text)
 
         # Create a Reaction by another user
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.logout()
+        self.client.login(username=self.another_user.username, password='password')
         another_reaction_text = "I'm not so sure..."
         response = self.client.post(self.wallpost_reaction_url, {'reaction': another_reaction_text, 'wallpost_id': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['reaction'], another_reaction_text)
-
-
-        # Delete Reaction by non-author should not work
-        response = self.client.delete(reaction_detail_url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # retrieve the list of Reactions for this WallPost should return two
         response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.some_wallpost.id})
@@ -92,6 +88,9 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         self.assertEqual(response.data['results'][0]['reaction'], another_reaction_text)
         self.assertEqual(response.data['results'][1]['reaction'], new_reaction_text)
 
+        # Delete Reaction by non-author should not work
+        response = self.client.delete(reaction_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # back to the author
         self.client.logout()

@@ -8,8 +8,10 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
     """
 
     def has_permission(self, request, view, obj=None):
+        print obj
+        obj = view.get_object()
+        print obj
         # Skip the check unless this is an object-level test.
-
         if obj is None:
             return True
 

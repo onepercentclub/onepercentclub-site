@@ -1,4 +1,4 @@
-from apps.bluebottle_drf2.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer
 from apps.projects.models import Project
 from apps.reactions.models import Reaction
 from apps.reactions.serializers import ReactionSerializer
@@ -9,14 +9,6 @@ from django import forms
 from django.utils.encoding import smart_str
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost
-
-
-class AuthorSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
-
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'picture', 'username')
 
 
 class WallPostTypeField(serializers.Field):
