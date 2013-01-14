@@ -18,7 +18,8 @@ class WallPostManager(GenericForeignKeyManagerMixin, PolymorphicManager):
 class WallPost(PolymorphicModel):
     # The user who wrote the wall post. This can be empty to support wall posts without users (e.g. anonymous text wall
     # posts, system wall posts)
-    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_reactions", blank=True, null=True)
+    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_wallpost", blank=True, null=True)
+    editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this wallpost."))
 
     # The metadata for the wall post.
     created = CreationDateTimeField()

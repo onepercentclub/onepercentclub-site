@@ -1,12 +1,11 @@
-from apps.drf2serializers.serializers import SorlImageField
+from apps.bluebottle_drf2.serializers import SorlImageField
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from rest_framework.fields import HyperlinkedIdentityField
 
 
 class MemberDetailSerializer(serializers.ModelSerializer):
 
-    url = HyperlinkedIdentityField(view_name='member-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='member-detail')
     picture = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY", crop='center')
 
     class Meta:
@@ -21,7 +20,7 @@ class MemberListSerializer(MemberDetailSerializer):
         fields = ('id', 'first_name', 'last_name', 'username', 'url')
 
 
-class NoneHyperlinkedIdentityField(HyperlinkedIdentityField):
+class NoneHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
     """ Specialized version of HyperlinkedIdentityField that deals with None objects. """
 
     def field_to_native(self, obj, field_name):

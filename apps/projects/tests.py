@@ -1,16 +1,14 @@
 from decimal import Decimal
 from datetime import timedelta
 from django.core.exceptions import ValidationError
-from django.test import TestCase
-from django.test.client import RequestFactory
+from django.test import TestCase, RequestFactory
 from django.utils import timezone
 from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.media.tests import MediaTestsMixin
-from apps.projects.views import ProjectList, ProjectDetail
+from .views import ProjectList, ProjectDetail
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
-
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -38,6 +36,7 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         if not owner:
             # Create a new user with a random username
             owner = self.create_user()
+        owner.save()
 
         if not slug:
             slug = generate_random_slug()
@@ -48,6 +47,8 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             organization=organization, owner=owner, title=title, slug=slug,
             latitude=latitude, longitude=longitude
         )
+
+        project.save()
 
         return project
 
@@ -60,6 +61,7 @@ class FundPhaseTestMixin(object):
         fundphase.budget_total = budget_total
         fundphase.money_asked = money_asked
         fundphase.startdate = timezone.now().date()
+        fundphase.save()
         return fundphase
 
 
@@ -69,15 +71,12 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
 
     def setUp(self):
         """ Every test in this suite requires a project. """
-        self.project = self.create_project(title='Banana Project',
-                                           slug='banana')
-        self.project.save()
+        self.project = self.create_project(title='Banana Project', slug='banana')
 
     def test_amounts(self):
         """ Test calculation of donation amounts """
 
         phase = self.create_fundphase(self.project, 12000, 3520)
-        phase.save()
         self.assertEquals(self.project.money_asked, 3520)
 
         self.project.fundphase.money_donated = 2155
@@ -90,7 +89,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
 
         # Saving a new phase should have money_donated set to 0.
         phase = self.create_fundphase(self.project)
-        phase.save()
         self.assertEquals(phase.money_donated, 0)
 
         # Saving the phase again with money_donated set shouldn't it back to 0.
@@ -100,7 +98,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
 
         # Saving a phase with money_donated set before save() shouldn't set it to 0.
         funProject = self.create_project(title='Fun Project')
-        funProject.save()
         phase = self.create_fundphase(funProject)
         phase.money_donated = 20
         phase.save()
@@ -119,7 +116,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         ideaphase.startdate = today
         ideaphase.save()
         fundphase = self.create_fundphase(self.project)
-        fundphase.save()
 
         # Refresh the data and test:
         ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
@@ -216,29 +212,23 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         """
         for char in 'abcdefghijklmnopqrstuvwxyz':
             project = self.create_project(title=char * 3, slug=char * 3)
-            project.save()
             if ord(char) % 2 == 1:
                 # Put half of the projects are in the fund phase.
                 fundphase = self.create_fundphase(project)
-                fundphase.save()
                 project.phase = Project.ProjectPhases.fund
                 project.save()
 
-        self.list_view = ProjectList.as_view()
         self.list_view_count = 10
-        self.detail_view = ProjectDetail.as_view()
-        self.api_base = '/i18n/api/projects/'
+        self.projects_url = '/i18n/api/projects/'
 
-    def test_drf2_list_view(self):
+    def test_project_list_view(self):
         """
-        Tests for Project Root view. These basic tests are here because Project
-        is the first API to use DRF2 and DRF2 hasn't been released yet. Not all
-        DRF views need thorough integration testing like this.
+        Tests for Project List view. These basic tests are here because Project is the
+        first API to use DRF2. Not all APIs need thorough integration testing like this.
         """
 
         # Basic test of DRF2.
-        request = factory.get(self.api_base)
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -246,8 +236,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the next link works.
-        request = factory.get(response.data['next'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['next'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -255,8 +244,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link works.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -264,8 +252,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the last page works.
-        request = factory.get(self.api_base + '?page=3')
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url + '?page=3')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), 26 % self.list_view_count)
@@ -273,8 +260,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link from the last page works.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -282,17 +268,14 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
 
-    def test_drf2_list_view_query_filters(self):
+    def test_project_list_view_query_filters(self):
         """
-        Tests for Project Root view with filters. These basic tests are here
-        because Project is the first API to use DRF2 and DRF2 hasn't been
-        released yet. Not all DRF views need thorough integration testing like
-        this.
+        Tests for Project List view with filters. These basic tests are here because Project is the
+        first API to use DRF2. Not all APIs need thorough integration testing like this.
         """
 
         # Tests that the phase filter works.
-        request = factory.get(self.api_base + '?phase=fund')
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url + '?phase=fund')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -300,8 +283,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the next link works with a filter (this is also the last page).
-        request = factory.get(response.data['next'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['next'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), 13 % self.list_view_count)
@@ -309,8 +291,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link works with a filter.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -318,16 +299,218 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
 
-    def test_drf2_detail_view(self):
+    def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
 
         # Get the list of projects.
-        request = factory.get(self.api_base)
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
         # Test retrieving the first project detail from the list.
         project = response.data['results'][0]
-        request = factory.get(self.api_base + str(project['id']))
-        response = self.detail_view(request, pk=project['id']).render()
+        response = self.client.get(self.projects_url + str(project['id']))
         self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+
+class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
+    """
+    Integration tests for the Project Media WallPost API.
+    """
+
+    def setUp(self):
+        self.some_project = self.create_project()
+        self.another_project = self.create_project()
+
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+
+        self.project_media_wallposts_url = '/i18n/api/wallposts/projectmediawallposts/'
+        self.project_text_wallposts_url = '/i18n/api/wallposts/projecttextwallposts/'
+        self.project_wallposts_url = '/i18n/api/wallposts/projectwallposts/'
+
+
+    def test_project_media_wallpost_crud(self):
+        """
+        Tests for creating, retrieving, updating and deleting a Project Media WallPost.
+        """
+        self.client.login(username=self.some_project.owner.username, password='password')
+
+        # Create a Project Media WallPost by Project Owner
+        # Note: This test will fail when we require at least a video and/or a text but that's what we want.
+        wallpost_title = 'This is my super project!'
+        response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['title'], wallpost_title)
+
+        # Retrieve the created Project Media WallPost.
+        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, str(response.data['id']))
+        response = self.client.get(project_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['title'], wallpost_title)
+
+        # Update the created Project Media WallPost by author.
+        new_wallpost_title = 'This is my super-duper project!'
+        response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['title'], new_wallpost_title)
+
+        # Delete Project Media WallPost by author
+        response = self.client.delete(project_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response)
+
+        # Create Project Media WallPost and retrieve by another user
+        response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project_id': self.some_project.id})
+        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, str(response.data['id']))
+        self.client.logout()
+        self.client.login(username=self.some_user.username, password='password')
+        response = self.client.get(project_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['title'], wallpost_title)
+
+        # Write Project Media WallPost by someone else then Project Owner should fail
+        new_wallpost_title = 'This is not my project...'
+        response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Write Project Media WallPost by Project Owner to another Project should fail
+        self.client.logout()
+        self.client.login(username=self.some_project.owner.username, password='password')
+        new_wallpost_title = 'This is not my project, although I do have a project'
+        response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project_id': self.another_project.id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Update Project Media WallPost by someone else than Project Owner should fail
+        second_wallpost_title = "My project rocks!"
+        response = self.client.post(self.project_media_wallposts_url, {'title': second_wallpost_title, 'project_id': self.some_project.id})
+        self.client.logout()
+        self.client.login(username=self.some_user.username, password='password')
+        response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Deleting a Project Media WallPost by non-author user should fail.
+        response = self.client.delete(project_wallpost_detail_url)  # some_user is still logged in.
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
+
+        # Retrieve a list of the two Project Media WallPosts that we've just added should work
+        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(response.data['results']), 2)
+        self.assertEqual(response.data['results'][0]['title'], second_wallpost_title)
+        self.assertEqual(response.data['results'][1]['title'], wallpost_title)
+        self.client.logout()
+
+    def test_projecttextwallpost_crud(self):
+        """
+        Tests for creating, retrieving, updating and deleting wallposts
+        """
+
+        # Create text wallpost as not logged in guest should be denied
+        text1 = 'Great job!'
+        response = self.client.post(self.project_text_wallposts_url, {'text': text1, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        self.client.login(username=self.some_user.username, password='password')
+
+        # Create TextWallPost as a logged in member should be allowed
+        response = self.client.post(self.project_text_wallposts_url, {'text': text1, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['text'], text1)
+
+        # Retrieve text wallpost through WallPosts api
+        wallpost_detail_url = "{0}{1}".format(self.project_wallposts_url, str(response.data['id']))
+        response = self.client.get(wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['text'], text1)
+
+        # Retrieve text wallpost through TextWallPosts api
+        wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
+        response = self.client.get(wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['text'], text1)
+
+        self.client.logout()
+        self.client.login(username=self.another_user.username, password='password')
+
+        # Retrieve text wallpost through projectwallposts api by another user
+        wallpost_detail_url = "{0}{1}".format(self.project_wallposts_url, str(response.data['id']))
+        response = self.client.get(wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['text'], text1)
+
+        # Create TextWallPost without a text should return an error and
+        response = self.client.post(self.project_text_wallposts_url, {'text': '', 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+        self.assertIsNotNone(response.data['text'])
+
+        text2 = "I liek this project!"
+
+        # Create TextWallPost as another logged in member should be allowed
+        response = self.client.post(self.project_text_wallposts_url, {'text': text2, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['text'], text2)
+
+        # Update TextWallPost by author is allowed
+        text2a = 'I like this project!'
+        wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
+        response = self.client.put(wallpost_detail_url, {'text': text2a, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['text'], text2a)
+
+        self.client.logout()
+        self.client.login(username=self.some_user.username, password='password')
+
+        # Update TextWallPost by another user (not the author) is not allowed
+        text2b = 'Mess this up!'
+        wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
+        response = self.client.put(wallpost_detail_url, {'text': text2b, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+
+    def test_projectwallpost_list(self):
+        """
+        Tests for list and (soft)deleting wallposts
+        """
+
+        # Create a bunch of Project Text WallPosts
+        self.client.login(username=self.some_user.username, password='password')
+        for char in 'abcdefghijklmnopqrstuv':
+            text = char * 15
+            self.client.post(self.project_text_wallposts_url, {'text': text, 'project_id': self.some_project.id})
+
+        self.client.logout()
+
+        # And a bunch of Project Media WallPosts
+        self.client.login(username=self.some_project.owner.username, password='password')
+        for char in 'wxyz':
+            title = char * 15
+            self.client.post(self.project_media_wallposts_url, {'title': title, 'project_id': self.some_project.id})
+
+
+        # Retrieve a list of the 26 Project WallPosts
+
+        # View Project WallPost list works for author
+        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(response.data['results']), 10)
+        self.assertEqual(response.data['count'], 26)
+        self.assertEqual(response.data['results'][0]['type'], 'media')
+        self.assertEqual(response.data['results'][4]['type'], 'text')
+
+        # Delete a Media WallPost and check that we can't retrieve it anymore
+        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, str(response.data['results'][0]['id']))
+        response = self.client.delete(project_wallpost_detail_url)
+        response = self.client.get(project_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
+
+        # WallPost List count should have decreased after deleting one
+        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
+        self.assertEqual(response.data['count'], 25)
+
+        # View Project WallPost list works for guest
+        self.client.logout()
+        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(response.data['results']), 10)
+        self.assertEqual(response.data['count'], 25)
+
+

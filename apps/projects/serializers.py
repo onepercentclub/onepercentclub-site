@@ -1,13 +1,12 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from rest_framework.fields import RelatedField, ManyRelatedField, Field, HyperlinkedIdentityField
-from apps.drf2serializers.serializers import SorlImageField
+from apps.bluebottle_drf2.serializers import SorlImageField
 from apps.geo.models import Country
 from .models import Project
 
 
 class ProjectCountrySerializer(serializers.ModelSerializer):
-    subregion = Field()
+    subregion = serializers.Field()
 
     class Meta:
         model = Country
@@ -25,17 +24,17 @@ class ProjectOwnerSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     country = ProjectCountrySerializer()
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
-    language = Field(source='get_language_display')
-    organization = RelatedField()
+    language = serializers.Field(source='get_language_display')
+    organization = serializers.RelatedField()
     owner = ProjectOwnerSerializer()
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
-    phase = Field(source='get_phase_display')
-    tags = ManyRelatedField()
-    url = HyperlinkedIdentityField(view_name='project-detail')
-    money_asked = Field(source='money_asked')
-    money_donated = Field(source='money_donated')
+    phase = serializers.Field(source='get_phase_display')
+    tags = serializers.ManyRelatedField()
+    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
+    money_asked = serializers.Field(source='money_asked')
+    money_donated = serializers.Field(source='money_donated')
     image = SorlImageField('image', '800x450', crop='center')
-    description = Field(source='description')
+    description = serializers.Field(source='description')
 
     class Meta:
         model = Project
