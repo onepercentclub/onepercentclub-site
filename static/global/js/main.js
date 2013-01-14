@@ -26,12 +26,12 @@ $(document).ready(function(){
     initPopup()
     //initLightbox();
     //initFileUpload();
-    
+
     // show/hide reactions
     $('.toggle-reactions').live('click', function(e) {
         $('.reactions', $(this).closest('.reaction-box')).toggle();
     });
-    
+
     // show/hide sharing options
     $('.share')
         .live('mouseenter', function(e) {

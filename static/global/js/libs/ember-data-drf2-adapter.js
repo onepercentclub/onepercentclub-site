@@ -166,7 +166,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 Changes from default:
  - add embedded support
 */
-var hasAssociation = function(type, options, one) {
+var hasSingleAssociation = function(type, options, one) {
     options = options || {};
 
     var meta = { type: type, isAssociation: true, options: options, kind: 'belongsTo' };
@@ -207,5 +207,50 @@ Changes from default:
 */
 DS.belongsTo = function(type, options) {
     Em.assert("The type passed to DS.belongsTo must be defined", !!type);
-    return hasAssociation(type, options);
+    return hasSingleAssociation(type, options);
+};
+
+var hasManyAssociation = function(type, options) {
+    options = options || {};
+
+    var meta = { type: type, isAssociation: true, options: options, kind: 'hasMany' };
+
+    return Ember.computed(function(key, value) {
+        var data = get(this, 'data').hasMany,
+            store = get(this, 'store'),
+            ids, association;
+
+        if (typeof type === 'string') {
+            type = get(this, type, false) || get(window, type);
+        }
+
+        ids = data[key];
+
+        // start: embedded support
+        if (options.embedded == true) {
+            var items = data[key];
+            // load the object
+            if (items.length) {
+                store.load(type, items);
+                association = store.findQuery(type, items);
+            } else {
+                association = [];
+            }
+        } else {
+            association = store.findMany(type, ids || [], this, meta);
+        }
+
+        // end: embedded support
+
+        set(association, 'owner', this);
+        set(association, 'name', key);
+
+        return association;
+    }).property().meta(meta);
+};
+
+
+DS.hasMany = function(type, options) {
+    Ember.assert("The type passed to DS.hasMany must be defined", !!type);
+    return hasManyAssociation(type, options);
 };

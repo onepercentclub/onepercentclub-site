@@ -43,7 +43,6 @@ App.ReactionFormView = Em.View.extend({
     templateFile: 'reaction_box',
     tagName: 'form',
     classNames: ['reaction-form'],
-    parentBinding: parentView.content,
     reaction: '',
     submit: function(e){
         e.preventDefault();

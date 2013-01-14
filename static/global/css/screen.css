@@ -2964,7 +2964,6 @@ ul.steps li.selected a {
   font-size: 14px;
   font-size: 0.875rem;
   position: relative;
-  display: none;
   margin: 0;
   background-color: #e9e9e9;
   list-style: none;
