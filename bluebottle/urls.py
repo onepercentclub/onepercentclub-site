@@ -28,6 +28,9 @@ urlpatterns = i18n_patterns('',
     # account login/logout, password reset, and password change
     url(r'^accounts/', include('django.contrib.auth.urls')),
 
+    # Project view that search engines will use.
+    url(r'^projects/', include('apps.projects.urls')),
+
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls'))
 )

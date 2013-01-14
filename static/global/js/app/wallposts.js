@@ -30,12 +30,12 @@ App.ProjectWallPost = DS.Model.extend({
 
 
 App.ProjectMediaWallPost = App.ProjectWallPost.extend({
-    url: 'projects/mediawallposts'
+    url: 'projects/wallposts/media'
 
 });
 
 App.ProjectTextWallPost = App.ProjectWallPost.extend({
-    url: 'projects/textwallposts'
+    url: 'projects/wallposts/text'
 });
 
 

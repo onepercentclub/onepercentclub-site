@@ -10,8 +10,8 @@ urlpatterns = patterns('',
     # Project WallPost Urls
     url(r'^wallposts/$', ProjectWallPostList.as_view(), name='project-wallpost-list'),
     surl(r'^wallposts/<pk:#>$', ProjectWallPostDetail.as_view(), name='project-wallpost-detail'),
-    url(r'^mediawallposts/$', ProjectMediaWallPostList.as_view(), name='project-mediawallpost-list'),
-    surl(r'^mediawallposts/<pk:#>$', ProjectMediaWallPostDetail.as_view(), name='project-mediawallpost-detail'),
-    url(r'^textwallposts/$', ProjectTextWallPostList.as_view(), name='project-textwallpost-list'),
-    surl(r'textwallposts/<pk:#>$', ProjectTextWallPostDetail.as_view(), name='project-textwallpost-detail'),
+    url(r'^wallposts/media/$', ProjectMediaWallPostList.as_view(), name='project-mediawallpost-list'),
+    surl(r'^wallposts/media/<pk:#>$', ProjectMediaWallPostDetail.as_view(), name='project-mediawallpost-detail'),
+    url(r'^wallposts/text/$', ProjectTextWallPostList.as_view(), name='project-textwallpost-list'),
+    surl(r'wallposts/text/<pk:#>$', ProjectTextWallPostDetail.as_view(), name='project-textwallpost-detail'),
 )
