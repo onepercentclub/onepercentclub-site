@@ -33,6 +33,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
+    created = serializers.DateTimeField(read_only=True)
     timesince = TimeSinceField(source='created')
 
     class Meta:
@@ -97,7 +98,7 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
     project_id = ObjectIdField(model=MediaWallPost, to_model=Project)
-    url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='project-textwallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
         # Add the project_id field.
