@@ -97,7 +97,7 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
     project_id = ToModelIdField(to_model=Project)
-    url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='project-textwallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
         # Add the project_id field.
