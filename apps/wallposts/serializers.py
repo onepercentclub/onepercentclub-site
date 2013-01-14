@@ -84,13 +84,15 @@ class ToModelIdField(serializers.RelatedField):
         return "{0} - {1}".format(str(obj.id), smart_str(self.to_model.__unicode__(obj)))
 
     def prepare_value(self, obj):
-        return self.to_native(obj)
-
-    def to_native(self, obj):
-        # The actual serialization.
+        # Called when preparing the ChoiceField widget from the to_model queryset.
         return obj.serializable_value('id')
 
+    def to_native(self, obj):
+        # Serialize using self.source (i.e. 'object_id').
+        return obj.serializable_value(self.source)
+
     def field_to_native(self, obj, field_name):
+        # Defer the serialization to the to_native() method.
         return self.to_native(obj)
 
 
