@@ -51,12 +51,22 @@ App.projectWallPostListController = Em.ArrayController.create({
     },
     
     projectBinding: "App.projectDetailController.content",
-    
-    content: function(){
-        if (this.get('project.id')) {
-            return App.ProjectWallPost.find({project_id: this.get('project.id')})
+
+    projectChanged: function(sender, key) {
+        // The RecordArray is not loaded into 'content' so that we can use a real ember array
+        // for 'content' when it's loaded.
+        var projectId = this.get('project.id');
+        this.set('wallposts', App.ProjectWallPost.find({project_id: projectId}));
+    }.observes('project'),
+
+    wallpostsLoaded: function(sender, key) {
+        // Set 'content' with an ember array when the wallposts have been loaded. This allows
+        // us to manually manipulate 'content' when new posts are added.
+        if (sender.get(key)) {
+            sender.set('content', sender.get('wallposts').toArray());
         }
-    }.property('project'),
+    }.observes('wallposts.isLoaded'),
+
 
     addWallPost: function(wallpost) {
         // Load the right model based on type
@@ -66,7 +76,11 @@ App.projectWallPostListController = Em.ArrayController.create({
             // Add project_id to the wallpost
             wallpost.project_id = this.get('project.id');
             var wallpost = model.createRecord(wallpost);
-        } 
+        }
+        // Not a race condition because ember-data only starts its machinery when App.store.commit() is called.
+        wallpost.on('didCreate', function(record) {
+            App.projectWallPostListController.get('content').unshiftObject(record);
+        });
         App.store.commit();
         // Return the model (with errors) for the form to return it to the user.
         return wallpost;
@@ -100,17 +114,16 @@ App.MediaWallPostFormView = Em.View.extend({
     tagName: 'form',
     wallpost: {type: 'media'},
     submit: function(e){
+        // **** Why is this called when the project page is first loaded? ******
         e.preventDefault();
         // Send the object to controller
         // This will return a DS.Model with optional error codes
         var wallpost = App.projectWallPostListController.addWallPost(this.get('wallpost'));
-        // For now always return true so we get the errors
-        // TODO: Find out how we can properly check for errors
-        if (1 || wallpost.errors) {
+        if (wallpost.get('isError')) {
             // We'll replace this.wallpost with the proper DS.Model to bind errors
             this.set('wallpost', wallpost);
         } else {
-            // Wallpost was created succesfully so clear the form:
+            // Wallpost was created successfully so clear the form:
             this.set('wallpost', {type: wallpost.type});
         }
     }
@@ -119,7 +132,7 @@ App.MediaWallPostFormView = Em.View.extend({
 
 App.TextWallPostFormView = App.MediaWallPostFormView.extend({
     templateName: 'text_wallpost_form',
-    wallpost: {type: 'text'},
+    wallpost: {type: 'text'}
 });
 
 
@@ -153,9 +166,9 @@ App.WallPostView = Em.View.extend({
             // TODO: Have a proper solution for belongsTo fields in adapter
             post.reopen({
                 author: null
-            })
+            });
             post.deleteRecord();
-            App.store.commit()
+            App.store.commit();
             var self = this;
             this.$().slideUp(1000, function(){self.remove();});
         }

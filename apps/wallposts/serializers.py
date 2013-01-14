@@ -6,7 +6,7 @@ from apps.wallposts.models import WallPost
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django import forms
-from django.utils.encoding import smart_str, is_protected_type, smart_unicode
+from django.utils.encoding import smart_str
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost
 from rest_framework.fields import is_simple_callable
@@ -78,6 +78,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
+    created = serializers.DateTimeField(read_only=True)
     timesince = TimeSinceField(source='created')
     reactions = ManyRelatedSerializer(WallpostReactionSerializer)
 
@@ -113,12 +114,36 @@ class WallPostSerializer(PolymorphicSerializer):
 
 # Serializers specific to the ProjectWallPosts:
 
+class ToModelIdField(serializers.RelatedField):
+    """ A field serializer for the object_id field in a GenericForeignKey. """
+
+    default_read_only = False
+    form_field_class = forms.ChoiceField
+
+    def __init__(self, to_model, *args, **kwargs):
+        self.to_model = to_model
+        queryset = self.to_model.objects.order_by('id').all()
+        super(ToModelIdField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
+
+    def label_from_instance(self, obj):
+        return "{0} - {1}".format(str(obj.id), smart_str(self.to_model.__unicode__(obj)))
+
+    def prepare_value(self, obj):
+        return self.to_native(obj)
+
+    def to_native(self, obj):
+        # The actual serialization.
+        return obj.serializable_value('id')
+
+    def field_to_native(self, obj, field_name):
+        return self.to_native(obj)
+
 
 class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
     project_id = ToModelIdField(to_model=Project)
-    url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='project-textwallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
         # Add the project_id field.

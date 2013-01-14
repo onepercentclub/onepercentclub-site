@@ -218,21 +218,17 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
                 project.phase = Project.ProjectPhases.fund
                 project.save()
 
-        self.list_view = ProjectList.as_view()
         self.list_view_count = 10
-        self.detail_view = ProjectDetail.as_view()
-        self.api_base = '/i18n/api/projects/'
+        self.projects_url = '/i18n/api/projects/'
 
-    def test_drf2_list_view(self):
+    def test_project_list_view(self):
         """
-        Tests for Project Root view. These basic tests are here because Project
-        is the first API to use DRF2 and DRF2 hasn't been released yet. Not all
-        DRF views need thorough integration testing like this.
+        Tests for Project List view. These basic tests are here because Project is the
+        first API to use DRF2. Not all APIs need thorough integration testing like this.
         """
 
         # Basic test of DRF2.
-        request = factory.get(self.api_base)
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -240,8 +236,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the next link works.
-        request = factory.get(response.data['next'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['next'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -249,8 +244,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link works.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -258,8 +252,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the last page works.
-        request = factory.get(self.api_base + '?page=3')
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url + '?page=3')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), 26 % self.list_view_count)
@@ -267,8 +260,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link from the last page works.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -276,17 +268,14 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
 
-    def test_drf2_list_view_query_filters(self):
+    def test_project_list_view_query_filters(self):
         """
-        Tests for Project Root view with filters. These basic tests are here
-        because Project is the first API to use DRF2 and DRF2 hasn't been
-        released yet. Not all DRF views need thorough integration testing like
-        this.
+        Tests for Project List view with filters. These basic tests are here because Project is the
+        first API to use DRF2. Not all APIs need thorough integration testing like this.
         """
 
         # Tests that the phase filter works.
-        request = factory.get(self.api_base + '?phase=fund')
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url + '?phase=fund')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -294,8 +283,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
         # Tests that the next link works with a filter (this is also the last page).
-        request = factory.get(response.data['next'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['next'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), 13 % self.list_view_count)
@@ -303,8 +291,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['previous'], None)
 
         # Tests that the previous link works with a filter.
-        request = factory.get(response.data['previous'])
-        response = self.list_view(request).render()
+        response = self.client.get(response.data['previous'])
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), self.list_view_count)
@@ -312,18 +299,16 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(response.data['previous'], None)
 
 
-    def test_drf2_detail_view(self):
+    def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
 
         # Get the list of projects.
-        request = factory.get(self.api_base)
-        response = self.list_view(request).render()
+        response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
         # Test retrieving the first project detail from the list.
         project = response.data['results'][0]
-        request = factory.get(self.api_base + str(project['id']))
-        response = self.detail_view(request, pk=project['id']).render()
+        response = self.client.get(self.projects_url + str(project['id']))
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
@@ -335,13 +320,13 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
     def setUp(self):
         self.some_project = self.create_project()
         self.another_project = self.create_project()
-        self.some_user = self.create_user()
-        self.project_wallposts_url = '/i18n/api/projects/wallposts/'
-        self.project_media_wallposts_url = '/i18n/api/projects/mediawallposts/'
-        self.project_text_wallposts_url = '/i18n/api/projects/textwallposts/'
 
         self.some_user = self.create_user()
         self.another_user = self.create_user()
+
+        self.project_wallposts_url = '/i18n/api/projects/wallposts/'
+        self.project_media_wallposts_url = '/i18n/api/projects/mediawallposts/'
+        self.project_text_wallposts_url = '/i18n/api/projects/textwallposts/'
 
 
     def test_project_media_wallpost_crud(self):
@@ -387,20 +372,24 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
-        # Write Project Media WallPost by Project Owner rto another Project should fail
+        # Write Project Media WallPost by Project Owner to another Project should fail
         self.client.logout()
         self.client.login(username=self.some_project.owner.username, password='password')
         new_wallpost_title = 'This is not my project, although I do have a project'
         response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project_id': self.another_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
-        # Update Project Media WallPost by someone else then Project Owner should fail
+        # Update Project Media WallPost by someone else than Project Owner should fail
         second_wallpost_title = "My project rocks!"
         response = self.client.post(self.project_media_wallposts_url, {'title': second_wallpost_title, 'project_id': self.some_project.id})
         self.client.logout()
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Deleting a Project Media WallPost by non-author user should fail.
+        response = self.client.delete(project_wallpost_detail_url)  # some_user is still logged in.
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # Retrieve a list of the two Project Media WallPosts that we've just added should work
         response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
@@ -470,7 +459,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.client.logout()
         self.client.login(username=self.some_user.username, password='password')
 
-        # Update TextWallPost by another user (not the author) is allowed
+        # Update TextWallPost by another user (not the author) is not allowed
         text2b = 'Mess this up!'
         wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
         response = self.client.put(wallpost_detail_url, {'text': text2b, 'project_id': self.some_project.id})
