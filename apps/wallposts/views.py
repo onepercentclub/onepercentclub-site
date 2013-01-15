@@ -32,11 +32,11 @@ class WallPostReactionMixin(object):
 class WallPostReactionList(WallPostReactionMixin, ListCreateAPIView):
     model = Reaction
     serializer_class = WallpostReactionSerializer
-    permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 10
 
 
 class WallPostReactionDetail(WallPostReactionMixin, RetrieveUpdateDeleteAPIView):
     model = Reaction
     serializer_class = WallpostReactionSerializer
-    permissions_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthorOrReadOnly,)

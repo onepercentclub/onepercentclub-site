@@ -5,6 +5,7 @@ from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
 
 from django import forms
+from django.utils.encoding import smart_str
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost
 

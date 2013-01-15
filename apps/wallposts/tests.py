@@ -68,14 +68,17 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         self.client.login(username=self.another_user.username, password='password')
 
         # Retrieve the created Reaction by non-author should work
-        reaction_detail_url = "{0}{1}".format(self.wallpost_reaction_url, str(response.data['id']))
         response = self.client.get(reaction_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['reaction'], new_reaction_text)
 
-        # Create a Reaction by another user
+        # Delete Reaction by non-author should not work
         self.client.logout()
         self.client.login(username=self.another_user.username, password='password')
+        response = self.client.delete(reaction_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
+
+        # Create a Reaction by another user
         another_reaction_text = "I'm not so sure..."
         response = self.client.post(self.wallpost_reaction_url, {'reaction': another_reaction_text, 'wallpost_id': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
@@ -87,10 +90,6 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         self.assertEqual(response.data['count'], 2)
         self.assertEqual(response.data['results'][0]['reaction'], another_reaction_text)
         self.assertEqual(response.data['results'][1]['reaction'], new_reaction_text)
-
-        # Delete Reaction by non-author should not work
-        response = self.client.delete(reaction_detail_url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # back to the author
         self.client.logout()
@@ -104,3 +103,52 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         response = self.client.get(reaction_detail_url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
+
+    def test_reactions_on_multiple_objects(self):
+        """
+        Tests for multiple reactions and unauthorized reaction updates.
+        """
+    
+        # Create two reactions.
+        self.client.login(username=self.some_user.username, password='password')
+        reaction_text_1 = 'Great job!'
+        response = self.client.post(self.wallpost_reaction_url, {'reaction': reaction_text_1, 'wallpost_id': self.some_wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['reaction'], reaction_text_1)
+    
+        reaction_text_2 = 'This is a really nice post.'
+        response = self.client.post(self.wallpost_reaction_url, {'reaction': reaction_text_2, 'wallpost_id': self.some_wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['reaction'], reaction_text_2)
+    
+        # Check the size of the reaction list is correct.
+        response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.some_wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 2)
+    
+        # Create a reaction on second blog post.
+        reaction_text_3 = 'Super!'
+        response = self.client.post(self.wallpost_reaction_url, {'reaction': reaction_text_3, 'wallpost_id': self.another_wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['reaction'], reaction_text_3)
+        # Save the detail url to be used in the authorization test below.
+        second_reaction_detail_url = "{0}{1}".format(self.wallpost_reaction_url, response.data['id'])
+    
+        # Check that the size and data in the first reaction list is correct.
+        response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.some_wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 2)
+        self.assertEqual(response.data['results'][1]['reaction'], reaction_text_1)
+        self.assertEqual(response.data['results'][0]['reaction'], reaction_text_2)
+    
+        # Check that the size and data in the second reaction list is correct.
+        response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.another_wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(response.data['results'][0]['reaction'], reaction_text_3)
+    
+        # Test that a reaction update from a user who is not the author is forbidden.
+        self.client.logout()
+        self.client.login(username=self.another_user.username, password='password')
+        response = self.client.post(second_reaction_detail_url, {'reaction': 'Can I update this reaction?'})
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED, response.data)
