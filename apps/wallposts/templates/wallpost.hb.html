@@ -148,13 +148,14 @@
 
         <ul class="reactions">
             {{#each view.content.reactions }}
-                <li class="initiator">
-                    <span class="user-img"><img src="/static/assets/dummy/avatar.jpg" width="100%" alt="Avatar" /></span>
+                <li>
+                    <span class="user-img"><img {{bindAttr src="this.author.picture"}} width="100%" alt="Avatar" /></span>
                     <div class="reaction">
-                        <a href="#" class="user">By <strong>Jessica Jansen</strong> <em>Member</em> <small>4 days ago</small></a>
-                        <p>
-                            {{ this.reaction }}
-                        </p>
+                        <a href="#" class="user">
+                            {%  trans "By" %} <strong>{{this.author.full_name}}</strong>
+                            <em>{%  trans "Member" %}</em> <small>{{this.timesince}} {%  trans "ago" %}</small>
+                        </a>
+                        <p>{{this.reaction}}</p>
                     </div>
                 </li>
             {{/each}}

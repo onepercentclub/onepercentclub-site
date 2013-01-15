@@ -1,8 +1,9 @@
 App.Reaction = DS.Model.extend({
     url: 'reactions',
     reaction: DS.attr('string'),
-    author: DS.belongsTo('App.Member'),
-    created: DS.attr('date'),
+    author: DS.belongsTo('App.Member', {embedded: true}),
+    created: DS.attr('string'),
+    timesince: DS.attr('string')
 });
 
 
@@ -51,9 +52,12 @@ App.ReactionFormView = Em.View.extend({
 });
 
 
-App.ReactionPreviewView = Em.View.extend({
-    templateName: 'reaction_preview',
-    templateFile: 'reaction_list'
+App.ReactionView = Em.View.extend({
+    templateName: 'reaction',
+    templateFile: 'reaction_list',
+    tagName: 'li',
+    classNames: ['initiator']
+
     
 });
 
@@ -76,6 +80,6 @@ App.ReactionListView = Em.CollectionView.extend({
     classNames: ['reactions'],
     contentBinding: 'App.reactionListController.content',
     emptyViewClass: 'App.ReactionNoItemsView',
-    itemViewClass: 'App.ReactionPreviewView'
+    itemViewClass: 'App.ReactionView'
 });
 

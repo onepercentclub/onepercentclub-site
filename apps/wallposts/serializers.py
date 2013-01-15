@@ -1,14 +1,12 @@
 from apps.bluebottle_drf2.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer
 from apps.projects.models import Project
-from apps.reactions.models import Reaction
 from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+
+from django import forms
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost
-from rest_framework.fields import is_simple_callable
-from rest_framework.serializers import ModelSerializer
 
 class ToModelIdField(serializers.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey. """
@@ -34,6 +32,7 @@ class ToModelIdField(serializers.RelatedField):
     def field_to_native(self, obj, field_name):
         return self.to_native(obj)
 
+
 class WallPostTypeField(serializers.Field):
     """ A DRF2 Field for adding a type to WallPosts. """
 
@@ -50,8 +49,6 @@ class WallpostReactionSerializer(ReactionSerializer):
 
     class Meta(ReactionSerializer.Meta):
         fields = ReactionSerializer.Meta.fields + ('wallpost_id', )
-
-
 
 
 
