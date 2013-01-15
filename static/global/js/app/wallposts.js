@@ -16,7 +16,16 @@ App.ProjectWallPost = DS.Model.extend({
     created: DS.attr('string'),
     timesince: DS.attr('string'),
     video_url: DS.attr('string'),
-    video_html: DS.attr('string')
+    video_html: DS.attr('string'),
+
+    reactions: DS.hasMany('App.Reaction', {embedded: true}),
+
+    // TODO: Find a better way to refresh the list
+    didCreate: function() {
+        App.store.find(App.ProjectWallPost, this.get('id'));
+        App.projectWallPostListController.set('content', App.store.all(App.ProjectWallPost));
+    }
+
 });
 
 
@@ -148,6 +157,8 @@ App.WallPostView = Em.View.extend({
         return false;
     }.property('user', 'content'), 
     deleteWallPost: function(e) {
+        console.log(this.get('content'));
+
         if (confirm("Delete this wallpost?")) {
             e.preventDefault();
             var post = this.get('content');

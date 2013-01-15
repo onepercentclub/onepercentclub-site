@@ -1,5 +1,6 @@
 import sys
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.utils.timesince import timesince
 from django import forms
 from django.utils.encoding import smart_str
@@ -123,6 +124,14 @@ class PolymorphicSerializer(serializers.Serializer):
             ret[key] = value
             ret.fields[key] = field
         return ret
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'picture', 'username')
 
 
 class ToModelIdField(serializers.RelatedField):

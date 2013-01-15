@@ -20,7 +20,7 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
 
-        The returned object is not yet saved to the database.
+        The returned object is saved to the database.
         """
 
         if not latitude:
@@ -323,6 +323,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         self.some_user = self.create_user()
         self.another_user = self.create_user()
+
         self.project_media_wallposts_url = '/i18n/api/projects/wallposts/media/'
         self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'
         self.project_wallposts_url = '/i18n/api/projects/wallposts/'
@@ -435,7 +436,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['text'], text1)
 
-        # Create TextWallPost without a text should return an error and
+        # Create TextWallPost without a text should return an error
         response = self.client.post(self.project_text_wallposts_url, {'text': '', 'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
         self.assertIsNotNone(response.data['text'])

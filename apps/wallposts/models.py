@@ -1,4 +1,5 @@
 from apps.bluebottle_utils.managers import GenericForeignKeyManagerMixin
+from apps.reactions.models import Reaction
 from django.db import models
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
@@ -32,6 +33,8 @@ class WallPost(PolymorphicModel):
     object_id = models.PositiveIntegerField(_('object ID'))
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
+    reactions = generic.GenericRelation(Reaction)
+
     # Manager
     objects = WallPostManager()
 
@@ -43,6 +46,9 @@ class WallPost(PolymorphicModel):
 
     class Meta:
         ordering = ('created',)
+
+    def __unicode__(self):
+        return self.id
 
 
 class MediaWallPost(WallPost):
