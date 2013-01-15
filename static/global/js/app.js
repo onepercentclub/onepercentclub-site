@@ -136,7 +136,11 @@ $(function() {
     App.store = DS.Store.create({
         revision: 7,
         adapter: DS.DRF2Adapter.create({
-            namespace: "i18n/api"
+            namespace: "i18n/api",
+            plurals: {
+                "projects/wallposts/media": "projects/wallposts/media",
+                "projects/wallposts/text": "projects/wallposts/text"
+            }
         })
     });
 
