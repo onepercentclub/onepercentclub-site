@@ -11,8 +11,16 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 REACTION_MAX_LENGTH = getattr(settings, 'REACTION_MAX_LENGTH', 500)
 
 
-class ReactionManager(GenericForeignKeyManagerMixin, models.Manager):
+class ReactionWithDeletedManager(GenericForeignKeyManagerMixin, models.Manager):
     pass
+
+
+class ReactionManager(GenericForeignKeyManagerMixin, models.Manager):
+
+    def get_query_set(self):
+        query_set = super(ReactionManager, self).get_query_set()
+        return query_set.filter(deleted__isnull=True)
+
 
 
 class Reaction(models.Model):
@@ -41,6 +49,7 @@ class Reaction(models.Model):
 
     # Manager
     objects = ReactionManager()
+    objects_with_deleted = ReactionWithDeletedManager()
 
     class Meta:
         ordering = ('created',)

@@ -163,7 +163,7 @@ class ToModelIdField(serializers.RelatedField):
 
 class ManyRelatedSerializer(serializers.ManyRelatedField):
     """
-        Nested Serializer WIP
+        Nested Serializer
     """
 
     def __init__(self, Serializer, *args, **kwargs):

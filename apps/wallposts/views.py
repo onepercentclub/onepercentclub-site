@@ -15,7 +15,6 @@ class WallPostList(ListCreateAPIView):
     paginate_by = 10
 
 
-
 class WallPostReactionMixin(object):
 
     def get_queryset(self):
@@ -39,7 +38,7 @@ class WallPostReactionMixin(object):
 
 class WallPostReactionList(WallPostReactionMixin, ListCreateAPIView):
     model = Reaction
-    serializer_class = WallpostReactionSerializer
+    serializer_class = WallPostReactionSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 10
 

@@ -1,6 +1,8 @@
 from apps.bluebottle_utils.managers import GenericForeignKeyManagerMixin
-from apps.reactions.models import Reaction
+from apps.reactions.models import Reaction, ReactionManager
+from django.contrib.comments import get_model
 from django.db import models
+from django.db.models import get_model
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
@@ -33,17 +35,6 @@ class WallPost(PolymorphicModel):
     object_id = models.PositiveIntegerField(_('object ID'))
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-
-    @property
-    # Define reactions so it will always use WallPost ContentType
-    # Using generic.GenericRelation(Reaction) the ContentType will be overwritten by the subclasses (eg MediaWallPost)
-    def reactions(self):
-        content_type = ContentType.objects.get_for_model(WallPost)
-        reactions = Reaction.objects.filter(object_id=self.id, content_type=content_type)
-        reactions = reactions.order_by('-created')
-        reactions = reactions.filter(deleted__isnull=True)
-        return reactions
-
     # Manager
     objects = WallPostManager()
 
@@ -66,6 +57,9 @@ class MediaWallPost(WallPost):
     text = models.TextField(max_length=300, blank=True, default='')
     video_url = models.URLField(max_length=100, blank=True, default='')
 
+    # Reactions.
+    reactions = Reaction.objects.for_model(WallPost)
+
     def __unicode__(self):
         return Truncator(self.text).words(10)
 
@@ -73,6 +67,9 @@ class MediaWallPost(WallPost):
 class TextWallPost(WallPost):
     # The content of the wall post.
     text = models.TextField(max_length=300)
+
+    # Reactions.
+    reactions = Reaction.objects.for_model(WallPost)
 
     def __unicode__(self):
         return Truncator(self.text).words(10)
