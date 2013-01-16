@@ -38,6 +38,16 @@ class WallPost(PolymorphicModel):
     # Manager
     objects = WallPostManager()
 
+
+    @property
+    # TODO: See if we can make a manager out of this or hav another need solution
+    # Define reactions so it will always use WallPost ContentType
+    # Using generic.GenericRelation(Reaction) the ContentType will be overwritten by the subclasses (eg MediaWallPost)
+    def reactions(self):
+        content_type = ContentType.objects.get_for_model(WallPost)
+        return Reaction.objects.filter(object_id=self.id, content_type=content_type)
+
+
     def save(self, *args, **kwargs):
         # We overwrite save to enable 'empty' IP
         if self.ip_address == "":
@@ -57,9 +67,6 @@ class MediaWallPost(WallPost):
     text = models.TextField(max_length=300, blank=True, default='')
     video_url = models.URLField(max_length=100, blank=True, default='')
 
-    # Reactions.
-    reactions = Reaction.objects.for_model(WallPost)
-
     def __unicode__(self):
         return Truncator(self.text).words(10)
 
@@ -67,9 +74,6 @@ class MediaWallPost(WallPost):
 class TextWallPost(WallPost):
     # The content of the wall post.
     text = models.TextField(max_length=300)
-
-    # Reactions.
-    reactions = Reaction.objects.for_model(WallPost)
 
     def __unicode__(self):
         return Truncator(self.text).words(10)
