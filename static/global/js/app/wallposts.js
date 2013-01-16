@@ -6,7 +6,7 @@
 // This is union of all different wallposts
 // TODO: see if we can teach Ember Data to use a combined list of all wallposts
 App.ProjectWallPost = DS.Model.extend({
-    url: 'wallposts/projectwallposts',
+    url: 'projects/wallposts',
 
     // Model fields
     project_id: DS.attr('number'),
@@ -21,12 +21,12 @@ App.ProjectWallPost = DS.Model.extend({
 
 
 App.ProjectMediaWallPost = App.ProjectWallPost.extend({
-    url: 'wallposts/projectmediawallposts'
+    url: 'projects/wallposts/media'
 
 });
 
 App.ProjectTextWallPost = App.ProjectWallPost.extend({
-    url: 'wallposts/projecttextwallposts'
+    url: 'projects/wallposts/text'
 });
 
 

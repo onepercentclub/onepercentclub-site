@@ -323,11 +323,9 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         self.some_user = self.create_user()
         self.another_user = self.create_user()
-
-        self.project_media_wallposts_url = '/i18n/api/wallposts/projectmediawallposts/'
-        self.project_text_wallposts_url = '/i18n/api/wallposts/projecttextwallposts/'
-        self.project_wallposts_url = '/i18n/api/wallposts/projectwallposts/'
-
+        self.project_media_wallposts_url = '/i18n/api/projects/wallposts/media/'
+        self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'
+        self.project_wallposts_url = '/i18n/api/projects/wallposts/'
 
     def test_project_media_wallpost_crud(self):
         """
@@ -339,7 +337,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Note: This test will fail when we require at least a video and/or a text but that's what we want.
         wallpost_title = 'This is my super project!'
         response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project_id': self.some_project.id})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['title'], wallpost_title)
 
         # Retrieve the created Project Media WallPost.
@@ -407,7 +405,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Create text wallpost as not logged in guest should be denied
         text1 = 'Great job!'
         response = self.client.post(self.project_text_wallposts_url, {'text': text1, 'project_id': self.some_project.id})
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
         self.client.login(username=self.some_user.username, password='password')
 
@@ -490,7 +488,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         # View Project WallPost list works for author
         response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 10)
         self.assertEqual(response.data['count'], 26)
         self.assertEqual(response.data['results'][0]['type'], 'media')
