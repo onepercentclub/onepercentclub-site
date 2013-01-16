@@ -14,7 +14,7 @@ class WallPostMixin(ProjectTestsMixin):
         if not author:
             author = self.create_user()
         content_type = ContentType.objects.get_for_model(Project)
-        wallpost = WallPost.objects.create(
+        wallpost = TextWallPost.objects.create(
                     content_type = content_type,
                     object_id = project.id
                 )
@@ -36,6 +36,7 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         self.some_user = self.create_user()
         self.another_user = self.create_user()
         self.wallpost_reaction_url = '/i18n/api/wallposts/reactions/'
+        self.project_text_wallpost_url = '/i18n/api/projects/wallposts/text/'
 
 
     def test_wallpost_reaction_crud(self):
@@ -51,7 +52,7 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         self.assertEqual(response.data['reaction'], reaction_text)
 
         # Retrieve the created Reaction
-        reaction_detail_url = "{0}{1}".format(self.wallpost_reaction_url, str(response.data['id']))
+        reaction_detail_url = response.data['url']
         response = self.client.get(reaction_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['reaction'], reaction_text)
@@ -152,3 +153,47 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         self.client.login(username=self.another_user.username, password='password')
         response = self.client.post(second_reaction_detail_url, {'reaction': 'Can I update this reaction?'})
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED, response.data)
+
+
+    def test_embedded_reactions(self):
+        """
+            Test reactions embedded in Project WallPost Api calls
+        """
+
+        # Create two Reactions and retrieve the related Project Text WallPost should have the embedded
+        self.client.login(username=self.some_user.username, password='password')
+        reaction1_text = "Hear! Hear!"
+        response = self.client.post(self.wallpost_reaction_url, {'reaction': reaction1_text, 'wallpost_id': self.some_wallpost.id})
+        reaction1_detail_url = response.data['url']
+        reaction2_text = "This is cool!"
+        self.client.post(self.wallpost_reaction_url, {'reaction': reaction2_text, 'wallpost_id': self.some_wallpost.id})
+        some_wallpost_detail_url = "{0}{1}".format(self.project_text_wallpost_url, str(self.some_wallpost.id))
+        response = self.client.get(some_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(response.data['reactions']), 2)
+        self.assertEqual(response.data['reactions'][0]['reaction'], reaction2_text)
+        self.assertEqual(response.data['reactions'][1]['reaction'], reaction1_text)
+
+
+        # Create a Reaction to another WallPost and retrieve that WallPost should return one embedded reaction
+        reaction3_text = "That other post was way better..."
+        self.client.post(self.wallpost_reaction_url, {'reaction': reaction3_text, 'wallpost_id': self.another_wallpost.id})
+        another_wallpost_detail_url = "{0}{1}".format(self.project_text_wallpost_url, str(self.another_wallpost.id))
+        response = self.client.get(another_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(response.data['reactions']), 1)
+        self.assertEqual(response.data['reactions'][0]['reaction'], reaction3_text)
+
+        # The first WallPost should still have just two reactions
+        response = self.client.get(some_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(response.data['reactions']), 2)
+
+        # Delete the first reaction
+        response = self.client.delete(reaction1_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response.data)
+
+        # The first WallPost should have only one reaction now
+        response = self.client.get(some_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(response.data['reactions']), 1)

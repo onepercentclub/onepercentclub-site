@@ -159,3 +159,16 @@ class ToModelIdField(serializers.RelatedField):
     def field_to_native(self, obj, field_name):
         # Defer the serialization to the to_native() method.
         return self.to_native(obj)
+
+
+class ManyRelatedSerializer(serializers.ManyRelatedField):
+    """
+        Nested Serializer WIP
+    """
+
+    def __init__(self, Serializer, *args, **kwargs):
+        self.serializer = Serializer()
+        super(ManyRelatedSerializer, self).__init__(*args, **kwargs)
+
+    def to_native(self, obj):
+        return self.serializer.to_native(obj)

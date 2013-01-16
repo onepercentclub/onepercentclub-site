@@ -1,6 +1,6 @@
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.bluebottle_utils.utils import get_client_ip
-from apps.wallposts.serializers import WallpostReactionSerializer
+from apps.wallposts.serializers import WallPostReactionSerializer, WallPostSerializer
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView
@@ -8,16 +8,24 @@ from apps.reactions.models import Reaction
 from apps.wallposts.models import WallPost
 
 
+class WallPostList(ListCreateAPIView):
+    model = WallPost
+    permission_classes = (permissions.IsAdminUser,)
+    serializer_class = WallPostSerializer
+    paginate_by = 10
+
+
+
 class WallPostReactionMixin(object):
 
     def get_queryset(self):
         queryset = super(WallPostReactionMixin, self).get_queryset()
-        content_type = ContentType.objects.get_for_model(WallPost)
-        queryset = queryset.filter(content_type=content_type)
         wallpost_id = self.request.QUERY_PARAMS.get('wallpost_id', None)
-        print wallpost_id
         if wallpost_id:
             queryset = queryset.filter(object_id=wallpost_id)
+        else:
+            content_type = ContentType.objects.get_for_model(WallPost)
+            queryset = queryset.filter(content_type=content_type)
         queryset = queryset.order_by("-created")
         return queryset
 
@@ -38,5 +46,5 @@ class WallPostReactionList(WallPostReactionMixin, ListCreateAPIView):
 
 class WallPostReactionDetail(WallPostReactionMixin, RetrieveUpdateDeleteAPIView):
     model = Reaction
-    serializer_class = WallpostReactionSerializer
+    serializer_class = WallPostReactionSerializer
     permission_classes = (IsAuthorOrReadOnly,)

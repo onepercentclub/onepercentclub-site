@@ -33,7 +33,16 @@ class WallPost(PolymorphicModel):
     object_id = models.PositiveIntegerField(_('object ID'))
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-    reactions = generic.GenericRelation(Reaction)
+
+    @property
+    # Define reactions so it will always use WallPost ContentType
+    # Using generic.GenericRelation(Reaction) the ContentType will be overwritten by the subclasses (eg MediaWallPost)
+    def reactions(self):
+        content_type = ContentType.objects.get_for_model(WallPost)
+        reactions = Reaction.objects.filter(object_id=self.id, content_type=content_type)
+        reactions = reactions.order_by('-created')
+        reactions = reactions.filter(deleted__isnull=True)
+        return reactions
 
     # Manager
     objects = WallPostManager()
