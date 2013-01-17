@@ -3,6 +3,11 @@
  Models
  */
 
+App.MediaWallPostPhoto = DS.Model.extend({
+    photo: DS.attr('string'),
+    thumbnail: DS.attr('string')
+});
+
 // This is union of all different wallposts.
 App.ProjectWallPost = DS.Model.extend({
     url: 'projects/wallposts',
@@ -17,6 +22,7 @@ App.ProjectWallPost = DS.Model.extend({
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
     photo: DS.attr('string'),
+    photos: DS.hasMany('App.MediaWallPostPhoto', {embedded: true}),
     reactions: DS.hasMany('App.Reaction', {embedded: true})
 });
 
@@ -41,28 +47,28 @@ App.projectWallPostListController = Em.ArrayController.create({
         'media': App.ProjectMediaWallPost,
         'text': App.ProjectTextWallPost
     },
-    
-    projectBinding: "App.projectDetailController.content",
 
+    // The list of WallPosts are loaded into a temporary array when the project changes. Once this RecordArray is
+    // loaded, it is converted to an Ember array and put into content. This temporary array is required because
+    // the RecordArray returned by findQuery can't be manipulated directly. Discussion about this can be found in
+    // these two pages:
     // http://stackoverflow.com/questions/11895629/add-delete-items-from-ember-data-backed-arraycontroller
     // https://github.com/emberjs/data/issues/370
+    projectBinding: "App.projectDetailController.content",
+
     projectChanged: function(sender, key) {
-        // The RecordArray is not loaded into 'content' so that we can use a real ember array
-        // for 'content' when it's loaded.
         var projectId = this.get('project.id');
         this.set('tempWallposts', App.ProjectWallPost.find({project_id: projectId}));
     }.observes('project'),
 
     tempWallpostsLoaded: function(sender, key) {
-        // Set 'content' with an ember array when the wallposts have been loaded. This allows
-        // us to manually manipulate 'content' when new posts are added.
-        if (sender.get(key)) {
-            sender.set('content', sender.get('tempWallposts').toArray());
+        if (this.get(key)) {
+            this.set('content', this.get('tempWallposts').toArray());
         }
     }.observes('tempWallposts.isLoaded'),
 
 
-    // Temporary object used as a placeholder for the media, text (or whatever) wallpost model.
+    // This temporary object is used as a placeholder for the WallPost object so that Em.get/set always work.
     wallpost: new Em.Object(),
 
     // Add the project_id whenever the wallpost model is updated.
@@ -121,9 +127,9 @@ App.MediaWallPostFormView = Em.View.extend({
         App.projectWallPostListController.addWallPost();
     },
 
+    // Create a new wallpost when it's been successfully saved to the server (isNew == false).
     wallpostChanged: function(sender, key) {
-        // Create a new wallpost when it's been successfully saved to the server (isNew == false).
-        if (!sender.get(key)) {
+        if (!this.get(key)) {
             this.set('wallpost', App.ProjectMediaWallPost.createRecord());
         }
     }.observes('wallpost.isNew')
@@ -138,7 +144,8 @@ App.TextWallPostFormView = App.MediaWallPostFormView.extend({
 
 App.UploadImageFileView = Ember.TextField.extend({
     type: 'file',
-    attributeBindings: ['name'],
+    attributeBindings: ['name', 'accept'],
+    accept: 'image/*',
     wallpostBinding: 'App.projectWallPostListController.wallpost',
     change: function(e) {
         var input = e.target;

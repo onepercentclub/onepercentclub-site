@@ -46,7 +46,7 @@ class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MediaWallPostPhoto
-        fields = ('photo', 'thumbnail',)
+        fields = ('id', 'photo', 'thumbnail',)
 
 
 class MediaWallPostSerializer(WallPostSerializerBase):
