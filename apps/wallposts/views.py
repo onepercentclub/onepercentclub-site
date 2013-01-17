@@ -1,4 +1,4 @@
-from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
+from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.wallposts.serializers import WallPostReactionSerializer, WallPostSerializer
 from rest_framework import permissions
@@ -10,7 +10,7 @@ from apps.wallposts.models import WallPost
 
 class WallPostList(ListCreateAPIView):
     model = WallPost
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (AllowNone,)
     serializer_class = WallPostSerializer
     paginate_by = 10
 
