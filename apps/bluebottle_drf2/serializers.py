@@ -1,5 +1,6 @@
 import sys
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.utils.timesince import timesince
 from django import forms
 from django.utils.encoding import smart_str
@@ -125,6 +126,14 @@ class PolymorphicSerializer(serializers.Serializer):
         return ret
 
 
+class AuthorSerializer(serializers.ModelSerializer):
+    picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'picture', 'username')
+
+
 class ToModelIdField(serializers.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey. """
 
@@ -150,3 +159,16 @@ class ToModelIdField(serializers.RelatedField):
     def field_to_native(self, obj, field_name):
         # Defer the serialization to the to_native() method.
         return self.to_native(obj)
+
+
+class ManyRelatedSerializer(serializers.ManyRelatedField):
+    """
+        Nested Serializer
+    """
+
+    def __init__(self, Serializer, *args, **kwargs):
+        self.serializer = Serializer()
+        super(ManyRelatedSerializer, self).__init__(*args, **kwargs)
+
+    def to_native(self, obj):
+        return self.serializer.to_native(obj)

@@ -18,3 +18,12 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
 
         # Write permissions are only allowed to the author of the reaction.
         return obj.author == request.user
+
+
+class AllowNone(permissions.BasePermission):
+    """
+    Allow no access.
+    """
+
+    def has_permission(self, request, view, obj=None):
+        return False

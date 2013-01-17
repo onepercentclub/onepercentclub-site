@@ -1,21 +1,14 @@
+from apps.bluebottle_drf2.serializers import AuthorSerializer, TimeSinceField
 from rest_framework import serializers
 from .models import Reaction
+from rest_framework.relations import HyperlinkedIdentityField
 
 
-class ReactionDetailSerializer(serializers.ModelSerializer):
-    created = serializers.Field()
-    author = serializers.PrimaryKeyRelatedField(read_only=True)
-#    TODO: This isn't working with the pattern: api/blogs/<slug>/reactions/<pk>
-#          Delete or fix this ... we don't really need it so removing it is ok but it's nice to have.
-#    url = HyperlinkedIdentityField(view_name='reactions:reaction-detail')
-
+class ReactionSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
+    timesince = TimeSinceField(source='created')
+    url = HyperlinkedIdentityField(view_name="wallpost-reaction-detail")
     class Meta:
         model = Reaction
-        fields = ('created', 'author', 'reaction', 'id')
+        fields = ('created', 'author', 'reaction', 'id', 'timesince', 'url')
 
-
-class ReactionListSerializer(ReactionDetailSerializer):
-
-    class Meta:
-        model = Reaction
-        fields = ('created', 'author', 'reaction', 'id')
