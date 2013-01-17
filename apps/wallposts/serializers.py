@@ -7,7 +7,7 @@ from .models import MediaWallPost, TextWallPost
 
 
 class AuthorSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
+    picture = SorlImageField('userprofile.picture', '90x90', colorspace="GRAY")
 
     class Meta:
         model = User
@@ -41,6 +41,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
 class MediaWallPostSerializer(WallPostSerializerBase):
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     type = WallPostTypeField(type='media')
+    photo = SorlImageField('photo', '529x296')
     photos = serializers.ManyRelatedField()
 
     class Meta:

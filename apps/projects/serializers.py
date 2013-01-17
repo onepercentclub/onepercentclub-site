@@ -14,7 +14,7 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
 
 class ProjectOwnerSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
+    picture = SorlImageField('userprofile.picture', '90x90', colorspace="GRAY")
 
     class Meta:
         model = User
@@ -33,7 +33,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='project-detail')
     money_asked = serializers.Field(source='money_asked')
     money_donated = serializers.Field(source='money_donated')
-    image = SorlImageField('image', '800x450', crop='center')
+    image = SorlImageField('image', '800x450')
     description = serializers.Field(source='description')
 
     class Meta:

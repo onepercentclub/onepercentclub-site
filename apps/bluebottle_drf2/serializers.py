@@ -17,12 +17,14 @@ logger = logging.getLogger(__name__)
 
 # TODO Think about adding a feature to set thumbnail quality based on country.
 #      This would be useful for countries with slow internet connections.
-class SorlImageField(Field):
+class SorlImageField(serializers.ImageField):
 
-    def __init__(self, source, geometry_string, **options):
-        super(SorlImageField, self).__init__(source)
+    def __init__(self, source, geometry_string, **kwargs):
+        self.crop = kwargs.pop('crop', 'center')
+        self.colorspace = kwargs.pop('colorspace', 'RGB')
         self.geometry_string = geometry_string
-        self.options = options
+        super(SorlImageField, self).__init__(source, **kwargs)
+
 
     def to_native(self, value):
         if not value:
@@ -31,7 +33,7 @@ class SorlImageField(Field):
         # so we need to deal with exceptions like is done in the template tag.
         thumbnail = ""
         try:
-            thumbnail = unicode(get_thumbnail(value, self.geometry_string, **self.options))
+            thumbnail = unicode(get_thumbnail(value, self.geometry_string, crop=self.crop, colorspace=self.colorspace))
         except Exception:
             if getattr(settings, 'THUMBNAIL_DEBUG', None):
                 raise
