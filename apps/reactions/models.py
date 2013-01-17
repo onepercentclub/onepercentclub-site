@@ -19,7 +19,7 @@ class ReactionManager(GenericForeignKeyManagerMixin, models.Manager):
 
     def get_query_set(self):
         query_set = super(ReactionManager, self).get_query_set()
-        query_set = query_set.order_by('-created')
+        query_set = query_set.order_by('created')
         return query_set.filter(deleted__isnull=True)
 
 
@@ -33,6 +33,7 @@ class Reaction(models.Model):
     # Who posted this reaction. User will need to be logged in to make a reaction.
     author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_reaction")
     editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this reaction."))
+
 
     # The reaction text.
     reaction = models.TextField(_('reaction'), max_length=REACTION_MAX_LENGTH)
@@ -60,8 +61,3 @@ class Reaction(models.Model):
     def __unicode__(self):
         s = "{0}: {1}".format(self.author.get_full_name(), self.reaction)
         return Truncator(s).words(10)
-
-    def save(self, *args, **kwargs):
-        if self.editor is None:
-            self.editor = self.author
-        super(Reaction, self).save(*args, **kwargs)

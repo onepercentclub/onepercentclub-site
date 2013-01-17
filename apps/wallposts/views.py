@@ -25,13 +25,16 @@ class WallPostReactionMixin(object):
         else:
             content_type = ContentType.objects.get_for_model(WallPost)
             queryset = queryset.filter(content_type=content_type)
-        queryset = queryset.order_by("-created")
+        queryset = queryset.order_by("created")
         return queryset
 
     def pre_save(self, obj):
         content_type = ContentType.objects.get_for_model(WallPost)
         obj.content_type_id = content_type.id
-        obj.author = self.request.user
+        if not hasattr(obj, 'author'):
+            obj.author = self.request.user
+        else:
+            obj.editor = self.request.user
         obj.ip_address = get_client_ip(self.request)
 
 
