@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Welcome to Compass.
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
@@ -5,7 +6,7 @@
 /* ========================= Variables ================================== */
 /* ========================= Includes ============================= */
 /* Compass & Mixins */
-/* line 17, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -27,45 +28,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -355,6 +356,8 @@ a:hover {
 /* line 108, ../sass/includes/_typography.scss */
 a:active {
   color: #ff619a;
+  position: relative;
+  top: 1px;
 }
 
 /* line 116, ../sass/includes/_typography.scss */
@@ -465,12 +468,12 @@ dl.advanced dt {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
 }
 /* line 172, ../sass/includes/_typography.scss */
 dl.advanced dd {
   float: left;
-  width: 66.66667%;
+  width: 66.667%;
   margin-left: 0%;
   margin-right: 0%;
 }
@@ -519,17 +522,17 @@ body {
 /* line 29, ../sass/includes/_layout.scss */
 .wrapper > header {
   float: left;
-  width: 95.83333%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  width: 95.833%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
 }
 
 /* line 33, ../sass/includes/_layout.scss */
 .wrapper > form {
   float: left;
   width: 62.5%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
 }
 
 /* line 37, ../sass/includes/_layout.scss */
@@ -537,15 +540,15 @@ body {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
 }
 
 /* line 42, ../sass/includes/_layout.scss */
 .wrapper > .content {
   float: left;
-  width: 95.83333%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  width: 95.833%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
 }
 
 /* line 46, ../sass/includes/_layout.scss */
@@ -596,7 +599,7 @@ section {
 #logo {
   float: left;
   width: 12.5%;
-  margin-left: 2.08333%;
+  margin-left: 2.083%;
   margin-right: 0%;
   margin-top: 10px;
   margin-top: 0.625rem;
@@ -609,7 +612,7 @@ section {
 /* line 24, ../sass/includes/_navigation.scss */
 #logo #subtitle {
   font-size: 11px;
-  font-size: 0.6875rem;
+  font-size: 0.688rem;
   display: inline-block !important;
   font-weight: normal;
   text-transform: uppercase;
@@ -674,7 +677,7 @@ section {
   float: left;
   width: 50%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   position: relative;
 }
 /* line 90, ../sass/includes/_navigation.scss */
@@ -690,9 +693,9 @@ section {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   font-size: 13px;
-  font-size: 0.8125rem;
+  font-size: 0.813rem;
   color: white;
   overflow: hidden;
   text-align: center;
@@ -758,7 +761,7 @@ section {
   margin-right: 8px;
   margin-right: 0.5rem;
   padding: 3px;
-  padding: 0.1875rem;
+  padding: 0.188rem;
   border-radius: 8px;
   border-radius: 0.5rem;
 }
@@ -871,6 +874,7 @@ form fieldset {
 /* line 52, ../sass/includes/_forms.scss */
 form label.inline {
   position: absolute;
+  top: 0;
   left: 0;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
@@ -947,7 +951,7 @@ form ul > li ul.checklist label:hover {
   cursor: pointer;
 }
 /* line 116, ../sass/includes/_forms.scss */
-form ul .error {
+form ul li.error label {
   color: #d24226;
 }
 /* line 118, ../sass/includes/_forms.scss */
@@ -1235,7 +1239,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 /* line 120, ../sass/includes/_buttons.scss */
 .button-donate {
   font-size: 19px;
-  font-size: 1.1875rem;
+  font-size: 1.188rem;
   background-image: url('../images/sprites/icons-s419268fc7b.png');
   background-repeat: no-repeat;
   background-position: 5% 16px;
@@ -1509,7 +1513,7 @@ ul.pagination li.gap {
 #lightbox nav {
   font-weight: bold;
   font-size: 13px;
-  font-size: 0.8125rem;
+  font-size: 0.813rem;
 }
 /* line 31, ../sass/includes/_lightbox.scss */
 #lightbox nav ul {
@@ -1548,7 +1552,7 @@ ul.pagination li.gap {
 #lightbox-content {
   color: #6a6a6a;
   font-size: 15px;
-  font-size: 0.9375rem;
+  font-size: 0.938rem;
   padding: 0 32px 72px 32px;
   padding: 0 2rem 4.5rem 2rem;
 }
@@ -1880,9 +1884,9 @@ ul.steps li.selected a {
 .fileinput-button.image {
   display: block;
   float: left;
-  width: 14.58333%;
+  width: 14.583%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   height: 70px;
   border: 3px dotted #00c051;
   background: url(../images/upload.png) center no-repeat;
@@ -2047,8 +2051,8 @@ ul.steps li.selected a {
 #detail figure.media {
   float: left;
   width: 62.5%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
   height: 450px;
   border: 1px solid #ccc;
   background-color: #ccc;
@@ -2149,7 +2153,7 @@ ul.steps li.selected a {
   color: #c0bfbf;
   font-weight: bold;
   font-size: 15px;
-  font-size: 0.9375rem;
+  font-size: 0.938rem;
 }
 
 /* ========================= Responsive ================================== */
@@ -2292,11 +2296,11 @@ ul.steps li.selected a {
 /* line 3, ../sass/modules/_member-box.scss */
 .member-box {
   float: left;
-  width: 97.91667%;
+  width: 97.917%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   position: relative;
-  padding: 1em 0 1em 2.08333%;
+  padding: 1em 0 1em 2.083%;
   *zoom: 1;
   overflow: hidden;
 }
@@ -2555,9 +2559,9 @@ ul.steps li.selected a {
 .photo-viewer ul li {
   display: block;
   float: left;
-  width: 14.58333%;
+  width: 14.583%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   overflow: hidden;
   border-bottom: 4px solid transparent;
 }
@@ -2568,15 +2572,15 @@ ul.steps li.selected a {
 /* line 42, ../sass/modules/_media.scss */
 .photo-viewer ul li:first-child {
   float: left;
-  width: 14.58333%;
+  width: 14.583%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
 }
 /* line 46, ../sass/modules/_media.scss */
 .photo-viewer ul li.more {
   display: block;
   float: left;
-  width: 16.66667%;
+  width: 16.667%;
   margin-left: 0%;
   margin-right: 0%;
   background-color: #00c051;
@@ -2666,8 +2670,8 @@ ul.steps li.selected a {
 .wallpost {
   float: left;
   width: 62.5%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
   position: relative;
 }
 /* line 27, ../sass/modules/_wallposts.scss */
@@ -2677,9 +2681,9 @@ ul.steps li.selected a {
 /* line 31, ../sass/modules/_wallposts.scss */
 .wallpost header {
   float: left;
-  width: 79.16667%;
+  width: 79.167%;
   margin-left: 18.75%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
 }
 /* line 34, ../sass/modules/_wallposts.scss */
 .wallpost header .timestamp {
@@ -2778,7 +2782,7 @@ ul.steps li.selected a {
 }
 /* line 29, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form textarea {
-  padding-left: 16.66667%;
+  padding-left: 16.667%;
   overflow: hidden;
 }
 /* line 34, ../sass/modules/_reactions.scss */
@@ -2847,7 +2851,7 @@ ul.steps li.selected a {
 /* line 75, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li {
   font-size: 11px;
-  font-size: 0.6875rem;
+  font-size: 0.688rem;
   display: inline !important;
 }
 /* line 80, ../sass/modules/_reactions.scss */
@@ -2884,7 +2888,7 @@ ul.steps li.selected a {
 /* line 109, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love, .reaction-box .reaction-actions li strong.toggle-love {
   padding-left: 33px;
-  padding-left: 2.0625rem;
+  padding-left: 2.063rem;
   width: 24%;
   background-image: url('../images/sprites/icons-s419268fc7b.png');
   background-repeat: no-repeat;
@@ -2931,7 +2935,7 @@ ul.steps li.selected a {
 }
 /* line 157, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-facebook {
-  margin-left: 16.66667%;
+  margin-left: 16.667%;
   width: 25%;
 }
 /* line 162, ../sass/modules/_reactions.scss */
@@ -2941,7 +2945,7 @@ ul.steps li.selected a {
 /* line 168, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url code {
   font-size: 11px;
-  font-size: 0.6875rem;
+  font-size: 0.688rem;
   padding: 0.4em 0.2em;
   border: 1px solid #333;
   background: white;
@@ -2964,7 +2968,6 @@ ul.steps li.selected a {
   font-size: 14px;
   font-size: 0.875rem;
   position: relative;
-  display: none;
   margin: 0;
   background-color: #e9e9e9;
   list-style: none;
@@ -2982,7 +2985,7 @@ ul.steps li.selected a {
 .reactions:after {
   clear: both;
 }
-/* line 201, ../sass/modules/_reactions.scss */
+/* line 200, ../sass/modules/_reactions.scss */
 .reactions li {
   margin: 16px 0;
   margin: 1rem 0;
@@ -2990,7 +2993,7 @@ ul.steps li.selected a {
   display: block;
   overflow: auto;
 }
-/* line 207, ../sass/modules/_reactions.scss */
+/* line 206, ../sass/modules/_reactions.scss */
 .reactions li .user-img {
   float: left;
   width: 6.25%;
@@ -3003,19 +3006,19 @@ ul.steps li.selected a {
   position: absolute;
   margin: 0;
 }
-/* line 215, ../sass/modules/_reactions.scss */
+/* line 214, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction {
   border-color: #00c051;
 }
-/* line 218, ../sass/modules/_reactions.scss */
+/* line 217, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction::after {
   background: url("../images/reaction-box-initiator.png") transparent no-repeat 0 0;
 }
-/* line 223, ../sass/modules/_reactions.scss */
+/* line 222, ../sass/modules/_reactions.scss */
 .reactions li .reaction {
   float: left;
-  width: 83.33333%;
-  margin-left: 16.66667%;
+  width: 83.333%;
+  margin-left: 16.667%;
   margin-right: 0%;
   padding: 12px 16px 0 16px;
   padding: 0.75rem 1rem 0 1rem;
@@ -3030,16 +3033,16 @@ ul.steps li.selected a {
   color: #333;
   vertical-align: baseline;
 }
-/* line 233, ../sass/modules/_reactions.scss */
+/* line 232, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user {
   font-size: 14px;
   font-size: 0.875rem;
 }
-/* line 235, ../sass/modules/_reactions.scss */
+/* line 234, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user strong {
   text-transform: uppercase;
 }
-/* line 240, ../sass/modules/_reactions.scss */
+/* line 239, ../sass/modules/_reactions.scss */
 .reactions li .reaction::after {
   top: 16px;
   top: 1rem;
