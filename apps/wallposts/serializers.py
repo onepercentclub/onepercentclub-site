@@ -26,7 +26,7 @@ class WallPostReactionSerializer(ReactionSerializer):
     wallpost_id = ToModelIdField(to_model=WallPost)
 
     class Meta(ReactionSerializer.Meta):
-        fields = ReactionSerializer.Meta.fields + ('wallpost_id', )
+        fields = ReactionSerializer.Meta.fields + ('wallpost_id',)
 
 
 class WallPostSerializerBase(serializers.ModelSerializer):
