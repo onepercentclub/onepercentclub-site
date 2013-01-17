@@ -11,7 +11,7 @@ from .models import MediaWallPost, TextWallPost
 
 class WallPostTypeField(serializers.Field):
     """ A DRF2 Field for adding a type to WallPosts. """
-g
+
     def __init__(self, type, **kwargs):
         super(WallPostTypeField, self).__init__(source='*', **kwargs)
         self.type = type
