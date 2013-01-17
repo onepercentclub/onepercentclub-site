@@ -16,7 +16,8 @@ App.ProjectWallPost = DS.Model.extend({
     created: DS.attr('string'),
     timesince: DS.attr('string'),
     video_url: DS.attr('string'),
-    video_html: DS.attr('string')
+    video_html: DS.attr('string'),
+    reactions: DS.hasMany('App.Reaction', {embedded: true}),
 });
 
 

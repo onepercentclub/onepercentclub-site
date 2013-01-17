@@ -1,5 +1,8 @@
 from apps.bluebottle_utils.managers import GenericForeignKeyManagerMixin
+from apps.reactions.models import Reaction, ReactionManager
+from django.contrib.comments import get_model
 from django.db import models
+from django.db.models import get_model
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
@@ -35,6 +38,16 @@ class WallPost(PolymorphicModel):
     # Manager
     objects = WallPostManager()
 
+
+    @property
+    # TODO: See if we can make a manager out of this or hav another need solution
+    # Define reactions so it will always use WallPost ContentType
+    # Using generic.GenericRelation(Reaction) the ContentType will be overwritten by the subclasses (eg MediaWallPost)
+    def reactions(self):
+        content_type = ContentType.objects.get_for_model(WallPost)
+        return Reaction.objects.filter(object_id=self.id, content_type=content_type)
+
+
     def save(self, *args, **kwargs):
         # We overwrite save to enable 'empty' IP
         if self.ip_address == "":
@@ -43,6 +56,9 @@ class WallPost(PolymorphicModel):
 
     class Meta:
         ordering = ('created',)
+
+    def __unicode__(self):
+        return str(self.id)
 
 
 class MediaWallPost(WallPost):
