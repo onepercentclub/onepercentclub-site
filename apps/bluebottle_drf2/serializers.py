@@ -163,14 +163,14 @@ class ToModelIdField(serializers.RelatedField):
         return self.to_native(obj)
 
 
-class ManyRelatedSerializer(serializers.ManyRelatedField):
+class ManyRelatedNestedSerializer(serializers.ManyRelatedField):
     """
-        Nested Serializer
+        Nested Serializer.
     """
 
     def __init__(self, Serializer, *args, **kwargs):
         self.serializer = Serializer()
-        super(ManyRelatedSerializer, self).__init__(*args, **kwargs)
+        super(ManyRelatedNestedSerializer, self).__init__(*args, **kwargs)
 
     def to_native(self, obj):
         return self.serializer.to_native(obj)
