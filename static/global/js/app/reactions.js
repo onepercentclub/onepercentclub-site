@@ -33,12 +33,8 @@ App.wallPostReactionController = Em.Controller.create({
         var livereaction = transaction.createRecord(this.get('model'), reaction.toJSON());
         livereaction.set('wallpost_id', wallpost.get('id'));
         livereaction.on('didCreate', function(record, a, b){
-            console.log(a);
-            console.log(b);
-            console.log(record);
             wallpost.get('reactions').pushObject(record);
         });
-        alert('wait');
         transaction.commit();
     }
 });
@@ -76,8 +72,8 @@ App.WallPostReactionFormView = Em.View.extend({
         this.$('textarea').focus(function(e) {
             $(this).parents('.reaction-form').addClass('is-selected');
         });
-        this.$().blur(function(e) {
-            $(this).parents('.reaction-form').removeClass('is-selected');
+        this.$(this).blur(function(e) {
+            $(this).parent('.reaction-form').removeClass('is-selected');
         });
 
     }
@@ -109,10 +105,10 @@ App.ReactionActionsView = Em.View.extend({
 });
 
 
-App.ReactionListView = Em.CollectionView.extend({
+App.WallPostReactionListView = Em.CollectionView.extend({
     tagName: 'ul',
     classNames: ['reactions'],
-    contentBinding: 'App.reactionListController.content',
+    contentBinding: 'parentView.content.reactions',
     emptyViewClass: 'App.ReactionNoItemsView',
     itemViewClass: 'App.ReactionView'
 });

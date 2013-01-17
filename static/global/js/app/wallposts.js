@@ -156,14 +156,17 @@ App.WallPostView = Em.View.extend({
     deleteWallPost: function(e) {
         if (confirm("Delete this wallpost?")) {
             e.preventDefault();
+            var transaction = App.store.transaction();
             var post = this.get('content');
+            transaction.add(post);
             // Clear author here
             // TODO: Have a proper solution for belongsTo fields in adapter
             post.reopen({
-                author: null
+                author: null,
+                reactions: []
             });
             post.deleteRecord();
-            App.store.commit();
+            transaction.commit();
             var self = this;
             this.$().slideUp(1000, function(){self.remove();});
         }
