@@ -267,7 +267,7 @@ $(function() {
                 return {slug: Em.get(project, 'slug')};
             },
             connectOutlets: function(router, project) {
-                require(['app/projects', 'app/wallposts'], function() {
+                require(['app/projects', 'app/wallposts', 'app/reactions'], function() {
                     var id = Em.get(project, 'id'),
                         slug = Em.get(project, 'slug');
                     if (id) {

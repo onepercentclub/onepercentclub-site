@@ -1,28 +1,30 @@
-from apps.bluebottle_drf2.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer, ToModelIdField
+from apps.bluebottle_drf2.serializers import (TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer,
+                                              ToModelIdField, ManyRelatedSerializer, SorlImageField)
 from apps.projects.models import Project
-from django.contrib.auth.models import User
+from apps.reactions.serializers import ReactionSerializer
+from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
+
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost
 
 
-class AuthorSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', colorspace="GRAY")
-
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'picture', 'username')
-
-
 class WallPostTypeField(serializers.Field):
     """ A DRF2 Field for adding a type to WallPosts. """
-
+g
     def __init__(self, type, **kwargs):
         super(WallPostTypeField, self).__init__(source='*', **kwargs)
         self.type = type
 
     def to_native(self, value):
         return self.type
+
+
+class WallPostReactionSerializer(ReactionSerializer):
+    wallpost_id = ToModelIdField(to_model=WallPost)
+
+    class Meta(ReactionSerializer.Meta):
+        fields = ReactionSerializer.Meta.fields + ('wallpost_id',)
 
 
 class WallPostSerializerBase(serializers.ModelSerializer):
@@ -33,9 +35,10 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
     timesince = TimeSinceField(source='created')
+    reactions = ManyRelatedSerializer(WallPostReactionSerializer)
 
     class Meta:
-        fields = ('id', 'url', 'type', 'author', 'created', 'timesince')
+        fields = ('id', 'url', 'type', 'author', 'created', 'timesince', 'reactions')
 
 
 class MediaWallPostSerializer(WallPostSerializerBase):
@@ -110,3 +113,4 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
             (TextWallPost, ProjectTextWallPostSerializer),
             (MediaWallPost, ProjectMediaWallPostSerializer),
             )
+

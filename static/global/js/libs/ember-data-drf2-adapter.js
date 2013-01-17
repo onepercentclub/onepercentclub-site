@@ -200,10 +200,10 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 });
 
 /*
-Changes from default:
- - add embedded support
-*/
-var hasAssociation = function(type, options, one) {
+ Based on hasAssociation used for belongsTo. Renamed to avoid conflicts with hasAssociation used for hasMany.
+ Altered to enable embedded objects
+ */
+var belongsToAssociation = function(type, options, one) {
     options = options || {};
 
     var meta = { type: type, isAssociation: true, options: options, kind: 'belongsTo' };
@@ -240,9 +240,75 @@ var hasAssociation = function(type, options, one) {
 
 /*
 Changes from default:
- - redefine belongsTo() with our own hasAssociation() function
+ - redefine belongsTo() with our new belongsToAssociation() function
+ - belongsToAssociation is an altered copy of hasAssociation, but it would conflict with the hasAssociation
+   we will be using for hasMany relations (below)
 */
 DS.belongsTo = function(type, options) {
     Em.assert("The type passed to DS.belongsTo must be defined", !!type);
-    return hasAssociation(type, options);
+    return belongsToAssociation(type, options);
+};
+
+/*
+  Based on hasAssociation used for hasMany. Renamed to avoid conflicts with hasAssociation used for belongsTo.
+  Altered to enable embedded objects
+ */
+var hasManyAssociation = function(type, options) {
+    options = options || {};
+
+    var meta = { type: type, isAssociation: true, options: options, kind: 'hasMany' };
+
+    return Ember.computed(function(key, value) {
+        var data = get(this, 'data').hasMany,
+            store = get(this, 'store'),
+            ids, association;
+
+        if (typeof type === 'string') {
+            type = get(this, type, false) || get(window, type);
+        }
+
+        // start: embedded support
+        if (options.embedded == true) {
+            var items = data[key];
+            // Check if there are embedded objects
+            if (items.length) {
+                // Load the objects into the store
+                store.loadMany(type, items);
+                ids = [];
+                // Iterate through the items to get their ids
+                for (var i = 0, len = items.length; i < len; ++i) {
+                    var id = items[i].id;
+                    ids.push(id);
+                }
+                // Load the Ember objects from the store to this association
+                // Since we already loaded them this won't make another server call
+                association = store.findMany(type, ids);
+            } else {
+                association = [];
+            }
+        } else {
+            ids = data[key];
+            association = store.findMany(type, ids || [], this, meta);
+        }
+
+        // end: embedded support
+
+        set(association, 'owner', this);
+        set(association, 'name', key);
+
+        return association;
+    }).property().meta(meta);
+};
+
+
+/*
+ Changes from default:
+ - redefine hasMany() with our new hasManyAssociation() function
+ - hasManyAssociation is an altered copy of hasAssociation, but it would conflict with the hasAssociation
+   we will be used for belongsTo relations (above)
+ */
+
+DS.hasMany = function(type, options) {
+    Ember.assert("The type passed to DS.hasMany must be defined", !!type);
+    return hasManyAssociation(type, options);
 };
