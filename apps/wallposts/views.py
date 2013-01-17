@@ -28,7 +28,7 @@ class WallPostReactionMixin(object):
     def pre_save(self, obj):
         wallpost_id = self.request.DATA.get('wallpost_id', None)
         wallpost = WallPost.objects.get(id=wallpost_id)
-        content_type = ContentType.objects.get_for_model(wallpost.__class__)
+        content_type = ContentType.objects.get_for_model(wallpost)
         obj.content_type = content_type
         obj.object_id = wallpost.id
         if not hasattr(obj, 'author'):
