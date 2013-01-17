@@ -20,17 +20,17 @@ class WallPostReactionMixin(object):
     def get_queryset(self):
         queryset = super(WallPostReactionMixin, self).get_queryset()
         wallpost_id = self.request.QUERY_PARAMS.get('wallpost_id', None)
-        if wallpost_id:
-            queryset = queryset.filter(object_id=wallpost_id)
-        else:
-            content_type = ContentType.objects.get_for_model(WallPost)
-            queryset = queryset.filter(content_type=content_type)
+        wallpost = WallPost.objects.get(id=wallpost_id)
+        queryset = queryset.filter(wallpost=wallpost)
         queryset = queryset.order_by("created")
         return queryset
 
     def pre_save(self, obj):
-        content_type = ContentType.objects.get_for_model(WallPost)
-        obj.content_type_id = content_type.id
+        wallpost_id = self.request.DATA.get('wallpost_id', None)
+        wallpost = WallPost.objects.get(id=wallpost_id)
+        content_type = ContentType.objects.get_for_model(wallpost.__class__)
+        obj.content_type = content_type
+        obj.object_id = wallpost.id
         if not hasattr(obj, 'author'):
             obj.author = self.request.user
         else:
@@ -46,7 +46,7 @@ class WallPostReactionList(WallPostReactionMixin, ListCreateAPIView):
     paginate_by = 10
 
 
-class WallPostReactionDetail(WallPostReactionMixin, RetrieveUpdateDeleteAPIView):
+class WallPostReactionDetail(RetrieveUpdateDeleteAPIView):
     model = Reaction
     serializer_class = WallPostReactionSerializer
     permission_classes = (IsAuthorOrReadOnly,)

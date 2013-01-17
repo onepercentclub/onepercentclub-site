@@ -38,15 +38,7 @@ class WallPost(PolymorphicModel):
     # Manager
     objects = WallPostManager()
 
-
-    @property
-    # TODO: See if we can make a manager out of this or hav another need solution
-    # Define reactions so it will always use WallPost ContentType
-    # Using generic.GenericRelation(Reaction) the ContentType will be overwritten by the subclasses (eg MediaWallPost)
-    def reactions(self):
-        content_type = ContentType.objects.get_for_model(WallPost)
-        return Reaction.objects.filter(object_id=self.id, content_type=content_type)
-
+    reactions = generic.GenericRelation(Reaction)
 
     def save(self, *args, **kwargs):
         # We overwrite save to enable 'empty' IP
