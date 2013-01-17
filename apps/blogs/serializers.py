@@ -1,16 +1,9 @@
 from django.contrib.auth.models import User
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField
+from apps.bluebottle_drf2.serializers import SorlImageField, AuthorSerializer
 from .models import BlogPost
 
-
-class BlogPostAuthorSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace='GRAY')
-
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'picture')
 
 
 class BlogPostContentsField(serializers.Field):
@@ -25,7 +18,7 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
     contents = BlogPostContentsField(source='contents')
     url = serializers.HyperlinkedIdentityField(view_name='blogpost-instance')
     main_image = SorlImageField('main_image', '300x200',)
-    author = BlogPostAuthorSerializer()
+    author = AuthorSerializer()
     class Meta:
         model = BlogPost
         exclude = ('id',)
