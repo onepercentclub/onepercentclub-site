@@ -32,7 +32,6 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
-    created = serializers.DateTimeField(read_only=True)
     timesince = TimeSinceField(source='created')
 
     class Meta:
