@@ -75,7 +75,7 @@
     float: left;
     text-align: center;
     text-decoration: none;
-    @include rem(padding, 28px 10px 10px 10px);
+    @include rem(padding, 28px 16px 10px 16px);
     overflow: hidden;
     
     &:hover, &:active, &.is-active {
@@ -86,17 +86,18 @@
 .nav-main {
 	@include grid(25, 0, 1);
 	position: relative;
+	@include rem(font-size, 18px);
 	
     li a, li a:visited {
         @extend .nav-item;
         white-space: nowrap;
-        width: 25%;
+        
     }
 }
 
 .nav-member {
-    @include rem(margin-top, 20px);
-	@include grid(16, 0, 1);
+    @include rem(margin-top, 16px);
+	  @include grid(16, 0, 1);
     @include rem(font-size, 13px);
     
     color: $white;
@@ -111,8 +112,8 @@
     }
     
     a {
-        color: $white;
-        text-transform: uppercase;
+      color: $white;
+      text-transform: uppercase;
 	    white-space: nowrap;
 	    border-right: 1px solid $black;
 	    display: inline-block;

@@ -38,6 +38,7 @@
 
 .meta {
     @include rem(margin, 8px 0);
+    @include rem(font-size, 14px);
     
     .location {
         float: left;
@@ -47,7 +48,6 @@
     }
     
     .tags {
-        
         display: block;
         width: auto;
         

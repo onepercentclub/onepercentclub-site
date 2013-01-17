@@ -268,11 +268,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* line 42, ../sass/includes/_typography.scss */
 h1.soft, h2.soft, h3.soft, h4.soft, h5.soft, h6.soft {
-  font-weight: 300;
   color: #858585;
 }
 
-/* line 48, ../sass/includes/_typography.scss */
+/* line 47, ../sass/includes/_typography.scss */
 h1 {
   font-size: 30px;
   font-size: 1.875rem;
@@ -280,14 +279,14 @@ h1 {
   font-weight: bold;
 }
 
-/* line 54, ../sass/includes/_typography.scss */
+/* line 53, ../sass/includes/_typography.scss */
 h1.main-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* line 60, ../sass/includes/_typography.scss */
+/* line 59, ../sass/includes/_typography.scss */
 h2 {
   font-size: 26px;
   font-size: 1.625rem;
@@ -295,25 +294,25 @@ h2 {
   font-weight: bold;
 }
 
-/* line 66, ../sass/includes/_typography.scss */
+/* line 65, ../sass/includes/_typography.scss */
 h3 {
   font-size: 24px;
   font-size: 1.5rem;
 }
 
-/* line 70, ../sass/includes/_typography.scss */
+/* line 69, ../sass/includes/_typography.scss */
 h4 {
   font-size: 18px;
   font-size: 1.125rem;
 }
 
-/* line 74, ../sass/includes/_typography.scss */
+/* line 73, ../sass/includes/_typography.scss */
 h5 {
   font-size: 16px;
   font-size: 1rem;
 }
 
-/* line 76, ../sass/includes/_typography.scss */
+/* line 75, ../sass/includes/_typography.scss */
 .tagline {
   color: #00c051;
   text-align: center;
@@ -323,23 +322,23 @@ h5 {
   margin: 64px 0;
   margin: 4rem 0;
 }
-/* line 81, ../sass/includes/_typography.scss */
+/* line 80, ../sass/includes/_typography.scss */
 .tagline em {
   color: #ff619a;
   font-weight: bold;
   font-style: normal;
 }
 
-/* line 92, ../sass/includes/_typography.scss */
+/* line 91, ../sass/includes/_typography.scss */
 p {
   margin-bottom: 1.25em;
 }
-/* line 94, ../sass/includes/_typography.scss */
+/* line 93, ../sass/includes/_typography.scss */
 p.lead {
   font-weight: bold;
 }
 
-/* line 99, ../sass/includes/_typography.scss */
+/* line 98, ../sass/includes/_typography.scss */
 a {
   color: #00c051;
   text-decoration: none;
@@ -348,54 +347,54 @@ a {
   -o-transition: color 0.2s ease-in, color 0.25s ease-out;
   transition: color 0.2s ease-in, color 0.25s ease-out;
 }
-/* line 104, ../sass/includes/_typography.scss */
+/* line 103, ../sass/includes/_typography.scss */
 a:hover {
   color: #ff619a;
 }
-/* line 108, ../sass/includes/_typography.scss */
+/* line 107, ../sass/includes/_typography.scss */
 a:active {
   color: #ff619a;
   position: relative;
   top: 1px;
 }
 
-/* line 116, ../sass/includes/_typography.scss */
+/* line 115, ../sass/includes/_typography.scss */
 small {
   font-size: 0.85em;
   color: #858585;
 }
 
-/* line 118, ../sass/includes/_typography.scss */
+/* line 117, ../sass/includes/_typography.scss */
 em {
   font-style: italic;
 }
 
-/* line 120, ../sass/includes/_typography.scss */
+/* line 119, ../sass/includes/_typography.scss */
 strong {
   font-weight: bold;
 }
 
-/* line 122, ../sass/includes/_typography.scss */
+/* line 121, ../sass/includes/_typography.scss */
 code, pre {
   font-family: 'courier new', monospace;
 }
 
-/* line 124, ../sass/includes/_typography.scss */
+/* line 123, ../sass/includes/_typography.scss */
 abbr {
   border-bottom: 1px dotted #858585;
 }
 
-/* line 126, ../sass/includes/_typography.scss */
+/* line 125, ../sass/includes/_typography.scss */
 del {
   text-decoration: line-through;
 }
 
-/* line 128, ../sass/includes/_typography.scss */
+/* line 127, ../sass/includes/_typography.scss */
 mark {
   background-color: #ffffb3;
 }
 
-/* line 130, ../sass/includes/_typography.scss */
+/* line 129, ../sass/includes/_typography.scss */
 hr {
   background-color: transparent;
   border: solid #bfbfbf;
@@ -404,72 +403,72 @@ hr {
   margin: 2em 1.25em;
 }
 
-/* line 138, ../sass/includes/_typography.scss */
+/* line 137, ../sass/includes/_typography.scss */
 blockquote {
   color: #454545;
   font-style: italic;
 }
-/* line 142, ../sass/includes/_typography.scss */
+/* line 141, ../sass/includes/_typography.scss */
 blockquote cite {
   color: #5e5e5e;
   display: block;
   font-size: 0.85em;
 }
-/* line 146, ../sass/includes/_typography.scss */
+/* line 145, ../sass/includes/_typography.scss */
 blockquote cite:before {
   content: "\2014 \0020";
 }
 
-/* line 150, ../sass/includes/_typography.scss */
+/* line 149, ../sass/includes/_typography.scss */
 figure {
   display: inline-block;
   max-width: 100%;
 }
-/* line 153, ../sass/includes/_typography.scss */
+/* line 152, ../sass/includes/_typography.scss */
 figure img {
   display: block;
   width: 100%;
 }
-/* line 157, ../sass/includes/_typography.scss */
+/* line 156, ../sass/includes/_typography.scss */
 figure figcaption {
   color: blue;
 }
 
-/* line 162, ../sass/includes/_typography.scss */
+/* line 161, ../sass/includes/_typography.scss */
 ul, ol {
   margin: 0 0 1.25em 1.5em;
 }
 
-/* line 163, ../sass/includes/_typography.scss */
+/* line 162, ../sass/includes/_typography.scss */
 ul {
   list-style: disc;
 }
 
-/* line 164, ../sass/includes/_typography.scss */
+/* line 163, ../sass/includes/_typography.scss */
 ol {
   list-style: decimal;
 }
 
-/* line 166, ../sass/includes/_typography.scss */
+/* line 165, ../sass/includes/_typography.scss */
 dl {
   margin-bottom: 1.25em;
 }
-/* line 168, ../sass/includes/_typography.scss */
+/* line 167, ../sass/includes/_typography.scss */
 dl dt {
   font-weight: bold;
 }
-/* line 169, ../sass/includes/_typography.scss */
+/* line 168, ../sass/includes/_typography.scss */
 dl dd {
   margin-left: 1.25em;
 }
-/* line 171, ../sass/includes/_typography.scss */
+/* line 170, ../sass/includes/_typography.scss */
 dl.advanced dt {
   float: left;
   width: 31.25%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 172, ../sass/includes/_typography.scss */
+/* line 171, ../sass/includes/_typography.scss */
 dl.advanced dd {
   float: left;
   width: 66.66667%;
@@ -482,38 +481,41 @@ dl.advanced dd {
 html {
   color: #454545;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
 }
 
+/*
 @media only screen and (min-width: 1080px) {
-  /* line 11, ../sass/includes/_layout.scss */
-  html {
-    font-size: 15px;
-  }
+    
+    html {
+        font-size: 15px;
+    }
 }
+
 @media only screen and (min-width: 1180px) {
-  /* line 18, ../sass/includes/_layout.scss */
-  html {
-    font-size: 16px;
-  }
+    
+    html {
+        font-size: 16px;
+    }
 }
-/* line 23, ../sass/includes/_layout.scss */
+*/
+/* line 25, ../sass/includes/_layout.scss */
 body {
   line-height: 1.5em;
   overflow-y: scroll;
 }
 
-/* line 29, ../sass/includes/_layout.scss */
+/* line 31, ../sass/includes/_layout.scss */
 .container, .section {
   width: 100%;
   min-width: 980px;
 }
 
-/* line 35, ../sass/includes/_layout.scss */
+/* line 37, ../sass/includes/_layout.scss */
 .wrapper {
   *zoom: 1;
   min-width: 980px;
-  max-width: 91.42857em;
+  max-width: 80em;
   margin: auto;
   padding: 0 16px;
 }
@@ -531,7 +533,7 @@ body {
   clear: both;
 }
 
-/* line 43, ../sass/includes/_layout.scss */
+/* line 45, ../sass/includes/_layout.scss */
 .wrapper > header {
   float: left;
   width: 95.83333%;
@@ -539,7 +541,7 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 47, ../sass/includes/_layout.scss */
+/* line 49, ../sass/includes/_layout.scss */
 .wrapper > form {
   float: left;
   width: 62.5%;
@@ -547,7 +549,7 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 51, ../sass/includes/_layout.scss */
+/* line 53, ../sass/includes/_layout.scss */
 .wrapper > .sidebar, .wrapper > sidebar {
   float: left;
   width: 31.25%;
@@ -555,7 +557,7 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 56, ../sass/includes/_layout.scss */
+/* line 58, ../sass/includes/_layout.scss */
 .wrapper > .content {
   float: left;
   width: 95.83333%;
@@ -563,14 +565,14 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 60, ../sass/includes/_layout.scss */
+/* line 62, ../sass/includes/_layout.scss */
 .section {
   background-color: #e9e9e9;
   padding: 0 0 32px 0;
   padding: 0 0 2rem 0;
 }
 
-/* line 65, ../sass/includes/_layout.scss */
+/* line 67, ../sass/includes/_layout.scss */
 .top {
   background-color: #050505;
   color: white;
@@ -675,8 +677,8 @@ section {
   float: left;
   text-align: center;
   text-decoration: none;
-  padding: 28px 10px 10px 10px;
-  padding: 1.75rem 0.625rem 0.625rem 0.625rem;
+  padding: 28px 16px 10px 16px;
+  padding: 1.75rem 1rem 0.625rem 1rem;
   overflow: hidden;
 }
 /* line 81, ../sass/includes/_navigation.scss */
@@ -691,17 +693,18 @@ section {
   margin-left: 0%;
   margin-right: 2.08333%;
   position: relative;
+  font-size: 18px;
+  font-size: 1.125rem;
 }
-/* line 90, ../sass/includes/_navigation.scss */
+/* line 91, ../sass/includes/_navigation.scss */
 .nav-main li a, .nav-main li a:visited {
   white-space: nowrap;
-  width: 25%;
 }
 
-/* line 97, ../sass/includes/_navigation.scss */
+/* line 98, ../sass/includes/_navigation.scss */
 .nav-member {
-  margin-top: 20px;
-  margin-top: 1.25rem;
+  margin-top: 16px;
+  margin-top: 1rem;
   float: left;
   width: 31.25%;
   margin-left: 0%;
@@ -712,7 +715,7 @@ section {
   overflow: hidden;
   text-align: center;
 }
-/* line 106, ../sass/includes/_navigation.scss */
+/* line 107, ../sass/includes/_navigation.scss */
 .nav-member img {
   width: 36px;
   width: 2.25rem;
@@ -721,7 +724,7 @@ section {
   float: left;
   vertical-align: top;
 }
-/* line 113, ../sass/includes/_navigation.scss */
+/* line 114, ../sass/includes/_navigation.scss */
 .nav-member a {
   color: white;
   text-transform: uppercase;
@@ -733,20 +736,20 @@ section {
   padding: 6px 8px 6px 8px;
   padding: 0.375rem 0.5rem 0.375rem 0.5rem;
 }
-/* line 123, ../sass/includes/_navigation.scss */
+/* line 124, ../sass/includes/_navigation.scss */
 .nav-member a:hover, .nav-member a:active, .nav-member a.is-selected {
   color: #050505;
 }
-/* line 128, ../sass/includes/_navigation.scss */
+/* line 129, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent {
   width: 35%;
   padding: 0;
 }
-/* line 132, ../sass/includes/_navigation.scss */
+/* line 133, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent img {
   border-right: 1px solid #050505;
 }
-/* line 136, ../sass/includes/_navigation.scss */
+/* line 137, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent strong {
   display: inline-block;
   margin: 6px 0 2px 0;
@@ -754,16 +757,16 @@ section {
   padding: 0 12px 0 8px;
   padding: 0 0.75rem 0 0.5rem;
 }
-/* line 143, ../sass/includes/_navigation.scss */
+/* line 144, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications {
   width: 65%;
 }
-/* line 148, ../sass/includes/_navigation.scss */
+/* line 149, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications:hover .nav-notifications-nr, .nav-member .nav-notifications:active .nav-notifications-nr {
   background-color: #050505;
   color: white !important;
 }
-/* line 155, ../sass/includes/_navigation.scss */
+/* line 156, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications-nr {
   color: #050505;
   background: white;
@@ -777,20 +780,20 @@ section {
   border-radius: 8px;
   border-radius: 0.5rem;
 }
-/* line 166, ../sass/includes/_navigation.scss */
+/* line 167, ../sass/includes/_navigation.scss */
 .nav-member .nav-login, .nav-member .nav-signup {
   width: 35%;
 }
-/* line 169, ../sass/includes/_navigation.scss */
+/* line 170, ../sass/includes/_navigation.scss */
 .nav-member .nav-login:hover, .nav-member .nav-login:active, .nav-member .nav-login.is-active, .nav-member .nav-signup:hover, .nav-member .nav-signup:active, .nav-member .nav-signup.is-active {
   color: #00c051;
   background-color: white;
 }
-/* line 176, ../sass/includes/_navigation.scss */
+/* line 177, ../sass/includes/_navigation.scss */
 .nav-member .nav-signup {
   background-color: #ff619a;
 }
-/* line 180, ../sass/includes/_navigation.scss */
+/* line 181, ../sass/includes/_navigation.scss */
 .nav-member .nav-language {
   float: left;
   width: 30%;
@@ -799,7 +802,7 @@ section {
   padding: 6px 8px 6px 8px;
   padding: 0.375rem 0.5rem 0.375rem 0.5rem;
 }
-/* line 186, ../sass/includes/_navigation.scss */
+/* line 187, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a {
   width: 50%;
   text-align: center;
@@ -808,11 +811,11 @@ section {
   padding: 0 6px;
   padding: 0 0.375rem;
 }
-/* line 193, ../sass/includes/_navigation.scss */
+/* line 194, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a#nav-lang-en {
   border-right: 1px solid #bfbfbf;
 }
-/* line 197, ../sass/includes/_navigation.scss */
+/* line 198, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a:hover, .nav-member .nav-language a:active, .nav-member .nav-language a.is-active {
   color: white;
 }
@@ -886,6 +889,7 @@ form fieldset {
 /* line 52, ../sass/includes/_forms.scss */
 form label.inline {
   position: absolute;
+  top: 0;
   left: 0;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
@@ -962,7 +966,7 @@ form ul > li ul.checklist label:hover {
   cursor: pointer;
 }
 /* line 116, ../sass/includes/_forms.scss */
-form ul .error {
+form ul li.error label {
   color: #d24226;
 }
 /* line 118, ../sass/includes/_forms.scss */
@@ -1101,11 +1105,6 @@ div.buttons li:last-child a.button, div.buttons li:last-child .button-donate, di
 /* line 20, ../sass/includes/_buttons.scss */
 a.button, .button-donate, a.btn, input[type="submit"], button {
   border: 1px solid #00a746;
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  -ms-border-radius: 0.2em;
-  -o-border-radius: 0.2em;
-  border-radius: 0.2em;
   color: white;
   cursor: pointer;
   display: inline-block;
@@ -1117,6 +1116,7 @@ a.button, .button-donate, a.btn, input[type="submit"], button {
   padding: 6px 16px 6px 16px;
   padding: 0.375rem 1rem 0.375rem 1rem;
   text-decoration: none;
+  text-shadow: 1px 1px 0 rgba(5, 5, 5, 0.5);
   -webkit-transition: all 50ms;
   -moz-transition: all 50ms;
   -o-transition: all 50ms;
@@ -1124,13 +1124,13 @@ a.button, .button-donate, a.btn, input[type="submit"], button {
   vertical-align: baseline;
   background-color: #00c051;
 }
-/* line 42, ../sass/includes/_buttons.scss */
+/* line 41, ../sass/includes/_buttons.scss */
 a.button:hover, .button-donate:hover, a.btn:hover, input[type="submit"]:hover, button:hover {
   background-color: #00c051;
   color: white;
   border-color: #00a746;
 }
-/* line 49, ../sass/includes/_buttons.scss */
+/* line 48, ../sass/includes/_buttons.scss */
 a.button:active, .button-donate:active, a.button:focus, .button-donate:focus, a.btn:active, a.btn:focus, input[type="submit"]:active, input[type="submit"]:focus, button:active, button:focus {
   background: #074520;
   -webkit-box-shadow: 0 1px 0 white, inset 0 0 20px #050505;
@@ -1139,7 +1139,7 @@ a.button:active, .button-donate:active, a.button:focus, .button-donate:focus, a.
   color: #bfbfbf;
   text-shadow: 0 0 0;
 }
-/* line 57, ../sass/includes/_buttons.scss */
+/* line 56, ../sass/includes/_buttons.scss */
 a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"].contrast, button.contrast {
   border-color: #050505;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6b6b6b), color-stop(100%, #050505));
@@ -1148,7 +1148,7 @@ a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"]
   background: -o-linear-gradient(top, #6b6b6b, #050505);
   background: linear-gradient(top, #6b6b6b, #050505);
 }
-/* line 60, ../sass/includes/_buttons.scss */
+/* line 59, ../sass/includes/_buttons.scss */
 a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, input[type="submit"].contrast:hover, button.contrast:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #858585), color-stop(100%, #050505));
   background: -webkit-linear-gradient(top, #858585, #050505);
@@ -1156,12 +1156,12 @@ a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, in
   background: -o-linear-gradient(top, #858585, #050505);
   background: linear-gradient(top, #858585, #050505);
 }
-/* line 63, ../sass/includes/_buttons.scss */
+/* line 62, ../sass/includes/_buttons.scss */
 a.button.contrast:active, .contrast.button-donate:active, a.button.contrast:focus, .contrast.button-donate:focus, a.btn.contrast:active, a.btn.contrast:focus, input[type="submit"].contrast:active, input[type="submit"].contrast:focus, button.contrast:active, button.contrast:focus {
   background: #383838;
   color: #bfbfbf;
 }
-/* line 70, ../sass/includes/_buttons.scss */
+/* line 69, ../sass/includes/_buttons.scss */
 a.button.soft, .soft.button-donate, a.btn.soft, input[type="submit"].soft, button.soft {
   border-color: #a6a6a6;
   color: #525252;
@@ -1172,7 +1172,7 @@ a.button.soft, .soft.button-donate, a.btn.soft, input[type="submit"].soft, butto
   background: linear-gradient(top, #ffffff, #e6e6e6);
   text-shadow: 1px 1px 0px white;
 }
-/* line 75, ../sass/includes/_buttons.scss */
+/* line 74, ../sass/includes/_buttons.scss */
 a.button.soft:hover, .soft.button-donate:hover, a.btn.soft:hover, input[type="submit"].soft:hover, button.soft:hover {
   border-color: #8c8c8c;
   color: #050505;
@@ -1182,7 +1182,7 @@ a.button.soft:hover, .soft.button-donate:hover, a.btn.soft:hover, input[type="su
   background: -o-linear-gradient(top, #ffffff, #eeeeee);
   background: linear-gradient(top, #ffffff, #eeeeee);
 }
-/* line 80, ../sass/includes/_buttons.scss */
+/* line 79, ../sass/includes/_buttons.scss */
 a.button.soft:active, .soft.button-donate:active, a.button.soft:focus, .soft.button-donate:focus, a.btn.soft:active, a.btn.soft:focus, input[type="submit"].soft:active, input[type="submit"].soft:focus, button.soft:active, button.soft:focus {
   background: #bfbfbf;
   border-color: #6b6b6b;
@@ -1192,7 +1192,7 @@ a.button.soft:active, .soft.button-donate:active, a.button.soft:focus, .soft.but
   color: #5e5e5e;
   text-shadow: 0 0 0;
 }
-/* line 89, ../sass/includes/_buttons.scss */
+/* line 88, ../sass/includes/_buttons.scss */
 a.button.success, .success.button-donate, a.btn.success, input[type="submit"].success, button.success {
   border-color: #2d5011;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5da423), color-stop(100%, #457a1a));
@@ -1201,7 +1201,7 @@ a.button.success, .success.button-donate, a.btn.success, input[type="submit"].su
   background: -o-linear-gradient(top, #5da423, #457a1a);
   background: linear-gradient(top, #5da423, #457a1a);
 }
-/* line 92, ../sass/includes/_buttons.scss */
+/* line 91, ../sass/includes/_buttons.scss */
 a.button.success:hover, .success.button-donate:hover, a.btn.success:hover, input[type="submit"].success:hover, button.success:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #75ce2c), color-stop(100%, #457a1a));
   background: -webkit-linear-gradient(top, #75ce2c, #457a1a);
@@ -1209,11 +1209,11 @@ a.button.success:hover, .success.button-donate:hover, a.btn.success:hover, input
   background: -o-linear-gradient(top, #75ce2c, #457a1a);
   background: linear-gradient(top, #75ce2c, #457a1a);
 }
-/* line 95, ../sass/includes/_buttons.scss */
+/* line 94, ../sass/includes/_buttons.scss */
 a.button.success:active, .success.button-donate:active, a.button.success:focus, .success.button-donate:focus, a.btn.success:active, a.btn.success:focus, input[type="submit"].success:active, input[type="submit"].success:focus, button.success:active, button.success:focus {
   background: #396516;
 }
-/* line 100, ../sass/includes/_buttons.scss */
+/* line 99, ../sass/includes/_buttons.scss */
 a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, button.alert {
   border-color: #7c2716;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d24226), color-stop(100%, #a7341e));
@@ -1222,7 +1222,7 @@ a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, b
   background: -o-linear-gradient(top, #d24226, #a7341e);
   background: linear-gradient(top, #d24226, #a7341e);
 }
-/* line 103, ../sass/includes/_buttons.scss */
+/* line 102, ../sass/includes/_buttons.scss */
 a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type="submit"].alert:hover, button.alert:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #df644c), color-stop(100%, #a7341e));
   background: -webkit-linear-gradient(top, #df644c, #a7341e);
@@ -1230,24 +1230,24 @@ a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type=
   background: -o-linear-gradient(top, #df644c, #a7341e);
   background: linear-gradient(top, #df644c, #a7341e);
 }
-/* line 106, ../sass/includes/_buttons.scss */
+/* line 105, ../sass/includes/_buttons.scss */
 a.button.alert:active, .alert.button-donate:active, a.button.alert:focus, .alert.button-donate:focus, a.btn.alert:active, a.btn.alert:focus, input[type="submit"].alert:active, input[type="submit"].alert:focus, button.alert:active, button.alert:focus {
   background: #912e1a;
 }
-/* line 112, ../sass/includes/_buttons.scss */
+/* line 111, ../sass/includes/_buttons.scss */
 a.button.large, .large.button-donate, a.btn.large, input[type="submit"].large, button.large {
   font-size: 1.25em;
 }
-/* line 113, ../sass/includes/_buttons.scss */
+/* line 112, ../sass/includes/_buttons.scss */
 a.button.small, .small.button-donate, a.btn.small, input[type="submit"].small, button.small {
   font-size: 1em;
 }
-/* line 114, ../sass/includes/_buttons.scss */
+/* line 113, ../sass/includes/_buttons.scss */
 a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, button.tiny {
   font-size: 0.85em;
 }
 
-/* line 120, ../sass/includes/_buttons.scss */
+/* line 119, ../sass/includes/_buttons.scss */
 .button-donate {
   font-size: 19px;
   font-size: 1.1875rem;
@@ -1260,7 +1260,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
   background-color: #ff619a;
 }
 
-/* line 135, ../sass/includes/_buttons.scss */
+/* line 134, ../sass/includes/_buttons.scss */
 .button.button-donate:hover {
   background-color: #050505;
 }
@@ -1268,7 +1268,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 /* ========================= Responsive ================================== */
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-  /* line 144, ../sass/includes/_buttons.scss */
+  /* line 143, ../sass/includes/_buttons.scss */
   .button-donate {
     font-size: 22px;
     font-size: 1.375rem;
@@ -2108,8 +2108,10 @@ ul.steps li.selected a {
 .meta {
   margin: 8px 0;
   margin: 0.5rem 0;
+  font-size: 14px;
+  font-size: 0.875rem;
 }
-/* line 42, ../sass/modules/_detail-top.scss */
+/* line 43, ../sass/modules/_detail-top.scss */
 .meta .location {
   float: left;
   display: block;
@@ -2117,7 +2119,7 @@ ul.steps li.selected a {
   margin-right: 32px;
   margin-right: 2rem;
 }
-/* line 49, ../sass/modules/_detail-top.scss */
+/* line 50, ../sass/modules/_detail-top.scss */
 .meta .tags {
   display: block;
   width: auto;
@@ -2170,11 +2172,11 @@ ul.steps li.selected a {
 .status-box h3 {
   margin: 0;
   padding: 0;
-  color: #c0bfbf;
   font-weight: bold;
-  font-size: 20px;
-  font-size: 1.25rem;
-  height: 140px;
+  color: #c0bfbf;
+  font-size: 14px;
+  font-size: 0.875rem;
+  height: 50px;
   overflow: hidden;
 }
 
@@ -2270,10 +2272,10 @@ ul.steps li.selected a {
   margin-right: 3px;
   font-size: 28px;
   font-size: 1.75rem;
-  line-height: 1.6em;
+  line-height: 1.3em;
   text-align: center;
   font-weight: normal;
-  width: 1.2em;
+  width: 1em;
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   -ms-border-radius: 0.2em;

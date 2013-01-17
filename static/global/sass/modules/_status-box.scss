@@ -9,10 +9,10 @@
     h3 {
         margin: 0;
         padding: 0;
-        color: #c0bfbf;
         font-weight: bold;
-        @include rem(font-size, 20px);
-        height: 140px;
+        color: #c0bfbf;
+        @include rem(font-size, 14px);
+        height: 50px;
         overflow: hidden;
     }
     
@@ -114,10 +114,10 @@
 	margin-right: 3px;
 	
 	@include rem(font-size, 28px);
-	line-height: 1.6em;
+	line-height: 1.3em;
 	text-align: center;
 	font-weight: normal;
-	width: 1.2em;
+	width: 1em;
 	
 	@include border-radius(0.2em);
 	@include box-shadow( inset 0 0 0 1px rgba(#fff, 0.9) );

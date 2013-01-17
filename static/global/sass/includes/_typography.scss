@@ -38,11 +38,10 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @include rem(padding, 24px 0 8px 0); 
-    &.soft {
-        font-weight: 300;
-        color: lighten($black, 50%);
-    }
+  @include rem(padding, 24px 0 8px 0); 
+  &.soft {
+      color: lighten($black, 50%);
+  }
 }
 
 h1 { 
