@@ -62,7 +62,7 @@
 {#                <span class="fileinput-button image">#}
 {#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
 {#                </span>#}
-                {{view App.UploadFileView id="wallpost-photo" name="wallpost-photo"}}
+                {{view App.UploadImageFileView id="wallpost-photo" name="wallpost-photo"}}
             </li>
         </ul>
     </fieldset>
@@ -112,6 +112,27 @@
         {{/if}}
 
         {{view.content.text}}
+
+        {# This is temporary and will go away when we figure out how to upload related photos. #}
+        {{#if view.content.photo}}
+            <div class="photo-viewer">
+                <span class="photo"><a href="#"><img {{bindAttr src="view.content.photo"}} width="100%" alt="Gallery" /></a></span>
+            </div>
+        {{/if}}
+
+        {{#if view.content.photos}}
+            <div class="photo-viewer">
+                <span class="photo"><a href="#"><img src="/static/assets/dummy/wallpost-image.jpg" width="100%" alt="Gallery" /></a></span>
+                <ul>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li class="more"><a href="#"><strong>6</strong> more photos</a></li>
+                </ul>
+            </div>
+        {{/if}}
 
     </div>
 

@@ -105,15 +105,7 @@ App.WallPostFormContainerView = Em.View.extend({
 App.MediaWallPostFormView = Em.View.extend({
     templateName: 'media_wallpost_form',
     templateFile: 'wallpost',
-
     tagName: 'form',
-    // Ask Loek: do we want this?
-    attributeBindings: ['enctype', 'method'],
-    enctype: "multipart/form-data",
-    method: "POST",
-// action needs to be implemented somehow.
-//    action: "/i18n/api/projects/wallposts/media/"
-
 
     wallpostBinding: 'App.projectWallPostListController.wallpost',
 
@@ -143,7 +135,7 @@ App.TextWallPostFormView = App.MediaWallPostFormView.extend({
 });
 
 
-App.UploadFileView = Ember.TextField.extend({
+App.UploadImageFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name'],
     wallpostBinding: 'App.projectWallPostListController.wallpost',
@@ -153,10 +145,10 @@ App.UploadFileView = Ember.TextField.extend({
             var reader = new FileReader();
             var that = this;
             reader.onload = function(e) {
-                var mediawallpost = that.get('wallpost');
-                mediawallpost.set('photo', e.target.result);
+                that.get('wallpost').set('photo', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
+            this.get('wallpost').set('photo_file', input.files[0]);
         }
     }
 });
@@ -176,8 +168,8 @@ App.WallPostView = Em.View.extend({
     templateName: 'wallpost',
     templateFile: 'wallpost',
     isAuthor: function(){
-        var username = this.get('user').get('username');
-        var authorname = this.get('content').get('author').get('username');
+        var username = this.get('user.username');
+        var authorname = this.get('content.author.username');
         if (username) {
             return (username == authorname);
         }

@@ -84,7 +84,11 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             var fd = new FormData();
             Object.keys(data).forEach(function(key){
                 if (data[key] !== undefined) {
-                    fd.append(key, data[key]);
+                    if (key == 'photo') {
+                        fd.append(key, record.get('photo_file'))
+                    } else {
+                        fd.append(key, data[key]);
+                    }
                 }
             });
 
@@ -122,7 +126,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         hash.type = type;
         hash.processData = false;  // tell jQuery not to process the data
         hash.contentType = false;  // tell jQuery not to set contentType
-        hash.mimeType = "multipart/form-data";
         hash.context = this;
 
         jQuery.ajax(hash);
