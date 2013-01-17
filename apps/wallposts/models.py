@@ -58,7 +58,7 @@ class WallPost(PolymorphicModel):
         ordering = ('created',)
 
     def __unicode__(self):
-        return self.id
+        return str(self.id)
 
 
 class MediaWallPost(WallPost):

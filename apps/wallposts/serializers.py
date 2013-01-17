@@ -1,14 +1,11 @@
-from apps.bluebottle_drf2.serializers import SorlImageField, TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer, ToModelIdField, ManyRelatedSerializer
+from apps.bluebottle_drf2.serializers import  TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer, ToModelIdField, ManyRelatedSerializer
 from apps.projects.models import Project
 from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
 
-from django import forms
-from django.utils.encoding import smart_str
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost
-from rest_framework.relations import ManyRelatedField
 
 
 class WallPostTypeField(serializers.Field):
@@ -26,7 +23,7 @@ class WallPostReactionSerializer(ReactionSerializer):
     wallpost_id = ToModelIdField(to_model=WallPost)
 
     class Meta(ReactionSerializer.Meta):
-        fields = ReactionSerializer.Meta.fields + ('wallpost_id', )
+        fields = ReactionSerializer.Meta.fields + ('wallpost_id',)
 
 
 class WallPostSerializerBase(serializers.ModelSerializer):
@@ -36,7 +33,6 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
-    created = serializers.DateTimeField(read_only=True)
     timesince = TimeSinceField(source='created')
     reactions = ManyRelatedSerializer(WallPostReactionSerializer)
 
