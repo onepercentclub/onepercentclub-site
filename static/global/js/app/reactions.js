@@ -7,28 +7,37 @@ App.Reaction = DS.Model.extend({
 });
 
 
+App.WallPostReaction = DS.Model.extend({
+    url: 'wallposts/reactions',
+    wallpost_id: DS.attr('number'),
+    reaction: DS.attr('string'),
+    author: DS.belongsTo('App.Member', {embedded: true}),
+    created: DS.attr('string'),
+    timesince: DS.attr('string')
+});
+
 App.reactionListController = App.ListController.create({
     model: App.Reaction,
-    getUrl: function(){
-        
-    },
-    getList: function(filterParams){
-        var slug = filterParams['slug'];
-        var type = filterParams['type'];
-        var url =  type + '/' + slug + '/reactions/';
-        var model =  this.get('model');
-        model.reopen({
-            'url': url
-        });
-        this.set("content", App.store.findAll(model));
-    },
-    addReaction: function(reaction){
-        App.Reaction.createRecord({'reaction': reaction});
-        App.store.commit();
+    addReaction: function(type, reaction){
+        var transaction = App.store.transaction()
+        var r = transaction.createRecord(type, reaction);
+        transaction.commit();
+        return r;
     }
 });
 
-App.reactionBoxController = Em.Controller.create({
+App.wallPostReactionController = Em.Controller.create({
+    model: App.WallPostReaction,
+    loadReaction: function(){
+        this.get('wallpost').get('reactions').pushObject(this.get('livereaction'));
+    }.observes('livereaction.isLoaded'),
+    addReaction: function(reaction, wallpost){
+        this.wallpost = wallpost;
+        var transaction = App.store.transaction();
+        this.livereaction = transaction.createRecord(this.get('model'), reaction.toJSON());
+        this.livereaction.set('wallpost_id', wallpost.get('id'));
+        transaction.commit();
+    }
 });
 
 
@@ -39,16 +48,31 @@ App.ReactionBoxView = Em.View.extend({
 });
 
 
-App.ReactionFormView = Em.View.extend({
+App.WallPostReactionFormView = Em.View.extend({
     templateName: 'reaction_form',
     templateFile: 'reaction_box',
     tagName: 'form',
     classNames: ['reaction-form'],
-    reaction: '',
+    wallpostBinding: "parentView.content",
+    modelBinding: "App.wallPostReactionController.model",
+    reaction: function(){
+        return this.get('model').createRecord();
+    }.property('model'),
     submit: function(e){
         e.preventDefault();
-        App.reactionListController.addReaction(this.get('reaction'));
+        App.wallPostReactionController.addReaction(this.get('reaction'), this.get('wallpost'));
+    },
+    didInsertElement: function(e){
+        this.$('textarea').focus(function(e) {
+            $(this).closest('.reaction-form').addClass('is-selected');
+        });
+        this.$().blur(function(e) {
+            $(this).closest('.reaction-form').removeClass('is-selected');
+        });
+
     }
+
+
 });
 
 

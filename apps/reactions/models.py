@@ -19,7 +19,7 @@ class ReactionManager(GenericForeignKeyManagerMixin, models.Manager):
 
     def get_query_set(self):
         query_set = super(ReactionManager, self).get_query_set()
-        query_set = query_set.order_by('-created')
+        query_set = query_set.order_by('created')
         return query_set.filter(deleted__isnull=True)
 
 

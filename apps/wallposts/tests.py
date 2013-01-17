@@ -89,8 +89,8 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 2)
-        self.assertEqual(response.data['results'][0]['reaction'], another_reaction_text)
-        self.assertEqual(response.data['results'][1]['reaction'], new_reaction_text)
+        self.assertEqual(response.data['results'][0]['reaction'], new_reaction_text)
+        self.assertEqual(response.data['results'][1]['reaction'], another_reaction_text)
 
         # back to the author
         self.client.logout()
@@ -139,9 +139,9 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 2)
-        self.assertEqual(response.data['results'][1]['reaction'], reaction_text_1)
-        self.assertEqual(response.data['results'][0]['reaction'], reaction_text_2)
-    
+        self.assertEqual(response.data['results'][0]['reaction'], reaction_text_1)
+        self.assertEqual(response.data['results'][1]['reaction'], reaction_text_2)
+
         # Check that the size and data in the second reaction list is correct.
         response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.another_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
@@ -171,8 +171,8 @@ class WallPostReactionApiIntegrationTest(WallPostMixin, TestCase):
         response = self.client.get(some_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['reactions']), 2)
-        self.assertEqual(response.data['reactions'][0]['reaction'], reaction2_text)
-        self.assertEqual(response.data['reactions'][1]['reaction'], reaction1_text)
+        self.assertEqual(response.data['reactions'][0]['reaction'], reaction1_text)
+        self.assertEqual(response.data['reactions'][1]['reaction'], reaction2_text)
 
 
         # Create a Reaction to another WallPost and retrieve that WallPost should return one embedded reaction

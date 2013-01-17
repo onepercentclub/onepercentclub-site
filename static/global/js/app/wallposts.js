@@ -17,14 +17,7 @@ App.ProjectWallPost = DS.Model.extend({
     timesince: DS.attr('string'),
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
-
-    reactions: DS.hasMany('App.Reaction', {embedded: true}),
-
-    // TODO: Find a better way to refresh the list
-    didCreate: function() {
-        App.store.find(App.ProjectWallPost, this.get('id'));
-        App.projectWallPostListController.set('content', App.store.all(App.ProjectWallPost));
-    }
+    reactions: DS.hasMany('App.WallPostReaction', {embedded: true}),
 
 });
 
@@ -148,6 +141,10 @@ App.WallPostView = Em.View.extend({
     classNames: ['wallpost'],
     templateName: 'wallpost',
     templateFile: 'wallpost',
+    reactionModel: function(){
+        return App.WallPostReaction;
+    }.property('content.id'),
+
     isAuthor: function(){
         var username = this.get('user').get('username');
         var authorname = this.get('content').get('author').get('username');
@@ -182,3 +179,4 @@ App.ProjectWallPostListView = Em.CollectionView.extend({
     contentBinding: 'App.projectWallPostListController',
     itemViewClass: 'App.WallPostView'
 });
+

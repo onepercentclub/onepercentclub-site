@@ -115,23 +115,7 @@
     <!-- reaction-box -->
     <div class="reaction-box">
 
-        <form action="#" method="post" class="reaction-form">
-            <fieldset>
-                <span class="user-img"><img {{bindAttr src="view.user.picture"}} width="100%" alt="Avatar" /></span>
-                <label for="reaction-1" class="inline">
-                    {# TODO: Create proper way to check for authenticated user. #}
-                    {{#if view.user.first_name }}
-                        Hey {{view.user.first_name}}, leave a comment behind!
-                    {{else}}
-                        {# TODO: Figure out a way to do composed translations - fragment sentences are hard for translators to deal with. #}
-                        <a href="/accounts/login">{% trans "Login" %}</a> {% trans "to leave a comment." %}
-                    {{/if}}
-                </label>
-                <textarea id="reaction-1" name="reaction"></textarea>
-            </fieldset>
-
-            <button type="submit" id="reaction-post">{% trans "Post" %}</button>
-        </form>
+        {{view "App.WallPostReactionFormView"}}
 
         <ul class="reaction-actions">
             <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>

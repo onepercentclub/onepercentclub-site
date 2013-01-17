@@ -4,8 +4,12 @@
 {% tplhandlebars "reaction_form" %}
     <fieldset>
         <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
-        <label for="reaction-1" class="inline">Hey {{view.user.first_name}}, leave a reaction!</label>
-        {{view Ember.TextArea valueBinding="view.reaction" name="reaction" id="reaction-1"}}
+        {# <label class="inline">Hey {{view.user.first_name}}, leave a reaction!</label> #}
+        {{#if view.user.is_authenticated }}
+            {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.reaction.reaction" name="reaction"}}
+        {{else}}
+            {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
+        {{/if}}
     </fieldset>
     <button type="submit" id="reaction-post">Post</button>
 {% endtplhandlebars %}

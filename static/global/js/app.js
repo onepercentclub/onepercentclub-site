@@ -174,7 +174,11 @@ $(function() {
 
 
     App.User = App.Member.extend({
-        url: 'members'
+        url: 'members',
+
+        is_authenticated: function(){
+            return (this.get('username'))  ? true : false;
+        }.property('username')
     });
 
 
