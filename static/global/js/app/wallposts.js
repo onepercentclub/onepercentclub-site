@@ -62,19 +62,20 @@ App.projectWallPostListController = Em.ArrayController.create({
 
 
     addWallPost: function(wallpost) {
+        var transaction = App.store.transaction();
         // Load the right model based on type
         var model = this.get('models.' + wallpost.type);
         // If we have a standard object then convert into the right model
         if (!(wallpost instanceof model)) {
             // Add project_id to the wallpost
             wallpost.project_id = this.get('project.id');
-            var wallpost = model.createRecord(wallpost);
+            var wallpost = transaction.createRecord(model, wallpost);
         }
         // Not a race condition because ember-data only starts its machinery when App.store.commit() is called.
         wallpost.on('didCreate', function(record) {
             App.projectWallPostListController.get('content').unshiftObject(record);
         });
-        App.store.commit();
+        transaction.commit();
         // Return the model (with errors) for the form to return it to the user.
         return wallpost;
     }
@@ -144,7 +145,6 @@ App.WallPostView = Em.View.extend({
     reactionModel: function(){
         return App.WallPostReaction;
     }.property('content.id'),
-
     isAuthor: function(){
         var username = this.get('user').get('username');
         var authorname = this.get('content').get('author').get('username');
@@ -154,8 +154,6 @@ App.WallPostView = Em.View.extend({
         return false;
     }.property('user', 'content'), 
     deleteWallPost: function(e) {
-        console.log(this.get('content'));
-
         if (confirm("Delete this wallpost?")) {
             e.preventDefault();
             var post = this.get('content');

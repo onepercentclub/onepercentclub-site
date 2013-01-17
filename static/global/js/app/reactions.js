@@ -28,14 +28,17 @@ App.reactionListController = App.ListController.create({
 
 App.wallPostReactionController = Em.Controller.create({
     model: App.WallPostReaction,
-    loadReaction: function(){
-        this.get('wallpost').get('reactions').pushObject(this.get('livereaction'));
-    }.observes('livereaction.isLoaded'),
     addReaction: function(reaction, wallpost){
-        this.wallpost = wallpost;
         var transaction = App.store.transaction();
-        this.livereaction = transaction.createRecord(this.get('model'), reaction.toJSON());
-        this.livereaction.set('wallpost_id', wallpost.get('id'));
+        var livereaction = transaction.createRecord(this.get('model'), reaction.toJSON());
+        livereaction.set('wallpost_id', wallpost.get('id'));
+        livereaction.on('didCreate', function(record, a, b){
+            console.log(a);
+            console.log(b);
+            console.log(record);
+            wallpost.get('reactions').pushObject(record);
+        });
+        alert('wait');
         transaction.commit();
     }
 });
@@ -61,13 +64,20 @@ App.WallPostReactionFormView = Em.View.extend({
     submit: function(e){
         e.preventDefault();
         App.wallPostReactionController.addReaction(this.get('reaction'), this.get('wallpost'));
+        this.get('reaction').on('becameError', function(){
+            this.set('reaction', reaction);
+        });
+        this.get('reaction').on('didLoad', function(){
+            this.set('reaction', this.get('model').createRecord());
+        });
+
     },
     didInsertElement: function(e){
         this.$('textarea').focus(function(e) {
-            $(this).closest('.reaction-form').addClass('is-selected');
+            $(this).parents('.reaction-form').addClass('is-selected');
         });
         this.$().blur(function(e) {
-            $(this).closest('.reaction-form').removeClass('is-selected');
+            $(this).parents('.reaction-form').removeClass('is-selected');
         });
 
     }

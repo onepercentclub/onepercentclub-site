@@ -52,6 +52,10 @@ $(function() {
         }
     });
 
+    Em.Controller.reopen({
+        userBinding: "App.userController.content"
+    });
+
     Em.View.reopen({
         userBinding: "App.userController.content",
         isLoggedInBinding: "App.userController.isLoggedIn",
