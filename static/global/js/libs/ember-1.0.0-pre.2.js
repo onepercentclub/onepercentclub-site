@@ -48,7 +48,8 @@ if (!('MANDATORY_SETTER' in Ember.ENV)) {
     falsy, an exception will be thrown.
 */
 Ember.assert = function(desc, test) {
-  if (!test) throw new Error("assertion failed: "+desc);
+  if (!test)
+      throw new Error("assertion failed: "+desc);
 };
 
 
@@ -1751,7 +1752,8 @@ function normalizeTuple(target, path) {
   }
 
   // must return some kind of path to be valid else other things will break.
-  if (!path || path.length===0) throw new Error('Invalid Path');
+  if (!path || path.length===0)
+      throw new Error('Invalid Path');
 
   return [ target, path ];
 }

@@ -8,6 +8,59 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from polymorphic import PolymorphicModel, PolymorphicManager
 
 
+import os
+import random
+import string
+import mimetypes
+#import magic
+
+import logging
+logger = logging.getLogger(__name__)
+
+def generate_filename(instance, filename):
+    """
+    Creates a random directory and file name for uploaded pictures.
+
+    The random directory allows the uploaded images to be evenly spread over
+    1296 x 1296 directories. This allows us to host more files before hitting bad
+    performance of the OS filesystem and/or utility programs which can occur
+    when a directory has thousands of files.
+
+    An example return value is of this method is:
+        'profiles/tw/s9/tws9ea4eqaj37xnu24svp2vwndsytzysa.jpg'
+    """
+
+    # Create the upload directory string.
+    char_set = string.ascii_lowercase + string.digits
+    random_string = ''.join(random.choice(char_set) for i in range(33))
+    directory_prefix = instance.__class__.__name__.lower()
+    upload_directory = os.path.join(directory_prefix, random_string[0:2], random_string[2:4])
+
+    # Get the file extension from the original filename. At this point the image
+    # is verified when using the Django ImageFile form.
+    # TODO Make this general for all files. Right now it's specific to Action.picture.
+    mime_type = instance.picture.file.content_type
+
+    if mime_type == 'image/jpeg':
+        # mimetype.guess_extension() returns '.jpe' for jpegs but that's not frequently used.
+        file_extension = '.jpg'
+    else:
+        file_extension = mimetypes.guess_extension(mime_type)
+
+    # mimetype.guess_extension() can return None so deal with this case.
+    if not file_extension:
+        original_filename = os.path.basename(filename)
+        file_extension = os.path.splitext(original_filename)[1]
+        logger.warning("Can't detect file extension for %s. Using guessed extension \'%s\'" %
+                       (original_filename, file_extension))
+
+    # Create the normalized path.
+    normalized_filename = random_string + file_extension
+    return os.path.normpath(os.path.join(upload_directory, normalized_filename))
+
+
+
+
 class WallPostManager(GenericForeignKeyManagerMixin, PolymorphicManager):
     pass
 
@@ -50,6 +103,7 @@ class MediaWallPost(WallPost):
     title = models.CharField(max_length=60)
     text = models.TextField(max_length=300, blank=True, default='')
     video_url = models.URLField(max_length=100, blank=True, default='')
+    photo = models.ImageField(upload_to='mediawallposts', blank=True, null=True)
 
     def __unicode__(self):
         return Truncator(self.text).words(10)

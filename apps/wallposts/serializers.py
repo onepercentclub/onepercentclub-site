@@ -32,20 +32,25 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
-    created = serializers.DateTimeField(read_only=True)
     timesince = TimeSinceField(source='created')
 
     class Meta:
         fields = ('id', 'url', 'type', 'author', 'created', 'timesince')
 
 
+## TODO Post a message to the drf2 list about this.
+#class BBImageField(serializers.ImageField):
+#    _use_files = False
+
+
 class MediaWallPostSerializer(WallPostSerializerBase):
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     type = WallPostTypeField(type='media')
+#    photo = BBImageField()
 
     class Meta:
         model = MediaWallPost
-        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url')
+        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url', 'photo')
 
 
 class TextWallPostSerializer(WallPostSerializerBase):

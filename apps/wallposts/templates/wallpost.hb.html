@@ -10,13 +10,13 @@
         </header>
         
         {{#if view.user.username }}
-            {{#if view.canEdit }}
+            {{#if view.isOwner }}
                 {{view App.MediaWallPostFormView}}
             {{else}}
                 {{view App.TextWallPostFormView}}
             {{/if}}
         {{else}}
-            <form>{% trans "Login to leave a reaction." %}</form>
+            <form>{% trans "Login to leave a comment." %}</form>
         {{/if}}
     </section>
 
@@ -54,13 +54,16 @@
                 </label>
                 {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
             </li>
-{#            TODO: Implement photos #}
-{#            <li>#}
-{#                <label for="wallpost-photos">Upload & add Photo's <small>(620 x 380 minimum for best results)</small></label>#}
+            <li>
+                {{#each view.wallpost.errors.photo}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
+                <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
 {#                <span class="fileinput-button image">#}
 {#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
 {#                </span>#}
-{#            </li>#}
+                {{view App.UploadFileView id="wallpost-photo" name="wallpost-photo"}}
+            </li>
         </ul>
     </fieldset>
 

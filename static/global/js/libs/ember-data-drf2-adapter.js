@@ -72,34 +72,72 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - don't embed record within 'root' in the json.
-     - check for errors and call didError
+     - Don't embed record within 'root' in the json.
+     - Check for errors and call didHaveErrors.
+     - Add code for
      */
     createRecord: function(store, type, record) {
         var root = this.rootForType(type);
         var data = this.toJSON(record, { includeId: true });
 
-        this.ajax(this.buildURL(root), "POST", {
-            data: data,
-            context: this,
-            success: function(json) {
-                this.didCreateRecord(store, type, record, json);
-            },
-            // Make sure we parse any errors.
-            error: function(xhr) {
-                this.didError(store, type, record, xhr);
-            }
-        });
+        if (type.toString() == "App.ProjectMediaWallPost") {
+            var fd = new FormData();
+            Object.keys(data).forEach(function(key){
+                if (data[key] !== undefined) {
+                    fd.append(key, data[key]);
+                }
+            });
+
+            this.ajaxFormData(this.buildURL(root), "POST", {
+                data: fd,
+                context: this,
+                success: function(json) {
+                    this.didCreateRecord(store, type, record, json);
+                },
+                // Make sure we parse any errors.
+                error: function(xhr) {
+                    this.didHaveErrors(store, type, record, xhr);
+                }
+            });
+
+        } else {
+            this.ajax(this.buildURL(root), "POST", {
+                data: data,
+                context: this,
+                success: function(json) {
+                    this.didCreateRecord(store, type, record, json);
+                },
+                // Make sure we parse any errors.
+                error: function(xhr) {
+                    this.didHaveErrors(store, type, record, xhr);
+                }
+            });
+        }
+
     },
 
+
+    ajaxFormData: function(url, type, hash) {
+        hash.url = url;
+        hash.type = type;
+        hash.processData = false;  // tell jQuery not to process the data
+        hash.contentType = false;  // tell jQuery not to set contentType
+        hash.mimeType = "multipart/form-data";
+        hash.context = this;
+
+        jQuery.ajax(hash);
+     },
+
+
     /**
-     * Add an error text to a record
+     * Add error text to a record.
      */
-    didError: function(store, type, record, xhr) {
+    didHaveErrors: function(store, type, record, xhr) {
         if (xhr.status === 400) {
             var data = JSON.parse(xhr.responseText);
             store.recordWasInvalid(record, data);
         } else {
+            // FIXME: recordWasError is not a function!
             store.recordWasError(record);
         }
     },
