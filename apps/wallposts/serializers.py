@@ -44,7 +44,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
 class MediaWallPostSerializer(WallPostSerializerBase):
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     type = WallPostTypeField(type='media')
-    photo = SorlImageField('photo', '529x296')
+    photo = SorlImageField('photo', '529x296', required=False)
     photos = serializers.ManyRelatedField()
 
     class Meta:
