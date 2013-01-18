@@ -35,8 +35,8 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - don't call sideload() because DRF2 doesn't support it.
-     - get results from json.results.
+     - Don't call sideload() because DRF2 doesn't support it.
+     - Get results from json.results.
      */
     didFindAll: function(store, type, json) {
         var since = this.extractSince(json);
@@ -54,8 +54,8 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - don't call sideload() because DRF2 doesn't support it.
-     - get result from json directly.
+     - Don't call sideload() because DRF2 doesn't support it.
+     - Get result from json directly.
      */
     didFindRecord: function(store, type, json, id) {
         store.load(type, id, json);
@@ -63,8 +63,8 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - don't call sideload() because DRF2 doesn't support it.
-     - get results from json.results.
+     - Don't call sideload() because DRF2 doesn't support it.
+     - Get results from json.results.
      */
     didFindQuery: function(store, type, json, recordArray) {
         recordArray.load(json['results']);
@@ -77,7 +77,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
      - Add code for multipart/form-data form submission.
      */
     createRecord: function(store, type, record) {
-        var root = this.rootForType(type);
+        var root = this.rootForType(type, record);
         var data = this.toJSON(record, { includeId: true });
 
         // TODO: Create a general solution for detecting when to use multipart/form-data (i.e. detecting
@@ -155,8 +155,8 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - don't call sideload() because DRF2 doesn't support it.
-     - get result from json directly.
+     - Don't call sideload() because DRF2 doesn't support it.
+     - Get result from json directly.
      */
     didCreateRecord: function(store, type, record, json) {
         this.didSaveRecord(store, record, json);
@@ -164,10 +164,14 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - don't replace CamelCase with '_'.
-     - also check for 'url' defined in the class.
+     - Don't replace CamelCase with '_'.
+     - Use the record's url field first if it's there.
+     - Check for 'url' defined in the class.
      */
-    rootForType: function(type) {
+    rootForType: function(type, record) {
+        if (record !== undefined && record.url) {
+            return record.url;
+        }
         if (type.url) {
             return type.url;
         }
@@ -182,7 +186,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - don't add 's' if the url name already ends with 's'.
+     - Don't add 's' if the url name already ends with 's'.
      */
     pluralize: function(name) {
         if (this.plurals[name])
@@ -195,7 +199,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - add trailing slash for lists.
+     - Add trailing slash for lists.
      */
     buildURL: function(record, suffix) {
         var url = this._super(record, suffix);
@@ -298,7 +302,6 @@ var hasManyAssociation = function(type, options) {
             ids = data[key];
             association = store.findMany(type, ids || [], this, meta);
         }
-
         // end: embedded support
 
         set(association, 'owner', this);
@@ -311,11 +314,10 @@ var hasManyAssociation = function(type, options) {
 
 /*
  Changes from default:
- - redefine hasMany() with our new hasManyAssociation() function
- - hasManyAssociation is an altered copy of hasAssociation, but it would conflict with the hasAssociation
-   we will be used for belongsTo relations (above)
+ - Redefine hasMany() with our new hasManyAssociation() function.
+ - hasManyAssociation() is an altered copy of hasAssociation, but it would conflict with the hasAssociation
+   we will be using for belongsTo relations (above).
  */
-
 DS.hasMany = function(type, options) {
     Ember.assert("The type passed to DS.hasMany must be defined", !!type);
     return hasManyAssociation(type, options);
