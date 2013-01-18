@@ -142,9 +142,6 @@ App.WallPostView = Em.View.extend({
     classNames: ['wallpost'],
     templateName: 'wallpost',
     templateFile: 'wallpost',
-    reactionModel: function(){
-        return App.WallPostReaction;
-    }.property('content.id'),
     isAuthor: function(){
         var username = this.get('user').get('username');
         var authorname = this.get('content').get('author').get('username');

@@ -4,7 +4,6 @@
 {% tplhandlebars "reaction_form" %}
     <fieldset>
         <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
-        {# <label class="inline">Hey {{view.user.first_name}}, leave a reaction!</label> #}
         {{#if view.user.is_authenticated }}
             {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.reaction.reaction" name="reaction"}}
         {{else}}

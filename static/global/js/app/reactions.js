@@ -9,7 +9,8 @@ App.Reaction = DS.Model.extend({
 
 App.WallPostReaction = DS.Model.extend({
     url: 'wallposts/reactions',
-    // We need wallpost_id to create reactions
+    // We need wallpost_id to create reactions in the API
+    // This can't be a calculated property because then it won't be part of the API call
     wallpost_id: DS.attr('number'),
     wallpost: DS.belongsTo('App.ProjectWallPost'),
     reaction: DS.attr('string'),
@@ -22,11 +23,15 @@ App.wallPostReactionController = Em.Controller.create({
     model: App.WallPostReaction,
     addReaction: function(reaction, wallpost){
         var transaction = App.store.transaction();
-        var livereaction = transaction.createRecord(this.get('model'), reaction.toJSON());
-        // Set the wallpost_id so the API knows which wallpost we like to react to
-        livereaction.set('wallpost_id', wallpost.get('id'));
+        var model = this.get('model');
+        var livereaction = transaction.createRecord(model, reaction.toJSON());
         // Set the wallpost so the list gets updated in the view
+        livereaction.set('wallpost_id', wallpost.get('id'));
         livereaction.set('wallpost', wallpost);
+        livereaction.on('didCreate', function(record){
+            // Clear the reaction text in the form
+            reaction.set('reaction', '');
+        });
         transaction.commit();
     }
 });
@@ -45,7 +50,6 @@ App.WallPostReactionFormView = Em.View.extend({
     submit: function(e){
         e.preventDefault();
         App.wallPostReactionController.addReaction(this.get('reaction'), this.get('wallpost'));
-        this.set('reaction', this.get('model').createRecord());
 
     },
     didInsertElement: function(e){
