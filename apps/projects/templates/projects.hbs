@@ -1,0 +1,196 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "projects" %}
+
+<div class="container">
+    <section class="wrapper">
+        <article>
+            <header>
+                <h2>{% trans "Projects" %}</h2>
+
+                {{#if content.isLoaded}}
+                <ul>
+                    {{#each project in controller}}
+                        <li>{{#linkTo project project}}{{project.title}}{{/linkTo}}</li>
+                    {{/each}}
+                </ul>
+                {{else}}
+                    <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> loading projects ...
+                {{/if}}
+
+            </header>
+        </article>
+    </section>
+</div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project" %}
+
+<div class="lightgreen section">
+
+    <section class="wrapper" id="detail">
+
+        <header class="l-wrapper">
+
+            <h1 class="main-title">
+                <span class="phase">{{phase}}</span> {{title}}
+            </h1>
+
+            <div class="meta">
+                <span class="location">{{country.name}}, {{country.subregion}}</span>
+                <span class="tags">
+                {%comment%}
+                 TODO: add css for comma after tag:
+                 http://stackoverflow.com/questions/10403003/how-do-i-add-a-separator-between-elements-in-an-each-loop-except-after-the
+                {%endcomment%}
+                    {{#each tag in tags}}
+                        {{tag}}
+                    {{/each}}
+                </span>
+            </div>
+
+        </header>
+
+        <figure class="media">
+            <img {{bindAttr src="image"}} width="100%" alt="Photo" />
+        </figure>
+
+        <sidebar>
+
+            <div class="status-box">
+
+                <h3>{{description}}</h3>
+
+                <div class="donate-status">
+                    <p class="donate-amount">
+                        <strong>
+                            €<span class="donated">{{money_donated}}</span>
+                            {% trans "of" %}
+                            €<span class="asked">{{money_asked}}</span>
+                            {% trans "raised" %}
+                        </strong>
+                    </p>
+                    <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
+                </div>
+
+                <p class="donate-supporters not-implemented">
+                    {{{supporter_count_span}}}
+                    <em>1%Supporters</em>
+                </p>
+
+                <p class="donate-days-left not-implemented">
+                    {{{days_left_span}}}
+                    <em>{% trans "days to go" %}</em>
+                </p>
+            </div>
+
+            <a href="#" class="button-donate">{% trans "Support this project" %}</a>
+
+        </sidebar>
+
+    {{view App.ProjectSupportersView}}
+
+    </section>
+
+    {{outlet wallpostnew}}
+    {{outlet projectwallposts}}
+
+</div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_supporters" %}
+    <div class="member-box">
+        <ul>
+            <li class="member-initiator">
+                <h4>Initiator</h4>
+                <ul>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="owner.picture" info="owner.first_name"}} width="45" height="45" />
+                            <strong class="member-name">{{owner.full_name}}</strong>
+                            <em class="member-organisation">{{organization}}</em>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="member-project-team  not-implemented">
+                <h4>Project Team</h4>
+                <ul>
+                {# TODO: Add team to Project  Controller #}
+                {{#each team}}
+
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="owner.picture"  info="owner.full_name"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+
+                {{/each}}
+                </ul>
+            </li>
+            <li class="member-coaches  not-implemented">
+                <h4>1%Coach</h4>
+                <ul>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="member-promotors not-implemented">
+                <h4>1%Promotors</h4>
+                <ul>
+                {# TODO: Add promotors to Project Controller #}
+                {{#each promotors}}
+
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="owner.picture"  info="owner.full_name"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+
+                {{/each}}
+                </ul>
+            </li>
+            <li class="member-supporters  not-implemented">
+                <h4>1%Supporters [51]</h4>
+                <ul>
+                {# TODO: Add supporters to ProjectController #}
+                {{#each supporters}}
+
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="owner.picture" info="owner.full_name"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+
+                {{/each}}
+                </ul>
+            </li>
+            <li id="show-all-supporters" class="not-implemented"><a href="#" class="member">Show all</a></li>
+        </ul>
+    </div>
+{% endtplhandlebars %}

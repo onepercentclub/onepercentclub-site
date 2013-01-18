@@ -1,6 +1,4 @@
-$(function() {
-    require(['libs/humanize']);
-
+//$(function() {
 
     function getCookie(name) {
         var cookieValue = null;
@@ -17,6 +15,7 @@ $(function() {
         }
         return cookieValue;
     }
+
     var csrf_token = getCookie('csrftoken');
 
     function csrfSafeMethod(method) {
@@ -26,7 +25,7 @@ $(function() {
 
     function sameOrigin(url) {
         // If url starts with / it's relative and same origin
-        if (url.substr(0,1) == '/') {
+        if (url.substr(0, 1) == '/') {
             return true;
         }
         // test that a given url is a same-origin URL
@@ -37,8 +36,8 @@ $(function() {
         var origin = protocol + sr_origin;
         // Allow absolute or scheme relative URLs to same origin
         return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/')
-            // or any other URL that isn't scheme relative or absolute i.e relative. !(/^(\/\/|http:|https:).*/.test(url));
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/');
+        // or any other URL that isn't scheme relative or absolute i.e relative. !(/^(\/\/|http:|https:).*/.test(url));
     }
 
     $.ajaxSetup({
@@ -59,25 +58,26 @@ $(function() {
     Em.View.reopen({
         userBinding: "App.userController.content",
         isLoggedInBinding: "App.userController.isLoggedIn",
-        didInsertElement: function() {
-            // Re-init all behaviours defined in main.js
-            // TODO: Move all behaviour to Ember app?
-            try {
-                initBehaviour(this.get('$'));
-            } catch (err) {
-                // Some views cough on this...
-                // TODO: Find out which views (the first?) causes problems and why
-            }
-            this._super();
-        },
+//        didInsertElement: function() {
+//            // Re-init all behaviours defined in main.js
+//            // TODO: Move all behaviour to Ember app?
+//            try {
+//                initBehaviour(this.get('$'));
+//            } catch (err) {
+//                // Some views cough on this...
+//                // TODO: Find out which views (the first?) causes problems and why
+//            }
+//            this._super();
+//        },
 
+    });
 
-        getTemplate: function(template, callback) {
+    App = Em.Application.create({
+        _getTemplate: function(template, callback) {
             var hash = {};
-            // TODO: Move templates URL to a language independent location.
-            hash.url = '/en/templates/' + template + '.hb.html';
+            hash.url = '/en/templates/' + template + '.hbs';
             hash.type = 'GET';
-            hash.dataType = 'html';
+//            hash.dataType = 'html';
             hash.contentType = 'application/json';
             hash.success = callback;
             hash.error = function(jqXHR, textStatus, errorThrown) {
@@ -86,91 +86,75 @@ $(function() {
             jQuery.ajax(hash);
         },
 
-
-        templateForName: function(templateName, type) {
-            if (!templateName) {
-                return "";
-            }
-            if (Em.TEMPLATES[templateName]) {
-                return Em.TEMPLATES[templateName];
-            } else {
-                this.set('templateName', 'waiting');
-                // Check if a templateFile is specified otherwise use templateName as the template filename.
-                var templateFile = this.get('templateFile') ? this.get('templateFile') : templateName;
-                var view = this;
-                this.getTemplate(templateFile, function(data) {
-                    // Iterate through handlebar tags
-                    $(data).filter('script[type="text/x-handlebars"]').each(function() {
-                        var curTemplateName = $(this).attr('data-template-name');
-                        var raw = $(this).html();
-                        Em.TEMPLATES[curTemplateName] = Em.Handlebars.compile(raw);
-                        if (templateName == curTemplateName) {
-                            view.set('templateName', templateName);
-                            view.rerender();
-                        }
-                    });
+        loadTemplate: function(templateFilename) {
+//            if (!templateName || Em.TEMPLATES[templateName]) {
+//                return;
+//            }
+            this._getTemplate(templateFilename, function(data) {
+                // Iterate through handlebar tags
+                $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                    var templateName = $(this).attr('data-template-name');
+                    var raw = $(this).html();
+                    Em.TEMPLATES[templateName] = Em.Handlebars.compile(raw);
                 });
-            }
+            });
+        },
+
+        loadTemplates: function(templateFilenames) {
+            var app = this;
+            templateFilenames.forEach(function (templateFilename) {
+                app.loadTemplate(templateFilename);
+            });
         }
+
     });
 
-    App = Em.Application.create({
-        rootElement: '#content',
+// The Ember Data Adapter and Store configuration.
 
-        // Define the main application controller. This is automatically picked up by the application and initialized.
-        ApplicationController: Em.Controller.extend({
-        }),
+    App.Adapter = DS.DRF2Adapter.extend({
+        namespace: "i18n/api",
 
-        ApplicationView: Em.View.extend({
-            templateName: 'application'
-        }),
+        plurals: {
+            "projects/wallposts/media": "projects/wallposts/media",
+            "projects/wallposts/text": "projects/wallposts/text"
+        }
 
-        // Use this to clear an outlet
-        EmptyView: Em.View.extend({
-            template: ''
-        }),
+    });
 
-        /* Home */
-        HomeView: Em.View.extend({
-            templateName: 'home'
-        })
-
+// Embedded Model Mapping
+//
+// http://stackoverflow.com/questions/14320925/how-to-make-embedded-hasmany-relationships-work-with-ember-data/14324532#14324532
+// The two possible values of embedded are:
+//   load: The child records are embedded when loading, but should be saved as standalone records. In order
+//         for this to work, the child records must have an ID.
+//   always: The child records are embedded when loading, and are saved embedded in the same record. This,
+//           of course, affects the dirtiness of the records (if the child record changes, the adapter will
+//           mark the parent record as dirty).
+    App.Adapter.map('App.Project', {
+        owner: {embedded: 'load'},
+        country: {embedded: 'load'}
+    });
+    App.Adapter.map('App.Projectwallpost', {
+        author: {embedded: 'load'},
+        photos: {embedded: 'load'},
+        reactions: {embedded: 'load'}
     });
 
     App.store = DS.Store.create({
-        revision: 7,
-        adapter: DS.DRF2Adapter.create({
-            namespace: "i18n/api",
-            plurals: {
-                "projects/wallposts/media": "projects/wallposts/media",
-                "projects/wallposts/text": "projects/wallposts/text"
-            }
-        })
+        revision: 11,
+
+        adapter: App.Adapter.create()
     });
 
-    /* Base Controllers */
-
-    // Controller to get lists from API
-    App.ListController = Em.ArrayController.extend({
-        filterParams: {},
-        getList: function(filterParams) {
-            if (undefined !== filterParams) {
-                this.set('filterParams', filterParams);
-            }
-            this.set('content', App.store.find(this.get('model'), this.get('filterParams')));
-        }
-    });
-
-    App.FormController = Em.ObjectController.extend({
-        filterParams: {}
-    });
 
     App.Member = DS.Model.extend({
         url: 'members/users',
+
         username: DS.attr('string'),
         first_name: DS.attr('string'),
         last_name: DS.attr('string'),
         picture: DS.attr('string'),
+
         full_name: function() {
             return this.get('first_name') + ' ' + this.get('last_name');
         }.property('first_name', 'last_name')
@@ -185,147 +169,110 @@ $(function() {
         }.property('username')
     });
 
-
-    App.userController = Em.ObjectController.create({
-        model: App.User,
+// TODO: This needs to be changed to extend(). See note about this here:
+// https://github.com/emberjs/ember.js/commit/c1c720781c976f69fd4014ea50a1fee652286048
+    App.userController = Em.ObjectController.createWithMixins({
         init: function() {
             this._super();
             this.getCurrent();
         },
         getCurrent: function(filterParams) {
-            var user = App.store.find(this.get('model'), 'current');
-            this.set("content", user);
+            this.set("content", App.User.find('current'));
         }
     });
 
 
     /* Routing */
 
-    // Set blogs route
-    App.BlogsRoute = Em.Route.extend({
-        route: '/blogs',
+//    Ember.Route.reopen({
+//        renderTemplate: function(controller, model) {
+//            this.render();
+//
+//
+//        }
+//    });
 
-        showBlogDetail: Em.Route.transitionTo('blogs.detail'),
+    App.SlugRouter = Em.Mixin.create({
+        serialize: function(model, params) {
+            if (params.length !== 1) { return {}; }
 
+            var name = params[0], object = {};
+            object[name] = get(model, 'slug');
 
-        index: Em.Route.extend({
-            route: '/',
-            connectOutlets: function(router, context) {
-                require(['app/blogs'], function() {
-                    App.blogListController.getList();
-                    router.get('applicationController').connectOutlet('topPanel', 'blogList');
-                    router.get('applicationController').connectOutlet('midPanel', 'empty');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-                });
-            }
-        }),
-
-        detail: Em.Route.extend({
-            route: '/:slug',
-            deserialize: function(router, params) {
-                return {slug: Em.get(params, 'slug')}
-            },
-            serialize: function(router, blog) {
-                return {slug: Em.get(blog, 'slug')};
-            },
-            connectOutlets: function(router, context) {
-                require(['app/blogs', 'app/reactions'], function() {
-                    // TODO: See if we can stick to just  context.get('slug')
-                    var slug = context.slug ? context.slug : context.get('slug');
-                    App.blogDetailController.getDetail({'slug': slug});
-                    // TODO: use the detail from the line above to pass to call below
-                    App.reactionListController.getList({'type': 'blogs', 'slug': slug});
-                    router.get('applicationController').connectOutlet('topPanel', 'blogHeader');
-                    router.get('applicationController').connectOutlet('midPanel', 'blogDetail');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'reactionBox');
-                    router.get('applicationController').connectOutlet('reactionForm', 'reactionForm');
-                    router.get('applicationController').connectOutlet('reactionActions', 'reactionActions');
-                    router.get('applicationController').connectOutlet('reactionList', 'reactionList');
-                });
-            }
-        })
-    });
-
-    // Set basic Project route
-    App.ProjectsRoute = Em.Route.extend({
-        route: '/projects',
-
-        showProjectDetail: Em.Route.transitionTo('projects.detail'),
-
-        // The project start state.
-        index: Em.Route.extend({
-            route: '/',
-            connectOutlets: function(router, context) {
-                require(['app/projects'], function() {
-                    App.projectListController.set('content', App.Project.find({phase: 'fund'}));
-                    router.get('applicationController').connectOutlet('topPanel', 'empty');
-                    router.get('applicationController').connectOutlet('midPanel', 'projectList');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-                });
-            }
-        }),
-
-        // The project detail state.
-        detail: Em.Route.extend({
-            route: '/:slug',
-            deserialize: function(router, params) {
-                return {slug: Em.get(params, 'slug')}
-            },
-            serialize: function(router, project) {
-                return {slug: Em.get(project, 'slug')};
-            },
-            connectOutlets: function(router, project) {
-                require(['app/projects', 'app/wallposts', 'app/reactions'], function() {
-                    var id = Em.get(project, 'id'),
-                        slug = Em.get(project, 'slug');
-                    if (id) {
-                        App.projectDetailController.set('content', App.Project.find(id));
-                    } else if (slug) {
-                        var projects = App.Project.find({slug: slug});
-                        // observe the length of projects, so if the project is loaded (eg length 0 -> 1)
-                        // we can update projectDetailController
-                        // TODO: Every 5 refresh it returns a project detail page without project details
-                        projects.addObserver('content', function(sender, key) {
-                            // TODO implement 404 page:
-                            // if (this.length < 1)
-                            //     Em.Route.transitionTo('404');
-                            App.projectDetailController.set('content', this.objectAt(0));
-                        });
-                    } else {
-                        Em.assert("Project id and slug cannot be determined. Can't continue.", false);
-                    }
-
-                    router.get('applicationController').connectOutlet('topPanel', 'projectDetail');
-                    router.get('applicationController').connectOutlet('midPanel', 'wallPostFormContainer');
-                    router.get('applicationController').connectOutlet('bottomPanel', 'projectWallPostList');
-                });
-            }
-        })
+            return object;
+        }
     });
 
 
-    App.RootRoute = Em.Route.extend({
-        // Used for navigation
-        showHome: Em.Route.transitionTo('home'),
-        showProjectStart: Em.Route.transitionTo('projects.index'),
-        showBlogStart: Em.Route.transitionTo('blogs.index'),
-
-        // The actual routing
-        home: Em.Route.extend({
-            route: '/',
-            connectOutlets: function(router, context) {
-                router.get('applicationController').connectOutlet('topPanel', 'home');
-                router.get('applicationController').connectOutlet('midPanel', 'empty');
-                router.get('applicationController').connectOutlet('bottomPanel', 'empty');
-            }
-        }),
-        projects: App.ProjectsRoute,
-        blogs: App.BlogsRoute
+    App.Router.map(function() {
+        this.route("home", { path: "/" });
+        this.resource('projects', {path: '/projects'}, function() {
+            this.route('new');
+            this.route('search');
+        });
+        this.resource('project', {path: '/projects/:slug'}, function() {
+            this.route('edit');
+            this.resource('projectwallpost', {path: '/wallposts/:projectwallpost_id'});
+        });
     });
 
-    App.Router = Em.Router.extend({
-        location: 'hash',
-        root: App.RootRoute
+
+    App.ProjectsRoute = Ember.Route.extend({
+        model: function() {
+            return App.Project.find({phase: 'fund'});
+        }
     });
 
-});
+
+    App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
+        model: function(params) {
+            return App.Project.find(params.slug);
+        },
+
+        setupController: function(controller, project) {
+            // Project detail controller.
+            controller.set('content', project);
+
+            // Wallposts list controller.
+            var wallpostsController = this.controllerFor('projectwallposts');
+            // The RecordArray returned by findQuery can't be manipulated directly so we're converting it to an Ember array.
+            // http://stackoverflow.com/questions/11895629/add-delete-items-from-ember-data-backed-arraycontroller
+            // https://github.com/emberjs/data/issues/370
+            wallpostsController.set('content', App.Projectwallpost.find({project_slug: project.get('slug')}).toArray());
+
+            // WallPost creation form controller.
+            var newWallpostController = this.controllerFor('projectwallpostNew');
+            newWallpostController.set('currentProject', project);
+            newWallpostController.set('projectwallpostsController', wallpostsController);
+        },
+
+        renderTemplate: function(controller, model) {
+            this._super();
+
+            // Render the wallposts list.
+            this.render('projectwallposts', {
+                into: 'project',
+                outlet: 'projectwallposts',
+                controller: 'projectwallposts'
+            });
+
+            // Render the wallpost creation form.
+            this.render('wallpost_new', {
+                into: 'project',
+                outlet: 'wallpostnew',
+                controller: 'projectwallpostNew'
+            });
+        }
+    });
+
+    App.ProjectwallpostRoute = Ember.Route.extend({
+        model: function(params) {
+            return App.Projectwallpost.find(params.projectwallpost_id);
+        },
+        setupController: function(controller, wallpost) {
+            console.log(this.toString() + '.setupController');
+            controller.set('content', wallpost);
+        }
+    });
+
+//});

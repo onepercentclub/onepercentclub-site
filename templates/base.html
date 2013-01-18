@@ -28,22 +28,18 @@
     {% compress js %}
     {% endcompress %}
 
-    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery-1.7.2.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.iframe-transport.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.fileupload.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.fileupload-ui.js"></script>
-
-    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/handlebars-1.0.0.beta.6.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-1.0.0-pre.2.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-data-faef5bf1fe.js"></script>
+    {# The Ember stack. #}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/handlebars-1.0.rc.1.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-1.0.0-pre.4.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-data-4e17400b92.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-data-drf2-adapter.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bluemap.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.colorbox.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/app.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/app/projects.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/app/wallposts.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
 
-    <script type="text/javascript" data-main="{{ STATIC_URL }}js/app" src="{{ STATIC_URL }}js/libs/require-2.1.1.js"></script>
+{#    <script type="text/javascript" data-main="{{ STATIC_URL }}js/app.js" src="{{ STATIC_URL }}js/libs/require-2.1.1.js"></script>#}
 
 
     {% block htmlheader %}{% endblock %}
@@ -58,25 +54,26 @@
     {% endtplhandlebars %}
     
     {% tplhandlebars "application" %}
+        <!-- main header -->
         <div class="container" id="navigation">
-            <!-- main header -->
             <header class="wrapper">
+
                 <!-- logo -->
-                <a {{action showHome href=true}} id="logo">
+                {{#linkTo "home"}}
+                <span id="logo">
                     <img src="{% get_static_prefix %}images/1procentclub.png" width="100" height="38" alt="1%Club" />
                     <h1 id="title">1%Club</h1>
                     <h2 id="subtitle" data-content-hover="Go to <em>homepage</em>" data-content="<em>You</em> Make It Work"><em>You</em> Make It Work</h2>
-                </a>
+                </span>
+                {{/linkTo}}
                 <!-- end: logo -->
+
+                <!-- main navigation -->
                 <div class="nav">
-                    <!-- main navigation -->
                     <nav class="nav-main">
                         <h1 class="nav-title">Navigation</h1>
-                        <ul {{bindAttr class="currentMenu"}}>
-                            <!--<li id="home-menu"><a {{action showHome href=true}}>HOME</a></li>-->
-                            <li class="nav-actions"><a {{action showBlogStart href=true}}>1%News</a></li>
-                            <li class="nav-projects"><a {{action showProjectStart href=true}} class="is-active">1%Projects</a></li>
-                            <li class="nav-more"><a>More &#9660;</a></li>
+                        <ul>
+                            <li class="nav-projects">{{#linkTo "projects"}}1%Projects{{/linkTo}}</li>
                         </ul>
                     </nav>
                     <nav class="nav-member member-login">
@@ -96,18 +93,18 @@
                             </div>
                         {{/if}}
                     </nav>
-                    <!-- end: main navigation -->
                 </div>
+                <!-- end: main navigation -->
+
             </header>
-            <!-- end: main header -->
         </div>
-        
+        <!-- end: main header -->
         
         <!-- main content -->
-        {{outlet topPanel}}
-        {{outlet midPanel}}
-        {{outlet bottomPanel}}
-        
+        <div>
+            {{outlet}}
+        </div>
+
         <!-- end: main content -->
 
         {% comment %}
@@ -128,7 +125,7 @@
         </div>
         <!-- end: main footer -->
         {% endcomment %}
-        
+
     {% endtplhandlebars %}
 
 </head>

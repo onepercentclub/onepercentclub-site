@@ -51,7 +51,7 @@ class ProjectWallPostMixin(object):
 class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
-    paginate_by = 10
+    paginate_by = 4
 
 
 class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
@@ -64,7 +64,7 @@ class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
     permission_classes = (IsProjectOwnerOrReadOnly,)
-    paginate_by = 10
+    paginate_by = 4
 
 
 class ProjectMediaWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
@@ -77,7 +77,7 @@ class ProjectTextWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     model = TextWallPost
     serializer_class = ProjectTextWallPostSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    paginate_by = 10
+    paginate_by = 4
 
 
 class ProjectTextWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):

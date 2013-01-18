@@ -2,23 +2,26 @@
 {% load i18n %}
 
 
-{% tplhandlebars "wallpost_form_container" %}
+{% tplhandlebars "wallpost_new" %}
 
+<div class="container section">
     <section class="wrapper" id="wallpost-form">
         <header>
             <h2>{% trans "Comments & Updates" %}</h2>
         </header>
-        
+
         {{#if view.user.username }}
             {{#if view.isOwner }}
                 {{view App.MediaWallPostFormView}}
             {{else}}
-                {{view App.TextWallPostFormView}}
+                {{view App.TextWallPostFormView content=content}}
             {{/if}}
         {{else}}
             <form>{% trans "Login to leave a comment." %}</form>
         {{/if}}
+
     </section>
+</div>
 
 {% endtplhandlebars %}
 
@@ -68,61 +71,77 @@
         </ul>
     </fieldset>
 
-    <button type="submit">Post Update</button>
+    <button type="submit">{%trans "Post Update" %}</button>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "text_wallpost_form" %}
+
     <fieldset>
         <ul>
             <li>
-                {{#each view.wallpost.errors.text}}
+                {{#each content.errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-update" class="inline">{% trans "Leave your comment here" %}</label>
-                {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+                {{view Ember.TextArea valueBinding="content.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
         </ul>
     </fieldset>
     <button type="submit">{% trans "Post Comment" %}</button>
+
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "wallpost" %}
+{% tplhandlebars "projectwallposts" %}
+
+<section class="wrapper">
+    {{#each controller}}
+        {{view "App.ProjectwallpostView" content=this}}
+    {{/each}}
+</section>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "projectwallpost" %}
+
+<article class="wallpost">
+
     <header>
-        <h3>{{view.content.title}}</h3>
-        <small class="timestamp">{{view.content.timesince}} {% trans "ago" %}</small>
+        <h3>{{title}}</h3>
+        <small class="timestamp">{{timesince}} {% trans "ago" %}</small>
         <a href="#" class="user initiator">
-            <span class="user-img"><img {{bindAttr src="view.content.author.picture"}} width="100%" alt="Avatar" /></span>
-            <strong>{{view.content.author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
+            <span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
+            <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
         </a>
 
-        {{#if view.isAuthor}}
+        {{#if isAuthor}}
             <ul class="manage">
                 <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
-                <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
+                <li class="manage-remove">{{#view App.WallPostDeleteView}}{% trans "Delete" %}{{/view}}</li>
             </ul>
         {{/if}}
     </header>
 
     <div class="content">
 
-        {{#if view.content.video_html}}
-            <div class="video">{{{view.content.video_html}}}</div>
+        {{#if video_html}}
+            <div class="video">{{{video_html}}}</div>
         {{/if}}
 
-        {{view.content.text}}
+        {{text}}
 
         {# This is temporary and will go away when we figure out how to upload related photos. #}
-        {{#if view.content.photo}}
+        {{#if photo}}
             <div class="photo-viewer">
-                <span class="photo"><img {{bindAttr src="view.content.photo"}} width="100%" alt="Gallery" /></span>
+                <span class="photo"><img {{bindAttr src="photo"}} width="100%" alt="Gallery" /></span>
             </div>
         {{/if}}
 
         {# TODO: Implement multi photo viewer #}
-        {{#if view.content.photos}}
+        {{#if photos.isEmpty}}
             <div class="photo-viewer not-implemented">
                 <span class="photo"><a href="#"><img src="/static/assets/dummy/wallpost-image.jpg" width="100%" alt="Gallery" /></a></span>
                 <ul>
@@ -135,14 +154,13 @@
                 </ul>
             </div>
         {{/if}}
-
     </div>
+
 
     <!-- reaction-box -->
     <div class="reaction-box">
 
         {{view "App.WallPostReactionFormView"}}
-
 
         <br />
 
@@ -160,8 +178,8 @@
         </ul>
 
         {{view "App.WallPostReactionListView"}}
-
     </div>
     <!-- end: reaction-box -->
 
+</article>
 {% endtplhandlebars %}
