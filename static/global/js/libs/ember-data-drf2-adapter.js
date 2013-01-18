@@ -88,6 +88,8 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             var formdata = new FormData();
             Object.keys(data).forEach(function(key){
                 if (data[key] !== undefined) {
+                    // TODO: This won't be hardcoded when a general solution for detecting when to use
+                    //       multipart/form-data is worked out.
                     if (key == 'photo') {
                         formdata.append(key, record.get('photo_file'))
                     } else {

@@ -5,7 +5,8 @@
 
 App.MediaWallPostPhoto = DS.Model.extend({
     photo: DS.attr('string'),
-    thumbnail: DS.attr('string')
+    thumbnail: DS.attr('string'),
+    projectwallpost: DS.belongsTo('App.ProjectWallPost')
 });
 
 // This is union of all different wallposts.
@@ -33,13 +34,11 @@ App.ProjectWallPost = DS.Model.extend({
 
 
 App.ProjectMediaWallPost = App.ProjectWallPost.extend({
-    url: 'projects/wallposts/media',
-    type: 'media'
+    url: 'projects/wallposts/media'
 });
 
 App.ProjectTextWallPost = App.ProjectWallPost.extend({
-    url: 'projects/wallposts/text',
-    type: 'text'
+    url: 'projects/wallposts/text'
 });
 
 
@@ -133,35 +132,13 @@ App.MediaWallPostFormView = Em.View.extend({
 });
 
 
-App.MediaWallPostFormController = Em.ObjectController.create({
-//    transaction: App.store.transaction(),
-
-    contentBinding: 'App.MediaWallPostFormView.wallpost',
-
-    init: function() {
-        this._super();
-//        this.set('content', this.get('transaction').createRecord(model, wallpost));
-    },
-
-    addWallPost: function() {
-        console.log('bork');
-//        this.get('transaction').commit();
-    },
-
-    contentChanged: function(sender, key) {
-//        if (!this.get(key)) {
-//            this.set('wallpost', App.ProjectMediaWallPost.createRecord());
-//        }
-        console.log('borka olkasdjhf lasdkjhf ');
-    }.observes('content.isNew')
-});
-
-
 App.TextWallPostFormView = Em.View.extend({
     templateName: 'text_wallpost_form',
     templateFile: 'wallpost',
     tagName: 'form',
 
+    // This binding normally goes the other way around (from the controller to the view).
+    // We can't do that here because we don't know which type of media post to use when the controller is created.
     wallpostBinding: 'App.projectWallPostListController.wallpostForm',
 
     init: function() {
@@ -187,6 +164,8 @@ App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
+    // This binding normally goes the other way around (from the controller to the view).
+    // We can't do that here because we don't know which type of media post to use when the controller is created.
     wallpostBinding: 'App.projectWallPostListController.wallpostForm',
 
     change: function(e) {
