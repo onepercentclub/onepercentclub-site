@@ -24,12 +24,7 @@ App.ProjectWallPost = DS.Model.extend({
     video_html: DS.attr('string'),
     photo: DS.attr('string'),
     photos: DS.hasMany('App.MediaWallPostPhoto', {embedded: true}),
-    reactions: DS.hasMany('App.Reaction', {embedded: true}),
-
-    didCreate: function(record) {
-        // record will be a subclass of ProjectWallPost (e.g. ProjectMediaWallPost).
-        App.projectWallPostListController.get('content').unshiftObject(record);
-    }
+    reactions: DS.hasMany('App.Reaction', {embedded: true})
 });
 
 
@@ -67,21 +62,41 @@ App.projectWallPostListController = Em.ArrayController.create({
         }
     }.observes('wallposts.isLoaded'),
 
-    // This Ember object is used as a placeholder for the WallPost object so that Em.get/set always work.
-    wallpostForm: new Em.Object(),
+    addMediaWallPost: function(mediawallpost) {
+        var transaction = App.store.transaction();
+        var livemediawallpost = transaction.createRecord(App.ProjectMediaWallPost, mediawallpost.toJSON());
+        livemediawallpost.set('project_id', this.get('project.id'));
+        livemediawallpost.set('photo_file', mediawallpost.get('photo_file'));
+        livemediawallpost.on('didCreate', function(record) {
+            App.projectWallPostListController.get('content').unshiftObject(record);
+            mediawallpost.set('title', '');
+            mediawallpost.set('text', '');
+            mediawallpost.set('video_url', '');
+            mediawallpost.set('photo', '');
+            mediawallpost.set('photo_file', null);
+            mediawallpost.set('errors', null);
+        });
+        livemediawallpost.on('becameInvalid', function(record) {
+            mediawallpost.set('errors', record.get('errors'));
+        });
+        transaction.commit();
+    },
 
-    // Add the project_id whenever the wallpost model is updated.
-    wallpostFormChanged: function(sender, key) {
-        this.get(key).set('project_id', this.get('project.id'));
-    }.observes('wallpostForm'),
-
-    addWallPost: function() {
-        App.store.commit();
+    addTextWallPost: function(textwallpost) {
+        var transaction = App.store.transaction();
+        var livetextwallpost = transaction.createRecord(App.ProjectTextWallPost, textwallpost.toJSON());
+        livetextwallpost.set('project_id', this.get('project.id'));
+        livetextwallpost.on('didCreate', function(record) {
+            App.projectWallPostListController.get('content').unshiftObject(record);
+            textwallpost.set('text', '');
+            textwallpost.set('errors', null);
+        });
+        livetextwallpost.on('becameInvalid', function(record) {
+            textwallpost.set('errors', record.get('errors'));
+        });
+        transaction.commit();
     }
 });
-
-
-
 
 /*
  Views
@@ -110,27 +125,12 @@ App.MediaWallPostFormView = Em.View.extend({
     templateFile: 'wallpost',
     tagName: 'form',
 
-    // This binding normally goes the other way around (from the controller to the view).
-    // We can't do that here because we don't know which type of media post to use when the controller is created.
-    wallpostBinding: 'App.projectWallPostListController.wallpostForm',
-
-    init: function() {
-        this._super();
-        this.set('controller', App.MediaWallPostFormController);
-        this.set('wallpost', App.ProjectMediaWallPost.createRecord());
-    },
+    wallpost: App.ProjectMediaWallPost.createRecord(),
 
     submit: function(e){
         e.preventDefault();
-        App.projectWallPostListController.addWallPost();
-    },
-
-    // Create a new wallpost when it's been successfully saved to the server (isNew == false).
-    wallpostChanged: function(sender, key) {
-        if (!this.get(key)) {
-            this.set('wallpost', App.ProjectMediaWallPost.createRecord());
-        }
-    }.observes('wallpost.isNew')
+        App.projectWallPostListController.addMediaWallPost(this.get('wallpost'));
+    }
 });
 
 
@@ -139,26 +139,12 @@ App.TextWallPostFormView = Em.View.extend({
     templateFile: 'wallpost',
     tagName: 'form',
 
-    // This binding normally goes the other way around (from the controller to the view).
-    // We can't do that here because we don't know which type of media post to use when the controller is created.
-    wallpostBinding: 'App.projectWallPostListController.wallpostForm',
-
-    init: function() {
-        this._super();
-        this.set('wallpost', App.ProjectTextWallPost.createRecord());
-    },
+    wallpost: App.ProjectTextWallPost.createRecord(),
 
     submit: function(e){
         e.preventDefault();
-        App.projectWallPostListController.addWallPost();
-    },
-
-    // Create a new wallpost when it's been successfully saved to the server (isNew == false).
-    wallpostChanged: function(sender, key) {
-        if (!this.get(key)) {
-            this.set('wallpost', App.ProjectTextWallPost.createRecord());
-        }
-    }.observes('wallpost.isNew')
+        App.projectWallPostListController.addTextWallPost(this.get('wallpost'));
+    }
 });
 
 
@@ -166,7 +152,7 @@ App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
-    wallpostBinding: 'App.projectWallPostListController.wallpostForm',
+    wallpostBinding: 'parentView.wallpost',
 
     change: function(e) {
         var input = e.target;
