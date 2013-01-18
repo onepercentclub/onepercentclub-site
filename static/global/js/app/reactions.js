@@ -9,21 +9,13 @@ App.Reaction = DS.Model.extend({
 
 App.WallPostReaction = DS.Model.extend({
     url: 'wallposts/reactions',
+    // We need wallpost_id to create reactions
     wallpost_id: DS.attr('number'),
+    wallpost: DS.belongsTo('App.ProjectWallPost'),
     reaction: DS.attr('string'),
     author: DS.belongsTo('App.Member', {embedded: true}),
     created: DS.attr('string'),
     timesince: DS.attr('string')
-});
-
-App.reactionListController = App.ListController.create({
-    model: App.Reaction,
-    addReaction: function(type, reaction){
-        var transaction = App.store.transaction()
-        var r = transaction.createRecord(type, reaction);
-        transaction.commit();
-        return r;
-    }
 });
 
 App.wallPostReactionController = Em.Controller.create({
@@ -31,19 +23,12 @@ App.wallPostReactionController = Em.Controller.create({
     addReaction: function(reaction, wallpost){
         var transaction = App.store.transaction();
         var livereaction = transaction.createRecord(this.get('model'), reaction.toJSON());
+        // Set the wallpost_id so the API knows which wallpost we like to react to
         livereaction.set('wallpost_id', wallpost.get('id'));
-        livereaction.on('didCreate', function(record, a, b){
-            wallpost.get('reactions').pushObject(record);
-        });
+        // Set the wallpost so the list gets updated in the view
+        livereaction.set('wallpost', wallpost);
         transaction.commit();
     }
-});
-
-
-App.ReactionBoxView = Em.View.extend({
-    templateName: 'reaction_box',
-    templateFile: 'reaction_box',
-    classNames: ['container']
 });
 
 
@@ -60,12 +45,7 @@ App.WallPostReactionFormView = Em.View.extend({
     submit: function(e){
         e.preventDefault();
         App.wallPostReactionController.addReaction(this.get('reaction'), this.get('wallpost'));
-        this.get('reaction').on('becameError', function(){
-            this.set('reaction', reaction);
-        });
-        this.get('reaction').on('didLoad', function(){
-            this.set('reaction', this.get('model').createRecord());
-        });
+        this.set('reaction', this.get('model').createRecord());
 
     },
     didInsertElement: function(e){
@@ -87,8 +67,6 @@ App.ReactionView = Em.View.extend({
     templateFile: 'reaction_list',
     tagName: 'li',
     classNames: ['initiator']
-
-    
 });
 
 

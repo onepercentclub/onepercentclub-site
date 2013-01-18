@@ -196,7 +196,9 @@
     margin: 0;
     background-color: $color-back;
     list-style: none;
-    
+    .manage {
+        float: right;
+    }
     li {
         @include rem(margin, 16px 0);
         position: relative;
