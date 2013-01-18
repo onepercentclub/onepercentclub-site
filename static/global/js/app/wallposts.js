@@ -23,7 +23,12 @@ App.ProjectWallPost = DS.Model.extend({
     video_html: DS.attr('string'),
     photo: DS.attr('string'),
     photos: DS.hasMany('App.MediaWallPostPhoto', {embedded: true}),
-    reactions: DS.hasMany('App.Reaction', {embedded: true})
+    reactions: DS.hasMany('App.Reaction', {embedded: true}),
+
+    didCreate: function(record) {
+        // record will be a subclass of ProjectWallPost (e.g. ProjectMediaWallPost).
+        App.projectWallPostListController.get('content').unshiftObject(record);
+    }
 });
 
 
@@ -43,10 +48,6 @@ App.ProjectTextWallPost = App.ProjectWallPost.extend({
  */
 
 App.projectWallPostListController = Em.ArrayController.create({
-    models: {
-        'media': App.ProjectMediaWallPost,
-        'text': App.ProjectTextWallPost
-    },
 
     // The list of WallPosts are loaded into a temporary array when the project changes. Once this RecordArray is
     // loaded, it is converted to an Ember array and put into content. This temporary array is required because
@@ -58,30 +59,25 @@ App.projectWallPostListController = Em.ArrayController.create({
 
     projectChanged: function(sender, key) {
         var projectId = this.get('project.id');
-        this.set('tempWallposts', App.ProjectWallPost.find({project_id: projectId}));
+        this.set('wallposts', App.ProjectWallPost.find({project_id: projectId}));
     }.observes('project'),
 
-    tempWallpostsLoaded: function(sender, key) {
+    wallpostsLoaded: function(sender, key) {
         if (this.get(key)) {
-            this.set('content', this.get('tempWallposts').toArray());
+            this.set('content', this.get('wallposts').toArray());
         }
-    }.observes('tempWallposts.isLoaded'),
+    }.observes('wallposts.isLoaded'),
 
 
-    // This temporary object is used as a placeholder for the WallPost object so that Em.get/set always work.
-    wallpost: new Em.Object(),
+    // This Ember object is used as a placeholder for the WallPost object so that Em.get/set always work.
+    wallpostForm: new Em.Object(),
 
     // Add the project_id whenever the wallpost model is updated.
-    wallpostChanged: function(sender, key) {
-        this.get('wallpost').set('project_id', this.get('project.id'));
-    }.observes('wallpost'),
+    wallpostFormChanged: function(sender, key) {
+        this.get(key).set('project_id', this.get('project.id'));
+    }.observes('wallpostForm'),
 
     addWallPost: function() {
-        var wallpost = this.get('wallpost');
-        // This is not a race condition because ember-data only starts its machinery when App.store.commit() is called.
-        wallpost.on('didCreate', function(record) {
-            App.projectWallPostListController.get('content').unshiftObject(record);
-        });
         App.store.commit();
     }
 });
@@ -114,7 +110,7 @@ App.MediaWallPostFormView = Em.View.extend({
     templateFile: 'wallpost',
     tagName: 'form',
 
-    wallpostBinding: 'App.projectWallPostListController.wallpost',
+    wallpostBinding: 'App.projectWallPostListController.wallpostForm',
 
     init: function() {
         this._super();
@@ -122,7 +118,6 @@ App.MediaWallPostFormView = Em.View.extend({
     },
 
     submit: function(e){
-        // **** Why is this called when the project page is first loaded? - is it? ******
         e.preventDefault();
         App.projectWallPostListController.addWallPost();
     },
@@ -136,17 +131,38 @@ App.MediaWallPostFormView = Em.View.extend({
 });
 
 
-App.TextWallPostFormView = App.MediaWallPostFormView.extend({
+App.TextWallPostFormView = Em.View.extend({
     templateName: 'text_wallpost_form',
-    wallpost: {type: 'text'}
+    templateFile: 'wallpost',
+    tagName: 'form',
+
+    wallpostBinding: 'App.projectWallPostListController.wallpostForm',
+
+    init: function() {
+        this._super();
+        this.set('wallpost', App.ProjectTextWallPost.createRecord());
+    },
+
+    submit: function(e){
+        e.preventDefault();
+        App.projectWallPostListController.addWallPost();
+    },
+
+    // Create a new wallpost when it's been successfully saved to the server (isNew == false).
+    wallpostChanged: function(sender, key) {
+        if (!this.get(key)) {
+            this.set('wallpost', App.ProjectTextWallPost.createRecord());
+        }
+    }.observes('wallpost.isNew')
 });
 
 
-App.UploadImageFileView = Ember.TextField.extend({
+App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
-    accept: 'image/*',
-    wallpostBinding: 'App.projectWallPostListController.wallpost',
+
+    wallpostBinding: 'App.projectWallPostListController.wallpostForm',
+
     change: function(e) {
         var input = e.target;
         if (input.files && input.files[0]) {
