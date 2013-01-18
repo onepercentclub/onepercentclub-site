@@ -80,7 +80,7 @@
                 {{#each view.wallpost.errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
-                <label for="wallpost-update" class="inline">{% trans "Leave your reaction here" %}</label>
+                <label for="wallpost-update" class="inline">{% trans "Leave your comment here" %}</label>
                 {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
         </ul>
