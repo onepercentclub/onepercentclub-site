@@ -1,10 +1,17 @@
 from django.contrib import admin
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
-from .models import WallPost, MediaWallPost, TextWallPost
+from sorl.thumbnail.admin.compat import AdminImageMixin
+from .models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
+
+
+class MediaWallPostPhotoInline(AdminImageMixin, admin.StackedInline):
+    model = MediaWallPostPhoto
+    extra = 0
 
 
 class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
+    inlines = (MediaWallPostPhotoInline,)
 
 
 class TextWallPostAdmin(PolymorphicChildModelAdmin):

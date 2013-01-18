@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from rest_framework import status
 
+
 class ProjectWallPostMixin(ProjectTestsMixin):
     """ Mixin base class for tests using wallposts. """
 
@@ -22,7 +23,6 @@ class ProjectWallPostMixin(ProjectTestsMixin):
         wallpost.text = text
         wallpost.save()
         return wallpost
-
 
 
 class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
