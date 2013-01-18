@@ -149,8 +149,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             var data = JSON.parse(xhr.responseText);
             store.recordWasInvalid(record, data);
         } else {
-            // FIXME: recordWasError is not a function!
-            store.recordWasError(record);
+            console.error("Unhandled server error with status code: " + xhr.status);
         }
     },
 
