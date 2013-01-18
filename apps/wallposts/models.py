@@ -38,7 +38,6 @@ class WallPost(PolymorphicModel):
     # Manager
     objects = WallPostManager()
 
-
     @property
     # TODO: See if we can make a manager out of this or hav another need solution
     # Define reactions so it will always use WallPost ContentType
@@ -46,7 +45,6 @@ class WallPost(PolymorphicModel):
     def reactions(self):
         content_type = ContentType.objects.get_for_model(WallPost)
         return Reaction.objects.filter(object_id=self.id, content_type=content_type)
-
 
     def save(self, *args, **kwargs):
         # We overwrite save to enable 'empty' IP
@@ -66,9 +64,16 @@ class MediaWallPost(WallPost):
     title = models.CharField(max_length=60)
     text = models.TextField(max_length=300, blank=True, default='')
     video_url = models.URLField(max_length=100, blank=True, default='')
+    # This is temporary and will go away when we figure out how to upload related photos.
+    photo = models.ImageField(upload_to='mediawallpostphotos', blank=True, null=True)
 
     def __unicode__(self):
         return Truncator(self.text).words(10)
+
+
+class MediaWallPostPhoto(models.Model):
+    mediawallpost = models.ForeignKey(MediaWallPost, related_name='photos')
+    photo = models.ImageField(upload_to='mediawallpostphotos')
 
 
 class TextWallPost(WallPost):
