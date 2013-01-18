@@ -115,25 +115,12 @@
     <!-- reaction-box -->
     <div class="reaction-box">
 
-        <form action="#" method="post" class="reaction-form">
-            <fieldset>
-                <span class="user-img"><img {{bindAttr src="view.user.picture"}} width="100%" alt="Avatar" /></span>
-                <label for="reaction-1" class="inline">
-                    {# TODO: Create proper way to check for authenticated user. #}
-                    {{#if view.user.first_name }}
-                        Hey {{view.user.first_name}}, leave a comment behind!
-                    {{else}}
-                        {# TODO: Figure out a way to do composed translations - fragment sentences are hard for translators to deal with. #}
-                        <a href="/accounts/login">{% trans "Login" %}</a> {% trans "to leave a comment." %}
-                    {{/if}}
-                </label>
-                <textarea id="reaction-1" name="reaction"></textarea>
-            </fieldset>
+        {{view "App.WallPostReactionFormView"}}
 
-            <button type="submit" id="reaction-post">{% trans "Post" %}</button>
-        </form>
 
-        <ul class="reaction-actions">
+        <br />
+
+        <ul class="reaction-actions not-implemented">
             <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>
             <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
             <li class="share">
@@ -146,20 +133,7 @@
             </li>
         </ul>
 
-        <ul class="reactions">
-            {{#each view.content.reactions }}
-                <li>
-                    <span class="user-img"><img {{bindAttr src="this.author.picture"}} width="100%" alt="Avatar" /></span>
-                    <div class="reaction">
-                        <a href="#" class="user">
-                            {%  trans "By" %} <strong>{{this.author.full_name}}</strong>
-                            <em>{%  trans "Member" %}</em> <small>{{this.timesince}} {%  trans "ago" %}</small>
-                        </a>
-                        <p>{{this.reaction}}</p>
-                    </div>
-                </li>
-            {{/each}}
-       </ul>
+        {{view "App.WallPostReactionListView"}}
 
     </div>
     <!-- end: reaction-box -->

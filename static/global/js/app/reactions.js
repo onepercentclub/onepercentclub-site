@@ -7,48 +7,62 @@ App.Reaction = DS.Model.extend({
 });
 
 
-App.reactionListController = App.ListController.create({
-    model: App.Reaction,
-    getUrl: function(){
-        
-    },
-    getList: function(filterParams){
-        var slug = filterParams['slug'];
-        var type = filterParams['type'];
-        var url =  type + '/' + slug + '/reactions/';
-        var model =  this.get('model');
-        model.reopen({
-            'url': url
+App.WallPostReaction = DS.Model.extend({
+    url: 'wallposts/reactions',
+    // We need wallpost_id to create reactions in the API
+    // This can't be a calculated property because then it won't be part of the API call
+    wallpost_id: DS.attr('number'),
+    wallpost: DS.belongsTo('App.ProjectWallPost'),
+    reaction: DS.attr('string'),
+    author: DS.belongsTo('App.Member', {embedded: true}),
+    created: DS.attr('string'),
+    timesince: DS.attr('string')
+});
+
+App.wallPostReactionController = Em.Controller.create({
+    model: App.WallPostReaction,
+    addReaction: function(reaction, wallpost){
+        var transaction = App.store.transaction();
+        var model = this.get('model');
+        var livereaction = transaction.createRecord(model, reaction.toJSON());
+        // Set the wallpost so the list gets updated in the view
+        livereaction.set('wallpost_id', wallpost.get('id'));
+        livereaction.set('wallpost', wallpost);
+        livereaction.on('didCreate', function(record){
+            // Clear the reaction text in the form
+            reaction.set('reaction', '');
         });
-        this.set("content", App.store.findAll(model));
-    },
-    addReaction: function(reaction){
-        App.Reaction.createRecord({'reaction': reaction});
-        App.store.commit();
+        transaction.commit();
     }
 });
 
-App.reactionBoxController = Em.Controller.create({
-});
 
-
-App.ReactionBoxView = Em.View.extend({
-    templateName: 'reaction_box',
-    templateFile: 'reaction_box',
-    classNames: ['container']
-});
-
-
-App.ReactionFormView = Em.View.extend({
+App.WallPostReactionFormView = Em.View.extend({
     templateName: 'reaction_form',
     templateFile: 'reaction_box',
     tagName: 'form',
     classNames: ['reaction-form'],
-    reaction: '',
+    wallpostBinding: "parentView.content",
+    modelBinding: "App.wallPostReactionController.model",
+    reaction: function(){
+        return this.get('model').createRecord();
+    }.property('model'),
     submit: function(e){
         e.preventDefault();
-        App.reactionListController.addReaction(this.get('reaction'));
+        App.wallPostReactionController.addReaction(this.get('reaction'), this.get('wallpost'));
+
+    },
+    didInsertElement: function(e){
+        this.$('textarea').focus(function(e) {
+            $(this).parents('.reaction-form').addClass('is-selected');
+        });
+        this.$(this).blur(function(e) {
+            $(this).parent('.reaction-form').removeClass('is-selected');
+        });
+
     }
+
+
 });
 
 
@@ -57,8 +71,6 @@ App.ReactionView = Em.View.extend({
     templateFile: 'reaction_list',
     tagName: 'li',
     classNames: ['initiator']
-
-    
 });
 
 
@@ -75,10 +87,10 @@ App.ReactionActionsView = Em.View.extend({
 });
 
 
-App.ReactionListView = Em.CollectionView.extend({
+App.WallPostReactionListView = Em.CollectionView.extend({
     tagName: 'ul',
     classNames: ['reactions'],
-    contentBinding: 'App.reactionListController.content',
+    contentBinding: 'parentView.content.reactions',
     emptyViewClass: 'App.ReactionNoItemsView',
     itemViewClass: 'App.ReactionView'
 });

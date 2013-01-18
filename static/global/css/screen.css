@@ -2694,10 +2694,9 @@ ul.steps li.selected a {
 }
 /* line 40, ../sass/modules/_wallposts.scss */
 .wallpost header .manage {
-  display: none;
   float: right;
 }
-/* line 46, ../sass/modules/_wallposts.scss */
+/* line 45, ../sass/modules/_wallposts.scss */
 .wallpost .content {
   float: left;
   width: 81.25%;
@@ -2709,12 +2708,12 @@ ul.steps li.selected a {
   margin-bottom: 16px;
   margin-bottom: 1rem;
 }
-/* line 53, ../sass/modules/_wallposts.scss */
+/* line 52, ../sass/modules/_wallposts.scss */
 .wallpost .reaction-box {
   position: relative;
   display: block;
 }
-/* line 58, ../sass/modules/_wallposts.scss */
+/* line 57, ../sass/modules/_wallposts.scss */
 .wallpost .user-img {
   width: 100px;
   width: 6.25rem;
@@ -2725,7 +2724,7 @@ ul.steps li.selected a {
   left: 0;
 }
 
-/* line 67, ../sass/modules/_wallposts.scss */
+/* line 66, ../sass/modules/_wallposts.scss */
 .wallpost-filter {
   margin-top: 32px;
   margin-top: 2rem;
@@ -2985,7 +2984,11 @@ ul.steps li.selected a {
 .reactions:after {
   clear: both;
 }
-/* line 200, ../sass/modules/_reactions.scss */
+/* line 199, ../sass/modules/_reactions.scss */
+.reactions .manage {
+  float: right;
+}
+/* line 202, ../sass/modules/_reactions.scss */
 .reactions li {
   margin: 16px 0;
   margin: 1rem 0;
@@ -2993,7 +2996,7 @@ ul.steps li.selected a {
   display: block;
   overflow: auto;
 }
-/* line 206, ../sass/modules/_reactions.scss */
+/* line 208, ../sass/modules/_reactions.scss */
 .reactions li .user-img {
   float: left;
   width: 6.25%;
@@ -3006,15 +3009,15 @@ ul.steps li.selected a {
   position: absolute;
   margin: 0;
 }
-/* line 214, ../sass/modules/_reactions.scss */
+/* line 216, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction {
   border-color: #00c051;
 }
-/* line 217, ../sass/modules/_reactions.scss */
+/* line 219, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction::after {
   background: url("../images/reaction-box-initiator.png") transparent no-repeat 0 0;
 }
-/* line 222, ../sass/modules/_reactions.scss */
+/* line 224, ../sass/modules/_reactions.scss */
 .reactions li .reaction {
   float: left;
   width: 83.333%;
@@ -3033,16 +3036,16 @@ ul.steps li.selected a {
   color: #333;
   vertical-align: baseline;
 }
-/* line 232, ../sass/modules/_reactions.scss */
+/* line 234, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user {
   font-size: 14px;
   font-size: 0.875rem;
 }
-/* line 234, ../sass/modules/_reactions.scss */
+/* line 236, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user strong {
   text-transform: uppercase;
 }
-/* line 239, ../sass/modules/_reactions.scss */
+/* line 241, ../sass/modules/_reactions.scss */
 .reactions li .reaction::after {
   top: 16px;
   top: 1rem;
@@ -3100,9 +3103,11 @@ ul.steps li.selected a {
 }
 /* line 46, ../sass/modules/_misc.scss */
 .manage .manage-edit a {
+  cursor: pointer;
   background-position: 2px -363px;
 }
-/* line 50, ../sass/modules/_misc.scss */
+/* line 51, ../sass/modules/_misc.scss */
 .manage .manage-remove a {
+  cursor: pointer;
   background-position: 5px -442px;
 }
