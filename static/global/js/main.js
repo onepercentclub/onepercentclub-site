@@ -24,11 +24,6 @@ $(document).ready(function(){
     //initLightbox();
     //initFileUpload();
 
-    // show/hide reactions
-    $('.toggle-reactions').live('click', function(e) {
-        $('.reactions', $(this).closest('.reViewaction-box')).toggle();
-    });
-
     // show/hide sharing options
     $('.share')
         .live('mouseenter', function(e) {
@@ -40,8 +35,6 @@ $(document).ready(function(){
     
     // DEVelOPMENT: needed for static template
     initBehaviour('body');
-
-    toggleText( $('.toggle-reactions') );
     toggleText( $('.toggle-love') );
 });
 
