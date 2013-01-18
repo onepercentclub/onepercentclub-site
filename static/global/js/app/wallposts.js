@@ -110,6 +110,8 @@ App.MediaWallPostFormView = Em.View.extend({
     templateFile: 'wallpost',
     tagName: 'form',
 
+    // This binding normally goes the other way around (from the controller to the view).
+    // We can't do that here because we don't know which type of media post to use when the controller is created.
     wallpostBinding: 'App.projectWallPostListController.wallpostForm',
 
     init: function() {
@@ -164,8 +166,6 @@ App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
-    // This binding normally goes the other way around (from the controller to the view).
-    // We can't do that here because we don't know which type of media post to use when the controller is created.
     wallpostBinding: 'App.projectWallPostListController.wallpostForm',
 
     change: function(e) {
@@ -174,9 +174,11 @@ App.UploadFileView = Ember.TextField.extend({
             var reader = new FileReader();
             var that = this;
             reader.onload = function(e) {
-                that.get('wallpost').set('photo', e.target.result);
+                // This should really be saved someplace else.
+                that.get('wallpost').set('photo_preview', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
+            // The File object needs to be set on the Model so that it can be accesses in the DRF2 adapter.
             this.get('wallpost').set('photo_file', input.files[0]);
         }
     }
