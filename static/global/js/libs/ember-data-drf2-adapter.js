@@ -234,7 +234,7 @@ var belongsToAssociation = function(type, options, one) {
             // load the object
             var obj = data[key];
             if (obj !== undefined) {
-                id = obj.id
+                id = obj.id;
                 // Load the embedded object in store
                 store.load(type, id, obj);
             }

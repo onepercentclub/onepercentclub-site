@@ -28,36 +28,36 @@
     <fieldset>
         <ul>
             <li>
-                {{#if view.wallpost.errors.title}}
-                    <span class="error">{{view.wallpost.errors.title}}</span>
-                {{/if}}
+                {{#each view.wallpost.errors.title}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
                 <label for="wallpost-title" class="inline">
                     {% trans "Title of your update." %}
                 </label>
                 {{view Ember.TextField valueBinding="view.wallpost.title" id="wallpost-title" name="wallpost-title"}}
             </li>
             <li>
-                {{#if  view.wallpost.errors.text}}
-                    <span class="error">{{view.wallpost.errors.text}}</span>
-                {{/if}}
+                {{#each view.wallpost.errors.text}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
                 <label for="wallpost-update" class="inline">
                     {% trans "Your update." %}
                 </label>
                 {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
             <li>
-                {{#if view.wallpost.errors.video_url}}
-                    <span class="error">{{view.wallpost.errors.video_url}}</span>
-                {{/if}}
+                {{#each view.wallpost.errors.video_url}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
                 <label for="wallpost-video" class="inline">
                     {% trans "Link to video on YouTube or Vimeo." %}
                 </label>
                 {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
             </li>
             <li>
-                {{#if view.wallpost.errors.photo}}
-                    <span class="error">{{view.wallpost.errors.photo}}</span>
-                {{/if}}
+                {{#each view.wallpost.errors.photo}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
                 <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
 {# TODO: Implement multi photo upload #}
 {#                <span class="fileinput-button image">#}
@@ -77,9 +77,9 @@
     <fieldset>
         <ul>
             <li>
-                {{#if view.wallpost.errors.text}}
-                    <span class="error">{{view.wallpost.errors.text}}</span>
-                {{/if}}
+                {{#each view.wallpost.errors.text}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
                 <label for="wallpost-update" class="inline">{% trans "Leave your reaction here" %}</label>
                 {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>

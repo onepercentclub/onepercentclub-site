@@ -68,7 +68,6 @@ App.projectWallPostListController = Em.ArrayController.create({
         }
     }.observes('wallposts.isLoaded'),
 
-
     // This Ember object is used as a placeholder for the WallPost object so that Em.get/set always work.
     wallpostForm: new Em.Object(),
 
@@ -81,6 +80,8 @@ App.projectWallPostListController = Em.ArrayController.create({
         App.store.commit();
     }
 });
+
+
 
 
 /*
@@ -114,6 +115,7 @@ App.MediaWallPostFormView = Em.View.extend({
 
     init: function() {
         this._super();
+        this.set('controller', App.MediaWallPostFormController);
         this.set('wallpost', App.ProjectMediaWallPost.createRecord());
     },
 
@@ -128,6 +130,30 @@ App.MediaWallPostFormView = Em.View.extend({
             this.set('wallpost', App.ProjectMediaWallPost.createRecord());
         }
     }.observes('wallpost.isNew')
+});
+
+
+App.MediaWallPostFormController = Em.ObjectController.create({
+//    transaction: App.store.transaction(),
+
+    contentBinding: 'App.MediaWallPostFormView.wallpost',
+
+    init: function() {
+        this._super();
+//        this.set('content', this.get('transaction').createRecord(model, wallpost));
+    },
+
+    addWallPost: function() {
+        console.log('bork');
+//        this.get('transaction').commit();
+    },
+
+    contentChanged: function(sender, key) {
+//        if (!this.get(key)) {
+//            this.set('wallpost', App.ProjectMediaWallPost.createRecord());
+//        }
+        console.log('borka olkasdjhf lasdkjhf ');
+    }.observes('content.isNew')
 });
 
 
