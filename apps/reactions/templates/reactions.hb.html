@@ -1,13 +1,39 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
 
+{% tplhandlebars "reaction" %}
+	<span class="user-img"><img {{bindAttr src="view.content.author.picture" }} width="100%" alt="Avatar" /></span>
+	<div class="reaction">
+	    <a href="#" class="user">
+            {%  trans "By" %} <strong>{{ view.content.author.full_name }}</strong>
+            <em>{%  trans "Member" %}</em> <small>{{view.content.timesince}} {%  trans "ago" %}</small>
+        </a>
+        {{#if view.isAuthor}}
+            <ul class="manage">
+                <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
+                <li class="manage-remove"><a {{action "deleteReaction" target="view"}}>{% trans "Delete" %}</a></li>
+            </ul>
+        {{/if}}
+		<p>{{ view.content.reaction }}</p>
+	</div>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "reaction_no_items" %}
+    No reactions yet
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "reaction_form" %}
     <fieldset>
         <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
+        {{#each view.content.errors.reaction}}
+            <span class="error">{{this}}</span>
+        {{/each}}
         {{#if view.user.is_authenticated }}
-            {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.reaction.reaction" name="reaction"}}
+        {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.content.reaction" name="reaction"}}
         {{else}}
-            {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
+        {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
         {{/if}}
     </fieldset>
     <button type="submit" id="reaction-post">Post</button>
@@ -29,7 +55,7 @@
     </ul>
 {% endtplhandlebars %}
 
-     
+
 {% tplhandlebars "reaction_box" %}
     <div class="reaction-box">
         {{outlet reactionForm}}

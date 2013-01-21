@@ -143,8 +143,8 @@ App.WallPostView = Em.View.extend({
     templateName: 'wallpost',
     templateFile: 'wallpost',
     isAuthor: function(){
-        var username = this.get('user').get('username');
-        var authorname = this.get('content').get('author').get('username');
+        var username = this.get('user.username');
+        var authorname = this.get('content.author.username');
         if (username) {
             return (username == authorname);
         }
@@ -165,7 +165,7 @@ App.WallPostView = Em.View.extend({
             post.deleteRecord();
             transaction.commit();
             var self = this;
-            this.$().slideUp(1000, function(){self.remove();});
+            this.$().slideUp(500, function(){self.remove();});
         }
     }
 });
