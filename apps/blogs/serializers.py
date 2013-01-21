@@ -15,7 +15,7 @@ class BlogPostContentsField(serializers.Field):
 class BlogPostDetailSerializer(serializers.ModelSerializer):
     contents = BlogPostContentsField(source='contents')
     url = serializers.HyperlinkedIdentityField(view_name='blogpost-instance')
-    main_image = SorlImageField('main_image', '300x200', crop='center')
+    main_image = SorlImageField('main_image', '300x200',)
     author = AuthorSerializer()
 
     class Meta:

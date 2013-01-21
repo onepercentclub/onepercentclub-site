@@ -8,6 +8,7 @@ class ReactionSerializer(serializers.ModelSerializer):
     author = AuthorSerializer()
     timesince = TimeSinceField(source='created')
     url = HyperlinkedIdentityField(view_name="wallpost-reaction-detail")
+
     class Meta:
         model = Reaction
         fields = ('created', 'author', 'reaction', 'id', 'timesince', 'url')

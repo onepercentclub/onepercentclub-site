@@ -338,7 +338,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Note: This test will fail when we require at least a video and/or a text but that's what we want.
         wallpost_title = 'This is my super project!'
         response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project_id': self.some_project.id})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
 
         # Retrieve the created Project Media WallPost.
