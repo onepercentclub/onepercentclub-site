@@ -6,8 +6,6 @@ from django.utils import timezone
 from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
-from apps.media.tests import MediaTestsMixin
-from .views import ProjectList, ProjectDetail
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
 
 
@@ -65,8 +63,7 @@ class FundPhaseTestMixin(object):
         return fundphase
 
 
-class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
-                   MediaTestsMixin):
+class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
     """ Tests for projects. """
 
     def setUp(self):
@@ -165,7 +162,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         self.assertEquals(fundphase.enddate, actphase.startdate)
         # This is the important test.
         self.assertEquals(actphase.enddate, actphase.startdate)
-
 
         # Final refresh and tests:
         ideaphase = IdeaPhase.objects.get(id=ideaphase.id)

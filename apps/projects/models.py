@@ -63,7 +63,6 @@ class Project(models.Model):
     country = models.ForeignKey('geo.Country', blank=True, null=True, verbose_name=_("country"))
 
     language = models.CharField(max_length=6, choices=settings.LANGUAGES, help_text=_("Main language of the project."))
-    albums = models.ManyToManyField('media.Album', blank=True, null=True, verbose_name=_("albums"))
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,

@@ -218,7 +218,6 @@ INSTALLED_APPS = (
     'apps.organizations',
     'apps.projects',
     'apps.donations',
-    'apps.media',
     'apps.geo',
     'apps.hbtemplates',
     'apps.reactions',
