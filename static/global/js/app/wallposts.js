@@ -158,10 +158,10 @@ App.UploadFileView = Ember.TextField.extend({
         var input = e.target;
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            var that = this;
+            var view = this;
             reader.onload = function(e) {
                 // This should really be saved someplace else.
-                that.get('wallpost').set('photo_preview', e.target.result);
+                view.get('wallpost').set('photo_preview', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
             // The File object needs to be set on the Model so that it can be accesses in the DRF2 adapter.

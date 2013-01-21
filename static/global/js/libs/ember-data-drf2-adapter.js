@@ -169,7 +169,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
      - Check for 'url' defined in the class.
      */
     rootForType: function(type, record) {
-        if (record !== undefined && record.url) {
+        if (record !== undefined && record.hasOwnProperty('url')) {
             return record.url;
         }
         if (type.url) {
