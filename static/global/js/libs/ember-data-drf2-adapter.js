@@ -1,7 +1,6 @@
 var get = Ember.get, set = Ember.set;
 
 DS.DRF2Serializer = DS.Serializer.extend({
-
     init: function() {
         this._super();
         this.transforms['array'] = {

@@ -1,9 +1,8 @@
-from apps.bluebottle_drf2.serializers import  TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer, ToModelIdField, ManyRelatedSerializer
+from apps.bluebottle_drf2.serializers import TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer, ToModelIdField, ManyRelatedSerializer
 from apps.projects.models import Project
 from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
-
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost
 
