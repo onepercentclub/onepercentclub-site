@@ -17,7 +17,8 @@ App.ProjectWallPost = DS.Model.extend({
     timesince: DS.attr('string'),
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
-    reactions: DS.hasMany('App.Reaction', {embedded: true}),
+    reactions: DS.hasMany('App.WallPostReaction', {embedded: true})
+
 });
 
 
@@ -61,19 +62,20 @@ App.projectWallPostListController = Em.ArrayController.create({
 
 
     addWallPost: function(wallpost) {
+        var transaction = App.store.transaction();
         // Load the right model based on type
         var model = this.get('models.' + wallpost.type);
         // If we have a standard object then convert into the right model
         if (!(wallpost instanceof model)) {
             // Add project_id to the wallpost
             wallpost.project_id = this.get('project.id');
-            var wallpost = model.createRecord(wallpost);
+            var wallpost = transaction.createRecord(model, wallpost);
         }
         // Not a race condition because ember-data only starts its machinery when App.store.commit() is called.
         wallpost.on('didCreate', function(record) {
             App.projectWallPostListController.get('content').unshiftObject(record);
         });
-        App.store.commit();
+        transaction.commit();
         // Return the model (with errors) for the form to return it to the user.
         return wallpost;
     }
@@ -141,8 +143,8 @@ App.WallPostView = Em.View.extend({
     templateName: 'wallpost',
     templateFile: 'wallpost',
     isAuthor: function(){
-        var username = this.get('user').get('username');
-        var authorname = this.get('content').get('author').get('username');
+        var username = this.get('user.username');
+        var authorname = this.get('content.author.username');
         if (username) {
             return (username == authorname);
         }
@@ -151,16 +153,19 @@ App.WallPostView = Em.View.extend({
     deleteWallPost: function(e) {
         if (confirm("Delete this wallpost?")) {
             e.preventDefault();
+            var transaction = App.store.transaction();
             var post = this.get('content');
+            transaction.add(post);
             // Clear author here
             // TODO: Have a proper solution for belongsTo fields in adapter
             post.reopen({
-                author: null
+                author: null,
+                reactions: []
             });
             post.deleteRecord();
-            App.store.commit();
+            transaction.commit();
             var self = this;
-            this.$().slideUp(1000, function(){self.remove();});
+            this.$().slideUp(500, function(){self.remove();});
         }
     }
 });
@@ -172,3 +177,4 @@ App.ProjectWallPostListView = Em.CollectionView.extend({
     contentBinding: 'App.projectWallPostListController',
     itemViewClass: 'App.WallPostView'
 });
+

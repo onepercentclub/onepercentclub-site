@@ -44,10 +44,12 @@
     }
     
     .manage-edit a {
-        background-position: sprite-position($icons, edit, 2px, 2px); 
+        cursor: pointer;
+        background-position: sprite-position($icons, edit, 2px, 2px);
     }
     
     .manage-remove a {
+        cursor: pointer;
         background-position: sprite-position($icons, remove, 5px, 2px);
     }
     

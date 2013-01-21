@@ -8,7 +8,6 @@ from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
 from rest_framework.fields import Field
-from rest_framework.serializers import SerializerOptions
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
 
@@ -86,7 +85,7 @@ class OEmbedField(Field):
 #
 # Serializers for django_polymorphic models. See WallPost Serializers for an example on how to use this.
 #
-class PolymorphicSerializerOptions(SerializerOptions):
+class PolymorphicSerializerOptions(serializers.SerializerOptions):
 
     def __init__(self, meta):
         super(PolymorphicSerializerOptions, self).__init__(meta)
