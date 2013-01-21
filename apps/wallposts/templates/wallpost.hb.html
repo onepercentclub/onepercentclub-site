@@ -10,13 +10,13 @@
         </header>
         
         {{#if view.user.username }}
-            {{#if view.canEdit }}
+            {{#if view.isOwner }}
                 {{view App.MediaWallPostFormView}}
             {{else}}
                 {{view App.TextWallPostFormView}}
             {{/if}}
         {{else}}
-            <form>{% trans "Login to leave a reaction." %}</form>
+            <form>{% trans "Login to leave a comment." %}</form>
         {{/if}}
     </section>
 
@@ -54,13 +54,17 @@
                 </label>
                 {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
             </li>
-{#            TODO: Implement photos #}
-{#            <li>#}
-{#                <label for="wallpost-photos">Upload & add Photo's <small>(620 x 380 minimum for best results)</small></label>#}
+            <li>
+                {{#each view.wallpost.errors.photo}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
+                <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
+{# TODO: Implement multi photo upload #}
 {#                <span class="fileinput-button image">#}
 {#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
 {#                </span>#}
-{#            </li>#}
+                {{view App.UploadFileView valueBinding="view.wallpost.photo" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+            </li>
         </ul>
     </fieldset>
 
@@ -76,12 +80,12 @@
                 {{#each view.wallpost.errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
-                <label for="wallpost-update" class="inline">{% trans "Leave your reaction here" %}</label>
+                <label for="wallpost-update" class="inline">{% trans "Leave your comment here" %}</label>
                 {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
         </ul>
     </fieldset>
-    <button type="submit">{% trans "Post Reaction" %}</button>
+    <button type="submit">{% trans "Post Comment" %}</button>
 {% endtplhandlebars %}
 
 
@@ -109,6 +113,28 @@
         {{/if}}
 
         {{view.content.text}}
+
+        {# This is temporary and will go away when we figure out how to upload related photos. #}
+        {{#if view.content.photo}}
+            <div class="photo-viewer">
+                <span class="photo"><img {{bindAttr src="view.content.photo"}} width="100%" alt="Gallery" /></span>
+            </div>
+        {{/if}}
+
+        {# TODO: Implement multi photo viewer #}
+        {{#if view.content.photos}}
+            <div class="photo-viewer not-implemented">
+                <span class="photo"><a href="#"><img src="/static/assets/dummy/wallpost-image.jpg" width="100%" alt="Gallery" /></a></span>
+                <ul>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li class="more"><a href="#"><strong>6</strong> more photos</a></li>
+                </ul>
+            </div>
+        {{/if}}
 
     </div>
 
