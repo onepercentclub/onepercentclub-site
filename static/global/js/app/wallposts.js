@@ -24,7 +24,7 @@ App.ProjectWallPost = DS.Model.extend({
     video_html: DS.attr('string'),
     photo: DS.attr('string'),
     photos: DS.hasMany('App.MediaWallPostPhoto', {embedded: true}),
-    reactions: DS.hasMany('App.Reaction', {embedded: true})
+    reactions: DS.hasMany('App.WallPostReaction', {embedded: true})
 });
 
 
@@ -195,16 +195,19 @@ App.WallPostView = Em.View.extend({
     deleteWallPost: function(e) {
         if (confirm("Delete this wallpost?")) {
             e.preventDefault();
+            var transaction = App.store.transaction();
             var post = this.get('content');
+            transaction.add(post);
             // Clear author here
             // TODO: Have a proper solution for belongsTo fields in adapter
             post.reopen({
-                author: null
+                author: null,
+                reactions: []
             });
             post.deleteRecord();
-            App.store.commit();
+            transaction.commit();
             var self = this;
-            this.$().slideUp(1000, function(){self.remove();});
+            this.$().slideUp(500, function(){self.remove();});
         }
     }
 });
@@ -216,3 +219,4 @@ App.ProjectWallPostListView = Em.CollectionView.extend({
     contentBinding: 'App.projectWallPostListController',
     itemViewClass: 'App.WallPostView'
 });
+

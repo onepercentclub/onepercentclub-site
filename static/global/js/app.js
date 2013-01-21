@@ -52,6 +52,10 @@ $(function() {
         }
     });
 
+    Em.Controller.reopen({
+        userBinding: "App.userController.content"
+    });
+
     Em.View.reopen({
         userBinding: "App.userController.content",
         isLoggedInBinding: "App.userController.isLoggedIn",
@@ -174,7 +178,11 @@ $(function() {
 
 
     App.User = App.Member.extend({
-        url: 'members'
+        url: 'members',
+
+        is_authenticated: function(){
+            return (this.get('username'))  ? true : false;
+        }.property('username')
     });
 
 

@@ -141,7 +141,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         self.assertEqual(response.data['count'], 2)
         self.assertEqual(response.data['results'][0]['reaction'], reaction_text_1)
         self.assertEqual(response.data['results'][1]['reaction'], reaction_text_2)
-    
+
         # Check that the size and data in the second reaction list is correct.
         response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.another_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
