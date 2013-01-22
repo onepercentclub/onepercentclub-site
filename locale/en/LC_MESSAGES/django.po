@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-04 13:35+0200\n"
+"POT-Creation-Date: 2013-01-22 22:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,212 +48,84 @@ msgid ""
 "%(error_id)s</strong>."
 msgstr ""
 
-#: base.html:87
-msgid "Log out"
-msgstr ""
-
-#: base.html:89
-msgid "Log in"
-msgstr ""
-
-#: base.html:96 footer.html:8 home.html:5
-msgid "Home"
-msgstr ""
-
-#: base.html:97 footer.html:9 projects/list.html:5 projects/list.html.py:12
-msgid "Projects"
-msgstr ""
-
-#: base.html:98 footer.html:10
-msgid "Tasks"
-msgstr ""
-
-#: base.html:99 footer.html:11
-msgid "Actions"
-msgstr ""
-
-#: base.html:100 footer.html:16 footer.html.py:36
-msgid "Learn more"
-msgstr ""
-
-#: base.html:105
-#, python-format
-msgid "Revision: %(GIT_REVISION)s"
-msgstr ""
-
-#: footer.html:7
+#: footer.html:6
 msgid "Menu"
 msgstr ""
 
-#: footer.html:12 accounts/userprofile_list.html:5
-#: accounts/userprofile_list.html.py:12
+#: footer.html:7
+msgid "Home"
+msgstr ""
+
+#: footer.html:8
+msgid "Projects"
+msgstr ""
+
+#: footer.html:9
+msgid "Tasks"
+msgstr ""
+
+#: footer.html:10
+msgid "Actions"
+msgstr ""
+
+#: footer.html:11
 msgid "Members"
 msgstr ""
 
-#: footer.html:13
+#: footer.html:12
 msgid "Organizations"
 msgstr ""
 
-#: footer.html:14
+#: footer.html:13
 msgid "Partners"
 msgstr ""
 
-#: footer.html:15
+#: footer.html:14
 msgid "Business"
 msgstr ""
 
-#: footer.html:17 footer.html.py:37
+#: footer.html:15 footer.html.py:35
+msgid "Learn more"
+msgstr ""
+
+#: footer.html:16 footer.html.py:36
 msgid "In the media"
 msgstr ""
 
-#: footer.html:18 footer.html.py:38
+#: footer.html:17 footer.html.py:37
 msgid "FAQ"
 msgstr ""
 
-#: footer.html:19 footer.html.py:39
+#: footer.html:18 footer.html.py:38
 msgid "Contact"
 msgstr ""
 
-#: footer.html:22
+#: footer.html:21
 msgid "News"
 msgstr ""
 
-#: footer.html:25
+#: footer.html:24
 msgid "Join"
 msgstr ""
 
-#: footer.html:28
+#: footer.html:27
 msgid "Tell a friend"
 msgstr ""
 
-#: footer.html:34 projects/detail.html:103 projects/detail.html.py:119
+#: footer.html:33
 msgid "More"
 msgstr ""
 
-#: footer.html:35
+#: footer.html:34
 msgid "About"
 msgstr ""
 
-#: footer.html:42
+#: footer.html:41
 msgid "Tweet"
 msgstr ""
 
-#: footer.html:45
+#: footer.html:44
 msgid "We like you too"
-msgstr ""
-
-#: media/album_detail.html:14 projects/widgets/tiny_viewer.html:21
-msgid "Pictures"
-msgstr ""
-
-#: media/album_detail.html:21 projects/widgets/tiny_viewer.html:14
-#: projects/widgets/tiny_viewer.html:22
-msgid "Videos"
-msgstr ""
-
-#: media/album_list.html:5 projects/detail.html:25
-msgid "Albums"
-msgstr ""
-
-#: projects/detail.html:19
-msgid "Project"
-msgstr ""
-
-#: projects/detail.html:22
-msgid "Organization"
-msgstr ""
-
-#: projects/detail.html:36
-msgid "No albums for this project."
-msgstr ""
-
-#: projects/detail.html:40
-msgid "Owner"
-msgstr ""
-
-#: projects/detail.html:51
-msgid "Location"
-msgstr ""
-
-#: projects/detail.html:56 projects/detail.html.py:65 projects/detail.html:110
-#: projects/detail.html.py:126
-msgid "Not specified."
-msgstr ""
-
-#: projects/detail.html:60
-msgid "Costs"
-msgstr ""
-
-#: projects/detail.html:69
-msgid "Themes"
-msgstr ""
-
-#: projects/detail.html:74 projects/detail.html.py:85 projects/detail.html:94
-msgid "None specified."
-msgstr ""
-
-#: projects/detail.html:78
-msgid "Supporters"
-msgstr ""
-
-#: projects/detail.html:89
-msgid "Tags"
-msgstr ""
-
-#: projects/detail.html:98
-msgid "Description"
-msgstr ""
-
-#: projects/detail.html:107 projects/detail.html.py:123
-msgid "Less"
-msgstr ""
-
-#: projects/detail.html:114
-msgid "Funding needed for"
-msgstr ""
-
-#: projects/map.html:17
-msgid "Loading projects"
-msgstr ""
-
-#: projects/widgets/funding_needed.html:3
-msgid "Crowdfunding needed"
-msgstr ""
-
-#: projects/widgets/funding_needed.html:7
-#, python-format
-msgid ""
-"Now: <b>&euro;<span class=\"donated-amount\">%(money_donated)s</span></b>"
-msgstr ""
-
-#: projects/widgets/funding_needed.html:13
-#, python-format
-msgid ""
-"Needed: <b>&euro;<span class=\"asked-amount\">%(money_asked)s</span></b>"
-msgstr ""
-
-#: projects/widgets/funding_needed.html:16 projects/widgets/info_small.html:18
-msgid "Support this project"
-msgstr ""
-
-#: projects/widgets/phases.html:3
-msgid "Idea"
-msgstr ""
-
-#: projects/widgets/phases.html:4
-msgid "Fund"
-msgstr ""
-
-#: projects/widgets/phases.html:5
-msgid "Act"
-msgstr ""
-
-#: projects/widgets/phases.html:6
-msgid "Results"
-msgstr ""
-
-#: projects/widgets/tiny_viewer.html:23
-msgid "Map"
 msgstr ""
 
 #: registration/logged_out.html:9

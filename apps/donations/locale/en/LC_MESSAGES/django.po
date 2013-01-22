@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-04 13:35+0200\n"
+"POT-Creation-Date: 2013-01-22 22:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,89 +17,62 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:30
+#: models.py:24
 msgid "Closed"
 msgstr ""
 
-#: models.py:31
+#: models.py:25
 msgid "Expired"
 msgstr ""
 
-#: models.py:32
+#: models.py:26
 msgid "Paid"
 msgstr ""
 
-#: models.py:33
+#: models.py:27
 msgid "Canceled"
 msgstr ""
 
-#: models.py:34
+#: models.py:28
 msgid "Chargedback"
 msgstr ""
 
-#: models.py:35
+#: models.py:29
 msgid "New"
 msgstr ""
 
-#: models.py:36
+#: models.py:30
 msgid "Started"
 msgstr ""
 
-#: models.py:38
+#: models.py:32
 msgid "user"
 msgstr ""
 
-#: models.py:39 models.py:78
+#: models.py:33
 msgid "amount"
 msgstr ""
 
-#: models.py:42
-msgid "status"
-msgstr ""
-
-#: models.py:46
-msgid "created"
-msgstr ""
-
-#: models.py:47
-msgid "updated"
-msgstr ""
-
-#: models.py:50 models.py:75
-msgid "donation"
-msgstr ""
-
-#: models.py:51
-msgid "donations"
-msgstr ""
-
-#: models.py:56
-#, python-format
-msgid "%(amount)s on %(date)s from %(user)s"
-msgstr ""
-
-#: models.py:62
-#, python-format
-msgid "%(amount)s on %(date)s"
-msgstr ""
-
-#: models.py:77
+#: models.py:34
 msgid "project"
 msgstr ""
 
-#: models.py:81
-msgid "donation line"
+#: models.py:37
+msgid "status"
 msgstr ""
 
-#: models.py:82
-msgid "donation lines"
+#: models.py:39
+msgid "created"
 msgstr ""
 
-#: models.py:88
-#, python-format
-msgid "%(amount)s from donation %(donation)s to %(project)s"
+#: models.py:40
+msgid "updated"
 msgstr ""
 
-#: models.py:118
-msgid "Requested amount not available."
+#: models.py:43
+msgid "donation"
+msgstr ""
+
+#: models.py:44
+msgid "donations"
 msgstr ""

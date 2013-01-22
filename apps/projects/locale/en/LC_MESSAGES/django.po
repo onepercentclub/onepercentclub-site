@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-04 13:35+0200\n"
+"POT-Creation-Date: 2013-01-22 22:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,396 +17,458 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:22 models.py:149 models.py:305 models.py:335
+#: models.py:24 models.py:128 models.py:272 models.py:302
 msgid "name"
 msgstr ""
 
-#: models.py:23 models.py:45 models.py:150
+#: models.py:25 models.py:46 models.py:129
 msgid "slug"
 msgstr ""
 
-#: models.py:24 models.py:172 models.py:213 models.py:307 models.py:321
-#: models.py:337 models.py:352
+#: models.py:26 models.py:151 models.py:201 models.py:274 models.py:288
+#: models.py:304 models.py:319
 msgid "description"
 msgstr ""
 
-#: models.py:31
+#: models.py:33
 msgid "project theme"
 msgstr ""
 
-#: models.py:32
+#: models.py:34
 msgid "project themes"
 msgstr ""
 
-#: models.py:39
+#: models.py:40
 msgid "Idea"
 msgstr ""
 
-#: models.py:40
+#: models.py:41
 msgid "Fund"
 msgstr ""
 
-#: models.py:41
+#: models.py:42
 msgid "Act"
 msgstr ""
 
-#: models.py:42
+#: models.py:43
 msgid "Results"
 msgstr ""
 
-#: models.py:44 models.py:171
+#: models.py:45 models.py:150
 msgid "title"
 msgstr ""
 
-#: models.py:49 models.py:153
+#: models.py:48 models.py:132
 msgid "partner organization"
 msgstr ""
 
-#: models.py:52
+#: models.py:49
 msgid "image"
 msgstr ""
 
-#: models.py:54
+#: models.py:49
 msgid "Main project picture"
 msgstr ""
 
-#: models.py:57
+#: models.py:50
 msgid "organization"
 msgstr ""
 
-#: models.py:59
+#: models.py:51
 msgid "owner"
 msgstr ""
 
-#: models.py:60
+#: models.py:52
 msgid "phase"
 msgstr ""
 
-#: models.py:62
+#: models.py:52
 msgid "Phase this project is in right now."
 msgstr ""
 
-#: models.py:65
+#: models.py:53
 msgid "themes"
 msgstr ""
 
-#: models.py:67 models.py:339 models.py:353 models.py:368
+#: models.py:54 models.py:306 models.py:320
 msgid "created"
 msgstr ""
 
-#: models.py:68
+#: models.py:54
 msgid "When this project was created."
 msgstr ""
 
-#: models.py:76
+#: models.py:61
 msgid "latitude"
 msgstr ""
 
-#: models.py:79
+#: models.py:62
 msgid "longitude"
 msgstr ""
 
-#: models.py:82
+#: models.py:63
 msgid "country"
 msgstr ""
 
-#: models.py:86
-msgid "language"
-msgstr ""
-
-#: models.py:87
+#: models.py:65
 msgid "Main language of the project."
 msgstr ""
 
-#: models.py:91
-msgid "albums"
-msgstr ""
-
-#: models.py:94
+#: models.py:66
 msgid "tags"
 msgstr ""
 
-#: models.py:140 models.py:170 models.py:320 models.py:334 models.py:350
-#: models.py:365
-msgid "project"
-msgstr ""
-
-#: models.py:141
-msgid "projects"
-msgstr ""
-
-#: models.py:154
-msgid "partner organizations"
-msgstr ""
-
-#: models.py:166 models.py:201
-msgid "Hidden"
-msgstr ""
-
-#: models.py:167 models.py:202
-msgid "Progress"
-msgstr ""
-
-#: models.py:168 models.py:205
-msgid "Completed"
-msgstr ""
-
-#: models.py:175
-msgid "start date"
-msgstr ""
-
-#: models.py:176
-msgid "end date"
-msgstr ""
-
-#: models.py:179
-msgid "status"
-msgstr ""
-
-#: models.py:189
-msgid "knowledge"
-msgstr ""
-
-#: models.py:189
-msgid "Description of knowledge."
-msgstr ""
-
-#: models.py:193
-msgid "idea phase"
-msgstr ""
-
-#: models.py:194
-msgid "idea phases"
-msgstr ""
-
-#: models.py:203
-msgid "Feedback"
-msgstr ""
-
-#: models.py:204
-msgid "Waiting"
-msgstr ""
-
-#: models.py:208
-msgid "Children"
-msgstr ""
-
-#: models.py:209
-msgid "Youth"
-msgstr ""
-
-#: models.py:210
-msgid "Adults"
-msgstr ""
-
-#: models.py:213
-msgid "Longer description."
-msgstr ""
-
-#: models.py:216
-msgid "money total"
-msgstr ""
-
-#: models.py:217
-msgid "Total amount needed for this project."
-msgstr ""
-
-#: models.py:218
-msgid "money asked"
-msgstr ""
-
-#: models.py:219
-msgid "Amount asked for from this website."
-msgstr ""
-
-#: models.py:222
-msgid "sustainability"
-msgstr ""
-
-#: models.py:224
-msgid "How can next generations profit from this?"
-msgstr ""
-
-#: models.py:228
-msgid "money from other sources"
-msgstr ""
-
-#: models.py:229
-msgid "Money received from other sources."
-msgstr ""
-
-#: models.py:234
-msgid "social impact"
-msgstr ""
-
-#: models.py:236
-msgid "Who are you helping?"
-msgstr ""
-
-#: models.py:239
-msgid "impact group"
-msgstr ""
-
-#: models.py:243
-msgid "impact direct male"
-msgstr ""
-
-#: models.py:246
-msgid "impact direct female"
-msgstr ""
-
-#: models.py:249
-msgid "impact indirect male"
-msgstr ""
-
-#: models.py:253
-msgid "impact indirect female"
-msgstr ""
-
-#: models.py:258
-msgid "fund phase"
-msgstr ""
-
-#: models.py:259
-msgid "fund phases"
-msgstr ""
-
-#: models.py:265
-msgid "planning"
-msgstr ""
-
-#: models.py:266
+#: models.py:68
 msgid "planned start date"
 msgstr ""
 
-#: models.py:267
+#: models.py:69
+msgid ""
+"The project owner's notion of the project start date. This date is "
+"independant of the various phase start dates."
+msgstr ""
+
+#: models.py:72
 msgid "planned end date"
 msgstr ""
 
-#: models.py:270
+#: models.py:73
+msgid ""
+"The project owner's notion of the project end date. This date is independant "
+"of the various phase end dates."
+msgstr ""
+
+#: models.py:119 models.py:149 models.py:287 models.py:301 models.py:317
+msgid "project"
+msgstr ""
+
+#: models.py:120
+msgid "projects"
+msgstr ""
+
+#: models.py:133
+msgid "partner organizations"
+msgstr ""
+
+#: models.py:145 models.py:189
+msgid "Hidden"
+msgstr ""
+
+#: models.py:146 models.py:190
+msgid "Progress"
+msgstr ""
+
+#: models.py:147 models.py:193
+msgid "Completed"
+msgstr ""
+
+#: models.py:154
+msgid "start date"
+msgstr ""
+
+#: models.py:155
+msgid "end date"
+msgstr ""
+
+#: models.py:157
+msgid "status"
+msgstr ""
+
+#: models.py:163
+msgid "%(class name)s: End date %s can not be earlier than start date %s"
+msgstr ""
+
+#: models.py:178
+msgid "knowledge"
+msgstr ""
+
+#: models.py:178
+msgid "Description of knowledge."
+msgstr ""
+
+#: models.py:181 models.py:182
+msgid "idea phase"
+msgstr ""
+
+#: models.py:191
+msgid "Feedback"
+msgstr ""
+
+#: models.py:192
+msgid "Waiting"
+msgstr ""
+
+#: models.py:196
+msgid "Children"
+msgstr ""
+
+#: models.py:197
+msgid "Youth"
+msgstr ""
+
+#: models.py:198
+msgid "Adults"
+msgstr ""
+
+#: models.py:201
+msgid "Longer description."
+msgstr ""
+
+#: models.py:204
+msgid "budget total"
+msgstr ""
+
+#: models.py:204
+msgid ""
+"Amount of money needed for a project including money from other sources."
+msgstr ""
+
+#: models.py:205
+msgid "money asked"
+msgstr ""
+
+#: models.py:205
+msgid "Amount of money asked for a project from this website."
+msgstr ""
+
+#: models.py:206
+msgid "money donated"
+msgstr ""
+
+#: models.py:206
+msgid "This field is updated on every donation(change)"
+msgstr ""
+
+#: models.py:208
+msgid "sustainability"
+msgstr ""
+
+#: models.py:208
+msgid "How can next generations profit from this?"
+msgstr ""
+
+#: models.py:209
+msgid "money from other sources"
+msgstr ""
+
+#: models.py:209
+msgid "Money received from other sources."
+msgstr ""
+
+#: models.py:212
+msgid "social impact"
+msgstr ""
+
+#: models.py:212
+msgid "Who are you helping?"
+msgstr ""
+
+#: models.py:213
+msgid "impact group"
+msgstr ""
+
+#: models.py:214
+msgid "impact direct male"
+msgstr ""
+
+#: models.py:215
+msgid "impact direct female"
+msgstr ""
+
+#: models.py:216
+msgid "impact indirect male"
+msgstr ""
+
+#: models.py:217
+msgid "impact indirect female"
+msgstr ""
+
+#: models.py:238 models.py:239
+msgid "fund phase"
+msgstr ""
+
+#: models.py:245
+msgid "planning"
+msgstr ""
+
+#: models.py:248 models.py:249
 msgid "act phase"
 msgstr ""
 
-#: models.py:271
-msgid "act phases"
-msgstr ""
-
-#: models.py:279
+#: models.py:256
 msgid "what"
 msgstr ""
 
-#: models.py:279
+#: models.py:256
 msgid "What and how?"
 msgstr ""
 
-#: models.py:282
+#: models.py:257
 msgid "tips"
 msgstr ""
 
-#: models.py:282
+#: models.py:257
 msgid "Tips and tricks?"
 msgstr ""
 
-#: models.py:285
+#: models.py:258
 msgid "change"
 msgstr ""
 
-#: models.py:285
+#: models.py:258
 msgid "What has changed for the target group?"
 msgstr ""
 
-#: models.py:288
+#: models.py:259
 msgid "financial"
 msgstr ""
 
-#: models.py:288
+#: models.py:259
 msgid "How was the money spend?"
 msgstr ""
 
-#: models.py:291
+#: models.py:260
 msgid "next"
 msgstr ""
 
-#: models.py:291
+#: models.py:260
 msgid "What's next?"
 msgstr ""
 
-#: models.py:295
+#: models.py:263 models.py:264
 msgid "results phase"
 msgstr ""
 
-#: models.py:296
-msgid "results phases"
-msgstr ""
-
-#: models.py:306
+#: models.py:273
 msgid "email"
 msgstr ""
 
-#: models.py:310
+#: models.py:277
 msgid "referral"
 msgstr ""
 
-#: models.py:311
+#: models.py:278
 msgid "referrals"
 msgstr ""
 
-#: models.py:322
+#: models.py:289
 msgid "money amount"
 msgstr ""
 
-#: models.py:325
+#: models.py:292
 msgid "budget line"
 msgstr ""
 
-#: models.py:326
+#: models.py:293
 msgid "budget lines"
 msgstr ""
 
-#: models.py:336
+#: models.py:303
 msgid "URL"
 msgstr ""
 
-#: models.py:338
+#: models.py:305
 msgid "ordering"
 msgstr ""
 
-#: models.py:343
+#: models.py:310
 msgid "link"
 msgstr ""
 
-#: models.py:344
+#: models.py:311
 msgid "links"
 msgstr ""
 
-#: models.py:351 models.py:366
+#: models.py:318
 msgid "user"
 msgstr ""
 
-#: models.py:354
+#: models.py:321
 msgid "updated"
 msgstr ""
 
-#: models.py:358
+#: models.py:325
 msgid "testimonial"
 msgstr ""
 
-#: models.py:359
+#: models.py:326
 msgid "testimonials"
 msgstr ""
 
-#: models.py:367
-msgid "body"
+#: templates/project_detail.hb.html:35
+msgid "of"
 msgstr ""
 
-#: models.py:369
-msgid "deleted"
+#: templates/project_detail.hb.html:37
+msgid "raised"
 msgstr ""
 
-#: models.py:378
-msgid "message"
+#: templates/project_detail.hb.html:50
+msgid "days to go"
 msgstr ""
 
-#: models.py:379
-msgid "messages"
+#: templates/project_detail.hb.html:54
+msgid "Support this project"
+msgstr ""
+
+#: templates/project_detail.html:20
+msgid "Project"
+msgstr ""
+
+#: templates/project_detail.html:23
+msgid "Project Phase"
+msgstr ""
+
+#: templates/project_detail.html:26
+msgid "Organization"
+msgstr ""
+
+#: templates/project_detail.html:29
+msgid "Project Owner"
+msgstr ""
+
+#: templates/project_detail.html:34
+msgid "Location"
+msgstr ""
+
+#: templates/project_detail.html:39 templates/project_detail.html.py:48
+#: templates/project_detail.html:103 templates/project_detail.html.py:114
+msgid "Not specified."
+msgstr ""
+
+#: templates/project_detail.html:43
+msgid "Costs"
+msgstr ""
+
+#: templates/project_detail.html:52
+msgid "Money Asked"
+msgstr ""
+
+#: templates/project_detail.html:57
+msgid "Current Donations"
+msgstr ""
+
+#: templates/project_detail.html:62
+msgid "Themes"
+msgstr ""
+
+#: templates/project_detail.html:68 templates/project_detail.html.py:79
+#: templates/project_detail.html:91
+msgid "None specified."
+msgstr ""
+
+#: templates/project_detail.html:73
+msgid "Supporters"
+msgstr ""
+
+#: templates/project_detail.html:85
+msgid "Tags"
+msgstr ""
+
+#: templates/project_detail.html:96
+msgid "Description"
+msgstr ""
+
+#: templates/project_detail.html:107
+msgid "Funding needed for"
 msgstr ""
