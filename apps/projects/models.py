@@ -160,7 +160,7 @@ class AbstractPhase(models.Model):
         if self.startdate and self.enddate:
             if self.enddate < self.startdate:
                 raise ValidationError(_(
-                    u"%s: End date %s can not be earlier than start date %s" %
+                    u"%(class name)s: End date %s can not be earlier than start date %s" %
                     (self.__class__.__name__, self.enddate, self.startdate))
                 )
 
