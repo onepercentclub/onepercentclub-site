@@ -11,5 +11,5 @@ class ReactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reaction
-        fields = ('created', 'author', 'reaction', 'id', 'timesince', 'url')
+        fields = ('created', 'author', 'text', 'id', 'timesince', 'url')
 

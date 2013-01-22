@@ -14,7 +14,7 @@
                 <li class="manage-remove"><a {{action "deleteReaction" target="view"}}>{% trans "Delete" %}</a></li>
             </ul>
         {{/if}}
-		<p>{{ view.content.reaction }}</p>
+		<p>{{ view.content.text }}</p>
 	</div>
 {% endtplhandlebars %}
 
@@ -27,13 +27,13 @@
 {% tplhandlebars "reaction_form" %}
     <fieldset>
     <ul>
-        <li {{bindAttr class="view.content.errors.reaction.length:error"}}>
+        <li {{bindAttr class="view.content.errors.text.length:error"}}>
             <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
-            {{#each view.content.errors.reaction}}
+            {{#each view.content.errors.text}}
                 <span class="error">{{this}}</span>
             {{/each}}
             {{#if view.user.is_authenticated }}
-                {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.content.reaction" name="reaction"}}
+                {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.content.text" name="reaction"}}
             {{else}}
                 {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
             {{/if}}

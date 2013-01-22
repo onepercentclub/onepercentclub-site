@@ -1,7 +1,7 @@
 App.Reaction = DS.Model.extend({
     url: 'reactions',
 
-    reaction: DS.attr('string'),
+    text: DS.attr('string'),
     author: DS.belongsTo('App.Member', {embedded: true}),
     created: DS.attr('string'),
     timesince: DS.attr('string')
@@ -24,8 +24,8 @@ App.wallPostReactionController = Em.Controller.create({
     addReaction: function(reaction, wallpost) {
         // Do a client side check if Reaction as a reaction property set
         // wallpost.reactions has problems with invalid records an will barf
-        if (reaction.get('reaction') == undefined || reaction.get('reaction') == "") {
-            reaction.set('errors', {'reaction': ['This field is required']});
+        if (reaction.get('text') == undefined || reaction.get('text') == "") {
+            reaction.set('errors', {'text': ['This field is required']});
             return false;
         }
         var transaction = App.store.transaction();
@@ -37,7 +37,7 @@ App.wallPostReactionController = Em.Controller.create({
         livereaction.on('didCreate', function(record) {
             // Clear the reaction text in the form
             reaction.set('errors', null);
-            reaction.set('reaction', '');
+            reaction.set('text', '');
         });
         transaction.commit();
     }
@@ -52,7 +52,7 @@ App.WallPostReactionFormView = Em.View.extend({
 
     wallpostBinding: "parentView.content",
 
-    // This needs to be as a calculated propety or all reaction forms will be bound to each other
+    // This needs to be as a calculated property or all reaction forms will be bound to each other.
     content: function(){
         return App.wallPostReactionController.get('model').createRecord();
     }.property(),

@@ -36,7 +36,7 @@ class Reaction(models.Model):
 
 
     # The reaction text.
-    reaction = models.TextField(_('reaction'), max_length=REACTION_MAX_LENGTH)
+    text = models.TextField(_('reaction text'), max_length=REACTION_MAX_LENGTH)
 
     # Metadata for the reaction.
     created = CreationDateTimeField(_('created'))
