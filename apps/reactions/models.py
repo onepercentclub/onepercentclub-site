@@ -42,7 +42,7 @@ class Reaction(models.Model):
     created = CreationDateTimeField(_('created'))
     updated = ModificationDateTimeField(_('updated'))
     deleted = models.DateTimeField(blank=True, null=True)
-    ip_address = models.IPAddressField(_('IP address'))
+    ip_address = models.IPAddressField(_('IP address'), blank=True, null=True, default=None)
 
     # Generic foreign key so we can connect it to any object.
     content_type = models.ForeignKey(ContentType, verbose_name=_('content type'), related_name="content_type_set_for_%(class)s")
