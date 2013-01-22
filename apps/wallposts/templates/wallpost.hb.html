@@ -27,7 +27,7 @@
 
     <fieldset>
         <ul>
-            <li>
+            <li {{bindAttr class="view.wallpost.errors.title.length:error"}}>
                 {{#each view.wallpost.errors.title}}
                     <span class="error">{{this}}</span>
                 {{/each}}
@@ -36,7 +36,7 @@
                 </label>
                 {{view Ember.TextField valueBinding="view.wallpost.title" id="wallpost-title" name="wallpost-title"}}
             </li>
-            <li>
+            <li {{bindAttr class="view.wallpost.errors.text.length:error"}}>
                 {{#each view.wallpost.errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
@@ -45,7 +45,7 @@
                 </label>
                 {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
-            <li>
+            <li {{bindAttr class="view.wallpost.errors.video_url.length:error"}}>
                 {{#each view.wallpost.errors.video_url}}
                     <span class="error">{{this}}</span>
                 {{/each}}
@@ -54,7 +54,7 @@
                 </label>
                 {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
             </li>
-            <li>
+            <li {{bindAttr class="view.wallpost.errors.photo.length:error"}}>
                 {{#each view.wallpost.errors.photo}}
                     <span class="error">{{this}}</span>
                 {{/each}}

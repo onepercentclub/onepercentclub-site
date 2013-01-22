@@ -26,15 +26,19 @@
 
 {% tplhandlebars "reaction_form" %}
     <fieldset>
-        <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
-        {{#each view.content.errors.reaction}}
-            <span class="error">{{this}}</span>
-        {{/each}}
-        {{#if view.user.is_authenticated }}
-        {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.content.reaction" name="reaction"}}
-        {{else}}
-        {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
-        {{/if}}
+    <ul>
+        <li {{bindAttr class="view.content.errors.reaction.length:error"}}>
+            <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
+            {{#each view.content.errors.reaction}}
+                <span class="error">{{this}}</span>
+            {{/each}}
+            {{#if view.user.is_authenticated }}
+                {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.content.reaction" name="reaction"}}
+            {{else}}
+                {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
+            {{/if}}
+        </li>
+    </ul>
     </fieldset>
     <button type="submit" id="reaction-post">Post</button>
 {% endtplhandlebars %}
