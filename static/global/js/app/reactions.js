@@ -52,7 +52,10 @@ App.WallPostReactionFormView = Em.View.extend({
 
     wallpostBinding: "parentView.content",
 
-    content: App.wallPostReactionController.get('model').createRecord(),
+    // This needs to be as a calculated propety or all reaction forms will be bound to each other
+    content: function(){
+        return App.wallPostReactionController.get('model').createRecord();
+    }.property(),
 
     submit: function(e) {
         e.preventDefault();
