@@ -1,3 +1,5 @@
+from django.contrib.contenttypes.generic import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
 
@@ -49,7 +51,28 @@ class Donation(models.Model):
 class Order(models.Model):
     """
     Order holds OrderItems (Donations/Vouchers).
-    It can be inprogress (eg a shopping cart) or processed and paid
+    It can be in progress (eg a shopping cart) or processed and paid
     """
 
-    
+    class OrderStatuses(DjangoChoices):
+        """
+        """
+        paid = ChoiceItem('paid', label=_("Paid"))
+        new = ChoiceItem('new', label=_("New"))
+
+    user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
+
+    status = models.CharField(_("status"),max_length=20, choices=OrderStatuses.choices, db_index=True)
+
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
+
+    payment = models.ForeignKey('cowry.Payment', null=True)
+
+
+class OrderItem(models.Model):
+    order  = models.ForeignKey(Order)
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    item = GenericForeignKey('content_type', 'object_id')
+

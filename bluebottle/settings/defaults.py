@@ -207,6 +207,11 @@ INSTALLED_APPS = (
     'django_wysiwyg',
     'tinymce',
 
+    # Cowry Payments
+    'cowry',
+    'cowry_docdata',
+    'cowry_ipay',
+
     # bluebottle apps
     'apps.blogs',
     'apps.bluebottle_dashboard',
