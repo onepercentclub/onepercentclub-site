@@ -118,7 +118,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
                 },
                 // Make sure we parse any errors.
                 error: function(xhr) {
-                    this.didHaveErrors(store, type, record, xhr);
+                    this.becameErrorRecord(store, type, record, xhr);
                 }
             });
         }

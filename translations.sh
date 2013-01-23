@@ -7,7 +7,7 @@ MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE"
 COMPILEMESSAGES="$MANAGE_PY compilemessages"
 MINIMUM_PERC="80" # Don't pull in translations with less than this %
 
-APPS="accounts donations geo media organizations projects"
+APPS="accounts donations geo organizations projects"
 
 case "$1" in
         generate)
