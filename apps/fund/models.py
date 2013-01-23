@@ -10,8 +10,7 @@ from apps.bluebottle_utils.fields import MoneyField
 
 class Donation(models.Model):
     """
-    Donation of an amount from a user to one or multiple projects through
-    DonationLine objects.
+    Donation of an amount from a user to a project
     """
 
     class DonationStatuses(DjangoChoices):
@@ -45,3 +44,12 @@ class Donation(models.Model):
 
     def __unicode__(self):
         return str(self.id) + ' : ' + self.project.title + ' : EUR ' + str(self.amount)
+
+
+class Order(models.Model):
+    """
+    Order holds OrderItems (Donations/Vouchers).
+    It can be inprogress (eg a shopping cart) or processed and paid
+    """
+
+    

@@ -217,7 +217,7 @@ INSTALLED_APPS = (
     'apps.love',
     'apps.organizations',
     'apps.projects',
-    'apps.donations',
+    'apps.fund',
     'apps.geo',
     'apps.hbtemplates',
     'apps.reactions',
