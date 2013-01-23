@@ -80,3 +80,10 @@ class OrderItem(models.Model):
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
 
+    @property
+    def amount(self):
+        return self.item.amount
+
+    @property
+    def type(self):
+        return self.item.__class__.__name__

@@ -24,7 +24,11 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    amount = fields.Field(source='amount')
+    type = fields.Field(source='type')
+
+    # TODO: At conditional seriliazers for Donation or Voucher here on source='item'
 
     class Meta:
         model = OrderItem
-        fields = ('content_type', 'object_id')
+        fields = ('amount', 'type', )
