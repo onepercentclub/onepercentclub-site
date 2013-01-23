@@ -1,10 +1,8 @@
 from decimal import Decimal
-
 from django.test import TestCase
-
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin
-
+from rest_framework import status
 from .models import Donation
 
 
@@ -23,6 +21,7 @@ class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
             amount = Decimal('10.00')
 
         return Donation(user=user, amount=amount, status=status, project=project)
+
 
 class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
     """ Tests for donations. """
@@ -52,58 +51,99 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
         donation.save()
 
 
-#   TODO: get_supporters() has been removed from the Project model. I'm keeping
-#   this code around because the logic will be useful for when it's re-enabled.
-#   See BB-79.
-#    def test_supporters(self):
-#        """
-#        Test whether project supporters are properly returned.
-#
-#        TODO: This *might* belong in the projects app *but* this would
-#        yield a cyclical import. Solution: turn tests into module with
-#        base classes in `base.py` instead of having everything in one file.
-#        """
-#        project = self.create_project(
-#            title='Banana Project',
-#            slug='banana'
-#        )
-#        project.save()
-#
-#        other_user = self.create_user()
-#        donation = self.create_donation(project=project, user=other_user)
-#        donation.save()
-#
-#        # Test wether a single supporter is properly listed
-#        supporters = list(project.get_supporters())
-#
-#        self.assertEqual(supporters, [donation.user])
-#
-#        # Add another
-#        other_user = self.create_user()
-#        donation = self.create_donation(project=project, user=other_user)
-#        donation.save()
-#
-#
-#        supporters = project.get_supporters()
-#        self.assertIn(other_user, supporters)
-#        self.assertEquals(supporters.count(), 2)
-#
-#        # second payment by the other_user
-#        donation = self.create_donation(project=project, user=other_user)
-#        donation.save()
-#
-#        # other_user should only be listed once
-#        supporters = project.get_supporters()
-#        self.assertEquals(supporters.count(), 2)
-#
-#        # Add a poor guy
-#        poor_guy = self.create_user()
-#        donation = self.create_donation(
-#                            project=project,
-#                            user=poor_guy,
-#                            status='cancelled')
-#        donation.save()
-#
-#        # Since donation was cancelled it still should be 2 supporters
-#        supporters = project.get_supporters()
-#        self.assertEquals(supporters.count(), 2)
+# Integration tests for API
+
+class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
+    """
+    Integration tests for the Project Media WallPost API.
+    """
+
+    def setUp(self):
+        self.some_project = self.create_project()
+        self.another_project = self.create_project()
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+        self.cart_donations_url = '/i18n/api/fund/cart/donations/'
+        self.cart_items_url = '/i18n/api/fund/cart/'
+
+
+    def test_cart_donation_crud(self):
+        """
+        Tests for creating, retrieving, updating and deleting a donation to shopping cart.
+        """
+
+        # Create a Donation
+        self.client.login(username=self.some_user.username, password='password')
+        response = self.client.post(self.cart_donations_url, {'project_id': self.some_project.id, 'amount': 35})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['amount'], 35)
+        self.assertEqual(response.data['project_id'], self.some_project.id)
+        self.assertEqual(response.data['status'], 'new')
+
+        # Retrieve the created Donation
+        donation_detail_url = "{0}{1}".format(self.cart_donations_url, response.data['id'])
+        response = self.client.get(donation_detail_url)
+        self.assertEqual(response.data['amount'], 35)
+        self.assertEqual(response.data['project_id'], self.some_project.id)
+
+        # Retrieve the list with all donations in this cart should return one
+        response = self.client.get(self.cart_donations_url)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(response.data['results'][0]['amount'], 35)
+        self.assertEqual(response.data['results'][0]['project_id'], self.some_project.id)
+
+        # Create another Donation
+        response = self.client.post(self.cart_donations_url, {'project_id': self.another_project.id, 'amount': 12.50})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['amount'], 12.5)
+        self.assertEqual(response.data['project_id'], self.another_project.id)
+
+        # Retrieve the list with all donations in this cart should return one
+        response = self.client.get(self.cart_donations_url)
+        self.assertEqual(response.data['count'], 2)
+        self.assertEqual(response.data['results'][0]['amount'], 35)
+        self.assertEqual(response.data['results'][1]['amount'], 12.5)
+        self.assertEqual(response.data['results'][0]['project_id'], self.some_project.id)
+
+        # Update the created Donation by owner.
+        response = self.client.put(donation_detail_url, {'amount': 150, 'project_id': self.some_project.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['amount'], 150)
+
+        # Update the status of the created Donation by owner should fail.
+        response = self.client.put(donation_detail_url, {'amount': 150, 'project_id': self.some_project.id, 'status': 'paid'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['amount'], 150)
+        self.assertEqual(response.data['status'], 'new')
+
+        # Delete a donation should work the list shoudl have one donation now
+        response = self.client.delete(donation_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response.data)
+        response = self.client.get(self.cart_donations_url)
+        self.assertEqual(response.data['count'], 1)
+
+        # Another user should not see the cart of the first user
+        self.client.logout()
+        self.client.login(username=self.another_user.username, password='password')
+        response = self.client.get(self.cart_donations_url)
+        self.assertEqual(response.data['count'], 0)
+
+        # Another user should not be able to view a donation in the cart of the first user
+        response = self.client.get(donation_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
+
+        # Now let's get anonymous and create a donation
+        self.client.logout()
+        response = self.client.post(self.cart_donations_url, {'project_id': self.some_project.id, 'amount': 71})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['amount'], 71)
+        self.assertEqual(response.data['project_id'], self.some_project.id)
+        self.assertEqual(response.data['status'], 'new')
+        response = self.client.get(self.cart_donations_url)
+        self.assertEqual(response.data['count'], 1)
+
+        # Login and out again... The anonymous cart should NOT be returned
+        self.client.login(username=self.some_user.username, password='password')
+        self.client.logout()
+        response = self.client.get(self.cart_donations_url)
+        self.assertEqual(response.data['count'], 0)
