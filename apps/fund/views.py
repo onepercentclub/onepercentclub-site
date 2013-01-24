@@ -11,21 +11,28 @@ from .serializers import DonationSerializer, OrderItemSerializer
 
 
 class CartMixin(object):
+
     def get_or_create_order(self):
-        order_id = self.request.session.get("cart_session")
-        # check if we can find the order from sessions
-        if order_id:
+        # see if the user already has a order (with status 'cart') in the database
+        if self.request.user.is_authenticated():
             try:
-                order = Order.objects.get(id=order_id, status=Order.OrderStatuses.cart)
+                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.cart)
             except Order.DoesNotExist:
-                # Check if the user has an open order that wasn't in session
-                # TODO: Make this work?
-                # if self.request.user.is_aunthenticated():
-                # order = Order.objects.filter(user=self.request.user, status=Order.OrderStatuses.cart).get()
-                # if not order:
+                # If we can't find a order (cart) for this user create one
                 order = self.create_cart()
         else:
-            order = self.create_cart()
+            # For an anonymous user the order (cart) might be stored in the session
+            order_id = self.request.session.get("cart_session")
+            if order_id:
+                try:
+                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.cart)
+                except Order.DoesNotExist:
+                    # The order_id was not a cart in the db, create a new order (cart)
+                    order = self.create_cart()
+            else:
+                # No order_id in session. Create a new order (cart)
+                order = self.create_cart()
+
         return order
 
     def create_cart(self):
