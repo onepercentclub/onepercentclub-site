@@ -19,7 +19,7 @@ class CartMixin(object):
                 order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.cart)
             except Order.DoesNotExist:
                 # If we can't find a order (cart) for this user create one
-                order = self.create_cart()
+                order = self.create_order()
         else:
             # For an anonymous user the order (cart) might be stored in the session
             order_id = self.request.session.get("cart_session")
@@ -28,14 +28,14 @@ class CartMixin(object):
                     order = Order.objects.get(id=order_id, status=Order.OrderStatuses.cart)
                 except Order.DoesNotExist:
                     # The order_id was not a cart in the db, create a new order (cart)
-                    order = self.create_cart()
+                    order = self.create_order()
             else:
                 # No order_id in session. Create a new order (cart)
-                order = self.create_cart()
+                order = self.create_order()
 
         return order
 
-    def create_cart(self):
+    def create_order(self):
         order = Order(created=timezone.now(), status=Order.OrderStatuses.cart)
         if self.request.user.is_authenticated():
             order.user = self.request.user
