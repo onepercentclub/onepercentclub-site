@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.generic import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models.aggregates import Sum
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
@@ -75,6 +76,13 @@ class Order(models.Model):
     updated = ModificationDateTimeField(_("updated"))
 
     payment = models.ForeignKey('cowry.Payment', null=True)
+
+    @property
+    def amount(self):
+        amount = 0
+        for item in self.orderitem_set.all():
+            amount += item.amount
+        return amount
 
 
 class OrderItem(models.Model):
