@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 
     url(r'^cart/donations/$', OrderDonationList.as_view(), name='fund-cart-donation-detail'),
     surl(r'^cart/donations/<pk:#>$', OrderDonationDetail.as_view(), name='fund-cart-donation-detail'),
+
 )
