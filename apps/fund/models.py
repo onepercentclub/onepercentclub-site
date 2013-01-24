@@ -53,6 +53,7 @@ class Donation(models.Model):
         OrderItem.objects.filter(object_id=self.id,content_type=ContentType.objects.get_for_model(Donation)).delete()
         return super(Donation, self).delete()
 
+
 class Order(models.Model):
     """
     Order holds OrderItems (Donations/Vouchers).
