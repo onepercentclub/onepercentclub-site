@@ -22,6 +22,7 @@ class Donation(models.Model):
         after the actual use cases (ie. payout operations, project and
         member notifications). (TODO)
         """
+        cart = ChoiceItem('cart', label=_("Cart"))
         closed = ChoiceItem('closed', label=_("Closed"))
         expired = ChoiceItem('expired', label=_("Expired"))
         paid = ChoiceItem('paid', label=_("Paid"))
@@ -59,10 +60,11 @@ class Order(models.Model):
     """
 
     class OrderStatuses(DjangoChoices):
-        """
-        """
-        paid = ChoiceItem('paid', label=_("Paid"))
+        cart = ChoiceItem('cart', label=_("Cart"))
         new = ChoiceItem('new', label=_("New"))
+        pending = ChoiceItem('pending', label=_("Pending"))
+        failed = ChoiceItem('failed', label=_("Failed"))
+        paid = ChoiceItem('paid', label=_("Paid"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
 
@@ -78,12 +80,12 @@ class OrderItem(models.Model):
     order  = models.ForeignKey(Order)
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    item = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     @property
     def amount(self):
-        return self.item.amount
+        return self.content_object.amount
 
     @property
     def type(self):
-        return self.item.__class__.__name__
+        return self.content_object.__class__.__name__

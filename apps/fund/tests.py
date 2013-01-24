@@ -55,7 +55,7 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
 
 class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
     """
-    Integration tests for the Project Media WallPost API.
+    Integration tests for the adding Donations to an Order (a cart in this case)
     """
 
     def setUp(self):
@@ -64,8 +64,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.some_user = self.create_user()
         self.another_user = self.create_user()
         self.cart_donations_url = '/i18n/api/fund/cart/donations/'
-        self.cart_items_url = '/i18n/api/fund/cart/'
-
 
     def test_cart_donation_crud(self):
         """
@@ -78,7 +76,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 35)
         self.assertEqual(response.data['project_id'], self.some_project.id)
-        self.assertEqual(response.data['status'], 'new')
+        self.assertEqual(response.data['status'], 'cart')
 
         # Retrieve the created Donation
         donation_detail_url = "{0}{1}".format(self.cart_donations_url, response.data['id'])
@@ -110,11 +108,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], 150)
 
-        # Update the status of the created Donation by owner should fail.
+        # Update the status of the created Donation by owner should be ignored
         response = self.client.put(donation_detail_url, {'amount': 150, 'project_id': self.some_project.id, 'status': 'paid'})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], 150)
-        self.assertEqual(response.data['status'], 'new')
+        self.assertEqual(response.data['status'], 'cart')
 
         # Delete a donation should work the list shoudl have one donation now
         response = self.client.delete(donation_detail_url)
@@ -138,7 +136,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 71)
         self.assertEqual(response.data['project_id'], self.some_project.id)
-        self.assertEqual(response.data['status'], 'new')
+        self.assertEqual(response.data['status'], 'cart')
         response = self.client.get(self.cart_donations_url)
         self.assertEqual(response.data['count'], 1)
 
