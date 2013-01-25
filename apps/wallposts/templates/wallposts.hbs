@@ -10,6 +10,7 @@
             <h2>{% trans "Comments & Updates" %}</h2>
         </header>
 
+        {# TODO: Need better way to do authentication. #}
         {{#if view.user.username }}
             {{#if view.isOwner }}
                 {{view App.MediaWallPostFormView}}
@@ -108,7 +109,6 @@
 {% tplhandlebars "projectwallpost" %}
 
 <article class="wallpost">
-
     <header>
         <h3>{{title}}</h3>
         <small class="timestamp">{{timesince}} {% trans "ago" %}</small>

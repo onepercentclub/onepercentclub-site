@@ -1,3 +1,5 @@
+App.loadTemplates(['reactions']);
+
 App.Reaction = DS.Model.extend({
     url: 'reactions',
 

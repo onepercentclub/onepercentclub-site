@@ -21,12 +21,13 @@ App.Project = DS.Model.extend({
     money_donated: DS.attr('number'),
     tags: DS.attr('array'),
     owner: DS.belongsTo('App.Member'),
-    country: DS.belongsTo('App.Country')
+    country: DS.belongsTo('App.Country'),
 
-//    // FIXME: For now we set some default values here because we don't have actual numbers
-//    supporter_count: DS.attr('number', {defaultValue: 123}),
-//    days_left: DS.attr('number', {defaultValue: 123}),
-//
+    // FIXME: For now we set some default values here because we don't have actual numbers
+    supporter_count: DS.attr('number', {defaultValue: 123}),
+    days_left: DS.attr('number', {defaultValue: 123})
+
+// TODO: defaultValue doesn't seem to be working with Ember 1.0.0 pre4
 //    // FIXME: For now we do some html generating here.
 //    // TODO: solve this in Ember or Handlebars helper
 //    days_left_span: function() {

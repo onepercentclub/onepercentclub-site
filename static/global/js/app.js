@@ -58,18 +58,6 @@
     Em.View.reopen({
         userBinding: "App.userController.content",
         isLoggedInBinding: "App.userController.isLoggedIn",
-//        didInsertElement: function() {
-//            // Re-init all behaviours defined in main.js
-//            // TODO: Move all behaviour to Ember app?
-//            try {
-//                initBehaviour(this.get('$'));
-//            } catch (err) {
-//                // Some views cough on this...
-//                // TODO: Find out which views (the first?) causes problems and why
-//            }
-//            this._super();
-//        },
-
     });
 
     App = Em.Application.create({
@@ -77,7 +65,6 @@
             var hash = {};
             hash.url = '/en/templates/' + template + '.hbs';
             hash.type = 'GET';
-//            hash.dataType = 'html';
             hash.contentType = 'application/json';
             hash.success = callback;
             hash.error = function(jqXHR, textStatus, errorThrown) {
@@ -87,9 +74,6 @@
         },
 
         loadTemplate: function(templateFilename) {
-//            if (!templateName || Em.TEMPLATES[templateName]) {
-//                return;
-//            }
             this._getTemplate(templateFilename, function(data) {
                 // Iterate through handlebar tags
                 $(data).filter('script[type="text/x-handlebars"]').each(function() {
@@ -140,9 +124,9 @@
         reactions: {embedded: 'load'}
     });
 
+
     App.store = DS.Store.create({
         revision: 11,
-
         adapter: App.Adapter.create()
     });
 
@@ -182,15 +166,9 @@
     });
 
 
-    /* Routing */
 
-//    Ember.Route.reopen({
-//        renderTemplate: function(controller, model) {
-//            this.render();
-//
-//
-//        }
-//    });
+
+    /* Routing */
 
     App.SlugRouter = Em.Mixin.create({
         serialize: function(model, params) {
@@ -238,7 +216,7 @@
             // The RecordArray returned by findQuery can't be manipulated directly so we're converting it to an Ember array.
             // http://stackoverflow.com/questions/11895629/add-delete-items-from-ember-data-backed-arraycontroller
             // https://github.com/emberjs/data/issues/370
-            wallpostsController.set('content', App.Projectwallpost.find({project_slug: project.get('slug')}).toArray());
+            wallpostsController.set('content', App.Projectwallpost.find({project_slug: project.get('slug')}));
 
             // WallPost creation form controller.
             var newWallpostController = this.controllerFor('projectwallpostNew');
@@ -270,7 +248,6 @@
             return App.Projectwallpost.find(params.projectwallpost_id);
         },
         setupController: function(controller, wallpost) {
-            console.log(this.toString() + '.setupController');
             controller.set('content', wallpost);
         }
     });

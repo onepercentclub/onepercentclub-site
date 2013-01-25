@@ -58,21 +58,6 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
         }
     }
 
-    /**
-     * Extract the next link in DRF2 format so multiple calls to findAll() will work.
-     */
-//    extractMeta: function(loader, type, json) {
-//
-//        if (since = json['next']) {
-//            // This registers the next link with the store so the next call to findAll() will work.
-//            loader.sinceForType(type, since);
-//        }
-//    },
-
-    /**
-     * Disable the sideload method because DRF2 doesn't support sideloading.
-     */
-//    sideload: function(loader, type, json, root) { }
 });
 
 

@@ -7,7 +7,7 @@ App.loadTemplates(['wallposts']);
 
 App.MediaWallPostPhoto = DS.Model.extend({
     photo: DS.attr('string'),
-    thumbnail: DS.attr('string'),
+    thumbnail: DS.attr('string')
 });
 
 // This is union of all different wallposts.
@@ -42,9 +42,6 @@ App.ProjectTextWallPost = App.Projectwallpost.extend({
  Controllers
  */
 
-
-
-
 App.WallPostControllerMixin = Em.Mixin.create({
 
     deleteWallPost: function(update_ui_callback) {
@@ -67,7 +64,7 @@ App.WallPostControllerMixin = Em.Mixin.create({
 
 });
 
-App.ProjectwallpostsController = Em.ArrayController.extend(App.WallPostControllerMixin, {
+App.ProjectwallpostsController = Em.ArrayController.extend({
 
     isOwner: function() {
         var user = this.get('user');
@@ -85,22 +82,24 @@ App.ProjectwallpostNewController = Em.ObjectController.extend({
 
     content: App.Projectwallpost.createRecord(),
 
-    addMediaWallPost: function(mediawallpost) {
+    addMediaWallPost: function() {
         var transaction = App.store.transaction();
-        var livemediawallpost = transaction.createRecord(App.ProjectMediaWallPost, mediawallpost);
-        livemediawallpost.set('project_id', this.get('project.id'));
-        livemediawallpost.set('photo_file', mediawallpost.get('photo_file'));
-        livemediawallpost.on('didCreate', function(record) {
-            App.projectWallPostListController.get('content').unshiftObject(record);
-            mediawallpost.set('title', '');
-            mediawallpost.set('text', '');
-            mediawallpost.set('video_url', '');
-            mediawallpost.set('photo', '');
-            mediawallpost.set('photo_file', null);
-            mediawallpost.set('errors', null);
+        var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
+        mediawallpost.set('content.title', this.get('content.titel'));
+        mediawallpost.set('content.text', this.get('content.text'));
+        mediawallpost.set('content.video_url', this.get('content.video_url'));
+        mediawallpost.set('content.photo', this.get('content.photo'));
+        mediawallpost.set('project_id', this.get('currentProject.id'));
+        mediawallpost.set('photo_file', this.get('content.photo_file'));
+        var controller = this;
+        mediawallpost.on('didCreate', function(record) {
+            controller.get('projectwallpostsController.content').unshiftObject(record);
+            controller.clearWallPost()
         });
-        livemediawallpost.on('becameInvalid', function(record) {
-            mediawallpost.set('errors', record.get('errors'));
+        mediawallpost.on('becameInvalid', function(record) {
+            controller.set('errors', record.get('errors'));
+//            TODO: The record needs need to be deleted somehow.
+//            record.deleteRecord();
         });
         transaction.commit();
     },
@@ -117,12 +116,18 @@ App.ProjectwallpostNewController = Em.ObjectController.extend({
         });
         textwallpost.on('becameInvalid', function(record) {
             controller.set('content.errors', record.get('errors'));
+//            TODO: The record needs need to be deleted somehow.
+//            record.deleteRecord();
         });
         transaction.commit();
     },
 
     clearWallPost: function() {
+        this.set('content.title', '');
         this.set('content.text', '');
+        this.set('content.video_url', '');
+        this.set('content.photo', '');
+        this.set('content.photo_file', null);
         this.set('content.errors', null);
     }
 
@@ -175,11 +180,11 @@ App.UploadFileView = Ember.TextField.extend({
             var view = this;
             reader.onload = function(e) {
                 // This should really be saved someplace else.
-                view.get('wallpost').set('photo_preview', e.target.result);
-            }
+                view.get('content').set('photo_preview', e.target.result);
+            };
             reader.readAsDataURL(input.files[0]);
             // The File object needs to be set on the Model so that it can be accesses in the DRF2 adapter.
-            this.get('wallpost').set('photo_file', input.files[0]);
+            this.get('content').set('photo_file', input.files[0]);
         }
     }
 });
@@ -197,13 +202,14 @@ App.ProjectwallpostView = Em.View.extend({
 });
 
 
-// child views different templates
+// Idea of how to have child views with different templates
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
 App.ProjectwallpostsView = Em.View.extend({
     templateName: 'projectwallposts'
 });
 
 
+// FixMe
 App.WallPostDeleteButton = Em.View.extend({
     click: function(e) {
         if (confirm("Delete this wallpost?")) {
