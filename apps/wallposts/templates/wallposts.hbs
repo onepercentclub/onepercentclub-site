@@ -12,7 +12,7 @@
 
         {# TODO: Need better way to do authentication. #}
         {{#if view.user.username }}
-            {{#if view.isOwner }}
+            {{#if isProjectOwner }}
                 {{view App.MediaWallPostFormView}}
             {{else}}
                 {{view App.TextWallPostFormView content=content}}
@@ -31,35 +31,35 @@
 
     <fieldset>
         <ul>
-            <li {{bindAttr class="view.wallpost.errors.title.length:error"}}>
+            <li {{bindAttr class="errors.title.length:error"}}>
                 {{#each view.wallpost.errors.title}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-title" class="inline">
                     {% trans "Title of your update." %}
                 </label>
-                {{view Ember.TextField valueBinding="view.wallpost.title" id="wallpost-title" name="wallpost-title"}}
+                {{view Ember.TextField valueBinding="title" id="wallpost-title" name="wallpost-title"}}
             </li>
-            <li {{bindAttr class="view.wallpost.errors.text.length:error"}}>
-                {{#each view.wallpost.errors.text}}
+            <li {{bindAttr class="errors.text.length:error"}}>
+                {{#each errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-update" class="inline">
                     {% trans "Your update." %}
                 </label>
-                {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+                {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
-            <li {{bindAttr class="view.wallpost.errors.video_url.length:error"}}>
-                {{#each view.wallpost.errors.video_url}}
+            <li {{bindAttr class="errors.video_url.length:error"}}>
+                {{#each errors.video_url}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-video" class="inline">
                     {% trans "Link to video on YouTube or Vimeo." %}
                 </label>
-                {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
+                {{view Ember.TextField valueBinding="video_url" id="wallpost-video" name="wallpost-video"}}
             </li>
-            <li {{bindAttr class="view.wallpost.errors.photo.length:error"}}>
-                {{#each view.wallpost.errors.photo}}
+            <li {{bindAttr class="errors.photo.length:error"}}>
+                {{#each errors.photo}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
@@ -67,7 +67,7 @@
 {#                <span class="fileinput-button image">#}
 {#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
 {#                </span>#}
-                {{view App.UploadFileView valueBinding="view.wallpost.photo" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                {{view App.UploadFileView valueBinding="photo" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
             </li>
         </ul>
     </fieldset>

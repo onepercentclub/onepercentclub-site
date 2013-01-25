@@ -51,9 +51,6 @@
         }
     });
 
-    Em.Controller.reopen({
-        userBinding: "App.userController.content"
-    });
 
     Em.View.reopen({
         userBinding: "App.userController.content",
@@ -153,6 +150,7 @@
         }.property('username')
     });
 
+
 // TODO: This needs to be changed to extend(). See note about this here:
 // https://github.com/emberjs/ember.js/commit/c1c720781c976f69fd4014ea50a1fee652286048
     App.userController = Em.ObjectController.createWithMixins({
@@ -164,8 +162,6 @@
             this.set("content", App.User.find('current'));
         }
     });
-
-
 
 
     /* Routing */
@@ -221,6 +217,9 @@
             var newWallpostController = this.controllerFor('projectwallpostNew');
             newWallpostController.set('currentProject', project);
             newWallpostController.set('projectwallpostsController', wallpostsController);
+            // FIXME I don't think this is the way we want to do this.
+            newWallpostController.set('currentUser', App.userController.get('content'));
+
         },
 
         renderTemplate: function(controller, model) {

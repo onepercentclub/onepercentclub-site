@@ -79,14 +79,7 @@ App.ProjectwallpostsController = Em.ArrayController.extend({
     }.observes('wallposts.isLoaded'),
 
 
-    isOwner: function() {
-        var user = this.get('user');
-        var owner = this.get('content.owner');
-        if (user && owner && user.get('username')) {
-            return user.get('username') == owner.get('username');
-        }
-        return false;
-    }.property('user', 'content.owner')
+
 
 });
 
@@ -97,8 +90,8 @@ App.ProjectwallpostNewController = Em.ObjectController.extend({
 
     addMediaWallPost: function() {
         var transaction = App.store.transaction();
-        var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
-        mediawallpost.set('content.title', this.get('content.titel'));
+        var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost, this.get('content'));
+        mediawallpost.set('content.title', this.get('content.title'));
         mediawallpost.set('content.text', this.get('content.text'));
         mediawallpost.set('content.video_url', this.get('content.video_url'));
         mediawallpost.set('content.photo', this.get('content.photo'));
@@ -142,7 +135,16 @@ App.ProjectwallpostNewController = Em.ObjectController.extend({
         this.set('content.photo', '');
         this.set('content.photo_file', null);
         this.set('content.errors', null);
-    }
+    },
+
+    isProjectOwner: function() {
+        var user = this.get('currentUser');
+        var owner = this.get('currentProject.owner');
+        if (user && owner && user.get('username')) {
+            return user.get('username') == owner.get('username');
+        }
+        return false;
+    }.property('currentUser', 'currentProject.owner')
 
 });
 
