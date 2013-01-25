@@ -88,3 +88,6 @@ django-templatetag-handlebars
 -e git+https://github.com/onepercentclub/django-cowry.git#egg=django_cowry
 -e git+https://github.com/onepercentclub/django-cowry-docdata.git#egg=django_cowry_docdata
 -e git+https://github.com/onepercentclub/django-cowry-ipay.git#egg=django_cowry_ipay
+
+# Cowry uses django countries
+django_countries
