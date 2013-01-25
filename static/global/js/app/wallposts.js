@@ -91,10 +91,10 @@ App.ProjectwallpostNewController = Em.ObjectController.extend({
     addMediaWallPost: function() {
         var transaction = App.store.transaction();
         var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost, this.get('content'));
-        mediawallpost.set('content.title', this.get('content.title'));
-        mediawallpost.set('content.text', this.get('content.text'));
-        mediawallpost.set('content.video_url', this.get('content.video_url'));
-        mediawallpost.set('content.photo', this.get('content.photo'));
+        mediawallpost.set('title', this.get('content.title'));
+        mediawallpost.set('text', this.get('content.text'));
+        mediawallpost.set('video_url', this.get('content.video_url'));
+        mediawallpost.set('photo', this.get('content.photo'));
         mediawallpost.set('project_id', this.get('currentProject.id'));
         mediawallpost.set('photo_file', this.get('content.photo_file'));
         var controller = this;
