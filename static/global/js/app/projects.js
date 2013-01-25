@@ -1,4 +1,4 @@
-App.loadTemplates(['projects', 'project_detail']);
+App.loadTemplates(['projects']);
 
 
 App.Country = DS.Model.extend({
