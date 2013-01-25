@@ -1,4 +1,3 @@
-from apps.projects.serializers import ProjectSmallSerializer
 from rest_framework import serializers
 from rest_framework import relations
 from rest_framework import fields
