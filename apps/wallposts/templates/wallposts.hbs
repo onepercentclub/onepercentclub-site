@@ -82,11 +82,11 @@
     <fieldset>
         <ul>
             <li>
-                {{#each content.errors.text}}
+                {{#each errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-update" class="inline">{% trans "Leave your comment here" %}</label>
-                {{view Ember.TextArea valueBinding="content.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+                {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
         </ul>
     </fieldset>

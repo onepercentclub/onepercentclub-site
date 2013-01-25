@@ -183,11 +183,12 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     /**
      * Changes from default:
      * - Check for status code 400 instead of 422.
+     * - Set the response text directly, not from the 'errors' property.
      */
     didError: function(store, type, record, xhr) {
         if (xhr.status === 400) {
             var data = JSON.parse(xhr.responseText);
-            store.recordWasInvalid(record, data['errors']);
+            store.recordWasInvalid(record, data);
         } else {
             // TODO: what does this do? Do we want the console log?
             this._super.apply(this, arguments);
