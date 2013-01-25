@@ -66,6 +66,19 @@ App.WallPostControllerMixin = Em.Mixin.create({
 
 App.ProjectwallpostsController = Em.ArrayController.extend({
 
+    // The list of WallPosts are loaded into that temporary wallposts array in the Route. Once this RecordArray
+    // is loaded, it is converted to an Ember array and put into content. This temporary array is required
+    // because the RecordArray returned by findQuery can't be manipulated directly. Discussion about this
+    // can be found in these two pages:
+    // http://stackoverflow.com/questions/11895629/add-delete-items-from-ember-data-backed-arraycontroller
+    // https://github.com/emberjs/data/issues/370
+    wallpostsLoaded: function(sender, key) {
+        if (this.get(key)) {
+            this.set('content', this.get('wallposts').toArray());
+        }
+    }.observes('wallposts.isLoaded'),
+
+
     isOwner: function() {
         var user = this.get('user');
         var owner = this.get('content.owner');

@@ -213,10 +213,9 @@
 
             // Wallposts list controller.
             var wallpostsController = this.controllerFor('projectwallposts');
-            // The RecordArray returned by findQuery can't be manipulated directly so we're converting it to an Ember array.
-            // http://stackoverflow.com/questions/11895629/add-delete-items-from-ember-data-backed-arraycontroller
-            // https://github.com/emberjs/data/issues/370
-            wallpostsController.set('content', App.Projectwallpost.find({project_slug: project.get('slug')}));
+            // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
+            // wallposts property. The controller will convert it to an Ember Array.
+            wallpostsController.set('wallposts', App.Projectwallpost.find({project_slug: project.get('slug')}));
 
             // WallPost creation form controller.
             var newWallpostController = this.controllerFor('projectwallpostNew');
