@@ -93,14 +93,14 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         # Create another Donation
         response = self.client.post(self.cart_donations_url, {'project': self.another_project.id, 'amount': 12.50})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
-        self.assertEqual(response.data['amount'], 12.5)
+        self.assertEqual(response.data['amount'], Decimal('12.5'))
         self.assertEqual(response.data['project'], self.another_project.id)
 
         # Retrieve the list with all donations in this cart should return one
         response = self.client.get(self.cart_donations_url)
         self.assertEqual(response.data['count'], 2)
         self.assertEqual(response.data['results'][0]['amount'], 35)
-        self.assertEqual(response.data['results'][1]['amount'], 12.5)
+        self.assertEqual(response.data['results'][1]['amount'], Decimal('12.5'))
         self.assertEqual(response.data['results'][0]['project'], self.some_project.id)
 
         # Update the created Donation by owner.
@@ -150,20 +150,27 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.cart_donations_url)
         self.assertEqual(response.data['count'], 1)
-        self.assertEqual(response.data['results'][0]['amount'],12.5)
+        self.assertEqual(response.data['results'][0]['amount'],Decimal('12.5'))
         self.assertEqual(response.data['results'][0]['project'], self.another_project.id)
 
 
-class SelectPaymentMethodIntegrationTest(TestCase):
+
+class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case)
     """
 
     def setUp(self):
+        self.some_project = self.create_project()
+        self.another_project = self.create_project()
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+        self.cart_donations_url = '/i18n/api/fund/cart/donations/'
+        self.checkout_url = '/i18n/api/fund/checkout'
         self.payment_methods_url = '/i18n/api/fund/paymentmethods/'
 
 
-    def show_payment_methods(self):
+    def test_show_payment_methods(self):
         """
         Tests for showing payment methods
         """
@@ -178,6 +185,33 @@ class SelectPaymentMethodIntegrationTest(TestCase):
         response = self.client.get(method_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['slug'], method_detail_slug)
+
+    def test_select_payment_method(self):
+        """
+        Tests for selecting a payment method. This will create a Payment object too.
+        """
+
+        # Create two donations
+        self.client.login(username=self.some_user.username, password='password')
+        self.client.post(self.cart_donations_url, {'project': self.some_project.id, 'amount': 35})
+        self.client.post(self.cart_donations_url, {'project': self.another_project.id, 'amount': 27.50})
+        response = self.client.get(self.cart_donations_url)
+        self.assertEqual(response.data['count'], 2)
+
+        # Check that payment adds up to the right amount
+        response = self.client.get(self.checkout_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['amount'], Decimal('62.5'))
+
+        # get a paymentmethod and set that for this payment
+        response = self.client.get(self.payment_methods_url)
+        paymentmethod_id = response.data['results'][0]['id']
+        response = self.client.put(self.checkout_url, {'payment_method': paymentmethod_id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['payment_method'], paymentmethod_id)
+
+
+
 
 
 

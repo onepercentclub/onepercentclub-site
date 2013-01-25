@@ -116,7 +116,7 @@ class CurrentPaymentMixin(CartMixin):
         if order.payment:
             order.payment.amount = order.amount
             return order.payment
-        payment = Payment(created=timezone.now(), amount=order.amount, status=Payment.PaymentStatuses.cart)
+        payment = Payment(created=timezone.now(), amount=order.amount, status=Payment.PaymentStatuses.checkout)
         if self.request.user.is_authenticated():
             payment.user = self.request.user
         payment.save()
