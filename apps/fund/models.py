@@ -63,6 +63,7 @@ class Order(models.Model):
 
     class OrderStatuses(DjangoChoices):
         cart = ChoiceItem('cart', label=_("Cart"))
+        checkout = ChoiceItem('checkout', label=_("Checkout"))
         new = ChoiceItem('new', label=_("New"))
         pending = ChoiceItem('pending', label=_("Pending"))
         failed = ChoiceItem('failed', label=_("Failed"))

@@ -101,5 +101,3 @@ class OrderDonationDetail(CartMixin, generics.RetrieveUpdateDestroyAPIView):
         queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
         return queryset
 
-
-

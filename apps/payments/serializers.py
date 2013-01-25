@@ -1,7 +1,6 @@
 from apps.bluebottle_drf2.serializers import SorlImageField
 from rest_framework import serializers
 from rest_framework import fields
-
 from cowry.models import Payment, PaymentAdapter, PaymentMethod
 
 
@@ -23,7 +22,8 @@ class PaymentMethodSerializer(serializers.ModelSerializer):
 
 class PaymentSerializer(serializers.ModelSerializer):
     status = fields.Field(source='status')
+    amount = fields.Field(source='amount')
 
     class Meta:
         model = Payment
-        fields = ('id', 'created', 'status', 'payment_method')
+        fields = ('id', 'created', 'status', 'amount', 'payment_method')

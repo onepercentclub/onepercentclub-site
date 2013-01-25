@@ -6,14 +6,12 @@ from .models import Donation, Order, OrderItem
 
 
 class DonationSerializer(serializers.ModelSerializer):
-    project = ProjectSmallSerializer()
-    # Project_id here as a writeable field
-    project_id = relations.PrimaryKeyRelatedField(source='project')
+    project = relations.PrimaryKeyRelatedField(source='project')
     status = fields.Field()
 
     class Meta:
         model = Donation
-        fields = ('id', 'project', 'project_id', 'amount', 'status')
+        fields = ('id', 'project', 'amount', 'status')
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
