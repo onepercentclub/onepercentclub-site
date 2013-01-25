@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from surlex.dj import surl
-from .views import OrderList, OrderItemList, OrderDonationList, OrderDonationDetail, PaymentMethodList, CheckoutDetail
+from .views import (OrderList, OrderItemList, OrderDonationList, OrderDonationDetail, PaymentMethodList,
+                    PaymentMethodDetail, CheckoutDetail)
 
 urlpatterns = patterns('',
     # These two urls are not functioning yet
@@ -10,6 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^cart/donations/$', OrderDonationList.as_view(), name='fund-cart-donation-detail'),
     surl(r'^cart/donations/<pk:#>$', OrderDonationDetail.as_view(), name='fund-cart-donation-detail'),
-    url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='payments-method-list'),
-    url(r'^checkout', CheckoutDetail.as_view(), name='payments-current-detail')
+    url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='fund-paymentmethod-list'),
+    surl(r'^paymentmethods/<pk:#>$', PaymentMethodDetail.as_view(), name='fund-paymentmethod-detail'),
+    url(r'^checkout', CheckoutDetail.as_view(), name='fund-checkout')
 )

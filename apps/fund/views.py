@@ -132,6 +132,11 @@ class PaymentMethodList(generics.ListAPIView):
     paginate_by = 100
 
 
+class PaymentMethodDetail(generics.RetrieveAPIView):
+    model = PaymentMethod
+    serializer_class = PaymentMethodSerializer
+
+
 class CheckoutDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
     model = Payment
     serializer_class = PaymentSerializer
