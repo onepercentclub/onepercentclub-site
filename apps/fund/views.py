@@ -1,5 +1,7 @@
+from apps.bluebottle_drf2.serializers import PolymorphicSerializer
 from apps.fund.serializers import PaymentMethodSerializer, PaymentSerializer
 from cowry.models import Payment, PaymentMethod
+from cowry_docdata.models import PaymentProcess
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -140,6 +142,15 @@ class PaymentMethodDetail(generics.RetrieveAPIView):
 class CheckoutDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
     model = Payment
     serializer_class = PaymentSerializer
+
+    def get_object(self):
+        return self.get_payment()
+
+
+
+class CustomerInfoDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
+    model = PaymentProcess
+    serializer_class = PaymentProcessSerializer
 
     def get_object(self):
         return self.get_payment()

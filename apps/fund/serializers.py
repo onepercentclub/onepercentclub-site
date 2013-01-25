@@ -1,4 +1,5 @@
-from apps.bluebottle_drf2.serializers import SorlImageField
+from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer
+from cowry_ipay.models import PaymentProcess
 from rest_framework import serializers
 from rest_framework import relations
 from rest_framework import fields
@@ -50,3 +51,10 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = ('id', 'created', 'status', 'amount', 'payment_method')
+
+
+class PaymentProcessSerializer(PolymorphicSerializer):
+
+    class Meta:
+        model = PaymentProcess
+        fields = ('id', 'created', 'status')
