@@ -16,22 +16,21 @@ App.WallPostReaction = DS.Model.extend({
 
 
 App.wallPostReactionController = Em.Controller.create({
-    model: App.WallPostReaction,
 
     addReaction: function(reaction, wallpost) {
         // Do a client side check if Reaction as a reaction property set
         // wallpost.reactions has problems with invalid records an will barf
         if (reaction.get('text') == undefined || reaction.get('text') == "") {
             reaction.set('errors', {'text': ['This field is required']});
+            return;
         }
         var transaction = App.store.transaction();
-        var model = this.get('model');
-        var livereaction = transaction.createRecord(model);
-        livereaction.set('text', reaction.get('text'));
+        var newReaction = transaction.createRecord(App.WallPostReaction);
+        newReaction.set('text', reaction.get('text'));
         // Set the wallpost so the list gets updated in the view
-        livereaction.set('wallpost_id', wallpost.get('id'));
-        livereaction.set('wallpost', wallpost);
-        livereaction.on('didCreate', function(record) {
+        newReaction.set('wallpost_id', wallpost.get('id'));
+        newReaction.set('wallpost', wallpost);
+        newReaction.on('didCreate', function(record) {
             // Clear the reaction text in the form
             reaction.set('errors', null);
             reaction.set('text', '');
@@ -49,10 +48,11 @@ App.WallPostReactionFormView = Em.View.extend({
 
     wallpostBinding: "parentView.content",
 
-    // This needs to be as a calculated property or all reaction forms will be bound to each other.
-    content: function(){
-        return App.wallPostReactionController.get('model').createRecord();
-    }.property(),
+    // Each reaction form view needs to have its own reaction model.
+    init: function(){
+        this._super();
+        this.set('content', App.WallPostReaction.createRecord());
+    },
 
     submit: function(e) {
         e.preventDefault();
