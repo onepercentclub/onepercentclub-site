@@ -147,7 +147,7 @@ class ToModelIdField(serializers.RelatedField):
         super(ToModelIdField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
 
     def label_from_instance(self, obj):
-        return "{0} - {1}".format(str(obj.id), smart_str(self.to_model.__unicode__(obj)))
+        return "{0} - {1}".format(smart_str(self.to_model.__unicode__(obj)), str(obj.id))
 
     def prepare_value(self, obj):
         # Called when preparing the ChoiceField widget from the to_model queryset.
