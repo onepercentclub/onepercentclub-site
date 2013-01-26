@@ -39,11 +39,11 @@ App.wallPostReactionController = Em.Controller.create({
         var transaction = App.store.transaction();
         var newReaction = transaction.createRecord(App.WallPostReaction);
         newReaction.set('text', reaction.get('text'));
-        // Set the wallpost so the list gets updated in the view
         newReaction.set('wallpost_id', wallpost.get('id'));
+        // Set the wallpost so the list gets updated in the view
         newReaction.set('wallpost', wallpost);
         newReaction.on('didCreate', function(record) {
-            // Clear the reaction text in the form
+            // Clear the reaction text in the form.
             reaction.set('errors', null);
             reaction.set('text', '');
         });
@@ -109,7 +109,8 @@ App.ReactionView = Em.View.extend({
                 transaction.commit();
             });
         }
-    }});
+    }
+});
 
 
 App.ReactionNoItemsView = Em.View.extend({
