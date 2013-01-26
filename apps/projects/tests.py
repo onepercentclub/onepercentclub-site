@@ -304,7 +304,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
 
         # Test retrieving the first project detail from the list.
         project = response.data['results'][0]
-        response = self.client.get(self.projects_url + str(project['id']))
+        response = self.client.get(self.projects_url + str(project['slug']))
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
@@ -486,14 +486,22 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # View Project WallPost list works for author
         response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 10)
+        self.assertEqual(len(response.data['results']), 4)
         self.assertEqual(response.data['count'], 26)
-        self.assertEqual(response.data['results'][0]['type'], 'media')
-        self.assertEqual(response.data['results'][4]['type'], 'text')
+        mediawallpost = response.data['results'][0]
+
+        # Check that we're correctly getting a list with mixed types.
+        self.assertEqual(mediawallpost['type'], 'media')
+        response = self.client.get(response.data['next'])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 4)
+        self.assertEqual(response.data['count'], 26)
+        self.assertEqual(response.data['results'][0]['type'], 'text')
 
         # Delete a Media WallPost and check that we can't retrieve it anymore
-        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, str(response.data['results'][0]['id']))
+        project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, mediawallpost['id'])
         response = self.client.delete(project_wallpost_detail_url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         response = self.client.get(project_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
@@ -505,7 +513,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.client.logout()
         response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(len(response.data['results']), 10)
+        self.assertEqual(len(response.data['results']), 4)
         self.assertEqual(response.data['count'], 25)
 
 
