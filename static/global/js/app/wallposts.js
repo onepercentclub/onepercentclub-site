@@ -90,7 +90,7 @@ App.ProjectwallpostNewController = Em.ObjectController.extend({
 
     addMediaWallPost: function() {
         var transaction = App.store.transaction();
-        var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost, this.get('content'));
+        var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
@@ -157,12 +157,15 @@ App.MediaWallPostFormView = Em.View.extend({
     templateName: 'media_wallpost_form',
     tagName: 'form',
 
-    wallpost: App.ProjectMediaWallPost.createRecord(),
-
     submit: function(e){
         e.preventDefault();
         this.get('controller').addMediaWallPost();
+    },
+
+    didInsertElement: function() {
+        this.get('controller').clearWallPost();
     }
+
 });
 
 
@@ -206,6 +209,7 @@ App.UploadFileView = Ember.TextField.extend({
 
 
 App.WallPostFormTipView = Em.View.extend({
+    // TODO: ---V
     tagName: 'article',
     classNames: ['sidebar', 'tip', 'not-implemented'],
     templateName: 'wallpost_form_tip'
@@ -217,7 +221,7 @@ App.ProjectwallpostView = Em.View.extend({
 });
 
 
-// Idea of how to have child views with different templates
+// Idea of how to have child views with different templates:
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
 App.ProjectwallpostsView = Em.View.extend({
     templateName: 'projectwallposts'

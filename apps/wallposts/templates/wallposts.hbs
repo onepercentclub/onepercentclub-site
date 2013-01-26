@@ -13,7 +13,7 @@
         {# TODO: Need better way to do authentication. #}
         {{#if view.user.username }}
             {{#if isProjectOwner }}
-                {{view App.MediaWallPostFormView}}
+                {{view App.MediaWallPostFormView content=content}}
             {{else}}
                 {{view App.TextWallPostFormView content=content}}
             {{/if}}
@@ -32,7 +32,7 @@
     <fieldset>
         <ul>
             <li {{bindAttr class="errors.title.length:error"}}>
-                {{#each view.wallpost.errors.title}}
+                {{#each errors.title}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-title" class="inline">
@@ -81,12 +81,12 @@
 
     <fieldset>
         <ul>
-            <li>
+            <li {{bindAttr class="errors.text.length:error"}}>
                 {{#each errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-update" class="inline">{% trans "Leave your comment here" %}</label>
-                {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+                {{view Ember.TextArea valueBinding="content.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
         </ul>
     </fieldset>
