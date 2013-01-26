@@ -20,7 +20,7 @@
 
 
 {% tplhandlebars "reaction_no_items" %}
-    No reactions yet
+    {%trans "No reactions yet." %}
 {% endtplhandlebars %}
 
 
@@ -44,26 +44,4 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "reaction_actions" %}
-    <ul class="reaction-actions">
-        <li><a class="toggle-reactions" data-content-hover="Show comments" data-content-toggled="Hide comments">{{ view.count }} Comments</a></li>
-        <li><a class="toggle-love" data-content="# love this" data-content-hover="Show your love!" data-content-toggled="# - You loved this" data-content-toggled-hover="Unlove?"># Love this</a></li>
-        <li class="share">
-            <strong>Share this</strong>
-            <ul class="share-actions">
-                <li class="share-facebook">Share on Facebook</li>
-                <li class="share-twitter"><a href="#">Share on Twitter</a></li>
-                <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
-            </ul>
-        </li>
-    </ul>
-{% endtplhandlebars %}
 
-
-{% tplhandlebars "reaction_box" %}
-    <div class="reaction-box">
-        {{outlet reactionForm}}
-        {{outlet reactionActions}}
-        {{outlet reactionList}}
-    </div>
-{% endtplhandlebars %}

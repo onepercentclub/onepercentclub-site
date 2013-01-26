@@ -120,6 +120,9 @@
         photos: {embedded: 'load'},
         reactions: {embedded: 'load'}
     });
+    App.Adapter.map('App.WallPostReaction', {
+        author: {embedded: 'load'}
+    });
 
 
     App.store = DS.Store.create({

@@ -1,18 +1,13 @@
 App.loadTemplates(['reactions']);
 
-App.Reaction = DS.Model.extend({
-    url: 'reactions',
+
+App.WallPostReaction = DS.Model.extend({
+    url: 'wallposts/reactions',
 
     text: DS.attr('string'),
     author: DS.belongsTo('App.Member', {embedded: true}),
     created: DS.attr('string'),
-    timesince: DS.attr('string')
-});
-
-
-App.WallPostReaction = App.Reaction.extend({
-    url: 'wallposts/reactions',
-
+    timesince: DS.attr('string'),
     // We need wallpost_id to create reactions in the API
     // This can't be a calculated property because then it won't be part of the API call
     wallpost_id: DS.attr('number'),
@@ -28,11 +23,10 @@ App.wallPostReactionController = Em.Controller.create({
         // wallpost.reactions has problems with invalid records an will barf
         if (reaction.get('text') == undefined || reaction.get('text') == "") {
             reaction.set('errors', {'text': ['This field is required']});
-            return false;
         }
         var transaction = App.store.transaction();
         var model = this.get('model');
-        var livereaction = transaction.createRecord(model, reaction);
+        var livereaction = transaction.createRecord(model);
         livereaction.set('text', reaction.get('text'));
         // Set the wallpost so the list gets updated in the view
         livereaction.set('wallpost_id', wallpost.get('id'));
