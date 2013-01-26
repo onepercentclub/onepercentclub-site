@@ -92,7 +92,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
         // TODO: Create a general solution for detecting when to use multipart/form-data (i.e. detecting
         //       when there are files that need to be sent).
-        if (type.toString() == "App.ProjectMediaWallPost") {
+        if (type.toString() == "App.ProjectMediaWallPost" && record.get('photo') != "") {
             // TODO: Implement this polyfill for older browsers:
             // https://github.com/francois2metz/html5-formdata
             var formdata = new FormData();

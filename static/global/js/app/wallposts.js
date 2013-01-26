@@ -189,7 +189,7 @@ App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
-    wallpostBinding: 'parentView.wallpost',
+    contentBinding: 'parentView.content',
 
     change: function(e) {
         var input = e.target;
@@ -197,7 +197,6 @@ App.UploadFileView = Ember.TextField.extend({
             var reader = new FileReader();
             var view = this;
             reader.onload = function(e) {
-                // This should really be saved someplace else.
                 view.get('content').set('photo_preview', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
