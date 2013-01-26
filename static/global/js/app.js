@@ -130,6 +130,9 @@
         photos: {embedded: 'load'},
         reactions: {embedded: 'load'}
     });
+    App.Adapter.map('App.Reaction', {
+        author: {embedded: 'load'}
+    });
     App.Adapter.map('App.WallPostReaction', {
         author: {embedded: 'load'}
     });

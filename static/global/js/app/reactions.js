@@ -3,14 +3,19 @@ App.loadTemplates(['reactions']);
 /*
  Models
  */
-
-App.WallPostReaction = DS.Model.extend({
-    url: 'wallposts/reactions',
+App.Reaction = DS.Model.extend({
+    url: 'reactions',
 
     text: DS.attr('string'),
-    author: DS.belongsTo('App.Member', {embedded: true}),
+    author: DS.belongsTo('App.Member'),
     created: DS.attr('string'),
-    timesince: DS.attr('string'),
+    timesince: DS.attr('string')
+});
+
+
+App.WallPostReaction = App.Reaction.extend({
+    url: 'wallposts/reactions',
+
     // We need wallpost_id to create reactions in the API
     // This can't be a calculated property because then it won't be part of the API call
     wallpost_id: DS.attr('number'),
