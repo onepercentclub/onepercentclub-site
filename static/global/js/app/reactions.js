@@ -32,7 +32,8 @@ App.wallPostReactionController = Em.Controller.create({
         }
         var transaction = App.store.transaction();
         var model = this.get('model');
-        var livereaction = transaction.createRecord(model, reaction.toJSON());
+        var livereaction = transaction.createRecord(model, reaction);
+        livereaction.set('text', reaction.get('text'));
         // Set the wallpost so the list gets updated in the view
         livereaction.set('wallpost_id', wallpost.get('id'));
         livereaction.set('wallpost', wallpost);
