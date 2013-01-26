@@ -34,7 +34,6 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         if not owner:
             # Create a new user with a random username
             owner = self.create_user()
-        owner.save()
 
         if not slug:
             slug = generate_random_slug()
@@ -387,7 +386,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # Retrieve a list of the two Project Media WallPosts that we've just added should work
-        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_slug': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 2)
         self.assertEqual(response.data['results'][0]['title'], second_wallpost_title)
@@ -484,7 +483,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Retrieve a list of the 26 Project WallPosts
 
         # View Project WallPost list works for author
-        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_slug': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 4)
         self.assertEqual(response.data['count'], 26)
@@ -506,14 +505,26 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
         # WallPost List count should have decreased after deleting one
-        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_slug': self.some_project.slug})
         self.assertEqual(response.data['count'], 25)
 
-        # View Project WallPost list works for guest
+        # View Project WallPost list works for guests.
         self.client.logout()
-        response = self.client.get(self.project_wallposts_url,  {'project_id': self.some_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_slug': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 4)
         self.assertEqual(response.data['count'], 25)
+
+        # Test filtering wallposts by different projects works.
+        self.client.login(username=self.another_project.owner.username, password='password')
+        for char in 'ABCD':
+            title = char * 15
+            self.client.post(self.project_media_wallposts_url, {'title': title, 'project_id': self.another_project.id})
+        response = self.client.get(self.project_wallposts_url,  {'project_slug': self.some_project.slug})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 25)
+        response = self.client.get(self.project_wallposts_url,  {'project_slug': self.another_project.slug})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 4)
 
 

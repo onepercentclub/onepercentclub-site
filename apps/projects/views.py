@@ -34,9 +34,14 @@ class ProjectWallPostMixin(object):
         queryset = super(ProjectWallPostMixin, self).get_queryset()
         project_type = ContentType.objects.get_for_model(Project)
         queryset = queryset.filter(content_type=project_type)
-        project_id = self.request.QUERY_PARAMS.get('project_id', None)
-        if project_id:
-            queryset = queryset.filter(object_id=project_id)
+        project_slug = self.request.QUERY_PARAMS.get('project_slug', None)
+        if project_slug:
+            try:
+                project = Project.objects.get(slug=project_slug)
+            except Project.DoesNotExist:
+                pass
+            else:
+                queryset = queryset.filter(object_id=project.id)
         queryset = queryset.order_by("-created")
         return queryset
 
