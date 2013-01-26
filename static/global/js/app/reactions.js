@@ -85,17 +85,11 @@ App.ReactionView = Em.View.extend({
         return false;
     }.property('user', 'content'),
 
-    deleteReaction: function(e) {
+    deleteReaction: function() {
         if (confirm("Delete this reaction?")) {
-            e.preventDefault();
             var transaction = App.store.transaction();
             var reaction = this.get('content');
             transaction.add(reaction);
-            // Clear author here
-            // TODO: Have a proper solution for belongsTo fields in adapter
-            reaction.reopen({
-                author: null
-            });
             this.$().fadeOut(500, function(){
                 reaction.deleteRecord();
                 transaction.commit();
