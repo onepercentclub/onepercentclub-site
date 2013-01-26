@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 
-{% tplhandlebars "projects" %}
+{% tplhandlebars "project_list" %}
 
 <div class="container">
     <section class="wrapper">
@@ -96,8 +96,8 @@
 
     </section>
 
-    {{outlet wallpostnew}}
-    {{outlet projectwallposts}}
+    {{outlet projectWallPostNew}}
+    {{outlet projectWallPostList}}
 
 </div>
 

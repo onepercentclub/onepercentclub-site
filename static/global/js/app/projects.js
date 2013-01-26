@@ -55,4 +55,6 @@ App.ProjectSupportersView = Em.View.extend({
 });
 
 
-
+App.ProjectListView = Em.View.extend({
+    templateName: 'project_list'
+});

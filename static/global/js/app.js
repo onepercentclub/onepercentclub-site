@@ -180,7 +180,7 @@
 
     App.Router.map(function() {
         this.route("home", { path: "/" });
-        this.resource('projects', {path: '/projects'}, function() {
+        this.resource('projectList', {path: '/projects'}, function() {
             this.route('new');
             this.route('search');
         });
@@ -191,7 +191,7 @@
     });
 
 
-    App.ProjectsRoute = Ember.Route.extend({
+    App.ProjectListRoute = Ember.Route.extend({
         model: function() {
             return App.Project.find({phase: 'fund'});
         }
@@ -208,17 +208,17 @@
             controller.set('content', project);
 
             // Wallposts list controller.
-            var wallpostsController = this.controllerFor('projectWallPosts');
+            var wallpostListController = this.controllerFor('projectWallPostList');
             // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
             // wallposts property. The controller will convert it to an Ember Array.
-            wallpostsController.set('wallposts', App.ProjectWallPost.find({project_slug: project.get('slug')}));
+            wallpostListController.set('wallposts', App.ProjectWallPost.find({project_slug: project.get('slug')}));
 
             // WallPost creation form controller.
-            var newWallpostController = this.controllerFor('projectWallPostNew');
-            newWallpostController.set('currentProject', project);
-            newWallpostController.set('projectWallPostsController', wallpostsController);
+            var newWallPostController = this.controllerFor('projectWallPostNew');
+            newWallPostController.set('currentProject', project);
+            newWallPostController.set('projectWallPostListController', wallpostListController);
             // FIXME I don't think this is the way we want to do this.
-            newWallpostController.set('currentUser', App.userController.get('content'));
+            newWallPostController.set('currentUser', App.userController.get('content'));
 
         },
 
@@ -226,16 +226,16 @@
             this._super();
 
             // Render the wallposts list.
-            this.render('projectwallposts', {
+            this.render('projectwallpost_list', {
                 into: 'project',
-                outlet: 'projectwallposts',
-                controller: 'projectWallPosts'
+                outlet: 'projectWallPostList',
+                controller: 'projectWallPostList'
             });
 
             // Render the wallpost creation form.
-            this.render('wallpost_new', {
+            this.render('projectwallpost_new', {
                 into: 'project',
-                outlet: 'wallpostnew',
+                outlet: 'projectWallPostNew',
                 controller: 'projectWallPostNew'
             });
         }

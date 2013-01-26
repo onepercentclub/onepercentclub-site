@@ -64,9 +64,9 @@ App.WallPostControllerMixin = Em.Mixin.create({
 
 });
 
-App.ProjectWallPostsController = Em.ArrayController.extend({
+App.ProjectWallPostListController = Em.ArrayController.extend({
 
-    // The list of WallPosts are loaded into that temporary wallposts array in the Route. Once this RecordArray
+    // The list of WallProjectWallPost are loaded into that temporary wallposts array in the Route. Once this RecordArray
     // is loaded, it is converted to an Ember array and put into content. This temporary array is required
     // because the RecordArray returned by findQuery can't be manipulated directly. Discussion about this
     // can be found in these two pages:
@@ -76,10 +76,7 @@ App.ProjectWallPostsController = Em.ArrayController.extend({
         if (this.get(key)) {
             this.set('content', this.get('wallposts').toArray());
         }
-    }.observes('wallposts.isLoaded'),
-
-
-
+    }.observes('wallposts.isLoaded')
 
 });
 
@@ -99,7 +96,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         mediawallpost.set('photo_file', this.get('content.photo_file'));
         var controller = this;
         mediawallpost.on('didCreate', function(record) {
-            controller.get('projectWallPostsController.content').unshiftObject(record);
+            controller.get('projectWallPostListController.content').unshiftObject(record);
             controller.clearWallPost()
         });
         mediawallpost.on('becameInvalid', function(record) {
@@ -117,7 +114,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         textwallpost.set('project_id', this.get('currentProject.id'));
         var controller = this;
         textwallpost.on('didCreate', function(record) {
-            controller.get('projectWallPostsController.content').unshiftObject(record);
+            controller.get('projectWallPostListController.content').unshiftObject(record);
             controller.clearWallPost()
         });
         textwallpost.on('becameInvalid', function(record) {
@@ -222,8 +219,8 @@ App.ProjectWallPostView = Em.View.extend({
 
 // Idea of how to have child views with different templates:
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
-App.ProjectWallPostsView = Em.View.extend({
-    templateName: 'projectwallposts'
+App.ProjectWallPostListView = Em.View.extend({
+    templateName: 'projectwallpost_list'
 });
 
 
