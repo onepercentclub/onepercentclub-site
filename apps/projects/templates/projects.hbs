@@ -119,23 +119,40 @@
                     </li>
                 </ul>
             </li>
-            <li class="member-project-team  not-implemented">
+            <li class="member-project-team not-implemented">
                 <h4>Project Team</h4>
                 <ul>
-                {# TODO: Add team to Project  Controller #}
-                {{#each team}}
-
                     <li>
                         <a href="#" class="member">
-                            <img {{bindAttr src="owner.picture"  info="owner.full_name"}} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"  info="ciew.content.owner.full_name"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
                             </span>
                         </a>
                     </li>
-
-                {{/each}}
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"  info="ciew.content.owner.fullname"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="member-coaches  not-implemented">
@@ -143,7 +160,7 @@
                 <ul>
                     <li>
                         <a href="#" class="member">
-                            <img {{bindAttr src="owner.picture"}} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -152,42 +169,230 @@
                     </li>
                 </ul>
             </li>
-            <li class="member-promotors not-implemented">
+            <li class="member-promotors  not-implemented">
                 <h4>1%Promotors</h4>
                 <ul>
-                {# TODO: Add promotors to Project Controller #}
-                {{#each promotors}}
-
                     <li>
                         <a href="#" class="member">
-                            <img {{bindAttr src="owner.picture"  info="owner.full_name"}} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
                             </span>
                         </a>
                     </li>
-
-                {{/each}}
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="member-supporters  not-implemented">
                 <h4>1%Supporters [51]</h4>
                 <ul>
-                {# TODO: Add supporters to ProjectController #}
-                {{#each supporters}}
-
                     <li>
                         <a href="#" class="member">
-                            <img {{bindAttr src="owner.picture" info="owner.full_name"}} width="45" height="45" alt="Photo" />
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
                             <span class="popup">
                                 <span class="action"><strong>Marieke</strong> just donated</span>
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
                             </span>
                         </a>
                     </li>
-
-                {{/each}}
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="member">
+                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
+                            <span class="popup">
+                                <span class="action"><strong>Marieke</strong> just donated</span>
+                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li id="show-all-supporters" class="not-implemented"><a href="#" class="member">Show all</a></li>
