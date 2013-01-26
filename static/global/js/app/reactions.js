@@ -1,5 +1,8 @@
 App.loadTemplates(['reactions']);
 
+/*
+ Models
+ */
 
 App.WallPostReaction = DS.Model.extend({
     url: 'wallposts/reactions',
@@ -14,6 +17,10 @@ App.WallPostReaction = DS.Model.extend({
     wallpost: DS.belongsTo('App.ProjectWallPost')
 });
 
+
+/*
+ Controllers
+ */
 
 App.wallPostReactionController = Em.Controller.create({
 
@@ -40,13 +47,15 @@ App.wallPostReactionController = Em.Controller.create({
 });
 
 
+/*
+ Views
+ */
+
 App.WallPostReactionFormView = Em.View.extend({
     templateName: 'reaction_form',
     templateFile: 'reactions',
     tagName: 'form',
     classNames: ['reaction-form'],
-
-    wallpostBinding: "parentView.content",
 
     // Each reaction form view needs to have its own reaction model.
     init: function(){
@@ -56,7 +65,7 @@ App.WallPostReactionFormView = Em.View.extend({
 
     submit: function(e) {
         e.preventDefault();
-        App.wallPostReactionController.addReaction(this.get('content'), this.get('wallpost'));
+        App.wallPostReactionController.addReaction(this.get('content'), this.get('parentView.content'));
     },
 
     didInsertElement: function(e) {
@@ -99,8 +108,7 @@ App.ReactionView = Em.View.extend({
 
 
 App.ReactionNoItemsView = Em.View.extend({
-    templateName: 'reaction_no_items',
-    templateFile: 'reactions'
+    templateName: 'reaction_no_items'
 });
 
 

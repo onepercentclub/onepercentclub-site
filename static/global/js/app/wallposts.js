@@ -42,28 +42,6 @@ App.ProjectTextWallPost = App.ProjectWallPost.extend({
  Controllers
  */
 
-App.WallPostControllerMixin = Em.Mixin.create({
-
-    deleteWallPost: function(update_ui_callback) {
-        var wallpost = this.get('content');
-        wallpost.deleteRecord();
-        App.store.commit();
-        wallpost.on('didDelete', function() {
-            update_ui_callback();
-        });
-    },
-
-//    isAuthor: function() {
-//        var username = this.get('user.username');
-//        var authorname = this.get('content.author.username');
-//        if (username) {
-//            return (username == authorname);
-//        }
-//        return false;
-//    }.property('user', 'content')
-
-});
-
 App.ProjectWallPostListController = Em.ArrayController.extend({
 
     // The list of WallPosts are loaded into the temporary 'wallposts' array in the Route. Once this RecordArray
@@ -75,13 +53,16 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
     wallpostsLoaded: function(sender, key) {
         if (this.get(key)) {
             this.set('content', this.get('wallposts').toArray());
+        } else {
+            // Don't show old content when new content is being retrieved.
+            this.set('content', null);
         }
     }.observes('wallposts.isLoaded')
 
 });
 
 
-App.ProjectWallPostNewController = Em.ObjectController.extend({
+App.ProjectWallPostFormController = Em.ObjectController.extend({
 
     content: App.ProjectWallPost.createRecord(),
 
@@ -204,16 +185,31 @@ App.UploadFileView = Ember.TextField.extend({
 });
 
 
-App.WallPostFormTipView = Em.View.extend({
-    // TODO: ---V
-    tagName: 'article',
-    classNames: ['sidebar', 'tip', 'not-implemented'],
-    templateName: 'wallpost_form_tip'
-});
-
-
 App.ProjectWallPostView = Em.View.extend({
-    templateName: 'projectwallpost'
+    templateName: 'projectwallpost',
+
+    isAuthor: function() {
+        var username = this.get('user.username');
+        var authorname = this.get('content.author.username');
+        if (username) {
+            return (username == authorname);
+        }
+        return false;
+    }.property('user', 'content'),
+
+    // TODO: Delete reactions to WallPost as well?
+    deleteWallPost: function() {
+        if (confirm("Delete this wallpost?")) {
+            var transaction = App.store.transaction();
+            var post = this.get('content');
+            transaction.add(post);
+            post.deleteRecord();
+            transaction.commit();
+            var self = this;
+            this.$().slideUp(500);
+        }
+    }
+
 });
 
 
@@ -221,17 +217,4 @@ App.ProjectWallPostView = Em.View.extend({
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
 App.ProjectWallPostListView = Em.View.extend({
     templateName: 'projectwallpost_list'
-});
-
-
-// FixMe
-App.WallPostDeleteButton = Em.View.extend({
-    click: function(e) {
-        if (confirm("Delete this wallpost?")) {
-            this.get('controller').deleteWallPost(function(){
-                var self = this;
-                this.$().slideUp(1000, function(){self.remove();});
-            });
-        }
-    }
 });

@@ -211,18 +211,17 @@
             controller.set('content', project);
 
             // Wallposts list controller.
-            var wallpostListController = this.controllerFor('projectWallPostList');
+            var wallPostListController = this.controllerFor('projectWallPostList');
             // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
             // wallposts property. The controller will convert it to an Ember Array.
-            wallpostListController.set('wallposts', App.ProjectWallPost.find({project_slug: project.get('slug')}));
+            wallPostListController.set('wallposts', App.ProjectWallPost.find({project_slug: project.get('slug')}));
 
             // WallPost creation form controller.
-            var newWallPostController = this.controllerFor('projectWallPostNew');
-            newWallPostController.set('currentProject', project);
-            newWallPostController.set('projectWallPostListController', wallpostListController);
+            var wallPostFormController = this.controllerFor('projectWallPostForm');
+            wallPostFormController.set('currentProject', project);
+            wallPostFormController.set('projectWallPostListController', wallPostListController);
             // FIXME I don't think this is the way we want to do this.
-            newWallPostController.set('currentUser', App.userController.get('content'));
-
+            wallPostFormController.set('currentUser', App.userController.get('content'));
         },
 
         renderTemplate: function(controller, model) {
@@ -236,10 +235,10 @@
             });
 
             // Render the wallpost creation form.
-            this.render('projectwallpost_new', {
+            this.render('projectwallpost_form', {
                 into: 'project',
-                outlet: 'projectWallPostNew',
-                controller: 'projectWallPostNew'
+                outlet: 'projectWallPostForm',
+                controller: 'projectWallPostForm'
             });
         }
     });
