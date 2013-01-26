@@ -11,7 +11,7 @@ App.MediaWallPostPhoto = DS.Model.extend({
 });
 
 // This is union of all different wallposts.
-App.Projectwallpost = DS.Model.extend({
+App.ProjectWallPost = DS.Model.extend({
     url: 'projects/wallposts',
 
     // Model fields
@@ -29,11 +29,11 @@ App.Projectwallpost = DS.Model.extend({
 });
 
 
-App.ProjectMediaWallPost = App.Projectwallpost.extend({
+App.ProjectMediaWallPost = App.ProjectWallPost.extend({
     url: 'projects/wallposts/media'
 });
 
-App.ProjectTextWallPost = App.Projectwallpost.extend({
+App.ProjectTextWallPost = App.ProjectWallPost.extend({
     url: 'projects/wallposts/text'
 });
 
@@ -64,7 +64,7 @@ App.WallPostControllerMixin = Em.Mixin.create({
 
 });
 
-App.ProjectwallpostsController = Em.ArrayController.extend({
+App.ProjectWallPostsController = Em.ArrayController.extend({
 
     // The list of WallPosts are loaded into that temporary wallposts array in the Route. Once this RecordArray
     // is loaded, it is converted to an Ember array and put into content. This temporary array is required
@@ -84,9 +84,9 @@ App.ProjectwallpostsController = Em.ArrayController.extend({
 });
 
 
-App.ProjectwallpostNewController = Em.ObjectController.extend({
+App.ProjectWallPostNewController = Em.ObjectController.extend({
 
-    content: App.Projectwallpost.createRecord(),
+    content: App.ProjectWallPost.createRecord(),
 
     addMediaWallPost: function() {
         var transaction = App.store.transaction();
@@ -99,7 +99,7 @@ App.ProjectwallpostNewController = Em.ObjectController.extend({
         mediawallpost.set('photo_file', this.get('content.photo_file'));
         var controller = this;
         mediawallpost.on('didCreate', function(record) {
-            controller.get('projectwallpostsController.content').unshiftObject(record);
+            controller.get('projectWallPostsController.content').unshiftObject(record);
             controller.clearWallPost()
         });
         mediawallpost.on('becameInvalid', function(record) {
@@ -117,7 +117,7 @@ App.ProjectwallpostNewController = Em.ObjectController.extend({
         textwallpost.set('project_id', this.get('currentProject.id'));
         var controller = this;
         textwallpost.on('didCreate', function(record) {
-            controller.get('projectwallpostsController.content').unshiftObject(record);
+            controller.get('projectWallPostsController.content').unshiftObject(record);
             controller.clearWallPost()
         });
         textwallpost.on('becameInvalid', function(record) {
@@ -215,14 +215,14 @@ App.WallPostFormTipView = Em.View.extend({
 });
 
 
-App.ProjectwallpostView = Em.View.extend({
+App.ProjectWallPostView = Em.View.extend({
     templateName: 'projectwallpost'
 });
 
 
 // Idea of how to have child views with different templates:
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
-App.ProjectwallpostsView = Em.View.extend({
+App.ProjectWallPostsView = Em.View.extend({
     templateName: 'projectwallposts'
 });
 

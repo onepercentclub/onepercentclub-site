@@ -115,7 +115,7 @@
         owner: {embedded: 'load'},
         country: {embedded: 'load'}
     });
-    App.Adapter.map('App.Projectwallpost', {
+    App.Adapter.map('App.ProjectWallPost', {
         author: {embedded: 'load'},
         photos: {embedded: 'load'},
         reactions: {embedded: 'load'}
@@ -186,7 +186,7 @@
         });
         this.resource('project', {path: '/projects/:slug'}, function() {
             this.route('edit');
-            this.resource('projectwallpost', {path: '/wallposts/:projectwallpost_id'});
+            this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
         });
     });
 
@@ -208,15 +208,15 @@
             controller.set('content', project);
 
             // Wallposts list controller.
-            var wallpostsController = this.controllerFor('projectwallposts');
+            var wallpostsController = this.controllerFor('projectWallPosts');
             // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
             // wallposts property. The controller will convert it to an Ember Array.
-            wallpostsController.set('wallposts', App.Projectwallpost.find({project_slug: project.get('slug')}));
+            wallpostsController.set('wallposts', App.ProjectWallPost.find({project_slug: project.get('slug')}));
 
             // WallPost creation form controller.
-            var newWallpostController = this.controllerFor('projectwallpostNew');
+            var newWallpostController = this.controllerFor('projectWallPostNew');
             newWallpostController.set('currentProject', project);
-            newWallpostController.set('projectwallpostsController', wallpostsController);
+            newWallpostController.set('projectWallPostsController', wallpostsController);
             // FIXME I don't think this is the way we want to do this.
             newWallpostController.set('currentUser', App.userController.get('content'));
 
@@ -229,21 +229,21 @@
             this.render('projectwallposts', {
                 into: 'project',
                 outlet: 'projectwallposts',
-                controller: 'projectwallposts'
+                controller: 'projectWallPosts'
             });
 
             // Render the wallpost creation form.
             this.render('wallpost_new', {
                 into: 'project',
                 outlet: 'wallpostnew',
-                controller: 'projectwallpostNew'
+                controller: 'projectWallPostNew'
             });
         }
     });
 
-    App.ProjectwallpostRoute = Ember.Route.extend({
+    App.ProjectWallPostRoute = Ember.Route.extend({
         model: function(params) {
-            return App.Projectwallpost.find(params.projectwallpost_id);
+            return App.ProjectWallPost.find(params.projectwallpost_id);
         },
         setupController: function(controller, wallpost) {
             controller.set('content', wallpost);
