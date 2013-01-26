@@ -120,6 +120,16 @@
         photos: {embedded: 'load'},
         reactions: {embedded: 'load'}
     });
+    App.Adapter.map('App.ProjectTextWallPost', {
+        author: {embedded: 'load'},
+        photos: {embedded: 'load'},
+        reactions: {embedded: 'load'}
+    });
+    App.Adapter.map('App.ProjectMediaWallPost', {
+        author: {embedded: 'load'},
+        photos: {embedded: 'load'},
+        reactions: {embedded: 'load'}
+    });
     App.Adapter.map('App.WallPostReaction', {
         author: {embedded: 'load'}
     });
