@@ -1,6 +1,7 @@
 import sys
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.utils.timesince import timesince
 from django import forms
 from django.utils.encoding import smart_str
@@ -135,7 +136,7 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'picture', 'username')
 
 
-class ToModelIdField(serializers.RelatedField):
+class PrimaryKeyGenericRelatedField(serializers.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey. """
 
     default_read_only = False
@@ -144,7 +145,7 @@ class ToModelIdField(serializers.RelatedField):
     def __init__(self, to_model, *args, **kwargs):
         self.to_model = to_model
         queryset = self.to_model.objects.order_by('id').all()
-        super(ToModelIdField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
+        super(PrimaryKeyGenericRelatedField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
 
     def label_from_instance(self, obj):
         return "{0} - {1}".format(smart_str(self.to_model.__unicode__(obj)), str(obj.id))
@@ -160,6 +161,45 @@ class ToModelIdField(serializers.RelatedField):
     def field_to_native(self, obj, field_name):
         # Defer the serialization to the to_native() method.
         return self.to_native(obj)
+
+
+class SlugGenericRelatedField(serializers.RelatedField):
+    """ A field serializer for the object_id field in a GenericForeignKey based on the related model slug. """
+
+    default_read_only = False
+    form_field_class = forms.ChoiceField
+
+    def __init__(self, to_model, *args, **kwargs):
+        self.to_model = to_model
+        queryset = self.to_model.objects.order_by('id').all()
+        super(SlugGenericRelatedField, self).__init__(*args, source='object_id', queryset=queryset, **kwargs)
+
+    def label_from_instance(self, obj):
+        return "{0} - {1}".format(smart_str(self.to_model.__unicode__(obj)), obj.slug)
+
+    def prepare_value(self, to_instance):
+        # Called when preparing the ChoiceField widget from the to_model queryset.
+        return to_instance.serializable_value('slug')
+
+    def to_native(self, obj):
+        # Serialize using self.source (i.e. 'object_id').
+        try:
+            to_instance = self.to_model.objects.get(id=getattr(obj, self.source))
+        except self.to_model.DoesNotExist:
+            return None
+        return to_instance.serializable_value('slug')
+
+    def field_to_native(self, obj, field_name):
+        # Defer the serialization to the to_native() method.
+        return self.to_native(obj)
+
+    def from_native(self, value):
+        try:
+            to_instance = self.to_model.objects.get(slug=value)
+        except self.to_model.DoesNotExist:
+            raise ValidationError(self.error_messages['invalid'])
+        else:
+            return to_instance.id
 
 
 class ManyRelatedNestedSerializer(serializers.ManyRelatedField):

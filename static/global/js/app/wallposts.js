@@ -15,7 +15,7 @@ App.ProjectWallPost = DS.Model.extend({
     url: 'projects/wallposts',
 
     // Model fields
-    project_id: DS.attr('number'),
+    project_slug: DS.attr('string'),
     author: DS.belongsTo('App.Member'),
     title: DS.attr('string'),
     text: DS.attr('string'),
@@ -73,7 +73,7 @@ App.ProjectWallPostFormController = Em.ObjectController.extend({
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
         mediawallpost.set('photo', this.get('content.photo'));
-        mediawallpost.set('project_id', this.get('currentProject.id'));
+        mediawallpost.set('project_slug', this.get('currentProject.slug'));
         mediawallpost.set('photo_file', this.get('content.photo_file'));
         var controller = this;
         mediawallpost.on('didCreate', function(record) {
@@ -92,7 +92,7 @@ App.ProjectWallPostFormController = Em.ObjectController.extend({
         var transaction = App.store.transaction();
         var textwallpost = transaction.createRecord(App.ProjectTextWallPost);
         textwallpost.set('text', this.get('content.text'));
-        textwallpost.set('project_id', this.get('currentProject.id'));
+        textwallpost.set('project_slug', this.get('currentProject.slug'));
         var controller = this;
         textwallpost.on('didCreate', function(record) {
             controller.get('projectWallPostListController.content').unshiftObject(record);
