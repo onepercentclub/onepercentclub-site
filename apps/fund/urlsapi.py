@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from surlex.dj import surl
 from .views import (OrderList, OrderItemList, OrderDonationList, OrderDonationDetail, PaymentMethodList,
-                    PaymentMethodDetail, CheckoutDetail, CustomerInfoDetail)
+                    PaymentMethodDetail, CheckoutDetail, CustomerInfoDetail, PaymentStatusDetail)
 
 urlpatterns = patterns('',
     # These two urls are not functioning yet
@@ -14,5 +14,6 @@ urlpatterns = patterns('',
     url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='fund-paymentmethod-list'),
     surl(r'^paymentmethods/<pk:#>$', PaymentMethodDetail.as_view(), name='fund-paymentmethod-detail'),
     url(r'^checkout', CheckoutDetail.as_view(), name='fund-checkout'),
-    url(r'^customerinfo', CustomerInfoDetail.as_view(), name='fund-customerinfo')
+    url(r'^customerinfo', CustomerInfoDetail.as_view(), name='fund-customerinfo'),
+    surl(r'^paymentstatus/<status:s>', PaymentStatusDetail.as_view(), name='fund-paymentstatus')
 )

@@ -1,7 +1,8 @@
 from apps.bluebottle_drf2.serializers import PolymorphicSerializer
-from apps.fund.serializers import PaymentMethodSerializer, PaymentSerializer
-from cowry.models import Payment, PaymentMethod
-from cowry_docdata.models import PaymentProcess
+from apps.fund.serializers import PaymentMethodSerializer, PaymentSerializer, PaymentProcessSerializer
+from cowry.factory import PaymentFactory
+from cowry.models import PaymentMethod, Payment
+from cowry_docdata.models import DocdataPaymentProcess
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -10,8 +11,10 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
+from django.views.generic import View
 from .models import Donation, OrderItem, Order
 from .serializers import DonationSerializer, OrderItemSerializer
+
 
 
 class CartMixin(object):
@@ -47,6 +50,8 @@ class CartMixin(object):
         self.request.session["cart_session"] = order.id
         return order
 
+
+# API views
 
 class OrderList(CartMixin, ListCreateAPIView):
     model = Order
@@ -113,12 +118,11 @@ class CurrentPaymentMixin(CartMixin):
 
     def get_payment(self):
         order = self.get_or_create_order()
-        if not order:
-            return None
         if order.payment:
             order.payment.amount = order.amount
             return order.payment
-        payment = Payment(created=timezone.now(), amount=order.amount, status=Payment.PaymentStatuses.checkout)
+        payment_factory = PaymentFactory()
+        payment = payment_factory.create_payment(amount=order.amount)
         if self.request.user.is_authenticated():
             payment.user = self.request.user
         payment.save()
@@ -149,9 +153,27 @@ class CheckoutDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView)
 
 
 class CustomerInfoDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
-    model = PaymentProcess
+    model = DocdataPaymentProcess
     serializer_class = PaymentProcessSerializer
 
     def get_object(self):
-        return self.get_payment()
+        payment = self.get_payment()
+        payment_factory = PaymentFactory()
+        payment_factory.set_payment(payment)
+        user = self.request.user
+        address = user.get_profile().useraddress_set.get()
+        return payment_factory.get_payment_process(
+            first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
+            zip_code=address.zip_code, city=address.city, country='NL')
 
+
+class PaymentStatusDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
+    model = DocdataPaymentProcess
+    serializer_class = PaymentProcessSerializer
+
+    def get_object(self):
+        payment = self.get_payment()
+        payment_factory = PaymentFactory()
+        payment_factory.set_payment(payment)
+        payment_factory.check_payment()
+        return payment_factory.get_payment_process()

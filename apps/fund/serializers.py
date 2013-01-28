@@ -1,4 +1,5 @@
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer
+from cowry_docdata.models import DocdataPaymentProcess
 from cowry_ipay.models import PaymentProcess
 from rest_framework import serializers
 from rest_framework import relations
@@ -53,8 +54,27 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields = ('id', 'created', 'status', 'amount', 'payment_method')
 
 
+class PaymentProcessSerializerBase(serializers.ModelSerializer):
+    id = serializers.Field(source='paymentprocess_ptr_id')
+
+    class Meta:
+        fields = ('id', 'created', 'status')
+
+
+class DocdataPaymentSerializer(PaymentProcessSerializerBase):
+    email = fields.WritableField(source='client_email')
+    first_name = fields.WritableField(source='client_firstname')
+    last_name = fields.WritableField(source='client_lastname')
+    payment_url = fields.WritableField(source='payment_url')
+
+    class Meta:
+        model = DocdataPaymentProcess
+        fields = PaymentProcessSerializerBase.Meta.fields + ('email', 'first_name', 'last_name', 'payment_url')
+
+
 class PaymentProcessSerializer(PolymorphicSerializer):
 
     class Meta:
-        model = PaymentProcess
-        fields = ('id', 'created', 'status')
+        child_models = (
+            (DocdataPaymentProcess, DocdataPaymentSerializer),
+            )
