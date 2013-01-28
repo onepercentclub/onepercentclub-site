@@ -1,5 +1,7 @@
-App.loadTemplates(['projects']);
 
+/*
+ Models
+ */
 
 App.Country = DS.Model.extend({
     name: DS.attr('string'),
@@ -49,6 +51,10 @@ App.Project = DS.Model.extend({
 //    }.property('supporter_count')
 });
 
+
+/*
+ Views
+ */
 
 App.ProjectSupportersView = Em.View.extend({
     templateName: 'project_supporters'

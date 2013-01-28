@@ -1,5 +1,3 @@
-App.loadTemplates(['wallposts']);
-
 
 /*
  Models
