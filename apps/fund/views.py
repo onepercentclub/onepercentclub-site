@@ -15,6 +15,7 @@ from .models import Donation, OrderItem, Order
 from .serializers import DonationSerializer, OrderItemSerializer
 
 
+# API views
 
 class CartMixin(object):
 
@@ -52,8 +53,6 @@ class CartMixin(object):
         self.request.session["cart_session"] = order.id
         return order
 
-
-# API views
 
 class OrderList(CartMixin, ListCreateAPIView):
     model = Order
@@ -177,7 +176,6 @@ class PaymentInfoDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIVi
 
     def get_object(self):
         return self.get_payment_info()
-
 
 
 class PaymentStatusDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
