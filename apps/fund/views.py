@@ -119,18 +119,18 @@ class CurrentPaymentMixin(CartMixin):
 
     def get_payment(self):
         order = self.get_or_create_order()
-        payment_factory = PaymentFactory()
-
         if order.payment:
             return order.payment
 
+        # TODO: We don't use payment_method now.
         if self.request.DATA and self.request.DATA['payment_method']:
+            payment_factory = PaymentFactory()
             payment_factory.set_payment_method(self.request.DATA['payment_method'])
             order.payment = payment_factory.create_payment(amount=order.amount)
             order.save()
             return order.payment
 
-        # If no payment or payment_method then return a plain Payment object so we can set the payment_method
+        # If no payment or payment_method then return a Payment object so we can set the payment_method
         return Payment.objects.create(amount=order.amount)
 
     def get_payment_info(self):

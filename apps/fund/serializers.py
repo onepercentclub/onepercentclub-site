@@ -27,6 +27,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = ('amount', 'type')
 
+
 # Payment Serializers
 
 class PaymentAdapterSerializer(serializers.ModelSerializer):
