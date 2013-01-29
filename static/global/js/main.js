@@ -33,11 +33,10 @@ $(document).ready(function(){
             $('.share-actions', $(this)).hide();
         });
     
-    // DEVelOPMENT: needed for static template
+    // DEVELOPMENT: needed for static template
     initBehaviour('body');
-<<<<<<< HEAD
 
-    // expande reactio-box on focus
+    // expande reaction-box on focus
     $('.reaction-form textarea')
         .live('focus', function(e) {
             $(e.currentTarget).closest('.reaction-form').addClass('is-selected');
@@ -47,8 +46,7 @@ $(document).ready(function(){
         });
         
     toggleText( $('.toggle-reactions') );
-=======
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+
     toggleText( $('.toggle-love') );
     
 });
