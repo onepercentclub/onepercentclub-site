@@ -91,3 +91,6 @@ django-templatetag-handlebars
 
 # Cowry uses django countries
 django_countries
+
+# Lxml for Cowry
+lxml
