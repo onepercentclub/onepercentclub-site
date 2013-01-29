@@ -6,8 +6,6 @@ from django.utils import timezone
 from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
-from apps.media.tests import MediaTestsMixin
-from .views import ProjectList, ProjectDetail
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
 
 
@@ -65,8 +63,7 @@ class FundPhaseTestMixin(object):
         return fundphase
 
 
-class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
-                   MediaTestsMixin):
+class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
     """ Tests for projects. """
 
     def setUp(self):
@@ -165,7 +162,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin,
         self.assertEquals(fundphase.enddate, actphase.startdate)
         # This is the important test.
         self.assertEquals(actphase.enddate, actphase.startdate)
-
 
         # Final refresh and tests:
         ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
@@ -338,7 +334,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Note: This test will fail when we require at least a video and/or a text but that's what we want.
         wallpost_title = 'This is my super project!'
         response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project_id': self.some_project.id})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
 
         # Retrieve the created Project Media WallPost.

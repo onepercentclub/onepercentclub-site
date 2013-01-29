@@ -19,11 +19,14 @@
         }
         
         .user-img {
-            @include rem(top, 26px);
-            @include rem(left, 26px);
+            @include rem(top, 16px);
+            @include rem(left, 16px);
             width: 20px;
             position: absolute;
             margin: 0;
+            img {
+                float: left;
+            }
         }
         
         textarea {
@@ -196,7 +199,9 @@
     margin: 0;
     background-color: $color-back;
     list-style: none;
-    
+    .manage {
+        float: right;
+    }
     li {
         @include rem(margin, 16px 0);
         position: relative;

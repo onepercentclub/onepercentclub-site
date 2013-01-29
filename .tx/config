@@ -19,12 +19,6 @@ source_file = apps/geo/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.media_django]
-file_filter = apps/media/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/media/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
 [bluebottle.organizations_django]
 file_filter = apps/organizations/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/organizations/locale/en/LC_MESSAGES/django.po

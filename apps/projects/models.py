@@ -63,7 +63,6 @@ class Project(models.Model):
     country = models.ForeignKey('geo.Country', blank=True, null=True, verbose_name=_("country"))
 
     language = models.CharField(max_length=6, choices=settings.LANGUAGES, help_text=_("Main language of the project."))
-    albums = models.ManyToManyField('media.Album', blank=True, null=True, verbose_name=_("albums"))
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
@@ -161,8 +160,8 @@ class AbstractPhase(models.Model):
         if self.startdate and self.enddate:
             if self.enddate < self.startdate:
                 raise ValidationError(_(
-                    u"%s: End date %s can not be earlier than start date %s" %
-                    (self.__class__.__name__, self.enddate, self.startdate))
+                    u"%(classname)s: End date %(enddate)s can not be earlier than start date %(startdate)s" %
+                    {'classname': self.__class__.__name__, 'enddate': self.enddate, 'startdate': self.startdate})
                 )
 
     def save(self, *args, **kwargs):

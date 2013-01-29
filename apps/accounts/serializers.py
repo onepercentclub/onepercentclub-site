@@ -6,7 +6,7 @@ from rest_framework import serializers
 class MemberDetailSerializer(serializers.ModelSerializer):
 
     url = serializers.HyperlinkedIdentityField(view_name='member-detail')
-    picture = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY", crop='center')
+    picture = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY")
 
     class Meta:
         model = User

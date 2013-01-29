@@ -1,0 +1,176 @@
+
+.donation {
+  
+}
+
+.donation-steps {
+  
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+  
+  @include grid(32, 1);
+  
+  li {
+    @include grid(12, 0, -1);
+    display: inline-block;
+    background: transparent url('../images/donation-step.png') no-repeat right center;
+    position: relative;
+        
+    a {
+      display: block;
+      background-color: #dcdcdc;
+      font-weight: bold;
+      color: #999999;
+      @include rem(font-size, 14px);
+      vertical-align: top;
+      text-transform: uppercase;
+      padding: 0.6em 1.2em 0.6em;
+      margin-right: 31px;
+      
+      background-image: $icons;
+      background-repeat: no-repeat;
+    }
+    
+    &.select {
+      background: transparent url('../images/donation-step-select.png') no-repeat right center;
+      
+      a {
+        background-color: $green;
+        color: $white;
+      }
+    }
+    
+    &.support  {
+      z-index: 4;
+      
+      a {
+        padding-left: 50px;
+        @include border-radius(2px 0 0 2px);
+        background-position: sprite-position($icons, donation-support, 14px, 12px);
+      }
+      
+      &.select a {
+        background-position: sprite-position($icons, donation-support-select, 14px, 12px);
+      }
+      
+    }
+    
+    &.details {
+      z-index: 3;
+      
+      a {
+        padding-left: 60px;
+        background-position: sprite-position($icons, donation-details, 24px, 10px);
+      }
+      
+      &.select a {
+        background-position: sprite-position($icons, donation-details-select, 24px, 10px);
+      }
+    }
+    
+    &.profile {
+      z-index: 2;
+      
+      a {
+        padding-left: 60px;
+        background-position: sprite-position($icons, donation-profile, 24px, 10px);
+      }
+      
+      &.select a {
+        background-position: sprite-position($icons, donation-profile-select, 24px, 10px);
+      }
+    }
+    
+    &.payment {
+      z-index: 1;
+      background-image: none;
+      
+      a {
+        padding-left: 60px;
+        @include border-radius(0 2px 2px 0);
+        @include append(2);
+        background-position: sprite-position($icons, donation-payment, 24px, 10px);
+      }
+      
+      &.select a {
+        background-position: sprite-position($icons, donation-payment-select, 24px, 10px);
+      }
+      
+      a {
+      }
+      
+    }
+    
+  }
+   
+}
+
+#donation-projects {
+
+  list-style: none;
+
+  .donation-project {
+    
+    position: relative;
+    border-bottom: 5px solid #f3f3f3;
+    padding: 16px;
+    
+    img {
+      float: left;
+      margin: 0 16px 0 0;
+    }
+    
+    h1 {
+      @include rem(font-size, 22px);
+    }
+    
+    h1, .country {
+      width: 60%;
+      display: block;
+      float: left;
+    }
+    
+    .country {
+      font-style: normal;
+      text-transform: uppercase;
+    }
+    
+    .donation-amount {
+      width: 30%;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    
+    &:hover {
+      background-color: #f3f3f3;
+      
+      .remove {
+        display: block;
+      }
+    }
+    
+    .remove {
+      display: none;
+      z-index: 5;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 22px;
+      height: 22px;
+      background-image: $icons;
+      background-repeat: no-repeat;
+      background-position: sprite-position($icons, delete);
+      @include hide-text();
+    }
+  
+  }
+  
+}
+
+.donation-frequency {
+   @include border-radius(2px);
+   padding: 16px;
+   background: #f3f3f3; 
+}

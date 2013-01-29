@@ -1,11 +1,11 @@
-from apps.bluebottle_drf2.serializers import  TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer, ToModelIdField, ManyRelatedSerializer
+from apps.bluebottle_drf2.serializers import (TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer,
+                                              ToModelIdField, ManyRelatedNestedSerializer, SorlImageField)
 from apps.projects.models import Project
 from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
-
 from rest_framework import serializers
-from .models import MediaWallPost, TextWallPost
+from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto
 
 
 class WallPostTypeField(serializers.Field):
@@ -34,19 +34,31 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
     timesince = TimeSinceField(source='created')
-    reactions = ManyRelatedSerializer(WallPostReactionSerializer)
+    reactions = ManyRelatedNestedSerializer(WallPostReactionSerializer)
 
     class Meta:
         fields = ('id', 'url', 'type', 'author', 'created', 'timesince', 'reactions')
 
 
+class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
+    photo = SorlImageField('photo', '529x296')
+    thumbnail = SorlImageField('photo', '296x296')
+
+    class Meta:
+        model = MediaWallPostPhoto
+        fields = ('id', 'photo', 'thumbnail',)
+
+
 class MediaWallPostSerializer(WallPostSerializerBase):
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     type = WallPostTypeField(type='media')
+    # This is temporary and will go away when we figure out how to upload related photos.
+    photo = SorlImageField('photo', '529x296', required=False)
+    photos = ManyRelatedNestedSerializer(MediaWallPostPhotoSerializer)
 
     class Meta:
         model = MediaWallPost
-        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url')
+        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url', 'photo', 'photos')
 
 
 class TextWallPostSerializer(WallPostSerializerBase):

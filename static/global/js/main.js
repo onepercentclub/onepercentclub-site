@@ -11,9 +11,6 @@ jQuery.fn.exists = function(){return this.length>0;}
 function initBehaviour(container) {
     $("label.inline", container).inFieldLabels();
 
-    // Loek: Removed this because it was jerky
-    //$("textarea", container).autogrow();
-    
     // initFileUpload();
     toggleText( $('.toggle-reactions', container) );
     toggleText( $('.toggle-love', container) );
@@ -27,11 +24,6 @@ $(document).ready(function(){
     //initLightbox();
     //initFileUpload();
 
-    // show/hide reactions
-    $('.toggle-reactions').live('click', function(e) {
-        $('.reactions', $(this).closest('.reaction-box')).toggle();
-    });
-
     // show/hide sharing options
     $('.share')
         .live('mouseenter', function(e) {
@@ -43,6 +35,7 @@ $(document).ready(function(){
     
     // DEVelOPMENT: needed for static template
     initBehaviour('body');
+<<<<<<< HEAD
 
     // expande reactio-box on focus
     $('.reaction-form textarea')
@@ -54,6 +47,8 @@ $(document).ready(function(){
         });
         
     toggleText( $('.toggle-reactions') );
+=======
+>>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
     toggleText( $('.toggle-love') );
     
 });

@@ -3,8 +3,13 @@
  Models
  */
 
-// This is union of all different wallposts
-// TODO: see if we can teach Ember Data to use a combined list of all wallposts
+App.MediaWallPostPhoto = DS.Model.extend({
+    photo: DS.attr('string'),
+    thumbnail: DS.attr('string'),
+    projectwallpost: DS.belongsTo('App.ProjectWallPost')
+});
+
+// This is union of all different wallposts.
 App.ProjectWallPost = DS.Model.extend({
     url: 'projects/wallposts',
 
@@ -17,13 +22,14 @@ App.ProjectWallPost = DS.Model.extend({
     timesince: DS.attr('string'),
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
-    reactions: DS.hasMany('App.Reaction', {embedded: true}),
+    photo: DS.attr('string'),
+    photos: DS.hasMany('App.MediaWallPostPhoto', {embedded: true}),
+    reactions: DS.hasMany('App.WallPostReaction', {embedded: true})
 });
 
 
 App.ProjectMediaWallPost = App.ProjectWallPost.extend({
     url: 'projects/wallposts/media'
-
 });
 
 App.ProjectTextWallPost = App.ProjectWallPost.extend({
@@ -36,49 +42,61 @@ App.ProjectTextWallPost = App.ProjectWallPost.extend({
  */
 
 App.projectWallPostListController = Em.ArrayController.create({
-    // Use store transactions so we set the model properly and don't start with an empty '{}'...
-    models: {
-        'media': App.ProjectMediaWallPost,
-        'text': App.ProjectTextWallPost
-    },
-    
+
+    // The list of WallPosts are loaded into a temporary array when the project changes. Once this RecordArray is
+    // loaded, it is converted to an Ember array and put into content. This temporary array is required because
+    // the RecordArray returned by findQuery can't be manipulated directly. Discussion about this can be found in
+    // these two pages:
+    // http://stackoverflow.com/questions/11895629/add-delete-items-from-ember-data-backed-arraycontroller
+    // https://github.com/emberjs/data/issues/370
     projectBinding: "App.projectDetailController.content",
 
     projectChanged: function(sender, key) {
-        // The RecordArray is not loaded into 'content' so that we can use a real ember array
-        // for 'content' when it's loaded.
         var projectId = this.get('project.id');
         this.set('wallposts', App.ProjectWallPost.find({project_id: projectId}));
     }.observes('project'),
 
     wallpostsLoaded: function(sender, key) {
-        // Set 'content' with an ember array when the wallposts have been loaded. This allows
-        // us to manually manipulate 'content' when new posts are added.
-        if (sender.get(key)) {
-            sender.set('content', sender.get('wallposts').toArray());
+        if (this.get(key)) {
+            this.set('content', this.get('wallposts').toArray());
         }
     }.observes('wallposts.isLoaded'),
 
-
-    addWallPost: function(wallpost) {
-        // Load the right model based on type
-        var model = this.get('models.' + wallpost.type);
-        // If we have a standard object then convert into the right model
-        if (!(wallpost instanceof model)) {
-            // Add project_id to the wallpost
-            wallpost.project_id = this.get('project.id');
-            var wallpost = model.createRecord(wallpost);
-        }
-        // Not a race condition because ember-data only starts its machinery when App.store.commit() is called.
-        wallpost.on('didCreate', function(record) {
+    addMediaWallPost: function(mediawallpost) {
+        var transaction = App.store.transaction();
+        var livemediawallpost = transaction.createRecord(App.ProjectMediaWallPost, mediawallpost.toJSON());
+        livemediawallpost.set('project_id', this.get('project.id'));
+        livemediawallpost.set('photo_file', mediawallpost.get('photo_file'));
+        livemediawallpost.on('didCreate', function(record) {
             App.projectWallPostListController.get('content').unshiftObject(record);
+            mediawallpost.set('title', '');
+            mediawallpost.set('text', '');
+            mediawallpost.set('video_url', '');
+            mediawallpost.set('photo', '');
+            mediawallpost.set('photo_file', null);
+            mediawallpost.set('errors', null);
         });
-        App.store.commit();
-        // Return the model (with errors) for the form to return it to the user.
-        return wallpost;
+        livemediawallpost.on('becameInvalid', function(record) {
+            mediawallpost.set('errors', record.get('errors'));
+        });
+        transaction.commit();
+    },
+
+    addTextWallPost: function(textwallpost) {
+        var transaction = App.store.transaction();
+        var livetextwallpost = transaction.createRecord(App.ProjectTextWallPost, textwallpost.toJSON());
+        livetextwallpost.set('project_id', this.get('project.id'));
+        livetextwallpost.on('didCreate', function(record) {
+            App.projectWallPostListController.get('content').unshiftObject(record);
+            textwallpost.set('text', '');
+            textwallpost.set('errors', null);
+        });
+        livetextwallpost.on('becameInvalid', function(record) {
+            textwallpost.set('errors', record.get('errors'));
+        });
+        transaction.commit();
     }
 });
-
 
 /*
  Views
@@ -87,9 +105,11 @@ App.projectWallPostListController = Em.ArrayController.create({
 App.WallPostFormContainerView = Em.View.extend({
     templateName: 'wallpost_form_container',
     templateFile: 'wallpost',
+
     classNames: ['container', 'section'],
     contentBinding: "App.projectDetailController.content",
-    canEdit: function() {
+
+    isOwner: function() {
         var user = this.get('user');
         var owner = this.get('content.owner'); 
         if (user && owner && user.get('username')) {
@@ -104,27 +124,50 @@ App.MediaWallPostFormView = Em.View.extend({
     templateName: 'media_wallpost_form',
     templateFile: 'wallpost',
     tagName: 'form',
-    wallpost: {type: 'media'},
+
+    wallpost: App.ProjectMediaWallPost.createRecord(),
+
     submit: function(e){
-        // **** Why is this called when the project page is first loaded? ******
         e.preventDefault();
-        // Send the object to controller
-        // This will return a DS.Model with optional error codes
-        var wallpost = App.projectWallPostListController.addWallPost(this.get('wallpost'));
-        if (wallpost.get('isError')) {
-            // We'll replace this.wallpost with the proper DS.Model to bind errors
-            this.set('wallpost', wallpost);
-        } else {
-            // Wallpost was created successfully so clear the form:
-            this.set('wallpost', {type: wallpost.type});
-        }
+        App.projectWallPostListController.addMediaWallPost(this.get('wallpost'));
     }
 });
 
 
-App.TextWallPostFormView = App.MediaWallPostFormView.extend({
+App.TextWallPostFormView = Em.View.extend({
     templateName: 'text_wallpost_form',
-    wallpost: {type: 'text'}
+    templateFile: 'wallpost',
+    tagName: 'form',
+
+    wallpost: App.ProjectTextWallPost.createRecord(),
+
+    submit: function(e){
+        e.preventDefault();
+        App.projectWallPostListController.addTextWallPost(this.get('wallpost'));
+    }
+});
+
+
+App.UploadFileView = Ember.TextField.extend({
+    type: 'file',
+    attributeBindings: ['name', 'accept'],
+
+    wallpostBinding: 'parentView.wallpost',
+
+    change: function(e) {
+        var input = e.target;
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            var view = this;
+            reader.onload = function(e) {
+                // This should really be saved someplace else.
+                view.get('wallpost').set('photo_preview', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+            // The File object needs to be set on the Model so that it can be accesses in the DRF2 adapter.
+            this.get('wallpost').set('photo_file', input.files[0]);
+        }
+    }
 });
 
 
@@ -135,14 +178,15 @@ App.WallPostFormTipView = Em.View.extend({
     templateFile: 'wallpost'
 });
 
+
 App.WallPostView = Em.View.extend({
     tagName: 'article',
     classNames: ['wallpost'],
     templateName: 'wallpost',
     templateFile: 'wallpost',
     isAuthor: function(){
-        var username = this.get('user').get('username');
-        var authorname = this.get('content').get('author').get('username');
+        var username = this.get('user.username');
+        var authorname = this.get('content.author.username');
         if (username) {
             return (username == authorname);
         }
@@ -151,16 +195,19 @@ App.WallPostView = Em.View.extend({
     deleteWallPost: function(e) {
         if (confirm("Delete this wallpost?")) {
             e.preventDefault();
+            var transaction = App.store.transaction();
             var post = this.get('content');
+            transaction.add(post);
             // Clear author here
             // TODO: Have a proper solution for belongsTo fields in adapter
             post.reopen({
-                author: null
+                author: null,
+                reactions: []
             });
             post.deleteRecord();
-            App.store.commit();
+            transaction.commit();
             var self = this;
-            this.$().slideUp(1000, function(){self.remove();});
+            this.$().slideUp(500, function(){self.remove();});
         }
     }
 });
@@ -172,3 +219,4 @@ App.ProjectWallPostListView = Em.CollectionView.extend({
     contentBinding: 'App.projectWallPostListController',
     itemViewClass: 'App.WallPostView'
 });
+

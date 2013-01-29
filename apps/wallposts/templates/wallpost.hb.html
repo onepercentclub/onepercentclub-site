@@ -10,13 +10,13 @@
         </header>
         
         {{#if view.user.username }}
-            {{#if view.canEdit }}
+            {{#if view.isOwner }}
                 {{view App.MediaWallPostFormView}}
             {{else}}
                 {{view App.TextWallPostFormView}}
             {{/if}}
         {{else}}
-            <form>{% trans "Login to leave a reaction." %}</form>
+            <form>{% trans "Login to leave a comment." %}</form>
         {{/if}}
     </section>
 
@@ -27,7 +27,7 @@
 
     <fieldset>
         <ul>
-            <li>
+            <li {{bindAttr class="view.wallpost.errors.title.length:error"}}>
                 {{#each view.wallpost.errors.title}}
                     <span class="error">{{this}}</span>
                 {{/each}}
@@ -36,7 +36,7 @@
                 </label>
                 {{view Ember.TextField valueBinding="view.wallpost.title" id="wallpost-title" name="wallpost-title"}}
             </li>
-            <li>
+            <li {{bindAttr class="view.wallpost.errors.text.length:error"}}>
                 {{#each view.wallpost.errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
@@ -45,7 +45,7 @@
                 </label>
                 {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
-            <li>
+            <li {{bindAttr class="view.wallpost.errors.video_url.length:error"}}>
                 {{#each view.wallpost.errors.video_url}}
                     <span class="error">{{this}}</span>
                 {{/each}}
@@ -54,13 +54,17 @@
                 </label>
                 {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
             </li>
-{#            TODO: Implement photos #}
-{#            <li>#}
-{#                <label for="wallpost-photos">Upload & add Photo's <small>(620 x 380 minimum for best results)</small></label>#}
+            <li {{bindAttr class="view.wallpost.errors.photo.length:error"}}>
+                {{#each view.wallpost.errors.photo}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
+                <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
+{# TODO: Implement multi photo upload #}
 {#                <span class="fileinput-button image">#}
 {#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
 {#                </span>#}
-{#            </li>#}
+                {{view App.UploadFileView valueBinding="view.wallpost.photo" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+            </li>
         </ul>
     </fieldset>
 
@@ -76,12 +80,12 @@
                 {{#each view.wallpost.errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
-                <label for="wallpost-update" class="inline">{% trans "Leave your reaction here" %}</label>
+                <label for="wallpost-update" class="inline">{% trans "Leave your comment here" %}</label>
                 {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
         </ul>
     </fieldset>
-    <button type="submit">{% trans "Post Reaction" %}</button>
+    <button type="submit">{% trans "Post Comment" %}</button>
 {% endtplhandlebars %}
 
 
@@ -110,30 +114,39 @@
 
         {{view.content.text}}
 
+        {# This is temporary and will go away when we figure out how to upload related photos. #}
+        {{#if view.content.photo}}
+            <div class="photo-viewer">
+                <span class="photo"><img {{bindAttr src="view.content.photo"}} width="100%" alt="Gallery" /></span>
+            </div>
+        {{/if}}
+
+        {# TODO: Implement multi photo viewer #}
+        {{#if view.content.photos}}
+            <div class="photo-viewer not-implemented">
+                <span class="photo"><a href="#"><img src="/static/assets/dummy/wallpost-image.jpg" width="100%" alt="Gallery" /></a></span>
+                <ul>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
+                    <li class="more"><a href="#"><strong>6</strong> more photos</a></li>
+                </ul>
+            </div>
+        {{/if}}
+
     </div>
 
     <!-- reaction-box -->
     <div class="reaction-box">
 
-        <form action="#" method="post" class="reaction-form">
-            <fieldset>
-                <span class="user-img"><img {{bindAttr src="view.user.picture"}} width="100%" alt="Avatar" /></span>
-                <label for="reaction-1" class="inline">
-                    {# TODO: Create proper way to check for authenticated user. #}
-                    {{#if view.user.first_name }}
-                        Hey {{view.user.first_name}}, leave a comment behind!
-                    {{else}}
-                        {# TODO: Figure out a way to do composed translations - fragment sentences are hard for translators to deal with. #}
-                        <a href="/accounts/login">{% trans "Login" %}</a> {% trans "to leave a comment." %}
-                    {{/if}}
-                </label>
-                <textarea id="reaction-1" name="reaction"></textarea>
-            </fieldset>
+        {{view "App.WallPostReactionFormView"}}
 
-            <button type="submit" id="reaction-post">{% trans "Post" %}</button>
-        </form>
 
-        <ul class="reaction-actions">
+        <br />
+
+        <ul class="reaction-actions not-implemented">
             <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>
             <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
             <li class="share">
@@ -146,20 +159,7 @@
             </li>
         </ul>
 
-        <ul class="reactions">
-            {{#each view.content.reactions }}
-                <li>
-                    <span class="user-img"><img {{bindAttr src="this.author.picture"}} width="100%" alt="Avatar" /></span>
-                    <div class="reaction">
-                        <a href="#" class="user">
-                            {%  trans "By" %} <strong>{{this.author.full_name}}</strong>
-                            <em>{%  trans "Member" %}</em> <small>{{this.timesince}} {%  trans "ago" %}</small>
-                        </a>
-                        <p>{{this.reaction}}</p>
-                    </div>
-                </li>
-            {{/each}}
-       </ul>
+        {{view "App.WallPostReactionListView"}}
 
     </div>
     <!-- end: reaction-box -->

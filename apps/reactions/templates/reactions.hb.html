@@ -1,0 +1,69 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+
+{% tplhandlebars "reaction" %}
+	<span class="user-img"><img {{bindAttr src="view.content.author.picture" }} width="100%" alt="Avatar" /></span>
+	<div class="reaction">
+	    <a href="#" class="user">
+            {%  trans "By" %} <strong>{{ view.content.author.full_name }}</strong>
+            <em>{%  trans "Member" %}</em> <small>{{view.content.timesince}} {%  trans "ago" %}</small>
+        </a>
+        {{#if view.isAuthor}}
+            <ul class="manage">
+                <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
+                <li class="manage-remove"><a {{action "deleteReaction" target="view"}}>{% trans "Delete" %}</a></li>
+            </ul>
+        {{/if}}
+		<p>{{ view.content.text }}</p>
+	</div>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "reaction_no_items" %}
+    No reactions yet
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "reaction_form" %}
+    <fieldset>
+    <ul>
+        <li {{bindAttr class="view.content.errors.text.length:error"}}>
+            <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
+            {{#each view.content.errors.text}}
+                <span class="error">{{this}}</span>
+            {{/each}}
+            {{#if view.user.is_authenticated }}
+                {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.content.text" name="reaction"}}
+            {{else}}
+                {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
+            {{/if}}
+        </li>
+    </ul>
+    </fieldset>
+    <button type="submit" id="reaction-post">Post</button>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "reaction_actions" %}
+    <ul class="reaction-actions">
+        <li><a class="toggle-reactions" data-content-hover="Show comments" data-content-toggled="Hide comments">{{ view.count }} Comments</a></li>
+        <li><a class="toggle-love" data-content="# love this" data-content-hover="Show your love!" data-content-toggled="# - You loved this" data-content-toggled-hover="Unlove?"># Love this</a></li>
+        <li class="share">
+            <strong>Share this</strong>
+            <ul class="share-actions">
+                <li class="share-facebook">Share on Facebook</li>
+                <li class="share-twitter"><a href="#">Share on Twitter</a></li>
+                <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
+            </ul>
+        </li>
+    </ul>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "reaction_box" %}
+    <div class="reaction-box">
+        {{outlet reactionForm}}
+        {{outlet reactionActions}}
+        {{outlet reactionList}}
+    </div>
+{% endtplhandlebars %}
