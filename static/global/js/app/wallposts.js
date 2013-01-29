@@ -140,6 +140,7 @@ App.MediaWallPostFormView = Em.View.extend({
 
     didInsertElement: function() {
         this.get('controller').clearWallPost();
+        this.$('label.inline').inFieldLabels();
     }
 
 });
@@ -149,6 +150,7 @@ App.TextWallPostFormView = Em.View.extend({
     templateName: 'text_wallpost_form',
     tagName: 'form',
 
+
     submit: function(e){
         e.preventDefault();
         this.get('controller').addTextWallPost();
@@ -156,6 +158,7 @@ App.TextWallPostFormView = Em.View.extend({
 
     didInsertElement: function() {
         this.get('controller').clearWallPost();
+        this.$('label.inline').inFieldLabels();
     }
 
 });
