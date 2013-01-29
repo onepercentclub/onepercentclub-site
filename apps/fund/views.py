@@ -1,17 +1,16 @@
-from apps.bluebottle_drf2.serializers import PolymorphicSerializer
-from apps.fund.serializers import PaymentMethodSerializer, PaymentSerializer, PaymentProcessSerializer
+from apps.fund.serializers import PaymentMethodSerializer, PaymentSerializer, DocdataPaymentInfoSerializer, PaymentInfoSerializer
 from cowry.factory import PaymentFactory
-from cowry.models import PaymentMethod, Payment
-from cowry_docdata.models import DocdataPaymentProcess
+from cowry.models import PaymentMethod, Payment, PaymentInfo
+from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListCreateAPIView, ListAPIView, RetrieveUpdateDeleteAPIView
+from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
-from django.views.generic import View
 from .models import Donation, OrderItem, Order
 from .serializers import DonationSerializer, OrderItemSerializer
 
@@ -19,14 +18,12 @@ from .serializers import DonationSerializer, OrderItemSerializer
 
 class CartMixin(object):
 
-    def get_or_create_order(self):
-        # see if the user already has a order (with status 'cart') in the database
+    def get_order(self):
         if self.request.user.is_authenticated():
             try:
                 order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.cart)
             except Order.DoesNotExist:
-                # If we can't find a order (cart) for this user create one
-                order = self.create_order()
+                return None
         else:
             # For an anonymous user the order (cart) might be stored in the session
             order_id = self.request.session.get("cart_session")
@@ -34,12 +31,17 @@ class CartMixin(object):
                 try:
                     order = Order.objects.get(id=order_id, status=Order.OrderStatuses.cart)
                 except Order.DoesNotExist:
-                    # The order_id was not a cart in the db, create a new order (cart)
-                    order = self.create_order()
+                    # The order_id was not a cart in the db, return None
+                    return None
             else:
-                # No order_id in session. Create a new order (cart)
-                order = self.create_order()
+                # No order_id in session. Return None
+                return None
+        return order
 
+    def get_or_create_order(self):
+        order = self.get_order()
+        if not order:
+            order = self.create_order()
         return order
 
     def create_order(self):
@@ -118,18 +120,36 @@ class CurrentPaymentMixin(CartMixin):
 
     def get_payment(self):
         order = self.get_or_create_order()
-        if order.payment:
-            order.payment.amount = order.amount
-            return order.payment
         payment_factory = PaymentFactory()
-        payment = payment_factory.create_payment(amount=order.amount)
-        if self.request.user.is_authenticated():
-            payment.user = self.request.user
-        payment.save()
-        order.payment = payment
-        order.status = Order.OrderStatuses.cart
-        order.save()
-        return payment
+
+        if order.payment:
+            return order.payment
+
+        if self.request.DATA and self.request.DATA['payment_method']:
+            payment_factory.set_payment_method(self.request.DATA['payment_method'])
+            order.payment = payment_factory.create_payment(amount=order.amount)
+            order.save()
+            return order.payment
+
+        # If no payment or payment_method then return a plain Payment object so we can set the payment_method
+        return Payment.objects.create(amount=order.amount)
+
+    def get_payment_info(self):
+        order = self.get_or_create_order()
+        payment_factory = PaymentFactory()
+        payment_factory.set_payment(order.payment)
+
+        # For now set all customer info from user
+        # TODO: Check if info is available
+        # TODO: Check which info is required by payment_method
+        # TODO: Not always create a payment_info, update if it exists
+        user = self.request.user
+        address = user.get_profile().useraddress_set.get()
+        order.payment.payment_info = payment_factory.create_payment_info(amount=order.amount,
+            first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
+            zip_code=address.zip_code, city=address.city, country='nl')
+
+        return order.payment.payment_info
 
 
 class PaymentMethodList(generics.ListAPIView):
@@ -151,29 +171,30 @@ class CheckoutDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView)
         return self.get_payment()
 
 
-
-class CustomerInfoDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
-    model = DocdataPaymentProcess
-    serializer_class = PaymentProcessSerializer
+class PaymentInfoDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
+    model = PaymentInfo
+    serializer_class = PaymentInfoSerializer
 
     def get_object(self):
-        payment = self.get_payment()
-        payment_factory = PaymentFactory()
-        payment_factory.set_payment(payment)
-        user = self.request.user
-        address = user.get_profile().useraddress_set.get()
-        return payment_factory.get_payment_process(
-            first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
-            zip_code=address.zip_code, city=address.city, country='NL')
+        return self.get_payment_info()
+
 
 
 class PaymentStatusDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
-    model = DocdataPaymentProcess
-    serializer_class = PaymentProcessSerializer
+    model = Payment
+    serializer_class = PaymentSerializer
 
     def get_object(self):
-        payment = self.get_payment()
+        # TODO: maybe also try to get an Order with changed status so API returns an Payment with updated status...
+        order = self.get_order()
+        if not order:
+            raise Http404(_(u"No Order with status 'cart' found in session."))
+        order.status = self.kwargs['status']
+        order.save()
+        payment = order.payment
+        if not payment:
+            raise Http404(_(u"No Payment found in session."))
         payment_factory = PaymentFactory()
         payment_factory.set_payment(payment)
         payment_factory.check_payment()
-        return payment_factory.get_payment_process()
+        return payment_factory.get_payment()

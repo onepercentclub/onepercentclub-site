@@ -1,11 +1,11 @@
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer
-from cowry_docdata.models import DocdataPaymentProcess
-from cowry_ipay.models import PaymentProcess
+from cowry_docdata.models import DocdataPaymentInfo
+from cowry_ipay.models import Payment
 from rest_framework import serializers
 from rest_framework import relations
 from rest_framework import fields
 from .models import Donation, OrderItem
-from cowry.models import Payment, PaymentAdapter, PaymentMethod
+from cowry.models import Payment, PaymentAdapter, PaymentMethod, PaymentInfo
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -46,35 +46,45 @@ class PaymentMethodSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    status = fields.Field(source='status')
     amount = fields.Field(source='amount')
+    created = fields.Field(source='created')
+    status = fields.Field(source='status')
+    payment_method = relations.PrimaryKeyRelatedField(source='payment_method')
 
     class Meta:
         model = Payment
         fields = ('id', 'created', 'status', 'amount', 'payment_method')
 
 
-class PaymentProcessSerializerBase(serializers.ModelSerializer):
-    id = serializers.Field(source='paymentprocess_ptr_id')
+class PaymentInfoSerializerBase(serializers.ModelSerializer):
+    id = serializers.Field(source='paymentinfo_ptr_id')
+    amount = fields.Field(source='amount')
+    status = fields.Field(source='status')
+    payment_url = fields.Field(source='payment_url')
 
     class Meta:
-        fields = ('id', 'created', 'status')
+        model = PaymentInfo
+        fields = ('id', 'created', 'status', 'amount', 'payment_url')
 
 
-class DocdataPaymentSerializer(PaymentProcessSerializerBase):
+class DocdataPaymentInfoSerializer(PaymentInfoSerializerBase):
     email = fields.WritableField(source='client_email')
     first_name = fields.WritableField(source='client_firstname')
     last_name = fields.WritableField(source='client_lastname')
-    payment_url = fields.WritableField(source='payment_url')
+    address = fields.WritableField(source='client_address')
+    city = fields.WritableField(source='client_city')
+    zip_code = fields.WritableField(source='client_zip')
+    country = fields.WritableField(source='client_country')
 
     class Meta:
-        model = DocdataPaymentProcess
-        fields = PaymentProcessSerializerBase.Meta.fields + ('email', 'first_name', 'last_name', 'payment_url')
+        model = DocdataPaymentInfo
+        fields = PaymentInfoSerializerBase.Meta.fields + ('email', 'first_name', 'last_name', 'address', 'city',
+                                                      'zip_code', 'country')
 
 
-class PaymentProcessSerializer(PolymorphicSerializer):
+class PaymentInfoSerializer(PolymorphicSerializer):
 
     class Meta:
         child_models = (
-            (DocdataPaymentProcess, DocdataPaymentSerializer),
+            (DocdataPaymentInfo, DocdataPaymentInfoSerializer),
             )
