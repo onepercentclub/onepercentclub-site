@@ -5,7 +5,7 @@ from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWall
 
 urlpatterns = patterns('',
     url(r'^$', ProjectList.as_view(), name='project-list'),
-    surl(r'^<pk:#>$', ProjectDetail.as_view(), name='project-detail'),
+    surl(r'^<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
 
     # Project WallPost Urls
     url(r'^wallposts/$', ProjectWallPostList.as_view(), name='project-wallpost-list'),

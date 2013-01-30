@@ -1,5 +1,6 @@
 from apps.bluebottle_drf2.serializers import (TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer,
-                                              ToModelIdField, ManyRelatedNestedSerializer, SorlImageField)
+                                              PrimaryKeyGenericRelatedField, ManyRelatedNestedSerializer, SorlImageField,
+                                              SlugGenericRelatedField)
 from apps.projects.models import Project
 from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
@@ -20,7 +21,7 @@ class WallPostTypeField(serializers.Field):
 
 
 class WallPostReactionSerializer(ReactionSerializer):
-    wallpost_id = ToModelIdField(to_model=WallPost)
+    wallpost_id = PrimaryKeyGenericRelatedField(to_model=WallPost)
 
     class Meta(ReactionSerializer.Meta):
         fields = ReactionSerializer.Meta.fields + ('wallpost_id',)
@@ -83,12 +84,12 @@ class WallPostSerializer(PolymorphicSerializer):
 class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
-    project_id = ToModelIdField(to_model=Project)
+    project_slug = SlugGenericRelatedField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-textwallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
-        # Add the project_id field.
-        fields = TextWallPostSerializer.Meta.fields + ('project_id',)
+        # Add the project_slug field.
+        fields = TextWallPostSerializer.Meta.fields + ('project_slug',)
 
     def save(self):
         # Save the project content type on save.
@@ -100,12 +101,12 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
 class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
     """ MediaWallPostSerializer with project specific customizations. """
 
-    project_id = ToModelIdField(to_model=Project)
+    project_slug = SlugGenericRelatedField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
 
     class Meta(MediaWallPostSerializer.Meta):
-        # Add the project_id field.
-        fields = MediaWallPostSerializer.Meta.fields + ('project_id',)
+        # Add the project_slug field.
+        fields = MediaWallPostSerializer.Meta.fields + ('project_slug',)
 
     def save(self):
         # Save the project content type on save.

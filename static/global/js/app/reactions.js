@@ -1,8 +1,12 @@
+
+/*
+ Models
+ */
 App.Reaction = DS.Model.extend({
     url: 'reactions',
 
     text: DS.attr('string'),
-    author: DS.belongsTo('App.Member', {embedded: true}),
+    author: DS.belongsTo('App.Member'),
     created: DS.attr('string'),
     timesince: DS.attr('string')
 });
@@ -18,24 +22,27 @@ App.WallPostReaction = App.Reaction.extend({
 });
 
 
+/*
+ Controllers
+ */
+
 App.wallPostReactionController = Em.Controller.create({
-    model: App.WallPostReaction,
 
     addReaction: function(reaction, wallpost) {
         // Do a client side check if Reaction as a reaction property set
         // wallpost.reactions has problems with invalid records an will barf
         if (reaction.get('text') == undefined || reaction.get('text') == "") {
             reaction.set('errors', {'text': ['This field is required']});
-            return false;
+            return;
         }
         var transaction = App.store.transaction();
-        var model = this.get('model');
-        var livereaction = transaction.createRecord(model, reaction.toJSON());
+        var newReaction = transaction.createRecord(App.WallPostReaction);
+        newReaction.set('text', reaction.get('text'));
+        newReaction.set('wallpost_id', wallpost.get('id'));
         // Set the wallpost so the list gets updated in the view
-        livereaction.set('wallpost_id', wallpost.get('id'));
-        livereaction.set('wallpost', wallpost);
-        livereaction.on('didCreate', function(record) {
-            // Clear the reaction text in the form
+        newReaction.set('wallpost', wallpost);
+        newReaction.on('didCreate', function(record) {
+            // Clear the reaction text in the form.
             reaction.set('errors', null);
             reaction.set('text', '');
         });
@@ -44,22 +51,25 @@ App.wallPostReactionController = Em.Controller.create({
 });
 
 
+/*
+ Views
+ */
+
 App.WallPostReactionFormView = Em.View.extend({
     templateName: 'reaction_form',
     templateFile: 'reactions',
     tagName: 'form',
     classNames: ['reaction-form'],
 
-    wallpostBinding: "parentView.content",
-
-    // This needs to be as a calculated property or all reaction forms will be bound to each other.
-    content: function(){
-        return App.wallPostReactionController.get('model').createRecord();
-    }.property(),
+    // Each reaction form view needs to have its own reaction model.
+    init: function(){
+        this._super();
+        this.set('content', App.WallPostReaction.createRecord());
+    },
 
     submit: function(e) {
         e.preventDefault();
-        App.wallPostReactionController.addReaction(this.get('content'), this.get('wallpost'));
+        App.wallPostReactionController.addReaction(this.get('content'), this.get('parentView.content'));
     },
 
     didInsertElement: function(e) {
@@ -88,28 +98,22 @@ App.ReactionView = Em.View.extend({
         return false;
     }.property('user', 'content'),
 
-    deleteReaction: function(e) {
+    deleteReaction: function() {
         if (confirm("Delete this reaction?")) {
-            e.preventDefault();
             var transaction = App.store.transaction();
             var reaction = this.get('content');
             transaction.add(reaction);
-            // Clear author here
-            // TODO: Have a proper solution for belongsTo fields in adapter
-            reaction.reopen({
-                author: null
-            });
             this.$().fadeOut(500, function(){
                 reaction.deleteRecord();
                 transaction.commit();
             });
         }
-    }});
+    }
+});
 
 
 App.ReactionNoItemsView = Em.View.extend({
-    templateName: 'reaction_no_items',
-    templateFile: 'reactions'
+    templateName: 'reaction_no_items'
 });
 
 

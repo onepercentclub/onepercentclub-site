@@ -38,7 +38,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('country', 'created', 'id', 'image', 'language', 'latitude',
+        fields = ('country', 'created', 'image', 'language', 'latitude',
                   'longitude', 'money_asked', 'money_donated', 'organization',
                   'owner', 'phase', 'planned_end_date', 'planned_start_date',
                   'slug', 'tags', 'themes', 'title', 'url', 'description')
