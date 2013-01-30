@@ -2,7 +2,7 @@
 
 ul.tabs {
     border-bottom: 1px solid darken($white, 25%);
-    margin: 0 0 $margin-bottom 0;
+    margin: 0 0 $margin 0;
     li {
         display: inline-block;
         //@include displayfix;
@@ -37,7 +37,7 @@ ul.tabs {
 
 ul.steps {
     border-bottom: 1px solid darken($white, 25%);
-    margin: 0 0 $margin-bottom 0;
+    margin: 0 0 $margin 0;
     li {
         display: inline-block;
         //@include displayfix;

@@ -33,9 +33,21 @@ $(document).ready(function(){
             $('.share-actions', $(this)).hide();
         });
     
-    // DEVelOPMENT: needed for static template
+    // DEVELOPMENT: needed for static template
     initBehaviour('body');
+
+    // expande reaction-box on focus
+    $('.reaction-form textarea')
+        .live('focus', function(e) {
+            $(e.currentTarget).closest('.reaction-form').addClass('is-selected');
+        })
+        .live('blur', function(e) {
+            $(e.currentTarget).closest('.reaction-form').removeClass('is-selected');
+        });
+        
+    toggleText( $('.toggle-reactions') );
     toggleText( $('.toggle-love') );
+    
 });
 
 

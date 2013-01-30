@@ -12,7 +12,7 @@ $font-size: 16px;
 $grid-columns: 48;
 $min-width: 980px;
 $max-width: 1280px;
-$margin-bottom: 1.25em;
+$margin: 1.25em;
 
 $color-brand: #0e8a41;
 $color-error: #d24226;
@@ -32,6 +32,7 @@ $icons: sprite-map("sprites/icons/*.png", $spacing: 20px);
 
 
 /* Compass & Mixins */
+@import "compass/utilities";
 @import "compass/reset";
 @import "compass/css3";
 @import "mixins/_rem";
@@ -67,4 +68,5 @@ $icons: sprite-map("sprites/icons/*.png", $spacing: 20px);
 @import "modules/_users";
 @import "modules/_wallposts";
 @import "modules/_reactions";
+@import "modules/_donation";
 @import "modules/_misc";

@@ -7,31 +7,38 @@
     
     .reaction-form {
         @include rem(padding, 16px 16px 0 16px);
+        margin: 0;
     
         position: relative;
         background-color: $color-back;
+        
+        fieldset, fieldset ul, fieldset ul li {
+          margin: 0;
+          padding: 0;
+        }
         
         label {
             @include rem(top, 28px);
             @include grid(48, 9, 0);
             padding: 0;
-            
         }
         
         .user-img {
-            @include rem(top, 16px);
-            @include rem(left, 16px);
+            @include rem(top, 12px);
+            @include rem(left, 12px);
             width: 20px;
             position: absolute;
             margin: 0;
+            
             img {
                 float: left;
             }
         }
         
         textarea {
-            padding-left: $grid-column * 8;
-            overflow: hidden;
+          padding-left: $grid-column * 8;
+          overflow: hidden;
+          @include rem(height, 44px);
         }
         
         button {
@@ -39,7 +46,8 @@
             z-index: 2;
             float: right;
             visibility: hidden;
-            top: -8px;
+            top: 5px;
+            @include rem(font-size, 14px);
         }
         
         @include clearfix;
@@ -47,7 +55,7 @@
         &.is-selected {
             
             .user-img {
-              @include grid(3);
+              @include grid(4);
             }
             
             textarea {
@@ -64,12 +72,12 @@
     
     .reaction-actions {
         @include clearfix;
-        @include rem(top, -42px);
+        @include rem(top, -28px);
         
         position: relative;
         z-index: 1;
         
-        margin: 0;
+        margin: 3px 0;
         padding: 0;
         background: $color-back;
         list-style: none;
@@ -111,7 +119,7 @@
                 
                 &.toggle-love {
                     @include rem(padding-left, 33px);
-                    width: 24%;
+                    width: 20%;
                    
                     background-image: $icons;
                     background-repeat: no-repeat;

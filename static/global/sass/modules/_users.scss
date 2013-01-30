@@ -31,10 +31,15 @@
     &:hover em {
         background-color: darken(#ccc, 5%);
     }
+    
+    &:active {
+      position: inherit;
+      top: auto;
+    }
 }
 
 .user-img {
-    border: 1px solid #999;
+  border: 1px solid #999;
 } 
 
 .timestamp {
