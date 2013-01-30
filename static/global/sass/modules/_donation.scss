@@ -1,6 +1,8 @@
 
 .donation {
-  
+  h1 {
+    
+  }
 }
 
 .donation-steps {
@@ -11,8 +13,9 @@
   
   @include grid(32, 1);
   
+  overflow: hidden;
+  
   li {
-    @include grid(12, 0, -1);
     display: inline-block;
     background: transparent url('../images/donation-step.png') no-repeat right center;
     position: relative;
@@ -32,7 +35,7 @@
       background-repeat: no-repeat;
     }
     
-    &.select {
+    &.is-selected {
       background: transparent url('../images/donation-step-select.png') no-repeat right center;
       
       a {
@@ -43,58 +46,58 @@
     
     &.support  {
       z-index: 4;
-      
+      @include grid(11, 0, -2);
       a {
         padding-left: 50px;
-        @include border-radius(2px 0 0 2px);
-        background-position: sprite-position($icons, donation-support, 14px, 12px);
+        //@include border-radius(2px 0 0 2px);
+        background-position: sprite-position($icons, donation-support, 18px, 12px);
       }
       
-      &.select a {
-        background-position: sprite-position($icons, donation-support-select, 14px, 12px);
+      &.is-selected a {
+        background-position: sprite-position($icons, donation-support-select, 18px, 12px);
       }
       
     }
     
     &.details {
       z-index: 3;
-      
+      @include grid(12, 0, -2);
       a {
-        padding-left: 60px;
-        background-position: sprite-position($icons, donation-details, 24px, 10px);
+        padding-left: 70px;
+        background-position: sprite-position($icons, donation-details, 38px, 11px);
       }
       
-      &.select a {
-        background-position: sprite-position($icons, donation-details-select, 24px, 10px);
+      &.is-selected a {
+        background-position: sprite-position($icons, donation-details-select, 38px, 11px);
       }
     }
     
     &.profile {
       z-index: 2;
-      
+      @include grid(12, 0, -2);
       a {
-        padding-left: 60px;
-        background-position: sprite-position($icons, donation-profile, 24px, 10px);
+        padding-left: 70px;
+        background-position: sprite-position($icons, donation-profile, 38px, 10px);
       }
       
-      &.select a {
-        background-position: sprite-position($icons, donation-profile-select, 24px, 10px);
+      &.is-selected a {
+        background-position: sprite-position($icons, donation-profile-select, 38px, 10px);
       }
     }
     
     &.payment {
       z-index: 1;
       background-image: none;
-      
+      @include grid(13, 0, -2);
       a {
-        padding-left: 60px;
-        @include border-radius(0 2px 2px 0);
-        @include append(2);
-        background-position: sprite-position($icons, donation-payment, 24px, 10px);
+        padding-left: 70px;
+        //@include border-radius(0 2px 2px 0);
+        
+        background-position: sprite-position($icons, donation-payment, 38px, 10px);
       }
       
-      &.select a {
-        background-position: sprite-position($icons, donation-payment-select, 24px, 10px);
+      &.is-selected a {
+        background-position: sprite-position($icons, donation-payment-select, 38px, 10px);
       }
       
       a {
@@ -117,30 +120,29 @@
     padding: 16px;
     
     img {
+      @include grid(8);
       float: left;
-      margin: 0 16px 0 0;
     }
     
     h1 {
+      @include grid(28,1,1);
       @include rem(font-size, 22px);
-    }
-    
-    h1, .country {
-      width: 60%;
-      display: block;
-      float: left;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      padding: 0;
     }
     
     .country {
+      display: block;
+      @include rem(font-size, 14px);
       font-style: normal;
-      text-transform: uppercase;
+      font-weight: normal;
     }
     
     .donation-amount {
-      width: 30%;
-      position: absolute;
-      top: 0;
-      right: 0;
+      @include grid(12);
+      margin: 8px 0;
+      text-align: right;
     }
     
     &:hover {
@@ -149,6 +151,41 @@
       .remove {
         display: block;
       }
+    }
+    
+    .amount-needed {
+      color: #b9b8b8;
+      font-size: 13px;
+      display: block;
+    }
+    
+    label {
+      @include rem(font-size, 18px);
+      font-weight: bold;
+      color: $green;
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .currency {  
+      display: inline-block;
+      position: relative;
+      
+      em {
+        position: absolute;
+        left: 16px;
+        top: 15px;
+        font-size: 28px;
+      }
+      
+      input {
+        width: 135px;
+        font-size: 28px;
+        padding: 8px 8px 8px 40px;
+        font-weight: bold;
+        margin: 0;
+      }
+      
     }
     
     .remove {
@@ -166,11 +203,39 @@
     }
   
   }
+}
+
+.add-project {
+  padding-left: 32px;
+  margin: 0 16px 0 16px;
+  float: right;
+  color: #525252;
+  background-image: $icons;
+  background-repeat: no-repeat;
+  background-position: sprite-position($icons, add, 2px, 1px);
   
+  &:hover, &:active {
+    color: $black;
+    text-decoration: underline;
+  }
 }
 
 .donation-frequency {
-   @include border-radius(2px);
-   padding: 16px;
-   background: #f3f3f3; 
+   padding: 16px 16px 16px $grid-column * 9;
+   background: #f3f3f3;
+   
+   .label, .select {
+     display: block;
+   }
+   
+   .label {
+     @include rem(font-size, 22px);
+     margin-left: 16px;
+     font-weight: bold;
+   }
+   
+   .select {
+     @include rem(font-size, 18px);
+     margin: 8px 0 8px 16px;
+   }
 }

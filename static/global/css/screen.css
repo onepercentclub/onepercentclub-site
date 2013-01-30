@@ -263,8 +263,8 @@ button::-moz-focus-inner {
 
 /* line 40, ../sass/includes/_typography.scss */
 h1, h2, h3, h4, h5, h6 {
-  padding: 24px 0 8px 0;
-  padding: 1.5rem 0 0.5rem 0;
+  padding: 32px 0 8px 0;
+  padding: 2rem 0 0.5rem 0;
 }
 /* line 42, ../sass/includes/_typography.scss */
 h1.soft, h2.soft, h3.soft, h4.soft, h5.soft, h6.soft {
@@ -280,7 +280,7 @@ h1 {
 }
 
 /* line 53, ../sass/includes/_typography.scss */
-h1.main-title {
+.main-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -534,7 +534,7 @@ body {
 }
 
 /* line 45, ../sass/includes/_layout.scss */
-.wrapper > header {
+.wrapper > header, .wrapper > .main-title {
   float: left;
   width: 95.83333%;
   margin-left: 2.08333%;
@@ -560,7 +560,7 @@ body {
 /* line 58, ../sass/includes/_layout.scss */
 .wrapper > .content {
   float: left;
-  width: 95.83333%;
+  width: 62.5%;
   margin-left: 2.08333%;
   margin-right: 2.08333%;
 }
@@ -568,8 +568,8 @@ body {
 /* line 62, ../sass/includes/_layout.scss */
 .section {
   background-color: #e9e9e9;
-  padding: 0 0 32px 0;
-  padding: 0 0 2rem 0;
+  padding: 0 0 16px 0;
+  padding: 0 0 1rem 0;
 }
 
 /* line 67, ../sass/includes/_layout.scss */
@@ -612,19 +612,21 @@ section {
 /* line 15, ../sass/includes/_navigation.scss */
 #logo {
   float: left;
-  width: 12.5%;
+  width: 10.41667%;
   margin-left: 2.08333%;
   margin-right: 0%;
+  white-space: nowrap;
   margin-top: 10px;
   margin-top: 0.625rem;
   text-align: left;
 }
-/* line 20, ../sass/includes/_navigation.scss */
+/* line 21, ../sass/includes/_navigation.scss */
 #logo img {
   background: white;
 }
-/* line 24, ../sass/includes/_navigation.scss */
+/* line 25, ../sass/includes/_navigation.scss */
 #logo #subtitle {
+  position: absolute;
   font-size: 11px;
   font-size: 0.6875rem;
   display: inline-block !important;
@@ -637,38 +639,38 @@ section {
   top: -4px;
   top: -0.25rem;
 }
-/* line 35, ../sass/includes/_navigation.scss */
+/* line 37, ../sass/includes/_navigation.scss */
 #logo #subtitle em {
   font-style: normal;
   color: #ff619a;
 }
-/* line 43, ../sass/includes/_navigation.scss */
+/* line 45, ../sass/includes/_navigation.scss */
 #logo :hover img {
   background: #00c051;
 }
-/* line 47, ../sass/includes/_navigation.scss */
+/* line 49, ../sass/includes/_navigation.scss */
 #logo :hover #subtitle, #logo :hover #subtitle em {
   color: white !important;
 }
 
-/* line 53, ../sass/includes/_navigation.scss */
+/* line 55, ../sass/includes/_navigation.scss */
 .nav {
   font-weight: bold;
   font-size: 16px;
   font-size: 1rem;
 }
-/* line 57, ../sass/includes/_navigation.scss */
+/* line 59, ../sass/includes/_navigation.scss */
 .nav ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 62, ../sass/includes/_navigation.scss */
+/* line 64, ../sass/includes/_navigation.scss */
 .nav ul li {
   display: inline;
 }
 
-/* line 70, ../sass/includes/_navigation.scss */
+/* line 72, ../sass/includes/_navigation.scss */
 .nav-item, .nav-main li a, .nav-main li a:visited {
   color: #bfbfbf;
   text-transform: uppercase;
@@ -677,34 +679,34 @@ section {
   float: left;
   text-align: center;
   text-decoration: none;
-  padding: 28px 16px 10px 16px;
-  padding: 1.75rem 1rem 0.625rem 1rem;
+  padding: 28px 12px 10px 12px;
+  padding: 1.75rem 0.75rem 0.625rem 0.75rem;
   overflow: hidden;
 }
-/* line 81, ../sass/includes/_navigation.scss */
+/* line 83, ../sass/includes/_navigation.scss */
 .nav-item:hover, .nav-main li a:hover, .nav-main li a:hover:visited, .nav-item:active, .nav-main li a:active, .nav-main li a:active:visited, .nav-item.is-active, .nav-main li a.is-active, .nav-main li a.is-active:visited {
   color: white;
 }
 
-/* line 86, ../sass/includes/_navigation.scss */
+/* line 88, ../sass/includes/_navigation.scss */
 .nav-main {
   float: left;
-  width: 50%;
+  width: 54.16667%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 0%;
   position: relative;
-  font-size: 18px;
-  font-size: 1.125rem;
+  font-size: 17px;
+  font-size: 1.0625rem;
 }
-/* line 91, ../sass/includes/_navigation.scss */
+/* line 93, ../sass/includes/_navigation.scss */
 .nav-main li a, .nav-main li a:visited {
   white-space: nowrap;
 }
 
-/* line 98, ../sass/includes/_navigation.scss */
+/* line 100, ../sass/includes/_navigation.scss */
 .nav-member {
-  margin-top: 16px;
-  margin-top: 1rem;
+  margin-top: 20px;
+  margin-top: 1.25rem;
   float: left;
   width: 31.25%;
   margin-left: 0%;
@@ -715,7 +717,7 @@ section {
   overflow: hidden;
   text-align: center;
 }
-/* line 107, ../sass/includes/_navigation.scss */
+/* line 109, ../sass/includes/_navigation.scss */
 .nav-member img {
   width: 36px;
   width: 2.25rem;
@@ -724,7 +726,7 @@ section {
   float: left;
   vertical-align: top;
 }
-/* line 114, ../sass/includes/_navigation.scss */
+/* line 116, ../sass/includes/_navigation.scss */
 .nav-member a {
   color: white;
   text-transform: uppercase;
@@ -736,20 +738,20 @@ section {
   padding: 6px 8px 6px 8px;
   padding: 0.375rem 0.5rem 0.375rem 0.5rem;
 }
-/* line 124, ../sass/includes/_navigation.scss */
+/* line 126, ../sass/includes/_navigation.scss */
 .nav-member a:hover, .nav-member a:active, .nav-member a.is-selected {
   color: #050505;
 }
-/* line 129, ../sass/includes/_navigation.scss */
+/* line 131, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent {
   width: 35%;
   padding: 0;
 }
-/* line 133, ../sass/includes/_navigation.scss */
+/* line 135, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent img {
   border-right: 1px solid #050505;
 }
-/* line 137, ../sass/includes/_navigation.scss */
+/* line 139, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent strong {
   display: inline-block;
   margin: 6px 0 2px 0;
@@ -757,16 +759,16 @@ section {
   padding: 0 12px 0 8px;
   padding: 0 0.75rem 0 0.5rem;
 }
-/* line 144, ../sass/includes/_navigation.scss */
+/* line 146, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications {
   width: 65%;
 }
-/* line 149, ../sass/includes/_navigation.scss */
+/* line 151, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications:hover .nav-notifications-nr, .nav-member .nav-notifications:active .nav-notifications-nr {
   background-color: #050505;
   color: white !important;
 }
-/* line 156, ../sass/includes/_navigation.scss */
+/* line 158, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications-nr {
   color: #050505;
   background: white;
@@ -780,20 +782,20 @@ section {
   border-radius: 8px;
   border-radius: 0.5rem;
 }
-/* line 167, ../sass/includes/_navigation.scss */
+/* line 169, ../sass/includes/_navigation.scss */
 .nav-member .nav-login, .nav-member .nav-signup {
   width: 35%;
 }
-/* line 170, ../sass/includes/_navigation.scss */
+/* line 172, ../sass/includes/_navigation.scss */
 .nav-member .nav-login:hover, .nav-member .nav-login:active, .nav-member .nav-login.is-active, .nav-member .nav-signup:hover, .nav-member .nav-signup:active, .nav-member .nav-signup.is-active {
   color: #00c051;
   background-color: white;
 }
-/* line 177, ../sass/includes/_navigation.scss */
+/* line 179, ../sass/includes/_navigation.scss */
 .nav-member .nav-signup {
   background-color: #ff619a;
 }
-/* line 181, ../sass/includes/_navigation.scss */
+/* line 183, ../sass/includes/_navigation.scss */
 .nav-member .nav-language {
   float: left;
   width: 30%;
@@ -802,7 +804,7 @@ section {
   padding: 6px 8px 6px 8px;
   padding: 0.375rem 0.5rem 0.375rem 0.5rem;
 }
-/* line 187, ../sass/includes/_navigation.scss */
+/* line 189, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a {
   width: 50%;
   text-align: center;
@@ -811,11 +813,11 @@ section {
   padding: 0 6px;
   padding: 0 0.375rem;
 }
-/* line 194, ../sass/includes/_navigation.scss */
+/* line 196, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a#nav-lang-en {
   border-right: 1px solid #bfbfbf;
 }
-/* line 198, ../sass/includes/_navigation.scss */
+/* line 200, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a:hover, .nav-member .nav-language a:active, .nav-member .nav-language a.is-active {
   color: white;
 }
@@ -823,49 +825,46 @@ section {
 /* Elements */
 /* =========== Forms */
 /* line 3, ../sass/includes/_forms.scss */
-input[type=text], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select {
-  border: 1px solid #bfbfbf;
-  color: #333;
+input[type=text], input[type=password], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select {
+  border: 1px solid #c5c5c5;
+  color: #929292;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
   margin: -1px 0.5em 0px 0px;
   padding: 0.6em;
   width: 100%;
-  -webkit-border-radius: 0.3em;
-  -moz-border-radius: 0.3em;
-  -ms-border-radius: 0.3em;
-  -o-border-radius: 0.3em;
-  border-radius: 0.3em;
-  -webkit-box-shadow: inset 0px 1px 3px rgba(5, 5, 5, 0.1);
-  -moz-box-shadow: inset 0px 1px 3px rgba(5, 5, 5, 0.1);
-  box-shadow: inset 0px 1px 3px rgba(5, 5, 5, 0.1);
+  -webkit-box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
+  -moz-box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
+  box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
   -webkit-transition: border 0.1s;
   -moz-transition: border 0.1s;
   -o-transition: border 0.1s;
   transition: border 0.1s;
   vertical-align: baseline;
+  background-color: #fbfbfb;
 }
-/* line 15, ../sass/includes/_forms.scss */
-input[type=text]:focus, input[type=number]:focus, input[type=search]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=url]:focus, textarea:focus, select:focus {
+/* line 20, ../sass/includes/_forms.scss */
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=search]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=url]:focus, textarea:focus, select:focus {
   border: 1px solid #a6a6a6;
   outline: 0;
   color: #333;
-  -webkit-box-shadow: 0px 0px 4px rgba(5, 5, 5, 0.3);
-  -moz-box-shadow: 0px 0px 4px rgba(5, 5, 5, 0.3);
-  box-shadow: 0px 0px 4px rgba(5, 5, 5, 0.3);
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
+  -moz-box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
+  box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
 }
 
-/* line 23, ../sass/includes/_forms.scss */
+/* line 29, ../sass/includes/_forms.scss */
 ::-webkit-input-placeholder {
   color: #999;
 }
 
-/* line 27, ../sass/includes/_forms.scss */
+/* line 33, ../sass/includes/_forms.scss */
 :-moz-placeholder {
   color: #999;
 }
 
-/* line 31, ../sass/includes/_forms.scss */
+/* line 37, ../sass/includes/_forms.scss */
 textarea {
   overflow: auto;
   resize: vertical;
@@ -873,7 +872,7 @@ textarea {
   display: block;
 }
 
-/* line 40, ../sass/includes/_forms.scss */
+/* line 46, ../sass/includes/_forms.scss */
 form legend {
   display: block;
   margin-bottom: 0.25em;
@@ -881,12 +880,12 @@ form legend {
   line-height: 1.5em;
   font-size: 1.6em;
 }
-/* line 48, ../sass/includes/_forms.scss */
+/* line 54, ../sass/includes/_forms.scss */
 form fieldset {
   margin-bottom: 16px;
   margin-bottom: 1rem;
 }
-/* line 52, ../sass/includes/_forms.scss */
+/* line 58, ../sass/includes/_forms.scss */
 form label.inline {
   position: absolute;
   left: 0;
@@ -897,38 +896,23 @@ form label.inline {
   width: 100%;
   vertical-align: baseline;
 }
-<<<<<<< HEAD
-/* line 65, ../sass/includes/_forms.scss */
-form .euro {
+/* line 72, ../sass/includes/_forms.scss */
+form .currency em {
+  font-style: normal;
+  font-weight: bold;
+  color: #929292;
+}
+/* line 78, ../sass/includes/_forms.scss */
+form .currency input {
   width: auto;
 }
-/* line 69, ../sass/includes/_forms.scss */
-form .euro:before {
-  position: absolute;
-  left: 20px;
-  top: 0;
-  z-index: 10;
-  color: #050505;
-  display: block;
-  content: "Hallo";
-  width: 20px;
-  height: 20px;
-  background: red;
-}
-/* line 86, ../sass/includes/_forms.scss */
-=======
-/* line 64, ../sass/includes/_forms.scss */
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+/* line 83, ../sass/includes/_forms.scss */
 form ul {
   clear: both;
   list-style: none;
   margin: 0 0 1.25em 0;
 }
-<<<<<<< HEAD
-/* line 91, ../sass/includes/_forms.scss */
-=======
-/* line 69, ../sass/includes/_forms.scss */
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+/* line 88, ../sass/includes/_forms.scss */
 form ul > li {
   position: relative;
   margin-bottom: 1.25em;
@@ -947,63 +931,35 @@ form ul > li:before, form ul > li:after {
 form ul > li:after {
   clear: both;
 }
-<<<<<<< HEAD
-/* line 96, ../sass/includes/_forms.scss */
-=======
-/* line 74, ../sass/includes/_forms.scss */
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+/* line 93, ../sass/includes/_forms.scss */
 form ul > li > label {
   padding-left: 0.6em;
   display: block;
   color: #999;
 }
-<<<<<<< HEAD
-/* line 104, ../sass/includes/_forms.scss */
+/* line 101, ../sass/includes/_forms.scss */
 form ul > li > label small {
   display: inline-block;
 }
-/* line 109, ../sass/includes/_forms.scss */
-=======
-/* line 82, ../sass/includes/_forms.scss */
-form ul > li > label small {
-  display: inline-block;
-}
-/* line 87, ../sass/includes/_forms.scss */
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+/* line 106, ../sass/includes/_forms.scss */
 form ul > li p, form ul > li small {
   display: block;
   margin: 0.6em 0.6em 0.25em 0px;
 }
-<<<<<<< HEAD
+/* line 111, ../sass/includes/_forms.scss */
+form ul > li ul.checklist {
+  margin: 0.6em 0.6em 0.6em 0px;
+}
 /* line 114, ../sass/includes/_forms.scss */
-form ul > li ul.checklist {
-  margin: 0.6em 0.6em 0.6em 0px;
-}
-/* line 117, ../sass/includes/_forms.scss */
 form ul > li ul.checklist > li {
   margin: 0.5em 0;
 }
-/* line 119, ../sass/includes/_forms.scss */
-=======
-/* line 92, ../sass/includes/_forms.scss */
-form ul > li ul.checklist {
-  margin: 0.6em 0.6em 0.6em 0px;
-}
-/* line 95, ../sass/includes/_forms.scss */
-form ul > li ul.checklist > li {
-  margin: 0.5em 0;
-}
-/* line 97, ../sass/includes/_forms.scss */
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+/* line 116, ../sass/includes/_forms.scss */
 form ul > li ul.checklist input {
   display: inline-block;
   margin-right: 0.5em;
 }
-<<<<<<< HEAD
-/* line 124, ../sass/includes/_forms.scss */
-=======
-/* line 102, ../sass/includes/_forms.scss */
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+/* line 121, ../sass/includes/_forms.scss */
 form ul > li ul.checklist label {
   clear: both;
   float: none;
@@ -1012,66 +968,35 @@ form ul > li ul.checklist label {
   width: auto;
   font-weight: normal;
 }
-<<<<<<< HEAD
-/* line 127, ../sass/includes/_forms.scss */
-=======
-/* line 105, ../sass/includes/_forms.scss */
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+/* line 124, ../sass/includes/_forms.scss */
 form ul > li ul.checklist label:hover {
   color: #000;
   cursor: pointer;
 }
-<<<<<<< HEAD
-/* line 137, ../sass/includes/_forms.scss */
+/* line 134, ../sass/includes/_forms.scss */
 form ul li.error label {
   color: #d24226;
+}
+/* line 136, ../sass/includes/_forms.scss */
+form ul li.error label:hover {
+  color: #662012;
 }
 /* line 139, ../sass/includes/_forms.scss */
-form ul li.error label:hover {
-  color: #662012;
-}
-/* line 142, ../sass/includes/_forms.scss */
-=======
-/* line 115, ../sass/includes/_forms.scss */
-form ul li.error label {
-  color: #d24226;
-}
-/* line 117, ../sass/includes/_forms.scss */
-form ul li.error label:hover {
-  color: #662012;
-}
-/* line 120, ../sass/includes/_forms.scss */
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
 form ul li.error input {
   border: 1px solid #d24226;
   -webkit-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
   -moz-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
   box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
 }
-<<<<<<< HEAD
-/* line 145, ../sass/includes/_forms.scss */
+/* line 142, ../sass/includes/_forms.scss */
 form ul li.error input:focus {
   border: 1px solid #d24226;
 }
-/* line 148, ../sass/includes/_forms.scss */
-form ul li.error ul.errors {
-  color: #d24226;
-  margin: 0.6em 0.6em 0.6em 0px;
-}
-/* line 151, ../sass/includes/_forms.scss */
-form ul li.error ul.errors li {
-  margin: 0.5em 0;
-=======
-/* line 123, ../sass/includes/_forms.scss */
-form ul li.error input:focus {
-  border: 1px solid #d24226;
-}
-/* line 127, ../sass/includes/_forms.scss */
+/* line 146, ../sass/includes/_forms.scss */
 form ul li.error span.error {
   color: #d24226;
   margin: 0.6em 0.6em 0.6em 0px;
   display: block;
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
 }
 
 /* =========== Tables */
@@ -1188,15 +1113,16 @@ a.button, .button-donate, a.btn, input[type="submit"], button {
   color: white;
   cursor: pointer;
   display: inline-block;
-  font-size: 1.1em;
+  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: bold;
   line-height: 1.5em;
   text-transform: uppercase;
   margin: 0;
-  padding: 6px 16px 6px 16px;
-  padding: 0.375rem 1rem 0.375rem 1rem;
+  padding: 6px 32px 6px 32px;
+  padding: 0.375rem 2rem 0.375rem 2rem;
   text-decoration: none;
-  text-shadow: 1px 1px 0 rgba(5, 5, 5, 0.5);
+  text-shadow: 0 -1px 0 rgba(5, 5, 5, 0.25);
   -webkit-transition: all 50ms;
   -moz-transition: all 50ms;
   -o-transition: all 50ms;
@@ -1204,22 +1130,25 @@ a.button, .button-donate, a.btn, input[type="submit"], button {
   vertical-align: baseline;
   background-color: #00c051;
 }
-/* line 41, ../sass/includes/_buttons.scss */
+/* line 43, ../sass/includes/_buttons.scss */
 a.button:hover, .button-donate:hover, a.btn:hover, input[type="submit"]:hover, button:hover {
-  background-color: #00c051;
+  background-color: #ff619a;
   color: white;
-  border-color: #00a746;
+  border-color: #ff478a;
 }
-/* line 48, ../sass/includes/_buttons.scss */
-a.button:active, .button-donate:active, a.button:focus, .button-donate:focus, a.btn:active, a.btn:focus, input[type="submit"]:active, input[type="submit"]:focus, button:active, button:focus {
+/* line 50, ../sass/includes/_buttons.scss */
+a.button:active, .button-donate:active, a.btn:active, input[type="submit"]:active, button:active {
   background: #074520;
   -webkit-box-shadow: 0 1px 0 white, inset 0 0 20px #050505;
   -moz-box-shadow: 0 1px 0 white, inset 0 0 20px #050505;
   box-shadow: 0 1px 0 white, inset 0 0 20px #050505;
   color: #bfbfbf;
   text-shadow: 0 0 0;
+  border-bottom: 2px solid #00a746;
+  position: relative;
+  top: 4px;
 }
-/* line 56, ../sass/includes/_buttons.scss */
+/* line 62, ../sass/includes/_buttons.scss */
 a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"].contrast, button.contrast {
   border-color: #050505;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6b6b6b), color-stop(100%, #050505));
@@ -1228,7 +1157,7 @@ a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"]
   background: -o-linear-gradient(top, #6b6b6b, #050505);
   background: linear-gradient(top, #6b6b6b, #050505);
 }
-/* line 59, ../sass/includes/_buttons.scss */
+/* line 65, ../sass/includes/_buttons.scss */
 a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, input[type="submit"].contrast:hover, button.contrast:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #858585), color-stop(100%, #050505));
   background: -webkit-linear-gradient(top, #858585, #050505);
@@ -1236,12 +1165,12 @@ a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, in
   background: -o-linear-gradient(top, #858585, #050505);
   background: linear-gradient(top, #858585, #050505);
 }
-/* line 62, ../sass/includes/_buttons.scss */
+/* line 68, ../sass/includes/_buttons.scss */
 a.button.contrast:active, .contrast.button-donate:active, a.button.contrast:focus, .contrast.button-donate:focus, a.btn.contrast:active, a.btn.contrast:focus, input[type="submit"].contrast:active, input[type="submit"].contrast:focus, button.contrast:active, button.contrast:focus {
   background: #383838;
   color: #bfbfbf;
 }
-/* line 69, ../sass/includes/_buttons.scss */
+/* line 75, ../sass/includes/_buttons.scss */
 a.button.soft, .soft.button-donate, a.btn.soft, input[type="submit"].soft, button.soft {
   border-color: #a6a6a6;
   color: #525252;
@@ -1252,7 +1181,7 @@ a.button.soft, .soft.button-donate, a.btn.soft, input[type="submit"].soft, butto
   background: linear-gradient(top, #ffffff, #e6e6e6);
   text-shadow: 1px 1px 0px white;
 }
-/* line 74, ../sass/includes/_buttons.scss */
+/* line 80, ../sass/includes/_buttons.scss */
 a.button.soft:hover, .soft.button-donate:hover, a.btn.soft:hover, input[type="submit"].soft:hover, button.soft:hover {
   border-color: #8c8c8c;
   color: #050505;
@@ -1262,7 +1191,7 @@ a.button.soft:hover, .soft.button-donate:hover, a.btn.soft:hover, input[type="su
   background: -o-linear-gradient(top, #ffffff, #eeeeee);
   background: linear-gradient(top, #ffffff, #eeeeee);
 }
-/* line 79, ../sass/includes/_buttons.scss */
+/* line 85, ../sass/includes/_buttons.scss */
 a.button.soft:active, .soft.button-donate:active, a.button.soft:focus, .soft.button-donate:focus, a.btn.soft:active, a.btn.soft:focus, input[type="submit"].soft:active, input[type="submit"].soft:focus, button.soft:active, button.soft:focus {
   background: #bfbfbf;
   border-color: #6b6b6b;
@@ -1272,7 +1201,7 @@ a.button.soft:active, .soft.button-donate:active, a.button.soft:focus, .soft.but
   color: #5e5e5e;
   text-shadow: 0 0 0;
 }
-/* line 88, ../sass/includes/_buttons.scss */
+/* line 94, ../sass/includes/_buttons.scss */
 a.button.success, .success.button-donate, a.btn.success, input[type="submit"].success, button.success {
   border-color: #2d5011;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5da423), color-stop(100%, #457a1a));
@@ -1281,7 +1210,7 @@ a.button.success, .success.button-donate, a.btn.success, input[type="submit"].su
   background: -o-linear-gradient(top, #5da423, #457a1a);
   background: linear-gradient(top, #5da423, #457a1a);
 }
-/* line 91, ../sass/includes/_buttons.scss */
+/* line 97, ../sass/includes/_buttons.scss */
 a.button.success:hover, .success.button-donate:hover, a.btn.success:hover, input[type="submit"].success:hover, button.success:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #75ce2c), color-stop(100%, #457a1a));
   background: -webkit-linear-gradient(top, #75ce2c, #457a1a);
@@ -1289,11 +1218,11 @@ a.button.success:hover, .success.button-donate:hover, a.btn.success:hover, input
   background: -o-linear-gradient(top, #75ce2c, #457a1a);
   background: linear-gradient(top, #75ce2c, #457a1a);
 }
-/* line 94, ../sass/includes/_buttons.scss */
+/* line 100, ../sass/includes/_buttons.scss */
 a.button.success:active, .success.button-donate:active, a.button.success:focus, .success.button-donate:focus, a.btn.success:active, a.btn.success:focus, input[type="submit"].success:active, input[type="submit"].success:focus, button.success:active, button.success:focus {
   background: #396516;
 }
-/* line 99, ../sass/includes/_buttons.scss */
+/* line 105, ../sass/includes/_buttons.scss */
 a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, button.alert {
   border-color: #7c2716;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d24226), color-stop(100%, #a7341e));
@@ -1302,7 +1231,7 @@ a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, b
   background: -o-linear-gradient(top, #d24226, #a7341e);
   background: linear-gradient(top, #d24226, #a7341e);
 }
-/* line 102, ../sass/includes/_buttons.scss */
+/* line 108, ../sass/includes/_buttons.scss */
 a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type="submit"].alert:hover, button.alert:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #df644c), color-stop(100%, #a7341e));
   background: -webkit-linear-gradient(top, #df644c, #a7341e);
@@ -1310,28 +1239,35 @@ a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type=
   background: -o-linear-gradient(top, #df644c, #a7341e);
   background: linear-gradient(top, #df644c, #a7341e);
 }
-/* line 105, ../sass/includes/_buttons.scss */
+/* line 111, ../sass/includes/_buttons.scss */
 a.button.alert:active, .alert.button-donate:active, a.button.alert:focus, .alert.button-donate:focus, a.btn.alert:active, a.btn.alert:focus, input[type="submit"].alert:active, input[type="submit"].alert:focus, button.alert:active, button.alert:focus {
   background: #912e1a;
 }
-/* line 111, ../sass/includes/_buttons.scss */
+/* line 117, ../sass/includes/_buttons.scss */
 a.button.large, .large.button-donate, a.btn.large, input[type="submit"].large, button.large {
   font-size: 1.25em;
 }
-/* line 112, ../sass/includes/_buttons.scss */
+/* line 118, ../sass/includes/_buttons.scss */
 a.button.small, .small.button-donate, a.btn.small, input[type="submit"].small, button.small {
   font-size: 1em;
 }
-/* line 113, ../sass/includes/_buttons.scss */
+/* line 119, ../sass/includes/_buttons.scss */
 a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, button.tiny {
   font-size: 0.85em;
 }
+/* line 121, ../sass/includes/_buttons.scss */
+a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, button.next {
+  float: right;
+  border: none;
+  padding-right: 42px;
+  background: #ff619a url("../images/button-next.png") no-repeat right center;
+}
 
-/* line 119, ../sass/includes/_buttons.scss */
+/* line 133, ../sass/includes/_buttons.scss */
 .button-donate {
   font-size: 19px;
   font-size: 1.1875rem;
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
   background-position: 5% 16px;
   padding: 0.6em 0 0.6em 20%;
@@ -1340,7 +1276,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
   background-color: #ff619a;
 }
 
-/* line 134, ../sass/includes/_buttons.scss */
+/* line 148, ../sass/includes/_buttons.scss */
 .button.button-donate:hover {
   background-color: #050505;
 }
@@ -1348,7 +1284,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 /* ========================= Responsive ================================== */
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-  /* line 143, ../sass/includes/_buttons.scss */
+  /* line 157, ../sass/includes/_buttons.scss */
   .button-donate {
     font-size: 22px;
     font-size: 1.375rem;
@@ -1358,18 +1294,18 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 /* =========== Icons */
 /* line 3, ../sass/includes/_icons.scss */
 .location {
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -88px;
+  background-position: 0 -130px;
   padding-left: 36px;
   padding-left: 2.25rem;
 }
 
 /* line 10, ../sass/includes/_icons.scss */
 .tags {
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -892px;
+  background-position: 0 -934px;
   padding-left: 36px;
   padding-left: 2.25rem;
 }
@@ -2735,13 +2671,18 @@ ul.steps li.selected a {
 .user:hover em {
   background-color: #bfbfbf;
 }
+/* line 35, ../sass/modules/_users.scss */
+.user:active {
+  position: inherit;
+  top: auto;
+}
 
-/* line 36, ../sass/modules/_users.scss */
+/* line 41, ../sass/modules/_users.scss */
 .user-img {
   border: 1px solid #999;
 }
 
-/* line 40, ../sass/modules/_users.scss */
+/* line 45, ../sass/modules/_users.scss */
 .timestamp {
   text-transform: uppercase;
   color: #050505;
@@ -2859,11 +2800,17 @@ ul.steps li.selected a {
 .reaction-box .reaction-form {
   padding: 16px 16px 0 16px;
   padding: 1rem 1rem 0 1rem;
+  margin: 0;
   position: relative;
   background-color: #e9e9e9;
   *zoom: 1;
 }
-/* line 14, ../sass/modules/_reactions.scss */
+/* line 15, ../sass/modules/_reactions.scss */
+.reaction-box .reaction-form fieldset, .reaction-box .reaction-form fieldset ul, .reaction-box .reaction-form fieldset ul li {
+  margin: 0;
+  padding: 0;
+}
+/* line 20, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form label {
   top: 28px;
   top: 1.75rem;
@@ -2873,32 +2820,36 @@ ul.steps li.selected a {
   margin-right: 0%;
   padding: 0;
 }
-/* line 21, ../sass/modules/_reactions.scss */
+/* line 26, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form .user-img {
-  top: 16px;
-  top: 1rem;
-  left: 16px;
-  left: 1rem;
+  top: 12px;
+  top: 0.75rem;
+  left: 12px;
+  left: 0.75rem;
   width: 20px;
   position: absolute;
   margin: 0;
 }
-/* line 27, ../sass/modules/_reactions.scss */
+/* line 33, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form .user-img img {
   float: left;
 }
-/* line 32, ../sass/modules/_reactions.scss */
+/* line 38, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form textarea {
   padding-left: 16.66667%;
   overflow: hidden;
+  height: 44px;
+  height: 2.75rem;
 }
-/* line 37, ../sass/modules/_reactions.scss */
+/* line 44, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form button {
   position: relative;
   z-index: 2;
   float: right;
   visibility: hidden;
-  top: -8px;
+  top: 5px;
+  font-size: 14px;
+  font-size: 0.875rem;
 }
 /* line 44, ../sass/includes/_grid.scss */
 .reaction-box .reaction-form:before, .reaction-box .reaction-form:after {
@@ -2913,30 +2864,30 @@ ul.steps li.selected a {
 .reaction-box .reaction-form:after {
   clear: both;
 }
-/* line 49, ../sass/modules/_reactions.scss */
+/* line 57, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected .user-img {
   float: left;
-  width: 6.25%;
+  width: 8.33333%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 53, ../sass/modules/_reactions.scss */
+/* line 61, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected textarea {
   min-height: 88px;
   min-height: 5.5rem;
 }
-/* line 57, ../sass/modules/_reactions.scss */
+/* line 65, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected button {
   visibility: visible;
 }
-/* line 65, ../sass/modules/_reactions.scss */
+/* line 73, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions {
   *zoom: 1;
-  top: -42px;
-  top: -2.625rem;
+  top: -28px;
+  top: -1.75rem;
   position: relative;
   z-index: 1;
-  margin: 0;
+  margin: 3px 0;
   padding: 0;
   background: #e9e9e9;
   list-style: none;
@@ -2955,13 +2906,13 @@ ul.steps li.selected a {
 .reaction-box .reaction-actions:after {
   clear: both;
 }
-/* line 78, ../sass/modules/_reactions.scss */
+/* line 86, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li {
   font-size: 11px;
   font-size: 0.6875rem;
   display: inline !important;
 }
-/* line 83, ../sass/modules/_reactions.scss */
+/* line 91, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a, .reaction-box .reaction-actions li strong {
   margin: 0 4px 0 4px;
   margin: 0 0.25rem 0 0.25rem;
@@ -2973,83 +2924,83 @@ ul.steps li.selected a {
   cursor: hand;
   cursor: pointer;
 }
-/* line 93, ../sass/modules/_reactions.scss */
+/* line 101, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a:hover, .reaction-box .reaction-actions li a:active, .reaction-box .reaction-actions li strong:hover, .reaction-box .reaction-actions li strong:active {
   color: #050505;
 }
-/* line 97, ../sass/modules/_reactions.scss */
+/* line 105, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-reactions, .reaction-box .reaction-actions li strong.toggle-reactions {
   padding-left: 30px;
   padding-left: 1.875rem;
   margin-left: 18.75%;
   width: 20%;
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -578px;
+  background-position: 0 -620px;
 }
-/* line 106, ../sass/modules/_reactions.scss */
+/* line 114, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-reactions:hover, .reaction-box .reaction-actions li a.toggle-reactions.is-active, .reaction-box .reaction-actions li strong.toggle-reactions:hover, .reaction-box .reaction-actions li strong.toggle-reactions.is-active {
-  background-position: 0 -656px;
+  background-position: 0 -698px;
   color: #050505;
 }
-/* line 112, ../sass/modules/_reactions.scss */
+/* line 120, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love, .reaction-box .reaction-actions li strong.toggle-love {
   padding-left: 33px;
   padding-left: 2.0625rem;
-  width: 24%;
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  width: 20%;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -421px;
+  background-position: 0 -463px;
 }
-/* line 120, ../sass/modules/_reactions.scss */
+/* line 128, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love:hover, .reaction-box .reaction-actions li strong.toggle-love:hover {
-  background-position: 0 -301px;
+  background-position: 0 -343px;
   color: #ff619a;
 }
-/* line 125, ../sass/modules/_reactions.scss */
+/* line 133, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active:hover {
-  background-position: 0 -499px;
+  background-position: 0 -541px;
   color: #050505;
 }
-/* line 130, ../sass/modules/_reactions.scss */
+/* line 138, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active, .reaction-box .reaction-actions li a.toggle-love.is-activated, .reaction-box .reaction-actions li a.toggle-love.is-activated:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active, .reaction-box .reaction-actions li strong.toggle-love.is-activated, .reaction-box .reaction-actions li strong.toggle-love.is-activated:hover {
-  background-position: 0 -261px;
+  background-position: 0 -303px;
   color: #ff619a;
 }
-/* line 139, ../sass/modules/_reactions.scss */
+/* line 147, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong {
   padding-left: 30px;
   padding-left: 1.875rem;
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -696px;
+  background-position: 0 -738px;
 }
-/* line 146, ../sass/modules/_reactions.scss */
+/* line 154, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong:hover, .reaction-box .reaction-actions li.share strong.is-active {
-  background-position: 0 -775px;
+  background-position: 0 -817px;
   color: #00c051;
 }
-/* line 152, ../sass/modules/_reactions.scss */
+/* line 160, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions {
   padding: 16px 0 8px 0;
   padding: 1rem 0 0.5rem 0;
   display: none;
 }
-/* line 156, ../sass/modules/_reactions.scss */
+/* line 164, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li {
   display: inline-block;
   text-align: center;
 }
-/* line 160, ../sass/modules/_reactions.scss */
+/* line 168, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-facebook {
   margin-left: 16.66667%;
   width: 25%;
 }
-/* line 165, ../sass/modules/_reactions.scss */
+/* line 173, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-twitter {
   width: 25%;
 }
-/* line 171, ../sass/modules/_reactions.scss */
+/* line 179, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url code {
   font-size: 11px;
   font-size: 0.6875rem;
@@ -3058,14 +3009,14 @@ ul.steps li.selected a {
   background: white;
   font-color: #ccc !important;
 }
-/* line 179, ../sass/modules/_reactions.scss */
+/* line 187, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url .share-url-copy {
   padding: 0 4px;
   background-color: #ccc;
   color: white;
 }
 
-/* line 193, ../sass/modules/_reactions.scss */
+/* line 201, ../sass/modules/_reactions.scss */
 .reactions {
   top: -54px;
   top: -3.375rem;
@@ -3092,11 +3043,11 @@ ul.steps li.selected a {
 .reactions:after {
   clear: both;
 }
-/* line 202, ../sass/modules/_reactions.scss */
+/* line 210, ../sass/modules/_reactions.scss */
 .reactions .manage {
   float: right;
 }
-/* line 205, ../sass/modules/_reactions.scss */
+/* line 213, ../sass/modules/_reactions.scss */
 .reactions li {
   margin: 16px 0;
   margin: 1rem 0;
@@ -3104,7 +3055,7 @@ ul.steps li.selected a {
   display: block;
   overflow: auto;
 }
-/* line 211, ../sass/modules/_reactions.scss */
+/* line 219, ../sass/modules/_reactions.scss */
 .reactions li .user-img {
   float: left;
   width: 6.25%;
@@ -3117,15 +3068,15 @@ ul.steps li.selected a {
   position: absolute;
   margin: 0;
 }
-/* line 219, ../sass/modules/_reactions.scss */
+/* line 227, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction {
   border-color: #00c051;
 }
-/* line 222, ../sass/modules/_reactions.scss */
+/* line 230, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction::after {
   background: url("../images/reaction-box-initiator.png") transparent no-repeat 0 0;
 }
-/* line 227, ../sass/modules/_reactions.scss */
+/* line 235, ../sass/modules/_reactions.scss */
 .reactions li .reaction {
   float: left;
   width: 83.33333%;
@@ -3144,16 +3095,16 @@ ul.steps li.selected a {
   color: #333;
   vertical-align: baseline;
 }
-/* line 237, ../sass/modules/_reactions.scss */
+/* line 245, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user {
   font-size: 14px;
   font-size: 0.875rem;
 }
-/* line 239, ../sass/modules/_reactions.scss */
+/* line 247, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user strong {
   text-transform: uppercase;
 }
-/* line 244, ../sass/modules/_reactions.scss */
+/* line 252, ../sass/modules/_reactions.scss */
 .reactions li .reaction::after {
   top: 16px;
   top: 1rem;
@@ -3166,7 +3117,7 @@ ul.steps li.selected a {
   content: ' ';
 }
 
-/* line 6, ../sass/modules/_donation.scss */
+/* line 8, ../sass/modules/_donation.scss */
 .donation-steps {
   margin: 16px 0;
   padding: 0;
@@ -3175,18 +3126,15 @@ ul.steps li.selected a {
   width: 62.5%;
   margin-left: 2.08333%;
   margin-right: 2.08333%;
+  overflow: hidden;
 }
-/* line 14, ../sass/modules/_donation.scss */
+/* line 18, ../sass/modules/_donation.scss */
 .donation-steps li {
-  float: left;
-  width: 27.08333%;
-  margin-left: 0%;
-  margin-right: -2.08333%;
   display: inline-block;
   background: transparent url("../images/donation-step.png") no-repeat right center;
   position: relative;
 }
-/* line 20, ../sass/modules/_donation.scss */
+/* line 23, ../sass/modules/_donation.scss */
 .donation-steps li a {
   display: block;
   background-color: #dcdcdc;
@@ -3198,130 +3146,179 @@ ul.steps li.selected a {
   text-transform: uppercase;
   padding: 0.6em 1.2em 0.6em;
   margin-right: 31px;
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
 }
-/* line 35, ../sass/modules/_donation.scss */
-.donation-steps li.select {
+/* line 38, ../sass/modules/_donation.scss */
+.donation-steps li.is-selected {
   background: transparent url("../images/donation-step-select.png") no-repeat right center;
 }
-/* line 38, ../sass/modules/_donation.scss */
-.donation-steps li.select a {
+/* line 41, ../sass/modules/_donation.scss */
+.donation-steps li.is-selected a {
   background-color: #00c051;
   color: white;
 }
-/* line 44, ../sass/modules/_donation.scss */
+/* line 47, ../sass/modules/_donation.scss */
 .donation-steps li.support {
   z-index: 4;
+  float: left;
+  width: 27.08333%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
 }
-/* line 47, ../sass/modules/_donation.scss */
+/* line 50, ../sass/modules/_donation.scss */
 .donation-steps li.support a {
   padding-left: 50px;
-  -webkit-border-radius: 2px 0 0 2px;
-  -moz-border-radius: 2px 0 0 2px;
-  -ms-border-radius: 2px 0 0 2px;
-  -o-border-radius: 2px 0 0 2px;
-  border-radius: 2px 0 0 2px;
-  background-position: 14px -610px;
+  background-position: 18px -652px;
 }
-/* line 53, ../sass/modules/_donation.scss */
-.donation-steps li.support.select a {
-  background-position: 14px -808px;
-}
-/* line 59, ../sass/modules/_donation.scss */
-.donation-steps li.details {
-  z-index: 3;
+/* line 56, ../sass/modules/_donation.scss */
+.donation-steps li.support.is-selected a {
+  background-position: 18px -850px;
 }
 /* line 62, ../sass/modules/_donation.scss */
+.donation-steps li.details {
+  z-index: 3;
+  float: left;
+  width: 29.16667%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+/* line 65, ../sass/modules/_donation.scss */
 .donation-steps li.details a {
-  padding-left: 60px;
-  background-position: 24px -334px;
+  padding-left: 70px;
+  background-position: 38px -375px;
 }
-/* line 67, ../sass/modules/_donation.scss */
-.donation-steps li.details.select a {
-  background-position: 24px -453px;
-}
-/* line 72, ../sass/modules/_donation.scss */
-.donation-steps li.profile {
-  z-index: 2;
+/* line 70, ../sass/modules/_donation.scss */
+.donation-steps li.details.is-selected a {
+  background-position: 38px -494px;
 }
 /* line 75, ../sass/modules/_donation.scss */
+.donation-steps li.profile {
+  z-index: 2;
+  float: left;
+  width: 29.16667%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+/* line 78, ../sass/modules/_donation.scss */
 .donation-steps li.profile a {
-  padding-left: 60px;
-  background-position: 24px -374px;
+  padding-left: 70px;
+  background-position: 38px -416px;
 }
-/* line 80, ../sass/modules/_donation.scss */
-.donation-steps li.profile.select a {
-  background-position: 24px -531px;
+/* line 83, ../sass/modules/_donation.scss */
+.donation-steps li.profile.is-selected a {
+  background-position: 38px -573px;
 }
-/* line 85, ../sass/modules/_donation.scss */
+/* line 88, ../sass/modules/_donation.scss */
 .donation-steps li.payment {
   z-index: 1;
   background-image: none;
+  float: left;
+  width: 31.25%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
 }
-/* line 89, ../sass/modules/_donation.scss */
+/* line 92, ../sass/modules/_donation.scss */
 .donation-steps li.payment a {
-  padding-left: 60px;
-  -webkit-border-radius: 0 2px 2px 0;
-  -moz-border-radius: 0 2px 2px 0;
-  -ms-border-radius: 0 2px 2px 0;
-  -o-border-radius: 0 2px 2px 0;
-  border-radius: 0 2px 2px 0;
-  margin-right: 4.16667%;
-  background-position: 24px -121px;
+  padding-left: 70px;
+  background-position: 38px -163px;
 }
-/* line 96, ../sass/modules/_donation.scss */
-.donation-steps li.payment.select a {
-  background-position: 24px -164px;
+/* line 99, ../sass/modules/_donation.scss */
+.donation-steps li.payment.is-selected a {
+  background-position: 38px -206px;
 }
 
-/* line 109, ../sass/modules/_donation.scss */
+/* line 112, ../sass/modules/_donation.scss */
 #donation-projects {
   list-style: none;
 }
-/* line 113, ../sass/modules/_donation.scss */
+/* line 116, ../sass/modules/_donation.scss */
 #donation-projects .donation-project {
   position: relative;
   border-bottom: 5px solid #f3f3f3;
   padding: 16px;
 }
-/* line 119, ../sass/modules/_donation.scss */
+/* line 122, ../sass/modules/_donation.scss */
 #donation-projects .donation-project img {
   float: left;
-  margin: 0 16px 0 0;
-}
-/* line 124, ../sass/modules/_donation.scss */
-#donation-projects .donation-project h1 {
-  font-size: 22px;
-  font-size: 1.375rem;
-}
-/* line 128, ../sass/modules/_donation.scss */
-#donation-projects .donation-project h1, #donation-projects .donation-project .country {
-  width: 60%;
-  display: block;
+  width: 16.66667%;
+  margin-left: 0%;
+  margin-right: 0%;
   float: left;
 }
-/* line 134, ../sass/modules/_donation.scss */
+/* line 127, ../sass/modules/_donation.scss */
+#donation-projects .donation-project h1 {
+  float: left;
+  width: 54.16667%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+  font-size: 22px;
+  font-size: 1.375rem;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 0;
+}
+/* line 135, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .country {
+  display: block;
+  font-size: 14px;
+  font-size: 0.875rem;
   font-style: normal;
-  text-transform: uppercase;
+  font-weight: normal;
 }
-/* line 139, ../sass/modules/_donation.scss */
+/* line 142, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .donation-amount {
-  width: 30%;
-  position: absolute;
-  top: 0;
-  right: 0;
+  float: left;
+  width: 25%;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin: 8px 0;
+  text-align: right;
 }
-/* line 146, ../sass/modules/_donation.scss */
+/* line 148, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover {
   background-color: #f3f3f3;
 }
-/* line 149, ../sass/modules/_donation.scss */
+/* line 151, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover .remove {
   display: block;
 }
-/* line 154, ../sass/modules/_donation.scss */
+/* line 156, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .amount-needed {
+  color: #b9b8b8;
+  font-size: 13px;
+  display: block;
+}
+/* line 162, ../sass/modules/_donation.scss */
+#donation-projects .donation-project label {
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #00c051;
+  display: block;
+  margin-bottom: 8px;
+}
+/* line 170, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency {
+  display: inline-block;
+  position: relative;
+}
+/* line 174, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency em {
+  position: absolute;
+  left: 16px;
+  top: 15px;
+  font-size: 28px;
+}
+/* line 181, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency input {
+  width: 135px;
+  font-size: 28px;
+  padding: 8px 8px 8px 40px;
+  font-weight: bold;
+  margin: 0;
+}
+/* line 191, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .remove {
   display: none;
   z-index: 5;
@@ -3330,7 +3327,7 @@ ul.steps li.selected a {
   right: -10px;
   width: 22px;
   height: 22px;
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
   background-position: 0 -46px;
   text-indent: -119988px;
@@ -3338,15 +3335,43 @@ ul.steps li.selected a {
   text-align: left;
 }
 
-/* line 172, ../sass/modules/_donation.scss */
+/* line 208, ../sass/modules/_donation.scss */
+.add-project {
+  padding-left: 32px;
+  margin: 0 16px 0 16px;
+  float: right;
+  color: #525252;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
+  background-repeat: no-repeat;
+  background-position: 2px -87px;
+}
+/* line 217, ../sass/modules/_donation.scss */
+.add-project:hover, .add-project:active {
+  color: #050505;
+  text-decoration: underline;
+}
+
+/* line 223, ../sass/modules/_donation.scss */
 .donation-frequency {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
-  border-radius: 2px;
-  padding: 16px;
+  padding: 16px 16px 16px 18.75%;
   background: #f3f3f3;
+}
+/* line 227, ../sass/modules/_donation.scss */
+.donation-frequency .label, .donation-frequency .select {
+  display: block;
+}
+/* line 231, ../sass/modules/_donation.scss */
+.donation-frequency .label {
+  font-size: 22px;
+  font-size: 1.375rem;
+  margin-left: 16px;
+  font-weight: bold;
+}
+/* line 237, ../sass/modules/_donation.scss */
+.donation-frequency .select {
+  font-size: 18px;
+  font-size: 1.125rem;
+  margin: 8px 0 8px 16px;
 }
 
 /* =========== For prototyping only */
@@ -3385,7 +3410,7 @@ ul.steps li.selected a {
   margin-left: 0.625rem;
   padding-left: 30px;
   padding-left: 1.875rem;
-  background-image: url('../images/sprites/icons-s6913f849cd.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
 }
 /* line 40, ../sass/modules/_misc.scss */
@@ -3394,19 +3419,11 @@ ul.steps li.selected a {
 }
 /* line 46, ../sass/modules/_misc.scss */
 .manage .manage-edit a {
-<<<<<<< HEAD
-  background-position: 2px -739px;
-=======
   cursor: pointer;
-  background-position: 2px -363px;
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+  background-position: 2px -781px;
 }
 /* line 51, ../sass/modules/_misc.scss */
 .manage .manage-remove a {
-<<<<<<< HEAD
-  background-position: 5px -856px;
-=======
   cursor: pointer;
-  background-position: 5px -442px;
->>>>>>> 215b777045dd8579e02a749147ea9b9142b427e5
+  background-position: 5px -898px;
 }

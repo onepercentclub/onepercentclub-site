@@ -19,37 +19,43 @@ div.buttons, ul.buttons {
 // The standard button has the $color-brand colors
 a.button, a.btn, input[type="submit"], button {
     border: 1px solid darken($green, 5%);
+    //@include border-radius(0 0 2px 2px);
+    
     //@include border-radius(0.2em);
     //@include box-shadow((0 1px 1px darken($white, 10%), inset 0 1px 0px rgba($white, 0.3)));
     color: $white;
     cursor: pointer;
     display: inline-block;
-    font-size: 1.1em;
+    @include rem(font-size, 22px);
     font-weight: bold;
     //@include gradient(top, $color-brand, darken($color-brand, 10%));
     line-height: 1.5em;
     text-transform: uppercase;
     margin: 0;
-    @include rem(padding, 6px 16px 6px 16px);
+    @include rem(padding, 6px 32px 6px 32px);
     text-decoration: none;
-    text-shadow: 1px 1px 0 rgba($black, 0.5);
+    text-shadow: 0 -1px 0 rgba($black, 0.25);
     @include transition(all 50ms);
     vertical-align: baseline;
     
     background-color: $green;
 
     &:hover { 
-        background-color: $green;
+        background-color: $pink;
         color: $white;
-        border-color: darken($green, 5%);
+        border-color: darken($pink, 5%);
         //@include background( linear-gradient(top, darken($green, 5%), lighten($green, 5%) ));
     }
     
-    &:active, &:focus {
+    &:active {
         background: darken($color-brand, 15%);
         @include box-shadow((0 1px 0 $white, inset 0 0 20px $black));
         color: darken($white, 25%);
         text-shadow: 0 0 0;
+        
+        border-bottom: 2px solid darken($green, 5%);
+        position: relative;
+        top: 4px;
     }
     
     // The dark button
@@ -111,6 +117,14 @@ a.button, a.btn, input[type="submit"], button {
     &.large { font-size: 1.25em; }
     &.small { font-size: 1em; }
     &.tiny { font-size: 0.85em; }
+    
+    &.next {
+      float: right;
+      border: none;
+      padding-right: 42px;
+      
+      background: $pink url('../images/button-next.png') no-repeat right center;
+    }
 }
 
 

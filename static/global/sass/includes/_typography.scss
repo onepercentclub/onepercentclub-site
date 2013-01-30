@@ -38,7 +38,7 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @include rem(padding, 24px 0 8px 0); 
+  @include rem(padding, 32px 0 8px 0); 
   &.soft {
       color: lighten($black, 50%);
   }
@@ -50,7 +50,7 @@ h1 {
     font-weight: bold;
 }
 
-h1.main-title  {
+.main-title  {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -39,6 +39,7 @@
     					<li class="nav-more"><a href="#">More &#9660;</a></li>
     				</ul>
     			</nav>
+    			
     			<nav class="nav-member">
     				<h1 class="nav-title">Profile</h1>
     				<a href="#" class="nav-my1percent"><img src="/static/assets/dummy/avatar-color.jpg" width="40" height="40" alt="Bart Lacroix" /><strong>My1%</strong></a>
@@ -54,61 +55,51 @@
       
       <!-- donation -->
       <header class="wrapper">
-        <h1>Support one or more projects!</h1>
+        <h1 class="main-title">Support one or more projects!</h1>
       </header>
     
     </div>
   
     <div class="container">
     
-      <section class="wrapper" id="donation step-support">
+      <section class="wrapper">
       
         <ul class="donation-steps">
-          <li class="support select"><a href="#">Support</a></li>
-          <li class="details"><a href="#">Details</a></li>
-          <li class="profile"><a href="#">Profile</a></li>
-          <li class="payment"><a href="#">Payment</a></li>
+          <li class="support is-completed"><a href="donation-support.html">Support</a></li>
+          <li class="details is-selected"><a href="donation-details.html">Details</a></li>
+          <li class="profile"><a href="donation-profile.html">Profile</a></li>
+          <li class="payment"><a href="donation-payment.html">Payment</a></li>
         </ul>
       
         <form id="" action="/" method="post">
-          <fieldset>
-            <ul id="donation-projects">
+          <fieldset class="donation-details">
             
-                <li class="donation-project">
-                  <img src="../dummy/donation-project.jpg" class="project-image" alt="Project Name" />
-                  <h1>Barraco #55</h1>
-                  <em class="country">Brazil</em>
-                  <p class="donation-amount">
-                    <strong class="amount-needed">&euro; 530 is still needed</strong>
-                    <label for="donation-amount-1">I'd like to give</label>
-                    <input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" class="euro" value="20" />
-                  </p>
-                  <a href="#" class="remove">Remove</a>
-                </li>
-                
+            <
+            
+            <ul>
+              <li>
+                <label for="card-number" class="inline">Cardnumber (no dashes or spaces)</label>
+                <input type="text" id="card-number" name="card-number" maxlength="16" /></span>
+              </li>
+              <li>
+                <label for="card-number" class="inline">Name (as it appears on your card)</label>
+                <input type="text" id="card-number" name="card-number" maxlength="64" /></span>
+              </li>
             </ul>
             
-            <a href="#" class="add-project">Add another project</a>
-            
           </fieldset>
           
-          <fieldset class="donation-frequency">
-            <label for="donation-frequency">Support the selected projects:</label>
-            <input type="radio" name="donation-frequency" id="donation-frequency-single" value="single" checked> <label for="donation-frequency-single">Single time</label>
-            <input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly"> <label for="donation-frequency-monthly">Monthly donations</label>
-          </fieldset>
-          
-          <button type="submit">Next step</button>
+          <button type="submit" class="next">Next step, please</button>
           
         </form>
         
+        <!--
         <div class="sidebar tip">
           <h3>Did you know?</h3>
           <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
           <p><a href="#">Read some more</a></p>
         </div>
-        
-        <!-- end: wallpost form -->
+        -->
         
       </section>
       
@@ -119,7 +110,7 @@
     
         
     <!-- scripts -->
-    <script src="/static/assets/js/libs/jquery-1.7.2.min.js"></script>
+    <script src="/static/assets/js/libs/jquery-1.7.2.js"></script>
     <script src="/static/assets/js/libs/jquery.ui.widget.js"></script>
     
     <script src="/static/assets/js/plugins/jquery.colorbox.js"></script>

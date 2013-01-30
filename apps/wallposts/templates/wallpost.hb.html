@@ -91,7 +91,7 @@
 
 {% tplhandlebars "wallpost" %}
     <header>
-        <h3>{{view.content.title}}</h3>
+        <h3>{{view.content.title}} Dummy Title</h3>
         <small class="timestamp">{{view.content.timesince}} {% trans "ago" %}</small>
         <a href="#" class="user initiator">
             <span class="user-img"><img {{bindAttr src="view.content.author.picture"}} width="100%" alt="Avatar" /></span>
@@ -142,9 +142,6 @@
     <div class="reaction-box">
 
         {{view "App.WallPostReactionFormView"}}
-
-
-        <br />
 
         <ul class="reaction-actions not-implemented">
             <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>

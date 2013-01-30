@@ -42,7 +42,7 @@ body {
     padding: 0 16px;
 }
 
-.wrapper > header {
+.wrapper > header, .wrapper > .main-title {
     @include grid(48, 1);
 }
 
@@ -56,12 +56,12 @@ body {
 }
 
 .wrapper > .content {
-    @include grid(48, 1);
+    @include grid(32, 1);
 }
 
 .section {
     background-color: $color-back;
-    @include rem(padding, 0 0 32px 0);
+    @include rem(padding, 0 0 16px 0);
 }
 
 .top {

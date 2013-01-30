@@ -46,7 +46,6 @@ $(document).ready(function(){
         });
         
     toggleText( $('.toggle-reactions') );
-
     toggleText( $('.toggle-love') );
     
 });
