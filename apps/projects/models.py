@@ -15,7 +15,7 @@ from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
 from apps.bluebottle_utils.fields import MoneyField
-from apps.donations.models import Donation
+from apps.fund.models import Donation
 
 class ProjectTheme(models.Model):
     """ Themes for Projects. """

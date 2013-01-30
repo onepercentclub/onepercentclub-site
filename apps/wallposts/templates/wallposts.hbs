@@ -2,23 +2,27 @@
 {% load i18n %}
 
 
-{% tplhandlebars "wallpost_form_container" %}
+{% tplhandlebars "projectwallpost_form" %}
 
+<div class="container section">
     <section class="wrapper" id="wallpost-form">
         <header>
             <h2>{% trans "Comments & Updates" %}</h2>
         </header>
-        
+
+        {# TODO: Need better way to do authentication. #}
         {{#if view.user.username }}
-            {{#if view.isOwner }}
-                {{view App.MediaWallPostFormView}}
+            {{#if isProjectOwner }}
+                {{view App.MediaWallPostFormView content=content}}
             {{else}}
-                {{view App.TextWallPostFormView}}
+                {{view App.TextWallPostFormView content=content}}
             {{/if}}
         {{else}}
             <form>{% trans "Login to leave a comment." %}</form>
         {{/if}}
+
     </section>
+</div>
 
 {% endtplhandlebars %}
 
@@ -27,35 +31,35 @@
 
     <fieldset>
         <ul>
-            <li {{bindAttr class="view.wallpost.errors.title.length:error"}}>
-                {{#each view.wallpost.errors.title}}
+            <li {{bindAttr class="errors.title.length:error"}}>
+                {{#each errors.title}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-title" class="inline">
                     {% trans "Title of your update." %}
                 </label>
-                {{view Ember.TextField valueBinding="view.wallpost.title" id="wallpost-title" name="wallpost-title"}}
+                {{view Ember.TextField valueBinding="title" id="wallpost-title" name="wallpost-title"}}
             </li>
-            <li {{bindAttr class="view.wallpost.errors.text.length:error"}}>
-                {{#each view.wallpost.errors.text}}
+            <li {{bindAttr class="errors.text.length:error"}}>
+                {{#each errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-update" class="inline">
                     {% trans "Your update." %}
                 </label>
-                {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+                {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
-            <li {{bindAttr class="view.wallpost.errors.video_url.length:error"}}>
-                {{#each view.wallpost.errors.video_url}}
+            <li {{bindAttr class="errors.video_url.length:error"}}>
+                {{#each errors.video_url}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-video" class="inline">
                     {% trans "Link to video on YouTube or Vimeo." %}
                 </label>
-                {{view Ember.TextField valueBinding="view.wallpost.video_url" id="wallpost-video" name="wallpost-video"}}
+                {{view Ember.TextField valueBinding="video_url" id="wallpost-video" name="wallpost-video"}}
             </li>
-            <li {{bindAttr class="view.wallpost.errors.photo.length:error"}}>
-                {{#each view.wallpost.errors.photo}}
+            <li {{bindAttr class="errors.photo.length:error"}}>
+                {{#each errors.photo}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
@@ -63,39 +67,54 @@
 {#                <span class="fileinput-button image">#}
 {#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
 {#                </span>#}
-                {{view App.UploadFileView valueBinding="view.wallpost.photo" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                {{view App.UploadFileView valueBinding="photo" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
             </li>
         </ul>
     </fieldset>
 
-    <button type="submit">Post Update</button>
+    <button type="submit">{%trans "Post Update" %}</button>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "text_wallpost_form" %}
+
     <fieldset>
         <ul>
-            <li>
-                {{#each view.wallpost.errors.text}}
+            <li {{bindAttr class="errors.text.length:error"}}>
+                {{#each errors.text}}
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-update" class="inline">{% trans "Leave your comment here" %}</label>
-                {{view Ember.TextArea valueBinding="view.wallpost.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+                {{view Ember.TextArea valueBinding="content.text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             </li>
         </ul>
     </fieldset>
     <button type="submit">{% trans "Post Comment" %}</button>
+
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "wallpost" %}
+{% tplhandlebars "projectwallpost_list" %}
+
+<section class="wrapper">
+    {{#each controller}}
+        {{view "App.ProjectWallPostView" content=this}}
+    {{/each}}
+</section>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "projectwallpost" %}
+
+<article class="wallpost">
     <header>
-        <h3>{{view.content.title}} Dummy Title</h3>
-        <small class="timestamp">{{view.content.timesince}} {% trans "ago" %}</small>
+        <h3>{{title}}</h3>
+        <small class="timestamp">{{timesince}} {% trans "ago" %}</small>
         <a href="#" class="user initiator">
-            <span class="user-img"><img {{bindAttr src="view.content.author.picture"}} width="100%" alt="Avatar" /></span>
-            <strong>{{view.content.author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
+            <span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
+            <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
         </a>
 
         {{#if view.isAuthor}}
@@ -108,21 +127,21 @@
 
     <div class="content">
 
-        {{#if view.content.video_html}}
-            <div class="video">{{{view.content.video_html}}}</div>
+        {{#if video_html}}
+            <div class="video">{{{video_html}}}</div>
         {{/if}}
 
-        {{view.content.text}}
+        {{text}}
 
         {# This is temporary and will go away when we figure out how to upload related photos. #}
-        {{#if view.content.photo}}
+        {{#if photo}}
             <div class="photo-viewer">
-                <span class="photo"><img {{bindAttr src="view.content.photo"}} width="100%" alt="Gallery" /></span>
+                <span class="photo"><img {{bindAttr src="photo"}} width="100%" alt="Gallery" /></span>
             </div>
         {{/if}}
 
         {# TODO: Implement multi photo viewer #}
-        {{#if view.content.photos}}
+        {{#if photos.isEmpty}}
             <div class="photo-viewer not-implemented">
                 <span class="photo"><a href="#"><img src="/static/assets/dummy/wallpost-image.jpg" width="100%" alt="Gallery" /></a></span>
                 <ul>
@@ -135,16 +154,14 @@
                 </ul>
             </div>
         {{/if}}
-
     </div>
+
 
     <!-- reaction-box -->
     <div class="reaction-box">
-
         {{view "App.WallPostReactionFormView"}}
-
         <ul class="reaction-actions not-implemented">
-            <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">2 Comments</a></li>
+            <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">{{reactions.length}} Comments</a></li>
             <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
             <li class="share">
                 <strong>Share this</strong>
@@ -157,8 +174,8 @@
         </ul>
 
         {{view "App.WallPostReactionListView"}}
-
     </div>
     <!-- end: reaction-box -->
 
+</article>
 {% endtplhandlebars %}

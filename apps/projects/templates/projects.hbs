@@ -1,74 +1,104 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
+{% load static %}
 
-{% tplhandlebars "project_detail" %}
+{% tplhandlebars "project_list" %}
+
+<div class="container">
+    <section class="wrapper">
+        <article>
+            <header>
+                <h2>{% trans "Projects" %}</h2>
+
+                {{#if content.isLoaded}}
+                <ul>
+                    {{#each project in controller}}
+                        <li>{{#linkTo project project}}{{project.title}}{{/linkTo}}</li>
+                    {{/each}}
+                </ul>
+                {{else}}
+                    <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> loading projects ...
+                {{/if}}
+
+            </header>
+        </article>
+    </section>
+</div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project" %}
+
+<div class="lightgreen section">
 
     <section class="wrapper" id="detail">
-    
         <header>
-        
             <h1 class="main-title">
-                <span class="phase">{{view.content.phase}}</span> {{view.content.title}}
+                <span class="phase">{{phase}}</span> {{title}}
             </h1>
-            
+
             <div class="meta">
-                <span class="location">{{view.content.country.name}}, {{view.content.country.subregion}}</span>
-                <span class="tags">{{view App.ProjectTagsView}}</span>
+                <span class="location">{{country.name}}, {{country.subregion}}</span>
+                <span class="tags">
+                {%comment%}
+                 TODO: add css for comma after tag:
+                 http://stackoverflow.com/questions/10403003/how-do-i-add-a-separator-between-elements-in-an-each-loop-except-after-the
+                {%endcomment%}
+                    {{#each tag in tags}}
+                        {{tag}}
+                    {{/each}}
+                </span>
             </div>
-            
+
         </header>
-        
+
         <figure class="media">
-            <img {{bindAttr src="view.content.image"}} width="100%" alt="Photo" />
+            <img {{bindAttr src="image"}} width="100%" alt="Photo" />
         </figure>
-        
+
         <sidebar>
-            
+
             <div class="status-box">
-                
-                <h3>{{view.content.description}}</h3>
-                
+
+                <h3>{{description}}</h3>
+
                 <div class="donate-status">
                     <p class="donate-amount">
                         <strong>
-                            €<span class="donated">{{view.content.money_donated}}</span> 
+                            €<span class="donated">{{money_donated}}</span>
                             {% trans "of" %}
-                            €<span class="asked">{{view.content.money_asked}}</span>
+                            €<span class="asked">{{money_asked}}</span>
                             {% trans "raised" %}
                         </strong>
                     </p>
                     <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
                 </div>
-    
+
                 <p class="donate-supporters not-implemented">
-                    {{{view.content.supporter_count_span}}}
+                    {{{supporter_count_span}}}
                     <em>1%Supporters</em>
                 </p>
-                    
+
                 <p class="donate-days-left not-implemented">
-                    {{{view.content.days_left_span}}}
+                    {{{days_left_span}}}
                     <em>{% trans "days to go" %}</em>
                 </p>
             </div>
-          
+
             <a href="#" class="button-donate">{% trans "Support this project" %}</a>
-            
+
         </sidebar>
 
-        {{view App.ProjectSupportersView}}
+    {{view App.ProjectSupportersView}}
 
     </section>
 
-{% endtplhandlebars %}
+    {{outlet projectWallPostForm}}
+    {{outlet projectWallPostList}}
 
+</div>
 
-{% tplhandlebars "project_tag_item" %}
-    {{view.content}}
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "project_tags_more" %}
-    +{{view.more}}
 {% endtplhandlebars %}
 
 
@@ -80,14 +110,14 @@
                 <ul>
                     <li>
                         <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture" info="view.content.owner.first_name"}} width="45" height="45" />
-                            <strong class="member-name">{{view.content.owner.full_name}}</strong>
-                            <em class="member-organisation">{{view.content.organization}}</em>
+                            <img {{bindAttr src="owner.picture" info="owner.first_name"}} width="45" height="45" />
+                            <strong class="member-name">{{owner.full_name}}</strong>
+                            <em class="member-organisation">{{organization}}</em>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="member-project-team  not-implemented">
+            <li class="member-project-team not-implemented">
                 <h4>Project Team</h4>
                 <ul>
                     <li>
@@ -367,5 +397,3 @@
         </ul>
     </div>
 {% endtplhandlebars %}
-
-
