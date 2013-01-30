@@ -3,7 +3,6 @@ from cowry.factory import PaymentFactory
 from cowry.models import PaymentMethod, Payment, PaymentInfo
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
-from django.utils import timezone
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListCreateAPIView, ListAPIView, RetrieveAPIView
 from django.http import Http404

@@ -211,7 +211,3 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['payment_method'], paymentmethod_id)
 
 
-
-
-
-

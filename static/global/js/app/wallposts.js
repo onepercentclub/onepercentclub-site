@@ -202,12 +202,12 @@ App.ProjectWallPostView = Em.View.extend({
     deleteWallPost: function() {
         if (confirm("Delete this wallpost?")) {
             var transaction = App.store.transaction();
-            var post = this.get('content');
-            transaction.add(post);
-            post.deleteRecord();
-            transaction.commit();
-            var self = this;
-            this.$().slideUp(500);
+            var wallpost = this.get('content');
+            transaction.add(wallpost);
+            this.$().slideUp(500, function(){
+                wallpost.deleteRecord();
+                transaction.commit();
+            });
         }
     }
 
