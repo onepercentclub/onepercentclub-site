@@ -1,5 +1,4 @@
 from django.contrib.contenttypes.models import ContentType
-from django.utils import timezone
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListCreateAPIView, ListAPIView, RetrieveUpdateDeleteAPIView
 from rest_framework import status
@@ -36,7 +35,7 @@ class CartMixin(object):
         return order
 
     def create_cart(self):
-        order = Order(created=timezone.now(), status=Order.OrderStatuses.cart)
+        order = Order(status=Order.OrderStatuses.cart)
         if self.request.user.is_authenticated():
             order.user = self.request.user
         order.save()
