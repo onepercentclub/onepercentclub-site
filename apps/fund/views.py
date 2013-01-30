@@ -21,7 +21,7 @@ class CartMixin(object):
     def get_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.cart)
+                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.started)
             except Order.DoesNotExist:
                 return None
         else:
@@ -29,7 +29,7 @@ class CartMixin(object):
             order_id = self.request.session.get("cart_session")
             if order_id:
                 try:
-                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.cart)
+                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
                 except Order.DoesNotExist:
                     # The order_id was not a cart in the db, return None
                     return None
@@ -45,7 +45,7 @@ class CartMixin(object):
         return order
 
     def create_order(self):
-        order = Order(created=timezone.now(), status=Order.OrderStatuses.cart)
+        order = Order(status=Order.OrderStatuses.started)
         if self.request.user.is_authenticated():
             order.user = self.request.user
         order.save()
@@ -74,6 +74,11 @@ class OrderList(CartMixin, ListAPIView):
 
 
 class OrderDetail(CartMixin, RetrieveAPIView):
+    # TODO: Implement
+    model = Order
+    permission_classes = (AllowNone,)
+
+class OrderCurrent(CartMixin, RetrieveAPIView):
     # TODO: Implement
     model = Order
     permission_classes = (AllowNone,)
@@ -137,7 +142,7 @@ class OrderDonationList(CartMixin, generics.ListCreateAPIView):
             self.pre_save(serializer.object)
             donation = serializer.save()
 
-            donation.status = Donation.DonationStatuses.cart
+            donation.status = Donation.DonationStatuses.started
             if request.user.is_authenticated():
                 donation.user = request.user
             donation.save()
