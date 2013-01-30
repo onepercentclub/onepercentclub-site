@@ -63,7 +63,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.another_project = self.create_project()
         self.some_user = self.create_user()
         self.another_user = self.create_user()
-        self.cart_donations_url = '/i18n/api/fund/cart/donations/'
+        self.cart_donations_url = '/i18n/api/fund/orders/current/donations/'
 
     def test_cart_donation_crud(self):
         """
@@ -165,8 +165,8 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
         self.another_project = self.create_project()
         self.some_user = self.create_user()
         self.another_user = self.create_user()
-        self.cart_donations_url = '/i18n/api/fund/cart/donations/'
-        self.checkout_url = '/i18n/api/fund/checkout'
+        self.cart_donations_url = '/i18n/api/fund/orders/current/donations/'
+        self.checkout_url = '/i18n/api/fund/payments/current'
         self.payment_methods_url = '/i18n/api/fund/paymentmethods/'
 
 
