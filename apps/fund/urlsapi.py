@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^cart/donations/$', OrderDonationList.as_view(), name='fund-cart-donation-detail'),
     surl(r'^cart/donations/<pk:#>$', OrderDonationDetail.as_view(), name='fund-cart-donation-detail'),
+
     url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='fund-paymentmethod-list'),
     surl(r'^paymentmethods/<pk:#>$', PaymentMethodDetail.as_view(), name='fund-paymentmethod-detail'),
     url(r'^checkout', CheckoutDetail.as_view(), name='fund-checkout'),

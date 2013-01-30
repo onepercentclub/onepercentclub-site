@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from apps.bluebottle_drf2.permissions import AllowNone
-from apps.bluebottle_drf2.views import ListCreateAPIView, ListAPIView, RetrieveUpdateDeleteAPIView
+from apps.bluebottle_drf2.views import ListCreateAPIView
 from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
@@ -171,6 +171,12 @@ class CheckoutDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView)
 
 
 class PaymentInfoDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
+    """
+    Gather Payment Method specific information about the user.
+    For now we will use the information we have on the currently logged in user.
+    """
+    # TODO: Gather Payment Method information here. Maybe we can send form information here??
+    # TODO: Validation
     model = PaymentInfo
     serializer_class = PaymentInfoSerializer
 
@@ -179,6 +185,9 @@ class PaymentInfoDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIVi
 
 
 class PaymentStatusDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
+    """
+    This is the return url where the user should be directed to after the payment process is completed
+    """
     model = Payment
     serializer_class = PaymentSerializer
 
@@ -187,6 +196,9 @@ class PaymentStatusDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
         order = self.get_order()
         if not order:
             raise Http404(_(u"No Order with status 'cart' found in session."))
+
+        # Save status to order
+        # TODO: Have a mapper (in adapter probably) that translates PSP status to local status
         order.status = self.kwargs['status']
         order.save()
         payment = order.payment
