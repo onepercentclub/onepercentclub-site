@@ -83,3 +83,11 @@ transifex-client
 
 # Handlebars in templates
 django-templatetag-handlebars
+
+# Django-cowry for payments
+-e git+https://github.com/onepercentclub/django-cowry.git#egg=django_cowry
+-e git+https://github.com/onepercentclub/django-cowry-docdata.git#egg=django_cowry_docdata
+-e git+https://github.com/onepercentclub/django-cowry-ipay.git#egg=django_cowry_ipay
+
+# Django Countries for Cowry
+django_countries

@@ -42,3 +42,4 @@ class ProjectSerializer(serializers.ModelSerializer):
                   'longitude', 'money_asked', 'money_donated', 'organization',
                   'owner', 'phase', 'planned_end_date', 'planned_start_date',
                   'slug', 'tags', 'themes', 'title', 'url', 'description')
+
