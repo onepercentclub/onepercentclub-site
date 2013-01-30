@@ -12,7 +12,7 @@ class WallPostList(ListCreateAPIView):
     model = WallPost
     permission_classes = (AllowNone,)
     serializer_class = WallPostSerializer
-    paginate_by = 10
+    paginate_by = 4
 
 
 class WallPostReactionMixin(object):

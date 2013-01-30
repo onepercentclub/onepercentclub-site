@@ -1,4 +1,3 @@
-from django.template.loaders.app_directories import Loader
 import os
 import sys
 from django import http

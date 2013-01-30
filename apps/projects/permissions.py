@@ -9,12 +9,15 @@ class IsProjectOwner(permissions.BasePermission):
     """
     def get_project_from_request(self, request):
         if request.DATA:
-            project_id = request.DATA.get('project_id', None)
+            project_slug = request.DATA.get('project_slug', None)
         else:
-            project_id = request.QUERY_PARAMS.get('project_id', None)
-        if project_id:
-            project = Project.objects.get(pk=project_id)
-        if not project_id or not project:
+            project_slug = request.QUERY_PARAMS.get('project_slug', None)
+        if project_slug:
+            try:
+                project = Project.objects.get(slug=project_slug)
+            except Project.DoesNotExist:
+                return None
+        else:
             return None
         return project
     

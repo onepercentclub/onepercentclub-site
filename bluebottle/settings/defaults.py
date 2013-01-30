@@ -216,7 +216,6 @@ INSTALLED_APPS = (
     'apps.blogs',
     'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
-    'apps.drf2serializers',
     'apps.contentplugins',
     'apps.accounts',
     'apps.love',
@@ -294,13 +293,13 @@ SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
 
 
 # django-compressor http://pypi.python.org/pypi/django_compressor
+# Compressor is enabled whenever DEBUG is False.
 STATICFILES_FINDERS += [
     # django-compressor staticfiles
     'compressor.finders.CompressorFinder',
 ]
 
-# Enable compressor by default
-COMPRESS_ENABLED = True
+# TODO Enable compass here.
 COMPRESS_OUTPUT_DIR = 'compressed'
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
