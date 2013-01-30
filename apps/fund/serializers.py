@@ -1,6 +1,6 @@
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
 from cowry_docdata.models import DocdataPaymentInfo
-from cowry_ipay.models import Payment
+from cowry_ipay.models import IpayPaymentInfo
 from rest_framework import serializers
 from rest_framework import relations
 from rest_framework import fields
@@ -11,6 +11,16 @@ from cowry.models import Payment, PaymentAdapter, PaymentMethod, PaymentInfo
 class DonationSerializer(serializers.ModelSerializer):
     project = relations.PrimaryKeyRelatedField(source='project')
     status = fields.Field()
+
+    def validate_amount(self, attrs, source):
+        """
+        Check the amount
+        """
+        value = attrs[source]
+        if value < 5:
+            raise serializers.ValidationError("Amount should be at least 5.00")
+        return attrs
+
 
     class Meta:
         model = Donation
@@ -91,10 +101,21 @@ class DocdataPaymentInfoSerializer(PaymentInfoSerializerBase):
         fields = PaymentInfoSerializerBase.Meta.fields + ('email', 'first_name', 'last_name', 'address', 'city',
                                                       'zip_code', 'country')
 
+class IpayPaymentInfoSerializer(PaymentInfoSerializerBase):
+    email = fields.WritableField(source='email')
+    mobile = fields.WritableField(source='mobile', read_only=False)
+    amount_kes = fields.WritableField(source='amount_kes')
+    mpesa_id = fields.WritableField(source='mpesa_id')
+
+    class Meta:
+        model = DocdataPaymentInfo
+        fields = PaymentInfoSerializerBase.Meta.fields + ('email', 'mobile', 'amount_kes', 'mpesa_id')
+
 
 class PaymentInfoSerializer(PolymorphicSerializer):
 
     class Meta:
         child_models = (
             (DocdataPaymentInfo, DocdataPaymentInfoSerializer),
+            (IpayPaymentInfo, IpayPaymentInfoSerializer),
             )

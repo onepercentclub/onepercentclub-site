@@ -66,14 +66,14 @@ class FundApi(CartMixin, ListAPIView):
     paginate_by = 10
 
 
-class OrderList(CartMixin, ListAPIView):
+class OrderList(ListAPIView):
     # TODO: Implement
     model = Order
     permission_classes = (AllowNone,)
     paginate_by = 10
 
 
-class OrderDetail(CartMixin, RetrieveAPIView):
+class OrderDetail(RetrieveAPIView):
     # TODO: Implement
     model = Order
     permission_classes = (AllowNone,)
@@ -84,27 +84,27 @@ class OrderCurrent(CartMixin, RetrieveAPIView):
     permission_classes = (AllowNone,)
 
 
-class PaymentList(CartMixin, ListAPIView):
+class PaymentList(ListAPIView):
     # TODO: Implement
     model = Payment
     permission_classes = (AllowNone,)
     paginate_by = 10
 
 
-class PaymentDetail(CartMixin, RetrieveAPIView):
+class PaymentDetail(RetrieveAPIView):
     # TODO: Implement
     model = Payment
     permission_classes = (AllowNone,)
 
 
-class PaymentInfoList(CartMixin, ListAPIView):
+class PaymentInfoList(ListAPIView):
     # TODO: Implement
     model = PaymentInfo
     permission_classes = (AllowNone,)
     paginate_by = 10
 
 
-class PaymentInfoDetail(CartMixin, RetrieveAPIView):
+class PaymentInfoDetail(RetrieveAPIView):
     # TODO: Implement
     model = PaymentInfo
     permission_classes = (AllowNone,)
@@ -120,6 +120,34 @@ class OrderItemList(CartMixin, generics.ListAPIView):
     def get_queryset(self):
         # Filter queryset for the current order
         order = self.get_or_create_order()
+        return order.orderitem_set.all()
+
+
+class OrderItemListFinal(OrderItemList):
+    """
+    This is the return url where the user should be directed to after the payment process is completed
+    """
+    model = Order
+    serializer_class = OrderItemSerializer
+
+    def get_queryset(self):
+        # TODO: maybe also try to get an Order with changed status so API returns an Payment with updated status...
+        order = self.get_order()
+        if not order:
+            raise Http404(_(u"No Order with status 'cart' found in session."))
+
+        # Save status to order
+        # TODO: Have a mapper (in adapter probably) that translates PSP status to local status
+        payment = order.payment
+        if not payment:
+            raise Http404(_(u"No Payment found in session."))
+        payment_factory = PaymentFactory()
+        payment_factory.set_payment(payment)
+        payment_factory.check_payment()
+
+        # TODO: Have a proper check if donation went ok. Signals!
+        order.status = Order.OrderStatuses.pending
+        order.save()
         return order.orderitem_set.all()
 
 
@@ -177,7 +205,7 @@ class CurrentPaymentMixin(CartMixin):
             return order.payment
 
         # TODO: We don't use payment_method now.
-        if self.request.DATA and self.request.DATA['payment_method']:
+        if self.request.DATA and self.request.DATA.get('payment_method', None):
             payment_factory = PaymentFactory()
             payment_factory.set_payment_method(self.request.DATA['payment_method'])
             order.payment = payment_factory.create_payment(amount=order.amount)
@@ -185,24 +213,29 @@ class CurrentPaymentMixin(CartMixin):
             return order.payment
 
         # If no payment or payment_method then return a Payment object so we can set the payment_method
-        return Payment.objects.create(amount=order.amount)
+        payment_factory = PaymentFactory()
+        order.payment = payment_factory.create_payment(amount=order.amount)
+        order.save()
+        return order.payment
 
     def get_payment_info(self):
-        order = self.get_or_create_order()
+        payment = self.get_payment()
         payment_factory = PaymentFactory()
-        payment_factory.set_payment(order.payment)
+        payment_factory.set_payment(payment)
 
         # For now set all customer info from user
         # TODO: Check if info is available
         # TODO: Check which info is required by payment_method
         # TODO: Not always create a payment_info, update if it exists
         user = self.request.user
-        address = user.get_profile().useraddress_set.get()
-        order.payment.payment_info = payment_factory.create_payment_info(amount=order.amount,
-            first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
-            zip_code=address.zip_code, city=address.city, country='nl')
-
-        return order.payment.payment_info
+        if user.is_authenticated():
+            address = user.get_profile().useraddress_set.get()
+            payment_info = payment_factory.create_payment_info(amount=payment.amount,
+                first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
+                zip_code=address.zip_code, city=address.city, country='nl')
+        else:
+            payment_info = payment_factory.create_payment_info(amount=payment.amount)
+        return payment_info
 
 
 class PaymentMethodList(generics.ListAPIView):
@@ -227,7 +260,6 @@ class PaymentCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView)
 class PaymentInfoCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
     """
     Gather Payment Method specific information about the user.
-    For now we will use the information we have on the currently logged in user.
     """
     # TODO: Gather Payment Method information here. Maybe we can send form information here??
     # TODO: Validation
@@ -237,28 +269,3 @@ class PaymentInfoCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIV
     def get_object(self):
         return self.get_payment_info()
 
-
-class PaymentStatusDetail(CurrentPaymentMixin, generics.RetrieveUpdateAPIView):
-    """
-    This is the return url where the user should be directed to after the payment process is completed
-    """
-    model = Payment
-    serializer_class = PaymentSerializer
-
-    def get_object(self):
-        # TODO: maybe also try to get an Order with changed status so API returns an Payment with updated status...
-        order = self.get_order()
-        if not order:
-            raise Http404(_(u"No Order with status 'cart' found in session."))
-
-        # Save status to order
-        # TODO: Have a mapper (in adapter probably) that translates PSP status to local status
-        order.status = self.kwargs['status']
-        order.save()
-        payment = order.payment
-        if not payment:
-            raise Http404(_(u"No Payment found in session."))
-        payment_factory = PaymentFactory()
-        payment_factory.set_payment(payment)
-        payment_factory.check_payment()
-        return payment_factory.get_payment()
