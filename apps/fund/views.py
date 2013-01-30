@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from apps.bluebottle_drf2.permissions import AllowNone
-from apps.bluebottle_drf2.views import ListCreateAPIView
+from apps.bluebottle_drf2.views import ListCreateAPIView, ListAPIView, RetrieveAPIView
 from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
@@ -54,10 +54,58 @@ class CartMixin(object):
         return order
 
 
-class OrderList(CartMixin, ListCreateAPIView):
+
+# Some API views we still need to implement
+
+
+class FundApi(CartMixin, ListAPIView):
+    # TODO: Implement
+    """
+    Show available API methods
+    """
+    permission_classes = (AllowNone,)
+    paginate_by = 10
+
+
+class OrderList(CartMixin, ListAPIView):
+    # TODO: Implement
     model = Order
     permission_classes = (AllowNone,)
     paginate_by = 10
+
+
+class OrderDetail(CartMixin, RetrieveAPIView):
+    # TODO: Implement
+    model = Order
+    permission_classes = (AllowNone,)
+
+
+class PaymentList(CartMixin, ListAPIView):
+    # TODO: Implement
+    model = Payment
+    permission_classes = (AllowNone,)
+    paginate_by = 10
+
+
+class PaymentDetail(CartMixin, RetrieveAPIView):
+    # TODO: Implement
+    model = Payment
+    permission_classes = (AllowNone,)
+
+
+class PaymentInfoList(CartMixin, ListAPIView):
+    # TODO: Implement
+    model = PaymentInfo
+    permission_classes = (AllowNone,)
+    paginate_by = 10
+
+
+class PaymentInfoDetail(CartMixin, RetrieveAPIView):
+    # TODO: Implement
+    model = PaymentInfo
+    permission_classes = (AllowNone,)
+
+# End: Unimplemented API views
 
 
 class OrderItemList(CartMixin, generics.ListAPIView):
@@ -120,6 +168,8 @@ class CurrentPaymentMixin(CartMixin):
     def get_payment(self):
         order = self.get_or_create_order()
         if order.payment:
+            # Always update payment with latest order amount
+            order.payment.amount = order.amount
             return order.payment
 
         # TODO: We don't use payment_method now.
@@ -162,7 +212,7 @@ class PaymentMethodDetail(generics.RetrieveAPIView):
     serializer_class = PaymentMethodSerializer
 
 
-class CheckoutDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
+class PaymentCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
     model = Payment
     serializer_class = PaymentSerializer
 
@@ -170,7 +220,7 @@ class CheckoutDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView)
         return self.get_payment()
 
 
-class PaymentInfoDetail(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
+class PaymentInfoCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
     """
     Gather Payment Method specific information about the user.
     For now we will use the information we have on the currently logged in user.
