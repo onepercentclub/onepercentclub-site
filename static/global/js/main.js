@@ -9,7 +9,7 @@
 jQuery.fn.exists = function(){return this.length>0;}
 
 function initBehaviour(container) {
-    $("label.inline", container).inFieldLabels();
+//    $("label.inline", container).inFieldLabels();
 
     // initFileUpload();
     toggleText( $('.toggle-reactions', container) );
