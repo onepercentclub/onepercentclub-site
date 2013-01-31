@@ -406,3 +406,31 @@ THUMBNAIL_QUALITY = 85
 REST_FRAMEWORK = {
     'FILTER_BACKEND': 'rest_framework.filters.DjangoFilterBackend'
 }
+
+
+COWRY_ADAPTERS = (
+     (
+        ('slug', 'docdata'),
+        ('title', 'Docdata Payments'),
+        ('methods', (
+            {
+                'slug': 'credit-card',
+                'title': 'Creditcard',
+                'model': 'DocdataCreditCardPaymentInfo',
+                'costs_percentage': 3
+            },
+            {
+                'slug': 'ideal',
+                'title': 'iDEAL',
+                'model': 'DocdataIdealPaymentInfo',
+                'costs_static': 0.25
+            },
+            {
+                'slug': 'direct-debit',
+                'title': 'Automatiche Incasso',
+                'model': 'DocdataDirectDebitPaymentInfo',
+                'costs_static': 0.20
+            }
+        ))
+    )
+)
