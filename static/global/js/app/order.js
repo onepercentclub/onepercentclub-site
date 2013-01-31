@@ -15,16 +15,16 @@ App.OrderItem = DS.Model.extend({
 
 
 App.CartOrderItem = DS.Model.extend({
-    url: 'fund/orders/cart/items',
+    url: 'fund/orders/current/items',
 });
 
 
 App.CartDonation = App.OrderItem.extend({
-    url: 'fund/orders/cart/donations'
+    url: 'fund/orders/current/donations'
 });
 
 App.CartVoucher = App.OrderItem.extend({
-    url: 'fund/orders/cart/vouchers'
+    url: 'fund/orders/current/vouchers'
 });
 
 App.CartOrderItemListController = Em.ArrayController.extend({

@@ -300,7 +300,7 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 App.CartOrderItemListRoute = Ember.Route.extend({
     model: function(params) {
         console.log(this.toString() + ".model");
-        return App.CartOrderItem.find();
+        return App.CartDonation.find();
     },
 
     setupController: function(controller, orderitem) {

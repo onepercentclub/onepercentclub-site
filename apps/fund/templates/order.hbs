@@ -52,8 +52,8 @@
                     {# TODO: I think we want a smaller image here? Let's chat about this. #}
                     <img {{bindAttr src="orderitem.project.image"}} class="project-image" alt="Project Name" />
 
-                    <h1>{{orderitem.project.title}} <em class="country">{{orderitem.project.country.name}}</em></h1>
-
+                    <h1>{{orderitem.project_slug}} <em class="country">{{orderitem.project.country.name}}</em></h1>
+                    {{orderitem.project}}
                     <p class="donation-amount">
                         <strong class="amount-needed not-implemented">&euro; 530 is still needed</strong>
                         <label for="donation-amount-1">I'd like to give</label>
