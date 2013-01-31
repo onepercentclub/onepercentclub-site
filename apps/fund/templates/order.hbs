@@ -1,9 +1,8 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
-{% load static %}
 
 
-{% tplhandlebars "cartorder" %}
+{% tplhandlebars "currentorder" %}
 
 <div class="container section">
 
@@ -42,7 +41,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "cartorderitem_form" %}
+{% tplhandlebars "currentorderitem_form" %}
 
     <fieldset>
         <ul id="donation-projects">
@@ -60,14 +59,15 @@
                         <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="orderitem.amount"}} /></span>
                     </p>
 
-                    <a href="#" class="remove">Remove</a>
+                    <a class="remove" {{action deleteOrderItem}}>Remove</a>
                 </li>
 
             {{/each}}
 
         </ul>
 
-        <a href="#" class="add-project not-implemented">Add another project</a>
+        {{#linkTo projectList class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
+
 
     </fieldset>
 

@@ -208,8 +208,8 @@ App.Router.map(function() {
         this.route('edit');
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
-    this.resource('cartOrder', {path: '/support'}, function() {
-        this.resource('cartOrderItemList', {path: '/items'});
+    this.resource('currentOrder', {path: '/support'}, function() {
+        this.resource('currentOrderItemList', {path: ''});
     });
 });
 
@@ -265,12 +265,12 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
     events: {
         supportProject: function(project) {
             var transaction = App.store.transaction();
-            var donation = transaction.createRecord(App.CartDonation);
+            var donation = transaction.createRecord(App.CurrentDonation);
             donation.set('amount', 20);
             donation.set('project_slug', project.get('slug'));
             var route = this;
             donation.on('didCreate', function(){
-                route.transitionTo('cartOrderItemList')
+                route.transitionTo('currentOrderItemList')
             });
             transaction.commit();
         }
@@ -283,6 +283,7 @@ App.ProjectWallPostRoute = Ember.Route.extend({
     model: function(params) {
         return App.ProjectWallPost.find(params.projectwallpost_id);
     },
+
     setupController: function(controller, wallpost) {
         controller.set('content', wallpost);
     }
@@ -290,22 +291,20 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 
 
 // Not currently using this but might in the near future.
-//App.OrderRoute = Ember.Route.extend({
+//App.CurrentOrderRoute = Ember.Route.extend({
 //    model: function(params) {
 //        console.log(this.toString() + ".model");
 //    },
 //
 //});
 
-App.CartOrderItemListRoute = Ember.Route.extend({
+App.CurrentOrderItemListRoute = Ember.Route.extend({
     model: function(params) {
-        console.log(this.toString() + ".model");
-        return App.CartDonation.find();
+        return App.CurrentDonation.find();
     },
 
-    setupController: function(controller, orderitem) {
-        console.log(this.toString() + ".setupController " + orderitem.get('length'));
-        controller.set('content', orderitem);
+    setupController: function(controller, orderitems) {
+        controller.set('content', orderitems);
     }
 
 });

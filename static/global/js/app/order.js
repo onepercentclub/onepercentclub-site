@@ -1,11 +1,13 @@
-
+/*
+ Models
+ */
 
 App.OrderItem = DS.Model.extend({
     url: 'fund/orders/:order_id/items',
 
     // Model fields
-    // FIXME Make the drf2 serializer use the id (or slug) to serialize DS.belongsTo. This will enable us to remove
-    //       the project_slug field.
+    // FIXME Make the drf2 serializer use the id (or slug) to serialize DS.belongsTo.
+    //       This will enable us to remove the project_slug field.
     project: DS.belongsTo('App.Project'),
     project_slug: DS.attr('string'),
     amount: DS.attr('number'),
@@ -14,38 +16,27 @@ App.OrderItem = DS.Model.extend({
 });
 
 
-App.CartOrderItem = DS.Model.extend({
+App.CurrentOrderItem = DS.Model.extend({
     url: 'fund/orders/current/items'
 });
 
 
-App.CartDonation = App.OrderItem.extend({
+App.CurrentDonation = App.OrderItem.extend({
     url: 'fund/orders/current/donations'
 });
 
-App.CartVoucher = App.OrderItem.extend({
+
+App.CurrentVoucher = App.OrderItem.extend({
     url: 'fund/orders/current/vouchers'
 });
 
-App.CartOrderItemListController = Em.ArrayController.extend({
 
-    init: function() {
-        this._super();
-        console.log(this.toString() + ".init");
-    }
-});
+/*
+ Controllers
+ */
 
-App.CartOrderController = Em.ObjectController.extend({
+App.CurrentOrderItemListController = Em.ArrayController.extend({
 
-    init: function() {
-        this._super();
-        console.log(this.toString() + ".init");
-    }
-});
-
-
-App.CartOrderView = Em.View.extend({
-    templateName: 'cartorder',
     init: function() {
         this._super();
         console.log(this.toString() + ".init");
@@ -53,9 +44,35 @@ App.CartOrderView = Em.View.extend({
 
 });
 
-App.CartOrderItemListView = Em.View.extend({
-    templateName: 'cartorderitem_form',
+
+App.CurrentOrderController = Em.ObjectController.extend({
+
+    init: function() {
+        this._super();
+        console.log(this.toString() + ".init");
+    }
+});
+
+
+/*
+ Views
+ */
+
+App.CurrentOrderView = Em.View.extend({
+    templateName: 'currentorder',
+
+    init: function() {
+        this._super();
+        console.log(this.toString() + ".init");
+    }
+
+});
+
+
+App.CurrentOrderItemListView = Em.View.extend({
+    templateName: 'currentorderitem_form',
     tagName: 'form',
+
     init: function() {
         this._super();
         console.log(this.toString() + ".init");
@@ -65,13 +82,16 @@ App.CartOrderItemListView = Em.View.extend({
         e.preventDefault()
         console.log("cart orderitem list - submit")
 
+    },
+
+    deleteOrderItem: function() {
+        var transaction = App.store.transaction();
+        var wallpost = this.get('content');
+        transaction.add(wallpost);
+        this.$().slideUp(500, function(){
+            wallpost.deleteRecord();
+            transaction.commit();
+        });
     }
-
-
-
-});
-
-App.CurrentOrderItemView = Em.View.extend({
-
 
 });
