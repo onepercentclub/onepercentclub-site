@@ -91,7 +91,7 @@ App = Em.Application.create({
 // Load the Handlebar templates.
 // TODO: This is race condition that needs to be addressed but should work most of the time.
 // TODO We want to actually figure out a way to load the templates on-demand and not do it like this.
-App.loadTemplates(['projects', 'wallposts', 'reactions']);
+App.loadTemplates(['projects', 'wallposts', 'reactions', 'order']);
 
 
 // The Ember Data Adapter and Store configuration.
@@ -208,6 +208,9 @@ App.Router.map(function() {
         this.route('edit');
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
+    this.resource('cartOrder', {path: '/support'}, function() {
+        this.resource('cartOrderItemList', {path: '/items'});
+    });
 });
 
 
@@ -257,8 +260,24 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
             outlet: 'projectWallPostForm',
             controller: 'projectWallPostForm'
         });
+    },
+
+    events: {
+        supportProject: function(project) {
+            var transaction = App.store.transaction();
+            var donation = transaction.createRecord(App.CartDonation);
+            donation.set('amount', 20);
+            donation.set('project_slug', project.get('slug'));
+            var route = this;
+            donation.on('didCreate', function(){
+                route.transitionTo('cartOrderItemList')
+            });
+            transaction.commit();
+        }
     }
+
 });
+
 
 App.ProjectWallPostRoute = Ember.Route.extend({
     model: function(params) {
@@ -267,4 +286,26 @@ App.ProjectWallPostRoute = Ember.Route.extend({
     setupController: function(controller, wallpost) {
         controller.set('content', wallpost);
     }
+});
+
+
+// Not currently using this but might in the near future.
+//App.OrderRoute = Ember.Route.extend({
+//    model: function(params) {
+//        console.log(this.toString() + ".model");
+//    },
+//
+//});
+
+App.CartOrderItemListRoute = Ember.Route.extend({
+    model: function(params) {
+        console.log(this.toString() + ".model");
+        return App.CartOrderItem.find();
+    },
+
+    setupController: function(controller, orderitem) {
+        console.log(this.toString() + ".setupController " + orderitem.get('length'));
+        controller.set('content', orderitem);
+    }
+
 });

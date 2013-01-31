@@ -40,8 +40,12 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
 
         this.extractMeta(loader, type, json);
 
-        if (json['results']) {
-            var objects = json['results'], references = [];
+        var isJsonEmpty = this._isEmpty(json);
+
+        if (json['results'] || !isJsonEmpty) {
+            var objects = json['results'] ? json['results'] : json;
+            var references = [];
+
             if (records) {
                 records = records.toArray();
             }
@@ -56,6 +60,14 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
 
             loader.populateArray(references);
         }
+    },
+
+    _isEmpty: function(obj) {
+        for (var prop in obj) {
+            if (obj.hasOwnProperty(prop))
+                return false;
+        }
+        return true;
     }
 
 });

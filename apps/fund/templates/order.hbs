@@ -1,0 +1,82 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "cartorder" %}
+
+<div class="container section">
+
+    <!-- donation -->
+    <header class="wrapper">
+        <h1 class="main-title">Support one or more projects!</h1>
+    </header>
+
+</div>
+
+<div class="container">
+
+    <section class="wrapper">
+
+        <ul class="donation-steps">
+            <li class="support is-selected"><a href="#">Support</a></li>
+            <li class="details"><a href="#">Details</a></li>
+            <li class="profile"><a href="#">Profile</a></li>
+            <li class="payment"><a href="#">Payment</a></li>
+        </ul>
+
+        {{outlet}}
+
+        <!--
+        <div class="sidebar tip">
+          <h3>Did you know?</h3>
+          <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+          <p><a href="#">Read some more</a></p>
+        </div>
+        -->
+
+    </section>
+
+</div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "cartorderitem_form" %}
+
+    <fieldset>
+        <ul id="donation-projects">
+
+            {{#each orderitem in controller}}
+                <li class="donation-project">
+                    {# TODO: I think we want a smaller image here? Let's chat about this. #}
+                    <img {{bindAttr src="orderitem.project.image"}} class="project-image" alt="Project Name" />
+
+                    <h1>{{orderitem.project.title}} <em class="country">{{orderitem.project.country.name}}</em></h1>
+
+                    <p class="donation-amount">
+                        <strong class="amount-needed not-implemented">&euro; 530 is still needed</strong>
+                        <label for="donation-amount-1">I'd like to give</label>
+                        <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="orderitem.amount"}} /></span>
+                    </p>
+
+                    <!--<a href="#" class="remove">Remove</a>-->
+                </li>
+
+            {{/each}}
+
+        </ul>
+
+        <a href="#" class="add-project not-implemented">Add another project</a>
+
+    </fieldset>
+
+    <fieldset class="donation-frequency not-implemented">
+        <label class="label">Support the selected projects:</label>
+        <label for="donation-frequency-single" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-single" value="single" checked> Single time</label>
+        <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly"> Monthly donations</label>
+    </fieldset>
+
+    <button type="submit" class="next">Next step</button>
+
+{% endtplhandlebars %}
