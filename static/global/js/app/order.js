@@ -15,7 +15,7 @@ App.OrderItem = DS.Model.extend({
 
 
 App.CartOrderItem = DS.Model.extend({
-    url: 'fund/orders/current/items',
+    url: 'fund/orders/current/items'
 });
 
 
@@ -66,5 +66,12 @@ App.CartOrderItemListView = Em.View.extend({
         console.log("cart orderitem list - submit")
 
     }
+
+
+
+});
+
+App.CurrentOrderItemView = Em.View.extend({
+
 
 });
