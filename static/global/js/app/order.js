@@ -40,6 +40,13 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
     init: function() {
         this._super();
         console.log(this.toString() + ".init");
+    },
+
+    deleteOrderItem: function(donation) {
+        var transaction = App.store.transaction();
+        transaction.add(donation);
+        donation.deleteRecord();
+        transaction.commit();
     }
 
 });
@@ -82,16 +89,6 @@ App.CurrentOrderItemListView = Em.View.extend({
         e.preventDefault()
         console.log("cart orderitem list - submit")
 
-    },
-
-    deleteOrderItem: function() {
-        var transaction = App.store.transaction();
-        var wallpost = this.get('content');
-        transaction.add(wallpost);
-        this.$().slideUp(500, function(){
-            wallpost.deleteRecord();
-            transaction.commit();
-        });
     }
 
 });

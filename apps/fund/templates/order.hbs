@@ -59,7 +59,7 @@
                         <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="orderitem.amount"}} /></span>
                     </p>
 
-                    <a class="remove" {{action deleteOrderItem}}>Remove</a>
+                    <a class="remove" {{action "deleteOrderItem" orderitem}}>Remove</a>
                 </li>
 
             {{/each}}
