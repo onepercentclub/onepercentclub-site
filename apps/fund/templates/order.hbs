@@ -77,6 +77,35 @@
         <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly"> Monthly donations</label>
     </fieldset>
 
-    <button type="submit" class="next">Next step</button>
+    {{#linkTo orderPayment class="button"}}{% trans "Next step" %}{{/linkTo}}
 
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "order_payment" %}
+    <fieldset>
+        {{#view Em.Select valueBinding="content.payment_method"}}
+            <option>{% trans "Payment Method"%}</option>
+            <option value="1">iDeal</option>
+            <option value="2">Direct Debit</option>
+            <option value="3">Credit Card</option>
+        {{/view}}
+        {{#linkTo paymentInfo class="button"}}{% trans "Next step" %}{{/linkTo}}
+    </fieldset>
+{% endtplhandlebars %}
+
+
+
+{% tplhandlebars "payment_info" %}
+    <fieldset>
+        {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
+        <br/>
+        {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
+        {{view Em.TextField valueBinding="addresss" placeholder="Address"}}
+        {{view Em.TextField valueBinding="zip" placeholder="Zip code"}}
+        {{view Em.TextField valueBinding="city" placeholder="City"}}
+        {{view Em.TextField valueBinding="country" placeholder="Country"}}
+
+        <a {{bindAttr href="payment_url"}} class="button">Pay</a>
+    </fieldset>
 {% endtplhandlebars %}

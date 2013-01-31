@@ -56,15 +56,52 @@ App.CartOrderView = Em.View.extend({
 App.CartOrderItemListView = Em.View.extend({
     templateName: 'cartorderitem_form',
     tagName: 'form',
-    init: function() {
-        this._super();
-        console.log(this.toString() + ".init");
-    },
-
     submit: function(e) {
         e.preventDefault()
-        console.log("cart orderitem list - submit")
-
     }
 
+});
+
+
+App.Payment = DS.Model.extend({
+    url: 'fund/payments',
+    payment_method: DS.attr('number'),
+    amount: DS.attr('number'),
+    status: DS.attr('string')
+});
+
+
+App.OrderPaymentController = Em.ObjectController.extend({
+
+});
+
+
+App.OrderPaymentView = Em.View.extend({
+    tagName: 'form',
+    templateName: 'order_payment'
+});
+
+
+App.PaymentInfo = DS.Model.extend({
+    url: 'fund/paymentinfo',
+    payment_method: DS.attr('number'),
+    amount: DS.attr('number'),
+    firstName: DS.attr('string'),
+    lastName: DS.attr('string'),
+    address: DS.attr('string'),
+    city: DS.attr('string'),
+    country: DS.attr('string'),
+    zip: DS.attr('string'),
+    payment_url: DS.attr('string'),
+});
+
+
+App.PaymentInfoController = Em.ObjectController.extend({
+
+});
+
+
+App.PaymentInfoView = Em.View.extend({
+    tagName: 'form',
+    templateName: 'payment_info'
 });

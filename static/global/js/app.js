@@ -101,7 +101,8 @@ App.Adapter = DS.DRF2Adapter.extend({
 
     plurals: {
         "projects/wallposts/media": "projects/wallposts/media",
-        "projects/wallposts/text": "projects/wallposts/text"
+        "projects/wallposts/text": "projects/wallposts/text",
+        "fund/paymentinfo": "fund/paymentinfo"
     }
 
 });
@@ -210,6 +211,8 @@ App.Router.map(function() {
     });
     this.resource('cartOrder', {path: '/support'}, function() {
         this.resource('cartOrderItemList', {path: '/items'});
+        this.resource('orderPayment', {path: '/payment'});
+        this.resource('paymentInfo', {path: '/details'});
     });
 });
 
@@ -306,6 +309,31 @@ App.CartOrderItemListRoute = Ember.Route.extend({
     setupController: function(controller, orderitem) {
         console.log(this.toString() + ".setupController " + orderitem.get('length'));
         controller.set('content', orderitem);
+    }
+});
+
+
+App.OrderPaymentRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.Payment.find('current');
+    },
+
+    setupController: function(controller, orderpayment) {
+        controller.set('content', orderpayment);
+    }
+
+});
+
+
+App.PaymentInfoRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.PaymentInfo.find('current');
+    },
+
+    setupController: function(controller, paymentinfo) {
+        console.log(paymentinfo);
+        console.log(paymentinfo.get('city'));
+        controller.set('content', paymentinfo);
     }
 
 });
