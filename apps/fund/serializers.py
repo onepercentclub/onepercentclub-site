@@ -1,4 +1,6 @@
+# coding=utf-8
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
+from django.utils.translation import ugettext as _
 from cowry_docdata.models import DocdataPaymentInfo
 from cowry_ipay.models import IpayPaymentInfo
 from rest_framework import serializers
@@ -8,7 +10,7 @@ from .models import Donation, OrderItem
 
 class DonationSerializer(serializers.ModelSerializer):
     # The duplication of project is temporary. See note in orders.js App.OrderItem.
-    project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
+    project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.Field()
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')
@@ -19,13 +21,13 @@ class DonationSerializer(serializers.ModelSerializer):
         """
         value = attrs[source]
         if value < 5:
-            raise serializers.ValidationError("Amount should be at least 5.00")
+            raise serializers.ValidationError(_(u"Amount must be at least €5.00."))
         return attrs
 
 
     class Meta:
         model = Donation
-        fields = ('id', 'project', 'project_slug', 'amount', 'status', 'url')
+        fields = ('id', 'project_id', 'project_slug', 'amount', 'status', 'url')
 
 
 class OrderItemObjectSerializer(ObjectBasedSerializer):

@@ -215,7 +215,6 @@ class CurrentPaymentMixin(CartMixin):
         # If no payment or payment_method then return a Payment object so we can set the payment_method
         payment_factory = PaymentFactory()
         # TODO: For now set hardcoded payment_method=1. Please fix.
-        payment_factory.set_payment_method(1)
         order.payment = payment_factory.create_payment(amount=order.amount)
         order.save()
         return order.payment

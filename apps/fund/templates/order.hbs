@@ -1,9 +1,8 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
-{% load static %}
 
 
-{% tplhandlebars "cartorder" %}
+{% tplhandlebars "currentorder" %}
 
 <div class="container section">
 
@@ -42,7 +41,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "cartorderitem_form" %}
+{% tplhandlebars "currentorderitem_form" %}
 
     <fieldset>
         <ul id="donation-projects">
@@ -52,22 +51,23 @@
                     {# TODO: I think we want a smaller image here? Let's chat about this. #}
                     <img {{bindAttr src="orderitem.project.image"}} class="project-image" alt="Project Name" />
 
-                    <h1>{{orderitem.project_slug}} <em class="country">{{orderitem.project.country.name}}</em></h1>
-                    {{orderitem.project}}
+                    <h1>{{orderitem.project.title}} <em class="country">{{orderitem.project.country.name}}</em></h1>
+
                     <p class="donation-amount">
                         <strong class="amount-needed not-implemented">&euro; 530 is still needed</strong>
                         <label for="donation-amount-1">I'd like to give</label>
                         <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="orderitem.amount"}} /></span>
                     </p>
 
-                    <!--<a href="#" class="remove">Remove</a>-->
+                    <a class="remove" {{action deleteOrderItem}}>Remove</a>
                 </li>
 
             {{/each}}
 
         </ul>
 
-        <a href="#" class="add-project not-implemented">Add another project</a>
+        {{#linkTo projectList class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
+
 
     </fieldset>
 
