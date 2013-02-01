@@ -66,9 +66,9 @@
                 <div class="donate-status">
                     <p class="donate-amount">
                         <strong>
-                            €<span class="donated">{{money_donated}}</span>
+                            €<span class="donated">{{money_donated_natural}}</span>
                             {% trans "of" %}
-                            €<span class="asked">{{money_asked}}</span>
+                            €<span class="asked">{{money_asked_natural}}</span>
                             {% trans "raised" %}
                         </strong>
                     </p>
@@ -86,7 +86,7 @@
                 </p>
             </div>
 
-            <a href="#" class="button-donate">{% trans "Support this project" %}</a>
+            <a class="button-donate" {{action "supportProject" this}}>{% trans "Support this project" %}</a>
 
         </sidebar>
 

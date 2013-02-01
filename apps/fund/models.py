@@ -1,4 +1,4 @@
-from django.contrib.contenttypes.generic import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
@@ -22,7 +22,6 @@ class Donation(models.Model):
         after the actual use cases (ie. payout operations, project and
         member notifications). (TODO)
         """
-        cart = ChoiceItem('cart', label=_("Cart"))
         closed = ChoiceItem('closed', label=_("Closed"))
         expired = ChoiceItem('expired', label=_("Expired"))
         paid = ChoiceItem('paid', label=_("Paid"))
@@ -61,7 +60,8 @@ class Order(models.Model):
     """
 
     class OrderStatuses(DjangoChoices):
-        cart = ChoiceItem('cart', label=_("Cart"))
+        started = ChoiceItem('started', label=_("Started"))
+        checkout = ChoiceItem('checkout', label=_("Checkout"))
         new = ChoiceItem('new', label=_("New"))
         pending = ChoiceItem('pending', label=_("Pending"))
         failed = ChoiceItem('failed', label=_("Failed"))
@@ -76,13 +76,25 @@ class Order(models.Model):
 
     payment = models.ForeignKey('cowry.Payment', null=True)
 
+    # Calculate total for this Order
+    @property
+    def amount(self):
+        amount = 0
+        for item in self.orderitem_set.all():
+            amount += item.amount
+        return amount
+
 
 class OrderItem(models.Model):
+    """
+    Typically this connects a Donation or a Voucher to an Order.
+    """
     order  = models.ForeignKey(Order)
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
+    # Calculate properties for ease of use (e.g. in serializers).
     @property
     def amount(self):
         return self.content_object.amount

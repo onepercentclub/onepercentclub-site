@@ -15,5 +15,5 @@ class DonationAdmin(admin.ModelAdmin):
         'user__first_name', 'user__last_name', 'project__title'
     )
 
-
 admin.site.register(Donation, DonationAdmin)
+

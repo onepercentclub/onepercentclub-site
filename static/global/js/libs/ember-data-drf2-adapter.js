@@ -34,14 +34,16 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
     /**
      * Changes from default:
      * - Don't call sideload() because DRF2 doesn't support it.
-     * - Get results from json.results.
+     * - Get results from json.results or directly from json.
      */
     extractMany: function(loader, json, type, records) {
 
         this.extractMeta(loader, type, json);
 
-        if (json['results']) {
-            var objects = json['results'], references = [];
+        if (json['results'] || !this._isEmpty(json)) {
+            var references = [];
+            var objects = json['results'] ? json['results'] : json;
+
             if (records) {
                 records = records.toArray();
             }
@@ -56,6 +58,14 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
 
             loader.populateArray(references);
         }
+    },
+
+    _isEmpty: function(obj) {
+        for (var prop in obj) {
+            if (obj.hasOwnProperty(prop))
+                return false;
+        }
+        return true;
     }
 
 });

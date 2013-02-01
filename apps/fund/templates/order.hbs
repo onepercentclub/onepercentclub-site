@@ -1,0 +1,174 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "currentorder" %}
+
+<div class="container section">
+
+    <!-- donation -->
+    <header class="wrapper">
+        <h1 class="main-title">Support one or more projects!</h1>
+    </header>
+
+</div>
+
+<div class="container">
+
+    <section class="wrapper">
+
+        <ul class="donation-steps">
+            <li class="support is-selected">
+                {{#linkTo currentOrderItemList}}Support{{/linkTo}}
+            </li>
+            <li class="details">
+                {{#linkTo paymentInfo}}{% trans "Details" %}{{/linkTo}}
+            </li>
+            <li class="profile">
+                <a>{% trans "Profile" %}</a>
+            </li>
+            <li class="payment">
+                {{#linkTo orderPayment}}{% trans "Pay" %}{{/linkTo}}
+            </li>
+        </ul>
+
+        {{outlet}}
+
+        <!--
+        <div class="sidebar tip">
+          <h3>Did you know?</h3>
+          <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+          <p><a href="#">Read some more</a></p>
+        </div>
+        -->
+
+    </section>
+
+</div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "currentorderitem_form" %}
+
+    <fieldset>
+        <ul id="donation-projects">
+
+            {{#each controller}}
+                {{view "App.CurrentOrderItemView" content=this}}
+            {{/each}}
+
+        </ul>
+
+        {{#linkTo projectList class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
+
+
+    </fieldset>
+
+    <fieldset class="donation-frequency not-implemented">
+        <label class="label">{% trans "Support the selected projects:" %}</label>
+        <label for="donation-frequency-single" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-single" value="single" checked>{% trans "Single donation" %}</label>
+        <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly">{% trans "Monthly donation" %}</label>
+    </fieldset>
+
+    {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
+
+{% endtplhandlebars %}
+
+
+<!-- wrapper tag: <li class="donation-project"> -->
+{% tplhandlebars "currentorderitem" %}
+
+    {{#linkTo project project}}
+        <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
+        <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
+    {{/linkTo}}
+    <p class="donation-amount">
+        <strong class="amount-needed">&euro; {{view.neededAfterDonation}} {% trans "is still needed"%}</strong>
+        <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+        <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
+    </p>
+
+    <a class="remove" {{action "deleteOrderItem" this }}>{% trans "Remove" %}</a>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "order_payment" %}
+
+    <ul class="tabs vertical">
+        <li id="tab1" class="active">{% trans "Use iDeal" %}</li>
+        <li id="tab2">{% trans "Use Creditcard" %}</li>
+        <li id="tab3">{% trans "Use Direct Debit" %}</li>
+        <li id="tab4">{% trans "Use Paypal" %}</li>
+    </ul>
+
+    <fieldset>
+        {{#view Em.Select valueBinding="paymentMethod"}}
+            <option>{% trans "Payment Method"%}</option>
+            <option value="1">iDeal</option>
+            <option value="2">Direct Debit</option>
+            <option value="3">Credit Card</option>
+        {{/view}}
+        {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "payment_info" %}
+
+    <fieldset>
+        {{#if content.isLoaded}}
+            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
+            <br/>
+            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
+            {{view Em.TextField valueBinding="address" placeholder="Address"}}
+            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
+            {{view Em.TextField valueBinding="city" placeholder="City"}}
+            {{view Em.TextField valueBinding="country" placeholder="Country"}}
+
+            <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
+        {{/if}}
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "final_order_item_list" %}
+
+<div class="container section">
+    <header class="wrapper">
+        <h1 class="main-title">{% trans "Thank you!" %}</h1>
+    </header>
+
+</div>
+
+<div class="container">
+
+    <section class="wrapper">
+        <form>
+        <ul id="donation-projects">
+            {{#each orderitem in controller}}
+                <li class="donation-project">
+                    {{#linkTo project orderitem.project}}
+                        <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
+                        <h1>{{orderitem.project.title}} <em class="country">{{orderitem.project.country.name}}</em></h1>
+                    {{/linkTo}}
+                    <p class="donation-amount">
+                        <strong class="amount-needed">&euro; {{orderitem.project.donated}} {% trans "is still needed"%}</strong>
+                        <label for="donation-amount-1">{% trans "You just donated" %}</label>
+                        <span class="big currency">&euro; {{orderitem.amount}}</span>
+                    </p>
+                </li>
+
+            {{/each}}
+
+        </ul>
+        </form>
+    </section>
+</div>
+{% endtplhandlebars %}

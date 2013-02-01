@@ -2,10 +2,9 @@
 
 input[type=text], input[type=password], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select  {
     border: 1px solid #c5c5c5;
-    color: #929292;
     font-family: $font-family;
     line-height: 1.5em;
-    margin: -1px 0.5em 0px 0px;
+    margin: -1px 0.5em 10px 0px;
     padding: 0.6em;
     width: 100%;
     //@include border-radius(0.3em);
@@ -26,12 +25,13 @@ input[type=text], input[type=password], input[type=number], input[type=search], 
     }
 }
 
+
 ::-webkit-input-placeholder {
-   color: #999;
+    color: #bbb;
 }
 
 :-moz-placeholder {
-   color: #999;  
+    color: #bbb;
 }
 
 textarea { 

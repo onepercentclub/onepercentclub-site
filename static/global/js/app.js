@@ -91,7 +91,7 @@ App = Em.Application.create({
 // Load the Handlebar templates.
 // TODO: This is race condition that needs to be addressed but should work most of the time.
 // TODO We want to actually figure out a way to load the templates on-demand and not do it like this.
-App.loadTemplates(['projects', 'wallposts', 'reactions']);
+App.loadTemplates(['projects', 'wallposts', 'reactions', 'order']);
 
 
 // The Ember Data Adapter and Store configuration.
@@ -101,7 +101,8 @@ App.Adapter = DS.DRF2Adapter.extend({
 
     plurals: {
         "projects/wallposts/media": "projects/wallposts/media",
-        "projects/wallposts/text": "projects/wallposts/text"
+        "projects/wallposts/text": "projects/wallposts/text",
+        "fund/paymentinfo": "fund/paymentinfo"
     }
 
 });
@@ -208,6 +209,13 @@ App.Router.map(function() {
         this.route('edit');
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
+    this.resource('currentOrder', {path: '/support'}, function() {
+        this.resource('currentOrderItemList', {path: ''});
+        this.resource('orderPayment', {path: '/payment'});
+        this.resource('paymentInfo', {path: '/details'});
+    });
+    this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
+    });
 });
 
 
@@ -257,14 +265,79 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
             outlet: 'projectWallPostForm',
             controller: 'projectWallPostForm'
         });
+    },
+
+    events: {
+        supportProject: function(project) {
+            var transaction = App.store.transaction();
+            var donation = transaction.createRecord(App.CurrentDonation);
+            donation.set('amount', 20);
+            donation.set('project_slug', project.get('slug'));
+            var route = this;
+            donation.on('didCreate', function(){
+                route.transitionTo('currentOrderItemList')
+            });
+            transaction.commit();
+        }
     }
+
 });
+
 
 App.ProjectWallPostRoute = Ember.Route.extend({
     model: function(params) {
         return App.ProjectWallPost.find(params.projectwallpost_id);
     },
+
     setupController: function(controller, wallpost) {
         controller.set('content', wallpost);
     }
+});
+
+
+App.CurrentOrderItemListRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.CurrentDonation.find();
+    },
+
+    setupController: function(controller, orderitems) {
+        controller.set('content', orderitems);
+    }
+});
+
+
+App.OrderPaymentRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.Payment.find('current');
+    },
+
+    setupController: function(controller, orderpayment) {
+        controller.set('content', orderpayment);
+    }
+
+});
+
+
+App.PaymentInfoRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.PaymentInfo.find('current');
+    },
+
+    setupController: function(controller, paymentinfo) {
+        controller.set('content', paymentinfo);
+    }
+
+});
+
+
+
+App.FinalOrderItemListRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.LatestDonation.find();
+    },
+
+    setupController: function(controller, orderitems) {
+        controller.set('content', orderitems);
+    }
+
 });
