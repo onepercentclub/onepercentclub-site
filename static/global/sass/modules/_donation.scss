@@ -130,8 +130,10 @@
       margin-top: 8px;
       margin-bottom: 8px;
       padding: 0;
+      color:#454545;
     }
-    
+
+
     .country {
       display: block;
       @include rem(font-size, 14px);
@@ -147,8 +149,11 @@
     
     &:hover {
       background-color: #f3f3f3;
-      
+      h1 {
+        color: $pink;
+      }
       .remove {
+        cursor: pointer;
         display: block;
       }
     }
@@ -185,7 +190,10 @@
         font-weight: bold;
         margin: 0;
       }
-      
+      &.big {
+        font-size: 28px;
+        font-weight: bold;
+      }
     }
     
     .remove {
