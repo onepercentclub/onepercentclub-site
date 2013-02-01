@@ -31,16 +31,25 @@ App.CurrentVoucher = App.OrderItem.extend({
 });
 
 
+App.PaymentInfo = DS.Model.extend({
+    url: 'fund/paymentinfo',
+    payment_method: DS.attr('number'),
+    amount: DS.attr('number'),
+    firstName: DS.attr('string'),
+    lastName: DS.attr('string'),
+    address: DS.attr('string'),
+    city: DS.attr('string'),
+    country: DS.attr('string'),
+    zip: DS.attr('string'),
+    payment_url: DS.attr('string')
+});
+
+
 /*
  Controllers
  */
 
 App.CurrentOrderItemListController = Em.ArrayController.extend({
-
-    init: function() {
-        this._super();
-        console.log(this.toString() + ".init");
-    },
 
     deleteOrderItem: function(donation) {
         var transaction = App.store.transaction();
@@ -52,12 +61,15 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 });
 
 
+// TODO: Do we want to use this?
 App.CurrentOrderController = Em.ObjectController.extend({
 
-    init: function() {
-        this._super();
-        console.log(this.toString() + ".init");
-    }
+});
+
+
+// TODO: Do we want to use this?
+App.PaymentInfoController = Em.ObjectController.extend({
+
 });
 
 
@@ -67,24 +79,12 @@ App.CurrentOrderController = Em.ObjectController.extend({
 
 App.CurrentOrderView = Em.View.extend({
     templateName: 'currentorder',
-
-    init: function() {
-        this._super();
-        console.log(this.toString() + ".init");
-    }
-
 });
 
 
 App.CurrentOrderItemListView = Em.View.extend({
     templateName: 'currentorderitem_form',
-    tagName: 'form',
-
-    init: function() {
-        this._super();
-        console.log(this.toString() + ".init");
-    }
-
+    tagName: 'form'
 });
 
 
@@ -104,25 +104,6 @@ App.OrderPaymentController = Em.ObjectController.extend({
 App.OrderPaymentView = Em.View.extend({
     tagName: 'form',
     templateName: 'order_payment'
-});
-
-
-App.PaymentInfo = DS.Model.extend({
-    url: 'fund/paymentinfo',
-    payment_method: DS.attr('number'),
-    amount: DS.attr('number'),
-    firstName: DS.attr('string'),
-    lastName: DS.attr('string'),
-    address: DS.attr('string'),
-    city: DS.attr('string'),
-    country: DS.attr('string'),
-    zip: DS.attr('string'),
-    payment_url: DS.attr('string'),
-});
-
-
-App.PaymentInfoController = Em.ObjectController.extend({
-
 });
 
 
