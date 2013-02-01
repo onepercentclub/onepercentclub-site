@@ -154,7 +154,6 @@
         <ul id="donation-projects">
             {{#each orderitem in controller}}
                 <li class="donation-project">
-                    {# TODO: I think we want a smaller image here? Let's chat about this. #}
                     {{#linkTo project orderitem.project}}
                         <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
                         <h1>{{orderitem.project.title}} <em class="country">{{orderitem.project.country.name}}</em></h1>

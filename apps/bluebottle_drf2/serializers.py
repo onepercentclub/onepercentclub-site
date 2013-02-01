@@ -242,9 +242,9 @@ class ObjectBasedSerializer(serializers.Serializer):
         """
         obj = getattr(obj, self.source or field_name)
 
-
         return self._child_models[obj.__class__].to_native(obj)
 
+    # TODO: This could be extracted into a base classs and shared with Polymorphic serializer.
     def convert_object(self, obj):
         """
         Override so that we can iterate through the child_model field items.

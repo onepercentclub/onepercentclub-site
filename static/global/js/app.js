@@ -295,14 +295,6 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 });
 
 
-// Not currently using this but might in the near future.
-//App.CurrentOrderRoute = Ember.Route.extend({
-//    model: function(params) {
-//        console.log(this.toString() + ".model");
-//    },
-//
-//});
-
 App.CurrentOrderItemListRoute = Ember.Route.extend({
     model: function(params) {
         return App.CurrentDonation.find();
@@ -345,7 +337,6 @@ App.FinalOrderItemListRoute = Ember.Route.extend({
     },
 
     setupController: function(controller, orderitems) {
-        console.log('Here');
         controller.set('content', orderitems);
     }
 

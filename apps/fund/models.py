@@ -1,7 +1,6 @@
-from django.contrib.contenttypes.generic import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models.aggregates import Sum
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
@@ -95,8 +94,7 @@ class OrderItem(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    # Have two calculate properties for ease of use (in serializers e.g.)
-
+    # Calculate properties for ease of use (e.g. in serializers).
     @property
     def amount(self):
         return self.content_object.amount

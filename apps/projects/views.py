@@ -22,7 +22,6 @@ class ProjectList(generics.ListAPIView):
     filter_fields = ('phase', 'slug')
 
 
-
 class ProjectDetail(generics.RetrieveAPIView):
     model = Project
     serializer_class = ProjectSerializer

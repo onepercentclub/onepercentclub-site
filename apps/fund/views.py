@@ -144,6 +144,7 @@ class OrderItemList(CartMixin, generics.ListAPIView):
         return order.orderitem_set.all()
 
 
+# Note: Not currently being used.
 class OrderLatestItemList(OrderItemList):
     """
     This is the return url where the user should be directed to after the payment process is completed
@@ -179,7 +180,7 @@ class OrderLatestDonationList(CartMixin, generics.ListAPIView):
             payment_factory = PaymentFactory()
             payment_factory.set_payment(order.payment)
             payment_factory.check_payment()
-            # TODO: Have a proper check if donation went ok. Signals!
+            # TODO: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
         else:
@@ -235,11 +236,13 @@ class OrderDonationDetail(CartMixin, generics.RetrieveUpdateDestroyAPIView):
 
 class CurrentPaymentMixin(CartMixin):
 
+    # TODO: change methods to get_or_create_payment() and a separate get_payment() that will return None if none is found.
     def get_payment(self):
         order = self.get_or_create_order()
         if order.payment:
             # Always update payment with latest order amount
             order.payment.amount = order.amount
+            order.payment.save()
             return order.payment
 
         # TODO: We don't use payment_method now.
