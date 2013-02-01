@@ -5,7 +5,7 @@
 /* ========================= Variables ================================== */
 /* ========================= Includes ============================= */
 /* Compass & Mixins */
-/* line 17, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -27,45 +27,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -466,12 +466,12 @@ dl.advanced dt {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
 }
 /* line 171, ../sass/includes/_typography.scss */
 dl.advanced dd {
   float: left;
-  width: 66.66667%;
+  width: 66.667%;
   margin-left: 0%;
   margin-right: 0%;
 }
@@ -536,17 +536,17 @@ body {
 /* line 45, ../sass/includes/_layout.scss */
 .wrapper > header, .wrapper > .main-title {
   float: left;
-  width: 95.83333%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  width: 95.833%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
 }
 
 /* line 49, ../sass/includes/_layout.scss */
 .wrapper > form {
   float: left;
   width: 62.5%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
 }
 
 /* line 53, ../sass/includes/_layout.scss */
@@ -554,15 +554,15 @@ body {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
 }
 
 /* line 58, ../sass/includes/_layout.scss */
 .wrapper > .content {
   float: left;
   width: 62.5%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
 }
 
 /* line 62, ../sass/includes/_layout.scss */
@@ -612,8 +612,8 @@ section {
 /* line 15, ../sass/includes/_navigation.scss */
 #logo {
   float: left;
-  width: 10.41667%;
-  margin-left: 2.08333%;
+  width: 10.417%;
+  margin-left: 2.083%;
   margin-right: 0%;
   white-space: nowrap;
   margin-top: 10px;
@@ -628,7 +628,7 @@ section {
 #logo #subtitle {
   position: absolute;
   font-size: 11px;
-  font-size: 0.6875rem;
+  font-size: 0.688rem;
   display: inline-block !important;
   font-weight: normal;
   text-transform: uppercase;
@@ -691,12 +691,12 @@ section {
 /* line 88, ../sass/includes/_navigation.scss */
 .nav-main {
   float: left;
-  width: 54.16667%;
+  width: 54.167%;
   margin-left: 0%;
   margin-right: 0%;
   position: relative;
   font-size: 17px;
-  font-size: 1.0625rem;
+  font-size: 1.063rem;
 }
 /* line 93, ../sass/includes/_navigation.scss */
 .nav-main li a, .nav-main li a:visited {
@@ -710,9 +710,9 @@ section {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   font-size: 13px;
-  font-size: 0.8125rem;
+  font-size: 0.813rem;
   color: white;
   overflow: hidden;
   text-align: center;
@@ -778,7 +778,7 @@ section {
   margin-right: 8px;
   margin-right: 0.5rem;
   padding: 3px;
-  padding: 0.1875rem;
+  padding: 0.188rem;
   border-radius: 8px;
   border-radius: 0.5rem;
 }
@@ -1266,7 +1266,7 @@ a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, butto
 /* line 133, ../sass/includes/_buttons.scss */
 .button-donate {
   font-size: 19px;
-  font-size: 1.1875rem;
+  font-size: 1.188rem;
   background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
   background-position: 5% 16px;
@@ -1540,7 +1540,7 @@ ul.pagination li.gap {
 #lightbox nav {
   font-weight: bold;
   font-size: 13px;
-  font-size: 0.8125rem;
+  font-size: 0.813rem;
 }
 /* line 31, ../sass/includes/_lightbox.scss */
 #lightbox nav ul {
@@ -1579,7 +1579,7 @@ ul.pagination li.gap {
 #lightbox-content {
   color: #6a6a6a;
   font-size: 15px;
-  font-size: 0.9375rem;
+  font-size: 0.938rem;
   padding: 0 32px 72px 32px;
   padding: 0 2rem 4.5rem 2rem;
 }
@@ -1911,9 +1911,9 @@ ul.steps li.selected a {
 .fileinput-button.image {
   display: block;
   float: left;
-  width: 14.58333%;
+  width: 14.583%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   height: 70px;
   border: 3px dotted #00c051;
   background: url(../images/upload.png) center no-repeat;
@@ -2078,8 +2078,8 @@ ul.steps li.selected a {
 #detail figure.media {
   float: left;
   width: 62.5%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
   margin-bottom: 1.25em;
   border: 1px solid #ccc;
   background-color: #ccc;
@@ -2336,11 +2336,11 @@ ul.steps li.selected a {
 /* line 3, ../sass/modules/_member-box.scss */
 .member-box {
   float: left;
-  width: 97.91667%;
+  width: 97.917%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   position: relative;
-  padding: 0 0 0 2.08333%;
+  padding: 0 0 0 2.083%;
   *zoom: 1;
   overflow: hidden;
 }
@@ -2599,9 +2599,9 @@ ul.steps li.selected a {
 .photo-viewer ul li {
   display: block;
   float: left;
-  width: 14.58333%;
+  width: 14.583%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
   overflow: hidden;
   border-bottom: 4px solid transparent;
 }
@@ -2612,15 +2612,15 @@ ul.steps li.selected a {
 /* line 42, ../sass/modules/_media.scss */
 .photo-viewer ul li:first-child {
   float: left;
-  width: 14.58333%;
+  width: 14.583%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
 }
 /* line 46, ../sass/modules/_media.scss */
 .photo-viewer ul li.more {
   display: block;
   float: left;
-  width: 16.66667%;
+  width: 16.667%;
   margin-left: 0%;
   margin-right: 0%;
   background-color: #00c051;
@@ -2715,8 +2715,8 @@ ul.steps li.selected a {
 .wallpost {
   float: left;
   width: 62.5%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
   position: relative;
 }
 /* line 27, ../sass/modules/_wallposts.scss */
@@ -2726,9 +2726,9 @@ ul.steps li.selected a {
 /* line 31, ../sass/modules/_wallposts.scss */
 .wallpost header {
   float: left;
-  width: 79.16667%;
+  width: 79.167%;
   margin-left: 18.75%;
-  margin-right: 2.08333%;
+  margin-right: 2.083%;
 }
 /* line 34, ../sass/modules/_wallposts.scss */
 .wallpost header .timestamp {
@@ -2836,7 +2836,7 @@ ul.steps li.selected a {
 }
 /* line 38, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form textarea {
-  padding-left: 16.66667%;
+  padding-left: 16.667%;
   overflow: hidden;
   height: 44px;
   height: 2.75rem;
@@ -2867,7 +2867,7 @@ ul.steps li.selected a {
 /* line 57, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected .user-img {
   float: left;
-  width: 8.33333%;
+  width: 8.333%;
   margin-left: 0%;
   margin-right: 0%;
 }
@@ -2909,7 +2909,7 @@ ul.steps li.selected a {
 /* line 86, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li {
   font-size: 11px;
-  font-size: 0.6875rem;
+  font-size: 0.688rem;
   display: inline !important;
 }
 /* line 91, ../sass/modules/_reactions.scss */
@@ -2946,7 +2946,7 @@ ul.steps li.selected a {
 /* line 120, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love, .reaction-box .reaction-actions li strong.toggle-love {
   padding-left: 33px;
-  padding-left: 2.0625rem;
+  padding-left: 2.063rem;
   width: 20%;
   background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
@@ -2993,7 +2993,7 @@ ul.steps li.selected a {
 }
 /* line 168, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-facebook {
-  margin-left: 16.66667%;
+  margin-left: 16.667%;
   width: 25%;
 }
 /* line 173, ../sass/modules/_reactions.scss */
@@ -3003,7 +3003,7 @@ ul.steps li.selected a {
 /* line 179, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url code {
   font-size: 11px;
-  font-size: 0.6875rem;
+  font-size: 0.688rem;
   padding: 0.4em 0.2em;
   border: 1px solid #333;
   background: white;
@@ -3079,8 +3079,8 @@ ul.steps li.selected a {
 /* line 235, ../sass/modules/_reactions.scss */
 .reactions li .reaction {
   float: left;
-  width: 83.33333%;
-  margin-left: 16.66667%;
+  width: 83.333%;
+  margin-left: 16.667%;
   margin-right: 0%;
   padding: 12px 16px 0 16px;
   padding: 0.75rem 1rem 0 1rem;
@@ -3123,9 +3123,9 @@ ul.steps li.selected a {
   padding: 0;
   list-style: none;
   float: left;
-  width: 62.5%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  width: 79.167%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
   overflow: hidden;
 }
 /* line 18, ../sass/modules/_donation.scss */
@@ -3162,9 +3162,9 @@ ul.steps li.selected a {
 .donation-steps li.support {
   z-index: 4;
   float: left;
-  width: 27.08333%;
+  width: 27.083%;
   margin-left: 0%;
-  margin-right: -4.16667%;
+  margin-right: -4.167%;
 }
 /* line 50, ../sass/modules/_donation.scss */
 .donation-steps li.support a {
@@ -3179,9 +3179,9 @@ ul.steps li.selected a {
 .donation-steps li.details {
   z-index: 3;
   float: left;
-  width: 29.16667%;
+  width: 29.167%;
   margin-left: 0%;
-  margin-right: -4.16667%;
+  margin-right: -4.167%;
 }
 /* line 65, ../sass/modules/_donation.scss */
 .donation-steps li.details a {
@@ -3196,9 +3196,9 @@ ul.steps li.selected a {
 .donation-steps li.profile {
   z-index: 2;
   float: left;
-  width: 29.16667%;
+  width: 29.167%;
   margin-left: 0%;
-  margin-right: -4.16667%;
+  margin-right: -4.167%;
 }
 /* line 78, ../sass/modules/_donation.scss */
 .donation-steps li.profile a {
@@ -3216,7 +3216,7 @@ ul.steps li.selected a {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: -4.16667%;
+  margin-right: -4.167%;
 }
 /* line 92, ../sass/modules/_donation.scss */
 .donation-steps li.payment a {
@@ -3241,7 +3241,7 @@ ul.steps li.selected a {
 /* line 122, ../sass/modules/_donation.scss */
 #donation-projects .donation-project img {
   float: left;
-  width: 16.66667%;
+  width: 16.667%;
   margin-left: 0%;
   margin-right: 0%;
   float: left;
@@ -3249,9 +3249,9 @@ ul.steps li.selected a {
 /* line 127, ../sass/modules/_donation.scss */
 #donation-projects .donation-project h1 {
   float: left;
-  width: 54.16667%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
+  width: 54.167%;
+  margin-left: 2.083%;
+  margin-right: 2.083%;
   font-size: 22px;
   font-size: 1.375rem;
   margin-top: 8px;
