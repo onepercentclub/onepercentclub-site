@@ -19,18 +19,18 @@
     <section class="wrapper">
 
         <ul class="donation-steps">
-            <li class="support is-selected">
-                {{#linkTo currentOrderItemList}}Support{{/linkTo}}
-            </li>
-            <li class="details">
-                {{#linkTo paymentInfo}}{% trans "Details" %}{{/linkTo}}
-            </li>
+            {{#linkTo "currentOrderItemList" tagName="li" classNames="support" href=false}}
+                <span>{% trans "Support" %}</span>
+            {{/linkTo}}
+            {{#linkTo "paymentInfo" tagName="li" classNames="details" href=false}}
+                <span>{% trans "Details" %}</span>
+            {{/linkTo}}
             <li class="profile">
-                <a>{% trans "Profile" %}</a>
+                <span>{% trans "Profile" %}</span>
             </li>
-            <li class="payment">
-                {{#linkTo orderPayment}}{% trans "Pay" %}{{/linkTo}}
-            </li>
+            {{#linkTo "orderPayment" tagName="li" classNames="payment" href=false}}
+                <span>{% trans "Pay" %}</span>
+            {{/linkTo}}
         </ul>
 
         {{outlet}}

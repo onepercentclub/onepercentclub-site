@@ -19,8 +19,8 @@
     display: inline-block;
     background: transparent url('../images/donation-step.png') no-repeat right center;
     position: relative;
-        
-    a {
+
+    span {
       display: block;
       background-color: #dcdcdc;
       font-weight: bold;
@@ -35,10 +35,10 @@
       background-repeat: no-repeat;
     }
     
-    &.is-selected {
+    &.active {
       background: transparent url('../images/donation-step-select.png') no-repeat right center;
-      
-      a {
+
+      span {
         background-color: $green;
         color: $white;
       }
@@ -47,13 +47,13 @@
     &.support  {
       z-index: 4;
       @include grid(11, 0, -2);
-      a {
+      span {
         padding-left: 50px;
         //@include border-radius(2px 0 0 2px);
         background-position: sprite-position($icons, donation-support, 18px, 12px);
       }
       
-      &.is-selected a {
+      &.active span {
         background-position: sprite-position($icons, donation-support-select, 18px, 12px);
       }
       
@@ -62,12 +62,12 @@
     &.details {
       z-index: 3;
       @include grid(12, 0, -2);
-      a {
+      span {
         padding-left: 70px;
         background-position: sprite-position($icons, donation-details, 38px, 11px);
       }
       
-      &.is-selected a {
+      &.active span {
         background-position: sprite-position($icons, donation-details-select, 38px, 11px);
       }
     }
@@ -75,12 +75,12 @@
     &.profile {
       z-index: 2;
       @include grid(12, 0, -2);
-      a {
+      span {
         padding-left: 70px;
         background-position: sprite-position($icons, donation-profile, 38px, 10px);
       }
       
-      &.is-selected a {
+      &.active span {
         background-position: sprite-position($icons, donation-profile-select, 38px, 10px);
       }
     }
@@ -89,18 +89,18 @@
       z-index: 1;
       background-image: none;
       @include grid(13, 0, -2);
-      a {
+      span {
         padding-left: 70px;
         //@include border-radius(0 2px 2px 0);
         
         background-position: sprite-position($icons, donation-payment, 38px, 10px);
       }
       
-      &.is-selected a {
+      &.active span {
         background-position: sprite-position($icons, donation-payment-select, 38px, 10px);
       }
       
-      a {
+      span {
       }
       
     }
