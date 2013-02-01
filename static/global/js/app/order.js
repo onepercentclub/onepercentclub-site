@@ -51,7 +51,6 @@ App.PaymentInfo = DS.Model.extend({
 
 App.CurrentOrderItemListController = Em.ArrayController.extend({
 
-
     updateOrderItem: function(orderItem, newAmount) {
         var transaction = App.store.transaction();
         transaction.add(orderItem);
@@ -109,6 +108,7 @@ App.CurrentOrderItemView = Em.View.extend({
     focusOut: function(e) {
         this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
     }
+
 });
 
 
