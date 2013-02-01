@@ -80,22 +80,23 @@
 <!-- wrapper tag: <li class="donation-project"> -->
 {% tplhandlebars "currentorderitem" %}
 
-{{#linkTo project project}}
-    <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
-    <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
-{{/linkTo}}
-<p class="donation-amount">
-    <strong class="amount-needed">&euro; {{project.donated}} {% trans "is still needed"%}</strong>
-    <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
-    <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
-</p>
+    {{#linkTo project project}}
+        <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
+        <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
+    {{/linkTo}}
+    <p class="donation-amount">
+        <strong class="amount-needed">&euro; {{project.money_needed_natural}} {% trans "is still needed"%}</strong>
+        <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+        <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
+    </p>
 
-<a class="remove" {{action "deleteOrderItem" this }}>{% trans "Remove" %}</a>
+    <a class="remove" {{action "deleteOrderItem" this }}>{% trans "Remove" %}</a>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "order_payment" %}
+
     <ul class="tabs vertical">
         <li id="tab1" class="active">{% trans "Use iDeal" %}</li>
         <li id="tab2">{% trans "Use Creditcard" %}</li>
@@ -112,11 +113,12 @@
         {{/view}}
         {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
     </fieldset>
+
 {% endtplhandlebars %}
 
 
-
 {% tplhandlebars "payment_info" %}
+
     <fieldset>
         {{#if content.isLoaded}}
             {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
@@ -132,6 +134,7 @@
             <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> loading projects ...
         {{/if}}
     </fieldset>
+
 {% endtplhandlebars %}
 
 
