@@ -72,44 +72,44 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Create a Donation
         self.client.login(username=self.some_user.username, password='password')
-        response = self.client.post(self.cart_donations_url, {'project': self.some_project.id, 'amount': 35})
+        response = self.client.post(self.cart_donations_url, {'project_slug': self.some_project.slug, 'amount': 35})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 35)
-        self.assertEqual(response.data['project'], self.some_project.id)
+        self.assertEqual(response.data['project_slug'], self.some_project.slug)
         self.assertEqual(response.data['status'], 'started')
 
         # Retrieve the created Donation
         donation_detail_url = "{0}{1}".format(self.cart_donations_url, response.data['id'])
         response = self.client.get(donation_detail_url)
         self.assertEqual(response.data['amount'], 35)
-        self.assertEqual(response.data['project'], self.some_project.id)
+        self.assertEqual(response.data['project_slug'], self.some_project.slug)
 
         # Retrieve the list with all donations in this cart should return one
         response = self.client.get(self.cart_donations_url)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'], 35)
-        self.assertEqual(response.data['results'][0]['project'], self.some_project.id)
+        self.assertEqual(response.data['results'][0]['project_slug'], self.some_project.slug)
 
         # Create another Donation
-        response = self.client.post(self.cart_donations_url, {'project': self.another_project.id, 'amount': 12.50})
+        response = self.client.post(self.cart_donations_url, {'project_slug': self.another_project.slug, 'amount': 12.50})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], Decimal('12.5'))
-        self.assertEqual(response.data['project'], self.another_project.id)
+        self.assertEqual(response.data['project_slug'], self.another_project.slug)
 
         # Retrieve the list with all donations in this cart should return one
         response = self.client.get(self.cart_donations_url)
         self.assertEqual(response.data['count'], 2)
         self.assertEqual(response.data['results'][0]['amount'], 35)
         self.assertEqual(response.data['results'][1]['amount'], Decimal('12.5'))
-        self.assertEqual(response.data['results'][0]['project'], self.some_project.id)
+        self.assertEqual(response.data['results'][0]['project_slug'], self.some_project.slug)
 
         # Update the created Donation by owner.
-        response = self.client.put(donation_detail_url, {'amount': 150, 'project': self.some_project.id})
+        response = self.client.put(donation_detail_url, {'amount': 150, 'project_slug': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], 150)
 
         # Update the status of the created Donation by owner should be ignored
-        response = self.client.put(donation_detail_url, {'amount': 150, 'project': self.some_project.id, 'status': 'paid'})
+        response = self.client.put(donation_detail_url, {'amount': 150, 'project_slug': self.some_project.slug, 'status': 'paid'})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], 150)
         self.assertEqual(response.data['status'], 'started')
@@ -132,10 +132,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Now let's get anonymous and create a donation
         self.client.logout()
-        response = self.client.post(self.cart_donations_url, {'project': self.some_project.id, 'amount': 71})
+        response = self.client.post(self.cart_donations_url, {'project_slug': self.some_project.slug, 'amount': 71})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 71)
-        self.assertEqual(response.data['project'], self.some_project.id)
+        self.assertEqual(response.data['project_slug'], self.some_project.slug)
         self.assertEqual(response.data['status'], 'started')
         response = self.client.get(self.cart_donations_url)
         self.assertEqual(response.data['count'], 1)
@@ -151,7 +151,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.get(self.cart_donations_url)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'],Decimal('12.5'))
-        self.assertEqual(response.data['results'][0]['project'], self.another_project.id)
+        self.assertEqual(response.data['results'][0]['project_slug'], self.another_project.slug)
 
 
 
@@ -193,8 +193,8 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Create two donations
         self.client.login(username=self.some_user.username, password='password')
-        self.client.post(self.cart_donations_url, {'project': self.some_project.id, 'amount': 35})
-        self.client.post(self.cart_donations_url, {'project': self.another_project.id, 'amount': 27.50})
+        self.client.post(self.cart_donations_url, {'project_slug': self.some_project.slug, 'amount': 35})
+        self.client.post(self.cart_donations_url, {'project_slug': self.another_project.slug, 'amount': 27.50})
         response = self.client.get(self.cart_donations_url)
         self.assertEqual(response.data['count'], 2)
 
