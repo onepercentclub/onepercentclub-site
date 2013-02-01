@@ -11,7 +11,7 @@
   padding: 0;
   list-style: none;
   
-  @include grid(40, 1);
+  @include grid(32, 1);
   
   overflow: hidden;
   
@@ -149,7 +149,6 @@
       background-color: #f3f3f3;
       
       .remove {
-        cursor: pointer;
         display: block;
       }
     }
@@ -190,6 +189,7 @@
     }
     
     .remove {
+      pointer: cursor;
       display: none;
       z-index: 5;
       position: absolute;
