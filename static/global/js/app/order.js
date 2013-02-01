@@ -72,13 +72,18 @@ App.PaymentInfoController = Em.ObjectController.extend({
 
 });
 
+// TODO: Do we want to use this?
+App.OrderPaymentController = Em.ObjectController.extend({
+
+});
+
 
 /*
  Views
  */
 
 App.CurrentOrderView = Em.View.extend({
-    templateName: 'currentorder',
+    templateName: 'currentorder'
 });
 
 
@@ -88,16 +93,18 @@ App.CurrentOrderItemListView = Em.View.extend({
 });
 
 
+App.CurrentOrderItemView = Em.View.extend({
+    templateName: 'currentorderitem',
+    tagName: 'li',
+    classNames: 'donation-project'
+});
+
+
 App.Payment = DS.Model.extend({
     url: 'fund/payments',
     payment_method: DS.attr('number'),
     amount: DS.attr('number'),
     status: DS.attr('string')
-});
-
-
-App.OrderPaymentController = Em.ObjectController.extend({
-
 });
 
 
