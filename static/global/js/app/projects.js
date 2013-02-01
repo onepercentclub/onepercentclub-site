@@ -31,6 +31,21 @@ App.Project = DS.Model.extend({
     supporter_count: DS.attr('number', {defaultValue: 123}),
     days_left: DS.attr('number', {defaultValue: 123}) ,
 
+    asked: function(){
+        return Math.ceil(this.get('money_asked'));
+    }.property('money_asked'),
+
+    donated: function(){
+        return Math.floor(this.get('money_donated'));
+    }.property('money_donated'),
+
+    needed: function(){
+        var donated = this.get('money_needed') - this.get('money_donated');
+        if (donated < 0) return 0;
+        return donated;
+    }.property('money_donated')
+
+
 
 // TODO: defaultValue doesn't seem to be working with Ember 1.0.0 pre4
 //    // FIXME: For now we do some html generating here.
