@@ -38,6 +38,27 @@ class CartMixin(object):
                 return None
         return order
 
+    def get_latest_order(self):
+        if self.request.user.is_authenticated():
+            try:
+                order = Order.objects.filter(user=self.request.user).exclude(status=Order.OrderStatuses.started).order_by("-created").all()[0]
+            except Order.DoesNotExist:
+                return None
+        else:
+            # For an anonymous user the order (cart) might be stored in the session
+            order_id = self.request.session.get("cart_session")
+            if order_id:
+                try:
+                    order = Order.objects.get(id=order_id)
+                except Order.DoesNotExist:
+                    # The order_id was not a cart in the db, return None
+                    return None
+            else:
+                # No order_id in session. Return None
+                return None
+        return order
+
+
     def get_or_create_order(self):
         order = self.get_order()
         if not order:
@@ -123,7 +144,7 @@ class OrderItemList(CartMixin, generics.ListAPIView):
         return order.orderitem_set.all()
 
 
-class OrderItemListFinal(OrderItemList):
+class OrderLatestItemList(OrderItemList):
     """
     This is the return url where the user should be directed to after the payment process is completed
     """
@@ -131,24 +152,41 @@ class OrderItemListFinal(OrderItemList):
     serializer_class = OrderItemSerializer
 
     def get_queryset(self):
-        # TODO: maybe also try to get an Order with changed status so API returns an Payment with updated status...
         order = self.get_order()
-        if not order:
-            raise Http404(_(u"No Order with status 'cart' found in session."))
+        if order and order.payment:
+            payment_factory = PaymentFactory()
+            payment_factory.set_payment(order.payment)
+            payment_factory.check_payment()
+            # TODO: Have a proper check if donation went ok. Signals!
+            order.status = Order.OrderStatuses.pending
+            order.save()
+        else:
+            order = self.get_latest_order()
 
-        # Save status to order
-        # TODO: Have a mapper (in adapter probably) that translates PSP status to local status
-        payment = order.payment
-        if not payment:
-            raise Http404(_(u"No Payment found in session."))
-        payment_factory = PaymentFactory()
-        payment_factory.set_payment(payment)
-        payment_factory.check_payment()
-
-        # TODO: Have a proper check if donation went ok. Signals!
         order.status = Order.OrderStatuses.pending
         order.save()
         return order.orderitem_set.all()
+
+
+class OrderLatestDonationList(CartMixin, generics.ListAPIView):
+    model = Donation
+    serializer_class = DonationSerializer
+    paginate_by = 100
+
+    def get_queryset(self):
+        order = self.get_order()
+        if order and order.payment:
+            payment_factory = PaymentFactory()
+            payment_factory.set_payment(order.payment)
+            payment_factory.check_payment()
+            # TODO: Have a proper check if donation went ok. Signals!
+            order.status = Order.OrderStatuses.pending
+            order.save()
+        else:
+            order = self.get_latest_order()
+        orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
+        queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
+        return queryset
 
 
 class OrderDonationList(CartMixin, generics.ListCreateAPIView):

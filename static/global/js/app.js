@@ -214,6 +214,8 @@ App.Router.map(function() {
         this.resource('orderPayment', {path: '/payment'});
         this.resource('paymentInfo', {path: '/details'});
     });
+    this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
+    });
 });
 
 
@@ -331,6 +333,20 @@ App.PaymentInfoRoute = Ember.Route.extend({
 
     setupController: function(controller, paymentinfo) {
         controller.set('content', paymentinfo);
+    }
+
+});
+
+
+
+App.FinalOrderItemListRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.LatestDonation.find();
+    },
+
+    setupController: function(controller, orderitems) {
+        console.log('Here');
+        controller.set('content', orderitems);
     }
 
 });

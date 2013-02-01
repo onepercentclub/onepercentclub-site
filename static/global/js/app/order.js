@@ -21,9 +21,14 @@ App.CurrentOrderItem = DS.Model.extend({
 });
 
 
+App.LatestDonation = App.OrderItem.extend({
+    url: 'fund/orders/latest/donations'
+});
+
 App.CurrentDonation = App.OrderItem.extend({
     url: 'fund/orders/current/donations'
 });
+
 
 
 App.CurrentVoucher = App.OrderItem.extend({
@@ -40,8 +45,16 @@ App.PaymentInfo = DS.Model.extend({
     address: DS.attr('string'),
     city: DS.attr('string'),
     country: DS.attr('string'),
-    zip: DS.attr('string'),
+    zipCode: DS.attr('string'),
     payment_url: DS.attr('string')
+});
+
+
+App.Payment = DS.Model.extend({
+    url: 'fund/payments',
+    payment_method: DS.attr('number'),
+    amount: DS.attr('number'),
+    status: DS.attr('string')
 });
 
 
@@ -72,13 +85,16 @@ App.PaymentInfoController = Em.ObjectController.extend({
 
 });
 
+App.FinalOrderItemListController = Em.ArrayController.extend({
+});
+
 
 /*
  Views
  */
 
 App.CurrentOrderView = Em.View.extend({
-    templateName: 'currentorder',
+    templateName: 'currentorder'
 });
 
 
@@ -88,16 +104,9 @@ App.CurrentOrderItemListView = Em.View.extend({
 });
 
 
-App.Payment = DS.Model.extend({
-    url: 'fund/payments',
-    payment_method: DS.attr('number'),
-    amount: DS.attr('number'),
-    status: DS.attr('string')
-});
-
-
-App.OrderPaymentController = Em.ObjectController.extend({
-
+App.FinalOrderItemListView = Em.View.extend({
+    templateName: 'final_order_item_list',
+    tagName: 'div'
 });
 
 

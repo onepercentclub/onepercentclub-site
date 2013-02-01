@@ -1,5 +1,6 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
+{% load static %}
 
 
 {% tplhandlebars "currentorder" %}
@@ -113,14 +114,55 @@
 
 {% tplhandlebars "payment_info" %}
     <fieldset>
-        {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
-        <br/>
-        {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
-        {{view Em.TextField valueBinding="addresss" placeholder="Address"}}
-        {{view Em.TextField valueBinding="zip" placeholder="Zip code"}}
-        {{view Em.TextField valueBinding="city" placeholder="City"}}
-        {{view Em.TextField valueBinding="country" placeholder="Country"}}
+        {{#if content.isLoaded}}
+            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
+            <br/>
+            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
+            {{view Em.TextField valueBinding="address" placeholder="Address"}}
+            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
+            {{view Em.TextField valueBinding="city" placeholder="City"}}
+            {{view Em.TextField valueBinding="country" placeholder="Country"}}
 
-        <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
+            <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> loading projects ...
+        {{/if}}
     </fieldset>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "final_order_item_list" %}
+
+<div class="container section">
+    <header class="wrapper">
+        <h1 class="main-title">{% trans "Thank you!" %}</h1>
+    </header>
+
+</div>
+
+<div class="container">
+
+    <section class="wrapper">
+        <form>
+        <ul id="donation-projects">
+            {{#each orderitem in controller}}
+                <li class="donation-project">
+                    {# TODO: I think we want a smaller image here? Let's chat about this. #}
+                    {{#linkTo project orderitem.project}}
+                        <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
+                        <h1>{{orderitem.project.title}} <em class="country">{{orderitem.project.country.name}}</em></h1>
+                    {{/linkTo}}
+                    <p class="donation-amount">
+                        <strong class="amount-needed">&euro; {{orderitem.project.donated}} {% trans "is still needed"%}</strong>
+                        <label for="donation-amount-1">{% trans "You just donated" %}</label>
+                        <span class="big currency">&euro; {{orderitem.amount}}</span>
+                    </p>
+                </li>
+
+            {{/each}}
+
+        </ul>
+        </form>
+    </section>
+</div>
 {% endtplhandlebars %}

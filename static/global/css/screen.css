@@ -827,7 +827,6 @@ section {
 /* line 3, ../sass/includes/_forms.scss */
 input[type=text], input[type=password], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select {
   border: 1px solid #c5c5c5;
-  color: #929292;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
   margin: -1px 0.5em 0px 0px;
@@ -843,7 +842,7 @@ input[type=text], input[type=password], input[type=number], input[type=search], 
   vertical-align: baseline;
   background-color: #fbfbfb;
 }
-/* line 20, ../sass/includes/_forms.scss */
+/* line 19, ../sass/includes/_forms.scss */
 input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=search]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=url]:focus, textarea:focus, select:focus {
   border: 1px solid #a6a6a6;
   outline: 0;
@@ -856,12 +855,12 @@ input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, in
 
 /* line 29, ../sass/includes/_forms.scss */
 ::-webkit-input-placeholder {
-  color: #999;
+  color: #bbb;
 }
 
 /* line 33, ../sass/includes/_forms.scss */
 :-moz-placeholder {
-  color: #999;
+  color: #bbb;
 }
 
 /* line 37, ../sass/includes/_forms.scss */
@@ -3257,8 +3256,9 @@ ul.steps li.selected a {
   margin-top: 8px;
   margin-bottom: 8px;
   padding: 0;
+  color: #454545;
 }
-/* line 135, ../sass/modules/_donation.scss */
+/* line 137, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .country {
   display: block;
   font-size: 14px;
@@ -3266,7 +3266,7 @@ ul.steps li.selected a {
   font-style: normal;
   font-weight: normal;
 }
-/* line 142, ../sass/modules/_donation.scss */
+/* line 144, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .donation-amount {
   float: left;
   width: 25%;
@@ -3275,21 +3275,26 @@ ul.steps li.selected a {
   margin: 8px 0;
   text-align: right;
 }
-/* line 148, ../sass/modules/_donation.scss */
+/* line 150, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover {
   background-color: #f3f3f3;
 }
-/* line 151, ../sass/modules/_donation.scss */
+/* line 152, ../sass/modules/_donation.scss */
+#donation-projects .donation-project:hover h1 {
+  color: #ff619a;
+}
+/* line 155, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover .remove {
+  cursor: pointer;
   display: block;
 }
-/* line 156, ../sass/modules/_donation.scss */
+/* line 161, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .amount-needed {
   color: #b9b8b8;
   font-size: 13px;
   display: block;
 }
-/* line 162, ../sass/modules/_donation.scss */
+/* line 167, ../sass/modules/_donation.scss */
 #donation-projects .donation-project label {
   font-size: 18px;
   font-size: 1.125rem;
@@ -3298,19 +3303,19 @@ ul.steps li.selected a {
   display: block;
   margin-bottom: 8px;
 }
-/* line 170, ../sass/modules/_donation.scss */
+/* line 175, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .currency {
   display: inline-block;
   position: relative;
 }
-/* line 174, ../sass/modules/_donation.scss */
+/* line 179, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .currency em {
   position: absolute;
   left: 16px;
   top: 15px;
   font-size: 28px;
 }
-/* line 181, ../sass/modules/_donation.scss */
+/* line 186, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .currency input {
   width: 135px;
   font-size: 28px;
@@ -3318,7 +3323,12 @@ ul.steps li.selected a {
   font-weight: bold;
   margin: 0;
 }
-/* line 191, ../sass/modules/_donation.scss */
+/* line 193, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency.big {
+  font-size: 28px;
+  font-weight: bold;
+}
+/* line 199, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .remove {
   pointer: cursor;
   display: none;
@@ -3336,7 +3346,7 @@ ul.steps li.selected a {
   text-align: left;
 }
 
-/* line 209, ../sass/modules/_donation.scss */
+/* line 217, ../sass/modules/_donation.scss */
 .add-project {
   padding-left: 32px;
   margin: 0 16px 0 16px;
@@ -3346,29 +3356,29 @@ ul.steps li.selected a {
   background-repeat: no-repeat;
   background-position: 2px -87px;
 }
-/* line 218, ../sass/modules/_donation.scss */
+/* line 226, ../sass/modules/_donation.scss */
 .add-project:hover, .add-project:active {
   color: #050505;
   text-decoration: underline;
 }
 
-/* line 224, ../sass/modules/_donation.scss */
+/* line 232, ../sass/modules/_donation.scss */
 .donation-frequency {
   padding: 16px 16px 16px 18.75%;
   background: #f3f3f3;
 }
-/* line 228, ../sass/modules/_donation.scss */
+/* line 236, ../sass/modules/_donation.scss */
 .donation-frequency .label, .donation-frequency .select {
   display: block;
 }
-/* line 232, ../sass/modules/_donation.scss */
+/* line 240, ../sass/modules/_donation.scss */
 .donation-frequency .label {
   font-size: 22px;
   font-size: 1.375rem;
   margin-left: 16px;
   font-weight: bold;
 }
-/* line 238, ../sass/modules/_donation.scss */
+/* line 246, ../sass/modules/_donation.scss */
 .donation-frequency .select {
   font-size: 18px;
   font-size: 1.125rem;
