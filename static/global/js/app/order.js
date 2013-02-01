@@ -124,8 +124,11 @@ App.FinalOrderItemListView = Em.View.extend({
 App.CurrentOrderItemView = Em.View.extend({
     templateName: 'currentorderitem',
     tagName: 'li',
-    classNames: 'donation-project',
+    neededAfterDonation: function(){
+        return this.get('content.project.money_needed_natural') - this.get('content.amount');
+    }.property('content.amount', 'content.project.money_needed_natural'),
 
+    classNames: 'donation-project',
     focusOut: function(e) {
         this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
     }

@@ -268,10 +268,14 @@ class CurrentPaymentMixin(CartMixin):
         # TODO: Not always create a payment_info, update if it exists
         user = self.request.user
         if user.is_authenticated():
-            address = user.get_profile().useraddress_set.get()
-            payment_info = payment_factory.create_payment_info(amount=payment.amount,
-                first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
-                zip_code=address.zip_code, city=address.city, country='nl')
+            if user.get_profile():
+                address = user.get_profile().useraddress_set.get()
+                payment_info = payment_factory.create_payment_info(amount=payment.amount,
+                    first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
+                    zip_code=address.zip_code, city=address.city, country='nl')
+            else:
+                payment_info = payment_factory.create_payment_info(amount=payment.amount,
+                    first_name=user.first_name, last_name=user.last_name, email=user.email, country='nl')
         else:
             payment_info = payment_factory.create_payment_info(amount=payment.amount)
         return payment_info
