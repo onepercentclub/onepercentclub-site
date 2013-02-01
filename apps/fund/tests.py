@@ -181,7 +181,7 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
         method_detail_url = "{0}{1}".format(self.payment_methods_url, response.data['results'][0]['id'])
         method_detail_slug = response.data['results'][0]['slug']
 
-        # Get paymentmethod detail for the first method should return the right one (same slug)
+        # Get Payment Method detail for the first method should return the right one (same slug)
         response = self.client.get(method_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['slug'], method_detail_slug)
@@ -203,7 +203,7 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['amount'], Decimal('62.5'))
 
-        # get a paymentmethod and set that for this payment
+        # get a Payment Method and set that for this payment
         response = self.client.get(self.payment_methods_url)
         paymentmethod_id = response.data['results'][0]['id']
         response = self.client.put(self.checkout_url, {'payment_method': paymentmethod_id})
