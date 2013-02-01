@@ -51,10 +51,18 @@ App.PaymentInfo = DS.Model.extend({
 
 App.CurrentOrderItemListController = Em.ArrayController.extend({
 
-    deleteOrderItem: function(donation) {
+
+    updateOrderItem: function(orderItem, newAmount) {
         var transaction = App.store.transaction();
-        transaction.add(donation);
-        donation.deleteRecord();
+        transaction.add(orderItem);
+        orderItem.set('amount', newAmount);
+        transaction.commit();
+    },
+
+    deleteOrderItem: function(orderItem) {
+        var transaction = App.store.transaction();
+        transaction.add(orderItem);
+        orderItem.deleteRecord();
         transaction.commit();
     }
 
@@ -96,7 +104,11 @@ App.CurrentOrderItemListView = Em.View.extend({
 App.CurrentOrderItemView = Em.View.extend({
     templateName: 'currentorderitem',
     tagName: 'li',
-    classNames: 'donation-project'
+    classNames: 'donation-project',
+
+    focusOut: function(e) {
+        this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
+    }
 });
 
 
