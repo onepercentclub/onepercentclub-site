@@ -64,10 +64,18 @@ App.Payment = DS.Model.extend({
 
 App.CurrentOrderItemListController = Em.ArrayController.extend({
 
-    deleteOrderItem: function(donation) {
+
+    updateOrderItem: function(orderItem, newAmount) {
         var transaction = App.store.transaction();
-        transaction.add(donation);
-        donation.deleteRecord();
+        transaction.add(orderItem);
+        orderItem.set('amount', newAmount);
+        transaction.commit();
+    },
+
+    deleteOrderItem: function(orderItem) {
+        var transaction = App.store.transaction();
+        transaction.add(orderItem);
+        orderItem.deleteRecord();
         transaction.commit();
     }
 
@@ -86,6 +94,11 @@ App.PaymentInfoController = Em.ObjectController.extend({
 });
 
 App.FinalOrderItemListController = Em.ArrayController.extend({
+});
+
+// TODO: Do we want to use this?
+App.OrderPaymentController = Em.ObjectController.extend({
+
 });
 
 
@@ -107,6 +120,24 @@ App.CurrentOrderItemListView = Em.View.extend({
 App.FinalOrderItemListView = Em.View.extend({
     templateName: 'final_order_item_list',
     tagName: 'div'
+});
+
+App.CurrentOrderItemView = Em.View.extend({
+    templateName: 'currentorderitem',
+    tagName: 'li',
+    classNames: 'donation-project',
+
+    focusOut: function(e) {
+        this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
+    }
+});
+
+
+App.Payment = DS.Model.extend({
+    url: 'fund/payments',
+    payment_method: DS.attr('number'),
+    amount: DS.attr('number'),
+    status: DS.attr('string')
 });
 
 

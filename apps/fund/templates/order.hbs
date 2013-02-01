@@ -55,22 +55,8 @@
     <fieldset>
         <ul id="donation-projects">
 
-            {{#each orderitem in controller}}
-                <li class="donation-project">
-                    {# TODO: I think we want a smaller image here? Let's chat about this. #}
-                    {{#linkTo project orderitem.project}}
-                        <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
-                        <h1>{{orderitem.project.title}} <em class="country">{{orderitem.project.country.name}}</em></h1>
-                    {{/linkTo}}
-                    <p class="donation-amount">
-                        <strong class="amount-needed">&euro; {{orderitem.project.donated}} {% trans "is still needed"%}</strong>
-                        <label for="donation-amount-1">I'd like to give</label>
-                        <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="orderitem.amount"}} /></span>
-                    </p>
-
-                    <a class="remove" {{action "deleteOrderItem" orderitem}}>Remove</a>
-                </li>
-
+            {{#each controller}}
+                {{view "App.CurrentOrderItemView" content=this}}
             {{/each}}
 
         </ul>
@@ -81,12 +67,30 @@
     </fieldset>
 
     <fieldset class="donation-frequency not-implemented">
-        <label class="label">Support the selected projects:</label>
-        <label for="donation-frequency-single" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-single" value="single" checked> Single time</label>
-        <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly"> Monthly donations</label>
+        <label class="label">{% trans "Support the selected projects:" %}</label>
+        <label for="donation-frequency-single" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-single" value="single" checked>{% trans "Single donation" %}</label>
+        <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly">{% trans "Monthly donation" %}</label>
     </fieldset>
 
     {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
+
+{% endtplhandlebars %}
+
+
+<!-- wrapper tag: <li class="donation-project"> -->
+{% tplhandlebars "currentorderitem" %}
+
+{{#linkTo project project}}
+    <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
+    <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
+{{/linkTo}}
+<p class="donation-amount">
+    <strong class="amount-needed">&euro; {{project.donated}} {% trans "is still needed"%}</strong>
+    <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+    <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
+</p>
+
+<a class="remove" {{action "deleteOrderItem" this }}>{% trans "Remove" %}</a>
 
 {% endtplhandlebars %}
 
