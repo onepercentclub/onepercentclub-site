@@ -156,10 +156,14 @@
                 <li class="donation-project">
                     {{#linkTo project orderitem.project}}
                         <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
-                        <h1>{{orderitem.project.title}} <em class="country">{{orderitem.project.country.name}}</em></h1>
                     {{/linkTo}}
+                    <h1>
+                        {{#linkTo project orderitem.project}}
+                            {{orderitem.project.title}}
+                        {{/linkTo}}
+                        <em class="country">{{orderitem.project.country.name}}</em>
+                    </h1>
                     <p class="donation-amount">
-                        <strong class="amount-needed">&euro; {{orderitem.project.donated}} {% trans "is still needed"%}</strong>
                         <label for="donation-amount-1">{% trans "You just donated" %}</label>
                         <span class="big currency">&euro; {{orderitem.amount}}</span>
                     </p>

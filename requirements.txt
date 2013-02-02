@@ -94,3 +94,6 @@ django_countries
 
 # Lxml for Cowry
 lxml
+
+# Pycurl for secure calls to oher servers in Cowry
+pycurl
