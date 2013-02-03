@@ -15,9 +15,14 @@ from .serializers import DonationSerializer, OrderItemSerializer, PaymentMethodS
 
 # API views
 
-class CartMixin(object):
+class CurrentOrderMixin(object):
+    """
+    Mixin to get/create an 'Current' or 'Latest' Order.
+    Current Order has status 'started'. It is linked to a user or stored in session (for anonymous users).
+    Latest Order is the latest order by a user.
+    """
 
-    def get_order(self):
+    def get_current_order(self):
         if self.request.user.is_authenticated():
             try:
                 order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.started)
@@ -37,6 +42,20 @@ class CartMixin(object):
                 return None
         return order
 
+    def get_or_create_current_order(self):
+        order = self.get_current_order()
+        if not order:
+            order = self.create_current_order()
+        return order
+
+    def create_current_order(self):
+        order = Order(status=Order.OrderStatuses.started)
+        if self.request.user.is_authenticated():
+            order.user = self.request.user
+        order.save()
+        self.request.session["cart_session"] = order.id
+        return order
+
     def get_latest_order(self):
         if self.request.user.is_authenticated():
             try:
@@ -50,7 +69,7 @@ class CartMixin(object):
                 try:
                     order = Order.objects.get(id=order_id)
                 except Order.DoesNotExist:
-                    # The order_id was not a cart in the db, return None
+                    # The order_id was not a Order in the db, return None
                     return None
             else:
                 # No order_id in session. Return None
@@ -58,26 +77,10 @@ class CartMixin(object):
         return order
 
 
-    def get_or_create_order(self):
-        order = self.get_order()
-        if not order:
-            order = self.create_order()
-        return order
-
-    def create_order(self):
-        order = Order(status=Order.OrderStatuses.started)
-        if self.request.user.is_authenticated():
-            order.user = self.request.user
-        order.save()
-        self.request.session["cart_session"] = order.id
-        return order
-
-
-
 # Some API views we still need to implement
 
 
-class FundApi(CartMixin, ListAPIView):
+class FundApi(CurrentOrderMixin, ListAPIView):
     # TODO: Implement
     """
     Show available API methods
@@ -127,23 +130,23 @@ class PaymentInfoDetail(RetrieveAPIView):
 # End: Unimplemented API views
 
 
-class OrderCurrent(CartMixin, RetrieveUpdateAPIView):
+class OrderCurrent(CurrentOrderMixin, RetrieveUpdateAPIView):
     model = Order
     serializer_class = OrderSerializer
 
     def get_object(self, queryset=None):
-        order = self.get_or_create_order()
+        order = self.get_or_create_current_order()
         return order
 
 
-class OrderItemList(CartMixin, generics.ListAPIView):
+class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
     model = OrderItem
     serializer_class = OrderItemSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         # Filter queryset for the current order
-        order = self.get_or_create_order()
+        order = self.get_or_create_current_order()
         return order.orderitem_set.all()
 
 
@@ -156,7 +159,7 @@ class OrderLatestItemList(OrderItemList):
     serializer_class = OrderItemSerializer
 
     def get_queryset(self):
-        order = self.get_order()
+        order = self.get_current_order()
         if order and order.payment:
             payment_factory = PaymentFactory()
             payment_factory.set_payment(order.payment)
@@ -172,13 +175,13 @@ class OrderLatestItemList(OrderItemList):
         return order.orderitem_set.all()
 
 
-class OrderLatestDonationList(CartMixin, generics.ListAPIView):
+class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
     model = Donation
     serializer_class = DonationSerializer
     paginate_by = 100
 
     def get_queryset(self):
-        order = self.get_order()
+        order = self.get_current_order()
         if order and order.payment:
             payment_factory = PaymentFactory()
             payment_factory.set_payment(order.payment)
@@ -193,20 +196,20 @@ class OrderLatestDonationList(CartMixin, generics.ListAPIView):
         return queryset
 
 
-class OrderDonationList(CartMixin, generics.ListCreateAPIView):
+class OrderDonationList(CurrentOrderMixin, generics.ListCreateAPIView):
     model = Donation
     serializer_class = DonationSerializer
     paginate_by = 100
 
     def get_queryset(self):
         # Filter queryset for the current order
-        order = self.get_or_create_order()
+        order = self.get_or_create_current_order()
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
         queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
         return queryset
 
     def create(self, request, *args, **kwargs):
-        order = self.get_or_create_order()
+        order = self.get_or_create_current_order()
         serializer = self.get_serializer(data=request.DATA)
         if serializer.is_valid():
             self.pre_save(serializer.object)
@@ -222,13 +225,13 @@ class OrderDonationList(CartMixin, generics.ListCreateAPIView):
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class OrderDonationDetail(CartMixin, generics.RetrieveUpdateDestroyAPIView):
+class OrderDonationDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
     model = Donation
     serializer_class = DonationSerializer
 
     def get_queryset(self):
         # Filter queryset for the current order
-        order = self.get_or_create_order()
+        order = self.get_or_create_current_order()
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
         queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
         return queryset
@@ -237,34 +240,50 @@ class OrderDonationDetail(CartMixin, generics.RetrieveUpdateDestroyAPIView):
 
 # Payment views
 
-class CurrentPaymentMixin(CartMixin):
+class CurrentPaymentMixin(CurrentOrderMixin):
+    """
+    This mixin provides methods to get/create a Payment connect to the Current Order.
+    It also has methods to get/create a PaymentInfo object.
+    """
 
-    # TODO: change methods to get_or_create_payment() and a separate get_payment() that will return None if none is found.
-    def get_payment(self):
-        order = self.get_or_create_order()
+    def get_or_create_current_payment(self):
+        # Get or create the Payment for the Current Order
+        payment  = self.get_current_payment()
+        if payment:
+            return payment
+        return self.create_current_payment()
+
+
+    def get_current_payment(self):
+        order = self.get_or_create_current_order()
         if order.payment:
             # Always update payment with latest order amount
             order.payment.amount = order.amount
             order.payment.save()
             return order.payment
+        return None
 
+    def create_current_payment(self):
+        order = self.get_or_create_current_order()
         # TODO: We don't use payment_method now.
         if self.request.DATA and self.request.DATA.get('payment_method', None):
             payment_factory = PaymentFactory()
             payment_factory.set_payment_method(self.request.DATA['payment_method'])
-            order.payment = payment_factory.create_payment(amount=order.amount)
+            order.payment = payment_factory.create_current_payment(amount=order.amount)
             order.save()
             return order.payment
 
         # If no payment or payment_method then return a Payment object so we can set the payment_method
         payment_factory = PaymentFactory()
         # TODO: For now set hardcoded payment_method=1. Please fix.
-        order.payment = payment_factory.create_payment(amount=order.amount)
+        order.payment = payment_factory.create_current_payment(amount=order.amount)
         order.save()
         return order.payment
 
-    def get_payment_info(self):
-        payment = self.get_payment()
+
+    # TODO: Plit this into get, create and get_or_create methods.
+    def get_current_payment_info(self):
+        payment = self.get_current_payment()
         payment_factory = PaymentFactory()
         payment_factory.set_payment(payment)
 
@@ -276,14 +295,14 @@ class CurrentPaymentMixin(CartMixin):
         if user.is_authenticated():
             if user.get_profile():
                 address = user.get_profile().useraddress_set.get()
-                payment_info = payment_factory.create_payment_info(amount=payment.amount,
+                payment_info = payment_factory.create_current_payment_info(amount=payment.amount,
                     first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
                     zip_code=address.zip_code, city=address.city, country='nl')
             else:
-                payment_info = payment_factory.create_payment_info(amount=payment.amount,
+                payment_info = payment_factory.create_current_payment_info(amount=payment.amount,
                     first_name=user.first_name, last_name=user.last_name, email=user.email, country='nl')
         else:
-            payment_info = payment_factory.create_payment_info(amount=payment.amount)
+            payment_info = payment_factory.create_current_payment_info(amount=payment.amount)
         return payment_info
 
 
@@ -303,7 +322,7 @@ class PaymentCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView)
     serializer_class = PaymentSerializer
 
     def get_object(self):
-        return self.get_payment()
+        return self.get_current_payment()
 
 
 class PaymentInfoCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
@@ -316,5 +335,5 @@ class PaymentInfoCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIV
     serializer_class = PaymentInfoSerializer
 
     def get_object(self):
-        return self.get_payment_info()
+        return self.get_current_payment_info()
 
