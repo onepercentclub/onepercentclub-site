@@ -1,5 +1,6 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer, ManyRelatedNestedSerializer
+from apps.fund.models import Order
 from django.utils.translation import ugettext as _
 from cowry_docdata.models import DocdataPaymentInfo
 from cowry_ipay.models import IpayPaymentInfo
@@ -46,6 +47,16 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = ('amount', 'type', 'item')
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    amount = serializers.Field(source='amount')
+    status = serializers.Field(source='status')
+    user = serializers.Field(source='user')
+
+    class Meta:
+        model = Order
+        fields = ('id', 'user', 'name', 'email', 'address', 'zip_code', 'city', 'country', 'amount', 'status')
 
 
 # Payment Serializers

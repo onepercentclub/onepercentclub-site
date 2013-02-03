@@ -1,17 +1,16 @@
-from apps.fund.serializers import PaymentMethodSerializer, PaymentSerializer, DocdataPaymentInfoSerializer, PaymentInfoSerializer
 from cowry.factory import PaymentFactory
 from cowry.models import PaymentMethod, Payment, PaymentInfo
-from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListCreateAPIView, ListAPIView, RetrieveAPIView
-from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
 from .models import Donation, OrderItem, Order
-from .serializers import DonationSerializer, OrderItemSerializer
+from rest_framework.generics import RetrieveUpdateAPIView
+from .serializers import DonationSerializer, OrderItemSerializer, PaymentMethodSerializer, PaymentSerializer, \
+    DocdataPaymentInfoSerializer, PaymentInfoSerializer, OrderSerializer
 
 
 # API views
@@ -99,11 +98,6 @@ class OrderDetail(RetrieveAPIView):
     model = Order
     permission_classes = (AllowNone,)
 
-class OrderCurrent(CartMixin, RetrieveAPIView):
-    # TODO: Implement
-    model = Order
-    permission_classes = (AllowNone,)
-
 
 class PaymentList(ListAPIView):
     # TODO: Implement
@@ -131,6 +125,15 @@ class PaymentInfoDetail(RetrieveAPIView):
     permission_classes = (AllowNone,)
 
 # End: Unimplemented API views
+
+
+class OrderCurrent(CartMixin, RetrieveUpdateAPIView):
+    model = Order
+    serializer_class = OrderSerializer
+
+    def get_object(self, queryset=None):
+        order = self.get_or_create_order()
+        return order
 
 
 class OrderItemList(CartMixin, generics.ListAPIView):

@@ -1,7 +1,8 @@
-from django.contrib.contenttypes.generic import GenericForeignKey
+from django.contrib.contenttypes.generic import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
+from django_countries import CountryField
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
@@ -68,6 +69,13 @@ class Order(models.Model):
         paid = ChoiceItem('paid', label=_("Paid"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
+
+    name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    zip_code = models.CharField(max_length=255, blank=True, null=True)
+    country = CountryField(default='NL', blank=True, null=True)
 
     status = models.CharField(_("status"),max_length=20, choices=OrderStatuses.choices, db_index=True)
 
