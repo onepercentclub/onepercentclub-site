@@ -165,8 +165,8 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
         self.another_project = self.create_project()
         self.some_user = self.create_user()
         self.another_user = self.create_user()
-        self.cart_donations_url = '/i18n/api/fund/orders/current/donations/'
-        self.checkout_url = '/i18n/api/fund/payments/current'
+        self.current_order_donations_url = '/i18n/api/fund/orders/current/donations/'
+        self.current_payment_url = '/i18n/api/fund/payments/current'
         self.payment_methods_url = '/i18n/api/fund/paymentmethods/'
 
 
@@ -193,20 +193,20 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Create two donations
         self.client.login(username=self.some_user.username, password='password')
-        self.client.post(self.cart_donations_url, {'project_slug': self.some_project.slug, 'amount': 35})
-        self.client.post(self.cart_donations_url, {'project_slug': self.another_project.slug, 'amount': 27.50})
-        response = self.client.get(self.cart_donations_url)
+        self.client.post(self.current_order_donations_url, {'project_slug': self.some_project.slug, 'amount': 35})
+        self.client.post(self.current_order_donations_url, {'project_slug': self.another_project.slug, 'amount': 27.50})
+        response = self.client.get(self.current_order_donations_url)
         self.assertEqual(response.data['count'], 2)
 
         # Check that payment adds up to the right amount
-        response = self.client.get(self.checkout_url)
+        response = self.client.get(self.current_payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['amount'], Decimal('62.5'))
 
         # get a paymentmethod and set that for this payment
         response = self.client.get(self.payment_methods_url)
         paymentmethod_id = response.data['results'][0]['id']
-        response = self.client.put(self.checkout_url, {'payment_method': paymentmethod_id})
+        response = self.client.put(self.current_payment_url, {'payment_method': paymentmethod_id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['payment_method'], paymentmethod_id)
 

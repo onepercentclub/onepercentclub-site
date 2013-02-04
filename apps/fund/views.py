@@ -269,14 +269,14 @@ class CurrentPaymentMixin(CurrentOrderMixin):
         if self.request.DATA and self.request.DATA.get('payment_method', None):
             payment_factory = PaymentFactory()
             payment_factory.set_payment_method(self.request.DATA['payment_method'])
-            order.payment = payment_factory.create_current_payment(amount=order.amount)
+            order.payment = payment_factory.create_payment(amount=order.amount)
             order.save()
             return order.payment
 
         # If no payment or payment_method then return a Payment object so we can set the payment_method
         payment_factory = PaymentFactory()
         # TODO: For now set hardcoded payment_method=1. Please fix.
-        order.payment = payment_factory.create_current_payment(amount=order.amount)
+        order.payment = payment_factory.create_payment(amount=order.amount)
         order.save()
         return order.payment
 
@@ -322,7 +322,7 @@ class PaymentCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView)
     serializer_class = PaymentSerializer
 
     def get_object(self):
-        return self.get_current_payment()
+        return self.get_or_create_current_payment()
 
 
 class PaymentInfoCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIView):
