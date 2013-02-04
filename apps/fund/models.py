@@ -70,7 +70,8 @@ class Order(models.Model):
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
 
-    name = models.CharField(max_length=255, blank=True, null=True)
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)

@@ -209,10 +209,11 @@ App.Router.map(function() {
         this.route('edit');
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
-    this.resource('currentOrder', {path: '/support'}, function() {
+    this.resource('support', {path: '/support'}, function() {
         this.resource('currentOrderItemList', {path: ''});
+        this.resource('currentOrder', {path: '/details'});
         this.resource('orderPayment', {path: '/payment'});
-        this.resource('paymentInfo', {path: '/details'});
+        this.resource('paymentInfo', {path: '/payment-info'});
     });
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
@@ -302,6 +303,17 @@ App.CurrentOrderItemListRoute = Ember.Route.extend({
 
     setupController: function(controller, orderitems) {
         controller.set('content', orderitems);
+    }
+});
+
+
+App.CurrentOrderRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.Order.find('current');
+    },
+
+    setupController: function(controller, order) {
+        controller.set('content', order);
     }
 });
 

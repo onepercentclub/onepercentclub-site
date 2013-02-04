@@ -2,6 +2,16 @@
  Models
  */
 
+App.Order = DS.Model.extend({
+    url: 'fund/orders',
+    firstName: DS.attr('string'),
+    lastName: DS.attr('string'),
+    address: DS.attr('string'),
+    city: DS.attr('string'),
+    country: DS.attr('string'),
+    zipCode: DS.attr('string'),
+});
+
 App.OrderItem = DS.Model.extend({
     url: 'fund/orders/:order_id/items',
 
@@ -81,32 +91,20 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 });
 
 
-// TODO: Do we want to use this?
 App.CurrentOrderController = Em.ObjectController.extend({
 
 });
 
-
-// TODO: Do we want to use this?
-App.PaymentInfoController = Em.ObjectController.extend({
-
-});
-
-App.FinalOrderItemListController = Em.ArrayController.extend({
-});
-
-// TODO: Do we want to use this?
-App.OrderPaymentController = Em.ObjectController.extend({
-
-});
 
 
 /*
  Views
  */
 
+
 App.CurrentOrderView = Em.View.extend({
-    templateName: 'currentorder'
+    templateName: 'current_order',
+    tagName: 'form'
 });
 
 

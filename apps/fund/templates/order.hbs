@@ -3,7 +3,7 @@
 {% load static %}
 
 
-{% tplhandlebars "currentorder" %}
+{% tplhandlebars "support" %}
 
 <div class="container section">
 
@@ -47,6 +47,25 @@
 
 </div>
 
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "current_order" %}
+    <fieldset>
+        {{#if content.isLoaded}}
+            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
+            <br/>
+            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
+            {{view Em.TextField valueBinding="address" placeholder="Address"}}
+            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
+            {{view Em.TextField valueBinding="city" placeholder="City"}}
+            {{view Em.TextField valueBinding="country" placeholder="Country"}}
+
+            <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
+        {{/if}}
+    </fieldset>
 {% endtplhandlebars %}
 
 
