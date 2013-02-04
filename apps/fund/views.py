@@ -52,10 +52,15 @@ class CurrentOrderMixin(object):
         user =  self.request.user
         if user.is_authenticated():
             if user.get_profile():
-                address = user.get_profile().useraddress_set.get()
-                order = Order(user=user, status=Order.OrderStatuses.started, first_name=user.first_name,
-                    last_name=user.last_name, email=user.email, address=address.line1, zip_code=address.zip_code,
-                    city=address.city, country=address.country.alpha2_code)
+                if user.get_profile().useraddress_set.all():
+                    address = user.get_profile().useraddress_set.get()
+                    order = Order(user=user, status=Order.OrderStatuses.started, first_name=user.first_name,
+                        last_name=user.last_name, email=user.email, address=address.line1, zip_code=address.zip_code,
+                        city=address.city, country=address.country.alpha2_code)
+                else:
+                    # TODO: Set the country code based on IP geo??
+                    order = Order(user=user, status=Order.OrderStatuses.started, first_name=user.first_name,
+                        last_name=user.last_name, email=user.email, country='NL')
             else:
                 # TODO: Set the country code based on IP geo??
                 order = Order(user=user, status=Order.OrderStatuses.started, first_name=user.first_name,

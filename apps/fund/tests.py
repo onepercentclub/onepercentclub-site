@@ -65,7 +65,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.another_user = self.create_user()
         self.cart_donations_url = '/i18n/api/fund/orders/current/donations/'
 
-    def test_cart_donation_crud(self):
+    def test_current_order_donation_crud(self):
         """
         Tests for creating, retrieving, updating and deleting a donation to shopping cart.
         """
