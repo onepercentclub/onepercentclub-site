@@ -294,6 +294,7 @@ class CurrentPaymentMixin(CurrentOrderMixin):
 
     # TODO: Plit this into get, create and get_or_create methods.
     def get_current_payment_info(self):
+        payment = self.get_or_create_current_payment()
         payment = self.get_current_payment()
         payment_factory = PaymentFactory()
         payment_factory.set_payment(payment)
@@ -306,14 +307,14 @@ class CurrentPaymentMixin(CurrentOrderMixin):
         if user.is_authenticated():
             if user.get_profile():
                 address = user.get_profile().useraddress_set.get()
-                payment_info = payment_factory.create_current_payment_info(amount=payment.amount,
+                payment_info = payment_factory.create_payment_info(amount=payment.amount,
                     first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
                     zip_code=address.zip_code, city=address.city, country='nl')
             else:
-                payment_info = payment_factory.create_current_payment_info(amount=payment.amount,
+                payment_info = payment_factory.create_payment_info(amount=payment.amount,
                     first_name=user.first_name, last_name=user.last_name, email=user.email, country='nl')
         else:
-            payment_info = payment_factory.create_current_payment_info(amount=payment.amount)
+            payment_info = payment_factory.create_payment_info(amount=payment.amount)
         return payment_info
 
 
