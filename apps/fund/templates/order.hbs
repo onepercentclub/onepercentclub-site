@@ -29,7 +29,7 @@
                 <a>{% trans "Profile" %}</a>
             </li>
             <li class="payment">
-                {{#linkTo orderPayment}}{% trans "Pay" %}{{/linkTo}}
+                {{#linkTo orderPayment}}{% trans "Payment" %}{{/linkTo}}
             </li>
         </ul>
 
@@ -61,7 +61,7 @@
             {{view Em.TextField valueBinding="city" placeholder="City"}}
             {{view Em.TextField valueBinding="country" placeholder="Country"}}
 
-            <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
+            {{#linkTo orderPayment class="button right"}}{% trans "Next step" %}{{/linkTo}}
         {{else}}
             <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
         {{/if}}
@@ -91,7 +91,7 @@
         <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly">{% trans "Monthly donation" %}</label>
     </fieldset>
 
-    {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
+    {{#linkTo currentOrder class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -116,13 +116,6 @@
 
 {% tplhandlebars "order_payment" %}
 
-    <ul class="tabs vertical">
-        <li id="tab1" class="active">{% trans "Use iDeal" %}</li>
-        <li id="tab2">{% trans "Use Creditcard" %}</li>
-        <li id="tab3">{% trans "Use Direct Debit" %}</li>
-        <li id="tab4">{% trans "Use Paypal" %}</li>
-    </ul>
-
     <fieldset>
         {{#view Em.Select valueBinding="paymentMethod"}}
             <option>{% trans "Payment Method"%}</option>
@@ -140,14 +133,7 @@
 
     <fieldset>
         {{#if content.isLoaded}}
-            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
-            <br/>
-            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
-            {{view Em.TextField valueBinding="address" placeholder="Address"}}
-            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
-            {{view Em.TextField valueBinding="city" placeholder="City"}}
-            {{view Em.TextField valueBinding="country" placeholder="Country"}}
-
+            {# TODO: Ask for payment method specific information here... #}
             <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
         {{else}}
             <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
