@@ -2,14 +2,14 @@
  Models
  */
 
-App.Order = DS.Model.extend({
-    url: 'fund/orders',
+App.OrderProfile = DS.Model.extend({
+    url: 'fund/orders/profiles',
     firstName: DS.attr('string'),
     lastName: DS.attr('string'),
     address: DS.attr('string'),
     city: DS.attr('string'),
     country: DS.attr('string'),
-    zipCode: DS.attr('string'),
+    zipCode: DS.attr('string')
 });
 
 App.OrderItem = DS.Model.extend({
@@ -91,20 +91,32 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 });
 
 
-App.CurrentOrderController = Em.ObjectController.extend({
-
+App.OrderProfileController = Em.ObjectController.extend({
+    initTransaction: function(){
+        var transaction = App.store.transaction();
+        this.set('transaction', transaction);
+        transaction.add(this.get('content'));
+    }.observes('content'),
+    update: function(){
+        this.get('transaction').commit();
+    }
 });
-
-
 
 /*
  Views
  */
 
-
 App.CurrentOrderView = Em.View.extend({
-    templateName: 'current_order',
-    tagName: 'form'
+    templateName: 'current_order'
+});
+
+
+App.OrderProfileView = Em.View.extend({
+    templateName: 'order_profile_form',
+    tagName: 'form',
+    submit: function(){
+        this.controller.update();
+    }
 });
 
 

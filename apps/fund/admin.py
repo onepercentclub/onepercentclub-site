@@ -23,7 +23,7 @@ class OrderItemInline(admin.StackedInline):
 class OrderAdmin(admin.ModelAdmin):
     model = Order
     list_filter = ('status', 'user')
-    list_display = ('created', 'first_name', 'last_name', 'amount', 'status')
+    list_display = ('created', 'amount', 'status')
     inlines = (OrderItemInline, )
 
 admin.site.register(Order, OrderAdmin)

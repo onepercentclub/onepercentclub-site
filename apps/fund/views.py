@@ -1,3 +1,6 @@
+from apps.accounts.models import AnonymousProfile
+from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
+from apps.fund.serializers import OrderProfileSerializer
 from cowry.factory import PaymentFactory
 from cowry.models import PaymentMethod, Payment, PaymentInfo
 from django.contrib.contenttypes.models import ContentType
@@ -8,9 +11,8 @@ from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
 from .models import Donation, OrderItem, Order
-from rest_framework.generics import RetrieveUpdateAPIView
-from .serializers import DonationSerializer, OrderItemSerializer, PaymentMethodSerializer, PaymentSerializer, \
-    DocdataPaymentInfoSerializer, PaymentInfoSerializer, OrderSerializer
+from .serializers import DonationSerializer, OrderItemSerializer, PaymentMethodSerializer, PaymentSerializer,\
+    PaymentInfoSerializer
 
 
 # API views
@@ -51,23 +53,9 @@ class CurrentOrderMixin(object):
     def create_current_order(self):
         user =  self.request.user
         if user.is_authenticated():
-            if user.get_profile():
-                if user.get_profile().useraddress_set.all():
-                    address = user.get_profile().useraddress_set.get()
-                    order = Order(user=user, status=Order.OrderStatuses.started, first_name=user.first_name,
-                        last_name=user.last_name, email=user.email, address=address.line1, zip_code=address.zip_code,
-                        city=address.city, country=address.country.alpha2_code)
-                else:
-                    # TODO: Set the country code based on IP geo??
-                    order = Order(user=user, status=Order.OrderStatuses.started, first_name=user.first_name,
-                        last_name=user.last_name, email=user.email, country='NL')
-            else:
-                # TODO: Set the country code based on IP geo??
-                order = Order(user=user, status=Order.OrderStatuses.started, first_name=user.first_name,
-                    last_name=user.last_name, email=user.email, country='NL')
+            order = Order(user=user, status=Order.OrderStatuses.started)
         else:
-            # TODO: Set the country code based on IP geo??
-            order = Order(status=Order.OrderStatuses.started, country='NL')
+            order = Order(status=Order.OrderStatuses.started)
         order.save()
         self.request.session["cart_session"] = order.id
         return order
@@ -118,6 +106,12 @@ class OrderDetail(RetrieveAPIView):
     permission_classes = (AllowNone,)
 
 
+class OrderCurrent(RetrieveAPIView):
+    # TODO: Implement
+    model = Order
+    permission_classes = (AllowNone,)
+
+
 class PaymentList(ListAPIView):
     # TODO: Implement
     model = Payment
@@ -145,14 +139,34 @@ class PaymentInfoDetail(RetrieveAPIView):
 
 # End: Unimplemented API views
 
+class OrderProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
 
-class OrderCurrent(CurrentOrderMixin, RetrieveUpdateAPIView):
-    model = Order
-    serializer_class = OrderSerializer
+    serializer_class = OrderProfileSerializer
 
     def get_object(self, queryset=None):
         order = self.get_or_create_current_order()
-        return order
+        if order.user:
+            return order.user
+        if not order.anonymous_profile:
+            order.anonymous_profile = AnonymousProfile.objects.create()
+            order.anonymous_profile.save()
+            order.save()
+        return order.anonymous_profile
+
+
+class OrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+
+    serializer_class = OrderProfileSerializer
+
+    def get_object(self, queryset=None):
+        order = self.get_or_create_current_order()
+        if order.user:
+            return order.user
+        if not order.anonymous_profile:
+            order.anonymous_profile = AnonymousProfile.objects.create()
+            order.anonymous_profile.save()
+            order.save()
+        return order.anonymous_profile
 
 
 class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
@@ -314,10 +328,10 @@ class CurrentPaymentMixin(CurrentOrderMixin):
                 address = user.get_profile().useraddress_set.get()
                 payment_info = payment_factory.create_payment_info(amount=payment.amount,
                     first_name=user.first_name, last_name=user.last_name, email=user.email, address=address.line1,
-                    zip_code=address.zip_code, city=address.city, country='nl')
+                    zip_code=address.zip_code, city=address.city, country=address.country.alpha2_code)
             else:
                 payment_info = payment_factory.create_payment_info(amount=payment.amount,
-                    first_name=user.first_name, last_name=user.last_name, email=user.email, country='nl')
+                    first_name=user.first_name, last_name=user.last_name, email=user.email)
         else:
             payment_info = payment_factory.create_payment_info(amount=payment.amount)
         return payment_info

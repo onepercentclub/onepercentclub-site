@@ -3,69 +3,50 @@
 {% load static %}
 
 
-{% tplhandlebars "support" %}
-
-<div class="container section">
-
-    <!-- donation -->
-    <header class="wrapper">
-        <h1 class="main-title">Support one or more projects!</h1>
-    </header>
-
-</div>
-
-<div class="container">
-
-    <section class="wrapper">
-
-        <ul class="donation-steps">
-            <li class="support is-selected">
-                {{#linkTo currentOrderItemList}}Support{{/linkTo}}
-            </li>
-            <li class="details">
-                {{#linkTo paymentInfo}}{% trans "Details" %}{{/linkTo}}
-            </li>
-            <li class="profile">
-                <a>{% trans "Profile" %}</a>
-            </li>
-            <li class="payment">
-                {{#linkTo orderPayment}}{% trans "Payment" %}{{/linkTo}}
-            </li>
-        </ul>
-
-        {{outlet}}
-
-        <!--
-        <div class="sidebar tip">
-          <h3>Did you know?</h3>
-          <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
-          <p><a href="#">Read some more</a></p>
-        </div>
-        -->
-
-    </section>
-
-</div>
-
-{% endtplhandlebars %}
-
-
 {% tplhandlebars "current_order" %}
-    <fieldset>
-        {{#if content.isLoaded}}
-            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
-            <br/>
-            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
-            {{view Em.TextField valueBinding="address" placeholder="Address"}}
-            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
-            {{view Em.TextField valueBinding="city" placeholder="City"}}
-            {{view Em.TextField valueBinding="country" placeholder="Country"}}
 
-            {{#linkTo orderPayment class="button right"}}{% trans "Next step" %}{{/linkTo}}
-        {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
-        {{/if}}
-    </fieldset>
+    <div class="container section">
+
+        <!-- donation -->
+        <header class="wrapper">
+            <h1 class="main-title">Support one or more projects!</h1>
+        </header>
+
+    </div>
+
+    <div class="container">
+
+        <section class="wrapper">
+
+            <ul class="donation-steps">
+                <li class="support is-selected">
+                    {{#linkTo currentOrderItemList}}Support{{/linkTo}}
+                </li>
+                <li class="details">
+                    {{#linkTo orderPayment}}{% trans "Details" %}{{/linkTo}}
+                </li>
+                <li class="profile">
+                    <a>{% trans "Profile" %}</a>
+                </li>
+                <li class="payment">
+                    {{#linkTo orderPayment}}{% trans "Payment" %}{{/linkTo}}
+                </li>
+            </ul>
+
+            {{outlet}}
+
+            <!--
+            <div class="sidebar tip">
+              <h3>Did you know?</h3>
+              <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+              <p><a href="#">Read some more</a></p>
+            </div>
+            -->
+
+        </section>
+
+    </div>
+
 {% endtplhandlebars %}
 
 
@@ -91,8 +72,27 @@
         <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly">{% trans "Monthly donation" %}</label>
     </fieldset>
 
-    {{#linkTo currentOrder class="button right"}}{% trans "Next step" %}{{/linkTo}}
+{{#linkTo orderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "order_profile_form" %}
+    <fieldset>
+        {{#if content.isLoaded}}
+            {{#each content.errors.firstName}}
+                <span class="errors">{{this}}</span>
+            {{/each}}
+            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
+            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
+            {{view Em.TextField valueBinding="address" placeholder="Address"}}
+            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
+            {{view Em.TextField valueBinding="city" placeholder="City"}}
+            {{view Em.TextField valueBinding="country" placeholder="Country"}}
+
+            <button>{% trans 'Next step' %}</button>
+        {{/if}}
+    </fieldset>
 {% endtplhandlebars %}
 
 
@@ -106,6 +106,9 @@
     <p class="donation-amount">
         <strong class="amount-needed">&euro; {{view.neededAfterDonation}} {% trans "is still needed"%}</strong>
         <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+        {{#each content.errors.amount}}
+           <span class="errors">{{this}}</span><br/>
+        {{/each}}
         <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
     </p>
 

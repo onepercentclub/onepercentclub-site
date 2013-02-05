@@ -1,6 +1,8 @@
 # coding=utf-8
+from apps.accounts.models import AnonymousProfile
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer, ManyRelatedNestedSerializer
 from apps.fund.models import Order
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from cowry_docdata.models import DocdataPaymentInfo
 from cowry_ipay.models import IpayPaymentInfo
@@ -59,6 +61,35 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'first_name', 'last_name', 'email', 'address', 'zip_code', 'city',
                   'country', 'amount', 'status')
 
+
+class OrderAnonymousUserProfileSerializer(serializers.ModelSerializer):
+    country = serializers.WritableField(source="country")
+
+    class Meta:
+        model = AnonymousProfile
+        fields = ('id', 'first_name', 'last_name', 'email', 'address', 'zip_code', 'city',
+                  'country')
+
+
+class OrderUserProfileSerializer(serializers.ModelSerializer):
+    address = serializers.WritableField(source="userprofile.address.line1")
+    zip_code = serializers.WritableField(source="userprofile.address.zip_code")
+    city = serializers.WritableField(source="userprofile.address.city")
+    country = serializers.WritableField(source="userprofile.address.country")
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'email', 'address', 'zip_code', 'city',
+                  'country')
+
+
+class OrderProfileSerializer(ObjectBasedSerializer):
+
+    class Meta:
+        child_models = (
+            (User, OrderUserProfileSerializer),
+            (AnonymousProfile, OrderAnonymousUserProfileSerializer),
+            )
 
 # Payment Serializers
 
@@ -132,3 +163,5 @@ class PaymentInfoSerializer(PolymorphicSerializer):
             (DocdataPaymentInfo, DocdataPaymentInfoSerializer),
             (IpayPaymentInfo, IpayPaymentInfoSerializer),
             )
+
+
