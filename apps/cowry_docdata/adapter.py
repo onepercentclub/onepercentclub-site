@@ -1,6 +1,4 @@
-import hashlib
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.utils.http import urlencode
 from xml.dom import minidom
@@ -16,17 +14,18 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         Docdata payments
     """
 
-    test_url = 'https://test.tripledeal.com/ps/com.tripledeal.paymentservice.servlets.PaymentService'
-    live_url = 'https://www.tripledeal.com/ps/com.tripledeal.paymentservice.servlets.PaymentService'
+    # TODO: django settings.
+    PaymentMethods = ('MASTERCARD', 'DIRECT_DEBIT')
 
-    # New Docdata API
-    new_test_url = 'https://test.tripledeal.com/ps/services/paymentservice/0_9'
+
+    test_url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
+    live_url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
 
     return_url = None
-
     url = None
 
     def __init__(self, debug=True):
+        # TODO: make this required if it's enabled.
         self.merchant_name = getattr(settings, "DOCDATA_MERCHANT_NAME", 'dummy')
         self.merchant_password = getattr(settings, "DOCDATA_MERCHANT_PASSWORD", 'dummy')
         server = Site.objects.get_current().domain
@@ -34,6 +33,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             self.return_url = 'http://' + server + '#/support/thanks'
         else:
             self.return_url = 'https://' + server + '#/support/thanks'
+        # TODO it makes more sense if this is explicitly set.
         if debug:
             self.url = self.test_url
         else:
@@ -52,7 +52,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         params = self.instance_dict(self.payment_process)
 
         # Set the command to create a payment cluster
-        params['command'] = 'new_payment_cluster'
+        params['command'] = 'create_payment_cluster'
 
         # Raises URLError on errors.
         result = urlopen(self.url, urlencode(params))
@@ -86,8 +86,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     def create_payment_info(self, *args, **kwargs):
         """
-            Create a PaymentProcess based on a Payment and 
-            the returned form
+            Create a PaymentProcess based on a Payment and the returned form
         """
 
         # TODO: load these values dynamically??
@@ -117,7 +116,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         self.payment_info.client_city = kwargs.get('city', '')
         self.payment_info.client_country = kwargs.get('country', '')
 
-        cluster = self.new_payment_cluster(
+        cluster = self.create_payment_order(
             merchant_name = self.merchant_name,
             merchant_password = self.merchant_password,
             merchant_transaction_id = transaction_id,
@@ -138,8 +137,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             client_language = 'en',
             days_pay_period = days_pay_period
         )
-        self.payment_info.payment_cluster_id = cluster['payment_cluster_id']
-        self.payment_info.payment_cluster_key = cluster['payment_cluster_key']
+#        self.payment_info.payment_cluster_id = cluster['payment_cluster_id']
+#        self.payment_info.payment_cluster_key = cluster['payment_cluster_key']
         self.payment_info.payment_url = self.get_payment_url()
         self.payment_info.save()
 
@@ -261,7 +260,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         self._check_errors(resultdom)
 
         xml = etree.fromstring(result.getvalue())
-
         url = xml.findall('.//payment_cluster_process')[0].text
 
 
@@ -306,10 +304,101 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         # TODO: Translate the specific statuses into something generic we all understand
         return status
 
+
+
+
+
+    def create_payment_order(self, **kwargs):
+        from suds.client import Client
+        from suds.plugin import MessagePlugin
+
+        class DocDataAPIVersionPlugin(MessagePlugin):
+
+            def marshalled(self, context):
+                body = context.envelope.getChild('Body')
+                request = body[0]
+                request.set('version', '1.0')
+
+        client = Client("https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl",  plugins=[DocDataAPIVersionPlugin()])
+
+        merchant = client.factory.create('ns0:merchant')
+        merchant._name = "yyyyyyyyyyy"
+        merchant._password = "xxxxxxxxxx"
+
+        # Preferences.
+        paymentPreferences = client.factory.create('ns0:paymentPreferences')
+        paymentPreferences.profile = 'standard'
+        paymentPreferences.numberOfDaysToPay = 5
+
+        menuPreferences = client.factory.create('ns0:menuPreferences')
+
+        # Order Amount.
+        amount = client.factory.create('ns0:amount')
+        amount.value = 20
+        amount._currency = 'EUR'
+
+        # Customer information.
+        language = client.factory.create('ns0:language')
+        language._code = "en"
+
+        name = client.factory.create('ns0:name')
+        name.first = "Loek"
+        name.last = "van Gent"
+
+        shopper = client.factory.create('ns0:shopper')
+        shopper.gender = "U"
+        shopper.language = language
+        shopper.email="ben@bagu.org"
+        shopper._id = 324
+        shopper.name = name
+
+        # Billing information.
+        country = client.factory.create('ns0:country')
+        country._code = 'NL'
+
+        address = client.factory.create('ns0:address')
+        address.street = "laskjdf st."
+        address.houseNumber = "30"
+        address.postalCode = "2316BJ"
+        address.city = "Leiden"
+        address.country = country
+
+        billTo = client.factory.create('ns0:destination')
+        billTo.address = address
+        billTo.name = name
+
+        # execute request.
+        key = ''
+        reply = client.service.create(merchant, "1", paymentPreferences, menuPreferences, shopper, amount, billTo)
+        if hasattr(reply, 'createError'):
+            print reply['createError']['error']  # ['value']
+            return
+        elif hasattr(reply, 'createSuccess'):
+            key = reply['createSuccess']['key']
+
+        #
+        # Start the payment -- not working.
+        #
+        paymentRequestInput = client.factory.create('ns0:paymentRequestInput')
+        paymentRequestInput.paymentMethod = "banktransfer-nl"
+
+        bankTransferPaymentInput = client.factory.create('ns0:bankTransferPaymentInput')
+        bankTransferPaymentInput.emailAddress = "ben@bagu.org"
+        paymentRequestInput.bankTransferPaymentInput = bankTransferPaymentInput
+
+        # Only need to set amount because of bug in suds library. Otherwise it default to order amount.
+        amount = client.factory.create('ns0:amount')
+        amount.value = 20
+        amount._currency = "EUR"
+        paymentRequestInput.paymentAmount = amount
+
+        reply = client.service.start(merchant, key, paymentRequestInput)
+
+
+
     def new_payment_cluster(self, **kwargs):
         """
-            Create a DocData PaymenClustere needed to send 
-            commands to their API.
+            Create a DocData PaymentCluster needed to send commands to their API.
         """
          
          # Check if we have all params we need

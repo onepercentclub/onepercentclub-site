@@ -49,9 +49,11 @@ class PaymentMethod(models.Model):
         return self.title
 
     class Meta:
+        # TODO: why are your specifying the db_tables?
         db_table = "payments_paymentmethod"
 
 
+# TODO: I don't think this makes sense.
 class PaymentMethodCountry(models.Model):
     method = models.ForeignKey(PaymentMethod)
     country = CountryField()

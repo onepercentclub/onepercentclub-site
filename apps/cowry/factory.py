@@ -42,7 +42,7 @@ class PaymentFactory(object):
         adapter = self.get_adapter()
         payment = self.get_payment()
         adapter.set_payment(payment)
-        payment.payment_info =  adapter.create_payment_info(*args, **kwargs)
+        payment.payment_info = adapter.create_payment_info(*args, **kwargs)
         payment.save()
         return payment.payment_info
 

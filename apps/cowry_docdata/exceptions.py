@@ -21,9 +21,7 @@ class PaymentStatusException(Exception):
         self.data = data
 
     def __str__(self):
-        return '%s, report type %s, data %s' % (self.message,
-                                                self.report_type,
-                                                self.data)
+        return '%s, report type %s, data %s' % (self.message, self.report_type, self.data)
 
     def __unicode__(self):
         return str(self)

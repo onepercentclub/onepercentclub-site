@@ -1,7 +1,8 @@
 class AbstractPaymentAdapter(object):
     """ 
-    This is the base class that should be used by all Payment Adapters.
+    This is the abstract base class that should be used by all Payment Adapters.
     """
+
     payment_info = None
     payment = None
 

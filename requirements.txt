@@ -92,3 +92,6 @@ lxml
 
 # Pycurl for secure calls to other servers in Cowry
 pycurl
+
+# Soap library for cowry
+suds-jurko==0.4.1.jurko.4
