@@ -1,10 +1,9 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
 from django.utils.translation import ugettext as _
-from cowry_docdata.models import DocdataPaymentInfo
-from cowry_ipay.models import IpayPaymentInfo
 from rest_framework import serializers
-from cowry.models import Payment, PaymentAdapter, PaymentMethod, PaymentInfo
+from apps.cowry_docdata.models import DocdataPaymentInfo
+from apps.cowry.models import Payment, PaymentAdapter, PaymentMethod, PaymentInfo
 from .models import Donation, OrderItem
 
 
@@ -102,21 +101,10 @@ class DocdataPaymentInfoSerializer(PaymentInfoSerializerBase):
         fields = PaymentInfoSerializerBase.Meta.fields + ('email', 'first_name', 'last_name', 'address', 'city',
                                                       'zip_code', 'country')
 
-class IpayPaymentInfoSerializer(PaymentInfoSerializerBase):
-    email = serializers.WritableField(source='email')
-    mobile = serializers.WritableField(source='mobile', read_only=False)
-    amount_kes = serializers.WritableField(source='amount_kes')
-    mpesa_id = serializers.WritableField(source='mpesa_id')
-
-    class Meta:
-        model = DocdataPaymentInfo
-        fields = PaymentInfoSerializerBase.Meta.fields + ('email', 'mobile', 'amount_kes', 'mpesa_id')
-
 
 class PaymentInfoSerializer(PolymorphicSerializer):
 
     class Meta:
         child_models = (
             (DocdataPaymentInfo, DocdataPaymentInfoSerializer),
-            (IpayPaymentInfo, IpayPaymentInfoSerializer),
             )

@@ -208,9 +208,8 @@ INSTALLED_APPS = (
     'tinymce',
 
     # Cowry Payments
-    'cowry',
-    'cowry_docdata',
-    'cowry_ipay',
+    'apps.cowry',
+    'apps.cowry_docdata',
 
     # bluebottle apps
     'apps.blogs',
