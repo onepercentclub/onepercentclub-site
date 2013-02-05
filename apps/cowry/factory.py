@@ -51,8 +51,9 @@ class PaymentFactory(object):
             adapter = self.get_payment().payment_method.payment_adapter
             app_name = 'cowry_' + adapter.slug
             adapter_name = adapter.slug.title() + 'PaymentAdapter'
-            mod = __import__(app_name + '.adapter')
-            app_class = getattr(mod, 'adapter')
+            mod = __import__('apps.' + app_name + '.adapter')
+            app = getattr(mod, app_name)
+            app_class = getattr(app, 'adapter')
             adapter_class = getattr(app_class, adapter_name)
             self.adapter = adapter_class()
             return self.adapter

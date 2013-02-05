@@ -5,8 +5,8 @@ from django.contrib.sites.models import Site
 from django.utils.http import urlencode
 from xml.dom import minidom
 from lxml import etree
-from cowry.utils import urlopen
-from cowry.adapter import AbstractPaymentAdapter
+from apps.cowry.utils import urlopen
+from apps.cowry.adapter import AbstractPaymentAdapter
 from .models import DocdataPaymentInfo
 from django.utils import timezone
 
