@@ -1,4 +1,4 @@
-from django.contrib.contenttypes.generic import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
@@ -70,6 +70,7 @@ class Order(models.Model):
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
 
+    # Store information about the customer here. Mainly useful for anonymous users.
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)

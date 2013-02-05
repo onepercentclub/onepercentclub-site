@@ -134,6 +134,8 @@
     <fieldset>
         {{#if content.isLoaded}}
             {# TODO: Ask for payment method specific information here... #}
+            You're all set now!<br/>
+            In the next step we will redirect you to Docdata who takes care of our online payments.<br />
             <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
         {{else}}
             <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
