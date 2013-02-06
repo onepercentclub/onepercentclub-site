@@ -85,12 +85,13 @@
             {{/each}}
             {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
             {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
+            {{view Em.TextField valueBinding="email" placeholder="Email"}}
             {{view Em.TextField valueBinding="address" placeholder="Address"}}
             {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
             {{view Em.TextField valueBinding="city" placeholder="City"}}
             {{view Em.TextField valueBinding="country" placeholder="Country"}}
 
-            <button>{% trans 'Next step' %}</button>
+            <button class="right">{% trans 'Next step' %}</button>
         {{/if}}
     </fieldset>
 {% endtplhandlebars %}

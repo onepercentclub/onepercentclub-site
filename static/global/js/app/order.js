@@ -6,6 +6,7 @@ App.OrderProfile = DS.Model.extend({
     url: 'fund/orders/profiles',
     firstName: DS.attr('string'),
     lastName: DS.attr('string'),
+    email: DS.attr('string'),
     address: DS.attr('string'),
     city: DS.attr('string'),
     country: DS.attr('string'),
@@ -93,15 +94,22 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 
 
 App.OrderProfileController = Em.ObjectController.extend({
+    transaction: null,
     initTransaction: function(){
         var transaction = App.store.transaction();
         this.set('transaction', transaction);
         transaction.add(this.get('content'));
-    },
-    update: function(){
+    }.observes('content'),
+    update: function(router){
         var profile = this.get('content');
+        var controller = this;
+        if (!profile.get('isDirty')) {
+            // No changes. No need to commit.
+            controller.transitionTo('orderPayment');
+        }
         this.get('transaction').commit();
         profile.on('didUpdate', function(record) {
+            controller.transitionTo('orderPayment');
         });
         profile.on('becameInvalid', function(record) {
         });
@@ -120,8 +128,8 @@ App.CurrentOrderView = Em.View.extend({
 App.OrderProfileView = Em.View.extend({
     templateName: 'order_profile_form',
     tagName: 'form',
-    submit: function(){
-        this.controller.update();
+    submit: function(router){
+        this.controller.update(router);
     }
 });
 
