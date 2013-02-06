@@ -8,14 +8,13 @@ from django.utils.text import truncate_words
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.core.exceptions import ValidationError
-
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-
 from apps.bluebottle_utils.fields import MoneyField
 from apps.fund.models import Donation
+
 
 class ProjectTheme(models.Model):
     """ Themes for Projects. """
@@ -32,6 +31,7 @@ class ProjectTheme(models.Model):
         ordering = ['name']
         verbose_name = _("project theme")
         verbose_name_plural = _("project themes")
+
 
 class Project(models.Model):
     """ The base Project model. """
@@ -56,7 +56,6 @@ class Project(models.Model):
     # Location of this project
     # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
     # hold the legacy data.
-    # Ref:
     # http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
     latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18)
     longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18)
@@ -67,11 +66,11 @@ class Project(models.Model):
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
         help_text=_("The project owner's notion of the project start date. "
-                    "This date is independant of the various phase start dates.")
+                    "This date is independent of the various phase start dates.")
     )
     planned_end_date = models.DateField(_("planned end date"), blank=True, null=True,
         help_text=_("The project owner's notion of the project end date. "
-                    "This date is independant of the various phase end dates.")
+                    "This date is independent of the various phase end dates.")
     )
 
     def __unicode__(self):

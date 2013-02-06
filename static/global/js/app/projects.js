@@ -83,3 +83,19 @@ App.ProjectSupportersView = Em.View.extend({
 App.ProjectListView = Em.View.extend({
     templateName: 'project_list'
 });
+
+App.ProjectView = Em.View.extend({
+    templateName: 'project',
+    didInsertElement: function(){
+        var donated = this.get('controller.content.money_donated_natural');
+        var asked = this.get('controller.content.money_asked_natural');
+        this.$('.donate-progress').css('width', '0px');
+        if (asked == 0) {
+            var width = 0;
+        } else {
+            var width = 100 * donated / asked;
+            width += '%';
+        }
+        this.$('.donate-progress').animate({'width': width}, 1000);
+    }
+});

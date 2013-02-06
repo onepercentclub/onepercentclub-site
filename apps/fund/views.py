@@ -1,17 +1,15 @@
-from apps.fund.serializers import PaymentMethodSerializer, PaymentSerializer, DocdataPaymentInfoSerializer, PaymentInfoSerializer
-from cowry.factory import PaymentFactory
-from cowry.models import PaymentMethod, Payment, PaymentInfo
-from django.utils.translation import ugettext as _
-from django.contrib.contenttypes.models import ContentType
+from apps.cowry.factory import PaymentFactory
+from apps.cowry.models import PaymentMethod, Payment, PaymentInfo
 from apps.bluebottle_drf2.permissions import AllowNone
-from apps.bluebottle_drf2.views import ListCreateAPIView, ListAPIView, RetrieveAPIView
-from django.http import Http404
+from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
 from .models import Donation, OrderItem, Order
-from .serializers import DonationSerializer, OrderItemSerializer
+from .serializers import (DonationSerializer, OrderItemSerializer, PaymentMethodSerializer, PaymentSerializer,
+                          PaymentInfoSerializer)
 
 
 # API views
