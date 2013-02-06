@@ -75,6 +75,7 @@ class OrderUserProfileSerializer(serializers.ModelSerializer):
     zip_code = serializers.WritableField(source="userprofile.address.zip_code")
     city = serializers.WritableField(source="userprofile.address.city")
     country = serializers.WritableField(source="userprofile.address.country")
+    email = serializers.Field(source="userprofile.address.country")
 
     class Meta:
         model = User
@@ -83,9 +84,8 @@ class OrderUserProfileSerializer(serializers.ModelSerializer):
 
     def restore_object(self, attrs, instance=None):
         """
-        Deserialize a dictionary of attributes into an object instance.
-        You should override this method to control how deserialized objects
-        are instantiated.
+        Overwrite the standard model store_object to put all properties in the right place.
+        Address is created for user if none exists.
         """
         user = instance
         # TODO: Save country too

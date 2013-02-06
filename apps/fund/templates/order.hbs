@@ -89,6 +89,9 @@
             {{view Em.TextField valueBinding="address" placeholder="Address"}}
             {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
             {{view Em.TextField valueBinding="city" placeholder="City"}}
+            {{#each content.errors.country}}
+                <span class="errors">{{this}}</span>
+            {{/each}}
             {{view Em.TextField valueBinding="country" placeholder="Country"}}
 
             <button class="right">{% trans 'Next step' %}</button>

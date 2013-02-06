@@ -311,14 +311,13 @@ class CurrentPaymentMixin(CurrentOrderMixin):
         return order.payment
 
 
-    # TODO: Plit this into get, create and get_or_create methods.
+    # TODO: Split this into get, create and get_or_create methods.
     def get_current_payment_info(self):
         payment = self.get_or_create_current_payment()
         payment = self.get_current_payment()
         payment_factory = PaymentFactory()
         payment_factory.set_payment(payment)
 
-        # For now set all customer info from user
         # TODO: Check if info is available
         # TODO: Check which info is required by payment_method
         # TODO: Not always create a payment_info, update if it exists
@@ -333,7 +332,12 @@ class CurrentPaymentMixin(CurrentOrderMixin):
                 payment_info = payment_factory.create_payment_info(amount=payment.amount,
                     first_name=user.first_name, last_name=user.last_name, email=user.email)
         else:
-            payment_info = payment_factory.create_payment_info(amount=payment.amount)
+            order = self.get_current_order()
+            prof = order.anonymous_profile
+            # For now assume info is stored in order.anonymous_profile en get required info from there
+            # TODO: Make this better code
+            payment_info = payment_factory.create_payment_info(amount=payment.amount, first_name=prof.first_name,
+                email=prof.email, country='nl')
         return payment_info
 
 
