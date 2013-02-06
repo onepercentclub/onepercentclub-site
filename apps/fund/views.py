@@ -1,4 +1,3 @@
-from apps.accounts.models import AnonymousProfile
 from apps.fund.serializers import OrderProfileSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry.factory import PaymentFactory
@@ -9,7 +8,7 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
-from .models import Donation, OrderItem, Order
+from .models import Donation, OrderItem, Order, AnonymousProfile
 from .serializers import DonationSerializer, OrderItemSerializer, PaymentMethodSerializer, PaymentSerializer,\
     PaymentInfoSerializer
 
@@ -55,6 +54,8 @@ class CurrentOrderMixin(object):
             order = Order(user=user, status=Order.OrderStatuses.started)
         else:
             order = Order(status=Order.OrderStatuses.started)
+            order.anonymous_profile = AnonymousProfile.objects.create()
+            order.anonymous_profile.save()
         order.save()
         self.request.session["cart_session"] = order.id
         return order
@@ -136,22 +137,12 @@ class PaymentInfoDetail(RetrieveAPIView):
     model = PaymentInfo
     permission_classes = (AllowNone,)
 
-# End: Unimplemented API views
-
 class OrderProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+    # TODO: Implement
+    model = Order
+    permission_classes = (AllowNone,)
 
-    serializer_class = OrderProfileSerializer
-
-    def get_object(self, queryset=None):
-        order = self.get_or_create_current_order()
-        if order.user:
-            return order.user
-        if not order.anonymous_profile:
-            order.anonymous_profile = AnonymousProfile.objects.create()
-            order.anonymous_profile.save()
-            order.save()
-        return order.anonymous_profile
-
+# End: Unimplemented API views
 
 
 class OrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
@@ -162,10 +153,6 @@ class OrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         order = self.get_or_create_current_order()
         if order.user:
             return order.user
-        if not order.anonymous_profile:
-            order.anonymous_profile = AnonymousProfile.objects.create()
-            order.anonymous_profile.save()
-            order.save()
         return order.anonymous_profile
 
 

@@ -110,9 +110,6 @@
     <p class="donation-amount">
         <strong class="amount-needed">&euro; {{view.neededAfterDonation}} {% trans "is still needed"%}</strong>
         <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
-        {{#each content.errors.amount}}
-           <span class="errors">{{this}}</span><br/>
-        {{/each}}
         <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
     </p>
 

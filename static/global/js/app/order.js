@@ -95,12 +95,14 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 
 App.OrderProfileController = Em.ObjectController.extend({
     transaction: null,
+
     initTransaction: function(){
         var transaction = App.store.transaction();
         this.set('transaction', transaction);
         transaction.add(this.get('content'));
     }.observes('content'),
-    update: function(router){
+
+    updateProfile: function(){
         var profile = this.get('content');
         var controller = this;
         if (!profile.get('isDirty')) {
@@ -111,7 +113,9 @@ App.OrderProfileController = Em.ObjectController.extend({
         profile.on('didUpdate', function(record) {
             controller.transitionTo('orderPayment');
         });
+        // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
+            //profile.set('errors', record.get('errors'));
         });
     }
 });
@@ -128,8 +132,8 @@ App.CurrentOrderView = Em.View.extend({
 App.OrderProfileView = Em.View.extend({
     templateName: 'order_profile_form',
     tagName: 'form',
-    submit: function(router){
-        this.controller.update(router);
+    submit: function(){
+        this.controller.updateProfile();
     }
 });
 

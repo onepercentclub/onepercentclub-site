@@ -168,13 +168,3 @@ class UserAddress(Address):
         verbose_name = _("user address")
         verbose_name_plural = _("user addresses")
 
-
-class AnonymousProfile(models.Model):
-    first_name = models.CharField(max_length=255, blank=True, null=True)
-    last_name = models.CharField(max_length=255, blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
-    address = models.CharField(max_length=255, blank=True, null=True)
-    city = models.CharField(max_length=255, blank=True, null=True)
-    zip_code = models.CharField(max_length=255, blank=True, null=True)
-    country = models.ForeignKey(Country, blank=True, null=True)
-
