@@ -1,13 +1,10 @@
-from apps.accounts.models import AnonymousProfile, UserAddress
-from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
+from apps.accounts.models import AnonymousProfile
 from apps.fund.serializers import OrderProfileSerializer
-from cowry.factory import PaymentFactory
-from cowry.models import PaymentMethod, Payment, PaymentInfo
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from apps.cowry.factory import PaymentFactory
+from apps.cowry.models import PaymentMethod, Payment, PaymentInfo
 from apps.bluebottle_drf2.permissions import AllowNone
-from apps.bluebottle_drf2.views import ListCreateAPIView, ListAPIView, RetrieveAPIView
-from django.http import Http404
+from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
