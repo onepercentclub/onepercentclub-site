@@ -125,7 +125,8 @@ App.CurrentOrderItemView = Em.View.extend({
     templateName: 'currentorderitem',
     tagName: 'li',
     classNames: 'donation-project',
-    neededAfterDonation: function(){
+
+    neededAfterDonation: function() {
         return this.get('content.project.money_needed_natural') - this.get('content.amount');
     }.property('content.amount', 'content.project.money_needed_natural'),
 
