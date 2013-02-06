@@ -1,8 +1,9 @@
 # coding=utf-8
-from apps.accounts.models import AnonymousProfile
+from apps.accounts.models import AnonymousProfile, UserAddress
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer, ManyRelatedNestedSerializer
 from apps.fund.models import Order
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 from cowry_docdata.models import DocdataPaymentInfo
 from cowry_ipay.models import IpayPaymentInfo
@@ -63,7 +64,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderAnonymousUserProfileSerializer(serializers.ModelSerializer):
-    country = serializers.WritableField(source="country")
 
     class Meta:
         model = AnonymousProfile
@@ -82,6 +82,27 @@ class OrderUserProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'email', 'address', 'zip_code', 'city',
                   'country')
 
+    def restore_object(self, attrs, instance=None):
+        """
+        Deserialize a dictionary of attributes into an object instance.
+        You should override this method to control how deserialized objects
+        are instantiated.
+        """
+        user = instance
+        # TODO: Save country too
+        if user is not None:
+            user.first_name = attrs['first_name']
+            user.last_name = attrs['last_name']
+            address = user.get_profile().address
+            if not address:
+                address = UserAddress.objects.create(user_profile_id=user.get_profile().id)
+            address.line1 = attrs['userprofile.address.line1']
+            address.city = attrs['userprofile.address.city']
+            address.zip_code = attrs['userprofile.address.zip_code']
+
+            address.save()
+        return user
+
 
 class OrderProfileSerializer(ObjectBasedSerializer):
 
@@ -90,6 +111,7 @@ class OrderProfileSerializer(ObjectBasedSerializer):
             (User, OrderUserProfileSerializer),
             (AnonymousProfile, OrderAnonymousUserProfileSerializer),
             )
+
 
 # Payment Serializers
 

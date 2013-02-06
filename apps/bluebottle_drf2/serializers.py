@@ -244,17 +244,25 @@ class ObjectBasedSerializer(serializers.Serializer):
 
         return self._child_models[obj.__class__].to_native(obj)
 
-    # TODO: This could be extracted into a base classs and shared with Polymorphic serializer.
+    # TODO: This could be extracted into a base class and shared with Polymorphic serializer.
     def convert_object(self, obj):
         """
         Override so that we can iterate through the child_model field items.
         """
         ret = self._dict_class()
         ret.fields = {}
-
         for field_name, field in self._child_models[obj.__class__].fields.items():
             key = self.get_field_key(field_name)
             value = field.field_to_native(obj, field_name)
             ret[key] = value
             ret.fields[key] = field
         return ret
+
+    def from_native(self, data, files):
+        """
+        Use from_native method from child serializer.
+        Set object on that serializer before doing so.
+        """
+        obj = getattr(self, 'object', None)
+        setattr(self._child_models[obj.__class__], 'object', obj)
+        return self._child_models[obj.__class__].from_native(data, files)

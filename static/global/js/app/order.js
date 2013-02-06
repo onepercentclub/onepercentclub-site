@@ -86,6 +86,7 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
         transaction.add(orderItem);
         orderItem.deleteRecord();
         transaction.commit();
+
     }
 
 });
@@ -96,9 +97,14 @@ App.OrderProfileController = Em.ObjectController.extend({
         var transaction = App.store.transaction();
         this.set('transaction', transaction);
         transaction.add(this.get('content'));
-    }.observes('content'),
+    },
     update: function(){
+        var profile = this.get('content');
         this.get('transaction').commit();
+        profile.on('didUpdate', function(record) {
+        });
+        profile.on('becameInvalid', function(record) {
+        });
     }
 });
 
