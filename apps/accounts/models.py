@@ -1,20 +1,17 @@
 import os
 import random
 import string
-
 from django.conf import settings, global_settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
-
 from django_extensions.db.fields import AutoSlugField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-
 from apps.bluebottle_utils.models import Address
-
+from apps.geo.models import Country
 
 class Language(models.Model):
     """
@@ -113,6 +110,10 @@ class UserProfile(models.Model):
     def get_username(self):
         return self.user.username
 
+    @property
+    def address(self):
+        return self.useraddress_set.all()[0]
+
     # Override save() to prevent UserProfiles from being created
     # without a corresponding User.
     # http://stackoverflow.com/questions/2307943/django-overriding-the-model-create-method
@@ -166,3 +167,4 @@ class UserAddress(Address):
     class Meta:
         verbose_name = _("user address")
         verbose_name_plural = _("user addresses")
+
