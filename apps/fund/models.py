@@ -2,11 +2,9 @@ from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
-
+from django_countries import CountryField
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
-
 from djchoices import DjangoChoices, ChoiceItem
-
 from apps.bluebottle_utils.fields import MoneyField
 
 
@@ -31,6 +29,7 @@ class Donation(models.Model):
         started = ChoiceItem('started', label=_("Started"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True, blank=True)
+
     amount = MoneyField(_("amount"))
     project = models.ForeignKey('projects.Project', verbose_name=_("project"))
 
@@ -68,6 +67,7 @@ class Order(models.Model):
         paid = ChoiceItem('paid', label=_("Paid"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
+    anonymous_profile = models.ForeignKey('AnonymousProfile', null=True)
 
     status = models.CharField(_("status"),max_length=20, choices=OrderStatuses.choices, db_index=True)
 
@@ -102,3 +102,13 @@ class OrderItem(models.Model):
     @property
     def type(self):
         return self.content_object.__class__.__name__
+
+
+class AnonymousProfile(models.Model):
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(null=True, blank=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    zip_code = models.CharField(max_length=255, blank=True, null=True)
+    country = CountryField(null=True, blank=True)

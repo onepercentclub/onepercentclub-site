@@ -213,8 +213,9 @@ App.Router.map(function() {
         this.resource('currentOrderItemList', {path: ''}, function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
+        this.resource('orderProfile', {path: '/details'});
         this.resource('orderPayment', {path: '/payment'});
-        this.resource('paymentInfo', {path: '/details'});
+        this.resource('paymentInfo', {path: '/paymentinfo'});
     });
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
@@ -293,6 +294,16 @@ App.CurrentOrderItemListRoute = Ember.Route.extend({
     }
 });
 
+
+App.OrderProfileRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.OrderProfile.find('current');
+    },
+
+    setupController: function(controller, orderprofile) {
+        controller.set('content', orderprofile);
+    }
+});
 
 App.CurrentOrderItemListAddRoute = Ember.Route.extend(App.SlugRouter, {
 
