@@ -97,11 +97,6 @@ class OrderDetail(RetrieveAPIView):
     model = Order
     permission_classes = (AllowNone,)
 
-class OrderCurrent(CartMixin, RetrieveAPIView):
-    # TODO: Implement
-    model = Order
-    permission_classes = (AllowNone,)
-
 
 class PaymentList(ListAPIView):
     # TODO: Implement
@@ -129,6 +124,11 @@ class PaymentInfoDetail(RetrieveAPIView):
     permission_classes = (AllowNone,)
 
 # End: Unimplemented API views
+
+
+class OrderCurrent(CartMixin, RetrieveAPIView):
+    model = Order
+    permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class OrderItemList(CartMixin, generics.ListAPIView):

@@ -35,6 +35,7 @@ class Donation(models.Model):
     project = models.ForeignKey('projects.Project', verbose_name=_("project"))
 
     # Note: having an index here allows for efficient filtering by status.
+    def execute(self, query, args=None):
     status = models.CharField(_("status"), max_length=20, choices=DonationStatuses.choices, db_index=True)
 
     created = CreationDateTimeField(_("created"))
@@ -73,6 +74,8 @@ class Order(models.Model):
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
+
+    recurring = models.BooleanField(default=False)
 
     payment = models.ForeignKey('cowry.Payment', null=True)
 
