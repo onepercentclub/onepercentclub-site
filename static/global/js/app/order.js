@@ -121,6 +121,7 @@ App.FinalOrderItemListView = Em.View.extend({
     tagName: 'div'
 });
 
+
 App.CurrentOrderItemView = Em.View.extend({
     templateName: 'currentorderitem',
     tagName: 'li',
@@ -135,11 +136,29 @@ App.CurrentOrderItemView = Em.View.extend({
 });
 
 
-App.Payment = DS.Model.extend({
-    url: 'fund/payments',
-    payment_method: DS.attr('number'),
-    amount: DS.attr('number'),
-    status: DS.attr('string')
+App.OrderNavView = Ember.View.extend({
+    tagName: 'li',
+
+    didInsertElement: function () {
+        this._super();
+        if (this.get('childViews.firstObject.active')) {
+            this.setOrderProgress();
+        }
+    },
+
+    childBecameActive: function(sender, key) {
+        if (this.get(key) && this.state == "inDOM") {
+            this.setOrderProgress()
+        }
+    }.observes('childViews.firstObject.active'),
+
+    setOrderProgress: function() {
+        var highlightClassName = 'is-selected';
+        this.$().prevAll().addClass(highlightClassName);
+        this.$().nextAll().removeClass(highlightClassName);
+        this.$().addClass(highlightClassName);
+    }
+
 });
 
 
