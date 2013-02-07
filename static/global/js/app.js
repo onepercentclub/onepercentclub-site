@@ -210,9 +210,12 @@ App.Router.map(function() {
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
     this.resource('currentOrder', {path: '/support'}, function() {
-        this.resource('currentOrderItemList', {path: ''});
+        this.resource('currentOrderItemList', {path: ''}, function() {
+            this.route('add', {path: '/add/:slug'});  // project slug
+        });
+        this.resource('orderProfile', {path: '/details'});
         this.resource('orderPayment', {path: '/payment'});
-        this.resource('paymentInfo', {path: '/details'});
+        this.resource('paymentInfo', {path: '/paymentinfo'});
     });
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
@@ -265,22 +268,7 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
             outlet: 'projectWallPostForm',
             controller: 'projectWallPostForm'
         });
-    },
-
-    events: {
-        supportProject: function(project) {
-            var transaction = App.store.transaction();
-            var donation = transaction.createRecord(App.CurrentDonation);
-            donation.set('amount', 20);
-            donation.set('project_slug', project.get('slug'));
-            var route = this;
-            donation.on('didCreate', function(){
-                route.transitionTo('currentOrderItemList')
-            });
-            transaction.commit();
-        }
     }
-
 });
 
 
@@ -302,26 +290,47 @@ App.CurrentOrderRoute = Ember.Route.extend({
 
     setupController: function(controller, order) {
         controller.set('content', order);
-    },
-    events : {
-        selectMonthly: function(){
-            console.log('monthly');
-        },
-        selectSingle: function(){
-            console.log('single');
-        }
-
     }
 });
 
 
 App.CurrentOrderItemListRoute = Ember.Route.extend({
+
     model: function(params) {
         return App.CurrentDonation.find();
     },
 
     setupController: function(controller, orderitems) {
         controller.set('content', orderitems);
+    }
+});
+
+
+App.OrderProfileRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.OrderProfile.find('current');
+    },
+
+    setupController: function(controller, orderprofile) {
+        controller.set('content', orderprofile);
+    }
+});
+
+App.CurrentOrderItemListAddRoute = Ember.Route.extend(App.SlugRouter, {
+
+    setupController: function(controller, project) {
+        // Note: To give visual notification of adding a project, the donation can be set
+        //       on the controller (i.e. controller.set('content', donation);). In the
+        //       view / template you can check for the case when the content changes from
+        //       type project to type donation.
+        if (project !== undefined) {
+            var transaction = App.store.transaction();
+            var donation = transaction.createRecord(App.CurrentDonation);
+            donation.set('amount', 20);
+            donation.set('project_slug', project.get('slug'));
+            donation.set('project', project);
+            transaction.commit();
+        }
     }
 });
 

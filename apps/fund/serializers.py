@@ -1,11 +1,13 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
 from apps.fund.models import Order
+from apps.accounts.models import UserAddress
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry_docdata.models import DocdataPaymentInfo
 from apps.cowry.models import Payment, PaymentAdapter, PaymentMethod, PaymentInfo
-from .models import Donation, OrderItem
+from .models import Donation, OrderItem, AnonymousProfile
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -56,6 +58,75 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = ('amount', 'type', 'item')
+
+
+class OrderAnonymousProfileSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='email')
+
+    class Meta:
+        model = AnonymousProfile
+        fields = ('id', 'first_name', 'last_name', 'email', 'address', 'zip_code', 'city', 'country')
+
+    def restore_object(self, attrs, instance=None):
+        """
+        Overwrite the standard model store_object to put all properties in the right place.
+        Address is created for user if none exists.
+        """
+        user = instance
+        # TODO: Save country too
+        if user is not None:
+            user.first_name = attrs['first_name']
+            user.last_name = attrs['last_name']
+            user.email = attrs['email']
+            user.address = attrs['address']
+            user.zip_code = attrs['zip_code']
+            user.city = attrs['city']
+            try:
+                user.save()
+            except Exception:
+                pass
+        return user
+
+
+class OrderUserProfileSerializer(serializers.ModelSerializer):
+    address = serializers.WritableField(source='userprofile.address.line1')
+    zip_code = serializers.WritableField(source='userprofile.address.zip_code')
+    city = serializers.WritableField(source='userprofile.address.city')
+    country = serializers.WritableField(source='userprofile.address.country')
+    email = serializers.Field(source='email')
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'email', 'address', 'zip_code', 'city', 'country')
+
+    def restore_object(self, attrs, instance=None):
+        """
+        Overwrite the standard model store_object to put all properties in the right place.
+        Address is created for user if none exists.
+        """
+        user = instance
+        # TODO: Save country too
+        if user is not None:
+            user.first_name = attrs['first_name']
+            user.last_name = attrs['last_name']
+            address = user.get_profile().address
+            if not address:
+                address = UserAddress.objects.create(user_profile_id=user.get_profile().id)
+            address.line1 = attrs['userprofile.address.line1']
+            address.city = attrs['userprofile.address.city']
+            address.zip_code = attrs['userprofile.address.zip_code']
+
+            address.save()
+        return user
+
+
+class OrderProfileSerializer(ObjectBasedSerializer):
+
+    class Meta:
+        child_models = (
+            (User, OrderUserProfileSerializer),
+            (AnonymousProfile, OrderAnonymousProfileSerializer),
+            )
 
 
 # Payment Serializers
@@ -119,3 +190,5 @@ class PaymentInfoSerializer(PolymorphicSerializer):
         child_models = (
             (DocdataPaymentInfo, DocdataPaymentInfoSerializer),
             )
+
+

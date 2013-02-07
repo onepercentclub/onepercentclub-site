@@ -3,7 +3,7 @@
 {% load static %}
 
 
-{% tplhandlebars "currentorder" %}
+{% tplhandlebars "current_order" %}
 
     <div class="container section">
 
@@ -18,20 +18,20 @@
 
         <section class="wrapper">
 
-            <ul class="donation-steps">
-                <li class="support is-selected">
-                    {{#linkTo currentOrderItemList}}Support{{/linkTo}}
-                </li>
-                <li class="details">
-                    {{#linkTo paymentInfo}}{% trans "Details" %}{{/linkTo}}
-                </li>
-                <li class="profile">
-                    <a>{% trans "Profile" %}</a>
-                </li>
-                <li class="payment">
-                    {{#linkTo orderPayment}}{% trans "Pay" %}{{/linkTo}}
-                </li>
-            </ul>
+        <ul class="donation-steps">
+            {{#view App.OrderNavView classNames="support"}}
+                {{#linkTo currentOrderItemList}}Support{{/linkTo}}
+            {{/view}}
+            {{#view App.OrderNavView classNames="details"}}
+                {{#linkTo orderProfile}}{% trans "Details" %}{{/linkTo}}
+            {{/view}}
+            {{#view App.OrderNavView classNames="profile"}}
+                {{#linkTo orderPayment}}{% trans "Profile" %}{{/linkTo}}
+            {{/view}}
+            {{#view App.OrderNavView classNames="payment"}}
+                {{#linkTo paymentInfo}}{% trans "Pay" %}{{/linkTo}}
+            {{/view}}
+        </ul>
 
             {{outlet}}
 
@@ -44,6 +44,7 @@
             -->
 
         </section>
+
     </div>
 
 {% endtplhandlebars %}
@@ -52,16 +53,14 @@
 {% tplhandlebars "currentorderitem_form" %}
 
     <fieldset>
-        <ul id="donation-projects">
 
+        <ul id="donation-projects">
             {{#each controller}}
                 {{view "App.CurrentOrderItemView" content=this}}
             {{/each}}
-
         </ul>
 
         {{#linkTo projectList class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
-
 
     </fieldset>
 
@@ -75,13 +74,37 @@
             <input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly" />
             {% trans "Monthly donation" %}
         </label>
-        <a {{action selectSingle}} >{% trans "Single donation" %}</a>
-        <a {{action selectMonthly}} >{% trans "Monthly donation" %}</a>
+        {{ view.parentView.content.monthly}}
+        <a {{action selectSingle target="view.parentView.controller"}} {{bindAttr class=":checkbox view.parentView.controller.isSingle:checked"}}>{% trans "Single donation" %}</a><br />
+        <a {{action selectMonthly target="view.parentView.controller"}}  {{bindAttr class=":checkbox view.parentView.controller.isMonthly:checked"}}>{% trans "Monthly donation" %}</a>
 
     </fieldset>
 
-    {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
+{{#linkTo orderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "order_profile_form" %}
+    <fieldset>
+        {{#if content.isLoaded}}
+            {{#each content.errors.firstName}}
+                <span class="errors">{{this}}</span>
+            {{/each}}
+            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
+            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
+            {{view Em.TextField valueBinding="email" placeholder="Email"}}
+            {{view Em.TextField valueBinding="address" placeholder="Address"}}
+            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
+            {{view Em.TextField valueBinding="city" placeholder="City"}}
+            {{#each content.errors.country}}
+                <span class="errors">{{this}}</span>
+            {{/each}}
+            {{view Em.TextField valueBinding="country" placeholder="Country"}}
+
+            <button class="right">{% trans 'Next step' %}</button>
+        {{/if}}
+    </fieldset>
 {% endtplhandlebars %}
 
 
@@ -89,7 +112,7 @@
 {% tplhandlebars "currentorderitem" %}
 
     {{#linkTo project project}}
-        <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
+        <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
         <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
     {{/linkTo}}
     <p class="donation-amount">
@@ -104,13 +127,6 @@
 
 
 {% tplhandlebars "order_payment" %}
-
-    <ul class="tabs vertical">
-        <li id="tab1" class="active">{% trans "Use iDeal" %}</li>
-        <li id="tab2">{% trans "Use Creditcard" %}</li>
-        <li id="tab3">{% trans "Use Direct Debit" %}</li>
-        <li id="tab4">{% trans "Use Paypal" %}</li>
-    </ul>
 
     <fieldset>
         {{#view Em.Select valueBinding="paymentMethod"}}
@@ -129,14 +145,9 @@
 
     <fieldset>
         {{#if content.isLoaded}}
-            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
-            <br/>
-            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
-            {{view Em.TextField valueBinding="address" placeholder="Address"}}
-            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
-            {{view Em.TextField valueBinding="city" placeholder="City"}}
-            {{view Em.TextField valueBinding="country" placeholder="Country"}}
-
+            {# TODO: Ask for payment method specific information here... #}
+            You're all set now!<br/>
+            In the next step we will redirect you to Docdata who takes care of our online payments.<br />
             <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
         {{else}}
             <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
@@ -148,39 +159,39 @@
 
 {% tplhandlebars "final_order_item_list" %}
 
-<div class="container section">
-    <header class="wrapper">
-        <h1 class="main-title">{% trans "Thank you!" %}</h1>
-    </header>
+    <div class="container section">
+        <header class="wrapper">
+            <h1 class="main-title">{% trans "Thank you!" %}</h1>
+        </header>
 
-</div>
+    </div>
 
-<div class="container">
+    <div class="container">
 
-    <section class="wrapper">
-        <form>
-        <ul id="donation-projects">
-            {{#each orderitem in controller}}
-                <li class="donation-project">
-                    {{#linkTo project orderitem.project}}
-                        <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
-                    {{/linkTo}}
-                    <h1>
+        <section class="wrapper">
+            <form>
+            <ul id="donation-projects">
+                {{#each orderitem in controller}}
+                    <li class="donation-project">
                         {{#linkTo project orderitem.project}}
-                            {{orderitem.project.title}}
+                            <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
                         {{/linkTo}}
-                        <em class="country">{{orderitem.project.country.name}}</em>
-                    </h1>
-                    <p class="donation-amount">
-                        <label for="donation-amount-1">{% trans "You just donated" %}</label>
-                        <span class="big currency">&euro; {{orderitem.amount}}</span>
-                    </p>
-                </li>
+                        <h1>
+                            {{#linkTo project orderitem.project}}
+                                {{orderitem.project.title}}
+                            {{/linkTo}}
+                            <em class="country">{{orderitem.project.country.name}}</em>
+                        </h1>
+                        <p class="donation-amount">
+                            <label for="donation-amount-1">{% trans "You just donated" %}</label>
+                            <span class="big currency">&euro; {{orderitem.amount}}</span>
+                        </p>
+                    </li>
 
-            {{/each}}
+                {{/each}}
 
-        </ul>
-        </form>
-    </section>
-</div>
+            </ul>
+            </form>
+        </section>
+    </div>
 {% endtplhandlebars %}
