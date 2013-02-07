@@ -1,7 +1,10 @@
 from apps.cowry.factory import PaymentFactory
 from apps.cowry.models import PaymentMethod, Payment, PaymentInfo
-from apps.bluebottle_drf2.permissions import AllowNone
+from apps.bluebottle_drf2.permissions import AllowNone, IsOwner
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from apps.fund.models import RecurringDonation
+from apps.fund.serializers import RecurringDonationSerializer
+from apps.projects.models import Project
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
 from rest_framework import permissions
@@ -312,4 +315,41 @@ class PaymentInfoCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIV
 
     def get_object(self):
         return self.get_payment_info()
+
+
+
+
+# Recurring Donation
+
+class RecurringDonationMixin(object):
+
+    def get_queryset(self):
+        queryset = super(RecurringDonationMixin, self).get_queryset()
+        if self.request.user.is_authenticated():
+            queryset = queryset.filter(user=self.request.user)
+        return queryset
+
+
+class RecurringDonationList(RecurringDonationMixin, generics.ListCreateAPIView):
+    """
+    Recurring Payment settings for the authenticated user
+    """
+
+    model = RecurringDonation
+    serializer_class = RecurringDonationSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+    paginate_by = 100
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+
+
+class RecurringDonationDetail(RecurringDonationMixin, generics.RetrieveUpdateDestroyAPIView):
+    """
+    Recurring Payment settings for the authenticated user
+    """
+
+    model = RecurringDonation
+    serializer_class = RecurringDonationSerializer
+    #permission_classes = (IsOwner, )
 

@@ -20,6 +20,19 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
         return obj.author == request.user
 
 
+# TODO: Add read/write permission for 1%CREW / Assistants.
+class IsOwner(permissions.BasePermission):
+    """
+    Custom permission to only allow owner of an object to view/edit it.
+    """
+
+    def has_permission(self, request, view, obj=None):
+        # Return false if this is not  an object-level test.
+        if obj is None:
+            return False
+        return obj.owner == request.user
+
+
 class AllowNone(permissions.BasePermission):
     """
     Allow no access.

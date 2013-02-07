@@ -216,6 +216,9 @@ App.Router.map(function() {
     });
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
+    this.resource('recurringDonation', {path: '/support/monthly'}, function() {
+        this.resource('recurringDonationProjectList', {path: ''});
+    });
 });
 
 
@@ -330,7 +333,6 @@ App.PaymentInfoRoute = Ember.Route.extend({
 });
 
 
-
 App.FinalOrderItemListRoute = Ember.Route.extend({
     model: function(params) {
         return App.LatestDonation.find();
@@ -341,3 +343,14 @@ App.FinalOrderItemListRoute = Ember.Route.extend({
     }
 
 });
+
+App.RecurringDonationRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.RecurringDonation.find();
+    },
+
+    setupController: function(controller, orderitems) {
+        controller.set('content', orderitems);
+    }
+});
+

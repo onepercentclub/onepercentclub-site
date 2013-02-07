@@ -1,5 +1,7 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer, ManyRelatedNestedSerializer
+from apps.fund.models import RecurringDonation
+from apps.projects.serializers import ProjectSerializer
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry_docdata.models import DocdataPaymentInfo
@@ -108,3 +110,44 @@ class PaymentInfoSerializer(PolymorphicSerializer):
         child_models = (
             (DocdataPaymentInfo, DocdataPaymentInfoSerializer),
             )
+
+
+# Recurring Payments
+
+class RecurringDonationSerializer(serializers.ModelSerializer):
+    projects = serializers.ManySlugRelatedField(slug_field='slug')
+    link = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-detail')
+    billing_number = serializers.WritableField(source='billing_number')
+
+    def validate_amount(self, attrs, source):
+        """
+        Check the amount
+        """
+        value = attrs[source]
+        if value < 5:
+            raise serializers.ValidationError(_(u"Amount must be at least €5.00."))
+        return attrs
+
+    def validate_billing_number(self, attrs, source):
+        """
+        Check the Billing Account Number
+        """
+        value = attrs[source]
+        if len(value) == 9:
+            return attrs
+        else:
+            if value[:1] == 'P':
+                return attrs
+            else:
+                raise serializers.ValidationError(_(u"Billingnumber should have 9 digits or start with 'P' (ING accounts)."))
+
+    # TODO: see if we can use this
+    def obscured_billing_number(self, obj):
+        billing_number = obj.billing_number
+        obscured = 'XXXXX' + billing_number[5:]
+        return obscured
+
+    class Meta:
+        model = RecurringDonation
+        fields = ('id', 'amount', 'billing_number', 'billing_name', 'billing_city', 'projects', 'link')
+

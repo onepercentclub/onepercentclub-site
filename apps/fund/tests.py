@@ -211,3 +211,55 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['payment_method'], paymentmethod_id)
 
 
+
+class RecurringDonationIntegrationTest(ProjectTestsMixin, TestCase):
+    """
+    Integration tests for the adding/editing RecurringDonations
+    """
+
+    def setUp(self):
+        self.some_project = self.create_project()
+        self.another_project = self.create_project()
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+        self.checkout_url = '/i18n/api/fund/payments/current'
+        self.recurring_donation_url = '/i18n/api/fund/recurringdonations/'
+
+    def test_recurring_donation_crud(self):
+        """
+        Tests for creating/editing/deleting a recurring donation
+        """
+
+        # No recurring donations in the list yet
+        self.client.login(username=self.some_user.username, password='password')
+        response = self.client.get(self.recurring_donation_url)
+        self.assertEqual(response.data['count'], 0)
+
+        # Create a recurring donation without projects and check it's there
+        recurring_donation = {'billing_name': 'Some User', 'billing_number': '123456789',
+                              'billing_city': 'Amsterdam', 'amount': '50'}
+        response = self.client.post(self.recurring_donation_url, recurring_donation)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['amount'], 50)
+        self.assertEqual(response.data['billing_number'], '123456789')
+        detail_url = "{0}{1}".format(self.recurring_donation_url, response.data['id'])
+
+
+        # Change the amount
+        recurring_donation = {'billing_name': 'Some User', 'billing_number': '123456789',
+                              'billing_city': 'Amsterdam', 'amount': '20'}
+        response = self.client.put(detail_url, recurring_donation)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['amount'], 20)
+
+        # Set some projects
+        recurring_donation = {'billing_name': 'Some User', 'billing_number': '123456789',
+                              'billing_city': 'Amsterdam', 'amount': '20',
+                              'projects' : [self.some_project.slug, self.another_project.slug]}
+        response = self.client.put(detail_url, recurring_donation)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(response.data['projects']), 2)
+
+        # Delete the recurring donation
+        response = self.client.delete(detail_url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
