@@ -1,7 +1,7 @@
 from apps.cowry.factory import PaymentFactory
 from apps.cowry.models import PaymentMethod, Payment, PaymentInfo
 from apps.bluebottle_drf2.permissions import AllowNone
-from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView, RetrieveUpdateDeleteAPIView
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
 from rest_framework import permissions
@@ -9,7 +9,7 @@ from rest_framework import response
 from rest_framework import generics
 from .models import Donation, OrderItem, Order
 from .serializers import (DonationSerializer, OrderItemSerializer, PaymentMethodSerializer, PaymentSerializer,
-                          PaymentInfoSerializer)
+                          PaymentInfoSerializer, OrderSerializer)
 
 
 # API views
@@ -126,9 +126,12 @@ class PaymentInfoDetail(RetrieveAPIView):
 # End: Unimplemented API views
 
 
-class OrderCurrent(CartMixin, RetrieveAPIView):
+class OrderCurrent(CartMixin, RetrieveUpdateDeleteAPIView):
     model = Order
-    permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = OrderSerializer
+
+    def get_object(self, queryset=None):
+        return self.get_or_create_order()
 
 
 class OrderItemList(CartMixin, generics.ListAPIView):

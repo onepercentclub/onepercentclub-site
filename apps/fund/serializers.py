@@ -1,5 +1,6 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
+from apps.fund.models import Order
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry_docdata.models import DocdataPaymentInfo
@@ -35,6 +36,16 @@ class OrderItemObjectSerializer(ObjectBasedSerializer):
         child_models = (
             (Donation, DonationSerializer),
             )
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    amount = serializers.Field(source='amount')
+    status = serializers.Field(source='status')
+    recurring = serializers.BooleanField(source='recurring')
+
+    class Meta:
+        model = Order
+        fields = ('id', 'amount', 'status', 'recurring')
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
