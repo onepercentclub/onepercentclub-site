@@ -154,7 +154,7 @@ class RecurringDonationSerializer(serializers.ModelSerializer):
 class RecurringDonationProjectSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(slug_field='slug')
     recurring_donation = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-detail')
-    # TODO: Find out how we can compose this url (need reccuring_donation_id as a kwarg or something)
+    # TODO: Find out how we can compose this url (need recurring_donation_id as a kwarg or something)
     #link = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-project-detail')
 
     class Meta:
