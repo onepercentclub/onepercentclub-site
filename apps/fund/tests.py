@@ -232,6 +232,3 @@ class RecurringDonationIntegrationTest(ProjectTestsMixin, TestCase):
         """
 
         # Create recurring donation
-        self.client.login(username=self.some_user.username, password='password')
-        self.client.post(self.recurring_donation_url, {'project_slug': self.some_project.slug, 'amount': 35})
-
