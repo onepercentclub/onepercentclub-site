@@ -5,47 +5,46 @@
 
 {% tplhandlebars "currentorder" %}
 
-<div class="container section">
+    <div class="container section">
 
-    <!-- donation -->
-    <header class="wrapper">
-        <h1 class="main-title">Support one or more projects!</h1>
-    </header>
+        <!-- donation -->
+        <header class="wrapper">
+            <h1 class="main-title">Support one or more projects!</h1>
+        </header>
 
-</div>
+    </div>
 
-<div class="container">
+    <div class="container">
 
-    <section class="wrapper">
+        <section class="wrapper">
 
-        <ul class="donation-steps">
-            <li class="support is-selected">
-                {{#linkTo currentOrderItemList}}Support{{/linkTo}}
-            </li>
-            <li class="details">
-                {{#linkTo paymentInfo}}{% trans "Details" %}{{/linkTo}}
-            </li>
-            <li class="profile">
-                <a>{% trans "Profile" %}</a>
-            </li>
-            <li class="payment">
-                {{#linkTo orderPayment}}{% trans "Pay" %}{{/linkTo}}
-            </li>
-        </ul>
+            <ul class="donation-steps">
+                <li class="support is-selected">
+                    {{#linkTo currentOrderItemList}}Support{{/linkTo}}
+                </li>
+                <li class="details">
+                    {{#linkTo paymentInfo}}{% trans "Details" %}{{/linkTo}}
+                </li>
+                <li class="profile">
+                    <a>{% trans "Profile" %}</a>
+                </li>
+                <li class="payment">
+                    {{#linkTo orderPayment}}{% trans "Pay" %}{{/linkTo}}
+                </li>
+            </ul>
 
-        {{outlet}}
+            {{outlet}}
 
-        <!--
-        <div class="sidebar tip">
-          <h3>Did you know?</h3>
-          <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
-          <p><a href="#">Read some more</a></p>
-        </div>
-        -->
+            <!--
+            <div class="sidebar tip">
+              <h3>Did you know?</h3>
+              <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+              <p><a href="#">Read some more</a></p>
+            </div>
+            -->
 
-    </section>
-
-</div>
+        </section>
+    </div>
 
 {% endtplhandlebars %}
 
@@ -66,10 +65,19 @@
 
     </fieldset>
 
-    <fieldset class="donation-frequency not-implemented">
+    <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        <label for="donation-frequency-single" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-single" value="single" checked>{% trans "Single donation" %}</label>
-        <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly">{% trans "Monthly donation" %}</label>
+        <label for="donation-frequency-single" class="select">
+            <input type="radio" name="donation-frequency" id="donation-frequency-single" value="single" checked />
+            {% trans "Single donation" %}
+        </label>
+        <label for="donation-frequency-monthly" class="select">
+            <input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly" />
+            {% trans "Monthly donation" %}
+        </label>
+        <a {{action selectSingle}} >{% trans "Single donation" %}</a>
+        <a {{action selectMonthly}} >{% trans "Monthly donation" %}</a>
+
     </fieldset>
 
     {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
