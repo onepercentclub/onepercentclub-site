@@ -73,7 +73,6 @@ class Order(models.Model):
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
-    deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
     recurring = models.BooleanField(default=False)
 
