@@ -63,7 +63,8 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.another_project = self.create_project()
         self.some_user = self.create_user()
         self.another_user = self.create_user()
-        self.cart_donations_url = '/i18n/api/fund/orders/current/donations/'
+        self.current_donations_url = '/i18n/api/fund/orders/current/donations/'
+        self.current_order_url = '/i18n/api/fund/orders/current'
 
     def test_current_order_donation_crud(self):
         """
@@ -72,32 +73,32 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Create a Donation
         self.client.login(username=self.some_user.username, password='password')
-        response = self.client.post(self.cart_donations_url, {'project_slug': self.some_project.slug, 'amount': 35})
+        response = self.client.post(self.current_donations_url, {'project_slug': self.some_project.slug, 'amount': 35})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 35)
         self.assertEqual(response.data['project_slug'], self.some_project.slug)
         self.assertEqual(response.data['status'], 'started')
 
         # Retrieve the created Donation
-        donation_detail_url = "{0}{1}".format(self.cart_donations_url, response.data['id'])
+        donation_detail_url = "{0}{1}".format(self.current_donations_url, response.data['id'])
         response = self.client.get(donation_detail_url)
         self.assertEqual(response.data['amount'], 35)
         self.assertEqual(response.data['project_slug'], self.some_project.slug)
 
         # Retrieve the list with all donations in this cart should return one
-        response = self.client.get(self.cart_donations_url)
+        response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'], 35)
         self.assertEqual(response.data['results'][0]['project_slug'], self.some_project.slug)
 
         # Create another Donation
-        response = self.client.post(self.cart_donations_url, {'project_slug': self.another_project.slug, 'amount': 12.50})
+        response = self.client.post(self.current_donations_url, {'project_slug': self.another_project.slug, 'amount': 12.50})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], Decimal('12.5'))
         self.assertEqual(response.data['project_slug'], self.another_project.slug)
 
         # Retrieve the list with all donations in this cart should return one
-        response = self.client.get(self.cart_donations_url)
+        response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 2)
         self.assertEqual(response.data['results'][0]['amount'], 35)
         self.assertEqual(response.data['results'][1]['amount'], Decimal('12.5'))
@@ -117,13 +118,13 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         # Delete a donation should work the list should have one donation now
         response = self.client.delete(donation_detail_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response.data)
-        response = self.client.get(self.cart_donations_url)
+        response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
 
         # Another user should not see the cart of the first user
         self.client.logout()
         self.client.login(username=self.another_user.username, password='password')
-        response = self.client.get(self.cart_donations_url)
+        response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 0)
 
         # Another user should not be able to view a donation in the cart of the first user
@@ -132,27 +133,46 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Now let's get anonymous and create a donation
         self.client.logout()
-        response = self.client.post(self.cart_donations_url, {'project_slug': self.some_project.slug, 'amount': 71})
+        response = self.client.post(self.current_donations_url, {'project_slug': self.some_project.slug, 'amount': 71})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 71)
         self.assertEqual(response.data['project_slug'], self.some_project.slug)
         self.assertEqual(response.data['status'], 'started')
-        response = self.client.get(self.cart_donations_url)
+        response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
 
         # Login and out again... The anonymous cart should NOT be returned
         self.client.login(username=self.some_user.username, password='password')
         self.client.logout()
-        response = self.client.get(self.cart_donations_url)
+        response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 0)
 
         # Login as the first user and cart should still have one donation
         self.client.login(username=self.some_user.username, password='password')
-        response = self.client.get(self.cart_donations_url)
+        response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'],Decimal('12.5'))
         self.assertEqual(response.data['results'][0]['project_slug'], self.another_project.slug)
+        self.client.logout()
 
+    def test_current_order_monthly(self):
+
+        # Test setting a recurring order as logged in user.
+        self.client.login(username=self.some_user.username, password='password')
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.data['recurring'], False)
+        response = self.client.put(self.current_order_url, {'recurring': True})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['recurring'], True)
+
+        # Test that setting a recurring order as anonymous user fails.
+        self.client.logout()
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.data['recurring'], False)
+        response = self.client.put(self.current_order_url, {'recurring': True})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.data['recurring'], False)
 
 
 class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
