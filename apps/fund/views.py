@@ -1,7 +1,10 @@
 from apps.cowry.factory import PaymentFactory
 from apps.cowry.models import PaymentMethod, Payment, PaymentInfo
-from apps.bluebottle_drf2.permissions import AllowNone
+from apps.bluebottle_drf2.permissions import AllowNone, IsOwner
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from apps.fund.models import RecurringDonation, RecurringDonationProject
+from apps.fund.serializers import RecurringDonationSerializer, RecurringDonationProjectSerializer
+from apps.projects.models import Project
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
 from rest_framework import permissions
@@ -313,3 +316,72 @@ class PaymentInfoCurrent(CurrentPaymentMixin, generics.RetrieveUpdateDestroyAPIV
     def get_object(self):
         return self.get_payment_info()
 
+
+
+
+# Recurring Donation
+
+class RecurringDonationMixin(object):
+
+    def get_queryset(self):
+        queryset = super(RecurringDonationMixin, self).get_queryset()
+        if self.request.user.is_authenticated():
+            queryset = queryset.filter(user=self.request.user)
+        return queryset
+
+
+class RecurringDonationList(RecurringDonationMixin, generics.ListCreateAPIView):
+    """
+    Recurring Payment settings for the authenticated user
+    """
+
+    model = RecurringDonation
+    serializer_class = RecurringDonationSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+
+
+class RecurringDonationDetail(RecurringDonationMixin, generics.RetrieveDestroyAPIView):
+    """
+    Recurring Payment settings for the authenticated user
+    """
+
+    model = RecurringDonation
+    serializer_class = RecurringDonationSerializer
+
+
+
+class RecurringDonationProjectMixin(object):
+
+    def get_queryset(self):
+        queryset = super(RecurringDonationProjectMixin, self).get_queryset()
+        recurring_donation_id = self.kwargs.get('recurring_donation_id', None)
+        recurring_donation = RecurringDonation.objects.get(pk=recurring_donation_id, user=self.request.user)
+        if self.request.user.is_authenticated():
+            queryset = queryset.filter(recurring_donation=recurring_donation)
+        return queryset
+
+    def pre_save(self, obj):
+        recurring_donation_id = self.kwargs.get('recurring_donation_id', None)
+        obj.recurring_donation_id = recurring_donation_id
+
+
+
+class RecurringDonationProjectList(RecurringDonationProjectMixin, generics.ListCreateAPIView):
+    """
+    Recurring Payment Projects
+    """
+
+    model = RecurringDonationProject
+    serializer_class = RecurringDonationProjectSerializer
+
+
+class RecurringDonationProjectDetail(RecurringDonationProjectMixin, generics.RetrieveDestroyAPIView):
+    """
+    Recurring Payment Project
+    """
+
+    model = RecurringDonationProject
+    serializer_class = RecurringDonationProjectSerializer

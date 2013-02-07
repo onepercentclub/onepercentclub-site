@@ -58,6 +58,14 @@ App.Payment = DS.Model.extend({
 });
 
 
+App.RecurringDonation = DS.Model.extend({
+    url: 'fund/recurringdonations',
+    amount: DS.attr('number'),
+    billing_number: DS.attr('string'),
+    billing_name: DS.attr('string'),
+    billing_city: DS.attr('string')
+});
+
 /*
  Controllers
  */

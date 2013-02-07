@@ -211,3 +211,27 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['payment_method'], paymentmethod_id)
 
 
+
+class RecurringDonationIntegrationTest(ProjectTestsMixin, TestCase):
+    """
+    Integration tests for the adding/editing RecurringDonations
+    """
+
+    def setUp(self):
+        self.some_project = self.create_project()
+        self.another_project = self.create_project()
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+        self.checkout_url = '/i18n/api/fund/payments/current'
+        self.recurring_donation_url = '/i18n/api/fund/recurringdonations/'
+        self.recurring_donation_project_url = '/i18n/api/fund/recurringdonations/{0}/projects/'
+
+    def test_recurring_donation_crud(self):
+        """
+        Tests for creating/editing/deleting a recurring donation
+        """
+
+        # Create recurring donation
+        self.client.login(username=self.some_user.username, password='password')
+        self.client.post(self.recurring_donation_url, {'project_slug': self.some_project.slug, 'amount': 35})
+

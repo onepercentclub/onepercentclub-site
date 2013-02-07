@@ -30,9 +30,19 @@ class Donation(models.Model):
         new = ChoiceItem('new', label=_("New"))
         started = ChoiceItem('started', label=_("Started"))
 
+
+    class DonationTypes(DjangoChoices):
+        """
+        Different types of donation.
+        """
+        single = ChoiceItem('single', label=_("Single"))
+        recurring = ChoiceItem('recurring', label=_("Recurring"))
+
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True, blank=True)
     amount = MoneyField(_("amount"))
     project = models.ForeignKey('projects.Project', verbose_name=_("project"))
+
+    type = models.CharField(_("type"), max_length=20, choices=DonationTypes.choices, db_index=True)
 
     # Note: having an index here allows for efficient filtering by status.
     status = models.CharField(_("status"), max_length=20, choices=DonationStatuses.choices, db_index=True)
@@ -102,3 +112,37 @@ class OrderItem(models.Model):
     @property
     def type(self):
         return self.content_object.__class__.__name__
+
+
+class RecurringDonation(models.Model):
+    """
+    Settings for a recurring donation,
+    The actual donations will be generated monthly by a celery/cron job.
+    """
+
+    user = models.ForeignKey('auth.User')
+    amount = MoneyField()
+
+    # TODO: We probably want to store this encrypted
+    billing_number = models.CharField(max_length=12)
+    billing_name = models.CharField(max_length=100)
+    billing_city = models.CharField(max_length=200)
+
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
+
+    projects = models.ManyToManyField('projects.Project', through='RecurringDonationProject')
+
+
+
+class RecurringDonationProject(models.Model):
+    """
+    Projects selected by a member to donate to monthly.
+    """
+
+    project = models.ForeignKey('projects.Project')
+    recurring_donation = models.ForeignKey('RecurringDonation')
+
+    created = CreationDateTimeField(_("created"))
+
+

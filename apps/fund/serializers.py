@@ -1,5 +1,7 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer, ManyRelatedNestedSerializer
+from apps.fund.models import RecurringDonation, RecurringDonationProject
+from apps.projects.serializers import ProjectSerializer
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry_docdata.models import DocdataPaymentInfo
@@ -108,3 +110,49 @@ class PaymentInfoSerializer(PolymorphicSerializer):
         child_models = (
             (DocdataPaymentInfo, DocdataPaymentInfoSerializer),
             )
+
+
+# Recurring Payments
+
+class RecurringDonationSerializer(serializers.ModelSerializer):
+    projects = ManyRelatedNestedSerializer(ProjectSerializer)
+    link = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-detail')
+    billing_number = serializers.SerializerMethodField('obscured_billing_number')
+
+    def validate_amount(self, attrs, source):
+        """
+        Check the amount
+        """
+        value = attrs[source]
+        if value < 5:
+            raise serializers.ValidationError(_(u"Amount must be at least €5.00."))
+        return attrs
+
+    def validate_billing_number(self, attrs, source):
+        """
+        Check the Billing Account Number
+        """
+        value = attrs[source]
+        # TODO: Check for Dutch bank account number
+        return attrs
+
+    def obscured_billing_number(self, obj):
+        billing_number = obj.billing_number
+
+        return
+
+    class Meta:
+        model = RecurringDonation
+        fields = ('amount', 'billing_number', 'billing_name', 'billing_city', 'projects', 'link')
+
+
+class RecurringDonationProjectSerializer(serializers.ModelSerializer):
+    project = serializers.SlugRelatedField(slug_field='slug')
+    link = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-project-detail')
+    recurring_donation = serializers.HyperlinkedRelatedField(view_name='fund-recurring-donation-detail', read_only=True)
+
+    class Meta:
+        model = RecurringDonationProject
+        fields = ('created', 'recurring_donation', 'project', 'link')
+
+
