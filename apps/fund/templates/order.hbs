@@ -53,16 +53,14 @@
 {% tplhandlebars "currentorderitem_form" %}
 
     <fieldset>
-        <ul id="donation-projects">
 
+        <ul id="donation-projects">
             {{#each controller}}
                 {{view "App.CurrentOrderItemView" content=this}}
             {{/each}}
-
         </ul>
 
         {{#linkTo projectList class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
-
 
     </fieldset>
 
@@ -81,7 +79,7 @@
 {% tplhandlebars "currentorderitem" %}
 
     {{#linkTo project project}}
-        <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
+        <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
         <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
     {{/linkTo}}
     <p class="donation-amount">
