@@ -68,7 +68,14 @@ class OrderAnonymousProfileSerializer(serializers.ModelSerializer):
         if user is not None:
             user.first_name = attrs['first_name']
             user.last_name = attrs['last_name']
-            user.save()
+            user.email = attrs['email']
+            user.address = attrs['address']
+            user.zip_code = attrs['zip_code']
+            user.city = attrs['city']
+            try:
+                user.save()
+            except Exception:
+                pass
         return user
 
 

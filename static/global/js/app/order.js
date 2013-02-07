@@ -105,7 +105,8 @@ App.OrderProfileController = Em.ObjectController.extend({
     updateProfile: function(){
         var profile = this.get('content');
         var controller = this;
-        if (!profile.get('isDirty')) {
+        // We should at least have an email address
+        if (!profile.get('isDirty') && profile.get('email')) {
             // No changes. No need to commit.
             controller.transitionTo('orderPayment');
         }

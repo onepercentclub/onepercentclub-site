@@ -266,3 +266,4 @@ class ObjectBasedSerializer(serializers.Serializer):
         obj = getattr(self, 'object', None)
         setattr(self._child_models[obj.__class__], 'object', obj)
         return self._child_models[obj.__class__].from_native(data, files)
+
