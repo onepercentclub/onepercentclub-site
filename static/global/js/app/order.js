@@ -121,6 +121,7 @@ App.FinalOrderItemListView = Em.View.extend({
     tagName: 'div'
 });
 
+
 App.CurrentOrderItemView = Em.View.extend({
     templateName: 'currentorderitem',
     tagName: 'li',
@@ -133,6 +134,32 @@ App.CurrentOrderItemView = Em.View.extend({
     change: function(e){
         this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
     }
+});
+
+
+App.OrderNavView = Ember.View.extend({
+    tagName: 'li',
+
+    didInsertElement: function () {
+        this._super();
+        if (this.get('childViews.firstObject.active')) {
+            this.setOrderProgress();
+        }
+    },
+
+    childBecameActive: function(sender, key) {
+        if (this.get(key) && this.state == "inDOM") {
+            this.setOrderProgress()
+        }
+    }.observes('childViews.firstObject.active'),
+
+    setOrderProgress: function() {
+        var highlightClassName = 'is-selected';
+        this.$().prevAll().addClass(highlightClassName);
+        this.$().nextAll().removeClass(highlightClassName);
+        this.$().addClass(highlightClassName);
+    }
+
 });
 
 
