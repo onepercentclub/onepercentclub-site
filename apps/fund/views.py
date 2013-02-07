@@ -47,6 +47,8 @@ class CurrentOrderMixin(object):
         order = self.get_current_order()
         if not order:
             order = self.create_current_order()
+        if not self.has_permission(self.request, order):
+            self.permission_denied(self.request)
         return order
 
     def create_current_order(self):
@@ -143,6 +145,7 @@ class OrderProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
 class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
     serializer_class = OrderSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_object(self, queryset=None):
         return self.get_or_create_current_order()
@@ -162,7 +165,7 @@ class OrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
 class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
     model = OrderItem
     serializer_class = OrderItemSerializer
-    permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         # Filter queryset for the current order
