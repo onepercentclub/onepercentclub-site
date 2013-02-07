@@ -135,14 +135,6 @@ App.CurrentOrderItemView = Em.View.extend({
 });
 
 
-App.Payment = DS.Model.extend({
-    url: 'fund/payments',
-    payment_method: DS.attr('number'),
-    amount: DS.attr('number'),
-    status: DS.attr('string')
-});
-
-
 App.OrderPaymentView = Em.View.extend({
     tagName: 'form',
     templateName: 'order_payment'
