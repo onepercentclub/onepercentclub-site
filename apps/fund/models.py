@@ -61,6 +61,7 @@ class Order(models.Model):
 
     class OrderStatuses(DjangoChoices):
         started = ChoiceItem('started', label=_("Started"))
+        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
         checkout = ChoiceItem('checkout', label=_("Checkout"))
         new = ChoiceItem('new', label=_("New"))
         pending = ChoiceItem('pending', label=_("Pending"))
@@ -68,15 +69,10 @@ class Order(models.Model):
         paid = ChoiceItem('paid', label=_("Paid"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
-
     status = models.CharField(_("status"),max_length=20, choices=OrderStatuses.choices, db_index=True)
-
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
-    deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
-
     recurring = models.BooleanField(default=False)
-
     payment = models.ForeignKey('cowry.Payment', null=True, blank=True)
 
     # Calculate total for this Order
