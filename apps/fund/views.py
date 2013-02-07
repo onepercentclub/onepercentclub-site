@@ -126,7 +126,7 @@ class PaymentInfoDetail(RetrieveAPIView):
 # End: Unimplemented API views
 
 
-class OrderCurrent(CartMixin, RetrieveUpdateDeleteAPIView):
+class OrderCurrent(CartMixin, generics.RetrieveUpdateAPIView):
     model = Order
     serializer_class = OrderSerializer
 
