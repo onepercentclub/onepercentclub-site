@@ -60,21 +60,20 @@ class Order(models.Model):
 
     class OrderStatuses(DjangoChoices):
         started = ChoiceItem('started', label=_("Started"))
+        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
         checkout = ChoiceItem('checkout', label=_("Checkout"))
         new = ChoiceItem('new', label=_("New"))
         pending = ChoiceItem('pending', label=_("Pending"))
         failed = ChoiceItem('failed', label=_("Failed"))
         paid = ChoiceItem('paid', label=_("Paid"))
 
-    user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
-    anonymous_profile = models.ForeignKey('AnonymousProfile', null=True)
-
+    user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
+    anonymous_profile = models.ForeignKey('AnonymousProfile', blank=True, null=True)
     status = models.CharField(_("status"),max_length=20, choices=OrderStatuses.choices, db_index=True)
-
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
-
-    payment = models.ForeignKey('cowry.Payment', null=True)
+    recurring = models.BooleanField(default=False)
+    payment = models.ForeignKey('cowry.Payment', null=True, blank=True)
 
     # Calculate total for this Order
     @property

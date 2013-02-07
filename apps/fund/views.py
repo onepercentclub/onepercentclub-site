@@ -8,9 +8,10 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
-from .models import Donation, OrderItem, Order, AnonymousProfile
-from .serializers import DonationSerializer, OrderItemSerializer, PaymentMethodSerializer, PaymentSerializer,\
-    PaymentInfoSerializer
+from .models import Donation, OrderItem, Order
+from .serializers import (DonationSerializer, OrderItemSerializer, PaymentMethodSerializer, PaymentSerializer,
+                          PaymentInfoSerializer, OrderSerializer)
+from .models import AnonymousProfile
 
 
 # API views
@@ -106,12 +107,6 @@ class OrderDetail(RetrieveAPIView):
     permission_classes = (AllowNone,)
 
 
-class OrderCurrent(RetrieveAPIView):
-    # TODO: Implement
-    model = Order
-    permission_classes = (AllowNone,)
-
-
 class PaymentList(ListAPIView):
     # TODO: Implement
     model = Payment
@@ -143,6 +138,14 @@ class OrderProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     permission_classes = (AllowNone,)
 
 # End: Unimplemented API views
+
+
+class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+    model = Order
+    serializer_class = OrderSerializer
+
+    def get_object(self, queryset=None):
+        return self.get_or_create_current_order()
 
 
 class OrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
