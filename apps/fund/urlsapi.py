@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from surlex.dj import surl
-from .views import (FundApi, OrderList, OrderDetail, OrderCurrent,
+from .views import (FundApi, OrderList, OrderDetail, OrderCurrent, OrderProfileCurrent,
                     OrderItemList, OrderDonationList, OrderDonationDetail, OrderLatestItemList, OrderLatestDonationList,
                     PaymentMethodList, PaymentMethodDetail,
                     PaymentList, PaymentDetail, PaymentCurrent,
@@ -17,6 +17,9 @@ urlpatterns = patterns('',
     url(r'^orders/current/donations/$', OrderDonationList.as_view(), name='fund-order-current-donation-list'),
     url(r'^orders/latest/donations/$', OrderLatestDonationList.as_view(), name='fund-order-latest-donation-list'),
     surl(r'^orders/current/donations/<pk:#>$', OrderDonationDetail.as_view(), name='fund-order-current-donation-detail'),
+
+    surl(r'^orders/profiles/current$', OrderProfileCurrent.as_view(), name='fund-order-profile-current'),
+
 
     url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='fund-paymentmethod-list'),
     surl(r'^paymentmethods/<pk:#>$', PaymentMethodDetail.as_view(), name='fund-paymentmethod-detail'),
