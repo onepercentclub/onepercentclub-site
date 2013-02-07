@@ -1,6 +1,6 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer, ManyRelatedNestedSerializer
-from apps.fund.models import RecurringDonation, RecurringDonationProject
+from apps.fund.models import RecurringDonation
 from apps.projects.serializers import ProjectSerializer
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
@@ -141,6 +141,7 @@ class RecurringDonationSerializer(serializers.ModelSerializer):
             else:
                 raise serializers.ValidationError(_(u"Billingnumber should have 9 digits or start with 'P' (ING accounts)."))
 
+    # TODO: see if we can use this
     def obscured_billing_number(self, obj):
         billing_number = obj.billing_number
         obscured = 'XXXXX' + billing_number[5:]
@@ -148,17 +149,5 @@ class RecurringDonationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RecurringDonation
-        fields = ('amount', 'billing_number', 'billing_name', 'billing_city', 'projects', 'link')
-
-
-class RecurringDonationProjectSerializer(serializers.ModelSerializer):
-    project = serializers.SlugRelatedField(slug_field='slug')
-    recurring_donation = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-detail')
-    # TODO: Find out how we can compose this url (need recurring_donation_id as a kwarg or something)
-    #link = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-project-detail')
-
-    class Meta:
-        model = RecurringDonationProject
-        fields = ('created', 'recurring_donation', 'project', 'id')
-
+        fields = ('id', 'amount', 'billing_number', 'billing_name', 'billing_city', 'projects', 'link')
 

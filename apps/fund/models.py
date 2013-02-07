@@ -42,7 +42,8 @@ class Donation(models.Model):
     amount = MoneyField(_("amount"))
     project = models.ForeignKey('projects.Project', verbose_name=_("project"))
 
-    type = models.CharField(_("type"), max_length=20, choices=DonationTypes.choices, db_index=True)
+    type = models.CharField(_("type"), max_length=20, choices=DonationTypes.choices, db_index=True,
+                            default=DonationTypes.single)
 
     # Note: having an index here allows for efficient filtering by status.
     status = models.CharField(_("status"), max_length=20, choices=DonationStatuses.choices, db_index=True)
@@ -131,18 +132,5 @@ class RecurringDonation(models.Model):
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
-    projects = models.ManyToManyField('projects.Project', through='RecurringDonationProject')
-
-
-
-class RecurringDonationProject(models.Model):
-    """
-    Projects selected by a member to donate to monthly.
-    """
-
-    project = models.ForeignKey('projects.Project')
-    recurring_donation = models.ForeignKey('RecurringDonation')
-
-    created = CreationDateTimeField(_("created"))
-
+    projects = models.ManyToManyField('projects.Project')
 

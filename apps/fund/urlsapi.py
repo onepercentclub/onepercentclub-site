@@ -1,4 +1,3 @@
-from apps.fund.views import RecurringDonationProjectList, RecurringDonationProjectDetail
 from django.conf.urls import patterns, url
 from surlex.dj import surl
 from .views import (FundApi, OrderList, OrderDetail, OrderCurrent,
@@ -34,9 +33,5 @@ urlpatterns = patterns('',
     url(r'^recurringdonations/$', RecurringDonationList.as_view(), name='fund-recurring-donation-list'),
     surl(r'^recurringdonations/<pk:#>$', RecurringDonationDetail.as_view(), name='fund-recurring-donation-detail'),
 
-    surl(r'^recurringdonations/<recurring_donation_id:#>/projects/$',
-                        RecurringDonationProjectList.as_view(), name='fund-recurring-donation-project-list'),
-    surl(r'^recurringdonations/<recurring_donation_id:#>/projects/<pk:#>$',
-                        RecurringDonationProjectDetail.as_view(), name='fund-recurring-donation-project-detail'),
 
 )
