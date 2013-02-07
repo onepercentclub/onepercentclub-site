@@ -231,4 +231,11 @@ class RecurringDonationIntegrationTest(ProjectTestsMixin, TestCase):
         Tests for creating/editing/deleting a recurring donation
         """
 
-        # Create recurring donation
+        # No recurring donations in the list yet
+        self.client.login(username=self.some_user.username, password='password')
+        response = self.client.get(self.recurring_donation_url)
+        self.assertEqual(response.data['count'], 0)
+
+        self.client.login(username=self.some_user.username, password='password')
+        response = self.client.post(self.recurring_donation_url, {})
+        self.assertEqual(response.data['count'], 0)

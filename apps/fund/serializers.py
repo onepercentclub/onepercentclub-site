@@ -115,9 +115,9 @@ class PaymentInfoSerializer(PolymorphicSerializer):
 # Recurring Payments
 
 class RecurringDonationSerializer(serializers.ModelSerializer):
-    projects = ManyRelatedNestedSerializer(ProjectSerializer)
+    projects = serializers.ManySlugRelatedField(slug_field='slug')
     link = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-detail')
-    billing_number = serializers.SerializerMethodField('obscured_billing_number')
+    billing_number = serializers.WritableField(source='billing_number')
 
     def validate_amount(self, attrs, source):
         """
@@ -133,13 +133,18 @@ class RecurringDonationSerializer(serializers.ModelSerializer):
         Check the Billing Account Number
         """
         value = attrs[source]
-        # TODO: Check for Dutch bank account number
-        return attrs
+        if len(value) == 9:
+            return attrs
+        else:
+            if value[:1] == 'P':
+                return attrs
+            else:
+                raise serializers.ValidationError(_(u"Billingnumber should have 9 digits or start with 'P' (ING accounts)."))
 
     def obscured_billing_number(self, obj):
         billing_number = obj.billing_number
-
-        return
+        obscured = 'XXXXX' + billing_number[5:]
+        return obscured
 
     class Meta:
         model = RecurringDonation
@@ -148,11 +153,12 @@ class RecurringDonationSerializer(serializers.ModelSerializer):
 
 class RecurringDonationProjectSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(slug_field='slug')
-    link = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-project-detail')
-    recurring_donation = serializers.HyperlinkedRelatedField(view_name='fund-recurring-donation-detail', read_only=True)
+    recurring_donation = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-detail')
+    # TODO: Find out how we can compose this url (need reccuring_donation_id as a kwarg or something)
+    #link = serializers.HyperlinkedIdentityField(view_name='fund-recurring-donation-project-detail')
 
     class Meta:
         model = RecurringDonationProject
-        fields = ('created', 'recurring_donation', 'project', 'link')
+        fields = ('created', 'recurring_donation', 'project', 'id')
 
 
