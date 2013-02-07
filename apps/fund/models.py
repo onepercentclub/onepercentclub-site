@@ -67,8 +67,8 @@ class Order(models.Model):
         failed = ChoiceItem('failed', label=_("Failed"))
         paid = ChoiceItem('paid', label=_("Paid"))
 
-    user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True)
-    anonymous_profile = models.ForeignKey('AnonymousProfile', null=True)
+    user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
+    anonymous_profile = models.ForeignKey('AnonymousProfile', blank=True, null=True)
     status = models.CharField(_("status"),max_length=20, choices=OrderStatuses.choices, db_index=True)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
