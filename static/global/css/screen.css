@@ -3370,21 +3370,23 @@ ul.steps li.selected a {
   background: #f3f3f3;
 }
 /* line 236, ../sass/modules/_donation.scss */
-.donation-frequency .label, .donation-frequency .select {
-  display: block;
-}
-/* line 240, ../sass/modules/_donation.scss */
 .donation-frequency .label {
   font-size: 22px;
   font-size: 1.375rem;
-  margin-left: 16px;
   font-weight: bold;
+  margin: 0px 0px 8px 0px;
+  display: block;
 }
-/* line 246, ../sass/modules/_donation.scss */
-.donation-frequency .select {
-  font-size: 18px;
-  font-size: 1.125rem;
-  margin: 8px 0 8px 16px;
+/* line 243, ../sass/modules/_donation.scss */
+.donation-frequency .checkbox {
+  display: block;
+  color: #999999;
+  cursor: pointer;
+}
+/* line 247, ../sass/modules/_donation.scss */
+.donation-frequency .checkbox.checked {
+  color: #00c051;
+  font-weight: bold;
 }
 
 /* =========== For prototyping only */

@@ -64,10 +64,11 @@
 
     </fieldset>
 
-    <fieldset class="donation-frequency not-implemented">
+    <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        <label for="donation-frequency-single" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-single" value="single" checked>{% trans "Single donation" %}</label>
-        <label for="donation-frequency-monthly" class="select"><input type="radio" name="donation-frequency" id="donation-frequency-monthly" value="monthly">{% trans "Monthly donation" %}</label>
+        <a {{action selectSingle target="view.parentView.controller"}} {{bindAttr class=":checkbox view.parentView.controller.isSingle:checked"}}>{% trans "Single donation" %}</a>
+        <a {{action selectMonthly target="view.parentView.controller"}}  {{bindAttr class=":checkbox view.parentView.controller.isMonthly:checked"}}>{% trans "Monthly donation" %}</a>
+
     </fieldset>
 
 {{#linkTo orderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}

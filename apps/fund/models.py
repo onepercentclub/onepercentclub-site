@@ -72,6 +72,7 @@ class Order(models.Model):
     status = models.CharField(_("status"),max_length=20, choices=OrderStatuses.choices, db_index=True)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
+
     recurring = models.BooleanField(default=False)
     payment = models.ForeignKey('cowry.Payment', null=True, blank=True)
 

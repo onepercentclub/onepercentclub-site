@@ -2,6 +2,14 @@
  Models
  */
 
+App.Order = DS.Model.extend({
+    url: 'fund/orders',
+    amount: DS.attr('number'),
+    status: DS.attr('string'),
+    recurring: DS.attr('string')
+});
+
+
 App.OrderProfile = DS.Model.extend({
     url: 'fund/orders/profiles',
     firstName: DS.attr('string'),
@@ -73,6 +81,7 @@ App.Payment = DS.Model.extend({
  Controllers
  */
 
+
 App.CurrentOrderItemListController = Em.ArrayController.extend({
 
     updateOrderItem: function(orderItem, newAmount) {
@@ -87,18 +96,16 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
         transaction.add(orderItem);
         orderItem.deleteRecord();
         transaction.commit();
-
     }
-
 });
 
 
+
 App.OrderProfileController = Em.ObjectController.extend({
-    transaction: null,
 
     initTransaction: function(){
         var transaction = App.store.transaction();
-        this.set('transaction', transaction);
+        this.set('orderProfileTransaction', transaction);
         transaction.add(this.get('content'));
     }.observes('content'),
 
@@ -110,7 +117,7 @@ App.OrderProfileController = Em.ObjectController.extend({
             // No changes. No need to commit.
             controller.transitionTo('orderPayment');
         }
-        this.get('transaction').commit();
+        this.get('orderProfileTransaction').commit();
         profile.on('didUpdate', function(record) {
             controller.transitionTo('orderPayment');
         });
@@ -120,6 +127,32 @@ App.OrderProfileController = Em.ObjectController.extend({
         });
     }
 });
+
+App.CurrentOrderController = Em.ObjectController.extend({
+
+
+    isMonthly: function(){
+        return this.get('content.recurring') == 'true';
+    }.property('content.recurring'),
+
+    isSingle: function(){
+        return this.get('content.recurring') == 'false';
+    }.property('content.recurring'),
+
+    selectMonthly: function(){
+        var transaction = App.store.transaction();
+        transaction.add(this.get('content'));
+        this.get('content').set('recurring', 'true');
+        transaction.commit();
+    },
+
+    selectSingle: function(){
+        var transaction = App.store.transaction();
+        transaction.add(this.get('content'));
+        this.get('content').set('recurring', 'false');
+        transaction.commit();
+    }
+})
 
 /*
  Views
