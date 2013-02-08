@@ -24,7 +24,7 @@
       display: block;
       background-color: #dcdcdc;
       font-weight: bold;
-      color: #999999;
+      color: $gray;
       @include rem(font-size, 14px);
       vertical-align: top;
       text-transform: uppercase;
@@ -233,18 +233,21 @@
    padding: 16px 16px 16px $grid-column * 9;
    background: #f3f3f3;
    
-   .label, .select {
-     display: block;
-   }
-   
    .label {
      @include rem(font-size, 22px);
-     margin-left: 16px;
      font-weight: bold;
+     margin: 0px 0px 8px 0px;
+     display: block;
    }
-   
-   .select {
-     @include rem(font-size, 18px);
-     margin: 8px 0 8px 16px;
+
+   .checkbox {
+     display: block;
+     color: $gray;
+     cursor: pointer;
+     &.checked {
+       color: $green;
+       font-weight: bold;
+     }
    }
+
 }

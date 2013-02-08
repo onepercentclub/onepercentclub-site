@@ -102,11 +102,10 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 
 
 App.OrderProfileController = Em.ObjectController.extend({
-    transaction: null,
 
     initTransaction: function(){
         var transaction = App.store.transaction();
-        this.set('transaction', transaction);
+        this.set('orderProfileTransaction', transaction);
         transaction.add(this.get('content'));
     }.observes('content'),
 
@@ -118,7 +117,7 @@ App.OrderProfileController = Em.ObjectController.extend({
             // No changes. No need to commit.
             controller.transitionTo('orderPayment');
         }
-        this.get('transaction').commit();
+        this.get('orderProfileTransaction').commit();
         profile.on('didUpdate', function(record) {
             controller.transitionTo('orderPayment');
         });
@@ -130,17 +129,29 @@ App.OrderProfileController = Em.ObjectController.extend({
 });
 
 App.CurrentOrderController = Em.ObjectController.extend({
+
+    initTransaction: function(){
+        var transaction = App.store.transaction();
+        this.set('orderTransaction', transaction);
+        transaction.add(this.get('content'));
+    }.observes('content'),
+
     isMonthly: function(){
-        return this.get('content.monthly');
-    }.property('content.monthly'),
+        return this.get('content.recurring') == 'true';
+    }.property('content.recurring'),
+
     isSingle: function(){
-        return !this.get('content.monthly');
-    }.property('content.monthly'),
+        return this.get('content.recurring') == 'false';
+    }.property('content.recurring'),
+
     selectMonthly: function(){
-        this.set('content.monthly', true);
+        this.set('content.recurring', 'true');
+        this.get('orderTransaction').commit();
     },
+
     selectSingle: function(){
-        this.set('content.monthly', false);
+        this.set('content.recurring', 'false');
+        this.get('orderTransaction').commit();
     }
 })
 
