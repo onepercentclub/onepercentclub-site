@@ -2,6 +2,25 @@
  Models
  */
 
+App.Order = DS.Model.extend({
+    url: 'fund/orders',
+    amount: DS.attr('number'),
+    status: DS.attr('string'),
+    recurring: DS.attr('string')
+});
+
+
+App.OrderProfile = DS.Model.extend({
+    url: 'fund/orders/profiles',
+    firstName: DS.attr('string'),
+    lastName: DS.attr('string'),
+    email: DS.attr('string'),
+    address: DS.attr('string'),
+    city: DS.attr('string'),
+    country: DS.attr('string'),
+    zipCode: DS.attr('string')
+});
+
 App.OrderItem = DS.Model.extend({
     url: 'fund/orders/:order_id/items',
 
@@ -62,6 +81,7 @@ App.Payment = DS.Model.extend({
  Controllers
  */
 
+
 App.CurrentOrderItemListController = Em.ArrayController.extend({
 
     updateOrderItem: function(orderItem, newAmount) {
@@ -77,36 +97,78 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
         orderItem.deleteRecord();
         transaction.commit();
     }
-
 });
 
 
-// TODO: Do we want to use this?
+
+App.OrderProfileController = Em.ObjectController.extend({
+
+    initTransaction: function(){
+        var transaction = App.store.transaction();
+        this.set('orderProfileTransaction', transaction);
+        transaction.add(this.get('content'));
+    }.observes('content'),
+
+    updateProfile: function(){
+        var profile = this.get('content');
+        var controller = this;
+        // We should at least have an email address
+        if (!profile.get('isDirty') && profile.get('email')) {
+            // No changes. No need to commit.
+            controller.transitionTo('orderPayment');
+        }
+        this.get('orderProfileTransaction').commit();
+        profile.on('didUpdate', function(record) {
+            controller.transitionTo('orderPayment');
+        });
+        // TODO: Validate data and return errors here
+        profile.on('becameInvalid', function(record) {
+            //profile.set('errors', record.get('errors'));
+        });
+    }
+});
+
 App.CurrentOrderController = Em.ObjectController.extend({
 
-});
 
+    isMonthly: function(){
+        return this.get('content.recurring') == 'true';
+    }.property('content.recurring'),
 
-// TODO: Do we want to use this?
-App.PaymentInfoController = Em.ObjectController.extend({
+    isSingle: function(){
+        return this.get('content.recurring') == 'false';
+    }.property('content.recurring'),
 
-});
+    selectMonthly: function(){
+        var transaction = App.store.transaction();
+        transaction.add(this.get('content'));
+        this.get('content').set('recurring', 'true');
+        transaction.commit();
+    },
 
-App.FinalOrderItemListController = Em.ArrayController.extend({
-});
-
-// TODO: Do we want to use this?
-App.OrderPaymentController = Em.ObjectController.extend({
-
-});
-
+    selectSingle: function(){
+        var transaction = App.store.transaction();
+        transaction.add(this.get('content'));
+        this.get('content').set('recurring', 'false');
+        transaction.commit();
+    }
+})
 
 /*
  Views
  */
 
 App.CurrentOrderView = Em.View.extend({
-    templateName: 'currentorder'
+    templateName: 'current_order'
+});
+
+
+App.OrderProfileView = Em.View.extend({
+    templateName: 'order_profile_form',
+    tagName: 'form',
+    submit: function(){
+        this.controller.updateProfile();
+    }
 });
 
 
@@ -121,11 +183,13 @@ App.FinalOrderItemListView = Em.View.extend({
     tagName: 'div'
 });
 
+
 App.CurrentOrderItemView = Em.View.extend({
     templateName: 'currentorderitem',
     tagName: 'li',
     classNames: 'donation-project',
-    neededAfterDonation: function(){
+
+    neededAfterDonation: function() {
         return this.get('content.project.money_needed_natural') - this.get('content.amount');
     }.property('content.amount', 'content.project.money_needed_natural'),
 
@@ -135,11 +199,29 @@ App.CurrentOrderItemView = Em.View.extend({
 });
 
 
-App.Payment = DS.Model.extend({
-    url: 'fund/payments',
-    payment_method: DS.attr('number'),
-    amount: DS.attr('number'),
-    status: DS.attr('string')
+App.OrderNavView = Ember.View.extend({
+    tagName: 'li',
+
+    didInsertElement: function () {
+        this._super();
+        if (this.get('childViews.firstObject.active')) {
+            this.setOrderProgress();
+        }
+    },
+
+    childBecameActive: function(sender, key) {
+        if (this.get(key) && this.state == "inDOM") {
+            this.setOrderProgress()
+        }
+    }.observes('childViews.firstObject.active'),
+
+    setOrderProgress: function() {
+        var highlightClassName = 'is-selected';
+        this.$().prevAll().addClass(highlightClassName);
+        this.$().nextAll().removeClass(highlightClassName);
+        this.$().addClass(highlightClassName);
+    }
+
 });
 
 
