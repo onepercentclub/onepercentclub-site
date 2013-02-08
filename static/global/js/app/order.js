@@ -130,11 +130,6 @@ App.OrderProfileController = Em.ObjectController.extend({
 
 App.CurrentOrderController = Em.ObjectController.extend({
 
-    initTransaction: function(){
-        var transaction = App.store.transaction();
-        this.set('orderTransaction', transaction);
-        transaction.add(this.get('content'));
-    }.observes('content'),
 
     isMonthly: function(){
         return this.get('content.recurring') == 'true';
@@ -145,13 +140,17 @@ App.CurrentOrderController = Em.ObjectController.extend({
     }.property('content.recurring'),
 
     selectMonthly: function(){
-        this.set('content.recurring', 'true');
-        this.get('orderTransaction').commit();
+        var transaction = App.store.transaction();
+        transaction.add(this.get('content'));
+        this.get('content').set('recurring', 'true');
+        transaction.commit();
     },
 
     selectSingle: function(){
-        this.set('content.recurring', 'false');
-        this.get('orderTransaction').commit();
+        var transaction = App.store.transaction();
+        transaction.add(this.get('content'));
+        this.get('content').set('recurring', 'false');
+        transaction.commit();
     }
 })
 
