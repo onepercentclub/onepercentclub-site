@@ -283,6 +283,17 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 });
 
 
+App.CurrentOrderRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.Order.find('current');
+    },
+
+    setupController: function(controller, order) {
+        controller.set('content', order);
+    }
+});
+
+
 App.CurrentOrderItemListRoute = Ember.Route.extend({
 
     model: function(params) {
