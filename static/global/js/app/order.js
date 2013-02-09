@@ -128,31 +128,28 @@ App.OrderProfileController = Em.ObjectController.extend({
     }
 });
 
+
 App.CurrentOrderController = Em.ObjectController.extend({
 
-
-    isMonthly: function(){
-        return this.get('content.recurring') == 'true';
-    }.property('content.recurring'),
-
-    isSingle: function(){
-        return this.get('content.recurring') == 'false';
-    }.property('content.recurring'),
-
-    selectMonthly: function(){
+    initTransaction: function(){
+        var order = this.get('content');
         var transaction = App.store.transaction();
-        transaction.add(this.get('content'));
-        this.get('content').set('recurring', 'true');
-        transaction.commit();
-    },
+        this.set('orderTransaction', transaction);
+        transaction.add(order);
+    }.observes('content'),
 
-    selectSingle: function(){
-        var transaction = App.store.transaction();
-        transaction.add(this.get('content'));
-        this.get('content').set('recurring', 'false');
-        transaction.commit();
-    }
-})
+    updateOrder: function(){
+        console.log('recuring = ' + this.get('content.recurring'));
+        console.log('dirty    = ' + this.get('content.isDirty'));
+        if (this.get('content.isDirty')) {
+            console.log('committing');
+            this.get('orderTransaction').commit();
+        }
+    }.observes('content.recurring')
+
+
+
+});
 
 /*
  Views
@@ -227,7 +224,13 @@ App.OrderNavView = Ember.View.extend({
 
 App.OrderPaymentView = Em.View.extend({
     tagName: 'form',
-    templateName: 'order_payment'
+    templateName: 'order_payment',
+
+    change: function(e){
+        this.$('input').parents('label').removeClass('selected');
+        this.$('input:checked').parents('label').addClass('selected');
+    }
+
 });
 
 

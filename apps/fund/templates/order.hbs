@@ -66,9 +66,16 @@
 
     <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        <a {{action selectSingle target="view.parentView.controller"}} {{bindAttr class=":checkbox view.parentView.controller.isSingle:checked"}}>{% trans "Single donation" %}</a>
-        <a {{action selectMonthly target="view.parentView.controller"}}  {{bindAttr class=":checkbox view.parentView.controller.isMonthly:checked"}}>{% trans "Monthly donation" %}</a>
-
+        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="view.parentView.controller.content.recurring"}}
+            <label>
+                {{view view.RadioButton value="false"}}
+                {% trans "Single donation" %}
+            </label>
+            <label>
+                {{view view.RadioButton value="true"}}
+                {% trans "Monthly donation" %}
+            </label>
+        {{/view}}
     </fieldset>
 
 {{#linkTo orderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
@@ -119,14 +126,33 @@
 
 {% tplhandlebars "order_payment" %}
 
+    <div class="intro">
+        <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
+        {% trans "Choose the payment method you prefer to donate." %}
+    </div>
+
     <fieldset>
-        {{#view Em.Select valueBinding="paymentMethod"}}
-            <option>{% trans "Payment Method"%}</option>
-            <option value="1">iDeal</option>
-            <option value="2">Direct Debit</option>
-            <option value="3">Credit Card</option>
-        {{/view}}
-        {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
+        <div class="tabs vertical">
+            <label class="tab">
+                <input type="radio" name="payment_method" value="ideal" />
+                {% trans "Use iDeal" %}
+            </label>
+            <label class="tab">
+                <input type="radio" name="payment_method" value="paypal" />
+                {% trans "Use Paypal" %}
+            </label>
+            <label class="tab">
+                <input type="radio" name="payment_method" value="credit_card" />
+                {% trans "Use Credit Card" %}
+            </label>
+            <label class="tab">
+                <input type="radio" name="payment_method" value="direct_debit" />
+                {% trans "Use Direct Debit" %}
+            </label>
+        </div>
+        <div class="panes vertical">
+            {{outlet}}
+        </div>
     </fieldset>
 
 {% endtplhandlebars %}

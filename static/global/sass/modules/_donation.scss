@@ -251,3 +251,9 @@
    }
 
 }
+
+.intro {
+    padding: 0px 0px 8px 28px;
+    text-transform: uppercase;
+    @include rem(font-size, 12px);
+}

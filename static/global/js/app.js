@@ -49,7 +49,6 @@ $.ajaxSetup({
     }
 });
 
-
 Em.View.reopen({
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
@@ -214,8 +213,9 @@ App.Router.map(function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
         this.resource('orderProfile', {path: '/details'});
-        this.resource('orderPayment', {path: '/payment'});
-        this.resource('paymentInfo', {path: '/paymentinfo'});
+        this.resource('orderPayment', {path: '/payment'}, function(){
+            this.resource('paymentInfo', {path: '/ideal'});
+        });
     });
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
@@ -316,6 +316,7 @@ App.OrderProfileRoute = Ember.Route.extend({
     }
 });
 
+
 App.CurrentOrderItemListAddRoute = Ember.Route.extend(App.SlugRouter, {
 
     setupController: function(controller, project) {
@@ -357,7 +358,6 @@ App.PaymentInfoRoute = Ember.Route.extend({
     }
 
 });
-
 
 
 App.FinalOrderItemListRoute = Ember.Route.extend({
