@@ -134,18 +134,15 @@ App.CurrentOrderController = Em.ObjectController.extend({
     initTransaction: function(){
         var order = this.get('content');
         var transaction = App.store.transaction();
-        this.set('orderTransaction', transaction);
+        this.set('transaction', transaction);
         transaction.add(order);
     }.observes('content'),
 
     updateOrder: function(){
-        console.log('recuring = ' + this.get('content.recurring'));
-        console.log('dirty    = ' + this.get('content.isDirty'));
         if (this.get('content.isDirty')) {
-            console.log('committing');
-            this.get('orderTransaction').commit();
+            this.get('transaction').commit();
         }
-    }.observes('content.recurring')
+    }.observes('content.isDirty')
 
 
 
