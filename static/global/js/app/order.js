@@ -143,6 +143,8 @@ App.CurrentOrderController = Em.ObjectController.extend({
     updateOrder: function(){
         if (this.get('content.isDirty')) {
             this.get('transaction').commit();
+            // Start a new transaction
+            this.initTransaction();
         }
     }.observes('content.isDirty')
 });
@@ -151,16 +153,15 @@ App.CurrentOrderController = Em.ObjectController.extend({
 App.OrderPaymentController = Em.ObjectController.extend({
 
     initTransaction: function(){
-        console.log(this.get('content.payment_method'))
         var transaction = App.store.transaction();
-        this.set('Atransaction', transaction);
+        this.set('transaction', transaction);
         transaction.add(this.get('content'));
     }.observes('content'),
 
     updateOrderPayment: function(){
-        console.log(this.get('content.payment_method'))
         if (this.get('content.isDirty')) {
-            this.get('Atransaction').commit();
+            this.get('transaction').commit();
+            this.initTransaction();
         }
     }.observes('content.isDirty')
 });
@@ -206,6 +207,11 @@ App.CurrentOrderItemView = Em.View.extend({
 
     change: function(e){
         this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
+    },
+
+    delete: function(item){
+        var controller = this.get('controller');
+        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
     }
 });
 
@@ -240,10 +246,11 @@ App.OrderPaymentView = Em.View.extend({
     tagName: 'form',
     templateName: 'order_payment',
 
+
     change: function(e){
         this.$('input').parents('label').removeClass('selected');
         this.$('input:checked').parents('label').addClass('selected');
-    }
+    }.observes()
 
 });
 
