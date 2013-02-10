@@ -15,12 +15,12 @@
         "model": "cowry.paymentmethod",
         "fields": {
             "costs_static": "0.25",
-            "title": "Docdata Webmenu",
+            "title": "Direct Debit",
             "restricted": false,
             "payment_adapter": ["docdata"],
             "costs_percentage": "0.00",
             "active": true,
-            "slug": "webmenu",
+            "slug": "direct_debit",
             "icon": ""
         }
     },
@@ -29,12 +29,12 @@
         "model": "cowry.paymentmethod",
         "fields": {
             "costs_static": "0.25",
-            "title": "Rabobank iDeal",
+            "title": "iDeal",
             "restricted": false,
             "payment_adapter": ["docdata"],
             "costs_percentage": "0.00",
             "active": true,
-            "slug": "ideal-rabobank",
+            "slug": "ideal",
             "icon": ""
         }
     },
@@ -43,12 +43,12 @@
         "model": "cowry.paymentmethod",
         "fields": {
             "costs_static": "0.25",
-            "title": "ABN-AMRO iDeal",
+            "title": "Credit Card",
             "restricted": false,
             "payment_adapter": ["docdata"],
             "costs_percentage": "0.00",
             "active": true,
-            "slug": "ideal-abnamro",
+            "slug": "credit_card",
             "icon": ""
         }
     }

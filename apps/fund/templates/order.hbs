@@ -133,22 +133,25 @@
 
     <fieldset>
         <div class="tabs vertical">
-            <label class="tab">
-                <input type="radio" name="payment_method" value="ideal" />
-                {% trans "Use iDeal" %}
-            </label>
-            <label class="tab">
-                <input type="radio" name="payment_method" value="paypal" />
-                {% trans "Use Paypal" %}
-            </label>
-            <label class="tab">
-                <input type="radio" name="payment_method" value="credit_card" />
-                {% trans "Use Credit Card" %}
-            </label>
-            <label class="tab">
-                <input type="radio" name="payment_method" value="direct_debit" />
-                {% trans "Use Direct Debit" %}
-            </label>
+            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="payment_method"}}
+
+                <label class="tab">
+                    {{view view.RadioButton value="ideal"}}
+                    {% trans "Use iDeal" %}
+                </label>
+                <label class="tab">
+                    {{view view.RadioButton value="paypal"}}
+                    {% trans "Use Paypal" %}
+                </label>
+                <label class="tab">
+                    {{view view.RadioButton value="credit_card"}}
+                    {% trans "Use Credit Card" %}
+                </label>
+                <label class="tab">
+                    {{view view.RadioButton value="direct_debit"}}
+                    {% trans "Use Direct Debit" %}
+                </label>
+            {{/view}}
         </div>
         <div class="panes vertical">
             {{outlet}}

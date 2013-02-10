@@ -71,7 +71,7 @@ App.PaymentInfo = DS.Model.extend({
 
 App.Payment = DS.Model.extend({
     url: 'fund/payments',
-    payment_method: DS.attr('number'),
+    payment_method: DS.attr('string'),
     amount: DS.attr('number'),
     status: DS.attr('string')
 });
@@ -105,7 +105,7 @@ App.OrderProfileController = Em.ObjectController.extend({
 
     initTransaction: function(){
         var transaction = App.store.transaction();
-        this.set('orderProfileTransaction', transaction);
+        this.set('transaction', transaction);
         transaction.add(this.get('content'));
     }.observes('content'),
 
@@ -117,7 +117,7 @@ App.OrderProfileController = Em.ObjectController.extend({
             // No changes. No need to commit.
             controller.transitionTo('orderPayment');
         }
-        this.get('orderProfileTransaction').commit();
+        this.get('transaction').commit();
         profile.on('didUpdate', function(record) {
             controller.transitionTo('orderPayment');
         });
@@ -131,6 +131,8 @@ App.OrderProfileController = Em.ObjectController.extend({
 
 App.CurrentOrderController = Em.ObjectController.extend({
 
+    //transaction: null,
+
     initTransaction: function(){
         var order = this.get('content');
         var transaction = App.store.transaction();
@@ -143,9 +145,24 @@ App.CurrentOrderController = Em.ObjectController.extend({
             this.get('transaction').commit();
         }
     }.observes('content.isDirty')
+});
 
 
+App.OrderPaymentController = Em.ObjectController.extend({
 
+    initTransaction: function(){
+        console.log(this.get('content.payment_method'))
+        var transaction = App.store.transaction();
+        this.set('Atransaction', transaction);
+        transaction.add(this.get('content'));
+    }.observes('content'),
+
+    updateOrderPayment: function(){
+        console.log(this.get('content.payment_method'))
+        if (this.get('content.isDirty')) {
+            this.get('Atransaction').commit();
+        }
+    }.observes('content.isDirty')
 });
 
 /*
