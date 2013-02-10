@@ -38,7 +38,6 @@ class WallPostReactionMixin(object):
         obj.ip_address = get_client_ip(self.request)
 
 
-
 class WallPostReactionList(WallPostReactionMixin, ListCreateAPIView):
     model = Reaction
     serializer_class = WallPostReactionSerializer
