@@ -131,20 +131,23 @@ App.OrderProfileController = Em.ObjectController.extend({
 
 App.CurrentOrderController = Em.ObjectController.extend({
 
-    //transaction: null,
-
     initTransaction: function(){
         var order = this.get('content');
-        var transaction = App.store.transaction();
+        var transaction = App.get('store').transaction();
         this.set('transaction', transaction);
         transaction.add(order);
     }.observes('content'),
 
     updateOrder: function(){
         if (this.get('content.isDirty')) {
+            var controller = this;
+            var order = this.get('content');
             this.get('transaction').commit();
-            // Start a new transaction
-            this.initTransaction();
+            order.on('didUpdate', function(){
+                // Init a new private transaction.
+                controller.initTransaction();
+            });
+
         }
     }.observes('content.isDirty')
 });
@@ -160,8 +163,12 @@ App.OrderPaymentController = Em.ObjectController.extend({
 
     updateOrderPayment: function(){
         if (this.get('content.isDirty')) {
+            var controller = this;
+            var orderPayment = this.get('content');
             this.get('transaction').commit();
-            this.initTransaction();
+            orderPayment.on('didUpdate', function(){
+                this.initTransaction();
+            });
         }
     }.observes('content.isDirty')
 });
@@ -178,7 +185,8 @@ App.CurrentOrderView = Em.View.extend({
 App.OrderProfileView = Em.View.extend({
     templateName: 'order_profile_form',
     tagName: 'form',
-    submit: function(){
+    submit: function(e){
+        e.preventDefault();
         this.controller.updateProfile();
     }
 });

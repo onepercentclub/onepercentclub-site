@@ -331,6 +331,7 @@ App.CurrentOrderItemListAddRoute = Ember.Route.extend(App.SlugRouter, {
             donation.set('project_slug', project.get('slug'));
             donation.set('project', project);
             transaction.commit();
+            transaction = null;
         }
     }
 });
