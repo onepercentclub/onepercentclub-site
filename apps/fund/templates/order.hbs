@@ -57,6 +57,11 @@
         <ul id="donation-projects">
             {{#each controller}}
                 {{view "App.CurrentOrderItemView" content=this}}
+            {{else}}
+                {{#linkTo projectList}}
+                    <h1>{% trans "Choose a project to make a donation" %}</h1>
+                    <b>{% trans "Select a project from the list and click 'Support this project' to add it to this list." %}</b>
+                {{/linkTo}}
             {{/each}}
         </ul>
 
@@ -86,18 +91,12 @@
 {% tplhandlebars "order_profile_form" %}
     <fieldset>
         {{#if content.isLoaded}}
-            {{#each content.errors.firstName}}
-                <span class="errors">{{this}}</span>
-            {{/each}}
             {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
             {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
             {{view Em.TextField valueBinding="email" placeholder="Email"}}
             {{view Em.TextField valueBinding="address" placeholder="Address"}}
             {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
             {{view Em.TextField valueBinding="city" placeholder="City"}}
-            {{#each content.errors.country}}
-                <span class="errors">{{this}}</span>
-            {{/each}}
             {{view Em.TextField valueBinding="country" placeholder="Country"}}
 
             <button class="right">{% trans 'Next step' %}</button>
