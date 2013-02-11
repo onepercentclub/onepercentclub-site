@@ -35,6 +35,7 @@ App.wallPostReactionController = Em.Controller.create({
             reaction.set('errors', {'text': ['This field is required']});
             return;
         }
+
         var transaction = App.store.transaction();
         var newReaction = transaction.createRecord(App.WallPostReaction);
         newReaction.set('text', reaction.get('text'));
@@ -47,6 +48,7 @@ App.wallPostReactionController = Em.Controller.create({
             reaction.set('text', '');
         });
         transaction.commit();
+
     }
 });
 

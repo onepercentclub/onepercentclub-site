@@ -225,9 +225,9 @@ class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
 
         # get a paymentmethod and set that for this payment
         response = self.client.get(self.payment_methods_url)
-        paymentmethod_id = response.data['results'][0]['id']
-        response = self.client.put(self.current_payment_url, {'payment_method': paymentmethod_id})
+        paymentmethod_slug = response.data['results'][0]['slug']
+        response = self.client.put(self.current_payment_url, {'payment_method': paymentmethod_slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['payment_method'], paymentmethod_id)
+        self.assertEqual(response.data['payment_method'], paymentmethod_slug)
 
 

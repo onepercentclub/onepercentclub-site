@@ -151,7 +151,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     amount = serializers.Field(source='amount')
     created = serializers.Field(source='created')
     status = serializers.Field(source='status')
-    payment_method = serializers.PrimaryKeyRelatedField(source='payment_method')
+    payment_method = serializers.SlugRelatedField(source='payment_method', slug_field='slug')
 
     class Meta:
         model = Payment
