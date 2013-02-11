@@ -9,7 +9,6 @@ from django.utils.encoding import smart_str
 from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
-from rest_framework.fields import Field
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
 
@@ -49,7 +48,7 @@ class SorlImageField(serializers.ImageField):
         return relative_url
 
 
-class TimeSinceField(Field):
+class TimeSinceField(serializers.Field):
     def to_native(self, value):
         if not value:
             return ""
@@ -61,7 +60,7 @@ class TimeSinceField(Field):
         return retval
 
 
-class ContentTextField(Field):
+class ContentTextField(serializers.CharField):
     """
     A serializer for content text such as text field found in Reaction and TextWallPost. This serializer creates
     clickable links for text urls and adds <br/> and/or <p></p> in-place of new line characters.
@@ -75,7 +74,7 @@ class ContentTextField(Field):
         return linebreaks_filter(urlize(value))
 
 
-class OEmbedField(Field):
+class OEmbedField(serializers.Field):
     def __init__(self, source, maxwidth=None, maxheight=None, **kwargs):
         super(OEmbedField, self).__init__(source)
         self.params = getattr(settings, 'MICAWBER_DEFAULT_SETTINGS', {})
