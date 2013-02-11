@@ -1,6 +1,6 @@
 from apps.bluebottle_drf2.serializers import (TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer,
                                               PrimaryKeyGenericRelatedField, ManyRelatedNestedSerializer, SorlImageField,
-                                              SlugGenericRelatedField)
+                                              SlugGenericRelatedField, ContentTextField)
 from apps.projects.models import Project
 from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
@@ -64,6 +64,7 @@ class MediaWallPostSerializer(WallPostSerializerBase):
 
 class TextWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='text')
+    text = ContentTextField()
 
     class Meta:
         model = TextWallPost

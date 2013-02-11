@@ -2,24 +2,24 @@ import sys
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.template.defaultfilters import urlize, linebreaks_filter
 from django.utils.timesince import timesince
 from django import forms
 from django.utils.encoding import smart_str
 from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
-from rest_framework.fields import Field
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
 # TODO Think about adding a feature to set thumbnail quality based on country.
 #      This would be useful for countries with slow internet connections.
 class SorlImageField(serializers.ImageField):
-
     def __init__(self, source, geometry_string, **kwargs):
         self.crop = kwargs.pop('crop', 'center')
         self.colorspace = kwargs.pop('colorspace', 'RGB')
@@ -30,6 +30,7 @@ class SorlImageField(serializers.ImageField):
     def to_native(self, value):
         if not value:
             return ""
+
         # The get_thumbnail() helper doesn't respect the THUMBNAIL_DEBUG setting
         # so we need to deal with exceptions like is done in the template tag.
         thumbnail = ""
@@ -47,8 +48,7 @@ class SorlImageField(serializers.ImageField):
         return relative_url
 
 
-class TimeSinceField(Field):
-
+class TimeSinceField(serializers.Field):
     def to_native(self, value):
         if not value:
             return ""
@@ -60,8 +60,21 @@ class TimeSinceField(Field):
         return retval
 
 
-class OEmbedField(Field):
+class ContentTextField(serializers.CharField):
+    """
+    A serializer for content text such as text field found in Reaction and TextWallPost. This serializer creates
+    clickable links for text urls and adds <br/> and/or <p></p> in-place of new line characters.
+    """
 
+    def to_native(self, value):
+        if not value:
+            return ""
+
+        # This is equivalent to the django template filter: '{{ value|urlize|linebreaks }}'
+        return linebreaks_filter(urlize(value))
+
+
+class OEmbedField(serializers.Field):
     def __init__(self, source, maxwidth=None, maxheight=None, **kwargs):
         super(OEmbedField, self).__init__(source)
         self.params = getattr(settings, 'MICAWBER_DEFAULT_SETTINGS', {})
@@ -89,14 +102,12 @@ class OEmbedField(Field):
 # Serializers for django_polymorphic models. See WallPost Serializers for an example on how to use this.
 #
 class PolymorphicSerializerOptions(serializers.SerializerOptions):
-
     def __init__(self, meta):
         super(PolymorphicSerializerOptions, self).__init__(meta)
         self.child_models = getattr(meta, 'child_models', None)
 
 
 class PolymorphicSerializer(serializers.Serializer):
-
     _options_class = PolymorphicSerializerOptions
 
     def __init__(self, instance=None, data=None, files=None, context=None, partial=False, **kwargs):
@@ -216,7 +227,6 @@ class ManyRelatedNestedSerializer(serializers.ManyRelatedField):
 
 
 class ObjectBasedSerializerOptions(serializers.SerializerOptions):
-
     def __init__(self, meta):
         super(ObjectBasedSerializerOptions, self).__init__(meta)
         self.child_models = getattr(meta, 'child_models', None)

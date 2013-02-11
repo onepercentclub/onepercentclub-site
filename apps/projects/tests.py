@@ -412,19 +412,19 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Create TextWallPost as a logged in member should be allowed
         response = self.client.post(self.project_text_wallposts_url, {'text': text1, 'project_slug': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
-        self.assertEqual(response.data['text'], text1)
+        self.assertTrue(text1 in response.data['text'])
 
         # Retrieve text wallpost through WallPosts api
         wallpost_detail_url = "{0}{1}".format(self.project_wallposts_url, str(response.data['id']))
         response = self.client.get(wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['text'], text1)
+        self.assertTrue(text1 in response.data['text'])
 
         # Retrieve text wallpost through TextWallPosts api
         wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
         response = self.client.get(wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['text'], text1)
+        self.assertTrue(text1 in response.data['text'])
 
         self.client.logout()
         self.client.login(username=self.another_user.username, password='password')
@@ -433,7 +433,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         wallpost_detail_url = "{0}{1}".format(self.project_wallposts_url, str(response.data['id']))
         response = self.client.get(wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['text'], text1)
+        self.assertTrue(text1 in response.data['text'])
 
         # Create TextWallPost without a text should return an error
         response = self.client.post(self.project_text_wallposts_url, {'text': '', 'project_slug': self.some_project.slug})
@@ -445,14 +445,14 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Create TextWallPost as another logged in member should be allowed
         response = self.client.post(self.project_text_wallposts_url, {'text': text2, 'project_slug': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
-        self.assertEqual(response.data['text'], text2)
+        self.assertTrue(text2 in response.data['text'])
 
         # Update TextWallPost by author is allowed
         text2a = 'I like this project!'
         wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
         response = self.client.put(wallpost_detail_url, {'text': text2a, 'project_slug': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['text'], text2a)
+        self.assertTrue(text2a in response.data['text'])
 
         self.client.logout()
         self.client.login(username=self.some_user.username, password='password')
