@@ -305,15 +305,18 @@ h3 {
 h4 {
   font-size: 18px;
   font-size: 1.125rem;
+  padding: 4px 0 4px 0;
+  padding: 0.25rem 0 0.25rem 0;
+  font-weight: bold;
 }
 
-/* line 73, ../sass/includes/_typography.scss */
+/* line 75, ../sass/includes/_typography.scss */
 h5 {
   font-size: 16px;
   font-size: 1rem;
 }
 
-/* line 75, ../sass/includes/_typography.scss */
+/* line 77, ../sass/includes/_typography.scss */
 .tagline {
   color: #00c051;
   text-align: center;
@@ -323,23 +326,23 @@ h5 {
   margin: 64px 0;
   margin: 4rem 0;
 }
-/* line 80, ../sass/includes/_typography.scss */
+/* line 82, ../sass/includes/_typography.scss */
 .tagline em {
   color: #ff619a;
   font-weight: bold;
   font-style: normal;
 }
 
-/* line 91, ../sass/includes/_typography.scss */
+/* line 93, ../sass/includes/_typography.scss */
 p {
   margin-bottom: 1.25em;
 }
-/* line 93, ../sass/includes/_typography.scss */
+/* line 95, ../sass/includes/_typography.scss */
 p.lead {
   font-weight: bold;
 }
 
-/* line 98, ../sass/includes/_typography.scss */
+/* line 100, ../sass/includes/_typography.scss */
 a {
   color: #00c051;
   text-decoration: none;
@@ -348,54 +351,54 @@ a {
   -o-transition: color 0.2s ease-in, color 0.25s ease-out;
   transition: color 0.2s ease-in, color 0.25s ease-out;
 }
-/* line 103, ../sass/includes/_typography.scss */
+/* line 105, ../sass/includes/_typography.scss */
 a:hover {
   color: #ff619a;
 }
-/* line 107, ../sass/includes/_typography.scss */
+/* line 109, ../sass/includes/_typography.scss */
 a:active {
   color: #ff619a;
   position: relative;
   top: 1px;
 }
 
-/* line 115, ../sass/includes/_typography.scss */
+/* line 117, ../sass/includes/_typography.scss */
 small {
   font-size: 0.85em;
   color: #858585;
 }
 
-/* line 117, ../sass/includes/_typography.scss */
+/* line 119, ../sass/includes/_typography.scss */
 em {
   font-style: italic;
 }
 
-/* line 119, ../sass/includes/_typography.scss */
+/* line 121, ../sass/includes/_typography.scss */
 strong {
   font-weight: bold;
 }
 
-/* line 121, ../sass/includes/_typography.scss */
+/* line 123, ../sass/includes/_typography.scss */
 code, pre {
   font-family: 'courier new', monospace;
 }
 
-/* line 123, ../sass/includes/_typography.scss */
+/* line 125, ../sass/includes/_typography.scss */
 abbr {
   border-bottom: 1px dotted #858585;
 }
 
-/* line 125, ../sass/includes/_typography.scss */
+/* line 127, ../sass/includes/_typography.scss */
 del {
   text-decoration: line-through;
 }
 
-/* line 127, ../sass/includes/_typography.scss */
+/* line 129, ../sass/includes/_typography.scss */
 mark {
   background-color: #ffffb3;
 }
 
-/* line 129, ../sass/includes/_typography.scss */
+/* line 131, ../sass/includes/_typography.scss */
 hr {
   background-color: transparent;
   border: solid #bfbfbf;
@@ -404,72 +407,72 @@ hr {
   margin: 2em 1.25em;
 }
 
-/* line 137, ../sass/includes/_typography.scss */
+/* line 139, ../sass/includes/_typography.scss */
 blockquote {
   color: #454545;
   font-style: italic;
 }
-/* line 141, ../sass/includes/_typography.scss */
+/* line 143, ../sass/includes/_typography.scss */
 blockquote cite {
   color: #5e5e5e;
   display: block;
   font-size: 0.85em;
 }
-/* line 145, ../sass/includes/_typography.scss */
+/* line 147, ../sass/includes/_typography.scss */
 blockquote cite:before {
   content: "\2014 \0020";
 }
 
-/* line 149, ../sass/includes/_typography.scss */
+/* line 151, ../sass/includes/_typography.scss */
 figure {
   display: inline-block;
   max-width: 100%;
 }
-/* line 152, ../sass/includes/_typography.scss */
+/* line 154, ../sass/includes/_typography.scss */
 figure img {
   display: block;
   width: 100%;
 }
-/* line 156, ../sass/includes/_typography.scss */
+/* line 158, ../sass/includes/_typography.scss */
 figure figcaption {
   color: blue;
 }
 
-/* line 161, ../sass/includes/_typography.scss */
+/* line 163, ../sass/includes/_typography.scss */
 ul, ol {
   margin: 0 0 1.25em 1.5em;
 }
 
-/* line 162, ../sass/includes/_typography.scss */
+/* line 164, ../sass/includes/_typography.scss */
 ul {
   list-style: disc;
 }
 
-/* line 163, ../sass/includes/_typography.scss */
+/* line 165, ../sass/includes/_typography.scss */
 ol {
   list-style: decimal;
 }
 
-/* line 165, ../sass/includes/_typography.scss */
+/* line 167, ../sass/includes/_typography.scss */
 dl {
   margin-bottom: 1.25em;
 }
-/* line 167, ../sass/includes/_typography.scss */
+/* line 169, ../sass/includes/_typography.scss */
 dl dt {
   font-weight: bold;
 }
-/* line 168, ../sass/includes/_typography.scss */
+/* line 170, ../sass/includes/_typography.scss */
 dl dd {
   margin-left: 1.25em;
 }
-/* line 170, ../sass/includes/_typography.scss */
+/* line 172, ../sass/includes/_typography.scss */
 dl.advanced dt {
   float: left;
   width: 31.25%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 171, ../sass/includes/_typography.scss */
+/* line 173, ../sass/includes/_typography.scss */
 dl.advanced dd {
   float: left;
   width: 66.66667%;
@@ -1851,6 +1854,37 @@ ul.steps li:hover a {
 ul.steps li.selected a {
   color: #333;
   font-weight: bold;
+}
+
+/* vertical tabs with radio button labels */
+/* line 63, ../sass/includes/_tabs.scss */
+.tabs.vertical {
+  float: left;
+  display: inline-block;
+  width: 25%;
+}
+/* line 67, ../sass/includes/_tabs.scss */
+.tabs.vertical label {
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  font-weight: bold;
+  background-color: white;
+  margin: 0px 0px 8px;
+}
+/* line 74, ../sass/includes/_tabs.scss */
+.tabs.vertical label.selected {
+  background-color: #e9e9e9;
+}
+
+/* line 81, ../sass/includes/_tabs.scss */
+.panes.vertical {
+  float: left;
+  display: inline-block;
+  width: 75%;
+  background-color: #e9e9e9;
+  padding: 8px;
+  min-height: 300px;
 }
 
 /* =========== Panels */
@@ -3387,6 +3421,14 @@ ul.steps li.selected a {
 .donation-frequency .checkbox.checked {
   color: #00c051;
   font-weight: bold;
+}
+
+/* line 255, ../sass/modules/_donation.scss */
+.intro {
+  padding: 0px 0px 8px 28px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 /* =========== For prototyping only */

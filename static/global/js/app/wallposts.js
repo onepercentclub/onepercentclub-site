@@ -62,7 +62,10 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
 
 App.ProjectWallPostFormController = Em.ObjectController.extend({
 
-    content: App.ProjectWallPost.createRecord(),
+    init: function() {
+        this._super();
+        this.set('content', App.ProjectWallPost.createRecord());
+    },
 
     addMediaWallPost: function() {
         var transaction = App.store.transaction();

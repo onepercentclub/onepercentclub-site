@@ -71,7 +71,7 @@ App.PaymentInfo = DS.Model.extend({
 
 App.Payment = DS.Model.extend({
     url: 'fund/payments',
-    payment_method: DS.attr('number'),
+    payment_method: DS.attr('string'),
     amount: DS.attr('number'),
     status: DS.attr('string')
 });
@@ -105,7 +105,7 @@ App.OrderProfileController = Em.ObjectController.extend({
 
     initTransaction: function(){
         var transaction = App.store.transaction();
-        this.set('orderProfileTransaction', transaction);
+        this.set('transaction', transaction);
         transaction.add(this.get('content'));
     }.observes('content'),
 
@@ -117,7 +117,7 @@ App.OrderProfileController = Em.ObjectController.extend({
             // No changes. No need to commit.
             controller.transitionTo('orderPayment');
         }
-        this.get('orderProfileTransaction').commit();
+        this.get('transaction').commit();
         profile.on('didUpdate', function(record) {
             controller.transitionTo('orderPayment');
         });
@@ -128,31 +128,51 @@ App.OrderProfileController = Em.ObjectController.extend({
     }
 });
 
+
 App.CurrentOrderController = Em.ObjectController.extend({
 
+    initTransaction: function(){
+        var order = this.get('content');
+        var transaction = App.get('store').transaction();
+        this.set('transaction', transaction);
+        transaction.add(order);
+    }.observes('content'),
 
-    isMonthly: function(){
-        return this.get('content.recurring') == 'true';
-    }.property('content.recurring'),
+    updateOrder: function(){
+        if (this.get('content.isDirty')) {
+            var controller = this;
+            var order = this.get('content');
+            this.get('transaction').commit();
+            order.on('didUpdate', function(){
+                // Init a new private transaction.
+                controller.initTransaction();
+            });
 
-    isSingle: function(){
-        return this.get('content.recurring') == 'false';
-    }.property('content.recurring'),
+        }
+    }.observes('content.isDirty')
+});
 
-    selectMonthly: function(){
+
+App.OrderPaymentController = Em.ObjectController.extend({
+
+    initTransaction: function(){
         var transaction = App.store.transaction();
+        this.set('transaction', transaction);
         transaction.add(this.get('content'));
-        this.get('content').set('recurring', 'true');
-        transaction.commit();
-    },
+    }.observes('content'),
 
-    selectSingle: function(){
-        var transaction = App.store.transaction();
-        transaction.add(this.get('content'));
-        this.get('content').set('recurring', 'false');
-        transaction.commit();
-    }
-})
+    updateOrderPayment: function(){
+        if (this.get('content.isDirty')) {
+            var controller = this;
+            var orderPayment = this.get('content');
+            this.get('transaction').commit();
+            orderPayment.on('didUpdate', function(){
+                controller.transitionTo('paymentInfo')
+                controller.initTransaction();
+            });
+        }
+    }.observes('content.isDirty')
+});
 
 /*
  Views
@@ -166,7 +186,8 @@ App.CurrentOrderView = Em.View.extend({
 App.OrderProfileView = Em.View.extend({
     templateName: 'order_profile_form',
     tagName: 'form',
-    submit: function(){
+    submit: function(e){
+        e.preventDefault();
         this.controller.updateProfile();
     }
 });
@@ -195,6 +216,11 @@ App.CurrentOrderItemView = Em.View.extend({
 
     change: function(e){
         this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
+    },
+
+    delete: function(item){
+        var controller = this.get('controller');
+        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
     }
 });
 
@@ -227,7 +253,17 @@ App.OrderNavView = Ember.View.extend({
 
 App.OrderPaymentView = Em.View.extend({
     tagName: 'form',
-    templateName: 'order_payment'
+    templateName: 'order_payment',
+
+    // TODO: Find out why this.get('content') isn't available...
+    highlightSelected: function(){
+        // On first load highlight the selected option
+        console.log('hup: ' + this.get('content.payment_method'));
+        this.$('input').parents('label').removeClass('selected');
+        this.$('input[value='+this.get('content.payment_method')+']').parents('label').addClass('selected');
+    }.observes('content.payment_method')
+
+
 });
 
 

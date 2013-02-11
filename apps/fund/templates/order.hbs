@@ -57,6 +57,11 @@
         <ul id="donation-projects">
             {{#each controller}}
                 {{view "App.CurrentOrderItemView" content=this}}
+            {{else}}
+                {{#linkTo projectList}}
+                    <h1>{% trans "Choose a project to make a donation" %}</h1>
+                    <b>{% trans "Select a project from the list and click 'Support this project' to add it to this list." %}</b>
+                {{/linkTo}}
             {{/each}}
         </ul>
 
@@ -66,9 +71,16 @@
 
     <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        <a {{action selectSingle target="view.parentView.controller"}} {{bindAttr class=":checkbox view.parentView.controller.isSingle:checked"}}>{% trans "Single donation" %}</a>
-        <a {{action selectMonthly target="view.parentView.controller"}}  {{bindAttr class=":checkbox view.parentView.controller.isMonthly:checked"}}>{% trans "Monthly donation" %}</a>
-
+        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="view.parentView.controller.content.recurring"}}
+            <label>
+                {{view view.RadioButton value="false"}}
+                {% trans "Single donation" %}
+            </label>
+            <label>
+                {{view view.RadioButton value="true"}}
+                {% trans "Monthly donation" %}
+            </label>
+        {{/view}}
     </fieldset>
 
 {{#linkTo orderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
@@ -79,18 +91,12 @@
 {% tplhandlebars "order_profile_form" %}
     <fieldset>
         {{#if content.isLoaded}}
-            {{#each content.errors.firstName}}
-                <span class="errors">{{this}}</span>
-            {{/each}}
             {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
             {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
             {{view Em.TextField valueBinding="email" placeholder="Email"}}
             {{view Em.TextField valueBinding="address" placeholder="Address"}}
             {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
             {{view Em.TextField valueBinding="city" placeholder="City"}}
-            {{#each content.errors.country}}
-                <span class="errors">{{this}}</span>
-            {{/each}}
             {{view Em.TextField valueBinding="country" placeholder="Country"}}
 
             <button class="right">{% trans 'Next step' %}</button>
@@ -112,21 +118,43 @@
         <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
     </p>
 
-    <a class="remove" {{action "deleteOrderItem" this }}>{% trans "Remove" %}</a>
+    <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "order_payment" %}
 
+    <div class="intro">
+        <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
+        {% trans "Choose the payment method you prefer to donate." %}
+    </div>
+
     <fieldset>
-        {{#view Em.Select valueBinding="paymentMethod"}}
-            <option>{% trans "Payment Method"%}</option>
-            <option value="1">iDeal</option>
-            <option value="2">Direct Debit</option>
-            <option value="3">Credit Card</option>
-        {{/view}}
-        {{#linkTo paymentInfo class="button right"}}{% trans "Next step" %}{{/linkTo}}
+        <div class="tabs vertical">
+            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="payment_method"}}
+
+                <label class="tab">
+                    {{view view.RadioButton value="ideal"}}
+                    {% trans "Use iDeal" %}
+                </label>
+                <label class="tab">
+                    {{view view.RadioButton value="paypal"}}
+                    {% trans "Use Paypal" %}
+                </label>
+                <label class="tab">
+                    {{view view.RadioButton value="credit_card"}}
+                    {% trans "Use Credit Card" %}
+                </label>
+                <label class="tab">
+                    {{view view.RadioButton value="direct_debit"}}
+                    {% trans "Use Direct Debit" %}
+                </label>
+            {{/view}}
+        </div>
+        <div class="panes vertical">
+            {{outlet}}
+        </div>
     </fieldset>
 
 {% endtplhandlebars %}
