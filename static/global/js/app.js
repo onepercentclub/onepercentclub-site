@@ -214,7 +214,7 @@ App.Router.map(function() {
         });
         this.resource('orderProfile', {path: '/details'});
         this.resource('orderPayment', {path: '/payment'}, function(){
-            this.resource('paymentInfo', {path: '/ideal'});
+            this.resource('paymentInfo', {path: '/info'});
         });
     });
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {

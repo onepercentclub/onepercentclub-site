@@ -167,7 +167,8 @@ App.OrderPaymentController = Em.ObjectController.extend({
             var orderPayment = this.get('content');
             this.get('transaction').commit();
             orderPayment.on('didUpdate', function(){
-                this.initTransaction();
+                controller.transitionTo('paymentInfo')
+                controller.initTransaction();
             });
         }
     }.observes('content.isDirty')
@@ -254,11 +255,14 @@ App.OrderPaymentView = Em.View.extend({
     tagName: 'form',
     templateName: 'order_payment',
 
-
-    change: function(e){
+    // TODO: Find out why this.get('content') isn't available...
+    highlightSelected: function(){
+        // On first load highlight the selected option
+        console.log('hup: ' + this.get('content.payment_method'));
         this.$('input').parents('label').removeClass('selected');
-        this.$('input:checked').parents('label').addClass('selected');
-    }.observes()
+        this.$('input[value='+this.get('content.payment_method')+']').parents('label').addClass('selected');
+    }.observes('content.payment_method')
+
 
 });
 
