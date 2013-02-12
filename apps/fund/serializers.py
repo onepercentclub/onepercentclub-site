@@ -38,9 +38,9 @@ class OrderSerializer(serializers.ModelSerializer):
     # source is required because amount is a property on the model.
     amount = serializers.IntegerField(source='amount', read_only=True)
     status = serializers.ChoiceField(read_only=True)
-    payment_methods = serializers.SerializerMethodField(method_name='payment_methods')
+    payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
 
-    def payment_methods(self, obj):
+    def get_payment_methods(self, obj):
         # Cowry payments use minor currency units so we need to convert the Euros to cents.
         amount = int(obj.amount * 100)
         return factory.get_payment_methods(amount=amount, currency='EUR', country='NL', recurring=obj.recurring)
