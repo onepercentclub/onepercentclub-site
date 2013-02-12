@@ -103,6 +103,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     def get_payment_methods(self, amount=None, currency=None, country=None, recurring=None):
         return self.payment_methods.keys()
 
+
     def get_payment_submethods(self, payment_method):
         if payment_method in self.payment_methods.keys():
             config = self.payment_methods[payment_method]
@@ -180,9 +181,30 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             raise DocDataPaymentException('REPLY_ERROR',
                                           'Received unknown reply from DocData. Remote Payment not created.')
+        payment.save()
 
-        # Create and save the redirect url.
-        payment.payment_url = self.get_payment_url(payment)
+
+    def update_payment_object(self, payment, **kwargs):
+        if kwargs.has_key('customer_id'):
+            payment.customer_id = kwargs.get('customer_id ')
+        if kwargs.has_key('email'):
+            payment.email = kwargs.get('email')
+        if kwargs.has_key('first_name'):
+            payment.first_name = kwargs.get('first_name')
+        if kwargs.has_key('last_name'):
+            payment.last_name = kwargs.get('last_name')
+        if kwargs.has_key('street'):
+            payment.street = kwargs.get('street')
+        if kwargs.has_key('house_number'):
+            payment.house_number = kwargs.get('house_number')
+        if kwargs.has_key('postal_code'):
+            payment.postal_code = kwargs.get('postal_code')
+        if kwargs.has_key('city'):
+            payment.city = kwargs.get('city')
+        if kwargs.has_key('country'):
+            payment.country = kwargs.get('country')
+        if kwargs.has_key('language'):
+            payment.language = kwargs.get('language')
         payment.save()
 
 
@@ -218,6 +240,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             redirect_url = 'https://secure.docdatapayments.com/ps/menu'
 
+        # FIXME: Not actually storing payment_url
         payment.payment_url = redirect_url + '?' + urlencode(params)
         payment.save()
         return payment.payment_url
@@ -226,7 +249,3 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     def map_status(self, status):
         # TODO: Translate the specific statuses into something generic we all understand
         return status
-
-
-
-

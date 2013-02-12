@@ -1,5 +1,5 @@
 from apps.cowry_docdata.models import DocDataPayment
-from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
+from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -143,7 +143,7 @@ class OrderLatestItemList(OrderItemList):
         order = self.get_current_order()
         if order and order.payment:
             # FIXME: Doing a docdata call to update status until signals are enabled.
-            payments.check_payment_status(order.payment, update=True)
+            payments.update_payment_status(order.payment)
             # TODO: Have a proper check if donation went ok. Signals!
             order.status = Order.OrderStatuses.pending
             order.save()
@@ -164,7 +164,7 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
         order = self.get_current_order()
         if order and order.payment:
             # FIXME: Doing a docdata call to update status until signals are enabled.
-            payments.check_payment_status(order.payment, update=True)
+            payments.update_payment_status(order.payment)
             # TODO: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
@@ -222,6 +222,11 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
     serializer_class = DocDataOrderProfileSerializer
 
     def get_object(self):
-        # TODO, if authenticated, fill in missing info.
         order = self.get_or_create_current_order()
+        payment = order.payment
+        if payment and self.request.user.is_authenticated():
+            # TODO Add address information.
+            payments.update_payment_object(payment, customer_id=self.request.user.id, email=self.request.user.email,
+                                           first_name=self.request.user.first_name, last_name=self.request.user.last_name,
+                                           language=self.request.user.user_profile.interface_language)
         return order.payment

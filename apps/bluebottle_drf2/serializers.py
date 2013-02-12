@@ -218,8 +218,8 @@ class ManyRelatedNestedSerializer(serializers.ManyRelatedField):
         Nested Serializer.
     """
 
-    def __init__(self, Serializer, *args, **kwargs):
-        self.serializer = Serializer()
+    def __init__(self, serializer_class, *args, **kwargs):
+        self.serializer = serializer_class()
         super(ManyRelatedNestedSerializer, self).__init__(*args, **kwargs)
 
     def to_native(self, obj):
@@ -234,7 +234,7 @@ class ObjectBasedSerializerOptions(serializers.SerializerOptions):
 
 class ObjectBasedSerializer(serializers.Serializer):
     """
-    Redirect to another Serialzer based on the object type
+    Redirect to another Serializer based on the object type
     This is a copy-paste job from PolymorphicSerializer
     """
 

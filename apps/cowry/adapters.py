@@ -15,7 +15,16 @@ class AbstractPaymentAdapter(object):
     def create_payment_object(self, payment_method, payment_submethod, amount, currency):
         raise NotImplementedError
 
-    def update_payment_status(self, payment, update):
+    def update_payment_object(self, payment, **kwargs):
+        raise NotImplementedError
+
+    def create_remote_payment_order(self, payment):
+        raise NotImplementedError
+
+    def get_payment_url(self, payment):
+        raise NotImplementedError
+
+    def update_payment_status(self, payment):
         raise NotImplementedError
 
     # TODO what to do about this method?
