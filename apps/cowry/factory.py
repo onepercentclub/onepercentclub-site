@@ -32,14 +32,13 @@ def create_payment_object(payment_method, amount='', currency='', payment_submet
     payment.save()
     return payment
 
-def get_payment_methods(country=None, amount=None, currency=None):
+def get_payment_methods(amount=None, currency=None, country=None, recurring=None):
    # TODO: Filter this based on country, amount and currency.
    payment_methods = []
    for adapter in _adapters:
-       for method in adapter.get_payment_methods():
+       for method in adapter.get_payment_methods(amount, currency, country, recurring):
            payment_methods.append(method)
    return payment_methods
-
 
 def get_payment_submethods(payment_method):
    # TODO: Move this and above to init.

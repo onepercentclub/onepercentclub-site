@@ -6,7 +6,7 @@ class AbstractPaymentAdapter(object):
     This is the abstract base class that should be used by all Payment Adapters.
     """
 
-    def get_payment_methods(self):
+    def get_payment_methods(self, amount, currency, country, recurring):
         raise NotImplementedError
 
     def get_payment_submethods(self, payment_method):

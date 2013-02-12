@@ -75,7 +75,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         self.paymentPreferences.numberOfDaysToPay = 5
         self.menuPreferences = self.client.factory.create('ns0:menuPreferences')
 
-    def get_payment_methods(self):
+    def get_payment_methods(self, amount=None, currency=None, country=None, recurring=None):
         return self.payment_methods
 
     def get_payment_submethods(self, payment_method):

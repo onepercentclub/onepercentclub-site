@@ -3,7 +3,7 @@ from django.test.testcases import TestCase
 import requests
 
 
-# TODO Only run these tests when online.
+# TODO Only run these tests when online and the merchant account / password is set.
 class DocDataPaymentTests(TestCase):
 
     def setUp(self):

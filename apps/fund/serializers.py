@@ -1,6 +1,7 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
 from apps.fund.models import Order
+from apps.cowry import factory
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, OrderItem
@@ -37,10 +38,14 @@ class OrderSerializer(serializers.ModelSerializer):
     # source is required because amount is a property on the model.
     amount = serializers.IntegerField(source='amount', read_only=True)
     status = serializers.ChoiceField(read_only=True)
+    payment_methods = serializers.SerializerMethodField(method_name='payment_methods')
+
+    def payment_methods(self, obj):
+        return factory.get_payment_methods(amount=int(obj.amount * 100), currency='EUR', country='NL', recurring=obj.recurring)
 
     class Meta:
         model = Order
-        fields = ('id', 'amount', 'status', 'recurring')
+        fields = ('id', 'amount', 'status', 'recurring', 'payment_methods')
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
