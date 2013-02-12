@@ -1,3 +1,4 @@
+# coding=utf-8
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry_docdata.models import DocDataPayment
 from django.conf import settings
@@ -29,9 +30,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     live_api_url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
     test_api_url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
 
-    payment_methods = ('IDEAL', 'MAESTRO', 'MASTERCARD', 'VISA')
-    payemnt_submethods = {'IDEAL':
-                              {
+    ideal_submethod_mapping = {
                                   'Fortis': '0081',
                                   'Rabobank': '0021',
                                   'ING Bank': '0721',
@@ -42,9 +41,24 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                                   'Triodos Bank': '0511',
                                   'Friesland Bank': '0091',
                                   'van Lanschot Bankiers': '0161'
-                              }
-    }
+                              },
 
+    payment_methods = {
+        'IDEAL': {
+            'submethods': ('Fortis', 'Rabobank', 'ING Bank', 'SNS Bank', 'ABN Amro Bank', 'ASN Bank',
+                           'SNS Regio Bank', 'Triodos Bank', 'Friesland Bank', 'van Lanschot Bankiers'),
+            'restricted_countries': ('NL',),
+            'recurring': False,
+        },
+
+        'MAESTRO': {'recurring': False, },
+
+        'MASTERCARD': {'max_amount': 10000,  # €100
+                       'min_amount': 2000,  # €20
+                       'recurring': False, },
+
+        'VISA': {'recurring': False}
+    }
 
     def __init__(self, test=True):
         self.test = test
@@ -75,17 +89,24 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         self.paymentPreferences.numberOfDaysToPay = 5
         self.menuPreferences = self.client.factory.create('ns0:menuPreferences')
 
+
     def get_payment_methods(self, amount=None, currency=None, country=None, recurring=None):
-        return self.payment_methods
+        return self.payment_methods.keys()
 
     def get_payment_submethods(self, payment_method):
-        raise NotImplementedError
+        if payment_method in self.payment_methods.keys():
+            config = self.payment_methods[payment_method]
+            if 'submethods' in config.keys():
+                return config['submethods']
+        return None
 
-    def create_payment_object(self, payment_method='', amount=0, currency='', payment_submethod=''):
+
+    def create_payment_object(self, payment_method='', payment_submethod='', amount=0, currency=''):
         payment = DocDataPayment.objects.create(payment_method=payment_method, payment_submethod=payment_submethod,
-                                             amount=amount, currency=currency)
+                                                amount=amount, currency=currency)
         payment.save()
         return payment
+
 
     def create_remote_payment_order(self, payment):
         if payment.payment_order_key:
@@ -115,7 +136,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         address = self.client.factory.create('ns0:address')
         address.street = payment.street
         address.houseNumber = payment.house_number
-        address.postalCode = payment.postal_code.replace(' ', '')  # TODO No space allowed in postal code. Move to serializer.
+        address.postalCode = payment.postal_code.replace(' ',
+                                                         '')  # TODO No space allowed in postal code. Move to serializer.
         address.city = payment.city
 
         country = self.client.factory.create('ns0:country')
@@ -146,11 +168,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             error = reply['createError']['error']
             raise DocDataPaymentException(error['_code'], error['value'])
         else:
-            raise DocDataPaymentException('REPLY_ERROR', 'Received unknown reply from DocData. Remote Payment not created.')
+            raise DocDataPaymentException('REPLY_ERROR',
+                                          'Received unknown reply from DocData. Remote Payment not created.')
 
         # Create and save the redirect url.
         payment.payment_url = self.get_payment_url(payment)
         payment.save()
+
 
     def get_payment_url(self, payment):
         """ Return the Payment URL """
@@ -187,6 +211,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         payment.payment_url = redirect_url + '?' + urlencode(params)
         payment.save()
         return payment.payment_url
+
 
     def map_status(self, status):
         # TODO: Translate the specific statuses into something generic we all understand

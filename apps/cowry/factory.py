@@ -1,6 +1,5 @@
 from apps.cowry.exceptions import PaymentMethodNotFound
 from django.utils.importlib import import_module
-from .models import Payment
 
 
 def _load_from_module(path):
@@ -26,25 +25,27 @@ def _adapter_for_payment_method(payment_method):
                 return adapter
     raise PaymentMethodNotFound(payment_method)
 
-def create_payment_object(payment_method, amount='', currency='', payment_submethod=''):
+
+def create_payment_object(payment_method, payment_submethod='', amount='', currency=''):
     adapter = _adapter_for_payment_method(payment_method)
-    payment = adapter.create_payment_object(payment_method,  amount, currency, payment_submethod)
+    payment = adapter.create_payment_object(payment_method, payment_submethod, amount, currency)
     payment.save()
     return payment
 
+
 def get_payment_methods(amount=None, currency=None, country=None, recurring=None):
-   # TODO: Filter this based on country, amount and currency.
-   payment_methods = []
-   for adapter in _adapters:
-       for method in adapter.get_payment_methods(amount, currency, country, recurring):
-           payment_methods.append(method)
-   return payment_methods
+    # TODO: Filter this based on country, amount and currency.
+    payment_methods = []
+    for adapter in _adapters:
+        for method in adapter.get_payment_methods(amount, currency, country, recurring):
+            payment_methods.append(method)
+    return payment_methods
+
 
 def get_payment_submethods(payment_method):
-   # TODO: Move this and above to init.
-   for adapter in _adapters:
-       for method in adapter.get_payment_methods():
-           if payment_method == method:
-               return adapter.get_payment_submethods(payment_method)
-               # TODO payment_method doesn't exist.
-   return ''
+    # TODO: Move this and above to init?
+    for adapter in _adapters:
+        for method in adapter.get_payment_methods():
+            if payment_method == method:
+                return adapter.get_payment_submethods(payment_method)
+    raise PaymentMethodNotFound(payment_method)

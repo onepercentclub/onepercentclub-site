@@ -7,7 +7,7 @@ import requests
 class DocDataPaymentTests(TestCase):
 
     def setUp(self):
-        self.payment = factory.create_payment_object('MASTERCARD', 2000, 'EUR')
+        self.payment = factory.create_payment_object('MASTERCARD', amount=2000, currency='EUR')
         self.payment.country = 'NL'
         self.payment.city = 'Amsterdam'
         self.payment.street = 'Dam Square'
