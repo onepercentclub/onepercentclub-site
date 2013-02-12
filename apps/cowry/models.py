@@ -3,40 +3,6 @@ from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from polymorphic import PolymorphicModel
-
-
-# # TODO change to django settings
-# class PaymentMethod(models.Model):
-#     title = models.CharField(max_length=100)
-#     slug = models.CharField(max_length=100, unique=True)
-#     payment_adapter = models.ForeignKey(PaymentAdapter)
-#     costs_static = models.DecimalField(max_digits=12, decimal_places=4, default=0,
-#                                        help_text=_("The set amount that each transaction costs"))
-#     costs_percentage = models.DecimalField(max_digits=4, decimal_places=2, default=0,
-#                                            help_text=_("The percentage that each transaction costs"))
-#     icon = models.ImageField(_("icon"), max_length=255, blank=True, upload_to='payment_icons/',
-#                              help_text=_("Icon for payment method"))
-#     restricted = models.BooleanField(_("Is this payment method restricted to selected countries?"), default=False)
-#     active = models.BooleanField()
-#
-#     def natural_key(self):
-#         return self.slug
-#
-#     def __unicode__(self):
-#         return self.title
-#
-#     class Meta:
-#         # TODO: why are your specifying the db_tables?
-#         db_table = "payments_paymentmethod"
-
-
-# # TODO: I don't think this makes sense.
-# class PaymentMethodCountry(models.Model):
-#     method = models.ForeignKey(PaymentMethod)
-#     country = CountryField()
-#
-#     class Meta:
-#         db_table = "payments_paymentmethod_country"
 from polymorphic.manager import PolymorphicManager
 
 
