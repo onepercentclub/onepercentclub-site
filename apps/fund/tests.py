@@ -20,7 +20,7 @@ class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
         if not amount:
             amount = Decimal('10.00')
 
-        return Donation(user=user, amount=amount, status=status, project=project)
+        return Donation(user=user, amount=amount, project=project)
 
 
 class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
@@ -33,12 +33,12 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
         donation.save()
 
     def test_unicode(self):
-        """ Test to see wheter unicode representations will fail or not. """
+        """ Test to see whether unicode representations will fail or not. """
         project = self.create_project(title="Prima project")
         project.save()
-        donation = self.create_donation(amount = 35, project=project)
+        donation = self.create_donation(amount=35, project=project)
         donation.save()
-        
+
         donation_str = unicode(donation)
         self.assertTrue(donation_str)
         self.assertIn('35', donation_str)
@@ -91,7 +91,8 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['results'][0]['project_slug'], self.some_project.slug)
 
         # Create another Donation
-        response = self.client.post(self.current_donations_url, {'project_slug': self.another_project.slug, 'amount': 12.50})
+        response = self.client.post(self.current_donations_url,
+                                    {'project_slug': self.another_project.slug, 'amount': 12.50})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], Decimal('12.5'))
         self.assertEqual(response.data['project_slug'], self.another_project.slug)
@@ -109,7 +110,8 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['amount'], 150)
 
         # Update the status of the created Donation by owner should be ignored
-        response = self.client.put(donation_detail_url, {'amount': 150, 'project_slug': self.some_project.slug, 'status': 'paid'})
+        response = self.client.put(donation_detail_url,
+                                   {'amount': 150, 'project_slug': self.some_project.slug, 'status': 'paid'})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], 150)
 
@@ -148,12 +150,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
-        self.assertEqual(response.data['results'][0]['amount'],Decimal('12.5'))
+        self.assertEqual(response.data['results'][0]['amount'], Decimal('12.5'))
         self.assertEqual(response.data['results'][0]['project_slug'], self.another_project.slug)
         self.client.logout()
 
     def test_current_order_monthly(self):
-
         # Test setting a recurring order as logged in user.
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_order_url)
