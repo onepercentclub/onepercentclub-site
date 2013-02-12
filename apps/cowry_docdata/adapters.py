@@ -45,19 +45,29 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     payment_methods = {
         'IDEAL': {
+            'name': 'iDeal',
             'submethods': ('Fortis', 'Rabobank', 'ING Bank', 'SNS Bank', 'ABN Amro Bank', 'ASN Bank',
                            'SNS Regio Bank', 'Triodos Bank', 'Friesland Bank', 'van Lanschot Bankiers'),
             'restricted_countries': ('NL',),
             'recurring': False,
         },
 
-        'MAESTRO': {'recurring': False, },
+        'MAESTRO': {
+            'name': 'Maestro',
+            'recurring': False,
+        },
 
-        'MASTERCARD': {'max_amount': 10000,  # €100
-                       'min_amount': 2000,  # €20
-                       'recurring': False, },
+        'MASTERCARD': {
+            'name': 'Mastercard',
+            'max_amount': 10000,  # €100
+            'min_amount': 2000,  # €20
+            'recurring': False,
+        },
 
-        'VISA': {'recurring': False}
+        'VISA': {
+            'name': 'Visa',
+            'recurring': False,
+        }
     }
 
     def __init__(self, test=True):
