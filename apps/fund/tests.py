@@ -77,7 +77,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 35)
         self.assertEqual(response.data['project_slug'], self.some_project.slug)
-        self.assertEqual(response.data['status'], 'started')
 
         # Retrieve the created Donation
         donation_detail_url = "{0}{1}".format(self.current_donations_url, response.data['id'])
@@ -113,7 +112,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.put(donation_detail_url, {'amount': 150, 'project_slug': self.some_project.slug, 'status': 'paid'})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], 150)
-        self.assertEqual(response.data['status'], 'started')
 
         # Delete a donation should work the list should have one donation now
         response = self.client.delete(donation_detail_url)
@@ -137,7 +135,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 71)
         self.assertEqual(response.data['project_slug'], self.some_project.slug)
-        self.assertEqual(response.data['status'], 'started')
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
 
