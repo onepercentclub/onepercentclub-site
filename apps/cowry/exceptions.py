@@ -10,9 +10,9 @@ class PaymentAdapterNotSet(Exception):
     pass
 
 
-class PaymentProcessNotSet(Exception):
+class PaymentAdapterSettingsNotFound(Exception):
     pass
 
 
-class PaymentAdapterSettingsNotFound(Exception):
+class PaymentMethodNotFound(Exception):
     pass

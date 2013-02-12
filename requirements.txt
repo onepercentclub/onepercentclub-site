@@ -87,11 +87,8 @@ django-templatetag-handlebars
 # Cowry uses django countries
 django_countries
 
-# Lxml for Cowry
-lxml
-
-# Pycurl for secure calls to other servers in Cowry
-pycurl
-
 # Soap library for cowry
 suds-jurko==0.4.1.jurko.4
+
+# Used in cowry_docdata tests.
+requests==1.1.0
