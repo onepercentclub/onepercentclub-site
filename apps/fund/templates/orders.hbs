@@ -23,7 +23,7 @@
                 {{#linkTo currentOrderItemList}}Support{{/linkTo}}
             {{/view}}
             {{#view App.OrderNavView classNames="details"}}
-                {{#linkTo orderProfile}}{% trans "Details" %}{{/linkTo}}
+                {{#linkTo paymentOrderProfile}}{% trans "Details" %}{{/linkTo}}
             {{/view}}
             {{#view App.OrderNavView classNames="profile"}}
                 {{#linkTo orderPayment}}{% trans "Profile" %}{{/linkTo}}
@@ -83,21 +83,34 @@
         {{/view}}
     </fieldset>
 
-{{#linkTo orderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+{{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "order_profile_form" %}
+{% tplhandlebars "payment_order_profile" %}
     <fieldset>
         {{#if content.isLoaded}}
-            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
-            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
-            {{view Em.TextField valueBinding="email" placeholder="Email"}}
-            {{view Em.TextField valueBinding="address" placeholder="Address"}}
-            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
-            {{view Em.TextField valueBinding="city" placeholder="City"}}
-            {{view Em.TextField valueBinding="country" placeholder="Country"}}
+            {{#each errors.first_name}}<span class="error">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="firstName" placeholder="First name" classBinding="errors.first_name.length:error"}}
+
+            {{#each errors.last_name}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="lastName" placeholder="Last name" classBinding="errors.last_name.length:error"}}
+
+            {{#each errors.email}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="email" placeholder="Email" classBinding="errors.email.length:error"}}
+
+            {{#each errors.street}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="street" placeholder="Street + housenumber" classBinding="errors.street.length:error"}}
+
+            {{#each errors.postal_code}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="postalCode" placeholder="Postal code" classBinding="errors.postal_code.length:error"}}
+
+            {{#each errors.city}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
+
+            {{#each errors.country}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
 
             <button class="right">{% trans 'Next step' %}</button>
         {{/if}}

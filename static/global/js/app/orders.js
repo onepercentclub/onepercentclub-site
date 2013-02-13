@@ -10,15 +10,15 @@ App.Order = DS.Model.extend({
 });
 
 
-App.OrderProfile = DS.Model.extend({
-    url: 'fund/orders/profiles',
+App.PaymentOrderProfile = DS.Model.extend({
+    url: 'fund/paymentorderprofiles',
     firstName: DS.attr('string'),
     lastName: DS.attr('string'),
     email: DS.attr('string'),
-    address: DS.attr('string'),
+    street: DS.attr('string'),
     city: DS.attr('string'),
     country: DS.attr('string'),
-    zipCode: DS.attr('string')
+    postalCode: DS.attr('string')
 });
 
 App.OrderItem = DS.Model.extend({
@@ -101,7 +101,7 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 
 
 
-App.OrderProfileController = Em.ObjectController.extend({
+App.PaymentOrderProfileController = Em.ObjectController.extend({
 
     initTransaction: function(){
         var transaction = App.store.transaction();
@@ -123,7 +123,8 @@ App.OrderProfileController = Em.ObjectController.extend({
         });
         // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
-            //profile.set('errors', record.get('errors'));
+            controller.get('content').set('errors', record.get('errors'));
+
         });
     }
 });
@@ -183,8 +184,8 @@ App.CurrentOrderView = Em.View.extend({
 });
 
 
-App.OrderProfileView = Em.View.extend({
-    templateName: 'order_profile_form',
+App.PaymentOrderProfileView = Em.View.extend({
+    templateName: 'payment_order_profile',
     tagName: 'form',
     submit: function(e){
         e.preventDefault();
