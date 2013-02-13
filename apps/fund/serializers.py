@@ -46,7 +46,7 @@ class OrderSerializer(serializers.ModelSerializer):
     def get_payment_methods(self, obj):
         # Cowry payments use minor currency units so we need to convert the Euros to cents.
         amount = int(obj.amount * 100)
-        return factory.get_payment_methods(amount=amount, currency='EUR', country='NL', recurring=obj.recurring)
+        return factory.get_payment_method_ids(amount=amount, currency='EUR', country='NL', recurring=obj.recurring)
 
     class Meta:
         model = Order
