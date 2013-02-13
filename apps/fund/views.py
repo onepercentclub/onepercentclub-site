@@ -1,7 +1,7 @@
 from apps.cowry_docdata.models import DocDataPayment
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
 from django.contrib.contenttypes.models import ContentType
-from apps.cowry import payments
+from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
 from rest_framework import status
@@ -10,7 +10,7 @@ from rest_framework import response
 from rest_framework import generics
 from .models import Donation, OrderItem, Order
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer)
-
+from .utils import get_order_payment_methods
 
 # API views
 
@@ -241,6 +241,7 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
             payment.email = self.request.user.email
             payment.first_name = self.request.user.first_name
             payment.last_name = self.request.user.last_name
+
             profile = self.request.user.get_profile()
             address = profile.address
 
@@ -249,7 +250,24 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
             payment.city = address.city
             payment.postal_code = address.zip_code
             payment.country = address.country.alpha2_code
-
         else:
             payment.language = self.request.LANGUAGE_CODE
         return order.payment
+
+
+class PaymentMethodCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+    """
+    Payment profile information.
+    """
+    serializer_class = DocDataPaymentMethodSerializer
+
+    def get_object(self):
+        order = self.get_or_create_current_order()
+        # FIXME Very much a work in progress.
+        # if not order.payment.payment_method:
+        #     payment_methods = get_order_payment_methods(order)
+        #     if payment_methods:
+        #         pm = payment_methods[0]
+        #     else:
+        #         return None
+        # return payment_method_object

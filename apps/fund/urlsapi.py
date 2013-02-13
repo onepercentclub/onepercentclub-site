@@ -17,16 +17,7 @@ urlpatterns = patterns('',
     surl(r'^orders/current/donations/<pk:#>$', OrderDonationDetail.as_view(), name='fund-order-current-donation-detail'),
 
     url(r'^paymentorderprofiles/current$', PaymentOrderProfileCurrent.as_view(), name='fund-payment-order-profile-current'),
+    url(r'^paymentmethods/current$', PaymentMethodCurrent.as_view(), name='fund-payment-order-profile-current'),
 
-    # url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='fund-paymentmethod-list'),
-    # surl(r'^paymentmethods/<pk:#>$', PaymentMethodDetail.as_view(), name='fund-paymentmethod-detail'),
-    #
-    # url(r'^payments/$', PaymentList.as_view(), name='fund-payment-list'),
-    # surl(r'^payments/<pk:#>$', PaymentDetail.as_view(), name='fund-payment-detail'),
-    # url(r'^payments/current$', CurrentPayment.as_view(), name='fund-payment-current'),
-
-    # url(r'^paymentinfo/$', PaymentInfoList.as_view(), name='fund-paymentinfo-list'),
-    # surl(r'^paymentinfo/<pk:#>$', PaymentInfoDetail.as_view(), name='fund-paymentinfo-detail'),
-    # url(r'^paymentinfo/current$', CurrentPaymentInfo.as_view(), name='fund-payment-order-profile-current'),
 
 )

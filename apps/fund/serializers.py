@@ -1,10 +1,10 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
-from apps.fund.models import Order
-from apps.cowry import factory
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, OrderItem
+from .models import Order
+from .utils import get_order_payment_methods
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -44,9 +44,7 @@ class OrderSerializer(serializers.ModelSerializer):
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
 
     def get_payment_methods(self, obj):
-        # Cowry payments use minor currency units so we need to convert the Euros to cents.
-        amount = int(obj.amount * 100)
-        return factory.get_payment_methods(amount=amount, currency='EUR', country='NL', recurring=obj.recurring)
+        return get_order_payment_methods(obj)
 
     class Meta:
         model = Order

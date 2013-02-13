@@ -2,7 +2,8 @@ from apps.cowry.models import Payment
 from django.db import models
 from django.utils.translation import ugettext as _
 from djchoices.choices import DjangoChoices, ChoiceItem
-
+from polymorphic.manager import PolymorphicManager
+from polymorphic.polymorphic_model import PolymorphicModel
 
 # DocData Payment Order Statuses
 # ==============================
@@ -92,22 +93,23 @@ class DocDataPayment(Payment):
 #              bank because of a direct debit that could not be collected or was collected by mistake.
 
 
-class PaymentMethodStatuses(DjangoChoices):
-    new = ChoiceItem('new', label=_("New"))
-    started = ChoiceItem('started', label=_("Started"))
-    paid = ChoiceItem('paid', label=_("Paid"))
-    canceled = ChoiceItem('canceled', label=_("Cancelled"))
-    refund = ChoiceItem('refund', label=_("Refund"))
-    chargeback = ChoiceItem('chargeback', label=_("Chargeback"))
+class DocDataPaymentMethod(PolymorphicModel):
+    class PaymentMethodStatuses(DjangoChoices):
+        new = ChoiceItem('new', label=_("New"))
+        started = ChoiceItem('started', label=_("Started"))
+        paid = ChoiceItem('paid', label=_("Paid"))
+        canceled = ChoiceItem('canceled', label=_("Cancelled"))
+        refund = ChoiceItem('refund', label=_("Refund"))
+        chargeback = ChoiceItem('chargeback', label=_("Chargeback"))
 
-
-class DocDataWebMenuPaymentMethod(models.Model):
     status = models.CharField(_("status"), max_length=15, choices=PaymentMethodStatuses.choices, default=PaymentMethodStatuses.new)
     docdatapayment = models.ForeignKey(DocDataPayment)
+    objects = PolymorphicManager()
+
+
+class DocDataWebMenu(DocDataPaymentMethod):
     payment_url = models.URLField(max_length=500, blank=True)
 
 
-# TODO: Implement this. It's here just to give an idea of future architecture.
-# class DocDataWebDirectDirectDebitPaymentMethod(models.Model):
-#     docdatapaymentorder = models.ForeignKey(DocDataPayment)
-#     bank_account = models.CharField(max_length=20, default='', blank=True)
+class DocDataWebDirectDirectDebit(DocDataPaymentMethod):
+    bank_account = models.CharField(max_length=10, default='', blank=True)
