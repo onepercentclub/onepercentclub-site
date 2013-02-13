@@ -34,12 +34,6 @@ class Donation(models.Model):
     def __unicode__(self):
         return str(self.id) + ' : ' + self.project.title + ' : EUR ' + str(self.amount)
 
-    # TODO: This needs to be re-implemented in the view.
-    # def delete(self, using=None):
-    #     # Tidy up! Delete related OrderItem, if any
-    #     OrderItem.objects.filter(object_id=self.id,content_type=ContentType.objects.get_for_model(Donation)).delete()
-    #     return super(Donation, self).delete()
-
 
 class Order(models.Model):
     """

@@ -132,6 +132,7 @@ class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
         return order.orderitem_set.all()
 
 
+# Note: Not currently being used (but the OrderLatestDontationList is being used).
 class OrderLatestItemList(OrderItemList):
     """
     This is the return url where the user should be directed to after the payment process is completed
@@ -213,6 +214,16 @@ class OrderDonationDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIVi
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
         queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
         return queryset
+
+    def destroy(self, request, *args, **kwargs):
+        # Tidy up! Delete related OrderItem, if any.
+        obj = self.get_object()
+        ct = ContentType.objects.get_for_model(obj)
+        order_item = OrderItem.objects.filter(object_id=obj.id, content_type=ct)
+        if order_item:
+            order_item.delete()
+        obj.delete()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
