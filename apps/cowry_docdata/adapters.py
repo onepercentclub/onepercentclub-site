@@ -1,4 +1,5 @@
 # coding=utf-8
+import sys
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry_docdata.models import DocDataPayment
 from django.conf import settings
@@ -46,24 +47,24 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'submethods': ('Fortis', 'Rabobank', 'ING Bank', 'SNS Bank', 'ABN Amro Bank', 'ASN Bank',
                            'SNS Regio Bank', 'Triodos Bank', 'Friesland Bank', 'van Lanschot Bankiers'),
             'restricted_countries': ('NL',),
-            'recurring': False,
+            'supports_recurring': False,
         },
 
         'MAESTRO': {
             'name': 'Maestro',
-            'recurring': False,
+            'supports_recurring': False,
         },
 
         'MASTERCARD': {
             'name': 'Mastercard',
             'max_amount': 10000,  # €100
             'min_amount': 2000,  # €20
-            'recurring': False,
+            'supports_recurring': False,
         },
 
         'VISA': {
             'name': 'Visa',
-            'recurring': False,
+            'supports_recurring': False,
         }
     }
 
@@ -99,9 +100,32 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         self.menuPreferences = self.client.factory.create('ns0:menuPreferences')
 
 
-    def get_payment_methods(self, amount=None, currency=None, country=None, recurring=None):
-        # TODO: Implement the restrictions by amount etc,
-        return self.payment_methods.keys()
+    def get_payment_methods(self, amount=None, currency='', country='', recurring=None):
+        # TODO: This code is probably generally useful in the cowry base adapter.
+        available_methods = []
+        for pm in self.payment_methods.iterkeys():
+            config = self.payment_methods[pm]
+            max_amount = config.get('max_amount', sys.maxint)
+            min_amount = config.get('min_amount', 0)
+            restricted_currencies = config.get('restricted_currencies', (currency,))
+            restricted_countries = config.get('restricted_countries', (country,))
+            supports_recurring = config.get('supports_recurring', True)
+
+            add_pm = True
+            if amount:
+                if amount > max_amount or amount < min_amount:
+                    add_pm = False
+            if country not in restricted_countries:
+                add_pm = False
+            if currency not in restricted_currencies:
+                add_pm = False
+            if recurring and not supports_recurring:
+                add_pm = False
+
+            if add_pm:
+                available_methods.append(pm)
+
+        return available_methods
 
 
     def get_payment_submethods(self, payment_method):
