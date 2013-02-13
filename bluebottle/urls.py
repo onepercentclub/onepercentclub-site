@@ -44,6 +44,7 @@ urlpatterns += patterns('',
     url(r'^i18n/api/members/', include('apps.accounts.urlsapi')),
     url(r'^i18n/api/wallposts/', include('apps.wallposts.urlsapi')),
     url(r'^i18n/api/fund/', include('apps.fund.urlsapi')),
+    url(r'^i18n/api/utils/', include('apps.bluebottle_utils.urlsapi')),
 
     # Needed for the self-documenting API in Django Rest Framework
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

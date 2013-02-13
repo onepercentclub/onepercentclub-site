@@ -3,6 +3,7 @@ from django.contrib.contenttypes.generic import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
+from django_countries import CountryField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from polymorphic.manager import PolymorphicManager
 from polymorphic.polymorphic_model import PolymorphicModel
@@ -55,7 +56,7 @@ class DocDataPayment(Payment):
     street = models.CharField(max_length=200, default='')
     postal_code = models.CharField(max_length=20, default='')
     city = models.CharField(max_length=200, default='')
-    country = models.CharField(max_length=2, default='')
+    country = CountryField()
     language = models.CharField(max_length=2, default='en')
 
     @property

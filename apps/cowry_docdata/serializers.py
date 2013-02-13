@@ -8,6 +8,7 @@ class DocDataOrderProfileSerializer(serializers.ModelSerializer):
     # # TODO Generate country list from docdata api and use ChoiceField.
     # country = serializers.CharField(required=True)
     id = serializers.Field(source='payment_ptr_id')
+    country = serializers.CharField(required=True)
 
     class Meta:
         model = DocDataPayment
@@ -18,7 +19,7 @@ class DocDataPaymentMethodSerializerBase(serializers.ModelSerializer):
     id = serializers.Field(source='docdatapaymentmethod_ptr_id')
 
     class Meta:
-        fields = ('id',)
+        fields = ('id', )
 
 
 class DocDataWebMenuSerializer(DocDataPaymentMethodSerializerBase):

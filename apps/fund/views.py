@@ -268,6 +268,7 @@ class PaymentMethodCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                 payment_methods = get_order_payment_methods(order)
             if payment_methods:
                 order.payment.payment_method = payment_methods[0]
+                order.payment.save()
             else:
                 return None
             # FIXME: Use cowry factory for this?
@@ -276,4 +277,5 @@ class PaymentMethodCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                 payment_method_object = DocDataWebDirectDirectDebit(docdatapayment=order.payment)
             else:
                 payment_method_object = DocDataWebMenu(docdatapayment=order.payment)
-        return payment_method_object
+            payment_method_object.save()
+        return order.payment.latest_paymentmethod
