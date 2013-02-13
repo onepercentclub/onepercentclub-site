@@ -113,7 +113,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
             add_pm = True
             if amount:
-                if amount >= max_amount or amount <= min_amount:
+                if amount > max_amount or amount < min_amount:
                     add_pm = False
             if country not in restricted_countries:
                 add_pm = False
