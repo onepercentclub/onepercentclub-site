@@ -1,6 +1,8 @@
 from apps.cowry.models import Payment
+from django.contrib.contenttypes.generic import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext as _
+from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from polymorphic.manager import PolymorphicManager
 from polymorphic.polymorphic_model import PolymorphicModel
@@ -56,6 +58,13 @@ class DocDataPayment(Payment):
     country = models.CharField(max_length=2, default='')
     language = models.CharField(max_length=2, default='en')
 
+    @property
+    def latest_paymentmethod(self):
+        if self.docdatapaymentmethod_set.all():
+            return self.docdatapaymentmethod_set.all()[0]
+        return None
+
+
 
 # DocData Payment Method Statuses
 # ===============================
@@ -106,10 +115,17 @@ class DocDataPaymentMethod(PolymorphicModel):
     docdatapayment = models.ForeignKey(DocDataPayment)
     objects = PolymorphicManager()
 
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
+
+
 
 class DocDataWebMenu(DocDataPaymentMethod):
     payment_url = models.URLField(max_length=500, blank=True)
 
 
 class DocDataWebDirectDirectDebit(DocDataPaymentMethod):
-    bank_account = models.CharField(max_length=10, default='', blank=True)
+    bank_account_number = models.CharField(max_length=10, default='', blank=True)
+    bank_account_name = models.CharField(max_length=100, default='', blank=True)
+    bank_account_city = models.CharField(max_length=100, default='', blank=True)
+

@@ -1,4 +1,4 @@
-from apps.cowry_docdata.models import DocDataPayment
+from apps.cowry_docdata.models import DocDataPayment, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
@@ -263,11 +263,17 @@ class PaymentMethodCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         order = self.get_or_create_current_order()
-        # FIXME Very much a work in progress.
-        # if not order.payment.payment_method:
-        #     payment_methods = get_order_payment_methods(order)
-        #     if payment_methods:
-        #         pm = payment_methods[0]
-        #     else:
-        #         return None
-        # return payment_method_object
+        if not order.payment.latest_paymentmethod:
+            if not order.payment.payment_method:
+                payment_methods = get_order_payment_methods(order)
+            if payment_methods:
+                order.payment.payment_method = payment_methods[0]
+            else:
+                return None
+            # FIXME: Use cowry factory for this?
+            # TODO: Hardcoded stuff is fun! should fix this though.
+            if order.recurring:
+                payment_method_object = DocDataWebDirectDirectDebit(docdatapayment=order.payment)
+            else:
+                payment_method_object = DocDataWebMenu(docdatapayment=order.payment)
+        return payment_method_object

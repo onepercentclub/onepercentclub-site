@@ -49,3 +49,4 @@ def get_payment_submethods(payment_method):
             if payment_method == pm:
                 return adapter.get_payment_submethods(payment_method)
     raise PaymentMethodNotFound(payment_method)
+

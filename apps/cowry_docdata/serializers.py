@@ -7,11 +7,30 @@ from .models import DocDataPayment
 class DocDataOrderProfileSerializer(serializers.ModelSerializer):
     # # TODO Generate country list from docdata api and use ChoiceField.
     # country = serializers.CharField(required=True)
-    serializers.Field(source='payment_ptr_id')
+    id = serializers.Field(source='payment_ptr_id')
 
     class Meta:
         model = DocDataPayment
         fields = ('id', 'first_name', 'last_name', 'email', 'street', 'city', 'postal_code', 'country')
+
+
+class DocDataPaymentMethodSerializerBase(serializers.ModelSerializer):
+    id = serializers.Field(source='docdatapaymentmethod_ptr_id')
+
+    class Meta:
+        fields = ('id',)
+
+
+class DocDataWebMenuSerializer(DocDataPaymentMethodSerializerBase):
+    class Meta:
+        model = DocDataWebMenu
+        fields = DocDataPaymentMethodSerializerBase.Meta.fields + ('payment_url',)
+
+
+class DocDataWebDirectDirectDebitSerializer(DocDataPaymentMethodSerializerBase):
+    class Meta:
+        model = DocDataWebDirectDirectDebit
+        fields = DocDataPaymentMethodSerializerBase.Meta.fields + ('bank_account_number', 'bank_account_name', 'bank_account_city')
 
 
 class DocDataPaymentMethodSerializer(PolymorphicSerializer):
@@ -20,20 +39,3 @@ class DocDataPaymentMethodSerializer(PolymorphicSerializer):
             (DocDataWebMenu, DocDataWebMenuSerializer),
             (DocDataWebDirectDirectDebit, DocDataWebDirectDirectDebitSerializer),
         )
-
-
-class DocDataPaymentMethodSerializerBase(PolymorphicSerializer):
-    class Meta:
-        fields = ('id', 'name', 'payment_submethod', 'payment_submethods')
-
-
-class DocDataWebMenuSerializer(serializers.Serializer):
-    class Meta:
-        model = DocDataWebMenu
-        fields = DocDataPaymentMethodSerializerBase.Meta.fields + ('payment_url',)
-
-
-class DocDataWebDirectDirectDebitSerializer(serializers.Serializer):
-    class Meta:
-        model = DocDataWebDirectDirectDebit
-        fields = DocDataPaymentMethodSerializerBase.Meta.fields + ('bank_account',)

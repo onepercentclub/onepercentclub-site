@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, url
 from surlex.dj import surl
 from .views import (FundApi, OrderList, OrderDetail, OrderCurrent, OrderItemList, OrderDonationList,
-                    OrderDonationDetail, OrderLatestDonationList, PaymentOrderProfileCurrent, OrderLatestItemList)
+                    OrderDonationDetail, OrderLatestDonationList, PaymentOrderProfileCurrent, OrderLatestItemList,
+                    PaymentMethodCurrent)
 
 
 urlpatterns = patterns('',
