@@ -115,11 +115,11 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
         // We should at least have an email address
         if (!profile.get('isDirty') && profile.get('email')) {
             // No changes. No need to commit.
-            controller.transitionTo('orderPayment');
+            controller.transitionTo('currentOrder.payment');
         }
         this.get('transaction').commit();
         profile.on('didUpdate', function(record) {
-            controller.transitionTo('orderPayment');
+            controller.transitionTo('currentOrder.payment');
         });
         // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
@@ -154,9 +154,12 @@ App.CurrentOrderController = Em.ObjectController.extend({
 });
 
 
-App.OrderPaymentController = Em.ObjectController.extend({
+    App.CurrentOrderPaymentController = Em.ObjectController.extend({
 
-    initTransaction: function(){
+    /*
+     TODO: Figure out how to make this work.
+
+     initTransaction: function(){
         var transaction = App.store.transaction();
         this.set('transaction', transaction);
         transaction.add(this.get('content'));
@@ -173,6 +176,7 @@ App.OrderPaymentController = Em.ObjectController.extend({
             });
         }
     }.observes('content.isDirty')
+    */
 });
 
 /*
@@ -252,23 +256,23 @@ App.OrderNavView = Ember.View.extend({
 });
 
 
-App.OrderPaymentView = Em.View.extend({
+App.CurrentOrderPaymentView = Em.View.extend({
     tagName: 'form',
     templateName: 'order_payment',
 
-    // TODO: Find out why this.get('content') isn't available...
+    /*
+    TODO: Figure out how to make this work
     highlightSelected: function(){
         // On first load highlight the selected option
         console.log('hup: ' + this.get('content.payment_method'));
         this.$('input').parents('label').removeClass('selected');
         this.$('input[value='+this.get('content.payment_method')+']').parents('label').addClass('selected');
     }.observes('content.payment_method')
-
-
+    */
 });
 
 
-App.PaymentInfoView = Em.View.extend({
+App.PaymentMethodView = Em.View.extend({
     tagName: 'form',
-    templateName: 'payment_info'
+    templateName: 'payment_method'
 });

@@ -26,10 +26,11 @@
                 {{#linkTo paymentOrderProfile}}{% trans "Details" %}{{/linkTo}}
             {{/view}}
             {{#view App.OrderNavView classNames="profile"}}
-                {{#linkTo orderPayment}}{% trans "Profile" %}{{/linkTo}}
+                <a>{% trans "Profile" %}</a>
             {{/view}}
+
             {{#view App.OrderNavView classNames="payment"}}
-                {{#linkTo paymentInfo}}{% trans "Pay" %}{{/linkTo}}
+                {{#linkTo currentOrder.payment}}{% trans "Pay" %}{{/linkTo}}
             {{/view}}
         </ul>
 
@@ -146,11 +147,6 @@
     <fieldset>
         <div class="tabs vertical">
             {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="payment_method"}}
-
-                <label class="tab">
-                    {{view view.RadioButton value="ideal"}}
-                    {% trans "Use iDeal" %}
-                </label>
                 <label class="tab">
                     {{view view.RadioButton value="paypal"}}
                     {% trans "Use Paypal" %}
@@ -173,7 +169,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "payment_info" %}
+{% tplhandlebars "payment_method" %}
 
     <fieldset>
         {{#if content.isLoaded}}

@@ -213,8 +213,8 @@ App.Router.map(function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
         this.resource('paymentOrderProfile', {path: '/details'});
-        this.resource('orderPayment', {path: '/payment'}, function(){
-            this.resource('paymentInfo', {path: '/info'});
+        this.route('payment', {path: '/payment'}, function(){
+            //this.resource('paymentMethod', {path: '/method'});
         });
     });
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
@@ -336,25 +336,28 @@ App.CurrentOrderItemListAddRoute = Ember.Route.extend(App.SlugRouter, {
 });
 
 
-App.OrderPaymentRoute = Ember.Route.extend({
-    model: function(params) {
-        return App.Payment.find('current');
-    },
+App.CurrentOrderPaymentRoute = Ember.Route.extend({
+//    model: function(params) {
+//        return App.Order.find('current');
+//    },
 
-    setupController: function(controller, orderpayment) {
-        controller.set('content', orderpayment);
+//    setupController: function(controller, order) {
+//        controller.set('content', order);
+//    }
+    setupController: function(controller) {
+        //controller.set('content', order);
     }
 
 });
 
 
-App.PaymentInfoRoute = Ember.Route.extend({
+App.PaymentMethodRoute = Ember.Route.extend({
     model: function(params) {
-        return App.PaymentInfo.find('current');
+        return App.PaymentMethod.find('current');
     },
 
-    setupController: function(controller, paymentinfo) {
-        controller.set('content', paymentinfo);
+    setupController: function(controller, paymentmethod) {
+        controller.set('content', paymentmethod);
     }
 
 });

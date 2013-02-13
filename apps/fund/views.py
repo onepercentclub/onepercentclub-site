@@ -257,7 +257,7 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
 
 class PaymentMethodCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     """
-    Payment profile information.
+    Payment method information.
     """
     serializer_class = DocDataPaymentMethodSerializer
 
@@ -279,3 +279,6 @@ class PaymentMethodCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                 payment_method_object = DocDataWebMenu(docdatapayment=order.payment)
             payment_method_object.save()
         return order.payment.latest_paymentmethod
+
+
+
