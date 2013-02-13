@@ -228,5 +228,5 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
             # TODO Add address information.
             payments.update_payment_object(payment, customer_id=self.request.user.id, email=self.request.user.email,
                                            first_name=self.request.user.first_name, last_name=self.request.user.last_name,
-                                           language=self.request.user.user_profile.interface_language)
+                                           language=self.request.user.userprofile.interface_language)
         return order.payment

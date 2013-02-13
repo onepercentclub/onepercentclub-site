@@ -10,8 +10,8 @@ App.Order = DS.Model.extend({
 });
 
 
-App.OrderProfile = DS.Model.extend({
-    url: 'fund/orders/profiles',
+App.PaymentOrderProfile = DS.Model.extend({
+    url: 'fund/paymentorderprofiles',
     firstName: DS.attr('string'),
     lastName: DS.attr('string'),
     email: DS.attr('string'),
@@ -101,7 +101,7 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 
 
 
-App.OrderProfileController = Em.ObjectController.extend({
+App.PaymentOrderProfileController = Em.ObjectController.extend({
 
     initTransaction: function(){
         var transaction = App.store.transaction();
@@ -183,8 +183,8 @@ App.CurrentOrderView = Em.View.extend({
 });
 
 
-App.OrderProfileView = Em.View.extend({
-    templateName: 'order_profile_form',
+App.PaymentOrderProfileView = Em.View.extend({
+    templateName: 'payment_order_profile',
     tagName: 'form',
     submit: function(e){
         e.preventDefault();
