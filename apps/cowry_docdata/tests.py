@@ -10,8 +10,7 @@ class DocDataPaymentTests(TestCase):
         self.payment = factory.create_payment_object('MASTERCARD', amount=2000, currency='EUR')
         self.payment.country = 'NL'
         self.payment.city = 'Amsterdam'
-        self.payment.street = 'Dam Square'
-        self.payment.house_number = "N/A"
+        self.payment.street = 'Dam'
         self.payment.postal_code = '1001AM'
         self.payment.first_name = 'Nijntje'
         self.payment.last_name = 'het Konijnje'
