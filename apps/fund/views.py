@@ -230,12 +230,14 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
             payment.email = self.request.user.email
             payment.first_name = self.request.user.first_name
             payment.last_name = self.request.user.last_name
-            payment.language = self.request.user.get_profile().interface_language
+            profile = self.request.user.get_profile()
+            address = profile.address
 
-            payment.street = self.request.user.get_profile().address.line1
-            payment.city = self.request.user.get_profile().address.city
-            payment.postal_code = self.request.user.get_profile().address.zip_code
-            payment.country = self.request.user.get_profile().address.country.alpha2_code
+            payment.language = profile.interface_language
+            payment.street = address.line1
+            payment.city = address.city
+            payment.postal_code = address.zip_code
+            payment.country = address.country.alpha2_code
 
         else:
             payment.language = self.request.LANGUAGE_CODE
