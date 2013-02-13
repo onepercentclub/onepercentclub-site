@@ -146,7 +146,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         # Billing information.
         address = self.client.factory.create('ns0:address')
         address.street = payment.street
-        address.houseNumber = payment.house_number
+        address.houseNumber = 'N/A'
         address.postalCode = payment.postal_code.replace(' ',
                                                          '')  # TODO No space allowed in postal code. Move to serializer.
         address.city = payment.city
@@ -164,7 +164,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             payment.merchant_order_reference = str(timezone.now())
         else:
             # TODO: Make a setting for the prefix
-            payment.merchant_order_reference = 'BB-' +  str(payment.id)
+            payment.merchant_order_reference = 'BB-' + str(payment.id)
 
         # Save in case there's an error creating the payment order.
         payment.save()
@@ -181,30 +181,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             raise DocDataPaymentException('REPLY_ERROR',
                                           'Received unknown reply from DocData. Remote Payment not created.')
-        payment.save()
-
-
-    def update_payment_object(self, payment, **kwargs):
-        if kwargs.has_key('customer_id'):
-            payment.customer_id = kwargs.get('customer_id ')
-        if kwargs.has_key('email'):
-            payment.email = kwargs.get('email')
-        if kwargs.has_key('first_name'):
-            payment.first_name = kwargs.get('first_name')
-        if kwargs.has_key('last_name'):
-            payment.last_name = kwargs.get('last_name')
-        if kwargs.has_key('street'):
-            payment.street = kwargs.get('street')
-        if kwargs.has_key('house_number'):
-            payment.house_number = kwargs.get('house_number')
-        if kwargs.has_key('postal_code'):
-            payment.postal_code = kwargs.get('postal_code')
-        if kwargs.has_key('city'):
-            payment.city = kwargs.get('city')
-        if kwargs.has_key('country'):
-            payment.country = kwargs.get('country')
-        if kwargs.has_key('language'):
-            payment.language = kwargs.get('language')
         payment.save()
 
 

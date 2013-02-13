@@ -9,7 +9,7 @@ class DocDataOrderProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DocDataPayment
-        fields = ('id', 'first_name', 'last_name', 'email', 'street', 'house_number', 'city', 'postal_code', 'country')
+        fields = ('id', 'first_name', 'last_name', 'email', 'street', 'city', 'postal_code', 'country')
 
 
 class DocDataPaymentMethodSerializer(serializers.Serializer):

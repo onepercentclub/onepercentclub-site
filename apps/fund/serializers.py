@@ -11,6 +11,7 @@ class DonationSerializer(serializers.ModelSerializer):
     # The duplication of project is temporary. See note in orders.js App.OrderItem.
     project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
+    status = serializers.ChoiceField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')
 
     def validate_amount(self, attrs, source):
@@ -24,7 +25,7 @@ class DonationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Donation
-        fields = ('id', 'project_id', 'project_slug', 'amount', 'url')
+        fields = ('id', 'project_id', 'project_slug', 'amount', 'status', 'url')
 
 
 class OrderItemObjectSerializer(ObjectBasedSerializer):

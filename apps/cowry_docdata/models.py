@@ -50,7 +50,6 @@ class DocDataPayment(Payment):
     first_name = models.CharField(max_length=200, default='')
     last_name = models.CharField(max_length=200, default='')
     street = models.CharField(max_length=200, default='')
-    house_number = models.CharField(max_length=20, default='')
     postal_code = models.CharField(max_length=20, default='')
     city = models.CharField(max_length=200, default='')
     country = models.CharField(max_length=2, default='')
