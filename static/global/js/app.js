@@ -101,7 +101,7 @@ App.Adapter = DS.DRF2Adapter.extend({
     plurals: {
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
-        "fund/paymentinfo": "fund/paymentinfo"
+        "fund/paymentinfo": "fund/paymentinfo",
     }
 
 });
