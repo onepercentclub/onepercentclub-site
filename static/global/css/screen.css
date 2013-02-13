@@ -977,29 +977,29 @@ form ul > li ul.checklist label:hover {
   cursor: pointer;
 }
 /* line 134, ../sass/includes/_forms.scss */
-form ul li.error label {
+form span.error {
   color: #d24226;
+  margin: 0.6em 0.6em 0.6em 0px;
+  display: block;
 }
-/* line 136, ../sass/includes/_forms.scss */
-form ul li.error label:hover {
-  color: #662012;
-}
-/* line 139, ../sass/includes/_forms.scss */
-form ul li.error input {
+/* line 142, ../sass/includes/_forms.scss */
+form input.error {
   border: 1px solid #d24226;
   -webkit-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
   -moz-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
   box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
 }
-/* line 142, ../sass/includes/_forms.scss */
-form ul li.error input:focus {
+/* line 145, ../sass/includes/_forms.scss */
+form input.error:focus {
   border: 1px solid #d24226;
 }
-/* line 146, ../sass/includes/_forms.scss */
-form ul li.error span.error {
-  color: #d24226;
-  margin: 0.6em 0.6em 0.6em 0px;
-  display: block;
+/* line 147, ../sass/includes/_forms.scss */
+form input.error::-webkit-input-placeholder {
+  color: #e68a78;
+}
+/* line 151, ../sass/includes/_forms.scss */
+form input.error:-moz-placeholder {
+  color: #e68a78;
 }
 
 /* =========== Tables */

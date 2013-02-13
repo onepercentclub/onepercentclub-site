@@ -50,7 +50,7 @@ class CurrentOrderMixin(object):
         return order
 
     def create_current_order(self):
-        user =  self.request.user
+        user = self.request.user
         if user.is_authenticated():
             order = Order(user=user)
         else:
@@ -226,7 +226,17 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         payment = order.payment
         if payment and self.request.user.is_authenticated():
             # TODO Add address information.
-            payments.update_payment_object(payment, customer_id=self.request.user.id, email=self.request.user.email,
-                                           first_name=self.request.user.first_name, last_name=self.request.user.last_name,
-                                           language=self.request.user.userprofile.interface_language)
+            payment.customer_id = self.request.user.id
+            payment.email = self.request.user.email
+            payment.first_name = self.request.user.first_name
+            payment.last_name = self.request.user.last_name
+            payment.language = self.request.user.get_profile().interface_language
+
+            payment.street = self.request.user.get_profile().address.line1
+            payment.city = self.request.user.get_profile().address.city
+            payment.postal_code = self.request.user.get_profile().address.zip_code
+            payment.country = self.request.user.get_profile().address.country.alpha2_code
+
+        else:
+            payment.language = self.request.LANGUAGE_CODE
         return order.payment

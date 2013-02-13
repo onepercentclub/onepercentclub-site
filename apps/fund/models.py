@@ -10,14 +10,20 @@ from apps.bluebottle_utils.fields import MoneyField
 
 class Donation(models.Model):
     """
-    Donation of an amount from a user to a project
+    Donation of an amount from a user to a project. A Donation can have a generic foreign key from OrderItem when
+    it's used in the order process but it can also be used without this GFK when it's used to cash in a Voucher.
     """
 
-    amount = MoneyField(_("amount"))
+    class DonationStatuses(DjangoChoices):
+        new = ChoiceItem('new', label=_("New"))
+        in_progress = ChoiceItem('in_progress', label=_("In Progress"))
+        paid = ChoiceItem('paid', label=_("Paid"))
+        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
 
+    amount = MoneyField(_("amount"))
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True, blank=True)
     project = models.ForeignKey('projects.Project', verbose_name=_("project"))
-
+    status = models.CharField(_("status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
@@ -27,6 +33,12 @@ class Donation(models.Model):
 
     def __unicode__(self):
         return str(self.id) + ' : ' + self.project.title + ' : EUR ' + str(self.amount)
+
+    # TODO: This needs to be re-implemented in the view.
+    # def delete(self, using=None):
+    #     # Tidy up! Delete related OrderItem, if any
+    #     OrderItem.objects.filter(object_id=self.id,content_type=ContentType.objects.get_for_model(Donation)).delete()
+    #     return super(Donation, self).delete()
 
 
 class Order(models.Model):

@@ -15,10 +15,10 @@ App.PaymentOrderProfile = DS.Model.extend({
     firstName: DS.attr('string'),
     lastName: DS.attr('string'),
     email: DS.attr('string'),
-    address: DS.attr('string'),
+    street: DS.attr('string'),
     city: DS.attr('string'),
     country: DS.attr('string'),
-    zipCode: DS.attr('string')
+    postalCode: DS.attr('string')
 });
 
 App.OrderItem = DS.Model.extend({
@@ -123,7 +123,8 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
         });
         // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
-            //profile.set('errors', record.get('errors'));
+            controller.get('content').set('errors', record.get('errors'));
+
         });
     }
 });
