@@ -110,7 +110,7 @@
             {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
 
             {{#each errors.country}}<span class="errors">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+            {{view App.CountrySelect valueBinding="country" classBinding="errors.country.length:error"}}
 
             <button class="right">{% trans 'Next step' %}</button>
         {{/if}}
