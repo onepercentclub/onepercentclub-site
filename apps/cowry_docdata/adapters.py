@@ -24,9 +24,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         Docdata payments
     """
 
-    # TODO Make setting for this.
-    test = True
-
     live_api_url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
     test_api_url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
 
@@ -70,8 +67,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         }
     }
 
-    def __init__(self, test=True):
-        self.test = test
+    def __init__(self):
+
+        # TODO Make setting for this.
+        self.test = True
 
         # Create the soap client.
         if self.test:
@@ -101,6 +100,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
 
     def get_payment_methods(self, amount=None, currency=None, country=None, recurring=None):
+        # TODO: Implement the restrictions by amount etc,
         return self.payment_methods.keys()
 
 
@@ -163,8 +163,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # A unique code for testing.
             payment.merchant_order_reference = str(timezone.now())
         else:
-            # TODO: use order id for production.
-            pass
+            # TODO: Make a setting for the prefix
+            payment.merchant_order_reference = 'BB-' +  str(payment.id)
 
         # Save in case there's an error creating the payment order.
         payment.save()
@@ -213,7 +213,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         if not payment.payment_order_key:
             self.create_remote_payment_order(payment)
-            return payment.payment_url
 
         params = {
             'command': 'show_payment_cluster',

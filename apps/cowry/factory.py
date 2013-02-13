@@ -20,8 +20,8 @@ for adapter_str in ADAPTERS:
 
 def _adapter_for_payment_method(payment_method):
     for adapter in _adapters:
-        for method in adapter.get_payment_methods():
-            if payment_method == method:
+        for pm in adapter.get_payment_methods():
+            if payment_method == pm:
                 return adapter
     raise PaymentMethodNotFound(payment_method)
 
@@ -37,15 +37,15 @@ def get_payment_methods(amount=None, currency=None, country=None, recurring=None
     # TODO: Filter this based on country, amount and currency.
     payment_methods = []
     for adapter in _adapters:
-        for method in adapter.get_payment_methods(amount, currency, country, recurring):
-            payment_methods.append(method)
+        for pm in adapter.get_payment_methods(amount, currency, country, recurring):
+            payment_methods.append(pm)
     return payment_methods
 
 
 def get_payment_submethods(payment_method):
     # TODO: Move this and above to init?
     for adapter in _adapters:
-        for method in adapter.get_payment_methods():
-            if payment_method == method:
+        for pm in adapter.get_payment_methods():
+            if payment_method == pm:
                 return adapter.get_payment_submethods(payment_method)
     raise PaymentMethodNotFound(payment_method)

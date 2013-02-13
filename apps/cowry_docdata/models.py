@@ -34,10 +34,10 @@ class DocDataPayment(Payment):
     class PaymentStatuses(DjangoChoices):
         started = ChoiceItem('started', label=_("started"))
         paid = ChoiceItem('paid', label=_("Paid"))
-        closed_canceled = ChoiceItem('closed_canceled', label=_("Closed Canceled"))
+        closed_canceled = ChoiceItem('closed_canceled', label=_("Closed Cancelled"))
         closed_expired = ChoiceItem('closed_expired', label=_("Closed Expired"))
         closed_insufficientpaid = ChoiceItem('closed_insufficientpaid', label=_("Closed Insufficient Paid"))
-        closed_succes = ChoiceItem('closed_succes', label=_("Closed Succes"))
+        closed_succes = ChoiceItem('closed_succes', label=_("Closed Success"))
 
     order_status = models.CharField(_("status"), max_length=25, choices=PaymentStatuses.choices, default=PaymentStatuses.started)
 
@@ -97,15 +97,14 @@ class PaymentMethodStatuses(DjangoChoices):
     new = ChoiceItem('new', label=_("New"))
     started = ChoiceItem('started', label=_("Started"))
     paid = ChoiceItem('paid', label=_("Paid"))
-    canceled = ChoiceItem('canceled', label=_("Canceled"))
+    canceled = ChoiceItem('canceled', label=_("Cancelled"))
     refund = ChoiceItem('refund', label=_("Refund"))
     chargeback = ChoiceItem('chargeback', label=_("Chargeback"))
 
 
 class DocDataWebMenuPaymentMethod(models.Model):
-    docdata_payment_method_status = models.CharField(_("status"), max_length=15, choices=PaymentMethodStatuses.choices, default=PaymentMethodStatuses.new)
-
-    docdatapaymentorder = models.ForeignKey(DocDataPayment)
+    status = models.CharField(_("status"), max_length=15, choices=PaymentMethodStatuses.choices, default=PaymentMethodStatuses.new)
+    docdatapayment = models.ForeignKey(DocDataPayment)
     payment_url = models.URLField(max_length=500, blank=True)
 
 
