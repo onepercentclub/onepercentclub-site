@@ -90,7 +90,7 @@ App = Em.Application.create({
 // Load the Handlebar templates.
 // TODO: This is race condition that needs to be addressed but should work most of the time.
 // TODO We want to actually figure out a way to load the templates on-demand and not do it like this.
-App.loadTemplates(['projects', 'wallposts', 'reactions', 'order']);
+App.loadTemplates(['projects', 'wallposts', 'reactions', 'orders']);
 
 
 // The Ember Data Adapter and Store configuration.
@@ -212,7 +212,7 @@ App.Router.map(function() {
         this.resource('currentOrderItemList', {path: ''}, function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
-        this.resource('orderProfile', {path: '/details'});
+        this.resource('paymentOrderProfile', {path: '/details'});
         this.resource('orderPayment', {path: '/payment'}, function(){
             this.resource('paymentInfo', {path: '/info'});
         });
@@ -306,9 +306,9 @@ App.CurrentOrderItemListRoute = Ember.Route.extend({
 });
 
 
-App.OrderProfileRoute = Ember.Route.extend({
+App.PaymentOrderProfileRoute = Ember.Route.extend({
     model: function(params) {
-        return App.OrderProfile.find('current');
+        return App.PaymentOrderProfile.find('current');
     },
 
     setupController: function(controller, orderprofile) {

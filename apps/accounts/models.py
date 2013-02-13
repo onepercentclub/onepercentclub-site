@@ -111,6 +111,7 @@ class UserProfile(models.Model):
         return self.user.username
 
     @property
+    # for now return the first address found on this user.
     def address(self):
         return self.useraddress_set.all()[0]
 
