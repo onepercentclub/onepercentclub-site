@@ -1,5 +1,6 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
+from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
@@ -38,18 +39,23 @@ class OrderItemObjectSerializer(ObjectBasedSerializer):
 
 class PaymentMethodSerializer(serializers.Serializer):
 
-    id = serializers.CharField()
-    name = serializers.CharField()
+    default_fields = ('id', 'name')
 
-    class Meta:
-        fields = ('id', 'name')
+    def convert_object(self, obj):
+        """
+        Simplified converting of our object
+        """
+        ret = self._dict_class()
+        for field_name in self.default_fields:
+            ret[field_name] = obj
+        return obj
 
 
 class OrderSerializer(serializers.ModelSerializer):
     # source is required because amount is a property on the model.
     amount = serializers.IntegerField(source='amount', read_only=True)
     status = serializers.ChoiceField(read_only=True)
-    # # TODO: Make a ChoiceField for payment_method to get validation on the choice.
+    # Payment_method  is writen in the view.
     payment_method = serializers.CharField(source='payment.payment_method', required=False)
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
 
