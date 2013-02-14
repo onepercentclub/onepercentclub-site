@@ -1,5 +1,6 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
+from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
@@ -38,11 +39,7 @@ class OrderItemObjectSerializer(ObjectBasedSerializer):
 
 class PaymentMethodSerializer(serializers.Serializer):
 
-    id = serializers.CharField()
-    name = serializers.CharField()
-
-    class Meta:
-        fields = ('id', 'name')
+    pass
 
 
 class OrderSerializer(serializers.ModelSerializer):

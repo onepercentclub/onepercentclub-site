@@ -64,6 +64,37 @@ def get_payment_method_ids(amount=None, currency='', country='', recurring=None)
     return payment_method_ids
 
 
+def get_payment_methods(amount=None, currency='', country='', recurring=None, ids=[]):
+    payment_methods = {}
+    for adapter in _adapters:
+        pms = adapter.get_payment_methods()
+        for pmi in pms:
+            if not len(ids) or pmi in ids:
+                # Extract values from the configuration.
+                config = pms[pmi]
+                max_amount = config.get('max_amount', sys.maxint)
+                min_amount = config.get('min_amount', 0)
+                restricted_currencies = config.get('restricted_currencies', (currency,))
+                restricted_countries = config.get('restricted_countries', (country,))
+                supports_recurring = config.get('supports_recurring', True)
+
+                # See if we need to exclude the current payment_method_id (pmi).
+                add_pmi = True
+                if amount and (amount > max_amount or amount < min_amount):
+                    add_pmi = False
+                if country not in restricted_countries:
+                    add_pmi = False
+                if currency not in restricted_currencies:
+                    add_pmi = False
+                if recurring and not supports_recurring:
+                    add_pmi = False
+
+                if add_pmi:
+                    payment_methods[pmi] = {'id': pmi, 'name': config.get('name')}
+
+    return payment_methods
+
+
 def get_payment_submethods(payment_method_id):
     adapter = _adapter_for_payment_method(payment_method_id)
     for payment_methods in adapter.get_payment_method_config():

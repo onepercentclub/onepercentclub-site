@@ -257,15 +257,29 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         return order.payment
 
 
-class PaymentMethodList(views.APIView):
+class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
     """
     Payment Methods
     """
 
     serializer_class = PaymentMethodSerializer
 
+    def get(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        obj = self.get_or_create_current_order()
+        # TODO: fix this (not filtering on ids now).
+        ids = self.kwargs.get('ids', [])
+        methods = factory.get_payment_methods(amount=obj.amount, currency='EUR', country='NL', recurring=obj.recurring,
+                                              ids=ids)
+        # TODO: Make this serializer work!
+        serializer = self.get_serializer(methods)
+        return response.Response(serializer.data)
 
-class PaymentMethodDetail(views.APIView):
+
+
+class PaymentMethodDetail(generics.GenericAPIView):
     """
     Payment Methods
     """
