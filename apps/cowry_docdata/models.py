@@ -34,7 +34,7 @@ from polymorphic.polymorphic_model import PolymorphicModel
 #                 paid to the merchant.
 
 
-class DocDataPayment(Payment):
+class DocDataPaymentOrder(Payment):
     class PaymentStatuses(DjangoChoices):
         started = ChoiceItem('started', label=_("started"))
         paid = ChoiceItem('paid', label=_("Paid"))
@@ -60,7 +60,7 @@ class DocDataPayment(Payment):
     language = models.CharField(max_length=2, default='en')
 
     @property
-    def latest_paymentmethod(self):
+    def latest_payment_method(self):
         if self.docdatapaymentmethod_set.all():
             return self.docdatapaymentmethod_set.all()[0]
         return None
@@ -113,12 +113,12 @@ class DocDataPaymentMethod(PolymorphicModel):
         chargeback = ChoiceItem('chargeback', label=_("Chargeback"))
 
     status = models.CharField(_("status"), max_length=15, choices=PaymentMethodStatuses.choices, default=PaymentMethodStatuses.new)
-    docdatapayment = models.ForeignKey(DocDataPayment)
-    objects = PolymorphicManager()
-
+    docdata_payment_order = models.ForeignKey(DocDataPaymentOrder)
+    payment_id = models.PositiveIntegerField(_("payment id"), default=0)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
+    objects = PolymorphicManager()
 
 
 class DocDataWebMenu(DocDataPaymentMethod):

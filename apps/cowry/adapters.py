@@ -9,13 +9,13 @@ class AbstractPaymentAdapter(object):
     def get_payment_methods(self):
         raise NotImplementedError
 
-    def create_payment_object(self, payment_method, payment_submethod, amount, currency):
+    def create_payment_object(self, payment_method_id, payment_submethod_id, amount, currency):
         raise NotImplementedError
 
     def create_remote_payment_order(self, payment):
         raise NotImplementedError
 
-    def get_payment_url(self, payment):
+    def create_webmenu_payment(self, payment):
         raise NotImplementedError
 
     def update_payment_status(self, payment):
