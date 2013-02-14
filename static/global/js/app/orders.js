@@ -5,7 +5,8 @@
 
 App.PaymentMethod = DS.Model.extend({
     url: 'fund/paymentmethods',
-    name: DS.attr('string')
+    name: DS.attr('string'),
+    order: DS.belongsTo('App.Order')
 });
 
 App.Order = DS.Model.extend({
@@ -77,6 +78,15 @@ App.PaymentInfo = DS.Model.extend({
 });
 
 
+App.PaymentMethodInfo = DS.Model.extend({
+    url: 'fund/paymentmethodinfo',
+    payment_url: DS.attr('string'),
+    bank_account_number: DS.attr('string'),
+    bank_account_name: DS.attr('string'),
+    bank_account_city: DS.attr('string'),
+});
+
+
 App.Payment = DS.Model.extend({
     url: 'fund/payments',
     payment_method: DS.attr('string'),
@@ -123,11 +133,11 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
         // We should at least have an email address
         if (!profile.get('isDirty') && profile.get('email')) {
             // No changes. No need to commit.
-            controller.transitionTo('currentOrder.payment');
+            controller.transitionTo('currentPaymentMethodInfo');
         }
         this.get('transaction').commit();
         profile.on('didUpdate', function(record) {
-            controller.transitionTo('currentOrder.payment');
+            controller.transitionTo('currentPaymentMethodInfo');
         });
         // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
@@ -153,47 +163,27 @@ App.CurrentOrderController = Em.ObjectController.extend({
             var order = this.get('content');
             this.get('transaction').commit();
             order.on('didUpdate', function(record){
-                var payment_methods = controller.get('content.payment_methods')
-                //payment_methods.clear();
-                var objects = record.get('payment_methods');
-                console.log(record);
-                for (var i = 0; i < objects.length; i++) {
-                    console.log(objects[i]);
-                    payment_methods.pushObject(App.PaymentMethod.find(objects[i]));
-                }
                 // Init a new private transaction.
                 controller.initTransaction();
             });
 
+
         }
     }.observes('content.isDirty')
 });
 
 
-    App.CurrentOrderPaymentController = Em.ObjectController.extend({
-    contentBinding: App.CurrentOrderController.content,
-    /*
-     TODO: Figure out how to make this work.
-
-     initTransaction: function(){
-        var transaction = App.store.transaction();
-        this.set('transaction', transaction);
-        transaction.add(this.get('content'));
-    }.observes('content'),
-
-    updateOrderPayment: function(){
-        if (this.get('content.isDirty')) {
-            var controller = this;
-            var orderPayment = this.get('content');
-            this.get('transaction').commit();
-            orderPayment.on('didUpdate', function(){
-                controller.transitionTo('paymentInfo')
-                controller.initTransaction();
-            });
-        }
-    }.observes('content.isDirty')
-    */
+App.CurrentOrderPaymentController = Em.ObjectController.extend({
+    contentBinding: App.CurrentOrderController.content
 });
+
+
+
+App.CurrentPaymentMethodInfoController = Em.ObjectController.extend({
+
+});
+
+
 
 /*
  Views
@@ -278,17 +268,17 @@ App.CurrentOrderPaymentView = Em.View.extend({
 
     /*
     TODO: Figure out how to make this work
+    */
     highlightSelected: function(){
         // On first load highlight the selected option
         console.log('hup: ' + this.get('content.payment_method'));
         this.$('input').parents('label').removeClass('selected');
         this.$('input[value='+this.get('content.payment_method')+']').parents('label').addClass('selected');
     }.observes('content.payment_method')
-    */
 });
 
 
-App.PaymentMethodView = Em.View.extend({
+App.CurrentPaymentMethodInfoView = Em.View.extend({
     tagName: 'form',
-    templateName: 'payment_method'
+    templateName: 'payment_method_info'
 });

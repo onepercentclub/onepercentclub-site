@@ -102,6 +102,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
         "fund/paymentinfo": "fund/paymentinfo",
+        "fund/paymentmethodinfo": "fund/paymentmethodinfo"
     }
 
 });
@@ -213,8 +214,8 @@ App.Router.map(function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
         this.resource('paymentOrderProfile', {path: '/details'});
-        this.route('payment', {path: '/payment'}, function(){
-            //this.resource('paymentMethod', {path: '/method'});
+        this.resource('currentOrderPayment', {path: '/payment'}, function(){
+            this.resource('currentPaymentMethodInfo', {path: 'info'});
         });
     });
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
@@ -351,13 +352,13 @@ App.CurrentOrderPaymentRoute = Ember.Route.extend({
 });
 
 
-App.PaymentMethodRoute = Ember.Route.extend({
+App.CurrentPaymentMethodInfoRoute = Ember.Route.extend({
     model: function(params) {
-        return App.PaymentMethod.find('current');
+        return App.PaymentMethodInfo.find('current');
     },
 
-    setupController: function(controller, paymentmethod) {
-        controller.set('content', paymentmethod);
+    setupController: function(controller, paymentmethodinfo) {
+        controller.set('content', paymentmethodinfo);
     }
 
 });

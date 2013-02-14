@@ -30,7 +30,7 @@
             {{/view}}
 
             {{#view App.OrderNavView classNames="payment"}}
-                {{#linkTo currentOrder.payment}}{% trans "Pay" %}{{/linkTo}}
+                {{#linkTo currentPaymentMethodInfo}}{% trans "Pay" %}{{/linkTo}}
             {{/view}}
         </ul>
 
@@ -152,7 +152,7 @@
                         {% trans "Use" %} {{this.name}}
                     </label>
                 {{else}}
-                    No payment methods loaded
+                    {% trans "No payment methods available" %}
                 {{/each}}
             {{/view}}
         </div>
@@ -164,7 +164,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "payment_method" %}
+{% tplhandlebars "payment_method_info" %}
 
     <fieldset>
         {{#if content.isLoaded}}
