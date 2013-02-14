@@ -273,6 +273,7 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         ids = self.kwargs.get('ids', [])
         methods = factory.get_payment_methods(amount=obj.amount, currency='EUR', country='NL', recurring=obj.recurring,
                                               ids=ids)
+        print methods
         # TODO: Make this serializer work!
         serializer = self.get_serializer(methods)
         return response.Response(serializer.data)

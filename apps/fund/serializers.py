@@ -39,7 +39,19 @@ class OrderItemObjectSerializer(ObjectBasedSerializer):
 
 class PaymentMethodSerializer(serializers.Serializer):
 
-    pass
+    default_fields = ('id', 'name')
+
+    def convert_object(self, obj):
+        """
+        Core of serialization.
+        Convert an object into a dictionary of serialized field values.
+        """
+        ret = self._dict_class()
+        ret.fields = {}
+
+        for field_name in self.default_fields:
+            ret[field_name] = obj
+        return obj
 
 
 class OrderSerializer(serializers.ModelSerializer):

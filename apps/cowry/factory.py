@@ -65,7 +65,7 @@ def get_payment_method_ids(amount=None, currency='', country='', recurring=None)
 
 
 def get_payment_methods(amount=None, currency='', country='', recurring=None, ids=[]):
-    payment_methods = {}
+    payment_methods = []
     for adapter in _adapters:
         pms = adapter.get_payment_methods()
         for pmi in pms:
@@ -90,7 +90,7 @@ def get_payment_methods(amount=None, currency='', country='', recurring=None, id
                     add_pmi = False
 
                 if add_pmi:
-                    payment_methods[pmi] = {'id': pmi, 'name': config.get('name')}
+                    payment_methods.append({'id': pmi, 'name': config.get('name')})
 
     return payment_methods
 
