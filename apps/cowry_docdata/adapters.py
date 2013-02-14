@@ -28,44 +28,48 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     live_api_url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
     test_api_url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
 
-    ideal_submethod_mapping = {
-                                  'Fortis': '0081',
-                                  'Rabobank': '0021',
-                                  'ING Bank': '0721',
-                                  'SNS Bank': '0751',
-                                  'ABN Amro Bank': '0031',
-                                  'ASN Bank': '0761',
-                                  'SNS Regio Bank': '0771',
-                                  'Triodos Bank': '0511',
-                                  'Friesland Bank': '0091',
-                                  'van Lanschot Bankiers': '0161'
-                              },
-
     payment_methods = {
-        'IDEAL': {
+        'dd-ideal': {
+            'id': 'IDEAL',
+            'profile': 'ideal',
             'name': 'iDeal',
-            'submethods': ('Fortis', 'Rabobank', 'ING Bank', 'SNS Bank', 'ABN Amro Bank', 'ASN Bank',
-                           'SNS Regio Bank', 'Triodos Bank', 'Friesland Bank', 'van Lanschot Bankiers'),
+            'submethods': {
+                '0081': 'Fortis',
+                '0021': 'Rabobank',
+                '0721': 'ING Bank',
+                '0751': 'SNS Bank',
+                '0031': 'ABN Amro Bank',
+                '0761': 'ASN Bank',
+                '0771': 'SNS Regio Bank',
+                '0511': 'Triodos Bank',
+                '0091': 'Friesland Bank',
+                '0161': 'van Lanschot Bankiers'
+            },
             'restricted_countries': ('NL',),
             'supports_recurring': False,
         },
 
-        'MAESTRO': {
-            'name': 'Maestro',
-            'supports_recurring': False,
-        },
-
-        'MASTERCARD': {
+        'dd-mastercard': {
+            'id': 'MASTERCARD',
+            'profile': 'mastercard',
             'name': 'Mastercard',
-            'max_amount': 10000,  # €100
-            'min_amount': 2000,  # €20
             'supports_recurring': False,
         },
 
-        'VISA': {
+        'dd-visa': {
+            'id': 'VISA',
+            'profile': 'visa',
             'name': 'Visa',
             'supports_recurring': False,
-        }
+        },
+
+        'dd-direct-debit': {
+            'id': 'DIRECT_DEBIT',
+            'profile': 'directdebit',
+            'name': 'Direct Debit',
+            'max_amount': 10000,  # €100
+            'supports_recurring': False,
+        },
     }
 
     def __init__(self):
