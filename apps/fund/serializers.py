@@ -43,12 +43,9 @@ class PaymentMethodSerializer(serializers.Serializer):
 
     def convert_object(self, obj):
         """
-        Core of serialization.
-        Convert an object into a dictionary of serialized field values.
+        Simplified converting of our object
         """
         ret = self._dict_class()
-        ret.fields = {}
-
         for field_name in self.default_fields:
             ret[field_name] = obj
         return obj
@@ -58,8 +55,8 @@ class OrderSerializer(serializers.ModelSerializer):
     # source is required because amount is a property on the model.
     amount = serializers.IntegerField(source='amount', read_only=True)
     status = serializers.ChoiceField(read_only=True)
-    # # TODO: Make a ChoiceField for payment_method to get validation on the choice.
-    payment_method = serializers.WritableField(source='payment.payment_method', required=False)
+    # Payment_method  is writen in the view.
+    payment_method = serializers.CharField(source='payment.payment_method', required=False)
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
 
     #payment_methods = PaymentMethodSerializer()

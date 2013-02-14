@@ -122,6 +122,15 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     def get_object(self, queryset=None):
         return self.get_or_create_current_order()
 
+    def put(self, request, *args, **kwargs):
+        # for now we write payment method here because serializer isn't smart enough.
+        pm = request.DATA.get('payment_method', None)
+        if pm:
+            order = self.get_or_create_current_order()
+            order.payment.payment_method = pm
+            order.payment.save()
+        return self.update(request, *args, **kwargs)
+
 
 class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
     model = OrderItem
@@ -266,13 +275,11 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
 
     def get(self, request, format=None):
         """
-        Return a list of all users.
+        Get the Payment methods form Cowry
         """
         obj = self.get_or_create_current_order()
-        # TODO: fix this (not filtering on ids now).
         ids = request.QUERY_PARAMS.getlist('ids[]', [])
         pms = factory.get_payment_methods(amount=obj.amount, currency='EUR', country='NL', recurring=obj.recurring,ids=ids)
-        # TODO: Make this serializer work!
         serializer = self.get_serializer(pms)
         return response.Response(serializer.data)
 
@@ -280,9 +287,8 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
 # Not implemented nor being used right now.
 class PaymentMethodDetail(generics.GenericAPIView):
     """
-    Payment Methods
+    Payment Method
     """
-
     serializer_class = PaymentMethodSerializer
 
 
