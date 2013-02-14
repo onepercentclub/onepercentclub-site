@@ -42,12 +42,12 @@ class DocDataPaymentTests(TestCase):
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_payment_method_restrictions(self):
         # Test country restrictions.
-        payment_methods = factory.get_payment_methods(country='NL')
-        self.assertTrue('IDEAL' in payment_methods, "IDEAL not is in payment method list.")
-        self.assertTrue(len(payment_methods) > 1, "Payment method list should have two or more payment methods.")
-        payment_methods = factory.get_payment_methods(country='CA')
-        self.assertTrue('IDEAL' not in payment_methods, "IDEAL should not be in payment method list.")
+        payment_method_ids = factory.get_payment_method_ids(country='NL')
+        self.assertTrue('IDEAL' in payment_method_ids, "IDEAL not is in payment method list.")
+        self.assertTrue(len(payment_method_ids) > 1, "Payment method list should have two or more payment methods.")
+        payment_method_ids = factory.get_payment_method_ids(country='CA')
+        self.assertTrue('IDEAL' not in payment_method_ids, "IDEAL should not be in payment method list.")
 
         # Test recurring restrictions.
-        payment_methods = factory.get_payment_methods(recurring=True)
-        self.assertTrue(len(payment_methods) == 0, "Payment method list should be empty.")
+        payment_method_ids = factory.get_payment_method_ids(recurring=True)
+        self.assertTrue(len(payment_method_ids) == 0, "Payment method list should be empty.")

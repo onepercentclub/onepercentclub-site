@@ -1,5 +1,4 @@
 # coding=utf-8
-import sys
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry_docdata.models import DocDataPayment
 from django.conf import settings
@@ -104,40 +103,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         self.menuPreferences = self.client.factory.create('ns0:menuPreferences')
 
 
-    def get_payment_methods(self, amount=None, currency='', country='', recurring=None):
-        # TODO: This code is probably generally useful in the cowry base adapter.
-        available_methods = []
-        for pm in self.payment_methods.iterkeys():
-            config = self.payment_methods[pm]
-            max_amount = config.get('max_amount', sys.maxint)
-            min_amount = config.get('min_amount', 0)
-            restricted_currencies = config.get('restricted_currencies', (currency,))
-            restricted_countries = config.get('restricted_countries', (country,))
-            supports_recurring = config.get('supports_recurring', True)
-
-            add_pm = True
-            if amount:
-                if amount > max_amount or amount < min_amount:
-                    add_pm = False
-            if country not in restricted_countries:
-                add_pm = False
-            if currency not in restricted_currencies:
-                add_pm = False
-            if recurring and not supports_recurring:
-                add_pm = False
-
-            if add_pm:
-                available_methods.append(pm)
-
-        return available_methods
-
-
-    def get_payment_submethods(self, payment_method):
-        if payment_method in self.payment_methods.keys():
-            config = self.payment_methods[payment_method]
-            if 'submethods' in config.keys():
-                return config['submethods']
-        return None
+    def get_payment_methods(self):
+        return self.payment_methods
 
 
     def create_payment_object(self, payment_method='', payment_submethod='', amount=0, currency=''):
