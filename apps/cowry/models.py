@@ -27,8 +27,8 @@ class Payment(PolymorphicModel):
     fee = models.PositiveIntegerField(_("payment service fee"), default=0)
 
     # Payment method used
-    payment_method = models.CharField(max_length=20, default='', blank=True)
-    payment_submethod = models.CharField(max_length=20, default='', blank=True)
+    payment_method_id = models.CharField(max_length=20, default='', blank=True)
+    payment_submethod_id = models.CharField(max_length=20, default='', blank=True)
 
     status = models.CharField(_("status"), max_length=15, choices=PaymentStatuses.choices, default=PaymentStatuses.new, db_index=True)
 
