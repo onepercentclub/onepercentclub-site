@@ -76,7 +76,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'name': 'Direct Debit',
             'max_amount': 10000, # €100
             'supports_recurring': False,
-        },
+            }
     }
 
     def __init__(self):

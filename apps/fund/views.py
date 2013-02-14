@@ -124,10 +124,10 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
 
     def put(self, request, *args, **kwargs):
         # for now we write payment method here because serializer isn't smart enough.
-        pm = request.DATA.get('payment_method', None)
+        pm = request.DATA.get('payment_method_id', None)
         if pm:
             order = self.get_or_create_current_order()
-            order.payment.payment_method = pm
+            order.payment.payment_method_id = pm
             order.payment.save()
         return self.update(request, *args, **kwargs)
 

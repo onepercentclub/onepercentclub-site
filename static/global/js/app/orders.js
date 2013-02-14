@@ -152,7 +152,15 @@ App.CurrentOrderController = Em.ObjectController.extend({
             var controller = this;
             var order = this.get('content');
             this.get('transaction').commit();
-            order.on('didUpdate', function(){
+            order.on('didUpdate', function(record){
+                var payment_methods = controller.get('content.payment_methods')
+                //payment_methods.clear();
+                var objects = record.get('payment_methods');
+                console.log(record);
+                for (var i = 0; i < objects.length; i++) {
+                    console.log(objects[i]);
+                    payment_methods.pushObject(App.PaymentMethod.find(objects[i]));
+                }
                 // Init a new private transaction.
                 controller.initTransaction();
             });
