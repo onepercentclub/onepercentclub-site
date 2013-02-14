@@ -9,6 +9,7 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
+from rest_framework import views
 from .models import Donation, OrderItem, Order
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer)
 from .utils import get_order_payment_methods
@@ -256,13 +257,20 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         return order.payment
 
 
-class PaymentMethodList(generics.APIView):
+class PaymentMethodList(views.APIView):
     """
     Payment Methods
     """
 
     serializer_class = PaymentMethodSerializer
 
+
+class PaymentMethodDetail(views.APIView):
+    """
+    Payment Methods
+    """
+
+    serializer_class = PaymentMethodSerializer
 
 
 class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):

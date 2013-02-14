@@ -2,6 +2,7 @@
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
+from apps.cowry import factory
 from .models import Donation, OrderItem
 from .models import Order
 from .utils import get_order_payment_methods
