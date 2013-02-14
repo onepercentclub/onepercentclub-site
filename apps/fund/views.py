@@ -2,7 +2,7 @@ from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirec
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
 from apps.fund.serializers import PaymentMethodSerializer
 from django.contrib.contenttypes.models import ContentType
-from apps.cowry import payments, factory
+from apps.cowry import payments
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
 from rest_framework import status
@@ -247,7 +247,6 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         order = self.get_or_create_current_order()
         payment = order.payment
         if payment and self.request.user.is_authenticated():
-            # TODO Add address information.
             payment.customer_id = self.request.user.id
             payment.email = self.request.user.email
             payment.first_name = self.request.user.first_name

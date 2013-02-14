@@ -1,6 +1,7 @@
 # coding=utf-8
 from apps.cowry.adapters import AbstractPaymentAdapter
-from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebMenu
+from apps.cowry_docdata.exceptions import DocDataPaymentStatusException
+from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebMenu, DocDataPayment
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.utils.http import urlencode
@@ -8,6 +9,10 @@ from django.utils import timezone
 from suds.client import Client
 from suds.plugin import MessagePlugin
 from .exceptions import DocDataPaymentException
+
+import logging
+status_logger = logging.getLogger('cowry-docdata.status')
+payment_logger = logging.getLogger('cowry-docdata.payment')
 
 
 class DocDataAPIVersionPlugin(MessagePlugin):
@@ -17,7 +22,6 @@ class DocDataAPIVersionPlugin(MessagePlugin):
         body = context.envelope.getChild('Body')
         request = body[0]
         request.set('version', '1.0')
-        print body
 
 
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
@@ -109,6 +113,24 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         return self.payment_methods
 
 
+    def _docdata_soap_service_call(self, soap_method, *args):
+
+        # Execute create payment order request.
+
+        reply = soap_method(*args)
+        # self.client.service.status(self.merchant, payment.payment_order_key)
+        if hasattr(reply, 'createSuccess'):
+            return reply['createSuccess']
+            # payment.payment_order_key = reply['createSuccess']['key']
+            # payment.save()
+        elif hasattr(reply, 'createError'):
+            error = reply['createError']['error']
+            raise DocDataPaymentException(error['_code'], error['value'])
+        else:
+            raise DocDataPaymentException('REPLY_ERROR',
+                                          'Received unknown reply from DocData. Remote Payment not created.')
+
+
     def create_payment_object(self, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
         payment = DocDataPaymentOrder.objects.create(payment_method_id=payment_method_id,
                                                      payment_submethod_id=payment_submethod_id,
@@ -154,7 +176,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         address = self.client.factory.create('ns0:address')
         address.street = payment.street
         address.houseNumber = 'N/A'
-        # TODO No space allowed in postal code. Move to serializer?
+        # TODO No spaces allowed in postal code. Move to serializer?
         address.postalCode = payment.postal_code.replace(' ', '')
         address.city = payment.city
 
@@ -167,10 +189,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         billTo.name = name
 
         if self.test:
+            # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             # A unique code for testing.
-            payment.merchant_order_reference = str(timezone.now())
+            payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[33]
         else:
-            # TODO: Make a setting for the prefix
+            # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             payment.merchant_order_reference = 'COWRY-' + str(payment.id)
 
         # Save in case there's an error creating the payment order.
@@ -198,7 +221,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             raise DocDataPaymentException('ERROR', 'payment_method_id is not set')
         if not self.id_to_model_mapping[payment.payment_method_id] == DocDataWebMenu:
             raise DocDataPaymentException('ERROR',
-                                          'payment_method_id {0} does not support WebMenu'.format(payment.payment_method_id))
+                                          'payment_method_id {0} does not support WebMenu'.format(
+                                              payment.payment_method_id))
 
         if not payment.payment_order_key:
             self.create_remote_payment_order(payment)
@@ -226,7 +250,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             payment_url_base = 'https://secure.docdatapayments.com/ps/menu'
 
         # Create a DocDataWebMenu when we need it.
-        webmenu_payment = payment.latest_payment_method
+        webmenu_payment = payment.latest_docdata_payment
         if not webmenu_payment or not isinstance(webmenu_payment, DocDataWebMenu):
             webmenu_payment = DocDataWebMenu()
             webmenu_payment.docdata_payment_order = payment
@@ -236,6 +260,111 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         return webmenu_payment.payment_url
 
 
-    def map_status(self, status):
-        # TODO: Translate the specific statuses into something generic we all understand
-        return status
+    def update_payment_status(self, payment, status_changed_notification=False):
+
+        # Create the payment order if we need it.
+        if not payment.payment_order_key:
+            self.create_remote_payment_order(payment)
+
+        # Execute status request.
+        reply = self.client.service.status(self.merchant, payment.payment_order_key)
+        if hasattr(reply, 'statusSuccess'):
+            report = reply['statusSuccess']['report']
+        elif hasattr(reply, 'statusError'):
+            error = reply['statusError']['error']
+            status_logger.error("{0} {1}".format(error['_code'], error['value']))
+            return
+        else:
+            status_logger.error("Received unknown status reply from DocData.")
+            return
+
+        statusChanged = False
+        for payment_report in report.payment:
+            # Find or create the DocDataPayment for current report.
+            ddpayment = DocDataPayment.objects.filter(payment_id=payment_report.id)
+            if not ddpayment:
+                status_logger.error(
+                    "DocData status report has unknown payment: {0} - {1}".format(payment.payment_order_key,
+                                                                                  payment.docdata_payment_id))
+                continue
+
+            # Some additional checks.
+            if not payment_report.paymentMethod == ddpayment.payment_methods['payment.payment_method_id'].id:
+                status_logger.error(
+                    "Payment methods do not match: {0}".format(payment.payment_order_key, payment.docdata_payment_id))
+                continue
+
+            if not payment_report.authorization.status in DocDataPayment.statuses:
+                # Note: We continue to process the payment status change on this error.
+                status_logger.error(
+                    "Received unknown status from DocData: {0}".format(payment_report.authorization.status))
+
+            # Update the DocDataPayment status.
+            if ddpayment.status != payment_report.authorization.status:
+                status_logger.info("DocDataPayment status changed for payment id {0}: {1} -> {2}", payment_report.id,
+                                   ddpayment.status, payment_report.authorization.status)
+                ddpayment.status = payment_report.authorization.status
+                ddpayment.save()
+                statusChanged = True
+
+        # Log a warning if we've received a status change notification and have no status changes.
+        if status_changed_notification and not statusChanged:
+            status_logger.warn(
+                "Status change notification received for {0} but no payment status change detected.".format(
+                    payment.payment_order_key))
+
+        # Use the latest DocDataPayment status to set the status on the Cowry Payment.
+        ddpayment = payment.latest_docdata_payment
+        lpr = None
+        for payment_report in report.payment:
+            if payment_report.id == ddpayment.docdata_payment_id:
+                lpr = payment_report
+                break
+
+        new_status = self._map_status(ddpayment.status, report.approximateTotals, lpr.authorization)
+        status_logger.info(
+            "DocDataPaymentOrder status changed for payment order key {0}: {1} -> {1}".format(ddpayment.status,
+                                                                                              new_status))
+        payment.status = new_status
+        payment.save()
+
+
+    # TODO: Make generic (ie. put in base adapter).
+    def _map_status(self, status, totals, authorization):
+        status_mapping = {
+            'NEW': 'new',
+            'STARTED': 'in_progress',
+            'AUTHORIZED': 'in_progress',
+            'PAID': 'in_progress',
+            'CANCELLED': 'cancelled',
+            'CHARGED-BACK': 'cancelled',
+            'CONFIRMED_PAID': 'paid',
+            'CONFIRMED_CHARGEDBACK': 'cancelled',
+            'CLOSED_SUCCESS': 'paid',
+            'CLOSED_CANCELLED': 'cancelled',
+        }
+
+        # Start with a basic mapping.
+        return status_mapping[status]
+
+        # TODO Investigate if these overrides are needed.
+        # Some status mapping overrides.
+
+        # Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 33:
+        # Safe route: The safest route to check whether all payments were made is for the merchants
+        # to refer to the “Total captured” amount to see whether this equals the “Total registered
+        # amount”. While this may be the safest indicator, the downside is that it can sometimes take a
+        # long time for acquirers or shoppers to actually have the money transferred and it can be
+        # captured.
+        # if totals.totalRegistered == totals.totalCaptured:
+        #     new_status = 'paid'
+
+        # These overrides are really just guessing.
+        # latest_capture = authorization.capture[-1]
+        # if status == 'AUTHORIZED':
+        #     if hasattr(authorization, 'refund') or hasattr(authorization, 'chargeback'):
+        #         new_status = 'cancelled'
+        #     if latest_capture.status == 'FAILED' or latest_capture == 'ERROR':
+        #         new_status = 'failed'
+        #     elif latest_capture.status == 'CANCELLED':
+        #         new_status = 'cancelled'
