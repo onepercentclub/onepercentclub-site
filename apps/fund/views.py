@@ -270,7 +270,8 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         """
         obj = self.get_or_create_current_order()
         # TODO: fix this (not filtering on ids now).
-        ids = self.kwargs.get('ids', [])
+        ids = request.QUERY_PARAMS.getlist('ids[]', [])
+        print ids
         methods = factory.get_payment_methods(amount=obj.amount, currency='EUR', country='NL', recurring=obj.recurring,
                                               ids=ids)
         print methods
@@ -279,7 +280,7 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         return response.Response(serializer.data)
 
 
-
+# Not implemented nor being used right now.
 class PaymentMethodDetail(generics.GenericAPIView):
     """
     Payment Methods
