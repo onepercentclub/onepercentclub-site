@@ -34,33 +34,43 @@ def create_payment_object(payment_method_id, payment_submethod='', amount='', cu
     return payment
 
 
-def get_payment_method_ids(amount=None, currency='', country='', recurring=None):
-    payment_method_ids = []
+def get_payment_methods(amount=None, currency='', country='', recurring=None, ids=[]):
+    payment_methods = []
     for adapter in _adapters:
-        payment_methods = adapter.get_payment_methods()
-        for pmi in payment_methods.iterkeys():
-            # Extract values from the configuration.
-            config = payment_methods[pmi]
-            max_amount = config.get('max_amount', sys.maxint)
-            min_amount = config.get('min_amount', 0)
-            restricted_currencies = config.get('restricted_currencies', (currency,))
-            restricted_countries = config.get('restricted_countries', (country,))
-            supports_recurring = config.get('supports_recurring', True)
+        pms = adapter.get_payment_methods()
+        for pmi in pms:
+            if not len(ids) or pmi in ids:
+                # Extract values from the configuration.
+                config = pms[pmi]
+                max_amount = config.get('max_amount', sys.maxint)
+                min_amount = config.get('min_amount', 0)
+                restricted_currencies = config.get('restricted_currencies', (currency,))
+                restricted_countries = config.get('restricted_countries', (country,))
+                supports_recurring = config.get('supports_recurring', True)
 
-            # See if we need to exclude the current payment_method_id (pmi).
-            add_pmi = True
-            if amount and (amount > max_amount or amount < min_amount):
-                add_pmi = False
-            if country not in restricted_countries:
-                add_pmi = False
-            if currency not in restricted_currencies:
-                add_pmi = False
-            if recurring and not supports_recurring:
-                add_pmi = False
+                # See if we need to exclude the current payment_method_id (pmi).
+                add_pmi = True
+                if amount and (amount > max_amount or amount < min_amount):
+                    add_pmi = False
+                if country not in restricted_countries:
+                    add_pmi = False
+                if currency not in restricted_currencies:
+                    add_pmi = False
+                if recurring and not supports_recurring:
+                    add_pmi = False
 
-            if add_pmi:
-                payment_method_ids.append(pmi)
+                # For now we only return a few params.
+                # Later on we might want to return the entire object.
+                if add_pmi:
+                    payment_methods.append({'id': pmi, 'name': config.get('name')})
 
+    return payment_methods
+
+
+def get_payment_method_ids(amount=None, currency='', country='', recurring=None, ids=[]):
+    payment_method_ids = []
+    for pm in get_payment_methods(amount=amount, currency=currency, country=country, recurring=recurring, ids=ids):
+        payment_method_ids.append(pm['id'])
     return payment_method_ids
 
 

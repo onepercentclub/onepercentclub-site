@@ -3,13 +3,18 @@
  */
 
 
+App.PaymentMethod = DS.Model.extend({
+    url: 'fund/paymentmethods',
+    name: DS.attr('string')
+});
+
 App.Order = DS.Model.extend({
     url: 'fund/orders',
     amount: DS.attr('number'),
     status: DS.attr('string'),
     recurring: DS.attr('string'),
     payment_method: DS.attr('string'),
-    payment_methods: DS.attr('array')
+    payment_methods: DS.hasMany('App.PaymentMethod')
 });
 
 

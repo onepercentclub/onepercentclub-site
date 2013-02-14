@@ -252,5 +252,4 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         }
         return url;
     }
-
 });

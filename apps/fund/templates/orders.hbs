@@ -145,14 +145,14 @@
     </div>
     <fieldset>
         <div class="tabs vertical">
-            {{view.parentView.controller.content.payment_methods}}
             {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="view.parentView.controller.content.payment_method"}}
-                {{#each view.parentView.controller.content.payment_methods}}
-                    {{this}}
+                {{#each view.parentView.parentView.controller.content.payment_methods}}
                     <label class="tab">
-                        {{view view.RadioButton value="{{this}}"}}
-                        {% trans "Use" %} {{this}}
+                        {{view view.RadioButton value=this.id}}
+                        {% trans "Use" %} {{this.name}}
                     </label>
+                {{else}}
+                    No payment methods loaded
                 {{/each}}
             {{/view}}
         </div>
