@@ -271,12 +271,9 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         obj = self.get_or_create_current_order()
         # TODO: fix this (not filtering on ids now).
         ids = request.QUERY_PARAMS.getlist('ids[]', [])
-        print ids
-        methods = factory.get_payment_methods(amount=obj.amount, currency='EUR', country='NL', recurring=obj.recurring,
-                                              ids=ids)
-        print methods
+        pms = factory.get_payment_methods(amount=obj.amount, currency='EUR', country='NL', recurring=obj.recurring,ids=ids)
         # TODO: Make this serializer work!
-        serializer = self.get_serializer(methods)
+        serializer = self.get_serializer(pms)
         return response.Response(serializer.data)
 
 

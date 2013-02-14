@@ -59,7 +59,7 @@ class OrderSerializer(serializers.ModelSerializer):
     amount = serializers.IntegerField(source='amount', read_only=True)
     status = serializers.ChoiceField(read_only=True)
     # # TODO: Make a ChoiceField for payment_method to get validation on the choice.
-    payment_method = serializers.CharField(source='payment.payment_method', required=False)
+    payment_method = serializers.WritableField(source='payment.payment_method', required=False)
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
 
     #payment_methods = PaymentMethodSerializer()

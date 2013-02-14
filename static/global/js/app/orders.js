@@ -5,7 +5,6 @@
 
 App.PaymentMethod = DS.Model.extend({
     url: 'fund/paymentmethods',
-    id: DS.attr('string'),
     name: DS.attr('string')
 });
 
