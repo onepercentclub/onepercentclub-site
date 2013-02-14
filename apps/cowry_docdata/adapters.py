@@ -46,14 +46,14 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             },
             'restricted_countries': ('NL',),
             'supports_recurring': False,
-            },
+        },
 
         'dd-mastercard': {
             'id': 'MASTERCARD',
             'profile': 'mastercard',
             'name': 'Mastercard',
             'supports_recurring': False,
-            },
+        },
 
         'dd-visa': {
             'id': 'VISA',
@@ -66,9 +66,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'id': 'DIRECT_DEBIT',
             'profile': 'directdebit',
             'name': 'Direct Debit',
-            'max_amount': 10000, # €100
+            'max_amount': 10000,  # €100
             'supports_recurring': False,
-            },
+        },
     }
 
     def __init__(self):
