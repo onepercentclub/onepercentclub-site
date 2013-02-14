@@ -1,4 +1,4 @@
-from apps.cowry_docdata.models import DocDataPayment, DocDataWebDirectDirectDebit, DocDataWebMenu
+from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
 from apps.fund.serializers import PaymentMethodSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -60,7 +60,7 @@ class CurrentOrderMixin(object):
         # We're currently only using DocData so we can directly connect the DocData payment order to the order. Note
         # that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment at a later
         # stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
-        payment = DocDataPayment()
+        payment = DocDataPaymentOrder()
         payment.save()
         order.payment = payment
         order.save()

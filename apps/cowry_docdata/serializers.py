@@ -1,7 +1,7 @@
 from apps.bluebottle_drf2.serializers import PolymorphicSerializer
 from apps.cowry_docdata.models import DocDataWebMenu, DocDataWebDirectDirectDebit
 from rest_framework import serializers
-from .models import DocDataPayment
+from .models import DocDataPaymentOrder
 
 
 class DocDataOrderProfileSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class DocDataOrderProfileSerializer(serializers.ModelSerializer):
     country = serializers.CharField(required=True)
 
     class Meta:
-        model = DocDataPayment
+        model = DocDataPaymentOrder
         fields = ('id', 'first_name', 'last_name', 'email', 'street', 'city', 'postal_code', 'country')
 
 

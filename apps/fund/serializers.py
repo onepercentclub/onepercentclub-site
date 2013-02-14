@@ -56,7 +56,7 @@ class OrderSerializer(serializers.ModelSerializer):
     amount = serializers.IntegerField(source='amount', read_only=True)
     status = serializers.ChoiceField(read_only=True)
     # Payment_method  is writen in the view.
-    payment_method = serializers.CharField(source='payment.payment_method', required=False)
+    payment_method_id = serializers.CharField(source='payment.payment_method_id', required=False)
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
 
     #payment_methods = PaymentMethodSerializer()
@@ -68,7 +68,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'amount', 'status', 'recurring', 'payment_method', 'payment_methods')
+        fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods')
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
