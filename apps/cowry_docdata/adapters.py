@@ -1,6 +1,6 @@
 # coding=utf-8
 from apps.cowry.adapters import AbstractPaymentAdapter
-from apps.cowry_docdata.models import DocDataPayment
+from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebMenu
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.utils.http import urlencode
@@ -17,6 +17,7 @@ class DocDataAPIVersionPlugin(MessagePlugin):
         body = context.envelope.getChild('Body')
         request = body[0]
         request.set('version', '1.0')
+        print body
 
 
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
@@ -26,6 +27,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     live_api_url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
     test_api_url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
+
+    id_to_model_mapping = {
+        'dd-ideal': DocDataWebMenu,
+        'dd-mastercard': DocDataWebMenu,
+        'dd-visa': DocDataWebMenu,
+        'dd-direct-debit': DocDataWebMenu,
+    }
 
     payment_methods = {
         'dd-ideal': {
@@ -60,13 +68,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'profile': 'visa',
             'name': 'Visa',
             'supports_recurring': False,
-            },
+        },
 
         'dd-direct-debit': {
             'id': 'DIRECT_DEBIT',
             'profile': 'directdebit',
             'name': 'Direct Debit',
-            'max_amount': 10000,  # €100
+            'max_amount': 10000, # €100
             'supports_recurring': False,
         },
     }
@@ -96,27 +104,31 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             self.return_url = 'https://' + server + '#/support/thanks'
 
-        # Preferences for the DocData system
-        self.paymentPreferences = self.client.factory.create('ns0:paymentPreferences')
-        self.paymentPreferences.profile = 'standard'
-        self.paymentPreferences.numberOfDaysToPay = 5
-        self.menuPreferences = self.client.factory.create('ns0:menuPreferences')
-
 
     def get_payment_methods(self):
         return self.payment_methods
 
 
-    def create_payment_object(self, payment_method='', payment_submethod='', amount=0, currency=''):
-        payment = DocDataPayment.objects.create(payment_method=payment_method, payment_submethod=payment_submethod,
-                                                amount=amount, currency=currency)
+    def create_payment_object(self, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
+        payment = DocDataPaymentOrder.objects.create(payment_method_id=payment_method_id,
+                                                     payment_submethod_id=payment_submethod_id,
+                                                     amount=amount, currency=currency)
         payment.save()
         return payment
 
 
     def create_remote_payment_order(self, payment):
+        # Some preconditions.
         if payment.payment_order_key:
             raise DocDataPaymentException('ERROR', 'Cannot create two remote DocData Payment orders for same payment.')
+        if not payment.payment_method_id:
+            raise DocDataPaymentException('ERROR', 'payment_method_id is not set')
+
+        # Preferences for the DocData system
+        paymentPreferences = self.client.factory.create('ns0:paymentPreferences')
+        paymentPreferences.profile = self.payment_methods[payment.payment_method_id]['profile'],
+        paymentPreferences.numberOfDaysToPay = 5
+        menuPreferences = self.client.factory.create('ns0:menuPreferences')
 
         # Order Amount.
         amount = self.client.factory.create('ns0:amount')
@@ -142,8 +154,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         address = self.client.factory.create('ns0:address')
         address.street = payment.street
         address.houseNumber = 'N/A'
-        address.postalCode = payment.postal_code.replace(' ',
-                                                         '')  # TODO No space allowed in postal code. Move to serializer.
+        # TODO No space allowed in postal code. Move to serializer?
+        address.postalCode = payment.postal_code.replace(' ', '')
         address.city = payment.city
 
         country = self.client.factory.create('ns0:country')
@@ -159,14 +171,14 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             payment.merchant_order_reference = str(timezone.now())
         else:
             # TODO: Make a setting for the prefix
-            payment.merchant_order_reference = 'BB-' + str(payment.id)
+            payment.merchant_order_reference = 'COWRY-' + str(payment.id)
 
         # Save in case there's an error creating the payment order.
         payment.save()
 
         # Execute create payment order request.
-        reply = self.client.service.create(self.merchant, payment.merchant_order_reference, self.paymentPreferences,
-                                           self.menuPreferences, shopper, amount, billTo)
+        reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
+                                           menuPreferences, shopper, amount, billTo)
         if hasattr(reply, 'createSuccess'):
             payment.payment_order_key = reply['createSuccess']['key']
             payment.save()
@@ -179,41 +191,49 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         payment.save()
 
 
-    def get_payment_url(self, payment):
+    def create_webmenu_payment(self, payment):
         """ Return the Payment URL """
+
+        if not payment.payment_method_id:
+            raise DocDataPaymentException('ERROR', 'payment_method_id is not set')
+        if not self.id_to_model_mapping[payment.payment_method_id] == DocDataWebMenu:
+            raise DocDataPaymentException('ERROR',
+                                          'payment_method_id {0} does not support WebMenu'.format(payment.payment_method_id))
 
         if not payment.payment_order_key:
             self.create_remote_payment_order(payment)
 
         params = {
-            'command': 'show_payment_cluster',
             'payment_cluster_key': payment.payment_order_key,
             'merchant_name': self.merchant._name,
+            'profile': self.payment_methods[payment.payment_method_id]['profile'],
             # TODO: Enable when have good URLs.
             # 'return_url_success': self.return_url,
             # 'return_url_pending': self.return_url,
             # 'return_url_canceled': self.return_url,
             # 'return_url_error': self.return_url,
             'client_language': payment.language,
-            'default_pm': payment.payment_method,
-            # TODO: Not currently working. Need to call DocData.
-            # 'default_act': 'true',
+            'default_pm': self.payment_methods[payment.payment_method_id]['id'],
         }
 
-        if payment.payment_method == 'IDEAL':
-            # TODO check that payment_submethod is set
-            # TODO get id from submethod dict
-            params['ideal_issuer_id'] = payment.payment_submethod
+        if payment.payment_method_id == 'dd-ideal' and payment.payment_submethod_id:
+            params['ideal_issuer_id'] = payment.payment_submethod_id
+            params['default_act'] = 'true'
 
         if self.test:
-            redirect_url = 'https://test.docdatapayments.com/ps/menu'
+            payment_url_base = 'https://test.docdatapayments.com/ps/menu'
         else:
-            redirect_url = 'https://secure.docdatapayments.com/ps/menu'
+            payment_url_base = 'https://secure.docdatapayments.com/ps/menu'
 
-        # FIXME: Not actually storing payment_url
-        payment.payment_url = redirect_url + '?' + urlencode(params)
-        payment.save()
-        return payment.payment_url
+        # Create a DocDataWebMenu when we need it.
+        webmenu_payment = payment.latest_payment_method
+        if not webmenu_payment or not isinstance(webmenu_payment, DocDataWebMenu):
+            webmenu_payment = DocDataWebMenu()
+            webmenu_payment.docdata_payment_order = payment
+
+        webmenu_payment.payment_url = payment_url_base + '?' + urlencode(params)
+        webmenu_payment.save()
+        return webmenu_payment.payment_url
 
 
     def map_status(self, status):
