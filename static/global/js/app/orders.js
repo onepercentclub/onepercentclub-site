@@ -2,11 +2,14 @@
  Models
  */
 
+
 App.Order = DS.Model.extend({
     url: 'fund/orders',
     amount: DS.attr('number'),
     status: DS.attr('string'),
-    recurring: DS.attr('string')
+    recurring: DS.attr('string'),
+    payment_method: DS.attr('string'),
+    payment_methods: DS.attr('array')
 });
 
 
@@ -155,7 +158,7 @@ App.CurrentOrderController = Em.ObjectController.extend({
 
 
     App.CurrentOrderPaymentController = Em.ObjectController.extend({
-
+    contentBinding: App.CurrentOrderController.content,
     /*
      TODO: Figure out how to make this work.
 

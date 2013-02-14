@@ -1,5 +1,6 @@
 from apps.cowry_docdata.models import DocDataPayment, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
+from apps.fund.serializers import PaymentMethodSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -255,7 +256,16 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         return order.payment
 
 
-class PaymentMethodCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+class PaymentMethodList(generics.APIView):
+    """
+    Payment Methods
+    """
+
+    serializer_class = PaymentMethodSerializer
+
+
+
+class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     """
     Payment method information.
     """

@@ -143,22 +143,17 @@
         <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
         {% trans "Choose the payment method you prefer to donate." %}
     </div>
-
     <fieldset>
         <div class="tabs vertical">
-            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="payment_method"}}
-                <label class="tab">
-                    {{view view.RadioButton value="paypal"}}
-                    {% trans "Use Paypal" %}
-                </label>
-                <label class="tab">
-                    {{view view.RadioButton value="credit_card"}}
-                    {% trans "Use Credit Card" %}
-                </label>
-                <label class="tab">
-                    {{view view.RadioButton value="direct_debit"}}
-                    {% trans "Use Direct Debit" %}
-                </label>
+            {{view.parentView.controller.content.payment_methods}}
+            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="view.parentView.controller.content.payment_method"}}
+                {{#each view.parentView.controller.content.payment_methods}}
+                    {{this}}
+                    <label class="tab">
+                        {{view view.RadioButton value="{{this}}"}}
+                        {% trans "Use" %} {{this}}
+                    </label>
+                {{/each}}
             {{/view}}
         </div>
         <div class="panes vertical">

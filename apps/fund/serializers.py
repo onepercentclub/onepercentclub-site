@@ -35,6 +35,16 @@ class OrderItemObjectSerializer(ObjectBasedSerializer):
         )
 
 
+class PaymentMethodSerializer(serializers.Serializer):
+
+    id = serializers.CharField()
+    name = serializers.CharField()
+
+    class Meta:
+        fields = ('id', 'name')
+
+
+
 class OrderSerializer(serializers.ModelSerializer):
     # source is required because amount is a property on the model.
     amount = serializers.IntegerField(source='amount', read_only=True)
@@ -42,6 +52,8 @@ class OrderSerializer(serializers.ModelSerializer):
     # # TODO: Make a ChoiceField for payment_method to get validation on the choice.
     payment_method = serializers.CharField(source='payment.payment_method', required=False)
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
+
+    #payment_methods = PaymentMethodSerializer()
 
     def get_payment_methods(self, obj):
         return get_order_payment_methods(obj)
