@@ -14,7 +14,7 @@ App.Order = DS.Model.extend({
     amount: DS.attr('number'),
     status: DS.attr('string'),
     recurring: DS.attr('string'),
-    payment_method: DS.attr('string'),
+    payment_method_id: DS.attr('string'),
     payment_methods: DS.hasMany('App.PaymentMethod')
 });
 
