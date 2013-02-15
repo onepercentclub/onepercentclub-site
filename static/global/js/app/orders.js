@@ -150,6 +150,15 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
 
 App.CurrentOrderController = Em.ObjectController.extend({
 
+    isIdeal: function(){
+        console.log(this.get('content.payment_method'));
+        return (this.get('content.payment_method') == 'dd-ideal');
+    },
+
+    isDirectDebit: function(){
+        return (this.get('content.payment_method') == 'dd-direct-debit');
+    },
+
     initTransaction: function(){
         var order = this.get('content');
         var transaction = App.get('store').transaction();
@@ -232,7 +241,11 @@ App.CurrentOrderItemView = Em.View.extend({
     delete: function(item){
         var controller = this.get('controller');
         this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
+    },
+    submit: function(e){
+        e.preventDefault();
     }
+
 });
 
 
@@ -263,22 +276,27 @@ App.OrderNavView = Ember.View.extend({
 
 
 App.CurrentOrderPaymentView = Em.View.extend({
-    tagName: 'form',
-    templateName: 'order_payment',
-
-    /*
-    TODO: Figure out how to make this work
-    */
-    highlightSelected: function(){
-        // On first load highlight the selected option
-        console.log('hup: ' + this.get('content.payment_method'));
-        this.$('input').parents('label').removeClass('selected');
-        this.$('input[value='+this.get('content.payment_method')+']').parents('label').addClass('selected');
-    }.observes('content.payment_method')
+    tagName: 'div',
+    classNames: ['content'],
+    templateName: 'order_payment'
 });
 
 
 App.CurrentPaymentMethodInfoView = Em.View.extend({
-    tagName: 'form',
+    tagName: 'div',
     templateName: 'payment_method_info'
 });
+
+
+App.IdealPaymentMethodInfoView = Em.View.extend({
+    tagName: 'form',
+    templateName: 'ideal_payment_method_info'
+});
+
+
+App.DirectDebitPaymentMethodInfoView = Em.View.extend({
+    tagName: 'form',
+    templateName: 'direct_debit_payment_method_info'
+});
+
+

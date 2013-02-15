@@ -218,6 +218,7 @@ App.Router.map(function() {
             this.resource('currentPaymentMethodInfo', {path: 'info'});
         });
     });
+
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
 });
