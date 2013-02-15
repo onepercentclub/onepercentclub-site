@@ -4,6 +4,7 @@ from django.test.testcases import TestCase
 from django.utils import unittest
 import requests
 from requests.exceptions import ConnectionError
+from rest_framework import status
 
 
 try:
@@ -20,26 +21,29 @@ class DocDataPaymentTests(TestCase):
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_basic_payment(self):
         # Create the payment.
-        self.payment = factory.create_payment_object('dd-mastercard', amount=2000, currency='EUR')
-        self.payment.country = 'NL'
-        self.payment.city = 'Amsterdam'
-        self.payment.street = 'Dam'
-        self.payment.postal_code = '1001AM'
-        self.payment.first_name = 'Nijntje'
-        self.payment.last_name = 'het Konijnje'
-        self.payment.email = 'nijntje@hetkonijnje.nl'
-        self.payment.save()
-        payments.create_remote_payment_order(self.payment)
+        payment = factory.create_payment_object('dd-mastercard', amount=2000, currency='EUR')
+        payment.country = 'NL'
+        payment.city = 'Amsterdam'
+        payment.street = 'Dam'
+        payment.postal_code = '1001AM'
+        payment.first_name = 'Nijntje'
+        payment.last_name = 'het Konijnje'
+        payment.email = 'nijntje@hetkonijnje.nl'
+        payment.save()
+        payments.create_remote_payment_order(payment)
 
         # Check that the order key has been saved.
-        self.assertTrue(self.payment.payment_order_key)
+        self.assertTrue(payment.payment_order_key)
 
         # Test that the payment url works.
-        payment_url = payments.create_webmenu_payment(self.payment)
+        payment_url = payments.create_webmenu_payment(payment)
         response = requests.get(payment_url)
         self.assertEqual(response.status_code, 200)
 
-    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
+        # Test the status changed notification.
+        response = self.client.get('/i18n/api/ddscn/?mor={0}'.format(payment.merchant_order_reference))
+        self.assertTrue(response.status_code, status.HTTP_200_OK)
+
     def test_payment_method_restrictions(self):
         # Test country restrictions.
         payment_method_ids = factory.get_payment_method_ids(country='NL')
