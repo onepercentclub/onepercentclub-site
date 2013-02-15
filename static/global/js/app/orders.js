@@ -2,6 +2,18 @@
  Models
  */
 
+App.bankList = [
+    Ember.Object.create({value:"0081", title: "Fortis"}),
+    Ember.Object.create({value:"0021", title: "Rabobank"}),
+    Ember.Object.create({value:"0721", title: "ING Bank"}),
+    Ember.Object.create({value:"0751", title: "SNS Bank"}),
+    Ember.Object.create({value:"0031", title: "ABN Amro Bank"}),
+    Ember.Object.create({value:"0761", title: "ASN Bank"}),
+    Ember.Object.create({value:"0771", title: "SNS Regio Bank"}),
+    Ember.Object.create({value:"0511", title: "Triodos Bank"}),
+    Ember.Object.create({value:"0091", title: "Friesland Bank"}),
+    Ember.Object.create({value:"0161", title: "Van Lanschot Bankiers"})
+];
 
 App.PaymentMethod = DS.Model.extend({
     url: 'fund/paymentmethods',
@@ -15,6 +27,7 @@ App.Order = DS.Model.extend({
     status: DS.attr('string'),
     recurring: DS.attr('string'),
     payment_method_id: DS.attr('string'),
+    payment_submethod_id: DS.attr('string'),
     payment_methods: DS.hasMany('App.PaymentMethod')
 });
 

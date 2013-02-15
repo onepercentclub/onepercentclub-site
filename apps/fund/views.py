@@ -129,6 +129,11 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             order = self.get_or_create_current_order()
             order.payment.payment_method_id = pm
             order.payment.save()
+        psm = request.DATA.get('payment_submethod_id', None)
+        if psm:
+            order = self.get_or_create_current_order()
+            order.payment.payment_submethod_id = psm
+            order.payment.save()
         return self.update(request, *args, **kwargs)
 
 

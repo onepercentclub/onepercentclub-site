@@ -193,6 +193,10 @@
 
     <fieldset>
         {{#if content.isLoaded}}
+            {{view Em.Select contentBinding="App.bankList"
+                             optionValuePath="content.value"
+                             optionLabelPath="content.title"
+                             valueBinding="view.parentView.parentView.parentView.controller.content.payment_submethod_id"}}
             {{#if payment_url}}
                 <a {{bindAttr href="payment_url"}} class="button right">{% trans "Pay" %}</a>
             {{else}}
