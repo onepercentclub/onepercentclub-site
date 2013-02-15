@@ -13,9 +13,9 @@ def update_payment_status(payment):
     adapter = _adapter_for_payment_method(payment.payment_method_id)
     return adapter.update_payment_status(payment)
 
-def create_webmenu_payment(payment):
+def get_webmenu_payment_url(payment):
     adapter = _adapter_for_payment_method(payment.payment_method_id)
-    return adapter.create_webmenu_payment(payment)
+    return adapter.get_webmenu_payment_url(payment)
 
 def cancel_payment(payment):
     raise NotImplementedError

@@ -41,6 +41,9 @@ class CurrentOrderMixin(object):
             else:
                 # No order_id in session. Return None
                 return None
+        order.payment.amount = int(100 * order.amount)
+        order.payment.currency = 'EUR'
+        order.payment.save()
         return order
 
     def get_or_create_current_order(self):
@@ -120,7 +123,11 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_object(self, queryset=None):
-        return self.get_or_create_current_order()
+        # For now generate payment url over here.
+        order = self.get_or_create_current_order()
+        # This will save it in pm info.
+        payments.get_webmenu_payment_url(order.payment)
+        return order
 
     def put(self, request, *args, **kwargs):
         # for now we write payment method here because serializer isn't smart enough.
@@ -129,11 +136,14 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             order = self.get_or_create_current_order()
             order.payment.payment_method_id = pm
             order.payment.save()
+
         psm = request.DATA.get('payment_submethod_id', None)
         if psm:
             order = self.get_or_create_current_order()
             order.payment.payment_submethod_id = psm
             order.payment.save()
+
+
         return self.update(request, *args, **kwargs)
 
 

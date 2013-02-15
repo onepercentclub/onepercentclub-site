@@ -288,9 +288,14 @@ App.OrderNavView = Ember.View.extend({
 
 
 App.CurrentOrderPaymentView = Em.View.extend({
+    contentBinding: "App.currentOrderController.content",
     tagName: 'div',
     classNames: ['content'],
-    templateName: 'order_payment'
+    templateName: 'order_payment',
+    highlight: function(){
+        console.log('Hi lite');
+    }.observes('content.payment_method_id')
+
 });
 
 
