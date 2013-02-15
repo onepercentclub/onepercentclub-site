@@ -485,7 +485,7 @@ dl.advanced dd {
 html {
   color: #454545;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 /*
@@ -519,7 +519,7 @@ body {
 .wrapper {
   *zoom: 1;
   min-width: 980px;
-  max-width: 80em;
+  max-width: 91.42857em;
   margin: auto;
   padding: 0 16px;
 }
@@ -553,7 +553,7 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 53, ../sass/includes/_layout.scss */
+/* line 54, ../sass/includes/_layout.scss */
 .wrapper > .sidebar, .wrapper > sidebar {
   float: left;
   width: 31.25%;
@@ -561,7 +561,7 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 58, ../sass/includes/_layout.scss */
+/* line 59, ../sass/includes/_layout.scss */
 .wrapper > .content {
   float: left;
   width: 62.5%;
@@ -569,14 +569,14 @@ body {
   margin-right: 2.08333%;
 }
 
-/* line 62, ../sass/includes/_layout.scss */
+/* line 63, ../sass/includes/_layout.scss */
 .section {
   background-color: #e9e9e9;
   padding: 0 0 16px 0;
   padding: 0 0 1rem 0;
 }
 
-/* line 67, ../sass/includes/_layout.scss */
+/* line 68, ../sass/includes/_layout.scss */
 .top {
   background-color: #050505;
   color: white;
@@ -977,29 +977,29 @@ form ul > li ul.checklist label:hover {
   cursor: pointer;
 }
 /* line 134, ../sass/includes/_forms.scss */
-form ul li.error label {
+form span.error {
   color: #d24226;
+  margin: 0.6em 0.6em 0.6em 0px;
+  display: block;
 }
-/* line 136, ../sass/includes/_forms.scss */
-form ul li.error label:hover {
-  color: #662012;
-}
-/* line 139, ../sass/includes/_forms.scss */
-form ul li.error input {
+/* line 142, ../sass/includes/_forms.scss */
+form input.error {
   border: 1px solid #d24226;
   -webkit-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
   -moz-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
   box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
 }
-/* line 142, ../sass/includes/_forms.scss */
-form ul li.error input:focus {
+/* line 145, ../sass/includes/_forms.scss */
+form input.error:focus {
   border: 1px solid #d24226;
 }
-/* line 146, ../sass/includes/_forms.scss */
-form ul li.error span.error {
-  color: #d24226;
-  margin: 0.6em 0.6em 0.6em 0px;
-  display: block;
+/* line 147, ../sass/includes/_forms.scss */
+form input.error::-webkit-input-placeholder {
+  color: #e68a78;
+}
+/* line 151, ../sass/includes/_forms.scss */
+form input.error:-moz-placeholder {
+  color: #e68a78;
 }
 
 /* =========== Tables */
@@ -2158,8 +2158,8 @@ ul.steps li.selected a {
 .meta {
   margin: 8px 0;
   margin: 0.5rem 0;
-  font-size: 14px;
-  font-size: 0.875rem;
+  font-size: 18px;
+  font-size: 1.125rem;
 }
 /* line 43, ../sass/modules/_detail-top.scss */
 .meta .location {
@@ -2224,9 +2224,9 @@ ul.steps li.selected a {
   padding: 0;
   font-weight: bold;
   color: #c0bfbf;
-  font-size: 14px;
-  font-size: 0.875rem;
-  height: 50px;
+  font-size: 16px;
+  font-size: 1rem;
+  height: 64px;
   overflow: hidden;
 }
 
@@ -2778,6 +2778,7 @@ ul.steps li.selected a {
 }
 /* line 45, ../sass/modules/_wallposts.scss */
 .wallpost .content {
+  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
   float: left;
   width: 81.25%;
   margin-left: 18.75%;
@@ -2788,12 +2789,12 @@ ul.steps li.selected a {
   margin-bottom: 16px;
   margin-bottom: 1rem;
 }
-/* line 52, ../sass/modules/_wallposts.scss */
+/* line 53, ../sass/modules/_wallposts.scss */
 .wallpost .reaction-box {
   position: relative;
   display: block;
 }
-/* line 57, ../sass/modules/_wallposts.scss */
+/* line 58, ../sass/modules/_wallposts.scss */
 .wallpost .user-img {
   width: 100px;
   width: 6.25rem;
@@ -2804,7 +2805,7 @@ ul.steps li.selected a {
   left: 0;
 }
 
-/* line 66, ../sass/modules/_wallposts.scss */
+/* line 67, ../sass/modules/_wallposts.scss */
 .wallpost-filter {
   margin-top: 32px;
   margin-top: 2rem;
@@ -3113,6 +3114,7 @@ ul.steps li.selected a {
 }
 /* line 235, ../sass/modules/_reactions.scss */
 .reactions li .reaction {
+  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
   float: left;
   width: 83.33333%;
   margin-left: 16.66667%;
@@ -3130,16 +3132,16 @@ ul.steps li.selected a {
   color: #333;
   vertical-align: baseline;
 }
-/* line 245, ../sass/modules/_reactions.scss */
+/* line 246, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user {
   font-size: 14px;
   font-size: 0.875rem;
 }
-/* line 247, ../sass/modules/_reactions.scss */
+/* line 248, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user strong {
   text-transform: uppercase;
 }
-/* line 252, ../sass/modules/_reactions.scss */
+/* line 253, ../sass/modules/_reactions.scss */
 .reactions li .reaction::after {
   top: 16px;
   top: 1rem;

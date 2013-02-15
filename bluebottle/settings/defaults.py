@@ -19,7 +19,8 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Ben Konrath', 'ben@1procentclub.nl'),
+    ('Loek van Gent', 'loek@1procentclub.nl'),
 )
 
 MANAGERS = ADMINS
@@ -34,10 +35,9 @@ MANAGERS = ADMINS
 TIME_ZONE = 'Europe/Amsterdam'
 
 
-"""
-Available user interface translations
-Ref: https://docs.djangoproject.com/en/1.4/ref/settings/#languages
-"""
+# Available user interface translations
+# Ref: https://docs.djangoproject.com/en/1.4/ref/settings/#languages
+#
 # Default language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -285,6 +285,7 @@ djcelery.setup_loader()
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--detailed-errors',
+    '--nologcapture',
 ]
 
 

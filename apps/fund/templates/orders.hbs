@@ -23,13 +23,14 @@
                 {{#linkTo currentOrderItemList}}Support{{/linkTo}}
             {{/view}}
             {{#view App.OrderNavView classNames="details"}}
-                {{#linkTo orderProfile}}{% trans "Details" %}{{/linkTo}}
+                {{#linkTo paymentOrderProfile}}{% trans "Details" %}{{/linkTo}}
             {{/view}}
             {{#view App.OrderNavView classNames="profile"}}
-                {{#linkTo orderPayment}}{% trans "Profile" %}{{/linkTo}}
+                <a>{% trans "Profile" %}</a>
             {{/view}}
+
             {{#view App.OrderNavView classNames="payment"}}
-                {{#linkTo paymentInfo}}{% trans "Pay" %}{{/linkTo}}
+                {{#linkTo currentPaymentMethodInfo}}{% trans "Pay" %}{{/linkTo}}
             {{/view}}
         </ul>
 
@@ -76,28 +77,44 @@
                 {{view view.RadioButton value="false"}}
                 {% trans "Single donation" %}
             </label>
+            <br/>
             <label>
                 {{view view.RadioButton value="true"}}
                 {% trans "Monthly donation" %}
             </label>
         {{/view}}
+        {# Doesnt update <span class="currency"><em>&euro; </em>{{view.parentView.controller.content.amount}}</span> #}
+
     </fieldset>
 
-{{#linkTo orderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+{{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "order_profile_form" %}
+{% tplhandlebars "payment_order_profile" %}
     <fieldset>
         {{#if content.isLoaded}}
-            {{view Em.TextField valueBinding="firstName" placeholder="First name"}}
-            {{view Em.TextField valueBinding="lastName" placeholder="Last name"}}
-            {{view Em.TextField valueBinding="email" placeholder="Email"}}
-            {{view Em.TextField valueBinding="address" placeholder="Address"}}
-            {{view Em.TextField valueBinding="zipCode" placeholder="Zip code"}}
-            {{view Em.TextField valueBinding="city" placeholder="City"}}
-            {{view Em.TextField valueBinding="country" placeholder="Country"}}
+            {{#each errors.first_name}}<span class="error">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="firstName" placeholder="First name" classBinding="errors.first_name.length:error"}}
+
+            {{#each errors.last_name}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="lastName" placeholder="Last name" classBinding="errors.last_name.length:error"}}
+
+            {{#each errors.email}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="email" placeholder="Email" classBinding="errors.email.length:error"}}
+
+            {{#each errors.street}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="street" placeholder="Street + housenumber" classBinding="errors.street.length:error"}}
+
+            {{#each errors.postal_code}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="postalCode" placeholder="Postal code" classBinding="errors.postal_code.length:error"}}
+
+            {{#each errors.city}}<span class="errors">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
+
+            {{#each errors.country}}<span class="errors">{{this}}</span>{{/each}}
+            {{view App.CountrySelect valueBinding="country" classBinding="errors.country.length:error"}}
 
             <button class="right">{% trans 'Next step' %}</button>
         {{/if}}
@@ -129,27 +146,18 @@
         <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
         {% trans "Choose the payment method you prefer to donate." %}
     </div>
-
+    {{content.amount}}
     <fieldset>
         <div class="tabs vertical">
-            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="payment_method"}}
-
-                <label class="tab">
-                    {{view view.RadioButton value="ideal"}}
-                    {% trans "Use iDeal" %}
-                </label>
-                <label class="tab">
-                    {{view view.RadioButton value="paypal"}}
-                    {% trans "Use Paypal" %}
-                </label>
-                <label class="tab">
-                    {{view view.RadioButton value="credit_card"}}
-                    {% trans "Use Credit Card" %}
-                </label>
-                <label class="tab">
-                    {{view view.RadioButton value="direct_debit"}}
-                    {% trans "Use Direct Debit" %}
-                </label>
+            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="view.parentView.controller.content.payment_method_id"}}
+                {{#each view.parentView.parentView.controller.content.payment_methods}}
+                    <label class="tab">
+                        {{view view.RadioButton value=this.id}}
+                        {{this.name}}
+                    </label>
+                {{else}}
+                    {% trans "No payment methods available" %}
+                {{/each}}
             {{/view}}
         </div>
         <div class="panes vertical">
@@ -160,16 +168,69 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "payment_info" %}
+{% tplhandlebars "payment_method_info" %}
 
     <fieldset>
         {{#if content.isLoaded}}
-            {# TODO: Ask for payment method specific information here... #}
-            You're all set now!<br/>
-            In the next step we will redirect you to Docdata who takes care of our online payments.<br />
-            <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
+            {{#if view.parentView.parentView.controller.isIdeal}}
+                {{view App.IdealPaymentMethodInfoView}}
+            {{else}}
+                {{#if view.parentView.parentView.controller.isDirectDebit}}
+                    {{view App.DirectDebitPaymentMethodInfoView}}
+                {{else}}
+                    {{#if payment_url}}
+                        <a {{bindAttr href="payment_url"}} class="button right">{% trans "Pay" %}</a>
+                    {{else}}
+                        <button class="button right">{% trans "Next" %}</button>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+
         {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
+        {{/if}}
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "ideal_payment_method_info" %}
+
+    <fieldset>
+        {{#if content.isLoaded}}
+            {{view Em.Select contentBinding="App.bankList"
+                             optionValuePath="content.value"
+                             optionLabelPath="content.title"
+                             valueBinding="view.parentView.parentView.parentView.controller.content.payment_submethod_id"}}
+            {{#if payment_url}}
+                <a {{bindAttr href="payment_url"}} class="button right">{% trans "Pay" %}</a>
+            {{else}}
+                <button>{% trans "Next" %}</button>
+            {{/if}}
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
+        {{/if}}
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "direct_debit_payment_method_info" %}
+
+    <fieldset>
+        {{#if content.isLoaded}}
+            {{#each errors.bank_account_number}}<span class="error">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="bank_account_number" placeholder="Bank account number" classBinding="errors.bank_account_number.length:error"}}
+
+            {{#each errors.bank_account_name}}<span class="error">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="bank_account_name" placeholder="Bank account holder name" classBinding="errors.bank_account_name.length:error"}}
+
+            {{#each errors.bank_account_city}}<span class="error">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="bank_account_city" placeholder="Bank account city" classBinding="errors.bank_account_city.length:error"}}
+
+            <button>{% trans "Next" %}</button>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
         {{/if}}
     </fieldset>
 

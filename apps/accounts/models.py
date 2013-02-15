@@ -1,6 +1,6 @@
-import os
 import random
 import string
+import os
 from django.conf import settings, global_settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -11,7 +11,7 @@ from djchoices.choices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 from apps.bluebottle_utils.models import Address
-from apps.geo.models import Country
+
 
 class Language(models.Model):
     """
@@ -83,7 +83,7 @@ class UserProfile(models.Model):
 
     # Basic profile information
     birthdate = models.DateField(_("birthdate"), null=True, blank=True)
-    gender = models.CharField(_("gender"), max_length=6, blank=True,null=True, choices=Gender.choices)
+    gender = models.CharField(_("gender"), max_length=6, blank=True, null=True, choices=Gender.choices)
     location = models.CharField(_("location"), max_length=100, blank=True)
     website = models.URLField(_("website"), blank=True, max_length=255)
     # TODO Use generate_picture_filename (or something) for upload_to
@@ -111,6 +111,7 @@ class UserProfile(models.Model):
         return self.user.username
 
     @property
+    # for now return the first address found on this user.
     def address(self):
         return self.useraddress_set.all()[0]
 
@@ -152,6 +153,7 @@ def sync_user_profile(sender, instance, created, **kwargs):
         # TODO In Django 1.5 this can be changed to only save the 'slug' field:
         # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
         user_profile.save()
+
 
 post_save.connect(sync_user_profile, sender=User)
 
