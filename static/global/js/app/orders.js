@@ -164,13 +164,12 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
 App.CurrentOrderController = Em.ObjectController.extend({
 
     isIdeal: function(){
-        console.log(this.get('content.payment_method'));
-        return (this.get('content.payment_method') == 'dd-ideal');
-    },
+        return (this.get('content.payment_method_id') == 'dd-ideal');
+    }.property('content.payment_method_id'),
 
     isDirectDebit: function(){
-        return (this.get('content.payment_method') == 'dd-direct-debit');
-    },
+        return (this.get('content.payment_method_id') == 'dd-direct-debit');
+    }.property('content.payment_method_id'),
 
     initTransaction: function(){
         var order = this.get('content');
@@ -309,7 +308,12 @@ App.IdealPaymentMethodInfoView = Em.View.extend({
 
 App.DirectDebitPaymentMethodInfoView = Em.View.extend({
     tagName: 'form',
-    templateName: 'direct_debit_payment_method_info'
+    templateName: 'direct_debit_payment_method_info',
+
+    submit: function(e){
+        e.preventDefault();
+        console.log('yeah');
+    }
 });
 
 
