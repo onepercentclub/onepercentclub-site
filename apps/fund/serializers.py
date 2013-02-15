@@ -60,7 +60,7 @@ class OrderSerializer(serializers.ModelSerializer):
     payment_submethod_id = serializers.CharField(source='payment.payment_submethod_id', required=False)
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
 
-    payment_url = serializers.SerializerMethodField(method_name='get_paymenturl')
+    payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
 
 
     #payment_methods = PaymentMethodSerializer()
@@ -71,7 +71,7 @@ class OrderSerializer(serializers.ModelSerializer):
         return factory.get_payment_method_ids(amount=amount, currency='EUR', country='NL', recurring=obj.recurring)
 
     def get_payment_url(self, obj):
-        pm = obj.payment.latest_payment_method
+        pm = obj.payment.latest_docdata_payment
         if pm:
             return pm.payment_url
         return None
@@ -79,7 +79,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id')
+        fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id', 'payment_url')
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
