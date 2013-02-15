@@ -16,7 +16,7 @@ class DocDataOrderProfileSerializer(serializers.ModelSerializer):
 
 
 class DocDataPaymentMethodSerializerBase(serializers.ModelSerializer):
-    id = serializers.Field(source='docdatapaymentmethod_ptr_id')
+    id = serializers.Field(source='docdatapayment_ptr_id')
 
     class Meta:
         fields = ('id', )

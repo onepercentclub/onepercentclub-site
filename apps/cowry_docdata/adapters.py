@@ -72,6 +72,14 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'restricted_countries': ('NL',),
             'supports_recurring': False,
         },
+        'dd-direct-debit': {
+            'id': 'DIRECT_DEBIT',
+            'profile': 'directdebit',
+            'name': 'Direct Debit',
+            'max_amount': 10000, # €100
+            'restricted_countries': ('NL',),
+            'supports_recurring': False,
+        },
 
         'dd-mastercard': {
             'id': 'MASTERCARD',
@@ -85,16 +93,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'profile': 'visa',
             'name': 'Visa',
             'supports_recurring': False,
-        },
+        }
 
-        'dd-direct-debit': {
-            'id': 'DIRECT_DEBIT',
-            'profile': 'directdebit',
-            'name': 'Direct Debit',
-            'max_amount': 10000,  # €100
-            'restricted_countries': ('NL',),
-            'supports_recurring': False,
-        },
     }
 
     def __init__(self):
@@ -118,9 +118,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         # TODO Work this out better.
         server = Site.objects.get_current().domain
         if server == 'localhost:8000':
-            self.return_url = 'http://' + server + '#/support/thanks'
+            self.return_url = 'http://' + server
         else:
-            self.return_url = 'https://' + server + '#/support/thanks'
+            self.return_url = 'https://' + server
 
 
     def get_payment_methods(self):
@@ -228,7 +228,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         payment.save()
 
 
-    def create_webmenu_payment(self, payment):
+    def get_webmenu_payment_url(self, payment):
         """ Return the Payment URL """
 
         if not payment.payment_method_id:
@@ -246,10 +246,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'merchant_name': self.merchant._name,
             'profile': self.payment_methods[payment.payment_method_id]['profile'],
             # TODO: Enable when have good URLs.
-            # 'return_url_success': self.return_url,
-            # 'return_url_pending': self.return_url,
-            # 'return_url_canceled': self.return_url,
-            # 'return_url_error': self.return_url,
+            'return_url_success': self.return_url  + '#/support/thanks',
+            'return_url_pending': self.return_url  + '#/support/thanks',
+            'return_url_canceled': self.return_url  + '#/support/thanks',
+            'return_url_error': self.return_url,
             'client_language': payment.language,
             'default_pm': self.payment_methods[payment.payment_method_id]['id'],
         }
