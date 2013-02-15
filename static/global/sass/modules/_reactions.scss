@@ -233,6 +233,7 @@
         }
         
         .reaction {
+            font-family: $paragraph-font-family;
             @include grid(48, 8, 0);
             @include rem(padding, 12px 16px 0 16px);
             @include border-radius(0.3em);

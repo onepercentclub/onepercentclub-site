@@ -299,22 +299,22 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
 
     def get_object(self):
         order = self.get_or_create_current_order()
-        if not order.payment.latest_paymentmethod:
-            if not order.payment.payment_method:
+        if not order.payment.latest_docdata_payment:
+            if not order.payment.payment_method_id:
                 payment_methods = get_order_payment_methods(order)
-            if payment_methods:
-                order.payment.payment_method = payment_methods[0]
-                order.payment.save()
-            else:
-                return None
+                if payment_methods:
+                    order.payment.payment_method_id = payment_methods[0]
+                    order.save()
+                else:
+                    return None
             # FIXME: Use cowry factory for this?
             # TODO: Hardcoded stuff is fun! should fix this though.
             if order.recurring:
-                payment_method_object = DocDataWebDirectDirectDebit(docdatapayment=order.payment)
+                payment_method_object = DocDataWebDirectDirectDebit(docdata_payment_order=order.payment)
             else:
-                payment_method_object = DocDataWebMenu(docdatapayment=order.payment)
+                payment_method_object = DocDataWebMenu(docdata_payment_order=order.payment)
             payment_method_object.save()
-        return order.payment.latest_paymentmethod
+        return order.payment.latest_docdata_payment
 
 
 

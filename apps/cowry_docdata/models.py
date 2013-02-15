@@ -27,8 +27,8 @@ class DocDataPaymentOrder(Payment):
 
     @property
     def latest_docdata_payment(self):
-        if self.docdatapayment_set.all().order_by('-created'):
-            return self.docdatapayment_set.all()[0]
+        if self.docdatapaymentmethod_set.all():
+            return self.docdatapaymentmethod_set.order_by('-created').all()[0]
         return None
 
 
