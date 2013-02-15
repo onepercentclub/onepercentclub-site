@@ -7,9 +7,9 @@ PWD=`pwd`
 BASEPATH=`basename $PWD`
 
 GIT=git
-VIRTUALENV="virtualenv --system-site-packages --distribute --prompt=($BASEPATH) --python=/usr/bin/python2.6"
+VIRTUALENV="virtualenv --system-site-packages --distribute --prompt=($BASEPATH)"
 PIP="pip --timeout 30 -q --use-mirrors"
-ENVDIR=env-2.6
+ENVDIR=env
 
 SETTINGS_DIR=$PWD/bluebottle/settings
 MANAGE_PY="$ENVDIR/bin/python ./manage.py"
