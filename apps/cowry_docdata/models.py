@@ -62,7 +62,7 @@ class DocDataPaymentOrder(Payment):
     @property
     def latest_payment_method(self):
         if self.docdatapaymentmethod_set.all():
-            return self.docdatapaymentmethod_set.all()[0]
+            return self.docdatapaymentmethod_set.order_by('-created').all()[0]
         return None
 
 

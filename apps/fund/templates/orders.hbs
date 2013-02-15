@@ -30,7 +30,7 @@
             {{/view}}
 
             {{#view App.OrderNavView classNames="payment"}}
-                {{#linkTo currentOrder.payment}}{% trans "Pay" %}{{/linkTo}}
+                {{#linkTo currentPaymentMethodInfo}}{% trans "Pay" %}{{/linkTo}}
             {{/view}}
         </ul>
 
@@ -77,11 +77,14 @@
                 {{view view.RadioButton value="false"}}
                 {% trans "Single donation" %}
             </label>
+            <br/>
             <label>
                 {{view view.RadioButton value="true"}}
                 {% trans "Monthly donation" %}
             </label>
         {{/view}}
+        {# Doesnt update <span class="currency"><em>&euro; </em>{{view.parentView.controller.content.amount}}</span> #}
+
     </fieldset>
 
 {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
@@ -149,10 +152,10 @@
                 {{#each view.parentView.parentView.controller.content.payment_methods}}
                     <label class="tab">
                         {{view view.RadioButton value=this.id}}
-                        {% trans "Use" %} {{this.name}}
+                        {{this.name}}
                     </label>
                 {{else}}
-                    No payment methods loaded
+                    {% trans "No payment methods available" %}
                 {{/each}}
             {{/view}}
         </div>
@@ -164,16 +167,61 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "payment_method" %}
+{% tplhandlebars "payment_method_info" %}
 
     <fieldset>
         {{#if content.isLoaded}}
-            {# TODO: Ask for payment method specific information here... #}
-            You're all set now!<br/>
-            In the next step we will redirect you to Docdata who takes care of our online payments.<br />
-            <a {{bindAttr href="payment_url"}} class="button right">Pay</a>
+            {{#if view.parentView.parentView.controller.isIdeal}}
+                {{view App.IdealPaymentMethodInfoView}}
+            {{else}}
+                {{#if payment_url}}
+                    <a {{bindAttr href="payment_url"}} class="button right">{% trans "Pay" %}</a>
+                {{else}}
+                    <button>{% trans "Next" %}</button>
+                {{/if}}
+            {{/if}}
+
         {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading your information..." %}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
+        {{/if}}
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "ideal_payment_method_info" %}
+
+    <fieldset>
+        {{#if content.isLoaded}}
+            {{#if payment_url}}
+                <a {{bindAttr href="payment_url"}} class="button right">{% trans "Pay" %}</a>
+            {{else}}
+                <button>{% trans "Next" %}</button>
+            {{/if}}
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
+        {{/if}}
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "direct_debit_payment_method_info" %}
+
+    <fieldset>
+        {{#if content.isLoaded}}
+            {{#each errors.bank_account_number}}<span class="error">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="bank_account_number" placeholder="Bank account number" classBinding="errors.bank_account_number.length:error"}}
+
+            {{#each errors.bank_account_name}}<span class="error">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="bank_account_name" placeholder="Bank account name" classBinding="errors.bank_account_name.length:error"}}
+
+            {{#each errors.bank_account_city}}<span class="error">{{this}}</span>{{/each}}
+            {{view Em.TextField valueBinding="bank_account_city" placeholder="Bank account city" classBinding="errors.bank_account_city.length:error"}}
+
+            <button>{% trans "Next" %}</button>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
         {{/if}}
     </fieldset>
 
