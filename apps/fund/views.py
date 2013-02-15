@@ -2,7 +2,7 @@ from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirec
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
 from apps.fund.serializers import PaymentMethodSerializer
 from django.contrib.contenttypes.models import ContentType
-from apps.cowry import payments, factory
+from apps.cowry import payments
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
 from rest_framework import status
@@ -247,7 +247,6 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         order = self.get_or_create_current_order()
         payment = order.payment
         if payment and self.request.user.is_authenticated():
-            # TODO Add address information.
             payment.customer_id = self.request.user.id
             payment.email = self.request.user.email
             payment.first_name = self.request.user.first_name
@@ -300,7 +299,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
 
     def get_object(self):
         order = self.get_or_create_current_order()
-        if not order.payment.latest_payment_method:
+        if not order.payment.latest_docdata_payment:
             if not order.payment.payment_method_id:
                 payment_methods = get_order_payment_methods(order)
                 if payment_methods:
@@ -315,7 +314,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
             else:
                 payment_method_object = DocDataWebMenu(docdata_payment_order=order.payment)
             payment_method_object.save()
-        return order.payment.latest_payment_method
+        return order.payment.latest_docdata_payment
 
 
 
