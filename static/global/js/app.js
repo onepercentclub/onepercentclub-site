@@ -90,7 +90,7 @@ App = Em.Application.create({
 // Load the Handlebar templates.
 // TODO: This is race condition that needs to be addressed but should work most of the time.
 // TODO We want to actually figure out a way to load the templates on-demand and not do it like this.
-App.loadTemplates(['projects', 'wallposts', 'reactions', 'order']);
+App.loadTemplates(['projects', 'wallposts', 'reactions', 'orders']);
 
 
 // The Ember Data Adapter and Store configuration.
@@ -101,7 +101,8 @@ App.Adapter = DS.DRF2Adapter.extend({
     plurals: {
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
-        "fund/paymentinfo": "fund/paymentinfo"
+        "fund/paymentinfo": "fund/paymentinfo",
+        "fund/paymentmethodinfo": "fund/paymentmethodinfo"
     }
 
 });
@@ -212,11 +213,12 @@ App.Router.map(function() {
         this.resource('currentOrderItemList', {path: ''}, function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
-        this.resource('orderProfile', {path: '/details'});
-        this.resource('orderPayment', {path: '/payment'}, function(){
-            this.resource('paymentInfo', {path: '/info'});
+        this.resource('paymentOrderProfile', {path: '/details'});
+        this.resource('currentOrderPayment', {path: '/payment'}, function(){
+            this.resource('currentPaymentMethodInfo', {path: 'info'});
         });
     });
+
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
 });
@@ -306,9 +308,9 @@ App.CurrentOrderItemListRoute = Ember.Route.extend({
 });
 
 
-App.OrderProfileRoute = Ember.Route.extend({
+App.PaymentOrderProfileRoute = Ember.Route.extend({
     model: function(params) {
-        return App.OrderProfile.find('current');
+        return App.PaymentOrderProfile.find('current');
     },
 
     setupController: function(controller, orderprofile) {
@@ -336,25 +338,13 @@ App.CurrentOrderItemListAddRoute = Ember.Route.extend(App.SlugRouter, {
 });
 
 
-App.OrderPaymentRoute = Ember.Route.extend({
+App.CurrentPaymentMethodInfoRoute = Ember.Route.extend({
     model: function(params) {
-        return App.Payment.find('current');
+        return App.PaymentMethodInfo.find('current');
     },
 
-    setupController: function(controller, orderpayment) {
-        controller.set('content', orderpayment);
-    }
-
-});
-
-
-App.PaymentInfoRoute = Ember.Route.extend({
-    model: function(params) {
-        return App.PaymentInfo.find('current');
-    },
-
-    setupController: function(controller, paymentinfo) {
-        controller.set('content', paymentinfo);
+    setupController: function(controller, paymentmethodinfo) {
+        controller.set('content', paymentmethodinfo);
     }
 
 });

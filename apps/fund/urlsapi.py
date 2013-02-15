@@ -1,10 +1,9 @@
 from django.conf.urls import patterns, url
 from surlex.dj import surl
-from .views import (FundApi, OrderList, OrderDetail, OrderCurrent, OrderProfileCurrent,
-                    OrderItemList, OrderDonationList, OrderDonationDetail, OrderLatestItemList, OrderLatestDonationList,
-                    PaymentMethodList, PaymentMethodDetail,
-                    PaymentList, PaymentDetail, PaymentCurrent,
-                    PaymentInfoList, PaymentInfoDetail, PaymentInfoCurrent)
+from .views import (FundApi, OrderList, OrderDetail, OrderCurrent, OrderItemList, OrderDonationList,
+                    OrderDonationDetail, OrderLatestDonationList, PaymentOrderProfileCurrent, OrderLatestItemList,
+                    PaymentMethodList, PaymentMethodDetail, PaymentMethodInfoCurrent)
+
 
 urlpatterns = patterns('',
     url(r'^$', FundApi.as_view(), name='fund-order-list'),
@@ -18,18 +17,13 @@ urlpatterns = patterns('',
     url(r'^orders/latest/donations/$', OrderLatestDonationList.as_view(), name='fund-order-latest-donation-list'),
     surl(r'^orders/current/donations/<pk:#>$', OrderDonationDetail.as_view(), name='fund-order-current-donation-detail'),
 
-    surl(r'^orders/profiles/current$', OrderProfileCurrent.as_view(), name='fund-order-profile-current'),
+    url(r'^paymentorderprofiles/current$', PaymentOrderProfileCurrent.as_view(), name='fund-payment-order-profile-current'),
+
+    url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='fund-payment-method-list'),
+    surl(r'^paymentmethods/<slug:s>$', PaymentMethodList.as_view(), name='fund-payment-method-detail'),
+
+    url(r'^paymentmethodinfo/current$', PaymentMethodInfoCurrent.as_view(), name='fund-payment-method-ideal-current'),
 
 
-    url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='fund-paymentmethod-list'),
-    surl(r'^paymentmethods/<pk:#>$', PaymentMethodDetail.as_view(), name='fund-paymentmethod-detail'),
-
-    url(r'^payments/$', PaymentList.as_view(), name='fund-payment-list'),
-    surl(r'^payments/<pk:#>$', PaymentDetail.as_view(), name='fund-payment-detail'),
-    url(r'^payments/current$', PaymentCurrent.as_view(), name='fund-payment-current'),
-
-    url(r'^paymentinfo/$', PaymentInfoList.as_view(), name='fund-paymentinfo-list'),
-    surl(r'^paymentinfo/<pk:#>$', PaymentInfoDetail.as_view(), name='fund-paymentinfo-detail'),
-    url(r'^paymentinfo/current$', PaymentInfoCurrent.as_view(), name='fund-paymentinfo-current'),
 
 )

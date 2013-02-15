@@ -129,26 +129,30 @@ form {
             }
         }
         
-        li.error {
-        
-            label { 
-                color: $color-error; 
-                &:hover { color: darken($color-error, 25%); }
-            }
-            
-            input {
-                border: 1px solid $color-error; 
-                @include box-shadow((0px 0px 3px lighten($color-error, 10%), inset 0 0 0));
-                &:focus { border: 1px solid $color-error; }
-            }
-
-
-            span.error {
-                color: $color-error; 
-                margin: 0.6em 0.6em 0.6em 0px;
-                display: block;
-
-            }
-        } 
     }
+
+    span.error {
+        color: $color-error;
+        margin: 0.6em 0.6em 0.6em 0px;
+        display: block;
+
+
+    }
+
+    input.error {
+        border: 1px solid $color-error;
+        @include box-shadow((0px 0px 3px lighten($color-error, 10%), inset 0 0 0));
+        &:focus { border: 1px solid $color-error; }
+
+        &::-webkit-input-placeholder {
+            color: lighten($color-error, 20%);
+        }
+
+        &:-moz-placeholder {
+            color: lighten($color-error, 20%);
+        }
+
+    }
+
+
 }

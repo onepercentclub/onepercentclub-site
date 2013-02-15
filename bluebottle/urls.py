@@ -36,16 +36,19 @@ urlpatterns = i18n_patterns('',
 )
 
 urlpatterns += patterns('',
-    # Put your language-independent-views here
+    # Put language-independent-views here.
 
-    # The api urls are in the /i18n/ url namespace so that they're not redirected to /en/
+    # The api urls are in the /i18n/ url namespace so that they're not redirected to /en/.
     url(r'^i18n/api/projects/', include('apps.projects.urlsapi')),
     url(r'^i18n/api/blogs/', include('apps.blogs.urlsapi')),
     url(r'^i18n/api/members/', include('apps.accounts.urlsapi')),
     url(r'^i18n/api/wallposts/', include('apps.wallposts.urlsapi')),
     url(r'^i18n/api/fund/', include('apps.fund.urlsapi')),
+    url(r'^i18n/api/utils/', include('apps.bluebottle_utils.urlsapi')),
+    # API for DocData Status Changed Notifications.
+    url(r'^i18n/api/ddscn/', include('apps.cowry_docdata.urlsapi')),
 
-    # Needed for the self-documenting API in Django Rest Framework
+    # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^i18n/', include('django.conf.urls.i18n')),

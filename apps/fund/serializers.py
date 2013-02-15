@@ -1,20 +1,16 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import SorlImageField, PolymorphicSerializer, ObjectBasedSerializer
-from apps.fund.models import Order
-from apps.accounts.models import UserAddress
-from django.contrib.auth.models import User
+from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
-from apps.cowry_docdata.models import DocdataPaymentInfo
-from apps.cowry.models import Payment, PaymentAdapter, PaymentMethod, PaymentInfo
-from .models import Donation, OrderItem, AnonymousProfile
+from apps.cowry import factory
+from .models import Donation, OrderItem, Order
 
 
 class DonationSerializer(serializers.ModelSerializer):
     # The duplication of project is temporary. See note in orders.js App.OrderItem.
     project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
-    status = serializers.Field()
+    status = serializers.ChoiceField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')
 
     def validate_amount(self, attrs, source):
@@ -26,169 +22,65 @@ class DonationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(_(u"Amount must be at least €5.00."))
         return attrs
 
-
     class Meta:
         model = Donation
         fields = ('id', 'project_id', 'project_slug', 'amount', 'status', 'url')
 
 
 class OrderItemObjectSerializer(ObjectBasedSerializer):
-
     class Meta:
         child_models = (
             (Donation, DonationSerializer),
-            )
+        )
+
+
+class PaymentMethodSerializer(serializers.Serializer):
+
+    default_fields = ('id', 'name')
+
+    def convert_object(self, obj):
+        """
+        Simplified converting of our object
+        """
+        ret = self._dict_class()
+        for field_name in self.default_fields:
+            ret[field_name] = obj
+        return obj
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    amount = serializers.Field(source='amount')
-    status = serializers.Field(source='status')
-    recurring = serializers.BooleanField(source='recurring')
+    # source is required because amount is a property on the model.
+    amount = serializers.IntegerField(source='amount', read_only=True)
+    status = serializers.ChoiceField(read_only=True)
+    # Payment_method  is writen in the view.
+    payment_method_id = serializers.CharField(source='payment.payment_method_id', required=False)
+    payment_submethod_id = serializers.CharField(source='payment.payment_submethod_id', required=False)
+
+    payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
+    payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
+
+    def get_payment_methods(self, obj):
+        # Cowry payments use minor currency units so we need to convert the Euros to cents.
+        amount = int(obj.amount * 100)
+        return factory.get_payment_method_ids(amount=amount, currency='EUR', country='NL', recurring=obj.recurring)
+
+    def get_payment_url(self, obj):
+        pm = obj.payment.latest_docdata_payment
+        if pm:
+            return pm.payment_url
+        return None
 
     class Meta:
         model = Order
-        fields = ('id', 'amount', 'status', 'recurring')
+        fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id', 'payment_url')
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    amount = serializers.Field(source='amount')
-    type = serializers.Field(source='type')
+    # source is required because amount and type are properties on the model.
+    amount = serializers.IntegerField(source='amount', read_only=True)
+    type = serializers.CharField(source='type', read_only=True)
     item = OrderItemObjectSerializer(source='content_object')
 
     class Meta:
         model = OrderItem
-        fields = ('amount', 'type', 'item')
-
-
-class OrderAnonymousProfileSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(source='email')
-
-    class Meta:
-        model = AnonymousProfile
-        fields = ('id', 'first_name', 'last_name', 'email', 'address', 'zip_code', 'city', 'country')
-
-    def restore_object(self, attrs, instance=None):
-        """
-        Overwrite the standard model store_object to put all properties in the right place.
-        Address is created for user if none exists.
-        """
-        user = instance
-        # TODO: Save country too
-        if user is not None:
-            user.first_name = attrs['first_name']
-            user.last_name = attrs['last_name']
-            user.email = attrs['email']
-            user.address = attrs['address']
-            user.zip_code = attrs['zip_code']
-            user.city = attrs['city']
-            try:
-                user.save()
-            except Exception:
-                pass
-        return user
-
-
-class OrderUserProfileSerializer(serializers.ModelSerializer):
-    address = serializers.WritableField(source='userprofile.address.line1')
-    zip_code = serializers.WritableField(source='userprofile.address.zip_code')
-    city = serializers.WritableField(source='userprofile.address.city')
-    country = serializers.WritableField(source='userprofile.address.country')
-    email = serializers.Field(source='email')
-
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'address', 'zip_code', 'city', 'country')
-
-    def restore_object(self, attrs, instance=None):
-        """
-        Overwrite the standard model store_object to put all properties in the right place.
-        Address is created for user if none exists.
-        """
-        user = instance
-        # TODO: Save country too
-        if user is not None:
-            user.first_name = attrs['first_name']
-            user.last_name = attrs['last_name']
-            address = user.get_profile().address
-            if not address:
-                address = UserAddress.objects.create(user_profile_id=user.get_profile().id)
-            address.line1 = attrs['userprofile.address.line1']
-            address.city = attrs['userprofile.address.city']
-            address.zip_code = attrs['userprofile.address.zip_code']
-
-            address.save()
-        return user
-
-
-class OrderProfileSerializer(ObjectBasedSerializer):
-
-    class Meta:
-        child_models = (
-            (User, OrderUserProfileSerializer),
-            (AnonymousProfile, OrderAnonymousProfileSerializer),
-            )
-
-
-# Payment Serializers
-
-class PaymentAdapterSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = PaymentAdapter
-        fields = ('id', 'title', 'slug', 'active')
-
-
-class PaymentMethodSerializer(serializers.ModelSerializer):
-    payment_adapter = PaymentAdapterSerializer()
-    icon = SorlImageField('icon', '90x90')
-
-    class Meta:
-        model = PaymentMethod
-        fields = ('id', 'title', 'slug', 'active', 'icon', 'payment_adapter')
-
-
-class PaymentSerializer(serializers.ModelSerializer):
-    amount = serializers.Field(source='amount')
-    created = serializers.Field(source='created')
-    status = serializers.Field(source='status')
-    payment_method = serializers.SlugRelatedField(source='payment_method', slug_field='slug')
-
-    class Meta:
-        model = Payment
-        fields = ('id', 'created', 'status', 'amount', 'payment_method')
-
-
-class PaymentInfoSerializerBase(serializers.ModelSerializer):
-    id = serializers.Field(source='paymentinfo_ptr_id')
-    amount = serializers.Field(source='amount')
-    status = serializers.Field(source='status')
-    payment_url = serializers.Field(source='payment_url')
-
-    class Meta:
-        model = PaymentInfo
-        fields = ('id', 'created', 'status', 'amount', 'payment_url')
-
-
-class DocdataPaymentInfoSerializer(PaymentInfoSerializerBase):
-    email = serializers.WritableField(source='client_email')
-    first_name = serializers.WritableField(source='client_firstname')
-    last_name = serializers.WritableField(source='client_lastname')
-    address = serializers.WritableField(source='client_address')
-    city = serializers.WritableField(source='client_city')
-    zip_code = serializers.WritableField(source='client_zip')
-    country = serializers.WritableField(source='client_country')
-
-    class Meta:
-        model = DocdataPaymentInfo
-        fields = PaymentInfoSerializerBase.Meta.fields + ('email', 'first_name', 'last_name', 'address', 'city',
-                                                      'zip_code', 'country')
-
-
-class PaymentInfoSerializer(PolymorphicSerializer):
-
-    class Meta:
-        child_models = (
-            (DocdataPaymentInfo, DocdataPaymentInfoSerializer),
-            )
-
-
+        fields = ('id', 'amount', 'type', 'item')

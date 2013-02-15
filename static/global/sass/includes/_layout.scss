@@ -50,6 +50,7 @@ body {
     @include grid(32, 1);
 }
 
+
 .wrapper > .sidebar, .wrapper > sidebar  {
     @include grid(16, 0, 1);
     //@include rem(padding, 32px );

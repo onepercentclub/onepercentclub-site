@@ -9,7 +9,7 @@ from .models import Donation
 class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
     """ Base class for tests using donations. """
 
-    def create_donation(self, user=None, amount=None, project=None, status='closed'):
+    def create_donation(self, user=None, amount=None, project=None, status='new'):
         if not project:
             project = self.create_project()
             project.save()
@@ -33,12 +33,12 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
         donation.save()
 
     def test_unicode(self):
-        """ Test to see wheter unicode representations will fail or not. """
+        """ Test to see whether unicode representations will fail or not. """
         project = self.create_project(title="Prima project")
         project.save()
-        donation = self.create_donation(amount = 35, project=project)
+        donation = self.create_donation(amount=35, project=project)
         donation.save()
-        
+
         donation_str = unicode(donation)
         self.assertTrue(donation_str)
         self.assertIn('35', donation_str)
@@ -77,7 +77,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 35)
         self.assertEqual(response.data['project_slug'], self.some_project.slug)
-        self.assertEqual(response.data['status'], 'started')
+        self.assertEqual(response.data['status'], 'new')
 
         # Retrieve the created Donation
         donation_detail_url = "{0}{1}".format(self.current_donations_url, response.data['id'])
@@ -92,7 +92,8 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['results'][0]['project_slug'], self.some_project.slug)
 
         # Create another Donation
-        response = self.client.post(self.current_donations_url, {'project_slug': self.another_project.slug, 'amount': 12.50})
+        response = self.client.post(self.current_donations_url,
+                                    {'project_slug': self.another_project.slug, 'amount': 12.50})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], Decimal('12.5'))
         self.assertEqual(response.data['project_slug'], self.another_project.slug)
@@ -110,10 +111,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['amount'], 150)
 
         # Update the status of the created Donation by owner should be ignored
-        response = self.client.put(donation_detail_url, {'amount': 150, 'project_slug': self.some_project.slug, 'status': 'paid'})
+        response = self.client.put(donation_detail_url,
+                                   {'amount': 150, 'project_slug': self.some_project.slug, 'status': 'paid'})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], 150)
-        self.assertEqual(response.data['status'], 'started')
+        self.assertEqual(response.data['status'], 'new')
 
         # Delete a donation should work the list should have one donation now
         response = self.client.delete(donation_detail_url)
@@ -137,7 +139,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], 71)
         self.assertEqual(response.data['project_slug'], self.some_project.slug)
-        self.assertEqual(response.data['status'], 'started')
+        self.assertEqual(response.data['status'], 'new')
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
 
@@ -151,12 +153,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
-        self.assertEqual(response.data['results'][0]['amount'],Decimal('12.5'))
+        self.assertEqual(response.data['results'][0]['amount'], Decimal('12.5'))
         self.assertEqual(response.data['results'][0]['project_slug'], self.another_project.slug)
         self.client.logout()
 
     def test_current_order_monthly(self):
-
         # Test setting a recurring order as logged in user.
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_order_url)
@@ -173,61 +174,4 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
-
-
-class SelectPaymentMethodIntegrationTest(ProjectTestsMixin, TestCase):
-    """
-    Integration tests for the adding Donations to an Order (a cart in this case)
-    """
-
-    def setUp(self):
-        self.some_project = self.create_project()
-        self.another_project = self.create_project()
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
-        self.current_order_donations_url = '/i18n/api/fund/orders/current/donations/'
-        self.current_payment_url = '/i18n/api/fund/payments/current'
-        self.payment_methods_url = '/i18n/api/fund/paymentmethods/'
-
-
-    def test_show_payment_methods(self):
-        """
-        Tests for showing payment methods
-        """
-
-        # View a list of payment methods. There should be some due to fixtures
-        response = self.client.get(self.payment_methods_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        method_detail_url = "{0}{1}".format(self.payment_methods_url, response.data['results'][0]['id'])
-        method_detail_slug = response.data['results'][0]['slug']
-
-        # Get paymentmethod detail for the first method should return the right one (same slug)
-        response = self.client.get(method_detail_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['slug'], method_detail_slug)
-
-    def test_select_payment_method(self):
-        """
-        Tests for selecting a payment method. This will create a Payment object too.
-        """
-
-        # Create two donations
-        self.client.login(username=self.some_user.username, password='password')
-        self.client.post(self.current_order_donations_url, {'project_slug': self.some_project.slug, 'amount': 35})
-        self.client.post(self.current_order_donations_url, {'project_slug': self.another_project.slug, 'amount': 27.50})
-        response = self.client.get(self.current_order_donations_url)
-        self.assertEqual(response.data['count'], 2)
-
-        # Check that payment adds up to the right amount
-        response = self.client.get(self.current_payment_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['amount'], Decimal('62.5'))
-
-        # get a paymentmethod and set that for this payment
-        response = self.client.get(self.payment_methods_url)
-        paymentmethod_slug = response.data['results'][0]['slug']
-        response = self.client.put(self.current_payment_url, {'payment_method': paymentmethod_slug})
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['payment_method'], paymentmethod_slug)
-
 

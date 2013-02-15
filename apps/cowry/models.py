@@ -1,102 +1,39 @@
 from django.db import models
 from django.utils.translation import ugettext as _
-from django_countries import CountryField
-from django_extensions.db.fields import  ModificationDateTimeField, CreationDateTimeField
+from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from polymorphic import PolymorphicModel
+from polymorphic.manager import PolymorphicManager
 
 
-class PaymentAdapterManager(models.Manager):
-
-    def get_by_natural_key(self, slug):
-        return self.get(slug=slug)
-
-
-class PaymentAdapter(models.Model):
-
-    title = models.CharField(max_length=100)
-    slug = models.CharField(max_length=100, unique=True)
-    api_url = models.URLField()
-    api_test_url = models.URLField()
-    active = models.BooleanField()
-    objects = PaymentAdapterManager()
-
-    def natural_key(self):
-        return self.slug
-
-    def __unicode__(self):
-        return self.title
-
-    class Meta:
-        db_table = "payments_adapters"
-
-
-class PaymentMethod(models.Model):
-
-    title = models.CharField(max_length=100)
-    slug = models.CharField(max_length=100, unique=True)
-    payment_adapter = models.ForeignKey(PaymentAdapter)
-    costs_static = models.DecimalField(max_digits=12, decimal_places=4, default=0, help_text=_("The set amount that each transaction costs"))
-    costs_percentage = models.DecimalField(max_digits=4, decimal_places=2, default=0, help_text=_("The percentage that each transaction costs"))
-    icon = models.ImageField(_("icon"), max_length=255, blank=True, upload_to='payment_icons/', help_text=_("Icon for payment method"))
-    restricted = models.BooleanField(_("Is this payment method restricted to selected countries?"), default=False)
-    active = models.BooleanField()
-
-    def natural_key(self):
-        return self.slug
-
-    def __unicode__(self):
-        return self.title
-
-    class Meta:
-        db_table = "payments_paymentmethod"
-
-
-class PaymentMethodCountry(models.Model):
-    method = models.ForeignKey(PaymentMethod)
-    country = CountryField()
-
-    class Meta:
-        db_table = "payments_paymentmethod_country"
-
-
-class PaymentInfo(PolymorphicModel):
-    payment_url = models.URLField(blank=True)
-    created = CreationDateTimeField(_("created"))
-    updated = ModificationDateTimeField(_("updated"))
-    amount = models.DecimalField(_("amount"), max_digits=9, decimal_places=2)
-
-    class Meta:
-        db_table = "payments_paymentinfo"
-
-
-class Payment(models.Model):
+class Payment(PolymorphicModel):
     """
-    Payment. This holds he total amount due to pay
-    and reference to a Payment Process.
-    All payment specific client data is stored in Payment Process.
+    Payment. This holds the total amount due to pay.
     """
 
     class PaymentStatuses(DjangoChoices):
-        checkout = ChoiceItem('checkout', label=_("Checkout"))
         new = ChoiceItem('new', label=_("New"))
-        started = ChoiceItem('started', label=_("Started"))
+        in_progress = ChoiceItem('in_progress', label=_("In Progress"))
         paid = ChoiceItem('paid', label=_("Paid"))
+        failed = ChoiceItem('failed', label=_("Failed"))
+        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
+        refunded = ChoiceItem('refunded', label=_("Refunded"))
 
-    amount = models.DecimalField(_("amount"), max_digits=9, decimal_places=2)
+    # The amount in the minor unit for the given currency (e.g. for EUR in cents).
+    amount = models.PositiveIntegerField(_("amount"), default=0)
+    currency = models.CharField(max_length=3, default='', blank=True)
 
-    # Amount taken by PSP
-    ps_fee = models.DecimalField(_("ps fee"), max_digits=9, decimal_places=2, default=0)
+    # The transaction cost that is taken by the payment service provider.
+    fee = models.PositiveIntegerField(_("payment service fee"), default=0)
 
     # Payment method used
-    payment_method = models.ForeignKey(PaymentMethod, null=True)
-    payment_info = models.ForeignKey(PaymentInfo, null=True, blank=True)
+    payment_method_id = models.CharField(max_length=20, default='', blank=True)
+    payment_submethod_id = models.CharField(max_length=20, default='', blank=True)
 
-    # Note: having an index here allows for efficient filtering by status.
-    status = models.CharField(_("status"),max_length=20, choices=PaymentStatuses.choices, db_index=True)
+    status = models.CharField(_("status"), max_length=15, choices=PaymentStatuses.choices, default=PaymentStatuses.new, db_index=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
-    class Meta:
-        db_table = "payments_payment"
+    # Manager
+    objects = PolymorphicManager()

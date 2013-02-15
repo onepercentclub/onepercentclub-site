@@ -43,6 +43,7 @@
     }
     
     .content {
+        font-family: $paragraph-font-family;
         @include grid(48, 9, 0);
         position: relative;
         @include rem(min-height, 64px);

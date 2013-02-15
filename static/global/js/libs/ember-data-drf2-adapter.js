@@ -6,7 +6,7 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
         this._super();
         this.registerTransform('array', {
             deserialize: function(serialized) {
-                return Ember.isNone(serialized) ? null : eval(serialized);
+                return  Ember.isNone(serialized) ? null : Em.A(serialized);
             },
             serialize: function(deserialized) {
                 return Ember.isNone(deserialized) ? null : deserialized.toJSON();
@@ -252,5 +252,4 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         }
         return url;
     }
-
 });
