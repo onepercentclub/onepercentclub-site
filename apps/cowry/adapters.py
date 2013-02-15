@@ -21,9 +21,10 @@ class AbstractPaymentAdapter(object):
     def update_payment_status(self, payment):
         raise NotImplementedError
 
-    # TODO what to do about this method?
     def map_status(self, status):
-        # return self.map_status(payment.payment_info.status)
+        if hasattr(self, 'status_mapping'):
+            if status in self.status_mapping:
+                return self.map_status(status)
         return status
 
 

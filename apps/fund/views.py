@@ -126,7 +126,8 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         # For now generate payment url over here.
         order = self.get_or_create_current_order()
         # This will save it in pm info.
-        payments.get_webmenu_payment_url(order.payment)
+        if order.payment.payment_method_id:
+            payments.get_webmenu_payment_url(order.payment)
         return order
 
     def put(self, request, *args, **kwargs):
@@ -262,7 +263,6 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         order = self.get_or_create_current_order()
         payment = order.payment
         if payment and self.request.user.is_authenticated():
-            # TODO Add address information.
             payment.customer_id = self.request.user.id
             payment.email = self.request.user.email
             payment.first_name = self.request.user.first_name
@@ -276,6 +276,7 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
             payment.city = address.city
             payment.postal_code = address.zip_code
             payment.country = address.country.alpha2_code
+            payment.save();
         else:
             payment.language = self.request.LANGUAGE_CODE
         return order.payment
@@ -315,7 +316,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
 
     def get_object(self):
         order = self.get_or_create_current_order()
-        if not order.payment.latest_payment_method:
+        if not order.payment.latest_docdata_payment:
             if not order.payment.payment_method_id:
                 payment_methods = get_order_payment_methods(order)
                 if payment_methods:
@@ -330,7 +331,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
             else:
                 payment_method_object = DocDataWebMenu(docdata_payment_order=order.payment)
             payment_method_object.save()
-        return order.payment.latest_payment_method
+        return order.payment.latest_docdata_payment
 
 
 
