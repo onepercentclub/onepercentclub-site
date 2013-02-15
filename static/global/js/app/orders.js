@@ -2,6 +2,18 @@
  Models
  */
 
+App.bankList = [
+    Ember.Object.create({value:"0081", title: "Fortis"}),
+    Ember.Object.create({value:"0021", title: "Rabobank"}),
+    Ember.Object.create({value:"0721", title: "ING Bank"}),
+    Ember.Object.create({value:"0751", title: "SNS Bank"}),
+    Ember.Object.create({value:"0031", title: "ABN Amro Bank"}),
+    Ember.Object.create({value:"0761", title: "ASN Bank"}),
+    Ember.Object.create({value:"0771", title: "SNS Regio Bank"}),
+    Ember.Object.create({value:"0511", title: "Triodos Bank"}),
+    Ember.Object.create({value:"0091", title: "Friesland Bank"}),
+    Ember.Object.create({value:"0161", title: "Van Lanschot Bankiers"})
+];
 
 App.PaymentMethod = DS.Model.extend({
     url: 'fund/paymentmethods',
@@ -14,7 +26,8 @@ App.Order = DS.Model.extend({
     amount: DS.attr('number'),
     status: DS.attr('string'),
     recurring: DS.attr('string'),
-    payment_method: DS.attr('string'),
+    payment_method_id: DS.attr('string'),
+    payment_submethod_id: DS.attr('string'),
     payment_methods: DS.hasMany('App.PaymentMethod')
 });
 
@@ -151,13 +164,12 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
 App.CurrentOrderController = Em.ObjectController.extend({
 
     isIdeal: function(){
-        console.log(this.get('content.payment_method'));
-        return (this.get('content.payment_method') == 'dd-ideal');
-    },
+        return (this.get('content.payment_method_id') == 'dd-ideal');
+    }.property('content.payment_method_id'),
 
     isDirectDebit: function(){
-        return (this.get('content.payment_method') == 'dd-direct-debit');
-    },
+        return (this.get('content.payment_method_id') == 'dd-direct-debit');
+    }.property('content.payment_method_id'),
 
     initTransaction: function(){
         var order = this.get('content');
@@ -276,9 +288,14 @@ App.OrderNavView = Ember.View.extend({
 
 
 App.CurrentOrderPaymentView = Em.View.extend({
+    contentBinding: "App.currentOrderController.content",
     tagName: 'div',
     classNames: ['content'],
-    templateName: 'order_payment'
+    templateName: 'order_payment',
+    highlight: function(){
+        console.log('Hi lite');
+    }.observes('content.payment_method_id')
+
 });
 
 
@@ -296,7 +313,12 @@ App.IdealPaymentMethodInfoView = Em.View.extend({
 
 App.DirectDebitPaymentMethodInfoView = Em.View.extend({
     tagName: 'form',
-    templateName: 'direct_debit_payment_method_info'
+    templateName: 'direct_debit_payment_method_info',
+
+    submit: function(e){
+        e.preventDefault();
+        console.log('yeah');
+    }
 });
 
 

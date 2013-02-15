@@ -146,9 +146,10 @@
         <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
         {% trans "Choose the payment method you prefer to donate." %}
     </div>
+    {{content.amount}}
     <fieldset>
         <div class="tabs vertical">
-            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="view.parentView.controller.content.payment_method"}}
+            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="view.parentView.controller.content.payment_method_id"}}
                 {{#each view.parentView.parentView.controller.content.payment_methods}}
                     <label class="tab">
                         {{view view.RadioButton value=this.id}}
@@ -174,10 +175,14 @@
             {{#if view.parentView.parentView.controller.isIdeal}}
                 {{view App.IdealPaymentMethodInfoView}}
             {{else}}
-                {{#if payment_url}}
-                    <a {{bindAttr href="payment_url"}} class="button right">{% trans "Pay" %}</a>
+                {{#if view.parentView.parentView.controller.isDirectDebit}}
+                    {{view App.DirectDebitPaymentMethodInfoView}}
                 {{else}}
-                    <button>{% trans "Next" %}</button>
+                    {{#if payment_url}}
+                        <a {{bindAttr href="payment_url"}} class="button right">{% trans "Pay" %}</a>
+                    {{else}}
+                        <button class="button right">{% trans "Next" %}</button>
+                    {{/if}}
                 {{/if}}
             {{/if}}
 
@@ -193,6 +198,10 @@
 
     <fieldset>
         {{#if content.isLoaded}}
+            {{view Em.Select contentBinding="App.bankList"
+                             optionValuePath="content.value"
+                             optionLabelPath="content.title"
+                             valueBinding="view.parentView.parentView.parentView.controller.content.payment_submethod_id"}}
             {{#if payment_url}}
                 <a {{bindAttr href="payment_url"}} class="button right">{% trans "Pay" %}</a>
             {{else}}
@@ -214,7 +223,7 @@
             {{view Em.TextField valueBinding="bank_account_number" placeholder="Bank account number" classBinding="errors.bank_account_number.length:error"}}
 
             {{#each errors.bank_account_name}}<span class="error">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="bank_account_name" placeholder="Bank account name" classBinding="errors.bank_account_name.length:error"}}
+            {{view Em.TextField valueBinding="bank_account_name" placeholder="Bank account holder name" classBinding="errors.bank_account_name.length:error"}}
 
             {{#each errors.bank_account_city}}<span class="error">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="bank_account_city" placeholder="Bank account city" classBinding="errors.bank_account_city.length:error"}}
