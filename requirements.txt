@@ -88,7 +88,9 @@ django-templatetag-handlebars
 django_countries
 
 # Soap library for cowry
-suds-jurko==0.4.1.jurko.4
+#suds-jurko==0.4.1.jurko.4
+# Use a suds-jurko fork with python 2.6 support.
+http://bitbucket.org/onepercentclub/suds/get/6a98691d1188.zip
 
 # Used in cowry_docdata tests.
 requests==1.1.0
