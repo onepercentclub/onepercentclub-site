@@ -2,6 +2,7 @@
  Models
  */
 
+// Maybe we can move this to the currentOrderController?
 App.bankList = [
     Ember.Object.create({value:"0081", title: "Fortis"}),
     Ember.Object.create({value:"0021", title: "Rabobank"}),
@@ -288,14 +289,9 @@ App.OrderNavView = Ember.View.extend({
 
 
 App.CurrentOrderPaymentView = Em.View.extend({
-    contentBinding: "App.currentOrderController.content",
     tagName: 'div',
     classNames: ['content'],
-    templateName: 'order_payment',
-    highlight: function(){
-        console.log('Hi lite');
-    }.observes('content.payment_method_id')
-
+    templateName: 'order_payment'
 });
 
 
@@ -317,7 +313,6 @@ App.DirectDebitPaymentMethodInfoView = Em.View.extend({
 
     submit: function(e){
         e.preventDefault();
-        console.log('yeah');
     }
 });
 

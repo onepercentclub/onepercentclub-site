@@ -80,10 +80,7 @@ class OrderItem(models.Model):
     # Calculate properties for ease of use (e.g. in serializers).
     @property
     def amount(self):
-        if self.content_object:
-            return self.content_object.amount
-        else:
-            return Decimal('0')
+        return self.content_object.amount
 
     @property
     def type(self):

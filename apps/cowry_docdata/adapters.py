@@ -127,24 +127,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         return self.payment_methods
 
 
-    def _docdata_soap_service_call(self, soap_method, *args):
-
-        # Execute create payment order request.
-
-        reply = soap_method(*args)
-        # self.client.service.status(self.merchant, payment.payment_order_key)
-        if hasattr(reply, 'createSuccess'):
-            return reply['createSuccess']
-            # payment.payment_order_key = reply['createSuccess']['key']
-            # payment.save()
-        elif hasattr(reply, 'createError'):
-            error = reply['createError']['error']
-            raise DocDataPaymentException(error['_code'], error['value'])
-        else:
-            raise DocDataPaymentException('REPLY_ERROR',
-                                          'Received unknown reply from DocData. Remote Payment not created.')
-
-
     def create_payment_object(self, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
         payment = DocDataPaymentOrder.objects.create(payment_method_id=payment_method_id,
                                                      payment_submethod_id=payment_submethod_id,
@@ -228,7 +210,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         payment.save()
 
 
-    def get_webmenu_payment_url(self, payment):
+    def get_payment_url(self, payment):
         """ Return the Payment URL """
 
         if not payment.payment_method_id:

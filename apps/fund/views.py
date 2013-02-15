@@ -127,7 +127,7 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         order = self.get_or_create_current_order()
         # This will save it in pm info.
         if order.payment.payment_method_id:
-            payments.get_webmenu_payment_url(order.payment)
+            payments.get_payment_url(order.payment)
         return order
 
     def put(self, request, *args, **kwargs):
@@ -170,7 +170,6 @@ class OrderLatestItemList(OrderItemList):
     def get_queryset(self):
         order = self.get_current_order()
         if order and order.payment:
-            # FIXME: Doing a docdata call to update status until signals are enabled.
             payments.update_payment_status(order.payment)
             # TODO: Have a proper check if donation went ok. Signals!
             order.status = Order.OrderStatuses.pending
@@ -191,7 +190,6 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
     def get_queryset(self):
         order = self.get_current_order()
         if order and order.payment:
-            # FIXME: Doing a docdata call to update status until signals are enabled.
             payments.update_payment_status(order.payment)
             # TODO: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
@@ -276,7 +274,7 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
             payment.city = address.city
             payment.postal_code = address.zip_code
             payment.country = address.country.alpha2_code
-            payment.save();
+            payment.save()
         else:
             payment.language = self.request.LANGUAGE_CODE
         return order.payment
@@ -291,11 +289,11 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
 
     def get(self, request, format=None):
         """
-        Get the Payment methods form Cowry
+        Get the Payment methods form Cowry.
         """
-        obj = self.get_or_create_current_order()
+        order = self.get_or_create_current_order()
         ids = request.QUERY_PARAMS.getlist('ids[]', [])
-        pms = factory.get_payment_methods(amount=obj.amount, currency='EUR', country='NL', recurring=obj.recurring,ids=ids)
+        pms = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL', recurring=order.recurring, ids=ids)
         serializer = self.get_serializer(pms)
         return response.Response(serializer.data)
 
@@ -324,7 +322,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
                     order.save()
                 else:
                     return None
-            # FIXME: Use cowry factory for this?
+            # TODO: Use cowry factory for this?
             # TODO: Hardcoded stuff is fun! should fix this though.
             if order.recurring:
                 payment_method_object = DocDataWebDirectDirectDebit(docdata_payment_order=order.payment)

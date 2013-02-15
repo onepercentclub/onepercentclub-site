@@ -15,7 +15,7 @@ class AbstractPaymentAdapter(object):
     def create_remote_payment_order(self, payment):
         raise NotImplementedError
 
-    def get_webmenu_payment_url(self, payment):
+    def get_payment_url(self, payment):
         raise NotImplementedError
 
     def update_payment_status(self, payment):

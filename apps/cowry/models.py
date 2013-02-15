@@ -8,7 +8,7 @@ from polymorphic.manager import PolymorphicManager
 
 class Payment(PolymorphicModel):
     """
-    TODO better comment: Payment. This holds the total amount due to pay.
+    Payment. This holds the total amount due to pay.
     """
 
     class PaymentStatuses(DjangoChoices):

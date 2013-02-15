@@ -338,21 +338,6 @@ App.CurrentOrderItemListAddRoute = Ember.Route.extend(App.SlugRouter, {
 });
 
 
-App.CurrentOrderPaymentRoute = Ember.Route.extend({
-//    model: function(params) {
-//        return App.Order.find('current');
-//    },
-
-//    setupController: function(controller, order) {
-//        controller.set('content', order);
-//    }
-    setupController: function(controller) {
-        //controller.set('content', order);
-    }
-
-});
-
-
 App.CurrentPaymentMethodInfoRoute = Ember.Route.extend({
     model: function(params) {
         return App.PaymentMethodInfo.find('current');

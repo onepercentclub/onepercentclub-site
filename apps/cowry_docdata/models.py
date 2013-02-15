@@ -10,7 +10,7 @@ from polymorphic.polymorphic_model import PolymorphicModel
 
 
 class DocDataPaymentOrder(Payment):
-    # Global payment options.
+    # Payment information.
     payment_order_key = models.CharField(max_length=255, default='', blank=True)
     merchant_order_reference = models.CharField(max_length=100, default='', blank=True)
 

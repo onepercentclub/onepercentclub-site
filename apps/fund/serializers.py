@@ -1,12 +1,9 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
-from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
-from .models import Donation, OrderItem
-from .models import Order
-from .utils import get_order_payment_methods
+from .models import Donation, OrderItem, Order
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -58,12 +55,9 @@ class OrderSerializer(serializers.ModelSerializer):
     # Payment_method  is writen in the view.
     payment_method_id = serializers.CharField(source='payment.payment_method_id', required=False)
     payment_submethod_id = serializers.CharField(source='payment.payment_submethod_id', required=False)
+
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
-
     payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
-
-
-    #payment_methods = PaymentMethodSerializer()
 
     def get_payment_methods(self, obj):
         # Cowry payments use minor currency units so we need to convert the Euros to cents.
@@ -75,7 +69,6 @@ class OrderSerializer(serializers.ModelSerializer):
         if pm:
             return pm.payment_url
         return None
-
 
     class Meta:
         model = Order
