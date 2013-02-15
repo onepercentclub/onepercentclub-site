@@ -32,6 +32,19 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     live_api_url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
     test_api_url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
 
+    status_mapping = {
+        'NEW': 'new',
+        'STARTED': 'in_progress',
+        'AUTHORIZED': 'in_progress',
+        'PAID': 'in_progress',
+        'CANCELLED': 'cancelled',
+        'CHARGED-BACK': 'cancelled',
+        'CONFIRMED_PAID': 'paid',
+        'CONFIRMED_CHARGEDBACK': 'cancelled',
+        'CLOSED_SUCCESS': 'paid',
+        'CLOSED_CANCELLED': 'cancelled',
+    }
+
     id_to_model_mapping = {
         'dd-ideal': DocDataWebMenu,
         'dd-mastercard': DocDataWebMenu,
@@ -78,9 +91,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'id': 'DIRECT_DEBIT',
             'profile': 'directdebit',
             'name': 'Direct Debit',
-            'max_amount': 10000, # €100
+            'max_amount': 10000,  # €100
+            'restricted_countries': ('NL',),
             'supports_recurring': False,
-            }
+        },
     }
 
     def __init__(self):
@@ -191,7 +205,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if self.test:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             # A unique code for testing.
-            payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[33]
+            payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[:30]
         else:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             payment.merchant_order_reference = 'COWRY-' + str(payment.id)
@@ -261,6 +275,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
 
     def update_payment_status(self, payment, status_changed_notification=False):
+        assert payment
 
         # Create the payment order if we need it.
         if not payment.payment_order_key:
@@ -276,6 +291,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             return
         else:
             status_logger.error("Received unknown status reply from DocData.")
+            return
+
+        if not hasattr(report, 'payment'):
+            if status_changed_notification:
+                status_logger.warn(
+                    "Status changed notification received for {0} but status report had no payment reports.".format(
+                        payment.payment_order_key))
             return
 
         statusChanged = False
@@ -310,7 +332,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         # Log a warning if we've received a status change notification and have no status changes.
         if status_changed_notification and not statusChanged:
             status_logger.warn(
-                "Status change notification received for {0} but no payment status change detected.".format(
+                "Status changed notification received for {0} but no payment status change detected.".format(
                     payment.payment_order_key))
 
         # Use the latest DocDataPayment status to set the status on the Cowry Payment.
@@ -321,7 +343,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 lpr = payment_report
                 break
 
-        new_status = self._map_status(ddpayment.status, report.approximateTotals, lpr.authorization)
+        new_status = self.map_status(ddpayment.status, report.approximateTotals, lpr.authorization)
         status_logger.info(
             "DocDataPaymentOrder status changed for payment order key {0}: {1} -> {1}".format(ddpayment.status,
                                                                                               new_status))
@@ -329,25 +351,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         payment.save()
 
 
-    # TODO: Make generic (ie. put in base adapter).
-    def _map_status(self, status, totals, authorization):
-        status_mapping = {
-            'NEW': 'new',
-            'STARTED': 'in_progress',
-            'AUTHORIZED': 'in_progress',
-            'PAID': 'in_progress',
-            'CANCELLED': 'cancelled',
-            'CHARGED-BACK': 'cancelled',
-            'CONFIRMED_PAID': 'paid',
-            'CONFIRMED_CHARGEDBACK': 'cancelled',
-            'CLOSED_SUCCESS': 'paid',
-            'CLOSED_CANCELLED': 'cancelled',
-        }
+    def map_status(self, status, totals=None, authorization=None):
+        return super(DocdataPaymentAdapter, self).map_status(status)
 
-        # Start with a basic mapping.
-        return status_mapping[status]
-
-        # TODO Investigate if these overrides are needed.
+        # TODO Use status change log to investigate if these overrides are needed.
         # Some status mapping overrides.
 
         # Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 33:

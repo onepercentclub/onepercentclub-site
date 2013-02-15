@@ -9,9 +9,9 @@ def update_payment_object(payment, **kwargs):
     adapter = _adapter_for_payment_method(payment.payment_method_id)
     adapter.update_payment_object(payment, **kwargs)
 
-def update_payment_status(payment):
+def update_payment_status(payment, status_changed_notification=False):
     adapter = _adapter_for_payment_method(payment.payment_method_id)
-    return adapter.update_payment_status(payment)
+    return adapter.update_payment_status(payment, status_changed_notification)
 
 def create_webmenu_payment(payment):
     adapter = _adapter_for_payment_method(payment.payment_method_id)

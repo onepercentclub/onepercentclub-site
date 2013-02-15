@@ -1,6 +1,6 @@
-from apps.cowry import payments
-from apps.cowry_docdata.models import DocDataPayment
 import re
+from apps.cowry import payments
+from apps.cowry_docdata.models import DocDataPaymentOrder
 from rest_framework import generics
 from rest_framework import response
 from rest_framework import status
@@ -16,8 +16,9 @@ class StatusChangedNotificationView(generics.GenericAPIView):
             # TODO: Match on this regex when not testing: '^COWRY-([0-9]+)$'. Can only do this when test config setting.
             if re.match('^COWRY-', mor):
                 # Try to find the payment for this mor.
-                payment = DocDataPayment.objects.filter(merchant_order_reference=mor)
-                if not payment:
+                try:
+                    payment = DocDataPaymentOrder.objects.get(merchant_order_reference=mor)
+                except DocDataPaymentOrder.DoesNotExist:
                     status_logger.error('Cannot find payment for merchant_order_reference: {0}'.format(mor))
                     response.Response(status.HTTP_403_FORBIDDEN)
 
