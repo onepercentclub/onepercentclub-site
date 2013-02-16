@@ -85,3 +85,28 @@ class OrderItem(models.Model):
     @property
     def type(self):
         return self.content_object.__class__.__name__
+
+
+class Voucher(models.Model):
+
+    class VoucherStatuses(DjangoChoices):
+        new = ChoiceItem('new', label=_("New"))
+        paid = ChoiceItem('paid', label=_("Paid"))
+        cashed = ChoiceItem('cancelled', label=_("Cancelled"))
+
+    amount = models.PositiveIntegerField(_("amount"))
+    status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
+
+    user = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
+    sender_email = models.EmailField(_("sender email"))
+    sender_name = models.CharField(_("sender name"), blank=True, default="", max_length=100)
+
+    receiver = models.ForeignKey('auth.User', verbose_name=_("receiver"), related_name="receiver", null=True, blank=True)
+    receiver_email = models.EmailField(_("receiver email"))
+    receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
+
+    message = models.TextField(_("message"), blank=True, default="")
+
+    language = models.CharField(_("language"), max_length="3")

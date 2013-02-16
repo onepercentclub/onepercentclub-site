@@ -3,7 +3,7 @@ from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
-from .models import Donation, OrderItem, Order
+from .models import Donation, OrderItem, Order, Voucher
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -25,13 +25,6 @@ class DonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
         fields = ('id', 'project_id', 'project_slug', 'amount', 'status', 'url')
-
-
-class OrderItemObjectSerializer(ObjectBasedSerializer):
-    class Meta:
-        child_models = (
-            (Donation, DonationSerializer),
-        )
 
 
 class PaymentMethodSerializer(serializers.Serializer):
@@ -73,6 +66,43 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id', 'payment_url')
+
+
+class VoucherSerializer(serializers.ModelSerializer):
+    language = serializers.Field(source='language')
+    #url = serializers.HyperlinkedIdentityField(view_name='voucher-detail')
+    amount = serializers.IntegerField(source='amount')
+
+    receiver_email = serializers.EmailField()
+    receiver_name = serializers.CharField()
+
+    sender_email = serializers.EmailField()
+    sender_name = serializers.CharField()
+
+    message = serializers.CharField()
+
+    def validate_amount(self, attrs, source):
+        """
+        Check the amount
+        """
+        value = attrs[source]
+        if value not in [10, 25, 50, 100]:
+            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100."))
+        return attrs
+
+
+    class Meta:
+        model = Voucher
+        fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
+                  'message')
+
+
+class OrderItemObjectSerializer(ObjectBasedSerializer):
+    class Meta:
+        child_models = (
+            (Donation, DonationSerializer),
+            (Voucher, VoucherSerializer),
+        )
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
