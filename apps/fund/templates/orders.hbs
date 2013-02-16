@@ -96,6 +96,59 @@
 {% tplhandlebars "current_order_voucher_list" %}
 
     <fieldset>
+        <h2>{% trans "Choose value & personalize voucher." %}</h2>
+
+
+        {{#view Em.RadioButtonGroup name="language" selectedValueBinding="language"}}
+            <label>
+                {{view view.RadioButton value="en"}}
+                {% trans "English" %}
+            </label>
+            <label>
+                {{view view.RadioButton value="nl"}}
+                {% trans "Dutch" %}
+            </label>
+        {{/view}}
+        <br />
+
+        {{#view Em.RadioButtonGroup name="amount" selectedValueBinding="amount"}}
+            <label>
+                {{view view.RadioButton value="10"}}
+                &euro; 10
+            </label>
+            <label>
+                {{view view.RadioButton value="25"}}
+                &euro; 25
+            </label>
+            <label>
+                {{view view.RadioButton value="50"}}
+                &euro; 50
+            </label>
+            <label>
+                {{view view.RadioButton value="100"}}
+                &euro; 100
+            </label>
+        {{/view}}
+
+        {{#each errors.sender_name}}<span class="error">{{this}}</span>{{/each}}
+        {{view Em.TextField valueBinding="senderName" placeholder="Your name" classBinding="errors.sender_name.length:error"}}
+
+        {{#each errors.sender_email}}<span class="error">{{this}}</span>{{/each}}
+        {{view Em.TextField valueBinding="senderEmail" placeholder="Your email" classBinding="errors.sender_email.length:error"}}
+
+
+        <h2>{% trans "Add as much recipients as you like." %}</h2>
+
+        {{#each errors.receiver_name}}<span class="error">{{this}}</span>{{/each}}
+        {{view Em.TextField valueBinding="receiverName" placeholder="Name" classBinding="errors.receiver_name.length:error"}}
+
+        {{#each errors.receiver_email}}<span class="error">{{this}}</span>{{/each}}
+        {{view Em.TextField valueBinding="receiverEmail" placeholder="Email" classBinding="errors.receiver_email.length:error"}}
+
+        {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
+        {{view Em.TextArea valueBinding="message" placeholder="Message" classBinding="errors.message.length:error"}}
+
+        <a class="right button">{% trans "Add" %}</a>
 
         <ul id="donation-projects">
             {{#each controller}}
@@ -106,8 +159,6 @@
                 {{/linkTo}}
             {{/each}}
         </ul>
-
-        {{#linkTo projectList class="add-project"}}{%trans "Add another voucher" %}{{/linkTo}}
 
     </fieldset>
 
@@ -167,11 +218,14 @@
 
 
 {% tplhandlebars "current_order_voucher" %}
-    {{receiver_name}}
-    {{receiver_email}}
+    <h1>{{receiver_name}} <em class="country">    {{receiver_email}}
+    </em></h1>
     <p class="donation-amount">
         <span class="big currency">&euro; {{amount}}</span>
     </p>
+
+    <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
+
 
 {% endtplhandlebars %}
 

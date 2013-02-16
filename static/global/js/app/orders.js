@@ -304,6 +304,10 @@ App.CurrentOrderVoucherView = Em.View.extend({
     tagName: 'li',
     classNames: 'donation-project',
 
+    delete: function(item){
+        var controller = this.get('controller');
+        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
+    },
     submit: function(e){
         e.preventDefault();
     }
