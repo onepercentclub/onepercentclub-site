@@ -94,6 +94,10 @@ class Voucher(models.Model):
         paid = ChoiceItem('paid', label=_("Paid"))
         cashed = ChoiceItem('cancelled', label=_("Cancelled"))
 
+    class VoucherLanguages(DjangoChoices):
+        en = ChoiceItem('en', label=_("English"))
+        nl = ChoiceItem('nl', label=_("Dutch"))
+
     amount = models.PositiveIntegerField(_("amount"))
     status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
     created = CreationDateTimeField(_("created"))
@@ -109,4 +113,4 @@ class Voucher(models.Model):
 
     message = models.TextField(_("message"), blank=True, default="")
 
-    language = models.CharField(_("language"), max_length="3")
+    language = models.CharField(_("language"), max_length=2, choices=VoucherLanguages.choices, default=VoucherLanguages.en)

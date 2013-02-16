@@ -69,17 +69,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class VoucherSerializer(serializers.ModelSerializer):
-    language = serializers.Field(source='language')
-    #url = serializers.HyperlinkedIdentityField(view_name='voucher-detail')
-    amount = serializers.IntegerField(source='amount')
-
-    receiver_email = serializers.EmailField()
-    receiver_name = serializers.CharField()
-
-    sender_email = serializers.EmailField()
-    sender_name = serializers.CharField()
-
-    message = serializers.CharField()
 
     def validate_amount(self, attrs, source):
         """
@@ -94,7 +83,7 @@ class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
         fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
-                  'message')
+                  'message', 'language')
 
 
 class OrderItemObjectSerializer(ObjectBasedSerializer):
