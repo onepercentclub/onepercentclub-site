@@ -5,14 +5,15 @@ from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from django.db import transaction
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
-from rest_framework import views
 from .models import Donation, OrderItem, Order
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer)
 from .utils import get_order_payment_methods
+
 
 # API views
 
@@ -23,53 +24,45 @@ class CurrentOrderMixin(object):
     Latest Order is the latest order by a user.
     """
 
-    def get_current_order(self):
+    def get_or_create_current_order(self):
         if self.request.user.is_authenticated():
-            try:
-                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.started)
-            except Order.DoesNotExist:
-                return None
+            with transaction.commit_on_success():
+                order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.started)
+
+            # We're currently only using DocData so we can directly connect the DocData payment order to the order. Note
+            # that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment at a later
+            # stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
+            if created:
+                payment = DocDataPaymentOrder()
+                payment.save()
+                order.payment = payment
+                order.save()
         else:
             # For an anonymous user the order (cart) might be stored in the session
             order_id = self.request.session.get("cart_session")
             if order_id:
-                try:
-                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
-                except Order.DoesNotExist:
-                    # The order_id was not a cart in the db, return None
-                    return None
+                order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
             else:
-                # No order_id in session. Return None
-                return None
+                # FIXME: This has a race condition that needs to be fixed.
+                with transaction.commit_on_success():
+                    order = Order(status=Order.OrderStatuses.started)
+                    order.save()
+                    self.request.session["cart_session"] = order.id
+                    self.request.session.save()
+
+        # Check the permissions.
+        if not self.has_permission(self.request, order):
+            self.permission_denied(self.request)
+
+        # Update the Cowry Payment.
         order.payment.amount = int(100 * order.amount)
         order.payment.currency = 'EUR'
         order.payment.save()
+
         return order
 
-    def get_or_create_current_order(self):
-        order = self.get_current_order()
-        if not order:
-            order = self.create_current_order()
-        if not self.has_permission(self.request, order):
-            self.permission_denied(self.request)
-        return order
 
-    def create_current_order(self):
-        user = self.request.user
-        if user.is_authenticated():
-            order = Order(user=user)
-        else:
-            order = Order()
-        # We're currently only using DocData so we can directly connect the DocData payment order to the order. Note
-        # that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment at a later
-        # stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
-        payment = DocDataPaymentOrder()
-        payment.save()
-        order.payment = payment
-        order.save()
-        self.request.session["cart_session"] = order.id
-        return order
-
+    # TODO: Setup Order model to use Django support for latest.
     def get_latest_order(self):
         if self.request.user.is_authenticated():
             try:
@@ -143,7 +136,6 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             order = self.get_or_create_current_order()
             order.payment.payment_submethod_id = psm
             order.payment.save()
-
 
         return self.update(request, *args, **kwargs)
 
