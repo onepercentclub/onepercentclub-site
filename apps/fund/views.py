@@ -38,14 +38,24 @@ class CurrentOrderMixin(object):
                 order.payment = payment
                 order.save()
         else:
+            # FIXME: This has a race condition that needs to be fixed.
             # For an anonymous user the order (cart) might be stored in the session
             order_id = self.request.session.get("cart_session")
             if order_id:
-                order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
-            else:
-                # FIXME: This has a race condition that needs to be fixed.
+                try:
+                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
+                except Order.DoesNotExist:
+                    # Create a new order if it's been cleared from our db.
+                    order_id = None
+
+            if not order_id:
+                # FIXME: The rece condition is really in this bit of code.
                 with transaction.commit_on_success():
                     order = Order(status=Order.OrderStatuses.started)
+                    # See comment above about creating this DocDataPaymentOrder here.
+                    payment = DocDataPaymentOrder()
+                    payment.save()
+                    order.payment = payment
                     order.save()
                     self.request.session["cart_session"] = order.id
                     self.request.session.save()
@@ -160,7 +170,7 @@ class OrderLatestItemList(OrderItemList):
     serializer_class = OrderItemSerializer
 
     def get_queryset(self):
-        order = self.get_current_order()
+        order = self.get_or_create_current_order()
         if order and order.payment:
             payments.update_payment_status(order.payment)
             # TODO: Have a proper check if donation went ok. Signals!
@@ -180,7 +190,7 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
     paginate_by = 100
 
     def get_queryset(self):
-        order = self.get_current_order()
+        order = self.get_or_create_current_order()
         if order and order.payment:
             payments.update_payment_status(order.payment)
             # TODO: Check the status we get back from PSP and set order status accordingly.
