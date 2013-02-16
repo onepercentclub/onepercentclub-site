@@ -87,7 +87,33 @@
 
     </fieldset>
 
-{{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+    {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+
+{% endtplhandlebars %}
+
+
+
+{% tplhandlebars "current_order_voucher_list" %}
+
+    <fieldset>
+
+        <ul id="donation-projects">
+            {{#each controller}}
+                {{view "App.CurrentOrderVoucherView" content=this}}
+            {{else}}
+                {{#linkTo projectList}}
+                    <h1>{% trans "Add a voucher" %}</h1>
+                {{/linkTo}}
+            {{/each}}
+        </ul>
+
+        {{#linkTo projectList class="add-project"}}{%trans "Add another voucher" %}{{/linkTo}}
+
+    </fieldset>
+
+    {# Doesnt update <span class="currency"><em>&euro; </em>{{view.parentView.controller.content.amount}}</span> #}
+
+    {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -136,6 +162,16 @@
     </p>
 
     <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "current_order_voucher" %}
+    {{receiver_name}}
+    {{receiver_email}}
+    <p class="donation-amount">
+        <span class="big currency">&euro; {{amount}}</span>
+    </p>
 
 {% endtplhandlebars %}
 

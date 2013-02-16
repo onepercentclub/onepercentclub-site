@@ -72,8 +72,19 @@ App.CurrentDonation = App.OrderItem.extend({
 });
 
 
+App.Voucher =  App.OrderItem.extend({
+    url: 'fund/vouchers',
+    receiver_name: DS.attr('string'),
+    receiver_email: DS.attr('string'),
+    sender_name: DS.attr('string'),
+    sender_email: DS.attr('string'),
+    message: DS.attr('string'),
+    sender_email: DS.attr('string'),
+    language: DS.attr('string')
+});
 
-App.CurrentVoucher = App.OrderItem.extend({
+
+App.CurrentVoucher = App.Voucher.extend({
     url: 'fund/orders/current/vouchers'
 });
 
@@ -130,6 +141,26 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
         transaction.commit();
     }
 });
+
+
+
+App.CurrentOrderVoucherListController = Em.ArrayController.extend({
+
+    updateOrderItem: function(orderItem, newAmount) {
+        var transaction = App.store.transaction();
+        transaction.add(orderItem);
+        orderItem.set('amount', newAmount);
+        transaction.commit();
+    },
+
+    deleteOrderItem: function(orderItem) {
+        var transaction = App.store.transaction();
+        transaction.add(orderItem);
+        orderItem.deleteRecord();
+        transaction.commit();
+    }
+});
+
 
 
 
@@ -232,6 +263,12 @@ App.CurrentOrderItemListView = Em.View.extend({
 });
 
 
+App.CurrentOrderVoucherListView = Em.View.extend({
+    templateName: 'current_order_voucher_list',
+    tagName: 'form'
+});
+
+
 App.FinalOrderItemListView = Em.View.extend({
     templateName: 'final_order_item_list',
     tagName: 'div'
@@ -255,6 +292,18 @@ App.CurrentOrderItemView = Em.View.extend({
         var controller = this.get('controller');
         this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
     },
+    submit: function(e){
+        e.preventDefault();
+    }
+
+});
+
+
+App.CurrentOrderVoucherView = Em.View.extend({
+    templateName: 'current_order_voucher',
+    tagName: 'li',
+    classNames: 'donation-project',
+
     submit: function(e){
         e.preventDefault();
     }
