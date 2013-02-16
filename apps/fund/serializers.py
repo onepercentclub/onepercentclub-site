@@ -86,6 +86,7 @@ class VoucherSerializer(serializers.ModelSerializer):
                   'message', 'language')
 
 
+"""
 class OrderItemObjectSerializer(ObjectBasedSerializer):
     class Meta:
         child_models = (
@@ -103,3 +104,30 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = ('id', 'amount', 'type', 'item')
+
+"""
+
+class OrderItemSerializer(ObjectBasedSerializer):
+
+    def convert_object(self, obj):
+        """
+        Override so that we can iterate through the child_model field items.
+        """
+        # only show the item on the orderitem
+        obj = obj.content_object
+
+        ret = self._dict_class()
+        ret.fields = {}
+        for field_name, field in self._child_models[obj.__class__].fields.items():
+            key = self.get_field_key(field_name)
+            value = field.field_to_native(obj, field_name)
+            ret[key] = value
+            ret.fields[key] = field
+        return ret
+
+    class Meta:
+        child_models = (
+            (Donation, DonationSerializer),
+            (Voucher, VoucherSerializer),
+        )
+
