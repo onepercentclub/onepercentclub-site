@@ -8,7 +8,7 @@ except ImportError:
 
 from .defaults import *
 
-# Put production environment specific overrides below.
+# Put production server environment specific overrides below.
 
 DEBUG = False
 TEMPLATE_DEBUG = False

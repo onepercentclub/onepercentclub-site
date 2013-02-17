@@ -1,16 +1,15 @@
 # coding=utf-8
+import logging
+
 from apps.cowry.adapters import AbstractPaymentAdapter
-from apps.cowry_docdata.exceptions import DocDataPaymentStatusException
-from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebMenu, DocDataPayment
 from django.conf import settings
-from django.contrib.sites.models import Site
 from django.utils.http import urlencode
 from django.utils import timezone
 from suds.client import Client
 from suds.plugin import MessagePlugin
 from .exceptions import DocDataPaymentException
+from .models import DocDataPaymentOrder, DocDataWebMenu, DocDataPayment
 
-import logging
 status_logger = logging.getLogger('cowry-docdata.status')
 payment_logger = logging.getLogger('cowry-docdata.payment')
 
@@ -76,7 +75,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'id': 'DIRECT_DEBIT',
             'profile': 'directdebit',
             'name': 'Direct Debit',
-            'max_amount': 10000, # €100
+            'max_amount': 10000,  # €100
             'restricted_countries': ('NL',),
             'supports_recurring': False,
         },
@@ -114,13 +113,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).
         self.merchant._name = getattr(settings, "DOCDATA_MERCHANT_NAME", 'dummy')
         self.merchant._password = getattr(settings, "DOCDATA_MERCHANT_PASSWORD", 'dummy')
-
-        # TODO Work this out better.
-        server = Site.objects.get_current().domain
-        if server == 'localhost:8000':
-            self.return_url = 'http://' + server
-        else:
-            self.return_url = 'https://' + server
 
 
     def get_payment_methods(self):
@@ -210,7 +202,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         payment.save()
 
 
-    def get_payment_url(self, payment):
+    def get_payment_url(self, payment, return_url_base=None):
         """ Return the Payment URL """
 
         if not payment.payment_method_id:
@@ -223,19 +215,23 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if not payment.payment_order_key:
             self.create_remote_payment_order(payment)
 
+        # The basic parameters.
         params = {
             'payment_cluster_key': payment.payment_order_key,
             'merchant_name': self.merchant._name,
             'profile': self.payment_methods[payment.payment_method_id]['profile'],
-            # TODO: Enable when have good URLs.
-            'return_url_success': self.return_url  + '#/support/thanks',
-            'return_url_pending': self.return_url  + '#/support/thanks',
-            'return_url_canceled': self.return_url  + '#/support/thanks',
-            'return_url_error': self.return_url,
             'client_language': payment.language,
             'default_pm': self.payment_methods[payment.payment_method_id]['id'],
         }
 
+        # Add return urls.
+        if return_url_base:
+            params['return_url_success'] = return_url_base + '#/support/thanks'
+            params['return_url_pending'] = return_url_base + '#/support/thanks'
+            params['return_url_canceled'] = return_url_base + '#/support/thanks'
+            params['return_url_error'] = return_url_base
+
+        # Special parameters for iDeal.
         if payment.payment_method_id == 'dd-ideal' and payment.payment_submethod_id:
             params['ideal_issuer_id'] = payment.payment_submethod_id
             params['default_act'] = 'true'

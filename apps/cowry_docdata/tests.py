@@ -1,8 +1,8 @@
+import requests
 from apps.cowry import factory, payments
 from django.conf import settings
 from django.test.testcases import TestCase
 from django.utils import unittest
-import requests
 from requests.exceptions import ConnectionError
 from rest_framework import status
 
