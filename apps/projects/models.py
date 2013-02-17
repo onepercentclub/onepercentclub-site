@@ -143,6 +143,7 @@ class AbstractPhase(models.Model):
     class PhaseStatuses(DjangoChoices):
         hidden = ChoiceItem('hidden', label=_("Hidden"))
         progress = ChoiceItem('progress', label=_("Progress"))
+        waiting = ChoiceItem('waiting', label=_("Waiting"))
         completed = ChoiceItem('completed', label=_("Completed"))
 
     project = models.OneToOneField(Project, verbose_name=_("project"))
