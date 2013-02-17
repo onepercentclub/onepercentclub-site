@@ -156,8 +156,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     # Makes the 'request' variable (the current HttpRequest)
     # available in templates
     'django.core.context_processors.request',
-    # Used for setting the git revision in the Django templates.
-    'gitrevision.context_processors.gitrevision',
 )
 
 ROOT_URLCONF = 'bluebottle.urls'
@@ -194,7 +192,6 @@ INSTALLED_APPS = (
     'taggit',
     'taggit_autocomplete_modified',
     'micawber.contrib.mcdjango', # Embedding videos
-    'gitrevision', # Display git revision
     'templatetag_handlebars',
     'rest_framework',
     'polymorphic',
