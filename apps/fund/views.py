@@ -300,7 +300,8 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         """
         order = self.get_or_create_current_order()
         ids = request.QUERY_PARAMS.getlist('ids[]', [])
-        pms = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL', recurring=order.recurring, ids=ids)
+        pms = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL', recurring=order.recurring,
+                                          pm_ids=ids)
         serializer = self.get_serializer(pms)
         return response.Response(serializer.data)
 
