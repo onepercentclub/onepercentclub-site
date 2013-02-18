@@ -9,7 +9,7 @@
 
         <!-- donation -->
         <header class="wrapper">
-            <h1 class="main-title">Support one or more projects!</h1>
+            <h1 class="main-title">{% trans "Support one or more projects!" %}</h1>
         </header>
 
     </div>
@@ -96,75 +96,85 @@
 {% tplhandlebars "current_order_voucher_list" %}
 
     <fieldset>
-        <h2>{% trans "Choose value & personalize voucher." %}</h2>
-
-
-        {{#view Em.RadioButtonGroup name="language" selectedValueBinding="language"}}
-            <label>
-                {{view view.RadioButton value="en"}}
-                {% trans "English" %}
-            </label>
-            <label>
-                {{view view.RadioButton value="nl"}}
-                {% trans "Dutch" %}
-            </label>
-        {{/view}}
-        <br />
-
-        {{#view Em.RadioButtonGroup name="amount" selectedValueBinding="amount"}}
-            <label>
-                {{view view.RadioButton value="10"}}
-                &euro; 10
-            </label>
-            <label>
-                {{view view.RadioButton value="25"}}
-                &euro; 25
-            </label>
-            <label>
-                {{view view.RadioButton value="50"}}
-                &euro; 50
-            </label>
-            <label>
-                {{view view.RadioButton value="100"}}
-                &euro; 100
-            </label>
-        {{/view}}
-
-        {{#each errors.sender_name}}<span class="error">{{this}}</span>{{/each}}
-        {{view Em.TextField valueBinding="senderName" placeholder="Your name" classBinding="errors.sender_name.length:error"}}
-
-        {{#each errors.sender_email}}<span class="error">{{this}}</span>{{/each}}
-        {{view Em.TextField valueBinding="senderEmail" placeholder="Your email" classBinding="errors.sender_email.length:error"}}
-
-
-        <h2>{% trans "Add as much recipients as you like." %}</h2>
-
-        {{#each errors.receiver_name}}<span class="error">{{this}}</span>{{/each}}
-        {{view Em.TextField valueBinding="receiverName" placeholder="Name" classBinding="errors.receiver_name.length:error"}}
-
-        {{#each errors.receiver_email}}<span class="error">{{this}}</span>{{/each}}
-        {{view Em.TextField valueBinding="receiverEmail" placeholder="Email" classBinding="errors.receiver_email.length:error"}}
-
-        {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
-        {{view Em.TextArea valueBinding="message" placeholder="Message" classBinding="errors.message.length:error"}}
-
-        <a class="right button">{% trans "Add" %}</a>
-
+        {{outlet}}
         <ul id="donation-projects">
             {{#each controller}}
-                {{view "App.CurrentOrderVoucherView" content=this}}
+                {{#if this.isDirty}}
+                {{else}}
+                    {{view "App.CurrentOrderVoucherView" content=this}}
+                {{/if}}
             {{else}}
-                {{#linkTo projectList}}
-                    <h1>{% trans "Add a voucher" %}</h1>
-                {{/linkTo}}
+                {% trans "No vouchers yet..." %}
             {{/each}}
         </ul>
 
+
+        {# Doesnt update <span class="currency"><em>&euro; </em>{{view.parentView.controller.content.amount}}</span> #}
+
+        {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+
     </fieldset>
 
-    {# Doesnt update <span class="currency"><em>&euro; </em>{{view.parentView.controller.content.amount}}</span> #}
 
-    {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "current_order_voucher_add" %}
+
+    <h2>{% trans "Choose value & personalize voucher." %}</h2>
+
+
+    {{#view Em.RadioButtonGroup name="language" selectedValueBinding="content.language"}}
+        <label>
+            {{view view.RadioButton value="en"}}
+            {% trans "English" %}
+        </label>
+        <label>
+            {{view view.RadioButton value="nl"}}
+            {% trans "Dutch" %}
+        </label>
+    {{/view}}
+    <br />
+
+    {{#view Em.RadioButtonGroup name="amount" selectedValueBinding="content.amount"}}
+        <label>
+            &euro; 10
+            {{view view.RadioButton value=10}}
+        </label>
+        <label>
+            &euro; 25
+            {{view view.RadioButton value=25}}
+        </label>
+        <label>
+            &euro; 50
+            {{view view.RadioButton value=50}}
+        </label>
+        <label>
+            &euro; 100
+            {{view view.RadioButton value=100}}
+        </label>
+    {{/view}}
+
+    {{#each errors.sender_name}}<span class="error">{{this}}</span>{{/each}}
+    <label class="fixed">Your name</label>
+    {{view Em.TextField valueBinding="content.sender_name" placeholder="Your name" classBinding="errors.sender_name.length:error"}}
+
+    {{#each errors.sender_email}}<span class="error">{{this}}</span>{{/each}}
+    {{view Em.TextField valueBinding="content.sender_email" placeholder="Your email" classBinding="errors.sender_email.length:error"}}
+
+
+    <h2>{% trans "Add as much recipients as you like." %}</h2>
+
+        {{#each errors.receiver_name}}<span class="error">{{this}}</span>{{/each}}
+    {{view Em.TextField valueBinding="receiver_name" placeholder="Name" classBinding="errors.receiver_name.length:error"}}
+
+    {{#each errors.receiver_email}}<span class="error">{{this}}</span>{{/each}}
+    {{view Em.TextField valueBinding="receiver_email" placeholder="Email" classBinding="errors.receiver_email.length:error"}}
+
+    {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
+    {{view Em.TextArea valueBinding="message" placeholder="Message" classBinding="errors.message.length:error"}}
+
+    <a {{action "addVoucher" target="view.controller"}} class="right button">{% trans "Add" %}</a>
 
 {% endtplhandlebars %}
 

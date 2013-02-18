@@ -74,13 +74,14 @@ App.CurrentDonation = App.OrderItem.extend({
 
 App.Voucher =  App.OrderItem.extend({
     url: 'fund/vouchers',
-    receiver_name: DS.attr('string'),
+    receiver_name: DS.attr('string', {defaultValue: ''}),
     receiver_email: DS.attr('string'),
-    sender_name: DS.attr('string'),
+    sender_name: DS.attr('string', {defaultValue: ''}),
     sender_email: DS.attr('string'),
-    message: DS.attr('string'),
+    message: DS.attr('string', {defaultValue: ''}),
     sender_email: DS.attr('string'),
-    language: DS.attr('string')
+    language: DS.attr('string', {defaultValue: 'en'}),
+    amount: DS.attr('number', {defaultValue: 25})
 });
 
 
@@ -146,13 +147,6 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 
-    updateOrderItem: function(orderItem, newAmount) {
-        var transaction = App.store.transaction();
-        transaction.add(orderItem);
-        orderItem.set('amount', newAmount);
-        transaction.commit();
-    },
-
     deleteOrderItem: function(orderItem) {
         var transaction = App.store.transaction();
         transaction.add(orderItem);
@@ -162,6 +156,34 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 });
 
 
+App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
+
+    createNewVoucher: function() {
+        var transaction = App.store.transaction();
+        var voucher =  transaction.createRecord(App.CurrentVoucher);
+        voucher.set('sender_name', App.userController.get('content.full_name'));
+        this.set('content', voucher);
+        this.set('transaction', transaction);
+
+    },
+
+    addVoucher: function(){
+        var voucher = this.get('content');
+        var controller = this;
+        voucher.on('didCreate', function(record) {
+            controller.createNewVoucher();
+            controller.set('content.sender_name', record.get('sender_name'));
+            controller.set('content.sender_email', record.get('sender_email'));
+        });
+        voucher.on('becameInvalid', function(record) {
+            controller.get('content').set('errors', record.get('errors'));
+        });
+        this.get('transaction').commit();
+
+
+    }
+
+});
 
 
 App.PaymentOrderProfileController = Em.ObjectController.extend({
@@ -310,6 +332,18 @@ App.CurrentOrderVoucherView = Em.View.extend({
     },
     submit: function(e){
         e.preventDefault();
+    }
+
+});
+
+
+App.CurrentOrderVoucherAddView = Em.View.extend({
+    templateName: 'current_order_voucher_add',
+    tagName: 'form',
+    submit: function(e){
+        console.log('Yeah');
+        e.preventDefault();
+        this.get('controller').addVoucher();
     }
 
 });

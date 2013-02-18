@@ -214,7 +214,9 @@ App.Router.map(function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
 
-        this.resource('currentOrderVoucherList', {path: '/vouchers'});
+        this.resource('currentOrderVoucherList', {path: '/vouchers'}, function(){
+            this.resource('currentOrderVoucherAdd', {path: ''});
+        });
 
         this.resource('paymentOrderProfile', {path: '/details'});
         this.resource('currentOrderPayment', {path: '/payment'}, function(){
@@ -319,6 +321,14 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
 
     setupController: function(controller, orderitems) {
         controller.set('content', orderitems);
+    }
+});
+
+
+App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
+
+    setupController: function(controller) {
+        controller.createNewVoucher();
     }
 });
 
