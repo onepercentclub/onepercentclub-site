@@ -24,7 +24,7 @@ class StatusChangedNotificationView(generics.GenericAPIView):
 
                 # TODO: Can update status as background job.
                 # Update the status for the payment.
-                status_logger.info('Processing status changed notification for: {0}'.format(mor))
+                status_logger.info('Processing status changed notification for: {0}', mor)
                 payments.update_payment_status(payment, status_changed_notification=True)
 
                 # Return 200 as required by DocData when the status changed notification was consumed.

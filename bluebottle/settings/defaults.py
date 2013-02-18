@@ -51,6 +51,7 @@ LANGUAGES = (
     ('en', gettext_noop('English'))
 )
 
+
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
@@ -67,20 +68,20 @@ USE_L10N = True
 # https://docs.djangoproject.com/en/1.4/topics/i18n/timezones/
 USE_TZ = True
 
+"""
+staticfiles and media
 
-# Static Files and Media
-# ======================
-#
-# For staticfiles and media, the following convention is used:
-#
-# * '/static/media/': Application media default path
-# * '/static/global/': Global static media
-# * '/static/assets/<app_name>/': Static assets after running `collectstatic`
-#
-# The respective URL's (available only when `DEBUG=True`) are in `urls.py`.
-#
-# More information:
-# https://docs.djangoproject.com/en/1.4/ref/contrib/staticfiles/
+For staticfiles and media, the following convention is used:
+
+* '/static/media/': Application media default path
+* '/static/global/': Global static media
+* '/static/assets/<app_name>/': Static assets after running `collectstatic`
+
+The respective URL's (available only when `DEBUG=True`) are in `urls.py`.
+
+More information:
+https://docs.djangoproject.com/en/1.4/ref/contrib/staticfiles/
+"""
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -115,14 +116,14 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 ]
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
+#     'django.template.loaders.eggs.Loader',
 ]
 
 # These are basically the default values from the Django configuration, written
@@ -130,7 +131,7 @@ TEMPLATE_LOADERS = [
 #
 # 1. Easily add, remove or replace elements in the list, ie. overriding.
 # 2. Know what the defaults are, if you want to change them right here. This
-#   way you won't have to look them up every time you want to change.
+#   way you won't have to look them up everytime you want to change.
 #
 # Note: The first three middleware classes need to be in this order: Session, Locale, Common
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
@@ -152,7 +153,8 @@ X_FRAME_OPTIONS = 'DENY'
 
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    # Makes the 'request' variable (the current HttpRequest) available in templates.
+    # Makes the 'request' variable (the current HttpRequest)
+    # available in templates
     'django.core.context_processors.request',
 )
 
@@ -239,16 +241,6 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-        'docdata-status-log': {
-            'format': "[%(asctime)s] %(levelname)s [%(filename)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -259,27 +251,13 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'docdata-status-logfile': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': PROJECT_ROOT + "/cowry-docdata-status.log",
-            'maxBytes': 50000,  # 48 kB
-            'backupCount': 50,
-            'formatter': 'docdata-status-log',
-        },
+        }
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
-        # This configuration is inspired by:
-        # http://stackoverflow.com/questions/5739830/simple-log-to-file-example-for-django-1-3
-        'cowry-docdata.status': {
-            'handlers': ['docdata-status-logfile'],
-            'level': 'INFO',
         },
     }
 }
