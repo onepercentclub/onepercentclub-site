@@ -155,4 +155,33 @@ form {
     }
 
 
+    .big-radio {
+        label {
+            background-color: #00c051;
+            padding: 20px;
+            color: white;
+            font-family: "Futura Std";
+            font-weight: bold;
+            font-size: 24px;
+            display: inline-block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        span.label {
+            @include grid(8, 0, 0);
+            padding: 20px;
+        }
+        &.radio2 {
+            label{
+                @include grid(20, 1, 0);
+            }
+        }
+        &.radio4 {
+            label {
+                @include grid(10, 1, 0);
+            }
+        }
+    }
 }
+
+

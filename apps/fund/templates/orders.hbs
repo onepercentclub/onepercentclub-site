@@ -124,19 +124,25 @@
     <h2>{% trans "Choose value & personalize voucher." %}</h2>
 
 
-    {{#view Em.RadioButtonGroup name="language" selectedValueBinding="content.language"}}
+    {{#view Em.RadioButtonGroup class="big-radio radio2" name="language" selectedValueBinding="content.language"}}
+        <span class="label">
+            {% trans "Language" %}
+        </span>
         <label>
-            {{view view.RadioButton value="en"}}
             {% trans "English" %}
+            {{view view.RadioButton value="en"}}
         </label>
         <label>
-            {{view view.RadioButton value="nl"}}
             {% trans "Dutch" %}
+            {{view view.RadioButton value="nl"}}
         </label>
     {{/view}}
     <br />
 
-    {{#view Em.RadioButtonGroup name="amount" selectedValueBinding="content.amount"}}
+    {{#view Em.RadioButtonGroup class="big-radio radio4" name="amount" selectedValueBinding="content.amount"}}
+        <span class="label">
+            {% trans "Amount" %}
+        </span>
         <label>
             &euro; 10
             {{view view.RadioButton value=10}}
