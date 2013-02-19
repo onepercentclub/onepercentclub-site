@@ -1003,7 +1003,6 @@ form input.error:-moz-placeholder {
 }
 /* line 159, ../sass/includes/_forms.scss */
 form .big-radio label {
-  background-color: #00c051;
   padding: 20px;
   color: white;
   font-family: "Futura Std";
@@ -1012,8 +1011,18 @@ form .big-radio label {
   display: inline-block;
   text-align: center;
   margin-bottom: 10px;
+  background-color: #999999;
+  cursor: pointer;
 }
-/* line 170, ../sass/includes/_forms.scss */
+/* line 171, ../sass/includes/_forms.scss */
+form .big-radio input[type=radio] {
+  display: none;
+}
+/* line 174, ../sass/includes/_forms.scss */
+form .big-radio input[type=radio]:checked + label {
+  background-color: #00c051;
+}
+/* line 177, ../sass/includes/_forms.scss */
 form .big-radio span.label {
   float: left;
   width: 16.66667%;
@@ -1021,14 +1030,14 @@ form .big-radio span.label {
   margin-right: 0%;
   padding: 20px;
 }
-/* line 175, ../sass/includes/_forms.scss */
+/* line 182, ../sass/includes/_forms.scss */
 form .big-radio.radio2 label {
   float: left;
   width: 39.58333%;
   margin-left: 2.08333%;
   margin-right: 0%;
 }
-/* line 180, ../sass/includes/_forms.scss */
+/* line 187, ../sass/includes/_forms.scss */
 form .big-radio.radio4 label {
   float: left;
   width: 18.75%;

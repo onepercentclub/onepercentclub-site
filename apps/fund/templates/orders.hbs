@@ -128,13 +128,13 @@
         <span class="label">
             {% trans "Language" %}
         </span>
-        <label>
+        {{view view.RadioButton value="en" id="lang_en"}}
+        <label for="lang_en">
             {% trans "English" %}
-            {{view view.RadioButton value="en"}}
         </label>
-        <label>
+        {{view view.RadioButton value="nl" id="lang_nl"}}
+        <label for="lang_nl">
             {% trans "Dutch" %}
-            {{view view.RadioButton value="nl"}}
         </label>
     {{/view}}
     <br />
@@ -143,21 +143,21 @@
         <span class="label">
             {% trans "Amount" %}
         </span>
-        <label>
+        {{view view.RadioButton value=10 id="amount_10"}}
+        <label for="amount_10">
             &euro; 10
-            {{view view.RadioButton value=10}}
         </label>
-        <label>
+        {{view view.RadioButton value=25 id="amount_25"}}
+        <label for="amount_25">
             &euro; 25
-            {{view view.RadioButton value=25}}
         </label>
-        <label>
+        {{view view.RadioButton value=50 id="amount_50"}}
+        <label for="amount_50">
             &euro; 50
-            {{view view.RadioButton value=50}}
         </label>
-        <label>
+        {{view view.RadioButton value=100 id="amount_100"}}
+        <label for="amount_100">
             &euro; 100
-            {{view view.RadioButton value=100}}
         </label>
     {{/view}}
 
