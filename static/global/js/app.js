@@ -165,6 +165,7 @@ App.Member = DS.Model.extend({
 
 App.User = App.Member.extend({
     url: 'members',
+    email: DS.attr('string'),
 
     is_authenticated: function(){
         return (this.get('username'))  ? true : false;
@@ -213,7 +214,14 @@ App.Router.map(function() {
         this.resource('currentOrderItemList', {path: ''}, function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
+
+        this.resource('currentOrderVoucherList', {path: '/vouchers'}, function(){
+            this.resource('currentOrderVoucherAdd', {path: ''});
+        });
+
         this.resource('paymentOrderProfile', {path: '/details'});
+
+        // TODO: RTFM to see if this is the best way to do it.
         this.resource('currentOrderPayment', {path: '/payment'}, function(){
             this.resource('currentPaymentMethodInfo', {path: 'info'});
         });
@@ -221,6 +229,10 @@ App.Router.map(function() {
 
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
+
+    this.resource('vouchersStart', {path: '/vouchers'}, function() {
+    });
+
 });
 
 
@@ -285,6 +297,18 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 });
 
 
+App.CurrentOrderVoucherListRoute = Ember.Route.extend({
+
+    model: function(params) {
+        return App.CurrentVoucher.find();
+    },
+
+    setupController: function(controller, orderitems) {
+        controller.set('content', orderitems);
+    }
+});
+
+
 App.CurrentOrderRoute = Ember.Route.extend({
     model: function(params) {
         return App.Order.find('current');
@@ -292,6 +316,7 @@ App.CurrentOrderRoute = Ember.Route.extend({
 
     setupController: function(controller, order) {
         controller.set('content', order);
+        controller.set('isVoucherOrder', false);
     }
 });
 
@@ -304,6 +329,22 @@ App.CurrentOrderItemListRoute = Ember.Route.extend({
 
     setupController: function(controller, orderitems) {
         controller.set('content', orderitems);
+    }
+});
+
+
+App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
+
+    setupController: function(controller) {
+        this.controllerFor('currentOrder').set('isVoucherOrder', true);
+        controller.createNewVoucher();
+    }
+});
+
+
+App.VoucherdStartRoute = Ember.Route.extend({
+
+    setupController: function(controller) {
     }
 });
 

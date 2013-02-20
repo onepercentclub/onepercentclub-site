@@ -35,4 +35,4 @@ class AuthenticatedMemberSerializer(MemberDetailSerializer):
     url = NoneHyperlinkedIdentityField(view_name='member-detail')
 
     class Meta(MemberDetailSerializer.Meta):
-        pass
+        fields = MemberDetailSerializer.Meta.fields + ('email', )

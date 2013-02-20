@@ -192,6 +192,11 @@ button::-moz-focus-inner {
   border: 0;
 }
 
+/* line 23, ../sass/includes/_base.scss */
+.clear {
+  clear: both;
+}
+
 /* =========== Semantic fluid grid */
 /*
 
@@ -1001,6 +1006,64 @@ form input.error::-webkit-input-placeholder {
 form input.error:-moz-placeholder {
   color: #e68a78;
 }
+/* line 158, ../sass/includes/_forms.scss */
+form.labeled input[type='text'] {
+  float: left;
+  width: 72.91667%;
+  margin-left: 2.08333%;
+  margin-right: 0%;
+}
+/* line 163, ../sass/includes/_forms.scss */
+form div.label {
+  float: left;
+  width: 25%;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding: 10px;
+  padding: 0.625rem;
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #999999;
+}
+/* line 172, ../sass/includes/_forms.scss */
+form .big-radio label {
+  padding: 10px;
+  padding: 0.625rem;
+  padding: 10px;
+  color: white;
+  font-family: "Futura Std";
+  font-weight: bold;
+  font-size: 18px;
+  font-size: 1.125rem;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 10px;
+  background-color: #999999;
+  cursor: pointer;
+}
+/* line 185, ../sass/includes/_forms.scss */
+form .big-radio input[type=radio] {
+  display: none;
+}
+/* line 188, ../sass/includes/_forms.scss */
+form .big-radio input[type=radio]:checked + label {
+  background-color: #00c051;
+}
+/* line 192, ../sass/includes/_forms.scss */
+form .big-radio.radio2 label {
+  float: left;
+  width: 35.41667%;
+  margin-left: 2.08333%;
+  margin-right: 0%;
+}
+/* line 197, ../sass/includes/_forms.scss */
+form .big-radio.radio4 label {
+  float: left;
+  width: 16.66667%;
+  margin-left: 2.08333%;
+  margin-right: 0%;
+}
 
 /* =========== Tables */
 /* line 3, ../sass/includes/_tables.scss */
@@ -1133,13 +1196,13 @@ a.button, .button-donate, a.btn, input[type="submit"], button {
   vertical-align: baseline;
   background-color: #00c051;
 }
-/* line 43, ../sass/includes/_buttons.scss */
+/* line 44, ../sass/includes/_buttons.scss */
 a.button:hover, .button-donate:hover, a.btn:hover, input[type="submit"]:hover, button:hover {
   background-color: #ff619a;
   color: white;
   border-color: #ff478a;
 }
-/* line 50, ../sass/includes/_buttons.scss */
+/* line 51, ../sass/includes/_buttons.scss */
 a.button:active, .button-donate:active, a.btn:active, input[type="submit"]:active, button:active {
   background: #074520;
   -webkit-box-shadow: 0 1px 0 white, inset 0 0 20px #050505;
@@ -1152,6 +1215,23 @@ a.button:active, .button-donate:active, a.btn:active, input[type="submit"]:activ
   top: 4px;
 }
 /* line 62, ../sass/includes/_buttons.scss */
+a.button[disabled], [disabled].button-donate, a.btn[disabled], input[type="submit"][disabled], button[disabled] {
+  color: #e9e9e9;
+  background-color: #999999;
+  border-color: #999999;
+}
+/* line 67, ../sass/includes/_buttons.scss */
+a.button[disabled]:hover, [disabled].button-donate:hover, a.btn[disabled]:hover, input[type="submit"][disabled]:hover, button[disabled]:hover {
+  color: #e9e9e9;
+  background-color: #999999;
+}
+/* line 71, ../sass/includes/_buttons.scss */
+a.button[disabled]:active, [disabled].button-donate:active, a.btn[disabled]:active, input[type="submit"][disabled]:active, button[disabled]:active {
+  position: relative;
+  color: #d24226;
+  top: 0px;
+}
+/* line 80, ../sass/includes/_buttons.scss */
 a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"].contrast, button.contrast {
   border-color: #050505;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6b6b6b), color-stop(100%, #050505));
@@ -1160,7 +1240,7 @@ a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"]
   background: -o-linear-gradient(top, #6b6b6b, #050505);
   background: linear-gradient(top, #6b6b6b, #050505);
 }
-/* line 65, ../sass/includes/_buttons.scss */
+/* line 83, ../sass/includes/_buttons.scss */
 a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, input[type="submit"].contrast:hover, button.contrast:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #858585), color-stop(100%, #050505));
   background: -webkit-linear-gradient(top, #858585, #050505);
@@ -1168,12 +1248,12 @@ a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, in
   background: -o-linear-gradient(top, #858585, #050505);
   background: linear-gradient(top, #858585, #050505);
 }
-/* line 68, ../sass/includes/_buttons.scss */
+/* line 86, ../sass/includes/_buttons.scss */
 a.button.contrast:active, .contrast.button-donate:active, a.button.contrast:focus, .contrast.button-donate:focus, a.btn.contrast:active, a.btn.contrast:focus, input[type="submit"].contrast:active, input[type="submit"].contrast:focus, button.contrast:active, button.contrast:focus {
   background: #383838;
   color: #bfbfbf;
 }
-/* line 75, ../sass/includes/_buttons.scss */
+/* line 93, ../sass/includes/_buttons.scss */
 a.button.soft, .soft.button-donate, a.btn.soft, input[type="submit"].soft, button.soft {
   border-color: #a6a6a6;
   color: #525252;
@@ -1184,7 +1264,7 @@ a.button.soft, .soft.button-donate, a.btn.soft, input[type="submit"].soft, butto
   background: linear-gradient(top, #ffffff, #e6e6e6);
   text-shadow: 1px 1px 0px white;
 }
-/* line 80, ../sass/includes/_buttons.scss */
+/* line 98, ../sass/includes/_buttons.scss */
 a.button.soft:hover, .soft.button-donate:hover, a.btn.soft:hover, input[type="submit"].soft:hover, button.soft:hover {
   border-color: #8c8c8c;
   color: #050505;
@@ -1194,7 +1274,7 @@ a.button.soft:hover, .soft.button-donate:hover, a.btn.soft:hover, input[type="su
   background: -o-linear-gradient(top, #ffffff, #eeeeee);
   background: linear-gradient(top, #ffffff, #eeeeee);
 }
-/* line 85, ../sass/includes/_buttons.scss */
+/* line 103, ../sass/includes/_buttons.scss */
 a.button.soft:active, .soft.button-donate:active, a.button.soft:focus, .soft.button-donate:focus, a.btn.soft:active, a.btn.soft:focus, input[type="submit"].soft:active, input[type="submit"].soft:focus, button.soft:active, button.soft:focus {
   background: #bfbfbf;
   border-color: #6b6b6b;
@@ -1204,7 +1284,7 @@ a.button.soft:active, .soft.button-donate:active, a.button.soft:focus, .soft.but
   color: #5e5e5e;
   text-shadow: 0 0 0;
 }
-/* line 94, ../sass/includes/_buttons.scss */
+/* line 112, ../sass/includes/_buttons.scss */
 a.button.success, .success.button-donate, a.btn.success, input[type="submit"].success, button.success {
   border-color: #2d5011;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5da423), color-stop(100%, #457a1a));
@@ -1213,7 +1293,7 @@ a.button.success, .success.button-donate, a.btn.success, input[type="submit"].su
   background: -o-linear-gradient(top, #5da423, #457a1a);
   background: linear-gradient(top, #5da423, #457a1a);
 }
-/* line 97, ../sass/includes/_buttons.scss */
+/* line 115, ../sass/includes/_buttons.scss */
 a.button.success:hover, .success.button-donate:hover, a.btn.success:hover, input[type="submit"].success:hover, button.success:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #75ce2c), color-stop(100%, #457a1a));
   background: -webkit-linear-gradient(top, #75ce2c, #457a1a);
@@ -1221,11 +1301,11 @@ a.button.success:hover, .success.button-donate:hover, a.btn.success:hover, input
   background: -o-linear-gradient(top, #75ce2c, #457a1a);
   background: linear-gradient(top, #75ce2c, #457a1a);
 }
-/* line 100, ../sass/includes/_buttons.scss */
+/* line 118, ../sass/includes/_buttons.scss */
 a.button.success:active, .success.button-donate:active, a.button.success:focus, .success.button-donate:focus, a.btn.success:active, a.btn.success:focus, input[type="submit"].success:active, input[type="submit"].success:focus, button.success:active, button.success:focus {
   background: #396516;
 }
-/* line 105, ../sass/includes/_buttons.scss */
+/* line 123, ../sass/includes/_buttons.scss */
 a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, button.alert {
   border-color: #7c2716;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d24226), color-stop(100%, #a7341e));
@@ -1234,7 +1314,7 @@ a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, b
   background: -o-linear-gradient(top, #d24226, #a7341e);
   background: linear-gradient(top, #d24226, #a7341e);
 }
-/* line 108, ../sass/includes/_buttons.scss */
+/* line 126, ../sass/includes/_buttons.scss */
 a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type="submit"].alert:hover, button.alert:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #df644c), color-stop(100%, #a7341e));
   background: -webkit-linear-gradient(top, #df644c, #a7341e);
@@ -1242,23 +1322,23 @@ a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type=
   background: -o-linear-gradient(top, #df644c, #a7341e);
   background: linear-gradient(top, #df644c, #a7341e);
 }
-/* line 111, ../sass/includes/_buttons.scss */
+/* line 129, ../sass/includes/_buttons.scss */
 a.button.alert:active, .alert.button-donate:active, a.button.alert:focus, .alert.button-donate:focus, a.btn.alert:active, a.btn.alert:focus, input[type="submit"].alert:active, input[type="submit"].alert:focus, button.alert:active, button.alert:focus {
   background: #912e1a;
 }
-/* line 117, ../sass/includes/_buttons.scss */
+/* line 135, ../sass/includes/_buttons.scss */
 a.button.large, .large.button-donate, a.btn.large, input[type="submit"].large, button.large {
   font-size: 1.25em;
 }
-/* line 118, ../sass/includes/_buttons.scss */
+/* line 136, ../sass/includes/_buttons.scss */
 a.button.small, .small.button-donate, a.btn.small, input[type="submit"].small, button.small {
   font-size: 1em;
 }
-/* line 119, ../sass/includes/_buttons.scss */
+/* line 137, ../sass/includes/_buttons.scss */
 a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, button.tiny {
   font-size: 0.85em;
 }
-/* line 121, ../sass/includes/_buttons.scss */
+/* line 139, ../sass/includes/_buttons.scss */
 a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, button.next {
   float: right;
   border: none;
@@ -1266,7 +1346,7 @@ a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, butto
   background: #ff619a url("../images/button-next.png") no-repeat right center;
 }
 
-/* line 133, ../sass/includes/_buttons.scss */
+/* line 151, ../sass/includes/_buttons.scss */
 .button-donate {
   font-size: 19px;
   font-size: 1.1875rem;
@@ -1279,7 +1359,7 @@ a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, butto
   background-color: #ff619a;
 }
 
-/* line 148, ../sass/includes/_buttons.scss */
+/* line 166, ../sass/includes/_buttons.scss */
 .button.button-donate:hover {
   background-color: #050505;
 }
@@ -1287,7 +1367,7 @@ a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, butto
 /* ========================= Responsive ================================== */
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-  /* line 157, ../sass/includes/_buttons.scss */
+  /* line 175, ../sass/includes/_buttons.scss */
   .button-donate {
     font-size: 22px;
     font-size: 1.375rem;
@@ -3433,6 +3513,81 @@ ul.steps li.selected a {
   font-size: 0.75rem;
 }
 
+/* =========== Vouchers */
+/* line 3, ../sass/modules/_vouchers.scss */
+.voucher-banner {
+  background: black url("../images/vouchers/banner.png") no-repeat top center;
+  width: 100%;
+  height: 372px;
+  padding-top: 45px;
+}
+/* line 9, ../sass/modules/_vouchers.scss */
+.voucher-banner h1 {
+  width: 400px;
+  margin: 0px 145px 0px 145px;
+  color: white;
+  font-size: 48px;
+  line-height: 56px;
+  padding: 0px;
+}
+/* line 16, ../sass/modules/_vouchers.scss */
+.voucher-banner h1.pink {
+  color: #ff619a;
+}
+
+/* line 22, ../sass/modules/_vouchers.scss */
+ul.voucher-list {
+  list-style: none;
+  margin: 0px;
+  text-indent: 0px;
+}
+/* line 27, ../sass/modules/_vouchers.scss */
+ul.voucher-list li {
+  margin: 12px 0px;
+  padding: 12px;
+  background-color: #e9e9e9;
+  height: 50px;
+}
+/* line 32, ../sass/modules/_vouchers.scss */
+ul.voucher-list li div {
+  height: 50px;
+}
+/* line 36, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .name {
+  float: left;
+  width: 29.16667%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+/* line 39, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .amount {
+  float: left;
+  width: 4.16667%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+/* line 43, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .mail {
+  float: left;
+  width: 29.16667%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+/* line 46, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .actions {
+  float: left;
+  width: 25%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+/* line 50, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .summary {
+  float: left;
+  width: 62.5%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+
 /* =========== For prototyping only */
 /* line 3, ../sass/modules/_misc.scss */
 .placeholder, .member-box ul li.member-project-team a, .member-box ul li.member-coaches a, .member-box ul li.member-promotors a, .member-box ul li.member-supporters a {
@@ -3476,13 +3631,30 @@ ul.steps li.selected a {
 .manage li a:hover, .manage li a:active {
   color: #050505;
 }
-/* line 46, ../sass/modules/_misc.scss */
-.manage .manage-edit a {
+
+/* line 48, ../sass/modules/_misc.scss */
+.manage-remove a,
+.manage-edit a {
+  display: inline-block;
+  color: #666;
+  margin-left: 10px;
+  margin-left: 0.625rem;
+  padding-left: 30px;
+  padding-left: 1.875rem;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
+  background-repeat: no-repeat;
   cursor: pointer;
   background-position: 2px -781px;
 }
-/* line 51, ../sass/modules/_misc.scss */
-.manage .manage-remove a {
+/* line 58, ../sass/modules/_misc.scss */
+.manage-remove a:hover, .manage-remove a:active,
+.manage-edit a:hover,
+.manage-edit a:active {
+  color: #050505;
+}
+
+/* line 65, ../sass/modules/_misc.scss */
+.manage-remove a {
   cursor: pointer;
   background-position: 5px -898px;
 }

@@ -87,8 +87,6 @@ class OrderItem(models.Model):
         return self.content_object.__class__.__name__
 
 
-
-
 class Voucher(models.Model):
 
     class VoucherStatuses(DjangoChoices):
@@ -102,6 +100,7 @@ class Voucher(models.Model):
         nl = ChoiceItem('nl', label=_("Dutch"))
 
     amount = models.PositiveIntegerField(_("amount"))
+
     currency = models.CharField(_("currency"), blank=True, default="EUR", max_length=3)
 
     status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
@@ -119,7 +118,7 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("receiver email"))
     receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
 
+
     message = models.TextField(_("message"), blank=True, default="", max_length=500)
 
     language = models.CharField(_("language"), max_length=2, choices=VoucherLanguages.choices, default=VoucherLanguages.en)
-

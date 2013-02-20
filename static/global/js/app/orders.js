@@ -59,7 +59,7 @@ App.OrderItem = DS.Model.extend({
 
 
 App.CurrentOrderItem = DS.Model.extend({
-    url: 'fund/orders/current/items'
+    url: 'fund/orders/current/items',
 });
 
 
@@ -72,9 +72,22 @@ App.CurrentDonation = App.OrderItem.extend({
 });
 
 
+App.Voucher =  App.OrderItem.extend({
+    url: 'fund/vouchers',
+    receiver_name: DS.attr('string', {defaultValue: ''}),
+    receiver_email: DS.attr('string'),
+    sender_name: DS.attr('string', {defaultValue: ''}),
+    sender_email: DS.attr('string'),
+    message: DS.attr('string', {defaultValue: ''}),
+    sender_email: DS.attr('string'),
+    language: DS.attr('string', {defaultValue: 'en'}),
+    amount: DS.attr('number', {defaultValue: 25})
+});
 
-App.CurrentVoucher = App.OrderItem.extend({
-    url: 'fund/orders/current/vouchers'
+
+App.CurrentVoucher = App.Voucher.extend({
+    url: 'fund/orders/current/vouchers',
+    order: DS.belongsTo('App.CurrentOrderItem')
 });
 
 
@@ -131,6 +144,65 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
     }
 });
 
+
+
+App.CurrentOrderVoucherListController = Em.ArrayController.extend({
+
+    count: function(){
+        return this.get('content.length') -1;
+    }.property('content.length'),
+
+    amount: function(){
+        // Calculate the total amount of Vouchers that are added to the list, not the one that's being edited in the form.
+        var amount = 0;
+        this.forEach(function(item){
+            if (! item.get('isDirty')) {
+                amount += item.get('amount');
+            }
+        });
+        return amount;
+    }.property('content.length'),
+
+
+
+    deleteOrderItem: function(item) {
+        var transaction = App.store.transaction();
+        transaction.add(item);
+        item.deleteRecord();
+        transaction.commit();
+    }
+});
+
+
+App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
+
+    createNewVoucher: function() {
+        var transaction = App.store.transaction();
+        var voucher =  transaction.createRecord(App.CurrentVoucher);
+        voucher.set('sender_name', App.userController.get('content.full_name'));
+        voucher.set('sender_email', App.userController.get('content.email'));
+        this.set('content', voucher);
+        this.set('transaction', transaction);
+
+    },
+
+    addVoucher: function(){
+        var voucher = this.get('content');
+        var controller = this;
+        voucher.on('didCreate', function(record) {
+            controller.createNewVoucher();
+            controller.set('content.sender_name', record.get('sender_name'));
+            controller.set('content.sender_email', record.get('sender_email'));
+        });
+        voucher.on('becameInvalid', function(record) {
+            controller.get('content').set('errors', record.get('errors'));
+        });
+        this.get('transaction').commit();
+
+
+    }
+
+});
 
 
 App.PaymentOrderProfileController = Em.ObjectController.extend({
@@ -231,6 +303,14 @@ App.CurrentOrderItemListView = Em.View.extend({
 });
 
 
+App.CurrentOrderVoucherListView = Em.View.extend({
+    templateName: 'current_order_voucher_list',
+    tagName: 'div',
+    classNames: ['content']
+});
+
+
+
 App.FinalOrderItemListView = Em.View.extend({
     templateName: 'final_order_item_list',
     tagName: 'div'
@@ -258,6 +338,30 @@ App.CurrentOrderItemView = Em.View.extend({
         e.preventDefault();
     }
 
+});
+
+
+App.CurrentOrderVoucherView = Em.View.extend({
+    templateName: 'current_order_voucher',
+    tagName: 'li',
+    classNames: ['voucher-item'],
+
+    delete: function(){
+        var controller = this.get('controller');
+        var item = this.get('content');
+        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
+    },
+    submit: function(e){
+        e.preventDefault();
+    }
+
+});
+
+
+App.CurrentOrderVoucherAddView = Em.View.extend({
+    templateName: 'current_order_voucher_add',
+    tagName: 'form',
+    classNames: ['labeled']
 });
 
 
@@ -313,6 +417,11 @@ App.DirectDebitPaymentMethodInfoView = Em.View.extend({
     submit: function(e){
         e.preventDefault();
     }
+});
+
+App.VoucherStartView = Em.View.extend({
+    tagName: 'div',
+    templateName: 'vouchers_start'
 });
 
 

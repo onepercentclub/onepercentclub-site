@@ -3,7 +3,7 @@ from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
-from .models import Donation, OrderItem, Order
+from .models import Donation, OrderItem, Order, Voucher
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -25,13 +25,6 @@ class DonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
         fields = ('id', 'project_id', 'project_slug', 'amount', 'status', 'url')
-
-
-class OrderItemObjectSerializer(ObjectBasedSerializer):
-    class Meta:
-        child_models = (
-            (Donation, DonationSerializer),
-        )
 
 
 class PaymentMethodSerializer(serializers.Serializer):
@@ -75,12 +68,45 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id', 'payment_url')
 
 
-class OrderItemSerializer(serializers.ModelSerializer):
-    # source is required because amount and type are properties on the model.
-    amount = serializers.IntegerField(source='amount', read_only=True)
-    type = serializers.CharField(source='type', read_only=True)
-    item = OrderItemObjectSerializer(source='content_object')
+class VoucherSerializer(serializers.ModelSerializer):
+
+    def validate_amount(self, attrs, source):
+        """
+        Check the amount
+        """
+        value = attrs[source]
+        if value not in [10, 25, 50, 100]:
+            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100."))
+        return attrs
+
 
     class Meta:
-        model = OrderItem
-        fields = ('id', 'amount', 'type', 'item')
+        model = Voucher
+        fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
+                  'message')
+
+
+class OrderItemSerializer(ObjectBasedSerializer):
+
+    def convert_object(self, obj):
+        """
+        Override so that we can address orderitem item.
+        """
+        # only show the item on the orderitem
+        obj = obj.content_object
+
+        ret = self._dict_class()
+        ret.fields = {}
+        for field_name, field in self._child_models[obj.__class__].fields.items():
+            key = self.get_field_key(field_name)
+            value = field.field_to_native(obj, field_name)
+            ret[key] = value
+            ret.fields[key] = field
+        return ret
+
+    class Meta:
+        child_models = (
+            (Donation, DonationSerializer),
+            (Voucher, VoucherSerializer),
+        )
+
