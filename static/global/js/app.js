@@ -226,6 +226,10 @@ App.Router.map(function() {
 
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
+
+    this.resource('vouchersStart', {path: '/vouchers'}, function() {
+    });
+
 });
 
 
@@ -290,6 +294,18 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 });
 
 
+App.CurrentOrderVoucherListRoute = Ember.Route.extend({
+
+    model: function(params) {
+        return App.CurrentVoucher.find();
+    },
+
+    setupController: function(controller, orderitems) {
+        controller.set('content', orderitems);
+    }
+});
+
+
 App.CurrentOrderRoute = Ember.Route.extend({
     model: function(params) {
         return App.Order.find('current');
@@ -297,6 +313,7 @@ App.CurrentOrderRoute = Ember.Route.extend({
 
     setupController: function(controller, order) {
         controller.set('content', order);
+        controller.set('isVoucherOrder', false);
     }
 });
 
@@ -313,25 +330,20 @@ App.CurrentOrderItemListRoute = Ember.Route.extend({
 });
 
 
-App.CurrentOrderVoucherListRoute = Ember.Route.extend({
-
-    model: function(params) {
-        return App.CurrentVoucher.find();
-    },
-
-    setupController: function(controller, orderitems) {
-        controller.set('content', orderitems);
-    }
-});
-
-
 App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
 
     setupController: function(controller) {
+        this.controllerFor('currentOrder').set('isVoucherOrder', true);
         controller.createNewVoucher();
     }
 });
 
+
+App.VoucherdStartRoute = Ember.Route.extend({
+
+    setupController: function(controller) {
+    }
+});
 
 
 App.PaymentOrderProfileRoute = Ember.Route.extend({

@@ -59,7 +59,8 @@ App.OrderItem = DS.Model.extend({
 
 
 App.CurrentOrderItem = DS.Model.extend({
-    url: 'fund/orders/current/items'
+    url: 'fund/orders/current/items',
+    vouchers: DS.hasMany("App.CurrentVoucher")
 });
 
 
@@ -86,7 +87,8 @@ App.Voucher =  App.OrderItem.extend({
 
 
 App.CurrentVoucher = App.Voucher.extend({
-    url: 'fund/orders/current/vouchers'
+    url: 'fund/orders/current/vouchers',
+    order: DS.belongsTo('App.CurrentOrderItem')
 });
 
 
@@ -147,10 +149,26 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 
-    deleteOrderItem: function(orderItem) {
+    count: function(){
+        return this.get('content.length') -1;
+    }.property('content.length'),
+
+    amount: function(){
+        var amount = 0;
+        this.forEach(function(item){
+            if (! item.get('isDirty')) {
+                amount += item.get('amount');
+            }
+        });
+        return amount;
+    }.property('content.length'),
+
+
+
+    deleteOrderItem: function(item) {
         var transaction = App.store.transaction();
-        transaction.add(orderItem);
-        orderItem.deleteRecord();
+        transaction.add(item);
+        item.deleteRecord();
         transaction.commit();
     }
 });
@@ -287,8 +305,10 @@ App.CurrentOrderItemListView = Em.View.extend({
 
 App.CurrentOrderVoucherListView = Em.View.extend({
     templateName: 'current_order_voucher_list',
-    tagName: 'form'
+    tagName: 'div',
+    classNames: ['content']
 });
+
 
 
 App.FinalOrderItemListView = Em.View.extend({
@@ -324,10 +344,11 @@ App.CurrentOrderItemView = Em.View.extend({
 App.CurrentOrderVoucherView = Em.View.extend({
     templateName: 'current_order_voucher',
     tagName: 'li',
-    classNames: 'donation-project',
+    classNames: ['voucher-item'],
 
-    delete: function(item){
+    delete: function(){
         var controller = this.get('controller');
+        var item = this.get('content');
         this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
     },
     submit: function(e){
@@ -340,12 +361,7 @@ App.CurrentOrderVoucherView = Em.View.extend({
 App.CurrentOrderVoucherAddView = Em.View.extend({
     templateName: 'current_order_voucher_add',
     tagName: 'form',
-    submit: function(e){
-        console.log('Yeah');
-        e.preventDefault();
-        this.get('controller').addVoucher();
-    }
-
+    classNames: ['labeled']
 });
 
 
@@ -401,6 +417,11 @@ App.DirectDebitPaymentMethodInfoView = Em.View.extend({
     submit: function(e){
         e.preventDefault();
     }
+});
+
+App.VoucherStartView = Em.View.extend({
+    tagName: 'div',
+    templateName: 'vouchers_start'
 });
 
 

@@ -19,9 +19,15 @@
         <section class="wrapper">
 
         <ul class="donation-steps">
-            {{#view App.OrderNavView classNames="support"}}
-                {{#linkTo currentOrderItemList}}Support{{/linkTo}}
-            {{/view}}
+            {{#if controller.isVoucherOrder}}
+                {{#view App.OrderNavView classNames="support"}}
+                    {{#linkTo currentOrderVoucherAdd}}Vouchers{{/linkTo}}
+                {{/view}}
+            {{else}}
+                {{#view App.OrderNavView classNames="support"}}
+                    {{#linkTo currentOrderItemList}}Support{{/linkTo}}
+                {{/view}}
+            {{/if}}
             {{#view App.OrderNavView classNames="details"}}
                 {{#linkTo paymentOrderProfile}}{% trans "Details" %}{{/linkTo}}
             {{/view}}
@@ -97,7 +103,7 @@
 
     <fieldset>
         {{outlet}}
-        <ul id="donation-projects">
+        <ul class="voucher-list">
             {{#each controller}}
                 {{#if this.isDirty}}
                 {{else}}
@@ -106,28 +112,37 @@
             {{else}}
                 {% trans "No vouchers yet..." %}
             {{/each}}
+            {{#if controller.count}}
+                <li>
+                    <div class="summary">
+                        {{controller.count}} {% trans "vouchers will be sent out with a total amount worth of" %}
+                    </div>
+                    <div class="amount">
+                        <h4 class="right">&euro;{{controller.amount}}</h4>
+                    </div>
+                </li>
+            {{/if}}
         </ul>
 
 
-        {# Doesnt update <span class="currency"><em>&euro; </em>{{view.parentView.controller.content.amount}}</span> #}
 
         {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
-    </fieldset>
 
+    </fieldset>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "current_order_voucher_add" %}
 
-    <h2>{% trans "Choose value & personalize voucher." %}</h2>
+    <h2>{% trans "Choose value & personalize voucher" %}</h2>
 
 
     {{#view Em.RadioButtonGroup class="big-radio radio2" name="language" selectedValueBinding="content.language"}}
-        <span class="label">
+        <div class="label">
             {% trans "Language" %}
-        </span>
+        </div>
         {{view view.RadioButton value="en" id="lang_en"}}
         <label for="lang_en">
             {% trans "English" %}
@@ -140,48 +155,66 @@
     <br />
 
     {{#view Em.RadioButtonGroup class="big-radio radio4" name="amount" selectedValueBinding="content.amount"}}
-        <span class="label">
+        <div class="label">
             {% trans "Amount" %}
-        </span>
+        </div>
         {{view view.RadioButton value=10 id="amount_10"}}
         <label for="amount_10">
-            &euro; 10
+            &euro;10
         </label>
         {{view view.RadioButton value=25 id="amount_25"}}
         <label for="amount_25">
-            &euro; 25
+            &euro;25
         </label>
         {{view view.RadioButton value=50 id="amount_50"}}
         <label for="amount_50">
-            &euro; 50
+            &euro;50
         </label>
         {{view view.RadioButton value=100 id="amount_100"}}
         <label for="amount_100">
-            &euro; 100
+            &euro;100
         </label>
     {{/view}}
 
+    <div class="label">{% trans "Your name" %}</div>
     {{#each errors.sender_name}}<span class="error">{{this}}</span>{{/each}}
-    <label class="fixed">Your name</label>
     {{view Em.TextField valueBinding="content.sender_name" placeholder="Your name" classBinding="errors.sender_name.length:error"}}
 
+    <div class="label">{% trans "Your email" %}</div>
     {{#each errors.sender_email}}<span class="error">{{this}}</span>{{/each}}
     {{view Em.TextField valueBinding="content.sender_email" placeholder="Your email" classBinding="errors.sender_email.length:error"}}
 
+    <h2 class="clear">{% trans "Add as many recipients as you want" %}</h2>
 
-    <h2>{% trans "Add as much recipients as you like." %}</h2>
-
-        {{#each errors.receiver_name}}<span class="error">{{this}}</span>{{/each}}
+    <div class="label">{% trans "Friend name" %}</div>
+    {{#each errors.receiver_name}}<span class="error">{{this}}</span>{{/each}}
     {{view Em.TextField valueBinding="receiver_name" placeholder="Name" classBinding="errors.receiver_name.length:error"}}
 
+    <div class="label">{% trans "Friend email" %}</div>
     {{#each errors.receiver_email}}<span class="error">{{this}}</span>{{/each}}
     {{view Em.TextField valueBinding="receiver_email" placeholder="Email" classBinding="errors.receiver_email.length:error"}}
 
+    <div class="label">{% trans "Personal message" %}</div>
     {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
-    {{view Em.TextArea valueBinding="message" placeholder="Message" classBinding="errors.message.length:error"}}
+    {{view Em.TextArea valueBinding="message" placeholder="Your message that will appear on the digital voucher." classBinding="errors.message.length:error"}}
 
     <a {{action "addVoucher" target="view.controller"}} class="right button">{% trans "Add" %}</a>
+    <br class="clear" />
 
+{% endtplhandlebars %}
+
+
+
+
+{% tplhandlebars "current_order_voucher" %}
+    <div class="name">
+        <h4>{{receiver_name}}</h4>
+    </div>
+    <div class="mail">{{receiver_email}}</div>
+    <div class="amount right">
+        <span class="right">&euro;{{amount}}</span>
+    </div>
+    <div class="actions manage-remove"><a {{action "delete" target="view"}} class="right">{% trans "Delete" %}</a></div>
 {% endtplhandlebars %}
 
 
@@ -229,19 +262,6 @@
     </p>
 
     <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "current_order_voucher" %}
-    <h1>{{receiver_name}} <em class="country">    {{receiver_email}}
-    </em></h1>
-    <p class="donation-amount">
-        <span class="big currency">&euro; {{amount}}</span>
-    </p>
-
-    <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
-
 
 {% endtplhandlebars %}
 
@@ -380,4 +400,28 @@
             </form>
         </section>
     </div>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "vouchers_start" %}
+
+    <div class="container section voucher-banner">
+
+        <!-- donation -->
+        <header class="wrapper">
+            <h1 class="">{% trans "Share" %}</h1>
+            <h1 class="">{% trans "the fun" %}</h1>
+            <h1 class="">{% trans "of giving!" %}</h1>
+            <h1 class="">{% trans "Get the" %}</h1>
+            <h1 class="pink">{% trans "1%VOUCHER" %} </h1>
+        </header>
+
+    </div>
+
+    <div class="container">
+        <section class="wrapper">
+            Yeah!
+        </section>
+    </div>
+
 {% endtplhandlebars %}
