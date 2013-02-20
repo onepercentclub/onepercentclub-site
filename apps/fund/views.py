@@ -26,6 +26,22 @@ class CurrentOrderMixin(object):
 
     order_lock = threading.Lock()
 
+    def get_current_order(self):
+        if self.request.user.is_authenticated():
+            try:
+                return Order.objects.get(user=self.request.user, status=Order.OrderStatuses.started)
+            except Order.DoesNotExist:
+                return None
+        else:
+            order_id = self.request.session.get('cart_order_id')
+            if order_id:
+                try:
+                    return Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
+                except Order.DoesNotExist:
+                    return None
+            else:
+                return None
+
     def get_or_create_current_order(self):
 
         if self.request.user.is_authenticated():
@@ -67,7 +83,7 @@ class CurrentOrderMixin(object):
         return order
 
 
-    def get_latest_complete_order(self):
+    def get_latest_order(self):
         if self.request.user.is_authenticated():
             try:
                 order = Order.objects.filter(user=self.request.user).exclude(status=Order.OrderStatuses.started).order_by("-created").all()[0]
@@ -170,14 +186,14 @@ class OrderLatestItemList(OrderItemList):
     serializer_class = OrderItemSerializer
 
     def get_queryset(self):
-        order = self.get_or_create_current_order()
+        order = self.get_current_order()
         if order and order.payment:
             payments.update_payment_status(order.payment)
             # TODO: Have a proper check if donation went ok. Signals!
             order.status = Order.OrderStatuses.pending
             order.save()
         else:
-            order = self.get_latest_complete_order()
+            order = self.get_latest_order()
 
         order.status = Order.OrderStatuses.pending
         order.save()
@@ -190,14 +206,14 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
     paginate_by = 100
 
     def get_queryset(self):
-        order = self.get_or_create_current_order()
+        order = self.get_current_order()
         if order and order.payment:
             payments.update_payment_status(order.payment)
-            # TODO: Check the status we get back from PSP and set order status accordingly.
+            # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
         else:
-            order = self.get_latest_complete_order()
+            order = self.get_latest_order()
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
         queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
         return queryset
