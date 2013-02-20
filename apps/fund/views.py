@@ -407,7 +407,7 @@ class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         try:
             obj = Voucher.objects.get(code=code)
         except Voucher.DoesNotExist:
-            raise Exception('Voucher with this code not found')
+            return None
         if not self.has_permission(self.request, obj):
-            self.permission_denied(self.request)
+            return None
         return obj

@@ -421,7 +421,13 @@ App.DirectDebitPaymentMethodInfoView = Em.View.extend({
 
 App.VoucherStartView = Em.View.extend({
     tagName: 'div',
-    templateName: 'vouchers_start'
+    templateName: 'voucher_start'
 });
+
+App.VoucherRedeemView = Em.View.extend({
+    tagName: 'div',
+    templateName: 'voucher_redeem'
+});
+
 
 
