@@ -1,3 +1,4 @@
+import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
 from apps.fund.serializers import PaymentMethodSerializer
@@ -24,56 +25,50 @@ class CurrentOrderMixin(object):
     Latest Order is the latest order by a user.
     """
 
-    def get_or_create_current_order(self):
-        if self.request.user.is_authenticated():
-            with transaction.commit_on_success():
-                order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.started)
+    order_lock = threading.Lock()
 
-            # We're currently only using DocData so we can directly connect the DocData payment order to the order. Note
-            # that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment at a later
-            # stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
-            if created:
-                payment = DocDataPaymentOrder()
-                payment.save()
-                order.payment = payment
-                order.save()
+    def get_or_create_current_order(self):
+
+        if self.request.user.is_authenticated():
+            # Critical section to avoid duplicate orders.
+            with self.order_lock:
+                order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.started)
+                # We're currently only using DocData so we can directly connect the DocData payment order to the order.
+                # Note that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment
+                # at a later stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
+                if created:
+                    payment = DocDataPaymentOrder()
+                    payment.save()
+                    order.payment = payment
+                    order.save()
+
         else:
-            # FIXME: This has a race condition that needs to be fixed.
             # For an anonymous user the order (cart) might be stored in the session
-            order_id = self.request.session.get("cart_session")
+            order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
                 except Order.DoesNotExist:
-                    # Create a new order if it's been cleared from our db.
+                    # Set order_id to None so that a new order is created if it's been cleared
+                    # from our db for some reason.
                     order_id = None
 
             if not order_id:
-                # FIXME: The race condition is really in this bit of code.
-                with transaction.commit_on_success():
-                    order = Order(status=Order.OrderStatuses.started)
+                # Critical section to avoid duplicate orders.
+                with self.order_lock:
+                    order = Order()
                     # See comment above about creating this DocDataPaymentOrder here.
                     payment = DocDataPaymentOrder()
                     payment.save()
                     order.payment = payment
                     order.save()
-                    self.request.session["cart_session"] = order.id
+                    self.request.session['cart_order_id'] = order.id
                     self.request.session.save()
-
-        # Check the permissions.
-        if not self.has_permission(self.request, order):
-            self.permission_denied(self.request)
-
-        # Update the Cowry Payment.
-        order.payment.amount = int(100 * order.amount)
-        order.payment.currency = 'EUR'
-        order.payment.save()
 
         return order
 
 
-    # TODO: Setup Order model to use Django support for latest.
-    def get_latest_order(self):
+    def get_latest_complete_order(self):
         if self.request.user.is_authenticated():
             try:
                 order = Order.objects.filter(user=self.request.user).exclude(status=Order.OrderStatuses.started).order_by("-created").all()[0]
@@ -81,7 +76,7 @@ class CurrentOrderMixin(object):
                 return None
         else:
             # For an anonymous user the order (cart) might be stored in the session
-            order_id = self.request.session.get("cart_session")
+            order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id)
@@ -183,7 +178,7 @@ class OrderLatestItemList(OrderItemList):
             order.status = Order.OrderStatuses.pending
             order.save()
         else:
-            order = self.get_latest_order()
+            order = self.get_latest_complete_order()
 
         order.status = Order.OrderStatuses.pending
         order.save()
@@ -203,7 +198,7 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
             order.status = Order.OrderStatuses.pending
             order.save()
         else:
-            order = self.get_latest_order()
+            order = self.get_latest_complete_order()
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
         queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
         return queryset
