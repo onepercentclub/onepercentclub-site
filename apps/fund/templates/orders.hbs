@@ -109,8 +109,6 @@
                 {{else}}
                     {{view "App.CurrentOrderVoucherView" content=this}}
                 {{/if}}
-            {{else}}
-                {% trans "No vouchers yet..." %}
             {{/each}}
             {{#if controller.count}}
                 <li>
@@ -121,12 +119,21 @@
                         <h4 class="right">&euro;{{controller.amount}}</h4>
                     </div>
                 </li>
+            {{else}}
+                <li>
+                    <div class="summary">
+                        {% trans "No vouchers yet..." %}
+                    </div>
+                </li>
             {{/if}}
         </ul>
 
 
-
-        {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+        {{#if controller.count}}
+            {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+        {{else}}
+            <button disabled class="right">{% trans "Next step" %}</button>
+        {{/if}}
 
 
     </fieldset>
