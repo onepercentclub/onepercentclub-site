@@ -40,7 +40,8 @@ a.button, a.btn, input[type="submit"], button {
     
     background-color: $green;
 
-    &:hover { 
+
+    &:hover {
         background-color: $pink;
         color: $white;
         border-color: darken($pink, 5%);
@@ -57,7 +58,24 @@ a.button, a.btn, input[type="submit"], button {
         position: relative;
         top: 4px;
     }
-    
+
+    &[disabled] {
+        color:  $color-back;
+        background-color: $gray;
+        border-color: $gray;
+
+        &:hover {
+            color:  $color-back;
+            background-color: $gray;
+        }
+        &:active{
+            position: relative;
+            color:  $color-error;
+            top: 0px;
+
+        }
+    }
+
     // The dark button
     &.contrast {
         border-color: $black;

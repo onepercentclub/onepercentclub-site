@@ -10,8 +10,8 @@ from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
 from rest_framework import views
-from .models import Donation, OrderItem, Order
-from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer)
+from .models import Donation, OrderItem, Order, Voucher
+from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer)
 from .utils import get_order_payment_methods
 
 # API views
@@ -340,4 +340,54 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
         return order.payment.latest_docdata_payment
 
 
+class OrderVoucherList(CurrentOrderMixin, generics.ListCreateAPIView):
+    # TODO: See if we can combine this with OrderDonationList
+    model = Voucher
+    serializer_class = VoucherSerializer
+    permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    paginate_by = 100
 
+    def get_queryset(self):
+        # Filter queryset for the current order
+        order = self.get_or_create_current_order()
+        orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Voucher))
+        queryset = Voucher.objects.filter(id__in=orderitems.values('object_id'))
+        return queryset
+
+    def create(self, request, *args, **kwargs):
+        # Overwrite this because we want to create an orderitem and set the current user.
+        order = self.get_or_create_current_order()
+        serializer = self.get_serializer(data=request.DATA)
+        if serializer.is_valid():
+            self.pre_save(serializer.object)
+            voucher = serializer.save()
+
+            if request.user.is_authenticated():
+                voucher.user = request.user
+            voucher.save()
+            orderitem = OrderItem.objects.create(content_object=voucher, order=order)
+            orderitem.save()
+            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+        return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderVoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
+    model = Voucher
+    serializer_class = VoucherSerializer
+
+    def get_queryset(self):
+        # Filter queryset for the current order
+        order = self.get_or_create_current_order()
+        orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Voucher))
+        queryset = Voucher.objects.filter(id__in=orderitems.values('object_id'))
+        return queryset
+
+    def destroy(self, request, *args, **kwargs):
+        # Tidy up! Delete related OrderItem, if any.
+        obj = self.get_object()
+        ct = ContentType.objects.get_for_model(obj)
+        order_item = OrderItem.objects.filter(object_id=obj.id, content_type=ct)
+        if order_item:
+            order_item.delete()
+        obj.delete()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
