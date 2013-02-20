@@ -229,6 +229,9 @@ App.Router.map(function() {
     });
 
     this.resource('vouchersStart', {path: '/vouchers'}, function() {
+        this.resource('vouchersRedeem', {path: '/vouchers'}, function() {
+
+        });
     });
 
 });
@@ -340,11 +343,26 @@ App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
 });
 
 
-App.VoucherdStartRoute = Ember.Route.extend({
+App.VoucherStartRoute = Ember.Route.extend({
 
     setupController: function(controller) {
     }
 });
+
+
+
+App.VoucherRedeemRoute = Ember.Route.extend({
+
+    model: function(params) {
+        return App.CurrentDonation.find();
+    },
+
+    setupController: function(controller, orderitems) {
+        controller.set('content', orderitems);
+    }
+});
+
+
 
 
 App.PaymentOrderProfileRoute = Ember.Route.extend({

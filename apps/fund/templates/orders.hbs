@@ -427,7 +427,16 @@
 
     <div class="container">
         <section class="wrapper">
-            Yeah!
+            <div class="redeem">
+                <a {{linkTo "voucherRedeem"}}>
+                    <h2>{% trans "I received a voucher" %}</h2>
+                </a>
+            </div>
+            <div class="buy">
+                <a {{linkTo "currentOrderVoucherAdd"}}>
+                    <h2>{% trans "I'd like to buy voucher(s)" %}</h2>
+                </a>
+            </div>
         </section>
     </div>
 
