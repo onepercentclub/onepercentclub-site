@@ -42,15 +42,27 @@
             }
         }
     }
-    
-    .manage-edit a {
-        cursor: pointer;
-        background-position: sprite-position($icons, edit, 2px, 2px);
+}
+
+.manage-remove a,
+.manage-edit a {
+    display: inline-block;
+    color: #666;
+
+    @include rem(margin-left, 10px);
+    @include rem(padding-left, 30px);
+
+    background-image: $icons;
+    background-repeat: no-repeat;
+
+    &:hover, &:active {
+        color: $black;
     }
-    
-    .manage-remove a {
-        cursor: pointer;
-        background-position: sprite-position($icons, remove, 5px, 2px);
-    }
-    
+    cursor: pointer;
+    background-position: sprite-position($icons, edit, 2px, 2px);
+}
+
+.manage-remove a {
+    cursor: pointer;
+    background-position: sprite-position($icons, remove, 5px, 2px);
 }
