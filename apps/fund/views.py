@@ -6,7 +6,6 @@ from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
-from django.db import transaction
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
