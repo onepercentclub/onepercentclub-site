@@ -86,32 +86,11 @@ class VoucherSerializer(serializers.ModelSerializer):
                   'message')
 
 
-"""
-class OrderItemObjectSerializer(ObjectBasedSerializer):
-    class Meta:
-        child_models = (
-            (Donation, DonationSerializer),
-            (Voucher, VoucherSerializer),
-        )
-
-
-class OrderItemSerializer(serializers.ModelSerializer):
-    # source is required because amount and type are properties on the model.
-    amount = serializers.IntegerField(source='amount', read_only=True)
-    type = serializers.CharField(source='type', read_only=True)
-    item = OrderItemObjectSerializer(source='content_object')
-
-    class Meta:
-        model = OrderItem
-        fields = ('id', 'amount', 'type', 'item')
-
-"""
-
 class OrderItemSerializer(ObjectBasedSerializer):
 
     def convert_object(self, obj):
         """
-        Override so that we can iterate through the child_model field items.
+        Override so that we can address orderitem item.
         """
         # only show the item on the orderitem
         obj = obj.content_object

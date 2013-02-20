@@ -220,6 +220,8 @@ App.Router.map(function() {
         });
 
         this.resource('paymentOrderProfile', {path: '/details'});
+
+        // TODO: RTFM to see if this is the best way to do it.
         this.resource('currentOrderPayment', {path: '/payment'}, function(){
             this.resource('currentPaymentMethodInfo', {path: 'info'});
         });
