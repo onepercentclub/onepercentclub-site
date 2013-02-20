@@ -391,3 +391,23 @@ class OrderVoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIVie
             order_item.delete()
         obj.delete()
         return response.Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+    model = Voucher
+    serializer_class = VoucherSerializer
+
+    def get_object(self, queryset=None):
+        """
+        Override default to add support for object-level permissions.
+        """
+        code = self.kwargs.get('code', None)
+        if not code:
+            raise Exception('No code given')
+        try:
+            obj = Voucher.objects.get(code=code)
+        except Voucher.DoesNotExist:
+            raise Exception('Voucher with this code not found')
+        if not self.has_permission(self.request, obj):
+            self.permission_denied(self.request)
+        return obj

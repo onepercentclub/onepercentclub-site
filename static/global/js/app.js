@@ -231,7 +231,7 @@ App.Router.map(function() {
     });
 
     this.resource('vouchersStart', {path: '/vouchers'}, function() {
-        this.resource('vouchersRedeem', {path: '/vouchers'}, function() {
+        this.resource('voucherRedeem', {path: '/:code'}, function() {
 
         });
     });
@@ -356,11 +356,11 @@ App.VoucherStartRoute = Ember.Route.extend({
 App.VoucherRedeemRoute = Ember.Route.extend({
 
     model: function(params) {
-        return App.CurrentDonation.find();
+        return App.Voucher.find(params['code']);
     },
 
-    setupController: function(controller, orderitems) {
-        controller.set('content', orderitems);
+    setupController: function(controller, voucher) {
+        controller.set('content', voucher);
     }
 });
 
