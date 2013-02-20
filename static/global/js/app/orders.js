@@ -180,6 +180,7 @@ App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
         var transaction = App.store.transaction();
         var voucher =  transaction.createRecord(App.CurrentVoucher);
         voucher.set('sender_name', App.userController.get('content.full_name'));
+        voucher.set('sender_email', App.userController.get('content.email'));
         this.set('content', voucher);
         this.set('transaction', transaction);
 

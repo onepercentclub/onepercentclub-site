@@ -165,6 +165,7 @@ App.Member = DS.Model.extend({
 
 App.User = App.Member.extend({
     url: 'members',
+    email: DS.attr('string'),
 
     is_authenticated: function(){
         return (this.get('username'))  ? true : false;
