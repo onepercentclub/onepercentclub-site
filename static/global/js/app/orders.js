@@ -228,7 +228,6 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
         // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
             controller.get('content').set('errors', record.get('errors'));
-
         });
     }
 });

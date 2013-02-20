@@ -1,8 +1,8 @@
+import requests
 from apps.cowry import factory, payments
 from django.conf import settings
 from django.test.testcases import TestCase
 from django.utils import unittest
-import requests
 from requests.exceptions import ConnectionError
 from rest_framework import status
 
@@ -36,7 +36,7 @@ class DocDataPaymentTests(TestCase):
         self.assertTrue(payment.payment_order_key)
 
         # Test that the payment url works.
-        payment_url = payments.create_webmenu_payment(payment)
+        payment_url = payments.get_payment_url(payment)
         response = requests.get(payment_url)
         self.assertEqual(response.status_code, 200)
 

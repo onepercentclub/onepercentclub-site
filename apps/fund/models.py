@@ -92,18 +92,25 @@ class Voucher(models.Model):
     class VoucherStatuses(DjangoChoices):
         new = ChoiceItem('new', label=_("New"))
         paid = ChoiceItem('paid', label=_("Paid"))
-        cashed = ChoiceItem('cancelled', label=_("Cancelled"))
+        cashed = ChoiceItem('cashed', label=_("Cashed"))
+        cashed_by_proxy = ChoiceItem('cashed_by_proxy', label=_("Cashed by us"))
 
     class VoucherLanguages(DjangoChoices):
         en = ChoiceItem('en', label=_("English"))
         nl = ChoiceItem('nl', label=_("Dutch"))
 
     amount = models.PositiveIntegerField(_("amount"))
+
+    currency = models.CharField(_("currency"), blank=True, default="EUR", max_length=3)
+
     status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
+
+    code = models.CharField(_("code"), blank=True, default="", max_length=100)
+
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
-    user = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
+    sender = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
     sender_email = models.EmailField(_("sender email"))
     sender_name = models.CharField(_("sender name"), blank=True, default="", max_length=100)
 
@@ -111,6 +118,7 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("receiver email"))
     receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
 
-    message = models.TextField(_("message"), blank=True, default="")
+
+    message = models.TextField(_("message"), blank=True, default="", max_length=500)
 
     language = models.CharField(_("language"), max_length=2, choices=VoucherLanguages.choices, default=VoucherLanguages.en)

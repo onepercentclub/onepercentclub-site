@@ -42,7 +42,7 @@ django-filter==0.5.4
 djangorestframework==2.1.17
 
 # Jenkins integration
-django-jenkins==0.13.0
+django-jenkins==0.14.0
 
 # Coverage in tests
 coverage==3.5.2
@@ -73,24 +73,16 @@ html5lib==0.95
 django-fluent-dashboard==0.3.2
 django-admin-tools>=0.4.1
 
-# Current git revision in request object for use in templates and views
-# http://pypi.python.org/pypi/django-gitrevision
-gitpython>=0.3.2.RC1
-django-gitrevision==0.1.4
-
 # Transifex - for translations!
 transifex-client
 
 # Handlebars in templates
 django-templatetag-handlebars
 
-# Cowry uses django countries
+# Cowry dependencies.
 django_countries
-
-# Soap library for cowry
+requests==1.1.0
 #suds-jurko==0.4.1.jurko.4
 # Use a suds-jurko fork with python 2.6 support.
 http://bitbucket.org/onepercentclub/suds/get/6a98691d1188.zip
 
-# Used in cowry_docdata tests.
-requests==1.1.0

@@ -41,6 +41,7 @@ class CurrentOrderMixin(object):
             else:
                 # No order_id in session. Return None
                 return None
+
         order.payment.amount = int(100 * order.amount)
         order.payment.currency = 'EUR'
         order.payment.save()
@@ -123,11 +124,17 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_object(self, queryset=None):
-        # For now generate payment url over here.
         order = self.get_or_create_current_order()
-        # This will save it in pm info.
+
+        # Not sure if this is the best place to generate the payment url.
         if order.payment.payment_method_id:
-            payments.get_payment_url(order.payment)
+            if self.request.is_secure():
+                protocol = 'https://'
+            else:
+                protocol = 'http://'
+
+            # Getting the payment url with this method will save the url into the payment method info object.
+            payments.get_payment_url(order.payment, '{0}{1}'.format(protocol, self.request.get_host()))
         return order
 
     def put(self, request, *args, **kwargs):
@@ -293,7 +300,8 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         """
         order = self.get_or_create_current_order()
         ids = request.QUERY_PARAMS.getlist('ids[]', [])
-        pms = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL', recurring=order.recurring, ids=ids)
+        pms = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL', recurring=order.recurring,
+                                          pm_ids=ids)
         serializer = self.get_serializer(pms)
         return response.Response(serializer.data)
 
