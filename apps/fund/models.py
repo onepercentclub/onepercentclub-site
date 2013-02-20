@@ -59,8 +59,6 @@ class Order(models.Model):
     recurring = models.BooleanField(default=False)
     payment = models.ForeignKey('cowry.Payment', null=True, blank=True)
 
-    session_key = models.CharField(_("session"), max_length=40, blank=True, null=True, unique=True)
-
     # Calculate total for this Order
     @property
     def amount(self):
