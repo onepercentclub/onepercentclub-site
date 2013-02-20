@@ -111,7 +111,7 @@ class Voucher(models.Model):
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
-    user = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
+    sender = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
     sender_email = models.EmailField(_("sender email"))
     sender_name = models.CharField(_("sender name"), blank=True, default="", max_length=100)
 
