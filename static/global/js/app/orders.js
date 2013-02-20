@@ -60,7 +60,6 @@ App.OrderItem = DS.Model.extend({
 
 App.CurrentOrderItem = DS.Model.extend({
     url: 'fund/orders/current/items',
-    vouchers: DS.hasMany("App.CurrentVoucher")
 });
 
 
@@ -154,6 +153,7 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
     }.property('content.length'),
 
     amount: function(){
+        // Calculate the total amount of Vouchers that are added to the list, not the one that's being edited in the form.
         var amount = 0;
         this.forEach(function(item){
             if (! item.get('isDirty')) {

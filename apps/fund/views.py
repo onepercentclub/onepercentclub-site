@@ -341,6 +341,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
 
 
 class OrderVoucherList(CurrentOrderMixin, generics.ListCreateAPIView):
+    # TODO: See if we can combine this with OrderDonationList
     model = Voucher
     serializer_class = VoucherSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -354,6 +355,7 @@ class OrderVoucherList(CurrentOrderMixin, generics.ListCreateAPIView):
         return queryset
 
     def create(self, request, *args, **kwargs):
+        # Overwrite this because we want to create an orderitem and set the current user.
         order = self.get_or_create_current_order()
         serializer = self.get_serializer(data=request.DATA)
         if serializer.is_valid():
