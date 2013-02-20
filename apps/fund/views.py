@@ -15,7 +15,9 @@ from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializ
 from .utils import get_order_payment_methods
 
 
-# API views
+# Lock used in the CurrentOrderMixin. It needs to be outside of Mixin so it's created more than once.
+order_lock = threading.Lock()
+
 
 class CurrentOrderMixin(object):
     """
@@ -23,8 +25,6 @@ class CurrentOrderMixin(object):
     Current Order has status 'started'. It is linked to a user or stored in session (for anonymous users).
     Latest Order is the latest order by a user.
     """
-
-    order_lock = threading.Lock()
 
     def get_current_order(self):
         if self.request.user.is_authenticated():
@@ -46,7 +46,7 @@ class CurrentOrderMixin(object):
 
         if self.request.user.is_authenticated():
             # Critical section to avoid duplicate orders.
-            with self.order_lock:
+            with order_lock:
                 order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.started)
                 # We're currently only using DocData so we can directly connect the DocData payment order to the order.
                 # Note that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment
@@ -70,7 +70,7 @@ class CurrentOrderMixin(object):
 
             if not order_id:
                 # Critical section to avoid duplicate orders.
-                with self.order_lock:
+                with order_lock:
                     order = Order()
                     # See comment above about creating this DocDataPaymentOrder here.
                     payment = DocDataPaymentOrder()
