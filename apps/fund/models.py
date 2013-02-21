@@ -20,9 +20,12 @@ class Donation(models.Model):
         paid = ChoiceItem('paid', label=_("Paid"))
         cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
 
-    amount = MoneyField(_("amount"))
+    amount = models.PositiveIntegerField(_("amount"))
+    currency = models.CharField(_("currency"), blank=True, max_length=3)
+
     user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True, blank=True)
     project = models.ForeignKey('projects.Project', verbose_name=_("project"))
+
     status = models.CharField(_("status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
@@ -62,7 +65,7 @@ class Order(models.Model):
     # Calculate total for this Order
     @property
     def amount(self):
-        amount = Decimal('0')
+        amount = 0
         for item in self.orderitem_set.all():
             amount += item.amount
         return amount
@@ -102,12 +105,9 @@ class Voucher(models.Model):
     amount = models.PositiveIntegerField(_("amount"))
     currency = models.CharField(_("currency"), blank=True, max_length=3)
 
-    status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
-
+    language = models.CharField(_("language"), max_length=2, choices=VoucherLanguages.choices, default=VoucherLanguages.en)
+    message = models.TextField(_("message"), blank=True, default="", max_length=500)
     code = models.CharField(_("code"), blank=True, default="", max_length=100)
-
-    created = CreationDateTimeField(_("created"))
-    updated = ModificationDateTimeField(_("updated"))
 
     sender = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
     sender_email = models.EmailField(_("sender email"))
@@ -117,6 +117,6 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("receiver email"))
     receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
 
-    message = models.TextField(_("message"), blank=True, default="", max_length=500)
-
-    language = models.CharField(_("language"), max_length=2, choices=VoucherLanguages.choices, default=VoucherLanguages.en)
+    status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
