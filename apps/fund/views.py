@@ -10,10 +10,12 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
+from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 from .models import Donation, OrderItem, Order, Voucher
+from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
-                          PaymentMethodSerializer)
+                          PaymentMethodSerializer, VoucherDonationSerializer)
 from .utils import get_order_payment_methods
 
 
@@ -406,19 +408,99 @@ class OrderVoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIVie
         return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class VoucherDetail(CurrentOrderMixin, generics.RetrieveAPIView):
+class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Voucher
     serializer_class = VoucherSerializer
 
     def get_object(self, queryset=None):
         """
-        Override default to add support for object-level permissions.
+        Override default to have semantic error responses.
         """
+        code = self.kwargs.get('code', None)
+        if not code:
+            raise exceptions.ParseError(detail=_(u"No voucher code supplied."))
+        try:
+            obj = Voucher.objects.get(code=code)
+        except Voucher.DoesNotExist:
+            raise exceptions.ParseError(detail=_(u"No voucher with that code."))
+        if obj.status != Voucher.VoucherStatuses.paid:
+            raise exceptions.PermissionDenied(detail=_(u"Voucher code already used."))
+        return obj
+
+    def pre_save(self, obj):
+        if obj.status == Voucher.VoucherStatuses.cashed:
+            for donation in obj.donations.all():
+                donation.status = Donation.DonationStatuses.paid
+                donation.save()
+
+
+class VoucherMixin(object):
+
+    def get_voucher(self):
         code = self.kwargs.get('code', None)
         if not code:
             raise Http404(_(u"No voucher code supplied."))
         try:
-            obj = Voucher.objects.get(code=code)
+            voucher = Voucher.objects.get(code=code, status=Voucher.VoucherStatuses.paid)
         except Voucher.DoesNotExist:
             raise Http404(_(u"No voucher found matching the query"))
-        return obj
+        return voucher
+
+
+
+class VoucherDonationList(VoucherMixin, generics.ListCreateAPIView):
+    model = Donation
+    serializer_class = VoucherDonationSerializer
+
+
+    def pre_save(self, obj):
+        voucher = self.get_voucher()
+        # Clear previous donations for this voucher
+        for donation in voucher.donations.all():
+            donation.delete()
+        obj.amount = voucher.amount
+
+        """
+        Keep this code around for if we want to change to multiple donations for one voucher.
+
+        count = len(voucher.donations.all()) + 1
+        rest_amount = voucher.amount
+        part_amount = floor(voucher.amount / count)
+        for donation in voucher.donations.all():
+            rest_amount -= part_amount
+            donation.amount = part_amount
+            donation.save()
+
+        obj.amount = rest_amount
+        """
+
+        obj.save()
+        voucher.donations.add(obj)
+
+
+    def get_queryset(self):
+        voucher = self.get_voucher()
+        return voucher.donations.all()
+
+
+# Not used yet, until we want multiple donations per voucher
+class VoucherDonationDetail(VoucherMixin, generics.RetrieveDestroyAPIView):
+    model = Donation
+    serializer_class = VoucherDonationSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        obj = self.get_object()
+        voucher = self.get_voucher()
+        count = len(voucher.donations.all()) - 1
+        if count:
+            part_amount = round(100 * voucher.amount / count) / 100
+            rest_amount = voucher.amount
+            for donation in voucher.donations.all():
+                rest_amount -= part_amount
+                donation.amount = part_amount
+                donation.save()
+            donation.amount += rest_amount
+            donation.save()
+        obj.delete()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
+

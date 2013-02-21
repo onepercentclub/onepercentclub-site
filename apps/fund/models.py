@@ -121,3 +121,7 @@ class Voucher(models.Model):
     message = models.TextField(_("message"), blank=True, default="", max_length=500)
 
     language = models.CharField(_("language"), max_length=2, choices=VoucherLanguages.choices, default=VoucherLanguages.en)
+
+    donations = models.ManyToManyField("Donation")
+
+

@@ -71,6 +71,10 @@ App.CurrentDonation = App.OrderItem.extend({
     url: 'fund/orders/current/donations'
 });
 
+App.VoucherDonation = App.CurrentDonation.extend({
+   url: 'fund/vouchers/:code/donations'
+});
+
 
 App.Voucher =  App.OrderItem.extend({
     url: 'fund/vouchers',
@@ -80,7 +84,8 @@ App.Voucher =  App.OrderItem.extend({
     sender_email: DS.attr('string'),
     message: DS.attr('string', {defaultValue: ''}),
     language: DS.attr('string', {defaultValue: 'en'}),
-    amount: DS.attr('number', {defaultValue: 25})
+    amount: DS.attr('number', {defaultValue: 25}),
+    donations: DS.hasMany('App.VoucherDonation')
 });
 
 
@@ -283,14 +288,31 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         return false;
     }.property('voucher.isSaving', 'voucher.isLoaded'),
 
-    submit: function(){
+    submitCode: function(){
         var code = this.get('code');
         if (code) {
             var voucher = App.Voucher.find(code);
             this.set('voucher', voucher);
 
         }
+    },
+    redeemVoucher: function(){
+        var voucher = this.get('voucher');
+        var transaction = App.store.transaction();
+        transaction.add(voucher);
+        voucher.set('status', 'cashed');
+        voucher.on('didUpdate',function(){
+           this.transistionTo('voucherDone');
+        });
+        transaction.commit();
+    },
+    deleteOrderItem: function(orderItem) {
+        var transaction = App.store.transaction();
+        transaction.add(orderItem);
+        orderItem.deleteRecord();
+        transaction.commit();
     }
+
 });
 
 
@@ -449,4 +471,18 @@ App.VoucherRedeemView = Em.View.extend({
 });
 
 
+
+App.VoucherDonationView = Em.View.extend({
+    templateName: 'voucher_donation',
+    tagName: 'li',
+    classNames: 'donation-project',
+
+    delete: function(item){
+        var controller = this.get('controller');
+        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
+    },
+    submit: function(e){
+        e.preventDefault();
+    }
+});
 
