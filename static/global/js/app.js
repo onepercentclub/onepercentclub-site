@@ -211,6 +211,7 @@ App.Router.map(function() {
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
     this.resource('currentOrder', {path: '/support'}, function() {
+        // TODO Rename route to currentOrderDonationList??
         this.resource('currentOrderItemList', {path: ''}, function() {
             this.route('add', {path: '/add/:slug'});  // project slug
         });
@@ -221,7 +222,7 @@ App.Router.map(function() {
 
         this.resource('paymentOrderProfile', {path: '/details'});
 
-        // TODO: RTFM to see if this is the best way to do it.
+        // TODO: Read the manual to see if this is the best way to do it.
         this.resource('currentOrderPayment', {path: '/payment'}, function(){
             this.resource('currentPaymentMethodInfo', {path: 'info'});
         });
@@ -298,7 +299,6 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 
 
 App.CurrentOrderVoucherListRoute = Ember.Route.extend({
-
     model: function(params) {
         return App.CurrentVoucher.find();
     },
@@ -320,7 +320,6 @@ App.CurrentOrderRoute = Ember.Route.extend({
     }
 });
 
-
 App.CurrentOrderItemListRoute = Ember.Route.extend({
 
     model: function(params) {
@@ -329,6 +328,7 @@ App.CurrentOrderItemListRoute = Ember.Route.extend({
 
     setupController: function(controller, orderitems) {
         controller.set('content', orderitems);
+        this.controllerFor('currentOrder').set('isVoucherOrder', false);
     }
 });
 
