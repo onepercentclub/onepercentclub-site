@@ -79,7 +79,6 @@ App.Voucher =  App.OrderItem.extend({
     sender_name: DS.attr('string', {defaultValue: ''}),
     sender_email: DS.attr('string'),
     message: DS.attr('string', {defaultValue: ''}),
-    sender_email: DS.attr('string'),
     language: DS.attr('string', {defaultValue: 'en'}),
     amount: DS.attr('number', {defaultValue: 25})
 });
