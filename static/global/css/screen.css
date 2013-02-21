@@ -293,6 +293,12 @@ h1 {
 }
 
 /* line 59, ../sass/includes/_typography.scss */
+.big-text {
+  font-size: 30px;
+  font-size: 1.875rem;
+}
+
+/* line 63, ../sass/includes/_typography.scss */
 h2 {
   font-size: 26px;
   font-size: 1.625rem;
@@ -300,13 +306,13 @@ h2 {
   font-weight: bold;
 }
 
-/* line 65, ../sass/includes/_typography.scss */
+/* line 69, ../sass/includes/_typography.scss */
 h3 {
   font-size: 24px;
   font-size: 1.5rem;
 }
 
-/* line 69, ../sass/includes/_typography.scss */
+/* line 73, ../sass/includes/_typography.scss */
 h4 {
   font-size: 18px;
   font-size: 1.125rem;
@@ -315,13 +321,13 @@ h4 {
   font-weight: bold;
 }
 
-/* line 75, ../sass/includes/_typography.scss */
+/* line 79, ../sass/includes/_typography.scss */
 h5 {
   font-size: 16px;
   font-size: 1rem;
 }
 
-/* line 77, ../sass/includes/_typography.scss */
+/* line 81, ../sass/includes/_typography.scss */
 .tagline {
   color: #00c051;
   text-align: center;
@@ -331,23 +337,23 @@ h5 {
   margin: 64px 0;
   margin: 4rem 0;
 }
-/* line 82, ../sass/includes/_typography.scss */
+/* line 86, ../sass/includes/_typography.scss */
 .tagline em {
   color: #ff619a;
   font-weight: bold;
   font-style: normal;
 }
 
-/* line 93, ../sass/includes/_typography.scss */
+/* line 97, ../sass/includes/_typography.scss */
 p {
   margin-bottom: 1.25em;
 }
-/* line 95, ../sass/includes/_typography.scss */
+/* line 99, ../sass/includes/_typography.scss */
 p.lead {
   font-weight: bold;
 }
 
-/* line 100, ../sass/includes/_typography.scss */
+/* line 104, ../sass/includes/_typography.scss */
 a {
   color: #00c051;
   text-decoration: none;
@@ -356,54 +362,54 @@ a {
   -o-transition: color 0.2s ease-in, color 0.25s ease-out;
   transition: color 0.2s ease-in, color 0.25s ease-out;
 }
-/* line 105, ../sass/includes/_typography.scss */
+/* line 109, ../sass/includes/_typography.scss */
 a:hover {
   color: #ff619a;
 }
-/* line 109, ../sass/includes/_typography.scss */
+/* line 113, ../sass/includes/_typography.scss */
 a:active {
   color: #ff619a;
   position: relative;
   top: 1px;
 }
 
-/* line 117, ../sass/includes/_typography.scss */
+/* line 121, ../sass/includes/_typography.scss */
 small {
   font-size: 0.85em;
   color: #858585;
 }
 
-/* line 119, ../sass/includes/_typography.scss */
+/* line 123, ../sass/includes/_typography.scss */
 em {
   font-style: italic;
 }
 
-/* line 121, ../sass/includes/_typography.scss */
+/* line 125, ../sass/includes/_typography.scss */
 strong {
   font-weight: bold;
 }
 
-/* line 123, ../sass/includes/_typography.scss */
+/* line 127, ../sass/includes/_typography.scss */
 code, pre {
   font-family: 'courier new', monospace;
 }
 
-/* line 125, ../sass/includes/_typography.scss */
+/* line 129, ../sass/includes/_typography.scss */
 abbr {
   border-bottom: 1px dotted #858585;
 }
 
-/* line 127, ../sass/includes/_typography.scss */
+/* line 131, ../sass/includes/_typography.scss */
 del {
   text-decoration: line-through;
 }
 
-/* line 129, ../sass/includes/_typography.scss */
+/* line 133, ../sass/includes/_typography.scss */
 mark {
   background-color: #ffffb3;
 }
 
-/* line 131, ../sass/includes/_typography.scss */
+/* line 135, ../sass/includes/_typography.scss */
 hr {
   background-color: transparent;
   border: solid #bfbfbf;
@@ -412,72 +418,72 @@ hr {
   margin: 2em 1.25em;
 }
 
-/* line 139, ../sass/includes/_typography.scss */
+/* line 143, ../sass/includes/_typography.scss */
 blockquote {
   color: #454545;
   font-style: italic;
 }
-/* line 143, ../sass/includes/_typography.scss */
+/* line 147, ../sass/includes/_typography.scss */
 blockquote cite {
   color: #5e5e5e;
   display: block;
   font-size: 0.85em;
 }
-/* line 147, ../sass/includes/_typography.scss */
+/* line 151, ../sass/includes/_typography.scss */
 blockquote cite:before {
   content: "\2014 \0020";
 }
 
-/* line 151, ../sass/includes/_typography.scss */
+/* line 155, ../sass/includes/_typography.scss */
 figure {
   display: inline-block;
   max-width: 100%;
 }
-/* line 154, ../sass/includes/_typography.scss */
+/* line 158, ../sass/includes/_typography.scss */
 figure img {
   display: block;
   width: 100%;
 }
-/* line 158, ../sass/includes/_typography.scss */
+/* line 162, ../sass/includes/_typography.scss */
 figure figcaption {
   color: blue;
 }
 
-/* line 163, ../sass/includes/_typography.scss */
+/* line 167, ../sass/includes/_typography.scss */
 ul, ol {
   margin: 0 0 1.25em 1.5em;
 }
 
-/* line 164, ../sass/includes/_typography.scss */
+/* line 168, ../sass/includes/_typography.scss */
 ul {
   list-style: disc;
 }
 
-/* line 165, ../sass/includes/_typography.scss */
+/* line 169, ../sass/includes/_typography.scss */
 ol {
   list-style: decimal;
 }
 
-/* line 167, ../sass/includes/_typography.scss */
+/* line 171, ../sass/includes/_typography.scss */
 dl {
   margin-bottom: 1.25em;
 }
-/* line 169, ../sass/includes/_typography.scss */
+/* line 173, ../sass/includes/_typography.scss */
 dl dt {
   font-weight: bold;
 }
-/* line 170, ../sass/includes/_typography.scss */
+/* line 174, ../sass/includes/_typography.scss */
 dl dd {
   margin-left: 1.25em;
 }
-/* line 172, ../sass/includes/_typography.scss */
+/* line 176, ../sass/includes/_typography.scss */
 dl.advanced dt {
   float: left;
   width: 31.25%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 173, ../sass/includes/_typography.scss */
+/* line 177, ../sass/includes/_typography.scss */
 dl.advanced dd {
   float: left;
   width: 66.66667%;

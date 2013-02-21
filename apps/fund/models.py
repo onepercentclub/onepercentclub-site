@@ -51,7 +51,7 @@ class Order(models.Model):
         paid = ChoiceItem('paid', label=_("Paid"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
-    status = models.CharField(_("status"),max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.started, db_index=True)
+    status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.started, db_index=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
@@ -117,7 +117,6 @@ class Voucher(models.Model):
     receiver = models.ForeignKey('auth.User', verbose_name=_("receiver"), related_name="receiver", null=True, blank=True)
     receiver_email = models.EmailField(_("receiver email"))
     receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
-
 
     message = models.TextField(_("message"), blank=True, default="", max_length=500)
 

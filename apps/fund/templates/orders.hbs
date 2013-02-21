@@ -492,10 +492,14 @@
 
             {{#if content.isLoaded}}
                 <form class="labeled">
-                    <div class="label">{% trans "Voucher code" %}</div>
-                    <div class="label ok">{{code}}</div>
-                    <div class="label ok">&euro;{{content.amount}}</div>
+                    <div class="label">{% trans "Voucher" %}</div>
+                    <div class="label ok">&#10004; {{content.code}}</div>
+                    <div class="label">{% trans "code accepted" %}</div>
+                    <div class="label ok">
+                        <span class="right big-text">&euro;{{content.amount}}</span>
+                    </div>
                 </form>
+
         
             {{else}}
                 <form class="labeled">

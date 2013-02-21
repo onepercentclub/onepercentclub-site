@@ -1,6 +1,6 @@
+import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
-from apps.fund.serializers import PaymentMethodSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -12,10 +12,14 @@ from rest_framework import response
 from rest_framework import generics
 from django.utils.translation import ugettext as _
 from .models import Donation, OrderItem, Order, Voucher
-from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer)
+from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
+                          PaymentMethodSerializer)
 from .utils import get_order_payment_methods
 
-# API views
+
+# Lock used in the CurrentOrderMixin. It needs to be outside of Mixin so it's created more than once.
+order_lock = threading.Lock()
+
 
 class CurrentOrderMixin(object):
     """
@@ -27,50 +31,59 @@ class CurrentOrderMixin(object):
     def get_current_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.started)
+                return Order.objects.get(user=self.request.user, status=Order.OrderStatuses.started)
             except Order.DoesNotExist:
                 return None
         else:
+            order_id = self.request.session.get('cart_order_id')
+            if order_id:
+                try:
+                    return Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
+                except Order.DoesNotExist:
+                    return None
+            else:
+                return None
+
+    def get_or_create_current_order(self):
+
+        if self.request.user.is_authenticated():
+            # Critical section to avoid duplicate orders.
+            with order_lock:
+                order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.started)
+                # We're currently only using DocData so we can directly connect the DocData payment order to the order.
+                # Note that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment
+                # at a later stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
+                if created:
+                    payment = DocDataPaymentOrder()
+                    payment.save()
+                    order.payment = payment
+                    order.save()
+
+        else:
             # For an anonymous user the order (cart) might be stored in the session
-            order_id = self.request.session.get("cart_session")
+            order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
                 except Order.DoesNotExist:
-                    # The order_id was not a cart in the db, return None
-                    return None
-            else:
-                # No order_id in session. Return None
-                return None
+                    # Set order_id to None so that a new order is created if it's been cleared
+                    # from our db for some reason.
+                    order_id = None
 
-        order.payment.amount = int(100 * order.amount)
-        order.payment.currency = 'EUR'
-        order.payment.save()
+            if not order_id:
+                # Critical section to avoid duplicate orders.
+                with order_lock:
+                    order = Order()
+                    # See comment above about creating this DocDataPaymentOrder here.
+                    payment = DocDataPaymentOrder()
+                    payment.save()
+                    order.payment = payment
+                    order.save()
+                    self.request.session['cart_order_id'] = order.id
+                    self.request.session.save()
+
         return order
 
-    def get_or_create_current_order(self):
-        order = self.get_current_order()
-        if not order:
-            order = self.create_current_order()
-        if not self.has_permission(self.request, order):
-            self.permission_denied(self.request)
-        return order
-
-    def create_current_order(self):
-        user = self.request.user
-        if user.is_authenticated():
-            order = Order(user=user)
-        else:
-            order = Order()
-        # We're currently only using DocData so we can directly connect the DocData payment order to the order. Note
-        # that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment at a later
-        # stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
-        payment = DocDataPaymentOrder()
-        payment.save()
-        order.payment = payment
-        order.save()
-        self.request.session["cart_session"] = order.id
-        return order
 
     def get_latest_order(self):
         if self.request.user.is_authenticated():
@@ -80,7 +93,7 @@ class CurrentOrderMixin(object):
                 return None
         else:
             # For an anonymous user the order (cart) might be stored in the session
-            order_id = self.request.session.get("cart_session")
+            order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id)
@@ -152,7 +165,6 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             order.payment.payment_submethod_id = psm
             order.payment.save()
 
-
         return self.update(request, *args, **kwargs)
 
 
@@ -199,7 +211,7 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
         order = self.get_current_order()
         if order and order.payment:
             payments.update_payment_status(order.payment)
-            # TODO: Check the status we get back from PSP and set order status accordingly.
+            # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
         else:

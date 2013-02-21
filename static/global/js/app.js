@@ -358,11 +358,14 @@ App.VouchersStartRoute = Ember.Route.extend({
 App.VoucherRedeemCodeRoute = Ember.Route.extend({
 
     model: function(params) {
-        return App.Voucher.find(params['code']);
+        var voucher = App.Voucher.find(params['code']);
+        // We don't get the code from the server, but we want it to return it to the user here.
+        voucher.set('code', params['code']);
+        return voucher;
     },
 
     setupController: function(controller, voucher) {
-        controller.set('content', voucher);
+        this.controllerFor('voucherRedeem').set('content', voucher);
     }
 });
 
