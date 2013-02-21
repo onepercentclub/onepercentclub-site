@@ -5,14 +5,33 @@
 
 {% tplhandlebars "current_order" %}
 
-    <div class="container section">
-
-        <!-- donation -->
-        <header class="wrapper">
-            <h1 class="main-title">{% trans "Support one or more projects!" %}</h1>
-        </header>
-
-    </div>
+    {{#if controller.isVoucherOrder}}
+        <div class="container section">
+            <div class="wrapper">
+                <div class="content">
+                    <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
+                </div>
+                <sidebar>
+                    {{#linkTo "currentOrderItemList" tagName="button" class="contrast top"}}
+                        {% trans "Switch to paid donations" %}
+                    {{/linkTo}}
+                </sidebar>
+            </div>
+        </div>
+    {{else}}
+        <div class="container section">
+            <div class="wrapper">
+                <div class="content">
+                    <h1 class="main-title">{% trans "Support one or more projects!" %}</h1>
+                </div>
+                <sidebar>
+                    {{#linkTo "voucherRedeem" tagName="button" class="contrast top"}}
+                        {% trans "I have a 1%voucher" %}
+                    {{/linkTo}}
+                </sidebar>
+            </div>
+        </div>
+    {{/if}}
 
     <div class="container">
 
@@ -445,12 +464,60 @@
 
 {% tplhandlebars "voucher_redeem" %}
 
+    <div class="container section">
+        <div class="wrapper">
+            <div class="content">
+                <h1 class="main-title">{% trans "Claim you voucher and support!" %}</h1>
+            </div>
+            <sidebar>
+                {{#linkTo "currentOrderItemList" tagName="button" class="contrast top"}}
+                    {% trans "Switch to donations" %}
+                {{/linkTo}}
+            </sidebar>
+        </div>
+    </div>
+
     <div class="container">
+
         <section class="wrapper">
-            <div>{{code}}</div>
+
+            <ul class="voucher-steps">
+                {{#view App.OrderNavView classNames="support selected"}}
+                    {{#linkTo voucherRedeem}}Support{{/linkTo}}
+                {{/view}}
+                {{#view App.OrderNavView classNames="profile"}}
+                    <a>{% trans "Profile" %}</a>
+                {{/view}}
+            </ul>
+
+            {{#if content.isLoaded}}
+                <form class="labeled">
+                    <div class="label">{% trans "Voucher code" %}</div>
+                    <div class="label ok">{{code}}</div>
+                    <div class="label ok">&euro;{{content.amount}}</div>
+                </form>
+        
+            {{else}}
+                <form class="labeled">
+                    <fieldset>
+                        {{#if error}}
+                            <span class="error">{% trans "We don't have a voucher with this code." %}</span>
+                            <br />
+                        {{/if}}
+                        <div class="label">{% trans "Voucher code" %}</div>
+                        {{view Em.TextField valueBinding="code" placeholder="You code"}}
+                        <button {{action "submit" target="controller"}} type="submit" class="button right">
+                            {% trans "Submit" %}
+                        </button>
+                    </fieldset>
+                </form>
+            {{/if}}
+
         </section>
     </div>
 
 {% endtplhandlebars %}
+
+
 
 

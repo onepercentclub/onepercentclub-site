@@ -5,11 +5,12 @@ from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
-from rest_framework import views
+from django.utils.translation import ugettext as _
 from .models import Donation, OrderItem, Order, Voucher
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer)
 from .utils import get_order_payment_methods
@@ -393,7 +394,7 @@ class OrderVoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIVie
         return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+class VoucherDetail(CurrentOrderMixin, generics.RetrieveAPIView):
     model = Voucher
     serializer_class = VoucherSerializer
 
@@ -403,11 +404,9 @@ class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         """
         code = self.kwargs.get('code', None)
         if not code:
-            raise Exception('No code given')
+            raise Http404(_(u"No voucher code supplied."))
         try:
             obj = Voucher.objects.get(code=code)
         except Voucher.DoesNotExist:
-            return None
-        if not self.has_permission(self.request, obj):
-            return None
+            raise Http404(_(u"No voucher found matching the query"))
         return obj

@@ -5,7 +5,8 @@
   }
 }
 
-.donation-steps {
+.donation-steps,
+.voucher-steps {
   
   margin: 16px 0;
   padding: 0;
@@ -28,7 +29,7 @@
       @include rem(font-size, 14px);
       vertical-align: top;
       text-transform: uppercase;
-      padding: 0.6em 1.2em 0.6em;
+      padding: 0.9em 1.2em 0.6em;
       margin-right: 31px;
       
       background-image: $icons;
@@ -107,6 +108,17 @@
     
   }
    
+}
+
+.voucher-steps {
+    li {
+        &.profile {
+            @include grid(25, 0, -2);
+        }
+        &.support  {
+            @include grid(23, 0, -2);
+        }
+    }
 }
 
 #donation-projects {

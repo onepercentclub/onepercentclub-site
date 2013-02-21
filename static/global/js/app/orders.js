@@ -277,6 +277,36 @@ App.CurrentPaymentMethodInfoController = Em.ObjectController.extend({
 });
 
 
+App.VoucherRedeemController = Em.Controller.extend({
+
+    code: "",
+    error: function(){
+        if (this.get('content.isLoaded')) {
+            return false;
+        }
+        if (this.get('content')) {
+            return true;
+        }
+        return false;
+    }.property('content.isSaving', 'content.isLoaded'),
+
+    submit: function(){
+        var code = this.get('code');
+        if (!code) {
+            console.log('No code supplied');
+        } else {
+
+            var voucher = App.Voucher.find(code);
+            this.set('content', voucher);
+            voucher.on('didLoad', function(){
+                console.log('loaded');
+            });
+
+        }
+    }
+});
+
+
 
 /*
  Views
@@ -423,6 +453,7 @@ App.VoucherStartView = Em.View.extend({
     tagName: 'div',
     templateName: 'voucher_start'
 });
+
 
 App.VoucherRedeemView = Em.View.extend({
     tagName: 'div',
