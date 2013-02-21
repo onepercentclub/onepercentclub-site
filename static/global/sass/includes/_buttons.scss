@@ -130,7 +130,12 @@ a.button, a.btn, input[type="submit"], button {
             background: darken($color-error, 15%);
         }
     }
-    
+
+    &.top {
+        margin-top: 12px;
+        width: 100%;
+    }
+
     // Add these classes to adjust the size of the buttons
     &.large { font-size: 1.25em; }
     &.small { font-size: 1em; }

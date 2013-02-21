@@ -165,7 +165,10 @@ form {
         @include rem(padding, 10px);
         @include rem(font-size, 18px);
         font-weight: bold;
-        color:  $gray;
+        color: $gray;
+        &.ok {
+            color: $green;
+        }
     }
 
     .big-radio {

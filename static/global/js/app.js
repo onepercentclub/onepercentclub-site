@@ -231,7 +231,13 @@ App.Router.map(function() {
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
 
-    this.resource('vouchersStart', {path: '/vouchers'}, function() {
+    this.resource('voucherStart', {path: '/vouchers'}, function() {
+    });
+
+    this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
+        this.route('add', {path: '/add/:slug'});
+        this.route('code', {path: '/:code'});
+
     });
 
 });
@@ -252,6 +258,10 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
     setupController: function(controller, project) {
         // Project detail controller.
         controller.set('content', project);
+
+        // Look if we've got an active voucher
+        var voucher = this.controllerFor('voucherRedeem').get('voucher');
+        controller.set('currentVoucher', voucher);
 
         // Wallposts list controller.
         var wallPostListController = this.controllerFor('projectWallPostList');
@@ -342,9 +352,17 @@ App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
 });
 
 
-App.VoucherdStartRoute = Ember.Route.extend({
+App.VoucherRedeemCodeRoute = Ember.Route.extend({
 
-    setupController: function(controller) {
+    model: function(params) {
+        var voucher = App.Voucher.find(params['code']);
+        // We don't get the code from the server, but we want it to return it to the user here.
+        voucher.set('code', params['code']);
+        return voucher;
+    },
+
+    setupController: function(controller, voucher) {
+        this.controllerFor('voucherRedeem').set('voucher', voucher);
     }
 });
 

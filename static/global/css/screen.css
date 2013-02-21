@@ -293,6 +293,12 @@ h1 {
 }
 
 /* line 59, ../sass/includes/_typography.scss */
+.big-text {
+  font-size: 30px;
+  font-size: 1.875rem;
+}
+
+/* line 63, ../sass/includes/_typography.scss */
 h2 {
   font-size: 26px;
   font-size: 1.625rem;
@@ -300,13 +306,13 @@ h2 {
   font-weight: bold;
 }
 
-/* line 65, ../sass/includes/_typography.scss */
+/* line 69, ../sass/includes/_typography.scss */
 h3 {
   font-size: 24px;
   font-size: 1.5rem;
 }
 
-/* line 69, ../sass/includes/_typography.scss */
+/* line 73, ../sass/includes/_typography.scss */
 h4 {
   font-size: 18px;
   font-size: 1.125rem;
@@ -315,13 +321,13 @@ h4 {
   font-weight: bold;
 }
 
-/* line 75, ../sass/includes/_typography.scss */
+/* line 79, ../sass/includes/_typography.scss */
 h5 {
   font-size: 16px;
   font-size: 1rem;
 }
 
-/* line 77, ../sass/includes/_typography.scss */
+/* line 81, ../sass/includes/_typography.scss */
 .tagline {
   color: #00c051;
   text-align: center;
@@ -331,23 +337,23 @@ h5 {
   margin: 64px 0;
   margin: 4rem 0;
 }
-/* line 82, ../sass/includes/_typography.scss */
+/* line 86, ../sass/includes/_typography.scss */
 .tagline em {
   color: #ff619a;
   font-weight: bold;
   font-style: normal;
 }
 
-/* line 93, ../sass/includes/_typography.scss */
+/* line 97, ../sass/includes/_typography.scss */
 p {
   margin-bottom: 1.25em;
 }
-/* line 95, ../sass/includes/_typography.scss */
+/* line 99, ../sass/includes/_typography.scss */
 p.lead {
   font-weight: bold;
 }
 
-/* line 100, ../sass/includes/_typography.scss */
+/* line 104, ../sass/includes/_typography.scss */
 a {
   color: #00c051;
   text-decoration: none;
@@ -356,54 +362,54 @@ a {
   -o-transition: color 0.2s ease-in, color 0.25s ease-out;
   transition: color 0.2s ease-in, color 0.25s ease-out;
 }
-/* line 105, ../sass/includes/_typography.scss */
+/* line 109, ../sass/includes/_typography.scss */
 a:hover {
   color: #ff619a;
 }
-/* line 109, ../sass/includes/_typography.scss */
+/* line 113, ../sass/includes/_typography.scss */
 a:active {
   color: #ff619a;
   position: relative;
   top: 1px;
 }
 
-/* line 117, ../sass/includes/_typography.scss */
+/* line 121, ../sass/includes/_typography.scss */
 small {
   font-size: 0.85em;
   color: #858585;
 }
 
-/* line 119, ../sass/includes/_typography.scss */
+/* line 123, ../sass/includes/_typography.scss */
 em {
   font-style: italic;
 }
 
-/* line 121, ../sass/includes/_typography.scss */
+/* line 125, ../sass/includes/_typography.scss */
 strong {
   font-weight: bold;
 }
 
-/* line 123, ../sass/includes/_typography.scss */
+/* line 127, ../sass/includes/_typography.scss */
 code, pre {
   font-family: 'courier new', monospace;
 }
 
-/* line 125, ../sass/includes/_typography.scss */
+/* line 129, ../sass/includes/_typography.scss */
 abbr {
   border-bottom: 1px dotted #858585;
 }
 
-/* line 127, ../sass/includes/_typography.scss */
+/* line 131, ../sass/includes/_typography.scss */
 del {
   text-decoration: line-through;
 }
 
-/* line 129, ../sass/includes/_typography.scss */
+/* line 133, ../sass/includes/_typography.scss */
 mark {
   background-color: #ffffb3;
 }
 
-/* line 131, ../sass/includes/_typography.scss */
+/* line 135, ../sass/includes/_typography.scss */
 hr {
   background-color: transparent;
   border: solid #bfbfbf;
@@ -412,72 +418,72 @@ hr {
   margin: 2em 1.25em;
 }
 
-/* line 139, ../sass/includes/_typography.scss */
+/* line 143, ../sass/includes/_typography.scss */
 blockquote {
   color: #454545;
   font-style: italic;
 }
-/* line 143, ../sass/includes/_typography.scss */
+/* line 147, ../sass/includes/_typography.scss */
 blockquote cite {
   color: #5e5e5e;
   display: block;
   font-size: 0.85em;
 }
-/* line 147, ../sass/includes/_typography.scss */
+/* line 151, ../sass/includes/_typography.scss */
 blockquote cite:before {
   content: "\2014 \0020";
 }
 
-/* line 151, ../sass/includes/_typography.scss */
+/* line 155, ../sass/includes/_typography.scss */
 figure {
   display: inline-block;
   max-width: 100%;
 }
-/* line 154, ../sass/includes/_typography.scss */
+/* line 158, ../sass/includes/_typography.scss */
 figure img {
   display: block;
   width: 100%;
 }
-/* line 158, ../sass/includes/_typography.scss */
+/* line 162, ../sass/includes/_typography.scss */
 figure figcaption {
   color: blue;
 }
 
-/* line 163, ../sass/includes/_typography.scss */
+/* line 167, ../sass/includes/_typography.scss */
 ul, ol {
   margin: 0 0 1.25em 1.5em;
 }
 
-/* line 164, ../sass/includes/_typography.scss */
+/* line 168, ../sass/includes/_typography.scss */
 ul {
   list-style: disc;
 }
 
-/* line 165, ../sass/includes/_typography.scss */
+/* line 169, ../sass/includes/_typography.scss */
 ol {
   list-style: decimal;
 }
 
-/* line 167, ../sass/includes/_typography.scss */
+/* line 171, ../sass/includes/_typography.scss */
 dl {
   margin-bottom: 1.25em;
 }
-/* line 169, ../sass/includes/_typography.scss */
+/* line 173, ../sass/includes/_typography.scss */
 dl dt {
   font-weight: bold;
 }
-/* line 170, ../sass/includes/_typography.scss */
+/* line 174, ../sass/includes/_typography.scss */
 dl dd {
   margin-left: 1.25em;
 }
-/* line 172, ../sass/includes/_typography.scss */
+/* line 176, ../sass/includes/_typography.scss */
 dl.advanced dt {
   float: left;
   width: 31.25%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 173, ../sass/includes/_typography.scss */
+/* line 177, ../sass/includes/_typography.scss */
 dl.advanced dd {
   float: left;
   width: 66.66667%;
@@ -1026,7 +1032,11 @@ form div.label {
   font-weight: bold;
   color: #999999;
 }
-/* line 172, ../sass/includes/_forms.scss */
+/* line 169, ../sass/includes/_forms.scss */
+form div.label.ok {
+  color: #00c051;
+}
+/* line 175, ../sass/includes/_forms.scss */
 form .big-radio label {
   padding: 10px;
   padding: 0.625rem;
@@ -1042,22 +1052,22 @@ form .big-radio label {
   background-color: #999999;
   cursor: pointer;
 }
-/* line 185, ../sass/includes/_forms.scss */
+/* line 188, ../sass/includes/_forms.scss */
 form .big-radio input[type=radio] {
   display: none;
 }
-/* line 188, ../sass/includes/_forms.scss */
+/* line 191, ../sass/includes/_forms.scss */
 form .big-radio input[type=radio]:checked + label {
   background-color: #00c051;
 }
-/* line 192, ../sass/includes/_forms.scss */
+/* line 195, ../sass/includes/_forms.scss */
 form .big-radio.radio2 label {
   float: left;
   width: 35.41667%;
   margin-left: 2.08333%;
   margin-right: 0%;
 }
-/* line 197, ../sass/includes/_forms.scss */
+/* line 200, ../sass/includes/_forms.scss */
 form .big-radio.radio4 label {
   float: left;
   width: 16.66667%;
@@ -1326,19 +1336,24 @@ a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type=
 a.button.alert:active, .alert.button-donate:active, a.button.alert:focus, .alert.button-donate:focus, a.btn.alert:active, a.btn.alert:focus, input[type="submit"].alert:active, input[type="submit"].alert:focus, button.alert:active, button.alert:focus {
   background: #912e1a;
 }
-/* line 135, ../sass/includes/_buttons.scss */
+/* line 134, ../sass/includes/_buttons.scss */
+a.button.top, .top.button-donate, a.btn.top, input[type="submit"].top, button.top {
+  margin-top: 12px;
+  width: 100%;
+}
+/* line 140, ../sass/includes/_buttons.scss */
 a.button.large, .large.button-donate, a.btn.large, input[type="submit"].large, button.large {
   font-size: 1.25em;
 }
-/* line 136, ../sass/includes/_buttons.scss */
+/* line 141, ../sass/includes/_buttons.scss */
 a.button.small, .small.button-donate, a.btn.small, input[type="submit"].small, button.small {
   font-size: 1em;
 }
-/* line 137, ../sass/includes/_buttons.scss */
+/* line 142, ../sass/includes/_buttons.scss */
 a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, button.tiny {
   font-size: 0.85em;
 }
-/* line 139, ../sass/includes/_buttons.scss */
+/* line 144, ../sass/includes/_buttons.scss */
 a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, button.next {
   float: right;
   border: none;
@@ -1346,7 +1361,7 @@ a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, butto
   background: #ff619a url("../images/button-next.png") no-repeat right center;
 }
 
-/* line 151, ../sass/includes/_buttons.scss */
+/* line 156, ../sass/includes/_buttons.scss */
 .button-donate {
   font-size: 19px;
   font-size: 1.1875rem;
@@ -1359,7 +1374,7 @@ a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, butto
   background-color: #ff619a;
 }
 
-/* line 166, ../sass/includes/_buttons.scss */
+/* line 171, ../sass/includes/_buttons.scss */
 .button.button-donate:hover {
   background-color: #050505;
 }
@@ -1367,7 +1382,7 @@ a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, butto
 /* ========================= Responsive ================================== */
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-  /* line 175, ../sass/includes/_buttons.scss */
+  /* line 180, ../sass/includes/_buttons.scss */
   .button-donate {
     font-size: 22px;
     font-size: 1.375rem;
@@ -3234,8 +3249,9 @@ ul.steps li.selected a {
   content: ' ';
 }
 
-/* line 8, ../sass/modules/_donation.scss */
-.donation-steps {
+/* line 9, ../sass/modules/_donation.scss */
+.donation-steps,
+.voucher-steps {
   margin: 16px 0;
   padding: 0;
   list-style: none;
@@ -3245,14 +3261,16 @@ ul.steps li.selected a {
   margin-right: 2.08333%;
   overflow: hidden;
 }
-/* line 18, ../sass/modules/_donation.scss */
-.donation-steps li {
+/* line 19, ../sass/modules/_donation.scss */
+.donation-steps li,
+.voucher-steps li {
   display: inline-block;
   background: transparent url("../images/donation-step.png") no-repeat right center;
   position: relative;
 }
-/* line 23, ../sass/modules/_donation.scss */
-.donation-steps li a {
+/* line 24, ../sass/modules/_donation.scss */
+.donation-steps li a,
+.voucher-steps li a {
   display: block;
   background-color: #dcdcdc;
   font-weight: bold;
@@ -3261,73 +3279,85 @@ ul.steps li.selected a {
   font-size: 0.875rem;
   vertical-align: top;
   text-transform: uppercase;
-  padding: 0.6em 1.2em 0.6em;
+  padding: 0.9em 1.2em 0.6em;
   margin-right: 31px;
   background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
 }
-/* line 38, ../sass/modules/_donation.scss */
-.donation-steps li.is-selected {
+/* line 39, ../sass/modules/_donation.scss */
+.donation-steps li.is-selected,
+.voucher-steps li.is-selected {
   background: transparent url("../images/donation-step-select.png") no-repeat right center;
 }
-/* line 41, ../sass/modules/_donation.scss */
-.donation-steps li.is-selected a {
+/* line 42, ../sass/modules/_donation.scss */
+.donation-steps li.is-selected a,
+.voucher-steps li.is-selected a {
   background-color: #00c051;
   color: white;
 }
-/* line 47, ../sass/modules/_donation.scss */
-.donation-steps li.support {
+/* line 48, ../sass/modules/_donation.scss */
+.donation-steps li.support,
+.voucher-steps li.support {
   z-index: 4;
   float: left;
   width: 27.08333%;
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 50, ../sass/modules/_donation.scss */
-.donation-steps li.support a {
+/* line 51, ../sass/modules/_donation.scss */
+.donation-steps li.support a,
+.voucher-steps li.support a {
   padding-left: 50px;
   background-position: 18px -652px;
 }
-/* line 56, ../sass/modules/_donation.scss */
-.donation-steps li.support.is-selected a {
+/* line 57, ../sass/modules/_donation.scss */
+.donation-steps li.support.is-selected a,
+.voucher-steps li.support.is-selected a {
   background-position: 18px -850px;
 }
-/* line 62, ../sass/modules/_donation.scss */
-.donation-steps li.details {
+/* line 63, ../sass/modules/_donation.scss */
+.donation-steps li.details,
+.voucher-steps li.details {
   z-index: 3;
   float: left;
   width: 29.16667%;
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 65, ../sass/modules/_donation.scss */
-.donation-steps li.details a {
+/* line 66, ../sass/modules/_donation.scss */
+.donation-steps li.details a,
+.voucher-steps li.details a {
   padding-left: 70px;
   background-position: 38px -375px;
 }
-/* line 70, ../sass/modules/_donation.scss */
-.donation-steps li.details.is-selected a {
+/* line 71, ../sass/modules/_donation.scss */
+.donation-steps li.details.is-selected a,
+.voucher-steps li.details.is-selected a {
   background-position: 38px -494px;
 }
-/* line 75, ../sass/modules/_donation.scss */
-.donation-steps li.profile {
+/* line 76, ../sass/modules/_donation.scss */
+.donation-steps li.profile,
+.voucher-steps li.profile {
   z-index: 2;
   float: left;
   width: 29.16667%;
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 78, ../sass/modules/_donation.scss */
-.donation-steps li.profile a {
+/* line 79, ../sass/modules/_donation.scss */
+.donation-steps li.profile a,
+.voucher-steps li.profile a {
   padding-left: 70px;
   background-position: 38px -416px;
 }
-/* line 83, ../sass/modules/_donation.scss */
-.donation-steps li.profile.is-selected a {
+/* line 84, ../sass/modules/_donation.scss */
+.donation-steps li.profile.is-selected a,
+.voucher-steps li.profile.is-selected a {
   background-position: 38px -573px;
 }
-/* line 88, ../sass/modules/_donation.scss */
-.donation-steps li.payment {
+/* line 89, ../sass/modules/_donation.scss */
+.donation-steps li.payment,
+.voucher-steps li.payment {
   z-index: 1;
   background-image: none;
   float: left;
@@ -3335,27 +3365,44 @@ ul.steps li.selected a {
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 92, ../sass/modules/_donation.scss */
-.donation-steps li.payment a {
+/* line 93, ../sass/modules/_donation.scss */
+.donation-steps li.payment a,
+.voucher-steps li.payment a {
   padding-left: 70px;
   background-position: 38px -163px;
 }
-/* line 99, ../sass/modules/_donation.scss */
-.donation-steps li.payment.is-selected a {
+/* line 100, ../sass/modules/_donation.scss */
+.donation-steps li.payment.is-selected a,
+.voucher-steps li.payment.is-selected a {
   background-position: 38px -206px;
 }
 
-/* line 112, ../sass/modules/_donation.scss */
+/* line 115, ../sass/modules/_donation.scss */
+.voucher-steps li.profile {
+  float: left;
+  width: 56.25%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+/* line 118, ../sass/modules/_donation.scss */
+.voucher-steps li.support {
+  float: left;
+  width: 52.08333%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+
+/* line 124, ../sass/modules/_donation.scss */
 #donation-projects {
   list-style: none;
 }
-/* line 116, ../sass/modules/_donation.scss */
+/* line 128, ../sass/modules/_donation.scss */
 #donation-projects .donation-project {
   position: relative;
   border-bottom: 5px solid #f3f3f3;
   padding: 16px;
 }
-/* line 122, ../sass/modules/_donation.scss */
+/* line 134, ../sass/modules/_donation.scss */
 #donation-projects .donation-project img {
   float: left;
   width: 16.66667%;
@@ -3363,7 +3410,7 @@ ul.steps li.selected a {
   margin-right: 0%;
   float: left;
 }
-/* line 127, ../sass/modules/_donation.scss */
+/* line 139, ../sass/modules/_donation.scss */
 #donation-projects .donation-project h1 {
   float: left;
   width: 54.16667%;
@@ -3376,7 +3423,7 @@ ul.steps li.selected a {
   padding: 0;
   color: #454545;
 }
-/* line 137, ../sass/modules/_donation.scss */
+/* line 149, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .country {
   display: block;
   font-size: 14px;
@@ -3384,7 +3431,7 @@ ul.steps li.selected a {
   font-style: normal;
   font-weight: normal;
 }
-/* line 144, ../sass/modules/_donation.scss */
+/* line 156, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .donation-amount {
   float: left;
   width: 25%;
@@ -3393,26 +3440,26 @@ ul.steps li.selected a {
   margin: 8px 0;
   text-align: right;
 }
-/* line 150, ../sass/modules/_donation.scss */
+/* line 162, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover {
   background-color: #f3f3f3;
 }
-/* line 152, ../sass/modules/_donation.scss */
+/* line 164, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover h1 {
   color: #ff619a;
 }
-/* line 155, ../sass/modules/_donation.scss */
+/* line 167, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover .remove {
   cursor: pointer;
   display: block;
 }
-/* line 161, ../sass/modules/_donation.scss */
+/* line 173, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .amount-needed {
   color: #b9b8b8;
   font-size: 13px;
   display: block;
 }
-/* line 167, ../sass/modules/_donation.scss */
+/* line 179, ../sass/modules/_donation.scss */
 #donation-projects .donation-project label {
   font-size: 18px;
   font-size: 1.125rem;
@@ -3421,19 +3468,19 @@ ul.steps li.selected a {
   display: block;
   margin-bottom: 8px;
 }
-/* line 175, ../sass/modules/_donation.scss */
+/* line 187, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .currency {
   display: inline-block;
   position: relative;
 }
-/* line 179, ../sass/modules/_donation.scss */
+/* line 191, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .currency em {
   position: absolute;
   left: 16px;
   top: 15px;
   font-size: 28px;
 }
-/* line 186, ../sass/modules/_donation.scss */
+/* line 198, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .currency input {
   width: 135px;
   font-size: 28px;
@@ -3441,12 +3488,12 @@ ul.steps li.selected a {
   font-weight: bold;
   margin: 0;
 }
-/* line 193, ../sass/modules/_donation.scss */
+/* line 205, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .currency.big {
   font-size: 28px;
   font-weight: bold;
 }
-/* line 199, ../sass/modules/_donation.scss */
+/* line 211, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .remove {
   pointer: cursor;
   display: none;
@@ -3464,7 +3511,7 @@ ul.steps li.selected a {
   text-align: left;
 }
 
-/* line 217, ../sass/modules/_donation.scss */
+/* line 229, ../sass/modules/_donation.scss */
 .add-project {
   padding-left: 32px;
   margin: 0 16px 0 16px;
@@ -3474,18 +3521,18 @@ ul.steps li.selected a {
   background-repeat: no-repeat;
   background-position: 2px -87px;
 }
-/* line 226, ../sass/modules/_donation.scss */
+/* line 238, ../sass/modules/_donation.scss */
 .add-project:hover, .add-project:active {
   color: #050505;
   text-decoration: underline;
 }
 
-/* line 232, ../sass/modules/_donation.scss */
+/* line 244, ../sass/modules/_donation.scss */
 .donation-frequency {
   padding: 16px 16px 16px 18.75%;
   background: #f3f3f3;
 }
-/* line 236, ../sass/modules/_donation.scss */
+/* line 248, ../sass/modules/_donation.scss */
 .donation-frequency .label {
   font-size: 22px;
   font-size: 1.375rem;
@@ -3493,19 +3540,19 @@ ul.steps li.selected a {
   margin: 0px 0px 8px 0px;
   display: block;
 }
-/* line 243, ../sass/modules/_donation.scss */
+/* line 255, ../sass/modules/_donation.scss */
 .donation-frequency .checkbox {
   display: block;
   color: #999999;
   cursor: pointer;
 }
-/* line 247, ../sass/modules/_donation.scss */
+/* line 259, ../sass/modules/_donation.scss */
 .donation-frequency .checkbox.checked {
   color: #00c051;
   font-weight: bold;
 }
 
-/* line 255, ../sass/modules/_donation.scss */
+/* line 267, ../sass/modules/_donation.scss */
 .intro {
   padding: 0px 0px 8px 28px;
   text-transform: uppercase;
