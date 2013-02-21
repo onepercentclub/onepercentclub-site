@@ -12,15 +12,21 @@ class DonationSerializer(serializers.ModelSerializer):
     project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')
+    amount = EuroField()
 
     def validate_amount(self, attrs, source):
         """
         Check the amount
         """
         value = attrs[source]
-        if value < 5:
+        if value < 500:
             raise serializers.ValidationError(_(u"Amount must be at least €5.00."))
         return attrs
+
+    def save(self):
+        # Set default currency.
+        self.object.currency = 'EUR'
+        return super(DonationSerializer, self).save()
 
     class Meta:
         model = Donation
@@ -80,7 +86,7 @@ class VoucherSerializer(serializers.ModelSerializer):
         return attrs
 
     def save(self):
-        # Convert Euros to minor currency unit and set currency.
+        # Set default currency.
         self.object.currency = 'EUR'
         return super(VoucherSerializer, self).save()
 

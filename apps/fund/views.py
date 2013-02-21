@@ -1,6 +1,7 @@
 import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
+# from django.contrib.auth import get_user
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -28,7 +29,7 @@ class CurrentOrderMixin(object):
     Latest Order is the latest order by a user.
     """
 
-    def _update_payment(order):
+    def _update_payment(self, order):
         order.payment.amount = order.amount
         order.payment.currency = 'EUR'  # The default currency for now.
         order.payment.save()
@@ -37,6 +38,8 @@ class CurrentOrderMixin(object):
         if self.request.user.is_authenticated():
             try:
                 order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.started)
+                if not self.has_permission(self.request, order):
+                    self.permission_denied(self.request)
                 self._update_payment(order)
                 return order
             except Order.DoesNotExist:
@@ -46,6 +49,8 @@ class CurrentOrderMixin(object):
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
+                    if not self.has_permission(self.request, order):
+                        self.permission_denied(self.request)
                     self._update_payment(order)
                     return order
                 except Order.DoesNotExist:
@@ -98,6 +103,10 @@ class CurrentOrderMixin(object):
         # Update the payment amount if needed.
         if not created:
             self._update_payment(order)
+
+        if not self.has_permission(self.request, order):
+            self.permission_denied(self.request)
+
         return order
 
 

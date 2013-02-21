@@ -1,3 +1,4 @@
+import decimal
 import sys
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -292,4 +293,4 @@ class EuroField(serializers.WritableField):
         return '{0}.{1}'.format(str(value)[:-2], str(value)[-2:])
 
     def from_native(self, value):
-        return int(int(value) * 100)
+        return int(decimal.Decimal(value) * 100)
