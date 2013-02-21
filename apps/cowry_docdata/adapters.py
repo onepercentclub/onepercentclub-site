@@ -285,7 +285,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             if not ddpayment:
                 status_logger.error(
                     "DocData status report has unknown payment: {0} - {1}".format(payment.payment_order_key,
-                                                                                  payment.docdata_payment_id))
+                                                                                  payment.payment_id))
                 continue
 
             # Some additional checks.

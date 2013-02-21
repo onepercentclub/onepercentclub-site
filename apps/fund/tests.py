@@ -174,4 +174,3 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
-
