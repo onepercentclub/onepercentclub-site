@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from django.db import transaction
 from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
@@ -49,33 +50,37 @@ class CurrentOrderMixin(object):
         if self.request.user.is_authenticated():
             # Critical section to avoid duplicate orders.
             with order_lock:
-                order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.started)
+                with transaction.commit_on_success():
+                    order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.started)
+
                 # We're currently only using DocData so we can directly connect the DocData payment order to the order.
                 # Note that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment
                 # at a later stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
                 if created:
                     payment = DocDataPaymentOrder()
+                    payment.currency = 'EUR'  # The default currency for now.
                     payment.save()
                     order.payment = payment
                     order.save()
-
         else:
-            # For an anonymous user the order (cart) might be stored in the session
-            order_id = self.request.session.get('cart_order_id')
-            if order_id:
-                try:
-                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
-                except Order.DoesNotExist:
-                    # Set order_id to None so that a new order is created if it's been cleared
-                    # from our db for some reason.
-                    order_id = None
+            # Critical section to avoid duplicate orders.
+            with order_lock:
+                # For an anonymous user the order (cart) might be stored in the session
+                order_id = self.request.session.get('cart_order_id')
+                if order_id:
+                    try:
+                        order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
+                    except Order.DoesNotExist:
+                        # Set order_id to None so that a new order is created if it's been cleared
+                        # from our db for some reason.
+                        order_id = None
 
-            if not order_id:
-                # Critical section to avoid duplicate orders.
-                with order_lock:
-                    order = Order()
+                if not order_id:
+                    with transaction.commit_on_success():
+                        order = Order()
                     # See comment above about creating this DocDataPaymentOrder here.
                     payment = DocDataPaymentOrder()
+                    payment.currency = 'EUR'  # The default currency for now.
                     payment.save()
                     order.payment = payment
                     order.save()
@@ -191,7 +196,7 @@ class OrderLatestItemList(OrderItemList):
         order = self.get_current_order()
         if order and order.payment:
             payments.update_payment_status(order.payment)
-            # TODO: Have a proper check if donation went ok. Signals!
+            # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
         else:
@@ -368,7 +373,7 @@ class OrderVoucherList(CurrentOrderMixin, generics.ListCreateAPIView):
         return queryset
 
     def create(self, request, *args, **kwargs):
-        # Overwrite this because we want to create an orderitem and set the current user.
+        # Overwrite this because we want to create an OrderItem and set the current user.
         order = self.get_or_create_current_order()
         serializer = self.get_serializer(data=request.DATA)
         if serializer.is_valid():
