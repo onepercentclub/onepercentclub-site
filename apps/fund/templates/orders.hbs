@@ -37,27 +37,27 @@
 
         <section class="wrapper">
 
-        <ul class="donation-steps">
-            {{#if controller.isVoucherOrder}}
-                {{#view App.OrderNavView classNames="support"}}
-                    {{#linkTo currentOrderVoucherAdd}}Vouchers{{/linkTo}}
+            <ul class="donation-steps">
+                {{#if controller.isVoucherOrder}}
+                    {{#view App.OrderNavView classNames="support"}}
+                        {{#linkTo currentOrderVoucherAdd}}Vouchers{{/linkTo}}
+                    {{/view}}
+                {{else}}
+                    {{#view App.OrderNavView classNames="support"}}
+                        {{#linkTo currentOrderItemList}}Support{{/linkTo}}
+                    {{/view}}
+                {{/if}}
+                {{#view App.OrderNavView classNames="details"}}
+                    {{#linkTo paymentOrderProfile}}{% trans "Details" %}{{/linkTo}}
                 {{/view}}
-            {{else}}
-                {{#view App.OrderNavView classNames="support"}}
-                    {{#linkTo currentOrderItemList}}Support{{/linkTo}}
+                {{#view App.OrderNavView classNames="profile"}}
+                    <a>{% trans "Profile" %}</a>
                 {{/view}}
-            {{/if}}
-            {{#view App.OrderNavView classNames="details"}}
-                {{#linkTo paymentOrderProfile}}{% trans "Details" %}{{/linkTo}}
-            {{/view}}
-            {{#view App.OrderNavView classNames="profile"}}
-                <a>{% trans "Profile" %}</a>
-            {{/view}}
 
-            {{#view App.OrderNavView classNames="payment"}}
-                {{#linkTo currentPaymentMethodInfo}}{% trans "Pay" %}{{/linkTo}}
-            {{/view}}
-        </ul>
+                {{#view App.OrderNavView classNames="payment"}}
+                    {{#linkTo currentPaymentMethodInfo}}{% trans "Pay" %}{{/linkTo}}
+                {{/view}}
+            </ul>
 
             {{outlet}}
 
@@ -76,7 +76,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "currentorderitem_form" %}
+{% tplhandlebars "current_order_item_list" %}
 
     <fieldset>
 
@@ -124,6 +124,7 @@
         {{outlet}}
         <ul class="voucher-list">
             {{#each controller}}
+                {# Only show the vouchers that are not dirty (i.e. don't show the voucher that's currently being edited). #}
                 {{#if this.isDirty}}
                 {{else}}
                     {{view "App.CurrentOrderVoucherView" content=this}}
@@ -222,6 +223,7 @@
 
     <div class="label">{% trans "Personal message" %}</div>
     {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
+    <br class="clear" />
     {{view Em.TextArea valueBinding="message" placeholder="Your message that will appear on the digital voucher." classBinding="errors.message.length:error"}}
 
     <a {{action "addVoucher" target="view.controller"}} class="right button">{% trans "Add" %}</a>
@@ -230,9 +232,8 @@
 {% endtplhandlebars %}
 
 
-
-
 {% tplhandlebars "current_order_voucher" %}
+
     <div class="name">
         <h4>{{receiver_name}}</h4>
     </div>
@@ -241,10 +242,12 @@
         <span class="right">&euro;{{amount}}</span>
     </div>
     <div class="actions manage-remove"><a {{action "delete" target="view"}} class="right">{% trans "Delete" %}</a></div>
+
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "payment_order_profile" %}
+
     <fieldset>
         {{#if content.isLoaded}}
             {{#each errors.first_name}}<span class="error">{{this}}</span>{{/each}}
@@ -271,10 +274,11 @@
             <button class="right">{% trans 'Next step' %}</button>
         {{/if}}
     </fieldset>
+
 {% endtplhandlebars %}
 
 
-<!-- wrapper tag: <li class="donation-project"> -->
+{# wrapper tag: <li class="donation-project"> #}
 {% tplhandlebars "currentorderitem" %}
 
     {{#linkTo project project}}
@@ -426,6 +430,7 @@
             </form>
         </section>
     </div>
+
 {% endtplhandlebars %}
 
 

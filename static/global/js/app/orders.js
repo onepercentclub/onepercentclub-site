@@ -146,7 +146,7 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 
     count: function(){
-        return this.get('content.length') -1;
+        return this.get('content.length') - 1;
     }.property('content.length'),
 
     amount: function(){
@@ -315,7 +315,7 @@ App.PaymentOrderProfileView = Em.View.extend({
 
 
 App.CurrentOrderItemListView = Em.View.extend({
-    templateName: 'currentorderitem_form',
+    templateName: 'current_order_item_list',
     tagName: 'form'
 });
 
