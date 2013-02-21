@@ -86,7 +86,11 @@
                 </p>
             </div>
 
-            {{#linkTo "currentOrderItemList.add" this class="button-donate"}}{% trans "Support this project" %}{{/linkTo}}
+            {{#if view.voucher.code}}
+                {{#linkTo "voucherRedeem.add" this class="button-donate"}}{% trans "Use voucher for this project" %}{{/linkTo}}
+            {{else}}
+                {{#linkTo "currentOrderItemList.add" this class="button-donate"}}{% trans "Support this project" %}{{/linkTo}}
+            {{/if}}
 
         </sidebar>
 

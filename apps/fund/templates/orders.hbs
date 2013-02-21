@@ -492,15 +492,43 @@
 
             {{#if content.isLoaded}}
                 <form class="labeled">
-                    <div class="label">{% trans "Voucher" %}</div>
-                    <div class="label ok">&#10004; {{content.code}}</div>
-                    <div class="label">{% trans "code accepted" %}</div>
-                    <div class="label ok">
-                        <span class="right big-text">&euro;{{content.amount}}</span>
-                    </div>
+                    <fieldset class="">
+                        <div class="label">{% trans "Voucher" %}</div>
+                        <div class="label ok">&#10004; {{content.code}}</div>
+                        <div class="label">{% trans "code accepted" %}</div>
+                        <div class="label ok">
+                            <span class="right big-text">&euro;{{content.amount}}</span>
+                        </div>
+                    </fieldset>
+
+                    {{#if content.project}}
+                        <span class="donation-project">
+                            {{#linkTo project project}}
+                                <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
+                            {{/linkTo}}
+                            <h1>
+                                {{#linkTo project project}}
+                                    {{project.title}}
+                                {{/linkTo}}
+                                <em class="country">{{project.country.name}}</em>
+                            </h1>
+                            <p class="donation-amount">
+                                <label for="donation-amount-1">{% trans "You just donated" %}</label>
+                                <span class="big currency">&euro; {{content.amount}}</span>
+                            </p>
+                        </span>
+                    {{else}}
+                        <span class="donation-project">
+                            {{#linkTo projectList}}
+                            <h1>
+                                {% trans "Choose a project to support with this voucher" %}
+                            </h1>
+                            <b>You can make it work!</b>
+                            {{/linkTo}}
+                        </span>
+                    {{/if}}
                 </form>
 
-        
             {{else}}
                 <form class="labeled">
                     <fieldset>

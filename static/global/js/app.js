@@ -50,6 +50,7 @@ $.ajaxSetup({
 });
 
 Em.View.reopen({
+    voucher: "App.applicationController.voucher",
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
 });
@@ -234,9 +235,8 @@ App.Router.map(function() {
     });
 
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
-        this.route('code', {path: '/:code'}, function() {
-
-        });
+        this.route('add', {path: '/add/:slug'});
+        this.route('code', {path: '/:code'});
 
     });
 
@@ -361,6 +361,9 @@ App.VoucherRedeemCodeRoute = Ember.Route.extend({
         var voucher = App.Voucher.find(params['code']);
         // We don't get the code from the server, but we want it to return it to the user here.
         voucher.set('code', params['code']);
+        voucher.on('isLoaded', function(){
+            App.applicationController.set('voucher', voucher);
+        });
         return voucher;
     },
 
