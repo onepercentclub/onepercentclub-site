@@ -352,12 +352,6 @@ App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
 });
 
 
-App.VouchersStartRoute = Ember.Route.extend({
-    setupController: function(controller) {
-    }
-});
-
-
 App.VoucherRedeemCodeRoute = Ember.Route.extend({
 
     model: function(params) {
@@ -371,8 +365,6 @@ App.VoucherRedeemCodeRoute = Ember.Route.extend({
         this.controllerFor('voucherRedeem').set('voucher', voucher);
     }
 });
-
-
 
 
 App.PaymentOrderProfileRoute = Ember.Route.extend({

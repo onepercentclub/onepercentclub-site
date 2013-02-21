@@ -273,6 +273,7 @@ App.VoucherRedeemController = Em.ArrayController.extend({
     code: "",
     error: function(){
         if (this.get('voucher.isLoaded')) {
+            // we don't get the code from the server, but store it here for future reference.
             this.set('voucher.code', this.get('code'));
             return false;
         }
