@@ -50,7 +50,6 @@ $.ajaxSetup({
 });
 
 Em.View.reopen({
-    voucher: "App.applicationController.voucher",
     userBinding: "App.userController.content",
     isLoggedInBinding: "App.userController.isLoggedIn",
 });
@@ -259,6 +258,10 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
         // Project detail controller.
         controller.set('content', project);
 
+        // Look if we've got an active voucher
+        var voucher = this.controllerFor('voucherRedeem').get('voucher');
+        controller.set('currentVoucher', voucher);
+
         // Wallposts list controller.
         var wallPostListController = this.controllerFor('projectWallPostList');
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
@@ -361,14 +364,11 @@ App.VoucherRedeemCodeRoute = Ember.Route.extend({
         var voucher = App.Voucher.find(params['code']);
         // We don't get the code from the server, but we want it to return it to the user here.
         voucher.set('code', params['code']);
-        voucher.on('isLoaded', function(){
-            App.applicationController.set('voucher', voucher);
-        });
         return voucher;
     },
 
     setupController: function(controller, voucher) {
-        this.controllerFor('voucherRedeem').set('content', voucher);
+        this.controllerFor('voucherRedeem').set('voucher', voucher);
     }
 });
 

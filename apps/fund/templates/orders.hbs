@@ -490,18 +490,18 @@
                 {{/view}}
             </ul>
 
-            {{#if content.isLoaded}}
+            {{#if voucher.isLoaded}}
                 <form class="labeled">
                     <fieldset class="">
                         <div class="label">{% trans "Voucher" %}</div>
-                        <div class="label ok">&#10004; {{content.code}}</div>
+                        <div class="label ok">&#10004; {{voucher.code}}</div>
                         <div class="label">{% trans "code accepted" %}</div>
                         <div class="label ok">
-                            <span class="right big-text">&euro;{{content.amount}}</span>
+                            <span class="right big-text">&euro;{{voucher.amount}}</span>
                         </div>
                     </fieldset>
 
-                    {{#if content.project}}
+                    {{#if voucher.project}}
                         <span class="donation-project">
                             {{#linkTo project project}}
                                 <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
@@ -514,7 +514,7 @@
                             </h1>
                             <p class="donation-amount">
                                 <label for="donation-amount-1">{% trans "You just donated" %}</label>
-                                <span class="big currency">&euro; {{content.amount}}</span>
+                                <span class="big currency">&euro; {{voucher.amount}}</span>
                             </p>
                         </span>
                     {{else}}

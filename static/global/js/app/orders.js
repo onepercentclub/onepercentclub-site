@@ -268,30 +268,25 @@ App.CurrentPaymentMethodInfoController = Em.ObjectController.extend({
 });
 
 
-App.VoucherRedeemController = Em.Controller.extend({
+App.VoucherRedeemController = Em.ArrayController.extend({
 
     code: "",
     error: function(){
-        if (this.get('content.isLoaded')) {
+        if (this.get('voucher.isLoaded')) {
+            this.set('voucher.code', this.get('code'));
             return false;
         }
-        if (this.get('content')) {
+        if (this.get('voucher')) {
             return true;
         }
         return false;
-    }.property('content.isSaving', 'content.isLoaded'),
+    }.property('voucher.isSaving', 'voucher.isLoaded'),
 
     submit: function(){
         var code = this.get('code');
-        if (!code) {
-            console.log('No code supplied');
-        } else {
-
+        if (code) {
             var voucher = App.Voucher.find(code);
-            this.set('content', voucher);
-            voucher.on('didLoad', function(){
-                console.log('loaded');
-            });
+            this.set('voucher', voucher);
 
         }
     }

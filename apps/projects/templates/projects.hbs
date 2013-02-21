@@ -86,8 +86,8 @@
                 </p>
             </div>
 
-            {{#if view.voucher.code}}
-                {{#linkTo "voucherRedeem.add" this class="button-donate"}}{% trans "Use voucher for this project" %}{{/linkTo}}
+            {{#if currentVoucher}}
+                {{#linkTo "voucherRedeem.add" this class="button-donate"}}{% trans "Support with voucher" %}{{/linkTo}}
             {{else}}
                 {{#linkTo "currentOrderItemList.add" this class="button-donate"}}{% trans "Support this project" %}{{/linkTo}}
             {{/if}}
