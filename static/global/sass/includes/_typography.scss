@@ -56,6 +56,10 @@ h1 {
     text-overflow: ellipsis;
 }
 
+.big-text {
+    @include rem(font-size, 30px);
+}
+
 h2 { 
     @include rem(font-size, 26px);
     text-transform: uppercase;

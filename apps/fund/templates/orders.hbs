@@ -5,14 +5,33 @@
 
 {% tplhandlebars "current_order" %}
 
-    <div class="container section">
-
-        <!-- donation -->
-        <header class="wrapper">
-            <h1 class="main-title">{% trans "Support one or more projects!" %}</h1>
-        </header>
-
-    </div>
+    {{#if controller.isVoucherOrder}}
+        <div class="container section">
+            <div class="wrapper">
+                <div class="content">
+                    <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
+                </div>
+                <sidebar>
+                    {{#linkTo "currentOrderItemList" tagName="button" class="contrast top"}}
+                        {% trans "Switch to paid donations" %}
+                    {{/linkTo}}
+                </sidebar>
+            </div>
+        </div>
+    {{else}}
+        <div class="container section">
+            <div class="wrapper">
+                <div class="content">
+                    <h1 class="main-title">{% trans "Support one or more projects!" %}</h1>
+                </div>
+                <sidebar>
+                    {{#linkTo "voucherRedeem" tagName="button" class="contrast top"}}
+                        {% trans "I have a 1%voucher" %}
+                    {{/linkTo}}
+                </sidebar>
+            </div>
+        </div>
+    {{/if}}
 
     <div class="container">
 
@@ -194,11 +213,11 @@
 
     <h2 class="clear">{% trans "Add as many recipients as you want" %}</h2>
 
-    <div class="label">{% trans "Friend name" %}</div>
+    <div class="label">{% trans "Recipient name" %}</div>
     {{#each errors.receiver_name}}<span class="error">{{this}}</span>{{/each}}
     {{view Em.TextField valueBinding="receiver_name" placeholder="Name" classBinding="errors.receiver_name.length:error"}}
 
-    <div class="label">{% trans "Friend email" %}</div>
+    <div class="label">{% trans "Recipient email" %}</div>
     {{#each errors.receiver_email}}<span class="error">{{this}}</span>{{/each}}
     {{view Em.TextField valueBinding="receiver_email" placeholder="Email" classBinding="errors.receiver_email.length:error"}}
 
@@ -415,7 +434,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "vouchers_start" %}
+{% tplhandlebars "voucher_start" %}
 
     <div class="container section voucher-banner">
 
@@ -431,8 +450,111 @@
 
     <div class="container">
         <section class="wrapper">
-            Yeah!
+            <div class="redeem">
+                {{#linkTo "voucherRedeem"}}
+                    <h2>{% trans "I received a voucher" %}</h2>
+                {{/linkTo}}
+            </div>
+            <div class="buy">
+                {{#linkTo "currentOrderVoucherAdd"}}
+                    <h2>{% trans "I'd like to buy voucher(s)" %}</h2>
+                {{/linkTo}}
+            </div>
         </section>
     </div>
 
 {% endtplhandlebars %}
+
+
+
+{% tplhandlebars "voucher_redeem" %}
+
+    <div class="container section">
+        <div class="wrapper">
+            <div class="content">
+                <h1 class="main-title">{% trans "Claim you voucher and support!" %}</h1>
+            </div>
+            <sidebar>
+                {{#linkTo "currentOrderItemList" tagName="button" class="contrast top"}}
+                    {% trans "Switch to donations" %}
+                {{/linkTo}}
+            </sidebar>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <section class="wrapper">
+
+            <ul class="voucher-steps">
+                {{#view App.OrderNavView classNames="support selected"}}
+                    {{#linkTo voucherRedeem}}Support{{/linkTo}}
+                {{/view}}
+                {{#view App.OrderNavView classNames="profile"}}
+                    <a>{% trans "Profile" %}</a>
+                {{/view}}
+            </ul>
+
+            {{#if voucher.isLoaded}}
+                <form class="labeled">
+                    <fieldset class="">
+                        <div class="label">{% trans "Voucher" %}</div>
+                        <div class="label ok">&#10004; {{voucher.code}}</div>
+                        <div class="label">{% trans "code accepted" %}</div>
+                        <div class="label ok">
+                            <span class="right big-text">&euro;{{voucher.amount}}</span>
+                        </div>
+                    </fieldset>
+
+                    {{#if voucher.project}}
+                        <span class="donation-project">
+                            {{#linkTo project project}}
+                                <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
+                            {{/linkTo}}
+                            <h1>
+                                {{#linkTo project project}}
+                                    {{project.title}}
+                                {{/linkTo}}
+                                <em class="country">{{project.country.name}}</em>
+                            </h1>
+                            <p class="donation-amount">
+                                <label for="donation-amount-1">{% trans "You just donated" %}</label>
+                                <span class="big currency">&euro; {{voucher.amount}}</span>
+                            </p>
+                        </span>
+                    {{else}}
+                        <span class="donation-project">
+                            {{#linkTo projectList}}
+                            <h1>
+                                {% trans "Choose a project to support with this voucher" %}
+                            </h1>
+                            <b>You can make it work!</b>
+                            {{/linkTo}}
+                        </span>
+                    {{/if}}
+                </form>
+
+            {{else}}
+                <form class="labeled">
+                    <fieldset>
+                        {{#if error}}
+                            <span class="error">{% trans "We don't have a voucher with this code." %}</span>
+                            <br />
+                        {{/if}}
+                        <div class="label">{% trans "Voucher code" %}</div>
+                        {{view Em.TextField valueBinding="code" placeholder="You code"}}
+                        <button {{action "submit" target="controller"}} type="submit" class="button right">
+                            {% trans "Submit" %}
+                        </button>
+                    </fieldset>
+                </form>
+            {{/if}}
+
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
+
+
+

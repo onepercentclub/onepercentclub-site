@@ -5,10 +5,12 @@ from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
+from django.utils.translation import ugettext as _
 from .models import Donation, OrderItem, Order, Voucher
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
                           PaymentMethodSerializer)
@@ -402,3 +404,21 @@ class OrderVoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIVie
             order_item.delete()
         obj.delete()
         return response.Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class VoucherDetail(CurrentOrderMixin, generics.RetrieveAPIView):
+    model = Voucher
+    serializer_class = VoucherSerializer
+
+    def get_object(self, queryset=None):
+        """
+        Override default to add support for object-level permissions.
+        """
+        code = self.kwargs.get('code', None)
+        if not code:
+            raise Http404(_(u"No voucher code supplied."))
+        try:
+            obj = Voucher.objects.get(code=code)
+        except Voucher.DoesNotExist:
+            raise Http404(_(u"No voucher found matching the query"))
+        return obj

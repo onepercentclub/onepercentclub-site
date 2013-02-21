@@ -268,6 +268,33 @@ App.CurrentPaymentMethodInfoController = Em.ObjectController.extend({
 });
 
 
+App.VoucherRedeemController = Em.ArrayController.extend({
+
+    code: "",
+    error: function(){
+        if (this.get('voucher.isLoaded')) {
+            // we don't get the code from the server, but store it here for future reference.
+            this.set('voucher.code', this.get('code'));
+            return false;
+        }
+        if (this.get('voucher')) {
+            return true;
+        }
+        return false;
+    }.property('voucher.isSaving', 'voucher.isLoaded'),
+
+    submit: function(){
+        var code = this.get('code');
+        if (code) {
+            var voucher = App.Voucher.find(code);
+            this.set('voucher', voucher);
+
+        }
+    }
+});
+
+
+
 /*
  Views
  */
@@ -412,7 +439,14 @@ App.DirectDebitPaymentMethodInfoView = Em.View.extend({
 
 App.VoucherStartView = Em.View.extend({
     tagName: 'div',
-    templateName: 'vouchers_start'
+    templateName: 'voucher_start'
 });
+
+
+App.VoucherRedeemView = Em.View.extend({
+    tagName: 'div',
+    templateName: 'voucher_redeem'
+});
+
 
 

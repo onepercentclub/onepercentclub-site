@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from surlex.dj import surl
 from .views import (FundApi, OrderList, OrderDetail, OrderCurrent, OrderItemList, OrderDonationList,
                     OrderDonationDetail, OrderLatestDonationList, PaymentOrderProfileCurrent, OrderLatestItemList,
-                    PaymentMethodList, PaymentMethodDetail, PaymentMethodInfoCurrent, OrderVoucherList, OrderVoucherDetail)
+                    PaymentMethodList, VoucherDetail, PaymentMethodInfoCurrent, OrderVoucherList, OrderVoucherDetail)
 
 
 urlpatterns = patterns('',
@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 
     url(r'^orders/current/vouchers/$', OrderVoucherList.as_view(), name='fund-order-current-voucher-list'),
     surl(r'^orders/current/vouchers/<pk:#>$', OrderVoucherDetail.as_view(), name='fund-order-current-voucher-detail'),
+    surl(r'^vouchers/<code:s>$', VoucherDetail.as_view(), name='voucher-detail'),
 
     url(r'^orders/latest/donations/$', OrderLatestDonationList.as_view(), name='fund-order-latest-donation-list'),
 
