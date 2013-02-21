@@ -125,7 +125,6 @@ App.Payment = DS.Model.extend({
  Controllers
  */
 
-
 App.CurrentOrderItemListController = Em.ArrayController.extend({
 
     updateOrderItem: function(orderItem, newAmount) {
@@ -144,7 +143,6 @@ App.CurrentOrderItemListController = Em.ArrayController.extend({
 });
 
 
-
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 
     count: function(){
@@ -161,8 +159,6 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
         });
         return amount;
     }.property('content.length'),
-
-
 
     deleteOrderItem: function(item) {
         var transaction = App.store.transaction();
@@ -197,8 +193,6 @@ App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
             controller.get('content').set('errors', record.get('errors'));
         });
         this.get('transaction').commit();
-
-
     }
 
 });
@@ -258,8 +252,6 @@ App.CurrentOrderController = Em.ObjectController.extend({
                 // Init a new private transaction.
                 controller.initTransaction();
             });
-
-
         }
     }.observes('content.isDirty')
 });
@@ -274,7 +266,6 @@ App.CurrentOrderPaymentController = Em.ObjectController.extend({
 App.CurrentPaymentMethodInfoController = Em.ObjectController.extend({
 
 });
-
 
 
 /*
@@ -350,6 +341,7 @@ App.CurrentOrderVoucherView = Em.View.extend({
         var item = this.get('content');
         this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
     },
+
     submit: function(e){
         e.preventDefault();
     }
@@ -386,7 +378,6 @@ App.OrderNavView = Ember.View.extend({
         this.$().nextAll().removeClass(highlightClassName);
         this.$().addClass(highlightClassName);
     }
-
 });
 
 
@@ -417,6 +408,7 @@ App.DirectDebitPaymentMethodInfoView = Em.View.extend({
         e.preventDefault();
     }
 });
+
 
 App.VoucherStartView = Em.View.extend({
     tagName: 'div',
