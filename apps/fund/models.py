@@ -100,8 +100,7 @@ class Voucher(models.Model):
         nl = ChoiceItem('nl', label=_("Dutch"))
 
     amount = models.PositiveIntegerField(_("amount"))
-
-    currency = models.CharField(_("currency"), blank=True, default="EUR", max_length=3)
+    currency = models.CharField(_("currency"), blank=True, max_length=3)
 
     status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
 

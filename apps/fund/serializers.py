@@ -1,9 +1,9 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
+from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
-from .models import Donation, OrderItem, Order, Voucher
+from .models import Donation, Order, Voucher
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -69,16 +69,21 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class VoucherSerializer(serializers.ModelSerializer):
+    amount = EuroField()
 
     def validate_amount(self, attrs, source):
         """
         Check the amount
         """
         value = attrs[source]
-        if value not in [10, 25, 50, 100]:
+        if value not in [1000, 2500, 5000, 10000]:
             raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100."))
         return attrs
 
+    def save(self):
+        # Convert Euros to minor currency unit and set currency.
+        self.object.currency = 'EUR'
+        return super(VoucherSerializer, self).save()
 
     class Meta:
         model = Voucher

@@ -285,3 +285,11 @@ class ObjectBasedSerializer(serializers.Serializer):
         setattr(self._child_models[obj.__class__], 'object', obj)
         return self._child_models[obj.__class__].from_native(data, files)
 
+
+class EuroField(serializers.WritableField):
+    # Note: You need to override save and set the currency to 'EUR' in the Serializer where this is used.
+    def to_native(self, value):
+        return '{0}.{1}'.format(str(value)[:-2], str(value)[-2:])
+
+    def from_native(self, value):
+        return int(int(value) * 100)
