@@ -9,7 +9,11 @@ from celery import task
 def mail_new_voucher(voucher, *args, **kwargs):
     # TODO: Put this in config
     system_email = 'vouchers@1procentclub.nl'
-    server = 'https://' + Site.objects.get_current().domain
+    server = Site.objects.get_current().domain
+    if server == 'localhost:8000':
+        server = 'http://' + server
+    else :
+        server = 'https://' + server
 
     subject = _(u'You received a 1%VOUCHER')
     text_content = _(u'You received a 1%VOUCHER with this code: ') + voucher.code

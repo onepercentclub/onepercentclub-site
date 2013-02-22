@@ -1,11 +1,10 @@
 import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
-from apps.fund.mails import mail_voucher_redeemed
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
-from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from apps.bluebottle_drf2.views import ListAPIView
 from django.db import transaction
 from rest_framework import status
 from rest_framework import permissions
@@ -13,7 +12,8 @@ from rest_framework import response
 from rest_framework import generics
 from rest_framework import exceptions
 from django.utils.translation import ugettext as _
-from .models import Donation, OrderItem, Order, Voucher
+from .mails import mail_voucher_redeemed
+from .models import Donation, OrderItem, Order, Voucher, process_voucher_order_in_progress, process_donation_order_in_progress
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
                           PaymentMethodSerializer, VoucherDonationSerializer, VoucherRedeemSerializer)
 
@@ -151,14 +151,16 @@ class OrderList(ListAPIView):
     permission_classes = (AllowNone,)
     paginate_by = 10
 
-
-class OrderDetail(RetrieveAPIView):
-    # TODO: Implement
-    model = Order
-    permission_classes = (AllowNone,)
-
 # End: Unimplemented API views
 
+
+# Order views:
+
+class OrderDetail(generics.RetrieveAPIView):
+    model = Order
+
+
+# Current Order views:
 
 class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
@@ -206,6 +208,15 @@ class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
         return order.orderitem_set.all()
 
 
+def process_order_in_progress(order):
+    """ Helper method for processing orders that have just been paid. """
+    for order_item in order.orderitem_set.all():
+        if order_item == "Voucher":
+            process_voucher_order_in_progress(order_item.content_object)
+        elif order_item == "Donation":
+            process_donation_order_in_progress(order_item.content_object)
+
+
 # Note: Not currently being used (but the OrderLatestDontationList is being used).
 class OrderLatestItemList(OrderItemList):
     """
@@ -222,10 +233,10 @@ class OrderLatestItemList(OrderItemList):
             # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
+            process_order_in_progress(order)
         else:
             order = self.get_latest_order()
 
-        order.status = Order.OrderStatuses.pending
         order.save()
         return order.orderitem_set.all()
 
@@ -243,11 +254,22 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
             # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
+            process_order_in_progress(order)
         else:
             order = self.get_latest_order()
+
+        orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Voucher))
+        voucherset = Voucher.objects.filter(id__in=orderitems.values('object_id'))
+        for voucher in voucherset.all():
+            process_voucher_order_in_progress(voucher)
+
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
-        queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
-        return queryset
+        donationset = Donation.objects.filter(id__in=orderitems.values('object_id'))
+        for donation in donationset.all():
+            donation.status = Donation.DonationStatuses.in_progress
+            process_donation_order_in_progress(donation)
+
+        return donationset
 
 
 class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
@@ -423,11 +445,11 @@ class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
         return self.get_voucher()
 
     def pre_save(self, obj):
+        mail_voucher_redeemed(obj)
         if obj.status == Voucher.VoucherStatuses.cashed:
             for donation in obj.donations.all():
                 donation.status = Donation.DonationStatuses.paid
                 donation.save()
-        mail_voucher_redeemed(obj)
 
 
 class VoucherDonationList(VoucherMixin, generics.ListCreateAPIView):

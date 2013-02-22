@@ -48,8 +48,7 @@ class PaymentMethodSerializer(serializers.Serializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    # source is required because amount is a property on the model.
-    amount = serializers.IntegerField(source='amount', read_only=True)
+    amount = EuroField(read_only=True)
     status = serializers.ChoiceField(read_only=True)
     # Payment_method  is writen in the view.
     payment_method_id = serializers.CharField(source='payment.payment_method_id', required=False)
@@ -70,7 +69,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id', 'payment_url')
+        fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id',
+                  'payment_url')
 
 
 class VoucherRedeemSerializer(serializers.ModelSerializer):
@@ -163,4 +163,3 @@ class OrderItemSerializer(ObjectBasedSerializer):
             (Donation, DonationSerializer),
             (Voucher, VoucherSerializer),
         )
-

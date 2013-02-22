@@ -1,4 +1,6 @@
 from decimal import Decimal
+import random
+from apps.fund.mails import mail_new_voucher
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
@@ -127,3 +129,23 @@ class Voucher(models.Model):
     @property
     def amount_euro(self):
         return self.amount / 100
+
+
+def _generate_voucher_code():
+    # Lower case letters without d, o and i. Numbers without 0 and 1.
+    char_set = 'abcefghjklmnpqrstuvwxyz23456789'
+    return ''.join(random.choice(char_set) for i in range(8))
+
+def process_voucher_order_in_progress(voucher):
+    code = _generate_voucher_code()
+    while Voucher.objects.filter(code=code).exists():
+        code = _generate_voucher_code()
+
+    voucher.code = code
+    voucher.status = Voucher.VoucherStatuses.paid
+    voucher.save()
+    mail_new_voucher(voucher)
+
+def process_donation_order_in_progress(donation):
+    donation.status = Donation.DonationStatuses.in_progress
+    donation.save()
