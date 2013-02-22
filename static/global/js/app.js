@@ -243,6 +243,8 @@ App.Router.map(function() {
         this.route('code', {path: '/:code'});
 
     });
+    this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'});
+
 
 });
 
@@ -376,12 +378,18 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
         if (project !== undefined) {
             var transaction = App.store.transaction();
+            // TODO: Generify and move to DRF2 adapter.
             App.VoucherDonation.reopen({
                 url: 'fund/vouchers/' + voucher.get('code') + '/donations'
-            })
+            });
             var donation = transaction.createRecord(App.VoucherDonation);
             donation.set('project_slug', project.get('slug'));
             donation.set('project', project);
+            donation.on('didCreate', function(record){
+                console.log('yuuu');
+                voucher.get('donations').clear();
+                voucher.get('donations').pushObject(record);
+            });
             transaction.commit();
         }
     }

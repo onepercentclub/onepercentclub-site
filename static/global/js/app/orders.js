@@ -296,12 +296,13 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         }
     },
     redeemVoucher: function(){
+        var controller = this;
         var voucher = this.get('voucher');
         var transaction = App.store.transaction();
         transaction.add(voucher);
         voucher.set('status', 'cashed');
         voucher.on('didUpdate',function(){
-           this.transistionTo('voucherDone');
+            controller.transitionTo('voucherRedeemDone');
         });
         transaction.commit();
     },
@@ -465,6 +466,12 @@ App.VoucherStartView = Em.View.extend({
 App.VoucherRedeemView = Em.View.extend({
     tagName: 'div',
     templateName: 'voucher_redeem'
+});
+
+
+App.VoucherRedeemDoneView = Em.View.extend({
+    tagName: 'div',
+    templateName: 'voucher_redeem_done'
 });
 
 

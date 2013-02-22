@@ -466,7 +466,6 @@
 {% endtplhandlebars %}
 
 
-
 {% tplhandlebars "voucher_redeem" %}
 
     <div class="container section">
@@ -554,6 +553,19 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "voucher_redeem_done" %}
+
+    <div class="container section">
+
+        <header class="wrapper">
+            <h1 class="">YOU MAKE IT WORK!</h1>
+        </header>
+
+    </div>
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "voucher_donation" %}
     {{#linkTo project project}}
         <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
@@ -565,7 +577,9 @@
         <em class="country">{{project.country.name}}</em>
     </h1>
     <p class="donation-amount">
-        <span class="big currency">&euro; {{amount}}</span>
+        {{#if amount}}
+            <span class="big currency">&euro; {{amount}}</span>
+        {{/if}}
     </p>
 
     {# add this for multiple donations per voucher #}

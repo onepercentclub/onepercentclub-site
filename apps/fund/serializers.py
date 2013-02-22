@@ -131,10 +131,13 @@ class VoucherSerializer(serializers.ModelSerializer):
 
 
 class VoucherDonationSerializer(DonationSerializer):
+    project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
+    project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
+    status = serializers.ChoiceField(read_only=True)
 
     class Meta:
         model = Donation
-        fields = ('id', 'project_slug')
+        fields = ('id', 'project_id', 'project_slug')
 
 
 class OrderItemSerializer(ObjectBasedSerializer):

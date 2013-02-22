@@ -1,6 +1,7 @@
 import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
+from apps.fund.mails import mail_voucher_redeemed
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -422,11 +423,11 @@ class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
         return self.get_voucher()
 
     def pre_save(self, obj):
-        mail_new_voucher(obj)
         if obj.status == Voucher.VoucherStatuses.cashed:
             for donation in obj.donations.all():
                 donation.status = Donation.DonationStatuses.paid
                 donation.save()
+        mail_voucher_redeemed(obj)
 
 
 class VoucherDonationList(VoucherMixin, generics.ListCreateAPIView):
