@@ -208,6 +208,7 @@ class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
         return order.orderitem_set.all()
 
 
+
 def process_order_in_progress(order):
     """ Helper method for processing orders that have just been paid. """
     for order_item in order.orderitem_set.all():
@@ -258,7 +259,6 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
             process_order_in_progress(order)
         else:
             order = self.get_latest_order()
-            process_order_in_progress(order)
 
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
         donationset = Donation.objects.filter(id__in=orderitems.values('object_id'))
@@ -440,6 +440,8 @@ class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
 
     def pre_save(self, obj):
         mail_voucher_redeemed(obj)
+        if self.request.user.is_authenticated():
+            obj.receiver = self.request.user
         if obj.status == Voucher.VoucherStatuses.cashed:
             for donation in obj.donations.all():
                 donation.status = Donation.DonationStatuses.paid
