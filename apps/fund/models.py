@@ -127,8 +127,3 @@ class Voucher(models.Model):
     @property
     def amount_euro(self):
         return self.amount / 100
-
-    @property
-    def absolute_url(self):
-        # Return the Ember url here
-        return Site.objects.get_current().domain + '/#/vouchers/redeem/' + self.code
