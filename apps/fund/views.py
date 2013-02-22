@@ -1,10 +1,11 @@
 import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
+from apps.fund.models import process_voucher_order_in_progress, process_donation_order_in_progress
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
-from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
+from apps.bluebottle_drf2.views import ListAPIView
 from django.db import transaction
 from django.http import Http404
 from rest_framework import status
@@ -148,14 +149,16 @@ class OrderList(ListAPIView):
     permission_classes = (AllowNone,)
     paginate_by = 10
 
-
-class OrderDetail(RetrieveAPIView):
-    # TODO: Implement
-    model = Order
-    permission_classes = (AllowNone,)
-
 # End: Unimplemented API views
 
+
+# Order views:
+
+class OrderDetail(generics.RetrieveAPIView):
+    model = Order
+
+
+# Current Order views:
 
 class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
@@ -203,6 +206,15 @@ class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
         return order.orderitem_set.all()
 
 
+def process_order_in_progress(order):
+    """ Helper method for processing orders that have just been paid. """
+    for order_item in order.orderitem_set.all():
+        if order_item == "Voucher":
+            process_voucher_order_in_progress(order_item.content_object)
+        elif order_item == "Donation":
+            process_donation_order_in_progress(order_item.content_object)
+
+
 # Note: Not currently being used (but the OrderLatestDontationList is being used).
 class OrderLatestItemList(OrderItemList):
     """
@@ -219,10 +231,10 @@ class OrderLatestItemList(OrderItemList):
             # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
+            process_order_in_progress(order)
         else:
             order = self.get_latest_order()
 
-        order.status = Order.OrderStatuses.pending
         order.save()
         return order.orderitem_set.all()
 
@@ -240,6 +252,7 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
             # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
+            process_order_in_progress(order)
         else:
             order = self.get_latest_order()
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
