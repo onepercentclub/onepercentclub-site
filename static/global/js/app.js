@@ -235,15 +235,15 @@ App.Router.map(function() {
     this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
     });
 
-    this.resource('voucherStart', {path: '/vouchers'}, function() {
-    });
+    this.resource('voucherStart', {path: '/vouchers'}, function() {});
+    this.resource('voucherCustom', {path: '/vouchers/custom'}, function(){});
+    this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'}, function(){});
 
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
         this.route('add', {path: '/add/:slug'});
         this.route('code', {path: '/:code'});
 
     });
-    this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'});
 
 
 });
@@ -448,3 +448,5 @@ App.FinalOrderItemListRoute = Ember.Route.extend({
     }
 
 });
+
+

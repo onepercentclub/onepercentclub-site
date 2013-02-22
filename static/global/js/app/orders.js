@@ -475,6 +475,11 @@ App.VoucherRedeemDoneView = Em.View.extend({
 });
 
 
+App.VoucherCustomView = Em.View.extend({
+    tagName: 'form',
+    templateName: 'voucher_custom'
+});
+
 
 App.VoucherDonationView = Em.View.extend({
     templateName: 'voucher_donation',

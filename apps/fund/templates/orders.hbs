@@ -61,13 +61,20 @@
 
             {{outlet}}
 
-            <!--
             <div class="sidebar tip">
-              <h3>Did you know?</h3>
-              <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
-              <p><a href="#">Read some more</a></p>
+                {{#if controller.isVoucherOrder}}
+                    <h3>{% trans "Want custom real vouchers or a large amount of digital vouchers?" %}</h3>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum eros est.
+                    Aliquam volutpat tempus quam, molestie malesuada justo sollicitudin nec.
+                    <br />
+                    {{#linkTo voucherCustom}}{% trans "Contact us..." %}{{/linkTo}}
+                {{/if}}
+                <!--
+                  <h3>Did you know?</h3>
+                  <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+                  <p><a href="#">Read some more</a></p>
+                -->
             </div>
-            -->
 
         </section>
 
@@ -586,3 +593,18 @@
     {# <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a> #}
 {% endtplhandlebars %}
 
+
+
+
+{% tplhandlebars "voucher_custom" %}
+
+    <div class="container section">
+
+        <header class="wrapper">
+            <h1 class="">{% trans "Contact us for custom 1%VOUCHERS" %}</h1>
+            {% trans "Please fill in the form with your wishes and we will contact you. You can also call us directly on (+31) 20 715 8980" %}
+        </header>
+
+    </div>
+
+{% endtplhandlebars %}
