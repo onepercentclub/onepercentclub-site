@@ -541,7 +541,7 @@
                         {{/if}}
                         <div class="label">{% trans "Voucher code" %}</div>
                         {{view Em.TextField valueBinding="code" placeholder="You code"}}
-                        <button {{action "submitCode" target="controller"}} type="submit" class="button right">
+                        <button {{action "submitVoucherCode" target="controller"}} type="submit" class="button right">
                             {% trans "Submit" %}
                         </button>
                     </fieldset>

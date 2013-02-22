@@ -73,23 +73,42 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id', 'payment_url')
 
 
-class VoucherSerializer(serializers.ModelSerializer):
-    donations = ManyRelatedNestedSerializer(DonationSerializer)
-    amount = EuroField()
-    sender_name = serializers.Field()
-    sender_email = serializers.Field()
-    message = serializers.Field()
-    receiver_name = serializers.Field()
-    receiver_email = serializers.Field()
+class VoucherRedeemSerializer(serializers.ModelSerializer):
+    """
+    Used for redeeming a Voucher and setting it to 'cashed'.
+    """
+    amount = EuroField(read_only=True)
     language = serializers.Field()
+    receiver_email = serializers.Field()
+    receiver_name = serializers.Field()
+    sender_email = serializers.Field()
+    sender_name = serializers.Field()
+    message = serializers.Field()
+    donations = ManyRelatedNestedSerializer(DonationSerializer)
+
 
     def validate_status(self, attrs, source):
         value = attrs[source]
-        if not value:
-            attrs[source] = 'new'
-        elif value not in ['cashed']:
+        if value not in ['cashed']:
             raise serializers.ValidationError(_(u"Only allowed to change status to 'cashed'"))
+        # TODO: Do a check if the amount of all donations for this voucher equals Voucher amount.
+        # ?? self.object.amount == self.object.donations.aggregate(Sum('amount')
+
         return attrs
+
+
+    class Meta:
+        model = Voucher
+        fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
+                  'message', 'donations', 'status')
+
+
+class VoucherSerializer(serializers.ModelSerializer):
+    """
+    Used for creating new Vouchers in Order screens.
+    """
+    amount = EuroField()
+    status = serializers.Field()
 
     def validate_amount(self, attrs, source):
         """
@@ -97,7 +116,7 @@ class VoucherSerializer(serializers.ModelSerializer):
         """
         value = attrs[source]
         if value not in [1000, 2500, 5000, 10000]:
-            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100."))
+            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100. Not "+ str(value) ))
         return attrs
 
     def save(self):
@@ -108,7 +127,7 @@ class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
         fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
-                  'message', 'donations', 'status')
+                  'message', 'status')
 
 
 class VoucherDonationSerializer(DonationSerializer):

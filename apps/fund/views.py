@@ -6,7 +6,6 @@ from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView, RetrieveAPIView
 from django.db import transaction
-from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
@@ -15,7 +14,7 @@ from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 from .models import Donation, OrderItem, Order, Voucher
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
-                          PaymentMethodSerializer, VoucherDonationSerializer)
+                          PaymentMethodSerializer, VoucherDonationSerializer, VoucherRedeemSerializer)
 
 from .mails import mail_new_voucher
 
@@ -397,11 +396,9 @@ class OrderVoucherDetail(OrderItemMixin, CurrentOrderMixin, generics.RetrieveUpd
     serializer_class = VoucherSerializer
 
 
-class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
-    model = Voucher
-    serializer_class = VoucherSerializer
+class VoucherMixin(object):
 
-    def get_object(self, queryset=None):
+    def get_voucher(self):
         """
         Override default to have semantic error responses.
         """
@@ -409,12 +406,20 @@ class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         if not code:
             raise exceptions.ParseError(detail=_(u"No voucher code supplied."))
         try:
-            obj = Voucher.objects.get(code=code)
+            voucher = Voucher.objects.get(code=code)
         except Voucher.DoesNotExist:
             raise exceptions.ParseError(detail=_(u"No voucher with that code."))
-        if obj.status != Voucher.VoucherStatuses.paid:
+        if voucher.status != Voucher.VoucherStatuses.paid:
             raise exceptions.PermissionDenied(detail=_(u"Voucher code already used."))
-        return obj
+        return voucher
+
+
+class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
+    model = Voucher
+    serializer_class = VoucherRedeemSerializer
+
+    def get_object(self, queryset=None):
+        return self.get_voucher()
 
     def pre_save(self, obj):
         mail_new_voucher(obj)
@@ -422,20 +427,6 @@ class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             for donation in obj.donations.all():
                 donation.status = Donation.DonationStatuses.paid
                 donation.save()
-
-
-class VoucherMixin(object):
-
-    def get_voucher(self):
-        code = self.kwargs.get('code', None)
-        if not code:
-            raise Http404(_(u"No voucher code supplied."))
-        try:
-            voucher = Voucher.objects.get(code=code, status=Voucher.VoucherStatuses.paid)
-        except Voucher.DoesNotExist:
-            raise Http404(_(u"No voucher found matching the query"))
-        return voucher
-
 
 
 class VoucherDonationList(VoucherMixin, generics.ListCreateAPIView):

@@ -287,7 +287,7 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         return false;
     }.property('voucher.isSaving', 'voucher.isLoaded'),
 
-    submitCode: function(){
+    submitVoucherCode: function(){
         var code = this.get('code');
         if (code) {
             var voucher = App.Voucher.find(code);
