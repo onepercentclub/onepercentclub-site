@@ -215,7 +215,8 @@ class OrderLatestItemList(OrderItemList):
     def get_queryset(self):
         order = self.get_current_order()
         if order and order.payment:
-            payments.update_payment_status(order.payment)
+            # FIXME Status updates aren't working.
+            # payments.update_payment_status(order.payment)
             # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
@@ -235,7 +236,8 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
     def get_queryset(self):
         order = self.get_current_order()
         if order and order.payment:
-            payments.update_payment_status(order.payment)
+            # FIXME Status updates aren't working.
+            # payments.update_payment_status(order.payment)
             # FIXME: Check the status we get back from PSP and set order status accordingly.
             order.status = Order.OrderStatuses.pending
             order.save()
