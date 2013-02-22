@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
@@ -125,3 +126,10 @@ class Voucher(models.Model):
     donations = models.ManyToManyField("Donation")
 
 
+    @property
+    def amount_euro(self):
+        return self.amount / 100
+
+    @property
+    def absolute_url(self):
+        return Site.objects.get_current().domain + '/#/vouchers/redeem/' + self.code

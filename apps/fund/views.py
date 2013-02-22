@@ -17,6 +17,7 @@ from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
                           PaymentMethodSerializer, VoucherDonationSerializer)
 from .utils import get_order_payment_methods
+from .mails import mail_new_voucher
 
 
 # Lock used in the CurrentOrderMixin. It needs to be outside of Mixin so it's created more than once.
@@ -428,6 +429,7 @@ class VoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         return obj
 
     def pre_save(self, obj):
+        mail_new_voucher(obj)
         if obj.status == Voucher.VoucherStatuses.cashed:
             for donation in obj.donations.all():
                 donation.status = Donation.DonationStatuses.paid
