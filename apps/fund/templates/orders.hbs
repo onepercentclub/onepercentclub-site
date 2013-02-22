@@ -466,7 +466,6 @@
 {% endtplhandlebars %}
 
 
-
 {% tplhandlebars "voucher_redeem" %}
 
     <div class="container section">
@@ -506,31 +505,29 @@
                         </div>
                     </fieldset>
 
-                    {{#if voucher.project}}
-                        <span class="donation-project">
-                            {{#linkTo project project}}
-                                <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
-                            {{/linkTo}}
-                            <h1>
-                                {{#linkTo project project}}
-                                    {{project.title}}
+                    <ul id="donation-projects">
+                        {{#each voucher.donations}}
+                            {{view App.VoucherDonationView content=this}}
+                        {{else}}
+                            <li class="donation-project">
+                                {{#linkTo projectList}}
+                                <h1>
+                                    {% trans "Choose a project to support with this voucher" %}
+                                </h1>
+                                <b>You can make it work!</b>
                                 {{/linkTo}}
-                                <em class="country">{{project.country.name}}</em>
-                            </h1>
-                            <p class="donation-amount">
-                                <label for="donation-amount-1">{% trans "You just donated" %}</label>
-                                <span class="big currency">&euro; {{voucher.amount}}</span>
-                            </p>
-                        </span>
+                            </li>
+                        {{/each}}
+                    </ul>
+                    {{#if voucher.donations.length}}
+                        <button {{action "redeemVoucher" target="controller"}} type="submit" class="button right">
+                            {% trans "Submit" %}
+                        </button>
                     {{else}}
-                        <span class="donation-project">
-                            {{#linkTo projectList}}
-                            <h1>
-                                {% trans "Choose a project to support with this voucher" %}
-                            </h1>
-                            <b>You can make it work!</b>
-                            {{/linkTo}}
-                        </span>
+                        <button disabled class="button right">
+                            {% trans "Submit" %}
+                        </button>
+
                     {{/if}}
                 </form>
 
@@ -543,7 +540,7 @@
                         {{/if}}
                         <div class="label">{% trans "Voucher code" %}</div>
                         {{view Em.TextField valueBinding="code" placeholder="You code"}}
-                        <button {{action "submit" target="controller"}} type="submit" class="button right">
+                        <button {{action "submitVoucherCode" target="controller"}} type="submit" class="button right">
                             {% trans "Submit" %}
                         </button>
                     </fieldset>
@@ -556,5 +553,36 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "voucher_redeem_done" %}
 
+    <div class="container section">
+
+        <header class="wrapper">
+            <h1 class="">YOU MAKE IT WORK!</h1>
+        </header>
+
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "voucher_donation" %}
+    {{#linkTo project project}}
+        <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
+    {{/linkTo}}
+    <h1>
+        {{#linkTo project project}}
+            {{project.title}}
+        {{/linkTo}}
+        <em class="country">{{project.country.name}}</em>
+    </h1>
+    <p class="donation-amount">
+        {{#if amount}}
+            <span class="big currency">&euro; {{amount}}</span>
+        {{/if}}
+    </p>
+
+    {# add this for multiple donations per voucher #}
+    {# <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a> #}
+{% endtplhandlebars %}
 
