@@ -283,15 +283,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # Find or create the DocDataPayment for current report.
             ddpayment = DocDataPayment.objects.filter(payment_id=payment_report.id)
             if not ddpayment:
-                status_logger.error(
-                    "DocData status report has unknown payment: {0} - {1}".format(payment.payment_order_key,
-                                                                                  payment.payment_id))
+                status_logger.error("DocData status report has unknown payment: {0}".format(payment.payment_order_key))
                 continue
 
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.payment_methods['payment.payment_method_id'].id:
                 status_logger.error(
-                    "Payment methods do not match: {0}".format(payment.payment_order_key, payment.docdata_payment_id))
+                    "Payment methods do not match: {0} - {1}".format(payment.payment_order_key, ddpayment.payment_id))
                 continue
 
             if not payment_report.authorization.status in DocDataPayment.statuses:
@@ -315,9 +313,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Use the latest DocDataPayment status to set the status on the Cowry Payment.
         ddpayment = payment.latest_docdata_payment
-        lpr = None
+        lpr = report.payment[0]
         for payment_report in report.payment:
-            if payment_report.id == ddpayment.docdata_payment_id:
+            if payment_report.id == ddpayment.payment_id:
                 lpr = payment_report
                 break
 
