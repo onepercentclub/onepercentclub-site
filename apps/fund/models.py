@@ -1,4 +1,5 @@
 from decimal import Decimal
+import random
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -120,3 +121,25 @@ class Voucher(models.Model):
     status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
+
+
+def _generate_voucher_code():
+    # Lower case letters without d, o and i. Numbers without 0 and 1.
+    char_set = 'abcefghjklmnpqrstuvwxyz23456789'
+    return ''.join(random.choice(char_set) for i in range(8))
+
+def process_voucher_order_in_progress(voucher):
+    code = _generate_voucher_code()
+    while Voucher.objects.filter(code=code).exists():
+        code = _generate_voucher_code()
+
+    voucher.code = code
+    voucher.status = Voucher.VoucherStatuses.paid
+    voucher.save()
+
+    # TODO Uncomment this when Loek's code is merged in.
+    # mail_new_voucher(voucher)
+
+def process_donation_order_in_progress(donation):
+    donation.status = Donation.DonationStatuses.in_progress
+    donation.save()
