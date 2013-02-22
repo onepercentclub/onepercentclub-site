@@ -1,9 +1,9 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import ObjectBasedSerializer
+from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
-from .models import Donation, OrderItem, Order, Voucher
+from .models import Donation, Order, Voucher
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -12,15 +12,21 @@ class DonationSerializer(serializers.ModelSerializer):
     project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')
+    amount = EuroField()
 
     def validate_amount(self, attrs, source):
         """
         Check the amount
         """
         value = attrs[source]
-        if value < 5:
+        if value < 500:
             raise serializers.ValidationError(_(u"Amount must be at least €5.00."))
         return attrs
+
+    def save(self):
+        # Set default currency.
+        self.object.currency = 'EUR'
+        return super(DonationSerializer, self).save()
 
     class Meta:
         model = Donation
@@ -52,10 +58,9 @@ class OrderSerializer(serializers.ModelSerializer):
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
     payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
 
-    def get_payment_methods(self, obj):
-        # Cowry payments use minor currency units so we need to convert the Euros to cents.
-        amount = int(obj.amount * 100)
-        return factory.get_payment_method_ids(amount=amount, currency='EUR', country='NL', recurring=obj.recurring)
+    def get_payment_methods(self, order):
+        return factory.get_payment_method_ids(amount=order.amount, currency='EUR', country='NL',
+                                              recurring=order.recurring)
 
     def get_payment_url(self, obj):
         pm = obj.payment.latest_docdata_payment
@@ -69,16 +74,21 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class VoucherSerializer(serializers.ModelSerializer):
+    amount = EuroField()
 
     def validate_amount(self, attrs, source):
         """
         Check the amount
         """
         value = attrs[source]
-        if value not in [10, 25, 50, 100]:
+        if value not in [1000, 2500, 5000, 10000]:
             raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100."))
         return attrs
 
+    def save(self):
+        # Set default currency.
+        self.object.currency = 'EUR'
+        return super(VoucherSerializer, self).save()
 
     class Meta:
         model = Voucher
