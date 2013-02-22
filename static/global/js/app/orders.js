@@ -262,7 +262,6 @@ App.CurrentOrderPaymentController = Em.ObjectController.extend({
 });
 
 
-
 App.CurrentPaymentMethodInfoController = Em.ObjectController.extend({
 
 });
@@ -307,6 +306,7 @@ App.CurrentOrderView = Em.View.extend({
 App.PaymentOrderProfileView = Em.View.extend({
     templateName: 'payment_order_profile',
     tagName: 'form',
+
     submit: function(e){
         e.preventDefault();
         this.controller.updateProfile();
@@ -325,7 +325,6 @@ App.CurrentOrderVoucherListView = Em.View.extend({
     tagName: 'div',
     classNames: ['content']
 });
-
 
 
 App.FinalOrderItemListView = Em.View.extend({
@@ -354,7 +353,6 @@ App.CurrentOrderItemView = Em.View.extend({
     submit: function(e){
         e.preventDefault();
     }
-
 });
 
 
@@ -372,7 +370,6 @@ App.CurrentOrderVoucherView = Em.View.extend({
     submit: function(e){
         e.preventDefault();
     }
-
 });
 
 

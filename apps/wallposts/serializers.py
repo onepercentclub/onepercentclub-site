@@ -96,7 +96,7 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
         # Save the project content type on save.
         project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
-        super(ProjectTextWallPostSerializer, self).save()
+        return super(ProjectTextWallPostSerializer, self).save()
 
 
 class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
@@ -113,7 +113,7 @@ class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
         # Save the project content type on save.
         project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
-        super(ProjectMediaWallPostSerializer, self).save()
+        return super(ProjectMediaWallPostSerializer, self).save()
 
 
 class ProjectWallPostSerializer(PolymorphicSerializer):
@@ -123,5 +123,4 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
         child_models = (
             (TextWallPost, ProjectTextWallPostSerializer),
             (MediaWallPost, ProjectMediaWallPostSerializer),
-            )
-
+        )

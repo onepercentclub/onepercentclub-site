@@ -1,10 +1,8 @@
 from apps.cowry.models import Payment
-from django.contrib.contenttypes.generic import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from django_countries import CountryField
-from djchoices.choices import DjangoChoices, ChoiceItem
 from polymorphic.manager import PolymorphicManager
 from polymorphic.polymorphic_model import PolymorphicModel
 

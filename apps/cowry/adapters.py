@@ -24,7 +24,7 @@ class AbstractPaymentAdapter(object):
     def map_status(self, status):
         if hasattr(self, 'status_mapping'):
             if status in self.status_mapping:
-                return self.map_status(status)
+                return self.status_mapping.get(status)
         return status
 
 
