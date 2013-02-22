@@ -211,9 +211,10 @@ class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
 def process_order_in_progress(order):
     """ Helper method for processing orders that have just been paid. """
     for order_item in order.orderitem_set.all():
-        if order_item == "Voucher":
+        type = order_item.content_object.__class__.__name__
+        if type == "Voucher":
             process_voucher_order_in_progress(order_item.content_object)
-        elif order_item == "Donation":
+        elif type == "Donation":
             process_donation_order_in_progress(order_item.content_object)
 
 
@@ -257,17 +258,10 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
             process_order_in_progress(order)
         else:
             order = self.get_latest_order()
-
-        orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Voucher))
-        voucherset = Voucher.objects.filter(id__in=orderitems.values('object_id'))
-        for voucher in voucherset.all():
-            process_voucher_order_in_progress(voucher)
+            process_order_in_progress(order)
 
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
         donationset = Donation.objects.filter(id__in=orderitems.values('object_id'))
-        for donation in donationset.all():
-            donation.status = Donation.DonationStatuses.in_progress
-            process_donation_order_in_progress(donation)
 
         return donationset
 
