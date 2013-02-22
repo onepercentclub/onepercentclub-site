@@ -1,5 +1,5 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
+from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, ManyRelatedNestedSerializer, EuroField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
@@ -74,7 +74,22 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class VoucherSerializer(serializers.ModelSerializer):
+    donations = ManyRelatedNestedSerializer(DonationSerializer)
     amount = EuroField()
+    sender_name = serializers.Field()
+    sender_email = serializers.Field()
+    message = serializers.Field()
+    receiver_name = serializers.Field()
+    receiver_email = serializers.Field()
+    language = serializers.Field()
+
+    def validate_status(self, attrs, source):
+        value = attrs[source]
+        if not value:
+            attrs[source] = 'new'
+        elif value not in ['cashed']:
+            raise serializers.ValidationError(_(u"Only allowed to change status to 'cashed'"))
+        return attrs
 
     def validate_amount(self, attrs, source):
         """
@@ -93,7 +108,14 @@ class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
         fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
-                  'message')
+                  'message', 'donations', 'status')
+
+
+class VoucherDonationSerializer(DonationSerializer):
+
+    class Meta:
+        model = Donation
+        fields = ('id', 'project_slug')
 
 
 class OrderItemSerializer(ObjectBasedSerializer):

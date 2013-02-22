@@ -142,6 +142,10 @@ App.Adapter.map('App.WallPostReaction', {
     author: {embedded: 'load'}
 });
 
+App.Adapter.map('App.Voucher', {
+    donations: {embedded: 'load'}
+});
+
 
 App.store = DS.Store.create({
     revision: 11,
@@ -363,6 +367,23 @@ App.VoucherRedeemCodeRoute = Ember.Route.extend({
 
     setupController: function(controller, voucher) {
         this.controllerFor('voucherRedeem').set('voucher', voucher);
+    }
+});
+
+
+App.VoucherRedeemAddRoute = Ember.Route.extend({
+    setupController: function(controller, project) {
+        var voucher = this.controllerFor('voucherRedeem').get('voucher');
+        if (project !== undefined) {
+            var transaction = App.store.transaction();
+            App.VoucherDonation.reopen({
+                url: 'fund/vouchers/' + voucher.get('code') + '/donations'
+            })
+            var donation = transaction.createRecord(App.VoucherDonation);
+            donation.set('project_slug', project.get('slug'));
+            donation.set('project', project);
+            transaction.commit();
+        }
     }
 });
 

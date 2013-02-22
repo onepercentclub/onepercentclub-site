@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
@@ -109,6 +110,10 @@ class Voucher(models.Model):
     message = models.TextField(_("message"), blank=True, default="", max_length=500)
     code = models.CharField(_("code"), blank=True, default="", max_length=100)
 
+    status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
+
     sender = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
     sender_email = models.EmailField(_("sender email"))
     sender_name = models.CharField(_("sender name"), blank=True, default="", max_length=100)
@@ -117,6 +122,8 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("receiver email"))
     receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
 
-    status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
-    created = CreationDateTimeField(_("created"))
-    updated = ModificationDateTimeField(_("updated"))
+    donations = models.ManyToManyField("Donation")
+
+    @property
+    def amount_euro(self):
+        return self.amount / 100
