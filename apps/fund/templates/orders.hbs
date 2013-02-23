@@ -67,7 +67,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum eros est.
                     Aliquam volutpat tempus quam, molestie malesuada justo sollicitudin nec.
                     <br />
-                    {{#linkTo voucherCustom}}{% trans "Contact us..." %}{{/linkTo}}
+                    {{#linkTo customVoucherRequest}}{% trans "Contact us..." %}{{/linkTo}}
                 {{/if}}
                 <!--
                   <h3>Did you know?</h3>
@@ -596,7 +596,7 @@
 
 
 
-{% tplhandlebars "voucher_custom" %}
+{% tplhandlebars "custom_voucher_request" %}
 
     <div class="container section">
 
@@ -604,7 +604,43 @@
             <h1 class="">{% trans "Contact us for custom 1%VOUCHERS" %}</h1>
             {% trans "Please fill in the form with your wishes and we will contact you. You can also call us directly on (+31) 20 715 8980" %}
         </header>
+    </div>
+    <br/>
+    <div class="container">
+        <section class="wrapper">
 
+            <div class="content gray">
+
+                <form class="labeled">
+
+                    {{#each errors.amount}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Amount" %}</div>
+                    {{view Em.TextField valueBinding="amount" type="number" step="10" classBinding="errors.amount.length:error"}}
+
+                    {{#each errors.contact_name}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Your name" %}</div>
+                    {{view Em.TextField valueBinding="contact_name" classBinding="errors.contact_name.length:error"}}
+
+                    {{#each errors.contact_email}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Your email" %}</div>
+                    {{view Em.TextField valueBinding="contact_email" classBinding="errors.contact_email.length:error"}}
+
+                    {{#each errors.organization}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Organization" %}</div>
+                    {{view Em.TextField valueBinding="organization" classBinding="errors.organization.length:error"}}
+
+                    {{#each errors.contact_phone}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Phone number" %}</div>
+                    {{view Em.TextField valueBinding="contact_phone" classBinding="errors.contact_phone.length:error"}}
+
+                    {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label wide">{% trans "Anything else? Leave a message." %}</div>
+                    {{view Em.TextArea valueBinding="message" classBinding="errors.message.length:error"}}
+
+                    <a class="right button" {{action sendRequest target="controller"}}>{% trans "Send message" %}</a>
+                </form>
+            </div>
+        </section>
     </div>
 
 {% endtplhandlebars %}

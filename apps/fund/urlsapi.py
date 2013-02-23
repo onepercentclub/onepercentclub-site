@@ -1,3 +1,4 @@
+from apps.fund.views import CustomVoucherRequestList
 from django.conf.urls import patterns, url
 from surlex.dj import surl
 from .views import (FundApi, OrderList, OrderDetail, OrderCurrent, OrderItemList, OrderDonationList,
@@ -23,6 +24,7 @@ urlpatterns = patterns('',
     surl(r'^vouchers/<code:s>$', VoucherDetail.as_view(), name='voucher-detail'),
     surl(r'^vouchers/<code:s>/donations/$', VoucherDonationList.as_view(), name='voucher-donation-list'),
     surl(r'^vouchers/<code:s>/donations/<pk:#>$', VoucherDonationDetail.as_view(), name='voucher-donation-list'),
+    surl(r'^customvouchers/$', CustomVoucherRequestList.as_view(), name='custom-voucher-request-list'),
 
 
 

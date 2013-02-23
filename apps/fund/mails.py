@@ -41,3 +41,20 @@ def mail_voucher_redeemed(voucher, *args, **kwargs):
     msg.send()
 
 
+
+@task
+def mail_custom_voucher_request(voucher_request, *args, **kwargs):
+    # TODO: Put this in config
+    #system_email = 'vouchers@1procentclub.nl'
+    system_email = 'loek@1procentclub.nl'
+    server = 'https://' + Site.objects.get_current().domain
+
+    subject = voucher_request.contact_name + ' ' + _(u'has a custom 1%VOUCHER request.')
+    text_content = voucher_request.contact_name + ' ' + _(u'has a custom 1%VOUCHER request.')
+    context = Context({'voucher_request': voucher_request, 'server': server})
+    html_content = get_template('custom_voucher_request.mail.html').render(context)
+    msg = EmailMultiAlternatives(subject=subject, body=text_content, from_email=voucher_request.contact_email,
+                                 to=[system_email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+

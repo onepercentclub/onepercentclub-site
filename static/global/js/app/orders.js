@@ -126,6 +126,19 @@ App.Payment = DS.Model.extend({
 });
 
 
+App.CustomVoucherRequest = DS.Model.extend({
+    url: 'fund/customvouchers',
+    amount: DS.attr('number', {defaultValue: 0}),
+    type: DS.attr('string', {defaultValue: 'unknown'}),
+    contact_name: DS.attr('string', {defaultValue: ''}),
+    contact_email: DS.attr('string', {defaultValue: ''}),
+    contact_phone: DS.attr('string', {defaultValue: ''}),
+    organization: DS.attr('string', {defaultValue: ''}),
+    message: DS.attr('string', {defaultValue: ''})
+});
+
+
+
 /*
  Controllers
  */
@@ -267,10 +280,6 @@ App.CurrentOrderPaymentController = Em.ObjectController.extend({
 });
 
 
-App.CurrentPaymentMethodInfoController = Em.ObjectController.extend({
-
-});
-
 
 App.VoucherRedeemController = Em.ArrayController.extend({
 
@@ -311,6 +320,28 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         transaction.add(orderItem);
         orderItem.deleteRecord();
         transaction.commit();
+    }
+
+});
+
+
+App.CustomVoucherRequestController = Em.ObjectController.extend({
+
+    createNew: function() {
+        var transaction = App.store.transaction();
+        var voucherRequest =  transaction.createRecord(App.CustomVoucherRequest);
+        voucherRequest.set('contact_name', App.userController.get('content.full_name'));
+        voucherRequest.set('contact_email', App.userController.get('content.email'));
+        this.set('content', voucherRequest);
+        this.set('transaction', transaction);
+
+    },
+
+    sendRequest: function(){
+        var transaction = this.get('transaction');
+        var voucherRequest = this.get('content');
+        transaction.commit();
+
     }
 
 });
@@ -475,9 +506,9 @@ App.VoucherRedeemDoneView = Em.View.extend({
 });
 
 
-App.VoucherCustomView = Em.View.extend({
+App.CustomVoucherRequestCustomView = Em.View.extend({
     tagName: 'form',
-    templateName: 'voucher_custom'
+    templateName: 'custom_voucher_request'
 });
 
 

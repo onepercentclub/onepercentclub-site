@@ -3,7 +3,7 @@ from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, ManyRelatedN
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
-from .models import Donation, Order, Voucher
+from .models import Donation, Order, Voucher, CustomVoucherRequest
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -163,3 +163,12 @@ class OrderItemSerializer(ObjectBasedSerializer):
             (Donation, DonationSerializer),
             (Voucher, VoucherSerializer),
         )
+
+
+class CustomVoucherRequestSerializer(serializers.ModelSerializer):
+    status = serializers.Field()
+
+    class Meta:
+        model =  CustomVoucherRequest
+        fields = ('id', 'status', 'amount', 'contact_name', 'contact_email', 'organization', 'message',
+                  'contact_phone', 'type')

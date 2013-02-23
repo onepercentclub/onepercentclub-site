@@ -1,6 +1,9 @@
 import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
+from apps.fund.mails import mail_custom_voucher_request
+from apps.fund.models import CustomVoucherRequest
+from apps.fund.serializers import CustomVoucherRequestSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -504,3 +507,11 @@ class VoucherDonationDetail(VoucherMixin, generics.RetrieveDestroyAPIView):
         obj.delete()
         return response.Response(status=status.HTTP_204_NO_CONTENT)
 
+
+
+class CustomVoucherRequestList(generics.ListCreateAPIView):
+    model = CustomVoucherRequest
+    serializer_class = CustomVoucherRequestSerializer
+
+    def pre_save(self, obj):
+        mail_custom_voucher_request(obj)

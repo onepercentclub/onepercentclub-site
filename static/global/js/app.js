@@ -54,6 +54,12 @@ Em.View.reopen({
     isLoggedInBinding: "App.userController.isLoggedIn",
 });
 
+
+Em.TextField.reopen({
+    // Add 'step' to attributeBinding
+    attributeBindings: ['type', 'value', 'size', 'step']
+});
+
 App = Em.Application.create({
     _getTemplate: function(template, callback) {
         var hash = {};
@@ -236,7 +242,7 @@ App.Router.map(function() {
     });
 
     this.resource('voucherStart', {path: '/vouchers'}, function() {});
-    this.resource('voucherCustom', {path: '/vouchers/custom'}, function(){});
+    this.resource('customVoucherRequest', {path: '/vouchers/custom'}, function(){});
     this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'}, function(){});
 
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
@@ -354,6 +360,14 @@ App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
     setupController: function(controller) {
         this.controllerFor('currentOrder').set('isVoucherOrder', true);
         controller.createNewVoucher();
+    }
+});
+
+
+App.CustomVoucherRequestRoute = Ember.Route.extend({
+
+    setupController: function(controller) {
+        controller.createNew();
     }
 });
 

@@ -131,6 +131,33 @@ class Voucher(models.Model):
         return self.amount / 100
 
 
+class CustomVoucherRequest(models.Model):
+
+    class CustomVoucherTypes(DjangoChoices):
+        card = ChoiceItem('card', label=_("Card"))
+        digital = ChoiceItem('digital', label=_("Digital"))
+        unknown = ChoiceItem('unknown', label=_("Unknown"))
+
+    class CustomVoucherStatuses(DjangoChoices):
+        new = ChoiceItem('new', label=_("New"))
+        in_progress = ChoiceItem('in progress', label=_("In progress"))
+        finished = ChoiceItem('finished', label=_("Finished"))
+
+    amount = models.IntegerField(_("Amount needed"))
+    contact = models.ForeignKey('auth.User', verbose_name=_("Contact member"), null=True)
+    contact_name = models.CharField(verbose_name=_("Contact email"), max_length=100, blank=True, default="")
+    contact_email = models.EmailField(verbose_name=_("Contact email"), blank=True, default="")
+    contact_phone = models.CharField(verbose_name=_("Contact phone"), max_length=100, blank=True, default="")
+    organization = models.CharField(verbose_name=_("Organization"), max_length=200, blank=True, default="")
+    message = models.TextField(_("message"), default="", max_length=500, blank=True)
+
+    type = models.CharField(_("type"), max_length=20, choices=CustomVoucherTypes.choices,
+                            default=CustomVoucherTypes.unknown)
+    status = models.CharField(_("status"), max_length=20, choices=CustomVoucherStatuses.choices,
+                              default=CustomVoucherStatuses.new, db_index=True)
+    created = CreationDateTimeField(_("created"))
+
+
 def _generate_voucher_code():
     # Lower case letters without d, o and i. Numbers without 0 and 1.
     char_set = 'abcefghjklmnpqrstuvwxyz23456789'
