@@ -128,7 +128,7 @@ App.Payment = DS.Model.extend({
 
 App.CustomVoucherRequest = DS.Model.extend({
     url: 'fund/customvouchers',
-    amount: DS.attr('number', {defaultValue: 0}),
+    amount: DS.attr('number', {defaultValue: 100}),
     type: DS.attr('string', {defaultValue: 'unknown'}),
     contact_name: DS.attr('string', {defaultValue: ''}),
     contact_email: DS.attr('string', {defaultValue: ''}),

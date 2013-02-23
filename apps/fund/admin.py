@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Donation, Order, OrderItem
+from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest
 
 
 class DonationAdmin(admin.ModelAdmin):
@@ -28,3 +28,23 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Order, OrderAdmin)
+
+
+class VoucherAdmin(admin.ModelAdmin):
+    model = Voucher
+    list_filter = ('status', 'sender')
+    list_display = ('created', 'amount_euro', 'status', 'sender', 'sender_email', 'receiver_email')
+
+
+admin.site.register(Voucher, VoucherAdmin)
+
+
+
+class CustomVoucherRequestAdmin(admin.ModelAdmin):
+    model = Voucher
+    list_filter = ('status', 'organization')
+    list_display = ('created', 'amount', 'status', 'contact_name', 'contact_email', 'organization')
+
+
+admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
+
