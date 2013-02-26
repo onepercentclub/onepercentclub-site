@@ -49,18 +49,20 @@ $.ajaxSetup({
     }
 });
 
-Em.View.reopen({
-    userBinding: "App.userController.content",
-    isLoggedInBinding: "App.userController.isLoggedIn",
-});
-
 
 Em.TextField.reopen({
     // Add 'step' to attributeBinding
     attributeBindings: ['type', 'value', 'size', 'step']
 });
 
+// TODO Rename App to BlueBottle, BB or BBApp.
 App = Em.Application.create({
+    VERSION: '1.0.0',
+
+    ready: function() {
+        //..init code goes here...
+    },
+
     _getTemplate: function(template, callback) {
         var hash = {};
         hash.url = '/en/templates/' + template + '.hbs';
@@ -92,6 +94,7 @@ App = Em.Application.create({
     }
 
 });
+
 
 // Load the Handlebar templates.
 // TODO: This is race condition that needs to be addressed but should work most of the time.
@@ -141,9 +144,6 @@ App.Adapter.map('App.ProjectMediaWallPost', {
     photos: {embedded: 'load'},
     reactions: {embedded: 'load'}
 });
-App.Adapter.map('App.Reaction', {
-    author: {embedded: 'load'}
-});
 App.Adapter.map('App.WallPostReaction', {
     author: {embedded: 'load'}
 });
@@ -159,6 +159,9 @@ App.store = DS.Store.create({
 });
 
 
+/* User / Member authentication. */
+
+// TODO The models are not worked properly yet.
 App.Member = DS.Model.extend({
     url: 'members/users',
 
@@ -175,24 +178,26 @@ App.Member = DS.Model.extend({
 
 App.User = App.Member.extend({
     url: 'members',
-    email: DS.attr('string'),
-
-    is_authenticated: function(){
-        return (this.get('username'))  ? true : false;
-    }.property('username')
+    email: DS.attr('string')
 });
 
 
-// TODO: This needs to be changed to extend(). See note about this here:
-// https://github.com/emberjs/ember.js/commit/c1c720781c976f69fd4014ea50a1fee652286048
-App.userController = Em.ObjectController.createWithMixins({
+// Inspiration from:
+// http://stackoverflow.com/questions/14388249/accessing-controllers-from-other-controllers
+App.CurrentUserController = Em.ObjectController.extend({
     init: function() {
         this._super();
-        this.getCurrent();
-    },
-    getCurrent: function(filterParams) {
         this.set("content", App.User.find('current'));
-    }
+    },
+
+    isAuthenticated: function(){
+        return (this.get('content.username')) ? true : false;
+    }.property('content.username')
+});
+
+
+App.ApplicationController = Ember.Controller.extend({
+    needs: ['currentUser']
 });
 
 
@@ -247,9 +252,7 @@ App.Router.map(function() {
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
         this.route('add', {path: '/add/:slug'});
         this.route('code', {path: '/:code'});
-
     });
-
 });
 
 
@@ -279,29 +282,27 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
         // wallposts property. The controller will convert it to an Ember Array.
         wallPostListController.set('wallposts', App.ProjectWallPost.find({project_slug: project.get('slug')}));
 
-        // WallPost creation form controller.
-        var wallPostFormController = this.controllerFor('projectWallPostForm');
-        wallPostFormController.set('currentProject', project);
-        wallPostFormController.set('projectWallPostListController', wallPostListController);
-        // FIXME I don't think this is the way we want to do this.
-        wallPostFormController.set('currentUser', App.userController.get('content'));
+        // WallPost creation controller.
+        var wallPostNewController = this.controllerFor('projectWallPostNew');
+        wallPostNewController.set('currentProject', project);
+        wallPostNewController.set('projectWallPostListController', wallPostListController);
     },
 
     renderTemplate: function(controller, model) {
         this._super();
 
         // Render the wallposts list.
-        this.render('projectwallpost_list', {
+        this.render('project_wallpost_list', {
             into: 'project',
             outlet: 'projectWallPostList',
             controller: 'projectWallPostList'
         });
 
-        // Render the wallpost creation form.
-        this.render('projectwallpost_form', {
+        // Render the wallpost creation View.
+        this.render('project_wallpost_new', {
             into: 'project',
-            outlet: 'projectWallPostForm',
-            controller: 'projectWallPostForm'
+            outlet: 'projectWallPostNew',
+            controller: 'projectWallPostNew'
         });
     }
 });
