@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-22 23:13+0100\n"
+"POT-Creation-Date: 2013-02-26 18:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,114 +37,114 @@ msgstr ""
 msgid "User Profile"
 msgstr ""
 
-#: models.py:26
+#: models.py:23
 msgid "language"
 msgstr ""
 
-#: models.py:75
+#: models.py:72
 msgid "Male"
 msgstr ""
 
-#: models.py:76
+#: models.py:73
 msgid "Female"
 msgstr ""
 
-#: models.py:77 models.py:161
+#: models.py:74 models.py:164
 msgid "Other"
 msgstr ""
 
-#: models.py:80
+#: models.py:77
 msgid "user"
 msgstr ""
 
-#: models.py:81
+#: models.py:78
 msgid "slug"
 msgstr ""
 
-#: models.py:84
+#: models.py:81
 msgid "interface language"
 msgstr ""
 
-#: models.py:85
+#: models.py:82
 msgid "newsletter"
 msgstr ""
 
-#: models.py:85
+#: models.py:82
 msgid "Subscribe to newsletter."
 msgstr ""
 
-#: models.py:88
+#: models.py:85
 msgid "birthdate"
 msgstr ""
 
-#: models.py:89
+#: models.py:86
 msgid "gender"
 msgstr ""
 
-#: models.py:90
+#: models.py:87
 msgid "location"
 msgstr ""
 
-#: models.py:91
+#: models.py:88
 msgid "website"
 msgstr ""
 
-#: models.py:93
+#: models.py:90
 msgid "picture"
 msgstr ""
 
-#: models.py:94
+#: models.py:91
 msgid "languages"
 msgstr ""
 
-#: models.py:95
+#: models.py:92
 msgid "deleted"
 msgstr ""
 
-#: models.py:98
+#: models.py:95
 msgid "about"
 msgstr ""
 
-#: models.py:99
+#: models.py:96
 msgid "why"
 msgstr ""
 
-#: models.py:100
+#: models.py:97
 msgid "contribution"
 msgstr ""
 
-#: models.py:101
+#: models.py:98
 msgid "availability"
 msgstr ""
 
-#: models.py:102
+#: models.py:99
 msgid "working location"
 msgstr ""
 
-#: models.py:104
+#: models.py:101
 msgid "tags"
 msgstr ""
 
-#: models.py:139 models.py:164
+#: models.py:141 models.py:167
 msgid "user profile"
 msgstr ""
 
-#: models.py:140
+#: models.py:142
 msgid "user profiles"
 msgstr ""
 
-#: models.py:160
+#: models.py:163
 msgid "Home"
 msgstr ""
 
-#: models.py:163
+#: models.py:166
 msgid "address type"
 msgstr ""
 
-#: models.py:167
+#: models.py:170
 msgid "user address"
 msgstr ""
 
-#: models.py:168
+#: models.py:171
 msgid "user addresses"
 msgstr ""

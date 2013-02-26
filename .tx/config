@@ -7,9 +7,9 @@ source_file = apps/accounts/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.donations_django]
-file_filter = apps/donations/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/donations/locale/en/LC_MESSAGES/django.po
+[bluebottle.fund_django]
+file_filter = apps/fund/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/fund/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
@@ -28,6 +28,54 @@ type = PO
 [bluebottle.projects_django]
 file_filter = apps/projects/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/projects/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.blogs_django]
+file_filter = apps/blogs/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/blogs/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.bluebottle_dashboard_django]
+file_filter = apps/bluebottle_dashboard/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/bluebottle_dashboard/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.contentplugins_django]
+file_filter = apps/contentplugins/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/contentplugins/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.cowry_django]
+file_filter = apps/cowry/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/cowry/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.cowry_docdata_django]
+file_filter = apps/cowry_docdata/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/cowry_docdata/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.love_django]
+file_filter = apps/love/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/love/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.reactions_django]
+file_filter = apps/reactions/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/reactions/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[bluebottle.wallposts_django]
+file_filter = apps/wallposts/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/wallposts/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

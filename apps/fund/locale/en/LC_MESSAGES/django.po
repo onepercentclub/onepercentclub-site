@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-22 23:13+0100\n"
+"POT-Creation-Date: 2013-02-26 18:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,62 +17,138 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:24
-msgid "Closed"
-msgstr ""
-
-#: models.py:25
-msgid "Expired"
-msgstr ""
-
-#: models.py:26
-msgid "Paid"
-msgstr ""
-
-#: models.py:27
-msgid "Canceled"
-msgstr ""
-
-#: models.py:28
-msgid "Chargedback"
-msgstr ""
-
-#: models.py:29
+#: models.py:19 models.py:52 models.py:97
 msgid "New"
 msgstr ""
 
-#: models.py:30
-msgid "Started"
+#: models.py:20
+msgid "In Progress"
 msgstr ""
 
-#: models.py:32
-msgid "user"
+#: models.py:21 models.py:55 models.py:98
+msgid "Paid"
 msgstr ""
 
-#: models.py:33
+#: models.py:22 models.py:50
+msgid "Cancelled"
+msgstr ""
+
+#: models.py:24 models.py:106
 msgid "amount"
 msgstr ""
 
-#: models.py:34
+#: models.py:25 models.py:107
+msgid "currency"
+msgstr ""
+
+#: models.py:27 models.py:57
+msgid "user"
+msgstr ""
+
+#: models.py:28
 msgid "project"
 msgstr ""
 
-#: models.py:37
+#: models.py:30 models.py:58 models.py:121
 msgid "status"
 msgstr ""
 
-#: models.py:39
+#: models.py:31 models.py:60 models.py:122
 msgid "created"
 msgstr ""
 
-#: models.py:40
+#: models.py:32 models.py:61 models.py:123
 msgid "updated"
 msgstr ""
 
-#: models.py:43
+#: models.py:35
 msgid "donation"
 msgstr ""
 
-#: models.py:44
+#: models.py:36
 msgid "donations"
+msgstr ""
+
+#: models.py:49
+msgid "Started"
+msgstr ""
+
+#: models.py:51
+msgid "Checkout"
+msgstr ""
+
+#: models.py:53
+msgid "Pending"
+msgstr ""
+
+#: models.py:54
+msgid "Failed"
+msgstr ""
+
+#: models.py:99
+msgid "Cashed"
+msgstr ""
+
+#: models.py:100
+msgid "Cashed by us"
+msgstr ""
+
+#: models.py:103
+msgid "English"
+msgstr ""
+
+#: models.py:104
+msgid "Dutch"
+msgstr ""
+
+#: models.py:109
+msgid "language"
+msgstr ""
+
+#: models.py:110
+msgid "message"
+msgstr ""
+
+#: models.py:111
+msgid "code"
+msgstr ""
+
+#: models.py:113
+msgid "sender"
+msgstr ""
+
+#: models.py:114
+msgid "sender email"
+msgstr ""
+
+#: models.py:115
+msgid "sender name"
+msgstr ""
+
+#: models.py:117
+msgid "receiver"
+msgstr ""
+
+#: models.py:118
+msgid "receiver email"
+msgstr ""
+
+#: models.py:119
+msgid "receiver name"
+msgstr ""
+
+#: serializers.py:23
+msgid "Amount must be at least €5.00."
+msgstr ""
+
+#: serializers.py:85
+msgid "Amount can only be €10, €25, €50 or €100."
+msgstr ""
+
+#: views.py:420
+msgid "No voucher code supplied."
+msgstr ""
+
+#: views.py:424
+msgid "No voucher found matching the query"
 msgstr ""

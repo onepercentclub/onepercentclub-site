@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-26 18:05+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:15
+msgid "New"
+msgstr ""
+
+#: models.py:16
+msgid "In Progress"
+msgstr ""
+
+#: models.py:17
+msgid "Paid"
+msgstr ""
+
+#: models.py:18
+msgid "Failed"
+msgstr ""
+
+#: models.py:19
+msgid "Cancelled"
+msgstr ""
+
+#: models.py:20
+msgid "Refunded"
+msgstr ""
+
+#: models.py:23
+msgid "amount"
+msgstr ""
+
+#: models.py:27
+msgid "payment service fee"
+msgstr ""
+
+#: models.py:33
+msgid "status"
+msgstr ""
+
+#: models.py:35
+msgid "created"
+msgstr ""
+
+#: models.py:36
+msgid "updated"
+msgstr ""
