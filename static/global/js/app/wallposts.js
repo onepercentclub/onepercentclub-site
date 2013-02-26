@@ -116,13 +116,18 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         this.set('content.errors', null);
     },
 
-    // Clear the errors when there's text in the text box.
+    // Clear the errors when there's text in the text and input boxes.
     textChanged: function(sender, key) {
-        var textLength = this.get('content.text.length');
-        if (textLength && textLength > 0) {
-            this.set('content.errors', null)
+        if (this.get('content.errors')) {
+            var textLength = this.get(key);
+            if (textLength && textLength > 0) {
+                var field = key.split('.')[1];
+                if (this.get('content.errors.' + field)) {
+                    this.set('content.errors.' + field, null)
+                }
+            }
         }
-    }.observes('content.text.length'),
+    }.observes('content.text.length', 'content.video_url.length', 'content.title.length'),
 
     isProjectOwner: function() {
         var username = this.get('controllers.currentUser.username');
@@ -189,7 +194,7 @@ App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
-    contentBinding: 'parentView.content',
+    contentBinding: 'parentView.controller.content',
 
     change: function(e) {
         var input = e.target;

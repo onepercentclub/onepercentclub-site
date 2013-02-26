@@ -66,11 +66,16 @@ App.WallPostReactionNewController = Em.ObjectController.extend({
         this.get('transaction').commit();
     },
 
-    // Clear the errors when there's text in the reaction box.
+    // Clear the errors when there's text in the text and input boxes.
     textChanged: function(sender, key) {
-        var textLength = this.get('content.text.length');
-        if (textLength && textLength > 0) {
-            this.set('content.errors', null)
+        if (this.get('content.errors')) {
+            var textLength = this.get(key);
+            if (textLength && textLength > 0) {
+                var field = key.split('.')[1];
+                if (this.get('content.errors.' + field)) {
+                    this.set('content.errors.' + field, null)
+                }
+            }
         }
     }.observes('content.text.length')
 });
