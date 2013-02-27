@@ -2,7 +2,7 @@
 {% load i18n %}
 
 
-{% tplhandlebars "projectwallpost_form" %}
+{% tplhandlebars "project_wallpost_new" %}
 
 <div class="container section">
     <section class="wrapper" id="wallpost-form">
@@ -10,12 +10,11 @@
             <h2>{% trans "Comments & Updates" %}</h2>
         </header>
 
-        {# TODO: Need better way to do authentication. #}
-        {{#if view.user.username }}
+        {{#if controllers.currentUser.isAuthenticated }}
             {{#if isProjectOwner }}
-                {{view App.MediaWallPostFormView content=content}}
+                {{view App.MediaWallPostNewView content=content}}
             {{else}}
-                {{view App.TextWallPostFormView content=content}}
+                {{view App.TextWallPostNewView content=content}}
             {{/if}}
         {{else}}
             <form>{% trans "Login to leave a comment." %}</form>
@@ -27,7 +26,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "media_wallpost_form" %}
+{% tplhandlebars "media_wallpost_new" %}
 
     <fieldset>
         <ul>
@@ -77,7 +76,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "text_wallpost_form" %}
+{% tplhandlebars "text_wallpost_new" %}
 
     <fieldset>
         <ul>
@@ -95,10 +94,10 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "projectwallpost_list" %}
+{% tplhandlebars "project_wallpost_list" %}
 
 <section class="wrapper">
-    {{#each controller}}
+    {{#each controller itemController="projectWallPost"}}
         {{view "App.ProjectWallPostView" content=this}}
     {{/each}}
 </section>
@@ -106,7 +105,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "projectwallpost" %}
+{% tplhandlebars "project_wallpost" %}
 
 <article class="wallpost">
     <header>
@@ -117,7 +116,7 @@
             <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
         </a>
 
-        {{#if view.isAuthor}}
+        {{#if isAuthor}}
             <ul class="manage">
                 <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
                 <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
@@ -159,7 +158,7 @@
 
     <!-- reaction-box -->
     <div class="reaction-box">
-        {{view "App.WallPostReactionFormView"}}
+        {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
 
         <ul class="reaction-actions not-implemented">
             <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">{{reactions.length}} Comments</a></li>
@@ -174,7 +173,8 @@
             </li>
         </ul>
 
-        {{view "App.WallPostReactionListView"}}
+        {# {{view "App.WallPostReactionListView" }} #}
+         {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
     </div>
     <!-- end: reaction-box -->
 
