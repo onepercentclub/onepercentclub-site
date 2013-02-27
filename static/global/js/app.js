@@ -238,19 +238,17 @@ App.Router.map(function() {
         });
     });
 
-    this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
-    });
+    this.resource('finalOrderItemList', {path: '/support/thanks'});
 
-    this.resource('voucherStart', {path: '/vouchers'}, function() {});
-    this.resource('customVoucherRequest', {path: '/vouchers/custom'}, function(){});
-    this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'}, function(){});
+    this.resource('voucherStart', {path: '/vouchers'});
+    this.resource('customVoucherRequest', {path: '/vouchers/custom'});
+    this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'});
 
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
         this.route('add', {path: '/add/:slug'});
         this.route('code', {path: '/:code'});
 
     });
-
 
 });
 
@@ -367,7 +365,8 @@ App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
 App.CustomVoucherRequestRoute = Ember.Route.extend({
 
     setupController: function(controller) {
-        controller.createNew();
+        // TODO: Find out why init() doesn't run automatically.
+        controller.init();
     }
 });
 
@@ -397,10 +396,11 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                 url: 'fund/vouchers/' + voucher.get('code') + '/donations'
             });
             var donation = transaction.createRecord(App.VoucherDonation);
+            // Set project in two ways here until we come up with proper solution.
             donation.set('project_slug', project.get('slug'));
             donation.set('project', project);
+            // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
             donation.on('didCreate', function(record){
-                console.log('yuuu');
                 voucher.get('donations').clear();
                 voucher.get('donations').pushObject(record);
             });

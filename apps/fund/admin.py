@@ -39,7 +39,6 @@ class VoucherAdmin(admin.ModelAdmin):
 admin.site.register(Voucher, VoucherAdmin)
 
 
-
 class CustomVoucherRequestAdmin(admin.ModelAdmin):
     model = Voucher
     list_filter = ('status', 'organization')

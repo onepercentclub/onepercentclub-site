@@ -315,7 +315,8 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         });
         transaction.commit();
     },
-    deleteOrderItem: function(orderItem) {
+    // Currently not used. Keep this around for multiple Donations per Voucher.
+    deleteVoucherDonation: function(orderItem) {
         var transaction = App.store.transaction();
         transaction.add(orderItem);
         orderItem.deleteRecord();
@@ -327,7 +328,12 @@ App.VoucherRedeemController = Em.ArrayController.extend({
 
 App.CustomVoucherRequestController = Em.ObjectController.extend({
 
-    createNew: function() {
+    init: function() {
+        this._super();
+        this.createCustomVoucherRequest();
+    },
+
+    createCustomVoucherRequest: function() {
         var transaction = App.store.transaction();
         var voucherRequest =  transaction.createRecord(App.CustomVoucherRequest);
         voucherRequest.set('contact_name', App.userController.get('content.full_name'));
@@ -399,13 +405,10 @@ App.CurrentOrderItemView = Em.View.extend({
     change: function(e){
         this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
     },
-
+    // Not used until we do multiple donations/voucher
     delete: function(item){
         var controller = this.get('controller');
         this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
-    },
-    submit: function(e){
-        e.preventDefault();
     }
 });
 

@@ -1,9 +1,6 @@
 import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
-from apps.fund.mails import mail_custom_voucher_request
-from apps.fund.models import CustomVoucherRequest
-from apps.fund.serializers import CustomVoucherRequestSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -15,10 +12,12 @@ from rest_framework import response
 from rest_framework import generics
 from rest_framework import exceptions
 from django.utils.translation import ugettext as _
-from .mails import mail_voucher_redeemed
-from .models import Donation, OrderItem, Order, Voucher, process_voucher_order_in_progress, process_donation_order_in_progress
+from .mails import mail_voucher_redeemed, mail_custom_voucher_request
+from .models import (Donation, OrderItem, Order, Voucher, CustomVoucherRequest,
+                     process_voucher_order_in_progress, process_donation_order_in_progress)
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
-                          PaymentMethodSerializer, VoucherDonationSerializer, VoucherRedeemSerializer)
+                          PaymentMethodSerializer, VoucherDonationSerializer, VoucherRedeemSerializer,
+                          CustomVoucherRequestSerializer)
 
 from .mails import mail_new_voucher
 
@@ -264,9 +263,8 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
             order = self.get_latest_order()
 
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
-        donationset = Donation.objects.filter(id__in=orderitems.values('object_id'))
-
-        return donationset
+        queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
+        return queryset
 
 
 class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
@@ -404,6 +402,9 @@ class OrderDonationDetail(OrderItemMixin, CurrentOrderMixin, generics.RetrieveUp
 
 
 class OrderVoucherList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPIView):
+    """
+    Resource for ordering Vouchers
+    """
     model = Voucher
     serializer_class = VoucherSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -412,6 +413,9 @@ class OrderVoucherList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPI
 
 
 class OrderVoucherDetail(OrderItemMixin, CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
+    """
+    Resource for changing a Voucher order
+    """
     model = Voucher
     serializer_class = VoucherSerializer
 
@@ -435,11 +439,17 @@ class VoucherMixin(object):
 
 
 class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
+    """
+    Resource for Voucher redemption
+    """
     model = Voucher
     serializer_class = VoucherRedeemSerializer
 
     def get_object(self, queryset=None):
-        return self.get_voucher()
+        obj = self.get_voucher()
+        if not self.has_permission(self.request, obj):
+            self.permission_denied(self.request)
+        return obj
 
     def pre_save(self, obj):
         mail_voucher_redeemed(obj)
@@ -479,7 +489,6 @@ class VoucherDonationList(VoucherMixin, generics.ListCreateAPIView):
 
         obj.save()
         voucher.donations.add(obj)
-
 
     def get_queryset(self):
         voucher = self.get_voucher()

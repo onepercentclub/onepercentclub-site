@@ -384,12 +384,11 @@
         {{#if content.isLoaded}}
             {{#each errors.bank_account_number}}<span class="error">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="bank_account_number" placeholder="Bank account number" classBinding="errors.bank_account_number.length:error"}}
-
             {{#each errors.bank_account_name}}<span class="error">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="bank_account_name" placeholder="Bank account holder name" classBinding="errors.bank_account_name.length:error"}}
 
             {{#each errors.bank_account_city}}<span class="error">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="bank_account_city" placeholder="Bank account city" classBinding="errors.bank_account_city.length:error"}}
+            {{view Em.TextField valueBinding="bank_account_city" placeholder="Bank account city" classBinding="errors.bank_account_city.length:error :clear"}}
 
             <button>{% trans "Next" %}</button>
         {{else}}

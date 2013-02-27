@@ -151,10 +151,8 @@ class CustomVoucherRequest(models.Model):
     organization = models.CharField(verbose_name=_("Organization"), max_length=200, blank=True, default="")
     message = models.TextField(_("message"), default="", max_length=500, blank=True)
 
-    type = models.CharField(_("type"), max_length=20, choices=CustomVoucherTypes.choices,
-                            default=CustomVoucherTypes.unknown)
-    status = models.CharField(_("status"), max_length=20, choices=CustomVoucherStatuses.choices,
-                              default=CustomVoucherStatuses.new, db_index=True)
+    type = models.CharField(_("type"), max_length=20, choices=CustomVoucherTypes.choices, default=CustomVoucherTypes.unknown)
+    status = models.CharField(_("status"), max_length=20, choices=CustomVoucherStatuses.choices, default=CustomVoucherStatuses.new, db_index=True)
     created = CreationDateTimeField(_("created"))
 
 
