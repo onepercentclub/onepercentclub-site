@@ -283,7 +283,7 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
             payment.language = profile.interface_language
             payment.street = address.line1
             payment.city = address.city
-            payment.postal_code = address.zip_code
+            payment.postal_code = address.postal_code
             payment.country = address.country.alpha2_code
             payment.save()
         else:
