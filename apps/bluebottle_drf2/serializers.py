@@ -222,19 +222,6 @@ class SlugGenericRelatedField(serializers.RelatedField):
             return to_instance.id
 
 
-class ManyRelatedNestedSerializer(serializers.ManyRelatedField):
-    """
-        Nested Serializer.
-    """
-
-    def __init__(self, serializer_class, *args, **kwargs):
-        self.serializer = serializer_class()
-        super(ManyRelatedNestedSerializer, self).__init__(*args, **kwargs)
-
-    def to_native(self, obj):
-        return self.serializer.to_native(obj)
-
-
 class ObjectBasedSerializerOptions(serializers.SerializerOptions):
     def __init__(self, meta):
         super(ObjectBasedSerializerOptions, self).__init__(meta)

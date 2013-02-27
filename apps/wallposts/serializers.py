@@ -1,6 +1,6 @@
 from apps.bluebottle_drf2.serializers import (TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer,
-                                              PrimaryKeyGenericRelatedField, ManyRelatedNestedSerializer, SorlImageField,
-                                              SlugGenericRelatedField, ContentTextField)
+                                              PrimaryKeyGenericRelatedField, SorlImageField, SlugGenericRelatedField,
+                                              ContentTextField)
 from apps.projects.models import Project
 from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
@@ -35,7 +35,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
     timesince = TimeSinceField(source='created')
-    reactions = ManyRelatedNestedSerializer(WallPostReactionSerializer)
+    reactions = WallPostReactionSerializer(many=True)
 
     class Meta:
         fields = ('id', 'url', 'type', 'author', 'created', 'timesince', 'reactions')
@@ -55,7 +55,7 @@ class MediaWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='media')
     # This is temporary and will go away when we figure out how to upload related photos.
     photo = SorlImageField('photo', '529x296', required=False)
-    photos = ManyRelatedNestedSerializer(MediaWallPostPhotoSerializer)
+    photos = MediaWallPostPhotoSerializer(many=True)
 
     class Meta:
         model = MediaWallPost
