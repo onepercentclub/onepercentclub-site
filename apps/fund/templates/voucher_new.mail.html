@@ -1,0 +1,11 @@
+{% extends "base.mail.html" %}
+
+{% block content %}
+    Hello {{ voucher.receiver_name }},<br/><br/>
+    {{ voucher.sender_name }} has sent you a <b>1%VOUCHER</b> worth &euro;{{ voucher.amount_euro }}.<br/>
+    You can pick your own project at 1%CLUB to support with this <b>1%VOUCHER</b>.<br/>
+    Click this <a href="{{ server }}/#/vouchers/redeem/{{ voucher.code }}">{{ server }}/#/vouchers/redeem/{{ voucher.code }}</a> redeem your 1%VOUCHER and support a project.<br/>
+    <br/>
+    <span class="pink">YOU</span> <span class="green">MAKE IT WORK!</span>
+{% endblock %}
+

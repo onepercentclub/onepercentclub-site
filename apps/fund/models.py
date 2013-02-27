@@ -1,7 +1,9 @@
 from decimal import Decimal
 import random
+from apps.fund.mails import mail_new_voucher
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
@@ -110,6 +112,10 @@ class Voucher(models.Model):
     message = models.TextField(_("message"), blank=True, default="", max_length=500)
     code = models.CharField(_("code"), blank=True, default="", max_length=100)
 
+    status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
+
     sender = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
     sender_email = models.EmailField(_("sender email"))
     sender_name = models.CharField(_("sender name"), blank=True, default="", max_length=100)
@@ -118,9 +124,36 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("receiver email"))
     receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
 
-    status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
+    donations = models.ManyToManyField("Donation")
+
+    @property
+    def amount_euro(self):
+        return self.amount / 100
+
+
+class CustomVoucherRequest(models.Model):
+
+    class CustomVoucherTypes(DjangoChoices):
+        card = ChoiceItem('card', label=_("Card"))
+        digital = ChoiceItem('digital', label=_("Digital"))
+        unknown = ChoiceItem('unknown', label=_("Unknown"))
+
+    class CustomVoucherStatuses(DjangoChoices):
+        new = ChoiceItem('new', label=_("New"))
+        in_progress = ChoiceItem('in progress', label=_("In progress"))
+        finished = ChoiceItem('finished', label=_("Finished"))
+
+    amount = models.IntegerField(_("Amount needed"))
+    contact = models.ForeignKey('auth.User', verbose_name=_("Contact member"), null=True)
+    contact_name = models.CharField(verbose_name=_("Contact email"), max_length=100, blank=True, default="")
+    contact_email = models.EmailField(verbose_name=_("Contact email"), blank=True, default="")
+    contact_phone = models.CharField(verbose_name=_("Contact phone"), max_length=100, blank=True, default="")
+    organization = models.CharField(verbose_name=_("Organization"), max_length=200, blank=True, default="")
+    message = models.TextField(_("message"), default="", max_length=500, blank=True)
+
+    type = models.CharField(_("type"), max_length=20, choices=CustomVoucherTypes.choices, default=CustomVoucherTypes.unknown)
+    status = models.CharField(_("status"), max_length=20, choices=CustomVoucherStatuses.choices, default=CustomVoucherStatuses.new, db_index=True)
     created = CreationDateTimeField(_("created"))
-    updated = ModificationDateTimeField(_("updated"))
 
 
 def _generate_voucher_code():
@@ -136,9 +169,7 @@ def process_voucher_order_in_progress(voucher):
     voucher.code = code
     voucher.status = Voucher.VoucherStatuses.paid
     voucher.save()
-
-    # TODO Uncomment this when Loek's code is merged in.
-    # mail_new_voucher(voucher)
+    mail_new_voucher(voucher)
 
 def process_donation_order_in_progress(donation):
     donation.status = Donation.DonationStatuses.in_progress

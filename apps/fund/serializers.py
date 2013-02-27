@@ -1,9 +1,9 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
+from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, ManyRelatedNestedSerializer, EuroField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
-from .models import Donation, Order, Voucher
+from .models import Donation, Order, Voucher, CustomVoucherRequest
 
 
 class DonationSerializer(serializers.ModelSerializer):
@@ -73,8 +73,42 @@ class OrderSerializer(serializers.ModelSerializer):
                   'payment_url')
 
 
+class VoucherRedeemSerializer(serializers.ModelSerializer):
+    """
+    Used for redeeming a Voucher and setting it to 'cashed'.
+    """
+    amount = EuroField(read_only=True)
+    language = serializers.Field()
+    receiver_email = serializers.Field()
+    receiver_name = serializers.Field()
+    sender_email = serializers.Field()
+    sender_name = serializers.Field()
+    message = serializers.Field()
+    donations = ManyRelatedNestedSerializer(DonationSerializer)
+
+
+    def validate_status(self, attrs, source):
+        value = attrs[source]
+        if value not in ['cashed']:
+            raise serializers.ValidationError(_(u"Only allowed to change status to 'cashed'"))
+        # TODO: Do a check if the amount of all donations for this voucher equals Voucher amount.
+        # ?? self.object.amount == self.object.donations.aggregate(Sum('amount')
+
+        return attrs
+
+
+    class Meta:
+        model = Voucher
+        fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
+                  'message', 'donations', 'status')
+
+
 class VoucherSerializer(serializers.ModelSerializer):
+    """
+    Used for creating new Vouchers in Order screens.
+    """
     amount = EuroField()
+    status = serializers.Field()
 
     def validate_amount(self, attrs, source):
         """
@@ -82,7 +116,7 @@ class VoucherSerializer(serializers.ModelSerializer):
         """
         value = attrs[source]
         if value not in [1000, 2500, 5000, 10000]:
-            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100."))
+            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100. Not "+ str(value) ))
         return attrs
 
     def save(self):
@@ -93,7 +127,18 @@ class VoucherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voucher
         fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
-                  'message')
+                  'message', 'status')
+
+
+class VoucherDonationSerializer(DonationSerializer):
+    # The duplication of project is temporary. See note in orders.js App.OrderItem.
+    project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
+    project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
+    status = serializers.ChoiceField(read_only=True)
+
+    class Meta:
+        model = Donation
+        fields = ('id', 'project_id', 'project_slug')
 
 
 class OrderItemSerializer(ObjectBasedSerializer):
@@ -119,3 +164,12 @@ class OrderItemSerializer(ObjectBasedSerializer):
             (Donation, DonationSerializer),
             (Voucher, VoucherSerializer),
         )
+
+
+class CustomVoucherRequestSerializer(serializers.ModelSerializer):
+    status = serializers.Field()
+
+    class Meta:
+        model =  CustomVoucherRequest
+        fields = ('id', 'status', 'amount', 'contact_name', 'contact_email', 'organization', 'message',
+                  'contact_phone', 'type')
