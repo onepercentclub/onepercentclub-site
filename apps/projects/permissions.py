@@ -7,7 +7,8 @@ class IsProjectOwner(permissions.BasePermission):
     Allows access only to project owner.
 
     """
-    def get_project_from_request(self, request):
+
+    def _get_project_from_request(self, request):
         if request.DATA:
             project_slug = request.DATA.get('project_slug', None)
         else:
@@ -20,17 +21,16 @@ class IsProjectOwner(permissions.BasePermission):
         else:
             return None
         return project
-    
 
-    def has_permission(self, request, view, obj=None):
 
+    def has_object_permission(self, request, view, obj):
         # Test for project model object-level
         if isinstance(obj, Project) and obj.owner == request.user:
             return True
 
         # Test for objects/lists related to a Project (e.g WallPosts).
         # Get the project form the request
-        project = self.get_project_from_request(request)
+        project = self._get_project_from_request(request)
         if project and project.owner == request.user:
             return True
 
@@ -41,9 +41,9 @@ class IsProjectOwnerOrReadOnly(IsProjectOwner):
     """
     Allows access only to project owner.
     """
-    def has_permission(self, request, view, obj=None):
 
+    def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        return super(IsProjectOwnerOrReadOnly, self).has_permission(request, view, obj)
+        return super(IsProjectOwnerOrReadOnly, self).has_object_permission(request, view, obj)

@@ -442,10 +442,9 @@ class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
     serializer_class = VoucherRedeemSerializer
 
     def get_object(self, queryset=None):
-        obj = self.get_voucher()
-        if not self.has_permission(self.request, obj):
-            self.permission_denied(self.request)
-        return obj
+        voucher = self.get_voucher()
+        self.check_object_permissions(self.request, voucher)
+        return voucher
 
     def pre_save(self, obj):
         mail_voucher_redeemed(obj)
