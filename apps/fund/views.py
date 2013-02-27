@@ -1,21 +1,25 @@
 import threading
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
-from apps.fund.models import process_voucher_order_in_progress, process_donation_order_in_progress
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import payments, factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView
 from django.db import transaction
-from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
+from rest_framework import exceptions
 from django.utils.translation import ugettext as _
-from .models import Donation, OrderItem, Order, Voucher
+from .mails import mail_voucher_redeemed, mail_custom_voucher_request
+from .models import (Donation, OrderItem, Order, Voucher, CustomVoucherRequest,
+                     process_voucher_order_in_progress, process_donation_order_in_progress)
 from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
-                          PaymentMethodSerializer)
+                          PaymentMethodSerializer, VoucherDonationSerializer, VoucherRedeemSerializer,
+                          CustomVoucherRequestSerializer)
+
+from .mails import mail_new_voucher
 
 
 # Lock used in the CurrentOrderMixin. It needs to be outside of Mixin so it's created more than once.
@@ -206,12 +210,14 @@ class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
         return order.orderitem_set.all()
 
 
+
 def process_order_in_progress(order):
     """ Helper method for processing orders that have just been paid. """
     for order_item in order.orderitem_set.all():
-        if order_item == "Voucher":
+        type = order_item.content_object.__class__.__name__
+        if type == "Voucher":
             process_voucher_order_in_progress(order_item.content_object)
-        elif order_item == "Donation":
+        elif type == "Donation":
             process_donation_order_in_progress(order_item.content_object)
 
 
@@ -255,6 +261,7 @@ class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
             process_order_in_progress(order)
         else:
             order = self.get_latest_order()
+
         orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
         queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
         return queryset
@@ -395,6 +402,9 @@ class OrderDonationDetail(OrderItemMixin, CurrentOrderMixin, generics.RetrieveUp
 
 
 class OrderVoucherList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPIView):
+    """
+    Resource for ordering Vouchers
+    """
     model = Voucher
     serializer_class = VoucherSerializer
     permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -403,23 +413,114 @@ class OrderVoucherList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPI
 
 
 class OrderVoucherDetail(OrderItemMixin, CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
+    """
+    Resource for changing a Voucher order
+    """
     model = Voucher
     serializer_class = VoucherSerializer
 
 
-class VoucherDetail(CurrentOrderMixin, generics.RetrieveAPIView):
-    model = Voucher
-    serializer_class = VoucherSerializer
+class VoucherMixin(object):
 
-    def get_object(self, queryset=None):
+    def get_voucher(self):
         """
-        Override default to add support for object-level permissions.
+        Override default to have semantic error responses.
         """
         code = self.kwargs.get('code', None)
         if not code:
-            raise Http404(_(u"No voucher code supplied."))
+            raise exceptions.ParseError(detail=_(u"No voucher code supplied."))
         try:
-            obj = Voucher.objects.get(code=code)
+            voucher = Voucher.objects.get(code=code)
         except Voucher.DoesNotExist:
-            raise Http404(_(u"No voucher found matching the query"))
+            raise exceptions.ParseError(detail=_(u"No voucher with that code."))
+        if voucher.status != Voucher.VoucherStatuses.paid:
+            raise exceptions.PermissionDenied(detail=_(u"Voucher code already used."))
+        return voucher
+
+
+class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
+    """
+    Resource for Voucher redemption
+    """
+    model = Voucher
+    serializer_class = VoucherRedeemSerializer
+
+    def get_object(self, queryset=None):
+        obj = self.get_voucher()
+        if not self.has_permission(self.request, obj):
+            self.permission_denied(self.request)
         return obj
+
+    def pre_save(self, obj):
+        mail_voucher_redeemed(obj)
+        if self.request.user.is_authenticated():
+            obj.receiver = self.request.user
+        if obj.status == Voucher.VoucherStatuses.cashed:
+            for donation in obj.donations.all():
+                donation.status = Donation.DonationStatuses.paid
+                donation.save()
+
+
+class VoucherDonationList(VoucherMixin, generics.ListCreateAPIView):
+    model = Donation
+    serializer_class = VoucherDonationSerializer
+
+
+    def pre_save(self, obj):
+        voucher = self.get_voucher()
+        # Clear previous donations for this voucher
+        for donation in voucher.donations.all():
+            donation.delete()
+        obj.amount = voucher.amount
+
+        """
+        Keep this code around for if we want to change to multiple donations for one voucher.
+
+        count = len(voucher.donations.all()) + 1
+        rest_amount = voucher.amount
+        part_amount = floor(voucher.amount / count)
+        for donation in voucher.donations.all():
+            rest_amount -= part_amount
+            donation.amount = part_amount
+            donation.save()
+
+        obj.amount = rest_amount
+        """
+
+        obj.save()
+        voucher.donations.add(obj)
+
+    def get_queryset(self):
+        voucher = self.get_voucher()
+        return voucher.donations.all()
+
+
+# Not used yet, until we want multiple donations per voucher
+class VoucherDonationDetail(VoucherMixin, generics.RetrieveDestroyAPIView):
+    model = Donation
+    serializer_class = VoucherDonationSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        obj = self.get_object()
+        voucher = self.get_voucher()
+        count = len(voucher.donations.all()) - 1
+        if count:
+            part_amount = round(100 * voucher.amount / count) / 100
+            rest_amount = voucher.amount
+            for donation in voucher.donations.all():
+                rest_amount -= part_amount
+                donation.amount = part_amount
+                donation.save()
+            donation.amount += rest_amount
+            donation.save()
+        obj.delete()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+class CustomVoucherRequestList(generics.ListCreateAPIView):
+    model = CustomVoucherRequest
+    serializer_class = CustomVoucherRequestSerializer
+
+    def pre_save(self, obj):
+        mail_custom_voucher_request(obj)

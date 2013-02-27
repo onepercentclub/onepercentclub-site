@@ -71,6 +71,10 @@ App.CurrentDonation = App.OrderItem.extend({
     url: 'fund/orders/current/donations'
 });
 
+App.VoucherDonation = App.CurrentDonation.extend({
+   url: 'fund/vouchers/:code/donations'
+});
+
 
 App.Voucher =  App.OrderItem.extend({
     url: 'fund/vouchers',
@@ -80,7 +84,8 @@ App.Voucher =  App.OrderItem.extend({
     sender_email: DS.attr('string'),
     message: DS.attr('string', {defaultValue: ''}),
     language: DS.attr('string', {defaultValue: 'en'}),
-    amount: DS.attr('number', {defaultValue: 25})
+    amount: DS.attr('number', {defaultValue: 25}),
+    donations: DS.hasMany('App.VoucherDonation')
 });
 
 
@@ -119,6 +124,19 @@ App.Payment = DS.Model.extend({
     amount: DS.attr('number'),
     status: DS.attr('string')
 });
+
+
+App.CustomVoucherRequest = DS.Model.extend({
+    url: 'fund/customvouchers',
+    amount: DS.attr('number', {defaultValue: 100}),
+    type: DS.attr('string', {defaultValue: 'unknown'}),
+    contact_name: DS.attr('string', {defaultValue: ''}),
+    contact_email: DS.attr('string', {defaultValue: ''}),
+    contact_phone: DS.attr('string', {defaultValue: ''}),
+    organization: DS.attr('string', {defaultValue: ''}),
+    message: DS.attr('string', {defaultValue: ''})
+});
+
 
 
 /*
@@ -262,10 +280,6 @@ App.CurrentOrderPaymentController = Em.ObjectController.extend({
 });
 
 
-App.CurrentPaymentMethodInfoController = Em.ObjectController.extend({
-
-});
-
 
 App.VoucherRedeemController = Em.ArrayController.extend({
 
@@ -282,14 +296,60 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         return false;
     }.property('voucher.isSaving', 'voucher.isLoaded'),
 
-    submit: function(){
+    submitVoucherCode: function(){
         var code = this.get('code');
         if (code) {
             var voucher = App.Voucher.find(code);
             this.set('voucher', voucher);
 
         }
+    },
+    redeemVoucher: function(){
+        var controller = this;
+        var voucher = this.get('voucher');
+        var transaction = App.store.transaction();
+        transaction.add(voucher);
+        voucher.set('status', 'cashed');
+        voucher.on('didUpdate',function(){
+            controller.transitionTo('voucherRedeemDone');
+        });
+        transaction.commit();
+    },
+    // Currently not used. Keep this around for multiple Donations per Voucher.
+    deleteVoucherDonation: function(orderItem) {
+        var transaction = App.store.transaction();
+        transaction.add(orderItem);
+        orderItem.deleteRecord();
+        transaction.commit();
     }
+
+});
+
+
+App.CustomVoucherRequestController = Em.ObjectController.extend({
+
+    init: function() {
+        this._super();
+        this.createCustomVoucherRequest();
+    },
+
+    createCustomVoucherRequest: function() {
+        var transaction = App.store.transaction();
+        var voucherRequest =  transaction.createRecord(App.CustomVoucherRequest);
+        voucherRequest.set('contact_name', App.userController.get('content.full_name'));
+        voucherRequest.set('contact_email', App.userController.get('content.email'));
+        this.set('content', voucherRequest);
+        this.set('transaction', transaction);
+
+    },
+
+    sendRequest: function(){
+        var transaction = this.get('transaction');
+        var voucherRequest = this.get('content');
+        transaction.commit();
+
+    }
+
 });
 
 
@@ -345,13 +405,10 @@ App.CurrentOrderItemView = Em.View.extend({
     change: function(e){
         this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
     },
-
+    // Not used until we do multiple donations/voucher
     delete: function(item){
         var controller = this.get('controller');
         this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
-    },
-    submit: function(e){
-        e.preventDefault();
     }
 });
 
@@ -446,4 +503,29 @@ App.VoucherRedeemView = Em.View.extend({
 });
 
 
+App.VoucherRedeemDoneView = Em.View.extend({
+    tagName: 'div',
+    templateName: 'voucher_redeem_done'
+});
+
+
+App.CustomVoucherRequestCustomView = Em.View.extend({
+    tagName: 'form',
+    templateName: 'custom_voucher_request'
+});
+
+
+App.VoucherDonationView = Em.View.extend({
+    templateName: 'voucher_donation',
+    tagName: 'li',
+    classNames: 'donation-project',
+
+    delete: function(item){
+        var controller = this.get('controller');
+        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
+    },
+    submit: function(e){
+        e.preventDefault();
+    }
+});
 

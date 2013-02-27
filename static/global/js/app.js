@@ -54,6 +54,12 @@ Em.View.reopen({
     isLoggedInBinding: "App.userController.isLoggedIn",
 });
 
+
+Em.TextField.reopen({
+    // Add 'step' to attributeBinding
+    attributeBindings: ['type', 'value', 'size', 'step']
+});
+
 App = Em.Application.create({
     _getTemplate: function(template, callback) {
         var hash = {};
@@ -142,6 +148,10 @@ App.Adapter.map('App.WallPostReaction', {
     author: {embedded: 'load'}
 });
 
+App.Adapter.map('App.Voucher', {
+    donations: {embedded: 'load'}
+});
+
 
 App.store = DS.Store.create({
     revision: 11,
@@ -228,11 +238,11 @@ App.Router.map(function() {
         });
     });
 
-    this.resource('finalOrderItemList', {path: '/support/thanks'}, function() {
-    });
+    this.resource('finalOrderItemList', {path: '/support/thanks'});
 
-    this.resource('voucherStart', {path: '/vouchers'}, function() {
-    });
+    this.resource('voucherStart', {path: '/vouchers'});
+    this.resource('customVoucherRequest', {path: '/vouchers/custom'});
+    this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'});
 
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
         this.route('add', {path: '/add/:slug'});
@@ -352,6 +362,15 @@ App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
 });
 
 
+App.CustomVoucherRequestRoute = Ember.Route.extend({
+
+    setupController: function(controller) {
+        // TODO: Find out why init() doesn't run automatically.
+        controller.init();
+    }
+});
+
+
 App.VoucherRedeemCodeRoute = Ember.Route.extend({
 
     model: function(params) {
@@ -363,6 +382,30 @@ App.VoucherRedeemCodeRoute = Ember.Route.extend({
 
     setupController: function(controller, voucher) {
         this.controllerFor('voucherRedeem').set('voucher', voucher);
+    }
+});
+
+
+App.VoucherRedeemAddRoute = Ember.Route.extend({
+    setupController: function(controller, project) {
+        var voucher = this.controllerFor('voucherRedeem').get('voucher');
+        if (project !== undefined) {
+            var transaction = App.store.transaction();
+            // TODO: Generify and move to DRF2 adapter.
+            App.VoucherDonation.reopen({
+                url: 'fund/vouchers/' + voucher.get('code') + '/donations'
+            });
+            var donation = transaction.createRecord(App.VoucherDonation);
+            // Set project in two ways here until we come up with proper solution.
+            donation.set('project_slug', project.get('slug'));
+            donation.set('project', project);
+            // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
+            donation.on('didCreate', function(record){
+                voucher.get('donations').clear();
+                voucher.get('donations').pushObject(record);
+            });
+            transaction.commit();
+        }
     }
 });
 
@@ -419,3 +462,5 @@ App.FinalOrderItemListRoute = Ember.Route.extend({
     }
 
 });
+
+

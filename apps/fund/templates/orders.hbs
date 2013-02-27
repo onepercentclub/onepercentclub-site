@@ -61,13 +61,20 @@
 
             {{outlet}}
 
-            <!--
             <div class="sidebar tip">
-              <h3>Did you know?</h3>
-              <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
-              <p><a href="#">Read some more</a></p>
+                {{#if controller.isVoucherOrder}}
+                    <h3>{% trans "Want custom real vouchers or a large amount of digital vouchers?" %}</h3>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum eros est.
+                    Aliquam volutpat tempus quam, molestie malesuada justo sollicitudin nec.
+                    <br />
+                    {{#linkTo customVoucherRequest}}{% trans "Contact us..." %}{{/linkTo}}
+                {{/if}}
+                <!--
+                  <h3>Did you know?</h3>
+                  <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+                  <p><a href="#">Read some more</a></p>
+                -->
             </div>
-            -->
 
         </section>
 
@@ -377,12 +384,11 @@
         {{#if content.isLoaded}}
             {{#each errors.bank_account_number}}<span class="error">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="bank_account_number" placeholder="Bank account number" classBinding="errors.bank_account_number.length:error"}}
-
             {{#each errors.bank_account_name}}<span class="error">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="bank_account_name" placeholder="Bank account holder name" classBinding="errors.bank_account_name.length:error"}}
 
             {{#each errors.bank_account_city}}<span class="error">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="bank_account_city" placeholder="Bank account city" classBinding="errors.bank_account_city.length:error"}}
+            {{view Em.TextField valueBinding="bank_account_city" placeholder="Bank account city" classBinding="errors.bank_account_city.length:error :clear"}}
 
             <button>{% trans "Next" %}</button>
         {{else}}
@@ -466,7 +472,6 @@
 {% endtplhandlebars %}
 
 
-
 {% tplhandlebars "voucher_redeem" %}
 
     <div class="container section">
@@ -506,31 +511,29 @@
                         </div>
                     </fieldset>
 
-                    {{#if voucher.project}}
-                        <span class="donation-project">
-                            {{#linkTo project project}}
-                                <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
-                            {{/linkTo}}
-                            <h1>
-                                {{#linkTo project project}}
-                                    {{project.title}}
+                    <ul id="donation-projects">
+                        {{#each voucher.donations}}
+                            {{view App.VoucherDonationView content=this}}
+                        {{else}}
+                            <li class="donation-project">
+                                {{#linkTo projectList}}
+                                <h1>
+                                    {% trans "Choose a project to support with this voucher" %}
+                                </h1>
+                                <b>You can make it work!</b>
                                 {{/linkTo}}
-                                <em class="country">{{project.country.name}}</em>
-                            </h1>
-                            <p class="donation-amount">
-                                <label for="donation-amount-1">{% trans "You just donated" %}</label>
-                                <span class="big currency">&euro; {{voucher.amount}}</span>
-                            </p>
-                        </span>
+                            </li>
+                        {{/each}}
+                    </ul>
+                    {{#if voucher.donations.length}}
+                        <button {{action "redeemVoucher" target="controller"}} type="submit" class="button right">
+                            {% trans "Submit" %}
+                        </button>
                     {{else}}
-                        <span class="donation-project">
-                            {{#linkTo projectList}}
-                            <h1>
-                                {% trans "Choose a project to support with this voucher" %}
-                            </h1>
-                            <b>You can make it work!</b>
-                            {{/linkTo}}
-                        </span>
+                        <button disabled class="button right">
+                            {% trans "Submit" %}
+                        </button>
+
                     {{/if}}
                 </form>
 
@@ -543,7 +546,7 @@
                         {{/if}}
                         <div class="label">{% trans "Voucher code" %}</div>
                         {{view Em.TextField valueBinding="code" placeholder="You code"}}
-                        <button {{action "submit" target="controller"}} type="submit" class="button right">
+                        <button {{action "submitVoucherCode" target="controller"}} type="submit" class="button right">
                             {% trans "Submit" %}
                         </button>
                     </fieldset>
@@ -556,5 +559,88 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "voucher_redeem_done" %}
+
+    <div class="container section">
+
+        <header class="wrapper">
+            <h1 class="">YOU MAKE IT WORK!</h1>
+        </header>
+
+    </div>
+
+{% endtplhandlebars %}
 
 
+{% tplhandlebars "voucher_donation" %}
+    {{#linkTo project project}}
+        <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
+    {{/linkTo}}
+    <h1>
+        {{#linkTo project project}}
+            {{project.title}}
+        {{/linkTo}}
+        <em class="country">{{project.country.name}}</em>
+    </h1>
+    <p class="donation-amount">
+        {{#if amount}}
+            <span class="big currency">&euro; {{amount}}</span>
+        {{/if}}
+    </p>
+
+    {# add this for multiple donations per voucher #}
+    {# <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a> #}
+{% endtplhandlebars %}
+
+
+
+
+{% tplhandlebars "custom_voucher_request" %}
+
+    <div class="container section">
+        <header class="wrapper">
+            <div class="content">
+                <h1 class="">{% trans "Contact us for custom 1%VOUCHERS" %}</h1>
+                {% trans "Please fill in the form with your wishes and we will contact you. You can also call us directly on (+31) 20 715 8980" %}
+            </div>
+        </header>
+    </div>
+    <br/>
+    <div class="container">
+        <section class="wrapper">
+
+            <div class="content gray">
+
+                <form class="labeled">
+
+                    {{#each errors.amount}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Amount" %}</div>
+                    {{view Em.TextField valueBinding="amount" type="number" step="10" classBinding="errors.amount.length:error"}}
+
+                    {{#each errors.contact_name}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Your name" %}</div>
+                    {{view Em.TextField valueBinding="contact_name" classBinding="errors.contact_name.length:error"}}
+
+                    {{#each errors.contact_email}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Your email" %}</div>
+                    {{view Em.TextField valueBinding="contact_email" classBinding="errors.contact_email.length:error"}}
+
+                    {{#each errors.organization}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Organization" %}</div>
+                    {{view Em.TextField valueBinding="organization" classBinding="errors.organization.length:error"}}
+
+                    {{#each errors.contact_phone}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label">{% trans "Phone number" %}</div>
+                    {{view Em.TextField valueBinding="contact_phone" classBinding="errors.contact_phone.length:error"}}
+
+                    {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
+                    <div class="label wide">{% trans "Anything else? Leave a message." %}</div>
+                    {{view Em.TextArea valueBinding="message" classBinding="errors.message.length:error"}}
+
+                    <a class="right button" {{action sendRequest target="controller"}}>{% trans "Send message" %}</a>
+                </form>
+            </div>
+        </section>
+    </div>
+
+{% endtplhandlebars %}

@@ -58,6 +58,9 @@ body {
 
 .wrapper > .content {
     @include grid(32, 1);
+    &.gray {
+        background-color: $color-back;
+    }
 }
 
 .section {
