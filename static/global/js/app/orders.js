@@ -196,7 +196,6 @@ App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
         voucher.set('sender_email', App.userController.get('content.email'));
         this.set('content', voucher);
         this.set('transaction', transaction);
-
     },
 
     addVoucher: function(){

@@ -1,39 +1,47 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
 
-{% tplhandlebars "reaction" %}
-	<span class="user-img"><img {{bindAttr src="view.content.author.picture" }} width="100%" alt="Avatar" /></span>
+{% tplhandlebars "wallpost_reaction" %}
+
+	<span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
 	<div class="reaction">
 	    <a href="#" class="user">
-            {%  trans "By" %} <strong>{{ view.content.author.full_name }}</strong>
-            <em class="not-implemented">{%  trans "Member" %}</em> <small>{{view.content.timesince}} {%  trans "ago" %}</small>
+            {%  trans "By" %} <strong>{{author.full_name}}</strong>
+            <em class="not-implemented">{%  trans "Member" %}</em> <small>{{timesince}} {%  trans "ago" %}</small>
         </a>
-        {{#if view.isAuthor}}
+        {{#if isAuthor}}
             <ul class="manage">
                 <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
                 <li class="manage-remove"><a {{action "deleteReaction" target="view"}}>{% trans "Delete" %}</a></li>
             </ul>
         {{/if}}
-		<p>{{{ view.content.text }}}</p>
+		<p>{{{text}}}</p>
 	</div>
+
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "reaction_no_items" %}
-    {%trans "No reactions yet." %}
+{% tplhandlebars "wallpost_reaction_list" %}
+
+    {# We need to use 'content' here (i.e. we can't use 'controller'). #}
+    {{#each content itemController="wallPostReaction"}}
+        {{view "App.WallPostReactionView" content=this}}
+    {{/each}}
+
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "reaction_form" %}
+{% tplhandlebars "wallpost_reaction_new" %}
+
     <fieldset>
     <ul>
-        <li {{bindAttr class="view.content.errors.text.length:error"}}>
-            <span class="user-img"><img {{bindAttr src="view.user.picture" title="view.user.fullname"}} width="100%" alt="Avatar"></span>
-            {{#each view.content.errors.text}}
+        <li {{bindAttr class="errors.text.length:error"}}>
+            <span class="user-img"><img {{bindAttr src="controllers.currentUser.picture" title="controllers.currentUser.fullname"}} width="100%" alt="Avatar"></span>
+            {{#each errors.text}}
                 <span class="error">{{this}}</span>
             {{/each}}
-            {{#if view.user.is_authenticated }}
-                {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="view.content.text" name="reaction"}}
+            {{#if controllers.currentUser.isAuthenticated }}
+                {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="content.text" name="reaction"}}
             {{else}}
                 {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
             {{/if}}
@@ -41,6 +49,7 @@
     </ul>
     </fieldset>
     <button type="submit" id="reaction-post">Post</button>
+
 {% endtplhandlebars %}
 
 

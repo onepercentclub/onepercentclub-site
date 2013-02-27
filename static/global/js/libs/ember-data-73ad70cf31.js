@@ -1,3 +1,6 @@
+// Last commit: 73ad70c (2013-02-23 22:52:20 -0800)
+
+
 (function() {
 window.DS = Ember.Namespace.create({
   // this one goes to 11
@@ -846,7 +849,7 @@ DS._Mappable = Ember.Mixin.create({
 
       instanceMap.set(transformedKey, newValue);
     }
-  },
+  }
 
 
 });
@@ -2518,7 +2521,7 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
 
     this.recordCache[clientId] = record = type._create({
       store: this,
-      clientId: clientId,
+      clientId: clientId
     });
 
     set(record, 'id', id);
@@ -3833,6 +3836,7 @@ var storeAlias = function(methodName) {
         args = [].slice.call(arguments);
 
     args.unshift(this);
+    Ember.assert("Your application does not have a 'Store' property defined. Attempts to call '" + methodName + "' on model classes will fail. Please provide one as with 'YourAppName.Store = DS.Store.extend()'", !!store);
     return store[methodName].apply(store, args);
   };
 };
@@ -4930,7 +4934,9 @@ DS.RelationshipChangeRemove.prototype.sync = function() {
 
   if (secondRecord && firstRecord) {
     if(this.secondRecordKind === "belongsTo"){
+      secondRecord.suspendRelationshipObservers(function(){
         set(secondRecord, secondRecordName, null);
+      });
      }
      else if(this.secondRecordKind === "hasMany"){
        secondRecord.suspendRelationshipObservers(function(){
@@ -5996,10 +6002,10 @@ DS.Serializer = Ember.Object.extend({
   registerEnumTransform: function(type, objects) {
     var transform = {
       deserialize: function(deserialized) {
-        return objects.objectAt(deserialized);
+        return Ember.A(objects).objectAt(deserialized);
       },
       serialize: function(serialized) {
-        return objects.indexOf(serialized);
+        return Ember.EnumerableUtils.indexOf(objects, serialized);
       },
       values: objects
     };
@@ -6481,6 +6487,7 @@ DS.JSONSerializer = DS.Serializer.extend({
   },
 
   sideloadRelationships: function(loader, type, json, prop, loaded) {
+    if (loaded[prop]) { return; }
     loaded[prop] = true;
 
     get(type, 'relationshipsByName').forEach(function(key, meta) {
@@ -6488,7 +6495,7 @@ DS.JSONSerializer = DS.Serializer.extend({
       if (meta.kind === 'belongsTo') {
         key = this.pluralize(key);
       }
-      if (json[key] && !loaded[key]) {
+      if (json[key]) {
         this.sideloadRelationships(loader, meta.type, json, key, loaded);
       }
     }, this);
@@ -6513,6 +6520,24 @@ DS.JSONSerializer = DS.Serializer.extend({
   pluralize: function(name) {
     var plurals = this.configurations.get('plurals');
     return (plurals && plurals[name]) || name + "s";
+  },
+
+  // use the same plurals hash to determine
+  // special-case singularization
+  singularize: function(name) {
+    var plurals = this.configurations.get('plurals');
+    if (plurals) {
+      for (var i in plurals) {
+        if (plurals[i] === name) {
+          return i;
+        }
+      }
+    }
+    if (name.lastIndexOf('s') === name.length - 1) {
+      return name.substring(0, name.length - 1);
+    } else {
+      return name;
+    }
   },
 
   rootForType: function(type) {
@@ -7246,13 +7271,99 @@ DS.Adapter.reopenClass({
 
 
 (function() {
+var get = Ember.get, set = Ember.set;
+
+DS.FixtureSerializer = DS.Serializer.extend({
+  deserializeValue: function(value, attributeType) {
+    return value;
+  },
+
+  serializeValue: function(value, attributeType) {
+    return value;
+  },
+
+  /**
+    @private
+
+    Creates an empty hash that will be filled in by the hooks called from the
+    `serialize()` method.
+
+    @return {Object}
+  */
+  createSerializedForm: function() {
+    return {};
+  },
+
+  extract: function(loader, fixture, type, record) {
+    if (record) { loader.updateId(record, fixture); }
+    this.extractRecordRepresentation(loader, type, fixture);
+  },
+
+  extractMany: function(loader, fixtures, type, records) {
+    var objects = fixtures, references = [];
+    if (records) { records = records.toArray(); }
+
+    for (var i = 0; i < objects.length; i++) {
+      if (records) { loader.updateId(records[i], objects[i]); }
+      var reference = this.extractRecordRepresentation(loader, type, objects[i]);
+      references.push(reference);
+    }
+
+    loader.populateArray(references);
+  },
+
+  extractId: function(type, hash) {
+    var primaryKey = this._primaryKey(type);
+
+    if (hash.hasOwnProperty(primaryKey)) {
+      // Ensure that we coerce IDs to strings so that record
+      // IDs remain consistent between application runs; especially
+      // if the ID is serialized and later deserialized from the URL,
+      // when type information will have been lost.
+      return hash[primaryKey]+'';
+    } else {
+      return null;
+    }
+  },
+
+  extractAttribute: function(type, hash, attributeName) {
+    var key = this._keyForAttributeName(type, attributeName);
+    return hash[key];
+  },
+
+  extractHasMany: function(type, hash, key) {
+    return hash[key];
+  },
+
+  extractBelongsTo: function(type, hash, key) {
+    return hash[key];
+  }
+});
+
+})();
+
+
+
+(function() {
 var get = Ember.get;
 
+/**
+  `DS.FixtureAdapter` is an adapter that loads records from memory.
+  Its primarily used for development and testing. You can also use
+  `DS.FixtureAdapter` while working on the API but are not ready to
+  integrate yet. It is a fully functioning adapter. All CRUD methods
+  are implemented. You can also implement query logic that a remote
+  system would do. Its possible to do develop your entire application
+  with `DS.FixtureAdapter`.
+
+*/
 DS.FixtureAdapter = DS.Adapter.extend({
 
   simulateRemoteResponse: true,
 
   latency: 50,
+
+  serializer: DS.FixtureSerializer,
 
   /*
     Implement this method in order to provide data associated with a type
@@ -7275,7 +7386,7 @@ DS.FixtureAdapter = DS.Adapter.extend({
     Implement this method in order to query fixtures data
   */
   queryFixtures: function(fixtures, query, type) {
-    return fixtures;
+    Ember.assert('Not implemented: You must override the DS.FixtureAdapter::queryFixtures method to support querying the fixture store.');
   },
 
   /*
@@ -7293,18 +7404,19 @@ DS.FixtureAdapter = DS.Adapter.extend({
   },
 
   find: function(store, type, id) {
-    var fixtures = this.fixturesForType(type);
+    var fixtures = this.fixturesForType(type),
+        fixture;
 
-    Ember.assert("Unable to find fixtures for model type "+type.toString(), !!fixtures);
+    Ember.warn("Unable to find fixtures for model type " + type.toString(), fixtures);
 
     if (fixtures) {
-      fixtures = fixtures.findProperty('id', id);
+      fixture = Ember.A(fixtures).findProperty('id', id);
     }
 
-    if (fixtures) {
+    if (fixture) {
       this.simulateRemoteCall(function() {
-        store.load(type, fixtures);
-      }, store, type);
+        this.didFindRecord(store, type, fixture, id);
+      }, this);
     }
   },
 
@@ -7321,8 +7433,8 @@ DS.FixtureAdapter = DS.Adapter.extend({
 
     if (fixtures) {
       this.simulateRemoteCall(function() {
-        store.loadMany(type, fixtures);
-      }, store, type);
+        this.didFindMany(store, type, fixtures);
+      }, this);
     }
   },
 
@@ -7332,9 +7444,8 @@ DS.FixtureAdapter = DS.Adapter.extend({
     Ember.assert("Unable to find fixtures for model type "+type.toString(), !!fixtures);
 
     this.simulateRemoteCall(function() {
-      store.loadMany(type, fixtures);
-      store.didUpdateAll(type);
-    }, store, type);
+      this.didFindAll(store, type, fixtures);
+    }, this);
   },
 
   findQuery: function(store, type, query, array) {
@@ -7346,8 +7457,8 @@ DS.FixtureAdapter = DS.Adapter.extend({
 
     if (fixtures) {
       this.simulateRemoteCall(function() {
-        array.load(fixtures);
-      }, store, type);
+        this.didFindQuery(store, type, fixtures, array);
+      }, this);
     }
   },
 
@@ -7357,32 +7468,34 @@ DS.FixtureAdapter = DS.Adapter.extend({
     fixture.id = this.generateIdForRecord(store, record);
 
     this.simulateRemoteCall(function() {
-      store.didSaveRecord(record, fixture);
-    }, store, type, record);
+      this.didCreateRecord(store, type, record, fixture);
+    }, this);
   },
 
   updateRecord: function(store, type, record) {
     var fixture = this.mockJSON(type, record);
 
     this.simulateRemoteCall(function() {
-      store.didSaveRecord(record, fixture);
-    }, store, type, record);
+      this.didUpdateRecord(store, type, record, fixture);
+    }, this);
   },
 
   deleteRecord: function(store, type, record) {
     this.simulateRemoteCall(function() {
-      store.didSaveRecord(record);
-    }, store, type, record);
+      this.didDeleteRecord(store, type, record);
+    }, this);
   },
 
   /*
     @private
   */
-  simulateRemoteCall: function(callback, store, type, record) {
+  simulateRemoteCall: function(callback, context) {
     if (get(this, 'simulateRemoteResponse')) {
-      setTimeout(callback, get(this, 'latency'));
+      // Schedule with setTimeout
+      Ember.run.later(context, callback, get(this, 'latency'));
     } else {
-      callback();
+      // Asynchronous, but at the of the runloop with zero latency
+      Ember.run.once(context, callback);
     }
   }
 });
@@ -7405,6 +7518,16 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
     }
 
     return key + "_id";
+  },
+
+  keyForHasMany: function(type, name) {
+    var key = this.keyForAttributeName(type, name);
+
+    if (this.embeddedType(type, name)) {
+      return key;
+    }
+
+    return this.singularize(key) + "_ids";
   }
 });
 

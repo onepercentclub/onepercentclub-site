@@ -29,10 +29,10 @@
         {# The Ember stack. #}
         <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery-1.8.3.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.infieldlabel.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/libs/handlebars-1.0.rc.1.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-1.0.0-pre.4.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/libs/handlebars-1.0.0-rc.3.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-1.0.0-rc.1.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-radio-button.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-data-4e17400b92.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-data-73ad70cf31.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/libs/ember-data-drf2-adapter.js"></script>
 
         {# BlueBottle Application #}
@@ -82,9 +82,8 @@
                     </nav>
                     <nav class="nav-member member-login">
                         <h1 class="nav-title">Profile</h1>
-                        {# TODO: Create proper way to check for authenticated user. #}
-                        {{#if view.user.first_name }}
-                            <a href="/en/accounts/logout/?next=/en/" class="nav-my1percent"><img width="40" {{bindAttr src="view.user.picture"}} height="40" alt="Avatar" />
+                        {{#if controllers.currentUser.isAuthenticated }}
+                            <a href="/en/accounts/logout/?next=/en/" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.picture"}} height="40" alt="Avatar" />
                                 <strong>Logout</strong>
                             </a>
                             <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>

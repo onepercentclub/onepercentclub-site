@@ -56,11 +56,11 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
             this.set('content', null);
         }
     }.observes('wallposts.isLoaded')
-
 });
 
 
-App.ProjectWallPostFormController = Em.ObjectController.extend({
+App.ProjectWallPostNewController = Em.ObjectController.extend({
+    needs: ['currentUser'],
 
     init: function() {
         this._super();
@@ -117,14 +117,27 @@ App.ProjectWallPostFormController = Em.ObjectController.extend({
     },
 
     isProjectOwner: function() {
-        var user = this.get('currentUser');
-        var owner = this.get('currentProject.owner');
-        if (user && owner && user.get('username')) {
-            return user.get('username') == owner.get('username');
+        var username = this.get('controllers.currentUser.username');
+        var ownername = this.get('currentProject.owner.username');
+        if (username) {
+            return (username == ownername);
         }
         return false;
-    }.property('currentUser', 'currentProject.owner')
+    }.property('currentProject.owner', 'controllers.currentUser.username')
+});
 
+
+App.ProjectWallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
+    needs: ['currentUser', 'wallPostReactionList', 'wallPostReactionNew'],
+
+    reactionsChanged: function(sender, key) {
+        this.set('controllers.wallPostReactionList.content', this.get('content.reactions'))
+    }.observes('content.reactions.length'),
+
+    // This is acting like a binding.
+    wallpostIdChanged: function(sender, key) {
+        this.set('controllers.wallPostReactionNew.currentWallpost', this.get('content'))
+    }.observes('content', 'controllers.wallPostReactionNew.currentWallpost')
 });
 
 
@@ -132,8 +145,8 @@ App.ProjectWallPostFormController = Em.ObjectController.extend({
  Views
  */
 
-App.MediaWallPostFormView = Em.View.extend({
-    templateName: 'media_wallpost_form',
+App.MediaWallPostNewView = Em.View.extend({
+    templateName: 'media_wallpost_new',
     tagName: 'form',
 
     submit: function(e){
@@ -145,14 +158,12 @@ App.MediaWallPostFormView = Em.View.extend({
         this.get('controller').clearWallPost();
         this.$('label.inline').inFieldLabels();
     }
-
 });
 
 
-App.TextWallPostFormView = Em.View.extend({
-    templateName: 'text_wallpost_form',
+App.TextWallPostNewView = Em.View.extend({
+    templateName: 'text_wallpost_new',
     tagName: 'form',
-
 
     submit: function(e){
         e.preventDefault();
@@ -163,7 +174,6 @@ App.TextWallPostFormView = Em.View.extend({
         this.get('controller').clearWallPost();
         this.$('label.inline').inFieldLabels();
     }
-
 });
 
 
@@ -171,7 +181,7 @@ App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
-    contentBinding: 'parentView.content',
+    contentBinding: 'parentView.controller.content',
 
     change: function(e) {
         var input = e.target;
@@ -190,35 +200,25 @@ App.UploadFileView = Ember.TextField.extend({
 
 
 App.ProjectWallPostView = Em.View.extend({
-    templateName: 'projectwallpost',
-
-    isAuthor: function() {
-        var username = this.get('user.username');
-        var authorname = this.get('content.author.username');
-        if (username) {
-            return (username == authorname);
-        }
-        return false;
-    }.property('user', 'content'),
+    templateName: 'project_wallpost',
 
     // TODO: Delete reactions to WallPost as well?
     deleteWallPost: function() {
         if (confirm("Delete this wallpost?")) {
             var transaction = App.store.transaction();
-            var wallpost = this.get('content');
+            var wallpost = this.get('controller.content');
             transaction.add(wallpost);
-            this.$().slideUp(500, function(){
+            this.$().slideUp(500, function() {
                 wallpost.deleteRecord();
                 transaction.commit();
             });
         }
     }
-
 });
 
 
 // Idea of how to have child views with different templates:
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
 App.ProjectWallPostListView = Em.View.extend({
-    templateName: 'projectwallpost_list'
+    templateName: 'project_wallpost_list'
 });
