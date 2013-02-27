@@ -116,19 +116,6 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         this.set('content.errors', null);
     },
 
-    // Clear the errors when there's text in the text and input boxes.
-    textChanged: function(sender, key) {
-        if (this.get('content.errors')) {
-            var textLength = this.get(key);
-            if (textLength && textLength > 0) {
-                var field = key.split('.')[1];
-                if (this.get('content.errors.' + field)) {
-                    this.set('content.errors.' + field, null)
-                }
-            }
-        }
-    }.observes('content.text.length', 'content.video_url.length', 'content.title.length'),
-
     isProjectOwner: function() {
         var username = this.get('controllers.currentUser.username');
         var ownername = this.get('currentProject.owner.username');
