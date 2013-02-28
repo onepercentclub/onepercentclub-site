@@ -125,13 +125,15 @@ class PolymorphicSerializer(serializers.Serializer):
 
         return [self._child_models[item.__class__].to_native(item) for item in obj.all()]
 
-    def convert_object(self, obj):
+    def to_native(self, obj):
         """
         Override so that we can iterate through the child_model field items.
         """
         ret = self._dict_class()
         ret.fields = {}
+
         for field_name, field in self._child_models[obj.__class__].fields.items():
+            field.initialize(parent=self, field_name=field_name)
             key = self.get_field_key(field_name)
             value = field.field_to_native(obj, field_name)
             ret[key] = value
@@ -159,8 +161,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class PrimaryKeyGenericRelatedField(serializers.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey. """
 
-    default_read_only = False
-    form_field_class = forms.ChoiceField
+    read_only = False
 
     def __init__(self, to_model, *args, **kwargs):
         self.to_model = to_model
@@ -186,8 +187,7 @@ class PrimaryKeyGenericRelatedField(serializers.RelatedField):
 class SlugGenericRelatedField(serializers.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey based on the related model slug. """
 
-    default_read_only = False
-    form_field_class = forms.ChoiceField
+    read_only = False
 
     def __init__(self, to_model, *args, **kwargs):
         self.to_model = to_model
@@ -220,19 +220,6 @@ class SlugGenericRelatedField(serializers.RelatedField):
             raise ValidationError(self.error_messages['invalid'])
         else:
             return to_instance.id
-
-
-class ManyRelatedNestedSerializer(serializers.ManyRelatedField):
-    """
-        Nested Serializer.
-    """
-
-    def __init__(self, serializer_class, *args, **kwargs):
-        self.serializer = serializer_class()
-        super(ManyRelatedNestedSerializer, self).__init__(*args, **kwargs)
-
-    def to_native(self, obj):
-        return self.serializer.to_native(obj)
 
 
 class ObjectBasedSerializerOptions(serializers.SerializerOptions):

@@ -43,8 +43,6 @@ class CurrentOrderMixin(object):
         if self.request.user.is_authenticated():
             try:
                 order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.started)
-                if not self.has_permission(self.request, order):
-                    self.permission_denied(self.request)
                 self._update_payment(order)
                 return order
             except Order.DoesNotExist:
@@ -54,8 +52,6 @@ class CurrentOrderMixin(object):
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id, status=Order.OrderStatuses.started)
-                    if not self.has_permission(self.request, order):
-                        self.permission_denied(self.request)
                     self._update_payment(order)
                     return order
                 except Order.DoesNotExist:
@@ -108,9 +104,6 @@ class CurrentOrderMixin(object):
         # Update the payment amount if needed.
         if not created:
             self._update_payment(order)
-
-        if not self.has_permission(self.request, order):
-            self.permission_denied(self.request)
 
         return order
 
@@ -171,6 +164,7 @@ class OrderCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
 
     def get_object(self, queryset=None):
         order = self.get_or_create_current_order()
+        self.check_object_permissions(self.request, order)
 
         # Not sure if this is the best place to generate the payment url.
         if order.payment.payment_method_id:
@@ -275,6 +269,7 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
 
     def get_object(self):
         order = self.get_or_create_current_order()
+        self.check_object_permissions(self.request, order)
         payment = order.payment
 
         # Pre-fill the order profile form if the user is authenticated.
@@ -333,6 +328,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
 
     def get_object(self):
         order = self.get_or_create_current_order()
+        self.check_object_permissions(self.request, order)
         if not order.payment.latest_docdata_payment:
             if not order.payment.payment_method_id:
                 payment_methods = factory.get_payment_method_ids(amount=order.amount, currency='EUR', country='NL',
@@ -446,10 +442,9 @@ class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
     serializer_class = VoucherRedeemSerializer
 
     def get_object(self, queryset=None):
-        obj = self.get_voucher()
-        if not self.has_permission(self.request, obj):
-            self.permission_denied(self.request)
-        return obj
+        voucher = self.get_voucher()
+        self.check_object_permissions(self.request, voucher)
+        return voucher
 
     def pre_save(self, obj):
         mail_voucher_redeemed(obj)
