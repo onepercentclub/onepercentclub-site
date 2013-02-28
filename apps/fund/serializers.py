@@ -11,7 +11,8 @@ class DonationSerializer(serializers.ModelSerializer):
     project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')
+    # This field makes the Donation serializer tied to '/fund/orders/current'.
+    url = serializers.HyperlinkedIdentityField(view_name='fund-current-order-donation-detail')
     amount = EuroField()
 
     def validate_amount(self, attrs, source):
@@ -31,6 +32,33 @@ class DonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
         fields = ('id', 'project_id', 'project_slug', 'amount', 'status', 'url')
+
+
+class VoucherSerializer(serializers.ModelSerializer):
+    """
+    Used for creating new Vouchers in Order screens.
+    """
+    amount = EuroField()
+    status = serializers.Field()
+
+    def validate_amount(self, attrs, source):
+        """
+        Check the amount
+        """
+        value = attrs[source]
+        if value not in [1000, 2500, 5000, 10000]:
+            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100. Not "+ str(value) ))
+        return attrs
+
+    def save(self):
+        # Set default currency.
+        self.object.currency = 'EUR'
+        return super(VoucherSerializer, self).save()
+
+    class Meta:
+        model = Voucher
+        fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
+                  'message', 'status')
 
 
 class PaymentMethodSerializer(serializers.Serializer):
@@ -57,6 +85,9 @@ class OrderSerializer(serializers.ModelSerializer):
     payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
     payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
 
+    donations = DonationSerializer(source='donations', many=True)
+    vouchers = VoucherSerializer(source='vouchers', many=True)
+
     def get_payment_methods(self, order):
         return factory.get_payment_method_ids(amount=order.amount, currency='EUR', country='NL',
                                               recurring=order.recurring)
@@ -70,7 +101,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id',
-                  'payment_url')
+                  'payment_url', 'donations', 'vouchers')
 
 
 class VoucherRedeemSerializer(serializers.ModelSerializer):
@@ -102,32 +133,6 @@ class VoucherRedeemSerializer(serializers.ModelSerializer):
         fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
                   'message', 'donations', 'status')
 
-
-class VoucherSerializer(serializers.ModelSerializer):
-    """
-    Used for creating new Vouchers in Order screens.
-    """
-    amount = EuroField()
-    status = serializers.Field()
-
-    def validate_amount(self, attrs, source):
-        """
-        Check the amount
-        """
-        value = attrs[source]
-        if value not in [1000, 2500, 5000, 10000]:
-            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100. Not "+ str(value) ))
-        return attrs
-
-    def save(self):
-        # Set default currency.
-        self.object.currency = 'EUR'
-        return super(VoucherSerializer, self).save()
-
-    class Meta:
-        model = Voucher
-        fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
-                  'message', 'status')
 
 
 class VoucherDonationSerializer(DonationSerializer):
