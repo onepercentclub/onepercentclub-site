@@ -5,8 +5,8 @@ python:
   - "2.7"
 
 env:
-  - DJANGO=django==1.4.3
-  - DJANGO=https://github.com/django/django/archive/stable/1.5.x.zip
+  - DJANGO=django==1.4.5
+  - DJANGO=django==1.5
 
 install:
   - "pip install $DJANGO --use-mirrors"
@@ -17,7 +17,7 @@ install:
 
 matrix:
   allow_failures:
-    - env: DJANGO=https://github.com/django/django/archive/stable/1.5.x.zip
+    - env: DJANGO=django==1.5
 
 script:
   - python ./manage.py test --settings=bluebottle.settings.travis -v 2
