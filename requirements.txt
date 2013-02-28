@@ -1,4 +1,4 @@
-Django==1.4.3
+Django==1.4.5
 
 django_extensions==1.0.1
 
@@ -71,7 +71,9 @@ html5lib==0.95
 
 # Admin dashboard improvements
 django-fluent-dashboard==0.3.2
-django-admin-tools>=0.4.1
+# django-admin-tools 0.4.1 seems to have disappeared from pypi. Using direct download for now.
+#django-admin-tools>=0.4.1
+https://bitbucket.org/izi/django-admin-tools/downloads/django-admin-tools-0.4.1.tar.gz
 
 # Transifex - for translations!
 transifex-client
