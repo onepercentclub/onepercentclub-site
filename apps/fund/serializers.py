@@ -1,5 +1,5 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, ManyRelatedNestedSerializer, EuroField
+from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
@@ -84,7 +84,7 @@ class VoucherRedeemSerializer(serializers.ModelSerializer):
     sender_email = serializers.Field()
     sender_name = serializers.Field()
     message = serializers.Field()
-    donations = ManyRelatedNestedSerializer(DonationSerializer)
+    donations = DonationSerializer(many=True)
 
 
     def validate_status(self, attrs, source):
