@@ -12,7 +12,7 @@
                     <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
+                    {{#linkTo "currentOrderDonationList" tagName="button" class="contrast top"}}
                         {% trans "Switch to paid donations" %}
                     {{/linkTo}}
                 </sidebar>
@@ -40,13 +40,13 @@
             <ul class="donation-steps">
                 {{#if controller.isVoucherOrder}}
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrder.voucherList"}}Vouchers{{/linkTo}}
+                        {{#linkTo "currentOrderVoucherList"}}Vouchers{{/linkTo}}
                     {{/view}}
                 {{else}}
                     {# Hack: This span needs to be here to get the 'Support' to replace 'Vouchers'. #}
                     <span></span>
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrder.donationList"}}Support{{/linkTo}}
+                        {{#linkTo "currentOrderDonationList"}}Support{{/linkTo}}
                     {{/view}}
                 {{/if}}
 
@@ -91,8 +91,8 @@
     <fieldset>
 
         <ul id="donation-projects">
-            {{#each controllers.currentOrder.donations itemController="currentOrderDonation"}}
-                {{view "App.CurrentOrderDonationView" content=this}}
+            {{#each donation in controller itemController="currentOrderDonation"}}
+                {{view "App.CurrentOrderDonationView" content=donation}}
             {{else}}
                 {{#linkTo "projectList"}}
                     <h1>{% trans "Choose a project to make a donation" %}</h1>
@@ -105,12 +105,13 @@
 
     </fieldset>
 
-    {{ render "currentOrderRecurring" controllers.currentOrder }}
+    {{ render "currentOrderRecurring" controllers.currentOrder.model }}
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "current_order_recurring" %}
+
     <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
         {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="recurring"}}
@@ -472,7 +473,7 @@
                 {{/linkTo}}
             </div>
             <div class="buy">
-                {{#linkTo "currentOrder.voucherList"}}
+                {{#linkTo "currentOrderVoucherList"}}
                     <h2>{% trans "I'd like to buy voucher(s)" %}</h2>
                 {{/linkTo}}
             </div>
@@ -490,7 +491,7 @@
                 <h1 class="main-title">{% trans "Claim you voucher and support!" %}</h1>
             </div>
             <sidebar>
-                {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
+                {{#linkTo "currentOrderDonationList" tagName="button" class="contrast top"}}
                     {% trans "Switch to donations" %}
                 {{/linkTo}}
             </sidebar>

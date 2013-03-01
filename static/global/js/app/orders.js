@@ -179,8 +179,11 @@ App.DeleteMixin = Em.Mixin.create({
 });
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
+    // The CurrentOrderController is needed so we can set the CurrentOrder model for the
+    // CurrentOrderRecurringController (the single / monthly radio buttons).
     needs: ['currentOrder']
 });
+
 
 App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteMixin, {
     updateDonation: function(newAmount) {
