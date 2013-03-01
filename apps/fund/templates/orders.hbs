@@ -132,22 +132,21 @@
 {% tplhandlebars "current_order_voucher_list" %}
 
     <fieldset>
-        {{ outlet }}
+
+        {{ render currentOrderVoucherNew }}
+
         <ul class="voucher-list">
-            {{#each controller}}
-                {# Only show the vouchers that are not dirty (i.e. don't show the voucher that's currently being edited). #}
-                {{#if this.isDirty}}
-                {{else}}
-                    {{view "App.CurrentOrderVoucherView" content=this}}
-                {{/if}}
+            {{#each controller itemController=currentOrderVoucher }}
+                {{ view "App.CurrentOrderVoucherView" }}
             {{/each}}
-            {{#if controller.count}}
+
+            {{#if controller.length }}
                 <li>
                     <div class="summary">
-                        {{controller.count}} {% trans "vouchers will be sent out with a total amount worth of" %}
+                        {{ length }} {% trans "vouchers will be sent out with a total amount worth of" %}
                     </div>
                     <div class="amount">
-                        <h4 class="right">&euro;{{controller.amount}}</h4>
+                        <h4 class="right">&euro;{{ amount }}</h4>
                     </div>
                 </li>
             {{else}}
@@ -160,7 +159,7 @@
         </ul>
 
 
-        {{#if controller.count}}
+        {{#if controller.length }}
             {{#linkTo "paymentOrderProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
         {{else}}
             <button disabled class="right">{% trans "Next step" %}</button>
@@ -172,12 +171,11 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "current_order_voucher_add" %}
+{% tplhandlebars "current_order_voucher_new" %}
 
     <h2>{% trans "Choose value & personalize voucher" %}</h2>
 
-
-    {{#view Em.RadioButtonGroup class="big-radio radio2" name="language" selectedValueBinding="content.language"}}
+    {{#view Em.RadioButtonGroup class="big-radio radio2" name="language" selectedValueBinding="language"}}
         <div class="label">
             {% trans "Language" %}
         </div>
@@ -192,7 +190,7 @@
     {{/view}}
     <br />
 
-    {{#view Em.RadioButtonGroup class="big-radio radio4" name="amount" selectedValueBinding="content.amount"}}
+    {{#view Em.RadioButtonGroup class="big-radio radio4" name="amount" selectedValueBinding="amount"}}
         <div class="label">
             {% trans "Amount" %}
         </div>
@@ -216,11 +214,11 @@
 
     <div class="label">{% trans "Your name" %}</div>
     {{#each errors.sender_name}}<span class="error">{{this}}</span>{{/each}}
-    {{view Em.TextField valueBinding="content.sender_name" placeholder="Your name" classBinding="errors.sender_name.length:error"}}
+    {{view Em.TextField valueBinding="sender_name" placeholder="Your name" classBinding="errors.sender_name.length:error"}}
 
     <div class="label">{% trans "Your email" %}</div>
     {{#each errors.sender_email}}<span class="error">{{this}}</span>{{/each}}
-    {{view Em.TextField valueBinding="content.sender_email" placeholder="Your email" classBinding="errors.sender_email.length:error"}}
+    {{view Em.TextField valueBinding="sender_email" placeholder="Your email" classBinding="errors.sender_email.length:error"}}
 
     <h2 class="clear">{% trans "Add as many recipients as you want" %}</h2>
 
@@ -237,7 +235,7 @@
     <br class="clear" />
     {{view Em.TextArea valueBinding="message" placeholder="Your message that will appear on the digital voucher." classBinding="errors.message.length:error"}}
 
-    <a {{action "addVoucher" target="view.controller"}} class="right button">{% trans "Add" %}</a>
+    <a {{action "addVoucher"}} class="right button">{% trans "Add" %}</a>
     <br class="clear" />
 
 {% endtplhandlebars %}
@@ -521,10 +519,10 @@
                         {{else}}
                             <li class="donation-project">
                                 {{#linkTo "projectList"}}
-                                <h1>
-                                    {% trans "Choose a project to support with this voucher" %}
-                                </h1>
-                                <b>You can make it work!</b>
+                                    <h1>
+                                        {% trans "Choose a project to support with this voucher" %}
+                                    </h1>
+                                    <b>You can make it work!</b>
                                 {{/linkTo}}
                             </li>
                         {{/each}}
@@ -597,8 +595,6 @@
     {# <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a> #}
 
 {% endtplhandlebars %}
-
-
 
 
 {% tplhandlebars "custom_voucher_request" %}

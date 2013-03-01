@@ -354,14 +354,6 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
 });
 
 
-App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
-    setupController: function(controller, context) {
-        this.controllerFor('currentOrder').set('isVoucherOrder', true);
-        controller.createNewVoucher();
-    }
-});
-
-
 App.CustomVoucherRequestRoute = Ember.Route.extend({
     setupController: function(controller, context) {
         // TODO: Find out why init() doesn't run automatically.
