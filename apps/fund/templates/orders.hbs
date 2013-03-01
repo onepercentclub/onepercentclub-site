@@ -105,16 +105,9 @@
 
     </fieldset>
 
-    {{ render "currentOrderRecurring" controllers.currentOrder.model }}
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "current_order_recurring" %}
-
     <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="recurring"}}
+        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="controllers.currentOrder.recurring"}}
             <label>
                 {{view view.RadioButton value="false"}}
                 {% trans "Single donation" %}

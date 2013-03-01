@@ -179,8 +179,7 @@ App.DeleteMixin = Em.Mixin.create({
 });
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
-    // The CurrentOrderController is needed so we can set the CurrentOrder model for the
-    // CurrentOrderRecurringController (the single / monthly radio buttons).
+    // The CurrentOrderController is needed for the single / monthly radio buttons.
     needs: ['currentOrder']
 });
 
@@ -402,11 +401,6 @@ App.CustomVoucherRequestController = Em.ObjectController.extend({
 
 App.CurrentOrderView = Em.View.extend({
     templateName: 'current_order'
-});
-
-
-App.CurrentOrderRecurringView = Em.View.extend({
-    templateName: 'current_order_recurring'
 });
 
 
