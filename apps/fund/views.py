@@ -149,30 +149,31 @@ class OrderList(ListAPIView):
 
 # Order views:
 
-class OrderDetail(generics.RetrieveAPIView):
-    model = Order
-
-
-# Current Order views:
-
-class CurrentOrder(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
     serializer_class = OrderSerializer
+    # FIXME: make sure right permissions are set.
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_object(self, queryset=None):
-        order = self.get_or_create_current_order()
+        alias = self.kwargs.get('alias', None)
+        if alias == 'current':
+            order = self.get_or_create_current_order()
+            self.check_object_permissions(self.request, order)
+    
+            # Not sure if this is the best place to generate the payment url.
+            if order.payment.payment_method_id:
+                if self.request.is_secure():
+                    protocol = 'https://'
+                else:
+                    protocol = 'http://'
+    
+                # Getting the payment url with this method will save the url into the payment method info object.
+                payments.get_payment_url(order.payment, '{0}{1}'.format(protocol, self.request.get_host()))
+        else:
+            order = super(OrderDetail, self).get_object()
+
         self.check_object_permissions(self.request, order)
-
-        # Not sure if this is the best place to generate the payment url.
-        if order.payment.payment_method_id:
-            if self.request.is_secure():
-                protocol = 'https://'
-            else:
-                protocol = 'http://'
-
-            # Getting the payment url with this method will save the url into the payment method info object.
-            payments.get_payment_url(order.payment, '{0}{1}'.format(protocol, self.request.get_host()))
         return order
 
     def put(self, request, *args, **kwargs):
@@ -191,19 +192,6 @@ class CurrentOrder(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         return self.update(request, *args, **kwargs)
 
 
-class OrderItemList(CurrentOrderMixin, generics.ListAPIView):
-    model = OrderItem
-    serializer_class = OrderItemSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    def get_queryset(self):
-        # Filter queryset for the current order
-        order = self.get_current_order()
-        if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
-        return order.orderitem_set.all()
-
-
 def process_order_in_progress(order):
     """ Helper method for processing orders that have just been paid. """
     for order_item in order.orderitem_set.all():
@@ -212,52 +200,6 @@ def process_order_in_progress(order):
             process_voucher_order_in_progress(order_item.content_object)
         elif type == "Donation":
             process_donation_order_in_progress(order_item.content_object)
-
-
-# Note: Not currently being used (but the OrderLatestDontationList is being used).
-class OrderLatestItemList(OrderItemList):
-    """
-    This is the return url where the user should be directed to after the payment process is completed
-    """
-    model = Order
-    serializer_class = OrderItemSerializer
-
-    def get_queryset(self):
-        order = self.get_current_order()
-        if order and order.payment:
-            # FIXME Status updates aren't working.
-            # payments.update_payment_status(order.payment)
-            # FIXME: Check the status we get back from PSP and set order status accordingly.
-            order.status = Order.OrderStatuses.pending
-            order.save()
-            process_order_in_progress(order)
-        else:
-            order = self.get_latest_order()
-
-        order.save()
-        return order.orderitem_set.all()
-
-
-class OrderLatestDonationList(CurrentOrderMixin, generics.ListAPIView):
-    model = Donation
-    serializer_class = DonationSerializer
-    paginate_by = 50
-
-    def get_queryset(self):
-        order = self.get_current_order()
-        if order and order.payment:
-            # FIXME Status updates aren't working.
-            # payments.update_payment_status(order.payment)
-            # FIXME: Check the status we get back from PSP and set order status accordingly.
-            order.status = Order.OrderStatuses.pending
-            order.save()
-            process_order_in_progress(order)
-        else:
-            order = self.get_latest_order()
-
-        orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(Donation))
-        queryset = Donation.objects.filter(id__in=orderitems.values('object_id'))
-        return queryset
 
 
 class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
@@ -360,11 +302,21 @@ class OrderItemMixin(object):
 
     def get_queryset(self):
         # Filter queryset for the current order
-        order = self.get_current_order()
+        alias = self.kwargs.get('alias', None)
+        order_id = self.kwargs.get('order_id', None)
+        if alias == 'current':
+            order = self.get_current_order()
+        elif order_id:
+            try:
+                order = Order.objects.get(user=self.request.user, id=order_id)
+            except Order.DoesNotExist:
+                raise exceptions.ParseError(detail=_(u"Order not found."))
+        else:
+            raise exceptions.ParseError(detail=_(u"No order specified."))
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
-        orderitems = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(self.model))
-        queryset = self.model.objects.filter(id__in=orderitems.values('object_id'))
+            raise exceptions.ParseError(detail=_(u"Order not found."))
+        order_items = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(self.model))
+        queryset = self.model.objects.filter(id__in=order_items.values('object_id'))
         return queryset
 
     def create(self, request, *args, **kwargs):

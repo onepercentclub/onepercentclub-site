@@ -18,7 +18,7 @@ class DonationSerializer(serializers.ModelSerializer):
     status = serializers.ChoiceField(read_only=True)
 
     # FIXME: This field makes the Donation serializer tied to '/fund/orders/current'.
-    url = serializers.HyperlinkedIdentityField(view_name='fund-current-order-donation-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='fund-order-donation-detail')
     amount = EuroField()
 
     def validate_amount(self, attrs, source):
