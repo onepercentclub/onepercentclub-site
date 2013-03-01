@@ -12,7 +12,7 @@
                     <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "currentOrderItemList" tagName="button" class="contrast top"}}
+                    {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
                         {% trans "Switch to paid donations" %}
                     {{/linkTo}}
                 </sidebar>
@@ -40,26 +40,30 @@
             <ul class="donation-steps">
                 {{#if controller.isVoucherOrder}}
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo currentOrderVoucherAdd}}Vouchers{{/linkTo}}
+                        {{#linkTo "currentOrder.voucherList"}}Vouchers{{/linkTo}}
                     {{/view}}
                 {{else}}
+                    {# Hack: This span needs to be here to get the 'Support' to replace 'Vouchers'. #}
+                    <span></span>
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo currentOrderItemList}}Support{{/linkTo}}
+                        {{#linkTo "currentOrder.donationList"}}Support{{/linkTo}}
                     {{/view}}
                 {{/if}}
+
                 {{#view App.OrderNavView classNames="details"}}
-                    {{#linkTo paymentOrderProfile}}{% trans "Details" %}{{/linkTo}}
+                    {{#linkTo "paymentOrderProfile"}}{% trans "Details" %}{{/linkTo}}
                 {{/view}}
+
                 {{#view App.OrderNavView classNames="profile"}}
                     <a>{% trans "Profile" %}</a>
                 {{/view}}
 
                 {{#view App.OrderNavView classNames="payment"}}
-                    {{#linkTo currentPaymentMethodInfo}}{% trans "Pay" %}{{/linkTo}}
+                    {{#linkTo "currentPaymentMethodInfo"}}{% trans "Pay" %}{{/linkTo}}
                 {{/view}}
             </ul>
 
-            {{outlet}}
+            {{ outlet }}
 
             <div class="sidebar tip">
                 {{#if controller.isVoucherOrder}}
@@ -67,13 +71,12 @@
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum eros est.
                     Aliquam volutpat tempus quam, molestie malesuada justo sollicitudin nec.
                     <br />
-                    {{#linkTo customVoucherRequest}}{% trans "Contact us..." %}{{/linkTo}}
-                {{/if}}
-                <!--
+                    {{#linkTo "customVoucherRequest"}}{% trans "Contact us..." %}{{/linkTo}}
+                {{else}}
                   <h3>Did you know?</h3>
                   <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
                   <p><a href="#">Read some more</a></p>
-                -->
+                {{/if}}
             </div>
 
         </section>
@@ -83,28 +86,34 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "current_order_item_list" %}
+{% tplhandlebars "current_order_donation_list" %}
 
     <fieldset>
 
         <ul id="donation-projects">
-            {{#each controller}}
-                {{view "App.CurrentOrderItemView" content=this}}
+            {{#each controllers.currentOrder.donations itemController="currentOrderDonation"}}
+                {{view "App.CurrentOrderDonationView" content=this}}
             {{else}}
-                {{#linkTo projectList}}
+                {{#linkTo "projectList"}}
                     <h1>{% trans "Choose a project to make a donation" %}</h1>
                     <b>{% trans "Select a project from the list and click 'Support this project' to add it to this list." %}</b>
                 {{/linkTo}}
             {{/each}}
         </ul>
 
-        {{#linkTo projectList class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
+        {{#linkTo "projectList" class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
 
     </fieldset>
 
+    {{ render "currentOrderRecurring" controllers.currentOrder }}
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "current_order_recurring" %}
     <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="view.parentView.controller.content.recurring"}}
+        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="recurring"}}
             <label>
                 {{view view.RadioButton value="false"}}
                 {% trans "Single donation" %}
@@ -115,20 +124,21 @@
                 {% trans "Monthly donation" %}
             </label>
         {{/view}}
-        {# Doesnt update <span class="currency"><em>&euro; </em>{{view.parentView.controller.content.amount}}</span> #}
+
+        {# FIXME change amount @each like in peepCode example. #}
+        <span class="currency"><em>&euro; </em>{{ amount }}</span>
 
     </fieldset>
 
-    {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+    {{#linkTo "paymentOrderProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
-
 
 
 {% tplhandlebars "current_order_voucher_list" %}
 
     <fieldset>
-        {{outlet}}
+        {{ outlet }}
         <ul class="voucher-list">
             {{#each controller}}
                 {# Only show the vouchers that are not dirty (i.e. don't show the voucher that's currently being edited). #}
@@ -157,7 +167,7 @@
 
 
         {{#if controller.count}}
-            {{#linkTo paymentOrderProfile class="button right"}}{% trans "Next step" %}{{/linkTo}}
+            {{#linkTo "paymentOrderProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
         {{else}}
             <button disabled class="right">{% trans "Next step" %}</button>
         {{/if}}
@@ -286,9 +296,9 @@
 
 
 {# wrapper tag: <li class="donation-project"> #}
-{% tplhandlebars "currentorderitem" %}
+{% tplhandlebars "current_order_donation" %}
 
-    {{#linkTo project project}}
+    {{#linkTo "project" project}}
         <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
         <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
     {{/linkTo}}
@@ -415,11 +425,11 @@
             <ul id="donation-projects">
                 {{#each orderitem in controller}}
                     <li class="donation-project">
-                        {{#linkTo project orderitem.project}}
+                        {{#linkTo "project" orderitem.project}}
                             <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
                         {{/linkTo}}
                         <h1>
-                            {{#linkTo project orderitem.project}}
+                            {{#linkTo "project" orderitem.project}}
                                 {{orderitem.project.title}}
                             {{/linkTo}}
                             <em class="country">{{orderitem.project.country.name}}</em>
@@ -462,7 +472,7 @@
                 {{/linkTo}}
             </div>
             <div class="buy">
-                {{#linkTo "currentOrderVoucherAdd"}}
+                {{#linkTo "currentOrder.voucherList"}}
                     <h2>{% trans "I'd like to buy voucher(s)" %}</h2>
                 {{/linkTo}}
             </div>
@@ -480,7 +490,7 @@
                 <h1 class="main-title">{% trans "Claim you voucher and support!" %}</h1>
             </div>
             <sidebar>
-                {{#linkTo "currentOrderItemList" tagName="button" class="contrast top"}}
+                {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
                     {% trans "Switch to donations" %}
                 {{/linkTo}}
             </sidebar>
@@ -493,7 +503,7 @@
 
             <ul class="voucher-steps">
                 {{#view App.OrderNavView classNames="support selected"}}
-                    {{#linkTo voucherRedeem}}Support{{/linkTo}}
+                    {{#linkTo "voucherRedeem"}}Support{{/linkTo}}
                 {{/view}}
                 {{#view App.OrderNavView classNames="profile"}}
                     <a>{% trans "Profile" %}</a>
@@ -516,7 +526,7 @@
                             {{view App.VoucherDonationView content=this}}
                         {{else}}
                             <li class="donation-project">
-                                {{#linkTo projectList}}
+                                {{#linkTo "projectList"}}
                                 <h1>
                                     {% trans "Choose a project to support with this voucher" %}
                                 </h1>
@@ -573,11 +583,12 @@
 
 
 {% tplhandlebars "voucher_donation" %}
-    {{#linkTo project project}}
+
+    {{#linkTo "project" project}}
         <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
     {{/linkTo}}
     <h1>
-        {{#linkTo project project}}
+        {{#linkTo "project" project}}
             {{project.title}}
         {{/linkTo}}
         <em class="country">{{project.country.name}}</em>
@@ -590,6 +601,7 @@
 
     {# add this for multiple donations per voucher #}
     {# <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a> #}
+
 {% endtplhandlebars %}
 
 

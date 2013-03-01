@@ -2,6 +2,96 @@
  Models
  */
 
+App.Order = DS.Model.extend({
+    url: 'fund/orders',
+
+    amount: DS.attr('number'),
+    status: DS.attr('string'),
+    recurring: DS.attr('string'),
+    payment_method_id: DS.attr('string'),
+    payment_submethod_id: DS.attr('string'),
+    payment_methods: DS.hasMany('App.PaymentMethod'),
+    vouchers: DS.hasMany('App.Voucher'),
+    donations: DS.hasMany('App.Donation')
+});
+
+
+App.Donation = DS.Model.extend({
+    url: 'fund/donations',
+
+    // Model fields
+    // FIXME Make the drf2 serializer use the id (or slug) to serialize DS.belongsTo.
+    //       This will enable us to remove the project_slug field.
+    project: DS.belongsTo('App.Project'),
+    project_slug: DS.attr('string'),
+    amount: DS.attr('number', {defaultValue: 20}),
+    status: DS.attr('string'),
+    type: DS.attr('string'),
+    order: DS.belongsTo('App.Order')
+});
+
+
+App.Voucher =  DS.Model.extend({
+    url: 'fund/vouchers',
+
+    receiver_name: DS.attr('string', {defaultValue: ''}),
+    receiver_email: DS.attr('string'),
+    sender_name: DS.attr('string', {defaultValue: ''}),
+    sender_email: DS.attr('string'),
+    message: DS.attr('string', {defaultValue: ''}),
+    language: DS.attr('string', {defaultValue: 'en'}),
+    amount: DS.attr('number', {defaultValue: 25}),
+    order: DS.belongsTo('App.Order')
+});
+
+
+/* Models with CurrentOrder relations and urls. */
+
+App.CurrentOrder = DS.Model.extend({
+    url: 'fund/orders',
+
+    vouchers: DS.hasMany('App.CurrentVoucher'),
+    donations: DS.hasMany('App.CurrentDonation')
+});
+
+App.CurrentDonation = App.Donation.extend({
+    url: 'fund/orders/current/donations',
+
+    order: DS.belongsTo('App.CurrentOrder')
+});
+
+App.CurrentVoucher = App.Voucher.extend({
+    url: 'fund/orders/current/vouchers',
+
+    order: DS.belongsTo('App.CurrentOrder')
+});
+
+
+/* Models related to payment. */
+
+App.PaymentOrderProfile = DS.Model.extend({
+    url: 'fund/paymentorderprofiles',
+
+    order: DS.belongsTo('App.Order'),
+    firstName: DS.attr('string'),
+    lastName: DS.attr('string'),
+    email: DS.attr('string'),
+    street: DS.attr('string'),
+    city: DS.attr('string'),
+    country: DS.attr('string'),
+    postalCode: DS.attr('string')
+});
+
+
+App.PaymentMethod = DS.Model.extend({
+    url: 'fund/paymentmethods',
+
+    name: DS.attr('string'),
+    order: DS.belongsTo('App.Order')
+});
+
+
+// TODO: Turn into ember Fixture??
 // Maybe we can move this to the currentOrderController?
 App.bankList = [
     Ember.Object.create({value:"0081", title: "Fortis"}),
@@ -16,87 +106,20 @@ App.bankList = [
     Ember.Object.create({value:"0161", title: "Van Lanschot Bankiers"})
 ];
 
-App.PaymentMethod = DS.Model.extend({
-    url: 'fund/paymentmethods',
-    name: DS.attr('string'),
-    order: DS.belongsTo('App.Order')
-});
 
-App.Order = DS.Model.extend({
-    url: 'fund/orders',
-    amount: DS.attr('number'),
-    status: DS.attr('string'),
-    recurring: DS.attr('string'),
-    payment_method_id: DS.attr('string'),
-    payment_submethod_id: DS.attr('string'),
-    payment_methods: DS.hasMany('App.PaymentMethod')
-});
-
-
-App.PaymentOrderProfile = DS.Model.extend({
-    url: 'fund/paymentorderprofiles',
-    firstName: DS.attr('string'),
-    lastName: DS.attr('string'),
-    email: DS.attr('string'),
-    street: DS.attr('string'),
-    city: DS.attr('string'),
-    country: DS.attr('string'),
-    postalCode: DS.attr('string')
-});
-
-App.OrderItem = DS.Model.extend({
-    url: 'fund/orders/:order_id/items',
-
-    // Model fields
-    // FIXME Make the drf2 serializer use the id (or slug) to serialize DS.belongsTo.
-    //       This will enable us to remove the project_slug field.
-    project: DS.belongsTo('App.Project'),
-    project_slug: DS.attr('string'),
-    amount: DS.attr('number'),
-    status: DS.attr('string'),
-    type: DS.attr('string')
-});
-
-
-App.CurrentOrderItem = DS.Model.extend({
-    url: 'fund/orders/current/items',
-});
-
-
-App.LatestDonation = App.OrderItem.extend({
-    url: 'fund/orders/latest/donations'
-});
-
-App.CurrentDonation = App.OrderItem.extend({
-    url: 'fund/orders/current/donations'
-});
-
-App.VoucherDonation = App.CurrentDonation.extend({
-   url: 'fund/vouchers/:code/donations'
-});
-
-
-App.Voucher =  App.OrderItem.extend({
-    url: 'fund/vouchers',
-    receiver_name: DS.attr('string', {defaultValue: ''}),
-    receiver_email: DS.attr('string'),
-    sender_name: DS.attr('string', {defaultValue: ''}),
-    sender_email: DS.attr('string'),
-    message: DS.attr('string', {defaultValue: ''}),
-    language: DS.attr('string', {defaultValue: 'en'}),
-    amount: DS.attr('number', {defaultValue: 25}),
-    donations: DS.hasMany('App.VoucherDonation')
-});
-
-
-App.CurrentVoucher = App.Voucher.extend({
-    url: 'fund/orders/current/vouchers',
-    order: DS.belongsTo('App.CurrentOrderItem')
-});
+//App.LatestDonation = App.OrderItem.extend({
+//    url: 'fund/orders/latest/donations'
+//});
+//
+//
+//App.VoucherDonation = App.CurrentDonation.extend({
+//   url: 'fund/vouchers/:code/donations'
+//});
 
 
 App.PaymentInfo = DS.Model.extend({
     url: 'fund/paymentinfo',
+
     payment_method: DS.attr('number'),
     amount: DS.attr('number'),
     firstName: DS.attr('string'),
@@ -111,15 +134,17 @@ App.PaymentInfo = DS.Model.extend({
 
 App.PaymentMethodInfo = DS.Model.extend({
     url: 'fund/paymentmethodinfo',
+
     payment_url: DS.attr('string'),
     bank_account_number: DS.attr('string'),
     bank_account_name: DS.attr('string'),
-    bank_account_city: DS.attr('string'),
+    bank_account_city: DS.attr('string')
 });
 
 
 App.Payment = DS.Model.extend({
     url: 'fund/payments',
+
     payment_method: DS.attr('string'),
     amount: DS.attr('number'),
     status: DS.attr('string')
@@ -128,6 +153,7 @@ App.Payment = DS.Model.extend({
 
 App.CustomVoucherRequest = DS.Model.extend({
     url: 'fund/customvouchers',
+
     amount: DS.attr('number', {defaultValue: 100}),
     type: DS.attr('string', {defaultValue: 'unknown'}),
     contact_name: DS.attr('string', {defaultValue: ''}),
@@ -138,35 +164,41 @@ App.CustomVoucherRequest = DS.Model.extend({
 });
 
 
-
 /*
  Controllers
  */
 
-App.CurrentOrderItemListController = Em.ArrayController.extend({
-
-    updateOrderItem: function(orderItem, newAmount) {
+App.DeleteMixin = Em.Mixin.create({
+    deleteRecordOnServer: function() {
+        var record = this.get('model');
         var transaction = App.store.transaction();
-        transaction.add(orderItem);
-        orderItem.set('amount', newAmount);
+        transaction.add(record);
+        record.deleteRecord();
         transaction.commit();
-    },
+    }
+});
 
-    deleteOrderItem: function(orderItem) {
+App.CurrentOrderDonationListController = Em.ArrayController.extend({
+    needs: ['currentOrder']
+});
+
+App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteMixin, {
+    updateDonation: function(newAmount) {
+        var donation = this.get('model');
         var transaction = App.store.transaction();
-        transaction.add(orderItem);
-        orderItem.deleteRecord();
+        transaction.add(donation);
+        donation.set('amount', newAmount);
         transaction.commit();
     }
 });
 
 
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
-
     count: function(){
         return this.get('content.length') - 1;
     }.property('content.length'),
 
+    // TODO Use forEach like in the peepCode video.
     amount: function(){
         // Calculate the total amount of Vouchers that are added to the list, not the one that's being edited in the form.
         var amount = 0;
@@ -188,7 +220,6 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 
 
 App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
-
     createNewVoucher: function() {
         var transaction = App.store.transaction();
         var voucher =  transaction.createRecord(App.CurrentVoucher);
@@ -198,7 +229,7 @@ App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
         this.set('transaction', transaction);
     },
 
-    addVoucher: function(){
+    addVoucher: function() {
         var voucher = this.get('content');
         var controller = this;
         voucher.on('didCreate', function(record) {
@@ -211,19 +242,17 @@ App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
         });
         this.get('transaction').commit();
     }
-
 });
 
 
 App.PaymentOrderProfileController = Em.ObjectController.extend({
-
-    initTransaction: function(){
+    initTransaction: function() {
         var transaction = App.store.transaction();
         this.set('transaction', transaction);
         transaction.add(this.get('content'));
     }.observes('content'),
 
-    updateProfile: function(){
+    updateProfile: function() {
         var profile = this.get('content');
         var controller = this;
         // We should at least have an email address
@@ -244,33 +273,44 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
-
-    isIdeal: function(){
+    isIdeal: function() {
         return (this.get('content.payment_method_id') == 'dd-ideal');
     }.property('content.payment_method_id'),
 
-    isDirectDebit: function(){
+    isDirectDebit: function() {
         return (this.get('content.payment_method_id') == 'dd-direct-debit');
     }.property('content.payment_method_id'),
 
-    initTransaction: function(){
-        var order = this.get('content');
-        var transaction = App.get('store').transaction();
-        this.set('transaction', transaction);
-        transaction.add(order);
-    }.observes('content'),
+//    initTransaction: function() {
+//        var order = this.get('content');
+//        var transaction = App.get('store').transaction();
+//        this.set('transaction', transaction);
+//        transaction.add(order);
+//    }.observes('content'),
 
-    updateOrder: function(){
-        if (this.get('content.isDirty')) {
-            var controller = this;
-            var order = this.get('content');
-            this.get('transaction').commit();
-            order.on('didUpdate', function(record){
-                // Init a new private transaction.
-                controller.initTransaction();
-            });
-        }
-    }.observes('content.isDirty')
+//    updateOrder: function() {
+//        if (this.get('content.isDirty')) {
+//            var controller = this;
+//            var order = this.get('content');
+//            this.get('transaction').commit();
+//            order.on('didUpdate', function(record){
+//                // Init a new private transaction.
+//                controller.initTransaction();
+//            });
+//        }
+//    }.observes('content.isDirty'),
+
+//    updateOrder: function() {
+//        var order = this.get('model');
+//        var transaction = App.get('store').transaction();
+//        transaction.add(order);
+//        transaction.commit();
+//        order.on('didUpdate', function(record){
+//            console.log("blah")
+//            transaction.removeCleanRecords()
+//        });
+//    }.observes('recurring'),
+
 });
 
 
@@ -279,10 +319,9 @@ App.CurrentOrderPaymentController = Em.ObjectController.extend({
 });
 
 
-
 App.VoucherRedeemController = Em.ArrayController.extend({
-
     code: "",
+
     error: function(){
         if (this.get('voucher.isLoaded')) {
             // we don't get the code from the server, but store it here for future reference.
@@ -295,7 +334,7 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         return false;
     }.property('voucher.isSaving', 'voucher.isLoaded'),
 
-    submitVoucherCode: function(){
+    submitVoucherCode: function() {
         var code = this.get('code');
         if (code) {
             var voucher = App.Voucher.find(code);
@@ -303,7 +342,8 @@ App.VoucherRedeemController = Em.ArrayController.extend({
 
         }
     },
-    redeemVoucher: function(){
+
+    redeemVoucher: function() {
         var controller = this;
         var voucher = this.get('voucher');
         var transaction = App.store.transaction();
@@ -314,6 +354,7 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         });
         transaction.commit();
     },
+
     // Currently not used. Keep this around for multiple Donations per Voucher.
     deleteVoucherDonation: function(orderItem) {
         var transaction = App.store.transaction();
@@ -321,12 +362,10 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         orderItem.deleteRecord();
         transaction.commit();
     }
-
 });
 
 
 App.CustomVoucherRequestController = Em.ObjectController.extend({
-
     init: function() {
         this._super();
         this.createCustomVoucherRequest();
@@ -342,15 +381,12 @@ App.CustomVoucherRequestController = Em.ObjectController.extend({
 
     },
 
-    sendRequest: function(){
+    sendRequest: function() {
         var transaction = this.get('transaction');
         var voucherRequest = this.get('content');
         transaction.commit();
-
     }
-
 });
-
 
 
 /*
@@ -362,19 +398,24 @@ App.CurrentOrderView = Em.View.extend({
 });
 
 
+App.CurrentOrderRecurringView = Em.View.extend({
+    templateName: 'current_order_recurring'
+});
+
+
 App.PaymentOrderProfileView = Em.View.extend({
     templateName: 'payment_order_profile',
     tagName: 'form',
 
     submit: function(e){
         e.preventDefault();
-        this.controller.updateProfile();
+        this.get('controller').updateProfile();
     }
 });
 
 
-App.CurrentOrderItemListView = Em.View.extend({
-    templateName: 'current_order_item_list',
+App.CurrentOrderDonationListView = Em.View.extend({
+    templateName: 'current_order_donation_list',
     tagName: 'form'
 });
 
@@ -392,8 +433,8 @@ App.FinalOrderItemListView = Em.View.extend({
 });
 
 
-App.CurrentOrderItemView = Em.View.extend({
-    templateName: 'currentorderitem',
+App.CurrentOrderDonationView = Em.View.extend({
+    templateName: 'current_order_donation',
     tagName: 'li',
     classNames: 'donation-project',
 
@@ -402,12 +443,14 @@ App.CurrentOrderItemView = Em.View.extend({
     }.property('content.amount', 'content.project.money_needed_natural'),
 
     change: function(e){
-        this.get('controller').updateOrderItem(this.get('content'), Em.get(e, 'target.value'));
+        this.get('controller').updateDonation(Em.get(e, 'target.value'));
     },
-    // Not used until we do multiple donations/voucher
-    delete: function(item){
+
+    delete: function(item) {
         var controller = this.get('controller');
-        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
+        this.$().slideUp(500, function() {
+            controller.deleteRecordOnServer();
+        });
     }
 });
 
@@ -417,13 +460,13 @@ App.CurrentOrderVoucherView = Em.View.extend({
     tagName: 'li',
     classNames: ['voucher-item'],
 
-    delete: function(){
+    delete: function() {
         var controller = this.get('controller');
         var item = this.get('content');
         this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
     },
 
-    submit: function(e){
+    submit: function(e) {
         e.preventDefault();
     }
 });
@@ -521,10 +564,9 @@ App.VoucherDonationView = Em.View.extend({
 
     delete: function(item){
         var controller = this.get('controller');
-        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
-    },
-    submit: function(e){
-        e.preventDefault();
+        this.$().slideUp(500, function() {
+            controller.deleteOrderItem(item)
+        });
     }
 });
 

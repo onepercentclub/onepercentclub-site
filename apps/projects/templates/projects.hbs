@@ -13,7 +13,7 @@
                 {{#if content.isLoaded}}
                 <ul>
                     {{#each project in controller}}
-                        <li>{{#linkTo project project}}{{project.title}}{{/linkTo}}</li>
+                        <li>{{#linkTo "project" project}}{{project.title}}{{/linkTo}}</li>
                     {{/each}}
                 </ul>
                 {{else}}
@@ -89,7 +89,9 @@
             {{#if currentVoucher}}
                 {{#linkTo "voucherRedeem.add" this class="button-donate"}}{% trans "Support with voucher" %}{{/linkTo}}
             {{else}}
-                {{#linkTo "currentOrderItemList.add" this class="button-donate"}}{% trans "Support this project" %}{{/linkTo}}
+                <a href="#" class="button-donate" {{action "supportProject" this }}>
+                    {% trans "Support this project" %}
+                </a>
             {{/if}}
 
         </sidebar>

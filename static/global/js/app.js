@@ -92,7 +92,6 @@ App = Em.Application.create({
             app.loadTemplate(templateFilename);
         });
     }
-
 });
 
 
@@ -147,9 +146,13 @@ App.Adapter.map('App.ProjectMediaWallPost', {
 App.Adapter.map('App.WallPostReaction', {
     author: {embedded: 'load'}
 });
-
-App.Adapter.map('App.Voucher', {
-    donations: {embedded: 'load'}
+App.Adapter.map('App.Order', {
+    donations: {embedded: 'load'},
+    vouchers: {embedded: 'load'}
+});
+App.Adapter.map('App.CurrentOrder', {
+    donations: {embedded: 'load'},
+    vouchers: {embedded: 'load'}
 });
 
 
@@ -187,12 +190,12 @@ App.User = App.Member.extend({
 App.CurrentUserController = Em.ObjectController.extend({
     init: function() {
         this._super();
-        this.set("content", App.User.find('current'));
+        this.set("model", App.User.find('current'));
     },
 
     isAuthenticated: function(){
-        return (this.get('content.username')) ? true : false;
-    }.property('content.username')
+        return (this.get('username')) ? true : false;
+    }.property('username')
 });
 
 
@@ -225,15 +228,10 @@ App.Router.map(function() {
         this.route('edit');
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
-    this.resource('currentOrder', {path: '/support'}, function() {
-        // TODO Rename route to currentOrderDonationList??
-        this.resource('currentOrderItemList', {path: ''}, function() {
-            this.route('add', {path: '/add/:slug'});  // project slug
-        });
-
-        this.resource('currentOrderVoucherList', {path: '/vouchers'}, function(){
-            this.resource('currentOrderVoucherAdd', {path: ''});
-        });
+    this.resource('currentOrder', {path: '/support/'}, function() {
+        // TODO: make these resources
+        this.route('donationList', {path: '/donations'});
+        this.route('voucherList', {path: '/vouchers'});
 
         this.resource('paymentOrderProfile', {path: '/details'});
 
@@ -269,8 +267,7 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
     },
 
     setupController: function(controller, project) {
-        // Project detail controller.
-        controller.set('content', project);
+        this._super(controller, project);
 
         // Look if we've got an active voucher
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
@@ -319,44 +316,35 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 });
 
 
-App.CurrentOrderVoucherListRoute = Ember.Route.extend({
-    model: function(params) {
-        return App.CurrentVoucher.find();
-    },
-
-    setupController: function(controller, orderitems) {
-        controller.set('content', orderitems);
-    }
-});
-
-
 App.CurrentOrderRoute = Ember.Route.extend({
     model: function(params) {
-        return App.Order.find('current');
+        this._super()
+        return App.CurrentOrder.find('current');
     },
 
     setupController: function(controller, order) {
-        controller.set('content', order);
+        this._super(controller, order);
         controller.set('isVoucherOrder', false);
     }
 });
 
-App.CurrentOrderItemListRoute = Ember.Route.extend({
 
-    model: function(params) {
-        return App.CurrentDonation.find();
-    },
-
-    setupController: function(controller, orderitems) {
-        controller.set('content', orderitems);
+App.CurrentOrderDonationListRoute = Ember.Route.extend({
+    setupController: function(controller, context) {
         this.controllerFor('currentOrder').set('isVoucherOrder', false);
     }
 });
 
 
-App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
+App.CurrentOrderVoucherListRoute = Ember.Route.extend({
+    setupController: function(controller, context) {
+        this.controllerFor('currentOrder').set('isVoucherOrder', true);
+    }
+});
 
-    setupController: function(controller) {
+
+App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
+    setupController: function(controller, context) {
         this.controllerFor('currentOrder').set('isVoucherOrder', true);
         controller.createNewVoucher();
     }
@@ -364,8 +352,7 @@ App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
 
 
 App.CustomVoucherRequestRoute = Ember.Route.extend({
-
-    setupController: function(controller) {
+    setupController: function(controller, context) {
         // TODO: Find out why init() doesn't run automatically.
         controller.init();
     }
@@ -373,7 +360,6 @@ App.CustomVoucherRequestRoute = Ember.Route.extend({
 
 
 App.VoucherRedeemCodeRoute = Ember.Route.extend({
-
     model: function(params) {
         var voucher = App.Voucher.find(params['code']);
         // We don't get the code from the server, but we want it to return it to the user here.
@@ -422,25 +408,6 @@ App.PaymentOrderProfileRoute = Ember.Route.extend({
 });
 
 
-App.CurrentOrderItemListAddRoute = Ember.Route.extend(App.SlugRouter, {
-
-    setupController: function(controller, project) {
-        // Note: To give visual notification of adding a project, the donation can be set
-        //       on the controller (i.e. controller.set('content', donation);). In the
-        //       view / template you can check for the case when the content changes from
-        //       type project to type donation.
-        if (project !== undefined) {
-            var transaction = App.store.transaction();
-            var donation = transaction.createRecord(App.CurrentDonation);
-            donation.set('amount', 20);
-            donation.set('project_slug', project.get('slug'));
-            donation.set('project', project);
-            transaction.commit();
-        }
-    }
-});
-
-
 App.CurrentPaymentMethodInfoRoute = Ember.Route.extend({
     model: function(params) {
         return App.PaymentMethodInfo.find('current');
@@ -449,7 +416,6 @@ App.CurrentPaymentMethodInfoRoute = Ember.Route.extend({
     setupController: function(controller, paymentmethodinfo) {
         controller.set('content', paymentmethodinfo);
     }
-
 });
 
 
@@ -461,7 +427,6 @@ App.FinalOrderItemListRoute = Ember.Route.extend({
     setupController: function(controller, orderitems) {
         controller.set('content', orderitems);
     }
-
 });
 
 
