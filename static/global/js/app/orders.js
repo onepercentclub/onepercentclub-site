@@ -192,7 +192,11 @@ App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteMixin,
         transaction.add(donation);
         donation.set('amount', newAmount);
         transaction.commit();
-    }
+    },
+
+    neededAfterDonation: function() {
+        return this.get('project.money_needed_natural') - this.get('amount');
+    }.property('amount', 'project.money_needed_natural')
 });
 
 
@@ -440,10 +444,6 @@ App.CurrentOrderDonationView = Em.View.extend({
     templateName: 'current_order_donation',
     tagName: 'li',
     classNames: 'donation-project',
-
-    neededAfterDonation: function() {
-        return this.get('content.project.money_needed_natural') - this.get('content.amount');
-    }.property('content.amount', 'content.project.money_needed_natural'),
 
     change: function(e){
         this.get('controller').updateDonation(Em.get(e, 'target.value'));
