@@ -21,7 +21,7 @@ App.WallPostReaction = DS.Model.extend({
  Controllers
  */
 
-App.WallPostReactionController = Em.ObjectController.extend(App.IsAuthorMixin, {
+App.WallPostReactionController = Em.ObjectController.extend(App.IsAuthorMixin, App.DeleteModelMixin, {
     needs: ['currentUser']
 });
 
@@ -43,12 +43,12 @@ App.WallPostReactionNewController = Em.ObjectController.extend({
     createNewReaction: function() {
         var transaction = App.store.transaction();
         var reaction =  transaction.createRecord(App.WallPostReaction);
-        this.set('content', reaction);
+        this.set('model', reaction);
         this.set('transaction', transaction);
     },
 
     addReaction: function() {
-        var reaction = this.get('content');
+        var reaction = this.get('model');
         reaction.set('wallpost_id', this.get('currentWallpost.id'));
         // Set the wallpost so the list gets updated in the view
         reaction.set('wallpost', this.get('currentWallpost'));
@@ -59,7 +59,7 @@ App.WallPostReactionNewController = Em.ObjectController.extend({
         });
         reaction.on('becameInvalid', function(record) {
             controller.createNewReaction();
-            controller.set('content.errors', record.get('errors'));
+            controller.set('errors', record.get('errors'));
             record.deleteRecord();
         });
 
@@ -100,12 +100,9 @@ App.WallPostReactionView = Em.View.extend({
 
     deleteReaction: function() {
         if (confirm("Delete this reaction?")) {
-            var transaction = App.store.transaction();
-            var reaction = this.get('controller.content');
-            transaction.add(reaction);
+            var controller = this.get('controller');
             this.$().fadeOut(500, function() {
-                reaction.deleteRecord();
-                transaction.commit();
+                controller.deleteRecordOnServer()
             });
         }
     }

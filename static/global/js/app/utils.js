@@ -22,3 +22,14 @@ App.IsAuthorMixin = Em.Mixin.create({
         return false;
     }.property('author.username', 'controllers.currentUser.username')
 });
+
+
+App.DeleteModelMixin = Em.Mixin.create({
+    deleteRecordOnServer: function() {
+        var record = this.get('model');
+        var transaction = App.store.transaction();
+        transaction.add(record);
+        record.deleteRecord();
+        transaction.commit();
+    }
+});
