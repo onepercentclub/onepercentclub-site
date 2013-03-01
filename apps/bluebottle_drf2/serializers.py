@@ -1,11 +1,12 @@
 import decimal
 import sys
+import logging
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import urlize, linebreaks_filter
 from django.utils.timesince import timesince
-from django import forms
 from django.utils.encoding import smart_str
 from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
@@ -13,7 +14,6 @@ from micawber.parsers import standalone_url_re, full_handler
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
 
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -182,6 +182,14 @@ class PrimaryKeyGenericRelatedField(serializers.RelatedField):
     def field_to_native(self, obj, field_name):
         # Defer the serialization to the to_native() method.
         return self.to_native(obj)
+
+    def from_native(self, value):
+        try:
+            to_instance = self.to_model.objects.get(pk=value)
+        except self.to_model.DoesNotExist:
+            raise ValidationError(self.error_messages['invalid'])
+        else:
+            return to_instance.id
 
 
 class SlugGenericRelatedField(serializers.RelatedField):

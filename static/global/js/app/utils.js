@@ -12,7 +12,7 @@ App.CountrySelect = Em.Select.extend({
 });
 
 
-App.IsAuthorMixin = Ember.Mixin.create({
+App.IsAuthorMixin = Em.Mixin.create({
     isAuthor: function() {
         var username = this.get('controllers.currentUser.username');
         var authorname = this.get('author.username');

@@ -1,14 +1,11 @@
-from decimal import Decimal
 import random
 from apps.fund.mails import mail_new_voucher
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
-from apps.bluebottle_utils.fields import MoneyField
 
 
 class Donation(models.Model):
@@ -33,31 +30,37 @@ class Donation(models.Model):
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
+    @property
+    def amount_euro(self):
+        return self.amount / 100
+
     class Meta:
         verbose_name = _("donation")
         verbose_name_plural = _("donations")
 
     def __unicode__(self):
-        return str(self.id) + ' : ' + self.project.title + ' : EUR ' + str(self.amount)
+        return str(self.id) + ' : ' + self.project.title + ' : EUR ' + str(self.amount_euro)
 
 
 class Order(models.Model):
     """
     Order holds OrderItems (Donations/Vouchers).
-    It can be in progress (eg a shopping cart) or processed and paid
+
     """
 
     class OrderStatuses(DjangoChoices):
-        started = ChoiceItem('started', label=_("Started"))
-        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
-        checkout = ChoiceItem('checkout', label=_("Checkout"))
-        new = ChoiceItem('new', label=_("New"))
-        pending = ChoiceItem('pending', label=_("Pending"))
-        failed = ChoiceItem('failed', label=_("Failed"))
-        paid = ChoiceItem('paid', label=_("Paid"))
+        """
+            Current: Shopping cart.
+            Monthly: Monthly order that can change until it's processed on the 1st day of the month.
+            Closed: An order that has a payment that's in progress, paid, cancelled or failed.
+        """
+        # TODO: add validation rules for statuses.
+        current = ChoiceItem('current', label=_("Current"))
+        monthly = ChoiceItem('monthly', label=_("Monthly"))
+        closed = ChoiceItem('closed', label=_("Closed"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
-    status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.started, db_index=True)
+    status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
@@ -73,10 +76,23 @@ class Order(models.Model):
             amount += item.amount
         return amount
 
+    @property
+    def donations(self):
+        content_type = ContentType.objects.get_for_model(Donation)
+        order_items = self.orderitem_set.filter(content_type=content_type)
+        return Donation.objects.filter(id__in=order_items.values('object_id'))
+
+    @property
+    def vouchers(self):
+        content_type = ContentType.objects.get_for_model(Voucher)
+        order_items = self.orderitem_set.filter(content_type=content_type)
+        return Voucher.objects.filter(id__in=order_items.values('object_id'))
+
 
 class OrderItem(models.Model):
     """
-    Typically this connects a Donation or a Voucher to an Order.
+    This connects a Donation or a Voucher to an Order. It's generic so that Donations don't have to know about Orders
+    and so that we can add more Order types easily.
     """
     order = models.ForeignKey(Order)
     content_type = models.ForeignKey(ContentType)
@@ -124,11 +140,15 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("receiver email"))
     receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
 
-    donations = models.ManyToManyField("Donation")
+    donations = models.ManyToManyField('Donation')
 
     @property
     def amount_euro(self):
         return self.amount / 100
+
+    class Meta:
+        verbose_name = _("voucher")
+        verbose_name_plural = _("vouchers")
 
 
 class CustomVoucherRequest(models.Model):
@@ -161,6 +181,7 @@ def _generate_voucher_code():
     char_set = 'abcefghjklmnpqrstuvwxyz23456789'
     return ''.join(random.choice(char_set) for i in range(8))
 
+
 def process_voucher_order_in_progress(voucher):
     code = _generate_voucher_code()
     while Voucher.objects.filter(code=code).exists():
@@ -170,6 +191,7 @@ def process_voucher_order_in_progress(voucher):
     voucher.status = Voucher.VoucherStatuses.paid
     voucher.save()
     mail_new_voucher(voucher)
+
 
 def process_donation_order_in_progress(donation):
     donation.status = Donation.DonationStatuses.in_progress

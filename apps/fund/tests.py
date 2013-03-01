@@ -36,7 +36,7 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
         """ Test to see whether unicode representations will fail or not. """
         project = self.create_project(title="Prima project")
         project.save()
-        donation = self.create_donation(amount=35, project=project)
+        donation = self.create_donation(amount=3500, project=project)
         donation.save()
 
         donation_str = unicode(donation)
@@ -71,8 +71,13 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         Tests for creating, retrieving, updating and deleting a donation to shopping cart.
         """
 
-        # Create a Donation
+        # First make sure we have a current order
         self.client.login(username=self.some_user.username, password='password')
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['status'], 'current')
+
+        # Create a Donation
         response = self.client.post(self.current_donations_url, {'project_slug': self.some_project.slug, 'amount': 35})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '35.00')
@@ -126,6 +131,8 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         # Another user should not see the cart of the first user
         self.client.logout()
         self.client.login(username=self.another_user.username, password='password')
+        # make a cart for this another user
+        self.client.get(self.current_order_url)
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 0)
 
@@ -135,6 +142,8 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Now let's get anonymous and create a donation
         self.client.logout()
+        # make a cart for this anonymous user
+        self.client.get(self.current_order_url)
         response = self.client.post(self.current_donations_url, {'project_slug': self.some_project.slug, 'amount': 71})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '71.00')
@@ -146,6 +155,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         # Login and out again... The anonymous cart should NOT be returned
         self.client.login(username=self.some_user.username, password='password')
         self.client.logout()
+        self.client.get(self.current_order_url)
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 0)
 
@@ -203,8 +213,13 @@ class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
         Tests for creating, retrieving, updating and deleting a voucher to shopping cart.
         """
 
-        # Create a Voucher.
+        # First make sure we have a current order
         self.client.login(username=self.some_user.username, password='password')
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['status'], 'current')
+
+        # Create a Voucher.
         response = self.client.post(self.current_vouchers_url, self.some_voucher_data)
         some_voucher_detail_url = '{0}{1}'.format(self.current_vouchers_url, response.data['id'])
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)

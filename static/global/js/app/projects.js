@@ -72,6 +72,29 @@ App.Project = DS.Model.extend({
 
 
 /*
+ Controllers
+ */
+
+App.ProjectController = Em.ObjectController.extend({
+    needs: ['currentOrder'],
+
+    supportProject: function() {
+        var project = this.get('model'),
+            transaction = App.store.transaction(),
+            donation = transaction.createRecord(App.CurrentDonation);
+
+        // FIXME Our adapter needs to be adjusted to not have to set project_slug.
+        donation.set('project_slug', project.get('slug'));
+        donation.set('project', project);
+        var order = this.get('controllers.currentOrder').get('model');
+        donation.set('order', order);
+        transaction.commit();
+        this.transitionToRoute('currentOrder.donationList');
+    }
+});
+
+
+/*
  Views
  */
 
@@ -84,8 +107,10 @@ App.ProjectListView = Em.View.extend({
     templateName: 'project_list'
 });
 
+
 App.ProjectView = Em.View.extend({
     templateName: 'project',
+
     didInsertElement: function(){
         var donated = this.get('controller.content.money_donated_natural');
         var asked = this.get('controller.content.money_asked_natural');
