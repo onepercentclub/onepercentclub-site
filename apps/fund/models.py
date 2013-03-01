@@ -45,18 +45,22 @@ class Donation(models.Model):
 class Order(models.Model):
     """
     Order holds OrderItems (Donations/Vouchers).
-    It can be in progress (eg a shopping cart) or processed and paid
+
     """
 
     class OrderStatuses(DjangoChoices):
-        new = ChoiceItem('new', label=_("New"))
-        in_progress = ChoiceItem('in_progress', label=_("In Progress"))
-        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
-        failed = ChoiceItem('failed', label=_("Failed"))
-        paid = ChoiceItem('paid', label=_("Paid"))
+        """
+            Current: Shopping cart.
+            Monthly: Monthly order that can change until it's processed on the 1st day of the month.
+            Closed: An order that has a payment that's in progress, paid, cancelled or failed.
+        """
+        # TODO: add validation rules for statuses.
+        current = ChoiceItem('current', label=_("Current"))
+        monthly = ChoiceItem('monthly', label=_("Monthly"))
+        closed = ChoiceItem('closed', label=_("Closed"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
-    status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.new, db_index=True)
+    status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
@@ -136,7 +140,7 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("receiver email"))
     receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
 
-    donations = models.ManyToManyField('fund.Donation')
+    donations = models.ManyToManyField('Donation')
 
     @property
     def amount_euro(self):

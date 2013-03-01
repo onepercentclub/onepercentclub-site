@@ -229,6 +229,7 @@ App.Router.map(function() {
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
     this.resource('currentOrder', {path: '/support/'}, function() {
+        // TODO: make these resources
         this.route('donationList', {path: '/donations'});
         this.route('voucherList', {path: '/vouchers'});
 
@@ -318,7 +319,6 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 App.CurrentOrderRoute = Ember.Route.extend({
     model: function(params) {
         this._super()
-        console.log(this.toString() + ".init")
         return App.CurrentOrder.find('current');
     },
 
@@ -330,10 +330,6 @@ App.CurrentOrderRoute = Ember.Route.extend({
 
 
 App.CurrentOrderDonationListRoute = Ember.Route.extend({
-    init: function() {
-        console.log(this.toString() + ".init")
-    },
-
     setupController: function(controller, context) {
         this.controllerFor('currentOrder').set('isVoucherOrder', false);
     }
@@ -341,11 +337,6 @@ App.CurrentOrderDonationListRoute = Ember.Route.extend({
 
 
 App.CurrentOrderVoucherListRoute = Ember.Route.extend({
-    init: function() {
-        this._super()
-        console.log(this.toString() + ".init")
-    },
-
     setupController: function(controller, context) {
         this.controllerFor('currentOrder').set('isVoucherOrder', true);
     }

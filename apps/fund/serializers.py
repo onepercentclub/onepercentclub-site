@@ -1,5 +1,10 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
+from apps.fund.models import OrderItem
+from django import forms
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
+from django.utils.encoding import smart_text
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from apps.cowry import factory
@@ -11,7 +16,8 @@ class DonationSerializer(serializers.ModelSerializer):
     project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
-    # This field makes the Donation serializer tied to '/fund/orders/current'.
+
+    # FIXME: This field makes the Donation serializer tied to '/fund/orders/current'.
     url = serializers.HyperlinkedIdentityField(view_name='fund-current-order-donation-detail')
     amount = EuroField()
 
@@ -28,6 +34,7 @@ class DonationSerializer(serializers.ModelSerializer):
         # Set default currency.
         self.object.currency = 'EUR'
         return super(DonationSerializer, self).save()
+
 
     class Meta:
         model = Donation

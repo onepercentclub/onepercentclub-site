@@ -4,7 +4,7 @@ from .views import (FundApi, OrderList, OrderDetail, CurrentOrder,
                     OrderDonationDetail, OrderLatestDonationList, PaymentOrderProfileCurrent, OrderLatestItemList,
                     PaymentMethodList, VoucherDetail, PaymentMethodInfoCurrent,
                     OrderVoucherList, OrderVoucherDetail, VoucherDonationList, VoucherDonationDetail,
-                    CustomVoucherRequestList, DonationList, DonationDetail, OrderDonationList)
+                    CustomVoucherRequestList, OrderDonationList)
 
 
 urlpatterns = patterns('',
@@ -27,9 +27,6 @@ urlpatterns = patterns('',
     surl(r'^vouchers/<code:s>/donations/<pk:#>$', VoucherDonationDetail.as_view(), name='voucher-donation-list'),
     surl(r'^customvouchers/$', CustomVoucherRequestList.as_view(), name='custom-voucher-request-list'),
 
-
-    # url(r'^donations/$', DonationList.as_view(), name='fund-donation-list'),
-    # surl(r'^donations/<pk:#>$', DonationDetail.as_view(), name='fund-donation-detail'),
 
     url(r'^paymentorderprofiles/current$', PaymentOrderProfileCurrent.as_view(), name='fund-payment-order-profile-current'),
 

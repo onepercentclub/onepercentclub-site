@@ -90,7 +90,6 @@
 
     <fieldset>
 
-        {{ controller }}
         <ul id="donation-projects">
             {{#each controllers.currentOrder.donations itemController="currentOrderDonation"}}
                 {{view "App.CurrentOrderDonationView" content=this}}
@@ -112,25 +111,21 @@
 
 
 {% tplhandlebars "current_order_recurring" %}
-hdfg
     <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        <form>
-            asdf
-            {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="recurring"}}
-                <label>
-                    {{view view.RadioButton value="false"}}
-                    {% trans "Single donation" %}
-                </label>
-                <br/>
-                <label>
-                    {{view view.RadioButton value="true"}}
-                    {% trans "Monthly donation" %}
-                </label>
-            {{/view}}
-        </form>
+        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="recurring"}}
+            <label>
+                {{view view.RadioButton value="false"}}
+                {% trans "Single donation" %}
+            </label>
+            <br/>
+            <label>
+                {{view view.RadioButton value="true"}}
+                {% trans "Monthly donation" %}
+            </label>
+        {{/view}}
 
-        {# FIXME change amount forEach like in peepCode example. #}
+        {# FIXME change amount @each like in peepCode example. #}
         <span class="currency"><em>&euro; </em>{{ amount }}</span>
 
     </fieldset>

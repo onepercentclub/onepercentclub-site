@@ -40,7 +40,7 @@ class CurrentOrderMixin(object):
     def get_current_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.new)
+                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.current)
                 self._update_payment(order)
                 return order
             except Order.DoesNotExist:
@@ -49,7 +49,7 @@ class CurrentOrderMixin(object):
             order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
-                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.new)
+                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.current)
                     self._update_payment(order)
                     return order
                 except Order.DoesNotExist:
@@ -63,7 +63,7 @@ class CurrentOrderMixin(object):
             # Critical section to avoid duplicate orders.
             with order_lock:
                 with transaction.commit_on_success():
-                    order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.new)
+                    order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.current)
 
                 # We're currently only using DocData so we can directly connect the DocData payment order to the order.
                 # Note that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment
@@ -81,7 +81,7 @@ class CurrentOrderMixin(object):
                 order_id = self.request.session.get('cart_order_id')
                 if order_id:
                     try:
-                        order = Order.objects.get(id=order_id, status=Order.OrderStatuses.new)
+                        order = Order.objects.get(id=order_id, status=Order.OrderStatuses.current)
                     except Order.DoesNotExist:
                         # Set order_id to None so that a new order is created if it's been cleared
                         # from our db for some reason.
@@ -109,7 +109,7 @@ class CurrentOrderMixin(object):
     def get_latest_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.filter(user=self.request.user).exclude(status=Order.OrderStatuses.new).order_by("-created").all()[0]
+                order = Order.objects.filter(user=self.request.user).exclude(status=Order.OrderStatuses.current).order_by("-created").all()[0]
             except Order.DoesNotExist:
                 return None
         else:
@@ -189,28 +189,6 @@ class CurrentOrder(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             order.payment.save()
 
         return self.update(request, *args, **kwargs)
-
-
-class DonationList(generics.ListCreateAPIView):
-    # FIXME: restrict to current user and only donations with status 'new'
-    model = Donation
-    serializer_class = DonationSerializer
-    paginate_by = 20
-
-
-class DonationDetail(generics.RetrieveUpdateDestroyAPIView):
-    # FIXME: restrict to current user and only donations with status 'new'
-    model = Donation
-    serializer_class = DonationSerializer
-
-    def destroy(self, request, *args, **kwargs):
-        donation = self.get_object()
-        ct = ContentType.objects.get_for_model(donation)
-        order_item = OrderItem.objects.filter(object_id=donation.id, content_type=ct)
-        if order_item:
-            order_item.delete()
-        donation.delete()
-        return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class OrderItemList(CurrentOrderMixin, generics.ListAPIView):

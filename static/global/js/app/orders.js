@@ -208,7 +208,14 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
             }
         });
         return amount;
-    }.property('content.length')
+    }.property('content.length'),
+
+    deleteOrderItem: function(item) {
+        var transaction = App.store.transaction();
+        transaction.add(item);
+        item.deleteRecord();
+        transaction.commit();
+    }
 });
 
 
@@ -266,10 +273,6 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
-    init: function() {
-        console.log(this.toString() + ".init")
-    },
-
     isIdeal: function() {
         return (this.get('content.payment_method_id') == 'dd-ideal');
     }.property('content.payment_method_id'),
