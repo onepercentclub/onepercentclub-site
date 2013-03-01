@@ -198,13 +198,13 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 });
 
 
-App.CurrentOrderVoucherController = Em.ObjectController.extend(App.DeleteMixin, {
-    // Only here to add the DeleteMixin to this controller.
+App.CurrentOrderVoucherController = Em.ObjectController.extend(App.DeleteModelMixin, {
+    // Only here to add the DeleteModelMixin to this controller.
 });
 
 
 App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
-    needs: ['currentUser'],
+    needs: ['currentUser', 'currentOrder'],
 
     init: function() {
         this._super();
@@ -214,14 +214,18 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
     createNewVoucher: function() {
         var transaction = App.store.transaction();
         var voucher =  transaction.createRecord(App.CurrentOrderVoucher);
-        voucher.set('sender_name', this.get('controllers.currentUser').get('full_name'));
-        voucher.set('sender_email', this.get('controllers.currentUser').get('email'));
+        voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
+        voucher.set('sender_email', this.get('controllers.currentUser.email'));
         this.set('model', voucher);
         this.set('transaction', transaction);
     },
 
     addVoucher: function() {
         var voucher = this.get('model');
+        // Set the order so the list gets updated in the view
+        var order = this.get('controllers.currentOrder.model');
+        voucher.set('order', order);
+
         var controller = this;
         voucher.on('didCreate', function(record) {
             controller.createNewVoucher();
@@ -229,8 +233,11 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
             controller.set('sender_email', record.get('sender_email'));
         });
         voucher.on('becameInvalid', function(record) {
+            controller.createNewVoucher();
             controller.get('model').set('errors', record.get('errors'));
+            record.deleteRecord();
         });
+
         this.get('transaction').commit();
     }
 });
