@@ -1,8 +1,6 @@
 from apps.bluebottle_utils.managers import GenericForeignKeyManagerMixin
-from apps.reactions.models import Reaction, ReactionManager
-from django.contrib.comments import get_model
+from apps.reactions.models import Reaction
 from django.db import models
-from django.db.models import get_model
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
@@ -28,7 +26,7 @@ class WallPost(PolymorphicModel):
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()
     deleted = models.DateTimeField(blank=True, null=True)
-    ip_address = models.IPAddressField(_('IP address'), blank=True, null=True)
+    ip_address = models.IPAddressField(_('IP address'), blank=True, null=True, default=None)
 
     # Generic foreign key so we can connect it to any object.
     content_type = models.ForeignKey(ContentType, verbose_name=_('content type'), related_name="content_type_set_for_%(class)s")
@@ -39,12 +37,6 @@ class WallPost(PolymorphicModel):
     objects = WallPostManager()
 
     reactions = generic.GenericRelation(Reaction)
-
-    def save(self, *args, **kwargs):
-        # We overwrite save to enable 'empty' IP
-        if self.ip_address == "":
-            self.ip_address = None
-        super(WallPost, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ('created',)
@@ -58,9 +50,16 @@ class MediaWallPost(WallPost):
     title = models.CharField(max_length=60)
     text = models.TextField(max_length=300, blank=True, default='')
     video_url = models.URLField(max_length=100, blank=True, default='')
+    # This is temporary and will go away when we figure out how to upload related photos.
+    photo = models.ImageField(upload_to='mediawallpostphotos', blank=True, null=True)
 
     def __unicode__(self):
         return Truncator(self.text).words(10)
+
+
+class MediaWallPostPhoto(models.Model):
+    mediawallpost = models.ForeignKey(MediaWallPost, related_name='photos')
+    photo = models.ImageField(upload_to='mediawallpostphotos')
 
 
 class TextWallPost(WallPost):

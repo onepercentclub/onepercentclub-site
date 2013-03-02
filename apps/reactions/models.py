@@ -23,7 +23,6 @@ class ReactionManager(GenericForeignKeyManagerMixin, models.Manager):
         return query_set.filter(deleted__isnull=True)
 
 
-
 class Reaction(models.Model):
     """
     A user reaction about some object. This model is based on the Comments model
@@ -34,15 +33,14 @@ class Reaction(models.Model):
     author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_reaction")
     editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this reaction."))
 
-
     # The reaction text.
-    reaction = models.TextField(_('reaction'), max_length=REACTION_MAX_LENGTH)
+    text = models.TextField(_('reaction text'), max_length=REACTION_MAX_LENGTH)
 
     # Metadata for the reaction.
     created = CreationDateTimeField(_('created'))
     updated = ModificationDateTimeField(_('updated'))
     deleted = models.DateTimeField(blank=True, null=True)
-    ip_address = models.IPAddressField(_('IP address'))
+    ip_address = models.IPAddressField(_('IP address'), blank=True, null=True, default=None)
 
     # Generic foreign key so we can connect it to any object.
     content_type = models.ForeignKey(ContentType, verbose_name=_('content type'), related_name="content_type_set_for_%(class)s")
@@ -59,5 +57,5 @@ class Reaction(models.Model):
         verbose_name_plural = _('reactions')
 
     def __unicode__(self):
-        s = "{0}: {1}".format(self.author.get_full_name(), self.reaction)
+        s = "{0}: {1}".format(self.author.get_full_name(), self.text)
         return Truncator(s).words(10)

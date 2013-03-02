@@ -7,12 +7,14 @@
 
 $font-family: 'Futura Alt', 'Trebuchet MS', Helvetica, Arial, sans-serif;
 $font-family-condensed: 'Futura Alt Condensed', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$font-size: 16px;
+$paragraph-font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
+
+$font-size: 14px;
 
 $grid-columns: 48;
 $min-width: 980px;
 $max-width: 1280px;
-$margin-bottom: 1.25em;
+$margin: 1.25em;
 
 $color-brand: #0e8a41;
 $color-error: #d24226;
@@ -22,6 +24,7 @@ $black: #050505;
 $white: #fff;
 $green: #00c051;
 $pink: #ff619a;
+$gray: #999999;
 
 $color-deselect: #bfbfbf;
 $color-back: #e9e9e9;
@@ -32,6 +35,7 @@ $icons: sprite-map("sprites/icons/*.png", $spacing: 20px);
 
 
 /* Compass & Mixins */
+@import "compass/utilities";
 @import "compass/reset";
 @import "compass/css3";
 @import "mixins/_rem";
@@ -67,4 +71,6 @@ $icons: sprite-map("sprites/icons/*.png", $spacing: 20px);
 @import "modules/_users";
 @import "modules/_wallposts";
 @import "modules/_reactions";
+@import "modules/_donation";
+@import "modules/_vouchers";
 @import "modules/_misc";

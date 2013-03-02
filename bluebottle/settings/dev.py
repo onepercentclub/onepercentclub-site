@@ -8,4 +8,4 @@ except ImportError:
 
 from .defaults import *
 
-# Put dev environment specific overrides below.
+# Put dev server environment specific overrides below.

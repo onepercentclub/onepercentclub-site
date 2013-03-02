@@ -12,7 +12,7 @@ class WallPostList(ListCreateAPIView):
     model = WallPost
     permission_classes = (AllowNone,)
     serializer_class = WallPostSerializer
-    paginate_by = 10
+    paginate_by = 4
 
 
 class WallPostReactionMixin(object):
@@ -36,7 +36,6 @@ class WallPostReactionMixin(object):
         else:
             obj.editor = self.request.user
         obj.ip_address = get_client_ip(self.request)
-
 
 
 class WallPostReactionList(WallPostReactionMixin, ListCreateAPIView):

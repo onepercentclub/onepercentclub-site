@@ -2,7 +2,7 @@
 
 ul.tabs {
     border-bottom: 1px solid darken($white, 25%);
-    margin: 0 0 $margin-bottom 0;
+    margin: 0 0 $margin 0;
     li {
         display: inline-block;
         //@include displayfix;
@@ -37,7 +37,7 @@ ul.tabs {
 
 ul.steps {
     border-bottom: 1px solid darken($white, 25%);
-    margin: 0 0 $margin-bottom 0;
+    margin: 0 0 $margin 0;
     li {
         display: inline-block;
         //@include displayfix;
@@ -54,4 +54,35 @@ ul.steps {
         color: #333;
         font-weight: bold; 
     }
+}
+
+
+/* vertical tabs with radio button labels */
+
+
+.tabs.vertical {
+    float: left;
+    display: inline-block;
+    width: 25%;
+    label {
+        cursor: pointer;
+        display: block;
+        padding: 10px;
+        font-weight: bold;
+        background-color: $white;
+        margin: 0px 0px 8px;
+        &.selected {
+            background-color: $color-back;
+        }
+    }
+}
+
+
+.panes.vertical {
+    float: left;
+    display: inline-block;
+    width: 75%;
+    background-color: $color-back;
+    padding: 8px;
+    min-height: 300px;
 }

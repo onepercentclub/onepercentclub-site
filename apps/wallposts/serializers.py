@@ -1,11 +1,12 @@
-from apps.bluebottle_drf2.serializers import  TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer, ToModelIdField, ManyRelatedSerializer
+from apps.bluebottle_drf2.serializers import (TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer,
+                                              PrimaryKeyGenericRelatedField, SorlImageField, SlugGenericRelatedField,
+                                              ContentTextField)
 from apps.projects.models import Project
 from apps.reactions.serializers import ReactionSerializer
 from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
-
 from rest_framework import serializers
-from .models import MediaWallPost, TextWallPost
+from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto
 
 
 class WallPostTypeField(serializers.Field):
@@ -20,7 +21,7 @@ class WallPostTypeField(serializers.Field):
 
 
 class WallPostReactionSerializer(ReactionSerializer):
-    wallpost_id = ToModelIdField(to_model=WallPost)
+    wallpost_id = PrimaryKeyGenericRelatedField(to_model=WallPost)
 
     class Meta(ReactionSerializer.Meta):
         fields = ReactionSerializer.Meta.fields + ('wallpost_id',)
@@ -33,25 +34,37 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
-    created = serializers.DateTimeField(read_only=True)
     timesince = TimeSinceField(source='created')
-    reactions = ManyRelatedSerializer(WallPostReactionSerializer)
+    reactions = WallPostReactionSerializer(many=True)
 
     class Meta:
         fields = ('id', 'url', 'type', 'author', 'created', 'timesince', 'reactions')
 
 
+class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
+    photo = SorlImageField('photo', '529x296')
+    thumbnail = SorlImageField('photo', '296x296')
+
+    class Meta:
+        model = MediaWallPostPhoto
+        fields = ('id', 'photo', 'thumbnail',)
+
+
 class MediaWallPostSerializer(WallPostSerializerBase):
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     type = WallPostTypeField(type='media')
+    # This is temporary and will go away when we figure out how to upload related photos.
+    photo = SorlImageField('photo', '529x296', required=False)
+    photos = MediaWallPostPhotoSerializer(many=True)
 
     class Meta:
         model = MediaWallPost
-        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url')
+        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url', 'photo', 'photos')
 
 
 class TextWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='text')
+    text = ContentTextField()
 
     class Meta:
         model = TextWallPost
@@ -72,35 +85,35 @@ class WallPostSerializer(PolymorphicSerializer):
 class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
-    project_id = ToModelIdField(to_model=Project)
+    project_slug = SlugGenericRelatedField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-textwallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
-        # Add the project_id field.
-        fields = TextWallPostSerializer.Meta.fields + ('project_id',)
+        # Add the project_slug field.
+        fields = TextWallPostSerializer.Meta.fields + ('project_slug',)
 
     def save(self):
         # Save the project content type on save.
         project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
-        super(ProjectTextWallPostSerializer, self).save()
+        return super(ProjectTextWallPostSerializer, self).save()
 
 
 class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
     """ MediaWallPostSerializer with project specific customizations. """
 
-    project_id = ToModelIdField(to_model=Project)
+    project_slug = SlugGenericRelatedField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
 
     class Meta(MediaWallPostSerializer.Meta):
-        # Add the project_id field.
-        fields = MediaWallPostSerializer.Meta.fields + ('project_id',)
+        # Add the project_slug field.
+        fields = MediaWallPostSerializer.Meta.fields + ('project_slug',)
 
     def save(self):
         # Save the project content type on save.
         project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
-        super(ProjectMediaWallPostSerializer, self).save()
+        return super(ProjectMediaWallPostSerializer, self).save()
 
 
 class ProjectWallPostSerializer(PolymorphicSerializer):
@@ -110,5 +123,4 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
         child_models = (
             (TextWallPost, ProjectTextWallPostSerializer),
             (MediaWallPost, ProjectMediaWallPostSerializer),
-            )
-
+        )

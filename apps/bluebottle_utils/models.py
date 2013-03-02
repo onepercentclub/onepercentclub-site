@@ -10,7 +10,7 @@ class Address(models.Model):
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
     country = models.ForeignKey('geo.Country', blank=True, null=True)
-    zip_code = models.CharField(max_length=20, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
 
     def __unicode__(self):
         return self.line1[:80]

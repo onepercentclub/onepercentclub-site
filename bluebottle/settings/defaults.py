@@ -19,7 +19,8 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Ben Konrath', 'ben@1procentclub.nl'),
+    ('Loek van Gent', 'loek@1procentclub.nl'),
 )
 
 MANAGERS = ADMINS
@@ -34,10 +35,9 @@ MANAGERS = ADMINS
 TIME_ZONE = 'Europe/Amsterdam'
 
 
-"""
-Available user interface translations
-Ref: https://docs.djangoproject.com/en/1.4/ref/settings/#languages
-"""
+# Available user interface translations
+# Ref: https://docs.djangoproject.com/en/1.4/ref/settings/#languages
+#
 # Default language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -144,6 +144,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
 ]
 
 # Browsers will block our pages from loading in an iframe no matter which site
@@ -156,8 +157,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     # Makes the 'request' variable (the current HttpRequest)
     # available in templates
     'django.core.context_processors.request',
-    # Used for setting the git revision in the Django templates.
-    'gitrevision.context_processors.gitrevision',
 )
 
 ROOT_URLCONF = 'bluebottle.urls'
@@ -194,7 +193,6 @@ INSTALLED_APPS = (
     'taggit',
     'taggit_autocomplete_modified',
     'micawber.contrib.mcdjango', # Embedding videos
-    'gitrevision', # Display git revision
     'templatetag_handlebars',
     'rest_framework',
     'polymorphic',
@@ -207,18 +205,20 @@ INSTALLED_APPS = (
     'django_wysiwyg',
     'tinymce',
 
+    # Cowry Payments
+    'apps.cowry',
+    'apps.cowry_docdata',
+
     # bluebottle apps
     'apps.blogs',
     'apps.bluebottle_dashboard',
     'apps.bluebottle_utils',
-    'apps.drf2serializers',
     'apps.contentplugins',
     'apps.accounts',
     'apps.love',
     'apps.organizations',
     'apps.projects',
-    'apps.donations',
-    'apps.media',
+    'apps.fund',
     'apps.geo',
     'apps.hbtemplates',
     'apps.reactions',
@@ -283,6 +283,7 @@ djcelery.setup_loader()
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--detailed-errors',
+    '--nologcapture',
 ]
 
 
@@ -290,13 +291,13 @@ SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
 
 
 # django-compressor http://pypi.python.org/pypi/django_compressor
+# Compressor is enabled whenever DEBUG is False.
 STATICFILES_FINDERS += [
     # django-compressor staticfiles
     'compressor.finders.CompressorFinder',
 ]
 
-# Enable compressor by default
-COMPRESS_ENABLED = True
+# TODO Enable compass here.
 COMPRESS_OUTPUT_DIR = 'compressed'
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',

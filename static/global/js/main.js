@@ -9,11 +9,8 @@
 jQuery.fn.exists = function(){return this.length>0;}
 
 function initBehaviour(container) {
-    $("label.inline", container).inFieldLabels();
+//    $("label.inline", container).inFieldLabels();
 
-    // Loek: Removed this because it was jerky
-    //$("textarea", container).autogrow();
-    
     // initFileUpload();
     toggleText( $('.toggle-reactions', container) );
     toggleText( $('.toggle-love', container) );
@@ -27,11 +24,6 @@ $(document).ready(function(){
     //initLightbox();
     //initFileUpload();
 
-    // show/hide reactions
-    $('.toggle-reactions').live('click', function(e) {
-        $('.reactions', $(this).closest('.reaction-box')).toggle();
-    });
-
     // show/hide sharing options
     $('.share')
         .live('mouseenter', function(e) {
@@ -41,20 +33,21 @@ $(document).ready(function(){
             $('.share-actions', $(this)).hide();
         });
     
-    // DEVelOPMENT: needed for static template
+    // DEVELOPMENT: needed for static template
     initBehaviour('body');
 
-    // expande reactio-box on focus
+    // expande reaction-box on focus
     $('.reaction-form textarea')
         .live('focus', function(e) {
-            $(this).closest('.reaction-form').addClass('is-selected');
+            $(e.currentTarget).closest('.reaction-form').addClass('is-selected');
         })
         .live('blur', function(e) {
-            $(this).closest('.reaction-form').removeClass('is-selected');
+            $(e.currentTarget).closest('.reaction-form').removeClass('is-selected');
         });
         
     toggleText( $('.toggle-reactions') );
     toggleText( $('.toggle-love') );
+    
 });
 
 

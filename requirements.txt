@@ -1,4 +1,4 @@
-Django==1.4.3
+Django==1.4.5
 
 django_extensions==1.0.1
 
@@ -12,11 +12,11 @@ django-celery==3.0.4 # Asynchronous task server
 # https://github.com/jbalogh/django-nose/issues/85
 django-nose
 
-# CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.1.2
-cssmin
-jsmin
+# CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.2
+cssmin==0.1.4
+jsmin==2.0.2
 BeautifulSoup==3.2.1
-django_compressor
+django_compressor==1.2
 
 # pytz is "highly recommended" by the Django timezone documentation since
 # we're using Django timezone support
@@ -39,10 +39,10 @@ south==0.7.6
 
 # Django-REST-Framework
 django-filter==0.5.4
-djangorestframework==2.1.16
+djangorestframework==2.2.1
 
 # Jenkins integration
-django-jenkins==0.13.0
+django-jenkins==0.14.0
 
 # Coverage in tests
 coverage==3.5.2
@@ -58,10 +58,8 @@ django-taggit-autocomplete-modified==0.1.0b4
 # https://github.com/coleifer/micawber
 micawber==0.2.5
 
-# Our changes to polymorphic are going to be in the bluebottle integration branch. This allows us
-# to push issues upstream in separate branches while at the same time have a central place to use
-# our fixes.
-https://github.com/onepercentclub/django_polymorphic/archive/ef9be87709f7f757058884ba255b685abd43a718.zip
+# Used for WallPosts and Blog/News content (as a dependency of django-fluent-contents).
+django_polymorphic==0.3.1
 
 # Blog/news contents is created using blocks
 django-fluent-contents==0.8.3
@@ -71,15 +69,20 @@ html5lib==0.95
 
 # Admin dashboard improvements
 django-fluent-dashboard==0.3.2
-django-admin-tools>=0.4.1
-
-# Current git revision in request object for use in templates and views
-# http://pypi.python.org/pypi/django-gitrevision
-gitpython>=0.3.2.RC1
-django-gitrevision==0.1.4
+# django-admin-tools 0.4.1 seems to have disappeared from pypi. Using direct download for now.
+#django-admin-tools>=0.4.1
+https://bitbucket.org/izi/django-admin-tools/downloads/django-admin-tools-0.4.1.tar.gz
 
 # Transifex - for translations!
 transifex-client
 
 # Handlebars in templates
 django-templatetag-handlebars
+
+# Cowry dependencies.
+django_countries
+requests==1.1.0
+#suds-jurko==0.4.1.jurko.4
+# Use a suds-jurko fork with python 2.6 support.
+http://bitbucket.org/onepercentclub/suds/get/6a98691d1188.zip
+

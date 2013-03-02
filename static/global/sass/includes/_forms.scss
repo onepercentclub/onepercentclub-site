@@ -1,31 +1,37 @@
 /* =========== Forms */
 
-input[type=text], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select  {
-    border: 1px solid darken($white, 25%);
-    color: #333;
+input[type=text], input[type=password], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select  {
+    border: 1px solid #c5c5c5;
     font-family: $font-family;
     line-height: 1.5em;
-    margin: -1px 0.5em 0px 0px;
+    margin: -1px 0.5em 10px 0px;
     padding: 0.6em;
     width: 100%;
-    @include border-radius(0.3em);
-    @include box-shadow(inset 0px 1px 3px rgba($black, 0.1));
+    //@include border-radius(0.3em);
+    @include box-shadow(inset 0px 1px 2px rgba($black, 0.1));
     @include transition(border 0.1s);
     vertical-align: baseline;
+    
+    background-color: #fbfbfb;
+    
+    //@include border-radius(2px);
+    
     &:focus {
         border: 1px solid darken($white, 35%);
         outline: 0;
         color: #333;
-        @include box-shadow(0px 0px 4px rgba($black, 0.3));
+        background-color: $white;
+        @include box-shadow(0px 0px 2px rgba($black, 0.3));
     }
 }
 
+
 ::-webkit-input-placeholder {
-   color: #999;
+    color: #bbb;
 }
 
 :-moz-placeholder {
-   color: #999;  
+    color: #bbb;
 }
 
 textarea { 
@@ -51,7 +57,6 @@ form {
     
     label.inline {
         position: absolute; 
-        top: 0; 
         left: 0;
         
         font-family: $font-family;
@@ -62,14 +67,27 @@ form {
         vertical-align: baseline;
     }
     
+    .currency {
+      
+      em {
+        font-style: normal;
+        font-weight: bold;
+        color: #929292;
+      }
+      
+      input {
+        width: auto;
+      }
+    }
+    
     ul {
         clear: both;
         list-style: none;
-        margin: 0 0 $margin-bottom 0;
+        margin: 0 0 $margin 0;
         
         > li {
             position: relative;
-            margin-bottom: $margin-bottom;
+            margin-bottom: $margin;
             @include clearfix;
             
             > label  { 
@@ -111,24 +129,88 @@ form {
             }
         }
         
-        li.error {
-        
-            label { 
-                color: $color-error; 
-                &:hover { color: darken($color-error, 25%); }
+    }
+
+    span.error {
+        color: $color-error;
+        margin: 0.6em 0.6em 0.6em 0px;
+        display: block;
+
+
+    }
+
+    input.error {
+        border: 1px solid $color-error;
+        @include box-shadow((0px 0px 3px lighten($color-error, 10%), inset 0 0 0));
+        &:focus { border: 1px solid $color-error; }
+
+        &::-webkit-input-placeholder {
+            color: lighten($color-error, 20%);
+        }
+
+        &:-moz-placeholder {
+            color: lighten($color-error, 20%);
+        }
+
+    }
+
+    &.labeled {
+        @include rem(margin, 30px);
+        @include clearfix;
+        input[type='text'] {
+            @include grid(36, 1, 0);
+        }
+        input[type='number'] {
+            @include grid(8, 1, 1);
+        }
+    }
+
+    div.label {
+        @include grid(12, 0, 0);
+        @include rem(padding, 10px);
+        @include rem(font-size, 18px);
+        clear: left;
+        font-weight: bold;
+        color: $gray;
+        &.ok {
+            color: $green;
+        }
+        &.wide {
+            @include grid(48, 0, 0);
+        }
+    }
+
+    .big-radio {
+        label {
+            @include rem(padding, 10px);
+            padding: 10px;
+            color: white;
+            font-family: "Futura Std";
+            font-weight: bold;
+            @include rem(font-size, 18px);
+            display: inline-block;
+            text-align: center;
+            margin-bottom: 10px;
+            background-color: $gray;
+            cursor: pointer;
+        }
+        input[type=radio] {
+            display: none;
+        }
+        input[type=radio]:checked+label {
+            background-color: $green;
+        }
+        &.radio2 {
+            label{
+                @include grid(18, 1, 0);
             }
-            
-            input {
-                border: 1px solid $color-error; 
-                @include box-shadow((0px 0px 3px lighten($color-error, 10%), inset 0 0 0));
-                &:focus { border: 1px solid $color-error; }
+        }
+        &.radio4 {
+            label {
+                @include grid(9, 1, 0);
             }
-            
-            ul.errors {
-                color: $color-error; 
-                margin: 0.6em 0.6em 0.6em 0px;
-                li { margin: 0.5em 0; }
-            }
-        } 
+        }
     }
 }
+
+

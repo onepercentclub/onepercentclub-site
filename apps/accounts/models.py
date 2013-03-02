@@ -1,18 +1,15 @@
-import os
 import random
 import string
-
+import os
 from django.conf import settings, global_settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
-
 from django_extensions.db.fields import AutoSlugField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-
 from apps.bluebottle_utils.models import Address
 
 
@@ -86,7 +83,7 @@ class UserProfile(models.Model):
 
     # Basic profile information
     birthdate = models.DateField(_("birthdate"), null=True, blank=True)
-    gender = models.CharField(_("gender"), max_length=6, blank=True,null=True, choices=Gender.choices)
+    gender = models.CharField(_("gender"), max_length=6, blank=True, null=True, choices=Gender.choices)
     location = models.CharField(_("location"), max_length=100, blank=True)
     website = models.URLField(_("website"), blank=True, max_length=255)
     # TODO Use generate_picture_filename (or something) for upload_to
@@ -112,6 +109,11 @@ class UserProfile(models.Model):
     @property
     def get_username(self):
         return self.user.username
+
+    @property
+    # for now return the first address found on this user.
+    def address(self):
+        return self.useraddress_set.all()[0]
 
     # Override save() to prevent UserProfiles from being created
     # without a corresponding User.
@@ -152,6 +154,7 @@ def sync_user_profile(sender, instance, created, **kwargs):
         # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
         user_profile.save()
 
+
 post_save.connect(sync_user_profile, sender=User)
 
 
@@ -166,3 +169,4 @@ class UserAddress(Address):
     class Meta:
         verbose_name = _("user address")
         verbose_name_plural = _("user addresses")
+

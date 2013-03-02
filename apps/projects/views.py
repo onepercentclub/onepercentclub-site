@@ -34,9 +34,14 @@ class ProjectWallPostMixin(object):
         queryset = super(ProjectWallPostMixin, self).get_queryset()
         project_type = ContentType.objects.get_for_model(Project)
         queryset = queryset.filter(content_type=project_type)
-        project_id = self.request.QUERY_PARAMS.get('project_id', None)
-        if project_id:
-            queryset = queryset.filter(object_id=project_id)
+        project_slug = self.request.QUERY_PARAMS.get('project_slug', None)
+        if project_slug:
+            try:
+                project = Project.objects.get(slug=project_slug)
+            except Project.DoesNotExist:
+                pass
+            else:
+                queryset = queryset.filter(object_id=project.id)
         queryset = queryset.order_by("-created")
         return queryset
 
@@ -51,7 +56,7 @@ class ProjectWallPostMixin(object):
 class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
-    paginate_by = 10
+    paginate_by = 4
 
 
 class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
@@ -64,7 +69,7 @@ class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
     permission_classes = (IsProjectOwnerOrReadOnly,)
-    paginate_by = 10
+    paginate_by = 4
 
 
 class ProjectMediaWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
@@ -77,7 +82,7 @@ class ProjectTextWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     model = TextWallPost
     serializer_class = ProjectTextWallPostSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    paginate_by = 10
+    paginate_by = 4
 
 
 class ProjectTextWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):

@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <mathijs@mathijsfietst.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2013-01-22 22:48+0100\n"
+"PO-Revision-Date: 2013-01-22 21:49+0000\n"
+"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:24
+msgid "Closed"
+msgstr "Gesloten"
+
+#: models.py:25
+msgid "Expired"
+msgstr "Verlopen"
+
+#: models.py:26
+msgid "Paid"
+msgstr "Betaald"
+
+#: models.py:27
+msgid "Canceled"
+msgstr "Geannuleerd"
+
+#: models.py:28
+msgid "Chargedback"
+msgstr "Terugbetaald"
+
+#: models.py:29
+msgid "New"
+msgstr "Nieuw"
+
+#: models.py:30
+msgid "Started"
+msgstr "Gestart"
+
+#: models.py:32
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:33
+msgid "amount"
+msgstr "bedrag"
+
+#: models.py:34
+msgid "project"
+msgstr "project"
+
+#: models.py:37
+msgid "status"
+msgstr "status"
+
+#: models.py:39
+msgid "created"
+msgstr "aangemaakt"
+
+#: models.py:40
+msgid "updated"
+msgstr "aangepast"
+
+#: models.py:43
+msgid "donation"
+msgstr "donatie"
+
+#: models.py:44
+msgid "donations"
+msgstr "donaties"

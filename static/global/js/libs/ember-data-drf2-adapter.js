@@ -1,18 +1,73 @@
 var get = Ember.get, set = Ember.set;
 
-DS.DRF2Serializer = DS.Serializer.extend({
+DS.DRF2Serializer = DS.RESTSerializer.extend({
 
     init: function() {
         this._super();
-        this.transforms['array'] = {
-            fromJSON: function(serialized) {
-                return Ember.none(serialized) ? null : eval(serialized);
+        this.registerTransform('array', {
+            deserialize: function(serialized) {
+                return  Ember.isNone(serialized) ? null : Em.A(serialized);
             },
-            toJSON: function(deserialized) {
-                return Ember.none(deserialized) ? null : deserialized.toJSON();
+            serialize: function(deserialized) {
+                return Ember.isNone(deserialized) ? null : deserialized.toJSON();
             }
+        });
+    },
+
+    /**
+     * Changes from default:
+     * - Don't call sideload() because DRF2 doesn't support it.
+     * - Get results directly from json.
+     */
+    extract: function(loader, json, type, record) {
+
+        this.extractMeta(loader, type, json);
+
+        if (json) {
+            if (record) {
+                loader.updateId(record, json);
+            }
+            this.extractRecordRepresentation(loader, type, json);
         }
+    },
+
+    /**
+     * Changes from default:
+     * - Don't call sideload() because DRF2 doesn't support it.
+     * - Get results from json.results or directly from json.
+     */
+    extractMany: function(loader, json, type, records) {
+
+        this.extractMeta(loader, type, json);
+
+        if (json['results'] || !this._isEmpty(json)) {
+            var references = [];
+            var objects = json['results'] ? json['results'] : json;
+
+            if (records) {
+                records = records.toArray();
+            }
+
+            for (var i = 0; i < objects.length; i++) {
+                if (records) {
+                    loader.updateId(records[i], objects[i]);
+                }
+                var reference = this.extractRecordRepresentation(loader, type, objects[i]);
+                references.push(reference);
+            }
+
+            loader.populateArray(references);
+        }
+    },
+
+    _isEmpty: function(obj) {
+        for (var prop in obj) {
+            if (obj.hasOwnProperty(prop))
+                return false;
+        }
+        return true;
     }
+
 });
 
 
@@ -33,92 +88,134 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
      */
     since: 'next',
 
-    /*
-     Changes from default:
-     - don't call sideload() because DRF2 doesn't support it.
-     - get results from json.results.
-     */
-    didFindAll: function(store, type, json) {
-        var since = this.extractSince(json);
 
-        store.loadMany(type, json['results']);
-
-        // this registers the id with the store, so it will be passed
-        // into the next call to `findAll`
-        if (since) {
-            store.sinceForType(type, since);
-        }
-
-        store.didUpdateAll(type);
-    },
-
-    /*
-     Changes from default:
-     - don't call sideload() because DRF2 doesn't support it.
-     - get result from json directly.
-     */
-    didFindRecord: function(store, type, json, id) {
-        store.load(type, id, json);
-    },
-
-    /*
-     Changes from default:
-     - don't call sideload() because DRF2 doesn't support it.
-     - get results from json.results.
-     */
-    didFindQuery: function(store, type, json, recordArray) {
-        recordArray.load(json['results']);
-    },
-
-    /*
-     Changes from default:
-     - don't embed record within 'root' in the json.
-     - check for errors and call didError
+    /**
+     * Changes from default:
+     * - Don't embed record within 'root' in the json.
+     * - Add support for multipart/form-data form submission.
      */
     createRecord: function(store, type, record) {
         var root = this.rootForType(type);
-        var data = this.toJSON(record, { includeId: true });
 
-        this.ajax(this.buildURL(root), "POST", {
+        var data = {};
+        data = this.serialize(record, { includeId: true });
+
+        // TODO: Create a general solution for detecting when to use multipart/form-data (i.e. detecting
+        //       when there are files that need to be sent).
+        if (type.toString() == "App.ProjectMediaWallPost" && record.get('photo') != "") {
+            // TODO: Implement this polyfill for older browsers:
+            // https://github.com/francois2metz/html5-formdata
+            var formdata = new FormData();
+            Object.keys(data).forEach(function(key) {
+                if (data[key] !== undefined) {
+                    // TODO: This won't be hardcoded when a general solution for detecting when to use
+                    //       multipart/form-data is worked out.
+                    if (key == 'photo') {
+                        formdata.append(key, record.get('photo_file'))
+                    } else {
+                        formdata.append(key, data[key]);
+                    }
+                }
+            });
+
+            this.ajaxFormData(this.buildURL(root), "POST", {
+                data: formdata,
+                context: this,
+                success: function(json) {
+                    Ember.run(this, function() {
+                        this.didCreateRecord(store, type, record, json);
+                    });
+                },
+                // Make sure we parse any errors.
+                error: function(xhr) {
+                    this.didError(store, type, record, xhr);
+                }
+            });
+
+        } else {
+            // Regular json POST (i.e. not multipart/form-data POST).
+            this.ajax(this.buildURL(root), "POST", {
+                data: data,
+                context: this,
+                success: function(json) {
+                    Ember.run(this, function() {
+                        this.didCreateRecord(store, type, record, json);
+                    });
+                },
+                error: function(xhr) {
+                    this.didError(store, type, record, xhr);
+                }
+            });
+        }
+    },
+
+    /**
+     * Changes from default:
+     * - Don't embed record within 'root' in the json.
+     * TODO: Add support for multipart/form-data form submission.
+     */
+    updateRecord: function(store, type, record) {
+        var id = get(record, 'id');
+        var root = this.rootForType(type);
+
+        var data = {};
+        data = this.serialize(record);
+
+        this.ajax(this.buildURL(root, id), "PUT", {
             data: data,
             context: this,
             success: function(json) {
-                this.didCreateRecord(store, type, record, json);
+                Ember.run(this, function() {
+                    this.didSaveRecord(store, type, record, json);
+                });
             },
-            // Make sure we parse any errors.
             error: function(xhr) {
                 this.didError(store, type, record, xhr);
             }
         });
     },
 
+
     /**
-     * Add an error text to a record
+     * A custom version of the ember-data ajax() method to set the hash up correctly for doing
+     * a multipart/form-data submission with data generated by FormData.
+     */
+    ajaxFormData: function(url, type, hash) {
+        hash.url = url;
+        hash.type = type;
+        hash.processData = false;  // tell jQuery not to process the data
+        hash.contentType = false;  // tell jQuery not to set contentType
+        hash.context = this;
+
+        jQuery.ajax(hash);
+     },
+
+    /**
+     * Changes from default:
+     * - Check for status code 400 instead of 422.
+     * - Set the response text directly, not from the 'errors' property.
      */
     didError: function(store, type, record, xhr) {
         if (xhr.status === 400) {
             var data = JSON.parse(xhr.responseText);
             store.recordWasInvalid(record, data);
         } else {
-            store.recordWasError(record);
+            // TODO: what does this do? Do we want the console log?
+            this._super.apply(this, arguments);
+            console.error("Unhandled server error with status code: " + xhr.status);
         }
     },
 
     /*
      Changes from default:
-     - don't call sideload() because DRF2 doesn't support it.
-     - get result from json directly.
+     - Don't replace CamelCase with '_'.
+     - Use the record's url field first if it's there.
+     - Check for 'url' defined in the class.
      */
-    didCreateRecord: function(store, type, record, json) {
-        this.didSaveRecord(store, record, json);
-    },
-
-    /*
-     Changes from default:
-     - don't replace CamelCase with '_'.
-     - also check for 'url' defined in the class.
-     */
-    rootForType: function(type) {
+    rootForType: function(type, record) {
+        if (record !== undefined && record.hasOwnProperty('url')) {
+            return record.url;
+        }
         if (type.url) {
             return type.url;
         }
@@ -133,7 +230,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - don't add 's' if the url name already ends with 's'.
+     - Don't add 's' if the url name already ends with 's'.
      */
     pluralize: function(name) {
         if (this.plurals[name])
@@ -146,7 +243,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /*
      Changes from default:
-     - add trailing slash for lists.
+     - Add trailing slash for lists.
      */
     buildURL: function(record, suffix) {
         var url = this._super(record, suffix);
@@ -155,119 +252,4 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         }
         return url;
     }
-
 });
-
-/*
- Based on hasAssociation used for belongsTo. Renamed to avoid conflicts with hasAssociation used for hasMany.
- Altered to enable embedded objects
- */
-var belongsToAssociation = function(type, options, one) {
-    options = options || {};
-
-    var meta = { type: type, isAssociation: true, options: options, kind: 'belongsTo' };
-
-    return Ember.computed(function(key, value) {
-        if (arguments.length === 2) {
-            return value === undefined ? null : value;
-        }
-
-        var data = get(this, 'data').belongsTo,
-            store = get(this, 'store'), id;
-
-        if (typeof type === 'string') {
-            type = get(this, type, false) || get(window, type);
-        }
-
-        id = data[key];
-
-        // start: embedded support
-        if (options.embedded == true && typeof(id) !== 'string') {
-            // load the object
-            var obj = data[key];
-            if (obj !== undefined) {
-                id = obj.id
-                // Load the embedded object in store
-                store.load(type, id, obj);
-            }
-        }
-        // end: embedded support
-
-        return id ? store.find(type, id) : null;
-    }).property('data').meta(meta);
-}
-
-/*
-Changes from default:
- - redefine belongsTo() with our new belongsToAssociation() function
- - belongsToAssociation is an altered copy of hasAssociation, but it would conflict with the hasAssociation
-   we will be using for hasMany relations (below)
-*/
-DS.belongsTo = function(type, options) {
-    Em.assert("The type passed to DS.belongsTo must be defined", !!type);
-    return belongsToAssociation(type, options);
-};
-
-/*
-  Based on hasAssociation used for hasMany. Renamed to avoid conflicts with hasAssociation used for belongsTo.
-  Altered to enable embedded objects
- */
-var hasManyAssociation = function(type, options) {
-    options = options || {};
-
-    var meta = { type: type, isAssociation: true, options: options, kind: 'hasMany' };
-
-    return Ember.computed(function(key, value) {
-        var data = get(this, 'data').hasMany,
-            store = get(this, 'store'),
-            ids, association;
-
-        if (typeof type === 'string') {
-            type = get(this, type, false) || get(window, type);
-        }
-
-        // start: embedded support
-        if (options.embedded == true) {
-            var items = data[key];
-            // Check if there are embedded objects
-            if (items.length) {
-                // Load the objects into the store
-                store.loadMany(type, items);
-                ids = [];
-                // Iterate through the items to get their ids
-                for (var i = 0, len = items.length; i < len; ++i) {
-                    var id = items[i].id;
-                    ids.push(id);
-                }
-                // Load the Ember objects from the store to this association
-                // Since we already loaded them this won't make another server call
-                association = store.findMany(type, ids);
-            } else {
-                association = [];
-            }
-        } else {
-            ids = data[key];
-            association = store.findMany(type, ids || [], this, meta);
-        }
-
-        // end: embedded support
-
-        set(association, 'owner', this);
-        set(association, 'name', key);
-
-        return association;
-    }).property().meta(meta);
-};
-
-
-/*
- Changes from default:
- - redefine hasMany() with our new hasManyAssociation() function
- - hasManyAssociation is an altered copy of hasAssociation, but it would conflict with the hasAssociation
-   we will be used for belongsTo relations (above)
- */
-
-DS.hasMany = function(type, options) {
-    Ember.assert("The type passed to DS.hasMany must be defined", !!type);
-    return hasManyAssociation(type, options);
-};

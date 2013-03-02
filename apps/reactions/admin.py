@@ -9,7 +9,7 @@ class ReactionAdmin(admin.ModelAdmin):
             'fields': ('content_type', 'object_id'),
         }),
         (_('Content'), {
-            'fields': ('author', 'editor', 'reaction'),
+            'fields': ('author', 'editor', 'text'),
         }),
         (_('Metadata'), {
             'fields': ('ip_address', ),
@@ -21,7 +21,7 @@ class ReactionAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     ordering = ('-created',)
     raw_id_fields = ('author', 'editor')
-    search_fields = ('reaction', 'author__username', 'author__email', 'author__first_name', 'author__last_name', 'ip_address')
+    search_fields = ('text', 'author__username', 'author__email', 'author__first_name', 'author__last_name', 'ip_address')
 
     def author_full_name(self, obj):
         full_name = obj.author.get_full_name()

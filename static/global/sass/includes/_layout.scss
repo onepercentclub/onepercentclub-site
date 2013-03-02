@@ -6,9 +6,25 @@ html {
     font-size: $font-size;
 }
 
+/*
+@media only screen and (min-width: 1080px) {
+    
+    html {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (min-width: 1180px) {
+    
+    html {
+        font-size: 16px;
+    }
+}
+*/
+
 body { 
-    line-height: 1.5em; 
-    overflow-y: scroll;    
+    line-height: 1.5em;
+    overflow-y: scroll;
 }
 
 // full width container
@@ -23,10 +39,10 @@ body {
     min-width: $min-width;
     max-width: $max-width;
     margin: auto;
-    
+    padding: 0 16px;
 }
 
-.wrapper > header {
+.wrapper > header, .wrapper > .main-title {
     @include grid(48, 1);
 }
 
@@ -34,18 +50,22 @@ body {
     @include grid(32, 1);
 }
 
+
 .wrapper > .sidebar, .wrapper > sidebar  {
     @include grid(16, 0, 1);
     //@include rem(padding, 32px );
 }
 
 .wrapper > .content {
-    @include grid(48, 1);
+    @include grid(32, 1);
+    &.gray {
+        background-color: $color-back;
+    }
 }
 
 .section {
     background-color: $color-back;
-    @include rem(padding, 0 0 32px 0);
+    @include rem(padding, 0 0 16px 0);
 }
 
 .top {

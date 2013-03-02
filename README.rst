@@ -6,8 +6,8 @@ by the 1%CLUB.
 
 :build status: |build-image|
 
-.. |build-image| image:: https://secure.travis-ci.org/onepercentclub/bluebottle.png?branch=master
-                 :target: https://secure.travis-ci.org/onepercentclub/bluebottle
+.. |build-image| image:: https://travis-ci.org/onepercentclub/bluebottle.png?branch=master
+                 :target: https://travis-ci.org/onepercentclub/bluebottle
 
 Getting started
 ---------------

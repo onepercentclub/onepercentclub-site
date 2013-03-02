@@ -13,20 +13,23 @@
     
 */
 
+// get base sizes
 $max-width: ($max-width / $font-size) + em;
 $grid-column: 100% / $grid-columns; 
 
+// calculate columns
 @mixin col($n: 1) { float: left; width: ($n * $grid-column); } 
 @mixin prepend($n: 1) { margin-left: $grid-column * $n } 
 @mixin append($n: 1) { margin-right: $grid-column * $n } 
 
+// calculate actual grid from columns
 @mixin grid($cols: 1, $grid-margin-left: 0, $grid-margin-right: $grid-margin-left) {
     @include col($cols - ($grid-margin-left + $grid-margin-right));
     @include prepend($grid-margin-left);
     @include append($grid-margin-right);
 }
 
-/* Use this mixin to reset your grid by example for your mobile articles */
+/* reset your grid */
 @mixin grid-reset {
     clear: both;
     float: none;
@@ -35,7 +38,7 @@ $grid-column: 100% / $grid-columns;
     width: auto;
 }
 
-/* The clearfix mixin is necessary for the floats */
+/* need to reset floats */
 @mixin clearfix {
     *zoom: 1;
     &:before, &:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content:"."; }

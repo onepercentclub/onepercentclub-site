@@ -8,14 +8,13 @@ from django.utils.text import truncate_words
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.core.exceptions import ValidationError
-
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-
 from apps.bluebottle_utils.fields import MoneyField
-from apps.donations.models import Donation
+from apps.fund.models import Donation
+
 
 class ProjectTheme(models.Model):
     """ Themes for Projects. """
@@ -32,6 +31,7 @@ class ProjectTheme(models.Model):
         ordering = ['name']
         verbose_name = _("project theme")
         verbose_name_plural = _("project themes")
+
 
 class Project(models.Model):
     """ The base Project model. """
@@ -56,23 +56,21 @@ class Project(models.Model):
     # Location of this project
     # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
     # hold the legacy data.
-    # Ref:
     # http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
     latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18)
     longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18)
     country = models.ForeignKey('geo.Country', blank=True, null=True, verbose_name=_("country"))
 
     language = models.CharField(max_length=6, choices=settings.LANGUAGES, help_text=_("Main language of the project."))
-    albums = models.ManyToManyField('media.Album', blank=True, null=True, verbose_name=_("albums"))
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
         help_text=_("The project owner's notion of the project start date. "
-                    "This date is independant of the various phase start dates.")
+                    "This date is independent of the various phase start dates.")
     )
     planned_end_date = models.DateField(_("planned end date"), blank=True, null=True,
         help_text=_("The project owner's notion of the project end date. "
-                    "This date is independant of the various phase end dates.")
+                    "This date is independent of the various phase end dates.")
     )
 
     def __unicode__(self):
@@ -145,6 +143,7 @@ class AbstractPhase(models.Model):
     class PhaseStatuses(DjangoChoices):
         hidden = ChoiceItem('hidden', label=_("Hidden"))
         progress = ChoiceItem('progress', label=_("Progress"))
+        waiting = ChoiceItem('waiting', label=_("Waiting"))
         completed = ChoiceItem('completed', label=_("Completed"))
 
     project = models.OneToOneField(Project, verbose_name=_("project"))
@@ -161,8 +160,8 @@ class AbstractPhase(models.Model):
         if self.startdate and self.enddate:
             if self.enddate < self.startdate:
                 raise ValidationError(_(
-                    u"%s: End date %s can not be earlier than start date %s" %
-                    (self.__class__.__name__, self.enddate, self.startdate))
+                    u"%(classname)s: End date %(enddate)s can not be earlier than start date %(startdate)s" %
+                    {'classname': self.__class__.__name__, 'enddate': self.enddate, 'startdate': self.startdate})
                 )
 
     def save(self, *args, **kwargs):

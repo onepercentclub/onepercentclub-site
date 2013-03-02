@@ -6,7 +6,7 @@
 /* ========================= Variables ================================== */
 /* ========================= Includes ============================= */
 /* Compass & Mixins */
-/* line 17, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -28,45 +28,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../var/lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -192,6 +192,11 @@ button::-moz-focus-inner {
   border: 0;
 }
 
+/* line 23, ../sass/includes/_base.scss */
+.clear {
+  clear: both;
+}
+
 /* =========== Semantic fluid grid */
 /*
 
@@ -205,8 +210,8 @@ button::-moz-focus-inner {
     You can also use negative margins.
     
 */
-/* Use this mixin to reset your grid by example for your mobile articles */
-/* The clearfix mixin is necessary for the floats */
+/* reset your grid */
+/* need to reset floats */
 /* =========== Typography */
 /* line 3, ../sass/includes/_typography.scss */
 .left {
@@ -269,11 +274,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* line 42, ../sass/includes/_typography.scss */
 h1.soft, h2.soft, h3.soft, h4.soft, h5.soft, h6.soft {
-  font-weight: 300;
   color: #858585;
 }
 
-/* line 48, ../sass/includes/_typography.scss */
+/* line 47, ../sass/includes/_typography.scss */
 h1 {
   font-size: 30px;
   font-size: 1.875rem;
@@ -281,14 +285,20 @@ h1 {
   font-weight: bold;
 }
 
-/* line 54, ../sass/includes/_typography.scss */
-h1.main-title {
+/* line 53, ../sass/includes/_typography.scss */
+.main-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* line 60, ../sass/includes/_typography.scss */
+/* line 59, ../sass/includes/_typography.scss */
+.big-text {
+  font-size: 30px;
+  font-size: 1.875rem;
+}
+
+/* line 63, ../sass/includes/_typography.scss */
 h2 {
   font-size: 26px;
   font-size: 1.625rem;
@@ -296,25 +306,28 @@ h2 {
   font-weight: bold;
 }
 
-/* line 66, ../sass/includes/_typography.scss */
+/* line 69, ../sass/includes/_typography.scss */
 h3 {
   font-size: 24px;
   font-size: 1.5rem;
 }
 
-/* line 70, ../sass/includes/_typography.scss */
+/* line 73, ../sass/includes/_typography.scss */
 h4 {
   font-size: 18px;
   font-size: 1.125rem;
+  padding: 4px 0 4px 0;
+  padding: 0.25rem 0 0.25rem 0;
+  font-weight: bold;
 }
 
-/* line 74, ../sass/includes/_typography.scss */
+/* line 79, ../sass/includes/_typography.scss */
 h5 {
   font-size: 16px;
   font-size: 1rem;
 }
 
-/* line 76, ../sass/includes/_typography.scss */
+/* line 81, ../sass/includes/_typography.scss */
 .tagline {
   color: #00c051;
   text-align: center;
@@ -324,23 +337,23 @@ h5 {
   margin: 64px 0;
   margin: 4rem 0;
 }
-/* line 81, ../sass/includes/_typography.scss */
+/* line 86, ../sass/includes/_typography.scss */
 .tagline em {
   color: #ff619a;
   font-weight: bold;
   font-style: normal;
 }
 
-/* line 92, ../sass/includes/_typography.scss */
+/* line 97, ../sass/includes/_typography.scss */
 p {
   margin-bottom: 1.25em;
 }
-/* line 94, ../sass/includes/_typography.scss */
+/* line 99, ../sass/includes/_typography.scss */
 p.lead {
   font-weight: bold;
 }
 
-/* line 99, ../sass/includes/_typography.scss */
+/* line 104, ../sass/includes/_typography.scss */
 a {
   color: #00c051;
   text-decoration: none;
@@ -349,54 +362,54 @@ a {
   -o-transition: color 0.2s ease-in, color 0.25s ease-out;
   transition: color 0.2s ease-in, color 0.25s ease-out;
 }
-/* line 104, ../sass/includes/_typography.scss */
+/* line 109, ../sass/includes/_typography.scss */
 a:hover {
   color: #ff619a;
 }
-/* line 108, ../sass/includes/_typography.scss */
+/* line 113, ../sass/includes/_typography.scss */
 a:active {
   color: #ff619a;
   position: relative;
   top: 1px;
 }
 
-/* line 116, ../sass/includes/_typography.scss */
+/* line 121, ../sass/includes/_typography.scss */
 small {
   font-size: 0.85em;
   color: #858585;
 }
 
-/* line 118, ../sass/includes/_typography.scss */
+/* line 123, ../sass/includes/_typography.scss */
 em {
   font-style: italic;
 }
 
-/* line 120, ../sass/includes/_typography.scss */
+/* line 125, ../sass/includes/_typography.scss */
 strong {
   font-weight: bold;
 }
 
-/* line 122, ../sass/includes/_typography.scss */
+/* line 127, ../sass/includes/_typography.scss */
 code, pre {
   font-family: 'courier new', monospace;
 }
 
-/* line 124, ../sass/includes/_typography.scss */
+/* line 129, ../sass/includes/_typography.scss */
 abbr {
   border-bottom: 1px dotted #858585;
 }
 
-/* line 126, ../sass/includes/_typography.scss */
+/* line 131, ../sass/includes/_typography.scss */
 del {
   text-decoration: line-through;
 }
 
-/* line 128, ../sass/includes/_typography.scss */
+/* line 133, ../sass/includes/_typography.scss */
 mark {
   background-color: #ffffb3;
 }
 
-/* line 130, ../sass/includes/_typography.scss */
+/* line 135, ../sass/includes/_typography.scss */
 hr {
   background-color: transparent;
   border: solid #bfbfbf;
@@ -405,75 +418,75 @@ hr {
   margin: 2em 1.25em;
 }
 
-/* line 138, ../sass/includes/_typography.scss */
+/* line 143, ../sass/includes/_typography.scss */
 blockquote {
   color: #454545;
   font-style: italic;
 }
-/* line 142, ../sass/includes/_typography.scss */
+/* line 147, ../sass/includes/_typography.scss */
 blockquote cite {
   color: #5e5e5e;
   display: block;
   font-size: 0.85em;
 }
-/* line 146, ../sass/includes/_typography.scss */
+/* line 151, ../sass/includes/_typography.scss */
 blockquote cite:before {
   content: "\2014 \0020";
 }
 
-/* line 150, ../sass/includes/_typography.scss */
+/* line 155, ../sass/includes/_typography.scss */
 figure {
   display: inline-block;
   max-width: 100%;
 }
-/* line 153, ../sass/includes/_typography.scss */
+/* line 158, ../sass/includes/_typography.scss */
 figure img {
   display: block;
   width: 100%;
 }
-/* line 157, ../sass/includes/_typography.scss */
+/* line 162, ../sass/includes/_typography.scss */
 figure figcaption {
   color: blue;
 }
 
-/* line 162, ../sass/includes/_typography.scss */
+/* line 167, ../sass/includes/_typography.scss */
 ul, ol {
   margin: 0 0 1.25em 1.5em;
 }
 
-/* line 163, ../sass/includes/_typography.scss */
+/* line 168, ../sass/includes/_typography.scss */
 ul {
   list-style: disc;
 }
 
-/* line 164, ../sass/includes/_typography.scss */
+/* line 169, ../sass/includes/_typography.scss */
 ol {
   list-style: decimal;
 }
 
-/* line 166, ../sass/includes/_typography.scss */
+/* line 171, ../sass/includes/_typography.scss */
 dl {
   margin-bottom: 1.25em;
 }
-/* line 168, ../sass/includes/_typography.scss */
+/* line 173, ../sass/includes/_typography.scss */
 dl dt {
   font-weight: bold;
 }
-/* line 169, ../sass/includes/_typography.scss */
+/* line 174, ../sass/includes/_typography.scss */
 dl dd {
   margin-left: 1.25em;
 }
-/* line 171, ../sass/includes/_typography.scss */
+/* line 176, ../sass/includes/_typography.scss */
 dl.advanced dt {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
 }
-/* line 172, ../sass/includes/_typography.scss */
+/* line 177, ../sass/includes/_typography.scss */
 dl.advanced dd {
   float: left;
-  width: 66.667%;
+  width: 66.66667%;
   margin-left: 0%;
   margin-right: 0%;
 }
@@ -483,29 +496,45 @@ dl.advanced dd {
 html {
   color: #454545;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-/* line 9, ../sass/includes/_layout.scss */
+/*
+@media only screen and (min-width: 1080px) {
+    
+    html {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (min-width: 1180px) {
+    
+    html {
+        font-size: 16px;
+    }
+}
+*/
+/* line 25, ../sass/includes/_layout.scss */
 body {
   line-height: 1.5em;
   overflow-y: scroll;
 }
 
-/* line 15, ../sass/includes/_layout.scss */
+/* line 31, ../sass/includes/_layout.scss */
 .container, .section {
   width: 100%;
   min-width: 980px;
 }
 
-/* line 21, ../sass/includes/_layout.scss */
+/* line 37, ../sass/includes/_layout.scss */
 .wrapper {
   *zoom: 1;
   min-width: 980px;
-  max-width: 80em;
+  max-width: 91.42857em;
   margin: auto;
+  padding: 0 16px;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .wrapper:before, .wrapper:after {
   display: block;
   height: 0 !important;
@@ -514,51 +543,55 @@ body {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .wrapper:after {
   clear: both;
 }
 
-/* line 29, ../sass/includes/_layout.scss */
-.wrapper > header {
+/* line 45, ../sass/includes/_layout.scss */
+.wrapper > header, .wrapper > .main-title {
   float: left;
-  width: 95.833%;
-  margin-left: 2.083%;
-  margin-right: 2.083%;
+  width: 95.83333%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
 }
 
-/* line 33, ../sass/includes/_layout.scss */
+/* line 49, ../sass/includes/_layout.scss */
 .wrapper > form {
   float: left;
   width: 62.5%;
-  margin-left: 2.083%;
-  margin-right: 2.083%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
 }
 
-/* line 37, ../sass/includes/_layout.scss */
+/* line 54, ../sass/includes/_layout.scss */
 .wrapper > .sidebar, .wrapper > sidebar {
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
 }
 
-/* line 42, ../sass/includes/_layout.scss */
+/* line 59, ../sass/includes/_layout.scss */
 .wrapper > .content {
   float: left;
-  width: 95.833%;
-  margin-left: 2.083%;
-  margin-right: 2.083%;
+  width: 62.5%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+}
+/* line 61, ../sass/includes/_layout.scss */
+.wrapper > .content.gray {
+  background-color: #e9e9e9;
 }
 
-/* line 46, ../sass/includes/_layout.scss */
+/* line 66, ../sass/includes/_layout.scss */
 .section {
   background-color: #e9e9e9;
-  padding: 0 0 32px 0;
-  padding: 0 0 2rem 0;
+  padding: 0 0 16px 0;
+  padding: 0 0 1rem 0;
 }
 
-/* line 51, ../sass/includes/_layout.scss */
+/* line 71, ../sass/includes/_layout.scss */
 .top {
   background-color: #050505;
   color: white;
@@ -598,21 +631,23 @@ section {
 /* line 15, ../sass/includes/_navigation.scss */
 #logo {
   float: left;
-  width: 12.5%;
-  margin-left: 2.083%;
+  width: 10.41667%;
+  margin-left: 2.08333%;
   margin-right: 0%;
+  white-space: nowrap;
   margin-top: 10px;
   margin-top: 0.625rem;
   text-align: left;
 }
-/* line 20, ../sass/includes/_navigation.scss */
+/* line 21, ../sass/includes/_navigation.scss */
 #logo img {
   background: white;
 }
-/* line 24, ../sass/includes/_navigation.scss */
+/* line 25, ../sass/includes/_navigation.scss */
 #logo #subtitle {
+  position: absolute;
   font-size: 11px;
-  font-size: 0.688rem;
+  font-size: 0.6875rem;
   display: inline-block !important;
   font-weight: normal;
   text-transform: uppercase;
@@ -623,38 +658,38 @@ section {
   top: -4px;
   top: -0.25rem;
 }
-/* line 35, ../sass/includes/_navigation.scss */
+/* line 37, ../sass/includes/_navigation.scss */
 #logo #subtitle em {
   font-style: normal;
   color: #ff619a;
 }
-/* line 43, ../sass/includes/_navigation.scss */
+/* line 45, ../sass/includes/_navigation.scss */
 #logo :hover img {
   background: #00c051;
 }
-/* line 47, ../sass/includes/_navigation.scss */
+/* line 49, ../sass/includes/_navigation.scss */
 #logo :hover #subtitle, #logo :hover #subtitle em {
   color: white !important;
 }
 
-/* line 53, ../sass/includes/_navigation.scss */
+/* line 55, ../sass/includes/_navigation.scss */
 .nav {
   font-weight: bold;
   font-size: 16px;
   font-size: 1rem;
 }
-/* line 57, ../sass/includes/_navigation.scss */
+/* line 59, ../sass/includes/_navigation.scss */
 .nav ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 62, ../sass/includes/_navigation.scss */
+/* line 64, ../sass/includes/_navigation.scss */
 .nav ul li {
   display: inline;
 }
 
-/* line 70, ../sass/includes/_navigation.scss */
+/* line 72, ../sass/includes/_navigation.scss */
 .nav-item, .nav-main li a, .nav-main li a:visited {
   color: #bfbfbf;
   text-transform: uppercase;
@@ -663,44 +698,45 @@ section {
   float: left;
   text-align: center;
   text-decoration: none;
-  padding: 28px 10px 10px 10px;
-  padding: 1.75rem 0.625rem 0.625rem 0.625rem;
+  padding: 28px 12px 10px 12px;
+  padding: 1.75rem 0.75rem 0.625rem 0.75rem;
   overflow: hidden;
 }
-/* line 81, ../sass/includes/_navigation.scss */
+/* line 83, ../sass/includes/_navigation.scss */
 .nav-item:hover, .nav-main li a:hover, .nav-main li a:hover:visited, .nav-item:active, .nav-main li a:active, .nav-main li a:active:visited, .nav-item.is-active, .nav-main li a.is-active, .nav-main li a.is-active:visited {
   color: white;
 }
 
-/* line 86, ../sass/includes/_navigation.scss */
+/* line 88, ../sass/includes/_navigation.scss */
 .nav-main {
   float: left;
-  width: 50%;
+  width: 54.16667%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 0%;
   position: relative;
+  font-size: 17px;
+  font-size: 1.0625rem;
 }
-/* line 90, ../sass/includes/_navigation.scss */
+/* line 93, ../sass/includes/_navigation.scss */
 .nav-main li a, .nav-main li a:visited {
   white-space: nowrap;
-  width: 25%;
 }
 
-/* line 97, ../sass/includes/_navigation.scss */
+/* line 100, ../sass/includes/_navigation.scss */
 .nav-member {
   margin-top: 20px;
   margin-top: 1.25rem;
   float: left;
   width: 31.25%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
   font-size: 13px;
-  font-size: 0.813rem;
+  font-size: 0.8125rem;
   color: white;
   overflow: hidden;
   text-align: center;
 }
-/* line 106, ../sass/includes/_navigation.scss */
+/* line 109, ../sass/includes/_navigation.scss */
 .nav-member img {
   width: 36px;
   width: 2.25rem;
@@ -709,7 +745,7 @@ section {
   float: left;
   vertical-align: top;
 }
-/* line 113, ../sass/includes/_navigation.scss */
+/* line 116, ../sass/includes/_navigation.scss */
 .nav-member a {
   color: white;
   text-transform: uppercase;
@@ -721,20 +757,20 @@ section {
   padding: 6px 8px 6px 8px;
   padding: 0.375rem 0.5rem 0.375rem 0.5rem;
 }
-/* line 123, ../sass/includes/_navigation.scss */
+/* line 126, ../sass/includes/_navigation.scss */
 .nav-member a:hover, .nav-member a:active, .nav-member a.is-selected {
   color: #050505;
 }
-/* line 128, ../sass/includes/_navigation.scss */
+/* line 131, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent {
   width: 35%;
   padding: 0;
 }
-/* line 132, ../sass/includes/_navigation.scss */
+/* line 135, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent img {
   border-right: 1px solid #050505;
 }
-/* line 136, ../sass/includes/_navigation.scss */
+/* line 139, ../sass/includes/_navigation.scss */
 .nav-member .nav-my1percent strong {
   display: inline-block;
   margin: 6px 0 2px 0;
@@ -742,16 +778,16 @@ section {
   padding: 0 12px 0 8px;
   padding: 0 0.75rem 0 0.5rem;
 }
-/* line 143, ../sass/includes/_navigation.scss */
+/* line 146, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications {
   width: 65%;
 }
-/* line 148, ../sass/includes/_navigation.scss */
+/* line 151, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications:hover .nav-notifications-nr, .nav-member .nav-notifications:active .nav-notifications-nr {
   background-color: #050505;
   color: white !important;
 }
-/* line 155, ../sass/includes/_navigation.scss */
+/* line 158, ../sass/includes/_navigation.scss */
 .nav-member .nav-notifications-nr {
   color: #050505;
   background: white;
@@ -761,24 +797,24 @@ section {
   margin-right: 8px;
   margin-right: 0.5rem;
   padding: 3px;
-  padding: 0.188rem;
+  padding: 0.1875rem;
   border-radius: 8px;
   border-radius: 0.5rem;
 }
-/* line 166, ../sass/includes/_navigation.scss */
+/* line 169, ../sass/includes/_navigation.scss */
 .nav-member .nav-login, .nav-member .nav-signup {
   width: 35%;
 }
-/* line 169, ../sass/includes/_navigation.scss */
+/* line 172, ../sass/includes/_navigation.scss */
 .nav-member .nav-login:hover, .nav-member .nav-login:active, .nav-member .nav-login.is-active, .nav-member .nav-signup:hover, .nav-member .nav-signup:active, .nav-member .nav-signup.is-active {
   color: #00c051;
   background-color: white;
 }
-/* line 176, ../sass/includes/_navigation.scss */
+/* line 179, ../sass/includes/_navigation.scss */
 .nav-member .nav-signup {
   background-color: #ff619a;
 }
-/* line 180, ../sass/includes/_navigation.scss */
+/* line 183, ../sass/includes/_navigation.scss */
 .nav-member .nav-language {
   float: left;
   width: 30%;
@@ -787,7 +823,7 @@ section {
   padding: 6px 8px 6px 8px;
   padding: 0.375rem 0.5rem 0.375rem 0.5rem;
 }
-/* line 186, ../sass/includes/_navigation.scss */
+/* line 189, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a {
   width: 50%;
   text-align: center;
@@ -796,11 +832,11 @@ section {
   padding: 0 6px;
   padding: 0 0.375rem;
 }
-/* line 193, ../sass/includes/_navigation.scss */
+/* line 196, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a#nav-lang-en {
   border-right: 1px solid #bfbfbf;
 }
-/* line 197, ../sass/includes/_navigation.scss */
+/* line 200, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a:hover, .nav-member .nav-language a:active, .nav-member .nav-language a.is-active {
   color: white;
 }
@@ -808,49 +844,45 @@ section {
 /* Elements */
 /* =========== Forms */
 /* line 3, ../sass/includes/_forms.scss */
-input[type=text], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select {
-  border: 1px solid #bfbfbf;
-  color: #333;
+input[type=text], input[type=password], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select {
+  border: 1px solid #c5c5c5;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
-  margin: -1px 0.5em 0px 0px;
+  margin: -1px 0.5em 10px 0px;
   padding: 0.6em;
   width: 100%;
-  -webkit-border-radius: 0.3em;
-  -moz-border-radius: 0.3em;
-  -ms-border-radius: 0.3em;
-  -o-border-radius: 0.3em;
-  border-radius: 0.3em;
-  -webkit-box-shadow: inset 0px 1px 3px rgba(5, 5, 5, 0.1);
-  -moz-box-shadow: inset 0px 1px 3px rgba(5, 5, 5, 0.1);
-  box-shadow: inset 0px 1px 3px rgba(5, 5, 5, 0.1);
+  -webkit-box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
+  -moz-box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
+  box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
   -webkit-transition: border 0.1s;
   -moz-transition: border 0.1s;
   -o-transition: border 0.1s;
   transition: border 0.1s;
   vertical-align: baseline;
+  background-color: #fbfbfb;
 }
-/* line 15, ../sass/includes/_forms.scss */
-input[type=text]:focus, input[type=number]:focus, input[type=search]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=url]:focus, textarea:focus, select:focus {
+/* line 19, ../sass/includes/_forms.scss */
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=search]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=url]:focus, textarea:focus, select:focus {
   border: 1px solid #a6a6a6;
   outline: 0;
   color: #333;
-  -webkit-box-shadow: 0px 0px 4px rgba(5, 5, 5, 0.3);
-  -moz-box-shadow: 0px 0px 4px rgba(5, 5, 5, 0.3);
-  box-shadow: 0px 0px 4px rgba(5, 5, 5, 0.3);
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
+  -moz-box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
+  box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
 }
 
-/* line 23, ../sass/includes/_forms.scss */
+/* line 29, ../sass/includes/_forms.scss */
 ::-webkit-input-placeholder {
-  color: #999;
+  color: #bbb;
 }
 
-/* line 27, ../sass/includes/_forms.scss */
+/* line 33, ../sass/includes/_forms.scss */
 :-moz-placeholder {
-  color: #999;
+  color: #bbb;
 }
 
-/* line 31, ../sass/includes/_forms.scss */
+/* line 37, ../sass/includes/_forms.scss */
 textarea {
   overflow: auto;
   resize: vertical;
@@ -858,7 +890,7 @@ textarea {
   display: block;
 }
 
-/* line 40, ../sass/includes/_forms.scss */
+/* line 46, ../sass/includes/_forms.scss */
 form legend {
   display: block;
   margin-bottom: 0.25em;
@@ -866,15 +898,14 @@ form legend {
   line-height: 1.5em;
   font-size: 1.6em;
 }
-/* line 48, ../sass/includes/_forms.scss */
+/* line 54, ../sass/includes/_forms.scss */
 form fieldset {
   margin-bottom: 16px;
   margin-bottom: 1rem;
 }
-/* line 52, ../sass/includes/_forms.scss */
+/* line 58, ../sass/includes/_forms.scss */
 form label.inline {
   position: absolute;
-  top: 0;
   left: 0;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
@@ -883,19 +914,29 @@ form label.inline {
   width: 100%;
   vertical-align: baseline;
 }
-/* line 65, ../sass/includes/_forms.scss */
+/* line 72, ../sass/includes/_forms.scss */
+form .currency em {
+  font-style: normal;
+  font-weight: bold;
+  color: #929292;
+}
+/* line 78, ../sass/includes/_forms.scss */
+form .currency input {
+  width: auto;
+}
+/* line 83, ../sass/includes/_forms.scss */
 form ul {
   clear: both;
   list-style: none;
   margin: 0 0 1.25em 0;
 }
-/* line 70, ../sass/includes/_forms.scss */
+/* line 88, ../sass/includes/_forms.scss */
 form ul > li {
   position: relative;
   margin-bottom: 1.25em;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 form ul > li:before, form ul > li:after {
   display: block;
   height: 0 !important;
@@ -904,39 +945,39 @@ form ul > li:before, form ul > li:after {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 form ul > li:after {
   clear: both;
 }
-/* line 75, ../sass/includes/_forms.scss */
+/* line 93, ../sass/includes/_forms.scss */
 form ul > li > label {
   padding-left: 0.6em;
   display: block;
   color: #999;
 }
-/* line 83, ../sass/includes/_forms.scss */
+/* line 101, ../sass/includes/_forms.scss */
 form ul > li > label small {
   display: inline-block;
 }
-/* line 88, ../sass/includes/_forms.scss */
+/* line 106, ../sass/includes/_forms.scss */
 form ul > li p, form ul > li small {
   display: block;
   margin: 0.6em 0.6em 0.25em 0px;
 }
-/* line 93, ../sass/includes/_forms.scss */
+/* line 111, ../sass/includes/_forms.scss */
 form ul > li ul.checklist {
   margin: 0.6em 0.6em 0.6em 0px;
 }
-/* line 96, ../sass/includes/_forms.scss */
+/* line 114, ../sass/includes/_forms.scss */
 form ul > li ul.checklist > li {
   margin: 0.5em 0;
 }
-/* line 98, ../sass/includes/_forms.scss */
+/* line 116, ../sass/includes/_forms.scss */
 form ul > li ul.checklist input {
   display: inline-block;
   margin-right: 0.5em;
 }
-/* line 103, ../sass/includes/_forms.scss */
+/* line 121, ../sass/includes/_forms.scss */
 form ul > li ul.checklist label {
   clear: both;
   float: none;
@@ -945,38 +986,131 @@ form ul > li ul.checklist label {
   width: auto;
   font-weight: normal;
 }
-/* line 106, ../sass/includes/_forms.scss */
+/* line 124, ../sass/includes/_forms.scss */
 form ul > li ul.checklist label:hover {
   color: #000;
   cursor: pointer;
 }
-/* line 116, ../sass/includes/_forms.scss */
-form ul li.error label {
+/* line 134, ../sass/includes/_forms.scss */
+form span.error {
   color: #d24226;
+  margin: 0.6em 0.6em 0.6em 0px;
+  display: block;
 }
-/* line 118, ../sass/includes/_forms.scss */
-form ul li.error label:hover {
-  color: #662012;
-}
-/* line 121, ../sass/includes/_forms.scss */
-form ul li.error input {
+/* line 142, ../sass/includes/_forms.scss */
+form input.error {
   border: 1px solid #d24226;
   -webkit-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
   -moz-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
   box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
 }
-/* line 124, ../sass/includes/_forms.scss */
-form ul li.error input:focus {
+/* line 145, ../sass/includes/_forms.scss */
+form input.error:focus {
   border: 1px solid #d24226;
 }
-/* line 127, ../sass/includes/_forms.scss */
-form ul li.error ul.errors {
-  color: #d24226;
-  margin: 0.6em 0.6em 0.6em 0px;
+/* line 147, ../sass/includes/_forms.scss */
+form input.error::-webkit-input-placeholder {
+  color: #e68a78;
 }
-/* line 130, ../sass/includes/_forms.scss */
-form ul li.error ul.errors li {
-  margin: 0.5em 0;
+/* line 151, ../sass/includes/_forms.scss */
+form input.error:-moz-placeholder {
+  color: #e68a78;
+}
+/* line 157, ../sass/includes/_forms.scss */
+form.labeled {
+  margin: 30px;
+  margin: 1.875rem;
+  *zoom: 1;
+}
+/* line 44, ../sass/includes/_grid.scss */
+form.labeled:before, form.labeled:after {
+  display: block;
+  height: 0 !important;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  content: ".";
+}
+/* line 45, ../sass/includes/_grid.scss */
+form.labeled:after {
+  clear: both;
+}
+/* line 160, ../sass/includes/_forms.scss */
+form.labeled input[type='text'] {
+  float: left;
+  width: 72.91667%;
+  margin-left: 2.08333%;
+  margin-right: 0%;
+}
+/* line 163, ../sass/includes/_forms.scss */
+form.labeled input[type='number'] {
+  float: left;
+  width: 12.5%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+}
+/* line 168, ../sass/includes/_forms.scss */
+form div.label {
+  float: left;
+  width: 25%;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding: 10px;
+  padding: 0.625rem;
+  font-size: 18px;
+  font-size: 1.125rem;
+  clear: left;
+  font-weight: bold;
+  color: #999999;
+}
+/* line 175, ../sass/includes/_forms.scss */
+form div.label.ok {
+  color: #00c051;
+}
+/* line 178, ../sass/includes/_forms.scss */
+form div.label.wide {
+  float: left;
+  width: 100%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+/* line 184, ../sass/includes/_forms.scss */
+form .big-radio label {
+  padding: 10px;
+  padding: 0.625rem;
+  padding: 10px;
+  color: white;
+  font-family: "Futura Std";
+  font-weight: bold;
+  font-size: 18px;
+  font-size: 1.125rem;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 10px;
+  background-color: #999999;
+  cursor: pointer;
+}
+/* line 197, ../sass/includes/_forms.scss */
+form .big-radio input[type=radio] {
+  display: none;
+}
+/* line 200, ../sass/includes/_forms.scss */
+form .big-radio input[type=radio]:checked + label {
+  background-color: #00c051;
+}
+/* line 204, ../sass/includes/_forms.scss */
+form .big-radio.radio2 label {
+  float: left;
+  width: 35.41667%;
+  margin-left: 2.08333%;
+  margin-right: 0%;
+}
+/* line 209, ../sass/includes/_forms.scss */
+form .big-radio.radio4 label {
+  float: left;
+  width: 16.66667%;
+  margin-left: 2.08333%;
+  margin-right: 0%;
 }
 
 /* =========== Tables */
@@ -1041,7 +1175,7 @@ div.buttons, ul.buttons {
   margin: 0 0 1.25em 0;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 div.buttons:before, div.buttons:after, ul.buttons:before, ul.buttons:after {
   display: block;
   height: 0 !important;
@@ -1050,7 +1184,7 @@ div.buttons:before, div.buttons:after, ul.buttons:before, ul.buttons:after {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 div.buttons:after, ul.buttons:after {
   clear: both;
 }
@@ -1090,22 +1224,19 @@ div.buttons li:last-child a.button, div.buttons li:last-child .button-donate, di
 /* line 20, ../sass/includes/_buttons.scss */
 a.button, .button-donate, a.btn, input[type="submit"], button {
   border: 1px solid #00a746;
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  -ms-border-radius: 0.2em;
-  -o-border-radius: 0.2em;
-  border-radius: 0.2em;
   color: white;
   cursor: pointer;
   display: inline-block;
-  font-size: 1.1em;
+  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: bold;
   line-height: 1.5em;
   text-transform: uppercase;
   margin: 0;
-  padding: 6px 16px 6px 16px;
-  padding: 0.375rem 1rem 0.375rem 1rem;
+  padding: 6px 32px 6px 32px;
+  padding: 0.375rem 2rem 0.375rem 2rem;
   text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(5, 5, 5, 0.25);
   -webkit-transition: all 50ms;
   -moz-transition: all 50ms;
   -o-transition: all 50ms;
@@ -1113,22 +1244,42 @@ a.button, .button-donate, a.btn, input[type="submit"], button {
   vertical-align: baseline;
   background-color: #00c051;
 }
-/* line 42, ../sass/includes/_buttons.scss */
+/* line 44, ../sass/includes/_buttons.scss */
 a.button:hover, .button-donate:hover, a.btn:hover, input[type="submit"]:hover, button:hover {
-  background-color: #00c051;
+  background-color: #ff619a;
   color: white;
-  border-color: #00a746;
+  border-color: #ff478a;
 }
-/* line 49, ../sass/includes/_buttons.scss */
-a.button:active, .button-donate:active, a.button:focus, .button-donate:focus, a.btn:active, a.btn:focus, input[type="submit"]:active, input[type="submit"]:focus, button:active, button:focus {
+/* line 51, ../sass/includes/_buttons.scss */
+a.button:active, .button-donate:active, a.btn:active, input[type="submit"]:active, button:active {
   background: #074520;
   -webkit-box-shadow: 0 1px 0 white, inset 0 0 20px #050505;
   -moz-box-shadow: 0 1px 0 white, inset 0 0 20px #050505;
   box-shadow: 0 1px 0 white, inset 0 0 20px #050505;
   color: #bfbfbf;
   text-shadow: 0 0 0;
+  border-bottom: 2px solid #00a746;
+  position: relative;
+  top: 4px;
 }
-/* line 57, ../sass/includes/_buttons.scss */
+/* line 62, ../sass/includes/_buttons.scss */
+a.button[disabled], [disabled].button-donate, a.btn[disabled], input[type="submit"][disabled], button[disabled] {
+  color: #e9e9e9;
+  background-color: #999999;
+  border-color: #999999;
+}
+/* line 67, ../sass/includes/_buttons.scss */
+a.button[disabled]:hover, [disabled].button-donate:hover, a.btn[disabled]:hover, input[type="submit"][disabled]:hover, button[disabled]:hover {
+  color: #e9e9e9;
+  background-color: #999999;
+}
+/* line 71, ../sass/includes/_buttons.scss */
+a.button[disabled]:active, [disabled].button-donate:active, a.btn[disabled]:active, input[type="submit"][disabled]:active, button[disabled]:active {
+  position: relative;
+  color: #d24226;
+  top: 0px;
+}
+/* line 80, ../sass/includes/_buttons.scss */
 a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"].contrast, button.contrast {
   border-color: #050505;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6b6b6b), color-stop(100%, #050505));
@@ -1137,7 +1288,7 @@ a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"]
   background: -o-linear-gradient(top, #6b6b6b, #050505);
   background: linear-gradient(top, #6b6b6b, #050505);
 }
-/* line 60, ../sass/includes/_buttons.scss */
+/* line 83, ../sass/includes/_buttons.scss */
 a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, input[type="submit"].contrast:hover, button.contrast:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #858585), color-stop(100%, #050505));
   background: -webkit-linear-gradient(top, #858585, #050505);
@@ -1145,12 +1296,12 @@ a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, in
   background: -o-linear-gradient(top, #858585, #050505);
   background: linear-gradient(top, #858585, #050505);
 }
-/* line 63, ../sass/includes/_buttons.scss */
+/* line 86, ../sass/includes/_buttons.scss */
 a.button.contrast:active, .contrast.button-donate:active, a.button.contrast:focus, .contrast.button-donate:focus, a.btn.contrast:active, a.btn.contrast:focus, input[type="submit"].contrast:active, input[type="submit"].contrast:focus, button.contrast:active, button.contrast:focus {
   background: #383838;
   color: #bfbfbf;
 }
-/* line 70, ../sass/includes/_buttons.scss */
+/* line 93, ../sass/includes/_buttons.scss */
 a.button.soft, .soft.button-donate, a.btn.soft, input[type="submit"].soft, button.soft {
   border-color: #a6a6a6;
   color: #525252;
@@ -1161,7 +1312,7 @@ a.button.soft, .soft.button-donate, a.btn.soft, input[type="submit"].soft, butto
   background: linear-gradient(top, #ffffff, #e6e6e6);
   text-shadow: 1px 1px 0px white;
 }
-/* line 75, ../sass/includes/_buttons.scss */
+/* line 98, ../sass/includes/_buttons.scss */
 a.button.soft:hover, .soft.button-donate:hover, a.btn.soft:hover, input[type="submit"].soft:hover, button.soft:hover {
   border-color: #8c8c8c;
   color: #050505;
@@ -1171,7 +1322,7 @@ a.button.soft:hover, .soft.button-donate:hover, a.btn.soft:hover, input[type="su
   background: -o-linear-gradient(top, #ffffff, #eeeeee);
   background: linear-gradient(top, #ffffff, #eeeeee);
 }
-/* line 80, ../sass/includes/_buttons.scss */
+/* line 103, ../sass/includes/_buttons.scss */
 a.button.soft:active, .soft.button-donate:active, a.button.soft:focus, .soft.button-donate:focus, a.btn.soft:active, a.btn.soft:focus, input[type="submit"].soft:active, input[type="submit"].soft:focus, button.soft:active, button.soft:focus {
   background: #bfbfbf;
   border-color: #6b6b6b;
@@ -1181,7 +1332,7 @@ a.button.soft:active, .soft.button-donate:active, a.button.soft:focus, .soft.but
   color: #5e5e5e;
   text-shadow: 0 0 0;
 }
-/* line 89, ../sass/includes/_buttons.scss */
+/* line 112, ../sass/includes/_buttons.scss */
 a.button.success, .success.button-donate, a.btn.success, input[type="submit"].success, button.success {
   border-color: #2d5011;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5da423), color-stop(100%, #457a1a));
@@ -1190,7 +1341,7 @@ a.button.success, .success.button-donate, a.btn.success, input[type="submit"].su
   background: -o-linear-gradient(top, #5da423, #457a1a);
   background: linear-gradient(top, #5da423, #457a1a);
 }
-/* line 92, ../sass/includes/_buttons.scss */
+/* line 115, ../sass/includes/_buttons.scss */
 a.button.success:hover, .success.button-donate:hover, a.btn.success:hover, input[type="submit"].success:hover, button.success:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #75ce2c), color-stop(100%, #457a1a));
   background: -webkit-linear-gradient(top, #75ce2c, #457a1a);
@@ -1198,11 +1349,11 @@ a.button.success:hover, .success.button-donate:hover, a.btn.success:hover, input
   background: -o-linear-gradient(top, #75ce2c, #457a1a);
   background: linear-gradient(top, #75ce2c, #457a1a);
 }
-/* line 95, ../sass/includes/_buttons.scss */
+/* line 118, ../sass/includes/_buttons.scss */
 a.button.success:active, .success.button-donate:active, a.button.success:focus, .success.button-donate:focus, a.btn.success:active, a.btn.success:focus, input[type="submit"].success:active, input[type="submit"].success:focus, button.success:active, button.success:focus {
   background: #396516;
 }
-/* line 100, ../sass/includes/_buttons.scss */
+/* line 123, ../sass/includes/_buttons.scss */
 a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, button.alert {
   border-color: #7c2716;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d24226), color-stop(100%, #a7341e));
@@ -1211,7 +1362,7 @@ a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, b
   background: -o-linear-gradient(top, #d24226, #a7341e);
   background: linear-gradient(top, #d24226, #a7341e);
 }
-/* line 103, ../sass/includes/_buttons.scss */
+/* line 126, ../sass/includes/_buttons.scss */
 a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type="submit"].alert:hover, button.alert:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #df644c), color-stop(100%, #a7341e));
   background: -webkit-linear-gradient(top, #df644c, #a7341e);
@@ -1219,28 +1370,40 @@ a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type=
   background: -o-linear-gradient(top, #df644c, #a7341e);
   background: linear-gradient(top, #df644c, #a7341e);
 }
-/* line 106, ../sass/includes/_buttons.scss */
+/* line 129, ../sass/includes/_buttons.scss */
 a.button.alert:active, .alert.button-donate:active, a.button.alert:focus, .alert.button-donate:focus, a.btn.alert:active, a.btn.alert:focus, input[type="submit"].alert:active, input[type="submit"].alert:focus, button.alert:active, button.alert:focus {
   background: #912e1a;
 }
-/* line 112, ../sass/includes/_buttons.scss */
+/* line 134, ../sass/includes/_buttons.scss */
+a.button.top, .top.button-donate, a.btn.top, input[type="submit"].top, button.top {
+  margin-top: 12px;
+  width: 100%;
+}
+/* line 140, ../sass/includes/_buttons.scss */
 a.button.large, .large.button-donate, a.btn.large, input[type="submit"].large, button.large {
   font-size: 1.25em;
 }
-/* line 113, ../sass/includes/_buttons.scss */
+/* line 141, ../sass/includes/_buttons.scss */
 a.button.small, .small.button-donate, a.btn.small, input[type="submit"].small, button.small {
   font-size: 1em;
 }
-/* line 114, ../sass/includes/_buttons.scss */
+/* line 142, ../sass/includes/_buttons.scss */
 a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, button.tiny {
   font-size: 0.85em;
 }
+/* line 144, ../sass/includes/_buttons.scss */
+a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, button.next {
+  float: right;
+  border: none;
+  padding-right: 42px;
+  background: #ff619a url("../images/button-next.png") no-repeat right center;
+}
 
-/* line 120, ../sass/includes/_buttons.scss */
+/* line 156, ../sass/includes/_buttons.scss */
 .button-donate {
   font-size: 19px;
-  font-size: 1.188rem;
-  background-image: url('../images/sprites/icons-s419268fc7b.png');
+  font-size: 1.1875rem;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
   background-position: 5% 16px;
   padding: 0.6em 0 0.6em 20%;
@@ -1249,7 +1412,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
   background-color: #ff619a;
 }
 
-/* line 135, ../sass/includes/_buttons.scss */
+/* line 171, ../sass/includes/_buttons.scss */
 .button.button-donate:hover {
   background-color: #050505;
 }
@@ -1257,7 +1420,7 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 /* ========================= Responsive ================================== */
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-  /* line 144, ../sass/includes/_buttons.scss */
+  /* line 180, ../sass/includes/_buttons.scss */
   .button-donate {
     font-size: 22px;
     font-size: 1.375rem;
@@ -1267,18 +1430,18 @@ a.button.tiny, .tiny.button-donate, a.btn.tiny, input[type="submit"].tiny, butto
 /* =========== Icons */
 /* line 3, ../sass/includes/_icons.scss */
 .location {
-  background-image: url('../images/sprites/icons-s419268fc7b.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -46px;
+  background-position: 0 -130px;
   padding-left: 36px;
   padding-left: 2.25rem;
 }
 
 /* line 10, ../sass/includes/_icons.scss */
 .tags {
-  background-image: url('../images/sprites/icons-s419268fc7b.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -478px;
+  background-position: 0 -934px;
   padding-left: 36px;
   padding-left: 2.25rem;
 }
@@ -1487,7 +1650,7 @@ ul.pagination li.gap {
   padding: 1.5rem 2rem 1rem 2rem;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 #lightbox header:before, #lightbox header:after {
   display: block;
   height: 0 !important;
@@ -1496,7 +1659,7 @@ ul.pagination li.gap {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 #lightbox header:after {
   clear: both;
 }
@@ -1513,7 +1676,7 @@ ul.pagination li.gap {
 #lightbox nav {
   font-weight: bold;
   font-size: 13px;
-  font-size: 0.813rem;
+  font-size: 0.8125rem;
 }
 /* line 31, ../sass/includes/_lightbox.scss */
 #lightbox nav ul {
@@ -1552,7 +1715,7 @@ ul.pagination li.gap {
 #lightbox-content {
   color: #6a6a6a;
   font-size: 15px;
-  font-size: 0.938rem;
+  font-size: 0.9375rem;
   padding: 0 32px 72px 32px;
   padding: 0 2rem 4.5rem 2rem;
 }
@@ -1616,7 +1779,7 @@ ul.pagination li.gap {
 #lightbox-content form {
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 #lightbox-content form:before, #lightbox-content form:after {
   display: block;
   height: 0 !important;
@@ -1625,7 +1788,7 @@ ul.pagination li.gap {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 #lightbox-content form:after {
   clear: both;
 }
@@ -1826,6 +1989,37 @@ ul.steps li.selected a {
   font-weight: bold;
 }
 
+/* vertical tabs with radio button labels */
+/* line 63, ../sass/includes/_tabs.scss */
+.tabs.vertical {
+  float: left;
+  display: inline-block;
+  width: 25%;
+}
+/* line 67, ../sass/includes/_tabs.scss */
+.tabs.vertical label {
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  font-weight: bold;
+  background-color: white;
+  margin: 0px 0px 8px;
+}
+/* line 74, ../sass/includes/_tabs.scss */
+.tabs.vertical label.selected {
+  background-color: #e9e9e9;
+}
+
+/* line 81, ../sass/includes/_tabs.scss */
+.panes.vertical {
+  float: left;
+  display: inline-block;
+  width: 75%;
+  background-color: #e9e9e9;
+  padding: 8px;
+  min-height: 300px;
+}
+
 /* =========== Panels */
 /* line 3, ../sass/includes/_panels.scss */
 .panel {
@@ -1884,9 +2078,9 @@ ul.steps li.selected a {
 .fileinput-button.image {
   display: block;
   float: left;
-  width: 14.583%;
+  width: 14.58333%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
   height: 70px;
   border: 3px dotted #00c051;
   background: url(../images/upload.png) center no-repeat;
@@ -2051,9 +2245,9 @@ ul.steps li.selected a {
 #detail figure.media {
   float: left;
   width: 62.5%;
-  margin-left: 2.083%;
-  margin-right: 2.083%;
-  height: 450px;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+  margin-bottom: 1.25em;
   border: 1px solid #ccc;
   background-color: #ccc;
   overflow: hidden;
@@ -2061,18 +2255,24 @@ ul.steps li.selected a {
   -moz-box-shadow: inset 0px 1px 6px rgba(5, 5, 5, 0.1);
   box-shadow: inset 0px 1px 6px rgba(5, 5, 5, 0.1);
 }
-/* line 11, ../sass/modules/_detail-top.scss */
+/* line 12, ../sass/modules/_detail-top.scss */
 #detail figure.media img {
-  margin: 0 auto;
-  width: auto !important;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  margin-top: -225px;
-  margin-left: -400px;
+  /*
+    margin: 0 auto;
+    width: auto !important;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -225px;
+    margin-left: -400px;
+  */
+}
+/* line 25, ../sass/modules/_detail-top.scss */
+#detail sidebar {
+  margin-bottom: 1.25em;
 }
 
-/* line 23, ../sass/modules/_detail-top.scss */
+/* line 30, ../sass/modules/_detail-top.scss */
 .phase {
   font-size: 14px;
   font-size: 0.875rem;
@@ -2087,11 +2287,14 @@ ul.steps li.selected a {
   background: #cccccc url("../images/phase-back.png") no-repeat right center;
 }
 
-/* line 32, ../sass/modules/_detail-top.scss */
+/* line 39, ../sass/modules/_detail-top.scss */
 .meta {
-  margin: 16px 0;
+  margin: 8px 0;
+  margin: 0.5rem 0;
+  font-size: 18px;
+  font-size: 1.125rem;
 }
-/* line 36, ../sass/modules/_detail-top.scss */
+/* line 43, ../sass/modules/_detail-top.scss */
 .meta .location {
   float: left;
   display: block;
@@ -2099,7 +2302,7 @@ ul.steps li.selected a {
   margin-right: 32px;
   margin-right: 2rem;
 }
-/* line 43, ../sass/modules/_detail-top.scss */
+/* line 50, ../sass/modules/_detail-top.scss */
 .meta .tags {
   display: block;
   width: auto;
@@ -2107,7 +2310,7 @@ ul.steps li.selected a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 52, ../sass/modules/_detail-top.scss */
+/* line 58, ../sass/modules/_detail-top.scss */
 .meta .tags ul {
   vertical-align: middle;
   margin: 0;
@@ -2115,12 +2318,13 @@ ul.steps li.selected a {
   display: inline;
   list-style: none;
 }
-/* line 59, ../sass/modules/_detail-top.scss */
+/* line 65, ../sass/modules/_detail-top.scss */
 .meta .tags ul li {
+  color: #00c051;
   display: inline;
   text-transform: capitalize;
 }
-/* line 64, ../sass/modules/_detail-top.scss */
+/* line 70, ../sass/modules/_detail-top.scss */
 .meta .tags ul li.out-of-range {
   display: none;
 }
@@ -2134,7 +2338,7 @@ ul.steps li.selected a {
   margin-bottom: 16px;
   margin-bottom: 1rem;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .status-box:before, .status-box:after {
   display: block;
   height: 0 !important;
@@ -2143,41 +2347,44 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .status-box:after {
   clear: both;
 }
 /* line 9, ../sass/modules/_status-box.scss */
 .status-box h3 {
   margin: 0;
-  color: #c0bfbf;
+  padding: 0;
   font-weight: bold;
-  font-size: 15px;
-  font-size: 0.938rem;
+  color: #c0bfbf;
+  font-size: 16px;
+  font-size: 1rem;
+  height: 64px;
+  overflow: hidden;
 }
 
 /* ========================= Responsive ================================== */
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-  /* line 21, ../sass/modules/_status-box.scss */
+  /* line 27, ../sass/modules/_status-box.scss */
   .widget-box h3 {
     font-size: 18px;
     font-size: 1.125rem;
   }
 }
 /* ======================================================================= */
-/* line 28, ../sass/modules/_status-box.scss */
+/* line 34, ../sass/modules/_status-box.scss */
 .donate-status {
   clear: both;
   margin: 1.5em 0 2em 0;
   position: relative;
 }
-/* line 33, ../sass/modules/_status-box.scss */
+/* line 39, ../sass/modules/_status-box.scss */
 .donate-status .donate-amount {
   text-align: center;
   margin-bottom: 0.5em;
 }
-/* line 38, ../sass/modules/_status-box.scss */
+/* line 44, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider {
   display: block;
   line-height: 0;
@@ -2191,11 +2398,12 @@ ul.steps li.selected a {
   overflow: hidden;
   padding: 0;
 }
-/* line 47, ../sass/modules/_status-box.scss */
+/* line 53, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress {
   position: relative;
   display: block;
   line-height: 1.3em;
+  border-radius: 1em 0 0 1em;
   color: white;
   background-color: #00c051;
   white-space: nowrap;
@@ -2214,18 +2422,18 @@ ul.steps li.selected a {
   }
   */
 }
-/* line 56, ../sass/modules/_status-box.scss */
+/* line 63, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress em {
   font-style: normal;
   padding: 0 0.5em;
 }
-/* line 61, ../sass/modules/_status-box.scss */
+/* line 68, ../sass/modules/_status-box.scss */
 .donate-status .donate-slider .donate-progress .donate-percentage {
   visibility: hidden;
 }
 
 /* =========== Number of supports / Days left */
-/* line 90, ../sass/modules/_status-box.scss */
+/* line 97, ../sass/modules/_status-box.scss */
 .donate-supporters {
   float: left;
   margin: 0;
@@ -2233,7 +2441,7 @@ ul.steps li.selected a {
   text-align: center;
 }
 
-/* line 98, ../sass/modules/_status-box.scss */
+/* line 105, ../sass/modules/_status-box.scss */
 .donate-days-left {
   float: right;
   margin: 0;
@@ -2242,16 +2450,16 @@ ul.steps li.selected a {
   text-align: center;
 }
 
-/* line 106, ../sass/modules/_status-box.scss */
+/* line 113, ../sass/modules/_status-box.scss */
 .donate-supporters span, .donate-days-left span {
   display: inline-block;
   margin-right: 3px;
   font-size: 28px;
   font-size: 1.75rem;
-  line-height: 1.6em;
+  line-height: 1.3em;
   text-align: center;
   font-weight: normal;
-  width: 1.2em;
+  width: 1em;
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   -ms-border-radius: 0.2em;
@@ -2268,7 +2476,7 @@ ul.steps li.selected a {
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
-/* line 123, ../sass/modules/_status-box.scss */
+/* line 130, ../sass/modules/_status-box.scss */
 .donate-supporters span:before, .donate-days-left span:before {
   position: relative;
   top: 0.8em;
@@ -2278,7 +2486,7 @@ ul.steps li.selected a {
   content: '';
 }
 
-/* line 132, ../sass/modules/_status-box.scss */
+/* line 139, ../sass/modules/_status-box.scss */
 .donate-supporters em, .donate-days-left em {
   display: block;
   font-family: "Futura Alt Condensed", "Trebuchet MS", Helvetica, Arial, sans-serif;
@@ -2296,15 +2504,15 @@ ul.steps li.selected a {
 /* line 3, ../sass/modules/_member-box.scss */
 .member-box {
   float: left;
-  width: 97.917%;
+  width: 97.91667%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
   position: relative;
-  padding: 1em 0 1em 2.083%;
+  padding: 0 0 0 2.08333%;
   *zoom: 1;
   overflow: hidden;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .member-box:before, .member-box:after {
   display: block;
   height: 0 !important;
@@ -2313,7 +2521,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .member-box:after {
   clear: both;
 }
@@ -2334,8 +2542,8 @@ ul.steps li.selected a {
   vertical-align: top;
   overflow: visible;
   display: inline-block;
-  margin: 0 3em 0 0;
-  padding: 2em 0 0 0;
+  margin: 0 2.5em 0 0;
+  padding: 2.5em 0 0 0;
   font-size: 14px;
   font-size: 0.875rem;
 }
@@ -2521,7 +2729,7 @@ ul.steps li.selected a {
   margin: 2rem 0;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .photo-viewer:before, .photo-viewer:after {
   display: block;
   height: 0 !important;
@@ -2530,7 +2738,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .photo-viewer:after {
   clear: both;
 }
@@ -2542,7 +2750,7 @@ ul.steps li.selected a {
   list-style: none;
   *zoom: 1;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .photo-viewer ul:before, .photo-viewer ul:after {
   display: block;
   height: 0 !important;
@@ -2551,7 +2759,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .photo-viewer ul:after {
   clear: both;
 }
@@ -2559,9 +2767,9 @@ ul.steps li.selected a {
 .photo-viewer ul li {
   display: block;
   float: left;
-  width: 14.583%;
+  width: 14.58333%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
   overflow: hidden;
   border-bottom: 4px solid transparent;
 }
@@ -2572,15 +2780,15 @@ ul.steps li.selected a {
 /* line 42, ../sass/modules/_media.scss */
 .photo-viewer ul li:first-child {
   float: left;
-  width: 14.583%;
+  width: 14.58333%;
   margin-left: 0%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
 }
 /* line 46, ../sass/modules/_media.scss */
 .photo-viewer ul li.more {
   display: block;
   float: left;
-  width: 16.667%;
+  width: 16.66667%;
   margin-left: 0%;
   margin-right: 0%;
   background-color: #00c051;
@@ -2631,13 +2839,18 @@ ul.steps li.selected a {
 .user:hover em {
   background-color: #bfbfbf;
 }
+/* line 35, ../sass/modules/_users.scss */
+.user:active {
+  position: inherit;
+  top: auto;
+}
 
-/* line 36, ../sass/modules/_users.scss */
+/* line 41, ../sass/modules/_users.scss */
 .user-img {
   border: 1px solid #999;
 }
 
-/* line 40, ../sass/modules/_users.scss */
+/* line 45, ../sass/modules/_users.scss */
 .timestamp {
   text-transform: uppercase;
   color: #050505;
@@ -2670,8 +2883,8 @@ ul.steps li.selected a {
 .wallpost {
   float: left;
   width: 62.5%;
-  margin-left: 2.083%;
-  margin-right: 2.083%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
   position: relative;
 }
 /* line 27, ../sass/modules/_wallposts.scss */
@@ -2681,9 +2894,9 @@ ul.steps li.selected a {
 /* line 31, ../sass/modules/_wallposts.scss */
 .wallpost header {
   float: left;
-  width: 79.167%;
+  width: 79.16667%;
   margin-left: 18.75%;
-  margin-right: 2.083%;
+  margin-right: 2.08333%;
 }
 /* line 34, ../sass/modules/_wallposts.scss */
 .wallpost header .timestamp {
@@ -2694,11 +2907,11 @@ ul.steps li.selected a {
 }
 /* line 40, ../sass/modules/_wallposts.scss */
 .wallpost header .manage {
-  display: none;
   float: right;
 }
-/* line 46, ../sass/modules/_wallposts.scss */
+/* line 45, ../sass/modules/_wallposts.scss */
 .wallpost .content {
+  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
   float: left;
   width: 81.25%;
   margin-left: 18.75%;
@@ -2739,7 +2952,7 @@ ul.steps li.selected a {
   clear: both;
   margin: 0;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .reaction-box:before, .reaction-box:after {
   display: block;
   height: 0 !important;
@@ -2748,7 +2961,7 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .reaction-box:after {
   clear: both;
 }
@@ -2756,11 +2969,17 @@ ul.steps li.selected a {
 .reaction-box .reaction-form {
   padding: 16px 16px 0 16px;
   padding: 1rem 1rem 0 1rem;
+  margin: 0;
   position: relative;
   background-color: #e9e9e9;
   *zoom: 1;
 }
-/* line 14, ../sass/modules/_reactions.scss */
+/* line 15, ../sass/modules/_reactions.scss */
+.reaction-box .reaction-form fieldset, .reaction-box .reaction-form fieldset ul, .reaction-box .reaction-form fieldset ul li {
+  margin: 0;
+  padding: 0;
+}
+/* line 20, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form label {
   top: 28px;
   top: 1.75rem;
@@ -2770,30 +2989,38 @@ ul.steps li.selected a {
   margin-right: 0%;
   padding: 0;
 }
-/* line 21, ../sass/modules/_reactions.scss */
+/* line 26, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form .user-img {
-  top: 26px;
-  top: 1.625rem;
-  left: 26px;
-  left: 1.625rem;
+  top: 12px;
+  top: 0.75rem;
+  left: 12px;
+  left: 0.75rem;
   width: 20px;
   position: absolute;
   margin: 0;
 }
-/* line 29, ../sass/modules/_reactions.scss */
-.reaction-box .reaction-form textarea {
-  padding-left: 16.667%;
-  overflow: hidden;
+/* line 33, ../sass/modules/_reactions.scss */
+.reaction-box .reaction-form .user-img img {
+  float: left;
 }
-/* line 34, ../sass/modules/_reactions.scss */
+/* line 38, ../sass/modules/_reactions.scss */
+.reaction-box .reaction-form textarea {
+  padding-left: 16.66667%;
+  overflow: hidden;
+  height: 44px;
+  height: 2.75rem;
+}
+/* line 44, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form button {
   position: relative;
   z-index: 2;
   float: right;
   visibility: hidden;
-  top: -8px;
+  top: 5px;
+  font-size: 14px;
+  font-size: 0.875rem;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .reaction-box .reaction-form:before, .reaction-box .reaction-form:after {
   display: block;
   height: 0 !important;
@@ -2802,40 +3029,40 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .reaction-box .reaction-form:after {
   clear: both;
 }
-/* line 46, ../sass/modules/_reactions.scss */
+/* line 57, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected .user-img {
   float: left;
-  width: 6.25%;
+  width: 8.33333%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 50, ../sass/modules/_reactions.scss */
+/* line 61, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected textarea {
   min-height: 88px;
   min-height: 5.5rem;
 }
-/* line 54, ../sass/modules/_reactions.scss */
+/* line 65, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected button {
   visibility: visible;
 }
-/* line 62, ../sass/modules/_reactions.scss */
+/* line 73, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions {
   *zoom: 1;
-  top: -42px;
-  top: -2.625rem;
+  top: -28px;
+  top: -1.75rem;
   position: relative;
   z-index: 1;
-  margin: 0;
+  margin: 3px 0;
   padding: 0;
   background: #e9e9e9;
   list-style: none;
   font-weight: bold;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .reaction-box .reaction-actions:before, .reaction-box .reaction-actions:after {
   display: block;
   height: 0 !important;
@@ -2844,17 +3071,17 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .reaction-box .reaction-actions:after {
   clear: both;
 }
-/* line 75, ../sass/modules/_reactions.scss */
+/* line 86, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li {
   font-size: 11px;
-  font-size: 0.688rem;
+  font-size: 0.6875rem;
   display: inline !important;
 }
-/* line 80, ../sass/modules/_reactions.scss */
+/* line 91, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a, .reaction-box .reaction-actions li strong {
   margin: 0 4px 0 4px;
   margin: 0 0.25rem 0 0.25rem;
@@ -2866,99 +3093,99 @@ ul.steps li.selected a {
   cursor: hand;
   cursor: pointer;
 }
-/* line 90, ../sass/modules/_reactions.scss */
+/* line 101, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a:hover, .reaction-box .reaction-actions li a:active, .reaction-box .reaction-actions li strong:hover, .reaction-box .reaction-actions li strong:active {
   color: #050505;
 }
-/* line 94, ../sass/modules/_reactions.scss */
+/* line 105, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-reactions, .reaction-box .reaction-actions li strong.toggle-reactions {
   padding-left: 30px;
   padding-left: 1.875rem;
   margin-left: 18.75%;
   width: 20%;
-  background-image: url('../images/sprites/icons-s419268fc7b.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -240px;
+  background-position: 0 -620px;
 }
-/* line 103, ../sass/modules/_reactions.scss */
+/* line 114, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-reactions:hover, .reaction-box .reaction-actions li a.toggle-reactions.is-active, .reaction-box .reaction-actions li strong.toggle-reactions:hover, .reaction-box .reaction-actions li strong.toggle-reactions.is-active {
-  background-position: 0 -280px;
+  background-position: 0 -698px;
   color: #050505;
 }
-/* line 109, ../sass/modules/_reactions.scss */
+/* line 120, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love, .reaction-box .reaction-actions li strong.toggle-love {
   padding-left: 33px;
-  padding-left: 2.063rem;
-  width: 24%;
-  background-image: url('../images/sprites/icons-s419268fc7b.png');
+  padding-left: 2.0625rem;
+  width: 20%;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -164px;
+  background-position: 0 -463px;
 }
-/* line 117, ../sass/modules/_reactions.scss */
+/* line 128, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love:hover, .reaction-box .reaction-actions li strong.toggle-love:hover {
-  background-position: 0 -125px;
+  background-position: 0 -343px;
   color: #ff619a;
 }
-/* line 122, ../sass/modules/_reactions.scss */
+/* line 133, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active:hover {
-  background-position: 0 -202px;
+  background-position: 0 -541px;
   color: #050505;
 }
-/* line 127, ../sass/modules/_reactions.scss */
+/* line 138, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active, .reaction-box .reaction-actions li a.toggle-love.is-activated, .reaction-box .reaction-actions li a.toggle-love.is-activated:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active, .reaction-box .reaction-actions li strong.toggle-love.is-activated, .reaction-box .reaction-actions li strong.toggle-love.is-activated:hover {
-  background-position: 0 -85px;
+  background-position: 0 -303px;
   color: #ff619a;
 }
-/* line 136, ../sass/modules/_reactions.scss */
+/* line 147, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong {
   padding-left: 30px;
   padding-left: 1.875rem;
-  background-image: url('../images/sprites/icons-s419268fc7b.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
-  background-position: 0 -320px;
+  background-position: 0 -738px;
 }
-/* line 143, ../sass/modules/_reactions.scss */
+/* line 154, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong:hover, .reaction-box .reaction-actions li.share strong.is-active {
-  background-position: 0 -399px;
+  background-position: 0 -817px;
   color: #00c051;
 }
-/* line 149, ../sass/modules/_reactions.scss */
+/* line 160, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions {
   padding: 16px 0 8px 0;
   padding: 1rem 0 0.5rem 0;
   display: none;
 }
-/* line 153, ../sass/modules/_reactions.scss */
+/* line 164, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li {
   display: inline-block;
   text-align: center;
 }
-/* line 157, ../sass/modules/_reactions.scss */
+/* line 168, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-facebook {
-  margin-left: 16.667%;
+  margin-left: 16.66667%;
   width: 25%;
 }
-/* line 162, ../sass/modules/_reactions.scss */
+/* line 173, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-twitter {
   width: 25%;
 }
-/* line 168, ../sass/modules/_reactions.scss */
+/* line 179, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url code {
   font-size: 11px;
-  font-size: 0.688rem;
+  font-size: 0.6875rem;
   padding: 0.4em 0.2em;
   border: 1px solid #333;
   background: white;
   font-color: #ccc !important;
 }
-/* line 176, ../sass/modules/_reactions.scss */
+/* line 187, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url .share-url-copy {
   padding: 0 4px;
   background-color: #ccc;
   color: white;
 }
 
-/* line 190, ../sass/modules/_reactions.scss */
+/* line 201, ../sass/modules/_reactions.scss */
 .reactions {
   top: -54px;
   top: -3.375rem;
@@ -2972,7 +3199,7 @@ ul.steps li.selected a {
   background-color: #e9e9e9;
   list-style: none;
 }
-/* line 41, ../sass/includes/_grid.scss */
+/* line 44, ../sass/includes/_grid.scss */
 .reactions:before, .reactions:after {
   display: block;
   height: 0 !important;
@@ -2981,11 +3208,15 @@ ul.steps li.selected a {
   visibility: hidden;
   content: ".";
 }
-/* line 42, ../sass/includes/_grid.scss */
+/* line 45, ../sass/includes/_grid.scss */
 .reactions:after {
   clear: both;
 }
-/* line 200, ../sass/modules/_reactions.scss */
+/* line 210, ../sass/modules/_reactions.scss */
+.reactions .manage {
+  float: right;
+}
+/* line 213, ../sass/modules/_reactions.scss */
 .reactions li {
   margin: 16px 0;
   margin: 1rem 0;
@@ -2993,7 +3224,7 @@ ul.steps li.selected a {
   display: block;
   overflow: auto;
 }
-/* line 206, ../sass/modules/_reactions.scss */
+/* line 219, ../sass/modules/_reactions.scss */
 .reactions li .user-img {
   float: left;
   width: 6.25%;
@@ -3006,19 +3237,20 @@ ul.steps li.selected a {
   position: absolute;
   margin: 0;
 }
-/* line 214, ../sass/modules/_reactions.scss */
+/* line 227, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction {
   border-color: #00c051;
 }
-/* line 217, ../sass/modules/_reactions.scss */
+/* line 230, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction::after {
   background: url("../images/reaction-box-initiator.png") transparent no-repeat 0 0;
 }
-/* line 222, ../sass/modules/_reactions.scss */
+/* line 235, ../sass/modules/_reactions.scss */
 .reactions li .reaction {
+  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
   float: left;
-  width: 83.333%;
-  margin-left: 16.667%;
+  width: 83.33333%;
+  margin-left: 16.66667%;
   margin-right: 0%;
   padding: 12px 16px 0 16px;
   padding: 0.75rem 1rem 0 1rem;
@@ -3033,16 +3265,16 @@ ul.steps li.selected a {
   color: #333;
   vertical-align: baseline;
 }
-/* line 232, ../sass/modules/_reactions.scss */
+/* line 246, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user {
   font-size: 14px;
   font-size: 0.875rem;
 }
-/* line 234, ../sass/modules/_reactions.scss */
+/* line 248, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user strong {
   text-transform: uppercase;
 }
-/* line 239, ../sass/modules/_reactions.scss */
+/* line 253, ../sass/modules/_reactions.scss */
 .reactions li .reaction::after {
   top: 16px;
   top: 1rem;
@@ -3053,6 +3285,392 @@ ul.steps li.selected a {
   height: 21px;
   background: url("../images/reaction-box.png") transparent no-repeat 0 0;
   content: ' ';
+}
+
+/* line 9, ../sass/modules/_donation.scss */
+.donation-steps,
+.voucher-steps {
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+  float: left;
+  width: 62.5%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+  overflow: hidden;
+}
+/* line 19, ../sass/modules/_donation.scss */
+.donation-steps li,
+.voucher-steps li {
+  display: inline-block;
+  background: transparent url("../images/donation-step.png") no-repeat right center;
+  position: relative;
+}
+/* line 24, ../sass/modules/_donation.scss */
+.donation-steps li a,
+.voucher-steps li a {
+  display: block;
+  background-color: #dcdcdc;
+  font-weight: bold;
+  color: #999999;
+  font-size: 14px;
+  font-size: 0.875rem;
+  vertical-align: top;
+  text-transform: uppercase;
+  padding: 0.9em 1.2em 0.6em;
+  margin-right: 31px;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
+  background-repeat: no-repeat;
+}
+/* line 39, ../sass/modules/_donation.scss */
+.donation-steps li.is-selected,
+.voucher-steps li.is-selected {
+  background: transparent url("../images/donation-step-select.png") no-repeat right center;
+}
+/* line 42, ../sass/modules/_donation.scss */
+.donation-steps li.is-selected a,
+.voucher-steps li.is-selected a {
+  background-color: #00c051;
+  color: white;
+}
+/* line 48, ../sass/modules/_donation.scss */
+.donation-steps li.support,
+.voucher-steps li.support {
+  z-index: 4;
+  float: left;
+  width: 27.08333%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+/* line 51, ../sass/modules/_donation.scss */
+.donation-steps li.support a,
+.voucher-steps li.support a {
+  padding-left: 50px;
+  background-position: 18px -652px;
+}
+/* line 57, ../sass/modules/_donation.scss */
+.donation-steps li.support.is-selected a,
+.voucher-steps li.support.is-selected a {
+  background-position: 18px -850px;
+}
+/* line 63, ../sass/modules/_donation.scss */
+.donation-steps li.details,
+.voucher-steps li.details {
+  z-index: 3;
+  float: left;
+  width: 29.16667%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+/* line 66, ../sass/modules/_donation.scss */
+.donation-steps li.details a,
+.voucher-steps li.details a {
+  padding-left: 70px;
+  background-position: 38px -375px;
+}
+/* line 71, ../sass/modules/_donation.scss */
+.donation-steps li.details.is-selected a,
+.voucher-steps li.details.is-selected a {
+  background-position: 38px -494px;
+}
+/* line 76, ../sass/modules/_donation.scss */
+.donation-steps li.profile,
+.voucher-steps li.profile {
+  z-index: 2;
+  float: left;
+  width: 29.16667%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+/* line 79, ../sass/modules/_donation.scss */
+.donation-steps li.profile a,
+.voucher-steps li.profile a {
+  padding-left: 70px;
+  background-position: 38px -416px;
+}
+/* line 84, ../sass/modules/_donation.scss */
+.donation-steps li.profile.is-selected a,
+.voucher-steps li.profile.is-selected a {
+  background-position: 38px -573px;
+}
+/* line 89, ../sass/modules/_donation.scss */
+.donation-steps li.payment,
+.voucher-steps li.payment {
+  z-index: 1;
+  background-image: none;
+  float: left;
+  width: 31.25%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+/* line 93, ../sass/modules/_donation.scss */
+.donation-steps li.payment a,
+.voucher-steps li.payment a {
+  padding-left: 70px;
+  background-position: 38px -163px;
+}
+/* line 100, ../sass/modules/_donation.scss */
+.donation-steps li.payment.is-selected a,
+.voucher-steps li.payment.is-selected a {
+  background-position: 38px -206px;
+}
+
+/* line 115, ../sass/modules/_donation.scss */
+.voucher-steps li.profile {
+  float: left;
+  width: 56.25%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+/* line 118, ../sass/modules/_donation.scss */
+.voucher-steps li.support {
+  float: left;
+  width: 52.08333%;
+  margin-left: 0%;
+  margin-right: -4.16667%;
+}
+
+/* line 124, ../sass/modules/_donation.scss */
+#donation-projects {
+  list-style: none;
+}
+/* line 128, ../sass/modules/_donation.scss */
+#donation-projects .donation-project {
+  position: relative;
+  border-bottom: 5px solid #f3f3f3;
+  padding: 16px;
+}
+/* line 134, ../sass/modules/_donation.scss */
+#donation-projects .donation-project img {
+  float: left;
+  width: 16.66667%;
+  margin-left: 0%;
+  margin-right: 0%;
+  float: left;
+}
+/* line 139, ../sass/modules/_donation.scss */
+#donation-projects .donation-project h1 {
+  float: left;
+  width: 54.16667%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+  font-size: 22px;
+  font-size: 1.375rem;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 0;
+  color: #454545;
+}
+/* line 149, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .country {
+  display: block;
+  font-size: 14px;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: normal;
+}
+/* line 156, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .donation-amount {
+  float: left;
+  width: 25%;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin: 8px 0;
+  text-align: right;
+}
+/* line 162, ../sass/modules/_donation.scss */
+#donation-projects .donation-project:hover {
+  background-color: #f3f3f3;
+}
+/* line 164, ../sass/modules/_donation.scss */
+#donation-projects .donation-project:hover h1 {
+  color: #ff619a;
+}
+/* line 167, ../sass/modules/_donation.scss */
+#donation-projects .donation-project:hover .remove {
+  cursor: pointer;
+  display: block;
+}
+/* line 173, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .amount-needed {
+  color: #b9b8b8;
+  font-size: 13px;
+  display: block;
+}
+/* line 179, ../sass/modules/_donation.scss */
+#donation-projects .donation-project label {
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #00c051;
+  display: block;
+  margin-bottom: 8px;
+}
+/* line 187, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency {
+  display: inline-block;
+  position: relative;
+}
+/* line 191, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency em {
+  position: absolute;
+  left: 16px;
+  top: 15px;
+  font-size: 28px;
+}
+/* line 198, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency input {
+  width: 135px;
+  font-size: 28px;
+  padding: 8px 8px 8px 40px;
+  font-weight: bold;
+  margin: 0;
+}
+/* line 205, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency.big {
+  font-size: 28px;
+  font-weight: bold;
+}
+/* line 211, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .remove {
+  pointer: cursor;
+  display: none;
+  z-index: 5;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
+  background-repeat: no-repeat;
+  background-position: 0 -46px;
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+}
+
+/* line 229, ../sass/modules/_donation.scss */
+.add-project {
+  padding-left: 32px;
+  margin: 0 16px 0 16px;
+  float: right;
+  color: #525252;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
+  background-repeat: no-repeat;
+  background-position: 2px -87px;
+}
+/* line 238, ../sass/modules/_donation.scss */
+.add-project:hover, .add-project:active {
+  color: #050505;
+  text-decoration: underline;
+}
+
+/* line 244, ../sass/modules/_donation.scss */
+.donation-frequency {
+  padding: 16px 16px 16px 18.75%;
+  background: #f3f3f3;
+}
+/* line 248, ../sass/modules/_donation.scss */
+.donation-frequency .label {
+  font-size: 22px;
+  font-size: 1.375rem;
+  font-weight: bold;
+  margin: 0px 0px 8px 0px;
+  display: block;
+}
+/* line 255, ../sass/modules/_donation.scss */
+.donation-frequency .checkbox {
+  display: block;
+  color: #999999;
+  cursor: pointer;
+}
+/* line 259, ../sass/modules/_donation.scss */
+.donation-frequency .checkbox.checked {
+  color: #00c051;
+  font-weight: bold;
+}
+
+/* line 267, ../sass/modules/_donation.scss */
+.intro {
+  padding: 0px 0px 8px 28px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-size: 0.75rem;
+}
+
+/* =========== Vouchers */
+/* line 3, ../sass/modules/_vouchers.scss */
+.voucher-banner {
+  background: black url("../images/vouchers/banner.png") no-repeat top center;
+  width: 100%;
+  height: 372px;
+  padding-top: 45px;
+}
+/* line 9, ../sass/modules/_vouchers.scss */
+.voucher-banner h1 {
+  width: 400px;
+  margin: 0px 145px 0px 145px;
+  color: white;
+  font-size: 48px;
+  line-height: 56px;
+  padding: 0px;
+}
+/* line 16, ../sass/modules/_vouchers.scss */
+.voucher-banner h1.pink {
+  color: #ff619a;
+}
+
+/* line 22, ../sass/modules/_vouchers.scss */
+ul.voucher-list {
+  list-style: none;
+  margin: 0px;
+  text-indent: 0px;
+}
+/* line 27, ../sass/modules/_vouchers.scss */
+ul.voucher-list li {
+  margin: 12px 0px;
+  padding: 12px;
+  background-color: #e9e9e9;
+  height: 50px;
+}
+/* line 32, ../sass/modules/_vouchers.scss */
+ul.voucher-list li div {
+  height: 50px;
+}
+/* line 36, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .name {
+  float: left;
+  width: 29.16667%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+/* line 39, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .amount {
+  float: left;
+  width: 4.16667%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+/* line 43, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .mail {
+  float: left;
+  width: 29.16667%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+/* line 46, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .actions {
+  float: left;
+  width: 25%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+/* line 50, ../sass/modules/_vouchers.scss */
+ul.voucher-list li .summary {
+  float: left;
+  width: 62.5%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
 }
 
 /* =========== For prototyping only */
@@ -3091,18 +3709,37 @@ ul.steps li.selected a {
   margin-left: 0.625rem;
   padding-left: 30px;
   padding-left: 1.875rem;
-  background-image: url('../images/sprites/icons-s419268fc7b.png');
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
 }
 /* line 40, ../sass/modules/_misc.scss */
 .manage li a:hover, .manage li a:active {
   color: #050505;
 }
-/* line 46, ../sass/modules/_misc.scss */
-.manage .manage-edit a {
-  background-position: 2px -363px;
+
+/* line 48, ../sass/modules/_misc.scss */
+.manage-remove a,
+.manage-edit a {
+  display: inline-block;
+  color: #666;
+  margin-left: 10px;
+  margin-left: 0.625rem;
+  padding-left: 30px;
+  padding-left: 1.875rem;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
+  background-repeat: no-repeat;
+  cursor: pointer;
+  background-position: 2px -781px;
 }
-/* line 50, ../sass/modules/_misc.scss */
-.manage .manage-remove a {
-  background-position: 5px -442px;
+/* line 58, ../sass/modules/_misc.scss */
+.manage-remove a:hover, .manage-remove a:active,
+.manage-edit a:hover,
+.manage-edit a:active {
+  color: #050505;
+}
+
+/* line 65, ../sass/modules/_misc.scss */
+.manage-remove a {
+  cursor: pointer;
+  background-position: 5px -898px;
 }

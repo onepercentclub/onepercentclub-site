@@ -3,7 +3,7 @@
 .member-box {
     @include grid(48, 0, 1);
     position: relative;
-    padding: 1em 0 1em $grid-column;
+    padding: 0 0 0 $grid-column;
     @include clearfix;
     overflow: hidden;
     
@@ -22,8 +22,8 @@
             vertical-align: top;
             overflow: visible;
             display: inline-block;
-            margin: 0 3em 0 0;
-            padding: 2em 0 0 0;
+            margin: 0 $margin * 2 0 0;
+            padding: $margin * 2 0 0 0;
             @include rem(font-size, 14px);
             
             h4 {

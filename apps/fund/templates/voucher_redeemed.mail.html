@@ -1,0 +1,13 @@
+{% extends "base.mail.html" %}
+
+{% block content %}
+    Hello {{ voucher.sender_name }},<br/><br/>
+    {{ voucher.receiver_name }} has just used a <b>1%VOUCHER</b> you gave.<br/>
+    {% for donation in voucher.donations.all  %}
+        <a href="{{ donation.project.get_absolute_url }}">
+            <h2>{{ donation.project.title }}</h2>
+        </a>
+    {% endfor  %}
+    <span class="pink">YOU</span> <span class="green">MAKE IT WORK!</span>
+{% endblock %}
+
