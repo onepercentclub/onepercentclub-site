@@ -29,7 +29,7 @@ App.Project = DS.Model.extend({
 
     // FIXME: For now we set some default values here because we don't have actual numbers
     supporter_count: DS.attr('number', {defaultValue: 123}),
-    days_left: DS.attr('number', {defaultValue: 123}) ,
+    days_left: DS.attr('number', {defaultValue: 123}),
 
     money_asked_natural: function(){
         return Math.ceil(this.get('money_asked'));
@@ -46,7 +46,6 @@ App.Project = DS.Model.extend({
         }
         return Math.ceil(donated);
     }.property('money_asked', 'money_donated')
-
 
 // TODO: defaultValue doesn't seem to be working with Ember 1.0.0 pre4
 //    // FIXME: For now we do some html generating here.
@@ -89,7 +88,7 @@ App.ProjectController = Em.ObjectController.extend({
         var order = this.get('controllers.currentOrder').get('model');
         donation.set('order', order);
         transaction.commit();
-        this.transitionToRoute('currentOrder.donationList');
+        this.transitionToRoute('currentOrderDonationList');
     }
 });
 
@@ -112,8 +111,8 @@ App.ProjectView = Em.View.extend({
     templateName: 'project',
 
     didInsertElement: function(){
-        var donated = this.get('controller.content.money_donated_natural');
-        var asked = this.get('controller.content.money_asked_natural');
+        var donated = this.get('controller.money_donated_natural');
+        var asked = this.get('controller.money_asked_natural');
         this.$('.donate-progress').css('width', '0px');
         if (asked == 0) {
             var width = 0;

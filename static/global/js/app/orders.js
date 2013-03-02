@@ -169,6 +169,7 @@ App.CustomVoucherRequest = DS.Model.extend({
  */
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
+    // The CurrentOrderController is needed for the single / monthly radio buttons.
     needs: ['currentOrder']
 });
 
@@ -180,7 +181,11 @@ App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteModelM
         transaction.add(donation);
         donation.set('amount', newAmount);
         transaction.commit();
-    }
+    },
+
+    neededAfterDonation: function() {
+        return this.get('project.money_needed_natural') - this.get('amount');
+    }.property('amount', 'project.money_needed_natural')
 });
 
 
@@ -389,11 +394,6 @@ App.CurrentOrderView = Em.View.extend({
 });
 
 
-App.CurrentOrderRecurringView = Em.View.extend({
-    templateName: 'current_order_recurring'
-});
-
-
 App.PaymentOrderProfileView = Em.View.extend({
     templateName: 'payment_order_profile',
     tagName: 'form',
@@ -428,10 +428,6 @@ App.CurrentOrderDonationView = Em.View.extend({
     templateName: 'current_order_donation',
     tagName: 'li',
     classNames: 'donation-project',
-
-    neededAfterDonation: function() {
-        return this.get('content.project.money_needed_natural') - this.get('content.amount');
-    }.property('content.amount', 'content.project.money_needed_natural'),
 
     change: function(e){
         this.get('controller').updateDonation(Em.get(e, 'target.value'));

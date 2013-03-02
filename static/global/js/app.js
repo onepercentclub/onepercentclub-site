@@ -220,18 +220,20 @@ App.SlugRouter = Em.Mixin.create({
 
 App.Router.map(function() {
     this.route("home", { path: "/" });
+
     this.resource('projectList', {path: '/projects'}, function() {
         this.route('new');
         this.route('search');
     });
+
     this.resource('project', {path: '/projects/:slug'}, function() {
         this.route('edit');
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
+
     this.resource('currentOrder', {path: '/support/'}, function() {
-        // TODO: make these resources
-        this.route('donationList', {path: '/donations'});
-        this.route('voucherList', {path: '/vouchers'});
+        this.resource('currentOrderDonationList', {path: '/donations'});
+        this.resource('currentOrderVoucherList', {path: '/vouchers'});
 
         this.resource('paymentOrderProfile', {path: '/details'});
 
@@ -318,7 +320,6 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 
 App.CurrentOrderRoute = Ember.Route.extend({
     model: function(params) {
-        this._super()
         return App.CurrentOrder.find('current');
     },
 
@@ -330,14 +331,24 @@ App.CurrentOrderRoute = Ember.Route.extend({
 
 
 App.CurrentOrderDonationListRoute = Ember.Route.extend({
-    setupController: function(controller, context) {
+    model: function(params) {
+        return App.CurrentOrder.find('current').get('donations');
+    },
+
+    setupController: function(controller, donations) {
+        this._super(controller, donations);
         this.controllerFor('currentOrder').set('isVoucherOrder', false);
     }
 });
 
 
 App.CurrentOrderVoucherListRoute = Ember.Route.extend({
-    setupController: function(controller, context) {
+    model: function(params) {
+        return App.CurrentOrder.find('current').get('vouchers');
+    },
+
+    setupController: function(controller, vouchers) {
+        this._super(controller, vouchers);
         this.controllerFor('currentOrder').set('isVoucherOrder', true);
     }
 });
