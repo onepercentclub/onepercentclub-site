@@ -129,6 +129,11 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 2)
 
+        # Check that reaction list without wallpost_id works.
+        response = self.client.get(self.wallpost_reaction_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 2)
+
         # Create a reaction on second blog post.
         reaction_text_3 = 'Super!'
         response = self.client.post(self.wallpost_reaction_url,
@@ -200,3 +205,4 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         response = self.client.get(some_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['reactions']), 1)
+
