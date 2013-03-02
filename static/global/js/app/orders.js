@@ -168,23 +168,13 @@ App.CustomVoucherRequest = DS.Model.extend({
  Controllers
  */
 
-App.DeleteMixin = Em.Mixin.create({
-    deleteRecordOnServer: function() {
-        var record = this.get('model');
-        var transaction = App.store.transaction();
-        transaction.add(record);
-        record.deleteRecord();
-        transaction.commit();
-    }
-});
-
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
     // The CurrentOrderController is needed for the single / monthly radio buttons.
     needs: ['currentOrder']
 });
 
 
-App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteMixin, {
+App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteModelMixin, {
     updateDonation: function(newAmount) {
         var donation = this.get('model');
         var transaction = App.store.transaction();
