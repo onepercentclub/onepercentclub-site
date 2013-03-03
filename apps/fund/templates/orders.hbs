@@ -12,7 +12,7 @@
                     <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
+                    {{#linkTo "currentOrderDonationList" tagName="button" class="contrast top"}}
                         {% trans "Switch to paid donations" %}
                     {{/linkTo}}
                 </sidebar>
@@ -40,13 +40,13 @@
             <ul class="donation-steps">
                 {{#if controller.isVoucherOrder}}
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrder.voucherList"}}Vouchers{{/linkTo}}
+                        {{#linkTo "currentOrderVoucherList"}}Vouchers{{/linkTo}}
                     {{/view}}
                 {{else}}
                     {# Hack: This span needs to be here to get the 'Support' to replace 'Vouchers'. #}
                     <span></span>
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrder.donationList"}}Support{{/linkTo}}
+                        {{#linkTo "currentOrderDonationList"}}Support{{/linkTo}}
                     {{/view}}
                 {{/if}}
 
@@ -91,8 +91,8 @@
     <fieldset>
 
         <ul id="donation-projects">
-            {{#each controllers.currentOrder.donations itemController="currentOrderDonation"}}
-                {{view "App.CurrentOrderDonationView" content=this}}
+            {{#each donation in controller itemController="currentOrderDonation"}}
+                {{view "App.CurrentOrderDonationView" content=donation}}
             {{else}}
                 {{#linkTo "projectList"}}
                     <h1>{% trans "Choose a project to make a donation" %}</h1>
@@ -105,15 +105,9 @@
 
     </fieldset>
 
-    {{ render "currentOrderRecurring" controllers.currentOrder }}
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "current_order_recurring" %}
     <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="recurring"}}
+        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="controllers.currentOrder.recurring"}}
             <label>
                 {{view view.RadioButton value="false"}}
                 {% trans "Single donation" %}
@@ -295,7 +289,7 @@
 {% endtplhandlebars %}
 
 
-{# wrapper tag: <li class="donation-project"> #}
+{# <!-- wrapper tag: <li class="donation-project"> --> #}
 {% tplhandlebars "current_order_donation" %}
 
     {{#linkTo "project" project}}
@@ -303,7 +297,7 @@
         <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
     {{/linkTo}}
     <p class="donation-amount">
-        <strong class="amount-needed">&euro; {{view.neededAfterDonation}} {% trans "is still needed"%}</strong>
+        <strong class="amount-needed">&euro; {{neededAfterDonation}} {% trans "is still needed"%}</strong>
         <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
         <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
     </p>
@@ -472,7 +466,7 @@
                 {{/linkTo}}
             </div>
             <div class="buy">
-                {{#linkTo "currentOrder.voucherList"}}
+                {{#linkTo "currentOrderVoucherList"}}
                     <h2>{% trans "I'd like to buy voucher(s)" %}</h2>
                 {{/linkTo}}
             </div>
@@ -490,7 +484,7 @@
                 <h1 class="main-title">{% trans "Claim you voucher and support!" %}</h1>
             </div>
             <sidebar>
-                {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
+                {{#linkTo "currentOrderDonationList" tagName="button" class="contrast top"}}
                     {% trans "Switch to donations" %}
                 {{/linkTo}}
             </sidebar>
