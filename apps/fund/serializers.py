@@ -54,7 +54,7 @@ class VoucherSerializer(serializers.ModelSerializer):
         """
         value = attrs[source]
         if value not in [1000, 2500, 5000, 10000]:
-            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100. Not "+ str(value) ))
+            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100. Not " + str(value)))
         return attrs
 
     def save(self):
