@@ -54,12 +54,12 @@ class ProjectSerializer(serializers.ModelSerializer):
 class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
-    project_slug = SlugGenericRelatedField(to_model=Project)
+    project = SlugGenericRelatedField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-textwallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
-        # Add the project_slug field.
-        fields = TextWallPostSerializer.Meta.fields + ('project_slug',)
+        # Add the project slug field.
+        fields = TextWallPostSerializer.Meta.fields + ('project',)
 
     def save(self):
         # Save the project content type on save.
@@ -71,12 +71,12 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
 class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
     """ MediaWallPostSerializer with project specific customizations. """
 
-    project_slug = SlugGenericRelatedField(to_model=Project)
+    project = SlugGenericRelatedField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
 
     class Meta(MediaWallPostSerializer.Meta):
-        # Add the project_slug field.
-        fields = MediaWallPostSerializer.Meta.fields + ('project_slug',)
+        # Add the project slug field.
+        fields = MediaWallPostSerializer.Meta.fields + ('project',)
 
     def save(self):
         # Save the project content type on save.

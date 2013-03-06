@@ -34,7 +34,7 @@ class ProjectWallPostMixin(object):
         queryset = super(ProjectWallPostMixin, self).get_queryset()
         project_type = ContentType.objects.get_for_model(Project)
         queryset = queryset.filter(content_type=project_type)
-        project_slug = self.request.QUERY_PARAMS.get('project_slug', None)
+        project_slug = self.request.QUERY_PARAMS.get('project', None)
         if project_slug:
             try:
                 project = Project.objects.get(slug=project_slug)

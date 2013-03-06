@@ -10,9 +10,6 @@ App.WallPostReaction = DS.Model.extend({
     author: DS.belongsTo('App.Member'),
     created: DS.attr('string'),
     timesince: DS.attr('string'),
-    // We need wallpost_id to create reactions in the API.
-    // This can't be a calculated property because calculated properties aren't part of the API calls.
-    wallpost_id: DS.attr('number'),
     wallpost: DS.belongsTo('App.ProjectWallPost')
 });
 
@@ -49,8 +46,7 @@ App.WallPostReactionNewController = Em.ObjectController.extend({
 
     addReaction: function() {
         var reaction = this.get('model');
-        reaction.set('wallpost_id', this.get('currentWallpost.id'));
-        // Set the wallpost so the list gets updated in the view
+        // Set the wallpost that this reaction is related to.
         reaction.set('wallpost', this.get('currentWallpost'));
 
         var controller = this;
