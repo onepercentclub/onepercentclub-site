@@ -5,7 +5,6 @@
 App.Order = DS.Model.extend({
     url: 'fund/orders',
 
-    amount: DS.attr('number'),
     status: DS.attr('string'),
     recurring: DS.attr('string'),
     payment_method_id: DS.attr('string'),
@@ -13,6 +12,7 @@ App.Order = DS.Model.extend({
     payment_methods: DS.hasMany('App.PaymentMethod'),
     vouchers: DS.hasMany('App.Voucher'),
     donations: DS.hasMany('App.Donation')
+
 });
 
 
@@ -47,7 +47,7 @@ App.Voucher =  DS.Model.extend({
 
 /* Models with CurrentOrder relations and urls. */
 
-App.CurrentOrder = DS.Model.extend({
+App.CurrentOrder = App.Order.extend({
     url: 'fund/orders',
 
     vouchers: DS.hasMany('App.CurrentVoucher'),
@@ -174,13 +174,29 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 });
 
 
-App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteModelMixin, {
+App.CurrentOrderDonationController = Em.ObjectController.extend(App.UpdateDeleteMixin, {
+    needs: ['currentOrder'],
+
+    getTransaction: function(sender, key){
+        var transaction =  this.get('controllers.currentOrder').getTransaction();
+        if (!this.get('model.isLoaded')) {
+            transaction.add(this.get('model'));
+        }
+        return transaction;
+    }.observes('model.isLoaded'),
+
+
     updateDonation: function(newAmount) {
-        var donation = this.get('model');
-        var transaction = App.store.transaction();
-        transaction.add(donation);
-        donation.set('amount', newAmount);
-        transaction.commit();
+        this.get('model').set('amount', parseInt(newAmount));
+        this.updateRecordOnServer();
+    },
+
+    deleteRecord: function(){
+        var model = this.get('model');
+        // TODO: note
+        var order = App.CurrentOrder.find('current');
+        order.get('donations').removeObject(model);
+        return this.deleteRecordOnServer();
     },
 
     neededAfterDonation: function() {
@@ -254,11 +270,11 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
         // We should at least have an email address
         if (!profile.get('isDirty') && profile.get('email')) {
             // No changes. No need to commit.
-            controller.transitionTo('currentPaymentMethodInfo');
+            controller.transitionToRoute('currentPaymentMethodInfo');
         }
         this.get('transaction').commit();
         profile.on('didUpdate', function(record) {
-            controller.transitionTo('currentPaymentMethodInfo');
+            controller.transitionToRoute('currentPaymentMethodInfo');
         });
         // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
@@ -268,7 +284,7 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
 });
 
 
-App.CurrentOrderController = Em.ObjectController.extend({
+App.CurrentOrderController = Em.ObjectController.extend(App.UpdateModelMixin, {
     isIdeal: function() {
         return (this.get('content.payment_method_id') == 'dd-ideal');
     }.property('content.payment_method_id'),
@@ -277,41 +293,29 @@ App.CurrentOrderController = Em.ObjectController.extend({
         return (this.get('content.payment_method_id') == 'dd-direct-debit');
     }.property('content.payment_method_id'),
 
-//    initTransaction: function() {
-//        var order = this.get('content');
-//        var transaction = App.get('store').transaction();
-//        this.set('transaction', transaction);
-//        transaction.add(order);
-//    }.observes('content'),
+    amount: function(){
+        var amount = this.get('donations').getEach('amount').reduce(function(accum, item){
+            return parseInt(accum + item);
+        }, 0);
+        amount += this.get('vouchers').getEach('amount').reduce(function(accum, item){
+            return parseInt(accum + item);
+        }, 0);
+        return parseInt(amount);
+    }.property('donations.@each.amount', 'vouchers.@each.amount'),
 
-//    updateOrder: function() {
-//        if (this.get('content.isDirty')) {
-//            var controller = this;
-//            var order = this.get('content');
-//            this.get('transaction').commit();
-//            order.on('didUpdate', function(record){
-//                // Init a new private transaction.
-//                controller.initTransaction();
-//            });
-//        }
-//    }.observes('content.isDirty'),
 
-//    updateOrder: function() {
-//        var order = this.get('model');
-//        var transaction = App.get('store').transaction();
-//        transaction.add(order);
-//        transaction.commit();
-//        order.on('didUpdate', function(record){
-//            console.log("blah")
-//            transaction.removeCleanRecords()
-//        });
-//    }.observes('recurring'),
+    updateOrder: function(){
+        if (this.get('model.isDirty')) {
+            this.updateRecordOnServer();
+        }
+    }.observes('model.isDirty')
 
 });
 
 
 App.CurrentOrderPaymentController = Em.ObjectController.extend({
-    contentBinding: App.CurrentOrderController.content
+    needs: ['currentOrder']
+
 });
 
 
@@ -346,7 +350,7 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         transaction.add(voucher);
         voucher.set('status', 'cashed');
         voucher.on('didUpdate',function(){
-            controller.transitionTo('voucherRedeemDone');
+            controller.transitionToRoute('voucherRedeemDone');
         });
         transaction.commit();
     },
@@ -436,7 +440,7 @@ App.CurrentOrderDonationView = Em.View.extend({
     delete: function(item) {
         var controller = this.get('controller');
         this.$().slideUp(500, function() {
-            controller.deleteRecordOnServer();
+            controller.deleteRecord();
         });
     }
 });
