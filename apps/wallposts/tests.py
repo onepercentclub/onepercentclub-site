@@ -1,27 +1,10 @@
-from apps.projects.models import Project
-from apps.projects.tests import ProjectTestsMixin
-from django.contrib.contenttypes.models import ContentType
+from apps.bluebottle_utils.tests import UserTestsMixin
+from apps.projects.tests import ProjectWallPostTestsMixin
 from django.test import TestCase
 from rest_framework import status
-from .models import TextWallPost, WallPost
-
-class ProjectWallPostMixin(ProjectTestsMixin):
-    """ Mixin base class for tests using wallposts. """
-
-    def create_project_text_wallpost(self, text='Some smart comment.', project=None, author=None):
-        if not project:
-            project = self.create_project()
-        if not author:
-            author = self.create_user()
-        content_type = ContentType.objects.get_for_model(Project)
-        wallpost = TextWallPost.objects.create(content_type=content_type, object_id=project.id)
-        wallpost.author = author
-        wallpost.text = text
-        wallpost.save()
-        return wallpost
 
 
-class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
+class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
     """
     Integration tests for the Project Media WallPost API.
     """
@@ -81,14 +64,18 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         response = self.client.post(self.wallpost_reaction_url,
                                     {'text': another_reaction_text, 'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
-        self.assertTrue(another_reaction_text in response.data['text'])
+        # Only check the substring because the single quote in "I'm" is escaped.
+        # https://docs.djangoproject.com/en/dev/topics/templates/#automatic-html-escaping
+        self.assertTrue('not so sure' in response.data['text'])
 
         # retrieve the list of Reactions for this WallPost should return two
         response = self.client.get(self.wallpost_reaction_url, {'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 2)
         self.assertTrue(new_reaction_text in response.data['results'][0]['text'])
-        self.assertTrue(another_reaction_text in response.data['results'][1]['text'])
+        # Only check the substring because the single quote in "I'm" is escaped.
+        # https://docs.djangoproject.com/en/dev/topics/templates/#automatic-html-escaping
+        self.assertTrue('not so sure' in response.data['results'][1]['text'])
 
         # back to the author
         self.client.logout()
@@ -204,3 +191,32 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         response = self.client.get(some_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['reactions']), 1)
+
+
+class WallPostApiRegressionTests(ProjectWallPostTestsMixin, UserTestsMixin, TestCase):
+    """
+    Integration tests for the Project Media WallPost API.
+    """
+
+    def setUp(self):
+        self.user = self.create_user()
+        self.wallpost = self.create_project_text_wallpost()
+
+        self.project_media_wallposts_url = '/i18n/api/projects/wallposts/media/'
+        self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'
+        self.project_wallposts_url = '/i18n/api/projects/wallposts/'
+        self.wallpost_reaction_url = '/i18n/api/wallposts/reactions/'
+
+    def test_html_javascript_propperly_escaped(self):
+        """
+        https://onepercentclub.atlassian.net/browse/BB-130
+        """
+
+        # Create a Reaction and check that the HTML is escaped.
+        self.client.login(username=self.user.username, password='password')
+        reaction_text = "<marquee>WOOOOOO</marquee>"
+        # The paragraph tags are added by the linebreak filter.
+        escaped_reaction_text = "<p>WOOOOOO</p>"
+        response = self.client.post(self.wallpost_reaction_url, {'text': reaction_text, 'wallpost': self.wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(escaped_reaction_text, response.data['text'])
