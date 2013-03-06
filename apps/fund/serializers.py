@@ -12,9 +12,7 @@ from .models import Donation, Order, Voucher, CustomVoucherRequest
 
 
 class DonationSerializer(serializers.ModelSerializer):
-    # The duplication of project is temporary. See note in orders.js App.OrderItem.
-    project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
-    project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
+    project = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
 
     # FIXME: This field makes the Donation serializer tied to '/fund/orders/current'.
@@ -38,7 +36,7 @@ class DonationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Donation
-        fields = ('id', 'project_id', 'project_slug', 'amount', 'status', 'url')
+        fields = ('id', 'project', 'amount', 'status', 'url')
 
 
 class VoucherSerializer(serializers.ModelSerializer):
@@ -54,7 +52,7 @@ class VoucherSerializer(serializers.ModelSerializer):
         """
         value = attrs[source]
         if value not in [1000, 2500, 5000, 10000]:
-            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100. Not "+ str(value) ))
+            raise serializers.ValidationError(_(u"Amount can only be €10, €25, €50 or €100. Not " + str(value)))
         return attrs
 
     def save(self):
@@ -150,7 +148,7 @@ class VoucherDonationSerializer(DonationSerializer):
 
     class Meta:
         model = Donation
-        fields = ('id', 'project_id', 'project_slug')
+        fields = ('id', 'project')
 
 
 class OrderItemSerializer(ObjectBasedSerializer):

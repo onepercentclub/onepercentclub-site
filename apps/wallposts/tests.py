@@ -1,10 +1,9 @@
 from apps.projects.models import Project
 from apps.projects.tests import ProjectTestsMixin
-from apps.wallposts.models import TextWallPost, WallPost
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from rest_framework import status
-
+from .models import TextWallPost, WallPost
 
 class ProjectWallPostMixin(ProjectTestsMixin):
     """ Mixin base class for tests using wallposts. """
@@ -45,7 +44,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         self.client.login(username=self.some_user.username, password='password')
         reaction_text = "Hear! Hear!"
         response = self.client.post(self.wallpost_reaction_url,
-                                    {'text': reaction_text, 'wallpost_id': self.some_wallpost.id})
+                                    {'text': reaction_text, 'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertTrue(reaction_text in response.data['text'])
 
@@ -58,7 +57,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         # Update the created Reaction by author.
         new_reaction_text = 'HEAR!!! HEAR!!!'
         response = self.client.put(reaction_detail_url,
-                                   {'text': new_reaction_text, 'wallpost_id': self.some_wallpost.id})
+                                   {'text': new_reaction_text, 'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(new_reaction_text in response.data['text'])
 
@@ -80,12 +79,12 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         # Create a Reaction by another user
         another_reaction_text = "I'm not so sure..."
         response = self.client.post(self.wallpost_reaction_url,
-                                    {'text': another_reaction_text, 'wallpost_id': self.some_wallpost.id})
+                                    {'text': another_reaction_text, 'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertTrue(another_reaction_text in response.data['text'])
 
         # retrieve the list of Reactions for this WallPost should return two
-        response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.some_wallpost.id})
+        response = self.client.get(self.wallpost_reaction_url, {'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 2)
         self.assertTrue(new_reaction_text in response.data['results'][0]['text'])
@@ -113,40 +112,45 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         self.client.login(username=self.some_user.username, password='password')
         reaction_text_1 = 'Great job!'
         response = self.client.post(self.wallpost_reaction_url,
-                                    {'text': reaction_text_1, 'wallpost_id': self.some_wallpost.id})
+                                    {'text': reaction_text_1, 'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertTrue(reaction_text_1 in response.data['text'])
 
         reaction_text_2 = 'This is a really nice post.'
         response = self.client.post(self.wallpost_reaction_url,
-                                    {'text': reaction_text_2, 'wallpost_id': self.some_wallpost.id})
+                                    {'text': reaction_text_2, 'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertTrue(reaction_text_2 in response.data['text'])
 
 
         # Check the size of the reaction list is correct.
-        response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.some_wallpost.id})
+        response = self.client.get(self.wallpost_reaction_url, {'wallpost': self.some_wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 2)
+
+        # Check that the reaction listing without a wallpost id is working.
+        response = self.client.get(self.wallpost_reaction_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 2)
 
         # Create a reaction on second blog post.
         reaction_text_3 = 'Super!'
         response = self.client.post(self.wallpost_reaction_url,
-                                    {'text': reaction_text_3, 'wallpost_id': self.another_wallpost.id})
+                                    {'text': reaction_text_3, 'wallpost': self.another_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertTrue(reaction_text_3 in response.data['text'])
         # Save the detail url to be used in the authorization test below.
         second_reaction_detail_url = "{0}{1}".format(self.wallpost_reaction_url, response.data['id'])
 
         # Check that the size and data in the first reaction list is correct.
-        response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.some_wallpost.id})
+        response = self.client.get(self.wallpost_reaction_url, {'wallpost': self.some_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 2)
         self.assertTrue(reaction_text_1 in response.data['results'][0]['text'])
         self.assertTrue(reaction_text_2 in response.data['results'][1]['text'])
 
         # Check that the size and data in the second reaction list is correct.
-        response = self.client.get(self.wallpost_reaction_url, {'wallpost_id': self.another_wallpost.id})
+        response = self.client.get(self.wallpost_reaction_url, {'wallpost': self.another_wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 1)
         self.assertTrue(reaction_text_3 in response.data['results'][0]['text'])
@@ -167,10 +171,10 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
         self.client.login(username=self.some_user.username, password='password')
         reaction1_text = "Hear! Hear!"
         response = self.client.post(self.wallpost_reaction_url,
-                                    {'text': reaction1_text, 'wallpost_id': self.some_wallpost.id})
+                                    {'text': reaction1_text, 'wallpost': self.some_wallpost.id})
         reaction1_detail_url = response.data['url']
         reaction2_text = "This is cool!"
-        self.client.post(self.wallpost_reaction_url, {'text': reaction2_text, 'wallpost_id': self.some_wallpost.id})
+        self.client.post(self.wallpost_reaction_url, {'text': reaction2_text, 'wallpost': self.some_wallpost.id})
         some_wallpost_detail_url = "{0}{1}".format(self.project_text_wallpost_url, str(self.some_wallpost.id))
         response = self.client.get(some_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
@@ -180,7 +184,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostMixin, TestCase):
 
         # Create a Reaction to another WallPost and retrieve that WallPost should return one embedded reaction
         reaction3_text = "That other post was way better..."
-        self.client.post(self.wallpost_reaction_url, {'text': reaction3_text, 'wallpost_id': self.another_wallpost.id})
+        self.client.post(self.wallpost_reaction_url, {'text': reaction3_text, 'wallpost': self.another_wallpost.id})
         another_wallpost_detail_url = "{0}{1}".format(self.project_text_wallpost_url, str(self.another_wallpost.id))
         response = self.client.get(another_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)

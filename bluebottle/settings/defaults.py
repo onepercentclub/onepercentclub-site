@@ -221,7 +221,6 @@ INSTALLED_APPS = (
     'apps.fund',
     'apps.geo',
     'apps.hbtemplates',
-    'apps.reactions',
     'apps.wallposts',
 
     # Custom dashboard
