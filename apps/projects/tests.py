@@ -2,10 +2,12 @@ from decimal import Decimal
 from datetime import timedelta
 from django.core.exceptions import ValidationError
 from django.test import TestCase, RequestFactory
+from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
+from apps.wallposts.models import TextWallPost
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
 
 
@@ -60,6 +62,22 @@ class FundPhaseTestMixin(object):
         fundphase.startdate = timezone.now().date()
         fundphase.save()
         return fundphase
+
+
+class ProjectWallPostTestsMixin(ProjectTestsMixin):
+    """ Mixin base class for tests using wallposts. """
+
+    def create_project_text_wallpost(self, text='Some smart comment.', project=None, author=None):
+        if not project:
+            project = self.create_project()
+        if not author:
+            author = self.create_user()
+        content_type = ContentType.objects.get_for_model(Project)
+        wallpost = TextWallPost.objects.create(content_type=content_type, object_id=project.id)
+        wallpost.author = author
+        wallpost.text = text
+        wallpost.save()
+        return wallpost
 
 
 class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
@@ -530,5 +548,4 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.get(self.project_wallposts_url,  {'project': self.another_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 4)
-
 
