@@ -10,7 +10,7 @@ class GenericForeignKeyManagerMixin(object):
 
     def for_model(self, model):
         """
-        QuerySet for all reactions for a particular model (either an instance or a class).
+        QuerySet for all objects for a particular model (either an instance or a class).
         """
         ct = ContentType.objects.get_for_model(model)
         qs = self.get_query_set().filter(content_type=ct)

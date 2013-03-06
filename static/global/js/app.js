@@ -279,7 +279,7 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
         var wallPostListController = this.controllerFor('projectWallPostList');
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
         // wallposts property. The controller will convert it to an Ember Array.
-        wallPostListController.set('wallposts', App.ProjectWallPost.find({project_slug: project.get('slug')}));
+        wallPostListController.set('wallposts', App.ProjectWallPost.find({project: project.get('slug')}));
 
         // WallPost creation controller.
         var wallPostNewController = this.controllerFor('projectWallPostNew');
@@ -394,8 +394,6 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                 url: 'fund/vouchers/' + voucher.get('code') + '/donations'
             });
             var donation = transaction.createRecord(App.VoucherDonation);
-            // Set project in two ways here until we come up with proper solution.
-            donation.set('project_slug', project.get('slug'));
             donation.set('project', project);
             // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
             donation.on('didCreate', function(record){

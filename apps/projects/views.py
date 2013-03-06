@@ -6,10 +6,10 @@ from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAP
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
-from apps.wallposts.serializers import ProjectWallPostSerializer, ProjectMediaWallPostSerializer, ProjectTextWallPostSerializer
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost
 from .models import Project
-from .serializers import ProjectSerializer
+from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
+                          ProjectTextWallPostSerializer)
 
 
 # API views
@@ -34,7 +34,7 @@ class ProjectWallPostMixin(object):
         queryset = super(ProjectWallPostMixin, self).get_queryset()
         project_type = ContentType.objects.get_for_model(Project)
         queryset = queryset.filter(content_type=project_type)
-        project_slug = self.request.QUERY_PARAMS.get('project_slug', None)
+        project_slug = self.request.QUERY_PARAMS.get('project', None)
         if project_slug:
             try:
                 project = Project.objects.get(slug=project_slug)

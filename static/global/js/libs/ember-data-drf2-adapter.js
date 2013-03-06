@@ -40,7 +40,7 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
 
         this.extractMeta(loader, type, json);
 
-        if (json['results'] || !this._isEmpty(json)) {
+        if (json['results'] || !Em.isEmpty(json)) {
             var references = [];
             var objects = json['results'] ? json['results'] : json;
 
@@ -60,12 +60,12 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
         }
     },
 
-    _isEmpty: function(obj) {
-        for (var prop in obj) {
-            if (obj.hasOwnProperty(prop))
-                return false;
-        }
-        return true;
+    /**
+     * Changes from default:
+     * - Don't append '_id' to the end of the key.
+     */
+    keyForBelongsTo: function(type, name) {
+        return this.keyForAttributeName(type, name);
     }
 
 });
