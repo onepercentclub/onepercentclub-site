@@ -3,19 +3,19 @@
 
 {% tplhandlebars "wallpost_reaction" %}
 
-	<span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
+	<span class="user-img"><img {{ bindAttr src="author.picture" }} width="100%" alt="Avatar" /></span>
 	<div class="reaction">
 	    <a href="#" class="user">
-            {%  trans "By" %} <strong>{{author.full_name}}</strong>
-            <em class="not-implemented">{%  trans "Member" %}</em> <small>{{timesince}} {%  trans "ago" %}</small>
+            {%  trans "By" %} <strong>{{ author.full_name }}</strong>
+            <em class="not-implemented">{%  trans "Member" %}</em> <small>{{ timesince }} {%  trans "ago" %}</small>
         </a>
         {{#if isAuthor}}
             <ul class="manage">
                 <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
-                <li class="manage-remove"><a {{action "deleteReaction" target="view"}}>{% trans "Delete" %}</a></li>
+                <li class="manage-remove"><a {{ action "deleteReaction" target="view" }}>{% trans "Delete" %}</a></li>
             </ul>
         {{/if}}
-		<p>{{{text}}}</p>
+		<p>{{{ text }}}</p>
 	</div>
 
 {% endtplhandlebars %}

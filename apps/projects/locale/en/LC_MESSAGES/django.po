@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-26 18:05+0100\n"
+"POT-Creation-Date: 2013-03-07 14:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -458,4 +458,28 @@ msgstr ""
 
 #: templates/project_detail.html:107
 msgid "Funding needed for"
+msgstr ""
+
+#: templates/projects.hbs:11
+msgid "Projects"
+msgstr ""
+
+#: templates/projects.hbs:71
+msgid "of"
+msgstr ""
+
+#: templates/projects.hbs:73
+msgid "raised"
+msgstr ""
+
+#: templates/projects.hbs:86
+msgid "days to go"
+msgstr ""
+
+#: templates/projects.hbs:91
+msgid "Support with voucher"
+msgstr ""
+
+#: templates/projects.hbs:94
+msgid "Support this project"
 msgstr ""
