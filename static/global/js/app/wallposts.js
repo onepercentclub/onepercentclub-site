@@ -202,6 +202,10 @@ App.UploadFileView = Ember.TextField.extend({
 App.ProjectWallPostView = Em.View.extend({
     templateName: 'project_wallpost',
 
+    didInsertElement: function(){
+        this.$('.gallery-picture').colorbox({rel: 'gallery'});
+    },
+
     // TODO: Delete reactions to WallPost as well?
     deleteWallPost: function() {
         if (confirm("Delete this wallpost?")) {

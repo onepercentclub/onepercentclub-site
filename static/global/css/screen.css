@@ -2780,11 +2780,12 @@ ul.steps li.selected a {
 /* line 42, ../sass/modules/_media.scss */
 .photo-viewer ul li:first-child {
   float: left;
-  width: 14.58333%;
+  width: 100%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 0%;
+  border-color: #ff619a;
 }
-/* line 46, ../sass/modules/_media.scss */
+/* line 47, ../sass/modules/_media.scss */
 .photo-viewer ul li.more {
   display: block;
   float: left;
@@ -2793,7 +2794,7 @@ ul.steps li.selected a {
   margin-right: 0%;
   background-color: #00c051;
 }
-/* line 53, ../sass/modules/_media.scss */
+/* line 54, ../sass/modules/_media.scss */
 .photo-viewer ul li.more a {
   display: block;
   color: white;
