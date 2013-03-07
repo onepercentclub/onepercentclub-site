@@ -175,7 +175,7 @@
 
                 <form class="labeled">
 
-                            {{#each errors.amount}}<span class="error">{{this}}</span>{{/each}}
+                    {{#each errors.amount}}<span class="error">{{this}}</span>{{/each}}
                     <div class="label">{% trans "Amount" %}</div>
                     {{view Em.TextField valueBinding="amount" type="number" step="10" classBinding="errors.amount.length:error"}}
 

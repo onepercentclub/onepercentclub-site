@@ -133,14 +133,14 @@
 
     <fieldset>
 
-        {{ render currentOrderVoucherNew }}
+        {{ render "currentOrderVoucherNew" }}
 
         <ul class="voucher-list">
             {{#each controller itemController=currentOrderVoucher }}
                 {{ view "App.CurrentOrderVoucherView" }}
             {{/each}}
 
-            {{#if controller.length }}
+            {{#if length }}
                 <li>
                     <div class="summary">
                         {{ length }} {% trans "vouchers will be sent out with a total amount worth of" %}
@@ -159,7 +159,7 @@
         </ul>
 
 
-        {{#if controller.length }}
+        {{#if length }}
             {{#linkTo "paymentOrderProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
         {{else}}
             <button disabled class="right">{% trans "Next step" %}</button>

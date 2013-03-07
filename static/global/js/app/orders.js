@@ -181,7 +181,7 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
         return this.get('model').getEach('amount').reduce(function(accum, item) {
             return accum + item;
         }, 0);
-    }.property('model.@each.amount')
+    }.property('model.@each.amount', 'model.length')
 });
 
 
