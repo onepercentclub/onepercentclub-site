@@ -193,7 +193,7 @@ App.UploadFileView = Ember.TextField.extend({
             };
             reader.readAsDataURL(input.files[0]);
             // The File object needs to be set on the Model so that it can be accesses in the DRF2 adapter.
-            this.get('content').set('photo_file', input.files[0]);
+            this.get('content').set('photo_files', input.files);
         }
     }
 });

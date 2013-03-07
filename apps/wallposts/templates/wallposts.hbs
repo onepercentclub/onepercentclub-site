@@ -66,7 +66,7 @@
 {#                <span class="fileinput-button image">#}
 {#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
 {#                </span>#}
-                {{view App.UploadFileView valueBinding="photo" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                {{view App.UploadFileView valueBinding="photo" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
             </li>
         </ul>
     </fieldset>
@@ -131,6 +131,7 @@
             {{/if}}
 
             {{{text}}}
+
 
             {{#if photos.length}}
                 <div class="photo-viewer">
