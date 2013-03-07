@@ -3,7 +3,7 @@
 
 SOURCE_LANGUAGE="en"
 MANAGE_PY="$PWD/manage.py"
-MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE"
+MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs -e html"
 COMPILEMESSAGES="$MANAGE_PY compilemessages"
 MINIMUM_PERC="80" # Don't pull in translations with less than this %
 APPS_DIR="apps"
@@ -40,7 +40,8 @@ case "$1" in
             done
 
             echo "Generating PO-file for templates"
-            mv locale templates/ && cd templates/ && $MAKEMESSAGES && mv locale ../
+            mv locale templates/ && cd templates/ && $MAKEMESSAGES
+            mv locale ../
 
             ;;
 

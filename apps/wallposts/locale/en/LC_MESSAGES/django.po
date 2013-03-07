@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-26 18:05+0100\n"
+"POT-Creation-Date: 2013-03-07 14:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,122 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:22
+#: admin.py:58
+msgid "Author"
+msgstr ""
+
+#: models.py:27 models.py:82
 msgid "author"
 msgstr ""
 
-#: models.py:23
+#: models.py:28 models.py:83
 msgid "editor"
 msgstr ""
 
-#: models.py:23
+#: models.py:28
 msgid "The last user to edit this wallpost."
 msgstr ""
 
-#: models.py:29
+#: models.py:31 models.py:90
+msgid "created"
+msgstr ""
+
+#: models.py:32 models.py:91
+msgid "updated"
+msgstr ""
+
+#: models.py:33 models.py:92
+msgid "deleted"
+msgstr ""
+
+#: models.py:34 models.py:93
 msgid "IP address"
 msgstr ""
 
-#: models.py:32
+#: models.py:37
 msgid "content type"
 msgstr ""
 
-#: models.py:33
+#: models.py:38
 msgid "object ID"
+msgstr ""
+
+#: models.py:83
+msgid "The last user to edit this reaction."
+msgstr ""
+
+#: models.py:86
+msgid "reaction text"
+msgstr ""
+
+#: models.py:101
+msgid "Reaction"
+msgstr ""
+
+#: models.py:102
+msgid "Reactions"
+msgstr ""
+
+#: templates/reactions.hbs:9
+msgid "By"
+msgstr ""
+
+#: templates/reactions.hbs:10
+msgid "Member"
+msgstr ""
+
+#: templates/reactions.hbs:10 templates/wallposts.hbs:113
+msgid "ago"
+msgstr ""
+
+#: templates/reactions.hbs:14 templates/wallposts.hbs:121
+msgid "Edit"
+msgstr ""
+
+#: templates/reactions.hbs:15 templates/wallposts.hbs:122
+msgid "Delete"
+msgstr ""
+
+#: templates/wallposts.hbs:10
+msgid "Comments & Updates"
+msgstr ""
+
+#: templates/wallposts.hbs:20
+msgid "Login to leave a comment."
+msgstr ""
+
+#: templates/wallposts.hbs:38
+msgid "Title of your update."
+msgstr ""
+
+#: templates/wallposts.hbs:47
+msgid "Your update."
+msgstr ""
+
+#: templates/wallposts.hbs:56
+msgid "Link to video on YouTube or Vimeo."
+msgstr ""
+
+#: templates/wallposts.hbs:64
+msgid "Upload & add Photo's"
+msgstr ""
+
+#: templates/wallposts.hbs:64
+msgid "(620 x 380 minimum for best results)"
+msgstr ""
+
+#: templates/wallposts.hbs:74
+msgid "Post Update"
+msgstr ""
+
+#: templates/wallposts.hbs:87
+msgid "Leave your comment here"
+msgstr ""
+
+#: templates/wallposts.hbs:92
+msgid "Post Comment"
+msgstr ""
+
+#: templates/wallposts.hbs:116
+msgid "Project Initiator"
 msgstr ""
