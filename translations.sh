@@ -40,7 +40,8 @@ case "$1" in
             done
 
             echo "Generating PO-file for templates"
-            mv locale templates/ && cd templates/ && $MAKEMESSAGES && mv locale ../
+            mv locale templates/ && cd templates/ && $MAKEMESSAGES
+            mv locale ../
 
             ;;
 
