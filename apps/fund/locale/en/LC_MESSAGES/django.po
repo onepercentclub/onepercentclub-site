@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-07 14:00+0100\n"
+"POT-Creation-Date: 2013-03-07 14:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,11 +105,11 @@ msgstr ""
 msgid "Cashed by us"
 msgstr ""
 
-#: models.py:121
+#: models.py:121 templates/orders.hbs:184
 msgid "English"
 msgstr ""
 
-#: models.py:122
+#: models.py:122 templates/orders.hbs:188
 msgid "Dutch"
 msgstr ""
 
@@ -193,7 +193,7 @@ msgstr ""
 msgid "Contact phone"
 msgstr ""
 
-#: models.py:171
+#: models.py:171 templates/vouchers.hbs:191
 msgid "Organization"
 msgstr ""
 
@@ -235,4 +235,253 @@ msgstr ""
 
 #: views.py:395
 msgid "Voucher code already used."
+msgstr ""
+
+#: templates/orders.hbs:12
+#, python-format
+msgid "Order digital 1%%VOUCHERS"
+msgstr ""
+
+#: templates/orders.hbs:16
+msgid "Switch to paid donations"
+msgstr ""
+
+#: templates/orders.hbs:25
+msgid "Support one or more projects!"
+msgstr ""
+
+#: templates/orders.hbs:29
+#, python-format
+msgid "I have a 1%%voucher"
+msgstr ""
+
+#: templates/orders.hbs:54
+msgid "Details"
+msgstr ""
+
+#: templates/orders.hbs:58 templates/vouchers.hbs:61
+msgid "Profile"
+msgstr ""
+
+#: templates/orders.hbs:62 templates/orders.hbs.py:347
+#: templates/orders.hbs:371
+msgid "Pay"
+msgstr ""
+
+#: templates/orders.hbs:70
+msgid "Want custom real vouchers or a large amount of digital vouchers?"
+msgstr ""
+
+#: templates/orders.hbs:74
+msgid "Contact us..."
+msgstr ""
+
+#: templates/orders.hbs:98
+msgid "Choose a project to make a donation"
+msgstr ""
+
+#: templates/orders.hbs:99
+msgid ""
+"Select a project from the list and click 'Support this project' to add it to "
+"this list."
+msgstr ""
+
+#: templates/orders.hbs:104
+msgid "Add another project"
+msgstr ""
+
+#: templates/orders.hbs:109
+msgid "Support the selected projects:"
+msgstr ""
+
+#: templates/orders.hbs:113
+msgid "Single donation"
+msgstr ""
+
+#: templates/orders.hbs:118
+msgid "Monthly donation"
+msgstr ""
+
+#: templates/orders.hbs:127 templates/orders.hbs.py:163
+#: templates/orders.hbs:165 templates/orders.hbs.py:283
+msgid "Next step"
+msgstr ""
+
+#: templates/orders.hbs:146
+msgid "vouchers will be sent out with a total amount worth of"
+msgstr ""
+
+#: templates/orders.hbs:155
+msgid "No vouchers yet..."
+msgstr ""
+
+#: templates/orders.hbs:176
+msgid "Choose value & personalize voucher"
+msgstr ""
+
+#: templates/orders.hbs:180
+msgid "Language"
+msgstr ""
+
+#: templates/orders.hbs:195 templates/vouchers.hbs:179
+msgid "Amount"
+msgstr ""
+
+#: templates/orders.hbs:215 templates/vouchers.hbs:183
+msgid "Your name"
+msgstr ""
+
+#: templates/orders.hbs:219 templates/vouchers.hbs:187
+msgid "Your email"
+msgstr ""
+
+#: templates/orders.hbs:223
+msgid "Add as many recipients as you want"
+msgstr ""
+
+#: templates/orders.hbs:225
+msgid "Recipient name"
+msgstr ""
+
+#: templates/orders.hbs:229
+msgid "Recipient email"
+msgstr ""
+
+#: templates/orders.hbs:233
+msgid "Personal message"
+msgstr ""
+
+#: templates/orders.hbs:238
+msgid "Add"
+msgstr ""
+
+#: templates/orders.hbs:253
+msgid "Delete"
+msgstr ""
+
+#: templates/orders.hbs:298
+msgid "is still needed"
+msgstr ""
+
+#: templates/orders.hbs:299
+msgid "I'd like to give"
+msgstr ""
+
+#: templates/orders.hbs:303
+msgid "Remove"
+msgstr ""
+
+#: templates/orders.hbs:311
+msgid "YOU MAKE IT WORK!"
+msgstr ""
+
+#: templates/orders.hbs:312
+msgid "Choose the payment method you prefer to donate."
+msgstr ""
+
+#: templates/orders.hbs:324
+msgid "No payment methods available"
+msgstr ""
+
+#: templates/orders.hbs:349 templates/orders.hbs.py:373
+#: templates/orders.hbs:395
+msgid "Next"
+msgstr ""
+
+#: templates/orders.hbs:355 templates/orders.hbs.py:376
+#: templates/orders.hbs:397
+msgid "loading information..."
+msgstr ""
+
+#: templates/orders.hbs:408
+msgid "Thank you!"
+msgstr ""
+
+#: templates/orders.hbs:430
+msgid "You just donated"
+msgstr ""
+
+#: templates/vouchers.hbs:10
+msgid "Share"
+msgstr ""
+
+#: templates/vouchers.hbs:11
+msgid "the fun"
+msgstr ""
+
+#: templates/vouchers.hbs:12
+msgid "of giving!"
+msgstr ""
+
+#: templates/vouchers.hbs:13
+msgid "Get the"
+msgstr ""
+
+#: templates/vouchers.hbs:14
+#, python-format
+msgid "1%%VOUCHER"
+msgstr ""
+
+#: templates/vouchers.hbs:23
+msgid "I received a voucher"
+msgstr ""
+
+#: templates/vouchers.hbs:28
+msgid "I'd like to buy voucher(s)"
+msgstr ""
+
+#: templates/vouchers.hbs:42
+msgid "Claim you voucher and support!"
+msgstr ""
+
+#: templates/vouchers.hbs:46
+msgid "Switch to donations"
+msgstr ""
+
+#: templates/vouchers.hbs:68
+msgid "Voucher"
+msgstr ""
+
+#: templates/vouchers.hbs:70
+msgid "code accepted"
+msgstr ""
+
+#: templates/vouchers.hbs:83
+msgid "Choose a project to support with this voucher"
+msgstr ""
+
+#: templates/vouchers.hbs:92 templates/vouchers.hbs.py:96
+#: templates/vouchers.hbs:112
+msgid "Submit"
+msgstr ""
+
+#: templates/vouchers.hbs:106
+msgid "We don't have a voucher with this code."
+msgstr ""
+
+#: templates/vouchers.hbs:109
+msgid "Voucher code"
+msgstr ""
+
+#: templates/vouchers.hbs:165
+#, python-format
+msgid "Contact us for custom 1%%VOUCHERS"
+msgstr ""
+
+#: templates/vouchers.hbs:166
+msgid ""
+"Please fill in the form with your wishes and we will contact you. You can "
+"also call us directly on (+31) 20 715 8980"
+msgstr ""
+
+#: templates/vouchers.hbs:195
+msgid "Phone number"
+msgstr ""
+
+#: templates/vouchers.hbs:199
+msgid "Anything else? Leave a message."
+msgstr ""
+
+#: templates/vouchers.hbs:202
+msgid "Send message"
 msgstr ""
