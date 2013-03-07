@@ -2,11 +2,14 @@ var get = Ember.get, set = Ember.set;
 
 DS.DRF2Serializer = DS.RESTSerializer.extend({
 
+    /**
+     * Add serialization support for arrays.
+     */
     init: function() {
         this._super();
         this.registerTransform('array', {
             deserialize: function(serialized) {
-                return  Ember.isNone(serialized) ? null : Em.A(serialized);
+                return Ember.isNone(serialized) ? null : Em.A(serialized);
             },
             serialize: function(deserialized) {
                 return Ember.isNone(deserialized) ? null : deserialized.toJSON();
@@ -67,24 +70,23 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
     keyForBelongsTo: function(type, name) {
         return this.keyForAttributeName(type, name);
     }
-
 });
 
 
 DS.DRF2Adapter = DS.RESTAdapter.extend({
 
-    /*
-     Use a custom serializer for DRF2.
+    /**
+     * Use a custom serializer for DRF2.
      */
     serializer: DS.DRF2Serializer,
 
-    /*
-     Bulk commits are not supported by this adapter.
+    /**
+     * Bulk commits are not supported by this adapter.
      */
     bulkCommit: false,
 
-    /*
-     DRF2 uses the 'next' keyword for paginating results.
+    /**
+     * DRF2 uses the 'next' keyword for paginating results.
      */
     since: 'next',
 
@@ -206,11 +208,11 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         }
     },
 
-    /*
-     Changes from default:
-     - Don't replace CamelCase with '_'.
-     - Use the record's url field first if it's there.
-     - Check for 'url' defined in the class.
+    /**
+     * Changes from default:
+     * - Don't replace CamelCase with '_'.
+     * - Use the record's url field first if it's there.
+     * - Check for 'url' defined in the class.
      */
     rootForType: function(type, record) {
         if (record !== undefined && record.hasOwnProperty('url')) {
@@ -228,9 +230,9 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         return name.toLowerCase();
     },
 
-    /*
-     Changes from default:
-     - Don't add 's' if the url name already ends with 's'.
+    /**
+     * Changes from default:
+     * - Don't add 's' if the url name already ends with 's'.
      */
     pluralize: function(name) {
         if (this.plurals[name])
@@ -241,9 +243,9 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             return name + 's';
     },
 
-    /*
-     Changes from default:
-     - Add trailing slash for lists.
+    /**
+     * Changes from default:
+     * - Add trailing slash for lists.
      */
     buildURL: function(record, suffix) {
         var url = this._super(record, suffix);
