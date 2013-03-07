@@ -226,7 +226,7 @@ App.Router.map(function() {
         this.route('search');
     });
 
-    this.resource('project', {path: '/projects/:slug'}, function() {
+    this.resource('project', {path: '/projects/:project_id'}, function() {
         this.route('edit');
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
@@ -263,10 +263,7 @@ App.ProjectListRoute = Ember.Route.extend({
 });
 
 
-App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
-    model: function(params) {
-        return App.Project.find(params.slug);
-    },
+App.ProjectRoute = Ember.Route.extend({
 
     setupController: function(controller, project) {
         this._super(controller, project);
@@ -279,7 +276,7 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
         var wallPostListController = this.controllerFor('projectWallPostList');
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
         // wallposts property. The controller will convert it to an Ember Array.
-        wallPostListController.set('wallposts', App.ProjectWallPost.find({project: project.get('slug')}));
+        wallPostListController.set('wallposts', App.ProjectWallPost.find({project: project.get('id')}));
 
         // WallPost creation controller.
         var wallPostNewController = this.controllerFor('projectWallPostNew');
