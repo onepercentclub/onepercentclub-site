@@ -98,7 +98,7 @@ App = Em.Application.create({
 // Load the Handlebar templates.
 // TODO: This is race condition that needs to be addressed but should work most of the time.
 // TODO We want to actually figure out a way to load the templates on-demand and not do it like this.
-App.loadTemplates(['projects', 'wallposts', 'reactions', 'orders']);
+App.loadTemplates(['projects', 'wallposts', 'reactions', 'orders', 'vouchers']);
 
 
 // The Ember Data Adapter and Store configuration.
@@ -350,14 +350,6 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
     setupController: function(controller, vouchers) {
         this._super(controller, vouchers);
         this.controllerFor('currentOrder').set('isVoucherOrder', true);
-    }
-});
-
-
-App.CurrentOrderVoucherAddRoute = Ember.Route.extend({
-    setupController: function(controller, context) {
-        this.controllerFor('currentOrder').set('isVoucherOrder', true);
-        controller.createNewVoucher();
     }
 });
 

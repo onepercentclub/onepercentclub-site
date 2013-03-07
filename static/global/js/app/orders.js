@@ -50,17 +50,17 @@ App.Voucher =  DS.Model.extend({
 App.CurrentOrder = DS.Model.extend({
     url: 'fund/orders',
 
-    vouchers: DS.hasMany('App.CurrentVoucher'),
-    donations: DS.hasMany('App.CurrentDonation')
+    vouchers: DS.hasMany('App.CurrentOrderVoucher'),
+    donations: DS.hasMany('App.CurrentOrderDonation')
 });
 
-App.CurrentDonation = App.Donation.extend({
+App.CurrentOrderDonation = App.Donation.extend({
     url: 'fund/orders/current/donations',
 
     order: DS.belongsTo('App.CurrentOrder')
 });
 
-App.CurrentVoucher = App.Voucher.extend({
+App.CurrentOrderVoucher = App.Voucher.extend({
     url: 'fund/orders/current/vouchers',
 
     order: DS.belongsTo('App.CurrentOrder')
@@ -151,19 +151,6 @@ App.Payment = DS.Model.extend({
 });
 
 
-App.CustomVoucherRequest = DS.Model.extend({
-    url: 'fund/customvouchers',
-
-    amount: DS.attr('number', {defaultValue: 100}),
-    type: DS.attr('string', {defaultValue: 'unknown'}),
-    contact_name: DS.attr('string', {defaultValue: ''}),
-    contact_email: DS.attr('string', {defaultValue: ''}),
-    contact_phone: DS.attr('string', {defaultValue: ''}),
-    organization: DS.attr('string', {defaultValue: ''}),
-    message: DS.attr('string', {defaultValue: ''})
-});
-
-
 /*
  Controllers
  */
@@ -190,52 +177,54 @@ App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteModelM
 
 
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
-    count: function(){
-        return this.get('content.length') - 1;
-    }.property('content.length'),
-
-    // TODO Use forEach like in the peepCode video.
-    amount: function(){
-        // Calculate the total amount of Vouchers that are added to the list, not the one that's being edited in the form.
-        var amount = 0;
-        this.forEach(function(item){
-            if (! item.get('isDirty')) {
-                amount += item.get('amount');
-            }
-        });
-        return amount;
-    }.property('content.length'),
-
-    deleteOrderItem: function(item) {
-        var transaction = App.store.transaction();
-        transaction.add(item);
-        item.deleteRecord();
-        transaction.commit();
-    }
+    amount: function() {
+        return this.get('model').getEach('amount').reduce(function(accum, item) {
+            return accum + item;
+        }, 0);
+    }.property('model.@each.amount', 'model.length')
 });
 
 
-App.CurrentOrderVoucherAddController = Em.ObjectController.extend({
+App.CurrentOrderVoucherController = Em.ObjectController.extend(App.DeleteModelMixin, {
+    // Only here to add the DeleteModelMixin to this controller.
+});
+
+
+App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
+    needs: ['currentUser', 'currentOrder'],
+
+    init: function() {
+        this._super();
+        this.createNewVoucher();
+    },
+
     createNewVoucher: function() {
         var transaction = App.store.transaction();
-        var voucher =  transaction.createRecord(App.CurrentVoucher);
-        voucher.set('sender_name', App.userController.get('content.full_name'));
-        voucher.set('sender_email', App.userController.get('content.email'));
-        this.set('content', voucher);
+        var voucher =  transaction.createRecord(App.CurrentOrderVoucher);
+        voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
+        voucher.set('sender_email', this.get('controllers.currentUser.email'));
+        this.set('model', voucher);
         this.set('transaction', transaction);
     },
 
     addVoucher: function() {
-        var voucher = this.get('content');
+        var voucher = this.get('model');
+        // Set the order so the list gets updated in the view
+        var order = this.get('controllers.currentOrder.model');
+        voucher.set('order', order);
+
         var controller = this;
         voucher.on('didCreate', function(record) {
             controller.createNewVoucher();
-            controller.set('content.sender_name', record.get('sender_name'));
-            controller.set('content.sender_email', record.get('sender_email'));
+            controller.set('sender_name', record.get('sender_name'));
+            controller.set('sender_email', record.get('sender_email'));
         });
         voucher.on('becameInvalid', function(record) {
-            controller.get('content').set('errors', record.get('errors'));
+            controller.createNewVoucher();
+            controller.get('model').set('errors', record.get('errors'));
+            record.deleteRecord();
         });
+
         this.get('transaction').commit();
     }
 });
@@ -315,76 +304,6 @@ App.CurrentOrderPaymentController = Em.ObjectController.extend({
 });
 
 
-App.VoucherRedeemController = Em.ArrayController.extend({
-    code: "",
-
-    error: function(){
-        if (this.get('voucher.isLoaded')) {
-            // we don't get the code from the server, but store it here for future reference.
-            this.set('voucher.code', this.get('code'));
-            return false;
-        }
-        if (this.get('voucher')) {
-            return true;
-        }
-        return false;
-    }.property('voucher.isSaving', 'voucher.isLoaded'),
-
-    submitVoucherCode: function() {
-        var code = this.get('code');
-        if (code) {
-            var voucher = App.Voucher.find(code);
-            this.set('voucher', voucher);
-
-        }
-    },
-
-    redeemVoucher: function() {
-        var controller = this;
-        var voucher = this.get('voucher');
-        var transaction = App.store.transaction();
-        transaction.add(voucher);
-        voucher.set('status', 'cashed');
-        voucher.on('didUpdate',function(){
-            controller.transitionTo('voucherRedeemDone');
-        });
-        transaction.commit();
-    },
-
-    // Currently not used. Keep this around for multiple Donations per Voucher.
-    deleteVoucherDonation: function(orderItem) {
-        var transaction = App.store.transaction();
-        transaction.add(orderItem);
-        orderItem.deleteRecord();
-        transaction.commit();
-    }
-});
-
-
-App.CustomVoucherRequestController = Em.ObjectController.extend({
-    init: function() {
-        this._super();
-        this.createCustomVoucherRequest();
-    },
-
-    createCustomVoucherRequest: function() {
-        var transaction = App.store.transaction();
-        var voucherRequest =  transaction.createRecord(App.CustomVoucherRequest);
-        voucherRequest.set('contact_name', App.userController.get('content.full_name'));
-        voucherRequest.set('contact_email', App.userController.get('content.email'));
-        this.set('content', voucherRequest);
-        this.set('transaction', transaction);
-
-    },
-
-    sendRequest: function() {
-        var transaction = this.get('transaction');
-        var voucherRequest = this.get('content');
-        transaction.commit();
-    }
-});
-
-
 /*
  Views
  */
@@ -449,20 +368,21 @@ App.CurrentOrderVoucherView = Em.View.extend({
 
     delete: function() {
         var controller = this.get('controller');
-        var item = this.get('content');
-        this.$().slideUp(500, function(){controller.deleteOrderItem(item)});
-    },
-
-    submit: function(e) {
-        e.preventDefault();
+        this.$().slideUp(500, function() {
+            controller.deleteRecordOnServer()
+        });
     }
 });
 
 
-App.CurrentOrderVoucherAddView = Em.View.extend({
-    templateName: 'current_order_voucher_add',
+App.CurrentOrderVoucherNewView = Em.View.extend({
+    templateName: 'current_order_voucher_new',
     tagName: 'form',
-    classNames: ['labeled']
+    classNames: ['labeled'],
+
+    submit: function(e) {
+        e.preventDefault();
+    }
 });
 
 
@@ -516,44 +436,6 @@ App.DirectDebitPaymentMethodInfoView = Em.View.extend({
 
     submit: function(e){
         e.preventDefault();
-    }
-});
-
-
-App.VoucherStartView = Em.View.extend({
-    tagName: 'div',
-    templateName: 'voucher_start'
-});
-
-
-App.VoucherRedeemView = Em.View.extend({
-    tagName: 'div',
-    templateName: 'voucher_redeem'
-});
-
-
-App.VoucherRedeemDoneView = Em.View.extend({
-    tagName: 'div',
-    templateName: 'voucher_redeem_done'
-});
-
-
-App.CustomVoucherRequestCustomView = Em.View.extend({
-    tagName: 'form',
-    templateName: 'custom_voucher_request'
-});
-
-
-App.VoucherDonationView = Em.View.extend({
-    templateName: 'voucher_donation',
-    tagName: 'li',
-    classNames: 'donation-project',
-
-    delete: function(item){
-        var controller = this.get('controller');
-        this.$().slideUp(500, function() {
-            controller.deleteOrderItem(item)
-        });
     }
 });
 
