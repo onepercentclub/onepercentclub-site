@@ -158,8 +158,6 @@
 
     <!-- reaction-box -->
     <div class="reaction-box">
-        {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
-
         <ul class="reaction-actions not-implemented">
             <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">{{reactions.length}} Comments</a></li>
             <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
@@ -173,8 +171,10 @@
             </li>
         </ul>
 
-        {# {{view "App.WallPostReactionListView" }} #}
-         {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
+        {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
+
+        {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
+
     </div>
     <!-- end: reaction-box -->
 
