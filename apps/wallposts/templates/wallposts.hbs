@@ -136,7 +136,7 @@
                 <div class="photo-viewer">
                     <ul>
                         {{#each photo in photos}}
-                            <li><a {{bindAttr src="photo.photo"}} class="gallery-picture" title="picture"><img {{bindAttr src="photo.thumbnail"}} width="100%" alt="Thumbnail" /></a></li>
+                            <li><a {{bindAttr href="photo.photo"}} class="gallery-picture" title="picture"><img {{bindAttr src="photo.thumbnail"}} width="100%" alt="Thumbnail" /></a></li>
                         {{/each}}
                     </ul>
                 </div>
