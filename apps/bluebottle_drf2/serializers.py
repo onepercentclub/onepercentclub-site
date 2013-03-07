@@ -5,7 +5,8 @@ import logging
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.template.defaultfilters import urlize, linebreaks_filter
+from django.template.defaultfilters import urlize, linebreaks, escape, escapejs
+from django.utils.html import strip_tags
 from django.utils.timesince import timesince
 from django.utils.encoding import smart_str
 from micawber.contrib.mcdjango import providers
@@ -68,11 +69,17 @@ class ContentTextField(serializers.CharField):
     """
 
     def to_native(self, value):
-        if not value:
-            return ""
+        # Convert model instance text -> text for reading.
+        content_text = super(ContentTextField, self).to_native(value)
+        # This is equivalent to the django template filter: '{{ value|urlize|linebreaks }}'. Note: Text from the
+        # database is escaped again here (on read) just as a double check for HTML / JS injection.
+        return linebreaks(urlize(content_text), True)
 
-        # This is equivalent to the django template filter: '{{ value|urlize|linebreaks }}'
-        return linebreaks_filter(urlize(value))
+    def from_native(self, value):
+        # Convert text -> model instance text for writing.
+        content_text = super(ContentTextField, self).from_native(value)
+        # HTML tags are stripped and any HTML / JS that is left is escaped.
+        return strip_tags(content_text)
 
 
 class OEmbedField(serializers.Field):
