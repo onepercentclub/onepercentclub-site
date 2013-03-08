@@ -222,3 +222,8 @@ App.ProjectWallPostView = Em.View.extend({
 App.ProjectWallPostListView = Em.View.extend({
     templateName: 'project_wallpost_list'
 });
+
+
+App.ProjectWallPostNewView = Em.View.extend({
+    templateName: 'project_wallpost_new'
+});
