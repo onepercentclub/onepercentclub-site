@@ -100,7 +100,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
             controller.clearWallPost()
         });
         textwallpost.on('becameInvalid', function(record) {
-            controller.set('content.errors', record.get('errors'));
+            controller.set('errors', record.get('errors'));
 //            TODO: The record needs need to be deleted somehow.
 //            record.deleteRecord();
         });
@@ -149,7 +149,7 @@ App.MediaWallPostNewView = Em.View.extend({
     templateName: 'media_wallpost_new',
     tagName: 'form',
 
-    submit: function(e){
+    submit: function(e) {
         e.preventDefault();
         this.get('controller').addMediaWallPost();
     },

@@ -321,7 +321,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
 
         # Test retrieving the first project detail from the list.
         project = response.data['results'][0]
-        response = self.client.get(self.projects_url + str(project['slug']))
+        response = self.client.get(self.projects_url + str(project['id']))
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
