@@ -271,16 +271,13 @@ App.ProjectRoute = Ember.Route.extend({
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
         controller.set('currentVoucher', voucher);
 
-        // Wallposts list controller.
-        var wallPostListController = this.controllerFor('projectWallPostList');
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
         // wallposts property. The controller will convert it to an Ember Array.
+        var wallPostListController = this.controllerFor('projectWallPostList');
         wallPostListController.set('wallposts', App.ProjectWallPost.find({project: project.get('id')}));
 
-        // WallPost creation controller.
-        var wallPostNewController = this.controllerFor('projectWallPostNew');
-        wallPostNewController.set('currentProject', project);
-        wallPostNewController.set('projectWallPostListController', wallPostListController);
+        // Set the current project on the WallPost new controller.
+        this.controllerFor('projectWallPostNew').set('currentProject', project);
     }
 });
 
