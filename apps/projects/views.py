@@ -66,7 +66,7 @@ class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
 
 
-class ProjectMediaWallPostPhotoList(ListCreateAPIView):
+class ProjectMediaWallPostPhotoList(generics.ListCreateAPIView):
     model = MediaWallPostPhoto
     serializer_class = MediaWallPostPhotoSerializer
     paginate_by = 4

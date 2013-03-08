@@ -70,7 +70,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     getTransaction: function(){
         var transaction = this.get('transaction');
         if (transaction == undefined || transaction == 'defaultTransaction') {
-            transaction = this.get('store').transaction();
+            transaction = App.store.transaction();
 
         }
         return transaction;
@@ -82,29 +82,37 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     },
 
     addMediaWallPost: function() {
-        var transaction = this.getTransaction();
+        var controller = this;
+        //var transaction = this.getTransaction();
+        var transaction = App.store.transaction();
         var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
         mediawallpost.set('project', this.get('currentProject'));
-        var controller = this;
 
-        if (controller.get('files').length) {
-            //var transaction = App.store.transaction();
-            controller.get('files').forEach(function(photo){
-                //console.log('change image wp: '+ mediawallpost.get('id'));
-                photo.set('mediawallpost', mediawallpost);
-                mediawallpost.get('photos').pushObject(photo);
-            });
-            console.log('commit photos with wallpost reference');
-            controller.getTransaction().commit();
-        }
+        mediawallpost.addObserver('id', function(){
+            console.log(mediawallpost.get('id'));
+            if (mediawallpost.get('id')) {
+                if (controller.get('files').length) {
+                    controller.getTransaction().commit();
+                    var tr = App.store.transaction();
+                    //var transaction = App.store.transaction();
+                    controller.get('files').forEach(function(photo){
+                        //console.log('change image wp: '+ mediawallpost.get('id'));
+                        tr.adoptRecord(photo);
+                        photo.set('mediawallpost_id', mediawallpost.get('id'));
+                    });
+                    console.log('commit photos with wallpost reference');
+                    tr.commit();
+                    //controller.getTransaction().commit();
+                }
+            }
+        });
+
 
         mediawallpost.on('didCreate', function(record) {
             controller.get('projectWallPostListController.content').unshiftObject(record);
-            console.log(record);
-            console.log(record.id);
             if (controller.get('files').length) {
                 controller.getTransaction().commit();
             }
