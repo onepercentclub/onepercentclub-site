@@ -156,9 +156,9 @@ App.Adapter.map('App.CurrentOrder', {
 });
 
 
-App.store = DS.Store.create({
+App.Store = DS.Store.extend({
     revision: 11,
-    adapter: App.Adapter.create()
+    adapter: 'App.Adapter'
 });
 
 
@@ -355,7 +355,7 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
     setupController: function(controller, project) {
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
         if (project !== undefined) {
-            var transaction = App.store.transaction();
+            var transaction = this.get('store').transaction();
             // TODO: Generify and move to DRF2 adapter.
             App.VoucherDonation.reopen({
                 url: 'fund/vouchers/' + voucher.get('code') + '/donations'

@@ -166,7 +166,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteModelMixin, {
     updateDonation: function(newAmount) {
         var donation = this.get('model');
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         transaction.add(donation);
         donation.set('amount', newAmount);
         transaction.commit();
@@ -202,7 +202,7 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
     },
 
     createNewVoucher: function() {
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         var voucher =  transaction.createRecord(App.CurrentOrderVoucher);
         voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
         voucher.set('sender_email', this.get('controllers.currentUser.email'));
@@ -235,7 +235,7 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 
 App.PaymentOrderProfileController = Em.ObjectController.extend({
     initTransaction: function() {
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         this.set('transaction', transaction);
         transaction.add(this.get('content'));
     }.observes('content'),

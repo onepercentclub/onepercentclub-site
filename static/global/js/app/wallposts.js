@@ -68,7 +68,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     },
 
     addMediaWallPost: function() {
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
@@ -90,7 +90,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     },
 
     addTextWallPost: function() {
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         var textwallpost = transaction.createRecord(App.ProjectTextWallPost);
         textwallpost.set('text', this.get('content.text'));
         textwallpost.set('project', this.get('currentProject'));
@@ -209,7 +209,7 @@ App.ProjectWallPostView = Em.View.extend({
     // TODO: Delete reactions to WallPost as well?
     deleteWallPost: function() {
         if (confirm("Delete this wallpost?")) {
-            var transaction = App.store.transaction();
+            var transaction = this.get('store').transaction();
             var wallpost = this.get('controller.content');
             transaction.add(wallpost);
             this.$().slideUp(500, function() {
