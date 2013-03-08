@@ -82,8 +82,6 @@ App.ProjectController = Em.ObjectController.extend({
             transaction = App.store.transaction(),
             donation = transaction.createRecord(App.CurrentOrderDonation);
 
-        // FIXME Our adapter needs to be adjusted to not have to set project_slug.
-        donation.set('project_slug', project.get('slug'));
         donation.set('project', project);
         var order = this.get('controllers.currentOrder').get('model');
         donation.set('order', order);
