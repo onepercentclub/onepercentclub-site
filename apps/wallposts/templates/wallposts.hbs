@@ -132,6 +132,13 @@
 
             {{{text}}}
 
+            {# This is temporary and will go away when we figure out how to upload related photos. #}
+            {{#if photo}}
+                <div class="photo-viewer">
+                    <span class="photo"><img {{bindAttr src="photo"}} width="100%" alt="Gallery" /></span>
+                </div>
+            {{/if}}
+            
             {{#if photos.length}}
                 <div class="photo-viewer">
                     <ul>
