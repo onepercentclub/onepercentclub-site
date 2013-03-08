@@ -60,7 +60,7 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
 
 
 App.ProjectWallPostNewController = Em.ObjectController.extend({
-    needs: ['currentUser'],
+    needs: ['currentUser', 'projectWallPostList'],
 
     init: function() {
         this._super();
@@ -78,7 +78,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         mediawallpost.set('photo_file', this.get('content.photo_file'));
         var controller = this;
         mediawallpost.on('didCreate', function(record) {
-            controller.get('projectWallPostListController.content').unshiftObject(record);
+            controller.get('controllers.projectWallPostList').unshiftObject(record);
             controller.clearWallPost()
         });
         mediawallpost.on('becameInvalid', function(record) {
@@ -96,7 +96,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         textwallpost.set('project', this.get('currentProject'));
         var controller = this;
         textwallpost.on('didCreate', function(record) {
-            controller.get('projectWallPostListController.content').unshiftObject(record);
+            controller.get('controllers.projectWallPostList').unshiftObject(record);
             controller.clearWallPost()
         });
         textwallpost.on('becameInvalid', function(record) {
@@ -221,4 +221,9 @@ App.ProjectWallPostView = Em.View.extend({
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
 App.ProjectWallPostListView = Em.View.extend({
     templateName: 'project_wallpost_list'
+});
+
+
+App.ProjectWallPostNewView = Em.View.extend({
+    templateName: 'project_wallpost_new'
 });
