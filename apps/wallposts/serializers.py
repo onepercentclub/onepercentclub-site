@@ -47,11 +47,12 @@ class WallPostSerializerBase(serializers.ModelSerializer):
 
 class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
     photo = SorlImageField('photo', '1200x800')
-    thumbnail = SorlImageField('photo', '296x296')
+    thumbnail = SorlImageField('photo', '296x296', read_only=True)
+    mediawallpost = serializers.PrimaryKeyRelatedField(required=False)
 
     class Meta:
         model = MediaWallPostPhoto
-        fields = ('id', 'photo', 'thumbnail',)
+        fields = ('id', 'photo', 'thumbnail','mediawallpost')
 
 
 class MediaWallPostSerializer(WallPostSerializerBase):
@@ -64,12 +65,11 @@ class MediaWallPostSerializer(WallPostSerializerBase):
     text = ContentTextField(required=False)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     # This is temporary and will go away when we figure out how to upload related photos.
-    photo = SorlImageField('photo', '529x296', required=False)
     photos = MediaWallPostPhotoSerializer(many=True)
 
     class Meta:
         model = MediaWallPost
-        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url', 'photo', 'photos')
+        fields = WallPostSerializerBase.Meta.fields + ('title', 'text', 'video_html', 'video_url', 'photos')
 
 
 class TextWallPostSerializer(WallPostSerializerBase):

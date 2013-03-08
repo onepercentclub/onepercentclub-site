@@ -61,7 +61,7 @@ class MediaWallPost(WallPost):
 
 
 class MediaWallPostPhoto(models.Model):
-    mediawallpost = models.ForeignKey(MediaWallPost, related_name='photos')
+    mediawallpost = models.ForeignKey(MediaWallPost, related_name='photos', null=True, blank=True)
     photo = models.ImageField(upload_to='mediawallpostphotos')
 
 

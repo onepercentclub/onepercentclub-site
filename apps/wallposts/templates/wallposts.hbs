@@ -62,11 +62,7 @@
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
-{# TODO: Implement multi photo upload #}
-{#                <span class="fileinput-button image">#}
-{#                    <input id="wallpost-photos" class="fileupload" type="file" name="wallpost-photos[]" data-url="server/" multiple>#}
-{#                </span>#}
-                {{view App.UploadFileView valueBinding="photo" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                {{view App.UploadFileView valueBinding="photos" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
             </li>
         </ul>
     </fieldset>
@@ -132,7 +128,11 @@
 
             {{{text}}}
 
-
+            {{#if photo}}
+                <div class="photo-viewer">
+                    <span class="photo"><img {{bindAttr src="photo"}} width="100%" alt="Gallery" /></span>
+                </div>
+            {{/if}}
             {{#if photos.length}}
                 <div class="photo-viewer">
                     <ul>

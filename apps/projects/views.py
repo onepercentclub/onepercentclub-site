@@ -1,3 +1,4 @@
+from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework import permissions
@@ -6,7 +7,7 @@ from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAP
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
-from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost
+from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
 from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
                           ProjectTextWallPostSerializer)
@@ -65,11 +66,18 @@ class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
 
 
+class ProjectMediaWallPostPhotoList(ListCreateAPIView):
+    model = MediaWallPostPhoto
+    serializer_class = MediaWallPostPhotoSerializer
+    paginate_by = 4
+
+
 class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
     permission_classes = (IsProjectOwnerOrReadOnly,)
     paginate_by = 4
+
 
 
 class ProjectMediaWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):

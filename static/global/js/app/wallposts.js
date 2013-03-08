@@ -3,9 +3,12 @@
  Models
  */
 
-App.MediaWallPostPhoto = DS.Model.extend({
+App.ProjectWallPostPhoto = DS.Model.extend({
+    url: 'projects/wallposts/media/photos',
+
     photo: DS.attr('string'),
-    thumbnail: DS.attr('string')
+    thumbnail: DS.attr('string'),
+    wallpost: DS.belongsTo('App.ProjectWallPost')
 });
 
 // This is union of all different wallposts.
@@ -22,7 +25,7 @@ App.ProjectWallPost = DS.Model.extend({
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
     photo: DS.attr('string'),
-    photos: DS.hasMany('App.MediaWallPostPhoto'),
+    photos: DS.hasMany('App.ProjectWallPostPhoto'),
     reactions: DS.hasMany('App.WallPostReaction')
 });
 
@@ -62,6 +65,17 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
 App.ProjectWallPostNewController = Em.ObjectController.extend({
     needs: ['currentUser'],
 
+    files: Em.A(),
+
+    getTransaction: function(){
+        var transaction = this.get('transaction');
+        if (transaction == undefined || transaction == 'defaultTransaction') {
+            transaction = this.get('store').transaction();
+
+        }
+        return transaction;
+    },
+
     init: function() {
         this._super();
         this.set('content', App.ProjectWallPost.createRecord());
@@ -73,13 +87,22 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
-        mediawallpost.set('photo', this.get('content.photo'));
         mediawallpost.set('project', this.get('currentProject'));
-        mediawallpost.set('photo_file', this.get('content.photo_file'));
         var controller = this;
         mediawallpost.on('didCreate', function(record) {
             controller.get('projectWallPostListController.content').unshiftObject(record);
-            controller.clearWallPost()
+            console.log('Walpost created. Lets connect the images')
+            console.log('Number of photos: '+ controller.get('files').length);
+            if (controller.get('files').length) {
+                //var transaction = App.store.transaction();
+                controller.get('files').forEach(function(photo){
+                    console.log('change image');
+                    photo.set('wallpost', record);
+                });
+                console.log('commit photos with wallpost reference');
+                controller.getTransaction().commit();
+            }
+            //controller.clearWallPost()
         });
         mediawallpost.on('becameInvalid', function(record) {
             controller.set('errors', record.get('errors'));
@@ -87,6 +110,19 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
 //            record.deleteRecord();
         });
         transaction.commit();
+    },
+
+    addPhoto: function(file) {
+        var wallpost = this.get('content');
+        console.log('adding photo');
+        var transaction = this.getTransaction();
+        console.log('creating em model');
+        var photo = transaction.createRecord(App.ProjectWallPostPhoto);
+        console.log('setting the file');
+        photo.set('file', file);
+        console.log('Add photo to photos');
+        this.get('files').pushObject(photo);
+        console.log('Number of photos: '+ this.get('files').length);
     },
 
     addTextWallPost: function() {
@@ -124,6 +160,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         }
         return false;
     }.property('currentProject.owner', 'controllers.currentUser.username')
+
 });
 
 
@@ -185,16 +222,14 @@ App.UploadFileView = Ember.TextField.extend({
 
     change: function(e) {
         var input = e.target;
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            var view = this;
-            reader.onload = function(e) {
-                view.get('content').set('photo_preview', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-            // The File object needs to be set on the Model so that it can be accesses in the DRF2 adapter.
-            this.get('content').set('photo_files', input.files);
+        var reader = new FileReader();
+        reader.readAsDataURL(input.files[0]);
+        var file =  input.files[0];
+        for (i = 0; i < input.files.length; i++) {
+            console.log('adding file');
+            this.get('controller').addPhoto(input.files[i]);
         }
+        console.log('done');
     }
 });
 
