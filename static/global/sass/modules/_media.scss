@@ -34,13 +34,14 @@
             @include grid(8, 0, 1);
             overflow: hidden;
             border-bottom: 4px solid transparent;
-            
+
             &:hover {
                 border-color: $green;
             }
             
             &:first-child {
-                @include grid(8, 0, 1);
+                @include grid(48, 0, 0);
+                border-color: $pink;
             }
         
             &.more {
