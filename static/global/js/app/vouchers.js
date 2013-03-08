@@ -45,7 +45,7 @@ App.VoucherRedeemController = Em.ArrayController.extend({
     redeemVoucher: function() {
         var controller = this;
         var voucher = this.get('voucher');
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         transaction.add(voucher);
         voucher.set('status', 'cashed');
         voucher.on('didUpdate',function(){
@@ -56,7 +56,7 @@ App.VoucherRedeemController = Em.ArrayController.extend({
 
     // Currently not used. Keep this around for multiple Donations per Voucher.
     deleteVoucherDonation: function(orderItem) {
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         transaction.add(orderItem);
         orderItem.deleteRecord();
         transaction.commit();
@@ -71,7 +71,7 @@ App.CustomVoucherRequestController = Em.ObjectController.extend({
     },
 
     createCustomVoucherRequest: function() {
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         var voucherRequest =  transaction.createRecord(App.CustomVoucherRequest);
         voucherRequest.set('contact_name', App.userController.get('content.full_name'));
         voucherRequest.set('contact_email', App.userController.get('content.email'));

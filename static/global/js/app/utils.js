@@ -4,12 +4,12 @@ App.Country = DS.Model.extend({
     value: DS.attr('string')
 });
 
-
-App.CountrySelect = Em.Select.extend({
-    content: App.Country.find(),
-    optionValuePath: "content.value",
-    optionLabelPath: "content.title"
-});
+// FIXME: Ember data doesn't work this this:
+//App.CountrySelect = Em.Select.extend({
+//    content: App.Country.find(),
+//    optionValuePath: "content.value",
+//    optionLabelPath: "content.title"
+//});
 
 
 App.IsAuthorMixin = Em.Mixin.create({
@@ -27,7 +27,7 @@ App.IsAuthorMixin = Em.Mixin.create({
 App.DeleteModelMixin = Em.Mixin.create({
     deleteRecordOnServer: function() {
         var record = this.get('model');
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         transaction.add(record);
         record.deleteRecord();
         transaction.commit();
