@@ -8,7 +8,7 @@ App.ProjectWallPostPhoto = DS.Model.extend({
 
     photo: DS.attr('string'),
     thumbnail: DS.attr('string'),
-    wallpost: DS.belongsTo('App.ProjectWallPost')
+    mediawallpost: DS.belongsTo('App.ProjectWallPost')
 });
 
 // This is union of all different wallposts.
@@ -82,24 +82,30 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     },
 
     addMediaWallPost: function() {
-        var transaction = App.store.transaction();
+        var transaction = this.getTransaction();
         var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
         mediawallpost.set('project', this.get('currentProject'));
         var controller = this;
+
+        if (controller.get('files').length) {
+            //var transaction = App.store.transaction();
+            controller.get('files').forEach(function(photo){
+                //console.log('change image wp: '+ mediawallpost.get('id'));
+                photo.set('mediawallpost', mediawallpost);
+                mediawallpost.get('photos').pushObject(photo);
+            });
+            console.log('commit photos with wallpost reference');
+            controller.getTransaction().commit();
+        }
+
         mediawallpost.on('didCreate', function(record) {
             controller.get('projectWallPostListController.content').unshiftObject(record);
-            console.log('Walpost created. Lets connect the images')
-            console.log('Number of photos: '+ controller.get('files').length);
+            console.log(record);
+            console.log(record.id);
             if (controller.get('files').length) {
-                //var transaction = App.store.transaction();
-                controller.get('files').forEach(function(photo){
-                    console.log('change image');
-                    photo.set('wallpost', record);
-                });
-                console.log('commit photos with wallpost reference');
                 controller.getTransaction().commit();
             }
             //controller.clearWallPost()
