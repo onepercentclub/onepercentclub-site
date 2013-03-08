@@ -99,13 +99,13 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
                     var tr = App.store.transaction();
                     //var transaction = App.store.transaction();
                     controller.get('files').forEach(function(photo){
-                        //console.log('change image wp: '+ mediawallpost.get('id'));
-                        tr.adoptRecord(photo);
-                        photo.set('mediawallpost_id', mediawallpost.get('id'));
+                        console.log('change image wp: '+ mediawallpost.get('id'));
+                        //tr.adoptRecord(photo);
+                        photo.set('mediawallpost', mediawallpost);
                     });
                     console.log('commit photos with wallpost reference');
-                    tr.commit();
-                    //controller.getTransaction().commit();
+                    //tr.commit();
+                    controller.getTransaction().commit();
                 }
             }
         });
@@ -127,16 +127,11 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     },
 
     addPhoto: function(file) {
-        var wallpost = this.get('content');
-        console.log('adding photo');
         var transaction = this.getTransaction();
-        console.log('creating em model');
         var photo = transaction.createRecord(App.ProjectWallPostPhoto);
-        console.log('setting the file');
         photo.set('file', file);
-        console.log('Add photo to photos');
+        // Store the photo in this.files for alter reference.
         this.get('files').pushObject(photo);
-        console.log('Number of photos: '+ this.get('files').length);
     },
 
     addTextWallPost: function() {
