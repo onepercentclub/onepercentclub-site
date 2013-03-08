@@ -63,6 +63,10 @@ class MediaWallPost(WallPost):
 class MediaWallPostPhoto(models.Model):
     mediawallpost = models.ForeignKey(MediaWallPost, related_name='photos', null=True, blank=True)
     photo = models.ImageField(upload_to='mediawallpostphotos')
+    deleted = models.DateTimeField(_('deleted'), blank=True, null=True)
+    ip_address = models.IPAddressField(_('IP address'), blank=True, null=True, default=None)
+    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_wallpost_photo", blank=True, null=True)
+    editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this wallpost photo."))
 
 
 class TextWallPost(WallPost):

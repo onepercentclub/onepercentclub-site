@@ -220,3 +220,17 @@ class WallPostApiRegressionTests(ProjectWallPostTestsMixin, UserTestsMixin, Test
         response = self.client.post(self.wallpost_reaction_url, {'text': reaction_text, 'wallpost': self.wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(escaped_reaction_text, response.data['text'])
+
+    def test_link_properly_created(self):
+        """
+        https://onepercentclub.atlassian.net/browse/BB-136
+        """
+
+        # Create a Reaction and check that the HTML link is properly created.
+        self.client.login(username=self.user.username, password='password')
+        reaction_text = "www.1procentclub.nl"
+        # The paragraph tags and the anchor are added by the filters we're using.
+        escaped_reaction_text = '<p><a target="_blank" href="http://www.1procentclub.nl" rel="nofollow">www.1procentclub.nl</a></p>'
+        response = self.client.post(self.wallpost_reaction_url, {'text': reaction_text, 'wallpost': self.wallpost.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(escaped_reaction_text, response.data['text'])

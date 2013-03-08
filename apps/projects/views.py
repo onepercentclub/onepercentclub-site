@@ -71,13 +71,25 @@ class ProjectMediaWallPostPhotoList(generics.ListCreateAPIView):
     serializer_class = MediaWallPostPhotoSerializer
     paginate_by = 4
 
+    def pre_save(self, obj):
+        if not obj.author:
+            obj.author = self.request.user
+        else:
+            obj.editor = self.request.user
+        obj.ip_address = get_client_ip(self.request)
+
+
+class ProjectMediaWallPostPhotoDetail(RetrieveUpdateDeleteAPIView):
+    model = MediaWallPostPhoto
+    serializer_class = MediaWallPostPhotoSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
+
 
 class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
     model = MediaWallPost
     serializer_class = ProjectMediaWallPostSerializer
     permission_classes = (IsProjectOwnerOrReadOnly,)
     paginate_by = 4
-
 
 
 class ProjectMediaWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):

@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url, include
 from surlex.dj import surl
 from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWallPostDetail, ProjectMediaWallPostList,
                     ProjectMediaWallPostDetail, ProjectTextWallPostList, ProjectTextWallPostDetail,
-                    ProjectMediaWallPostPhotoList)
+                    ProjectMediaWallPostPhotoList, ProjectMediaWallPostPhotoDetail)
 
 urlpatterns = patterns('',
     url(r'^$', ProjectList.as_view(), name='project-list'),
@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     surl(r'wallposts/text/<pk:#>$', ProjectTextWallPostDetail.as_view(), name='project-textwallpost-detail'),
 
     url(r'^wallposts/media/photos/$', ProjectMediaWallPostPhotoList.as_view(), name='project-mediawallpost-photo-list'),
+    surl(r'^wallposts/media/photos/<pk:#>$', ProjectMediaWallPostPhotoDetail.as_view(), name='project-mediawallpost-photo-list'),
 
 )

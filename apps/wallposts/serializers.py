@@ -46,7 +46,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
 
 
 class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
-    photo = SorlImageField('photo', '1200x800')
+    photo = SorlImageField('photo', '1200x800', required=False)
     thumbnail = SorlImageField('photo', '296x296', read_only=True)
     mediawallpost = serializers.PrimaryKeyRelatedField(required=False, read_only=False)
 

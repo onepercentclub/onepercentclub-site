@@ -63,18 +63,9 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
 
 
 App.ProjectWallPostNewController = Em.ObjectController.extend({
-    needs: ['currentUser'],
+    needs: ['currentUser', 'projectWallPostList'],
 
     files: Em.A(),
-
-    getTransaction: function(){
-        var transaction = this.get('transaction');
-        if (transaction == undefined || transaction == 'defaultTransaction') {
-            transaction = App.store.transaction();
-
-        }
-        return transaction;
-    },
 
     init: function() {
         this._super();
@@ -83,40 +74,32 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
 
     addMediaWallPost: function() {
         var controller = this;
-        //var transaction = this.getTransaction();
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
+        //var transaction = this.get('store').transaction();
         var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
         mediawallpost.set('project', this.get('currentProject'));
 
+
         mediawallpost.addObserver('id', function(){
-            console.log(mediawallpost.get('id'));
-            if (mediawallpost.get('id')) {
-                if (controller.get('files').length) {
-                    controller.getTransaction().commit();
-                    var tr = App.store.transaction();
-                    //var transaction = App.store.transaction();
-                    controller.get('files').forEach(function(photo){
-                        console.log('change image wp: '+ mediawallpost.get('id'));
-                        //tr.adoptRecord(photo);
-                        photo.set('mediawallpost', mediawallpost);
-                    });
-                    console.log('commit photos with wallpost reference');
-                    //tr.commit();
-                    controller.getTransaction().commit();
-                }
+            if (controller.get('files').length) {
+                var transaction = controller.get('store').transaction();
+                transaction.add(mediawallpost);
+                controller.get('files').forEach(function(photo){
+                    transaction.add(photo);
+                    photo.set('mediawallpost', mediawallpost);
+                    //mediawallpost.get('photos').pushRecord(photo);
+                });
+                this.set('files', Em.A());
+                transaction.commit();
             }
         });
 
-
         mediawallpost.on('didCreate', function(record) {
-            controller.get('projectWallPostListController.content').unshiftObject(record);
-            if (controller.get('files').length) {
-                controller.getTransaction().commit();
-            }
-            //controller.clearWallPost()
+            controller.get('controllers.projectWallPostList').unshiftObject(record);
+            controller.clearWallPost()
         });
         mediawallpost.on('becameInvalid', function(record) {
             controller.set('errors', record.get('errors'));
@@ -127,25 +110,26 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     },
 
     addPhoto: function(file) {
-        var transaction = this.getTransaction();
+        var transaction = this.get('store').transaction();
         var photo = transaction.createRecord(App.ProjectWallPostPhoto);
         photo.set('file', file);
+        transaction.commit();
         // Store the photo in this.files for alter reference.
         this.get('files').pushObject(photo);
     },
 
     addTextWallPost: function() {
-        var transaction = App.store.transaction();
+        var transaction = this.get('store').transaction();
         var textwallpost = transaction.createRecord(App.ProjectTextWallPost);
         textwallpost.set('text', this.get('content.text'));
         textwallpost.set('project', this.get('currentProject'));
         var controller = this;
         textwallpost.on('didCreate', function(record) {
-            controller.get('projectWallPostListController.content').unshiftObject(record);
+            controller.get('controllers.projectWallPostList').unshiftObject(record);
             controller.clearWallPost()
         });
         textwallpost.on('becameInvalid', function(record) {
-            controller.set('content.errors', record.get('errors'));
+            controller.set('errors', record.get('errors'));
 //            TODO: The record needs need to be deleted somehow.
 //            record.deleteRecord();
         });
@@ -156,8 +140,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         this.set('content.title', '');
         this.set('content.text', '');
         this.set('content.video_url', '');
-        this.set('content.photo', '');
-        this.set('content.photo_file', null);
+        //this.set('content.photos', '');
         this.set('content.errors', null);
     },
 
@@ -183,7 +166,18 @@ App.ProjectWallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
     // This is acting like a binding.
     wallpostIdChanged: function(sender, key) {
         this.set('controllers.wallPostReactionNew.currentWallpost', this.get('content'))
-    }.observes('content', 'controllers.wallPostReactionNew.currentWallpost')
+    }.observes('content', 'controllers.wallPostReactionNew.currentWallpost'),
+
+
+
+    // TODO: remove this if we switch to DeleteMixin
+    deleteRecordOnServer: function(){
+        var transaction = this.get('store').transaction();
+        var model = this.get('model');
+        transaction.add(model);
+        model.deleteRecord();
+        transaction.commit();
+    }
 });
 
 
@@ -195,7 +189,7 @@ App.MediaWallPostNewView = Em.View.extend({
     templateName: 'media_wallpost_new',
     tagName: 'form',
 
-    submit: function(e){
+    submit: function(e) {
         e.preventDefault();
         this.get('controller').addMediaWallPost();
     },
@@ -230,15 +224,14 @@ App.UploadFileView = Ember.TextField.extend({
     contentBinding: 'parentView.controller.content',
 
     change: function(e) {
+        e.preventDefault();
         var input = e.target;
         var reader = new FileReader();
         reader.readAsDataURL(input.files[0]);
         var file =  input.files[0];
         for (i = 0; i < input.files.length; i++) {
-            console.log('adding file');
             this.get('controller').addPhoto(input.files[i]);
         }
-        console.log('done');
     }
 });
 
@@ -252,13 +245,10 @@ App.ProjectWallPostView = Em.View.extend({
 
     // TODO: Delete reactions to WallPost as well?
     deleteWallPost: function() {
+        var controller = this.get('controller');
         if (confirm("Delete this wallpost?")) {
-            var transaction = App.store.transaction();
-            var wallpost = this.get('controller.content');
-            transaction.add(wallpost);
-            this.$().slideUp(500, function() {
-                wallpost.deleteRecord();
-                transaction.commit();
+            this.$().fadeOut(500, function() {
+                controller.deleteRecordOnServer();
             });
         }
     }
@@ -269,4 +259,9 @@ App.ProjectWallPostView = Em.View.extend({
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
 App.ProjectWallPostListView = Em.View.extend({
     templateName: 'project_wallpost_list'
+});
+
+
+App.ProjectWallPostNewView = Em.View.extend({
+    templateName: 'project_wallpost_new'
 });

@@ -1,12 +1,13 @@
 import decimal
-import sys
 import logging
+import sys
+import re
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.template.defaultfilters import urlize, linebreaks, escape, escapejs
-from django.utils.html import strip_tags
+from django.template.defaultfilters import linebreaks
+from django.utils.html import strip_tags, urlize
 from django.utils.timesince import timesince
 from django.utils.encoding import smart_str
 from micawber.contrib.mcdjango import providers
@@ -70,16 +71,18 @@ class ContentTextField(serializers.CharField):
 
     def to_native(self, value):
         # Convert model instance text -> text for reading.
-        content_text = super(ContentTextField, self).to_native(value)
+        text = super(ContentTextField, self).to_native(value)
         # This is equivalent to the django template filter: '{{ value|urlize|linebreaks }}'. Note: Text from the
         # database is escaped again here (on read) just as a double check for HTML / JS injection.
-        return linebreaks(urlize(content_text), True)
+        text = linebreaks(urlize(text, None, True, True))
+        # This ensure links open in a new window (BB-136).
+        return re.sub(r'<a ', '<a target="_blank" ', text)
 
     def from_native(self, value):
         # Convert text -> model instance text for writing.
-        content_text = super(ContentTextField, self).from_native(value)
+        text = super(ContentTextField, self).from_native(value)
         # HTML tags are stripped and any HTML / JS that is left is escaped.
-        return strip_tags(content_text)
+        return strip_tags(text)
 
 
 class OEmbedField(serializers.Field):

@@ -157,9 +157,9 @@ App.Adapter.map('App.CurrentOrder', {
 });
 
 
-App.store = DS.Store.create({
+App.Store = DS.Store.extend({
     revision: 11,
-    adapter: App.Adapter.create()
+    adapter: 'App.Adapter'
 });
 
 
@@ -227,7 +227,7 @@ App.Router.map(function() {
         this.route('search');
     });
 
-    this.resource('project', {path: '/projects/:slug'}, function() {
+    this.resource('project', {path: '/projects/:project_id'}, function() {
         this.route('edit');
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
@@ -264,11 +264,7 @@ App.ProjectListRoute = Ember.Route.extend({
 });
 
 
-App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
-    model: function(params) {
-        return App.Project.find(params.slug);
-    },
-
+App.ProjectRoute = Ember.Route.extend({
     setupController: function(controller, project) {
         this._super(controller, project);
 
@@ -276,34 +272,13 @@ App.ProjectRoute = Ember.Route.extend(App.SlugRouter, {
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
         controller.set('currentVoucher', voucher);
 
-        // Wallposts list controller.
-        var wallPostListController = this.controllerFor('projectWallPostList');
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
         // wallposts property. The controller will convert it to an Ember Array.
-        wallPostListController.set('wallposts', App.ProjectWallPost.find({project: project.get('slug')}));
+        var wallPostListController = this.controllerFor('projectWallPostList');
+        wallPostListController.set('wallposts', App.ProjectWallPost.find({project: project.get('id')}));
 
-        // WallPost creation controller.
-        var wallPostNewController = this.controllerFor('projectWallPostNew');
-        wallPostNewController.set('currentProject', project);
-        wallPostNewController.set('projectWallPostListController', wallPostListController);
-    },
-
-    renderTemplate: function(controller, model) {
-        this._super();
-
-        // Render the wallposts list.
-        this.render('project_wallpost_list', {
-            into: 'project',
-            outlet: 'projectWallPostList',
-            controller: 'projectWallPostList'
-        });
-
-        // Render the wallpost creation View.
-        this.render('project_wallpost_new', {
-            into: 'project',
-            outlet: 'projectWallPostNew',
-            controller: 'projectWallPostNew'
-        });
+        // Set the current project on the WallPost new controller.
+        this.controllerFor('projectWallPostNew').set('currentProject', project);
     }
 });
 
@@ -381,7 +356,7 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
     setupController: function(controller, project) {
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
         if (project !== undefined) {
-            var transaction = App.store.transaction();
+            var transaction = this.get('store').transaction();
             // TODO: Generify and move to DRF2 adapter.
             App.VoucherDonation.reopen({
                 url: 'fund/vouchers/' + voucher.get('code') + '/donations'
