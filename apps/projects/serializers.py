@@ -25,6 +25,9 @@ class ProjectOwnerSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    # Ember-data needs to have an unique id field for relationships to work. Normally it's the pk but in this case
+    # it's the slug so we can display the project slug in the url.
+    id = serializers.CharField(source='slug', read_only=True)
     country = ProjectCountrySerializer()
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     language = serializers.CharField(source='get_language_display', read_only=True)
@@ -43,10 +46,9 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('country', 'created', 'image', 'image_small', 'image_square', 'language', 'latitude',
-                  'longitude', 'money_asked', 'money_donated', 'organization',
-                  'owner', 'phase', 'planned_end_date', 'planned_start_date',
-                  'slug', 'tags', 'themes', 'title', 'url', 'description')
+        fields = ('id', 'country', 'created', 'image', 'image_small', 'image_square', 'language', 'latitude',
+                  'longitude', 'money_asked', 'money_donated', 'organization', 'owner', 'phase',
+                  'planned_end_date', 'planned_start_date', 'tags', 'themes', 'title', 'url', 'description')
 
 
 # Serializers for ProjectWallPosts:
