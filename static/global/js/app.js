@@ -264,6 +264,7 @@ App.ProjectListRoute = Ember.Route.extend({
 
 
 App.ProjectRoute = Ember.Route.extend({
+
     setupController: function(controller, project) {
         this._super(controller, project);
 
@@ -281,6 +282,24 @@ App.ProjectRoute = Ember.Route.extend({
         var wallPostNewController = this.controllerFor('projectWallPostNew');
         wallPostNewController.set('currentProject', project);
         wallPostNewController.set('projectWallPostListController', wallPostListController);
+    },
+
+    renderTemplate: function(controller, model) {
+        this._super();
+
+        // Render the wallposts list.
+        this.render('project_wallpost_list', {
+            into: 'project',
+            outlet: 'projectWallPostList',
+            controller: 'projectWallPostList'
+        });
+
+        // Render the wallpost creation View.
+        this.render('project_wallpost_new', {
+            into: 'project',
+            outlet: 'projectWallPostNew',
+            controller: 'projectWallPostNew'
+        });
     }
 });
 
