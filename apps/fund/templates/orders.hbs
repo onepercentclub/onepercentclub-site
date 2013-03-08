@@ -119,8 +119,7 @@
             </label>
         {{/view}}
 
-        {# FIXME change amount @each like in peepCode example. #}
-        <span class="currency"><em>&euro; </em>{{ amount }}</span>
+        <span class="currency"><em>&euro; </em>{{ total }}</span>
 
     </fieldset>
 
@@ -146,7 +145,7 @@
                         {{ length }} {% trans "vouchers will be sent out with a total amount worth of" %}
                     </div>
                     <div class="amount">
-                        <h4 class="right">&euro;{{ amount }}</h4>
+                        <h4 class="right">&euro;{{ total }}</h4>
                     </div>
                 </li>
             {{else}}
@@ -297,7 +296,7 @@
     <p class="donation-amount">
         <strong class="amount-needed">&euro; {{neededAfterDonation}} {% trans "is still needed"%}</strong>
         <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
-        <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
+        <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
     </p>
 
     <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
@@ -311,7 +310,6 @@
         <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
         {% trans "Choose the payment method you prefer to donate." %}
     </div>
-    {{content.amount}}
     <fieldset>
         <div class="tabs vertical">
             {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="view.parentView.controller.content.payment_method_id"}}

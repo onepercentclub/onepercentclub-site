@@ -5,7 +5,6 @@
 App.Order = DS.Model.extend({
     url: 'fund/orders',
 
-    amount: DS.attr('number'),
     status: DS.attr('string'),
     recurring: DS.attr('string'),
     payment_method_id: DS.attr('string'),
@@ -19,11 +18,7 @@ App.Order = DS.Model.extend({
 App.Donation = DS.Model.extend({
     url: 'fund/donations',
 
-    // Model fields
-    // FIXME Make the drf2 serializer use the id (or slug) to serialize DS.belongsTo.
-    //       This will enable us to remove the project_slug field.
     project: DS.belongsTo('App.Project'),
-    project_slug: DS.attr('string'),
     amount: DS.attr('number', {defaultValue: 20}),
     status: DS.attr('string'),
     type: DS.attr('string'),
@@ -47,7 +42,7 @@ App.Voucher =  DS.Model.extend({
 
 /* Models with CurrentOrder relations and urls. */
 
-App.CurrentOrder = DS.Model.extend({
+App.CurrentOrder = App.Order.extend({
     url: 'fund/orders',
 
     vouchers: DS.hasMany('App.CurrentOrderVoucher'),
@@ -157,7 +152,14 @@ App.Payment = DS.Model.extend({
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
     // The CurrentOrderController is needed for the single / monthly radio buttons.
-    needs: ['currentOrder']
+    needs: ['currentOrder'],
+
+    total: function() {
+        return this.get('model').getEach('amount').reduce(function(accum, item) {
+            // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
+            return parseInt(accum) + parseInt(item);
+        }, 0);
+    }.property('model.@each.amount', 'model.length')
 });
 
 
@@ -177,9 +179,10 @@ App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteModelM
 
 
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
-    amount: function() {
+    total: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
-            return accum + item;
+            // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
+            return parseInt(accum) + parseInt(item);
         }, 0);
     }.property('model.@each.amount', 'model.length')
 });
@@ -243,11 +246,11 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
         // We should at least have an email address
         if (!profile.get('isDirty') && profile.get('email')) {
             // No changes. No need to commit.
-            controller.transitionTo('currentPaymentMethodInfo');
+            controller.transitionToRoute('currentPaymentMethodInfo');
         }
         this.get('transaction').commit();
         profile.on('didUpdate', function(record) {
-            controller.transitionTo('currentPaymentMethodInfo');
+            controller.transitionToRoute('currentPaymentMethodInfo');
         });
         // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
@@ -317,7 +320,7 @@ App.PaymentOrderProfileView = Em.View.extend({
     templateName: 'payment_order_profile',
     tagName: 'form',
 
-    submit: function(e){
+    submit: function(e) {
         e.preventDefault();
         this.get('controller').updateProfile();
     }
@@ -348,7 +351,7 @@ App.CurrentOrderDonationView = Em.View.extend({
     tagName: 'li',
     classNames: 'donation-project',
 
-    change: function(e){
+    change: function(e) {
         this.get('controller').updateDonation(Em.get(e, 'target.value'));
     },
 
