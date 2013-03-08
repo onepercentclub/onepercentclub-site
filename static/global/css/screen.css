@@ -1844,69 +1844,68 @@ ul.pagination li.gap {
 #cboxSlideshow, #cboxPrevious, #cboxNext, #cboxClose {
   position: absolute;
   top: -20px;
-  display: none !important;
   width: 20px;
   height: 20px;
-  background: url(../img/static/controls.png) no-repeat 0 0;
+  background: url(../images/colorbox/controls.png) no-repeat 0 0;
   text-indent: -9999px;
 }
 
-/* line 178, ../sass/includes/_lightbox.scss */
+/* line 177, ../sass/includes/_lightbox.scss */
 #cboxPrevious {
   right: 44px;
   background-position: 0px 0px;
 }
 
-/* line 183, ../sass/includes/_lightbox.scss */
+/* line 182, ../sass/includes/_lightbox.scss */
 #cboxPrevious:hover {
   background-position: 0px -25px;
 }
 
-/* line 185, ../sass/includes/_lightbox.scss */
+/* line 184, ../sass/includes/_lightbox.scss */
 #cboxNext {
   right: 22px;
   background-position: -25px 0px;
 }
 
-/* line 190, ../sass/includes/_lightbox.scss */
+/* line 189, ../sass/includes/_lightbox.scss */
 #cboxNext:hover {
   background-position: -25px -25px;
 }
 
-/* line 192, ../sass/includes/_lightbox.scss */
+/* line 191, ../sass/includes/_lightbox.scss */
 #cboxClose {
   right: 0;
   background-position: -50px 0px;
 }
 
-/* line 197, ../sass/includes/_lightbox.scss */
+/* line 196, ../sass/includes/_lightbox.scss */
 #cboxClose:hover {
   background-position: -50px -25px;
 }
 
-/* line 199, ../sass/includes/_lightbox.scss */
+/* line 198, ../sass/includes/_lightbox.scss */
 .cboxSlideshow_on #cboxPrevious, .cboxSlideshow_off #cboxPrevious {
   right: 66px;
 }
 
-/* line 201, ../sass/includes/_lightbox.scss */
+/* line 200, ../sass/includes/_lightbox.scss */
 .cboxSlideshow_on #cboxSlideshow {
   right: 44px;
   background-position: -75px -25px;
 }
 
-/* line 206, ../sass/includes/_lightbox.scss */
+/* line 205, ../sass/includes/_lightbox.scss */
 .cboxSlideshow_on #cboxSlideshow:hover {
   background-position: -100px -25px;
 }
 
-/* line 208, ../sass/includes/_lightbox.scss */
+/* line 207, ../sass/includes/_lightbox.scss */
 .cboxSlideshow_off #cboxSlideshow {
   right: 44px;
   background-position: -100px 0px;
 }
 
-/* line 213, ../sass/includes/_lightbox.scss */
+/* line 212, ../sass/includes/_lightbox.scss */
 .cboxSlideshow_off #cboxSlideshow:hover {
   background-position: -75px -25px;
 }
@@ -2780,11 +2779,12 @@ ul.steps li.selected a {
 /* line 42, ../sass/modules/_media.scss */
 .photo-viewer ul li:first-child {
   float: left;
-  width: 14.58333%;
+  width: 100%;
   margin-left: 0%;
-  margin-right: 2.08333%;
+  margin-right: 0%;
+  border-color: #ff619a;
 }
-/* line 46, ../sass/modules/_media.scss */
+/* line 47, ../sass/modules/_media.scss */
 .photo-viewer ul li.more {
   display: block;
   float: left;
@@ -2793,7 +2793,7 @@ ul.steps li.selected a {
   margin-right: 0%;
   background-color: #00c051;
 }
-/* line 53, ../sass/modules/_media.scss */
+/* line 54, ../sass/modules/_media.scss */
 .photo-viewer ul li.more a {
   display: block;
   color: white;

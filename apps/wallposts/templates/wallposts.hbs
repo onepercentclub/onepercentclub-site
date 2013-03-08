@@ -96,87 +96,82 @@
 
 {% tplhandlebars "project_wallpost_list" %}
 
-<section class="wrapper">
-    {{#each controller itemController="projectWallPost"}}
-        {{view "App.ProjectWallPostView" content=this}}
-    {{/each}}
-</section>
+    <section class="wrapper">
+        {{#each controller itemController="projectWallPost"}}
+            {{view "App.ProjectWallPostView" content=this}}
+        {{/each}}
+    </section>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "project_wallpost" %}
 
-<article class="wallpost">
-    <header>
-        <h3>{{title}}</h3>
-        <small class="timestamp">{{timesince}} {% trans "ago" %}</small>
-        <a href="#" class="user initiator">
-            <span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
-            <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
-        </a>
+    <article class="wallpost">
+        <header>
+            <h3>{{title}}</h3>
+            <small class="timestamp">{{timesince}} {% trans "ago" %}</small>
+            <a href="#" class="user initiator">
+                <span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
+                <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
+            </a>
 
-        {{#if isAuthor}}
-            <ul class="manage">
-                <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
-                <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
+            {{#if isAuthor}}
+                <ul class="manage">
+                    <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
+                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
+                </ul>
+            {{/if}}
+        </header>
+
+        <div class="content">
+
+            {{#if video_html}}
+                <div class="video">{{{video_html}}}</div>
+            {{/if}}
+
+            {{{text}}}
+
+            {# This is temporary and will go away when we figure out how to upload related photos. #}
+            {{#if photo}}
+                <div class="photo-viewer">
+                    <span class="photo"><img {{bindAttr src="photo"}} width="100%" alt="Gallery" /></span>
+                </div>
+            {{/if}}
+            
+            {{#if photos.length}}
+                <div class="photo-viewer">
+                    <ul>
+                        {{#each photo in photos}}
+                            <li><a {{bindAttr href="photo.photo"}} class="gallery-picture" title="picture"><img {{bindAttr src="photo.thumbnail"}} width="100%" alt="Thumbnail" /></a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+            {{/if}}
+        </div>
+
+
+        <!-- reaction-box -->
+        <div class="reaction-box">
+            <ul class="reaction-actions not-implemented">
+                <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">{{reactions.length}} Comments</a></li>
+                <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
+                <li class="share">
+                    <strong>Share this</strong>
+                    <ul class="share-actions">
+                        <li class="share-facebook">Share on Facebook</li>
+                        <li class="share-twitter"><a href="#">Share on Twitter</a></li>
+                        <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
+                    </ul>
+                </li>
             </ul>
-        {{/if}}
-    </header>
 
-    <div class="content">
+            {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
 
-        {{#if video_html}}
-            <div class="video">{{{video_html}}}</div>
-        {{/if}}
+            {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
 
-        {{{text}}}
+        </div>
+        <!-- end: reaction-box -->
 
-        {# This is temporary and will go away when we figure out how to upload related photos. #}
-        {{#if photo}}
-            <div class="photo-viewer">
-                <span class="photo"><img {{bindAttr src="photo"}} width="100%" alt="Gallery" /></span>
-            </div>
-        {{/if}}
-
-        {# TODO: Implement multi photo viewer #}
-        {{#if photos.isEmpty}}
-            <div class="photo-viewer not-implemented">
-                <span class="photo"><a href="#"><img src="/static/assets/dummy/wallpost-image.jpg" width="100%" alt="Gallery" /></a></span>
-                <ul>
-                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
-                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
-                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
-                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
-                    <li><a href="#"><img src="/static/assets/dummy/wallpost-thumb.jpg" width="100%" alt="Thumbnail" /></a></li>
-                    <li class="more"><a href="#"><strong>6</strong> more photos</a></li>
-                </ul>
-            </div>
-        {{/if}}
-    </div>
-
-
-    <!-- reaction-box -->
-    <div class="reaction-box">
-        <ul class="reaction-actions not-implemented">
-            <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">{{reactions.length}} Comments</a></li>
-            <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
-            <li class="share">
-                <strong>Share this</strong>
-                <ul class="share-actions">
-                    <li class="share-facebook">Share on Facebook</li>
-                    <li class="share-twitter"><a href="#">Share on Twitter</a></li>
-                    <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
-
-        {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
-
-    </div>
-    <!-- end: reaction-box -->
-
-</article>
+    </article>
 {% endtplhandlebars %}
