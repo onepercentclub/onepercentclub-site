@@ -82,16 +82,22 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         mediawallpost.set('video_url', this.get('content.video_url'));
         mediawallpost.set('project', this.get('currentProject'));
 
-
+        // As soon as the wallpost has got an id we can start connecting photos to it.
         mediawallpost.addObserver('id', function(){
             if (controller.get('files').length) {
+                // Start a new transaction and add the wallpost and all the photos to it.
                 var transaction = controller.get('store').transaction();
+                // Add the wallpost to the same transaction.
                 transaction.add(mediawallpost);
                 controller.get('files').forEach(function(photo){
                     transaction.add(photo);
+                    // Connect a photo to the new wallpost.
                     photo.set('mediawallpost', mediawallpost);
-                    //mediawallpost.get('photos').pushRecord(photo);
+                    photo.on('didUpdate', function(){
+                        mediawallpost.reload();
+                    });
                 });
+                // Empty this.files so we can use it again.
                 this.set('files', Em.A());
                 transaction.commit();
             }
@@ -112,9 +118,10 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     addPhoto: function(file) {
         var transaction = this.get('store').transaction();
         var photo = transaction.createRecord(App.ProjectWallPostPhoto);
+        // Connect the file to it. DRF2 Adapter will sort this out.
         photo.set('file', file);
         transaction.commit();
-        // Store the photo in this.files for alter reference.
+        // Store the photo in this.files. We need to connect it to the wallpost later.
         this.get('files').pushObject(photo);
     },
 
@@ -140,7 +147,6 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         this.set('content.title', '');
         this.set('content.text', '');
         this.set('content.video_url', '');
-        //this.set('content.photos', '');
         this.set('content.errors', null);
     },
 
@@ -224,13 +230,14 @@ App.UploadFileView = Ember.TextField.extend({
     contentBinding: 'parentView.controller.content',
 
     change: function(e) {
-        e.preventDefault();
-        var input = e.target;
+        var controller = this.get('controller');
+        var files = e.target.files;
         var reader = new FileReader();
-        reader.readAsDataURL(input.files[0]);
-        var file =  input.files[0];
-        for (i = 0; i < input.files.length; i++) {
-            this.get('controller').addPhoto(input.files[i]);
+        reader.readAsDataURL(files);
+        for (i = 0; i < files.length; i++) {
+            var file = files[i];
+            this.get('controller').addPhoto(file);
+
         }
     }
 });
