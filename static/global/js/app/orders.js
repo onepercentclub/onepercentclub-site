@@ -165,12 +165,24 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 });
 
 
-App.CurrentOrderDonationController = Em.ObjectController.extend(App.DeleteModelMixin, {
+App.CurrentOrderDonationController = Em.ObjectController.extend({
     updateDonation: function(newAmount) {
         var donation = this.get('model');
         var transaction = this.get('store').transaction();
         transaction.add(donation);
         donation.set('amount', newAmount);
+        transaction.commit();
+    },
+
+    deleteDonation: function() {
+        var transaction = this.get('store').transaction();
+        var donation = this.get('model');
+        transaction.add(donation);
+        // Hack: Remove the donation from the current order so that ember-data doesn't get confused. This needs to be
+        // done because we're not setting the proper order id (i.e. 'current') in the donation json from the server.
+        var order = App.CurrentOrder.find('current');
+        order.get('donations').removeObject(donation);
+        donation.deleteRecord();
         transaction.commit();
     },
 
@@ -190,8 +202,18 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 });
 
 
-App.CurrentOrderVoucherController = Em.ObjectController.extend(App.DeleteModelMixin, {
-    // Only here to add the DeleteModelMixin to this controller.
+App.CurrentOrderVoucherController = Em.ObjectController.extend({
+    deleteVoucher: function() {
+        var transaction = this.get('store').transaction();
+        var voucher = this.get('model');
+        transaction.add(voucher);
+        // Hack: Remove the voucher from the current order so that ember-data doesn't get confused. This needs to be
+        // done because we're not setting the proper order id (i.e. 'current') in the voucher json from the server.
+        var order = App.CurrentOrder.find('current');
+        order.get('vouchers').removeObject(voucher);
+        voucher.deleteRecord();
+        transaction.commit();
+    }
 });
 
 
@@ -364,7 +386,7 @@ App.CurrentOrderDonationView = Em.View.extend({
     delete: function(item) {
         var controller = this.get('controller');
         this.$().slideUp(500, function() {
-            controller.deleteRecordOnServer();
+            controller.deleteDonation();
         });
     }
 });
@@ -378,7 +400,7 @@ App.CurrentOrderVoucherView = Em.View.extend({
     delete: function() {
         var controller = this.get('controller');
         this.$().slideUp(500, function() {
-            controller.deleteRecordOnServer()
+            controller.deleteVoucher()
         });
     }
 });
