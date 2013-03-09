@@ -49,11 +49,13 @@ App.CurrentOrder = App.Order.extend({
     donations: DS.hasMany('App.CurrentOrderDonation')
 });
 
+
 App.CurrentOrderDonation = App.Donation.extend({
     url: 'fund/orders/current/donations',
 
     order: DS.belongsTo('App.CurrentOrder')
 });
+
 
 App.CurrentOrderVoucher = App.Voucher.extend({
     url: 'fund/orders/current/vouchers',
@@ -329,7 +331,11 @@ App.PaymentOrderProfileView = Em.View.extend({
 
 App.CurrentOrderDonationListView = Em.View.extend({
     templateName: 'current_order_donation_list',
-    tagName: 'form'
+    tagName: 'form',
+
+    submit: function(e) {
+        e.preventDefault();
+    }
 });
 
 
@@ -429,7 +435,11 @@ App.CurrentPaymentMethodInfoView = Em.View.extend({
 
 App.IdealPaymentMethodInfoView = Em.View.extend({
     tagName: 'form',
-    templateName: 'ideal_payment_method_info'
+    templateName: 'ideal_payment_method_info',
+
+    submit: function(e) {
+        e.preventDefault();
+    }
 });
 
 
