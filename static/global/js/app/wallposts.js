@@ -97,6 +97,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
                         mediawallpost.reload();
                     });
                 });
+                this.set('photo_files', null);
                 // Empty this.files so we can use it again.
                 this.set('files', Em.A());
                 transaction.commit();

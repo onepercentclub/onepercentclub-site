@@ -62,7 +62,13 @@
                     <span class="error">{{this}}</span>
                 {{/each}}
                 <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
-                {{view App.UploadFileView valueBinding="photos" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                {{view App.UploadFileView valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                <ul>
+                    {{#each photo in files}}
+                        <li><img {{bindAttr src="photo.thumbnail"}} width="10%" alt="Thumbnail" /></li>
+                    {{/each}}
+                </ul>
+
             </li>
         </ul>
     </fieldset>
