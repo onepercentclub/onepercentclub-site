@@ -52,7 +52,7 @@ msgstr "Als je hulp nodig hebt kan je naar deze fout verwijzen als <strong>%(err
 #: base.html:78
 #, python-format
 msgid "1%%Projects"
-msgstr ""
+msgstr "1%%Projecten"
 
 #: base.html:79
 msgid "Cart"

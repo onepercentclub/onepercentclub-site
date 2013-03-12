@@ -483,4 +483,4 @@ msgstr ""
 
 #: templates/projects.hbs:94
 msgid "Support this project"
-msgstr ""
+msgstr "Steun dit project"
