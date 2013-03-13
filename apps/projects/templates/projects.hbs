@@ -10,10 +10,12 @@
             <header>
                 <h2>{% trans "Projects" %}</h2>
 
-                {{#if content.isLoaded}}
+                {{#if model.isLoaded}}
                 <ul>
                     {{#each project in controller}}
                         <li>{{#linkTo "project" project}}{{project.title}}{{/linkTo}}</li>
+                    {{else}}
+                        <li>{% trans "No projects found." %}</li>
                     {{/each}}
                 </ul>
                 {{else}}
