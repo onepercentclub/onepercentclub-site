@@ -10,6 +10,7 @@ from django.template.defaultfilters import linebreaks
 from django.utils.html import strip_tags, urlize
 from django.utils.timesince import timesince
 from django.utils.encoding import smart_str
+from django.utils.translation import ugettext as _
 from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
@@ -57,10 +58,15 @@ class TimeSinceField(serializers.Field):
             return ""
 
         retval = timesince(value)
+
+        # Special case for content that has just been posted.
+        if retval == '0 minutes':
+            return _("Just now")
+
         # timesince can return two values (e.g. 18 hours, 4 minutes) but we only want to use the first one.
         if ', ' in retval:
             retval, ignore = timesince(value).split(', ')
-        return retval
+        return retval + ' ' + _("ago")
 
 
 class ContentTextField(serializers.CharField):
