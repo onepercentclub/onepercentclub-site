@@ -60,9 +60,15 @@ Em.TextField.reopen({
 App = Em.Application.create({
     VERSION: '1.0.0',
     language: window.location.pathname.split( '/' )[1],
+    locale: 'en-US',
 
     ready: function() {
-        //..init code goes here...
+        var locale = this.get('locale');
+        Globalize.culture(locale);
+        $.getScript('/static/assets/js/libs/globalize-cultures/globalize.culture.' + locale + '.js')
+            .fail(function(){
+                console.log("No globalize culture file for : "+ locale)
+            });
     },
 
     _getTemplate: function(template, callback) {

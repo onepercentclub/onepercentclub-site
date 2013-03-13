@@ -64,13 +64,12 @@
             <div class="status-box">
 
                 <h3>{{description}}</h3>
-
                 <div class="donate-status">
                     <p class="donate-amount">
                         <strong>
-                            €<span class="donated">{{money_donated_natural}}</span>
+                            €<span class="donated">{{localize money_donated}}</span>
                             {% trans "of" %}
-                            €<span class="asked">{{money_asked_natural}}</span>
+                            €<span class="asked">{{localize money_asked}}</span>
                             {% trans "raised" %}
                         </strong>
                     </p>
