@@ -51,7 +51,7 @@ $.ajaxSetup({
 
 
 Em.TextField.reopen({
-    // Add 'step' to attributeBinding
+    // Update attributeBinding with 'step' and 'multiple'
     attributeBindings: ['type', 'value', 'size', 'step', 'multiple']
 });
 

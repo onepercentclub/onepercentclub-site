@@ -52,7 +52,7 @@ class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MediaWallPostPhoto
-        fields = ('id', 'photo', 'thumbnail','mediawallpost')
+        fields = ('id', 'photo', 'thumbnail', 'mediawallpost')
 
 
 class MediaWallPostSerializer(WallPostSerializerBase):
@@ -64,8 +64,6 @@ class MediaWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='media')
     text = ContentTextField(required=False)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
-    # This is temporary and will go away when we figure out how to upload related photos.
-    photos = MediaWallPostPhotoSerializer(many=True)
 
     class Meta:
         model = MediaWallPost

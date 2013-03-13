@@ -4,7 +4,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
-from apps.bluebottle_utils.utils import get_client_ip
+from apps.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
@@ -47,11 +47,7 @@ class ProjectWallPostMixin(object):
         return queryset
 
     def pre_save(self, obj):
-        if not obj.author:
-            obj.author = self.request.user
-        else:
-            obj.editor = self.request.user
-        obj.ip_address = get_client_ip(self.request)
+        set_author_editor_ip(self.request, obj)
 
 
 class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):

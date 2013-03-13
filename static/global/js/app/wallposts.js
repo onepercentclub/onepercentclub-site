@@ -1,4 +1,3 @@
-
 /*
  Models
  */
@@ -24,7 +23,6 @@ App.ProjectWallPost = DS.Model.extend({
     timesince: DS.attr('string'),
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
-    photo: DS.attr('string'),
     photos: DS.hasMany('App.ProjectWallPostPhoto'),
     reactions: DS.hasMany('App.WallPostReaction')
 });
@@ -65,6 +63,7 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
 App.ProjectWallPostNewController = Em.ObjectController.extend({
     needs: ['currentUser', 'projectWallPostList'],
 
+    // This a temporary container for App.Photo records until they are connected after this wallpost is saved.
     files: Em.A(),
 
     init: function() {
@@ -73,15 +72,14 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     },
 
     addMediaWallPost: function() {
-        var controller = this;
         var transaction = this.get('store').transaction();
-        //var transaction = this.get('store').transaction();
         var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
         mediawallpost.set('project', this.get('currentProject'));
 
+        var controller = this;
         // As soon as the wallpost has got an id we can start connecting photos to it.
         mediawallpost.addObserver('id', function(){
             if (controller.get('files').length) {
@@ -89,17 +87,21 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
                 var transaction = controller.get('store').transaction();
                 // Add the wallpost to the same transaction.
                 transaction.add(mediawallpost);
+                var reload = true;
                 controller.get('files').forEach(function(photo){
                     transaction.add(photo);
                     // Connect a photo to the new wallpost.
                     photo.set('mediawallpost', mediawallpost);
                     photo.on('didUpdate', function(){
-                        mediawallpost.reload();
+                        if (reload) {
+                            mediawallpost.reload();
+                            reload = false;
+                        }
                     });
                 });
-                this.set('photo_files', null);
+                controller.set('photo_files', null);
                 // Empty this.files so we can use it again.
-                this.set('files', Em.A());
+                controller.set('files', Em.A());
                 transaction.commit();
             }
         });
@@ -121,9 +123,9 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         var photo = transaction.createRecord(App.ProjectWallPostPhoto);
         // Connect the file to it. DRF2 Adapter will sort this out.
         photo.set('file', file);
+        this.get('files').pushObject(photo);
         transaction.commit();
         // Store the photo in this.files. We need to connect it to the wallpost later.
-        this.get('files').pushObject(photo);
     },
 
     addTextWallPost: function() {
@@ -233,10 +235,11 @@ App.UploadFileView = Ember.TextField.extend({
     change: function(e) {
         var controller = this.get('controller');
         var files = e.target.files;
-        var reader = new FileReader();
-        reader.readAsDataURL(files);
         for (i = 0; i < files.length; i++) {
+            var reader = new FileReader();
             var file = files[i];
+            // TODO: enable client site previews with: reader.onload = function(e){}
+            reader.readAsDataURL(file);
             this.get('controller').addPhoto(file);
 
         }
