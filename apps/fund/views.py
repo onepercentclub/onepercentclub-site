@@ -208,7 +208,7 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
     """
     serializer_class = DocDataOrderProfileSerializer
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         order = self.get_current_order()
         self.check_object_permissions(self.request, order)
         if not order:
@@ -271,7 +271,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
     """
     serializer_class = DocDataPaymentMethodSerializer
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         order = self.get_current_order()
         self.check_object_permissions(self.request, order)
         if not order:

@@ -23,7 +23,7 @@ class AuthenticatedMember(generics.RetrieveAPIView):
     model = User
     serializer_class = AuthenticatedMemberSerializer
             
-    def get_object(self):
+    def get_object(self, queryset=None):
         """
         Override default to add support for object-level permissions.
         """
