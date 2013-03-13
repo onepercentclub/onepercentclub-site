@@ -6,10 +6,11 @@ MANAGE_PY="$PWD/manage.py"
 MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs -e html"
 COMPILEMESSAGES="$MANAGE_PY compilemessages"
 MINIMUM_PERC="80" # Don't pull in translations with less than this %
-APPS_DIR="apps"
+APPS_DIR="../apps"
 EXCLUDED_APPS=""
 
 APPS=""
+cd bluebottle
 for dir in $(find $APPS_DIR -maxdepth 1 -type d); do
     if [ $dir = $APPS_DIR ]; then
         continue
