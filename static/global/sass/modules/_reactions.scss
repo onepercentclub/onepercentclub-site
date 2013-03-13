@@ -1,9 +1,9 @@
 /* =========== Reactions */
 
 .reaction-box {
-    @include clearfix; 
+    @include clearfix;
+    @include grid(48, 9, 0);
     clear: both;
-    margin: 0;
     
     .reaction-form {
         @include rem(padding, 16px 16px 0 16px);
@@ -199,8 +199,6 @@
 }
 
 .reactions {
-    @include rem(top, -54px);
-    @include rem(padding, 16px);
     @include clearfix;
     @include rem(font-size, 14px);
     position: relative;
@@ -211,14 +209,15 @@
         float: right;
     }
     li {
-        @include rem(margin, 16px 0);
+        @include rem(padding, 16px);
+        border-bottom: 1px solid $white;
         position: relative;
         display: block;
         overflow: auto;
         
         .user-img {
-            @include grid(3);
-            @include rem(top, 2px);
+            @include grid(5);
+            @include rem(top, 16px);
             @include rem(left, 16px);
             position: absolute;
             margin: 0;
@@ -235,19 +234,15 @@
         .reaction {
             font-family: $paragraph-font-family;
             @include grid(48, 8, 0);
-            @include rem(padding, 12px 16px 0 16px);
-            @include border-radius(0.3em);
+            @include rem(padding, 16px);
             position: relative;
-            border: 1px solid darken($white, 25%);
             background: $white;
             color: #333;
             vertical-align: baseline;
             
             .user {
                 @include rem(font-size, 14px);
-                strong {
-                    text-transform: uppercase;
-                }
+                text-transform: uppercase;
             }
             
             &::after {
