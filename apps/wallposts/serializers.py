@@ -64,6 +64,7 @@ class MediaWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='media')
     text = ContentTextField(required=False)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
+    photos = MediaWallPostPhotoSerializer(many=True)
 
     class Meta:
         model = MediaWallPost

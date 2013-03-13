@@ -47,7 +47,11 @@ class ProjectWallPostMixin(object):
         return queryset
 
     def pre_save(self, obj):
-        set_author_editor_ip(self.request, obj)
+        if not obj.author:
+            obj.author = self.request.user
+        else:
+            obj.editor = self.request.user
+        obj.ip_address = get_client_ip(self.request)
 
 
 class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):
