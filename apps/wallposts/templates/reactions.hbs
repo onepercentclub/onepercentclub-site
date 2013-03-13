@@ -6,7 +6,7 @@
 	<span class="user-img"><img {{ bindAttr src="author.picture" }} width="100%" alt="Avatar" /></span>
 	<div class="reaction">
 	    <a href="#" class="user">
-            {%  trans "By" %} <strong>{{ author.full_name }}</strong>
+            <strong>{{ author.full_name }}</strong>
             <em class="not-implemented">{%  trans "Member" %}</em> <small>{{ timesince }}</small>
         </a>
         {{#if isAuthor}}
@@ -15,7 +15,7 @@
                 <li class="manage-remove"><a {{ action "deleteReaction" target="view" }}>{% trans "Delete" %}</a></li>
             </ul>
         {{/if}}
-		<p>{{{ text }}}</p>
+		{{{ text }}}
 	</div>
 
 {% endtplhandlebars %}
