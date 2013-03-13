@@ -108,10 +108,7 @@
                         {{else}}
                             <a href="/accounts/login" class="nav-login">Login</a>
                             <a href="/accounts/signup" class="nav-signup">Signup</a>
-                            <div class="nav-language">
-                                <a id="nav-lang-en" class="is-active" onclick="switchLanguage('en'); return false;" href="#">EN</a>
-                                <a id="nav-lang-nl" onclick="switchLanguage('nl'); return false;" href="#">NL</a>
-                            </div>
+                            {{view "App.LanguageSwitchView"}}
                         {{/if}}
                     </nav>
                 </div>
