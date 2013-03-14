@@ -24,7 +24,7 @@
                 {{/linkTo}}
             </div>
             <div class="buy">
-                {{#linkTo "currentOrderVoucherList"}}
+                {{#linkTo "currentOrder.voucherList"}}
                     <h2>{% trans "I'd like to buy voucher(s)" %}</h2>
                 {{/linkTo}}
             </div>
@@ -42,7 +42,7 @@
                 <h1 class="main-title">{% trans "Claim you voucher and support!" %}</h1>
             </div>
             <sidebar>
-                {{#linkTo "currentOrderDonationList" tagName="button" class="contrast top"}}
+                {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
                     {% trans "Switch to donations" %}
                 {{/linkTo}}
             </sidebar>

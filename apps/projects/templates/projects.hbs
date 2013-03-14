@@ -91,9 +91,7 @@
             {{#if currentVoucher}}
                 {{#linkTo "voucherRedeem.add" this class="button-donate"}}{% trans "Support with voucher" %}{{/linkTo}}
             {{else}}
-                <a href="#" class="button-donate" {{action "supportProject" this }}>
-                    {% trans "Support this project" %}
-                </a>
+                {{#linkTo "currentOrder.addDonation" this class="button-donate"}}{% trans "Support this project" %}{{/linkTo}}
             {{/if}}
 
         </sidebar>
