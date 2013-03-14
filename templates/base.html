@@ -100,11 +100,13 @@
                                 <strong>{% trans "MY 1%" %} &#9660;</strong>
                             </a>
                             <ul class="my-menu">
-                                {{view "App.LanguageSwitchView"}}
-                                <li class="green">
-                                    <a href="/en/accounts/logout/?next=/en/">
+                                <li>
+                                    {{view "App.LanguageSwitchView"}}
+                                </li>
+                                <li>
+                                    <a href="/en/accounts/logout/?next=/en/"  class="nav-logout">
                                         <strong>Logout</strong>
-                                    </a>
+                                    </a >
                                 </li>
                             </ul>
                             <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>

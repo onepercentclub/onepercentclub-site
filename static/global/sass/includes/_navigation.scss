@@ -174,26 +174,48 @@
 	        background-color: $white;
 	    }
 	}
-	
+    .nav-logout {
+        width: 100%;
+        color: $white;
+        background-color: $green;
+    }
+
 	
 	.nav-signup {
 	    background-color: $pink;
 	}
-	
+
+
+    .my-menu {
+        display: none;
+        position: absolute;
+        width:  200px;
+        background-color: $black;
+        top:  48px;
+        .nav-language {
+            width: 100%;
+            float: none;
+        }
+    }
+
+    &:hover .my-menu {
+        display: block;
+    }
+
 	.nav-language {
-	    float: left;
-	    width: 30%;
+	    width: 25%;
+        float: left;
 	    @include rem(font-size, 12px);
-	    @include rem(padding, 6px 8px 6px 8px);
-	    
+
 	    a {
+            @include rem(padding, 8px);
 	        width: 50%;
-	        text-align: center;
+	        cursor: pointer;
+            text-align: center;
 	        background-color: transparent;
 	        color: $color-deselect;
-	        @include rem(padding, 0 6px);
-	        
-	        &#nav-lang-en {
+
+	        &#en {
 	            border-right: 1px solid $color-deselect;
 	        }
 	        

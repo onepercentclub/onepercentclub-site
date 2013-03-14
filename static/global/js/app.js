@@ -59,8 +59,13 @@ Em.TextField.reopen({
 // TODO Rename App to BlueBottle, BB or BBApp.
 App = Em.Application.create({
     VERSION: '1.0.0',
-    language: window.location.pathname.split( '/' )[1],
+    language: 'en',
     locale: 'en-US',
+
+    interfaceLanguages: [
+        Em.Object.create({title:'English', slug: 'en', locale: 'en-US'}),
+        Em.Object.create({title:'Nederlands', slug: 'nl', locale: 'nl-NL'})
+    ],
 
     ready: function() {
         var locale = this.get('locale');
@@ -193,6 +198,7 @@ App.User = App.Member.extend({
 });
 
 
+
 // Inspiration from:
 // http://stackoverflow.com/questions/14388249/accessing-controllers-from-other-controllers
 App.CurrentUserController = Em.ObjectController.extend({
@@ -208,7 +214,8 @@ App.CurrentUserController = Em.ObjectController.extend({
 
 
 App.ApplicationController = Ember.Controller.extend({
-    needs: ['currentUser']
+    needs: ['currentUser'],
+    locale: 'en-US'
 });
 
 
@@ -279,10 +286,11 @@ App.ApplicationRoute = Ember.Route.extend({
 
     events: {
         switchLanguage: function(language) {
-            var availableLanguages = new Array('en', 'nl');
-            for (i in availableLanguages) {
-                if (availableLanguages[i] == language) {
+            var languages = App.interfaceLanguages;
+            for (i in languages) {
+                if (languages[i].slug == language) {
                     document.location = '/' + language + document.location.hash;
+                    this.controllerFor('application').set('language', language);
                     return true;
                 }
             }
@@ -498,9 +506,6 @@ App.LanguageView = Ember.View.extend({
 App.LanguageSwitchView = Ember.CollectionView.extend({
     tagName: 'ul',
     classNames: ['nav-language'],
-    content: [
-        Em.Object.create({title:'English', slug: 'en'}),
-        Em.Object.create({title:'Nederlands', slug: 'nl'})
-    ],
+    content: App.interfaceLanguages,
     itemViewClass: App.LanguageView
 });
