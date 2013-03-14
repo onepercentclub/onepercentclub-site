@@ -63,7 +63,7 @@
     {% endtplhandlebars %}
 
     {% tplhandlebars "language" %}
-        <a {{action "switchLanguage" view.content.slug }}{{bindAttr title=view.content.title}}>{{ view.content.slug }}</a>
+        <a {{action "selectLanguage" view.content.slug }}{{bindAttr title=view.content.title}}>{{ view.content.slug }}</a>
     {% endtplhandlebars %}
 
 

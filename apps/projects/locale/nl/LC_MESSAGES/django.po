@@ -463,23 +463,23 @@ msgstr "Financiering nodig voor"
 
 #: templates/projects.hbs:11
 msgid "Projects"
-msgstr ""
+msgstr "Projecten"
 
 #: templates/projects.hbs:71
 msgid "of"
-msgstr ""
+msgstr "van"
 
 #: templates/projects.hbs:73
 msgid "raised"
-msgstr ""
+msgstr "opgehaald"
 
 #: templates/projects.hbs:86
 msgid "days to go"
-msgstr ""
+msgstr "dagen te gaan"
 
 #: templates/projects.hbs:91
 msgid "Support with voucher"
-msgstr ""
+msgstr "Steun met bon"
 
 #: templates/projects.hbs:94
 msgid "Support this project"
