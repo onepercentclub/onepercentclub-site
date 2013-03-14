@@ -65,6 +65,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.another_user = self.create_user()
         self.current_donations_url = '/i18n/api/fund/orders/current/donations/'
         self.current_order_url = '/i18n/api/fund/orders/current'
+        self.payment_profile_url = '/i18n/api/fund/paymentprofiles/'
 
     def test_current_order_donation_crud(self):
         """
@@ -184,6 +185,47 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
+
+    def test_current_order_payment_profile(self):
+        """
+        Tests for creating, retrieving, updating and deleting a donation to shopping cart.
+        """
+
+        current_order_payment_profile_url = "{0}{1}".format(self.payment_profile_url, 'current')
+
+        # First make sure we have a current order.
+        self.client.login(username=self.some_user.username, password='password')
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['status'], 'current')
+
+        # Create a Donation.
+        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': 35})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['amount'], '35.00')
+        self.assertEqual(response.data['project'], self.some_project.slug)
+        self.assertEqual(response.data['status'], 'new')
+
+        # Check that retrieving the current order payment profile works.
+        response = self.client.get(current_order_payment_profile_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+
+        # Check that updating the current order payment profile works.
+        response = self.client.put(current_order_payment_profile_url, {'first_name': 'Nijntje',
+                                                                       'last_name': 'het Konijnje',
+                                                                       'email': 'nijntje@hetkonijnje.nl',
+                                                                       'street': 'Dam',
+                                                                       'postal_code': '1001AM',
+                                                                       'city': 'Amsterdam',
+                                                                       'country': 'NL'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['first_name'], 'Nijntje')
+        self.assertEqual(response.data['last_name'], 'het Konijnje')
+        self.assertEqual(response.data['email'], 'nijntje@hetkonijnje.nl')
+        self.assertEqual(response.data['street'], 'Dam')
+        self.assertEqual(response.data['postal_code'], '1001AM')
+        self.assertEqual(response.data['city'], 'Amsterdam')
+        self.assertEqual(response.data['country'], 'NL')
 
 
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):

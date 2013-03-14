@@ -59,6 +59,9 @@ Em.TextField.reopen({
 App = Em.Application.create({
     VERSION: '1.0.0',
 
+    // TODO: Remove this in production builds.
+    LOG_TRANSITIONS: true,
+
     ready: function() {
         //..init code goes here...
     },
@@ -235,7 +238,8 @@ App.Router.map(function() {
         this.route('donationList', {path: '/donations'});
         this.route('addDonation', {path: '/donations/add/:project_id'});
         this.route('voucherList', {path: '/vouchers'});
-        this.route('paymentProfile', {path: '/details'});
+
+        this.resource('currentOrderPaymentProfile', {path: '/details'});
         // TODO: Read the manual to see if this is the best way to do it.
         this.resource('currentOrderPayment', {path: '/payment'}, function(){
             this.resource('currentPaymentMethodInfo', {path: 'info'});
@@ -381,13 +385,13 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
 });
 
 
-App.PaymentProfileRoute = Ember.Route.extend({
+App.CurrentOrderPaymentProfileRoute = Ember.Route.extend({
     model: function(params) {
-        return App.PaymentOrderProfile.find('current');
+        return App.PaymentProfile.find('current');
     },
 
-    setupController: function(controller, orderprofile) {
-        controller.set('content', orderprofile);
+    setupController: function(controller, paymentProfile) {
+        this._super(controller, paymentProfile);
     }
 });
 
