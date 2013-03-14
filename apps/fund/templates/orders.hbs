@@ -12,7 +12,7 @@
                     <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "currentOrderDonationList" tagName="button" class="contrast top"}}
+                    {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
                         {% trans "Switch to paid donations" %}
                     {{/linkTo}}
                 </sidebar>
@@ -40,18 +40,18 @@
             <ul class="donation-steps">
                 {{#if controller.isVoucherOrder}}
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrderVoucherList"}}Vouchers{{/linkTo}}
+                        {{#linkTo "currentOrder.voucherList"}}Vouchers{{/linkTo}}
                     {{/view}}
                 {{else}}
                     {# Hack: This span needs to be here to get the 'Support' to replace 'Vouchers'. #}
                     <span></span>
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrderDonationList"}}Support{{/linkTo}}
+                        {{#linkTo "currentOrder.donationList"}}Support{{/linkTo}}
                     {{/view}}
                 {{/if}}
 
                 {{#view App.OrderNavView classNames="details"}}
-                    {{#linkTo "paymentOrderProfile"}}{% trans "Details" %}{{/linkTo}}
+                    {{#linkTo "currentOrder.paymentProfile"}}{% trans "Details" %}{{/linkTo}}
                 {{/view}}
 
                 {{#view App.OrderNavView classNames="profile"}}
@@ -123,7 +123,7 @@
 
     </fieldset>
 
-    {{#linkTo "paymentOrderProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
+    {{#linkTo "currentOrder.paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -159,7 +159,7 @@
 
 
         {{#if length }}
-            {{#linkTo "paymentOrderProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
+            {{#linkTo "currentOrder.paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
         {{else}}
             <button disabled class="right">{% trans "Next step" %}</button>
         {{/if}}

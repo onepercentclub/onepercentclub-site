@@ -74,22 +74,6 @@ App.Project = DS.Model.extend({
  Controllers
  */
 
-App.ProjectController = Em.ObjectController.extend({
-    needs: ['currentOrder'],
-
-    supportProject: function() {
-        var project = this.get('model');
-        var transaction = this.get('store').transaction();
-        var donation = transaction.createRecord(App.CurrentOrderDonation);
-
-        donation.set('project', project);
-        var order = this.get('controllers.currentOrder').get('model');
-        donation.set('order', order);
-        transaction.commit();
-        this.transitionToRoute('currentOrderDonationList');
-    }
-});
-
 
 /*
  Views

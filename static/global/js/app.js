@@ -231,12 +231,11 @@ App.Router.map(function() {
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
 
-    this.resource('currentOrder', {path: '/support/'}, function() {
-        this.resource('currentOrderDonationList', {path: '/donations'});
-        this.resource('currentOrderVoucherList', {path: '/vouchers'});
-
-        this.resource('paymentOrderProfile', {path: '/details'});
-
+    this.resource('currentOrder', {path: '/support'}, function() {
+        this.route('donationList', {path: '/donations'});
+        this.route('addDonation', {path: '/donations/add/:project_id'});
+        this.route('voucherList', {path: '/vouchers'});
+        this.route('paymentProfile', {path: '/details'});
         // TODO: Read the manual to see if this is the best way to do it.
         this.resource('currentOrderPayment', {path: '/payment'}, function(){
             this.resource('currentPaymentMethodInfo', {path: 'info'});
@@ -262,6 +261,10 @@ App.ProjectListRoute = Ember.Route.extend({
     }
 });
 
+
+/**
+ * Project Routes
+ */
 
 App.ProjectRoute = Ember.Route.extend({
     setupController: function(controller, project) {
@@ -293,6 +296,10 @@ App.ProjectWallPostRoute = Ember.Route.extend({
 });
 
 
+/**
+ * Current Order Routes
+ */
+
 App.CurrentOrderRoute = Ember.Route.extend({
     model: function(params) {
         return App.CurrentOrder.find('current');
@@ -300,19 +307,64 @@ App.CurrentOrderRoute = Ember.Route.extend({
 
     setupController: function(controller, order) {
         this._super(controller, order);
-        controller.set('isVoucherOrder', false);
+    }
+});
+
+
+// Redirect to the donations list if somebody tries load '/support'.
+App.CurrentOrderIndexRoute = Ember.Route.extend({
+    redirect: function() {
+        this.transitionTo('currentOrder.donationList');
     }
 });
 
 
 App.CurrentOrderDonationListRoute = Ember.Route.extend({
     model: function(params) {
-        return App.CurrentOrder.find('current').get('donations');
+        var order = this.modelFor('currentOrder');
+        return order.get('donations');
     },
 
     setupController: function(controller, donations) {
         this._super(controller, donations);
         this.controllerFor('currentOrder').set('isVoucherOrder', false);
+    }
+});
+
+
+// This route is not really an application state we want but it doesn't seem possible to send a parameter (e.g. the
+// project) to a route without having a parameter in the URL. This could be a missing feature in Ember or we could be
+// missing something. More investigation is needed if we want to get rid of this route.
+// Note: This route allows us to publish urls like; '/support/donations/add/<project slug>'
+// which will add a donation the project in the current user's cart.
+App.CurrentOrderAddDonationRoute = Ember.Route.extend({
+    setupController: function (controller, project) {
+        var order = this.modelFor('currentOrder');
+        if (!order.get('isLoaded')) {
+            var route = this;
+            order.on("didLoad", function () {
+                route.send('addDonation', order, project);
+            });
+        } else {
+            this.send('addDonation', order, project);
+        }
+    },
+
+    events: {
+        addDonation: function (order, project) {
+            if (!Em.isNone(project)) {
+                var transaction = this.get('store').transaction();
+                var donation = transaction.createRecord(App.CurrentOrderDonation);
+                transaction.add(donation);
+                donation.set('project', project);
+                donation.set('order', order);
+                transaction.commit();
+            }
+
+            // We're transitioning to the donation list route directly after adding the donation so that the url
+            // doesn't show '/support/donations/add/slug' after the donation has been added.
+            this.transitionTo('currentOrder.donationList');
+        }
     }
 });
 
@@ -328,6 +380,21 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
     }
 });
 
+
+App.PaymentProfileRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.PaymentOrderProfile.find('current');
+    },
+
+    setupController: function(controller, orderprofile) {
+        controller.set('content', orderprofile);
+    }
+});
+
+
+/**
+ * Vouchers Redeem Routes
+ */
 
 App.CustomVoucherRequestRoute = Ember.Route.extend({
     setupController: function(controller, context) {
@@ -369,17 +436,6 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
             });
             transaction.commit();
         }
-    }
-});
-
-
-App.PaymentOrderProfileRoute = Ember.Route.extend({
-    model: function(params) {
-        return App.PaymentOrderProfile.find('current');
-    },
-
-    setupController: function(controller, orderprofile) {
-        controller.set('content', orderprofile);
     }
 });
 
