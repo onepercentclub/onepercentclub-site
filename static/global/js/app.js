@@ -256,16 +256,16 @@ App.Router.map(function() {
 });
 
 
+/**
+ * Project Routes
+ */
+
 App.ProjectListRoute = Ember.Route.extend({
     model: function() {
         return App.Project.find({phase: 'fund'});
     }
 });
 
-
-/**
- * Project Routes
- */
 
 App.ProjectRoute = Ember.Route.extend({
     setupController: function(controller, project) {
