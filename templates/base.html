@@ -81,7 +81,7 @@
                         <ul>
                             <li class="nav-projects">{{#linkTo projectList}}{% trans "1%Projects" %}{{/linkTo}}</li>
                             {# FIXME Forward to currentOrderDonationList #}
-                            <li class="nav-projects">{{#linkTo currentOrderDonationList}}{% trans "Cart" %}{{/linkTo}}</li>
+                            <li class="nav-projects">{{#linkTo currentOrder.donationList}}{% trans "Cart" %}{{/linkTo}}</li>
                             <li class="nav-projects">{{#linkTo voucherStart}}{% trans "Vouchers" %}{{/linkTo}}</li>
                         </ul>
                     </nav>
