@@ -58,9 +58,16 @@ Em.TextField.reopen({
 // TODO Rename App to BlueBottle, BB or BBApp.
 App = Em.Application.create({
     VERSION: '1.0.0',
+    //locale: 'en-US',
+    locale: 'nl-NL',
 
     ready: function() {
-        //..init code goes here...
+        var locale = this.get('locale');
+        Globalize.culture(locale);
+        $.getScript('/static/assets/js/libs/globalize-cultures/globalize.culture.' + locale + '.js')
+            .fail(function(){
+                console.log("No globalize culture file for : "+ locale)
+            });
     },
 
     _getTemplate: function(template, callback) {

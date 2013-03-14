@@ -187,8 +187,8 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
     },
 
     neededAfterDonation: function() {
-        return this.get('project.money_needed_natural') - this.get('amount');
-    }.property('amount', 'project.money_needed_natural')
+        return this.get('project.money_needed') - this.get('amount');
+    }.property('amount', 'project.money_needed')
 });
 
 
