@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-07 14:20+0100\n"
+"POT-Creation-Date: 2013-03-15 14:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: models.py:27 models.py:82
+#: models.py:27 models.py:67 models.py:85
 msgid "author"
 msgstr ""
 
-#: models.py:28 models.py:83
+#: models.py:28 models.py:68 models.py:86
 msgid "editor"
 msgstr ""
 
@@ -33,19 +33,19 @@ msgstr ""
 msgid "The last user to edit this wallpost."
 msgstr ""
 
-#: models.py:31 models.py:90
+#: models.py:31 models.py:93
 msgid "created"
 msgstr ""
 
-#: models.py:32 models.py:91
+#: models.py:32 models.py:94
 msgid "updated"
 msgstr ""
 
-#: models.py:33 models.py:92
+#: models.py:33 models.py:65 models.py:95
 msgid "deleted"
 msgstr ""
 
-#: models.py:34 models.py:93
+#: models.py:34 models.py:66 models.py:96
 msgid "IP address"
 msgstr ""
 
@@ -57,39 +57,35 @@ msgstr ""
 msgid "object ID"
 msgstr ""
 
-#: models.py:83
-msgid "The last user to edit this reaction."
+#: models.py:68
+msgid "The last user to edit this wallpost photo."
 msgstr ""
 
 #: models.py:86
+msgid "The last user to edit this reaction."
+msgstr ""
+
+#: models.py:89
 msgid "reaction text"
 msgstr ""
 
-#: models.py:101
+#: models.py:104
 msgid "Reaction"
 msgstr ""
 
-#: models.py:102
+#: models.py:105
 msgid "Reactions"
-msgstr ""
-
-#: templates/reactions.hbs:9
-msgid "By"
 msgstr ""
 
 #: templates/reactions.hbs:10
 msgid "Member"
 msgstr ""
 
-#: templates/reactions.hbs:10 templates/wallposts.hbs:113
-msgid "ago"
-msgstr ""
-
-#: templates/reactions.hbs:14 templates/wallposts.hbs:121
+#: templates/reactions.hbs:14 templates/wallposts.hbs:123
 msgid "Edit"
 msgstr ""
 
-#: templates/reactions.hbs:15 templates/wallposts.hbs:122
+#: templates/reactions.hbs:15 templates/wallposts.hbs:124
 msgid "Delete"
 msgstr ""
 
@@ -121,18 +117,18 @@ msgstr ""
 msgid "(620 x 380 minimum for best results)"
 msgstr ""
 
-#: templates/wallposts.hbs:74
+#: templates/wallposts.hbs:76
 msgid "Post Update"
 msgstr ""
 
-#: templates/wallposts.hbs:87
+#: templates/wallposts.hbs:89
 msgid "Leave your comment here"
 msgstr ""
 
-#: templates/wallposts.hbs:92
+#: templates/wallposts.hbs:94
 msgid "Post Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:116
+#: templates/wallposts.hbs:118
 msgid "Project Initiator"
 msgstr ""

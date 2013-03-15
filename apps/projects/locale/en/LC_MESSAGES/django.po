@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-07 14:20+0100\n"
+"POT-Creation-Date: 2013-03-15 14:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -464,19 +464,23 @@ msgstr ""
 msgid "Projects"
 msgstr ""
 
-#: templates/projects.hbs:71
+#: templates/projects.hbs:18
+msgid "No projects found."
+msgstr ""
+
+#: templates/projects.hbs:72
 msgid "of"
 msgstr ""
 
-#: templates/projects.hbs:73
+#: templates/projects.hbs:74
 msgid "raised"
 msgstr ""
 
-#: templates/projects.hbs:86
+#: templates/projects.hbs:87
 msgid "days to go"
 msgstr ""
 
-#: templates/projects.hbs:91
+#: templates/projects.hbs:92
 msgid "Support with voucher"
 msgstr ""
 

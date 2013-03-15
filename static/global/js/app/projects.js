@@ -23,6 +23,7 @@ App.Project = DS.Model.extend({
     description: DS.attr('string'),
     money_asked: DS.attr('number'),
     money_donated: DS.attr('number'),
+    created: DS.attr('date'),
     tags: DS.attr('array'),
     owner: DS.belongsTo('App.Member'),
     country: DS.belongsTo('App.Country'),
@@ -31,15 +32,7 @@ App.Project = DS.Model.extend({
     supporter_count: DS.attr('number', {defaultValue: 123}),
     days_left: DS.attr('number', {defaultValue: 123}),
 
-    money_asked_natural: function(){
-        return Math.ceil(this.get('money_asked'));
-    }.property('money_asked'),
-
-    money_donated_natural: function(){
-        return Math.floor(this.get('money_donated'));
-    }.property('money_donated'),
-
-    money_needed_natural: function(){
+    money_needed: function(){
         var donated = this.get('money_asked') - this.get('money_donated');
         if (donated < 0) {
             return 0;
