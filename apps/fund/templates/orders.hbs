@@ -107,14 +107,14 @@
 
     <fieldset class="donation-frequency">
         <label class="label">{% trans "Support the selected projects:" %}</label>
-        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="controllers.currentOrder.recurring"}}
+        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
             <label>
-                {{view view.RadioButton value="false"}}
+                {{view view.RadioButton value="single"}}
                 {% trans "Single donation" %}
             </label>
             <br/>
             <label>
-                {{view view.RadioButton value="true"}}
+                {{view view.RadioButton value="monthly"}}
                 {% trans "Monthly donation" %}
             </label>
         {{/view}}
