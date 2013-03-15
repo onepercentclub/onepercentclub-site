@@ -208,6 +208,7 @@
 .reactions {
     @include clearfix;
     @include rem(font-size, 14px);
+    @include rem(padding, 16px 16px 0 16px);
     position: relative;
     margin: 0;
     background-color: $color-back;
@@ -216,15 +217,13 @@
         float: right;
     }
     li {
-        @include rem(padding, 16px);
+        @include rem(padding-bottom, 16px);
         position: relative;
         display: block;
         overflow: auto;
         
         .user-img {
             @include grid(5);
-            @include rem(top, 16px);
-            @include rem(left, 16px);
             position: absolute;
             margin: 0;
         } 

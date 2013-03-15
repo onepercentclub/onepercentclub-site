@@ -116,11 +116,7 @@
             <small class="timestamp">{{ timesince }}</small>
             <a href="#" class="user initiator">
                 <span class="user-img">
-                    {{#if author.picture}}
-                        <img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" />
-                    {{else}}
-                        <img src="{% get_static_prefix %}images/default-avatar.png" width="100%" alt="Avatar" />
-                    {{/if}}
+                    <img {{bindAttr src="author.avatar"}} width="100%" alt="Avatar" />
                 </span>
                 <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
             </a>

@@ -5,11 +5,7 @@
 {% tplhandlebars "wallpost_reaction" %}
 
 	<span class="user-img">
-        {{#if author.picture }}
-            <img {{ bindAttr src="author.picture" }} width="100%" alt="Avatar" />
-        {{else}}
-            <img src="{% get_static_prefix %}images/default-avatar.png" width="100%" alt="Avatar" />
-        {{/if}}
+        <img {{ bindAttr src="author.avatar" }} width="100%" alt="Avatar" />
     </span>
 	<div class="reaction">
 	    <a href="#" class="user">
@@ -48,11 +44,7 @@
         {{#if controllers.currentUser.isAuthenticated }}
             <li {{bindAttr class="errors.text.length:error"}}>
                 <span class="user-img">
-                    {{#if controllers.currentUser.picture }}
-                        <img {{bindAttr src="controllers.currentUser.picture" title="controllers.currentUser.fullname"}} width="100%" alt="Avatar" />
-                    {{else}}
-                        <img src="{% get_static_prefix %}images/default-avatar.png" {{bindAttr title="controllers.currentUser.fullname"}} width="100%" alt="Avatar">
-                    {{/if}}
+                    <img {{bindAttr src="controllers.currentUser.avatar" title="controllers.currentUser.fullname"}} width="100%" alt="Avatar" />
                 </span>
 
                 {{#each errors.text}}

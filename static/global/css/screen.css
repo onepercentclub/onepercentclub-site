@@ -3223,6 +3223,8 @@ ul.steps li.selected a {
   *zoom: 1;
   font-size: 14px;
   font-size: 0.875rem;
+  padding: 16px 16px 0 16px;
+  padding: 1rem 1rem 0 1rem;
   position: relative;
   margin: 0;
   background-color: #e9e9e9;
@@ -3241,40 +3243,36 @@ ul.steps li.selected a {
 .reactions:after {
   clear: both;
 }
-/* line 215, ../sass/modules/_reactions.scss */
+/* line 216, ../sass/modules/_reactions.scss */
 .reactions .manage {
   float: right;
 }
-/* line 218, ../sass/modules/_reactions.scss */
+/* line 219, ../sass/modules/_reactions.scss */
 .reactions li {
-  padding: 16px;
-  padding: 1rem;
+  padding-bottom: 16px;
+  padding-bottom: 1rem;
   position: relative;
   display: block;
   overflow: auto;
 }
-/* line 224, ../sass/modules/_reactions.scss */
+/* line 225, ../sass/modules/_reactions.scss */
 .reactions li .user-img {
   float: left;
   width: 10.41667%;
   margin-left: 0%;
   margin-right: 0%;
-  top: 16px;
-  top: 1rem;
-  left: 16px;
-  left: 1rem;
   position: absolute;
   margin: 0;
 }
-/* line 232, ../sass/modules/_reactions.scss */
+/* line 231, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction {
   border-color: #00c051;
 }
-/* line 235, ../sass/modules/_reactions.scss */
+/* line 234, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction::after {
   background: url("../images/reaction-back-arrow.png") transparent no-repeat 0 0;
 }
-/* line 240, ../sass/modules/_reactions.scss */
+/* line 239, ../sass/modules/_reactions.scss */
 .reactions li .reaction {
   font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
   float: left;
@@ -3289,13 +3287,13 @@ ul.steps li.selected a {
   vertical-align: baseline;
   word-wrap: break-word;
 }
-/* line 250, ../sass/modules/_reactions.scss */
+/* line 249, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user {
   font-size: 14px;
   font-size: 0.875rem;
   text-transform: uppercase;
 }
-/* line 255, ../sass/modules/_reactions.scss */
+/* line 254, ../sass/modules/_reactions.scss */
 .reactions li .reaction::after {
   top: -16px;
   top: -1rem;
