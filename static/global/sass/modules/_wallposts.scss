@@ -48,6 +48,7 @@
         position: relative;
         @include rem(min-height, 64px);
         @include rem(margin-bottom, 16px);
+        word-wrap: break-word;
     }
     
     .reaction-box {

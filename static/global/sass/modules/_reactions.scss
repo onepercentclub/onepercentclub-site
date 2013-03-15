@@ -239,6 +239,7 @@
             background: $white;
             color: #333;
             vertical-align: baseline;
+            word-wrap: break-word;
             
             .user {
                 @include rem(font-size, 14px);

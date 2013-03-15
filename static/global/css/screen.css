@@ -2943,13 +2943,14 @@ ul.steps li.selected a {
   min-height: 4rem;
   margin-bottom: 16px;
   margin-bottom: 1rem;
+  word-wrap: break-word;
 }
-/* line 53, ../sass/modules/_wallposts.scss */
+/* line 54, ../sass/modules/_wallposts.scss */
 .wallpost .reaction-box {
   position: relative;
   display: block;
 }
-/* line 58, ../sass/modules/_wallposts.scss */
+/* line 59, ../sass/modules/_wallposts.scss */
 .wallpost .user-img {
   width: 100px;
   width: 6.25rem;
@@ -2960,7 +2961,7 @@ ul.steps li.selected a {
   left: 0;
 }
 
-/* line 67, ../sass/modules/_wallposts.scss */
+/* line 68, ../sass/modules/_wallposts.scss */
 .wallpost-filter {
   margin-top: 32px;
   margin-top: 2rem;
@@ -3280,14 +3281,15 @@ ul.steps li.selected a {
   background: white;
   color: #333;
   vertical-align: baseline;
+  word-wrap: break-word;
 }
-/* line 243, ../sass/modules/_reactions.scss */
+/* line 244, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user {
   font-size: 14px;
   font-size: 0.875rem;
   text-transform: uppercase;
 }
-/* line 248, ../sass/modules/_reactions.scss */
+/* line 249, ../sass/modules/_reactions.scss */
 .reactions li .reaction::after {
   top: 16px;
   top: 1rem;
