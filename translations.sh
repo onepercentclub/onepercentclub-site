@@ -5,12 +5,10 @@ SOURCE_LANGUAGE="en"
 MANAGE_PY="$PWD/manage.py"
 MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs -e html"
 COMPILEMESSAGES="$MANAGE_PY compilemessages"
-MINIMUM_PERC="80" # Don't pull in translations with less than this %
-APPS_DIR="../apps"
+APPS_DIR="apps"
 EXCLUDED_APPS=""
 
 APPS=""
-cd bluebottle
 for dir in $(find $APPS_DIR -maxdepth 1 -type d); do
     if [ $dir = $APPS_DIR ]; then
         continue
@@ -41,8 +39,8 @@ case "$1" in
             done
 
             echo "Generating PO-file for templates"
-            mv locale templates/ && cd templates/ && $MAKEMESSAGES
-            mv locale ../
+            mv bluebottle/locale templates/ && cd templates/ && $MAKEMESSAGES
+            mv locale ../bluebottle/
 
             ;;
 
@@ -54,7 +52,7 @@ case "$1" in
 
         pull)
             echo "Fetching PO files from Transifex"
-            tx pull -a --minimum-perc $MINIMUM_PERC
+            tx pull -a  
 
             ;;
 
@@ -66,7 +64,7 @@ case "$1" in
             done
 
             echo "Generating PO-file for templates"
-            $COMPILEMESSAGES
+            cd bluebottle/ && $COMPILEMESSAGES
 
             ;;
 

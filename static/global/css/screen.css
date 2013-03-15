@@ -628,7 +628,7 @@ section {
   display: none;
 }
 
-/* line 15, ../sass/includes/_navigation.scss */
+/* line 16, ../sass/includes/_navigation.scss */
 #logo {
   float: left;
   width: 10.41667%;
@@ -639,11 +639,11 @@ section {
   margin-top: 0.625rem;
   text-align: left;
 }
-/* line 21, ../sass/includes/_navigation.scss */
+/* line 22, ../sass/includes/_navigation.scss */
 #logo img {
   background: white;
 }
-/* line 25, ../sass/includes/_navigation.scss */
+/* line 26, ../sass/includes/_navigation.scss */
 #logo #subtitle {
   position: absolute;
   font-size: 11px;
@@ -658,33 +658,33 @@ section {
   top: -4px;
   top: -0.25rem;
 }
-/* line 37, ../sass/includes/_navigation.scss */
+/* line 38, ../sass/includes/_navigation.scss */
 #logo #subtitle em {
   font-style: normal;
   color: #ff619a;
 }
-/* line 45, ../sass/includes/_navigation.scss */
+/* line 46, ../sass/includes/_navigation.scss */
 #logo :hover img {
   background: #00c051;
 }
-/* line 49, ../sass/includes/_navigation.scss */
+/* line 50, ../sass/includes/_navigation.scss */
 #logo :hover #subtitle, #logo :hover #subtitle em {
   color: white !important;
 }
 
-/* line 55, ../sass/includes/_navigation.scss */
+/* line 56, ../sass/includes/_navigation.scss */
 .nav {
   font-weight: bold;
   font-size: 16px;
   font-size: 1rem;
 }
-/* line 59, ../sass/includes/_navigation.scss */
+/* line 60, ../sass/includes/_navigation.scss */
 .nav ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 64, ../sass/includes/_navigation.scss */
+/* line 65, ../sass/includes/_navigation.scss */
 .nav ul li {
   display: inline;
 }
@@ -801,26 +801,26 @@ section {
   border-radius: 8px;
   border-radius: 0.5rem;
 }
-/* line 169, ../sass/includes/_navigation.scss */
+/* line 168, ../sass/includes/_navigation.scss */
 .nav-member .nav-login, .nav-member .nav-signup {
   width: 35%;
 }
-/* line 172, ../sass/includes/_navigation.scss */
+/* line 171, ../sass/includes/_navigation.scss */
 .nav-member .nav-login:hover, .nav-member .nav-login:active, .nav-member .nav-login.is-active, .nav-member .nav-signup:hover, .nav-member .nav-signup:active, .nav-member .nav-signup.is-active {
   color: #00c051;
   background-color: white;
 }
-/* line 177, ../sass/includes/_navigation.scss */
+/* line 176, ../sass/includes/_navigation.scss */
 .nav-member .nav-logout {
   width: 100%;
   color: white;
   background-color: #00c051;
 }
-/* line 184, ../sass/includes/_navigation.scss */
+/* line 182, ../sass/includes/_navigation.scss */
 .nav-member .nav-signup {
   background-color: #ff619a;
 }
-/* line 189, ../sass/includes/_navigation.scss */
+/* line 186, ../sass/includes/_navigation.scss */
 .nav-member .my-menu {
   display: none;
   position: absolute;
@@ -828,23 +828,23 @@ section {
   background-color: #050505;
   top: 48px;
 }
-/* line 195, ../sass/includes/_navigation.scss */
+/* line 192, ../sass/includes/_navigation.scss */
 .nav-member .my-menu .nav-language {
   width: 100%;
   float: none;
 }
-/* line 201, ../sass/includes/_navigation.scss */
+/* line 198, ../sass/includes/_navigation.scss */
 .nav-member:hover .my-menu {
   display: block;
 }
-/* line 205, ../sass/includes/_navigation.scss */
+/* line 202, ../sass/includes/_navigation.scss */
 .nav-member .nav-language {
   width: 25%;
   float: left;
   font-size: 12px;
   font-size: 0.75rem;
 }
-/* line 210, ../sass/includes/_navigation.scss */
+/* line 207, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a {
   padding: 8px;
   padding: 0.5rem;
@@ -854,11 +854,11 @@ section {
   background-color: transparent;
   color: #bfbfbf;
 }
-/* line 218, ../sass/includes/_navigation.scss */
+/* line 215, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a#en {
   border-right: 1px solid #bfbfbf;
 }
-/* line 222, ../sass/includes/_navigation.scss */
+/* line 219, ../sass/includes/_navigation.scss */
 .nav-member .nav-language a:hover, .nav-member .nav-language a:active, .nav-member .nav-language a.is-active {
   color: white;
 }

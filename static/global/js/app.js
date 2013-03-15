@@ -67,8 +67,8 @@ App = Em.Application.create({
     language: 'en',
     locale: 'en-US',
     interfaceLanguages: [
-        Em.Object.create({title:'English', slug: 'en'}),
-        Em.Object.create({title:'Nederlands', slug: 'nl'})
+        Em.Object.create({name:'English', code: 'en'}),
+        Em.Object.create({name:'Nederlands', code: 'nl'})
     ],
 
     ready: function() {
@@ -80,7 +80,7 @@ App = Em.Application.create({
         this.loadTemplates(this.templates);
 
         // Read locale from browser with fallback to default.
-        var locale = navigator.language || navigator.userLanguage || App.get('locale');
+        var locale = navigator.language || navigator.userLanguage || this.get('locale');
         if (locale.substr(0,2) != language) {
             if (language == 'nl') {
                 // For dutch language always overwrite locale.
@@ -94,19 +94,21 @@ App = Em.Application.create({
         if (!locale) {
             locale = this.get('locale');
         }
+
         // Try to load locale specifications.
         $.getScript('/static/assets/js/libs/globalize-cultures/globalize.culture.' + locale + '.js')
             .fail(function(){
                 console.log("No globalize culture file for : "+ locale);
                 // Specified locale file not available. Use default locale.
-                locale = this.get('locale');
+                locale = App.get('locale');
                 Globalize.culture(locale);
+                App.set('locale', locale);
             })
             .success(function(){
                 // Specs loaded. Enable locale.
                 Globalize.culture(locale);
+                App.set('locale', locale);
             });
-        this.set('locale', locale);
     },
 
 
@@ -142,10 +144,6 @@ App = Em.Application.create({
     }
 });
 
-App.ApplicationController = Ember.Controller.extend({
-    needs: ['currentUser']
-});
-
 // The Ember Data Adapter and Store configuration.
 
 App.Adapter = DS.DRF2Adapter.extend({
@@ -159,6 +157,12 @@ App.Adapter = DS.DRF2Adapter.extend({
     }
 
 });
+
+
+App.ApplicationController = Ember.Controller.extend({
+    needs: ['currentUser']
+});
+
 
 // Embedded Model Mapping
 //
@@ -308,7 +312,7 @@ App.ApplicationRoute = Ember.Route.extend({
             var languages = App.get('interfaceLanguages');
             for (i in languages) {
                 // Check if the selected language is available.
-                if (languages[i].slug == language) {
+                if (languages[i].code == language) {
                     document.location = '/' + language + document.location.hash;
                     return true;
                 }
