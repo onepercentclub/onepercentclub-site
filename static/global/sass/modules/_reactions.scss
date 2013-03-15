@@ -6,7 +6,8 @@
     clear: both;
     
     .reaction-form {
-        @include rem(padding, 16px 16px 0 16px);
+        @include rem(padding, 16px);
+        border-top: 1px solid $white;
         margin: 0;
     
         position: relative;
@@ -39,15 +40,21 @@
           padding-left: $grid-column * 8;
           overflow: hidden;
           @include rem(height, 44px);
+          margin: 0;
         }
         
         button {
-            position: relative;
+            position: absolute;
             z-index: 2;
             float: right;
             visibility: hidden;
-            top: 5px;
+            bottom: 15px;
+            right: 15px;
             @include rem(font-size, 14px);
+
+            &:active {
+                top: auto;
+            }
         }
         
         @include clearfix;
@@ -201,6 +208,7 @@
 .reactions {
     @include clearfix;
     @include rem(font-size, 14px);
+    @include rem(padding, 16px 16px 0 16px);
     position: relative;
     margin: 0;
     background-color: $color-back;
@@ -209,16 +217,13 @@
         float: right;
     }
     li {
-        @include rem(padding, 16px);
-        border-bottom: 1px solid $white;
+        @include rem(padding-bottom, 16px);
         position: relative;
         display: block;
         overflow: auto;
         
         .user-img {
             @include grid(5);
-            @include rem(top, 16px);
-            @include rem(left, 16px);
             position: absolute;
             margin: 0;
         } 
@@ -227,7 +232,7 @@
             border-color: $green;
             
             &::after {
-                background: url('../images/reaction-box-initiator.png') transparent no-repeat 0 0;
+                background: url('../images/reaction-back-arrow.png') transparent no-repeat 0 0;
             }
         }
         
@@ -239,6 +244,7 @@
             background: $white;
             color: #333;
             vertical-align: baseline;
+            word-wrap: break-word;
             
             .user {
                 @include rem(font-size, 14px);
@@ -246,13 +252,13 @@
             }
             
             &::after {
-                @include rem(top, 16px);
+                @include rem(top, -16px);
                 position: absolute;
-                left: -25px;
+                left: -20px;
                 display: block;
-                width: 25px;
-                height: 21px;
-                background: url('../images/reaction-box.png') transparent no-repeat 0 0;
+                width: 20px;
+                height: 65px;
+                background: url('../images/reaction-back-arrow.png') transparent no-repeat 0 0;
                 content: ' ';
             }
         }

@@ -39,7 +39,9 @@
 }
 
 .user-img {
-  border: 1px solid #999;
+  img {
+      border: 1px solid #999;
+  }
 } 
 
 .timestamp {
