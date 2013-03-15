@@ -17,7 +17,7 @@ input[type=text], input[type=password], input[type=number], input[type=search], 
     //@include border-radius(2px);
     
     &:focus {
-        border: 1px solid darken($white, 35%);
+        border: 1px solid $green;
         outline: 0;
         color: #333;
         background-color: $white;

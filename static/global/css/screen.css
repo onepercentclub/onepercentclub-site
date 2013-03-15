@@ -885,7 +885,7 @@ input[type=text], input[type=password], input[type=number], input[type=search], 
 }
 /* line 19, ../sass/includes/_forms.scss */
 input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=search]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=url]:focus, textarea:focus, select:focus {
-  border: 1px solid #a6a6a6;
+  border: 1px solid #00c051;
   outline: 0;
   color: #333;
   background-color: white;
@@ -2867,12 +2867,12 @@ ul.steps li.selected a {
   top: auto;
 }
 
-/* line 41, ../sass/modules/_users.scss */
-.user-img {
+/* line 42, ../sass/modules/_users.scss */
+.user-img img {
   border: 1px solid #999;
 }
 
-/* line 45, ../sass/modules/_users.scss */
+/* line 47, ../sass/modules/_users.scss */
 .timestamp {
   text-transform: uppercase;
   color: #050505;
@@ -2993,19 +2993,20 @@ ul.steps li.selected a {
 }
 /* line 8, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form {
-  padding: 16px 16px 0 16px;
-  padding: 1rem 1rem 0 1rem;
+  padding: 16px;
+  padding: 1rem;
+  border-top: 1px solid white;
   margin: 0;
   position: relative;
   background-color: #e9e9e9;
   *zoom: 1;
 }
-/* line 15, ../sass/modules/_reactions.scss */
+/* line 16, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form fieldset, .reaction-box .reaction-form fieldset ul, .reaction-box .reaction-form fieldset ul li {
   margin: 0;
   padding: 0;
 }
-/* line 20, ../sass/modules/_reactions.scss */
+/* line 21, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form label {
   top: 28px;
   top: 1.75rem;
@@ -3015,7 +3016,7 @@ ul.steps li.selected a {
   margin-right: 0%;
   padding: 0;
 }
-/* line 26, ../sass/modules/_reactions.scss */
+/* line 27, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form .user-img {
   top: 12px;
   top: 0.75rem;
@@ -3025,26 +3026,32 @@ ul.steps li.selected a {
   position: absolute;
   margin: 0;
 }
-/* line 33, ../sass/modules/_reactions.scss */
+/* line 34, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form .user-img img {
   float: left;
 }
-/* line 38, ../sass/modules/_reactions.scss */
+/* line 39, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form textarea {
   padding-left: 16.66667%;
   overflow: hidden;
   height: 44px;
   height: 2.75rem;
+  margin: 0;
 }
-/* line 44, ../sass/modules/_reactions.scss */
+/* line 46, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form button {
-  position: relative;
+  position: absolute;
   z-index: 2;
   float: right;
   visibility: hidden;
-  top: 5px;
+  bottom: 15px;
+  right: 15px;
   font-size: 14px;
   font-size: 0.875rem;
+}
+/* line 55, ../sass/modules/_reactions.scss */
+.reaction-box .reaction-form button:active {
+  top: auto;
 }
 /* line 44, ../sass/includes/_grid.scss */
 .reaction-box .reaction-form:before, .reaction-box .reaction-form:after {
@@ -3059,23 +3066,23 @@ ul.steps li.selected a {
 .reaction-box .reaction-form:after {
   clear: both;
 }
-/* line 57, ../sass/modules/_reactions.scss */
+/* line 64, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected .user-img {
   float: left;
   width: 8.33333%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 61, ../sass/modules/_reactions.scss */
+/* line 68, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected textarea {
   min-height: 88px;
   min-height: 5.5rem;
 }
-/* line 65, ../sass/modules/_reactions.scss */
+/* line 72, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-form.is-selected button {
   visibility: visible;
 }
-/* line 73, ../sass/modules/_reactions.scss */
+/* line 80, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions {
   *zoom: 1;
   top: -28px;
@@ -3101,13 +3108,13 @@ ul.steps li.selected a {
 .reaction-box .reaction-actions:after {
   clear: both;
 }
-/* line 86, ../sass/modules/_reactions.scss */
+/* line 93, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li {
   font-size: 11px;
   font-size: 0.6875rem;
   display: inline !important;
 }
-/* line 91, ../sass/modules/_reactions.scss */
+/* line 98, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a, .reaction-box .reaction-actions li strong {
   margin: 0 4px 0 4px;
   margin: 0 0.25rem 0 0.25rem;
@@ -3119,11 +3126,11 @@ ul.steps li.selected a {
   cursor: hand;
   cursor: pointer;
 }
-/* line 101, ../sass/modules/_reactions.scss */
+/* line 108, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a:hover, .reaction-box .reaction-actions li a:active, .reaction-box .reaction-actions li strong:hover, .reaction-box .reaction-actions li strong:active {
   color: #050505;
 }
-/* line 105, ../sass/modules/_reactions.scss */
+/* line 112, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-reactions, .reaction-box .reaction-actions li strong.toggle-reactions {
   padding-left: 30px;
   padding-left: 1.875rem;
@@ -3133,12 +3140,12 @@ ul.steps li.selected a {
   background-repeat: no-repeat;
   background-position: 0 -620px;
 }
-/* line 114, ../sass/modules/_reactions.scss */
+/* line 121, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-reactions:hover, .reaction-box .reaction-actions li a.toggle-reactions.is-active, .reaction-box .reaction-actions li strong.toggle-reactions:hover, .reaction-box .reaction-actions li strong.toggle-reactions.is-active {
   background-position: 0 -698px;
   color: #050505;
 }
-/* line 120, ../sass/modules/_reactions.scss */
+/* line 127, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love, .reaction-box .reaction-actions li strong.toggle-love {
   padding-left: 33px;
   padding-left: 2.0625rem;
@@ -3147,22 +3154,22 @@ ul.steps li.selected a {
   background-repeat: no-repeat;
   background-position: 0 -463px;
 }
-/* line 128, ../sass/modules/_reactions.scss */
+/* line 135, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love:hover, .reaction-box .reaction-actions li strong.toggle-love:hover {
   background-position: 0 -343px;
   color: #ff619a;
 }
-/* line 133, ../sass/modules/_reactions.scss */
+/* line 140, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active:hover {
   background-position: 0 -541px;
   color: #050505;
 }
-/* line 138, ../sass/modules/_reactions.scss */
+/* line 145, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li a.toggle-love.is-active, .reaction-box .reaction-actions li a.toggle-love.is-activated, .reaction-box .reaction-actions li a.toggle-love.is-activated:hover, .reaction-box .reaction-actions li strong.toggle-love.is-active, .reaction-box .reaction-actions li strong.toggle-love.is-activated, .reaction-box .reaction-actions li strong.toggle-love.is-activated:hover {
   background-position: 0 -303px;
   color: #ff619a;
 }
-/* line 147, ../sass/modules/_reactions.scss */
+/* line 154, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong {
   padding-left: 30px;
   padding-left: 1.875rem;
@@ -3170,32 +3177,32 @@ ul.steps li.selected a {
   background-repeat: no-repeat;
   background-position: 0 -738px;
 }
-/* line 154, ../sass/modules/_reactions.scss */
+/* line 161, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share strong:hover, .reaction-box .reaction-actions li.share strong.is-active {
   background-position: 0 -817px;
   color: #00c051;
 }
-/* line 160, ../sass/modules/_reactions.scss */
+/* line 167, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions {
   padding: 16px 0 8px 0;
   padding: 1rem 0 0.5rem 0;
   display: none;
 }
-/* line 164, ../sass/modules/_reactions.scss */
+/* line 171, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li {
   display: inline-block;
   text-align: center;
 }
-/* line 168, ../sass/modules/_reactions.scss */
+/* line 175, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-facebook {
   margin-left: 16.66667%;
   width: 25%;
 }
-/* line 173, ../sass/modules/_reactions.scss */
+/* line 180, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-twitter {
   width: 25%;
 }
-/* line 179, ../sass/modules/_reactions.scss */
+/* line 186, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url code {
   font-size: 11px;
   font-size: 0.6875rem;
@@ -3204,14 +3211,14 @@ ul.steps li.selected a {
   background: white;
   font-color: #ccc !important;
 }
-/* line 187, ../sass/modules/_reactions.scss */
+/* line 194, ../sass/modules/_reactions.scss */
 .reaction-box .reaction-actions li.share .share-actions li.share-url .share-url-copy {
   padding: 0 4px;
   background-color: #ccc;
   color: white;
 }
 
-/* line 201, ../sass/modules/_reactions.scss */
+/* line 208, ../sass/modules/_reactions.scss */
 .reactions {
   *zoom: 1;
   font-size: 14px;
@@ -3234,20 +3241,19 @@ ul.steps li.selected a {
 .reactions:after {
   clear: both;
 }
-/* line 208, ../sass/modules/_reactions.scss */
+/* line 215, ../sass/modules/_reactions.scss */
 .reactions .manage {
   float: right;
 }
-/* line 211, ../sass/modules/_reactions.scss */
+/* line 218, ../sass/modules/_reactions.scss */
 .reactions li {
   padding: 16px;
   padding: 1rem;
-  border-bottom: 1px solid white;
   position: relative;
   display: block;
   overflow: auto;
 }
-/* line 218, ../sass/modules/_reactions.scss */
+/* line 224, ../sass/modules/_reactions.scss */
 .reactions li .user-img {
   float: left;
   width: 10.41667%;
@@ -3260,15 +3266,15 @@ ul.steps li.selected a {
   position: absolute;
   margin: 0;
 }
-/* line 226, ../sass/modules/_reactions.scss */
+/* line 232, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction {
   border-color: #00c051;
 }
-/* line 229, ../sass/modules/_reactions.scss */
+/* line 235, ../sass/modules/_reactions.scss */
 .reactions li.initiator .reaction::after {
-  background: url("../images/reaction-box-initiator.png") transparent no-repeat 0 0;
+  background: url("../images/reaction-back-arrow.png") transparent no-repeat 0 0;
 }
-/* line 234, ../sass/modules/_reactions.scss */
+/* line 240, ../sass/modules/_reactions.scss */
 .reactions li .reaction {
   font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
   float: left;
@@ -3283,22 +3289,22 @@ ul.steps li.selected a {
   vertical-align: baseline;
   word-wrap: break-word;
 }
-/* line 244, ../sass/modules/_reactions.scss */
+/* line 250, ../sass/modules/_reactions.scss */
 .reactions li .reaction .user {
   font-size: 14px;
   font-size: 0.875rem;
   text-transform: uppercase;
 }
-/* line 249, ../sass/modules/_reactions.scss */
+/* line 255, ../sass/modules/_reactions.scss */
 .reactions li .reaction::after {
-  top: 16px;
-  top: 1rem;
+  top: -16px;
+  top: -1rem;
   position: absolute;
-  left: -25px;
+  left: -20px;
   display: block;
-  width: 25px;
-  height: 21px;
-  background: url("../images/reaction-box.png") transparent no-repeat 0 0;
+  width: 20px;
+  height: 65px;
+  background: url("../images/reaction-back-arrow.png") transparent no-repeat 0 0;
   content: ' ';
 }
 
