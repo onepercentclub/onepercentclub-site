@@ -6,7 +6,7 @@ App.Order = DS.Model.extend({
     url: 'fund/orders',
 
     status: DS.attr('string'),
-    recurring: DS.attr('string'),
+    recurring: DS.attr('boolean'),
     payment_method_id: DS.attr('string'),
     payment_submethod_id: DS.attr('string'),
     payment_methods: DS.hasMany('App.PaymentMethod'),
@@ -286,43 +286,22 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
 
 App.CurrentOrderController = Em.ObjectController.extend({
     isIdeal: function() {
-        return (this.get('content.payment_method_id') == 'dd-ideal');
-    }.property('content.payment_method_id'),
+        return (this.get('payment_method_id') == 'dd-ideal');
+    }.property('payment_method_id'),
 
     isDirectDebit: function() {
-        return (this.get('content.payment_method_id') == 'dd-direct-debit');
-    }.property('content.payment_method_id'),
+        return (this.get('payment_method_id') == 'dd-direct-debit');
+    }.property('payment_method_id'),
 
-//    initTransaction: function() {
-//        var order = this.get('content');
-//        var transaction = App.get('store').transaction();
-//        this.set('transaction', transaction);
-//        transaction.add(order);
-//    }.observes('content'),
+    donationType: 'single',  // The default donation type.
 
-//    updateOrder: function() {
-//        if (this.get('content.isDirty')) {
-//            var controller = this;
-//            var order = this.get('content');
-//            this.get('transaction').commit();
-//            order.on('didUpdate', function(record){
-//                // Init a new private transaction.
-//                controller.initTransaction();
-//            });
-//        }
-//    }.observes('content.isDirty'),
-
-//    updateOrder: function() {
-//        var order = this.get('model');
-//        var transaction = App.get('store').transaction();
-//        transaction.add(order);
-//        transaction.commit();
-//        order.on('didUpdate', function(record){
-//            console.log("blah")
-//            transaction.removeCleanRecords()
-//        });
-//    }.observes('recurring'),
-
+    updateOrder: function() {
+        var order = this.get('model');
+        var transaction = this.get('store').transaction();
+        transaction.add(order);
+        order.set('recurring', (this.get('donationType') == 'monthly'));
+        transaction.commit();
+    }.observes('donationType')
 });
 
 
