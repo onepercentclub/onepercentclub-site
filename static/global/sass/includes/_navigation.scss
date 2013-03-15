@@ -2,71 +2,71 @@
 
 #navigation {
     background-color: $black;
-/*    position: fixed;
-    opacity:  0.8;
-    margin-bottom: 100px;
-    z-index: 9999;*/
+    /*    position: fixed;
+        opacity:  0.8;
+        margin-bottom: 100px;
+        z-index: 9999;*/
 }
 
-#title, .nav-title { // only needed for document-structure
+#title, .nav-title {
+    // only needed for document-structure
     display: none;
 }
 
 #logo {
-	@include grid(6,1,0);
-	white-space: nowrap;
-	@include rem(margin-top, 10px);
-	text-align: left;
-    
+    @include grid(6, 1, 0);
+    white-space: nowrap;
+    @include rem(margin-top, 10px);
+    text-align: left;
+
     img {
-	    background: $white;
-	}
+        background: $white;
+    }
 
     #subtitle {
-      position: absolute;
-      @include rem(font-size, 11px);
-    	display: inline-block !important;
-    	font-weight: normal;
-    	text-transform: uppercase;
-    	color: $green;
-    	position: relative;
-    	margin: 0;
-    	padding: 0;
-    	@include rem(top, -4px);
-    	
-    	em {
-    		font-style: normal;
-    		color: $pink;
-    	}
+        position: absolute;
+        @include rem(font-size, 11px);
+        display: inline-block !important;
+        font-weight: normal;
+        text-transform: uppercase;
+        color: $green;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        @include rem(top, -4px);
+
+        em {
+            font-style: normal;
+            color: $pink;
+        }
     }
-    
+
     :hover {
-    
+
         img {
-	        background: $green;
-	    }
-	    
-	    #subtitle, #subtitle em {
-	    	color: $white !important;
-	    }
+            background: $green;
+        }
+
+        #subtitle, #subtitle em {
+            color: $white !important;
+        }
     }
 }
 
 .nav {
-	font-weight: bold;
-	@include rem(font-size, 16px);
-	
-	ul {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		
-		li {
-			display: inline;
-		}
-	}	
-}
+    font-weight: bold;
+    @include rem(font-size, 16px);
 
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: inline;
+        }
+    }
+}
 
 // extendible element
 .nav-item {
@@ -79,129 +79,147 @@
     text-decoration: none;
     @include rem(padding, 28px 12px 10px 12px);
     overflow: hidden;
-    
+
     &:hover, &:active, &.is-active {
-    	color: $white;
+        color: $white;
     }
 }
 
 .nav-main {
-	@include grid(26);
-	position: relative;
-	@include rem(font-size, 17px);
-	
+    @include grid(26);
+    position: relative;
+    @include rem(font-size, 17px);
+
     li a, li a:visited {
         @extend .nav-item;
         white-space: nowrap;
-        
+
     }
 }
 
 .nav-member {
     @include rem(margin-top, 20px);
-	  @include grid(16, 0, 1);
+    @include grid(16, 0, 1);
     @include rem(font-size, 13px);
-    
+
     color: $white;
     overflow: hidden;
     text-align: center;
-    
+
     img {
         @include rem(width, 36px);
         @include rem(height, 36px);
         float: left;
         vertical-align: top;
     }
-    
+
     a {
-      color: $white;
-      text-transform: uppercase;
-	    white-space: nowrap;
-	    border-right: 1px solid $black;
-	    display: inline-block;
-	    float: left;
-	    background: $green;
-	    
-	    @include rem(padding, 6px 8px 6px 8px);
-	    &:hover, &:active, &.is-selected {
-	        color: $black;
-	    }
-	}
-	
-	.nav-my1percent {
-		width: 35%;
-		padding: 0;
-		
-		img {
-		    border-right: 1px solid $black;
-		}
-		
-		strong {
+        color: $white;
+        text-transform: uppercase;
+        white-space: nowrap;
+        border-right: 1px solid $black;
+        display: inline-block;
+        float: left;
+        background: $green;
+
+        @include rem(padding, 6px 8px 6px 8px);
+        &:hover, &:active, &.is-selected {
+            color: $black;
+        }
+    }
+
+    .nav-my1percent {
+        width: 35%;
+        padding: 0;
+
+        img {
+            border-right: 1px solid $black;
+        }
+
+        strong {
             display: inline-block;
             @include rem(margin, 6px 0 2px 0);
             @include rem(padding, 0 12px 0 8px);
-		}
-	}
-	
-	.nav-notifications {
-	    width: 65%;
-		
-		&:hover, &:active {
-		    
-		    .nav-notifications-nr {
-		        background-color: $black;
-		        color: $white !important;
-		    }
-		}
-	}
-	
-	.nav-notifications-nr {
-		color: $black;
-		background: $white;
-		line-height: 1em;
-		@include rem(font-size, 12px);
-		@include rem(margin-right, 8px);
-		@include rem(padding, 3px);
-		@include rem(border-radius, 8px);
-	}
-	
-	
-	.nav-login, .nav-signup {
-	    width: 35%;
-	    
-	    &:hover, &:active, &.is-active {
-	        color: $green;
-	        background-color: $white;
-	    }
-	}
-	
-	
-	.nav-signup {
-	    background-color: $pink;
-	}
-	
-	.nav-language {
-	    float: left;
-	    width: 30%;
-	    @include rem(font-size, 12px);
-	    @include rem(padding, 6px 8px 6px 8px);
-	    
-	    a {
-	        width: 50%;
-	        text-align: center;
-	        background-color: transparent;
-	        color: $color-deselect;
-	        @include rem(padding, 0 6px);
-	        
-	        &#nav-lang-en {
-	            border-right: 1px solid $color-deselect;
-	        }
-	        
-	        &:hover, &:active, &.is-active {
-	            color: $white;
-	        }
-	    }
-	    
-	    
-	}
+        }
+    }
+
+    .nav-notifications {
+        width: 65%;
+
+        &:hover, &:active {
+
+            .nav-notifications-nr {
+                background-color: $black;
+                color: $white !important;
+            }
+        }
+    }
+
+    .nav-notifications-nr {
+        color: $black;
+        background: $white;
+        line-height: 1em;
+        @include rem(font-size, 12px);
+        @include rem(margin-right, 8px);
+        @include rem(padding, 3px);
+        @include rem(border-radius, 8px);
+    }
+
+    .nav-login, .nav-signup {
+        width: 35%;
+
+        &:hover, &:active, &.is-active {
+            color: $green;
+            background-color: $white;
+        }
+    }
+    .nav-logout {
+        width: 100%;
+        color: $white;
+        background-color: $green;
+    }
+
+    .nav-signup {
+        background-color: $pink;
+    }
+
+    .my-menu {
+        display: none;
+        position: absolute;
+        width: 200px;
+        background-color: $black;
+        top: 48px;
+        .nav-language {
+            width: 100%;
+            float: none;
+        }
+    }
+
+    &:hover .my-menu {
+        display: block;
+    }
+
+    .nav-language {
+        width: 25%;
+        float: left;
+        @include rem(font-size, 12px);
+
+        a {
+            @include rem(padding, 8px);
+            width: 50%;
+            cursor: pointer;
+            text-align: center;
+            background-color: transparent;
+            color: $color-deselect;
+
+            &#en {
+                border-right: 1px solid $color-deselect;
+            }
+
+            &:hover, &:active, &.is-active {
+                color: $white;
+            }
+        }
+
+    }
 }

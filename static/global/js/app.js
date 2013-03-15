@@ -63,13 +63,62 @@ App = Em.Application.create({
     // TODO: Remove this in production builds.
     LOG_TRANSITIONS: true,
 
+    // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
+    templates: ['projects', 'wallposts', 'reactions', 'orders', 'vouchers'],
+
+    // We store language & locale here because they need to be available before loading templates.
+    language: 'en',
+    locale: 'en-US',
+    interfaceLanguages: [
+        Em.Object.create({name:'English', code: 'en'}),
+        Em.Object.create({name:'Nederlands', code: 'nl'})
+    ],
+
     ready: function() {
-        //..init code goes here...
+        // Read language string from url.
+        var language = window.location.pathname.split('/')[1];
+        // We don't have to check if it's one of the languages available. Django will have thrown an error before this.
+        this.set('language', language);
+        // Now that we know the language we can load the hb templates.
+        this.loadTemplates(this.templates);
+
+        // Read locale from browser with fallback to default.
+        var locale = navigator.language || navigator.userLanguage || this.get('locale');
+        if (locale.substr(0,2) != language) {
+            if (language == 'nl') {
+                // For dutch language always overwrite locale.
+                locale = 'nl-NL';
+            }
+        }
+        this.setLocale(locale);
     },
 
+    setLocale: function(locale) {
+        if (!locale) {
+            locale = this.get('locale');
+        }
+
+        // Try to load locale specifications.
+        $.getScript('/static/assets/js/libs/globalize-cultures/globalize.culture.' + locale + '.js')
+            .fail(function(){
+                console.log("No globalize culture file for : "+ locale);
+                // Specified locale file not available. Use default locale.
+                locale = App.get('locale');
+                Globalize.culture(locale);
+                App.set('locale', locale);
+            })
+            .success(function(){
+                // Specs loaded. Enable locale.
+                Globalize.culture(locale);
+                App.set('locale', locale);
+            });
+    },
+
+
     _getTemplate: function(template, callback) {
+        var language = this.get('language');
         var hash = {};
-        hash.url = '/en/templates/' + template + '.hbs';
+        hash.url = '/' + language + '/templates/' + template + '.hbs';
         hash.type = 'GET';
         hash.contentType = 'application/json';
         hash.success = callback;
@@ -98,13 +147,6 @@ App = Em.Application.create({
     }
 });
 
-
-// Load the Handlebar templates.
-// TODO: This is race condition that needs to be addressed but should work most of the time.
-// TODO We want to actually figure out a way to load the templates on-demand and not do it like this.
-App.loadTemplates(['projects', 'wallposts', 'reactions', 'orders', 'vouchers']);
-
-
 // The Ember Data Adapter and Store configuration.
 
 App.Adapter = DS.DRF2Adapter.extend({
@@ -118,6 +160,12 @@ App.Adapter = DS.DRF2Adapter.extend({
     }
 
 });
+
+
+App.ApplicationController = Ember.Controller.extend({
+    needs: ['currentUser']
+});
+
 
 // Embedded Model Mapping
 //
@@ -189,6 +237,7 @@ App.User = App.Member.extend({
 });
 
 
+
 // Inspiration from:
 // http://stackoverflow.com/questions/14388249/accessing-controllers-from-other-controllers
 App.CurrentUserController = Em.ObjectController.extend({
@@ -200,11 +249,6 @@ App.CurrentUserController = Em.ObjectController.extend({
     isAuthenticated: function(){
         return (this.get('username')) ? true : false;
     }.property('username')
-});
-
-
-App.ApplicationController = Ember.Controller.extend({
-    needs: ['currentUser']
 });
 
 
@@ -257,12 +301,38 @@ App.Router.map(function() {
         this.route('add', {path: '/add/:slug'});
         this.route('code', {path: '/:code'});
     });
+
+});
+
+
+App.ApplicationRoute = Ember.Route.extend({
+
+    events: {
+        selectLanguage: function(language) {
+            if (language == App.get('language')) {
+                // Language already set. Don't do anything;
+                return true;
+            }
+            var languages = App.get('interfaceLanguages');
+            for (i in languages) {
+                // Check if the selected language is available.
+                if (languages[i].code == language) {
+                    document.location = '/' + language + document.location.hash;
+                    return true;
+                }
+            }
+            language = 'en';
+            document.location = '/' + language + document.location.hash;
+            return true;
+        }
+    }
 });
 
 
 /**
  * Project Routes
  */
+
 
 App.ProjectListRoute = Ember.Route.extend({
     model: function() {
@@ -467,3 +537,15 @@ App.FinalOrderItemListRoute = Ember.Route.extend({
 });
 
 
+/* Views */
+App.LanguageView = Ember.View.extend({
+    templateName: 'language'
+});
+
+
+App.LanguageSwitchView = Ember.CollectionView.extend({
+    tagName: 'ul',
+    classNames: ['nav-language'],
+    content: App.interfaceLanguages,
+    itemViewClass: App.LanguageView
+});
