@@ -1,11 +1,13 @@
-
 /*
  Models
  */
 
-App.MediaWallPostPhoto = DS.Model.extend({
+App.ProjectWallPostPhoto = DS.Model.extend({
+    url: 'projects/wallposts/media/photos',
+
     photo: DS.attr('string'),
-    thumbnail: DS.attr('string')
+    thumbnail: DS.attr('string'),
+    mediawallpost: DS.belongsTo('App.ProjectWallPost')
 });
 
 // This is union of all different wallposts.
@@ -21,8 +23,7 @@ App.ProjectWallPost = DS.Model.extend({
     timesince: DS.attr('string'),
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
-    photo: DS.attr('string'),
-    photos: DS.hasMany('App.MediaWallPostPhoto'),
+    photos: DS.hasMany('App.ProjectWallPostPhoto'),
     reactions: DS.hasMany('App.WallPostReaction')
 });
 
@@ -62,6 +63,9 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
 App.ProjectWallPostNewController = Em.ObjectController.extend({
     needs: ['currentUser', 'projectWallPostList'],
 
+    // This a temporary container for App.Photo records until they are connected after this wallpost is saved.
+    files: Em.A(),
+
     init: function() {
         this._super();
         this.set('content', App.ProjectWallPost.createRecord());
@@ -73,10 +77,35 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
-        mediawallpost.set('photo', this.get('content.photo'));
         mediawallpost.set('project', this.get('currentProject'));
-        mediawallpost.set('photo_file', this.get('content.photo_file'));
+
         var controller = this;
+        // As soon as the wallpost has got an id we can start connecting photos to it.
+        mediawallpost.addObserver('id', function(){
+            if (controller.get('files').length) {
+                // Start a new transaction and add the wallpost and all the photos to it.
+                var transaction = controller.get('store').transaction();
+                // Add the wallpost to the same transaction.
+                transaction.add(mediawallpost);
+                var reload = true;
+                controller.get('files').forEach(function(photo){
+                    transaction.add(photo);
+                    // Connect a photo to the new wallpost.
+                    photo.set('mediawallpost', mediawallpost);
+                    photo.on('didUpdate', function(){
+                        if (reload) {
+                            mediawallpost.reload();
+                            reload = false;
+                        }
+                    });
+                });
+                controller.set('photo_files', null);
+                // Empty this.files so we can use it again.
+                controller.set('files', Em.A());
+                transaction.commit();
+            }
+        });
+
         mediawallpost.on('didCreate', function(record) {
             controller.get('controllers.projectWallPostList').unshiftObject(record);
             controller.clearWallPost()
@@ -87,6 +116,16 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
 //            record.deleteRecord();
         });
         transaction.commit();
+    },
+
+    addPhoto: function(file) {
+        var transaction = this.get('store').transaction();
+        var photo = transaction.createRecord(App.ProjectWallPostPhoto);
+        // Connect the file to it. DRF2 Adapter will sort this out.
+        photo.set('file', file);
+        this.get('files').pushObject(photo);
+        transaction.commit();
+        // Store the photo in this.files. We need to connect it to the wallpost later.
     },
 
     addTextWallPost: function() {
@@ -111,8 +150,6 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         this.set('content.title', '');
         this.set('content.text', '');
         this.set('content.video_url', '');
-        this.set('content.photo', '');
-        this.set('content.photo_file', null);
         this.set('content.errors', null);
     },
 
@@ -124,6 +161,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         }
         return false;
     }.property('currentProject.owner', 'controllers.currentUser.username')
+
 });
 
 
@@ -137,7 +175,18 @@ App.ProjectWallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
     // This is acting like a binding.
     wallpostIdChanged: function(sender, key) {
         this.set('controllers.wallPostReactionNew.currentWallpost', this.get('content'))
-    }.observes('content', 'controllers.wallPostReactionNew.currentWallpost')
+    }.observes('content', 'controllers.wallPostReactionNew.currentWallpost'),
+
+
+
+    // TODO: remove this if we switch to DeleteMixin
+    deleteRecordOnServer: function(){
+        var transaction = this.get('store').transaction();
+        var model = this.get('model');
+        transaction.add(model);
+        model.deleteRecord();
+        transaction.commit();
+    }
 });
 
 
@@ -184,16 +233,15 @@ App.UploadFileView = Ember.TextField.extend({
     contentBinding: 'parentView.controller.content',
 
     change: function(e) {
-        var input = e.target;
-        if (input.files && input.files[0]) {
+        var controller = this.get('controller');
+        var files = e.target.files;
+        for (i = 0; i < files.length; i++) {
             var reader = new FileReader();
-            var view = this;
-            reader.onload = function(e) {
-                view.get('content').set('photo_preview', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-            // The File object needs to be set on the Model so that it can be accesses in the DRF2 adapter.
-            this.get('content').set('photo_file', input.files[0]);
+            var file = files[i];
+            // TODO: enable client site previews with: reader.onload = function(e){}
+            reader.readAsDataURL(file);
+            this.get('controller').addPhoto(file);
+
         }
     }
 });
@@ -208,13 +256,10 @@ App.ProjectWallPostView = Em.View.extend({
 
     // TODO: Delete reactions to WallPost as well?
     deleteWallPost: function() {
+        var controller = this.get('controller');
         if (confirm("Delete this wallpost?")) {
-            var transaction = this.get('store').transaction();
-            var wallpost = this.get('controller.content');
-            transaction.add(wallpost);
-            this.$().slideUp(500, function() {
-                wallpost.deleteRecord();
-                transaction.commit();
+            this.$().fadeOut(500, function() {
+                controller.deleteRecordOnServer();
             });
         }
     }

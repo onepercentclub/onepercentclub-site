@@ -50,19 +50,22 @@ class WallPost(PolymorphicModel):
 
 class MediaWallPost(WallPost):
     # The content of the wall post.
+    # TODO: When this is set to 'deleted' set connected MediaWallPostPhotos to deleted too.
     title = models.CharField(max_length=60)
     text = models.TextField(max_length=WALLPOST_REACTION_MAX_LENGTH, blank=True, default='')
     video_url = models.URLField(max_length=100, blank=True, default='')
-    # This is temporary and will go away when we figure out how to upload related photos.
-    photo = models.ImageField(upload_to='mediawallpostphotos', blank=True, null=True)
 
     def __unicode__(self):
         return Truncator(self.text).words(10)
 
 
 class MediaWallPostPhoto(models.Model):
-    mediawallpost = models.ForeignKey(MediaWallPost, related_name='photos')
+    mediawallpost = models.ForeignKey(MediaWallPost, related_name='photos', null=True, blank=True)
     photo = models.ImageField(upload_to='mediawallpostphotos')
+    deleted = models.DateTimeField(_('deleted'), blank=True, null=True)
+    ip_address = models.IPAddressField(_('IP address'), blank=True, null=True, default=None)
+    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_wallpost_photo", blank=True, null=True)
+    editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this wallpost photo."))
 
 
 class TextWallPost(WallPost):
