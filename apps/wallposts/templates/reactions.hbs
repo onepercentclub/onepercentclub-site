@@ -1,17 +1,23 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
+{% load static %}
 
 {% tplhandlebars "wallpost_reaction" %}
 
-	<span class="user-img"><img {{ bindAttr src="author.picture" }} width="100%" alt="Avatar" /></span>
+	<span class="user-img">
+        <img {{ bindAttr src="author.avatar" }} width="100%" alt="Avatar" />
+    </span>
 	<div class="reaction">
 	    <a href="#" class="user">
             <strong>{{ author.full_name }}</strong>
             <em class="not-implemented">{%  trans "Member" %}</em> <small>{{ timesince }}</small>
         </a>
+
         {{#if isAuthor}}
             <ul class="manage">
-                <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
+                {% comment %}
+                    <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
+                {% endcomment %}
                 <li class="manage-remove"><a {{ action "deleteReaction" target="view" }}>{% trans "Delete" %}</a></li>
             </ul>
         {{/if}}
@@ -35,17 +41,21 @@
 
     <fieldset>
     <ul>
-        <li {{bindAttr class="errors.text.length:error"}}>
-            <span class="user-img"><img {{bindAttr src="controllers.currentUser.picture" title="controllers.currentUser.fullname"}} width="100%" alt="Avatar"></span>
-            {{#each errors.text}}
-                <span class="error">{{this}}</span>
-            {{/each}}
-            {{#if controllers.currentUser.isAuthenticated }}
+        {{#if controllers.currentUser.isAuthenticated }}
+            <li {{bindAttr class="errors.text.length:error"}}>
+                <span class="user-img">
+                    <img {{bindAttr src="controllers.currentUser.avatar" title="controllers.currentUser.fullname"}} width="100%" alt="Avatar" />
+                </span>
+
+                {{#each errors.text}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
                 {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="content.text" name="reaction"}}
-            {{else}}
-                {{view "Em.TextArea" placeholder="Login to leave a reaction" disabled="true"}}
-            {{/if}}
-        </li>
+            </li>
+        {{else}}
+            <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
+        {{/if}}
+
     </ul>
     </fieldset>
     <button type="submit" id="reaction-post">Post</button>

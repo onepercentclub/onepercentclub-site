@@ -1,5 +1,6 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
+{% load static %}
 
 
 {% tplhandlebars "project_wallpost_new" %}
@@ -114,7 +115,9 @@
             <h3>{{title}}</h3>
             <small class="timestamp">{{ timesince }}</small>
             <a href="#" class="user initiator">
-                <span class="user-img"><img {{bindAttr src="author.picture"}} width="100%" alt="Avatar" /></span>
+                <span class="user-img">
+                    <img {{bindAttr src="author.avatar"}} width="100%" alt="Avatar" />
+                </span>
                 <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
             </a>
 
@@ -168,7 +171,9 @@
                 </li>
             </ul>
 
-            {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
+            {{#if content.reactions }}
+                {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
+            {{/if}}
 
             {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
 
