@@ -113,7 +113,11 @@ class UserProfile(models.Model):
     @property
     # for now return the first address found on this user.
     def address(self):
-        return self.useraddress_set.all()[0]
+        addresses = self.useraddress_set.all()
+        if addresses:
+            return addresses[0]
+        else:
+            return None
 
     # Override save() to prevent UserProfiles from being created
     # without a corresponding User.

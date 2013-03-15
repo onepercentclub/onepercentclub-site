@@ -202,10 +202,11 @@ def process_order_in_progress(order):
             process_donation_order_in_progress(order_item.content_object)
 
 
-class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     """
     Payment profile information.
     """
+    model = DocDataPaymentOrder
     serializer_class = DocDataOrderProfileSerializer
 
     def get_object(self, queryset=None):
@@ -222,17 +223,24 @@ class PaymentOrderProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
             payment.first_name = self.request.user.first_name
             payment.last_name = self.request.user.last_name
 
+            # Try to use the address from the profile if it's set.
             profile = self.request.user.get_profile()
             address = profile.address
+            if address:
+                payment.street = address.line1
+                payment.city = address.city
+                payment.postal_code = address.postal_code
+                payment.country = address.country.alpha2_code
 
-            payment.language = profile.interface_language
-            payment.street = address.line1
-            payment.city = address.city
-            payment.postal_code = address.postal_code
-            payment.country = address.country.alpha2_code
-            payment.save()
-        else:
-            payment.language = self.request.LANGUAGE_CODE
+            # Try to use the interface language from the profile if it's set
+            if profile.interface_language:
+                payment.language = profile.interface_language.split('-')[0]  # Cut off locale.
+
+        # Set language from request if required.
+        if not payment.language:
+            payment.language = self.request.LANGUAGE_CODE.split('-')[0]   # Cut off locale.
+
+        payment.save()
         return order.payment
 
 
