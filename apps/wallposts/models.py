@@ -50,6 +50,7 @@ class WallPost(PolymorphicModel):
 
 class MediaWallPost(WallPost):
     # The content of the wall post.
+    # TODO: When this is set to 'deleted' set connected MediaWallPostPhotos to deleted too.
     title = models.CharField(max_length=60)
     text = models.TextField(max_length=WALLPOST_REACTION_MAX_LENGTH, blank=True, default='')
     video_url = models.URLField(max_length=100, blank=True, default='')

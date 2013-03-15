@@ -80,9 +80,12 @@ class ProjectMediaWallPostPhotoList(generics.ListCreateAPIView):
 
 
 class ProjectMediaWallPostPhotoDetail(RetrieveUpdateDeleteAPIView):
+    # FIXME: Author should match wallpost-author when setting wallpost.
     model = MediaWallPostPhoto
     serializer_class = MediaWallPostPhotoSerializer
     permission_classes = (IsAuthorOrReadOnly,)
+
+
 
 
 class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
