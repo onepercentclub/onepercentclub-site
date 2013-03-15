@@ -1,12 +1,13 @@
+from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
-from apps.bluebottle_utils.utils import get_client_ip
+from apps.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
-from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost
+from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
 from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
                           ProjectTextWallPostSerializer)
@@ -63,6 +64,28 @@ class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
     permission_classes = (IsAuthorOrReadOnly,)
+
+
+class ProjectMediaWallPostPhotoList(generics.ListCreateAPIView):
+    model = MediaWallPostPhoto
+    serializer_class = MediaWallPostPhotoSerializer
+    paginate_by = 4
+
+    def pre_save(self, obj):
+        if not obj.author:
+            obj.author = self.request.user
+        else:
+            obj.editor = self.request.user
+        obj.ip_address = get_client_ip(self.request)
+
+
+class ProjectMediaWallPostPhotoDetail(RetrieveUpdateDeleteAPIView):
+    # FIXME: Author should match wallpost-author when setting wallpost.
+    model = MediaWallPostPhoto
+    serializer_class = MediaWallPostPhotoSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
+
+
 
 
 class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):

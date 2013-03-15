@@ -51,9 +51,10 @@ $.ajaxSetup({
 
 
 Em.TextField.reopen({
-    // Add 'step' to attributeBinding
-    attributeBindings: ['type', 'value', 'size', 'step']
+    // Update attributeBinding with 'step' and 'multiple'
+    attributeBindings: ['type', 'value', 'size', 'step', 'multiple']
 });
+
 
 // TODO Rename App to BlueBottle, BB or BBApp.
 App = Em.Application.create({
