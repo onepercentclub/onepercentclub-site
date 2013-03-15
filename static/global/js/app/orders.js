@@ -66,17 +66,16 @@ App.CurrentOrderVoucher = App.Voucher.extend({
 
 /* Models related to payment. */
 
-App.PaymentOrderProfile = DS.Model.extend({
-    url: 'fund/paymentorderprofiles',
+App.PaymentProfile = DS.Model.extend({
+    url: 'fund/paymentprofiles',
 
-    order: DS.belongsTo('App.Order'),
     firstName: DS.attr('string'),
     lastName: DS.attr('string'),
     email: DS.attr('string'),
     street: DS.attr('string'),
+    postalCode: DS.attr('string'),
     city: DS.attr('string'),
-    country: DS.attr('string'),
-    postalCode: DS.attr('string')
+    country: DS.attr('string')
 });
 
 
@@ -153,9 +152,6 @@ App.Payment = DS.Model.extend({
  */
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
-    // The CurrentOrderController is needed for the single / monthly radio buttons.
-    needs: ['currentOrder'],
-
     total: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
             // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
@@ -257,15 +253,15 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 });
 
 
-App.PaymentOrderProfileController = Em.ObjectController.extend({
+App.CurrentOrderPaymentProfileController = Em.ObjectController.extend({
     initTransaction: function() {
         var transaction = this.get('store').transaction();
         this.set('transaction', transaction);
-        transaction.add(this.get('content'));
+        transaction.add(this.get('model'));
     }.observes('content'),
 
     updateProfile: function() {
-        var profile = this.get('content');
+        var profile = this.get('model');
         var controller = this;
         // We should at least have an email address
         if (!profile.get('isDirty') && profile.get('email')) {
@@ -278,7 +274,7 @@ App.PaymentOrderProfileController = Em.ObjectController.extend({
         });
         // TODO: Validate data and return errors here
         profile.on('becameInvalid', function(record) {
-            controller.get('content').set('errors', record.get('errors'));
+            controller.get('model').set('errors', record.get('errors'));
         });
     }
 });
@@ -319,8 +315,8 @@ App.CurrentOrderView = Em.View.extend({
 });
 
 
-App.PaymentOrderProfileView = Em.View.extend({
-    templateName: 'payment_order_profile',
+App.CurrentOrderPaymentProfileView = Em.View.extend({
+    templateName: 'current_order_payment_profile',
     tagName: 'form',
 
     submit: function(e) {

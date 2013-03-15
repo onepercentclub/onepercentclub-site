@@ -51,7 +51,7 @@
                 {{/if}}
 
                 {{#view App.OrderNavView classNames="details"}}
-                    {{#linkTo "currentOrder.paymentProfile"}}{% trans "Details" %}{{/linkTo}}
+                    {{#linkTo "currentOrderPaymentProfile"}}{% trans "Details" %}{{/linkTo}}
                 {{/view}}
 
                 {{#view App.OrderNavView classNames="profile"}}
@@ -123,7 +123,7 @@
 
     </fieldset>
 
-    {{#linkTo "currentOrder.paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
+    {{#linkTo "currentOrderPaymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -159,7 +159,7 @@
 
 
         {{#if length }}
-            {{#linkTo "currentOrder.paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
+            {{#linkTo "currentOrderPaymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
         {{else}}
             <button disabled class="right">{% trans "Next step" %}</button>
         {{/if}}
@@ -254,10 +254,10 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "payment_order_profile" %}
+{% tplhandlebars "current_order_payment_profile" %}
 
     <fieldset>
-        {{#if content.isLoaded}}
+        {{#if model.isLoaded}}
             {{#each errors.first_name}}<span class="error">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="firstName" placeholder="First name" classBinding="errors.first_name.length:error"}}
 
@@ -270,14 +270,16 @@
             {{#each errors.street}}<span class="errors">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="street" placeholder="Street + housenumber" classBinding="errors.street.length:error"}}
 
+            {# Note: Postal code before city is a Netherlands locale specific way to present an address form. #}
             {{#each errors.postal_code}}<span class="errors">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="postalCode" placeholder="Postal code" classBinding="errors.postal_code.length:error"}}
 
             {{#each errors.city}}<span class="errors">{{this}}</span>{{/each}}
             {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
 
+            {# TODO: Make a proper country list. #}
             {{#each errors.country}}<span class="errors">{{this}}</span>{{/each}}
-            {{view App.CountrySelect valueBinding="country" classBinding="errors.country.length:error"}}
+            {{view Em.TextField valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
 
             <button class="right">{% trans 'Next step' %}</button>
         {{/if}}
