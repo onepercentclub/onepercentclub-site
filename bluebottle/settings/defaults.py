@@ -62,6 +62,9 @@ USE_I18N = True
 # calendars according to the current locale.
 USE_L10N = True
 
+# First one is for apps the second for the main templates
+LOCALE_PATHS = ('../locale', 'locale')
+
 # If you set this to False, Django will not use timezone-aware datetimes.
 # pytz is in requirements.txt because it's "highly recommended" when using
 # timezone support.

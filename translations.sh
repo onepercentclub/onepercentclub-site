@@ -39,8 +39,8 @@ case "$1" in
             done
 
             echo "Generating PO-file for templates"
-            mv bluebottle/locale templates/ && cd templates/ && $MAKEMESSAGES
-            mv locale ../bluebottle/
+            mv locale templates/ && cd templates/ && $MAKEMESSAGES
+            mv locale ../
 
             ;;
 
@@ -64,7 +64,7 @@ case "$1" in
             done
 
             echo "Generating PO-file for templates"
-            cd bluebottle/ && $COMPILEMESSAGES
+            $COMPILEMESSAGES
 
             ;;
 
