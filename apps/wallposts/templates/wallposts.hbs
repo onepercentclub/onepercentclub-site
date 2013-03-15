@@ -171,7 +171,9 @@
                 </li>
             </ul>
 
-            {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
+            {{#if content.reactions }}
+                {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
+            {{/if}}
 
             {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
 
