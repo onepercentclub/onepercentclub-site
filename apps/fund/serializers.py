@@ -33,7 +33,6 @@ class DonationSerializer(serializers.ModelSerializer):
         self.object.currency = 'EUR'
         return super(DonationSerializer, self).save()
 
-
     class Meta:
         model = Donation
         fields = ('id', 'project', 'amount', 'status', 'url')
@@ -81,7 +80,7 @@ class PaymentMethodSerializer(serializers.Serializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    amount = EuroField(read_only=True)
+    total = EuroField(read_only=True)
     status = serializers.ChoiceField(read_only=True)
     # Payment_method  is writen in the view.
     payment_method_id = serializers.CharField(source='payment.payment_method_id', required=False)
@@ -94,7 +93,7 @@ class OrderSerializer(serializers.ModelSerializer):
     vouchers = VoucherSerializer(source='vouchers', many=True)
 
     def get_payment_methods(self, order):
-        return factory.get_payment_method_ids(amount=order.amount, currency='EUR', country='NL',
+        return factory.get_payment_method_ids(amount=order.total, currency='EUR', country='NL',
                                               recurring=order.recurring)
 
     def get_payment_url(self, obj):
@@ -105,7 +104,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'amount', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id',
+        fields = ('id', 'total', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id',
                   'payment_url', 'donations', 'vouchers')
 
 
@@ -122,7 +121,6 @@ class VoucherRedeemSerializer(serializers.ModelSerializer):
     message = serializers.Field()
     donations = DonationSerializer(many=True)
 
-
     def validate_status(self, attrs, source):
         value = attrs[source]
         if value not in ['cashed']:
@@ -132,12 +130,10 @@ class VoucherRedeemSerializer(serializers.ModelSerializer):
 
         return attrs
 
-
     class Meta:
         model = Voucher
         fields = ('id', 'language', 'amount', 'receiver_email', 'receiver_name', 'sender_email', 'sender_name',
                   'message', 'donations', 'status')
-
 
 
 class VoucherDonationSerializer(DonationSerializer):
@@ -180,6 +176,6 @@ class CustomVoucherRequestSerializer(serializers.ModelSerializer):
     status = serializers.Field()
 
     class Meta:
-        model =  CustomVoucherRequest
+        model = CustomVoucherRequest
         fields = ('id', 'status', 'amount', 'contact_name', 'contact_email', 'organization', 'message',
                   'contact_phone', 'type')
