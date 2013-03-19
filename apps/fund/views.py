@@ -213,9 +213,9 @@ class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
 
     def get_object(self, queryset=None):
         order = self.get_current_order()
-        self.check_object_permissions(self.request, order)
         if not order:
             raise exceptions.ParseError(detail=no_active_order_error_msg)
+        self.check_object_permissions(self.request, order)
         payment = order.payment
 
         # Pre-fill the order profile form if the user is authenticated.
