@@ -18,7 +18,6 @@ from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectM
 class ProjectList(generics.ListAPIView):
     model = Project
     serializer_class = ProjectSerializer
-    permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 10
     filter_fields = ('phase', 'slug')
 
@@ -26,7 +25,6 @@ class ProjectList(generics.ListAPIView):
 class ProjectDetail(generics.RetrieveAPIView):
     model = Project
     serializer_class = ProjectSerializer
-    permissions_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class ProjectWallPostMixin(object):

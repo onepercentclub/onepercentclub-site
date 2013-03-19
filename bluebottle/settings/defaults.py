@@ -404,5 +404,9 @@ THUMBNAIL_QUALITY = 85
 # TODO: Configure Sorl with Redis.
 
 REST_FRAMEWORK = {
-    'FILTER_BACKEND': 'rest_framework.filters.DjangoFilterBackend'
+    'FILTER_BACKEND': 'rest_framework.filters.DjangoFilterBackend',
+    # Don't do basic authentication.
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
