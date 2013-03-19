@@ -13,3 +13,5 @@ from .defaults import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
+COWRY_RETURN_URL_BASE = 'https://testing.onepercentclub.com'
+

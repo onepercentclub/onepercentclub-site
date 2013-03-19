@@ -205,12 +205,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     def get_payment_url(self, payment, return_url_base=None):
         """ Return the Payment URL """
 
-        if not payment.payment_method_id:
-            raise DocDataPaymentException('ERROR', 'payment_method_id is not set')
-        if not self.id_to_model_mapping[payment.payment_method_id] == DocDataWebMenu:
-            raise DocDataPaymentException('ERROR',
-                                          'payment_method_id {0} does not support WebMenu'.format(
-                                              payment.payment_method_id))
+        if not payment.payment_method_id or not self.id_to_model_mapping[payment.payment_method_id] == DocDataWebMenu:
+            return None
 
         if not payment.payment_order_key:
             self.create_remote_payment_order(payment)

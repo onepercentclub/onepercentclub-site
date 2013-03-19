@@ -9,3 +9,5 @@ except ImportError:
 from .defaults import *
 
 # Put dev server environment specific overrides below.
+
+COWRY_RETURN_URL_BASE = 'https://dev.onepercentclub.com'

@@ -1,5 +1,7 @@
 from decimal import Decimal
+from apps.cowry_docdata.tests import run_docdata_tests
 from django.test import TestCase
+from django.utils import unittest
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin
 from rest_framework import status
@@ -57,7 +59,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case)
     """
-
     def setUp(self):
         self.some_project = self.create_project()
         self.another_project = self.create_project()
@@ -65,7 +66,8 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.another_user = self.create_user()
         self.current_donations_url = '/i18n/api/fund/orders/current/donations/'
         self.current_order_url = '/i18n/api/fund/orders/current'
-        self.payment_profile_url = '/i18n/api/fund/paymentprofiles/'
+        self.payment_profile_current_url = '/i18n/api/fund/paymentprofiles/current'
+        self.payment_current_url = '/i18n/api/fund/payments/current'
 
     def test_current_order_donation_crud(self):
         """
@@ -186,38 +188,36 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
 
-    def test_current_order_payment_profile(self):
+    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
+    def test_payment_profile_and_payment_api(self):
         """
-        Tests for creating, retrieving, updating and deleting a donation to shopping cart.
+        Integration tests for the PaymentProfile and Payment APIs.
         """
-
-        current_order_payment_profile_url = "{0}{1}".format(self.payment_profile_url, 'current')
-
-        # First make sure we have a current order.
+        # Make sure we have a current order.
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
 
-        # Create a Donation.
+        # Create a Donation for the current order.
         response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': 35})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '35.00')
         self.assertEqual(response.data['project'], self.some_project.slug)
         self.assertEqual(response.data['status'], 'new')
 
-        # Check that retrieving the current order payment profile works.
-        response = self.client.get(current_order_payment_profile_url)
+        # Now retrieve the current order payment profile.
+        response = self.client.get(self.payment_profile_current_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
-        # Check that updating the current order payment profile works.
-        response = self.client.put(current_order_payment_profile_url, {'first_name': 'Nijntje',
-                                                                       'last_name': 'het Konijnje',
-                                                                       'email': 'nijntje@hetkonijnje.nl',
-                                                                       'street': 'Dam',
-                                                                       'postal_code': '1001AM',
-                                                                       'city': 'Amsterdam',
-                                                                       'country': 'NL'})
+        # Update the current order payment profile with our information.
+        response = self.client.put(self.payment_profile_current_url, {'first_name': 'Nijntje',
+                                                                      'last_name': 'het Konijnje',
+                                                                      'email': 'nijntje@hetkonijnje.nl',
+                                                                      'street': 'Dam',
+                                                                      'postal_code': '1001AM',
+                                                                      'city': 'Amsterdam',
+                                                                      'country': 'NL'})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['first_name'], 'Nijntje')
         self.assertEqual(response.data['last_name'], 'het Konijnje')
@@ -227,12 +227,31 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['city'], 'Amsterdam')
         self.assertEqual(response.data['country'], 'NL')
 
+        # Now it's time to pay. Get the payment record.
+        # TODO These tests rely the current payment method conifg in the Cowry DocDataPaymentAdapter.
+        # TODO We should make a separate config for testing somehow.
+        response = self.client.get(self.payment_current_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+
+        # Check that the payment_method is set to the first available payment method
+        # and that the payment_url is available.
+        first_payment_method = response.data['available_payment_methods'][0]
+        self.assertEqual(response.data['payment_method'], first_payment_method)
+        self.assertTrue(response.data['payment_url'])  # Not empty payment_url.
+
+        # Updating the payment method with a value not in the available list should fail.
+        response = self.client.put(self.payment_current_url, {'payment_method': 'some-new-fancy-pm'})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
+        # Updating the payment method with a valid value should work.
+        response = self.client.put(self.payment_current_url, {'payment_method': first_payment_method})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+
 
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case)
     """
-
     def setUp(self):
         self.some_project = self.create_project()
         self.another_project = self.create_project()
