@@ -149,6 +149,8 @@ class OrderList(ListAPIView):
 
 # Order views:
 
+no_active_order_error_msg = _(u"No active Order.")
+
 class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
     serializer_class = OrderSerializer
@@ -213,7 +215,7 @@ class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         order = self.get_current_order()
         self.check_object_permissions(self.request, order)
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
         payment = order.payment
 
         # Pre-fill the order profile form if the user is authenticated.
@@ -257,7 +259,7 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         """
         order = self.get_current_order()
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
         pm_ids = request.QUERY_PARAMS.getlist('ids[]', [])
         payment_methods = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL',
                                                       recurring=order.recurring, pm_ids=pm_ids)
@@ -283,7 +285,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
         order = self.get_current_order()
         self.check_object_permissions(self.request, order)
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
 
         if not order.payment.latest_docdata_payment:
             if not order.payment.payment_method_id:
@@ -330,7 +332,7 @@ class OrderItemMixin(object):
     def create(self, request, *args, **kwargs):
         order = self.get_current_order()
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
         serializer = self.get_serializer(data=request.DATA)
         if serializer.is_valid():
             self.pre_save(serializer.object)
