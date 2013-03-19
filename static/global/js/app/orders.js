@@ -113,21 +113,6 @@ App.bankList = [
 //});
 
 
-App.PaymentInfo = DS.Model.extend({
-    url: 'fund/paymentinfo',
-
-    payment_method: DS.attr('number'),
-    amount: DS.attr('number'),
-    firstName: DS.attr('string'),
-    lastName: DS.attr('string'),
-    address: DS.attr('string'),
-    city: DS.attr('string'),
-    country: DS.attr('string'),
-    zipCode: DS.attr('string'),
-    payment_url: DS.attr('string')
-});
-
-
 App.PaymentMethodInfo = DS.Model.extend({
     url: 'fund/paymentmethodinfo',
 
