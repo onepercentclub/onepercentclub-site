@@ -46,9 +46,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     id_to_model_mapping = {
         'dd-ideal': DocDataWebMenu,
-        'dd-mastercard': DocDataWebMenu,
-        'dd-visa': DocDataWebMenu,
         'dd-direct-debit': DocDataWebMenu,
+        'dd-creditcard': DocDataWebMenu,
+        'dd-webmenu': DocDataWebMenu,
     }
 
     payment_methods = {
@@ -71,6 +71,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'restricted_countries': ('NL',),
             'supports_recurring': False,
         },
+
         'dd-direct-debit': {
             'id': 'DIRECT_DEBIT',
             'profile': 'directdebit',
@@ -80,18 +81,16 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'supports_recurring': False,
         },
 
-        'dd-mastercard': {
-            'id': 'MASTERCARD',
-            'profile': 'mastercard',
-            'name': 'Mastercard',
+        'dd-creditcard': {
+            'profile': 'creditcard',
+            'name': 'Credit Cards',
             'supports_recurring': False,
         },
 
-        'dd-visa': {
-            'id': 'VISA',
-            'profile': 'visa',
-            'name': 'Visa',
-            'supports_recurring': False,
+        'dd-webmenu': {
+            'profile': 'webmenu',
+            'name': 'Web Menu',
+            'supports_recurring': True,
         }
 
     }
@@ -217,8 +216,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             'merchant_name': self.merchant._name,
             'profile': self.payment_methods[payment.payment_method_id]['profile'],
             'client_language': payment.language,
-            'default_pm': self.payment_methods[payment.payment_method_id]['id'],
         }
+
+        # Add a default payment method if the config has an id.
+        if hasattr(self.payment_methods[payment.payment_method_id], 'id'):
+            params['default_pm'] = self.payment_methods[payment.payment_method_id]['id'],
 
         # Add return urls.
         if return_url_base:
