@@ -279,7 +279,7 @@ class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Check that the order now holds that two vouchers.
         response = self.client.get(self.current_order_url)
-        self.assertEqual(response.data['amount'], '75.00')
+        self.assertEqual(response.data['total'], '75.00')
         response = self.client.get(self.current_vouchers_url)
         self.assertEqual(len(response.data['results']), 2)
 
@@ -287,7 +287,7 @@ class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.delete(some_voucher_detail_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         response = self.client.get(self.current_order_url)
-        self.assertEqual(response.data['amount'], '50.00')
+        self.assertEqual(response.data['total'], '50.00')
         response = self.client.get(self.current_vouchers_url)
         self.assertEqual(len(response.data['results']), 1)
 

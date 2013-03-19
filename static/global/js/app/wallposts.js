@@ -177,8 +177,6 @@ App.ProjectWallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
         this.set('controllers.wallPostReactionNew.currentWallpost', this.get('content'))
     }.observes('content', 'controllers.wallPostReactionNew.currentWallpost'),
 
-
-
     // TODO: remove this if we switch to DeleteMixin
     deleteRecordOnServer: function(){
         var transaction = this.get('store').transaction();
