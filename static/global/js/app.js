@@ -291,10 +291,7 @@ App.Router.map(function() {
         this.route('voucherList', {path: '/vouchers'});
 
         this.resource('paymentProfile', {path: '/details'});
-        // TODO: Read the manual to see if this is the best way to do it.
-        this.resource('currentOrderPayment', {path: '/payment'}, function(){
-            this.resource('currentPaymentMethodInfo', {path: 'info'});
-        });
+        this.resource('payment', {path: '/payment'});
     });
 
     this.resource('finalOrderItemList', {path: '/support/thanks'});
@@ -473,6 +470,17 @@ App.PaymentProfileRoute = Ember.Route.extend({
 
     setupController: function(controller, paymentProfile) {
         this._super(controller, paymentProfile);
+    }
+});
+
+
+App.PaymentRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.Payment.find('current');
+    },
+
+    setupController: function(controller, payment) {
+        this._super(controller, payment);
     }
 });
 

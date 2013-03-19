@@ -7,9 +7,6 @@ App.Order = DS.Model.extend({
 
     status: DS.attr('string'),
     recurring: DS.attr('boolean'),
-    payment_method_id: DS.attr('string'),
-    payment_submethod_id: DS.attr('string'),
-    payment_methods: DS.hasMany('App.PaymentMethod'),
     vouchers: DS.hasMany('App.Voucher'),
     donations: DS.hasMany('App.Donation')
 });
@@ -64,7 +61,7 @@ App.CurrentOrderVoucher = App.Voucher.extend({
 });
 
 
-/* Models related to payment. */
+/* Models related to payments. */
 
 App.PaymentProfile = DS.Model.extend({
     url: 'fund/paymentprofiles',
@@ -79,28 +76,14 @@ App.PaymentProfile = DS.Model.extend({
 });
 
 
-App.PaymentMethod = DS.Model.extend({
-    url: 'fund/paymentmethods',
+App.Payment = DS.Model.extend({
+    url: 'fund/payments',
 
-    name: DS.attr('string'),
-    order: DS.belongsTo('App.Order')
+    paymentMethod: DS.attr('string'),
+    paymentSubmethod: DS.attr('string'),
+    paymentUrl: DS.attr('string'),
+    availablePaymentMethods: DS.attr('array')
 });
-
-
-// TODO: Turn into ember Fixture??
-// Maybe we can move this to the currentOrderController?
-App.bankList = [
-    Ember.Object.create({value:"0081", title: "Fortis"}),
-    Ember.Object.create({value:"0021", title: "Rabobank"}),
-    Ember.Object.create({value:"0721", title: "ING Bank"}),
-    Ember.Object.create({value:"0751", title: "SNS Bank"}),
-    Ember.Object.create({value:"0031", title: "ABN Amro Bank"}),
-    Ember.Object.create({value:"0761", title: "ASN Bank"}),
-    Ember.Object.create({value:"0771", title: "SNS Regio Bank"}),
-    Ember.Object.create({value:"0511", title: "Triodos Bank"}),
-    Ember.Object.create({value:"0091", title: "Friesland Bank"}),
-    Ember.Object.create({value:"0161", title: "Van Lanschot Bankiers"})
-];
 
 
 //App.LatestDonation = App.OrderItem.extend({
@@ -113,22 +96,12 @@ App.bankList = [
 //});
 
 
-App.PaymentMethodInfo = DS.Model.extend({
-    url: 'fund/paymentmethodinfo',
+App.DirectDebitPaymentMethodInfo = DS.Model.extend({
+    url: 'fund/directdebitpaymentmethodinfo',
 
-    payment_url: DS.attr('string'),
     bank_account_number: DS.attr('string'),
     bank_account_name: DS.attr('string'),
     bank_account_city: DS.attr('string')
-});
-
-
-App.Payment = DS.Model.extend({
-    url: 'fund/payments',
-
-    payment_method: DS.attr('string'),
-    amount: DS.attr('number'),
-    status: DS.attr('string')
 });
 
 
@@ -246,24 +219,21 @@ App.PaymentProfileController = Em.ObjectController.extend({
         var transaction = this.get('store').transaction();
         this.set('transaction', transaction);
         transaction.add(this.get('model'));
-    }.observes('content'),
+    }.observes('model'),
 
     updateProfile: function() {
         var profile = this.get('model');
+        // Set profile model to the 'updated' state so that the 'didUpdate' callback will always be run.
+        profile.get('stateManager').goToState('updated');
         var controller = this;
-        // We should at least have an email address
-        if (!profile.get('isDirty') && profile.get('email')) {
-            // No changes. No need to commit.
-            controller.transitionToRoute('currentPaymentMethodInfo');
-        }
-        this.get('transaction').commit();
-        profile.on('didUpdate', function(record) {
-            controller.transitionToRoute('currentPaymentMethodInfo');
+        profile.one('didUpdate', function(record) {
+            controller.transitionToRoute('payment');
         });
-        // TODO: Validate data and return errors here
-        profile.on('becameInvalid', function(record) {
+        profile.one('becameInvalid', function(record) {
             controller.get('model').set('errors', record.get('errors'));
+            // Note: We're reusing the transaction in this case but it seems to work.
         });
+        this.get('transaction').commit();
     }
 });
 
@@ -286,11 +256,6 @@ App.CurrentOrderController = Em.ObjectController.extend({
         order.set('recurring', (this.get('donationType') == 'monthly'));
         transaction.commit();
     }.observes('donationType')
-});
-
-
-App.CurrentOrderPaymentController = Em.ObjectController.extend({
-    contentBinding: App.CurrentOrderController.content
 });
 
 
@@ -326,14 +291,12 @@ App.CurrentOrderDonationListView = Em.View.extend({
 
 App.CurrentOrderVoucherListView = Em.View.extend({
     templateName: 'current_order_voucher_list',
-    tagName: 'div',
     classNames: ['content']
 });
 
 
 App.FinalOrderItemListView = Em.View.extend({
-    templateName: 'final_order_item_list',
-    tagName: 'div'
+    templateName: 'final_order_item_list'
 });
 
 
@@ -405,22 +368,15 @@ App.OrderNavView = Ember.View.extend({
 });
 
 
-App.CurrentOrderPaymentView = Em.View.extend({
-    tagName: 'div',
-    classNames: ['content'],
-    templateName: 'order_payment'
-});
-
-
-App.CurrentPaymentMethodInfoView = Em.View.extend({
-    tagName: 'div',
-    templateName: 'payment_method_info'
+App.PaymentView = Em.View.extend({
+    templateName: 'payment',
+    classNames: ['content']
 });
 
 
 App.IdealPaymentMethodInfoView = Em.View.extend({
-    tagName: 'form',
     templateName: 'ideal_payment_method_info',
+    tagName: 'form',
 
     submit: function(e) {
         e.preventDefault();
@@ -429,8 +385,8 @@ App.IdealPaymentMethodInfoView = Em.View.extend({
 
 
 App.DirectDebitPaymentMethodInfoView = Em.View.extend({
-    tagName: 'form',
     templateName: 'direct_debit_payment_method_info',
+    tagName: 'form',
 
     submit: function(e){
         e.preventDefault();

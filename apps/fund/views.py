@@ -1,8 +1,8 @@
 import threading
 from apps.cowry.models import Payment
 from apps.cowry.serializers import PaymentSerializer
-from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
-from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
+from apps.cowry_docdata.models import DocDataPaymentOrder
+from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -13,7 +13,6 @@ from rest_framework import permissions
 from rest_framework import response
 from rest_framework import generics
 from rest_framework import exceptions
-from rest_framework import views
 from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
 from .models import (Donation, OrderItem, Order, Voucher, CustomVoucherRequest,
@@ -279,37 +278,6 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
                                                       recurring=order.recurring, pm_ids=pm_ids)
         serializer = self.get_serializer(payment_methods)
         return response.Response(serializer.data)
-
-
-class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
-    """
-    Payment method information.
-    """
-    serializer_class = DocDataPaymentMethodSerializer
-
-    def get_object(self, queryset=None):
-        order = self.get_current_order()
-        self.check_object_permissions(self.request, order)
-        if not order:
-            raise exceptions.ParseError(detail=no_active_order_error_msg)
-
-        if not order.payment.latest_docdata_payment:
-            if not order.payment.payment_method_id:
-                payment_methods = factory.get_payment_method_ids(amount=order.amount, currency='EUR', country='NL',
-                                                                 recurring=order.recurring)
-                if payment_methods:
-                    order.payment.payment_method_id = payment_methods[0]
-                    order.save()
-                else:
-                    return None
-            # TODO: Use cowry factory for this?
-            # TODO: Hardcoded stuff is fun! should fix this though.
-            if order.recurring:
-                payment_method_object = DocDataWebDirectDirectDebit(docdata_payment_order=order.payment)
-            else:
-                payment_method_object = DocDataWebMenu(docdata_payment_order=order.payment)
-            payment_method_object.save()
-        return order.payment.latest_docdata_payment
 
 
 # OrderItems
