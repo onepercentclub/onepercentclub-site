@@ -3,8 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from django_countries import CountryField
-from polymorphic.manager import PolymorphicManager
-from polymorphic.polymorphic_model import PolymorphicModel
+from polymorphic import PolymorphicModel
 
 
 class DocDataPaymentOrder(Payment):
@@ -43,8 +42,6 @@ class DocDataPayment(PolymorphicModel):
     docdata_payment_method = models.CharField(max_length=20, default='', blank=True)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
-
-    objects = PolymorphicManager()
 
 
 class DocDataWebMenu(DocDataPayment):
