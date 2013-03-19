@@ -267,14 +267,6 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         return response.Response(serializer.data)
 
 
-# Not implemented nor being used right now.
-class PaymentMethodDetail(generics.GenericAPIView):
-    """
-    Payment Method
-    """
-    serializer_class = PaymentMethodSerializer
-
-
 class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     """
     Payment method information.
