@@ -3,7 +3,6 @@ from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from polymorphic import PolymorphicModel
-from polymorphic.manager import PolymorphicManager
 
 
 class Payment(PolymorphicModel):
@@ -34,6 +33,3 @@ class Payment(PolymorphicModel):
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
-
-    # Manager
-    objects = PolymorphicManager()
