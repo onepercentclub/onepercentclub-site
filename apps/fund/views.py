@@ -161,7 +161,6 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         alias = self.kwargs.get('alias', None)
         if alias == 'current':
             order = self.get_or_create_current_order()
-            self.check_object_permissions(self.request, order)
     
             # Not sure if this is the best place to generate the payment url.
             if order.payment.payment_method_id:
