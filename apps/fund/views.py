@@ -234,11 +234,11 @@ class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
 
             # Try to use the interface language from the profile if it's set
             if profile.interface_language:
-                payment.language = profile.interface_language.split('-')[0]  # Cut off locale.
+                payment.language = profile.interface_language[:2]  # Cut off locale.
 
         # Set language from request if required.
         if not payment.language:
-            payment.language = self.request.LANGUAGE_CODE.split('-')[0]   # Cut off locale.
+            payment.language = self.request.LANGUAGE_CODE[:2]  # Cut off locale.
 
         payment.save()
         return order.payment
