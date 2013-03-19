@@ -238,7 +238,7 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 });
 
 
-App.CurrentOrderPaymentProfileController = Em.ObjectController.extend({
+App.PaymentProfileController = Em.ObjectController.extend({
     initTransaction: function() {
         var transaction = this.get('store').transaction();
         this.set('transaction', transaction);
@@ -300,8 +300,8 @@ App.CurrentOrderView = Em.View.extend({
 });
 
 
-App.CurrentOrderPaymentProfileView = Em.View.extend({
-    templateName: 'current_order_payment_profile',
+App.PaymentProfileView = Em.View.extend({
+    templateName: 'payment_profile',
     tagName: 'form',
 
     submit: function(e) {
