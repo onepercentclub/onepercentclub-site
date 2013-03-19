@@ -70,11 +70,11 @@ class Order(models.Model):
 
     # Calculate total for this Order
     @property
-    def amount(self):
-        amount = 0
+    def total(self):
+        total = 0
         for item in self.orderitem_set.all():
-            amount += item.amount
-        return amount
+            total += item.amount
+        return total
 
     @property
     def donations(self):

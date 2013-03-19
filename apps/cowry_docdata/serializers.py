@@ -1,7 +1,6 @@
 from apps.bluebottle_drf2.serializers import PolymorphicSerializer
-from apps.cowry_docdata.models import DocDataWebMenu, DocDataWebDirectDirectDebit
 from rest_framework import serializers
-from .models import DocDataPaymentOrder
+from .models import DocDataPaymentOrder, DocDataWebMenu, DocDataWebDirectDirectDebit
 
 
 class DocDataOrderProfileSerializer(serializers.ModelSerializer):
