@@ -8,8 +8,8 @@ from rest_framework import status
 
 
 try:
-    getattr(settings, 'DOCDATA_MERCHANT_NAME')
-    getattr(settings, 'DOCDATA_MERCHANT_PASSWORD')
+    getattr(settings, 'COWRY_DOCDATA_MERCHANT_NAME')
+    getattr(settings, 'COWRY_DOCDATA_MERCHANT_PASSWORD')
     requests.get('http://www.google.com')
     run_docdata_tests = True
 except (ConnectionError, AttributeError):
