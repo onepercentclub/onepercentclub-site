@@ -2899,8 +2899,58 @@ ul.steps li.selected a {
 #wallpost-form .sidebar h3 {
   margin: 0;
 }
+/* line 21, ../sass/modules/_wallposts.scss */
+#wallpost-form .wallpost-photos {
+  margin-top: 16px;
+  margin-top: 1rem;
+  *zoom: 1;
+  clear: none;
+}
+/* line 44, ../sass/includes/_grid.scss */
+#wallpost-form .wallpost-photos:before, #wallpost-form .wallpost-photos:after {
+  display: block;
+  height: 0 !important;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  content: ".";
+}
+/* line 45, ../sass/includes/_grid.scss */
+#wallpost-form .wallpost-photos:after {
+  clear: both;
+}
+/* line 26, ../sass/modules/_wallposts.scss */
+#wallpost-form .wallpost-photos li {
+  display: block;
+  float: left;
+  width: 10.41667%;
+  margin-left: 0%;
+  margin-right: 2.08333%;
+  position: relative;
+}
+/* line 5, ../sass/mixins/_utilities.scss */
+#wallpost-form .wallpost-photos li:hover .remove {
+  display: block;
+}
+/* line 10, ../sass/mixins/_utilities.scss */
+#wallpost-form .wallpost-photos li .remove {
+  cursor: pointer;
+  display: none;
+  z-index: 5;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  background-image: url('../images/sprites/icons-sbbafc246d3.png');
+  background-repeat: no-repeat;
+  background-position: 0 -46px;
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+}
 
-/* line 23, ../sass/modules/_wallposts.scss */
+/* line 35, ../sass/modules/_wallposts.scss */
 .wallpost {
   float: left;
   width: 62.5%;
@@ -2908,29 +2958,29 @@ ul.steps li.selected a {
   margin-right: 2.08333%;
   position: relative;
 }
-/* line 27, ../sass/modules/_wallposts.scss */
+/* line 39, ../sass/modules/_wallposts.scss */
 .wallpost:hover .manage {
   display: block;
 }
-/* line 31, ../sass/modules/_wallposts.scss */
+/* line 43, ../sass/modules/_wallposts.scss */
 .wallpost header {
   float: left;
   width: 79.16667%;
   margin-left: 18.75%;
   margin-right: 2.08333%;
 }
-/* line 34, ../sass/modules/_wallposts.scss */
+/* line 46, ../sass/modules/_wallposts.scss */
 .wallpost header .timestamp {
   top: 140px;
   top: 8.75rem;
   position: absolute;
   left: 0;
 }
-/* line 40, ../sass/modules/_wallposts.scss */
+/* line 52, ../sass/modules/_wallposts.scss */
 .wallpost header .manage {
   float: right;
 }
-/* line 45, ../sass/modules/_wallposts.scss */
+/* line 57, ../sass/modules/_wallposts.scss */
 .wallpost .content {
   font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
   float: left;
@@ -2944,12 +2994,12 @@ ul.steps li.selected a {
   margin-bottom: 1rem;
   word-wrap: break-word;
 }
-/* line 54, ../sass/modules/_wallposts.scss */
+/* line 66, ../sass/modules/_wallposts.scss */
 .wallpost .reaction-box {
   position: relative;
   display: block;
 }
-/* line 59, ../sass/modules/_wallposts.scss */
+/* line 71, ../sass/modules/_wallposts.scss */
 .wallpost .user-img {
   width: 100px;
   width: 6.25rem;
@@ -2960,7 +3010,7 @@ ul.steps li.selected a {
   left: 0;
 }
 
-/* line 68, ../sass/modules/_wallposts.scss */
+/* line 80, ../sass/modules/_wallposts.scss */
 .wallpost-filter {
   margin-top: 32px;
   margin-top: 2rem;
@@ -3458,100 +3508,13 @@ ul.steps li.selected a {
   border-bottom: 5px solid #f3f3f3;
   padding: 16px;
 }
-/* line 134, ../sass/modules/_donation.scss */
-#donation-projects .donation-project img {
-  float: left;
-  width: 16.66667%;
-  margin-left: 0%;
-  margin-right: 0%;
-  float: left;
-}
-/* line 139, ../sass/modules/_donation.scss */
-#donation-projects .donation-project h1 {
-  float: left;
-  width: 54.16667%;
-  margin-left: 2.08333%;
-  margin-right: 2.08333%;
-  font-size: 22px;
-  font-size: 1.375rem;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0;
-  color: #454545;
-}
-/* line 149, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .country {
-  display: block;
-  font-size: 14px;
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: normal;
-}
-/* line 156, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .donation-amount {
-  float: left;
-  width: 25%;
-  margin-left: 0%;
-  margin-right: 0%;
-  margin: 8px 0;
-  text-align: right;
-}
-/* line 162, ../sass/modules/_donation.scss */
-#donation-projects .donation-project:hover {
-  background-color: #f3f3f3;
-}
-/* line 164, ../sass/modules/_donation.scss */
-#donation-projects .donation-project:hover h1 {
-  color: #ff619a;
-}
-/* line 167, ../sass/modules/_donation.scss */
+/* line 5, ../sass/mixins/_utilities.scss */
 #donation-projects .donation-project:hover .remove {
-  cursor: pointer;
   display: block;
 }
-/* line 173, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .amount-needed {
-  color: #b9b8b8;
-  font-size: 13px;
-  display: block;
-}
-/* line 179, ../sass/modules/_donation.scss */
-#donation-projects .donation-project label {
-  font-size: 18px;
-  font-size: 1.125rem;
-  font-weight: bold;
-  color: #00c051;
-  display: block;
-  margin-bottom: 8px;
-}
-/* line 187, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .currency {
-  display: inline-block;
-  position: relative;
-}
-/* line 191, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .currency em {
-  position: absolute;
-  left: 16px;
-  top: 15px;
-  font-size: 28px;
-}
-/* line 198, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .currency input {
-  width: 135px;
-  font-size: 28px;
-  padding: 8px 8px 8px 40px;
-  font-weight: bold;
-  margin: 0;
-}
-/* line 205, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .currency.big {
-  font-size: 28px;
-  font-weight: bold;
-}
-/* line 211, ../sass/modules/_donation.scss */
+/* line 10, ../sass/mixins/_utilities.scss */
 #donation-projects .donation-project .remove {
-  pointer: cursor;
+  cursor: pointer;
   display: none;
   z-index: 5;
   position: absolute;
@@ -3566,8 +3529,94 @@ ul.steps li.selected a {
   overflow: hidden;
   text-align: left;
 }
+/* line 133, ../sass/modules/_donation.scss */
+#donation-projects .donation-project img {
+  float: left;
+  width: 16.66667%;
+  margin-left: 0%;
+  margin-right: 0%;
+  float: left;
+}
+/* line 138, ../sass/modules/_donation.scss */
+#donation-projects .donation-project h1 {
+  float: left;
+  width: 54.16667%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+  font-size: 22px;
+  font-size: 1.375rem;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 0;
+  color: #454545;
+}
+/* line 148, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .country {
+  display: block;
+  font-size: 14px;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: normal;
+}
+/* line 155, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .donation-amount {
+  float: left;
+  width: 25%;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin: 8px 0;
+  text-align: right;
+}
+/* line 161, ../sass/modules/_donation.scss */
+#donation-projects .donation-project:hover {
+  background-color: #f3f3f3;
+}
+/* line 163, ../sass/modules/_donation.scss */
+#donation-projects .donation-project:hover h1 {
+  color: #ff619a;
+}
+/* line 168, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .amount-needed {
+  color: #b9b8b8;
+  font-size: 13px;
+  display: block;
+}
+/* line 174, ../sass/modules/_donation.scss */
+#donation-projects .donation-project label {
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #00c051;
+  display: block;
+  margin-bottom: 8px;
+}
+/* line 182, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency {
+  display: inline-block;
+  position: relative;
+}
+/* line 186, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency em {
+  position: absolute;
+  left: 16px;
+  top: 15px;
+  font-size: 28px;
+}
+/* line 193, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency input {
+  width: 135px;
+  font-size: 28px;
+  padding: 8px 8px 8px 40px;
+  font-weight: bold;
+  margin: 0;
+}
+/* line 200, ../sass/modules/_donation.scss */
+#donation-projects .donation-project .currency.big {
+  font-size: 28px;
+  font-weight: bold;
+}
 
-/* line 229, ../sass/modules/_donation.scss */
+/* line 209, ../sass/modules/_donation.scss */
 .add-project {
   padding-left: 32px;
   margin: 0 16px 0 16px;
@@ -3577,18 +3626,18 @@ ul.steps li.selected a {
   background-repeat: no-repeat;
   background-position: 2px -87px;
 }
-/* line 238, ../sass/modules/_donation.scss */
+/* line 218, ../sass/modules/_donation.scss */
 .add-project:hover, .add-project:active {
   color: #050505;
   text-decoration: underline;
 }
 
-/* line 244, ../sass/modules/_donation.scss */
+/* line 224, ../sass/modules/_donation.scss */
 .donation-frequency {
   padding: 16px 16px 16px 18.75%;
   background: #f3f3f3;
 }
-/* line 248, ../sass/modules/_donation.scss */
+/* line 228, ../sass/modules/_donation.scss */
 .donation-frequency .label {
   font-size: 22px;
   font-size: 1.375rem;
@@ -3596,19 +3645,19 @@ ul.steps li.selected a {
   margin: 0px 0px 8px 0px;
   display: block;
 }
-/* line 255, ../sass/modules/_donation.scss */
+/* line 235, ../sass/modules/_donation.scss */
 .donation-frequency .checkbox {
   display: block;
   color: #999999;
   cursor: pointer;
 }
-/* line 259, ../sass/modules/_donation.scss */
+/* line 239, ../sass/modules/_donation.scss */
 .donation-frequency .checkbox.checked {
   color: #00c051;
   font-weight: bold;
 }
 
-/* line 267, ../sass/modules/_donation.scss */
+/* line 247, ../sass/modules/_donation.scss */
 .intro {
   padding: 0px 0px 8px 28px;
   text-transform: uppercase;

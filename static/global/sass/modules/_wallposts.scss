@@ -17,6 +17,18 @@
             margin: 0;  
         }
     }
+
+    .wallpost-photos {
+        @include rem(margin-top, 16px);
+        @include clearfix;
+        clear: none;
+
+        li {
+            display: block;
+            @include grid(6, 0, 1);
+            @include allowremove;
+        }
+    }
     
 }
 
