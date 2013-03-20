@@ -15,8 +15,9 @@ payment_logger = logging.getLogger('cowry-docdata.payment')
 
 
 class DocDataAPIVersionPlugin(MessagePlugin):
-    """ This adds the API version number to the body element. This is required for the DocData soap API."""
-
+    """
+    This adds the API version number to the body element. This is required for the DocData soap API.
+    """
     def marshalled(self, context):
         body = context.envelope.getChild('Body')
         request = body[0]
@@ -24,10 +25,6 @@ class DocDataAPIVersionPlugin(MessagePlugin):
 
 
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
-    """
-        Docdata payments
-    """
-
     live_api_url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
     test_api_url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
 
@@ -113,10 +110,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", 'dummy')
         self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", 'dummy')
 
-
     def get_payment_methods(self):
         return self.payment_methods
-
 
     def create_payment_object(self, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
         payment = DocDataPaymentOrder.objects.create(payment_method_id=payment_method_id,
@@ -124,7 +119,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                                                      amount=amount, currency=currency)
         payment.save()
         return payment
-
 
     def create_remote_payment_order(self, payment):
         # Some preconditions.
@@ -200,7 +194,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                                           'Received unknown reply from DocData. Remote Payment not created.')
         payment.save()
 
-
     def get_payment_url(self, payment, return_url_base=None):
         """ Return the Payment URL """
 
@@ -248,7 +241,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         webmenu_payment.payment_url = payment_url_base + '?' + urlencode(params)
         webmenu_payment.save()
         return webmenu_payment.payment_url
-
 
     def update_payment_status(self, payment, status_changed_notification=False):
         assert payment
@@ -323,7 +315,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                                                                                               new_status))
         payment.status = new_status
         payment.save()
-
 
     def map_status(self, status, totals=None, authorization=None):
         return super(DocdataPaymentAdapter, self).map_status(status)
