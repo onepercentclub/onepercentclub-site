@@ -149,6 +149,8 @@ class OrderList(ListAPIView):
 
 # Order views:
 
+no_active_order_error_msg = _(u"No active Order.")
+
 class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
     serializer_class = OrderSerializer
@@ -159,7 +161,6 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         alias = self.kwargs.get('alias', None)
         if alias == 'current':
             order = self.get_or_create_current_order()
-            self.check_object_permissions(self.request, order)
     
             # Not sure if this is the best place to generate the payment url.
             if order.payment.payment_method_id:
@@ -211,9 +212,9 @@ class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
 
     def get_object(self, queryset=None):
         order = self.get_current_order()
-        self.check_object_permissions(self.request, order)
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
+        self.check_object_permissions(self.request, order)
         payment = order.payment
 
         # Pre-fill the order profile form if the user is authenticated.
@@ -234,11 +235,11 @@ class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
 
             # Try to use the interface language from the profile if it's set
             if profile.interface_language:
-                payment.language = profile.interface_language.split('-')[0]  # Cut off locale.
+                payment.language = profile.interface_language[:2]  # Cut off locale.
 
         # Set language from request if required.
         if not payment.language:
-            payment.language = self.request.LANGUAGE_CODE.split('-')[0]   # Cut off locale.
+            payment.language = self.request.LANGUAGE_CODE[:2]  # Cut off locale.
 
         payment.save()
         return order.payment
@@ -257,20 +258,12 @@ class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
         """
         order = self.get_current_order()
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
         pm_ids = request.QUERY_PARAMS.getlist('ids[]', [])
         payment_methods = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL',
                                                       recurring=order.recurring, pm_ids=pm_ids)
         serializer = self.get_serializer(payment_methods)
         return response.Response(serializer.data)
-
-
-# Not implemented nor being used right now.
-class PaymentMethodDetail(generics.GenericAPIView):
-    """
-    Payment Method
-    """
-    serializer_class = PaymentMethodSerializer
 
 
 class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
@@ -283,7 +276,7 @@ class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView
         order = self.get_current_order()
         self.check_object_permissions(self.request, order)
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
 
         if not order.payment.latest_docdata_payment:
             if not order.payment.payment_method_id:
@@ -330,7 +323,7 @@ class OrderItemMixin(object):
     def create(self, request, *args, **kwargs):
         order = self.get_current_order()
         if not order:
-            raise exceptions.ParseError(detail=_(u"No active Order."))
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
         serializer = self.get_serializer(data=request.DATA)
         if serializer.is_valid():
             self.pre_save(serializer.object)
