@@ -290,7 +290,7 @@ App.Router.map(function() {
         this.route('addDonation', {path: '/donations/add/:project_id'});
         this.route('voucherList', {path: '/vouchers'});
 
-        this.resource('currentOrderPaymentProfile', {path: '/details'});
+        this.resource('paymentProfile', {path: '/details'});
         // TODO: Read the manual to see if this is the best way to do it.
         this.resource('currentOrderPayment', {path: '/payment'}, function(){
             this.resource('currentPaymentMethodInfo', {path: 'info'});
@@ -462,7 +462,11 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
 });
 
 
-App.CurrentOrderPaymentProfileRoute = Ember.Route.extend({
+/**
+ * Payment for Current Order Routes
+ */
+
+App.PaymentProfileRoute = Ember.Route.extend({
     model: function(params) {
         return App.PaymentProfile.find('current');
     },

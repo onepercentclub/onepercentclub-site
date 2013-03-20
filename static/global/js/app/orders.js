@@ -113,21 +113,6 @@ App.bankList = [
 //});
 
 
-App.PaymentInfo = DS.Model.extend({
-    url: 'fund/paymentinfo',
-
-    payment_method: DS.attr('number'),
-    amount: DS.attr('number'),
-    firstName: DS.attr('string'),
-    lastName: DS.attr('string'),
-    address: DS.attr('string'),
-    city: DS.attr('string'),
-    country: DS.attr('string'),
-    zipCode: DS.attr('string'),
-    payment_url: DS.attr('string')
-});
-
-
 App.PaymentMethodInfo = DS.Model.extend({
     url: 'fund/paymentmethodinfo',
 
@@ -253,7 +238,7 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 });
 
 
-App.CurrentOrderPaymentProfileController = Em.ObjectController.extend({
+App.PaymentProfileController = Em.ObjectController.extend({
     initTransaction: function() {
         var transaction = this.get('store').transaction();
         this.set('transaction', transaction);
@@ -315,8 +300,8 @@ App.CurrentOrderView = Em.View.extend({
 });
 
 
-App.CurrentOrderPaymentProfileView = Em.View.extend({
-    templateName: 'current_order_payment_profile',
+App.PaymentProfileView = Em.View.extend({
+    templateName: 'payment_profile',
     tagName: 'form',
 
     submit: function(e) {
