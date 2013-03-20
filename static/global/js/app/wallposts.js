@@ -99,7 +99,6 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
                         }
                     });
                 });
-                controller.set('photo_files', null);
                 // Empty this.files so we can use it again.
                 controller.set('files', Em.A());
                 transaction.commit();
@@ -126,6 +125,15 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         this.get('files').pushObject(photo);
         transaction.commit();
         // Store the photo in this.files. We need to connect it to the wallpost later.
+    },
+
+    removePhoto: function(photo) {
+        var transaction = this.get('store').transaction();
+        transaction.add(photo);
+        photo.deleteRecord();
+        transaction.commit();
+        // Remove it from temporary array too.
+        this.get('files').removeObject(photo);
     },
 
     addTextWallPost: function() {
@@ -239,8 +247,9 @@ App.UploadFileView = Ember.TextField.extend({
             // TODO: enable client site previews with: reader.onload = function(e){}
             reader.readAsDataURL(file);
             this.get('controller').addPhoto(file);
-
         }
+        // Clear the input field after uploading.
+        e.target.value = null;
     }
 });
 
