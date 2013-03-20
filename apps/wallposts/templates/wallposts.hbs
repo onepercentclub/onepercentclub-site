@@ -58,21 +58,25 @@
                 </label>
                 {{view Ember.TextField valueBinding="video_url" id="wallpost-video" name="wallpost-video"}}
             </li>
-            <li {{bindAttr class="errors.photo.length:error"}}>
-                {{#each errors.photo}}
-                    <span class="error">{{this}}</span>
-                {{/each}}
+            <li>
                 <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
                 {{view App.UploadFileView valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
-                <ul>
+                <ul class="wallpost-photos">
                     {{#each photo in files}}
                         <li>
-                            <img {{bindAttr src="photo.thumbnail"}} width="10%" alt="Thumbnail" />
-                            <a {{action "removePhoto" photo href=true}}>[x]</a>
+                            {{#if photo.errors}}
+                                <span class="error">{% trans "Error" %}</span>
+                            {{else}}
+                                {{#if photo.thumbnail}}
+                                    <img {{bindAttr src="photo.thumbnail"}} width="100%" alt="Thumbnail" />
+                                    <a {{action "removePhoto" photo href=true}} class="remove">[x]</a>
+                                {{else}}
+                                    <img src="{% get_static_prefix %}images/loading.gif" width="20%" alt="Thumbnail" />
+                                {{/if}}
+                            {{/if}}
                         </li>
                     {{/each}}
                 </ul>
-
             </li>
         </ul>
     </fieldset>

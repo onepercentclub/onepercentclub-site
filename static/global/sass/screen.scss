@@ -39,6 +39,7 @@ $icons: sprite-map("sprites/icons/*.png", $spacing: 20px);
 @import "compass/reset";
 @import "compass/css3";
 @import "mixins/_rem";
+@import "mixins/_utilities";
 
 /* Base */
 @import "includes/_base";

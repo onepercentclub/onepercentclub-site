@@ -126,8 +126,7 @@
   list-style: none;
 
   .donation-project {
-    
-    position: relative;
+    @include allowremove;
     border-bottom: 5px solid #f3f3f3;
     padding: 16px;
     
@@ -163,10 +162,6 @@
       background-color: #f3f3f3;
       h1 {
         color: $pink;
-      }
-      .remove {
-        cursor: pointer;
-        display: block;
       }
     }
     
@@ -206,21 +201,6 @@
         font-size: 28px;
         font-weight: bold;
       }
-    }
-    
-    .remove {
-      pointer: cursor;
-      display: none;
-      z-index: 5;
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      width: 22px;
-      height: 22px;
-      background-image: $icons;
-      background-repeat: no-repeat;
-      background-position: sprite-position($icons, delete);
-      @include hide-text();
     }
   
   }
