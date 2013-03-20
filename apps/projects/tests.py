@@ -337,9 +337,15 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.some_user = self.create_user()
         self.another_user = self.create_user()
 
+        self.some_photo = 'apps/projects/test_images/loading.gif'
+        self.another_photo = 'apps/projects/test_images/upload.png'
+
         self.project_media_wallposts_url = '/i18n/api/projects/wallposts/media/'
+        self.project_media_wallpost_photos_url = '/i18n/api/projects/wallposts/media/photos/'
+
         self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'
         self.project_wallposts_url = '/i18n/api/projects/wallposts/'
+
 
     def test_project_media_wallpost_crud(self):
         """
@@ -414,6 +420,78 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.data['results'][0]['title'], second_wallpost_title)
         self.assertEqual(response.data['results'][1]['title'], wallpost_title)
         self.client.logout()
+
+    def test_project_media_wallpost_photo(self):
+        """
+        Test connecting photos to wallposts
+        """
+        self.client.login(username=self.some_project.owner.username, password='password')
+
+        # Typically the photos are uploaded before the wallpost is uploaded so we simulate that here
+        photo_file = open(self.some_photo, mode='rb')
+        response = self.client.post(self.project_media_wallpost_photos_url, {'photo': photo_file})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        some_photo_detail_url = "{0}{1}".format(self.project_media_wallpost_photos_url, response.data['id'])
+
+        # Create a Project Media WallPost by Project Owner
+        wallpost_title = 'Here are some pics!'
+        response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project': self.some_project.slug})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['title'], wallpost_title)
+        some_wallpost_id = response.data['id']
+        some_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, some_wallpost_id)
+
+        # Try to connect the photo to this new wallpost
+        response = self.client.put(some_photo_detail_url, {'mediawallpost': some_wallpost_id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+
+        # check that the wallpost now has 1 photo
+        response = self.client.get(some_wallpost_detail_url)
+        self.assertEqual(len(response.data['photos']), 1)
+
+        # Let's upload another photo
+        photo_file = open(self.another_photo, mode='rb')
+        response = self.client.post(self.project_media_wallpost_photos_url, {'photo': photo_file})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        another_photo_detail_url = "{0}{1}".format(self.project_media_wallpost_photos_url, response.data['id'])
+
+        # Create a wallpost by another user
+        self.client.logout()
+        self.client.login(username=self.another_project.owner.username, password='password')
+        wallpost_title = 'Muy project is waaaaaay better!'
+        response = self.client.post(self.project_media_wallposts_url,
+                                    {'title': wallpost_title, 'project': self.another_project.slug})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['title'], wallpost_title)
+        another_wallpost_id = response.data['id']
+        antoher_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, another_wallpost_id)
+
+        # The other shouldn't be able to use the photo of the first user
+        response = self.client.put(another_photo_detail_url, {'mediawallpost': another_wallpost_id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+        response = self.client.put(another_photo_detail_url, {'mediawallpost': some_wallpost_id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Make sure the first user can't connect it's picture to someone else's wallpost
+        self.client.logout()
+        self.client.login(username=self.some_project.owner.username, password='password')
+        response = self.client.put(another_photo_detail_url, {'mediawallpost': another_wallpost_id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        #  Create a text wallpost. Adding a photo to that should be denied.
+        text = "You have something nice going on here."
+        response = self.client.post(self.project_text_wallposts_url,
+                                    {'text': text, 'project': self.another_project.slug})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        text_wallpost_id = response.data['id']
+        response = self.client.put(another_photo_detail_url, {'mediawallpost': another_wallpost_id})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Add that second photo to our first wallpost and verify that will now contain two photos.
+        response = self.client.put(another_photo_detail_url, {'mediawallpost': some_wallpost_id})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        response = self.client.get(some_wallpost_detail_url)
+        self.assertEqual(len(response.data['photos']), 2)
 
     def test_project_text_wallpost_crud(self):
         """

@@ -1,3 +1,4 @@
+from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.views.generic.detail import DetailView
 from rest_framework import generics
@@ -78,12 +79,9 @@ class ProjectMediaWallPostPhotoList(generics.ListCreateAPIView):
 
 
 class ProjectMediaWallPostPhotoDetail(RetrieveUpdateDeleteAPIView):
-    # FIXME: Author should match wallpost-author when setting wallpost.
     model = MediaWallPostPhoto
     serializer_class = MediaWallPostPhotoSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
-
-
+    permission_classes = (IsAuthorOrReadOnly, IsConnectedWallPostAuthorOrReadOnly)
 
 
 class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
