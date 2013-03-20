@@ -8,20 +8,21 @@ from rest_framework import status
 
 
 try:
-    getattr(settings, 'DOCDATA_MERCHANT_NAME')
-    getattr(settings, 'DOCDATA_MERCHANT_PASSWORD')
+    getattr(settings, 'COWRY_DOCDATA_MERCHANT_NAME')
+    getattr(settings, 'COWRY_DOCDATA_MERCHANT_PASSWORD')
     requests.get('http://www.google.com')
     run_docdata_tests = True
 except (ConnectionError, AttributeError):
     run_docdata_tests = False
 
 
+# TODO: Create separate payment method configs for testing so changes to the default config doesn't break these tests.
 class DocDataPaymentTests(TestCase):
 
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_basic_payment(self):
         # Create the payment.
-        payment = factory.create_payment_object('dd-mastercard', amount=2000, currency='EUR')
+        payment = factory.create_payment_object('dd-creditcard', amount=2000, currency='EUR')
         payment.country = 'NL'
         payment.city = 'Amsterdam'
         payment.street = 'Dam'
@@ -54,4 +55,4 @@ class DocDataPaymentTests(TestCase):
 
         # Test recurring restrictions.
         payment_method_ids = factory.get_payment_method_ids(recurring=True)
-        self.assertTrue(len(payment_method_ids) == 0, "Payment method list should be empty.")
+        self.assertTrue(len(payment_method_ids) == 1, "Payment method list should have one entry.")

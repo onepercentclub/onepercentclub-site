@@ -1,8 +1,10 @@
 import threading
-from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit, DocDataWebMenu
-from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataPaymentMethodSerializer
+from apps.cowry.models import Payment
+from apps.cowry.serializers import PaymentSerializer
+from apps.cowry_docdata.models import DocDataPaymentOrder
+from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
 from django.contrib.contenttypes.models import ContentType
-from apps.cowry import payments, factory
+from apps.cowry import factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView
 from django.db import transaction
@@ -15,7 +17,7 @@ from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
 from .models import (Donation, OrderItem, Order, Voucher, CustomVoucherRequest,
                      process_voucher_order_in_progress, process_donation_order_in_progress)
-from .serializers import (DonationSerializer, OrderItemSerializer, OrderSerializer, VoucherSerializer,
+from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer,
                           PaymentMethodSerializer, VoucherDonationSerializer, VoucherRedeemSerializer,
                           CustomVoucherRequestSerializer)
 
@@ -147,9 +149,10 @@ class OrderList(ListAPIView):
 # End: Unimplemented API views
 
 
-# Order views:
+# Order views.
 
 no_active_order_error_msg = _(u"No active Order.")
+
 
 class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
@@ -161,40 +164,16 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         alias = self.kwargs.get('alias', None)
         if alias == 'current':
             order = self.get_or_create_current_order()
-    
-            # Not sure if this is the best place to generate the payment url.
-            if order.payment.payment_method_id:
-                if self.request.is_secure():
-                    protocol = 'https://'
-                else:
-                    protocol = 'http://'
-    
-                # Getting the payment url with this method will save the url into the payment method info object.
-                payments.get_payment_url(order.payment, '{0}{1}'.format(protocol, self.request.get_host()))
         else:
             order = super(OrderDetail, self).get_object()
-
         self.check_object_permissions(self.request, order)
         return order
 
-    def put(self, request, *args, **kwargs):
-        # For now we write payment method here because serializer isn't smart enough.
-        order = self.get_or_create_current_order()
-        pm_id = request.DATA.get('payment_method_id', None)
-        if pm_id:
-            order.payment.payment_method_id = pm_id
-            order.payment.save()
-
-        psm_id = request.DATA.get('payment_submethod_id', None)
-        if psm_id:
-            order.payment.payment_submethod_id = psm_id
-            order.payment.save()
-
-        return self.update(request, *args, **kwargs)
-
 
 def process_order_in_progress(order):
-    """ Helper method for processing orders that have just been paid. """
+    """
+    Helper method for processing orders that have just been paid.
+    """
     for order_item in order.orderitem_set.all():
         type = order_item.content_object.__class__.__name__
         if type == "Voucher":
@@ -203,7 +182,7 @@ def process_order_in_progress(order):
             process_donation_order_in_progress(order_item.content_object)
 
 
-class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     """
     Payment profile information.
     """
@@ -217,8 +196,12 @@ class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         self.check_object_permissions(self.request, order)
         payment = order.payment
 
+        # We're relying on the fact that the Payment is created when the Order is created. This assert
+        # verifies this assumption in case the Order creation code changes in the future.
+        assert payment
+
         # Pre-fill the order profile form if the user is authenticated.
-        if payment and self.request.user.is_authenticated():
+        if self.request.user.is_authenticated():
             payment.customer_id = self.request.user.id
             payment.email = self.request.user.email
             payment.first_name = self.request.user.first_name
@@ -245,56 +228,38 @@ class CurrentOrderPaymentProfile(CurrentOrderMixin, generics.RetrieveUpdateAPIVi
         return order.payment
 
 
-class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
+class PaymentCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     """
-    Payment Methods
+    View for dealing with the Payment for the CurrentOrder.
     """
-
-    serializer_class = PaymentMethodSerializer
-
-    def get(self, request, format=None):
-        """
-        Get the Payment methods form Cowry.
-        """
-        order = self.get_current_order()
-        if not order:
-            raise exceptions.ParseError(detail=no_active_order_error_msg)
-        pm_ids = request.QUERY_PARAMS.getlist('ids[]', [])
-        payment_methods = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL',
-                                                      recurring=order.recurring, pm_ids=pm_ids)
-        serializer = self.get_serializer(payment_methods)
-        return response.Response(serializer.data)
-
-
-class PaymentMethodInfoCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
-    """
-    Payment method information.
-    """
-    serializer_class = DocDataPaymentMethodSerializer
+    model = Payment
+    serializer_class = PaymentSerializer
 
     def get_object(self, queryset=None):
         order = self.get_current_order()
-        self.check_object_permissions(self.request, order)
         if not order:
             raise exceptions.ParseError(detail=no_active_order_error_msg)
+        # Use the order for the permissions of the payment. If a user can access the order, they can access the payment.
+        self.check_object_permissions(self.request, order)
+        payment = order.payment
 
-        if not order.payment.latest_docdata_payment:
-            if not order.payment.payment_method_id:
-                payment_methods = factory.get_payment_method_ids(amount=order.amount, currency='EUR', country='NL',
-                                                                 recurring=order.recurring)
-                if payment_methods:
-                    order.payment.payment_method_id = payment_methods[0]
-                    order.save()
-                else:
-                    return None
-            # TODO: Use cowry factory for this?
-            # TODO: Hardcoded stuff is fun! should fix this though.
-            if order.recurring:
-                payment_method_object = DocDataWebDirectDirectDebit(docdata_payment_order=order.payment)
+        # We're relying on the fact that the Payment is created when the Order is created. This assert
+        # verifies this assumption in case the Order creation code changes in the future.
+        assert payment
+
+        # Pre-fill the payment method.
+        # Using 'payment.country' like this assumes that payment is a DocDataPaymentOrder.
+        assert isinstance(payment, DocDataPaymentOrder)
+        available_payment_methods = factory.get_payment_method_ids(amount=payment.amount, currency=payment.currency,
+                                                                   country=payment.country, recurring=order.recurring)
+        if not payment.payment_method_id in available_payment_methods:
+            if available_payment_methods:
+                payment.payment_method_id = available_payment_methods[0]
             else:
-                payment_method_object = DocDataWebMenu(docdata_payment_order=order.payment)
-            payment_method_object.save()
-        return order.payment.latest_docdata_payment
+                payment.payment_method_id = ""
+            payment.save()
+
+        return payment
 
 
 # OrderItems
@@ -423,7 +388,6 @@ class VoucherDonationList(VoucherMixin, generics.ListCreateAPIView):
     model = Donation
     serializer_class = VoucherDonationSerializer
 
-
     def pre_save(self, obj):
         voucher = self.get_voucher()
         # Clear previous donations for this voucher
@@ -474,7 +438,6 @@ class VoucherDonationDetail(VoucherMixin, generics.RetrieveDestroyAPIView):
             donation.save()
         obj.delete()
         return response.Response(status=status.HTTP_204_NO_CONTENT)
-
 
 
 class CustomVoucherRequestList(generics.ListCreateAPIView):
