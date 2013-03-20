@@ -51,7 +51,7 @@
                 {{/if}}
 
                 {{#view App.OrderNavView classNames="details"}}
-                    {{#linkTo "currentOrderPaymentProfile"}}{% trans "Details" %}{{/linkTo}}
+                    {{#linkTo "paymentProfile"}}{% trans "Details" %}{{/linkTo}}
                 {{/view}}
 
                 {{#view App.OrderNavView classNames="profile"}}
@@ -123,7 +123,7 @@
 
     </fieldset>
 
-    {{#linkTo "currentOrderPaymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
+    {{#linkTo "paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -159,7 +159,7 @@
 
 
         {{#if length }}
-            {{#linkTo "currentOrderPaymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
+            {{#linkTo "paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
         {{else}}
             <button disabled class="right">{% trans "Next step" %}</button>
         {{/if}}
@@ -254,7 +254,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "current_order_payment_profile" %}
+{% tplhandlebars "payment_profile" %}
 
     <fieldset>
         {{#if model.isLoaded}}
