@@ -137,6 +137,9 @@ App.Payment = DS.Model.extend({
  */
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
+    // The CurrentOrderController is needed for the single / monthly radio buttons.
+    needs: ['currentOrder'],
+
     total: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
             // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
