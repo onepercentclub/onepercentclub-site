@@ -262,24 +262,6 @@ class PaymentCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         return payment
 
 
-class PaymentMethodList(CurrentOrderMixin, generics.GenericAPIView):
-    """
-    Payment Methods.
-    """
-    serializer_class = PaymentMethodSerializer
-
-    def get(self, request, format=None):
-        """ Get the Payment methods form Cowry. """
-        order = self.get_current_order()
-        if not order:
-            raise exceptions.ParseError(detail=no_active_order_error_msg)
-        pm_ids = request.QUERY_PARAMS.getlist('ids[]', [])
-        payment_methods = factory.get_payment_methods(amount=order.amount, currency='EUR', country='NL',
-                                                      recurring=order.recurring, pm_ids=pm_ids)
-        serializer = self.get_serializer(payment_methods)
-        return response.Response(serializer.data)
-
-
 # OrderItems
 
 class OrderItemMixin(object):
@@ -406,7 +388,6 @@ class VoucherDonationList(VoucherMixin, generics.ListCreateAPIView):
     model = Donation
     serializer_class = VoucherDonationSerializer
 
-
     def pre_save(self, obj):
         voucher = self.get_voucher()
         # Clear previous donations for this voucher
@@ -457,7 +438,6 @@ class VoucherDonationDetail(VoucherMixin, generics.RetrieveDestroyAPIView):
             donation.save()
         obj.delete()
         return response.Response(status=status.HTTP_204_NO_CONTENT)
-
 
 
 class CustomVoucherRequestList(generics.ListCreateAPIView):

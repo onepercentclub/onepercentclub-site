@@ -1,8 +1,8 @@
 from django.conf.urls import patterns, url
 from surlex.dj import surl
-from .views import (FundApi, OrderList, OrderDetail, OrderDonationDetail, PaymentProfileCurrent,
-                    PaymentCurrent, PaymentMethodList, VoucherDetail, OrderVoucherList, OrderVoucherDetail,
-                    VoucherDonationList, VoucherDonationDetail, CustomVoucherRequestList, OrderDonationList)
+from .views import (FundApi, OrderList, OrderDetail, OrderDonationDetail, PaymentProfileCurrent, PaymentCurrent,
+                    VoucherDetail, OrderVoucherList, OrderVoucherDetail, VoucherDonationList, VoucherDonationDetail,
+                    CustomVoucherRequestList, OrderDonationList)
 
 urlpatterns = patterns('',
     url(r'^$', FundApi.as_view(), name='fund-order-list'),
@@ -30,7 +30,4 @@ urlpatterns = patterns('',
     # Payments
     url(r'^paymentprofiles/current$', PaymentProfileCurrent.as_view(), name='payment-profile-current'),
     url(r'^payments/current$', PaymentCurrent.as_view(), name='payment-current'),
-
-    url(r'^paymentmethods/$', PaymentMethodList.as_view(), name='fund-payment-method-list'),
-    surl(r'^paymentmethods/<slug:s>$', PaymentMethodList.as_view(), name='fund-payment-method-detail'),
 )

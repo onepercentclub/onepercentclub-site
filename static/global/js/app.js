@@ -533,17 +533,6 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
 });
 
 
-App.CurrentPaymentMethodInfoRoute = Ember.Route.extend({
-    model: function(params) {
-        return App.PaymentMethodInfo.find('current');
-    },
-
-    setupController: function(controller, paymentmethodinfo) {
-        controller.set('content', paymentmethodinfo);
-    }
-});
-
-
 App.FinalOrderItemListRoute = Ember.Route.extend({
     model: function(params) {
         return App.LatestDonation.find();
@@ -556,6 +545,7 @@ App.FinalOrderItemListRoute = Ember.Route.extend({
 
 
 /* Views */
+
 App.LanguageView = Ember.View.extend({
     templateName: 'language'
 });
