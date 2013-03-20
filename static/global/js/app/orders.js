@@ -187,9 +187,18 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
         var voucher =  transaction.createRecord(App.CurrentOrderVoucher);
         voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
         voucher.set('sender_email', this.get('controllers.currentUser.email'));
+        voucher.set('receiver_name', '');
+        voucher.set('receiver_email', '');
         this.set('model', voucher);
         this.set('transaction', transaction);
     },
+
+    updateSender: function(){
+        // Make sure the sender info is fully loaded on refresh
+        voucher = this.get('model');
+        voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
+        voucher.set('sender_email', this.get('controllers.currentUser.email'));
+    }.observes('controllers.currentUser.email', 'controllers.currentUser.full_name'),
 
     addVoucher: function() {
         var voucher = this.get('model');
