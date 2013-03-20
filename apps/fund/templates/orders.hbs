@@ -59,7 +59,7 @@
                 {{/view}}
 
                 {{#view App.OrderNavView classNames="payment"}}
-                    {{#linkTo "currentPaymentMethodInfo"}}{% trans "Pay" %}{{/linkTo}}
+                    {{#linkTo "payment"}}{% trans "Pay" %}{{/linkTo}}
                 {{/view}}
             </ul>
 
@@ -305,7 +305,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "order_payment" %}
+{% tplhandlebars "payment" %}
 
     <div class="intro">
         <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
@@ -313,11 +313,33 @@
     </div>
     <fieldset>
         <div class="tabs vertical">
-            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="view.parentView.controller.content.payment_method_id"}}
-                {{#each view.parentView.parentView.controller.content.payment_methods}}
+        </div>
+        <div class="panes vertical">
+            {{#if paymentUrl}}
+                <a {{bindAttr href="paymentUrl"}} class="button">{% trans "Proceed with Payment" %}</a>
+            {{else}}
+                {% trans "No payment methods available" %}
+            {{/if}}
+        </div>
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{# TODO This isn't currently used but we want to be. #}
+{% tplhandlebars "payment_multi" %}
+
+    <div class="intro">
+        <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
+        {% trans "Choose the payment method you prefer to donate." %}
+    </div>
+    <fieldset>
+        <div class="tabs vertical">
+            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="paymentMethod"}}
+                {{#each paymentMethod in paymentMethods}}
                     <label class="tab">
-                        {{view view.RadioButton value=this.id}}
-                        {{this.name}}
+                        {{view view.RadioButton value=paymentMethod}}
+                        {{ paymentMethod }}
                     </label>
                 {{else}}
                     {% trans "No payment methods available" %}
@@ -325,7 +347,7 @@
             {{/view}}
         </div>
         <div class="panes vertical">
-            {{outlet}}
+            {{ outlet }}
         </div>
     </fieldset>
 

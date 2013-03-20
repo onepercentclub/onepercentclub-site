@@ -1,13 +1,7 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
-from apps.fund.models import OrderItem
-from django import forms
-from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
-from django.utils.encoding import smart_text
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
-from apps.cowry import factory
 from .models import Donation, Order, Voucher, CustomVoucherRequest
 
 
@@ -82,30 +76,12 @@ class PaymentMethodSerializer(serializers.Serializer):
 class OrderSerializer(serializers.ModelSerializer):
     total = EuroField(read_only=True)
     status = serializers.ChoiceField(read_only=True)
-    # Payment_method  is writen in the view.
-    payment_method_id = serializers.CharField(source='payment.payment_method_id', required=False)
-    payment_submethod_id = serializers.CharField(source='payment.payment_submethod_id', required=False)
-
-    payment_methods = serializers.SerializerMethodField(method_name='get_payment_methods')
-    payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
-
     donations = DonationSerializer(source='donations', many=True)
     vouchers = VoucherSerializer(source='vouchers', many=True)
 
-    def get_payment_methods(self, order):
-        return factory.get_payment_method_ids(amount=order.total, currency='EUR', country='NL',
-                                              recurring=order.recurring)
-
-    def get_payment_url(self, obj):
-        pm = obj.payment.latest_docdata_payment
-        if pm:
-            return pm.payment_url
-        return None
-
     class Meta:
         model = Order
-        fields = ('id', 'total', 'status', 'recurring', 'payment_method_id', 'payment_methods', 'payment_submethod_id',
-                  'payment_url', 'donations', 'vouchers')
+        fields = ('id', 'total', 'status', 'recurring', 'donations', 'vouchers')
 
 
 class VoucherRedeemSerializer(serializers.ModelSerializer):
