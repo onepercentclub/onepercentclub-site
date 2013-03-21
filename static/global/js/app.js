@@ -356,10 +356,32 @@ App.ProjectRoute = Ember.Route.extend({
         // wallposts property. The controller will convert it to an Ember Array.
         var wallPostListController = this.controllerFor('projectWallPostList');
         wallPostListController.set('wallposts', App.ProjectWallPost.find({project: project.get('id')}));
+        wallPostListController.set('page', 1);
+        wallPostListController.set('canLoadMore', true);
 
         // Set the current project on the WallPost new controller.
         this.controllerFor('projectWallPostNew').set('currentProject', project);
+    },
+
+    events: {
+        showMoreWallPosts: function(){
+            var controller = this.controllerFor('projectWallPostList');
+            var page = controller.incrementProperty('page');
+            var project = controller.get('controllers.project.id');
+            var wps = App.ProjectWallPost.find({project: project, page: page});
+            controller.set('canLoadMore', false);
+            wps.addObserver('isLoaded', function(a, b){
+                wps.forEach(function(record){
+                    if (record.get('isLoaded')) {
+                        controller.pushObject(record);
+                    }
+                });
+                controller.set('canLoadMore', true);
+            });
+        }
+
     }
+
 });
 
 
