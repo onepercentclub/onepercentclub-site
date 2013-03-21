@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import linebreaks
 from django.utils.html import strip_tags, urlize
-from django.utils.timesince import timesince
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
 from micawber.contrib.mcdjango import providers
@@ -50,23 +49,6 @@ class SorlImageField(serializers.ImageField):
         if request:
             return request.build_absolute_uri(relative_url)
         return relative_url
-
-
-class TimeSinceField(serializers.Field):
-    def to_native(self, value):
-        if not value:
-            return ""
-
-        retval = timesince(value)
-
-        # Special case for content that has just been posted.
-        if retval == '0 minutes':
-            return _("Just now")
-
-        # timesince can return two values (e.g. 18 hours, 4 minutes) but we only want to use the first one.
-        if ', ' in retval:
-            retval, ignore = timesince(value).split(', ')
-        return retval + ' ' + _("ago")
 
 
 class ContentTextField(serializers.CharField):
