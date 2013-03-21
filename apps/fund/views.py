@@ -17,9 +17,8 @@ from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
 from .models import (Donation, OrderItem, Order, Voucher, CustomVoucherRequest,
                      process_voucher_order_in_progress, process_donation_order_in_progress)
-from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer,
-                          PaymentMethodSerializer, VoucherDonationSerializer, VoucherRedeemSerializer,
-                          CustomVoucherRequestSerializer)
+from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer,
+                          VoucherRedeemSerializer, CustomVoucherRequestSerializer)
 
 
 # Lock used in the CurrentOrderMixin. It needs to be outside of Mixin so it's created more than once.

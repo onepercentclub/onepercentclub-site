@@ -14,6 +14,51 @@ status_logger = logging.getLogger('cowry-docdata.status')
 payment_logger = logging.getLogger('cowry-docdata.payment')
 
 
+# These defaults can be overridden with the COWRY_PAYMENT_METHODS setting.
+default_payment_methods = {
+    'dd-ideal': {
+        'id': 'IDEAL',
+        'profile': 'ideal',
+        'name': 'iDeal',
+        'submethods': {
+            '0081': 'Fortis',
+            '0021': 'Rabobank',
+            '0721': 'ING Bank',
+            '0751': 'SNS Bank',
+            '0031': 'ABN Amro Bank',
+            '0761': 'ASN Bank',
+            '0771': 'SNS Regio Bank',
+            '0511': 'Triodos Bank',
+            '0091': 'Friesland Bank',
+            '0161': 'van Lanschot Bankiers'
+        },
+        'restricted_countries': ('NL',),
+        'supports_recurring': False,
+    },
+
+    'dd-direct-debit': {
+        'id': 'DIRECT_DEBIT',
+        'profile': 'directdebit',
+        'name': 'Direct Debit',
+        'max_amount': 10000, # €100
+        'restricted_countries': ('NL',),
+        'supports_recurring': False,
+    },
+
+    'dd-creditcard': {
+        'profile': 'creditcard',
+        'name': 'Credit Cards',
+        'supports_recurring': False,
+    },
+
+    'dd-webmenu': {
+        'profile': 'webmenu',
+        'name': 'Web Menu',
+        'supports_recurring': True,
+    }
+}
+
+
 class DocDataAPIVersionPlugin(MessagePlugin):
     """
     This adds the API version number to the body element. This is required for the DocData soap API.
@@ -25,9 +70,7 @@ class DocDataAPIVersionPlugin(MessagePlugin):
 
 
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
-    live_api_url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
-    test_api_url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
-
+    # Mapping of DocData statuses to Cowry statuses.
     status_mapping = {
         'NEW': 'new',
         'STARTED': 'in_progress',
@@ -41,6 +84,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         'CLOSED_CANCELLED': 'cancelled',
     }
 
+    # TODO: Create defaults for this like the payment_methods
     id_to_model_mapping = {
         'dd-ideal': DocDataWebMenu,
         'dd-direct-debit': DocDataWebMenu,
@@ -48,70 +92,36 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         'dd-webmenu': DocDataWebMenu,
     }
 
-    payment_methods = {
-        'dd-ideal': {
-            'id': 'IDEAL',
-            'profile': 'ideal',
-            'name': 'iDeal',
-            'submethods': {
-                '0081': 'Fortis',
-                '0021': 'Rabobank',
-                '0721': 'ING Bank',
-                '0751': 'SNS Bank',
-                '0031': 'ABN Amro Bank',
-                '0761': 'ASN Bank',
-                '0771': 'SNS Regio Bank',
-                '0511': 'Triodos Bank',
-                '0091': 'Friesland Bank',
-                '0161': 'van Lanschot Bankiers'
-            },
-            'restricted_countries': ('NL',),
-            'supports_recurring': False,
-        },
-
-        'dd-direct-debit': {
-            'id': 'DIRECT_DEBIT',
-            'profile': 'directdebit',
-            'name': 'Direct Debit',
-            'max_amount': 10000,  # €100
-            'restricted_countries': ('NL',),
-            'supports_recurring': False,
-        },
-
-        'dd-creditcard': {
-            'profile': 'creditcard',
-            'name': 'Credit Cards',
-            'supports_recurring': False,
-        },
-
-        'dd-webmenu': {
-            'profile': 'webmenu',
-            'name': 'Web Menu',
-            'supports_recurring': True,
-        }
-
-    }
-
     def __init__(self):
-
         # TODO Make setting for this.
         self.test = True
 
         # Create the soap client.
         if self.test:
-            url = self.test_api_url
+            # Test API URL.
+            url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
         else:
-            url = self.live_api_url
+            # Live API URL.
+            url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
         self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
 
         # Setup the merchant soap object for use in all requests.
         self.merchant = self.client.factory.create('ns0:merchant')
         # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).
-        self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", 'dummy')
-        self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", 'dummy')
+        self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
+        self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", None)
 
     def get_payment_methods(self):
-        return self.payment_methods
+        # Override the payment_methods if they're set. This isn't in __init__ because
+        # we want to override the settings in the tests.
+        if not hasattr(self, '_payment_methods'):
+            settings_payment_methods = getattr(settings, 'COWRY_PAYMENT_METHODS', None)
+            if settings_payment_methods:
+                self._payment_methods = settings_payment_methods
+            else:
+                self._payment_methods = default_payment_methods
+
+        return self._payment_methods
 
     def create_payment_object(self, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
         payment = DocDataPaymentOrder.objects.create(payment_method_id=payment_method_id,
@@ -129,7 +139,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Preferences for the DocData system
         paymentPreferences = self.client.factory.create('ns0:paymentPreferences')
-        paymentPreferences.profile = self.payment_methods[payment.payment_method_id]['profile'],
+        paymentPreferences.profile = self.get_payment_methods()[payment.payment_method_id]['profile'],
         paymentPreferences.numberOfDaysToPay = 5
         menuPreferences = self.client.factory.create('ns0:menuPreferences')
 
@@ -207,13 +217,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         params = {
             'payment_cluster_key': payment.payment_order_key,
             'merchant_name': self.merchant._name,
-            'profile': self.payment_methods[payment.payment_method_id]['profile'],
+            'profile': self.get_payment_methods()[payment.payment_method_id]['profile'],
             'client_language': payment.language,
         }
 
         # Add a default payment method if the config has an id.
-        if hasattr(self.payment_methods[payment.payment_method_id], 'id'):
-            params['default_pm'] = self.payment_methods[payment.payment_method_id]['id'],
+        if hasattr(self.get_payment_methods()[payment.payment_method_id], 'id'):
+            params['default_pm'] = self.get_payment_methods()[payment.payment_method_id]['id'],
 
         # Add return urls.
         if return_url_base:

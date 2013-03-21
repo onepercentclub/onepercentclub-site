@@ -412,3 +412,11 @@ REST_FRAMEWORK = {
 }
 
 COWRY_RETURN_URL_BASE = 'http://127.0.0.1:8000'
+
+COWRY_PAYMENT_METHODS = {
+    'dd-webmenu': {
+        'profile': 'webmenu',
+        'name': 'Web Menu',
+        'supports_recurring': True,
+    }
+}

@@ -2,9 +2,11 @@ import requests
 from apps.cowry import factory, payments
 from django.conf import settings
 from django.test.testcases import TestCase
+from django.test.utils import override_settings
 from django.utils import unittest
 from requests.exceptions import ConnectionError
 from rest_framework import status
+from .adapters import default_payment_methods
 
 
 try:
@@ -16,7 +18,7 @@ except (ConnectionError, AttributeError):
     run_docdata_tests = False
 
 
-# TODO: Create separate payment method configs for testing so changes to the default config doesn't break these tests.
+@override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
 class DocDataPaymentTests(TestCase):
 
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
