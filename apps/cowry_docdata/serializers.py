@@ -4,7 +4,6 @@ from .models import DocDataPaymentOrder, DocDataWebMenu, DocDataWebDirectDirectD
 
 
 class DocDataOrderProfileSerializer(serializers.ModelSerializer):
-    id = serializers.Field(source='payment_ptr_id')
     # TODO Generate country list from docdata api and use ChoiceField.
     country = serializers.CharField(required=True)
 
@@ -13,23 +12,16 @@ class DocDataOrderProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'email', 'street', 'city', 'postal_code', 'country')
 
 
-class DocDataPaymentMethodSerializerBase(serializers.ModelSerializer):
-    id = serializers.Field(source='docdatapayment_ptr_id')
-
-    class Meta:
-        fields = ('id', )
-
-
-class DocDataWebMenuSerializer(DocDataPaymentMethodSerializerBase):
+class DocDataWebMenuSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocDataWebMenu
-        fields = DocDataPaymentMethodSerializerBase.Meta.fields + ('payment_url',)
+        fields = ('id', 'payment_url',)
 
 
-class DocDataWebDirectDirectDebitSerializer(DocDataPaymentMethodSerializerBase):
+class DocDataWebDirectDirectDebitSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocDataWebDirectDirectDebit
-        fields = DocDataPaymentMethodSerializerBase.Meta.fields + ('bank_account_number', 'bank_account_name', 'bank_account_city')
+        fields = ('id', 'bank_account_number', 'bank_account_name', 'bank_account_city')
 
 
 class DocDataPaymentMethodSerializer(PolymorphicSerializer):
