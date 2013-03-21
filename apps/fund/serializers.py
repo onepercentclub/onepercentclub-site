@@ -59,20 +59,6 @@ class VoucherSerializer(serializers.ModelSerializer):
                   'message', 'status')
 
 
-class PaymentMethodSerializer(serializers.Serializer):
-
-    default_fields = ('id', 'name')
-
-    def convert_object(self, obj):
-        """
-        Simplified converting of our object
-        """
-        ret = self._dict_class()
-        for field_name in self.default_fields:
-            ret[field_name] = obj
-        return obj
-
-
 class OrderSerializer(serializers.ModelSerializer):
     total = EuroField(read_only=True)
     status = serializers.ChoiceField(read_only=True)
