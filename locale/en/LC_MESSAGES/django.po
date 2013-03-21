@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-15 14:12+0100\n"
+"POT-Creation-Date: 2013-03-21 15:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,20 +48,20 @@ msgid ""
 "%(error_id)s</strong>."
 msgstr ""
 
-#: base.html:90
+#: base.html:89
 #, python-format
 msgid "1%%Projects"
 msgstr ""
 
-#: base.html:92
+#: base.html:91
 msgid "Cart"
 msgstr ""
 
-#: base.html:93
+#: base.html:92
 msgid "Vouchers"
 msgstr ""
 
-#: base.html:100
+#: base.html:99
 #, python-format
 msgid "MY 1%%"
 msgstr ""

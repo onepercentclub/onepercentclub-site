@@ -17,51 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:14
-msgid "New"
+#: serializers.py:64
+msgid "Just now"
 msgstr ""
 
-#: models.py:15
-msgid "In Progress"
-msgstr ""
-
-#: models.py:16
-msgid "Paid"
-msgstr ""
-
-#: models.py:17
-msgid "Failed"
-msgstr ""
-
-#: models.py:18
-msgid "Cancelled"
-msgstr ""
-
-#: models.py:19
-msgid "Refunded"
-msgstr ""
-
-#: models.py:22
-msgid "amount"
-msgstr ""
-
-#: models.py:26
-msgid "payment service fee"
-msgstr ""
-
-#: models.py:32
-msgid "status"
-msgstr ""
-
-#: models.py:34
-msgid "created"
-msgstr ""
-
-#: models.py:35
-msgid "updated"
-msgstr ""
-
-#: serializers.py:33
-#, python-format
-msgid "%(payment_method_id)s is not a valid payment method."
+#: serializers.py:69
+msgid "ago"
 msgstr ""

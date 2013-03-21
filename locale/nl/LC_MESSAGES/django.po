@@ -4,12 +4,14 @@
 # 
 # Translators:
 #   <mathijs@mathijsfietst.nl>, 2012.
+# Niels Jansen <niels@1procentclub.nl>, 2013.
+#  <webmaster@1procentclub.nl>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-02-26 18:05+0100\n"
-"PO-Revision-Date: 2013-02-26 17:06+0000\n"
+"POT-Creation-Date: 2013-03-21 15:21+0100\n"
+"PO-Revision-Date: 2013-03-21 14:21+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -49,18 +51,23 @@ msgid ""
 "<strong>%(error_id)s</strong>."
 msgstr "Als je hulp nodig hebt kan je naar deze fout verwijzen als <strong>%(error_id)s</strong>."
 
-#: base.html:78
+#: base.html:89
 #, python-format
 msgid "1%%Projects"
-msgstr "1%%Projecten"
+msgstr "1%%Projects"
 
-#: base.html:79
+#: base.html:91
 msgid "Cart"
-msgstr "Mandje"
+msgstr "Boodschappenmandje"
 
-#: base.html:80
+#: base.html:92
 msgid "Vouchers"
 msgstr "Bonnen"
+
+#: base.html:99
+#, python-format
+msgid "MY 1%%"
+msgstr ""
 
 #: footer.html:6
 msgid "Menu"
@@ -96,7 +103,7 @@ msgstr "Partners"
 
 #: footer.html:14
 msgid "Business"
-msgstr "Bedrijven"
+msgstr "Zaken"
 
 #: footer.html:15 footer.html.py:35
 msgid "Learn more"

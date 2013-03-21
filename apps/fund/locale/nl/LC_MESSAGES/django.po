@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <mathijs@mathijsfietst.nl>, 2012.
+#  <webmaster@1procentclub.nl>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-01-22 22:48+0100\n"
-"PO-Revision-Date: 2013-01-22 21:49+0000\n"
+"POT-Creation-Date: 2013-03-21 15:21+0100\n"
+"PO-Revision-Date: 2013-03-21 14:21+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -18,62 +18,475 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:24
-msgid "Closed"
-msgstr "Gesloten"
+#: mails.py:18
+msgid "You received a 1%VOUCHER"
+msgstr ""
 
-#: models.py:25
-msgid "Expired"
-msgstr "Verlopen"
+#: mails.py:19
+msgid "You received a 1%VOUCHER with this code: "
+msgstr ""
 
-#: models.py:26
-msgid "Paid"
-msgstr "Betaald"
+#: mails.py:34 mails.py:35
+msgid "has redeemed a 1%VOUCHER you gave."
+msgstr ""
 
-#: models.py:27
-msgid "Canceled"
-msgstr "Geannuleerd"
+#: mails.py:52 mails.py:53
+msgid "has a custom 1%VOUCHER request."
+msgstr ""
 
-#: models.py:28
-msgid "Chargedback"
-msgstr "Terugbetaald"
-
-#: models.py:29
+#: models.py:18 models.py:115 models.py:162
 msgid "New"
 msgstr "Nieuw"
 
-#: models.py:30
-msgid "Started"
-msgstr "Gestart"
+#: models.py:19
+msgid "In Progress"
+msgstr ""
 
-#: models.py:32
-msgid "user"
-msgstr "gebruiker"
+#: models.py:20 models.py:116
+msgid "Paid"
+msgstr "Betaald"
 
-#: models.py:33
+#: models.py:21
+msgid "Cancelled"
+msgstr ""
+
+#: models.py:23 models.py:124
 msgid "amount"
 msgstr "bedrag"
 
-#: models.py:34
+#: models.py:24 models.py:125
+msgid "currency"
+msgstr ""
+
+#: models.py:26 models.py:62
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:27
 msgid "project"
 msgstr "project"
 
-#: models.py:37
+#: models.py:29 models.py:63 models.py:131 models.py:175
 msgid "status"
 msgstr "status"
 
-#: models.py:39
+#: models.py:30 models.py:65 models.py:132 models.py:176
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:40
+#: models.py:31 models.py:66 models.py:133
 msgid "updated"
 msgstr "aangepast"
 
-#: models.py:43
+#: models.py:38
 msgid "donation"
 msgstr "donatie"
 
-#: models.py:44
+#: models.py:39
 msgid "donations"
 msgstr "donaties"
+
+#: models.py:58
+msgid "Current"
+msgstr ""
+
+#: models.py:59
+msgid "Monthly"
+msgstr ""
+
+#: models.py:60
+msgid "Closed"
+msgstr "Gesloten"
+
+#: models.py:117
+msgid "Cashed"
+msgstr ""
+
+#: models.py:118
+msgid "Cashed by us"
+msgstr ""
+
+#: models.py:121 templates/orders.hbs:183
+msgid "English"
+msgstr ""
+
+#: models.py:122 templates/orders.hbs:187
+msgid "Dutch"
+msgstr ""
+
+#: models.py:127
+msgid "language"
+msgstr "taal"
+
+#: models.py:128 models.py:172
+msgid "message"
+msgstr "bericht"
+
+#: models.py:129
+msgid "code"
+msgstr ""
+
+#: models.py:135
+msgid "sender"
+msgstr ""
+
+#: models.py:136
+msgid "sender email"
+msgstr ""
+
+#: models.py:137
+msgid "sender name"
+msgstr ""
+
+#: models.py:139
+msgid "receiver"
+msgstr ""
+
+#: models.py:140
+msgid "receiver email"
+msgstr ""
+
+#: models.py:141
+msgid "receiver name"
+msgstr ""
+
+#: models.py:150
+msgid "voucher"
+msgstr ""
+
+#: models.py:151
+msgid "vouchers"
+msgstr ""
+
+#: models.py:157
+msgid "Card"
+msgstr ""
+
+#: models.py:158
+msgid "Digital"
+msgstr ""
+
+#: models.py:159
+msgid "Unknown"
+msgstr ""
+
+#: models.py:163
+msgid "In progress"
+msgstr ""
+
+#: models.py:164
+msgid "Finished"
+msgstr ""
+
+#: models.py:166
+msgid "Amount needed"
+msgstr ""
+
+#: models.py:167
+msgid "Contact member"
+msgstr ""
+
+#: models.py:168 models.py:169
+msgid "Contact email"
+msgstr ""
+
+#: models.py:170
+msgid "Contact phone"
+msgstr ""
+
+#: models.py:171 templates/vouchers.hbs:191
+msgid "Organization"
+msgstr "Organisatie"
+
+#: models.py:174
+msgid "type"
+msgstr "type"
+
+#: serializers.py:22
+msgid "Amount must be at least €5.00."
+msgstr ""
+
+#: serializers.py:48
+msgid "Amount can only be €10, €25, €50 or €100. Not "
+msgstr ""
+
+#: serializers.py:103
+msgid "Only allowed to change status to 'cashed'"
+msgstr ""
+
+#: views.py:154
+msgid "No active Order."
+msgstr ""
+
+#: views.py:279 views.py:283
+msgid "Order not found."
+msgstr ""
+
+#: views.py:281
+msgid "No order specified."
+msgstr ""
+
+#: views.py:355
+msgid "No voucher code supplied."
+msgstr ""
+
+#: views.py:359
+msgid "No voucher with that code."
+msgstr ""
+
+#: views.py:361
+msgid "Voucher code already used."
+msgstr ""
+
+#: templates/orders.hbs:12
+#, python-format
+msgid "Order digital 1%%VOUCHERS"
+msgstr ""
+
+#: templates/orders.hbs:16
+msgid "Switch to paid donations"
+msgstr ""
+
+#: templates/orders.hbs:25
+msgid "Support one or more projects!"
+msgstr "Steun een of meerdere projecten"
+
+#: templates/orders.hbs:29
+#, python-format
+msgid "I have a 1%%voucher"
+msgstr ""
+
+#: templates/orders.hbs:54
+msgid "Details"
+msgstr ""
+
+#: templates/orders.hbs:58 templates/vouchers.hbs:61
+msgid "Profile"
+msgstr ""
+
+#: templates/orders.hbs:62 templates/orders.hbs.py:368
+#: templates/orders.hbs:392
+msgid "Pay"
+msgstr ""
+
+#: templates/orders.hbs:70
+msgid "Want custom real vouchers or a large amount of digital vouchers?"
+msgstr ""
+
+#: templates/orders.hbs:74
+msgid "Contact us..."
+msgstr ""
+
+#: templates/orders.hbs:98
+msgid "Choose a project to make a donation"
+msgstr ""
+
+#: templates/orders.hbs:99
+msgid ""
+"Select a project from the list and click 'Support this project' to add it to"
+" this list."
+msgstr ""
+
+#: templates/orders.hbs:104
+msgid "Add another project"
+msgstr ""
+
+#: templates/orders.hbs:109
+msgid "Support the selected projects:"
+msgstr ""
+
+#: templates/orders.hbs:113
+msgid "Single donation"
+msgstr ""
+
+#: templates/orders.hbs:118
+msgid "Monthly donation"
+msgstr ""
+
+#: templates/orders.hbs:126 templates/orders.hbs.py:162
+#: templates/orders.hbs:164 templates/orders.hbs.py:283
+msgid "Next step"
+msgstr ""
+
+#: templates/orders.hbs:145
+msgid "vouchers will be sent out with a total amount worth of"
+msgstr ""
+
+#: templates/orders.hbs:154
+msgid "No vouchers yet..."
+msgstr ""
+
+#: templates/orders.hbs:175
+msgid "Choose value & personalize voucher"
+msgstr ""
+
+#: templates/orders.hbs:179
+msgid "Language"
+msgstr ""
+
+#: templates/orders.hbs:194 templates/vouchers.hbs:179
+msgid "Amount"
+msgstr ""
+
+#: templates/orders.hbs:214 templates/vouchers.hbs:183
+msgid "Your name"
+msgstr ""
+
+#: templates/orders.hbs:218 templates/vouchers.hbs:187
+msgid "Your email"
+msgstr ""
+
+#: templates/orders.hbs:222
+msgid "Add as many recipients as you want"
+msgstr ""
+
+#: templates/orders.hbs:224
+msgid "Recipient name"
+msgstr ""
+
+#: templates/orders.hbs:228
+msgid "Recipient email"
+msgstr ""
+
+#: templates/orders.hbs:232
+msgid "Personal message"
+msgstr ""
+
+#: templates/orders.hbs:237
+msgid "Add"
+msgstr ""
+
+#: templates/orders.hbs:252
+msgid "Delete"
+msgstr ""
+
+#: templates/orders.hbs:298
+msgid "is still needed"
+msgstr ""
+
+#: templates/orders.hbs:299
+msgid "I'd like to give"
+msgstr ""
+
+#: templates/orders.hbs:303
+msgid "Remove"
+msgstr ""
+
+#: templates/orders.hbs:311 templates/orders.hbs.py:333
+msgid "YOU MAKE IT WORK!"
+msgstr ""
+
+#: templates/orders.hbs:312 templates/orders.hbs.py:334
+msgid "Choose the payment method you prefer to donate."
+msgstr ""
+
+#: templates/orders.hbs:319
+msgid "Proceed with Payment"
+msgstr ""
+
+#: templates/orders.hbs:321 templates/orders.hbs.py:345
+msgid "No payment methods available"
+msgstr ""
+
+#: templates/orders.hbs:370 templates/orders.hbs.py:394
+#: templates/orders.hbs:416
+msgid "Next"
+msgstr ""
+
+#: templates/orders.hbs:376 templates/orders.hbs.py:397
+#: templates/orders.hbs:418
+msgid "loading information..."
+msgstr ""
+
+#: templates/orders.hbs:429
+msgid "Thank you!"
+msgstr ""
+
+#: templates/orders.hbs:451
+msgid "You just donated"
+msgstr ""
+
+#: templates/vouchers.hbs:10
+msgid "Share"
+msgstr ""
+
+#: templates/vouchers.hbs:11
+msgid "the fun"
+msgstr ""
+
+#: templates/vouchers.hbs:12
+msgid "of giving!"
+msgstr ""
+
+#: templates/vouchers.hbs:13
+msgid "Get the"
+msgstr ""
+
+#: templates/vouchers.hbs:14
+#, python-format
+msgid "1%%VOUCHER"
+msgstr ""
+
+#: templates/vouchers.hbs:23
+msgid "I received a voucher"
+msgstr ""
+
+#: templates/vouchers.hbs:28
+msgid "I'd like to buy voucher(s)"
+msgstr ""
+
+#: templates/vouchers.hbs:42
+msgid "Claim you voucher and support!"
+msgstr ""
+
+#: templates/vouchers.hbs:46
+msgid "Switch to donations"
+msgstr ""
+
+#: templates/vouchers.hbs:68
+msgid "Voucher"
+msgstr ""
+
+#: templates/vouchers.hbs:70
+msgid "code accepted"
+msgstr ""
+
+#: templates/vouchers.hbs:83
+msgid "Choose a project to support with this voucher"
+msgstr ""
+
+#: templates/vouchers.hbs:92 templates/vouchers.hbs.py:96
+#: templates/vouchers.hbs:112
+msgid "Submit"
+msgstr ""
+
+#: templates/vouchers.hbs:106
+msgid "We don't have a voucher with this code."
+msgstr ""
+
+#: templates/vouchers.hbs:109
+msgid "Voucher code"
+msgstr ""
+
+#: templates/vouchers.hbs:165
+#, python-format
+msgid "Contact us for custom 1%%VOUCHERS"
+msgstr ""
+
+#: templates/vouchers.hbs:166
+msgid ""
+"Please fill in the form with your wishes and we will contact you. You can "
+"also call us directly on (+31) 20 715 8980"
+msgstr ""
+
+#: templates/vouchers.hbs:195
+msgid "Phone number"
+msgstr ""
+
+#: templates/vouchers.hbs:199
+msgid "Anything else? Leave a message."
+msgstr ""
+
+#: templates/vouchers.hbs:202
+msgid "Send message"
+msgstr ""

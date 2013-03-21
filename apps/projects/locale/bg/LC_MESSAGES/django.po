@@ -3,8 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <mathijs@mathijsfietst.nl>, 2012.
-#  <webmaster@1procentclub.nl>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
@@ -12,117 +10,117 @@ msgstr ""
 "POT-Creation-Date: 2013-03-21 15:21+0100\n"
 "PO-Revision-Date: 2013-03-21 14:21+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"Language-Team: Bulgarian (http://www.transifex.com/projects/p/bluebottle/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
+"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:23 models.py:127 models.py:272 models.py:302
 msgid "name"
-msgstr "naam"
+msgstr ""
 
 #: models.py:24 models.py:46 models.py:128
 msgid "slug"
-msgstr "slug"
+msgstr ""
 
 #: models.py:25 models.py:151 models.py:201 models.py:274 models.py:288
 #: models.py:304 models.py:319
 msgid "description"
-msgstr "beschrijving"
+msgstr ""
 
 #: models.py:32
 msgid "project theme"
-msgstr "projectthema"
+msgstr ""
 
 #: models.py:33
 msgid "project themes"
-msgstr "projectthema's"
+msgstr ""
 
 #: models.py:40
 msgid "Idea"
-msgstr "Idee"
+msgstr ""
 
 #: models.py:41
 msgid "Fund"
-msgstr "Steun"
+msgstr ""
 
 #: models.py:42
 msgid "Act"
-msgstr "Doe"
+msgstr ""
 
 #: models.py:43
 msgid "Results"
-msgstr "Resultaat"
+msgstr ""
 
 #: models.py:45 models.py:150
 msgid "title"
-msgstr "titel"
+msgstr ""
 
 #: models.py:48 models.py:131
 msgid "partner organization"
-msgstr "partnerorganizatie"
+msgstr ""
 
 #: models.py:49
 msgid "image"
-msgstr "afbeelding"
+msgstr ""
 
 #: models.py:49
 msgid "Main project picture"
-msgstr "Hoofdafbeelding project"
+msgstr ""
 
 #: models.py:50
 msgid "organization"
-msgstr "organisatie"
+msgstr ""
 
 #: models.py:51
 msgid "owner"
-msgstr "eigenaar"
+msgstr ""
 
 #: models.py:52
 msgid "phase"
-msgstr "fase"
+msgstr ""
 
 #: models.py:52
 msgid "Phase this project is in right now."
-msgstr "Huidige fase voor dit project."
+msgstr ""
 
 #: models.py:53
 msgid "themes"
-msgstr "thema's"
+msgstr ""
 
 #: models.py:54 models.py:306 models.py:320
 msgid "created"
-msgstr "aangemaakt"
+msgstr ""
 
 #: models.py:54
 msgid "When this project was created."
-msgstr "Moment van aanmaken voor dit project."
+msgstr ""
 
 #: models.py:60
 msgid "latitude"
-msgstr "breedte"
+msgstr ""
 
 #: models.py:61
 msgid "longitude"
-msgstr "lengte"
+msgstr ""
 
 #: models.py:62
 msgid "country"
-msgstr "land"
+msgstr ""
 
 #: models.py:64
 msgid "Main language of the project."
-msgstr "Hoofdtaal voor dit project."
+msgstr ""
 
 #: models.py:65
 msgid "tags"
-msgstr "tags"
+msgstr ""
 
 #: models.py:67
 msgid "planned start date"
-msgstr "geplande startdatum"
+msgstr ""
 
 #: models.py:68
 msgid ""
@@ -132,7 +130,7 @@ msgstr ""
 
 #: models.py:71
 msgid "planned end date"
-msgstr "geplande einddatum"
+msgstr ""
 
 #: models.py:72
 msgid ""
@@ -142,43 +140,43 @@ msgstr ""
 
 #: models.py:118 models.py:149 models.py:287 models.py:301 models.py:317
 msgid "project"
-msgstr "project"
+msgstr ""
 
 #: models.py:119
 msgid "projects"
-msgstr "projecten"
+msgstr ""
 
 #: models.py:132
 msgid "partner organizations"
-msgstr "partnerorganisaties"
+msgstr ""
 
 #: models.py:144 models.py:189
 msgid "Hidden"
-msgstr "Verborgen"
+msgstr ""
 
 #: models.py:145 models.py:190
 msgid "Progress"
-msgstr "Voortgang"
+msgstr ""
 
 #: models.py:146 models.py:192
 msgid "Waiting"
-msgstr "In de wacht"
+msgstr ""
 
 #: models.py:147 models.py:193
 msgid "Completed"
-msgstr "Afgerond"
+msgstr ""
 
 #: models.py:154
 msgid "start date"
-msgstr "startdatum"
+msgstr ""
 
 #: models.py:155
 msgid "end date"
-msgstr "eindatum"
+msgstr ""
 
 #: models.py:157
 msgid "status"
-msgstr "status"
+msgstr ""
 
 #: models.py:163
 #, python-format
@@ -189,35 +187,35 @@ msgstr ""
 
 #: models.py:178
 msgid "knowledge"
-msgstr "kennis"
+msgstr ""
 
 #: models.py:178
 msgid "Description of knowledge."
-msgstr "Beschrijving van kennis."
+msgstr ""
 
 #: models.py:181 models.py:182
 msgid "idea phase"
-msgstr "'idea'-fase"
+msgstr ""
 
 #: models.py:191
 msgid "Feedback"
-msgstr "Feedback"
+msgstr ""
 
 #: models.py:196
 msgid "Children"
-msgstr "Kinderen"
+msgstr ""
 
 #: models.py:197
 msgid "Youth"
-msgstr "Jeugd"
+msgstr ""
 
 #: models.py:198
 msgid "Adults"
-msgstr "Volwassenen"
+msgstr ""
 
 #: models.py:201
 msgid "Longer description."
-msgstr "Langere beschrijving."
+msgstr ""
 
 #: models.py:204
 msgid "budget total"
@@ -230,7 +228,7 @@ msgstr ""
 
 #: models.py:205
 msgid "money asked"
-msgstr "geld gevraagd"
+msgstr ""
 
 #: models.py:205
 msgid "Amount of money asked for a project from this website."
@@ -246,107 +244,107 @@ msgstr ""
 
 #: models.py:208
 msgid "sustainability"
-msgstr "duurzaamheid"
+msgstr ""
 
 #: models.py:208
 msgid "How can next generations profit from this?"
-msgstr "Hoe kunnen volgende generaties hiervan profiteren?"
+msgstr ""
 
 #: models.py:209
 msgid "money from other sources"
-msgstr "geld uit andere bronnen"
+msgstr ""
 
 #: models.py:209
 msgid "Money received from other sources."
-msgstr "Geld ontvangen uit andere bronnen."
+msgstr ""
 
 #: models.py:212
 msgid "social impact"
-msgstr "sociale impact"
+msgstr ""
 
 #: models.py:212
 msgid "Who are you helping?"
-msgstr "Wie help je hiermee?"
+msgstr ""
 
 #: models.py:213
 msgid "impact group"
-msgstr "impactgroep"
+msgstr ""
 
 #: models.py:214
 msgid "impact direct male"
-msgstr "directe impact mannen"
+msgstr ""
 
 #: models.py:215
 msgid "impact direct female"
-msgstr "directe impact vrouwen"
+msgstr ""
 
 #: models.py:216
 msgid "impact indirect male"
-msgstr "indirecte impact mannen"
+msgstr ""
 
 #: models.py:217
 msgid "impact indirect female"
-msgstr "indirecte impact vrouwen"
+msgstr ""
 
 #: models.py:238 models.py:239
 msgid "fund phase"
-msgstr "'fund'-fase"
+msgstr ""
 
 #: models.py:245
 msgid "planning"
-msgstr "planning"
+msgstr ""
 
 #: models.py:248 models.py:249
 msgid "act phase"
-msgstr "'act'-fase"
+msgstr ""
 
 #: models.py:256
 msgid "what"
-msgstr "wat"
+msgstr ""
 
 #: models.py:256
 msgid "What and how?"
-msgstr "Wat en hoe?"
+msgstr ""
 
 #: models.py:257
 msgid "tips"
-msgstr "tips"
+msgstr ""
 
 #: models.py:257
 msgid "Tips and tricks?"
-msgstr "Tips en trucs?"
+msgstr ""
 
 #: models.py:258
 msgid "change"
-msgstr "verandering"
+msgstr ""
 
 #: models.py:258
 msgid "What has changed for the target group?"
-msgstr "Wat is er veranderd voor de doelgroep?"
+msgstr ""
 
 #: models.py:259
 msgid "financial"
-msgstr "financieel"
+msgstr ""
 
 #: models.py:259
 msgid "How was the money spend?"
-msgstr "Hoe is het geld uitgegeven?"
+msgstr ""
 
 #: models.py:260
 msgid "next"
-msgstr "volgende"
+msgstr ""
 
 #: models.py:260
 msgid "What's next?"
-msgstr "Wat gaat er hierna gebeuren?"
+msgstr ""
 
 #: models.py:263 models.py:264
 msgid "results phase"
-msgstr "'resuls'-fase"
+msgstr ""
 
 #: models.py:273
 msgid "email"
-msgstr "email"
+msgstr ""
 
 #: models.py:277
 msgid "referral"
@@ -358,51 +356,51 @@ msgstr ""
 
 #: models.py:289
 msgid "money amount"
-msgstr "geldbedrag"
+msgstr ""
 
 #: models.py:292
 msgid "budget line"
-msgstr "budgetregel"
+msgstr ""
 
 #: models.py:293
 msgid "budget lines"
-msgstr "budgetregels"
+msgstr ""
 
 #: models.py:303
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: models.py:305
 msgid "ordering"
-msgstr "volgorde"
+msgstr ""
 
 #: models.py:310
 msgid "link"
-msgstr "link"
+msgstr ""
 
 #: models.py:311
 msgid "links"
-msgstr "links"
+msgstr ""
 
 #: models.py:318
 msgid "user"
-msgstr "gebruiker"
+msgstr ""
 
 #: models.py:321
 msgid "updated"
-msgstr "aangepast"
+msgstr ""
 
 #: models.py:325
 msgid "testimonial"
-msgstr "testimonium"
+msgstr ""
 
 #: models.py:326
 msgid "testimonials"
-msgstr "testimoniums"
+msgstr ""
 
 #: templates/project_detail.html:20
 msgid "Project"
-msgstr "Project"
+msgstr ""
 
 #: templates/project_detail.html:23
 msgid "Project Phase"
@@ -410,7 +408,7 @@ msgstr ""
 
 #: templates/project_detail.html:26
 msgid "Organization"
-msgstr "Organisatie"
+msgstr ""
 
 #: templates/project_detail.html:29
 msgid "Project Owner"
@@ -418,16 +416,16 @@ msgstr ""
 
 #: templates/project_detail.html:34
 msgid "Location"
-msgstr "Lokatie"
+msgstr ""
 
 #: templates/project_detail.html:39 templates/project_detail.html.py:48
 #: templates/project_detail.html:103 templates/project_detail.html.py:114
 msgid "Not specified."
-msgstr "Niet opgegeven."
+msgstr ""
 
 #: templates/project_detail.html:43
 msgid "Costs"
-msgstr "Kosten"
+msgstr ""
 
 #: templates/project_detail.html:52
 msgid "Money Asked"
@@ -439,32 +437,32 @@ msgstr ""
 
 #: templates/project_detail.html:62
 msgid "Themes"
-msgstr "Thema's"
+msgstr ""
 
 #: templates/project_detail.html:68 templates/project_detail.html.py:79
 #: templates/project_detail.html:91
 msgid "None specified."
-msgstr "Niet opgegeven."
+msgstr ""
 
 #: templates/project_detail.html:73
 msgid "Supporters"
-msgstr "Supporters"
+msgstr ""
 
 #: templates/project_detail.html:85
 msgid "Tags"
-msgstr "Tags"
+msgstr ""
 
 #: templates/project_detail.html:96
 msgid "Description"
-msgstr "Beschrijving"
+msgstr ""
 
 #: templates/project_detail.html:107
 msgid "Funding needed for"
-msgstr "Financiering nodig voor"
+msgstr ""
 
 #: templates/projects.hbs:11
 msgid "Projects"
-msgstr "Projecten"
+msgstr "Проекти"
 
 #: templates/projects.hbs:18
 msgid "No projects found."
@@ -472,11 +470,11 @@ msgstr ""
 
 #: templates/projects.hbs:72
 msgid "of"
-msgstr "van"
+msgstr ""
 
 #: templates/projects.hbs:74
 msgid "raised"
-msgstr "opgehaald"
+msgstr ""
 
 #: templates/projects.hbs:87
 msgid "days to go"
@@ -484,8 +482,8 @@ msgstr ""
 
 #: templates/projects.hbs:92
 msgid "Support with voucher"
-msgstr "Steun met bon"
+msgstr ""
 
 #: templates/projects.hbs:94
 msgid "Support this project"
-msgstr "Steun dit project"
+msgstr ""
