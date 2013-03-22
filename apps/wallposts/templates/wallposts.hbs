@@ -5,24 +5,24 @@
 
 {% tplhandlebars "project_wallpost_new" %}
 
-<div class="container section">
-    <section class="wrapper" id="wallpost-form">
-        <header>
-            <h2>{% trans "Comments & Updates" %}</h2>
-        </header>
+    <div class="container section">
+        <section class="wrapper" id="wallpost-form">
+            <header>
+                <h2>{% trans "Comments & Updates" %}</h2>
+            </header>
 
-        {{#if controllers.currentUser.isAuthenticated }}
-            {{#if isProjectOwner }}
-                {{view App.MediaWallPostNewView content=content}}
+            {{#if controllers.currentUser.isAuthenticated }}
+                {{#if isProjectOwner }}
+                    {{view App.MediaWallPostNewView content=content}}
+                {{else}}
+                    {{view App.TextWallPostNewView content=content}}
+                {{/if}}
             {{else}}
-                {{view App.TextWallPostNewView content=content}}
+                <form>{% trans "Login to leave a comment." %}</form>
             {{/if}}
-        {{else}}
-            <form>{% trans "Login to leave a comment." %}</form>
-        {{/if}}
 
-    </section>
-</div>
+        </section>
+    </div>
 
 {% endtplhandlebars %}
 
@@ -109,7 +109,14 @@
     <section class="wrapper">
         {{#each controller itemController="projectWallPost"}}
             {{view "App.ProjectWallPostView" content=this}}
+
         {{/each}}
+
+        <article class="wallpost">
+            {{#if canLoadMore}}
+                <a {{action "showMoreWallPosts"}} class="button">{% trans "Show more" %}</a>
+            {{/if}}
+        </article>
     </section>
 
 {% endtplhandlebars %}

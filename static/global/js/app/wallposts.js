@@ -42,7 +42,6 @@ App.ProjectTextWallPost = App.ProjectWallPost.extend({
  */
 
 App.ProjectWallPostListController = Em.ArrayController.extend({
-
     // The list of WallPosts are loaded into the temporary 'wallposts' array in the Route. Once this RecordArray
     // is loaded, it is converted to an Ember array and put into content. This temporary array is required
     // because the RecordArray returned by findQuery can't be manipulated directly. Discussion about this
@@ -51,7 +50,7 @@ App.ProjectWallPostListController = Em.ArrayController.extend({
     // https://github.com/emberjs/data/issues/370
     wallpostsLoaded: function(sender, key) {
         if (this.get(key)) {
-            this.set('content', this.get('wallposts').toArray());
+            this.set('model', this.get('wallposts').toArray());
         } else {
             // Don't show old content when new content is being retrieved.
             this.set('content', null);
