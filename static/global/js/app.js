@@ -68,7 +68,7 @@ App = Em.Application.create({
 
     // We store language & locale here because they need to be available before loading templates.
     language: 'en',
-    locale: 'en-US',
+    locale: 'en-GB',
     interfaceLanguages: [
         Em.Object.create({name:'English', code: 'en'}),
         Em.Object.create({name:'Nederlands', code: 'nl'})
@@ -84,10 +84,18 @@ App = Em.Application.create({
 
         // Read locale from browser with fallback to default.
         var locale = navigator.language || navigator.userLanguage || this.get('locale');
-        if (locale.substr(0,2) != language) {
+        if (locale.substr(0, 2) != language) {
+            // Some overrides to have a sound expereince, at least for dutch speaking and dutch based users.
+
             if (language == 'nl') {
-                // For dutch language always overwrite locale.
-                locale = 'nl-NL';
+                // For dutch language always overwrite locale. Always use dutch locale.
+                locale = 'nl';
+            }
+            if (language == 'en' && locale.substr(0, 2) == 'nl') {
+                // For dutch browser viewing english site overwrite locale.
+                // We don't want to have dutch fuzzy dates.
+                // If fuzzy dates are translated in other languages we should decide if we want to show those.
+                locale = 'en';
             }
         }
         this.setLocale(locale);
