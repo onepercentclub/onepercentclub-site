@@ -8,8 +8,7 @@ App.WallPostReaction = DS.Model.extend({
 
     text: DS.attr('string'),
     author: DS.belongsTo('App.Member'),
-    created: DS.attr('string'),
-    timesince: DS.attr('string'),
+    created: DS.attr('date'),
     wallpost: DS.belongsTo('App.ProjectWallPost')
 });
 
@@ -48,7 +47,7 @@ App.WallPostReactionNewController = Em.ObjectController.extend({
         var reaction = this.get('model');
         // Set the wallpost that this reaction is related to.
         reaction.set('wallpost', this.get('currentWallpost'));
-
+        reaction.set('created', new Date());
         var controller = this;
         reaction.on('didCreate', function(record) {
             controller.createNewReaction();

@@ -1,4 +1,4 @@
-from apps.bluebottle_drf2.serializers import (TimeSinceField, OEmbedField, PolymorphicSerializer, AuthorSerializer,
+from apps.bluebottle_drf2.serializers import (OEmbedField, PolymorphicSerializer, AuthorSerializer,
                                               SorlImageField, ContentTextField)
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
@@ -9,13 +9,12 @@ from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 class ReactionSerializer(serializers.ModelSerializer):
     author = AuthorSerializer()
     text = ContentTextField()
-    timesince = TimeSinceField(source='created')
     wallpost = serializers.PrimaryKeyRelatedField()
     url = serializers.HyperlinkedIdentityField(view_name="wallpost-reaction-detail")
 
     class Meta:
         model = Reaction
-        fields = ('created', 'author', 'text', 'id', 'timesince', 'wallpost', 'url')
+        fields = ('created', 'author', 'text', 'id', 'wallpost', 'url')
 
 
 # Serializers for WallPosts.
@@ -38,11 +37,10 @@ class WallPostSerializerBase(serializers.ModelSerializer):
 
     id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
-    timesince = TimeSinceField(source='created')
     reactions = ReactionSerializer(many=True)
 
     class Meta:
-        fields = ('id', 'url', 'type', 'author', 'created', 'timesince', 'reactions')
+        fields = ('id', 'url', 'type', 'author', 'created', 'reactions')
 
 
 class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
