@@ -217,7 +217,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         params = {
             'payment_cluster_key': payment.payment_order_key,
             'merchant_name': self.merchant._name,
-            'profile': self.get_payment_methods()[payment.payment_method_id]['profile'],
             'client_language': payment.language,
         }
 
