@@ -117,7 +117,17 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if not hasattr(self, '_payment_methods'):
             settings_payment_methods = getattr(settings, 'COWRY_PAYMENT_METHODS', None)
             if settings_payment_methods:
-                self._payment_methods = settings_payment_methods
+                # Only override the parameters that are set.
+                self._payment_methods = {}
+                for pmi in settings_payment_methods:
+                    settings_pm = settings_payment_methods[pmi]
+                    if pmi in default_payment_methods:
+                        default_pm = default_payment_methods[pmi]
+                        for param in settings_pm:
+                            default_pm[param] = settings_pm[param]
+                        self._payment_methods[pmi] = default_pm
+                    else:
+                        self._payment_methods[pmi] = settings_pm
             else:
                 self._payment_methods = default_payment_methods
 
@@ -221,8 +231,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         }
 
         # Add a default payment method if the config has an id.
-        if hasattr(self.get_payment_methods()[payment.payment_method_id], 'id'):
-            params['default_pm'] = self.get_payment_methods()[payment.payment_method_id]['id'],
+        payment_methods = self.get_payment_methods()
+        if hasattr(payment_methods[payment.payment_method_id], 'id'):
+            params['default_pm'] = payment_methods[payment.payment_method_id]['id'],
 
         # Add return urls.
         if return_url_base:
