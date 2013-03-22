@@ -7,6 +7,7 @@ App.Order = DS.Model.extend({
 
     status: DS.attr('string'),
     recurring: DS.attr('boolean'),
+    finalized: DS.attr('boolean'),
     vouchers: DS.hasMany('App.Voucher'),
     donations: DS.hasMany('App.Donation')
 });
@@ -304,9 +305,10 @@ App.CurrentOrderVoucherListView = Em.View.extend({
 });
 
 
-App.FinalOrderItemListView = Em.View.extend({
-    templateName: 'final_order_item_list'
+App.CurrentOrderFinalView = Em.View.extend({
+    templateName: 'current_order_final'
 });
+
 
 
 App.CurrentOrderDonationView = Em.View.extend({

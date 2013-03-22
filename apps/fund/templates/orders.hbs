@@ -422,8 +422,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "final_order_item_list" %}
-
+{% tplhandlebars "current_order_final" %}
     <div class="container section">
         <header class="wrapper">
             <h1 class="main-title">{% trans "Thank you!" %}</h1>
@@ -432,32 +431,53 @@
     </div>
 
     <div class="container">
-
         <section class="wrapper">
-            <form>
-            <ul id="donation-projects">
-                {{#each orderitem in controller}}
+            <ul class="donation-projects">
+                {{#if donations.length}}
+                    <h1>{% trans "Donations" %}</h1>
+                {{/if}}
+                {{#each donation in donations}}
                     <li class="donation-project">
-                        {{#linkTo "project" orderitem.project}}
-                            <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
+                        {{#linkTo "project" donation.project}}
+                            <img {{bindAttr src="donation.project.image_square"}} class="project-image" alt="Project Name" />
                         {{/linkTo}}
-                        <h1>
-                            {{#linkTo "project" orderitem.project}}
-                                {{orderitem.project.title}}
+                        <h3>
+                            {{#linkTo "project" donation.project}}
+                                {{donation.project.title}}
                             {{/linkTo}}
-                            <em class="country">{{orderitem.project.country.name}}</em>
-                        </h1>
+                        </h3>
+                        <em class="country">{{donation.project.country.name}}</em>
                         <p class="donation-amount">
                             <label for="donation-amount-1">{% trans "You just donated" %}</label>
-                            <span class="big currency">&euro; {{orderitem.amount}}</span>
+                            <span class="big currency">&euro; {{donation.amount}}</span>
                         </p>
                     </li>
-
                 {{/each}}
+                {{#if vouchers.length}}
+                    <h1>{% trans "Vouchers" %}</h1>
+                {{/if}}
+                {{#each voucher in vouchers}}
+                    <li class="donation-project">
+                        {{#if voucher.receiver_name}}
+                            <h3>
+                                {{voucher.receiver_name}}
+                            </h3>
+                            <em class="country">{{voucher.receiver_email}}</em>
 
+                        {{else}}
+                            <h3>
+                                {{voucher.receiver_email}}
+                            </h3>
+                        {{/if}}
+                        <p>{{voucher.message}}</p>
+                        <p class="donation-amount">
+                            <span class="big currency">&euro; {{voucher.amount}}</span>
+                        </p>
+                    </li>
+                {{/each}}
             </ul>
-            </form>
         </section>
     </div>
 
 {% endtplhandlebars %}
+

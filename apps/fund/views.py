@@ -15,8 +15,7 @@ from rest_framework import generics
 from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
-from .models import (Donation, OrderItem, Order, Voucher, CustomVoucherRequest,
-                     process_voucher_order_in_progress, process_donation_order_in_progress)
+from .models import Donation, OrderItem, Order, Voucher, CustomVoucherRequest
 from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer,
                           VoucherRedeemSerializer, CustomVoucherRequestSerializer)
 
@@ -106,11 +105,10 @@ class CurrentOrderMixin(object):
 
         return order
 
-
-    def get_latest_order(self):
+    def get_checkout_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.filter(user=self.request.user).exclude(status=Order.OrderStatuses.current).order_by("-created").all()[0]
+                order = Order.objects.filter(user=self.request.user, status=Order.OrderStatuses.checkout).get()
             except Order.DoesNotExist:
                 return None
         else:
@@ -118,7 +116,7 @@ class CurrentOrderMixin(object):
             order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
-                    order = Order.objects.get(id=order_id)
+                    order = Order.objects.filter(status=Order.OrderStatuses.checkout).get(id=order_id)
                 except Order.DoesNotExist:
                     # The order_id was not a Order in the db, return None
                     return None
@@ -163,22 +161,12 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         alias = self.kwargs.get('alias', None)
         if alias == 'current':
             order = self.get_or_create_current_order()
+        elif alias == 'checkout':
+            order = self.get_checkout_order()
         else:
             order = super(OrderDetail, self).get_object()
         self.check_object_permissions(self.request, order)
         return order
-
-
-def process_order_in_progress(order):
-    """
-    Helper method for processing orders that have just been paid.
-    """
-    for order_item in order.orderitem_set.all():
-        type = order_item.content_object.__class__.__name__
-        if type == "Voucher":
-            process_voucher_order_in_progress(order_item.content_object)
-        elif type == "Donation":
-            process_donation_order_in_progress(order_item.content_object)
 
 
 class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):

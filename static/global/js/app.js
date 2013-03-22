@@ -302,7 +302,7 @@ App.Router.map(function() {
         this.resource('payment', {path: '/payment'});
     });
 
-    this.resource('finalOrderItemList', {path: '/support/thanks'});
+    this.resource('currentOrderFinal', {path: '/support/thanks'});
 
     this.resource('voucherStart', {path: '/vouchers'});
     this.resource('customVoucherRequest', {path: '/vouchers/custom'});
@@ -489,6 +489,23 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
 });
 
 
+App.CurrentOrderFinalRoute = Ember.Route.extend({
+    model: function(params) {
+        // FIXME: change this once Bens changes in statement is in.
+        // var order = App.CurrentOrder.find('checkout');
+        var order = App.CurrentOrder.find('current');
+        // Send request to check it
+        order.on('didLoad', function(){
+            var transaction = this.get('store').transaction();
+            transaction.add(order);
+            order.set('finalized', true);
+            transaction.commit();
+        });
+        return order;
+    }
+});
+
+
 /**
  * Payment for Current Order Routes
  */
@@ -559,17 +576,6 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
             });
             transaction.commit();
         }
-    }
-});
-
-
-App.FinalOrderItemListRoute = Ember.Route.extend({
-    model: function(params) {
-        return App.LatestDonation.find();
-    },
-
-    setupController: function(controller, orderitems) {
-        controller.set('content', orderitems);
     }
 });
 

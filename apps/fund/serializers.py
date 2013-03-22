@@ -1,6 +1,8 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
+from apps.fund.models import close_order_after_payment
 from django.utils.translation import ugettext as _
+from raven.utils.serializer.base import BooleanSerializer
 from rest_framework import serializers
 from .models import Donation, Order, Voucher, CustomVoucherRequest
 
@@ -64,10 +66,25 @@ class OrderSerializer(serializers.ModelSerializer):
     status = serializers.ChoiceField(read_only=True)
     donations = DonationSerializer(source='donations', many=True)
     vouchers = VoucherSerializer(source='vouchers', many=True)
+    finalized = serializers.BooleanField()
+
+    def validate_finalized(self, attrs, source):
+        order = self.object
+        value = attrs[source]
+        if order.finalized == value:
+            # No changes, carry on.
+            return attrs
+
+        if not order.finalized and value:
+            # Setting order to finalized
+            close_order_after_payment(order)
+            return attrs
+
+        raise serializers.ValidationError(_(u"This change of finalized state is not allowed"))
 
     class Meta:
         model = Order
-        fields = ('id', 'total', 'status', 'recurring', 'donations', 'vouchers')
+        fields = ('id', 'total', 'status', 'recurring', 'donations', 'vouchers', 'finalized')
 
 
 class VoucherRedeemSerializer(serializers.ModelSerializer):

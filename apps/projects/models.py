@@ -92,10 +92,12 @@ class Project(models.Model):
     def money_donated(self):
         if self.money_asked == Decimal('0.00'):
             return Decimal('0.00')
-        try:
-            return self.fundphase.money_donated
-        except FundPhase.DoesNotExist:
+        donations = Donation.objects.filter(project=self)
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+        total = donations.aggregate(sum=Sum('amount'))
+        if not total['sum']:
             return Decimal('0.00')
+        return Decimal(total['sum'] / 100)
 
     @models.permalink
     def get_absolute_url(self):
