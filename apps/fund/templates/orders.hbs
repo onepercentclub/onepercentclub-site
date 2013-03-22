@@ -354,41 +354,32 @@
     </div>
     <fieldset>
         <div class="tabs vertical">
-        </div>
-        <div class="panes vertical">
-            {{#if paymentUrl}}
-                <a {{bindAttr href="paymentUrl"}} class="button">{% trans "Proceed with Payment" %}</a>
-            {{else}}
-                {% trans "No payment methods available" %}
-            {{/if}}
-        </div>
-    </fieldset>
-
-{% endtplhandlebars %}
-
-
-{# TODO This isn't currently used but we want to be. #}
-{% tplhandlebars "payment_multi" %}
-
-    <div class="intro">
-        <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
-        {% trans "Choose the payment method you prefer to donate." %}
-    </div>
-    <fieldset>
-        <div class="tabs vertical">
             {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="paymentMethod"}}
-                {{#each paymentMethod in paymentMethods}}
-                    <label class="tab">
-                        {{view view.RadioButton value=paymentMethod}}
-                        {{ paymentMethod }}
+                {{#if hasIdeal}}
+                    <label>
+                        {{view view.RadioButton value="dd-ideal"}}
+                        {% trans "iDeal" %}
                     </label>
-                {{else}}
-                    {% trans "No payment methods available" %}
-                {{/each}}
+                    <br/>
+                {{/if}}
+                {{#if hasWebMenu}}
+                    <label>
+                        {{view view.RadioButton value="dd-webmenu"}}
+                        {% trans "Other" %}
+                    </label>
+                {{/if}}
             {{/view}}
         </div>
         <div class="panes vertical">
-            {{ outlet }}
+            {{#if paymentInProgress }}
+                <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "processing payment..." %}
+            {{else}}
+                {{#if paymentMethod}}
+                    <a href="#" {{action "proceedWithPayment"}} class="button">{% trans "Proceed with Payment" %}</a>
+                {{else}}
+                    {% trans "No payment method selected" %}
+                {{/if}}
+            {{/if}}
         </div>
     </fieldset>
 

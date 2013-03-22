@@ -234,16 +234,13 @@ class PaymentCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         # verifies this assumption in case the Order creation code changes in the future.
         assert payment
 
-        # Pre-fill the payment method.
+        # Clear the payment method if it's not in the list of available methods.
         # Using 'payment.country' like this assumes that payment is a DocDataPaymentOrder.
         assert isinstance(payment, DocDataPaymentOrder)
         available_payment_methods = factory.get_payment_method_ids(amount=payment.amount, currency=payment.currency,
                                                                    country=payment.country, recurring=order.recurring)
-        if not payment.payment_method_id in available_payment_methods:
-            if available_payment_methods:
-                payment.payment_method_id = available_payment_methods[0]
-            else:
-                payment.payment_method_id = ""
+        if payment.payment_method_id and not payment.payment_method_id in available_payment_methods:
+            payment.payment_method_id = ''
             payment.save()
 
         return payment

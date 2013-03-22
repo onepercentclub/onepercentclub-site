@@ -21,7 +21,9 @@ class PaymentSerializer(serializers.ModelSerializer):
                                               recurring=order.recurring)
 
     def get_payment_url(self, payment):
-        return payments.get_payment_url(payment, getattr(settings, "COWRY_RETURN_URL_BASE"))
+        if payment.payment_method_id:
+            return payments.get_payment_url(payment, getattr(settings, "COWRY_RETURN_URL_BASE"))
+        return None
 
     def validate_payment_method(self, attrs, source):
         """
