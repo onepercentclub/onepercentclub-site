@@ -147,6 +147,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['amount'], '12.50')
         self.assertEqual(response.data['project'], self.another_project.slug)
 
+        # Create a Donation under 5 should fail
+        response = self.client.post(self.current_donations_url,
+                                    {'project': self.another_project.slug, 'amount': '2.50'})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
         # Retrieve the list with all donations in this cart should return one
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 2)
@@ -158,6 +163,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.put(donation_detail_url, {'amount': 150, 'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], '150.00')
+
+        # Update with amount under 5 should fail.
+        response = self.client.put(donation_detail_url, {'amount': 3, 'project': self.some_project.slug})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Update the status of the created Donation by owner should be ignored
         response = self.client.put(donation_detail_url,
