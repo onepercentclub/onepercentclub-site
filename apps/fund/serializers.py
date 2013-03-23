@@ -2,7 +2,6 @@
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
 from apps.fund.models import close_order_after_payment
 from django.utils.translation import ugettext as _
-from raven.utils.serializer.base import BooleanSerializer
 from rest_framework import serializers
 from .models import Donation, Order, Voucher, CustomVoucherRequest
 
