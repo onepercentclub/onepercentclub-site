@@ -7,7 +7,7 @@ from django.test.utils import override_settings
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin, FundPhaseTestMixin
 from rest_framework import status
-from .models import Donation
+from .models import Donation, Order, OrderStatuses
 
 
 class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
@@ -293,6 +293,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.put(self.payment_current_url, {'payment_method': first_payment_method})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(response.data['payment_url'])  # Not empty payment_url.
+
+        # The status of the Order should now be 'checkout'.
+        order = Order.objects.filter(user=self.some_user).get()
+        self.assertEqual(order.status, OrderStatuses.checkout)
 
 
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):

@@ -1,11 +1,11 @@
-from django.utils.importlib import import_module
+from .models import Payment
+from .signals import payment_status_changed
 
 
 class AbstractPaymentAdapter(object):
     """
     This is the abstract base class that should be used by all Payment Adapters.
     """
-
     def get_payment_methods(self):
         raise NotImplementedError
 
@@ -21,10 +21,22 @@ class AbstractPaymentAdapter(object):
     def update_payment_status(self, payment):
         raise NotImplementedError
 
-    def map_status(self, status):
+    def _map_status(self, status):
+        """
+        Maps a PSP status to a Cowry Payment status using the status_mapping dict.
+        Subclasses can safely use and/or override this method.
+        """
         if hasattr(self, 'status_mapping'):
             if status in self.status_mapping:
                 return self.status_mapping.get(status)
         return status
 
-
+    def _change_status(self, payment, new_status):
+        """
+        Changes the Cowry Payment status to new_status and sends a single about the change.
+        Subclasses can safely use this method.
+        """
+        old_status = payment.status
+        payment.status = new_status
+        payment.save()
+        payment_status_changed.send(sender=Payment, instance=payment, old_status=old_status, new_status=new_status)

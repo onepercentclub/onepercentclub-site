@@ -15,7 +15,7 @@ from rest_framework import generics
 from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
-from .models import Donation, OrderItem, Order, Voucher, CustomVoucherRequest
+from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest
 from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer,
                           VoucherRedeemSerializer, CustomVoucherRequestSerializer)
 
@@ -40,7 +40,7 @@ class CurrentOrderMixin(object):
     def get_current_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.current)
+                order = Order.objects.get(user=self.request.user, status=OrderStatuses.current)
                 self._update_payment(order)
                 return order
             except Order.DoesNotExist:
@@ -49,7 +49,7 @@ class CurrentOrderMixin(object):
             order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
-                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.current)
+                    order = Order.objects.get(id=order_id, status=OrderStatuses.current)
                     self._update_payment(order)
                     return order
                 except Order.DoesNotExist:
@@ -63,7 +63,7 @@ class CurrentOrderMixin(object):
             # Critical section to avoid duplicate orders.
             with order_lock:
                 with transaction.commit_on_success():
-                    order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.current)
+                    order, created = Order.objects.get_or_create(user=self.request.user, status=OrderStatuses.current)
 
                 # We're currently only using DocData so we can directly connect the DocData payment order to the order.
                 # Note that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment
@@ -81,7 +81,7 @@ class CurrentOrderMixin(object):
                 order_id = self.request.session.get('cart_order_id')
                 if order_id:
                     try:
-                        order = Order.objects.get(id=order_id, status=Order.OrderStatuses.current)
+                        order = Order.objects.get(id=order_id, status=OrderStatuses.current)
                     except Order.DoesNotExist:
                         # Set order_id to None so that a new order is created if it's been cleared
                         # from our db for some reason.
@@ -108,7 +108,7 @@ class CurrentOrderMixin(object):
     def get_checkout_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.filter(user=self.request.user, status=Order.OrderStatuses.checkout).get()
+                order = Order.objects.filter(user=self.request.user, status=OrderStatuses.checkout).get()
             except Order.DoesNotExist:
                 return None
         else:

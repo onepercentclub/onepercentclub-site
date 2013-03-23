@@ -281,9 +281,8 @@ App.PaymentController = Em.ObjectController.extend({
     proceedWithPayment: function() {
         this.set('paymentInProgress', true);
         var payment = this.get('model');
+        payment.set('paymentMethod', payment.get('availablePaymentMethods').objectAt(0));
         var controller = this;
-        // Set profile model to the 'updated' state so that the 'didUpdate' callback will always be run.
-        payment.get('stateManager').goToState('updated');
         payment.one('didUpdate', function(record) {
             var paymentUrl = record.get('paymentUrl');
             if (paymentUrl) {
