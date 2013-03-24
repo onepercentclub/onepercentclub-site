@@ -14,7 +14,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
 
     def get_available_payment_methods(self, payment):
-        order = Order.objects.get(payment_id=payment.id)
+        order = payment.orders.all()[0]
         # Using 'payment.country' like this assumes that payment is a DocDataPaymentOrder.
         assert isinstance(payment, DocDataPaymentOrder)
         return factory.get_payment_method_ids(amount=payment.amount, currency=payment.currency, country=payment.country,

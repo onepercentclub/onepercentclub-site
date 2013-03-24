@@ -32,10 +32,11 @@ class CurrentOrderMixin(object):
     """
 
     def _update_payment(self, order):
-        if order.total:
-            order.payment.amount = order.total
-        order.payment.currency = 'EUR'  # The default currency for now.
-        order.payment.save()
+            if order.total and order.payments:
+                payment = order.payment  # Need to make this variable assignment to modify the payment.
+                payment.amount = order.total
+                payment.currency = 'EUR'  # The default currency for now.
+                payment.save()
 
     def get_current_order(self):
         if self.request.user.is_authenticated():
@@ -71,8 +72,7 @@ class CurrentOrderMixin(object):
                 if created:
                     payment = DocDataPaymentOrder()
                     payment.save()
-                    order.payment = payment
-                    order.save()
+                    order.payments.add(payment)
         else:
             # Critical section to avoid duplicate orders.
             # FIXME: This is broken.
@@ -90,12 +90,12 @@ class CurrentOrderMixin(object):
                 if not order_id:
                     with transaction.commit_on_success():
                         order = Order()
+                        order.save()
                         created = True
                     # See comment above about creating this DocDataPaymentOrder here.
                     payment = DocDataPaymentOrder()
                     payment.save()
-                    order.payment = payment
-                    order.save()
+                    order.payments.add(payment)
                     self.request.session['cart_order_id'] = order.id
                     self.request.session.save()
 

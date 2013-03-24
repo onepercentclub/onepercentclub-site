@@ -69,7 +69,13 @@ class Order(models.Model):
     updated = ModificationDateTimeField(_("Updated"))
 
     recurring = models.BooleanField(default=False)
-    payment = models.ForeignKey('cowry.Payment', null=True, blank=True)
+    payments = models.ManyToManyField('cowry.Payment', related_name='orders')
+
+    @property
+    def payment(self):
+        if self.payments.all():
+            return self.payments.order_by('-created').all()[0]
+        return None
 
     # When a user finalized the paymen flow this property is ticked. So it acts as a command.
     finalized = models.BooleanField(_("Finalized"), default=False)
@@ -227,8 +233,8 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
     # Ignore status changes on payments that don't have an Order. This is needed to run the Cowry unit tests.
     # We could remove this check if we changed the unit tests to only test the full Order and Payment system.
-    if instance.order_set.all():
-        order = instance.order_set.all()[0]
+    if instance.orders.all():
+        order = instance.orders.all()[0]
     else:
         return
 
