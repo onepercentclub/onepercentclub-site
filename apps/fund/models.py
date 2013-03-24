@@ -188,16 +188,15 @@ class CustomVoucherRequest(models.Model):
     created = CreationDateTimeField(_("created"))
 
 
-def _generate_voucher_code():
-    # Lower case letters without d, o and i. Numbers without 0 and 1.
-    char_set = 'abcefghjklmnpqrstuvwxyz23456789'
-    return ''.join(random.choice(char_set) for i in range(8))
-
-
 def process_voucher_order_in_progress(voucher):
-    code = _generate_voucher_code()
+    def generate_voucher_code():
+        # Lower case letters without d, o and i. Numbers without 0 and 1.
+        char_set = 'abcefghjklmnpqrstuvwxyz23456789'
+        return ''.join(random.choice(char_set) for i in range(8))
+
+    code = generate_voucher_code()
     while Voucher.objects.filter(code=code).exists():
-        code = _generate_voucher_code()
+        code = generate_voucher_code()
 
     voucher.code = code
     voucher.status = Voucher.VoucherStatuses.paid
