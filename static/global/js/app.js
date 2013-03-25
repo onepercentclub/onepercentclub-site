@@ -166,7 +166,11 @@ App.Adapter = DS.DRF2Adapter.extend({
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo"
     }
+});
 
+
+App.Adapter.map('App.Payment', {
+  availablePaymentMethods: { readOnly: true }
 });
 
 
@@ -249,7 +253,6 @@ App.User = App.Member.extend({
     url: 'members',
     email: DS.attr('string')
 });
-
 
 
 // Inspiration from:

@@ -34,8 +34,6 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
         Base class serializer for WallPosts. This is not used directly; please subclass it.
     """
-
-    id = serializers.Field(source='wallpost_ptr_id')
     author = AuthorSerializer()
     reactions = ReactionSerializer(many=True)
 
@@ -58,7 +56,6 @@ class MediaWallPostSerializer(WallPostSerializerBase):
     Serializer for MediaWallPosts. This should not be used directly but instead should be subclassed for the specific
     model it's a WallPost about. See ProjectMediaWallPost for an example.
     """
-
     type = WallPostTypeField(type='media')
     text = ContentTextField(required=False)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
@@ -74,7 +71,6 @@ class TextWallPostSerializer(WallPostSerializerBase):
     Serializer for TextWallPosts. This should not be used directly but instead should be subclassed for the specific
     model it's a WallPost about. See ProjectTextWallPost for an example.
     """
-
     type = WallPostTypeField(type='text')
     text = ContentTextField()
 

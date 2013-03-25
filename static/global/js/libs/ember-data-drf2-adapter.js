@@ -12,6 +12,7 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
                 return Ember.isNone(serialized) ? null : Em.A(serialized);
             },
             serialize: function(deserialized) {
+                // FIXME: deserialized doesn't have a toJSON() method.
                 return Ember.isNone(deserialized) ? null : deserialized.toJSON();
             }
         });
@@ -69,6 +70,20 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
      */
     keyForBelongsTo: function(type, name) {
         return this.keyForAttributeName(type, name);
+    },
+
+    /**
+     * Changes from default:
+     * - Add support for marking attributes as readOnly.
+     * https://github.com/emberjs/data/pull/303#issuecomment-14649231
+     */
+    addAttributes: function(data, record) {
+        record.eachAttribute(function(name, attribute) {
+            // Skip serializing the attribute if 'readOnly' is true in its mapping
+            if (!this.mappingOption(record.constructor, name, 'readOnly')) {
+                this._addAttribute(data, record, name, attribute.type);
+            }
+        }, this);
     }
 });
 

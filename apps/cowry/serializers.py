@@ -14,14 +14,16 @@ class PaymentSerializer(serializers.ModelSerializer):
     payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
 
     def get_available_payment_methods(self, payment):
-        order = Order.objects.get(payment_id=payment.id)
+        order = payment.orders.all()[0]
         # Using 'payment.country' like this assumes that payment is a DocDataPaymentOrder.
         assert isinstance(payment, DocDataPaymentOrder)
         return factory.get_payment_method_ids(amount=payment.amount, currency=payment.currency, country=payment.country,
                                               recurring=order.recurring)
 
     def get_payment_url(self, payment):
-        return payments.get_payment_url(payment, getattr(settings, "COWRY_RETURN_URL_BASE"))
+        if payment.payment_method_id:
+            return payments.get_payment_url(payment, getattr(settings, "COWRY_RETURN_URL_BASE"))
+        return None
 
     def validate_payment_method(self, attrs, source):
         """

@@ -5,19 +5,19 @@ from djchoices import DjangoChoices, ChoiceItem
 from polymorphic import PolymorphicModel
 
 
+class PaymentStatuses(DjangoChoices):
+    new = ChoiceItem('new', label=_("New"))
+    in_progress = ChoiceItem('in_progress', label=_("In Progress"))
+    paid = ChoiceItem('paid', label=_("Paid"))
+    failed = ChoiceItem('failed', label=_("Failed"))
+    cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
+    refunded = ChoiceItem('refunded', label=_("Refunded"))
+
+
 class Payment(PolymorphicModel):
     """
     Payment. This holds the total amount due to pay.
     """
-
-    class PaymentStatuses(DjangoChoices):
-        new = ChoiceItem('new', label=_("New"))
-        in_progress = ChoiceItem('in_progress', label=_("In Progress"))
-        paid = ChoiceItem('paid', label=_("Paid"))
-        failed = ChoiceItem('failed', label=_("Failed"))
-        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
-        refunded = ChoiceItem('refunded', label=_("Refunded"))
-
     # The amount in the minor unit for the given currency (e.g. for EUR in cents).
     amount = models.PositiveIntegerField(_("amount"), default=0)
     currency = models.CharField(max_length=3, default='', blank=True)
