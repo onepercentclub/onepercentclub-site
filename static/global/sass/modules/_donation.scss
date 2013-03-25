@@ -1,13 +1,5 @@
-
-.donation {
-  h1 {
-    
-  }
-}
-
 .donation-steps,
 .voucher-steps {
-  
   margin: 16px 0;
   padding: 0;
   list-style: none;
@@ -122,126 +114,165 @@
 }
 
 #donation-projects {
+    padding: 0;
+    list-style: none;
+    background-color: $white;
 
-  list-style: none;
+        .donation-project {
+            @include allowremove;
+            @include rem(padding, $padding);
 
-  .donation-project {
-    @include allowremove;
-    border-bottom: 5px solid #f3f3f3;
-    padding: 16px;
-    
-    img {
-      @include grid(8);
-      float: left;
-    }
-    
-    h1 {
-      @include grid(28,1,1);
-      @include rem(font-size, 22px);
-      margin-top: 8px;
-      margin-bottom: 8px;
-      padding: 0;
-      color:#454545;
-    }
+            border-bottom: 5px solid $grayLighter;
 
+            img {
+                @include grid(8);
+                float: left;
+            }
 
-    .country {
-      display: block;
-      @include rem(font-size, 14px);
-      font-style: normal;
-      font-weight: normal;
-    }
-    
-    .donation-amount {
-      @include grid(12);
-      margin: 8px 0;
-      text-align: right;
-    }
-    
-    &:hover {
-      background-color: #f3f3f3;
-      h1 {
-        color: $pink;
+            h1 {
+                @include grid(24,1,1);
+                @include rem(font-size, $fontSizeLarge);
+                padding: 0;
+                color: $black;
+            }
+
+            .country {
+                display: block;
+                @include rem(font-size, 14px);
+                font-style: normal;
+                font-weight: normal;
+            }
+
+            .donation-amount {
+                @include grid(16);
+                text-align: right;
+            }
+
+            &:hover {
+                background-color: $grayLighter;
+                h1 {
+                    color: $pink;
+                }
+            }
       }
-    }
-    
+}
+
+.donation-amount {
     .amount-needed {
-      color: #b9b8b8;
-      font-size: 13px;
-      display: block;
+        @include rem(font-size, 13px);
+
+        color: #b9b8b8;
+        display: block;
     }
-    
-    label {
-      @include rem(font-size, 18px);
-      font-weight: bold;
-      color: $green;
-      display: block;
-      margin-bottom: 8px;
+
+    .amount-control {
+        float:right;
+        width: 211px;
+        height: 53px;
+        margin-top: $margin;
+
+        label {
+            @include grid(16);
+
+            font-size: 10px;
+            padding: 12px;
+
+            color: $white;
+            height: 53px;
+            line-height: 1.5;
+            font-weight: bold;
+            text-align: center;
+            background: $green;
+            text-transform: uppercase;
+            border: 1px solid darken($green, 5%);
+        }
+
+        .currency {
+            position: relative;
+
+            em {
+                @include rem(font-size, 28px);
+                position: absolute;
+                left: -130px;
+                top: 15px;
+                font-style: normal;
+                font-weight: bold;
+                color: $black;
+            }
+            &.big {
+                font-size: 28px;
+                font-weight: bold;
+            }
+        }
+
+        input {
+            @include grid(32);
+
+            height: 53px;
+            font-size: 28px;
+            @include rem(padding, 8px 8px 8px 40px);
+            font-weight: bold;
+            margin: 0;
+            line-height: 1;
+        }
     }
-    
-    .currency {  
-      display: inline-block;
-      position: relative;
-      
-      em {
-        position: absolute;
-        left: 16px;
-        top: 15px;
-        font-size: 28px;
-      }
-      
-      input {
-        width: 135px;
-        font-size: 28px;
-        padding: 8px 8px 8px 40px;
-        font-weight: bold;
-        margin: 0;
-      }
-      &.big {
-        font-size: 28px;
-        font-weight: bold;
-      }
-    }
-  
-  }
 }
 
 .add-project {
-  padding-left: 32px;
-  margin: 0 16px 0 16px;
-  float: right;
-  color: #525252;
-  background-image: $icons;
-  background-repeat: no-repeat;
-  background-position: sprite-position($icons, add, 2px, 1px);
-  
-  &:hover, &:active {
-    color: $black;
-    text-decoration: underline;
-  }
+    @include rem(margin, 16px 0);
+
+    float: left;
+    padding-left: 32px;
+    color: $grayDarker;
+    background-image: $icons;
+    background-repeat: no-repeat;
+    background-position: sprite-position($icons, add, 2px, 1px);
+    text-transform: uppercase;
+    line-height: 24px;
+
+    &:hover, &:active {
+        color: $black;
+        text-decoration: underline;
+    }
 }
 
 .donation-frequency {
-   padding: 16px 16px 16px $grid-column * 9;
-   background: #f3f3f3;
-   
-   .label {
-     @include rem(font-size, 22px);
-     font-weight: bold;
-     margin: 0px 0px 8px 0px;
-     display: block;
-   }
+    background: $color-back;
 
-   .checkbox {
-     display: block;
-     color: $gray;
-     cursor: pointer;
-     &.checked {
-       color: $green;
-       font-weight: bold;
-     }
-   }
+    .label {
+        @include rem(padding, $padding $padding $padding ($grid-column * 10));
+        @include rem(font-size, 22px);
 
+        background-color: $grayLight;
+        font-weight: bold;
+        margin: 0px 0px 8px 0px;
+        display: block;
+        text-transform: uppercase;
+        color: $black;
+
+        .currency {
+            float: right;
+            color: $white;
+        }
+    }
+
+    .radio.inline {
+        @include clearfix;
+        @include grid(19);
+        &:first-child {
+            @include grid(29, 10, 0);
+        }
+    }
+
+    .checkbox {
+        display: block;
+        color: $gray;
+        cursor: pointer;
+        &.checked {
+            color: $green;
+            font-weight: bold;
+        }
+    }
 }
 
 .intro {
@@ -249,3 +280,4 @@
     text-transform: uppercase;
     @include rem(font-size, 12px);
 }
+
