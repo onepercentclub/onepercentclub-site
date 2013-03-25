@@ -52,11 +52,13 @@ class Order(models.Model):
         """
             Current: Shopping cart.
             Monthly: Monthly order that can change until it's processed on the 1st day of the month.
+            Checkout: User is directed to payment provider
             Closed: An order that has a payment that's in progress, paid, cancelled or failed.
         """
         # TODO: add validation rules for statuses.
         current = ChoiceItem('current', label=_("Current"))
         monthly = ChoiceItem('monthly', label=_("Monthly"))
+        checkout = ChoiceItem('checkout', label=_("Checkout"))
         closed = ChoiceItem('closed', label=_("Closed"))
 
     user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
@@ -67,6 +69,9 @@ class Order(models.Model):
 
     recurring = models.BooleanField(default=False)
     payment = models.ForeignKey('cowry.Payment', null=True, blank=True)
+
+    # When a user finalized the paymen flow this property is ticked. So it acts as a command.
+    finalized = models.BooleanField(_("Finalized"), default=False)
 
     # Calculate total for this Order
     @property
@@ -163,7 +168,7 @@ class CustomVoucherRequest(models.Model):
         in_progress = ChoiceItem('in progress', label=_("In progress"))
         finished = ChoiceItem('finished', label=_("Finished"))
 
-    amount = models.IntegerField(_("Amount needed"))
+    amount = models.PositiveIntegerField(_("Amount needed"))
     contact = models.ForeignKey('auth.User', verbose_name=_("Contact member"), null=True)
     contact_name = models.CharField(verbose_name=_("Contact email"), max_length=100, blank=True, default="")
     contact_email = models.EmailField(verbose_name=_("Contact email"), blank=True, default="")
@@ -193,6 +198,20 @@ def process_voucher_order_in_progress(voucher):
     mail_new_voucher(voucher)
 
 
-def process_donation_order_in_progress(donation):
+def set_donation_in_progress(donation):
     donation.status = Donation.DonationStatuses.in_progress
     donation.save()
+
+
+def close_order_after_payment(order):
+    # FIXME: make sure we have a payment
+    # FIXME: make sure payment didn't update order/donation prior.
+    # FIXME: Deal with vouchers
+
+    for donation in order.donations:
+        set_donation_in_progress(donation)
+
+
+    order.status = Order.OrderStatuses.closed
+    order.save()
+

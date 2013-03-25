@@ -87,36 +87,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
         """ Every test in this suite requires a project. """
         self.project = self.create_project(title='Banana Project', slug='banana')
 
-    def test_amounts(self):
-        """ Test calculation of donation amounts """
-
-        phase = self.create_fundphase(self.project, 12000, 3520)
-        self.assertEquals(self.project.money_asked, 3520)
-
-        self.project.fundphase.money_donated = 2155
-        self.assertEquals(self.project.money_donated, 2155)
-
-    def test_money_donated_default(self):
-        """
-        Tests for the default value of money_donated.
-        """
-
-        # Saving a new phase should have money_donated set to 0.
-        phase = self.create_fundphase(self.project)
-        self.assertEquals(phase.money_donated, 0)
-
-        # Saving the phase again with money_donated set shouldn't it back to 0.
-        phase.money_donated = 10
-        phase.save()
-        self.assertNotEqual(phase.money_donated, 0)
-
-        # Saving a phase with money_donated set before save() shouldn't set it to 0.
-        funProject = self.create_project(title='Fun Project')
-        phase = self.create_fundphase(funProject)
-        phase.money_donated = 20
-        phase.save()
-        self.assertNotEqual(phase.money_donated, 0)
-
     def test_phase_dates_sync(self):
         """
         Tests that the auto-sync phase start / end date code works.
@@ -135,7 +105,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
         ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
         self.assertTrue(fundphase.startdate == ideaphase.enddate)
 
-
         # Tests that previous phase start date is adjusted when the previous
         # phase end date is eariler than the previous phase start date.
         fundphase.startdate = today - two_days_timedelta
@@ -144,7 +113,6 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
         # Refresh the data and test:
         ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
         self.assertTrue(fundphase.startdate == ideaphase.enddate)
-
 
         # Test for the auto-setting next startdate.
         resultsphase = ResultsPhase(project=self.project)
@@ -201,11 +169,11 @@ class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
         phase.save()
 
         # Check that the validation error is raised.
-        phase.enddate =  timezone.now().date() - timedelta(weeks=2)
+        phase.enddate = timezone.now().date() - timedelta(weeks=2)
         self.assertRaises(ValidationError, phase.full_clean)
 
         # Set a correct value and confirm there's no problem.
-        phase.enddate =  timezone.now().date() + timedelta(weeks=2)
+        phase.enddate = timezone.now().date() + timedelta(weeks=2)
         phase.full_clean()
         phase.save()
 
@@ -280,7 +248,6 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertNotEquals(response.data['next'], None)
         self.assertNotEquals(response.data['previous'], None)
 
-
     def test_project_list_view_query_filters(self):
         """
         Tests for Project List view with filters. These basic tests are here because Project is the
@@ -310,7 +277,6 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         self.assertEquals(len(response.data['results']), self.list_view_count)
         self.assertNotEquals(response.data['next'], None)
         self.assertEquals(response.data['previous'], None)
-
 
     def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
@@ -345,7 +311,6 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'
         self.project_wallposts_url = '/i18n/api/projects/wallposts/'
-
 
     def test_project_media_wallpost_crud(self):
         """
@@ -559,7 +524,6 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.put(wallpost_detail_url, {'text': text2b, 'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
-
     def test_projectwallpost_list(self):
         """
         Tests for list and (soft)deleting wallposts
@@ -579,9 +543,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
             title = char * 15
             self.client.post(self.project_media_wallposts_url, {'title': title, 'project': self.some_project.slug})
 
-
         # Retrieve a list of the 26 Project WallPosts
-
         # View Project WallPost list works for author
         response = self.client.get(self.project_wallposts_url,  {'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
