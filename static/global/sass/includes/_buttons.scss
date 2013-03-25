@@ -1,5 +1,29 @@
 /* =========== Buttons */
 
+.button-link {
+    
+    @include rem(font-size, 16px);
+    color: $text-black;
+    cursor: hand;
+    cursor: pointer;
+    text-transform: uppercase;
+    
+    em {
+        @include rem(font-size, 20px);
+    }
+    
+    &:hover, &:active {
+        color: $black;
+        text-decoration: underline;
+        
+        em {
+            text-decoration: none;
+        }
+    }
+    
+}
+
+
 // Choose a div or ul to group up your buttons
 div.buttons, ul.buttons {
     margin: 0 0 $margin 0;
@@ -19,44 +43,39 @@ div.buttons, ul.buttons {
 // The standard button has the $color-brand colors
 a.button, a.btn, input[type="submit"], button {
     border: 1px solid darken($green, 5%);
-    //@include border-radius(0 0 2px 2px);
-    
-    //@include border-radius(0.2em);
-    //@include box-shadow((0 1px 1px darken($white, 10%), inset 0 1px 0px rgba($white, 0.3)));
     color: $white;
     cursor: pointer;
     display: inline-block;
-    @include rem(font-size, 22px);
-    font-weight: bold;
-    //@include gradient(top, $color-brand, darken($color-brand, 10%));
-    line-height: 1.5em;
+    @include rem(font-size, 18px);
+    font-weight: 600;
     text-transform: uppercase;
     margin: 0;
-    @include rem(padding, 6px 32px 6px 32px);
+    @include rem(padding, 12px 24px 8px 24px);
     text-decoration: none;
-    text-shadow: 0 -1px 0 rgba($black, 0.25);
-    @include transition(all 50ms);
+    @include transition(all 30ms);
     vertical-align: baseline;
-    
     background-color: $green;
 
 
     &:hover {
-        background-color: $pink;
+        background-color: $text-black;
         color: $white;
-        border-color: darken($pink, 5%);
-        //@include background( linear-gradient(top, darken($green, 5%), lighten($green, 5%) ));
+        border-color: darken($text-black, 5%);
     }
     
     &:active {
-        background: darken($color-brand, 15%);
-        @include box-shadow((0 1px 0 $white, inset 0 0 20px $black));
+        background: #222;
         color: darken($white, 25%);
+        
         text-shadow: 0 0 0;
         
-        border-bottom: 2px solid darken($green, 5%);
-        position: relative;
-        top: 4px;
+        @include box-shadow(0 4px 0 $black inset);
+        @include rem(padding, 16px 24px 4px 24px);
+        
+        border-color: $black;
+        
+        
+        top: 0;
     }
 
     &[disabled] {
@@ -89,58 +108,6 @@ a.button, a.btn, input[type="submit"], button {
         }
     }
     
-    // The soft grey button
-    &.soft {
-        border-color: darken($white, 35%);
-        color: lighten($black, 30%);
-        @include background( linear-gradient(top, $white, darken($white, 10%) ));
-        text-shadow: 1px 1px 0px $white;
-        &:hover {
-            border-color: darken($white, 45%);
-            color: $black;
-            @include background( linear-gradient(top, $white, #eee ));
-        }
-        &:active, &:focus {
-            background: darken($white, 25%);
-            border-color: lighten($black, 40%);
-            @include box-shadow((0 0 0, inset 0 1px 16px lighten($black, 35%)));
-            color: lighten($black, 35%);
-            text-shadow: 0 0 0;
-        }
-    }
-    
-    &.success {
-        border-color: darken($color-success, 20%);
-        @include background( linear-gradient(top, $color-success, darken($color-success, 10%) ));
-        &:hover { 
-            @include background( linear-gradient(top, lighten($color-success, 10%), darken($color-success, 10%) ));
-        }
-        &:active, &:focus {
-            background: darken($color-success, 15%);
-        }
-    }
-    
-    &.alert {
-        border-color: darken($color-error, 20%);
-        @include background( linear-gradient(top, $color-error, darken($color-error, 10%) ));
-        &:hover { 
-            @include background( linear-gradient(top, lighten($color-error, 10%), darken($color-error, 10%) ));
-        }
-        &:active, &:focus {
-            background: darken($color-error, 15%);
-        }
-    }
-
-    &.top {
-        margin-top: 12px;
-        width: 100%;
-    }
-
-    // Add these classes to adjust the size of the buttons
-    &.large { font-size: 1.25em; }
-    &.small { font-size: 1em; }
-    &.tiny { font-size: 0.85em; }
-    
     &.next {
       float: right;
       border: none;
@@ -151,33 +118,24 @@ a.button, a.btn, input[type="submit"], button {
 }
 
 
-
-
 .button-donate {
     @extend a.button;
     @include rem(font-size, 18px);
-    @include rem(padding, 12px 16px);
     
     .icon {
         
     }
     
-    width: 100%;
-    border-color: $pink;
+    border: 1px solid darken($pink, 5%);
     background-color: $pink;
 }
-
-.button, .button-donate:hover  {
-    background-color: $black;
-}
-
 
 /* ========================= Responsive ================================== */
 
 /* Desktop */
 @media only screen and (min-width: 1140px) {
     .button-donate {
-        @include rem(font-size, 22px);
+        @include rem(font-size, 20px);
     }
 }
 

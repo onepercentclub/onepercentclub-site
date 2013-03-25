@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Project Title &#8211; 1%CLUB</title>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="stylesheet" href="/static/assets/css/screen.css" />
+    <link rel="shortcut icon" href="/static/assets/favicon.ico" />
+    <link rel="apple-touch-icon" href="/static/assets/apple-touch-icon.png" />
+</head>
+
+<body>
+
+<div class="container" id="navigation">
+    <!-- main header -->
+    <header class="wrapper">
+        <!-- logo -->
+        <a href="#" id="logo">
+            <img src="/static/assets/images/1procentclub.png" width="100" height="38" alt="1%Club" />
+            <h1 id="title">1%Club</h1>
+            <h2 id="subtitle"><em>You</em> Make It Work</h2>
+        </a>
+        <!-- end: logo -->
+        <div class="nav">
+            <!-- main navigation -->
+            <nav class="nav-main">
+                <h1 class="nav-title">Navigation</h1>
+                <ul>
+                    <li class="nav-projects"><a href="#" class="is-selected">1%Projects</a></li>
+                    <li class="nav-tasks"><a href="#">1%Tasks</a></li>
+                    <li class="nav-actions"><a href="#">1%Actions</a></li>
+                    <li class="nav-more"><a href="#">More &#9660;</a></li>
+                </ul>
+            </nav>
+
+            <nav class="nav-member">
+                <h1 class="nav-title">Profile</h1>
+                <a href="#" class="nav-my1percent"><img src="/static/assets/dummy/avatar-color.jpg" width="40" height="40" alt="Bart Lacroix" /><strong>My1%</strong></a>
+                <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
+            </nav>
+            <!-- end: main navigation -->
+        </div>
+    </header>
+    <!-- end: main header -->
+</div>
+
+<div class="container section">
+
+    <header class="wrapper">
+        <h1 class="main-title">Form</h1>
+    </header>
+
+</div>
+
+<div class="container">
+    <br>
+
+    <section class="wrapper">
+        <p>Follow the following markup to style a form correctly.</p>
+
+        <ul>
+            <li>Wrap labels and controls in .control-group</li>
+            <li>Add .control-label to the label</li>
+            <li>Wrap any associated controls in .controls for proper alignment</li>
+        </ul>
+
+        <p>E.g.</p>
+
+        <form>
+            <ul>
+                <li class="control-group">
+                    <label class="control-label">A label</label>
+                    <div class="controls">
+                        <input type="text" placeholder="Associated element" />
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </section>
+
+    <br>
+
+    <section class="wrapper">
+        <p>A form has zero or more fieldsets. A fieldset is a group of related form elements. Use a legend to describe a fieldset. E.g.</p>
+
+        <form>
+            <fieldset>
+                <legend><strong>This is a legend to describe elements below.</strong></legend>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">A label</label>
+                        <div class="controls">
+                            <input type="text" placeholder="Associated element" />
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </section>
+
+    <br>
+
+    <section class="wrapper">
+        <p>To display an error, give the related input the class of error. And append a division of a class errors with message inside to display the error message.</p>
+
+        <form>
+            <ul>
+                <li class="control-group">
+                    <label class="control-label">A label</label>
+                    <div class="controls">
+                        <input class="error" type="text" placeholder="I have error">
+                    </div>
+
+                    <div class="errors">
+                        And this is the error!
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </section>
+
+    <br>
+
+    <section class="wrapper">
+        <p>A complete form how it may look like.</p>
+
+        <form id="" action="/" method="post">
+            <ul>
+                <li class="control-group">
+                    <label class="control-label">Your full name</label>
+                    <div class="controls">
+                        <input class="inline-prepend" type="text" placeholder="Firstname">
+                        <input class="inline-append error" type="text" placeholder="Lastname">
+                    </div>
+
+                    <div class="errors">
+                        Your last name is required!
+                    </div>
+                </li>
+
+                <li class="control-group">
+                    <label class="control-label">Country</label>
+                    <div class="controls">
+                        <select>
+                            <option>Netherlands</option>
+                            <option>Nepal</option>
+                        </select>
+                    </div>
+                </li>
+
+                <li class="control-group">
+                    <label class="control-label">Company name</label>
+                    <div class="controls">
+                        <input type="text" disabled="disabled" />
+                    </div>
+                </li>
+            </ul>
+
+            <hr>
+
+            <ul>
+                <li class="control-group">
+                    <label class="control-label">Description</label>
+                    <div class="controls">
+                        <textarea rows="3"></textarea>
+                    </div>
+                </li>
+            </ul>
+            <fieldset>
+                <legend>
+                    <strong>This is a subtitle in a form</strong>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </legend>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">Add tags</label>
+                        <div class="controls">
+                            <input type="text">
+                        </div>
+                    </li>
+                </ul>
+
+                <hr>
+
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">Choose amount</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" name="optionsCheckboxes" id="optionsCheckboxes1" value="option1" checked="">
+                                <span for="optionsCheckboxes1">Of course I agree with the terms I didn't read</span>
+                            </label>
+
+                            <label class="checkbox">
+                                <input type="checkbox" name="optionsCheckboxes" id="optionsCheckboxes2" value="option2">
+                                <span for="optionsCheckboxes2">I also agree to the other thing</span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">Choose amount</label>
+                        <div class="controls">
+                            <label class="radio">
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                <span for="optionsRadios1">Of course I agree with the terms I didn't read</span>
+                            </label>
+
+                            <label class="radio">
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                <span for="optionsRadios2">I also agree to the other thing</span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+
+        <!--
+        <div class="sidebar tip">
+          <h3>Did you know?</h3>
+          <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+          <p><a href="#">Read some more</a></p>
+        </div>
+        -->
+
+    </section>
+
+</div>
+
+
+<!-- scripts -->
+<script src="/static/assets/js/libs/jquery-1.7.2.js"></script>
+<script src="/static/assets/js/libs/jquery.ui.widget.js"></script>
+
+<script src="/static/assets/js/plugins/jquery.colorbox.js"></script>
+<script src="/static/assets/js/plugins.js"></script>
+
+<script src="/static/assets/js/main.js"></script>
+
+<!-- analytics -->
+<script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+
+</html>

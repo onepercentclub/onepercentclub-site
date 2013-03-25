@@ -17,25 +17,6 @@
 }
 
 
-.show-more {
-    @include rem(font-size, 16px);
-    color: $text-black;
-    cursor: hand;
-    cursor: pointer;
-    text-transform: uppercase;
-    
-    &:hover, &:active {
-        color: $black;
-        text-decoration: underline;
-        
-        em {
-            text-decoration: none;
-        }
-    }
-}
-
-
-
 /* =========== TODO: Manage */
 
 .manage {

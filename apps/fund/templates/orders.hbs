@@ -12,8 +12,8 @@
                     <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
-                        {% trans "Switch to paid donations" %}
+                    {{#linkTo "currentOrder.donationList" tagName="a" class="button-link"}}
+                        <em class="icon-money"></em> {% trans "Switch to paid donations" %}
                     {{/linkTo}}
                 </sidebar>
             </div>
@@ -25,8 +25,8 @@
                     <h1 class="main-title">{% trans "Support one or more projects!" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "voucherRedeem" tagName="button" class="contrast top"}}
-                        {% trans "I have a 1%voucher" %}
+                    {{#linkTo "voucherRedeem" tagName="a" class="button-link"}}
+                        <em class="icon-credit-card"></em> {% trans "I have a 1%voucher" %}
                     {{/linkTo}}
                 </sidebar>
             </div>
@@ -101,27 +101,24 @@
             {{/each}}
         </ul>
 
-        {{#linkTo "projectList" class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
-
     </fieldset>
 
     <fieldset class="donation-frequency">
-        <label class="label">{% trans "Support the selected projects:" %}</label>
+        <label class="label">{% trans "Support the selected projects:" %}<span class="currency"><em>&euro; </em>{{ total }}</span></label>
         {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
-            <label>
+            <label class="radio inline">
                 {{view view.RadioButton value="single"}}
-                {% trans "Single donation" %}
+                <span>{% trans "this time only" %}</span>
             </label>
-            <br/>
-            <label>
+            <label class="radio inline">
                 {{view view.RadioButton value="monthly"}}
-                {% trans "Monthly donation" %}
+                <span>{% trans "automatically every month" %}</span>
             </label>
         {{/view}}
 
-        <span class="currency"><em>&euro; </em>{{ total }}</span>
-
     </fieldset>
+
+    {{#linkTo "projectList" class="button-link"}}<em class="icon-plus-sign"></em> {%trans "Add another project" %}{{/linkTo}}
 
     {{#linkTo "paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
@@ -223,7 +220,7 @@
 
     <div class="label">{% trans "Recipient name" %}</div>
     {{#each errors.receiver_name}}<span class="error">{{this}}</span>{{/each}}
-    {{view Em.TextField valueBinding="receiver_name" placeholder="Name" classBinding="errors.receiver_name.length:error"}}
+    {{view Em.TextField valueBinding="receiver_name" placeholder="Name" classBinding="errors.receiver_name.length:error "}}
 
     <div class="label">{% trans "Recipient email" %}</div>
     {{#each errors.receiver_email}}<span class="error">{{this}}</span>{{/each}}
@@ -258,29 +255,71 @@
 
     <fieldset>
         {{#if model.isLoaded}}
-            {{#each errors.first_name}}<span class="error">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="firstName" placeholder="First name" classBinding="errors.first_name.length:error"}}
+            <ul>
+                <li class="control-group">
+                    <label class="control-label">{% trans "Your full name" %}</label>
+                    <div class="controls">
+                        {{view Ember.TextField valueBinding="firstName" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+                        {{view Em.TextField valueBinding="lastName" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
+                    </div>
+                </li>
 
-            {{#each errors.last_name}}<span class="errors">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="lastName" placeholder="Last name" classBinding="errors.last_name.length:error"}}
+                <li class="control-group">
+                    <label class="control-label">{% trans "Email" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="email" placeholder="Email" classBinding="errors.email.length:error"}}
+                    </div>
 
-            {{#each errors.email}}<span class="errors">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="email" placeholder="Email" classBinding="errors.email.length:error"}}
+                    {{#if errors.email }}
+                        <div class="errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
 
-            {{#each errors.street}}<span class="errors">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="street" placeholder="Street + housenumber" classBinding="errors.street.length:error"}}
+                <li class="control-group">
+                    <label class="control-label">{% trans "Street + housenumber" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="street" placeholder="Street + housenumber" classBinding="errors.street.length:error"}}
+                    </div>
 
-            {# Note: Postal code before city is a Netherlands locale specific way to present an address form. #}
-            {{#each errors.postal_code}}<span class="errors">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="postalCode" placeholder="Postal code" classBinding="errors.postal_code.length:error"}}
+                    {{#if errors.street }}
+                        <div class="errors">{{#each errors.street }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
 
-            {{#each errors.city}}<span class="errors">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
+                <li class="control-group">
+                    <label class="control-label">{% trans "Postal code" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="postalCode" placeholder="Postal code" classBinding="errors.postal_code.length:error"}}
+                    </div>
 
-            {{#each errors.country}}<span class="errors">{{this}}</span>{{/each}}
-            {{view App.CountrySelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+                    {{#if errors.postal_code }}
+                        <div class="errors">{{#each errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
 
-            <button class="right">{% trans 'Next step' %}</button>
+                <li class="control-group">
+                    <label class="control-label">{% trans "City" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
+                    </div>
+
+                    {{#if errors.city }}
+                        <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group">
+                    <label class="control-label">{% trans "Country" %}</label>
+                    <div class="controls">
+                        {{view App.CountrySelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+                    </div>
+
+                    {{#if error.country}}
+                        <div class="errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+            </ul>
+            <button class="btn right">{% trans 'Next step' %}</button>
         {{/if}}
     </fieldset>
 
@@ -294,11 +333,14 @@
         <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
         <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
     {{/linkTo}}
-    <p class="donation-amount">
+    <div class="donation-amount">
         <strong class="amount-needed">&euro; {{neededAfterDonation}} {% trans "is still needed"%}</strong>
-        <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
-        <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
-    </p>
+
+        <div class="amount-control">
+            <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+            <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
+        </div>
+    </div>
 
     <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
 

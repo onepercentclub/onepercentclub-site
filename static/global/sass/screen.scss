@@ -3,46 +3,6 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-/* ========================= Variables ================================== */
-
-//$font-family: 'Futura Alt', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$font-family: 'Futura Alt', Helvetica, Arial, 'Trebuchet MS', sans-serif;
-//$font-family-condensed: 'Futura Alt', Helvetica, Arial, 'Trebuchet MS', sans-serif;
-
-//$font-family-condensed: 'Futura Alt Condensed', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$alt-font-family: Helvetica, Arial, sans-serif;
-
-$font-size: 14px;
-
-$grid-columns: 48;
-$min-width: 980px;
-$max-width: 1140px;
-$margin: 1.25em;
-
-$color-brand: #0e8a41;
-$color-error: #d24226;
-$color-success: #5DA423;
-
-$black: #000;
-$text-black: #444;
-$heading-black: #222;
-
-$light-grey: #e9e9e9;
-$mid-grey: #999;
-$text-grey: #ccc; 
-
-$text-white: #f4f4f4;
-
-$white: #fff;
-$green: #00c051;
-$pink: #ff619a;
-$gray: #999999;
-
-$color-deselect: #bfbfbf;
-$color-back: #e9e9e9;
-
-$icons: sprite-map("sprites/icons/*.png", $spacing: 20px);
-
 /* ========================= Includes ============================= */
 
 
@@ -56,6 +16,7 @@ $icons: sprite-map("sprites/icons/*.png", $spacing: 20px);
 @import "mixins/_font-awesome";
 
 /* Base */
+@import "includes/_variables";
 @import "includes/_base";
 @import "includes/_grid";
 @import "includes/_typography";

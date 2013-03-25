@@ -42,8 +42,8 @@
                 <h1 class="main-title">{% trans "Claim you voucher and support!" %}</h1>
             </div>
             <sidebar>
-                {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
-                    {% trans "Switch to donations" %}
+                {{#linkTo "currentOrder.donationList" tagName="a" class="button-link"}}
+                    <em class="icon-credit-card"></em> {% trans "Switch to donations" %}
                 {{/linkTo}}
             </sidebar>
         </div>

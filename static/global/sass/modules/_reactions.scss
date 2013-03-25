@@ -27,8 +27,8 @@
         }
         
         .user-img {
-            @include rem(top, 0);
-            @include rem(left, 0);
+            @include rem(top, 12px);
+            @include rem(left, 12px);
             width: 34px;
             position: absolute;
             margin: 0;
