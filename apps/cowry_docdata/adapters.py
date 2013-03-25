@@ -2,6 +2,7 @@
 import logging
 
 from apps.cowry.adapters import AbstractPaymentAdapter
+from apps.cowry.models import PaymentStatuses
 from django.conf import settings
 from django.utils.http import urlencode
 from django.utils import timezone
@@ -40,7 +41,7 @@ default_payment_methods = {
         'id': 'DIRECT_DEBIT',
         'profile': 'directdebit',
         'name': 'Direct Debit',
-        'max_amount': 10000, # €100
+        'max_amount': 10000,  # €100
         'restricted_countries': ('NL',),
         'supports_recurring': False,
     },
@@ -197,27 +198,26 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             payment.merchant_order_reference = 'COWRY-' + str(payment.id)
 
-        # Save in case there's an error creating the payment order.
-        payment.save()
-
         # Execute create payment order request.
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
                                            menuPreferences, shopper, amount, billTo)
         if hasattr(reply, 'createSuccess'):
             payment.payment_order_key = reply['createSuccess']['key']
-            payment.save()
+            self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
         elif hasattr(reply, 'createError'):
+            payment.save()
             error = reply['createError']['error']
             raise DocDataPaymentException(error['_code'], error['value'])
         else:
+            payment.save()
             raise DocDataPaymentException('REPLY_ERROR',
                                           'Received unknown reply from DocData. Remote Payment not created.')
-        payment.save()
 
     def get_payment_url(self, payment, return_url_base=None):
         """ Return the Payment URL """
 
-        if not payment.payment_method_id or not self.id_to_model_mapping[payment.payment_method_id] == DocDataWebMenu:
+        if payment.amount <= 0 or not payment.payment_method_id or \
+                not self.id_to_model_mapping[payment.payment_method_id] == DocDataWebMenu:
             return None
 
         if not payment.payment_order_key:
@@ -238,9 +238,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         # Add return urls.
         if return_url_base:
             params['return_url_success'] = return_url_base + '#/support/thanks'
-            params['return_url_pending'] = return_url_base + '#/support/thanks'
-            params['return_url_canceled'] = return_url_base + '#/support/thanks'
-            params['return_url_error'] = return_url_base
+            params['return_url_pending'] = return_url_base + '#/payment/pending'
+            params['return_url_canceled'] = return_url_base + '#/payment/cancel'
+            params['return_url_error'] = return_url_base + '#/payment/error'
 
         # Special parameters for iDeal.
         if payment.payment_method_id == 'dd-ideal' and payment.payment_submethod_id:
@@ -329,15 +329,14 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 lpr = payment_report
                 break
 
-        new_status = self.map_status(ddpayment.status, report.approximateTotals, lpr.authorization)
+        new_status = self._map_status(ddpayment.status, report.approximateTotals, lpr.authorization)
         status_logger.info(
             "DocDataPaymentOrder status changed for payment order key {0}: {1} -> {1}".format(ddpayment.status,
                                                                                               new_status))
-        payment.status = new_status
-        payment.save()
+        self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
-    def map_status(self, status, totals=None, authorization=None):
-        return super(DocdataPaymentAdapter, self).map_status(status)
+    def _map_status(self, status, totals=None, authorization=None):
+        return super(DocdataPaymentAdapter, self)._map_status(status)
 
         # TODO Use status change log to investigate if these overrides are needed.
         # Some status mapping overrides.

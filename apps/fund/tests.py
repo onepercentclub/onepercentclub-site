@@ -1,11 +1,13 @@
 from decimal import Decimal
+from apps.cowry_docdata.adapters import default_payment_methods
 from apps.cowry_docdata.tests import run_docdata_tests
 from django.test import TestCase
 from django.utils import unittest
+from django.test.utils import override_settings
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin, FundPhaseTestMixin
 from rest_framework import status
-from .models import Donation
+from .models import Donation, Order, OrderStatuses
 
 
 class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
@@ -95,7 +97,6 @@ class CalculateMoneyDonatedTest(DonationTestsMixin, FundPhaseTestMixin, TestCase
 
 
 # Integration tests for API
-
 class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case)
@@ -238,6 +239,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
 
+    @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_payment_profile_and_payment_api(self):
         """
@@ -278,24 +280,23 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['country'], 'NL')
 
         # Now it's time to pay. Get the payment record.
-        # TODO These tests rely the current payment method conifg in the Cowry DocDataPaymentAdapter.
-        # TODO We should make a separate config for testing somehow.
         response = self.client.get(self.payment_current_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-
-        # Check that the payment_method is set to the first available payment method
-        # and that the payment_url is available.
+        self.assertFalse(response.data['payment_url'])  # Empty payment_url.
         first_payment_method = response.data['available_payment_methods'][0]
-        self.assertEqual(response.data['payment_method'], first_payment_method)
-        self.assertTrue(response.data['payment_url'])  # Not empty payment_url.
 
         # Updating the payment method with a value not in the available list should fail.
         response = self.client.put(self.payment_current_url, {'payment_method': 'some-new-fancy-pm'})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
-        # Updating the payment method with a valid value should work.
+        # Updating the payment method with a valid value should provide a payment_url.
         response = self.client.put(self.payment_current_url, {'payment_method': first_payment_method})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertTrue(response.data['payment_url'])  # Not empty payment_url.
+
+        # The status of the Order should now be 'checkout'.
+        order = Order.objects.filter(user=self.some_user).get()
+        self.assertEqual(order.status, OrderStatuses.checkout)
 
 
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):

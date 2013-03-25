@@ -1,8 +1,11 @@
 import random
+from apps.cowry.models import PaymentStatuses, Payment
+from apps.cowry.signals import payment_status_changed
 from apps.fund.mails import mail_new_voucher
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
@@ -13,7 +16,6 @@ class Donation(models.Model):
     Donation of an amount from a user to a project. A Donation can have a generic foreign key from OrderItem when
     it's used in the order process but it can also be used without this GFK when it's used to cash in a Voucher.
     """
-
     class DonationStatuses(DjangoChoices):
         new = ChoiceItem('new', label=_("New"))
         in_progress = ChoiceItem('in_progress', label=_("In progress"))
@@ -42,25 +44,24 @@ class Donation(models.Model):
         return str(self.id) + ' : ' + self.project.title + ' : EUR ' + str(self.amount_euro)
 
 
+class OrderStatuses(DjangoChoices):
+    """
+        Current: Shopping cart.
+        Monthly: Monthly order that can change until it's processed on the 1st day of the month.
+        Checkout: User is directed to payment provider
+        Closed: An order that has a payment that's in progress, paid, cancelled or failed.
+    """
+    # TODO: add validation rules for statuses.
+    current = ChoiceItem('current', label=_("Current"))
+    monthly = ChoiceItem('monthly', label=_("Monthly"))
+    checkout = ChoiceItem('checkout', label=_("Checkout"))
+    closed = ChoiceItem('closed', label=_("Closed"))
+
+
 class Order(models.Model):
     """
     Order holds OrderItems (Donations/Vouchers).
-
     """
-
-    class OrderStatuses(DjangoChoices):
-        """
-            Current: Shopping cart.
-            Monthly: Monthly order that can change until it's processed on the 1st day of the month.
-            Checkout: User is directed to payment provider
-            Closed: An order that has a payment that's in progress, paid, cancelled or failed.
-        """
-        # TODO: add validation rules for statuses.
-        current = ChoiceItem('current', label=_("Current"))
-        monthly = ChoiceItem('monthly', label=_("Monthly"))
-        checkout = ChoiceItem('checkout', label=_("Checkout"))
-        closed = ChoiceItem('closed', label=_("Closed"))
-
     user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
     status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
 
@@ -68,7 +69,13 @@ class Order(models.Model):
     updated = ModificationDateTimeField(_("Updated"))
 
     recurring = models.BooleanField(default=False)
-    payment = models.ForeignKey('cowry.Payment', null=True, blank=True)
+    payments = models.ManyToManyField('cowry.Payment', related_name='orders')
+
+    @property
+    def payment(self):
+        if self.payments.all():
+            return self.payments.order_by('-created').all()[0]
+        return None
 
     # When a user finalized the paymen flow this property is ticked. So it acts as a command.
     finalized = models.BooleanField(_("Finalized"), default=False)
@@ -181,16 +188,15 @@ class CustomVoucherRequest(models.Model):
     created = CreationDateTimeField(_("created"))
 
 
-def _generate_voucher_code():
-    # Lower case letters without d, o and i. Numbers without 0 and 1.
-    char_set = 'abcefghjklmnpqrstuvwxyz23456789'
-    return ''.join(random.choice(char_set) for i in range(8))
-
-
 def process_voucher_order_in_progress(voucher):
-    code = _generate_voucher_code()
+    def generate_voucher_code():
+        # Lower case letters without d, o and i. Numbers without 0 and 1.
+        char_set = 'abcefghjklmnpqrstuvwxyz23456789'
+        return ''.join(random.choice(char_set) for i in range(8))
+
+    code = generate_voucher_code()
     while Voucher.objects.filter(code=code).exists():
-        code = _generate_voucher_code()
+        code = generate_voucher_code()
 
     voucher.code = code
     voucher.status = Voucher.VoucherStatuses.paid
@@ -211,7 +217,29 @@ def close_order_after_payment(order):
     for donation in order.donations:
         set_donation_in_progress(donation)
 
-
-    order.status = Order.OrderStatuses.closed
+    order.status = OrderStatuses.closed
     order.save()
 
+
+@receiver(payment_status_changed, sender=Payment)
+def process_payment_status_changed(sender, instance, old_status, new_status, **kwargs):
+    # Payment statuses: new
+    #                   in_progress
+    #                   paid
+    #                   failed
+    #                   cancelled
+    #                   refunded
+
+    # Ignore status changes on payments that don't have an Order. This is needed to run the Cowry unit tests.
+    # We could remove this check if we changed the unit tests to only test the full Order and Payment system.
+    if instance.orders.all():
+        order = instance.orders.all()[0]
+    else:
+        return
+
+    # Payment: new -> in_progress
+    if old_status == PaymentStatuses.new and new_status == PaymentStatuses.in_progress:
+        order.status = OrderStatuses.checkout
+        order.save()
+
+    # TODO: Process more payment state transitions.

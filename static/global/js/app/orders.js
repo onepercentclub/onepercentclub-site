@@ -255,16 +255,65 @@ App.PaymentProfileController = Em.ObjectController.extend({
     }
 });
 
+App.PaymentController = Em.ObjectController.extend({
+    hasIdeal: function() {
+        var availPMs = this.get('availablePaymentMethods');
+        if (availPMs) {
+            return (availPMs.contains('dd-ideal'));
+        }
+        return false;
+    }.observes('availablePaymentMethods'),
+
+    hasWebMenu: function() {
+        var availPMs = this.get('availablePaymentMethods');
+        if (availPMs) {
+            return (availPMs.contains('dd-direct-debit'));
+        }
+        return false;
+    }.observes('availablePaymentMethods'),
+
+    initTransaction: function() {
+        var transaction = this.get('store').transaction();
+        this.set('transaction', transaction);
+        transaction.add(this.get('model'));
+    }.observes('model'),
+
+    proceedWithPayment: function() {
+        this.set('paymentInProgress', true);
+//        var payment = this.get('model');
+//        payment.set('paymentMethod', payment.get('availablePaymentMethods').objectAt(0));
+//        var controller = this;
+//        payment.one('didUpdate', function(record) {
+//            var paymentUrl = record.get('paymentUrl');
+//            if (paymentUrl) {
+//                document.location = paymentUrl;
+//        });
+//        this.get('transaction').commit();
+
+        // Use jQuery directly to avoid the problems with updating server-side data.
+        var payment = this.get('model');
+        var controller = this;
+        jQuery.ajax({
+            url: '/i18n/api/fund/payments/current',
+            type: 'PUT',
+            data: JSON.stringify({ payment_method:  payment.get('availablePaymentMethods').objectAt(0)}),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            context: this,
+            success: function(json) {
+                if (json['payment_url']) {
+                    document.location = json['payment_url'];
+                }
+            },
+            error: function(xhr) {
+                controller.set('paymentInProgress', true);
+            }
+        });
+    }
+});
+
 
 App.CurrentOrderController = Em.ObjectController.extend({
-    isIdeal: function() {
-        return (this.get('payment_method_id') == 'dd-ideal');
-    }.property('payment_method_id'),
-
-    isDirectDebit: function() {
-        return (this.get('payment_method_id') == 'dd-direct-debit');
-    }.property('payment_method_id'),
-
     donationType: 'single',  // The default donation type.
 
     updateOrder: function() {

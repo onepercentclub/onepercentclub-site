@@ -15,7 +15,7 @@ from rest_framework import generics
 from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
-from .models import Donation, OrderItem, Order, Voucher, CustomVoucherRequest
+from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest
 from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer,
                           VoucherRedeemSerializer, CustomVoucherRequestSerializer)
 
@@ -32,15 +32,16 @@ class CurrentOrderMixin(object):
     """
 
     def _update_payment(self, order):
-        if order.total:
-            order.payment.amount = order.total
-        order.payment.currency = 'EUR'  # The default currency for now.
-        order.payment.save()
+            if order.total and order.payments:
+                payment = order.payment  # Need to make this variable assignment to modify the payment.
+                payment.amount = order.total
+                payment.currency = 'EUR'  # The default currency for now.
+                payment.save()
 
     def get_current_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.get(user=self.request.user, status=Order.OrderStatuses.current)
+                order = Order.objects.get(user=self.request.user, status=OrderStatuses.current)
                 self._update_payment(order)
                 return order
             except Order.DoesNotExist:
@@ -49,7 +50,7 @@ class CurrentOrderMixin(object):
             order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
-                    order = Order.objects.get(id=order_id, status=Order.OrderStatuses.current)
+                    order = Order.objects.get(id=order_id, status=OrderStatuses.current)
                     self._update_payment(order)
                     return order
                 except Order.DoesNotExist:
@@ -63,7 +64,7 @@ class CurrentOrderMixin(object):
             # Critical section to avoid duplicate orders.
             with order_lock:
                 with transaction.commit_on_success():
-                    order, created = Order.objects.get_or_create(user=self.request.user, status=Order.OrderStatuses.current)
+                    order, created = Order.objects.get_or_create(user=self.request.user, status=OrderStatuses.current)
 
                 # We're currently only using DocData so we can directly connect the DocData payment order to the order.
                 # Note that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment
@@ -71,8 +72,7 @@ class CurrentOrderMixin(object):
                 if created:
                     payment = DocDataPaymentOrder()
                     payment.save()
-                    order.payment = payment
-                    order.save()
+                    order.payments.add(payment)
         else:
             # Critical section to avoid duplicate orders.
             # FIXME: This is broken.
@@ -81,7 +81,7 @@ class CurrentOrderMixin(object):
                 order_id = self.request.session.get('cart_order_id')
                 if order_id:
                     try:
-                        order = Order.objects.get(id=order_id, status=Order.OrderStatuses.current)
+                        order = Order.objects.get(id=order_id, status=OrderStatuses.current)
                     except Order.DoesNotExist:
                         # Set order_id to None so that a new order is created if it's been cleared
                         # from our db for some reason.
@@ -90,12 +90,12 @@ class CurrentOrderMixin(object):
                 if not order_id:
                     with transaction.commit_on_success():
                         order = Order()
+                        order.save()
                         created = True
                     # See comment above about creating this DocDataPaymentOrder here.
                     payment = DocDataPaymentOrder()
                     payment.save()
-                    order.payment = payment
-                    order.save()
+                    order.payments.add(payment)
                     self.request.session['cart_order_id'] = order.id
                     self.request.session.save()
 
@@ -108,7 +108,7 @@ class CurrentOrderMixin(object):
     def get_checkout_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.filter(user=self.request.user, status=Order.OrderStatuses.checkout).get()
+                order = Order.objects.filter(user=self.request.user, status=OrderStatuses.checkout).get()
             except Order.DoesNotExist:
                 return None
         else:
@@ -234,16 +234,13 @@ class PaymentCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         # verifies this assumption in case the Order creation code changes in the future.
         assert payment
 
-        # Pre-fill the payment method.
+        # Clear the payment method if it's not in the list of available methods.
         # Using 'payment.country' like this assumes that payment is a DocDataPaymentOrder.
         assert isinstance(payment, DocDataPaymentOrder)
         available_payment_methods = factory.get_payment_method_ids(amount=payment.amount, currency=payment.currency,
                                                                    country=payment.country, recurring=order.recurring)
-        if not payment.payment_method_id in available_payment_methods:
-            if available_payment_methods:
-                payment.payment_method_id = available_payment_methods[0]
-            else:
-                payment.payment_method_id = ""
+        if payment.payment_method_id and not payment.payment_method_id in available_payment_methods:
+            payment.payment_method_id = ''
             payment.save()
 
         return payment
