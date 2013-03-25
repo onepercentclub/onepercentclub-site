@@ -5,22 +5,34 @@
 
 /* ========================= Variables ================================== */
 
-$font-family: 'Futura Alt', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$font-family-condensed: 'Futura Alt Condensed', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$paragraph-font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
+//$font-family: 'Futura Alt', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family: 'Futura Alt', Helvetica, Arial, 'Trebuchet MS', sans-serif;
+//$font-family-condensed: 'Futura Alt', Helvetica, Arial, 'Trebuchet MS', sans-serif;
+
+//$font-family-condensed: 'Futura Alt Condensed', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$alt-font-family: Helvetica, Arial, sans-serif;
 
 $font-size: 14px;
 
 $grid-columns: 48;
 $min-width: 980px;
-$max-width: 1280px;
+$max-width: 1140px;
 $margin: 1.25em;
 
 $color-brand: #0e8a41;
 $color-error: #d24226;
 $color-success: #5DA423;
 
-$black: #050505;
+$black: #000;
+$text-black: #444;
+$heading-black: #222;
+
+$light-grey: #e9e9e9;
+$mid-grey: #999;
+$text-grey: #ccc; 
+
+$text-white: #f4f4f4;
+
 $white: #fff;
 $green: #00c051;
 $pink: #ff619a;
@@ -40,6 +52,8 @@ $icons: sprite-map("sprites/icons/*.png", $spacing: 20px);
 @import "compass/css3";
 @import "mixins/_rem";
 @import "mixins/_utilities";
+
+@import "mixins/_font-awesome";
 
 /* Base */
 @import "includes/_base";

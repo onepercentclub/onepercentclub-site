@@ -2,16 +2,18 @@
 
 .reaction-box {
     @include clearfix;
-    @include grid(48, 9, 0);
+    @include grid(48, 12, 0);
     clear: both;
     
     .reaction-form {
-        @include rem(padding, 16px);
+    
+        @include rem(padding, 12px);
         border-top: 1px solid $white;
         margin: 0;
-    
+        @include rem(font-size, 14px);
         position: relative;
         background-color: $color-back;
+        @include clearfix;
         
         fieldset, fieldset ul, fieldset ul li {
           margin: 0;
@@ -20,14 +22,14 @@
         
         label {
             @include rem(top, 28px);
-            @include grid(48, 9, 0);
+            @include grid(48, 12, 0);
             padding: 0;
         }
         
         .user-img {
-            @include rem(top, 12px);
-            @include rem(left, 12px);
-            width: 20px;
+            @include rem(top, 0);
+            @include rem(left, 0);
+            width: 34px;
             position: absolute;
             margin: 0;
             
@@ -37,9 +39,11 @@
         }
         
         textarea {
-          padding-left: $grid-column * 8;
+          padding-left: $grid-column * 4;
           overflow: hidden;
-          @include rem(height, 44px);
+          @include rem(height, 34px);
+          @include rem(min-height, 34px);
+          @include rem(padding-top, 7px);
           margin: 0;
         }
         
@@ -47,30 +51,31 @@
             position: absolute;
             z-index: 2;
             float: right;
-            visibility: hidden;
-            bottom: 15px;
-            right: 15px;
+            display: none;
+            bottom: 12px;
+            right: 12px;
             @include rem(font-size, 14px);
+            @include rem(padding, 4px 12px 2px 12px);
 
             &:active {
                 top: auto;
             }
         }
         
-        @include clearfix;
         
         &.is-selected {
             
-            .user-img {
-              @include grid(4);
+            .user-img img {
+              border-color: $green;
             }
             
             textarea {
-                @include rem(min-height, 88px);
+                @include rem(min-height, 68px);
+                @include rem(padding-bottom, 32px);
             }
             
             button {
-                visibility: visible;
+                display: block;
             }
             
             
@@ -78,6 +83,8 @@
     }
     
     .reaction-actions {
+        display: none;
+    
         @include clearfix;
         @include rem(top, -28px);
         
@@ -207,17 +214,20 @@
 
 .reactions {
     @include clearfix;
-    @include rem(font-size, 14px);
-    @include rem(padding, 16px 16px 0 16px);
+    @include rem(font-size, 12px);
+    @include rem(padding, 16px 16px 8px 16px);
     position: relative;
     margin: 0;
     background-color: $color-back;
     list-style: none;
+    
+    
     .manage {
         float: right;
     }
+    
     li {
-        @include rem(padding-bottom, 16px);
+        @include rem(padding-bottom, 8px);
         position: relative;
         display: block;
         overflow: auto;
@@ -232,12 +242,12 @@
             border-color: $green;
             
             &::after {
-                background: url('../images/reaction-back-arrow.png') transparent no-repeat 0 0;
+                background: url('../images/reaction-back-arrow.png') transparent no-repeat 10px -6px;
             }
         }
         
         .reaction {
-            font-family: $paragraph-font-family;
+          
             @include grid(48, 8, 0);
             @include rem(padding, 16px);
             position: relative;
@@ -247,8 +257,16 @@
             word-wrap: break-word;
             
             .user {
-                @include rem(font-size, 14px);
+                @include rem(font-size, 12px);
                 text-transform: uppercase;
+            }
+            
+            p {
+                font-family: $alt-font-family;
+                margin: 0;
+                padding: 0;
+                line-height: 1.6em;
+                @include rem(margin-top, 6px);
             }
             
             &::after {

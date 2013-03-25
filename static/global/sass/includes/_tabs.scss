@@ -1,37 +1,79 @@
 /* =========== Tabs */
 
 ul.tabs {
-    border-bottom: 1px solid darken($white, 25%);
-    margin: 0 0 $margin 0;
+    
+    padding: 0;
+    margin: 0;
+      
     li {
         display: inline-block;
         //@include displayfix;
         margin-bottom: -2px;
         position: relative;
+        
     }
     a {
-        border: 1px solid transparent;
-        color: #666;
+        color: $text-black;
         display: block;
-        padding: 0.75em 1em;
         text-decoration: none;
-        &:hover { 
-            border-left: 1px solid darken($white, 25%);
-            border-top: 1px solid darken($white, 25%);
-            border-right: 1px solid darken($white, 25%);
-            border-bottom: 1px solid transparent;
-            @include border-radius(0.3em 0.3em 0px 0px);
-            color: #333; 
+        overflow: hidden;
+        @include rem(padding, 8px 16px);
+        text-transform: uppercase;
+        border-right: 1px solid $text-grey;
+        
+        
+        .tab-icon {
+            display: block;
+            @include rem(font-size, 14px);
+            background-color: $text-black;
+            @include border-radius(15px);
+            
+            @include rem(width, 30px);
+            @include rem(height, 30px);
+            @include rem(line-height, 30px);
+            
+            font-weight: 600;
+            
+            text-align: center;
+            
+            color: $text-white;
+            font-style: normal;
+            float: left;
+        }
+        
+        .tab-title {
+            @include rem(font-size, 16px);
+            @include rem(margin-left, 16px);
+            font-weight: 300 !important;
+            display: block;
+            float: left;
+        }
+        
+        .tab-subtitle {
+            @include rem(font-size, 12px);
+            font-style: normal;
+            display: block;
+            font-weight: normal;
         }
     }
-    li.selected a { 
-        background: $white;
-        border: 1px solid darken($white, 25%);
-        border-bottom-color: $white;
-        @include border-radius(0.3em 0.3em 0 0);
-        color: #333; 
-        font-weight: bold;
-        padding: 0.70em 1em 0.75em 1em;
+    
+    li.is-selected a, li a:hover, li a:active { 
+        background-color: $white;
+        border-color: $white;
+        
+        .tab-icon {
+            background-color: $green;
+        }
+        
+        .tab-title {
+            color: $green;
+        }
+        
+        .tab-subtitle {
+            color: $text-black;
+        }
+        
+        
     }
 }
 

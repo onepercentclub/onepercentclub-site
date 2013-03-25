@@ -155,20 +155,19 @@ a.button, a.btn, input[type="submit"], button {
 
 .button-donate {
     @extend a.button;
-    @include rem(font-size, 19px);
+    @include rem(font-size, 18px);
+    @include rem(padding, 12px 16px);
     
-    background-image: $icons;
-    background-repeat: no-repeat;
-    background-position: sprite-position($icons, donate, 5%, 16px);
-    
-    padding: 0.6em 0 0.6em 20%;
+    .icon {
+        
+    }
     
     width: 100%;
     border-color: $pink;
     background-color: $pink;
 }
 
-.button.button-donate:hover  {
+.button, .button-donate:hover  {
     background-color: $black;
 }
 

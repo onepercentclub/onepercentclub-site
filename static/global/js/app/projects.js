@@ -88,13 +88,13 @@ App.ProjectView = Em.View.extend({
     didInsertElement: function(){
         var donated = this.get('controller.money_donated_natural');
         var asked = this.get('controller.money_asked_natural');
-        this.$('.donate-progress').css('width', '0px');
+        //this.$('.donate-progress').css('width', '0px');
         if (asked == 0) {
             var width = 0;
         } else {
             var width = 100 * donated / asked;
             width += '%';
         }
-        this.$('.donate-progress').animate({'width': width}, 1000);
+        //this.$('.donate-progress').animate({'width': width}, 1000);
     }
 });

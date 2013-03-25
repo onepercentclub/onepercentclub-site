@@ -1,25 +1,43 @@
 #detail {
+  
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    @include rem(padding, 32px 0 0 0);
+    
+    &:after {
+        content: "";
+        background: #444444 url('../dummy/project-detail-back.jpg') no-repeat 50% 50%;
+        background-size: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;   
+    }
     
     figure.media {
-        @include grid(32, 1);
+        @include grid(24,1,0);
         margin-bottom: $margin;
-        //height: 450px;
-        border: 1px solid #ccc;
+        border: 1px solid #fff;
         background-color: #ccc;
         overflow: hidden;
         @include box-shadow(inset 0px 1px 6px rgba($black, 0.1));
         
-        img {
-          /*
-            margin: 0 auto;
-            width: auto !important;
-            position: relative;
-            top: 50%;
-            left: 50%;
-            margin-top: -225px;
-            margin-left: -400px;
-          */
-        }
+    }
+    
+    article {
+      @include grid(24, 1);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: $text-white;
+      @include rem(padding, 16px 32px);
+      @include rem(font-size, 16px);
+      
+      .project-title {
+          @include rem(font-size, 28px);
+          @include rem(padding, 8px 0);
+      }
+    
     }
     
     sidebar {
@@ -31,20 +49,22 @@
     @include rem(font-size, 14px);
     @include border-radius(2px 0 0 2px);
     vertical-align: top;
-    color: $white;
+    color: $text-white;
     padding: 0.3em 1.2em 0.3em 0.8em;
     background: #ccc url('../images/phase-back.png') no-repeat right center;
 }
 
-.meta {
+.project-meta {
     @include rem(margin, 8px 0);
-    @include rem(font-size, 18px);
+    @include rem(font-size, 14px);
     
     .location {
         float: left;
         display: block;
         vertical-align: middle;
         @include rem(margin-right, 32px);
+        
+        color: $text-grey;
     }
     
     .tags {
@@ -54,6 +74,8 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        
+        color: $green;
         
         ul {
             vertical-align: middle;
@@ -73,6 +95,33 @@
             }
         }
     }
+}
+
+#project-actions {
+    
+    border-bottom: 1px solid $text-grey;
+    
+    @include rem(padding-top, 8px);
+    @include rem(padding-bottom, 8px);    
+    
+    .tabs {
+        
+        @include grid(32,1);
+        
+        .tabs li {
+            @include grid(16,2,0);
+        }
+    
+    }
+    
+    .project-action {
+        @include grid(16,0,1);
+        
+        .button-donate {
+            float: right;
+        }
+    }
+    
 }
 
 

@@ -114,7 +114,7 @@
 
         <article class="wallpost">
             {{#if canLoadMore}}
-                <a {{action "showMoreWallPosts"}} class="button">{% trans "Show more" %}</a>
+                <a {{action "showMoreWallPosts"}} class="show-more"><em class="icon-plus-sign"></em> {% trans "Show more" %}</a>
             {{/if}}
         </article>
     </section>
@@ -126,15 +126,18 @@
 
     <article class="wallpost">
         <header>
-            <h3>{{title}}</h3>
-            <small class="timestamp">{{ localize created "X" }}</small>
+
             <a href="#" class="user initiator">
                 <span class="user-img">
                     <img {{bindAttr src="author.avatar"}} width="100%" alt="Avatar" />
                 </span>
-                <strong>{{author.full_name}}</strong> <em class="not-implemented">{% trans "Project Initiator" %}</em>
+                <em class="user-type not-implemented">{% trans "Project Initiator" %}</em> 
+                <strong class="user-name">{{author.full_name}}</strong> 
+                <em class="timestamp">{{ timesince }}</em>
             </a>
 
+            <h3>{{title}}</h3>
+            
             {{#if isAuthor}}
                 <ul class="manage">
                     <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
