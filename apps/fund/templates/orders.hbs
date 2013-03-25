@@ -12,8 +12,8 @@
                     <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "currentOrder.donationList" tagName="button" class="contrast top"}}
-                        {% trans "Switch to donations" %}
+                    {{#linkTo "currentOrder.donationList" tagName="a" class="button-link"}}
+                        <em class="icon-money"></em> {% trans "Switch to paid donations" %}
                     {{/linkTo}}
                 </sidebar>
             </div>
@@ -25,8 +25,8 @@
                     <h1 class="main-title">{% trans "Support one or more projects!" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "voucherRedeem" tagName="button" class="contrast top"}}
-                        {% trans "I have a 1%GIFTCARD" %}
+                    {{#linkTo "voucherRedeem" tagName="a" class="button-link"}}
+                        <em class="icon-credit-card"></em> {% trans "I have a 1%voucher" %}
                     {{/linkTo}}
                 </sidebar>
             </div>
@@ -117,8 +117,8 @@
 
     </fieldset>
 
-    {{#linkTo "projectList" class="add-project"}}{%trans "Add another project" %}{{/linkTo}}
-    {{#linkTo "paymentProfile" class="button right"}}{% trans "Next" %}{{/linkTo}}
+    {{#linkTo "projectList" class="button-link"}}<em class="icon-plus-sign"></em> {%trans "Add another project" %}{{/linkTo}}
+    {{#linkTo "paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 

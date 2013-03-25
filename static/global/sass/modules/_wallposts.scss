@@ -33,20 +33,31 @@
 }
 
 .wallpost {
-    @include grid(32, 1, 1);
+    clear: both;
+
+    @include grid(32, 1, 0);
     position: relative;
+    @include rem(margin, 32px 0 32px 0);
+    
     
     &:hover .manage {
         display: block;
     }
     
+    .show-more {
+       @include grid(48, 12, 0);
+    }
+    
     header {
-        @include grid(48, 9, 1);
+        @include grid(48, 12, 0);
         
-        .timestamp {
-            @include rem(top, 140px);
-            position: absolute;
-            left: 0;
+        h3 {
+          @include rem(font-size, 18px);
+          font-weight: 600;
+          color: $heading-black;
+          @include rem(margin-top, 8px);
+          padding: 0;
+          text-transform: uppercase;
         }
         
         .manage {
@@ -55,12 +66,22 @@
     }
     
     .content {
-        font-family: $paragraph-font-family;
-        @include grid(48, 9, 0);
+        @include grid(48, 12, 0);
         position: relative;
-        @include rem(min-height, 64px);
-        @include rem(margin-bottom, 16px);
+        @include rem(margin-top, 2px);
+        @include rem(margin-bottom, 8px);
         word-wrap: break-word;
+        
+        p {
+          margin: 0;
+          padding: 0;
+          //display: inline;
+        }
+        
+        br {
+          //display: none !important;
+        }
+        
     }
     
     .reaction-box {
@@ -69,11 +90,11 @@
     }
  
     .user-img {
-        @include rem(width, 100px);
-        @include rem(margin-top, 32px);
+        @include rem(width, 70px);
         position: absolute;
         top: 0;
         left: 0;
+        @include prepend(5);
     }
 }
 

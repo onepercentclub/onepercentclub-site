@@ -8,17 +8,19 @@
         <img {{ bindAttr src="author.avatar" }} width="100%" alt="Avatar" />
     </span>
 	<div class="reaction">
-	    <a href="#" class="user">
-            <strong>{{ author.full_name }}</strong>
-            <em class="not-implemented">{%  trans "Member" %}</em> <small>{{ localize created "X" }}</small>
+	
+	      <a href="#" class="user">
+	          <em class="user-type not-implemented">{%  trans "Member" %}</em> 
+            <strong class="user-name">{{ author.full_name }}</strong>
+            <em class="timestamp">{{ localize created "X" }}</em>
         </a>
-
+        
         {{#if isAuthor}}
             <ul class="manage">
                 {% comment %}
-                    <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
+                    <li class=" not-implemented"><a href="#"><em class="icon-edit"></em> {% trans "Edit" %}</a></li>
                 {% endcomment %}
-                <li class="manage-remove"><a {{ action "deleteReaction" target="view" }}>{% trans "Delete" %}</a></li>
+                <li class="manage-remove"><a {{ action "deleteReaction" target="view" }}><em class="icon-trash"></em> {% trans "Delete" %}</a></li>
             </ul>
         {{/if}}
 		{{{ text }}}

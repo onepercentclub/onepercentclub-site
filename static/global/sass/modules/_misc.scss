@@ -16,34 +16,48 @@
     }
 }
 
+
 /* =========== TODO: Manage */
 
 .manage {
     margin: 0;
     padding: 0;
     list-style: none;
-    @include rem(font-size, 14px);
+    @include rem(font-size, 10px);
+    text-transform: uppercase;
     
     li {
         display: inline;
         
         a {
             display: inline-block;
-            color: #666;
+            color: $text-grey;
+            cursor: hand;
+            cursor: pointer;
             
+            /*
             @include rem(margin-left, 10px);
             @include rem(padding-left, 30px);
             
             background-image: $icons;
             background-repeat: no-repeat;
+            */
+            
+            //@include hide-text();
             
             &:hover, &:active {
                 color: $black;
+                text-decoration: underline;
+                
+                em {
+                    text-decoration: none;
+                }
             }
         }
     }
 }
 
+/*
 .manage-remove a,
 .manage-edit a {
     display: inline-block;
@@ -66,3 +80,4 @@
     cursor: pointer;
     background-position: sprite-position($icons, remove, 5px, 2px);
 }
+*/

@@ -1,61 +1,64 @@
 /* =========== Donate box */
 
 .status-box {
-    padding: 1em;
-    background-color: $white;
+    
+    border-top: 1px solid $text-black;
+    //background-color: $white;
     @include clearfix;
-    @include rem(margin-bottom, 16px);
-
-    h3 {
-        margin: 0;
-        padding: 0;
-        font-weight: bold;
-        color: #c0bfbf;
-        @include rem(font-size, 16px);
-        height: 64px;
-        overflow: hidden;
-    }
-    
-    
+    @include rem(padding-top, 16px);
+    color: $text-white;
 }
 
 /* ========================= Responsive ================================== */
 
-/* Desktop */
-@media only screen and (min-width: 1140px) {
-    
-    .widget-box h3 {
-        @include rem(font-size, 18px);
-    }
-}
+
 
 /* ======================================================================= */
 
 .donate-status {
+    width: 60%;
+    float: right;
     clear: both;
-    margin: 1.5em 0 2em 0;
+    
+    
     position: relative;
+    
+    
+    color: $text-grey;
     
     .donate-amount {
         text-align: center;
         margin-bottom: 0.5em;
+        text-transform: uppercase;
+        @include rem(font-size, 14px);
+        font-weight: normal;
+        
+        .donated {
+            color: $text-white;
+            @include rem(font-size, 18px);
+            font-weight: 300;
+        }
+        
+        .asked {
+            font-weight: 300;
+        }
     }
+    
     
     .donate-slider {
         display: block;
         line-height: 0;
-        background-color: $color-back;
+        background-color: $text-white;
         @include border-radius(1em);
-        border: 3px solid #e9e9e9;
         overflow: hidden;
         padding: 0;
         
         .donate-progress {
             position: relative;
             display: block;
-            line-height: 1.3em;
+            line-height: 1em;
             border-radius: 1em 0 0 1em;
-            color: $white;
+            color: $text-white;
             background-color: $green;
             white-space: nowrap;
             text-align: right;
@@ -67,10 +70,6 @@
             
             .donate-percentage {
                 visibility: hidden;
-            }
-            
-            .donate-amount {
-                
             }
             
             /* Arrow to top
@@ -94,20 +93,45 @@
 
 /* =========== Number of supports / Days left */
 
+
+.donate-days-left {
+	float: left;
+	margin: 0;
+	width: 30%;
+	text-align: right;
+	text-align: center;
+	
+	color: $text-grey;
+	
+	.icon-time {
+	    @include rem(font-size, 24px);
+	}
+
+	strong {
+	    @include rem(font-size, 28px);
+	    color: $text-white;
+	    display: block;
+	    font-weight: 300;
+	    padding: 0;
+	    line-height: 0.8em;
+	}
+	
+	em {
+	    @include rem(font-size, 12px);
+	    text-transform: uppercase;
+	    font-style: normal;
+	}
+}
+
+/*
+.donate-supporters em, 
+
 .donate-supporters {
 	float: left;
 	margin: 0;
 	width: 50%;
 	text-align: center;
 	
-}
-
-.donate-days-left {
-	float: right;
-	margin: 0;
-	width: 50%;
-	text-align: right;
-	text-align: center;
 }
 
 .donate-supporters span, .donate-days-left span {
@@ -135,15 +159,5 @@
 	border-top: 1px double rgba(#999, 0.35);
 	content: '';
 }
+*/
 
-.donate-supporters em, .donate-days-left em {
-	display: block;
-	font-family: $font-family-condensed;
-	@include rem(font-size, 12px);
-	text-transform: uppercase;
-	font-weight: bold;
-	font-style: normal;
-	font-stretch: condensed;
-	font-family: $font-family-condensed;
-	padding-top: 0.25em;
-}

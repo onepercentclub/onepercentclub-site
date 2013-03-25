@@ -25,7 +25,7 @@
 
     #subtitle {
         position: absolute;
-        @include rem(font-size, 11px);
+        @include rem(font-size, 10px);
         display: inline-block !important;
         font-weight: normal;
         text-transform: uppercase;
@@ -33,7 +33,8 @@
         position: relative;
         margin: 0;
         padding: 0;
-        @include rem(top, -4px);
+        top:  -3px;
+        left: 4px;
 
         em {
             font-style: normal;
@@ -54,7 +55,7 @@
 }
 
 .nav {
-    font-weight: bold;
+    font-weight: 600;
     @include rem(font-size, 16px);
 
     ul {
@@ -88,7 +89,7 @@
 .nav-main {
     @include grid(26);
     position: relative;
-    @include rem(font-size, 17px);
+    @include rem(font-size, 16px);
 
     li a, li a:visited {
         @extend .nav-item;
@@ -100,15 +101,15 @@
 .nav-member {
     @include rem(margin-top, 20px);
     @include grid(16, 0, 1);
-    @include rem(font-size, 13px);
+    @include rem(font-size, 12px);
 
     color: $white;
     overflow: hidden;
     text-align: center;
 
     img {
-        @include rem(width, 36px);
-        @include rem(height, 36px);
+        width:  30px;
+        height:  30px;
         float: left;
         vertical-align: top;
     }
@@ -122,7 +123,9 @@
         float: left;
         background: $green;
 
-        @include rem(padding, 6px 8px 6px 8px);
+        @include rem(padding, 6px 8px 0 8px);
+        height: 30px;
+        
         &:hover, &:active, &.is-selected {
             color: $black;
         }
@@ -145,7 +148,8 @@
 
     .nav-notifications {
         width: 65%;
-
+        font-weight: normal;
+        
         &:hover, &:active {
 
             .nav-notifications-nr {
@@ -197,6 +201,7 @@
 
     &:hover .my-menu {
         display: block;
+        z-index: 999;
     }
 
     .nav-language {

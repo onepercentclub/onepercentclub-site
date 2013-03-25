@@ -94,6 +94,6 @@ App.ProjectView = Em.View.extend({
             width = 100 * donated / asked;
             width += '%';
         }
-        this.$('.donate-progress').animate({'width': width}, 1000);
+        //this.$('.donate-progress').animate({'width': width}, 1000);
     }
 });

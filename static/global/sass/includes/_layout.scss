@@ -1,7 +1,7 @@
 /* =========== Layout */
 
 html { 
-    color: lighten($black, 25%);
+    color: $text-black;
     font-family: $font-family;
     font-size: $font-size;
 }
@@ -23,7 +23,6 @@ html {
 */
 
 body { 
-    line-height: 1.5em;
     overflow-y: scroll;
 }
 

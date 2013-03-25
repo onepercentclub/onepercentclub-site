@@ -32,17 +32,19 @@
 
 {% tplhandlebars "project" %}
 
-<div class="lightgreen section">
+<div class="section" id="detail">
 
-    <section class="wrapper" id="detail">
-        <header>
-            <h1 class="main-title">
-                <span class="phase">{{phase}}</span> {{title}}
-            </h1>
-
-            <div class="meta">
-                <span class="location">{{country.name}}, {{country.subregion}}</span>
+    <section class="wrapper">
+        
+        <figure class="media">
+            <img {{bindAttr src="image"}} width="100%" alt="Photo" />
+        </figure>
+        
+        <article>
+            <div class="project-meta">
+                <span class="location"><em class="icon-globe"></em> {{country.name}}, {{country.subregion}}</span>
                 <span class="tags">
+                  <em class="icon-tag"></em> 
                 {%comment%}
                  TODO: add css for comma after tag:
                  http://stackoverflow.com/questions/10403003/how-do-i-add-a-separator-between-elements-in-an-each-loop-except-after-the
@@ -52,54 +54,80 @@
                     {{/each}}
                 </span>
             </div>
-
-        </header>
-
-        <figure class="media">
-            <img {{bindAttr src="image"}} width="100%" alt="Photo" />
-        </figure>
-
-        <sidebar>
-
+            
+            <h1 class="project-title">
+                {%comment%}
+                <span class="phase">{{phase}}</span>
+                {%endcomment%}
+                {{title}}
+            </h1>
+            
+            <p class="project-description">{{description}}</p>
+            
             <div class="status-box">
-
-                <h3>{{description}}</h3>
+            
                 <div class="donate-status">
                     <p class="donate-amount">
-                        <strong>
-                            €<span class="donated">{{localize money_donated}}</span>
+                            <span class="donated">&euro;{{localize money_donated}}</span>
                             {% trans "of" %}
-                            €<span class="asked">{{localize money_asked}}</span>
+                            <span class="asked">&euro;{{localize money_asked}}</span>
                             {% trans "raised" %}
-                        </strong>
                     </p>
-                    <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage"></em></strong></span>
+                    <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
                 </div>
-
-                <p class="donate-supporters not-implemented">
-                    {{{supporter_count_span}}}
-                    <em>1%Supporters</em>
-                </p>
-
+                
                 <p class="donate-days-left not-implemented">
                     {{{days_left_span}}}
+                    <strong><em class="icon-time"></em> 172</strong>
                     <em>{% trans "days to go" %}</em>
                 </p>
             </div>
-
-            {{#if currentVoucher}}
-                {{#linkTo "voucherRedeem.add" this class="button-donate"}}{% trans "Support with voucher" %}{{/linkTo}}
-            {{else}}
-                {{#linkTo "currentOrder.addDonation" this class="button-donate"}}{% trans "Support this project" %}{{/linkTo}}
-            {{/if}}
-
-        </sidebar>
-
+            
+        </article>
+      
     {{view App.ProjectSupportersView}}
 
     </section>
 
 </div>
+
+<nav id="project-actions" class="section">
+    
+    <div class="wrapper">
+    
+        <ul class="tabs">
+            <li class="tab-updates is-selected">
+                <a href="#">
+                    <em class="tab-icon amount">13</em>
+                    <strong class="tab-title">Project Updates <em class="tab-subtitle">Last: 9 days ago</em></strong>
+                </a>
+            </li>
+            <li class="tab-tasks">
+                <a href="#">
+                    <em class="tab-icon amount">2</em>
+                    <strong class="tab-title">Tasks <em class="tab-subtitle">Expertise needed</em></strong>
+                </a>
+            </li>
+            <li class="tab-plan">
+                <a href="#">
+                    <em class="tab-icon icon-file-alt"></em>
+                    <strong class="tab-title">Project Plan <em class="tab-subtitle">Read full plan</em></strong>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="project-action">
+        {{#if currentVoucher}}
+            {{#linkTo "voucherRedeem.add" this class="button-donate"}}{% trans "Support with voucher" %}{{/linkTo}}
+        {{else}}
+            {{#linkTo "currentOrder.addDonation" this class="button-donate"}}<em class="icon-money"></em> {% trans "Support this project" %}{{/linkTo}}
+        {{/if}}
+        </div>
+    
+    </div>
+    
+</nav>
+
 
 {{ render "projectWallPostNew" }}
 {{ render "projectWallPostList" }}
@@ -128,7 +156,7 @@
             <ul>
                 <li>
                     <a href="#" class="member">
-                        <img {{bindAttr src="view.content.owner.picture"  info="ciew.content.owner.full_name"}} width="45" height="45" alt="Photo" />
+                        <img {{bindAttr src="view.content.owner.picture" info="ciew.content.owner.full_name"}} width="45" height="45" alt="Photo" />
                         <span class="popup">
                             <span class="action"><strong>Marieke</strong> just donated</span>
                             <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
@@ -160,7 +188,7 @@
             </ul>
         </li>
         <li class="member-coaches  not-implemented">
-            <h4>1%Coach</h4>
+            <h4>Coach</h4>
             <ul>
                 <li>
                     <a href="#" class="member">
@@ -174,7 +202,7 @@
             </ul>
         </li>
         <li class="member-promotors  not-implemented">
-            <h4>1%Promotors</h4>
+            <h4>Promotors</h4>
             <ul>
                 <li>
                     <a href="#" class="member">
@@ -215,7 +243,7 @@
             </ul>
         </li>
         <li class="member-supporters not-implemented">
-            <h4>1%Supporters [51]</h4>
+            <h4>Supporters</h4>
             <ul>
                 <li>
                     <a href="#" class="member">
@@ -399,8 +427,13 @@
                 </li>
             </ul>
         </li>
-        <li id="show-all-supporters" class="not-implemented"><a href="#" class="member">Show all</a></li>
+        <li class="show-all-supporters supporters-amount" class="not-implemented">
+            <a href="#" class="member">
+                <strong>{{{supporter_count_span}}}32</strong>
+                <em>Total</em>
+            </a>
+        </li>
     </ul>
+    
 </div>
-
 {% endtplhandlebars %}
