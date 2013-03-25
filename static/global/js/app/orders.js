@@ -312,7 +312,7 @@ App.FinalOrderItemListView = Em.View.extend({
 App.CurrentOrderDonationView = Em.View.extend({
     templateName: 'current_order_donation',
     tagName: 'li',
-    classNames: 'donation-project',
+    classNames: 'donation-project control-group',
 
     change: function(e) {
         this.get('controller').updateDonation(Em.get(e, 'target.value'));
