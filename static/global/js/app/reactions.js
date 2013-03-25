@@ -59,6 +59,7 @@ App.WallPostReactionNewController = Em.ObjectController.extend({
         });
 
         this.get('transaction').commit();
+        // TODO: remove is-selected class from form
     }
 });
 
@@ -79,10 +80,12 @@ App.WallPostReactionNewView = Em.View.extend({
 
     didInsertElement: function(e) {
         this.$('textarea').focus(function(e) {
-            $(this).parents('.reaction-form').addClass('is-selected');
-        });
-        this.$(this).blur(function(e) {
-            $(this).parent('.reaction-form').removeClass('is-selected');
+            $(this).closest('.reaction-form').addClass('is-selected');
+        }).blur(function(e) {
+            if (!$.trim($(this).val())) {
+                // textarea is empty or contains only white-space
+                $(this).closest('.reaction-form').removeClass('is-selected');
+            }
         });
     }
 });
