@@ -326,15 +326,16 @@
 
 {# <!-- wrapper tag: <li class="donation-project"> --> #}
 {% tplhandlebars "current_order_donation" %}
-
     {{#linkTo "project" project}}
         <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
         <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
     {{/linkTo}}
     <div class="donation-amount">
         <strong class="amount-needed">&euro; {{neededAfterDonation}} {% trans "is still needed"%}</strong>
-
         <div class="amount-control">
+            {{#each error in errors.amount}}
+                <span class="errors">{{error}}</span>
+            {{/each}}
             <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
             <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
         </div>
