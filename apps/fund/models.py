@@ -16,19 +16,19 @@ class Donation(models.Model):
 
     class DonationStatuses(DjangoChoices):
         new = ChoiceItem('new', label=_("New"))
-        in_progress = ChoiceItem('in_progress', label=_("In Progress"))
+        in_progress = ChoiceItem('in_progress', label=_("In progress"))
         paid = ChoiceItem('paid', label=_("Paid"))
         cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
 
-    amount = models.PositiveIntegerField(_("amount"))
+    amount = models.PositiveIntegerField(_("Amount"))
     currency = models.CharField(_("currency"), blank=True, max_length=3)
 
-    user = models.ForeignKey('auth.User', verbose_name=_("user"), null=True, blank=True)
-    project = models.ForeignKey('projects.Project', verbose_name=_("project"))
+    user = models.ForeignKey('auth.User', verbose_name=_("User"), null=True, blank=True)
+    project = models.ForeignKey('projects.Project', verbose_name=_("Project"))
 
-    status = models.CharField(_("status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
-    created = CreationDateTimeField(_("created"))
-    updated = ModificationDateTimeField(_("updated"))
+    status = models.CharField(_("Status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
+    created = CreationDateTimeField(_("Created"))
+    updated = ModificationDateTimeField(_("Updated"))
 
     @property
     def amount_euro(self):
@@ -62,8 +62,8 @@ class Order(models.Model):
     user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
     status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
 
-    created = CreationDateTimeField(_("created"))
-    updated = ModificationDateTimeField(_("updated"))
+    created = CreationDateTimeField(_("Created"))
+    updated = ModificationDateTimeField(_("Updated"))
 
     recurring = models.BooleanField(default=False)
     payment = models.ForeignKey('cowry.Payment', null=True, blank=True)
@@ -121,24 +121,24 @@ class Voucher(models.Model):
         en = ChoiceItem('en', label=_("English"))
         nl = ChoiceItem('nl', label=_("Dutch"))
 
-    amount = models.PositiveIntegerField(_("amount"))
-    currency = models.CharField(_("currency"), blank=True, max_length=3)
+    amount = models.PositiveIntegerField(_("Amount"))
+    currency = models.CharField(_("Currency"), blank=True, max_length=3)
 
-    language = models.CharField(_("language"), max_length=2, choices=VoucherLanguages.choices, default=VoucherLanguages.en)
-    message = models.TextField(_("message"), blank=True, default="", max_length=500)
-    code = models.CharField(_("code"), blank=True, default="", max_length=100)
+    language = models.CharField(_("Language"), max_length=2, choices=VoucherLanguages.choices, default=VoucherLanguages.en)
+    message = models.TextField(_("Message"), blank=True, default="", max_length=500)
+    code = models.CharField(_("Code"), blank=True, default="", max_length=100)
 
-    status = models.CharField(_("status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
-    created = CreationDateTimeField(_("created"))
-    updated = ModificationDateTimeField(_("updated"))
+    status = models.CharField(_("Status"), max_length=20, choices=VoucherStatuses.choices, default=VoucherStatuses.new, db_index=True)
+    created = CreationDateTimeField(_("Created"))
+    updated = ModificationDateTimeField(_("Updated"))
 
-    sender = models.ForeignKey('auth.User', verbose_name=_("sender"), related_name="sender", null=True, blank=True)
-    sender_email = models.EmailField(_("sender email"))
-    sender_name = models.CharField(_("sender name"), blank=True, default="", max_length=100)
+    sender = models.ForeignKey('auth.User', verbose_name=_("Sender"), related_name="sender", null=True, blank=True)
+    sender_email = models.EmailField(_("Sender email"))
+    sender_name = models.CharField(_("Sender name"), blank=True, default="", max_length=100)
 
-    receiver = models.ForeignKey('auth.User', verbose_name=_("receiver"), related_name="receiver", null=True, blank=True)
-    receiver_email = models.EmailField(_("receiver email"))
-    receiver_name = models.CharField(_("receiver name"), blank=True, default="", max_length=100)
+    receiver = models.ForeignKey('auth.User', verbose_name=_("Receiver"), related_name="receiver", null=True, blank=True)
+    receiver_email = models.EmailField(_("Receiver email"))
+    receiver_name = models.CharField(_("Receiver name"), blank=True, default="", max_length=100)
 
     donations = models.ManyToManyField('Donation')
 
@@ -147,8 +147,8 @@ class Voucher(models.Model):
         return self.amount / 100
 
     class Meta:
-        verbose_name = _("voucher")
-        verbose_name_plural = _("vouchers")
+        verbose_name = _("Voucher")
+        verbose_name_plural = _("Vouchers")
 
 
 class CustomVoucherRequest(models.Model):
@@ -168,7 +168,7 @@ class CustomVoucherRequest(models.Model):
     contact_name = models.CharField(verbose_name=_("Contact email"), max_length=100, blank=True, default="")
     contact_email = models.EmailField(verbose_name=_("Contact email"), blank=True, default="")
     contact_phone = models.CharField(verbose_name=_("Contact phone"), max_length=100, blank=True, default="")
-    organization = models.CharField(verbose_name=_("Organization"), max_length=200, blank=True, default="")
+    organization = models.CharField(verbose_name=_("Organisation"), max_length=200, blank=True, default="")
     message = models.TextField(_("message"), default="", max_length=500, blank=True)
 
     type = models.CharField(_("type"), max_length=20, choices=CustomVoucherTypes.choices, default=CustomVoucherTypes.unknown)
