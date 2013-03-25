@@ -3,8 +3,12 @@
 
 SOURCE_LANGUAGE="en"
 MANAGE_PY="$PWD/manage.py"
-MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs -e html"
-COMPILEMESSAGES="$MANAGE_PY compilemessages"
+SETTINGS=""
+if [ $2 ]; then
+    SETTINGS="--settings=$2"
+fi
+MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs -e html $SETTINGS"
+COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
 APPS_DIR="apps"
 EXCLUDED_APPS=""
 
