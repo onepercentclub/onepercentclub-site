@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="utf-8" />
@@ -60,12 +60,78 @@
 </div>
 
 <div class="container">
+    <br>
 
     <section class="wrapper">
+        <p>Follow the following markup to style a form correctly.</p>
 
-        <br>
+        <ul>
+            <li>Wrap labels and controls in .control-group</li>
+            <li>Add .control-label to the label</li>
+            <li>Wrap any associated controls in .controls for proper alignment</li>
+        </ul>
 
-        <form id="" class="form-horizontal" action="/" method="post">
+        <p>E.g.</p>
+
+        <form>
+            <ul>
+                <li class="control-group">
+                    <label class="control-label">A label</label>
+                    <div class="controls">
+                        <input type="text" placeholder="Associated element" />
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </section>
+
+    <br>
+
+    <section class="wrapper">
+        <p>A form has zero or more fieldsets. A fieldset is a group of related form elements. Use a legend to describe a fieldset. E.g.</p>
+
+        <form>
+            <fieldset>
+                <legend><strong>This is a legend to describe elements below.</strong></legend>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">A label</label>
+                        <div class="controls">
+                            <input type="text" placeholder="Associated element" />
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </section>
+
+    <br>
+
+    <section class="wrapper">
+        <p>To display an error, give the related input the class of error. And append a division of a class errors with message inside to display the error message.</p>
+
+        <form>
+            <ul>
+                <li class="control-group">
+                    <label class="control-label">A label</label>
+                    <div class="controls">
+                        <input class="error" type="text" placeholder="I have error">
+                    </div>
+
+                    <div class="errors">
+                        And this is the error!
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </section>
+
+    <br>
+
+    <section class="wrapper">
+        <p>A complete form how it may look like.</p>
+
+        <form id="" action="/" method="post">
             <ul>
                 <li class="control-group">
                     <label class="control-label">Your full name</label>
