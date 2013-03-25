@@ -59,7 +59,7 @@
                 {{/view}}
 
                 {{#view App.OrderNavView classNames="payment"}}
-                    {{#linkTo "payment"}}{% trans "Pay" %}{{/linkTo}}
+                    {{#linkTo "payment"}}{% trans "Finish" %}{{/linkTo}}
                 {{/view}}
             </ul>
 
@@ -67,14 +67,13 @@
 
             <div class="sidebar tip">
                 {{#if controller.isVoucherOrder}}
-                    <h3>{% trans "Want custom real vouchers or a large amount of digital vouchers?" %}</h3>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum eros est.
-                    Aliquam volutpat tempus quam, molestie malesuada justo sollicitudin nec.
+                    <h3>{% trans "Want custom real gift cards or a large number of digital gift cards?" %}</h3>
+                    {% trans "Bladi bla bla..." %}
                     <br />
-                    {{#linkTo "customVoucherRequest"}}{% trans "Contact us..." %}{{/linkTo}}
+                    {{#linkTo "customVoucherRequest"}}{% trans "Contact us." %}{{/linkTo}}
                 {{else}}
-                  <h3>Did you know?</h3>
-                  <p>Fusce quam enim, vehicula euismod porttitor vitae, facilisis a purus. Maecenas augue metus, consectetur eleifend posuere in, rhoncus ac enim.</p>
+                  <h3>{% trans "Did you know?" %}</h3>
+                  <p>{% trans "The average donated amount is €22? The previous donation was: €50. (really, we cheer with every single donation..)" %}</p>
                   <p><a href="#">Read some more</a></p>
                 {{/if}}
             </div>
@@ -119,7 +118,6 @@
     </fieldset>
 
     {{#linkTo "projectList" class="button-link"}}<em class="icon-plus-sign"></em> {%trans "Add another project" %}{{/linkTo}}
-
     {{#linkTo "paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
@@ -139,7 +137,7 @@
             {{#if length }}
                 <li>
                     <div class="summary">
-                        {{ length }} {% trans "vouchers will be sent out with a total amount worth of" %}
+                        {{ length }} {% trans "gift cards will be sent out with a total amount worth of" %}
                     </div>
                     <div class="amount">
                         <h4 class="right">&euro;{{ total }}</h4>
@@ -148,7 +146,7 @@
             {{else}}
                 <li>
                     <div class="summary">
-                        {% trans "No vouchers yet..." %}
+                        {% trans "No gift cards yet..." %}
                     </div>
                 </li>
             {{/if}}
@@ -169,7 +167,7 @@
 
 {% tplhandlebars "current_order_voucher_new" %}
 
-    <h2>{% trans "Choose value & personalize voucher" %}</h2>
+    <h2>{% trans "Choose amount & personalise gift card" %}</h2>
 
     {{#view Em.RadioButtonGroup class="big-radio radio2" name="language" selectedValueBinding="language"}}
         <div class="label">
@@ -216,13 +214,13 @@
     {{#each errors.sender_email}}<span class="error">{{this}}</span>{{/each}}
     {{view Em.TextField valueBinding="sender_email" placeholder="Your email" classBinding="errors.sender_email.length:error"}}
 
-    <h2 class="clear">{% trans "Add as many recipients as you want" %}</h2>
+    <h2 class="clear">{% trans "This gift card is for:" %}</h2>
 
-    <div class="label">{% trans "Recipient name" %}</div>
+    <div class="label">{% trans "Name" %}</div>
     {{#each errors.receiver_name}}<span class="error">{{this}}</span>{{/each}}
     {{view Em.TextField valueBinding="receiver_name" placeholder="Name" classBinding="errors.receiver_name.length:error "}}
 
-    <div class="label">{% trans "Recipient email" %}</div>
+    <div class="label">{% trans "Email" %}</div>
     {{#each errors.receiver_email}}<span class="error">{{this}}</span>{{/each}}
     {{view Em.TextField valueBinding="receiver_email" placeholder="Email" classBinding="errors.receiver_email.length:error"}}
 
@@ -328,15 +326,16 @@
 
 {# <!-- wrapper tag: <li class="donation-project"> --> #}
 {% tplhandlebars "current_order_donation" %}
-
     {{#linkTo "project" project}}
         <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
         <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
     {{/linkTo}}
     <div class="donation-amount">
         <strong class="amount-needed">&euro; {{neededAfterDonation}} {% trans "is still needed"%}</strong>
-
         <div class="amount-control">
+            {{#each error in errors.amount}}
+                <span class="errors">{{error}}</span>
+            {{/each}}
             <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
             <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
         </div>
@@ -350,8 +349,8 @@
 {% tplhandlebars "payment" %}
 
     <div class="intro">
-        <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
-        {% trans "Choose the payment method you prefer to donate." %}
+        <h4>{% trans "Final step. Almost there!" %}</h4>
+        {% trans "Choose the payment method you prefer." %}
     </div>
     <fieldset>
         <div class="tabs vertical">
@@ -415,7 +414,7 @@
             {{/if}}
 
         {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "Hang on tiger! Loading information..." %}
         {{/if}}
     </fieldset>
 
@@ -464,8 +463,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "final_order_item_list" %}
-
+{% tplhandlebars "current_order_final" %}
     <div class="container section">
         <header class="wrapper">
             <h1 class="main-title">{% trans "Thank you!" %}</h1>
@@ -474,32 +472,53 @@
     </div>
 
     <div class="container">
-
         <section class="wrapper">
-            <form>
-            <ul id="donation-projects">
-                {{#each orderitem in controller}}
+            <ul class="donation-projects">
+                {{#if donations.length}}
+                    <h1>{% trans "Donations" %}</h1>
+                {{/if}}
+                {{#each donation in donations}}
                     <li class="donation-project">
-                        {{#linkTo "project" orderitem.project}}
-                            <img {{bindAttr src="orderitem.project.image_square"}} class="project-image" alt="Project Name" />
+                        {{#linkTo "project" donation.project}}
+                            <img {{bindAttr src="donation.project.image_square"}} class="project-image" alt="Project Name" />
                         {{/linkTo}}
-                        <h1>
-                            {{#linkTo "project" orderitem.project}}
-                                {{orderitem.project.title}}
+                        <h3>
+                            {{#linkTo "project" donation.project}}
+                                {{donation.project.title}}
                             {{/linkTo}}
-                            <em class="country">{{orderitem.project.country.name}}</em>
-                        </h1>
+                        </h3>
+                        <em class="country">{{donation.project.country.name}}</em>
                         <p class="donation-amount">
                             <label for="donation-amount-1">{% trans "You just donated" %}</label>
-                            <span class="big currency">&euro; {{orderitem.amount}}</span>
+                            <span class="big currency">&euro; {{donation.amount}}</span>
                         </p>
                     </li>
-
                 {{/each}}
+                {{#if vouchers.length}}
+                    <h1>{% trans "Vouchers" %}</h1>
+                {{/if}}
+                {{#each voucher in vouchers}}
+                    <li class="donation-project">
+                        {{#if voucher.receiver_name}}
+                            <h3>
+                                {{voucher.receiver_name}}
+                            </h3>
+                            <em class="country">{{voucher.receiver_email}}</em>
 
+                        {{else}}
+                            <h3>
+                                {{voucher.receiver_email}}
+                            </h3>
+                        {{/if}}
+                        <p>{{voucher.message}}</p>
+                        <p class="donation-amount">
+                            <span class="big currency">&euro; {{voucher.amount}}</span>
+                        </p>
+                    </li>
+                {{/each}}
             </ul>
-            </form>
         </section>
     </div>
 
 {% endtplhandlebars %}
+

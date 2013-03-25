@@ -65,37 +65,34 @@ class Project(models.Model):
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
-        help_text=_("The project owner's notion of the project start date. "
-                    "This date is independent of the various phase start dates.")
-    )
+                                          help_text=_("The project owner's notion of the project start date. "
+                                          "This date is independent of the various phase start dates.")
+                                          )
+
     planned_end_date = models.DateField(_("planned end date"), blank=True, null=True,
-        help_text=_("The project owner's notion of the project end date. "
-                    "This date is independent of the various phase end dates.")
-    )
+                                        help_text=_("The project owner's notion of the project end date. "
+                                        "This date is independent of the various phase end dates.")
+                                        )
+
+    money_asked = models.PositiveIntegerField(_("money asked"), default=0, help_text=_("Amount of money asked for a project from this website."))
+    currency = models.CharField(_("currency"), blank=True, max_length=3)
 
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
 
-    # This is here to provide a consistent way to get money_asked.
-    @property
-    def money_asked(self):
-        try:
-            self.fundphase
-        except FundPhase.DoesNotExist:
-            return Decimal('0.00')
-        return self.fundphase.money_asked
-
     # This is here to provide a consistent way to get money_donated.
     @property
     def money_donated(self):
-        if self.money_asked == Decimal('0.00'):
-            return Decimal('0.00')
-        try:
-            return self.fundphase.money_donated
-        except FundPhase.DoesNotExist:
-            return Decimal('0.00')
+        if self.money_asked == 0:
+            return 0
+        donations = Donation.objects.filter(project=self)
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+        total = donations.aggregate(sum=Sum('amount'))
+        if not total['sum']:
+            return 0
+        return total['sum']
 
     @models.permalink
     def get_absolute_url(self):
@@ -202,8 +199,6 @@ class FundPhase(AbstractPhase):
     )
 
     budget_total = MoneyField(_("budget total"), help_text=_("Amount of money needed for a project including money from other sources."))
-    money_asked = MoneyField(_("money asked"), help_text=_("Amount of money asked for a project from this website."))
-    money_donated= MoneyField(_('money donated'), help_text=_("This field is updated on every donation(change)"))
 
     sustainability = models.TextField(_("sustainability"), blank=True,help_text=_("How can next generations profit from this?"))
     money_other_sources = models.TextField(_("money from other sources"), blank=True, help_text=_("Money received from other sources."))
@@ -215,24 +210,6 @@ class FundPhase(AbstractPhase):
     impact_direct_female = models.IntegerField(_("impact direct female"), max_length=6, default=0)
     impact_indirect_male = models.IntegerField(_("impact indirect male"),max_length=6, default=0)
     impact_indirect_female = models.IntegerField(_("impact indirect female"), max_length=6, default=0)
-
-    # This updates the 'cached' donated amount. This should be run everytime a
-    # donation is made or changes status.
-    # TODO: Add out of band integrity checks (e.g. as a separate cron task)
-    def update_money_donated(self):
-        donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=['closed','paid','started'])
-        total = donations.aggregate(total=Sum('amount'))['total']
-        if total is None:
-            if self.money_donated != 0:
-                # Only set money_donated to 0 when it's not already 0.
-                self.money_donated = 0
-                self.save()
-        elif self.money_donated != total:
-            self.money_donated = total
-            self.save()
-        return self.money_donated
-
 
     class Meta:
         verbose_name = _("fund phase")

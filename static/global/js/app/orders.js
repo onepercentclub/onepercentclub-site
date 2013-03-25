@@ -7,6 +7,7 @@ App.Order = DS.Model.extend({
 
     status: DS.attr('string'),
     recurring: DS.attr('boolean'),
+    finalized: DS.attr('boolean'),
     vouchers: DS.hasMany('App.Voucher'),
     donations: DS.hasMany('App.Donation')
 });
@@ -125,10 +126,18 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 App.CurrentOrderDonationController = Em.ObjectController.extend({
     updateDonation: function(newAmount) {
         var donation = this.get('model');
-        var transaction = this.get('store').transaction();
-        transaction.add(donation);
+        donation.set('errors', []);
+        donation.on("becameInvalid", function(record){
+            donation.set('errors', record.get('errors'));
+        });
+        // Renew the transaction as needed.
+        // If we have an error the record will stay 'dirty' and we can't put it into a new transaction.
+        if (donation.transaction.isDefault) {
+            var transaction = this.get('store').transaction();
+            transaction.add(donation);
+        }
         donation.set('amount', newAmount);
-        transaction.commit();
+        donation.transaction.commit();
     },
 
     deleteDonation: function() {
@@ -304,9 +313,10 @@ App.CurrentOrderVoucherListView = Em.View.extend({
 });
 
 
-App.FinalOrderItemListView = Em.View.extend({
-    templateName: 'final_order_item_list'
+App.CurrentOrderFinalView = Em.View.extend({
+    templateName: 'current_order_final'
 });
+
 
 
 App.CurrentOrderDonationView = Em.View.extend({

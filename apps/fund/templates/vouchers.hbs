@@ -9,9 +9,9 @@
         <header class="wrapper">
             <h1 class="">{% trans "Share" %}</h1>
             <h1 class="">{% trans "the fun" %}</h1>
-            <h1 class="">{% trans "of giving!" %}</h1>
+            <h1 class="">{% trans "of giving" %}</h1>
             <h1 class="">{% trans "Get the" %}</h1>
-            <h1 class="pink">{% trans "1%VOUCHER" %} </h1>
+            <h1 class="pink">{% trans "1%GIFTCARD" %} </h1>
         </header>
 
     </div>
@@ -20,12 +20,12 @@
         <section class="wrapper">
             <div class="redeem">
                 {{#linkTo "voucherRedeem"}}
-                    <h2>{% trans "I received a voucher" %}</h2>
+                    <h2>{% trans "I received a gift card" %}</h2>
                 {{/linkTo}}
             </div>
             <div class="buy">
                 {{#linkTo "currentOrder.voucherList"}}
-                    <h2>{% trans "I'd like to buy voucher(s)" %}</h2>
+                    <h2>{% trans "I'd like to buy gift card(s)" %}</h2>
                 {{/linkTo}}
             </div>
         </section>
@@ -39,7 +39,7 @@
     <div class="container section">
         <div class="wrapper">
             <div class="content">
-                <h1 class="main-title">{% trans "Claim you voucher and support!" %}</h1>
+                <h1 class="main-title">{% trans "Claim your gift card and donate!" %}</h1>
             </div>
             <sidebar>
                 {{#linkTo "currentOrder.donationList" tagName="a" class="button-link"}}
@@ -65,7 +65,7 @@
             {{#if voucher.isLoaded}}
                 <form class="labeled">
                     <fieldset class="">
-                        <div class="label">{% trans "Voucher" %}</div>
+                        <div class="label">{% trans "Gift card" %}</div>
                         <div class="label ok">&#10004; {{voucher.code}}</div>
                         <div class="label">{% trans "code accepted" %}</div>
                         <div class="label ok">
@@ -80,7 +80,7 @@
                             <li class="donation-project">
                                 {{#linkTo "projectList"}}
                                     <h1>
-                                        {% trans "Choose a project to support with this voucher" %}
+                                        {% trans "Choose a project to support with this gift card" %}
                                     </h1>
                                     <b>You can make it work!</b>
                                 {{/linkTo}}
@@ -103,10 +103,10 @@
                 <form class="labeled">
                     <fieldset>
                         {{#if error}}
-                            <span class="error">{% trans "We don't have a voucher with this code." %}</span>
+                            <span class="error">{% trans "We don't have a gift card with this code." %}</span>
                             <br />
                         {{/if}}
-                        <div class="label">{% trans "Voucher code" %}</div>
+                        <div class="label">{% trans "Gift card code" %}</div>
                         {{view Em.TextField valueBinding="code" placeholder="You code"}}
                         <button {{action "submitVoucherCode" target="controller"}} type="submit" class="button right">
                             {% trans "Submit" %}
@@ -162,8 +162,8 @@
     <div class="container section">
         <header class="wrapper">
             <div class="content">
-                <h1 class="">{% trans "Contact us for custom 1%VOUCHERS" %}</h1>
-                {% trans "Please fill in the form with your wishes and we will contact you. You can also call us directly on (+31) 20 715 8980" %}
+                <h1 class="">{% trans "Contact us for custom 1%GIFTCARDS" %}</h1>
+                {% trans "Please fill in the form and we'll contact you. You can also call us directly on (+31) 20 715 8980" %}
             </div>
         </header>
     </div>
@@ -196,7 +196,7 @@
                     {{view Em.TextField valueBinding="contact_phone" classBinding="errors.contact_phone.length:error"}}
 
                     {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
-                    <div class="label wide">{% trans "Anything else? Leave a message." %}</div>
+                    <div class="label wide">{% trans "Anything to add? Leave a message." %}</div>
                     {{view Em.TextArea valueBinding="message" classBinding="errors.message.length:error"}}
 
                     <a class="right button" {{action sendRequest target="controller"}}>{% trans "Send message" %}</a>

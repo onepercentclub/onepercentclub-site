@@ -3,7 +3,7 @@ from apps.cowry_docdata.tests import run_docdata_tests
 from django.test import TestCase
 from django.utils import unittest
 from apps.bluebottle_utils.tests import UserTestsMixin
-from apps.projects.tests import ProjectTestsMixin
+from apps.projects.tests import ProjectTestsMixin, FundPhaseTestMixin
 from rest_framework import status
 from .models import Donation
 
@@ -11,7 +11,7 @@ from .models import Donation
 class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
     """ Base class for tests using donations. """
 
-    def create_donation(self, user=None, amount=None, project=None, status='new'):
+    def create_donation(self, user=None, amount=None, project=None, status=Donation.DonationStatuses.new):
         if not project:
             project = self.create_project()
             project.save()
@@ -22,7 +22,10 @@ class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
         if not amount:
             amount = Decimal('10.00')
 
-        return Donation(user=user, amount=amount, status=status, project=project)
+        donation = Donation(user=user, amount=amount, status=status, project=project)
+        donation.save()
+
+        return donation
 
 
 class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
@@ -51,6 +54,44 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
 
         donation = self.create_donation(amount=Decimal('20.00'))
         donation.save()
+
+
+class CalculateMoneyDonatedTest(DonationTestsMixin, FundPhaseTestMixin, TestCase):
+
+    def setUp(self):
+        self.some_project = self.create_project()
+        self.some_project.money_asked = 500000
+        self.some_project.save()
+
+        self.another_project = self.create_project()
+        self.another_project.money_asked = 500000
+        self.another_project.save()
+
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+
+    def test_donated_amount(self):
+
+        # Some project have money_asked of 5000000 (cents that is)
+        self.assertEqual(self.some_project.money_asked, 500000)
+
+        # A project without donations should have money_donated of 0
+        self.assertEqual(self.some_project.money_donated, 0)
+
+        # Create a new donation of 15 in status 'new'. project money donated should be 0
+        some_donation = self.create_donation(user=self.some_user, project=self.some_project, amount=1500,
+                                             status=Donation.DonationStatuses.new)
+        self.assertEqual(self.some_project.money_donated, 0)
+
+        # Create a new donation of 25 in status 'in_progress'. project money donated should be 25
+        another_donation = self.create_donation(user=self.some_user, project=self.some_project, amount=2500,
+                                                status=Donation.DonationStatuses.in_progress)
+        self.assertEqual(self.some_project.money_donated, 2500)
+
+        # If we now set the first donation to status 'paid' money donated should be 40
+        some_donation.status = Donation.DonationStatuses.paid
+        some_donation.save()
+        self.assertEqual(self.some_project.money_donated, 4000)
 
 
 # Integration tests for API
@@ -106,6 +147,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.data['amount'], '12.50')
         self.assertEqual(response.data['project'], self.another_project.slug)
 
+        # Create a Donation under 5 should fail
+        response = self.client.post(self.current_donations_url,
+                                    {'project': self.another_project.slug, 'amount': '2.50'})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
         # Retrieve the list with all donations in this cart should return one
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 2)
@@ -117,6 +163,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.put(donation_detail_url, {'amount': 150, 'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], '150.00')
+
+        # Update with amount under 5 should fail.
+        response = self.client.put(donation_detail_url, {'amount': 3, 'project': self.some_project.slug})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Update the status of the created Donation by owner should be ignored
         response = self.client.put(donation_detail_url,
