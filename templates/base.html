@@ -86,10 +86,10 @@
                     <nav class="nav-main">
                         <h1 class="nav-title">Navigation</h1>
                         <ul>
-                            <li class="nav-projects">{{#linkTo projectList}}{% trans "1%Projects" %}{{/linkTo}}</li>
+                            <li class="nav-projects">{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
                             {# FIXME Forward to currentOrderDonationList #}
+                            <li class="nav-projects">{{#linkTo voucherStart}}{% trans "1%GIFTCARDS" %}{{/linkTo}}</li>
                             <li class="nav-projects">{{#linkTo currentOrder.donationList}}{% trans "Cart" %}{{/linkTo}}</li>
-                            <li class="nav-projects">{{#linkTo voucherStart}}{% trans "Vouchers" %}{{/linkTo}}</li>
                         </ul>
                     </nav>
                     <nav class="nav-member member-login">
