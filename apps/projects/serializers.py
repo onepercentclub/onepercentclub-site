@@ -3,7 +3,7 @@ from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSeri
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField
 from apps.geo.models import Country
 from .models import Project
 
@@ -37,8 +37,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     phase = serializers.CharField(source='get_phase_display', read_only=True)
     tags = serializers.RelatedField(many=True)
     url = serializers.HyperlinkedIdentityField(view_name='project-detail')
-    money_asked = serializers.Field(source='money_asked')
-    money_donated = serializers.Field(source='money_donated')
+    money_asked = EuroField(source='money_asked')
+    money_donated = EuroField(source='money_donated')
     image = SorlImageField('image', '800x450')
     image_small = SorlImageField('image', '200x120')
     image_square = SorlImageField('image', '120x120')
