@@ -280,16 +280,35 @@ App.PaymentController = Em.ObjectController.extend({
 
     proceedWithPayment: function() {
         this.set('paymentInProgress', true);
+//        var payment = this.get('model');
+//        payment.set('paymentMethod', payment.get('availablePaymentMethods').objectAt(0));
+//        var controller = this;
+//        payment.one('didUpdate', function(record) {
+//            var paymentUrl = record.get('paymentUrl');
+//            if (paymentUrl) {
+//                document.location = paymentUrl;
+//        });
+//        this.get('transaction').commit();
+
+        // Use jQuery directly to avoid the problems with updating server-side data.
         var payment = this.get('model');
-        payment.set('paymentMethod', payment.get('availablePaymentMethods').objectAt(0));
         var controller = this;
-        payment.one('didUpdate', function(record) {
-            var paymentUrl = record.get('paymentUrl');
-            if (paymentUrl) {
-                document.location = paymentUrl;
+        jQuery.ajax({
+            url: '/i18n/api/fund/payments/current',
+            type: 'PUT',
+            data: JSON.stringify({ payment_method:  payment.get('availablePaymentMethods').objectAt(0)}),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            context: this,
+            success: function(json) {
+                if (json['payment_url']) {
+                    document.location = json['payment_url'];
+                }
+            },
+            error: function(xhr) {
+                controller.set('paymentInProgress', true);
             }
         });
-        this.get('transaction').commit();
     }
 });
 
