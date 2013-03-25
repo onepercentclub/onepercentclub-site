@@ -471,7 +471,7 @@ App.CurrentOrderAddDonationRoute = Ember.Route.extend({
 
             // We're transitioning to the donation list route directly after adding the donation so that the url
             // doesn't show '/support/donations/add/slug' after the donation has been added.
-            this.transitionTo('currentOrder.donationList');
+            this.replaceWith('currentOrder.donationList');
         }
     }
 });
