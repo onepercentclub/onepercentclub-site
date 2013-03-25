@@ -1,216 +1,190 @@
 /* =========== Forms */
 
-input[type=text], input[type=password], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select  {
-    border: 1px solid #c5c5c5;
-    font-family: $font-family;
-    line-height: 1.5em;
-    margin: -1px 0.5em 10px 0px;
-    padding: 0.6em;
+// General styles
+// -------------------------
+
+legend {
+    @include rem(padding, ($padding * 3/2) ($padding * 2));
+
     width: 100%;
-    //@include border-radius(0.3em);
-    @include box-shadow(inset 0px 1px 2px rgba($black, 0.1));
-    @include transition(border 0.1s);
-    vertical-align: baseline;
-    
-    background-color: #fbfbfb;
-    
-    //@include border-radius(2px);
-    
-    &:focus {
-        border: 1px solid $green;
-        outline: 0;
-        color: #333;
-        background-color: $white;
-        @include box-shadow(0px 0px 2px rgba($black, 0.3));
+    background-color: $grayLight;
+
+    strong {
+        @include rem(font-size, $fontSizeLarge);
+        color: $white;
+        text-transform: uppercase;
+    }
+
+    p {
+        margin: 0;
     }
 }
 
-
-::-webkit-input-placeholder {
-    color: #bbb;
+label {
+    display: block;
 }
 
-:-moz-placeholder {
-    color: #bbb;
+// Form controls
+// -------------------------
+
+select,
+textarea,
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=email],
+input[type=tel],
+input[type=url] {
+    border: 1px solid $inputBorder;
+    font-family: $font-family;
+    line-height: 1.5em;
+    padding: 0.6em;
+    width: 100%;
+    background-color: $white;
+
+    @include transition(border 0.1s);
+    @include box-shadow(inset 0px 1px 2px rgba($black, 0.1));
+
+    &:focus {
+        border-color: $green;
+        outline: 0;
+        color: $grayDarker;
+        @include box-shadow(0px 0px 2px rgba($black, 0.3));
+    }
+
+    &.error {
+        border-color: $color-error;
+    }
 }
 
-textarea { 
+textarea {
     overflow: auto;
-    resize: vertical;
+    resize: none;
     vertical-align: top;
     display: block;
 }
 
 form {
+    hr {
+        border-color: #fff;
+        margin: 0;
+    }
 
-    legend { 
-        display: block; 
-        margin-bottom: 0.25em; 
-        font-weight: bold; 
-        line-height: 1.5em;
-        font-size: 1.6em;
-    }
-    
-    fieldset { 
-        @include rem(margin-bottom, 16px);
-    }
-    
-    label.inline {
-        position: absolute; 
-        left: 0;
-        
-        font-family: $font-family;
-        line-height: 1.5em;
-        margin: -1px 0.5em 0px 0px;
-        padding: 0.6em;
-        width: 100%;
-        vertical-align: baseline;
-    }
-    
-    .currency {
-      
-      em {
-        font-style: normal;
-        font-weight: bold;
-        color: #929292;
-      }
-      
-      input {
-        width: auto;
-      }
-    }
-    
     ul {
+        @include rem(padding, $padding);
+
+        margin: 0;
         clear: both;
         list-style: none;
-        margin: 0 0 $margin 0;
-        
-        > li {
-            position: relative;
-            margin-bottom: $margin;
-            @include clearfix;
-            
-            > label  { 
-                
-                padding-left: 0.6em;
-                display: block;
-                color: #999;
-                
-                
-                
-                small {
-                    display: inline-block;
-                }
-            }
-            
-            p, small {
-                display: block;
-                margin: 0.6em 0.6em 0.25em 0px;
-            }
-            
-            ul.checklist {
-                margin: 0.6em 0.6em 0.6em 0px;
-                
-                > li { margin: 0.5em 0; }
-                
-                input { 
-                    display: inline-block; 
-                    margin-right: 0.5em;
-                }
-                
-                label {
-                    @include grid-reset;
-                    font-weight: normal;
-                    &:hover { 
-                        color: #000; 
-                        cursor: pointer; 
-                    }
-                }
-            }
-        }
-        
+        background-color: $color-back;
     }
 
-    span.error {
-        color: $color-error;
-        margin: 0.6em 0.6em 0.6em 0px;
-        display: block;
-
-
-    }
-
-    input.error {
-        border: 1px solid $color-error;
-        @include box-shadow((0px 0px 3px lighten($color-error, 10%), inset 0 0 0));
-        &:focus { border: 1px solid $color-error; }
-
-        &::-webkit-input-placeholder {
-            color: lighten($color-error, 20%);
-        }
-
-        &:-moz-placeholder {
-            color: lighten($color-error, 20%);
-        }
-
-    }
-
-    &.labeled {
-        @include rem(margin, 30px);
+    .control-group {
         @include clearfix;
-        input[type='text'] {
-            @include grid(36, 1, 0);
+        @include rem(padding-bottom, $padding);
+
+        position: relative;
+
+        &:first-child {
+            @include rem(padding-top, 16px);
         }
-        input[type='number'] {
-            @include grid(8, 1, 1);
+
+        .control-label {
+            @include grid(16, 2, 1);
+            padding: 0.6em 0;
+            text-align: left;
+        }
+
+        .controls {
+            @include grid(32, 1);
+
+            .inline-prepend {
+                @include grid(24, 0, 1);
+            }
+
+            .inline-append {
+                @include grid(24, 1, 0);
+            }
         }
     }
 
-    div.label {
-        @include grid(12, 0, 0);
-        @include rem(padding, 10px);
-        @include rem(font-size, 18px);
-        clear: left;
-        font-weight: bold;
-        color: $gray;
-        &.ok {
-            color: $green;
+    .errors {
+        @include grid(24);
+
+        position: absolute;
+        right: -57%;
+        background-color: $color-error;
+        border: 1px solid #933333;
+        padding: 0.6em;
+        color: $white;
+
+        p {
+            margin: 0;
         }
-        &.wide {
-            @include grid(48, 0, 0);
+
+        &:after {
+            @include rem(top, 7px);
+            position: absolute;
+            display: block;
+            left: -14px;
+            width: 14px;
+            height: 23px;
+            background: url("../images/form-error-back-arrow.png") transparent no-repeat 0 0;
+            content: ' ';
         }
     }
 
-    .big-radio {
-        label {
-            @include rem(padding, 10px);
-            padding: 10px;
-            color: white;
-            font-family: "Futura Std";
-            font-weight: bold;
-            @include rem(font-size, 18px);
-            display: inline-block;
-            text-align: center;
-            margin-bottom: 10px;
-            background-color: $gray;
-            cursor: pointer;
-        }
-        input[type=radio] {
-            display: none;
-        }
-        input[type=radio]:checked+label {
-            background-color: $green;
-        }
-        &.radio2 {
-            label{
-                @include grid(18, 1, 0);
-            }
-        }
-        &.radio4 {
-            label {
-                @include grid(9, 1, 0);
-            }
-        }
+    .btn {
+        @include rem(margin-top, 16px);
     }
 }
 
+// Checkboxes & Radios
+// -------------------------
 
+// We got our own fancy checkbox & radio, so hide the fugly ones.
+input[type="checkbox"],
+input[type="radio"] {
+    float: left;
+    opacity: 0;
+    width: 32px;
+    height: 32px;
+
+    @include rem(margin-right, 16px);
+}
+
+input[type="checkbox"] + span,
+input[type="radio"] + span {
+    @include rem(margin-bottom, 16px);
+
+    display: block;
+    line-height: 32px;
+    background: url("../images/form-checkbox-default.png") transparent no-repeat 0 0;
+}
+
+input[type="radio"] + span {
+    background: url("../images/form-radio-default.png") transparent no-repeat 0 0;
+}
+
+input[type="checkbox"]:checked + span {
+    background: url("../images/form-checkbox-checked.png") transparent no-repeat 0 0;
+}
+
+input[type="radio"]:checked + span {
+    background: url("../images/form-radio-checked.png") transparent no-repeat 0 0;
+}
+
+// Disabled state
+// -------------------------
+
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+    cursor: not-allowed;
+    background-color: $inputDisabledBackground;
+    @include box-shadow(none);
+}

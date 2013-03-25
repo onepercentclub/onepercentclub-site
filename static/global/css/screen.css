@@ -2,7 +2,6 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* ========================= Variables ================================== */
 /* ========================= Includes ============================= */
 /* Compass & Mixins */
 /* line 17, ../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
@@ -71,6 +70,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* Base */
+/* ========================= Variables ================================== */
 /* =========== Base (TODO: move these to correct place) */
 /* line 3, ../sass/includes/_base.scss */
 * {
@@ -864,101 +864,115 @@ section {
 
 /* Elements */
 /* =========== Forms */
-/* line 3, ../sass/includes/_forms.scss */
-input[type=text], input[type=password], input[type=number], input[type=search], input[type=email], input[type=tel], input[type=url], textarea, select {
-  border: 1px solid #c5c5c5;
+/* line 6, ../sass/includes/_forms.scss */
+legend {
+  padding: 24px 32px;
+  padding: 1.5rem 2rem;
+  width: 100%;
+  background-color: #cccccc;
+}
+/* line 12, ../sass/includes/_forms.scss */
+legend strong {
+  font-size: 22px;
+  font-size: 1.37375rem;
+  color: white;
+  text-transform: uppercase;
+}
+/* line 18, ../sass/includes/_forms.scss */
+legend p {
+  margin: 0;
+}
+
+/* line 23, ../sass/includes/_forms.scss */
+label {
+  display: block;
+}
+
+/* line 38, ../sass/includes/_forms.scss */
+select,
+textarea,
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=email],
+input[type=tel],
+input[type=url] {
+  border: 1px solid #bcbcbc;
   font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
   line-height: 1.5em;
-  margin: -1px 0.5em 10px 0px;
   padding: 0.6em;
   width: 100%;
-  -webkit-box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
-  -moz-box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
-  box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
+  background-color: white;
   -webkit-transition: border 0.1s;
   -moz-transition: border 0.1s;
   -o-transition: border 0.1s;
   transition: border 0.1s;
-  vertical-align: baseline;
-  background-color: #fbfbfb;
+  -webkit-box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
+  -moz-box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
+  box-shadow: inset 0px 1px 2px rgba(5, 5, 5, 0.1);
 }
-/* line 19, ../sass/includes/_forms.scss */
-input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=search]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=url]:focus, textarea:focus, select:focus {
-  border: 1px solid #00c051;
+/* line 49, ../sass/includes/_forms.scss */
+select:focus,
+textarea:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=number]:focus,
+input[type=search]:focus,
+input[type=email]:focus,
+input[type=tel]:focus,
+input[type=url]:focus {
+  border-color: #00c051;
   outline: 0;
-  color: #333;
-  background-color: white;
+  color: #444444;
   -webkit-box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
   -moz-box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
   box-shadow: 0px 0px 2px rgba(5, 5, 5, 0.3);
 }
-
-/* line 29, ../sass/includes/_forms.scss */
-::-webkit-input-placeholder {
-  color: #bbb;
+/* line 56, ../sass/includes/_forms.scss */
+select.error,
+textarea.error,
+input[type=text].error,
+input[type=password].error,
+input[type=number].error,
+input[type=search].error,
+input[type=email].error,
+input[type=tel].error,
+input[type=url].error {
+  border-color: #b84040;
 }
 
-/* line 33, ../sass/includes/_forms.scss */
-:-moz-placeholder {
-  color: #bbb;
-}
-
-/* line 37, ../sass/includes/_forms.scss */
+/* line 61, ../sass/includes/_forms.scss */
 textarea {
   overflow: auto;
-  resize: vertical;
+  resize: none;
   vertical-align: top;
   display: block;
 }
 
-/* line 46, ../sass/includes/_forms.scss */
-form legend {
-  display: block;
-  margin-bottom: 0.25em;
-  font-weight: bold;
-  line-height: 1.5em;
-  font-size: 1.6em;
+/* line 69, ../sass/includes/_forms.scss */
+form hr {
+  border-color: #fff;
+  margin: 0;
 }
-/* line 54, ../sass/includes/_forms.scss */
-form fieldset {
-  margin-bottom: 16px;
-  margin-bottom: 1rem;
-}
-/* line 58, ../sass/includes/_forms.scss */
-form label.inline {
-  position: absolute;
-  left: 0;
-  font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
-  line-height: 1.5em;
-  margin: -1px 0.5em 0px 0px;
-  padding: 0.6em;
-  width: 100%;
-  vertical-align: baseline;
-}
-/* line 72, ../sass/includes/_forms.scss */
-form .currency em {
-  font-style: normal;
-  font-weight: bold;
-  color: #929292;
-}
-/* line 78, ../sass/includes/_forms.scss */
-form .currency input {
-  width: auto;
-}
-/* line 83, ../sass/includes/_forms.scss */
+/* line 74, ../sass/includes/_forms.scss */
 form ul {
+  padding: 16px;
+  padding: 1rem;
+  margin: 0;
   clear: both;
   list-style: none;
-  margin: 0 0 1.25em 0;
+  background-color: #e9e9e9;
 }
-/* line 88, ../sass/includes/_forms.scss */
-form ul > li {
-  position: relative;
-  margin-bottom: 1.25em;
+/* line 83, ../sass/includes/_forms.scss */
+form .control-group {
   *zoom: 1;
+  padding-bottom: 16px;
+  padding-bottom: 1rem;
+  position: relative;
 }
 /* line 44, ../sass/includes/_grid.scss */
-form ul > li:before, form ul > li:after {
+form .control-group:before, form .control-group:after {
   display: block;
   height: 0 !important;
   line-height: 0;
@@ -967,171 +981,127 @@ form ul > li:before, form ul > li:after {
   content: ".";
 }
 /* line 45, ../sass/includes/_grid.scss */
-form ul > li:after {
+form .control-group:after {
   clear: both;
+}
+/* line 89, ../sass/includes/_forms.scss */
+form .control-group:first-child {
+  padding-top: 16px;
+  padding-top: 1rem;
 }
 /* line 93, ../sass/includes/_forms.scss */
-form ul > li > label {
-  padding-left: 0.6em;
-  display: block;
-  color: #999;
-}
-/* line 101, ../sass/includes/_forms.scss */
-form ul > li > label small {
-  display: inline-block;
-}
-/* line 106, ../sass/includes/_forms.scss */
-form ul > li p, form ul > li small {
-  display: block;
-  margin: 0.6em 0.6em 0.25em 0px;
-}
-/* line 111, ../sass/includes/_forms.scss */
-form ul > li ul.checklist {
-  margin: 0.6em 0.6em 0.6em 0px;
-}
-/* line 114, ../sass/includes/_forms.scss */
-form ul > li ul.checklist > li {
-  margin: 0.5em 0;
-}
-/* line 116, ../sass/includes/_forms.scss */
-form ul > li ul.checklist input {
-  display: inline-block;
-  margin-right: 0.5em;
-}
-/* line 121, ../sass/includes/_forms.scss */
-form ul > li ul.checklist label {
-  clear: both;
-  float: none;
-  margin-left: 0;
-  margin-right: 0;
-  width: auto;
-  font-weight: normal;
-}
-/* line 124, ../sass/includes/_forms.scss */
-form ul > li ul.checklist label:hover {
-  color: #000;
-  cursor: pointer;
-}
-/* line 134, ../sass/includes/_forms.scss */
-form span.error {
-  color: #d24226;
-  margin: 0.6em 0.6em 0.6em 0px;
-  display: block;
-}
-/* line 142, ../sass/includes/_forms.scss */
-form input.error {
-  border: 1px solid #d24226;
-  -webkit-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
-  -moz-box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
-  box-shadow: 0px 0px 3px #df644c, inset 0 0 0;
-}
-/* line 145, ../sass/includes/_forms.scss */
-form input.error:focus {
-  border: 1px solid #d24226;
-}
-/* line 147, ../sass/includes/_forms.scss */
-form input.error::-webkit-input-placeholder {
-  color: #e68a78;
-}
-/* line 151, ../sass/includes/_forms.scss */
-form input.error:-moz-placeholder {
-  color: #e68a78;
-}
-/* line 157, ../sass/includes/_forms.scss */
-form.labeled {
-  margin: 30px;
-  margin: 1.875rem;
-  *zoom: 1;
-}
-/* line 44, ../sass/includes/_grid.scss */
-form.labeled:before, form.labeled:after {
-  display: block;
-  height: 0 !important;
-  line-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  content: ".";
-}
-/* line 45, ../sass/includes/_grid.scss */
-form.labeled:after {
-  clear: both;
-}
-/* line 160, ../sass/includes/_forms.scss */
-form.labeled input[type='text'] {
+form .control-group .control-label {
   float: left;
-  width: 72.91667%;
-  margin-left: 2.08333%;
-  margin-right: 0%;
+  width: 27.08333%;
+  margin-left: 4.16667%;
+  margin-right: 2.08333%;
+  padding: 0.6em 0;
+  text-align: left;
 }
-/* line 163, ../sass/includes/_forms.scss */
-form.labeled input[type='number'] {
+/* line 99, ../sass/includes/_forms.scss */
+form .control-group .controls {
   float: left;
-  width: 12.5%;
+  width: 62.5%;
   margin-left: 2.08333%;
   margin-right: 2.08333%;
 }
-/* line 168, ../sass/includes/_forms.scss */
-form div.label {
+/* line 102, ../sass/includes/_forms.scss */
+form .control-group .controls .inline-prepend {
   float: left;
-  width: 25%;
+  width: 47.91667%;
   margin-left: 0%;
-  margin-right: 0%;
-  padding: 10px;
-  padding: 0.625rem;
-  font-size: 18px;
-  font-size: 1.125rem;
-  clear: left;
-  font-weight: bold;
-  color: #999999;
+  margin-right: 2.08333%;
 }
-/* line 175, ../sass/includes/_forms.scss */
-form div.label.ok {
-  color: #00c051;
-}
-/* line 178, ../sass/includes/_forms.scss */
-form div.label.wide {
+/* line 106, ../sass/includes/_forms.scss */
+form .control-group .controls .inline-append {
   float: left;
-  width: 100%;
-  margin-left: 0%;
+  width: 47.91667%;
+  margin-left: 2.08333%;
   margin-right: 0%;
 }
-/* line 184, ../sass/includes/_forms.scss */
-form .big-radio label {
-  padding: 10px;
-  padding: 0.625rem;
-  padding: 10px;
+/* line 112, ../sass/includes/_forms.scss */
+form .errors {
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: 0%;
+  position: absolute;
+  right: -57%;
+  background-color: #b84040;
+  border: 1px solid #933333;
+  padding: 0.6em;
   color: white;
-  font-family: "Futura Std";
-  font-weight: bold;
-  font-size: 18px;
-  font-size: 1.125rem;
-  display: inline-block;
-  text-align: center;
-  margin-bottom: 10px;
-  background-color: #999999;
-  cursor: pointer;
 }
-/* line 197, ../sass/includes/_forms.scss */
-form .big-radio input[type=radio] {
-  display: none;
+/* line 122, ../sass/includes/_forms.scss */
+form .errors p {
+  margin: 0;
 }
-/* line 200, ../sass/includes/_forms.scss */
-form .big-radio input[type=radio]:checked + label {
-  background-color: #00c051;
+/* line 126, ../sass/includes/_forms.scss */
+form .errors:after {
+  top: 7px;
+  top: 0.4375rem;
+  position: absolute;
+  display: block;
+  left: -14px;
+  width: 14px;
+  height: 23px;
+  background: url("../images/form-error-back-arrow.png") transparent no-repeat 0 0;
+  content: ' ';
 }
-/* line 204, ../sass/includes/_forms.scss */
-form .big-radio.radio2 label {
+/* line 138, ../sass/includes/_forms.scss */
+form .btn {
+  margin-top: 16px;
+  margin-top: 1rem;
+}
+
+/* line 148, ../sass/includes/_forms.scss */
+input[type="checkbox"],
+input[type="radio"] {
   float: left;
-  width: 35.41667%;
-  margin-left: 2.08333%;
-  margin-right: 0%;
+  opacity: 0;
+  width: 32px;
+  height: 32px;
+  margin-right: 16px;
+  margin-right: 1rem;
 }
-/* line 209, ../sass/includes/_forms.scss */
-form .big-radio.radio4 label {
-  float: left;
-  width: 16.66667%;
-  margin-left: 2.08333%;
-  margin-right: 0%;
+
+/* line 158, ../sass/includes/_forms.scss */
+input[type="checkbox"] + span,
+input[type="radio"] + span {
+  margin-bottom: 16px;
+  margin-bottom: 1rem;
+  display: block;
+  line-height: 32px;
+  background: url("../images/form-checkbox-default.png") transparent no-repeat 0 0;
+}
+
+/* line 166, ../sass/includes/_forms.scss */
+input[type="radio"] + span {
+  background: url("../images/form-radio-default.png") transparent no-repeat 0 0;
+}
+
+/* line 170, ../sass/includes/_forms.scss */
+input[type="checkbox"]:checked + span {
+  background: url("../images/form-checkbox-checked.png") transparent no-repeat 0 0;
+}
+
+/* line 174, ../sass/includes/_forms.scss */
+input[type="radio"]:checked + span {
+  background: url("../images/form-radio-checked.png") transparent no-repeat 0 0;
+}
+
+/* line 186, ../sass/includes/_forms.scss */
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  cursor: not-allowed;
+  background-color: #e9e9e9;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 /* =========== Tables */
@@ -1297,7 +1267,7 @@ a.button[disabled]:hover, [disabled].button-donate:hover, a.btn[disabled]:hover,
 /* line 71, ../sass/includes/_buttons.scss */
 a.button[disabled]:active, [disabled].button-donate:active, a.btn[disabled]:active, input[type="submit"][disabled]:active, button[disabled]:active {
   position: relative;
-  color: #d24226;
+  color: #b84040;
   top: 0px;
 }
 /* line 80, ../sass/includes/_buttons.scss */
@@ -1376,24 +1346,24 @@ a.button.success:active, .success.button-donate:active, a.button.success:focus, 
 }
 /* line 123, ../sass/includes/_buttons.scss */
 a.button.alert, .alert.button-donate, a.btn.alert, input[type="submit"].alert, button.alert {
-  border-color: #7c2716;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d24226), color-stop(100%, #a7341e));
-  background: -webkit-linear-gradient(top, #d24226, #a7341e);
-  background: -moz-linear-gradient(top, #d24226, #a7341e);
-  background: -o-linear-gradient(top, #d24226, #a7341e);
-  background: linear-gradient(top, #d24226, #a7341e);
+  border-color: #6c2626;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #b84040), color-stop(100%, #923333));
+  background: -webkit-linear-gradient(top, #b84040, #923333);
+  background: -moz-linear-gradient(top, #b84040, #923333);
+  background: -o-linear-gradient(top, #b84040, #923333);
+  background: linear-gradient(top, #b84040, #923333);
 }
 /* line 126, ../sass/includes/_buttons.scss */
 a.button.alert:hover, .alert.button-donate:hover, a.btn.alert:hover, input[type="submit"].alert:hover, button.alert:hover {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #df644c), color-stop(100%, #a7341e));
-  background: -webkit-linear-gradient(top, #df644c, #a7341e);
-  background: -moz-linear-gradient(top, #df644c, #a7341e);
-  background: -o-linear-gradient(top, #df644c, #a7341e);
-  background: linear-gradient(top, #df644c, #a7341e);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c96262), color-stop(100%, #923333));
+  background: -webkit-linear-gradient(top, #c96262, #923333);
+  background: -moz-linear-gradient(top, #c96262, #923333);
+  background: -o-linear-gradient(top, #c96262, #923333);
+  background: linear-gradient(top, #c96262, #923333);
 }
 /* line 129, ../sass/includes/_buttons.scss */
 a.button.alert:active, .alert.button-donate:active, a.button.alert:focus, .alert.button-donate:focus, a.btn.alert:active, a.btn.alert:focus, input[type="submit"].alert:active, input[type="submit"].alert:focus, button.alert:active, button.alert:focus {
-  background: #912e1a;
+  background: #7f2c2c;
 }
 /* line 134, ../sass/includes/_buttons.scss */
 a.button.top, .top.button-donate, a.btn.top, input[type="submit"].top, button.top {
@@ -1505,13 +1475,13 @@ ul.messages li.success {
 }
 /* line 23, ../sass/includes/_messages.scss */
 ul.messages li.error, ul.messages li.fail, ul.messages li.alert {
-  border-color: #d24226;
-  color: #d24226;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fae7e3), color-stop(100%, #f6d4ce));
-  background: -webkit-linear-gradient(top, #fae7e3, #f6d4ce);
-  background: -moz-linear-gradient(top, #fae7e3, #f6d4ce);
-  background: -o-linear-gradient(top, #fae7e3, #f6d4ce);
-  background: linear-gradient(top, #fae7e3, #f6d4ce);
+  border-color: #b84040;
+  color: #b84040;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f7e7e7), color-stop(100%, #f0d4d4));
+  background: -webkit-linear-gradient(top, #f7e7e7, #f0d4d4);
+  background: -moz-linear-gradient(top, #f7e7e7, #f0d4d4);
+  background: -o-linear-gradient(top, #f7e7e7, #f0d4d4);
+  background: linear-gradient(top, #f7e7e7, #f0d4d4);
 }
 /* line 29, ../sass/includes/_messages.scss */
 ul.messages.success {
@@ -1536,24 +1506,24 @@ ul.messages.success:active, ul.messages.success:focus {
 }
 /* line 40, ../sass/includes/_messages.scss */
 ul.messages.alert {
-  border-color: #7c2716;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d24226), color-stop(100%, #a7341e));
-  background: -webkit-linear-gradient(top, #d24226, #a7341e);
-  background: -moz-linear-gradient(top, #d24226, #a7341e);
-  background: -o-linear-gradient(top, #d24226, #a7341e);
-  background: linear-gradient(top, #d24226, #a7341e);
+  border-color: #6c2626;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #b84040), color-stop(100%, #923333));
+  background: -webkit-linear-gradient(top, #b84040, #923333);
+  background: -moz-linear-gradient(top, #b84040, #923333);
+  background: -o-linear-gradient(top, #b84040, #923333);
+  background: linear-gradient(top, #b84040, #923333);
 }
 /* line 43, ../sass/includes/_messages.scss */
 ul.messages.alert:hover {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #df644c), color-stop(100%, #a7341e));
-  background: -webkit-linear-gradient(top, #df644c, #a7341e);
-  background: -moz-linear-gradient(top, #df644c, #a7341e);
-  background: -o-linear-gradient(top, #df644c, #a7341e);
-  background: linear-gradient(top, #df644c, #a7341e);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c96262), color-stop(100%, #923333));
+  background: -webkit-linear-gradient(top, #c96262, #923333);
+  background: -moz-linear-gradient(top, #c96262, #923333);
+  background: -o-linear-gradient(top, #c96262, #923333);
+  background: linear-gradient(top, #c96262, #923333);
 }
 /* line 46, ../sass/includes/_messages.scss */
 ul.messages.alert:active, ul.messages.alert:focus {
-  background: #912e1a;
+  background: #7f2c2c;
 }
 
 /* =========== Pagination */
@@ -3355,7 +3325,7 @@ ul.steps li.selected a {
   content: ' ';
 }
 
-/* line 9, ../sass/modules/_donation.scss */
+/* line 2, ../sass/modules/_donation.scss */
 .donation-steps,
 .voucher-steps {
   margin: 16px 0;
@@ -3367,14 +3337,14 @@ ul.steps li.selected a {
   margin-right: 2.08333%;
   overflow: hidden;
 }
-/* line 19, ../sass/modules/_donation.scss */
+/* line 11, ../sass/modules/_donation.scss */
 .donation-steps li,
 .voucher-steps li {
   display: inline-block;
   background: transparent url("../images/donation-step.png") no-repeat right center;
   position: relative;
 }
-/* line 24, ../sass/modules/_donation.scss */
+/* line 16, ../sass/modules/_donation.scss */
 .donation-steps li a,
 .voucher-steps li a {
   display: block;
@@ -3390,18 +3360,18 @@ ul.steps li.selected a {
   background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
 }
-/* line 39, ../sass/modules/_donation.scss */
+/* line 31, ../sass/modules/_donation.scss */
 .donation-steps li.is-selected,
 .voucher-steps li.is-selected {
   background: transparent url("../images/donation-step-select.png") no-repeat right center;
 }
-/* line 42, ../sass/modules/_donation.scss */
+/* line 34, ../sass/modules/_donation.scss */
 .donation-steps li.is-selected a,
 .voucher-steps li.is-selected a {
   background-color: #00c051;
   color: white;
 }
-/* line 48, ../sass/modules/_donation.scss */
+/* line 40, ../sass/modules/_donation.scss */
 .donation-steps li.support,
 .voucher-steps li.support {
   z-index: 4;
@@ -3410,18 +3380,18 @@ ul.steps li.selected a {
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 51, ../sass/modules/_donation.scss */
+/* line 43, ../sass/modules/_donation.scss */
 .donation-steps li.support a,
 .voucher-steps li.support a {
   padding-left: 50px;
   background-position: 18px -652px;
 }
-/* line 57, ../sass/modules/_donation.scss */
+/* line 49, ../sass/modules/_donation.scss */
 .donation-steps li.support.is-selected a,
 .voucher-steps li.support.is-selected a {
   background-position: 18px -850px;
 }
-/* line 63, ../sass/modules/_donation.scss */
+/* line 55, ../sass/modules/_donation.scss */
 .donation-steps li.details,
 .voucher-steps li.details {
   z-index: 3;
@@ -3430,18 +3400,18 @@ ul.steps li.selected a {
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 66, ../sass/modules/_donation.scss */
+/* line 58, ../sass/modules/_donation.scss */
 .donation-steps li.details a,
 .voucher-steps li.details a {
   padding-left: 70px;
   background-position: 38px -375px;
 }
-/* line 71, ../sass/modules/_donation.scss */
+/* line 63, ../sass/modules/_donation.scss */
 .donation-steps li.details.is-selected a,
 .voucher-steps li.details.is-selected a {
   background-position: 38px -494px;
 }
-/* line 76, ../sass/modules/_donation.scss */
+/* line 68, ../sass/modules/_donation.scss */
 .donation-steps li.profile,
 .voucher-steps li.profile {
   z-index: 2;
@@ -3450,18 +3420,18 @@ ul.steps li.selected a {
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 79, ../sass/modules/_donation.scss */
+/* line 71, ../sass/modules/_donation.scss */
 .donation-steps li.profile a,
 .voucher-steps li.profile a {
   padding-left: 70px;
   background-position: 38px -416px;
 }
-/* line 84, ../sass/modules/_donation.scss */
+/* line 76, ../sass/modules/_donation.scss */
 .donation-steps li.profile.is-selected a,
 .voucher-steps li.profile.is-selected a {
   background-position: 38px -573px;
 }
-/* line 89, ../sass/modules/_donation.scss */
+/* line 81, ../sass/modules/_donation.scss */
 .donation-steps li.payment,
 .voucher-steps li.payment {
   z-index: 1;
@@ -3471,26 +3441,26 @@ ul.steps li.selected a {
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 93, ../sass/modules/_donation.scss */
+/* line 85, ../sass/modules/_donation.scss */
 .donation-steps li.payment a,
 .voucher-steps li.payment a {
   padding-left: 70px;
   background-position: 38px -163px;
 }
-/* line 100, ../sass/modules/_donation.scss */
+/* line 92, ../sass/modules/_donation.scss */
 .donation-steps li.payment.is-selected a,
 .voucher-steps li.payment.is-selected a {
   background-position: 38px -206px;
 }
 
-/* line 115, ../sass/modules/_donation.scss */
+/* line 107, ../sass/modules/_donation.scss */
 .voucher-steps li.profile {
   float: left;
   width: 56.25%;
   margin-left: 0%;
   margin-right: -4.16667%;
 }
-/* line 118, ../sass/modules/_donation.scss */
+/* line 110, ../sass/modules/_donation.scss */
 .voucher-steps li.support {
   float: left;
   width: 52.08333%;
@@ -3498,15 +3468,18 @@ ul.steps li.selected a {
   margin-right: -4.16667%;
 }
 
-/* line 124, ../sass/modules/_donation.scss */
+/* line 116, ../sass/modules/_donation.scss */
 #donation-projects {
+  padding: 0;
   list-style: none;
+  background-color: white;
 }
-/* line 128, ../sass/modules/_donation.scss */
+/* line 121, ../sass/modules/_donation.scss */
 #donation-projects .donation-project {
   position: relative;
-  border-bottom: 5px solid #f3f3f3;
   padding: 16px;
+  padding: 1rem;
+  border-bottom: 5px solid #eeeeee;
 }
 /* line 5, ../sass/mixins/_utilities.scss */
 #donation-projects .donation-project:hover .remove {
@@ -3529,7 +3502,7 @@ ul.steps li.selected a {
   overflow: hidden;
   text-align: left;
 }
-/* line 133, ../sass/modules/_donation.scss */
+/* line 127, ../sass/modules/_donation.scss */
 #donation-projects .donation-project img {
   float: left;
   width: 16.66667%;
@@ -3537,20 +3510,18 @@ ul.steps li.selected a {
   margin-right: 0%;
   float: left;
 }
-/* line 138, ../sass/modules/_donation.scss */
+/* line 132, ../sass/modules/_donation.scss */
 #donation-projects .donation-project h1 {
   float: left;
-  width: 54.16667%;
+  width: 45.83333%;
   margin-left: 2.08333%;
   margin-right: 2.08333%;
   font-size: 22px;
-  font-size: 1.375rem;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  font-size: 1.37375rem;
   padding: 0;
-  color: #454545;
+  color: #050505;
 }
-/* line 148, ../sass/modules/_donation.scss */
+/* line 139, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .country {
   display: block;
   font-size: 14px;
@@ -3558,106 +3529,171 @@ ul.steps li.selected a {
   font-style: normal;
   font-weight: normal;
 }
-/* line 155, ../sass/modules/_donation.scss */
+/* line 146, ../sass/modules/_donation.scss */
 #donation-projects .donation-project .donation-amount {
   float: left;
-  width: 25%;
+  width: 33.33333%;
   margin-left: 0%;
   margin-right: 0%;
-  margin: 8px 0;
   text-align: right;
 }
-/* line 161, ../sass/modules/_donation.scss */
+/* line 151, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover {
-  background-color: #f3f3f3;
+  background-color: #eeeeee;
 }
-/* line 163, ../sass/modules/_donation.scss */
+/* line 153, ../sass/modules/_donation.scss */
 #donation-projects .donation-project:hover h1 {
   color: #ff619a;
 }
-/* line 168, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .amount-needed {
-  color: #b9b8b8;
+
+/* line 161, ../sass/modules/_donation.scss */
+.donation-amount .amount-needed {
   font-size: 13px;
+  font-size: 0.8125rem;
+  color: #b9b8b8;
   display: block;
+}
+/* line 168, ../sass/modules/_donation.scss */
+.donation-amount .amount-control {
+  float: right;
+  width: 211px;
+  height: 53px;
+  margin-top: 1.25em;
 }
 /* line 174, ../sass/modules/_donation.scss */
-#donation-projects .donation-project label {
-  font-size: 18px;
-  font-size: 1.125rem;
+.donation-amount .amount-control label {
+  float: left;
+  width: 33.33333%;
+  margin-left: 0%;
+  margin-right: 0%;
+  font-size: 10px;
+  padding: 12px;
+  color: white;
+  height: 53px;
+  line-height: 1.5;
   font-weight: bold;
-  color: #00c051;
-  display: block;
-  margin-bottom: 8px;
+  text-align: center;
+  background: #00c051;
+  text-transform: uppercase;
+  border: 1px solid #00a746;
 }
-/* line 182, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .currency {
-  display: inline-block;
+/* line 190, ../sass/modules/_donation.scss */
+.donation-amount .amount-control .currency {
   position: relative;
 }
-/* line 186, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .currency em {
-  position: absolute;
-  left: 16px;
-  top: 15px;
-  font-size: 28px;
-}
 /* line 193, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .currency input {
-  width: 135px;
+.donation-amount .amount-control .currency em {
+  font-size: 28px;
+  font-size: 1.75rem;
+  position: absolute;
+  left: -130px;
+  top: 15px;
+  font-style: normal;
+  font-weight: bold;
+  color: #050505;
+}
+/* line 202, ../sass/modules/_donation.scss */
+.donation-amount .amount-control .currency.big {
+  font-size: 28px;
+  font-weight: bold;
+}
+/* line 208, ../sass/modules/_donation.scss */
+.donation-amount .amount-control input {
+  float: left;
+  width: 66.66667%;
+  margin-left: 0%;
+  margin-right: 0%;
+  height: 53px;
   font-size: 28px;
   padding: 8px 8px 8px 40px;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
   font-weight: bold;
   margin: 0;
-}
-/* line 200, ../sass/modules/_donation.scss */
-#donation-projects .donation-project .currency.big {
-  font-size: 28px;
-  font-weight: bold;
+  line-height: 1;
 }
 
-/* line 209, ../sass/modules/_donation.scss */
+/* line 221, ../sass/modules/_donation.scss */
 .add-project {
+  margin: 16px 0;
+  margin: 1rem 0;
+  float: left;
   padding-left: 32px;
-  margin: 0 16px 0 16px;
-  float: right;
-  color: #525252;
+  color: #444444;
   background-image: url('../images/sprites/icons-sbbafc246d3.png');
   background-repeat: no-repeat;
   background-position: 2px -87px;
+  text-transform: uppercase;
+  line-height: 24px;
 }
-/* line 218, ../sass/modules/_donation.scss */
+/* line 233, ../sass/modules/_donation.scss */
 .add-project:hover, .add-project:active {
   color: #050505;
   text-decoration: underline;
 }
 
-/* line 224, ../sass/modules/_donation.scss */
+/* line 239, ../sass/modules/_donation.scss */
 .donation-frequency {
-  padding: 16px 16px 16px 18.75%;
-  background: #f3f3f3;
+  background: #e9e9e9;
 }
-/* line 228, ../sass/modules/_donation.scss */
+/* line 242, ../sass/modules/_donation.scss */
 .donation-frequency .label {
+  padding: 16px 16px 16px 20.83333%;
+  padding: 1rem 1rem 1rem 20.83333%;
   font-size: 22px;
   font-size: 1.375rem;
+  background-color: #cccccc;
   font-weight: bold;
   margin: 0px 0px 8px 0px;
   display: block;
+  text-transform: uppercase;
+  color: #050505;
 }
-/* line 235, ../sass/modules/_donation.scss */
+/* line 253, ../sass/modules/_donation.scss */
+.donation-frequency .label .currency {
+  float: right;
+  color: white;
+}
+/* line 259, ../sass/modules/_donation.scss */
+.donation-frequency .radio.inline {
+  *zoom: 1;
+  float: left;
+  width: 39.58333%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+/* line 44, ../sass/includes/_grid.scss */
+.donation-frequency .radio.inline:before, .donation-frequency .radio.inline:after {
+  display: block;
+  height: 0 !important;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  content: ".";
+}
+/* line 45, ../sass/includes/_grid.scss */
+.donation-frequency .radio.inline:after {
+  clear: both;
+}
+/* line 262, ../sass/modules/_donation.scss */
+.donation-frequency .radio.inline:first-child {
+  float: left;
+  width: 39.58333%;
+  margin-left: 20.83333%;
+  margin-right: 0%;
+}
+/* line 267, ../sass/modules/_donation.scss */
 .donation-frequency .checkbox {
   display: block;
   color: #999999;
   cursor: pointer;
 }
-/* line 239, ../sass/modules/_donation.scss */
+/* line 271, ../sass/modules/_donation.scss */
 .donation-frequency .checkbox.checked {
   color: #00c051;
   font-weight: bold;
 }
 
-/* line 247, ../sass/modules/_donation.scss */
+/* line 278, ../sass/modules/_donation.scss */
 .intro {
   padding: 0px 0px 8px 28px;
   text-transform: uppercase;
