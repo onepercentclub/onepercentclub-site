@@ -494,10 +494,9 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
 
 App.CurrentOrderFinalRoute = Ember.Route.extend({
     model: function(params) {
-        // FIXME: change this once Bens changes in statement is in.
-        // var order = App.CurrentOrder.find('checkout');
-        var order = App.CurrentOrder.find('current');
-        // Send request to check it
+        var order = App.CurrentOrder.find('checkout');
+        // Send request to notify the server that payment process is finalized.
+        // The server will do another check later.
         order.on('didLoad', function(){
             var transaction = this.get('store').transaction();
             transaction.add(order);

@@ -108,7 +108,8 @@ class CurrentOrderMixin(object):
     def get_checkout_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.filter(user=self.request.user, status=OrderStatuses.checkout).get()
+                # THe user can have multiple orders in checkout state. Make sure to return only the latest.
+                order = Order.objects.filter(user=self.request.user, status=OrderStatuses.checkout).order_by('-created')[0]
             except Order.DoesNotExist:
                 return None
         else:
@@ -116,7 +117,7 @@ class CurrentOrderMixin(object):
             order_id = self.request.session.get('cart_order_id')
             if order_id:
                 try:
-                    order = Order.objects.filter(status=Order.OrderStatuses.checkout).get(id=order_id)
+                    order = Order.objects.filter(status=OrderStatuses.checkout, id=order_id).get()
                 except Order.DoesNotExist:
                     # The order_id was not a Order in the db, return None
                     return None

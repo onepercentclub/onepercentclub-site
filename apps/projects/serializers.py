@@ -40,13 +40,14 @@ class ProjectSerializer(serializers.ModelSerializer):
     money_asked = EuroField(source='money_asked')
     money_donated = EuroField(source='money_donated')
     image = SorlImageField('image', '800x450')
+    image_bg = SorlImageField('image', '800x450', colorspace="GRAY")
     image_small = SorlImageField('image', '200x120')
     image_square = SorlImageField('image', '120x120')
     description = serializers.CharField(source='description', read_only=True)
 
     class Meta:
         model = Project
-        fields = ('id', 'country', 'created', 'image', 'image_small', 'image_square', 'language', 'latitude',
+        fields = ('id', 'country', 'created', 'image', 'image_small', 'image_square', 'image_bg', 'language', 'latitude',
                   'longitude', 'money_asked', 'money_donated', 'organization', 'owner', 'phase',
                   'planned_end_date', 'planned_start_date', 'tags', 'themes', 'title', 'url', 'description')
 

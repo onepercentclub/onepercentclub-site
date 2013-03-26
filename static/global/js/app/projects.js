@@ -18,6 +18,7 @@ App.Project = DS.Model.extend({
     image: DS.attr('string'),
     image_small: DS.attr('string'),
     image_square: DS.attr('string'),
+    image_bg: DS.attr('string'),
     phase: DS.attr('string'),
     organization: DS.attr('string'),
     description: DS.attr('string'),
@@ -86,6 +87,12 @@ App.ProjectView = Em.View.extend({
     templateName: 'project',
 
     didInsertElement: function(){
+        this.$('#detail').css('background', 'url("' + this.get('controller.image_bg') + '") 50% 50%');
+        this.$('#detail').css('background-size', '100%');
+
+        // TODO: The 50% dark background doesn't work this way. :-s
+        this.$('#detail').css('backgroundColor', 'rgba(0,0,0,0.5)');
+
         var donated = this.get('controller.money_donated');
         var asked = this.get('controller.money_asked');
         this.$('.donate-progress').css('width', '0px');
@@ -94,6 +101,6 @@ App.ProjectView = Em.View.extend({
             width = 100 * donated / asked;
             width += '%';
         }
-        //this.$('.donate-progress').animate({'width': width}, 1000);
+        this.$('.donate-progress').animate({'width': width}, 1000);
     }
 });
