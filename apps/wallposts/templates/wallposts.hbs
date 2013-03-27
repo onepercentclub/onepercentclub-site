@@ -18,7 +18,9 @@
                     {{view App.TextWallPostNewView content=content}}
                 {{/if}}
             {{else}}
-                <form>{% trans "Login to leave a comment." %}</form>
+                <form>
+                    <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
+                </form>
             {{/if}}
 
         </section>
@@ -31,52 +33,72 @@
 
     <fieldset>
         <ul>
-            <li {{bindAttr class="errors.title.length:error"}}>
-                {{#each errors.title}}
-                    <span class="error">{{this}}</span>
-                {{/each}}
-                <label for="wallpost-title" class="inline">
+            <li class="control-group">
+                <label class="control-label" for="wallpost-title">
                     {% trans "Title of your update." %}
                 </label>
-                {{view Ember.TextField valueBinding="title" id="wallpost-title" name="wallpost-title"}}
+
+                <div class="controls">
+                    {{view Ember.TextField valueBinding="title" id="wallpost-title" name="wallpost-title" classBinding="errors.title.length:error"}}
+                </div>
+
+                {{#if errors.title }}
+                    <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
             </li>
-            <li {{bindAttr class="errors.text.length:error"}}>
-                {{#each errors.text}}
-                    <span class="error">{{this}}</span>
-                {{/each}}
-                <label for="wallpost-update" class="inline">
+
+            <li class="control-group">
+                <label class="control-label" for="wallpost-update">
                     {% trans "Your update." %}
                 </label>
-                {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+
+                <div class="controls">
+                    {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update" classBinding="errors.text.length:error"}}
+                </div>
+
+                {{#if errors.text }}
+                    <div class="errors">{{#each errors.text }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
             </li>
-            <li {{bindAttr class="errors.video_url.length:error"}}>
-                {{#each errors.video_url}}
-                    <span class="error">{{this}}</span>
-                {{/each}}
-                <label for="wallpost-video" class="inline">
+
+            <li class="control-group">
+                <label class="control-label" for="wallpost-video" >
                     {% trans "Link to video on YouTube or Vimeo." %}
                 </label>
-                {{view Ember.TextField valueBinding="video_url" id="wallpost-video" name="wallpost-video"}}
+
+                <div class="controls">
+                    {{view Ember.TextField valueBinding="video_url" id="wallpost-video" name="wallpost-video" classBinding="errors.video_url.length:error"}}
+                </div>
+
+                {{#if errors.video_url}}
+                    <div class="errors">{{#each errors.video_url}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
             </li>
-            <li>
-                <label for="wallpost-photo">{% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small></label>
-                {{view App.UploadFileView valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
-                <ul class="wallpost-photos">
-                    {{#each photo in files}}
-                        <li>
-                            {{#if photo.errors}}
-                                <span class="error">{% trans "Error" %}</span>
-                            {{else}}
-                                {{#if photo.thumbnail}}
-                                    <img {{bindAttr src="photo.thumbnail"}} width="100%" alt="Thumbnail" />
-                                    <a {{action "removePhoto" photo href=true}} class="remove">[x]</a>
+
+            <li class="control-group">
+                <label class="control-label" for="wallpost-photo">
+                    {% trans "Upload & add Photo's" %} <small>{% trans "(620 x 380 minimum for best results)" %}</small>
+                </label>
+
+                <div class="controls">
+                    {{view App.UploadFileView valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                    <ul class="wallpost-photos">
+                        {{#each photo in files}}
+                            <li>
+                                {{#if photo.errors}}
+                                    <span class="error">{% trans "Error" %}</span>
                                 {{else}}
-                                    <img src="{% get_static_prefix %}images/loading.gif" width="20%" alt="Thumbnail" />
+                                    {{#if photo.thumbnail}}
+                                        <img {{bindAttr src="photo.thumbnail"}} width="100%" alt="Thumbnail" />
+                                        <a {{action "removePhoto" photo href=true}} class="remove">[x]</a>
+                                    {{else}}
+                                        <img src="{% get_static_prefix %}images/loading.gif" width="100%" alt="Thumbnail" />
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
-                        </li>
-                    {{/each}}
-                </ul>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
             </li>
         </ul>
     </fieldset>
