@@ -138,6 +138,38 @@ form {
     .btn {
         @include rem(margin-top, 16px);
     }
+
+    .big-radio {
+        label {
+            @include rem(padding, 10px 0 5px);
+            @include rem(font-size, 18px);
+
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+
+            text-align: center;
+            background-color: $gray;
+            border: 1px solid darken($gray, $btnBorderDarkenPercentage);
+        }
+        input[type=radio] {
+            display: none;
+        }
+        input[type=radio]:checked+label {
+            background-color: $green;
+            border-color: darken($green, $btnBorderDarkenPercentage);
+        }
+        &.radio2 {
+            label{
+                @include grid(24);
+            }
+        }
+        &.radio4 {
+            label {
+                @include grid(12);
+            }
+        }
+    }
 }
 
 // Checkboxes & Radios
