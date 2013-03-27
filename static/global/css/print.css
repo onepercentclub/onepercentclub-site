@@ -2,7 +2,7 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> */
 /* =========== Print */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\000037}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\000037}}
 * {
   background: transparent !important;
   color: black !important;
@@ -12,44 +12,44 @@
 }
 
 /* Black prints faster: h5bp.com/s */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\000038}}
 a, a:visited {
   text-decoration: underline;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\000039}}
 a[href]:after {
   content: " (" attr(href) ")";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\0000310}}
 abbr[title]:after {
   content: " (" attr(title) ")";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\0000311}}
 .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
   content: "";
 }
 
 /* Don't show links for images, or javascript/internal links */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\0000312}}
 pre, blockquote {
   page-break-inside: avoid;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\0000313}}
 thead {
   display: table-header-group;
 }
 
 /* h5bp.com/t */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\0000314}}
 tr, img {
   page-break-inside: avoid;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\0000315}}
 img {
   max-width: 100% !important;
 }
@@ -58,13 +58,13 @@ img {
   margin: 2cm;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\0000317}}
 p, h2, h3 {
   orphans: 3;
   widows: 3;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/FransTwisk\/Dropbox\/Webserver\/1procentclub\/static\/global\/sass\/print\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/print\.scss}line{font-family:\0000318}}
 h2, h3 {
   page-break-after: avoid;
 }
