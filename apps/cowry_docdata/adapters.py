@@ -202,7 +202,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
                                            menuPreferences, shopper, amount, billTo)
         if hasattr(reply, 'createSuccess'):
-            payment.payment_order_key = reply['createSuccess']['key']
+            payment.payment_order_key = str(reply['createSuccess']['key'])
             self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
         elif hasattr(reply, 'createError'):
             payment.save()
