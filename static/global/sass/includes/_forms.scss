@@ -32,6 +32,10 @@ label {
 form {
     fieldset {
         background-color: $color-back;
+
+        &:last-of-type {
+            @include rem(margin-bottom, 16px);
+        }
     }
 
     .form-meta {
@@ -47,12 +51,22 @@ form {
         color: $green;
         text-transform: uppercase;
         font-weight: 300;
-        margin: 0;
+        margin-bottom: 0;
+    }
+
+    .form-desc {
+        @include grid(48, 2, 1);
+        color: $grayDarker;
     }
 
     .form-divider {
         border-color: #fff;
         margin: 0;
+    }
+
+    .form-summary {
+        @include rem(font-size, 30px);
+        color: $gray;
     }
 
     ul {
@@ -91,6 +105,10 @@ form {
                 @include grid(24, 1, 0);
             }
         }
+
+        &.control-group-lonely {
+            padding: 0;
+        }
     }
 
     .errors {
@@ -119,14 +137,10 @@ form {
         }
     }
 
-    .btn {
-        @include rem(margin-top, 16px);
-    }
-
     .big-radio {
         label {
-            @include rem(padding, 10px 0 5px);
-            @include rem(font-size, 18px);
+            @include rem(padding, 8px 0);
+            @include rem(font-size, $font-size);
 
             color: white;
             cursor: pointer;
@@ -242,4 +256,11 @@ textarea {
     resize: none;
     vertical-align: top;
     display: block;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
