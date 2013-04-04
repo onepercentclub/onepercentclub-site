@@ -13,6 +13,8 @@ legend {
         @include rem(font-size, $fontSizeLarge);
         color: $white;
         text-transform: uppercase;
+        font-weight: 300;
+        line-height: 1;
     }
 
     p {
@@ -27,46 +29,28 @@ label {
 // Form controls
 // -------------------------
 
-select,
-textarea,
-input[type=text],
-input[type=password],
-input[type=number],
-input[type=search],
-input[type=email],
-input[type=tel],
-input[type=url] {
-    border: 1px solid $inputBorder;
-    font-family: $font-family;
-    line-height: 1.5em;
-    padding: 0.6em;
-    width: 100%;
-    background-color: $white;
-
-    @include transition(border 0.1s);
-    @include box-shadow(inset 0px 1px 2px rgba($black, 0.1));
-
-    &:focus {
-        border-color: $green;
-        outline: 0;
-        color: $grayDarker;
-        @include box-shadow(0px 0px 2px rgba($black, 0.3));
-    }
-
-    &.error {
-        border-color: $color-error;
-    }
-}
-
-textarea {
-    overflow: auto;
-    resize: none;
-    vertical-align: top;
-    display: block;
-}
-
 form {
-    hr {
+    fieldset {
+        background-color: $color-back;
+    }
+
+    .form-meta {
+        @include clearfix;
+        @include rem(padding, $padding);
+
+        background-color: $white;
+    }
+
+    .form-label {
+        @include grid(48, 2, 1);
+        @include rem(font-size, $fontSizeLarge);
+        color: $green;
+        text-transform: uppercase;
+        font-weight: 300;
+        margin: 0;
+    }
+
+    .form-divider {
         border-color: #fff;
         margin: 0;
     }
@@ -77,7 +61,6 @@ form {
         margin: 0;
         clear: both;
         list-style: none;
-        background-color: $color-back;
     }
 
     .control-group {
@@ -94,6 +77,7 @@ form {
             @include grid(16, 2, 1);
             padding: 0.6em 0;
             text-align: left;
+            font-weight: 300;
         }
 
         .controls {
@@ -146,11 +130,10 @@ form {
 
             color: white;
             cursor: pointer;
-            font-weight: bold;
 
             text-align: center;
-            background-color: $gray;
-            border: 1px solid darken($gray, $btnBorderDarkenPercentage);
+            background-color: $grayLight;
+            border: 1px solid darken($grayLight, $btnBorderDarkenPercentage);
         }
         input[type=radio] {
             display: none;
@@ -158,6 +141,7 @@ form {
         input[type=radio]:checked+label {
             background-color: $green;
             border-color: darken($green, $btnBorderDarkenPercentage);
+            font-weight: 300;
         }
         &.radio2 {
             label{
@@ -219,4 +203,43 @@ textarea[readonly] {
     cursor: not-allowed;
     background-color: $inputDisabledBackground;
     @include box-shadow(none);
+}
+
+select,
+textarea,
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=email],
+input[type=tel],
+input[type=url] {
+    color: $gray;
+    border: 1px solid $inputBorder;
+    font-family: $font-family;
+    line-height: 1.5em;
+    padding: 0.6em;
+    width: 100%;
+    background-color: $white;
+
+    @include transition(border 0.1s);
+    @include box-shadow(inset 0px 1px 2px rgba($black, 0.1));
+
+    &:focus {
+        border-color: $green;
+        outline: 0;
+        color: $grayDarker;
+        @include box-shadow(0px 0px 2px rgba($black, 0.3));
+    }
+
+    &.error {
+        border-color: $color-error;
+    }
+}
+
+textarea {
+    overflow: auto;
+    resize: none;
+    vertical-align: top;
+    display: block;
 }
