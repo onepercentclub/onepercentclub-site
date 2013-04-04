@@ -32,8 +32,12 @@ admin.site.register(Order, OrderAdmin)
 
 class VoucherAdmin(admin.ModelAdmin):
     model = Voucher
-    list_filter = ('status', 'sender')
-    list_display = ('created', 'amount_euro', 'status', 'sender', 'sender_email', 'receiver_email')
+    list_filter = ('status', )
+    list_display = ('created', 'amount_euro', 'status', 'sender_email', 'receiver_email')
+    readonly_fields = ('sender', 'receiver')
+    fields = readonly_fields + ('status', 'amount', 'currency', 'code', 'sender_email', 'receiver_email',
+                                'receiver_name', 'sender_name', 'message')
+
 
 
 admin.site.register(Voucher, VoucherAdmin)
