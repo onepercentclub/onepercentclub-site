@@ -167,9 +167,11 @@
 
 {% tplhandlebars "current_order_voucher_new" %}
 
-    <fieldset>
-        <legend><strong>{% trans "Choose amount & personalise gift card" %}</strong></legend>
+    <div class="form-meta">
+        <p class="form-label">{% trans "Choose amount & personalise gift card" %}</p>
+    </div>
 
+    <fieldset>
         <ul>
             <li class="control-group">
                 <label class="control-label">{% trans "Language" %}</label>
@@ -235,6 +237,8 @@
             </li>
         </ul>
     </fieldset>
+
+    <hr class="form-divider">
 
     <fieldset>
         <legend><strong>{% trans "This gift card is for:" %}</strong></legend>
@@ -366,9 +370,10 @@
                     {{/if}}
                 </li>
             </ul>
-            <button class="btn right">{% trans 'Next step' %}</button>
         {{/if}}
     </fieldset>
+
+    <button class="btn right">{% trans 'Next step' %}</button>
 
 {% endtplhandlebars %}
 
