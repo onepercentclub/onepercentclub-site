@@ -41,7 +41,7 @@ div.buttons, ul.buttons {
 .dropdown-menu { display: none; }
 
 // The standard button has the $color-brand colors
-a.button, a.btn, input[type="submit"], button {
+a.button, .btn, input[type="submit"], button {
     border: 1px solid darken($green, 5%);
     color: $white;
     cursor: pointer;

@@ -2485,94 +2485,70 @@ legend strong {
   font-size: 1.57rem;
   color: white;
   text-transform: uppercase;
+  font-weight: 300;
+  line-height: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000320}}
 legend p {
   margin: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000325}}
 label {
   display: block;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000338}}
-select,
-textarea,
-input[type=text],
-input[type=password],
-input[type=number],
-input[type=search],
-input[type=email],
-input[type=tel],
-input[type=url] {
-  border: 1px solid #bcbcbc;
-  font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
-  line-height: 1.5em;
-  padding: 0.6em;
-  width: 100%;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000333}}
+form fieldset {
+  background-color: #e9e9e9;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000337}}
+form .form-meta {
+  *zoom: 1;
+  padding: 16px;
+  padding: 1.14286rem;
   background-color: white;
-  -webkit-transition: border 0.1s;
-  -moz-transition: border 0.1s;
-  -o-transition: border 0.1s;
-  transition: border 0.1s;
-  -webkit-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000349}}
-select:focus,
-textarea:focus,
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=number]:focus,
-input[type=search]:focus,
-input[type=email]:focus,
-input[type=tel]:focus,
-input[type=url]:focus {
-  border-color: #00c051;
-  outline: 0;
-  color: #444444;
-  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000356}}
-select.error,
-textarea.error,
-input[type=text].error,
-input[type=password].error,
-input[type=number].error,
-input[type=search].error,
-input[type=email].error,
-input[type=tel].error,
-input[type=url].error {
-  border-color: #b84040;
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000361}}
-textarea {
-  overflow: auto;
-  resize: none;
-  vertical-align: top;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_grid\.scss}line{font-family:\0000344}}
+form .form-meta:before, form .form-meta:after {
   display: block;
+  height: 0 !important;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  content: ".";
 }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000369}}
-form hr {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_grid\.scss}line{font-family:\0000345}}
+form .form-meta:after {
+  clear: both;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000344}}
+form .form-label {
+  float: left;
+  width: 93.75%;
+  margin-left: 4.16667%;
+  margin-right: 2.08333%;
+  font-size: 22px;
+  font-size: 1.57rem;
+  color: #00c051;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000353}}
+form .form-divider {
   border-color: #fff;
   margin: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000358}}
 form ul {
   padding: 16px;
   padding: 1.14286rem;
   margin: 0;
   clear: both;
   list-style: none;
-  background-color: #e9e9e9;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000366}}
 form .control-group {
   *zoom: 1;
   padding-bottom: 16px;
@@ -2592,12 +2568,12 @@ form .control-group:before, form .control-group:after {
 form .control-group:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000372}}
 form .control-group:first-child {
   padding-top: 16px;
   padding-top: 1.14286rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000376}}
 form .control-group .control-label {
   float: left;
   width: 27.08333%;
@@ -2605,29 +2581,30 @@ form .control-group .control-label {
   margin-right: 2.08333%;
   padding: 0.6em 0;
   text-align: left;
+  font-weight: 300;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000383}}
 form .control-group .controls {
   float: left;
   width: 62.5%;
   margin-left: 2.08333%;
   margin-right: 2.08333%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000386}}
 form .control-group .controls .inline-prepend {
   float: left;
   width: 47.91667%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000390}}
 form .control-group .controls .inline-append {
   float: left;
   width: 47.91667%;
   margin-left: 2.08333%;
   margin-right: 0%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\0000396}}
 form .errors {
   float: left;
   width: 50%;
@@ -2640,11 +2617,11 @@ form .errors {
   padding: 0.6em;
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003122}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003106}}
 form .errors p {
   margin: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003110}}
 form .errors:after {
   top: 7px;
   top: 0.5rem;
@@ -2656,12 +2633,12 @@ form .errors:after {
   background: url("../images/form-error-back-arrow.png") transparent no-repeat 0 0;
   content: ' ';
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003138}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003122}}
 form .btn {
   margin-top: 16px;
   margin-top: 1.14286rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003127}}
 form .big-radio label {
   padding: 10px 0 5px;
   padding: 0.71429rem 0 0.35714rem;
@@ -2669,28 +2646,28 @@ form .big-radio label {
   font-size: 1.28571rem;
   color: white;
   cursor: pointer;
-  font-weight: bold;
   text-align: center;
-  background-color: #999999;
-  border: 1px solid #8c8c8c;
+  background-color: #cccccc;
+  border: 1px solid #bfbfbf;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003155}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003138}}
 form .big-radio input[type=radio] {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003158}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003141}}
 form .big-radio input[type=radio]:checked + label {
   background-color: #00c051;
   border-color: #00a746;
+  font-weight: 300;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003163}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003147}}
 form .big-radio.radio2 label {
   float: left;
   width: 50%;
   margin-left: 0%;
   margin-right: 0%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003168}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003152}}
 form .big-radio.radio4 label {
   float: left;
   width: 25%;
@@ -2698,7 +2675,7 @@ form .big-radio.radio4 label {
   margin-right: 0%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003164}}
 input[type="checkbox"],
 input[type="radio"] {
   float: left;
@@ -2709,7 +2686,7 @@ input[type="radio"] {
   margin-right: 1.14286rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003190}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003174}}
 input[type="checkbox"] + span,
 input[type="radio"] + span {
   margin-bottom: 16px;
@@ -2719,22 +2696,22 @@ input[type="radio"] + span {
   background: url("../images/form-checkbox-default.png") transparent no-repeat 0 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003182}}
 input[type="radio"] + span {
   background: url("../images/form-radio-default.png") transparent no-repeat 0 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003202}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003186}}
 input[type="checkbox"]:checked + span {
   background: url("../images/form-checkbox-checked.png") transparent no-repeat 0 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003206}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003190}}
 input[type="radio"]:checked + span {
   background: url("../images/form-radio-checked.png") transparent no-repeat 0 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003218}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003202}}
 input[disabled],
 select[disabled],
 textarea[disabled],
@@ -2746,6 +2723,69 @@ textarea[readonly] {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003216}}
+select,
+textarea,
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=email],
+input[type=tel],
+input[type=url] {
+  color: #999999;
+  border: 1px solid #bcbcbc;
+  font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  line-height: 1.5em;
+  padding: 0.6em;
+  width: 100%;
+  background-color: white;
+  -webkit-transition: border 0.1s;
+  -moz-transition: border 0.1s;
+  -o-transition: border 0.1s;
+  transition: border 0.1s;
+  -webkit-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003228}}
+select:focus,
+textarea:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=number]:focus,
+input[type=search]:focus,
+input[type=email]:focus,
+input[type=tel]:focus,
+input[type=url]:focus {
+  border-color: #00c051;
+  outline: 0;
+  color: #444444;
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003235}}
+select.error,
+textarea.error,
+input[type=text].error,
+input[type=password].error,
+input[type=number].error,
+input[type=search].error,
+input[type=email].error,
+input[type=tel].error,
+input[type=url].error {
+  border-color: #b84040;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_forms\.scss}line{font-family:\00003240}}
+textarea {
+  overflow: auto;
+  resize: none;
+  vertical-align: top;
+  display: block;
 }
 
 /* =========== Tables */
@@ -2871,7 +2911,7 @@ div.buttons li:last-child a.button, div.buttons li:last-child .button-donate, di
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\0000344}}
-a.button, .button-donate, a.btn, input[type="submit"], button {
+a.button, .button-donate, .btn, input[type="submit"], button {
   border: 1px solid #00a746;
   color: white;
   cursor: pointer;
@@ -2892,13 +2932,13 @@ a.button, .button-donate, a.btn, input[type="submit"], button {
   background-color: #00c051;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\0000360}}
-a.button:hover, .button-donate:hover, a.btn:hover, input[type="submit"]:hover, button:hover {
+a.button:hover, .button-donate:hover, .btn:hover, input[type="submit"]:hover, button:hover {
   background-color: #444444;
   color: white;
   border-color: #373737;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\0000366}}
-a.button:active, .button-donate:active, a.btn:active, input[type="submit"]:active, button:active {
+a.button:active, .button-donate:active, .btn:active, input[type="submit"]:active, button:active {
   background: #222;
   color: #bfbfbf;
   text-shadow: 0 0 0;
@@ -2911,24 +2951,24 @@ a.button:active, .button-donate:active, a.btn:active, input[type="submit"]:activ
   top: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\0000381}}
-a.button[disabled], [disabled].button-donate, a.btn[disabled], input[type="submit"][disabled], button[disabled] {
+a.button[disabled], [disabled].button-donate, .btn[disabled], input[type="submit"][disabled], button[disabled] {
   color: #e9e9e9;
   background-color: #999999;
   border-color: #999999;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\0000386}}
-a.button[disabled]:hover, [disabled].button-donate:hover, a.btn[disabled]:hover, input[type="submit"][disabled]:hover, button[disabled]:hover {
+a.button[disabled]:hover, [disabled].button-donate:hover, .btn[disabled]:hover, input[type="submit"][disabled]:hover, button[disabled]:hover {
   color: #e9e9e9;
   background-color: #999999;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\0000390}}
-a.button[disabled]:active, [disabled].button-donate:active, a.btn[disabled]:active, input[type="submit"][disabled]:active, button[disabled]:active {
+a.button[disabled]:active, [disabled].button-donate:active, .btn[disabled]:active, input[type="submit"][disabled]:active, button[disabled]:active {
   position: relative;
   color: #b84040;
   top: 0px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\0000399}}
-a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"].contrast, button.contrast {
+a.button.contrast, .contrast.button-donate, .btn.contrast, input[type="submit"].contrast, button.contrast {
   border-color: black;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #666666), color-stop(100%, #000000));
   background: -webkit-linear-gradient(top, #666666, #000000);
@@ -2937,7 +2977,7 @@ a.button.contrast, .contrast.button-donate, a.btn.contrast, input[type="submit"]
   background: linear-gradient(top, #666666, #000000);
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\00003102}}
-a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, input[type="submit"].contrast:hover, button.contrast:hover {
+a.button.contrast:hover, .contrast.button-donate:hover, .btn.contrast:hover, input[type="submit"].contrast:hover, button.contrast:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #808080), color-stop(100%, #000000));
   background: -webkit-linear-gradient(top, #808080, #000000);
   background: -moz-linear-gradient(top, #808080, #000000);
@@ -2945,12 +2985,12 @@ a.button.contrast:hover, .contrast.button-donate:hover, a.btn.contrast:hover, in
   background: linear-gradient(top, #808080, #000000);
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\00003105}}
-a.button.contrast:active, .contrast.button-donate:active, a.button.contrast:focus, .contrast.button-donate:focus, a.btn.contrast:active, a.btn.contrast:focus, input[type="submit"].contrast:active, input[type="submit"].contrast:focus, button.contrast:active, button.contrast:focus {
+a.button.contrast:active, .contrast.button-donate:active, a.button.contrast:focus, .contrast.button-donate:focus, .btn.contrast:active, .btn.contrast:focus, input[type="submit"].contrast:active, input[type="submit"].contrast:focus, button.contrast:active, button.contrast:focus {
   background: #333333;
   color: #bfbfbf;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashant\/1CLUB\/bluebottle\/static\/global\/sass\/includes\/_buttons\.scss}line{font-family:\00003111}}
-a.button.next, .next.button-donate, a.btn.next, input[type="submit"].next, button.next {
+a.button.next, .next.button-donate, .btn.next, input[type="submit"].next, button.next {
   float: right;
   border: none;
   padding-right: 42px;

@@ -102,23 +102,31 @@
             {{else}}
                 <form class="labeled">
                     <fieldset>
-                        {{#if error}}
-                            <span class="error">{% trans "We don't have a gift card with this code." %}</span>
-                            <br />
-                        {{/if}}
-                        <div class="label">{% trans "Gift card code" %}</div>
-                        {{view Em.TextField valueBinding="code" placeholder="You code"}}
-                        <button {{action "submitVoucherCode" target="controller"}} type="submit" class="button right">
-                            {% trans "Submit" %}
-                        </button>
+                        <ul>
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Gift card code" %}</label>
+
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="code" placeholder="Your code" classBinding="error:error"}}
+                                </div>
+
+                                {{#if error}}
+                                    <div class="errors"><p>{% trans "We don't have a gift card with this code." %}</p></div>
+                                {{/if}}
+                            </li>
+                        </ul>
                     </fieldset>
+
+                    <button {{action "submitVoucherCode" target="controller"}} type="submit" class="btn right">
+                        {% trans "Submit" %}
+                    </button>
                 </form>
             {{/if}}
 
         </section>
     </div>
 
-{% endtplhandlebars %}
+{% endtplhandlebars %}static/global/css/print.css
 
 
 {% tplhandlebars "voucher_redeem_done" %}
