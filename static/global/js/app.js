@@ -312,7 +312,7 @@ App.Router.map(function() {
     this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'});
 
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
-        this.route('add', {path: '/add/:slug'});
+        this.route('add', {path: '/add/:project_id'});
         this.route('code', {path: '/:code'});
     });
 
