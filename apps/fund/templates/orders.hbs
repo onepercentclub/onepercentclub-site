@@ -88,37 +88,46 @@
 {% tplhandlebars "current_order_donation_list" %}
 
     <fieldset>
+        <ul>
+            <li class="control-group control-group-lonely">
+                <label class="control-label">{% trans "Donate to projects" %}</label>
 
+                <div class="controls">
+                    {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
+                        {{view view.RadioButton value="single" id="freq_single"}}
+                        <label for="freq_single">{% trans "this time only" %}</label>
+
+                        {{view view.RadioButton value="monthly" id="freq_monthly"}}
+                        <label for="freq_monthly">{% trans "automatically every month" %}</label>
+                    {{/view}}
+                </div>
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
         <ul id="donation-projects">
             {{#each donation in controller itemController="currentOrderDonation"}}
                 {{view "App.CurrentOrderDonationView" content=donation}}
             {{else}}
                 {{#linkTo "projectList"}}
-                    <h1>{% trans "Choose a project to make a donation" %}</h1>
-                    <b>{% trans "Select a project from the list and click 'Support this project' to add it to this list." %}</b>
+                    <div class="form-meta">
+                        <p class="form-label">{% trans "Choose a project to make a donation" %}</p>
+                        <p class="form-desc">{% trans "Select a project from the list and click 'Support this project' to add it to this list." %}</p>
+                    </div>
                 {{/linkTo}}
             {{/each}}
         </ul>
-
     </fieldset>
 
-    <fieldset class="donation-frequency">
-        <label class="label">{% trans "Support the selected projects:" %}<span class="currency"><em>&euro; </em>{{ total }}</span></label>
-        {{#view Em.RadioButtonGroup name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
-            <label class="radio inline">
-                {{view view.RadioButton value="single"}}
-                <span>{% trans "this time only" %}</span>
-            </label>
-            <label class="radio inline">
-                {{view view.RadioButton value="monthly"}}
-                <span>{% trans "automatically every month" %}</span>
-            </label>
-        {{/view}}
-
+    <fieldset>
+        <ul class="donation-total">
+            <div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ total }}</span></div>
+        </ul>
     </fieldset>
 
     {{#linkTo "projectList" class="button-link"}}<em class="icon-plus-sign"></em> {%trans "Add another project" %}{{/linkTo}}
-    {{#linkTo "paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
+    {{#linkTo "paymentProfile" class="btn right"}}{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -382,10 +391,13 @@
 {% tplhandlebars "current_order_donation" %}
     {{#linkTo "project" project}}
         <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
-        <h1>{{project.title}} <em class="country">{{project.country.name}}</em></h1>
+        <h1>{{project.title}} <em class="country"><i class="icon-globe"></i> {{project.country.name}}</em></h1>
     {{/linkTo}}
     <div class="donation-amount">
-        <strong class="amount-needed">&euro; {{neededAfterDonation}} {% trans "is still needed"%}</strong>
+        <div class="amount-needed">
+            <strong>&euro; {{neededAfterDonation}}</strong> {% trans "is still needed"%}
+        </div>
+
         <div class="amount-control">
             {{#each error in errors.amount}}
                 <span class="errors">{{error}}</span>
