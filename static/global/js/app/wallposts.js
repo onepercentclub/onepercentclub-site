@@ -261,12 +261,14 @@ App.ProjectWallPostView = Em.View.extend({
 
     // TODO: Delete reactions to WallPost as well?
     deleteWallPost: function() {
-        var controller = this.get('controller');
-        if (confirm("Delete this wallpost?")) {
-            this.$().fadeOut(500, function() {
-                controller.deleteRecordOnServer();
-            });
-        }
+        var view = this;
+        bootbox.confirm('Are you sure you want to delete this comment?', function(value){
+            if (value) {
+                view.$().fadeOut(500, function() {
+                    view.get('controller').deleteRecordOnServer()
+                });
+            }
+        });
     }
 });
 
