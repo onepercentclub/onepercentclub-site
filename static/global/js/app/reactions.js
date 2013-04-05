@@ -97,12 +97,14 @@ App.WallPostReactionView = Em.View.extend({
     classNames: ['initiator'],
 
     deleteReaction: function() {
-        if (confirm("Delete this reaction?")) {
-            var controller = this.get('controller');
-            this.$().fadeOut(500, function() {
-                controller.deleteRecordOnServer()
-            });
-        }
+        var view = this;
+        bootbox.confirm('Are you sure you want to delete this reaction?', function(value){
+            if (value) {
+                view.$().fadeOut(500, function() {
+                    view.get('controller').deleteRecordOnServer()
+                });
+            }
+        });
     }
 });
 
