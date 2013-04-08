@@ -7,11 +7,12 @@
  * {{localize SomeDate "MM,YY"}} -> 02, 12
  *
  */
-Handlebars.registerHelper('localize', function (value, formatting) {
-    // Check if it's a Ember Data number or a date
-    var value = this.get(value);
+Em.Handlebars.registerBoundHelper('localize', function (value, options) {
+    // Unfortunately although this is 'bound' it won't update it since the value doesn't change.
+
     // If there's no second argument then formatting will be an object. Set it to null instead.
-    var formatting = (typeof formatting == 'string') ? formatting : null;
+    var formatting = options.hash['formatting'];
+    // Check if it's a Ember Data number or a date
     if (Ember.typeOf(value) == 'number') {
         if (!formatting) {
             formatting = 'n0';
