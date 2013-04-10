@@ -47,11 +47,8 @@ django-jenkins==0.14.0
 # Coverage in tests
 coverage==3.5.2
 
-# The official django-taggit doesn't seem to be maintained anymore. This
-# version is the currently maintained version for Django 1.4. More information
-# can be found in the merge request to the official version:
-# https://github.com/alex/django-taggit/pull/99
-https://github.com/hcarvalhoalves/django-taggit/archive/e0f9642d7b94c8e6c0feb520d96bb6ae4d78a4d0.zip
+# Tagging
+django-taggit==0.10a1
 django-taggit-autocomplete-modified==0.1.0b4
 
 # Embedding videos and other media
