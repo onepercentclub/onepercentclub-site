@@ -262,11 +262,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         return payment_url_base + '?' + urlencode(params)
 
     def update_payment_status(self, payment, status_changed_notification=False):
-        assert payment
-
-        # Create the payment order if we need it.
-        if not payment.payment_order_key:
-            self.create_remote_payment_order(payment)
+        # Don't do anything if there's no payment or payment_order_key.
+        if not payment or not payment.payment_order_key:
+            return
 
         # Execute status request.
         reply = self.client.service.status(self.merchant, payment.payment_order_key)
