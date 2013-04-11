@@ -257,10 +257,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if not webmenu_payment or not isinstance(webmenu_payment, DocDataWebMenu):
             webmenu_payment = DocDataWebMenu()
             webmenu_payment.docdata_payment_order = payment
+            webmenu_payment.save()
 
-        webmenu_payment.payment_url = payment_url_base + '?' + urlencode(params)
-        webmenu_payment.save()
-        return webmenu_payment.payment_url
+        return payment_url_base + '?' + urlencode(params)
 
     def update_payment_status(self, payment, status_changed_notification=False):
         assert payment

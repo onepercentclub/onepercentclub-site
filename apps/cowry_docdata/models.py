@@ -45,7 +45,9 @@ class DocDataPayment(PolymorphicModel):
 
 
 class DocDataWebMenu(DocDataPayment):
-    payment_url = models.URLField(max_length=500, blank=True)
+    # DocDataWebMenu doesn't need additional fields but it's convenient to have an identifiable model right now. We
+    # might remove this in the future.
+    pass
 
 
 class DocDataWebDirectDirectDebit(DocDataPayment):
