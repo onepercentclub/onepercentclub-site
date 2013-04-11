@@ -193,7 +193,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if self.test:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             # A unique code for testing.
-            payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[:30]
+            payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[:30].replace(' ', '-')
         else:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             payment.merchant_order_reference = 'COWRY-' + str(payment.id)
