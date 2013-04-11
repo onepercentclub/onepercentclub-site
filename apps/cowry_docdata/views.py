@@ -8,6 +8,7 @@ from rest_framework import status
 import logging
 status_logger = logging.getLogger('cowry-docdata.status')
 
+
 # TODO: limit status change notifications to docdata IPs
 class StatusChangedNotificationView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
@@ -24,7 +25,7 @@ class StatusChangedNotificationView(generics.GenericAPIView):
 
                 # TODO: Can update status as background job.
                 # Update the status for the payment.
-                status_logger.info('Processing status changed notification for: {0}', mor)
+                status_logger.info('Processing status changed notification for: {0}'.format(mor))
                 payments.update_payment_status(payment, status_changed_notification=True)
 
                 # Return 200 as required by DocData when the status changed notification was consumed.

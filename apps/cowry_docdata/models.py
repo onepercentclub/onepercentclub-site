@@ -8,7 +8,7 @@ from polymorphic import PolymorphicModel
 
 class DocDataPaymentOrder(Payment):
     # Payment information.
-    payment_order_key = models.CharField(max_length=255, default='', blank=True)
+    payment_order_key = models.CharField(max_length=200, default='', blank=True)
     merchant_order_reference = models.CharField(max_length=100, default='', blank=True)
 
     # Order profile information.
@@ -32,12 +32,13 @@ class DocDataPaymentOrder(Payment):
 class DocDataPayment(PolymorphicModel):
     # Statuses from: Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 35
 
+    # Note; We're not using DjangoChoices here so that we can write unknown statuses if they are presented by DocData.
     statuses = ('NEW', 'STARTED', 'AUTHORIZED', 'PAID', 'CANCELLED', 'CHARGED-BACK', 'CONFIRMED_PAID',
                 'CONFIRMED_CHARGEDBACK', 'CLOSED_SUCCESS', 'CLOSED_CANCELLED')
 
     status = models.CharField(_("status"), max_length=25, default='NEW')
     docdata_payment_order = models.ForeignKey(DocDataPaymentOrder)
-    payment_id = models.PositiveIntegerField(_("payment id"), default=0)
+    payment_id = models.CharField(_("payment id"), max_length=100, default='', blank=True)
     # This is the payment method id from DocData (e.g. IDEAL, MASTERCARD, etc)
     docdata_payment_method = models.CharField(max_length=20, default='', blank=True)
     created = CreationDateTimeField(_("created"))
