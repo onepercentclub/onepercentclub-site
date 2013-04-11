@@ -47,7 +47,7 @@ class Project(models.Model):
 
     partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True, verbose_name=_('partner organization'))
     image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Main project picture"))
-    organization = models.ForeignKey('organizations.Organization', verbose_name=_("organization"))
+    organization = models.ForeignKey('organizations.Organization', verbose_name=_("organization"), null=True, blank=True)
     owner = models.ForeignKey('auth.User', verbose_name=_("owner"))
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
     themes = models.ManyToManyField(ProjectTheme, blank=True, verbose_name=_("themes"))
@@ -76,6 +76,8 @@ class Project(models.Model):
 
     money_asked = models.PositiveIntegerField(_("money asked"), default=0, help_text=_("Amount of money asked for a project from this website."))
     currency = models.CharField(_("currency"), blank=True, max_length=3)
+
+    payout_date = models.DateField(_("Date payed"), blank=True, null=True)
 
     def __unicode__(self):
         if self.title:
