@@ -371,7 +371,6 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.assertEqual(project.phase, 'act')
 
 
-
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case)

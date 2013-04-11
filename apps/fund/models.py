@@ -283,7 +283,11 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
     # Payment: -> paid
     if new_status == PaymentStatuses.paid:
-        order.status = OrderStatuses.closed
+        order.status = OrderStatuses.closed    # Payment: -> failed or cancelled or refunded
+    if new_status in [PaymentStatuses.failed, PaymentStatuses.cancelled, PaymentStatuses.refunded]:
+        order.status = OrderStatuses.checkout
+        order.save()
+
         order.save()
         for donation in order.donations:
             set_donation_paid(donation)
@@ -294,3 +298,5 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         order.save()
         for donation in order.donations:
             set_donation_cancelled(donation)
+
+    # TODO: Process more payment state transitions.
