@@ -207,6 +207,31 @@ def process_voucher_order_in_progress(voucher):
 def set_donation_in_progress(donation):
     donation.status = Donation.DonationStatuses.in_progress
     donation.save()
+    project = donation.project
+    # Progress project to act phase if it's fully funded
+    if project.money_needed <= 0:
+        project.phase = 'act'
+        project.save()
+
+
+def set_donation_cancelled(donation):
+    donation.status = Donation.DonationStatuses.cancelled
+    donation.save()
+    project = donation.project
+    # Change project back to fund phase if it's not fully funded
+    if project.money_needed > 0:
+        project.phase = 'fund'
+        project.save()
+
+
+def set_donation_paid(donation):
+    donation.status = Donation.DonationStatuses.paid
+    donation.save()
+    project = donation.project
+    # Change project act phase if it's fully funded and still in fund phase
+    if project.money_needed > 0 and project.phase == 'fund':
+        project.phase = 'act'
+        project.save()
 
 
 def close_order_after_payment(order):
@@ -241,5 +266,21 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     if old_status == PaymentStatuses.new and new_status == PaymentStatuses.in_progress:
         order.status = OrderStatuses.checkout
         order.save()
+        for donation in order.donations:
+            set_donation_in_progress(donation)
+
+    # Payment: -> paid
+    if new_status == PaymentStatuses.paid:
+        order.status = OrderStatuses.closed
+        order.save()
+        for donation in order.donations:
+            set_donation_paid(donation)
+
+    # Payment: -> failed or cancelled or refunded
+    if new_status in [PaymentStatuses.failed, PaymentStatuses.cancelled, PaymentStatuses.refunded]:
+        order.status = OrderStatuses.checkout
+        order.save()
+        for donation in order.donations:
+            set_donation_cancelled(donation)
 
     # TODO: Process more payment state transitions.

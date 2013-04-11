@@ -1,4 +1,5 @@
 from decimal import Decimal
+from apps.cowry.models import Payment, PaymentStatuses
 from apps.cowry_docdata.adapters import default_payment_methods
 from apps.cowry_docdata.tests import run_docdata_tests
 from django.test import TestCase
@@ -6,6 +7,7 @@ from django.utils import unittest
 from django.test.utils import override_settings
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin, FundPhaseTestMixin
+from apps.projects.models import Project
 from rest_framework import status
 from .models import Donation, Order, OrderStatuses
 
@@ -28,6 +30,51 @@ class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
         donation.save()
 
         return donation
+
+    def do_api_donation(self, project=None, amount=20, user=None, payment_profile=None):
+
+        current_donations_url = '/i18n/api/fund/orders/current/donations/'
+        current_order_url = '/i18n/api/fund/orders/current'
+        payment_profile_current_url = '/i18n/api/fund/paymentprofiles/current'
+        payment_current_url = '/i18n/api/fund/payments/current'
+        payment_thank_you_url = '/i18n/api/fund/payments/current'
+
+        if not project:
+            project = self.create_project()
+
+        if not user:
+            user = self.create_user()
+
+        if not payment_profile:
+            payment_profile = {'first_name': 'Nijntje',
+                               'last_name': 'het Konijnje',
+                               'email': 'nijntje@hetkonijnje.nl',
+                               'street': 'Dam',
+                               'postal_code': '1001AM',
+                               'city': 'Amsterdam',
+                               'country': 'NL'}
+
+        # Make sure we have a current order.
+        self.client.login(username=user.username, password='password')
+        self.client.get(current_order_url)
+
+        # Create a Donation for the current order.
+        self.client.post(current_donations_url, {'project': project.slug, 'amount': amount})
+
+        # Now retrieve the current order payment profile.
+        self.client.get(payment_profile_current_url)
+
+        # Update the current order payment profile with our information.
+        self.client.put(payment_profile_current_url, payment_profile)
+
+        # Now it's time to pay. Get the payment record.
+        response = self.client.get(payment_current_url)
+        first_payment_method = response.data['available_payment_methods'][0]
+
+        # Updating the payment method with a valid value should provide a payment_url.
+        self.client.put(payment_current_url, {'payment_method': first_payment_method})
+
+        self.client.get(payment_thank_you_url)
 
 
 class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
@@ -97,19 +144,29 @@ class CalculateMoneyDonatedTest(DonationTestsMixin, FundPhaseTestMixin, TestCase
 
 
 # Integration tests for API
-class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
+class CartApiIntegrationTest(DonationTestsMixin, TestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case)
     """
     def setUp(self):
-        self.some_project = self.create_project()
-        self.another_project = self.create_project()
+        self.some_project = self.create_project(money_asked=50000)
+        self.another_project = self.create_project(money_asked=75000)
+
         self.some_user = self.create_user()
         self.another_user = self.create_user()
+
         self.current_donations_url = '/i18n/api/fund/orders/current/donations/'
         self.current_order_url = '/i18n/api/fund/orders/current'
         self.payment_profile_current_url = '/i18n/api/fund/paymentprofiles/current'
         self.payment_current_url = '/i18n/api/fund/payments/current'
+
+        self.some_profile = {'first_name': 'Nijntje',
+                             'last_name': 'het Konijnje',
+                             'email': 'nijntje@hetkonijnje.nl',
+                             'street': 'Dam',
+                             'postal_code': '1001AM',
+                             'city': 'Amsterdam',
+                             'country': 'NL'}
 
     def test_current_order_donation_crud(self):
         """
@@ -263,13 +320,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Update the current order payment profile with our information.
-        response = self.client.put(self.payment_profile_current_url, {'first_name': 'Nijntje',
-                                                                      'last_name': 'het Konijnje',
-                                                                      'email': 'nijntje@hetkonijnje.nl',
-                                                                      'street': 'Dam',
-                                                                      'postal_code': '1001AM',
-                                                                      'city': 'Amsterdam',
-                                                                      'country': 'NL'})
+        response = self.client.put(self.payment_profile_current_url, self.some_profile)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['first_name'], 'Nijntje')
         self.assertEqual(response.data['last_name'], 'het Konijnje')
@@ -297,6 +348,31 @@ class CartApiIntegrationTest(ProjectTestsMixin, TestCase):
         # The status of the Order should now be 'checkout'.
         order = Order.objects.filter(user=self.some_user).get()
         self.assertEqual(order.status, OrderStatuses.checkout)
+
+        # Changing the payment status should change the order status
+        payment = order.payment
+        payment.status = PaymentStatuses.paid
+        self.assertEqual(payment.status, PaymentStatuses.paid)
+        payment.save()
+
+        # Reload and check order
+        #order = Order.objects.filter(user=self.some_user).get()
+        #self.assertEqual(order.status, OrderStatuses.closed)
+
+    @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
+    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
+    def test_donation_status_changes(self):
+
+        self.assertEqual(self.some_project.money_needed, 50000)
+        self.assertEqual(self.some_project.phase, 'fund')
+        self.do_api_donation(project=self.some_project, user=self.some_user, amount=350)
+        self.assertEqual(self.some_project.money_needed, 15000)
+        self.do_api_donation(project=self.some_project, user=self.another_user, amount=150)
+        self.assertEqual(self.some_project.money_needed, 0)
+
+        # Reload the project from db and check phase
+        project = Project.objects.get(pk=self.some_project.id)
+        self.assertEqual(project.phase, 'act')
 
 
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
@@ -385,7 +461,5 @@ class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.some_voucher_data['sender_email'] = None
         response = self.client.post(self.current_vouchers_url, self.some_voucher_data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
-
-
 
 
