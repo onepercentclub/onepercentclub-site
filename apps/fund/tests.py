@@ -355,10 +355,6 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.assertEqual(payment.status, PaymentStatuses.paid)
         payment.save()
 
-        # Reload and check order
-        #order = Order.objects.filter(user=self.some_user).get()
-        #self.assertEqual(order.status, OrderStatuses.closed)
-
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_donation_status_changes(self):
