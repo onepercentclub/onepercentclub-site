@@ -57,4 +57,5 @@ reports
 *.esproj
 
 # Cowry DocData
-cowry-docdata-status.log
+/cowrylogs/*
+!/cowrylogs/.gitkeep
