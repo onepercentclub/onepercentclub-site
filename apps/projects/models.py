@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 from django.db import models
 from django.db.models import Sum
 from django.db.models.signals import post_save
@@ -33,14 +31,15 @@ class ProjectTheme(models.Model):
         verbose_name_plural = _("project themes")
 
 
+class ProjectPhases(DjangoChoices):
+    idea = ChoiceItem('idea', label=_("Idea"))
+    fund = ChoiceItem('fund', label=_("Fund"))
+    act = ChoiceItem('act', label=_("Act"))
+    results = ChoiceItem('results', label=_("Results"))
+
+
 class Project(models.Model):
     """ The base Project model. """
-
-    class ProjectPhases(DjangoChoices):
-        idea = ChoiceItem('idea', label=_("Idea"))
-        fund = ChoiceItem('fund', label=_("Fund"))
-        act = ChoiceItem('act', label=_("Act"))
-        results = ChoiceItem('results', label=_("Results"))
 
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
@@ -95,6 +94,13 @@ class Project(models.Model):
         if not total['sum']:
             return 0
         return total['sum']
+
+    @property
+    def money_needed(self):
+        needed = self.money_asked - self.money_donated
+        if needed < 0:
+            return 0
+        return needed
 
     @models.permalink
     def get_absolute_url(self):
