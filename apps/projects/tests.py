@@ -8,14 +8,14 @@ from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
-from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase
+from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase, ProjectPhases
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
-    def create_project(self, organization=None, owner=None, title='',
-                       slug='', latitude=None, longitude=None):
+    def create_project(self, organization=None, owner=None, title='', phase='fund',
+                       slug='', latitude=None, longitude=None, money_asked=500000):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
@@ -40,11 +40,11 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         if not slug:
             slug = generate_random_slug()
             while Project.objects.filter(slug=slug).exists():
-                 slug = generate_random_slug()
+                slug = generate_random_slug()
 
         project = Project(
-            organization=organization, owner=owner, title=title, slug=slug,
-            latitude=latitude, longitude=longitude
+            organization=organization, owner=owner, title=title, slug=slug, phase=phase,
+            latitude=latitude, longitude=longitude, money_asked=money_asked
         )
 
         project.save()
@@ -196,7 +196,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
             if ord(char) % 2 == 1:
                 # Put half of the projects are in the fund phase.
                 fundphase = self.create_fundphase(project)
-                project.phase = Project.ProjectPhases.fund
+                project.phase = ProjectPhases.act
                 project.save()
 
         self.list_view_count = 10
