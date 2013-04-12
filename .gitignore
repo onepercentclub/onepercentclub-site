@@ -55,3 +55,6 @@ reports
 
 # Espresso
 *.esproj
+
+# Cowry DocData
+cowry-docdata-status.log
