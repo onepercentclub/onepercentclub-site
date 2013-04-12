@@ -193,7 +193,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if self.test:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             # A unique code for testing.
-            payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[:30]
+            payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[:30].replace(' ', '-')
         else:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             payment.merchant_order_reference = 'COWRY-' + str(payment.id)
@@ -257,17 +257,14 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if not webmenu_payment or not isinstance(webmenu_payment, DocDataWebMenu):
             webmenu_payment = DocDataWebMenu()
             webmenu_payment.docdata_payment_order = payment
+            webmenu_payment.save()
 
-        webmenu_payment.payment_url = payment_url_base + '?' + urlencode(params)
-        webmenu_payment.save()
-        return webmenu_payment.payment_url
+        return payment_url_base + '?' + urlencode(params)
 
     def update_payment_status(self, payment, status_changed_notification=False):
-        assert payment
-
-        # Create the payment order if we need it.
-        if not payment.payment_order_key:
-            self.create_remote_payment_order(payment)
+        # Don't do anything if there's no payment or payment_order_key.
+        if not payment or not payment.payment_order_key:
+            return
 
         # Execute status request.
         reply = self.client.service.status(self.merchant, payment.payment_order_key)
@@ -291,16 +288,35 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         statusChanged = False
         for payment_report in report.payment:
             # Find or create the DocDataPayment for current report.
-            ddpayment = DocDataPayment.objects.filter(payment_id=payment_report.id)
-            if not ddpayment:
-                status_logger.error("DocData status report has unknown payment: {0}".format(payment.payment_order_key))
-                continue
+            try:
+                ddpayment = DocDataPayment.objects.get(payment_id=payment_report.id)
+            except DocDataPayment.DoesNotExist:
+                ddpayment_list = payment.docdatapayment_set.filter(status='NEW')
+                ddpayment_list_len = len(ddpayment_list)
+                if ddpayment_list_len == 0:
+                    ddpayment = DocDataPayment()
+                elif ddpayment_list_len == 1:
+                    ddpayment = ddpayment_list[0]
+                else:
+                    # TODO: It's possible to determine the DocDataPayment model for this payment report when multiple
+                    #       DocDataPayment models are in the 'NEW' state by looking at the payment method id (IDEAL,
+                    #       MASTERCARD, etc) in the report.
+                    status_logger.error(
+                        "Cannot determine where to save the payment report for payment order key: {0}".format(
+                            payment.payment_order_key))
+                    continue
+
+                # Save some information from the report.
+                ddpayment.payment_id = payment_report.id
+                ddpayment.docdata_payment_method = payment_report.paymentMethod
+                ddpayment.save()
 
             # Some additional checks.
-            if not payment_report.paymentMethod == ddpayment.payment_methods['payment.payment_method_id'].id:
-                status_logger.error(
+            if not payment_report.paymentMethod == ddpayment.docdata_payment_method:
+                status_logger.warn(
                     "Payment methods do not match: {0} - {1}".format(payment.payment_order_key, ddpayment.payment_id))
-                continue
+                ddpayment.docdata_payment_method = payment_report.paymentMethod
+                ddpayment.save()
 
             if not payment_report.authorization.status in DocDataPayment.statuses:
                 # Note: We continue to process the payment status change on this error.
@@ -309,8 +325,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
             # Update the DocDataPayment status.
             if ddpayment.status != payment_report.authorization.status:
-                status_logger.info("DocDataPayment status changed for payment id {0}: {1} -> {2}", payment_report.id,
-                                   ddpayment.status, payment_report.authorization.status)
+                status_logger.info(
+                    "DocDataPayment status changed for payment id {0}: {1} -> {2}".format(payment_report.id,
+                                                                                              ddpayment.status,
+                                                                                              payment_report.authorization.status))
                 ddpayment.status = payment_report.authorization.status
                 ddpayment.save()
                 statusChanged = True
@@ -320,20 +338,25 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             status_logger.warn(
                 "Status changed notification received for {0} but no payment status change detected.".format(
                     payment.payment_order_key))
+            return
 
         # Use the latest DocDataPayment status to set the status on the Cowry Payment.
-        ddpayment = payment.latest_docdata_payment
-        lpr = report.payment[0]
+        latest_ddpayment = payment.latest_docdata_payment
+        latest_payment_report = None
         for payment_report in report.payment:
-            if payment_report.id == ddpayment.payment_id:
-                lpr = payment_report
+            if payment_report.id == latest_ddpayment.payment_id:
+                latest_payment_report = payment_report
                 break
-
-        new_status = self._map_status(ddpayment.status, report.approximateTotals, lpr.authorization)
-        status_logger.info(
-            "DocDataPaymentOrder status changed for payment order key {0}: {1} -> {1}".format(ddpayment.status,
-                                                                                              new_status))
-        self._change_status(payment, new_status)  # Note: change_status calls payment.save().
+        old_status = payment.status
+        new_status = self._map_status(latest_ddpayment.status, report.approximateTotals,
+                                      latest_payment_report.authorization)
+        if old_status != new_status:
+            status_logger.info(
+                "DocDataPaymentOrder status changed for payment order key {0}: {1} -> {2}".format(
+                    payment.payment_order_key,
+                    old_status,
+                    new_status))
+            self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
     def _map_status(self, status, totals=None, authorization=None):
         return super(DocdataPaymentAdapter, self)._map_status(status)
