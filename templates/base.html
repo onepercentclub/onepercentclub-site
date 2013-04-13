@@ -156,7 +156,7 @@
         <div id="loginbox" class="modal hide fade">
             <form method="post" action="/en/accounts/login/">
                 <div class="modal-body">
-                    <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="LuPrCrgMhE695ZBu9c6f8PTHRDGRLK4l"></div>
+                    <div style="display:none">{%  csrf_token %}</div>
 
                     <div>
                         <div class="control-group">
