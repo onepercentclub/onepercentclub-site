@@ -2,7 +2,6 @@ from django.test import TestCase
 from xml.etree import ElementTree
 from sepa import SepaDocument
 
-
 class CalculateMoneyDonatedTest(TestCase):
 
     def setUp(self):
