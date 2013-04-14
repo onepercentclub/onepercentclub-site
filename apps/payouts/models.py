@@ -121,4 +121,3 @@ def create_sepa_xml(payouts):
                                  creditor_bic=line.receiver_account_bic, creditor_name=line.receiver_account_name,
                                  creditor_iban=line.receiver_account_iban)
     return sepa.as_xml()
-
