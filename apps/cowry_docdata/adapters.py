@@ -1,5 +1,6 @@
 # coding=utf-8
 import logging
+from urllib2 import URLError
 
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry.models import PaymentStatuses
@@ -104,13 +105,17 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             # Live API URL.
             url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
-        self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
+        try:
+            self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
+            # Setup the merchant soap object for use in all requests.
+            self.merchant = self.client.factory.create('ns0:merchant')
+            # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).
+            self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
+            self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", None)
+        except URLError:
+            # Service offline or no internet connection
+            self.client = None
 
-        # Setup the merchant soap object for use in all requests.
-        self.merchant = self.client.factory.create('ns0:merchant')
-        # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).
-        self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
-        self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", None)
 
     def get_payment_methods(self):
         # Override the payment_methods if they're set. This isn't in __init__ because

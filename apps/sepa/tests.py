@@ -44,27 +44,46 @@ class CalculateMoneyDonatedTest(TestCase):
         message_id = 'BATCH-1234'
         payment_id = 'PAYMENTS TODAY'
 
+<<<<<<< HEAD
 
         # Create base for SEPA
         sepa = SepaDocument(message_identification=message_id, debtor_name=self.some_account['name'],
+=======
+        fact = SepaFactory()
+
+        # Create base for SEPA
+        fact.create(message_identification=message_id, debtor_name=self.some_account['name'],
+>>>>>>> 38cb7e8... Sepa app to create xml for bankpayments
                     debtor_iban=self.some_account['iban'], debtor_bic=self.some_account['bic'],
                     initiating_party_name=self.some_account['name'], initiating_party_id=self.some_account['id'],
                     payment_info_id=payment_id)
 
         # Add a payment
+<<<<<<< HEAD
         sepa.add_credit_transfer(creditor_name=self.another_account['name'], creditor_iban=self.another_account['iban'],
+=======
+        fact.add_credit_transfer(creditor_name=self.another_account['name'], creditor_iban=self.another_account['iban'],
+>>>>>>> 38cb7e8... Sepa app to create xml for bankpayments
                                  creditor_bic=self.another_account['bic'],
                                  creditor_payment_id=self.payment1['id'], amount=self.payment1['amount'],
                                  remittance_information=self.payment1['remittance_info'])
 
         # Add another payment
+<<<<<<< HEAD
         sepa.add_credit_transfer(creditor_name=self.third_account['name'], creditor_iban=self.third_account['iban'],
+=======
+        fact.add_credit_transfer(creditor_name=self.third_account['name'], creditor_iban=self.third_account['iban'],
+>>>>>>> 38cb7e8... Sepa app to create xml for bankpayments
                                  creditor_bic=self.third_account['bic'],
                                  creditor_payment_id=self.payment2['id'], amount=self.payment2['amount'],
                                  remittance_information=self.payment2['remittance_info'])
 
         # Now lets get the xml for these payments
+<<<<<<< HEAD
         xml = sepa.as_xml()
+=======
+        xml = fact.as_xml()
+>>>>>>> 38cb7e8... Sepa app to create xml for bankpayments
 
         # Still no errors? Lets check the xml.
         tree = ElementTree.XML(xml)
