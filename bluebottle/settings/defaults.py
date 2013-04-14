@@ -223,6 +223,8 @@ INSTALLED_APPS = (
     'apps.geo',
     'apps.hbtemplates',
     'apps.wallposts',
+    'apps.payouts',
+    'apps.sepa',
 
     # Custom dashboard
     'fluent_dashboard',
@@ -288,8 +290,7 @@ LOGGING = {
 
 # log errors & warnings
 import logging
-logging.basicConfig(level=logging.WARNING,
-    format='%(levelname)-8s %(message)s')
+logging.basicConfig(level=logging.WARNING, format='%(levelname)-8s %(message)s')
 
 
 # Django Celery - asynchronous task server
@@ -310,7 +311,7 @@ NOSE_ARGS = [
 ]
 
 
-SOUTH_TESTS_MIGRATE = False # Make south shut up during tests
+SOUTH_TESTS_MIGRATE = False  # Make south shut up during tests
 
 
 # django-compressor http://pypi.python.org/pypi/django_compressor
@@ -441,3 +442,14 @@ COWRY_PAYMENT_METHODS = {
         'supports_recurring': True,
     }
 }
+
+# The rate that is payed out to projects
+PROJECT_PAYOUT_RATE = 0.95
+
+# Settings for organization bank account. Please set this in secrets.py
+# SEPA = {
+#     'iban': '',
+#     'bic': '',
+#     'name': '',
+#     'id': ''
+# }
