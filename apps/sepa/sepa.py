@@ -4,7 +4,7 @@
 # https://www.rabobank.com/en/images/SEPA%20Credit%20Transfer%20format%20description%20v1.0.pdf
 
 from decimal import Decimal
-from xml.etree.ElementTree import Element, SubElement, tostring
+from xml.etree.ElementTree import Element, SubElement, Comment, tostring, XML
 from django.utils import timezone
 
 
@@ -86,7 +86,6 @@ class SepaDocument(object):
         """
         Set basic info.
         """
-
         self.is_test = getattr(kwargs, 'is_test', False)
 
         self.message_identification = str(kwargs['message_identification'])
@@ -102,6 +101,10 @@ class SepaDocument(object):
     def as_xml(self):
         """ Return the XML string. """
         return tostring(self._generate_xml())
+
+    def get_header_control_sum_cents(self):
+        """ Get the header control sum in cents """
+        return self._header_control_sum_cents
 
     def add_credit_transfer(self, *args, **kwargs):
         """ Add a credit transfer transaction. """
@@ -137,7 +140,7 @@ class SepaDocument(object):
 
         SubElement(grp_hdr, 'MsgId').text = str(self.message_identification)
 
-        SubElement(grp_hdr, 'CreDtTm').text = timezone.datetime.strftime(timezone.now(), '%Y-%m-%mT%H:%I:%S')
+        SubElement(grp_hdr, 'CreDtTm').text = timezone.datetime.strftime(timezone.now(), '%Y-%m-%dT%H:%I:%S')
 
         if self.is_test:
             prtry = SubElement(grp_hdr, 'Prtry').text = 'TEST'
