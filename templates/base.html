@@ -156,7 +156,7 @@
         <div id="loginbox" class="modal hide fade">
             <form method="post" action="/en/accounts/login/">
                 <div class="modal-body">
-                    <div style="display:none">{%  csrf_token %}</div>
+                    {% csrf_token %}
                     <div>
                         <div class="control-group">
                             <label class="control-label" for="id_username">{% trans "Username" %}:</label>
