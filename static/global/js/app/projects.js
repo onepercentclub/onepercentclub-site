@@ -49,6 +49,14 @@ App.Project = DS.Model.extend({
  */
 
 
+App.ProjectController = Em.ObjectController.extend({
+    isFundable: function(){
+        return this.get('phase') == 'Fund';
+    }.property('phase')
+
+});
+
+
 /*
  Views
  */

@@ -44,7 +44,6 @@ class CalculateMoneyDonatedTest(TestCase):
         message_id = 'BATCH-1234'
         payment_id = 'PAYMENTS TODAY'
 
-
         # Create base for SEPA
         sepa = SepaDocument(message_identification=message_id, debtor_name=self.some_account['name'],
                     debtor_iban=self.some_account['iban'], debtor_bic=self.some_account['bic'],

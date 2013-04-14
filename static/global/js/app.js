@@ -364,7 +364,7 @@ App.ProjectRoute = Ember.Route.extend({
             var project = this.controllerFor('project');
             var wps = App.ProjectWallPost.find({project: project.get('id'), page: page});
             controller.set('canLoadMore', false);
-            wps.addObserver('isLoaded', function(a, b){
+            wps.addObserver('isLoaded', function(){
                 wps.forEach(function(record){
                     if (record.get('isLoaded')) {
                         controller.pushObject(record);

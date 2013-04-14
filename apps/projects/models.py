@@ -52,6 +52,8 @@ class Project(models.Model):
     themes = models.ManyToManyField(ProjectTheme, blank=True, verbose_name=_("themes"))
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
 
+    payout_date = models.DateField(_("Payout date"), blank=True, null=True)
+
     # Location of this project
     # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
     # hold the legacy data.
@@ -101,6 +103,18 @@ class Project(models.Model):
         if needed < 0:
             return 0
         return needed
+
+    # The amount donated that is secure.
+    @property
+    def money_safe(self):
+        if self.money_asked == 0:
+            return 0
+        donations = Donation.objects.filter(project=self)
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid])
+        total = donations.aggregate(sum=Sum('amount'))
+        if not total['sum']:
+            return 0
+        return total['sum']
 
     @models.permalink
     def get_absolute_url(self):
