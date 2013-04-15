@@ -2,7 +2,6 @@ from django.test import TestCase
 from xml.etree import ElementTree
 from sepa import SepaDocument
 
-
 class CalculateMoneyDonatedTest(TestCase):
 
     def setUp(self):
@@ -43,7 +42,6 @@ class CalculateMoneyDonatedTest(TestCase):
 
         message_id = 'BATCH-1234'
         payment_id = 'PAYMENTS TODAY'
-
 
         # Create base for SEPA
         sepa = SepaDocument(message_identification=message_id, debtor_name=self.some_account['name'],

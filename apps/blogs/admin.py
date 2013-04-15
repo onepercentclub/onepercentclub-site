@@ -47,7 +47,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         'language': admin.HORIZONTAL,
     }
 
-
     def get_urls(self):
         # Include extra API views in this admin page
         base_urls = super(BlogPostAdmin, self).get_urls()
@@ -59,7 +58,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
 
         return urlpatterns + base_urls
 
-
     def get_base_object(self, pk):
         # Give a workable object, no matter whether it's a news or blogpost.
         pk = long(pk)
@@ -68,7 +66,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         else:
             return BlogPost()
 
-
     @xframe_options_sameorigin
     def preview_canvas(self, request, pk):
         # Avoid the proxy model stuff, allow both to work.
@@ -76,7 +73,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         return render(request, 'admin/blogs/preview_canvas.html', {
             'blogpost': blogpost,
         })
-
 
     def get_preview_html(self, request, pk):
         """
@@ -95,7 +91,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
             'contents': contents_html,
         }
         return HttpResponse(simplejson.dumps(json), content_type='application/javascript', status=status)
-
 
     def _get_preview_items(self, request, blogpost):
         """
@@ -168,7 +163,6 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
         })
         return super(BlogPostAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
-
     def save_model(self, request, obj, form, change):
         # Automatically store the user in the author field.
         if not change:
@@ -180,12 +174,10 @@ class BlogPostAdmin(PlaceholderFieldAdmin):
             obj.publication_date = now()
         obj.save()
 
-
     STATUS_ICONS = {
         BlogPost.PostStatus.published: 'icon-yes.gif',
         BlogPost.PostStatus.draft: 'icon-unknown.gif',
     }
-
 
     def status_column(self, blogpost):
         status = blogpost.status
