@@ -57,6 +57,16 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/vouchers.js"></script>
     {% endcompress %}
 
+    <script>
+        // Jira Feedback button.
+        jQuery.ajax({
+            url: "https://onepercentclub.atlassian.net/s/en_USnnhwjf-1988229788/6061/42/1.3.6-m05/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=a847666f",
+            type: "get",
+            cache: true,
+            dataType: "script"
+        });
+    </script>
+
     {% block htmlheader %}{% endblock %}
 
 
@@ -195,9 +205,6 @@
     <!--[if lt IE 9]><script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     {% block content %}
     {% endblock %}
-
-    <script type="text/javascript" src="https://onepercentclub.atlassian.net/s/en_US-ef3pr4-1988229788/6060/42/1.3.6-m05/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=16939b76"></script>
-
 </body>
 </html>
 
