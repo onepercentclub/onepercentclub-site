@@ -9,7 +9,7 @@
         <div class="container section">
             <div class="wrapper">
                 <div class="content">
-                    <h1 class="main-title">{% trans "Order digital 1%VOUCHERS" %}</h1>
+                    <h1 class="main-title">{% trans "Order digital 1%GIFTCARDS" %}</h1>
                 </div>
                 <sidebar>
                     {{#linkTo "currentOrder.donationList" tagName="a" class="button-link"}}
@@ -26,7 +26,7 @@
                 </div>
                 <sidebar>
                     {{#linkTo "voucherRedeem" tagName="a" class="button-link"}}
-                        <em class="icon-credit-card"></em> {% trans "I have a 1%voucher" %}
+                        <em class="icon-credit-card"></em> {% trans "I have a 1%GIFTCARD" %}
                     {{/linkTo}}
                 </sidebar>
             </div>
@@ -67,7 +67,7 @@
 
             <div class="sidebar tip">
                 {{#if controller.isVoucherOrder}}
-                    <h3>{% trans "Want custom real gift cards or a large number of digital gift cards?" %}</h3>
+                    <h3>{% trans "Want customised 1%GIFTCARDS or buy a bulk of 1%GIFTCARDS?" %}</h3>
                     {% trans "Bladi bla bla..." %}
                     <br />
                     {{#linkTo "customVoucherRequest"}}{% trans "Contact us." %}{{/linkTo}}
@@ -112,8 +112,8 @@
             {{else}}
                 {{#linkTo "projectList"}}
                     <div class="form-meta">
-                        <p class="form-label">{% trans "Choose a project to make a donation" %}</p>
-                        <p class="form-desc">{% trans "Select a project from the list and click 'Support this project' to add it to this list." %}</p>
+                        <p class="form-label">{% trans "Choose a project to support" %}</p>
+                        <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list." %}</p>
                     </div>
                 {{/linkTo}}
             {{/each}}
@@ -146,7 +146,7 @@
             {{#if length }}
                 <li>
                     <div class="summary">
-                        {{ length }} {% trans "gift cards will be sent out with a total amount worth of" %}
+                        {{ length }} {% trans "1%GIFTCARDS will be sent out with a total value of" %}
                     </div>
                     <div class="amount">
                         <h4 class="right">&euro;{{ total }}</h4>
@@ -155,7 +155,7 @@
             {{else}}
                 <li>
                     <div class="summary">
-                        {% trans "No gift cards yet..." %}
+                        {% trans "No gift cards in shopping basket" %}
                     </div>
                 </li>
             {{/if}}
@@ -177,7 +177,7 @@
 {% tplhandlebars "current_order_voucher_new" %}
 
     <div class="form-meta">
-        <p class="form-label">{% trans "Choose amount & personalise gift card" %}</p>
+        <p class="form-label">{% trans "Choose value & personalize 1%GIFTCARD" %}</p>
     </div>
 
     <fieldset>
@@ -197,7 +197,7 @@
             </li>
 
             <li class="control-group">
-                <label class="control-label">{% trans "Amount" %}</label>
+                <label class="control-label">{% trans "Value" %}</label>
 
                 <div class="controls">
                     {{#view Em.RadioButtonGroup class="big-radio radio4" name="amount" selectedValueBinding="amount"}}
@@ -402,12 +402,12 @@
             {{#each error in errors.amount}}
                 <span class="errors">{{error}}</span>
             {{/each}}
-            <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+            <label for="donation-amount-1">{% trans "I'd like to buy" %}</label>
             <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
         </div>
     </div>
 
-    <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
+    <a class="remove" {{action "delete" this target="view" }}>{% trans "Delete" %}</a>
 
 {% endtplhandlebars %}
 
@@ -416,7 +416,7 @@
 
     <div class="intro">
         <h4>{% trans "Final step. Almost there!" %}</h4>
-        {% trans "Choose the payment method you prefer." %}
+        {% trans "Choose the payment method." %}
     </div>
     <fieldset>
         <div class="tabs vertical">
@@ -568,7 +568,7 @@
                         </h3>
                         <em class="country">{{donation.project.country.name}}</em>
                         <p class="donation-amount">
-                            <label for="donation-amount-1">{% trans "You just donated" %}</label>
+                            <label for="donation-amount-1">{% trans "You just supported" %}</label>
                             <span class="big currency">&euro; {{donation.amount}}</span>
                         </p>
                     </li>

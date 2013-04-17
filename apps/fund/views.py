@@ -149,7 +149,7 @@ class OrderList(ListAPIView):
 
 # Order views.
 
-no_active_order_error_msg = _(u"No active order.")
+no_active_order_error_msg = _(u"No active order")
 
 
 class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
@@ -337,13 +337,13 @@ class VoucherMixin(object):
         """
         code = self.kwargs.get('code', None)
         if not code:
-            raise exceptions.ParseError(detail=_(u"No gift card code supplied."))
+            raise exceptions.ParseError(detail=_(u"No gift card code supplied"))
         try:
             voucher = Voucher.objects.get(code=code)
         except Voucher.DoesNotExist:
-            raise exceptions.ParseError(detail=_(u"No gift card with that code."))
+            raise exceptions.ParseError(detail=_(u"No gift card with that code"))
         if voucher.status != Voucher.VoucherStatuses.paid:
-            raise exceptions.PermissionDenied(detail=_(u"Gift card code already used."))
+            raise exceptions.PermissionDenied(detail=_(u"Gift card code already used"))
         return voucher
 
 
