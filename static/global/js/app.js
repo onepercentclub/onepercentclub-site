@@ -108,20 +108,26 @@ App = Em.Application.create({
             locale = this.get('locale');
         }
 
-        // Try to load locale specifications.
-        $.getScript('/static/assets/js/libs/globalize-cultures/globalize.culture.' + locale + '.js')
-            .fail(function(){
-                console.log("No globalize culture file for : "+ locale);
-                // Specified locale file not available. Use default locale.
-                locale = App.get('locale');
-                Globalize.culture(locale);
-                App.set('locale', locale);
-            })
-            .success(function(){
-                // Specs loaded. Enable locale.
-                Globalize.culture(locale);
-                App.set('locale', locale);
-            });
+        if (locale != 'en-US') {
+            // Try to load locale specifications.
+            $.getScript('/static/assets/js/libs/globalize-cultures/globalize.culture.' + locale + '.js')
+                .fail(function(){
+                    console.log("No globalize culture file for : "+ locale);
+                    // Specified locale file not available. Use default locale.
+                    locale = App.get('locale');
+                    Globalize.culture(locale);
+                    App.set('locale', locale);
+                })
+                .success(function(){
+                    // Specs loaded. Enable locale.
+                    Globalize.culture(locale);
+                    App.set('locale', locale);
+                });
+
+        } else {
+            Globalize.culture(locale);
+            App.set('locale', locale);
+        }
     },
 
 
