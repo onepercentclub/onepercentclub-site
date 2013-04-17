@@ -16,6 +16,13 @@ App.CustomVoucherRequest = DS.Model.extend({
 });
 
 
+App.VoucherDonation = App.Donation.extend({
+    url: 'fund/vouchers/:code/donations',
+
+    //order: DS.belongsTo('App.CurrentOrder')
+});
+
+
 /* Controllers */
 
 App.VoucherRedeemController = Em.ArrayController.extend({
@@ -43,13 +50,14 @@ App.VoucherRedeemController = Em.ArrayController.extend({
     },
 
     redeemVoucher: function() {
+
         var controller = this;
         var voucher = this.get('voucher');
         var transaction = this.get('store').transaction();
         transaction.add(voucher);
         voucher.set('status', 'cashed');
         voucher.on('didUpdate',function(){
-            controller.transitionTo('voucherRedeemDone');
+            controller.transitionToRoute('voucherRedeemDone');
         });
         transaction.commit();
     },
@@ -126,3 +134,12 @@ App.VoucherDonationView = Em.View.extend({
         });
     }
 });
+
+App.VoucherRedeemPickProjectView = Em.View.extend({
+    templateName: 'voucher_redeem_pick_project',
+    didInsertElement: function(){
+        var elem = this.get('element');
+        $.colorbox({html: elem, width: 800, height: 500});
+    }
+
+})

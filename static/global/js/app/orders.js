@@ -27,6 +27,7 @@ App.Donation = DS.Model.extend({
 App.Voucher =  DS.Model.extend({
     url: 'fund/vouchers',
 
+    status: DS.attr('string'),
     receiver_name: DS.attr('string', {defaultValue: ''}),
     receiver_email: DS.attr('string'),
     sender_name: DS.attr('string', {defaultValue: ''}),
@@ -34,7 +35,8 @@ App.Voucher =  DS.Model.extend({
     message: DS.attr('string', {defaultValue: ''}),
     language: DS.attr('string', {defaultValue: 'en'}),
     amount: DS.attr('number', {defaultValue: 25}),
-    order: DS.belongsTo('App.Order')
+    order: DS.belongsTo('App.Order'),
+    donations: DS.hasMany('App.VoucherDonation')
 });
 
 
