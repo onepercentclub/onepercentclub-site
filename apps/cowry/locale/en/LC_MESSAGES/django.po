@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-21 15:20+0100\n"
+"POT-Creation-Date: 2013-04-17 19:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:14
+#: models.py:9
 msgid "New"
 msgstr ""
 
-#: models.py:15
+#: models.py:10
 msgid "In Progress"
 msgstr ""
 
-#: models.py:16
+#: models.py:11
 msgid "Paid"
 msgstr ""
 
-#: models.py:17
+#: models.py:12
 msgid "Failed"
 msgstr ""
 
-#: models.py:18
+#: models.py:13
 msgid "Cancelled"
 msgstr ""
 
-#: models.py:19
+#: models.py:14
 msgid "Refunded"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "updated"
 msgstr ""
 
-#: serializers.py:33
+#: serializers.py:35
 #, python-format
 msgid "%(payment_method_id)s is not a valid payment method."
 msgstr ""

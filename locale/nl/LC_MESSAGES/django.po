@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <mathijs@mathijsfietst.nl>, 2012.
-# Niels Jansen <niels@1procentclub.nl>, 2013.
-#  <webmaster@1procentclub.nl>, 2013.
+# dokterbob <mathijs@mathijsfietst.nl>, 2012
+# nieja <niels@1procentclub.nl>, 2013
+# onepercentclub <webmaster@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-03-21 15:21+0100\n"
-"PO-Revision-Date: 2013-03-21 14:21+0000\n"
+"POT-Creation-Date: 2013-04-17 19:46+0200\n"
+"PO-Revision-Date: 2013-04-17 17:47+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -51,22 +51,31 @@ msgid ""
 "<strong>%(error_id)s</strong>."
 msgstr "Als je hulp nodig hebt kan je naar deze fout verwijzen als <strong>%(error_id)s</strong>."
 
-#: base.html:89
+#: base.html:104
 #, python-format
-msgid "1%%Projects"
-msgstr "1%%Projects"
+msgid "1%%PROJECTS"
+msgstr ""
 
-#: base.html:91
-msgid "Cart"
-msgstr "Boodschappenmandje"
+#: base.html:106
+#, python-format
+msgid "1%%GIFTCARDS"
+msgstr ""
 
-#: base.html:92
-msgid "Vouchers"
-msgstr "Bonnen"
-
-#: base.html:99
+#: base.html:113
 #, python-format
 msgid "MY 1%%"
+msgstr ""
+
+#: base.html:127
+msgid "Login"
+msgstr ""
+
+#: base.html:173
+msgid "Username"
+msgstr ""
+
+#: base.html:181
+msgid "Password"
 msgstr ""
 
 #: footer.html:6

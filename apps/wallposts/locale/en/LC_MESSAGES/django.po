@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-21 15:21+0100\n"
+"POT-Creation-Date: 2013-04-17 19:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,23 +81,23 @@ msgstr ""
 msgid "Member"
 msgstr ""
 
-#: templates/reactions.hbs:22 templates/wallposts.hbs:134
+#: templates/reactions.hbs:24 templates/wallposts.hbs:166
 msgid "Delete"
 msgstr ""
 
-#: templates/reactions.hbs:57
+#: templates/reactions.hbs:59 templates/wallposts.hbs:22
 msgid "Login"
 msgstr ""
 
-#: templates/reactions.hbs:57
+#: templates/reactions.hbs:59 templates/wallposts.hbs:22
 msgid "or become a"
 msgstr ""
 
-#: templates/reactions.hbs:57
+#: templates/reactions.hbs:59 templates/wallposts.hbs:22
 msgid "member"
 msgstr ""
 
-#: templates/reactions.hbs:57
+#: templates/reactions.hbs:59 templates/wallposts.hbs:22
 msgid "to leave a comment."
 msgstr ""
 
@@ -105,50 +105,50 @@ msgstr ""
 msgid "Comments & Updates"
 msgstr ""
 
-#: templates/wallposts.hbs:21
-msgid "Login to leave a comment."
-msgstr ""
-
-#: templates/wallposts.hbs:39
+#: templates/wallposts.hbs:38
 msgid "Title of your update."
 msgstr ""
 
-#: templates/wallposts.hbs:48
+#: templates/wallposts.hbs:52
 msgid "Your update."
 msgstr ""
 
-#: templates/wallposts.hbs:57
+#: templates/wallposts.hbs:66
 msgid "Link to video on YouTube or Vimeo."
 msgstr ""
 
-#: templates/wallposts.hbs:62
+#: templates/wallposts.hbs:80
 msgid "Upload & add Photo's"
 msgstr ""
 
-#: templates/wallposts.hbs:62
+#: templates/wallposts.hbs:80
 msgid "(620 x 380 minimum for best results)"
 msgstr ""
 
-#: templates/wallposts.hbs:68
+#: templates/wallposts.hbs:89
 msgid "Error"
 msgstr ""
 
-#: templates/wallposts.hbs:84
+#: templates/wallposts.hbs:106
 msgid "Post Update"
 msgstr ""
 
-#: templates/wallposts.hbs:97
+#: templates/wallposts.hbs:119
 msgid "Leave your comment here"
 msgstr ""
 
-#: templates/wallposts.hbs:102
+#: templates/wallposts.hbs:124
 msgid "Post Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:128
+#: templates/wallposts.hbs:139
+msgid "Show more"
+msgstr ""
+
+#: templates/wallposts.hbs:156
 msgid "Project Initiator"
 msgstr ""
 
-#: templates/wallposts.hbs:133
+#: templates/wallposts.hbs:165
 msgid "Edit"
 msgstr ""
