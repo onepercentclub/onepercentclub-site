@@ -15,8 +15,8 @@ def mail_new_voucher(voucher, *args, **kwargs):
     else :
         server = 'https://' + server
 
-    subject = _(u'You received a 1%VOUCHER')
-    text_content = _(u'You received a 1%GIFTCARD with this code: ') + voucher.code
+    subject = _(u'You received a 1%GIFTCARD!')
+    text_content = _(u'You received a 1%GIFTCARD with this code:') + ' ' + voucher.code
     context = Context({'voucher': voucher, 'server': server})
     html_content = get_template('voucher_new.mail.html').render(context)
     msg = EmailMultiAlternatives(subject=subject, body=text_content, from_email=system_email,
@@ -31,8 +31,8 @@ def mail_voucher_redeemed(voucher, *args, **kwargs):
     system_email = 'vouchers@1procentclub.nl'
     server = 'https://' + Site.objects.get_current().domain
 
-    subject = voucher.receiver_name + ' ' + _(u'has redeemed a 1%GIFTCARD you gave.')
-    text_content = voucher.receiver_name + ' ' + _(u'has redeemed a 1%GIFTCARD you gave.')
+    subject = voucher.receiver_name + ' ' + _(u'has supported a 1%PROJECT using your 1%GIFTCARD')
+    text_content = voucher.receiver_name + ' ' + _(u'has supported a 1%PROJECT using your 1%GIFTCARD')
     context = Context({'voucher': voucher, 'server': server})
     html_content = get_template('voucher_redeemed.mail.html').render(context)
     msg = EmailMultiAlternatives(subject=subject, body=text_content, from_email=system_email,
@@ -49,8 +49,8 @@ def mail_custom_voucher_request(voucher_request, *args, **kwargs):
     system_email = 'loek@1procentclub.nl'
     server = 'https://' + Site.objects.get_current().domain
 
-    subject = voucher_request.contact_name + ' ' + _(u'has a custom 1%GIFTCARD request.')
-    text_content = voucher_request.contact_name + ' ' + _(u'has a custom 1%GIFTCARD request.')
+    subject = voucher_request.contact_name + ' ' + _(u'has a custom 1%GIFTCARD request')
+    text_content = voucher_request.contact_name + ' ' + _(u'has a custom 1%GIFTCARD request')
     context = Context({'voucher_request': voucher_request, 'server': server})
     html_content = get_template('custom_voucher_request.mail.html').render(context)
     msg = EmailMultiAlternatives(subject=subject, body=text_content, from_email=voucher_request.contact_email,
