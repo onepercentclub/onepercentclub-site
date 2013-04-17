@@ -46,7 +46,7 @@ admin.site.register(Voucher, VoucherAdmin)
 class CustomVoucherRequestAdmin(admin.ModelAdmin):
     model = Voucher
     list_filter = ('status', 'organization')
-    list_display = ('created', 'amount', 'status', 'contact_name', 'contact_email', 'organization')
+    list_display = ('created', 'number', 'status', 'contact_name', 'contact_email', 'organization')
 
 
 admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
