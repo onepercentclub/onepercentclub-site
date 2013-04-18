@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-17 19:46+0200\n"
+"POT-Creation-Date: 2013-04-18 11:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,8 +58,8 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: models.py:47 models.py:136
-msgid "partner organization"
+#: models.py:47
+msgid "partner organisations"
 msgstr ""
 
 #: models.py:48
@@ -124,8 +124,8 @@ msgstr ""
 
 #: models.py:67
 msgid ""
-"The project owner's notion of the project start date. This date is "
-"independent of the various phase start dates."
+"Project initiator’s planned completion date. This date is independent of the "
+"various phase start dates."
 msgstr ""
 
 #: models.py:71
@@ -160,6 +160,10 @@ msgstr ""
 
 #: models.py:124
 msgid "projects"
+msgstr ""
+
+#: models.py:136
+msgid "partner organization"
 msgstr ""
 
 #: models.py:137
@@ -481,7 +485,8 @@ msgid "days to go"
 msgstr ""
 
 #: templates/projects.hbs:123
-msgid "Support with voucher"
+#, python-format
+msgid "Support with a 1%%GIFTCARD"
 msgstr ""
 
 #: templates/projects.hbs:125

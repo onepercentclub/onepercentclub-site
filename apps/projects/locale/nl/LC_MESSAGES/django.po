@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-04-17 19:46+0200\n"
-"PO-Revision-Date: 2013-04-17 17:47+0000\n"
+"POT-Creation-Date: 2013-04-18 11:29+0200\n"
+"PO-Revision-Date: 2013-04-18 09:29+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -60,9 +60,9 @@ msgstr "Resultaat"
 msgid "title"
 msgstr "titel"
 
-#: models.py:47 models.py:136
-msgid "partner organization"
-msgstr "partnerorganizatie"
+#: models.py:47
+msgid "partner organisations"
+msgstr ""
 
 #: models.py:48
 msgid "image"
@@ -126,8 +126,8 @@ msgstr "geplande startdatum"
 
 #: models.py:67
 msgid ""
-"The project owner's notion of the project start date. This date is "
-"independent of the various phase start dates."
+"Project initiator’s planned completion date. This date is independent of the"
+" various phase start dates."
 msgstr ""
 
 #: models.py:71
@@ -163,6 +163,10 @@ msgstr "project"
 #: models.py:124
 msgid "projects"
 msgstr "projecten"
+
+#: models.py:136
+msgid "partner organization"
+msgstr "partnerorganizatie"
 
 #: models.py:137
 msgid "partner organizations"
@@ -483,8 +487,9 @@ msgid "days to go"
 msgstr ""
 
 #: templates/projects.hbs:123
-msgid "Support with voucher"
-msgstr "Steun met bon"
+#, python-format
+msgid "Support with a 1%%GIFTCARD"
+msgstr ""
 
 #: templates/projects.hbs:125
 msgid "Support this project"

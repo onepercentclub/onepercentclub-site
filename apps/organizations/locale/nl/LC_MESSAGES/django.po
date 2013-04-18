@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <mathijs@mathijsfietst.nl>, 2012.
+# dokterbob <mathijs@mathijsfietst.nl>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-01-22 22:57+0100\n"
-"PO-Revision-Date: 2013-01-22 22:00+0000\n"
+"POT-Creation-Date: 2013-04-18 11:29+0200\n"
+"PO-Revision-Date: 2013-04-17 18:00+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
