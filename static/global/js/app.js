@@ -320,6 +320,7 @@ App.Router.map(function() {
     this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'});
 
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
+        this.route('pickProject', {path: '/pickproject'});
         this.route('add', {path: '/add/:project_id'});
         this.route('code', {path: '/:code'});
     });
@@ -366,10 +367,6 @@ App.ProjectListRoute = Ember.Route.extend({
 App.ProjectRoute = Ember.Route.extend({
     setupController: function(controller, project) {
         this._super(controller, project);
-
-        // Look if we've got an active voucher
-        var voucher = this.controllerFor('voucherRedeem').get('voucher');
-        controller.set('currentVoucher', voucher);
 
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
         // wallposts property. The controller will convert it to an Ember Array.
@@ -553,6 +550,12 @@ App.CustomVoucherRequestRoute = Ember.Route.extend({
     }
 });
 
+App.VoucherRedeemPickProjectRoute = Ember.Route.extend({
+    model: function() {
+        return App.Project.find({phase: 'fund'});
+    }
+})
+
 
 App.VoucherRedeemCodeRoute = Ember.Route.extend({
     model: function(params) {
@@ -569,24 +572,43 @@ App.VoucherRedeemCodeRoute = Ember.Route.extend({
 
 
 App.VoucherRedeemAddRoute = Ember.Route.extend({
-    setupController: function(controller, project) {
+
+    setupController: function (controller, project) {
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
-        if (project !== undefined) {
-            var transaction = this.get('store').transaction();
-            // TODO: Generify and move to DRF2 adapter.
-            App.VoucherDonation.reopen({
-                url: 'fund/vouchers/' + voucher.get('code') + '/donations'
+        if (!voucher.get('isLoaded')) {
+            var route = this;
+            voucher.on("didLoad", function () {
+                route.send('addDonation', voucher, project);
             });
-            var donation = transaction.createRecord(App.VoucherDonation);
-            donation.set('project', project);
-            // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
-            donation.on('didCreate', function(record){
-                voucher.get('donations').clear();
-                voucher.get('donations').pushObject(record);
-            });
-            transaction.commit();
+        } else {
+            this.send('addDonation', voucher, project);
+        }
+    },
+
+    events: {
+        addDonation: function (voucher, project) {
+            if (!Em.isNone(project)) {
+                var transaction = this.get('store').transaction();
+                App.VoucherDonation.reopen({
+                    url: 'fund/vouchers/' + voucher.get('code') + '/donations'
+                });
+                var donation = transaction.createRecord(App.VoucherDonation);
+                donation.set('project', project);
+                // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
+                donation.on('didCreate', function(record){
+                    voucher.get('donations').clear();
+                    voucher.get('donations').pushObject(record);
+                });
+                var donation = transaction.createRecord(App.VoucherDonation);
+                transaction.add(donation);
+                donation.set('project', project);
+                donation.set('voucher', voucher);
+                transaction.commit();
+                $.colorbox.close();
+            }
         }
     }
+
 });
 
 

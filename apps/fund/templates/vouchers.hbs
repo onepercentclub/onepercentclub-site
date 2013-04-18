@@ -76,16 +76,15 @@
                     <ul id="donation-projects">
                         {{#each voucher.donations}}
                             {{view App.VoucherDonationView content=this}}
-                        {{else}}
-                            <li class="donation-project">
-                                {{#linkTo "projectList"}}
-                                    <h1>
-                                        {% trans "Choose a project to support with this gift card" %}
-                                    </h1>
-                                    <b>You can make it work!</b>
-                                {{/linkTo}}
-                            </li>
                         {{/each}}
+                        <li class="donation-project">
+                            {{#linkTo "voucherRedeem.pickProject"}}
+                                <h1>
+                                    {% trans "Choose a project to support with this gift card" %}
+                                </h1>
+                                <b>You can make it work!</b>
+                            {{/linkTo}}
+                        </li>
                     </ul>
                     {{#if voucher.donations.length}}
                         <button {{action "redeemVoucher" target="controller"}} type="submit" class="button right">
@@ -125,7 +124,24 @@
         </section>
     </div>
 
-{% endtplhandlebars %}static/global/css/print.css
+    {{ outlet }}
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "voucher_redeem_pick_project" %}
+    <h2>Pick a project</h2>
+    <ul>
+        {{#each project in controller}}
+            <li>
+                {{#linkTo "voucherRedeem.add" project}}
+                    {{ project.title }}
+                {{/linkTo}}
+            </li>
+        {{/each}}
+    </ul>
+{% endtplhandlebars %}
+
 
 
 {% tplhandlebars "voucher_redeem_done" %}
@@ -159,7 +175,7 @@
     </p>
 
     {# add this for multiple donations per voucher #}
-    {# <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a> #}
+    <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a>
 
 {% endtplhandlebars %}
 
