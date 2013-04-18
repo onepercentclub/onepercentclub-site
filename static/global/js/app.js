@@ -50,6 +50,7 @@ $.ajaxSetup({
 });
 
 
+
 Em.TextField.reopen({
     // Update attributeBinding with 'step' and 'multiple'
     attributeBindings: ['type', 'value', 'size', 'step', 'multiple']
@@ -64,7 +65,7 @@ App = Em.Application.create({
     LOG_TRANSITIONS: true,
 
     // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
-    templates: ['projects', 'wallposts', 'reactions', 'orders', 'vouchers'],
+    templates: ['profiles', 'projects', 'wallposts', 'reactions', 'orders', 'vouchers'],
 
     // We store language & locale here because they need to be available before loading templates.
     language: 'en',
@@ -234,49 +235,6 @@ App.Store = DS.Store.extend({
 });
 
 
-/* User / Member authentication. */
-
-// TODO The models are not worked properly yet.
-App.Member = DS.Model.extend({
-    url: 'members/users',
-
-    username: DS.attr('string'),
-    first_name: DS.attr('string'),
-    last_name: DS.attr('string'),
-    picture: DS.attr('string'),
-    avatar: function() {
-        if (this.get('picture')) {
-            return this.get('picture');
-        }
-
-        return '/static/assets/images/default-avatar.png';
-    }.property('picture'),
-    full_name: function() {
-        return this.get('first_name') + ' ' + this.get('last_name');
-    }.property('first_name', 'last_name')
-});
-
-
-App.User = App.Member.extend({
-    url: 'members',
-    email: DS.attr('string')
-});
-
-
-// Inspiration from:
-// http://stackoverflow.com/questions/14388249/accessing-controllers-from-other-controllers
-App.CurrentUserController = Em.ObjectController.extend({
-    init: function() {
-        this._super();
-        this.set("model", App.User.find('current'));
-    },
-
-    isAuthenticated: function(){
-        return (this.get('username')) ? true : false;
-    }.property('username')
-});
-
-
 /* Routing */
 
 App.SlugRouter = Em.Mixin.create({
@@ -346,9 +304,26 @@ App.ApplicationRoute = Ember.Route.extend({
             language = 'en';
             document.location = '/' + language + document.location.hash;
             return true;
+        },
+        openInBox: function(name, context){
+            // Get the controller or create one
+            var controller = this.controllerFor(name);
+            controller.set('model', context);
+
+            // Get the view. This should be defined.
+            var view = App[name.classify() + 'View'].create();
+            view.set('controller', controller);
+
+            console.log(controller.toString());
+            console.log(view.toString());
+
+            $.colorbox({html: ' ', height: 600, width: 800});
+            view.appendTo('#cboxLoadedContent');
+
         }
     }
 });
+
 
 
 /**
@@ -569,24 +544,43 @@ App.VoucherRedeemCodeRoute = Ember.Route.extend({
 
 
 App.VoucherRedeemAddRoute = Ember.Route.extend({
-    setupController: function(controller, project) {
+
+    setupController: function (controller, project) {
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
-        if (project !== undefined) {
-            var transaction = this.get('store').transaction();
-            // TODO: Generify and move to DRF2 adapter.
-            App.VoucherDonation.reopen({
-                url: 'fund/vouchers/' + voucher.get('code') + '/donations'
+        if (!voucher.get('isLoaded')) {
+            var route = this;
+            voucher.on("didLoad", function () {
+                route.send('addDonation', voucher, project);
             });
-            var donation = transaction.createRecord(App.VoucherDonation);
-            donation.set('project', project);
-            // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
-            donation.on('didCreate', function(record){
-                voucher.get('donations').clear();
-                voucher.get('donations').pushObject(record);
-            });
-            transaction.commit();
+        } else {
+            this.send('addDonation', voucher, project);
+        }
+    },
+
+    events: {
+        addDonation: function (voucher, project) {
+            if (!Em.isNone(project)) {
+                var transaction = this.get('store').transaction();
+                App.VoucherDonation.reopen({
+                    url: 'fund/vouchers/' + voucher.get('code') + '/donations'
+                });
+                var donation = transaction.createRecord(App.VoucherDonation);
+                donation.set('project', project);
+                // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
+                donation.on('didCreate', function(record){
+                    voucher.get('donations').clear();
+                    voucher.get('donations').pushObject(record);
+                });
+                var donation = transaction.createRecord(App.VoucherDonation);
+                transaction.add(donation);
+                donation.set('project', project);
+                donation.set('voucher', voucher);
+                transaction.commit();
+                $.colorbox.close();
+            }
         }
     }
+
 });
 
 
@@ -608,3 +602,4 @@ App.LanguageSwitchView = Ember.CollectionView.extend({
 App.LoginView = Em.View.extend({
     templateName: "login"
 });
+

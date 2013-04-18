@@ -1,4 +1,4 @@
-from apps.bluebottle_drf2.serializers import (OEmbedField, PolymorphicSerializer, AuthorSerializer,
+from apps.bluebottle_drf2.serializers import (OEmbedField, PolymorphicSerializer, MemberPreviewSerializer,
                                               SorlImageField, ContentTextField)
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
@@ -7,7 +7,7 @@ from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 # Serializer for WallPost Reactions.
 
 class ReactionSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer()
+    author = MemberPreviewSerializer()
     text = ContentTextField()
     wallpost = serializers.PrimaryKeyRelatedField()
     url = serializers.HyperlinkedIdentityField(view_name="wallpost-reaction-detail")
@@ -34,7 +34,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
         Base class serializer for WallPosts. This is not used directly; please subclass it.
     """
-    author = AuthorSerializer()
+    author = MemberPreviewSerializer()
     reactions = ReactionSerializer(many=True)
 
     class Meta:

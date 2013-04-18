@@ -122,14 +122,22 @@
                     <ul id="donation-projects">
                         {{#each voucher.donations}}
                             {{view App.VoucherDonationView content=this}}
+                            <li class="donation-project">
+                                <a  {{action openInBox "voucherPickProject"}}>
+                                    <h1>
+                                        {% trans "Choose another project." %}
+                                    </h1>
+                                    <b>You can make it work!</b>
+                                </a>
+                            </li>
                         {{else}}
                             <li class="donation-project">
-                                {{#linkTo "projectList"}}
+                                <a  {{action openInBox "voucherPickProject"}}>
                                     <h1>
                                         {% trans "Choose a project to support with this gift card" %}
                                     </h1>
                                     <b>You can make it work!</b>
-                                {{/linkTo}}
+                                </a>
                             </li>
                         {{/each}}
                     </ul>
@@ -258,4 +266,18 @@
         </section>
     </div>
 
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "voucher_pick_project" %}
+    <h2>Pick a project</h2>
+    <ul>
+        {{#each project in projects}}
+            <li>
+                {{#linkTo "voucherRedeem.add" project}}
+                    {{ project.title }}
+                {{/linkTo}}
+            </li>
+        {{/each}}
+    </ul>
 {% endtplhandlebars %}

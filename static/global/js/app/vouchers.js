@@ -16,6 +16,11 @@ App.CustomVoucherRequest = DS.Model.extend({
 });
 
 
+App.VoucherDonation = App.Donation.extend({
+    url: 'fund/vouchers/:code/donations'
+});
+
+
 /* Controllers */
 
 App.VoucherRedeemController = Em.ArrayController.extend({
@@ -49,7 +54,7 @@ App.VoucherRedeemController = Em.ArrayController.extend({
         transaction.add(voucher);
         voucher.set('status', 'cashed');
         voucher.on('didUpdate',function(){
-            controller.transitionTo('voucherRedeemDone');
+            controller.transitionToRoute('voucherRedeemDone');
         });
         transaction.commit();
     },
@@ -84,6 +89,15 @@ App.CustomVoucherRequestController = Em.ObjectController.extend({
         var transaction = this.get('transaction');
         var voucherRequest = this.get('content');
         transaction.commit();
+    }
+});
+
+
+App.VoucherPickProjectController = Em.ArrayController.extend({
+    // Because this hasn't got a Route we get the list over here
+    init: function(){
+        this._super();
+        this.set('projects', App.Project.find({phase: 'fund'}));
     }
 });
 
@@ -126,3 +140,8 @@ App.VoucherDonationView = Em.View.extend({
         });
     }
 });
+
+App.VoucherPickProjectView = Em.View.extend({
+    templateName: 'voucher_pick_project'
+});
+

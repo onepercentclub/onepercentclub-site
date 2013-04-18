@@ -3,21 +3,23 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 
-class MemberDetailSerializer(serializers.ModelSerializer):
+class MemberSerializer(serializers.ModelSerializer):
 
     url = serializers.HyperlinkedIdentityField(view_name='member-detail')
-    picture = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY")
+    avatar = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY")
+    picture = SorlImageField('userprofile.picture', '240x240')
+
+    about = serializers.CharField(source='userprofile.about')
+    why = serializers.CharField(source='userprofile.why')
+    contribution = serializers.CharField(source='userprofile.contribution')
+    availability = serializers.CharField(source='userprofile.availability')
+    working_location = serializers.CharField(source='userprofile.working_location')
+
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'url', 'picture')
-
-
-class MemberListSerializer(MemberDetailSerializer):
-
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'url')
+        fields = ('id', 'first_name', 'last_name', 'username', 'url', 'picture', 'avatar', 'about', 'why',
+                  'contribution', 'availability', 'working_location')
 
 
 class NoneHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
@@ -30,9 +32,9 @@ class NoneHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
             super(NoneHyperlinkedIdentityField, self).field_to_native(obj, field_name)
 
 
-class AuthenticatedMemberSerializer(MemberDetailSerializer):
+class AuthenticatedMemberSerializer(MemberSerializer):
 
     url = NoneHyperlinkedIdentityField(view_name='member-detail')
 
-    class Meta(MemberDetailSerializer.Meta):
-        fields = MemberDetailSerializer.Meta.fields + ('email', )
+    class Meta(MemberSerializer.Meta):
+        fields = MemberSerializer.Meta.fields + ('email', )

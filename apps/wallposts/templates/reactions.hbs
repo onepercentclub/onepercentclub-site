@@ -5,12 +5,14 @@
 {% tplhandlebars "wallpost_reaction" %}
 
 	<span class="user-img">
-        <img {{ bindAttr src="author.avatar" }} width="100%" alt="Avatar" />
+        <a {{action openInBox "memberProfile" author}} class="user">
+            <img {{ bindAttr src="author.getAvatar" }} width="100%" alt="Avatar" />
+        </a>
     </span>
 	<div class="reaction">
 	
-	      <a href="#" class="user">
-	          <em class="user-type not-implemented">{%  trans "Member" %}</em> 
+        <a {{action openInBox "memberProfile" author}} class="user">
+            <em class="user-type not-implemented">{%  trans "Member" %}</em>
             <strong class="user-name">{{ author.full_name }}</strong>
             <em class="timestamp">{{ localize created formatting="X" }}</em>
         </a>

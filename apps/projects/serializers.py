@@ -1,9 +1,8 @@
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField
+from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, MemberPreviewSerializer
 from apps.geo.models import Country
 from .models import Project
 
@@ -16,14 +15,6 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'subregion')
 
 
-class ProjectOwnerSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', colorspace="GRAY")
-
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'picture', 'username')
-
-
 class ProjectSerializer(serializers.ModelSerializer):
     # Ember-data needs to have an unique id field for relationships to work. Normally it's the pk but in this case
     # it's the slug so we can display the project slug in the url.
@@ -32,7 +23,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     language = serializers.CharField(source='get_language_display', read_only=True)
     organization = serializers.RelatedField()
-    owner = ProjectOwnerSerializer()
+    owner = MemberPreviewSerializer()
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     phase = serializers.CharField(source='get_phase_display', read_only=True)
     tags = serializers.RelatedField(many=True)
