@@ -64,7 +64,7 @@ class Project(models.Model):
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
-                                          help_text=_("Project initiator’s planned completion date. "
+                                          help_text=_("Project initiator's planned completion date. "
                                           "This date is independent of the various phase start dates.")
                                           )
 
