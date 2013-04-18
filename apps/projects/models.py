@@ -44,7 +44,7 @@ class Project(models.Model):
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
-    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True, verbose_name=_('partner organization'))
+    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True, verbose_name=_('partner organisations'))
     image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Main project picture"))
     organization = models.ForeignKey('organizations.Organization', verbose_name=_("organization"), null=True, blank=True)
     owner = models.ForeignKey('auth.User', verbose_name=_("owner"))
@@ -64,7 +64,7 @@ class Project(models.Model):
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
-                                          help_text=_("The project owner's notion of the project start date. "
+                                          help_text=_("Project initiator’s planned completion date. "
                                           "This date is independent of the various phase start dates.")
                                           )
 
