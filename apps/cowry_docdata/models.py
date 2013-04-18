@@ -30,8 +30,10 @@ class DocDataPaymentOrder(Payment):
 
 
 class DocDataPayment(PolymorphicModel):
+    """
+    The base model for a docdata payment. The model can be used for a web menu payment.
+    """
     # Statuses from: Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 35
-
     # Note; We're not using DjangoChoices here so that we can write unknown statuses if they are presented by DocData.
     statuses = ('NEW', 'STARTED', 'AUTHORIZED', 'PAID', 'CANCELLED', 'CHARGED-BACK', 'CONFIRMED_PAID',
                 'CONFIRMED_CHARGEDBACK', 'CLOSED_SUCCESS', 'CLOSED_CANCELLED')
@@ -43,12 +45,6 @@ class DocDataPayment(PolymorphicModel):
     docdata_payment_method = models.CharField(max_length=20, default='', blank=True)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
-
-
-class DocDataWebMenu(DocDataPayment):
-    # DocDataWebMenu doesn't need additional fields but it's convenient to have an identifiable model right now. We
-    # might remove this in the future.
-    pass
 
 
 class DocDataWebDirectDirectDebit(DocDataPayment):
