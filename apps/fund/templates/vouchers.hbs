@@ -7,27 +7,70 @@
     <div class="container section voucher-banner">
 
         <header class="wrapper">
-            <h1 class="">{% trans "Give" %}</h1>
-            <h1 class="">{% trans "a gift" %}</h1>
-            <h1 class="">{% trans "that keeps on giving" %}</h1>
-            <h1 class="">{% trans "Give a" %}</h1>
-            <h1 class="pink">{% trans "1%GIFTCARD" %} </h1>
+            <div class="voucher-banner-title">
+                <h1 class="">{% trans "Share" %}</h1>
+                <h1 class="">{% trans "the fun" %}</h1>
+                <h1 class="">{% trans "of giving" %}</h1>
+                <h1 class="pink">{% trans "with a" %}</h1>
+                <h1 class="pink">{% trans "1%GIFTCARD" %} </h1>
+            </div>
+
+            <div class="voucher-banner-calltoaction">
+
+
+                {{#linkTo "voucherRedeem" class="btn btn-large"}}
+                    <i class="icon icon-credit-card"></i>
+
+                    <div class="btn-content">
+                        <div class="btn-title">{% trans "I received a 1%GIFTCARD" %}</div>
+                        <div class="btn-subtitle">{% trans "Support a project by cashing your voucher" %}</div>
+                    </div>
+                {{/linkTo}}
+
+
+
+                {{#linkTo "currentOrder.voucherList" class="btn btn-large btn-primary"}}
+                    <i class="icon icon-gift"></i>
+
+                    <div class="btn-content">
+                        <div class="btn-title">{% trans "I'd like to buy a 1%GIFTCARD" %}</div>
+                        <div class="btn-subtitle">{% trans "Order your digital email-vouchers right here!" %}</div>
+                    </div>
+
+                {{/linkTo}}
+
+                <p class="text-right voucher-custom">
+                    <i class="icon icon-certificate"></i> Need a (large) batch or custom cards? Contact us!
+                </p>
+            </div>
         </header>
 
     </div>
 
     <div class="container">
         <section class="wrapper">
-            <div class="redeem">
-                {{#linkTo "voucherRedeem"}}
-                    <h2>{% trans "I received a 1%GIFTCARD" %}</h2>
-                {{/linkTo}}
-            </div>
-            <div class="buy">
-                {{#linkTo "currentOrder.voucherList"}}
-                    <h2>{% trans "I'd like to buy a 1%GIFTCARD" %}</h2>
-                {{/linkTo}}
-            </div>
+            <ul class="voucher-instructions">
+                <li>
+                    <div class="voucher-ins-step">1</div>
+                    <h2>{% trans "Give" %}</h2>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam porta, nisi a fermentum vehicula, sapien dui facilisis arcu, in ullamcorper nisl purus id neque.</p>
+                </li>
+
+                <li>
+                    <div class="voucher-ins-step">2</div>
+                    <h2>{% trans "Choose" %}</h2>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam porta, nisi a fermentum vehicula, sapien dui facilisis arcu, in ullamcorper nisl purus id neque.</p>
+                </li>
+
+                <li>
+                    <div class="voucher-ins-step">3</div>
+                    <h2>{% trans "Follow" %}</h2>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam porta, nisi a fermentum vehicula, sapien dui facilisis arcu, in ullamcorper nisl purus id neque.</p>
+                </li>
+            </ul>
         </section>
     </div>
 
