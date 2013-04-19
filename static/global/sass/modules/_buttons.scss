@@ -1,142 +1,226 @@
 /* =========== Buttons */
 
 .button-link {
-    
-    @include rem(font-size, 16px);
-    color: $text-black;
-    cursor: hand;
-    cursor: pointer;
-    text-transform: uppercase;
-    
+
+  @include rem(font-size, 16px);
+  color: $text-black;
+  text-transform: uppercase;
+  cursor: hand;
+  cursor: pointer;
+
+  em {
+    @include rem(font-size, 20px);
+  }
+
+  &:hover, &:active {
+    color: $black;
+    text-decoration: underline;
+
     em {
-        @include rem(font-size, 20px);
+      text-decoration: none;
     }
-    
-    &:hover, &:active {
-        color: $black;
-        text-decoration: underline;
-        
-        em {
-            text-decoration: none;
-        }
-    }
-    
+  }
+
 }
 
 
 // Choose a div or ul to group up your buttons
 div.buttons, ul.buttons {
-    margin: 0 0 $margin 0;
-    @include clearfix;
-    li { 
-        a.button, a.btn, input[type="submit"], button {
-            @include border-radius(0);
-            float: left; 
-            border-left-width: 0;
-        }
-        &:first-child { a.button, a.btn, input[type="submit"], button { @include border-radius(0.2em 0 0 0.2em); border-left-width: 1px; } }
-        &:last-child { a.button, a.btn, input[type="submit"], button { @include border-radius(0 0.2em 0.2em 0); } }
+  @include clearfix;
+  margin: 0 0 $margin 0;
+  li {
+    a.button, a.btn, input[type="submit"], button {
+      @include border-radius(0);
+      float: left;
+      border-left-width: 0;
     }
+    &:first-child { a.button, a.btn, input[type="submit"], button { @include border-radius(0.2em 0 0 0.2em); border-left-width: 1px; } }
+    &:last-child { a.button, a.btn, input[type="submit"], button { @include border-radius(0 0.2em 0.2em 0); } }
+  }
 }
 .dropdown-menu { display: none; }
 
 // The standard button has the $color-brand colors
 a.button, .btn, input[type="submit"], button {
-    border: 1px solid darken($green, 5%);
-    color: $white;
-    cursor: pointer;
-    display: inline-block;
-    @include rem(font-size, 18px);
-    font-weight: 600;
-    text-transform: uppercase;
-    margin: 0;
-    @include rem(padding, 12px 24px 8px 24px);
-    text-decoration: none;
-    @include transition(all 30ms);
-    vertical-align: baseline;
-    background-color: $green;
+  @include rem(font-size, 18px);
+  @include rem(padding, 12px 24px 8px 24px);
+  @include transition(all 30ms);
+  display: inline-block;
+  margin: 0;
+  border: 1px solid darken($green, 5%);
+  background-color: $green;
+  color: $white;
+  vertical-align: baseline;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
 
+  .icon {
+    @include rem(margin-right, $padding);
+    @include rem(padding, $padding);
+    @include rem(font-size, 4.1em);
+
+    position: relative;
+    float: left;
+    width: 20%;
+    background:  darken($green, 5%);
+    color: lighten($green, 5%);
+    text-align: center;
+    line-height: 1em;
+
+    &:after {
+      position:  absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      content: " ";
+    }
+  }
+
+  &:hover {
+    border-color: darkern($grayDarker, 5%);
+    background-color: $grayDarker;
+    color: $white;
+
+    .icon {
+      border-color: darkern($grayDarker, 5%);
+      background-color: $grayDarker;
+      color: $white;
+    }
+
+    .btn-title,
+    .btn-subtitle {
+      color: $white;
+    }
+  }
+
+  &:active {
+
+    @include box-shadow(0 4px 0 $black inset);
+    @include rem(padding, 16px 24px 4px 24px);
+
+
+    top: 0;
+
+    border-color: $black;
+    background: #222;
+    color: darken($white, 25%);
+
+    text-shadow: 0 0 0;
+  }
+
+  &[disabled] {
+    border-color: $gray;
+    background-color: $gray;
+    color:  $color-back;
 
     &:hover {
-        background-color: $text-black;
-        color: $white;
-        border-color: darken($text-black, 5%);
+      background-color: $gray;
+      color:  $color-back;
     }
-    
-    &:active {
-        background: #222;
-        color: darken($white, 25%);
-        
-        text-shadow: 0 0 0;
-        
-        @include box-shadow(0 4px 0 $black inset);
-        @include rem(padding, 16px 24px 4px 24px);
-        
-        border-color: $black;
-        
-        
-        top: 0;
-    }
+    &:active{
+      position: relative;
+      top: 0px;
+      color:  $color-error;
 
-    &[disabled] {
-        color:  $color-back;
-        background-color: $gray;
-        border-color: $gray;
-
-        &:hover {
-            color:  $color-back;
-            background-color: $gray;
-        }
-        &:active{
-            position: relative;
-            color:  $color-error;
-            top: 0px;
-
-        }
     }
+  }
 
-    // The dark button
-    &.contrast {
-        border-color: $black;
-        @include background( linear-gradient(top, lighten($black, 40%), $black) );
-        &:hover { 
-            @include background( linear-gradient(top, lighten($black, 50%), $black ));
-        }
-        &:active, &:focus {
-            background: lighten($black, 20%);
-            color: darken($white, 25%);
-        }
+  // The dark button
+  &.contrast {
+    @include background( linear-gradient(top, lighten($black, 40%), $black) );
+    border-color: $black;
+    &:hover {
+      @include background( linear-gradient(top, lighten($black, 50%), $black ));
     }
-    
-    &.next {
-      float: right;
-      border: none;
-      padding-right: 42px;
-      
-      background: $pink url('../images/button-next.png') no-repeat right center;
+    &:active, &:focus {
+      background: lighten($black, 20%);
+      color: darken($white, 25%);
     }
+  }
+
+  &.next {
+    float: right;
+    padding-right: 42px;
+    border: none;
+
+    background: $pink url('../images/button-next.png') no-repeat right center;
+  }
+}
+
+.btn-title,
+.btn-subtitle {
+  margin: 0;
+}
+
+.btn-title {
+  @include rem(font-size, 26px);
+  text-transform: uppercase;
+}
+
+.btn-subtitle {
+  @include rem(font-size, 16px);
+  color:  darken($green, 15%);
+  text-transform: none;
+  font-weight: 300;
 }
 
 
 .button-donate {
-    @extend a.button;
-    @include rem(font-size, 18px);
-    
-    .icon {
-        
-    }
-    
-    border: 1px solid darken($pink, 5%);
-    background-color: $pink;
+  @extend a.button;
+
+  border: 1px solid darken($pink, 5%);
+  background-color: $pink;
+
+  .icon {
+
+  }
+  @include rem(font-size, 18px);
 }
 
 /* ========================= Responsive ================================== */
 
 /* Desktop */
 @media only screen and (min-width: 1140px) {
-    .button-donate {
-        @include rem(font-size, 20px);
-    }
+  .button-donate {
+    @include rem(font-size, 20px);
+  }
 }
 
 /* ======================================================================= */
+
+.btn-primary {
+  border: 1px solid darken($pink, 5%);
+  background-color: $pink;
+
+  .btn-subtitle {
+    color:  darken($pink, 40%);
+  }
+
+  .icon {
+    background: darken($pink, 5%);
+    color:  lighten($pink, 10%);
+  }
+}
+
+.btn-large {
+  @include rem(padding, 0);
+  border:  none;
+
+  .icon {
+    font-size: 80px;
+  }
+
+  .btn-content {
+    @include rem(padding, $padding + 8);
+  }
+
+  &:active {
+    @include rem(padding, 0);
+  }
+}
+
+
