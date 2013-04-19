@@ -8,10 +8,10 @@
 
         <header class="wrapper">
             <div class="voucher-banner-title">
-                <h1 class="">{% trans "Share" %}</h1>
-                <h1 class="">{% trans "the fun" %}</h1>
-                <h1 class="">{% trans "of giving" %}</h1>
-                <h1 class="pink">{% trans "with a" %}</h1>
+                <h1 class="">{% trans "Give" %}</h1>
+                <h1 class="">{% trans "a gift" %}</h1>
+                <h1 class="">{% trans "that keeps on giving" %}</h1>
+                <h1 class="pink">{% trans "Give a" %}</h1>
                 <h1 class="pink">{% trans "1%GIFTCARD" %} </h1>
             </div>
 
@@ -40,7 +40,10 @@
                 {{/linkTo}}
 
                 <p class="text-right voucher-custom">
-                    <i class="icon icon-certificate"></i> Need a (large) batch or custom cards? Contact us!
+                    <i class="icon icon-certificate"></i> {% trans "Need a (large) batch or custom cards?" %}
+                    {{#linkTo "customVoucherRequest" }}
+                        {% trans "Contact us!" %}
+                    {{/linkTo}}
                 </p>
             </div>
         </header>

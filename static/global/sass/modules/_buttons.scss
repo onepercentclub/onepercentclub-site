@@ -81,9 +81,20 @@ a.button, .btn, input[type="submit"], button {
   }
 
   &:hover {
-    border-color: darken($text-black, 5%);
-    background-color: $text-black;
+    border-color: darkern($grayDarker, 5%);
+    background-color: $grayDarker;
     color: $white;
+
+    .icon {
+      border-color: darkern($grayDarker, 5%);
+      background-color: $grayDarker;
+      color: $white;
+    }
+
+    .btn-title,
+    .btn-subtitle {
+      color: $white;
+    }
   }
 
   &:active {
@@ -205,6 +216,10 @@ a.button, .btn, input[type="submit"], button {
 
   .btn-content {
     @include rem(padding, $padding + 8);
+  }
+
+  &:active {
+    @include rem(padding, 0);
   }
 }
 
