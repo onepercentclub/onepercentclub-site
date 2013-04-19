@@ -8,6 +8,7 @@ from polymorphic import PolymorphicModel
 class PaymentStatuses(DjangoChoices):
     new = ChoiceItem('new', label=_("New"))
     in_progress = ChoiceItem('in_progress', label=_("In Progress"))
+    pending = ChoiceItem('pending', label=_("Pending"))
     paid = ChoiceItem('paid', label=_("Paid"))
     failed = ChoiceItem('failed', label=_("Failed"))
     cancelled = ChoiceItem('cancelled', label=_("Cancelled"))

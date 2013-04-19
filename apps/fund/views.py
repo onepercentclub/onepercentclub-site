@@ -1,9 +1,9 @@
 import threading
+from apps.cowry import payments
 from apps.cowry.models import Payment
 from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
-from apps.fund.models import close_order_after_payment
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -107,29 +107,6 @@ class CurrentOrderMixin(object):
 
         return order
 
-    def get_checkout_order(self):
-        if self.request.user.is_authenticated():
-            try:
-                # THe user can have multiple orders in checkout state. Make sure to return only the latest.
-                order = Order.objects.filter(user=self.request.user, status=OrderStatuses.checkout).order_by('-created').get()
-                close_order_after_payment(order)
-            except Order.DoesNotExist:
-                return None
-        else:
-            # For an anonymous user the order (cart) might be stored in the session
-            order_id = self.request.session.get('cart_order_id')
-            if order_id:
-                try:
-                    order = Order.objects.filter(status=OrderStatuses.checkout, id=order_id).get()
-                    close_order_after_payment(order)
-                except Order.DoesNotExist:
-                    # The order_id was not a Order in the db, return None
-                    return None
-            else:
-                # No order_id in session. Return None
-                return None
-        return order
-
 
 # Some API views we still need to implement
 
@@ -166,14 +143,17 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         alias = self.kwargs.get('alias', None)
         if alias == 'current':
             order = self.get_or_create_current_order()
-        elif alias == 'checkout':
-            order = self.get_checkout_order()
         else:
             order = super(OrderDetail, self).get_object()
         self.check_object_permissions(self.request, order)
+
         if not order:
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
+
+        if order.status == OrderStatuses.in_progress:
+            payments.update_payment_status(order.payment)
+
         return order
 
 

@@ -131,7 +131,6 @@ App = Em.Application.create({
         }
     },
 
-
     _getTemplate: function(template, callback) {
         var language = this.get('language');
         var hash = {};
@@ -271,7 +270,7 @@ App.Router.map(function() {
         this.resource('payment', {path: '/payment'});
     });
 
-    this.resource('currentOrderFinal', {path: '/support/thanks'});
+    this.resource('OrderThanks', {path: '/support/thanks/:order_id'});
 
     this.resource('voucherStart', {path: '/vouchers'});
     this.resource('customVoucherRequest', {path: '/vouchers/custom'});
@@ -330,7 +329,6 @@ App.ApplicationRoute = Ember.Route.extend({
  * Project Routes
  */
 
-
 App.ProjectListRoute = Ember.Route.extend({
     model: function() {
         return App.Project.find({phase: 'fund'});
@@ -373,7 +371,6 @@ App.ProjectRoute = Ember.Route.extend({
                 controller.set('canLoadMore', true);
             });
         }
-
     }
 
 });
@@ -471,22 +468,6 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
     setupController: function(controller, vouchers) {
         this._super(controller, vouchers);
         this.controllerFor('currentOrder').set('isVoucherOrder', true);
-    }
-});
-
-
-App.CurrentOrderFinalRoute = Ember.Route.extend({
-    model: function(params) {
-        var order = App.CurrentOrder.find('checkout');
-        // Send request to notify the server that payment process is finalized.
-        // The server will do another check later.
-        order.on('didLoad', function(){
-            var transaction = this.get('store').transaction();
-            transaction.add(order);
-            order.set('finalized', true);
-            transaction.commit();
-        });
-        return order;
     }
 });
 
