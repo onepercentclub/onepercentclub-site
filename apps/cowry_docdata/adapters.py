@@ -9,7 +9,7 @@ from django.utils import timezone
 from suds.client import Client
 from suds.plugin import MessagePlugin
 from .exceptions import DocDataPaymentException
-from .models import DocDataPaymentOrder, DocDataWebMenu, DocDataPayment
+from .models import DocDataPaymentOrder, DocDataPayment
 
 status_logger = logging.getLogger('cowry-docdata.status')
 payment_logger = logging.getLogger('cowry-docdata.payment')
@@ -87,10 +87,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     # TODO: Create defaults for this like the payment_methods
     id_to_model_mapping = {
-        'dd-ideal': DocDataWebMenu,
-        'dd-direct-debit': DocDataWebMenu,
-        'dd-creditcard': DocDataWebMenu,
-        'dd-webmenu': DocDataWebMenu,
+        'dd-ideal': DocDataPayment,
+        'dd-direct-debit': DocDataPayment,
+        'dd-creditcard': DocDataPayment,
+        'dd-webmenu': DocDataPayment,
     }
 
     def __init__(self):
@@ -217,7 +217,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         """ Return the Payment URL """
 
         if payment.amount <= 0 or not payment.payment_method_id or \
-                not self.id_to_model_mapping[payment.payment_method_id] == DocDataWebMenu:
+                not self.id_to_model_mapping[payment.payment_method_id] == DocDataPayment:
             return None
 
         if not payment.payment_order_key:
@@ -252,10 +252,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             payment_url_base = 'https://secure.docdatapayments.com/ps/menu'
 
-        # Create a DocDataWebMenu when we need it.
+        # Create a DocDataPayment when we need it.
         webmenu_payment = payment.latest_docdata_payment
-        if not webmenu_payment or not isinstance(webmenu_payment, DocDataWebMenu):
-            webmenu_payment = DocDataWebMenu()
+        if not webmenu_payment or not isinstance(webmenu_payment, DocDataPayment):
+            webmenu_payment = DocDataPayment()
             webmenu_payment.docdata_payment_order = payment
             webmenu_payment.save()
 

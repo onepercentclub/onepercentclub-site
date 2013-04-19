@@ -1,6 +1,6 @@
 from apps.bluebottle_drf2.serializers import PolymorphicSerializer
 from rest_framework import serializers
-from .models import DocDataPaymentOrder, DocDataWebMenu, DocDataWebDirectDirectDebit
+from .models import DocDataPaymentOrder, DocDataWebDirectDirectDebit
 
 
 class DocDataOrderProfileSerializer(serializers.ModelSerializer):
@@ -12,12 +12,6 @@ class DocDataOrderProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'email', 'street', 'city', 'postal_code', 'country')
 
 
-class DocDataWebMenuSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DocDataWebMenu
-        fields = ('id', 'payment_url',)
-
-
 class DocDataWebDirectDirectDebitSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocDataWebDirectDirectDebit
@@ -27,6 +21,5 @@ class DocDataWebDirectDirectDebitSerializer(serializers.ModelSerializer):
 class DocDataPaymentMethodSerializer(PolymorphicSerializer):
     class Meta:
         child_models = (
-            (DocDataWebMenu, DocDataWebMenuSerializer),
             (DocDataWebDirectDirectDebit, DocDataWebDirectDirectDebitSerializer),
         )
