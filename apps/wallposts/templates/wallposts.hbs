@@ -110,18 +110,21 @@
 
 {% tplhandlebars "text_wallpost_new" %}
 
-    <fieldset>
-        <ul>
-            <li {{bindAttr class="errors.text.length:error"}}>
-                {{#each errors.text}}
-                    <span class="error">{{this}}</span>
-                {{/each}}
-                <label for="wallpost-update" class="inline">{% trans "Leave your comment here" %}</label>
+    <ul>
+        <li class="control-group">
+            <label for="wallpost-update" class="control-label">{% trans "Leave your comment here" %}</label>
+
+            <div class="controls">
                 {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
-            </li>
-        </ul>
-    </fieldset>
-    <button type="submit">{% trans "Post Comment" %}</button>
+            </div>
+
+            {{#if errors.text }}
+                <div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
+            {{/if}}
+        </li>
+    </ul>
+
+    <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Post Comment" %}</button>
 
 {% endtplhandlebars %}
 

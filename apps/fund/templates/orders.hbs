@@ -126,7 +126,7 @@
     </fieldset>
 
     {{#linkTo "projectList" class="button-link"}}<em class="icon-plus-sign"></em> {%trans "Add another project" %}{{/linkTo}}
-    {{#linkTo "paymentProfile" class="btn right"}}{% trans "Next step" %}{{/linkTo}}
+    {{#linkTo "paymentProfile" class="btn btn-iconed right"}}<i class="icon icon-chevron-right"></i>{% trans "Next step" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -162,9 +162,9 @@
 
 
         {{#if length }}
-            {{#linkTo "paymentProfile" class="button right"}}{% trans "Next step" %}{{/linkTo}}
+            {{#linkTo "paymentProfile" class="btn btn-iconed right"}}<i class="icon icon-chevron-right"></i>{% trans "Next step" %}{{/linkTo}}
         {{else}}
-            <button disabled class="right">{% trans "Next step" %}</button>
+            <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Next step" %}</button>
         {{/if}}
 
 
@@ -381,7 +381,7 @@
         {{/if}}
     </fieldset>
 
-    <button class="btn right">{% trans 'Next step' %}</button>
+    <button class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans 'Next step' %}</button>
 
 {% endtplhandlebars %}
 
