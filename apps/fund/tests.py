@@ -361,14 +361,18 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
 
         self.assertEqual(self.some_project.money_needed, 50000)
         self.assertEqual(self.some_project.phase, 'fund')
-        self.do_api_donation(project=self.some_project, user=self.some_user, amount=350)
-        self.assertEqual(self.some_project.money_needed, 15000)
-        self.do_api_donation(project=self.some_project, user=self.another_user, amount=150)
-        self.assertEqual(self.some_project.money_needed, 0)
 
-        # Reload the project from db and check phase
+        self.do_api_donation(project=self.some_project, user=self.some_user, amount=350)
+        # Reload the project from db and check phase / money_needed
+        project = Project.objects.get(pk=self.some_project.id)
+        self.assertEqual(project.phase, 'fund')
+        self.assertEqual(project.money_needed, 15000)
+
+        self.do_api_donation(project=self.some_project, user=self.another_user, amount=150)
+        # Reload the project from db and check phase / money_needed
         project = Project.objects.get(pk=self.some_project.id)
         self.assertEqual(project.phase, 'act')
+        self.assertEqual(project.money_needed, 0)
 
 
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):

@@ -241,7 +241,7 @@ def set_donation_paid(donation):
     donation.save()
     project = donation.project
     # Change project act phase if it's fully funded and still in fund phase
-    if project.money_needed > 0 and project.phase == 'fund':
+    if project.money_needed <= 0 and project.phase == 'fund':
         project.phase = 'act'
         project.save()
 
