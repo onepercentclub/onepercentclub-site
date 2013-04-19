@@ -56,7 +56,7 @@ django-taggit-autocomplete-modified==0.1.0b4
 micawber==0.2.5
 
 # Used for WallPosts and Blog/News content (as a dependency of django-fluent-contents).
-django_polymorphic==0.3.1
+django_polymorphic==0.4.2
 
 # Blog/news contents is created using blocks
 django-fluent-contents==0.8.3
