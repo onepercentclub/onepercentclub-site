@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-04-18 11:29+0200\n"
-"PO-Revision-Date: 2013-04-18 09:29+0000\n"
+"POT-Creation-Date: 2013-04-20 14:00+0200\n"
+"PO-Revision-Date: 2013-04-20 12:00+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr "Betaald"
 msgid "Cancelled"
 msgstr ""
 
-#: models.py:25 models.py:136 templates/vouchers.hbs:186
+#: models.py:25 models.py:136 templates/vouchers.hbs:232
 msgid "Amount"
 msgstr ""
 
@@ -213,7 +213,7 @@ msgstr ""
 msgid "Contact phone"
 msgstr ""
 
-#: models.py:184 templates/vouchers.hbs:198
+#: models.py:184 templates/vouchers.hbs:244
 msgid "Organisation"
 msgstr ""
 
@@ -292,7 +292,7 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: templates/orders.hbs:58 templates/vouchers.hbs:61
+#: templates/orders.hbs:58 templates/vouchers.hbs:107
 msgid "Profile"
 msgstr ""
 
@@ -371,11 +371,11 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: templates/orders.hbs:224 templates/vouchers.hbs:190
+#: templates/orders.hbs:224 templates/vouchers.hbs:236
 msgid "Your name"
 msgstr ""
 
-#: templates/orders.hbs:236 templates/vouchers.hbs:194
+#: templates/orders.hbs:236 templates/vouchers.hbs:240
 msgid "Your email"
 msgstr ""
 
@@ -500,92 +500,116 @@ msgstr ""
 msgid "Vouchers"
 msgstr "Bonnen"
 
-#: templates/vouchers.hbs:10
+#: templates/vouchers.hbs:11 templates/vouchers.hbs.py:58
 msgid "Give"
 msgstr ""
 
-#: templates/vouchers.hbs:11
+#: templates/vouchers.hbs:12
 msgid "a gift"
 msgstr ""
 
-#: templates/vouchers.hbs:12
+#: templates/vouchers.hbs:13
 msgid "that keeps on giving"
 msgstr ""
 
-#: templates/vouchers.hbs:13
+#: templates/vouchers.hbs:14
 msgid "Give a"
 msgstr ""
 
-#: templates/vouchers.hbs:14
+#: templates/vouchers.hbs:15
 #, python-format
 msgid "1%%GIFTCARD"
 msgstr ""
 
-#: templates/vouchers.hbs:23
+#: templates/vouchers.hbs:25
 #, python-format
 msgid "I received a 1%%GIFTCARD"
 msgstr ""
 
-#: templates/vouchers.hbs:28
+#: templates/vouchers.hbs:26
+msgid "Support a project by cashing your voucher"
+msgstr ""
+
+#: templates/vouchers.hbs:36
 #, python-format
 msgid "I'd like to buy a 1%%GIFTCARD"
 msgstr ""
 
-#: templates/vouchers.hbs:42
+#: templates/vouchers.hbs:37
+msgid "Order your digital email-vouchers right here!"
+msgstr ""
+
+#: templates/vouchers.hbs:43
+msgid "Need a (large) batch or custom cards?"
+msgstr ""
+
+#: templates/vouchers.hbs:45
+msgid "Contact us!"
+msgstr ""
+
+#: templates/vouchers.hbs:65
+msgid "Choose"
+msgstr ""
+
+#: templates/vouchers.hbs:72
+msgid "Follow"
+msgstr ""
+
+#: templates/vouchers.hbs:88
 #, python-format
 msgid "Redeem your 1%%GIFTCARD and support a project!"
 msgstr ""
 
-#: templates/vouchers.hbs:46
+#: templates/vouchers.hbs:92
 msgid "Switch to donations"
 msgstr ""
 
-#: templates/vouchers.hbs:68
+#: templates/vouchers.hbs:114
 msgid "Gift card"
 msgstr ""
 
-#: templates/vouchers.hbs:70
+#: templates/vouchers.hbs:116
 msgid "code accepted"
 msgstr ""
 
-#: templates/vouchers.hbs:83
+#: templates/vouchers.hbs:129
 msgid "Choose a project to support with this gift card"
 msgstr ""
 
-#: templates/vouchers.hbs:92 templates/vouchers.hbs.py:96
-#: templates/vouchers.hbs:120
+#: templates/vouchers.hbs:138 templates/vouchers.hbs.py:142
+#: templates/vouchers.hbs:166
 msgid "Submit"
 msgstr ""
 
-#: templates/vouchers.hbs:106
+#: templates/vouchers.hbs:152
 msgid "Gift card code"
 msgstr ""
 
-#: templates/vouchers.hbs:113
+#: templates/vouchers.hbs:159
 msgid ""
 "Unfortunately we couldn't find a gift card with this code. Try entering the "
 "code again or send us a message and we will sort it out."
 msgstr ""
 
-#: templates/vouchers.hbs:172
+#: templates/vouchers.hbs:218
 #, python-format
 msgid "Contact us for custom 1%%GIFTCARDS"
 msgstr ""
 
-#: templates/vouchers.hbs:173
+#: templates/vouchers.hbs:219
 msgid ""
 "Please send us a message and tell us your wishes and we will contact you as "
 "soon as possible. Or call us directly on (+31) 20 715 8980."
 msgstr ""
 
-#: templates/vouchers.hbs:202
+#: templates/vouchers.hbs:248
 msgid "Phone number"
 msgstr ""
 
-#: templates/vouchers.hbs:206
+#: templates/vouchers.hbs:252
 msgid "Anything else you’d like to ask? Send us a message!"
 msgstr ""
 
-#: templates/vouchers.hbs:209
+#: templates/vouchers.hbs:255
 msgid "Send message"
 msgstr ""

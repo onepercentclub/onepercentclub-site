@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 11:29+0200\n"
+"POT-Creation-Date: 2013-04-20 14:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:39
+#: models.py:41
 msgid "status"
 msgstr ""
 
-#: models.py:41
+#: models.py:43
 msgid "payment id"
 msgstr ""
 
-#: models.py:44
+#: models.py:46
 msgid "created"
 msgstr ""
 
-#: models.py:45
+#: models.py:47
 msgid "updated"
 msgstr ""

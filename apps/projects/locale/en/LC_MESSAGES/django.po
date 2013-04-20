@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 11:29+0200\n"
+"POT-Creation-Date: 2013-04-20 14:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgstr ""
 
 #: models.py:67
 msgid ""
-"Project initiator’s planned completion date. This date is independent of the "
+"Project initiator's planned completion date. This date is independent of the "
 "various phase start dates."
 msgstr ""
 
