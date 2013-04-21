@@ -1,6 +1,5 @@
 # coding=utf-8
 import logging
-
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry.models import PaymentStatuses
 from django.conf import settings

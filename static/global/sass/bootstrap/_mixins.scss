@@ -244,14 +244,14 @@
 }
 
 // Drop shadows
-@mixin box-shadow($shadow...) {
+@mixin box-shadow($shadow) {
   -webkit-box-shadow: $shadow;
      -moz-box-shadow: $shadow;
           box-shadow: $shadow;
 }
 
 // Transitions
-@mixin transition($transition...) {
+@mixin transition($transition) {
   -webkit-transition: $transition;
      -moz-transition: $transition;
        -o-transition: $transition;
@@ -596,7 +596,6 @@
 @mixin grid-core-offset($columns, $gridColumnWidth, $gridGutterWidth) {
   margin-left: ($gridColumnWidth * $columns) + ($gridGutterWidth * ($columns + 1));
 }
-
 
 
 @mixin grid-fluid($fluidGridColumnWidth, $fluidGridGutterWidth) {

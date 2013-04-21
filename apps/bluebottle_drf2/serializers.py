@@ -148,12 +148,12 @@ class PolymorphicSerializer(serializers.Serializer):
         return self._child_models[obj.__class__].from_native(data, files)
 
 
-class AuthorSerializer(serializers.ModelSerializer):
-    picture = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
+class MemberPreviewSerializer(serializers.ModelSerializer):
+    avatar = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'picture', 'username')
+        fields = ('id', 'first_name', 'last_name', 'avatar', 'username')
 
 
 class PrimaryKeyGenericRelatedField(serializers.RelatedField):

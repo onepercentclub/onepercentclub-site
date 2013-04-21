@@ -16,7 +16,7 @@ App.ProjectWallPost = DS.Model.extend({
 
     // Model fields
     project: DS.belongsTo('App.Project'),
-    author: DS.belongsTo('App.Member'),
+    author: DS.belongsTo('App.MemberPreview'),
     title: DS.attr('string'),
     text: DS.attr('string'),
     created: DS.attr('date'),

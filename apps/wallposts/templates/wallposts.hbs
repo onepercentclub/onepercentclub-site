@@ -149,9 +149,9 @@
     <article class="wallpost">
         <header>
 
-            <a href="#" class="user initiator">
+            <a {{action openInBox "memberProfile" author}} class="user initiator">
                 <span class="user-img">
-                    <img {{bindAttr src="author.avatar"}} width="100%" alt="Avatar" />
+                    <img {{bindAttr src="author.getAvatar"}} width="100%" alt="Avatar" />
                 </span>
                 <em class="user-type not-implemented">{% trans "Project Initiator" %}</em> 
                 <strong class="user-name">{{author.full_name}}</strong> 
@@ -192,8 +192,8 @@
                     </ul>
                 </div>
             {{/if}}
-        </div>
 
+	    </div>
 
         <!-- reaction-box -->
         <div class="reaction-box">
@@ -220,4 +220,7 @@
         <!-- end: reaction-box -->
 
     </article>
+
+
+
 {% endtplhandlebars %}

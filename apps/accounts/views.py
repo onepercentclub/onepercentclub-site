@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from rest_framework import generics
-from .serializers import MemberListSerializer, MemberDetailSerializer, AuthenticatedMemberSerializer
+from .serializers import MemberSerializer, AuthenticatedMemberSerializer
 from .models import UserProfile
 
 
@@ -10,13 +10,13 @@ from .models import UserProfile
 
 class MemberList(generics.ListAPIView):
     model = User
-    serializer_class = MemberListSerializer
+    serializer_class = MemberSerializer
     paginate_by = 10
 
 
 class MemberDetail(generics.RetrieveAPIView):
     model = User
-    serializer_class = MemberDetailSerializer
+    serializer_class = MemberSerializer
 
 
 class AuthenticatedMember(generics.RetrieveAPIView):
