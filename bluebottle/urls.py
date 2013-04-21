@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
+from django.views.generic.base import TemplateView
 from .views import HomeView
 
 admin.autodiscover()
@@ -32,7 +33,10 @@ urlpatterns = i18n_patterns('',
     url(r'^projects/', include('apps.projects.urls')),
 
     # handlebar templates
-    url(r'^templates/', include('apps.hbtemplates.urls'))
+    url(r'^templates/', include('apps.hbtemplates.urls')),
+
+    # Stand-alone page for Jira issue collector form.
+    url(r'^feedback/', TemplateView.as_view(template_name='feedback.html'), name='feedback')
 )
 
 urlpatterns += patterns('',
