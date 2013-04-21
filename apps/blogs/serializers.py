@@ -1,6 +1,6 @@
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField, AuthorSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, MemberPreviewSerializer
 from .models import BlogPost
 
 
@@ -16,7 +16,7 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
     contents = BlogPostContentsField(source='contents')
     url = serializers.HyperlinkedIdentityField(view_name='blogpost-instance')
     main_image = SorlImageField('main_image', '300x200',)
-    author = AuthorSerializer()
+    author = MemberPreviewSerializer()
 
     class Meta:
         model = BlogPost

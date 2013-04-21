@@ -143,8 +143,8 @@
             <h4>Initiator</h4>
             <ul>
                 <li>
-                    <a href="#" class="member">
-                        <img {{bindAttr src="owner.picture" info="owner.first_name"}} width="45" height="45" />
+                    <a {{action openInBox "memberProfile" owner }} class="member">
+                        <img {{bindAttr src="owner.getAvatar" info="owner.first_name"}} width="45" height="45" />
                         <strong class="member-name">{{owner.full_name}}</strong>
                         <em class="member-organisation">{{organization}}</em>
                     </a>

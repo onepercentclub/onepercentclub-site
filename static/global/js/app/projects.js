@@ -26,7 +26,7 @@ App.Project = DS.Model.extend({
     money_donated: DS.attr('number'),
     created: DS.attr('date'),
     tags: DS.attr('array'),
-    owner: DS.belongsTo('App.Member'),
+    owner: DS.belongsTo('App.MemberPreview'),
     country: DS.belongsTo('App.Country'),
 
     // FIXME: For now we set some default values here because we don't have actual numbers
@@ -41,26 +41,6 @@ App.Project = DS.Model.extend({
         return Math.ceil(donated);
     }.property('money_asked', 'money_donated')
 
-// TODO: defaultValue doesn't seem to be working with Ember 1.0.0 pre4
-//    // FIXME: For now we do some html generating here.
-//    // TODO: solve this in Ember or Handlebars helper
-//    days_left_span: function() {
-//        var dl = this.get('days_left').toString();
-//        var html = '';
-//        for (var i = 0, len = dl.length; i < len; i += 1) {
-//            html += '<span>' + dl.charAt(i) + '</span>'
-//        }
-//        return html;
-//    }.property('days_left'),
-//
-//    supporter_count_span: function() {
-//        var dl = this.get('supporter_count').toString();
-//        var html = '';
-//        for (var i = 0, len = dl.length; i < len; i += 1) {
-//            html += '<span>' + dl.charAt(i) + '</span>'
-//        }
-//        return html;
-//    }.property('supporter_count')
 });
 
 

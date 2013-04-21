@@ -34,7 +34,11 @@ App.Voucher =  DS.Model.extend({
     message: DS.attr('string', {defaultValue: ''}),
     language: DS.attr('string', {defaultValue: 'en'}),
     amount: DS.attr('number', {defaultValue: 25}),
-    order: DS.belongsTo('App.Order')
+    status: DS.attr('string'),
+
+    order: DS.belongsTo('App.Order'),
+    donations: DS.hasMany('App.VoucherDonation')
+
 });
 
 

@@ -1,0 +1,30 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "member_profile" %}
+
+    <h2>{{ full_name }}</h2>
+    <img {{bindAttr src="picture" info="first_name"}} width="240" height="240" />
+    <p>
+        <h3>About</h3>
+        <i>{{ about }}</i>
+    </p>
+    <p>
+        <h3>why</h3>
+        <i>{{ why }}</i>
+    </p>
+    <p>
+        <h3>contribution</h3>
+        <i>{{ contribution }}</i>
+    </p>
+    <p>
+        <h3>availability</h3>
+        <i>{{ availability }}</i>
+    </p>
+    <p>
+        <h3>working_location</h3>
+        <i>{{ working_location }}</i>
+    </p>
+{% endtplhandlebars %}
