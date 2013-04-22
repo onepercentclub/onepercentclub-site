@@ -2,9 +2,6 @@
 {% load i18n admin_modify %}
 {% load url from future %}
 
-{% block extrastyle %}{{ block.super }}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/screen.css" media="screen" />
-{% endblock %}
 
 {% block object-tools-items %}
     <li><a href="#" id="preview-button">{% trans "Preview" %}</a></li>

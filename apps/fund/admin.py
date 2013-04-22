@@ -5,9 +5,8 @@ from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest
 class DonationAdmin(admin.ModelAdmin):
     model = Donation
     date_hierarchy = 'created'
-    list_display = ('created', 'user', 'amount')
-    list_filter = ('status', 'project', 'user')
-
+    list_display = ('created', 'project', 'user', 'local_amount', 'status', 'donation_type')
+    list_filter = ('status',)
     search_fields = (
         'user__first_name', 'user__last_name', 'project__title'
     )
