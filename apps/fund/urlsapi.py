@@ -22,8 +22,7 @@ urlpatterns = patterns('',
     url(r'^orders/current/vouchers/$', OrderVoucherList.as_view(), {'alias': 'current'}, name='fund-order-voucher-list'),
     surl(r'^orders/current/vouchers/<pk:#>$', OrderVoucherDetail.as_view(), {'alias': 'current'}, name='fund-order-voucher-detail'),
 
-    url(r'^orders/checkout', OrderDetail.as_view(), {'alias': 'checkout'}, name='fund-checkout-order-detail'),
-
+    # Vouchers
     surl(r'^vouchers/<code:s>$', VoucherDetail.as_view(), name='voucher-detail'),
     surl(r'^vouchers/<code:s>/donations/$', VoucherDonationList.as_view(), name='voucher-donation-list'),
     surl(r'^vouchers/<code:s>/donations/<pk:#>$', VoucherDonationDetail.as_view(), name='voucher-donation-list'),

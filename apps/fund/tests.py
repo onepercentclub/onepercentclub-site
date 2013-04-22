@@ -1,5 +1,6 @@
 from decimal import Decimal
-from apps.cowry.models import Payment, PaymentStatuses
+from apps.cowry.factory import _adapter_for_payment_method
+from apps.cowry.models import PaymentStatuses
 from apps.cowry_docdata.adapters import default_payment_methods
 from apps.cowry_docdata.tests import run_docdata_tests
 from django.test import TestCase
@@ -345,15 +346,17 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(response.data['payment_url'])  # Not empty payment_url.
 
-        # The status of the Order should now be 'checkout'.
+        # The status of the Order should now be 'in_progress'.
         order = Order.objects.filter(user=self.some_user).get()
-        self.assertEqual(order.status, OrderStatuses.checkout)
+        self.assertEqual(order.status, OrderStatuses.in_progress)
 
-        # Changing the payment status should change the order status
-        payment = order.payment
-        payment.status = PaymentStatuses.paid
-        self.assertEqual(payment.status, PaymentStatuses.paid)
-        payment.save()
+        # Emulate a status change from DocData. Note we need to use an internal API from COWRY for this but it's hard
+        # to avoid because we can't automatically make a DocData payment.
+        adapter = _adapter_for_payment_method(order.payment.payment_method_id)
+        adapter._change_status(order.payment, PaymentStatuses.pending)
+        order = Order.objects.filter(user=self.some_user).get()
+        self.assertEqual(order.status, OrderStatuses.closed)
+
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
@@ -361,14 +364,18 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
 
         self.assertEqual(self.some_project.money_needed, 50000)
         self.assertEqual(self.some_project.phase, 'fund')
-        self.do_api_donation(project=self.some_project, user=self.some_user, amount=350)
-        self.assertEqual(self.some_project.money_needed, 15000)
-        self.do_api_donation(project=self.some_project, user=self.another_user, amount=150)
-        self.assertEqual(self.some_project.money_needed, 0)
 
-        # Reload the project from db and check phase
+        self.do_api_donation(project=self.some_project, user=self.some_user, amount=350)
+        # Reload the project from db and check phase / money_needed
+        project = Project.objects.get(pk=self.some_project.id)
+        self.assertEqual(project.phase, 'fund')
+        self.assertEqual(project.money_needed, 15000)
+
+        self.do_api_donation(project=self.some_project, user=self.another_user, amount=150)
+        # Reload the project from db and check phase / money_needed
         project = Project.objects.get(pk=self.some_project.id)
         self.assertEqual(project.phase, 'act')
+        self.assertEqual(project.money_needed, 0)
 
 
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):

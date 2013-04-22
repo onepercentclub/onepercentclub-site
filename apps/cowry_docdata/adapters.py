@@ -74,8 +74,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     status_mapping = {
         'NEW': 'new',
         'STARTED': 'in_progress',
-        'AUTHORIZED': 'in_progress',
-        'PAID': 'in_progress',
+        'AUTHORIZED': 'pending',
+        'PAID': 'pending',  # TODO: Is pending correct for this?
         'CANCELLED': 'cancelled',
         'CHARGED-BACK': 'cancelled',
         'CONFIRMED_PAID': 'paid',
@@ -237,7 +237,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Add return urls.
         if return_url_base:
-            params['return_url_success'] = return_url_base + '#/support/thanks'
+            order = payment.orders.all()[0]
+            params['return_url_success'] = return_url_base + '#/support/thanks/' + str(order.id)
             params['return_url_pending'] = return_url_base + '#/payment/pending'
             params['return_url_canceled'] = return_url_base + '#/payment/cancel'
             params['return_url_error'] = return_url_base + '#/payment/error'

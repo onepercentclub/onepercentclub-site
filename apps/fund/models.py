@@ -19,6 +19,7 @@ class Donation(models.Model):
     class DonationStatuses(DjangoChoices):
         new = ChoiceItem('new', label=_("New"))
         in_progress = ChoiceItem('in_progress', label=_("In progress"))
+        pending = ChoiceItem('pending', label=_("Pending"))
         paid = ChoiceItem('paid', label=_("Paid"))
         cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
 
@@ -59,13 +60,13 @@ class OrderStatuses(DjangoChoices):
     """
         Current: Shopping cart.
         Monthly: Monthly order that can change until it's processed on the 1st day of the month.
-        Checkout: User is directed to payment provider
-        Closed: An order that has a payment that's in progress, paid, cancelled or failed.
+        In Progress: User is directed to payment provider (i.e. the payment is in progress).
+        Closed: An order that has a payment that's paid, cancelled or failed.
     """
     # TODO: add validation rules for statuses.
     current = ChoiceItem('current', label=_("Current"))
     monthly = ChoiceItem('monthly', label=_("Monthly"))
-    checkout = ChoiceItem('checkout', label=_("Checkout"))
+    in_progress = ChoiceItem('in_progress', label=_("In progress"))
     closed = ChoiceItem('closed', label=_("Closed"))
 
 
@@ -87,9 +88,6 @@ class Order(models.Model):
         if self.payments.all():
             return self.payments.order_by('-created').all()[0]
         return None
-
-    # When a user finalized the paymen flow this property is ticked. So it acts as a command.
-    finalized = models.BooleanField(_("Finalized"), default=False)
 
     # Calculate total for this Order
     @property
@@ -236,32 +234,32 @@ def set_donation_cancelled(donation):
         project.save()
 
 
+def set_donation_pending(donation):
+    # Note the similarity to set_donation_paid().
+    donation.status = Donation.DonationStatuses.pending
+    donation.save()
+    project = donation.project
+    # Change project act phase if it's fully funded and still in fund phase
+    if project.money_needed <= 0 and project.phase == 'fund':
+        project.phase = 'act'
+        project.save()
+
+
 def set_donation_paid(donation):
     donation.status = Donation.DonationStatuses.paid
     donation.save()
     project = donation.project
     # Change project act phase if it's fully funded and still in fund phase
-    if project.money_needed > 0 and project.phase == 'fund':
+    if project.money_needed <= 0 and project.phase == 'fund':
         project.phase = 'act'
         project.save()
-
-
-def close_order_after_payment(order):
-    # FIXME: make sure we have a payment
-    # FIXME: make sure payment didn't update order/donation prior.
-    # FIXME: Deal with vouchers
-
-    for donation in order.donations:
-        set_donation_in_progress(donation)
-
-    order.status = OrderStatuses.closed
-    order.save()
 
 
 @receiver(payment_status_changed, sender=Payment)
 def process_payment_status_changed(sender, instance, old_status, new_status, **kwargs):
     # Payment statuses: new
     #                   in_progress
+    #                   pending
     #                   paid
     #                   failed
     #                   cancelled
@@ -276,10 +274,17 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
     # Payment: new -> in_progress
     if old_status == PaymentStatuses.new and new_status == PaymentStatuses.in_progress:
-        order.status = OrderStatuses.checkout
+        order.status = OrderStatuses.in_progress
         order.save()
         for donation in order.donations:
             set_donation_in_progress(donation)
+
+    # Payment: -> pending
+    if new_status == PaymentStatuses.pending:
+        order.status = OrderStatuses.closed
+        order.save()
+        for donation in order.donations:
+            set_donation_pending(donation)
 
     # Payment: -> paid
     if new_status == PaymentStatuses.paid:
@@ -290,7 +295,7 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
     # Payment: -> failed or cancelled or refunded
     if new_status in [PaymentStatuses.failed, PaymentStatuses.cancelled, PaymentStatuses.refunded]:
-        order.status = OrderStatuses.checkout
+        order.status = OrderStatuses.in_progress
         order.save()
         for donation in order.donations:
             set_donation_cancelled(donation)
