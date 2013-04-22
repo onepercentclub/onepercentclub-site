@@ -117,10 +117,12 @@
         </ul>
         
         <div class="project-action">
-        {{#if currentVoucher}}
-            {{#linkTo "voucherRedeem.add" this class="button-donate"}}{% trans "Support with a 1%GIFTCARD" %}{{/linkTo}}
+        {{#if isFundable}}
+            {{#linkTo "currentOrder.addDonation" this class="button-donate"}}
+                <em class="icon-money"></em> {% trans "Support this project" %}
+            {{/linkTo}}
         {{else}}
-            {{#linkTo "currentOrder.addDonation" this class="button-donate"}}<em class="icon-money"></em> {% trans "Support this project" %}{{/linkTo}}
+            <h2 class="right">{{phase}} {% trans "PHASE" %}</h2>
         {{/if}}
         </div>
     

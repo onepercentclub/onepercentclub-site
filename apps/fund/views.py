@@ -3,11 +3,13 @@ from apps.cowry.models import Payment
 from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
+from apps.fund.models import close_order_after_payment
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView
 from django.db import transaction
+from django.http import Http404
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import response
@@ -109,7 +111,8 @@ class CurrentOrderMixin(object):
         if self.request.user.is_authenticated():
             try:
                 # THe user can have multiple orders in checkout state. Make sure to return only the latest.
-                order = Order.objects.filter(user=self.request.user, status=OrderStatuses.checkout).order_by('-created')[0]
+                order = Order.objects.filter(user=self.request.user, status=OrderStatuses.checkout).order_by('-created').get()
+                close_order_after_payment(order)
             except Order.DoesNotExist:
                 return None
         else:
@@ -118,6 +121,7 @@ class CurrentOrderMixin(object):
             if order_id:
                 try:
                     order = Order.objects.filter(status=OrderStatuses.checkout, id=order_id).get()
+                    close_order_after_payment(order)
                 except Order.DoesNotExist:
                     # The order_id was not a Order in the db, return None
                     return None
@@ -167,6 +171,9 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         else:
             order = super(OrderDetail, self).get_object()
         self.check_object_permissions(self.request, order)
+        if not order:
+            raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                          {'verbose_name': queryset.model._meta.verbose_name})
         return order
 
 
