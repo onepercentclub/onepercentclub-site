@@ -103,8 +103,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             # Live API URL.
             url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
-        self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
 
+        self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
+        self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
         # Setup the merchant soap object for use in all requests.
         self.merchant = self.client.factory.create('ns0:merchant')
         # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).

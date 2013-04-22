@@ -1,3 +1,4 @@
+from decimal import Decimal
 import random
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.signals import payment_status_changed
@@ -22,6 +23,11 @@ class Donation(models.Model):
         paid = ChoiceItem('paid', label=_("Paid"))
         cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
 
+    class DonationTypes(DjangoChoices):
+        one_off = ChoiceItem('one_off', label=_("One-off"))
+        monthly = ChoiceItem('monthly', label=_("Monthly"))
+        voucher = ChoiceItem('voucher', label=_("Voucher"))
+
     amount = models.PositiveIntegerField(_("Amount"))
     currency = models.CharField(_("currency"), blank=True, max_length=3)
 
@@ -32,9 +38,15 @@ class Donation(models.Model):
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
+    donation_type = models.CharField(_("Type"), max_length=20, choices=DonationTypes.choices, default=DonationTypes.one_off, db_index=True)
+
     @property
     def amount_euro(self):
-        return self.amount / 100
+        return "%01.2f" % (self.amount / 100)
+
+    @property
+    def local_amount(self):
+        return "%01.2f" % (self.amount / 100)
 
     class Meta:
         verbose_name = _("donation")
@@ -191,8 +203,8 @@ class CustomVoucherRequest(models.Model):
 
 def process_voucher_order_in_progress(voucher):
     def generate_voucher_code():
-        # Lower case letters without d, o and i. Numbers without 0 and 1.
-        char_set = 'abcefghjklmnpqrstuvwxyz23456789'
+        # Lower case letters without d, o, l and i. Numbers without 0 and 1.
+        char_set = 'abcefghjkmnpqrstuvwxyz23456789'
         return ''.join(random.choice(char_set) for i in range(8))
 
     code = generate_voucher_code()
@@ -272,7 +284,11 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
     # Payment: -> paid
     if new_status == PaymentStatuses.paid:
-        order.status = OrderStatuses.closed
+        order.status = OrderStatuses.closed    # Payment: -> failed or cancelled or refunded
+    if new_status in [PaymentStatuses.failed, PaymentStatuses.cancelled, PaymentStatuses.refunded]:
+        order.status = OrderStatuses.checkout
+        order.save()
+
         order.save()
         for donation in order.donations:
             set_donation_paid(donation)
