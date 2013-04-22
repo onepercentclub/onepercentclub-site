@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
+from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
@@ -26,16 +27,17 @@ class Organization(models.Model):
     updated = ModificationDateTimeField(_("updated"))
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
-    partner_organisations = models.TextField(_("partner organizations"), blank=True)
+    partner_organizations = models.TextField(_("partner organizations"), blank=True)
 
     account_bank_name = models.CharField(_("account bank name"), max_length=255, blank=True)
     account_bank_address = models.CharField(_("account bank address"), max_length=255, blank=True)
-    account_bank_country = models.ForeignKey('geo.Country', verbose_name=_("account bank country"),blank=True, null=True)
-    account_iban = models.CharField(_("account IBAN"), max_length=255, blank=True)
-    account_bicswift = models.CharField(_("account BIC SWIFT"), max_length=255, blank=True)
+    account_bank_country = models.ForeignKey('geo.Country', verbose_name=_("account bank country"), blank=True, null=True)
+    account_iban = IBANField(_("account IBAN"), blank=True)
+    account_bic = SWIFTBICField(_("account SWIFT-BIC"), blank=True)
     account_number = models.CharField(_("account number"), max_length=255, blank=True)
     account_name = models.CharField(_("account name"), max_length=255, blank=True)
     account_city = models.CharField(_("account city"), max_length=255, blank=True)
+    account_other = models.CharField(_("account information that doesn't fit in the other field"), max_length=255, blank=True)
 
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
