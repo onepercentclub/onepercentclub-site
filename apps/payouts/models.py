@@ -92,7 +92,7 @@ def create_upcoming_payouts():
                                          amount=amount)
 
             organization = project.organization
-            line.receiver_account_bic = organization.account_bicswift
+            line.receiver_account_bic = organization.account_bic
             line.receiver_account_iban = organization.account_iban
             line.receiver_account_number = organization.account_number
             line.receiver_account_name = organization.account_name
