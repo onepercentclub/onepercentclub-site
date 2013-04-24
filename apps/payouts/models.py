@@ -1,6 +1,6 @@
 from decimal import Decimal
 from apps.projects.models import Project, ProjectPhases
-from apps.sepa.sepa import SepaDocument
+from apps.sepa.sepa import SepaDocument, SepaAccount
 from django.conf import settings
 from django.utils import timezone
 from django.db import models
@@ -104,12 +104,15 @@ def create_upcoming_payouts():
 
 def create_sepa_xml(payouts):
     batch_id = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
-    sepa = SepaDocument(is_test=True, debtor_iban=settings.SEPA['iban'], debtor_bic=settings.SEPA['bic'],
-                initiating_party_name=settings.SEPA['name'], initiating_party_id=settings.SEPA['id'],
-                message_identification=batch_id, payment_info_id=batch_id)
+    sepa = SepaDocument(type='CT')
+    debtor = SepaAccount(name=settings.SEPA['name'], iban=settings.SEPA['iban'], bic=settings.SEPA['bic'])
+    sepa.set_debtor(debtor)
+    sepa.set_info(message_identification=batch_id, payment_info_id=batch_id)
+    sepa.set_initiating_party(name=settings.SEPA['name'], id=settings.SEPA['id'])
+    
     for line in payouts.all():
-        sepa.add_credit_transfer(amount=line.amount, creditor_payment_id=line.invoice_reference,
-                                 creditor_bic=line.receiver_account_bic, creditor_name=line.receiver_account_name,
-                                 creditor_iban=line.receiver_account_iban)
+        creditor = SepaAccount(name=line.receiver_account_name, iban=line.receiver_account_iban,
+                               bic=line.receiver_account_bic)
+        sepa.add_credit_transfer(creditor=creditor, amount=line.amount, creditor_payment_id=line.invoice_reference)
     return sepa.as_xml()
 
