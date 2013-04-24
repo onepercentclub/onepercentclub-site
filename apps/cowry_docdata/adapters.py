@@ -290,7 +290,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         for payment_report in report.payment:
             # Find or create the DocDataPayment for current report.
             try:
-                ddpayment = DocDataPayment.objects.get(payment_id=payment_report.id)
+                ddpayment = DocDataPayment.objects.get(payment_id=str(payment_report.id))
             except DocDataPayment.DoesNotExist:
                 ddpayment_list = payment.docdatapayment_set.filter(status='NEW')
                 ddpayment_list_len = len(ddpayment_list)
@@ -308,15 +308,15 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                     continue
 
                 # Save some information from the report.
-                ddpayment.payment_id = payment_report.id
-                ddpayment.docdata_payment_method = payment_report.paymentMethod
+                ddpayment.payment_id = str(payment_report.id)
+                ddpayment.docdata_payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.docdata_payment_method:
                 status_logger.warn(
                     "Payment methods do not match: {0} - {1}".format(payment.payment_order_key, ddpayment.payment_id))
-                ddpayment.docdata_payment_method = payment_report.paymentMethod
+                ddpayment.docdata_payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
             if not payment_report.authorization.status in DocDataPayment.statuses:
@@ -328,9 +328,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             if ddpayment.status != payment_report.authorization.status:
                 status_logger.info(
                     "DocDataPayment status changed for payment id {0}: {1} -> {2}".format(payment_report.id,
-                                                                                              ddpayment.status,
-                                                                                              payment_report.authorization.status))
-                ddpayment.status = payment_report.authorization.status
+                                                                                          ddpayment.status,
+                                                                                          payment_report.authorization.status))
+                ddpayment.status = str(payment_report.authorization.status)
                 ddpayment.save()
                 statusChanged = True
 
