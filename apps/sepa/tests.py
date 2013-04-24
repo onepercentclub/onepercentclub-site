@@ -1,3 +1,4 @@
+from apps.sepa.sepa import SepaAccount
 from django.test import TestCase
 from xml.etree import ElementTree
 from sepa import SepaDocument
@@ -45,21 +46,27 @@ class CalculateMoneyDonatedTest(TestCase):
         payment_id = 'PAYMENTS TODAY'
 
         # Create base for SEPA
-        sepa = SepaDocument(message_identification=message_id, debtor_name=self.some_account['name'],
-                    debtor_iban=self.some_account['iban'], debtor_bic=self.some_account['bic'],
-                    initiating_party_name=self.some_account['name'], initiating_party_id=self.some_account['id'],
-                    payment_info_id=payment_id)
+        sepa = SepaDocument(type='CT')
+        sepa.set_info(message_identification=message_id, payment_info_id=payment_id)
+        sepa.set_initiating_party(name=self.some_account['name'], id=self.some_account['id'])
+
+        some_account = SepaAccount(name=self.some_account['name'], iban=self.some_account['iban'],
+                                   bic=self.some_account['bic'])
+        sepa.set_debtor(some_account)
 
         # Add a payment
-        sepa.add_credit_transfer(creditor_name=self.another_account['name'], creditor_iban=self.another_account['iban'],
-                                 creditor_bic=self.another_account['bic'],
-                                 creditor_payment_id=self.payment1['id'], amount=self.payment1['amount'],
+        another_account = SepaAccount(name=self.another_account['name'], iban=self.another_account['iban'],
+                                      bic=self.another_account['bic'])
+
+        sepa.add_credit_transfer(creditor=another_account, amount=self.payment1['amount'],
+                                 creditor_payment_id=self.payment1['id'],
                                  remittance_information=self.payment1['remittance_info'])
 
         # Add another payment
-        sepa.add_credit_transfer(creditor_name=self.third_account['name'], creditor_iban=self.third_account['iban'],
-                                 creditor_bic=self.third_account['bic'],
-                                 creditor_payment_id=self.payment2['id'], amount=self.payment2['amount'],
+        third_account = SepaAccount(name=self.third_account['name'], iban=self.third_account['iban'],
+                                    bic=self.third_account['bic'])
+        sepa.add_credit_transfer(creditor=third_account, creditor_payment_id=self.payment2['id'],
+                                 amount=self.payment2['amount'],
                                  remittance_information=self.payment2['remittance_info'])
 
         # Now lets get the xml for these payments
