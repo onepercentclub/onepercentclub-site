@@ -106,7 +106,7 @@
     
     .tabs {
         
-        @include grid(32,1);
+        @include grid(28,1);
         
         .tabs li {
             @include grid(16,2,0);
@@ -115,7 +115,7 @@
     }
     
     .project-action {
-        @include grid(16,0,1);
+        @include grid(20,0,1);
         
         .button-donate {
             float: right;
