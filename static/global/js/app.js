@@ -81,7 +81,6 @@ App = Em.Application.create({
         // We don't have to check if it's one of the languages available. Django will have thrown an error before this.
         this.set('language', language);
 
-        bootbox.setLocale(language);
         // Now that we know the language we can load the hb templates.
         this.loadTemplates(this.templates);
 
