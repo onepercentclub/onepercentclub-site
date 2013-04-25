@@ -139,5 +139,5 @@ class CustomVoucherRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomVoucherRequest
-        fields = ('id', 'status', 'amount', 'contact_name', 'contact_email', 'organization', 'message',
+        fields = ('id', 'status', 'number', 'contact_name', 'contact_email', 'organization', 'message',
                   'contact_phone', 'type')

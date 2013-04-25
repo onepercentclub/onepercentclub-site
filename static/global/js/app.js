@@ -274,6 +274,7 @@ App.Router.map(function() {
 
     this.resource('voucherStart', {path: '/vouchers'});
     this.resource('customVoucherRequest', {path: '/vouchers/custom'});
+    this.route('customVoucherRequestDone', {path: '/vouchers/custom/done'});
     this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'});
 
     this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {

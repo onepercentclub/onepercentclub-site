@@ -231,42 +231,89 @@
     <br/>
     <div class="container">
         <section class="wrapper">
+            <form>
+                <fieldset>
+                    <ul>
 
-            <div class="content gray">
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Amount" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="number" type="number" step="10"}}
+                            </div>
+                            {{#if errors.amount }}
+                                <div class="errors">{{#each errors.amount}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
 
-                <form class="labeled">
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Your name" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="contact_name" }}
+                            </div>
+                            {{#if errors.contact_name }}
+                                <div class="errors">{{#each errors.contact_name}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
 
-                    {{#each errors.amount}}<span class="error">{{this}}</span>{{/each}}
-                    <div class="label">{% trans "Amount" %}</div>
-                    {{view Em.TextField valueBinding="amount" type="number" step="10" classBinding="errors.amount.length:error"}}
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Your email" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="contact_email"}}
+                            </div>
+                            {{#if errors.contact_email }}
+                                <div class="errors">{{#each errors.contact_email}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
 
-                    {{#each errors.contact_name}}<span class="error">{{this}}</span>{{/each}}
-                    <div class="label">{% trans "Your name" %}</div>
-                    {{view Em.TextField valueBinding="contact_name" classBinding="errors.contact_name.length:error"}}
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Organisation" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="organization"}}
+                            </div>
+                            {{#if errors.organization }}
+                                <div class="errors">{{#each errors.organization}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
 
-                    {{#each errors.contact_email}}<span class="error">{{this}}</span>{{/each}}
-                    <div class="label">{% trans "Your email" %}</div>
-                    {{view Em.TextField valueBinding="contact_email" classBinding="errors.contact_email.length:error"}}
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Phone number" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="contact_phone"}}
+                            </div>
+                            {{#if errors.contact_phone }}
+                                <div class="errors">{{#each errors.contact_phone}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                        <li class="control-group">
+                            {% trans "Anything else you’d like to ask? Send us a message!" %}
+                            {{view Em.TextArea valueBinding="message" classBinding="errors.message.length:error"}}
+                        </li>
+                        <li class="control-group">
+                            <a class="right button" {{action sendRequest target="controller"}}>{% trans "Send message" %}</a>
+                        </li>
+                    </ul>
+                </fieldset>
 
-                    {{#each errors.organization}}<span class="error">{{this}}</span>{{/each}}
-                    <div class="label">{% trans "Organisation" %}</div>
-                    {{view Em.TextField valueBinding="organization" classBinding="errors.organization.length:error"}}
-
-                    {{#each errors.contact_phone}}<span class="error">{{this}}</span>{{/each}}
-                    <div class="label">{% trans "Phone number" %}</div>
-                    {{view Em.TextField valueBinding="contact_phone" classBinding="errors.contact_phone.length:error"}}
-
-                    {{#each errors.message}}<span class="error">{{this}}</span>{{/each}}
-                    <div class="label wide">{% trans "Anything else you’d like to ask? Send us a message!" %}</div>
-                    {{view Em.TextArea valueBinding="message" classBinding="errors.message.length:error"}}
-
-                    <a class="right button" {{action sendRequest target="controller"}}>{% trans "Send message" %}</a>
-                </form>
-            </div>
+            </form>
         </section>
     </div>
 
 {% endtplhandlebars %}
+
+
+{% tplhandlebars "custom_voucher_request_done" %}
+
+    <div class="container section">
+
+        <header class="wrapper">
+            <h1 class="">{% trans "Thanks for your request. We'll get back to you soon!" %}</h1>
+            <h2 class="green">{% trans "YOU MAKE IT WORK!" %}</h2>
+        </header>
+
+    </div>
+
+{% endtplhandlebars %}
+
 
 
 {% tplhandlebars "voucher_pick_project" %}
