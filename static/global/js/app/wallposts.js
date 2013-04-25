@@ -262,11 +262,19 @@ App.ProjectWallPostView = Em.View.extend({
     // TODO: Delete reactions to WallPost as well?
     deleteWallPost: function() {
         var view = this;
-        bootbox.confirm('Are you sure you want to delete this comment?', function(value){
-            if (value) {
-                view.$().fadeOut(500, function() {
-                    view.get('controller').deleteRecordOnServer()
-                });
+
+        Bootstrap.ModalPane.popup({
+            heading: "Really?",
+            message: "Are you sure you want to delete this comment?",
+            primary: "Yes",
+            secondary: "Cancel",
+            callback: function(opts, e) {
+                e.preventDefault();
+                if (opts.primary) {
+                    view.$().fadeOut(500, function() {
+                        view.get('controller').deleteRecordOnServer()
+                    });
+                }
             }
         });
     }

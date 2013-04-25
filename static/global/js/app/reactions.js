@@ -98,11 +98,18 @@ App.WallPostReactionView = Em.View.extend({
 
     deleteReaction: function() {
         var view = this;
-        bootbox.confirm('Are you sure you want to delete this reaction?', function(value){
-            if (value) {
-                view.$().fadeOut(500, function() {
-                    view.get('controller').deleteRecordOnServer()
-                });
+        Bootstrap.ModalPane.popup({
+            heading: "Really?",
+            message: "Are you sure you want to delete this reaction?",
+            primary: "Yes",
+            secondary: "Cancel",
+            callback: function(opts, e) {
+                e.preventDefault();
+                if (opts.primary) {
+                    view.$().fadeOut(500, function() {
+                        view.get('controller').deleteRecordOnServer()
+                    });
+                }
             }
         });
     }
