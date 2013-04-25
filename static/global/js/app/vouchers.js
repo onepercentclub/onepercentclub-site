@@ -6,7 +6,7 @@
 App.CustomVoucherRequest = DS.Model.extend({
     url: 'fund/customvouchers',
 
-    amount: DS.attr('number', {defaultValue: 100}),
+    number: DS.attr('number', {defaultValue: 100}),
     type: DS.attr('string', {defaultValue: 'unknown'}),
     contact_name: DS.attr('string', {defaultValue: ''}),
     contact_email: DS.attr('string', {defaultValue: ''}),
@@ -70,6 +70,8 @@ App.VoucherRedeemController = Em.ArrayController.extend({
 
 
 App.CustomVoucherRequestController = Em.ObjectController.extend({
+    needs: ['currentUser'],
+
     init: function() {
         this._super();
         this.createCustomVoucherRequest();
@@ -78,8 +80,12 @@ App.CustomVoucherRequestController = Em.ObjectController.extend({
     createCustomVoucherRequest: function() {
         var transaction = this.get('store').transaction();
         var voucherRequest =  transaction.createRecord(App.CustomVoucherRequest);
-        voucherRequest.set('contact_name', App.userController.get('content.full_name'));
-        voucherRequest.set('contact_email', App.userController.get('content.email'));
+        voucherRequest.set('contact_name', this.get('controllers.currentUser.full_name'));
+        voucherRequest.set('contact_email', this.get('controllers.currentUser.email'));
+        var view = this
+        voucherRequest.on('didCreate',function(){
+            view.transitionToRoute('customVoucherRequestDone');
+        });
         this.set('content', voucherRequest);
         this.set('transaction', transaction);
 
@@ -121,10 +127,13 @@ App.VoucherRedeemDoneView = Em.View.extend({
     templateName: 'voucher_redeem_done'
 });
 
-
-App.CustomVoucherRequestCustomView = Em.View.extend({
+App.CustomVoucherRequestView = Em.View.extend({
     tagName: 'form',
     templateName: 'custom_voucher_request'
+});
+
+App.CustomVoucherRequestDoneView = Em.View.extend({
+    templateName: 'custom_voucher_request_done'
 });
 
 
