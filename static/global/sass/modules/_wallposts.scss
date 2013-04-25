@@ -1,12 +1,12 @@
 #wallpost-form {
 
-    fieldset {
-        @include rem(border-bottom, 4px solid #e5e5e5);
+    ul {
+      padding: 0;
     }
-    
-    button {
-        float: right;
-    }
+
+  .btn {
+    margin-right: 2.08333%;
+  }
 
     .sidebar {
         @include rem(padding, 16px);

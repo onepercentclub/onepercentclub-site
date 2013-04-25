@@ -18,7 +18,7 @@
             <div class="voucher-banner-calltoaction">
 
 
-                {{#linkTo "voucherRedeem" class="btn btn-large"}}
+                {{#linkTo "voucherRedeem" class="btn btn-large btn-iconed"}}
                     <i class="icon icon-credit-card"></i>
 
                     <div class="btn-content">
@@ -29,7 +29,7 @@
 
 
 
-                {{#linkTo "currentOrder.voucherList" class="btn btn-large btn-primary"}}
+                {{#linkTo "currentOrder.voucherList" class="btn btn-large btn-iconed btn-primary"}}
                     <i class="icon icon-gift"></i>
 
                     <div class="btn-content">
@@ -142,7 +142,8 @@
                         {{/each}}
                     </ul>
                     {{#if voucher.donations.length}}
-                        <button {{action "redeemVoucher" target="controller"}} type="submit" class="button right">
+                        <button {{action "redeemVoucher" target="controller"}} type="submit" class="btn btn-iconed right">
+                            <i class="icon icon-chevron-right"></i>
                             {% trans "Submit" %}
                         </button>
                     {{else}}
@@ -170,7 +171,8 @@
                         </ul>
                     </fieldset>
 
-                    <button {{action "submitVoucherCode" target="controller"}} type="submit" class="btn right">
+                    <button {{action "submitVoucherCode" target="controller"}} type="submit" class="btn btn-iconed right">
+                        <i class="icon icon-chevron-right"></i>
                         {% trans "Submit" %}
                     </button>
                 </form>
