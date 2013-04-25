@@ -393,7 +393,7 @@
 {% tplhandlebars "current_order_donation" %}
     {{#linkTo "project" project}}
         <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
-        <h1>{{project.title}} <em class="country"><i class="icon-globe"></i> {{project.country.name}}</em></h1>
+        <h2>{{project.title}} <em class="country"><i class="icon-globe"></i> {{project.country.name}}</em></h2>
     {{/linkTo}}
     <div class="donation-amount">
         <div class="amount-needed">
@@ -547,31 +547,54 @@
 {% tplhandlebars "order_thanks" %}
     <div class="container section">
         <header class="wrapper">
-            <h1 class="main-title">{% trans "Thank you!" %}</h1>
-        </header>
+            <div class="content">
+                <h1 class="main-title">{% trans "Donation Successful!" %}</h1>
+                {% blocktrans %}
+                Thank you so much for your support. 1% makes a difference.
+                If everybody shares a little. together we can get a lot done.
+                So share this with your friends.
+                {% endblocktrans %}
+            </div>
+            <sidebar>
+                <h2 class="green">{% trans "Personalise your 1%" %}</h2>
+                {% blocktrans %}
+                We've created an account for you.
+                Following projects are now even easier and you'll have
+                your own personalised page!
+                {% endblocktrans %}
+                <br />
+                <a href="#" class="profile-link">
+                    {% trans "Complete your profile" %}
+                </a>
 
+            </sidebar>
+        </header>
     </div>
+
+
 
     <div class="container">
         <section class="wrapper">
-            <ul class="donation-projects">
+
+            <ul id="donation-projects" class="content">
                 {{#if donations.length}}
-                    <h1>{% trans "Donations" %}</h1>
+                    <h3 class="green">{% trans "You just supported" %}</h3>
                 {{/if}}
                 {{#each donation in donations}}
                     <li class="donation-project">
                         {{#linkTo "project" donation.project}}
                             <img {{bindAttr src="donation.project.image_square"}} class="project-image" alt="Project Name" />
                         {{/linkTo}}
-                        <h3>
+                        <h2>
                             {{#linkTo "project" donation.project}}
                                 {{donation.project.title}}
                             {{/linkTo}}
-                        </h3>
-                        <em class="country">{{donation.project.country.name}}</em>
+                        </h2>
                         <p class="donation-amount">
-                            <label for="donation-amount-1">{% trans "You just supported" %}</label>
-                            <span class="big currency">&euro; {{donation.amount}}</span>
+                            <span class="amount-needed">
+                                <strong>&euro; {{donation.project.money_needed}}</strong>
+                                {% trans "still needed" %}
+                            </span>
                         </p>
                     </li>
                 {{/each}}
