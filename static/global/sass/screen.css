@@ -1,27 +1,38 @@
 /*
-Syntax error: File to import not found or unreadable: compass/utilities.
-              Load path: /home/gannetson/Projects/bluebottle/static/global/sass
-        on line 10 of screen.scss
-
-5: 
-6: /* ========================= Includes ============================= */
-7: 
-8: 
-9: /* Compass */
-10: @import "compass/utilities";
-11: @import "compass/reset";
-12: @import "compass/css3";
-13: 
-14: /* Core & mixins */
-15: @import "core/variables";
+Syntax error: Invalid CSS after "elements-of-type": expected selector, was "(html5-block)"
+        on line 116 of compass/reset/_utilities.scss, in `reset-html5'
+        from line 34 of compass/reset/_utilities.scss, in `global-reset'
+        from line 3 of compass/_reset.scss
+        from line 10 of screen.scss
 
 Backtrace:
+compass/reset/_utilities.scss:116:in `reset-html5'
+compass/reset/_utilities.scss:34:in `global-reset'
+compass/_reset.scss:3
 screen.scss:10
-/usr/lib/ruby/vendor_ruby/sass/tree/import_node.rb:64:in `rescue in import'
-/usr/lib/ruby/vendor_ruby/sass/tree/import_node.rb:42:in `import'
-/usr/lib/ruby/vendor_ruby/sass/tree/import_node.rb:25:in `imported_file'
-/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:149:in `rescue in visit_import'
-/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:154:in `visit_import'
+/usr/lib/ruby/vendor_ruby/sass/scss/parser.rb:1010:in `expected'
+/usr/lib/ruby/vendor_ruby/sass/scss/parser.rb:956:in `expected'
+/usr/lib/ruby/vendor_ruby/sass/scss/static_parser.rb:19:in `parse_selector'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:232:in `visit_rule'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/base.rb:37:in `visit'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:18:in `visit'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:201:in `block (2 levels) in visit_mixin'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:201:in `map'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:201:in `block in visit_mixin'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:39:in `with_environment'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:201:in `visit_mixin'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/base.rb:37:in `visit'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:18:in `visit'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:201:in `block (2 levels) in visit_mixin'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:201:in `map'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:201:in `block in visit_mixin'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:39:in `with_environment'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:201:in `visit_mixin'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/base.rb:37:in `visit'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:18:in `visit'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:146:in `block in visit_import'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:146:in `map'
+/usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:146:in `visit_import'
 /usr/lib/ruby/vendor_ruby/sass/tree/visitors/base.rb:37:in `visit'
 /usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:18:in `visit'
 /usr/lib/ruby/vendor_ruby/sass/tree/visitors/base.rb:53:in `block in visit_children'
@@ -52,4 +63,4 @@ screen.scss:10
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: compass/utilities.\A               Load path: /home/gannetson/Projects/bluebottle/static/global/sass\A         on line 10 of screen.scss\A \A 5: \A 6: /* ========================= Includes ============================= */\A 7: \A 8: \A 9: /* Compass */\A 10: @import \"compass/utilities\";\A 11: @import \"compass/reset\";\A 12: @import \"compass/css3\";\A 13: \A 14: /* Core & mixins */\A 15: @import \"core/variables\";"; }
+  content: "Syntax error: Invalid CSS after \"elements-of-type\": expected selector, was \"(html5-block)\"\A         on line 116 of compass/reset/_utilities.scss, in `reset-html5'\A         from line 34 of compass/reset/_utilities.scss, in `global-reset'\A         from line 3 of compass/_reset.scss\A         from line 10 of screen.scss"; }
