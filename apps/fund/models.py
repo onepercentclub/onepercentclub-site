@@ -135,6 +135,7 @@ class Voucher(models.Model):
     class VoucherStatuses(DjangoChoices):
         new = ChoiceItem('new', label=_("New"))
         paid = ChoiceItem('paid', label=_("Paid"))
+        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
         cashed = ChoiceItem('cashed', label=_("Cashed"))
         cashed_by_proxy = ChoiceItem('cashed_by_proxy', label=_("Cashed by us"))
 
@@ -214,6 +215,11 @@ def process_voucher_order_in_progress(voucher):
     mail_new_voucher(voucher)
 
 
+def set_voucher_cancelled(voucher):
+    voucher.status = Voucher.VoucherStatuses.cancelled
+    voucher.save()
+
+
 def set_donation_in_progress(donation):
     donation.status = Donation.DonationStatuses.in_progress
     donation.save()
@@ -278,6 +284,8 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         order.save()
         for donation in order.donations:
             set_donation_in_progress(donation)
+        for voucher in order.vouchers:
+            process_voucher_order_in_progress(voucher)
 
     # Payment: -> pending
     if new_status == PaymentStatuses.pending:
@@ -299,3 +307,5 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         order.save()
         for donation in order.donations:
             set_donation_cancelled(donation)
+        for voucher in order.vouchers:
+            set_voucher_cancelled(voucher)
