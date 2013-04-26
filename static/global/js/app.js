@@ -263,7 +263,7 @@ App.Router.map(function() {
     this.resource('currentOrder', {path: '/support'}, function() {
         this.route('donationList', {path: '/donations'});
         this.route('addDonation', {path: '/donations/add/:project_id'});
-        this.route('voucherList', {path: '/vouchers'});
+        this.route('voucherList', {path: '/giftcards'});
 
         this.resource('paymentProfile', {path: '/details'});
         this.resource('payment', {path: '/payment'});
@@ -271,12 +271,12 @@ App.Router.map(function() {
 
     this.resource('OrderThanks', {path: '/support/thanks/:order_id'});
 
-    this.resource('voucherStart', {path: '/vouchers'});
-    this.resource('customVoucherRequest', {path: '/vouchers/custom'});
-    this.route('customVoucherRequestDone', {path: '/vouchers/custom/done'});
-    this.resource('voucherRedeemDone', {path: '/vouchers/redeem/done'});
+    this.resource('voucherStart', {path: '/giftcards'});
+    this.resource('customVoucherRequest', {path: '/giftcards/custom'});
+    this.route('customVoucherRequestDone', {path: '/giftcards/custom/done'});
+    this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
 
-    this.resource('voucherRedeem', {path: '/vouchers/redeem'}, function() {
+    this.resource('voucherRedeem', {path: '/giftcards/redeem'}, function() {
         this.route('add', {path: '/add/:project_id'});
         this.route('code', {path: '/:code'});
     });
