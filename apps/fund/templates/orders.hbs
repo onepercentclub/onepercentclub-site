@@ -71,9 +71,12 @@
                     <br />
                     {{#linkTo "customVoucherRequest"}}{% trans "Contact us." %}{{/linkTo}}
                 {{else}}
-                  <h3>{% trans "Did you know?" %}</h3>
-                  <p>{% trans "The average donated amount is €22? The previous donation was: €50. (really, we cheer with every single donation..)" %}</p>
-                  <p><a href="#">Read some more</a></p>
+                    {% comment %}
+                    No implemented at this point.
+                    <h3>{% trans "Did you know?" %}</h3>
+                    <p>{% trans "The average donated amount is €22? The previous donation was: €50. (really, we cheer with every single donation..)" %}</p>
+                    <p><a href="#">Read some more</a></p>
+                    {% endcomment %}
                 {{/if}}
             </div>
 
@@ -335,9 +338,9 @@
                 </li>
 
                 <li class="control-group">
-                    <label class="control-label">{% trans "Street + housenumber" %}</label>
+                    <label class="control-label">{% trans "Address" %}</label>
                     <div class="controls">
-                        {{view Em.TextField valueBinding="street" placeholder="Street + housenumber" classBinding="errors.street.length:error"}}
+                        {{view Em.TextField valueBinding="street" placeholder="Address" classBinding="errors.street.length:error"}}
                     </div>
 
                     {{#if errors.street }}
