@@ -140,7 +140,11 @@ App.CustomVoucherRequestDoneView = Em.View.extend({
 App.VoucherDonationView = Em.View.extend({
     templateName: 'voucher_donation',
     tagName: 'li',
-    classNames: 'donation-project',
+    classNames: 'donation-project control-group',
+
+    neededAfterDonation: function () {
+        return '';
+    }.property('project', 'voucher'),
 
     delete: function(item){
         var controller = this.get('controller');

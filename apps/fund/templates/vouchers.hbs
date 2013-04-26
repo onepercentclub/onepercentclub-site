@@ -110,44 +110,54 @@
 
             {{#if voucher.isLoaded}}
                 <form class="labeled">
-                    <fieldset class="">
-                        <div class="label">{% trans "Gift card" %}</div>
-                        <div class="label ok">&#10004; {{voucher.code}}</div>
-                        <div class="label">{% trans "code accepted" %}</div>
-                        <div class="label ok">
-                            <span class="right big-text">&euro;{{voucher.amount}}</span>
-                        </div>
+
+                    <fieldset>
+                        <ul>
+                            <li class="control-group control-group-lonely">
+                                <label class="control-label">{% trans "Gift card" %} {{voucher.code}} <i class="icon-ok"></i></label>
+                            </li>
+                        </ul>
                     </fieldset>
 
-                    <ul id="donation-projects">
-                        {{#each voucher.donations}}
-                            {{view App.VoucherDonationView content=this}}
-                            <li class="donation-project">
-                                <a  {{action openInBox "voucherPickProject"}}>
-                                    <h1>
-                                        {% trans "Choose another project." %}
-                                    </h1>
-                                    <b>You can make it work!</b>
+                    <fieldset>
+                        <ul id="donation-projects">
+                            {{#each voucher.donations}}
+                                {{view App.VoucherDonationView content=this}}
+                            {{else}}
+                                <a {{action openInBox "voucherPickProject"}} href="#">
+                                    <div class="form-meta">
+                                        <p class="form-label">{% trans "Choose a project to support with this gift card" %}</p>
+                                        <p class="form-desc">{% trans "You can make it work!" %}</p>
+                                    </div>
                                 </a>
+                            {{/each}}
+                        </ul>
+                    </fieldset>
+
+                    <fieldset>
+                        <ul>
+                            <li class="form-summary">
+                                {% trans "Total" %}
+                                <span class="currency right">&euro;{{voucher.amount}}</span>
                             </li>
-                        {{else}}
-                            <li class="donation-project">
-                                <a  {{action openInBox "voucherPickProject"}}>
-                                    <h1>
-                                        {% trans "Choose a project to support with this gift card" %}
-                                    </h1>
-                                    <b>You can make it work!</b>
-                                </a>
-                            </li>
-                        {{/each}}
-                    </ul>
+                        </ul>
+                    </fieldset>
+
+
+                    {{#each voucher.donations}}
+                        <a {{action openInBox "voucherPickProject"}} class="button-link">
+                            <em class="icon-retweet"></em> {% trans "Choose different project" %}
+                        </a>
+                    {{/each}}
+
                     {{#if voucher.donations.length}}
                         <button {{action "redeemVoucher" target="controller"}} type="submit" class="btn btn-iconed right">
                             <i class="icon icon-chevron-right"></i>
                             {% trans "Submit" %}
                         </button>
                     {{else}}
-                        <button disabled class="button right">
+                        <button disabled class="btn btn-iconed right">
+                            <i class="icon icon-chevron-right"></i>
                             {% trans "Submit" %}
                         </button>
                     {{/if}}
@@ -200,19 +210,15 @@
 {% tplhandlebars "voucher_donation" %}
 
     {{#linkTo "project" project}}
-        <img {{bindAttr src="project.image_square"}} class="project-image" alt="Project Name" />
+        <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
+        <h1>{{project.title}} <em class="country"><i class="icon-globe"></i> {{project.country.name}}</em></h1>
     {{/linkTo}}
-    <h1>
-        {{#linkTo "project" project}}
-            {{project.title}}
-        {{/linkTo}}
-        <em class="country">{{project.country.name}}</em>
-    </h1>
-    <p class="donation-amount">
-        {{#if amount}}
-            <span class="big currency">&euro; {{amount}}</span>
-        {{/if}}
-    </p>
+
+    <div class="donation-amount">
+        <div class="amount-needed">
+            <strong>&euro; {{view.neededAfterDonation}}</strong> {% trans "is still needed"%}
+        </div>
+    </div>
 
     {# add this for multiple donations per voucher #}
     {# <a class="remove" {{action "delete" this target="view" }}>{% trans "Remove" %}</a> #}
