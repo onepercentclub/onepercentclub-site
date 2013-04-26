@@ -2292,7 +2292,7 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 #cboxContent { position: relative; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000324}}
-#cboxLoadedContent { overflow: auto; }
+#cboxLoadedContent { overflow: auto; padding: 16px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000326}}
 #cboxTitle { margin: 0; }
@@ -2308,9 +2308,6 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000346}}
 .cboxIframe { width: 100%; height: 100%; display: block; border: 0; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000353}}
-#colorbox, #cboxContent, #cboxLoadedContent { box-sizing: content-box; }
 
 /* Bootstrap */
 /*

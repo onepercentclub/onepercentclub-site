@@ -191,7 +191,7 @@
         </section>
     </div>
 
-{% endtplhandlebars %}static/global/css/print.css
+{% endtplhandlebars %}
 
 
 {% tplhandlebars "voucher_redeem_done" %}
@@ -216,7 +216,8 @@
 
     <div class="donation-amount">
         <div class="amount-needed">
-            <strong>&euro; {{view.neededAfterDonation}}</strong> {% trans "is still needed"%}
+            {# TODO: Create computed property to generate remaining money after donation #}
+            <strong>&euro; {{project.money_needed}}</strong> {% trans "is still needed"%}
         </div>
     </div>
 

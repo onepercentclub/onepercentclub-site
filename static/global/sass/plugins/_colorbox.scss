@@ -21,7 +21,7 @@
  
 #cboxContent { position: relative; }
  
-#cboxLoadedContent { overflow: auto; }
+#cboxLoadedContent { overflow: auto; padding: 16px;}
  
 #cboxTitle { margin: 0; }
  
@@ -49,5 +49,3 @@
 	display: block;
 	border: 0; 
 }
- 
-#colorbox, #cboxContent, #cboxLoadedContent { box-sizing: content-box; }
