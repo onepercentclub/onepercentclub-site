@@ -90,18 +90,8 @@ App.Payment = DS.Model.extend({
 });
 
 
-//App.LatestDonation = App.OrderItem.extend({
-//    url: 'fund/orders/latest/donations'
-//});
-//
-//
-//App.VoucherDonation = App.CurrentDonation.extend({
-//   url: 'fund/vouchers/:code/donations'
-//});
-
-
-App.DirectDebitPaymentMethodInfo = DS.Model.extend({
-    url: 'fund/directdebitpaymentmethodinfo',
+App.DocDataDirectDebit = DS.Model.extend({
+    url: 'fund/docdatadirectdebit',
 
     bank_account_number: DS.attr('string'),
     bank_account_name: DS.attr('string'),
