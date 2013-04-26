@@ -2,8 +2,8 @@ import threading
 from apps.cowry import payments
 from apps.cowry.models import Payment
 from apps.cowry.serializers import PaymentSerializer
-from apps.cowry_docdata.models import DocDataPaymentOrder
-from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
+from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit
+from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataWebDirectDirectDebitSerializer
 from django.contrib.contenttypes.models import ContentType
 from apps.cowry import factory
 from apps.bluebottle_drf2.permissions import AllowNone
@@ -232,6 +232,36 @@ class PaymentCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             payment.save()
 
         return payment
+
+
+class DocDataDirectDebitCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+    """
+    DocData direct debit payment for the CurrentOrder.
+    """
+    model = DocDataWebDirectDirectDebit
+    serializer_class = DocDataWebDirectDirectDebitSerializer
+
+    def get_object(self, queryset=None):
+        order = self.get_current_order()
+        if not order:
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
+        # Use the order for the permissions of the payment. If a user can access the order, they can access the payment.
+        self.check_object_permissions(self.request, order)
+        payment = order.payment
+
+        # We're relying on the fact that the Payment is created when the Order is created. This assert
+        # verifies this assumption in case the Order creation code changes in the future.
+        assert payment
+
+        # This assumes that payment is a DocDataPaymentOrder.
+        assert isinstance(payment, DocDataPaymentOrder)
+        docdata_payment = payment.latest_docdata_payment
+        if not docdata_payment or not isinstance(docdata_payment, DocDataWebDirectDirectDebit):
+            docdata_payment = DocDataWebDirectDirectDebit()
+            docdata_payment.docdata_payment_order = payment
+            docdata_payment.save()
+
+        return docdata_payment
 
 
 # OrderItems
