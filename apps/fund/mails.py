@@ -8,7 +8,7 @@ from celery import task
 @task
 def mail_new_voucher(voucher, *args, **kwargs):
     # TODO: Put this in config
-    system_email = 'vouchers@1procentclub.nl'
+    system_email = 'giftcards@1procentclub.nl'
     server = Site.objects.get_current().domain
     if server == 'localhost:8000':
         server = 'http://' + server
@@ -28,7 +28,7 @@ def mail_new_voucher(voucher, *args, **kwargs):
 @task
 def mail_voucher_redeemed(voucher, *args, **kwargs):
     # TODO: Put this in config
-    system_email = 'vouchers@1procentclub.nl'
+    system_email = 'giftcards@1procentclub.nl'
     server = 'https://' + Site.objects.get_current().domain
 
     subject = voucher.receiver_name + ' ' + _(u'has supported a 1%PROJECT using your 1%GIFTCARD')
@@ -45,7 +45,7 @@ def mail_voucher_redeemed(voucher, *args, **kwargs):
 @task
 def mail_custom_voucher_request(voucher_request, *args, **kwargs):
     # TODO: Put this in config
-    #system_email = 'vouchers@1procentclub.nl'
+    #system_email = 'giftcards@1procentclub.nl'
     system_email = 'loek@1procentclub.nl'
     server = 'https://' + Site.objects.get_current().domain
 
