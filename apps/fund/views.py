@@ -356,7 +356,7 @@ class VoucherMixin(object):
         if not code:
             raise exceptions.ParseError(detail=_(u"No gift card code supplied"))
         try:
-            voucher = Voucher.objects.get(code=code)
+            voucher = Voucher.objects.get(code=code.upper())
         except Voucher.DoesNotExist:
             raise exceptions.ParseError(detail=_(u"No gift card with that code"))
         if voucher.status != Voucher.VoucherStatuses.paid:
