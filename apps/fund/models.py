@@ -201,8 +201,8 @@ class CustomVoucherRequest(models.Model):
 
 def process_voucher_order_in_progress(voucher):
     def generate_voucher_code():
-        # Lower case letters without d, o, l and i. Numbers without 0 and 1.
-        char_set = 'abcefghjkmnpqrstuvwxyz23456789'
+        # Upper case letters without d, o, l and i. Numbers without 0 and 1.
+        char_set = 'ABCEFGHJKMNPQRSTUVWXYZ23456789'
         return ''.join(random.choice(char_set) for i in range(8))
 
     code = generate_voucher_code()
