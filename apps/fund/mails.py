@@ -16,7 +16,7 @@ def mail_new_voucher(voucher, *args, **kwargs):
         server = 'https://' + server
 
     subject = _(u'You received a 1%GIFTCARD!')
-    text_content = _(u'You received a 1%GIFTCARD with this code:') + ' ' + voucher.code
+    text_content = _(u'You received a 1%GIFTCARD with this code:') + ' ' + voucher.code.upper()
     context = Context({'voucher': voucher, 'server': server})
     html_content = get_template('voucher_new.mail.html').render(context)
     msg = EmailMultiAlternatives(subject=subject, body=text_content, from_email=system_email,
