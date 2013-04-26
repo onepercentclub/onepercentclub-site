@@ -42,7 +42,8 @@ default_payment_methods = {
         'name': 'Direct Debit',
         'max_amount': 10000,  # €100
         'restricted_countries': ('NL',),
-        'supports_recurring': False,
+        'supports_recurring': True,
+        'supports_single': False,
     },
 
     'dd-creditcard': {

@@ -47,6 +47,7 @@ def get_payment_methods(amount=None, currency='', country='', recurring=None, pm
                 restricted_currencies = pm_config.get('restricted_currencies', (currency,))
                 restricted_countries = pm_config.get('restricted_countries', (country,))
                 supports_recurring = pm_config.get('supports_recurring', True)
+                supports_single = pm_config.get('supports_single', True)
 
                 # See if we need to exclude the current payment_method (pm).
                 add_pm = True
@@ -57,6 +58,8 @@ def get_payment_methods(amount=None, currency='', country='', recurring=None, pm
                 if currency not in restricted_currencies:
                     add_pm = False
                 if recurring and not supports_recurring:
+                    add_pm = False
+                if not recurring and not supports_single:
                     add_pm = False
 
                 # For now we only return a few params. Later on we might want to return the entire object.
