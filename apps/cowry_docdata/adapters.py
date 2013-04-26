@@ -42,7 +42,8 @@ default_payment_methods = {
         'name': 'Direct Debit',
         'max_amount': 10000,  # €100
         'restricted_countries': ('NL',),
-        'supports_recurring': False,
+        'supports_recurring': True,
+        'supports_single': False,
     },
 
     'dd-creditcard': {
@@ -254,11 +255,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             payment_url_base = 'https://secure.docdatapayments.com/ps/menu'
 
         # Create a DocDataPayment when we need it.
-        webmenu_payment = payment.latest_docdata_payment
-        if not webmenu_payment or not isinstance(webmenu_payment, DocDataPayment):
-            webmenu_payment = DocDataPayment()
-            webmenu_payment.docdata_payment_order = payment
-            webmenu_payment.save()
+        docdata_payment = payment.latest_docdata_payment
+        if not docdata_payment or not isinstance(docdata_payment, DocDataPayment):
+            docdata_payment = DocDataPayment()
+            docdata_payment.docdata_payment_order = payment
+            docdata_payment.save()
 
         return payment_url_base + '?' + urlencode(params)
 

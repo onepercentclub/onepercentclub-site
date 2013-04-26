@@ -1,4 +1,3 @@
-from apps.bluebottle_drf2.serializers import PolymorphicSerializer
 from rest_framework import serializers
 from .models import DocDataPaymentOrder, DocDataWebDirectDirectDebit
 
@@ -16,10 +15,3 @@ class DocDataWebDirectDirectDebitSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocDataWebDirectDirectDebit
         fields = ('id', 'bank_account_number', 'bank_account_name', 'bank_account_city')
-
-
-class DocDataPaymentMethodSerializer(PolymorphicSerializer):
-    class Meta:
-        child_models = (
-            (DocDataWebDirectDirectDebit, DocDataWebDirectDirectDebitSerializer),
-        )

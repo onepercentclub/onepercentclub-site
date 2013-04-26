@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # Django settings for bluebottle project.
 
 import os
@@ -440,7 +442,17 @@ COWRY_PAYMENT_METHODS = {
         'profile': 'webmenu',
         'name': 'Web Menu',
         'supports_recurring': True,
-    }
+    },
+
+    'dd-direct-debit': {
+        'id': 'DIRECT_DEBIT',
+        'profile': 'directdebit',
+        'name': 'Direct Debit',
+        'max_amount': 10000,  # €100
+        'restricted_countries': ('NL',),
+        'supports_recurring': True,
+        'supports_single': False,
+    },
 }
 
 # The rate that is payed out to projects
