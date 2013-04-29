@@ -324,7 +324,6 @@ App.ApplicationRoute = Ember.Route.extend({
 });
 
 
-
 /**
  * Project Routes
  */
@@ -339,10 +338,6 @@ App.ProjectListRoute = Ember.Route.extend({
 App.ProjectRoute = Ember.Route.extend({
     setupController: function(controller, project) {
         this._super(controller, project);
-
-        // Look if we've got an active voucher
-        var voucher = this.controllerFor('voucherRedeem').get('voucher');
-        controller.set('currentVoucher', voucher);
 
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
         // wallposts property. The controller will convert it to an Ember Array.
