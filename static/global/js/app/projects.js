@@ -9,6 +9,19 @@ App.Country = DS.Model.extend({
 });
 
 
+// This extends MemberPreview because we mainly use it to show supporters to a project
+App.ProjectSupporter =  DS.Model.extend({
+    url: 'projects/donations',
+    project: DS.belongsTo('App.ProjectPreview'),
+    member: DS.belongsTo('App.MemberPreview'),
+
+    date_donated: DS.attr('date'),
+    time_since: function(){
+        return Globalize.format(this.get('date_donated'), 'X');
+    }.property('date_donated')
+})
+
+
 App.Project = DS.Model.extend({
     url: 'projects',
 
@@ -29,9 +42,8 @@ App.Project = DS.Model.extend({
     owner: DS.belongsTo('App.MemberPreview'),
     country: DS.belongsTo('App.Country'),
 
-    // FIXME: For now we set some default values here because we don't have actual numbers
-    supporter_count: DS.attr('number', {defaultValue: 123}),
-    days_left: DS.attr('number', {defaultValue: 123}),
+    days_left: DS.attr('number'),
+    supporters_count: DS.attr('number'),
 
     money_needed: function(){
         var donated = this.get('money_asked') - this.get('money_donated');
@@ -43,6 +55,10 @@ App.Project = DS.Model.extend({
 
 });
 
+
+App.ProjectPreview = App.Project.extend({
+
+});
 
 /*
  Controllers
@@ -57,14 +73,37 @@ App.ProjectController = Em.ObjectController.extend({
 });
 
 
+App.ProjectSupporterListController = Em.ArrayController.extend({
+    supportersLoaded: function(sender, key) {
+        if (this.get(key)) {
+            this.set('model', this.get('supporters').toArray());
+        } else {
+            // Don't show old content when new content is being retrieved.
+            this.set('model', null);
+        }
+    }.observes('supporters.isLoaded')
+
+});
+
 /*
  Views
  */
 
-App.ProjectSupportersView = Em.View.extend({
-    templateName: 'project_supporters'
+App.ProjectMembersView = Em.View.extend({
+    templateName: 'project_members'
 });
 
+App.ProjectSupporterView = Em.View.extend({
+    templateName: 'project_supporter',
+    tagName: 'li',
+    didInsertElement: function(){
+        this.$('a').popover({trigger: 'hover', placement: 'top', width: '100px'})
+    }
+});
+
+App.ProjectSupporterListView = Em.View.extend({
+    templateName: 'project_supporter_list'
+});
 
 App.ProjectListView = Em.View.extend({
     templateName: 'project_list'

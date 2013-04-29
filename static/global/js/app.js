@@ -199,6 +199,10 @@ App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
     country: {embedded: 'load'}
 });
+App.Adapter.map('App.ProjectSupporter', {
+    project: {embedded: 'load'},
+    member: {embedded: 'load'}
+});
 App.Adapter.map('App.ProjectWallPost', {
     author: {embedded: 'load'},
     photos: {embedded: 'load'},
@@ -350,6 +354,12 @@ App.ProjectRoute = Ember.Route.extend({
 
         // Set the current project on the WallPost new controller.
         this.controllerFor('projectWallPostNew').set('currentProject', project);
+
+        // Set the controller to show Project Supporters
+        var projectSupporterListController = this.controllerFor('projectSupporterList');
+        projectSupporterListController.set('supporters', App.ProjectSupporter.find({project: project.get('id')}));
+        projectSupporterListController.set('page', 1);
+        projectSupporterListController.set('canLoadMore', true);
     },
 
     events: {
@@ -543,6 +553,7 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                     url: 'fund/vouchers/' + voucher.get('code') + '/donations'
                 });
                 var donation = transaction.createRecord(App.VoucherDonation);
+                transaction.add(donation);
                 donation.set('project', project);
                 donation.set('voucher', voucher);
                 // Ember object embedded isn't updated by server response. Manual update for embedded donation here.

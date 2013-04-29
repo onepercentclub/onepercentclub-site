@@ -22,6 +22,17 @@ App.Donation = DS.Model.extend({
     order: DS.belongsTo('App.Order')
 });
 
+App.DonationPreview = DS.Model.extend({
+    url: 'fund/previewdonations',
+
+    project: DS.belongsTo('App.Project'),
+    user: DS.belongsTo('App.Member'),
+
+    status: DS.attr('string'),
+    type: DS.attr('string'),
+});
+
+
 
 App.Voucher =  DS.Model.extend({
     url: 'fund/vouchers',

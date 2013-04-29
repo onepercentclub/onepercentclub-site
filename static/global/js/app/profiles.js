@@ -35,8 +35,11 @@ App.Member = DS.Model.extend({
 
 
     full_name: function() {
+        if (!this.get('first_name') &!this.get('last_name')) {
+            return this.get('username');
+        }
         return this.get('first_name') + ' ' + this.get('last_name');
-    }.property('first_name', 'last_name'),
+    }.property('first_name', 'last_name')
 
 });
 

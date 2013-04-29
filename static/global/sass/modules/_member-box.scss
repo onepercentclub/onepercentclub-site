@@ -5,7 +5,6 @@
     position: relative;
     padding: 0;
     @include clearfix;
-    overflow: hidden;
     @include rem(margin-top, 16px);
     
     ul {
@@ -124,8 +123,12 @@
                 }
             }
             
-            &.member-supporters ul {
-                width: 9999px;
+            &.member-supporters {
+                float: right;
+                ul {
+                    float: right;
+                    width: 474px;
+                }
             }
             
             &.member-project-team a, &.member-coaches a, &.member-promotors a, &.member-supporters a {
@@ -212,3 +215,4 @@
     }
     
 }
+

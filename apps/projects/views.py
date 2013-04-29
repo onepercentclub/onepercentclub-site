@@ -1,5 +1,9 @@
+from django.utils.translation import ugettext as _
+from apps.fund.models import Donation
+from apps.projects.serializers import DonationPreviewSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
+from django.http import Http404
 from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework import permissions
@@ -110,9 +114,63 @@ class ProjectTextWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIVie
     permission_classes = (IsAuthorOrReadOnly,)
 
 
+class ProjectDonationList(generics.ListAPIView):
+    model = Donation
+    serializer_class = DonationPreviewSerializer
+    paginate_by = 10
+    filter_fields = ('status', )
+
+    def get_queryset(self):
+        queryset = super(ProjectDonationList, self).get_queryset()
+        project_slug = self.request.QUERY_PARAMS.get('project', None)
+        if project_slug:
+            try:
+                project = Project.objects.get(slug=project_slug)
+            except Project.DoesNotExist:
+                raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                              {'verbose_name': queryset.model._meta.verbose_name})
+        else:
+            raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                          {'verbose_name': queryset.model._meta.verbose_name})
+
+        queryset = queryset.filter(project=project)
+        queryset = queryset.order_by("-created")
+        queryset = queryset.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+
+        return queryset
+
+
+class ProjectSupporterList(generics.ListAPIView):
+    model = Donation
+    serializer_class = DonationPreviewSerializer
+    paginate_by = 10
+
+    def get_queryset(self):
+
+        queryset = super(ProjectDonationList, self).get_queryset()
+        project_slug = self.request.QUERY_PARAMS.get('project', None)
+        if project_slug:
+            try:
+                project = Project.objects.get(slug=project_slug)
+                print project
+            except Project.DoesNotExist:
+                raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                              {'verbose_name': queryset.model._meta.verbose_name})
+        else:
+            raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                          {'verbose_name': queryset.model._meta.verbose_name})
+
+        queryset = queryset.filter(project=project)
+        queryset = queryset.order_by("-created")
+        queryset = queryset.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+
+        return queryset
+
+
 # Django template Views
 
 class ProjectDetailView(DetailView):
     """ This is the project view that search engines will use. """
     model = Project
     template_name = 'project_detail.html'
+
