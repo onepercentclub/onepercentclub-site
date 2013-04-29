@@ -4,7 +4,7 @@
 
 /* User / Member authentication. */
 App.Member = DS.Model.extend({
-    url: 'members/users',
+    url: 'members',
 
     username: DS.attr('string'),
     first_name: DS.attr('string'),
