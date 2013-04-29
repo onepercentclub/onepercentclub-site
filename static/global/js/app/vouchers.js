@@ -82,7 +82,7 @@ App.CustomVoucherRequestController = Em.ObjectController.extend({
         var voucherRequest =  transaction.createRecord(App.CustomVoucherRequest);
         voucherRequest.set('contact_name', this.get('controllers.currentUser.full_name'));
         voucherRequest.set('contact_email', this.get('controllers.currentUser.email'));
-        var view = this
+        var view = this;
         voucherRequest.on('didCreate',function(){
             view.transitionToRoute('customVoucherRequestDone');
         });
@@ -127,10 +127,12 @@ App.VoucherRedeemDoneView = Em.View.extend({
     templateName: 'voucher_redeem_done'
 });
 
+
 App.CustomVoucherRequestView = Em.View.extend({
     tagName: 'form',
     templateName: 'custom_voucher_request'
 });
+
 
 App.CustomVoucherRequestDoneView = Em.View.extend({
     templateName: 'custom_voucher_request_done'
