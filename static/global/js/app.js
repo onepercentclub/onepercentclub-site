@@ -547,21 +547,17 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                 });
                 var donation = transaction.createRecord(App.VoucherDonation);
                 donation.set('project', project);
+                donation.set('voucher', voucher);
                 // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
                 donation.on('didCreate', function(record){
                     voucher.get('donations').clear();
                     voucher.get('donations').pushObject(record);
                 });
-                var donation = transaction.createRecord(App.VoucherDonation);
-                transaction.add(donation);
-                donation.set('project', project);
-                donation.set('voucher', voucher);
                 transaction.commit();
                 $.colorbox.close();
             }
         }
     }
-
 });
 
 
