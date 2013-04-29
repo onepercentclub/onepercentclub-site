@@ -194,6 +194,10 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             # Try to use the interface language from the profile if it's set
             if profile.interface_language:
                 payment.language = profile.interface_language[:2]  # Cut off locale.
+        else:
+            # Use Netherlands as the default country for anonymous orders.
+            # TODO: This should be replaced with a proper ip -> geo solution.
+            payment.country = 'NL'
 
         # Set language from request if required.
         if not payment.language:
