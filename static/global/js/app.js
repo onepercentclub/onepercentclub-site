@@ -578,7 +578,18 @@ App.LanguageSwitchView = Ember.CollectionView.extend({
 });
 
 
+/* Login */
+
+
+App.LoginController = Em.Controller.extend({
+    // We need this because openInBox relies on the controller being specified.
+
+});
+
 App.LoginView = Em.View.extend({
-    templateName: "login"
+    templateName: 'login',
+    next: function(){
+        return  String(window.location);
+    }.property()
 });
 
