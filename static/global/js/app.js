@@ -313,11 +313,13 @@ App.ApplicationRoute = Ember.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            console.log(controller.toString());
-            console.log(view.toString());
-
-            $.colorbox({html: ' ', height: 600, width: 800});
-            view.appendTo('#cboxLoadedContent');
+            //var html = view.render();
+            // console.log(html);
+            // $.colorbox({html: ' ', height: 600, width: 800});
+            // view.appendTo('#cboxLoadedContent');
+            Bootstrap.ModalPane.popup({
+                html: view
+            });
 
         }
     }
