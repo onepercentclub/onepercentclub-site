@@ -22,7 +22,6 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}css/screen.css" media="screen" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/print.css" media="print" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/not-implemented.css" media="screen" />
-
     {% endcompress %}
 
     {# Scripts #}
@@ -39,6 +38,8 @@
         {# Other libs #}
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-transition.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-modal.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-tooltip.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-popover.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-bootstrap-0.0.1.js"></script>
 
         {# Plugins #}
@@ -124,7 +125,7 @@
                             </ul>
                             <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
                         {{else}}
-                            <a href="#loginbox" class="nav-login" data-toggle="modal">{%  trans "Login" %}</a>
+                            <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
                             <a href="/accounts/signup" class="nav-signup">Signup</a>
                             {{view "App.LanguageSwitchView"}}
                         {{/if}}
@@ -163,37 +164,37 @@
         <!-- end: main footer -->
         {% endcomment %}
 
-        <div id="loginbox" class="modal hide fade">
-            <form method="post" action="/en/accounts/login/">
-                <div class="modal-body">
-                    {% csrf_token %}
-                    <div>
-                        <div class="control-group">
-                            <label class="control-label" for="id_username">{% trans "Username" %}:</label>
+    {% endtplhandlebars %}
 
-                            <div class="controls">
-                                <input id="id_username" type="text" name="username" maxlength="30">
-                            </div>
-                        </div>
+    {% tplhandlebars "login" %}
 
-                        <div class="control-group">
-                            <label class="control-label" for="id_password">{% trans "Password" %}:</label>
+        <form action="/en/accounts/login/" method="post">
+        <div class="modal-body">
+            {% csrf_token %}
+            <div>
+                <div class="control-group">
+                    <label class="control-label" for="id_username">{% trans "Username" %}:</label>
 
-                            <div class="controls">
-                                <input id="id_password" type="password" name="password">
-                            </div>
-                        </div>
+                    <div class="controls">
+                        <input id="id_username" type="text" name="username" maxlength="30">
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <input class="btn right" type="submit" value="Login">
-                    <input type="hidden" name="next" value="">
-                </div>
+                <div class="control-group">
+                    <label class="control-label" for="id_password">{% trans "Password" %}:</label>
 
-            </form>
+                    <div class="controls">
+                        <input id="id_password" type="password" name="password">
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="modal-footer">
+            <input class="btn right" type="submit" value="Login">
+            <input type="hidden" name="next" {{bindAttr value="view.next"}}>
+        </div>
+        </form>
     {% endtplhandlebars %}
 
 

@@ -10,6 +10,7 @@
   z-index: $zindexPopover;
   display: none;
   max-width: 276px;
+  min-width: 150px;
   padding: 1px;
   text-align: left; // Reset given new insertion method
   background-color: $popoverBackground;
@@ -18,7 +19,7 @@
           background-clip: padding-box;
   border: 1px solid #ccc;
   border: 1px solid rgba(0,0,0,.2);
-  @include border-radius(6px);
+  @include border-radius(0px);
   @include box-shadow(0 5px 10px rgba(0,0,0,.2));
 
   // Overrides for proper insertion
@@ -40,7 +41,6 @@
   background-color: $popoverTitleBackground;
   border-bottom: 1px solid darken($popoverTitleBackground, 5%);
   @include border-radius(5px 5px 0 0);
-
   &:empty {
     display: none;
   }

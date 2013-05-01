@@ -1,3 +1,4 @@
+from apps.projects.views import ProjectDonationList
 from django.conf.urls import patterns, url, include
 from surlex.dj import surl
 from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWallPostDetail, ProjectMediaWallPostList,
@@ -18,5 +19,8 @@ urlpatterns = patterns('',
 
     url(r'^wallposts/media/photos/$', ProjectMediaWallPostPhotoList.as_view(), name='project-mediawallpost-photo-list'),
     surl(r'^wallposts/media/photos/<pk:#>$', ProjectMediaWallPostPhotoDetail.as_view(), name='project-mediawallpost-photo-list'),
+
+    # Project supporters
+    url(r'^donations/$', ProjectDonationList.as_view(), name='project-donation-list'),
 
 )

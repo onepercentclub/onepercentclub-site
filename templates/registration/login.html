@@ -5,20 +5,37 @@
 
 {% block content %}
 
-{% if form.errors %}
-<p>{% trans "Your username and password didn't match. Please try again." %}</p>
-{% endif %}
+    <div id="cboxOverlay" style="opacity: 0.9; cursor: pointer;"></div>
+    <div id="colorbox" class="" style="padding-bottom: 0px; padding-right: 0px; top: 7px; left: 333px; position: absolute; width: 800px; height: 600px; overflow: hidden;"><div id="cboxWrapper" style="height: 600px; width: 800px;"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left; width: 800px;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left; height: 600px;"></div><div id="cboxContent" style="float: left; width: 800px; height: 600px;"><div id="cboxLoadedContent" style="width: 800px; overflow: auto; height: 600px;">
+        {% if form.errors %}
+            <p>{% trans "Your username and password didn't match. Please try again." %}</p>
+        {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+        <form method="post" action="{% url 'login' %}">
+            <div class="modal-body">
+                {% csrf_token %}
+                <div>
+                    <div class="control-group">
+                        <label class="control-label" for="id_username">{% trans "Username" %}:</label>
 
-<table>
-	  {{ form.as_table }}
-</table>
+                        <div class="controls">
+                            <input id="id_username" type="text" name="username" maxlength="30">
+                        </div>
+                    </div>
 
-<input type="submit" value="Login" />
-<input type="hidden" name="next" value="{{ next }}" />
+                    <div class="control-group">
+                        <label class="control-label" for="id_password">{% trans "Password" %}:</label>
 
-</form>
-
+                        <div class="controls">
+                            <input id="id_password" type="password" name="password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <div class="modal-footer">
+                <input class="btn right" type="submit" value="Login">
+            </div>
+        </form>
+    </div>
 {% endblock %}

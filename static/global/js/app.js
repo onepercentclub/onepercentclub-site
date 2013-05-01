@@ -199,6 +199,10 @@ App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
     country: {embedded: 'load'}
 });
+App.Adapter.map('App.DonationPreview', {
+    project: {embedded: 'load'},
+    member: {embedded: 'load'}
+});
 App.Adapter.map('App.ProjectWallPost', {
     author: {embedded: 'load'},
     photos: {embedded: 'load'},
@@ -313,9 +317,6 @@ App.ApplicationRoute = Ember.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            console.log(controller.toString());
-            console.log(view.toString());
-
             $.colorbox({html: ' ', height: 600, width: 800});
             view.appendTo('#cboxLoadedContent');
 
@@ -348,6 +349,12 @@ App.ProjectRoute = Ember.Route.extend({
 
         // Set the current project on the WallPost new controller.
         this.controllerFor('projectWallPostNew').set('currentProject', project);
+
+        // Set the controller to show Project Supporters
+        var projectSupporterListController = this.controllerFor('projectSupporterList');
+        projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
+        projectSupporterListController.set('page', 1);
+        projectSupporterListController.set('canLoadMore', true);
     },
 
     events: {
@@ -571,7 +578,18 @@ App.LanguageSwitchView = Ember.CollectionView.extend({
 });
 
 
+/* Login */
+
+
+App.LoginController = Em.Controller.extend({
+    // We need this because openInBox relies on the controller being specified.
+
+});
+
 App.LoginView = Em.View.extend({
-    templateName: "login"
+    templateName: 'login',
+    next: function(){
+        return  String(window.location);
+    }.property()
 });
 
