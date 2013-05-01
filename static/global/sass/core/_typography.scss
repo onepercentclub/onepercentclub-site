@@ -70,8 +70,19 @@ h2 {
     font-weight: 600;
 }
 
+h2.green {
+   color: $green;
+}
+
 h3 { 
     @include rem(font-size, 24px); 
+}
+
+h3.green {
+    @include rem(font-size, 22px);
+    text-transform: uppercase;
+    font-weight: 600;
+    color: $green;
 }
 
 h4 { 

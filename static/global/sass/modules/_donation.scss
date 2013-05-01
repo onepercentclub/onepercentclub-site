@@ -130,6 +130,7 @@ sidebar {
         .donation-project {
             @include allowremove;
             @include rem(padding, $padding);
+            @include clearfix;
 
             border-bottom: 5px solid $color-back;
 
@@ -138,7 +139,7 @@ sidebar {
                 float: left;
             }
 
-            h1 {
+            h2 {
                 @include grid(24,1,1);
                 @include rem(font-size, 16px);
                 line-height: 1.3;
