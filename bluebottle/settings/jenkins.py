@@ -37,6 +37,9 @@ PROJECT_APPS.remove('django_extensions.tests')
 # FIXME: We need to fix the django_polymorphic tests
 PROJECT_APPS.remove('polymorphic')
 
+# Social auth tests require firefox webdriver which we don't want to install right now.
+PROJECT_APPS.remove('social_auth')
+
 # Disable pylint becasue it seems to be causing problems
 JENKINS_TASKS = (
     # 'django_jenkins.tasks.run_pylint',
