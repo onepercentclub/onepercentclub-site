@@ -13,7 +13,7 @@
 @import "mixins";
 
 // CSS Reset
-// @import "reset";
+//@import "reset";
 
 // Grid system and page structure
 //@import "scaffolding";
@@ -21,7 +21,7 @@
 //@import "layouts";
 
 // Base CSS
-//@import "type";
+@import "type";
 //@import "code";
 //@import "forms";
 //@import "tables";
@@ -48,8 +48,8 @@
 
 // Components: Popovers
 @import "modals";
-//@import "tooltip";
-//@import "popovers";
+@import "tooltip";
+@import "popovers";
 
 // Components: Misc
 //@import "thumbnails";

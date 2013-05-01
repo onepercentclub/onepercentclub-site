@@ -1,5 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
+from django.db.models.aggregates import Count
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import truncate_words
@@ -84,6 +86,23 @@ class Project(models.Model):
         if self.title:
             return self.title
         return self.slug
+
+    @property
+    def supporters_count(self, with_guests=True):
+        # TODO: Replace this with a proper Supporters API
+        # something like /projects/<slug>/donations
+        donations = Donation.objects.filter(project=self)
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+        donations = donations.filter(user__isnull=False)
+        donations = donations.annotate(Count('user'))
+        count = len(donations.all())
+
+        if with_guests:
+            donations = Donation.objects.filter(project=self)
+            donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+            donations = donations.filter(user__isnull=True)
+            count = count + len(donations.all())
+        return count
 
     # This is here to provide a consistent way to get money_donated.
     @property

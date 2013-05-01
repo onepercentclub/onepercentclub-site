@@ -250,19 +250,18 @@ $infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;
 // Tooltips and popovers
 // -------------------------
 $tooltipColor:            #fff !default;
-$tooltipBackground:       #000 !default;
+$tooltipBackground:       $green !default;
 $tooltipArrowWidth:       5px !default;
-$tooltipArrowColor:       $tooltipBackground !default;
+$tooltipArrowColor:       $green !default;
 
-$popoverBackground:       #fff !default;
+$popoverBackground:       $green !default;
 $popoverArrowWidth:       10px !default;
-$popoverArrowColor:       #fff !default;
+$popoverArrowColor:       $green !default;
 $popoverTitleBackground:  darken($popoverBackground, 3%) !default;
 
 // Special enhancement for popovers
 $popoverArrowOuterWidth:  $popoverArrowWidth + 1 !default;
 $popoverArrowOuterColor:  rgba(0,0,0,.25) !default;
-
 
 
 // GRID

@@ -17,7 +17,8 @@ App.CustomVoucherRequest = DS.Model.extend({
 
 
 App.VoucherDonation = App.Donation.extend({
-    url: 'fund/vouchers/:code/donations'
+    url: 'fund/vouchers/:code/donations',
+    voucher: DS.belongsTo('App.Voucher')
 });
 
 
