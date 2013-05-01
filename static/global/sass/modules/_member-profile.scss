@@ -1,0 +1,65 @@
+.mp-sidebar {
+  @include rem(padding, $padding + 8);
+  position: absolute;
+  height: 100%;
+  width: 33.33333%;
+
+  background-color: $color-back;
+
+  img {
+    border: 1px solid $grayDarker;
+  }
+}
+
+.mp-content {
+  @include grid(48, 19, 3);
+
+  color: #767676;
+
+  h3 {
+    color: $pink;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  @include rem(line-height, 22px);
+}
+
+.mp-meta {
+  @include clearfix;
+
+  color: $gray;
+}
+
+.mp-meta-item {
+  @include clearfix;
+
+  &:first-of-type {
+    @include rem(padding-top, 20px);
+    border-top: 1px solid $grayLight;
+  }
+
+  &:last-of-type {
+    @include rem(padding-bottom, 20px);
+    border-bottom: 1px solid $grayLight;
+  }
+
+  [class^="icon-"] {
+    @include grid(3, 0, 1);
+
+    text-align: center;
+    @include rem(font-size, 16px);
+  }
+
+  .key {
+    @include grid(13, 0, 1);
+
+    text-transform: uppercase;
+  }
+
+  .value {
+    @include grid(32, 5, 0);
+
+    color: $green;
+  }
+  @include rem(padding, 0 $padding $padding);
+}
