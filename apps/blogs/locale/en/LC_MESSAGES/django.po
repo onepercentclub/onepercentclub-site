@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-20 14:00+0200\n"
+"POT-Creation-Date: 2013-05-01 15:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: admin.py:198
+#: admin.py:190
 msgid "Status"
 msgstr ""
 
-#: admin.py:211
+#: admin.py:203
 msgid "Mark selected entries as published"
 msgstr ""
 
@@ -125,24 +125,24 @@ msgstr ""
 msgid "Blog posts"
 msgstr ""
 
-#: templates/admin/blogs/change_form.html:10
-#: templates/admin/blogs/change_form.html:50
+#: templates/admin/blogs/change_form.html:7
+#: templates/admin/blogs/change_form.html:47
 msgid "Preview"
 msgstr ""
 
-#: templates/admin/blogs/change_form.html:104
+#: templates/admin/blogs/change_form.html:101
 msgid "Internal CMS error: failed to fetch preview data!"
 msgstr ""
 
-#: templates/admin/blogs/change_form.html:122
+#: templates/admin/blogs/change_form.html:119
 msgid "Publish"
 msgstr ""
 
-#: templates/admin/blogs/change_form.html:123
+#: templates/admin/blogs/change_form.html:120
 msgid "Publish and add another"
 msgstr ""
 
-#: templates/admin/blogs/change_form.html:124
+#: templates/admin/blogs/change_form.html:121
 msgid "Publish and continue editing"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-20 14:00+0200\n"
+"POT-Creation-Date: 2013-05-01 15:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,27 +77,27 @@ msgstr ""
 msgid "Reactions"
 msgstr ""
 
-#: templates/reactions.hbs:13
+#: templates/reactions.hbs:15
 msgid "Member"
 msgstr ""
 
-#: templates/reactions.hbs:24 templates/wallposts.hbs:166
+#: templates/reactions.hbs:26 templates/wallposts.hbs:169
 msgid "Delete"
 msgstr ""
 
-#: templates/reactions.hbs:59 templates/wallposts.hbs:22
+#: templates/reactions.hbs:61 templates/wallposts.hbs:22
 msgid "Login"
 msgstr ""
 
-#: templates/reactions.hbs:59 templates/wallposts.hbs:22
+#: templates/reactions.hbs:61 templates/wallposts.hbs:22
 msgid "or become a"
 msgstr ""
 
-#: templates/reactions.hbs:59 templates/wallposts.hbs:22
+#: templates/reactions.hbs:61 templates/wallposts.hbs:22
 msgid "member"
 msgstr ""
 
-#: templates/reactions.hbs:59 templates/wallposts.hbs:22
+#: templates/reactions.hbs:61 templates/wallposts.hbs:22
 msgid "to leave a comment."
 msgstr ""
 
@@ -133,22 +133,22 @@ msgstr ""
 msgid "Post Update"
 msgstr ""
 
-#: templates/wallposts.hbs:119
+#: templates/wallposts.hbs:115
 msgid "Leave your comment here"
 msgstr ""
 
-#: templates/wallposts.hbs:124
+#: templates/wallposts.hbs:127
 msgid "Post Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:139
+#: templates/wallposts.hbs:142
 msgid "Show more"
 msgstr ""
 
-#: templates/wallposts.hbs:156
+#: templates/wallposts.hbs:159
 msgid "Project Initiator"
 msgstr ""
 
-#: templates/wallposts.hbs:165
+#: templates/wallposts.hbs:168
 msgid "Edit"
 msgstr ""

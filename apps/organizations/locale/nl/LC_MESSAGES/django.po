@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-04-18 11:29+0200\n"
-"PO-Revision-Date: 2013-04-17 18:00+0000\n"
+"POT-Creation-Date: 2013-05-01 15:11+0200\n"
+"PO-Revision-Date: 2013-05-01 13:11+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -18,142 +18,146 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:17
+#: models.py:18
 msgid "name"
 msgstr "naam"
 
-#: models.py:18
+#: models.py:19
 msgid "slug"
 msgstr "slug"
 
-#: models.py:20
+#: models.py:21
 msgid "description"
 msgstr "beschrijving"
 
-#: models.py:21
+#: models.py:22
 msgid "legal status"
 msgstr "juridische status"
 
-#: models.py:21
+#: models.py:22
 msgid "The legal status of the organization (e.g. Foundation)."
 msgstr "De juridische status van de organisatie (b.v. Stichting)."
 
-#: models.py:22
+#: models.py:23
 msgid "phone number"
 msgstr "telefoonnummer"
 
-#: models.py:23
+#: models.py:24
 msgid "website"
 msgstr "website"
 
-#: models.py:25
+#: models.py:26
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:26
+#: models.py:27
 msgid "updated"
 msgstr "aangepast"
 
-#: models.py:27
+#: models.py:28
 msgid "deleted"
 msgstr "verwijderd"
 
-#: models.py:29
+#: models.py:30
 msgid "partner organizations"
 msgstr "partner organisaties"
 
-#: models.py:31
+#: models.py:32
 msgid "account bank name"
 msgstr "banknaam rekening"
 
-#: models.py:32
+#: models.py:33
 msgid "account bank address"
 msgstr "adres voor rekening"
 
-#: models.py:33
+#: models.py:34
 msgid "account bank country"
 msgstr "land voor rekening"
 
-#: models.py:34
+#: models.py:35
 msgid "account IBAN"
 msgstr "IBAN rekening"
 
-#: models.py:35
-msgid "account BIC SWIFT"
-msgstr "BIC SWIFT rekening"
-
 #: models.py:36
+msgid "account SWIFT-BIC"
+msgstr ""
+
+#: models.py:37
 msgid "account number"
 msgstr "nummer rekening"
 
-#: models.py:37
+#: models.py:38
 msgid "account name"
 msgstr "naam rekening"
 
-#: models.py:38
+#: models.py:39
 msgid "account city"
 msgstr "stad rekening"
 
 #: models.py:40
+msgid "account information that doesn't fit in the other field"
+msgstr ""
+
+#: models.py:42
 msgid "tags"
 msgstr "tags"
 
-#: models.py:47 models.py:58 models.py:76
+#: models.py:49 models.py:60 models.py:78
 msgid "organization"
 msgstr "organisatie"
 
-#: models.py:48
+#: models.py:50
 msgid "organizations"
 msgstr "organisaties"
 
-#: models.py:55
+#: models.py:57
 msgid "Owner"
 msgstr "Eigenaar"
 
-#: models.py:56
+#: models.py:58
 msgid "Editor"
 msgstr "Redacteur"
 
-#: models.py:59
+#: models.py:61
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:60
+#: models.py:62
 msgid "function"
 msgstr "functie"
 
-#: models.py:63
+#: models.py:65
 msgid "organization member"
 msgstr "organisatielid"
 
-#: models.py:64
+#: models.py:66
 msgid "organization members"
 msgstr "organisatieleden"
 
-#: models.py:71
+#: models.py:73
 msgid "Physical"
 msgstr "Fysiek"
 
-#: models.py:72
+#: models.py:74
 msgid "Postal"
 msgstr "Post"
 
-#: models.py:73
+#: models.py:75
 msgid "Other"
 msgstr "Anders"
 
-#: models.py:75
+#: models.py:77
 msgid "type"
 msgstr "type"
 
-#: models.py:75
+#: models.py:77
 msgid "Address type."
 msgstr "Adrestype."
 
-#: models.py:79
+#: models.py:81
 msgid "organization address"
 msgstr "organisatieadres"
 
-#: models.py:80
+#: models.py:82
 msgid "organization addresses"
 msgstr "organisatieadressen"

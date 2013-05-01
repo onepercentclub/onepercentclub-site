@@ -17,55 +17,54 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:9
+#: models.py:19
 msgid "New"
 msgstr ""
 
-#: models.py:10
-msgid "In Progress"
+#: models.py:20
+msgid "Progress"
 msgstr ""
 
-#: models.py:11
-msgid "Pending"
-msgstr ""
-
-#: models.py:12
-msgid "Paid"
-msgstr ""
-
-#: models.py:13
-msgid "Failed"
-msgstr ""
-
-#: models.py:14
-msgid "Cancelled"
-msgstr ""
-
-#: models.py:15
-msgid "Refunded"
+#: models.py:21
+msgid "Completed"
 msgstr ""
 
 #: models.py:23
-msgid "amount"
+msgid "Planned"
+msgstr ""
+
+#: models.py:23
+msgid "Date that this batch should be processed."
 msgstr ""
 
 #: models.py:27
-msgid "payment service fee"
-msgstr ""
-
-#: models.py:33
 msgid "status"
 msgstr ""
 
-#: models.py:35
-msgid "created"
+#: models.py:28 models.py:73 models.py:102
+msgid "Created"
 msgstr ""
 
-#: models.py:36
-msgid "updated"
+#: models.py:29
+msgid "Updated"
 msgstr ""
 
-#: serializers.py:35
-#, python-format
-msgid "%(payment_method_id)s is not a valid payment method."
+#: models.py:30
+msgid "Amount"
+msgstr ""
+
+#: models.py:31
+msgid "Currency"
+msgstr ""
+
+#: models.py:78
+msgid "Date started"
+msgstr ""
+
+#: models.py:79
+msgid "Debet/Credit"
+msgstr ""
+
+#: models.py:103
+msgid "Uploaded mutation file"
 msgstr ""

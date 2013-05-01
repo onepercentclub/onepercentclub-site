@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-03-21 15:20+0100\n"
-"PO-Revision-Date: 2013-03-21 14:21+0000\n"
+"POT-Creation-Date: 2013-05-01 15:11+0200\n"
+"PO-Revision-Date: 2013-05-01 13:11+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -17,51 +17,55 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:14
+#: models.py:9
 msgid "New"
 msgstr "Nieuw"
 
-#: models.py:15
+#: models.py:10
 msgid "In Progress"
 msgstr ""
 
-#: models.py:16
+#: models.py:11
+msgid "Pending"
+msgstr ""
+
+#: models.py:12
 msgid "Paid"
 msgstr "Betaald"
 
-#: models.py:17
+#: models.py:13
 msgid "Failed"
 msgstr ""
 
-#: models.py:18
+#: models.py:14
 msgid "Cancelled"
 msgstr ""
 
-#: models.py:19
+#: models.py:15
 msgid "Refunded"
 msgstr ""
 
-#: models.py:22
+#: models.py:23
 msgid "amount"
 msgstr "bedrag"
 
-#: models.py:26
+#: models.py:27
 msgid "payment service fee"
 msgstr ""
 
-#: models.py:32
+#: models.py:33
 msgid "status"
 msgstr "status"
 
-#: models.py:34
+#: models.py:35
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:35
+#: models.py:36
 msgid "updated"
 msgstr "aangepast"
 
-#: serializers.py:33
+#: serializers.py:35
 #, python-format
 msgid "%(payment_method_id)s is not a valid payment method."
 msgstr ""
