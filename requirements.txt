@@ -84,3 +84,5 @@ requests==1.1.0
 http://bitbucket.org/onepercentclub/suds/get/6a98691d1188.zip
 
 django-iban==0.2.0
+
+django-social-auth==0.7.23

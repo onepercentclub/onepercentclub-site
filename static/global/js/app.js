@@ -252,6 +252,10 @@ App.SlugRouter = Em.Mixin.create({
 
 
 App.Router.map(function() {
+
+    // Fix for Facebook logins
+    this.route("home", { path: "_=_" });
+
     this.route("home", { path: "/" });
 
     this.resource('projectList', {path: '/projects'}, function() {
@@ -278,6 +282,7 @@ App.Router.map(function() {
     this.resource('voucherStart', {path: '/giftcards'});
     this.resource('customVoucherRequest', {path: '/giftcards/custom'});
     this.route('customVoucherRequestDone', {path: '/giftcards/custom/done'});
+
     this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
 
     this.resource('voucherRedeem', {path: '/giftcards/redeem'}, function() {

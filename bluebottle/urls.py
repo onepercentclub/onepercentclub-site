@@ -11,6 +11,9 @@ admin.autodiscover()
 handler500 = 'bluebottle.views.handler500'
 
 urlpatterns = i18n_patterns('',
+
+    url(r'social/', include('social_auth.urls')),
+
     # These URL's will be automatically prefixed with the locale (e.g. '/nl/')
     url(r'^$', HomeView.as_view(), name='home'),
 
