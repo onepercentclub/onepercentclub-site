@@ -16,19 +16,6 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'subregion')
 
 
-class SupporterSerializer(serializers.ModelSerializer):
-    date_donated = serializers.DateTimeField(source='created')
-    avatar = SorlImageField('user.userprofile.picture', '100x100', colorspace="GRAY")
-    picture = SorlImageField('user.userprofile.picture', '240x240')
-    first_name = serializers.CharField(source='user.first_name')
-    last_name = serializers.CharField(source='user.last_name')
-    username = serializers.CharField(source='user.username')
-
-    class Meta:
-        model = Donation
-        fields = ('id', 'date_donated', 'first_name', 'last_name', 'username', 'avatar', 'picture')
-
-
 class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
     country = ProjectCountrySerializer()

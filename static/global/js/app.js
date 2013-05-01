@@ -199,7 +199,7 @@ App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
     country: {embedded: 'load'}
 });
-App.Adapter.map('App.ProjectSupporter', {
+App.Adapter.map('App.DonationPreview', {
     project: {embedded: 'load'},
     member: {embedded: 'load'}
 });
@@ -317,13 +317,8 @@ App.ApplicationRoute = Ember.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            //var html = view.render();
-            // console.log(html);
-            // $.colorbox({html: ' ', height: 600, width: 800});
-            // view.appendTo('#cboxLoadedContent');
-            Bootstrap.ModalPane.popup({
-                html: view
-            });
+            $.colorbox({html: ' ', height: 600, width: 800});
+            view.appendTo('#cboxLoadedContent');
 
         }
     }
@@ -357,7 +352,7 @@ App.ProjectRoute = Ember.Route.extend({
 
         // Set the controller to show Project Supporters
         var projectSupporterListController = this.controllerFor('projectSupporterList');
-        projectSupporterListController.set('supporters', App.ProjectSupporter.find({project: project.get('id')}));
+        projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
         projectSupporterListController.set('page', 1);
         projectSupporterListController.set('canLoadMore', true);
     },
@@ -553,7 +548,6 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                     url: 'fund/vouchers/' + voucher.get('code') + '/donations'
                 });
                 var donation = transaction.createRecord(App.VoucherDonation);
-                transaction.add(donation);
                 donation.set('project', project);
                 donation.set('voucher', voucher);
                 // Ember object embedded isn't updated by server response. Manual update for embedded donation here.

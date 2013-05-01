@@ -9,19 +9,6 @@ App.Country = DS.Model.extend({
 });
 
 
-// This extends MemberPreview because we mainly use it to show supporters to a project
-App.ProjectSupporter =  DS.Model.extend({
-    url: 'projects/donations',
-    project: DS.belongsTo('App.ProjectPreview'),
-    member: DS.belongsTo('App.MemberPreview'),
-
-    date_donated: DS.attr('date'),
-    time_since: function(){
-        return Globalize.format(this.get('date_donated'), 'X');
-    }.property('date_donated')
-})
-
-
 App.Project = DS.Model.extend({
     url: 'projects',
 

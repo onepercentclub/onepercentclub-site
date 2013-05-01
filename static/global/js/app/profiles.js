@@ -35,7 +35,7 @@ App.Member = DS.Model.extend({
 
 
     full_name: function() {
-        if (!this.get('first_name') &!this.get('last_name')) {
+        if (!this.get('first_name') && !this.get('last_name')) {
             return this.get('username');
         }
         return this.get('first_name') + ' ' + this.get('last_name');
@@ -76,8 +76,7 @@ App.CurrentUserController = Em.ObjectController.extend({
 App.MemberProfileController = Em.ObjectController.extend({
     loadProfile: function(){
         var model = this.get('model');
-
-        //this.set('model', App.Member.find(model.get('id')));
+        this.set('model', App.Member.find(model.get('id')));
     }.observes('model')
 });
 

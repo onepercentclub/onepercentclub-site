@@ -140,33 +140,6 @@ class ProjectDonationList(generics.ListAPIView):
         return queryset
 
 
-class ProjectSupporterList(generics.ListAPIView):
-    model = Donation
-    serializer_class = DonationPreviewSerializer
-    paginate_by = 10
-
-    def get_queryset(self):
-
-        queryset = super(ProjectDonationList, self).get_queryset()
-        project_slug = self.request.QUERY_PARAMS.get('project', None)
-        if project_slug:
-            try:
-                project = Project.objects.get(slug=project_slug)
-                print project
-            except Project.DoesNotExist:
-                raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                              {'verbose_name': queryset.model._meta.verbose_name})
-        else:
-            raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                          {'verbose_name': queryset.model._meta.verbose_name})
-
-        queryset = queryset.filter(project=project)
-        queryset = queryset.order_by("-created")
-        queryset = queryset.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
-
-        return queryset
-
-
 # Django template Views
 
 class ProjectDetailView(DetailView):
