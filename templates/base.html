@@ -168,6 +168,10 @@
 
     {% tplhandlebars "login" %}
 
+        <a href="/social/login/facebook" class="fb-login">
+            <img src="/static/assets/images/sprites/facebook/facebook-login.png" />
+        </a>
+
         <form action="/en/accounts/login/" method="post">
         <div class="modal-body">
             {% csrf_token %}
