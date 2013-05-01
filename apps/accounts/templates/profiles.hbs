@@ -4,27 +4,47 @@
 
 
 {% tplhandlebars "member_profile" %}
+    <div class="mp-sidebar">
+        <img {{bindAttr src="picture" info="first_name"}} width="100" height="100" />
 
-    <h2>{{ full_name }}</h2>
-    <img {{bindAttr src="picture" info="first_name"}} width="240" height="240" />
-    <p>
-        <h3>About</h3>
-        <i>{{ about }}</i>
-    </p>
-    <p>
-        <h3>why</h3>
-        <i>{{ why }}</i>
-    </p>
-    <p>
-        <h3>contribution</h3>
-        <i>{{ contribution }}</i>
-    </p>
-    <p>
-        <h3>availability</h3>
-        <i>{{ availability }}</i>
-    </p>
-    <p>
-        <h3>working_location</h3>
-        <i>{{ working_location }}</i>
-    </p>
+        <h2>{{ first_name }} {{ last_name }}</h2>
+
+        <p class="mp-member-since"></p>
+
+        <p class="mp-organization"></p>
+    </div>
+
+    <div class="mp-content">
+        <h3>{% trans "About" %}</h3>
+        <p>{{ about }} </p>
+
+        <h4>{% trans "IS A 1%MEMBER BECAUSE" %}</h4>
+        <p>{{ why }} </p>
+
+        <div class="mp-meta">
+            {{#if working_location }}
+                <div class="mp-meta-item">
+                    <i class="icon-map-marker"></i>
+                    <span class="key">{% trans "Location" %}</span>
+                    <span class="value">{{ working_location }}</span>
+                </div>
+            {{/if}}
+
+            {{#if contribution }}
+                <div class="mp-meta-item">
+                    <i class="icon-wrench"></i>
+                    <span class="key">{% trans "Expertise" %}</span>
+                    <span class="value">{{ contribution }}</span>
+                </div>
+            {{/if}}
+
+            {{#if availability }}
+                <div class="mp-meta-item">
+                    <i class="icon-time"></i>
+                    <span class="key">{% trans "Time available" %}</span>
+                    <span class="value">{{ availability }}</span>
+                </div>
+            {{/if}}
+        </div>
+    </div>
 {% endtplhandlebars %}
