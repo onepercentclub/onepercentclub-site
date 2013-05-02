@@ -48,8 +48,8 @@ class UserAddressAdmin(admin.StackedInline):
 # admin.site.register(User, UserProfileAdmin)
 
 
-class CustomUserAdmin(UserAdmin):
-    fieldsets = UserAdmin.fieldsets + ((None, {'fields': ('user_profile_link',)}),)
+class CustomUserAdmin(admin.ModelAdmin):
+    #fieldsets = UserAdmin.fieldsets + ((None, {'fields': ('user_profile_link',)}),)
     readonly_fields = ('user_profile_link',)
 
     # http://stackoverflow.com/questions/5330598/making-django-readonly-foreignkey-field-in-admin-render-as-a-link

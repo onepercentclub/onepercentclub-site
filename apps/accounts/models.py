@@ -82,6 +82,11 @@ class User(AbstractBaseUser):
     """
     User model
     """
+    class Gender(DjangoChoices):
+        male = ChoiceItem('male', label=_("Male"))
+        female = ChoiceItem('female', label=_("Female"))
+        other = ChoiceItem('other', label=_("Other"))
+
     email = models.EmailField(max_length=254, unique=True, db_index=True)
     username = models.CharField(_('User name'), max_length=254, null=True)
 
@@ -94,12 +99,6 @@ class User(AbstractBaseUser):
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-
-
-    class Gender(DjangoChoices):
-        male = ChoiceItem('male', label=_("Male"))
-        female = ChoiceItem('female', label=_("Female"))
-        other = ChoiceItem('other', label=_("Other"))
 
     # Settings
     interface_language = models.CharField(_("interface language"), max_length=5, null=True, blank=True, choices=settings.LANGUAGES)
