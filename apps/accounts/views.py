@@ -3,7 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from rest_framework import generics
 from .serializers import MemberSerializer, AuthenticatedMemberSerializer
-from .models import UserProfile
+from .models import User
 
 
 # API views
@@ -36,13 +36,13 @@ class AuthenticatedMember(generics.RetrieveAPIView):
 
 # Django template Views
 
-class UserProfileBase(object):
-    queryset = UserProfile.objects.all().select_related('user')
+class UserBase(object):
+    queryset = User.objects.all().select_related('user')
 
 
-class UserProfileList(UserProfileBase, ListView):
+class UserList(UserBase, ListView):
     pass
 
 
-class UserProfileDetail(UserProfileBase, DetailView):
+class UserDetail(UserBase, DetailView):
     pass

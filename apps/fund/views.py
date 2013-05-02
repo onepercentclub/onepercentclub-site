@@ -183,8 +183,7 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             payment.last_name = self.request.user.last_name
 
             # Try to use the address from the profile if it's set.
-            profile = self.request.user.get_profile()
-            address = profile.address
+            address = self.request.user.address
             if address:
                 payment.street = address.line1
                 payment.city = address.city
@@ -192,8 +191,8 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                 payment.country = address.country.alpha2_code
 
             # Try to use the interface language from the profile if it's set
-            if profile.interface_language:
-                payment.language = profile.interface_language[:2]  # Cut off locale.
+            if self.request.user.interface_language:
+                payment.language = self.request.user.interface_language[:2]  # Cut off locale.
         else:
             # Use Netherlands as the default country for anonymous orders.
             # TODO: This should be replaced with a proper ip -> geo solution.

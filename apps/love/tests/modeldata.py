@@ -1,7 +1,7 @@
 """
 Tests for the love app concerning model data.
 """
-from django.contrib.auth.models import User
+from apps.accounts.models import User
 from apps.love.models import LoveDeclaration
 from apps.bluebottle_utils.tests import CustomSettingsTestCase
 from .models import TestBlogPost
@@ -25,8 +25,8 @@ class LoveTest(CustomSettingsTestCase):
         # Define the basic database content to use.
         # This code runs before the transaction wrapper
 
-        user1 = User.objects.create_user('user1', 'test1@example.com')
-        user2 = User.objects.create_user('user2', 'test2@example.com')
+        user1 = User.objects.create_user('test1@example.com', username='user1')
+        user2 = User.objects.create_user('test2@example.com', username='user2')
         post1 = TestBlogPost.objects.create(title="Post 1", slug='post-1')
         post2 = TestBlogPost.objects.create(title="Post 2", slug='post-2')  # not loved as test
         post3 = TestBlogPost.objects.create(title="Post 3", slug='post-3')

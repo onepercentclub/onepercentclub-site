@@ -1,12 +1,11 @@
 import random
 import string
+from django.utils import timezone
 import os
 from django.conf import settings, global_settings
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
-from django_extensions.db.fields import AutoSlugField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
@@ -54,28 +53,52 @@ def generate_picture_filename(instance, filename):
     return os.path.normpath(os.path.join(upload_directory, normalized_filename))
 
 
-class UserProfileCreationError(Exception):
-    """ The UserProfile could not be created. """
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None, username=None):
+        if not email:
+            raise ValueError('Users must have an email address')
 
-    pass
+        user = self.model(
+            email=UserManager.normalize_email(email),
+        )
+
+        user.set_password(password)
+        user.username = username
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password):
+        user = self.create_user(email,
+            password=password,
+        )
+        user.is_admin = True
+        user.username = email
+        user.save(using=self._db)
+        return user
 
 
-# The UserProfile class is setup as per the recommendations in the Django
-# documentation:
-# https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
-class UserProfile(models.Model):
+# http://procrastinatingdev.com/django/using-configurable-user-models-in-django-1-5/
+class User(AbstractBaseUser):
     """
-    Additional information about a user.
+    User model
     """
-
     class Gender(DjangoChoices):
         male = ChoiceItem('male', label=_("Male"))
         female = ChoiceItem('female', label=_("Female"))
         other = ChoiceItem('other', label=_("Other"))
 
-    # The Django User model
-    user = models.OneToOneField(User, verbose_name=_("user"))
-    slug = AutoSlugField(_("slug"), max_length=30, unique=True, populate_from=('get_username',), overwrite=True)
+    email = models.EmailField(max_length=254, unique=True, db_index=True)
+    username = models.CharField(_('User name'), max_length=254, null=True)
+
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    is_staff = models.BooleanField(_('staff status'), default=False,
+        help_text=_('Designates whether the user can log into this admin '
+                    'site.'))
+    is_active = models.BooleanField(_('active'), default=True,
+        help_text=_('Designates whether this user should be treated as '
+                    'active. Unselect this instead of deleting accounts.'))
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     # Settings
     interface_language = models.CharField(_("interface language"), max_length=5, null=True, blank=True, choices=settings.LANGUAGES)
@@ -100,15 +123,11 @@ class UserProfile(models.Model):
 
     tags = TaggableManager(verbose_name=_("tags"), blank=True)
 
-    def __unicode__(self):
-        try:
-            return self.user.username
-        except User.DoesNotExist:
-            return str(self.pk)
+    objects = UserManager()
+    USERNAME_FIELD = 'email'
 
-    @property
-    def get_username(self):
-        return self.user.username
+    def __unicode__(self):
+        return self.email
 
     @property
     # for now return the first address found on this user.
@@ -119,47 +138,13 @@ class UserProfile(models.Model):
         else:
             return None
 
-    # Override save() to prevent UserProfiles from being created
-    # without a corresponding User.
-    # http://stackoverflow.com/questions/2307943/django-overriding-the-model-create-method
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            # The object is not in the database yet because it doesn't have a pk.
-            if not hasattr(self, 'user'):
-                raise UserProfileCreationError(
-                    "A UserProfile cannot be created without a User. "
-                    "Creating a User will automatically create the UserProfile."
-                )
-
-        super(UserProfile, self).save(*args, **kwargs)
-
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current user's profile. """
 
-        return ('userprofile_detail', (), {
+        return ('user_detail', (), {
             'slug': self.slug
         })
-
-    class Meta:
-        verbose_name = _("user profile")
-        verbose_name_plural = _("user profiles")
-
-
-# Ensures that UserProfile and User instances stay in sync.
-def sync_user_profile(sender, instance, created, **kwargs):
-    if created:
-        # Create a UserProfile whenever a User is created
-        UserProfile.objects.create(user=instance)
-    else:
-        # Save the UserProfile to update the AutoSlugField when a User is saved.
-        user_profile = instance.get_profile()
-        # TODO In Django 1.5 this can be changed to only save the 'slug' field:
-        # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
-        user_profile.save()
-
-
-post_save.connect(sync_user_profile, sender=User)
 
 
 class UserAddress(Address):
@@ -168,7 +153,7 @@ class UserAddress(Address):
         other = ChoiceItem('other', label=_("Other"))
 
     type = models.CharField(_("address type"), max_length=6, blank=True, choices=AddressType.choices)
-    user_profile = models.ForeignKey(UserProfile, verbose_name=_("user profile"))
+    user_profile = models.ForeignKey(User, verbose_name=_("user profile"))
 
     class Meta:
         verbose_name = _("user address")

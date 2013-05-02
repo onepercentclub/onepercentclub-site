@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
@@ -52,7 +51,7 @@ class BlogPost(models.Model):
     allow_comments = models.BooleanField(_("Allow comments"), default=True)
 
     # Metadata
-    author = models.ForeignKey(User, verbose_name=_('author'), editable=False)
+    author = models.ForeignKey('accounts.User', verbose_name=_('author'), editable=False)
     creation_date = CreationDateTimeField(_('creation date'))
     modification_date = ModificationDateTimeField(_('last modification'))
 

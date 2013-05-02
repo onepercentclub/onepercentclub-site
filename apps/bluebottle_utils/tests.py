@@ -1,6 +1,6 @@
 import uuid
 from apps.blogs.models import BlogPostProxy
-from django.contrib.auth.models import User
+from apps.accounts.models import User
 from django.core.management import call_command
 from django.db.models import loading
 from django.test import TestCase
@@ -9,25 +9,28 @@ from fluent_contents.models import Placeholder
 
 
 def generate_random_slug():
-    return str(uuid.uuid4())[:30]
+    return str(uuid.uuid4())[:15]
 
 
 class UserTestsMixin(object):
     """ Mixin base class for tests requiring users. """
 
-    def create_user(self, username=None, password=None):
+    def create_user(self, email=None, password=None, username=None):
         """ Create, save and return a new user. """
 
         # If username is set and not unique, it will raise a clearly
         # interpretable IntegrityError.
         # If auto-generated, make sure it's unique.
 
-        if not username:
-            username = generate_random_slug()
-            while User.objects.filter(username=username).exists():
-                 username = generate_random_slug()
+        if not email:
+            email = generate_random_slug() + '@bluebottle.be'
+            while User.objects.filter(email=email).exists():
+                 email = generate_random_slug() + '@bluebottle.be'
 
-        user = User.objects.create_user(username=username)
+        user = User.objects.create_user(email=email)
+
+        if not username:
+            user.username = generate_random_slug()
 
         if not password:
             user.set_password('password')
