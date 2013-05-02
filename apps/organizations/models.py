@@ -58,7 +58,7 @@ class OrganizationMember(models.Model):
         editor = ChoiceItem('editor', label=_("Editor"))
 
     organization = models.ForeignKey(Organization, verbose_name=_("organization"))
-    user = models.ForeignKey('auth.User', verbose_name=_("user"))
+    user = models.ForeignKey('accounts.User', verbose_name=_("user"))
     function = models.CharField(_("function"), max_length=20, choices=MemberFunctions.choices)
 
     class Meta:

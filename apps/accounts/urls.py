@@ -2,10 +2,10 @@ from django.conf.urls import patterns
 
 from surlex.dj import surl
 
-from .views import UserProfileList, UserProfileDetail
+from .views import UserList, UserDetail
 
 
 urlpatterns = patterns('',
-    surl(r'^$', UserProfileList.as_view(), name='userprofile_list'),
-    surl(r'^<slug:s>/$', UserProfileDetail.as_view(), name='userprofile_detail'),
+    surl(r'^$', UserList.as_view(), name='user_list'),
+    surl(r'^<slug:s>/$', UserDetail.as_view(), name='user_detail'),
 )

@@ -2,7 +2,7 @@ import random
 import string
 import os
 from django.conf import settings, global_settings
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
@@ -54,28 +54,15 @@ def generate_picture_filename(instance, filename):
     return os.path.normpath(os.path.join(upload_directory, normalized_filename))
 
 
-class UserProfileCreationError(Exception):
-    """ The UserProfile could not be created. """
-
-    pass
-
-
-# The UserProfile class is setup as per the recommendations in the Django
-# documentation:
-# https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
-class UserProfile(models.Model):
+class User(AbstractUser):
     """
-    Additional information about a user.
+    User model
     """
 
     class Gender(DjangoChoices):
         male = ChoiceItem('male', label=_("Male"))
         female = ChoiceItem('female', label=_("Female"))
         other = ChoiceItem('other', label=_("Other"))
-
-    # The Django User model
-    user = models.OneToOneField(User, verbose_name=_("user"))
-    slug = AutoSlugField(_("slug"), max_length=30, unique=True, populate_from=('get_username',), overwrite=True)
 
     # Settings
     interface_language = models.CharField(_("interface language"), max_length=5, null=True, blank=True, choices=settings.LANGUAGES)
@@ -101,14 +88,7 @@ class UserProfile(models.Model):
     tags = TaggableManager(verbose_name=_("tags"), blank=True)
 
     def __unicode__(self):
-        try:
-            return self.user.username
-        except User.DoesNotExist:
-            return str(self.pk)
-
-    @property
-    def get_username(self):
-        return self.user.username
+        return self.username
 
     @property
     # for now return the first address found on this user.
@@ -119,25 +99,11 @@ class UserProfile(models.Model):
         else:
             return None
 
-    # Override save() to prevent UserProfiles from being created
-    # without a corresponding User.
-    # http://stackoverflow.com/questions/2307943/django-overriding-the-model-create-method
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            # The object is not in the database yet because it doesn't have a pk.
-            if not hasattr(self, 'user'):
-                raise UserProfileCreationError(
-                    "A UserProfile cannot be created without a User. "
-                    "Creating a User will automatically create the UserProfile."
-                )
-
-        super(UserProfile, self).save(*args, **kwargs)
-
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current user's profile. """
 
-        return ('userprofile_detail', (), {
+        return ('user_detail', (), {
             'slug': self.slug
         })
 
@@ -146,29 +112,13 @@ class UserProfile(models.Model):
         verbose_name_plural = _("user profiles")
 
 
-# Ensures that UserProfile and User instances stay in sync.
-def sync_user_profile(sender, instance, created, **kwargs):
-    if created:
-        # Create a UserProfile whenever a User is created
-        UserProfile.objects.create(user=instance)
-    else:
-        # Save the UserProfile to update the AutoSlugField when a User is saved.
-        user_profile = instance.get_profile()
-        # TODO In Django 1.5 this can be changed to only save the 'slug' field:
-        # https://docs.djangoproject.com/en/dev/ref/models/instances/#specifying-which-fields-to-save
-        user_profile.save()
-
-
-post_save.connect(sync_user_profile, sender=User)
-
-
 class UserAddress(Address):
     class AddressType(DjangoChoices):
         home = ChoiceItem('home', label=_("Home"))
         other = ChoiceItem('other', label=_("Other"))
 
     type = models.CharField(_("address type"), max_length=6, blank=True, choices=AddressType.choices)
-    user_profile = models.ForeignKey(UserProfile, verbose_name=_("user profile"))
+    user_profile = models.ForeignKey(User, verbose_name=_("user profile"))
 
     class Meta:
         verbose_name = _("user address")

@@ -37,7 +37,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'auth.user': {
+        'accounts.User': {
             'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
@@ -61,7 +61,7 @@ class Migration(SchemaMigration):
         'blogs.blogpost': {
             'Meta': {'unique_together': "(('slug', 'language'),)", 'object_name': 'BlogPost'},
             'allow_comments': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['accounts.User']"}),
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['blogs.BlogCategory']", 'symmetrical': 'False', 'blank': 'True'}),
             'countries': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['geo.Country']", 'null': 'True', 'blank': 'True'}),
             'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),

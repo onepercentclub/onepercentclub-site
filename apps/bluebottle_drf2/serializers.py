@@ -149,7 +149,7 @@ class PolymorphicSerializer(serializers.Serializer):
 
 
 class MemberPreviewSerializer(serializers.ModelSerializer):
-    avatar = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
+    avatar = SorlImageField('picture', '90x90', crop='center', colorspace="GRAY")
 
     class Meta:
         model = User

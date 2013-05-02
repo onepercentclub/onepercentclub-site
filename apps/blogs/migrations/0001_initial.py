@@ -27,7 +27,7 @@ class Migration(SchemaMigration):
             ('publication_date', self.gf('django.db.models.fields.DateTimeField')(null=True, db_index=True)),
             ('publication_end_date', self.gf('django.db.models.fields.DateTimeField')(db_index=True, null=True, blank=True)),
             ('allow_comments', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['accounts.User'])),
             ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
             ('modification_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
         ))
@@ -78,7 +78,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'auth.user': {
+        'accounts.User': {
             'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
@@ -102,7 +102,7 @@ class Migration(SchemaMigration):
         'blogs.blogpost': {
             'Meta': {'object_name': 'BlogPost'},
             'allow_comments': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['accounts.User']"}),
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['blogs.BlogCategory']", 'symmetrical': 'False', 'blank': 'True'}),
             'countries': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['geo.Country']", 'null': 'True', 'blank': 'True'}),
             'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -128,7 +128,7 @@ class Migration(SchemaMigration):
             'object_pk': ('django.db.models.fields.TextField', [], {}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
             'submit_date': ('django.db.models.fields.DateTimeField', [], {'default': 'None'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'comment_comments'", 'null': 'True', 'to': "orm['auth.User']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'comment_comments'", 'null': 'True', 'to': "orm['accounts.User']"}),
             'user_email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'user_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'user_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})

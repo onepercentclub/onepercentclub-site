@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -17,7 +16,7 @@ class LoveDeclaration(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     creation_date = CreationDateTimeField(_('creation date'))
-    user = models.ForeignKey(User, editable=False)
+    user = models.ForeignKey('accounts.User', editable=False)
 
     objects = LoveDeclarationManager()
 
