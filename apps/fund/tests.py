@@ -4,6 +4,7 @@ from apps.cowry.models import PaymentStatuses
 from apps.cowry_docdata.adapters import default_payment_methods
 from apps.cowry_docdata.tests import run_docdata_tests
 from django.test import TestCase
+from django.test.client import encode_multipart, BOUNDARY, MULTIPART_CONTENT
 from django.utils import unittest
 from django.test.utils import override_settings
 from apps.bluebottle_utils.tests import UserTestsMixin
@@ -66,14 +67,14 @@ class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
         self.client.get(payment_profile_current_url)
 
         # Update the current order payment profile with our information.
-        self.client.put(payment_profile_current_url, payment_profile)
+        self.client.put(payment_profile_current_url, encode_multipart(BOUNDARY, payment_profile), MULTIPART_CONTENT)
 
         # Now it's time to pay. Get the payment record.
         response = self.client.get(payment_current_url)
         first_payment_method = response.data['available_payment_methods'][0]
 
         # Updating the payment method with a valid value should provide a payment_url.
-        self.client.put(payment_current_url, {'payment_method': first_payment_method})
+        self.client.put(payment_current_url, encode_multipart(BOUNDARY, {'payment_method': first_payment_method}), MULTIPART_CONTENT)
 
         self.client.get(payment_thank_you_url)
 
@@ -219,17 +220,16 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.assertEqual(response.data['results'][0]['project'], self.some_project.slug)
 
         # Update the created Donation by owner.
-        response = self.client.put(donation_detail_url, {'amount': 150, 'project': self.some_project.slug})
+        response = self.client.put(donation_detail_url, encode_multipart(BOUNDARY, {'amount': 150, 'project': self.some_project.slug}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], '150.00')
 
         # Update with amount under 5 should fail.
-        response = self.client.put(donation_detail_url, {'amount': 3, 'project': self.some_project.slug})
+        response = self.client.put(donation_detail_url, encode_multipart(BOUNDARY, {'amount': 3, 'project': self.some_project.slug}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Update the status of the created Donation by owner should be ignored
-        response = self.client.put(donation_detail_url,
-                                   {'amount': 150, 'project': self.some_project.slug, 'status': 'paid'})
+        response = self.client.put(donation_detail_url,encode_multipart(BOUNDARY, {'amount': 150, 'project': self.some_project.slug, 'status': 'paid'}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], '150.00')
         self.assertEqual(response.data['status'], 'new')
@@ -284,7 +284,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
-        response = self.client.put(self.current_order_url, {'recurring': True})
+        response = self.client.put(self.current_order_url, encode_multipart(BOUNDARY, {'recurring': True}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['recurring'], True)
 
@@ -292,7 +292,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.client.logout()
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
-        response = self.client.put(self.current_order_url, {'recurring': True})
+        response = self.client.put(self.current_order_url, encode_multipart(BOUNDARY, {'recurring': True}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
@@ -321,7 +321,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Update the current order payment profile with our information.
-        response = self.client.put(self.payment_profile_current_url, self.some_profile)
+        response = self.client.put(self.payment_profile_current_url, encode_multipart(BOUNDARY, self.some_profile), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['first_name'], 'Nijntje')
         self.assertEqual(response.data['last_name'], 'het Konijnje')
@@ -338,11 +338,11 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         first_payment_method = response.data['available_payment_methods'][0]
 
         # Updating the payment method with a value not in the available list should fail.
-        response = self.client.put(self.payment_current_url, {'payment_method': 'some-new-fancy-pm'})
+        response = self.client.put(self.payment_current_url, encode_multipart(BOUNDARY, {'payment_method': 'some-new-fancy-pm'}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Updating the payment method with a valid value should provide a payment_url.
-        response = self.client.put(self.payment_current_url, {'payment_method': first_payment_method})
+        response = self.client.put(self.payment_current_url, encode_multipart(BOUNDARY, {'payment_method': first_payment_method}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(response.data['payment_url'])  # Not empty payment_url.
 
@@ -456,7 +456,7 @@ class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Updating the amount on a voucher is fine
         self.another_voucher_data['amount'] = 100
-        response = self.client.put(another_voucher_detail_url, self.another_voucher_data)
+        response = self.client.put(another_voucher_detail_url, encode_multipart(BOUNDARY, self.another_voucher_data), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], '100.00')
 
