@@ -313,7 +313,7 @@ App.ApplicationRoute = Ember.Route.extend({
             document.location = '/' + language + document.location.hash;
             return true;
         },
-        openInBox: function(name, context){
+        openInBigBox: function(name, context){
             // Get the controller or create one
             var controller = this.controllerFor(name);
             controller.set('model', context);
@@ -337,6 +337,28 @@ App.ApplicationRoute = Ember.Route.extend({
                 defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
                 bodyViewClass: view,
                 secondary: 'Close'
+            });
+
+        },
+        openInBox: function(name, context){
+            // Get the controller or create one
+            var controller = this.controllerFor(name);
+            controller.set('model', context);
+
+            // Get the view. This should be defined.
+            var view = App[name.classify() + 'View'].create();
+            view.set('controller', controller);
+
+            var modalPaneTemplate = [
+            '<div class="modal-header">',
+            '  <a class="close" rel="close">&times;</a>',
+            '</div>',
+            '<div class="modal-body">{{view view.bodyViewClass}}</div>'].join("\n");
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
+                bodyViewClass: view
             });
 
         }
