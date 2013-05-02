@@ -297,6 +297,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 ddpayment_list_len = len(ddpayment_list)
                 if ddpayment_list_len == 0:
                     ddpayment = DocDataPayment()
+                    ddpayment.docdata_payment_order = payment
                 elif ddpayment_list_len == 1:
                     ddpayment = ddpayment_list[0]
                 else:
