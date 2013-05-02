@@ -25,9 +25,8 @@ class TestTags(unittest.TestCase, ProjectTestsMixin, OrganizationTestsMixin, Use
         tag_name = "Tag1"
 
         user = self.create_user()
-        user_profile = user.get_profile()
-        user_profile.tags.add(tag_name)
-        user_profile.save()
+        user.tags.add(tag_name)
+        user.save()
 
         organization = self.create_organization()
         organization.save()

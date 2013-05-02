@@ -25,7 +25,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
         """
 
         # Create a Reaction
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(email=self.some_user.email, password='password')
         reaction_text = "Hear! Hear!"
         response = self.client.post(self.wallpost_reaction_url,
                                     {'text': reaction_text, 'wallpost': self.some_wallpost.id})
@@ -46,7 +46,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
 
         # switch to another user
         self.client.logout()
-        self.client.login(username=self.another_user.username, password='password')
+        self.client.login(email=self.another_user.email, password='password')
 
         # Retrieve the created Reaction by non-author should work
         response = self.client.get(reaction_detail_url)
@@ -55,7 +55,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
 
         # Delete Reaction by non-author should not work
         self.client.logout()
-        self.client.login(username=self.another_user.username, password='password')
+        self.client.login(email=self.another_user.email, password='password')
         response = self.client.delete(reaction_detail_url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
@@ -79,7 +79,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
 
         # back to the author
         self.client.logout()
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(email=self.some_user.email, password='password')
 
         # Delete Reaction by author should work
         response = self.client.delete(reaction_detail_url)
@@ -96,7 +96,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
         """
 
         # Create two reactions.
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(email=self.some_user.email, password='password')
         reaction_text_1 = 'Great job!'
         response = self.client.post(self.wallpost_reaction_url,
                                     {'text': reaction_text_1, 'wallpost': self.some_wallpost.id})
@@ -144,7 +144,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
 
         # Test that a reaction update from a user who is not the author is forbidden.
         self.client.logout()
-        self.client.login(username=self.another_user.username, password='password')
+        self.client.login(email=self.another_user.email, password='password')
         response = self.client.post(second_reaction_detail_url, {'text': 'Can I update this reaction?'})
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED, response.data)
 
@@ -155,7 +155,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
         """
 
         # Create two Reactions and retrieve the related Project Text WallPost should have the embedded
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(email=self.some_user.email, password='password')
         reaction1_text = "Hear! Hear!"
         response = self.client.post(self.wallpost_reaction_url,
                                     {'text': reaction1_text, 'wallpost': self.some_wallpost.id})
@@ -213,7 +213,7 @@ class WallPostApiRegressionTests(ProjectWallPostTestsMixin, UserTestsMixin, Test
         """
 
         # Create a Reaction and check that the HTML is escaped.
-        self.client.login(username=self.user.username, password='password')
+        self.client.login(email=self.user.email, password='password')
         reaction_text = "<marquee>WOOOOOO</marquee>"
         # The paragraph tags are added by the linebreak filter.
         escaped_reaction_text = "<p>WOOOOOO</p>"
@@ -227,7 +227,7 @@ class WallPostApiRegressionTests(ProjectWallPostTestsMixin, UserTestsMixin, Test
         """
 
         # Create a Reaction and check that the HTML link is properly created.
-        self.client.login(username=self.user.username, password='password')
+        self.client.login(email=self.user.email, password='password')
         reaction_text = "www.1procentclub.nl"
         # The paragraph tags and the anchor are added by the filters we're using.
         escaped_reaction_text = '<p><a target="_blank" href="http://www.1procentclub.nl" rel="nofollow">www.1procentclub.nl</a></p>'

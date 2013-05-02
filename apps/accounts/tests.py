@@ -1,6 +1,5 @@
 from apps.accounts.views import MemberList, MemberDetail
 from django.test import TestCase
-from apps.accounts.models import User
 from apps.bluebottle_utils.tests import UserTestsMixin
 from rest_framework import status
 
@@ -24,7 +23,7 @@ class MemberApiIntegrationTest(UserTestsMixin, TestCase):
         user_detail_url = "{0}{1}{2}".format(self.member_api_base_url, 'users/', self.user.id)
         response = self.client.get(user_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['username'], self.user.username)
+        self.assertEqual(response.data['email'], self.user.email)
 
 
     def test_authenticated_member(self):
@@ -36,4 +35,4 @@ class MemberApiIntegrationTest(UserTestsMixin, TestCase):
         authenticated_member_url = "{0}{1}".format(self.member_api_base_url, 'current')
         response = self.client.get(authenticated_member_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['username'], '')
+        self.assertEqual(response.data['email'], '')

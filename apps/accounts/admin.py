@@ -60,7 +60,7 @@ class CustomUserAdmin(UserAdmin):
             args=(profile.id,)
         )
 
-        return mark_safe('<a href="%s">%s</a>' % (change_url, obj.username))
+        return mark_safe('<a href="%s">%s</a>' % (change_url, obj.email))
     user_profile_link.short_description = _("User Profile")
 
 admin.site.register(User, CustomUserAdmin)

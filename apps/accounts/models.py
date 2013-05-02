@@ -1,12 +1,11 @@
 import random
 import string
+from django.utils import timezone
 import os
 from django.conf import settings, global_settings
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
-from django_extensions.db.fields import AutoSlugField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
@@ -54,10 +53,48 @@ def generate_picture_filename(instance, filename):
     return os.path.normpath(os.path.join(upload_directory, normalized_filename))
 
 
-class User(AbstractUser):
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None, username=None):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=UserManager.normalize_email(email),
+        )
+
+        user.set_password(password)
+        user.username = username
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password):
+        user = self.create_user(email,
+            password=password,
+        )
+        user.is_admin = True
+        user.username = email
+        user.save(using=self._db)
+        return user
+
+
+# http://procrastinatingdev.com/django/using-configurable-user-models-in-django-1-5/
+class User(AbstractBaseUser):
     """
     User model
     """
+    email = models.EmailField(max_length=254, unique=True, db_index=True)
+    username = models.CharField(_('User name'), max_length=254, null=True)
+
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    is_staff = models.BooleanField(_('staff status'), default=False,
+        help_text=_('Designates whether the user can log into this admin '
+                    'site.'))
+    is_active = models.BooleanField(_('active'), default=True,
+        help_text=_('Designates whether this user should be treated as '
+                    'active. Unselect this instead of deleting accounts.'))
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
 
     class Gender(DjangoChoices):
         male = ChoiceItem('male', label=_("Male"))
@@ -87,8 +124,11 @@ class User(AbstractUser):
 
     tags = TaggableManager(verbose_name=_("tags"), blank=True)
 
+    objects = UserManager()
+    USERNAME_FIELD = 'email'
+
     def __unicode__(self):
-        return self.username
+        return self.email
 
     @property
     # for now return the first address found on this user.
@@ -106,10 +146,6 @@ class User(AbstractUser):
         return ('user_detail', (), {
             'slug': self.slug
         })
-
-    class Meta:
-        verbose_name = _("user profile")
-        verbose_name_plural = _("user profiles")
 
 
 class UserAddress(Address):
