@@ -37,17 +37,34 @@
   // Remove focus outline from opened modal
   outline: none;
 
+  &.large {
+    margin-left: -442px;
+    width: 840px;
+    height: 600px;
+    .modal-body {
+       position: relative;
+       overflow-y: auto;
+       height: 520px;
+       max-height: 520px;
+    }
+  }
+
   &.fade {
     @include transition(opacity .3s linear);
     top: -25%;
   }
   &.fade.in { top: 10%; }
 }
+
+
 .modal-header {
   padding: 9px 15px;
   border-bottom: 1px solid #eee;
   // Close icon
-  .close { margin-top: 2px; }
+  .close {
+    margin-top: 2px;
+    cursor: pointer;
+  }
   // Heading
   h3 {
     margin: 0;
