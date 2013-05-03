@@ -473,15 +473,10 @@ App.CurrentOrderDonationListRoute = Ember.Route.extend({
 // which will add a donation the project in the current user's cart.
 App.CurrentOrderAddDonationRoute = Ember.Route.extend({
     setupController: function (controller, project) {
-        var order = this.modelFor('currentOrder');
-        if (!order.get('isLoaded')) {
-            var route = this;
-            order.on("didLoad", function () {
-                route.send('addDonation', order, project);
-            });
-        } else {
-            this.send('addDonation', order, project);
-        }
+        var route = this;
+        this.modelFor('currentOrder').then(function(order) {
+            route.send('addDonation', order, project);
+        });
     },
 
     events: {
