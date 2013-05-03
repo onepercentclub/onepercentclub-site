@@ -37,17 +37,34 @@
   // Remove focus outline from opened modal
   outline: none;
 
+  &.large {
+    margin-left: -442px;
+    width: 840px;
+    height: 600px;
+    .modal-body {
+       position: relative;
+       overflow-y: auto;
+       height: 520px;
+       max-height: 520px;
+    }
+  }
+
   &.fade {
     @include transition(opacity .3s linear);
     top: -25%;
   }
   &.fade.in { top: 10%; }
 }
+
+
 .modal-header {
   padding: 9px 15px;
   border-bottom: 1px solid #eee;
   // Close icon
-  .close { margin-top: 2px; }
+  .close {
+    margin-top: 2px;
+    cursor: pointer;
+  }
   // Heading
   h3 {
     margin: 0;
@@ -61,6 +78,14 @@
   overflow-y: auto;
   max-height: 400px;
   padding: 15px;
+
+  // This fixes modals in modals (e.g. the login box)
+  .modal-body {
+    margin: -15px;
+  }
+  .modal-footer {
+    margin: -15px;
+  }
 }
 // Remove bottom margin if need be
 .modal-form {
@@ -74,7 +99,6 @@
   text-align: right; // right align buttons
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;
-  @include border-radius(0 0 6px 6px);
   @include box-shadow(inset 0 1px 0 $white);
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
 
