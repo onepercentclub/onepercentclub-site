@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, url
-from .views import MemberList, MemberDetail, AuthenticatedMember
+from surlex.dj import surl
+from .views import MemberList, MemberProfileDetail, AuthenticatedUser, MemberSettingsDetail
 
 urlpatterns = patterns('',
-    url(r'^users/$', MemberList.as_view(), name='member-list'),
-    url(r'^users/(?P<pk>[0-9]+)$', MemberDetail.as_view(), name='member-detail'),
-    url(r'^current$', AuthenticatedMember.as_view(), name='member-current'),
+    surl(r'^<pk:#>$', MemberProfileDetail.as_view(), name='member-profile-detail'),
+    url(r'^current$', AuthenticatedUser.as_view(), name='member-current'),
+    surl(r'^settings/<user_id:#>$', MemberSettingsDetail.as_view(), name='member-settings-detail'),
 )
