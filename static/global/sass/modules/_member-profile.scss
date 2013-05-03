@@ -1,10 +1,12 @@
 .mp-sidebar {
   @include rem(padding, $padding + 8);
   position: absolute;
-  height: 94%;
+  top: 0;
+  left: 0;
   width: 33.33333%;
+  height: 100%;
 
-  background-color: $color-back;
+  background-color: $grayLighter;
 
   img {
     border: 1px solid $grayDarker;
@@ -12,24 +14,24 @@
 
 
   h2 {
+    @include rem(line-height, 22px);
     padding: 0px;
     font-size: 22px;
-    @include rem(line-height, 22px);
   }
 }
 
 .mp-content {
-  @include grid(48, 19, 3);
+  @include grid(48, 18, 3);
+  @include rem(line-height, 22px);
 
   color: #767676;
 
   h3 {
+    padding: 0px;
     color: $pink;
     text-transform: uppercase;
     font-weight: 600;
-    padding: 0px;
   }
-  @include rem(line-height, 22px);
 }
 
 .mp-meta {
@@ -53,9 +55,9 @@
 
   [class^="icon-"] {
     @include grid(3, 0, 1);
+    @include rem(font-size, 16px);
 
     text-align: center;
-    @include rem(font-size, 16px);
   }
 
   .key {
@@ -71,4 +73,3 @@
   }
   @include rem(padding, 0 $padding $padding);
 }
-
