@@ -10,6 +10,11 @@ App.Member = DS.Model.extend({
     first_name: DS.attr('string'),
     last_name: DS.attr('string'),
 
+    date_joined: DS.attr('date'),
+    member_since: function(){
+        return Globalize.format(this.get('date_joined'), 'd');
+    }.property('date_joined'),
+
     about: DS.attr('string'),
     why: DS.attr('string'),
     contribution: DS.attr('string'),
