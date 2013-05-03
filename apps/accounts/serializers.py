@@ -18,7 +18,7 @@ class MemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'url', 'picture', 'avatar', 'about', 'why',
+        fields = ('id', 'first_name', 'last_name', 'username', 'date_joined', 'url', 'picture', 'avatar', 'about', 'why',
                   'contribution', 'availability', 'working_location')
 
 
