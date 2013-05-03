@@ -313,6 +313,33 @@ App.ApplicationRoute = Ember.Route.extend({
             document.location = '/' + language + document.location.hash;
             return true;
         },
+        openInBigBox: function(name, context){
+            // Get the controller or create one
+            var controller = this.controllerFor(name);
+            controller.set('model', context);
+
+            // Get the view. This should be defined.
+            var view = App[name.classify() + 'View'].create();
+            view.set('controller', controller);
+
+            var modalPaneTemplate = [
+            '<div class="modal-header">',
+            '  <a class="close" rel="close">&times;</a>',
+            '</div>',
+            '<div class="modal-body">{{view view.bodyViewClass}}</div>',
+            '<div class="modal-footer">',
+            '  {{#if view.secondary}}<a class="btn btn-secondary" rel="secondary">{{view.secondary}}</a>{{/if}}',
+            '  {{#if view.primary}}<a class="btn btn-primary" rel="primary">{{view.primary}}</a>{{/if}}',
+            '</div>'].join("\n");
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal', 'large'],
+                defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
+                bodyViewClass: view,
+                secondary: 'Close'
+            });
+
+        },
         openInBox: function(name, context){
             // Get the controller or create one
             var controller = this.controllerFor(name);
@@ -322,8 +349,17 @@ App.ApplicationRoute = Ember.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            $.colorbox({html: ' ', height: 600, width: 800});
-            view.appendTo('#cboxLoadedContent');
+            var modalPaneTemplate = [
+            '<div class="modal-header">',
+            '  <a class="close" rel="close">&times;</a>',
+            '</div>',
+            '<div class="modal-body">{{view view.bodyViewClass}}</div>'].join("\n");
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
+                bodyViewClass: view
+            });
 
         }
     }
