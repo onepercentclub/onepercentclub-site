@@ -57,7 +57,7 @@ ul.tabs {
         }
     }
     
-    li.is-selected a, li a:hover, li a:active { 
+    li.is-selected a, li a.active, li a:hover, li a:active {
         background-color: $white;
         border-color: $white;
         

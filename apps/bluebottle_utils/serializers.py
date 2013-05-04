@@ -9,3 +9,11 @@ class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields = ('value', 'title')
+
+
+# A very simple serializer for tags.
+class TagSerializer(serializers.Serializer):
+    id = serializers.Field(source='name')
+
+    class Meta:
+        fields = ('id', )

@@ -88,6 +88,7 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
 });
 
 
+
 DS.DRF2Adapter = DS.RESTAdapter.extend({
 
     /**
@@ -130,6 +131,37 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
                     if (key == 'photo') {
                         var file = record.get('file');
                         formdata.append('photo', file);
+                    } else {
+                        formdata.append(key, data[key]);
+                    }
+                }
+            });
+
+            this.ajaxFormData(this.buildURL(root), "POST", {
+                data: formdata,
+                context: this,
+                success: function(json) {
+                    Ember.run(this, function() {
+                        this.didCreateRecord(store, type, record, json);
+                    });
+                },
+                // Make sure we parse any errors.
+                error: function(xhr) {
+                    this.didError(store, type, record, xhr);
+                }
+            });
+
+        } else if (type.toString() == "App.TaskFile" && record.get('file')) {
+            // TODO: Implement this polyfill for older browsers:
+            // https://github.com/francois2metz/html5-formdata
+            var formdata = new FormData();
+            Object.keys(data).forEach(function(key) {
+                if (data[key] !== undefined) {
+                    // TODO: This won't be hardcoded when a general solution for detecting when to use
+                    //       multipart/form-data is worked out.
+                    if (key == 'file') {
+                        var file = record.get('file');
+                        formdata.append('file', file);
                     } else {
                         formdata.append(key, data[key]);
                     }
@@ -297,5 +329,37 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             url += '/';
         }
         return url;
+    }
+});
+
+
+// Make sure we (de)serialize 'date' attributes the right way.
+// DRF2 expects yyy-mm-ddThh:ii:ssZ
+// Ember wants an js Date()
+DS.DRF2Adapter.registerTransform("date", {
+    deserialize: function (serialized) {
+        if (serialized == undefined) {
+            return null;
+        }
+        return new Date(serialized);
+    },
+
+    serialize: function (date) {
+        if (date == null) {
+            return null;
+        }
+        var pad = function (num) {
+            return num < 10 ? "0" + num : "" + num;
+        };
+
+        var utcYear = date.getUTCFullYear(),
+            utcMonth = date.getUTCMonth() +1,
+            utcDayOfMonth = date.getUTCDate(),
+            utcDay = date.getUTCDay(),
+            utcHours = date.getUTCHours(),
+            utcMinutes = date.getUTCMinutes(),
+            utcSeconds = date.getUTCSeconds();
+
+        return utcYear + "-" + pad(utcMonth) + "-" + pad(utcDayOfMonth) + "T" + pad(utcHours) + ":" + pad(utcMinutes) + ":" + pad(utcSeconds) + "Z";
     }
 });

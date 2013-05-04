@@ -162,6 +162,11 @@ form {
                 @include grid(24);
             }
         }
+        &.radio3 {
+            label{
+                @include grid(16);
+            }
+        }
         &.radio4 {
             label {
                 @include grid(12);
