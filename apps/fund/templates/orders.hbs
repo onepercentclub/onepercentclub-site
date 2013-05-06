@@ -40,13 +40,13 @@
             <ul class="donation-steps">
                 {{#if controller.isVoucherOrder}}
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrder.voucherList"}}Vouchers{{/linkTo}}
+                        {{#linkTo "currentOrder.voucherList"}}{% trans "Gift Cards" %}{{/linkTo}}
                     {{/view}}
                 {{else}}
-                    {# Hack: This span needs to be here to get the 'Support' to replace 'Vouchers'. #}
+                    {# Hack: This span needs to be here to get the 'Support' to replace 'Gift Cards'. #}
                     <span></span>
                     {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrder.donationList"}}Support{{/linkTo}}
+                        {{#linkTo "currentOrder.donationList"}}{% trans "Support" %}{{/linkTo}}
                     {{/view}}
                 {{/if}}
 
