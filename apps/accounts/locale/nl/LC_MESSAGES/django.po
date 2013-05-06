@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <mathijs@mathijsfietst.nl>, 2012.
+# dokterbob <mathijs@mathijsfietst.nl>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2012-08-31 12:02+0200\n"
-"PO-Revision-Date: 2012-08-31 14:18+0000\n"
-"Last-Translator: dokterbob <mathijs@mathijsfietst.nl>\n"
+"POT-Creation-Date: 2013-05-06 19:48+0200\n"
+"PO-Revision-Date: 2013-05-06 17:48+0000\n"
+"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,114 +38,144 @@ msgstr "Gebruiker"
 msgid "User Profile"
 msgstr "Gebruikersprofiel"
 
-#: models.py:26
+#: models.py:23
 msgid "language"
 msgstr "taal"
 
-#: models.py:76
+#: models.py:72
 msgid "Male"
 msgstr "Man"
 
-#: models.py:77
+#: models.py:73
 msgid "Female"
 msgstr "Vrouw"
 
-#: models.py:78 models.py:179
+#: models.py:74 models.py:168
 msgid "Other"
 msgstr "Anders"
 
-#: models.py:81
+#: models.py:77
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:82
+#: models.py:78
 msgid "slug"
 msgstr "slug"
 
-#: models.py:86
+#: models.py:81
 msgid "interface language"
 msgstr "interface-taal"
 
-#: models.py:90
+#: models.py:82
 msgid "newsletter"
 msgstr "nieuwsbrief"
 
-#: models.py:90
+#: models.py:82
 msgid "Subscribe to newsletter."
 msgstr "Abboneer op nieuwsbrief."
 
-#: models.py:95
+#: models.py:85
 msgid "birthdate"
 msgstr "geboortedatum"
 
-#: models.py:96
+#: models.py:86
 msgid "gender"
 msgstr "geslacht"
 
-#: models.py:100
+#: models.py:87
 msgid "location"
 msgstr "lokatie"
 
-#: models.py:101
+#: models.py:88
 msgid "website"
 msgstr "website"
 
-#: models.py:103
+#: models.py:90
 msgid "picture"
 msgstr "foto"
 
-#: models.py:107
+#: models.py:91
 msgid "languages"
 msgstr "talen"
 
-#: models.py:109
+#: models.py:92
 msgid "deleted"
 msgstr "verwijderd"
 
-#: models.py:112
+#: models.py:95
 msgid "about"
 msgstr "over"
 
-#: models.py:113
+#: models.py:96
 msgid "why"
 msgstr "waarom"
 
-#: models.py:114
+#: models.py:97
 msgid "contribution"
 msgstr "bijdrage"
 
-#: models.py:115
+#: models.py:98
 msgid "availability"
 msgstr "beschikbaarheid"
 
-#: models.py:118
+#: models.py:99
 msgid "working location"
 msgstr "werklokatie"
 
-#: models.py:122
+#: models.py:101
 msgid "tags"
 msgstr "tags"
 
-#: models.py:157 models.py:184
+#: models.py:145 models.py:171
 msgid "user profile"
 msgstr "gebruikersprofiel"
 
-#: models.py:158
+#: models.py:146
 msgid "user profiles"
 msgstr "gebruikersprofielen"
 
-#: models.py:178
+#: models.py:167
 msgid "Home"
 msgstr "Home"
 
-#: models.py:181
+#: models.py:170
 msgid "address type"
 msgstr "adrestype"
 
-#: models.py:188
+#: models.py:174
 msgid "user address"
 msgstr "gebruikersadres"
 
-#: models.py:189
+#: models.py:175
 msgid "user addresses"
 msgstr "gebruikersadressen"
+
+#: views.py:38 views.py:54
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: templates/profiles.hbs:12
+msgid "Member since"
+msgstr ""
+
+#: templates/profiles.hbs:18
+msgid "About"
+msgstr ""
+
+#: templates/profiles.hbs:21
+#, python-format
+msgid "IS A 1%%MEMBER BECAUSE"
+msgstr ""
+
+#: templates/profiles.hbs:28
+msgid "Location"
+msgstr ""
+
+#: templates/profiles.hbs:36
+msgid "Expertise"
+msgstr ""
+
+#: templates/profiles.hbs:44
+msgid "Time available"
+msgstr ""

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-05-01 15:11+0200\n"
-"PO-Revision-Date: 2013-05-01 13:11+0000\n"
+"POT-Creation-Date: 2013-05-06 19:48+0200\n"
+"PO-Revision-Date: 2013-05-06 17:48+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/bluebottle/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Voucher"
 msgstr ""
 
-#: models.py:31 models.py:146 templates/vouchers.hbs:248
+#: models.py:31 models.py:146 templates/vouchers.hbs:247
 msgid "Amount"
 msgstr ""
 
@@ -220,7 +220,7 @@ msgstr ""
 msgid "Contact phone"
 msgstr ""
 
-#: models.py:194 templates/vouchers.hbs:278
+#: models.py:194 templates/vouchers.hbs:277
 msgid "Organisation"
 msgstr ""
 
@@ -258,23 +258,23 @@ msgstr ""
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
-#: views.py:281 views.py:285
+#: views.py:285 views.py:289
 msgid "Order not found."
 msgstr ""
 
-#: views.py:283
+#: views.py:287
 msgid "No order specified."
 msgstr ""
 
-#: views.py:357
+#: views.py:361
 msgid "No gift card code supplied"
 msgstr ""
 
-#: views.py:361
+#: views.py:365
 msgid "No gift card with that code"
 msgstr ""
 
-#: views.py:363
+#: views.py:367
 msgid "Gift card code already used"
 msgstr ""
 
@@ -294,6 +294,14 @@ msgstr ""
 #: templates/orders.hbs:29
 #, python-format
 msgid "I have a 1%%GIFTCARD"
+msgstr ""
+
+#: templates/orders.hbs:43
+msgid "Gift Cards"
+msgstr ""
+
+#: templates/orders.hbs:49
+msgid "Support"
 msgstr ""
 
 #: templates/orders.hbs:54
@@ -348,7 +356,9 @@ msgstr ""
 
 #: templates/orders.hbs:133 templates/orders.hbs.py:169
 #: templates/orders.hbs:171 templates/orders.hbs.py:388
-msgid "Next step"
+#: templates/orders.hbs:493 templates/orders.hbs.py:517
+#: templates/orders.hbs:539
+msgid "Next"
 msgstr ""
 
 #: templates/orders.hbs:152
@@ -369,11 +379,11 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: templates/orders.hbs:228 templates/vouchers.hbs:258
+#: templates/orders.hbs:228 templates/vouchers.hbs:257
 msgid "Your name"
 msgstr ""
 
-#: templates/orders.hbs:240 templates/vouchers.hbs:268
+#: templates/orders.hbs:240 templates/vouchers.hbs:267
 msgid "Your email"
 msgstr ""
 
@@ -421,7 +431,7 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: templates/orders.hbs:401 templates/vouchers.hbs:220
+#: templates/orders.hbs:401 templates/vouchers.hbs:219
 msgid "is still needed"
 msgstr ""
 
@@ -445,7 +455,7 @@ msgstr ""
 msgid "Proceed with Payment"
 msgstr ""
 
-#: templates/orders.hbs:443 templates/vouchers.hbs:319
+#: templates/orders.hbs:443 templates/vouchers.hbs:318
 msgid "YOU MAKE IT WORK!"
 msgstr ""
 
@@ -469,11 +479,6 @@ msgstr ""
 msgid "Pay"
 msgstr ""
 
-#: templates/orders.hbs:493 templates/orders.hbs.py:517
-#: templates/orders.hbs:539
-msgid "Next"
-msgstr ""
-
 #: templates/orders.hbs:499
 msgid "Hang on tiger! Loading information..."
 msgstr ""
@@ -482,19 +487,47 @@ msgstr ""
 msgid "loading information..."
 msgstr ""
 
-#: templates/orders.hbs:551
-msgid "Thank you!"
+#: templates/orders.hbs:552
+msgid "Donation Successful!"
+msgstr ""
+
+#: templates/orders.hbs:553
+#, python-format
+msgid ""
+"\n"
+"                Thank you so much for your support. 1%% makes a difference.\n"
+"                If everybody shares a little. together we can get a lot done.\n"
+"                So share this with your friends.\n"
+"                "
 msgstr ""
 
 #: templates/orders.hbs:560
-msgid "Donations"
+#, python-format
+msgid "Personalise your 1%%"
 msgstr ""
 
-#: templates/orders.hbs:574
+#: templates/orders.hbs:561
+msgid ""
+"\n"
+"                We've created an account for you.\n"
+"                Following projects are now even easier and you'll have\n"
+"                your own personalised page!\n"
+"                "
+msgstr ""
+
+#: templates/orders.hbs:568
+msgid "Complete your profile"
+msgstr ""
+
+#: templates/orders.hbs:582
 msgid "You just supported"
 msgstr ""
 
-#: templates/orders.hbs:580
+#: templates/orders.hbs:597
+msgid "still needed"
+msgstr ""
+
+#: templates/orders.hbs:603
 msgid "Vouchers"
 msgstr "Воучери"
 
@@ -589,29 +622,29 @@ msgid ""
 "code again or send us a message and we will sort it out."
 msgstr ""
 
-#: templates/vouchers.hbs:235
+#: templates/vouchers.hbs:234
 #, python-format
 msgid "Contact us for 1%%GIFTCARDS"
 msgstr ""
 
-#: templates/vouchers.hbs:236
+#: templates/vouchers.hbs:235
 msgid ""
 "Please send us a message and tell us your wishes and we will contact you as "
 "soon as possible. Or call us directly on (+31) 20 715 8980."
 msgstr ""
 
-#: templates/vouchers.hbs:288
+#: templates/vouchers.hbs:287
 msgid "Phone number"
 msgstr ""
 
-#: templates/vouchers.hbs:297
+#: templates/vouchers.hbs:296
 msgid "Anything else you’d like to ask? Send us a message!"
 msgstr ""
 
-#: templates/vouchers.hbs:301
+#: templates/vouchers.hbs:300
 msgid "Send message"
 msgstr ""
 
-#: templates/vouchers.hbs:318
+#: templates/vouchers.hbs:317
 msgid "Thanks for your request. We'll get back to you soon!"
 msgstr ""
