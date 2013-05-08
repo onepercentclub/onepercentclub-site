@@ -170,8 +170,8 @@ class Voucher(models.Model):
 
     class Meta:
         # Note: This can go back to 'Voucher' when we figure out a proper way to do EN -> EN translations for branding.
-        verbose_name = _("GiftCard")
-        verbose_name_plural = _("GiftCards")
+        verbose_name = _("Gift Card")
+        verbose_name_plural = _("Gift Cards")
 
 
 class CustomVoucherRequest(models.Model):
@@ -186,6 +186,7 @@ class CustomVoucherRequest(models.Model):
         in_progress = ChoiceItem('in progress', label=_("In progress"))
         finished = ChoiceItem('finished', label=_("Finished"))
 
+    value = models.CharField(verbose_name=_("Value"), max_length=100, blank=True, default="")
     number = models.PositiveIntegerField(_("Number"))
     contact = models.ForeignKey('auth.User', verbose_name=_("Contact member"), null=True)
     contact_name = models.CharField(verbose_name=_("Contact email"), max_length=100, blank=True, default="")
