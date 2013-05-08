@@ -17,7 +17,7 @@ install:
 
 matrix:
   allow_failures:
-    - env: DJANGO=django==1.5
+    - env: DJANGO=django==1.5.1
 
 script:
   - python ./manage.py test --settings=bluebottle.settings.travis -v 2
