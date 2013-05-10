@@ -50,7 +50,7 @@ class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
             payment_profile = {'first_name': 'Nijntje',
                                'last_name': 'het Konijnje',
                                'email': 'nijntje@hetkonijnje.nl',
-                               'street': 'Dam',
+                               'address': 'Dam',
                                'postal_code': '1001AM',
                                'city': 'Amsterdam',
                                'country': 'NL'}
@@ -164,7 +164,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.some_profile = {'first_name': 'Nijntje',
                              'last_name': 'het Konijnje',
                              'email': 'nijntje@hetkonijnje.nl',
-                             'street': 'Dam',
+                             'address': 'Dam',
                              'postal_code': '1001AM',
                              'city': 'Amsterdam',
                              'country': 'NL'}
@@ -326,7 +326,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.assertEqual(response.data['first_name'], 'Nijntje')
         self.assertEqual(response.data['last_name'], 'het Konijnje')
         self.assertEqual(response.data['email'], 'nijntje@hetkonijnje.nl')
-        self.assertEqual(response.data['street'], 'Dam')
+        self.assertEqual(response.data['address'], 'Dam')
         self.assertEqual(response.data['postal_code'], '1001AM')
         self.assertEqual(response.data['city'], 'Amsterdam')
         self.assertEqual(response.data['country'], 'NL')

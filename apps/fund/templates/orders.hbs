@@ -340,11 +340,11 @@
                 <li class="control-group">
                     <label class="control-label">{% trans "Address" %}</label>
                     <div class="controls">
-                        {{view Em.TextField valueBinding="street" placeholder="Address" classBinding="errors.street.length:error"}}
+                        {{view Em.TextField valueBinding="address" placeholder="Address" classBinding="errors.address.length:error"}}
                     </div>
 
-                    {{#if errors.street }}
-                        <div class="errors">{{#each errors.street }}<p>{{this}}</p>{{/each}}</div>
+                    {{#if errors.address }}
+                        <div class="errors">{{#each errors.address }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -418,7 +418,10 @@
 
     <div class="intro">
         <h4>{% trans "Final step. Almost there!" %}</h4>
-        {% trans "Choose the payment method." %}
+        {{#if paymentError }}
+            {# TODO Add style #}
+            {% trans "There was an error transfering you to the payment provider. Please try again." %}
+        {{/if}}
     </div>
     <fieldset>
         <div class="tabs vertical">

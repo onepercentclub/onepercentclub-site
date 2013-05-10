@@ -186,7 +186,7 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             profile = self.request.user.get_profile()
             address = profile.address
             if address:
-                payment.street = address.line1
+                payment.address = address.line1
                 payment.city = address.city
                 payment.postal_code = address.postal_code
                 payment.country = address.country.alpha2_code

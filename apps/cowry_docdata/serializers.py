@@ -8,7 +8,7 @@ class DocDataOrderProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DocDataPaymentOrder
-        fields = ('id', 'first_name', 'last_name', 'email', 'street', 'city', 'postal_code', 'country')
+        fields = ('id', 'first_name', 'last_name', 'email', 'address', 'city', 'postal_code', 'country')
 
 
 class DocDataWebDirectDirectDebitSerializer(serializers.ModelSerializer):
