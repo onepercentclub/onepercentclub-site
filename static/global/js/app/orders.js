@@ -306,10 +306,12 @@ App.PaymentController = Em.ObjectController.extend({
             success: function(json) {
                 if (json['payment_url']) {
                     document.location = json['payment_url'];
+                } else {
+                    controller.set('paymentInProgress', false);
                 }
             },
             error: function(xhr) {
-                controller.set('paymentInProgress', true);
+                controller.set('paymentInProgress', false);
             }
         });
     }
