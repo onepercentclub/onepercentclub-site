@@ -177,7 +177,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Billing information.
         address = self.client.factory.create('ns0:address')
-        address.street = payment.street
+        address.street = payment.address
         address.houseNumber = 'N/A'
         # TODO No spaces allowed in postal code. Move to serializer?
         address.postalCode = payment.postal_code.replace(' ', '')

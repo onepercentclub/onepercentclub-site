@@ -27,7 +27,7 @@ class DocDataPaymentTests(TestCase):
         payment = factory.create_payment_object('dd-creditcard', amount=2000, currency='EUR')
         payment.country = 'NL'
         payment.city = 'Amsterdam'
-        payment.street = 'Dam'
+        payment.address = 'Dam'
         payment.postal_code = '1001AM'
         payment.first_name = 'Nijntje'
         payment.last_name = 'het Konijnje'
