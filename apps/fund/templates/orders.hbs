@@ -418,7 +418,10 @@
 
     <div class="intro">
         <h4>{% trans "Final step. Almost there!" %}</h4>
-        {% trans "Choose the payment method." %}
+        {{#if paymentError }}
+            {# TODO Add style #}
+            {% trans "There was an error transfering you to the payment provider. Please try again." %}
+        {{/if}}
     </div>
     <fieldset>
         <div class="tabs vertical">
