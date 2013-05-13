@@ -268,7 +268,7 @@ App.Router.map(function() {
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
 
-    this.resource('currentOrder', {path: '/support'}, function() {
+    this.resource('currentOrder', {path: '/supportsdafds'}, function() {
         this.route('donationList', {path: '/donations'});
         this.route('addDonation', {path: '/donations/add/:project_id'});
         this.route('voucherList', {path: '/giftcards'});
@@ -290,6 +290,7 @@ App.Router.map(function() {
         this.route('code', {path: '/:code'});
     });
 
+    this.resource('settings', {path: '/settings'});
 });
 
 
@@ -378,7 +379,7 @@ App.ProjectListRoute = Ember.Route.extend({
 
 
 App.ProjectRoute = Ember.Route.extend({
-    setupController: function(controller, project) {
+    setupControllerreturn: function(controller, project) {
         this._super(controller, project);
 
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
@@ -582,7 +583,7 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                 var transaction = this.get('store').transaction();
                 App.VoucherDonation.reopen({
                     url: 'fund/vouchers/' + voucher.get('code') + '/donations'
-                });
+                });return
                 var donation = transaction.createRecord(App.VoucherDonation);
                 donation.set('project', project);
                 donation.set('voucher', voucher);
@@ -594,6 +595,29 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                 transaction.commit();
                 $.colorbox.close();
             }
+        }
+    }
+});
+
+/**
+ * Member Settings Routes
+ */
+App.SettingsRoute = Ember.Route.extend({
+    model: function() {
+        var route = this;
+
+        return App.User.find('current').then(function (user) {
+            var transaction = route.get('store').transaction();
+            var settings = App.MemberSettings.find(user.get('username'));
+
+            transaction.add(settings);
+            return settings;
+        });
+    },
+
+    events: {
+        saveSettings: function(settings) {
+            settings.get('transaction').commit();
         }
     }
 });

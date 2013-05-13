@@ -2,6 +2,136 @@
 {% load i18n %}
 {% load static %}
 
+{% tplhandlebars "settings" %}
+<div class="container">
+    <section class="wrapper">
+        <div class="content">
+            <form>
+                <fieldset>
+                    <ul>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Your firstname" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="first_name" classBinding="errors.first_name.length:error"}}
+                            </div>
+
+                            {{#if errors.first_name }}
+                                <div class="errors">{{#each errors.first_name}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Your lastname" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="last_name" classBinding="errors.last_name.length:error"}}
+                            </div>
+
+                            {{#if errors.last_name}}
+                                <div class="errors">{{#each errors.last_name}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <hr class="form-divider">
+
+                <fieldset>
+                    <ul>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "About yourself" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextArea valueBinding="about" classBinding="errors.about.length:error"}}
+                            </div>
+
+                            {{#if errors.about}}
+                                <div class="errors">{{#each errors.about}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Why are you a member?" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextArea valueBinding="why" classBinding="errors.why.length:error"}}
+                            </div>
+
+                            {{#if errors.why}}
+                                <div class="errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <hr class="form-divider">
+
+                <fieldset>
+                    <ul>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Time available" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="availability" classBinding="errors.availability.length:error"}}
+                            </div>
+
+                            {{#if errors.availability}}
+                                <div class="errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Your skills" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextArea valueBinding="contribution" classBinding="errors.contribution.length:error"}}
+                            </div>
+
+                            {{#if errors.availability}}
+                                <div class="errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Location" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextArea valueBinding="working_location" classBinding="errors.working_location.length:error"}}
+                            </div>
+
+                            {{#if errors.working_location}}
+                                <div class="errors">{{#each errors.working_location}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <button class="btn btn-iconed btn-primary right" {{action 'saveSettings' model}}>
+                    <i class="icon icon-star"></i>
+                    {% trans "Save" %}
+                </button>
+            </form>
+        </div>
+    </section>
+</div>
+
+{% endtplhandlebars %}
+
 
 {% tplhandlebars "member_profile" %}
     <div class="mp-sidebar">
