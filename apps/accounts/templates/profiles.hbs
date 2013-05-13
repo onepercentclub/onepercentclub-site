@@ -4,9 +4,41 @@
 
 {% tplhandlebars "settings" %}
 <div class="container">
+    <div id="profile-actions" class="section">
+        <div class="wrapper">
+            <div class="profile-actions-meta">
+                <img {{bindAttr src="controllers.currentUser.avatar"}} width="40" height="40" />
+                <strong class="profile-actions-meta-title">{% trans "My Profile" %}</span>
+                <a {{action openInBigBox "memberProfile" controllers.currentUser }} class="button-link">
+                    {% trans "Preview my profile" %}
+                </a>
+            </div>
+
+            <ul class="tabs">
+                <li class="tab-item is-selected">
+                    <a href="#">
+                        <em class="tab-icon amount"><i class="icon-user"></i></em>
+                        <strong class="tab-title">{% trans "Profile info" %} <em class="tab-subtitle">{% trans "Public info" %}</em></strong>
+                    </a>
+                </li>
+
+                <li class="tab-item">
+                    <a href="#">
+                        <em class="tab-icon amount"><i class="icon-cog"></i></em>
+                        <strong class="tab-title">{% trans "Account" %} <em class="tab-subtitle">{% trans "Settings" %}</em></strong>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <section class="wrapper">
         <div class="content">
             <form>
+                <div class="form-meta">
+                    <p class="form-label">Here comes the title of the form</p>
+                </div>
+
                 <fieldset>
                     <ul>
                         <li class="control-group">

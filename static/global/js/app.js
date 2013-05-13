@@ -268,7 +268,7 @@ App.Router.map(function() {
         this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
     });
 
-    this.resource('currentOrder', {path: '/supportsdafds'}, function() {
+    this.resource('currentOrder', {path: '/support'}, function() {
         this.route('donationList', {path: '/donations'});
         this.route('addDonation', {path: '/donations/add/:project_id'});
         this.route('voucherList', {path: '/giftcards'});
@@ -379,7 +379,7 @@ App.ProjectListRoute = Ember.Route.extend({
 
 
 App.ProjectRoute = Ember.Route.extend({
-    setupControllerreturn: function(controller, project) {
+    setupController: function(controller, project) {
         this._super(controller, project);
 
         // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
@@ -583,7 +583,7 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                 var transaction = this.get('store').transaction();
                 App.VoucherDonation.reopen({
                     url: 'fund/vouchers/' + voucher.get('code') + '/donations'
-                });return
+                });
                 var donation = transaction.createRecord(App.VoucherDonation);
                 donation.set('project', project);
                 donation.set('voucher', voucher);

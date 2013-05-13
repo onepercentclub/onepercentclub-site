@@ -73,3 +73,25 @@
   }
   @include rem(padding, 0 $padding $padding);
 }
+
+#profile-actions {
+  @include rem('padding', 8px 0);
+
+  .tabs {
+
+    @include grid(28,1);
+
+    .tabs li {
+      @include grid(16,2,0);
+    }
+
+  }
+}
+
+.profile-actions-meta {
+  @include grid(8, 1);
+
+  img {
+    @include grid(16);
+  }
+}
