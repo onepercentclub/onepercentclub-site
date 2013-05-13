@@ -76,22 +76,27 @@
 
 #profile-actions {
   @include rem('padding', 8px 0);
-
-  .tabs {
-
-    @include grid(28,1);
-
-    .tabs li {
-      @include grid(16,2,0);
-    }
-
-  }
 }
 
 .profile-actions-meta {
-  @include grid(8, 1);
+  @include grid(12, 1);
 
   img {
-    @include grid(16);
+    @include grid(10, 0, 2);
+  }
+}
+
+.profile-actions-meta-title {
+  @include grid(34);
+  @include rem('font-size', 22px);
+
+  font-weight: 300;
+  text-transform: uppercase;
+
+
+  .button-link {
+    @include rem('font-size', 12px);
+    display: block;
+    font-weight: normal;
   }
 }

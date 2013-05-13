@@ -7,11 +7,14 @@
     <div id="profile-actions" class="section">
         <div class="wrapper">
             <div class="profile-actions-meta">
-                <img {{bindAttr src="controllers.currentUser.avatar"}} width="40" height="40" />
-                <strong class="profile-actions-meta-title">{% trans "My Profile" %}</span>
-                <a {{action openInBigBox "memberProfile" controllers.currentUser }} class="button-link">
-                    {% trans "Preview my profile" %}
-                </a>
+                <img {{bindAttr src="controllers.currentUser.avatar"}} />
+                <div class="profile-actions-meta-title">
+                    {% trans "My Profile" %}
+                    <a {{action openInBigBox "memberProfile" controllers.currentUser }} class="button-link">
+                        <i class="icon-eye-open"></i>
+                        {% trans "Preview my profile" %}
+                    </a>
+                </div>
             </div>
 
             <ul class="tabs">

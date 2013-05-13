@@ -1670,15 +1670,16 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000377}}
 #profile-actions { padding: 8px 0; padding: 0.57143rem 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000380}}
-#profile-actions .tabs { float: left; width: 54.16667%; margin-left: 2.08333%; margin-right: 2.08333%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000384}}
-#profile-actions .tabs .tabs li { float: left; width: 29.16667%; margin-left: 4.16667%; margin-right: 0%; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000391}}
-.profile-actions-meta { float: left; width: 12.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000394}}
-.profile-actions-meta img { float: left; width: 33.33333%; margin-left: 0%; margin-right: 0%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000381}}
+.profile-actions-meta { float: left; width: 20.83333%; margin-left: 2.08333%; margin-right: 2.08333%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000384}}
+.profile-actions-meta img { float: left; width: 16.66667%; margin-left: 0%; margin-right: 4.16667%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000389}}
+.profile-actions-meta-title { float: left; width: 70.83333%; margin-left: 0%; margin-right: 0%; font-size: 22px; font-size: 1.57143rem; font-weight: 300; text-transform: uppercase; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000397}}
+.profile-actions-meta-title .button-link { font-size: 12px; font-size: 0.85714rem; display: block; font-weight: normal; }
 
 /* =========== For prototyping only */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_misc\.scss}line{font-family:\000033}}
