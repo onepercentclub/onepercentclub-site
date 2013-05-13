@@ -185,6 +185,9 @@ App.ApplicationController = Ember.Controller.extend({
     needs: ['currentUser']
 });
 
+App.SettingsController = Ember.ObjectController.extend({
+    needs: ['currentUser']
+});
 
 // Embedded Model Mapping
 //
@@ -601,6 +604,7 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
 
 /**
  * Member Settings Routes
+ * @see http://darthdeus.github.io/blog/2013/02/02/using-transactions-in-ember-data/
  */
 App.SettingsRoute = Ember.Route.extend({
     model: function() {
