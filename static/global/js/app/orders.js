@@ -83,7 +83,7 @@ App.PaymentProfile = DS.Model.extend({
     firstName: DS.attr('string'),
     lastName: DS.attr('string'),
     email: DS.attr('string'),
-    street: DS.attr('string'),
+    address: DS.attr('string'),
     postalCode: DS.attr('string'),
     city: DS.attr('string'),
     country: DS.attr('string')
@@ -306,10 +306,14 @@ App.PaymentController = Em.ObjectController.extend({
             success: function(json) {
                 if (json['payment_url']) {
                     document.location = json['payment_url'];
+                } else {
+                    controller.set('paymentError', true);
+                    controller.set('paymentInProgress', false);
                 }
             },
             error: function(xhr) {
-                controller.set('paymentInProgress', true);
+                controller.set('paymentError', true);
+                controller.set('paymentInProgress', false);
             }
         });
     }

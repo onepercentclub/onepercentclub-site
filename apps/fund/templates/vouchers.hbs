@@ -244,7 +244,17 @@
                     <ul>
 
                         <li class="control-group">
-                            <label class="control-label">{% trans "Amount" %}</label>
+                            <label class="control-label">{% trans "Value of Gift Cards" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="value"}}
+                            </div>
+                            {{#if errors.amount }}
+                                <div class="errors">{{#each errors.amount}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Number of Gift Cards" %}</label>
                             <div class="controls">
                                 {{view Em.TextField valueBinding="number" type="number" step="10"}}
                             </div>
