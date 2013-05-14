@@ -31,9 +31,9 @@ class MemberSettingsDetail(generics.RetrieveUpdateAPIView):
     def get_object(self, queryset=None):
         """
         """
-        user_id = self.kwargs.get('user_id', None)
+        username = self.kwargs.get('username', None)
         try:
-            obj = User.objects.get(pk=user_id)
+            obj = User.objects.get(username=username)
         except User.DoesNotExist:
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
@@ -44,7 +44,7 @@ class MemberSettingsDetail(generics.RetrieveUpdateAPIView):
 class AuthenticatedUser(generics.RetrieveAPIView):
     model = User
     serializer_class = AuthenticatedUserSerializer
-            
+
     def get_object(self, queryset=None):
         """
         Override default to add support for object-level permissions.

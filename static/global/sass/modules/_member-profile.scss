@@ -73,3 +73,30 @@
   }
   @include rem(padding, 0 $padding $padding);
 }
+
+#profile-actions {
+  @include rem('padding', 8px 0);
+}
+
+.profile-actions-meta {
+  @include grid(12, 1);
+
+  img {
+    @include grid(10, 0, 2);
+  }
+}
+
+.profile-actions-meta-title {
+  @include grid(34);
+  @include rem('font-size', 22px);
+
+  font-weight: 300;
+  text-transform: uppercase;
+
+
+  .button-link {
+    @include rem('font-size', 12px);
+    display: block;
+    font-weight: normal;
+  }
+}
