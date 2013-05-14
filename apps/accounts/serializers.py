@@ -38,7 +38,8 @@ class MemberProfileSerializer(MemberSerializer):
 class MemberSettingsSerializer(serializers.ModelSerializer):
 
     url = serializers.HyperlinkedIdentityField(view_name='member-profile-detail')
-    picture = serializers.ImageField(source='picture', required=False)
+    avatar = SorlImageField('picture', '100x100', colorspace="GRAY", required=False, read_only=True)
+    picture = SorlImageField('picture', '240x240', required=False)
 
     username = serializers.CharField(source='user.username', read_only=True)
 
@@ -56,7 +57,7 @@ class MemberSettingsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('id', 'first_name', 'last_name', 'email', 'username', 'url', 'picture', 'about', 'why',
+        fields = ('id', 'first_name', 'last_name', 'email', 'username', 'url', 'picture', 'avatar', 'about', 'why',
                   'contribution', 'availability', 'working_location', 'about')
 
 

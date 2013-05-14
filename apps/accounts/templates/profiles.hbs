@@ -7,10 +7,10 @@
     <div id="profile-actions" class="section">
         <div class="wrapper">
             <div class="profile-actions-meta">
-                <img {{bindAttr src="controllers.currentUser.avatar"}} />
+                <img {{bindAttr src="avatar"}} />
                 <div class="profile-actions-meta-title">
                     {% trans "My Profile" %}
-                    <a {{action openInBigBox "memberProfile" controllers.currentUser }} class="button-link">
+                    <a {{action openInBigBox "memberProfile" this }} class="button-link">
                         <i class="icon-eye-open"></i>
                         {% trans "Preview my profile" %}
                     </a>
@@ -70,6 +70,17 @@
                             {{#if errors.last_name}}
                                 <div class="errors">{{#each errors.last_name}}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Profile Picture" %}
+                            </label>
+
+                            <div class="controls">
+                                <img {{bindAttr src="avatar"}} />
+                                {{view App.UploadFileView valueBinding="picture" name="picture" accept="image/*" id="picture"}}
+                            </div>
                         </li>
                     </ul>
                 </fieldset>
