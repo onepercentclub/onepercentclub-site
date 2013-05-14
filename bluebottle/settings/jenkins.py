@@ -40,6 +40,9 @@ PROJECT_APPS.remove('polymorphic')
 # Social auth tests require firefox webdriver which we don't want to install right now.
 PROJECT_APPS.remove('social_auth')
 
+# django-salesforce tests don't pass when it's not setup.
+PROJECT_APPS.remove('salesforce')
+
 # Disable pylint becasue it seems to be causing problems
 JENKINS_TASKS = (
     # 'django_jenkins.tasks.run_pylint',
