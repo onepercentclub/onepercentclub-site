@@ -185,6 +185,9 @@ App.ApplicationController = Ember.Controller.extend({
     needs: ['currentUser']
 });
 
+App.SettingsController = Ember.ObjectController.extend({
+    needs: ['currentUser']
+});
 
 // Embedded Model Mapping
 //
@@ -290,6 +293,7 @@ App.Router.map(function() {
         this.route('code', {path: '/:code'});
     });
 
+    this.resource('settings', {path: '/settings'});
 });
 
 
@@ -594,6 +598,30 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
                 transaction.commit();
                 $.colorbox.close();
             }
+        }
+    }
+});
+
+/**
+ * Member Settings Routes
+ * @see http://darthdeus.github.io/blog/2013/02/02/using-transactions-in-ember-data/
+ */
+App.SettingsRoute = Ember.Route.extend({
+    model: function() {
+        var route = this;
+
+        return App.User.find('current').then(function (user) {
+            var transaction = route.get('store').transaction();
+            var settings = App.MemberSettings.find(user.get('username'));
+
+            transaction.add(settings);
+            return settings;
+        });
+    },
+
+    events: {
+        saveSettings: function(settings) {
+            settings.get('transaction').commit();
         }
     }
 });
