@@ -115,6 +115,11 @@
                             </a>
                             <ul class="my-menu">
                                 <li>
+                                    {{#linkTo "settings" }}
+                                        {% trans "Edit my profile & settings" %}
+                                    {{/linkTo }}
+                                </li>
+                                <li>
                                     {{view "App.LanguageSwitchView"}}
                                 </li>
                                 <li>

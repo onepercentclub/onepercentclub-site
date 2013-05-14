@@ -53,6 +53,9 @@ App.MemberPreview = App.Member.extend({
     url: 'members/users'
 });
 
+App.MemberSettings = App.Member.extend({
+    url: 'members/settings'
+});
 
 App.User = App.Member.extend({
     url: 'members',
