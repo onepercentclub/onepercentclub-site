@@ -199,6 +199,7 @@ INSTALLED_APPS = (
     'templatetag_handlebars',
     'rest_framework',
     'polymorphic',
+    'salesforce',
 
     # CMS page contents
     'fluent_contents',
@@ -216,6 +217,7 @@ INSTALLED_APPS = (
     # bluebottle apps
     'apps.blogs',
     'apps.bluebottle_dashboard',
+    'apps.bluebottle_salesforce',
     'apps.bluebottle_utils',
     'apps.contentplugins',
     'apps.accounts',
