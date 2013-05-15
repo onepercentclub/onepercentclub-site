@@ -232,3 +232,27 @@ div.buttons, ul.buttons {
     }
   }
 }
+
+.btn-uploader {
+    position: relative;
+
+    border: 1px solid darken($grayLight, 5%);
+    background-color: $grayLight;
+
+    .icon {
+      background-color: darken($grayLight, 15%);
+      color:  $white;
+    }
+
+    input {
+      @include opacity(0);
+      cursor: pointer;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 10;
+      width: auto;
+    }
+}

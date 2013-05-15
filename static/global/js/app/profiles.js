@@ -54,7 +54,11 @@ App.MemberPreview = App.Member.extend({
 });
 
 App.MemberSettings = App.Member.extend({
-    url: 'members/settings'
+    url: 'members/settings',
+
+    didUpdate: function() {
+        alert('Your profile info is updated.');
+    }
 });
 
 App.User = App.Member.extend({

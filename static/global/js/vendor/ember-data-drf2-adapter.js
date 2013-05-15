@@ -179,18 +179,46 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         var data = {};
         data = this.serialize(record);
 
-        this.ajax(this.buildURL(root, id), "PUT", {
-            data: data,
-            context: this,
-            success: function(json) {
-                Ember.run(this, function() {
-                    this.didSaveRecord(store, type, record, json);
-                });
-            },
-            error: function(xhr) {
-                this.didError(store, type, record, xhr);
-            }
-        });
+        if (type == 'App.MemberSettings' && record.get('file')) {
+            var formdata = new FormData();
+            Object.keys(data).forEach(function(key) {
+                if (data[key] !== undefined) {
+                    if (key == 'picture') {
+                        var file = record.get('file');
+                        formdata.append('picture', file);
+                    } else {
+                        formdata.append(key, data[key]);
+                    }
+                }
+            });
+
+            this.ajaxFormData(this.buildURL(root, id), "POST", {
+                data: formdata,
+                context: this,
+                headers: {'X-HTTP-Method-Override': 'PUT'},
+                success: function(json) {
+                    Ember.run(this, function() {
+                        this.didSaveRecord(store, type, record, json);
+                    });
+                },
+                error: function(xhr) {
+                    this.didError(store, type, record, xhr);
+                }
+            });
+        } else {
+            this.ajax(this.buildURL(root, id), "PUT", {
+                data: data,
+                context: this,
+                success: function(json) {
+                    Ember.run(this, function() {
+                        this.didSaveRecord(store, type, record, json);
+                    });
+                },
+                error: function(xhr) {
+                    this.didError(store, type, record, xhr);
+                }
+            });
+        }
     },
 
 

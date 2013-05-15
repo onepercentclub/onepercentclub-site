@@ -22,7 +22,6 @@
 
 .mp-content {
   @include grid(48, 18, 3);
-  @include rem(line-height, 22px);
 
   color: #767676;
 
@@ -32,6 +31,7 @@
     text-transform: uppercase;
     font-weight: 600;
   }
+  @include rem(line-height, 22px);
 }
 
 .mp-meta {
@@ -55,9 +55,9 @@
 
   [class^="icon-"] {
     @include grid(3, 0, 1);
-    @include rem(font-size, 16px);
 
     text-align: center;
+    @include rem(font-size, 16px);
   }
 
   .key {
@@ -88,15 +88,21 @@
 
 .profile-actions-meta-title {
   @include grid(34);
-  @include rem('font-size', 22px);
+  text-transform: uppercase;
 
   font-weight: 300;
-  text-transform: uppercase;
 
 
   .button-link {
     @include rem('font-size', 12px);
     display: block;
     font-weight: normal;
+  }
+  @include rem('font-size', 22px);
+}
+
+.profile-pic-uploader {
+  img {
+    @include grid(8, 0, 1);
   }
 }
