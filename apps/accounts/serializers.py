@@ -54,11 +54,12 @@ class MemberSettingsSerializer(serializers.ModelSerializer):
     contribution = serializers.CharField(source='contribution', required=False)
     availability = serializers.CharField(source='availability', required=False)
     working_location = serializers.CharField(source='working_location', required=False)
+    website = serializers.CharField(source='website', required=False)
 
     class Meta:
         model = UserProfile
         fields = ('id', 'first_name', 'last_name', 'email', 'username', 'url', 'picture', 'avatar', 'about', 'why',
-                  'contribution', 'availability', 'working_location', 'about')
+                  'contribution', 'availability', 'working_location', 'about', 'website')
 
 
 class NoneHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
