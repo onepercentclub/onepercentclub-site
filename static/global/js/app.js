@@ -186,7 +186,9 @@ App.ApplicationController = Ember.Controller.extend({
 });
 
 App.SettingsController = Ember.ObjectController.extend({
-    needs: ['currentUser']
+    addPhoto: function(file) {
+        this.set('model.file', file);
+    }
 });
 
 // Embedded Model Mapping

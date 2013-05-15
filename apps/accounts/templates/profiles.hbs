@@ -7,10 +7,10 @@
     <div id="profile-actions" class="section">
         <div class="wrapper">
             <div class="profile-actions-meta">
-                <img {{bindAttr src="controllers.currentUser.avatar"}} />
+                <img {{bindAttr src="avatar"}} />
                 <div class="profile-actions-meta-title">
                     {% trans "My Profile" %}
-                    <a {{action openInBigBox "memberProfile" controllers.currentUser }} class="button-link">
+                    <a {{action openInBigBox "memberProfile" this }} class="button-link">
                         <i class="icon-eye-open"></i>
                         {% trans "Preview my profile" %}
                     </a>
@@ -37,6 +37,7 @@
 
     <section class="wrapper">
         <div class="content">
+
             <form>
                 <div class="form-meta">
                     <p class="form-label">Here comes the title of the form</p>
@@ -46,30 +47,32 @@
                     <ul>
                         <li class="control-group">
                             <label class="control-label">
-                                {% trans "Your firstname" %}
+                                {% trans "Your fullname" %}
                             </label>
 
                             <div class="controls">
-                                {{view Em.TextField valueBinding="first_name" classBinding="errors.first_name.length:error"}}
+                                {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+
+                                {{view Em.TextField valueBinding="last_name" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
                             </div>
 
-                            {{#if errors.first_name }}
-                                <div class="errors">{{#each errors.first_name}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
+                            {# TODO: Error Handling #}
                         </li>
 
                         <li class="control-group">
                             <label class="control-label">
-                                {% trans "Your lastname" %}
+                                {% trans "Profile Picture" %}
                             </label>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="last_name" classBinding="errors.last_name.length:error"}}
-                            </div>
+                            <div class="controls profile-pic-uploader">
+                                <img {{bindAttr src="avatar"}} />
 
-                            {{#if errors.last_name}}
-                                <div class="errors">{{#each errors.last_name}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
+                                <a class="btn btn-iconed btn-uploader">
+                                    {{view App.UploadFileView valueBinding="picture" name="picture" accept="image/*" id="picture"}}
+                                    <i class="icon icon-upload"></i>
+                                    {% trans "Upload picture" %}
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </fieldset>
@@ -84,7 +87,7 @@
                             </label>
 
                             <div class="controls">
-                                {{view Em.TextArea valueBinding="about" classBinding="errors.about.length:error"}}
+                                {{view Em.TextArea valueBinding="about" placeholder="Tell a little about yourself so we can get to know you..." classBinding="errors.about.length:error"}}
                             </div>
 
                             {{#if errors.about}}
@@ -98,11 +101,25 @@
                             </label>
 
                             <div class="controls">
-                                {{view Em.TextArea valueBinding="why" classBinding="errors.why.length:error"}}
+                                {{view Em.TextArea valueBinding="why" placeholder="What is your reason to be part of the 1%CLUB?" classBinding="errors.why.length:error"}}
                             </div>
 
                             {{#if errors.why}}
                                 <div class="errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Your website" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="website" placeholder="http://" classBinding="errors.website.length:error"}}
+                            </div>
+
+                            {{#if errors.website}}
+                                <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
                         </li>
                     </ul>
@@ -111,6 +128,10 @@
                 <hr class="form-divider">
 
                 <fieldset>
+                    <legend>
+                        <strong>{% trans "In-depth information" %}</strong>
+                    </legend>
+
                     <ul>
                         <li class="control-group">
                             <label class="control-label">
