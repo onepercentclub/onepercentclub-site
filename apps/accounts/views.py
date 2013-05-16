@@ -1,16 +1,21 @@
-from apps.accounts.serializers import MemberSettingsSerializer
 from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from rest_framework import generics
 from django.utils.translation import ugettext_lazy as _
-from .serializers import MemberSerializer, AuthenticatedUserSerializer,  MemberProfileSerializer
+from .serializers import (MemberSerializer, AuthenticatedUserSerializer,  MemberProfileSerializer,
+                          MemberSettingsSerializer, UserCreationSerializer)
 from .models import UserProfile
 from .permissions import IsCurrentUser
 
 
 # API views
+
+class UserCreation(generics.CreateAPIView):
+    model = User
+    serializer_class = UserCreationSerializer
+
 
 class MemberList(generics.ListAPIView):
     model = User
