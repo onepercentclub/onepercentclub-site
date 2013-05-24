@@ -65,7 +65,7 @@ App = Em.Application.create({
     LOG_TRANSITIONS: true,
 
     // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
-    templates: ['profiles', 'projects', 'wallposts', 'reactions', 'orders', 'vouchers'],
+    templates: ['profiles', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders'],
 
     // We store language & locale here because they need to be available before loading templates.
     language: 'en',
@@ -110,7 +110,7 @@ App = Em.Application.create({
 
         if (locale != 'en-US') {
             // Try to load locale specifications.
-            $.getScript('/static/assets/js/libs/globalize-cultures/globalize.culture.' + locale + '.js')
+            $.getScript('/static/assets/js/vendor/globalize-cultures/globalize.culture.' + locale + '.js')
                 .fail(function(){
                     console.log("No globalize culture file for : "+ locale);
                     // Specified locale file not available. Use default locale.
@@ -123,11 +123,24 @@ App = Em.Application.create({
                     Globalize.culture(locale);
                     App.set('locale', locale);
                 });
-
+            $.getScript('/static/assets/js/vendor/jquery-ui/i18n/jquery.ui.datepicker-' + locale.substr(0, 2) + '.js')
+                .fail(function(){
+                    console.log("No jquery.ui.datepicker file for : "+ locale);
+                    // Specified locale file not available. Use default locale.
+                    locale = App.get('locale');
+                    Globalize.culture(locale);
+                    App.set('locale', locale);
+                })
+                .success(function(){
+                    // Specs loaded. Enable locale.
+                    App.set('locale', locale);
+                });
         } else {
             Globalize.culture(locale);
             App.set('locale', locale);
         }
+
+
     },
 
     _getTemplate: function(template, callback) {
@@ -176,9 +189,11 @@ App.Adapter = DS.DRF2Adapter.extend({
 });
 
 
-App.Adapter.map('App.Payment', {
-  availablePaymentMethods: { readOnly: true }
-});
+App.Adapter.map(
+    'App.Payment', {
+        availablePaymentMethods: { readOnly: true }
+    }
+);
 
 
 App.ApplicationController = Ember.Controller.extend({
@@ -186,7 +201,7 @@ App.ApplicationController = Ember.Controller.extend({
 });
 
 App.SettingsController = Ember.ObjectController.extend({
-    addPhoto: function(file) {
+    addFile: function(file) {
         this.set('model.file', file);
     }
 });
@@ -208,6 +223,11 @@ App.Adapter.map('App.DonationPreview', {
     project: {embedded: 'load'},
     member: {embedded: 'load'}
 });
+App.Adapter.map('App.WallPost', {
+    author: {embedded: 'load'},
+    photos: {embedded: 'load'},
+    reactions: {embedded: 'load'}
+});
 App.Adapter.map('App.ProjectWallPost', {
     author: {embedded: 'load'},
     photos: {embedded: 'load'},
@@ -223,6 +243,10 @@ App.Adapter.map('App.ProjectMediaWallPost', {
     photos: {embedded: 'load'},
     reactions: {embedded: 'load'}
 });
+App.Adapter.map('App.TaskWallPost', {
+    author: {embedded: 'load'},
+    reactions: {embedded: 'load'}
+});
 App.Adapter.map('App.WallPostReaction', {
     author: {embedded: 'load'}
 });
@@ -233,6 +257,18 @@ App.Adapter.map('App.Order', {
 App.Adapter.map('App.CurrentOrder', {
     donations: {embedded: 'load'},
     vouchers: {embedded: 'load'}
+});
+App.Adapter.map('App.Task', {
+    author: {embedded: 'load'},
+    tags: {embedded: 'load'},
+    members: {embedded: 'load'},
+    files: {embedded: 'load'}
+});
+App.Adapter.map('App.TaskMember', {
+    member: {embedded: 'load'}
+});
+App.Adapter.map('App.TaskFile', {
+    author: {embedded: 'load'}
 });
 
 
@@ -268,9 +304,12 @@ App.Router.map(function() {
         this.route('search');
     });
 
+
     this.resource('project', {path: '/projects/:project_id'}, function() {
-        this.route('edit');
-        this.resource('projectWallPost', {path: '/wallposts/:projectwallpost_id'});
+        this.resource('projectWallPostList', {path: '/wallposts'});
+        this.resource('projectTaskList', {path: '/tasks'});
+        this.resource('projectTaskNew', {path: '/tasks/new'});
+        this.resource('projectTask', {path: '/tasks/:task_id'});
     });
 
     this.resource('currentOrder', {path: '/support'}, function() {
@@ -296,6 +335,7 @@ App.Router.map(function() {
     });
 
     this.resource('settings', {path: '/settings'});
+    this.resource('taskList', {path: '/tasks'});
 });
 
 
@@ -349,7 +389,9 @@ App.ApplicationRoute = Ember.Route.extend({
         openInBox: function(name, context){
             // Get the controller or create one
             var controller = this.controllerFor(name);
-            controller.set('model', context);
+            if (context) {
+                controller.set('model', context);
+            }
 
             // Get the view. This should be defined.
             var view = App[name.classify() + 'View'].create();
@@ -387,34 +429,61 @@ App.ProjectRoute = Ember.Route.extend({
     setupController: function(controller, project) {
         this._super(controller, project);
 
-        // The RecordArray returned by findQuery can't be manipulated directly so we're temporarily setting it the
-        // wallposts property. The controller will convert it to an Ember Array.
-        var wallPostListController = this.controllerFor('projectWallPostList');
-        wallPostListController.set('wallposts', App.ProjectWallPost.find({project: project.get('id')}));
-        wallPostListController.set('page', 1);
-        wallPostListController.set('canLoadMore', true);
-
-        // Set the current project on the WallPost new controller.
-        this.controllerFor('projectWallPostNew').set('currentProject', project);
-
         // Set the controller to show Project Supporters
         var projectSupporterListController = this.controllerFor('projectSupporterList');
         projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
         projectSupporterListController.set('page', 1);
         projectSupporterListController.set('canLoadMore', true);
+
+    },
+    renderTemplate: function(controller, model){
+        this._super(controller, model);
+        this.render('projectWallPostList', {outlet: 'outlet'});
+    }
+});
+
+App.ProjectIndexRoute = Ember.Route.extend({
+    redirect: function(){
+        this.transitionTo('projectWallPostList');
+    }
+});
+
+App.ProjectWallPostListRoute = Ember.Route.extend({
+
+    model: function(){
+        return Em.A();
+    },
+
+    setupController: function(controller, model) {
+        this._super(controller, model);
+        controller.set('page', 1);
+        controller.set('canLoadMore', true);
+
+        // TODO: See if we can trigger the showMoreWallPost action so this code can go.
+        var project = this.modelFor('project');
+        var wps = App.ProjectWallPost.find({project: project.get('id')});
+        wps.addObserver('isLoaded', function(){
+            wps.forEach(function(record){
+                if (record.get('isLoaded')) {
+                    controller.get('content').pushObject(record);
+                }
+            });
+        });
+
     },
 
     events: {
         showMoreWallPosts: function(){
-            var controller = this.controllerFor('projectWallPostList');
+            var controller = this.get('controller');
             var page = controller.incrementProperty('page');
+
             var project = this.controllerFor('project');
             var wps = App.ProjectWallPost.find({project: project.get('id'), page: page});
             controller.set('canLoadMore', false);
             wps.addObserver('isLoaded', function(){
                 wps.forEach(function(record){
                     if (record.get('isLoaded')) {
-                        controller.pushObject(record);
+                        controller.get('content').pushObject(record);
                     }
                 });
                 controller.set('canLoadMore', true);
@@ -424,14 +493,177 @@ App.ProjectRoute = Ember.Route.extend({
 
 });
 
+// Tasks
 
-App.ProjectWallPostRoute = Ember.Route.extend({
+App.ProjectTaskListRoute = Ember.Route.extend({
     model: function(params) {
-        return App.ProjectWallPost.find(params.projectwallpost_id);
+        return Em.A();
     },
+    setupController: function(controller, model){
+        this._super(controller, model);
+        var project = this.modelFor('project');
+        var tasks = App.Task.find({project: project.get('id')});
+        tasks.addObserver('isLoaded', function(){
+            tasks.forEach(function(record){
+                if (record.get('isLoaded')) {
+                    controller.get('content').pushObject(record);
+                }
+            });
+        });
+    }
+});
 
-    setupController: function(controller, wallpost) {
-        controller.set('content', wallpost);
+App.ProjectTaskRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.Task.find(params.task_id);
+    },
+    setupController: function(controller, model) {
+        this._super(controller, model);
+        var wallPostController = this.controllerFor('taskWallPostList');
+        wallPostController.set('content', Em.A());
+        var wps = App.TaskWallPost.find({task: model.get('id')});
+        wps.addObserver('isLoaded', function(){
+            wps.forEach(function(record){
+                if (record.get('isLoaded')) {
+                    wallPostController.get('content').pushObject(record);
+                }
+            });
+            wallPostController.set('canLoadMore', true);
+        });
+        wallPostController.set('page', 1);
+        wallPostController.set('canLoadMore', true);
+    },
+    events: {
+        applyForTask: function(task){
+            var route = this;
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: 'Task',
+                message: 'Are you sure you want to apply to this task?',
+                primary: 'Apply',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+                    if (opts.primary) {
+                        var transaction = route.get('store').transaction();
+                        var member = transaction.createRecord(App.TaskMember);
+                        member.set('task', task);
+                        member.set('created', new Date());
+                        transaction.commit();
+                    }
+                }
+            });
+        },
+        uploadFile: function(task){
+            var route = this;
+            var controller = this.controllerFor('taskFileNew');
+            var view = App.TaskFileNewView.create();
+            view.set('controller', controller);
+            var transaction = route.get('store').transaction();
+            var file = transaction.createRecord(App.TaskFile);
+            controller.set('model', file);
+            file.set('task', task);
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal', 'large'],
+                heading: task.get('title'),
+                bodyViewClass: view,
+                primary: 'Save',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
+        },
+        showMoreWallPosts: function(){
+            var controller = this.get('controller');
+            var wallPostController = this.controllerFor('taskWallPostList');
+            wallPostController.set('canLoadMore', false);
+            var page = wallPostController.incrementProperty('page');
+            var task = controller.get('model');
+            var wps = App.TaskWallPost.find({task: task.get('id'), page: page});
+            wps.addObserver('isLoaded', function(){
+                wps.forEach(function(record){
+                    if (record.get('isLoaded')) {
+                        wallPostController.get('content').pushObject(record);
+                    }
+                });
+                wallPostController.set('canLoadMore', true);
+            });
+        },
+        editTaskMember: function(taskMember){
+            var route = this;
+            var controller = this.controllerFor('taskMemberEdit');
+            controller.set('model', taskMember);
+            var view = App.TaskMemberEdit.create();
+            view.set('controller', controller);
+            var transaction = route.get('store').transaction();
+            transaction.add(taskMember);
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: taskMember.get('member.full_name'),
+                bodyViewClass: view,
+                primary: 'Save',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
+        },
+        stopWorkingOnTask: function(task){
+            alert('Not implemented. Sorry!');
+        },
+        editTask: function(task){
+            var route = this;
+            var controller = this.controllerFor('taskEdit');
+            controller.set('model', task);
+            var view = App.TaskEditView.create();
+            view.set('controller', controller);
+            var transaction = route.get('store').transaction();
+            transaction.add(task);
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal', 'large'],
+                heading: task.get('title'),
+                bodyViewClass: view,
+                primary: 'Save',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
+        }
+
+    }
+});
+
+
+App.ProjectTaskNewRoute = Ember.Route.extend({
+
+    setupController: function(controller, model){
+        this._super(controller, model);
+        var transaction = this.get('store').transaction();
+        model = transaction.createRecord(App.Task);
+        controller.set('content', model);
     }
 });
 
@@ -628,6 +860,15 @@ App.SettingsRoute = Ember.Route.extend({
     }
 });
 
+/**
+ * Tasks Routes
+ */
+
+App.TaskListRoute =  Ember.Route.extend({
+    model: function(params) {
+        return App.Task.find();
+    }
+});
 
 /* Views */
 

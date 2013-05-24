@@ -7,10 +7,6 @@
 
     <div class="container section">
         <section class="wrapper" id="wallpost-form">
-            <header>
-                <h2>{% trans "Comments & Updates" %}</h2>
-            </header>
-
             {{#if controllers.currentUser.isAuthenticated }}
                 {{#if isProjectOwner }}
                     {{view App.MediaWallPostNewView content=content}}
@@ -103,14 +99,14 @@
         </ul>
     </fieldset>
 
-    <button type="submit">{%trans "Post Update" %}</button>
+    <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Post Update" %}</button>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "text_wallpost_new" %}
 
-    <ul>
+   <ul>
         <li class="control-group">
             <label for="wallpost-update" class="control-label">{% trans "Leave your comment here" %}</label>
 
@@ -131,10 +127,19 @@
 
 {% tplhandlebars "project_wallpost_list" %}
 
-    <section class="wrapper">
-        {{#each controller itemController="projectWallPost"}}
-            {{view "App.ProjectWallPostView" content=this}}
+    <div class="container section">
+        <section class="wrapper">
+            <header>
+                <h2>{% trans "Comments & Updates" %}</h2>
+            </header>
+        </section>
+    </div>
 
+    {{ render "projectWallPostNew" }}
+
+    <section class="wrapper">
+        {{#each content itemController="projectWallPost"}}
+            {{view "App.ProjectWallPostView" content=model}}
         {{/each}}
 
         <article class="wallpost">
@@ -157,15 +162,17 @@
                     <img {{bindAttr src="author.getAvatar"}} width="100%" alt="Avatar" />
                 </span>
                 <em class="user-type not-implemented">{% trans "Project Initiator" %}</em> 
-                <strong class="user-name">{{author.full_name}}</strong> 
+                <strong class="user-name">{{author.full_name}}</strong>
                 <em class="timestamp">{{ localize created formatting="X" }}</em>
             </a>
 
-            <h3>{{title}}</h3>
+            {{#if title}}
+                <h3>{{title}}</h3>
+            {{/if}}
             
             {{#if isAuthor}}
                 <ul class="manage">
-                    <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li>
+                    {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}
                     <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
                 </ul>
             {{/if}}
@@ -225,5 +232,102 @@
     </article>
 
 
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "task_wallpost_new" %}
+
+    <article class="wallpost">
+        <span class="user-img">
+            <img {{bindAttr src="controllers.currentUser.getAvatar"}} width="100%" alt="Avatar" />
+        </span>
+        <div class="content post-comment">
+            {{view Ember.TextArea valueBinding="text" placeholder="Leave your comment here" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+            <br/>
+            {{#if errors.text }}
+                <div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
+            {{/if}}
+            <button {{action "addTextWallPost" }} class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Post Comment" %}</button>
+        </div>
+    </article>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "task_wallpost" %}
+
+    <article class="wallpost">
+        <header>
+
+            <a {{action openInBigBox "memberProfile" author}} class="user initiator">
+                <span class="user-img">
+                    <img {{bindAttr src="author.getAvatar"}} width="100%" alt="Avatar" />
+                </span>
+                <em class="user-type not-implemented">{% trans "Project Initiator" %}</em>
+                <strong class="user-name">{{author.full_name}}</strong>
+                <em class="timestamp">{{ localize created formatting="X" }}</em>
+            </a>
+
+            {{#if isAuthor}}
+                <ul class="manage">
+                    {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}
+                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
+                </ul>
+            {{/if}}
+        </header>
+
+        <div class="content">
+            {{{text}}}
+	    </div>
+
+        <!-- reaction-box -->
+        <div class="reaction-box">
+            <ul class="reaction-actions not-implemented">
+                <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">{{reactions.length}} Comments</a></li>
+                <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
+                <li class="share">
+                    <strong>Share this</strong>
+                    <ul class="share-actions">
+                        <li class="share-facebook">Share on Facebook</li>
+                        <li class="share-twitter"><a href="#">Share on Twitter</a></li>
+                        <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            {{#if content.reactions }}
+                {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
+            {{/if}}
+
+            {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
+
+        </div>
+        <!-- end: reaction-box -->
+
+    </article>
+
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "task_wallpost_list" %}
+
+    {{#if controllers.currentUser.isAuthenticated }}
+        {{ render "taskWallPostNew" }}
+    {{else}}
+        <form>
+            <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
+        </form>
+    {{/if}}
+
+    {{#each controller  itemController="taskWallPost"}}
+        {{view "App.TaskWallPostView" content=model}}
+    {{/each}}
+
+    <article class="wallpost">
+        {{#if canLoadMore}}
+            <a {{action "showMoreWallPosts"}} class="show-more button-link"><em class="icon-plus-sign"></em> {% trans "Show more" %}</a>
+        {{/if}}
+    </article>
 
 {% endtplhandlebars %}

@@ -20,6 +20,8 @@
 @import "core/layout";
 @import "core/typography";
 @import "core/state";
+@import "core/search";
+
 
 /* Modules */
 @import "modules/buttons";
@@ -43,10 +45,12 @@
 @import "modules/users";
 @import "modules/vouchers";
 @import "modules/wallposts";
+@import "modules/tasks";
 
 /* Plugins */
-//@import "plugins/jquery.fileupload-ui";
-//@import "plugins/colorbox";
+@import "plugins/datepicker";
+@import "plugins/colorbox";
+@import "plugins/jquery-ui";
 
 /* Bootstrap */
 @import "bootstrap/bootstrap";

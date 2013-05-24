@@ -51,8 +51,23 @@ body {
 
 
 .wrapper > .sidebar, .wrapper > sidebar  {
-    @include grid(16, 0, 1);
+    @include grid(16, 2, 0);
     //@include rem(padding, 32px );
+}
+
+.sidebar.grey {
+  background-color: $color-back;
+  @include rem(padding, 12px 24px );
+  color: $gray;
+  @include rem(margin-bottom, 24px);
+  h3 {
+      padding: 0px;
+      @include rem(font-size, 16px);
+      @include rem(line-height, 16px);
+      text-transform: uppercase;
+      font-weight: 300;
+      color: $grayDark;
+  }
 }
 
 .wrapper > .content {

@@ -257,8 +257,8 @@ Globalize.cultures[ "default" ] = {
 						set to the corresponding date in the gregorian calendar.
 			*/
             fuzzyDates: {
-                'ago': 'ago',
-                'just now': 'just now',
+                'past': '% ago',
+                'future': 'in %',
                 'seconds': ['second', 'seconds'],
                 'minutes': ['minute', 'minutes'],
                 'hours': ['hour', 'hours'],
@@ -539,72 +539,60 @@ formatDate = function( value, format, culture ) {
 		converted = convert.fromGregorian( value );
 	}
 
-    function timeSince ( value, fuzzy ) {
+    function getFuzzyInterval(level, amount, fuzzy) {
+        if (Math.floor(amount) == 1) {
+            return fuzzy['future'].replace('%',  "1 " + fuzzy[level][0] );
+        }
+        if (Math.floor(amount) > 1) {
+            return fuzzy['future'].replace('%', Math.floor(amount) + " " + fuzzy[level][1]);
+        }
+        if (Math.ceil(amount) == -1) {
+            return  fuzzy['past'].replace('%', "1 " + fuzzy[level][0]);
+        }
+        if (Math.ceil(amount) < -1) {
+            return fuzzy['past'].replace('%', Math.abs(Math.ceil(amount)) + " " + fuzzy[level][1]);
+        }
+        return false;
+    }
+
+    function fromNow( value, fuzzy ) {
 
         var now = new Date();
 
-        var seconds = Math.floor((now - value) / 1000);
+        var seconds = Math.floor((value - now) / 1000);
 
-        // Years
-        var interval = Math.floor(seconds / 31536000);
-        if (interval == 1) {
-            return interval + " " + fuzzy['years'][0] + " " + fuzzy['ago'];
-        }
-        if (interval > 1) {
-            return interval + " " + fuzzy['years'][1] + " " + fuzzy['ago'];
-        }
+        var interval = seconds / 31536000;
+        var years = getFuzzyInterval('years', interval, fuzzy);
+        if (years) return;
 
-        // Months
-        interval = Math.floor(seconds / 2592000);
-        if (interval == 1) {
-            return interval + " " + fuzzy['months'][0] + " " + fuzzy['ago'];
-        }
-        if (interval > 1) {
-            return interval + " " + fuzzy['months'][1] + " " + fuzzy['ago'];
-        }
+        interval = seconds / 2592000;
+        var months = getFuzzyInterval('months', interval, fuzzy);
+        if (months) return months;
 
         // Weeks
-        interval = Math.floor(seconds / 604800);
-        if (interval == 1) {
-            return interval + " " + fuzzy['weeks'][0] + " " + fuzzy['ago'];
-        }
-        if (interval > 1) {
-            return interval + " " + fuzzy['weeks'][1] + " " + fuzzy['ago'];
-        }
+        interval = seconds / 604800;
+        var weeks = getFuzzyInterval('weeks', interval, fuzzy);
+        if (weeks) return weeks;
 
         // Days
-        interval = Math.floor(seconds / 86400);
-        if (interval == 1) {
-            return interval + " " + fuzzy['days'][0] + " " + fuzzy['ago'];
-        }
-        if (interval > 1) {
-            return interval + " " + fuzzy['days'][1] + " " + fuzzy['ago'];
-        }
+        interval = seconds / 86400;
+        var days = getFuzzyInterval('days', interval, fuzzy);
+        if (days) return days;
 
         // Hours
-        interval = Math.floor(seconds / 3600);
-        if (interval == 1) {
-            return interval + " " + fuzzy['hours'][0] + " " + fuzzy['ago'];
-        }
-        if (interval > 1) {
-            return interval + " " + fuzzy['hours'][1] + " " + fuzzy['ago'];
-        }
+        interval = seconds / 3600;
+        var hours = getFuzzyInterval('hours', interval, fuzzy);
+        if (hours) return hours;
 
         // Minutes
-        interval = Math.floor(seconds / 60);
-        if (interval == 1) {
-            return interval + " " + fuzzy['minutes'][0] + " " + fuzzy['ago'];
-        }
-        if (interval > 1) {
-            return interval + " " + fuzzy['minutes'][1] + " " + fuzzy['ago'];
-        }
+        interval = seconds / 60;
+        var minutes = getFuzzyInterval('minutes', interval, fuzzy);
+        if (minutes) return minutes;
 
         // Seconds
-        if (interval > 30) {
-            return Math.floor(seconds) + fuzzy['seconds'][1] + " " + fuzzy['ago'];
-        }
+        seconds = getFuzzyInterval('seconds', seconds, fuzzy);
+        return seconds;
 
-        return fuzzy['just now'];
     }
 
     for ( ; ; ) {
@@ -760,7 +748,7 @@ formatDate = function( value, format, culture ) {
 				break;
             case "X":
                 // Shortcut for fuzzy dates (timesince)
-                ret.push(timeSince(value, cal.fuzzyDates));
+                ret.push(fromNow(value, cal.fuzzyDates));
                 break;
 		case "/":
 			ret.push( cal["/"] );

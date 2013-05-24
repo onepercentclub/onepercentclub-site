@@ -69,10 +69,6 @@ div.buttons, ul.buttons {
 
   &:active {
 
-    @include box-shadow(0 4px 0 $black inset);
-    @include rem(padding, 16px 24px 4px 24px);
-
-
     top: 0;
 
     border-color: $black;
@@ -92,9 +88,6 @@ div.buttons, ul.buttons {
       color:  $white;
     }
 
-    &:active{
-      @include box-shadow(none);
-    }
   }
 
   // The dark button
@@ -209,7 +202,6 @@ div.buttons, ul.buttons {
 
   &:active {
     .icon {
-      @include box-shadow(0 4px 0 $black inset);
       background: #181818;
       color: $white;
     }
@@ -255,4 +247,8 @@ div.buttons, ul.buttons {
       z-index: 10;
       width: auto;
     }
+}
+
+.sidebar .btn {
+  width: 100%;
 }

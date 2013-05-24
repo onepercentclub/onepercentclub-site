@@ -19,7 +19,7 @@
                         {{/each}}
                     </ul>
                     {{else}}
-                        <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> loading projects ...
+                        <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading projects" %}
                     {{/if}}
 
                 </header>
@@ -76,9 +76,9 @@
                         <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
                     </div>
 
-                    <p class="donate-days-left not-implemented">
+                    <p class="donate-days-left">
                         {{{days_left_span}}}
-                        <strong><em class="icon-time"></em> 172</strong>
+                        <strong><em class="icon-time"></em> ??</strong>
                         <em>{% trans "days to go" %}</em>
                     </p>
                 </div>
@@ -96,17 +96,17 @@
         <div class="wrapper">
 
             <ul class="tabs">
-                <li class="tab-updates is-selected">
-                    <a href="#">
+                <li class="tab-updates">
+                    {{#linkTo "projectWallPostList"}}
                         <em class="tab-icon amount">13</em>
                         <strong class="tab-title">Project Updates <em class="tab-subtitle">Last: 9 days ago</em></strong>
-                    </a>
+                    {{/linkTo}}
                 </li>
                 <li class="tab-tasks">
-                    <a href="#">
+                    {{#linkTo "projectTaskList"}}
                         <em class="tab-icon amount">2</em>
                         <strong class="tab-title">Tasks <em class="tab-subtitle">Expertise needed</em></strong>
-                    </a>
+                    {{/linkTo}}
                 </li>
                 <li class="tab-plan">
                     <a href="#">
@@ -122,20 +122,16 @@
                         <em class="icon icon-money"></em> {% trans "Support this project" %}
                     {{/linkTo}}
                 {{else}}
-                    <h2 class="right">{{phase}} {% trans "PHASE" %}</h2>
                 {{/if}}
             </div>
 
         </div>
 
     </nav>
+    {{ outlet }}
 
-
-    {{ render "projectWallPostNew" }}
-    {{ render "projectWallPostList" }}
 
 {% endtplhandlebars %}
-
 
 
 {% tplhandlebars "project_members" %}
