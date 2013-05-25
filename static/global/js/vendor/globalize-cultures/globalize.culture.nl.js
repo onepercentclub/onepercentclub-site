@@ -70,7 +70,8 @@ Globalize.addCultureInfo( "nl", "default", {
 				Y: "MMMM yyyy"
 			},
             fuzzyDates: {
-                'ago': 'geleden',
+                'past': '% geleden',
+                'future': 'over %',
                 'just now': 'nu net',
                 'seconds': ['seconde', 'seconden'],
                 'minutes': ['minuut', 'minuten'],

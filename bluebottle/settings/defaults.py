@@ -230,6 +230,7 @@ INSTALLED_APPS = (
     'apps.wallposts',
     'apps.payouts',
     'apps.sepa',
+    'apps.tasks',
 
     # Custom dashboard
     'fluent_dashboard',

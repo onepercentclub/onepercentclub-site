@@ -9,11 +9,13 @@ from django.core.exceptions import ValidationError
 from django.template.defaultfilters import linebreaks
 from django.utils.html import strip_tags, urlize
 from django.utils.encoding import smart_str
+from django.template import defaultfilters
 from micawber.contrib.mcdjango import providers
 from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
+from django.utils.translation import ugettext as _
 
 
 logger = logging.getLogger(__name__)
@@ -364,3 +366,18 @@ class PostHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer):
         Placeholder method for processing data sent in POST.
         """
         pass
+
+
+class HyperlinkedFileField(serializers.FileField):
+    def to_native(self, value):
+        request = self.context.get('request', None)
+        return request.build_absolute_uri(value.url)
+
+
+class FileSizeField(serializers.FileField):
+    def to_native(self, value):
+        try:
+            size = defaultfilters.filesizeformat(value.size)
+        except OSError:
+            size = _('File not found')
+        return size

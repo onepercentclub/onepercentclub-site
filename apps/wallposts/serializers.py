@@ -38,7 +38,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     reactions = ReactionSerializer(many=True)
 
     class Meta:
-        fields = ('id', 'url', 'type', 'author', 'created', 'reactions')
+        fields = ('id', 'type', 'author', 'created', 'reactions')
 
 
 class MediaWallPostPhotoSerializer(serializers.ModelSerializer):

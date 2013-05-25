@@ -10,7 +10,7 @@ from sorl.thumbnail.shortcuts import get_thumbnail
 
 from .models import (
     Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, BudgetLine,
-    Testimonial, ProjectTheme, PartnerOrganization
+    Testimonial, PartnerOrganization
 )
 
 
@@ -92,9 +92,4 @@ class PartnerOrganizationAdmin(AdminImageMixin, admin.ModelAdmin):
 
 admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
 
-
-class ProjectThemeAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("name",)}
-
-admin.site.register(ProjectTheme, ProjectThemeAdmin)
 
