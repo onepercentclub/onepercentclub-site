@@ -324,7 +324,12 @@ App.ProjectWallPostView = Em.View.extend({
     templateName: 'project_wallpost',
 
     didInsertElement: function(){
-        this.$('.gallery-picture').colorbox({rel: this.toString()});
+        this.$('.gallery-picture').colorbox({
+            rel: this.toString(),
+            next: '<span class="icon-chevron-right"></span>',
+            previous: '<span class="icon-chevron-left"></span>',
+            close: '×'
+        });
     },
 
     // TODO: Delete reactions to WallPost as well?
