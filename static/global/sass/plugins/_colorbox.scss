@@ -8,7 +8,8 @@
 	top: 0;
 	left: 0;
 	z-index: 9999;
-	overflow: hidden; 
+	overflow: hidden;
+    background: rgba(0, 0, 0, 0.7);
 }
  
 #cboxOverlay {
@@ -33,8 +34,37 @@
 	height: 100%; 
 }
  
-#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow { cursor: pointer; }
- 
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow {
+    cursor: pointer;
+    display: block;
+    color: $black;
+    background-color: rgba(255, 255, 255, .5);
+    &:hover {
+        background-color: rgba(255, 255, 255, .9);
+    }
+    padding: 6px 12px 4px 12px;
+    @include rem(font-size, 24px);
+    position: absolute;
+}
+
+
+
+#cboxClose {
+    top: 10px;
+    right: 10px;
+}
+
+#cboxNext {
+    top: 50%;
+    right: 10px;
+}
+
+#cboxPrevious {
+    top: 50%;
+    left: 10px;
+}
+
+
 .cboxPhoto {
 	float: left;
 	margin: auto;

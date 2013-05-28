@@ -2301,33 +2301,44 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 /* ColorBox Core Style: The following CSS is consistent between example themes and should not be altered.
 */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\000036}}
-#colorbox, #cboxOverlay, #cboxWrapper { position: absolute; top: 0; left: 0; z-index: 9999; overflow: hidden; }
+#colorbox, #cboxOverlay, #cboxWrapper { position: absolute; top: 0; left: 0; z-index: 9999; overflow: hidden; background: rgba(0, 0, 0, 0.7); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000315}}
 #cboxOverlay { position: fixed; width: 100%; height: 100%; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000321}}
 #cboxMiddleLeft, #cboxBottomLeft { clear: left; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000323}}
 #cboxContent { position: relative; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000325}}
 #cboxLoadedContent { overflow: auto; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000326}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000327}}
 #cboxTitle { margin: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000328}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000329}}
 #cboxLoadingOverlay, #cboxLoadingGraphic { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000336}}
-#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow { cursor: pointer; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000337}}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow { cursor: pointer; display: block; color: black; background-color: rgba(255, 255, 255, 0.5); padding: 6px 12px 4px 12px; font-size: 24px; font-size: 1.71429rem; position: absolute; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000342}}
+#cboxPrevious:hover, #cboxNext:hover, #cboxClose:hover, #cboxSlideshow:hover { background-color: rgba(255, 255, 255, 0.9); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000352}}
+#cboxClose { top: 10px; right: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000357}}
+#cboxNext { top: 50%; right: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000362}}
+#cboxPrevious { top: 50%; left: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000368}}
 .cboxPhoto { float: left; margin: auto; border: 0; display: block; max-width: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/plugins\/_colorbox\.scss}line{font-family:\0000376}}
 .cboxIframe { width: 100%; height: 100%; display: block; border: 0; }
 
 /* jQuery UI - v1.10.2 - 2013-03-14
