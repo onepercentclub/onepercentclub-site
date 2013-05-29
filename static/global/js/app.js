@@ -648,8 +648,11 @@ App.ProjectTaskEditRoute = Ember.Route.extend({
 
     setupController: function(controller, model){
         this._super(controller, model);
-        var transaction = this.get('store').transaction();
-        transaction.add(model);
+        // Only start a new transaction if this model hasn't got its own yet.
+        if (model.transaction.isDefault) {
+            var transaction = this.get('store').transaction();
+            transaction.add(model);
+        }
     }
 });
 
