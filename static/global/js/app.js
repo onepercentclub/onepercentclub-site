@@ -200,8 +200,9 @@ App.ApplicationController = Ember.Controller.extend({
     needs: ['currentUser']
 });
 
-App.SettingsController = Ember.ObjectController.extend({
-    addFile: function(file) {
+
+App.ProfileController = Ember.ObjectController.extend({
+    addPhoto: function(file) {
         this.set('model.file', file);
     }
 });
@@ -335,10 +336,14 @@ App.Router.map(function() {
         this.route('code', {path: '/:code'});
     });
 
-    this.resource('settings', {path: '/settings'});
     this.resource('taskList', {path: '/tasks'});
-});
+    this.resource('signup');
 
+    this.resource('user', function() {
+        this.route('profile');
+        this.route('settings');
+    });
+});
 
 App.ApplicationRoute = Ember.Route.extend({
 
@@ -360,6 +365,7 @@ App.ApplicationRoute = Ember.Route.extend({
             document.location = '/' + language + document.location.hash;
             return true;
         },
+
         openInBigBox: function(name, context){
             // Get the controller or create one
             var controller = this.controllerFor(name);
@@ -826,27 +832,83 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
     }
 });
 
-/**
- * Member Settings Routes
- * @see http://darthdeus.github.io/blog/2013/02/02/using-transactions-in-ember-data/
- */
-App.SettingsRoute = Ember.Route.extend({
+/*
+
+App.UserProfileRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+        this._super(controller, model);
+        controller.startEditing();
+    },
+
+    exit: function() {
+        this._super();
+        this.controllerFor('user.profile').stopEditing();
+    }
+});
+
+App.UserSettingsRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+        this._super(controller, model);
+        controller.startEditing();
+    },
+
+    exit: function() {
+        this._super();
+        this.controllerFor('user.settings').stopEditing();
+    }
+});
+
+*/
+
+
+App.UserProfileRoute = Ember.Route.extend({
     model: function() {
         var route = this;
 
-        return App.User.find('current').then(function (user) {
-            var transaction = route.get('store').transaction();
-            var settings = App.MemberSettings.find(user.get('username'));
+        /*
+         This workaround will be no longer required with the new async router API,
+         (RC 4) which treats transitionTo's the same as URL based transitions
+         */
+        return App.CurrentUser.find('current').then(function(user) {
+            var profile = App.User.find(user.get('id_for_ember'));
+            var controller = route.controllerFor('user.profile');
 
-            transaction.add(settings);
-            return settings;
+            controller.set('model', profile);
+            controller.startEditing();
+
+            return profile;
         });
     },
 
-    events: {
-        saveSettings: function(settings) {
-            settings.get('transaction').commit();
-        }
+    exit: function() {
+        this._super();
+        this.controllerFor('user.profile').stopEditing();
+    }
+});
+
+App.UserSettingsRoute = Ember.Route.extend({
+
+    model: function() {
+        var route = this;
+
+        /*
+         This workaround will be no longer required with the new async router API,
+         (RC 4) which treats transitionTo's the same as URL based transitions
+         */
+        return App.CurrentUser.find('current').then(function(user) {
+            var usersettings = App.UserSettings.find(user.get('id_for_ember'));
+            var controller = route.controllerFor('user.settings');
+
+            controller.set('model', usersettings);
+            controller.startEditing();
+
+            return usersettings;
+        });
+    },
+
+    exit: function() {
+        this._super();
+        this.controllerFor('user.settings').stopEditing();
     }
 });
 
@@ -857,6 +919,28 @@ App.SettingsRoute = Ember.Route.extend({
 App.TaskListRoute =  Ember.Route.extend({
     model: function(params) {
         return App.Task.find();
+    }
+});
+
+App.SignupRoute = Ember.Route.extend({
+    redirect: function() {
+        if (this.controllerFor('currentUser').get('isAuthenticated')) {
+            this.transitionTo('home');
+        }
+    },
+
+    model: function() {
+        var transaction = this.get('store').transaction();
+
+        var user = transaction.createRecord(App.User, {});
+        return user;
+    },
+
+    events: {
+        createUser: function(user) {
+            user.set('url', 'members/usercreation');
+            user.get('transaction').commit();
+        }
     }
 });
 
@@ -889,4 +973,5 @@ App.LoginView = Em.View.extend({
         return  String(window.location);
     }.property()
 });
+
 

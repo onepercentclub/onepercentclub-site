@@ -1,76 +1,74 @@
 from apps.accounts.models import UserProfile
-from apps.bluebottle_drf2.serializers import SorlImageField, PostHyperlinkedModelSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, PostOnlyModelSerializer
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
 
-class MemberSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='member-profile-detail')
-    avatar = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY")
-    picture = SorlImageField('userprofile.picture', '240x240')
+class UserPreviewSerializer(serializers.ModelSerializer):
+    """
+    Serializer for a subset of a member's public profile. This is usually embedded into other serializers.
+    """
+    avatar = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'url', 'picture', 'avatar')
+        fields = ('id', 'first_name', 'last_name', 'username', 'avatar',)
 
 
-class AuthenticatedUserSerializer(MemberSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'url', 'picture', 'avatar', 'email')
-
-
-class MemberProfileSerializer(MemberSerializer):
-    about = serializers.CharField(source='userprofile.about', required=False)
-    why = serializers.CharField(source='userprofile.why', required=False, read_only=False)
-    contribution = serializers.CharField(source='userprofile.contribution', required=False)
-    availability = serializers.CharField(source='userprofile.availability', required=False)
-    working_location = serializers.CharField(source='userprofile.working_location', required=False)
+class CurrentUserSerializer(UserPreviewSerializer):
+    """
+    Serializer for the current authenticated user. This is the same as the serializer for the member preview with the
+    addition of id_for_ember.
+    """
+    # This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
+    id_for_ember = serializers.IntegerField(source='id', read_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'date_joined', 'url', 'picture', 'avatar', 'about',
-                  'why', 'contribution', 'availability', 'working_location')
+        fields = UserPreviewSerializer.Meta.fields + ('id_for_ember',)
 
 
-class MemberSettingsSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='member-profile-detail')
-    avatar = SorlImageField('picture', '100x100', colorspace="GRAY", required=False, read_only=True)
-    picture = SorlImageField('picture', '240x240', required=False)
-    username = serializers.CharField(source='user.username', read_only=True)
-    first_name = serializers.CharField(source='user.first_name', required=False)
-    last_name = serializers.CharField(source='user.last_name', required=False)
-    email = serializers.EmailField(source='user.email', required=False)
-    about = serializers.CharField(source='about', required=False, read_only=False)
-    why = serializers.CharField(source='why', required=False, read_only=False)
-    contribution = serializers.CharField(source='contribution', required=False)
-    availability = serializers.CharField(source='availability', required=False)
-    working_location = serializers.CharField(source='working_location', required=False)
-    website = serializers.CharField(source='website', required=False)
+class UserSerializer(serializers.ModelSerializer):
+    """
+    Serializer for a member's public profile.
+    """
+
+    url = serializers.HyperlinkedIdentityField(view_name='user-profile-detail')
+    avatar = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY", required=False, read_only=True)
+    picture = SorlImageField('userprofile.picture', '240x240', required=False)  # FIXME: read-only until we can write this field
+    about = serializers.CharField(source='userprofile.about', required=False, read_only=True)  # FIXME: read-only until we can write this field
+    why = serializers.CharField(source='userprofile.why', required=False, read_only=True)  # FIXME:read-only until we can write this field
+    website = serializers.URLField(source='userprofile.website', required=False, read_only=True)  #  FIXME:read-only until we can write this field
+    availability = serializers.ChoiceField(source='userprofile.availability', required=False, read_only=True)  # FIXME:read-only until we can write this field
+    date_joined = serializers.DateTimeField(read_only=True)
+    email = serializers.EmailField(required=True)
+
+    class Meta:
+        model = User
+        # TODO: Add * Your skills,
+        #           * interested in themes
+        #           * interested in countries
+        #           * interested in target groups
+        fields = ('id', 'url', 'username', 'first_name', 'last_name', 'avatar', 'picture', 'about', 'why', 'website',
+                  'availability', 'date_joined')
+        # postonly_fields = ('email', 'password')
+
+    #def process_postonly_fields(self, obj, post_attrs):
+        # TODO: Add email confirmation on signup ... maybe use django-registration.
+    #    obj.set_password(post_attrs['password'])
+    #       obj.email = post_attrs['email']
+
+
+class UserSettingsSerializer(serializers.ModelSerializer):
+    """
+    Serializer for viewing and editing a user's settings. This should only be accessible to authenticated users.
+    """
+    id = serializers.IntegerField(source='user.id', read_only=True)  # FIXME: This won't be required with a unified user model.
+    email = serializers.EmailField(source='user.email', read_only=True)  # FIXME: read-only until we can write this field
 
     class Meta:
         model = UserProfile
-        fields = ('id', 'first_name', 'last_name', 'email', 'username', 'url', 'picture', 'avatar', 'about', 'why',
-                  'contribution', 'availability', 'working_location', 'about', 'website')
-
-
-class NoneHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
-    """ Specialized version of HyperlinkedIdentityField that deals with None objects. """
-
-    def field_to_native(self, obj, field_name):
-        if obj is None:
-            return ''
-        else:
-            super(NoneHyperlinkedIdentityField, self).field_to_native(obj, field_name)
-
-
-class UserCreationSerializer(PostHyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'password')
-        postonly_fields = ('password',)
-
-    def process_postonly_fields(self, obj, post_attrs):
-        # Note: We can't send email activation here because this is called even when there are errors.
-        raw_password = post_attrs['password']
-        obj.set_password(raw_password)
+        # TODO: Add * password update like it's done with the post only fields serializer (ie. create / add put only fields serializer)
+        #           * Facebook connect
+        #           * Address
+        fields = ('id', 'email', 'newsletter', 'gender', 'birthdate')

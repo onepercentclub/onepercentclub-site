@@ -311,6 +311,22 @@ App.TimeNeededSelectView = Em.Select.extend({
     optionLabelPath: "content.title"
 });
 
+App.TimeAvailableList = [
+    {value: '1-4_hours_week', title: '1-4 hours per week'},
+    {value: '5-8_hours_week', title: '5-8 hours per week'},
+    {value: '9-16_hours_week', title: '9-16 hours per week'},
+    {value: '1-4_hours_month', title: '1-4 hours per month'},
+    {value: '5-8_hours_month', title: '5-8 hours per month'},
+    {value: '9-16_hours_month', title: '9-16 hours per month'},
+    {value: '9-16_hours_month', title: 'I have all the time in the world. Bring it on :D'},
+    {value: '9-16_hours_month', title: 'It depends on the content of the tasks. Challenge me!'}
+];
+
+App.TimeAvailableSelectView = Em.Select.extend({
+    content: App.TimeAvailableList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title"
+});
 
 App.IsAuthorMixin = Em.Mixin.create({
     isAuthor: function () {

@@ -17,7 +17,8 @@ App.WallPost = DS.Model.extend({
     url: 'wallposts',
 
     // Model fields
-    author: DS.belongsTo('App.MemberPreview'),
+    project: DS.belongsTo('App.Project'),
+    author: DS.belongsTo('App.UserPreview'),
     title: DS.attr('string'),
     text: DS.attr('string'),
     created: DS.attr('date'),
@@ -32,8 +33,7 @@ App.ProjectWallPost = App.WallPost.extend({
 
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
-    photos: DS.hasMany('App.ProjectWallPostPhoto'),
-
+    photos: DS.hasMany('App.ProjectWallPostPhoto')
 });
 
 
@@ -302,12 +302,10 @@ App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
-    contentBinding: 'parentView.controller.content',
-
     change: function(e) {
         var controller = this.get('controller');
         var files = e.target.files;
-        for (i = 0; i < files.length; i++) {
+        for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
             var file = files[i];
             // TODO: enable client site previews with: reader.onload = function(e){}

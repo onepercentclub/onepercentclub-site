@@ -12,7 +12,7 @@
     <meta charset="utf-8" />
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width" />
-    
+
     <title>{% block title %}{% endblock %}1%Club</title>
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -123,7 +123,7 @@
                             </a>
                             <ul class="my-menu">
                                 <li>
-                                    {{#linkTo "settings" }}
+                                    {{#linkTo "user.profile" }}
                                         {% trans "Edit my profile & settings" %}
                                     {{/linkTo }}
                                 </li>
@@ -139,7 +139,9 @@
                             <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
                         {{else}}
                             <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
-                            <a href="/accounts/signup" class="nav-signup">Signup</a>
+                            {{#linkTo "signup" class="nav-signup"}}
+                                {% trans "Signup" %}
+                            {{/linkTo}}
                             {{view "App.LanguageSwitchView"}}
                         {{/if}}
                     </nav>
@@ -150,7 +152,7 @@
         </div>
 
         <!-- end: main header -->
-        
+
         <!-- main content -->
         <div>
             {{outlet}}

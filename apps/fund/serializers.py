@@ -1,5 +1,5 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField, MemberPreviewSerializer
+from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, Order, Voucher, CustomVoucherRequest
