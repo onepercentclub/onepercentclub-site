@@ -252,3 +252,10 @@ div.buttons, ul.buttons {
 .sidebar .btn {
   width: 100%;
 }
+
+.btn-minor {
+    background-color: transparent;
+    color: $gray;
+    font-weight: normal;
+    border-width: 0px;
+}

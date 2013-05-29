@@ -1322,6 +1322,9 @@ div.buttons li:last-child a.button, div.buttons li:last-child a.btn, div.buttons
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_buttons\.scss}line{font-family:\00003252}}
 .sidebar .btn { width: 100%; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_buttons\.scss}line{font-family:\00003256}}
+.btn-minor { background-color: transparent; color: #999999; font-weight: normal; border-width: 0px; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\000031}}
 #detail { position: relative; background-color: rgba(0, 0, 0, 0.5); padding: 32px 0 0 0; padding: 2.28571rem 0 0 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\000037}}
