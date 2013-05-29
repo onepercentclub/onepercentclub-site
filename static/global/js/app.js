@@ -53,7 +53,7 @@ $.ajaxSetup({
 
 Em.TextField.reopen({
     // Update attributeBinding with 'step' and 'multiple'
-    attributeBindings: ['type', 'value', 'size', 'step', 'multiple']
+    attributeBindings: ['type', 'value', 'size', 'step', 'multiple', 'pattern']
 });
 
 
@@ -65,7 +65,7 @@ App = Em.Application.create({
     LOG_TRANSITIONS: true,
 
     // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
-    templates: ['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders'],
+    templates: ['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders'],
 
     // We store language & locale here because they need to be available before loading templates.
     language: 'en',
@@ -81,7 +81,7 @@ App = Em.Application.create({
         // We don't have to check if it's one of the languages available. Django will have thrown an error before this.
         this.set('language', language);
 
-        // Now that we know the language we can load the hb templates.
+        // Now that we know the language we can load the handlebars templates.
         this.loadTemplates(this.templates);
 
         // Read locale from browser with fallback to default.
@@ -100,12 +100,18 @@ App = Em.Application.create({
                 locale = 'en';
             }
         }
+        this.initSelectViews();
         this.setLocale(locale);
         this.initSelectViews();
     },
 
     initSelectViews: function(){
         // Pre-load these lists so we avoid race conditions when displaying forms
+        App.Theme.find().then(function(list){
+            App.ThemeSelectView.reopen({
+                content: list
+            });
+        });
         App.Country.find().then(function(list){
             App.CountrySelectCodeView.reopen({
                 content: list
@@ -115,7 +121,6 @@ App = Em.Application.create({
             });
         });
     },
-
 
     setLocale: function(locale) {
         if (!locale) {
@@ -160,36 +165,36 @@ App = Em.Application.create({
 App.deferReadiness();
 
 App.loadTemplates = function() {
-        var language = window.location.pathname.split('/')[1];
-        // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
-        // Now that we know the language we can load the handlebars templates.
-        var readyCount = 0;
-        var templates = Em.A(['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils']);
-        templates.forEach(function(template){
-            //loadTemplates(this.templates);
-            var hash = {};
-            hash.url = '/' + language + '/templates/' + template + '.hbs';
-            hash.type = 'GET';
-            hash.contentType = 'application/json';
-            hash.success = function(data) {
-                // Iterate through handlebar tags
-                $(data).filter('script[type="text/x-handlebars"]').each(function() {
-                    var templateName = $(this).attr('data-template-name');
-                    var raw = $(this).html();
-                    Em.TEMPLATES[templateName] = Em.Handlebars.compile(raw);
-                });
-                readyCount++;
-                if (readyCount == templates.length) {
-                    App.advanceReadiness();
-                }
-            };
-            hash.error = function(jqXHR, textStatus, errorThrown) {
-                throw errorThrown + ' ' + hash.url;
-            };
-            jQuery.ajax(hash);
+    var language = window.location.pathname.split('/')[1];
+    // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
+    // Now that we know the language we can load the handlebars templates.
+    var readyCount = 0;
+    var templates = Em.A(['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils']);
+    templates.forEach(function(template){
+        //loadTemplates(this.templates);
+        var hash = {};
+        hash.url = '/' + language + '/templates/' + template + '.hbs';
+        hash.type = 'GET';
+        hash.contentType = 'application/json';
+        hash.success = function(data) {
+            // Iterate through handlebar tags
+            $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                var templateName = $(this).attr('data-template-name');
+                var raw = $(this).html();
+                Em.TEMPLATES[templateName] = Em.Handlebars.compile(raw);
+            });
+            readyCount++;
+            if (readyCount == templates.length) {
+                App.advanceReadiness();
+            }
+        };
+        hash.error = function(jqXHR, textStatus, errorThrown) {
+            throw errorThrown + ' ' + hash.url;
+        };
+        jQuery.ajax(hash);
 
-        })
-    }
+    });
+}
 
 App.loadTemplates();
 
@@ -200,6 +205,7 @@ App.Adapter = DS.DRF2Adapter.extend({
     namespace: "i18n/api",
 
     plurals: {
+        "projects/manage": "projects/manage",
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
         "fund/paymentinfo": "fund/paymentinfo",
@@ -307,6 +313,11 @@ App.Adapter.map('App.TaskFile', {
     author: {embedded: 'load'}
 });
 
+App.Adapter.map('App.MyProject', {
+    pitch: {embedded: 'load'},
+    plan: {embedded: 'load'}
+});
+
 
 App.Store = DS.Store.extend({
     revision: 11,
@@ -369,6 +380,7 @@ App.Router.map(function() {
     this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
 
     this.resource('taskList', {path: '/tasks'});
+
     this.resource('signup');
 
     this.resource('user', {path: '/member'}, function() {
@@ -378,6 +390,25 @@ App.Router.map(function() {
 
     this.route('userActivate', {path: '/activate/:activation_key'});
     this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
+
+    this.resource('myPitch', {path: '/my/pitches/:my_pitch_id'}, function(){
+        this.route('index');
+        this.route('basics');
+        this.route('description');
+        this.route('location');
+        this.route('media');
+    });
+
+    this.resource('myProjectList', {path: '/my/projects'});
+    this.resource('myProject', {path: '/my/projects/:my_project_id'}, function(){
+        this.route('index');
+        this.route('basics');
+        this.route('location');
+        this.route('description');
+        this.route('media');
+        this.route('organisation');
+    });
+
 });
 
 
@@ -969,13 +1000,22 @@ App.PasswordResetRoute = Ember.Route.extend({
 
 
 /**
- * Tasks Routes
+ * My 1PC
+ * - Manage your project(s)
  */
-
-App.TaskListRoute =  Ember.Route.extend({
-    model: function(params) {
-        return App.Task.find();
+App.MyProjectListRoute = Ember.Route.extend({
+    model: function(params){
+        return App.MyProject.find();
     }
+
+});
+
+
+App.MyProjectSubRoute = Ember.Route.extend({
+    model: function(params){
+        return this.modelFor('myProject').get('pitch');
+    }
+
 });
 
 
@@ -1019,6 +1059,13 @@ App.LoginController = Em.Controller.extend({
 });
 
 
+App.MyProjectBasicsRoute =  App.MyProjectSubRoute.extend({});
+App.MyProjectDescriptionRoute =  App.MyProjectSubRoute.extend({});
+App.MyProjectLocationRoute =  App.MyProjectSubRoute.extend({});
+
+
+
+
 /* Views */
 
 App.LanguageView = Ember.View.extend({
@@ -1040,6 +1087,5 @@ App.LoginView = Em.View.extend({
         return  String(window.location);
     }.property()
 });
-
 
 

@@ -97,7 +97,11 @@ form {
         }
 
         .controls {
+            position: relative;
             @include grid(32, 1);
+            &.wide {
+                @include grid(48, 2, 1);
+            }
 
             .inline-prepend {
                 @include grid(24, 0, 1);

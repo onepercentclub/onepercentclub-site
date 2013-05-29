@@ -1,4 +1,5 @@
 from apps.geo.models import Country
+from apps.projects.models import ProjectTheme
 from rest_framework import generics
 from .serializers import CountrySerializer
 
@@ -9,3 +10,4 @@ class CountryList(generics.ListAPIView):
 
     def get_queryset(self):
         return Country.objects.filter(alpha2_code__isnull=False).order_by('name').all()
+

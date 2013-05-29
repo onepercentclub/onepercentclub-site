@@ -1,6 +1,7 @@
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
-from apps.projects.serializers import DonationPreviewSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -10,10 +11,11 @@ from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
-from apps.projects.permissions import IsProjectOwnerOrReadOnly
+from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
                           ProjectTextWallPostSerializer)
 
@@ -139,6 +141,30 @@ class ProjectDonationList(generics.ListAPIView):
 
         return queryset
 
+
+
+class ManageProjectList(generics.ListCreateAPIView):
+    model = Project
+    serializer_class = ManageProjectSerializer
+    permission_classes = (IsAuthenticated, )
+    paginate_by = 10
+
+    def get_queryset(self):
+        """
+        Overwrite the default to only return the Projects the currently logged in user owns.
+        """
+        queryset = super(ManageProjectList, self).get_queryset()
+        queryset = queryset.filter(owner=self.request.user)
+        return queryset
+
+    def pre_save(self, obj):
+        obj.owner = self.request.user
+
+
+class ManageProjectDetail(generics.RetrieveUpdateAPIView):
+    model = Project
+    serializer_class = ManageProjectSerializer
+    permission_classes = (IsOwner, )
 
 # Django template Views
 

@@ -8,21 +8,17 @@ App.Country = DS.Model.extend({
     title: DS.attr('string')
 });
 
+
 App.CountryList = [
     {"value": "0", "title": "loading"}
 ];
 
-App.CountrySelectCodeView = Em.Select.extend({
-    content: App.CountryList,
-    optionValuePath: "content.code",
-    optionLabelPath: "content.title"
-});
-
-App.CountrySelectPKView = Em.Select.extend({
+App.CountrySelectView = Em.Select.extend({
     content: App.CountryList,
     optionValuePath: "content.pk",
     optionLabelPath: "content.title"
 });
+
 
 // TODO: get this list from the server
 App.ExpertiseList = [
@@ -304,3 +300,101 @@ App.ShowMoreItemsMixin = Em.Mixin.create({
     }
 
 });
+
+App.PopOverMixin = Em.Mixin.create({
+   didInsertElement: function(){
+        this.$('.has-popover').popover({trigger: 'hover', placement: 'right'});
+        this.$('.has-tooltip').tooltip({trigger: 'hover', placement: 'right'});
+   }
+});
+
+
+App.Theme = DS.Model.extend({
+    url:'utils/themes',
+
+    value: DS.attr('string'),
+    title: DS.attr('string')
+});
+
+
+App.ThemeList = [
+    {value: "loading", title: "--loading--"},
+];
+
+App.ThemeSelectView = Em.Select.extend({
+    content: App.ThemeList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title"
+});
+
+
+App.MapPicker = Em.View.extend({
+
+    templateName: 'map_picker',
+    submit: function(e){
+        e.preventDefault();
+        this.lookUpLocation();
+    },
+
+    lookUpLocation: function() {
+        var address = this.get('lookup');
+        var view = this;
+        view.geocoder.geocode( {'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                view.map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: view.map,
+                    position: results[0].geometry.location
+                });
+                view.set('latitude',  results[0].geometry.location.lat());
+                view.set('longitude',  results[0].geometry.location.lng());
+
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    },
+
+    didInsertElement: function(){
+        var view = this;
+        this.geocoder = new google.maps.Geocoder();
+        var view = this;
+        var mapOptions = {
+            zoom: 6,
+            center: new google.maps.LatLng(view.get('latitude'), view.get('longitude')),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+        view.map = new google.maps.Map(this.$('.map-picker').get(0), mapOptions);
+
+
+        function placeMarker(position, map) {
+            var marker = new google.maps.Marker({
+                position: position,
+                map: map
+            });
+            map.panTo(position);
+        }
+        google.maps.event.addListener(view.map, 'click', function(e) {
+            var loc = {};
+            view.set('latitude',  e.latLng.lat());
+            view.set('longitude',  e.latLng.lng());
+            placeMarker(e.latLng, view.map);
+        });
+    }
+
+});
+
+
+App.MapPickerValue = Ember.TextField.extend({
+    type: 'hidden',
+    valueBinding: "parentView.value"
+
+});
+
+
+App.MapPicker = Ember.ContainerView.extend({
+    childViews: [App.MapPickerValue, App.MapPickerWidget]
+
+});
+
+å

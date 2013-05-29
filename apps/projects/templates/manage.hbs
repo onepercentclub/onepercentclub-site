@@ -1,0 +1,352 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "my_project_list" %}
+
+    <div class="container section">
+        <div class="wrapper">
+            <ul>
+                {{#each project in this}}
+                    <li>
+                        {{#linkTo "myProject" project}}
+                            <span class="icon-wrench"></span>
+                            {{project.title}}
+                        {{/linkTo}}
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "_my_project_top" %}
+    <div class="container section">
+        <div class="wrapper">
+            <div class="content">
+                <h1 class="main-title">
+                    <img {{bindAttr src="controllers.currentUser.getAvatar" info="owner.first_name"}} width="30" height="30" />
+                    {% trans "My 1%" %}
+                    <em>
+                        <span class="icon-chevron-right"></span>
+                        {{ title }}
+                    </em>
+                </h1>
+            </div>
+            <sidebar>
+                {{#linkTo project this class="button-link"}}
+                    <em class="icon-eye-open"></em> View public Project Page
+                {{/linkTo}}
+            </sidebar>
+        </div>
+        <div class="wrapper">
+            <ul class="manage-steps">
+                <li class="selected first">
+                    <div class="inner">
+                        <em class="icon-ok"></em>
+                        <h4>{% trans "Project Pitch" %}</h4>
+                        Bijna af
+                    </div>
+                </li>
+                <li class="second">
+                    <div class="inner">
+                        <em class="icon-pencil"></em>
+                        <h4>{% trans "Project Plan" %}</h4>
+                        35%
+                    </div>
+                </li>
+                <li class="third">
+                    <div class="inner">
+                        <em class="icon-bullhorn"></em>
+                        <h4>{% trans "Campaign" %}</h4>
+                        {% trans "Not available" %}
+                    </div>
+                </li>
+                <li class="fourth">
+                    <div class="inner">
+                        <em class="icon-wrench"></em>
+                        <h4>{% trans "Execute project" %}</h4>
+                        {% trans "Not available" %}
+                    </div>
+                </li>
+                <li class="fifth">
+                    <div class="inner">
+                        <em class="icon-trophy"></em>
+                        <h4>{% trans "Project results" %}</h4>
+                        {% trans "Not available" %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "my_pitch" %}
+
+    {{partial "my_project_top"}}
+
+    <div class="container">
+        <div class="wrapper dashboard">
+            <div class="menu-sidebar">
+                <div class="menu">
+                    <div class="title">
+                        <h4>
+                            <em class="icon-book"></em>
+                            {% trans "Project Pitch" %}
+                        </h4>
+                    </div>
+                    {{#linkTo "myPitch.basics" class="item"}}
+                        <em class="icon-ok"></em>
+                        {% trans "Project Basics" %}
+                    {{/linkTo}}
+                    {{#linkTo "myPitch.description" class="item"}}
+                        <em class="icon-ok"></em>
+                        {% trans "Project Description" %}
+                    {{/linkTo}}
+                    {{#linkTo "myPitch.location" class="item"}}
+                        <em class="icon-circle-blank"></em>
+                        {% trans "Location" %}
+                    {{/linkTo}}
+                </div>
+            </div>
+            <form>
+                {{ outlet }}
+            </form>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "my_project" %}
+
+    {{partial "my_project_top"}}
+
+    <div class="container">
+        <div class="wrapper dashboard">
+            <div class="menu-sidebar">
+                <div class="menu">
+                    <div class="title">
+                        <h4>
+                            <em class="icon-book"></em>
+                            {% trans "Project Story" %}
+                        </h4>
+                    </div>
+                    {{#linkTo "myProject.basics" class="item"}}
+                        <em class="icon-ok"></em>
+                        {% trans "Project Basics" %}
+                    {{/linkTo}}
+                    {{#linkTo "myProject.description" class="item"}}
+                        <em class="icon-ok"></em>
+                        {% trans "Project Description" %}
+                    {{/linkTo}}
+                    {{#linkTo "myProject.location" class="item"}}
+                        <em class="icon-circle-blank"></em>
+                        {% trans "Location" %}
+                    {{/linkTo}}
+                    {{#linkTo "myProject.organisation" class="item"}}
+                        <em class="icon-circle-blank"></em>
+                        {% trans "Organisation" %}
+                    {{/linkTo}}
+                </div>
+            </div>
+            <form>
+                {{ outlet }}
+            </form>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+
+{% tplhandlebars "my_project_index" %}
+
+    <fieldset>
+        <legend><strong>{% trans "Time to write your project plan!" %}</strong></legend>
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "my_project_basics" %}
+
+
+    <fieldset>
+        <legend><strong>{% trans "Project basics" %}</strong></legend>
+        <ul>
+            <li class="control-group has-popover" data-content="{% trans "Be short, creative, simple and memorable." %}">
+                <label class="control-label">{% trans "Title" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="title" placeholder="Title" classBinding="errors.title.length:error"}}
+                </div>
+
+                {{#if errors.title }}
+                    <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "Pitch your smart idea in one sentence." %}">
+                <label class="control-label">{% trans "Pitch" %}</label>
+                <div class="controls">
+                    {{view Em.TextArea valueBinding="description" placeholder="Description" classBinding="errors.description.length:error"}}
+                </div>
+
+                {{#if errors.description }}
+                    <div class="errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "Select one of the themes." %}">
+                <label class="control-label">{% trans "Theme" %}</label>
+                <div class="controls">
+                    {{view App.ThemeSelectView valueBinding="theme" classBinding="errors.theme.length:error"}}
+                </div>
+
+                {{#if errors.theme }}
+                    <div class="errors">{{#each errors.theme }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "Pick a short, clear name." %}">
+                <label class="control-label">{% trans "Short name" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="slug" placeholder="Short name" classBinding="errors.slug.length:error"}}
+                    <div class="extra-info">
+                        {% trans "Example: " %}
+                        <strong>http://onepercentclub.com/#/projects/{{ slug }}</strong>
+                    </div>
+                </div>
+
+                {{#if errors.slug }}
+                    <div class="errors">{{#each errors.slug }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "Add tags." %}">
+                <label class="control-label">{% trans "Tags" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="tags" classBinding="errors.tags.length:error"}}
+                </div>
+
+                {{#if errors.tags }}
+                    <div class="errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+        </ul
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "my_project_description" %}
+
+    <fieldset>
+        <legend><strong>{% trans "Project basics" %}</strong></legend>
+        <ul>
+            <li class="control-group has-popover" data-content="{% trans "Blow us away with the details!" %}">
+                <label class="control-label">{% trans "Why, what and how" %}</label>
+                <div class="controls wide">
+                    {{view Em.TextArea valueBinding="description_long"classBinding="errors.description_long.length:error" rows=12}}
+                </div>
+
+                {{#if errors.description_long }}
+                    <div class="errors">{{#each errors.description_long }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "What will be the Impact? How will your Smart Idea change the lives of people?" %}">
+                <label class="control-label">{% trans "Effects" %}</label>
+                <div class="controls wide">
+                    {{view Em.TextArea valueBinding="effects" classBinding="errors.effects.length:error" rows=6}}
+                </div>
+
+                {{#if errors.effects }}
+                    <div class="errors">{{#each errors.effects }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "How will this project be self-sufficient and sustainable in the long term?" %}">
+                <label class="control-label">{% trans "Future" %}</label>
+                <div class="controls wide">
+                    {{view Em.TextArea valueBinding="future" classBinding="errors.future.length:error" rows=6}}
+                </div>
+
+                {{#if errors.future }}
+                    <div class="errors">{{#each errors.future }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "Describe your target group." %}">
+                <label class="control-label">{% trans "For who" %}</label>
+                <div class="controls">
+                    {{view Em.TextArea valueBinding="for_who" classBinding="errors.for_who.length:error"}}
+                </div>
+
+                {{#if errors.for_who }}
+                    <div class="errors">{{#each errors.for_who }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "How many people do you expect to reach?" %}">
+                <label class="control-label">{% trans "People reached" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="reach" classBinding="errors.reach.length:error"}}
+                </div>
+
+                {{#if errors.reach }}
+                    <div class="errors">{{#each errors.reach }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+        </ul>
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+
+{% tplhandlebars "my_project_location" %}
+
+    <fieldset>
+        <legend><strong>{% trans "Project basics" %}</strong></legend>
+        <ul>
+            <li class="control-group has-popover" data-content="{% trans "Select the country." %}">
+                <label class="control-label">{% trans "Country" %}</label>
+                <div class="controls">
+                    {{view App.CountrySelectView valueBinding="country" classBinding="errors.country.length:error"}}
+                </div>
+
+                {{#if errors.country }}
+                    <div class="errors">{{#each errors.country }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+            <li class="control-group has-popover" data-content="{% trans "Select the location on the map. You can use the search to find your location." %}">
+                <label class="control-label">{% trans "Location" %}</label>
+                <div class="controls wide">
+                    {{view App.MapPicker longitudeBinding="longitude" latitudeBinding="latitude" classBinding="errors.location.length:error"}}
+                </div>
+                {{latitude}} - {{longitude}}
+
+            </li>
+        </ul
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "map_picker" %}
+
+    <div class="map-picker"></div>
+    <div class="map-look-up">
+        {{view Em.TextField valueBinding="view.lookup" placeholder="Search your location."}}
+        <button {{action lookUpLocation target="view"}}>search</button>
+    </div>
+
+{% endtplhandlebars %}

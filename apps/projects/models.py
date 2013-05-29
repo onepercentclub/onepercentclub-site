@@ -34,54 +34,77 @@ class ProjectTheme(models.Model):
         verbose_name_plural = _("project themes")
 
 
+class ProjectPitch(models.Model):
+
+    class PitchStatuses(DjangoChoices):
+        new = ChoiceItem('new', label=_("New"))
+        submitted = ChoiceItem('submitted', label=_("Submitted"))
+        rejected = ChoiceItem('rejected', label=_("Rejected"))
+        needs_work = ChoiceItem('needs_work', label=_("Needs work"))
+        approved = ChoiceItem('approved', label=_("Approved"))
+
+    class ImpactGroups(DjangoChoices):
+        children = ChoiceItem('children', label=_("Children"))
+        youth = ChoiceItem('youth', label=_("Youth"))
+        adults = ChoiceItem('adults', label=_("Adults"))
+        elderly = ChoiceItem('elderly', label=_("Elderly"))
+
+    # Basics
+
+    title = models.CharField(_("title"), max_length=100, help_text=_("Be short, creative, simple and memorable"))
+    pitch = models.TextField(_("pitch"), blank=True, help_text=_("Pitch your smart idea in one sentence"))
+    social_impact = models.TextField(_("social impact"), blank=True,help_text=_("Who are you helping?"))
+
+    image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Main project picture"))
+
+    created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
+    updated = ModificationDateTimeField(_('updated'))
+
+    status = models.CharField(_("status"), max_length=20, choices=PitchStatuses.choices)
+    theme = models.ForeignKey(ProjectTheme, blank=True, verbose_name=_("theme"), help_text=_("Select one of the themes "))
+
+    needs_funding = models.BooleanField(_("needs funding"))
+    needs_skills = models.BooleanField(_("needs skills & expertise"))
+
+    tags = TaggableManager(blank=True, verbose_name=_("tags"), help_text=_("Add tags"))
+
+    # Extended Description
+
+    description = models.TextField(_("why, what and how"), help_text=_("Blow us away with the details!"), blank=True)
+    effects = models.TextField(_("effects"), help_text=_("What will be the Impact? How will your Smart Idea change the lives of people?"), blank=True)
+    for_who = models.TextField(_("for who"), help_text=_("Describe your target group"), blank=True)
+    future = models.TextField(_("future"), help_text=_("How will this project be self-sufficient and sustainable in the long term?"), blank=True)
+    reach = models.PositiveIntegerField(_("Reach"), help_text=_("How many people do you expect to reach?"), blank=True)
+
+    # Location
+    latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18)
+    longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18)
+    country = models.ForeignKey('geo.Country', blank=True, null=True)
+
+    # Media
+    image = ImageField(_("picture"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Upload the picture that best describes your smart idea!"))
+    video_url = models.URLField(_("video"), max_length=100, blank=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
+
+
 class ProjectPhases(DjangoChoices):
-    idea = ChoiceItem('idea', label=_("Idea"))
-    fund = ChoiceItem('fund', label=_("Fund"))
-    act = ChoiceItem('act', label=_("Act"))
+    pitch = ChoiceItem('pitch', label=_("Pitch"))
+    plan = ChoiceItem('plan', label=_("Plan"))
+    campaign = ChoiceItem('campaign', label=_("Campaign"))
     results = ChoiceItem('results', label=_("Results"))
 
 
 class Project(models.Model):
     """ The base Project model. """
 
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("owner"))
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
-    partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True, verbose_name=_('partner organisations'))
-    image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Main project picture"))
-    organization = models.ForeignKey('organizations.Organization', verbose_name=_("organization"), null=True, blank=True)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("owner"))
+    pitch = models.ForeignKey('projects.ProjectPitch', null=True, blank=True)
+
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
-    themes = models.ManyToManyField(ProjectTheme, blank=True, verbose_name=_("themes"))
+
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
-
-    payout_date = models.DateField(_("Payout date"), blank=True, null=True)
-
-    # Location of this project
-    # Normally, 7 digits and 4 decimal places should suffice, but it wouldn't
-    # hold the legacy data.
-    # http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
-    latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18)
-    longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18)
-    country = models.ForeignKey('geo.Country', blank=True, null=True)
-
-    language = models.CharField(max_length=6, choices=settings.LANGUAGES, help_text=_("Main language of the project."))
-    tags = TaggableManager(blank=True, verbose_name=_("tags"))
-
-    planned_start_date = models.DateField(_("planned start date"), blank=True, null=True,
-                                          help_text=_("Project initiator's planned completion date. "
-                                          "This date is independent of the various phase start dates.")
-                                          )
-
-    planned_end_date = models.DateField(_("planned end date"), blank=True, null=True,
-                                        help_text=_("The project owner's notion of the project end date. "
-                                        "This date is independent of the various phase end dates.")
-                                        )
-
-    money_asked = models.PositiveIntegerField(_("money asked"), default=0, help_text=_("Amount of money asked for a project from this website."))
-    currency = models.CharField(_("currency"), blank=True, max_length=3)
-
-    payout_date = models.DateField(_("Date payed"), blank=True, null=True)
 
     def __unicode__(self):
         if self.title:
@@ -105,52 +128,10 @@ class Project(models.Model):
             count = count + len(donations.all())
         return count
 
-    # This is here to provide a consistent way to get money_donated.
-    @property
-    def money_donated(self):
-        if self.money_asked == 0:
-            return 0
-        donations = Donation.objects.filter(project=self)
-        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
-        total = donations.aggregate(sum=Sum('amount'))
-        if not total['sum']:
-            return 0
-        return total['sum']
-
-    @property
-    def money_needed(self):
-        needed = self.money_asked - self.money_donated
-        if needed < 0:
-            return 0
-        return needed
-
-    # The amount donated that is secure.
-    @property
-    def money_safe(self):
-        if self.money_asked == 0:
-            return 0
-        donations = Donation.objects.filter(project=self)
-        donations = donations.filter(status__in=[Donation.DonationStatuses.paid])
-        total = donations.aggregate(sum=Sum('amount'))
-        if not total['sum']:
-            return 0
-        return total['sum']
-
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
         return 'project-detail', (), {'slug': self.slug}
-
-    @property
-    def description(self):
-        # TODO We need to figure out the best spot for description once the interaction design is worked.
-        try:
-            return self.fundphase.description
-        except FundPhase.DoesNotExist:
-            try:
-                return self.ideaphase.description
-            except IdeaPhase.DoesNotExist:
-                return ""
 
     class Meta:
         ordering = ['title']

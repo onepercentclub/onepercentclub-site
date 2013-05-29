@@ -8,10 +8,14 @@ from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 from sorl.thumbnail.shortcuts import get_thumbnail
 
-from .models import (
-    Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, BudgetLine,
-    Testimonial, PartnerOrganization
-)
+from .models import (Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, BudgetLine,Testimonial,
+                    PartnerOrganization, ProjectPitch)
+
+
+class ProjectPitchAdmin(admin.ModelAdmin):
+    model = ProjectPitch
+
+admin.site.register(ProjectPitch, ProjectPitchAdmin)
 
 
 class PhaseInlineBase(admin.StackedInline):
@@ -47,17 +51,12 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ('phase', 'language', 'themes', 'country')
-    list_display = ('title', 'organization', 'country')
+    list_filter = ('phase', )
+    list_display = ('title', 'owner')
 
     inlines = [BudgetInline, IdeaPhaseInline, FundPhaseInline, ActPhaseInline, ResultsPhaseInline]
 
-    filter_horizontal = ('themes',)
-
-    search_fields = (
-        'title', 'organization__name',
-        'owner__first_name', 'owner__last_name'
-    )
+    search_fields = ('title', 'owner__first_name', 'owner__last_name')
 
     raw_id_fields = ('owner', )
 
