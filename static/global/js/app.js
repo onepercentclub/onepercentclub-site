@@ -310,6 +310,7 @@ App.Router.map(function() {
         this.resource('projectTaskList', {path: '/tasks'});
         this.resource('projectTaskNew', {path: '/tasks/new'});
         this.resource('projectTask', {path: '/tasks/:task_id'});
+        this.resource('projectTaskEdit', {path: '/tasks/:task_id/edit'});
     });
 
     this.resource('currentOrder', {path: '/support'}, function() {
@@ -625,34 +626,7 @@ App.ProjectTaskRoute = Ember.Route.extend({
         },
         stopWorkingOnTask: function(task){
             alert('Not implemented. Sorry!');
-        },
-        editTask: function(task){
-            var route = this;
-            var controller = this.controllerFor('taskEdit');
-            controller.set('model', task);
-            var view = App.TaskEditView.create();
-            view.set('controller', controller);
-            var transaction = route.get('store').transaction();
-            transaction.add(task);
-
-            Bootstrap.ModalPane.popup({
-                classNames: ['modal', 'large'],
-                heading: task.get('title'),
-                bodyViewClass: view,
-                primary: 'Save',
-                secondary: 'Cancel',
-                callback: function(opts, e) {
-                    e.preventDefault();
-                    if (opts.primary) {
-                        transaction.commit();
-                    }
-                    if (opts.secondary) {
-                        transaction.rollback();
-                    }
-                }
-            });
         }
-
     }
 });
 
@@ -666,6 +640,19 @@ App.ProjectTaskNewRoute = Ember.Route.extend({
         controller.set('content', model);
     }
 });
+
+App.ProjectTaskEditRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.Task.find(params.task_id);
+    },
+
+    setupController: function(controller, model){
+        this._super(controller, model);
+        var transaction = this.get('store').transaction();
+        transaction.add(model);
+    }
+});
+
 
 
 /**
