@@ -1,9 +1,5 @@
-# NOTE: local.py must be an empty file when using this configuration.
 
-from .defaults import *
-
-# Put the travis-ci environment specific overrides below.
-
+# SECRET_KEY and DATABASES needs to be defined before the base settings is imported.
 SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
 
 DATABASES = {
@@ -13,3 +9,8 @@ DATABASES = {
     },
 }
 
+from .base import *
+
+#
+# Put the travis-ci environment specific overrides below.
+#

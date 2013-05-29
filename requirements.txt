@@ -1,4 +1,4 @@
-Django==1.4.5
+Django==1.5.1
 
 django_extensions==1.1.1
 
@@ -28,24 +28,24 @@ sphinx # Sphinx documentation
 # http://pypi.python.org/pypi/sorl-thumbnail/11.12
 sorl-thumbnail==11.12
 
-# http://pypi.python.org/pypi/django-choices/1.1.9
-django-choices==1.1.9
+# http://pypi.python.org/pypi/django-choices/
+django-choices==1.1.11
 
 # http://pypi.python.org/pypi/surlex/0.1.2
 surlex==0.1.2
 
-# http://pypi.python.org/pypi/South/0.7.6
-south==0.7.6
+# http://pypi.python.org/pypi/South
+south==0.8.1
 
 # Django-REST-Framework
-django-filter==0.5.4
+django-filter==0.6
 djangorestframework==2.2.4
 
 # Jenkins integration
 django-jenkins==0.14.0
 
 # Coverage in tests
-coverage==3.5.2
+coverage==3.6
 
 # Tagging
 django-taggit==0.10a1
@@ -53,10 +53,10 @@ django-taggit-autocomplete-modified==0.1.0b4
 
 # Embedding videos and other media
 # https://github.com/coleifer/micawber
-micawber==0.2.5
+micawber==0.2.6
 
 # Used for WallPosts and Blog/News content (as a dependency of django-fluent-contents).
-django_polymorphic==0.4.2
+django_polymorphic==0.5
 
 # Blog/news contents is created using blocks
 django-fluent-contents==0.8.3
@@ -66,9 +66,7 @@ html5lib==0.95
 
 # Admin dashboard improvements
 django-fluent-dashboard==0.3.2
-# django-admin-tools 0.4.1 seems to have disappeared from pypi. Using direct download for now.
-#django-admin-tools>=0.4.1
-https://bitbucket.org/izi/django-admin-tools/downloads/django-admin-tools-0.4.1.tar.gz
+django-admin-tools==0.5.1
 
 # Transifex - for translations!
 transifex-client
@@ -78,7 +76,7 @@ django-templatetag-handlebars
 
 # Cowry dependencies.
 django_countries
-requests==1.1.0
+requests==1.2.3
 #suds-jurko==0.4.1.jurko.4
 # Use a suds-jurko fork with python 2.6 support.
 http://bitbucket.org/onepercentclub/suds/get/6a98691d1188.zip

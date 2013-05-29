@@ -1,11 +1,5 @@
-# NOTE: local.py must be an empty file when using this configuration.
 
-from .defaults import *
-
-# Put jenkins environment specific overrides below.
-
-INSTALLED_APPS += ('django_jenkins',)
-
+# SECRET_KEY and DATABASES needs to be defined before the base settings is imported.
 SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
 
 DATABASES = {
@@ -14,6 +8,14 @@ DATABASES = {
         'NAME': ':memory:',
     },
 }
+
+from .base import *
+
+#
+# Put jenkins environment specific overrides below.
+#
+
+INSTALLED_APPS += ('django_jenkins',)
 
 DEBUG = False
 TEMPLATE_DEBUG = False

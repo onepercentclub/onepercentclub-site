@@ -3,13 +3,13 @@ from datetime import timedelta
 from django.core.exceptions import ValidationError
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
+from django.test.client import MULTIPART_CONTENT, encode_multipart, BOUNDARY
 from django.utils import timezone
 from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase, ProjectPhases
-
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
@@ -297,8 +297,8 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
     """
 
     def setUp(self):
-        self.some_project = self.create_project()
-        self.another_project = self.create_project()
+        self.some_project = self.create_project(slug='someproject')
+        self.another_project = self.create_project(slug='anotherproject')
 
         self.some_user = self.create_user()
         self.another_user = self.create_user()
@@ -333,7 +333,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         # Update the created Project Media WallPost by author.
         new_wallpost_title = 'This is my super-duper project!'
-        response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'project': self.some_project.slug})
+        response = self.client.put(project_wallpost_detail_url, encode_multipart(BOUNDARY, {'title': new_wallpost_title, 'project': self.some_project.slug}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['title'], new_wallpost_title)
 
@@ -407,7 +407,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         some_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, some_wallpost_id)
 
         # Try to connect the photo to this new wallpost
-        response = self.client.put(some_photo_detail_url, {'mediawallpost': some_wallpost_id})
+        response = self.client.put(some_photo_detail_url, encode_multipart(BOUNDARY, {'mediawallpost': some_wallpost_id}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # check that the wallpost now has 1 photo
@@ -440,7 +440,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Make sure the first user can't connect it's picture to someone else's wallpost
         self.client.logout()
         self.client.login(username=self.some_project.owner.username, password='password')
-        response = self.client.put(another_photo_detail_url, {'mediawallpost': another_wallpost_id})
+        response = self.client.put(another_photo_detail_url, encode_multipart(BOUNDARY, {'mediawallpost': another_wallpost_id}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         #  Create a text wallpost. Adding a photo to that should be denied.
@@ -449,11 +449,11 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
                                     {'text': text, 'project': self.another_project.slug})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         text_wallpost_id = response.data['id']
-        response = self.client.put(another_photo_detail_url, {'mediawallpost': another_wallpost_id})
+        response = self.client.put(another_photo_detail_url, encode_multipart(BOUNDARY, {'mediawallpost': another_wallpost_id}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Add that second photo to our first wallpost and verify that will now contain two photos.
-        response = self.client.put(another_photo_detail_url, {'mediawallpost': some_wallpost_id})
+        response = self.client.put(another_photo_detail_url, encode_multipart(BOUNDARY, {'mediawallpost': some_wallpost_id}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         response = self.client.get(some_wallpost_detail_url)
         self.assertEqual(len(response.data['photos']), 2)
@@ -511,7 +511,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # Update TextWallPost by author is allowed
         text2a = 'I like this project!'
         wallpost_detail_url = "{0}{1}".format(self.project_text_wallposts_url, str(response.data['id']))
-        response = self.client.put(wallpost_detail_url, {'text': text2a, 'project': self.some_project.slug})
+        response = self.client.put(wallpost_detail_url, encode_multipart(BOUNDARY, {'text': text2a, 'project': self.some_project.slug}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(text2a in response.data['text'])
 
