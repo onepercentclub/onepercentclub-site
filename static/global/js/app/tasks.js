@@ -179,20 +179,26 @@ App.ProjectTaskNewController = Em.ObjectController.extend({
 });
 
 
-App.TaskEditController = App.ProjectTaskNewController.extend({
+App.ProjectTaskEditController = App.ProjectTaskNewController.extend({
     updateTask: function(event){
         var controller = this;
         var task = this.get('content');
-        task.set('project', this.get('controllers.project.model'));
-        task.set('author', this.get('controllers.currentUser.model'));
-        task.on('didCreate', function(record) {
+        if (task.get('isDirty') == false){
+            controller.transitionToRoute('projectTask', task);
+        }
+        task.on('didUpdate', function(record) {
             controller.get('controllers.projectTaskList').unshiftObject(record);
-            controller.transitionToRoute('project.taskList')
+            controller.transitionToRoute('projectTask', task);
         });
         task.on('becameInvalid', function(record) {
             controller.set('errors', record.get('errors'));
         });
         task.transaction.commit();
+    },
+    cancelChangesToTask: function(event){
+        var task = this.get('content');
+        task.transaction.rollback();
+        this.transitionToRoute('projectTask', task);
     }
 
 });
@@ -242,7 +248,7 @@ App.ProjectTaskNewView = Em.View.extend({
 });
 
 
-App.TaskEditView = Em.View.extend({
+App.ProjectTaskEditView = Em.View.extend({
     templateName: 'task_edit',
     tagName: 'form',
 
