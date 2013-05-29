@@ -1,5 +1,4 @@
 # coding=utf-8
-
 # Django settings for bluebottle project.
 
 import os

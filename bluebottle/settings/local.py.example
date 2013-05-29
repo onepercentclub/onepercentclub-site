@@ -6,7 +6,9 @@ except ImportError:
 
 from .defaults import *
 
+#
 # Put your local settings overrides below. There are some commented out defaults to get you started.
+#
 
 #import logging
 ## Log debug messages to standard output by default
