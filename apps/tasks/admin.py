@@ -5,32 +5,20 @@ from django.forms import ModelForm
 from django.forms.models import ModelChoiceField
 
 
-class TaskMemberForm(ModelForm):
-    member = ModelChoiceField(queryset=User.objects.order_by('username'))
-
-    class Meta:
-        model = TaskMember
-
-
 class TaskMemberAdminInline(admin.StackedInline):
     model = TaskMember
-    form = TaskMemberForm
 
+    raw_id_fields = ('member', )
     readonly_fields = ('created', )
     fields =  readonly_fields + ('member', 'status')
     extra = 1
 
 
-class TaskFileForm(ModelForm):
-    author = ModelChoiceField(queryset=User.objects.order_by('username'))
-
-    class Meta:
-        model = TaskFile
-
 
 class TaskFileAdminInline(admin.StackedInline):
     model = TaskFile
 
+    raw_id_fields = ('author', )
     readonly_fields = ('created', )
     fields =  readonly_fields + ('author', 'file')
     extra = 1
@@ -49,6 +37,7 @@ class TaskAdmin(admin.ModelAdmin):
 
     inlines = (TaskMemberAdminInline, TaskFileAdminInline, )
 
+    raw_id_fields = ('author', )
     list_filter = ('status', )
     list_display = ('title', 'project', 'status')
 
