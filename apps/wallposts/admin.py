@@ -9,15 +9,18 @@ from .models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto, R
 class MediaWallPostPhotoInline(AdminImageMixin, admin.StackedInline):
     model = MediaWallPostPhoto
     extra = 0
+    raw_id_fields = ('author', 'editor')
 
 
 class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
+    raw_id_fields = ('author', 'editor')
     inlines = (MediaWallPostPhotoInline,)
 
 
 class TextWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
+    raw_id_fields = ('author', 'editor')
 
 
 class WallPostParentAdmin(PolymorphicParentModelAdmin):

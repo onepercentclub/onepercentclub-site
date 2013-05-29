@@ -59,6 +59,8 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
         'owner__first_name', 'owner__last_name'
     )
 
+    raw_id_fields = ('owner', )
+
     def thumbnail(self, instance):
         """
         Generate a nice little thumbnail for our project.
