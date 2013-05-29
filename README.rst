@@ -46,42 +46,28 @@ collaborate at the
 
 Settings
 --------
-The project has settings for every environment in the DTAP scheme. They can be
-found in `bluebottle/settings`:
+Bluebottle has different settings for different environments as described in the "Settings and Requirements Files"
+chapter of `2 Scoops of Django <https://django.2scoops.org/>`_. The settings can be found in `bluebottle/settings`:
 
-    * `jenkins.py`: Settings for continuous integration environment.
-    * `dev.py`: Settings for development environment.
-    * `testing.py`: Settings for testing environment.
-    * `staging.py`: Settings for staging environment.
-    * `production.py`: Production settings.
+    * `base.py`: Project defaults used in any settings environment.
+    * `secrets.py`: Used for storing passwords, API keys etc. This is not stored in Git.
+    * `local.py`: Local settings used in personal development environment. This is not stored in Git.
+    * `jenkins.py`: Settings for our Jenkins setup.
+    * `travis.py`: Settings for Travis CI.
+    * `dev.py`: Settings for the development server.
+    * `testing.py`: Settings for the testing server.
+    * `production.py`: Settings for the testing server.
 
-Specific settings can be used by setting the environment variable
-`DJANGO_SETTINGS_MODULE` to `bluebottle.settings.environment`::
+Specific settings can be used by setting the environment variable `DJANGO_SETTINGS_MODULE` to
+`bluebottle.settings.<settings name>`::
 
-    export DJANGO_SETTINGS_MODULE=bluebottle.settings.production
+    export DJANGO_SETTINGS_MODULE=bluebottle.settings.local
 
-Apart from these environment specific settings, the following settings exist:
+Alternately you can specify the settings manually when you use `./manage.py`::
 
-    * `defaults.py`: Project defaults used in any settings environment.
-    * `secrets.py`: Used for storing passwords, API keys etcetera, kept out of the scope of Git.
-    * `local.py`: Local settings overrides, based off `defaults.py`. Not stored in Git.
+    ./manage.py runserver --settings=bluebottle.settings.local
 
-If no settings are explicitly chosen using `DJANGO_SETTINGS_MODEL`, the
-`local.py` settings are loaded, defaulting to override `defaults.py`
-settings.
 
-When not using the default settings imported from `local.py`, you must ensure that `local.py`
-is an empty file otherwise the site will not work properly.
-
-Rationale
-*********
-As to allow for convenient overriding a chaining import pattern is used, where
-the used settings (ie. `local.py`) imports more generic settings which, in
-turn, imports more generic settings. The exception being `secrets.py` which
-should be minimal and should not require other settings to be available. For
-more information on the used settings pattern, consult the
-`SplitSettings <https://code.djangoproject.com/wiki/SplitSettings#SimplePackageOrganizationforEnvironments>`_
-page in the Django Wiki.
 
 Fixtures
 --------
