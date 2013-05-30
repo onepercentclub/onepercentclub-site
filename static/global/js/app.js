@@ -902,10 +902,10 @@ App.SignupRoute = Ember.Route.extend({
     model: function() {
         var transaction = this.get('store').transaction();
 
-        var user = transaction.createRecord(App.User, {});
-        return user;
+        return transaction.createRecord(App.User, {});
     }
 });
+
 
 /**
  * Tasks Routes
