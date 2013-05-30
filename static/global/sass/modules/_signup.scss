@@ -1,0 +1,33 @@
+.form-signup {
+	.control-group .controls {
+		@include grid(32, 0);
+	}
+}
+
+.widget-login {
+	@include rem('margin-top', 32px);
+}
+
+.widget-member-advantage {
+	@include rem('margin-top', 32px);
+	@include rem('padding', $padding);
+	background: $white;
+
+	.widget-icon {
+		@include rem('font-size', 200px);
+		text-align: center;
+		color: $grayLighter;
+		line-height: 1;
+	}
+
+	.widget-header {
+		color: $green;
+		text-transform: uppercase;
+		font-weight: 300;
+	}
+
+	.widget-body {
+		@include rem('font-size', 14px);
+		color: $gray;
+	}
+}

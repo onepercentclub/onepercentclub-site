@@ -11,10 +11,12 @@ legend {
 
     strong {
         @include rem(font-size, $fontSizeLarge);
+        @include rem(margin-bottom, 8px);
         color: $white;
         text-transform: uppercase;
         font-weight: 300;
         line-height: 1;
+        display: block;
     }
 
     p {
@@ -208,6 +210,12 @@ input[type="checkbox"]:checked + span {
 
 input[type="radio"]:checked + span {
     background: url("../images/form-radio-checked.png") transparent no-repeat 0 0;
+}
+
+.radio-group-horizontal {
+    .radio3 {
+        @include grid(16);
+    }
 }
 
 // Disabled state

@@ -1,16 +1,14 @@
-from apps.bluebottle_drf2.serializers import MemberPreviewSerializer, SlugGenericRelatedField, PrimaryKeyGenericRelatedField, HyperlinkedFileField, FileSizeField
+from apps.bluebottle_drf2.serializers import PrimaryKeyGenericRelatedField, HyperlinkedFileField, FileSizeField
 from apps.bluebottle_utils.serializers import TagSerializer
-from apps.projects.models import Project
-from apps.projects.serializers import ProjectPreviewSerializer
+from apps.accounts.serializers import UserPreviewSerializer
 from apps.tasks.models import Task, TaskMember, TaskFile
-from apps.wallposts.models import TextWallPost, MediaWallPost
-from apps.wallposts.serializers import MediaWallPostSerializer, TextWallPostSerializer
+from apps.wallposts.serializers import TextWallPostSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 
 
 class TaskPreviewSerializer(serializers.ModelSerializer):
-    author = MemberPreviewSerializer()
+    author = UserPreviewSerializer()
 
     class Meta:
         model = Task
@@ -18,7 +16,7 @@ class TaskPreviewSerializer(serializers.ModelSerializer):
 
 
 class TaskMemberSerializer(serializers.ModelSerializer):
-    member = MemberPreviewSerializer()
+    member = UserPreviewSerializer()
     task = serializers.PrimaryKeyRelatedField()
     status = serializers.ChoiceField(choices=TaskMember.TaskMemberStatuses.choices, required=False, default=TaskMember.TaskMemberStatuses.applied)
 
@@ -28,7 +26,7 @@ class TaskMemberSerializer(serializers.ModelSerializer):
 
 
 class TaskFileSerializer(serializers.ModelSerializer):
-    author = MemberPreviewSerializer()
+    author = UserPreviewSerializer()
     task = serializers.PrimaryKeyRelatedField()
     file = HyperlinkedFileField()
     file_size = FileSizeField(source='file', read_only=True)
@@ -42,7 +40,7 @@ class TaskSerializer(serializers.ModelSerializer):
     members = TaskMemberSerializer(many=True, source='taskmember_set')
     files = TaskFileSerializer(many=True, source='taskfile_set')
     project = serializers.SlugRelatedField(slug_field='slug')
-    author = MemberPreviewSerializer()
+    author = UserPreviewSerializer()
     #tags = serializers.RelatedField(many=True)
     tags = TagSerializer(many=True)
 

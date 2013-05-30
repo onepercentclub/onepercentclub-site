@@ -56,7 +56,6 @@ def generate_picture_filename(instance, filename):
 
 class UserProfileCreationError(Exception):
     """ The UserProfile could not be created. """
-
     pass
 
 
@@ -72,6 +71,16 @@ class UserProfile(models.Model):
         male = ChoiceItem('male', label=_("Male"))
         female = ChoiceItem('female', label=_("Female"))
         other = ChoiceItem('other', label=_("Other"))
+
+    class Availability(DjangoChoices):
+        one_to_four_week = ChoiceItem('1-4_hours_week', label=_("1-4 hours per week"))
+        five_to_eight_week = ChoiceItem('5-8_hours_week', label=_("5-8 hours per week"))
+        nine_to_sixteen_week = ChoiceItem('9-16_hours_week', label=_("9-16 hours per week"))
+        one_to_four_month = ChoiceItem('1-4_hours_month', label=_("1-4 hours per month"))
+        five_to_eight_month = ChoiceItem('5-8_hours_month', label=_("5-8 hours per month"))
+        nine_to_sixteen_month = ChoiceItem('9-16_hours_month', label=_("9-16 hours per month"))
+        lots_of_time = ChoiceItem('lots_of_time', label=_("I have all the time in the world. Bring it on :D"))
+        depends_on_task = ChoiceItem('depends', label=_("It depends on the content of the tasks. Challenge me!"))
 
     # The Django User model
     user = models.OneToOneField(User, verbose_name=_("user"))
@@ -92,10 +101,12 @@ class UserProfile(models.Model):
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
     # In-depth profile information
-    about = models.TextField(_("about"), blank=True)
-    why = models.TextField(_("why"), blank=True)
+    about = models.TextField(_("about"), max_length=265, blank=True)
+    why = models.TextField(_("why"), max_length=265, blank=True)
+    # FIXME: Do we want the contribution field? It's not in the salesforce fields spreadsheet.
     contribution = models.TextField(_("contribution"), blank=True)
-    availability = models.CharField(_("availability"), max_length=255, blank=True)
+    availability = models.CharField(_("availability"), max_length=25, blank=True, choices=Availability.choices)
+    # FIXME: Look into this, this is not in the design.
     working_location = models.CharField(_("working location"), max_length=255, blank=True)
 
     tags = TaggableManager(verbose_name=_("tags"), blank=True)

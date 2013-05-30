@@ -1,10 +1,21 @@
 from django.conf.urls import patterns, url
 from surlex.dj import surl
-from .views import MemberProfileDetail, AuthenticatedUser, MemberSettingsDetail, UserCreation
+from .views import UserProfileDetail, CurrentUser, UserSettingsDetail, UserCreate
+
+# Public User API:
+#
+# User Create (POST):      /users/
+# User Detail (GET/PUT):   /users/<pk>
+#
+# Authenticated User API:
+#
+# Logged in user (GET):            /users/current
+# User settings Detail (GET/PUT):  /users/settings/<pk>
 
 urlpatterns = patterns('',
-    surl(r'^<pk:#>$', MemberProfileDetail.as_view(), name='member-profile-detail'),
-    url(r'^current$', AuthenticatedUser.as_view(), name='member-current'),
-    surl(r'^settings/<username:s>$', MemberSettingsDetail.as_view(), name='member-settings-detail'),
-    surl(r'^usercreation', UserCreation.as_view(), name='user-creation')
+    url(r'^$', UserCreate.as_view(), name='user-user-create'),
+    surl(r'^<pk:#>$', UserProfileDetail.as_view(), name='user-profile-detail'),
+    url(r'^current$', CurrentUser.as_view(), name='user-current'),
+    # FIXME: Change this to pk when we have a unified user model.
+    surl(r'^settings/<user_id:#>$', UserSettingsDetail.as_view(), name='user-settings-detail'),
 )

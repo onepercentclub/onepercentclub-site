@@ -200,8 +200,9 @@ App.ApplicationController = Ember.Controller.extend({
     needs: ['currentUser']
 });
 
-App.SettingsController = Ember.ObjectController.extend({
-    addFile: function(file) {
+
+App.ProfileController = Ember.ObjectController.extend({
+    addPhoto: function(file) {
         this.set('model.file', file);
     }
 });
@@ -335,10 +336,14 @@ App.Router.map(function() {
         this.route('code', {path: '/:code'});
     });
 
-    this.resource('settings', {path: '/settings'});
     this.resource('taskList', {path: '/tasks'});
-});
+    this.resource('signup');
 
+    this.resource('user', {path: '/member'}, function() {
+        this.resource('userProfile', {path: '/profile'});
+        this.resource('userSettings', {path: '/settings'});
+    });
+});
 
 App.ApplicationRoute = Ember.Route.extend({
 
@@ -360,6 +365,7 @@ App.ApplicationRoute = Ember.Route.extend({
             document.location = '/' + language + document.location.hash;
             return true;
         },
+
         openInBigBox: function(name, context){
             // Get the controller or create one
             var controller = this.controllerFor(name);
@@ -826,26 +832,107 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
     }
 });
 
-/**
- * Member Settings Routes
- * @see http://darthdeus.github.io/blog/2013/02/02/using-transactions-in-ember-data/
- */
-App.SettingsRoute = Ember.Route.extend({
+App.UserIndexRoute = Ember.Route.extend({
+    redirect: function() {
+        this.transitionTo('userProfile');
+    }
+});
+
+App.UserProfileRoute = Ember.Route.extend({
     model: function() {
         var route = this;
 
-        return App.User.find('current').then(function (user) {
-            var transaction = route.get('store').transaction();
-            var settings = App.MemberSettings.find(user.get('username'));
+        /*
+         This workaround will be no longer required with the new async router API,
+         (RC 4) which treats transitionTo's the same as URL based transitions
+         */
+        return App.CurrentUser.find('current').then(function(user) {
+            var profile = App.User.find(user.get('id_for_ember'));
+            var controller = route.controllerFor('userProfile');
 
-            transaction.add(settings);
+            controller.set('model', profile);
+            controller.startEditing();
+
+            return profile;
+        });
+    },
+
+    exit: function() {
+        this._super();
+
+        var controller = this.controllerFor('userProfile');
+        var model = controller.get('model');
+        var transaction = model.get('transaction');
+
+        if (model.get('isDirty')) {
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: 'Save changed data?',
+                message: 'You have some unsaved changes. Do you want to save before you leave?',
+                primary: 'Save',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
+        }
+    }
+});
+
+App.UserSettingsRoute = Ember.Route.extend({
+
+    model: function() {
+        var route = this;
+
+        /*
+         This workaround will be no longer required with the new async router API,
+         (RC 4) which treats transitionTo's the same as URL based transitions
+         */
+        return App.CurrentUser.find('current').then(function(user) {
+            var settings = App.UserSettings.find(user.get('id_for_ember'));
+            var controller = route.controllerFor('userSettings');
+
+            controller.set('model', settings);
+            controller.startEditing();
+
             return settings;
         });
     },
 
-    events: {
-        saveSettings: function(settings) {
-            settings.get('transaction').commit();
+    exit: function() {
+        this._super();
+
+        var controller = this.controllerFor('userSettings');
+        var model = controller.get('model');
+        var transaction = model.get('transaction');
+
+        if (model.get('isDirty')) {
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: 'Save changed data?',
+                message: 'You have some unsaved changes. Do you want to save before you leave?',
+                primary: 'Save',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
         }
     }
 });
@@ -857,6 +944,28 @@ App.SettingsRoute = Ember.Route.extend({
 App.TaskListRoute =  Ember.Route.extend({
     model: function(params) {
         return App.Task.find();
+    }
+});
+
+App.SignupRoute = Ember.Route.extend({
+    redirect: function() {
+        if (this.controllerFor('currentUser').get('isAuthenticated')) {
+            this.transitionTo('home');
+        }
+    },
+
+    model: function() {
+        var transaction = this.get('store').transaction();
+
+        var user = transaction.createRecord(App.User, {});
+        return user;
+    },
+
+    events: {
+        createUser: function(user) {
+            user.set('url', 'members/usercreation');
+            user.get('transaction').commit();
+        }
     }
 });
 
@@ -889,4 +998,5 @@ App.LoginView = Em.View.extend({
         return  String(window.location);
     }.property()
 });
+
 
