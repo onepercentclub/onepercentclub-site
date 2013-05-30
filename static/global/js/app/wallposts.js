@@ -302,6 +302,8 @@ App.UploadFileView = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
+    contentBinding: 'parentView.controller.content',
+
     change: function(e) {
         var controller = this.get('controller');
         var files = e.target.files;

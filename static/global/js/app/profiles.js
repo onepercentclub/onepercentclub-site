@@ -135,14 +135,10 @@ App.UserController = Ember.Controller.extend({
 
 App.UserProfileController = Ember.ObjectController.extend({
     startEditing: function() {
-        this.transaction = this.get('store').transaction();
-        this.transaction.add(this.get('model'));
-    },
-
-    stopEditing: function() {
-        if (this.transaction) {
-            this.transaction.rollback();
-            this.transaction = null;
+        var model = this.get('model');
+        if (model.transaction.isDefault == true) {
+            this.transaction = this.get('store').transaction();
+            this.transaction.add(model);
         }
     },
 
@@ -171,14 +167,10 @@ App.UserProfileController = Ember.ObjectController.extend({
 
 App.UserSettingsController = Ember.ObjectController.extend({
     startEditing: function() {
-        this.transaction = this.get('store').transaction();
-        this.transaction.add(this.get('model'));
-    },
-
-    stopEditing: function() {
-        if (this.transaction) {
-            this.transaction.rollback();
-            this.transaction = null;
+        var model = this.get('model');
+        if (model.transaction.isDefault == true) {
+            this.transaction = this.get('store').transaction();
+            this.transaction.add(model);
         }
     },
 

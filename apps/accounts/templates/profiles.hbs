@@ -20,14 +20,14 @@
 
             <ul class="tabs">
                 <li class="tab-item">
-                    {{#linkTo user.profile }}
+                    {{#linkTo userProfile }}
                         <em class="tab-icon amount"><i class="icon-user"></i></em>
                         <strong class="tab-title">{% trans "Profile info" %} <em class="tab-subtitle">{% trans "Public info" %}</em></strong>
                     {{/linkTo}}
                 </li>
 
                 <li class="tab-item">
-                    {{#linkTo user.settings }}
+                    {{#linkTo userSettings }}
                         <em class="tab-icon amount"><i class="icon-cog"></i></em>
                         <strong class="tab-title">{% trans "Account" %} <em class="tab-subtitle">{% trans "Settings" %}</em></strong>
                     {{/linkTo}}
@@ -44,7 +44,7 @@
 
 {% endtplhandlebars %}
 
-{% tplhandlebars "user/profile" %}
+{% tplhandlebars "userProfile" %}
 
 <section class="wrapper">
     <div class="content">
@@ -175,7 +175,7 @@
 
 {% endtplhandlebars %}
 
-{% tplhandlebars "user/settings" %}
+{% tplhandlebars "userSettings" %}
 
 <section class="wrapper">
     <div class="content">

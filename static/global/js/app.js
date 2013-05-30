@@ -339,9 +339,9 @@ App.Router.map(function() {
     this.resource('taskList', {path: '/tasks'});
     this.resource('signup');
 
-    this.resource('user', function() {
-        this.route('profile');
-        this.route('settings');
+    this.resource('user', {path: '/member'}, function() {
+        this.resource('userProfile', {path: '/profile'});
+        this.resource('userSettings', {path: '/settings'});
     });
 });
 
@@ -832,34 +832,11 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
     }
 });
 
-/*
-
-App.UserProfileRoute = Ember.Route.extend({
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        controller.startEditing();
-    },
-
-    exit: function() {
-        this._super();
-        this.controllerFor('user.profile').stopEditing();
+App.UserIndexRoute = Ember.Route.extend({
+    redirect: function() {
+        this.transitionTo('userProfile');
     }
 });
-
-App.UserSettingsRoute = Ember.Route.extend({
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        controller.startEditing();
-    },
-
-    exit: function() {
-        this._super();
-        this.controllerFor('user.settings').stopEditing();
-    }
-});
-
-*/
-
 
 App.UserProfileRoute = Ember.Route.extend({
     model: function() {
@@ -871,7 +848,7 @@ App.UserProfileRoute = Ember.Route.extend({
          */
         return App.CurrentUser.find('current').then(function(user) {
             var profile = App.User.find(user.get('id_for_ember'));
-            var controller = route.controllerFor('user.profile');
+            var controller = route.controllerFor('userProfile');
 
             controller.set('model', profile);
             controller.startEditing();
@@ -882,7 +859,31 @@ App.UserProfileRoute = Ember.Route.extend({
 
     exit: function() {
         this._super();
-        this.controllerFor('user.profile').stopEditing();
+
+        var controller = this.controllerFor('userProfile');
+        var model = controller.get('model');
+        var transaction = model.get('transaction');
+
+        if (model.get('isDirty')) {
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: 'Save changed data?',
+                message: 'You have some unsaved changes. Do you want to save before you leave?',
+                primary: 'Save',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
+        }
     }
 });
 
@@ -896,19 +897,43 @@ App.UserSettingsRoute = Ember.Route.extend({
          (RC 4) which treats transitionTo's the same as URL based transitions
          */
         return App.CurrentUser.find('current').then(function(user) {
-            var usersettings = App.UserSettings.find(user.get('id_for_ember'));
-            var controller = route.controllerFor('user.settings');
+            var settings = App.UserSettings.find(user.get('id_for_ember'));
+            var controller = route.controllerFor('userSettings');
 
-            controller.set('model', usersettings);
+            controller.set('model', settings);
             controller.startEditing();
 
-            return usersettings;
+            return settings;
         });
     },
 
     exit: function() {
         this._super();
-        this.controllerFor('user.settings').stopEditing();
+
+        var controller = this.controllerFor('userSettings');
+        var model = controller.get('model');
+        var transaction = model.get('transaction');
+
+        if (model.get('isDirty')) {
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: 'Save changed data?',
+                message: 'You have some unsaved changes. Do you want to save before you leave?',
+                primary: 'Save',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
+        }
     }
 });
 
