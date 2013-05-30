@@ -333,6 +333,12 @@ App.DeleteModelMixin = Em.Mixin.create({
     }
 });
 
+
+/*
+ Mixin that controllers with editable models can use. E.g. App.UserProfileController
+
+ @see App.UserProfileRoute and App.UserProfileController to see it in action.
+ */
 App.Editable = Ember.Mixin.create({
     startEditing: function() {
         var record = this.get('model');

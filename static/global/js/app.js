@@ -838,6 +838,7 @@ App.UserIndexRoute = Ember.Route.extend({
     }
 });
 
+
 App.UserProfileRoute = Ember.Route.extend({
     model: function() {
         var route = this;
@@ -862,6 +863,7 @@ App.UserProfileRoute = Ember.Route.extend({
         this.controllerFor('userProfile').stopEditing();
     }
 });
+
 
 App.UserSettingsRoute = Ember.Route.extend({
 
@@ -889,15 +891,6 @@ App.UserSettingsRoute = Ember.Route.extend({
     }
 });
 
-/**
- * Tasks Routes
- */
-
-App.TaskListRoute =  Ember.Route.extend({
-    model: function(params) {
-        return App.Task.find();
-    }
-});
 
 App.SignupRoute = Ember.Route.extend({
     redirect: function() {
@@ -911,13 +904,16 @@ App.SignupRoute = Ember.Route.extend({
 
         var user = transaction.createRecord(App.User, {});
         return user;
-    },
+    }
+});
 
-    events: {
-        createUser: function(user) {
-            user.set('url', 'members/usercreation');
-            user.get('transaction').commit();
-        }
+/**
+ * Tasks Routes
+ */
+
+App.TaskListRoute =  Ember.Route.extend({
+    model: function(params) {
+        return App.Task.find();
     }
 });
 

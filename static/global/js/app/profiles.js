@@ -129,9 +129,11 @@ App.CurrentUserController = Em.ObjectController.extend({
     }.property('username')
 });
 
+
 App.UserController = Ember.Controller.extend({
     needs: "currentUser"
 });
+
 
 App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
     timeAvailableList: (function() {
@@ -157,8 +159,20 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
     }
 });
 
+
 App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
     save: function(settings) {
         settings.get('transaction').commit();
     }
 });
+
+
+App.SignupController = Ember.ObjectController.extend({
+    needs: "currentUser",
+
+    createUser: function(user) {
+        user.set('url', 'members/usercreation');
+        user.get('transaction').commit();
+    }
+});
+
