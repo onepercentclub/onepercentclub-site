@@ -170,6 +170,14 @@ App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
 });
 
 
+App.UserModalController = Ember.ObjectController.extend({
+    loadProfile: function() {
+        var model = this.get('model');
+        this.set('model', App.User.find(model.get('id')));
+    }.observes('model')
+});
+
+
 App.SignupController = Ember.ObjectController.extend({
     needs: "currentUser",
 
@@ -181,3 +189,7 @@ App.SignupController = Ember.ObjectController.extend({
     }
 });
 
+
+App.UserModalView = Em.View.extend({
+    templateName: 'user_modal'
+});
