@@ -129,19 +129,13 @@ App.CurrentUserController = Em.ObjectController.extend({
     }.property('username')
 });
 
+
 App.UserController = Ember.Controller.extend({
     needs: "currentUser"
 });
 
-App.UserProfileController = Ember.ObjectController.extend({
-    startEditing: function() {
-        var model = this.get('model');
-        if (model.transaction.isDefault == true) {
-            this.transaction = this.get('store').transaction();
-            this.transaction.add(model);
-        }
-    },
 
+App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
     timeAvailableList: (function() {
         var list;
         list = Em.A();
@@ -165,16 +159,20 @@ App.UserProfileController = Ember.ObjectController.extend({
     }
 });
 
-App.UserSettingsController = Ember.ObjectController.extend({
-    startEditing: function() {
-        var model = this.get('model');
-        if (model.transaction.isDefault == true) {
-            this.transaction = this.get('store').transaction();
-            this.transaction.add(model);
-        }
-    },
 
+App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
     save: function(settings) {
         settings.get('transaction').commit();
     }
 });
+
+
+App.SignupController = Ember.ObjectController.extend({
+    needs: "currentUser",
+
+    createUser: function(user) {
+        user.set('url', 'members/usercreation');
+        user.get('transaction').commit();
+    }
+});
+
