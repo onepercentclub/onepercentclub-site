@@ -25,8 +25,8 @@ App.User = DS.Model.extend({
     date_joined: DS.attr('date'),
 
     // post-only fields (i.e. only used for user creation)
-    //email: DS.attr('string'),
-    //password: DS.attr('string'),
+    email: DS.attr('string'),
+    password: DS.attr('string'),
 
     getPicture: function() {
         if (this.get('picture')) {
@@ -55,8 +55,11 @@ App.User = DS.Model.extend({
 
     didUpdate: function() {
         alert('Your profile info is updated.');
-    }
+    },
 
+    didCreate: function() {
+        alert('Your account is created. You should be able to sign in now.');
+    }
 });
 
 /*
@@ -171,7 +174,9 @@ App.SignupController = Ember.ObjectController.extend({
     needs: "currentUser",
 
     createUser: function(user) {
-        user.set('url', 'members/usercreation');
+        // FIXME: This is only temporary. As soon as username is not compulsory, get this line OUTTA HERE!!
+        user.set('username', 'user' + new Date().getTime());
+        user.set('url', 'users');
         user.get('transaction').commit();
     }
 });
