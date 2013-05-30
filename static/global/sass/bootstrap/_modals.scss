@@ -58,6 +58,7 @@
 
 
 .modal-header {
+  @include clearfix;
   padding: 9px 15px;
   border-bottom: 1px solid #eee;
   // Close icon

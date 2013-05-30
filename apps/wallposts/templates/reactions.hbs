@@ -5,7 +5,7 @@
 {% tplhandlebars "wallpost_reaction" %}
 
 	<span class="user-img">
-        <a {{action openInBigBox "memberProfile" author}} class="user">
+        <a {{action openInBigBox "userModal" author}} class="user">
             <img {{ bindAttr src="author.getAvatar" }} width="100%" alt="Avatar" />
         </a>
     </span>

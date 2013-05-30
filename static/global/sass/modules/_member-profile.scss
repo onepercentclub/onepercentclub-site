@@ -1,4 +1,4 @@
-.mp-sidebar {
+.user-modal-sidebar {
   @include rem(padding, $padding + 8);
   position: absolute;
   top: 0;
@@ -20,7 +20,7 @@
   }
 }
 
-.mp-content {
+.user-modal-content {
   @include grid(48, 18, 3);
 
   color: #767676;
@@ -34,13 +34,13 @@
   @include rem(line-height, 22px);
 }
 
-.mp-meta {
+.um-meta {
   @include clearfix;
 
   color: $gray;
 }
 
-.mp-meta-item {
+.um-meta-item {
   @include clearfix;
 
   &:first-of-type {
