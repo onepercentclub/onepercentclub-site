@@ -235,10 +235,10 @@
                         </label>
 
                         <div class="controls">
-                            {{#view Em.RadioButtonGroup name="gender" selectedValueBinding="gender"}}
-                                {{view view.RadioButton value="other"}}<span>{% trans "reset" %}</span>
-                                {{view view.RadioButton value="male"}}<span>{% trans "male" %}</span>
-                                {{view view.RadioButton value="female"}}<span>{% trans "female" %}</span>
+                            {{#view Em.RadioButtonGroup name="gender" selectedValueBinding="gender" class="radio-group-horizontal"}}
+                                <div class="radio3">{{view view.RadioButton value="other"}}<span>{% trans "reset" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value="male"}}<span>{% trans "male" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value="female"}}<span>{% trans "female" %}</span></div>
                             {{/view}}
                         </div>
                     </li>

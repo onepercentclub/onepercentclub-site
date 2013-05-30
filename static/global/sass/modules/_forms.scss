@@ -212,6 +212,12 @@ input[type="radio"]:checked + span {
     background: url("../images/form-radio-checked.png") transparent no-repeat 0 0;
 }
 
+.radio-group-horizontal {
+    .radio3 {
+        @include grid(16);
+    }
+}
+
 // Disabled state
 // -------------------------
 
