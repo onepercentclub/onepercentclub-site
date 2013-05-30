@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
 from rest_framework import generics
 from django.utils.translation import ugettext_lazy as _
-from .serializers import CurrentUserSerializer, UserSerializer, UserSettingsSerializer
+from .serializers import CurrentUserSerializer, UserProfileSerializer, UserSettingsSerializer, UserCreateSerializer
 from .models import UserProfile
 from .permissions import IsCurrentUser
 
@@ -11,12 +11,12 @@ from .permissions import IsCurrentUser
 
 class UserCreate(generics.CreateAPIView):
     model = User
-    serializer_class = UserSerializer
+    serializer_class = UserCreateSerializer
 
 
 class UserProfileDetail(generics.RetrieveUpdateAPIView):
     model = User
-    serializer_class = UserSerializer
+    serializer_class = UserProfileSerializer
 
 
 class UserSettingsDetail(generics.RetrieveUpdateAPIView):

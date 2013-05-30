@@ -5,7 +5,7 @@ from .views import UserProfileDetail, CurrentUser, UserSettingsDetail, UserCreat
 # Public User API:
 #
 # User Create (POST):      /users/
-# User Detail (GET/PUT):   /users/<pk>
+# User Detail (GET/PUT):   /users/profiles/<pk>
 #
 # Authenticated User API:
 #
@@ -14,7 +14,7 @@ from .views import UserProfileDetail, CurrentUser, UserSettingsDetail, UserCreat
 
 urlpatterns = patterns('',
     url(r'^$', UserCreate.as_view(), name='user-user-create'),
-    surl(r'^<pk:#>$', UserProfileDetail.as_view(), name='user-profile-detail'),
+    surl(r'^profiles/<pk:#>$', UserProfileDetail.as_view(), name='user-profile-detail'),
     url(r'^current$', CurrentUser.as_view(), name='user-current'),
     # FIXME: Change this to pk when we have a unified user model.
     surl(r'^settings/<user_id:#>$', UserSettingsDetail.as_view(), name='user-settings-detail'),
