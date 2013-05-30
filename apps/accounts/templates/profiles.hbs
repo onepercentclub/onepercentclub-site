@@ -51,20 +51,21 @@
         {{#if isLoaded}}
             <form>
                 <div class="form-meta">
-                    <p class="form-label">Here comes the title of the form</p>
+                    <div class="form-label">{% trans "Edit your profile" %}</div>
+                    <div class="form-desc">{% trans "Personalise your account so 1%MEMBERS can get to know you!" %}</div>
                 </div>
 
                 <fieldset>
                     <ul>
                         <li class="control-group">
                             <label class="control-label">
-                                {% trans "Your fullname" %}
+                                {% trans "Name" %}
                             </label>
 
                             <div class="controls">
                                 {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
 
-                                {{view Em.TextField valueBinding="last_name" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
+                                {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
                             </div>
 
                             {# TODO: Error Handling #}
@@ -94,11 +95,11 @@
                     <ul>
                         <li class="control-group">
                             <label class="control-label">
-                                {% trans "About yourself" %}
+                                {% trans "About Yourself" %}
                             </label>
 
                             <div class="controls">
-                                {{view Em.TextArea valueBinding="about" maxlength="265" placeholder="Tell a little about yourself so we can get to know you..." classBinding="errors.about.length:error"}}
+                                {{view Em.TextArea valueBinding="about" maxlength="265" placeholder="Tell us a bit about yourself so we can get to know you!" classBinding="errors.about.length:error"}}
                             </div>
 
                             {{#if errors.about}}
@@ -112,7 +113,7 @@
                             </label>
 
                             <div class="controls">
-                                {{view Em.TextArea valueBinding="why" maxlength="265" placeholder="What is your reason to be part of the 1%CLUB?" classBinding="errors.why.length:error"}}
+                                {{view Em.TextArea valueBinding="why" maxlength="265" placeholder="Tell the world why you chose to join 1%CLUB!" classBinding="errors.why.length:error"}}
                             </div>
 
                             {{#if errors.why}}
@@ -140,7 +141,8 @@
 
                 <fieldset>
                     <legend>
-                        <strong>{% trans "In-depth information" %}</strong>
+                        <strong>{% trans "1%SKILLS" %}</strong>
+                        <p>{% trans "If you have any skills or experience that you think could help a smart idea (For example: if you’re a great graphic designer or an awesome accountant) please add them here." %}</p>
                     </legend>
 
                     <ul>
@@ -182,15 +184,15 @@
 
         <form>
             <div class="form-meta">
-                <p class="form-label">Here comes the title of the form</p>
-                <p class="form-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <div class="form-label">{% trans "Edit your account" %}</div>
+                <div class="form-desc">{% trans "These are the details we currently have for you – update or change them below." %}</div>
             </div>
 
             <fieldset>
                 <ul>
                     <li class="control-group">
                         <label class="control-label">
-                            {% trans "Email address" %}
+                            {% trans "Email Address" %}
                         </label>
 
                         <div class="controls">
@@ -206,7 +208,7 @@
                 <ul>
                     <li class="control-group">
                         <label class="control-label">
-                            {% trans "Receive email about" %}
+                            {% trans "I'd like to receive email about" %}
                         </label>
 
                         <div class="controls">
@@ -223,8 +225,8 @@
 
             <fieldset>
                 <legend>
-                    <strong>{% trans "This is a subtitle in  a form" %}</strong>
-                    <p></p>
+                    <strong>{% trans "Personal Details" %}</strong>
+                    <p>{% trans "Only 1%CLUB can see your personal details. They won’t be published anywhere on the 1%CLUB website." %}</p>
                 </legend>
                 <ul>
                     <li class="control-group">
@@ -243,7 +245,7 @@
 
                     <li class="control-group">
                         <label class="control-label">
-                            {% trans "Birthday" %}
+                            {% trans "Date of birth" %}
                         </label>
 
                         <div class="controls">

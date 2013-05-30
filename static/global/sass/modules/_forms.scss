@@ -11,10 +11,12 @@ legend {
 
     strong {
         @include rem(font-size, $fontSizeLarge);
+        @include rem(margin-bottom, 8px);
         color: $white;
         text-transform: uppercase;
         font-weight: 300;
         line-height: 1;
+        display: block;
     }
 
     p {
