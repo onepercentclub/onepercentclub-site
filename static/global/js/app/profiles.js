@@ -7,10 +7,10 @@
 
   Interacts with following public API:
 
-  User Detail (GET/PUT):   /users/<pk>
+  User Detail (GET/PUT):   /users/profiles/<pk>
  */
 App.User = DS.Model.extend({
-    url: 'users',
+    url: 'users/profiles',
 
     username: DS.attr('string'),
     first_name: DS.attr('string'),

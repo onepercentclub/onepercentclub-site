@@ -28,12 +28,12 @@ class CurrentUserSerializer(UserPreviewSerializer):
         fields = UserPreviewSerializer.Meta.fields + ('id_for_ember',)
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     """
     Serializer for a member's public profile.
     """
-
     url = serializers.HyperlinkedIdentityField(view_name='user-profile-detail')
+    username = serializers.CharField(required=False)
     avatar = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY", required=False, read_only=True)
     picture = SorlImageField('userprofile.picture', '240x240', required=False)  # FIXME: read-only until we can write this field
     about = serializers.CharField(source='userprofile.about', required=False, read_only=True)  # FIXME: read-only until we can write this field
@@ -41,7 +41,6 @@ class UserSerializer(serializers.ModelSerializer):
     website = serializers.URLField(source='userprofile.website', required=False, read_only=True)  #  FIXME:read-only until we can write this field
     availability = serializers.ChoiceField(source='userprofile.availability', required=False, read_only=True)  # FIXME:read-only until we can write this field
     date_joined = serializers.DateTimeField(read_only=True)
-    email = serializers.EmailField(required=True)
 
     class Meta:
         model = User
@@ -51,12 +50,24 @@ class UserSerializer(serializers.ModelSerializer):
         #           * interested in target groups
         fields = ('id', 'url', 'username', 'first_name', 'last_name', 'avatar', 'picture', 'about', 'why', 'website',
                   'availability', 'date_joined')
-        # postonly_fields = ('email', 'password')
 
-    #def process_postonly_fields(self, obj, post_attrs):
+
+# TODO: Investigate if it's possible to integrate this into the UserProfileSerializer.
+class UserCreateSerializer(UserProfileSerializer, PostOnlyModelSerializer):
+    """
+    Serializer for creating users. This is an extension if the UserProfileSerializer.
+    """
+    email = serializers.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = UserPreviewSerializer.Meta.fields + ('email', 'password')
+        postonly_fields = ('email', 'password')
+
+    def process_postonly_fields(self, obj, post_attrs):
         # TODO: Add email confirmation on signup ... maybe use django-registration.
-    #    obj.set_password(post_attrs['password'])
-    #       obj.email = post_attrs['email']
+        obj.set_password(post_attrs['password'])
+        obj.email = post_attrs['email']
 
 
 class UserSettingsSerializer(serializers.ModelSerializer):
@@ -65,7 +76,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     """
     id = serializers.IntegerField(source='user.id', read_only=True)  # FIXME: This won't be required with a unified user model.
     email = serializers.EmailField(source='user.email', read_only=True)  # FIXME: read-only until we can write this field
-    birthdate = serializers.DateTimeField()
+    birthdate = serializers.DateTimeField(required=False)
 
     class Meta:
         model = UserProfile
