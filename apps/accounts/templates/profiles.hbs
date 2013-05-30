@@ -285,20 +285,32 @@
 <div class="content">
     <h1>{% trans "Become a 1%Member" %}</h1>
 
-    <p>{% trans "1%CLUB is the online marketplace that connects people with smart ideas in developing countries with people, money and knowledge around the world. We are talking about sustainable projects that stimulate the self-reliance of individuals anywhere in the world and improve their standar of living." %}</p>
+    <p>{% trans "1%CLUB is the platform that connects people with smart ideas in developing countries with people, money and knowledge around the world. We are talking about sustainable projects that stimulate the self-reliance of individuals anywhere in the world and improve their standard of living." %}</p>
 
     <form class="form-signup">
         <div class="control-group">
             <label class="control-label">
-                {% trans "Username" %}
+                {% trans "Name" %}
             </label>
 
             <div class="controls">
-                {{view Em.TextField valueBinding="username" classBinding="errors.username.length:error"}}
+                {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+
+                {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">
+                {% trans "Email" %}
+            </label>
+
+            <div class="controls">
+                {{view Em.TextField valueBinding="email" type="email" classBinding="errors.email.length:error"}}
             </div>
 
-            {{#if errors.username}}
-                <div class="errors">{{#each errors.username}}<p>{{this}}</p>{{/each}}</div>
+            {{#if errors.email}}
+                <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
             {{/if}}
         </div>
 
@@ -333,7 +345,7 @@
             <strong>{%  trans "ALREADY HAVE AN ACCOUNT?" %}</strong>
         </a>
 
-        <p>{% trans "Login here, fast & easy" %}</p>
+        <p>{% trans "Login here" %}</p>
     </div>
 
     <div class="widget widget-member-advantage">
@@ -342,14 +354,14 @@
         </div>
 
         <div class="widget-header">
-            {% trans "The advantages of being a member" %}
+            {% trans "Why should I join 1%CLUB?" %}
         </div>
 
         <div class="widget-body">
             <ul>
-                <li>{% trans "Stay up to date with the projects you are most interested in!" %}</li>
-                <li>{% trans "Stay up to date with the projects you are most interested in!" %}</li>
-                <li>{% trans "Stay up to date with the projects you are most interested in!" %}</li>
+                <li>{% trans "Receive regular updates on the progress of projects you support" %}</li>
+                <li>{% trans "Donate easily to projects" %}</li>
+                <li>{% trans "Connect with other members" %}</li>
             </ul>
         </div>
     </div>

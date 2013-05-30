@@ -333,6 +333,48 @@ App.DeleteModelMixin = Em.Mixin.create({
     }
 });
 
+
+/*
+ Mixin that controllers with editable models can use. E.g. App.UserProfileController
+
+ @see App.UserProfileRoute and App.UserProfileController to see it in action.
+ */
+App.Editable = Ember.Mixin.create({
+    startEditing: function() {
+        var record = this.get('model');
+        if (record.transaction.isDefault == true) {
+            this.transaction = this.get('store').transaction();
+            this.transaction.add(record);
+        }
+    },
+
+    stopEditing: function() {
+        var record = this.get('model');
+        var transaction = record.get('transaction');
+
+        if (record.get('isDirty')) {
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: 'Save changed data?',
+                message: 'You have some unsaved changes. Do you want to save before you leave?',
+                primary: 'Save',
+                secondary: 'Cancel',
+                callback: function(opts, e) {
+                    e.preventDefault();
+
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
+        }
+    }
+});
+
 App.UploadFile = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name'],
