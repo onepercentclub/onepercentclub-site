@@ -72,7 +72,7 @@ App.UserSettings = DS.Model.extend({
     email: DS.attr('string'),
     newsletter: DS.attr('boolean'),
     gender: DS.attr('string'),
-    birthdate: DS.attr('string'),
+    birthdate: DS.attr('date'),
 
     didUpdate: function() {
         alert('Your account settings is updated.');
@@ -176,15 +176,5 @@ App.UserSettingsController = Ember.ObjectController.extend({
 
     save: function(settings) {
         settings.get('transaction').commit();
-    }
-});
-
-/*
- Views
- */
-
-App.BirthDatePickerView = Ember.TextField.extend({
-    didInsertElement: function() {
-        this.$().datepicker({maxDate: "0", dateFormat: 'yy-mm-dd'});
     }
 });

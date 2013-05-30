@@ -65,6 +65,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     """
     id = serializers.IntegerField(source='user.id', read_only=True)  # FIXME: This won't be required with a unified user model.
     email = serializers.EmailField(source='user.email', read_only=True)  # FIXME: read-only until we can write this field
+    birthdate = serializers.DateTimeField()
 
     class Meta:
         model = UserProfile
