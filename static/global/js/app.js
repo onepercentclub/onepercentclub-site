@@ -859,31 +859,7 @@ App.UserProfileRoute = Ember.Route.extend({
 
     exit: function() {
         this._super();
-
-        var controller = this.controllerFor('userProfile');
-        var model = controller.get('model');
-        var transaction = model.get('transaction');
-
-        if (model.get('isDirty')) {
-            Bootstrap.ModalPane.popup({
-                classNames: ['modal'],
-                heading: 'Save changed data?',
-                message: 'You have some unsaved changes. Do you want to save before you leave?',
-                primary: 'Save',
-                secondary: 'Cancel',
-                callback: function(opts, e) {
-                    e.preventDefault();
-
-                    if (opts.primary) {
-                        transaction.commit();
-                    }
-
-                    if (opts.secondary) {
-                        transaction.rollback();
-                    }
-                }
-            });
-        }
+        this.controllerFor('userProfile').stopEditing();
     }
 });
 
@@ -909,31 +885,7 @@ App.UserSettingsRoute = Ember.Route.extend({
 
     exit: function() {
         this._super();
-
-        var controller = this.controllerFor('userSettings');
-        var model = controller.get('model');
-        var transaction = model.get('transaction');
-
-        if (model.get('isDirty')) {
-            Bootstrap.ModalPane.popup({
-                classNames: ['modal'],
-                heading: 'Save changed data?',
-                message: 'You have some unsaved changes. Do you want to save before you leave?',
-                primary: 'Save',
-                secondary: 'Cancel',
-                callback: function(opts, e) {
-                    e.preventDefault();
-
-                    if (opts.primary) {
-                        transaction.commit();
-                    }
-
-                    if (opts.secondary) {
-                        transaction.rollback();
-                    }
-                }
-            });
-        }
+        this.controllerFor('userSettings').stopEditing();
     }
 });
 
@@ -998,5 +950,6 @@ App.LoginView = Em.View.extend({
         return  String(window.location);
     }.property()
 });
+
 
 
