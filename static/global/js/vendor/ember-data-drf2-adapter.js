@@ -113,7 +113,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
      * - Add support for multipart/form-data form submission.
      */
     createRecord: function(store, type, record) {
-        var root = this.rootForType(type);
+        var root = this.rootForType(type, record);
 
         var data = {};
         data = this.serialize(record, { includeId: true });
@@ -211,7 +211,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         var data = {};
         data = this.serialize(record);
 
-        if (type == 'App.MemberSettings' && record.get('file')) {
+        if (type == 'App.User' && record.get('file')) {
             var formdata = new FormData();
             Object.keys(data).forEach(function(key) {
                 if (data[key] !== undefined) {

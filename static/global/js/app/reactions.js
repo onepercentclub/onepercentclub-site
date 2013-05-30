@@ -7,7 +7,7 @@ App.WallPostReaction = DS.Model.extend({
     url: 'wallposts/reactions',
 
     text: DS.attr('string'),
-    author: DS.belongsTo('App.MemberPreview'),
+    author: DS.belongsTo('App.UserPreview'),
     created: DS.attr('date'),
     wallpost: DS.belongsTo('App.ProjectWallPost')
 });

@@ -1,9 +1,10 @@
+from apps.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, MemberPreviewSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField
 from apps.geo.models import Country
 from .models import Project
 
@@ -34,7 +35,7 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
     """
     For displaying donations on project and member pages.
     """
-    member = MemberPreviewSerializer(source='user')
+    member = UserPreviewSerializer(source='user')
     project = ProjectPreviewSerializer(source='project')
     date_donated = serializers.DateTimeField(source='created')
 
@@ -51,7 +52,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     language = serializers.CharField(source='get_language_display', read_only=True)
     organization = serializers.RelatedField()
-    owner = MemberPreviewSerializer()
+    owner = UserPreviewSerializer()
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     phase = serializers.CharField(source='get_phase_display', read_only=True)
     tags = serializers.RelatedField(many=True)

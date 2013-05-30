@@ -44,7 +44,7 @@ urlpatterns += patterns('',
     # The api urls are in the /i18n/ url namespace so that they're not redirected to /en/.
     url(r'^i18n/api/projects/', include('apps.projects.urlsapi')),
     url(r'^i18n/api/blogs/', include('apps.blogs.urlsapi')),
-    url(r'^i18n/api/members/', include('apps.accounts.urlsapi')),
+    url(r'^i18n/api/users/', include('apps.accounts.urlsapi')),
     url(r'^i18n/api/wallposts/', include('apps.wallposts.urlsapi')),
     url(r'^i18n/api/fund/', include('apps.fund.urlsapi')),
     url(r'^i18n/api/utils/', include('apps.bluebottle_utils.urlsapi')),

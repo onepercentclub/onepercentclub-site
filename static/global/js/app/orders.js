@@ -25,7 +25,7 @@ App.Donation = DS.Model.extend({
 App.DonationPreview =  DS.Model.extend({
     url: 'projects/donations',
     project: DS.belongsTo('App.ProjectPreview'),
-    member: DS.belongsTo('App.MemberPreview'),
+    member: DS.belongsTo('App.UserPreview'),
 
     date_donated: DS.attr('date'),
     time_since: function(){

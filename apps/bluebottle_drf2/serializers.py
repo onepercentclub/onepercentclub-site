@@ -149,14 +149,6 @@ class PolymorphicSerializer(serializers.Serializer):
         return self._child_models[obj.__class__].from_native(data, files)
 
 
-class MemberPreviewSerializer(serializers.ModelSerializer):
-    avatar = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
-
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'avatar', 'username')
-
-
 class PrimaryKeyGenericRelatedField(serializers.RelatedField):
     """ A field serializer for the object_id field in a GenericForeignKey. """
 
@@ -301,7 +293,7 @@ class EuroField(serializers.WritableField):
 # PostHyperlinkedModelSerializer inherits from HyperlinkedModelSerializer
 # This serializer allows us to add fields that do not belong to the model.
 #
-# The `process_postonly_fields` method should be overriden.
+# The `process_postonly_fields` method should be overridden.
 # Important: This method is called before the `pre_save` method.
 #
 # Example of usage:
@@ -318,18 +310,18 @@ class EuroField(serializers.WritableField):
 #            field_only_for_post = post_attrs['field_only_for_post']
 #            # Process field ...
 #
-class PostHyperlinkedModelSerializerOptions(serializers.HyperlinkedModelSerializerOptions):
+class PostOnlyModelSerializerOptions(serializers.ModelSerializerOptions):
     """
-    Options for PostHyperlinkedModelSerializer
+    Options for PostOnlyModelSerializer.
     """
 
     def __init__(self, meta):
-        super(PostHyperlinkedModelSerializerOptions, self).__init__(meta)
+        super(PostOnlyModelSerializerOptions, self).__init__(meta)
         self.postonly_fields = getattr(meta, 'postonly_fields', ())
 
 
-class PostHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer):
-    _options_class = PostHyperlinkedModelSerializerOptions
+class PostOnlyModelSerializer(serializers.ModelSerializer):
+    _options_class = PostOnlyModelSerializerOptions
 
     def to_native(self, obj):
         """
@@ -339,7 +331,7 @@ class PostHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer):
         ret.fields = {}
 
         for field_name, field in self.fields.items():
-            # Ignore all postonly_fields fron serialization
+            # Ignore all postonly_fields from serialization
             if field_name in self.opts.postonly_fields:
                 continue
             field.initialize(parent=self, field_name=field_name)
@@ -356,7 +348,7 @@ class PostHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer):
                 post_attrs[attr] = value
             else:
                 model_attrs[attr] = value
-        obj = super(PostHyperlinkedModelSerializer, self).restore_object(model_attrs, instance)
+        obj = super(PostOnlyModelSerializer, self).restore_object(model_attrs, instance)
         # Method to process ignored postonly_fields
         self.process_postonly_fields(obj, post_attrs)
         return obj

@@ -311,7 +311,6 @@ App.TimeNeededSelectView = Em.Select.extend({
     optionLabelPath: "content.title"
 });
 
-
 App.IsAuthorMixin = Em.Mixin.create({
     isAuthor: function () {
         var username = this.get('controllers.currentUser.username');
@@ -375,8 +374,7 @@ App.DatePickerWidget = Ember.TextField.extend({
     dateBinding: "parentView.value",
 
     didInsertElement: function(){
-        // FIXME: Have the max date as a param. No hardcoded like this!
-        this.$().datepicker({minDate: 0, maxDate: "+3M"});
+        this.$().datepicker();
         this.$().datepicker('setDate',this.get('date'));
 
     },

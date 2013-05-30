@@ -1,44 +1,34 @@
 from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from rest_framework import generics
 from django.utils.translation import ugettext_lazy as _
-from .serializers import (MemberSerializer, AuthenticatedUserSerializer,  MemberProfileSerializer,
-                          MemberSettingsSerializer, UserCreationSerializer)
+from .serializers import CurrentUserSerializer, UserSerializer, UserSettingsSerializer
 from .models import UserProfile
 from .permissions import IsCurrentUser
 
 
 # API views
 
-class UserCreation(generics.CreateAPIView):
+class UserCreate(generics.CreateAPIView):
     model = User
-    serializer_class = UserCreationSerializer
+    serializer_class = UserSerializer
 
 
-class MemberList(generics.ListAPIView):
+class UserProfileDetail(generics.RetrieveUpdateAPIView):
     model = User
-    serializer_class = MemberSerializer
-    paginate_by = 10
+    serializer_class = UserSerializer
 
 
-class MemberProfileDetail(generics.RetrieveAPIView):
-    model = User
-    serializer_class = MemberProfileSerializer
-
-
-class MemberSettingsDetail(generics.RetrieveUpdateAPIView):
+class UserSettingsDetail(generics.RetrieveUpdateAPIView):
     model = UserProfile
-    serializer_class = MemberSettingsSerializer
+    serializer_class = UserSettingsSerializer
     permission_classes = (IsCurrentUser,)
 
+    # FIXME: Remove this when we have a unified user model.
     def get_object(self, queryset=None):
-        """
-        """
-        username = self.kwargs.get('username', None)
+        user_id = self.kwargs.get('user_id', None)
         try:
-            obj = User.objects.get(username=username)
+            obj = User.objects.get(pk=user_id)
         except User.DoesNotExist:
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
@@ -46,30 +36,15 @@ class MemberSettingsDetail(generics.RetrieveUpdateAPIView):
         return obj.get_profile()
 
 
-class AuthenticatedUser(generics.RetrieveAPIView):
+class CurrentUser(generics.RetrieveAPIView):
     model = User
-    serializer_class = AuthenticatedUserSerializer
+    serializer_class = CurrentUserSerializer
 
     def get_object(self, queryset=None):
         """
         Override default to add support for object-level permissions.
         """
-
         if isinstance(self.request.user, AnonymousUser):
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
         return self.request.user
-
-
-# Django template Views
-
-class UserProfileBase(object):
-    queryset = UserProfile.objects.all().select_related('user')
-
-
-class UserProfileList(UserProfileBase, ListView):
-    pass
-
-
-class UserProfileDetail(UserProfileBase, DetailView):
-    pass
