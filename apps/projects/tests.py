@@ -11,6 +11,7 @@ from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
 from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase, ProjectPhases
 
+
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
