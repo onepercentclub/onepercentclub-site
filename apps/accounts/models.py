@@ -88,6 +88,13 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
         lots_of_time = ChoiceItem('lots_of_time', label=_("I have all the time in the world. Bring it on :D"))
         depends_on_task = ChoiceItem('depends', label=_("It depends on the content of the tasks. Challenge me!"))
 
+    class UserType(DjangoChoices):
+        person = ChoiceItem('person', label=_("Person"))
+        group = ChoiceItem('group', label=_("Group"))
+        foundation = ChoiceItem('foundation', label=_("Foundation"))
+        school = ChoiceItem('school', label=_("School"))
+        company = ChoiceItem('company', label=_("Company"))
+
     email = models.EmailField(_("email address"), max_length=254, unique=True, db_index=True)
     username = AutoSlugField(_("username"), max_length=30, unique=True, populate_from=('get_username',), db_index=True)
     is_staff = models.BooleanField(_("staff status"), default=False, help_text=_('Designates whether the user can log into this admin site.'))
@@ -95,6 +102,7 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     updated = ModificationDateTimeField()
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
+    user_type = models.CharField(_("Member Type"), max_length=25, blank=True, choices=UserType.choices)
 
     # Public Profile
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
@@ -106,6 +114,7 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     about = models.TextField(_("about"), max_length=265, blank=True)
     why = models.TextField(_("why"), max_length=265, blank=True)
     availability = models.CharField(_("availability"), max_length=25, blank=True, choices=Availability.choices)
+    # TODO Remove when info has been manually migrated to choice above.
     availability_old = models.CharField(_("availability"), max_length=255, blank=True)
 
     # Private Settings
