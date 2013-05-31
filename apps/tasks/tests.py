@@ -54,7 +54,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
 
     def test_create_task(self):
 
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(username=self.some_user.email, password='password')
 
         # Get the list of tasks for some project should return none (count = 0)
         response = self.client.get(self.task_url, {'project': self.some_project.slug})
@@ -72,7 +72,6 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         self.assertEquals(response.data['title'], some_task_data['title'])
         some_task_url = "{0}{1}".format(self.task_url, response.data['id'])
 
-
         # Create a task for a project you don't own should fail...
         another_task_data = {'project': self.another_project.slug, 'title': 'Translate some text.',
                           'description': 'Wie kan in engels vertalen?', 'time_needed': 5, 'expertise': 'translations',
@@ -86,7 +85,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         self.assertEquals(response.data['count'], 1)
 
         self.client.logout()
-        self.client.login(username=self.another_user.username, password='password')
+        self.client.login(username=self.another_user.email, password='password')
 
         # Another user that owns another project can create a task for that.
         another_task_data = {'project': self.another_project.slug, 'title': 'Translate some text.',
@@ -118,7 +117,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
 
     def test_apply_for_task(self):
 
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(username=self.some_user.email, password='password')
 
         future_date = timezone.now() + timezone.timedelta(days=60)
 
@@ -130,7 +129,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
         self.client.logout()
-        self.client.login(username=self.another_user.username, password='password')
+        self.client.login(username=self.another_user.email, password='password')
 
         response = self.client.post(self.task_members_url, {'task': 1})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
