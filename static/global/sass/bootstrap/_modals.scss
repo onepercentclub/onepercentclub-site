@@ -92,9 +92,9 @@
   }
 
   .close {
-      @include rem(font-size, 20px);
       float: right;
       font-weight: bold;
+      font-size: 20px;
       color: $grayLight;
       cursor: pointer;
       line-height: 1;
