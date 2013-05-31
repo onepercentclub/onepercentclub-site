@@ -55,10 +55,6 @@ App.User = DS.Model.extend({
 
     didUpdate: function() {
         alert('Your profile info is updated.');
-    },
-
-    didCreate: function() {
-        alert('Your account is created. You should be able to sign in now.');
     }
 });
 
@@ -182,6 +178,32 @@ App.SignupController = Ember.ObjectController.extend({
     needs: "currentUser",
 
     createUser: function(user) {
+        var self = this;
+
+        user.on('didCreate', function() {
+            var data = {
+                // The key for the login needs to be 'username' for logins to work.
+                'username': self.get('email'),
+                'password': self.get('password'),
+                'csrfmiddlewaretoken': csrf_token
+            };
+
+            /*
+             Log the user automatically in after successful signup.
+             */
+            $.ajax({
+                type: "POST",
+                url: "/accounts/login/",
+                data: data,
+                success: function() {
+                    // TODO: Personalize the home page so the user becomes
+                    //       aware that he is successfully logged in.
+                    // self.replaceRoute('home');
+                    window.location.replace('/');
+                }
+            });
+        });
+
         user.set('url', 'users');  // Change the model URL to the User creation API.
         user.get('transaction').commit();
     }
