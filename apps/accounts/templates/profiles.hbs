@@ -370,7 +370,7 @@
 
 {% tplhandlebars "user_modal" %}
     <div class="user-modal-sidebar">
-        <img {{bindAttr src="picture" info="first_name"}} width="100" height="100" />
+        <img {{bindAttr src="getPicture" info="first_name"}} width="100" height="100" />
 
         <h2>{{ first_name }} {{ last_name }}</h2>
 
@@ -378,19 +378,31 @@
     </div>
 
     <div class="user-modal-content">
-        <h3>{% trans "About" %}</h3>
-        <p>{{ about }} </p>
+        {{#if about }}
+            <h3>{% trans "About" %}</h3>
+            <p>{{ about }} </p>
+        {{/if}}
 
-        <h4>{% trans "IS A 1%MEMBER BECAUSE" %}</h4>
-        <p>{{ why }} </p>
+        {{#if why }}
+            <h4>{% trans "IS A 1%MEMBER BECAUSE" %}</h4>
+            <p>{{ why }} </p>
+        {{/if}}
 
-        <div class="um-meta">
+        <div class="um-list">
             {{#if availability }}
-                <div class="um-meta-item">
+                <div class="um-list-item">
                     <i class="icon-time"></i>
                     <span class="key">{% trans "Time available" %}</span>
                     <span class="value">{{ availability }}</span>
                 </div>
+            {{/if}}
+        </div>
+
+        <div class="um-meta">
+            {{#if website }}
+                <span class="um-meta-item website">
+                    <a {{bindAttr href="website"}} target="_blank"><i class="icon-link"></i>  {{website}}</a>
+                </span>
             {{/if}}
         </div>
     </div>

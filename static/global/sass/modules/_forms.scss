@@ -194,6 +194,7 @@ input[type="radio"] {
 input[type="checkbox"] + span,
 input[type="radio"] + span {
     @include rem(margin-bottom, 16px);
+    @include rem(padding-left, 40px);
 
     display: block;
     line-height: 32px;

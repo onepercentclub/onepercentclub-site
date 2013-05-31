@@ -44,8 +44,8 @@
     .modal-body {
        position: relative;
        overflow-y: auto;
-        height: 80%;
-        max-height: 80%;
+        height: 100%;
+        max-height: 100%;
     }
   }
 
@@ -89,6 +89,15 @@
   }
   .modal-footer {
     margin: -15px;
+  }
+
+  .close {
+      @include rem(font-size, 20px);
+      float: right;
+      font-weight: bold;
+      color: $grayLight;
+      cursor: pointer;
+      line-height: 1;
   }
 }
 // Remove bottom margin if need be
