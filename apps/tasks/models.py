@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import CreationDateTimeField
@@ -32,7 +33,7 @@ class Task(models.Model):
     people_needed = models.PositiveIntegerField(_("people needed"), default=1, help_text=_("How many people are needed for this task?"))
 
     project = models.ForeignKey('projects.Project')
-    author = models.ForeignKey('auth.User', related_name='author')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='author')
     created = CreationDateTimeField(_("created"), help_text=_("When this task was created?"))
 
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
@@ -56,7 +57,7 @@ class TaskMember(models.Model):
         realized = ChoiceItem('realized', label=_("Realised"))
 
     task = models.ForeignKey('Task')
-    member = models.ForeignKey('auth.User')
+    member = models.ForeignKey(settings.AUTH_USER_MODEL)
     status = models.CharField(_("status"), max_length=20, choices=TaskMemberStatuses.choices)
     created = CreationDateTimeField(_("created"))
 
@@ -64,7 +65,7 @@ class TaskMember(models.Model):
 class TaskFile(models.Model):
 
     task = models.ForeignKey('Task')
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=255)
     file = models.FileField(_("file"), upload_to='task_files/')
     created = CreationDateTimeField(_("created"))
