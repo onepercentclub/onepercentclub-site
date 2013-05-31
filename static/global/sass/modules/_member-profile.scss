@@ -15,8 +15,9 @@
 
   h2 {
     @include rem(line-height, 22px);
-    padding: 0px;
-    font-size: 22px;
+    @include rem(font-size, 20px);
+
+    @include rem(padding, $padding/2 0);
   }
 }
 
@@ -34,13 +35,13 @@
   @include rem(line-height, 22px);
 }
 
-.um-meta {
+.um-list {
   @include clearfix;
 
   color: $gray;
 }
 
-.um-meta-item {
+.um-list-item {
   @include clearfix;
 
   &:first-of-type {
@@ -72,6 +73,18 @@
     color: $green;
   }
   @include rem(padding, 0 $padding $padding);
+}
+
+.um-meta {
+    @include rem(padding, $padding * 2, $padding);
+}
+
+.um-meta-item {
+    @include rem(font-size, 12px);
+
+    &.website {
+        color: $green;
+    }
 }
 
 #profile-actions {
