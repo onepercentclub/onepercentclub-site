@@ -1,6 +1,6 @@
-from apps.accounts.models import BlueBottleUser
 from apps.tasks.models import Task, TaskMember, TaskFile
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.forms.models import ModelChoiceField
 
@@ -25,7 +25,7 @@ class TaskFileAdminInline(admin.StackedInline):
 
 
 class TaskForm(ModelForm):
-    owner = ModelChoiceField(queryset=BlueBottleUser.objects.order_by('email'))
+    owner = ModelChoiceField(queryset=User.objects.order_by('username'))
 
     class Meta:
         model = Task

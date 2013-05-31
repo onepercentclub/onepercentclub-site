@@ -57,7 +57,7 @@ class DonationTestsMixin(ProjectTestsMixin, UserTestsMixin):
                                'country': 'NL'}
 
         # Make sure we have a current order.
-        self.client.login(username=user.email, password='password')
+        self.client.login(username=user.username, password='password')
         self.client.get(current_order_url)
 
         # Create a Donation for the current order.
@@ -176,7 +176,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         """
 
         # First make sure we have a current order
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
@@ -242,7 +242,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
 
         # Another user should not see the cart of the first user
         self.client.logout()
-        self.client.login(username=self.another_user.email, password='password')
+        self.client.login(username=self.another_user.username, password='password')
         # make a cart for this another user
         self.client.get(self.current_order_url)
         response = self.client.get(self.current_donations_url)
@@ -265,14 +265,14 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         self.assertEqual(response.data['count'], 1)
 
         # Login and out again... The anonymous cart should NOT be returned
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.username, password='password')
         self.client.logout()
         self.client.get(self.current_order_url)
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 0)
 
         # Login as the first user and cart should still have one donation
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'], '12.50')
@@ -281,7 +281,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
 
     def test_current_order_monthly(self):
         # Test setting a recurring order as logged in user.
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
         response = self.client.put(self.current_order_url, encode_multipart(BOUNDARY, {'recurring': True}), MULTIPART_CONTENT)
@@ -304,7 +304,7 @@ class CartApiIntegrationTest(DonationTestsMixin, TestCase):
         Integration tests for the PaymentProfile and Payment APIs.
         """
         # Make sure we have a current order.
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
@@ -405,7 +405,7 @@ class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
         """
 
         # First make sure we have a current order
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.username, password='password')
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')

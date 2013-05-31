@@ -16,6 +16,7 @@ class LoveDeclarationQueryMixin(object):
         """
         return self.filter(user=user)
 
+
     def for_model(self, model):
         """
         Returns LoveDeclaration objects for a specific model.
@@ -23,12 +24,14 @@ class LoveDeclarationQueryMixin(object):
         content_type = ContentType.objects.get_for_model(model)
         return self.filter(content_type=content_type)
 
+
     def for_object(self, obj):
         """
         Returns Favorites for a specific object.
         """
         content_type = ContentType.objects.get_for_model(type(obj))
         return self.filter(content_type=content_type, object_id=obj.pk)
+
 
     def for_objects(self, object_list, user=None):
         """
@@ -73,6 +76,7 @@ class LoveDeclarationManager(LoveDeclarationQueryMixin, models.Manager):
     def get_query_set(self):
         return LoveDeclarationManagerQuerySet(self.model, using=self._db)
 
+
     def mark_as_loved(self, content_object, user):
         """
         Mark an object as loved.
@@ -89,11 +93,14 @@ class LoveDeclarationManager(LoveDeclarationQueryMixin, models.Manager):
             # Close call, got race condition.
             return self.get(**args)
 
+
+
     def unmark_as_loved(self, content_object, user):
         """
         Unmark an object as loved.
         """
         self.for_object(content_object).by_user(user).delete()
+
 
     mark_as_loved.alters_data = True
     unmark_as_loved.alters_data = True

@@ -182,7 +182,9 @@ App.SignupController = Ember.ObjectController.extend({
     needs: "currentUser",
 
     createUser: function(user) {
-        user.set('url', 'users');  // Change the model URL to the User creation API.
+        // FIXME: This is only temporary. As soon as username is not compulsory, get this line OUTTA HERE!!
+        user.set('username', 'user' + new Date().getTime());
+        user.set('url', 'users');
         user.get('transaction').commit();
     }
 });

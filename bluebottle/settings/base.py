@@ -370,8 +370,9 @@ COMPRESS_CSS_FILTERS = [
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
 
-# Custom User model
-AUTH_USER_MODEL = 'accounts.BlueBottleUser'
+# user profile setting as described here:
+# https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 # Blog/news content configuration
 FLUENT_CONTENTS_CACHE_OUTPUT = True

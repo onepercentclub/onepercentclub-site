@@ -24,8 +24,8 @@ class WallPost(PolymorphicModel):
 
     # The user who wrote the wall post. This can be empty to support wall posts without users (e.g. anonymous
     # TextWallPosts, system WallPosts for donations etc.)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('author'), related_name="%(class)s_wallpost", blank=True, null=True)
-    editor = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this wallpost."))
+    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_wallpost", blank=True, null=True)
+    editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this wallpost."))
 
     # The metadata for the wall post.
     created = CreationDateTimeField(_('created'))
@@ -64,8 +64,8 @@ class MediaWallPostPhoto(models.Model):
     photo = models.ImageField(upload_to='mediawallpostphotos')
     deleted = models.DateTimeField(_('deleted'), blank=True, null=True)
     ip_address = models.IPAddressField(_('IP address'), blank=True, null=True, default=None)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('author'), related_name="%(class)s_wallpost_photo", blank=True, null=True)
-    editor = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this wallpost photo."))
+    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name="%(class)s_wallpost_photo", blank=True, null=True)
+    editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, help_text=_("The last user to edit this wallpost photo."))
 
 
 class TextWallPost(WallPost):
@@ -82,8 +82,8 @@ class Reaction(models.Model):
     """
 
     # Who posted this reaction. User will need to be logged in to make a reaction.
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('author'), related_name='wallpost_reactions')
-    editor = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('editor'), blank=True, null=True, related_name='+', help_text=_("The last user to edit this reaction."))
+    author = models.ForeignKey('auth.User', verbose_name=_('author'), related_name='wallpost_reactions')
+    editor = models.ForeignKey('auth.User', verbose_name=_('editor'), blank=True, null=True, related_name='+', help_text=_("The last user to edit this reaction."))
 
     # The reaction text and the wallpost it's a reaction to.
     text = models.TextField(_('reaction text'), max_length=WALLPOST_REACTION_MAX_LENGTH)

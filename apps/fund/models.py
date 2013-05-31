@@ -1,5 +1,4 @@
 import random
-from django.conf import settings
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.signals import payment_status_changed
 from apps.fund.mails import mail_new_voucher
@@ -32,7 +31,7 @@ class Donation(models.Model):
     amount = models.PositiveIntegerField(_("Amount"))
     currency = models.CharField(_("currency"), blank=True, max_length=3)
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
+    user = models.ForeignKey('auth.User', verbose_name=_("User"), null=True, blank=True)
     project = models.ForeignKey('projects.Project', verbose_name=_("Project"))
 
     status = models.CharField(_("Status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
@@ -75,7 +74,7 @@ class Order(models.Model):
     """
     Order holds OrderItems (Donations/Vouchers).
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), blank=True, null=True)
+    user = models.ForeignKey('auth.User', verbose_name=_("user"), blank=True, null=True)
     status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
 
     created = CreationDateTimeField(_("Created"))
@@ -155,11 +154,11 @@ class Voucher(models.Model):
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Sender"), related_name="sender", null=True, blank=True)
+    sender = models.ForeignKey('auth.User', verbose_name=_("Sender"), related_name="sender", null=True, blank=True)
     sender_email = models.EmailField(_("Sender email"))
     sender_name = models.CharField(_("Sender name"), blank=True, default="", max_length=100)
 
-    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Receiver"), related_name="receiver", null=True, blank=True)
+    receiver = models.ForeignKey('auth.User', verbose_name=_("Receiver"), related_name="receiver", null=True, blank=True)
     receiver_email = models.EmailField(_("Receiver email"))
     receiver_name = models.CharField(_("Receiver name"), blank=True, default="", max_length=100)
 
@@ -189,7 +188,7 @@ class CustomVoucherRequest(models.Model):
 
     value = models.CharField(verbose_name=_("Value"), max_length=100, blank=True, default="")
     number = models.PositiveIntegerField(_("Number"))
-    contact = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Contact member"), null=True)
+    contact = models.ForeignKey('auth.User', verbose_name=_("Contact member"), null=True)
     contact_name = models.CharField(verbose_name=_("Contact email"), max_length=100, blank=True, default="")
     contact_email = models.EmailField(verbose_name=_("Contact email"), blank=True, default="")
     contact_phone = models.CharField(verbose_name=_("Contact phone"), max_length=100, blank=True, default="")
