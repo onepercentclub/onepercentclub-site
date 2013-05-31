@@ -1,6 +1,6 @@
 import uuid
+from apps.accounts.models import BlueBottleUser
 from apps.blogs.models import BlogPostProxy
-from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.db.models import loading
 from django.test import TestCase
@@ -12,22 +12,26 @@ def generate_random_slug():
     return str(uuid.uuid4())[:30]
 
 
+def generate_random_email():
+    return str(uuid.uuid4())[:10] + '@' + str(uuid.uuid4())[:30] + '.com'
+
+
 class UserTestsMixin(object):
     """ Mixin base class for tests requiring users. """
 
-    def create_user(self, username=None, password=None):
+    def create_user(self, email=None, password=None, **extra_fields):
         """ Create, save and return a new user. """
 
         # If username is set and not unique, it will raise a clearly
         # interpretable IntegrityError.
         # If auto-generated, make sure it's unique.
 
-        if not username:
-            username = generate_random_slug()
-            while User.objects.filter(username=username).exists():
-                 username = generate_random_slug()
+        if not email:
+            email = generate_random_email()
+            while BlueBottleUser.objects.filter(email=email).exists():
+                username = generate_random_email()
 
-        user = User.objects.create_user(username=username)
+        user = BlueBottleUser.objects.create_user(email=email, **extra_fields)
 
         if not password:
             user.set_password('password')
