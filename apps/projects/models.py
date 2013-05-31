@@ -48,7 +48,7 @@ class Project(models.Model):
     partner_organization = models.ForeignKey('PartnerOrganization', blank=True, null=True, verbose_name=_('partner organisations'))
     image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Main project picture"))
     organization = models.ForeignKey('organizations.Organization', verbose_name=_("organization"), null=True, blank=True)
-    owner = models.ForeignKey('auth.User', verbose_name=_("owner"))
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("owner"))
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
     themes = models.ManyToManyField(ProjectTheme, blank=True, verbose_name=_("themes"))
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
@@ -332,7 +332,7 @@ class Testimonial(models.Model):
     """ Any user can write something nice about a project. """
 
     project = models.ForeignKey(Project, verbose_name=_("project"))
-    user = models.ForeignKey('auth.User', verbose_name=_("user"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
     description = models.TextField(_("description"))
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))

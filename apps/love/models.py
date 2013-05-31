@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -17,10 +17,9 @@ class LoveDeclaration(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     creation_date = CreationDateTimeField(_('creation date'))
-    user = models.ForeignKey(User, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, editable=False)
 
     objects = LoveDeclarationManager()
-
 
     class Meta:
         verbose_name = _('Love')

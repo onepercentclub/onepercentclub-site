@@ -1,6 +1,5 @@
-from apps.accounts.models import UserProfile
+from apps.accounts.models import BlueBottleUser
 from apps.bluebottle_drf2.serializers import SorlImageField, PostOnlyModelSerializer
-from django.contrib.auth.models import User
 from rest_framework import serializers
 
 
@@ -8,10 +7,10 @@ class UserPreviewSerializer(serializers.ModelSerializer):
     """
     Serializer for a subset of a member's public profile. This is usually embedded into other serializers.
     """
-    avatar = SorlImageField('userprofile.picture', '90x90', crop='center', colorspace="GRAY")
+    avatar = SorlImageField('picture', '90x90', crop='center', colorspace="GRAY")
 
     class Meta:
-        model = User
+        model = BlueBottleUser
         fields = ('id', 'first_name', 'last_name', 'username', 'avatar',)
 
 
@@ -24,7 +23,7 @@ class CurrentUserSerializer(UserPreviewSerializer):
     id_for_ember = serializers.IntegerField(source='id', read_only=True)
 
     class Meta:
-        model = User
+        model = BlueBottleUser
         fields = UserPreviewSerializer.Meta.fields + ('id_for_ember',)
 
 
@@ -33,22 +32,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
     Serializer for a member's public profile.
     """
     url = serializers.HyperlinkedIdentityField(view_name='user-profile-detail')
-    username = serializers.CharField(required=False)
-    avatar = SorlImageField('userprofile.picture', '100x100', colorspace="GRAY", required=False, read_only=True)
-    picture = SorlImageField('userprofile.picture', '240x240', required=False)  # FIXME: read-only until we can write this field
-    about = serializers.CharField(source='userprofile.about', required=False, read_only=True)  # FIXME: read-only until we can write this field
-    why = serializers.CharField(source='userprofile.why', required=False, read_only=True)  # FIXME:read-only until we can write this field
-    website = serializers.URLField(source='userprofile.website', required=False, read_only=True)  #  FIXME:read-only until we can write this field
-    availability = serializers.ChoiceField(source='userprofile.availability', required=False, read_only=True)  # FIXME:read-only until we can write this field
+    avatar = SorlImageField('picture', '100x100', colorspace="GRAY", required=False, read_only=True)
     date_joined = serializers.DateTimeField(read_only=True)
 
     class Meta:
-        model = User
+        model = BlueBottleUser
         # TODO: Add * Your skills,
         #           * interested in themes
         #           * interested in countries
         #           * interested in target groups
-        fields = ('id', 'url', 'username', 'first_name', 'last_name', 'avatar', 'picture', 'about', 'why', 'website',
+        fields = ('id', 'url', 'first_name', 'last_name', 'avatar', 'picture', 'about', 'why', 'website',
                   'availability', 'date_joined')
 
 
@@ -60,7 +53,7 @@ class UserCreateSerializer(UserProfileSerializer, PostOnlyModelSerializer):
     email = serializers.EmailField(required=True)
 
     class Meta:
-        model = User
+        model = BlueBottleUser
         fields = UserPreviewSerializer.Meta.fields + ('email', 'password')
         postonly_fields = ('email', 'password')
 
@@ -74,12 +67,10 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     """
     Serializer for viewing and editing a user's settings. This should only be accessible to authenticated users.
     """
-    id = serializers.IntegerField(source='user.id', read_only=True)  # FIXME: This won't be required with a unified user model.
-    email = serializers.EmailField(source='user.email', read_only=True)  # FIXME: read-only until we can write this field
-    birthdate = serializers.DateTimeField(required=False)
+    email = serializers.EmailField(required=False)
 
     class Meta:
-        model = UserProfile
+        model = BlueBottleUser
         # TODO: Add * password update like it's done with the post only fields serializer (ie. create / add put only fields serializer)
         #           * Facebook connect
         #           * Address
