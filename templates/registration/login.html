@@ -16,10 +16,11 @@
                 {% csrf_token %}
                 <div>
                     <div class="control-group">
-                        <label class="control-label" for="id_username">{% trans "Username" %}:</label>
+                        <label class="control-label" for="id_email">{% trans "Email" %}:</label>
 
                         <div class="controls">
-                            <input id="id_username" type="text" name="username" maxlength="30">
+                            {# The key for the login needs to be 'username' for logins to work. #}
+                            <input id="id_email" type="text" name="username" maxlength="254">
                         </div>
                     </div>
 

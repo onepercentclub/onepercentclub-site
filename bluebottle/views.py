@@ -24,7 +24,7 @@ def handler500(request, template_name='500.html'):
         logger.warn('Error getting RequestContext for ServerError page.')
         context = Context({'request': request})
 
-    t = loader.get_template('500.html') # You need to create a 500.html template.
+    t = loader.get_template('500.html')  # You need to create a 500.html template.
     return HttpResponseServerError(t.render(context))
 
 
