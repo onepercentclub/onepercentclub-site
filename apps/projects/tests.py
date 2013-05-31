@@ -316,7 +316,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         """
         Tests for creating, retrieving, updating and deleting a Project Media WallPost.
         """
-        self.client.login(username=self.some_project.owner.username, password='password')
+        self.client.login(username=self.some_project.owner.email, password='password')
 
         # Create a Project Media WallPost by Project Owner
         # Note: This test will fail when we require at least a video and/or a text but that's what we want.
@@ -349,7 +349,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.post(self.project_media_wallposts_url, {'title': wallpost_title, 'project': self.some_project.slug})
         project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, str(response.data['id']))
         self.client.logout()
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(username=self.some_user.email, password='password')
         response = self.client.get(project_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
@@ -361,7 +361,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         # Write Project Media WallPost by Project Owner to another Project should fail
         self.client.logout()
-        self.client.login(username=self.some_project.owner.username, password='password')
+        self.client.login(username=self.some_project.owner.email, password='password')
         new_wallpost_title = 'This is not my project, although I do have a project'
         response = self.client.post(self.project_media_wallposts_url, {'title': new_wallpost_title, 'project': self.another_project.slug})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
@@ -370,7 +370,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         second_wallpost_title = "My project rocks!"
         response = self.client.post(self.project_media_wallposts_url, {'title': second_wallpost_title, 'project': self.some_project.slug})
         self.client.logout()
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(username=self.some_user.email, password='password')
         response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
@@ -390,7 +390,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         """
         Test connecting photos to wallposts
         """
-        self.client.login(username=self.some_project.owner.username, password='password')
+        self.client.login(username=self.some_project.owner.email, password='password')
 
         # Typically the photos are uploaded before the wallpost is uploaded so we simulate that here
         photo_file = open(self.some_photo, mode='rb')
@@ -422,7 +422,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         # Create a wallpost by another user
         self.client.logout()
-        self.client.login(username=self.another_project.owner.username, password='password')
+        self.client.login(username=self.another_project.owner.email, password='password')
         wallpost_title = 'Muy project is waaaaaay better!'
         response = self.client.post(self.project_media_wallposts_url,
                                     {'title': wallpost_title, 'project': self.another_project.slug})
@@ -439,7 +439,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         # Make sure the first user can't connect it's picture to someone else's wallpost
         self.client.logout()
-        self.client.login(username=self.some_project.owner.username, password='password')
+        self.client.login(username=self.some_project.owner.email, password='password')
         response = self.client.put(another_photo_detail_url, encode_multipart(BOUNDARY, {'mediawallpost': another_wallpost_id}), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
@@ -468,7 +468,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.post(self.project_text_wallposts_url, {'text': text1, 'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(username=self.some_user.email, password='password')
 
         # Create TextWallPost as a logged in member should be allowed
         response = self.client.post(self.project_text_wallposts_url, {'text': text1, 'project': self.some_project.slug})
@@ -488,7 +488,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertTrue(text1 in response.data['text'])
 
         self.client.logout()
-        self.client.login(username=self.another_user.username, password='password')
+        self.client.login(username=self.another_user.email, password='password')
 
         # Retrieve text wallpost through projectwallposts api by another user
         wallpost_detail_url = "{0}{1}".format(self.project_wallposts_url, str(response.data['id']))
@@ -516,7 +516,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertTrue(text2a in response.data['text'])
 
         self.client.logout()
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(username=self.some_user.email, password='password')
 
         # Update TextWallPost by another user (not the author) is not allowed
         text2b = 'Mess this up!'
@@ -530,7 +530,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         """
 
         # Create a bunch of Project Text WallPosts
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(username=self.some_user.email, password='password')
         for char in 'abcdefghijklmnopqrstuv':
             text = char * 15
             self.client.post(self.project_text_wallposts_url, {'text': text, 'project': self.some_project.slug})
@@ -538,7 +538,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.client.logout()
 
         # And a bunch of Project Media WallPosts
-        self.client.login(username=self.some_project.owner.username, password='password')
+        self.client.login(username=self.some_project.owner.email, password='password')
         for char in 'wxyz':
             title = char * 15
             self.client.post(self.project_media_wallposts_url, {'title': title, 'project': self.some_project.slug})
@@ -578,7 +578,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.data['count'], 25)
 
         # Test filtering wallposts by different projects works.
-        self.client.login(username=self.another_project.owner.username, password='password')
+        self.client.login(username=self.another_project.owner.email, password='password')
         for char in 'ABCD':
             title = char * 15
             self.client.post(self.project_media_wallposts_url, {'title': title, 'project': self.another_project.slug})
