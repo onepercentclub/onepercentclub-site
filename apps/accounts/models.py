@@ -42,8 +42,7 @@ def generate_picture_filename(instance, filename):
     return os.path.normpath(os.path.join(upload_directory, normalized_filename))
 
 
-# Option 3 from Chapter 16: Dealing With the User Model
-
+# Our custom user model is based on option 3 from Two Scoops of Django - Chapter 16: Dealing With the User Model.
 class BlueBottleUserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
@@ -71,7 +70,7 @@ class BlueBottleUserManager(BaseUserManager):
 
 class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     """
-    Inherits from both the AbstractBaseUser and PermissionMixin.
+    Custom user model for BlueBottle.
     """
     class Gender(DjangoChoices):
         male = ChoiceItem('male', label=_("Male"))
@@ -108,6 +107,8 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     location = models.CharField(_("location"), max_length=100, blank=True)
+    share_time_knowledge = models.BooleanField(_("share time and knowledge"))
+    share_money = models.BooleanField(_("share money"))
     website = models.URLField(_("website"), blank=True)
     # TODO Use generate_picture_filename (or something) for upload_to
     picture = ImageField(_("picture"), upload_to='profiles', blank=True)
