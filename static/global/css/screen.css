@@ -3585,6 +3585,45 @@ body .ui-tooltip { border-width: 2px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_component-animations\.scss}line{font-family:\0000319}}
 .collapse.in { height: auto; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\000039}}
+.alert { padding: 8px 35px 8px 14px; margin-bottom: 20px; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); background-color: #fcf8e3; border: 1px solid #fbeed5; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000318}}
+.alert, .alert h4 { color: #c09853; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000322}}
+.alert h4 { margin: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000327}}
+.alert .close { position: relative; top: -2px; right: -21px; line-height: 20px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000338}}
+.alert-success { background-color: #dff0d8; border-color: #d6e9c6; color: #468847; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000343}}
+.alert-success h4 { color: #468847; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000347}}
+.alert-danger, .alert-error { background-color: #f2dede; border-color: #eed3d7; color: #b94a48; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000353}}
+.alert-danger h4, .alert-error h4 { color: #b94a48; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000356}}
+.alert-info { background-color: #d9edf7; border-color: #bce8f1; color: #3a87ad; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000361}}
+.alert-info h4 { color: #3a87ad; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000369}}
+.alert-block { padding-top: 14px; padding-bottom: 14px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000374}}
+.alert-block > p, .alert-block > ul { margin-bottom: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_alerts\.scss}line{font-family:\0000377}}
+.alert-block p + p { margin-top: 5px; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_modals\.scss}line{font-family:\000036}}
 .modal-backdrop { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1040; background-color: black; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_modals\.scss}line{font-family:\0000315}}
@@ -3622,7 +3661,7 @@ body .ui-tooltip { border-width: 2px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_modals\.scss}line{font-family:\0000390}}
 .modal-body .modal-footer { margin: -15px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_modals\.scss}line{font-family:\0000394}}
-.modal-body .close { font-size: 20px; font-size: 1.42857rem; float: right; font-weight: bold; color: #cccccc; cursor: pointer; line-height: 1; }
+.modal-body .close { float: right; font-weight: bold; font-size: 20px; color: #cccccc; cursor: pointer; line-height: 1; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/bootstrap\/_modals\.scss}line{font-family:\00003104}}
 .modal-form { margin-bottom: 0; }
