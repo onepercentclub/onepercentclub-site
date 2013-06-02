@@ -1,7 +1,8 @@
+from apps.projects.models import ProjectPitch
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -165,6 +166,12 @@ class ManageProjectDetail(generics.RetrieveUpdateAPIView):
     model = Project
     serializer_class = ManageProjectSerializer
     permission_classes = (IsOwner, )
+
+
+class ManageProjectPitchDetail(generics.RetrieveUpdateAPIView):
+    model = ProjectPitch
+    serializer_class = ManageProjectPitchSerializer
+
 
 # Django template Views
 

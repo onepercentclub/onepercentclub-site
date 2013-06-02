@@ -35,7 +35,6 @@
     <div class="section" id="detail">
 
         <section class="wrapper">
-
             <figure class="media">
                 <img {{bindAttr src="image"}} width="100%" alt="Photo" />
             </figure>
@@ -56,16 +55,12 @@
                 </div>
 
                 <h1 class="project-title">
-                    {%comment%}
-                    <span class="phase">{{phase}}</span>
-                    {%endcomment%}
                     {{title}}
                 </h1>
 
                 <p class="project-description">{{description}}</p>
 
                 <div class="status-box">
-
                     <div class="donate-status">
                         <p class="donate-amount">
                                 <span class="donated">&euro;{{localize money_donated}}</span>
@@ -77,7 +72,6 @@
                     </div>
 
                     <p class="donate-days-left">
-                        {{{days_left_span}}}
                         <strong><em class="icon-time"></em> ??</strong>
                         <em>{% trans "days to go" %}</em>
                     </p>

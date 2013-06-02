@@ -15,19 +15,14 @@ App.Project = DS.Model.extend({
     // Model fields
     slug: DS.attr('string'),
     title: DS.attr('string'),
-    image: DS.attr('string'),
-    image_small: DS.attr('string'),
-    image_square: DS.attr('string'),
-    image_bg: DS.attr('string'),
     phase: DS.attr('string'),
-    organization: DS.attr('string'),
-    description: DS.attr('string'),
-    money_asked: DS.attr('number'),
-    money_donated: DS.attr('number'),
     created: DS.attr('date'),
     tags: DS.attr('array'),
     owner: DS.belongsTo('App.UserPreview'),
-    country: DS.belongsTo('App.ProjectCountry'),
+    country: DS.belongsTo('App.Country'),
+
+    money_asked: DS.attr('number'),
+    money_donated: DS.attr('number'),
 
     days_left: DS.attr('number'),
     supporters_count: DS.attr('number'),

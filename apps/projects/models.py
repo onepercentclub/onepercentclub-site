@@ -1,7 +1,6 @@
 from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models import Sum
 from django.db.models.aggregates import Count
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -43,6 +42,54 @@ class ProjectPitch(models.Model):
         needs_work = ChoiceItem('needs_work', label=_("Needs work"))
         approved = ChoiceItem('approved', label=_("Approved"))
 
+    class NeedsChoices(DjangoChoices):
+        skills = ChoiceItem('skills', label=_("Skills and expertise"))
+        finance = ChoiceItem('finance', label=_("Crowdfunding campaign"))
+        both = ChoiceItem('both', label=_("Both"))
+
+    # Basics
+
+    title = models.CharField(_("title"), max_length=100, help_text=_("Be short, creative, simple and memorable"))
+
+    pitch = models.TextField(_("pitch"), blank=True, help_text=_("Pitch your smart idea in one sentence"))
+    description = models.TextField(_("why, what and how"), help_text=_("Blow us away with the details!"), blank=True)
+
+
+    created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
+    updated = ModificationDateTimeField(_('updated'))
+
+    status = models.CharField(_("status"), max_length=20, choices=PitchStatuses.choices)
+    theme = models.ForeignKey(ProjectTheme, blank=True, verbose_name=_("theme"), help_text=_("Select one of the themes "))
+
+    need = models.CharField(_("Project need"), max_length=20, choices=NeedsChoices.choices, default=NeedsChoices.both)
+
+    tags = TaggableManager(blank=True, verbose_name=_("tags"), help_text=_("Add tags"))
+
+    # Location
+
+    # Location
+    latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18)
+    longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18)
+    # country = CountryField(blank=True, null=True, verbose_name=_("country"))
+    country = models.ForeignKey('geo.Country', blank=True, null=True)
+
+    # Media
+    image = ImageField(_("picture"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Upload the picture that best describes your smart idea!"))
+    video_url = models.URLField(_("video"), max_length=100, blank=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
+
+    def __unicode__(self):
+        return self.title
+
+
+class ProjectPlan(models.Model):
+
+    class PitchStatuses(DjangoChoices):
+        new = ChoiceItem('new', label=_("New"))
+        submitted = ChoiceItem('submitted', label=_("Submitted"))
+        rejected = ChoiceItem('rejected', label=_("Rejected"))
+        needs_work = ChoiceItem('needs_work', label=_("Needs work"))
+        approved = ChoiceItem('approved', label=_("Approved"))
+
     class ImpactGroups(DjangoChoices):
         children = ChoiceItem('children', label=_("Children"))
         youth = ChoiceItem('youth', label=_("Youth"))
@@ -52,6 +99,8 @@ class ProjectPitch(models.Model):
     # Basics
 
     title = models.CharField(_("title"), max_length=100, help_text=_("Be short, creative, simple and memorable"))
+    slug = models.SlugField(_("slug"), max_length=100, unique=True)
+
     pitch = models.TextField(_("pitch"), blank=True, help_text=_("Pitch your smart idea in one sentence"))
     social_impact = models.TextField(_("social impact"), blank=True,help_text=_("Who are you helping?"))
 
@@ -85,6 +134,10 @@ class ProjectPitch(models.Model):
     image = ImageField(_("picture"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Upload the picture that best describes your smart idea!"))
     video_url = models.URLField(_("video"), max_length=100, blank=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
 
+    def __unicode__(self):
+        return self.title
+
+
 
 class ProjectPhases(DjangoChoices):
     pitch = ChoiceItem('pitch', label=_("Pitch"))
@@ -105,6 +158,14 @@ class Project(models.Model):
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
+
+    @property
+    def money_donated(self):
+        return 100000
+
+    @property
+    def money_asked(self):
+        return 400000
 
     def __unicode__(self):
         if self.title:
@@ -137,6 +198,7 @@ class Project(models.Model):
         ordering = ['title']
         verbose_name = _("project")
         verbose_name_plural = _("projects")
+
 
 
 class PartnerOrganization(models.Model):

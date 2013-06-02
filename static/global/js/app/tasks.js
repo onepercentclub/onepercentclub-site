@@ -44,7 +44,7 @@ App.Task = DS.Model.extend({
     end_goal: DS.attr('string'),
     created: DS.attr('date'),
     deadline: DS.attr('date'),
-    project: DS.belongsTo('App.ProjectPreview'),
+    project: DS.belongsTo('App.Project'),
     members: DS.hasMany('App.TaskMember'),
     files: DS.hasMany('App.TaskFile'),
     expertise: DS.attr('string'),
@@ -167,7 +167,7 @@ App.ProjectTaskNewController = Em.ObjectController.extend({
         var controller = this;
         var task = this.get('content');
         task.set('project', this.get('controllers.project.model'));
-        task.set('author', this.get('controllers.currentUser.model'));
+        //task.set('author', this.get('controllers.currentUser.model'));
         task.on('didCreate', function(record) {
             controller.get('controllers.projectTaskList').unshiftObject(record);
             controller.transitionToRoute('projectTaskList')

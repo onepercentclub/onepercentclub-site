@@ -13,7 +13,10 @@ from .models import (Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, Budg
 
 
 class ProjectPitchAdmin(admin.ModelAdmin):
+
     model = ProjectPitch
+    list_filter = ('status', )
+    list_display = ('title', 'status', 'created')
 
 admin.site.register(ProjectPitch, ProjectPitchAdmin)
 

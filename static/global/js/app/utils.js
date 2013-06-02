@@ -1,4 +1,8 @@
-// TODO: Combine this Country model with the one in projects and use API for loading this list.
+// TODO: Combine this Country model with the one in projects.
+App.CountryList = [
+    {"value": "0", "title": "--loading--"},
+];
+
 App.Country = DS.Model.extend({
     url: "utils/countries",
 
@@ -9,12 +13,8 @@ App.Country = DS.Model.extend({
 });
 
 
-App.CountryList = [
-    {"value": "0", "title": "loading"}
-];
-
 App.CountrySelectView = Em.Select.extend({
-    content: App.CountryList,
+    content: {"value": "0", "title": "loading"},
     optionValuePath: "content.pk",
     optionLabelPath: "content.title"
 });
@@ -117,6 +117,21 @@ App.Editable = Ember.Mixin.create({
             this.transaction = this.get('store').transaction();
             this.transaction.add(record);
         }
+    },
+
+    updateRecordOnServer: function(){
+        var controller = this;
+        var model = this.get('model');
+        model.one('becameInvalid', function(record){
+            console.log("becameInvalid");
+            model.set('errors', record.get('errors'));
+        });
+
+        model.one('didUpdate', function(){
+            controller.startEditing();
+        });
+
+        model.transaction.commit();
     },
 
     stopEditing: function() {
@@ -233,7 +248,6 @@ App.Tag = DS.Model.extend({
     }
 });
 
-
 App.TagField = Em.TextField.extend({
     keyUp: function(e){
         if (e.keyCode == 188) {
@@ -303,7 +317,7 @@ App.ShowMoreItemsMixin = Em.Mixin.create({
 
 App.PopOverMixin = Em.Mixin.create({
    didInsertElement: function(){
-        this.$('.has-popover').popover({trigger: 'hover', placement: 'right'});
+        this.$('.has-popover').popover({trigger: 'hover', placement: 'left'});
         this.$('.has-tooltip').tooltip({trigger: 'hover', placement: 'right'});
    }
 });
@@ -311,19 +325,17 @@ App.PopOverMixin = Em.Mixin.create({
 
 App.Theme = DS.Model.extend({
     url:'utils/themes',
-
-    value: DS.attr('string'),
     title: DS.attr('string')
 });
 
 
 App.ThemeList = [
-    {value: "loading", title: "--loading--"},
+    {id: "0", title: "--loading--"},
 ];
 
 App.ThemeSelectView = Em.Select.extend({
     content: App.ThemeList,
-    optionValuePath: "content.value",
+    optionValuePath: "content.id",
     optionLabelPath: "content.title"
 });
 
@@ -331,6 +343,8 @@ App.ThemeSelectView = Em.Select.extend({
 App.MapPicker = Em.View.extend({
 
     templateName: 'map_picker',
+    marker: null,
+
     submit: function(e){
         e.preventDefault();
         this.lookUpLocation();
@@ -341,11 +355,7 @@ App.MapPicker = Em.View.extend({
         var view = this;
         view.geocoder.geocode( {'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                view.map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: view.map,
-                    position: results[0].geometry.location
-                });
+                view.placeMarker(results[0].geometry.location);
                 view.set('latitude',  results[0].geometry.location.lat());
                 view.set('longitude',  results[0].geometry.location.lng());
 
@@ -354,31 +364,38 @@ App.MapPicker = Em.View.extend({
             }
         });
     },
+    placeMarker: function (position) {
+        var view = this;
+        if (view.marker) {
+            view.marker.setMap(null)
+        }
+
+        view.marker = new google.maps.Marker({
+            position: position,
+            map: view.map
+        });
+        view.map.panTo(position);
+    },
 
     didInsertElement: function(){
         var view = this;
         this.geocoder = new google.maps.Geocoder();
         var view = this;
+        var point = new google.maps.LatLng(view.get('latitude'), view.get('longitude'));
         var mapOptions = {
             zoom: 6,
-            center: new google.maps.LatLng(view.get('latitude'), view.get('longitude')),
+            center: point,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
         view.map = new google.maps.Map(this.$('.map-picker').get(0), mapOptions);
 
+        view.placeMarker(point);
 
-        function placeMarker(position, map) {
-            var marker = new google.maps.Marker({
-                position: position,
-                map: map
-            });
-            map.panTo(position);
-        }
         google.maps.event.addListener(view.map, 'click', function(e) {
             var loc = {};
             view.set('latitude',  e.latLng.lat());
             view.set('longitude',  e.latLng.lng());
-            placeMarker(e.latLng, view.map);
+            view.placeMarker(e.latLng);
         });
     }
 
@@ -397,4 +414,7 @@ App.MapPicker = Ember.ContainerView.extend({
 
 });
 
+<<<<<<< HEAD
 å
+=======
+>>>>>>> b541688... Saving pitches

@@ -318,6 +318,10 @@ App.Adapter.map('App.MyProject', {
     plan: {embedded: 'load'}
 });
 
+App.Adapter.map('App.MyProjectPitch', {
+    tags: {embedded: 'always'}
+});
+
 
 App.Store = DS.Store.extend({
     revision: 11,
@@ -399,15 +403,28 @@ App.Router.map(function() {
         this.route('media');
     });
 
-    this.resource('myProjectList', {path: '/my/projects'});
     this.resource('myProject', {path: '/my/projects/:my_project_id'}, function(){
-        this.route('index');
-        this.route('basics');
-        this.route('location');
-        this.route('description');
-        this.route('media');
-        this.route('organisation');
+        this.resource('myProjectPlan', {path: 'plan'},function(){
+            this.route('index');
+            this.route('basics');
+            this.route('location');
+            this.route('description');
+            this.route('media');
+            this.route('organisation');
+
+        });
+        this.resource('myProjectPitch', {path: 'pitch'}, function(){
+            this.route('index');
+            this.route('basics');
+            this.route('location');
+            this.route('submit');
+            this.route('media');
+        });
+        this.resource('myProjectPitchReview', {path: 'pitch/review'})
     });
+
+
+    this.resource('myProjectList', {path: '/my/projects'});
 
 });
 
@@ -469,6 +486,17 @@ App.ApplicationRoute = Ember.Route.extend({
                 classNames: ['modal'],
                 defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
                 bodyViewClass: view
+            });
+
+        },
+        showTermsAndConditions:  function(){
+            //var view = App.GeneralTermsAndConditionsView.create();
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: "General Terms & Conditions",
+                message: "This needs some text....",
+                //bodyViewClass: view,
+                secondary: 'Close'
             });
         }
     }
@@ -1000,7 +1028,7 @@ App.PasswordResetRoute = Ember.Route.extend({
 
 
 /**
- * My 1PC
+ * My Projects
  * - Manage your project(s)
  */
 App.MyProjectListRoute = Ember.Route.extend({
@@ -1010,12 +1038,15 @@ App.MyProjectListRoute = Ember.Route.extend({
 
 });
 
+App.MyProjectRoute = Ember.Route.extend({
+    init: function(){
+        this._super();
+        console.log(this.toString());
+    },
 
-App.MyProjectSubRoute = Ember.Route.extend({
-    model: function(params){
-        return this.modelFor('myProject').get('pitch');
+    model: function(params) {
+        return App.MyProject.find(params.my_project_id);
     }
-
 });
 
 
@@ -1063,15 +1094,50 @@ App.MyProjectBasicsRoute =  App.MyProjectSubRoute.extend({});
 App.MyProjectDescriptionRoute =  App.MyProjectSubRoute.extend({});
 App.MyProjectLocationRoute =  App.MyProjectSubRoute.extend({});
 
+App.MyProjecPitcIndexhRoute = Ember.Route.extend({
+    model: function(params){
+        return this.modelFor('myProject').get('pitch');
 
-
-
-/* Views */
-
-App.LanguageView = Ember.View.extend({
-    templateName: 'language'
+    }
 });
 
+App.MyProjecPlanRoute = Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    }
+});
+
+App.MyProjectSubRoute = Ember.Route.extend({
+    redirect: function() {
+        console.log('check');
+        this.transitionTo('myProjectPitchReview');
+    },
+    model: function(params) {
+        return this.modelFor('myProject').get('pitch');
+    },
+    setupController: function(controller, model){
+        this._super(controller, model);
+        controller.startEditing();
+    },
+    exit: function(){
+        if (this.get('controller')) {
+            this.get('controller').stopEditing();
+        }
+    }
+
+});
+
+App.MyProjectPitchBasicsRoute =  App.MyProjectSubRoute.extend({});
+App.MyProjectPitchLocationRoute =  App.MyProjectSubRoute.extend({});
+App.MyProjectPitchSubmitRoute =  App.MyProjectSubRoute.extend({});
+
+App.MyProjectPitchReviewRoute =  Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('pitch');
+    }
+});
+
+/* Views */
 
 App.LanguageSwitchView = Ember.CollectionView.extend({
     tagName: 'ul',

@@ -3,7 +3,7 @@ from surlex.dj import surl
 from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWallPostDetail, ProjectMediaWallPostList,
                     ProjectMediaWallPostDetail, ProjectTextWallPostList, ProjectTextWallPostDetail,
                     ProjectMediaWallPostPhotoList, ProjectMediaWallPostPhotoDetail, ProjectDonationList,
-                    ManageProjectList, ManageProjectDetail)
+                    ManageProjectList, ManageProjectDetail, ManageProjectPitchDetail)
 
 urlpatterns = patterns('',
     url(r'^$', ProjectList.as_view(), name='project-list'),
@@ -26,6 +26,7 @@ urlpatterns = patterns('',
 
     url(r'^manage/$', ManageProjectList.as_view(), name='project-manage-list'),
     surl(r'^manage/<pk:#>$', ManageProjectDetail.as_view(), name='project-manage-detail'),
+    surl(r'^manage/pitches/<pk:#>$', ManageProjectPitchDetail.as_view(), name='project-pitch-manage-detail'),
 
 
 )
