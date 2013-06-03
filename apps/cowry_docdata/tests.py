@@ -30,8 +30,8 @@ class DocDataPaymentTests(TestCase):
         payment.address = 'Dam'
         payment.postal_code = '1001AM'
         payment.first_name = 'Nijntje'
-        payment.last_name = 'het Konijnje'
-        payment.email = 'nijntje@hetkonijnje.nl'
+        payment.last_name = 'het Konijntje'
+        payment.email = 'nijntje@hetkonijntje.nl'
         payment.save()
         payments.create_remote_payment_order(payment)
 
