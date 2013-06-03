@@ -29,7 +29,7 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
 
         # Profile should be able to be updated after by logged in user.
         self.client.login(username=self.some_user.username, password='password')
-        full_name = {'first_name': 'Nijntje', 'last_name': 'het Konijnje'}
+        full_name = {'first_name': 'Nijntje', 'last_name': 'het Konijntje'}
         response = self.client.put(user_profile_url, encode_multipart(BOUNDARY, full_name), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['first_name'], full_name.get('first_name'))
@@ -70,8 +70,8 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         Test creating a user with the api.
         """
         # Create a user.
-        new_user_email = 'nijntje27@hetkonijnje.nl'
-        new_user_password = 'hetkonijnje'
+        new_user_email = 'nijntje27@hetkonijntje.nl'
+        new_user_password = 'password'
         response = self.client.post(self.user_create_api_url, {'email': new_user_email,
                                                                'password': new_user_password})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
@@ -96,3 +96,23 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         response = self.client.post(self.user_create_api_url, {'password': new_user_password})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
         self.assertEqual(response.data['email'][0], 'This field is required.')
+
+    def test_generate_username(self):
+        new_user1_email = 'nijntje74@hetkonijntje.nl'
+        new_user2_email = 'nijntje89@hetkonijntje.nl'
+        first_name = 'Nijntje'
+        last_name = 'het Konijntje'
+        new_user_password = 'password'
+        response = self.client.post(self.user_create_api_url, {'first_name': first_name,
+                                                               'last_name': last_name,
+                                                               'email': new_user1_email,
+                                                               'password': new_user_password})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['username'], 'nijntje-het-konijntje')
+
+        response = self.client.post(self.user_create_api_url, {'first_name': first_name,
+                                                               'last_name': last_name,
+                                                               'email': new_user2_email,
+                                                               'password': new_user_password})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data['username'], 'nijntje-het-konijntje-2')
