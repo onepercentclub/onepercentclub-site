@@ -22,14 +22,12 @@ class UserTestsMixin(object):
     def create_user(self, email=None, password=None, **extra_fields):
         """ Create, save and return a new user. """
 
-        # If username is set and not unique, it will raise a clearly
-        # interpretable IntegrityError.
+        # If email is set and not unique, it will raise a clearly interpretable IntegrityError.
         # If auto-generated, make sure it's unique.
-
         if not email:
             email = generate_random_email()
             while BlueBottleUser.objects.filter(email=email).exists():
-                username = generate_random_email()
+                email = generate_random_email()
 
         user = BlueBottleUser.objects.create_user(email=email, **extra_fields)
 

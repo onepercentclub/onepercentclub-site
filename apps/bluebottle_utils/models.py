@@ -17,14 +17,3 @@ class Address(models.Model):
 
     class Meta:
         abstract = True
-
-
-try:
-    from south.modelsinspector import add_ignored_fields
-except ImportError:
-    pass
-else:
-    # South should ignore the tags field as it's a RelatedField.
-    add_ignored_fields((
-        "^taggit_autocomplete_modified\.managers\.TaggableManagerAutocomplete",
-    ))

@@ -2,9 +2,7 @@ from apps.accounts.models import BlueBottleUser
 from django import forms
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from django.core import urlresolvers
 from django.contrib import admin
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from .models import UserAddress
 
@@ -88,7 +86,7 @@ class BlueBottleAdmin(UserAdmin):
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'gender', 'birthdate', 'phone_number')}),
         (_("Profile"), {'fields': ('picture', 'about', 'why', 'availability', 'location', 'website')}),
-        (_("Settings"), {'fields': ['language', 'newsletter']}),
+        (_("Settings"), {'fields': ['primary_language', 'newsletter']}),
         (_("Data from old website"), {'fields': ('availability_old', 'contribution', 'working_location', 'tags')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined', 'deleted')}),

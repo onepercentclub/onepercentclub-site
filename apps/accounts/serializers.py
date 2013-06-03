@@ -34,6 +34,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='user-profile-detail')
     avatar = SorlImageField('picture', '100x100', colorspace="GRAY", required=False, read_only=True)
     date_joined = serializers.DateTimeField(read_only=True)
+    username = serializers.CharField(read_only=True)
 
     class Meta:
         model = BlueBottleUser
@@ -41,7 +42,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         #           * interested in themes
         #           * interested in countries
         #           * interested in target groups
-        fields = ('id', 'url', 'first_name', 'last_name', 'avatar', 'picture', 'about', 'why', 'website',
+        fields = ('id', 'url', 'username', 'first_name', 'last_name', 'avatar', 'picture', 'about', 'why', 'website',
                   'availability', 'date_joined')
 
 
