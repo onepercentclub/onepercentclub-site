@@ -158,7 +158,7 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
             username = 'x'
             if self.first_name or self.last_name:
                 # The ideal condition.
-                username = slugify(self.first_name + self.last_name)
+                username = slugify(self.first_name + '-' + self.last_name)
             elif self.email and '@' in self.email:
                 # The best we can do if there's no first or last name.
                 email_name, domain_part = self.email.strip().rsplit('@', 1)
