@@ -191,7 +191,7 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                 payment.country = address.country.alpha2_code
 
             # Try to use the language from the User settings if it's set.
-            if self.request.user.language:
+            if self.request.user.primary_language:
                 payment.language = self.request.user.language[:2]  # Cut off locale.
         else:
             # Use Netherlands as the default country for anonymous orders.
