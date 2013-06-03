@@ -1,7 +1,8 @@
+import os
 import random
 import string
 from django.core.mail import send_mail
-import os
+from django.utils.text import slugify
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
@@ -57,6 +58,7 @@ class BlueBottleUserManager(BaseUserManager):
         user = self.model(email=email, is_staff=False, is_active=True, is_superuser=False,
                           last_login=now, date_joined=now, **extra_fields)
         user.set_password(password)
+        user.generate_username()
         user.save(using=self._db)
         return user
 
@@ -96,13 +98,13 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
         company = ChoiceItem('company', label=_("Company"))
 
     email = models.EmailField(_("email address"), max_length=254, unique=True, db_index=True)
-    username = AutoSlugField(_("username"), max_length=30, unique=True, populate_from=('get_username',), db_index=True)
+    username = models.SlugField(_("username"), unique=True)
     is_staff = models.BooleanField(_("staff status"), default=False, help_text=_('Designates whether the user can log into this admin site.'))
     is_active = models.BooleanField(_("active"), default=True, help_text=_('Designates whether this user should be treated as active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     updated = ModificationDateTimeField()
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
-    user_type = models.CharField(_("Member Type"), max_length=25, blank=True, choices=UserType.choices)
+    user_type = models.CharField(_("Member Type"), max_length=25, choices=UserType.choices, default=UserType.person)
 
     # Public Profile
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
@@ -118,7 +120,7 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     availability_old = models.CharField(_("availability"), max_length=255, blank=True)
 
     # Private Settings
-    language = models.CharField(_("language"), max_length=5, help_text=_("Language used for website and emails."), choices=settings.LANGUAGES)
+    primary_language = models.CharField(_("primary_language"), max_length=5, help_text=_("Language used for website and emails."), choices=settings.LANGUAGES)
     newsletter = models.BooleanField(_("newsletter"), help_text=_("Subscribe to newsletter."), default=False)
     phone_number = models.CharField(_("phone number"), max_length=50, null=True, blank=True)
     gender = models.CharField(_("gender"), max_length=6, blank=True, null=True, choices=Gender.choices)
@@ -135,16 +137,59 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     # Only email and password is requires to create a user account but this is how you'd require other fields.
     # REQUIRED_FIELDS = ['first_name', 'last_name']
 
+    slug_field = 'username'
+
     class Meta:
         verbose_name = _('member')
         verbose_name_plural = _('members')
 
-    def clean(self):
-        # Automatically set the deleted timestamp.
+    def update_deleted_timestamp(self):
+        """ Automatically set or unset the deleted timestamp."""
         if not self.is_active and self.deleted is None:
             self.deleted = timezone.now()
         elif self.is_active and self.deleted is not None:
             self.deleted = None
+
+    def generate_username(self):
+        """ Generate and set a username if it hasn't already been set. """
+        if not self.username:
+            # Default to something so Django doesn't complain.
+            username = 'x'
+            if self.first_name or self.last_name:
+                # The ideal condition.
+                username = slugify(self.first_name + self.last_name)
+            elif self.email and '@' in self.email:
+                # The best we can do if there's no first or last name.
+                email_name, domain_part = self.email.strip().rsplit('@', 1)
+                username = slugify(email_name)
+
+            # Strip username depending on max_length attribute of the slug field.
+            max_length = self._meta.get_field('username').max_length
+            username = username[:max_length]
+            original_username = username
+
+            # Exclude the current model instance from the queryset used in finding the next valid slug.
+            queryset = self._default_manager.all()
+            if self.pk:
+                queryset = queryset.exclude(pk=self.pk)
+
+            # Increase the number while searching for the next valid slug depending on the given slug, clean-up
+            next_num = 2
+            while queryset.filter(username=username):
+                username = original_username
+                end = '%s%s' % ('-', next_num)
+                end_len = len(end)
+                if len(username) + end_len > max_length:
+                    username = username[:max_length - end_len]
+                username = '%s%s' % (username, end)
+                next_num += 1
+
+            # Finally set the generated username.
+            self.username = username
+
+    def clean(self):
+        self.update_deleted_timestamp()
+        self.generate_username()
 
     def get_full_name(self):
         """
@@ -165,21 +210,6 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
         """
         send_mail(subject, message, from_email, [self.email])
 
-    def get_username(self):
-        """
-        Returns text to be used as the username slug.
-        """
-        if self.first_name or self.last_name:
-            # The ideal condition.
-            return self.first_name + self.last_name
-        if self.email and '@' in self.email:
-            # The best we can do if there's no first or last name.
-            email_name, domain_part = self.email.strip().rsplit('@', 1)
-            return email_name
-        else:
-            # Valid information isn't in the model but we need to set something so Django doesn't complain.
-            return 'x'
-
     @property
     # For now return the first address found on this user.
     def address(self):
@@ -188,6 +218,20 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
             return addresses[0]
         else:
             return None
+
+
+# South cannot deal with the taggit so we're ignoring that field. Here's the error message from South:
+# ! Cannot freeze field 'accounts.bluebottleuser.tags'
+# ! (this field has class taggit_autocomplete_modified.managers.TaggableManagerAutocomplete)
+try:
+    from south.modelsinspector import add_ignored_fields
+except ImportError:
+    pass
+else:
+    # South should ignore the tags field as it's a RelatedField.
+    add_ignored_fields((
+        "^taggit_autocomplete_modified\.managers\.TaggableManagerAutocomplete",
+    ))
 
 
 class UserAddress(Address):
