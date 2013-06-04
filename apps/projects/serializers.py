@@ -14,14 +14,14 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Country
-        fields = ('id', 'name', 'subregion')
+        fields = ('name', 'subregion')
 
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
-    country = ProjectCountrySerializer()
     phase = serializers.CharField(source='get_phase_display', read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='project-detail')
+    # country = ProjectCountrySerializer()
     money_asked = EuroField(source='money_asked')
     money_donated = EuroField(source='money_donated')
     image_square = SorlImageField('image', '120x120')
@@ -48,7 +48,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     # Ember-data needs to have an unique id field for relationships to work. Normally it's the pk but in this case
     # it's the slug so we can display the project slug in the url.
     id = serializers.CharField(source='slug', read_only=True)
-    country = ProjectCountrySerializer()
+    # country = ProjectCountrySerializer()
     # TODO: This gets the display in English. How do we automatically switch to Dutch?
     language = serializers.CharField(source='get_language_display', read_only=True)
     organization = serializers.RelatedField()
