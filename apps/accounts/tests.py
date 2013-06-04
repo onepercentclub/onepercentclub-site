@@ -28,7 +28,7 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         self.assertEqual(response.data['id'], self.some_user.id)
 
         # Profile should be able to be updated after by logged in user.
-        self.client.login(username=self.some_user.username, password='password')
+        self.client.login(username=self.some_user.email, password='password')
         full_name = {'first_name': 'Nijntje', 'last_name': 'het Konijntje'}
         response = self.client.put(user_profile_url, encode_multipart(BOUNDARY, full_name), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
