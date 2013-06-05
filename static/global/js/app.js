@@ -65,7 +65,7 @@ App = Em.Application.create({
     LOG_TRANSITIONS: true,
 
     // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
-    templates: ['profiles', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders'],
+    templates: ['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders'],
 
     // We store language & locale here because they need to be available before loading templates.
     language: 'en',
