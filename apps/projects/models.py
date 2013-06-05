@@ -7,7 +7,6 @@ from django.utils.text import truncate_words
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django_countries.fields import CountryField
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
@@ -62,7 +61,7 @@ class Project(models.Model):
     # http://stackoverflow.com/questions/7167604/how-accurately-should-i-store-latitude-and-longitude
     latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18)
     longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18)
-    country = CountryField(blank=True)
+    country = models.ForeignKey('geo.Country', blank=True, null=True)
 
     language = models.CharField(max_length=6, choices=settings.LANGUAGES, help_text=_("Main language of the project."))
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
