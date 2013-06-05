@@ -224,6 +224,29 @@
             <hr class="form-divider">
 
             <fieldset>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "I want to share" %}
+                        </label>
+
+                        <div class="controls">
+                            <label class="checkbox">
+                                {{view Em.Checkbox checkedBinding="share_time_knowledge" }}
+                                <span for="optionsCheckboxes1">{% trans "Time & Knowledge" %}</span>
+                            </label>
+                            <label class="checkbox">
+                                {{view Em.Checkbox checkedBinding="share_money" }}
+                                <span for="optionsCheckboxes1">{% trans "Finances" %}</span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
+
+            <hr class="form-divider">
+
+            <fieldset>
                 <legend>
                     <strong>{% trans "Personal Details" %}</strong>
                     <p>{% trans "Only 1%CLUB can see your personal details. They won’t be published anywhere on the 1%CLUB website." %}</p>
@@ -236,9 +259,9 @@
 
                         <div class="controls">
                             {{#view Em.RadioButtonGroup name="gender" selectedValueBinding="gender" class="radio-group-horizontal"}}
-                                <div class="radio3">{{view view.RadioButton value="other"}}<span>{% trans "reset" %}</span></div>
-                                <div class="radio3">{{view view.RadioButton value="male"}}<span>{% trans "male" %}</span></div>
-                                <div class="radio3">{{view view.RadioButton value="female"}}<span>{% trans "female" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value="female"}}<span>{% trans "Female" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value="male"}}<span>{% trans "Male" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value=""}}<span>{% trans "Unset" %}</span></div>
                             {{/view}}
                         </div>
                     </li>
@@ -249,7 +272,7 @@
                         </label>
 
                         <div class="controls">
-                            {{view App.DatePicker valueBinding="birthdate" classBinding="errors.birthday.length:error"}}
+                            {{view App.DatePicker valueBinding="birthdate" classBinding="errors.birthdate.length:error"}}
                         </div>
 
                         {{#if errors.birthdate}}

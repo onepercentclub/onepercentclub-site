@@ -402,12 +402,10 @@ App.Tag = DS.Model.extend({
 });
 
 
-
 // See/Use App.DatePicker
 App.DatePickerValue = Ember.TextField.extend({
     type: 'hidden',
     valueBinding: "parentView.value"
-
 });
 
 // See/Use App.DatePicker
@@ -417,11 +415,10 @@ App.DatePickerWidget = Ember.TextField.extend({
 
     didInsertElement: function(){
         this.$().datepicker();
-        this.$().datepicker('setDate',this.get('date'));
-
+        this.$().datepicker('setDate', this.get('date'));
     },
-    change: function(){
 
+    change: function(){
         this.set('date', this.$().datepicker('getDate'));
     }
 });
@@ -431,6 +428,5 @@ App.DatePickerWidget = Ember.TextField.extend({
 // valueBinding should bind to a  DS.attr('date') property of an Ember model.
 App.DatePicker = Ember.ContainerView.extend({
     childViews: [App.DatePickerValue, App.DatePickerWidget]
-
 });
 
