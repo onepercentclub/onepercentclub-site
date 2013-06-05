@@ -136,8 +136,8 @@ App.UserController = Ember.Controller.extend({
 
 App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
     timeAvailableList: (function() {
-        var list;
-        list = Em.A();
+        var list = Em.A();
+        list.addObject({ name: '- - - - - - - - - - - - - - - - - -', value: ''});
         list.addObject({ name: '1-4 hours per week', value: '1-4_hours_week' });
         list.addObject({ name: '5-8 hours per week', value: '5-8_hours_week' });
         list.addObject({ name: '9-16 hours per week', value: '9-16_hours_week' });
