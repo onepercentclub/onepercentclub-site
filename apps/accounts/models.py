@@ -108,8 +108,6 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     location = models.CharField(_("location"), max_length=100, blank=True)
-    share_time_knowledge = models.BooleanField(_("share time and knowledge"))
-    share_money = models.BooleanField(_("share money"))
     website = models.URLField(_("website"), blank=True)
     # TODO Use generate_picture_filename (or something) for upload_to
     picture = ImageField(_("picture"), upload_to='profiles', blank=True)
@@ -120,7 +118,9 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     availability_old = models.CharField(_("availability"), max_length=255, blank=True)
 
     # Private Settings
-    primary_language = models.CharField(_("primary_language"), max_length=5, help_text=_("Language used for website and emails."), choices=settings.LANGUAGES)
+    primary_language = models.CharField(_("primary language"), max_length=5, help_text=_("Language used for website and emails."), choices=settings.LANGUAGES)
+    share_time_knowledge = models.BooleanField(_("share time and knowledge"))
+    share_money = models.BooleanField(_("share money"))
     newsletter = models.BooleanField(_("newsletter"), help_text=_("Subscribe to newsletter."), default=False)
     phone_number = models.CharField(_("phone number"), max_length=50, null=True, blank=True)
     gender = models.CharField(_("gender"), max_length=6, blank=True, null=True, choices=Gender.choices)
