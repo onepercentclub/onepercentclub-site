@@ -68,6 +68,9 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     """
     Serializer for viewing and editing a user's settings. This should only be accessible to authenticated users.
     """
+    # FIXME: We should really be serializing 'birthdate' as a DateField but that would require some additional work
+    #        in our ember-data adapter. This could cause birthdate's to not be savable in some cases.
+    birthdate = serializers.DateTimeField(required=False)
     email = serializers.EmailField(required=False)
 
     class Meta:
@@ -75,4 +78,4 @@ class UserSettingsSerializer(serializers.ModelSerializer):
         # TODO: Add * password update like it's done with the post only fields serializer (ie. create / add put only fields serializer)
         #           * Facebook connect
         #           * Address
-        fields = ('id', 'email', 'newsletter', 'gender', 'birthdate')
+        fields = ('id', 'email', 'share_time_knowledge', 'share_time_knowledge', 'newsletter', 'gender', 'birthdate')
