@@ -236,9 +236,9 @@
 
                         <div class="controls">
                             {{#view Em.RadioButtonGroup name="gender" selectedValueBinding="gender" class="radio-group-horizontal"}}
-                                <div class="radio3">{{view view.RadioButton value="other"}}<span>{% trans "reset" %}</span></div>
-                                <div class="radio3">{{view view.RadioButton value="male"}}<span>{% trans "male" %}</span></div>
-                                <div class="radio3">{{view view.RadioButton value="female"}}<span>{% trans "female" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value="female"}}<span>{% trans "Female" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value="male"}}<span>{% trans "Male" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value=""}}<span>{% trans "Unset" %}</span></div>
                             {{/view}}
                         </div>
                     </li>
@@ -249,7 +249,7 @@
                         </label>
 
                         <div class="controls">
-                            {{view App.DatePicker valueBinding="birthdate" classBinding="errors.birthday.length:error"}}
+                            {{view App.DatePicker valueBinding="birthdate" classBinding="errors.birthdate.length:error"}}
                         </div>
 
                         {{#if errors.birthdate}}

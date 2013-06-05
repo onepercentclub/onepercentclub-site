@@ -68,6 +68,9 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     """
     Serializer for viewing and editing a user's settings. This should only be accessible to authenticated users.
     """
+    # FIXME: We should really be serializing 'birthdate' as a DateField but that would require some additional work
+    #        in our ember-data adapter. This could cause birthdate's to not be savable in some cases.
+    birthdate = serializers.DateTimeField(required=False)
     email = serializers.EmailField(required=False)
 
     class Meta:

@@ -77,7 +77,6 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     class Gender(DjangoChoices):
         male = ChoiceItem('male', label=_("Male"))
         female = ChoiceItem('female', label=_("Female"))
-        other = ChoiceItem('other', label=_("Other"))
 
     class Availability(DjangoChoices):
         one_to_four_week = ChoiceItem('1-4_hours_week', label=_("1-4 hours per week"))
