@@ -45,6 +45,12 @@ PROJECT_APPS.remove('social_auth')
 # django-salesforce tests don't pass when it's not setup.
 PROJECT_APPS.remove('salesforce')
 
+# django_fluent_contents 0.8.5 tests don't pass with a Django 1.5 custom user model.
+PROJECT_APPS.remove('fluent_contents')
+PROJECT_APPS.remove('fluent_contents.text')
+PROJECT_APPS.remove('fluent_contents.oembeditem')
+PROJECT_APPS.remove('fluent_contents.rawhtml')
+
 # Disable pylint becasue it seems to be causing problems
 JENKINS_TASKS = (
     # 'django_jenkins.tasks.run_pylint',
