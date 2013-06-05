@@ -47,9 +47,9 @@ PROJECT_APPS.remove('salesforce')
 
 # django_fluent_contents 0.8.5 tests don't pass with a Django 1.5 custom user model.
 PROJECT_APPS.remove('fluent_contents')
-PROJECT_APPS.remove('fluent_contents.text')
-PROJECT_APPS.remove('fluent_contents.oembeditem')
-PROJECT_APPS.remove('fluent_contents.rawhtml')
+PROJECT_APPS.remove('fluent_contents.plugins.text')
+PROJECT_APPS.remove('fluent_contents.plugins.oembeditem')
+PROJECT_APPS.remove('fluent_contents.plugins.rawhtml')
 
 # Disable pylint becasue it seems to be causing problems
 JENKINS_TASKS = (
