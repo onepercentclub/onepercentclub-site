@@ -491,3 +491,9 @@ PROJECT_PAYOUT_RATE = 0.95
 #     'name': '',
 #     'id': ''
 # }
+
+# Database alias and time-out settings for Salesforce query
+SALESFORCE_QUERY_TIMEOUT = 3
+DATABASE_ROUTERS = [
+    "salesforce.router.ModelRouter"
+]
