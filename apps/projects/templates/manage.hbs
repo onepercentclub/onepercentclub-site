@@ -10,8 +10,10 @@
             <ul>
                 {{#each project in controller}}
                     <li>
-                        <span class="icon-wrench"></span>
-                        {{project.title}} <br />
+                        <h2>
+                            <span class="icon-wrench"></span>
+                            {{project.title}} <br />
+                        </h2>
                         {{#linkTo "myProjectPitch" project }}
                             pitch
                         {{/linkTo}}
@@ -536,8 +538,41 @@
 
     <div class="container">
         <div class="wrapper dashboard">
-            <article>
-                <h2>{% trans "You're pitch is in review now. We'll get back to you soon!" %}</h2>
+            <article class="content">
+                <h2>{% trans "Your pitch is in review now. We'll get back to you soon!" %}</h2>
+            </article>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "my_project_pitch_rejected" %}
+
+    <div class="container">
+        <div class="wrapper dashboard">
+            <article class="content">
+                <h2>
+                    {% trans "We're sorry, your pitch has been rejected." %}
+                    {% trans "Please contact us if you need support to define your smart idea." %}
+                </h2>
+            </article>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "my_project_pitch_approved" %}
+
+    <div class="container">
+        <div class="wrapper dashboard">
+            <article class="content">
+                <h2>
+                    {% trans "Yeah! Your pitch has been approved." %}<br/>
+                    {% trans "You can write your {{#linkTo myProjectPlan}}Project Plan{{/linkTo}} now!" %}
+                </h2>
+
             </article>
         </div>
     </div>

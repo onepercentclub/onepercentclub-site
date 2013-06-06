@@ -56,7 +56,6 @@ Em.TextField.reopen({
     attributeBindings: ['type', 'value', 'size', 'step', 'multiple', 'pattern']
 });
 
-
 // TODO Rename App to BlueBottle, BB or BBApp.
 App = Em.Application.create({
     VERSION: '1.0.0',
@@ -64,8 +63,6 @@ App = Em.Application.create({
     // TODO: Remove this in production builds.
     LOG_TRANSITIONS: true,
 
-    // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
-    templates: ['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders'],
 
     // We store language & locale here because they need to be available before loading templates.
     language: 'en',
@@ -82,7 +79,7 @@ App = Em.Application.create({
         this.set('language', language);
 
         // Now that we know the language we can load the handlebars templates.
-        this.loadTemplates(this.templates);
+        //this.loadTemplates(this.templates);
 
         // Read locale from browser with fallback to default.
         var locale = navigator.language || navigator.userLanguage || this.get('locale');
@@ -198,6 +195,43 @@ App.loadTemplates = function() {
 
 App.loadTemplates();
 
+
+App.deferReadiness();
+
+App.loadTemplates = function() {
+        var language = window.location.pathname.split('/')[1];
+        // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
+        // Now that we know the language we can load the handlebars templates.
+        var readyCount = 0;
+        var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders']);
+        templates.forEach(function(template){
+            //loadTemplates(this.templates);
+            console.log('loading template for ' + template);
+            var hash = {};
+            hash.url = '/' + language + '/templates/' + template + '.hbs';
+            hash.type = 'GET';
+            hash.contentType = 'application/json';
+            hash.success = function(data) {
+                // Iterate through handlebar tags
+                $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                    var templateName = $(this).attr('data-template-name');
+                    var raw = $(this).html();
+                    Em.TEMPLATES[templateName] = Em.Handlebars.compile(raw);
+                });
+                readyCount++;
+                if (readyCount == templates.length) {
+                    App.advanceReadiness();
+                }
+            };
+            hash.error = function(jqXHR, textStatus, errorThrown) {
+                throw errorThrown + ' ' + hash.url;
+            };
+            jQuery.ajax(hash);
+
+        })
+    }
+
+App.loadTemplates();
 
 // The Ember Data Adapter and Store configuration.
 
@@ -421,6 +455,8 @@ App.Router.map(function() {
             this.route('media');
         });
         this.resource('myProjectPitchReview', {path: 'pitch/review'})
+        this.resource('myProjectPitchApproved', {path: 'pitch/approved'})
+        this.resource('myProjectPitchRejected', {path: 'pitch/rejected'})
     });
 
 
@@ -1109,8 +1145,18 @@ App.MyProjecPlanRoute = Ember.Route.extend({
 
 App.MyProjectSubRoute = Ember.Route.extend({
     redirect: function() {
-        console.log('check');
-        this.transitionTo('myProjectPitchReview');
+        var status = this.modelFor('myProject').get('pitch.status');
+        switch(status){
+            case 'submitted':
+                this.transitionTo('myProjectPitchReview');
+                break;
+            case 'rejected':
+                this.transitionTo('myProjectPitchRejected');
+                break;
+            case 'approved':
+                this.transitionTo('myProjectPitchApproved');
+                break;
+        }
     },
     model: function(params) {
         return this.modelFor('myProject').get('pitch');
@@ -1130,6 +1176,27 @@ App.MyProjectSubRoute = Ember.Route.extend({
 App.MyProjectPitchBasicsRoute =  App.MyProjectSubRoute.extend({});
 App.MyProjectPitchLocationRoute =  App.MyProjectSubRoute.extend({});
 App.MyProjectPitchSubmitRoute =  App.MyProjectSubRoute.extend({});
+
+App.MyProjectPitchIndexRoute =  Ember.Route.extend({
+    redirect: function() {
+        var status = this.modelFor('myProject').get('pitch.status');
+        switch(status){
+            case 'submitted':
+                this.transitionTo('myProjectPitchReview');
+                break;
+            case 'rejected':
+                this.transitionTo('myProjectPitchRejected');
+                break;
+            case 'approved':
+                this.transitionTo('myProjectPitchApproved');
+                break;
+        }
+    },
+    model: function(params) {
+        return this.modelFor('myProject').get('pitch');
+    }
+});
+
 
 App.MyProjectPitchReviewRoute =  Ember.Route.extend({
     model: function(params) {

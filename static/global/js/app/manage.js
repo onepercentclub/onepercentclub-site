@@ -55,11 +55,6 @@ App.MyProjectPitch = DS.Model.extend({
     status: DS.attr('string'),
     agreed: DS.attr('boolean'),
 
-    isStatusNew: function(){
-        return this.get('status') == 'new';
-    }.property('status'),
-
-
     created: DS.attr('date')
 });
 
