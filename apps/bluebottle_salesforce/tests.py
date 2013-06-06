@@ -3,36 +3,53 @@ The test cases in bluebottle_salesforce are intended to be used for integration
 with Django ORM and Salesforce for Onepercentclub.
 """
 import logging
+import requests
 from datetime import datetime
 from django.test import TestCase
 from django.conf import settings
 from salesforce import auth
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceDonation, SalesforceProject
+from requests.exceptions import ConnectionError
+from django.utils import unittest
 
 logger = logging.getLogger(__name__)
 
 # Define variables
 test_email = 'TestEmail@1procentclub.nl'
 
+# Test some settings and skip tests if these settings are not available.
+try:
+    # Test if a Salesforce database is configured.
+    database_conf = getattr(settings, 'DATABASE')
+    salesforce_db_conf = getattr(database_conf, 'salesforce')
+    salesforce_db_conf.get('ENGINE')
+    salesforce_db_conf.get('CONSUMER_KEY')
+    salesforce_db_conf.get('CONSUMER_SECRET')
+    salesforce_db_conf.get('USER')
+    salesforce_db_conf.get('PASSWORD')
+    salesforce_db_conf.get('HOST')
 
+    # Test if we're online.
+    requests.get('http://www.google.com')
+
+    run_salesforce_tests = True
+except (ConnectionError, AttributeError):
+    run_salesforce_tests = False
+
+
+@unittest.skipUnless(run_salesforce_tests, 'Salesforce settings not set or not online')
 class OAuthTest(TestCase):
     """
     Test cases verify authentication is working using Django-Salesforce auth with oauth 2.0
     """
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
     def validate_oauth(self, d):
         """
         Validate input file for oauth 2.0 in secrets.py
         """
         for key in ('access_token', 'id', 'instance_url', 'issued_at', 'signature'):
-            if (key not in d):
+            if key not in d:
                 self.fail("Missing %s key in returned oauth data." % key)
-            elif (not d[key]):
+            elif not d[key]:
                 self.fail("Empty value for %s key in returned oauth data." % key)
 
     def test_token_renewal(self):
@@ -52,6 +69,7 @@ class OAuthTest(TestCase):
         self.assertEqual(old_data['access_token'], auth.oauth_data['access_token'])
 
 
+@unittest.skipUnless(run_salesforce_tests, 'Salesforce settings not set or not online')
 class SalesforceOrganizationTest(TestCase):
     """
     Test cases for Salesforce account object.
@@ -83,6 +101,7 @@ class SalesforceOrganizationTest(TestCase):
         self.test_organization.delete()
 
 
+@unittest.skipUnless(run_salesforce_tests, 'Salesforce settings not set or not online')
 class SalesforceContactTest(TestCase):
     """
     Test cases for Salesforce Contact object.
@@ -114,6 +133,7 @@ class SalesforceContactTest(TestCase):
         self.test_contact.delete()
 
 
+@unittest.skipUnless(run_salesforce_tests, 'Salesforce settings not set or not online')
 class SalesforceDonationTest(TestCase):
     """
     Test cases for Salesforce Opportunity object.
@@ -143,6 +163,7 @@ class SalesforceDonationTest(TestCase):
         self.test_donation.delete()
 
 
+@unittest.skipUnless(run_salesforce_tests, 'Salesforce settings not set or not online')
 class SalesforceProjectTest(TestCase):
     """
     Test cases for Salesforce project object.
