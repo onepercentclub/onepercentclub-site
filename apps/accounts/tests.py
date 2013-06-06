@@ -27,9 +27,13 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], self.some_user.id)
 
-        # Profile should be able to be updated after by logged in user.
-        self.client.login(username=self.some_user.email, password='password')
+        # Profile should not be able to be updated by anonymous users.
         full_name = {'first_name': 'Nijntje', 'last_name': 'het Konijntje'}
+        response = self.client.put(user_profile_url, encode_multipart(BOUNDARY, full_name), MULTIPART_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Profile should be able to be updated by logged in user.
+        self.client.login(username=self.some_user.email, password='password')
         response = self.client.put(user_profile_url, encode_multipart(BOUNDARY, full_name), MULTIPART_CONTENT)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['first_name'], full_name.get('first_name'))

@@ -1,10 +1,10 @@
 from apps.accounts.models import BlueBottleUser
+from apps.bluebottle_drf2.permissions import IsCurrentUserOrReadOnly, IsCurrentUser
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from rest_framework import generics
 from django.utils.translation import ugettext_lazy as _
 from .serializers import CurrentUserSerializer, UserProfileSerializer, UserSettingsSerializer, UserCreateSerializer
-from .permissions import IsCurrentUser
 
 
 # API views
@@ -17,6 +17,7 @@ class UserCreate(generics.CreateAPIView):
 class UserProfileDetail(generics.RetrieveUpdateAPIView):
     model = BlueBottleUser
     serializer_class = UserProfileSerializer
+    permission_classes = (IsCurrentUserOrReadOnly,)
 
 
 class UserSettingsDetail(generics.RetrieveUpdateAPIView):

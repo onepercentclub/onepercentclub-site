@@ -43,7 +43,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         #           * interested in countries
         #           * interested in target groups
         fields = ('id', 'url', 'username', 'first_name', 'last_name', 'avatar', 'picture', 'about', 'why', 'website',
-                  'availability', 'date_joined')
+                  'availability', 'date_joined', 'location')
 
 
 # TODO: Investigate if it's possible to integrate this into the UserProfileSerializer.
