@@ -13,4 +13,4 @@ from .base import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-COWRY_RETURN_URL_BASE = 'https://staging.onepercentclub.com'
+COWRY_RETURN_URL_BASE = 'https://production.onepercentclub.com'
