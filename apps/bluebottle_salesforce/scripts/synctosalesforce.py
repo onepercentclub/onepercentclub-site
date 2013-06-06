@@ -8,9 +8,8 @@ from apps.projects.models import Project
 from apps.organizations.models import Organization
 from apps.tasks.models import Task
 from apps.fund.models import Donation, Voucher
-from apps.bluebottle_salesforce.models import (SalesforceContact, SalesforceDonation, SalesforceOrganization,
-                                               SalesforceProject, SalesforceProjectBudget, SalesforceTask,
-                                               SalesforceTaskMembers) #, SalesforceVoucher)
+from ..models import (SalesforceContact, SalesforceDonation, SalesforceOrganization, SalesforceProject,
+                      SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers) #, SalesforceVoucher)
 
 
 def sync_users(test_run):
@@ -72,7 +71,10 @@ def sync_users(test_run):
         if user.address:
             contact.mailing_city = user.address.city
             contact.mailing_street = user.address.line1 + ' ' + user.address.line2
-            contact.mailing_country = user.address.country.name
+            if user.address.country:
+                contact.mailing_country = user.address.country.name
+            else:
+                contact.mailing_country = ''
             contact.mailing_postal_code = user.address.postal_code
             contact.mailing_state = user.address.state
         else:
