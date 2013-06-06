@@ -13,4 +13,8 @@ from .base import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
+INSTALLED_APPS += (
+    'gunicorn',
+)
+
 COWRY_RETURN_URL_BASE = 'https://production.onepercentclub.com'

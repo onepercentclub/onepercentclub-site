@@ -8,4 +8,8 @@ from .base import *
 
 # Put dev server environment specific overrides below.
 
+INSTALLED_APPS += (
+    'gunicorn',
+)
+
 COWRY_RETURN_URL_BASE = 'https://dev.onepercentclub.com'
