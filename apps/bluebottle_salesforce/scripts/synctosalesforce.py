@@ -13,7 +13,7 @@ from apps.bluebottle_salesforce.models import (SalesforceContact, SalesforceDona
                                                SalesforceTaskMembers) #, SalesforceVoucher)
 
 
-def sync_users():
+def sync_users(test_run):
     users = BlueBottleUser.objects.all()
     for user in users:
         # Find the corresponding SF user.
@@ -134,7 +134,8 @@ def sync_users():
         #contact.tags = user.tags.get()
 
         # Save the SF user.
-        contact.save()
+        if not test_run:
+            contact.save()
 
 
 # def sync_donations():
@@ -257,12 +258,12 @@ def sync_users():
 #             sfvoucher = SalesforceVoucher()
 
 # This is run when the script is executed with 'runscript'.
-def run():
-    sync_users()
-    # sync_donations()
-    # sync_organizations()
-    # sync_projects()
-    # sync_project_budgets()
-    # sync_tasks()
-    # sync_task_members()
-    # sync_vouchers()
+def run(test_run=False):
+    sync_users(test_run)
+    # sync_donations(test_run)
+    # sync_organizations(test_run)
+    # sync_projects(test_run)
+    # sync_project_budgets(test_run)
+    # sync_tasks(test_run)
+    # sync_task_members(test_run)
+    # sync_vouchers(test_run)
