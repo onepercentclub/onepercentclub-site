@@ -136,6 +136,14 @@ def sync_users():
         # Save the SF user.
         contact.save()
 
+        # Delete SalesforceContact if the corresponding BlueBottleUser doesn't exist.
+        sf_users = SalesforceContact.objects.all()
+        for sf_user in sf_users:
+            try:
+                BlueBottleUser.objects.filter(id=sf_user.external_id).get()
+            except BlueBottleUser.DoesNotExist:
+                sf_user.delete()
+
 
 # def sync_donations():
 #     donations = Donation.objects.all()

@@ -20,17 +20,15 @@ test_email = 'TestEmail@1procentclub.nl'
 # Test some settings and skip tests if these settings are not available.
 try:
     # Test if a Salesforce database is configured.
-    database_conf = getattr(settings, 'DATABASE')
-    salesforce_db_conf = getattr(database_conf, 'salesforce')
+    salesforce_db_conf = getattr(settings, 'DATABASES').get('salesforce')
     salesforce_db_conf.get('ENGINE')
     salesforce_db_conf.get('CONSUMER_KEY')
     salesforce_db_conf.get('CONSUMER_SECRET')
     salesforce_db_conf.get('USER')
     salesforce_db_conf.get('PASSWORD')
-    salesforce_db_conf.get('HOST')
 
-    # Test if we're online.
-    requests.get('http://www.google.com')
+    # Test if the salesforce server is reachable to see if we're online.
+    requests.get(salesforce_db_conf.get('HOST'))
 
     run_salesforce_tests = True
 except (ConnectionError, AttributeError):
