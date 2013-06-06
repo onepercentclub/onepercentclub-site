@@ -7,10 +7,10 @@ except ImportError:
 from .base import *
 
 #
-# Put production server environment specific overrides below.
+# Put staging server environment specific overrides below.
 #
 
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-COWRY_RETURN_URL_BASE = 'https://production.onepercentclub.com'
+COWRY_RETURN_URL_BASE = 'https://staging.onepercentclub.com'
