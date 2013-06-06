@@ -3,14 +3,16 @@ The test cases in bluebottle_salesforce are intended to be used for integration
 with Django ORM and Salesforce for Onepercentclub.
 """
 import logging
+from apps.bluebottle_utils.tests import UserTestsMixin
 import requests
 from datetime import datetime
 from django.test import TestCase
 from django.conf import settings
 from salesforce import auth
-from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceDonation, SalesforceProject
 from requests.exceptions import ConnectionError
 from django.utils import unittest
+from .models import SalesforceOrganization, SalesforceContact, SalesforceDonation, SalesforceProject
+from .scripts import synctosalesforce
 
 logger = logging.getLogger(__name__)
 
@@ -20,17 +22,15 @@ test_email = 'TestEmail@1procentclub.nl'
 # Test some settings and skip tests if these settings are not available.
 try:
     # Test if a Salesforce database is configured.
-    database_conf = getattr(settings, 'DATABASE')
-    salesforce_db_conf = getattr(database_conf, 'salesforce')
+    salesforce_db_conf = getattr(settings, 'DATABASES').get('salesforce')
     salesforce_db_conf.get('ENGINE')
     salesforce_db_conf.get('CONSUMER_KEY')
     salesforce_db_conf.get('CONSUMER_SECRET')
     salesforce_db_conf.get('USER')
     salesforce_db_conf.get('PASSWORD')
-    salesforce_db_conf.get('HOST')
 
-    # Test if we're online.
-    requests.get('http://www.google.com')
+    # Test if the salesforce server is reachable to see if we're online.
+    requests.get(salesforce_db_conf.get('HOST'))
 
     run_salesforce_tests = True
 except (ConnectionError, AttributeError):
@@ -191,3 +191,12 @@ class SalesforceProjectTest(TestCase):
         Clean up our test project record.
         """
         self.test_project.delete()
+
+@unittest.skipUnless(run_salesforce_tests, 'Salesforce settings not set or not online')
+class SyncToSalesforceIntegrationTest(UserTestsMixin, TestCase):
+    def smoke_test_sync_script(self):
+        # Need to have data for each model that we want to run the smoke test on.
+        self.create_user()
+
+        # Run the sync test.
+        synctosalesforce.run(test_run=True)
