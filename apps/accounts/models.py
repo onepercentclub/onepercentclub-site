@@ -115,8 +115,6 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     about = models.TextField(_("about"), max_length=265, blank=True)
     why = models.TextField(_("why"), max_length=265, blank=True)
     availability = models.CharField(_("availability"), max_length=25, blank=True, choices=Availability.choices)
-    # TODO Remove when info has been manually migrated to choice above.
-    availability_old = models.CharField(_("availability"), max_length=255, blank=True)
 
     # Private Settings
     primary_language = models.CharField(_("primary language"), max_length=5, help_text=_("Language used for website and emails."), choices=settings.LANGUAGES)
@@ -127,9 +125,9 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField(_("gender"), max_length=6, blank=True, null=True, choices=Gender.choices)
     birthdate = models.DateField(_("birthdate"), null=True, blank=True)
 
-    # FIXME: These aren't being used. Should they be deleted?
+    # TODO Remove these fields when info has been manually migrated to the new fields.
+    available_time = models.TextField(_("available_time"), blank=True)
     contribution = models.TextField(_("contribution"), blank=True)
-    working_location = models.CharField(_("working location"), max_length=255, blank=True)
     tags = TaggableManager(verbose_name=_("tags"), blank=True)
 
     objects = BlueBottleUserManager()
