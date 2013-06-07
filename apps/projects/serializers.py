@@ -1,12 +1,13 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
+from apps.projects.models import ProjectPitch, ProjectPlan
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, TagSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, TaggableSerializerMixin, TagSerializer
 from apps.geo.models import Country
-from .models import Project, ProjectPitch
+from .models import Project
 
 
 class ProjectCountrySerializer(serializers.ModelSerializer):
@@ -46,15 +47,11 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
         fields = ('date_donated', 'project',  'member')
 
 
-class TaggitField(serializers.RelatedField):
-    pass
+class ManageProjectPitchSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
 
-
-class ManageProjectPitchSerializer(serializers.ModelSerializer):
-
-    tags = TagSerializer(many=True)
-    country = serializers.PrimaryKeyRelatedField()
+    country = serializers.PrimaryKeyRelatedField(required=False)
     theme = serializers.PrimaryKeyRelatedField()
+    tags = TagSerializer()
 
     class Meta:
         model = ProjectPitch
@@ -68,17 +65,37 @@ class ManageProjectPitchSerializer(serializers.ModelSerializer):
         return attrs
 
 
+class ManageProjectPlanSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
+
+    country = serializers.PrimaryKeyRelatedField()
+    theme = serializers.PrimaryKeyRelatedField()
+    tags = TagSerializer()
+
+    class Meta:
+        model = ProjectPlan
+        depth = 2
+        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need', 'status')
+
+    def validate_status(self, attrs, source):
+        value = attrs[source]
+        if value not in [ProjectPlan.PlanStatuses.submitted, ProjectPlan.PlanStatuses.new]:
+            raise serializers.ValidationError("You can only change status into 'submitted'")
+        return attrs
 
 
 class ManageProjectSerializer(serializers.ModelSerializer):
+
+    id = serializers.CharField(source='slug', read_only=True)
+
     url = serializers.HyperlinkedIdentityField(view_name='project-manage-detail')
     phase = serializers.CharField(read_only=True)
-    pitch = ManageProjectPitchSerializer()
-    #pitch = serializers.PrimaryKeyRelatedField(source='pitch')
+
+    pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
+    plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
 
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'url', 'slug', 'phase', 'pitch')
+        fields = ('id', 'created', 'title', 'url', 'phase', 'pitch', 'plan')
 
 
 class ProjectSerializer(serializers.ModelSerializer):

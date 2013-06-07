@@ -1,3 +1,4 @@
+from apps.projects.views import ManageProjectPlanDetail
 from django.conf.urls import patterns, url, include
 from surlex.dj import surl
 from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWallPostDetail, ProjectMediaWallPostList,
@@ -25,8 +26,9 @@ urlpatterns = patterns('',
 
 
     url(r'^manage/$', ManageProjectList.as_view(), name='project-manage-list'),
-    surl(r'^manage/<pk:#>$', ManageProjectDetail.as_view(), name='project-manage-detail'),
+    surl(r'^manage/<slug:s>$', ManageProjectDetail.as_view(), name='project-manage-detail'),
     surl(r'^manage/pitches/<pk:#>$', ManageProjectPitchDetail.as_view(), name='project-pitch-manage-detail'),
+    surl(r'^manage/plans/<pk:#>$', ManageProjectPlanDetail.as_view(), name='project-plan-manage-detail'),
 
 
 )

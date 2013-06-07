@@ -53,8 +53,9 @@ $.ajaxSetup({
 
 Em.TextField.reopen({
     // Update attributeBinding with 'step' and 'multiple'
-    attributeBindings: ['type', 'value', 'size', 'step', 'multiple', 'pattern']
+    attributeBindings: ['type', 'value', 'size', 'step', 'multiple']
 });
+
 
 // TODO Rename App to BlueBottle, BB or BBApp.
 App = Em.Application.create({
@@ -206,7 +207,6 @@ App.loadTemplates = function() {
         var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders']);
         templates.forEach(function(template){
             //loadTemplates(this.templates);
-            console.log('loading template for ' + template);
             var hash = {};
             hash.url = '/' + language + '/templates/' + template + '.hbs';
             hash.type = 'GET';
@@ -347,15 +347,13 @@ App.Adapter.map('App.TaskFile', {
     author: {embedded: 'load'}
 });
 
-App.Adapter.map('App.MyProject', {
-    pitch: {embedded: 'load'},
-    plan: {embedded: 'load'}
-});
-
 App.Adapter.map('App.MyProjectPitch', {
     tags: {embedded: 'always'}
 });
 
+App.Adapter.map('App.MyProjectPlan', {
+    tags: {embedded: 'always'}
+});
 
 App.Store = DS.Store.extend({
     revision: 11,
@@ -444,7 +442,11 @@ App.Router.map(function() {
             this.route('location');
             this.route('description');
             this.route('media');
+
             this.route('organisation');
+            this.route('legal_status');
+            this.route('ambassadors');
+            this.route('bank');
 
         });
         this.resource('myProjectPitch', {path: 'pitch'}, function(){
@@ -526,12 +528,11 @@ App.ApplicationRoute = Ember.Route.extend({
 
         },
         showTermsAndConditions:  function(){
-            //var view = App.GeneralTermsAndConditionsView.create();
+            // TODO: Use a proper view (static/cms page?) for the body.
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
                 heading: "General Terms & Conditions",
                 message: "This needs some text....",
-                //bodyViewClass: view,
                 secondary: 'Close'
             });
         }
@@ -1075,11 +1076,7 @@ App.MyProjectListRoute = Ember.Route.extend({
 });
 
 App.MyProjectRoute = Ember.Route.extend({
-    init: function(){
-        this._super();
-        console.log(this.toString());
-    },
-
+    // Load the Project
     model: function(params) {
         return App.MyProject.find(params.my_project_id);
     }
@@ -1125,25 +1122,7 @@ App.LoginController = Em.Controller.extend({
     }
 });
 
-
-App.MyProjectBasicsRoute =  App.MyProjectSubRoute.extend({});
-App.MyProjectDescriptionRoute =  App.MyProjectSubRoute.extend({});
-App.MyProjectLocationRoute =  App.MyProjectSubRoute.extend({});
-
-App.MyProjecPitcIndexhRoute = Ember.Route.extend({
-    model: function(params){
-        return this.modelFor('myProject').get('pitch');
-
-    }
-});
-
-App.MyProjecPlanRoute = Ember.Route.extend({
-    model: function(params) {
-        return this.modelFor('myProject').get('plan');
-    }
-});
-
-App.MyProjectSubRoute = Ember.Route.extend({
+App.MyProjectPitchSubRoute = Ember.Route.extend({
     redirect: function() {
         var status = this.modelFor('myProject').get('pitch.status');
         switch(status){
@@ -1173,9 +1152,9 @@ App.MyProjectSubRoute = Ember.Route.extend({
 
 });
 
-App.MyProjectPitchBasicsRoute =  App.MyProjectSubRoute.extend({});
-App.MyProjectPitchLocationRoute =  App.MyProjectSubRoute.extend({});
-App.MyProjectPitchSubmitRoute =  App.MyProjectSubRoute.extend({});
+App.MyProjectPitchBasicsRoute =  App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchLocationRoute =  App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchSubmitRoute =  App.MyProjectPitchSubRoute.extend({});
 
 App.MyProjectPitchIndexRoute =  Ember.Route.extend({
     redirect: function() {
@@ -1204,7 +1183,76 @@ App.MyProjectPitchReviewRoute =  Ember.Route.extend({
     }
 });
 
+// My ProjectPlan routes
+
+App.MyProjectPlanSubRoute = Ember.Route.extend({
+    redirect: function() {
+        var status = this.modelFor('myProject').get('plan.status');
+        switch(status){
+            case 'submitted':
+                this.transitionTo('myProjectPlanReview');
+                break;
+            case 'rejected':
+                this.transitionTo('myProjectPlanRejected');
+                break;
+            case 'approved':
+                this.transitionTo('myProjectPlanApproved');
+                break;
+        }
+    },
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    },
+    setupController: function(controller, model){
+        this._super(controller, model);
+        controller.startEditing();
+    },
+    exit: function(){
+        if (this.get('controller')) {
+            this.get('controller').stopEditing();
+        }
+    }
+
+});
+
+App.MyProjectPlanBasicsRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanLocationRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanSubmitRoute =  App.MyProjectPlanSubRoute.extend({});
+
+App.MyProjectPlanIndexRoute =  Ember.Route.extend({
+    redirect: function() {
+        var status = this.modelFor('myProject').get('plan.status');
+        switch(status){
+            case 'submitted':
+                this.transitionTo('myProjectPlanReview');
+                break;
+            case 'rejected':
+                this.transitionTo('myProjectPlanRejected');
+                break;
+            case 'approved':
+                this.transitionTo('myProjectPlanApproved');
+                break;
+        }
+    },
+    model: function(params) {
+        console.log(this.modelFor('myProject').get('plan'));
+        return this.modelFor('myProject').get('plan');
+    }
+});
+
+
+App.MyProjectPlanReviewRoute =  Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    }
+});
+
+
 /* Views */
+
+App.LanguageView = Ember.View.extend({
+    templateName: 'language'
+});
 
 App.LanguageSwitchView = Ember.CollectionView.extend({
     tagName: 'ul',

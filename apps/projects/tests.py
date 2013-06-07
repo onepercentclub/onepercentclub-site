@@ -8,31 +8,20 @@ from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
-from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase, ProjectPhases
 import json
+from .models import Project,ProjectPhases, ProjectPitch
+
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
-    def create_project(self, organization=None, owner=None, title='', phase='fund',
-                       slug='', latitude=None, longitude=None, money_asked=500000):
+    def create_project(self, organization=None, owner=None, title='', phase='pitch', slug=''):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
 
         The returned object is saved to the database.
         """
-
-        if not latitude:
-            latitude = Decimal('-11.2352')
-
-        if not longitude:
-            longitude = Decimal('-84.123')
-
-        if not organization:
-            organization = self.create_organization()
-            organization.save()
-
         if not owner:
             # Create a new user with a random username
             owner = self.create_user()
@@ -42,26 +31,13 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             while Project.objects.filter(slug=slug).exists():
                 slug = generate_random_slug()
 
-        project = Project(
-            organization=organization, owner=owner, title=title, slug=slug, phase=phase,
-            latitude=latitude, longitude=longitude, money_asked=money_asked
-        )
-
+        project = Project(owner=owner, title=title, slug=slug, phase=phase)
         project.save()
 
+        project.projectpitch = ProjectPitch(title=title, status=ProjectPitch.PitchStatuses.new)
+        project.projectpitch.save()
+
         return project
-
-
-class FundPhaseTestMixin(object):
-    def create_fundphase(self, project, budget_total=15000, money_asked=5000):
-        """ Create (but not save) a fund phase. """
-        fundphase = FundPhase()
-        fundphase.project = project
-        fundphase.budget_total = budget_total
-        fundphase.money_asked = money_asked
-        fundphase.startdate = timezone.now().date()
-        fundphase.save()
-        return fundphase
 
 
 class ProjectWallPostTestsMixin(ProjectTestsMixin):
@@ -80,109 +56,11 @@ class ProjectWallPostTestsMixin(ProjectTestsMixin):
         return wallpost
 
 
-class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
-    """ Tests for projects. """
-
-    def setUp(self):
-        """ Every test in this suite requires a project. """
-        self.project = self.create_project(title='Banana Project', slug='banana')
-
-    def test_phase_dates_sync(self):
-        """
-        Tests that the auto-sync phase start / end date code works.
-        """
-        today = timezone.now().date()
-        two_days_timedelta = timedelta(days=2)
-        one_week_timedelta = timedelta(weeks=1)
-
-        # Basic test for the auto-setting previous enddate.
-        ideaphase = IdeaPhase(project=self.project)
-        ideaphase.startdate = today
-        ideaphase.save()
-        fundphase = self.create_fundphase(self.project)
-
-        # Refresh the data and test:
-        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
-        self.assertTrue(fundphase.startdate == ideaphase.enddate)
-
-        # Tests that previous phase start date is adjusted when the previous
-        # phase end date is eariler than the previous phase start date.
-        fundphase.startdate = today - two_days_timedelta
-        fundphase.save()
-
-        # Refresh the data and test:
-        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
-        self.assertTrue(fundphase.startdate == ideaphase.enddate)
-
-        # Test for the auto-setting next startdate.
-        resultsphase = ResultsPhase(project=self.project)
-        resultsphase.startdate = today + two_days_timedelta
-        resultsphase.save()
-        actphase = ActPhase(project=self.project)
-        actphase.startdate = today
-        actphase.enddate = today + one_week_timedelta
-        actphase.save()
-
-        # Refresh the data and test:
-        resultsphase = ResultsPhase.objects.get(id=resultsphase.id)
-        self.assertTrue(resultsphase.startdate == actphase.enddate)
-
-        # Tests that next phase end date is adjusted when the next phase start
-        # date is later than the next phase end date.
-        actphase = ActPhase.objects.get(id=actphase.id)
-        fundphase = FundPhase.objects.get(id=fundphase.id)
-
-        # The current state of things:
-        self.assertEquals(fundphase.startdate, today - two_days_timedelta)
-        self.assertEquals(fundphase.enddate, today)
-        self.assertEquals(actphase.startdate, fundphase.enddate) # today
-        self.assertEquals(actphase.enddate, today + one_week_timedelta)
-
-        # Change the fund phase end date to be later than act phase end date.
-        fundphase.enddate = today + timedelta(weeks=2)
-        fundphase.save()
-
-        # Refresh the data and test:
-        actphase = ActPhase.objects.get(id=actphase.id)
-        self.assertEquals(fundphase.enddate, actphase.startdate)
-        # This is the important test.
-        self.assertEquals(actphase.enddate, actphase.startdate)
-
-        # Final refresh and tests:
-        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
-        fundphase = FundPhase.objects.get(id=fundphase.id)
-        actphase = ActPhase.objects.get(id=actphase.id)
-        resultsphase = ResultsPhase.objects.get(id=resultsphase.id)
-        self.assertTrue(ideaphase.enddate == fundphase.startdate)
-        self.assertTrue(fundphase.enddate == actphase.startdate)
-        self.assertTrue(actphase.enddate == resultsphase.startdate)
-
-    def test_phase_validation(self):
-        """
-        Tests that the phase validation is working.
-        """
-
-        # Setup sample phase.
-        phase = self.create_fundphase(self.project)
-        phase.startdate = timezone.now().date()
-        phase.status = AbstractPhase.PhaseStatuses.progress
-        phase.save()
-
-        # Check that the validation error is raised.
-        phase.enddate = timezone.now().date() - timedelta(weeks=2)
-        self.assertRaises(ValidationError, phase.full_clean)
-
-        # Set a correct value and confirm there's no problem.
-        phase.enddate = timezone.now().date() + timedelta(weeks=2)
-        phase.full_clean()
-        phase.save()
-
-
 # RequestFactory used for integration tests.
 factory = RequestFactory()
 
 
-class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase):
+class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
     """
     Integration tests for the Project API.
     """
@@ -195,8 +73,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
             project = self.create_project(title=char * 3, slug=char * 3)
             if ord(char) % 2 == 1:
                 # Put half of the projects are in the fund phase.
-                fundphase = self.create_fundphase(project)
-                project.phase = ProjectPhases.act
+                project.phase = ProjectPhases.campaign
                 project.save()
 
         self.list_view_count = 10
@@ -255,7 +132,7 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         """
 
         # Tests that the phase filter works.
-        response = self.client.get(self.projects_url + '?phase=fund')
+        response = self.client.get(self.projects_url + '?phase=campaign')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), self.list_view_count)

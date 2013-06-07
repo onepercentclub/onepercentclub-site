@@ -91,6 +91,14 @@ App.UserPreview = DS.Model.extend({
     last_name: DS.attr('string'),
     avatar: DS.attr('string'),
 
+    full_name: function() {
+        if (!this.get('first_name') && !this.get('last_name')) {
+            return this.get('username');
+        }
+        return this.get('first_name') + ' ' + this.get('last_name');
+    }.property('first_name', 'last_name'),
+
+
     getAvatar: function() {
         if (this.get('avatar')) {
             return this.get('avatar')

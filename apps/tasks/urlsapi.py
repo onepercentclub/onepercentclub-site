@@ -18,5 +18,4 @@ urlpatterns = patterns('',
     # Task WallPost Urls
     surl(r'^wallposts/$', TaskWallPostList.as_view(), name='task-wallpost-list'),
     surl(r'^wallposts/<pk:#>$', TaskWallPostDetail.as_view(), name='task-wallpost-detail'),
-
 )

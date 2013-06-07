@@ -60,22 +60,24 @@
 
                 <p class="project-description">{{description}}</p>
 
-                <div class="status-box">
-                    <div class="donate-status">
-                        <p class="donate-amount">
-                                <span class="donated">&euro;{{localize money_donated}}</span>
-                                {% trans "of" %}
-                                <span class="asked">&euro;{{localize money_asked}}</span>
-                                {% trans "raised" %}
-                        </p>
-                        <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
-                    </div>
+                {{#if isPhaseCampaign}}
+                    <div class="status-box">
+                        <div class="donate-status">
+                            <p class="donate-amount">
+                                    <span class="donated">&euro;{{localize money_donated}}</span>
+                                    {% trans "of" %}
+                                    <span class="asked">&euro;{{localize money_asked}}</span>
+                                    {% trans "raised" %}
+                            </p>
+                            <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
+                        </div>
 
-                    <p class="donate-days-left">
-                        <strong><em class="icon-time"></em> ??</strong>
-                        <em>{% trans "days to go" %}</em>
-                    </p>
-                </div>
+                        <p class="donate-days-left">
+                            <strong><em class="icon-time"></em> ??</strong>
+                            <em>{% trans "days to go" %}</em>
+                        </p>
+                    </div>
+                {{/if}}
 
             </article>
 

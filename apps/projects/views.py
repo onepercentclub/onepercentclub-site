@@ -1,8 +1,8 @@
-from apps.projects.models import ProjectPitch
+from apps.projects.models import ProjectPitch, ProjectPlan
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -12,7 +12,7 @@ from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
-from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner
+from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
@@ -143,11 +143,10 @@ class ProjectDonationList(generics.ListAPIView):
         return queryset
 
 
-
 class ManageProjectList(generics.ListCreateAPIView):
     model = Project
     serializer_class = ManageProjectSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, NoRunningProjectsOrReadOnly, )
     paginate_by = 10
 
     def get_queryset(self):
@@ -171,6 +170,13 @@ class ManageProjectDetail(generics.RetrieveUpdateAPIView):
 class ManageProjectPitchDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPitch
     serializer_class = ManageProjectPitchSerializer
+    # permission_classes = IsProjectOwner
+
+
+class ManageProjectPlanDetail(generics.RetrieveUpdateAPIView):
+    model = ProjectPlan
+    serializer_class = ManageProjectPlanSerializer
+    # permission_classes = IsProjectOwner
 
 
 # Django template Views

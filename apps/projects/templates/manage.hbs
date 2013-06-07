@@ -10,13 +10,21 @@
             <ul>
                 {{#each project in controller}}
                     <li>
-                        <h2>
-                            <span class="icon-wrench"></span>
+                        <h3>
                             {{project.title}} <br />
-                        </h2>
-                        {{#linkTo "myProjectPitch" project }}
-                            pitch
-                        {{/linkTo}}
+                        </h3>
+                        {{#if project.isPhasePitch}}
+                            {{#linkTo "myProjectPitch" project }}
+                                <span class="icon-wrench"></span>
+                                {% trans "PITCH" %}
+                            {{/linkTo}}
+                        {{/if}}
+                        {{#if project.isPhasePlan}}
+                            {{#linkTo "myProjectPlan" project }}
+                                <span class="icon-wrench"></span>
+                                {% trans "PLAN" %}
+                            {{/linkTo}}
+                        {{/if}}
                     </li>
                 {{/each}}
             </ul>
@@ -57,24 +65,44 @@
         </div>
         <div class="wrapper">
             <ul class="manage-steps">
-                {{#linkTo "myProjectPitch"}}
-                    <li class="selected first">
+                {{#if isPhasePitch}}
+                    {{#linkTo "myProjectPitch"}}
+                        <li class="selected first">
+                            <div class="inner">
+                                <em class="icon-ok"></em>
+                                <h4>{% trans "Project Pitch" %}</h4>
+                                {{ pitch.status }}
+                            </div>
+                        </li>
+                    {{/linkTo}}
+                {{else}}
+                    <li class="first">
                         <div class="inner">
                             <em class="icon-ok"></em>
                             <h4>{% trans "Project Pitch" %}</h4>
                             {{ pitch.status }}
                         </div>
                     </li>
-                {{/linkTo}}
-                {{#linkTo "myProjectPlan"}}
+                {{/if}}
+                {{#if isPhasePlan}}
+                    {{#linkTo "myProjectPlan"}}
+                        <li class="selected second">
+                            <div class="inner">
+                                <em class="icon-pencil"></em>
+                                <h4>{% trans "Project Plan" %}</h4>
+                                {{ plan.status }}
+                            </div>
+                        </li>
+                    {{/linkTo}}
+                {{else}}|
                     <li class="second">
                         <div class="inner">
                             <em class="icon-pencil"></em>
                             <h4>{% trans "Project Plan" %}</h4>
-                            35%
+                            {% trans "Not available" %}
                         </div>
                     </li>
-                {{/linkTo}}
+                {{/if}}
                 <li class="third">
                     <div class="inner">
                         <em class="icon-bullhorn"></em>
@@ -127,11 +155,34 @@
                         <em class="icon-pencil"></em>
                         {% trans "Location" %}
                     {{/linkTo}}
+                </div>
+                <br/>
+                <br/>
+                <div class="menu">
+                    <div class="title">
+                        <h4>
+                            <em class="icon-book"></em>
+                            {% trans "Update Organisation" %}
+                        </h4>
+                    </div>
                     {{#linkTo "myProjectPlan.organisation" class="item"}}
                         <em class="icon-pencil"></em>
-                        {% trans "Organisation" %}
+                        {% trans "Organisation Profile" %}
+                    {{/linkTo}}
+                    {{#linkTo "myProjectPlan.legal_status" class="item"}}
+                        <em class="icon-pencil"></em>
+                        {% trans "Legal Status" %}
+                    {{/linkTo}}
+                    {{#linkTo "myProjectPlan.ambassadors" class="item"}}
+                        <em class="icon-pencil"></em>
+                        {% trans "Ambassadors" %}
+                    {{/linkTo}}
+                    {{#linkTo "myProjectPlan.bank" class="item"}}
+                        <em class="icon-pencil"></em>
+                        {% trans "Bank details" %}
                     {{/linkTo}}
                 </div>
+
             </div>
             <form>
                 {{ outlet }}
@@ -146,7 +197,14 @@
 {% tplhandlebars "my_project_plan_index" %}
 
     <fieldset>
-        <legend><strong>{% trans "Time to write your project plan!" %}</strong></legend>
+        <legend><strong>{% trans "Woohoo, your pitch was accepted! The world is at your feet now. Start doing your thing!" %}</strong></legend>
+        <div class="form-desc">
+            <br />
+            <br />
+            {% trans "To complete your project plan, please fill in the empty areas. Are there still some gaps? Don’t worry! We have a network full of people that are willing to help you.  The only thing you need to do is create a 1%SKILLS task ask for the right expertise." %}
+            <br />
+            <br />
+        </div>
     </fieldset>
 
 {% endtplhandlebars %}
@@ -229,8 +287,12 @@
 
 {% tplhandlebars "my_project_plan_description" %}
 
+    <div class="form-meta">
+        <div class="form-label">{% trans "Project description" %}</div>
+        <div class="form-desc">{% trans "Need some info here..." %}</div>
+    </div>
+
     <fieldset>
-        <legend><strong>{% trans "Project description" %}</strong></legend>
         <ul>
             <li class="control-group has-popover" data-content="{% trans "Blow us away with the details!" %}">
                 <label class="control-label">{% trans "Why, what and how" %}</label>
@@ -484,7 +546,9 @@
                             <span class="icon-ok"></span> Basics are ok!<br/>
                         </h4>
                     {{else}}
-                        <span class="icon-ban-circle"></span> {{#linkTo "myProjectPitch.basics"}}Basics{{/linkTo}} still need work!<br/>
+                        <h4>
+                            {{#linkTo "myProjectPitch.basics"}}Basics{{/linkTo}} still need work!
+                        </h4>
                         {{#unless title}}
                             <span class="icon-ban-circle"></span> <b>Title</b> is missing<br/>
                         {{/unless}}
@@ -492,7 +556,7 @@
                             <span class="icon-ban-circle"></span> <b>Tags</b> are missing<br/>
                         {{/unless}}
                         {{#unless description}}
-                            <span class="icon-ban-circle"></span> <b>Description</b> is missing<br/>
+                            <span class="icon-ban-circle"></span> <b>Why, what and how</b> is missing<br/>
                         {{/unless}}
                         {{#unless title}}
                             <span class="icon-ban-circle"></span> <b>Title</b> is missing<br/>
@@ -506,7 +570,9 @@
                             <span class="icon-ok"></span> Location is ok!<br/>
                         </h4>
                     {{else}}
-                        <span class="icon-ban-circle"></span> {{#linkTo "myProjectPitch.basics"}}Basics{{/linkTo}} still need work!<br/>
+                        <h4>
+                            {{#linkTo "myProjectPitch.basics"}}Basics{{/linkTo}} still need work!<br/>
+                        </h4>
                         {{#unless latitude}}
                             <span class="icon-ban-circle"></span> <b>Map location</b> is missing<br/>
                         {{/unless}}
@@ -587,20 +653,6 @@
         {{view Em.TextField valueBinding="view.lookup" placeholder="Search your location."}}
         <button {{action lookUpLocation target="view"}}>search</button>
     </div>
-
-{% endtplhandlebars %}
-
-
-
-{% tplhandlebars "tag_widget" %}
-
-    <ul class="tags">
-        {{#each tags}}
-            <li class="tag"><span class="icon-tag"></span> {{this.id}} <span {{action removeTag this target="view" }} class="delete icon-trash"></span></li>
-        {{/each}}
-    </ul>
-
-    {{view App.TagField valueBinding="view.new_tag" placeholder="Add a tag" class="tag"}} <button class="btn btn-modest" {{action addTag target=view}}>Add</button>
 
 {% endtplhandlebars %}
 

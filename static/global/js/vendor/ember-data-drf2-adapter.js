@@ -16,14 +16,6 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
                 return Ember.isNone(deserialized) ? null : deserialized.toJSON();
             }
         });
-        this.registerTransform('coordinate', {
-            serialize: function (value) {
-                return [value.get('latitude'), value.get('longitude')];
-            },
-            deserialize: function (value) {
-                return Ember.create({ latitude: value[0], longitude: value[1] });
-            }
-        });
     },
 
     /**

@@ -69,11 +69,11 @@ App.MyProjectPlan = DS.Model.extend({
     title: DS.attr('string'),
     pitch: DS.attr('string'),
     theme: DS.attr('string'),
-    slug: DS.attr('string'),
+    need: DS.attr('string'),
     tags: DS.hasMany('App.Tag'),
 
     validBasics: function(){
-        if (this.get('title') &&  this.get('pitch') && this.get('theme') && this.get('slug') && this.get('tags.length')){
+        if (this.get('title') &&  this.get('pitch') && this.get('theme') && this.get('need') && this.get('tags.length')){
             return true;
         }
         return false;
@@ -120,6 +120,9 @@ App.MyProjectPlan = DS.Model.extend({
         return false;
     }.property('image'),
 
+    // Submitting
+    status: DS.attr('string'),
+    agreed: DS.attr('boolean'),
 
     created: DS.attr('date')
 });
@@ -136,8 +139,11 @@ App.MyProject = DS.Model.extend({
     pitch: DS.belongsTo('App.MyProjectPitch'),
     plan: DS.belongsTo('App.MyProjectPlan'),
 
-    isPitch: function(){
+    isPhasePitch: function(){
         return this.get('phase') == 'pitch';
+    }.property('phase'),
+    isPhasePlan: function(){
+        return this.get('phase') == 'plan';
     }.property('phase')
 });
 
@@ -243,7 +249,7 @@ App.MyProjectPitchSubmitView = Em.View.extend(App.PopOverMixin, {
 
 // Project Plan phase
 
-App.MyProjectPlanIndexView = Em.View.extend({
+App.MyProjectPlanView = Em.View.extend({
     templateName: 'my_project_plan'
 
 });

@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.utils import unittest
 from django.test.utils import override_settings
 from apps.bluebottle_utils.tests import UserTestsMixin
-from apps.projects.tests import ProjectTestsMixin, FundPhaseTestMixin
+from apps.projects.tests import ProjectTestsMixin
 from apps.projects.models import Project
 from rest_framework import status
 from .models import Donation, Order, OrderStatuses
@@ -106,7 +106,7 @@ class DonationTests(TestCase, DonationTestsMixin, ProjectTestsMixin):
         donation.save()
 
 
-class CalculateMoneyDonatedTest(DonationTestsMixin, FundPhaseTestMixin, TestCase):
+class CalculateMoneyDonatedTest(DonationTestsMixin, TestCase):
 
     def setUp(self):
         self.some_project = self.create_project()

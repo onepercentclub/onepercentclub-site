@@ -2331,42 +2331,6 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_alerts\.scss}line{font-family:\0000321}}
 .message-close { float: right; font-weight: bold; font-size: 20px; color: white; cursor: pointer; line-height: 1; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\000032}}
-.main-title em { font-style: normal; font-size: 20px; font-size: 1.42857rem; color: #999999; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\000039}}
-ul.manage-steps { margin: 16px 0; padding: 0; list-style: none; float: left; width: 100%; margin-left: 2.08333%; margin-right: 2.08333%; overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000317}}
-ul.manage-steps li { display: inline-block; background: transparent url("../images/donation-step.png") no-repeat right center; position: relative; height: 50px; height: 3.57143rem; display: block; float: left; width: 20.83333%; margin-left: 0%; margin-right: 0%; margin-left: -30px; color: #999999; font-size: 12px; font-size: 0.85714rem; line-height: 12px; line-height: 0.85714rem; text-transform: uppercase; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000327}}
-ul.manage-steps li div.inner { height: 50px; height: 3.57143rem; padding: 0.6em 0 0.6em 0.6em; padding-left: 30px; background-color: #dcdcdc; margin-right: 30px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000339}}
-ul.manage-steps li h4 { font-size: 15px; font-size: 1.07143rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000343}}
-ul.manage-steps li em { background-color: #999999; float: left; font-size: 20px; font-size: 1.42857rem; height: 30px; height: 2.14286rem; width: 30px; width: 2.14286rem; margin: 2px 6px; margin: 0.14286rem 0.42857rem; color: white; padding: 4px; -webkit-border-radius: 50%; -moz-border-radius: 50%; border-radius: 50%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000355}}
-ul.manage-steps li.selected { background: transparent url("../images/donation-step-select.png") no-repeat right center; color: white; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000357}}
-ul.manage-steps li.selected div.inner { background-color: #00c051; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000361}}
-ul.manage-steps li.selected em { background-color: white; color: black; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000367}}
-ul.manage-steps li.first { margin-left: 0px; z-index: 10; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000370}}
-ul.manage-steps li.first .inner { padding-left: 0px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000373}}
-ul.manage-steps li.first em { margin: 2px 10px 2px 6px; margin: 0.14286rem 0.71429rem 0.14286rem 0.42857rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000377}}
-ul.manage-steps li.second { z-index: 9; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000380}}
-ul.manage-steps li.third { z-index: 8; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000383}}
-ul.manage-steps li.fourth { z-index: 7; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000386}}
-ul.manage-steps li.fifth { z-index: 6; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_manage\.scss}line{font-family:\0000389}}
-ul.manage-steps li.sixth { z-index: 5; }
-
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\000031}}
 .dashboard { margin-top: 12px; margin-top: 0.85714rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\000033}}
@@ -2394,6 +2358,42 @@ form .controls .extra-info strong { color: #00c051; }
 .map-look-up input { padding: 1px 4px 0px 4px; width: 300px; border: 1px solid #666666; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\0000363}}
 .map-look-up button { text-transform: capitalize; font-weight: 300; background-color: #00c051; color: white; padding: 1px 8px 0px 8px; border: 1px solid white; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\0000376}}
+.main-title em { font-style: normal; font-size: 20px; font-size: 1.42857rem; color: #999999; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\0000383}}
+ul.manage-steps { margin: 16px 0; padding: 0; list-style: none; float: left; width: 100%; margin-left: 2.08333%; margin-right: 2.08333%; overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\0000391}}
+ul.manage-steps li { display: inline-block; background: transparent url("../images/donation-step.png") no-repeat right center; position: relative; height: 50px; height: 3.57143rem; display: block; float: left; width: 20.83333%; margin-left: 0%; margin-right: 0%; margin-left: -30px; color: #999999; font-size: 12px; font-size: 0.85714rem; line-height: 12px; line-height: 0.85714rem; text-transform: uppercase; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003101}}
+ul.manage-steps li div.inner { height: 50px; height: 3.57143rem; padding: 0.6em 0 0.6em 0.6em; padding-left: 30px; background-color: #dcdcdc; margin-right: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003113}}
+ul.manage-steps li h4 { font-size: 15px; font-size: 1.07143rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003117}}
+ul.manage-steps li em { background-color: #999999; float: left; font-size: 20px; font-size: 1.42857rem; height: 30px; height: 2.14286rem; width: 30px; width: 2.14286rem; margin: 2px 6px; margin: 0.14286rem 0.42857rem; color: white; padding: 4px; -webkit-border-radius: 50%; -moz-border-radius: 50%; border-radius: 50%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003129}}
+ul.manage-steps li.selected { background: transparent url("../images/donation-step-select.png") no-repeat right center; color: white; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003131}}
+ul.manage-steps li.selected div.inner { background-color: #00c051; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003135}}
+ul.manage-steps li.selected em { background-color: white; color: black; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003141}}
+ul.manage-steps li.first { margin-left: 0px; z-index: 10; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003144}}
+ul.manage-steps li.first .inner { padding-left: 0px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003147}}
+ul.manage-steps li.first em { margin: 2px 10px 2px 6px; margin: 0.14286rem 0.71429rem 0.14286rem 0.42857rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003151}}
+ul.manage-steps li.second { z-index: 9; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003154}}
+ul.manage-steps li.third { z-index: 8; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003157}}
+ul.manage-steps li.fourth { z-index: 7; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003160}}
+ul.manage-steps li.fifth { z-index: 6; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003163}}
+ul.manage-steps li.sixth { z-index: 5; }
 
 /* Plugins */
 /*

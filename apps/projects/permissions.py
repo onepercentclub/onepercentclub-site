@@ -1,3 +1,4 @@
+from apps.projects.models import ProjectPitch, ProjectPhases
 from rest_framework import permissions
 from .models import Project
 
@@ -77,3 +78,24 @@ class IsProjectOwnerOrReadOnly(permissions.BasePermission):
 
         # Test for project model object-level permissions.
         return isinstance(obj, Project) and obj.owner == request.user
+
+
+class NoRunningProjectsOrReadOnly(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        # Read permissions are allowed to any request, so we'll always allow GET, HEAD or OPTIONS requests.
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+
+        project = Project.objects.filter(owner=request.user)
+
+        if len(project.filter(phase=ProjectPhases.pitch).exclude(projectpitch__status=ProjectPitch.PitchStatuses.rejected).all()):
+            return False
+
+        if len(project.filter(phase=ProjectPhases.plan).exclude(projectpitch__status=ProjectPitch.PitchStatuses.rejected).all()):
+            return False
+
+        return True
+
+

@@ -154,7 +154,7 @@ App.TaskMemberController = Em.ObjectController.extend({
 
     isStatusRealized: function(){
         return this.get('status') == 'realized';
-    }.property('status'),
+    }.property('status')
 
 
 
