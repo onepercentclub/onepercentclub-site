@@ -156,11 +156,11 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
             username = 'x'
             if self.first_name or self.last_name:
                 # The ideal condition.
-                username = slugify(self.first_name + '-' + self.last_name)
+                username = slugify((self.first_name + self.last_name).replace(' ', ''))
             elif self.email and '@' in self.email:
                 # The best we can do if there's no first or last name.
                 email_name, domain_part = self.email.strip().rsplit('@', 1)
-                username = slugify(email_name)
+                username = slugify(email_name.replace(' ', ''))
 
             # Strip username depending on max_length attribute of the slug field.
             max_length = self._meta.get_field('username').max_length
@@ -176,7 +176,7 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
             next_num = 2
             while queryset.filter(username=username):
                 username = original_username
-                end = '%s%s' % ('-', next_num)
+                end = '%s' % next_num
                 end_len = len(end)
                 if len(username) + end_len > max_length:
                     username = username[:max_length - end_len]
