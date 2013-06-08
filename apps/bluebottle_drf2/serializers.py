@@ -373,3 +373,36 @@ class FileSizeField(serializers.FileField):
         except OSError:
             size = _('File not found')
         return size
+
+
+class TagSerializer(serializers.Serializer):
+    many = True
+    id = serializers.Field(source='name')
+
+    class Meta:
+        fields = ('id', )
+
+
+"""
+    Add this mixin to a serializer to have writeable tags
+    Add this to you modelserialzer too:
+    tags = TagSerializer()
+
+"""
+class TaggableSerializerMixin(object):
+
+
+    def from_native(self, data, files):
+        """
+        Override the default method to also add tags to a TaggableManager field
+        """
+        instance = super(TaggableSerializerMixin, self).from_native(data, files)
+        self.tag_list = data['tags']
+        if instance:
+            return self.full_clean(instance)
+
+    def save_object(self, obj):
+        super(TaggableSerializerMixin, self).save_object(obj)
+        obj.tags.clear()
+        for tag in self.tag_list:
+            obj.tags.add(tag['id'])

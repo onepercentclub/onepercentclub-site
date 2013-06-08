@@ -95,13 +95,15 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEquals(response.data['title'], another_task_data['title'])
 
-        # Go wild! Add another task to that project
+        # Go wild! Add another task to that project add some tags this time
         third_task_data = {'project': self.another_project.slug, 'title': 'Translate some other text.',
                           'description': 'Wie kan Spaans vertalen?', 'time_needed': 5, 'expertise': 'translations',
-                          'location': 'Tiel', 'deadline' : future_date, 'end_goal': 'World peace'}
+                          'location': 'Tiel', 'deadline' : future_date, 'end_goal': 'World peace',
+                          'tags': [{'id': 'spanish'}, {'id':'translate'}]}
         response = self.client.post(self.task_url, another_task_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEquals(response.data['title'], another_task_data['title'])
+        self.assertEquals(len(response.data['tags']),2)
 
         # By now the list for the second project should contain two tasks
         response = self.client.get(self.task_url, {'project': self.another_project.slug})

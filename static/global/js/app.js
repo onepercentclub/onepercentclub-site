@@ -161,7 +161,7 @@ App.loadTemplates = function() {
         // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
         // Now that we know the language we can load the handlebars templates.
         var readyCount = 0;
-        var templates = Em.A(['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders']);
+        var templates = Em.A(['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils']);
         templates.forEach(function(template){
             //loadTemplates(this.templates);
             var hash = {};
@@ -277,7 +277,7 @@ App.Adapter.map('App.CurrentOrder', {
 });
 App.Adapter.map('App.Task', {
     author: {embedded: 'load'},
-    tags: {embedded: 'load'},
+    tags: {embedded: 'always'},
     members: {embedded: 'load'},
     files: {embedded: 'load'}
 });

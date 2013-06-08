@@ -259,3 +259,8 @@ div.buttons, ul.buttons {
     font-weight: normal;
     border-width: 0px;
 }
+
+.btn-modest {
+  @include rem(font-size, 14px);
+  @include rem(padding, 9px 12px 8px 12px);
+}
