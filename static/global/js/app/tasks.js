@@ -5,7 +5,7 @@
 App.TaskMember = DS.Model.extend({
     url: 'tasks/members',
 
-    member: DS.belongsTo('App.MemberPreview'),
+    member: DS.belongsTo('App.UserPreview'),
     created: DS.attr('date'),
     status: DS.attr('string', {defaultValue: 'applied'}),
     task: DS.belongsTo('App.TaskPreview'),
@@ -26,7 +26,7 @@ App.TaskMember = DS.Model.extend({
 App.TaskFile = DS.Model.extend({
     url: 'tasks/files',
 
-    author: DS.belongsTo('App.MemberPreview'),
+    author: DS.belongsTo('App.UserPreview'),
     title: DS.attr('string'),
     created: DS.attr('date'),
     file: DS.attr('string'),
@@ -38,7 +38,7 @@ App.Task = DS.Model.extend({
     url: 'tasks',
 
     // Model fields
-    author: DS.belongsTo('App.MemberPreview'),
+    author: DS.belongsTo('App.UserPreview'),
     title: DS.attr('string'),
     description: DS.attr('string'),
     end_goal: DS.attr('string'),
