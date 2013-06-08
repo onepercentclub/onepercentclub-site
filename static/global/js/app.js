@@ -101,7 +101,18 @@ App = Em.Application.create({
             }
         }
         this.setLocale(locale);
+        this.initSelectViews();
     },
+
+    initSelectViews: function(){
+        // Pre-load these lists so we avoid race conditions when displaying forms
+        App.Country.find().then(function(list){
+            App.CountrySelectView.reopen({
+                content: list
+            });
+        });
+    },
+
 
     setLocale: function(locale) {
         if (!locale) {

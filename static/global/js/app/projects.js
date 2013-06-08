@@ -3,7 +3,7 @@
  Models
  */
 
-App.Country = DS.Model.extend({
+App.ProjectCountry = DS.Model.extend({
     name: DS.attr('string'),
     subregion: DS.attr('string')
 });
@@ -27,7 +27,7 @@ App.Project = DS.Model.extend({
     created: DS.attr('date'),
     tags: DS.attr('array'),
     owner: DS.belongsTo('App.UserPreview'),
-    country: DS.belongsTo('App.Country'),
+    country: DS.belongsTo('App.ProjectCountry'),
 
     days_left: DS.attr('number'),
     supporters_count: DS.attr('number'),
