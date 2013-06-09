@@ -160,12 +160,6 @@ App.UploadFile = Ember.TextField.extend({
 });
 
 
-// The id will be the tag string.
-App.Tag = DS.Model.extend({
-    url: 'tags'
-});
-
-
 // See/Use App.DatePicker
 App.DatePickerValue = Ember.TextField.extend({
     type: 'hidden',
@@ -192,5 +186,47 @@ App.DatePickerWidget = Ember.TextField.extend({
 // valueBinding should bind to a  DS.attr('date') property of an Ember model.
 App.DatePicker = Ember.ContainerView.extend({
     childViews: [App.DatePickerValue, App.DatePickerWidget]
+});
+
+
+// The id will be the tag string.
+App.Tag = DS.Model.extend({
+    url: 'utils/tags',
+    // Hack to make sure that newly added tags won't conflict when the are saved embedded.
+    loadedData: function() {
+        if (this.get('isDirty') === false) {
+            this._super.apply(this, arguments);
+        }
+    }
+});
+
+
+App.TagField = Em.TextField.extend({
+    keyUp: function(e){
+        if (e.keyCode == 188) {
+            e.preventDefault();
+            var val = this.get('value');
+            val = val.replace(',','');
+            this.set('parentView.new_tag', val);
+            this.get('parentView').addTag();
+        }
+    }
+});
+
+App.TagWidget = Em.View.extend({
+    templateName: 'tag_widget',
+    addTag: function(){
+        if (this.get('new_tag')) {
+            var new_tag = this.get('new_tag').toLowerCase();
+            var tags = this.get('tags');
+            var tag = App.Tag.createRecord({'id': new_tag});
+            tags.pushObject(tag);
+            this.set('new_tag', '');
+        }
+    },
+    removeTag: function(tag) {
+        var tags = this.get('tags');
+        tags.removeObject(tag);
+    }
 });
 

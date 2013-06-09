@@ -1,0 +1,16 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "tag_widget" %}
+
+    <ul class="tags">
+        {{#each tags}}
+            <li class="tag"><span class="icon-tag"></span> {{this.id}} <span {{action removeTag this target="view" }} class="delete icon-trash"></span></li>
+        {{/each}}
+    </ul>
+
+    {{view App.TagField valueBinding="view.new_tag" placeholder="Add a tag" class="tag"}} <button class="btn btn-modest" {{action addTag target=view}}>Add</button>
+
+{% endtplhandlebars %}
