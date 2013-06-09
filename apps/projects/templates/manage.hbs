@@ -155,6 +155,10 @@
                         <em class="icon-pencil"></em>
                         {% trans "Location" %}
                     {{/linkTo}}
+                    {{#linkTo "myProjectPlan.media" class="item"}}
+                        <em class="icon-pencil"></em>
+                        {% trans "Media" %}
+                    {{/linkTo}}
                 </div>
                 <br/>
                 <br/>
@@ -357,7 +361,6 @@
 {% endtplhandlebars %}
 
 
-
 {% tplhandlebars "my_project_location" %}
 
     <div class="form-meta">
@@ -397,6 +400,38 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "my_project_plan_media" %}
+
+    <div class="form-meta">
+        <div class="form-label">{% trans "Project media" %}</div>
+        <div class="form-desc">{% trans "Need some info here..." %}</div>
+    </div>
+
+    <fieldset>
+        <ul>
+            <li class="control-group has-popover" data-content="{% trans "Blow us away with the details!" %}">
+                <label class="control-label">
+                    {% trans "Project Picture" %}
+                </label>
+
+                <div class="controls profile-pic-uploader">
+                    <img {{bindAttr src="avatar"}} />
+
+                    <a class="btn btn-iconed btn-uploader">
+                        {{view App.UploadFileView valueBinding="image" name="image" accept="image/*" id="image"}}
+                        <i class="icon icon-upload"></i>
+                        {% trans "Upload picture" %}
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </fieldset>
+
+    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "my_pitch_index" %}
 
     <fieldset>
@@ -425,6 +460,10 @@
                     {{#linkTo "myProjectPitch.location"  class="item"}}
                         <em {{bindAttr class="validLocation:icon-ok:icon-pencil"}}></em>
                         {% trans "Location" %}
+                    {{/linkTo}}
+                    {{#linkTo "myProjectPitch.media"  class="item"}}
+                        <em {{bindAttr class="validMedia:icon-ok:icon-pencil"}}></em>
+                        {% trans "Media" %}
                     {{/linkTo}}
                     {{#linkTo "myProjectPitch.submit"  class="item"}}
                         <em class="icon-star"></em>

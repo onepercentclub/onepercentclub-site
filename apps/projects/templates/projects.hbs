@@ -176,7 +176,7 @@
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
                             </span>
                         </a>
-                    </li>ProjectSupporterController:ember622
+                    </li>
                     <li>
                         <a href="#" class="member">
                             <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
@@ -192,20 +192,24 @@
                     </li>
                 </ul>
             </li>
-            <li class="member-coaches">
-                <h4>Coach</h4>
-                <ul>
-                    <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+
+            {% endcomment %}
+
+            {{#if team_member}}
+                <li class="member-coaches">
+                    <h4>Coach</h4>
+                    <ul>
+                        <li>
+                            <a class="member" {{action openInBigBox "userModal" team_member }} {{bindAttr data-title="supporter.member.full_name" data-content="supporter.time_since"}}>
+                                <img {{bindAttr src="supporter.member.getAvatar"}} width="45" height="45" alt="Photo" />
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            {{/if}}
+
+            {% comment %}
+
             <li class="member-promotors">
                 <h4>Promotors</h4>
                 <ul>
@@ -250,17 +254,19 @@
 
             {% endcomment %}
 
-            <li class="member-supporters">
-                <h4>{% trans "Supporters" %}</h4>
-                {{render "projectSupporterList"}}
-            </li>
-            <li class="show-all-supporters supporters-amount" class="not-implemented">
-                <a href="#" class="member">
-                    <strong>{{supporters_count}}</strong>
-                    <br/>
-                    <em>Total</em>
-                </a>
-            </li>
+            {{#if isPhaseCampaign}}
+                <li class="member-supporters">
+                    <h4>{% trans "Supporters" %}</h4>
+                    {{render "projectSupporterList"}}
+                </li>
+                <li class="show-all-supporters supporters-amount" class="not-implemented">
+                    <a href="#" class="member">
+                        <strong>{{supporters_count}}</strong>
+                        <br/>
+                        <em>Total</em>
+                    </a>
+                </li>
+            {{/if}}
         </ul>
     </div>
 

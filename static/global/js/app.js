@@ -293,6 +293,7 @@ App.ProfileController = Ember.ObjectController.extend({
 //           mark the parent record as dirty).
 App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
+    team_member: {embedded: 'load'},
     country: {embedded: 'load'}
 });
 App.Adapter.map('App.DonationPreview', {
@@ -1163,6 +1164,7 @@ App.MyProjectPitchSubRoute = Ember.Route.extend({
 
 App.MyProjectPitchBasicsRoute =  App.MyProjectPitchSubRoute.extend({});
 App.MyProjectPitchLocationRoute =  App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchMediaRoute =  App.MyProjectPitchSubRoute.extend({});
 App.MyProjectPitchSubmitRoute =  App.MyProjectPitchSubRoute.extend({});
 
 App.MyProjectPitchIndexRoute =  Ember.Route.extend({
@@ -1226,6 +1228,7 @@ App.MyProjectPlanSubRoute = Ember.Route.extend({
 
 App.MyProjectPlanBasicsRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanLocationRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanMediaRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanSubmitRoute =  App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanIndexRoute =  Ember.Route.extend({

@@ -73,9 +73,14 @@ class ProjectPlanSerializer(serializers.ModelSerializer):
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
 
+    image = SorlImageField('image', '800x450')
+    image_bg = SorlImageField('image', '800x450', colorspace="GRAY")
+    image_small = SorlImageField('image', '200x120')
+    image_square = SorlImageField('image', '120x120')
+
     class Meta:
         model = ProjectPlan
-        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need', 'status')
+        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need', 'status', 'image', 'image_bg', 'image_small', 'image_square')
 
 
 class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer):
@@ -106,6 +111,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
 
     owner = UserPreviewSerializer()
+    team_member = UserPreviewSerializer()
 
     money_asked = EuroField(source='money_asked')
     money_donated = EuroField(source='money_donated')
@@ -115,7 +121,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'money_donated', 'money_asked', 'owner', 'pitch', 'plan')
+        fields = ('id', 'created', 'title', 'money_donated', 'money_asked', 'owner', 'team_member', 'pitch', 'plan')
 
 
 # Serializers for ProjectWallPosts:

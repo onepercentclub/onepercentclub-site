@@ -147,6 +147,7 @@ App.Project = DS.Model.extend({
     plan: DS.belongsTo('App.ProjectPlan'),
 
     owner: DS.belongsTo('App.UserPreview'),
+    team_member: DS.belongsTo('App.UserPreview'),
 
     money_asked: DS.attr('number'),
     money_donated: DS.attr('number'),

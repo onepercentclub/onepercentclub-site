@@ -167,7 +167,12 @@ App.MyProjectPitchController = Em.ObjectController.extend(App.Editable, {
 
 App.MyProjectPitchBasicsController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPitchDescriptionController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
+    addFile: function(file) {
+        this.set('model.file', file);
+    }
+
+});
 
 App.MyProjectPitchSubmitController = Em.ObjectController.extend(App.Editable, {
     submitPitch: function(e){
@@ -196,8 +201,13 @@ App.MyProjectPlanController = Em.ObjectController.extend(App.Editable, {
 App.MyProjectPlanBasicsController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanDescriptionController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {});
+
+App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {
+    addFile: function(file) {
+        this.set('model.file', file);
+    }
+});
 
 
 /*
@@ -232,8 +242,8 @@ App.MyProjectPitchBasicsView = Em.View.extend(App.PopOverMixin, {
     templateName: 'my_pitch_basics'
 });
 
-App.MyProjectPitchDescriptionView = Em.View.extend(App.PopOverMixin, {
-    templateName: 'my_pitch_description'
+App.MyProjectPitchMediaView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_media'
 });
 
 App.MyProjectPitchLocationView = Em.View.extend(App.PopOverMixin, {
@@ -270,5 +280,9 @@ App.MyProjectPlanDescriptionView = Em.View.extend(App.PopOverMixin, {
 
 App.MyProjectPlanLocationView = Em.View.extend(App.PopOverMixin, {
     templateName: 'my_project_location'
+});
+
+App.MyProjectPlanMediaView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_media'
 });
 
