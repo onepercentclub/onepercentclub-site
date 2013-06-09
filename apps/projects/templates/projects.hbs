@@ -41,24 +41,24 @@
 
             <article>
                 <div class="project-meta">
-                    <span class="location"><em class="icon-globe"></em> {{country.name}}, {{country.subregion}}</span>
+                    <span class="location"><em class="icon-globe"></em> {{plan.country.name}}</span>
                     <span class="tags">
                       <em class="icon-tag"></em>
                     {%comment%}
                      TODO: add css for comma after tag:
                      http://stackoverflow.com/questions/10403003/how-do-i-add-a-separator-between-elements-in-an-each-loop-except-after-the
                     {%endcomment%}
-                        {{#each tag in tags}}
-                            {{tag}}
+                        {{#each tag in plan.tags}}
+                            {{tag.id}}
                         {{/each}}
                     </span>
                 </div>
 
                 <h1 class="project-title">
-                    {{title}}
+                    {{plan.title}}
                 </h1>
 
-                <p class="project-description">{{description}}</p>
+                <p class="project-description">{{plan.pitch}}</p>
 
                 {{#if isPhaseCampaign}}
                     <div class="status-box">

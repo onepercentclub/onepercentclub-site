@@ -2,7 +2,7 @@ from apps.projects.models import ProjectPitch, ProjectPlan
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -33,6 +33,19 @@ class ProjectList(generics.ListAPIView):
 class ProjectDetail(generics.RetrieveAPIView):
     model = Project
     serializer_class = ProjectSerializer
+
+
+class ProjectPitchDetail(generics.RetrieveAPIView):
+    model = ProjectPitch
+    serializer_class = ProjectPitchSerializer
+    # permission_classes = IsProjectOwner
+
+
+class ProjectPlanDetail(generics.RetrieveAPIView):
+    model = ProjectPlan
+    serializer_class = ProjectPlanSerializer
+    # permission_classes = IsProjectOwner
+
 
 
 class ProjectWallPostMixin(object):

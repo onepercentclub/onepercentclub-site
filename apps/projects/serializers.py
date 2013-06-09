@@ -47,7 +47,7 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
         fields = ('date_donated', 'project',  'member')
 
 
-class ManageProjectPitchSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
+class ProjectPitchSerializer(serializers.ModelSerializer):
 
     country = serializers.PrimaryKeyRelatedField(required=False)
     theme = serializers.PrimaryKeyRelatedField()
@@ -55,8 +55,10 @@ class ManageProjectPitchSerializer(TaggableSerializerMixin, serializers.ModelSer
 
     class Meta:
         model = ProjectPitch
-        depth = 2
         fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need', 'status')
+
+
+class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
 
     def validate_status(self, attrs, source):
         value = attrs[source]
@@ -65,7 +67,7 @@ class ManageProjectPitchSerializer(TaggableSerializerMixin, serializers.ModelSer
         return attrs
 
 
-class ManageProjectPlanSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
+class ProjectPlanSerializer(serializers.ModelSerializer):
 
     country = serializers.PrimaryKeyRelatedField()
     theme = serializers.PrimaryKeyRelatedField()
@@ -73,12 +75,14 @@ class ManageProjectPlanSerializer(TaggableSerializerMixin, serializers.ModelSeri
 
     class Meta:
         model = ProjectPlan
-        depth = 2
         fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need', 'status')
+
+
+class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer):
 
     def validate_status(self, attrs, source):
         value = attrs[source]
-        if value not in [ProjectPlan.PlanStatuses.submitted, ProjectPlan.PlanStatuses.new]:
+        if value not in [ProjectPitch.PitchStatuses.submitted, ProjectPitch.PitchStatuses.new]:
             raise serializers.ValidationError("You can only change status into 'submitted'")
         return attrs
 
@@ -106,9 +110,12 @@ class ProjectSerializer(serializers.ModelSerializer):
     money_asked = EuroField(source='money_asked')
     money_donated = EuroField(source='money_donated')
 
+    pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
+    plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
+
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'money_donated', 'money_asked', 'owner')
+        fields = ('id', 'created', 'title', 'money_donated', 'money_asked', 'owner', 'pitch', 'plan')
 
 
 # Serializers for ProjectWallPosts:

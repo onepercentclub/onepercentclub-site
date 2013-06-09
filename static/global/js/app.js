@@ -351,9 +351,18 @@ App.Adapter.map('App.MyProjectPitch', {
     tags: {embedded: 'always'}
 });
 
+App.Adapter.map('App.ProjectPlan', {
+    tags: {embedded: 'load'}
+});
+
+App.Adapter.map('App.ProjectPitch', {
+    tags: {embedded: 'load'}
+});
+
 App.Adapter.map('App.MyProjectPlan', {
     tags: {embedded: 'always'}
 });
+
 
 App.Store = DS.Store.extend({
     revision: 11,

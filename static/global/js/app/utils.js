@@ -330,7 +330,7 @@ App.Theme = DS.Model.extend({
 
 
 App.ThemeList = [
-    {id: "0", title: "--loading--"},
+    {id: "0", title: "--loading--"}
 ];
 
 App.ThemeSelectView = Em.Select.extend({
