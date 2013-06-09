@@ -1,8 +1,7 @@
 from django.test import TestCase
 from apps.bluebottle_utils.tests import UserTestsMixin
-from django.test.client import BOUNDARY, encode_multipart, MULTIPART_CONTENT
 from rest_framework import status
-
+import json
 
 class UserApiIntegrationTest(UserTestsMixin, TestCase):
     """
@@ -29,12 +28,12 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
 
         # Profile should not be able to be updated by anonymous users.
         full_name = {'first_name': 'Nijntje', 'last_name': 'het Konijntje'}
-        response = self.client.put(user_profile_url, encode_multipart(BOUNDARY, full_name), MULTIPART_CONTENT)
+        response = self.client.put(user_profile_url, json.dumps(full_name), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Profile should be able to be updated by logged in user.
         self.client.login(username=self.some_user.email, password='password')
-        response = self.client.put(user_profile_url, encode_multipart(BOUNDARY, full_name), MULTIPART_CONTENT)
+        response = self.client.put(user_profile_url, json.dumps(full_name), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['first_name'], full_name.get('first_name'))
         self.assertEqual(response.data['last_name'], full_name.get('last_name'))
@@ -90,7 +89,7 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         self.assertFalse(response.data['newsletter'])
 
         # Test that the settings can be updated.
-        response = self.client.put(new_user_settings_url, encode_multipart(BOUNDARY, {'newsletter': True}), MULTIPART_CONTENT)
+        response = self.client.put(new_user_settings_url, json.dumps({'newsletter': True}), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(response.data['newsletter'])
 

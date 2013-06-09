@@ -1,8 +1,8 @@
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectWallPostTestsMixin
 from django.test import TestCase
-from django.test.client import encode_multipart, BOUNDARY, MULTIPART_CONTENT
 from rest_framework import status
+import json
 
 
 class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
@@ -40,7 +40,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
 
         # Update the created Reaction by author.
         new_reaction_text = 'HEAR!!! HEAR!!!'
-        response = self.client.put(reaction_detail_url, encode_multipart(BOUNDARY, {'text': new_reaction_text, 'wallpost': self.some_wallpost.id}), MULTIPART_CONTENT)
+        response = self.client.put(reaction_detail_url, json.dumps({'text': new_reaction_text, 'wallpost': self.some_wallpost.id}), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(new_reaction_text in response.data['text'])
 
