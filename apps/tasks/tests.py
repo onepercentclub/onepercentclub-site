@@ -4,6 +4,7 @@ from rest_framework import status
 from apps.bluebottle_utils.tests import generate_random_slug
 from apps.projects.tests import ProjectTestsMixin
 from .models import Task
+import json
 
 
 class TaskTestsMixin(ProjectTestsMixin):
@@ -96,13 +97,14 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         self.assertEquals(response.data['title'], another_task_data['title'])
 
         # Go wild! Add another task to that project add some tags this time
-        third_task_data = {'project': self.another_project.slug, 'title': 'Translate some other text.',
-                          'description': 'Wie kan Spaans vertalen?', 'time_needed': 5, 'expertise': 'translations',
-                          'location': 'Tiel', 'deadline' : future_date, 'end_goal': 'World peace',
-                          'tags': [{'id': 'spanish'}, {'id':'translate'}]}
-        response = self.client.post(self.task_url, another_task_data)
+        # Because we have a nesting here we should properly encode it as json
+        third_task_data = {'project': self.another_project.slug, 'title': 'Translate some text.',
+                          'description': 'Wie kan Engels vertalen?', 'time_needed': 5, 'expertise': 'translations',
+                          'location': 'Tiel', 'deadline' : str(future_date), 'end_goal': 'World peace',
+                          'tags': [{'id': 'spanish'}, {'id': 'translate'}]}
+        response = self.client.post(self.task_url, json.dumps(third_task_data), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
-        self.assertEquals(response.data['title'], another_task_data['title'])
+        self.assertEquals(response.data['title'], third_task_data['title'])
         self.assertEquals(len(response.data['tags']),2)
 
         # By now the list for the second project should contain two tasks

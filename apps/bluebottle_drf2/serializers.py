@@ -397,12 +397,17 @@ class TaggableSerializerMixin(object):
         Override the default method to also add tags to a TaggableManager field
         """
         instance = super(TaggableSerializerMixin, self).from_native(data, files)
-        self.tag_list = data['tags']
+        if 'tags' in data:
+            self.tag_list = data['tags']
         if instance:
             return self.full_clean(instance)
 
     def save_object(self, obj):
         super(TaggableSerializerMixin, self).save_object(obj)
-        obj.tags.clear()
-        for tag in self.tag_list:
-            obj.tags.add(tag['id'])
+        if hasattr(self, 'tag_list'):
+            obj.tags.clear()
+            print self.tag_list
+            print "---"
+            for tag in self.tag_list:
+                print tag
+                obj.tags.add(tag['id'])
