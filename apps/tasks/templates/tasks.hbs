@@ -456,6 +456,17 @@
                         {{/if}}
                     </li>
 
+                    <li class="control-group">
+                        <label class="control-label">{% trans "Tags" %}</label>
+                        <div class="controls">
+                            {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
+                        </div>
+
+                        {{#if errors.tags }}
+                            <div class="errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+
                 </ul>
                 <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Post Task" %}</button>
             </fieldset>
@@ -597,6 +608,17 @@
 
                         {{#if errors.end_goal }}
                             <div class="errors">{{#each errors.end_goal }}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+
+                    <li class="control-group">
+                        <label class="control-label">{% trans "Tags" %}</label>
+                        <div class="controls">
+                            {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
+                        </div>
+
+                        {{#if errors.tags }}
+                            <div class="errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
