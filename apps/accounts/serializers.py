@@ -83,7 +83,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
         # TODO: Add * password update like it's done with the post only fields serializer (ie. create / add put only fields serializer)
         #           * Facebook connect
         #           * Address
-        fields = ('id', 'email', 'share_time_knowledge', 'share_time_knowledge', 'newsletter', 'gender', 'birthdate')
+        fields = ('id', 'email', 'share_time_knowledge', 'share_time_knowledge', 'newsletter', 'gender', 'birthdate', 'user_type')
 
 
 class UserCreateSerializer(serializers.ModelSerializer):

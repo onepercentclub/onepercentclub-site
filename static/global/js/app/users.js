@@ -74,6 +74,7 @@ App.UserSettings = DS.Model.extend({
     share_money: DS.attr('boolean'),
     gender: DS.attr('string'),
     birthdate: DS.attr('date'),
+    user_type: DS.attr('string'),
 
     didUpdate: function() {
         alert('Your account settings is updated.');
@@ -162,6 +163,16 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
 
 
 App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
+    userTypeList: (function() {
+        var list = Em.A();
+        list.addObject({ name: 'Person', value: 'person'});
+        list.addObject({ name: 'Group', value: 'group'});
+        list.addObject({ name: 'Foundation', value: 'foundation'});
+        list.addObject({ name: 'School', value: 'school'});
+        list.addObject({ name: 'Company', value: 'company'});
+        return list;
+    }).property(),
+
     save: function(settings) {
         settings.get('transaction').commit();
     }
