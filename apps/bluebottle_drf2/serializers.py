@@ -4,7 +4,6 @@ import sys
 import re
 
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import linebreaks
 from django.utils.html import strip_tags, urlize
@@ -282,84 +281,6 @@ class EuroField(serializers.WritableField):
         return int(decimal.Decimal(value) * 100)
 
 
-# Serializer used for creating Users with API.
-#
-# Discussion:
-# https://groups.google.com/forum/?fromgroups=#!topic/django-rest-framework/BlxIeI6nHXo
-#
-# Code:
-# http://pastebin.com/bkDBBR3b
-#
-# PostHyperlinkedModelSerializer inherits from HyperlinkedModelSerializer
-# This serializer allows us to add fields that do not belong to the model.
-#
-# The `process_postonly_fields` method should be overridden.
-# Important: This method is called before the `pre_save` method.
-#
-# Example of usage:
-#
-#    class SomeModelSerializer(PostHyperlinkedModelSerializer):
-#        field_only_for_post = serializers.CharField()
-#
-#        class Meta:
-#            model = SomeModel
-#            fields = ('field1', 'field2', ..., 'field_only_for_post')
-#            postonly_fields = ('field_only_for_post',)
-#
-#        def process_postonly_fields(self, obj, post_attrs):
-#            field_only_for_post = post_attrs['field_only_for_post']
-#            # Process field ...
-#
-class PostOnlyModelSerializerOptions(serializers.ModelSerializerOptions):
-    """
-    Options for PostOnlyModelSerializer.
-    """
-
-    def __init__(self, meta):
-        super(PostOnlyModelSerializerOptions, self).__init__(meta)
-        self.postonly_fields = getattr(meta, 'postonly_fields', ())
-
-
-class PostOnlyModelSerializer(serializers.ModelSerializer):
-    _options_class = PostOnlyModelSerializerOptions
-
-    def to_native(self, obj):
-        """
-        Serialize objects -> primitives.
-        """
-        ret = self._dict_class()
-        ret.fields = {}
-
-        for field_name, field in self.fields.items():
-            # Ignore all postonly_fields from serialization
-            if field_name in self.opts.postonly_fields:
-                continue
-            field.initialize(parent=self, field_name=field_name)
-            key = self.get_field_key(field_name)
-            value = field.field_to_native(obj, field_name)
-            ret[key] = value
-            ret.fields[key] = field
-        return ret
-
-    def restore_object(self, attrs, instance=None):
-        model_attrs, post_attrs = {}, {}
-        for attr, value in attrs.iteritems():
-            if attr in self.opts.postonly_fields:
-                post_attrs[attr] = value
-            else:
-                model_attrs[attr] = value
-        obj = super(PostOnlyModelSerializer, self).restore_object(model_attrs, instance)
-        # Method to process ignored postonly_fields
-        self.process_postonly_fields(obj, post_attrs)
-        return obj
-
-    def process_postonly_fields(self, obj, post_attrs):
-        """
-        Placeholder method for processing data sent in POST.
-        """
-        pass
-
-
 class HyperlinkedFileField(serializers.FileField):
     def to_native(self, value):
         request = self.context.get('request', None)
@@ -387,10 +308,8 @@ class TagSerializer(serializers.Serializer):
     Add this mixin to a serializer to have writeable tags
     Add this to you modelserialzer too:
     tags = TagSerializer()
-
 """
 class TaggableSerializerMixin(object):
-
 
     def from_native(self, data, files):
         """

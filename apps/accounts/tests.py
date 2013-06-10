@@ -1,21 +1,22 @@
+import json
 from django.test import TestCase
 from apps.bluebottle_utils.tests import UserTestsMixin
+from registration.models import RegistrationProfile
 from rest_framework import status
-import json
+
 
 class UserApiIntegrationTest(UserTestsMixin, TestCase):
     """
     Integration tests for the User API.
     """
     def setUp(self):
-        self.some_user = self.create_user(first_name='Nijntje')
-        self.some_user.email = 'nijntje@hetkonijnje.nl'
-        self.some_user.save()
+        self.some_user = self.create_user(email='nijntje@hetkonijnje.nl', first_name='Nijntje')
         self.another_user = self.create_user()
         self.current_user_api_url = '/i18n/api/users/current'
         self.user_create_api_url = '/i18n/api/users/'
         self.user_profile_api_url = '/i18n/api/users/profiles/'
         self.user_settings_api_url = '/i18n/api/users/settings/'
+        self.user_activation_api_url = '/i18n/api/users/activate/'
 
     def test_user_profile_retrieve_and_update(self):
         """
@@ -59,18 +60,33 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
 
         self.client.logout()
 
-    def test_user_settings_retrieve(self):
+    def test_user_settings(self):
         """
-        Test retrieving a user's settings by id.
+        Test retrieving and updating a user's settings by id.
         """
         # Settings shouldn't be accessible until a user is logged in.
         user_settings_url = "{0}{1}".format(self.user_settings_api_url, self.some_user.id)
         response = self.client.get(user_settings_url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
-    def test_user_create_and_update_settings(self):
+        # Settings should be accessible after a user is logged in.
+        self.client.login(username=self.some_user.email, password='password')
+        some_user_settings_url = "{0}{1}".format(self.user_settings_api_url, self.some_user.id)
+        response = self.client.get(some_user_settings_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['email'], self.some_user.email)
+        self.assertFalse(response.data['newsletter'])
+
+        # Test that the settings can be updated.
+        response = self.client.put(some_user_settings_url, json.dumps({'newsletter': True}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertTrue(response.data['newsletter'])
+
+        self.client.logout()
+
+    def test_user_create(self):
         """
-        Test creating a user with the api.
+        Test creating a user with the api, activating the new user and updating the settings once logged in.
         """
         # Create a user.
         new_user_email = 'nijntje27@hetkonijntje.nl'
@@ -80,9 +96,24 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         user_id = response.data['id']
 
-        # Login and getting the settings should work.
-        self.client.login(email=new_user_email, password=new_user_password)
+        # Logging in before activation shouldn't work. Test this by trying to access the settings page.
+        self.client.login(username=new_user_email, password=new_user_password)
         new_user_settings_url = "{0}{1}".format(self.user_settings_api_url, user_id)
+        response = self.client.get(new_user_settings_url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Activate the newly created user.
+        activation_key = RegistrationProfile.objects.filter(user__email=new_user_email).get().activation_key
+        new_user_activation_url = "{0}{1}".format(self.user_activation_api_url, activation_key)
+        response = self.client.get(new_user_activation_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # A second activation of a used activation code shouldn't work.
+        response = self.client.get(new_user_activation_url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        # Logging in after activation should work and should allow for settings to be updated.
+        self.client.login(username=new_user_email, password=new_user_password)
         response = self.client.get(new_user_settings_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['email'], new_user_email)
