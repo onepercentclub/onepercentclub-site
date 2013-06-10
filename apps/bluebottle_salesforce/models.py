@@ -34,18 +34,18 @@ class SalesforceOrganization(SalesforceModel):
         media_pr = ChoiceItem('Media / PR', label=_("Media / PR"))
 
     # SF Layout: Account details section.
-    legal_status = models.CharField(max_length=255, db_column='Legal_status__c')
+    legal_status = models.CharField(max_length=10000, db_column='Legal_status__c')
     name = models.CharField(max_length=255, db_column='Name')
     organization_type = models.CharField(max_length=40, db_column="Type", choices=AccountType.choices ,help_text=("Type"))
 
     # SF Layout: Address Information section.
-    organization_external_id = models.CharField(max_length=255, db_column='Organization_External_ID__c')
+    external_id = models.CharField(max_length=255, db_column='Organization_External_ID__c')
     billing_city = models.CharField(max_length=40, db_column='BillingCity')
     billing_street = models.CharField(max_length=255, db_column='BillingStreet')
     billing_postal_code = models.CharField(max_length=20, db_column='BillingPostalCode')
-    email_address = models.CharField(max_length=80, db_column='E_mail_address__c')
+    email_address = models.EmailField(max_length=80, db_column='E_mail_address__c')
     phone = models.CharField(max_length=40, db_column='Phone')
-    website = models.CharField(max_length=255, db_column='Website')
+    website = models.URLField(max_length=255, db_column='Website')
 
     # SF Layout: Bank Account section.
     address_bank = models.CharField(max_length=255, db_column='Address_bank__c')
@@ -64,6 +64,111 @@ class SalesforceOrganization(SalesforceModel):
 
     class Meta:
         db_table = 'Account'
+
+
+class SalesforceContact(SalesforceModel):
+    """
+    Default Salesforce Contact model.
+    """
+    class ContactCategory1(DjangoChoices):
+        stichting = ChoiceItem('Stichting')
+        bedrijf = ChoiceItem('Bedrijf')
+        particulier = ChoiceItem('Particulier')
+        vereniging = ChoiceItem('Vereniging')
+        school = ChoiceItem('School')
+
+    class ContactGender(DjangoChoices):
+        m = ChoiceItem('m')
+        f = ChoiceItem('f')
+
+    # SF Layout: Subscription section.
+    category1 = models.CharField(max_length=255, db_column='Category1__c', choices=ContactCategory1.choices, help_text=_("Category"))
+    email = models.CharField(max_length=80, db_column='Email')
+    member_1_club = models.BooleanField(db_column='Member_1_club__c', default=True)
+    user_name = models.CharField(max_length=255, db_column='Username__c')
+    is_active = models.BooleanField(db_column='Active__c')
+
+    # SF Layout: Profile section.
+    first_name = models.CharField(max_length=40, db_column='FirstName')
+    last_name = models.CharField(max_length=80, db_column='LastName', null=False, blank=False)
+    member_since = models.DateField(db_column='Member_since__c')
+    why_one_percent_member = models.CharField(max_length=32000, db_column='Why_onepercent_member__c')
+    about_me_us = models.CharField(max_length=3200, db_column='About_me_us__c')
+    location = models.CharField(max_length=100, db_column='Location__c')
+    # The default: Organization(Account) will be 'Individual' as current.
+    # - Future purpose deactivate and put the Organization website group value
+    #   organization_account = models.ForeignKey(SalesforceOrganization, db_column='AccountId')
+    website = models.CharField(max_length=255, db_column='Website__c')
+
+    # SF Layout: Contact Information section.
+    activity_number = models.CharField(max_length=255, db_column='Activity_number__c')
+
+    # SF Layout: Contact Activity section.
+    amount_of_single_donations = models.CharField(max_length=255, db_column='Amount_of_single_donations__c')
+    has_n_friends = models.CharField(max_length=255, db_column='Has_n_friends__c')
+    has_given_n_vouchers = models.CharField(max_length=255, db_column='Has_given_n_1_VOUCHERS__c')
+    is_doing_n_tasks = models.CharField(max_length=255, db_column='Is_doing_n_tasks__c')
+    number_of_donations = models.CharField(max_length=255, db_column='Number_of_donations__c')
+    support_n_projects = models.CharField(max_length=255, db_column='Support_n_projects__c')
+    total_amount_of_donations = models.CharField(max_length=255, db_column='Total_amount_of_donations__c')
+    total_number_of_received_messages = models.CharField(max_length=255, db_column='Total_number_of_received_messages__c')
+    total_number_of_sent_messages = models.CharField(max_length=255, db_column='Total_number_of_sent_messages__c')
+
+    # SF Layout: Administrative (private) section.
+    birth_date = models.DateField(db_column='Birthdate')
+    gender = models.CharField(max_length=20, db_column='Gender__c', choices=ContactGender.choices, help_text=_("Gender"))
+    mailing_city = models.CharField(max_length=40, db_column='MailingCity')
+    mailing_country = models.CharField(max_length=40, db_column='MailingCountry')
+    mailing_postal_code = models.CharField(max_length=20, db_column='MailingPostalCode')
+    mailing_street = models.CharField(max_length=20, db_column='MailingStreet')
+    mailing_state = models.CharField(max_length=80, db_column='MailingState')
+
+    # SF Layout: My Skills section.
+    which_1_would_you_like_to_contribute = models.CharField(max_length=32000, db_column='Which_1_would_you_like_to_contribute__c')
+    available_time = models.CharField(max_length=255, db_column='Available_time__c')
+    where = models.CharField(max_length=255, db_column='Where__c')
+
+    # SF Layout: My Settings section.
+    receive_emails_for_friend_invitations = models.BooleanField(db_column='Receive_emails_for_friend_invitations__c')
+    receive_newsletter = models.BooleanField(db_column='Receive_newsletter__c')
+    email_after_a_new_message = models.BooleanField(db_column='Email_after_a_new_message__c')
+    email_after_a_new_public_message = models.BooleanField(db_column='Email_after_a_new_public_message__c')
+    primary_language = models.CharField(max_length=255, db_column='Primary_language__c')
+
+    # SF Layout: All expertise section.
+    administration_finance = models.BooleanField(db_column='Administration_Finance__c')
+    agriculture_environment = models.BooleanField(db_column='Agriculture_Environment__c')
+    architecture = models.BooleanField(db_column='Architecture__c')
+    computer_ict = models.BooleanField(db_column='Computer_ICT__c')
+    design = models.BooleanField(db_column='Design__c')
+    economy_business = models.BooleanField(db_column='Economy_Business__c')
+    education = models.BooleanField(db_column='Education__c')
+    fund_raising = models.BooleanField(db_column='Fundraising__c')
+    graphic_design = models.BooleanField(db_column='Graphic_Design__c')
+    health = models.BooleanField(db_column='Health__c')
+    internet_research = models.BooleanField(db_column='Internet_Research__c')
+    law_and_politics = models.BooleanField(db_column='Law_and_Politics__c')
+    marketing_pr = models.BooleanField(db_column='Marketing_PR__c')
+    online_marketing = models.BooleanField(db_column='Online_Marketing__c')
+    photo_video = models.BooleanField(db_column='Photo_Video__c')
+    physics_technique = models.BooleanField(db_column='Physics_Technique__c')
+    presentations = models.BooleanField(db_column='Presentations__c')
+    project_management = models.BooleanField(db_column='Project_Management__c')
+    psychology = models.BooleanField(db_column='Psychology__c')
+    social_work = models.BooleanField(db_column='Social_Work__c')
+    sport_and_development = models.BooleanField(db_column='Sport_and_Development__c')
+    tourism = models.BooleanField(db_column='Tourism__c')
+    trade_transport = models.BooleanField(db_column='Trade_Transport__c')
+    translating_writing = models.BooleanField(db_column='Translating_Writing__c')
+    web_development = models.BooleanField(db_column='Web_development__c')
+    writing_proposals = models.BooleanField(db_column='Writing_proposals__c')
+
+    # SF: Other.
+    external_id = models.CharField(max_length=255, db_column='Contact_External_ID__c')
+    tags = models.CharField(max_length=255, db_column='Tags__c')
+
+    class Meta:
+        db_table = 'Contact'
 
 
 class SalesforceProject(SalesforceModel):
@@ -348,7 +453,7 @@ class SalesforceProject(SalesforceModel):
     amount_requested = models.CharField(max_length=255, db_column='Amount_requested__c')
     amount_still_needed = models.CharField(max_length=255, db_column='Amount_still_needed__c')
     project_name = models.CharField(max_length=80, db_column='Project_name__c')
-    #Reference: project_owner = models.CharField(max_length=18, db_column='Project_Owner__c')
+    project_owner = models.ForeignKey(SalesforceContact, db_column='Project_Owner__c')
     status_project = models.CharField(max_length=255,
                                       db_column='Status_project__c',
                                       choices=ProjectStatus.choices,
@@ -361,17 +466,16 @@ class SalesforceProject(SalesforceModel):
                                                                choices=ProjectCountry.choices,
                                                                help_text=_("Country in which the project is located"))
     describe_the_project_in_one_sentence = models.CharField(max_length=50000, db_column='Describe_the_project_in_one_sentence__c')
-    describe_where_the_money_is_needed_for = models.CharField(max_length=255, db_column='Describe_where_the_money_is_needed_for__c')
-    project_url = models.URLField(db_column='Projecturl__c')
+    describe_where_the_money_is_needed_for = models.CharField(max_length=15000, db_column='Describe_where_the_money_is_needed_for__c')
+    project_url = models.URLField(max_length=255, db_column='Projecturl__c')
 
     # SF Layout: Extensive project information section.
     third_half_project = models.BooleanField(db_column='third_half_project__c')
-    #Reference: account = models.CharField(max_length=255, db_column='ACCOUNT__C')
-    #Reference:??? organization = models.CharField(max_length=255, db_column='Organization__c')
+    organization_account = models.ForeignKey(SalesforceOrganization, db_column='Organization__c')
     comments = models.CharField(max_length=32000, db_column='Comments__c')
     contribution_project_in_reducing_poverty = models.CharField(max_length=32000,
                                                                 db_column='Contribution_project_in_reducing_poverty__c')
-    earth_charther_project = models.CharField(max_length=255, db_column='Earth_Charther_project__c')
+    earth_charther_project = models.BooleanField(db_column='Earth_Charther_project__c')
     extensive_project_description = models.CharField(max_length=32000, db_column='Extensive_project_description__c')
     project_goals = models.CharField(max_length=20000, db_column='Project_goals__c')
     sustainability = models.CharField(max_length=20000, db_column='Sustainability__c')
@@ -450,110 +554,6 @@ class SalesforceProjectBudget(SalesforceModel):
         db_table = 'Project_Budget__c'
 
 
-class SalesforceContact(SalesforceModel):
-    """
-    Default Salesforce Contact model.
-    """
-    class ContactCategory1(DjangoChoices):
-        stichting = ChoiceItem('Stichting')
-        bedrijf = ChoiceItem('Bedrijf')
-        particulier = ChoiceItem('Particulier')
-        vereniging = ChoiceItem('Vereniging')
-        school = ChoiceItem('School')
-
-    class ContactGender(DjangoChoices):
-        m = ChoiceItem('m')
-        f = ChoiceItem('f')
-
-    # SF Layout: Subscription section.
-    category1 = models.CharField(max_length=255, db_column='Category1__c', choices=ContactCategory1.choices, help_text=_("Category"))
-    email = models.CharField(max_length=80, db_column='Email')
-    member_1_club = models.BooleanField(db_column='Member_1_club__c', default=True)
-    user_name = models.CharField(max_length=255, db_column='Username__c')
-
-    # SF Layout: Profile section.
-    first_name = models.CharField(max_length=40, db_column='FirstName')
-    last_name = models.CharField(max_length=80, db_column='LastName', null=False, blank=False)
-    member_since = models.DateField(db_column='Member_since__c')
-    why_one_percent_member = models.CharField(max_length=32000, db_column='Why_onepercent_member__c')
-    about_me_us = models.CharField(max_length=3200, db_column='About_me_us__c')
-    location = models.CharField(max_length=100, db_column='Location__c')
-    # The default: Organization(Account) will be 'Individual' as current.
-    # - Future purpose deactivate and put the Organization website group value
-    #   Account = models.ForeignKey(SalesforceOrganization, db_column='AccountId')
-    website = models.CharField(max_length=255, db_column='Website__c')
-
-    # SF Layout: Contact Information section.
-    activity_number = models.CharField(max_length=255, db_column='Activity_number__c')
-
-    # SF Layout: Contact Activity section.
-    amount_of_single_donations = models.CharField(max_length=255, db_column='Amount_of_single_donations__c')
-    has_n_friends = models.CharField(max_length=255, db_column='Has_n_friends__c')
-    has_given_n_vouchers = models.CharField(max_length=255, db_column='Has_given_n_1_VOUCHERS__c')
-    is_doing_n_tasks = models.CharField(max_length=255, db_column='Is_doing_n_tasks__c')
-    number_of_donations = models.CharField(max_length=255, db_column='Number_of_donations__c')
-    support_n_projects = models.CharField(max_length=255, db_column='Support_n_projects__c')
-    total_amount_of_donations = models.CharField(max_length=255, db_column='Total_amount_of_donations__c')
-    total_number_of_received_messages = models.CharField(max_length=255, db_column='Total_number_of_received_messages__c')
-    total_number_of_sent_messages = models.CharField(max_length=255, db_column='Total_number_of_sent_messages__c')
-
-    # SF Layout: Administrative (private) section.
-    birth_date = models.DateField(db_column='Birthdate')
-    gender = models.CharField(max_length=20, db_column='Gender__c', choices=ContactGender.choices, help_text=_("Gender"))
-    mailing_city = models.CharField(max_length=40, db_column='MailingCity')
-    mailing_country = models.CharField(max_length=40, db_column='MailingCountry')
-    mailing_postal_code = models.CharField(max_length=20, db_column='MailingPostalCode')
-    mailing_street = models.CharField(max_length=20, db_column='MailingStreet')
-    mailing_state = models.CharField(max_length=80, db_column='MailingState')
-
-    # SF Layout: My Skills section.
-    which_1_would_you_like_to_contribute = models.CharField(max_length=32000, db_column='Which_1_would_you_like_to_contribute__c')
-    available_time = models.CharField(max_length=255, db_column='Available_time__c')
-    where = models.CharField(max_length=255, db_column='Where__c')
-
-    # SF Layout: My Settings section.
-    receive_emails_for_friend_invitations = models.BooleanField(db_column='Receive_emails_for_friend_invitations__c')
-    receive_newsletter = models.BooleanField(db_column='Receive_newsletter__c')
-    email_after_a_new_message = models.BooleanField(db_column='Email_after_a_new_message__c')
-    email_after_a_new_public_message = models.BooleanField(db_column='Email_after_a_new_public_message__c')
-    primary_language = models.CharField(max_length=255, db_column='Primary_language__c')
-
-    # SF Layout: All expertise section.
-    administration_finance = models.BooleanField(db_column='Administration_Finance__c')
-    agriculture_environment = models.BooleanField(db_column='Agriculture_Environment__c')
-    architecture = models.BooleanField(db_column='Architecture__c')
-    computer_ict = models.BooleanField(db_column='Computer_ICT__c')
-    design = models.BooleanField(db_column='Design__c')
-    economy_business = models.BooleanField(db_column='Economy_Business__c')
-    education = models.BooleanField(db_column='Education__c')
-    fund_raising = models.BooleanField(db_column='Fundraising__c')
-    graphic_design = models.BooleanField(db_column='Graphic_Design__c')
-    health = models.BooleanField(db_column='Health__c')
-    internet_research = models.BooleanField(db_column='Internet_Research__c')
-    law_and_politics = models.BooleanField(db_column='Law_and_Politics__c')
-    marketing_pr = models.BooleanField(db_column='Marketing_PR__c')
-    online_marketing = models.BooleanField(db_column='Online_Marketing__c')
-    photo_video = models.BooleanField(db_column='Photo_Video__c')
-    physics_technique = models.BooleanField(db_column='Physics_Technique__c')
-    presentations = models.BooleanField(db_column='Presentations__c')
-    project_management = models.BooleanField(db_column='Project_Management__c')
-    psychology = models.BooleanField(db_column='Psychology__c')
-    social_work = models.BooleanField(db_column='Social_Work__c')
-    sport_and_development = models.BooleanField(db_column='Sport_and_Development__c')
-    tourism = models.BooleanField(db_column='Tourism__c')
-    trade_transport = models.BooleanField(db_column='Trade_Transport__c')
-    translating_writing = models.BooleanField(db_column='Translating_Writing__c')
-    web_development = models.BooleanField(db_column='Web_development__c')
-    writing_proposals = models.BooleanField(db_column='Writing_proposals__c')
-
-    # SF: Other.
-    external_id = models.CharField(max_length=255, db_column='Contact_External_ID__c')
-    tags = models.CharField(max_length=255, db_column='Tags__c')
-
-    class Meta:
-        db_table = 'Contact'
-
-
 class SalesforceDonation(SalesforceModel):
     """
     Default Salesforce Opportunity model. For Onepercentclub the mapping is named Donation(s).
@@ -573,8 +573,8 @@ class SalesforceDonation(SalesforceModel):
                                       db_column='Payment_method__c',
                                       choices=OpportunityPaymentMethod.choices,
                                       help_text=_("PaymentMethod"))
-    #Account = models.ForeignKey(Account, db_column='AccountId')
-    #Project = models.ForeignKey(Project, db_column='ProjectId')
+    organization = models.ForeignKey(SalesforceOrganization, db_column='Project_Organization__c')
+    project = models.ForeignKey(SalesforceProject, db_column='Project__c')
     stage_name = models.CharField(max_length=40, db_column='StageName', choices=OpportunityStageName.choices, help_text=_("StageName"))
     donation_type = models.CharField(max_length=1000, db_column='Type')
 
@@ -587,8 +587,8 @@ class SalesforceDonation(SalesforceModel):
 
     # SF: Other.
     # TODO: check the maximum positive integer..Note!!!! id will be newly generated
-    donation_external_id = models.PositiveIntegerField(db_column='Donation_External_ID__c')
-    #Receiver = models.ForeignKey(Project, db_column='ReceiverId')
+    external_id = models.CharField(max_length=255, db_column='Donation_External_ID__c')
+    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c')
 
     class Meta:
         db_table = 'Opportunity'
@@ -654,7 +654,7 @@ class SalesforceTask(SalesforceModel):
     # SF Layout: System Information section.
 
     # SF: Other
-    task_external_id = models.CharField(max_length=255, db_column='Task_External_ID__c')
+    external_id = models.CharField(max_length=255, db_column='Task_External_ID__c')
 
     class Meta:
         db_table = 'onepercentclubTasks__c'
