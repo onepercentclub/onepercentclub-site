@@ -203,6 +203,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'polymorphic',
     'salesforce',
+    'registration',
 
     # CMS page contents
     'fluent_contents',
@@ -496,8 +497,11 @@ PROJECT_PAYOUT_RATE = 0.95
 #     'id': ''
 # }
 
-# Database alias and time-out settings for Salesforce query
+# Salesforce app settings
 SALESFORCE_QUERY_TIMEOUT = 3
 DATABASE_ROUTERS = [
     "salesforce.router.ModelRouter"
 ]
+
+# Django-registration settings
+ACCOUNT_ACTIVATION_DAYS = 4
