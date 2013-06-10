@@ -414,14 +414,19 @@
                     {% trans "Project Picture" %}
                 </label>
 
-                <div class="controls profile-pic-uploader">
-                    <img {{bindAttr src="avatar"}} />
-
+                <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
                         {{view App.UploadFileView valueBinding="image" name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
+                    <br />
+                    {{#if file}}
+                        {% trans "File selected. click Save to upload it." %}<br/>
+                        File: <strong>{{ file.name }}</strong><br/>
+                    {{else}}
+                        <img {{bindAttr src="image"}} />
+                    {{/if}}
                 </div>
             </li>
         </ul>
@@ -442,7 +447,7 @@
 
 
 {% tplhandlebars "my_project_pitch" %}
-
+1
     <div class="container">
         <div class="wrapper dashboard">
             <div class="menu-sidebar">

@@ -211,7 +211,36 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         var data = {};
         data = this.serialize(record);
 
-        if (type == 'App.User' && record.get('file')) {
+        if (type == 'App.MyProjectPitch' && record.get('file')) {
+            var formdata = new FormData();
+            Object.keys(data).forEach(function(key) {
+                if (data[key] !== undefined) {
+                    if (key == 'image') {
+                        var file = record.get('file');
+                        formdata.append('image', file);
+                    } else if (Em.typeOf(data[key]) == 'array'){
+                        formdata.append(key, JSON.stringify(data[key]));
+                    } else {
+                        console.log(Em.typeOf(data[key]));
+                        formdata.append(key, data[key]);
+                    }
+                }
+            });
+
+            this.ajaxFormData(this.buildURL(root, id), "POST", {
+                data: formdata,
+                context: this,
+                headers: {'X-HTTP-Method-Override': 'PUT'},
+                success: function(json) {
+                    Ember.run(this, function() {
+                        this.didSaveRecord(store, type, record, json);
+                    });
+                },
+                error: function(xhr) {
+                    this.didError(store, type, record, xhr);
+                }
+            });
+        } else if (type == 'App.User' && record.get('file')) {
             var formdata = new FormData();
             Object.keys(data).forEach(function(key) {
                 if (data[key] !== undefined) {

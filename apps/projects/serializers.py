@@ -53,9 +53,15 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
 
+    image = SorlImageField('image', '800x450', required=False)
+    image_bg = SorlImageField('image', '800x450', colorspace="GRAY", read_only=True)
+    image_small = SorlImageField('image', '200x120', read_only=True)
+    image_square = SorlImageField('image', '120x120', read_only=True)
+
     class Meta:
         model = ProjectPitch
-        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need', 'status')
+        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
+                  'status', 'image', 'image_bg', 'image_small', 'image_square')
 
 
 class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
@@ -80,7 +86,8 @@ class ProjectPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProjectPlan
-        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need', 'status', 'image', 'image_bg', 'image_small', 'image_square')
+        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
+                  'status', 'image', 'image_bg', 'image_small', 'image_square')
 
 
 class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer):

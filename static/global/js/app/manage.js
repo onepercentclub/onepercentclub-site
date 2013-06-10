@@ -169,7 +169,11 @@ App.MyProjectPitchBasicsController = Em.ObjectController.extend(App.Editable, {}
 App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
     addFile: function(file) {
-        this.set('model.file', file);
+        var model = this.get('model');
+        model.set('file', file);
+        model.on('didUpdate', function(){
+            model.set('file', null);
+        });
     }
 
 });

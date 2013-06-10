@@ -2,6 +2,8 @@ import decimal
 import logging
 import sys
 import re
+import json
+import types
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -325,8 +327,8 @@ class TaggableSerializerMixin(object):
         super(TaggableSerializerMixin, self).save_object(obj)
         if hasattr(self, 'tag_list'):
             obj.tags.clear()
-            print self.tag_list
-            print "---"
+            print type(self.tag_list)
+            if type(self.tag_list) == types.UnicodeType:
+                self.tag_list = json.loads(self.tag_list)
             for tag in self.tag_list:
-                print tag
                 obj.tags.add(tag['id'])

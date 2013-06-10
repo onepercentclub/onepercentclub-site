@@ -72,6 +72,13 @@ form {
 
 }
 
+.project-pic-uploader {
+    img {
+        width: 100%;
+        @include rem(margin-top, 12px);
+    }
+}
+
 .main-title {
     em {
         font-style: normal;

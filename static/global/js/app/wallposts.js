@@ -49,7 +49,6 @@ App.ProjectTextWallPost = App.ProjectWallPost.extend({
 
 App.TaskWallPost = App.WallPost.extend({
     url: 'tasks/wallposts',
-
     task: DS.belongsTo('App.Task')
 });
 
