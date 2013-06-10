@@ -21,7 +21,7 @@ class StatusChangedNotificationView(generics.GenericAPIView):
                     payment = DocDataPaymentOrder.objects.get(merchant_order_reference=mor)
                 except DocDataPaymentOrder.DoesNotExist:
                     status_logger.error('Cannot find payment for merchant_order_reference: {0}'.format(mor))
-                    response.Response(status.HTTP_403_FORBIDDEN)
+                    response.Response(status=status.HTTP_403_FORBIDDEN)
 
                 # TODO: Can update status as background job.
                 # Update the status for the payment.
@@ -29,7 +29,7 @@ class StatusChangedNotificationView(generics.GenericAPIView):
                 payments.update_payment_status(payment, status_changed_notification=True)
 
                 # Return 200 as required by DocData when the status changed notification was consumed.
-                return response.Response(status.HTTP_200_OK)
+                return response.Response(status=status.HTTP_200_OK)
             else:
                 status_logger.error('merchant_order_reference not correctly matched: {0}'.format(mor))
-        return response.Response(status.HTTP_403_FORBIDDEN)
+        return response.Response(status=status.HTTP_403_FORBIDDEN)
