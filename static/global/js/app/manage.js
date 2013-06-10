@@ -2,6 +2,20 @@
  Models
  */
 
+App.MyOrganization = DS.Model.extend({
+    url: 'organizations/manage',
+    name: DS.attr('string'),
+    description: DS.attr('string'),
+    website: DS.attr('string')
+});
+
+App.OrganizationSelectView = Em.Select.extend({
+    content: [{id:0, title: "--loading--"}],
+    optionValuePath: "content.id",
+    optionLabelPath: "content.name"
+
+});
+
 App.MyProjectPitch = DS.Model.extend({
     url: 'projects/manage/pitches',
 
@@ -120,6 +134,9 @@ App.MyProjectPlan = DS.Model.extend({
         return false;
     }.property('image'),
 
+    // Organization
+    organization: DS.belongsTo('App.MyOrganization'),
+
     // Submitting
     status: DS.attr('string'),
     agreed: DS.attr('boolean'),
@@ -214,6 +231,19 @@ App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {
 });
 
 
+App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editable, {
+
+    selectOrganization: function(org){
+        console.log('select org');
+        console.log(org);
+        this.set('model.organization', org);
+    },
+    createNewOrganization: function() {
+        console.log('create new org');
+    }
+});
+
+
 /*
  Views
  */
@@ -289,4 +319,9 @@ App.MyProjectPlanLocationView = Em.View.extend(App.PopOverMixin, {
 App.MyProjectPlanMediaView = Em.View.extend(App.PopOverMixin, {
     templateName: 'my_project_plan_media'
 });
+
+App.MyProjectPlanOrganisationView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_organisation'
+});
+
 

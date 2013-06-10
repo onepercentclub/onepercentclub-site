@@ -36,12 +36,12 @@
 
         <section class="wrapper">
             <figure class="media">
-                <img {{bindAttr src="image"}} width="100%" alt="Photo" />
+                <img {{bindAttr src="plan.image"}} width="100%" alt="Photo" />
             </figure>
 
             <article>
                 <div class="project-meta">
-                    <span class="location"><em class="icon-globe"></em> {{plan.country.name}}</span>
+                    <span class="location"><em class="icon-globe"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
                     <span class="tags">
                       <em class="icon-tag"></em>
                     {%comment%}
@@ -200,8 +200,8 @@
                     <h4>Coach</h4>
                     <ul>
                         <li>
-                            <a class="member" {{action openInBigBox "userModal" team_member }} {{bindAttr data-title="supporter.member.full_name" data-content="supporter.time_since"}}>
-                                <img {{bindAttr src="supporter.member.getAvatar"}} width="45" height="45" alt="Photo" />
+                            <a class="member" {{action openInBigBox "userModal" team_member }} {{bindAttr data-content="team_member.full_name"}} data-title="1%COACH" >
+                                <img {{bindAttr src="team_member.getAvatar"}} width="45" height="45" alt="Photo" />
                             </a>
                         </li>
                     </ul>

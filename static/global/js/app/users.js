@@ -31,7 +31,7 @@ App.User = DS.Model.extend({
 
     getPicture: function() {
         if (this.get('picture')) {
-            return this.get('picture')
+            return '/static/media/' + this.get('picture')
         }
         return '/static/assets/images/default-avatar.png'
     }.property('picture'),

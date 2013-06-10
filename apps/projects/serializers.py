@@ -21,7 +21,6 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
-    country = ProjectCountrySerializer()
     phase = serializers.CharField(source='get_phase_display', read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='project-detail')
     country = ProjectCountrySerializer(source='pitch.country')
@@ -49,7 +48,7 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
 
 class ProjectPitchSerializer(serializers.ModelSerializer):
 
-    country = serializers.PrimaryKeyRelatedField(required=False)
+    country = ProjectCountrySerializer()
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
 
@@ -66,6 +65,8 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
 
 class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
 
+    country = serializers.PrimaryKeyRelatedField(required=False)
+
     def validate_status(self, attrs, source):
         value = attrs[source]
         if value not in [ProjectPitch.PitchStatuses.submitted, ProjectPitch.PitchStatuses.new]:
@@ -75,22 +76,26 @@ class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializ
 
 class ProjectPlanSerializer(serializers.ModelSerializer):
 
-    country = serializers.PrimaryKeyRelatedField()
+    country = ProjectCountrySerializer()
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
+    organization = serializers.PrimaryKeyRelatedField(source="organization")
 
-    image = SorlImageField('image', '800x450')
-    image_bg = SorlImageField('image', '800x450', colorspace="GRAY")
-    image_small = SorlImageField('image', '200x120')
-    image_square = SorlImageField('image', '120x120')
+    image = SorlImageField('image', '800x450', required=False)
+    image_bg = SorlImageField('image', '800x450', colorspace="GRAY", read_only=True)
+    image_small = SorlImageField('image', '200x120', read_only=True)
+    image_square = SorlImageField('image', '120x120', read_only=True)
 
     class Meta:
         model = ProjectPlan
         fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
-                  'status', 'image', 'image_bg', 'image_small', 'image_square')
+                  'status', 'image', 'image_bg', 'image_small', 'image_square', 'organization')
 
 
 class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer):
+
+    country = serializers.PrimaryKeyRelatedField(required=False)
+
 
     def validate_status(self, attrs, source):
         value = attrs[source]
@@ -126,9 +131,11 @@ class ProjectSerializer(serializers.ModelSerializer):
     pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
     plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
 
+    wallpost_ids = WallPostListSerializer()
+
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'money_donated', 'money_asked', 'owner', 'team_member', 'pitch', 'plan')
+        fields = ('id', 'created', 'title', 'money_donated', 'money_asked', 'owner', 'team_member', 'pitch', 'plan', 'wallpost_ids')
 
 
 # Serializers for ProjectWallPosts:
@@ -175,36 +182,5 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
             (TextWallPost, ProjectTextWallPostSerializer),
             (MediaWallPost, ProjectMediaWallPostSerializer),
         )
-
-class ProjectSerializer(serializers.ModelSerializer):
-    # Ember-data needs to have an unique id field for relationships to work. Normally it's the pk but in this case
-    # it's the slug so we can display the project slug in the url.
-    id = serializers.CharField(source='slug', read_only=True)
-    country = ProjectCountrySerializer()
-    # TODO: This gets the display in English. How do we automatically switch to Dutch?
-    language = serializers.CharField(source='get_language_display', read_only=True)
-    organization = serializers.RelatedField()
-    owner = UserPreviewSerializer()
-    # TODO: This gets the display in English. How do we automatically switch to Dutch?
-    phase = serializers.CharField(source='get_phase_display', read_only=True)
-    tags = serializers.RelatedField(many=True)
-    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
-    money_asked = EuroField(source='money_asked')
-    money_donated = EuroField(source='money_donated')
-    image = SorlImageField('image', '800x450')
-    image_bg = SorlImageField('image', '800x450', colorspace="GRAY")
-    image_small = SorlImageField('image', '200x120')
-    image_square = SorlImageField('image', '120x120')
-    description = serializers.CharField(source='description', read_only=True)
-    supporters_count = serializers.IntegerField(source='supporters_count', read_only=True)
-
-    wallpost_ids = WallPostListSerializer()
-
-    class Meta:
-        model = Project
-        fields = ('id', 'country', 'created', 'image', 'image_small', 'image_square', 'image_bg', 'language', 'latitude',
-                  'longitude', 'money_asked', 'money_donated', 'organization', 'owner', 'phase',
-                  'planned_end_date', 'planned_start_date', 'tags', 'themes', 'title', 'url', 'description',
-                  'supporters_count', 'wallpost_ids')
 
 

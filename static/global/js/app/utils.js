@@ -1,22 +1,16 @@
 // TODO: Combine this Country model with the one in projects.
-App.CountryList = [
-    {"value": "0", "title": "--loading--"},
-];
 
 App.Country = DS.Model.extend({
     url: "utils/countries",
-
-    // Can't use 'id' because it doesn't work with 'optionValuePath' in Em.Select.
-    pk: DS.attr('string'),
-    code: DS.attr('string'),
     title: DS.attr('string')
 });
 
 
 App.CountrySelectView = Em.Select.extend({
     content: {"value": "0", "title": "loading"},
-    optionValuePath: "content.pk",
-    optionLabelPath: "content.title"
+    content:  [{"value": "0", "title": "--loading--"}],
+    optionValuePath: "content.id",
+    optionLabelPath: "content.name"
 });
 
 
@@ -266,7 +260,12 @@ App.TagWidget = Em.View.extend({
         if (this.get('new_tag')) {
             var new_tag = this.get('new_tag').toLowerCase();
             var tags = this.get('tags');
-            var tag = App.Tag.createRecord({'id': new_tag});
+            // Try to create a new tag, it will fail if it's already in the local store, so catch that.
+            try {
+                var tag = App.Tag.createRecord({'id': new_tag});
+            } catch(err) {
+                var tag = App.Tag.find(new_tag);
+            }
             tags.pushObject(tag);
             this.set('new_tag', '');
         }
@@ -401,7 +400,6 @@ App.MapPicker = Em.View.extend({
 
 });
 
-
 App.MapPickerValue = Ember.TextField.extend({
     type: 'hidden',
     valueBinding: "parentView.value"
@@ -411,10 +409,5 @@ App.MapPickerValue = Ember.TextField.extend({
 
 App.MapPicker = Ember.ContainerView.extend({
     childViews: [App.MapPickerValue, App.MapPickerWidget]
-
 });
 
-<<<<<<< HEAD
-å
-=======
->>>>>>> b541688... Saving pitches

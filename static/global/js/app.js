@@ -242,6 +242,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "projects/manage": "projects/manage",
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
+        "organizations/manage": "organizations/manage",
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
@@ -348,22 +349,23 @@ App.Adapter.map('App.TaskFile', {
     author: {embedded: 'load'}
 });
 
-App.Adapter.map('App.MyProjectPitch', {
-    tags: {embedded: 'always'}
-});
-
 App.Adapter.map('App.ProjectPlan', {
-    tags: {embedded: 'load'}
+    tags: {embedded: 'load'},
+    country: {embedded: 'load'}
 });
 
 App.Adapter.map('App.ProjectPitch', {
-    tags: {embedded: 'load'}
+    tags: {embedded: 'load'},
+    country: {embedded: 'load'}
 });
 
 App.Adapter.map('App.MyProjectPlan', {
     tags: {embedded: 'always'}
 });
 
+App.Adapter.map('App.MyProjectPitch', {
+    tags: {embedded: 'always'}
+});
 
 App.Store = DS.Store.extend({
     revision: 11,
@@ -1230,6 +1232,13 @@ App.MyProjectPlanBasicsRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanLocationRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanMediaRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanSubmitRoute =  App.MyProjectPlanSubRoute.extend({});
+
+App.MyProjectPlanOrganisationRoute =  App.MyProjectPlanSubRoute.extend({
+    setupController: function(controller, model){
+        controller.set('organizations', App.MyOrganization.find());
+        this._super(controller, model);
+    }
+});
 
 App.MyProjectPlanIndexRoute =  Ember.Route.extend({
     redirect: function() {

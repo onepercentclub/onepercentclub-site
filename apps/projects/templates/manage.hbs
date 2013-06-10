@@ -18,6 +18,11 @@
                                 <span class="icon-wrench"></span>
                                 {% trans "PITCH" %}
                             {{/linkTo}}
+                        {{else}}
+                            {{#linkTo "project" project }}
+                                <span class="icon-eye-open"></span>
+                                {% trans "VIEW" %}
+                            {{/linkTo}}
                         {{/if}}
                         {{#if project.isPhasePlan}}
                             {{#linkTo "myProjectPlan" project }}
@@ -144,7 +149,7 @@
                         </h4>
                     </div>
                     {{#linkTo "myProjectPlan.basics" class="item"}}
-                        <em class="icon-pencil"></em>
+                        <em {{bindAttr class="validBasics:icon-ok:icon-pencil"}}></em>
                         {% trans "Project Basics" %}
                     {{/linkTo}}
                     {{#linkTo "myProjectPlan.description" class="item"}}
@@ -382,13 +387,9 @@
             </li>
             <li class="control-group has-popover" data-content="{% trans "Select the location on the map. You can use the search to find your location." %}">
                 <label class="control-label">{% trans "Location" %}</label>
-
                 <div class="controls wide">
                     {{view App.MapPicker longitudeBinding="longitude" latitudeBinding="latitude" classBinding="errors.location.length:error"}}
                 </div>
-
-                {% comment %}
-            {% endcomment %}
             </li>
 
         </ul>
@@ -409,7 +410,7 @@
 
     <fieldset>
         <ul>
-            <li class="control-group has-popover" data-content="{% trans "Blow us away with the details!" %}">
+            <li class="control-group has-popover" data-content="{% trans "Upload the picture that best describes your Smart Idea!" %}">
                 <label class="control-label">
                     {% trans "Project Picture" %}
                 </label>
@@ -431,6 +432,81 @@
             </li>
         </ul>
     </fieldset>
+
+    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "my_project_plan_organisation" %}
+
+    <div class="form-meta">
+        <div class="form-label">{% trans "Organisation" %}</div>
+        <div class="form-desc">{% trans "Need some info here..." %}</div>
+    </div>
+
+    <fieldset>
+        <ul>
+            <li class="control-group has-popover" data-content="{% trans "Choose your organisation from the list or create a new one." %}">
+                <label class="control-label">{% trans "Organisation" %}</label>
+                <div class="controls">
+                    <ul>
+                        {{#each organizations}}
+                            <li>
+                                <h4>{{this.name}}</h4>
+                                {{this.description}}
+                                <br/>
+                                <a {{action selectOrganization this}}>{% trans "Select" %}</a>
+                            </li>
+                        {{/each}}
+                        <li>
+                            <h4>{% trans "create new" %}</h4>
+                            {% trans "Create a new organization to run this project." %}
+                            <br/>
+                            <a {{action createNewOrganization organization}}>{% trans "Create" %}</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            {{#if organization}}
+                <li class="control-group has-popover" data-content="{% trans "Name of your organisation" %}">
+                    <label class="control-label">{% trans "Name" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.name" classBinding="errors.organization.name.length:error"}}
+                    </div>
+
+                    {{#if errors.organization.name }}
+                        <div class="errors">{{#each organization.name.reach }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Describe your organisation" %}">
+                    <label class="control-label">{% trans "Description" %}</label>
+                    <div class="controls">
+                        {{view Em.TextArea valueBinding="organization.description" classBinding="errors.description.name.length:error"}}
+                    </div>
+
+                    {{#if errors.organization.description }}
+                        <div class="errors">{{#each description.name.reach }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Does your organization have a website?" %}">
+                    <label class="control-label">{% trans "Website" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="website.name" classBinding="errors.website.name.length:error"}}
+                    </div>
+
+                    {{#if errors.organization.website }}
+                        <div class="errors">{{#each website.name.reach }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+            {{/if}}
+        </ul>
+
+    </fieldset>
+
 
     <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
 
@@ -459,7 +535,7 @@
                         </h4>
                     </div>
                     {{#linkTo "myProjectPitch.basics" class="item"}}
-                        <em {{bindAttr class="validBasics:icon-ok:icon-pencil"}}></em>
+                        <em {{bindAttr class="projectpitch.validBasics:icon-ok:icon-pencil"}}></em>
                         {% trans "Project Basics" %}
                     {{/linkTo}}
                     {{#linkTo "myProjectPitch.location"  class="item"}}

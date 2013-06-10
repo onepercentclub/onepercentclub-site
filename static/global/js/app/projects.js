@@ -12,6 +12,8 @@ App.ProjectPitch = DS.Model.extend({
     url: 'projects/pitches',
 
     project: DS.belongsTo('App.MyProject'),
+    created: DS.attr('date'),
+    status: DS.attr('string'),
 
     // Basics
     title: DS.attr('string'),
@@ -21,55 +23,26 @@ App.ProjectPitch = DS.Model.extend({
     description: DS.attr('string'),
     need: DS.attr('string'),
 
-    validBasics: function(){
-        if (this.get('title') &&  this.get('pitch') && this.get('description') &&
-            this.get('theme') && this.get('tags.length') && this.get('need')){
-            return true;
-        }
-        return false;
-    }.property('title', 'pitch', 'theme', 'tags', 'description', 'theme', 'need'),
-
-
     // Location
-    country: DS.belongsTo('App.Country'),
+    country: DS.belongsTo('App.ProjectCountry'),
     latitude: DS.attr('number'),
     longitude: DS.attr('number'),
-
-    validLocation: function(){
-        if (this.get('country') &&  this.get('latitude') && this.get('longitude')){
-            return true;
-        }
-        return false;
-    }.property('country', 'latitude', 'longitude'),
-
 
     // Media
     image: DS.attr('string'),
     image_small: DS.attr('string'),
     image_square: DS.attr('string'),
-    image_bg: DS.attr('string'),
+    image_bg: DS.attr('string')
 
-    validMedia: function(){
-        if (this.get('image')){
-            return true;
-        }
-        return false;
-    }.property('image'),
-
-
-    // Submitting
-    status: DS.attr('string'),
-    agreed: DS.attr('boolean'),
-
-    created: DS.attr('date')
 });
-
 
 
 App.ProjectPlan = DS.Model.extend({
     url: 'projects/plans',
 
     project: DS.belongsTo('App.MyProject'),
+    status: DS.attr('string'),
+    created: DS.attr('date'),
 
     // Basics
     title: DS.attr('string'),
@@ -77,13 +50,6 @@ App.ProjectPlan = DS.Model.extend({
     theme: DS.attr('string'),
     need: DS.attr('string'),
     tags: DS.hasMany('App.Tag'),
-
-    validBasics: function(){
-        if (this.get('title') &&  this.get('pitch') && this.get('theme') && this.get('need') && this.get('tags.length')){
-            return true;
-        }
-        return false;
-    }.property('title', 'pitch', 'theme', 'tags', 'slug'),
 
     // Description
     description: DS.attr('string'),
@@ -92,45 +58,17 @@ App.ProjectPlan = DS.Model.extend({
     for_who: DS.attr('string'),
     reach: DS.attr('number'),
 
-    validDescription: function(){
-        if (this.get('description') &&  this.get('effects') && this.get('future') && this.get('for_who') && this.get('reach')){
-            return true;
-        }
-        return false;
-    }.property('description', 'effects', 'future', 'for_who', 'reach'),
-
-
     // Location
-    country: DS.belongsTo('App.Country'),
+    country: DS.belongsTo('App.ProjectCountry'),
     latitude: DS.attr('number'),
     longitude: DS.attr('number'),
-
-    validLocation: function(){
-        if (this.get('country') &&  this.get('latitude') && this.get('longitude')){
-            return true;
-        }
-        return false;
-    }.property('country', 'latitude', 'longitude'),
-
 
     // Media
     image: DS.attr('string'),
     image_small: DS.attr('string'),
     image_square: DS.attr('string'),
-    image_bg: DS.attr('string'),
+    image_bg: DS.attr('string')
 
-    validMedia: function(){
-        if (this.get('image')){
-            return true;
-        }
-        return false;
-    }.property('image'),
-
-    // Submitting
-    status: DS.attr('string'),
-    agreed: DS.attr('boolean'),
-
-    created: DS.attr('date')
 });
 
 

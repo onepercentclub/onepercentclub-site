@@ -17,5 +17,16 @@ class TagList(views.APIView):
 
     def get(self, request, format=None):
 
-        data = [tag.name for tag in Tag.objects.filter(name__contains='man').all()[:20]]
+        data = [tag.name for tag in Tag.objects.all()[:20]]
+        return response.Response(data)
+
+
+class TagSearch(views.APIView):
+    """
+    Search tags in use on this system
+    """
+
+    def get(self, request, format=None, search=''):
+
+        data = [tag.name for tag in Tag.objects.filter(name__contains=search).all()[:20]]
         return response.Response(data)
