@@ -1,7 +1,6 @@
-from django.conf.urls import patterns, url
-from .views import CountryList
+from django.conf.urls import patterns, include, url
 
 
 urlpatterns = patterns('',
-    url(r'^countries/$', CountryList.as_view(), name='utils-country-list')
-    )
+    url(r'', include('apps.geo.urlsapi')),
+)
