@@ -8,4 +8,4 @@ class CountryList(generics.ListAPIView):
     serializer_class = CountrySerializer
 
     def get_queryset(self):
-        return Country.objects.filter(alpha2_code__isnull = False).order_by('name').all()
+        return Country.objects.filter(alpha2_code__isnull=False).order_by('name').all()
