@@ -45,6 +45,9 @@ PROJECT_APPS.remove('social_auth')
 # django-salesforce tests don't pass when it's not setup.
 PROJECT_APPS.remove('salesforce')
 
+# django-registration tests don't pass with our Django 1.5 custom user model / manager.
+PROJECT_APPS.remove('registration')
+
 # django_fluent_contents 0.8.5 tests don't pass with a Django 1.5 custom user model.
 PROJECT_APPS.remove('fluent_contents')
 PROJECT_APPS.remove('fluent_contents.plugins.text')
