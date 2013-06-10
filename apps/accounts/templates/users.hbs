@@ -11,7 +11,7 @@
                 <img {{bindAttr src="controllers.currentUser.avatar"}} />
                 <div class="profile-actions-meta-title">
                     {% trans "My Profile" %}
-                    <a {{action openInBigBox "userModal" controllers.currentUser }} class="button-link">
+                    <a {{action openInBigBox "userModal" controllers.currentUser.content }} class="button-link">
                         <i class="icon-eye-open"></i>
                         {% trans "Preview my profile" %}
                     </a>
@@ -181,9 +181,13 @@
                     </ul>
                 </fieldset>
 
+                {{#if saved}}
+                    <span class="left"><i class="icon-ok"> {% trans "Profile saved" %}</i></span>
+                {{/if}}
+
                 <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
                     <i class="icon icon-star"></i>
-                    {% trans "Save" %}
+                    {{saveButtonText}}
                 </button>
             </form>
         {{/if}}
@@ -242,7 +246,7 @@
                     <ul>
                         <li class="control-group">
                             <label class="control-label">
-                                {% trans "Type" %}
+                                {% trans "Account type" %}
                             </label>
 
                             <div class="controls">
@@ -315,9 +319,13 @@
                     </ul>
                 </fieldset>
 
+                {{#if saved}}
+                    <span class="left"><i class="icon-ok"> {% trans "Account settings saved" %}</i></span>
+                {{/if}}
+
                 <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
                     <i class="icon icon-star"></i>
-                    {% trans "Save" %}
+                    {{saveButtonText}}
                 </button>
             </form>
         {{/if}}

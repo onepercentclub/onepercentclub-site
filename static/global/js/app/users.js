@@ -51,11 +51,7 @@ App.User = DS.Model.extend({
 
     user_since: function() {
         return Globalize.format(this.get('date_joined'), 'd');
-    }.property('date_joined'),
-
-    didUpdate: function() {
-        alert('Your profile info is updated.');
-    }
+    }.property('date_joined')
 });
 
 /*
@@ -74,11 +70,7 @@ App.UserSettings = DS.Model.extend({
     share_money: DS.attr('boolean'),
     gender: DS.attr('string'),
     birthdate: DS.attr('date'),
-    user_type: DS.attr('string'),
-
-    didUpdate: function() {
-        alert('Your account settings is updated.');
-    }
+    user_type: DS.attr('string')
 });
 
 App.UserPreview = DS.Model.extend({
@@ -154,10 +146,6 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
 
     addFile: function(file) {
         this.set('model.file', file);
-    },
-
-    save: function(profile) {
-        profile.get('transaction').commit();
     }
 });
 
@@ -171,11 +159,7 @@ App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
         list.addObject({ name: 'School', value: 'school'});
         list.addObject({ name: 'Company', value: 'company'});
         return list;
-    }).property(),
-
-    save: function(settings) {
-        settings.get('transaction').commit();
-    }
+    }).property()
 });
 
 
@@ -193,7 +177,7 @@ App.SignupController = Ember.ObjectController.extend({
     createUser: function(user) {
         var self = this;
 
-        user.on('didCreate', function() {
+        user.one('didCreate', function() {
             var data = {
                 // The key for the login needs to be 'username' for logins to work.
                 'username': self.get('email'),
