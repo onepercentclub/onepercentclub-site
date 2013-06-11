@@ -36,6 +36,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     """
     url = serializers.HyperlinkedIdentityField(view_name='user-profile-detail')
     avatar = SorlImageField('picture', '100x100', colorspace="GRAY", required=False, read_only=True)
+    picture = SorlImageField('picture', '240x240', required=False)
     date_joined = serializers.DateTimeField(read_only=True)
     username = serializers.CharField(read_only=True)
 
@@ -83,7 +84,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
         # TODO: Add * password update like it's done with the post only fields serializer (ie. create / add put only fields serializer)
         #           * Facebook connect
         #           * Address
-        fields = ('id', 'email', 'share_time_knowledge', 'share_time_knowledge', 'newsletter', 'gender', 'birthdate')
+        fields = ('id', 'email', 'share_time_knowledge', 'share_time_knowledge', 'newsletter', 'gender', 'birthdate', 'user_type')
 
 
 class UserCreateSerializer(serializers.ModelSerializer):

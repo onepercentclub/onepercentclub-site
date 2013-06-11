@@ -23,6 +23,7 @@ App.User = DS.Model.extend({
     avatar: DS.attr('string'),
     website: DS.attr('string'),
     date_joined: DS.attr('date'),
+    file: DS.attr('string'),
 
     // post-only fields (i.e. only used for user creation)
     email: DS.attr('string'),
@@ -51,11 +52,7 @@ App.User = DS.Model.extend({
 
     user_since: function() {
         return Globalize.format(this.get('date_joined'), 'd');
-    }.property('date_joined'),
-
-    didUpdate: function() {
-        alert('Your profile info is updated.');
-    }
+    }.property('date_joined')
 });
 
 /*
@@ -74,10 +71,7 @@ App.UserSettings = DS.Model.extend({
     share_money: DS.attr('boolean'),
     gender: DS.attr('string'),
     birthdate: DS.attr('date'),
-
-    didUpdate: function() {
-        alert('Your account settings is updated.');
-    }
+    user_type: DS.attr('string')
 });
 
 App.UserPreview = DS.Model.extend({
@@ -155,23 +149,52 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
         this.set('model.file', file);
     },
 
-    save: function(profile) {
-        profile.get('transaction').commit();
+    save: function(record) {
+        var self = this;
+        var record = record;
+
+        this._super(record);
+
+        record.one('didUpdate', function() {
+            // Delay is added to workaround the bug that the store
+            // hasn't finished loading new data to the record when
+            // the "didUpdate" event is triggered. Pomise API can be
+            // used in newer versions of ember, so we can remove the delay then.
+            setTimeout(function() {
+                var currentUser = App.CurrentUser.find('current');
+
+                currentUser.set('avatar', record.get('avatar'));
+                currentUser.set('picture', record.get('picture'));
+            }, 1000);
+        });
     }
 });
 
 
 App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
-    save: function(settings) {
-        settings.get('transaction').commit();
-    }
+    userTypeList: (function() {
+        var list = Em.A();
+        list.addObject({ name: 'Person', value: 'person'});
+        list.addObject({ name: 'Group', value: 'group'});
+        list.addObject({ name: 'Foundation', value: 'foundation'});
+        list.addObject({ name: 'School', value: 'school'});
+        list.addObject({ name: 'Company', value: 'company'});
+        return list;
+    }).property()
 });
 
 
 App.UserModalController = Ember.ObjectController.extend({
     loadProfile: function() {
         var model = this.get('model');
-        this.set('model', App.User.find(model.get('id')));
+        var id = model.get('id');
+
+        if (id == "current") {
+            // Get user id for current user
+            id = model.get('id_for_ember');
+        }
+
+        this.set('model', App.User.find(id));
     }.observes('model')
 });
 
@@ -182,7 +205,7 @@ App.SignupController = Ember.ObjectController.extend({
     createUser: function(user) {
         var self = this;
 
-        user.on('didCreate', function() {
+        user.one('didCreate', function() {
             var data = {
                 // The key for the login needs to be 'username' for logins to work.
                 'username': self.get('email'),
@@ -215,3 +238,4 @@ App.SignupController = Ember.ObjectController.extend({
 App.UserModalView = Em.View.extend({
     templateName: 'user_modal'
 });
+
