@@ -17,23 +17,20 @@ App.WallPost = DS.Model.extend({
     url: 'wallposts',
 
     // Model fields
-    project: DS.belongsTo('App.Project'),
     author: DS.belongsTo('App.UserPreview'),
     title: DS.attr('string'),
     text: DS.attr('string'),
     created: DS.attr('date'),
-    reactions: DS.hasMany('App.WallPostReaction')
-});
-
-
-App.ProjectWallPost = App.WallPost.extend({
-    url: 'projects/wallposts',
-
-    project: DS.belongsTo('App.Project'),
+    reactions: DS.hasMany('App.WallPostReaction'),
 
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
     photos: DS.hasMany('App.ProjectWallPostPhoto')
+});
+
+
+App.ProjectWallPost = App.WallPost.extend({
+    project: DS.belongsTo('App.Project')
 });
 
 
@@ -60,9 +57,8 @@ App.TaskWallPost = App.WallPost.extend({
  Controllers
  */
 
-App.ProjectWallPostListController = Em.ArrayController.extend({
-    // Make sure this is an array controller
 
+App.ProjectWallPostListController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {
 
 });
 
@@ -118,7 +114,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
 
         mediawallpost.on('didCreate', function(record) {
             // Target is a reference to ParentWallPostList (e.g. the parent controller)
-            controller.get('target').unshiftObject(record);
+            controller.get('target.items').unshiftObject(record);
             controller.clearWallPost()
         });
         mediawallpost.on('becameInvalid', function(record) {
@@ -156,7 +152,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         var controller = this;
         textwallpost.on('didCreate', function(record) {
             // This is an odd way of getting to the parent controller
-            controller.get('target').unshiftObject(record);
+            controller.get('target.items').unshiftObject(record);
             controller.clearWallPost()
         });
         textwallpost.on('becameInvalid', function(record) {
@@ -187,16 +183,11 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
 
 
 App.ProjectWallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
-    needs: ['currentUser', 'wallPostReactionList', 'wallPostReactionNew'],
+    needs: ['currentUser'],
 
-    reactionsChanged: function(sender, key) {
-        this.set('controllers.wallPostReactionList.content', this.get('content.reactions'))
-    }.observes('content.reactions.length'),
-
-    // This is acting like a binding.
-    wallpostIdChanged: function(sender, key) {
-        this.set('controllers.wallPostReactionNew.currentWallpost', this.get('content'))
-    }.observes('content', 'controllers.wallPostReactionNew.currentWallpost'),
+    newReaction: function(){
+        return App.WallPostReaction.createRecord({'wallpost': this.get('model')});
+    }.property('model'),
 
     deleteRecordOnServer: function(){
         var transaction = this.get('store').transaction();

@@ -138,13 +138,17 @@
     {{ render "projectWallPostNew" }}
 
     <section class="wrapper">
-        {{#each content itemController="projectWallPost"}}
-            {{view "App.ProjectWallPostView" content=model}}
+        {{#each items itemController="projectWallPost"}}
+            {{#if this.isLoaded}}
+                {{view "App.ProjectWallPostView" content=model}}
+            {{/if}}
         {{/each}}
 
         <article class="wallpost">
             {{#if canLoadMore}}
-                <a {{action "showMoreWallPosts"}} class="show-more button-link"><em class="icon-plus-sign"></em> {% trans "Show more" %}</a>
+                <a {{action "showMore"}} class="show-more button-link"><em class="icon-plus-sign"></em> {% trans "Show more" %}</a>
+            {{else}}
+                {% trans "no more posts to show" %}
             {{/if}}
         </article>
     </section>
@@ -220,11 +224,9 @@
                 </li>
             </ul>
 
-            {{#if content.reactions }}
-                {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
-            {{/if}}
+            {{render "wallPostReactionList" reactions}}
 
-            {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
+            {# {{view "App.WallPostReactionNewView" newReaction}} #}
 
         </div>
         <!-- end: reaction-box -->

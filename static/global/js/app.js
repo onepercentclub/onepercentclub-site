@@ -466,44 +466,13 @@ App.ProjectIndexRoute = Ember.Route.extend({
 App.ProjectWallPostListRoute = Ember.Route.extend({
 
     model: function(){
-        return Em.A();
+        return this.modelFor('project').get('wallposts');
     },
-
     setupController: function(controller, model) {
+        // Empty the items and set page to 0 so we don't show wallposts from previous project
+        controller.set('items', Em.A());
+        controller.set('page', 0);
         this._super(controller, model);
-        controller.set('page', 1);
-        controller.set('canLoadMore', true);
-
-        // TODO: See if we can trigger the showMoreWallPost action so this code can go.
-        var project = this.modelFor('project');
-        var wps = App.ProjectWallPost.find({project: project.get('id')});
-        wps.addObserver('isLoaded', function(){
-            wps.forEach(function(record){
-                if (record.get('isLoaded')) {
-                    controller.get('content').pushObject(record);
-                }
-            });
-        });
-
-    },
-
-    events: {
-        showMoreWallPosts: function(){
-            var controller = this.get('controller');
-            var page = controller.incrementProperty('page');
-
-            var project = this.controllerFor('project');
-            var wps = App.ProjectWallPost.find({project: project.get('id'), page: page});
-            controller.set('canLoadMore', false);
-            wps.addObserver('isLoaded', function(){
-                wps.forEach(function(record){
-                    if (record.get('isLoaded')) {
-                        controller.get('content').pushObject(record);
-                    }
-                });
-                controller.set('canLoadMore', true);
-            });
-        }
     }
 
 });
