@@ -23,6 +23,7 @@ App.User = DS.Model.extend({
     avatar: DS.attr('string'),
     website: DS.attr('string'),
     date_joined: DS.attr('date'),
+    file: DS.attr('string'),
 
     // post-only fields (i.e. only used for user creation)
     email: DS.attr('string'),
@@ -146,6 +147,24 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
 
     addFile: function(file) {
         this.set('model.file', file);
+    },
+
+    save: function(record) {
+        var self = this;
+        var record = record;
+
+        this._super(record);
+
+        // TODO: record still contains old data?
+
+//        record.one('didUpdate', function() {
+//            var currentUser = App.CurrentUser.find('current');
+//            if (currentUser.get('id_for_ember') == record.get('id')) {
+//                debugger;
+//                currentUser.set('avatar', record.get('avatar'));
+//                currentUser.set('picutre', record.get('picture'));
+//            }
+//        });
     }
 });
 
@@ -166,7 +185,14 @@ App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
 App.UserModalController = Ember.ObjectController.extend({
     loadProfile: function() {
         var model = this.get('model');
-        this.set('model', App.User.find(model.get('id')));
+        var id = model.get('id');
+
+        if (isNaN(id)) {
+            // Get user id for current user
+            id = model.get('id_for_ember');
+        }
+
+        this.set('model', App.User.find(id));
     }.observes('model')
 });
 
@@ -210,3 +236,4 @@ App.SignupController = Ember.ObjectController.extend({
 App.UserModalView = Em.View.extend({
     templateName: 'user_modal'
 });
+

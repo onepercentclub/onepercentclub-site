@@ -80,7 +80,7 @@
                                 <img {{bindAttr src="avatar"}} />
 
                                 <a class="btn btn-iconed btn-uploader">
-                                    {{view App.UploadFileView valueBinding="picture" name="picture" accept="image/*" id="picture"}}
+                                    {{view App.UploadFileView contentBinding="this" name="picture" id="picture" accept="image/*"}}
                                     <i class="icon icon-upload"></i>
                                     {% trans "Upload picture" %}
                                 </a>
