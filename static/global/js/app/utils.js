@@ -104,6 +104,8 @@ App.DeleteModelMixin = Em.Mixin.create({
  @see App.UserProfileRoute and App.UserProfileController to see it in action.
  */
 App.Editable = Ember.Mixin.create({
+    saved: false,
+
     startEditing: function() {
         var record = this.get('model');
         if (record.transaction.isDefault == true) {
@@ -113,6 +115,7 @@ App.Editable = Ember.Mixin.create({
     },
 
     stopEditing: function() {
+        var self = this;
         var record = this.get('model');
         var transaction = record.get('transaction');
 
@@ -127,7 +130,7 @@ App.Editable = Ember.Mixin.create({
                     e.preventDefault();
 
                     if (opts.primary) {
-                        transaction.commit();
+                        self.save(record);
                     }
 
                     if (opts.secondary) {
@@ -136,7 +139,32 @@ App.Editable = Ember.Mixin.create({
                 }
             });
         }
-    }
+    },
+
+    save: function(record) {
+        var self = this;
+
+        if (record.get('isDirty')) {
+            this.set('saving', true);
+            this.set('saved', false);
+        }
+
+        record.one('didUpdate', function() {
+            // record was saved
+            self.set('saving', false);
+            self.set('saved', true);
+        });
+
+        record.get('transaction').commit();
+    },
+
+    saveButtonText: (function() {
+        if (this.get('saving')) {
+            return 'Saving';
+        }
+
+        return 'Save';
+    }).property('saving')
 });
 
 App.UploadFile = Ember.TextField.extend({
