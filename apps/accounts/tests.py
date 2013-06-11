@@ -108,12 +108,7 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         response = self.client.get(new_user_activation_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        # A second activation of a used activation code shouldn't work.
-        response = self.client.get(new_user_activation_url)
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
-        # Logging in after activation should work and should allow for settings to be updated.
-        self.client.login(username=new_user_email, password=new_user_password)
+        # User should be auto-logged in after activation and settings should be able to be updated.
         response = self.client.get(new_user_settings_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['email'], new_user_email)
@@ -125,6 +120,15 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         self.assertTrue(response.data['newsletter'])
 
         self.client.logout()
+
+        # A second activation of a used activation code shouldn't work.
+        response = self.client.get(new_user_activation_url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        # User should not be logged in after second activation attempt.
+        new_user_settings_url = "{0}{1}".format(self.user_settings_api_url, user_id)
+        response = self.client.get(new_user_settings_url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Test that the email field is required on user create.
         response = self.client.post(self.user_create_api_url, {'password': new_user_password})
