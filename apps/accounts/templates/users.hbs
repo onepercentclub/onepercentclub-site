@@ -453,6 +453,14 @@
         {{/if}}
 
         <div class="um-list">
+            {{#if location }}
+                <div class="um-list-item">
+                    <i class="icon-map-marker"></i>
+                    <span class="key">{% trans "Location" %}</span>
+                    <span class="value">{{ location }}</span>
+                </div>
+            {{/if}}
+
             {{#if availability }}
                 <div class="um-list-item">
                     <i class="icon-time"></i>

@@ -155,16 +155,18 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
 
         this._super(record);
 
-        // TODO: record still contains old data?
+        record.one('didUpdate', function() {
+            // Delay is added to workaround the bug that the store
+            // hasn't finished loading new data to the record when
+            // the "didUpdate" event is triggered. Pomise API can be
+            // used in newer versions of ember, so we can remove the delay then.
+            setTimeout(function() {
+                var currentUser = App.CurrentUser.find('current');
 
-//        record.one('didUpdate', function() {
-//            var currentUser = App.CurrentUser.find('current');
-//            if (currentUser.get('id_for_ember') == record.get('id')) {
-//                debugger;
-//                currentUser.set('avatar', record.get('avatar'));
-//                currentUser.set('picutre', record.get('picture'));
-//            }
-//        });
+                currentUser.set('avatar', record.get('avatar'));
+                currentUser.set('picture', record.get('picture'));
+            }, 1000);
+        });
     }
 });
 
@@ -187,7 +189,7 @@ App.UserModalController = Ember.ObjectController.extend({
         var model = this.get('model');
         var id = model.get('id');
 
-        if (isNaN(id)) {
+        if (id == "current") {
             // Get user id for current user
             id = model.get('id_for_ember');
         }
