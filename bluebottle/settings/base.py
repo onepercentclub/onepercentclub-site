@@ -505,3 +505,4 @@ DATABASE_ROUTERS = [
 
 # Django-registration settings
 ACCOUNT_ACTIVATION_DAYS = 4
+HTML_ACTIVATION_EMAIL = True  # Note this setting is from our forked version.
