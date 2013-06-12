@@ -145,7 +145,10 @@
 
         <article class="wallpost">
             {{#if canLoadMore}}
-                <a {{action "showMore"}} class="show-more button-link"><em class="icon-plus-sign"></em> {% trans "Show more" %}</a>
+                <a {{action "showMore"}} class="show-more button-link">
+                    <em class="icon-plus-sign"></em> {% trans "Show more" %}
+                    <small>{{remainingItemCount}} {% trans "more" %}</small>
+                </a>
             {{else}}
                 {% trans "no more posts to show" %}
             {{/if}}

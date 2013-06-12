@@ -58,11 +58,11 @@ App.TaskWallPost = App.WallPost.extend({
  */
 
 
-App.ProjectWallPostListController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {});
+App.ProjectIndexController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {});
 
 
 App.ProjectWallPostNewController = Em.ObjectController.extend({
-    needs: ['currentUser', 'projectWallPostList', 'project'],
+    needs: ['currentUser', 'projectIndex', 'project'],
 
     // This a temporary container for App.Photo records until they are connected after this wallpost is saved.
     files: Em.A(),
@@ -107,7 +107,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         });
 
         mediawallpost.on('didCreate', function(record) {
-            var list = controller.get('controllers.projectWallPostList.items');
+            var list = controller.get('controllers.projectIndex.items');
             list.unshiftObject(record);
             controller.clearWallPost()
         });
@@ -146,7 +146,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         var controller = this;
         textwallpost.on('didCreate', function(record) {
             // This is an odd way of getting to the parent controller
-            var list = controller.get('controllers.projectWallPostList.items');
+            var list = controller.get('controllers.projectIndex.items');
             list.unshiftObject(record);
             controller.clearWallPost()
         });
@@ -187,7 +187,11 @@ App.WallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
 
     deleteRecordOnServer: function(){
         var model = this.get('model');
+        var transaction = this.get('store').transaction();
         transaction.add(model);
+        model.get('reactions').forEach(function(reaction){
+            reaction.deleteRecord();
+        });
         model.deleteRecord();
         transaction.commit();
     }
@@ -329,7 +333,7 @@ App.TaskWallPostView = App.ProjectWallPostView.extend({
 
 // Idea of how to have child views with different templates:
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
-App.ProjectWallPostListView = Em.View.extend({
+App.ProjectIndexView = Em.View.extend({
     templateName: 'project_wallpost_list'
 });
 

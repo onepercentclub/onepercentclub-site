@@ -270,19 +270,21 @@ App.TagWidget = Em.View.extend({
   'page' tracks the current page.
  */
 App.ShowMoreItemsMixin = Em.Mixin.create({
-    perPage: 4,
+    perPage: 5,
     page: 0,
     items: Em.A(),
+
+    remainingItemCount: function(){
+        return this.get('model.length') - (this.get('page')  * this.get('perPage'));
+    }.property('page', 'model', 'perPage'),
 
     canLoadMore: function(){
         var totalPages = Math.ceil(this.get('model.length') / this.get('perPage'));
         return totalPages > this.get('page');
-    }.property('model', 'perPage', 'page'),
+    }.property('perPage', 'page'),
 
     loadInitial: function(){
-        if (this.get('model.isLoaded')) {
-            this.showMore();
-        }
+        this.showMore();
     }.observes('model.isLoaded'),
 
     showMore: function() {

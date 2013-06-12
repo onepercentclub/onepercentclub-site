@@ -323,7 +323,6 @@ App.Router.map(function() {
 
 
     this.resource('project', {path: '/projects/:project_id'}, function() {
-        this.resource('projectWallPostList', {path: '/wallposts'});
         this.resource('projectTaskList', {path: '/tasks'});
         this.resource('projectTaskNew', {path: '/tasks/new'});
         this.resource('projectTask', {path: '/tasks/:task_id'});
@@ -457,15 +456,11 @@ App.ProjectRoute = Ember.Route.extend({
     }
 });
 
+
+// This is the 'ProjectWallPostListRouter'
 App.ProjectIndexRoute = Ember.Route.extend({
-    redirect: function(){
-        this.transitionTo('projectWallPostList');
-    }
-});
 
-App.ProjectWallPostListRoute = Ember.Route.extend({
-
-    model: function(){
+    model: function(params){
         return this.modelFor('project').get('wallposts');
     },
     setupController: function(controller, model) {
