@@ -323,7 +323,6 @@ App.Router.map(function() {
 
 
     this.resource('project', {path: '/projects/:project_id'}, function() {
-        this.resource('projectWallPostList', {path: '/wallposts'});
         this.resource('projectTaskList', {path: '/tasks'});
         this.resource('projectTaskNew', {path: '/tasks/new'});
         this.resource('projectTask', {path: '/tasks/:task_id'});
@@ -457,53 +456,18 @@ App.ProjectRoute = Ember.Route.extend({
     }
 });
 
+
+// This is the 'ProjectWallPostListRouter'
 App.ProjectIndexRoute = Ember.Route.extend({
-    redirect: function(){
-        this.transitionTo('projectWallPostList');
-    }
-});
 
-App.ProjectWallPostListRoute = Ember.Route.extend({
-
-    model: function(){
-        return Em.A();
+    model: function(params){
+        return this.modelFor('project').get('wallposts');
     },
-
     setupController: function(controller, model) {
+        // Empty the items and set page to 0 so we don't show wallposts from previous project
+        controller.set('items', Em.A());
+        controller.set('page', 0);
         this._super(controller, model);
-        controller.set('page', 1);
-        controller.set('canLoadMore', true);
-
-        // TODO: See if we can trigger the showMoreWallPost action so this code can go.
-        var project = this.modelFor('project');
-        var wps = App.ProjectWallPost.find({project: project.get('id')});
-        wps.addObserver('isLoaded', function(){
-            wps.forEach(function(record){
-                if (record.get('isLoaded')) {
-                    controller.get('content').pushObject(record);
-                }
-            });
-        });
-
-    },
-
-    events: {
-        showMoreWallPosts: function(){
-            var controller = this.get('controller');
-            var page = controller.incrementProperty('page');
-
-            var project = this.controllerFor('project');
-            var wps = App.ProjectWallPost.find({project: project.get('id'), page: page});
-            controller.set('canLoadMore', false);
-            wps.addObserver('isLoaded', function(){
-                wps.forEach(function(record){
-                    if (record.get('isLoaded')) {
-                        controller.get('content').pushObject(record);
-                    }
-                });
-                controller.set('canLoadMore', true);
-            });
-        }
     }
 
 });
@@ -534,19 +498,11 @@ App.ProjectTaskRoute = Ember.Route.extend({
     },
     setupController: function(controller, model) {
         this._super(controller, model);
+
         var wallPostController = this.controllerFor('taskWallPostList');
-        wallPostController.set('content', Em.A());
-        var wps = App.TaskWallPost.find({task: model.get('id')});
-        wps.addObserver('isLoaded', function(){
-            wps.forEach(function(record){
-                if (record.get('isLoaded')) {
-                    wallPostController.get('content').pushObject(record);
-                }
-            });
-            wallPostController.set('canLoadMore', true);
-        });
-        wallPostController.set('page', 1);
-        wallPostController.set('canLoadMore', true);
+        wallPostController.set('model', model.get('wallposts'));
+        wallPostController.set('items', Em.A());
+        wallPostController.set('page', 0);
     },
     events: {
         applyForTask: function(task){

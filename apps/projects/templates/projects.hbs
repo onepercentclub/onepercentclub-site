@@ -97,9 +97,18 @@
 
             <ul class="tabs">
                 <li class="tab-updates">
-                    {{#linkTo "projectWallPostList"}}
-                        <em class="tab-icon amount">13</em>
-                        <strong class="tab-title">Project Updates <em class="tab-subtitle">Last: 9 days ago</em></strong>
+                    {{#linkTo "project"}}
+                        <em class="tab-icon amount">{{wallposts.length}}</em>
+                        <strong class="tab-title">
+                            Project Updates
+                            {{#if wallposts.length}}
+                                {{#if wallposts.firstObject.isLoaded}}
+                                    <em class="tab-subtitle">{% trans "Last:" %} {{localize wallposts.firstObject.created formatting="X"}} </em>
+                                {{/if}}
+                            {{else}}
+                                <em class="tab-subtitle">{% trans "No updates yet" %}</em>
+                            {{/if}}
+                        </strong>
                     {{/linkTo}}
                 </li>
                 <li class="tab-tasks">

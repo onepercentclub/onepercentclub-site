@@ -33,36 +33,36 @@
 
 {% tplhandlebars "wallpost_reaction_list" %}
 
-    {# We need to use 'content' here (i.e. we can't use 'controller'). #}
-    {{#each content itemController="wallPostReaction"}}
-        {{view "App.WallPostReactionView" content=this}}
-    {{/each}}
+    {{#if model.length}}
+        <ul class="reactions">
+            {{#each controller itemController="wallPostReaction"}}
+                {{view "App.WallPostReactionView" content=this}}
+            {{/each}}
+        </ul>
+    {{/if}}
 
-{% endtplhandlebars %}
+    <form class="reaction-form">
+        <fieldset>
+        <ul>
+            {{#if controllers.currentUser.isAuthenticated }}
+                <li {{bindAttr class="errors.text.length:error"}}>
+                    <span class="user-img">
+                        <img {{bindAttr src="controllers.currentUser.avatar" title="controllers.currentUser.fullname"}} width="100%" alt="Avatar" />
+                    </span>
 
+                    {{#each errors.text}}
+                        <span class="error">{{this}}</span>
+                    {{/each}}
+                    {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="newReaction.text" name="reaction" class="newReaction"}}
+                </li>
+            {{else}}
+                <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
+            {{/if}}
 
-{% tplhandlebars "wallpost_reaction_new" %}
-
-    <fieldset>
-    <ul>
-        {{#if controllers.currentUser.isAuthenticated }}
-            <li {{bindAttr class="errors.text.length:error"}}>
-                <span class="user-img">
-                    <img {{bindAttr src="controllers.currentUser.avatar" title="controllers.currentUser.fullname"}} width="100%" alt="Avatar" />
-                </span>
-
-                {{#each errors.text}}
-                    <span class="error">{{this}}</span>
-                {{/each}}
-                {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="content.text" name="reaction"}}
-            </li>
-        {{else}}
-            <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
-        {{/if}}
-
-    </ul>
-    </fieldset>
-    <button class="btn" type="submit" id="reaction-post">Post</button>
+        </ul>
+        </fieldset>
+        <button class="btn" type="submit" id="reaction-post">Post</button>
+    </form>
 
 {% endtplhandlebars %}
 

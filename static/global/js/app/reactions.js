@@ -9,7 +9,7 @@ App.WallPostReaction = DS.Model.extend({
     text: DS.attr('string'),
     author: DS.belongsTo('App.UserPreview'),
     created: DS.attr('date'),
-    wallpost: DS.belongsTo('App.ProjectWallPost')
+    wallpost: DS.belongsTo('App.WallPost')
 });
 
 
@@ -23,12 +23,6 @@ App.WallPostReactionController = Em.ObjectController.extend(App.IsAuthorMixin, A
 
 
 App.WallPostReactionListController = Em.ArrayController.extend({
-    // This empty controller needs to be here because it's listed in the 'needs' property of
-    // App.ProjectWallPostController and Ember doesn't auto-generate controllers in this case.
-});
-
-
-App.WallPostReactionNewController = Em.ObjectController.extend({
     needs: ['currentUser'],
 
     init: function() {
@@ -39,14 +33,14 @@ App.WallPostReactionNewController = Em.ObjectController.extend({
     createNewReaction: function() {
         var transaction = this.get('store').transaction();
         var reaction =  transaction.createRecord(App.WallPostReaction);
-        this.set('model', reaction);
+        this.set('newReaction', reaction);
         this.set('transaction', transaction);
     },
 
     addReaction: function() {
-        var reaction = this.get('model');
+        var reaction = this.get('newReaction');
         // Set the wallpost that this reaction is related to.
-        reaction.set('wallpost', this.get('currentWallpost'));
+        reaction.set('wallpost', this.get('target.model'));
         reaction.set('created', new Date());
         var controller = this;
         reaction.on('didCreate', function(record) {
@@ -67,28 +61,6 @@ App.WallPostReactionNewController = Em.ObjectController.extend({
 /*
  Views
  */
-
-App.WallPostReactionNewView = Em.View.extend({
-    templateName: 'wallpost_reaction_new',
-    tagName: 'form',
-    classNames: ['reaction-form'],
-
-    submit: function(e) {
-        e.preventDefault();
-        this.get('controller').addReaction();
-    },
-
-    didInsertElement: function(e) {
-        this.$('textarea').focus(function(e) {
-            $(this).closest('.reaction-form').addClass('is-selected');
-        }).blur(function(e) {
-            if (!$.trim($(this).val())) {
-                // textarea is empty or contains only white-space
-                $(this).closest('.reaction-form').removeClass('is-selected');
-            }
-        });
-    }
-});
 
 
 App.WallPostReactionView = Em.View.extend({
@@ -118,7 +90,23 @@ App.WallPostReactionView = Em.View.extend({
 
 App.WallPostReactionListView = Em.View.extend({
     templateName: 'wallpost_reaction_list',
-    tagName: 'ul',
-    classNames: ['reactions']
+
+    submit: function(e) {
+        e.preventDefault();
+        this.get('controller').addReaction();
+    },
+
+    didInsertElement: function(e) {
+        var view = this;
+        view.$('textarea').focus(function(e) {
+            view.$('.reaction-form').addClass('is-selected');
+        }).blur(function(e) {
+            if (!$.trim($(this).val())) {
+                // textarea is empty or contains only white-space
+                view.$t('.reaction-form').removeClass('is-selected');
+            }
+        });
+    }
+
 });
 
