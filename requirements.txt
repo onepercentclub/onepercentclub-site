@@ -94,7 +94,8 @@ https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e95
 # There hasn't been a release of django-registration is a while and we need the 1.5 custom user support.
 # Official: https://bitbucket.org/ubernostrum/django-registration/
 # Fork with 1.5 Custom User support: https://bitbucket.org/eire1130/django-registration
-# Our fork of the fork that we can rely on:
-https://bitbucket.org/onepercentclub/django-registration/get/c831654ff540.zip
+# Our fork of the fork with HTML_ACTIVATION_EMAIL option:
+# TODO Try to unwind this mess and contribute some stuff upstream.
+https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
 
 
