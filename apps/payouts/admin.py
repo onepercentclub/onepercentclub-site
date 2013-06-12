@@ -15,7 +15,8 @@ from .models import Payout
 class PayoutAdmin(admin.ModelAdmin):
 
     def __init__(self, model, admin_site):
-        create_upcoming_payouts()
+        # FIXME: Make sure this works and re-enable
+        # create_upcoming_payouts()
         super(PayoutAdmin, self).__init__(model, admin_site)
 
     model = Payout
