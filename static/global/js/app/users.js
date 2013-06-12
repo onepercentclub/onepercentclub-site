@@ -88,7 +88,15 @@ App.UserPreview = DS.Model.extend({
             return this.get('avatar')
         }
         return '/static/assets/images/default-avatar.png'
-    }.property('avatar')
+    }.property('avatar'),
+
+    full_name: function() {
+        if (!this.get('first_name') && !this.get('last_name')) {
+            return this.get('username');
+        }
+        return this.get('first_name') + ' ' + this.get('last_name');
+    }.property('first_name', 'last_name')
+
 });
 
 /*

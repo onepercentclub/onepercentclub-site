@@ -5,10 +5,10 @@
 App.TaskMember = DS.Model.extend({
     url: 'tasks/members',
 
-    member: DS.belongsTo('App.UserPreview'),
+    member: DS.belongsTo('App.User'),
     created: DS.attr('date'),
     status: DS.attr('string', {defaultValue: 'applied'}),
-    task: DS.belongsTo('App.TaskPreview'),
+    task: DS.belongsTo('App.Task'),
     isStatusApplied: function(){
         return (this.get('status') == 'applied');
     }.property('status'),
@@ -26,12 +26,12 @@ App.TaskMember = DS.Model.extend({
 App.TaskFile = DS.Model.extend({
     url: 'tasks/files',
 
-    author: DS.belongsTo('App.UserPreview'),
+    author: DS.belongsTo('App.User'),
     title: DS.attr('string'),
     created: DS.attr('date'),
     file: DS.attr('string'),
     file_size: DS.attr('string'),
-    task: DS.belongsTo('App.TaskPreview')
+    task: DS.belongsTo('App.Task')
 });
 
 App.Task = DS.Model.extend({
@@ -52,6 +52,7 @@ App.Task = DS.Model.extend({
     time_needed: DS.attr('number'),
     status: DS.attr('string', {defaultValue: 'open'}),
     tags: DS.hasMany('App.Tag'),
+    wallposts: DS.hasMany('App.WallPost'),
 
     // Calculate status booleans here so we can use it in all views
     isStatusOpen: function(){

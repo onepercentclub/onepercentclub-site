@@ -33,11 +33,13 @@
 
 {% tplhandlebars "wallpost_reaction_list" %}
 
-    <ul class="reactions">
-        {{#each controller itemController="wallPostReaction"}}
-            {{view "App.WallPostReactionView" content=this}}
-        {{/each}}
-    </ul>
+    {{#if model.length}}
+        <ul class="reactions">
+            {{#each controller itemController="wallPostReaction"}}
+                {{view "App.WallPostReactionView" content=this}}
+            {{/each}}
+        </ul>
+    {{/if}}
 
     <form class="reaction-form">
         <fieldset>

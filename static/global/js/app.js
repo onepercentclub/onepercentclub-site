@@ -503,19 +503,11 @@ App.ProjectTaskRoute = Ember.Route.extend({
     },
     setupController: function(controller, model) {
         this._super(controller, model);
+
         var wallPostController = this.controllerFor('taskWallPostList');
-        wallPostController.set('content', Em.A());
-        var wps = App.TaskWallPost.find({task: model.get('id')});
-        wps.addObserver('isLoaded', function(){
-            wps.forEach(function(record){
-                if (record.get('isLoaded')) {
-                    wallPostController.get('content').pushObject(record);
-                }
-            });
-            wallPostController.set('canLoadMore', true);
-        });
-        wallPostController.set('page', 1);
-        wallPostController.set('canLoadMore', true);
+        wallPostController.set('model', model.get('wallposts'));
+        wallPostController.set('items', Em.A());
+        wallPostController.set('page', 0);
     },
     events: {
         applyForTask: function(task){

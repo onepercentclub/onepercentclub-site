@@ -1,7 +1,7 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
 from apps.wallposts.models import TextWallPost, MediaWallPost, WallPost
-from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostSerializer
+from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, PrimaryKeyGenericRelatedField
@@ -90,16 +90,6 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
             (MediaWallPost, ProjectMediaWallPostSerializer),
         )
 
-
-class WallPostListSerializer(serializers.Field):
-
-    def field_to_native(self, obj, field_name):
-        content_type = ContentType.objects.get_for_model(obj)
-        list = WallPost.objects.filter(object_id=obj.id).filter(content_type=content_type)
-        list = list.values_list('id', flat=True).order_by('-created').all()
-        return list
-
-
 class ProjectSerializer(serializers.ModelSerializer):
     # Ember-data needs to have an unique id field for relationships to work. Normally it's the pk but in this case
     # it's the slug so we can display the project slug in the url.
@@ -121,6 +111,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     image_square = SorlImageField('image', '120x120')
     description = serializers.CharField(source='description', read_only=True)
     supporters_count = serializers.IntegerField(source='supporters_count', read_only=True)
+
     wallpost_ids = WallPostListSerializer()
 
     class Meta:

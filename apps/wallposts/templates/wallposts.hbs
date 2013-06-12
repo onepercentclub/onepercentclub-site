@@ -2,7 +2,6 @@
 {% load i18n %}
 {% load static %}
 
-
 {% tplhandlebars "project_wallpost_new" %}
 
     <div class="container section">
@@ -138,7 +137,7 @@
     {{ render "projectWallPostNew" }}
 
     <section class="wrapper">
-        {{#each items itemController="projectWallPost"}}
+        {{#each items itemController="wallPost"}}
             {{#if this.isLoaded}}
                 {{view "App.ProjectWallPostView" content=model}}
             {{/if}}
@@ -226,8 +225,6 @@
 
             {{render "wallPostReactionList" reactions}}
 
-            {# {{view "App.WallPostReactionNewView" newReaction}} #}
-
         </div>
         <!-- end: reaction-box -->
 
@@ -297,11 +294,7 @@
                 </li>
             </ul>
 
-            {{#if content.reactions }}
-                {{view "App.WallPostReactionListView" controllerBinding=controllers.wallPostReactionList}}
-            {{/if}}
-
-            {{view "App.WallPostReactionNewView" controllerBinding=controllers.wallPostReactionNew}}
+            {{render "wallPostReactionList" reactions}}
 
         </div>
         <!-- end: reaction-box -->
@@ -322,13 +315,15 @@
         </form>
     {{/if}}
 
-    {{#each controller  itemController="taskWallPost"}}
-        {{view "App.TaskWallPostView" content=model}}
+    {{#each item in items itemController="wallPost"}}
+        {{#if item.isLoaded}}
+            {{view "App.TaskWallPostView"}}
+        {{/if}}
     {{/each}}
 
     <article class="wallpost">
         {{#if canLoadMore}}
-            <a {{action "showMoreWallPosts"}} class="show-more button-link"><em class="icon-plus-sign"></em> {% trans "Show more" %}</a>
+            <a {{action "showMore"}} class="show-more button-link"><em class="icon-plus-sign"></em> {% trans "Show more" %}</a>
         {{/if}}
     </article>
 
