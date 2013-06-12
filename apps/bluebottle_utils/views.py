@@ -28,5 +28,5 @@ class TagSearch(views.APIView):
 
     def get(self, request, format=None, search=''):
 
-        data = [tag.name for tag in Tag.objects.filter(name__contains=search).all()[:20]]
+        data = [tag.name for tag in Tag.objects.filter(name__startswith=search).all()[:20]]
         return response.Response(data)

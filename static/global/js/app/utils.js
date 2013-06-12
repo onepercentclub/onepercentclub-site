@@ -273,6 +273,15 @@ App.TagWidget = Em.View.extend({
     removeTag: function(tag) {
         var tags = this.get('tags');
         tags.removeObject(tag);
+    },
+    didInsertElement: function(){
+        this.$('.tag').typeahead({
+            source: function (query, process) {
+                return $.get('/i18n/api/utils/tags/' + query, function (data) {
+                    return process(data);
+                });
+            }
+        })
     }
 });
 
