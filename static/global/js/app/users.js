@@ -123,6 +123,7 @@ App.CurrentUser = App.UserPreview.extend({
     id_for_ember: DS.attr('number')
 });
 
+
 /*
  Controllers
  */
@@ -216,36 +217,19 @@ App.UserModalController = Ember.ObjectController.extend({
 
 
 App.SignupController = Ember.ObjectController.extend({
+    isUserCreated: false,
+
     needs: "currentUser",
 
     createUser: function(user) {
         var self = this;
 
         user.one('didCreate', function() {
-            var data = {
-                // The key for the login needs to be 'username' for logins to work.
-                'username': self.get('email'),
-                'password': self.get('password'),
-                'csrfmiddlewaretoken': csrf_token
-            };
-
-            /*
-             Log the user automatically in after successful signup.
-             */
-            $.ajax({
-                type: "POST",
-                url: "/accounts/login/",
-                data: data,
-                success: function() {
-                    // TODO: Personalize the home page so the user becomes
-                    //       aware that he is successfully logged in.
-                    // self.replaceRoute('home');
-                    window.location.replace('/');
-                }
-            });
+            self.set('isUserCreated', true);
         });
 
-        user.set('url', 'users');  // Change the model URL to the User creation API.
+        // Change the model URL to the User creation API.
+        user.set('url', 'users');
         user.get('transaction').commit();
     }
 });

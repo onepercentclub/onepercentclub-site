@@ -203,7 +203,8 @@ App.Adapter = DS.DRF2Adapter.extend({
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
         "fund/paymentinfo": "fund/paymentinfo",
-        "fund/paymentmethodinfo": "fund/paymentmethodinfo"
+        "fund/paymentmethodinfo": "fund/paymentmethodinfo",
+        "users/activate": "users/activate"
     }
 });
 
@@ -358,8 +359,10 @@ App.Router.map(function() {
     this.resource('signup');
 
     this.resource('user', {path: '/member'}, function() {
-        this.resource('userProfile', {path: '/profile'});
+        this.resource('userProfile', {path: '/profile/'});
         this.resource('userSettings', {path: '/settings'});
+
+        this.route('activate', {path: '/activate/:activation_key'});
     });
 });
 
@@ -855,6 +858,28 @@ App.UserSettingsRoute = Ember.Route.extend({
     exit: function() {
         this._super();
         this.controllerFor('userSettings').stopEditing();
+    }
+});
+
+
+App.UserActivateRoute = Ember.Route.extend({
+    model: function(params) {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            url: "/i18n/api/users/activate/" + params.activation_key,
+            success: function() {
+                App.CurrentUser.find('current').reload();
+
+                setTimeout(function() {
+                    self.transitionTo('userProfile');
+                }, 1000);
+            },
+            error: function() {
+                // FIXME: Error Handling
+            }
+        });
     }
 });
 

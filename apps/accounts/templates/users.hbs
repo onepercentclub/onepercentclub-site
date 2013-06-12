@@ -8,7 +8,7 @@
     <div id="profile-actions" class="section">
         <div class="wrapper">
             <div class="profile-actions-meta">
-                <img {{bindAttr src="controllers.currentUser.avatar"}} />
+                <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
                 <div class="profile-actions-meta-title">
                     {% trans "My Profile" %}
                     <a {{action openInBigBox "userModal" controllers.currentUser.content }} class="button-link">
@@ -77,7 +77,7 @@
                             </label>
 
                             <div class="controls profile-pic-uploader">
-                                <img {{bindAttr src="avatar"}} />
+                                <img {{bindAttr src="getAvatar"}} />
 
                                 <a class="btn btn-iconed btn-uploader">
                                     {{view App.UploadFileView contentBinding="this" name="picture" id="picture" accept="image/*"}}
@@ -436,52 +436,59 @@
 
     <p>{% trans "1%CLUB is the platform that connects people with smart ideas in developing countries with people, money and knowledge around the world. We are talking about sustainable projects that stimulate the self-reliance of individuals anywhere in the world and improve their standard of living." %}</p>
 
-    <form class="form-signup">
-        <div class="control-group">
-            <label class="control-label">
-                {% trans "Name" %}
-            </label>
+    {{#if isUserCreated}}
+        <h1>{% trans "Thanks for signing up!" %}</h1>
 
-            <div class="controls">
-                {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+        <p>{% trans "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you." %}</p>
 
-                {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
-            </div>
-        </div>
+    {{else}}
+        <form class="form-signup">
+            <div class="control-group">
+                <label class="control-label">
+                    {% trans "Name" %}
+                </label>
 
-        <div class="control-group">
-            <label class="control-label">
-                {% trans "Email" %}
-            </label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
 
-            <div class="controls">
-                {{view Em.TextField valueBinding="email" type="email" classBinding="errors.email.length:error"}}
+                    {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
+                </div>
             </div>
 
-            {{#if errors.email}}
-                <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
-            {{/if}}
-        </div>
+            <div class="control-group">
+                <label class="control-label">
+                    {% trans "Email" %}
+                </label>
 
-        <div class="control-group">
-            <label class="control-label">
-                {% trans "Password" %}
-            </label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="email" type="email" classBinding="errors.email.length:error"}}
+                </div>
 
-            <div class="controls">
-                {{view Em.TextField valueBinding="password" type="password" classBinding="errors.password.length:error"}}
+                {{#if errors.email}}
+                    <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
             </div>
 
-            {{#if errors.password}}
-                <div class="errors">{{#each errors.password}}<p>{{this}}</p>{{/each}}</div>
-            {{/if}}
-        </div>
+            <div class="control-group">
+                <label class="control-label">
+                    {% trans "Password" %}
+                </label>
 
-        <button class="btn btn-iconed btn-primary right" {{action 'createUser' model}}>
-            <i class="icon icon-group"></i>
-            {% trans "SIGNUP" %}
-        </button>
-    </form>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="password" type="password" classBinding="errors.password.length:error"}}
+                </div>
+
+                {{#if errors.password}}
+                    <div class="errors">{{#each errors.password}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </div>
+
+            <button class="btn btn-iconed btn-primary right" {{action 'createUser' model}}>
+                <i class="icon icon-group"></i>
+                {% trans "SIGNUP" %}
+            </button>
+        </form>
+    {{/if}}
 </div>
 {% endtplhandlebars %}
 

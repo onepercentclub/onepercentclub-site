@@ -95,60 +95,74 @@
         <!-- main header -->
         <div class="container" id="navigation">
             <header class="wrapper">
+                <div class="header-main">
+                    <!-- logo -->
+                    {{#linkTo "home"}}
+                    <span id="logo">
+                        <img src="{% get_static_prefix %}images/1procentclub.png" width="100" height="38" alt="1%Club" />
+                        <h1 id="title">1%Club</h1>
+                        <h2 id="subtitle" data-content-hover="Go to <em>homepage</em>" data-content="<em>You</em> Make It Work"><em>You</em> Make It Work</h2>
+                    </span>
+                    {{/linkTo}}
+                    <!-- end: logo -->
 
-                <!-- logo -->
-                {{#linkTo "home"}}
-                <span id="logo">
-                    <img src="{% get_static_prefix %}images/1procentclub.png" width="100" height="38" alt="1%Club" />
-                    <h1 id="title">1%Club</h1>
-                    <h2 id="subtitle" data-content-hover="Go to <em>homepage</em>" data-content="<em>You</em> Make It Work"><em>You</em> Make It Work</h2>
-                </span>
-                {{/linkTo}}
-                <!-- end: logo -->
-
-                <!-- main navigation -->
-                <div class="nav">
-                    <nav class="nav-main">
-                        <h1 class="nav-title">Navigation</h1>
-                        <ul>
-                            <li class="nav-projects">{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
-                            {# FIXME Forward to currentOrderDonationList #}
-                            <li class="nav-projects">{{#linkTo voucherStart}}{% trans "1%GIFTCARDS" %}{{/linkTo}}</li>
-                        </ul>
-                    </nav>
-                    <nav class="nav-member member-login">
-                        <h1 class="nav-title">Profile</h1>
-                        {{#if controllers.currentUser.isAuthenticated }}
-                            <a href="#" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.avatar"}} height="40" alt="Avatar" />
-                                <strong>{% trans "MY 1%" %} &#9660;</strong>
-                            </a>
-                            <ul class="my-menu">
-                                <li>
-                                    {{#linkTo "userProfile" }}
-                                        {% trans "Edit my profile & settings" %}
-                                    {{/linkTo }}
-                                </li>
-                                <li>
-                                    {{view "App.LanguageSwitchView"}}
-                                </li>
-                                <li>
-                                    <a href="/en/accounts/logout/?next=/en/" class="nav-logout">
-                                        <strong>Logout</strong>
-                                    </a >
-                                </li>
+                    <!-- main navigation -->
+                    <div class="nav">
+                        <nav class="nav-main">
+                            <h1 class="nav-title">Navigation</h1>
+                            <ul>
+                                <li class="nav-projects">{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
+                                {# FIXME Forward to currentOrderDonationList #}
+                                <li class="nav-projects">{{#linkTo voucherStart}}{% trans "1%GIFTCARDS" %}{{/linkTo}}</li>
                             </ul>
-                            <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
-                        {{else}}
-                            <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
-                            {{#linkTo "signup" class="nav-signup"}}
-                                {% trans "Signup" %}
-                            {{/linkTo}}
-                            {{view "App.LanguageSwitchView"}}
-                        {{/if}}
-                    </nav>
+                        </nav>
+                        <nav class="nav-member member-login">
+                            <h1 class="nav-title">Profile</h1>
+                            {{#if controllers.currentUser.isAuthenticated }}
+                                <a href="#" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
+                                    <strong>{% trans "MY 1%" %} &#9660;</strong>
+                                </a>
+                                <ul class="my-menu">
+                                    <li>
+                                        {{#linkTo "userProfile" }}
+                                            {% trans "Edit my profile & settings" %}
+                                        {{/linkTo }}
+                                    </li>
+                                    <li>
+                                        {{view "App.LanguageSwitchView"}}
+                                    </li>
+                                    <li>
+                                        <a href="/en/accounts/logout/?next=/en/" class="nav-logout">
+                                            <strong>Logout</strong>
+                                        </a >
+                                    </li>
+                                </ul>
+                                <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
+                            {{else}}
+                                <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
+                                {{#linkTo "signup" class="nav-signup"}}
+                                    {% trans "Signup" %}
+                                {{/linkTo}}
+                                {{view "App.LanguageSwitchView"}}
+                            {{/if}}
+                        </nav>
+                    </div>
+                    <!-- end: main navigation -->
                 </div>
-                <!-- end: main navigation -->
 
+                {{#if controllers.currentUser.showAlert}}
+
+                    <div class="alert-message">
+                        <div class="alert-message-title">
+                            {% trans "Hello" %} {{ controllers.currentUser.first_name }}
+                        </div>
+
+                        <div class="alert-message-content">
+                            {% trans "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile." %}
+                        </div>
+                    </div>
+
+                {{/if}}
             </header>
         </div>
 
