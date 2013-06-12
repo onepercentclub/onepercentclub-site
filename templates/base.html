@@ -33,10 +33,11 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/jquery-ui/jquery.ui.core.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/jquery-ui/jquery.ui.datepicker.js"></script>
 
-        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/handlebars-1.0.0-rc.3.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-1.0.0-rc.1.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/handlebars-1.0.0-rc.4.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-1.0.0-rc.5.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-radio-button.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-73ad70cf31.js"></script>
+        {# This specific version works with ember rc5 and still supports didUpdate which seems broken in v0.13 #}
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-7c01dd5.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-drf2-adapter.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/globalize.js"></script>
 

@@ -1,10 +1,10 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
-from apps.wallposts.models import TextWallPost, MediaWallPost
-from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
+from apps.wallposts.models import TextWallPost, MediaWallPost, WallPost
+from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField
+from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, PrimaryKeyGenericRelatedField
 from apps.geo.models import Country
 from .models import Project
 
@@ -43,36 +43,6 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
         fields = ('date_donated', 'project',  'member')
-
-
-class ProjectSerializer(serializers.ModelSerializer):
-    # Ember-data needs to have an unique id field for relationships to work. Normally it's the pk but in this case
-    # it's the slug so we can display the project slug in the url.
-    id = serializers.CharField(source='slug', read_only=True)
-    country = ProjectCountrySerializer()
-    # TODO: This gets the display in English. How do we automatically switch to Dutch?
-    language = serializers.CharField(source='get_language_display', read_only=True)
-    organization = serializers.RelatedField()
-    owner = UserPreviewSerializer()
-    # TODO: This gets the display in English. How do we automatically switch to Dutch?
-    phase = serializers.CharField(source='get_phase_display', read_only=True)
-    tags = serializers.RelatedField(many=True)
-    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
-    money_asked = EuroField(source='money_asked')
-    money_donated = EuroField(source='money_donated')
-    image = SorlImageField('image', '800x450')
-    image_bg = SorlImageField('image', '800x450', colorspace="GRAY")
-    image_small = SorlImageField('image', '200x120')
-    image_square = SorlImageField('image', '120x120')
-    description = serializers.CharField(source='description', read_only=True)
-    supporters_count = serializers.IntegerField(source='supporters_count', read_only=True)
-
-    class Meta:
-        model = Project
-        fields = ('id', 'country', 'created', 'image', 'image_small', 'image_square', 'image_bg', 'language', 'latitude',
-                  'longitude', 'money_asked', 'money_donated', 'organization', 'owner', 'phase',
-                  'planned_end_date', 'planned_start_date', 'tags', 'themes', 'title', 'url', 'description',
-                  'supporters_count')
 
 
 # Serializers for ProjectWallPosts:
@@ -119,3 +89,36 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
             (TextWallPost, ProjectTextWallPostSerializer),
             (MediaWallPost, ProjectMediaWallPostSerializer),
         )
+
+class ProjectSerializer(serializers.ModelSerializer):
+    # Ember-data needs to have an unique id field for relationships to work. Normally it's the pk but in this case
+    # it's the slug so we can display the project slug in the url.
+    id = serializers.CharField(source='slug', read_only=True)
+    country = ProjectCountrySerializer()
+    # TODO: This gets the display in English. How do we automatically switch to Dutch?
+    language = serializers.CharField(source='get_language_display', read_only=True)
+    organization = serializers.RelatedField()
+    owner = UserPreviewSerializer()
+    # TODO: This gets the display in English. How do we automatically switch to Dutch?
+    phase = serializers.CharField(source='get_phase_display', read_only=True)
+    tags = serializers.RelatedField(many=True)
+    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
+    money_asked = EuroField(source='money_asked')
+    money_donated = EuroField(source='money_donated')
+    image = SorlImageField('image', '800x450')
+    image_bg = SorlImageField('image', '800x450', colorspace="GRAY")
+    image_small = SorlImageField('image', '200x120')
+    image_square = SorlImageField('image', '120x120')
+    description = serializers.CharField(source='description', read_only=True)
+    supporters_count = serializers.IntegerField(source='supporters_count', read_only=True)
+
+    wallpost_ids = WallPostListSerializer()
+
+    class Meta:
+        model = Project
+        fields = ('id', 'country', 'created', 'image', 'image_small', 'image_square', 'image_bg', 'language', 'latitude',
+                  'longitude', 'money_asked', 'money_donated', 'organization', 'owner', 'phase',
+                  'planned_end_date', 'planned_start_date', 'tags', 'themes', 'title', 'url', 'description',
+                  'supporters_count', 'wallpost_ids')
+
+

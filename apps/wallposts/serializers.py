@@ -1,7 +1,22 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField
+from apps.wallposts.models import WallPost
+from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
+
+
+# Serializer to serialize all wall-posts for an object into an array of ids
+# Add a field like so:
+# wallpost_ids = WallPostListSerializer()
+
+class WallPostListSerializer(serializers.Field):
+
+    def field_to_native(self, obj, field_name):
+        content_type = ContentType.objects.get_for_model(obj)
+        list = WallPost.objects.filter(object_id=obj.id).filter(content_type=content_type)
+        list = list.values_list('id', flat=True).order_by('-created').all()
+        return list
 
 
 # Serializer for WallPost Reactions.
