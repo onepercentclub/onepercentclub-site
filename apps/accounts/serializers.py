@@ -1,7 +1,9 @@
 from apps.accounts.models import BlueBottleUser
 from apps.bluebottle_drf2.serializers import SorlImageField
 from django import forms
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.sites.models import Site
+from django.utils.translation import ugettext as _
 from registration.models import RegistrationProfile
 from rest_framework import serializers
 
@@ -113,3 +115,49 @@ class UserCreateSerializer(serializers.ModelSerializer):
         registration_profile = RegistrationProfile.objects.create_profile(self.object)
         site = Site.objects.get_current()
         registration_profile.send_activation_email(site)
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    """
+    Password reset request serializer that uses the email validation from the Django PasswordResetForm.
+    """
+    email = serializers.EmailField(required=True, max_length=254)
+
+    class Meta:
+        fields = ('email',)
+
+    def __init__(self, password_reset_form=None, *args, **kwargs):
+        self.password_reset_form = password_reset_form
+        super(PasswordResetSerializer, self).__init__(*args, **kwargs)
+
+    def validate_email(self, attrs, source):
+        if not attrs:
+            return
+        value = attrs[source]
+        self.password_reset_form.cleaned_data = {"email": value}
+        return self.password_reset_form.clean_email()
+
+
+class PasswordSetSerializer(serializers.Serializer):
+    """
+    A serializer that lets a user change set his/her password without entering the old password. This uses the
+    validation from the Django SetPasswordForm.
+    """
+    # We can't use the PasswordField here because it hashes the passwords with a salt which means we can't compare the
+    # two passwords to see if they are the same.
+    new_password1 = serializers.CharField(required=True, max_length=128, widget=forms.widgets.PasswordInput)
+    new_password2 = serializers.CharField(required=True, max_length=128, widget=forms.widgets.PasswordInput)
+
+    class Meta:
+        fields = ('new_password1', 'new_password2')
+
+    def __init__(self, password_set_form=None, *args, **kwargs):
+        self.password_set_form = password_set_form
+        super(PasswordSetSerializer, self).__init__(*args, **kwargs)
+
+    def validate_new_password2(self, attrs, source):
+        if not attrs:
+            return
+        value = attrs[source]
+        self.password_set_form.cleaned_data = {"new_password1": attrs['new_password1'], "new_password2": value}
+        return self.password_set_form.clean_new_password2()

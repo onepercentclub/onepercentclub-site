@@ -1,4 +1,6 @@
 import json
+import re
+from django.core import mail
 from django.test import TestCase
 from apps.bluebottle_utils.tests import UserTestsMixin
 from registration.models import RegistrationProfile
@@ -17,6 +19,8 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         self.user_profile_api_url = '/i18n/api/users/profiles/'
         self.user_settings_api_url = '/i18n/api/users/settings/'
         self.user_activation_api_url = '/i18n/api/users/activate/'
+        self.user_password_reset_api_url = '/i18n/api/users/passwordreset'
+        self.user_password_set_api_url = '/i18n/api/users/passwordset/'
 
     def test_user_profile_retrieve_and_update(self):
         """
@@ -95,6 +99,7 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
                                                                'password': new_user_password})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         user_id = response.data['id']
+        self.assertEqual(len(mail.outbox), 1)
 
         # Logging in before activation shouldn't work. Test this by trying to access the settings page.
         self.client.login(username=new_user_email, password=new_user_password)
@@ -171,3 +176,56 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
                                                                'password': new_user_password})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['username'], 'nijntje45')
+
+    def test_password_reset(self):
+        # Setup: create a user.
+        new_user_email = 'nijntje94@hetkonijntje.nl'
+        new_user_password = 'password'
+        response = self.client.post(self.user_create_api_url, {'email': new_user_email,
+                                                               'password': new_user_password})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        user_id = response.data['id']
+        self.assertEqual(len(mail.outbox), 1)
+
+        # Test: resetting a password for an inactive user shouldn't be allowed.
+        response = self.client.put(self.user_password_reset_api_url, json.dumps({'email': new_user_email}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
+        # Setup: activate the newly created user and logout.
+        activation_key = RegistrationProfile.objects.filter(user__email=new_user_email).get().activation_key
+        new_user_activation_url = "{0}{1}".format(self.user_activation_api_url, activation_key)
+        response = self.client.get(new_user_activation_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.client.logout()
+        
+        # Test: resetting the password should now be allowed.
+        response = self.client.put(self.user_password_reset_api_url, json.dumps({'email': new_user_email}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(len(mail.outbox), 2)
+
+        # Setup: get the password reset token and url.
+        c = re.compile('.*(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20}).*', re.DOTALL)
+        m = c.match(mail.outbox[1].body)
+        password_set_url = '{0}{1}-{2}'.format(self.user_password_set_api_url, m.group(1), m.group(2))
+
+        # Test: check that non-matching passwords produce a validation error.
+        passwords = {'new_password1': 'rabbit', 'new_password2': 'rabbitt'}
+        response = self.client.put(password_set_url, json.dumps(passwords), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+        self.assertEqual(response.data['new_password2'][0], "The two password fields didn't match.")
+
+        # Test: check that updating the password works when the passwords match.
+        passwords['new_password2'] = 'rabbit'
+        response = self.client.put(password_set_url, json.dumps(passwords), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+
+        # Test: check that the user can login with the new password.
+        self.client.login(username=new_user_email, password=passwords['new_password1'])
+        new_user_settings_url = "{0}{1}".format(self.user_settings_api_url, user_id)
+        response = self.client.get(new_user_settings_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['email'], new_user_email)
+
+        # Test: check that trying to reuse the password reset link doesn't work.
+        response = self.client.put(password_set_url, json.dumps(passwords), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
