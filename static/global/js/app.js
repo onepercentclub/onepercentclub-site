@@ -217,7 +217,21 @@ App.Adapter.map(
 
 
 App.ApplicationController = Ember.Controller.extend({
-    needs: ['currentUser']
+    needs: ['currentUser'],
+    display_message: false,
+
+    displayMessage: (function() {
+        if (this.get('display_message') == true) {
+            var self = this;
+            setTimeout(function() {
+                self.hideMessage();
+            }, 10000);
+        }
+    }).observes('this.display_message'),
+
+    hideMessage: function() {
+        this.set('display_message', false);
+    }
 });
 
 
@@ -870,11 +884,23 @@ App.UserActivateRoute = Ember.Route.extend({
             type: "GET",
             url: "/i18n/api/users/activate/" + params.activation_key,
             success: function() {
-                App.CurrentUser.find('current').reload();
+                var currentUser = App.CurrentUser.find('current');
 
-                setTimeout(function() {
-                    self.transitionTo('userProfile');
-                }, 1000);
+                currentUser.one('didReload', function(e) {
+                    var applicationController = self.controllerFor('application');
+
+                    var messageTitle   = "Hello " + currentUser.get('first_name');
+                    var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
+
+                    applicationController.set('message_title', messageTitle);
+                    applicationController.set('message_content', messageContent);
+
+                    applicationController.set('display_message', true);
+
+                    self.replaceWith('userProfile');
+                });
+
+                currentUser.reload();
             },
             error: function() {
                 // FIXME: Error Handling

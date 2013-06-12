@@ -150,15 +150,17 @@
                     <!-- end: main navigation -->
                 </div>
 
-                {{#if controllers.currentUser.showAlert}}
+                {{#if display_message}}
 
-                    <div class="alert-message">
-                        <div class="alert-message-title">
-                            {% trans "Hello" %} {{ controllers.currentUser.first_name }}
+                    <div class="message">
+                        <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
+
+                        <div class="message-title">
+                            {{ message_title }}
                         </div>
 
-                        <div class="alert-message-content">
-                            {% trans "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile." %}
+                        <div class="message-content">
+                            {{ message_content }}
                         </div>
                     </div>
 
