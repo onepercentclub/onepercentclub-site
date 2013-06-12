@@ -177,13 +177,15 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
             // hasn't finished loading new data to the record when
             // the "didUpdate" event is triggered. Pomise API can be
             // used in newer versions of ember, so we can remove the delay then.
-            setTimeout(function() {
-                var currentUser = App.CurrentUser.find('current');
-
-                currentUser.set('avatar', record.get('avatar'));
-                currentUser.set('picture', record.get('picture'));
-            }, 1000);
+            Ember.run.later(self, 'updateCurrentUser', record, 1000);
         });
+    },
+
+    updateCurrentUser: function(record) {
+        var currentUser = App.CurrentUser.find('current');
+
+        currentUser.set('avatar', record.get('avatar'));
+        currentUser.set('picture', record.get('picture'));
     }
 });
 
