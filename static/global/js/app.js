@@ -203,7 +203,9 @@ App.Adapter = DS.DRF2Adapter.extend({
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
         "fund/paymentinfo": "fund/paymentinfo",
-        "fund/paymentmethodinfo": "fund/paymentmethodinfo"
+        "fund/paymentmethodinfo": "fund/paymentmethodinfo",
+        "users/activate": "users/activate",
+        "users/passwordset": "users/passwordset"
     }
 });
 
@@ -216,7 +218,21 @@ App.Adapter.map(
 
 
 App.ApplicationController = Ember.Controller.extend({
-    needs: ['currentUser']
+    needs: ['currentUser'],
+    display_message: false,
+
+    displayMessage: (function() {
+        if (this.get('display_message') == true) {
+            var self = this;
+            setTimeout(function() {
+                self.hideMessage();
+            }, 10000);
+        }
+    }).observes('this.display_message'),
+
+    hideMessage: function() {
+        this.set('display_message', false);
+    }
 });
 
 
@@ -358,9 +374,13 @@ App.Router.map(function() {
     this.resource('signup');
 
     this.resource('user', {path: '/member'}, function() {
-        this.resource('userProfile', {path: '/profile'});
+        this.resource('userProfile', {path: '/profile/'});
         this.resource('userSettings', {path: '/settings'});
+
+        this.route('activate', {path: '/activate/:activation_key'});
     });
+
+    this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
 });
 
 App.ApplicationRoute = Ember.Route.extend({
@@ -414,11 +434,7 @@ App.ApplicationRoute = Ember.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            var modalPaneTemplate = [
-            '<div class="modal-header">',
-            '  <a class="close" rel="close">&times;</a>',
-            '</div>',
-            '<div class="modal-body">{{view view.bodyViewClass}}</div>'].join("\n");
+            var modalPaneTemplate = ['{{view view.bodyViewClass}}'].join("\n");
 
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
@@ -859,6 +875,40 @@ App.UserSettingsRoute = Ember.Route.extend({
 });
 
 
+App.UserActivateRoute = Ember.Route.extend({
+    model: function(params) {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            url: "/i18n/api/users/activate/" + params.activation_key,
+            success: function() {
+                var currentUser = App.CurrentUser.find('current');
+
+                currentUser.one('didReload', function(e) {
+                    var applicationController = self.controllerFor('application');
+
+                    var messageTitle   = "Hello " + currentUser.get('first_name');
+                    var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
+
+                    applicationController.set('message_title', messageTitle);
+                    applicationController.set('message_content', messageContent);
+
+                    applicationController.set('display_message', true);
+
+                    self.replaceWith('userProfile');
+                });
+
+                currentUser.reload();
+            },
+            error: function() {
+                // FIXME: Error Handling
+            }
+        });
+    }
+});
+
+
 App.SignupRoute = Ember.Route.extend({
     redirect: function() {
         if (this.controllerFor('currentUser').get('isAuthenticated')) {
@@ -874,6 +924,21 @@ App.SignupRoute = Ember.Route.extend({
 });
 
 
+App.PasswordResetRoute = Ember.Route.extend({
+    model: function(params) {
+        var record = App.PasswordReset.createRecord({
+            id: params.reset_token
+        });
+
+        // Need this so that the adapter makes a PUT instead of POST
+        record.get('stateManager').transitionTo('loaded.saved');
+
+        this.get('store').transaction().add(record);
+        return record;
+    }
+});
+
+
 /**
  * Tasks Routes
  */
@@ -883,6 +948,47 @@ App.TaskListRoute =  Ember.Route.extend({
         return App.Task.find();
     }
 });
+
+
+App.LoginController = Em.Controller.extend({
+
+    requestPasswordReset: function() {
+
+        Bootstrap.ModalPane.popup({
+            classNames: ['modal'],
+            defaultTemplate: Em.Handlebars.compile('{{view templateName="request_password_reset"}}'),
+            callback: function(opts, e) {
+                if (opts.secondary) {
+                    var $btn        = $(e.target),
+                        $modal      = $btn.closest('.modal'),
+                        $emailInput = $modal.find('#passwordResetEmail'),
+                        email       = $emailInput.val();
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/i18n/api/users/passwordreset',
+                        data: JSON.stringify({email: email}),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function() {
+                            var $success = $("<p>YOU'VE GOT MAIL!</p><p>We've sent you a link to reset your password, so check your mailbox.</p><br><p>(No mail? It might have ended up in your spam folder)</p>");
+
+                            $modal.find('.modal-body').html($success);
+                            $btn.remove();
+                        },
+                        error: function(xhr) {
+                            var error = $.parseJSON(xhr.responseText);
+                            $emailInput.addClass('error').val(error.email);
+                        }
+                    });
+
+                    return false;
+                }
+            }
+        })
+    }
+});
+
 
 /* Views */
 
@@ -898,14 +1004,6 @@ App.LanguageSwitchView = Ember.CollectionView.extend({
     itemViewClass: App.LanguageView
 });
 
-
-/* Login */
-
-
-App.LoginController = Em.Controller.extend({
-    // We need this because openInBox relies on the controller being specified.
-
-});
 
 App.LoginView = Em.View.extend({
     templateName: 'login',

@@ -6,16 +6,10 @@
 {% block content %}
     <div id="loginModal" class="modal">
         <div class="modal-header">
-            <a class="close" rel="close" data-dismiss="modal">&times;</a>
+            <h3>{% trans "Log in" %}</h3>
         </div>
 
         <div class="modal-body">
-            {% if form.errors %}
-                <p class="alert alert-error">
-                    {% trans "Your username and password didn't match. Please try again." %}
-                </p>
-            {% endif %}
-
             <form method="post" action="{% url 'login' %}">
                 <div class="modal-body">
                     {% csrf_token %}
@@ -37,8 +31,16 @@
                             </div>
                         </div>
                     </div>
+
+                    {% if form.errors %}
+                        <p class="alert alert-error">
+                            {% trans "Your username and password didn't match. Please try again." %}
+                        </p>
+                    {% endif %}
                 </div>
+
                 <input type="hidden" name="next" value="{{ next }}" />
+
                 <div class="modal-footer">
                     <input class="btn right" type="submit" value="Login">
                 </div>
