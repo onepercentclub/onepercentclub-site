@@ -826,19 +826,21 @@ App.UserProfileRoute = Ember.Route.extend({
     model: function() {
         var route = this;
 
-        /*
-         This workaround will be no longer required with the new async router API,
-         (RC 4) which treats transitionTo's the same as URL based transitions
-         */
         return App.CurrentUser.find('current').then(function(user) {
             var profile = App.User.find(user.get('id_for_ember'));
             var controller = route.controllerFor('userProfile');
 
+            // Set the model here instead of the promise in setupController so that the model can be used in the
+            // startEditing() method.
             controller.set('model', profile);
             controller.startEditing();
 
             return profile;
         });
+    },
+
+    setupController: function(controller, profile) {
+        // Don't set the model here because we're setting it after the promise is resolved.
     },
 
     exit: function() {
@@ -853,19 +855,21 @@ App.UserSettingsRoute = Ember.Route.extend({
     model: function() {
         var route = this;
 
-        /*
-         This workaround will be no longer required with the new async router API,
-         (RC 4) which treats transitionTo's the same as URL based transitions
-         */
         return App.CurrentUser.find('current').then(function(user) {
             var settings = App.UserSettings.find(user.get('id_for_ember'));
             var controller = route.controllerFor('userSettings');
 
+            // Set the model here instead of the promise in setupController so that the model can be used in the
+            // startEditing() method.
             controller.set('model', settings);
             controller.startEditing();
 
             return settings;
         });
+    },
+
+    setupController: function(controller, profile) {
+        // Don't set the model here because we're setting it after the promise is resolved.
     },
 
     exit: function() {
