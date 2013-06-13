@@ -373,7 +373,7 @@
                 <li class="control-group">
                     <label class="control-label">{% trans "Country" %}</label>
                     <div class="controls">
-                        {{view App.CountrySelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+                        {{view App.CountrySelectCodeView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
                     </div>
 
                     {{#if error.country}}

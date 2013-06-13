@@ -215,8 +215,12 @@
                             </label>
 
                             <div class="controls">
-                                {{view Em.TextField valueBinding="email" classBinding="errors.first_name.length:error"}}
+                                {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
                             </div>
+
+                            {{#if errors.email}}
+                                <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
                         </li>
                     </ul>
                 </fieldset>
@@ -289,6 +293,87 @@
                         <p>{% trans "Only 1%CLUB can see your personal details. They won’t be published anywhere on the 1%CLUB website." %}</p>
                     </legend>
                     <ul>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Address Line 1" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="line1" classBinding="errors.line1.length:error"}}
+                            </div>
+
+                            {{#if errors.line1}}
+                                <div class="errors">{{#each errors.line1}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Address Line 2" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="line2" classBinding="errors.line2.length:error"}}
+                            </div>
+
+                            {{#if errors.line2}}
+                                <div class="errors">{{#each errors.line2}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "City" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="city" classBinding="errors.city.length:error"}}
+                            </div>
+
+                            {{#if errors.city}}
+                                <div class="errors">{{#each errors.city}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Province / State" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="state" classBinding="errors.state.length:error"}}
+                            </div>
+
+                            {{#if errors.state}}
+                                <div class="errors">{{#each errors.state}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Postal Code" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="postal_code" classBinding="errors.postal_code.length:error"}}
+                            </div>
+
+                            {{#if errors.state}}
+                                <div class="errors">{{#each errors.state}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Country" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view App.CountrySelectPKView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+                            </div>
+
+                            {{#if error.country}}
+                                <div class="errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
                         <li class="control-group">
                             <label class="control-label">
                                 {% trans "Gender" %}
