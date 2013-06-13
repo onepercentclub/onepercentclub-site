@@ -1,5 +1,7 @@
 import decimal
 import logging
+from django.http import request
+import os
 import sys
 import re
 import json
@@ -296,6 +298,41 @@ class FileSizeField(serializers.FileField):
         except OSError:
             size = _('File not found')
         return size
+
+
+class FileSerializer(serializers.FileField):
+
+    def from_native(self, data):
+
+        # UploadedFile objects should have name and size attributes.
+        try:
+            file_name = data.name
+            file_size = data.size
+        except AttributeError:
+            raise ValidationError(self.error_messages['invalid'])
+
+        if self.max_length is not None and len(file_name) > self.max_length:
+            error_values = {'max': self.max_length, 'length': len(file_name)}
+            raise ValidationError(self.error_messages['max_length'] % error_values)
+        if not file_name:
+            raise ValidationError(self.error_messages['invalid'])
+        if not self.allow_empty_file and not file_size:
+            raise ValidationError(self.error_messages['empty'])
+
+        return data
+
+    def to_native(self, value):
+        return {'name': os.path.basename(value.name),
+                'file': value.url,
+                'size': defaultfilters.filesizeformat(value.size)}
+
+
+class PrivateFileSerializer(FileSerializer):
+
+    def to_native(self, value):
+        return {'name': os.path.basename(value.name),
+                'url': value.url,
+                'size': defaultfilters.filesizeformat(value.size)}
 
 
 class TagSerializer(serializers.Serializer):

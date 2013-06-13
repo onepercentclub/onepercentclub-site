@@ -34,6 +34,9 @@ urlpatterns = i18n_patterns('',
     # Project view that search engines will use.
     url(r'^projects/', include('apps.projects.urls')),
 
+    # Organization urls for downloading private documents
+    url(r'^organisations/', include('apps.organizations.urls')),
+
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls'))
 )

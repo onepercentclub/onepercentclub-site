@@ -244,6 +244,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "projects/wallposts/text": "projects/wallposts/text",
         "organizations/manage": "organizations/manage",
         "organizations/addresses/manage": "organizations/addresses/manage",
+        "organizations/documents/manage": "organizations/documents/manage",
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
@@ -373,7 +374,12 @@ App.Adapter.map('App.MyProjectPitch', {
 });
 
 App.Adapter.map('App.MyOrganization', {
-    addresses: {embedded: 'load'}
+    addresses: {embedded: 'load'},
+    documents: {embedded: 'load'}
+});
+
+App.Adapter.map('App.MyOrganizationDocument', {
+    file: {embedded: 'load'}
 });
 
 

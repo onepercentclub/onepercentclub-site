@@ -676,7 +676,7 @@
 
             <li class="control-group has-popover" data-content="{% trans "Please scan and upload your  passport or ID. Don’t have it? It is also possible to upload the passport of ID of the person named in the registration document." %}">
                 <label class="control-label">
-                    {% trans "Passports" %}
+                    {% trans "Passports" %} ({{organization.documents.length}})
                 </label>
 
                 <div class="controls project-pic-uploader">
@@ -686,6 +686,12 @@
                         {% trans "Upload scan(s)" %}
                     </a>
                     <br />
+                    {{#each doc in organization.documents}}
+                        <a {{action removeFile doc}}><span class="icon-remove-sign"></span></a>
+                        <a {{bindAttr href=doc.file.url}} target="_blank">
+                            {{doc.file.name}} <small>{{doc.file.size}}</small><br/>
+                        </a>
+                    {{/each}}
                 </div>
             </li>
 

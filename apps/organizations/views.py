@@ -1,8 +1,15 @@
-from apps.organizations.models import Organization, OrganizationMember, OrganizationAddress
+import os
+from django.http import HttpResponseForbidden
+from apps.bluebottle_utils.utils import get_client_ip
+from apps.organizations.models import Organization, OrganizationMember, OrganizationAddress, OrganizationDocument
 from apps.organizations.permissions import IsOrganizationMember
-from apps.organizations.serializers import OrganizationSerializer, ManageOrganizationSerializer, OrganizationAddressSerializer
-from django.utils.translation import ugettext as _
+from apps.organizations.serializers import OrganizationSerializer, ManageOrganizationSerializer, OrganizationAddressSerializer, OrganizationDocumentSerializer
+from django.http.response import HttpResponseForbidden
+from django.views.generic.detail import DetailView
 from rest_framework import generics
+
+from django.shortcuts import get_object_or_404
+from filetransfers.api import serve_file
 
 
 class OrganizationList(generics.ListAPIView):
@@ -64,9 +71,46 @@ class ManageOrganizationAddressList(generics.ListCreateAPIView):
         return queryset
 
 
-
 class ManageOrganizationAddressDetail(generics.RetrieveUpdateDestroyAPIView):
     model = OrganizationAddress
     serializer_class = OrganizationAddressSerializer
     permission_classes = (IsOrganizationMember, )
 
+
+class ManageOrganizationDocumentList(generics.ListCreateAPIView):
+    model = OrganizationDocument
+    serializer_class = OrganizationDocumentSerializer
+    paginate_by = 20
+    filter = ('organization', )
+
+    def pre_save(self, obj):
+        obj.author = self.request.user
+        obj.ip_address = get_client_ip(self.request)
+
+
+class ManageOrganizationDocumentDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = OrganizationDocument
+    serializer_class = OrganizationDocumentSerializer
+    paginate_by = 20
+    filter = ('organization', )
+
+    def pre_save(self, obj):
+        obj.author = self.request.user
+        obj.ip_address = get_client_ip(self.request)
+
+
+
+# Non API views
+
+# Download private documents
+
+class OrganizationDocumentDownloadView(DetailView):
+
+    model = OrganizationDocument
+
+    def get(self, request, pk):
+        upload = get_object_or_404(OrganizationDocument, pk=pk)
+        if upload.author != request.user:
+            return HttpResponseForbidden()
+        file_name = os.path.basename(upload.file.name)
+        return serve_file(request, upload.file, save_as=file_name)

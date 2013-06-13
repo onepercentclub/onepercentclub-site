@@ -12,11 +12,11 @@ App.AddressTypeSelectView = Em.Select.extend({
     optionLabelPath: "content.title"
 });
 
+
 App.MyOrganizationAddress = DS.Model.extend({
     url: 'organizations/addresses/manage',
 
     organization: DS.belongsTo('App.MyOrganization'),
-    type: DS.attr('string'),
     line1: DS.attr('string'),
     line2: DS.attr('string', {defaultValue: ''}),
     postal_code: DS.attr('string'),
@@ -26,11 +26,11 @@ App.MyOrganizationAddress = DS.Model.extend({
 
 });
 
-App.MyOrganizationDocuments = DS.Model.extend({
+App.MyOrganizationDocument = DS.Model.extend({
     url: 'organizations/documents/manage',
 
     organization: DS.belongsTo('App.MyOrganization'),
-    file: DS.attr('string')
+    file: DS.attr('file')
 });
 
 App.MyOrganization = DS.Model.extend({
@@ -50,16 +50,10 @@ App.MyOrganization = DS.Model.extend({
 
     // Legal
     legal_status: DS.attr('string'),
-    documents: DS.hasMany('App.MyOrganizationDocuments'),
+    documents: DS.hasMany('App.MyOrganizationDocument'),
     registration: DS.attr('string')
 });
 
-App.OrganizationSelectView = Em.Select.extend({
-    content: [{id:0, title: "--loading--"}],
-    optionValuePath: "content.id",
-    optionLabelPath: "content.name"
-
-});
 
 App.MyProjectPitch = DS.Model.extend({
     url: 'projects/manage/pitches',
@@ -327,9 +321,6 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
 
 App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
 
-    // This a temporary container for App.Document records until they are connected to the Organization
-    files: Em.A(),
-
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses
         if (this.get('isDirty')) {
@@ -341,22 +332,22 @@ App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
     }.property('organization.isLoaded'),
 
     addFile: function(file) {
-        var transaction = this.get('store').transaction();
-        var photo = transaction.createRecord(App.ProjectWallPostPhoto);
-        // Connect the file to it. DRF2 Adapter will sort this out.
-        photo.set('file', file);
-        this.get('files').pushObject(photo);
+        var transaction = this.get('model').transaction;
+        var doc = transaction.createRecord(App.MyOrganizationDocument);
+        doc.set('file', file);
+        doc.set('organization',  this.get('organization'));
+        doc.one('didCreate', function(record){
+            this.get('organization').reload();
+        });
+
         transaction.commit();
-        // Store the photo in this.files. We need to connect it to the wallpost later.
     },
 
-    removePhoto: function(photo) {
-        var transaction = this.get('store').transaction();
-        transaction.add(photo);
-        photo.deleteRecord();
+    removeFile: function(doc) {
+        var transaction = this.get('model').transaction;
+        transaction.add(doc);
+        doc.deleteRecord();
         transaction.commit();
-        // Remove it from temporary array too.
-        this.get('files').removeObject(photo);
     }
 
 });

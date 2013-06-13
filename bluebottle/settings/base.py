@@ -94,6 +94,10 @@ USE_TZ = True
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'static', 'media')
 
+# Absolute filesystem path to the directory that will hold PRIVATE user-uploaded files.
+PRIVATE_MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'private', 'media')
+
+
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
@@ -203,6 +207,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'polymorphic',
     'registration',
+    'filetransfers',
 
     # CMS page contents
     'fluent_contents',

@@ -16,6 +16,14 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
                 return Ember.isNone(deserialized) ? null : deserialized.toJSON();
             }
         });
+        this.registerTransform('file', {
+            deserialize: function(serialized) {
+                return Ember.isNone(serialized) ? null : serialized;
+            },
+            serialize: function(deserialized) {
+                return Ember.isNone(deserialized) ? null : deserialized;
+            }
+        });
     },
 
     /**
@@ -150,6 +158,33 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
                     this.didError(store, type, record, xhr);
                 }
             });
+        } else if (type.toString() == "App.MyOrganizationDocument" && record.get('file') != "") {
+            var formdata = new FormData();
+            Object.keys(data).forEach(function(key) {
+                if (data[key] !== undefined) {
+                    console.log(file);
+                    if (key == 'file') {
+                        var file = record.get('file');
+                        formdata.append('file', file);
+                    } else {
+                        formdata.append(key, data[key]);
+                    }
+                }
+            });
+
+            this.ajaxFormData(this.buildURL(root), "POST", {
+                data: formdata,
+                context: this,
+                success: function(json) {
+                    Ember.run(this, function() {
+                        this.didCreateRecord(store, type, record, json);
+                    });
+                },
+                // Make sure we parse any errors.
+                error: function(xhr) {
+                    this.didError(store, type, record, xhr);
+                }
+            });
 
         } else if (type.toString() == "App.TaskFile" && record.get('file')) {
             // TODO: Implement this polyfill for older browsers:
@@ -157,8 +192,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             var formdata = new FormData();
             Object.keys(data).forEach(function(key) {
                 if (data[key] !== undefined) {
-                    // TODO: This won't be hardcoded when a general solution for detecting when to use
-                    //       multipart/form-data is worked out.
                     if (key == 'file') {
                         var file = record.get('file');
                         formdata.append('file', file);
