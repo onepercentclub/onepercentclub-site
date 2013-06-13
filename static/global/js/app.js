@@ -107,7 +107,10 @@ App = Em.Application.create({
     initSelectViews: function(){
         // Pre-load these lists so we avoid race conditions when displaying forms
         App.Country.find().then(function(list){
-            App.CountrySelectView.reopen({
+            App.CountrySelectCodeView.reopen({
+                content: list
+            });
+            App.CountrySelectPKView.reopen({
                 content: list
             });
         });

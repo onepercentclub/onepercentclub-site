@@ -71,7 +71,15 @@ App.UserSettings = DS.Model.extend({
     share_money: DS.attr('boolean'),
     gender: DS.attr('string'),
     birthdate: DS.attr('date'),
-    user_type: DS.attr('string')
+    user_type: DS.attr('string'),
+
+    // Address
+    line1: DS.attr('string'),
+    line2: DS.attr('string'),
+    city: DS.attr('string'),
+    state: DS.attr('string'),
+    country: DS.attr('string'),
+    postal_code: DS.attr('string')
 });
 
 App.UserPreview = DS.Model.extend({
