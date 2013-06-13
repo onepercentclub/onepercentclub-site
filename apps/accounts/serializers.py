@@ -1,8 +1,11 @@
 from apps.accounts.models import BlueBottleUser
 from apps.bluebottle_drf2.serializers import SorlImageField
+from apps.geo.models import Country
+from apps.geo.serializers import CountrySerializer
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.sites.models import Site
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext as _
 from registration.models import RegistrationProfile
 from rest_framework import serializers
@@ -72,6 +75,22 @@ class PasswordField(serializers.CharField):
         return self.hidden_password_string
 
 
+class UserSettingsCountryField(serializers.PrimaryKeyRelatedField):
+    def __init__(self, *args, **kwargs):
+        super(UserSettingsCountryField, self).__init__(queryset=Country.objects, *args, **kwargs)
+
+    def field_to_native(self, obj, field_name):
+        try:
+            address = obj.address
+            pk = None
+            if address is not None:
+                pk = getattr(address, self.source.replace('address.', '')).pk
+        except ObjectDoesNotExist:
+            return None
+
+        return self.to_native(pk)
+
+
 class UserSettingsSerializer(serializers.ModelSerializer):
     """
     Serializer for viewing and editing a user's settings. This should only be accessible to authenticated users.
@@ -81,13 +100,33 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     birthdate = serializers.DateTimeField(required=False)
     email = serializers.EmailField(required=False)
 
+    # Address
+    line1 = serializers.CharField(source='address.line1', max_length=100, blank=True)
+    line2 = serializers.CharField(source='address.line2', max_length=100, blank=True)
+    city = serializers.CharField(source='address.city', max_length=100, blank=True)
+    state = serializers.CharField(source='address.state', max_length=100, blank=True)
+    country = UserSettingsCountryField(source='address.country', blank=True)
+    postal_code = serializers.CharField(source='address.postal_code', max_length=20, blank=True)
+
     class Meta:
         model = BlueBottleUser
-        # TODO: Add * password update like it's done with the post only fields serializer (ie. create / add put only fields serializer)
+        # TODO: Add * password update using password field.
         #           * Facebook connect
-        #           * Address
         fields = ('id', 'email', 'share_time_knowledge', 'share_money', 'newsletter', 'gender', 'birthdate',
-                  'user_type')
+                  'user_type', 'line1', 'line2', 'city', 'state', 'postal_code', 'country')
+
+    def restore_object(self, attrs, instance=None):
+        """ Overridden to enable address write."""
+        instance = super(UserSettingsSerializer, self).restore_object(attrs, instance)
+
+        address_fields = dict((key.replace('address.', ''), val) for key, val in attrs.items() if key.startswith('address.'))
+        address = instance.address
+        if address is not None:
+            for key, val in address_fields.items():
+                setattr(address, key, val)
+            address.save()
+
+        return instance
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -132,11 +171,10 @@ class PasswordResetSerializer(serializers.Serializer):
         super(PasswordResetSerializer, self).__init__(*args, **kwargs)
 
     def validate_email(self, attrs, source):
-        if not attrs:
-            return
-        value = attrs[source]
-        self.password_reset_form.cleaned_data = {"email": value}
-        return self.password_reset_form.clean_email()
+        if attrs is not None:  # Don't need this check in newer versions of DRF2.
+            value = attrs[source]
+            self.password_reset_form.cleaned_data = {"email": value}
+            return self.password_reset_form.clean_email()
 
 
 class PasswordSetSerializer(serializers.Serializer):
@@ -157,8 +195,7 @@ class PasswordSetSerializer(serializers.Serializer):
         super(PasswordSetSerializer, self).__init__(*args, **kwargs)
 
     def validate_new_password2(self, attrs, source):
-        if not attrs:
-            return
-        value = attrs[source]
-        self.password_set_form.cleaned_data = {"new_password1": attrs['new_password1'], "new_password2": value}
-        return self.password_set_form.clean_new_password2()
+        if attrs is not None:  # Don't need this check in newer versions of DRF2.
+            value = attrs[source]
+            self.password_set_form.cleaned_data = {"new_password1": attrs['new_password1'], "new_password2": value}
+            return self.password_set_form.clean_new_password2()

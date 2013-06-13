@@ -1,17 +1,26 @@
 // TODO: Combine this Country model with the one in projects and use API for loading this list.
 App.Country = DS.Model.extend({
     url: "utils/countries",
-    value: DS.attr('string'),
+
+    // Can't use 'id' because it doesn't work with 'optionValuePath' in Em.Select.
+    pk: DS.attr('string'),
+    code: DS.attr('string'),
     title: DS.attr('string')
 });
 
 App.CountryList = [
-    {"value": "0", "title": "loading"},
+    {"value": "0", "title": "loading"}
 ];
 
-App.CountrySelectView = Em.Select.extend({
+App.CountrySelectCodeView = Em.Select.extend({
     content: App.CountryList,
-    optionValuePath: "content.value",
+    optionValuePath: "content.code",
+    optionLabelPath: "content.title"
+});
+
+App.CountrySelectPKView = Em.Select.extend({
+    content: App.CountryList,
+    optionValuePath: "content.pk",
     optionLabelPath: "content.title"
 });
 
