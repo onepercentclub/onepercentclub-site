@@ -575,13 +575,32 @@
 {% tplhandlebars "request_password_reset" %}
 
 <form>
-    <p>{% trans "Leave your email address and we'll send you a link to set a new password." %}</p>
-    <div class="control-group">
-        <div class="control-label">{% trans "Email address" %}</div>
+    <div class="modal-header">
+        <h3>{% trans "Forgot your password?" %}</h3>
+    </div>
 
-        <div class="controls">
-            <input id="passwordResetEmail" type="text" />
+    <div class="modal-body">
+        <p>{% trans "Leave your email address and we'll send you a link to set a new password." %}</p>
+        <br>
+        <div class="control-group">
+            <div class="control-label">{% trans "Email address" %}</div>
+
+            <div class="controls">
+                <input id="passwordResetEmail" type="text" />
+            </div>
         </div>
+    </div>
+
+    <div class="modal-footer">
+        <p class="left">
+            {% trans "Need help?" %}
+            <a href="mailto:info@1procentclub.nl">{% trans "Contact us!" %}</a>
+        </p>
+
+        <a href="#" class="btn btn-iconed btn-secondary" rel="secondary">
+            <i class="icon icon-ok"></i>
+            {% trans "Reset" %}
+        </a>
     </div>
 </form>
 
@@ -602,6 +621,10 @@
                 <div class="controls">
                     {{view Em.TextField type="password" valueBinding="new_password1" classBinding="errors.new_password1.length:error"}}
                 </div>
+
+                {{#if errors.new_password1}}
+                    <div class="errors">{{#each errors.new_password1}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
             </div>
 
             <div class="control-group">
@@ -611,11 +634,19 @@
                     {{view Em.TextField type="password" valueBinding="new_password2" classBinding="errors.new_password2.length:error"}}
                 </div>
             </div>
+
+            {{#if errors.new_password2}}
+                {{#each errors.new_password2}}
+                    <div class="alert alert-error">
+                        {{this}}
+                    </div>
+                {{/each}}
+            {{/if}}
         </form>
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-iconed right" {{action 'resetPassword' model}}>
+        <button class="btn btn-iconed right" {{action 'resetPassword' model}} {{bindAttr disabled="resetDisabled"}}>
             <i class="icon icon-ok"></i>
             {% trans "Reset password" %}
         </button>

@@ -250,7 +250,37 @@ App.SignupController = Ember.ObjectController.extend({
 
 
 App.PasswordResetController = Ember.ObjectController.extend({
+    needs: ['login'],
+
+    resetDisabled: (function() {
+        if (this.get('new_password1') || this.get('new_password2')) {
+            return false;
+        }
+
+        return true;
+    }).property('content.new_password1', 'content.new_password2'),
+
     resetPassword: function(record) {
+        var passwordResetController = this;
+
+        record.on('didUpdate', function() {
+            var loginController = passwordResetController.get('controllers.login');
+            var view = App.LoginView.create({
+                next: "/"
+            });
+            view.set('controller', loginController);
+
+            loginController.set('post_password_reset', true);
+
+            var modalPaneTemplate = '{{view view.bodyViewClass}}';
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
+                bodyViewClass: view
+            });
+        });
+
         record.get('transaction').commit();
     }
 });

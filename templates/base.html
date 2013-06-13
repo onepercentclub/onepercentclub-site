@@ -200,41 +200,53 @@
 
     {% tplhandlebars "login" %}
 
-{% comment %}
-Commented out until we have time to fully implement this.
-        <a href="/social/login/facebook" class="fb-login">
-            <img src="/static/assets/images/sprites/facebook/facebook-login.png" />
-        </a>
-{% endcomment %}
+        {% comment %}
+        Commented out until we have time to fully implement this.
+                <a href="/social/login/facebook" class="fb-login">
+                    <img src="/static/assets/images/sprites/facebook/facebook-login.png" />
+                </a>
+        {% endcomment %}
 
         <form action="/en/accounts/login/" method="post">
-        <div class="modal-body">
-            {% csrf_token %}
-            <div>
-                <div class="control-group">
-                    <label class="control-label" for="id_email">{% trans "Email" %}:</label>
 
-                    <div class="controls">
-                        {# The key for the login needs to be 'username' for logins to work. #}
-                        <input id="id_email" type="text" name="username" maxlength="254">
+            <div class="modal-header">
+                <h3>{% trans "Log in" %}</h3>
+            </div>
+
+            <div class="modal-body">
+                {{#if post_password_reset }}
+                    <p>{%  trans "YOU DID IT!" %}</p>
+                    <p>{%  trans "(Welcome back friend)" %}</p>
+
+                    <p>{%  trans "Login here with your email address and password" %}</p>
+                {{/if }}
+                {% csrf_token %}
+                <div>
+                    <div class="control-group">
+                        <label class="control-label" for="id_email">{% trans "Email" %}:</label>
+
+                        <div class="controls">
+                            {# The key for the login needs to be 'username' for logins to work. #}
+                            <input id="id_email" type="text" name="username" maxlength="254">
+                        </div>
                     </div>
-                </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="id_password">{% trans "Password" %}:</label>
+                    <div class="control-group">
+                        <label class="control-label" for="id_password">{% trans "Password" %}:</label>
 
-                    <div class="controls">
-                        <input id="id_password" type="password" name="password">
+                        <div class="controls">
+                            <input id="id_password" type="password" name="password">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="modal-footer">
-            <a class="left" {{ action requestPasswordReset }}>{% trans "I forgot my password" %}</a>
-            <input class="btn right" type="submit" value="Login">
-            <input type="hidden" name="next" {{bindAttr value="view.next"}}>
-        </div>
+            <div class="modal-footer">
+                <a class="left" {{ action requestPasswordReset }}>{% trans "I forgot my password" %}</a>
+                <input class="btn right" type="submit" value="Login">
+                <input type="hidden" name="next" {{bindAttr value="view.next"}}>
+            </div>
+
         </form>
     {% endtplhandlebars %}
 

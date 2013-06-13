@@ -434,11 +434,7 @@ App.ApplicationRoute = Ember.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            var modalPaneTemplate = [
-            '<div class="modal-header">',
-            '  <a class="close" rel="close">&times;</a>',
-            '</div>',
-            '<div class="modal-body">{{view view.bodyViewClass}}</div>'].join("\n");
+            var modalPaneTemplate = ['{{view view.bodyViewClass}}'].join("\n");
 
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
@@ -957,23 +953,16 @@ App.TaskListRoute =  Ember.Route.extend({
 App.LoginController = Em.Controller.extend({
 
     requestPasswordReset: function() {
-        var view = Em.View.extend({
-            templateName: 'request_password_reset'
-        });
 
         Bootstrap.ModalPane.popup({
             classNames: ['modal'],
-            heading: 'Forgot your password?',
-            bodyViewClass: view,
-            primary: null,
-            secondary: 'Reset',
+            defaultTemplate: Em.Handlebars.compile('{{view templateName="request_password_reset"}}'),
             callback: function(opts, e) {
                 if (opts.secondary) {
-                    var $btn = $(e.target),
-                        $modal = $btn.closest('.modal'),
+                    var $btn        = $(e.target),
+                        $modal      = $btn.closest('.modal'),
                         $emailInput = $modal.find('#passwordResetEmail'),
-                        email = $emailInput.val();
-
+                        email       = $emailInput.val();
 
                     $.ajax({
                         type: 'PUT',
@@ -981,10 +970,11 @@ App.LoginController = Em.Controller.extend({
                         data: JSON.stringify({email: email}),
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
-                        context: this,
                         success: function() {
-                            var $successText = $("<p>YOU'VE GOT MAIL!</p><p>We've send you a link to reset your password, so check your mailbox.</p><br><p>(No mail? It might have ended up in your spam folder)</p>");
-                            $modal.find('form').replaceWith($successText);
+                            var $success = $("<p>YOU'VE GOT MAIL!</p><p>We've sent you a link to reset your password, so check your mailbox.</p><br><p>(No mail? It might have ended up in your spam folder)</p>");
+
+                            $modal.find('.modal-body').html($success);
+                            $btn.remove();
                         },
                         error: function(xhr) {
                             var error = $.parseJSON(xhr.responseText);
@@ -992,9 +982,8 @@ App.LoginController = Em.Controller.extend({
                         }
                     });
 
+                    return false;
                 }
-
-                return false;
             }
         })
     }

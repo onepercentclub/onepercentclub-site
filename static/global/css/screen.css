@@ -1578,6 +1578,9 @@ ul.tags li .delete:hover { color: #ff619a; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003305}}
 input.tag { width: 200px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/prashantpalikhe\/projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003309}}
+.modal-body .control-group:first-child { padding-top: 0; }
+
 /* =========== Icons */
 /*
 .location {  background-image: $icons; background-repeat: no-repeat; background-position: sprite-position($icons, world, 0, 0); @include rem(padding-left, 36px);
