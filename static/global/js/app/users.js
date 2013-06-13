@@ -120,8 +120,21 @@ App.CurrentUser = App.UserPreview.extend({
 
     // This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
     // App.UserSettingsModel.find(App.CurrentUser.find('current').get('id_for_ember'));
-    id_for_ember: DS.attr('number')
+    id_for_ember: DS.attr('number'),
+
+    becameError: function() {
+        this.get('stateManager').transitionTo('loaded.saved');
+    }
 });
+
+
+App.PasswordReset = DS.Model.extend({
+    url: 'users/passwordset',
+
+    new_password1: DS.attr('string'),
+    new_password2: DS.attr('string')
+});
+
 
 /*
  Controllers
@@ -176,13 +189,15 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
             // hasn't finished loading new data to the record when
             // the "didUpdate" event is triggered. Pomise API can be
             // used in newer versions of ember, so we can remove the delay then.
-            setTimeout(function() {
-                var currentUser = App.CurrentUser.find('current');
-
-                currentUser.set('avatar', record.get('avatar'));
-                currentUser.set('picture', record.get('picture'));
-            }, 1000);
+            Ember.run.later(self, 'updateCurrentUser', record, 1000);
         });
+    },
+
+    updateCurrentUser: function(record) {
+        var currentUser = App.CurrentUser.find('current');
+
+        currentUser.set('avatar', record.get('avatar'));
+        currentUser.set('picture', record.get('picture'));
     }
 });
 
@@ -216,37 +231,57 @@ App.UserModalController = Ember.ObjectController.extend({
 
 
 App.SignupController = Ember.ObjectController.extend({
+    isUserCreated: false,
+
     needs: "currentUser",
 
     createUser: function(user) {
         var self = this;
 
         user.one('didCreate', function() {
-            var data = {
-                // The key for the login needs to be 'username' for logins to work.
-                'username': self.get('email'),
-                'password': self.get('password'),
-                'csrfmiddlewaretoken': csrf_token
-            };
+            self.set('isUserCreated', true);
+        });
 
-            /*
-             Log the user automatically in after successful signup.
-             */
-            $.ajax({
-                type: "POST",
-                url: "/accounts/login/",
-                data: data,
-                success: function() {
-                    // TODO: Personalize the home page so the user becomes
-                    //       aware that he is successfully logged in.
-                    // self.replaceRoute('home');
-                    window.location.replace('/');
-                }
+        // Change the model URL to the User creation API.
+        user.set('url', 'users');
+        user.get('transaction').commit();
+    }
+});
+
+
+App.PasswordResetController = Ember.ObjectController.extend({
+    needs: ['login'],
+
+    resetDisabled: (function() {
+        if (this.get('new_password1') || this.get('new_password2')) {
+            return false;
+        }
+
+        return true;
+    }).property('content.new_password1', 'content.new_password2'),
+
+    resetPassword: function(record) {
+        var passwordResetController = this;
+
+        record.on('didUpdate', function() {
+            var loginController = passwordResetController.get('controllers.login');
+            var view = App.LoginView.create({
+                next: "/"
+            });
+            view.set('controller', loginController);
+
+            loginController.set('post_password_reset', true);
+
+            var modalPaneTemplate = '{{view view.bodyViewClass}}';
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
+                bodyViewClass: view
             });
         });
 
-        user.set('url', 'users');  // Change the model URL to the User creation API.
-        user.get('transaction').commit();
+        record.get('transaction').commit();
     }
 });
 
@@ -254,4 +289,3 @@ App.SignupController = Ember.ObjectController.extend({
 App.UserModalView = Em.View.extend({
     templateName: 'user_modal'
 });
-
