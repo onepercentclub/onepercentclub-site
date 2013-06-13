@@ -95,60 +95,76 @@
         <!-- main header -->
         <div class="container" id="navigation">
             <header class="wrapper">
+                <div class="header-main">
+                    <!-- logo -->
+                    {{#linkTo "home"}}
+                    <span id="logo">
+                        <img src="{% get_static_prefix %}images/1procentclub.png" width="100" height="38" alt="1%Club" />
+                        <h1 id="title">1%Club</h1>
+                        <h2 id="subtitle" data-content-hover="Go to <em>homepage</em>" data-content="<em>You</em> Make It Work"><em>You</em> Make It Work</h2>
+                    </span>
+                    {{/linkTo}}
+                    <!-- end: logo -->
 
-                <!-- logo -->
-                {{#linkTo "home"}}
-                <span id="logo">
-                    <img src="{% get_static_prefix %}images/1procentclub.png" width="100" height="38" alt="1%Club" />
-                    <h1 id="title">1%Club</h1>
-                    <h2 id="subtitle" data-content-hover="Go to <em>homepage</em>" data-content="<em>You</em> Make It Work"><em>You</em> Make It Work</h2>
-                </span>
-                {{/linkTo}}
-                <!-- end: logo -->
-
-                <!-- main navigation -->
-                <div class="nav">
-                    <nav class="nav-main">
-                        <h1 class="nav-title">Navigation</h1>
-                        <ul>
-                            <li class="nav-projects">{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
-                            {# FIXME Forward to currentOrderDonationList #}
-                            <li class="nav-projects">{{#linkTo voucherStart}}{% trans "1%GIFTCARDS" %}{{/linkTo}}</li>
-                        </ul>
-                    </nav>
-                    <nav class="nav-member member-login">
-                        <h1 class="nav-title">Profile</h1>
-                        {{#if controllers.currentUser.isAuthenticated }}
-                            <a href="#" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.avatar"}} height="40" alt="Avatar" />
-                                <strong>{% trans "MY 1%" %} &#9660;</strong>
-                            </a>
-                            <ul class="my-menu">
-                                <li>
-                                    {{#linkTo "userProfile" }}
-                                        {% trans "Edit my profile & settings" %}
-                                    {{/linkTo }}
-                                </li>
-                                <li>
-                                    {{view "App.LanguageSwitchView"}}
-                                </li>
-                                <li>
-                                    <a href="/en/accounts/logout/?next=/en/" class="nav-logout">
-                                        <strong>Logout</strong>
-                                    </a >
-                                </li>
+                    <!-- main navigation -->
+                    <div class="nav">
+                        <nav class="nav-main">
+                            <h1 class="nav-title">Navigation</h1>
+                            <ul>
+                                <li class="nav-projects">{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
+                                {# FIXME Forward to currentOrderDonationList #}
+                                <li class="nav-projects">{{#linkTo voucherStart}}{% trans "1%GIFTCARDS" %}{{/linkTo}}</li>
                             </ul>
-                            <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
-                        {{else}}
-                            <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
-                            {{#linkTo "signup" class="nav-signup"}}
-                                {% trans "Signup" %}
-                            {{/linkTo}}
-                            {{view "App.LanguageSwitchView"}}
-                        {{/if}}
-                    </nav>
+                        </nav>
+                        <nav class="nav-member member-login">
+                            <h1 class="nav-title">Profile</h1>
+                            {{#if controllers.currentUser.isAuthenticated }}
+                                <a href="#" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
+                                    <strong>{% trans "MY 1%" %} &#9660;</strong>
+                                </a>
+                                <ul class="my-menu">
+                                    <li>
+                                        {{#linkTo "userProfile" }}
+                                            {% trans "Edit my profile & settings" %}
+                                        {{/linkTo }}
+                                    </li>
+                                    <li>
+                                        {{view "App.LanguageSwitchView"}}
+                                    </li>
+                                    <li>
+                                        <a href="/en/accounts/logout/?next=/en/" class="nav-logout">
+                                            <strong>Logout</strong>
+                                        </a >
+                                    </li>
+                                </ul>
+                                <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a>
+                            {{else}}
+                                <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
+                                {{#linkTo "signup" class="nav-signup"}}
+                                    {% trans "Signup" %}
+                                {{/linkTo}}
+                                {{view "App.LanguageSwitchView"}}
+                            {{/if}}
+                        </nav>
+                    </div>
+                    <!-- end: main navigation -->
                 </div>
-                <!-- end: main navigation -->
 
+                {{#if display_message}}
+
+                    <div class="message">
+                        <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
+
+                        <div class="message-title">
+                            {{ message_title }}
+                        </div>
+
+                        <div class="message-content">
+                            {{ message_content }}
+                        </div>
+                    </div>
+
+                {{/if}}
             </header>
         </div>
 
@@ -184,40 +200,53 @@
 
     {% tplhandlebars "login" %}
 
-{% comment %}
-Commented out until we have time to fully implement this.
-        <a href="/social/login/facebook" class="fb-login">
-            <img src="/static/assets/images/sprites/facebook/facebook-login.png" />
-        </a>
-{% endcomment %}
+        {% comment %}
+        Commented out until we have time to fully implement this.
+                <a href="/social/login/facebook" class="fb-login">
+                    <img src="/static/assets/images/sprites/facebook/facebook-login.png" />
+                </a>
+        {% endcomment %}
 
         <form action="/en/accounts/login/" method="post">
-        <div class="modal-body">
-            {% csrf_token %}
-            <div>
-                <div class="control-group">
-                    <label class="control-label" for="id_email">{% trans "Email" %}:</label>
 
-                    <div class="controls">
-                        {# The key for the login needs to be 'username' for logins to work. #}
-                        <input id="id_email" type="text" name="username" maxlength="254">
+            <div class="modal-header">
+                <h3>{% trans "Log in" %}</h3>
+            </div>
+
+            <div class="modal-body">
+                {{#if post_password_reset }}
+                    <p>{%  trans "YOU DID IT!" %}</p>
+                    <p>{%  trans "(Welcome back friend)" %}</p>
+
+                    <p>{%  trans "Login here with your email address and password" %}</p>
+                {{/if }}
+                {% csrf_token %}
+                <div>
+                    <div class="control-group">
+                        <label class="control-label" for="id_email">{% trans "Email" %}:</label>
+
+                        <div class="controls">
+                            {# The key for the login needs to be 'username' for logins to work. #}
+                            <input id="id_email" type="text" name="username" maxlength="254">
+                        </div>
                     </div>
-                </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="id_password">{% trans "Password" %}:</label>
+                    <div class="control-group">
+                        <label class="control-label" for="id_password">{% trans "Password" %}:</label>
 
-                    <div class="controls">
-                        <input id="id_password" type="password" name="password">
+                        <div class="controls">
+                            <input id="id_password" type="password" name="password">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="modal-footer">
-            <input class="btn right" type="submit" value="Login">
-            <input type="hidden" name="next" {{bindAttr value="view.next"}}>
-        </div>
+            <div class="modal-footer">
+                <a class="left" {{ action requestPasswordReset }}>{% trans "I forgot my password" %}</a>
+                <input class="btn right" type="submit" value="Login">
+                <input type="hidden" name="next" {{bindAttr value="view.next"}}>
+            </div>
+
         </form>
     {% endtplhandlebars %}
 
