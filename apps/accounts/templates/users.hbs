@@ -571,3 +571,57 @@
         </div>
     </div>
 {% endtplhandlebars %}
+
+{% tplhandlebars "request_password_reset" %}
+
+<form>
+    <p>{% trans "Leave your email address and we'll send you a link to set a new password." %}</p>
+    <div class="control-group">
+        <div class="control-label">{% trans "Email address" %}</div>
+
+        <div class="controls">
+            <input id="passwordResetEmail" type="text" />
+        </div>
+    </div>
+</form>
+
+{% endtplhandlebars %}
+
+{% tplhandlebars "password_reset" %}
+
+<div class="modal">
+    <div class="modal-header">
+        <h3>{% trans "Reset your password" %}</h3>
+    </div>
+
+    <div class="modal-body">
+        <form>
+            <div class="control-group">
+                <div class="control-label">{% trans "New password" %}</div>
+
+                <div class="controls">
+                    {{view Em.TextField type="password" valueBinding="new_password1" classBinding="errors.new_password1.length:error"}}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">{% trans "Confirm new password" %}</div>
+
+                <div class="controls">
+                    {{view Em.TextField type="password" valueBinding="new_password2" classBinding="errors.new_password2.length:error"}}
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-iconed right" {{action 'resetPassword' model}}>
+            <i class="icon icon-ok"></i>
+            {% trans "Reset password" %}
+        </button>
+    </div>
+</div>
+
+<div class="modal-backdrop"></div>
+
+{% endtplhandlebars %}

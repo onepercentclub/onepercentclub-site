@@ -120,7 +120,19 @@ App.CurrentUser = App.UserPreview.extend({
 
     // This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
     // App.UserSettingsModel.find(App.CurrentUser.find('current').get('id_for_ember'));
-    id_for_ember: DS.attr('number')
+    id_for_ember: DS.attr('number'),
+
+    becameError: function() {
+        this.get('stateManager').transitionTo('loaded.saved');
+    }
+});
+
+
+App.PasswordReset = DS.Model.extend({
+    url: 'users/passwordset',
+
+    new_password1: DS.attr('string'),
+    new_password2: DS.attr('string')
 });
 
 
@@ -237,7 +249,13 @@ App.SignupController = Ember.ObjectController.extend({
 });
 
 
+App.PasswordResetController = Ember.ObjectController.extend({
+    resetPassword: function(record) {
+        record.get('transaction').commit();
+    }
+});
+
+
 App.UserModalView = Em.View.extend({
     templateName: 'user_modal'
 });
-

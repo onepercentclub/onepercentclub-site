@@ -231,6 +231,7 @@ Commented out until we have time to fully implement this.
         </div>
 
         <div class="modal-footer">
+            <a class="left" {{ action requestPasswordReset }}>{% trans "I forgot my password" %}</a>
             <input class="btn right" type="submit" value="Login">
             <input type="hidden" name="next" {{bindAttr value="view.next"}}>
         </div>

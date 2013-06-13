@@ -204,7 +204,8 @@ App.Adapter = DS.DRF2Adapter.extend({
         "projects/wallposts/text": "projects/wallposts/text",
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
-        "users/activate": "users/activate"
+        "users/activate": "users/activate",
+        "users/passwordset": "users/passwordset"
     }
 });
 
@@ -378,6 +379,8 @@ App.Router.map(function() {
 
         this.route('activate', {path: '/activate/:activation_key'});
     });
+
+    this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
 });
 
 App.ApplicationRoute = Ember.Route.extend({
@@ -925,6 +928,21 @@ App.SignupRoute = Ember.Route.extend({
 });
 
 
+App.PasswordResetRoute = Ember.Route.extend({
+    model: function(params) {
+        var record = App.PasswordReset.createRecord({
+            id: params.reset_token
+        });
+
+        // Need this so that the adapter makes a PUT instead of POST
+        record.get('stateManager').transitionTo('loaded.saved');
+
+        this.get('store').transaction().add(record);
+        return record;
+    }
+});
+
+
 /**
  * Tasks Routes
  */
@@ -934,6 +952,54 @@ App.TaskListRoute =  Ember.Route.extend({
         return App.Task.find();
     }
 });
+
+
+App.LoginController = Em.Controller.extend({
+
+    requestPasswordReset: function() {
+        var view = Em.View.extend({
+            templateName: 'request_password_reset'
+        });
+
+        Bootstrap.ModalPane.popup({
+            classNames: ['modal'],
+            heading: 'Forgot your password?',
+            bodyViewClass: view,
+            primary: null,
+            secondary: 'Reset',
+            callback: function(opts, e) {
+                if (opts.secondary) {
+                    var $btn = $(e.target),
+                        $modal = $btn.closest('.modal'),
+                        $emailInput = $modal.find('#passwordResetEmail'),
+                        email = $emailInput.val();
+
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/i18n/api/users/passwordreset',
+                        data: JSON.stringify({email: email}),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        context: this,
+                        success: function() {
+                            var $successText = $("<p>YOU'VE GOT MAIL!</p><p>We've send you a link to reset your password, so check your mailbox.</p><br><p>(No mail? It might have ended up in your spam folder)</p>");
+                            $modal.find('form').replaceWith($successText);
+                        },
+                        error: function(xhr) {
+                            var error = $.parseJSON(xhr.responseText);
+                            $emailInput.addClass('error').val(error.email);
+                        }
+                    });
+
+                }
+
+                return false;
+            }
+        })
+    }
+});
+
 
 /* Views */
 
@@ -949,14 +1015,6 @@ App.LanguageSwitchView = Ember.CollectionView.extend({
     itemViewClass: App.LanguageView
 });
 
-
-/* Login */
-
-
-App.LoginController = Em.Controller.extend({
-    // We need this because openInBox relies on the controller being specified.
-
-});
 
 App.LoginView = Em.View.extend({
     templateName: 'login',

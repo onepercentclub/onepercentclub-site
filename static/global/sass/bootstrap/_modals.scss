@@ -58,7 +58,6 @@
 .modal-header {
   @include clearfix;
   padding: 9px 15px;
-  border-bottom: 1px solid #eee;
   // Close icon
   .close {
     margin-top: 2px;
@@ -70,7 +69,11 @@
   h3 {
     margin: 0;
     line-height: 30px;
-    padding: 4px 0px;
+    padding: 16px 0 0;
+    font-size: 30px;
+    font-weight: 600;
+    color: $pink;
+    text-transform: uppercase;
   }
 }
 
