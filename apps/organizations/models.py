@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.template.defaultfilters import slugify
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
@@ -23,6 +24,12 @@ class Organization(models.Model):
     legal_status = models.TextField(_("legal status"), blank=True, help_text=_("The legal status of the organization (e.g. Foundation)."))
     phone_number = models.CharField(_("phone number"), max_length=40, blank=True)
     website = models.URLField(_("website"), blank=True)
+
+    email = models.EmailField(blank=True)
+    twitter = models.CharField(_("twitter"), max_length=255, blank=True)
+    facebook = models.CharField(_("facebook"), max_length=255, blank=True)
+    skype = models.CharField(_("skype"), max_length=255, blank=True)
+
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
@@ -49,6 +56,10 @@ class Organization(models.Model):
         ordering = ['name']
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
+
+    def full_clean(self, exclude=None):
+        if not self.slug:
+            self.slug = slugify(self.name)
 
 
 class OrganizationMember(models.Model):

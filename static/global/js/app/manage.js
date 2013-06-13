@@ -2,11 +2,56 @@
  Models
  */
 
+App.AddressTypeSelectView = Em.Select.extend({
+    content: [
+        {value: 'physical', title: "Physical"},
+        {value: 'postal', title: "Postal"},
+        {value: 'other', title: "Other"}
+    ],
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title"
+});
+
+App.MyOrganizationAddress = DS.Model.extend({
+    url: 'organizations/addresses/manage',
+
+    organization: DS.belongsTo('App.MyOrganization'),
+    type: DS.attr('string'),
+    line1: DS.attr('string'),
+    line2: DS.attr('string', {defaultValue: ''}),
+    postal_code: DS.attr('string'),
+    city: DS.attr('string'),
+    country: DS.attr('string'),
+    type: DS.attr('string', {defaultValue: 'physical'})
+
+});
+
+App.MyOrganizationDocuments = DS.Model.extend({
+    url: 'organizations/documents/manage',
+
+    organization: DS.belongsTo('App.MyOrganization'),
+    file: DS.attr('string')
+});
+
 App.MyOrganization = DS.Model.extend({
     url: 'organizations/manage',
     name: DS.attr('string'),
     description: DS.attr('string'),
-    website: DS.attr('string')
+
+    // Internet
+    website: DS.attr('string'),
+    email: DS.attr('string'),
+    facebook: DS.attr('string'),
+    twitter: DS.attr('string'),
+    skype: DS.attr('string'),
+
+    // Addresses
+    addresses: DS.hasMany('App.MyOrganizationAddress'),
+
+    // Legal
+    legal_status: DS.attr('string'),
+    documents: DS.hasMany('App.MyOrganizationDocuments'),
+    registration: DS.attr('string')
 });
 
 App.OrganizationSelectView = Em.Select.extend({
@@ -165,9 +210,6 @@ App.MyProject = DS.Model.extend({
 });
 
 
-
-
-
 /*
  Controllers
  */
@@ -233,15 +275,92 @@ App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {
 
 App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editable, {
 
+    shouldSave: function(){
+        // Determine if any part is dirty, project plan, org or any of the org addresses
+        if (this.get('isDirty')) {
+            return true;
+        }
+        if (this.get('organization.isDirty')) {
+            return true;
+        }
+        var addresses = this.get('organization.addresses');
+        var dirty = false;
+        addresses.forEach(function(ad){
+             if (ad.get('isDirty')) {
+                 dirty = true;
+             }
+
+        });
+        return dirty;
+    }.property('organization.isLoaded', 'organization.addresses.@each.isDirty'),
+
+    addAddress: function(){
+        // Use the same transaction as the projectplan
+        var transaction =  this.get('model').transaction;
+        var address = transaction.createRecord(App.MyOrganizationAddress, {});
+        this.get('model.organization.addresses').pushObject(address);
+    },
+
+    removeAddress: function(address){
+        address.deleteRecord();
+    },
+
+
     selectOrganization: function(org){
-        console.log('select org');
-        console.log(org);
+        // Use the same transaction as the projectplan
+        var transaction =  this.get('model').transaction;
+        transaction.add(org);
         this.set('model.organization', org);
+        if (this.get('model.organization.addresses.length') == 0) {
+            this.addAddress();
+        }
     },
     createNewOrganization: function() {
-        console.log('create new org');
+        // Use the same transaction as the projectplan
+        var transaction =  this.get('model').transaction;
+        var org = transaction.createRecord(App.MyOrganization, {});
+        this.set('model.organization', org);
+        this.addAddress();
     }
 });
+
+
+App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
+
+    // This a temporary container for App.Document records until they are connected to the Organization
+    files: Em.A(),
+
+    shouldSave: function(){
+        // Determine if any part is dirty, project plan, org or any of the org addresses
+        if (this.get('isDirty')) {
+            return true;
+        }
+        if (this.get('organization.isDirty')) {
+            return true;
+        }
+    }.property('organization.isLoaded'),
+
+    addFile: function(file) {
+        var transaction = this.get('store').transaction();
+        var photo = transaction.createRecord(App.ProjectWallPostPhoto);
+        // Connect the file to it. DRF2 Adapter will sort this out.
+        photo.set('file', file);
+        this.get('files').pushObject(photo);
+        transaction.commit();
+        // Store the photo in this.files. We need to connect it to the wallpost later.
+    },
+
+    removePhoto: function(photo) {
+        var transaction = this.get('store').transaction();
+        transaction.add(photo);
+        photo.deleteRecord();
+        transaction.commit();
+        // Remove it from temporary array too.
+        this.get('files').removeObject(photo);
+    }
+
+});
+
 
 
 /*
@@ -322,6 +441,10 @@ App.MyProjectPlanMediaView = Em.View.extend(App.PopOverMixin, {
 
 App.MyProjectPlanOrganisationView = Em.View.extend(App.PopOverMixin, {
     templateName: 'my_project_plan_organisation'
+});
+
+App.MyProjectPlanLegalView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_legal'
 });
 
 

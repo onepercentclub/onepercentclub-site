@@ -243,6 +243,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
         "organizations/manage": "organizations/manage",
+        "organizations/addresses/manage": "organizations/addresses/manage",
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
@@ -250,6 +251,10 @@ App.Adapter = DS.DRF2Adapter.extend({
     }
 });
 
+// Assigning plurals for model properties doesn't seem to work with extend, it does this way:
+App.Adapter.configure("plurals", {
+    "address": "addresses"
+});
 
 App.Adapter.map(
     'App.Payment', {
@@ -367,6 +372,12 @@ App.Adapter.map('App.MyProjectPitch', {
     tags: {embedded: 'always'}
 });
 
+App.Adapter.map('App.MyOrganization', {
+    addresses: {embedded: 'load'}
+});
+
+
+
 App.Store = DS.Store.extend({
     revision: 11,
     adapter: 'App.Adapter'
@@ -456,7 +467,7 @@ App.Router.map(function() {
             this.route('media');
 
             this.route('organisation');
-            this.route('legal_status');
+            this.route('legal');
             this.route('ambassadors');
             this.route('bank');
 
@@ -1235,10 +1246,13 @@ App.MyProjectPlanSubmitRoute =  App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanOrganisationRoute =  App.MyProjectPlanSubRoute.extend({
     setupController: function(controller, model){
-        controller.set('organizations', App.MyOrganization.find());
         this._super(controller, model);
+        controller.set('organizations', App.MyOrganization.find());
     }
 });
+
+App.MyProjectPlanLegalRoute =  App.MyProjectPlanSubRoute.extend({});
+
 
 App.MyProjectPlanIndexRoute =  Ember.Route.extend({
     redirect: function() {
@@ -1256,7 +1270,6 @@ App.MyProjectPlanIndexRoute =  Ember.Route.extend({
         }
     },
     model: function(params) {
-        console.log(this.modelFor('myProject').get('plan'));
         return this.modelFor('myProject').get('plan');
     }
 });

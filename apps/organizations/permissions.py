@@ -1,3 +1,4 @@
+from apps.organizations.models import Organization
 from rest_framework import permissions
 
 class IsOrganizationMember(permissions.BasePermission):
@@ -6,4 +7,7 @@ class IsOrganizationMember(permissions.BasePermission):
     """
 
     def has_object_permission(self, request, view, obj):
-        return request.user.id in obj.organizationmember_set.values_list('user_id', flat=True)
+        if isinstance(obj, Organization):
+            return request.user.id in obj.organizationmember_set.values_list('user_id', flat=True)
+        return request.user.id in obj.organization.organizationmember_set.values_list('user_id', flat=True)
+
