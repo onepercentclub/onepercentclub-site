@@ -1,5 +1,6 @@
 import decimal
 import logging
+from django.contrib.contenttypes.models import ContentType
 from django.http import request
 import os
 import sys
@@ -19,7 +20,7 @@ from micawber.parsers import standalone_url_re, full_handler
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
 from django.utils.translation import ugettext as _
-
+from django.core.urlresolvers import reverse
 
 logger = logging.getLogger(__name__)
 
@@ -285,53 +286,58 @@ class EuroField(serializers.WritableField):
         return int(decimal.Decimal(value) * 100)
 
 
-class HyperlinkedFileField(serializers.FileField):
-    def to_native(self, value):
-        request = self.context.get('request', None)
-        return request.build_absolute_uri(value.url)
-
-
-class FileSizeField(serializers.FileField):
-    def to_native(self, value):
-        try:
-            size = defaultfilters.filesizeformat(value.size)
-        except OSError:
-            size = _('File not found')
-        return size
-
-
 class FileSerializer(serializers.FileField):
-
-    def from_native(self, data):
-
-        # UploadedFile objects should have name and size attributes.
-        try:
-            file_name = data.name
-            file_size = data.size
-        except AttributeError:
-            raise ValidationError(self.error_messages['invalid'])
-
-        if self.max_length is not None and len(file_name) > self.max_length:
-            error_values = {'max': self.max_length, 'length': len(file_name)}
-            raise ValidationError(self.error_messages['max_length'] % error_values)
-        if not file_name:
-            raise ValidationError(self.error_messages['invalid'])
-        if not self.allow_empty_file and not file_size:
-            raise ValidationError(self.error_messages['empty'])
-
-        return data
-
-    def to_native(self, value):
-        return {'name': os.path.basename(value.name),
-                'file': value.url,
-                'size': defaultfilters.filesizeformat(value.size)}
-
-
-class PrivateFileSerializer(FileSerializer):
 
     def to_native(self, value):
         return {'name': os.path.basename(value.name),
                 'url': value.url,
+                'size': defaultfilters.filesizeformat(value.size)}
+
+
+class ImageSerializer(serializers.ImageField):
+
+    crop = 'center'
+
+
+    def to_native(self, value):
+        if not value:
+            return None
+
+        # The get_thumbnail() helper doesn't respect the THUMBNAIL_DEBUG setting
+        # so we need to deal with exceptions like is done in the template tag.
+        thumbnail = ""
+        try:
+            large = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x450', crop=self.crop))
+            background = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x450', crop=self.crop))
+            small = settings.MEDIA_URL + unicode(get_thumbnail(value, '200x120', crop=self.crop))
+            square = settings.MEDIA_URL + unicode(get_thumbnail(value, '120x120', crop=self.crop, colorspace="GRAY"))
+        except Exception:
+            if getattr(settings, 'THUMBNAIL_DEBUG', None):
+                raise
+            logger.error('Thumbnail failed:', exc_info=sys.exc_info())
+            return None
+        request = self.context.get('request')
+        if request:
+            return {
+                    'large': request.build_absolute_uri(large),
+                    'background': request.build_absolute_uri(background),
+                    'small': request.build_absolute_uri(small),
+                    'square': request.build_absolute_uri(square),
+                }
+        return {'large': large, 'background': background, 'small': small, 'square': square}
+
+
+class PrivateFileSerializer(FileSerializer):
+
+    def field_to_native(self, obj, field_name):
+        value = getattr(obj, self.source or field_name)
+        content_type = ContentType.objects.get_for_model(self.parent.Meta.model).id
+        pk = obj.pk
+        url = reverse('document-download-detail', kwargs={'content_type': content_type, 'pk': pk})
+        if not value:
+            return None
+        return {'name': os.path.basename(value.name),
+                'url': url,
                 'size': defaultfilters.filesizeformat(value.size)}
 
 

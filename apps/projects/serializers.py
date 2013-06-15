@@ -1,11 +1,11 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
-from apps.projects.models import ProjectPitch, ProjectPlan
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, TaggableSerializerMixin, TagSerializer
+from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, TaggableSerializerMixin, TagSerializer, ImageSerializer
 from apps.geo.models import Country
 from .models import Project
 
@@ -52,15 +52,12 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
 
-    image = SorlImageField('image', '800x450', required=False)
-    image_bg = SorlImageField('image', '800x450', colorspace="GRAY", read_only=True)
-    image_small = SorlImageField('image', '200x120', read_only=True)
-    image_square = SorlImageField('image', '120x120', read_only=True)
+    image = ImageSerializer(required=False)
 
     class Meta:
         model = ProjectPitch
         fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
-                  'status', 'image', 'image_bg', 'image_small', 'image_square')
+                  'status', 'image')
 
 
 class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
@@ -74,22 +71,27 @@ class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializ
         return attrs
 
 
+class ProjectAmbassadorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectAmbassador
+        fields = ('id', 'email', 'name', 'project_plan', 'description')
+
+
 class ProjectPlanSerializer(serializers.ModelSerializer):
 
     country = ProjectCountrySerializer()
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
     organization = serializers.PrimaryKeyRelatedField(source="organization")
+    ambassadors = ProjectAmbassadorSerializer(many=True, source='projectambassador_set')
 
-    image = SorlImageField('image', '800x450', required=False)
-    image_bg = SorlImageField('image', '800x450', colorspace="GRAY", read_only=True)
-    image_small = SorlImageField('image', '200x120', read_only=True)
-    image_square = SorlImageField('image', '120x120', read_only=True)
+    image = ImageSerializer(required=False)
 
     class Meta:
         model = ProjectPlan
         fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
-                  'status', 'image', 'image_bg', 'image_small', 'image_square', 'organization')
+                  'status', 'image', 'organization', 'ambassadors')
 
 
 class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer):

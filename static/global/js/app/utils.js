@@ -180,25 +180,43 @@ App.Editable = Ember.Mixin.create({
     }).property('saving')
 });
 
+
 App.UploadFile = Ember.TextField.extend({
+    attributeBindings: ['name', 'accept'],
     type: 'file',
-    attributeBindings: ['name'],
     change: function (evt) {
-        var self = this;
-        var input = evt.target;
-        var self = this;
-        var input = evt.target;
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            var that = this;
-            reader.onload = function (e) {
-                var fileToUpload = e.srcElement.result;
-                self.get('controller').set(self.get('name'), fileToUpload);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
+        var files = evt.target.files;
+        var reader = new FileReader();
+        var file = files[0];
+        reader.readAsDataURL(file);
+        this.set('value', file);
+
     }
 });
+
+
+App.UploadFileView = Ember.TextField.extend({
+    type: 'file',
+    attributeBindings: ['name', 'accept'],
+
+    contentBinding: 'parentView.controller.content',
+
+    change: function(e) {
+        var controller = this.get('controller');
+        var files = e.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+            var file = files[i];
+            // TODO: enable client site previews with: reader.onload = function(e){}
+            reader.readAsDataURL(file);
+            this.get('controller').addFile(file);
+        }
+        // Clear the input field after uploading.
+        e.target.value = null;
+    }
+});
+
+
 
 
 // See/Use App.DatePicker

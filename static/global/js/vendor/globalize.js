@@ -540,6 +540,7 @@ formatDate = function( value, format, culture ) {
 	}
 
     function getFuzzyInterval(level, amount, fuzzy) {
+        //console.log(amount + ' ' + level);
         if (Math.floor(amount) == 1) {
             return fuzzy['future'].replace('%',  "1 " + fuzzy[level][0] );
         }
@@ -556,6 +557,7 @@ formatDate = function( value, format, culture ) {
     }
 
     function fromNow( value, fuzzy ) {
+
 
         var now = new Date();
 

@@ -1,8 +1,8 @@
-from apps.projects.models import ProjectPitch, ProjectPlan
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -190,6 +190,21 @@ class ManageProjectPlanDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPlan
     serializer_class = ManageProjectPlanSerializer
     # permission_classes = IsProjectOwner
+
+
+class ManageProjectAmbassadortList(generics.ListCreateAPIView):
+    model = ProjectAmbassador
+    serializer_class = ProjectAmbassadorSerializer
+    paginate_by = 20
+    filter = ('organization', )
+
+
+class ManageProjectAmbassadorDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = ProjectAmbassador
+    serializer_class = ProjectAmbassadorSerializer
+    paginate_by = 20
+    filter = ('organization', )
+
 
 
 # Django template Views

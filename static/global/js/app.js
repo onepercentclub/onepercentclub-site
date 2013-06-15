@@ -245,6 +245,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "organizations/manage": "organizations/manage",
         "organizations/addresses/manage": "organizations/addresses/manage",
         "organizations/documents/manage": "organizations/documents/manage",
+        "projects/ambassadors/manage": "projects/ambassadors/manage",
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
@@ -366,6 +367,7 @@ App.Adapter.map('App.ProjectPitch', {
 });
 
 App.Adapter.map('App.MyProjectPlan', {
+    ambassadors: {embedded: 'load'},
     tags: {embedded: 'always'}
 });
 
@@ -564,6 +566,12 @@ App.ApplicationRoute = Ember.Route.extend({
                 message: "This needs some text....",
                 secondary: 'Close'
             });
+        },
+        showProject: function(project_id) {
+            var route = this;
+            App.Project.find(project_id).then(function(project){
+                route.transitionTo('project', project);
+            });
         }
     }
 });
@@ -602,13 +610,15 @@ App.ProjectRoute = Ember.Route.extend({
 App.ProjectIndexRoute = Ember.Route.extend({
 
     model: function(params){
-        return this.modelFor('project').get('wallposts');
+        return this.modelFor('project');
     },
     setupController: function(controller, model) {
         // Empty the items and set page to 0 so we don't show wallposts from previous project
         controller.set('items', Em.A());
         controller.set('page', 0);
-        this._super(controller, model);
+        // For now only point to wallposts here rather then in model() for that breaks on bookmarks
+        // FIXME: proper implementation
+        this._super(controller, model.get('wallposts'));
     }
 
 });
@@ -1248,6 +1258,7 @@ App.MyProjectPlanSubRoute = Ember.Route.extend({
 App.MyProjectPlanBasicsRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanLocationRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanMediaRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanAmbassadorsRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanSubmitRoute =  App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanOrganisationRoute =  App.MyProjectPlanSubRoute.extend({
@@ -1256,6 +1267,9 @@ App.MyProjectPlanOrganisationRoute =  App.MyProjectPlanSubRoute.extend({
         controller.set('organizations', App.MyOrganization.find());
     }
 });
+
+App.MyProjectPlanBankRoute = App.MyProjectPlanSubRoute.extend({});
+
 
 App.MyProjectPlanLegalRoute =  App.MyProjectPlanSubRoute.extend({});
 

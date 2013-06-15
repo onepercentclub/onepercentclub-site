@@ -19,10 +19,10 @@
                                 {% trans "PITCH" %}
                             {{/linkTo}}
                         {{else}}
-                            {{#linkTo "project" project }}
+                            <a {{action "showProject" project.id }}>
                                 <span class="icon-eye-open"></span>
                                 {% trans "VIEW" %}
-                            {{/linkTo}}
+                            </a>
                         {{/if}}
                         {{#if project.isPhasePlan}}
                             {{#linkTo "myProjectPlan" project }}
@@ -417,23 +417,22 @@
 
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFileView valueBinding="image" name="image" accept="image/*" id="image"}}
+                        {{view App.UploadFile valueBinding="image" name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
                     <br />
-                    {{#if file}}
-                        {% trans "File selected. click Save to upload it." %}<br/>
-                        File: <strong>{{ file.name }}</strong><br/>
+                    {{#if image.large}}
+                        <img {{bindAttr src="image.large"}} />
                     {{else}}
-                        <img {{bindAttr src="image"}} />
+                        {% trans "File selected. click Save to upload it." %}<br/>
+                        File: <strong>{{ image.name }}</strong><br/>
                     {{/if}}
                 </div>
             </li>
         </ul>
     </fieldset>
-
-    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
 
 {% endtplhandlebars %}
 
@@ -548,7 +547,7 @@
 
                     <li class="control-group has-popover" data-content="{% trans "Do you want to remove this address?" %}">
                         <label class="control-label">
-                            <a {{action removeAddress address}}><span class="icon-plus-sign"></span> {% trans "Remove this address" %}</a>
+                            <a {{action removeAddress address}}><span class="icon-remove-sign"></span> {% trans "Remove this address" %}</a>
                         </label>
                         <hr />
                     </li>
@@ -674,9 +673,9 @@
                 {{/if}}
             </li>
 
-            <li class="control-group has-popover" data-content="{% trans "Please scan and upload your  passport or ID. Don’t have it? It is also possible to upload the passport of ID of the person named in the registration document." %}">
+            <li class="control-group has-popover" data-content="{% trans "Please scan and upload your passport or ID and the registration document. Don’t have it? It is also possible to upload the passport of ID of the person named in the registration document." %}">
                 <label class="control-label">
-                    {% trans "Passports" %} ({{organization.documents.length}})
+                    {% trans "Documents" %} ({{organization.documents.length}})
                 </label>
 
                 <div class="controls project-pic-uploader">
@@ -688,25 +687,10 @@
                     <br />
                     {{#each doc in organization.documents}}
                         <a {{action removeFile doc}}><span class="icon-remove-sign"></span></a>
-                        <a {{bindAttr href=doc.file.url}} target="_blank">
+                        <a {{bindAttr href=doc.file.url}}>
                             {{doc.file.name}} <small>{{doc.file.size}}</small><br/>
                         </a>
                     {{/each}}
-                </div>
-            </li>
-
-            <li class="control-group has-popover" data-content="{% trans "Please scan official registration certificate of your organization and upload it here." %}">
-                <label class="control-label">
-                    {% trans "Registration document" %}
-                </label>
-
-                <div class="controls project-pic-uploader">
-                    <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFileView valueBinding="organization.registration" name="registration"}}
-                        <i class="icon icon-upload"></i>
-                        {% trans "Upload document" %}
-                    </a>
-                    <br />
                 </div>
             </li>
         </ul>
@@ -716,6 +700,206 @@
 
 {% endtplhandlebars %}
 
+
+{% tplhandlebars "my_project_plan_ambassadors" %}
+
+    <div class="form-meta">
+        <div class="form-label">{% trans "Ambassadors" %}</div>
+        <div class="form-desc">
+            {% blocktrans %}
+            An ambassador is somebody who can tell something about your smart idea or about you as a person or your
+            organisation. Ambassadors will make your story more credible and will add that little something extra.
+            You probably have lots of people in your network who can act as ambassador, but be sure it is not your
+            mom and the person meets our criteria (see FAQ).
+            <br/>
+            Do you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%Profile and post a
+            short comment on your project page to promote your smart idea.
+            {% endblocktrans %}
+        </div>
+    </div>
+
+    <fieldset>
+        <ul>
+            {{#each ambassador in ambassadors}}
+
+                <li class="control-group has-popover" data-content="{% trans "Email address of the amabassador" %}">
+                    <label class="control-label">{% trans "Name" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="ambassador.name" classBinding="ambassador.errors.name.length:error"}}
+                    </div>
+
+                    {{#if ambassador.errors.name }}
+                        <div class="errors">{{#each ambassador.errors.name }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Email address of the amabassador" %}">
+                    <label class="control-label">{% trans "Email" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="ambassador.email" classBinding="ambassador.errors.email.length:error"}}
+                    </div>
+
+                    {{#if ambassador.errors.email }}
+                        <div class="errors">{{#each ambassador.errors.email }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Can you tell something more about this ambassador." %}">
+                    <label class="control-label">{% trans "Description" %}</label>
+                    <div class="controls">
+                        {{view Em.TextArea valueBinding="ambassador.description" classBinding="ambassador.errors.description.length:error"}}
+                    </div>
+
+                    {{#if ambassador.errors.description }}
+                        <div class="errors">{{#each ambassador.errors.description }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Do you want to remove this ambassador?" %}">
+                    <label class="control-label">
+                        <a {{action removeAmbassador ambassador}}><span class="icon-remove-sign"></span> {% trans "Remove this ambassador" %}</a>
+                    </label>
+                    <hr />
+                </li>
+            {{/each}}
+            <li class="control-group has-popover" data-content="{% trans "You should at least at three ambassadors." %}">
+                <label class="control-label">
+                    <a {{action addAmbassador}}><span class="icon-plus-sign"></span> {% trans "Add another ambassador" %}</a>
+                </label>
+            </li>
+        </ul>
+    </fieldset>
+
+    <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "my_project_plan_bank" %}
+
+    <div class="form-meta">
+        <div class="form-label">{% trans "Bank details" %}</div>
+        <div class="form-desc">{% trans "Need some info here..." %}</div>
+    </div>
+
+    {{#if organization.isLoaded}}
+        <fieldset>
+            <ul>
+                <li class="control-group has-popover" data-content="{% trans "Name of the bank that holds your acount." %}">
+                    <label class="control-label">{% trans "Account bank name" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_bank_name" classBinding="organization.errors.account_bank_name.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_bank_name }}
+                        <div class="errors">{{#each organization.errors.account_bank_name }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Address of the bank." %}">
+                    <label class="control-label">{% trans "Bank address" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_bank_address" classBinding="organization.errors.account_bank_address.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_bank_address }}
+                        <div class="errors">{{#each organization.errors.account_bank_address }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Country of the bank." %}">
+                    <label class="control-label">{% trans "Bank country" %}</label>
+                    <div class="controls">
+                        {{view App.CountrySelectView valueBinding="organization.account_bank_country" classBinding="organization.errors.account_bank_country.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_bank_country }}
+                        <div class="errors">{{#each organization.errors.account_bank_country }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Bank account number." %}">
+                    <label class="control-label">{% trans "Account number" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_number" classBinding="organization.errors.account_number.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_number }}
+                        <div class="errors">{{#each organization.errors.account_number }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Name of the bank account holder." %}">
+                    <label class="control-label">{% trans "Account name" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_name" classBinding="organization.errors.account_name.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_name }}
+                        <div class="errors">{{#each organization.errors.account_name }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Account holder city" %}">
+                    <label class="control-label">{% trans "Account city" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_city" classBinding="organization.errors.account_city.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_city }}
+                        <div class="errors">{{#each organization.errors.account_city }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "You ony have to enter this if your country supports IBAN." %}">
+                    <label class="control-label">{% trans "Account IBAN" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_iban" classBinding="organization.errors.account_iban.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_iban }}
+                        <div class="errors">{{#each organization.errors.account_iban }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "BIC/SWIFT code for your bank" %}">
+                    <label class="control-label">{% trans "Bank BIC/SWIFT code" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_bic" classBinding="organization.errors.account_bic.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_bic }}
+                        <div class="errors">{{#each organization.errors.account_bic }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Do we need more information to make an eventual bank transfer?" %}">
+                    <label class="control-label">{% trans "Extra info" %}</label>
+                    <div class="controls">
+                        {{view Em.TextArea valueBinding="organization.account_other" classBinding="organization.errors.account_other.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_other }}
+                        <div class="errors">{{#each organization.errors.account_other }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+            </ul>
+        </fieldset>
+        <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+
+    {{else}}
+        {{#if organization}}
+            {% trans "Loading data" %}
+        {{else}}
+            {% trans "You should create an organisation profile first." %}
+        {{/if}}
+    {{/if}}
+
+
+{% endtplhandlebars %}
 
 
 {% tplhandlebars "my_pitch_index" %}

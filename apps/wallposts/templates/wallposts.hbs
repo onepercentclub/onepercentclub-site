@@ -136,10 +136,11 @@
 
     {{ render "projectWallPostNew" }}
 
+
     <section class="wrapper">
-        {{#each items itemController="wallPost"}}
-            {{#if this.isLoaded}}
-                {{view "App.ProjectWallPostView" content=model}}
+        {{#each item in items itemController="wallPost"}}
+            {{#if item.isLoaded}}
+                {{view "App.ProjectWallPostView"}}
             {{/if}}
         {{/each}}
 

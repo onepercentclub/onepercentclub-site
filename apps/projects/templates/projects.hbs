@@ -36,7 +36,7 @@
 
         <section class="wrapper">
             <figure class="media">
-                <img {{bindAttr src="plan.image"}} width="100%" alt="Photo" />
+                <img {{bindAttr src="plan.image.large"}} width="100%" alt="Photo" />
             </figure>
 
             <article>
@@ -93,13 +93,16 @@
 
             <ul class="tabs">
                 <li class="tab-updates">
-                    {{#linkTo "project"}}
+                    {{#linkTo "project.index"}}
                         <em class="tab-icon amount">{{wallposts.length}}</em>
                         <strong class="tab-title">
                             Project Updates
+
                             {{#if wallposts.length}}
                                 {{#if wallposts.firstObject.isLoaded}}
                                     <em class="tab-subtitle">{% trans "Last:" %} {{localize wallposts.firstObject.created formatting="X"}} </em>
+                                {{else}}
+                                    <em class="tab-subtitle">{% trans "..." %}</em>
                                 {{/if}}
                             {{else}}
                                 <em class="tab-subtitle">{% trans "No updates yet" %}</em>

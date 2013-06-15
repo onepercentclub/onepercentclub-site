@@ -31,6 +31,7 @@ class Organization(models.Model):
     skype = models.CharField(_("skype"), max_length=255, blank=True)
 
     legal_status =  models.CharField(max_length=255, blank=True)
+    registration =  models.FileField(upload_to='organizations/registrations', storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT), null=True, blank=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
@@ -100,7 +101,7 @@ class OrganizationDocument(models.Model):
     """ Document for an Organization """
 
     organization = models.ForeignKey(Organization, verbose_name=_("organization"))
-    file = models.FileField(upload_to='organizations/documents',storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT))
+    file = models.FileField(upload_to='organizations/documents', storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('author'), blank=True, null=True)
 
     class Meta:

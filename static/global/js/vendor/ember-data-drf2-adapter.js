@@ -24,6 +24,14 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
                 return Ember.isNone(deserialized) ? null : deserialized;
             }
         });
+        this.registerTransform('image', {
+            deserialize: function(serialized) {
+                return Ember.isNone(serialized) ? null : Em.A(serialized);
+            },
+            serialize: function(deserialized) {
+                return Ember.isNone(deserialized) ? null : deserialized;
+            }
+        });
     },
 
     /**
@@ -125,81 +133,27 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
         var data = {};
         data = this.serialize(record, { includeId: true });
-
-        // TODO: Create a general solution for detecting when to use multipart/form-data (i.e. detecting
-        //       when there are files that need to be sent).
-        if (type.toString() == "App.ProjectWallPostPhoto" && record.get('photo') != "") {
-            // TODO: Implement this polyfill for older browsers:
-            // https://github.com/francois2metz/html5-formdata
+        var hasFile = false;
+        for (key in data) {
+            if (record.get(key) instanceof File) {
+                hasFile = true;
+            }
+        }
+        if (hasFile) {
             var formdata = new FormData();
-            Object.keys(data).forEach(function(key) {
+            for (key in data) {
                 if (data[key] !== undefined) {
-                    // TODO: This won't be hardcoded when a general solution for detecting when to use
-                    //       multipart/form-data is worked out.
-                    if (key == 'photo') {
-                        var file = record.get('file');
-                        formdata.append('photo', file);
-                    } else {
-                        formdata.append(key, data[key]);
-                    }
-                }
-            });
-
-            this.ajaxFormData(this.buildURL(root), "POST", {
-                data: formdata,
-                context: this,
-                success: function(json) {
-                    Ember.run(this, function() {
-                        this.didCreateRecord(store, type, record, json);
-                    });
-                },
-                // Make sure we parse any errors.
-                error: function(xhr) {
-                    this.didError(store, type, record, xhr);
-                }
-            });
-        } else if (type.toString() == "App.MyOrganizationDocument" && record.get('file') != "") {
-            var formdata = new FormData();
-            Object.keys(data).forEach(function(key) {
-                if (data[key] !== undefined) {
-                    console.log(file);
-                    if (key == 'file') {
-                        var file = record.get('file');
+                    if (data[key] instanceof File) {
+                        var file = record.get(key);
                         formdata.append('file', file);
+                    } else if (Em.typeOf(data[key]) == 'array'){
+                        // Take care of nested resources
+                        formdata.append(key, JSON.stringify(data[key]));
                     } else {
                         formdata.append(key, data[key]);
                     }
                 }
-            });
-
-            this.ajaxFormData(this.buildURL(root), "POST", {
-                data: formdata,
-                context: this,
-                success: function(json) {
-                    Ember.run(this, function() {
-                        this.didCreateRecord(store, type, record, json);
-                    });
-                },
-                // Make sure we parse any errors.
-                error: function(xhr) {
-                    this.didError(store, type, record, xhr);
-                }
-            });
-
-        } else if (type.toString() == "App.TaskFile" && record.get('file')) {
-            // TODO: Implement this polyfill for older browsers:
-            // https://github.com/francois2metz/html5-formdata
-            var formdata = new FormData();
-            Object.keys(data).forEach(function(key) {
-                if (data[key] !== undefined) {
-                    if (key == 'file') {
-                        var file = record.get('file');
-                        formdata.append('file', file);
-                    } else {
-                        formdata.append(key, data[key]);
-                    }
-                }
-            });
+            }
 
             this.ajaxFormData(this.buildURL(root), "POST", {
                 data: formdata,
@@ -235,7 +189,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     /**
      * Changes from default:
      * - Don't embed record within 'root' in the json.
-     * TODO: Add support for multipart/form-data form submission.
+     * - Add support for multipart/form-data form submission.
      */
     updateRecord: function(store, type, record) {
         var id = get(record, 'id');
@@ -243,48 +197,32 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
         var data = {};
         data = this.serialize(record);
-
-        if (type == 'App.MyProjectPitch' && record.get('file')) {
+        var data = {};
+        data = this.serialize(record, { includeId: true });
+        var hasFile = false;
+        for (key in data) {
+            if (record.get(key) instanceof File) {
+                hasFile = true;
+            }
+        }
+        if (hasFile) {
             var formdata = new FormData();
-            Object.keys(data).forEach(function(key) {
+            for (key in record) {
                 if (data[key] !== undefined) {
-                    if (key == 'image') {
-                        var file = record.get('file');
-                        formdata.append('image', file);
+                    console.log(key);
+                    console.log(data[key]);
+                    if (record.get(key) instanceof File) {
+                        console.log('yeah');
+                        var file = record.get(key);
+                        formdata.append(key, file);
                     } else if (Em.typeOf(data[key]) == 'array'){
+                        // Take care of nested resources
                         formdata.append(key, JSON.stringify(data[key]));
                     } else {
-                        console.log(Em.typeOf(data[key]));
                         formdata.append(key, data[key]);
                     }
                 }
-            });
-
-            this.ajaxFormData(this.buildURL(root, id), "POST", {
-                data: formdata,
-                context: this,
-                headers: {'X-HTTP-Method-Override': 'PUT'},
-                success: function(json) {
-                    Ember.run(this, function() {
-                        this.didSaveRecord(store, type, record, json);
-                    });
-                },
-                error: function(xhr) {
-                    this.didError(store, type, record, xhr);
-                }
-            });
-        } else if (type == 'App.User' && record.get('file')) {
-            var formdata = new FormData();
-            Object.keys(data).forEach(function(key) {
-                if (data[key] !== undefined) {
-                    if (key == 'picture') {
-                        var file = record.get('file');
-                        formdata.append('picture', file);
-                    } else {
-                        formdata.append(key, data[key]);
-                    }
-                }
-            });
+            }
 
             this.ajaxFormData(this.buildURL(root, id), "POST", {
                 data: formdata,

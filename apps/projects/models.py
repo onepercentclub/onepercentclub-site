@@ -220,18 +220,14 @@ class PartnerOrganization(models.Model):
         return self.slug
 
 
-# TODO: What is the for? Is is supposed to be reference? How is it related to Projects?
-class Referral(models.Model):
+class ProjectAmbassador(models.Model):
     """
-    People that are named as a referral.
+    People that are named as an ambassador.
     """
+    project_plan = models.ForeignKey('ProjectPlan')
     name = models.CharField(_("name"), max_length=255)
     email = models.EmailField(_("email"))
     description = models.TextField(_("description"), blank=True)
-
-    class Meta:
-        verbose_name = _("referral")
-        verbose_name_plural = _("referrals")
 
 
 class BudgetLine(models.Model):

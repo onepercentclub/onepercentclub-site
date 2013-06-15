@@ -35,7 +35,7 @@ urlpatterns = i18n_patterns('',
     url(r'^projects/', include('apps.projects.urls')),
 
     # Organization urls for downloading private documents
-    url(r'^organisations/', include('apps.organizations.urls')),
+    url(r'^documents/', include('apps.bluebottle_utils.urls')),
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls'))

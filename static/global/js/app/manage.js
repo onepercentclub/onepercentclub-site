@@ -33,6 +33,15 @@ App.MyOrganizationDocument = DS.Model.extend({
     file: DS.attr('file')
 });
 
+App.MyProjectAmbassador = DS.Model.extend({
+    url: 'projects/ambassadors/manage',
+
+    project_plan: DS.belongsTo('App.MyProjectPlan'),
+    name: DS.attr('string'),
+    email: DS.attr('string'),
+    description: DS.attr('string')
+});
+
 App.MyOrganization = DS.Model.extend({
     url: 'organizations/manage',
     name: DS.attr('string'),
@@ -51,7 +60,18 @@ App.MyOrganization = DS.Model.extend({
     // Legal
     legal_status: DS.attr('string'),
     documents: DS.hasMany('App.MyOrganizationDocument'),
-    registration: DS.attr('string')
+
+    // Bank
+    account_bank_name: DS.attr('string'),
+    account_bank_address: DS.attr('string'),
+    account_bank_country: DS.attr('string'),
+    account_iban: DS.attr('string'),
+    account_bic: DS.attr('string'),
+    account_number: DS.attr('string'),
+    account_name: DS.attr('string'),
+    account_city: DS.attr('string'),
+    account_other: DS.attr('string')
+
 });
 
 
@@ -91,10 +111,7 @@ App.MyProjectPitch = DS.Model.extend({
 
 
     // Media
-    image: DS.attr('string'),
-    image_small: DS.attr('string'),
-    image_square: DS.attr('string'),
-    image_bg: DS.attr('string'),
+    image: DS.attr('image'),
 
     validMedia: function(){
         if (this.get('image')){
@@ -161,10 +178,7 @@ App.MyProjectPlan = DS.Model.extend({
 
 
     // Media
-    image: DS.attr('string'),
-    image_small: DS.attr('string'),
-    image_square: DS.attr('string'),
-    image_bg: DS.attr('string'),
+    image: DS.attr('image'),
 
     validMedia: function(){
         if (this.get('image')){
@@ -175,6 +189,9 @@ App.MyProjectPlan = DS.Model.extend({
 
     // Organization
     organization: DS.belongsTo('App.MyOrganization'),
+
+    // Ambassadors
+    ambassadors: DS.hasMany('App.MyProjectAmbassador'),
 
     // Submitting
     status: DS.attr('string'),
@@ -223,9 +240,10 @@ App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, 
 App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
     addFile: function(file) {
         var model = this.get('model');
-        model.set('file', file);
+        model.set('image', file);
+        this.set('imageSelected', true);
         model.on('didUpdate', function(){
-            model.set('file', null);
+            this.set('imageSelected', false);
         });
     }
 
@@ -259,13 +277,37 @@ App.MyProjectPlanBasicsController = Em.ObjectController.extend(App.Editable, {})
 App.MyProjectPlanDescriptionController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {});
 
-App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {
-    addFile: function(file) {
-        this.set('model.file', file);
+App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable, {
+    shouldSave: function(){
+        // Determine if any part is dirty, project plan or any of the ambassadors
+        if (this.get('isDirty')) {
+            return true;
+        }
+        var ambassadors = this.get('ambassadors');
+        var dirty = false;
+        ambassadors.forEach(function(ad){
+             if (ad.get('isDirty')) {
+                 dirty = true;
+             }
+
+        });
+        return dirty;
+    }.property('isDirty', 'ambassadors.@each.isDirty'),
+
+    addAmbassador: function(){
+        // Use the same transaction as the projectplan
+        var transaction =  this.get('model').transaction;
+        var ambassador = transaction.createRecord(App.MyProjectAmbassador, {});
+        this.get('ambassadors').pushObject(ambassador);
+    },
+
+    removeAmbassador: function(ambassador){
+        ambassador.deleteRecord();
     }
-});
 
+});
 
 App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editable, {
 
@@ -319,6 +361,22 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
 });
 
 
+
+App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
+
+    shouldSave: function(){
+        // Determine if any part is dirty, project plan, org or any of the org addresses
+        if (this.get('isDirty')) {
+            return true;
+        }
+        if (this.get('organization.isDirty')) {
+            return true;
+        }
+        return false;
+    }.property('organization.isLoaded', 'isDirty')
+});
+
+
 App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
 
     shouldSave: function(){
@@ -343,13 +401,13 @@ App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
         transaction.commit();
     },
 
+
     removeFile: function(doc) {
         var transaction = this.get('model').transaction;
         transaction.add(doc);
         doc.deleteRecord();
         transaction.commit();
     }
-
 });
 
 
@@ -436,6 +494,14 @@ App.MyProjectPlanOrganisationView = Em.View.extend(App.PopOverMixin, {
 
 App.MyProjectPlanLegalView = Em.View.extend(App.PopOverMixin, {
     templateName: 'my_project_plan_legal'
+});
+
+App.MyProjectPlanAmbassadorsView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_ambassadors'
+});
+
+App.MyProjectPlanBankView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_bank'
 });
 
 

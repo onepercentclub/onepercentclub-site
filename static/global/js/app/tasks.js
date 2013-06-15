@@ -29,8 +29,7 @@ App.TaskFile = DS.Model.extend({
     author: DS.belongsTo('App.User'),
     title: DS.attr('string'),
     created: DS.attr('date'),
-    file: DS.attr('string'),
-    file_size: DS.attr('string'),
+    file: DS.attr('file'),
     task: DS.belongsTo('App.Task')
 });
 
@@ -90,7 +89,6 @@ Preview model that won't contain all the properties.
 App.TaskPreview = App.Task.extend({
 
 });
-
 
 
 /*
@@ -155,9 +153,6 @@ App.TaskMemberController = Em.ObjectController.extend({
     isStatusRealized: function(){
         return this.get('status') == 'realized';
     }.property('status')
-
-
-
 });
 
 
@@ -213,7 +208,6 @@ App.TaskFileNewController = Em.ObjectController.extend({
     addFile: function(file) {
         this.set('model.file', file);
     }
-
 });
 
 
