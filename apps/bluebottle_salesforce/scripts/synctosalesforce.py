@@ -29,18 +29,19 @@ def sync_organizations(test_run):
 
         # # SF Layout: Address Information section.
         sforganization.external_id = organization.id
-        # if organization.address:
-        #     sforganization.billing_city = organization.organizationaddress.country.name
-            # sforganization.billing_street =
-            # sforganization.billing_postal_code =
+        # if organization.organizationaddress:
+        #     sforganization.billing_city = str(organization.organizationaddress.country.name)
+        #     sforganization.billing_street = str(organization.organizationaddress.line1) + " " + str(organization.organizationaddress.line2)
+        #     sforganization.billing_postal_code = str(organization.organizationaddress.postal_code)
         # else:
         #     sforganization.billing_city = ''
         #     sforganization.billing_street = ''
         #     sforganization.billing_postal_code = ''
-        # sforganization.email_address =
-        # sforganization.phone =
-        # sforganization.website =
         #
+        # sforganization.email_address =
+        sforganization.phone = organization.phone_number
+        sforganization.website = organization.website
+
         # # SF Layout: Bank Account section.
         sforganization.address_bank = organization.account_bank_address
         sforganization.bank_account_name = organization.account_bank_name
@@ -327,13 +328,17 @@ def sync_donations(test_run):
         except SalesforceDonation.DoesNotExist:
             sfdonation = SalesforceDonation()
 
+        # Initialize Salesforce objects.
+        sfContact = SalesforceContact.objects.filter(external_id=donation.user.id).get()
+        sfProject = SalesforceProject.objects.filter(external_id=donation.project.id).get()
+
         # SF Layout: Donation Information section.
         sfdonation.amount = donation.amount
         sfdonation.close_date = donation.created
-        sfdonation.name = str(donation.donation_type)
+        sfdonation.name = sfContact.first_name +" "+ sfContact.last_name
         # Unknown - sfdonation.payment_method =
         # Unknown - sfdonation.organization = SalesforceOrganization.objects.filter(external_id=1).get()
-        sfdonation.project = SalesforceProject.objects.filter(external_id=donation.project.id).get()
+        sfdonation.project = sfProject
         sfdonation.stage_name = donation.status
         sfdonation.opportunity_type = str(donation.donation_type)
         # SF Layout: Additional Information section.
@@ -345,7 +350,7 @@ def sync_donations(test_run):
 
         # SF: Other.
         sfdonation.external_id = donation.id
-        sfdonation.receiver = SalesforceContact.objects.filter(external_id=donation.user.id).get()
+        sfdonation.receiver = sfContact
 
         # Save the SF donation.
         if not test_run:
@@ -379,7 +384,7 @@ def sync_vouchers(test_run):
         #Unknown: sfvoucher.description = voucher.description
 
         # SF Layout: System Information section.
-        #TODO: Error - sfvoucher.receiver = SalesforceContact.objects.filter(external_id=voucher.receiver).get()
+        # TODO: Error - sfvoucher.receiver = SalesforceContact.objects.filter(external_id=voucher.receiver).get()
 
         # SF Other.
         # sfvoucher.voucher_id = voucher.id
@@ -410,7 +415,7 @@ def sync_tasks(test_run):
         sftask.task_status = task.status
         sftask.title = task.title
         sftask.task_created_date = task.created
-        sftask.tags = str(task.tags)
+        # sftask.tags = str(task.tags.all())
 
         # SF Layout: System Information section.
 
@@ -454,3 +459,4 @@ def run(test_run=False):
     sync_task_members(test_run)
     sync_donations(test_run)
     sync_vouchers(test_run)
+

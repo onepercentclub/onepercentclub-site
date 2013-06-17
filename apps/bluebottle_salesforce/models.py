@@ -159,6 +159,27 @@ class SalesforceContact(SalesforceModel):
     external_id = models.CharField(max_length=255, db_column='Contact_External_ID__c')
     tags = models.CharField(max_length=255, db_column='Tags__c')
 
+    # SF: Additional requirement not implemented yet - SFDC - Sheet 1
+    amount_of_available_time = models.CharField(max_length=255, db_column='Amount_of_available_time__c')
+    available_to_share_knowledge = models.BooleanField(db_column='Available_to_share_knowledge__c')
+    available_to_donate = models.BooleanField(db_column='Available_to_donate__c')
+    available_to_share_time = models.BooleanField(db_column='Available_to_share_time__c')
+    industry_employed_in = models.CharField(max_length=255, db_column='Industry_employed_in__c')
+    nationality = models.CharField(max_length=255, db_column='Nationality__c')
+    follows_1_club_at_twitter = models.BooleanField(db_column='Follows_1_CLUB_at_Twitter__c')
+    likes_1_club_at_facebook = models.BooleanField(db_column='Likes_1_CLUB_at_Facebook__c')
+    interested_in_theme = models.CharField(max_length=255, db_column='Interested_in_theme__c')
+    interested_in_target_group = models.CharField(max_length=255, db_column='Interested_in_target_group__c')
+    preferred_channel_for_interaction = models.CharField(max_length=255, db_column='Preferred_channel_for_interaction__c')
+
+    # SF: Additional requirement not implemented yet - SFDC - Sheet 2
+    date_of_last_donation = models.DateField(db_column='Date_of_last_donation__c')
+    total_amount_of_one_off_donation = models.PositiveIntegerField(max_length=11, db_column='Total_amount_of_one_off_donation__c')
+    number_of_one_off_donations = models.PositiveIntegerField(max_length=8, db_column='Number_of_one_off_donations__c')
+    total_amount_of_recurring_donations = models.PositiveIntegerField(max_length=11, db_column='Total_amount_of_recurring_donations__c')
+    number_of_recurring_donation = models.PositiveIntegerField(max_length=8, db_column='Number_of_recurring_donation__c')
+    number_of_received_campaigns = models.PositiveIntegerField(max_length=6, db_column='Number_of_received_campaigns__c')
+
     class Meta:
         db_table = 'Contact'
         managed = False
@@ -513,6 +534,12 @@ class SalesforceProject(SalesforceModel):
     # SF Layout: Other section.
     external_id = models.CharField(max_length=255, db_column='Project_External_ID__c')
 
+    # SF: Additional requirement not implemented yet - SFDC - Sheet 1
+    number_of_people_reached_direct = models.PositiveIntegerField(max_length=18, db_column='NumberOfPeopleReachedDirect__c')
+    number_of_people_reached_indirect = models.PositiveIntegerField(max_length=18, db_column='NumberOfPeopleReachedIndirect__c')
+    theme = models.CharField(max_length=255, db_column='Theme__c')
+    target_group = models.CharField(max_length=255, db_column='Target_group__c')
+
     class Meta:
         db_table = 'Project__c'
         managed = False
@@ -667,6 +694,9 @@ class SalesforceTask(SalesforceModel):
 
     # SF Layout: System Information section.
 
+    # SF: Additional requirement not implemented yet - SFDC - Sheet 1
+    effort_in_hours_del = models.PositiveIntegerField(max_length=19, db_column='EffortInHours_del__c')
+
     # SF: Other
     external_id = models.CharField(max_length=255, db_column='Task_External_ID__c')
 
@@ -687,6 +717,32 @@ class SalesforceTaskMembers(SalesforceModel):
 
     class Meta:
         db_table = 'Task_Members__c'
+        managed = False
+
+
+class SalesforceLoginHistory(SalesforceModel):
+    """
+    Custom X1_CLUB_Login_History__c model. For Onepercentclub the mapping is named 1%CLUB Login History.
+    New mapping to be added later on.
+    """
+
+    # SF: Additional requirement not implemented yet - Website (back office) - Sheet 3
+    bounce_rate_from_first_page = models.CharField(max_length=6, db_column='Bounce_rate_from_first_page__c')
+    contacts = models.ForeignKey(SalesforceContact, db_column='Contacts__c')
+    engagement_on_facebook = models.PositiveIntegerField(max_length=8, db_column='Engagement_on_Facebook__c')
+    engagement_on_twitter = models.PositiveIntegerField(max_length=8, db_column='Engagement_on_Twitter__c')
+    number_of_pageviews = models.PositiveIntegerField(max_length=8, db_column='Number_of_pageviews__c')
+    online_engagement_blogs = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_blogs__c')
+    online_engagement_projects = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_projects__c')
+    online_engagement_reactions_to_members = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_reactions_to_members__c')
+    online_engagement_tasks = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_tasks__c')
+    preferred_navigation_path = models.PositiveIntegerField(max_length=255, db_column='Preferred_navigation_path__c')
+    shares_via_social_media = models.PositiveIntegerField(max_length=8, db_column='Shares_via_social_media__c')
+    size_of_basket = models.PositiveIntegerField(max_length=8, db_column='Size_of_basket__c')
+    time_on_website = models.PositiveIntegerField(max_length=6, db_column='Time_on_website__c')
+
+    class Meta:
+        db_table = 'X1_CLUB_Login_History__c'
         managed = False
 
 
