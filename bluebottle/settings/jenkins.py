@@ -42,9 +42,6 @@ PROJECT_APPS.remove('polymorphic')
 # Social auth tests require firefox webdriver which we don't want to install right now.
 PROJECT_APPS.remove('social_auth')
 
-# django-salesforce tests don't pass when it's not setup.
-PROJECT_APPS.remove('salesforce')
-
 # django-registration tests don't pass with our Django 1.5 custom user model / manager.
 PROJECT_APPS.remove('registration')
 
