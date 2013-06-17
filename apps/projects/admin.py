@@ -12,8 +12,7 @@ from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 from sorl.thumbnail.shortcuts import get_thumbnail
 
-from .models import (Project, BudgetLine,Testimonial,
-                    PartnerOrganization, ProjectPitch)
+from .models import (Project, ProjectBudgetLine, PartnerOrganization, ProjectPitch)
 
 
 class ProjectPitchAdmin(admin.ModelAdmin):
@@ -73,7 +72,6 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
 
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Testimonial)
 
 
 class PartnerOrganizationAdmin(AdminImageMixin, admin.ModelAdmin):

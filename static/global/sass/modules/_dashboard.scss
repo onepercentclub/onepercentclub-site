@@ -3,6 +3,7 @@
     .menu-sidebar {
         @include grid(12, 1, 0);
         .menu {
+            @include rem(margin-bottom, 24px);
             .title {
                 @include rem(padding, 12px);
 

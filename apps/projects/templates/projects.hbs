@@ -12,8 +12,12 @@
 
                     {{#if model.isLoaded}}
                     <ul>
-                        {{#each project in controller}}
-                            <li>{{#linkTo "project" project}}{{project.title}}{{/linkTo}}</li>
+                        {{#each project in items}}
+                            <li>
+                                <a {{action showProject project.id href=true}}>
+                                    {{project.title}}
+                                </a>
+                            </li>
                         {{else}}
                             <li>{% trans "No projects found." %}</li>
                         {{/each}}
@@ -24,6 +28,17 @@
 
                 </header>
             </article>
+            <article class="wallpost">
+                {{#if canLoadMore}}
+                    <a {{action "showMore"}} class="show-more button-link">
+                        <em class="icon-plus-sign"></em> {% trans "Show more" %}
+                        <small>{{remainingItemCount}} {% trans "more" %}</small>
+                    </a>
+                {{else}}
+                    {% trans "no more projects to show" %}
+                {{/if}}
+            </article>
+
         </section>
     </div>
 
@@ -96,7 +111,7 @@
                     {{#linkTo "project.index"}}
                         <em class="tab-icon amount">{{wallposts.length}}</em>
                         <strong class="tab-title">
-                            Project Updates
+                            {% trans "Project Updates" %}
 
                             {{#if wallposts.length}}
                                 {{#if wallposts.firstObject.isLoaded}}

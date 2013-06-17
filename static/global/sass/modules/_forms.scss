@@ -59,6 +59,9 @@ form {
     .form-desc {
         @include grid(48, 2, 1);
         color: $grayDarker;
+        p {
+            @include rem(padding, 16px 0 8px);
+        }
     }
 
     .form-divider {
@@ -101,6 +104,18 @@ form {
             @include grid(32, 1);
             &.wide {
                 @include grid(48, 2, 1);
+            }
+            &.budget-line {
+                span.icon {
+                    @include grid(4, 0, 1);
+                }
+                .description {
+                    @include grid(36, 0, 1);
+                }
+                .amount {
+                    @include grid(8, 0, 0);
+                    text-align: right;
+                }
             }
 
             .inline-prepend {
@@ -337,5 +352,6 @@ input.tag {
 }
 
 .modal-body .control-group:first-child {
-  padding-top: 0;
+    padding-top: 0;
 }
+

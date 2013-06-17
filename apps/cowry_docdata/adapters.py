@@ -115,7 +115,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", None)
 
         except URLError:
-            payment_logger.error('Could not connect ot DocData')
+            payment_logger.error('Could not connect to DocData')
 
 
     def get_payment_methods(self):

@@ -34,9 +34,15 @@ class SorlImageField(serializers.ImageField):
         self.geometry_string = geometry_string
         super(SorlImageField, self).__init__(source, **kwargs)
 
-
     def to_native(self, value):
         if not value:
+            return ""
+
+        if not value.name:
+            return ""
+
+
+        if not os.path.exists(value.path):
             return ""
 
         # The get_thumbnail() helper doesn't respect the THUMBNAIL_DEBUG setting

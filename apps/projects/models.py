@@ -194,6 +194,10 @@ class ProjectPlan(models.Model):
 
     organization = models.ForeignKey('organizations.Organization', verbose_name=_("organisation"), blank=True, null=True)
 
+    # Crowd funding
+    money_needed = models.TextField(blank=True, help_text=_("Describe in one sentence what you need the money for."))
+    campaign = models.TextField(_("Campaign strategy"), blank=True)
+
     def __unicode__(self):
         return self.title
 
@@ -224,61 +228,26 @@ class ProjectAmbassador(models.Model):
     """
     People that are named as an ambassador.
     """
-    project_plan = models.ForeignKey('ProjectPlan')
+    project_plan = models.ForeignKey(ProjectPlan)
     name = models.CharField(_("name"), max_length=255)
     email = models.EmailField(_("email"))
     description = models.TextField(_("description"), blank=True)
 
 
-class BudgetLine(models.Model):
+class ProjectBudgetLine(models.Model):
     """
     BudgetLine: Entries to the Project Budget sheet.
     This is the budget for the amount asked from this
     website.
     """
-    project = models.ForeignKey(Project, verbose_name=_("project"))
+    project_plan = models.ForeignKey(ProjectPlan)
     description = models.CharField(_("description"), max_length=255)
-    money_amount = MoneyField(_("money amount"))
+    currency = models.CharField(max_length=10)
+    amount = models.PositiveIntegerField(_("money amount"))
 
     class Meta:
         verbose_name = _("budget line")
         verbose_name_plural = _("budget lines")
-
-
-# Now some stuff connected to Projects
-# FIXME: Can we think of a better place to put this??
-class Link(models.Model):
-    """ Links (URLs) connected to a Project. """
-
-    project = models.ForeignKey(Project, verbose_name=_("project"))
-    name = models.CharField(_("name"), max_length=255)
-    url = models.URLField(_("URL"))
-    description = models.TextField(_("description"), blank=True)
-    ordering = models.IntegerField(_("ordering"))
-    created = CreationDateTimeField(_("created"))
-
-    class Meta:
-        ordering = ['ordering']
-        verbose_name = _("link")
-        verbose_name_plural = _("links")
-
-
-class Testimonial(models.Model):
-    """ Any user can write something nice about a project. """
-
-    project = models.ForeignKey(Project, verbose_name=_("project"))
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
-    description = models.TextField(_("description"))
-    created = CreationDateTimeField(_("created"))
-    updated = ModificationDateTimeField(_("updated"))
-
-    class Meta:
-        ordering = ['-created']
-        verbose_name = _("testimonial")
-        verbose_name_plural = _("testimonials")
-
-    def __unicode__(self):
-        return truncate_words(self.description, 20)
 
 
 @receiver(post_save, weak=False, sender=Project)
@@ -305,27 +274,43 @@ def progress_project_phase(sender, instance, created, **kwargs):
         except ProjectPlan.DoesNotExist:
             pass
 
-    # if phase progresses to 'plan' we should create and populate a ProjectPlan
-    if instance.pk:
-        if instance.phase == ProjectPhases.plan:
-            # Create a ProjectPlan if it's not there yet
-            try:
-                instance.projectplan
-            except ProjectPlan.DoesNotExist:
-                instance.projectplan = ProjectPlan.objects.create(project=instance)
-            if instance.projectpitch == None:
-                Exception(_("There's no ProjectPitch for this Project. Can't create a ProjectPlan without a pitch."))
-            for field in ['country', 'title', 'description', 'image', 'latitude', 'longitude', 'need', 'pitch', 'image',
-                          'video_url', 'tags']:
-                setattr(instance.projectplan, field, getattr(instance.projectpitch, field))
+    # If phase progresses to 'plan' we should create and populate a ProjectPlan.
+    if instance.phase == ProjectPhases.plan:
+        # Create a ProjectPlan if it's not there yet
+        try:
+            instance.projectplan
+        except ProjectPlan.DoesNotExist:
+            instance.projectplan = ProjectPlan.objects.create(project=instance)
+        if instance.projectpitch == None:
+            Exception(_("There's no ProjectPitch for this Project. Can't create a ProjectPlan without a pitch."))
+        for field in ['country', 'title', 'description', 'image', 'latitude', 'longitude', 'need', 'pitch', 'image',
+                      'video_url', 'tags']:
+            setattr(instance.projectplan, field, getattr(instance.projectpitch, field))
 
-            # Set the correct statuses and save pitch and plan
+        # Set the correct statuses and save pitch and plan
+        if instance.projectplan.status == ProjectPlan.PlanStatuses.submitted:
+            instance.projectplan.status = ProjectPlan.PlanStatuses.needs_work
+        else:
             instance.projectplan.status = ProjectPlan.PlanStatuses.new
+        instance.projectplan.save()
+
+        if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
+            instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
+            instance.projectpitch.save()
+
+    # If phase progresses to 'campaign' we should change status on ProjectPlan.
+    if instance.phase == ProjectPhases.campaign:
+        if instance.projectplan == None:
+            Exception(_("There's no ProjectPlan for this Project. Can't jump to 'campaign' without a plan."))
+        else:
+            # Set the correct statuses and save pitch and plan
+            instance.projectplan.status = ProjectPlan.PlanStatuses.approved
             instance.projectplan.save()
 
-            if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
-                instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
-                instance.projectpitch.save()
+        if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
+            instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
+            instance.projectpitch.save()
+
 
 
 @receiver(post_save, weak=False, sender=ProjectPitch)

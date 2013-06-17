@@ -246,6 +246,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "organizations/addresses/manage": "organizations/addresses/manage",
         "organizations/documents/manage": "organizations/documents/manage",
         "projects/ambassadors/manage": "projects/ambassadors/manage",
+        "projects/budgetlines/manage": "projects/budgetlines/manage",
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
@@ -368,6 +369,7 @@ App.Adapter.map('App.ProjectPitch', {
 
 App.Adapter.map('App.MyProjectPlan', {
     ambassadors: {embedded: 'load'},
+    budgetLines: {embedded: 'load'},
     tags: {embedded: 'always'}
 });
 
@@ -419,6 +421,7 @@ App.Router.map(function() {
     });
 
     this.resource('project', {path: '/projects/:project_id'}, function() {
+        this.resource('projectWallPostList', {path: '/wallposts'});
         this.resource('projectTaskList', {path: '/tasks'});
         this.resource('projectTaskNew', {path: '/tasks/new'});
         this.resource('projectTask', {path: '/tasks/:task_id'});
@@ -434,7 +437,7 @@ App.Router.map(function() {
         this.resource('payment', {path: '/payment'});
     });
 
-    this.resource('OrderThanks', {path: '/support/thanks/:order_id'});
+    this.resource('orderThanks', {path: '/support/thanks/:order_id'});
 
     this.resource('voucherStart', {path: '/giftcards'});
     this.resource('customVoucherRequest', {path: '/giftcards/custom'});
@@ -477,15 +480,26 @@ App.Router.map(function() {
             this.route('organisation');
             this.route('legal');
             this.route('ambassadors');
+
             this.route('bank');
+            this.route('campaign');
+            this.route('budget');
+
+            this.route('submit');
 
         });
+
+        this.resource('myProjectPlanReview', {path: 'plan/review'})
+        this.resource('myProjectPlanApproved', {path: 'plan/approved'})
+        this.resource('myProjectPlanRejected', {path: 'plan/rejected'})
+
         this.resource('myProjectPitch', {path: 'pitch'}, function(){
             this.route('index');
             this.route('basics');
             this.route('location');
-            this.route('submit');
             this.route('media');
+
+            this.route('submit');
         });
         this.resource('myProjectPitchReview', {path: 'pitch/review'})
         this.resource('myProjectPitchApproved', {path: 'pitch/approved'})
@@ -583,7 +597,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
 App.ProjectListRoute = Ember.Route.extend({
     model: function() {
-        return App.Project.find({phase: 'fund'});
+        return App.ProjectPreview.find({phase: 'results'});
     }
 });
 
@@ -606,19 +620,20 @@ App.ProjectRoute = Ember.Route.extend({
 });
 
 
-// This is the 'ProjectWallPostListRouter'
+// This is the 'ProjectWallPostListRoute'
 App.ProjectIndexRoute = Ember.Route.extend({
 
     model: function(params){
-        return this.modelFor('project');
+        return this.modelFor('project').get('wallposts');
+        return this.modelFor('project').then(function(project){
+            return project.get('wallposts');
+        });
     },
     setupController: function(controller, model) {
-        // Empty the items and set page to 0 so we don't show wallposts from previous project
+        // Empty the items and set page to 0 so we don't show wall posts from previous project
         controller.set('items', Em.A());
         controller.set('page', 0);
-        // For now only point to wallposts here rather then in model() for that breaks on bookmarks
-        // FIXME: proper implementation
-        this._super(controller, model.get('wallposts'));
+        this._super(controller, model);
     }
 
 });
@@ -1103,25 +1118,6 @@ App.PasswordResetRoute = Ember.Route.extend({
 });
 
 
-/**
- * My Projects
- * - Manage your project(s)
- */
-App.MyProjectListRoute = Ember.Route.extend({
-    model: function(params){
-        return App.MyProject.find();
-    }
-
-});
-
-App.MyProjectRoute = Ember.Route.extend({
-    // Load the Project
-    model: function(params) {
-        return App.MyProject.find(params.my_project_id);
-    }
-});
-
-
 App.LoginController = Em.Controller.extend({
 
     requestPasswordReset: function() {
@@ -1160,6 +1156,33 @@ App.LoginController = Em.Controller.extend({
         })
     }
 });
+
+
+/**
+ * My Projects
+ * - Manage your project(s)
+ */
+App.MyProjectListRoute = Ember.Route.extend({
+    model: function(params){
+        return App.MyProject.find();
+    }
+
+});
+
+App.MyProjectRoute = Ember.Route.extend({
+    // Load the Project
+    model: function(params) {
+        return App.MyProject.find(params.my_project_id);
+    }
+});
+
+
+App.MyProjectPitchRoute =  Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    }
+});
+
 
 App.MyProjectPitchSubRoute = Ember.Route.extend({
     redirect: function() {
@@ -1223,7 +1246,14 @@ App.MyProjectPitchReviewRoute =  Ember.Route.extend({
     }
 });
 
+
 // My ProjectPlan routes
+
+App.MyProjectPlanRoute =  Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    }
+});
 
 App.MyProjectPlanSubRoute = Ember.Route.extend({
     redirect: function() {
@@ -1256,10 +1286,14 @@ App.MyProjectPlanSubRoute = Ember.Route.extend({
 });
 
 App.MyProjectPlanBasicsRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanDescriptionRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanLocationRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanMediaRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanAmbassadorsRoute =  App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanSubmitRoute =  App.MyProjectPlanSubRoute.extend({});
+
+App.MyProjectPlanCampaignRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanBudgetRoute =  App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanOrganisationRoute =  App.MyProjectPlanSubRoute.extend({
     setupController: function(controller, model){

@@ -136,7 +136,6 @@
 
     {{ render "projectWallPostNew" }}
 
-
     <section class="wrapper">
         {{#each item in items itemController="wallPost"}}
             {{#if item.isLoaded}}
@@ -170,13 +169,15 @@
                 </span>
                 {# <em class="user-type not-implemented">{% trans "Project Initiator" %}</em> #}
                 <strong class="user-name">{{author.full_name}}</strong>
-                <em class="timestamp">{{ localize created formatting="X" }}</em>
+                {{#if created}}
+                    <em class="timestamp">{{ localize created formatting="X" }}</em>
+                {{/if}}
             </a>
 
             {{#if title}}
                 <h3>{{title}}</h3>
             {{/if}}
-            
+
             {{#if isAuthor}}
                 <ul class="manage">
                     {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}

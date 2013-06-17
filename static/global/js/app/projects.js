@@ -116,6 +116,11 @@ App.ProjectPreview = App.Project.extend({
  */
 
 
+App.ProjectListController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {
+    perPage: 10
+});
+
+
 App.ProjectController = Em.ObjectController.extend({
     isFundable: function(){
         return this.get('phase') == 'Fund';

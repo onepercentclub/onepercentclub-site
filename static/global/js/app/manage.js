@@ -22,7 +22,14 @@ App.MyOrganizationAddress = DS.Model.extend({
     postal_code: DS.attr('string'),
     city: DS.attr('string'),
     country: DS.attr('string'),
-    type: DS.attr('string', {defaultValue: 'physical'})
+    type: DS.attr('string', {defaultValue: 'physical'}),
+
+    validAddress: function(){
+        if (this.get('line1') &&  this.get('city') && this.get('country')){
+            return true;
+        }
+        return false;
+    }.property('line1', 'city', 'country')
 
 });
 
@@ -42,6 +49,14 @@ App.MyProjectAmbassador = DS.Model.extend({
     description: DS.attr('string')
 });
 
+App.MyProjectBudgetLine = DS.Model.extend({
+    url: 'projects/budgetlines/manage',
+
+    project_plan: DS.belongsTo('App.MyProjectPlan'),
+    description: DS.attr('string'),
+    amount: DS.attr('number')
+});
+
 App.MyOrganization = DS.Model.extend({
     url: 'organizations/manage',
     name: DS.attr('string'),
@@ -57,9 +72,24 @@ App.MyOrganization = DS.Model.extend({
     // Addresses
     addresses: DS.hasMany('App.MyOrganizationAddress'),
 
+    validProfile: function(){
+        if (this.get('name') &&  this.get('description') && this.get('email') && this.get('addresses.firstObject.validAddress')){
+            return true;
+        }
+        return false;
+    }.property('name', 'description', 'email', 'addresses.firstObject.validAddress'),
+
+
     // Legal
-    legal_status: DS.attr('string'),
+    legalStatus: DS.attr('string'),
     documents: DS.hasMany('App.MyOrganizationDocument'),
+
+    validLegalStatus: function(){
+        if (this.get('legalStatus') &&  this.get('documents.length') > 0){
+            return true;
+        }
+        return false;
+    }.property('legalStatus', 'documents.length'),
 
     // Bank
     account_bank_name: DS.attr('string'),
@@ -70,7 +100,14 @@ App.MyOrganization = DS.Model.extend({
     account_number: DS.attr('string'),
     account_name: DS.attr('string'),
     account_city: DS.attr('string'),
-    account_other: DS.attr('string')
+    account_other: DS.attr('string'),
+
+    validBank: function(){
+        if (this.get('account_bank_name') &&  this.get('account_bank_country') && this.get('account_name') && this.get('account_city') && (this.get('account_number') || this.get('account_iban'))){
+            return true;
+        }
+        return false;
+    }.property('account_bank_name', 'account_bank_country', 'account_name', 'account_city', 'account_iban', 'account_number')
 
 });
 
@@ -142,6 +179,14 @@ App.MyProjectPlan = DS.Model.extend({
     need: DS.attr('string'),
     tags: DS.hasMany('App.Tag'),
 
+
+    needsFunding: function (){
+        if (this.get('need') == 'finance' || this.get('need') == 'both') {
+            return true;
+        }
+        return false;
+    }.property('need'),
+
     validBasics: function(){
         if (this.get('title') &&  this.get('pitch') && this.get('theme') && this.get('need') && this.get('tags.length')){
             return true;
@@ -153,11 +198,11 @@ App.MyProjectPlan = DS.Model.extend({
     description: DS.attr('string'),
     effects: DS.attr('string'),
     future: DS.attr('string'),
-    for_who: DS.attr('string'),
+    forWho: DS.attr('string'),
     reach: DS.attr('number'),
 
     validDescription: function(){
-        if (this.get('description') &&  this.get('effects') && this.get('future') && this.get('for_who') && this.get('reach')){
+        if (this.get('description') &&  this.get('effects') && this.get('future') && this.get('forWho') && this.get('reach')){
             return true;
         }
         return false;
@@ -176,7 +221,6 @@ App.MyProjectPlan = DS.Model.extend({
         return false;
     }.property('country', 'latitude', 'longitude'),
 
-
     // Media
     image: DS.attr('image'),
 
@@ -193,9 +237,44 @@ App.MyProjectPlan = DS.Model.extend({
     // Ambassadors
     ambassadors: DS.hasMany('App.MyProjectAmbassador'),
 
+    validAmbassadors: function(){
+        if (this.get('ambassadors.length') > 2) {
+            return true;
+        }
+        return false;
+    }.property('ambassadors.length'),
+
     // Submitting
     status: DS.attr('string'),
-    agreed: DS.attr('boolean'),
+
+    // Crowd funding
+    moneyNeeded: DS.attr('string'),
+    campaign: DS.attr('string'),
+
+    validCampaign: function(){
+        if (this.get('moneyNeeded') &&  this.get('campaign')){
+            return true;
+        }
+        return false;
+    }.property('moneyNeeded', 'campaign'),
+
+    // Budget
+    budgetLines: DS.hasMany('App.MyProjectBudgetLine'),
+
+    totalBudget: function(){
+        var lines = this.get('budgetLines');
+        return lines.reduce(function(prev, line){
+            return (prev || 0) + (line.get('amount')/1 || 0);
+        });
+    }.property('budgetLines.@each.amount'),
+
+    validBudget: function(){
+        if (this.get('totalBudget') > 0 &&  this.get('totalBudget') <= 5000 ){
+            return true;
+        }
+        return false;
+    }.property('totalBudget'),
+
 
     created: DS.attr('date')
 });
@@ -211,6 +290,8 @@ App.MyProject = DS.Model.extend({
 
     pitch: DS.belongsTo('App.MyProjectPitch'),
     plan: DS.belongsTo('App.MyProjectPlan'),
+
+    coach: DS.belongsTo('App.User'),
 
     isPhasePitch: function(){
         return this.get('phase') == 'pitch';
@@ -278,6 +359,7 @@ App.MyProjectPlanDescriptionController = Em.ObjectController.extend(App.Editable
 App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPlanCampaignController = Em.ObjectController.extend(App.Editable, {});
 
 App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable, {
     shouldSave: function(){
@@ -377,6 +459,39 @@ App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
 });
 
 
+
+App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
+
+    shouldSave: function(){
+        // Determine if any part is dirty, project plan or any of the budget_lines
+        if (this.get('isDirty')) {
+            return true;
+        }
+        var budgetLines = this.get('budgetLines');
+        var dirty = false;
+        budgetLines.forEach(function(line){
+             if (line.get('isDirty')) {
+                 dirty = true;
+             }
+
+        });
+        return dirty;
+    }.property('isDirty', 'budgetLines.@each.isDirty'),
+
+    addBudgetLine: function(){
+        // Use the same transaction as the projectplan
+        var transaction =  this.get('model').transaction;
+        var line = transaction.createRecord(App.MyProjectBudgetLine, {});
+        this.get('budgetLines').pushObject(line);
+    },
+
+    removeBudgetLine: function(line){
+        line.deleteRecord();
+    }
+
+});
+
+
 App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
 
     shouldSave: function(){
@@ -407,6 +522,24 @@ App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
         transaction.add(doc);
         doc.deleteRecord();
         transaction.commit();
+    }
+});
+
+
+
+App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {
+    submitPlan: function(e){
+        var controller = this;
+        var model = this.get('model');
+        model.set('status', 'submitted');
+        model.on('didUpdate', function(){
+            controller.transitionToRoute('myProjectPlanReview');
+        });
+        this.updateRecordOnServer();
+    },
+    exit: function(){
+        this.set('model.status', 'new');
+        this._super();
     }
 });
 
@@ -502,6 +635,18 @@ App.MyProjectPlanAmbassadorsView = Em.View.extend(App.PopOverMixin, {
 
 App.MyProjectPlanBankView = Em.View.extend(App.PopOverMixin, {
     templateName: 'my_project_plan_bank'
+});
+
+App.MyProjectPlanBudgetView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_budget'
+});
+
+App.MyProjectPlanCampaignView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_campaign'
+});
+
+App.MyProjectPlanSubmitView = Em.View.extend(App.PopOverMixin, {
+    templateName: 'my_project_plan_submit'
 });
 
 

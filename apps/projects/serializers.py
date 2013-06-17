@@ -1,6 +1,6 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -21,16 +21,11 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
-    phase = serializers.CharField(source='get_phase_display', read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='project-detail')
-    country = ProjectCountrySerializer(source='pitch.country')
-    money_asked = EuroField(source='money_asked')
-    money_donated = EuroField(source='money_donated')
-    image_square = SorlImageField('image', '120x120')
+
 
     class Meta:
         model = Project
-        fields = ('id', 'phase', 'title', 'url', 'money_donated', 'money_asked')
+        fields = ('id', 'title')
 
 
 class DonationPreviewSerializer(serializers.ModelSerializer):
@@ -48,7 +43,9 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
 
 class ProjectPitchSerializer(serializers.ModelSerializer):
 
+    project = serializers.SlugRelatedField(source='project', slug_field='slug', null=True, read_only=True)
     country = ProjectCountrySerializer()
+
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
 
@@ -56,8 +53,8 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProjectPitch
-        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
-                  'status', 'image')
+        fields = ('id', 'project', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude',
+                  'need', 'status', 'image')
 
 
 class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
@@ -78,20 +75,33 @@ class ProjectAmbassadorSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'name', 'project_plan', 'description')
 
 
+class ProjectBudgetLineSerializer(serializers.ModelSerializer):
+
+    amount = EuroField()
+
+    class Meta:
+        model = ProjectBudgetLine
+        fields = ('id', 'project_plan', 'description', 'amount')
+
+
 class ProjectPlanSerializer(serializers.ModelSerializer):
 
+    project = serializers.SlugRelatedField(source='project',  slug_field='slug', null=True, read_only=True)
     country = ProjectCountrySerializer()
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
     organization = serializers.PrimaryKeyRelatedField(source="organization")
     ambassadors = ProjectAmbassadorSerializer(many=True, source='projectambassador_set')
 
+    budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set')
+
     image = ImageSerializer(required=False)
 
     class Meta:
         model = ProjectPlan
-        fields = ('id', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
-                  'status', 'image', 'organization', 'ambassadors')
+        fields = ('id', 'project', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
+                  'effects', 'future', 'for_who', 'reach', 'status', 'image', 'organization', 'ambassadors',
+                  'budget_lines', 'money_needed', 'campaign')
 
 
 class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer):
@@ -116,9 +126,13 @@ class ManageProjectSerializer(serializers.ModelSerializer):
     pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
     plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
 
+    coach = serializers.PrimaryKeyRelatedField(source='team_member', read_only=True)
+
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'url', 'phase', 'pitch', 'plan')
+        fields = ('id', 'created', 'title', 'url', 'phase', 'pitch', 'plan', 'coach')
+
+
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -127,9 +141,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     owner = UserPreviewSerializer()
     team_member = UserPreviewSerializer()
 
-    money_asked = EuroField(source='money_asked')
-    money_donated = EuroField(source='money_donated')
-
     pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
     plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
 
@@ -137,7 +148,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'money_donated', 'money_asked', 'owner', 'team_member', 'pitch', 'plan', 'wallpost_ids')
+        fields = ('id', 'created', 'title', 'owner', 'team_member', 'pitch', 'plan', 'wallpost_ids')
 
 
 # Serializers for ProjectWallPosts:

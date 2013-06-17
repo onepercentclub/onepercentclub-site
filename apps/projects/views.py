@@ -1,8 +1,8 @@
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -25,9 +25,9 @@ from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectM
 
 class ProjectList(generics.ListAPIView):
     model = Project
-    serializer_class = ProjectSerializer
-    paginate_by = 10
-    filter_fields = ('phase', 'slug')
+    serializer_class = ProjectPreviewSerializer
+    paginate_by = 5000
+    filter_fields = ('phase', )
 
 
 class ProjectDetail(generics.RetrieveAPIView):
@@ -76,7 +76,7 @@ class ProjectWallPostMixin(object):
 class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
-    paginate_by = 4
+    paginate_by = 40
 
 
 class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
@@ -196,15 +196,22 @@ class ManageProjectAmbassadortList(generics.ListCreateAPIView):
     model = ProjectAmbassador
     serializer_class = ProjectAmbassadorSerializer
     paginate_by = 20
-    filter = ('organization', )
 
 
 class ManageProjectAmbassadorDetail(generics.RetrieveUpdateDestroyAPIView):
     model = ProjectAmbassador
     serializer_class = ProjectAmbassadorSerializer
-    paginate_by = 20
-    filter = ('organization', )
 
+
+class ManageProjectBudgetLinetList(generics.ListCreateAPIView):
+    model = ProjectBudgetLine
+    serializer_class = ProjectBudgetLineSerializer
+    paginate_by = 20
+
+
+class ManageProjectBudgetLineDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = ProjectBudgetLine
+    serializer_class = ProjectBudgetLineSerializer
 
 
 # Django template Views

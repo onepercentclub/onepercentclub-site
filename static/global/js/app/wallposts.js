@@ -30,6 +30,7 @@ App.WallPost = DS.Model.extend({
 
 
 App.ProjectWallPost = App.WallPost.extend({
+    url: 'projects/wallposts',
     project: DS.belongsTo('App.Project')
 });
 
@@ -57,6 +58,7 @@ App.TaskWallPost = App.WallPost.extend({
  */
 
 
+// This is the controller to show the wallposts
 App.ProjectIndexController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {});
 
 
@@ -330,6 +332,7 @@ App.TaskWallPostView = App.ProjectWallPostView.extend({
 
 });
 
+// This is the view toi display the wallpost list
 // Idea of how to have child views with different templates:
 // http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
 App.ProjectIndexView = Em.View.extend({
