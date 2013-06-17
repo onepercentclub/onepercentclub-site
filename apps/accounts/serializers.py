@@ -82,10 +82,8 @@ class UserSettingsCountryField(serializers.PrimaryKeyRelatedField):
     def field_to_native(self, obj, field_name):
         try:
             address = obj.address
-            pk = None
-            if address is not None:
-                pk = getattr(address, self.source.replace('address.', '')).pk
-        except ObjectDoesNotExist:
+            pk = getattr(address, self.source.replace('address.', '')).pk
+        except (AttributeError, ObjectDoesNotExist):
             return None
 
         return self.to_native(pk)

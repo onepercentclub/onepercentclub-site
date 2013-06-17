@@ -188,11 +188,12 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                 payment.address = address.line1
                 payment.city = address.city
                 payment.postal_code = address.postal_code
-                payment.country = address.country.alpha2_code
+                if address.country:
+                    payment.country = address.country.alpha2_code
 
             # Try to use the language from the User settings if it's set.
             if self.request.user.primary_language:
-                payment.language = self.request.user.language[:2]  # Cut off locale.
+                payment.language = self.request.user.primary_language[:2]  # Cut off locale.
         else:
             # Use Netherlands as the default country for anonymous orders.
             # TODO: This should be replaced with a proper ip -> geo solution.
