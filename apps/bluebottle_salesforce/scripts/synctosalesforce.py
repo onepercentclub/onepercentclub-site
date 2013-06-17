@@ -3,17 +3,17 @@
 # Run with:
 # ./manage.py runscript sync-to-salesforce
 # TODO User python logging.
-from apps.accounts.models import BlueBottleUser, UserAddress
-from apps.projects.models import Project
+from apps.accounts.models import BlueBottleUser
+from apps.projects.models import Project, BudgetLine
 from apps.organizations.models import Organization
-from apps.tasks.models import Task
+from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, Voucher
-from apps.bluebottle_salesforce.models import (SalesforceContact, SalesforceDonation, SalesforceOrganization,
-                                               SalesforceProjectBudget, SalesforceTask,
-                                               SalesforceTaskMembers, SalesforceProject)
+from apps.bluebottle_salesforce.models import (SalesforceOrganization, SalesforceContact, SalesforceProject,
+                                               SalesforceDonation, SalesforceProjectBudget, SalesforceTask,
+                                               SalesforceTaskMembers, SalesforceModel, SalesforceVoucher)
 
 
-def sync_organizations():
+def sync_organizations(test_run):
     organizations = Organization.objects.all()
     for organization in organizations:
         # Find the corresponding SF organization.
@@ -57,18 +57,19 @@ def sync_organizations():
         sforganization.created_date = organization.created
 
         # Save the SF project.
-        sforganization.save()
+        if not test_run:
+            sforganization.save()
 
-        # # Delete SalesforceOrganization if the correspondig Organization doesn't exist.
-        # sf_organizations = SalesforceOrganization.objects.all()
-        # for sf_organization in sf_organizations:
-        #     try:
-        #         Organization.objects.filter(id=sf_organization.external_id).get()
-        #     except Organization.DoesNotExist:
-        #         sf_organization.delete()
+    # # Delete SalesforceOrganization if the correspondig Organization doesn't exist.
+    # sf_organizations = SalesforceOrganization.objects.all()
+    # for sf_organization in sf_organizations:
+    #     try:
+    #         Organization.objects.filter(id=sf_organization.external_id).get()
+    #     except Organization.DoesNotExist:
+    #         sf_organization.delete()
 
 
-def sync_users():
+def sync_users(test_run):
     users = BlueBottleUser.objects.all()
     for user in users:
         # Find the corresponding SF user.
@@ -187,75 +188,19 @@ def sync_users():
         #contact.tags = user.tags.get()
 
         # Save the SF user.
-        contact.save()
+        if not test_run:
+            contact.save()
 
-        # Delete SalesforceContact if the correspondig BlueBottleUser doesn't exist.
-        # sf_users = SalesforceContact.objects.all()
-        # for sf_user in sf_users:
-        #     try:
-        #         BlueBottleUser.objects.filter(id=sf_user.external_id).get()
-        #     except BlueBottleUser.DoesNotExist:
-        #         sf_user.delete()
-
-
-def sync_donations():
-    donations = Donation.objects.all()
-    for donation in donations:
-        # Find the corresponding SF donation.
-        try:
-            sfdonation = SalesforceDonation.objects.filter(external_id=donation.id).get()
-        except SalesforceDonation.DoesNotExist:
-            sfdonation = SalesforceDonation()
-
-        # SF Layout: Donation Information section.
-        sfdonation.amount = donation.amount
-        # Unknown - sfdonation.close_date =
-        sfdonation.name = str(donation.user.last_name) + " " + str(donation.user.first_name) + " - " + str(donation.donation_type)
-        # Unknown - sfdonation.payment_method =
-        # Unknown - sfdonation.organization = SalesforceOrganization.objects.filter(external_id=donation.organization.id).get()
-        sfdonation.project = SalesforceProject.objects.filter(external_id=donation.project.id).get()
-        # Unknown - sfdonation.stage_name =
-        sfdonation.donation_type = donation.donation_type
-
-        # SF Layout: Additional Information section.
-
-        # SF Layout: Description Information section.
-
-        # SF Layout: System Information section.
-        sfdonation.donation_created_date = donation.created
-
-        # SF: Other.
-        sfdonation.donation_external_id = donation.id
-        sfdonation.receiver = SalesforceContact.objects.filter(external_id=donation.user.id).get()
-
-        # # Delete SalesforceDonation if the correspondig Donation doesn't exist.
-        # sf_donations = SalesforceDonation.objects.all()
-        # for sf_donation in sf_donations:
-        #     try:
-        #         Donation.objects.filter(id=sf_donation.external_id).get()
-        #     except Donation.DoesNotExist:
-        #         sf_donation.delete()
+    # Delete SalesforceContact if the correspondig BlueBottleUser doesn't exist.
+    # sf_users = SalesforceContact.objects.all()
+    # for sf_user in sf_users:
+    #     try:
+    #         BlueBottleUser.objects.filter(id=sf_user.external_id).get()
+    #     except BlueBottleUser.DoesNotExist:
+    #         sf_user.delete()
 
 
-#def sync_tasks():
-#    tasks = Task.objects.all()
-#    for task in tasks:
-#        # Find the corresponding SF task.
-#        try:
-#            sftask = SalesforceTask.objects.filter(external_id=task.id).get()
-#        except SalesforceTask.DoesNotExist:
-#            sftask = SalesforceTask()
-
-        # # Delete SalesforceTask if the correspondig Task doesn't exist.
-        # sf_tasks = SalesforceTask.objects.all()
-        # for sf_task in sf_tasks:
-        #     try:
-        #         Task.objects.filter(id=sf_task.external_id).get()
-        #     except Task.DoesNotExist:
-        #         sf_task.delete()
-
-
-def sync_projects():
+def sync_projects(test_run):
     projects = Project.objects.all()
     for project in projects:
         # Find the corresponding SF project.
@@ -331,45 +276,181 @@ def sync_projects():
         sfproject.external_id = project.id
 
         # Save the SF project.
-        sfproject.save()
+        if not test_run:
+            sfproject.save()
 
-        # # Delete SalesforceProject if the correspondig Project doesn't exist.
-        # sf_projects = SalesforceProject.objects.all()
-        # for sf_project in sf_projects:
-        #     try:
-        #         Project.objects.filter(id=sf_project.external_id).get()
-        #     except Project.DoesNotExist:
-        #         sf_project.delete()
-
-
-# def sync_vouchers():
-#     vouchers = Voucher.objects.all()
-#     for voucher in vouchers:
-#         # Find the corresponding SF voucher.
-#         try:
-#             sfvoucher = SalesforceVoucher.objects.filter(external_id=voucher.id).get()
-#         except SalesforceVoucher.DoesNotExist:
-#             sfvoucher = SalesforceVoucher()
-
-        # # Delete SalesforceVoucher if the correspondig Voucher doesn't exist.
-        # sf_vouchers = SalesforceVoucher.objects.all()
-        # for sf_voucher in sf_vouchers:
-        #     try:
-        #         Voucher.objects.filter(id=sf_voucher.external_id).get()
-        #     except Voucher.DoesNotExist:
-        #         sf_voucher.delete()
+    # # Delete SalesforceProject if the correspondig Project doesn't exist.
+    # sf_projects = SalesforceProject.objects.all()
+    # for sf_project in sf_projects:
+    #     try:
+    #         Project.objects.filter(id=sf_project.external_id).get()
+    #     except Project.DoesNotExist:
+    #         sf_project.delete()
 
 
-def run():
+def sync_budget_lines(test_run):
+    budget_lines = BudgetLine.objects.all()
+    for budget_line in budget_lines:
+        # Find the corresponding SF budget lines.
+        try:
+            sfbudget_line = SalesforceProjectBudget.objects.filter(external_id=budget_line.id).get()
+        except SalesforceProjectBudget.DoesNotExist:
+            sfbudget_line = SalesforceProjectBudget()
+
+        # SF Layout: Information section
+        #Unknown: Materialen, Tools, Transport, Training, etc.
+        # sfbudget_line.category =
+        sfbudget_line.costs = budget_line.money_amount
+        sfbudget_line.description = budget_line.description
+        sfbudget_line.external_id = budget_line.id
+        sfbudget_line.project = SalesforceProject.objects.filter(external_id=budget_line.project.id).get()
+
+        # Save the SF budget lines.
+        if not test_run:
+            sfbudget_line.save()
+
+    # Delete budget_lines if the correspondig budget_lines doesn't exist.
+    sfbudget_lines = SalesforceProjectBudget.objects.all()
+    for sfbudget_line in sfbudget_lines:
+        try:
+            BudgetLine.objects.filter(id=sfbudget_line.external_id).get()
+        except BudgetLine.DoesNotExist:
+            sfbudget_line.delete()
+
+
+def sync_donations(test_run):
+    donations = Donation.objects.all()
+    for donation in donations:
+        # Find the corresponding SF donation.
+        try:
+            sfdonation = SalesforceDonation.objects.filter(external_id=donation.id).get()
+        except SalesforceDonation.DoesNotExist:
+            sfdonation = SalesforceDonation()
+
+        # SF Layout: Donation Information section.
+        sfdonation.amount = donation.amount
+        sfdonation.close_date = donation.created
+        sfdonation.name = str(donation.donation_type)
+        # Unknown - sfdonation.payment_method =
+        # Unknown - sfdonation.organization = SalesforceOrganization.objects.filter(external_id=1).get()
+        sfdonation.project = SalesforceProject.objects.filter(external_id=donation.project.id).get()
+        sfdonation.stage_name = donation.status
+        sfdonation.opportunity_type = str(donation.donation_type)
+        # SF Layout: Additional Information section.
+
+        # SF Layout: Description Information section.
+
+        # SF Layout: System Information section.
+        sfdonation.donation_created_date = donation.created
+
+        # SF: Other.
+        sfdonation.external_id = donation.id
+        sfdonation.receiver = SalesforceContact.objects.filter(external_id=donation.user.id).get()
+
+        # Save the SF donation.
+        if not test_run:
+            sfdonation.save()
+
+    # # Delete SalesforceDonation if the correspondig Donation doesn't exist.
+    # sf_donations = SalesforceDonation.objects.all()
+    # for sf_donation in sf_donations:
+    #     try:
+    #         Donation.objects.filter(id=sf_donation.external_id).get()
+    #     except Donation.DoesNotExist:
+    #         sf_donation.delete()
+
+
+def sync_vouchers(test_run):
+    vouchers = Voucher.objects.all()
+    for voucher in vouchers:
+        # Find the corresponding SF project.
+        try:
+            sfvoucher = SalesforceVoucher.objects.filter(external_id=voucher.id).get()
+        except SalesforceVoucher.DoesNotExist:
+            sfvoucher = SalesforceVoucher()
+
+        # SF Layout: Donation Information section.
+        #TODO: Error - sfvoucher.purchaser = SalesforceContact.objects.filter(external_id=voucher.sender).get()
+        sfvoucher.voucher_type = voucher.status
+        # This is a record type Voucher, probably better to create RecordType model and use the name 'Voucher' to get Id
+        sfvoucher.record_type = "012A0000000BxfH"
+
+        # SF Layout: Additional Information section.
+        #Unknown: sfvoucher.description = voucher.description
+
+        # SF Layout: System Information section.
+        #TODO: Error - sfvoucher.receiver = SalesforceContact.objects.filter(external_id=voucher.receiver).get()
+
+        # SF Other.
+        # sfvoucher.voucher_id = voucher.id
+        sfvoucher.external_id = voucher.id
+
+        # Save the SF voucher.
+        if not test_run:
+            sfvoucher.save()
+
+
+def sync_tasks(test_run):
+    tasks = Task.objects.all()
+    for task in tasks:
+        # Find the corresponding SF tasks.
+        try:
+            sftask = SalesforceTask.objects.filter(external_id=task.id).get()
+        except SalesforceTask.DoesNotExist:
+            sftask = SalesforceTask()
+
+        # SF Layout: Information section.
+        sftask.project = SalesforceProject.objects.filter(external_id=task.project.id).get()
+        sftask.deadline = task.deadline
+        sftask.effort = task.time_needed
+        sftask.extended_task_description = task.description
+        sftask.location_of_the_task = task.location
+        sftask.short_task_description = task.description
+        sftask.task_expertise = task.expertise
+        sftask.task_status = task.status
+        sftask.title = task.title
+        sftask.task_created_date = task.created
+        sftask.tags = str(task.tags)
+
+        # SF Layout: System Information section.
+
+        # SF: Other
+        sftask.external_id = task.id
+
+        # Save the SF tasks.
+        if not test_run:
+            sftask.save()
+
+
+def sync_task_members(test_run):
+    task_members = TaskMember.objects.all()
+    for task_member in task_members:
+        # Find the corresponding SF task members.
+        try:
+            sftaskmember = SalesforceTaskMembers.objects.filter(external_id=task_member.id).get()
+        except SalesforceTaskMembers.DoesNotExist:
+            sftaskmember = SalesforceTaskMembers()
+
+        # SF Layout: Information section.
+        sftaskmember.contacts = SalesforceContact.objects.filter(external_id=task_member.member.id).get()
+        sftaskmember.x1_club_task = SalesforceTask.objects.filter(external_id=task_member.task.id).get()
+        sftaskmember.external_id = task_member.id
+
+        # Save the SF task_member.
+        if not test_run:
+            sftaskmember.save()
+
+
+def run(test_run=False):
     """
     This is run when the script is executed with 'runscript'. The sections need to be run in a specific order
     because of foreign key dependencies.
     """
-    sync_organizations()
-    sync_users()
-    sync_projects()
-    # sync_donations()
-    # sync_project_budgets()
-    # sync_tasks()
-    # sync_task_members()
-    # sync_vouchers()
+    sync_organizations(test_run)
+    sync_users(test_run)
+    sync_projects(test_run)
+    sync_budget_lines(test_run)
+    sync_tasks(test_run)
+    sync_task_members(test_run)
+    sync_donations(test_run)
+    sync_vouchers(test_run)
