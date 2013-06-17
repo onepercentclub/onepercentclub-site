@@ -4,16 +4,7 @@ from salesforce.models import SalesforceModel
 from djchoices import DjangoChoices, ChoiceItem
 from django.utils.translation import ugettext as _
 
-# TODO: Change to Django EMail field instead CharField
-# TODO: Create a Django function/method for CURRENCY decimal
-
-
-class OpportunityPaymentMethod(DjangoChoices):
-    dire = ChoiceItem('Direct Debit (Online)', label=_("Direct Debit (Online)"))
-    idea = ChoiceItem('iDEAL', label=_("iDEAL"))
-    mass = ChoiceItem('Mastercard', label=_("Mastercard"))
-    over = ChoiceItem('Overboeking', label=_("Overboeking"))
-    visa = ChoiceItem('VISA', label=_("VISA"))
+# TODO: remove the DjangoChoices or add it if needed to a Helper file.
 
 
 class SalesforceOrganization(SalesforceModel):
@@ -51,7 +42,7 @@ class SalesforceOrganization(SalesforceModel):
     address_bank = models.CharField(max_length=255, db_column='Address_bank__c')
     bank_account_name = models.CharField(max_length=255, db_column='Bank_account_name__c')
     bank_account_number = models.CharField(max_length=40, db_column='Bank_account_number__c')
-    bank_name = models.CharField(max_length=60, db_column='Bankname__c')
+    bank_name = models.CharField(max_length=255, db_column='Bankname__c')
     bic_swift = models.CharField(max_length=40, db_column='BIC_SWIFT__c')
     country_bank = models.CharField(max_length=60, db_column='Country_bank__c')
     iban_number = models.CharField(max_length=255, db_column='IBAN_number__c')
@@ -64,6 +55,7 @@ class SalesforceOrganization(SalesforceModel):
 
     class Meta:
         db_table = 'Account'
+        managed = False
 
 
 class SalesforceContact(SalesforceModel):
@@ -83,7 +75,7 @@ class SalesforceContact(SalesforceModel):
 
     # SF Layout: Subscription section.
     category1 = models.CharField(max_length=255, db_column='Category1__c', choices=ContactCategory1.choices, help_text=_("Category"))
-    email = models.CharField(max_length=80, db_column='Email')
+    email = models.EmailField(max_length=80, db_column='Email')
     member_1_club = models.BooleanField(db_column='Member_1_club__c', default=True)
     user_name = models.CharField(max_length=255, db_column='Username__c')
     is_active = models.BooleanField(db_column='Active__c')
@@ -169,6 +161,7 @@ class SalesforceContact(SalesforceModel):
 
     class Meta:
         db_table = 'Contact'
+        managed = False
 
 
 class SalesforceProject(SalesforceModel):
@@ -522,6 +515,7 @@ class SalesforceProject(SalesforceModel):
 
     class Meta:
         db_table = 'Project__c'
+        managed = False
 
 
 class SalesforceProjectBudget(SalesforceModel):
@@ -547,16 +541,17 @@ class SalesforceProjectBudget(SalesforceModel):
     category = models.CharField(max_length=255, db_column='Category__c', choices=ProjectBudgetCategory.choices, help_text=_("Category"))
     costs = models.CharField(max_length=255, db_column='Costs__c')
     description = models.CharField(max_length=32000, db_column='Description__c')
-    project_budget_external_id = models.CharField(max_length=255, db_column='Project_Budget_External_ID__c')
-    # Master detail reference: project = models.CharField(max_length=255, db_column='Project__c')
+    external_id = models.CharField(max_length=255, db_column='Project_Budget_External_ID__c')
+    project = models.ForeignKey(SalesforceProject, db_column='Project__c')
 
     class Meta:
         db_table = 'Project_Budget__c'
+        managed = False
 
 
-class SalesforceDonation(SalesforceModel):
+class SalesforceOpportunity(SalesforceModel):
     """
-    Default Salesforce Opportunity model. For Onepercentclub the mapping is named Donation(s).
+    Default abstract Salesforce Opportunity model. Used for Donation(s) / Voucher(s).
     """
     class OpportunityStageName(DjangoChoices):
         new = ChoiceItem('New', label=_("New"))
@@ -565,18 +560,49 @@ class SalesforceDonation(SalesforceModel):
         wit = ChoiceItem('Withdrawn', label=_("Withdrawn"))
         tra = ChoiceItem('Transfered', label=_("Transfered"))
 
+    class OpportunityType(DjangoChoices):
+        recurring = ChoiceItem('Recurring', label=_("Recurring"))
+        oneoff = ChoiceItem('One-off', label=_("One-off"))
+
+    class OpportunityPaymentMethod(DjangoChoices):
+        dire = ChoiceItem('Direct Debit (Online)', label=_("Direct Debit (Online)"))
+        idea = ChoiceItem('iDEAL', label=_("iDEAL"))
+        mass = ChoiceItem('Mastercard', label=_("Mastercard"))
+        over = ChoiceItem('Overboeking', label=_("Overboeking"))
+        visa = ChoiceItem('VISA', label=_("VISA"))
+
     # SF Layout: Donation Information section.
     amount = models.CharField(max_length=255, db_column='Amount')
     close_date = models.DateField(db_column='CloseDate')
+    opportunity_type = models.CharField(max_length=40,
+                                        db_column='Type',
+                                        choices=OpportunityType.choices,
+                                        help_text="Type of donation")
     name = models.CharField(max_length=120, db_column='Name')
     payment_method = models.CharField(max_length=255,
                                       db_column='Payment_method__c',
                                       choices=OpportunityPaymentMethod.choices,
                                       help_text=_("PaymentMethod"))
-    organization = models.ForeignKey(SalesforceOrganization, db_column='Project_Organization__c')
     project = models.ForeignKey(SalesforceProject, db_column='Project__c')
-    stage_name = models.CharField(max_length=40, db_column='StageName', choices=OpportunityStageName.choices, help_text=_("StageName"))
-    donation_type = models.CharField(max_length=1000, db_column='Type')
+    stage_name = models.CharField(max_length=40,
+                                  db_column='StageName',
+                                  choices=OpportunityStageName.choices,
+                                  help_text=_("StageName"))
+
+    # SF Other
+    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c')
+
+    class Meta:
+        abstract = True
+        managed = False
+
+
+class SalesforceDonation(SalesforceOpportunity):
+    """
+    Child of the Opportunity for Onepercentclub the mapping is named Donation(s).
+    """
+    # SF Layout: Donation Information section.
+    # organization = models.ForeignKey(SalesforceOrganization, db_column='Project_Organization__c')
 
     # SF Layout: Additional Information section.
 
@@ -586,46 +612,34 @@ class SalesforceDonation(SalesforceModel):
     donation_created_date = models.DateField(db_column='Donation_created_date__c')
 
     # SF: Other.
-    # TODO: check the maximum positive integer..Note!!!! id will be newly generated
     external_id = models.CharField(max_length=255, db_column='Donation_External_ID__c')
-    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c')
 
     class Meta:
+        managed = False
         db_table = 'Opportunity'
 
 
-# TODO: Ask github if different recordtypes on Opportunity for example is the intended behaviour.
-# Currently if db_table = Opportunity is supplied the syncdb will fail!
-# class SalesforceVoucher(SalesforceModel):
-#     """
-#     Default Salesforce Opportunity model. For Onepercentclub the mapping is named Vouchers(s).
-#     """
-#     # SF Layout: Donation Information section.
-#     amount = models.CharField(max_length=255, db_column='Amount')
-#     close_date = models.DateField(db_column='CloseDate')
-#     name = models.CharField(max_length=120, db_column='Name')
-#     payment_method = models.CharField(max_length=255,
-#                                       db_column='Payment_method__c',
-#                                       choices=OpportunityPaymentMethod.choices,
-#                                       help_text=_("PaymentMethod"))
-#     project = models.CharField(max_length=255, db_column='Project__c')
-#     purchaser = models.CharField(max_length=255, db_column='Purchaser__c')
-#     stage_name = models.CharField(max_length=255, db_column='StageName')
-#     voucher_type = models.CharField(max_length=255, db_column='Type')
-#     record_type = models.CharField(max_length=255, db_column='RecordType')
-#
-#     # SF Layout: Additional Information section.
-#     description = models.CharField(max_length=32000, db_column='Description')
-#
-#     # SF Layout: System Information section.
-#     receiver = models.CharField(max_length=255, db_column='Receiver__c')
-#
-#     # SF Other.
-#     voucher_id = models.CharField(max_length=255, db_column='ID')
-#     donation_external_id = models.CharField(max_length=255, db_column='Donation_External_ID__c')
-#
-#     class Meta:
-#         db_table = 'Opportunity'
+class SalesforceVoucher(SalesforceOpportunity):
+    """
+    Child of the Opportunity for Onepercentclub the mapping is named Voucher(s).
+    """
+    # SF Layout: Donation Information section.
+    # purchaser = models.ForeignKey(SalesforceContact, db_column='Purchaser__c')
+    record_type = models.CharField(max_length=255, db_column='RecordTypeId')
+
+    # SF Layout: Additional Information section.
+    description = models.CharField(max_length=32000, db_column='Description')
+
+    # SF Layout: System Information section.
+    # receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c')
+
+    # SF Other.
+    # voucher_id = models.CharField(max_length=255, db_column='Id')
+    external_id = models.CharField(max_length=255, db_column='Donation_External_ID__c')
+
+    class Meta:
+        managed = False
+        db_table = 'Opportunity'
 
 
 class SalesforceTask(SalesforceModel):
@@ -639,7 +653,7 @@ class SalesforceTask(SalesforceModel):
         realized = ChoiceItem('Realized', label=_("Realized"))
 
     # SF Layout: Information section.
-    project = models.CharField(max_length=255, db_column='Project__c')
+    project = models.ForeignKey(SalesforceProject, db_column='Project__c')
     deadline = models.CharField(max_length=10000, db_column='Deadline__c')
     effort = models.CharField(max_length=10000, db_column='Effort__c')
     extended_task_description = models.CharField(max_length=32000, db_column='Extended_task_description__c')
@@ -658,6 +672,7 @@ class SalesforceTask(SalesforceModel):
 
     class Meta:
         db_table = 'onepercentclubTasks__c'
+        managed = False
 
 
 class SalesforceTaskMembers(SalesforceModel):
@@ -666,12 +681,13 @@ class SalesforceTaskMembers(SalesforceModel):
     The table is used as a joined table which relates to Tasks to the Contacts.
     """
     # SF Layout: Information section.
-    #Master detail: contacts = models.CharField(max_length=255, db_column='Contacts__c')
-    #Master detail: x1_club_task = models.CharField(max_length=255, db_column='X1_CLUB_Task__c')
-    task_member_external_id = models.CharField(max_length=100, db_column='Task_Member_External_ID__c')
+    contacts = models.ForeignKey(SalesforceContact, db_column='Contacts__c')
+    x1_club_task = models.ForeignKey(SalesforceTask, db_column='X1_CLUB_Task__c')
+    external_id = models.CharField(max_length=100, db_column='Task_Member_External_ID__c')
 
     class Meta:
         db_table = 'Task_Members__c'
+        managed = False
 
 
 # Other Salesforce models available from Force.com IDE (Eclipse based)
