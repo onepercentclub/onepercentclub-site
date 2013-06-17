@@ -99,7 +99,7 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), max_length=254, unique=True, db_index=True)
     username = models.SlugField(_("username"), unique=True)
     is_staff = models.BooleanField(_("staff status"), default=False, help_text=_('Designates whether the user can log into this admin site.'))
-    is_active = models.BooleanField(_("active"), default=True, help_text=_('Designates whether this user should be treated as active. Unselect this instead of deleting accounts.'))
+    is_active = models.BooleanField(_("active"), default=False, help_text=_('Designates whether this user should be treated as active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     updated = ModificationDateTimeField()
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
@@ -118,11 +118,11 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
 
     # Private Settings
     primary_language = models.CharField(_("primary language"), max_length=5, help_text=_("Language used for website and emails."), choices=settings.LANGUAGES)
-    share_time_knowledge = models.BooleanField(_("share time and knowledge"))
-    share_money = models.BooleanField(_("share money"))
+    share_time_knowledge = models.BooleanField(_("share time and knowledge"), default=False)
+    share_money = models.BooleanField(_("share money"), default=False)
     newsletter = models.BooleanField(_("newsletter"), help_text=_("Subscribe to newsletter."), default=False)
-    phone_number = models.CharField(_("phone number"), max_length=50, null=True, blank=True)
-    gender = models.CharField(_("gender"), max_length=6, blank=True, null=True, choices=Gender.choices)
+    phone_number = models.CharField(_("phone number"), max_length=50, blank=True)
+    gender = models.CharField(_("gender"), max_length=6, blank=True, choices=Gender.choices)
     birthdate = models.DateField(_("birthdate"), null=True, blank=True)
 
     # TODO Remove these fields when info has been manually migrated to the new fields.
@@ -238,7 +238,7 @@ class UserAddress(Address):
         primary = ChoiceItem('primary', label=_("Primary"))
         secondary = ChoiceItem('secondary', label=_("Secondary"))
 
-    address_type = models.CharField(_("address type"), max_length=10, blank=True, choices=AddressType.choices)
+    address_type = models.CharField(_("address type"), max_length=10, blank=True, choices=AddressType.choices, default=AddressType.primary)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
 
     class Meta:
