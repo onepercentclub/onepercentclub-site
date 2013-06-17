@@ -6,9 +6,10 @@ from django.utils.text import slugify
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from django_extensions.db.fields import AutoSlugField, ModificationDateTimeField
+from django_extensions.db.fields import ModificationDateTimeField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
@@ -219,18 +220,13 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
             return None
 
 
-# South cannot deal with the taggit so we're ignoring that field. Here's the error message from South:
-# ! Cannot freeze field 'accounts.bluebottleuser.tags'
-# ! (this field has class taggit_autocomplete_modified.managers.TaggableManagerAutocomplete)
-try:
-    from south.modelsinspector import add_ignored_fields
-except ImportError:
-    pass
-else:
-    # South should ignore the tags field as it's a RelatedField.
-    add_ignored_fields((
-        "^taggit_autocomplete_modified\.managers\.TaggableManagerAutocomplete",
-    ))
+# Ensures that UserProfile and User instances stay in sync.
+def create_user_address(sender, instance, created, **kwargs):
+    """ Create a UserAddress whenever a User is created. """
+    if created:
+        UserAddress.objects.create(user=instance)
+
+post_save.connect(create_user_address, sender=BlueBottleUser)
 
 
 class UserAddress(Address):
@@ -245,3 +241,16 @@ class UserAddress(Address):
         verbose_name = _("user address")
         verbose_name_plural = _("user addresses")
 
+
+# South cannot deal with the taggit so we're ignoring that field. Here's the error message from South:
+# ! Cannot freeze field 'accounts.bluebottleuser.tags'
+# ! (this field has class taggit_autocomplete_modified.managers.TaggableManagerAutocomplete)
+try:
+    from south.modelsinspector import add_ignored_fields
+except ImportError:
+    pass
+else:
+    # South should ignore the tags field as it's a RelatedField.
+    add_ignored_fields((
+        "^taggit_autocomplete_modified\.managers\.TaggableManagerAutocomplete",
+    ))
