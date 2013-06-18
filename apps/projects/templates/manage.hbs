@@ -7,6 +7,16 @@
 
     <div class="container section">
         <div class="wrapper">
+            {{#if canPitchNew}}
+                <h4>
+                    {{#linkTo "myNewPitch"}}
+                        <span class="icon-bulb"></span>
+                        {% trans "Pitch your smart idea!!" %}
+                    {{/linkTo}}
+                </h4>
+            {{else}}
+                {% trans "You have a project in progress. Once that is finished you can pitch a new idea." %}
+            {{/if}}
             <ul>
                 {{#each project in controller}}
                     <li>
@@ -16,7 +26,7 @@
                         {{#if project.isPhasePitch}}
                             {{#linkTo "myProjectPitch" project }}
                                 <span class="icon-wrench"></span>
-                                {% trans "PITCH" %}
+                                {% trans "PITCH" %} | {{ project.pitch.status }}
                             {{/linkTo}}
                         {{else}}
                             <a {{action "showProject" project.id href=true}}>
@@ -27,7 +37,7 @@
                         {{#if project.isPhasePlan}}
                             {{#linkTo "myProjectPlan" project }}
                                 <span class="icon-wrench"></span>
-                                {% trans "PLAN" %}
+                                {% trans "PLAN" %}  | {{ project.plan.status }}
                             {{/linkTo}}
                         {{/if}}
                     </li>
