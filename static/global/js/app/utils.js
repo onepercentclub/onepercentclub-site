@@ -1,13 +1,12 @@
 // TODO: Combine this Country model with the one in projects.
 
 App.Country = DS.Model.extend({
-    url: "utils/countries",
-    title: DS.attr('string')
+    url: "geo/countries",
+    name: DS.attr('string')
 });
 
 
 App.CountrySelectView = Em.Select.extend({
-    content: {"value": "0", "title": "loading"},
     content:  [{"value": "0", "title": "--loading--"}],
     optionValuePath: "content.id",
     optionLabelPath: "content.name"
@@ -425,15 +424,3 @@ App.MapPicker = Em.View.extend({
     }
 
 });
-
-App.MapPickerValue = Ember.TextField.extend({
-    type: 'hidden',
-    valueBinding: "parentView.value"
-
-});
-
-
-App.MapPicker = Ember.ContainerView.extend({
-    childViews: [App.MapPickerValue, App.MapPickerWidget]
-});
-

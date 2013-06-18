@@ -111,10 +111,7 @@ App = Em.Application.create({
             });
         });
         App.Country.find().then(function(list){
-            App.CountrySelectCodeView.reopen({
-                content: list
-            });
-            App.CountrySelectPKView.reopen({
+            App.CountrySelectView.reopen({
                 content: list
             });
         });
