@@ -21,7 +21,7 @@ class Organization(models.Model):
 
     description = models.TextField(_("description"), blank=True)
     legal_status = models.TextField(_("legal status"), blank=True, help_text=_("The legal status of the organization (e.g. Foundation)."))
-    phone_number = models.CharField(_("phone number"), max_length=50, blank=True)
+    phone_number = models.CharField(_("phone number"), max_length=40, blank=True)
     website = models.URLField(_("website"), blank=True)
 
     created = CreationDateTimeField(_("created"))
