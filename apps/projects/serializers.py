@@ -90,7 +90,7 @@ class ProjectPlanSerializer(serializers.ModelSerializer):
     country = ProjectCountrySerializer()
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
-    organization = serializers.PrimaryKeyRelatedField(source="organization")
+    organization = serializers.PrimaryKeyRelatedField(source="organization", required=False)
     ambassadors = ProjectAmbassadorSerializer(many=True, source='projectambassador_set')
 
     budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set')

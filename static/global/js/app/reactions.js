@@ -101,12 +101,11 @@ App.WallPostReactionListView = Em.View.extend({
         view.$('textarea').focus(function(e) {
             view.$('.reaction-form').addClass('is-selected');
         }).blur(function(e) {
-            if (!$.trim($(this).val())) {
+            if (!$(this).val()) {
                 // textarea is empty or contains only white-space
-                view.$t('.reaction-form').removeClass('is-selected');
+                view.$('.reaction-form').removeClass('is-selected');
             }
         });
     }
-
 });
 

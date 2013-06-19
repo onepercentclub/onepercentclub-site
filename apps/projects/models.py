@@ -38,6 +38,8 @@ class ProjectPhases(DjangoChoices):
     plan = ChoiceItem('plan', label=_("Plan"))
     campaign = ChoiceItem('campaign', label=_("Campaign"))
     results = ChoiceItem('results', label=_("Results"))
+    realized = ChoiceItem('realized', label=_("Realised"))
+    closed = ChoiceItem('closed', label=_("Closed"))
 
 
 class Project(models.Model):
@@ -206,6 +208,25 @@ class ProjectPlan(models.Model):
         verbose_name_plural = _('plans')
 
 
+class ProjectCampaign(models.Model):
+
+    class PlanStatuses(DjangoChoices):
+        running = ChoiceItem('running', label=_("Running"))
+        realized = ChoiceItem('realized', label=_("Realized"))
+        closed = ChoiceItem('closed', label=_("Closed"))
+
+    project = models.OneToOneField("projects.Project", verbose_name=_("project"))
+    status = models.CharField(_("status"), max_length=20, choices=PlanStatuses.choices)
+
+    created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
+    updated = ModificationDateTimeField(_('updated'))
+
+    currency = models.CharField(max_length="10")
+    money_asked = models.PositiveIntegerField()
+    money_donated = models.PositiveIntegerField()
+    money_secure = models.PositiveIntegerField()
+
+
 class PartnerOrganization(models.Model):
     """
         Some projects are run in cooperation with a partner
@@ -231,7 +252,7 @@ class ProjectAmbassador(models.Model):
     project_plan = models.ForeignKey(ProjectPlan)
     name = models.CharField(_("name"), max_length=255)
     email = models.EmailField(_("email"))
-    description = models.TextField(_("description"), blank=True)
+    description = models.TextField(_("description"))
 
 
 class ProjectBudgetLine(models.Model):

@@ -299,7 +299,6 @@ App.ProfileController = Ember.ObjectController.extend({
 //           mark the parent record as dirty).
 App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
-    team_member: {embedded: 'load'},
     country: {embedded: 'load'}
 });
 App.Adapter.map('App.DonationPreview', {
@@ -418,7 +417,6 @@ App.Router.map(function() {
     });
 
     this.resource('project', {path: '/projects/:project_id'}, function() {
-        this.resource('projectWallPostList', {path: '/wallposts'});
         this.resource('projectTaskList', {path: '/tasks'});
         this.resource('projectTaskNew', {path: '/tasks/new'});
         this.resource('projectTask', {path: '/tasks/:task_id'});
@@ -503,7 +501,7 @@ App.Router.map(function() {
         this.resource('myProjectPitchRejected', {path: 'pitch/rejected'})
     });
 
-
+    this.resource('myPitchNew', {path: '/my/pitch/new'});
     this.resource('myProjectList', {path: '/my/projects'});
 
 });
@@ -622,9 +620,6 @@ App.ProjectIndexRoute = Ember.Route.extend({
 
     model: function(params){
         return this.modelFor('project').get('wallposts');
-        return this.modelFor('project').then(function(project){
-            return project.get('wallposts');
-        });
     },
     setupController: function(controller, model) {
         // Empty the items and set page to 0 so we don't show wall posts from previous project
@@ -1159,9 +1154,28 @@ App.LoginController = Em.Controller.extend({
  * My Projects
  * - Manage your project(s)
  */
+
 App.MyProjectListRoute = Ember.Route.extend({
     model: function(params){
         return App.MyProject.find();
+    }
+
+});
+
+App.MyPitchNewRoute = Ember.Route.extend({
+    redirect: function() {
+        var projects = App.MyProject.find();
+        var route = this;
+        projects.forEach(function(project){
+            if (project.get('inProgress')) {
+                route.transitionTo('myProjectList');
+            }
+        });
+    },
+    model: function(){
+        var transaction = this.get('store').transaction();
+        var project =  transaction.createRecord(App.MyProject);
+        return project;
     }
 
 });
@@ -1176,7 +1190,7 @@ App.MyProjectRoute = Ember.Route.extend({
 
 App.MyProjectPitchRoute =  Ember.Route.extend({
     model: function(params) {
-        return this.modelFor('myProject').get('plan');
+        return this.modelFor('myProject').get('pitch');
     }
 });
 

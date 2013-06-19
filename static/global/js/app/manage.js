@@ -298,7 +298,19 @@ App.MyProject = DS.Model.extend({
     }.property('phase'),
     isPhasePlan: function(){
         return this.get('phase') == 'plan';
-    }.property('phase')
+    }.property('phase'),
+
+    inProgress: function(){
+        var phase = this.get('phase');
+        if (phase == 'realized') {
+            return false;
+        }
+        if (phase == 'closed') {
+            return false;
+        }
+        return true;
+    }.property('phase', 'pitch.status', 'plan.status')
+
 });
 
 
@@ -309,6 +321,26 @@ App.MyProject = DS.Model.extend({
 
 App.MyProjectController = Em.ObjectController.extend({
     needs: ['currentUser']
+});
+
+App.MyPitchNewController = Em.ObjectController.extend(App.Editable, {
+    needs: ['currentUser']
+});
+
+
+
+App.MyProjectListController = Em.ArrayController.extend({
+    needs: ['currentUser'],
+    canPitchNew: function(){
+        var can = true;
+        this.get('model').forEach(function(project){
+            if (project.get('inProgress')) {
+                can = false;
+            }
+        });
+        return can;
+    }.property('model.@each.phase')
+
 });
 
 App.MyProjectPitchController = Em.ObjectController.extend(App.Editable, {
@@ -562,6 +594,11 @@ App.MyProjectView = Em.View.extend({
 
 
 // Project Pitch Phase
+
+App.MyPitchNewView = Em.View.extend({
+    templateName: 'my_pitch_new'
+
+});
 
 App.MyProjectPitchView = Em.View.extend({
     templateName: 'my_project_pitch'

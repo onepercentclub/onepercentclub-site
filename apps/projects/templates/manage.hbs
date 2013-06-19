@@ -9,9 +9,9 @@
         <div class="wrapper">
             {{#if canPitchNew}}
                 <h4>
-                    {{#linkTo "myNewPitch"}}
+                    {{#linkTo "myPitchNew"}}
                         <span class="icon-bulb"></span>
-                        {% trans "Pitch your smart idea!!" %}
+                        {% trans "Pitch your smart idea." %}
                     {{/linkTo}}
                 </h4>
             {{else}}
@@ -422,7 +422,7 @@
                 {{/if}}
             </li>
 
-            <li class="control-group has-popover" data-content="{% trans "How many people do you expect to reach?" %}">
+            <li class="control-group has-popover" data-content="{% trans "How many people do you expect to reach? Enter a number (e.g. 50)" %}">
                 <label class="control-label">{% trans "People reached" %}</label>
                 <div class="controls">
                     {{view Em.TextField valueBinding="reach" classBinding="errors.reach.length:error"}}
@@ -840,7 +840,7 @@
                     <hr />
                 </li>
             {{/each}}
-            <li class="control-group has-popover" data-content="{% trans "You should at least at three ambassadors." %}">
+            <li class="control-group has-popover" data-content="{% trans "You should at least add three ambassadors." %}">
                 <label class="control-label">
                     <a {{action addAmbassador}}><span class="icon-plus-sign"></span> {% trans "Add another ambassador" %}</a>
                 </label>
@@ -1188,6 +1188,45 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "my_pitch_new" %}
+
+    <div class="container">
+        <div class="wrapper dashboard">
+            <form>
+                <fieldset>
+                    <legend>
+                        <strong>
+                            {% trans "Pitch Title" %}
+                        </strong>
+                    </legend>
+                    <ul>
+                        <li class="control-group has-popover" data-content="{% trans "Be short, creative, simple and memorable." %}">
+                            <label class="control-label">{% trans "Title" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="title" placeholder="Title" classBinding="errors.title.length:error"}}
+                            </div>
+
+                            {{#if errors.title }}
+                                <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}>
+                    <em class="icon icon-star"></em>{% trans "Start pitch" %}
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "my_project_pitch" %}
 
     <div class="container">
@@ -1201,7 +1240,7 @@
                         </h4>
                     </div>
                     {{#linkTo "myProjectPitch.basics" class="item"}}
-                        <em {{bindAttr class="projectpitch.validBasics:icon-ok:icon-pencil"}}></em>
+                        <em {{bindAttr class="validBasics:icon-ok:icon-pencil"}}></em>
                         {% trans "Project Basics" %}
                     {{/linkTo}}
                     {{#linkTo "myProjectPitch.location"  class="item"}}
@@ -1338,17 +1377,17 @@
                         {{#unless title}}
                             <span class="icon-ban-circle"></span> <b>Title</b> is missing<br/>
                         {{/unless}}
-                        {{#unless tags}}
-                            <span class="icon-ban-circle"></span> <b>Tags</b> are missing<br/>
+                        {{#unless pitch}}
+                            <span class="icon-ban-circle"></span> <b>Pitch</b> is missing<br/>
+                        {{/unless}}
+                        {{#unless theme}}
+                            <span class="icon-ban-circle"></span> <b>Theme</b> is missing<br/>
                         {{/unless}}
                         {{#unless description}}
                             <span class="icon-ban-circle"></span> <b>Why, what and how</b> is missing<br/>
                         {{/unless}}
-                        {{#unless title}}
-                            <span class="icon-ban-circle"></span> <b>Title</b> is missing<br/>
-                        {{/unless}}
-                        {{#unless need}}
-                            <span class="icon-ban-circle"></span> <b>Title</b> is missing<br/>
+                        {{#unless tags}}
+                            <span class="icon-ban-circle"></span> <b>Tags</b> are missing. Add at least five tags.<br/>
                         {{/unless}}
                     {{/if}}
                     {{#if validLocation}}
@@ -1365,6 +1404,16 @@
                         {{#unless country}}
                             <span class="icon-ban-circle"></span> <b>Country</b> are missing<br/>
                         {{/unless}}
+                    {{/if}}
+                    {{#if validMedia}}
+                        <h4>
+                            <span class="icon-ok"></span> Media is ok!<br/>
+                        </h4>
+                    {{else}}
+                        <h4>
+                            {{#linkTo "myProjectPitch.media"}}Media{{/linkTo}} still need work!
+                        </h4>
+                        <span class="icon-ban-circle"></span> <b>Image</b> is missing<br/>
                     {{/if}}
                 </div>
             </li>

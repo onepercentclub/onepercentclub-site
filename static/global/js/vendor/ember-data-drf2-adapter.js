@@ -209,10 +209,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             var formdata = new FormData();
             for (key in record) {
                 if (data[key] !== undefined) {
-                    console.log(key);
-                    console.log(data[key]);
                     if (record.get(key) instanceof File) {
-                        console.log('yeah');
                         var file = record.get(key);
                         formdata.append(key, file);
                     } else if (Em.typeOf(data[key]) == 'array'){
