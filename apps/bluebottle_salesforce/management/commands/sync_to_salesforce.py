@@ -391,7 +391,7 @@ def sync_donations(test_run):
         # SF Layout: Donation Information section.
         sfdonation.amount = donation.amount
         sfdonation.close_date = donation.created
-        sfdonation.name = sfContact.first_name +" "+ sfContact.last_name
+        sfdonation.name = sfContact.first_name + " " + sfContact.last_name
         # Unknown - sfdonation.payment_method =
         # Unknown - sfdonation.organization = SalesforceOrganization.objects.filter(external_id=1).get()
         sfdonation.project = sfProject

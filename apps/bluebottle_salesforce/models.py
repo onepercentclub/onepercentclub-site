@@ -466,6 +466,7 @@ class SalesforceProject(SalesforceModel):
     amount_at_the_moment = models.CharField(max_length=255, db_column='Amount_at_the_moment__c')
     amount_requested = models.CharField(max_length=255, db_column='Amount_requested__c')
     amount_still_needed = models.CharField(max_length=255, db_column='Amount_still_needed__c')
+    # Should it be 255 like the Project model on new Website
     project_name = models.CharField(max_length=80, db_column='Project_name__c')
     project_owner = models.ForeignKey(SalesforceContact, db_column='Project_Owner__c')
     status_project = models.CharField(max_length=255,
@@ -535,10 +536,10 @@ class SalesforceProject(SalesforceModel):
     external_id = models.CharField(max_length=255, db_column='Project_External_ID__c')
 
     # SF: Additional requirement not implemented yet - SFDC - Sheet 1
-    number_of_people_reached_direct = models.PositiveIntegerField(max_length=18, db_column='NumberOfPeopleReachedDirect__c')
-    number_of_people_reached_indirect = models.PositiveIntegerField(max_length=18, db_column='NumberOfPeopleReachedIndirect__c')
-    theme = models.CharField(max_length=255, db_column='Theme__c')
-    target_group = models.CharField(max_length=255, db_column='Target_group__c')
+    # number_of_people_reached_direct = models.PositiveIntegerField(max_length=18, db_column='NumberOfPeopleReachedDirect__c')
+    # number_of_people_reached_indirect = models.PositiveIntegerField(max_length=18, db_column='NumberOfPeopleReachedIndirect__c')
+    # theme = models.CharField(max_length=255, db_column='Theme__c')
+    # target_group = models.CharField(max_length=255, db_column='Target_group__c')
 
     class Meta:
         db_table = 'Project__c'
