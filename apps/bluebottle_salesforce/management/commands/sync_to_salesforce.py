@@ -1,8 +1,6 @@
-# Script to sync data to SaleForce.
-#
-# Run with:
-# ./manage.py runscript sync-to-salesforce
-# TODO User python logging.
+import logging
+from optparse import make_option
+from django.core.management.base import BaseCommand
 from apps.accounts.models import BlueBottleUser
 from apps.projects.models import Project, BudgetLine
 from apps.organizations.models import Organization
@@ -10,12 +8,54 @@ from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, Voucher
 from apps.bluebottle_salesforce.models import (SalesforceOrganization, SalesforceContact, SalesforceProject,
                                                SalesforceDonation, SalesforceProjectBudget, SalesforceTask,
-                                               SalesforceTaskMembers, SalesforceModel, SalesforceVoucher)
+                                               SalesforceTaskMembers, SalesforceVoucher)
+
+logger = logging.getLogger(__name__)
+
+
+#
+# Run with:
+# ./manage.py synctosalesforce -v 2 --settings=bluebottle.settings.salesforcesync
+#
+
+class Command(BaseCommand):
+    help = 'Synchronize data to Salesforce.'
+    requires_model_validation = True
+
+    verbosity_loglevel = {
+        '0': logging.ERROR,    # 0 means no output.
+        '1': logging.WARNING,  # 1 means normal output (default).
+        '2': logging.INFO,     # 2 means verbose output.
+        '3': logging.DEBUG     # 3 means very verbose output.
+    }
+
+    option_list = BaseCommand.option_list + (
+        make_option('--test-run', action='store_true', dest='test_run', default=False, help='Execute a Salesforce sync without saving to Salesforce.'),
+    )
+
+    def handle(self, *args, **options):
+        # Setup the log level for root logger.
+        loglevel = self.verbosity_loglevel.get(options['verbosity'])
+        logging.getLogger().setLevel(loglevel)
+
+        # The synchronization methods need to be run in a specific order because of foreign key dependencies.
+        sync_organizations(options['test_run'])
+        sync_users(options['test_run'])
+        sync_projects(options['test_run'])
+        sync_budget_lines(options['test_run'])
+        sync_tasks(options['test_run'])
+        sync_task_members(options['test_run'])
+        sync_donations(options['test_run'])
+        sync_vouchers(options['test_run'])
 
 
 def sync_organizations(test_run):
     organizations = Organization.objects.all()
+    logger.info("Syncing {0} Organization objects.".format(organizations.count()))
+
     for organization in organizations:
+        logger.info("Syncing Organization: {0}".format(organization))
+
         # Find the corresponding SF organization.
         try:
             sforganization = SalesforceOrganization.objects.filter(external_id=organization.id).get()
@@ -25,7 +65,7 @@ def sync_organizations(test_run):
         # SF Layout: Account details section.
         sforganization.name = organization.name
         sforganization.legal_status = organization.legal_status
-        # Unkown (Business/Funds/1%IDEA): - sforganization.organization_type =
+        # Unknown (Business/Funds/1%IDEA): - sforganization.organization_type =
 
         # # SF Layout: Address Information section.
         sforganization.external_id = organization.id
@@ -72,7 +112,11 @@ def sync_organizations(test_run):
 
 def sync_users(test_run):
     users = BlueBottleUser.objects.all()
+    logger.info("Syncing {0} User objects.".format(users.count()))
+
     for user in users:
+        logger.info("Syncing User: {0}".format(user))
+
         # Find the corresponding SF user.
         try:
             contact = SalesforceContact.objects.filter(external_id=user.id).get()
@@ -203,7 +247,11 @@ def sync_users(test_run):
 
 def sync_projects(test_run):
     projects = Project.objects.all()
+    logger.info("Syncing {0} Project objects.".format(projects.count()))
+
     for project in projects:
+        logger.info("Syncing Project: {0}".format(project))
+
         # Find the corresponding SF project.
         try:
             sfproject = SalesforceProject.objects.filter(external_id=project.id).get()
@@ -291,7 +339,11 @@ def sync_projects(test_run):
 
 def sync_budget_lines(test_run):
     budget_lines = BudgetLine.objects.all()
+    logger.info("Syncing {0} BudgetLine objects.".format(budget_lines.count()))
+
     for budget_line in budget_lines:
+        logger.info("Syncing BudgetLine: {0}".format(budget_line))
+
         # Find the corresponding SF budget lines.
         try:
             sfbudget_line = SalesforceProjectBudget.objects.filter(external_id=budget_line.id).get()
@@ -321,7 +373,11 @@ def sync_budget_lines(test_run):
 
 def sync_donations(test_run):
     donations = Donation.objects.all()
+    logger.info("Syncing {0} Donation objects.".format(donations.count()))
+
     for donation in donations:
+        logger.info("Syncing Donation: {0}".format(donation))
+
         # Find the corresponding SF donation.
         try:
             sfdonation = SalesforceDonation.objects.filter(external_id=donation.id).get()
@@ -367,7 +423,11 @@ def sync_donations(test_run):
 
 def sync_vouchers(test_run):
     vouchers = Voucher.objects.all()
+    logger.info("Syncing {0} Voucher objects.".format(vouchers.count()))
+
     for voucher in vouchers:
+        logger.info("Syncing Voucher: {0}".format(voucher))
+
         # Find the corresponding SF project.
         try:
             sfvoucher = SalesforceVoucher.objects.filter(external_id=voucher.id).get()
@@ -397,7 +457,11 @@ def sync_vouchers(test_run):
 
 def sync_tasks(test_run):
     tasks = Task.objects.all()
+    logger.info("Syncing {0} Task objects.".format(tasks.count()))
+
     for task in tasks:
+        logger.info("Syncing Task: {0}".format(task))
+
         # Find the corresponding SF tasks.
         try:
             sftask = SalesforceTask.objects.filter(external_id=task.id).get()
@@ -429,7 +493,11 @@ def sync_tasks(test_run):
 
 def sync_task_members(test_run):
     task_members = TaskMember.objects.all()
+    logger.info("Syncing {0} TaskMember objects.".format(task_members.count()))
+
     for task_member in task_members:
+        logger.info("Syncing TaskMember: {0}".format(task_member))
+
         # Find the corresponding SF task members.
         try:
             sftaskmember = SalesforceTaskMembers.objects.filter(external_id=task_member.id).get()
@@ -444,19 +512,3 @@ def sync_task_members(test_run):
         # Save the SF task_member.
         if not test_run:
             sftaskmember.save()
-
-
-def run(test_run=False):
-    """
-    This is run when the script is executed with 'runscript'. The sections need to be run in a specific order
-    because of foreign key dependencies.
-    """
-    sync_organizations(test_run)
-    sync_users(test_run)
-    sync_projects(test_run)
-    sync_budget_lines(test_run)
-    sync_tasks(test_run)
-    sync_task_members(test_run)
-    sync_donations(test_run)
-    sync_vouchers(test_run)
-
