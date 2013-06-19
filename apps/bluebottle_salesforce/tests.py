@@ -8,11 +8,11 @@ import requests
 from datetime import datetime
 from django.test import TestCase
 from django.conf import settings
+from django.core.management import call_command
 from salesforce import auth
 from requests.exceptions import ConnectionError
 from django.utils import unittest
 from .models import SalesforceOrganization, SalesforceContact, SalesforceDonation, SalesforceProject
-from .scripts import synctosalesforce
 
 logger = logging.getLogger(__name__)
 
@@ -192,11 +192,13 @@ class SalesforceProjectTest(TestCase):
         """
         self.test_project.delete()
 
+
 @unittest.skipUnless(run_salesforce_tests, 'Salesforce settings not set or not online')
 class SyncToSalesforceIntegrationTest(UserTestsMixin, TestCase):
     def smoke_test_sync_script(self):
+        #FIXME: We need more objects created here for the test to work.
         # Need to have data for each model that we want to run the smoke test on.
         self.create_user()
 
         # Run the sync test.
-        synctosalesforce.run(test_run=True)
+        call_command('sync_to_salesforce', test_run=True)
