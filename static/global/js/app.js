@@ -340,7 +340,6 @@ App.Router.map(function() {
         this.route('search');
     });
 
-
     this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectTaskList', {path: '/tasks'});
         this.resource('projectTaskNew', {path: '/tasks/new'});
@@ -363,12 +362,11 @@ App.Router.map(function() {
     this.resource('customVoucherRequest', {path: '/giftcards/custom'});
     this.route('customVoucherRequestDone', {path: '/giftcards/custom/done'});
 
-    this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
-
     this.resource('voucherRedeem', {path: '/giftcards/redeem'}, function() {
         this.route('add', {path: '/add/:project_id'});
         this.route('code', {path: '/:code'});
     });
+    this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
 
     this.resource('taskList', {path: '/tasks'});
     this.resource('signup');
@@ -376,12 +374,12 @@ App.Router.map(function() {
     this.resource('user', {path: '/member'}, function() {
         this.resource('userProfile', {path: '/profile/'});
         this.resource('userSettings', {path: '/settings'});
-
-        this.route('activate', {path: '/activate/:activation_key'});
     });
 
+    this.route('userActivate', {path: '/activate/:activation_key'});
     this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
 });
+
 
 App.ApplicationRoute = Ember.Route.extend({
 
@@ -441,7 +439,6 @@ App.ApplicationRoute = Ember.Route.extend({
                 defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
                 bodyViewClass: view
             });
-
         }
     }
 });
@@ -491,6 +488,7 @@ App.ProjectIndexRoute = Ember.Route.extend({
 
 });
 
+
 // Tasks
 
 App.ProjectTaskListRoute = Ember.Route.extend({
@@ -510,6 +508,7 @@ App.ProjectTaskListRoute = Ember.Route.extend({
         });
     }
 });
+
 
 App.ProjectTaskRoute = Ember.Route.extend({
     model: function(params) {
@@ -629,6 +628,7 @@ App.ProjectTaskNewRoute = Ember.Route.extend({
         controller.set('content', model);
     }
 });
+
 
 App.ProjectTaskEditRoute = Ember.Route.extend({
     model: function(params) {
@@ -881,32 +881,45 @@ App.UserSettingsRoute = Ember.Route.extend({
 
 App.UserActivateRoute = Ember.Route.extend({
     model: function(params) {
-        var self = this;
+        var route = this;
 
         $.ajax({
             type: "GET",
             url: "/i18n/api/users/activate/" + params.activation_key,
             success: function() {
                 var currentUser = App.CurrentUser.find('current');
+                // Put the currentUser model in the load.saved state if it's in the error state.
+                // We might have to take care of the case when currentUser is in the isLoading state. Not sure though.
+                if (currentUser.get('isError')) {
+                    currentUser.get('stateManager').transitionTo('loaded.saved');
+                }
 
-                currentUser.one('didReload', function(e) {
-                    var applicationController = self.controllerFor('application');
-
-                    var messageTitle   = "Hello " + currentUser.get('first_name');
+                currentUser.one('didReload', function() {
+                    // Set a welcome message for the user.
+                    var applicationController = route.controllerFor('application');
+                    var displayName = currentUser.get('first_name') ? currentUser.get('first_name') : currentUser.get('username');
+                    var messageTitle   = "Hello " + displayName;
                     var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
-
                     applicationController.set('message_title', messageTitle);
                     applicationController.set('message_content', messageContent);
-
                     applicationController.set('display_message', true);
 
-                    self.replaceWith('userProfile');
+                    // Unload the currentUser record from ember-data so that the UserProfile Route will load properly.
+                    currentUser.unloadRecord();
+                    route.replaceWith('userProfile');
                 });
 
                 currentUser.reload();
             },
             error: function() {
-                // FIXME: Error Handling
+                // Notify user of the problem.
+                var applicationController = route.controllerFor('application');
+                var messageContent = "There was a problem activating your account. Please contact us for assistance.";
+                applicationController.set('message_title', '');
+                applicationController.set('message_content', messageContent);
+                applicationController.set('display_message', true);
+
+                route.replaceWith('home');
             }
         });
     }
@@ -922,8 +935,9 @@ App.SignupRoute = Ember.Route.extend({
 
     model: function() {
         var transaction = this.get('store').transaction();
-
-        return transaction.createRecord(App.User, {});
+        // FIXME We need to set the first and last name to an empty string or we'll get a 500 error.
+        // FIXME This is a workaround for a bug in DRF2.
+        return transaction.createRecord(App.UserCreate, {first_name: '', last_name: ''});
     }
 });
 

@@ -242,7 +242,7 @@ class UserAddress(Address):
         verbose_name_plural = _("user addresses")
 
 
-# South cannot deal with the taggit so we're ignoring that field. Here's the error message from South:
+# South cannot deal with the taggit_autocomplete field so we're ignoring it. Here's the error message from South:
 # ! Cannot freeze field 'accounts.bluebottleuser.tags'
 # ! (this field has class taggit_autocomplete_modified.managers.TaggableManagerAutocomplete)
 try:

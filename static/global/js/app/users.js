@@ -110,7 +110,8 @@ App.UserPreview = DS.Model.extend({
 /*
  A data model representing currently authenticated user.
 
- Interacts with following authenticated user API.
+ Interacts with following authenticated user API:
+
  Logged in user (GET):            /users/current
 
  TODO: Should be unified to App.User model.
@@ -120,11 +121,25 @@ App.CurrentUser = App.UserPreview.extend({
 
     // This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
     // App.UserSettingsModel.find(App.CurrentUser.find('current').get('id_for_ember'));
-    id_for_ember: DS.attr('number'),
+    id_for_ember: DS.attr('number')
+});
 
-    becameError: function() {
-        this.get('stateManager').transitionTo('loaded.saved');
-    }
+
+/*
+ A model for creating users.
+
+ Interacts with following public API:
+
+ User (POST):   /users/
+
+ */
+App.UserCreate = DS.Model.extend({
+    url: 'users',
+
+    first_name: DS.attr('string'),
+    last_name: DS.attr('string'),
+    email: DS.attr('string'),
+    password: DS.attr('string')
 });
 
 
