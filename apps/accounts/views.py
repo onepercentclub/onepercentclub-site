@@ -1,5 +1,3 @@
-from apps.accounts.models import BlueBottleUser
-from apps.accounts.serializers import PasswordResetSerializer, PasswordSetSerializer
 from apps.bluebottle_drf2.permissions import IsCurrentUserOrReadOnly, IsCurrentUser
 from django.contrib.auth import load_backend, login, get_user_model
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
@@ -15,6 +13,9 @@ from rest_framework import status
 from rest_framework import views
 from django.utils.translation import ugettext_lazy as _
 from .serializers import CurrentUserSerializer, UserProfileSerializer, UserSettingsSerializer, UserCreateSerializer
+from .models import BlueBottleUser
+from .serializers import (CurrentUserSerializer, UserProfileSerializer, UserSettingsSerializer, UserCreateSerializer,
+                          PasswordResetSerializer, PasswordSetSerializer)
 
 
 # API views
