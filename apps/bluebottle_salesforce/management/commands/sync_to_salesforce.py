@@ -2,7 +2,7 @@ import logging
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from apps.accounts.models import BlueBottleUser
-from apps.projects.models import Project, BudgetLine
+from apps.projects.models import Project, BudgetLine, ProjectPhases
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, Voucher
@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 # Run with:
 # ./manage.py synctosalesforce -v 2 --settings=bluebottle.settings.salesforcesync
 #
+# TODO: Bug - Donation and Vouchers get mixed up during creation.
 
 class Command(BaseCommand):
     help = 'Synchronize data to Salesforce.'
@@ -267,6 +268,7 @@ def sync_projects(test_run):
         # -- Not the same as (closed,created, done validated)
         #  -- fund, idea,act, result (if ...else...?)
         sfproject.status_project = project.phase
+
         # Unknown: sfproject.target_group_s_of_the_project =
 
         # SF Layout: Summary Project Details section.
@@ -380,7 +382,8 @@ def sync_donations(test_run):
 
         # Find the corresponding SF donation.
         try:
-            sfdonation = SalesforceDonation.objects.filter(external_id=donation.id).get()
+            donation_id = "donation" + str(donation.id)
+            sfdonation = SalesforceDonation.objects.filter(external_id=donation_id).get()
         except SalesforceDonation.DoesNotExist:
             sfdonation = SalesforceDonation()
 
@@ -405,8 +408,10 @@ def sync_donations(test_run):
         sfdonation.donation_created_date = donation.created
 
         # SF: Other.
-        sfdonation.external_id = donation.id
+        sfdonation.external_id = "donation" + str(donation.id)
         sfdonation.receiver = sfContact
+        # This is a record type Voucher, probably better to create RecordType model and use the name 'Voucher' to get Id
+        sfdonation.record_type = "012A0000000ZK6FIAW"
 
         # Save the SF donation.
         if not test_run:
@@ -428,28 +433,57 @@ def sync_vouchers(test_run):
     for voucher in vouchers:
         logger.info("Syncing Voucher: {0}".format(voucher))
 
-        # Find the corresponding SF project.
+        # Find the corresponding SF vouchers.
         try:
-            sfvoucher = SalesforceVoucher.objects.filter(external_id=voucher.id).get()
+            voucher_id = "voucher"+str(voucher.id)
+            sfvoucher = SalesforceVoucher.objects.filter(external_id=voucher_id).get()
         except SalesforceVoucher.DoesNotExist:
             sfvoucher = SalesforceVoucher()
 
+        # Initialize Salesforce objects.
+        # TODO: There should be a voucher.purchaser.id
+        sfContactPurchaser = SalesforceContact.objects.filter(external_id=1).get()
+
+        # TODO: There should be a voucher.project.id
+        sfProject = SalesforceProject.objects.filter(external_id=1).get()
+
         # SF Layout: Donation Information section.
-        #TODO: Error - sfvoucher.purchaser = SalesforceContact.objects.filter(external_id=voucher.sender).get()
-        sfvoucher.voucher_type = voucher.status
+        # Temporary test fix
+        sfvoucher.amount = voucher.amount
+        sfvoucher.close_date = voucher.created
+        sfvoucher.payment_method = ""
+        sfvoucher.project = sfProject
+        sfvoucher.name = str(sfContactPurchaser.first_name) + " " + str(sfContactPurchaser.last_name)
+        # Unknown: Currently synchronization happens on these two types. However not available on backend
+        # sfvoucher.name exist in production: "NOT YET USED 1%VOUCHER"
+        # sfvoucher.stage_name exists as state: "In progress"
+
+        if voucher.status == "new":
+            sfvoucher.stage_name = Voucher.VoucherStatuses.values['new']
+        elif voucher.status == "paid":
+            sfvoucher.stage_name = Voucher.VoucherStatuses.values['paid']
+        elif voucher.status == "cancelled":
+            sfvoucher.stage_name = Voucher.VoucherStatuses.values['cancelled']
+        elif voucher.status == "cashed":
+            sfvoucher.stage_name = "Closed"
+        elif voucher.status == "cashed_by_proxy":
+            sfvoucher.stage_name = "ChargedBack"
+
+        sfvoucher.purchaser = sfContactPurchaser
+        sfvoucher.opportunity_type = "One-off"
         # This is a record type Voucher, probably better to create RecordType model and use the name 'Voucher' to get Id
-        sfvoucher.record_type = "012A0000000BxfH"
+        sfvoucher.record_type = "012A0000000BxfHIAS"
 
         # SF Layout: Additional Information section.
         #Unknown: sfvoucher.description = voucher.description
 
         # SF Layout: System Information section.
-        # TODO: Error - sfvoucher.receiver = SalesforceContact.objects.filter(external_id=voucher.receiver).get()
+        # TODO: There should be a voucher.receiver.id
+        sfvoucher.receiver = SalesforceContact.objects.filter(external_id=1).get()
 
         # SF Other.
         # sfvoucher.voucher_id = voucher.id
-        sfvoucher.external_id = voucher.id
-
+        sfvoucher.external_id = "voucher" + str(voucher.id)
         # Save the SF voucher.
         if not test_run:
             sfvoucher.save()

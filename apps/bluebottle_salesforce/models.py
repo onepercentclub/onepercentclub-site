@@ -616,9 +616,9 @@ class SalesforceOpportunity(SalesforceModel):
                                   db_column='StageName',
                                   choices=OpportunityStageName.choices,
                                   help_text=_("StageName"))
+    record_type = models.CharField(max_length=255, db_column='RecordTypeId')
 
     # SF Other
-    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c')
 
     class Meta:
         abstract = True
@@ -641,6 +641,7 @@ class SalesforceDonation(SalesforceOpportunity):
 
     # SF: Other.
     external_id = models.CharField(max_length=255, db_column='Donation_External_ID__c')
+    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c')
 
     class Meta:
         managed = False
@@ -652,14 +653,13 @@ class SalesforceVoucher(SalesforceOpportunity):
     Child of the Opportunity for Onepercentclub the mapping is named Voucher(s).
     """
     # SF Layout: Donation Information section.
-    # purchaser = models.ForeignKey(SalesforceContact, db_column='Purchaser__c')
-    record_type = models.CharField(max_length=255, db_column='RecordTypeId')
+    purchaser = models.ForeignKey(SalesforceContact, db_column='Purchaser__c', related_name='contact_purchasers')
 
     # SF Layout: Additional Information section.
     description = models.CharField(max_length=32000, db_column='Description')
 
     # SF Layout: System Information section.
-    # receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c')
+    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c', related_name='contact_receivers')
 
     # SF Other.
     # voucher_id = models.CharField(max_length=255, db_column='Id')
