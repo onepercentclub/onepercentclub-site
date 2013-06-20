@@ -17,7 +17,6 @@ logger = logging.getLogger(__name__)
 # Run with:
 # ./manage.py synctosalesforce -v 2 --settings=bluebottle.settings.salesforcesync
 #
-# TODO: Bug - Donation and Vouchers get mixed up during creation.
 
 class Command(BaseCommand):
     help = 'Synchronize data to Salesforce.'
@@ -125,7 +124,18 @@ def sync_users(test_run):
             contact = SalesforceContact()
 
         # SF Layout: Subscription section - Set all the fields needed to save the user to the SF user.
-        contact.category1 = user.user_type  # Selectable type in Salesforce english
+        # Selectable type in Salesforce english
+        if user.user_type == "person":
+            contact.category1 = BlueBottleUser.UserType.values['person']
+        elif user.user_type == "group":
+            contact.category1 = BlueBottleUser.UserType.values['group']
+        elif user.user_type == "foundation":
+            contact.category1 = BlueBottleUser.UserType.values['foundation']
+        elif user.user_type == "school":
+            contact.category1 = BlueBottleUser.UserType.values['school']
+        elif user.user_type == "company":
+            contact.category1 = BlueBottleUser.UserType.values['company']
+
         contact.email = user.email
         contact.user_name = user.username
         contact.is_active = user.is_active
@@ -169,8 +179,13 @@ def sync_users(test_run):
         # SF Layout: Administrative (private) section.
         contact.birth_date = user.birthdate
 
-        # Salesforce: needs to be updated to male/female/<empty string> instead m/f
-        contact.gender = user.gender
+        # Salesforce: needs to be updated to Male/Female/<empty string> instead m/f
+        if user.gender == "male":
+            contact.gender = BlueBottleUser.Gender.values['male']
+        elif user.gender == "female":
+            contact.gender = BlueBottleUser.Gender.values['female']
+        else:
+            contact.gender = ""
 
         if user.address:
             contact.mailing_city = user.address.city
@@ -266,13 +281,13 @@ def sync_projects(test_run):
         sfproject.project_name = project.title
         sfproject.project_owner = SalesforceContact.objects.filter(external_id=project.owner.id).get()
         # -- Not the same as (closed,created, done validated)
-        #  -- fund, idea,act, result (if ...else...?)
+        #  -- pitch, campaign, act, closed, failed (if ...else...?)
         sfproject.status_project = project.phase
 
-        # Unknown: sfproject.target_group_s_of_the_project =
+        # Unknown: sfproject.target_group_s_of_the_project
 
         # SF Layout: Summary Project Details section.
-        #sfproject.country_in_which_the_project_is_located = project.country
+        sfproject.country_in_which_the_project_is_located = str(project.country)
         sfproject.describe_the_project_in_one_sentence = project.description
         # Unknown error: sfproject.describe_where_the_money_is_needed_for =
         # Unknown error: sfproject.project_url = project.get_absolute_url
@@ -325,6 +340,13 @@ def sync_projects(test_run):
 
         # SF Layout: Other section.
         sfproject.external_id = project.id
+
+        if project.fundphase:
+            sfproject.target_group = project.fundphase.impact_group
+            sfproject.number_of_people_reached_direct = (project.fundphase.impact_direct_male +
+                                                         project.fundphase.impact_direct_female)
+            sfproject.number_of_people_reached_indirect = (project.fundphase.impact_indirect_male +
+                                                           project.fundphase.impact_indirect_female)
 
         # Save the SF project.
         if not test_run:
@@ -398,8 +420,24 @@ def sync_donations(test_run):
         # Unknown - sfdonation.payment_method =
         # Unknown - sfdonation.organization = SalesforceOrganization.objects.filter(external_id=1).get()
         sfdonation.project = sfProject
-        sfdonation.stage_name = donation.status
-        sfdonation.opportunity_type = str(donation.donation_type)
+
+        if donation.status == "new":
+            sfdonation.stage_name = Donation.DonationStatuses.values['new']
+        elif donation.status == "in_progress":
+             sfdonation.stage_name = Donation.DonationStatuses.values['in_progress']
+        elif donation.status == "pending":
+             sfdonation.stage_name = Donation.DonationStatuses.values['pending']
+        elif donation.status == "paid":
+             sfdonation.stage_name = Donation.DonationStatuses.values['paid']
+        elif donation.status == "cancelled":
+             sfdonation.stage_name = Donation.DonationStatuses.values['cancelled']
+
+        # Unknown: There is no "Recurring"?
+        if donation.donation_type == "one_off":
+            sfdonation.opportunity_type = donation.DonationTypes.values['one_off']
+        elif donation.donation_type == "monthly":
+            sfdonation.opportunity_type = donation.DonationTypes.values['monthly']
+
         # SF Layout: Additional Information section.
 
         # SF Layout: Description Information section.
@@ -441,10 +479,10 @@ def sync_vouchers(test_run):
             sfvoucher = SalesforceVoucher()
 
         # Initialize Salesforce objects.
-        # TODO: There should be a voucher.purchaser.id
+        # TODO: There should be a voucher.purchaser.id, else remove from (parent) models
         sfContactPurchaser = SalesforceContact.objects.filter(external_id=1).get()
 
-        # TODO: There should be a voucher.project.id
+        # TODO: There should be a voucher.project.id, else remove from (parent) models
         sfProject = SalesforceProject.objects.filter(external_id=1).get()
 
         # SF Layout: Donation Information section.
@@ -454,9 +492,8 @@ def sync_vouchers(test_run):
         sfvoucher.payment_method = ""
         sfvoucher.project = sfProject
         sfvoucher.name = str(sfContactPurchaser.first_name) + " " + str(sfContactPurchaser.last_name)
-        # Unknown: Currently synchronization happens on these two types. However not available on backend
-        # sfvoucher.name exist in production: "NOT YET USED 1%VOUCHER"
-        # sfvoucher.stage_name exists as state: "In progress"
+        # sfvoucher.name exist in production: "NOT YET USED 1%VOUCHER" when stage_name is "In progress"
+        # sfvoucher.stage_name exists as state: "In progress", however this has been shifted to Donation?
 
         if voucher.status == "new":
             sfvoucher.stage_name = Voucher.VoucherStatuses.values['new']
@@ -470,7 +507,7 @@ def sync_vouchers(test_run):
             sfvoucher.stage_name = "ChargedBack"
 
         sfvoucher.purchaser = sfContactPurchaser
-        sfvoucher.opportunity_type = "One-off"
+        sfvoucher.opportunity_type = ""
         # This is a record type Voucher, probably better to create RecordType model and use the name 'Voucher' to get Id
         sfvoucher.record_type = "012A0000000BxfHIAS"
 
@@ -478,12 +515,12 @@ def sync_vouchers(test_run):
         #Unknown: sfvoucher.description = voucher.description
 
         # SF Layout: System Information section.
-        # TODO: There should be a voucher.receiver.id
+        # TODO: There should be a voucher.receiver.id, , else remove from (parent) models
         sfvoucher.receiver = SalesforceContact.objects.filter(external_id=1).get()
 
         # SF Other.
-        # sfvoucher.voucher_id = voucher.id
         sfvoucher.external_id = "voucher" + str(voucher.id)
+
         # Save the SF voucher.
         if not test_run:
             sfvoucher.save()
