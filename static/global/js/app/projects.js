@@ -64,10 +64,7 @@ App.ProjectPlan = DS.Model.extend({
     longitude: DS.attr('number'),
 
     // Media
-    image: DS.attr('string'),
-    image_small: DS.attr('string'),
-    image_square: DS.attr('string'),
-    image_bg: DS.attr('string')
+    image: DS.attr('image'),
 
 });
 

@@ -619,13 +619,13 @@ App.ProjectRoute = Ember.Route.extend({
 App.ProjectIndexRoute = Ember.Route.extend({
 
     model: function(params){
-        return this.modelFor('project').get('wallposts');
+        return this.modelFor('project');
     },
     setupController: function(controller, model) {
         // Empty the items and set page to 0 so we don't show wall posts from previous project
         controller.set('items', Em.A());
         controller.set('page', 0);
-        this._super(controller, model);
+        this._super(controller, model.get('wallposts'));
     }
 
 });

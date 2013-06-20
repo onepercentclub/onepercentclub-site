@@ -324,7 +324,20 @@ App.MyProjectController = Em.ObjectController.extend({
 });
 
 App.MyPitchNewController = Em.ObjectController.extend(App.Editable, {
-    needs: ['currentUser']
+    needs: ['currentUser'],
+    updateRecordOnServer: function(){
+        var controller = this;
+        var model = this.get('model');
+        model.one('becameInvalid', function(record){
+            model.set('errors', record.get('errors'));
+        });
+
+        model.one('didCreate', function(record){
+            controller.transitionToRoute('myProjectPitch', record);
+        });
+
+        model.transaction.commit();
+    },
 });
 
 

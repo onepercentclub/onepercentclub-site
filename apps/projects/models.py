@@ -1,17 +1,13 @@
-from apps.wallposts.models import WallPost
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.aggregates import Count
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.utils.text import truncate_words
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-from apps.bluebottle_utils.fields import MoneyField
 from apps.fund.models import Donation
 from django.template.defaultfilters import slugify
 
@@ -39,7 +35,7 @@ class ProjectPhases(DjangoChoices):
     campaign = ChoiceItem('campaign', label=_("Campaign"))
     results = ChoiceItem('results', label=_("Results"))
     realized = ChoiceItem('realized', label=_("Realised"))
-    closed = ChoiceItem('closed', label=_("Closed"))
+    failed = ChoiceItem('failed', label=_("Failed"))
 
 
 class Project(models.Model):
@@ -47,25 +43,16 @@ class Project(models.Model):
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("owner"), related_name="owner")
 
-    team_member = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("project team member"), related_name="team_member", null=True, blank=True)
+    coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("project team member"), related_name="team_member", null=True, blank=True)
 
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
+    partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
+
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
-
-    organization = models.ForeignKey('organizations.Organization', verbose_name=_("organisation"), blank=True, null=True)
-
-    # FIXME: Implement money_asked & money_donated
-    @property
-    def money_donated(self):
-        return 100000
-
-    @property
-    def money_asked(self):
-        return 400000
 
     def __unicode__(self):
         if self.title:
@@ -120,6 +107,7 @@ class ProjectPitch(models.Model):
         submitted = ChoiceItem('submitted', label=_("Submitted"))
         rejected = ChoiceItem('rejected', label=_("Rejected"))
         approved = ChoiceItem('approved', label=_("Approved"))
+        completed = ChoiceItem('completed', label=_("Completed"))
 
     project = models.OneToOneField("projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=PitchStatuses.choices)
@@ -142,7 +130,7 @@ class ProjectPitch(models.Model):
     country = models.ForeignKey('geo.Country', blank=True, null=True)
 
     # Media
-    image = ImageField(_("picture"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Upload the picture that best describes your smart idea!"))
+    image = ImageField(_("picture"), max_length=255, blank=True, null=True, upload_to='project_images/', help_text=_("Upload the picture that best describes your smart idea!"))
     video_url = models.URLField(_("video"), max_length=100, blank=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
 
 
@@ -162,6 +150,7 @@ class ProjectPlan(models.Model):
         rejected = ChoiceItem('rejected', label=_("Rejected"))
         needs_work = ChoiceItem('needs_work', label=_("Needs work"))
         approved = ChoiceItem('approved', label=_("Approved"))
+        completed = ChoiceItem('completed', label=_("Completed"))
 
     project = models.OneToOneField("projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=PlanStatuses.choices)
@@ -179,7 +168,6 @@ class ProjectPlan(models.Model):
 
     # Extended Description
     description = models.TextField(_("why, what and how"), help_text=_("Blow us away with the details!"), blank=True)
-    social_impact = models.TextField(_("social impact"), blank=True,help_text=_("Who are you helping?"))
     effects = models.TextField(_("effects"), help_text=_("What will be the Impact? How will your Smart Idea change the lives of people?"), blank=True)
     for_who = models.TextField(_("for who"), help_text=_("Describe your target group"), blank=True)
     future = models.TextField(_("future"), help_text=_("How will this project be self-sufficient and sustainable in the long term?"), blank=True)
@@ -192,7 +180,7 @@ class ProjectPlan(models.Model):
 
     # Media
     image = ImageField(_("image"), max_length=255, blank=True, upload_to='project_images/', help_text=_("Main project picture"))
-    video_url = models.URLField(_("video"), max_length=100, blank=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
+    video_url = models.URLField(_("video"), max_length=100, blank=True, null=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
 
     organization = models.ForeignKey('organizations.Organization', verbose_name=_("organisation"), blank=True, null=True)
 
@@ -210,21 +198,32 @@ class ProjectPlan(models.Model):
 
 class ProjectCampaign(models.Model):
 
-    class PlanStatuses(DjangoChoices):
+    class CampaignStatuses(DjangoChoices):
         running = ChoiceItem('running', label=_("Running"))
         realized = ChoiceItem('realized', label=_("Realized"))
         closed = ChoiceItem('closed', label=_("Closed"))
 
     project = models.OneToOneField("projects.Project", verbose_name=_("project"))
-    status = models.CharField(_("status"), max_length=20, choices=PlanStatuses.choices)
+    status = models.CharField(_("status"), max_length=20, choices=CampaignStatuses.choices)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField(_('updated'))
 
-    currency = models.CharField(max_length="10")
-    money_asked = models.PositiveIntegerField()
-    money_donated = models.PositiveIntegerField()
-    money_secure = models.PositiveIntegerField()
+    currency = models.CharField(max_length="10", default='EUR')
+    money_asked = models.PositiveIntegerField(default=0)
+    money_donated = models.PositiveIntegerField(default=0)
+    money_secure = models.PositiveIntegerField(default=0)
+
+
+class ProjectResult(models.Model):
+
+    class ResultStatuses(DjangoChoices):
+        running = ChoiceItem('running', label=_("Running"))
+        realized = ChoiceItem('realized', label=_("Realized"))
+        closed = ChoiceItem('closed', label=_("Closed"))
+
+    project = models.OneToOneField("projects.Project", verbose_name=_("project"))
+    status = models.CharField(_("status"), max_length=20, choices=ResultStatuses.choices)
 
 
 class PartnerOrganization(models.Model):
@@ -262,13 +261,16 @@ class ProjectBudgetLine(models.Model):
     website.
     """
     project_plan = models.ForeignKey(ProjectPlan)
-    description = models.CharField(_("description"), max_length=255)
-    currency = models.CharField(max_length=10)
+    description = models.CharField(_("description"), max_length=255, blank=True)
+    currency = models.CharField(max_length=10, default='EUR')
     amount = models.PositiveIntegerField(_("money amount"))
 
     class Meta:
         verbose_name = _("budget line")
         verbose_name_plural = _("budget lines")
+
+    def __unicode__(self):
+        return self.description + " : " + str(self.amount)
 
 
 @receiver(post_save, weak=False, sender=Project)
@@ -337,6 +339,6 @@ def progress_project_phase(sender, instance, created, **kwargs):
 @receiver(post_save, weak=False, sender=ProjectPitch)
 def pitch_status_status(sender, instance, created, **kwargs):
 
-    if instance.status == ProjectPitch.PitchStatuses.approved:
+    if instance.status is ProjectPitch.PitchStatuses.approved and instance.project.phase is ProjectPhases.pitch:
         instance.project.phase = ProjectPhases.plan
         instance.project.save()

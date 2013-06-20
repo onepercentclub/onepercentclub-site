@@ -1,5 +1,6 @@
 from decimal import Decimal
 from datetime import timedelta
+from apps.projects.models import ProjectPlan, ProjectCampaign
 from django.core.exceptions import ValidationError
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
@@ -15,7 +16,7 @@ from .models import Project,ProjectPhases, ProjectPitch
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
-    def create_project(self, organization=None, owner=None, title='', phase='pitch', slug=''):
+    def create_project(self, organization=None, owner=None, title='', phase='pitch', slug='', money_asked=0):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
@@ -34,8 +35,18 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         project = Project(owner=owner, title=title, slug=slug, phase=phase)
         project.save()
 
-        project.projectpitch = ProjectPitch(title=title, status=ProjectPitch.PitchStatuses.new)
+        project.projectpitch.title = title,
+        project.projectpitch.status = ProjectPitch.PitchStatuses.new
         project.projectpitch.save()
+
+        if money_asked:
+            project.projectplan = ProjectPlan(title=project.title)
+            project.projectplan.status = 'approved'
+            project.projectplan.save()
+
+            project.projectcampaign = ProjectCampaign(money_asked=money_asked)
+            project.projectcampaign.save()
+            project.phase = ProjectPhases.campaign
 
         return project
 
@@ -72,11 +83,19 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         for char in 'abcdefghijklmnopqrstuvwxyz':
             project = self.create_project(title=char * 3, slug=char * 3)
             if ord(char) % 2 == 1:
-                # Put half of the projects are in the fund phase.
+                # Put half of the projects in the campaign phase.
+                project.projectplan = ProjectPlan(title=project.title)
+                project.projectplan.status = 'approved'
+                project.projectplan.save()
                 project.phase = ProjectPhases.campaign
                 project.save()
+            else:
+                project.projectplan = ProjectPlan(title=project.title)
+                project.projectplan.save()
+                project.phase = ProjectPhases.plan
+                project.save()
+            print project.phase
 
-        self.list_view_count = 10
         self.projects_url = '/i18n/api/projects/'
 
     def test_project_list_view(self):
@@ -89,41 +108,9 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertEquals(response.data['previous'], None)
-
-        # Tests that the next link works.
-        response = self.client.get(response.data['next'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
-
-        # Tests that the previous link works.
-        response = self.client.get(response.data['previous'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertEquals(response.data['previous'], None)
-
-        # Tests that the last page works.
-        response = self.client.get(self.projects_url + '?page=3')
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), 26 % self.list_view_count)
+        self.assertEquals(len(response.data['results']), 26)
         self.assertEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
-
-        # Tests that the previous link from the last page works.
-        response = self.client.get(response.data['previous'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
+        self.assertEquals(response.data['previous'], None)
 
     def test_project_list_view_query_filters(self):
         """
@@ -132,28 +119,10 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         """
 
         # Tests that the phase filter works.
-        response = self.client.get(self.projects_url + '?phase=campaign')
+        response = self.client.get(self.projects_url + '?phase=plan')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertEquals(response.data['previous'], None)
-
-        # Tests that the next link works with a filter (this is also the last page).
-        response = self.client.get(response.data['next'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), 13 % self.list_view_count)
-        self.assertEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
-
-        # Tests that the previous link works with a filter.
-        response = self.client.get(response.data['previous'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertEquals(response.data['previous'], None)
+        self.assertEquals(len(response.data['results']), 13)
 
     def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
@@ -424,17 +393,12 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # View Project WallPost list works for author
         response = self.client.get(self.project_wallposts_url,  {'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 4)
+        self.assertEqual(len(response.data['results']), 26)
         self.assertEqual(response.data['count'], 26)
         mediawallpost = response.data['results'][0]
 
         # Check that we're correctly getting a list with mixed types.
         self.assertEqual(mediawallpost['type'], 'media')
-        response = self.client.get(response.data['next'])
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 4)
-        self.assertEqual(response.data['count'], 26)
-        self.assertEqual(response.data['results'][0]['type'], 'text')
 
         # Delete a Media WallPost and check that we can't retrieve it anymore
         project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, mediawallpost['id'])
@@ -451,7 +415,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.client.logout()
         response = self.client.get(self.project_wallposts_url,  {'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(len(response.data['results']), 4)
+        self.assertEqual(len(response.data['results']), 25)
         self.assertEqual(response.data['count'], 25)
 
         # Test filtering wallposts by different projects works.

@@ -45,16 +45,16 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ('phase', )
-    list_display = ('title', 'owner', 'team_member')
+    list_filter = ('phase', 'partner_organization')
+    list_display = ('title', 'owner', 'coach', 'phase')
 
     search_fields = ('title', 'owner__first_name', 'owner__last_name')
 
-    raw_id_fields = ('owner', 'team_member')
+    raw_id_fields = ('owner', 'coach')
 
     readonly_fields = ('pitch_view', 'plan_view')
 
-    fields = readonly_fields + ('owner', 'team_member', 'title', 'slug', 'phase', 'organization')
+    fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization')
 
     def pitch_view(self, obj):
         object = obj.projectpitch

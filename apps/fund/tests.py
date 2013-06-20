@@ -123,10 +123,10 @@ class CalculateMoneyDonatedTest(DonationTestsMixin, TestCase):
     def test_donated_amount(self):
 
         # Some project have money_asked of 5000000 (cents that is)
-        self.assertEqual(self.some_project.money_asked, 500000)
+        self.assertEqual(self.some_project.projectcampaign.money_asked, 500000)
 
         # A project without donations should have money_donated of 0
-        self.assertEqual(self.some_project.money_donated, 0)
+        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
 
         # Create a new donation of 15 in status 'new'. project money donated should be 0
         some_donation = self.create_donation(user=self.some_user, project=self.some_project, amount=1500,

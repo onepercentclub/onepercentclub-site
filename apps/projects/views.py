@@ -1,4 +1,4 @@
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
@@ -29,10 +29,20 @@ class ProjectList(generics.ListAPIView):
     paginate_by = 5000
     filter_fields = ('phase', )
 
+    def get_queryset(self):
+        qs = super(ProjectList, self).get_queryset()
+        qs = qs.exclude(phase=ProjectPhases.pitch)
+        return qs
+
 
 class ProjectDetail(generics.RetrieveAPIView):
     model = Project
     serializer_class = ProjectSerializer
+
+    def get_queryset(self):
+        qs = super(ProjectDetail, self).get_queryset()
+        qs = qs.exclude(phase=ProjectPhases.pitch)
+        return qs
 
 
 class ProjectPitchDetail(generics.RetrieveAPIView):
