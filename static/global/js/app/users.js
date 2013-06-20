@@ -202,7 +202,7 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
         record.one('didUpdate', function() {
             // Delay is added to workaround the bug that the store
             // hasn't finished loading new data to the record when
-            // the "didUpdate" event is triggered. Pomise API can be
+            // the "didUpdate" event is triggered. Promise API can be
             // used in newer versions of ember, so we can remove the delay then.
             Ember.run.later(self, 'updateCurrentUser', record, 1000);
         });
