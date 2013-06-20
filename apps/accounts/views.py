@@ -12,7 +12,6 @@ from rest_framework import response
 from rest_framework import status
 from rest_framework import views
 from django.utils.translation import ugettext_lazy as _
-from .serializers import CurrentUserSerializer, UserProfileSerializer, UserSettingsSerializer, UserCreateSerializer
 from .models import BlueBottleUser
 from .serializers import (CurrentUserSerializer, UserProfileSerializer, UserSettingsSerializer, UserCreateSerializer,
                           PasswordResetSerializer, PasswordSetSerializer)
