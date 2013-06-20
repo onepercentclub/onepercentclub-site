@@ -145,14 +145,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
         Setup the newly created user for activation. We're not using
         'RegistrationProfile.objects.create_inactive_user()' from django-registration because it requires a username.
         """
-        # Ensure User is inactive
-        self.object.is_active = False
-        self.object.save()
+        user = super(UserCreateSerializer, self).save()
 
         # Create a RegistrationProfile and email its activation key to the User.
-        registration_profile = RegistrationProfile.objects.create_profile(self.object)
+        registration_profile = RegistrationProfile.objects.create_profile(user)
         site = Site.objects.get_current()
         registration_profile.send_activation_email(site)
+
+        return user
 
 
 class PasswordResetSerializer(serializers.Serializer):
