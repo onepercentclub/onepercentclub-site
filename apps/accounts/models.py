@@ -80,7 +80,6 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
         female = ChoiceItem('female', label=_("Female"))
 
     class Availability(DjangoChoices):
-        none = ChoiceItem('', label="-------------------")
         one_to_four_week = ChoiceItem('1-4_hours_week', label=_("1-4 hours per week"))
         five_to_eight_week = ChoiceItem('5-8_hours_week', label=_("5-8 hours per week"))
         nine_to_sixteen_week = ChoiceItem('9-16_hours_week', label=_("9-16 hours per week"))

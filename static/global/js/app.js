@@ -880,6 +880,14 @@ App.UserSettingsRoute = Ember.Route.extend({
 
 
 App.UserActivateRoute = Ember.Route.extend({
+    reloadRecord: function(record) {
+        // Put the record in the load.saved state if it's in the error state.
+        if (record.get('isError')) {
+            record.get('stateManager').transitionTo('loaded.saved');
+        }
+        record.reload();
+    },
+
     model: function(params) {
         var route = this;
 
@@ -888,11 +896,6 @@ App.UserActivateRoute = Ember.Route.extend({
             url: "/i18n/api/users/activate/" + params.activation_key,
             success: function() {
                 var currentUser = App.CurrentUser.find('current');
-                // Put the currentUser model in the load.saved state if it's in the error state.
-                // We might have to take care of the case when currentUser is in the isLoading state. Not sure though.
-                if (currentUser.get('isError')) {
-                    currentUser.get('stateManager').transitionTo('loaded.saved');
-                }
 
                 currentUser.one('didReload', function() {
                     // Set a welcome message for the user.
@@ -909,7 +912,15 @@ App.UserActivateRoute = Ember.Route.extend({
                     route.replaceWith('userProfile');
                 });
 
-                currentUser.reload();
+                // Wait around a bit if the currentUser is still loading. You can't do reload if the model is in state.
+                // isLoading. This a bit hacky because the 500ms timeout is arbitrary but it seems to work.
+                if (currentUser.get('isLoading')) {
+                    Em.run.later(this, function() {
+                        route.reloadRecord(currentUser)
+                    }, 500);
+                } else {
+                    route.reloadRecord(currentUser)
+                }
             },
             error: function() {
                 // Notify user of the problem.
