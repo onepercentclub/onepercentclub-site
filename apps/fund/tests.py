@@ -105,7 +105,7 @@ class CalculateMoneyDonatedTest(DonationTestsMixin, TestCase):
 
         # Create a new donation of 25 in status 'in_progress'. project money donated should be 25
         another_donation = self.create_donation(user=self.some_user, project=self.some_project, amount=2500,
-                                                status=Donation.DonationStatuses.in_progress)
+                                                status=Donation.DonationStatuses.pending)
         self.assertEqual(self.some_project.projectcampaign.money_donated, 2500)
 
         # If we now set the first donation to status 'paid' money donated should be 40

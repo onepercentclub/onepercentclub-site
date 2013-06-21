@@ -238,7 +238,7 @@ class ProjectCampaign(models.Model):
         if self.money_asked == 0:
             return 0
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.pending])
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress, Donation.DonationStatuses.pending])
         total = donations.aggregate(sum=Sum('amount'))
         if not total['sum']:
             return 0
