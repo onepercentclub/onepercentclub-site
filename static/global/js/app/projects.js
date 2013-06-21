@@ -64,7 +64,17 @@ App.ProjectPlan = DS.Model.extend({
     longitude: DS.attr('number'),
 
     // Media
-    image: DS.attr('image'),
+    image: DS.attr('image')
+
+});
+
+App.ProjectCampaign = DS.Model.extend({
+    url: 'projects/plans',
+
+    project: DS.belongsTo('App.MyProject'),
+    status: DS.attr('string'),
+    money_asked: DS.attr('number'),
+    money_donated: DS.attr('number')
 
 });
 
@@ -80,6 +90,7 @@ App.Project = DS.Model.extend({
 
     pitch: DS.belongsTo('App.ProjectPitch'),
     plan: DS.belongsTo('App.ProjectPlan'),
+    campaign: DS.belongsTo('App.ProjectCampaign'),
 
     owner: DS.belongsTo('App.UserPreview'),
     coach: DS.belongsTo('App.UserPreview'),
@@ -120,7 +131,7 @@ App.ProjectListController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {
 
 App.ProjectController = Em.ObjectController.extend({
     isFundable: function(){
-        return this.get('phase') == 'Fund';
+        return this.get('phase') == 'campaign';
     }.property('phase')
 
 });

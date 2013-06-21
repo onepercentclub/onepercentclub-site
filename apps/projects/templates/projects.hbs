@@ -75,13 +75,14 @@
 
                 <p class="project-description">{{plan.pitch}}</p>
 
-                {{#if isPhaseCampaign}}
+
+                {{#if isFundable}}
                     <div class="status-box">
                         <div class="donate-status">
                             <p class="donate-amount">
-                                    <span class="donated">&euro;{{localize money_donated}}</span>
+                                    <span class="donated">&euro;{{localize campaign.money_donated}}</span>
                                     {% trans "of" %}
-                                    <span class="asked">&euro;{{localize money_asked}}</span>
+                                    <span class="asked">&euro;{{localize campaign.money_asked}}</span>
                                     {% trans "raised" %}
                             </p>
                             <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>

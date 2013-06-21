@@ -299,6 +299,7 @@ App.ProfileController = Ember.ObjectController.extend({
 //           mark the parent record as dirty).
 App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
+    campaign: {embedded: 'load'},
     country: {embedded: 'load'}
 });
 App.Adapter.map('App.DonationPreview', {
@@ -592,7 +593,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
 App.ProjectListRoute = Ember.Route.extend({
     model: function() {
-        return App.ProjectPreview.find({phase: 'results'});
+        return App.ProjectPreview.find({phase: 'campaign'});
     }
 });
 

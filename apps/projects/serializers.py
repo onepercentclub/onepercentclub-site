@@ -116,6 +116,35 @@ class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer
         return attrs
 
 
+class ProjectCampaignSerializer(serializers.ModelSerializer):
+
+    project = serializers.SlugRelatedField(source='project', slug_field='slug', null=True, read_only=True)
+    money_asked = EuroField()
+    money_donated = EuroField()
+
+    class Meta:
+        model = ProjectPitch
+        fields = ('id', 'project', 'money_asked', 'money_donated')
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source='slug', read_only=True)
+
+    owner = UserPreviewSerializer()
+    coach = UserPreviewSerializer()
+
+    pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
+    plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
+    #campaign = serializers.PrimaryKeyRelatedField(source='projectcampaign', null=True, read_only=True)
+    campaign = ProjectCampaignSerializer(source='projectcampaign')
+
+    wallpost_ids = WallPostListSerializer()
+
+    class Meta:
+        model = Project
+        fields = ('id', 'created', 'title', 'owner', 'coach', 'pitch', 'plan', 'campaign', 'wallpost_ids', 'phase')
+
+
 class ManageProjectSerializer(serializers.ModelSerializer):
 
     id = serializers.CharField(source='slug', read_only=True)
@@ -133,24 +162,6 @@ class ManageProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ('id', 'created', 'title', 'url', 'phase', 'pitch', 'plan', 'coach')
-
-
-
-
-class ProjectSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(source='slug', read_only=True)
-
-    owner = UserPreviewSerializer()
-    coach = UserPreviewSerializer()
-
-    pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
-    plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
-
-    wallpost_ids = WallPostListSerializer()
-
-    class Meta:
-        model = Project
-        fields = ('id', 'created', 'title', 'owner', 'coach', 'pitch', 'plan', 'wallpost_ids', 'phase')
 
 
 # Serializers for ProjectWallPosts:
