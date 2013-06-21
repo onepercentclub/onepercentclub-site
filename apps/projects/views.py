@@ -1,6 +1,8 @@
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
-from apps.projects.serializers import DonationPreviewSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -10,10 +12,11 @@ from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
-from apps.projects.permissions import IsProjectOwnerOrReadOnly
+from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
                           ProjectTextWallPostSerializer)
 
@@ -22,14 +25,37 @@ from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectM
 
 class ProjectList(generics.ListAPIView):
     model = Project
-    serializer_class = ProjectSerializer
-    paginate_by = 10
-    filter_fields = ('phase', 'slug')
+    serializer_class = ProjectPreviewSerializer
+    paginate_by = 5000
+    filter_fields = ('phase', )
+
+    def get_queryset(self):
+        qs = super(ProjectList, self).get_queryset()
+        qs = qs.exclude(phase=ProjectPhases.pitch)
+        return qs
 
 
 class ProjectDetail(generics.RetrieveAPIView):
     model = Project
     serializer_class = ProjectSerializer
+
+    def get_queryset(self):
+        qs = super(ProjectDetail, self).get_queryset()
+        qs = qs.exclude(phase=ProjectPhases.pitch)
+        return qs
+
+
+class ProjectPitchDetail(generics.RetrieveAPIView):
+    model = ProjectPitch
+    serializer_class = ProjectPitchSerializer
+    # permission_classes = IsProjectOwner
+
+
+class ProjectPlanDetail(generics.RetrieveAPIView):
+    model = ProjectPlan
+    serializer_class = ProjectPlanSerializer
+    # permission_classes = IsProjectOwner
+
 
 
 class ProjectWallPostMixin(object):
@@ -60,7 +86,7 @@ class ProjectWallPostMixin(object):
 class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):
     model = WallPost
     serializer_class = ProjectWallPostSerializer
-    paginate_by = 4
+    paginate_by = 40
 
 
 class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
@@ -138,6 +164,64 @@ class ProjectDonationList(generics.ListAPIView):
         queryset = queryset.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
 
         return queryset
+
+
+class ManageProjectList(generics.ListCreateAPIView):
+    model = Project
+    serializer_class = ManageProjectSerializer
+    permission_classes = (IsAuthenticated, NoRunningProjectsOrReadOnly, )
+    paginate_by = 10
+
+    def get_queryset(self):
+        """
+        Overwrite the default to only return the Projects the currently logged in user owns.
+        """
+        queryset = super(ManageProjectList, self).get_queryset()
+        queryset = queryset.filter(owner=self.request.user)
+        return queryset
+
+    def pre_save(self, obj):
+        obj.owner = self.request.user
+
+
+class ManageProjectDetail(generics.RetrieveUpdateAPIView):
+    model = Project
+    serializer_class = ManageProjectSerializer
+    permission_classes = (IsOwner, )
+
+
+class ManageProjectPitchDetail(generics.RetrieveUpdateAPIView):
+    model = ProjectPitch
+    serializer_class = ManageProjectPitchSerializer
+    # permission_classes = IsProjectOwner
+
+
+class ManageProjectPlanDetail(generics.RetrieveUpdateAPIView):
+    model = ProjectPlan
+    serializer_class = ManageProjectPlanSerializer
+    # permission_classes = IsProjectOwner
+
+
+class ManageProjectAmbassadortList(generics.ListCreateAPIView):
+    model = ProjectAmbassador
+    serializer_class = ProjectAmbassadorSerializer
+    paginate_by = 20
+
+
+class ManageProjectAmbassadorDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = ProjectAmbassador
+    serializer_class = ProjectAmbassadorSerializer
+
+
+class ManageProjectBudgetLinetList(generics.ListCreateAPIView):
+    model = ProjectBudgetLine
+    serializer_class = ProjectBudgetLineSerializer
+    paginate_by = 20
+
+
+class ManageProjectBudgetLineDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = ProjectBudgetLine
+    serializer_class = ProjectBudgetLineSerializer
 
 
 # Django template Views

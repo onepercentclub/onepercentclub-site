@@ -8,6 +8,76 @@ App.ProjectCountry = DS.Model.extend({
     subregion: DS.attr('string')
 });
 
+App.ProjectPitch = DS.Model.extend({
+    url: 'projects/pitches',
+
+    project: DS.belongsTo('App.MyProject'),
+    created: DS.attr('date'),
+    status: DS.attr('string'),
+
+    // Basics
+    title: DS.attr('string'),
+    pitch: DS.attr('string'),
+    theme: DS.attr('string'),
+    tags: DS.hasMany('App.Tag'),
+    description: DS.attr('string'),
+    need: DS.attr('string'),
+
+    // Location
+    country: DS.belongsTo('App.ProjectCountry'),
+    latitude: DS.attr('number'),
+    longitude: DS.attr('number'),
+
+    // Media
+    image: DS.attr('string'),
+    image_small: DS.attr('string'),
+    image_square: DS.attr('string'),
+    image_bg: DS.attr('string')
+
+});
+
+
+App.ProjectPlan = DS.Model.extend({
+    url: 'projects/plans',
+
+    project: DS.belongsTo('App.MyProject'),
+    status: DS.attr('string'),
+    created: DS.attr('date'),
+
+    // Basics
+    title: DS.attr('string'),
+    pitch: DS.attr('string'),
+    theme: DS.attr('string'),
+    need: DS.attr('string'),
+    tags: DS.hasMany('App.Tag'),
+
+    // Description
+    description: DS.attr('string'),
+    effects: DS.attr('string'),
+    future: DS.attr('string'),
+    for_who: DS.attr('string'),
+    reach: DS.attr('number'),
+
+    // Location
+    country: DS.belongsTo('App.ProjectCountry'),
+    latitude: DS.attr('number'),
+    longitude: DS.attr('number'),
+
+    // Media
+    image: DS.attr('image')
+
+});
+
+App.ProjectCampaign = DS.Model.extend({
+    url: 'projects/plans',
+
+    project: DS.belongsTo('App.MyProject'),
+    status: DS.attr('string'),
+    money_asked: DS.attr('number'),
+    money_donated: DS.attr('number')
+
+});
+
 
 App.Project = DS.Model.extend({
     url: 'projects',
@@ -15,19 +85,17 @@ App.Project = DS.Model.extend({
     // Model fields
     slug: DS.attr('string'),
     title: DS.attr('string'),
-    image: DS.attr('string'),
-    image_small: DS.attr('string'),
-    image_square: DS.attr('string'),
-    image_bg: DS.attr('string'),
     phase: DS.attr('string'),
-    organization: DS.attr('string'),
-    description: DS.attr('string'),
+    created: DS.attr('date'),
+
+    plan: DS.belongsTo('App.ProjectPlan'),
+    campaign: DS.belongsTo('App.ProjectCampaign'),
+
+    owner: DS.belongsTo('App.UserPreview'),
+    coach: DS.belongsTo('App.UserPreview'),
+
     money_asked: DS.attr('number'),
     money_donated: DS.attr('number'),
-    created: DS.attr('date'),
-    tags: DS.attr('array'),
-    owner: DS.belongsTo('App.UserPreview'),
-    country: DS.belongsTo('App.ProjectCountry'),
 
     days_left: DS.attr('number'),
     supporters_count: DS.attr('number'),
@@ -55,9 +123,14 @@ App.ProjectPreview = App.Project.extend({
  */
 
 
+App.ProjectListController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {
+    perPage: 10
+});
+
+
 App.ProjectController = Em.ObjectController.extend({
     isFundable: function(){
-        return this.get('phase') == 'Fund';
+        return this.get('phase') == 'campaign';
     }.property('phase')
 
 });
@@ -111,8 +184,8 @@ App.ProjectView = Em.View.extend({
         // TODO: The 50% dark background doesn't work this way. :-s
         this.$('#detail').css('backgroundColor', 'rgba(0,0,0,0.5)');
 
-        var donated = this.get('controller.money_donated');
-        var asked = this.get('controller.money_asked');
+        var donated = this.get('controller.campaign.money_donated');
+        var asked = this.get('controller.campaign.money_asked');
         this.$('.donate-progress').css('width', '0px');
         var width = 0;
         if (asked > 0) {
@@ -122,3 +195,4 @@ App.ProjectView = Em.View.extend({
         this.$('.donate-progress').animate({'width': width}, 1000);
     }
 });
+

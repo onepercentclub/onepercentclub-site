@@ -29,8 +29,7 @@ App.TaskFile = DS.Model.extend({
     author: DS.belongsTo('App.User'),
     title: DS.attr('string'),
     created: DS.attr('date'),
-    file: DS.attr('string'),
-    file_size: DS.attr('string'),
+    file: DS.attr('file'),
     task: DS.belongsTo('App.Task')
 });
 
@@ -44,7 +43,7 @@ App.Task = DS.Model.extend({
     end_goal: DS.attr('string'),
     created: DS.attr('date'),
     deadline: DS.attr('date'),
-    project: DS.belongsTo('App.ProjectPreview'),
+    project: DS.belongsTo('App.Project'),
     members: DS.hasMany('App.TaskMember'),
     files: DS.hasMany('App.TaskFile'),
     expertise: DS.attr('string'),
@@ -90,7 +89,6 @@ Preview model that won't contain all the properties.
 App.TaskPreview = App.Task.extend({
 
 });
-
 
 
 /*
@@ -154,10 +152,7 @@ App.TaskMemberController = Em.ObjectController.extend({
 
     isStatusRealized: function(){
         return this.get('status') == 'realized';
-    }.property('status'),
-
-
-
+    }.property('status')
 });
 
 
@@ -167,7 +162,7 @@ App.ProjectTaskNewController = Em.ObjectController.extend({
         var controller = this;
         var task = this.get('content');
         task.set('project', this.get('controllers.project.model'));
-        task.set('author', this.get('controllers.currentUser.model'));
+        //task.set('author', this.get('controllers.currentUser.model'));
         task.on('didCreate', function(record) {
             controller.get('controllers.projectTaskList').unshiftObject(record);
             controller.transitionToRoute('projectTaskList')
@@ -213,7 +208,6 @@ App.TaskFileNewController = Em.ObjectController.extend({
     addFile: function(file) {
         this.set('model.file', file);
     }
-
 });
 
 

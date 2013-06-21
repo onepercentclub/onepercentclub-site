@@ -1,7 +1,12 @@
 import decimal
 import logging
+from django.contrib.contenttypes.models import ContentType
+from django.http import request
+import os
 import sys
 import re
+import json
+import types
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -15,7 +20,7 @@ from micawber.parsers import standalone_url_re, full_handler
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
 from django.utils.translation import ugettext as _
-
+from django.core.urlresolvers import reverse
 
 logger = logging.getLogger(__name__)
 
@@ -29,9 +34,15 @@ class SorlImageField(serializers.ImageField):
         self.geometry_string = geometry_string
         super(SorlImageField, self).__init__(source, **kwargs)
 
-
     def to_native(self, value):
         if not value:
+            return ""
+
+        if not value.name:
+            return ""
+
+
+        if not os.path.exists(value.path):
             return ""
 
         # The get_thumbnail() helper doesn't respect the THUMBNAIL_DEBUG setting
@@ -281,19 +292,59 @@ class EuroField(serializers.WritableField):
         return int(decimal.Decimal(value) * 100)
 
 
-class HyperlinkedFileField(serializers.FileField):
+class FileSerializer(serializers.FileField):
+
     def to_native(self, value):
-        request = self.context.get('request', None)
-        return request.build_absolute_uri(value.url)
+        return {'name': os.path.basename(value.name),
+                'url': value.url,
+                'size': defaultfilters.filesizeformat(value.size)}
 
 
-class FileSizeField(serializers.FileField):
+class ImageSerializer(serializers.ImageField):
+
+    crop = 'center'
+
+
     def to_native(self, value):
+        if not value:
+            return None
+
+        # The get_thumbnail() helper doesn't respect the THUMBNAIL_DEBUG setting
+        # so we need to deal with exceptions like is done in the template tag.
+        thumbnail = ""
         try:
-            size = defaultfilters.filesizeformat(value.size)
-        except OSError:
-            size = _('File not found')
-        return size
+            large = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x450', crop=self.crop))
+            background = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x450', crop=self.crop))
+            small = settings.MEDIA_URL + unicode(get_thumbnail(value, '200x120', crop=self.crop))
+            square = settings.MEDIA_URL + unicode(get_thumbnail(value, '120x120', crop=self.crop, colorspace="GRAY"))
+        except Exception:
+            if getattr(settings, 'THUMBNAIL_DEBUG', None):
+                raise
+            logger.error('Thumbnail failed:', exc_info=sys.exc_info())
+            return None
+        request = self.context.get('request')
+        if request:
+            return {
+                    'large': request.build_absolute_uri(large),
+                    'background': request.build_absolute_uri(background),
+                    'small': request.build_absolute_uri(small),
+                    'square': request.build_absolute_uri(square),
+                }
+        return {'large': large, 'background': background, 'small': small, 'square': square}
+
+
+class PrivateFileSerializer(FileSerializer):
+
+    def field_to_native(self, obj, field_name):
+        value = getattr(obj, self.source or field_name)
+        content_type = ContentType.objects.get_for_model(self.parent.Meta.model).id
+        pk = obj.pk
+        url = reverse('document-download-detail', kwargs={'content_type': content_type, 'pk': pk})
+        if not value:
+            return None
+        return {'name': os.path.basename(value.name),
+                'url': url,
+                'size': defaultfilters.filesizeformat(value.size)}
 
 
 class TagSerializer(serializers.Serializer):
@@ -325,8 +376,7 @@ class TaggableSerializerMixin(object):
         super(TaggableSerializerMixin, self).save_object(obj)
         if hasattr(self, 'tag_list'):
             obj.tags.clear()
-            print self.tag_list
-            print "---"
+            if type(self.tag_list) == types.UnicodeType:
+                self.tag_list = json.loads(self.tag_list)
             for tag in self.tag_list:
-                print tag
                 obj.tags.add(tag['id'])

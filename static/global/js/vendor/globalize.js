@@ -559,11 +559,14 @@ formatDate = function( value, format, culture ) {
 
         var now = new Date();
 
-        var seconds = Math.floor((value - now) / 1000);
+        var seconds = Math.floor((value.getTime() - now.getTime()) / 1000);
 
         var interval = seconds / 31536000;
+
+
         var years = getFuzzyInterval('years', interval, fuzzy);
-        if (years) return;
+        if (years) return years;
+
 
         interval = seconds / 2592000;
         var months = getFuzzyInterval('months', interval, fuzzy);

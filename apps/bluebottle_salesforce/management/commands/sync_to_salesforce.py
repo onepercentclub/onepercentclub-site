@@ -2,7 +2,7 @@ import logging
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from apps.accounts.models import BlueBottleUser
-from apps.projects.models import Project, BudgetLine, ProjectPhases
+from apps.projects.models import Project, ProjectBudgetLine
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, Voucher
@@ -362,7 +362,7 @@ def sync_projects(test_run):
 
 
 def sync_budget_lines(test_run):
-    budget_lines = BudgetLine.objects.all()
+    budget_lines = ProjectBudgetLine.objects.all()
     logger.info("Syncing {0} BudgetLine objects.".format(budget_lines.count()))
 
     for budget_line in budget_lines:
@@ -390,8 +390,8 @@ def sync_budget_lines(test_run):
     sfbudget_lines = SalesforceProjectBudget.objects.all()
     for sfbudget_line in sfbudget_lines:
         try:
-            BudgetLine.objects.filter(id=sfbudget_line.external_id).get()
-        except BudgetLine.DoesNotExist:
+            ProjectBudgetLine.objects.filter(id=sfbudget_line.external_id).get()
+        except ProjectBudgetLine.DoesNotExist:
             sfbudget_line.delete()
 
 

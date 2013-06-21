@@ -33,7 +33,6 @@
 
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/handlebars-1.0.0-rc.4.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-1.0.0-rc.5.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-radio-button.js"></script>
         {# This specific version works with ember rc5 and still supports didUpdate which seems broken in v0.13 #}
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-7c01dd5.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-drf2-adapter.js"></script>
@@ -44,9 +43,11 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-modal.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-tooltip.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-popover.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-typeahead.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-bootstrap-df3e710.js"></script>
 
         {# Plugins #}
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-radio-button.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.infieldlabel.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.colorbox.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/handlebars.helpers.js"></script>
@@ -56,22 +57,15 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/utils.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/users.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/projects.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/app/manage.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/wallposts.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/reactions.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/orders.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/vouchers.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/tasks.js"></script>
     {% endcompress %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
-    <script>
-        // Jira Feedback button.
-        jQuery.ajax({
-            url: "https://onepercentclub.atlassian.net/s/en_USnnhwjf-1988229788/6061/42/1.3.6-m05/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=a847666f",
-            type: "get",
-            cache: true,
-            dataType: "script"
-        });
-    </script>
 
 
     {% block htmlheader %}{% endblock %}
@@ -124,6 +118,11 @@
                                     <li>
                                         {{#linkTo "userProfile" }}
                                             {% trans "Edit my profile & settings" %}
+                                        {{/linkTo }}
+                                    </li>
+                                    <li>
+                                        {{#linkTo "myProjectList" }}
+                                            {% trans "Manage Projects" %}
                                         {{/linkTo }}
                                     </li>
                                     <li>
@@ -252,7 +251,8 @@
 
 </head>
 <body id="body">
-    <div id="content"></div>
+    <div id="content">
+    </div>
     <!-- Scripts -->
     <div id="fb-root"></div>
     <!--[if lt IE 9]><script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->

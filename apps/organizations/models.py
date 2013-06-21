@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.template.defaultfilters import slugify
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
@@ -8,7 +9,7 @@ from djchoices import DjangoChoices, ChoiceItem
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
 from apps.bluebottle_utils.models import Address
-
+from django.core.files.storage import FileSystemStorage
 
 class Organization(models.Model):
     """
@@ -24,11 +25,20 @@ class Organization(models.Model):
     phone_number = models.CharField(_("phone number"), max_length=40, blank=True)
     website = models.URLField(_("website"), blank=True)
 
+    email = models.EmailField(blank=True)
+    twitter = models.CharField(_("twitter"), max_length=255, blank=True)
+    facebook = models.CharField(_("facebook"), max_length=255, blank=True)
+    skype = models.CharField(_("skype"), max_length=255, blank=True)
+
+    legal_status =  models.CharField(max_length=255, blank=True)
+    registration =  models.FileField(upload_to='organizations/registrations', storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT), null=True, blank=True)
+
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
     partner_organizations = models.TextField(_("partner organizations"), blank=True)
+
 
     account_bank_name = models.CharField(_("account bank name"), max_length=255, blank=True)
     account_bank_address = models.CharField(_("account bank address"), max_length=255, blank=True)
@@ -49,6 +59,10 @@ class Organization(models.Model):
         ordering = ['name']
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
+
+    def full_clean(self, exclude=None):
+        if not self.slug:
+            self.slug = slugify(self.name)
 
 
 class OrganizationMember(models.Model):
@@ -81,3 +95,16 @@ class OrganizationAddress(Address):
     class Meta:
         verbose_name = _("organization address")
         verbose_name_plural = _("organization addresses")
+
+
+class OrganizationDocument(models.Model):
+    """ Document for an Organization """
+
+    organization = models.ForeignKey(Organization, verbose_name=_("organization"))
+    file = models.FileField(upload_to='organizations/documents', storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT))
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('author'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("organization document")
+        verbose_name_plural = _("organization documents")
+

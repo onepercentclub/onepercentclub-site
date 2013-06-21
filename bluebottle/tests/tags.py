@@ -34,7 +34,7 @@ class TestTags(unittest.TestCase, ProjectTestsMixin, OrganizationTestsMixin, Use
         project = self.create_project()
         project.save()
 
-        project.tags.add(tag_name)
+        project.projectpitch.tags.add(tag_name)
 
         # Check that we only have one tag created.
         self.assertEquals(1, Tag.objects.count())
@@ -59,8 +59,8 @@ class TestTags(unittest.TestCase, ProjectTestsMixin, OrganizationTestsMixin, Use
         project.save()
 
         # Add the same tag two times.
-        project.tags.add(tag_name)
-        project.tags.add(tag_name)
+        project.projectpitch.tags.add(tag_name)
+        project.projectpitch.tags.add(tag_name)
 
         # Check that we only have one tag created.
-        self.assertEquals(1, project.tags.count())
+        self.assertEquals(1, project.projectpitch.tags.count())
