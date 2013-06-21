@@ -34,6 +34,9 @@ urlpatterns = i18n_patterns('',
     # Project view that search engines will use.
     url(r'^projects/', include('apps.projects.urls')),
 
+    # Organization urls for downloading private documents
+    url(r'^documents/', include('apps.bluebottle_utils.urls')),
+
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls'))
 )
@@ -48,7 +51,9 @@ urlpatterns += patterns('',
     url(r'^i18n/api/wallposts/', include('apps.wallposts.urlsapi')),
     url(r'^i18n/api/fund/', include('apps.fund.urlsapi')),
     url(r'^i18n/api/utils/', include('apps.bluebottle_utils.urlsapi')),
+    url(r'^i18n/api/geo/', include('apps.geo.urlsapi')),
     url(r'^i18n/api/tasks/', include('apps.tasks.urlsapi')),
+    url(r'^i18n/api/organizations/', include('apps.organizations.urlsapi')),
 
     # API for DocData Status Changed Notifications.
     url(r'^i18n/api/ddscn/', include('apps.cowry_docdata.urlsapi')),

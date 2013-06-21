@@ -1,0 +1,176 @@
+.dashboard {
+    @include rem(margin-top, 12px);
+    .menu-sidebar {
+        @include grid(12, 1, 0);
+        .menu {
+            @include rem(margin-bottom, 24px);
+            .title {
+                @include rem(padding, 12px);
+
+                h4 {
+                    text-transform: uppercase;
+                    @include rem(font-size, 15px);
+                }
+                background-color: $green;
+                color: $white;
+            }
+            a.item {
+                display: block;
+                @include rem(padding, 8px 12px);
+                background-color: $color-back;
+                color: $black;
+                border-bottom: 1px solid $white;
+                &.active {
+                    background-color: $white;
+                    color: $green;
+                    border: 1px solid $color-back;
+                    border-top: 0px;
+                }
+            }
+        }
+    }
+}
+
+form {
+    .controls {
+        .extra-info {
+            padding: 8px 0px;
+            strong {
+                color: $green;
+            }
+        }
+
+    }
+}
+
+.map-picker {
+    width: 100%;
+    height: 350px;
+
+}
+
+.map-look-up {
+    position: absolute;
+    top: 4px;
+    left: 100px;
+    font-size: 13px;
+    input {
+        padding: 1px 4px 0px 4px;
+        width: 300px;
+        border: 1px solid $grayDark;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+
+    }
+    button {
+        text-transform: capitalize;
+        font-weight: 300;
+        background-color: $green;
+        color: $white;
+        padding: 1px 8px 0px 8px;
+        border: 1px solid $white;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+    }
+
+}
+
+.project-pic-uploader {
+    img {
+        width: 100%;
+        @include rem(margin-top, 12px);
+    }
+}
+
+.main-title {
+    em {
+        font-style: normal;
+        @include rem(font-size, 20px);
+        color: $gray
+    }
+}
+
+ul.manage-steps {
+    margin: 16px 0;
+    padding: 0;
+    list-style: none;
+
+    @include grid(50, 1);
+
+    overflow: hidden;
+    li {
+        display: inline-block;
+        background: transparent url('../images/donation-step.png') no-repeat right center;
+        position: relative;
+        @include rem(height, 50px);
+
+        display: block;
+        @include grid(10, 0);
+
+        margin-left: -30px;
+        div.inner {
+            @include rem(height, 50px);
+            padding: 0.6em 0 0.6em 0.6em;
+            padding-left: 30px;
+            background-color: #dcdcdc;
+            margin-right: 30px;
+        }
+        color: $gray;
+        @include rem(font-size, 12px);
+        @include rem(line-height, 12px);
+        text-transform: uppercase;
+
+        h4 {
+            @include rem(font-size, 15px);
+        }
+
+        em {
+            background-color: $gray;
+            float: left;
+            @include rem(font-size,  20px);
+            @include rem(height, 30px);
+            @include rem(width, 30px);
+            @include rem(margin, 2px 6px);
+
+            color: $white;
+            padding: 4px;
+            @include border-radius(50%);
+        }
+        &.selected {
+            background: transparent url('../images/donation-step-select.png') no-repeat right center;
+            div.inner {
+                background-color: $green;
+
+            }
+            em {
+                background-color: $white;
+                color: $black;
+            }
+            color: $white;
+        }
+        &.first {
+            margin-left: 0px;
+            z-index: 10;
+            .inner {
+                padding-left: 0px;
+            }
+            em {
+                @include rem(margin, 2px 10px 2px 6px);
+            }
+        }
+        &.second {
+            z-index: 9;
+        }
+        &.third {
+            z-index: 8;
+        }
+        &.fourth {
+            z-index: 7;
+        }
+        &.fifth {
+            z-index: 6;
+        }
+        &.sixth {
+            z-index: 5;
+        }
+    }
+}
+

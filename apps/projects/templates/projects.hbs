@@ -12,8 +12,12 @@
 
                     {{#if model.isLoaded}}
                     <ul>
-                        {{#each project in controller}}
-                            <li>{{#linkTo "project" project}}{{project.title}}{{/linkTo}}</li>
+                        {{#each project in items}}
+                            <li>
+                                <a {{action showProject project.id href=true}}>
+                                    {{project.title}}
+                                </a>
+                            </li>
                         {{else}}
                             <li>{% trans "No projects found." %}</li>
                         {{/each}}
@@ -24,6 +28,17 @@
 
                 </header>
             </article>
+            <article class="wallpost">
+                {{#if canLoadMore}}
+                    <a {{action "showMore"}} class="show-more button-link">
+                        <em class="icon-plus-sign"></em> {% trans "Show more" %}
+                        <small>{{remainingItemCount}} {% trans "more" %}</small>
+                    </a>
+                {{else}}
+                    {% trans "no more projects to show" %}
+                {{/if}}
+            </article>
+
         </section>
     </div>
 
@@ -35,53 +50,50 @@
     <div class="section" id="detail">
 
         <section class="wrapper">
-
             <figure class="media">
-                <img {{bindAttr src="image"}} width="100%" alt="Photo" />
+                <img {{bindAttr src="plan.image.large"}} width="100%" alt="Photo" />
             </figure>
 
             <article>
                 <div class="project-meta">
-                    <span class="location"><em class="icon-globe"></em> {{country.name}}, {{country.subregion}}</span>
+                    <span class="location"><em class="icon-globe"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
                     <span class="tags">
                       <em class="icon-tag"></em>
                     {%comment%}
                      TODO: add css for comma after tag:
                      http://stackoverflow.com/questions/10403003/how-do-i-add-a-separator-between-elements-in-an-each-loop-except-after-the
                     {%endcomment%}
-                        {{#each tag in tags}}
-                            {{tag}}
+                        {{#each tag in plan.tags}}
+                            {{tag.id}}
                         {{/each}}
                     </span>
                 </div>
 
                 <h1 class="project-title">
-                    {%comment%}
-                    <span class="phase">{{phase}}</span>
-                    {%endcomment%}
-                    {{title}}
+                    {{plan.title}}
                 </h1>
 
-                <p class="project-description">{{description}}</p>
+                <p class="project-description">{{plan.pitch}}</p>
 
-                <div class="status-box">
 
-                    <div class="donate-status">
-                        <p class="donate-amount">
-                                <span class="donated">&euro;{{localize money_donated}}</span>
-                                {% trans "of" %}
-                                <span class="asked">&euro;{{localize money_asked}}</span>
-                                {% trans "raised" %}
+                {{#if isFundable}}
+                    <div class="status-box">
+                        <div class="donate-status">
+                            <p class="donate-amount">
+                                    <span class="donated">&euro;{{localize campaign.money_donated}}</span>
+                                    {% trans "of" %}
+                                    <span class="asked">&euro;{{localize campaign.money_asked}}</span>
+                                    {% trans "raised" %}
+                            </p>
+                            <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
+                        </div>
+
+                        <p class="donate-days-left">
+                            <strong><em class="icon-time"></em> ??</strong>
+                            <em>{% trans "days to go" %}</em>
                         </p>
-                        <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
                     </div>
-
-                    <p class="donate-days-left">
-                        {{{days_left_span}}}
-                        <strong><em class="icon-time"></em> ??</strong>
-                        <em>{% trans "days to go" %}</em>
-                    </p>
-                </div>
+                {{/if}}
 
             </article>
 
@@ -97,13 +109,16 @@
 
             <ul class="tabs">
                 <li class="tab-updates">
-                    {{#linkTo "project"}}
+                    {{#linkTo "project.index"}}
                         <em class="tab-icon amount">{{wallposts.length}}</em>
                         <strong class="tab-title">
-                            Project Updates
+                            {% trans "Project Updates" %}
+
                             {{#if wallposts.length}}
                                 {{#if wallposts.firstObject.isLoaded}}
                                     <em class="tab-subtitle">{% trans "Last:" %} {{localize wallposts.firstObject.created formatting="X"}} </em>
+                                {{else}}
+                                    <em class="tab-subtitle">{% trans "..." %}</em>
                                 {{/if}}
                             {{else}}
                                 <em class="tab-subtitle">{% trans "No updates yet" %}</em>
@@ -180,7 +195,7 @@
                                 <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
                             </span>
                         </a>
-                    </li>ProjectSupporterController:ember622
+                    </li>
                     <li>
                         <a href="#" class="member">
                             <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
@@ -196,20 +211,24 @@
                     </li>
                 </ul>
             </li>
-            <li class="member-coaches">
-                <h4>Coach</h4>
-                <ul>
-                    <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+
+            {% endcomment %}
+
+            {{#if team_member}}
+                <li class="member-coaches">
+                    <h4>Coach</h4>
+                    <ul>
+                        <li>
+                            <a class="member" {{action openInBigBox "userModal" team_member }} {{bindAttr data-content="team_member.full_name"}} data-title="1%COACH" >
+                                <img {{bindAttr src="team_member.getAvatar"}} width="45" height="45" alt="Photo" />
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            {{/if}}
+
+            {% comment %}
+
             <li class="member-promotors">
                 <h4>Promotors</h4>
                 <ul>
@@ -254,17 +273,19 @@
 
             {% endcomment %}
 
-            <li class="member-supporters">
-                <h4>{% trans "Supporters" %}</h4>
-                {{render "projectSupporterList"}}
-            </li>
-            <li class="show-all-supporters supporters-amount" class="not-implemented">
-                <a href="#" class="member">
-                    <strong>{{supporters_count}}</strong>
-                    <br/>
-                    <em>Total</em>
-                </a>
-            </li>
+            {{#if isPhaseCampaign}}
+                <li class="member-supporters">
+                    <h4>{% trans "Supporters" %}</h4>
+                    {{render "projectSupporterList"}}
+                </li>
+                <li class="show-all-supporters supporters-amount" class="not-implemented">
+                    <a href="#" class="member">
+                        <strong>{{supporters_count}}</strong>
+                        <br/>
+                        <em>Total</em>
+                    </a>
+                </li>
+            {{/if}}
         </ul>
     </div>
 
@@ -292,3 +313,5 @@
     {{/if}}
 
 {% endtplhandlebars %}
+
+

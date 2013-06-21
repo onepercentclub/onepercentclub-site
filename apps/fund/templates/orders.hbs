@@ -373,7 +373,7 @@
                 <li class="control-group">
                     <label class="control-label">{% trans "Country" %}</label>
                     <div class="controls">
-                        {{view App.CountrySelectCodeView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+                        {{view App.CountryCodeSelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
                     </div>
 
                     {{#if error.country}}
@@ -392,7 +392,7 @@
 {# <!-- wrapper tag: <li class="donation-project"> --> #}
 {% tplhandlebars "current_order_donation" %}
     {{#linkTo "project" project}}
-        <img {{bindAttr src="project.image_square" alt="project.title"}} class="project-image" />
+        <img {{bindAttr src="project.plan.image.square" alt="project.title"}} class="project-image" />
         <h2>{{project.title}} <em class="country"><i class="icon-globe"></i> {{project.country.name}}</em></h2>
     {{/linkTo}}
     <div class="donation-amount">

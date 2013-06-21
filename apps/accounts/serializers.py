@@ -75,20 +75,6 @@ class PasswordField(serializers.CharField):
         return self.hidden_password_string
 
 
-class UserSettingsCountryField(serializers.PrimaryKeyRelatedField):
-    def __init__(self, *args, **kwargs):
-        super(UserSettingsCountryField, self).__init__(queryset=Country.objects, *args, **kwargs)
-
-    def field_to_native(self, obj, field_name):
-        try:
-            address = obj.address
-            pk = getattr(address, self.source.replace('address.', '')).pk
-        except (AttributeError, ObjectDoesNotExist):
-            return None
-
-        return self.to_native(pk)
-
-
 class UserSettingsSerializer(serializers.ModelSerializer):
     """
     Serializer for viewing and editing a user's settings. This should only be accessible to authenticated users.
@@ -103,7 +89,8 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     line2 = serializers.CharField(source='address.line2', max_length=100, blank=True)
     city = serializers.CharField(source='address.city', max_length=100, blank=True)
     state = serializers.CharField(source='address.state', max_length=100, blank=True)
-    country = UserSettingsCountryField(source='address.country', blank=True)
+    country = serializers.RelatedField(source='address.country', required=False)
+
     postal_code = serializers.CharField(source='address.postal_code', max_length=20, blank=True)
 
     class Meta:

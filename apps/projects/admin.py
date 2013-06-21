@@ -1,5 +1,9 @@
 import logging
 from apps.fund.models import Donation
+from apps.projects.models import ProjectPlan
+from django.contrib.admin.filters import FieldListFilter
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -8,85 +12,66 @@ from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 from sorl.thumbnail.shortcuts import get_thumbnail
 
-from .models import (
-    Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, BudgetLine,
-    Testimonial, PartnerOrganization
-)
+from .models import (Project, ProjectBudgetLine, PartnerOrganization, ProjectPitch)
 
 
-class PhaseInlineBase(admin.StackedInline):
-    max_num = 1
-    extra = 0
+class ProjectPitchAdmin(admin.ModelAdmin):
+
+    model = ProjectPitch
+
+    list_filter = ('status', )
+    list_display = ('title', 'status', 'created')
+    raw_id_fields = ('project', )
+
+admin.site.register(ProjectPitch, ProjectPitchAdmin)
 
 
-class IdeaPhaseInline(PhaseInlineBase):
-    model = IdeaPhase
-    can_delete = False
+class ProjectPlanAdmin(admin.ModelAdmin):
 
+    model = ProjectPlan
 
-class FundPhaseInline(PhaseInlineBase):
-    model = FundPhase
+    list_filter = ('status', )
+    list_display = ('title', 'status', 'created')
+    raw_id_fields = ('project', )
 
-
-class ActPhaseInline(PhaseInlineBase):
-    model = ActPhase
-
-
-class ResultsPhaseInline(PhaseInlineBase):
-    model = ResultsPhase
-
-
-class BudgetInline(admin.TabularInline):
-    model = BudgetLine
-    extra = 0
+admin.site.register(ProjectPlan, ProjectPlanAdmin)
 
 
 class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     date_hierarchy = 'created'
 
+    save_on_top = True
+
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ('phase', 'language', 'themes', 'country')
-    list_display = ('title', 'organization', 'country')
+    list_filter = ('phase', 'partner_organization')
+    list_display = ('title', 'owner', 'coach', 'phase')
 
-    inlines = [BudgetInline, IdeaPhaseInline, FundPhaseInline, ActPhaseInline, ResultsPhaseInline]
+    search_fields = ('title', 'owner__first_name', 'owner__last_name')
 
-    filter_horizontal = ('themes',)
+    raw_id_fields = ('owner', 'coach')
 
-    search_fields = (
-        'title', 'organization__name',
-        'owner__first_name', 'owner__last_name'
-    )
+    readonly_fields = ('pitch_view', 'plan_view')
 
-    raw_id_fields = ('owner', )
+    fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization')
 
-    def thumbnail(self, instance):
-        """
-        Generate a nice little thumbnail for our project.
-        Source: https://github.com/sorl/sorl-thumbnail/blob/master/sorl/thumbnail/admin/current.py#L19
-        """
-        value = '<div style="height:80px;width:80px">%s</div>'
+    def pitch_view(self, obj):
+        object = obj.projectpitch
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        return "<a href='%s'>View/Edit Pitch</a>" % str(url)
 
-        if instance.image:
-            try:
-                mini = get_thumbnail(
-                    instance.image, '80x80', upscale=False, crop='center'
-                )
-            except Exception:
-                logger.exception(
-                    "An error occurred while scaling an image in the admin."
-                )
-                return value % ''
-            else:
-                return value % (u'<img width="%s" height="%s" src="%s">' % (mini.width, mini.height, mini.url))
-        else:
-            return value % ''
-    thumbnail.allow_tags = True
+    pitch_view.allow_tags = True
+
+    def plan_view(self, obj):
+        object = obj.projectplan
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        return "<a href='%s'>View/Edit Plan</a>" % str(url)
+
+    plan_view.allow_tags = True
 
 
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Testimonial)
 
 
 class PartnerOrganizationAdmin(AdminImageMixin, admin.ModelAdmin):

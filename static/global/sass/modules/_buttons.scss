@@ -78,7 +78,7 @@ div.buttons, ul.buttons {
     text-shadow: 0 0 0;
   }
 
-  &[disabled] {
+  &[disabled],&.disabled {
     border-color: $gray;
     background-color: $grayLight;
     color:  $white;
@@ -177,13 +177,26 @@ div.buttons, ul.buttons {
     vertical-align:  middle;
     text-align: center;
     @include rem(font-size, 26px);
+    width: auto;
 
   }
+    &.disabled, &[disabled] {
+        .icon {
+            background:  darken($grayLight, 5%);
+            color:  lighten($white, 5%);
+        }
+    }
 
   &.btn-primary {
     .icon {
       background:  darken($pink, 5%);
       color: lighten($pink, 10%);
+    }
+    &.disabled, &[disabled] {
+        .icon {
+            background:  darken($grayLight, 5%);
+            color:  lighten($white, 5%);
+        }
     }
   }
 

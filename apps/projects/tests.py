@@ -1,5 +1,6 @@
 from decimal import Decimal
 from datetime import timedelta
+from apps.projects.models import ProjectPlan, ProjectCampaign
 from django.core.exceptions import ValidationError
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
@@ -8,31 +9,20 @@ from rest_framework import status
 from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
-from .models import Project, IdeaPhase, FundPhase, ActPhase, ResultsPhase, AbstractPhase, ProjectPhases
 import json
+from .models import Project,ProjectPhases, ProjectPitch
+
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
-    def create_project(self, organization=None, owner=None, title='', phase='fund',
-                       slug='', latitude=None, longitude=None, money_asked=500000):
+    def create_project(self, organization=None, owner=None, title='', phase='pitch', slug='', money_asked=0):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
 
         The returned object is saved to the database.
         """
-
-        if not latitude:
-            latitude = Decimal('-11.2352')
-
-        if not longitude:
-            longitude = Decimal('-84.123')
-
-        if not organization:
-            organization = self.create_organization()
-            organization.save()
-
         if not owner:
             # Create a new user with a random username
             owner = self.create_user()
@@ -42,26 +32,24 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             while Project.objects.filter(slug=slug).exists():
                 slug = generate_random_slug()
 
-        project = Project(
-            organization=organization, owner=owner, title=title, slug=slug, phase=phase,
-            latitude=latitude, longitude=longitude, money_asked=money_asked
-        )
-
+        project = Project(owner=owner, title=title, slug=slug, phase=phase)
         project.save()
 
+        project.projectpitch.title = title,
+        project.projectpitch.status = ProjectPitch.PitchStatuses.new
+        project.projectpitch.save()
+
+        if money_asked:
+            project.projectplan = ProjectPlan(title=project.title)
+            project.projectplan.status = 'approved'
+            project.projectplan.save()
+
+            project.projectcampaign = ProjectCampaign(money_asked=money_asked, status='running')
+            project.projectcampaign.save()
+            project.phase = ProjectPhases.campaign
+            project.save()
+
         return project
-
-
-class FundPhaseTestMixin(object):
-    def create_fundphase(self, project, budget_total=15000, money_asked=5000):
-        """ Create (but not save) a fund phase. """
-        fundphase = FundPhase()
-        fundphase.project = project
-        fundphase.budget_total = budget_total
-        fundphase.money_asked = money_asked
-        fundphase.startdate = timezone.now().date()
-        fundphase.save()
-        return fundphase
 
 
 class ProjectWallPostTestsMixin(ProjectTestsMixin):
@@ -80,109 +68,11 @@ class ProjectWallPostTestsMixin(ProjectTestsMixin):
         return wallpost
 
 
-class ProjectTests(TestCase, ProjectTestsMixin, FundPhaseTestMixin):
-    """ Tests for projects. """
-
-    def setUp(self):
-        """ Every test in this suite requires a project. """
-        self.project = self.create_project(title='Banana Project', slug='banana')
-
-    def test_phase_dates_sync(self):
-        """
-        Tests that the auto-sync phase start / end date code works.
-        """
-        today = timezone.now().date()
-        two_days_timedelta = timedelta(days=2)
-        one_week_timedelta = timedelta(weeks=1)
-
-        # Basic test for the auto-setting previous enddate.
-        ideaphase = IdeaPhase(project=self.project)
-        ideaphase.startdate = today
-        ideaphase.save()
-        fundphase = self.create_fundphase(self.project)
-
-        # Refresh the data and test:
-        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
-        self.assertTrue(fundphase.startdate == ideaphase.enddate)
-
-        # Tests that previous phase start date is adjusted when the previous
-        # phase end date is eariler than the previous phase start date.
-        fundphase.startdate = today - two_days_timedelta
-        fundphase.save()
-
-        # Refresh the data and test:
-        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
-        self.assertTrue(fundphase.startdate == ideaphase.enddate)
-
-        # Test for the auto-setting next startdate.
-        resultsphase = ResultsPhase(project=self.project)
-        resultsphase.startdate = today + two_days_timedelta
-        resultsphase.save()
-        actphase = ActPhase(project=self.project)
-        actphase.startdate = today
-        actphase.enddate = today + one_week_timedelta
-        actphase.save()
-
-        # Refresh the data and test:
-        resultsphase = ResultsPhase.objects.get(id=resultsphase.id)
-        self.assertTrue(resultsphase.startdate == actphase.enddate)
-
-        # Tests that next phase end date is adjusted when the next phase start
-        # date is later than the next phase end date.
-        actphase = ActPhase.objects.get(id=actphase.id)
-        fundphase = FundPhase.objects.get(id=fundphase.id)
-
-        # The current state of things:
-        self.assertEquals(fundphase.startdate, today - two_days_timedelta)
-        self.assertEquals(fundphase.enddate, today)
-        self.assertEquals(actphase.startdate, fundphase.enddate) # today
-        self.assertEquals(actphase.enddate, today + one_week_timedelta)
-
-        # Change the fund phase end date to be later than act phase end date.
-        fundphase.enddate = today + timedelta(weeks=2)
-        fundphase.save()
-
-        # Refresh the data and test:
-        actphase = ActPhase.objects.get(id=actphase.id)
-        self.assertEquals(fundphase.enddate, actphase.startdate)
-        # This is the important test.
-        self.assertEquals(actphase.enddate, actphase.startdate)
-
-        # Final refresh and tests:
-        ideaphase = IdeaPhase.objects.get(id=ideaphase.id)
-        fundphase = FundPhase.objects.get(id=fundphase.id)
-        actphase = ActPhase.objects.get(id=actphase.id)
-        resultsphase = ResultsPhase.objects.get(id=resultsphase.id)
-        self.assertTrue(ideaphase.enddate == fundphase.startdate)
-        self.assertTrue(fundphase.enddate == actphase.startdate)
-        self.assertTrue(actphase.enddate == resultsphase.startdate)
-
-    def test_phase_validation(self):
-        """
-        Tests that the phase validation is working.
-        """
-
-        # Setup sample phase.
-        phase = self.create_fundphase(self.project)
-        phase.startdate = timezone.now().date()
-        phase.status = AbstractPhase.PhaseStatuses.progress
-        phase.save()
-
-        # Check that the validation error is raised.
-        phase.enddate = timezone.now().date() - timedelta(weeks=2)
-        self.assertRaises(ValidationError, phase.full_clean)
-
-        # Set a correct value and confirm there's no problem.
-        phase.enddate = timezone.now().date() + timedelta(weeks=2)
-        phase.full_clean()
-        phase.save()
-
-
 # RequestFactory used for integration tests.
 factory = RequestFactory()
 
 
-class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase):
+class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
     """
     Integration tests for the Project API.
     """
@@ -194,12 +84,18 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         for char in 'abcdefghijklmnopqrstuvwxyz':
             project = self.create_project(title=char * 3, slug=char * 3)
             if ord(char) % 2 == 1:
-                # Put half of the projects are in the fund phase.
-                fundphase = self.create_fundphase(project)
-                project.phase = ProjectPhases.act
+                # Put half of the projects in the campaign phase.
+                project.projectplan = ProjectPlan(title=project.title)
+                project.projectplan.status = 'approved'
+                project.projectplan.save()
+                project.phase = ProjectPhases.campaign
+                project.save()
+            else:
+                project.projectplan = ProjectPlan(title=project.title)
+                project.projectplan.save()
+                project.phase = ProjectPhases.plan
                 project.save()
 
-        self.list_view_count = 10
         self.projects_url = '/i18n/api/projects/'
 
     def test_project_list_view(self):
@@ -212,41 +108,9 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertEquals(response.data['previous'], None)
-
-        # Tests that the next link works.
-        response = self.client.get(response.data['next'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
-
-        # Tests that the previous link works.
-        response = self.client.get(response.data['previous'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertEquals(response.data['previous'], None)
-
-        # Tests that the last page works.
-        response = self.client.get(self.projects_url + '?page=3')
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), 26 % self.list_view_count)
+        self.assertEquals(len(response.data['results']), 26)
         self.assertEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
-
-        # Tests that the previous link from the last page works.
-        response = self.client.get(response.data['previous'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
+        self.assertEquals(response.data['previous'], None)
 
     def test_project_list_view_query_filters(self):
         """
@@ -255,28 +119,10 @@ class ProjectApiIntegrationTest(FundPhaseTestMixin, ProjectTestsMixin, TestCase)
         """
 
         # Tests that the phase filter works.
-        response = self.client.get(self.projects_url + '?phase=fund')
+        response = self.client.get(self.projects_url + '?phase=plan')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertEquals(response.data['previous'], None)
-
-        # Tests that the next link works with a filter (this is also the last page).
-        response = self.client.get(response.data['next'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), 13 % self.list_view_count)
-        self.assertEquals(response.data['next'], None)
-        self.assertNotEquals(response.data['previous'], None)
-
-        # Tests that the previous link works with a filter.
-        response = self.client.get(response.data['previous'])
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), self.list_view_count)
-        self.assertNotEquals(response.data['next'], None)
-        self.assertEquals(response.data['previous'], None)
+        self.assertEquals(len(response.data['results']), 13)
 
     def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
@@ -547,17 +393,12 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         # View Project WallPost list works for author
         response = self.client.get(self.project_wallposts_url,  {'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 4)
+        self.assertEqual(len(response.data['results']), 26)
         self.assertEqual(response.data['count'], 26)
         mediawallpost = response.data['results'][0]
 
         # Check that we're correctly getting a list with mixed types.
         self.assertEqual(mediawallpost['type'], 'media')
-        response = self.client.get(response.data['next'])
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 4)
-        self.assertEqual(response.data['count'], 26)
-        self.assertEqual(response.data['results'][0]['type'], 'text')
 
         # Delete a Media WallPost and check that we can't retrieve it anymore
         project_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, mediawallpost['id'])
@@ -574,7 +415,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.client.logout()
         response = self.client.get(self.project_wallposts_url,  {'project': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(len(response.data['results']), 4)
+        self.assertEqual(len(response.data['results']), 25)
         self.assertEqual(response.data['count'], 25)
 
         # Test filtering wallposts by different projects works.

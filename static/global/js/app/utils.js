@@ -1,28 +1,25 @@
-// TODO: Combine this Country model with the one in projects and use API for loading this list.
+// TODO: Combine this Country model with the one in projects.
+
 App.Country = DS.Model.extend({
-    url: "utils/countries",
-
-    // Can't use 'id' because it doesn't work with 'optionValuePath' in Em.Select.
-    pk: DS.attr('string'),
-    code: DS.attr('string'),
-    title: DS.attr('string')
+    url: "geo/countries",
+    name: DS.attr('string'),
+    code: DS.attr('string')
 });
 
-App.CountryList = [
-    {"value": "0", "title": "loading"}
-];
 
-App.CountrySelectCodeView = Em.Select.extend({
-    content: App.CountryList,
+App.CountrySelectView = Em.Select.extend({
+    content:  [{"value": "0", "title": "--loading--"}],
+    optionValuePath: "content.id",
+    optionLabelPath: "content.name"
+});
+
+
+App.CountryCodeSelectView = Em.Select.extend({
+    content:  [{"code": "0", "name": "--loading--"}],
     optionValuePath: "content.code",
-    optionLabelPath: "content.title"
+    optionLabelPath: "content.name"
 });
 
-App.CountrySelectPKView = Em.Select.extend({
-    content: App.CountryList,
-    optionValuePath: "content.pk",
-    optionLabelPath: "content.title"
-});
 
 // TODO: get this list from the server
 App.ExpertiseList = [
@@ -123,6 +120,20 @@ App.Editable = Ember.Mixin.create({
         }
     },
 
+    updateRecordOnServer: function(){
+        var controller = this;
+        var model = this.get('model');
+        model.one('becameInvalid', function(record){
+            model.set('errors', record.get('errors'));
+        });
+
+        model.one('didUpdate', function(){
+            controller.startEditing();
+        });
+
+        model.transaction.commit();
+    },
+
     stopEditing: function() {
         var self = this;
         var record = this.get('model');
@@ -176,25 +187,43 @@ App.Editable = Ember.Mixin.create({
     }).property('saving')
 });
 
+
 App.UploadFile = Ember.TextField.extend({
+    attributeBindings: ['name', 'accept'],
     type: 'file',
-    attributeBindings: ['name'],
     change: function (evt) {
-        var self = this;
-        var input = evt.target;
-        var self = this;
-        var input = evt.target;
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            var that = this;
-            reader.onload = function (e) {
-                var fileToUpload = e.srcElement.result;
-                self.get('controller').set(self.get('name'), fileToUpload);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
+        var files = evt.target.files;
+        var reader = new FileReader();
+        var file = files[0];
+        reader.readAsDataURL(file);
+        this.set('value', file);
+
     }
 });
+
+
+App.UploadFileView = Ember.TextField.extend({
+    type: 'file',
+    attributeBindings: ['name', 'accept'],
+
+    contentBinding: 'parentView.controller.content',
+
+    change: function(e) {
+        var controller = this.get('controller');
+        var files = e.target.files;
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+            var file = files[i];
+            // TODO: enable client site previews with: reader.onload = function(e){}
+            reader.readAsDataURL(file);
+            this.get('controller').addFile(file);
+        }
+        // Clear the input field after uploading.
+        e.target.value = null;
+    }
+});
+
+
 
 
 // See/Use App.DatePicker
@@ -229,14 +258,13 @@ App.DatePicker = Ember.ContainerView.extend({
 // The id will be the tag string.
 App.Tag = DS.Model.extend({
     url: 'utils/tags',
-    // Hack to make sure that newly added tags won't conflict when the are saved embedded.
+    // Hack to make sure that newly added tags won't conflict when they are saved embedded.
     loadedData: function() {
         if (this.get('isDirty') === false) {
             this._super.apply(this, arguments);
         }
     }
 });
-
 
 App.TagField = Em.TextField.extend({
     keyUp: function(e){
@@ -256,7 +284,12 @@ App.TagWidget = Em.View.extend({
         if (this.get('new_tag')) {
             var new_tag = this.get('new_tag').toLowerCase();
             var tags = this.get('tags');
-            var tag = App.Tag.createRecord({'id': new_tag});
+            // Try to create a new tag, it will fail if it's already in the local store, so catch that.
+            try {
+                var tag = App.Tag.createRecord({'id': new_tag});
+            } catch(err) {
+                var tag = App.Tag.find(new_tag);
+            }
             tags.pushObject(tag);
             this.set('new_tag', '');
         }
@@ -264,6 +297,15 @@ App.TagWidget = Em.View.extend({
     removeTag: function(tag) {
         var tags = this.get('tags');
         tags.removeObject(tag);
+    },
+    didInsertElement: function(){
+        this.$('.tag').typeahead({
+            source: function (query, process) {
+                return $.get('/i18n/api/utils/tags/' + query, function (data) {
+                    return process(data);
+                });
+            }
+        })
     }
 });
 
@@ -301,6 +343,92 @@ App.ShowMoreItemsMixin = Em.Mixin.create({
         this.incrementProperty('page');
         var end = this.get('page') * this.get('perPage');
         this.get('items').pushObjects(this.get('model').slice(start, end));
+    }
+
+});
+
+App.PopOverMixin = Em.Mixin.create({
+   didInsertElement: function(){
+        this.$('.has-popover').popover({trigger: 'hover', placement: 'left'});
+        this.$('.has-tooltip').tooltip({trigger: 'hover', placement: 'right'});
+   }
+});
+
+
+App.Theme = DS.Model.extend({
+    url:'utils/themes',
+    title: DS.attr('string')
+});
+
+
+App.ThemeList = [
+    {id: "0", title: "--loading--"}
+];
+
+App.ThemeSelectView = Em.Select.extend({
+    content: App.ThemeList,
+    optionValuePath: "content.id",
+    optionLabelPath: "content.title"
+});
+
+
+App.MapPicker = Em.View.extend({
+
+    templateName: 'map_picker',
+    marker: null,
+
+    submit: function(e){
+        e.preventDefault();
+        this.lookUpLocation();
+    },
+
+    lookUpLocation: function() {
+        var address = this.get('lookup');
+        var view = this;
+        view.geocoder.geocode( {'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                view.placeMarker(results[0].geometry.location);
+                view.set('latitude',  results[0].geometry.location.lat());
+                view.set('longitude',  results[0].geometry.location.lng());
+
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    },
+    placeMarker: function (position) {
+        var view = this;
+        if (view.marker) {
+            view.marker.setMap(null)
+        }
+
+        view.marker = new google.maps.Marker({
+            position: position,
+            map: view.map
+        });
+        view.map.panTo(position);
+    },
+
+    didInsertElement: function(){
+        var view = this;
+        this.geocoder = new google.maps.Geocoder();
+        var view = this;
+        var point = new google.maps.LatLng(view.get('latitude'), view.get('longitude'));
+        var mapOptions = {
+            zoom: 6,
+            center: point,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+        view.map = new google.maps.Map(this.$('.map-picker').get(0), mapOptions);
+
+        view.placeMarker(point);
+
+        google.maps.event.addListener(view.map, 'click', function(e) {
+            var loc = {};
+            view.set('latitude',  e.latLng.lat());
+            view.set('longitude',  e.latLng.lng());
+            view.placeMarker(e.latLng);
+        });
     }
 
 });

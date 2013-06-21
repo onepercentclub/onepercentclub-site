@@ -302,7 +302,7 @@
             <ul class="files">
                 {{#each files}}
                     <li>
-                        <a {{bindAttr href=this.file}} target="file">
+                        <a {{bindAttr href=this.file.url}} target="file">
                             <span class="status action">
                                 <span class="icon icon-download-alt" />
                                 {% trans "get" %}
@@ -310,7 +310,7 @@
                         </a>
                         <div class="detail">
                             <strong>{{this.title}}</strong><br />
-                            <span class="tiny">{{this.file_size}}<br/></span>
+                            <span class="tiny">{{this.file.size}}<br/></span>
                             <em>{{this.author.full_name}}</em>
                         </div>
                     </li>

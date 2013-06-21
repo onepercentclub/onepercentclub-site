@@ -99,3 +99,5 @@ https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e95
 https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
 
 
+# Private uploads
+https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip

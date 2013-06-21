@@ -64,8 +64,6 @@ App = Em.Application.create({
     // TODO: Remove this in production builds.
     LOG_TRANSITIONS: true,
 
-    // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
-    templates: ['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders'],
 
     // We store language & locale here because they need to be available before loading templates.
     language: 'en',
@@ -81,8 +79,8 @@ App = Em.Application.create({
         // We don't have to check if it's one of the languages available. Django will have thrown an error before this.
         this.set('language', language);
 
-        // Now that we know the language we can load the hb templates.
-        this.loadTemplates(this.templates);
+        // Now that we know the language we can load the handlebars templates.
+        //this.loadTemplates(this.templates);
 
         // Read locale from browser with fallback to default.
         var locale = navigator.language || navigator.userLanguage || this.get('locale');
@@ -100,22 +98,27 @@ App = Em.Application.create({
                 locale = 'en';
             }
         }
+        this.initSelectViews();
         this.setLocale(locale);
         this.initSelectViews();
     },
 
     initSelectViews: function(){
         // Pre-load these lists so we avoid race conditions when displaying forms
-        App.Country.find().then(function(list){
-            App.CountrySelectCodeView.reopen({
+        App.Theme.find().then(function(list){
+            App.ThemeSelectView.reopen({
                 content: list
             });
-            App.CountrySelectPKView.reopen({
+        });
+        App.Country.find().then(function(list){
+            App.CountrySelectView.reopen({
+                content: list
+            });
+            App.CountryCodeSelectView.reopen({
                 content: list
             });
         });
     },
-
 
     setLocale: function(locale) {
         if (!locale) {
@@ -160,11 +163,48 @@ App = Em.Application.create({
 App.deferReadiness();
 
 App.loadTemplates = function() {
+    var language = window.location.pathname.split('/')[1];
+    // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
+    // Now that we know the language we can load the handlebars templates.
+    var readyCount = 0;
+    var templates = Em.A(['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils']);
+    templates.forEach(function(template){
+        //loadTemplates(this.templates);
+        var hash = {};
+        hash.url = '/' + language + '/templates/' + template + '.hbs';
+        hash.type = 'GET';
+        hash.contentType = 'application/json';
+        hash.success = function(data) {
+            // Iterate through handlebar tags
+            $(data).filter('script[type="text/x-handlebars"]').each(function() {
+                var templateName = $(this).attr('data-template-name');
+                var raw = $(this).html();
+                Em.TEMPLATES[templateName] = Em.Handlebars.compile(raw);
+            });
+            readyCount++;
+            if (readyCount == templates.length) {
+                App.advanceReadiness();
+            }
+        };
+        hash.error = function(jqXHR, textStatus, errorThrown) {
+            throw errorThrown + ' ' + hash.url;
+        };
+        jQuery.ajax(hash);
+
+    });
+}
+
+App.loadTemplates();
+
+
+App.deferReadiness();
+
+App.loadTemplates = function() {
         var language = window.location.pathname.split('/')[1];
         // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
         // Now that we know the language we can load the handlebars templates.
         var readyCount = 0;
-        var templates = Em.A(['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils']);
+        var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders']);
         templates.forEach(function(template){
             //loadTemplates(this.templates);
             var hash = {};
@@ -193,15 +233,22 @@ App.loadTemplates = function() {
 
 App.loadTemplates();
 
-
 // The Ember Data Adapter and Store configuration.
 
 App.Adapter = DS.DRF2Adapter.extend({
     namespace: "i18n/api",
 
     plurals: {
+        "projects/manage": "projects/manage",
+        "projects/pitches/manage": "projects/pitches/manage",
+        "projects/plans/manage": "projects/plans/manage",
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
+        "organizations/manage": "organizations/manage",
+        "organizations/addresses/manage": "organizations/addresses/manage",
+        "organizations/documents/manage": "organizations/documents/manage",
+        "projects/ambassadors/manage": "projects/ambassadors/manage",
+        "projects/budgetlines/manage": "projects/budgetlines/manage",
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
@@ -209,6 +256,10 @@ App.Adapter = DS.DRF2Adapter.extend({
     }
 });
 
+// Assigning plurals for model properties doesn't seem to work with extend, it does this way:
+App.Adapter.configure("plurals", {
+    "address": "addresses"
+});
 
 App.Adapter.map(
     'App.Payment', {
@@ -253,6 +304,8 @@ App.ProfileController = Ember.ObjectController.extend({
 //           mark the parent record as dirty).
 App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
+    campaign: {embedded: 'load'},
+    plan: {embedded: 'load'},
     country: {embedded: 'load'}
 });
 App.Adapter.map('App.DonationPreview', {
@@ -307,6 +360,36 @@ App.Adapter.map('App.TaskFile', {
     author: {embedded: 'load'}
 });
 
+App.Adapter.map('App.ProjectPlan', {
+    tags: {embedded: 'load'},
+    country: {embedded: 'load'}
+});
+
+App.Adapter.map('App.ProjectPitch', {
+    tags: {embedded: 'load'},
+    country: {embedded: 'load'}
+});
+
+App.Adapter.map('App.MyProjectPlan', {
+    ambassadors: {embedded: 'load'},
+    budgetLines: {embedded: 'load'},
+    tags: {embedded: 'always'}
+});
+
+App.Adapter.map('App.MyProjectPitch', {
+    tags: {embedded: 'always'}
+});
+
+App.Adapter.map('App.MyOrganization', {
+    addresses: {embedded: 'load'},
+    documents: {embedded: 'load'}
+});
+
+App.Adapter.map('App.MyOrganizationDocument', {
+    file: {embedded: 'load'}
+});
+
+
 
 App.Store = DS.Store.extend({
     revision: 11,
@@ -356,7 +439,7 @@ App.Router.map(function() {
         this.resource('payment', {path: '/payment'});
     });
 
-    this.resource('OrderThanks', {path: '/support/thanks/:order_id'});
+    this.resource('orderThanks', {path: '/support/thanks/:order_id'});
 
     this.resource('voucherStart', {path: '/giftcards'});
     this.resource('customVoucherRequest', {path: '/giftcards/custom'});
@@ -369,6 +452,7 @@ App.Router.map(function() {
     this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
 
     this.resource('taskList', {path: '/tasks'});
+
     this.resource('signup');
 
     this.resource('user', {path: '/member'}, function() {
@@ -378,6 +462,55 @@ App.Router.map(function() {
 
     this.route('userActivate', {path: '/activate/:activation_key'});
     this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
+
+    this.resource('myPitch', {path: '/my/pitches/:my_pitch_id'}, function(){
+        this.route('index');
+        this.route('basics');
+        this.route('description');
+        this.route('location');
+        this.route('media');
+    });
+
+    this.resource('myProject', {path: '/my/projects/:my_project_id'}, function(){
+        this.resource('myProjectPlan', {path: 'plan'},function(){
+            this.route('index');
+            this.route('basics');
+            this.route('location');
+            this.route('description');
+            this.route('media');
+
+            this.route('organisation');
+            this.route('legal');
+            this.route('ambassadors');
+
+            this.route('bank');
+            this.route('campaign');
+            this.route('budget');
+
+            this.route('submit');
+
+        });
+
+        this.resource('myProjectPlanReview', {path: 'plan/review'})
+        this.resource('myProjectPlanApproved', {path: 'plan/approved'})
+        this.resource('myProjectPlanRejected', {path: 'plan/rejected'})
+
+        this.resource('myProjectPitch', {path: 'pitch'}, function(){
+            this.route('index');
+            this.route('basics');
+            this.route('location');
+            this.route('media');
+
+            this.route('submit');
+        });
+        this.resource('myProjectPitchReview', {path: 'pitch/review'})
+        this.resource('myProjectPitchApproved', {path: 'pitch/approved'})
+        this.resource('myProjectPitchRejected', {path: 'pitch/rejected'})
+    });
+
+    this.resource('myPitchNew', {path: '/my/pitch/new'});
+    this.resource('myProjectList', {path: '/my/projects'});
+
 });
 
 
@@ -439,6 +572,22 @@ App.ApplicationRoute = Ember.Route.extend({
                 defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
                 bodyViewClass: view
             });
+
+        },
+        showTermsAndConditions:  function(){
+            // TODO: Use a proper view (static/cms page?) for the body.
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: "General Terms & Conditions",
+                message: "This needs some text....",
+                secondary: 'Close'
+            });
+        },
+        showProject: function(project_id) {
+            var route = this;
+            App.Project.find(project_id).then(function(project){
+                route.transitionTo('project', project);
+            });
         }
     }
 });
@@ -450,7 +599,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
 App.ProjectListRoute = Ember.Route.extend({
     model: function() {
-        return App.Project.find({phase: 'fund'});
+        return App.ProjectPreview.find({phase: 'campaign'});
     }
 });
 
@@ -473,17 +622,17 @@ App.ProjectRoute = Ember.Route.extend({
 });
 
 
-// This is the 'ProjectWallPostListRouter'
+// This is the 'ProjectWallPostListRoute'
 App.ProjectIndexRoute = Ember.Route.extend({
 
     model: function(params){
-        return this.modelFor('project').get('wallposts');
+        return this.modelFor('project');
     },
     setupController: function(controller, model) {
-        // Empty the items and set page to 0 so we don't show wallposts from previous project
+        // Empty the items and set page to 0 so we don't show wall posts from previous project
         controller.set('items', Em.A());
         controller.set('page', 0);
-        this._super(controller, model);
+        this._super(controller, model.get('wallposts'));
     }
 
 });
@@ -968,17 +1117,6 @@ App.PasswordResetRoute = Ember.Route.extend({
 });
 
 
-/**
- * Tasks Routes
- */
-
-App.TaskListRoute =  Ember.Route.extend({
-    model: function(params) {
-        return App.Task.find();
-    }
-});
-
-
 App.LoginController = Em.Controller.extend({
 
     requestPasswordReset: function() {
@@ -1019,12 +1157,208 @@ App.LoginController = Em.Controller.extend({
 });
 
 
+/**
+ * My Projects
+ * - Manage your project(s)
+ */
+
+App.MyProjectListRoute = Ember.Route.extend({
+    model: function(params){
+        return App.MyProject.find();
+    }
+
+});
+
+App.MyPitchNewRoute = Ember.Route.extend({
+    redirect: function() {
+        var projects = App.MyProject.find();
+        var route = this;
+        projects.forEach(function(project){
+            if (project.get('inProgress')) {
+                route.transitionTo('myProjectList');
+            }
+        });
+    },
+    model: function(){
+        var transaction = this.get('store').transaction();
+        var project =  transaction.createRecord(App.MyProject);
+        return project;
+    }
+
+});
+
+App.MyProjectRoute = Ember.Route.extend({
+    // Load the Project
+    model: function(params) {
+        return App.MyProject.find(params.my_project_id);
+    }
+});
+
+
+App.MyProjectPitchRoute =  Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('pitch');
+    }
+});
+
+
+App.MyProjectPitchSubRoute = Ember.Route.extend({
+    redirect: function() {
+        var status = this.modelFor('myProject').get('pitch.status');
+        switch(status){
+            case 'submitted':
+                this.transitionTo('myProjectPitchReview');
+                break;
+            case 'rejected':
+                this.transitionTo('myProjectPitchRejected');
+                break;
+            case 'approved':
+                this.transitionTo('myProjectPitchApproved');
+                break;
+        }
+    },
+    model: function(params) {
+        return this.modelFor('myProject').get('pitch');
+    },
+    setupController: function(controller, model){
+        this._super(controller, model);
+        controller.startEditing();
+    },
+    exit: function(){
+        if (this.get('controller')) {
+            this.get('controller').stopEditing();
+        }
+    }
+
+});
+
+App.MyProjectPitchBasicsRoute =  App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchLocationRoute =  App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchMediaRoute =  App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchSubmitRoute =  App.MyProjectPitchSubRoute.extend({});
+
+App.MyProjectPitchIndexRoute =  Ember.Route.extend({
+    redirect: function() {
+        var status = this.modelFor('myProject').get('pitch.status');
+        switch(status){
+            case 'submitted':
+                this.transitionTo('myProjectPitchReview');
+                break;
+            case 'rejected':
+                this.transitionTo('myProjectPitchRejected');
+                break;
+            case 'approved':
+                this.transitionTo('myProjectPitchApproved');
+                break;
+        }
+    },
+    model: function(params) {
+        return this.modelFor('myProject').get('pitch');
+    }
+});
+
+
+App.MyProjectPitchReviewRoute =  Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('pitch');
+    }
+});
+
+
+// My ProjectPlan routes
+
+App.MyProjectPlanRoute =  Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    }
+});
+
+App.MyProjectPlanSubRoute = Ember.Route.extend({
+    redirect: function() {
+        var status = this.modelFor('myProject').get('plan.status');
+        switch(status){
+            case 'submitted':
+                this.transitionTo('myProjectPlanReview');
+                break;
+            case 'rejected':
+                this.transitionTo('myProjectPlanRejected');
+                break;
+            case 'approved':
+                this.transitionTo('myProjectPlanApproved');
+                break;
+        }
+    },
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    },
+    setupController: function(controller, model){
+        this._super(controller, model);
+        controller.startEditing();
+    },
+    exit: function(){
+        if (this.get('controller')) {
+            this.get('controller').stopEditing();
+        }
+    }
+
+});
+
+App.MyProjectPlanBasicsRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanDescriptionRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanLocationRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanMediaRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanAmbassadorsRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanSubmitRoute =  App.MyProjectPlanSubRoute.extend({});
+
+App.MyProjectPlanCampaignRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanBudgetRoute =  App.MyProjectPlanSubRoute.extend({});
+
+App.MyProjectPlanOrganisationRoute =  App.MyProjectPlanSubRoute.extend({
+    setupController: function(controller, model){
+        this._super(controller, model);
+        controller.set('organizations', App.MyOrganization.find());
+    }
+});
+
+App.MyProjectPlanBankRoute = App.MyProjectPlanSubRoute.extend({});
+
+
+App.MyProjectPlanLegalRoute =  App.MyProjectPlanSubRoute.extend({});
+
+
+App.MyProjectPlanIndexRoute =  Ember.Route.extend({
+    redirect: function() {
+        var status = this.modelFor('myProject').get('plan.status');
+        switch(status){
+            case 'submitted':
+                this.transitionTo('myProjectPlanReview');
+                break;
+            case 'rejected':
+                this.transitionTo('myProjectPlanRejected');
+                break;
+            case 'approved':
+                this.transitionTo('myProjectPlanApproved');
+                break;
+        }
+    },
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    }
+});
+
+
+App.MyProjectPlanReviewRoute =  Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject').get('plan');
+    }
+});
+
+
 /* Views */
 
 App.LanguageView = Ember.View.extend({
     templateName: 'language'
 });
-
 
 App.LanguageSwitchView = Ember.CollectionView.extend({
     tagName: 'ul',
@@ -1040,6 +1374,5 @@ App.LoginView = Em.View.extend({
         return  String(window.location);
     }.property()
 });
-
 
 
