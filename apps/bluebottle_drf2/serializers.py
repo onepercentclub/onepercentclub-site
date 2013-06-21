@@ -376,7 +376,6 @@ class TaggableSerializerMixin(object):
         super(TaggableSerializerMixin, self).save_object(obj)
         if hasattr(self, 'tag_list'):
             obj.tags.clear()
-            print type(self.tag_list)
             if type(self.tag_list) == types.UnicodeType:
                 self.tag_list = json.loads(self.tag_list)
             for tag in self.tag_list:

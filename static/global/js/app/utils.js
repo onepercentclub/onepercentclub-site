@@ -2,13 +2,21 @@
 
 App.Country = DS.Model.extend({
     url: "geo/countries",
-    name: DS.attr('string')
+    name: DS.attr('string'),
+    code: DS.attr('string')
 });
 
 
 App.CountrySelectView = Em.Select.extend({
     content:  [{"value": "0", "title": "--loading--"}],
     optionValuePath: "content.id",
+    optionLabelPath: "content.name"
+});
+
+
+App.CountryCodeSelectView = Em.Select.extend({
+    content:  [{"code": "0", "name": "--loading--"}],
+    optionValuePath: "content.code",
     optionLabelPath: "content.name"
 });
 

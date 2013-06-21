@@ -114,6 +114,9 @@ App = Em.Application.create({
             App.CountrySelectView.reopen({
                 content: list
             });
+            App.CountryCodeSelectView.reopen({
+                content: list
+            });
         });
     },
 
@@ -237,6 +240,8 @@ App.Adapter = DS.DRF2Adapter.extend({
 
     plurals: {
         "projects/manage": "projects/manage",
+        "projects/pitches/manage": "projects/pitches/manage",
+        "projects/plans/manage": "projects/plans/manage",
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
         "organizations/manage": "organizations/manage",

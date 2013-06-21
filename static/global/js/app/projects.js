@@ -184,8 +184,8 @@ App.ProjectView = Em.View.extend({
         // TODO: The 50% dark background doesn't work this way. :-s
         this.$('#detail').css('backgroundColor', 'rgba(0,0,0,0.5)');
 
-        var donated = this.get('controller.money_donated');
-        var asked = this.get('controller.money_asked');
+        var donated = this.get('controller.campaign.money_donated');
+        var asked = this.get('controller.campaign.money_asked');
         this.$('.donate-progress').css('width', '0px');
         var width = 0;
         if (asked > 0) {

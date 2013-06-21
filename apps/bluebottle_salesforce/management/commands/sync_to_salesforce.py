@@ -2,11 +2,7 @@ import logging
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from apps.accounts.models import BlueBottleUser
-<<<<<<< HEAD:apps/bluebottle_salesforce/management/commands/sync_to_salesforce.py
-from apps.projects.models import Project, BudgetLine, ProjectPhases
-=======
 from apps.projects.models import Project, ProjectBudgetLine
->>>>>>> b72a0cb... Fix tests:apps/bluebottle_salesforce/scripts/synctosalesforce.py
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, Voucher
@@ -366,7 +362,6 @@ def sync_projects(test_run):
 
 
 def sync_budget_lines(test_run):
-
     budget_lines = ProjectBudgetLine.objects.all()
     logger.info("Syncing {0} BudgetLine objects.".format(budget_lines.count()))
 

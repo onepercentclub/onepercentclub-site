@@ -10,7 +10,8 @@ from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWall
 urlpatterns = patterns('',
     url(r'^$', ProjectList.as_view(), name='project-list'),
     surl(r'^<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
-    surl(r'^pitches/<pk:#>$', ProjectPitchDetail.as_view(), name='project-pitch-detail'),
+    # Not publically avaialable atm
+    # surl(r'^pitches/<pk:#>$', ProjectPitchDetail.as_view(), name='project-pitch-detail'),
     surl(r'^plans/<pk:#>$', ProjectPlanDetail.as_view(), name='project-plan-detail'),
 
 
@@ -28,11 +29,11 @@ urlpatterns = patterns('',
     # Project supporters
     url(r'^donations/$', ProjectDonationList.as_view(), name='project-donation-list'),
 
-
+    # Manage stuff
     url(r'^manage/$', ManageProjectList.as_view(), name='project-manage-list'),
     surl(r'^manage/<slug:s>$', ManageProjectDetail.as_view(), name='project-manage-detail'),
-    surl(r'^manage/pitches/<pk:#>$', ManageProjectPitchDetail.as_view(), name='project-pitch-manage-detail'),
-    surl(r'^manage/plans/<pk:#>$', ManageProjectPlanDetail.as_view(), name='project-plan-manage-detail'),
+    surl(r'^pitches/manage/<pk:#>$', ManageProjectPitchDetail.as_view(), name='project-pitch-manage-detail'),
+    surl(r'^plans/manage/<pk:#>$', ManageProjectPlanDetail.as_view(), name='project-plan-manage-detail'),
 
 
     url(r'^ambassadors/manage/$', ManageProjectAmbassadortList.as_view(), name='project-ambassador-manage-detail'),

@@ -21,11 +21,12 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
+    image = ImageSerializer(source='projectplan.image')
 
 
     class Meta:
         model = Project
-        fields = ('id', 'title')
+        fields = ('id', 'title', 'image')
 
 
 class DonationPreviewSerializer(serializers.ModelSerializer):

@@ -113,7 +113,7 @@ App.MyOrganization = DS.Model.extend({
 
 
 App.MyProjectPitch = DS.Model.extend({
-    url: 'projects/manage/pitches',
+    url: 'projects/pitches/manage',
 
     project: DS.belongsTo('App.MyProject'),
 
@@ -168,7 +168,7 @@ App.MyProjectPitch = DS.Model.extend({
 
 
 App.MyProjectPlan = DS.Model.extend({
-    url: 'projects/manage/plans',
+    url: 'projects/plans/manage',
 
     project: DS.belongsTo('App.MyProject'),
 

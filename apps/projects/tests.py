@@ -95,7 +95,6 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
                 project.projectplan.save()
                 project.phase = ProjectPhases.plan
                 project.save()
-            print project.phase
 
         self.projects_url = '/i18n/api/projects/'
 
