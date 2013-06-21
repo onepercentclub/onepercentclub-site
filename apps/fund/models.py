@@ -227,7 +227,7 @@ def set_donation_in_progress(donation):
     donation.save()
     project = donation.project
     # Progress project to act phase if it's fully funded
-    if project.money_needed <= 0:
+    if project.projectcampaign.money_needed <= 0:
         project.phase = 'act'
         project.save()
 
@@ -237,8 +237,8 @@ def set_donation_cancelled(donation):
     donation.save()
     project = donation.project
     # Change project back to fund phase if it's not fully funded
-    if project.money_needed > 0:
-        project.phase = 'fund'
+    if project.projectcampaign.money_needed > 0:
+        project.phase = 'campaign'
         project.save()
 
 
@@ -248,7 +248,7 @@ def set_donation_pending(donation):
     donation.save()
     project = donation.project
     # Change project act phase if it's fully funded and still in fund phase
-    if project.money_needed <= 0 and project.phase == 'fund':
+    if project.projectcampaign.money_needed <= 0 and project.phase == 'campaign':
         project.phase = 'act'
         project.save()
 
@@ -258,7 +258,7 @@ def set_donation_paid(donation):
     donation.save()
     project = donation.project
     # Change project act phase if it's fully funded and still in fund phase
-    if project.money_needed <= 0 and project.phase == 'fund':
+    if project.projectcampaign.money_needed <= 0 and project.phase == 'campaign':
         project.phase = 'act'
         project.save()
 

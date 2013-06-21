@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.aggregates import Count
+from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
@@ -33,6 +33,7 @@ class ProjectPhases(DjangoChoices):
     pitch = ChoiceItem('pitch', label=_("Pitch"))
     plan = ChoiceItem('plan', label=_("Plan"))
     campaign = ChoiceItem('campaign', label=_("Campaign"))
+    act = ChoiceItem('act', label=_("Act"))
     results = ChoiceItem('results', label=_("Results"))
     realized = ChoiceItem('realized', label=_("Realised"))
     failed = ChoiceItem('failed', label=_("Failed"))
@@ -211,8 +212,56 @@ class ProjectCampaign(models.Model):
 
     currency = models.CharField(max_length="10", default='EUR')
     money_asked = models.PositiveIntegerField(default=0)
-    money_donated = models.PositiveIntegerField(default=0)
-    money_secure = models.PositiveIntegerField(default=0)
+    #money_donated = models.PositiveIntegerField(default=0)
+    #money_secure = models.PositiveIntegerField(default=0)
+
+    @property
+    def supporters_count(self, with_guests=True):
+        # TODO: Replace this with a proper Supporters API
+        # something like /projects/<slug>/donations
+        donations = Donation.objects.filter(project=self.project)
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+        donations = donations.filter(user__isnull=False)
+        donations = donations.annotate(Count('user'))
+        count = len(donations.all())
+
+        if with_guests:
+            donations = Donation.objects.filter(project=self.project)
+            donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+            donations = donations.filter(user__isnull=True)
+            count += len(donations.all())
+        return count
+
+    # This is here to provide a consistent way to get money_donated.
+    @property
+    def money_donated(self):
+        if self.money_asked == 0:
+            return 0
+        donations = Donation.objects.filter(project=self.project)
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+        total = donations.aggregate(sum=Sum('amount'))
+        if not total['sum']:
+            return 0
+        return total['sum']
+
+    @property
+    def money_needed(self):
+        needed = self.money_asked - self.money_donated
+        if needed < 0:
+            return 0
+        return needed
+
+    # The amount donated that is secure.
+    @property
+    def money_safe(self):
+        if self.money_asked == 0:
+            return 0
+        donations = Donation.objects.filter(project=self.project)
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid])
+        total = donations.aggregate(sum=Sum('amount'))
+        if not total['sum']:
+            return 0
+        return total['sum']
 
 
 class ProjectResult(models.Model):
@@ -342,3 +391,19 @@ def pitch_status_status(sender, instance, created, **kwargs):
     if instance.status is ProjectPitch.PitchStatuses.approved and instance.project.phase is ProjectPhases.pitch:
         instance.project.phase = ProjectPhases.plan
         instance.project.save()
+
+
+# Change project phase according to donated amount
+@receiver(post_save, weak=False, sender=Donation)
+def update_project_after_donation(sender, instance, created, **kwargs):
+    project = instance.project
+    campaign = project.projectcampaign
+    if campaign.money_asked <= campaign.money_donated:
+        project.phase = ProjectPhases.act
+        project.save()
+    else:
+        project.phase = ProjectPhases.campaign
+        project.save()
+
+
+
