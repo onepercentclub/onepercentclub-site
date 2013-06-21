@@ -133,16 +133,16 @@ class ProjectSerializer(serializers.ModelSerializer):
     owner = UserPreviewSerializer()
     coach = UserPreviewSerializer()
 
-    pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
-    plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
-    #campaign = serializers.PrimaryKeyRelatedField(source='projectcampaign', null=True, read_only=True)
+    #pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
+    #plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
+    plan = ProjectPlanSerializer(source='projectplan')
     campaign = ProjectCampaignSerializer(source='projectcampaign')
 
     wallpost_ids = WallPostListSerializer()
 
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'owner', 'coach', 'pitch', 'plan', 'campaign', 'wallpost_ids', 'phase')
+        fields = ('id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase')
 
 
 class ManageProjectSerializer(serializers.ModelSerializer):

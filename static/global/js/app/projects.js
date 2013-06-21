@@ -88,7 +88,6 @@ App.Project = DS.Model.extend({
     phase: DS.attr('string'),
     created: DS.attr('date'),
 
-    pitch: DS.belongsTo('App.ProjectPitch'),
     plan: DS.belongsTo('App.ProjectPlan'),
     campaign: DS.belongsTo('App.ProjectCampaign'),
 

@@ -300,6 +300,7 @@ App.ProfileController = Ember.ObjectController.extend({
 App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
     campaign: {embedded: 'load'},
+    plan: {embedded: 'load'},
     country: {embedded: 'load'}
 });
 App.Adapter.map('App.DonationPreview', {
