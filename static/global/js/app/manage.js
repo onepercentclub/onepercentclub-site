@@ -17,11 +17,11 @@ App.MyOrganizationAddress = DS.Model.extend({
     url: 'organizations/addresses/manage',
 
     organization: DS.belongsTo('App.MyOrganization'),
-    line1: DS.attr('string'),
+    line1: DS.attr('string', {defaultValue: ""}),
     line2: DS.attr('string', {defaultValue: ''}),
-    postal_code: DS.attr('string'),
-    city: DS.attr('string'),
-    country: DS.attr('string'),
+    postal_code: DS.attr('string', {defaultValue: ""}),
+    city: DS.attr('string', {defaultValue: ""}),
+    country: DS.attr('string', {defaultValue: ""}),
     type: DS.attr('string', {defaultValue: 'physical'}),
 
     validAddress: function(){
@@ -60,14 +60,14 @@ App.MyProjectBudgetLine = DS.Model.extend({
 App.MyOrganization = DS.Model.extend({
     url: 'organizations/manage',
     name: DS.attr('string'),
-    description: DS.attr('string'),
+    description: DS.attr('string', {defaultValue: ""}),
 
     // Internet
-    website: DS.attr('string'),
-    email: DS.attr('string'),
-    facebook: DS.attr('string'),
-    twitter: DS.attr('string'),
-    skype: DS.attr('string'),
+    website: DS.attr('string', {defaultValue: ""}),
+    email: DS.attr('string', {defaultValue: ""}),
+    facebook: DS.attr('string', {defaultValue: ""}),
+    twitter: DS.attr('string', {defaultValue: ""}),
+    skype: DS.attr('string', {defaultValue: ""}),
 
     // Addresses
     addresses: DS.hasMany('App.MyOrganizationAddress'),
@@ -81,7 +81,7 @@ App.MyOrganization = DS.Model.extend({
 
 
     // Legal
-    legalStatus: DS.attr('string'),
+    legalStatus: DS.attr('string', {defaultValue: ""}),
     documents: DS.hasMany('App.MyOrganizationDocument'),
 
     validLegalStatus: function(){
@@ -92,15 +92,15 @@ App.MyOrganization = DS.Model.extend({
     }.property('legalStatus', 'documents.length'),
 
     // Bank
-    account_bank_name: DS.attr('string'),
-    account_bank_address: DS.attr('string'),
-    account_bank_country: DS.attr('string'),
-    account_iban: DS.attr('string'),
-    account_bic: DS.attr('string'),
-    account_number: DS.attr('string'),
-    account_name: DS.attr('string'),
-    account_city: DS.attr('string'),
-    account_other: DS.attr('string'),
+    account_bank_name: DS.attr('string', {defaultValue: ""}),
+    account_bank_address: DS.attr('string', {defaultValue: ""}),
+    account_bank_country: DS.attr('string', {defaultValue: ""}),
+    account_iban: DS.attr('string', {defaultValue: ""}),
+    account_bic: DS.attr('string', {defaultValue: ""}),
+    account_number: DS.attr('string', {defaultValue: ""}),
+    account_name: DS.attr('string', {defaultValue: ""}),
+    account_city: DS.attr('string', {defaultValue: ""}),
+    account_other: DS.attr('string', {defaultValue: ""}),
 
     validBank: function(){
         if (this.get('account_bank_name') &&  this.get('account_bank_country') && this.get('account_name') && this.get('account_city') && (this.get('account_number') || this.get('account_iban'))){
@@ -305,7 +305,7 @@ App.MyProject = DS.Model.extend({
         if (phase == 'realized') {
             return false;
         }
-        if (phase == 'closed') {
+        if (phase == 'failed') {
             return false;
         }
         return true;
@@ -337,7 +337,7 @@ App.MyPitchNewController = Em.ObjectController.extend(App.Editable, {
         });
 
         model.transaction.commit();
-    },
+    }
 });
 
 
@@ -364,15 +364,17 @@ App.MyProjectPitchController = Em.ObjectController.extend(App.Editable, {
 App.MyProjectPitchBasicsController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
+    imageSelected: false,
+
     addFile: function(file) {
+        var controller = this;
+        this.set('imageSelected', true);
         var model = this.get('model');
         model.set('image', file);
-        this.set('imageSelected', true);
         model.on('didUpdate', function(){
-            this.set('imageSelected', false);
+            controller.set('imageSelected', false);
         });
     }
-
 });
 
 App.MyProjectPitchSubmitController = Em.ObjectController.extend(App.Editable, {
@@ -457,9 +459,10 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
         return dirty;
     }.property('organization.isLoaded', 'organization.addresses.@each.isDirty'),
 
+
     addAddress: function(){
         // Use the same transaction as the projectplan
-        var transaction =  this.get('model').transaction;
+        var transaction =  this.get('model.organization').transaction;
         var address = transaction.createRecord(App.MyOrganizationAddress, {});
         this.get('model.organization.addresses').pushObject(address);
     },
@@ -468,6 +471,22 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
         address.deleteRecord();
     },
 
+    updateRecordOnServer: function(){
+        var controller = this;
+        var model = this.get('model.organization');
+        model.one('becameInvalid', function(record){
+            model.set('errors', record.get('errors'));
+        });
+        model.one('didCreate', function(){
+            controller.startEditing();
+        });
+
+        model.one('didUpdate', function(){
+            controller.startEditing();
+        });
+
+        model.transaction.commit();
+    },
 
     selectOrganization: function(org){
         // Use the same transaction as the projectplan
@@ -480,9 +499,11 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
     },
     createNewOrganization: function() {
         // Use the same transaction as the projectplan
-        var transaction =  this.get('model').transaction;
-        var org = transaction.createRecord(App.MyOrganization, {});
+        //var transaction =  this.get('model').transaction;
+        var transaction = this.get('store').transaction();
+        var org = transaction.createRecord(App.MyOrganization, {name: ' '});
         this.set('model.organization', org);
+        transaction.commit();
         this.addAddress();
     }
 });

@@ -143,9 +143,8 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             var formdata = new FormData();
             for (key in data) {
                 if (data[key] !== undefined) {
-                    if (data[key] instanceof File) {
-                        var file = record.get(key);
-                        formdata.append('file', file);
+                    if (record.get(key) instanceof File) {
+                        formdata.append(key, record.get(key));
                     } else if (Em.typeOf(data[key]) == 'array'){
                         // Take care of nested resources
                         formdata.append(key, JSON.stringify(data[key]));

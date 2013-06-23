@@ -73,10 +73,11 @@
                 </h1>
             </div>
             <sidebar>
-                <a {{action "showProject" id href=true}} class="button-link">
-                    <em class="icon-eye-open"></em> View public Project Page
-                </a>
-
+                {{#unless isPhasePitch}}
+                    <a {{action "showProject" id href=true}} class="button-link">
+                        <em class="icon-eye-open"></em> View public Project Page
+                    </a>
+                {{/unless}}
             </sidebar>
         </div>
         <div class="wrapper">
@@ -492,22 +493,25 @@
 
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFile valueBinding="image" name="image" accept="image/*" id="image"}}
+                        {{view App.UploadFileView valueBinding="image" name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
                     <br />
-                    {{#if image.large}}
-                        <img {{bindAttr src="image.large"}} />
-                    {{else}}
+                    {{image}} {{controller.imageSelected}}
+                    {{#if imageSelected}}
                         {% trans "File selected. click Save to upload it." %}<br/>
                         File: <strong>{{ image.name }}</strong><br/>
+                    {{else}}
+                        {{#if image}}
+                            <img {{bindAttr src="image.large"}} />
+                        {{/if}}
                     {{/if}}
                 </div>
             </li>
         </ul>
     </fieldset>
-    <button {{bindAttr class=":btn :btn-iconed :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
 
 {% endtplhandlebars %}
 

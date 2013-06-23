@@ -411,7 +411,13 @@ App.SlugRouter = Em.Mixin.create({
 });
 
 
+App.Router.reopen({
+    location: 'hash'
+});
+
 App.Router.map(function() {
+
+    this.resource('language', {path:'/:lang'});
 
     // Fix for Facebook logins
     this.route("home", { path: "_=_" });

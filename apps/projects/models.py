@@ -356,8 +356,10 @@ def progress_project_phase(sender, instance, created, **kwargs):
         if instance.projectpitch == None:
             Exception(_("There's no ProjectPitch for this Project. Can't create a ProjectPlan without a pitch."))
         for field in ['country', 'title', 'description', 'image', 'latitude', 'longitude', 'need', 'pitch', 'image',
-                      'video_url', 'tags']:
+                      'video_url', 'theme']:
             setattr(instance.projectplan, field, getattr(instance.projectpitch, field))
+            for tag in instance.projectpitch.tags.all():
+                instance.projectplan.tags.add(tag.name)
 
         # Set the correct statuses and save pitch and plan
         if instance.projectplan.status == ProjectPlan.PlanStatuses.submitted:

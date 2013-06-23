@@ -37,6 +37,14 @@ class ManageOrganizationSerializer(OrganizationSerializer):
     documents = OrganizationDocumentSerializer(many=True, source='organizationdocument_set')
     registration = PrivateFileSerializer(required=False)
 
+    name = serializers.CharField(required=True)
+    description = serializers.CharField(required=False)
+    website = serializers.URLField(required=False)
+    email = serializers.EmailField(required=False)
+    twitter = serializers.CharField(required=False)
+    facebook = serializers.CharField(required=False)
+    skype = serializers.CharField(required=False)
+    legal_status = serializers.CharField(required=False)
 
     def validate_account_iban(self, attrs, source):
         value = attrs[source]
