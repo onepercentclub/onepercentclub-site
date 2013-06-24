@@ -1,4 +1,3 @@
-from apps.banners.models import Slide
 from django.conf import settings
 from django.contrib import admin
 from django.utils.timezone import now

@@ -3,7 +3,6 @@ from django.conf import settings
 from django.conf.urls import patterns, url
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from django.forms import ModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import simplejson
@@ -12,8 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from fluent_contents.admin.placeholderfield import PlaceholderFieldAdmin
 from fluent_contents.models import Placeholder
-from fluent_contents.rendering import render_content_items
-from apps.blogs.models import BlogPost, BlogPostProxy, NewsPostProxy
+from fluent_contents.rendering import render_content_items, render_placeholder
 
 
 class SlideAdmin(PlaceholderFieldAdmin):
@@ -34,6 +32,11 @@ class SlideAdmin(PlaceholderFieldAdmin):
         }),
     )
 
+
+    def preview_slide(self, obj):
+        return obj.contents
+
+
     radio_fields = {
         'status': admin.HORIZONTAL,
         'language': admin.HORIZONTAL,
@@ -51,19 +54,19 @@ class SlideAdmin(PlaceholderFieldAdmin):
         return urlpatterns + base_urls
 
     def get_base_object(self, pk):
-        # Give a workable object, no matter whether it's a news or blogpost.
         pk = long(pk)
         if pk:
-            return BlogPost.objects.get(pk=pk)
+            return Slide.objects.get(pk=pk)
         else:
-            return BlogPost()
+            return Slide()
 
     @xframe_options_sameorigin
     def preview_canvas(self, request, pk):
         # Avoid the proxy model stuff, allow both to work.
-        blogpost = self.get_base_object(pk)
-        return render(request, 'admin/slides/preview_canvas.html', {
-            'blogpost': blogpost,
+        slide = self.get_base_object(pk)
+        return render(request, 'admin/banners/preview_canvas.html', {
+            'slide': slide,
+            'contents': render_placeholder(request, slide.contents)
         })
 
     def get_preview_html(self, request, pk):
