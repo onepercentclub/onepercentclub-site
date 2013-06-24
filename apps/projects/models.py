@@ -175,8 +175,8 @@ class ProjectPlan(models.Model):
     reach = models.PositiveIntegerField(_("Reach"), help_text=_("How many people do you expect to reach?"), blank=True, null=True)
 
     # Location
-    latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18, null=True)
-    longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18, null=True)
+    latitude = models.FloatField(_("latitude"), null=True)
+    longitude = models.FloatField(_("longitude"), null=True)
     country = models.ForeignKey('geo.Country', blank=True, null=True)
 
     # Media
@@ -356,8 +356,10 @@ def progress_project_phase(sender, instance, created, **kwargs):
         if instance.projectpitch == None:
             Exception(_("There's no ProjectPitch for this Project. Can't create a ProjectPlan without a pitch."))
         for field in ['country', 'title', 'description', 'image', 'latitude', 'longitude', 'need', 'pitch', 'image',
-                      'video_url', 'tags']:
+                      'video_url', 'theme']:
             setattr(instance.projectplan, field, getattr(instance.projectpitch, field))
+            for tag in instance.projectpitch.tags.all():
+                instance.projectplan.tags.add(tag.name)
 
         # Set the correct statuses and save pitch and plan
         if instance.projectplan.status == ProjectPlan.PlanStatuses.submitted:

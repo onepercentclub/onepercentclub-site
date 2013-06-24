@@ -3,6 +3,22 @@
  Models
  */
 
+
+App.Organization = DS.Model.extend({
+    url: 'organizations',
+    name: DS.attr('string'),
+    description: DS.attr('string', {defaultValue: ""}),
+
+    // Internet
+    website: DS.attr('string', {defaultValue: ""}),
+    facebook: DS.attr('string', {defaultValue: ""}),
+    twitter: DS.attr('string', {defaultValue: ""}),
+    skype: DS.attr('string', {defaultValue: ""}),
+
+    // Legal
+    legalStatus: DS.attr('string', {defaultValue: ""}),
+});
+
 App.ProjectCountry = DS.Model.extend({
     name: DS.attr('string'),
     subregion: DS.attr('string')
@@ -47,7 +63,7 @@ App.ProjectPlan = DS.Model.extend({
     // Basics
     title: DS.attr('string'),
     pitch: DS.attr('string'),
-    theme: DS.attr('string'),
+    theme: DS.belongsTo('App.Theme'),
     need: DS.attr('string'),
     tags: DS.hasMany('App.Tag'),
 
@@ -64,7 +80,10 @@ App.ProjectPlan = DS.Model.extend({
     longitude: DS.attr('number'),
 
     // Media
-    image: DS.attr('image')
+    image: DS.attr('image'),
+
+    // Organization
+    organization: DS.belongsTo('App.Organization')
 
 });
 
@@ -117,6 +136,7 @@ App.Project = DS.Model.extend({
 App.ProjectPreview = App.Project.extend({
 
 });
+
 
 /*
  Controllers
@@ -171,6 +191,16 @@ App.ProjectSupporterListView = Em.View.extend({
 
 App.ProjectListView = Em.View.extend({
     templateName: 'project_list'
+});
+
+App.ProjectPlanView = Em.View.extend({
+    templateName: 'project_plan',
+
+    staticMap: function(){
+        var latlng = this.get('controller.latitude') + ',' + this.get('controller.longitude');
+        return "http://maps.googleapis.com/maps/api/staticmap?" + latlng + "&zoom=8&size=600x300&maptype=roadmap" +
+            "&markers=color:pink%7Clabel:P%7C" + latlng + "&sensor=false";
+    }.property('latitude', 'longitude')
 });
 
 

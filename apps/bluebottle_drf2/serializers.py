@@ -314,8 +314,9 @@ class ImageSerializer(serializers.ImageField):
         thumbnail = ""
         try:
             large = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x450', crop=self.crop))
-            background = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x450', crop=self.crop))
-            small = settings.MEDIA_URL + unicode(get_thumbnail(value, '200x120', crop=self.crop))
+            full = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x600'))
+            background = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x450', crop=self.crop, colorspace="GRAY"))
+            small = settings.MEDIA_URL + unicode(get_thumbnail(value, '120x120', crop=self.crop))
             square = settings.MEDIA_URL + unicode(get_thumbnail(value, '120x120', crop=self.crop, colorspace="GRAY"))
         except Exception:
             if getattr(settings, 'THUMBNAIL_DEBUG', None):
@@ -325,12 +326,13 @@ class ImageSerializer(serializers.ImageField):
         request = self.context.get('request')
         if request:
             return {
+                    'full': request.build_absolute_uri(full),
                     'large': request.build_absolute_uri(large),
                     'background': request.build_absolute_uri(background),
                     'small': request.build_absolute_uri(small),
                     'square': request.build_absolute_uri(square),
                 }
-        return {'large': large, 'background': background, 'small': small, 'square': square}
+        return {'full': full, 'large': large, 'background': background, 'small': small, 'square': square}
 
 
 class PrivateFileSerializer(FileSerializer):

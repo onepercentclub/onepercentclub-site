@@ -4,9 +4,7 @@
 
 App.ProjectWallPostPhoto = DS.Model.extend({
     url: 'projects/wallposts/media/photos',
-
-    photo: DS.attr('string'),
-    thumbnail: DS.attr('string'),
+    photo: DS.attr('image'),
     mediawallpost: DS.belongsTo('App.ProjectWallPost')
 });
 
@@ -124,7 +122,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         var transaction = this.get('store').transaction();
         var photo = transaction.createRecord(App.ProjectWallPostPhoto);
         // Connect the file to it. DRF2 Adapter will sort this out.
-        photo.set('file', file);
+        photo.set('photo', file);
         this.get('files').pushObject(photo);
         transaction.commit();
         // Store the photo in this.files. We need to connect it to the wallpost later.

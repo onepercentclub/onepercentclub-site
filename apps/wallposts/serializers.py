@@ -1,5 +1,5 @@
 from apps.accounts.serializers import UserPreviewSerializer
-from apps.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField
+from apps.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField, ImageSerializer
 from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
@@ -57,13 +57,12 @@ class WallPostSerializerBase(serializers.ModelSerializer):
 
 
 class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
-    photo = SorlImageField('photo', '1200x800', required=False)
-    thumbnail = SorlImageField('photo', '296x296', read_only=True)
+    photo = ImageSerializer(required=False)
     mediawallpost = serializers.PrimaryKeyRelatedField(required=False, read_only=False)
 
     class Meta:
         model = MediaWallPostPhoto
-        fields = ('id', 'photo', 'thumbnail', 'mediawallpost')
+        fields = ('id', 'photo', 'mediawallpost')
 
 
 class MediaWallPostSerializer(WallPostSerializerBase):
