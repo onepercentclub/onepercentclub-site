@@ -430,6 +430,7 @@ App.Router.map(function() {
     });
 
     this.resource('project', {path: '/projects/:project_id'}, function() {
+        this.resource('projectPlan', {path: '/plan'});
         this.resource('projectTaskList', {path: '/tasks'});
         this.resource('projectTaskNew', {path: '/tasks/new'});
         this.resource('projectTask', {path: '/tasks/:task_id'});
@@ -641,6 +642,13 @@ App.ProjectIndexRoute = Ember.Route.extend({
         this._super(controller, model.get('wallposts'));
     }
 
+});
+
+App.ProjectPlanRoute = Ember.Route.extend({
+
+    model: function(params){
+        return this.modelFor('project').get('plan');
+    }
 });
 
 
@@ -970,6 +978,30 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
     }
 });
 
+App.VoucherRedeemRoute = Ember.Route.extend({
+
+    events: {
+        addDonation: function (voucher, project) {
+            if (!Em.isNone(project)) {
+                var transaction = this.get('store').transaction();
+                App.VoucherDonation.reopen({
+                    url: 'fund/vouchers/' + voucher.get('code') + '/donations'
+                });
+                var donation = transaction.createRecord(App.VoucherDonation);
+                donation.set('project', project);
+                donation.set('voucher', voucher);
+                // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
+                donation.on('didCreate', function(record){
+                    voucher.get('donations').clear();
+                    voucher.get('donations').pushObject(record);
+                });
+                transaction.commit();
+                $.colorbox.close();
+            }
+        }
+    }
+});
+
 App.UserIndexRoute = Ember.Route.extend({
     redirect: function() {
         this.transitionTo('userProfile');
@@ -1171,6 +1203,9 @@ App.LoginController = Em.Controller.extend({
 App.MyProjectListRoute = Ember.Route.extend({
     model: function(params){
         return App.MyProject.find();
+    },
+    setupController: function(controller, model){
+        this._super(controller, model);
     }
 
 });

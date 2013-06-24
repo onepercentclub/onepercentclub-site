@@ -7,15 +7,19 @@
 
     <div class="container section">
         <div class="wrapper">
-            {{#if canPitchNew}}
-                <h4>
-                    {{#linkTo "myPitchNew"}}
-                        <span class="icon-bulb"></span>
-                        {% trans "Pitch your smart idea." %}
-                    {{/linkTo}}
-                </h4>
+            {{#if model}}
+                {{#if canPitchNew}}
+                    <h4>
+                        {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
+                            <span class="icon icon-bulb"></span>
+                            {% trans "Pitch your smart idea." %}
+                        {{/linkTo}}
+                    </h4>
+                {{else}}
+                    {% trans "You have a project in progress. Once that is finished you can pitch a new idea." %}
+                {{/if}}
             {{else}}
-                {% trans "You have a project in progress. Once that is finished you can pitch a new idea." %}
+                {% trans "loading" %}
             {{/if}}
             <ul>
                 {{#each project in controller}}
@@ -24,20 +28,23 @@
                             {{project.title}} <br />
                         </h3>
                         {{#if project.isPhasePitch}}
-                            {{#linkTo "myProjectPitch" project }}
-                                <span class="icon-wrench"></span>
-                                {% trans "PITCH" %} | {{ project.pitch.status }}
+                            {{#linkTo "myProjectPitch" project tagName="button" class="btn btn-iconed"}}
+                                <span class="icon icon-pencil"></span>
+                                {% trans "write pitch" %} | {{ project.pitch.status }}
                             {{/linkTo}}
                         {{else}}
-                            <a {{action "showProject" project.id href=true}}>
-                                <span class="icon-eye-open"></span>
-                                {% trans "VIEW" %}
-                            </a>
+                            {{#unless project.isFailed}}
+                                <a {{action "showProject" project.id href=true}}>
+                                    <span class="icon-eye-open"></span>
+                                    {% trans "VIEW" %}
+                                </a>
+                                <br />
+                            {{/unless}}
                         {{/if}}
                         {{#if project.isPhasePlan}}
-                            {{#linkTo "myProjectPlan" project }}
-                                <span class="icon-wrench"></span>
-                                {% trans "PLAN" %}  | {{ project.plan.status }}
+                            {{#linkTo "myProjectPlan" project  tagName="button" class="btn btn-iconed"}}
+                                <span class="icon icon-pencil"></span>
+                                {% trans "write plan" %}
                             {{/linkTo}}
                         {{/if}}
                     </li>

@@ -10,7 +10,7 @@ class OrganizationSerializer(TaggableSerializerMixin, serializers.ModelSerialize
 
     class Meta:
         model = Organization
-        fields = ('id', 'name', 'slug', 'description', 'website')
+        fields = ('id', 'name', 'slug', 'description', 'website', 'twitter', 'facebook', 'skype')
 
 
 class OrganizationAddressSerializer(AddressSerializer):
