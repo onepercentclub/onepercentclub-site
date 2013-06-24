@@ -175,8 +175,8 @@ class ProjectPlan(models.Model):
     reach = models.PositiveIntegerField(_("Reach"), help_text=_("How many people do you expect to reach?"), blank=True, null=True)
 
     # Location
-    latitude = models.FloatField(_("latitude"), null=True)
-    longitude = models.FloatField(_("longitude"), null=True)
+    latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18, null=True, blank=True)
+    longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18, null=True, blank=True)
     country = models.ForeignKey('geo.Country', blank=True, null=True)
 
     # Media
