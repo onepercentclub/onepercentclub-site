@@ -48,13 +48,11 @@ class ProjectDetail(generics.RetrieveAPIView):
 class ProjectPitchDetail(generics.RetrieveAPIView):
     model = ProjectPitch
     serializer_class = ProjectPitchSerializer
-    # permission_classes = IsProjectOwner
 
 
 class ProjectPlanDetail(generics.RetrieveAPIView):
     model = ProjectPlan
     serializer_class = ProjectPlanSerializer
-    # permission_classes = IsProjectOwner
 
 
 
@@ -188,22 +186,22 @@ class ManageProjectList(generics.ListCreateAPIView):
 class ManageProjectDetail(generics.RetrieveUpdateAPIView):
     model = Project
     serializer_class = ManageProjectSerializer
-    permission_classes = (IsOwner, )
+    permission_classes = (IsProjectOwner, )
 
 
 class ManageProjectPitchDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPitch
     serializer_class = ManageProjectPitchSerializer
-    # permission_classes = IsProjectOwner
+    permission_classes = (IsProjectOwner, )
 
 
 class ManageProjectPlanDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPlan
     serializer_class = ManageProjectPlanSerializer
-    # permission_classes = IsProjectOwner
+    permission_classes = (IsProjectOwner, )
 
 
-class ManageProjectAmbassadortList(generics.ListCreateAPIView):
+class ManageProjectAmbassadorList(generics.ListCreateAPIView):
     model = ProjectAmbassador
     serializer_class = ProjectAmbassadorSerializer
     paginate_by = 20
