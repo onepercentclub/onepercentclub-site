@@ -1,4 +1,4 @@
-from apps.projects.models import ProjectPitch, ProjectPhases
+from apps.projects.models import ProjectPitch, ProjectPhases, ProjectPlan
 from rest_framework import permissions
 from .models import Project
 
@@ -11,6 +11,22 @@ class IsProjectOwner(permissions.BasePermission):
         if isinstance(obj, Project):
             return obj.owner == request.user
         return obj.project.owner == request.user
+
+
+class EditablePitch(permissions.BasePermission):
+    """
+    Allows access only if pitch is new
+    """
+    def has_object_permission(self, request, view, obj):
+        return obj.status == ProjectPitch.PitchStatuses.new
+
+
+class EditablePlan(permissions.BasePermission):
+    """
+    Allows access only if plan has status new or needs_work
+    """
+    def has_object_permission(self, request, view, obj):
+        return obj.status in [ProjectPlan.PlanStatuses.new, ProjectPlan.PlanStatuses.needs_work]
 
 
 class IsOwner(permissions.BasePermission):
