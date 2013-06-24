@@ -104,7 +104,7 @@ App.VoucherPickProjectController = Em.ArrayController.extend({
     // Because this hasn't got a Route we get the list over here
     init: function(){
         this._super();
-        this.set('projects', App.Project.find({phase: 'fund'}));
+        this.set('projects', App.Project.find({phase: 'campaign'}));
     }
 });
 

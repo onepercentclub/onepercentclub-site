@@ -23,7 +23,6 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
     image = ImageSerializer(source='projectplan.image')
 
-
     class Meta:
         model = Project
         fields = ('id', 'title', 'image')
@@ -47,7 +46,6 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(source='project', slug_field='slug', null=True, read_only=True)
     country = ProjectCountrySerializer()
 
-    theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
 
     image = ImageSerializer(required=False)
@@ -134,8 +132,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     owner = UserPreviewSerializer()
     coach = UserPreviewSerializer()
 
-    #pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
-    #plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
     plan = ProjectPlanSerializer(source='projectplan')
     campaign = ProjectCampaignSerializer(source='projectcampaign')
 

@@ -178,6 +178,7 @@ class ManageProjectList(generics.ListCreateAPIView):
         """
         queryset = super(ManageProjectList, self).get_queryset()
         queryset = queryset.filter(owner=self.request.user)
+        queryset = queryset.order_by('-created')
         return queryset
 
     def pre_save(self, obj):

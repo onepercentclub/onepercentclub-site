@@ -133,10 +133,10 @@
                     {{/linkTo}}
                 </li>
                 <li class="tab-plan">
-                    <a href="#">
+                    {{#linkTo "projectPlan"}}
                         <em class="tab-icon icon-file-alt"></em>
                         <strong class="tab-title">Project Plan <em class="tab-subtitle">Read full plan</em></strong>
-                    </a>
+                    {{/linkTo}}
                 </li>
             </ul>
 
@@ -315,3 +315,69 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "project_plan" %}
+
+    <section class="wrapper">
+        <div class="wall">
+            <article>
+                <h3>{% trans "Project plan" %}</h3>
+                {{theme.title}}<br/>
+                {{#each tag in tags}}
+                    <a>
+                        {{tag.id}}
+                    </a>
+                {{/each}}
+
+                <h3>{% trans "Why, what and how?" %}</h3>
+                {{{description}}}
+
+                <h3>{% trans "Effects" %}</h3>
+                {{{effects}}}
+
+                <h3>{% trans "Future" %}</h3>
+                {{{future}}}
+
+                <h3>{% trans "For who?" %}</h3>
+                {{{forWho}}}
+
+                <h3>{% trans "People reached" %}</h3>
+                {{{reached}}}
+
+                <h3>{% trans "Why, what, how?" %}</h3>
+                {{{description}}}
+
+                <h3>{% trans "Location" %}</h3>
+                {{country.name}}, {{country.subregion}}<br />
+                <img {{bindAttr src="view.staticMap"}} />
+
+                <h3>{% trans "Organisation" %}</h3>
+                {{organization.name}}<br/>
+                {{organization.description}}<br/>
+                {{#if organization.website}}
+                    <span class="icon-link"></span> {{organization.website}}<br/>
+                {{/if}}
+                {{#if organization.twitter}}
+                    <span class="icon-twitter"></span> {{organization.twitter}}<br/>
+                {{/if}}
+                {{#if organization.facebook}}
+                    <span class="icon-facebook"></span> {{organization.facebook}}<br/>
+                {{/if}}
+                {{#if organization.skype}}
+                    <span class="icon-skype"></span> {{organization.skype}}<br/>
+                {{/if}}
+
+            </article>
+        </div>
+
+        <div class="sidebar grey task-detail">
+            <h3>{{ controller.model.length }} {% trans "Project Plan" %}</h3>
+            <ul>
+                <li>Description</li>
+                <li>Budget</li>
+                <li>Theme</li>
+            </ul>
+        </div>
+
+    </section>
+
+{% endtplhandlebars %}

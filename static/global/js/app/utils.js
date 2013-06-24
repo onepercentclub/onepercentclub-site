@@ -326,8 +326,11 @@ App.ShowMoreItemsMixin = Em.Mixin.create({
     items: Em.A(),
 
     remainingItemCount: function(){
-        return this.get('model.length') - (this.get('page')  * this.get('perPage'));
-    }.property('page', 'model', 'perPage'),
+        if (this.get('model.isLoaded')) {
+            return this.get('model.length') - (this.get('page')  * this.get('perPage'));
+        }
+        return '??';
+    }.property('page', 'model.isLoaded', 'perPage'),
 
     canLoadMore: function(){
         var totalPages = Math.ceil(this.get('model.length') / this.get('perPage'));
@@ -335,7 +338,10 @@ App.ShowMoreItemsMixin = Em.Mixin.create({
     }.property('perPage', 'page'),
 
     loadInitial: function(){
-        this.showMore();
+        // If no items have been load yet, please do.
+        if (this.get('items').length == 0) {
+            this.showMore();
+        }
     }.observes('model.isLoaded'),
 
     showMore: function() {

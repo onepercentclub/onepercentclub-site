@@ -89,7 +89,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     line2 = serializers.CharField(source='address.line2', max_length=100, blank=True)
     city = serializers.CharField(source='address.city', max_length=100, blank=True)
     state = serializers.CharField(source='address.state', max_length=100, blank=True)
-    country = serializers.RelatedField(source='address.country', required=False)
+    country = serializers.RelatedField(source='address.country.alpha2_code', required=False)
 
     postal_code = serializers.CharField(source='address.postal_code', max_length=20, blank=True)
 

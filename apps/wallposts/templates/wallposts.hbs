@@ -83,8 +83,8 @@
                                 {{#if photo.errors}}
                                     <span class="error">{% trans "Error" %}</span>
                                 {{else}}
-                                    {{#if photo.thumbnail}}
-                                        <img {{bindAttr src="photo.thumbnail"}} width="100%" alt="Thumbnail" />
+                                    {{#if photo.photo.square}}
+                                        <img {{bindAttr src="photo.photo.square"}} width="100%" alt="Thumbnail" />
                                         <a {{action "removePhoto" photo href=true}} class="remove">[x]</a>
                                     {{else}}
                                         <img src="{% get_static_prefix %}images/loading.gif" width="100%" alt="Thumbnail" />
@@ -205,7 +205,7 @@
                 <div class="photo-viewer">
                     <ul>
                         {{#each photo in photos}}
-                            <li><a {{bindAttr href="photo.photo"}} class="gallery-picture" title="picture"><img {{bindAttr src="photo.thumbnail"}} width="100%" alt="Thumbnail" /></a></li>
+                            <li><a {{bindAttr href="photo.photo.full"}} class="gallery-picture" title="picture"><img {{bindAttr src="photo.photo.square"}} width="100%" alt="Thumbnail" /></a></li>
                         {{/each}}
                     </ul>
                 </div>

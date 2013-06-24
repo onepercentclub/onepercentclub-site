@@ -37,7 +37,7 @@ class ManageOrganizationList(generics.ListCreateAPIView):
 
     def post_save(self, obj, created=False):
         if created:
-            member = OrganizationMember(organization=obj, member=self.request.user)
+            member = OrganizationMember(organization=obj, user=self.request.user)
             member.save()
 
 
