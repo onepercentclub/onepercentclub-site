@@ -238,6 +238,8 @@ INSTALLED_APPS = (
     'apps.payouts',
     'apps.sepa',
     'apps.tasks',
+    'apps.banners',
+    'apps.quotes',
 
     # Custom dashboard
     'fluent_dashboard',
