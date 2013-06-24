@@ -1,10 +1,10 @@
 import os
 import random
 import string
-from django.core.mail import send_mail
 from django.utils.text import slugify
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.core.mail.message import EmailMessage
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
@@ -205,9 +205,13 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None):
         """
-        Sends an email to this User.
+        Sends an email to this User with content type HTML.
         """
-        send_mail(subject, message, from_email, [self.email])
+        # It's possible to send multi-part text / HTML email by following these instructions:
+        # https://docs.djangoproject.com/en/1.5/topics/email/#sending-alternative-content-types
+        msg = EmailMessage(subject, message, from_email, [self.email])
+        msg.content_subtype = "html"  # Main content is now text/html
+        msg.send()
 
     @property
     # For now return the first address found on this user.

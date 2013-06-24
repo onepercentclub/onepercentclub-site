@@ -2,10 +2,12 @@ from apps.bluebottle_drf2.permissions import IsCurrentUserOrReadOnly, IsCurrentU
 from django.contrib.auth import load_backend, login, get_user_model
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.sites.models import get_current_site
 from django.conf import settings
+from django.template import loader
 from django.contrib.auth.tokens import default_token_generator
 from django.http import Http404
-from django.utils.http import base36_to_int
+from django.utils.http import base36_to_int, int_to_base36
 from registration.models import RegistrationProfile
 from rest_framework import generics
 from rest_framework import response
@@ -84,6 +86,37 @@ class PasswordReset(views.APIView):
     """
     serializer_class = PasswordResetSerializer
 
+    def save(self, password_reset_form, domain_override=None,
+             subject_template_name='registration/password_reset_subject.txt',
+             email_template_name='registration/password_reset_email.html', use_https=False,
+             token_generator=default_token_generator, from_email=None, request=None):
+        """
+        Generates a one-use only link for resetting password and sends to the user. This has been ported from the
+        Django PasswordResetForm to allow HTML emails instead of plaint text emails.
+        """
+        # TODO: Create a patch to Django to use user.email_user instead of send_email.
+        for user in password_reset_form.users_cache:
+            if not domain_override:
+                current_site = get_current_site(request)
+                site_name = current_site.name
+                domain = current_site.domain
+            else:
+                site_name = domain = domain_override
+            c = {
+                'email': user.email,
+                'domain': domain,
+                'site_name': site_name,
+                'uid': int_to_base36(user.pk),
+                'user': user,
+                'token': token_generator.make_token(user),
+                'protocol': use_https and 'https' or 'http',
+            }
+            subject = loader.render_to_string(subject_template_name, c)
+            # Email subject *must not* contain newlines
+            subject = ''.join(subject.splitlines())
+            email = loader.render_to_string(email_template_name, c)
+            user.email_user(subject, email)
+
     def put(self, request, *args, **kwargs):
         password_reset_form = PasswordResetForm()
         serializer = PasswordResetSerializer(password_reset_form=password_reset_form, data=request.DATA)
@@ -93,7 +126,10 @@ class PasswordReset(views.APIView):
                 'from_email': settings.DEFAULT_FROM_EMAIL,
                 'request': request,
             }
-            password_reset_form.save(**opts)  # Sends the email
+            # TODO: When Django Password Reset form uses user.email_user() this can be enabled and the self.save() can
+            #       be removed.
+            # password_reset_form.save(**opts)  # Sends the email
+            self.save(password_reset_form, **opts)  # Sends the email
 
             return response.Response(status=status.HTTP_200_OK)
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
