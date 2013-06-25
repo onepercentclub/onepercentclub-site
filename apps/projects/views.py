@@ -12,7 +12,7 @@ from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
-from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly
+from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly, EditablePitch, EditablePlan
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
@@ -48,13 +48,11 @@ class ProjectDetail(generics.RetrieveAPIView):
 class ProjectPitchDetail(generics.RetrieveAPIView):
     model = ProjectPitch
     serializer_class = ProjectPitchSerializer
-    # permission_classes = IsProjectOwner
 
 
 class ProjectPlanDetail(generics.RetrieveAPIView):
     model = ProjectPlan
     serializer_class = ProjectPlanSerializer
-    # permission_classes = IsProjectOwner
 
 
 
@@ -188,22 +186,22 @@ class ManageProjectList(generics.ListCreateAPIView):
 class ManageProjectDetail(generics.RetrieveUpdateAPIView):
     model = Project
     serializer_class = ManageProjectSerializer
-    permission_classes = (IsOwner, )
+    permission_classes = (IsProjectOwner, )
 
 
 class ManageProjectPitchDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPitch
     serializer_class = ManageProjectPitchSerializer
-    # permission_classes = IsProjectOwner
+    permission_classes = (EditablePitch, IsProjectOwner, )
 
 
 class ManageProjectPlanDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPlan
     serializer_class = ManageProjectPlanSerializer
-    # permission_classes = IsProjectOwner
+    permission_classes = (EditablePlan, IsProjectOwner, )
 
 
-class ManageProjectAmbassadortList(generics.ListCreateAPIView):
+class ManageProjectAmbassadorList(generics.ListCreateAPIView):
     model = ProjectAmbassador
     serializer_class = ProjectAmbassadorSerializer
     paginate_by = 20

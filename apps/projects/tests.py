@@ -137,6 +137,102 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
+class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
+    """
+    Integration tests for the Project API.
+    """
+
+    def setUp(self):
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+
+        self.manage_projects_url = '/i18n/api/projects/manage/'
+        self.manage_pitches_url = '/i18n/api/projects/pitches/manage/'
+
+    def test_pitch_create(self):
+        """
+        Tests for Project Pitch Create
+        """
+
+        # Check that a new user doesn't have any projects to manage
+        self.client.login(username=self.some_user.email, password='password')
+        response = self.client.get(self.manage_projects_url)
+        self.assertEquals(response.data['count'], 0)
+
+        # Let's throw a pitch (create a project really)
+        response = self.client.post(self.manage_projects_url, {'title': 'This is my smart idea'})
+        self.assertEquals(response.data['title'], 'This is my smart idea')
+
+        # Check that it's there, in pitch phase, has got a pitch but no plan yet.
+        response = self.client.get(self.manage_projects_url)
+        self.assertEquals(response.data['count'], 1)
+        self.assertEquals(response.data['results'][0]['phase'], ProjectPhases.pitch)
+        self.assertEquals(response.data['results'][0]['plan'], None)
+
+        # Get the pitch
+        pitch_id = response.data['results'][0]['pitch']
+        response = self.client.get(self.manage_pitches_url + str(pitch_id))
+        self.assertEquals(response.status_code, status.HTTP_200_OK, response)
+        self.assertEquals(response.data['title'], 'This is my smart idea')
+
+        # Let's check that another user can't get this pitch
+        self.client.logout()
+        self.client.login(username=self.another_user.email, password='password')
+        response = self.client.get(self.manage_pitches_url + str(pitch_id))
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
+
+        # Let's create a pitch for this other user
+        response = self.client.post(self.manage_projects_url, {'title': 'My idea is way smarter!'})
+        project_slug =  response.data['id']
+        project_url = self.manage_projects_url + project_slug
+        self.assertEquals(response.data['title'], 'My idea is way smarter!')
+        pitch_id = response.data['pitch']
+        pitch_url = self.manage_pitches_url + str(pitch_id)
+
+        # Add some values to this pitch
+        pitch_data = {'title': 'My idea is quite smart!', 'latitude': '52.987245','longitude': '-5.8754',
+                      'pitch': 'Lorem ipsum, bla bla ', 'description': 'Some more text'}
+        response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
+        self.assertEquals(response.status_code, status.HTTP_200_OK, response)
+
+        # Let's try to be smart and create another pitch. This should fail. You can have only have one running project.
+        response = self.client.post(self.manage_projects_url, {'title': 'I am such a smart ass...'})
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
+
+        # Back to the previous pitch. Try to cheat and put it to status approved.
+        pitch_data['status'] = 'approved'
+        response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
+        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST, response)
+        
+        # Ok, let's try to submit it. We have to submit all previous data again too.
+        pitch_data['status'] = 'submitted'
+        response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
+        self.assertEquals(response.status_code, status.HTTP_200_OK, response)
+        self.assertEquals(response.data['status'], 'submitted')
+
+        # Changing this pitch specs for this project should fail now.
+        pitch_data['title'] = 'Changed title'
+        response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
+
+        # Set the project to plan phase from the backend
+        project = Project.objects.get(slug=project_slug)
+        project.phase = ProjectPhases.plan
+        project.save()
+
+        # Let's look at the project again. It should have a project plan and be in plan phase.
+        response = self.client.get(project_url)
+        self.assertEquals(response.status_code, status.HTTP_200_OK, response)
+        self.assertEquals(response.data['phase'], ProjectPhases.plan)
+        plan_id = response.data['plan']
+        self.assertIsNotNone(plan_id)
+
+
+
+
+
+
+
 class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
     """
     Integration tests for the Project Media WallPost API.

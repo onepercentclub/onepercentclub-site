@@ -59,10 +59,11 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
 class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
 
     country = serializers.PrimaryKeyRelatedField(required=False)
+    status = serializers.ChoiceField(choices=ProjectPitch.PitchStatuses.choices, required=False)
 
     def validate_status(self, attrs, source):
-        value = attrs[source]
-        if value not in [ProjectPitch.PitchStatuses.submitted, ProjectPitch.PitchStatuses.new]:
+        value = attrs.get(source, None)
+        if value and value not in [ProjectPitch.PitchStatuses.submitted, ProjectPitch.PitchStatuses.new]:
             raise serializers.ValidationError("You can only change status into 'submitted'")
         return attrs
 
