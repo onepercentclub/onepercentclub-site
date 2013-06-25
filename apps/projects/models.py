@@ -89,7 +89,16 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            original_slug = slugify(self.title)
+            counter = 1
+            qs = Project.objects
+            while qs.filter(slug = original_slug).exists():
+                original_slug = '%s-%d' % (original_slug, counter)
+                counter += 1
+            self.slug = original_slug
+
+
+
         if not self.phase:
             self.phase = ProjectPhases.pitch
         super(Project, self).save(*args, **kwargs)
