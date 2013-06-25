@@ -149,7 +149,7 @@
 
                 {{#if display_message}}
 
-                    <div class="message">
+                    <div {{bindAttr class=":message isError"}}>
                         <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
 
                         <div class="message-title">

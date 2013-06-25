@@ -9,6 +9,10 @@
 
   background: $green;
   color: $white;
+
+  &.is-error {
+    background: $color-error;
+  }
 }
 
 .message-title {
