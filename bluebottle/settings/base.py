@@ -401,18 +401,38 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'models': [
             'apps.blogs.*',
             'apps.media.*',
+            'apps.banners.*',
+            'apps.quotes.*',
         ],
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
     }),
     (_('Projects'), {
         'models': (
-            'apps.projects.models.Donation',
             'apps.projects.models.Message',
             'apps.projects.models.Project',
+            'apps.projects.models.ProjectPitch',
+            'apps.projects.models.ProjectPlan',
             'apps.projects.models.Testimonial',
             'apps.organizations.*',
             'apps.donations.*',
+        ),
+        'module': 'fluent_dashboard.modules.AppIconList',
+        'collapsible': False,
+    }),
+    (_('Funding'), {
+        'models': (
+            'apps.fund.*',
+            'apps.vouchers.*',
+            'apps.payouts.models.BankMutation',
+            'apps.payouts.models.Payout',
+        ),
+        'module': 'fluent_dashboard.modules.AppIconList',
+        'collapsible': False,
+    }),
+    (_('Tasks'), {
+        'models': (
+            'apps.tasks.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
