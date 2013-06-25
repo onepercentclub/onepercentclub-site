@@ -7,15 +7,19 @@
 
     <div class="container section">
         <div class="wrapper">
-            {{#if canPitchNew}}
-                <h4>
-                    {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
-                        <span class="icon icon-bulb"></span>
-                        {% trans "Pitch your smart idea." %}
-                    {{/linkTo}}
-                </h4>
+            {{#if isLoading}}
+                {% trans "loading" %}
             {{else}}
-                {% trans "You have a project in progress. Once that is finished you can pitch a new idea." %}
+                {{#if canPitchNew}}
+                    <h4>
+                        {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
+                            <span class="icon icon-bulb"></span>
+                            {% trans "Pitch your smart idea." %}
+                        {{/linkTo}}
+                    </h4>
+                {{else}}
+                    {% trans "You have a project in progress. Once that is finished you can pitch a new idea." %}
+                {{/if}}
             {{/if}}
             <ul>
                 {{#each project in controller}}
