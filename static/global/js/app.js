@@ -274,9 +274,8 @@ App.ApplicationController = Ember.Controller.extend({
 
     displayMessage: (function() {
         if (this.get('display_message') == true) {
-            var self = this;
-            setTimeout(function() {
-                self.hideMessage();
+            Ember.run.later(this, function() {
+                this.hideMessage();
             }, 10000);
         }
     }).observes('this.display_message'),
@@ -1111,11 +1110,12 @@ App.UserActivateRoute = Ember.Route.extend({
             },
             error: function() {
                 // Notify user of the problem.
-                var applicationController = route.controllerFor('application');
-                var messageContent = "There was a problem activating your account. Please contact us for assistance.";
-                applicationController.set('message_title', '');
-                applicationController.set('message_content', messageContent);
-                applicationController.set('display_message', true);
+                route.controllerFor('application').setProperties({
+                    display_message: true,
+                    isError: true,
+                    message_title: '',
+                    message_content: 'There was a problem activating your account. Please contact us for assistance.'
+                });
 
                 route.replaceWith('home');
             }
@@ -1142,12 +1142,25 @@ App.SignupRoute = Ember.Route.extend({
 
 App.PasswordResetRoute = Ember.Route.extend({
     model: function(params) {
+        var route = this;
+
         var record = App.PasswordReset.createRecord({
             id: params.reset_token
         });
 
         // Need this so that the adapter makes a PUT instead of POST
         record.get('stateManager').transitionTo('loaded.saved');
+
+        record.on('becameError', function() {
+            route.controllerFor('application').setProperties({
+                display_message: true,
+                isError: true,
+                message_title: '',
+                message_content: 'The token you provided is expired. Please reset your password again.'
+            });
+
+            route.replaceWith('home');
+        });
 
         this.get('store').transaction().add(record);
         return record;
