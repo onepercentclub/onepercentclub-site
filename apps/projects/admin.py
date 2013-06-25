@@ -19,6 +19,7 @@ class ProjectPitchAdmin(admin.ModelAdmin):
 
     model = ProjectPitch
 
+    search_fields = ('title',)
     list_filter = ('status', )
     list_display = ('title', 'status', 'created')
     raw_id_fields = ('project', )
@@ -30,6 +31,7 @@ class ProjectPlanAdmin(admin.ModelAdmin):
 
     model = ProjectPlan
 
+    search_fields = ('title', )
     list_filter = ('status', )
     list_display = ('title', 'status', 'created')
     raw_id_fields = ('project', )
