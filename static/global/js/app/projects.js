@@ -93,8 +93,15 @@ App.ProjectCampaign = DS.Model.extend({
     project: DS.belongsTo('App.MyProject'),
     status: DS.attr('string'),
     money_asked: DS.attr('number'),
-    money_donated: DS.attr('number')
+    money_donated: DS.attr('number'),
 
+    money_needed: function(){
+        var donated = this.get('money_asked') - this.get('money_donated');
+        if (donated < 0) {
+            return 0;
+        }
+        return Math.ceil(donated);
+    }.property('money_asked', 'money_donated')
 });
 
 
@@ -113,23 +120,10 @@ App.Project = DS.Model.extend({
     owner: DS.belongsTo('App.UserPreview'),
     coach: DS.belongsTo('App.UserPreview'),
 
-    money_asked: DS.attr('number'),
-    money_donated: DS.attr('number'),
-
     days_left: DS.attr('number'),
     supporters_count: DS.attr('number'),
 
-    wallposts: DS.hasMany('App.WallPost'),
-
-
-    money_needed: function(){
-        var donated = this.get('money_asked') - this.get('money_donated');
-        if (donated < 0) {
-            return 0;
-        }
-        return Math.ceil(donated);
-    }.property('money_asked', 'money_donated'),
-
+    wallposts: DS.hasMany('App.WallPost')
 });
 
 

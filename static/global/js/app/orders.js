@@ -22,16 +22,19 @@ App.Donation = DS.Model.extend({
     order: DS.belongsTo('App.Order')
 });
 
+
 App.DonationPreview =  DS.Model.extend({
     url: 'projects/donations',
+
     project: DS.belongsTo('App.ProjectPreview'),
     member: DS.belongsTo('App.UserPreview'),
-
     date_donated: DS.attr('date'),
+
     time_since: function(){
         return Globalize.format(this.get('date_donated'), 'X');
     }.property('date_donated')
 });
+
 
 App.Voucher =  DS.Model.extend({
     url: 'fund/vouchers',
@@ -156,8 +159,8 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
     },
 
     neededAfterDonation: function() {
-        return this.get('project.money_needed') - this.get('amount');
-    }.property('amount', 'project.money_needed')
+        return this.get('project.campaign.money_needed') - this.get('amount');
+    }.property('amount', 'project.campaign.money_needed')
 });
 
 
