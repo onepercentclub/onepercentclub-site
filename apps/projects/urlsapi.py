@@ -1,4 +1,4 @@
-from apps.projects.views import ManageProjectAmbassadorList, ManageProjectAmbassadorDetail, ManageProjectBudgetLinetList, ManageProjectBudgetLineDetail
+from apps.projects.views import ManageProjectAmbassadorList, ManageProjectAmbassadorDetail, ManageProjectBudgetLinetList, ManageProjectBudgetLineDetail, ProjectPreviewList, ProjectPreviewDetail
 from django.conf.urls import patterns, url, include
 from surlex.dj import surl
 from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWallPostDetail, ProjectMediaWallPostList,
@@ -8,8 +8,12 @@ from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWall
                     ProjectPitchDetail, ProjectPlanDetail)
 
 urlpatterns = patterns('',
-    url(r'^$', ProjectList.as_view(), name='project-list'),
-    surl(r'^<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
+    url(r'^projects/$', ProjectList.as_view(), name='project-list'),
+    surl(r'^projects/<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
+
+    url(r'^previews/', ProjectPreviewList.as_view(), name='project-preview-list'),
+    surl(r'^previews/<slug:s>$', ProjectPreviewDetail.as_view(), name='project-preview-detail'),
+
     # Not publically avaialable atm
     # surl(r'^pitches/<pk:#>$', ProjectPitchDetail.as_view(), name='project-pitch-detail'),
     surl(r'^plans/<pk:#>$', ProjectPlanDetail.as_view(), name='project-plan-detail'),
