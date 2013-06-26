@@ -1,5 +1,4 @@
 from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases
-from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
 from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer
@@ -12,7 +11,7 @@ from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
-from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly, EditablePitch, EditablePlan
+from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
@@ -192,13 +191,13 @@ class ManageProjectDetail(generics.RetrieveUpdateAPIView):
 class ManageProjectPitchDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPitch
     serializer_class = ManageProjectPitchSerializer
-    permission_classes = (EditablePitch, IsProjectOwner, )
+    permission_classes = (EditablePitchOrReadOnly, IsProjectOwner, )
 
 
 class ManageProjectPlanDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPlan
     serializer_class = ManageProjectPlanSerializer
-    permission_classes = (EditablePlan, IsProjectOwner, )
+    permission_classes = (EditablePlanOrReadOnly, IsProjectOwner, )
 
 
 class ManageProjectAmbassadorList(generics.ListCreateAPIView):

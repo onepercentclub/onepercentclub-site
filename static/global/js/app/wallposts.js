@@ -123,9 +123,12 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         var photo = transaction.createRecord(App.ProjectWallPostPhoto);
         // Connect the file to it. DRF2 Adapter will sort this out.
         photo.set('photo', file);
-        this.get('files').pushObject(photo);
         transaction.commit();
+        var controller = this;
         // Store the photo in this.files. We need to connect it to the wallpost later.
+        photo.on('didCreate', function(record){
+            controller.get('files').pushObject(photo);
+        });
     },
 
     removePhoto: function(photo) {

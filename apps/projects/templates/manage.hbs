@@ -13,7 +13,7 @@
                 {{#if canPitchNew}}
                     <h4>
                         {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
-                            <span class="icon icon-bulb"></span>
+                            <span class="icon icon-lightbulb"></span>
                             {% trans "Pitch your smart idea." %}
                         {{/linkTo}}
                     </h4>
@@ -30,7 +30,7 @@
                         {{#if project.isPhasePitch}}
                             {{#linkTo "myProjectPitch" project tagName="button" class="btn btn-iconed"}}
                                 <span class="icon icon-pencil"></span>
-                                {% trans "write pitch" %} | {{ project.pitch.status }}
+                                {% trans "write pitch" %}
                             {{/linkTo}}
                         {{else}}
                             {{#unless project.isFailed}}
@@ -500,25 +500,21 @@
 
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFileView valueBinding="image" name="image" accept="image/*" id="image"}}
+                        {{view App.UploadFile valueBinding="image" name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
                     <br />
-                    {{image}} {{controller.imageSelected}}
-                    {{#if imageSelected}}
-                        {% trans "File selected. click Save to upload it." %}<br/>
-                        File: <strong>{{ image.name }}</strong><br/>
-                    {{else}}
-                        {{#if image}}
+                    {{#if image}}
+                        <div class="preview">
                             <img {{bindAttr src="image.large"}} />
-                        {{/if}}
+                        </div>
                     {{/if}}
                 </div>
             </li>
         </ul>
     </fieldset>
-    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
 
 {% endtplhandlebars %}
 
