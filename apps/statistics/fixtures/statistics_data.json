@@ -1,0 +1,13 @@
+[
+  {
+    "pk": 1,
+    "model": "statistics.statistic",
+    "fields": {
+      "lives_changed": "13926",
+      "projects": "482",
+      "countries": "67",
+      "hours_spent": "8324",
+      "donated": "878313"
+    }
+  }
+]
