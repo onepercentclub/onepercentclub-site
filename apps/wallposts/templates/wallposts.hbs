@@ -30,7 +30,7 @@
         <ul>
             <li class="control-group">
                 <label class="control-label" for="wallpost-title">
-                    {% trans "Title of your update." %}
+                    {% trans "Name of your update." %}
                 </label>
 
                 <div class="controls">
@@ -58,7 +58,7 @@
 
             <li class="control-group">
                 <label class="control-label" for="wallpost-video" >
-                    {% trans "Link to video on YouTube or Vimeo." %}
+                    {% trans "Add link to video" %}
                 </label>
 
                 <div class="controls">
@@ -72,11 +72,17 @@
 
             <li class="control-group">
                 <label class="control-label" for="wallpost-photo">
-                    {% trans "Upload & add Photo's" %} <small>{% trans "620 x 380 minimum for best results" %}</small>
+                    {% trans "Upload photos" %}<br/>
+                    <small>{% trans "(format 620 x 380 minimum for best result)" %}</small>
                 </label>
 
                 <div class="controls">
-                    {{view App.UploadFileView valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                    <a class="btn btn-iconed btn-uploader">
+                        {{view App.UploadFileView valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                        <i class="icon icon-upload"></i>
+                        {% trans "Select photos" %}
+                    </a>
+
                     <ul class="wallpost-photos">
                         {{#each photo in files}}
                             <li>
@@ -107,7 +113,7 @@
 
    <ul>
         <li class="control-group">
-            <label for="wallpost-update" class="control-label">{% trans "Leave your comment here" %}</label>
+            <label for="wallpost-update" class="control-label">{% trans "Comment" %}</label>
 
             <div class="controls">
                 {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
@@ -119,7 +125,7 @@
         </li>
     </ul>
 
-    <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Post Comment" %}</button>
+    <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Comment" %}</button>
 
 {% endtplhandlebars %}
 
@@ -246,7 +252,7 @@
             <img {{bindAttr src="controllers.currentUser.getAvatar"}} width="100%" alt="Avatar" />
         </span>
         <div class="content post-comment">
-            {{view Ember.TextArea valueBinding="text" placeholder="Leave your comment here" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+            {{view Ember.TextArea valueBinding="text" placeholder="Comment" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
             <br/>
             {{#if errors.text }}
                 <div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
