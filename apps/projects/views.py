@@ -15,16 +15,38 @@ from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, 
 from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
                           ProjectTextWallPostSerializer)
 
 
 # API views
 
-class ProjectList(generics.ListAPIView):
+class ProjectPreviewList(generics.ListAPIView):
     model = Project
     serializer_class = ProjectPreviewSerializer
+    paginate_by = 5000
+    filter_fields = ('phase', )
+
+    def get_queryset(self):
+        qs = super(ProjectPreviewList, self).get_queryset()
+        qs = qs.exclude(phase=ProjectPhases.pitch)
+        return qs
+
+
+class ProjectPreviewDetail(generics.RetrieveAPIView):
+    model = Project
+    serializer_class = ProjectPreviewSerializer
+
+    def get_queryset(self):
+        qs = super(ProjectPreviewDetail, self).get_queryset()
+        qs = qs.exclude(phase=ProjectPhases.pitch)
+        return qs
+
+
+class ProjectList(generics.ListAPIView):
+    model = Project
+    serializer_class = ProjectSerializer
     paginate_by = 5000
     filter_fields = ('phase', )
 

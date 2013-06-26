@@ -304,7 +304,6 @@ class ImageSerializer(serializers.ImageField):
 
     crop = 'center'
 
-
     def to_native(self, value):
         if not value:
             return None
@@ -333,6 +332,34 @@ class ImageSerializer(serializers.ImageField):
                     'square': request.build_absolute_uri(square),
                 }
         return {'full': full, 'large': large, 'background': background, 'small': small, 'square': square}
+
+
+class PhotoSerializer(serializers.ImageField):
+
+    crop = 'center'
+
+    def to_native(self, value):
+        if not value:
+            return None
+
+        # The get_thumbnail() helper doesn't respect the THUMBNAIL_DEBUG setting
+        # so we need to deal with exceptions like is done in the template tag.
+        thumbnail = ""
+        try:
+            full = settings.MEDIA_URL + unicode(get_thumbnail(value, '800x600'))
+            small = settings.MEDIA_URL + unicode(get_thumbnail(value, '120x120', crop=self.crop))
+        except Exception:
+            if getattr(settings, 'THUMBNAIL_DEBUG', None):
+                raise
+            logger.error('Thumbnail failed:', exc_info=sys.exc_info())
+            return None
+        request = self.context.get('request')
+        if request:
+            return {
+                    'full': request.build_absolute_uri(full),
+                    'small': request.build_absolute_uri(small),
+                }
+        return {'full': full, 'small': small}
 
 
 class PrivateFileSerializer(FileSerializer):
