@@ -5,6 +5,7 @@ from django.template import Context
 from django.utils.translation import ugettext as _
 from celery import task
 
+
 @task
 def mail_new_voucher(voucher, *args, **kwargs):
     # TODO: Put this in config
@@ -12,7 +13,7 @@ def mail_new_voucher(voucher, *args, **kwargs):
     server = Site.objects.get_current().domain
     if server == 'localhost:8000':
         server = 'http://' + server
-    else :
+    else:
         server = 'https://' + server
 
     subject = _(u'You received a 1%GIFTCARD!')
@@ -41,7 +42,6 @@ def mail_voucher_redeemed(voucher, *args, **kwargs):
     msg.send()
 
 
-
 @task
 def mail_custom_voucher_request(voucher_request, *args, **kwargs):
     # TODO: Put this in config
@@ -57,4 +57,3 @@ def mail_custom_voucher_request(voucher_request, *args, **kwargs):
                                  to=[system_email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-
