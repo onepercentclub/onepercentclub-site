@@ -64,8 +64,8 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/vouchers.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/tasks.js"></script>
     {% endcompress %}
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
 
     {% block htmlheader %}{% endblock %}
@@ -104,8 +104,8 @@
                             <h1 class="nav-title">Navigation</h1>
                             <ul>
                                 <li class="nav-projects">{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
-                                {# FIXME Forward to currentOrderDonationList #}
                                 <li class="nav-projects">{{#linkTo voucherStart}}{% trans "1%GIFTCARDS" %}{{/linkTo}}</li>
+                                <li class="nav-projects">{{#linkTo currentOrder.donationList}}{% trans "CART" %}{{/linkTo}}</li>
                             </ul>
                         </nav>
                         <nav class="nav-member member-login">
