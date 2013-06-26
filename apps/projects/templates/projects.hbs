@@ -4,6 +4,26 @@
 
 {% tplhandlebars "project_list" %}
 
+    <div class="container section">
+        <section class="wrapper search-form">
+            <div class="control">
+                <em class="icon icon-search"></em>
+                {{view Em.TextField valueBinding="search.text" placeholder="Text search" }}
+            </div>
+            <div class="control">
+                <em class="icon icon-globe"></em>
+                {{view App.CountrySelectView valueBinding="search.country" placeholder="Text search" }}
+            </div>
+            <div class="control">
+                <em class="icon icon-leaf"></em>
+                {{view App.ThemeSelectView valueBinding="search.theme" placeholder="Text search" }}
+            </div>
+            <div class="control">
+                <em class="icon icon-filter"></em>
+                {{view Em.TextField valueBinding="text" placeholder="Text search" }}
+            </div>
+        </section>
+    </div>
     <div class="container">
         <section class="wrapper">
             <article>
@@ -43,7 +63,6 @@
     </div>
 
 {% endtplhandlebars %}
-
 
 {% tplhandlebars "project" %}
 

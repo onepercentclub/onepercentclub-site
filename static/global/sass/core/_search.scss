@@ -46,3 +46,21 @@
         }
     }
 }
+
+.search-form {
+    .control {
+        @include grid(12,0,1);
+        .icon {
+            background-color: $grayDark;
+            color: $color-back;
+            font-size: 24px;
+            display: block;
+            padding: 8px;
+            @include grid(8,0,0);
+
+        }
+        input, select {
+            @include grid(40,0,0);
+        }
+    }
+}
