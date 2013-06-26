@@ -396,10 +396,17 @@
 
 {# <!-- wrapper tag: <li class="donation-project"> --> #}
 {% tplhandlebars "current_order_donation" %}
+
     {{#linkTo "project" project}}
         <img {{bindAttr src="project.plan.image.square" alt="project.title"}} class="project-image" />
-        <h2>{{project.title}} <em class="country"><i class="icon-globe"></i> {{project.country.name}}</em></h2>
+        <h2>
+            {{ project.title }}
+            <em class="country">
+                <i class="icon-globe"></i> {{ project.plan.country.name }}, {{ project.plan.country.subregion }}
+            </em>
+        </h2>
     {{/linkTo}}
+
     <div class="donation-amount">
         <div class="amount-needed">
             <strong>&euro; {{neededAfterDonation}}</strong> {% trans "is still needed"%}

@@ -121,15 +121,13 @@ App.Project = DS.Model.extend({
 
     wallposts: DS.hasMany('App.WallPost'),
 
-
     money_needed: function(){
         var donated = this.get('money_asked') - this.get('money_donated');
         if (donated < 0) {
             return 0;
         }
         return Math.ceil(donated);
-    }.property('money_asked', 'money_donated'),
-
+    }.property('money_asked', 'money_donated')
 });
 
 
