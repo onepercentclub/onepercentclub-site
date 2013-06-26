@@ -1379,7 +1379,7 @@ div.buttons li:last-child a.button, div.buttons li:last-child a.btn, div.buttons
 sidebar .button-link { position: relative; top: 36px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000310}}
-.donation-steps, .voucher-steps { margin: 16px 0; padding: 0; list-style: none; float: left; width: 82.917%; margin-left: 2.083%; margin-right: 2.083%; overflow: hidden; }
+.donation-steps, .voucher-steps { margin: 16px 0; padding: 0; list-style: none; float: left; width: 62.5%; margin-left: 2.083%; margin-right: 2.083%; overflow: hidden; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000319}}
 .donation-steps li, .voucher-steps li { display: inline-block; background: transparent url("../images/donation-step.png") no-repeat right center; position: relative; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000324}}
@@ -1389,13 +1389,13 @@ sidebar .button-link { position: relative; top: 36px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000342}}
 .donation-steps li.is-selected a, .voucher-steps li.is-selected a { background-color: #00c051; color: white; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000348}}
-.donation-steps li.support, .voucher-steps li.support { z-index: 4; float: left; width: 27.083%; margin-left: 0%; margin-right: -4.167%; }
+.donation-steps li.support, .voucher-steps li.support { z-index: 4; float: left; width: 37.5%; margin-left: 0%; margin-right: -4.167%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000351}}
 .donation-steps li.support a, .voucher-steps li.support a { padding-left: 50px; background-position: 18px -404px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000357}}
 .donation-steps li.support.is-selected a, .voucher-steps li.support.is-selected a { background-position: 18px -366px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000363}}
-.donation-steps li.details, .voucher-steps li.details { z-index: 3; float: left; width: 29.167%; margin-left: 0%; margin-right: -4.167%; }
+.donation-steps li.details, .voucher-steps li.details { z-index: 3; float: left; width: 37.5%; margin-left: 0%; margin-right: -4.167%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000366}}
 .donation-steps li.details a, .voucher-steps li.details a { padding-left: 70px; background-position: 38px -159px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000371}}
@@ -1407,7 +1407,7 @@ sidebar .button-link { position: relative; top: 36px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000384}}
 .donation-steps li.profile.is-selected a, .voucher-steps li.profile.is-selected a { background-position: 38px -286px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000389}}
-.donation-steps li.payment, .voucher-steps li.payment { z-index: 1; background-image: none; float: left; width: 31.25%; margin-left: 0%; margin-right: -4.167%; }
+.donation-steps li.payment, .voucher-steps li.payment { z-index: 1; background-image: none; float: left; width: 39.583%; margin-left: 0%; margin-right: -6.25%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\0000393}}
 .donation-steps li.payment a, .voucher-steps li.payment a { padding-left: 70px; background-position: 38px -243px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\00003100}}
