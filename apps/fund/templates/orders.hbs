@@ -54,9 +54,14 @@
                     {{#linkTo "paymentProfile"}}{% trans "Details" %}{{/linkTo}}
                 {{/view}}
 
+                {% comment %}
+                Disable Profile tab until we have time to implement it.
+                The donations-steps css class will need to be changed when the is enabled:
+                    @include grid(41.8, 1); -> @include grid(32, 1);
                 {{#view App.OrderNavView classNames="profile"}}
                     <a>{% trans "Profile" %}</a>
                 {{/view}}
+                {% endcomment %}
 
                 {{#view App.OrderNavView classNames="payment"}}
                     {{#linkTo "payment"}}{% trans "Finish" %}{{/linkTo}}
