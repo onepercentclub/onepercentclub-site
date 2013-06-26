@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# onepercentclub <webmaster@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-04-18 11:29+0200\n"
-"PO-Revision-Date: 2013-04-18 09:29+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-06-26 12:03+0200\n"
+"PO-Revision-Date: 2013-06-26 10:10+0000\n"
+"Last-Translator: onepercentclub <webmaster@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:58
+#: admin.py:61
 msgid "Author"
 msgstr ""
 
@@ -77,78 +78,83 @@ msgstr ""
 msgid "Reactions"
 msgstr ""
 
-#: templates/reactions.hbs:13
-msgid "Member"
-msgstr "Lid"
-
-#: templates/reactions.hbs:24 templates/wallposts.hbs:166
+#: templates/reactions.hbs:26 templates/wallposts.hbs:190
+#: templates/wallposts.hbs.py:284
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
-#: templates/reactions.hbs:59 templates/wallposts.hbs:22
+#: templates/reactions.hbs:60 templates/wallposts.hbs:17
+#: templates/wallposts.hbs.py:325
 msgid "Login"
-msgstr ""
+msgstr "log in"
 
-#: templates/reactions.hbs:59 templates/wallposts.hbs:22
+#: templates/reactions.hbs:60 templates/wallposts.hbs:17
+#: templates/wallposts.hbs.py:325
 msgid "or become a"
-msgstr ""
+msgstr "of wordt"
 
-#: templates/reactions.hbs:59 templates/wallposts.hbs:22
+#: templates/reactions.hbs:60 templates/wallposts.hbs:17
+#: templates/wallposts.hbs.py:325
 msgid "member"
-msgstr ""
+msgstr "lid"
 
-#: templates/reactions.hbs:59 templates/wallposts.hbs:22
+#: templates/reactions.hbs:60 templates/wallposts.hbs:17
+#: templates/wallposts.hbs.py:325
 msgid "to leave a comment."
+msgstr "om een comment te plaaten"
+
+#: templates/wallposts.hbs:33
+msgid "Name of your update."
 msgstr ""
 
-#: templates/wallposts.hbs:11
-msgid "Comments & Updates"
-msgstr ""
-
-#: templates/wallposts.hbs:38
-msgid "Title of your update."
-msgstr ""
-
-#: templates/wallposts.hbs:52
+#: templates/wallposts.hbs:47
 msgid "Your update."
+msgstr "Jouw update"
+
+#: templates/wallposts.hbs:61
+msgid "Add link to video"
+msgstr "Voeg een link naar een video toe"
+
+#: templates/wallposts.hbs:75
+msgid "Upload photos"
+msgstr "Upload foto's"
+
+#: templates/wallposts.hbs:76
+msgid "format 620 x 380 minimum for best result"
+msgstr "met een formaat van 620 x 380 voor het beste resultaat"
+
+#: templates/wallposts.hbs:83
+msgid "Select photos"
 msgstr ""
 
-#: templates/wallposts.hbs:66
-msgid "Link to video on YouTube or Vimeo."
-msgstr ""
-
-#: templates/wallposts.hbs:80
-msgid "Upload & add Photo's"
-msgstr ""
-
-#: templates/wallposts.hbs:80
-msgid "620 x 380 minimum for best results"
-msgstr ""
-
-#: templates/wallposts.hbs:89
+#: templates/wallposts.hbs:90
 msgid "Error"
 msgstr ""
 
-#: templates/wallposts.hbs:106
+#: templates/wallposts.hbs:107
 msgid "Post Update"
 msgstr ""
 
-#: templates/wallposts.hbs:119
-msgid "Leave your comment here"
+#: templates/wallposts.hbs:116 templates/wallposts.hbs.py:128
+msgid "Comment"
+msgstr "Comment"
+
+#: templates/wallposts.hbs:138
+msgid "Comments & Updates"
 msgstr ""
 
-#: templates/wallposts.hbs:124
-msgid "Post Comment"
-msgstr ""
-
-#: templates/wallposts.hbs:139
+#: templates/wallposts.hbs:155 templates/wallposts.hbs.py:337
 msgid "Show more"
-msgstr ""
+msgstr "Meer"
 
 #: templates/wallposts.hbs:156
-msgid "Project Initiator"
+msgid "more"
+msgstr "meer"
+
+#: templates/wallposts.hbs:159
+msgid "no more posts to show"
 msgstr ""
 
-#: templates/wallposts.hbs:165
-msgid "Edit"
+#: templates/wallposts.hbs:260
+msgid "Post Comment"
 msgstr ""

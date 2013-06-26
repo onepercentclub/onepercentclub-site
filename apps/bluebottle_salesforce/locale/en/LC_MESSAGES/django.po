@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-26 12:03+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:17
+msgid "Business"
+msgstr ""
+
+#: models.py:18
+msgid "Fund"
+msgstr ""
+
+#: models.py:19
+msgid "International Cooperation"
+msgstr ""
+
+#: models.py:20
+msgid "Network"
+msgstr ""
+
+#: models.py:21
+msgid "Supplier"
+msgstr ""
+
+#: models.py:22 models.py:24
+msgid "Individual"
+msgstr ""
+
+#: models.py:23
+msgid "1%IDEA"
+msgstr ""
+
+#: models.py:25
+msgid "Media / PR"
+msgstr ""
+
+#: models.py:182 models.py:384
+msgid "Closed"
+msgstr ""
+
+#: models.py:183
+msgid "Created"
+msgstr ""
+
+#: models.py:184
+msgid "Done"
+msgstr ""
+
+#: models.py:185
+msgid "Validated"
+msgstr ""
+
+#: models.py:197
+msgid "Status project"
+msgstr ""
+
+#: models.py:274
+msgid "Construction materials"
+msgstr ""
+
+#: models.py:275
+msgid "Agriculture materials"
+msgstr ""
+
+#: models.py:276
+msgid "School supplies"
+msgstr ""
+
+#: models.py:277
+msgid "Communication materials"
+msgstr ""
+
+#: models.py:278
+msgid "Other materials"
+msgstr ""
+
+#: models.py:279
+msgid "Tools"
+msgstr ""
+
+#: models.py:280
+msgid "Transport"
+msgstr ""
+
+#: models.py:281
+msgid "Training"
+msgstr ""
+
+#: models.py:282
+msgid "Labor"
+msgstr ""
+
+#: models.py:283
+msgid "Marketing/Communcation"
+msgstr ""
+
+#: models.py:284
+msgid "Adminstration Costs"
+msgstr ""
+
+#: models.py:285
+msgid "Overhead"
+msgstr ""
+
+#: models.py:286
+msgid "Other"
+msgstr ""
+
+#: models.py:289
+msgid "Category"
+msgstr ""
+
+#: models.py:305
+msgid "Direct Debit (Online)"
+msgstr ""
+
+#: models.py:306
+msgid "iDEAL"
+msgstr ""
+
+#: models.py:307
+msgid "Mastercard"
+msgstr ""
+
+#: models.py:308
+msgid "Overboeking"
+msgstr ""
+
+#: models.py:309
+msgid "VISA"
+msgstr ""
+
+#: models.py:320
+msgid "PaymentMethod"
+msgstr ""
+
+#: models.py:382
+msgid "Open"
+msgstr ""
+
+#: models.py:383
+msgid "Running"
+msgstr ""
+
+#: models.py:385
+msgid "Realized"
+msgstr ""
+
+#: models.py:395
+msgid "TaskStatus"
+msgstr ""

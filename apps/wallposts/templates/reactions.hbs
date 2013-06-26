@@ -53,7 +53,7 @@
                     {{#each errors.text}}
                         <span class="error">{{this}}</span>
                     {{/each}}
-                    {{view "Em.TextArea" placeholder="Leave a reaction"  valueBinding="newReaction.text" name="reaction" class="newReaction"}}
+                    {{view "Em.TextArea" placeholder="Comment"  valueBinding="newReaction.text" name="reaction" class="newReaction"}}
                 </li>
             {{else}}
                 <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}

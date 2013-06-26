@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-06 19:48+0200\n"
+"POT-Creation-Date: 2013-06-26 12:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,31 +48,63 @@ msgid ""
 "%(error_id)s</strong>."
 msgstr ""
 
-#: base.html:105
+#: base.html:106
 #, python-format
 msgid "1%%PROJECTS"
 msgstr ""
 
-#: base.html:107
+#: base.html:108
 #, python-format
 msgid "1%%GIFTCARDS"
 msgstr ""
 
-#: base.html:114
+#: base.html:115
 #, python-format
 msgid "MY 1%%"
 msgstr ""
 
-#: base.html:128
+#: base.html:120
+msgid "Edit my profile & settings"
+msgstr ""
+
+#: base.html:125
+msgid "Manage Projects"
+msgstr ""
+
+#: base.html:139
 msgid "Login"
 msgstr ""
 
-#: base.html:181 registration/login.html:20
-msgid "Username"
+#: base.html:141
+msgid "Signup"
 msgstr ""
 
-#: base.html:189 registration/login.html:28
+#: base.html:213 registration/login.html:10
+msgid "Log in"
+msgstr ""
+
+#: base.html:218
+msgid "YOU DID IT!"
+msgstr ""
+
+#: base.html:219
+msgid "(Welcome back friend)"
+msgstr ""
+
+#: base.html:221
+msgid "Login here with your email address and password"
+msgstr ""
+
+#: base.html:226 registration/login.html:19
+msgid "Email"
+msgstr ""
+
+#: base.html:235 registration/login.html:28
 msgid "Password"
+msgstr ""
+
+#: base.html:245
+msgid "I forgot my password"
 msgstr ""
 
 #: footer.html:6
@@ -159,6 +191,30 @@ msgstr ""
 msgid "Logged out."
 msgstr ""
 
-#: registration/login.html:12
+#: registration/login.html:38
 msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: registration/password_reset_email.html:7
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: registration/password_reset_email.html:9
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: registration/password_reset_email.html:13
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: registration/password_reset_email.html:15
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: registration/password_reset_email.html:17
+#, python-format
+msgid "The %(site_name)s team"
 msgstr ""
