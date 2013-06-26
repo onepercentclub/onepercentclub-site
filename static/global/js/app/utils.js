@@ -402,8 +402,8 @@ App.MapPicker = Em.View.extend({
         view.geocoder.geocode( {'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 view.placeMarker(results[0].geometry.location);
-                view.set('latitude',  results[0].geometry.location.lat());
-                view.set('longitude',  results[0].geometry.location.lng());
+                view.set('latitude',  '' + results[0].geometry.location.lat().toString());
+                view.set('longitude', '' + results[0].geometry.location.lng().toString());
 
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
@@ -439,8 +439,8 @@ App.MapPicker = Em.View.extend({
 
         google.maps.event.addListener(view.map, 'click', function(e) {
             var loc = {};
-            view.set('latitude',  e.latLng.lat());
-            view.set('longitude',  e.latLng.lng());
+            view.set('latitude', e.latLng.lat().toString());
+            view.set('longitude', e.latLng.lng().toString());
             view.placeMarker(e.latLng);
         });
     }
