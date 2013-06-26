@@ -13,19 +13,23 @@ class IsProjectOwner(permissions.BasePermission):
         return obj.project.owner == request.user
 
 
-class EditablePitch(permissions.BasePermission):
+class EditablePitchOrReadOnly(permissions.BasePermission):
     """
     Allows access only if pitch is new
     """
     def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
         return obj.status == ProjectPitch.PitchStatuses.new
 
 
-class EditablePlan(permissions.BasePermission):
+class EditablePlanOrReadOnly(permissions.BasePermission):
     """
     Allows access only if plan has status new or needs_work
     """
     def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
         return obj.status in [ProjectPlan.PlanStatuses.new, ProjectPlan.PlanStatuses.needs_work]
 
 

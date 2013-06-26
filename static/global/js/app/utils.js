@@ -195,6 +195,16 @@ App.UploadFile = Ember.TextField.extend({
         var files = evt.target.files;
         var reader = new FileReader();
         var file = files[0];
+        var view = this
+
+        reader.onload = function(e) {
+            var preview = "<p>File: <strong>" + file.name + "</strong>.<br/> "
+                          + "Size: <strong>"
+                          + Math.round(file.size*100/1024)/100 + " kB</strong></p>"
+                          + "<img src='" + e.target.result + "' />";
+            view.$().parents('form').find('.preview').remove();
+            view.$().parent().after('<div class="preview">' + preview + '</div>');
+        }
         reader.readAsDataURL(file);
         this.set('value', file);
 
@@ -214,7 +224,6 @@ App.UploadFileView = Ember.TextField.extend({
         for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
             var file = files[i];
-            // TODO: enable client site previews with: reader.onload = function(e){}
             reader.readAsDataURL(file);
             this.get('controller').addFile(file);
         }
