@@ -1471,6 +1471,12 @@ sidebar .button-link { position: relative; top: 36px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\00003266}}
 .intro { padding: 0px 0px 8px 28px; text-transform: uppercase; font-size: 12px; font-size: 0.857rem; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\00003272}}
+.payment-link { margin: 1em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\00003276}}
+.panes.vertical.payment { padding: 16px; padding: 1.143rem; width: 100%; }
+
 /* =========== Forms */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/ben\/Development\/onepercentclub\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\000036}}
 legend { padding: 24px 32px; padding: 1.714rem 2.286rem; width: 100%; background-color: #cccccc; }

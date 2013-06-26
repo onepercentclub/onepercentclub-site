@@ -429,20 +429,29 @@
 {% tplhandlebars "payment" %}
 
     <div class="intro">
-        <h4>{% trans "Final step. Almost there!" %}</h4>
-        {{#if paymentError }}
-            {# TODO Add style #}
-            {% trans "There was an error transfering you to the payment provider. Please try again." %}
-        {{/if}}
+
     </div>
     <fieldset>
+        {% comment %}
         <div class="tabs vertical">
         </div>
-        <div class="panes vertical">
+        {% endcomment %}
+
+
+        <div class="panes vertical payment">
+            <h4>{% trans "You're Almost there!" %}</h4>
+
+            {% trans "When you're ready to support your projects, click the button to complete the payment." %}
+
+            {{#if paymentError }}
+                {# TODO Add style #}
+                {% trans "There was an error transferring you to the payment provider. Please try again." %}
+            {{/if}}
+
             {{#if paymentInProgress }}
                 <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "processing payment..." %}
             {{else}}
-                <a href="#" {{action "proceedWithPayment"}} class="btn">{% trans "Proceed with Payment" %}</a>
+                <a href="#" {{action "proceedWithPayment"}} class="btn payment-link">{% trans "Proceed with Payment" %}</a>
             {{/if}}
         </div>
     </fieldset>

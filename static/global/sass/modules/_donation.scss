@@ -269,3 +269,12 @@ sidebar {
     @include rem(font-size, 12px);
 }
 
+.payment-link {
+    margin: 1em;
+}
+
+.panes.vertical.payment {
+    @include rem(padding, $padding);
+
+    width: 100%;
+}
