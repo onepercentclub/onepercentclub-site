@@ -106,7 +106,7 @@ App.ProjectCampaign = DS.Model.extend({
 
 
 App.Project = DS.Model.extend({
-    url: 'projects',
+    url: 'projects/projects',
 
     // Model fields
     slug: DS.attr('string'),
@@ -128,7 +128,8 @@ App.Project = DS.Model.extend({
 
 
 App.ProjectPreview = App.Project.extend({
-
+    url: 'projects/previews',
+    image: DS.attr('string')
 });
 
 

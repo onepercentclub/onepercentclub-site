@@ -21,7 +21,7 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
-    image = ImageSerializer(source='projectplan.image')
+    image = SorlImageField('projectplan.image', '120x120', crop='center', colorspace="GRAY")
 
     class Meta:
         model = Project

@@ -136,8 +136,8 @@ App.MyProjectPitch = DS.Model.extend({
 
     // Location
     country: DS.attr('string'),
-    latitude: DS.attr('number'),
-    longitude: DS.attr('number'),
+    latitude: DS.attr('string'),
+    longitude: DS.attr('string'),
 
     validLocation: function(){
         if (this.get('country') &&  this.get('latitude') && this.get('longitude')){
@@ -211,8 +211,8 @@ App.MyProjectPlan = DS.Model.extend({
 
     // Location
     country: DS.attr('string'),
-    latitude: DS.attr('number'),
-    longitude: DS.attr('number'),
+    latitude: DS.attr('string'),
+    longitude: DS.attr('string'),
 
     validLocation: function(){
         if (this.get('country') &&  this.get('latitude') && this.get('longitude')){
