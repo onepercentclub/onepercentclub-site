@@ -585,25 +585,26 @@
         </header>
     </div>
 
-
-
     <div class="container">
         <section class="wrapper">
 
             <ul id="donation-projects" class="content">
+
                 {{#if donations.length}}
                     <h3 class="green">{% trans "You just supported" %}</h3>
                 {{/if}}
                 {{#each donation in donations}}
                     <li class="donation-project">
                         {{#linkTo "project" donation.project}}
-                            <img {{bindAttr src="donation.project.image_square"}} class="project-image" alt="Project Name" />
+                            <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
+                            <h2>
+                                {{ donation.project.title }}
+                                <em class="country">
+                                    <i class="icon-globe"></i> {{ donation.project.plan.country.name }}, {{ donation.project.plan.country.subregion }}
+                                </em>
+                            </h2>
                         {{/linkTo}}
-                        <h2>
-                            {{#linkTo "project" donation.project}}
-                                {{donation.project.title}}
-                            {{/linkTo}}
-                        </h2>
+
                         <p class="donation-amount">
                             <span class="amount-needed">
                                 <strong>&euro; {{donation.project.campaign.money_needed}}</strong>
@@ -612,6 +613,7 @@
                         </p>
                     </li>
                 {{/each}}
+
                 {{#if vouchers.length}}
                     <h1>{% trans "Vouchers" %}</h1>
                 {{/if}}
