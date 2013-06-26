@@ -56,6 +56,7 @@ urlpatterns += patterns('',
     url(r'^i18n/api/organizations/', include('apps.organizations.urlsapi')),
     url(r'^i18n/api/banners/', include('apps.banners.urlsapi')),
     url(r'^i18n/api/quotes/', include('apps.quotes.urlsapi')),
+    url(r'^i18n/api/stats', include('apps.statistics.urlsapi')),
 
     # API for DocData Status Changed Notifications.
     url(r'^i18n/api/ddscn/', include('apps.cowry_docdata.urlsapi')),

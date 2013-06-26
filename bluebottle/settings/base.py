@@ -240,6 +240,7 @@ INSTALLED_APPS = (
     'apps.tasks',
     'apps.banners',
     'apps.quotes',
+    'apps.statistics',
 
     # Custom dashboard
     'fluent_dashboard',
@@ -403,6 +404,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
             'apps.media.*',
             'apps.banners.*',
             'apps.quotes.*',
+            'apps.statistics.*',
         ],
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -439,11 +441,9 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Administration'), {
         'models': (
-            '*.UserProfile',
             'django.contrib.auth.*',
             'django.contrib.sites.*',
-            'dashboardmods.*',
-            'google_analytics.*',
+            'apps.accounts.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
