@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-04-17 19:46+0200\n"
-"PO-Revision-Date: 2013-04-17 17:47+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-06-26 12:03+0200\n"
+"PO-Revision-Date: 2013-06-26 10:10+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,31 +51,63 @@ msgid ""
 "<strong>%(error_id)s</strong>."
 msgstr "Als je hulp nodig hebt kan je naar deze fout verwijzen als <strong>%(error_id)s</strong>."
 
-#: base.html:104
+#: base.html:106
 #, python-format
 msgid "1%%PROJECTS"
 msgstr ""
 
-#: base.html:106
+#: base.html:108
 #, python-format
 msgid "1%%GIFTCARDS"
 msgstr ""
 
-#: base.html:113
+#: base.html:115
 #, python-format
 msgid "MY 1%%"
 msgstr ""
 
-#: base.html:127
+#: base.html:120
+msgid "Edit my profile & settings"
+msgstr ""
+
+#: base.html:125
+msgid "Manage Projects"
+msgstr ""
+
+#: base.html:139
 msgid "Login"
+msgstr "log in"
+
+#: base.html:141
+msgid "Signup"
 msgstr ""
 
-#: base.html:173
-msgid "Username"
+#: base.html:213 registration/login.html:10
+msgid "Log in"
+msgstr "Log in"
+
+#: base.html:218
+msgid "YOU DID IT!"
 msgstr ""
 
-#: base.html:181
+#: base.html:219
+msgid "(Welcome back friend)"
+msgstr ""
+
+#: base.html:221
+msgid "Login here with your email address and password"
+msgstr ""
+
+#: base.html:226 registration/login.html:19
+msgid "Email"
+msgstr ""
+
+#: base.html:235 registration/login.html:28
 msgid "Password"
+msgstr ""
+
+#: base.html:245
+msgid "I forgot my password"
 msgstr ""
 
 #: footer.html:6
@@ -162,6 +194,30 @@ msgstr "We like you too"
 msgid "Logged out."
 msgstr "Uitgelogd."
 
-#: registration/login.html:10
+#: registration/login.html:38
 msgid "Your username and password didn't match. Please try again."
 msgstr "Je gebruikersnaam en wachtwoord kwamen niet overeen. Probeer het nog eens."
+
+#: registration/password_reset_email.html:7
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: registration/password_reset_email.html:9
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: registration/password_reset_email.html:13
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: registration/password_reset_email.html:15
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: registration/password_reset_email.html:17
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""

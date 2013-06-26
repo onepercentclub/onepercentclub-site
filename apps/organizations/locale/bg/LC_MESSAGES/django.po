@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-05-01 15:11+0200\n"
-"PO-Revision-Date: 2013-05-01 13:11+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-06-26 11:50+0200\n"
+"PO-Revision-Date: 2013-06-26 09:54+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/bluebottle/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,146 +17,166 @@ msgstr ""
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:18
+#: models.py:20
 msgid "name"
 msgstr ""
 
-#: models.py:19
+#: models.py:21
 msgid "slug"
 msgstr ""
 
-#: models.py:21
+#: models.py:23
 msgid "description"
 msgstr ""
 
-#: models.py:22
+#: models.py:24
 msgid "legal status"
 msgstr ""
 
-#: models.py:22
+#: models.py:24
 msgid "The legal status of the organization (e.g. Foundation)."
 msgstr ""
 
-#: models.py:23
+#: models.py:25
 msgid "phone number"
 msgstr ""
 
-#: models.py:24
+#: models.py:26
 msgid "website"
 msgstr ""
 
-#: models.py:26
-msgid "created"
-msgstr ""
-
-#: models.py:27
-msgid "updated"
-msgstr ""
-
-#: models.py:28
-msgid "deleted"
+#: models.py:29
+msgid "twitter"
 msgstr ""
 
 #: models.py:30
-msgid "partner organizations"
+msgid "facebook"
 msgstr ""
 
-#: models.py:32
-msgid "account bank name"
-msgstr ""
-
-#: models.py:33
-msgid "account bank address"
-msgstr ""
-
-#: models.py:34
-msgid "account bank country"
-msgstr ""
-
-#: models.py:35
-msgid "account IBAN"
+#: models.py:31
+msgid "skype"
 msgstr ""
 
 #: models.py:36
-msgid "account SWIFT-BIC"
+msgid "created"
 msgstr ""
 
 #: models.py:37
-msgid "account number"
+msgid "updated"
 msgstr ""
 
 #: models.py:38
-msgid "account name"
-msgstr ""
-
-#: models.py:39
-msgid "account city"
+msgid "deleted"
 msgstr ""
 
 #: models.py:40
-msgid "account information that doesn't fit in the other field"
+msgid "partner organizations"
 msgstr ""
 
-#: models.py:42
-msgid "tags"
+#: models.py:43
+msgid "account bank name"
 msgstr ""
 
-#: models.py:49 models.py:60 models.py:78
-msgid "organization"
+#: models.py:44
+msgid "account bank address"
+msgstr ""
+
+#: models.py:46
+msgid "account IBAN"
+msgstr ""
+
+#: models.py:47
+msgid "account SWIFT-BIC"
+msgstr ""
+
+#: models.py:48
+msgid "account number"
+msgstr ""
+
+#: models.py:49
+msgid "account name"
 msgstr ""
 
 #: models.py:50
-msgid "organizations"
+msgid "account city"
 msgstr ""
 
-#: models.py:57
-msgid "Owner"
+#: models.py:51
+msgid "account information that doesn't fit in the other field"
 msgstr ""
 
-#: models.py:58
-msgid "Editor"
+#: models.py:53
+msgid "tags"
+msgstr ""
+
+#: models.py:60 models.py:75 models.py:93 models.py:103
+msgid "organization"
 msgstr ""
 
 #: models.py:61
-msgid "user"
+msgid "organizations"
 msgstr ""
 
-#: models.py:62
-msgid "function"
-msgstr ""
-
-#: models.py:65
-msgid "organization member"
-msgstr ""
-
-#: models.py:66
-msgid "organization members"
+#: models.py:72
+msgid "Owner"
 msgstr ""
 
 #: models.py:73
-msgid "Physical"
+msgid "Editor"
 msgstr ""
 
-#: models.py:74
-msgid "Postal"
-msgstr ""
-
-#: models.py:75
-msgid "Other"
+#: models.py:76
+msgid "user"
 msgstr ""
 
 #: models.py:77
-msgid "type"
+msgid "function"
 msgstr ""
 
-#: models.py:77
-msgid "Address type."
+#: models.py:80
+msgid "organization member"
 msgstr ""
 
 #: models.py:81
+msgid "organization members"
+msgstr ""
+
+#: models.py:88
+msgid "Physical"
+msgstr ""
+
+#: models.py:89
+msgid "Postal"
+msgstr ""
+
+#: models.py:90
+msgid "Other"
+msgstr ""
+
+#: models.py:92
+msgid "type"
+msgstr ""
+
+#: models.py:92
+msgid "Address type."
+msgstr ""
+
+#: models.py:96
 msgid "organization address"
 msgstr ""
 
-#: models.py:82
+#: models.py:97
 msgid "organization addresses"
+msgstr ""
+
+#: models.py:105
+msgid "author"
+msgstr ""
+
+#: models.py:108
+msgid "organization document"
+msgstr ""
+
+#: models.py:109
+msgid "organization documents"
 msgstr ""

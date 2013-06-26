@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-30 16:41+0200\n"
+"POT-Creation-Date: 2013-06-26 12:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,101 +17,101 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:10
+#: models.py:11
 msgid "name"
 msgstr ""
 
-#: models.py:17 templates/tasks.hbs:36 templates/tasks.hbs.py:114
-#: templates/tasks.hbs:498
+#: models.py:18 templates/tasks.hbs:36 templates/tasks.hbs.py:114
+#: templates/tasks.hbs:509
 msgid "Open"
 msgstr ""
 
-#: models.py:18 templates/tasks.hbs:40 templates/tasks.hbs.py:118
-#: templates/tasks.hbs:502
+#: models.py:19 templates/tasks.hbs:40 templates/tasks.hbs.py:118
+#: templates/tasks.hbs:513
 msgid "In progress"
 msgstr ""
 
-#: models.py:19 templates/tasks.hbs:44 templates/tasks.hbs.py:122
-#: templates/tasks.hbs:506
+#: models.py:20 templates/tasks.hbs:44 templates/tasks.hbs.py:122
+#: templates/tasks.hbs:517
 msgid "Closed"
 msgstr ""
 
-#: models.py:20 models.py:56 templates/tasks.hbs:48 templates/tasks.hbs.py:60
+#: models.py:21 models.py:57 templates/tasks.hbs:48 templates/tasks.hbs.py:60
 #: templates/tasks.hbs:126 templates/tasks.hbs.py:244 templates/tasks.hbs:264
-#: templates/tasks.hbs.py:350 templates/tasks.hbs:510
+#: templates/tasks.hbs.py:350 templates/tasks.hbs:521
 msgid "Realised"
 msgstr ""
 
-#: models.py:22
+#: models.py:23
 msgid "title"
 msgstr ""
 
-#: models.py:23
+#: models.py:24
 msgid "description"
 msgstr ""
 
-#: models.py:24
+#: models.py:25
 msgid "end goal"
 msgstr ""
 
-#: models.py:25
+#: models.py:26
 msgid "location"
 msgstr ""
 
-#: models.py:27
+#: models.py:28
 msgid "expertise"
 msgstr ""
 
-#: models.py:28
+#: models.py:29
 msgid "time_needed"
 msgstr ""
 
-#: models.py:28
+#: models.py:29
 msgid "Estimated number of hours needed to perform this task."
 msgstr ""
 
-#: models.py:30 models.py:60
+#: models.py:31 models.py:61
 msgid "status"
 msgstr ""
 
-#: models.py:32
+#: models.py:33
 msgid "people needed"
 msgstr ""
 
-#: models.py:32
+#: models.py:33
 msgid "How many people are needed for this task?"
 msgstr ""
 
-#: models.py:36 models.py:61 models.py:70
+#: models.py:37 models.py:62 models.py:71
 msgid "created"
 msgstr ""
 
-#: models.py:36
+#: models.py:37
 msgid "When this task was created?"
 msgstr ""
 
-#: models.py:38
+#: models.py:39
 msgid "tags"
 msgstr ""
 
-#: models.py:52 templates/tasks.hbs:232 templates/tasks.hbs.py:252
+#: models.py:53 templates/tasks.hbs:232 templates/tasks.hbs.py:252
 #: templates/tasks.hbs:338
 msgid "Applied"
 msgstr ""
 
-#: models.py:53
+#: models.py:54
 msgid "Accepted"
 msgstr ""
 
-#: models.py:54 templates/tasks.hbs:240 templates/tasks.hbs.py:260
+#: models.py:55 templates/tasks.hbs:240 templates/tasks.hbs.py:260
 msgid "Rejected"
 msgstr ""
 
-#: models.py:55
+#: models.py:56
 msgid "Stopped"
 msgstr ""
 
-#: models.py:69
+#: models.py:70
 msgid "file"
 msgstr ""
 
@@ -143,11 +143,11 @@ msgstr ""
 msgid "Task detail"
 msgstr ""
 
-#: templates/tasks.hbs:163 templates/tasks.hbs.py:421 templates/tasks.hbs:565
+#: templates/tasks.hbs:163 templates/tasks.hbs.py:421 templates/tasks.hbs:576
 msgid "Expertise"
 msgstr ""
 
-#: templates/tasks.hbs:180 templates/tasks.hbs.py:393 templates/tasks.hbs:537
+#: templates/tasks.hbs:180 templates/tasks.hbs.py:393 templates/tasks.hbs:548
 msgid "Location"
 msgstr ""
 
@@ -155,11 +155,11 @@ msgstr ""
 msgid "Time needed"
 msgstr ""
 
-#: templates/tasks.hbs:194 templates/tasks.hbs.py:523
+#: templates/tasks.hbs:194 templates/tasks.hbs.py:534
 msgid "Deadline"
 msgstr ""
 
-#: templates/tasks.hbs:205
+#: templates/tasks.hbs:205 templates/tasks.hbs.py:462 templates/tasks.hbs:617
 msgid "Tags"
 msgstr ""
 
@@ -215,7 +215,7 @@ msgstr ""
 msgid "Reject"
 msgstr ""
 
-#: templates/tasks.hbs:365 templates/tasks.hbs.py:478
+#: templates/tasks.hbs:365 templates/tasks.hbs.py:489
 msgid "Title of your task."
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Dead line"
 msgstr ""
 
-#: templates/tasks.hbs:407 templates/tasks.hbs.py:551
+#: templates/tasks.hbs:407 templates/tasks.hbs.py:562
 msgid "Time needed (approximately)"
 msgstr ""
 
@@ -231,38 +231,38 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: templates/tasks.hbs:449 templates/tasks.hbs.py:593
+#: templates/tasks.hbs:449 templates/tasks.hbs.py:604
 msgid "End goal"
 msgstr ""
 
-#: templates/tasks.hbs:462
+#: templates/tasks.hbs:473
 msgid "Post Task"
 msgstr ""
 
-#: templates/tasks.hbs:491
+#: templates/tasks.hbs:502
 msgid "Status"
 msgstr ""
 
-#: templates/tasks.hbs:579
+#: templates/tasks.hbs:590
 msgid "Description."
 msgstr ""
 
-#: templates/tasks.hbs:606
+#: templates/tasks.hbs:628
 msgid "Save Task"
 msgstr ""
 
-#: templates/tasks.hbs:607
+#: templates/tasks.hbs:629
 msgid "Cancel changes"
 msgstr ""
 
-#: templates/tasks.hbs:620
+#: templates/tasks.hbs:642
 msgid "Title"
 msgstr ""
 
-#: templates/tasks.hbs:633
+#: templates/tasks.hbs:655
 msgid "File"
 msgstr ""
 
-#: templates/tasks.hbs:640
+#: templates/tasks.hbs:662
 msgid "Upload file"
 msgstr ""
