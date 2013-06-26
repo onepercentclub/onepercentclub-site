@@ -227,14 +227,15 @@ App.loadTemplates = function() {
                 throw errorThrown + ' ' + hash.url;
             };
             jQuery.ajax(hash);
-
-        })
-    }
+        });
+};
 
 App.loadTemplates();
 
-// The Ember Data Adapter and Store configuration.
 
+/*
+ * The Ember Data Adapter and Store configuration.
+ */
 App.Adapter = DS.DRF2Adapter.extend({
     namespace: "i18n/api",
 
@@ -358,40 +359,32 @@ App.Adapter.map('App.TaskMember', {
 App.Adapter.map('App.TaskFile', {
     author: {embedded: 'load'}
 });
-
 App.Adapter.map('App.ProjectPlan', {
     tags: {embedded: 'load'},
     country: {embedded: 'load'}
 });
-
 App.Adapter.map('App.ProjectPitch', {
     tags: {embedded: 'load'},
     country: {embedded: 'load'}
 });
-
 App.Adapter.map('App.MyProjectPlan', {
     ambassadors: {embedded: 'load'},
     budgetLines: {embedded: 'load'},
     tags: {embedded: 'always'}
 });
-
 App.Adapter.map('App.MyProjectPitch', {
     tags: {embedded: 'always'}
 });
-
 App.Adapter.map('App.MyOrganization', {
     addresses: {embedded: 'load'},
     documents: {embedded: 'load'}
 });
-
 App.Adapter.map('App.MyOrganizationDocument', {
     file: {embedded: 'load'}
 });
 
 
-
 App.Store = DS.Store.extend({
-    revision: 11,
     adapter: 'App.Adapter'
 });
 
@@ -413,6 +406,7 @@ App.SlugRouter = Em.Mixin.create({
 App.Router.reopen({
     location: 'hash'
 });
+
 
 App.Router.map(function() {
 
