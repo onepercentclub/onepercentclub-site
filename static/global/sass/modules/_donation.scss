@@ -12,7 +12,7 @@ sidebar {
   padding: 0;
   list-style: none;
   
-  @include grid(32, 1);
+  @include grid(41.8, 1);
   
   overflow: hidden;
   
@@ -269,3 +269,12 @@ sidebar {
     @include rem(font-size, 12px);
 }
 
+.payment-link {
+    margin: 1em;
+}
+
+.panes.vertical.payment {
+    @include rem(padding, $padding);
+
+    width: 100%;
+}

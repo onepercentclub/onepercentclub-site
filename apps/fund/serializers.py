@@ -19,7 +19,7 @@ class DonationSerializer(serializers.ModelSerializer):
         """
         value = attrs[source]
         if value < 500:
-            raise serializers.ValidationError(_(u"Gift card value should be at least €5.00."))
+            raise serializers.ValidationError(_(u"Donations must be at least €5."))
         return attrs
 
     def save(self):

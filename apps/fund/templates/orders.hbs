@@ -54,9 +54,14 @@
                     {{#linkTo "paymentProfile"}}{% trans "Details" %}{{/linkTo}}
                 {{/view}}
 
+                {% comment %}
+                Disable Profile tab until we have time to implement it.
+                The donations-steps css class will need to be changed when the is enabled:
+                    @include grid(41.8, 1); -> @include grid(32, 1);
                 {{#view App.OrderNavView classNames="profile"}}
                     <a>{% trans "Profile" %}</a>
                 {{/view}}
+                {% endcomment %}
 
                 {{#view App.OrderNavView classNames="payment"}}
                     {{#linkTo "payment"}}{% trans "Finish" %}{{/linkTo}}
@@ -391,10 +396,17 @@
 
 {# <!-- wrapper tag: <li class="donation-project"> --> #}
 {% tplhandlebars "current_order_donation" %}
+
     {{#linkTo "project" project}}
         <img {{bindAttr src="project.plan.image.square" alt="project.title"}} class="project-image" />
-        <h2>{{project.title}} <em class="country"><i class="icon-globe"></i> {{project.country.name}}</em></h2>
+        <h2>
+            {{ project.title }}
+            <em class="country">
+                <i class="icon-globe"></i> {{ project.plan.country.name }}, {{ project.plan.country.subregion }}
+            </em>
+        </h2>
     {{/linkTo}}
+
     <div class="donation-amount">
         <div class="amount-needed">
             <strong>&euro; {{neededAfterDonation}}</strong> {% trans "is still needed"%}
@@ -417,20 +429,29 @@
 {% tplhandlebars "payment" %}
 
     <div class="intro">
-        <h4>{% trans "Final step. Almost there!" %}</h4>
-        {{#if paymentError }}
-            {# TODO Add style #}
-            {% trans "There was an error transfering you to the payment provider. Please try again." %}
-        {{/if}}
+
     </div>
     <fieldset>
+        {% comment %}
         <div class="tabs vertical">
         </div>
-        <div class="panes vertical">
+        {% endcomment %}
+
+
+        <div class="panes vertical payment">
+            <h4>{% trans "You're Almost there!" %}</h4>
+
+            {% trans "When you're ready to support your projects, click the button to complete the payment." %}
+
+            {{#if paymentError }}
+                {# TODO Add style #}
+                {% trans "There was an error transferring you to the payment provider. Please try again." %}
+            {{/if}}
+
             {{#if paymentInProgress }}
                 <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "processing payment..." %}
             {{else}}
-                <a href="#" {{action "proceedWithPayment"}} class="btn">{% trans "Proceed with Payment" %}</a>
+                <a href="#" {{action "proceedWithPayment"}} class="btn payment-link">{% trans "Proceed with Payment" %}</a>
             {{/if}}
         </div>
     </fieldset>
@@ -561,46 +582,47 @@
             <sidebar>
                 <h2 class="green">{% trans "Personalise your 1%" %}</h2>
                 {% blocktrans %}
-                We've created an account for you.
                 Following projects are now even easier and you'll have
                 your own personalised page!
                 {% endblocktrans %}
                 <br />
-                <a href="#" class="profile-link">
+                {{#linkTo "userProfile" class="profile-link" }}
                     {% trans "Complete your profile" %}
-                </a>
+                {{/linkTo }}
 
             </sidebar>
         </header>
     </div>
 
-
-
     <div class="container">
         <section class="wrapper">
 
             <ul id="donation-projects" class="content">
+
                 {{#if donations.length}}
                     <h3 class="green">{% trans "You just supported" %}</h3>
                 {{/if}}
                 {{#each donation in donations}}
                     <li class="donation-project">
                         {{#linkTo "project" donation.project}}
-                            <img {{bindAttr src="donation.project.image_square"}} class="project-image" alt="Project Name" />
+                            <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
+                            <h2>
+                                {{ donation.project.title }}
+                                <em class="country">
+                                    <i class="icon-globe"></i> {{ donation.project.plan.country.name }}, {{ donation.project.plan.country.subregion }}
+                                </em>
+                            </h2>
                         {{/linkTo}}
-                        <h2>
-                            {{#linkTo "project" donation.project}}
-                                {{donation.project.title}}
-                            {{/linkTo}}
-                        </h2>
+
                         <p class="donation-amount">
                             <span class="amount-needed">
-                                <strong>&euro; {{donation.project.money_needed}}</strong>
+                                <strong>&euro; {{donation.project.campaign.money_needed}}</strong>
                                 {% trans "still needed" %}
                             </span>
                         </p>
                     </li>
                 {{/each}}
+
                 {{#if vouchers.length}}
                     <h1>{% trans "Vouchers" %}</h1>
                 {{/if}}
