@@ -321,7 +321,7 @@ App.TagWidget = Em.View.extend({
   Mixin for (Array)Controllers to limit the items viewed.
 
   'model' should hold the complete list.
-  'items' holds de items to show and is the property to use in henadlebars template.
+  'items' holds de items to show and is the property to use in handlebars template.
   'canLoadMore' is a boolean to determine if there are still more items to show.
   'showMore' is the event to trigger to add more items.
   'perPage' is the initial and incremental number of items to show.
@@ -333,10 +333,11 @@ App.ShowMoreItemsMixin = Em.Mixin.create({
     items: Em.A(),
 
     remainingItemCount: function(){
-        if (this.get('model.isLoaded')) {
+        if (this.get('model.length')) {
             return this.get('model.length') - (this.get('page')  * this.get('perPage'));
+
         }
-        return '??';
+        return '...';
     }.property('page', 'model.isLoaded', 'perPage'),
 
     canLoadMore: function(){

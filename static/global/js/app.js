@@ -620,10 +620,6 @@ App.ProjectRoute = Ember.Route.extend({
         projectSupporterListController.set('page', 1);
         projectSupporterListController.set('canLoadMore', true);
 
-    },
-    renderTemplate: function(controller, model){
-        this._super(controller, model);
-        this.render('projectWallPostList', {outlet: 'outlet'});
     }
 });
 
@@ -635,9 +631,12 @@ App.ProjectIndexRoute = Ember.Route.extend({
         return this.modelFor('project');
     },
     setupController: function(controller, model) {
-        // Empty the items and set page to 0 so we don't show wall posts from previous project
-        controller.set('items', Em.A());
-        controller.set('page', 0);
+        // Empty the items and set page to 0 if project changes so we don't show wall posts from previous project
+        if (this.get('model_id') != model.get('id')) {
+            controller.set('items', Em.A());
+            controller.set('page', 0);
+        }
+        this.set('model_id', model.get('id'));
         this._super(controller, model.get('wallposts'));
     }
 
