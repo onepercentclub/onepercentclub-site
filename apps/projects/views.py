@@ -47,7 +47,7 @@ class ProjectPreviewDetail(generics.RetrieveAPIView):
 class ProjectList(generics.ListAPIView):
     model = Project
     serializer_class = ProjectSerializer
-    paginate_by = 5000
+    paginate_by = 10
     filter_fields = ('phase', )
 
     def get_queryset(self):

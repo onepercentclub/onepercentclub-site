@@ -8,14 +8,11 @@ from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWall
                     ProjectPitchDetail, ProjectPlanDetail)
 
 urlpatterns = patterns('',
-    url(r'^projects$', ProjectList.as_view(), name='project-list'),
+    url(r'^projects/$', ProjectList.as_view(), name='project-list'),
     surl(r'^projects/<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
 
-    url(r'^previews', ProjectPreviewList.as_view(), name='project-preview-list'),
+    url(r'^previews/', ProjectPreviewList.as_view(), name='project-preview-list'),
     surl(r'^previews/<slug:s>$', ProjectPreviewDetail.as_view(), name='project-preview-detail'),
-
-    url(r'^$', ProjectList.as_view(), name='project-list'),
-    surl(r'^<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
 
     # Not publically avaialable atm
     # surl(r'^pitches/<pk:#>$', ProjectPitchDetail.as_view(), name='project-pitch-detail'),
