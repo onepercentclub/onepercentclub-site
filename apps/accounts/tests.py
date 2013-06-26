@@ -204,7 +204,7 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         self.assertEqual(len(mail.outbox), 2)
 
         # Setup: get the password reset token and url.
-        c = re.compile('.*(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20}).*', re.DOTALL)
+        c = re.compile('.*\/(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})\".*', re.DOTALL)
         m = c.match(mail.outbox[1].body)
         password_set_url = '{0}{1}-{2}'.format(self.user_password_set_api_url, m.group(1), m.group(2))
 
