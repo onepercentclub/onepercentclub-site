@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-06 19:48+0200\n"
+"POT-Creation-Date: 2013-06-26 12:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,95 +33,95 @@ msgstr ""
 msgid "Mark selected entries as published"
 msgstr ""
 
-#: models.py:15 models.py:40
+#: models.py:14 models.py:39
 msgid "Title"
 msgstr ""
 
-#: models.py:18
+#: models.py:17
 msgid "Blog category"
 msgstr ""
 
-#: models.py:19
+#: models.py:18
 msgid "Blog categories"
 msgstr ""
 
-#: models.py:32
+#: models.py:31
 msgid "Published"
 msgstr ""
 
-#: models.py:33
+#: models.py:32
 msgid "Draft"
 msgstr ""
 
-#: models.py:36
+#: models.py:35
 msgid "Blog"
 msgstr ""
 
-#: models.py:37 models.py:122 models.py:123
+#: models.py:36 models.py:119 models.py:120
 msgid "News"
 msgstr ""
 
-#: models.py:39
+#: models.py:38
 msgid "Type"
 msgstr ""
 
-#: models.py:41
+#: models.py:40
 msgid "Slug"
 msgstr ""
 
-#: models.py:44
+#: models.py:43
 msgid "Main photo"
 msgstr ""
 
-#: models.py:45
+#: models.py:44
 msgid "language"
 msgstr ""
 
-#: models.py:49
+#: models.py:48
 msgid "status"
 msgstr ""
 
-#: models.py:50
+#: models.py:49
 msgid "publication date"
 msgstr ""
 
-#: models.py:50
+#: models.py:49
 msgid "When the entry should go live, status must be \"Published\"."
 msgstr ""
 
-#: models.py:51
+#: models.py:50
 msgid "publication end date"
 msgstr ""
 
-#: models.py:52
+#: models.py:51
 msgid "Allow comments"
 msgstr ""
 
-#: models.py:55
+#: models.py:54
 msgid "author"
 msgstr ""
 
-#: models.py:56
+#: models.py:55
 msgid "creation date"
 msgstr ""
 
-#: models.py:57
+#: models.py:56
 msgid "last modification"
 msgstr ""
 
-#: models.py:60
+#: models.py:59
 msgid "Categories"
 msgstr ""
 
-#: models.py:62
+#: models.py:61
 msgid "Countries"
 msgstr ""
 
-#: models.py:67 models.py:105
+#: models.py:66 models.py:102
 msgid "Blog post"
 msgstr ""
 
-#: models.py:68 models.py:106
+#: models.py:67 models.py:103
 msgid "Blog posts"
 msgstr ""
 

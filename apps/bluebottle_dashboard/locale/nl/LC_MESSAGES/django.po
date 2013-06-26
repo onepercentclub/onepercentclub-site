@@ -7,35 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-03-21 15:21+0100\n"
-"PO-Revision-Date: 2013-02-26 17:11+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-06-26 11:50+0200\n"
+"PO-Revision-Date: 2013-06-26 09:55+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: templates/admin/base.html:37
-msgid "Welcome,"
-msgstr ""
-
-#: templates/admin/base.html:42
-msgid "Documentation"
-msgstr ""
-
-#: templates/admin/base.html:44
-msgid "Change password"
-msgstr ""
-
-#: templates/admin/base.html:45
-msgid "Log out"
-msgstr "Log uit"
-
-#: templates/admin/base.html:54
-msgid "Home"
-msgstr "Home"
 
 #: templates/admin/base_site.html:4
 msgid "Django site admin"
@@ -44,4 +24,9 @@ msgstr ""
 #: templates/admin/base_site.html:15
 #, python-format
 msgid "1%%Club"
+msgstr ""
+
+#: templates/fluent_dashboard/modules/personal_text.html:4
+#, python-format
+msgid "Welcome to the back-office of 1%%CLUB website."
 msgstr ""

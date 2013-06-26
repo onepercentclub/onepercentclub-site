@@ -17,54 +17,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:19
-msgid "New"
+#: admin.py:21
+msgid "Publication settings"
 msgstr ""
 
-#: models.py:20
-msgid "Progress"
+#: admin.py:55
+msgid "Status"
+msgstr ""
+
+#: models.py:12
+msgid "Published"
+msgstr ""
+
+#: models.py:13
+msgid "Draft"
+msgstr ""
+
+#: models.py:16
+msgid "Projects"
+msgstr ""
+
+#: models.py:17
+msgid "Tasks"
+msgstr ""
+
+#: models.py:18
+msgid "Befriend"
 msgstr ""
 
 #: models.py:21
-msgid "Completed"
+msgid "language"
 msgstr ""
 
 #: models.py:23
-msgid "Planned"
+msgid "type"
 msgstr ""
 
-#: models.py:23
-msgid "Date that this batch should be processed."
-msgstr ""
-
-#: models.py:27
+#: models.py:26
 msgid "status"
 msgstr ""
 
-#: models.py:28 models.py:73 models.py:102
-msgid "Created"
+#: models.py:27
+msgid "publication date"
 msgstr ""
 
-#: models.py:29
-msgid "Updated"
+#: models.py:27
+msgid "When the entry should go live, status must be 'Published'."
 msgstr ""
 
-#: models.py:30
-msgid "Amount"
+#: models.py:28
+msgid "publication end date"
 msgstr ""
 
 #: models.py:31
-msgid "Currency"
+msgid "Author"
 msgstr ""
 
-#: models.py:78
-msgid "Date started"
+#: models.py:32
+msgid "Quoted member"
 msgstr ""
 
-#: models.py:79
-msgid "Debet/Credit"
+#: models.py:34
+msgid "creation date"
 msgstr ""
 
-#: models.py:103
-msgid "Uploaded mutation file"
+#: models.py:35
+msgid "last modification"
 msgstr ""

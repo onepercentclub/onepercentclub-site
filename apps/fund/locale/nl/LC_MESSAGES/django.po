@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-05-06 19:48+0200\n"
-"PO-Revision-Date: 2013-05-06 17:48+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-06-26 11:50+0200\n"
+"PO-Revision-Date: 2013-06-26 09:54+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,203 +37,207 @@ msgstr ""
 msgid "has a custom 1%GIFTCARD request"
 msgstr ""
 
-#: models.py:20 models.py:136 models.py:185
+#: models.py:21 models.py:137 models.py:186
 msgid "New"
 msgstr "Nieuw"
 
-#: models.py:21 models.py:69 models.py:186
+#: models.py:22 models.py:70 models.py:187
 msgid "In progress"
 msgstr ""
 
-#: models.py:22
+#: models.py:23
 msgid "Pending"
 msgstr ""
 
-#: models.py:23 models.py:137
+#: models.py:24 models.py:138
 msgid "Paid"
 msgstr "Betaald"
 
-#: models.py:24 models.py:138
+#: models.py:25 models.py:139
 msgid "Cancelled"
 msgstr ""
 
-#: models.py:27
+#: models.py:28
 msgid "One-off"
 msgstr ""
 
-#: models.py:28 models.py:68
+#: models.py:29 models.py:69
 msgid "Monthly"
 msgstr ""
 
-#: models.py:29
+#: models.py:30
 msgid "Voucher"
 msgstr ""
 
-#: models.py:31 models.py:146 templates/vouchers.hbs:247
+#: models.py:32 models.py:147
 msgid "Amount"
 msgstr ""
 
-#: models.py:32
+#: models.py:33
 msgid "currency"
 msgstr ""
 
-#: models.py:34
+#: models.py:35
 msgid "User"
 msgstr "Gebruiker"
 
-#: models.py:35
+#: models.py:36
 msgid "Project"
 msgstr "Project"
 
-#: models.py:37 models.py:153
+#: models.py:38 models.py:154
 msgid "Status"
 msgstr ""
 
-#: models.py:38 models.py:80 models.py:154
+#: models.py:39 models.py:81 models.py:155
 msgid "Created"
 msgstr ""
 
-#: models.py:39 models.py:81 models.py:155
+#: models.py:40 models.py:82 models.py:156
 msgid "Updated"
 msgstr ""
 
-#: models.py:41
+#: models.py:42
 msgid "Type"
 msgstr ""
 
-#: models.py:52
+#: models.py:53
 msgid "donation"
 msgstr "donatie"
 
-#: models.py:53
+#: models.py:54
 msgid "donations"
 msgstr "donaties"
 
-#: models.py:67
+#: models.py:68
 msgid "Current"
 msgstr ""
 
-#: models.py:70
+#: models.py:71
 msgid "Closed"
 msgstr "Gesloten"
 
-#: models.py:77
+#: models.py:78
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:78 models.py:198
+#: models.py:79 models.py:200
 msgid "status"
 msgstr "status"
 
-#: models.py:139
+#: models.py:140
 msgid "Cashed"
 msgstr ""
 
-#: models.py:140
+#: models.py:141
 msgid "Cashed by us"
 msgstr ""
 
-#: models.py:143 templates/orders.hbs:194
+#: models.py:144 templates/orders.hbs:194
 msgid "English"
 msgstr ""
 
-#: models.py:144 templates/orders.hbs:197
+#: models.py:145 templates/orders.hbs:197
 msgid "Dutch"
 msgstr ""
 
-#: models.py:147
+#: models.py:148
 msgid "Currency"
 msgstr ""
 
-#: models.py:149 templates/orders.hbs:189
+#: models.py:150 templates/orders.hbs:189
 msgid "Language"
 msgstr ""
 
-#: models.py:150
+#: models.py:151
 msgid "Message"
 msgstr ""
 
-#: models.py:151
+#: models.py:152
 msgid "Code"
 msgstr ""
 
-#: models.py:157
+#: models.py:158
 msgid "Sender"
 msgstr ""
 
-#: models.py:158
+#: models.py:159
 msgid "Sender email"
 msgstr ""
 
-#: models.py:159
+#: models.py:160
 msgid "Sender name"
 msgstr ""
 
-#: models.py:161
+#: models.py:162
 msgid "Receiver"
 msgstr ""
 
-#: models.py:162
+#: models.py:163
 msgid "Receiver email"
 msgstr ""
 
-#: models.py:163
+#: models.py:164
 msgid "Receiver name"
 msgstr ""
 
-#: models.py:173
-msgid "GiftCard"
-msgstr ""
-
 #: models.py:174
-msgid "GiftCards"
+msgid "Gift Card"
 msgstr ""
 
-#: models.py:180
-msgid "Card"
+#: models.py:175 templates/orders.hbs:43
+msgid "Gift Cards"
 msgstr ""
 
 #: models.py:181
-msgid "Digital"
+msgid "Card"
 msgstr ""
 
 #: models.py:182
+msgid "Digital"
+msgstr ""
+
+#: models.py:183
 msgid "Unknown"
 msgstr ""
 
-#: models.py:187
+#: models.py:188
 msgid "Finished"
 msgstr ""
 
-#: models.py:189
+#: models.py:190 templates/orders.hbs:203
+msgid "Value"
+msgstr ""
+
+#: models.py:191
 msgid "Number"
 msgstr ""
 
-#: models.py:190
+#: models.py:192
 msgid "Contact member"
 msgstr ""
 
-#: models.py:191 models.py:192
+#: models.py:193 models.py:194
 msgid "Contact email"
 msgstr ""
 
-#: models.py:193
+#: models.py:195
 msgid "Contact phone"
 msgstr ""
 
-#: models.py:194 templates/vouchers.hbs:277
+#: models.py:196 templates/vouchers.hbs:287
 msgid "Organisation"
 msgstr ""
 
-#: models.py:195
+#: models.py:197
 msgid "message"
 msgstr "bericht"
 
-#: models.py:197
+#: models.py:199
 msgid "type"
 msgstr "type"
 
-#: models.py:199
+#: models.py:201
 msgid "created"
 msgstr "aangemaakt"
 
@@ -297,10 +301,6 @@ msgstr "Steun een of meerdere projecten"
 msgid "I have a 1%%GIFTCARD"
 msgstr ""
 
-#: templates/orders.hbs:43
-msgid "Gift Cards"
-msgstr ""
-
 #: templates/orders.hbs:49
 msgid "Support"
 msgstr ""
@@ -357,8 +357,8 @@ msgstr ""
 
 #: templates/orders.hbs:133 templates/orders.hbs.py:169
 #: templates/orders.hbs:171 templates/orders.hbs.py:388
-#: templates/orders.hbs:493 templates/orders.hbs.py:517
-#: templates/orders.hbs:539
+#: templates/orders.hbs:496 templates/orders.hbs.py:520
+#: templates/orders.hbs:542
 msgid "Next"
 msgstr ""
 
@@ -376,15 +376,11 @@ msgstr ""
 msgid "Choose value & personalize 1%%GIFTCARD"
 msgstr ""
 
-#: templates/orders.hbs:203
-msgid "Value"
-msgstr ""
-
-#: templates/orders.hbs:228 templates/vouchers.hbs:257
+#: templates/orders.hbs:228 templates/vouchers.hbs:267
 msgid "Your name"
 msgstr ""
 
-#: templates/orders.hbs:240 templates/vouchers.hbs:267
+#: templates/orders.hbs:240 templates/vouchers.hbs:277
 msgid "Your email"
 msgstr ""
 
@@ -444,55 +440,57 @@ msgstr ""
 msgid "Final step. Almost there!"
 msgstr ""
 
-#: templates/orders.hbs:422
-msgid "Choose the payment method."
+#: templates/orders.hbs:424
+msgid ""
+"There was an error transfering you to the payment provider. Please try "
+"again."
 msgstr ""
 
-#: templates/orders.hbs:429 templates/orders.hbs.py:466
+#: templates/orders.hbs:432 templates/orders.hbs.py:469
 msgid "processing payment..."
 msgstr ""
 
-#: templates/orders.hbs:431 templates/orders.hbs.py:469
+#: templates/orders.hbs:434 templates/orders.hbs.py:472
 msgid "Proceed with Payment"
 msgstr ""
 
-#: templates/orders.hbs:443 templates/vouchers.hbs:318
+#: templates/orders.hbs:446 templates/vouchers.hbs:328
 msgid "YOU MAKE IT WORK!"
 msgstr ""
 
-#: templates/orders.hbs:444
+#: templates/orders.hbs:447
 msgid "Choose the payment method you prefer to donate."
 msgstr ""
 
-#: templates/orders.hbs:452
+#: templates/orders.hbs:455
 msgid "iDeal"
 msgstr ""
 
-#: templates/orders.hbs:459
+#: templates/orders.hbs:462
 msgid "Other"
 msgstr "Anders"
 
-#: templates/orders.hbs:471
+#: templates/orders.hbs:474
 msgid "No payment method selected"
 msgstr ""
 
-#: templates/orders.hbs:491 templates/orders.hbs.py:515
+#: templates/orders.hbs:494 templates/orders.hbs.py:518
 msgid "Pay"
 msgstr ""
 
-#: templates/orders.hbs:499
+#: templates/orders.hbs:502
 msgid "Hang on tiger! Loading information..."
 msgstr ""
 
-#: templates/orders.hbs:520 templates/orders.hbs.py:541
+#: templates/orders.hbs:523 templates/orders.hbs.py:544
 msgid "loading information..."
 msgstr ""
 
-#: templates/orders.hbs:552
+#: templates/orders.hbs:555
 msgid "Donation Successful!"
 msgstr ""
 
-#: templates/orders.hbs:553
+#: templates/orders.hbs:556
 #, python-format
 msgid ""
 "\n"
@@ -502,12 +500,12 @@ msgid ""
 "                "
 msgstr ""
 
-#: templates/orders.hbs:560
+#: templates/orders.hbs:563
 #, python-format
 msgid "Personalise your 1%%"
 msgstr ""
 
-#: templates/orders.hbs:561
+#: templates/orders.hbs:564
 msgid ""
 "\n"
 "                We've created an account for you.\n"
@@ -516,19 +514,19 @@ msgid ""
 "                "
 msgstr ""
 
-#: templates/orders.hbs:568
+#: templates/orders.hbs:571
 msgid "Complete your profile"
 msgstr ""
 
-#: templates/orders.hbs:582
+#: templates/orders.hbs:585
 msgid "You just supported"
 msgstr ""
 
-#: templates/orders.hbs:597
+#: templates/orders.hbs:600
 msgid "still needed"
 msgstr ""
 
-#: templates/orders.hbs:603
+#: templates/orders.hbs:606
 msgid "Vouchers"
 msgstr "Bonnen"
 
@@ -634,18 +632,26 @@ msgid ""
 "soon as possible. Or call us directly on (+31) 20 715 8980."
 msgstr ""
 
-#: templates/vouchers.hbs:287
+#: templates/vouchers.hbs:247
+msgid "Value of Gift Cards"
+msgstr ""
+
+#: templates/vouchers.hbs:257
+msgid "Number of Gift Cards"
+msgstr ""
+
+#: templates/vouchers.hbs:297
 msgid "Phone number"
 msgstr ""
 
-#: templates/vouchers.hbs:296
+#: templates/vouchers.hbs:306
 msgid "Anything else you’d like to ask? Send us a message!"
 msgstr ""
 
-#: templates/vouchers.hbs:300
+#: templates/vouchers.hbs:310
 msgid "Send message"
 msgstr ""
 
-#: templates/vouchers.hbs:317
+#: templates/vouchers.hbs:327
 msgid "Thanks for your request. We'll get back to you soon!"
 msgstr ""
