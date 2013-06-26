@@ -233,8 +233,6 @@ App.UploadFileView = Ember.TextField.extend({
 });
 
 
-
-
 // See/Use App.DatePicker
 App.DatePickerValue = Ember.TextField.extend({
     type: 'hidden',
