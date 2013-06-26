@@ -573,14 +573,13 @@
             <sidebar>
                 <h2 class="green">{% trans "Personalise your 1%" %}</h2>
                 {% blocktrans %}
-                We've created an account for you.
                 Following projects are now even easier and you'll have
                 your own personalised page!
                 {% endblocktrans %}
                 <br />
-                <a href="#" class="profile-link">
+                {{#linkTo "userProfile" class="profile-link" }}
                     {% trans "Complete your profile" %}
-                </a>
+                {{/linkTo }}
 
             </sidebar>
         </header>
