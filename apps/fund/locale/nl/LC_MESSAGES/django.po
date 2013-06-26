@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-06-26 11:50+0200\n"
-"PO-Revision-Date: 2013-06-26 09:54+0000\n"
+"POT-Creation-Date: 2013-06-26 12:03+0200\n"
+"PO-Revision-Date: 2013-06-26 10:10+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -406,7 +406,7 @@ msgstr ""
 
 #: templates/orders.hbs:312 templates/orders.hbs.py:413
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: templates/orders.hbs:323
 msgid "Your full name"

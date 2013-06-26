@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# gannetson <loek@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
 "POT-Creation-Date: 2013-06-26 12:03+0200\n"
-"PO-Revision-Date: 2013-06-26 10:04+0000\n"
+"PO-Revision-Date: 2013-06-26 10:11+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/bluebottle/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +105,7 @@ msgstr ""
 
 #: templates/wallposts.hbs:33
 msgid "Name of your update."
-msgstr ""
+msgstr "Заглавието на обновяване"
 
 #: templates/wallposts.hbs:47
 msgid "Your update."
@@ -112,7 +113,7 @@ msgstr ""
 
 #: templates/wallposts.hbs:61
 msgid "Add link to video"
-msgstr ""
+msgstr "Добави линк към видео"
 
 #: templates/wallposts.hbs:75
 msgid "Upload photos"
@@ -124,7 +125,7 @@ msgstr ""
 
 #: templates/wallposts.hbs:83
 msgid "Select photos"
-msgstr ""
+msgstr "Изберете снимки"
 
 #: templates/wallposts.hbs:90
 msgid "Error"
@@ -136,11 +137,11 @@ msgstr ""
 
 #: templates/wallposts.hbs:116 templates/wallposts.hbs.py:128
 msgid "Comment"
-msgstr ""
+msgstr "Коментар"
 
 #: templates/wallposts.hbs:138
 msgid "Comments & Updates"
-msgstr ""
+msgstr "Коментари и Актуализации"
 
 #: templates/wallposts.hbs:155 templates/wallposts.hbs.py:337
 msgid "Show more"
