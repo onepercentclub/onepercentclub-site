@@ -96,7 +96,7 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
                 project.phase = ProjectPhases.plan
                 project.save()
 
-        self.projects_url = '/i18n/api/projects/'
+        self.projects_url = '/i18n/api/projects/projects/'
 
     def test_project_list_view(self):
         """
@@ -108,8 +108,8 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.get(self.projects_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 26)
-        self.assertEquals(len(response.data['results']), 26)
-        self.assertEquals(response.data['next'], None)
+        self.assertEquals(len(response.data['results']), 10)
+        self.assertNotEquals(response.data['next'], None)
         self.assertEquals(response.data['previous'], None)
 
     def test_project_list_view_query_filters(self):
@@ -122,7 +122,7 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         response = self.client.get(self.projects_url + '?phase=plan')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
-        self.assertEquals(len(response.data['results']), 13)
+        self.assertEquals(len(response.data['results']), 10)
 
     def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
