@@ -1231,12 +1231,16 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000342}}
 .results .item .footer ul li { margin: 2px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000350}}
+.search-form { padding-top: 8px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000352}}
 .search-form .control { float: left; width: 22.91667%; margin-left: 0%; margin-right: 2.08333%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000353}}
-.search-form .control .icon { background-color: #666666; color: #e9e9e9; font-size: 24px; display: block; padding: 8px; float: left; width: 16.66667%; margin-left: 0%; margin-right: 0%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000362}}
-.search-form .control input, .search-form .control select { float: left; width: 83.33333%; margin-left: 0%; margin-right: 0%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000354}}
+.search-form .control .icon { background-color: #cccccc; color: #444444; font-size: 22px; display: block; padding: 9px; float: left; width: 14.58333%; margin-left: 0%; margin-right: 0%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000363}}
+.search-form .control input, .search-form .control select { float: left; width: 83.33333%; margin-left: 0%; margin-right: 0%; text-transform: uppercase; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_search\.scss}line{font-family:\0000366}}
+.search-form .control input:placeholder, .search-form .control select:placeholder { text-transform: uppercase; }
 
 /* Modules */
 /* =========== Buttons */

@@ -48,19 +48,24 @@
 }
 
 .search-form {
+    padding-top: 8px;
     .control {
         @include grid(12,0,1);
         .icon {
-            background-color: $grayDark;
-            color: $color-back;
-            font-size: 24px;
+            background-color: $grayLight;
+            color: $grayDarker;
+            font-size: 22px;
             display: block;
-            padding: 8px;
-            @include grid(8,0,0);
+            padding: 9px;
+            @include grid(7,0,0);
 
         }
         input, select {
             @include grid(40,0,0);
+            text-transform: uppercase;
+            &:placeholder {
+                text-transform: uppercase;
+            }
         }
     }
 }
