@@ -41,8 +41,8 @@ App.ProjectPitch = DS.Model.extend({
 
     // Location
     country: DS.belongsTo('App.ProjectCountry'),
-    latitude: DS.attr('number'),
-    longitude: DS.attr('number'),
+    latitude: DS.attr('string'),
+    longitude: DS.attr('string'),
 
     // Media
     image: DS.attr('string'),
@@ -76,8 +76,8 @@ App.ProjectPlan = DS.Model.extend({
 
     // Location
     country: DS.belongsTo('App.ProjectCountry'),
-    latitude: DS.attr('number'),
-    longitude: DS.attr('number'),
+    latitude: DS.attr('string'),
+    longitude: DS.attr('string'),
 
     // Media
     image: DS.attr('image'),
