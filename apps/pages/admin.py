@@ -48,8 +48,7 @@ class PageAdmin(PlaceholderFieldAdmin):
         base_urls = super(PageAdmin, self).get_urls()
         info = self.model._meta.app_label, self.model._meta.module_name
         urlpatterns = patterns('',
-            url(r'^(?P<pk>\d+)/preview-canvas/$', self.admin_site.admin_view(self.preview_canvas), name="{0}_{1}_preview_canvas".format(*info)),
-            url(r'^(?P<pk>\d+)/get_preview/$', self.admin_site.admin_view(self.get_preview_html), name="{0}_{1}_get_preview".format(*info))
+            url(r'^(?P<pk>\d+)/preview/$', self.admin_site.admin_view(self.preview_canvas), name="{0}_{1}_preview".format(*info)),
         )
 
         return urlpatterns + base_urls
@@ -64,67 +63,11 @@ class PageAdmin(PlaceholderFieldAdmin):
     @xframe_options_sameorigin
     def preview_canvas(self, request, pk):
         # Avoid the proxy model stuff, allow both to work.
-        slide = self.get_base_object(pk)
+        page = self.get_base_object(pk)
         return render(request, 'admin/pages/preview_canvas.html', {
-            'slide': slide,
-            'contents': render_placeholder(request, slide.contents)
+            'page': page,
+            'body': render_placeholder(request, page.body)
         })
-
-    def get_preview_html(self, request, pk):
-        """
-        Ajax view to return the preview.
-        """
-        blogpost = self.get_base_object(pk)
-
-        # Get fluent-contents placeholder
-        items = self._get_preview_items(request, blogpost)
-        contents_html = render_content_items(request, items)
-
-        status = 200
-        json = {
-            'success': True,
-            'title': blogpost.title,
-            'contents': contents_html,
-        }
-        return HttpResponse(simplejson.dumps(json), content_type='application/javascript', status=status)
-
-    def _get_preview_items(self, request, slide):
-        """
-        Construct all ContentItem models with the latest unsaved client-side data applied to them.
-
-        This functionality could ideally be included in django-fluent-contents directly,
-        however that would require more testing and dealing with the "placeholder editor" interface too,
-        in contrast to a single "placeholder field", the placeholder editor allows to move ContentItems between placeholders.
-        """
-        new_items = []
-
-        # Simulate the django-admin POST process, without saving.
-
-        # Each ContentItem type is hosted in the Django admin as an inline with a formset.
-        prefixes = {}
-        inline_instances = self.get_inline_instances(request)
-        for FormSet, inline in zip(self.get_formsets(request), inline_instances):
-            if not getattr(inline, 'is_fluent_editor_inline', False) or inline.model is Placeholder:
-                continue
-
-            prefix = FormSet.get_default_prefix()
-            prefixes[prefix] = prefixes.get(prefix, 0) + 1
-            if prefixes[prefix] != 1 or not prefix:
-                prefix = "{0}-{1}".format(prefix, prefixes[prefix])
-
-            formset = FormSet(
-                data=request.POST, files=request.FILES, prefix=prefix,
-                instance=slide, queryset=inline.queryset(request)
-            )
-
-            # Extract all items out of the formset
-            # NOTE: no filtering of items for a placeholder, assume there is only one PlaceholderField in the page.
-            new_items += self._get_formset_objects(formset)
-
-        # Reorder items by ordering
-        new_items = sorted(new_items, key=lambda ci: ci.sort_order)
-
-        return new_items
 
 
     def _get_formset_objects(self, formset):
@@ -154,8 +97,7 @@ class PageAdmin(PlaceholderFieldAdmin):
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         info = self.model._meta.app_label, self.model._meta.module_name
         context.update({
-            'preview_canvas_url': reverse('admin:{0}_{1}_preview_canvas'.format(*info), kwargs={'pk': obj.pk if obj else 0}),
-            'get_preview_url': reverse('admin:{0}_{1}_get_preview'.format(*info), kwargs={'pk': obj.pk if obj else 0}),
+            'preview_canvas_url': reverse('admin:{0}_{1}_preview'.format(*info), kwargs={'pk': obj.pk if obj else 0}),
         })
         return super(PageAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 

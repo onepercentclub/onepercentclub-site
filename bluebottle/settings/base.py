@@ -389,7 +389,7 @@ AUTH_USER_MODEL = 'accounts.BlueBottleUser'
 FLUENT_CONTENTS_CACHE_OUTPUT = True
 FLUENT_TEXT_CLEAN_HTML = True
 FLUENT_TEXT_SANITIZE_HTML = True
-DJANGO_WYSIWYG_FLAVOR = 'tinymce'
+DJANGO_WYSIWYG_FLAVOR = 'tinymce_advanced'
 
 # Custom dashboard configuration
 ADMIN_TOOLS_INDEX_DASHBOARD = 'fluent_dashboard.dashboard.FluentIndexDashboard'
