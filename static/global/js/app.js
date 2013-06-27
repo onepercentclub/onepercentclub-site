@@ -128,8 +128,6 @@ App = Em.Application.create({
         App.ProjectCountrySelectView.reopen({
             content: filteredList
         });
-
-
     },
 
     setLocale: function(locale) {

@@ -19,10 +19,12 @@ App.Organization = DS.Model.extend({
     legalStatus: DS.attr('string', {defaultValue: ""}),
 });
 
+
 App.ProjectCountry = DS.Model.extend({
     name: DS.attr('string'),
     subregion: DS.attr('string')
 });
+
 
 App.ProjectPitch = DS.Model.extend({
     url: 'projects/pitches',
@@ -87,6 +89,7 @@ App.ProjectPlan = DS.Model.extend({
 
 });
 
+
 App.ProjectCampaign = DS.Model.extend({
     url: 'projects/plans',
 
@@ -133,13 +136,45 @@ App.ProjectPreview = App.Project.extend({
 });
 
 
+App.ProjectSearch = DS.Model.extend({
+
+    text: DS.attr('string'),
+    country: DS.attr('number'),
+    theme:  DS.attr('number'),
+    orderBy: DS.attr('string', {defaultValue: 'title'}),
+    phase: DS.attr('string', {defaultValue: 'campaign'})
+
+})
+
 /*
  Controllers
  */
 
 
-App.ProjectListController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {
-    perPage: 10
+App.ProjectListController = Em.ArrayController.extend({
+});
+
+
+App.ProjectSearchFormController = Em.ObjectController.extend({
+    needs: ['projectList'],
+    init: function(){
+        var form =  App.ProjectSearch.createRecord();
+        this.set('model', form);
+    },
+
+    updateSearch: function(){
+        if (this.get('model.isDirty')) {
+            var list = this.get('controllers.projectList');
+            var query = {
+                'phase': this.get('phase'),
+                'country': this.get('country'),
+                'text': this.get('text'),
+                'theme': this.get('theme')
+            };
+            list.set('model', App.ProjectPreview.find(query));
+        }
+    }.observes('text', 'country', 'theme', 'orderBy')
+
 });
 
 
@@ -180,13 +215,21 @@ App.ProjectSupporterView = Em.View.extend({
     }
 });
 
+
 App.ProjectSupporterListView = Em.View.extend({
     templateName: 'project_supporter_list'
 });
 
+
 App.ProjectListView = Em.View.extend({
     templateName: 'project_list'
 });
+
+
+App.ProjectSearchFormView = Em.View.extend({
+    templateName: 'project_search_form'
+});
+
 
 App.ProjectPlanView = Em.View.extend({
     templateName: 'project_plan',

@@ -11,21 +11,24 @@ App.Country = DS.Model.extend({
 App.CountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
-    optionLabelPath: "content.name"
+    optionLabelPath: "content.name",
+    prompt: "- select a country -"
 });
 
 
 App.CountryCodeSelectView = Em.Select.extend({
     content:  [{"code": "0", "name": "--loading--"}],
     optionValuePath: "content.code",
-    optionLabelPath: "content.name"
+    optionLabelPath: "content.name",
+    prompt: "- select a country -"
 });
 
 
 App.ProjectCountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
-    optionLabelPath: "content.name"
+    optionLabelPath: "content.name",
+    prompt: "- select a country -"
 });
 
 
@@ -89,6 +92,20 @@ App.TimeNeededSelectView = Em.Select.extend({
     optionValuePath: "content.value",
     optionLabelPath: "content.title"
 });
+
+
+App.ProjectOrderList = [
+    {value: 'title', title: "title"},
+    {value: 'money_needed', title: "money needed"},
+    {value: 'deadline', title: "deadline"}
+];
+
+App.ProjectOrderSelectView = Em.Select.extend({
+    content: App.ProjectOrderList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title"
+});
+
 
 App.IsAuthorMixin = Em.Mixin.create({
     isAuthor: function () {
@@ -391,7 +408,8 @@ App.ThemeList = [
 App.ThemeSelectView = Em.Select.extend({
     content: App.ThemeList,
     optionValuePath: "content.id",
-    optionLabelPath: "content.title"
+    optionLabelPath: "content.title",
+    prompt: "- select a theme -"
 });
 
 
