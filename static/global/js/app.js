@@ -98,6 +98,10 @@ App = Em.Application.create({
                 locale = 'en';
             }
         }
+
+        App.Page.reopen({
+            url: 'pages/' + language + '/pages'
+        });
         this.initSelectViews();
         this.setLocale(locale);
         this.initSelectViews();
@@ -204,7 +208,7 @@ App.loadTemplates = function() {
         // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
         // Now that we know the language we can load the handlebars templates.
         var readyCount = 0;
-        var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders']);
+        var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'pages']);
         templates.forEach(function(template){
             //loadTemplates(this.templates);
             var hash = {};
@@ -422,6 +426,8 @@ App.Router.map(function() {
         this.route('search');
     });
 
+    this.resource('page', {path: '/pages/:slug'});
+
     this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
         this.resource('projectTaskList', {path: '/tasks'});
@@ -616,6 +622,13 @@ App.ProjectRoute = Ember.Route.extend({
 
     }
 });
+
+App.PageRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.Page.find(params.slug);
+    }
+});
+
 
 
 // This is the 'ProjectWallPostListRoute'

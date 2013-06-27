@@ -1,0 +1,19 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "page" %}
+
+    <section class="wrapper">
+        <article class="wallpost">
+            <header>
+                <h2>{{title}}</h2>
+            </header>
+        </article>
+
+        <div class="wall">
+            {{{body}}}
+        </div>
+    </section>
+
+{% endtplhandlebars %}
