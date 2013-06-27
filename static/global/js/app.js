@@ -426,6 +426,11 @@ App.Router.map(function() {
         this.route('search');
     });
 
+    this.resource('error', {path: '/error'}, function() {
+        this.route('notFound');
+        this.route('notAllowed');
+    });
+
     this.resource('page', {path: '/pages/:slug'});
 
     this.resource('project', {path: '/projects/:project_id'}, function() {
@@ -611,6 +616,16 @@ App.ProjectListRoute = Ember.Route.extend({
 
 
 App.ProjectRoute = Ember.Route.extend({
+    model: function(params) {
+        var page =  App.Project.find(params.project_id);
+        var route = this;
+        page.on('becameError', function(){
+            //route.transitionTo('error.notFound');
+            route.transitionTo('projectList');
+        });
+        return page;
+    },
+
     setupController: function(controller, project) {
         this._super(controller, project);
 
@@ -622,14 +637,6 @@ App.ProjectRoute = Ember.Route.extend({
 
     }
 });
-
-App.PageRoute = Ember.Route.extend({
-    model: function(params) {
-        return App.Page.find(params.slug);
-    }
-});
-
-
 
 // This is the 'ProjectWallPostListRoute'
 App.ProjectIndexRoute = Ember.Route.extend({
@@ -1410,6 +1417,21 @@ App.MyProjectPlanIndexRoute =  Ember.Route.extend({
 App.MyProjectPlanReviewRoute =  Ember.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('plan');
+    }
+});
+
+
+/* Static Pages */
+
+
+App.PageRoute = Ember.Route.extend({
+    model: function(params) {
+        var page =  App.Page.find(params.slug);
+        var route = this;
+        page.on('becameError', function(){
+            route.transitionTo('error.notFound');
+        });
+        return page;
     }
 });
 
