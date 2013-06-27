@@ -1,0 +1,36 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "page" %}
+
+    <section class="wrapper">
+        <article class="wallpost">
+            <header>
+                <h2>{{title}}</h2>
+            </header>
+        </article>
+
+        <div class="wall">
+            {{{body}}}
+        </div>
+    </section>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "error/not_found" %}
+
+    <section class="wrapper">
+        <article class="wallpost">
+            <header>
+                <h2>{% trans "Something went wrong here..." %}</h2>
+            </header>
+        </article>
+
+        <div class="wall">
+            {% trans "The page or object you were looking for couldn't be found." %}
+        </div>
+    </section>
+
+{% endtplhandlebars %}

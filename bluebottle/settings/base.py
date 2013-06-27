@@ -241,6 +241,7 @@ INSTALLED_APPS = (
     'apps.banners',
     'apps.quotes',
     'apps.statistics',
+    'apps.pages',
 
     # Custom dashboard
     'fluent_dashboard',
@@ -400,6 +401,7 @@ FLUENT_DASHBOARD_DEFAULT_MODULE = 'admin_tools.dashboard.modules.AppList'
 FLUENT_DASHBOARD_APP_GROUPS = (
     (_('Site content'), {
         'models': [
+            'apps.pages.*',
             'apps.blogs.*',
             'apps.media.*',
             'apps.banners.*',
