@@ -98,6 +98,10 @@ App = Em.Application.create({
                 locale = 'en';
             }
         }
+
+        App.Page.reopen({
+            url: 'pages/' + language + '/pages'
+        });
         this.initSelectViews();
         this.setLocale(locale);
         this.initSelectViews();
@@ -204,7 +208,7 @@ App.loadTemplates = function() {
         // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
         // Now that we know the language we can load the handlebars templates.
         var readyCount = 0;
-        var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders']);
+        var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'pages']);
         templates.forEach(function(template){
             //loadTemplates(this.templates);
             var hash = {};
@@ -422,6 +426,13 @@ App.Router.map(function() {
         this.route('search');
     });
 
+    this.resource('error', {path: '/error'}, function() {
+        this.route('notFound');
+        this.route('notAllowed');
+    });
+
+    this.resource('page', {path: '/pages/:slug'});
+
     this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
         this.resource('projectTaskList', {path: '/tasks'});
@@ -605,6 +616,16 @@ App.ProjectListRoute = Ember.Route.extend({
 
 
 App.ProjectRoute = Ember.Route.extend({
+    model: function(params) {
+        var page =  App.Project.find(params.project_id);
+        var route = this;
+        page.on('becameError', function(){
+            //route.transitionTo('error.notFound');
+            route.transitionTo('projectList');
+        });
+        return page;
+    },
+
     setupController: function(controller, project) {
         this._super(controller, project);
 
@@ -616,7 +637,6 @@ App.ProjectRoute = Ember.Route.extend({
 
     }
 });
-
 
 // This is the 'ProjectWallPostListRoute'
 App.ProjectIndexRoute = Ember.Route.extend({
@@ -1397,6 +1417,21 @@ App.MyProjectPlanIndexRoute =  Ember.Route.extend({
 App.MyProjectPlanReviewRoute =  Ember.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('plan');
+    }
+});
+
+
+/* Static Pages */
+
+
+App.PageRoute = Ember.Route.extend({
+    model: function(params) {
+        var page =  App.Page.find(params.slug);
+        var route = this;
+        page.on('becameError', function(){
+            route.transitionTo('error.notFound');
+        });
+        return page;
     }
 });
 
