@@ -99,9 +99,7 @@ class VoucherRedeemSerializer(serializers.ModelSerializer):
 
 
 class VoucherDonationSerializer(DonationSerializer):
-    # The duplication of project is temporary. See note in orders.js App.OrderItem.
-    project_id = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
-    project_slug = serializers.SlugRelatedField(source='project', slug_field='slug')
+    project = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
 
     class Meta:
