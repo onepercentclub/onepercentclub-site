@@ -3,12 +3,13 @@
 App.Country = DS.Model.extend({
     url: "geo/countries",
     name: DS.attr('string'),
-    code: DS.attr('string')
+    code: DS.attr('string'),
+    oda: DS.attr('boolean')
 });
 
 
 App.CountrySelectView = Em.Select.extend({
-    content:  [{"value": "0", "title": "--loading--"}],
+    content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
     optionLabelPath: "content.name"
 });
@@ -19,6 +20,14 @@ App.CountryCodeSelectView = Em.Select.extend({
     optionValuePath: "content.code",
     optionLabelPath: "content.name"
 });
+
+
+App.ProjectCountrySelectView = Em.Select.extend({
+    content:  [{"id": "0", "name": "--loading--"}],
+    optionValuePath: "content.id",
+    optionLabelPath: "content.name"
+});
+
 
 
 // TODO: get this list from the server
