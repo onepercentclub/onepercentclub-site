@@ -14,7 +14,7 @@ from fluent_contents.models import Placeholder
 from fluent_contents.rendering import render_content_items, render_placeholder
 
 
-class SlideAdmin(PlaceholderFieldAdmin):
+class SlideAdmin(admin.ModelAdmin):
     list_display = ('title', 'sequence', 'status_column', 'modification_date', 'language')
     list_filter = ('status', 'language')
     date_hierarchy = 'publication_date'
@@ -25,7 +25,10 @@ class SlideAdmin(PlaceholderFieldAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'contents', 'language', 'sequence'),
+            'fields': ('language', 'sequence', 'tab_text'),
+        }),
+        (_('Contents'), {
+            'fields': ('title', 'body', 'image', 'background_image', 'link_text', 'link_url', 'style'),
         }),
         (_('Publication settings'), {
             'fields': ('status', 'publication_date', 'publication_end_date'),
@@ -65,8 +68,7 @@ class SlideAdmin(PlaceholderFieldAdmin):
         # Avoid the proxy model stuff, allow both to work.
         slide = self.get_base_object(pk)
         return render(request, 'admin/banners/preview_canvas.html', {
-            'slide': slide,
-            'contents': render_placeholder(request, slide.contents)
+            'slide': slide
         })
 
     def get_preview_html(self, request, pk):
