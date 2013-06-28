@@ -1,14 +1,12 @@
 import decimal
 import logging
-from django.contrib.contenttypes.models import ContentType
-from django.http import request
-import os
 import sys
-import re
 import json
+import os
+import re
 import types
-
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import linebreaks
 from django.utils.html import strip_tags, urlize
@@ -19,8 +17,8 @@ from micawber.exceptions import ProviderException
 from micawber.parsers import standalone_url_re, full_handler
 from rest_framework import serializers
 from sorl.thumbnail.shortcuts import get_thumbnail
-from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+
 
 logger = logging.getLogger(__name__)
 
