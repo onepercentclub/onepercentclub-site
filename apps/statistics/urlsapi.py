@@ -3,5 +3,5 @@ from surlex.dj import surl
 from .views import StatisticDetail
 
 urlpatterns = patterns('',
-    url(r'^$', StatisticDetail.as_view(), name='stats'),
+    url(r'^/current$', StatisticDetail.as_view(), name='stats'),
 )

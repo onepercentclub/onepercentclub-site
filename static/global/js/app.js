@@ -386,6 +386,9 @@ App.Adapter.map('App.MyOrganization', {
 App.Adapter.map('App.MyOrganizationDocument', {
     file: {embedded: 'load'}
 });
+App.Adapter.map('App.Quote', {
+    user: {embedded: 'load'}
+});
 
 
 App.Store = DS.Store.extend({
@@ -1417,6 +1420,39 @@ App.MyProjectPlanIndexRoute =  Ember.Route.extend({
 App.MyProjectPlanReviewRoute =  Ember.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('plan');
+    }
+});
+
+
+/* Home Page */
+
+
+App.HomeRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+        this._super(controller, model);
+
+        var lang = App.get('language');
+
+        App.Banner.find({language: lang}).then(function(banners) {
+            controller.set('banners', banners);
+        });
+
+        App.ProjectPreview.find({phase: 'campaign'}).then(function(projects) {
+            if (!Em.isEmpty(projects)) {
+                controller
+                    .set('projects', projects)
+                    .set('projectIndex', 0)
+                    .loadProject();
+            }
+        });
+
+        App.Quote.find({language: lang}).then(function(quotes) {
+            controller.set('quotes', quotes);
+        });
+
+        App.Impact.find('current').then(function(impact) {
+            controller.set('impact', impact);
+        });
     }
 });
 
