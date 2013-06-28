@@ -25,7 +25,6 @@ class TaskList(generics.ListCreateAPIView):
             queryset = queryset.filter(project__slug=project_slug)
         return queryset
 
-
     def pre_save(self, obj):
         obj.author = self.request.user
 

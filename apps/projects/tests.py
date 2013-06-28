@@ -183,14 +183,14 @@ class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Let's create a pitch for this other user
         response = self.client.post(self.manage_projects_url, {'title': 'My idea is way smarter!'})
-        project_slug =  response.data['id']
+        project_slug = response.data['id']
         project_url = self.manage_projects_url + project_slug
         self.assertEquals(response.data['title'], 'My idea is way smarter!')
         pitch_id = response.data['pitch']
         pitch_url = self.manage_pitches_url + str(pitch_id)
 
         # Add some values to this pitch
-        pitch_data = {'title': 'My idea is quite smart!', 'latitude': '52.987245','longitude': '-5.8754',
+        pitch_data = {'title': 'My idea is quite smart!', 'latitude': '52.987245', 'longitude': '-5.8754',
                       'pitch': 'Lorem ipsum, bla bla ', 'description': 'Some more text'}
         response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
@@ -226,11 +226,6 @@ class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEquals(response.data['phase'], ProjectPhases.plan)
         plan_id = response.data['plan']
         self.assertIsNotNone(plan_id)
-
-
-
-
-
 
 
 class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
