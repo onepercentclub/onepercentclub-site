@@ -73,6 +73,10 @@ App.HomeController = Ember.Controller.extend({
         App.Project.find(projectId).then(function(project) {
             controller.set('project', project);
         });
+    },
+
+    loadQuote: function() {
+        this.set('quote', this.get('quotes').objectAt(this.get('quoteIndex')));
     }
 });
 
@@ -95,7 +99,40 @@ App.HomeProjectView = Ember.View.extend({
 
 
 App.HomeQuotesView = Ember.View.extend({
-    templateName: 'home_quotes'
+    templateName: 'home_quotes',
+
+    didInsertElement: function() {
+        var controller = this.get('controller');
+        this.initQuoteCycle();
+    },
+
+    initQuoteCycle: function() {
+        var controller = this.get('controller');
+        var view = this;
+
+        var quoteIntervalId = setInterval(function() {
+            controller.incrementProperty('quoteIndex');
+            if (controller.get('quoteIndex') === controller.get('quotes').get('length')) {
+                controller.set('quoteIndex', 0);
+            }
+
+            controller.loadQuote();
+
+            var $activeBtn = view.$('.btn:not(.disabled)');
+            $activeBtn.addClass('disabled');
+
+            var $nextBtn = $activeBtn.next('.btn');
+            $nextBtn = ($nextBtn.length) ? $nextBtn : $activeBtn.prevAll('.btn').last();
+            $nextBtn.removeClass('disabled');
+        }, 5000);
+
+        this.set('quoteIntervalId', quoteIntervalId);
+    },
+
+    willDestroyElement: function() {
+        clearInterval(this.get('quoteIntervalId'));
+        this.set('quoteIntervalId', null);
+    }
 });
 
 
