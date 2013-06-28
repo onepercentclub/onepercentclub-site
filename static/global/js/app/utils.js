@@ -3,22 +3,34 @@
 App.Country = DS.Model.extend({
     url: "geo/countries",
     name: DS.attr('string'),
-    code: DS.attr('string')
+    code: DS.attr('string'),
+    oda: DS.attr('boolean')
 });
 
 
 App.CountrySelectView = Em.Select.extend({
-    content:  [{"value": "0", "title": "--loading--"}],
+    content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
-    optionLabelPath: "content.name"
+    optionLabelPath: "content.name",
+    prompt: "pick a country"
 });
 
 
 App.CountryCodeSelectView = Em.Select.extend({
     content:  [{"code": "0", "name": "--loading--"}],
     optionValuePath: "content.code",
-    optionLabelPath: "content.name"
+    optionLabelPath: "content.name",
+    prompt: "pick a country"
 });
+
+
+App.ProjectCountrySelectView = Em.Select.extend({
+    content:  [{"id": "0", "name": "--loading--"}],
+    optionValuePath: "content.id",
+    optionLabelPath: "content.name",
+    prompt: "pick a country"
+});
+
 
 
 // TODO: get this list from the server
@@ -80,6 +92,53 @@ App.TimeNeededSelectView = Em.Select.extend({
     optionValuePath: "content.value",
     optionLabelPath: "content.title"
 });
+
+
+App.ProjectOrderList = [
+    {value: 'title', title: "title"},
+    {value: 'money_needed', title: "money needed"},
+    {value: 'deadline', title: "deadline"}
+];
+
+App.ProjectOrderSelectView = Em.Select.extend({
+    content: App.ProjectOrderList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title"
+});
+
+App.ProjectPhaseList = [
+    {value: 'plan', title: "Writing Plan"},
+    {value: 'campaign', title: "Campaign"},
+    {value: 'act', title: "Act"},
+    {value: 'results', title: "Results"},
+    {value: 'realized', title: "Realised"}
+];
+
+App.ProjectPhaseSelectView = Em.Select.extend({
+    content: App.ProjectPhaseList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title",
+    prompt: "pick a phase"
+
+});
+
+
+App.Theme = DS.Model.extend({
+    url:'utils/themes',
+    title: DS.attr('string')
+});
+
+App.ThemeList = [
+    {id: "0", title: "--loading--"}
+];
+
+App.ThemeSelectView = Em.Select.extend({
+    content: App.ThemeList,
+    optionValuePath: "content.id",
+    optionLabelPath: "content.title",
+    prompt: "pick a theme"
+});
+
 
 App.IsAuthorMixin = Em.Mixin.create({
     isAuthor: function () {
@@ -369,23 +428,6 @@ App.PopOverMixin = Em.Mixin.create({
 });
 
 
-App.Theme = DS.Model.extend({
-    url:'utils/themes',
-    title: DS.attr('string')
-});
-
-
-App.ThemeList = [
-    {id: "0", title: "--loading--"}
-];
-
-App.ThemeSelectView = Em.Select.extend({
-    content: App.ThemeList,
-    optionValuePath: "content.id",
-    optionLabelPath: "content.title"
-});
-
-
 App.MapPicker = Em.View.extend({
 
     templateName: 'map_picker',
@@ -446,3 +488,4 @@ App.MapPicker = Em.View.extend({
     }
 
 });
+

@@ -19,10 +19,12 @@ App.Organization = DS.Model.extend({
     legalStatus: DS.attr('string', {defaultValue: ""}),
 });
 
+
 App.ProjectCountry = DS.Model.extend({
     name: DS.attr('string'),
     subregion: DS.attr('string')
 });
+
 
 App.ProjectPitch = DS.Model.extend({
     url: 'projects/pitches',
@@ -87,6 +89,7 @@ App.ProjectPlan = DS.Model.extend({
 
 });
 
+
 App.ProjectCampaign = DS.Model.extend({
     url: 'projects/plans',
 
@@ -123,7 +126,33 @@ App.Project = DS.Model.extend({
     days_left: DS.attr('number'),
     supporters_count: DS.attr('number'),
 
-    wallposts: DS.hasMany('App.WallPost')
+    wallposts: DS.hasMany('App.WallPost'),
+
+    isPhasePlan: function(){
+        return this.get('phase') == 'plan';
+    }.property('phase'),
+
+    isPhaseCampaign: function(){
+        return this.get('phase') == 'campaign';
+    }.property('phase'),
+
+    isPhaseAct: function(){
+        return this.get('phase') == 'act';
+    }.property('phase'),
+
+    isPhaseResults: function(){
+        return this.get('phase') == 'results';
+    }.property('phase'),
+
+    isPhaseRealized: function(){
+        return this.get('phase') == 'realized';
+    }.property('phase'),
+
+    isPhaseFailed: function(){
+        return this.get('phase') == 'failed';
+    }.property('phase')
+
+
 });
 
 
@@ -133,13 +162,89 @@ App.ProjectPreview = App.Project.extend({
 });
 
 
+App.ProjectSearch = DS.Model.extend({
+
+    text: DS.attr('string'),
+    country: DS.attr('number'),
+    theme:  DS.attr('number'),
+    ordering: DS.attr('string', {defaultValue: 'title'}),
+    phase: DS.attr('string', {defaultValue: 'campaign'}),
+    page: DS.attr('number', {defaultValue: 1})
+
+})
+
 /*
  Controllers
  */
 
 
-App.ProjectListController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {
-    perPage: 10
+App.ProjectListController = Em.ArrayController.extend({
+    needs: ['projectSearchForm']
+});
+
+
+App.ProjectSearchFormController = Em.ObjectController.extend({
+    needs: ['projectList'],
+
+    init: function(){
+        var form =  App.ProjectSearch.createRecord();
+        this.set('model', form);
+    },
+
+    hasNextPage: function(){
+        return (this.get('controllers.projectList.length') == 8);
+    }.property('controllers.projectList.length'),
+
+    hasPreviousPage: function(){
+        return (this.get('page') > 1);
+    }.property('page'),
+
+    nextPage: function(){
+        this.incrementProperty('page');
+    },
+
+    previousPage: function(){
+        this.decrementProperty('page');
+    },
+
+    sortOrder: function(order) {
+        this.set('ordering', order);
+    },
+
+    orderedByTitle: function(){
+        return (this.get('ordering') == 'title');
+    }.property('ordering'),
+    orderedByNewest: function(){
+        return (this.get('ordering') == 'newest');
+    }.property('ordering'),
+    orderedByNeeded: function(){
+        return (this.get('ordering') == 'needed');
+    }.property('ordering'),
+    orderedByDeadline: function(){
+        return (this.get('ordering') == 'deadline');
+    }.property('ordering'),
+
+
+    updateSearch: function(sender, key){
+        if (key != 'page') {
+            // If the query changes we should jump back to page 1
+            this.set('page', 1);
+        }
+        if (this.get('model.isDirty') ) {
+            var list = this.get('controllers.projectList');
+            var query = {
+                'page': this.get('page'),
+                'ordering': this.get('ordering'),
+                'phase': this.get('phase'),
+                'country': this.get('country'),
+                'text': this.get('text'),
+                'theme': this.get('theme')
+            };
+            list.set('model', App.ProjectPreview.find(query));
+        }
+    }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering')
+
+
 });
 
 
@@ -168,6 +273,20 @@ App.ProjectSupporterListController = Em.ArrayController.extend({
  Views
  */
 
+App.AnimateProgressMixin = Em.Mixin.create({
+    didInsertElement: function(){
+        var donated = this.get('controller.campaign.money_donated');
+        var asked = this.get('controller.campaign.money_asked');
+        this.$('.donate-progress').css('width', '0px');
+        var width = 0;
+        if (asked > 0) {
+            width = 100 * donated / asked;
+            width += '%';
+        }
+        this.$('.donate-progress').animate({'width': width}, 1000);
+    }
+});
+
 App.ProjectMembersView = Em.View.extend({
     templateName: 'project_members'
 });
@@ -180,13 +299,25 @@ App.ProjectSupporterView = Em.View.extend({
     }
 });
 
+
 App.ProjectSupporterListView = Em.View.extend({
     templateName: 'project_supporter_list'
 });
 
+
 App.ProjectListView = Em.View.extend({
     templateName: 'project_list'
 });
+
+App.ProjectPreviewView = Em.View.extend(App.AnimateProgressMixin, {
+    templateName: 'project_preview'
+});
+
+
+App.ProjectSearchFormView = Em.View.extend({
+    templateName: 'project_search_form'
+});
+
 
 App.ProjectPlanView = Em.View.extend({
     templateName: 'project_plan',
@@ -199,25 +330,13 @@ App.ProjectPlanView = Em.View.extend({
 });
 
 
-App.ProjectView = Em.View.extend({
+App.ProjectView = Em.View.extend(App.AnimateProgressMixin, {
     templateName: 'project',
 
     didInsertElement: function(){
-        this.$('#detail').css('background', 'url("' + this.get('controller.image_bg') + '") 50% 50%');
+        this._super();
+        this.$('#detail').css('background', 'url("' + this.get('controller.plan.image.background') + '") 50% 50%');
         this.$('#detail').css('background-size', '100%');
-
-        // TODO: The 50% dark background doesn't work this way. :-s
-        this.$('#detail').css('backgroundColor', 'rgba(0,0,0,0.5)');
-
-        var donated = this.get('controller.campaign.money_donated');
-        var asked = this.get('controller.campaign.money_asked');
-        this.$('.donate-progress').css('width', '0px');
-        var width = 0;
-        if (asked > 0) {
-            width = 100 * donated / asked;
-            width += '%';
-        }
-        this.$('.donate-progress').animate({'width': width}, 1000);
     }
 });
 

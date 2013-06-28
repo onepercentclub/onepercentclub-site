@@ -77,6 +77,13 @@ body {
     }
 }
 
+.wrapper > .body {
+    @include grid(48, 1);
+    &.gray {
+        background-color: $color-back;
+    }
+}
+
 .section {
     background-color: $color-back;
     @include rem(padding, 0 0 16px 0);
