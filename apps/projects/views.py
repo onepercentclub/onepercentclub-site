@@ -37,14 +37,26 @@ class ProjectPreviewList(generics.ListAPIView):
         if country:
             qs = qs.filter(projectplan__country=country)
 
+        theme = self.request.QUERY_PARAMS.get('theme', None)
+        if theme:
+            qs = qs.filter(projectplan__theme_id=theme)
+
         text = self.request.QUERY_PARAMS.get('text', None)
         if text:
-            qs = qs.filter(Q(title__contains=text) or
-                           Q(projectplan__pitch__contains=text) or
-                           Q(projectplan__description__contains=text) or
+            qs = qs.filter(Q(title__contains=text) |
+                           Q(projectplan__pitch__contains=text) |
+                           Q(projectplan__description__contains=text) |
                            Q(projectplan__title__contains=text))
 
+
+        ordering = self.request.QUERY_PARAMS.get('ordering', None)
+        if ordering == 'newest':
+            qs = qs.order_by('-created')
+        if ordering == 'title':
+            qs = qs.order_by('title')
+
         qs = qs.exclude(phase=ProjectPhases.pitch)
+        qs = qs.exclude(phase=ProjectPhases.failed)
         return qs
 
 

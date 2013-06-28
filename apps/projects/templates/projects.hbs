@@ -2,44 +2,49 @@
 {% load i18n %}
 {% load static %}
 
+{% tplhandlebars "project_preview" %}
+
+    <li class="item item-project">
+        <a {{action showProject project.id href=true}}>
+            <div class="header">
+                <div {{bindAttr class=":label phase"}}></div>
+                <img {{bindAttr src="project.image" }} />
+                <h3>
+                    {{project.title}}
+                </h3>
+            </div>
+        </a>
+        <div class="status">
+            {{#if project.isPhaseCampaign}}
+                <div class="donate-status">
+                    <p class="donate-amount">
+                        <span class="donated">&euro;{{localize project.campaign.money_donated}}</span>
+                        {% trans "of" %}
+                        <span class="asked">&euro;{{localize project.campaign.money_asked}}</span>
+                        {% trans "raised" %}
+                    </p>
+                    <span class="donate-slider"><strong style="width: 0;" class="donate-progress">&nbsp;</strong></span>
+                </div>
+            {{/if}}
+        </div>
+    </li>
+
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "project_list" %}
 
-    <div class="container section">
-        <section class="wrapper search-form">
-            {{render "projectSearchForm" }}
-        </section>
-    </div>
+    {{render "projectSearchForm" }}
+
     <div class="container">
         <section class="wrapper">
-            <article class="navigation">
-                {{#if hasPreviousPage}}
-                    <a {{action "previousPage"}} class="previous-page button-link">
-                        <em class="icon-chevron-left"></em> {% trans "Previous page" %}
-                    </a>
-                {{/if}}
-
-                {{#if hasNextPage}}
-                    <a {{action "nextPage"}} class="next-page button-link">
-                        {% trans "Next page" %} <em class="icon-chevron-right"></em>
-                    </a>
-                {{/if}}
-            </article>
-
             <article>
                 <header>
                     {{#if model.isLoaded}}
                         <ul class="results">
                             {{#each project in model}}
-                                <li class="item item-project">
-                                    <a {{action showProject project.id href=true}}>
-                                        <div class="header">
-                                            <img {{bindAttr src="project.image" }} />
-                                            <h3>
-                                                {{project.title}}
-                                            </h3>
-                                        </div>
-                                    </a>
-                            </li>
+                                {{render "projectPreview" project}}
                             {{else}}
                                 <li>{% trans "No projects found." %}</li>
                             {{/each}}
@@ -57,21 +62,55 @@
 
 {% tplhandlebars "project_search_form" %}
 
-    <div class="control">
-        <em class="icon icon-search"></em>
-        {{view Em.TextField valueBinding="text" placeholder="Text search" }}
+
+    <div class="container section">
+        <section class="wrapper">
+            <article class="search-form">
+                <div class="control">
+                    <em class="icon icon-search"></em>
+                    {{view Em.TextField valueBinding="text" placeholder="Text search" }}
+                </div>
+                <div class="control">
+                    <em class="icon icon-globe"></em>
+                    {{view App.ProjectCountrySelectView valueBinding="country" placeholder="Text search" }}
+                </div>
+                <div class="control">
+                    <em class="icon icon-leaf"></em>
+                    {{view App.ThemeSelectView valueBinding="theme" placeholder="Text search" }}
+                </div>
+                <div class="control">
+                    <em class="icon icon-cog"></em>
+                    {{view App.ProjectPhaseSelectView valueBinding="phase" }}
+                </div>
+            </article>
+        </section>
     </div>
-    <div class="control">
-        <em class="icon icon-globe"></em>
-        {{view App.ProjectCountrySelectView valueBinding="country" placeholder="Text search" }}
-    </div>
-    <div class="control">
-        <em class="icon icon-leaf"></em>
-        {{view App.ThemeSelectView valueBinding="theme" placeholder="Text search" }}
-    </div>
-    <div class="control">
-        <em class="icon icon-filter"></em>
-        {{view App.ProjectPhaseSelectView valueBinding="phase" }}
+
+    <div class="container">
+        <section class="wrapper">
+            <article class="navigation">
+                {{#if hasPreviousPage}}
+                    <a {{action "previousPage"}} class="previous-page button-link">
+                        <em class="icon-chevron-left"></em> {% trans "Previous page" %}
+                    </a>
+                {{/if}}
+                {{#if hasNextPage}}
+                    <a {{action "nextPage"}} class="next-page button-link">
+                        {% trans "Next page" %} <em class="icon-chevron-right"></em>
+                    </a>
+                {{/if}}
+                <div class="ordering button-lin">
+                    {% trans "Sort:" %}
+                    <a {{action sortOrder 'title'}} {{bindAttr class="orderedByTitle:active"}}>{% trans "Title" %}</a>
+                    <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
+
+                    {# <a {{action sortOrder 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a> #}
+                    {# <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a> #}
+                </div>
+
+
+            </article>
+        </section>
     </div>
 
 {% endtplhandlebars %}
@@ -80,7 +119,7 @@
 {% tplhandlebars "project" %}
 
     <div class="section" id="detail">
-
+        <div class="darken-background"></div>
         <section class="wrapper">
             <figure class="media">
                 <img {{bindAttr src="plan.image.large"}} width="100%" alt="Photo" />

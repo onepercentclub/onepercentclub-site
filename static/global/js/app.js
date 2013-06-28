@@ -318,6 +318,9 @@ App.Adapter.map('App.Project', {
     plan: {embedded: 'load'},
     country: {embedded: 'load'}
 });
+App.Adapter.map('App.ProjectPreview', {
+    campaign: {embedded: 'load'},
+});
 App.Adapter.map('App.DonationPreview', {
     project: {embedded: 'load'},
     member: {embedded: 'load'}

@@ -12,7 +12,7 @@ App.CountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
     optionLabelPath: "content.name",
-    prompt: "- select a country -"
+    prompt: "pick a country"
 });
 
 
@@ -20,7 +20,7 @@ App.CountryCodeSelectView = Em.Select.extend({
     content:  [{"code": "0", "name": "--loading--"}],
     optionValuePath: "content.code",
     optionLabelPath: "content.name",
-    prompt: "- select a country -"
+    prompt: "pick a country"
 });
 
 
@@ -28,7 +28,7 @@ App.ProjectCountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
     optionLabelPath: "content.name",
-    prompt: "- select a country -"
+    prompt: "pick a country"
 });
 
 
@@ -110,19 +110,34 @@ App.ProjectPhaseList = [
     {value: 'plan', title: "Writing Plan"},
     {value: 'campaign', title: "Campaign"},
     {value: 'act', title: "Act"},
-    {value: 'result', title: "Results"},
-    {value: 'completed', title: "Completed"},
-    {value: 'failed', title: "Failed"}
+    {value: 'results', title: "Results"},
+    {value: 'realized', title: "Realised"}
 ];
 
 App.ProjectPhaseSelectView = Em.Select.extend({
     content: App.ProjectPhaseList,
     optionValuePath: "content.value",
     optionLabelPath: "content.title",
-    prompt: "- select a phase -"
+    prompt: "pick a phase"
 
 });
 
+
+App.Theme = DS.Model.extend({
+    url:'utils/themes',
+    title: DS.attr('string')
+});
+
+App.ThemeList = [
+    {id: "0", title: "--loading--"}
+];
+
+App.ThemeSelectView = Em.Select.extend({
+    content: App.ThemeList,
+    optionValuePath: "content.id",
+    optionLabelPath: "content.title",
+    prompt: "pick a theme"
+});
 
 
 App.IsAuthorMixin = Em.Mixin.create({
@@ -413,24 +428,6 @@ App.PopOverMixin = Em.Mixin.create({
 });
 
 
-App.Theme = DS.Model.extend({
-    url:'utils/themes',
-    title: DS.attr('string')
-});
-
-
-App.ThemeList = [
-    {id: "0", title: "--loading--"}
-];
-
-App.ThemeSelectView = Em.Select.extend({
-    content: App.ThemeList,
-    optionValuePath: "content.id",
-    optionLabelPath: "content.title",
-    prompt: "- select a theme -"
-});
-
-
 App.MapPicker = Em.View.extend({
 
     templateName: 'map_picker',
@@ -491,3 +488,4 @@ App.MapPicker = Em.View.extend({
     }
 
 });
+

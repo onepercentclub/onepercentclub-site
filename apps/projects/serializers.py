@@ -19,28 +19,6 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'subregion')
 
 
-class ProjectPreviewSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(source='slug', read_only=True)
-    image = SorlImageField('projectplan.image', '252x180', crop='center')
-
-    class Meta:
-        model = Project
-        fields = ('id', 'title', 'image')
-
-
-class DonationPreviewSerializer(serializers.ModelSerializer):
-    """
-    For displaying donations on project and member pages.
-    """
-    member = UserPreviewSerializer(source='user')
-    project = ProjectPreviewSerializer(source='project')
-    date_donated = serializers.DateTimeField(source='created')
-
-    class Meta:
-        model = Donation
-        fields = ('date_donated', 'project',  'member')
-
-
 class ProjectPitchSerializer(serializers.ModelSerializer):
 
     project = serializers.SlugRelatedField(source='project', slug_field='slug', null=True, read_only=True)
@@ -141,6 +119,32 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ('id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase')
+
+
+class ProjectPreviewSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source='slug', read_only=True)
+    image = SorlImageField('projectplan.image', '247x180', crop='center')
+
+    #plan = ProjectPlanSerializer(source='projectplan')
+    campaign = ProjectCampaignSerializer(source='projectcampaign')
+
+
+    class Meta:
+        model = Project
+        fields = ('id', 'title', 'image', 'phase', 'campaign')
+
+
+class DonationPreviewSerializer(serializers.ModelSerializer):
+    """
+    For displaying donations on project and member pages.
+    """
+    member = UserPreviewSerializer(source='user')
+    project = ProjectPreviewSerializer(source='project')
+    date_donated = serializers.DateTimeField(source='created')
+
+    class Meta:
+        model = Donation
+        fields = ('date_donated', 'project',  'member')
 
 
 class ManageProjectSerializer(serializers.ModelSerializer):
