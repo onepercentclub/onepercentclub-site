@@ -8,7 +8,8 @@ App.Order = DS.Model.extend({
     status: DS.attr('string'),
     recurring: DS.attr('boolean'),
     vouchers: DS.hasMany('App.Voucher'),
-    donations: DS.hasMany('App.Donation')
+    donations: DS.hasMany('App.Donation'),
+    payment: DS.belongsTo('App.Payment')
 });
 
 
@@ -56,11 +57,14 @@ App.Voucher =  DS.Model.extend({
 
 /* Models with CurrentOrder relations and urls. */
 
+// TODO Get rid of CurrentOrder models??
+
 App.CurrentOrder = App.Order.extend({
     url: 'fund/orders',
 
     vouchers: DS.hasMany('App.CurrentOrderVoucher'),
     donations: DS.hasMany('App.CurrentOrderDonation')
+
 });
 
 
@@ -99,7 +103,8 @@ App.Payment = DS.Model.extend({
     paymentMethod: DS.attr('string'),
     paymentSubmethod: DS.attr('string'),
     paymentUrl: DS.attr('string'),
-    availablePaymentMethods: DS.attr('array')
+    availablePaymentMethods: DS.attr('array'),
+    order: DS.belongsTo('App.CurrentOrder')
 });
 
 
@@ -210,7 +215,7 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 
     updateSender: function(){
         // Make sure the sender info is fully loaded on refresh
-        voucher = this.get('model');
+        var voucher = this.get('model');
         voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
         voucher.set('sender_email', this.get('controllers.currentUser.email'));
     }.observes('controllers.currentUser.email', 'controllers.currentUser.full_name'),
@@ -296,11 +301,12 @@ App.PaymentController = Em.ObjectController.extend({
 //        });
 //        this.get('transaction').commit();
 
+        // FIXME Figure out the problem with Ember Data
         // Use jQuery directly to avoid the problems with updating server-side data.
         var payment = this.get('model');
         var controller = this;
         jQuery.ajax({
-            url: '/i18n/api/fund/payments/current',
+            url: '/i18n/api/fund/payments/' + payment.get('id'),
             type: 'PUT',
             data: JSON.stringify({ payment_method:  payment.get('availablePaymentMethods').objectAt(0)}),
             dataType: 'json',

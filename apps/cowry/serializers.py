@@ -1,5 +1,4 @@
 from apps.cowry_docdata.models import DocDataPaymentOrder
-from apps.fund.models import Order
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from rest_framework import serializers

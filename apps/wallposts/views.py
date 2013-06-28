@@ -9,7 +9,7 @@ from .serializers import ReactionSerializer, WallPostSerializer
 class WallPostList(ListAPIView):
     model = WallPost
     serializer_class = WallPostSerializer
-    filter_fields = ('id', )
+    filter_fields = ('id',)
     paginate_by = 200
 
     def get_queryset(self):

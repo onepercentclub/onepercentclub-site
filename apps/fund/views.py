@@ -1,11 +1,8 @@
 import threading
 from apps.cowry import payments
-from apps.cowry.models import Payment
-from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataWebDirectDirectDebitSerializer
 from django.contrib.contenttypes.models import ContentType
-from apps.cowry import factory
 from apps.bluebottle_drf2.permissions import AllowNone
 from apps.bluebottle_drf2.views import ListAPIView
 from django.db import transaction
@@ -28,14 +25,13 @@ order_lock = threading.Lock()
 
 class CurrentOrderMixin(object):
     """
-    Mixin to get/create an 'Current' or 'Latest' Order.
+    Mixin to get/create a 'Current' Order
     Current Order has status 'new'. It is linked to a user or stored in session (for anonymous users).
-    Latest Order is the latest order by a user.
     """
 
     def _update_payment(self, order):
             if order.total and order.payments:
-                payment = order.payment  # Need to make this variable assignment to modify the payment.
+                payment = order.latest_payment  # Need to make this variable assignment to modify the payment.
                 payment.amount = order.total
                 payment.currency = 'EUR'  # The default currency for now.
                 payment.save()
@@ -152,7 +148,7 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                           {'verbose_name': queryset.model._meta.verbose_name})
 
         if order.status == OrderStatuses.in_progress:
-            payments.update_payment_status(order.payment)
+            payments.update_payment_status(order.latest_payment)
 
         return order
 
@@ -169,7 +165,7 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         if not order:
             raise exceptions.ParseError(detail=no_active_order_error_msg)
         self.check_object_permissions(self.request, order)
-        payment = order.payment
+        payment = order.latest_payment
 
         # We're relying on the fact that the Payment is created when the Order is created. This assert
         # verifies this assumption in case the Order creation code changes in the future.
@@ -204,38 +200,7 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             payment.language = self.request.LANGUAGE_CODE[:2]  # Cut off locale.
 
         payment.save()
-        return order.payment
-
-
-class PaymentCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
-    """
-    View for dealing with the Payment for the CurrentOrder.
-    """
-    model = Payment
-    serializer_class = PaymentSerializer
-
-    def get_object(self, queryset=None):
-        order = self.get_current_order()
-        if not order:
-            raise exceptions.ParseError(detail=no_active_order_error_msg)
-        # Use the order for the permissions of the payment. If a user can access the order, they can access the payment.
-        self.check_object_permissions(self.request, order)
-        payment = order.payment
-
-        # We're relying on the fact that the Payment is created when the Order is created. This assert
-        # verifies this assumption in case the Order creation code changes in the future.
-        assert payment
-
-        # Clear the payment method if it's not in the list of available methods.
-        # Using 'payment.country' like this assumes that payment is a DocDataPaymentOrder.
-        assert isinstance(payment, DocDataPaymentOrder)
-        available_payment_methods = factory.get_payment_method_ids(amount=payment.amount, currency=payment.currency,
-                                                                   country=payment.country, recurring=order.recurring)
-        if payment.payment_method_id and not payment.payment_method_id in available_payment_methods:
-            payment.payment_method_id = ''
-            payment.save()
-
-        return payment
+        return order.latest_payment
 
 
 class DocDataDirectDebitCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
@@ -251,7 +216,7 @@ class DocDataDirectDebitCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIVie
             raise exceptions.ParseError(detail=no_active_order_error_msg)
         # Use the order for the permissions of the payment. If a user can access the order, they can access the payment.
         self.check_object_permissions(self.request, order)
-        payment = order.payment
+        payment = order.latest_payment
 
         # We're relying on the fact that the Payment is created when the Order is created. This assert
         # verifies this assumption in case the Order creation code changes in the future.

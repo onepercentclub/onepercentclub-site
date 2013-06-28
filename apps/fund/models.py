@@ -82,17 +82,19 @@ class Order(models.Model):
     updated = ModificationDateTimeField(_("Updated"))
 
     recurring = models.BooleanField(default=False)
+
+    # Note this is a ManyToMany so that there is no Order FK on the Payment. Payments don't have multiple Orders.
     payments = models.ManyToManyField('cowry.Payment', related_name='orders')
 
     @property
-    def payment(self):
+    def latest_payment(self):
         if self.payments.all():
             return self.payments.order_by('-created').all()[0]
         return None
 
-    # Calculate total for this Order
     @property
     def total(self):
+        """ Calculated total for this Order. """
         total = 0
         for item in self.orderitem_set.all():
             total += item.amount

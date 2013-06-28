@@ -1,18 +1,9 @@
-class DocDataException(Exception):
-    def __init__(self, code, message):
-        self.code = code
-        self.message = message
-
-    def __str__(self):
-        return u'{0} {1}'.format(self.code, self.message)
-
-    def __unicode__(self):
-        return str(self)
+from apps.cowry.exceptions import PaymentException
 
 
-class DocDataPaymentException(DocDataException):
+class DocDataPaymentException(PaymentException):
     pass
 
 
-class DocDataPaymentStatusException(DocDataException):
+class DocDataPaymentStatusException(PaymentException):
     pass
