@@ -1,0 +1,156 @@
+.results {
+    @include grid(48, 1, 0);
+    .item {
+        @include rem (margin-top, 8px);
+        @include rem (margin-bottom, 8px);
+        @include grid(12, 0, 1);
+        border: 1px solid $black;
+        display: inline-block;
+
+
+        div.header {
+            position: relative;
+            height: 180px;
+            //overflow: hidden;
+            img {
+                height: 180px;
+                width: 247px;
+            }
+            .label {
+                position: absolute;
+                margin: 0px;
+                padding: 0px;
+                top: -1px;
+                left: -1px;
+                width: 87px;
+                height: 87px;
+                //background-image: url(../images/projects/label-green.png);
+                &.act, &.results {
+                    background-image: url(../images/projects/label-funded.png);
+                }
+                &.realized {
+                    background-image: url(../images/projects/label-realised.png);
+                }
+
+            }
+        }
+
+
+        &.item-project h3 {
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            margin: 0px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 12px;
+            @include rem(font-size, 14px);
+            @include rem(line-height, 16px);
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        &.item-task h3 {
+            margin: 0px;
+            background-color: $green;
+            color: white;
+            padding: 8px;
+            @include rem(font-size, 12px);
+            @include rem(line-height, 14px);
+            text-transform: uppercase;
+        }
+
+        .content {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            @include rem (height, 60px);
+            text-transform: uppercase;
+            overflow: hidden;
+            @include rem (padding, 8px);
+        }
+
+        .status {
+            color: $grayDark;
+            background-color: $white;
+            text-transform: uppercase;
+            @include rem (padding, 8px);
+        }
+
+        &.item-project .status {
+            color: $grayDarker;
+            background-color: $color-back;
+            height: 90px;
+            .donate-status {
+                color: $grayDark;
+                width: 100%;
+                float: none;
+                .donated {
+                    color: $grayDarker;
+                }
+            }
+        }
+
+        .footer {
+            background-color: $color-back;
+            color: $gray;
+            ul {
+                list-style: none;
+                text-indent: 0px;
+                margin: 0px;
+                @include rem (padding, 8px);
+                li {
+                    margin: 2px;
+                }
+            }
+        }
+    }
+}
+
+.search-form {
+    @include grid(48, 1, 0);
+    padding-top: 8px;
+    .control {
+        @include grid(12,0,1);
+        .icon {
+            background-color: $grayLight;
+            color: $grayDarker;
+            font-size: 22px;
+            display: block;
+            padding: 9px;
+            @include grid(7,0,0);
+
+        }
+        input, select {
+            @include grid(40,0,0);
+            text-transform: uppercase;
+            &:placeholder {
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.navigation {
+    padding: 14px 24px 0px 0px;
+    .next-page {
+        float: right;
+    }
+    .previous-page {
+        float: left;
+        text-align: center;
+    }
+    .ordering {
+        float: right;
+        display: inline;
+        margin: 0px 20px;
+        a {
+            margin:0px 8px;
+            &.active {
+                text-decoration: underline;
+                font-weight: 300;
+            }
+        }
+    }
+
+}
+

@@ -1,4 +1,5 @@
 from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases
+from django.db.models.query_utils import Q
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation
 from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer
@@ -6,6 +7,7 @@ from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
 from django.views.generic.detail import DetailView
+import django_filters
 from rest_framework import generics
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
@@ -25,12 +27,36 @@ from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectM
 class ProjectPreviewList(generics.ListAPIView):
     model = Project
     serializer_class = ProjectPreviewSerializer
-    paginate_by = 5000
+    paginate_by = 8
     filter_fields = ('phase', )
 
     def get_queryset(self):
         qs = super(ProjectPreviewList, self).get_queryset()
+
+        country = self.request.QUERY_PARAMS.get('country', None)
+        if country:
+            qs = qs.filter(projectplan__country=country)
+
+        theme = self.request.QUERY_PARAMS.get('theme', None)
+        if theme:
+            qs = qs.filter(projectplan__theme_id=theme)
+
+        text = self.request.QUERY_PARAMS.get('text', None)
+        if text:
+            qs = qs.filter(Q(title__contains=text) |
+                           Q(projectplan__pitch__contains=text) |
+                           Q(projectplan__description__contains=text) |
+                           Q(projectplan__title__contains=text))
+
+
+        ordering = self.request.QUERY_PARAMS.get('ordering', None)
+        if ordering == 'newest':
+            qs = qs.order_by('-created')
+        if ordering == 'title':
+            qs = qs.order_by('title')
+
         qs = qs.exclude(phase=ProjectPhases.pitch)
+        qs = qs.exclude(phase=ProjectPhases.failed)
         return qs
 
 

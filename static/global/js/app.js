@@ -122,6 +122,12 @@ App = Em.Application.create({
                 content: list
             });
         });
+        // Get a filtered list of countries that can apply for a project ('oda' countries).
+        var filteredList = App.Country.filter(function(item){return item.get('oda')});
+
+        App.ProjectCountrySelectView.reopen({
+            content: filteredList
+        });
     },
 
     setLocale: function(locale) {
@@ -311,6 +317,9 @@ App.Adapter.map('App.Project', {
     campaign: {embedded: 'load'},
     plan: {embedded: 'load'},
     country: {embedded: 'load'}
+});
+App.Adapter.map('App.ProjectPreview', {
+    campaign: {embedded: 'load'},
 });
 App.Adapter.map('App.DonationPreview', {
     project: {embedded: 'load'},

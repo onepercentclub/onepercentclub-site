@@ -59,7 +59,7 @@ micawber==0.2.6
 django_polymorphic==0.5
 
 # Blog/news contents is created using blocks
-django-fluent-contents==0.8.5
+django-fluent-contents==0.9a1
 django-wysiwyg==0.5
 django-tinymce==1.5.1b2
 html5lib==0.95

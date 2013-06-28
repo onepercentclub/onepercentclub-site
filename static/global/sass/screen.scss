@@ -20,7 +20,6 @@
 @import "core/layout";
 @import "core/typography";
 @import "core/state";
-@import "core/search";
 
 
 /* Modules */
@@ -51,6 +50,7 @@
 @import "modules/dashboard";
 @import "modules/homepage";
 @import "modules/footer";
+@import "modules/search";
 
 /* Plugins */
 @import "plugins/datepicker";
