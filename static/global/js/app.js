@@ -1448,6 +1448,13 @@ App.HomeRoute = Ember.Route.extend({
 
         App.Quote.find({language: lang}).then(function(quotes) {
             controller.set('quotes', quotes);
+
+            if (!Em.isEmpty(quotes)) {
+                controller
+                    .set('quotes', quotes)
+                    .set('quoteIndex', 0)
+                    .loadQuote();
+            }
         });
 
         App.Impact.find('current').then(function(impact) {

@@ -192,32 +192,30 @@
                 <section>
                     <h2 class="section-header">{% trans "Share a little." %} <em>{%  trans "Change the world." %}</em></h2>
 
-                    {{#each quotes }}
-                        <div class="quote">
-                            <aside>
-                                <img {{ bindAttr src="user.getAvatar" alt="user.full_name" }} width="100%" />
-                            </aside>
+                    <div class="quote">
+                        <aside>
+                            <img {{ bindAttr src="quote.user.getAvatar" alt="quote.user.full_name" }} width="100%" />
+                        </aside>
 
-                            <article>
-                                <p>{{ user.full_name }}</p>
-                                <q>{{ quote }}</q>
-                            </article>
-                        </div>
-                    {{/each }}
+                        <article>
+                            <p>{{ quote.user.full_name }}</p>
+                            <q>{{ quote.quote }}</q>
+                        </article>
+                    </div>
 
                     <a class="btn btn-primary btn-iconed">
                         <i class="icon icon-money"></i>
-                        Find projects
+                        {% trans "Find projects" %}
                     </a>
 
-                    <a class="btn btn-primary btn-iconed" disabled>
+                    <a class="btn btn-primary btn-iconed disabled">
                         <i class="icon icon-money"></i>
-                        Find tasks
+                        {% trans "Find tasks" %}
                     </a>
 
-                    <a class="btn btn-primary btn-iconed" disabled>
+                    <a class="btn btn-primary btn-iconed disabled">
                         <i class="icon icon-heart"></i>
-                        Befriend us
+                        {% trans "Befriend us" %}
                     </a>
                 </section>
             </div>
@@ -386,7 +384,7 @@
                 {{view App.HomeProjectView }}
             {{/if }}
 
-            {{#if quotes }}
+            {{#if quote }}
                 {{view App.HomeQuotesView }}
             {{/if }}
 
