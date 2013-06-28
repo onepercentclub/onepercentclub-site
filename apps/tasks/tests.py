@@ -52,7 +52,6 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         self.task_url = '/i18n/api/tasks/'
         self.task_members_url = '/i18n/api/tasks/members/'
 
-
     def test_create_task(self):
 
         self.client.login(username=self.some_user.email, password='password')
@@ -99,13 +98,13 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         # Go wild! Add another task to that project add some tags this time
         # Because we have a nesting here we should properly encode it as json
         third_task_data = {'project': self.another_project.slug, 'title': 'Translate some text.',
-                          'description': 'Wie kan Engels vertalen?', 'time_needed': 5, 'expertise': 'translations',
-                          'location': 'Tiel', 'deadline' : str(future_date), 'end_goal': 'World peace',
-                          'tags': [{'id': 'spanish'}, {'id': 'translate'}]}
+                           'description': 'Wie kan Engels vertalen?', 'time_needed': 5, 'expertise': 'translations',
+                           'location': 'Tiel', 'deadline': str(future_date), 'end_goal': 'World peace',
+                           'tags': [{'id': 'spanish'}, {'id': 'translate'}]}
         response = self.client.post(self.task_url, json.dumps(third_task_data), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEquals(response.data['title'], third_task_data['title'])
-        self.assertEquals(len(response.data['tags']),2)
+        self.assertEquals(len(response.data['tags']), 2)
 
         # By now the list for the second project should contain two tasks
         response = self.client.get(self.task_url, {'project': self.another_project.slug})
@@ -116,8 +115,6 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         response = self.client.get(some_task_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEquals(response.data['title'], some_task_data['title'])
-
-
 
     def test_apply_for_task(self):
 

@@ -22,7 +22,7 @@ class DonationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(_(u"Donations must be at least €5."))
         return attrs
 
-    def save(self):
+    def save(self, **kwargs):
         # Set default currency.
         self.object.currency = 'EUR'
         return super(DonationSerializer, self).save()
@@ -48,7 +48,7 @@ class VoucherSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(_(u"Choose between 1%GIFTCARDS with a value of €10, €25, €50 or €100. Not " + str(value)))
         return attrs
 
-    def save(self):
+    def save(self, **kwargs):
         # Set default currency.
         self.object.currency = 'EUR'
         return super(VoucherSerializer, self).save()
@@ -71,8 +71,9 @@ class PaymentPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
 class OrderSerializer(serializers.ModelSerializer):
     total = EuroField(read_only=True)
     status = serializers.ChoiceField(read_only=True)
-    donations = DonationSerializer(source='donations', many=True)
-    vouchers = VoucherSerializer(source='vouchers', many=True)
+    # If we had FKs to from the donations / vouchers to the Order this could be writable.
+    donations = DonationSerializer(source='donations', many=True, read_only=True)
+    vouchers = VoucherSerializer(source='vouchers', many=True, read_only=True)
     payment = PaymentPrimaryKeyRelatedField(source='latest_payment')
     # This is how to show all the payments in an Order if we need it at some point.
     # payments = serializers.PrimaryKeyRelatedField(many=True)

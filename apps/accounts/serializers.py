@@ -1,12 +1,7 @@
 from apps.accounts.models import BlueBottleUser
 from apps.bluebottle_drf2.serializers import SorlImageField
-from apps.geo.models import Country
-from apps.geo.serializers import CountrySerializer
 from django import forms
-from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.sites.models import Site
-from django.core.exceptions import ObjectDoesNotExist
-from django.utils.translation import ugettext as _
 from registration.models import RegistrationProfile
 from rest_framework import serializers
 
@@ -15,6 +10,10 @@ class UserPreviewSerializer(serializers.ModelSerializer):
     """
     Serializer for a subset of a member's public profile. This is usually embedded into other serializers.
     """
+    def __init__(self, *args, **kwargs):
+        kwargs['read_only'] = True
+        super(UserPreviewSerializer, self).__init__(*args, **kwargs)
+
     avatar = SorlImageField('picture', '90x90', crop='center', colorspace="GRAY")
 
     class Meta:
@@ -85,13 +84,13 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=False)
 
     # Address
-    line1 = serializers.CharField(source='address.line1', max_length=100, blank=True)
-    line2 = serializers.CharField(source='address.line2', max_length=100, blank=True)
-    city = serializers.CharField(source='address.city', max_length=100, blank=True)
-    state = serializers.CharField(source='address.state', max_length=100, blank=True)
+    line1 = serializers.CharField(source='address.line1', max_length=100, required=False)
+    line2 = serializers.CharField(source='address.line2', max_length=100, required=False)
+    city = serializers.CharField(source='address.city', max_length=100, required=False)
+    state = serializers.CharField(source='address.state', max_length=100, required=False)
     country = serializers.RelatedField(source='address.country.alpha2_code', required=False)
 
-    postal_code = serializers.CharField(source='address.postal_code', max_length=20, blank=True)
+    postal_code = serializers.CharField(source='address.postal_code', max_length=20, required=False)
 
     class Meta:
         model = BlueBottleUser
@@ -127,7 +126,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         model = BlueBottleUser
         fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password')
 
-    def save(self):
+    def save(self, **kwargs):
         """
         Setup the newly created user for activation. We're not using
         'RegistrationProfile.objects.create_inactive_user()' from django-registration because it requires a username.

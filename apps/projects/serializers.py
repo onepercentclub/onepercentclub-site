@@ -5,7 +5,8 @@ from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from apps.bluebottle_drf2.serializers import SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField, TaggableSerializerMixin, TagSerializer, ImageSerializer
+from apps.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
+                                              TagSerializer, ImageSerializer)
 from apps.geo.models import Country
 from .models import Project
 
@@ -21,11 +22,10 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
 class ProjectPitchSerializer(serializers.ModelSerializer):
 
-    project = serializers.SlugRelatedField(source='project', slug_field='slug', null=True, read_only=True)
+    project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     country = ProjectCountrySerializer()
-
-    tags = TagSerializer()
-
+    # This can be writable with the version of DRF that we're using.
+    tags = TagSerializer(read_only=True)
     image = ImageSerializer(required=False)
 
     class Meta:
@@ -34,7 +34,7 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
                   'need', 'status', 'image')
 
 
-class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
+class ManageProjectPitchSerializer(ProjectPitchSerializer):
 
     country = serializers.PrimaryKeyRelatedField(required=False)
     status = serializers.ChoiceField(choices=ProjectPitch.PitchStatuses.choices, required=False)
@@ -64,7 +64,7 @@ class ProjectBudgetLineSerializer(serializers.ModelSerializer):
 
 class ProjectPlanSerializer(serializers.ModelSerializer):
 
-    project = serializers.SlugRelatedField(source='project',  slug_field='slug', null=True, read_only=True)
+    project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     country = ProjectCountrySerializer()
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
@@ -77,15 +77,14 @@ class ProjectPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProjectPlan
-        fields = ('id', 'project', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude', 'need',
-                  'effects', 'future', 'for_who', 'reach', 'status', 'image', 'organization', 'ambassadors',
+        fields = ('id', 'project', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude',
+                  'need', 'effects', 'future', 'for_who', 'reach', 'status', 'image', 'organization', 'ambassadors',
                   'budget_lines', 'money_needed', 'campaign')
 
 
-class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer):
+class ManageProjectPlanSerializer(ProjectPlanSerializer):
 
     country = serializers.PrimaryKeyRelatedField(required=False)
-
 
     def validate_status(self, attrs, source):
         value = attrs[source]
@@ -96,7 +95,7 @@ class ManageProjectPlanSerializer(TaggableSerializerMixin, ProjectPlanSerializer
 
 class ProjectCampaignSerializer(serializers.ModelSerializer):
 
-    project = serializers.SlugRelatedField(source='project', slug_field='slug', null=True, read_only=True)
+    project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     money_asked = EuroField()
     money_donated = EuroField()
 
@@ -154,10 +153,10 @@ class ManageProjectSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='project-manage-detail')
     phase = serializers.CharField(read_only=True)
 
-    pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', null=True, read_only=True)
-    plan = serializers.PrimaryKeyRelatedField(source='projectplan', null=True, read_only=True)
-    campaign = serializers.PrimaryKeyRelatedField(source='projectcampaign', null=True, read_only=True)
-    result = serializers.PrimaryKeyRelatedField(source='projectresult', null=True, read_only=True)
+    pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', read_only=True)
+    plan = serializers.PrimaryKeyRelatedField(source='projectplan', read_only=True)
+    campaign = serializers.PrimaryKeyRelatedField(source='projectcampaign', read_only=True)
+    result = serializers.PrimaryKeyRelatedField(source='projectresult', read_only=True)
 
     coach = serializers.PrimaryKeyRelatedField(source='coach', read_only=True)
 
@@ -178,11 +177,11 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
         # Add the project slug field.
         fields = TextWallPostSerializer.Meta.fields + ('project',)
 
-    def save(self):
+    def save(self, **kwargs):
         # Save the project content type on save.
         project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
-        return super(ProjectTextWallPostSerializer, self).save()
+        return super(ProjectTextWallPostSerializer, self).save(**kwargs)
 
 
 class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
@@ -195,11 +194,11 @@ class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
         # Add the project slug field.
         fields = MediaWallPostSerializer.Meta.fields + ('project',)
 
-    def save(self):
+    def save(self, **kwargs):
         # Save the project content type on save.
         project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
-        return super(ProjectMediaWallPostSerializer, self).save()
+        return super(ProjectMediaWallPostSerializer, self).save(**kwargs)
 
 
 class ProjectWallPostSerializer(PolymorphicSerializer):

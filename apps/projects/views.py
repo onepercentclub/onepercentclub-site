@@ -102,7 +102,6 @@ class ProjectPlanDetail(generics.RetrieveAPIView):
     serializer_class = ProjectPlanSerializer
 
 
-
 class ProjectWallPostMixin(object):
 
     def get_queryset(self):
