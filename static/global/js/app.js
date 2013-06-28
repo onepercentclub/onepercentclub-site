@@ -274,7 +274,7 @@ App.Adapter.map(
 
 
 App.ApplicationController = Ember.Controller.extend({
-    needs: ['currentUser'],
+    needs: ['currentUser', 'currentOrderDonationList'],
     display_message: false,
 
     displayMessage: (function() {
@@ -1433,7 +1433,7 @@ App.HomeRoute = Ember.Route.extend({
 
         var lang = App.get('language');
 
-        App.Banner.find({language: lang}).then(function(banners) {
+        App.Banner.find().then(function(banners) {
             controller.set('banners', banners);
         });
 

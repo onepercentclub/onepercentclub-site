@@ -103,10 +103,7 @@ App.HomeQuotesView = Ember.View.extend({
 
     didInsertElement: function() {
         var controller = this.get('controller');
-
-        Ember.run.later(this, function() {
-            this.initQuoteCycle();
-        }, 5000);
+        this.initQuoteCycle();
     },
 
     initQuoteCycle: function() {
