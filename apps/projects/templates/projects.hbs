@@ -11,39 +11,44 @@
     </div>
     <div class="container">
         <section class="wrapper">
-            <article>
-                <header>
-                    <h2>{% trans "Projects" %}</h2>
-
-                    {{#if model.isLoaded}}
-                    <ul>
-                        {{#each project in model}}
-                            <li>
-                                <a {{action showProject project.id href=true}}>
-                                    {{project.title}}
-                                </a>
-                            </li>
-                        {{else}}
-                            <li>{% trans "No projects found." %}</li>
-                        {{/each}}
-                    </ul>
-                    {{else}}
-                        <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading projects" %}
-                    {{/if}}
-
-                </header>
-            </article>
-            <article class="wallpost">
-                {{#if canLoadMore}}
-                    <a {{action "showMore"}} class="show-more button-link">
-                        <em class="icon-plus-sign"></em> {% trans "Show more" %}
-                        <small>{{remainingItemCount}} {% trans "more" %}</small>
+            <article class="navigation">
+                {{#if hasPreviousPage}}
+                    <a {{action "previousPage"}} class="previous-page button-link">
+                        <em class="icon-chevron-left"></em> {% trans "Previous page" %}
                     </a>
-                {{else}}
-                    {% trans "no more projects to show" %}
+                {{/if}}
+
+                {{#if hasNextPage}}
+                    <a {{action "nextPage"}} class="next-page button-link">
+                        {% trans "Next page" %} <em class="icon-chevron-right"></em>
+                    </a>
                 {{/if}}
             </article>
 
+            <article>
+                <header>
+                    {{#if model.isLoaded}}
+                        <ul class="results">
+                            {{#each project in model}}
+                                <li class="item item-project">
+                                    <a {{action showProject project.id href=true}}>
+                                        <div class="header">
+                                            <img {{bindAttr src="project.image" }} />
+                                            <h3>
+                                                {{project.title}}
+                                            </h3>
+                                        </div>
+                                    </a>
+                            </li>
+                            {{else}}
+                                <li>{% trans "No projects found." %}</li>
+                            {{/each}}
+                        </ul>
+                    {{else}}
+                        <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading projects" %}
+                    {{/if}}
+                </header>
+            </article>
         </section>
     </div>
 
@@ -66,7 +71,7 @@
     </div>
     <div class="control">
         <em class="icon icon-filter"></em>
-        {{view App.ProjectOrderSelectView valueBinding="orderBy" }}
+        {{view App.ProjectPhaseSelectView valueBinding="phase" }}
     </div>
 
 {% endtplhandlebars %}

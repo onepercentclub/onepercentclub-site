@@ -3,12 +3,36 @@
     .item {
         @include rem (margin-top, 8px);
         @include rem (margin-bottom, 8px);
-        @include grid(16, 0, 1);
+        @include grid(12, 0, 1);
         border: 1px solid $black;
         display: inline-block;
 
 
+        div.header {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            img {
+                height: 180px;
+            }
+        }
+
         h3 {
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            margin: 0px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 12px;
+            @include rem(font-size, 14px);
+            @include rem(line-height, 16px);
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+
+        &.item-task h3 {
             margin: 0px;
             background-color: $green;
             color: white;
@@ -17,6 +41,7 @@
             @include rem(line-height, 14px);
             text-transform: uppercase;
         }
+
         .content {
             background: rgba(0, 0, 0, 0.8);
             color: white;
@@ -69,3 +94,11 @@
         }
     }
 }
+
+.navigation {
+    padding: 14px 24px 0px 0px;
+    .next-page {
+        float: right;
+    }
+}
+

@@ -24,12 +24,11 @@ from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectM
 
 # API views
 
-
 class ProjectPreviewList(generics.ListAPIView):
     model = Project
     serializer_class = ProjectPreviewSerializer
-    paginate_by = 10
-    search_fields = ('phase', )
+    paginate_by = 8
+    filter_fields = ('phase', )
 
     def get_queryset(self):
         qs = super(ProjectPreviewList, self).get_queryset()

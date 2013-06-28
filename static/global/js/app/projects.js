@@ -142,7 +142,8 @@ App.ProjectSearch = DS.Model.extend({
     country: DS.attr('number'),
     theme:  DS.attr('number'),
     orderBy: DS.attr('string', {defaultValue: 'title'}),
-    phase: DS.attr('string', {defaultValue: 'campaign'})
+    phase: DS.attr('string', {defaultValue: 'campaign'}),
+    page: DS.attr('number', {defaultValue: 1})
 
 })
 
@@ -152,6 +153,24 @@ App.ProjectSearch = DS.Model.extend({
 
 
 App.ProjectListController = Em.ArrayController.extend({
+    needs: ['projectSearchForm'],
+    hasNextPage: function(){
+        return (this.get('model.length') == 8);
+    }.property('model.length'),
+    hasPreviousPage: function(){
+        return (this.get('page') > 1);
+    }.property('page'),
+    // TODO: Make a binding for this to App.ProjectSearchFormController.page
+    page: 1,
+    nextPage: function(){
+        this.incrementProperty('page');
+        this.set('controllers.projectSearchForm.page', this.get('page'));
+    },
+    previousPage: function(){
+        this.decrementProperty('page');
+        this.set('controllers.projectSearchForm.page', this.get('page'));
+    }
+
 });
 
 
@@ -161,11 +180,17 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
         var form =  App.ProjectSearch.createRecord();
         this.set('model', form);
     },
-
-    updateSearch: function(){
-        if (this.get('model.isDirty')) {
+    updateSearch: function(sender, key){
+        if (key != 'page') {
+            // If the query changes we should jump back to page 1
+            this.set('page', 1);
+            // TODO: Make a binding for this
+            this.set('controllers.projectList.page', 1);
+        }
+        if (this.get('model.isDirty') ) {
             var list = this.get('controllers.projectList');
             var query = {
+                'page': this.get('page'),
                 'phase': this.get('phase'),
                 'country': this.get('country'),
                 'text': this.get('text'),
@@ -173,7 +198,7 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
             };
             list.set('model', App.ProjectPreview.find(query));
         }
-    }.observes('text', 'country', 'theme', 'orderBy')
+    }.observes('text', 'country', 'theme', 'phase', 'page')
 
 });
 

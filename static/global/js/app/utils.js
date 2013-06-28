@@ -106,6 +106,24 @@ App.ProjectOrderSelectView = Em.Select.extend({
     optionLabelPath: "content.title"
 });
 
+App.ProjectPhaseList = [
+    {value: 'plan', title: "Writing Plan"},
+    {value: 'campaign', title: "Campaign"},
+    {value: 'act', title: "Act"},
+    {value: 'result', title: "Results"},
+    {value: 'completed', title: "Completed"},
+    {value: 'failed', title: "Failed"}
+];
+
+App.ProjectPhaseSelectView = Em.Select.extend({
+    content: App.ProjectPhaseList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title",
+    prompt: "- select a phase -"
+
+});
+
+
 
 App.IsAuthorMixin = Em.Mixin.create({
     isAuthor: function () {
