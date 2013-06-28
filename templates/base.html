@@ -51,6 +51,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.infieldlabel.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.colorbox.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/handlebars.helpers.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/unslider.js"></script>
 
         {# BlueBottle Application #}
         <script type="text/javascript" src="{{ STATIC_URL }}js/app.js"></script>
@@ -64,6 +65,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/vouchers.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/tasks.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/pages.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/app/homepage.js"></script>
     {% endcompress %}
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
@@ -71,11 +73,329 @@
 
     {% block htmlheader %}{% endblock %}
 
+    {% tplhandlebars "home_banner" %}
+        <div class="container banner">
+            <div class="wrapper">
+                <section>
+                    <div id="bannerCarousel">
+                        <ul>
+                            {{#each banners }}
+                                <li>
+                                    <article>
+                                        <h4>{{ title }}</h4>
+                                        {{{ body }}}
+
+                                        {{#if link_text }}
+                                            <a class="btn btn-primary" {{bindAttr href="link_url" }} target="_blank">{{link_text}}</a>
+                                        {{/if}}
+                                    </article>
+
+                                    <aside>
+                                        <img {{bindAttr src="imageUrl"}} width="100%" alt="Photo" />
+                                    </aside>
+                                </li>
+                            {{/each }}
+                        </ul>
+
+                        <div class="banner-indicators">
+                            <div class="container">
+                                <div class="wrapper">
+                                    <ol class="dots">
+                                        {{#each banners }}
+                                            <li {{bindAttr class=":dot isFirst:active" }}>{{ tab_text }}</li>
+                                        {{/each }}
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "home_project" %}
+        <div class="container">
+            <div class="wrapper">
+                <section>
+                    <h2 class="section-header">{% trans "Choose your project" %}</h2>
+                    <p class="section-subheader">{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
+
+                    <div class="projects">
+                        <a {{action previousProject}} class="projects-nav prev"><i class="icon-chevron-left"></i></a>
+                        <a {{action nextProject}} class="projects-nav next"><i class="icon-chevron-right"></i></a>
+
+                        <div class="project">
+                            <aside>
+                                <img {{bindAttr src="project.plan.image.large" }} width="100%" alt="Photo" />
+                            </aside>
+
+                            <article>
+                                <div class="project-meta">
+                                    <span class="location">
+                                        <em class="icon-map-marker"></em>
+                                        {{project.plan.country.name}}
+                                    </span>
+
+                                    <span class="tags">
+                                        <em class="icon-tag"></em>
+
+                                        {{#each tag in project.plan.tags}}
+                                            <span>{{tag.id}}</span>
+                                        {{/each}}
+                                    </span>
+                                </div>
+
+                                <h2 class="project-title">
+                                    {{project.title}}
+                                </h2>
+
+                                <p class="project-description">
+                                    {{project.plan.pitch}}
+                                </p>
+
+                                <div class="project-status">
+                                    <div class="project-days-left">
+                                        <p>
+                                            <i class="icon-time"></i> <em><strong>??</strong></em>
+                                        </p>
+                                        {% trans "days to go" %}
+                                    </div>
+
+                                    <div class="donate-status">
+                                        <p class="donate-amount">
+                                            <span class="donated">&euro;{{localize project.campaign.money_donated}}</span>
+                                            {% trans "of" %}
+                                            <span class="asked">&euro;{{localize project.campaign.money_asked}}</span>
+                                            {% trans "raised" %}
+                                        </p>
+                                        <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
+                                    </div>
+
+                                    <div class="project-call-to-action">
+                                        {{#linkTo "currentOrder.addDonation" project class="btn btn-primary right"}}
+                                            {% trans "Support" %}
+                                        {{/linkTo}}
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "home_quotes" %}
+        <div class="container quotes">
+            <div class="wrapper">
+                <section>
+                    <h2 class="section-header">{% trans "Share a little." %} <em>{%  trans "Change the world." %}</em></h2>
+
+                    {{#each quotes }}
+                        <div class="quote">
+                            <aside>
+                                <img {{ bindAttr src="user.getAvatar" alt="user.full_name" }} width="100%" />
+                            </aside>
+
+                            <article>
+                                <p>{{ user.full_name }}</p>
+                                <q>{{ quote }}</q>
+                            </article>
+                        </div>
+                    {{/each }}
+
+                    <a class="btn btn-primary btn-iconed">
+                        <i class="icon icon-money"></i>
+                        Find projects
+                    </a>
+
+                    <a class="btn btn-primary btn-iconed" disabled>
+                        <i class="icon icon-money"></i>
+                        Find tasks
+                    </a>
+
+                    <a class="btn btn-primary btn-iconed" disabled>
+                        <i class="icon icon-heart"></i>
+                        Befriend us
+                    </a>
+                </section>
+            </div>
+        </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "home_impact" %}
+        <div class="container">
+            <div class="wrapper">
+                <section>
+                    <h2 class="section-header">{% trans "Our impact" %}</h2>
+                    <p class="section-subheader">{% trans "We believe that if we all share a little, together we can change the world. We got this far already." %}</p>
+
+                    <ul class="impact">
+                        <li>
+                            <i class="icon-group"></i>
+                            <em>{{ impact.lives_changed }}</em>
+                            {% trans "Lives changed" %}
+                        </li>
+
+                        <li>
+                            <i class="icon-heart"></i>
+                            <em>{{ impact.projects }}</em>
+                            {% trans "Projects" %}
+                        </li>
+
+                        <li>
+                            <i class="icon-globe"></i>
+                            <em>{{ impact.countries }}</em>
+                            {% trans "Countries" %}
+                        </li>
+
+                        <li>
+                            <i class="icon-time"></i>
+                            <em>{{ impact.hours_spent }}</em>
+                            {% trans "Hours spent" %}
+                        </li>
+
+                        <li>
+                            <i class="icon-money"></i>
+                            <em>{{ impact.donated }}</em>
+                            {% trans "Donated" %}
+                        </li>
+                    </ul>
+
+                    {{#unless controllers.currentUser.isAuthenticated}}
+                        {{#linkTo signup classNames="link-primary"}}{% trans "Join us. Sign up and share your 1%" %}{{/linkTo}}
+                    {{/unless}}
+                </section>
+            </div>
+        </div>
+    {% endtplhandlebars %}
+
+    {% tplhandlebars "_footer" %}
+
+        <div class="container footer">
+            <div class="wrapper">
+                <section>
+                    <ul class="footer-menu">
+                        <li>
+                            <h3>{% trans "It all starts with 1%" %}</h3>
+                            <ul>
+                                <li>{% trans "What is 1%CLUB?" %}</li>
+                                <li>{% trans "1%PROJECTS" %}</li>
+                                <li>{% trans "Get involved" %}</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <h3>{% trans "About 1%CLUB" %}</h3>
+                            <ul>
+                                <li>{% trans "Our story" %}</li>
+                                <li>{% trans "Meet the team" %}</li>
+                                <li>{% trans "Partners" %}</li>
+                                <li>{% trans "Press" %}</li>
+                                <li>{% trans "Work at 1%CLUB" %}</li>
+                                <li>{% trans "Contact" %}</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <h3>{% trans "Discover 1%More" %}</h3>
+                            <ul>
+                                <li>{% trans "1%BLOG" %}</li>
+                                <li>{% trans "1%LIVE" %}</li>
+                                <li>{% trans "1%EVENT" %}</li>
+                                <li>{% trans "1%VIDEO" %}</li>
+                                <li>{% trans "1%BUSINESS" %}</li>
+                                <li>{% trans "1%GIFTS" %}</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <h3>{% trans "1%SOCIAL" %}</h3>
+                            <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fonepercentclub.com&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=265978350087756" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+                            <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
+                            <ul class="footer-social-links">
+                                <li>
+                                    <a href="http://www.facebook.com/onepercentclub" target="_blank"><img src="{% get_static_prefix %}images/facebook.png" /></a>
+                                </li>
+                                <li>
+                                    <a href="http://twitter.com/1procentclub" target="_blank"><img src="{% get_static_prefix %}images/twitter.png" /></a>
+                                </li>
+                                <li>
+                                    <a href="http://www.flickr.com/photos/1procentclub/" target="_blank"><img src="{% get_static_prefix %}images/flickr.png" /></a>
+                                </li>
+                                <li>
+                                    <a href="http://www.linkedin.com/groups?gid=1071287&trk=hb_side_g" target="_blank"><img src="{% get_static_prefix %}images/youtube.png" /></a>
+                                </li>
+                                <li>
+                                    <a href="http://www.youtube.com/user/1Procentclub" target="_blank"><img src="{% get_static_prefix %}images/linkedin.png" /></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <hr>
+
+                    <ul class="footer-news">
+                        <h3>1%NEWS</h3>
+
+                        <li><i class="icon-chevron-right"></i> Berners Lee spreker op het 1%EVENT 2012 in Nairobi.</li>
+                    </ul>
+
+                    <ul class="footer-join-us">
+                        <h3>{% trans "Join 1%CLUB" %}</h3>
+                        <p>{% trans "1%CLUB connects smart ideas from developing countries to time, money and expertise from all over the world. It is very easy: " %}</p>
+                        <li><i class="icon-chevron-right"></i> {% trans "Select a project or tast" %}</li>
+                        <li><i class="icon-chevron-right"></i> {% trans "Share your skills or money" %}</li>
+                        <li><i class="icon-chevron-right"></i> {% trans "See direct results" %}</li>
+                        {{#unless controllers.currentUser.isAuthenticated}}
+                            {{#linkTo signup classNames="btn btn-primary"}}{% trans "Join 1%CLUB" %}{{/linkTo}}
+                        {{/unless}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container copyright">
+            <div class="wrapper">
+                <ul>
+                    <li>
+                        &copy;2013 1%CLUB
+                    </li>
+                    <li>
+                        <a href="#">General Conditions</a>
+                    </li>
+                    <li>
+                        <a href="#">Privacy Statement</a>
+                    </li>
+                    <li class="right" >
+                        <a class="feedback" href="#">Give us feedback</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endtplhandlebars %}
 
     {% tplhandlebars "home" %}
-        <h1 class="tagline">
-            HOME
-        </h1>
+        <div id="home">
+            {{#if banners }}
+                {{view App.HomeBannerView }}
+            {{/if }}
+
+            {{#if project }}
+                {{view App.HomeProjectView }}
+            {{/if }}
+
+            {{#if quotes }}
+                {{view App.HomeQuotesView }}
+            {{/if }}
+
+            {{#if impact }}
+                {{view App.HomeImpactView }}
+            {{/if }}
+
+            {{partial "footer" }}
+        </div>
     {% endtplhandlebars %}
 
 

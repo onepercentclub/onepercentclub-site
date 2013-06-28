@@ -10,6 +10,6 @@ class StatisticDetail(generics.RetrieveAPIView):
     serializer_class = StatisticSerializer
 
     def get_object(self, queryset=None):
-        stats = Statistic.objects.get(pk=1)
+        stats = Statistic.objects.order_by('-creation_date').all()[0]
         return stats
 

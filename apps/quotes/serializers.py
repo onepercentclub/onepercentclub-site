@@ -10,4 +10,4 @@ class QuoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quote
-        fields = ('quote', 'segment', 'user')
+        fields = ('id', 'quote', 'segment', 'user')
