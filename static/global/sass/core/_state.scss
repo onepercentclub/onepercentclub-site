@@ -9,3 +9,4 @@
 .text-right { text-align: right; }
 .text-center { text-align: center; }
 .nowrap { white-space: nowrap; }
+.is-cleared { @include clearfix; }
