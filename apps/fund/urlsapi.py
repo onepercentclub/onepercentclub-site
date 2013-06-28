@@ -1,11 +1,11 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, include, url
 from surlex.dj import surl
-from .views import (FundApi, OrderList, OrderDetail, OrderDonationDetail, PaymentProfileCurrent, PaymentCurrent,
-                    VoucherDetail, OrderVoucherList, OrderVoucherDetail, VoucherDonationList, VoucherDonationDetail,
+from .views import (FundApi, OrderList, OrderDetail, OrderDonationDetail, PaymentProfileCurrent, VoucherDetail,
+                    OrderVoucherList, OrderVoucherDetail, VoucherDonationList, VoucherDonationDetail,
                     CustomVoucherRequestList, OrderDonationList, DocDataDirectDebitCurrent)
 
 urlpatterns = patterns('',
-    url(r'^$', FundApi.as_view(), name='fund-order-list'),
+    url(r'^$', FundApi.as_view()),
 
     # Orders
     url(r'^orders/$', OrderList.as_view(), name='fund-order-list'),
@@ -30,6 +30,6 @@ urlpatterns = patterns('',
 
     # Payments
     url(r'^paymentprofiles/current$', PaymentProfileCurrent.as_view(), name='payment-profile-current'),
-    url(r'^payments/current$', PaymentCurrent.as_view(), name='payment-current'),
     url(r'^docdatadirectdebit/current$', DocDataDirectDebitCurrent.as_view(), name='direct-debit-current'),
+    url(r'', include('apps.cowry.urlsapi')),
 )

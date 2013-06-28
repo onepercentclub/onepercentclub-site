@@ -59,15 +59,27 @@ class VoucherSerializer(serializers.ModelSerializer):
                   'message', 'status')
 
 
+class PaymentPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
+    def __init__(self, *args, **kwargs):
+        kwargs['read_only'] = True
+        super(PaymentPrimaryKeyRelatedField, self).__init__(*args, **kwargs)
+
+    def field_to_native(self, obj, field_name):
+        return self.to_native(getattr(obj, self.source or field_name).id)
+
+
 class OrderSerializer(serializers.ModelSerializer):
     total = EuroField(read_only=True)
     status = serializers.ChoiceField(read_only=True)
     donations = DonationSerializer(source='donations', many=True)
     vouchers = VoucherSerializer(source='vouchers', many=True)
+    payment = PaymentPrimaryKeyRelatedField(source='latest_payment')
+    # This is how to show all the payments in an Order if we need it at some point.
+    # payments = serializers.PrimaryKeyRelatedField(many=True)
 
     class Meta:
         model = Order
-        fields = ('id', 'total', 'status', 'recurring', 'donations', 'vouchers')
+        fields = ('id', 'total', 'status', 'recurring', 'donations', 'vouchers', 'payment')
 
 
 class VoucherRedeemSerializer(serializers.ModelSerializer):

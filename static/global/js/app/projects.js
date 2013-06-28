@@ -16,7 +16,7 @@ App.Organization = DS.Model.extend({
     skype: DS.attr('string', {defaultValue: ""}),
 
     // Legal
-    legalStatus: DS.attr('string', {defaultValue: ""}),
+    legalStatus: DS.attr('string', {defaultValue: ""})
 });
 
 
@@ -339,4 +339,3 @@ App.ProjectView = Em.View.extend(App.AnimateProgressMixin, {
         this.$('#detail').css('background-size', '100%');
     }
 });
-

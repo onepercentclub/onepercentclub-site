@@ -650,12 +650,13 @@ App.ProjectRoute = Ember.Route.extend({
     }
 });
 
+
 // This is the 'ProjectWallPostListRoute'
 App.ProjectIndexRoute = Ember.Route.extend({
-
     model: function(params){
         return this.modelFor('project');
     },
+
     setupController: function(controller, model) {
         // Empty the items and set page to 0 if project changes so we don't show wall posts from previous project
         if (this.get('model_id') != model.get('id')) {
@@ -665,11 +666,10 @@ App.ProjectIndexRoute = Ember.Route.extend({
         this.set('model_id', model.get('id'));
         this._super(controller, model.get('wallposts'));
     }
-
 });
 
-App.ProjectPlanRoute = Ember.Route.extend({
 
+App.ProjectPlanRoute = Ember.Route.extend({
     model: function(params){
         return this.modelFor('project').get('plan');
     }
@@ -682,6 +682,7 @@ App.ProjectTaskListRoute = Ember.Route.extend({
     model: function(params) {
         return Em.A();
     },
+
     setupController: function(controller, model){
         this._super(controller, model);
         var project = this.modelFor('project');
@@ -840,11 +841,8 @@ App.ProjectTaskEditRoute = Ember.Route.extend({
 
 App.CurrentOrderRoute = Ember.Route.extend({
     model: function(params) {
+        console.log('currentOrder model');
         return App.CurrentOrder.find('current');
-    },
-
-    setupController: function(controller, order) {
-        this._super(controller, order);
     }
 });
 
@@ -931,11 +929,10 @@ App.PaymentProfileRoute = Ember.Route.extend({
 
 App.PaymentRoute = Ember.Route.extend({
     model: function(params) {
-        return App.Payment.find('current');
-    },
-
-    setupController: function(controller, payment) {
-        this._super(controller, payment);
+        var order = this.modelFor('currentOrder');
+        var payment = order.get('payment');
+        console.log('payment id ' + payment.get('id'));
+        return payment;
     }
 });
 
