@@ -3,6 +3,19 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
+from django.utils.timezone import now
+from django.db.models import Q
+
+
+class QuoteManager(models.Manager):
+
+    def published(self):
+        qs = self.get_query_set()
+        qs = qs.filter(status=Quote.QuoteStatus.published)
+        qs = qs.filter(publication_date__lte=now)
+        qs = qs.filter(Q(publication_end_date__gte=now) | Q(publication_end_date__isnull=True))
+        return qs
+
 
 class Quote(models.Model):
     """
@@ -33,6 +46,8 @@ class Quote(models.Model):
 
     creation_date = CreationDateTimeField(_('creation date'))
     modification_date = ModificationDateTimeField(_('last modification'))
+
+    objects = QuoteManager()
 
     def __unicode__(self):
         return self.quote

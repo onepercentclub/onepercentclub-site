@@ -1,0 +1,245 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "home_banner" %}
+
+    <div class="container banner">
+        <div id="backgroundCarousel">
+            <ul>
+                {{#each slides }}
+                    <li>
+                        <img {{bindAttr src="backgroundImage"}} />
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="wrapper">
+            <section>
+                <div id="bannerCarousel">
+                    <ul>
+                        {{#each slides }}
+                            <li>
+                                <article>
+                                    <h4>{{ title }}</h4>
+                                    <p>{{{ body }}}</p>
+
+                                    {{#if link_text }}
+                                        <a class="btn btn-primary" {{bindAttr href="link_url" }} target="_blank">{{link_text}}</a>
+                                    {{/if}}
+                                </article>
+
+                                {{#if image}}
+                                    <aside>
+                                        <img {{bindAttr src="image"}} width="100%" alt="Photo" />
+                                    </aside>
+                                {{/if}}
+                            </li>
+                        {{/each }}
+                    </ul>
+
+                    <div class="banner-indicators">
+                        <div class="container">
+                            <div class="wrapper">
+                                <ol class="dots">
+                                    {{#each slides}}
+                                        <li {{bindAttr class=":dot isFirst:active" }}>{{ tab_text }}</li>
+                                    {{/each }}
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+
+{% tplhandlebars "home_project" %}
+
+    <div class="container">
+        <div class="wrapper">
+            <section>
+                <h2 class="section-header">{% trans "Choose your project" %}</h2>
+                <p class="section-subheader">{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
+
+                <div class="projects">
+                    <span {{action previousProject}} class="projects-nav prev"><i class="icon-chevron-left"></i></span>
+                    <span {{action nextProject}} class="projects-nav next"><i class="icon-chevron-right"></i></span>
+
+                    <div class="project">
+                        <aside>
+                            <img {{bindAttr src="project.plan.image.large" }} width="100%" alt="Photo" />
+                        </aside>
+
+                        <article>
+                            <div class="project-meta">
+                                <span class="location">
+                                    <em class="icon-map-marker"></em>
+                                    {{project.plan.country.name}}
+                                </span>
+
+                                <span class="tags">
+                                    <em class="icon-tag"></em>
+
+                                    {{#each tag in project.plan.tags}}
+                                        <span>{{tag.id}}</span>
+                                    {{/each}}
+                                </span>
+                            </div>
+
+                            <h2 class="project-title">
+                                {{project.title}}
+                            </h2>
+
+                            <p class="project-description">
+                                {{project.plan.pitch}}
+                            </p>
+
+                            <div class="project-status">
+                                <div class="project-days-left">
+                                    <p>
+                                        <i class="icon-time"></i> <em><strong>??</strong></em>
+                                    </p>
+                                    {% trans "days to go" %}
+                                </div>
+
+                                <div class="donate-status">
+                                    <p class="donate-amount">
+                                        <span class="donated">&euro;{{localize project.campaign.money_donated}}</span>
+                                        {% trans "of" %}
+                                        <span class="asked">&euro;{{localize project.campaign.money_asked}}</span>
+                                        {% trans "raised" %}
+                                    </p>
+                                    <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
+                                </div>
+
+                                <div class="project-call-to-action">
+                                    {{#linkTo "currentOrder.addDonation" project class="btn btn-primary right"}}
+                                        {% trans "Support" %}
+                                    {{/linkTo}}
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "home_quotes" %}
+
+    <div class="container quotes">
+        <div class="wrapper">
+            <section>
+                <h2 class="section-header">{% trans "Share a little." %} <em>{%  trans "Change the world." %}</em></h2>
+
+                <div class="quote">
+                    <aside>
+                        <img {{ bindAttr src="quote.user.getAvatar" alt="quote.user.full_name" }} width="100%" />
+                    </aside>
+
+                    <article>
+                        <p>{{ quote.user.full_name }}</p>
+                        <q>{{ quote.quote }}</q>
+                    </article>
+                </div>
+
+                <a class="btn btn-primary btn-iconed">
+                    <i class="icon icon-money"></i>
+                    {% trans "Find projects" %}
+                </a>
+
+                <a class="btn btn-primary btn-iconed disabled">
+                    <i class="icon icon-money"></i>
+                    {% trans "Find tasks" %}
+                </a>
+
+                <a class="btn btn-primary btn-iconed disabled">
+                    <i class="icon icon-heart"></i>
+                    {% trans "Befriend us" %}
+                </a>
+            </section>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "home_impact" %}
+
+    <div class="container">
+        <div class="wrapper">
+            <section>
+                <h2 class="section-header">{% trans "Our impact" %}</h2>
+                <p class="section-subheader">{% trans "We believe that if we all share a little, together we can change the world. We got this far already." %}</p>
+
+                <ul class="impact">
+                    <li>
+                        <i class="icon-group"></i>
+                        <em>{{ impact.lives_changed }}</em>
+                        {% trans "Lives changed" %}
+                    </li>
+
+                    <li>
+                        <i class="icon-heart"></i>
+                        <em>{{ impact.projects }}</em>
+                        {% trans "Projects" %}
+                    </li>
+
+                    <li>
+                        <i class="icon-globe"></i>
+                        <em>{{ impact.countries }}</em>
+                        {% trans "Countries" %}
+                    </li>
+
+                    <li>
+                        <i class="icon-time"></i>
+                        <em>{{ impact.hours_spent }}</em>
+                        {% trans "Hours spent" %}
+                    </li>
+
+                    <li>
+                        <i class="icon-money"></i>
+                        <em>{{ impact.donated }}</em>
+                        {% trans "Donated" %}
+                    </li>
+                </ul>
+
+                {{#unless controllers.currentUser.isAuthenticated}}
+                    {{#linkTo signup classNames="link-primary"}}{% trans "Join us. Sign up and share your 1%" %}{{/linkTo}}
+                {{/unless}}
+            </section>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "home" %}
+    <div id="home">
+        {{#if slides }}
+            {{view App.HomeBannerView }}
+        {{/if }}
+
+        {{#if project }}
+            {{view App.HomeProjectView }}
+        {{/if }}
+
+        {{#if quote }}
+            {{view App.HomeQuotesView }}
+        {{/if }}
+
+        {{#if impact }}
+            {{view App.HomeImpactView }}
+        {{/if }}
+    </div>
+
+{% endtplhandlebars %}

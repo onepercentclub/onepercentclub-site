@@ -2658,18 +2658,22 @@ ul.manage-steps li.sixth { z-index: 5; }
 .search-form .control input, .search-form .control select { float: left; width: 83.33333%; margin-left: 0%; margin-right: 0%; text-transform: uppercase; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003126}}
 .search-form .control input:placeholder, .search-form .control select:placeholder { text-transform: uppercase; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003130}}
+.search-form .control select optin:first-child { color: #999999; text-transform: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003134}}
+.search-form .control select option:selected { font-weight: 300; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003140}}
 .navigation { padding: 14px 24px 0px 0px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003135}}
-.navigation .next-page { float: right; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003138}}
-.navigation .previous-page { float: left; text-align: center; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003142}}
+.navigation .next-page { float: right; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003145}}
+.navigation .previous-page { float: left; text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003149}}
 .navigation .ordering { float: right; display: inline; margin: 0px 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003146}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003153}}
 .navigation .ordering a { margin: 0px 8px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003148}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\00003155}}
 .navigation .ordering a.active { text-decoration: underline; font-weight: 300; }
 
 /* Plugins */
