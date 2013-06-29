@@ -50,7 +50,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
         Base class serializer for WallPosts. This is not used directly; please subclass it.
     """
     author = UserPreviewSerializer()
-    reactions = ReactionSerializer(many=True)
+    reactions = ReactionSerializer(many=True, read_only=True)
 
     class Meta:
         fields = ('id', 'type', 'author', 'created', 'reactions')
@@ -73,7 +73,7 @@ class MediaWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='media')
     text = ContentTextField(required=False)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
-    photos = MediaWallPostPhotoSerializer(many=True)
+    photos = MediaWallPostPhotoSerializer(many=True, required=False)
 
     class Meta:
         model = MediaWallPost

@@ -39,8 +39,7 @@ class CurrentUser(generics.RetrieveAPIView):
 
     def get_object(self, queryset=None):
         if isinstance(self.request.user, AnonymousUser):
-            raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                          {'verbose_name': queryset.model._meta.verbose_name})
+            raise Http404()
         return self.request.user
 
 
