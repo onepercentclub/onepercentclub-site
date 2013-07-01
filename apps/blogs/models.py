@@ -66,7 +66,7 @@ class BlogPost(models.Model):
         verbose_name = _("Blog post")
         verbose_name_plural = _("Blog posts")
         unique_together = ('slug', 'language',)
-        ordering = ("-publication_date", )
+        ordering = ('-publication_date', )
 
     def __unicode__(self):
         return self.title

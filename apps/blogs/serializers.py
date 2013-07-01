@@ -23,3 +23,11 @@ class BlogPostSerializer(serializers.ModelSerializer):
         model = BlogPost
         fields = ('id', 'title', 'body', 'main_image', 'author', 'publication_date', 'allow_comments')
 
+
+class BlogPostPreviewSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source='slug')
+
+    class Meta:
+        model = BlogPost
+        fields = ('id', 'title', 'publication_date')
+

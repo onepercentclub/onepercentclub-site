@@ -284,6 +284,11 @@ App.ApplicationController = Ember.Controller.extend({
     needs: ['currentUser', 'currentOrderDonationList'],
     display_message: false,
 
+    news: function(){
+        return App.NewsPreview.find({language: App.get('language'), post_type: 'news'});
+    }.property(),
+
+
     displayMessage: (function() {
         if (this.get('display_message') == true) {
             Ember.run.later(this, function() {
@@ -627,6 +632,13 @@ App.ApplicationRoute = Ember.Route.extend({
             var route = this;
             App.Project.find(project_id).then(function(project){
                 route.transitionTo('project', project);
+            });
+        },
+        showNews: function(news_id) {
+            var route = this;
+            App.News.find(news_id).then(function(news){
+                route.transitionTo('news', news);
+                window.scrollTo(0);
             });
         }
     }
@@ -1493,8 +1505,7 @@ App.NewsRoute = Ember.Route.extend({
 
 App.NewsListRoute = Ember.Route.extend({
     model: function(params) {
-        var newsItem =  App.News.find({language: App.get('language'), post_type: 'news'});
-        return newsItem;
+        return App.News.find({language: App.get('language'), post_type: 'news'});
     }
 });
 
