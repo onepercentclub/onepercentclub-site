@@ -1,53 +1,30 @@
-App.Blog = DS.Model.extend({
+/* Models */
+
+App.News = DS.Model.extend({
     url: 'blogs',
     slug: DS.attr('string'),
     title: DS.attr('string'),
-    contents: DS.attr('string'),
-    author: DS.belongsTo('App.Member', { embedded: true }),
+    body: DS.attr('string'),
+    publicationDate: DS.attr('date'),
+    author: DS.belongsTo('App.UserPreview')
 });
 
 
-App.blogListController = App.ListController.create({
-    model: App.Blog,
+/* Views */
+
+App.NewsView = Em.View.extend({
+    templateName: 'news_item'
 });
 
-
-App.blogDetailController = App.DetailController.create({
-    model: App.Blog,
-});
-
-App.BlogHeaderView = Em.View.extend({
-    templateName: 'blog_header',
-    templateFile: 'blog_list',
-    classNames: ['container', 'black'],
-    
-});
-
-
-
-App.BlogDetailView = Em.View.extend({
-    contentBinding: 'App.blogDetailController',
-    templateName: 'blog_detail',
-    classNames: ['container'],
-});
-
-App.BlogPreviewView = Em.View.extend({
-    templateName: 'blog_preview',
+App.NewsItemPreviewView = Em.View.extend({
+    templateName: 'news_item_preview',
     templateFile: 'blog_list'
     
 });
 
-App.BlogNoItemsView = Em.View.extend({
-    templateName: 'blog_no_items',
-    templateFile: 'blog_list'
-    
-});
-
-
-App.BlogListView = Em.CollectionView.extend({
-    tagName: 'ul',
-    contentBinding: 'App.blogListController.content',
+App.NewsListView = Em.View.extend({
+    templateName: 'news_list',
     emptyViewClass: 'App.BlogNoItemsView',
-    itemViewClass: 'App.BlogPreviewView',
+    itemViewClass: 'App.BlogPreviewView'
 });
 

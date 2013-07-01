@@ -1,0 +1,80 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+
+{% tplhandlebars "_news_header" %}
+
+    <div class="container section">
+        <section class="wrapper">
+            <div class="content">
+                <h1>{% trans "1%NEWS" %}</h1>
+            </div>
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "news_item" %}
+
+    {{ partial "_news_header" }}
+
+    <section class="wrapper">
+        <article class="blogpost">
+            <header>
+                <h3>{{ title}}</h3>
+                <a {{action openInBigBox "userModal" author}} class="user">
+                    <span class="user-img"><img {{ bindAttr src="author.getAvatar" }} width="100%" alt="Avatar"></span>
+                    <strong>{{ author.full_name }}</strong>
+                </a>
+                <small class="timestamp">{{ localize publicationDate formatting="X" }}</small>
+            </header>
+
+            <div class="content">
+                {{{ body }}}
+            </div>
+        </article>
+
+        <sidebar class="blogpost-filter">
+            {{#linkTo "newsList"}}
+                {% trans "All news items" %}
+            {{/linkTo}}
+        </sidebar>
+    </section>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "news_item_preview" %}
+
+    {{#linkTo news this}}
+        <h3>{{title}}</h3>
+    {{/linkTo}}
+    {% trans "Published: " %}
+    <span class="date">{{localize "publicationDate" formatting="X"}}</span>
+    <br />
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "news_list" %}
+
+    {{ partial "_news_header" }}
+
+    <div class="container">
+        <section class="wrapper">
+            <article>
+                <ul>
+                    {{#each model}}
+                        <li>
+                            {{view "App.NewsItemPreviewView"}}
+                        </li>
+                    {{else}}
+                        <li>{% trans "No news items found" %}</li>
+                    {{/each}}
+                </ul>
+            </article>
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
