@@ -177,7 +177,7 @@ App.loadTemplates = function() {
     // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
     // Now that we know the language we can load the handlebars templates.
     var readyCount = 0;
-    var templates = Em.A(['users', 'homepage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils']);
+    var templates = Em.A(['users', 'homepage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils', 'blogs']);
     templates.forEach(function(template){
         //loadTemplates(this.templates);
         var hash = {};
@@ -396,8 +396,13 @@ App.Adapter.map('App.MyOrganization', {
 App.Adapter.map('App.MyOrganizationDocument', {
     file: {embedded: 'load'}
 });
+
 App.Adapter.map('App.Quote', {
     user: {embedded: 'load'}
+});
+
+App.Adapter.map('App.News', {
+    author: {embedded: 'load'}
 });
 
 App.Adapter.map('App.HomePage', {
@@ -447,9 +452,13 @@ App.Router.map(function() {
     });
 
     this.resource('error', {path: '/error'}, function() {
-        this.route('notFound');
-        this.route('notAllowed');
+        this.route('notFound', {path: '/not-found'});
+        this.route('notAllowed', {path: '/not-allowed'});
     });
+
+
+    this.resource('newsList', {path: '/news'});
+    this.resource('news', {path: '/news/:news_id'});
 
     this.resource('page', {path: '/pages/:slug'});
 
@@ -1466,6 +1475,29 @@ App.PageRoute = Ember.Route.extend({
         return page;
     }
 });
+
+
+/* Blogs & News */
+
+App.NewsRoute = Ember.Route.extend({
+    model: function(params) {
+        var newsItem =  App.News.find(params.news_id);
+        var route = this;
+        newsItem.on('becameError', function(){
+            route.transitionTo('error.notFound');
+        });
+        return newsItem;
+    }
+});
+
+
+App.NewsListRoute = Ember.Route.extend({
+    model: function(params) {
+        var newsItem =  App.News.find({language: App.get('language'), post_type: 'news'});
+        return newsItem;
+    }
+});
+
 
 
 /* Views */

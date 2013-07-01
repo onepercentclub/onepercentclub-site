@@ -1,0 +1,97 @@
+/* Copy pasted from wallpost.scss */
+
+.blogpost {
+    clear: both;
+
+    @include grid(32, 1, 0);
+    position: relative;
+    @include rem(margin, 24px 0 24px 0);
+
+
+    &:hover .manage {
+        display: block;
+    }
+
+    .show-more {
+       @include grid(48, 12, 0);
+    }
+
+    .post-comment {
+      background-color: $color-back;
+      padding: 12px;
+    }
+
+    header {
+        @include grid(48, 12, 0);
+
+        h3 {
+          @include rem(font-size, 18px);
+          @include rem(line-height, 24px);
+          font-weight: 600;
+          color: $heading-black;
+          margin: 0px;
+          @include rem(margin-top, 12px);
+          padding: 0;
+          text-transform: uppercase;
+        }
+
+        .manage {
+            float: right;
+        }
+    }
+
+    .text, .oembed  {
+        @include rem(margin-bottom, 12px);
+    }
+
+
+    .content {
+        @include grid(48, 12, 0);
+        position: relative;
+        @include rem(margin-top, 8px);
+        @include rem(margin-bottom, 8px);
+        word-wrap: break-word;
+
+        p {
+          margin: 0;
+          padding: 0;
+          //display: inline;
+        }
+
+        br {
+          //display: none !important;
+        }
+
+    }
+
+    .reaction-box {
+        position: relative;
+        display: block;
+    }
+
+    .user-img, .header-img {
+        @include rem(width, 70px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include prepend(5);
+    }
+    .header-img {
+        .icon {
+          @include rem(line-height, 50px);
+          @include rem(font-size, 40px);
+          margin-top: 4px;
+        }
+        @include rem(height, 70px);
+        background-color: $grayDark;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}
+
+.blogpost-filter {
+    @include rem(margin-top, 32px);
+    @include rem(padding, 8px);
+    background-color: $color-back;
+}
