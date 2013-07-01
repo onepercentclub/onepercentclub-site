@@ -66,26 +66,10 @@ class BlogPost(models.Model):
         verbose_name = _("Blog post")
         verbose_name_plural = _("Blog posts")
         unique_together = ('slug', 'language',)
+        ordering = ("-publication_date", )
 
     def __unicode__(self):
         return self.title
-
-    @property
-    def previous_entry(self):
-        """
-        Return the previous entry
-        """
-        entries = self.__class__.objects.published().filter(publication_date__lt=self.publication_date).order_by('-publication_date')[:1]
-        return entries[0] if entries else None
-
-
-    @property
-    def next_entry(self):
-        """
-        Return the next entry
-        """
-        entries = self.__class__.objects.published().filter(publication_date__gt=self.publication_date).order_by('publication_date')[:1]
-        return entries[0] if entries else None
 
 
 # The proxy models are only here to have a separation in the Django admin interface.

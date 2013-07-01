@@ -13,15 +13,11 @@ class BlogPostQuerySet(QuerySet):
         Return only published entries
         """
         from .models import BlogPost # the import can't be globally, that gives a circular dependency
-        return self\
-            .filter(status=BlogPost.PostStatus.published)\
-            .filter(
-                Q(publication_date__isnull=True) |
-                Q(publication_date__lte=now())
-            ).filter(
-                Q(publication_end_date__isnull=True) |
-                Q(publication_end_date__gte=now())
-            )
+        qs = self
+        qs = qs.filter(status=BlogPost.PostStatus.published)
+        qs = qs.filter(Q(publication_date__isnull=True) | Q(publication_date__lte=now()))
+        qs = qs.filter(Q(publication_end_date__isnull=True) | Q(publication_end_date__gte=now()))
+        return qs
 
 
 
