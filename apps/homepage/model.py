@@ -12,7 +12,16 @@ class HomePage(object):
         self.id = 1
         self.quotes= Quote.objects.published().filter(language=language)
         self.slides = Slide.objects.published().filter(language=language)
-        self.stats = Statistic.objects.order_by('-creation_date').all()[0]
-        self.projects = Project.objects.filter(phase='campaign').order_by('?')[0:4]
-
+        stats = Statistic.objects.order_by('-creation_date').all()
+        if len(stats) > 0:
+            self.stats = stats
+        else:
+            self.stats = None
+        projects = Project.objects.filter(phase='campaign').order_by('?')
+        if len(projects) > 4:
+            self.projects = projects[0:4]
+        elif len(projects) > 0:
+            self.projects = projects[0:len(projects)]
+        else:
+            self.projects = None
         return self

@@ -7,7 +7,7 @@ from .models import Slide
 
 
 class SlideSerializer(serializers.ModelSerializer):
-    author = UserPreviewSerializer()
+    author = serializers.PrimaryKeyRelatedField()
     image = SorlImageField('image', '247x180', crop='center')
 
     class Meta:
