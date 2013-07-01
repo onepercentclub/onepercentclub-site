@@ -1,24 +1,26 @@
 from rest_framework import generics
 from rest_framework import permissions
 from .models import BlogPost
-from .serializers import BlogPostPreviewSerializer, BlogPostDetailSerializer
+from .serializers import BlogPostSerializer
 
-
-# API views
 
 class BlogPostList(generics.ListAPIView):
     model = BlogPost
-    serializer_class = BlogPostPreviewSerializer
-    permissions_classes = (permissions.SAFE_METHODS,)
+    serializer_class = BlogPostSerializer
     paginate_by = 10
+    filter_fields = ('post_type', 'language')
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(BlogPostList, self).get_queryset()
+        qs = qs.published()
+        return qs
 
 
 class BlogPostDetail(generics.RetrieveAPIView):
     model = BlogPost
-    serializer_class = BlogPostDetailSerializer
-    permissions_classes = (permissions.SAFE_METHODS,)
+    serializer_class = BlogPostSerializer
 
-
-# Django template Views
-
-# None for now.
+    def get_queryset(self, *args, **kwargs):
+        qs = super(BlogPostDetail, self).get_queryset()
+        qs = qs.published()
+        return qs

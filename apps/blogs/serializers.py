@@ -13,19 +13,13 @@ class BlogPostContentsField(serializers.Field):
         return contents_html
 
 
-class BlogPostDetailSerializer(serializers.ModelSerializer):
-    contents = BlogPostContentsField(source='contents')
-    url = serializers.HyperlinkedIdentityField(view_name='blogpost-instance')
+class BlogPostSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source='slug')
+    body = BlogPostContentsField(source='contents')
     main_image = SorlImageField('main_image', '300x200',)
     author = UserPreviewSerializer()
 
     class Meta:
         model = BlogPost
-        exclude = ('id',)
+        fields = ('id', 'title', 'body', 'main_image', 'author', 'publication_date', 'allow_comments')
 
-
-class BlogPostPreviewSerializer(BlogPostDetailSerializer):
-
-    class Meta:
-        model = BlogPost
-        exclude = ('id',)
