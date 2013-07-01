@@ -3,8 +3,20 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
-from fluent_contents.models import PlaceholderField
 from sorl.thumbnail import ImageField
+from django.utils.timezone import now
+from django.db.models import Q
+
+
+class SlideManager(models.Manager):
+
+    def published(self):
+        qs = self.get_query_set()
+        qs = qs.filter(status=Slide.SlideStatus.published)
+        qs = qs.filter(publication_date__lte=now)
+        qs = qs.filter(Q(publication_end_date__gte=now) | Q(publication_end_date__isnull=True))
+        return qs
+
 
 class Slide(models.Model):
     """
@@ -38,6 +50,8 @@ class Slide(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('author'), editable=False)
     creation_date = CreationDateTimeField(_('creation date'))
     modification_date = ModificationDateTimeField(_('last modification'))
+
+    objects = SlideManager()
 
     def __unicode__(self):
         return self.title

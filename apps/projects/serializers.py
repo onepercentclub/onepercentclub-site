@@ -123,6 +123,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
     image = SorlImageField('projectplan.image', '247x180', crop='center')
+    background_image = SorlImageField('projectplan.image', '600x4000', crop='center')
 
     #plan = ProjectPlanSerializer(source='projectplan')
     campaign = ProjectCampaignSerializer(source='projectcampaign')
