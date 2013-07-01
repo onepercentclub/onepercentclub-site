@@ -1,12 +1,10 @@
-App.Banner = DS.Model.extend({
+App.Slide = DS.Model.extend({
     url: 'banners',
 
     title: DS.attr('string'),
     body: DS.attr('string'),
     image: DS.attr('string'),
-    imageUrl: function() {
-        return '/static/media/' + this.get('image');
-    }.property('image'),
+    imageBackground: DS.attr('string'),
     language: DS.attr('string'),
     sequence: DS.attr('number'),
     tab_text: DS.attr('string'),
@@ -38,8 +36,19 @@ App.Impact = DS.Model.extend({
     donated: DS.attr('number')
 });
 
+App.HomePage = DS.Model.extend({
+    url: 'homepage',
 
-App.HomeController = Ember.Controller.extend({
+    projects: DS.hasMany('App.ProjectPreview'),
+    slides: DS.hasMany('App.Slide'),
+    quotes: DS.hasMany('App.Quote'),
+    impact: DS.belongsTo('App.Impact')
+
+});
+
+/* Controllers */
+
+App.HomeController = Ember.ObjectController.extend({
     needs: ['currentUser'],
 
     nextProject: function() {
@@ -80,6 +89,7 @@ App.HomeController = Ember.Controller.extend({
     }
 });
 
+/* Views */
 
 App.HomeBannerView = Ember.View.extend({
     templateName: 'home_banner',

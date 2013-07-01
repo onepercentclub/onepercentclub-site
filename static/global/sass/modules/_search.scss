@@ -127,6 +127,13 @@
                 text-transform: uppercase;
             }
         }
+        select option:first-child {
+            color: $gray;
+            text-transform: none;
+        }
+        select option:selected {
+            font-weight: 300;
+        }
     }
 }
 

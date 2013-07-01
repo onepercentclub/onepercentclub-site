@@ -242,6 +242,7 @@ INSTALLED_APPS = (
     'apps.quotes',
     'apps.statistics',
     'apps.pages',
+    'apps.homepage',
 
     # Custom dashboard
     'fluent_dashboard',

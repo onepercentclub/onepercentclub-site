@@ -177,7 +177,7 @@ App.loadTemplates = function() {
     // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
     // Now that we know the language we can load the handlebars templates.
     var readyCount = 0;
-    var templates = Em.A(['users', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils']);
+    var templates = Em.A(['users', 'homepage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils']);
     templates.forEach(function(template){
         //loadTemplates(this.templates);
         var hash = {};
@@ -263,7 +263,8 @@ App.Adapter = DS.DRF2Adapter.extend({
         "fund/paymentinfo": "fund/paymentinfo",
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
-        "users/passwordset": "users/passwordset"
+        "users/passwordset": "users/passwordset",
+        "homepage": "homepage"
     }
 });
 
@@ -397,6 +398,13 @@ App.Adapter.map('App.MyOrganizationDocument', {
 });
 App.Adapter.map('App.Quote', {
     user: {embedded: 'load'}
+});
+
+App.Adapter.map('App.HomePage', {
+    projects: {embedded: 'load'},
+    slides: {embedded: 'load'},
+    quotes: {embedded: 'load'},
+    impact: {embedded: 'load'}
 });
 
 
@@ -1434,44 +1442,19 @@ App.MyProjectPlanReviewRoute =  Ember.Route.extend({
 
 
 App.HomeRoute = Ember.Route.extend({
+
+    model: function(params) {
+        return App.HomePage.find(App.get('language'));
+    },
     setupController: function(controller, model) {
         this._super(controller, model);
-
-        var lang = App.get('language');
-
-        App.Banner.find().then(function(banners) {
-            controller.set('banners', banners);
-        });
-
-        App.ProjectPreview.find({phase: 'campaign'}).then(function(projects) {
-            if (!Em.isEmpty(projects)) {
-                controller
-                    .set('projects', projects)
-                    .set('projectIndex', 0)
-                    .loadProject();
-            }
-        });
-
-        App.Quote.find({language: lang}).then(function(quotes) {
-            controller.set('quotes', quotes);
-
-            if (!Em.isEmpty(quotes)) {
-                controller
-                    .set('quotes', quotes)
-                    .set('quoteIndex', 0)
-                    .loadQuote();
-            }
-        });
-
-        App.Impact.find('current').then(function(impact) {
-            controller.set('impact', impact);
-        });
+        controller.set('projectIndex', 0).loadProject();
+        controller.set('quoteIndex', 0).loadQuote();
     }
 });
 
 
 /* Static Pages */
-
 
 App.PageRoute = Ember.Route.extend({
     model: function(params) {
