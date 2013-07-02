@@ -77,7 +77,7 @@
                             </label>
 
                             <div class="controls profile-pic-uploader">
-                                <img {{bindAttr src="getAvatar"}} />
+                                <img {{bindAttr src="getAvatar"}} class="preview" />
 
                                 <a class="btn btn-iconed btn-uploader">
                                     {{view App.UploadFileView contentBinding="this" name="picture" id="picture" accept="image/*"}}
@@ -190,6 +190,8 @@
                     {{saveButtonText}}
                 </button>
             </form>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading profile" %}
         {{/if}}
     </div>
 </section>
@@ -413,6 +415,8 @@
                     {{saveButtonText}}
                 </button>
             </form>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading settings" %}
         {{/if}}
     </div>
 </section>
