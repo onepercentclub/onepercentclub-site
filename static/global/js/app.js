@@ -1222,7 +1222,6 @@ App.PasswordResetRoute = Ember.Route.extend({
 App.LoginController = Em.Controller.extend({
 
     requestPasswordReset: function() {
-
         Bootstrap.ModalPane.popup({
             classNames: ['modal'],
             defaultTemplate: Em.Handlebars.compile('{{view templateName="request_password_reset"}}'),
@@ -1231,6 +1230,7 @@ App.LoginController = Em.Controller.extend({
                     var $btn        = $(e.target),
                         $modal      = $btn.closest('.modal'),
                         $emailInput = $modal.find('#passwordResetEmail'),
+                        $error      = $modal.find('#passwordResetError'),
                         email       = $emailInput.val();
 
                     $.ajax({
@@ -1247,7 +1247,13 @@ App.LoginController = Em.Controller.extend({
                         },
                         error: function(xhr) {
                             var error = $.parseJSON(xhr.responseText);
-                            $emailInput.addClass('error').val(error.email);
+                            $error.html(error.email);
+                            $error.removeClass('hidden');
+                            $error.fadeIn();
+                            $emailInput.addClass('error').val();
+                            $emailInput.keyUp(function(){
+                                $error.fadeOut();
+                            });
                         }
                     });
 

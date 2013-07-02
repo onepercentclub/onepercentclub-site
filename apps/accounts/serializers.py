@@ -39,9 +39,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     Serializer for a member's public profile.
     """
     url = serializers.HyperlinkedIdentityField(view_name='user-profile-detail')
-    #avatar = SorlImageField('picture', '100x100', colorspace="GRAY", required=False, read_only=True)
-    #picture = SorlImageField('picture', '240x240', required=False)
-    picture = ImageSerializer()
+    picture = ImageSerializer(required=False)
     date_joined = serializers.DateTimeField(read_only=True)
     username = serializers.CharField(read_only=True)
 

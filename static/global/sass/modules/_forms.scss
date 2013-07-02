@@ -31,7 +31,7 @@ label {
 // Form controls
 // -------------------------
 
-form {
+form, .form {
     fieldset {
         background-color: $color-back;
 
@@ -354,4 +354,3 @@ input.tag {
 .modal-body .control-group:first-child {
     padding-top: 0;
 }
-

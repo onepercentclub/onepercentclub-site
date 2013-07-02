@@ -1486,71 +1486,71 @@ legend p { margin: 0; }
 label { display: block; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000335}}
-form fieldset { background-color: #e9e9e9; }
+form fieldset, .form fieldset { background-color: #e9e9e9; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000338}}
-form fieldset:last-of-type { margin-bottom: 16px; margin-bottom: 1.14286rem; }
+form fieldset:last-of-type, .form fieldset:last-of-type { margin-bottom: 16px; margin-bottom: 1.14286rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000343}}
-form .form-meta { *zoom: 1; padding: 16px; padding: 1.14286rem; background-color: white; }
+form .form-meta, .form .form-meta { *zoom: 1; padding: 16px; padding: 1.14286rem; background-color: white; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000344}}
-form .form-meta:before, form .form-meta:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
+form .form-meta:before, form .form-meta:after, .form .form-meta:before, .form .form-meta:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000345}}
-form .form-meta:after { clear: both; }
+form .form-meta:after, .form .form-meta:after { clear: both; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000350}}
-form .form-label { float: left; width: 93.75%; margin-left: 4.16667%; margin-right: 2.08333%; font-size: 22px; font-size: 1.57rem; color: #00c051; text-transform: uppercase; font-weight: 300; margin-bottom: 0; }
+form .form-label, .form .form-label { float: left; width: 93.75%; margin-left: 4.16667%; margin-right: 2.08333%; font-size: 22px; font-size: 1.57rem; color: #00c051; text-transform: uppercase; font-weight: 300; margin-bottom: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000359}}
-form .form-desc { float: left; width: 93.75%; margin-left: 4.16667%; margin-right: 2.08333%; color: #444444; }
+form .form-desc, .form .form-desc { float: left; width: 93.75%; margin-left: 4.16667%; margin-right: 2.08333%; color: #444444; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000362}}
-form .form-desc p { padding: 16px 0 8px; padding: 1.14286rem 0 0.57143rem; }
+form .form-desc p, .form .form-desc p { padding: 16px 0 8px; padding: 1.14286rem 0 0.57143rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000367}}
-form .form-divider { border-color: #fff; margin: 0; }
+form .form-divider, .form .form-divider { border-color: #fff; margin: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000372}}
-form .form-summary { font-size: 30px; font-size: 2.14286rem; color: #999999; }
+form .form-summary, .form .form-summary { font-size: 30px; font-size: 2.14286rem; color: #999999; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000377}}
-form ul { padding: 16px; padding: 1.14286rem; margin: 0; clear: both; list-style: none; }
+form ul, .form ul { padding: 16px; padding: 1.14286rem; margin: 0; clear: both; list-style: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000385}}
-form .control-group { *zoom: 1; padding-bottom: 16px; padding-bottom: 1.14286rem; position: relative; }
+form .control-group, .form .control-group { *zoom: 1; padding-bottom: 16px; padding-bottom: 1.14286rem; position: relative; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000344}}
-form .control-group:before, form .control-group:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
+form .control-group:before, form .control-group:after, .form .control-group:before, .form .control-group:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000345}}
-form .control-group:after { clear: both; }
+form .control-group:after, .form .control-group:after { clear: both; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000391}}
-form .control-group:first-child { padding-top: 16px; padding-top: 1.14286rem; }
+form .control-group:first-child, .form .control-group:first-child { padding-top: 16px; padding-top: 1.14286rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\0000395}}
-form .control-group .control-label { float: left; width: 27.08333%; margin-left: 4.16667%; margin-right: 2.08333%; padding: 0.6em 0; text-align: left; font-weight: 300; }
+form .control-group .control-label, .form .control-group .control-label { float: left; width: 27.08333%; margin-left: 4.16667%; margin-right: 2.08333%; padding: 0.6em 0; text-align: left; font-weight: 300; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003102}}
-form .control-group .controls { position: relative; float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
+form .control-group .controls, .form .control-group .controls { position: relative; float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003105}}
-form .control-group .controls.wide { float: left; width: 93.75%; margin-left: 4.16667%; margin-right: 2.08333%; }
+form .control-group .controls.wide, .form .control-group .controls.wide { float: left; width: 93.75%; margin-left: 4.16667%; margin-right: 2.08333%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003109}}
-form .control-group .controls.budget-line span.icon { float: left; width: 6.25%; margin-left: 0%; margin-right: 2.08333%; }
+form .control-group .controls.budget-line span.icon, .form .control-group .controls.budget-line span.icon { float: left; width: 6.25%; margin-left: 0%; margin-right: 2.08333%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003112}}
-form .control-group .controls.budget-line .description { float: left; width: 72.91667%; margin-left: 0%; margin-right: 2.08333%; }
+form .control-group .controls.budget-line .description, .form .control-group .controls.budget-line .description { float: left; width: 72.91667%; margin-left: 0%; margin-right: 2.08333%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003115}}
-form .control-group .controls.budget-line .amount { float: left; width: 16.66667%; margin-left: 0%; margin-right: 0%; text-align: right; }
+form .control-group .controls.budget-line .amount, .form .control-group .controls.budget-line .amount { float: left; width: 16.66667%; margin-left: 0%; margin-right: 0%; text-align: right; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003121}}
-form .control-group .controls .inline-prepend { float: left; width: 47.91667%; margin-left: 0%; margin-right: 2.08333%; }
+form .control-group .controls .inline-prepend, .form .control-group .controls .inline-prepend { float: left; width: 47.91667%; margin-left: 0%; margin-right: 2.08333%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003125}}
-form .control-group .controls .inline-append { float: left; width: 47.91667%; margin-left: 2.08333%; margin-right: 0%; }
+form .control-group .controls .inline-append, .form .control-group .controls .inline-append { float: left; width: 47.91667%; margin-left: 2.08333%; margin-right: 0%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003130}}
-form .control-group.control-group-lonely { padding: 0; }
+form .control-group.control-group-lonely, .form .control-group.control-group-lonely { padding: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003135}}
-form .errors { float: left; width: 50%; margin-left: 0%; margin-right: 0%; position: absolute; right: -57%; background-color: #b84040; border: 1px solid #933333; padding: 0.6em; color: white; }
+form .errors, .form .errors { float: left; width: 50%; margin-left: 0%; margin-right: 0%; position: absolute; right: -57%; background-color: #b84040; border: 1px solid #933333; padding: 0.6em; color: white; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003145}}
-form .errors p { margin: 0; }
+form .errors p, .form .errors p { margin: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003149}}
-form .errors:after { top: 7px; top: 0.5rem; position: absolute; display: block; left: -14px; width: 14px; height: 23px; background: url("../images/form-error-back-arrow.png") transparent no-repeat 0 0; content: ' '; }
+form .errors:after, .form .errors:after { top: 7px; top: 0.5rem; position: absolute; display: block; left: -14px; width: 14px; height: 23px; background: url("../images/form-error-back-arrow.png") transparent no-repeat 0 0; content: ' '; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003162}}
-form .big-radio label { padding: 8px 0; padding: 0.57143rem 0; font-size: 14px; font-size: 1rem; color: white; cursor: pointer; text-align: center; background-color: #cccccc; border: 1px solid #bfbfbf; }
+form .big-radio label, .form .big-radio label { padding: 8px 0; padding: 0.57143rem 0; font-size: 14px; font-size: 1rem; color: white; cursor: pointer; text-align: center; background-color: #cccccc; border: 1px solid #bfbfbf; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003173}}
-form .big-radio input[type=radio] { display: none; }
+form .big-radio input[type=radio], .form .big-radio input[type=radio] { display: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003176}}
-form .big-radio input[type=radio]:checked + label { background-color: #00c051; border-color: #00a746; font-weight: 300; }
+form .big-radio input[type=radio]:checked + label, .form .big-radio input[type=radio]:checked + label { background-color: #00c051; border-color: #00a746; font-weight: 300; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003182}}
-form .big-radio.radio2 label { float: left; width: 50%; margin-left: 0%; margin-right: 0%; }
+form .big-radio.radio2 label, .form .big-radio.radio2 label { float: left; width: 50%; margin-left: 0%; margin-right: 0%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003187}}
-form .big-radio.radio3 label { float: left; width: 33.33333%; margin-left: 0%; margin-right: 0%; }
+form .big-radio.radio3 label, .form .big-radio.radio3 label { float: left; width: 33.33333%; margin-left: 0%; margin-right: 0%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003192}}
-form .big-radio.radio4 label { float: left; width: 25%; margin-left: 0%; margin-right: 0%; }
+form .big-radio.radio4 label, .form .big-radio.radio4 label { float: left; width: 25%; margin-left: 0%; margin-right: 0%; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003204}}
 input[type="checkbox"], input[type="radio"] { float: left; opacity: 0; width: 32px; height: 32px; margin-right: 16px; margin-right: 1.14286rem; }
