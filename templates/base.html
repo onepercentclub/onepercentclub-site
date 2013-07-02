@@ -81,6 +81,7 @@
 
     {% tplhandlebars "application" %}
         <!-- main header -->
+
         <div class="container" id="navigation">
             <header class="wrapper">
                 <div class="header-main">
@@ -326,8 +327,13 @@
 
                     <ul class="footer-news">
                         <h3>1%NEWS</h3>
-
-                        <li><i class="icon-chevron-right"></i> Berners Lee spreker op het 1%EVENT 2012 in Nairobi.</li>
+                        {{#each news}}
+                            <li>
+                                <a {{action 'showNews' this.id}}>
+                                    <span class="icon-chevron-right"></span> {{ title }}
+                                </a>
+                            </li>
+                        {{/each}}
                     </ul>
 
                     <ul class="footer-join-us">
