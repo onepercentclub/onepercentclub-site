@@ -20,14 +20,12 @@ class BlogPostQuerySet(QuerySet):
         return qs
 
 
-
 class BlogPostManager(models.Manager):
     """
     Extra methods attached to ``BlogPost.objects`` .
     """
     def get_query_set(self):
         return BlogPostQuerySet(self.model, using=self._db)
-
 
     def published(self):
         """
