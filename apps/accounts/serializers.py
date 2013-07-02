@@ -1,5 +1,5 @@
 from apps.accounts.models import BlueBottleUser
-from apps.bluebottle_drf2.serializers import SorlImageField
+from apps.bluebottle_drf2.serializers import SorlImageField, ImageSerializer
 from django import forms
 from django.contrib.sites.models import Site
 from registration.models import RegistrationProfile
@@ -39,8 +39,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     Serializer for a member's public profile.
     """
     url = serializers.HyperlinkedIdentityField(view_name='user-profile-detail')
-    avatar = SorlImageField('picture', '100x100', colorspace="GRAY", required=False, read_only=True)
-    picture = SorlImageField('picture', '240x240', required=False)
+    picture = ImageSerializer(required=False)
     date_joined = serializers.DateTimeField(read_only=True)
     username = serializers.CharField(read_only=True)
 
@@ -50,7 +49,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         #           * interested in themes
         #           * interested in countries
         #           * interested in target groups
-        fields = ('id', 'url', 'username', 'first_name', 'last_name', 'avatar', 'picture', 'about', 'why', 'website',
+        fields = ('id', 'url', 'username', 'first_name', 'last_name', 'picture', 'about', 'why', 'website',
                   'availability', 'date_joined', 'location')
 
 

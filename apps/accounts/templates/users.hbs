@@ -77,7 +77,7 @@
                             </label>
 
                             <div class="controls profile-pic-uploader">
-                                <img {{bindAttr src="getAvatar"}} />
+                                <img {{bindAttr src="getAvatar"}} class="preview" />
 
                                 <a class="btn btn-iconed btn-uploader">
                                     {{view App.UploadFileView contentBinding="this" name="picture" id="picture" accept="image/*"}}
@@ -190,6 +190,8 @@
                     {{saveButtonText}}
                 </button>
             </form>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading profile" %}
         {{/if}}
     </div>
 </section>
@@ -413,6 +415,8 @@
                     {{saveButtonText}}
                 </button>
             </form>
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading settings" %}
         {{/if}}
     </div>
 </section>
@@ -572,37 +576,41 @@
     </div>
 {% endtplhandlebars %}
 
+
 {% tplhandlebars "request_password_reset" %}
 
-<form>
-    <div class="modal-header">
-        <h3>{% trans "Forgot your password?" %}</h3>
-    </div>
+    <div class="form">
+        <div class="modal-header">
+            <h3>{% trans "Forgot your password?" %}</h3>
+        </div>
 
-    <div class="modal-body">
-        <p>{% trans "Leave your email address and we'll send you a link to set a new password." %}</p>
-        <br>
-        <div class="control-group">
-            <div class="control-label">{% trans "Email address" %}</div>
-
-            <div class="controls">
-                <input id="passwordResetEmail" type="text" />
+        <div class="modal-body">
+            <p>{% trans "Leave your email address and we'll send you a link to set a new password." %}</p>
+            <div class="control-group">
+                <div class="alert alert-error hidden" id="passwordResetError">
+                    {{error}}
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">{% trans "Email address" %}</div>
+                <div class="controls">
+                    <input id="passwordResetEmail" type="text" />
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal-footer">
-        <p class="left">
-            {% trans "Need help?" %}
-            <a href="mailto:info@1procentclub.nl">{% trans "Contact us!" %}</a>
-        </p>
+        <div class="modal-footer">
+            <p class="left">
+                {% trans "Need help?" %}
+                <a href="mailto:info@1procentclub.nl">{% trans "Contact us!" %}</a>
+            </p>
 
-        <a href="#" class="btn btn-iconed btn-secondary" rel="secondary">
-            <i class="icon icon-ok"></i>
-            {% trans "Reset" %}
-        </a>
+            <a href="#" class="btn btn-iconed btn-secondary" rel="secondary">
+                <i class="icon icon-ok"></i>
+                {% trans "Reset" %}
+            </a>
+        </div>
     </div>
-</form>
 
 {% endtplhandlebars %}
 

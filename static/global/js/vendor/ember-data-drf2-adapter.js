@@ -212,7 +212,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
                         var file = record.get(key);
                         formdata.append(key, file);
                     } else if (Em.typeOf(data[key]) == 'array'){
-                        // Take care of nested resources
+                        // Take care of nested resources, e.g. tags
                         formdata.append(key, JSON.stringify(data[key]));
                     } else {
                         formdata.append(key, data[key]);

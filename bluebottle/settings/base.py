@@ -531,6 +531,10 @@ DATABASE_ROUTERS = [
     "salesforce.router.ModelRouter"
 ]
 
+# E-mail settings
+DEFAULT_FROM_EMAIL = 'website@onepercentclub.com'
+
+
 # Django-registration settings
 ACCOUNT_ACTIVATION_DAYS = 4
 HTML_ACTIVATION_EMAIL = True  # Note this setting is from our forked version.
