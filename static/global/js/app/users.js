@@ -19,8 +19,9 @@ App.User = DS.Model.extend({
     why: DS.attr('string'),
     availability: DS.attr('string'),
     location: DS.attr('string'),
-    picture: DS.attr('string'),
-    avatar: DS.attr('string'),
+
+    picture: DS.attr('image'),
+
     website: DS.attr('string'),
     date_joined: DS.attr('date'),
     file: DS.attr('string'),
@@ -31,17 +32,17 @@ App.User = DS.Model.extend({
 
     getPicture: function() {
         if (this.get('picture')) {
-            return '/static/media/' + this.get('picture')
+            return '/static/media/' + this.get('picture.large')
         }
         return '/static/assets/images/default-avatar.png'
     }.property('picture'),
 
     getAvatar: function(){
-        if (this.get('avatar')) {
-            return this.get('avatar')
+        if (this.get('picture')) {
+            return this.get('picture.square')
         }
         return '/static/assets/images/default-avatar.png'
-    }.property('avatar'),
+    }.property('picture'),
 
     full_name: function() {
         if (!this.get('first_name') && !this.get('last_name')) {
@@ -81,6 +82,7 @@ App.UserSettings = DS.Model.extend({
     country: DS.attr('string'),
     postal_code: DS.attr('string')
 });
+
 
 App.UserPreview = DS.Model.extend({
     // There is no url for UserPreview because it's embedded.
@@ -197,9 +199,11 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
         return list;
     }).property(),
 
-    addFile: function(file) {
-        this.set('model.file', file);
+    addFile: function(file, src){
+        this.set('picture', file);
+
     },
+
 
     save: function(record) {
         var self = this;
@@ -218,9 +222,7 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
 
     updateCurrentUser: function(record) {
         var currentUser = App.CurrentUser.find('current');
-
-        currentUser.set('avatar', record.get('avatar'));
-        currentUser.set('picture', record.get('picture'));
+        currentUser.reload();
     }
 });
 

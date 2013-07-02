@@ -257,16 +257,12 @@ App.UploadFile = Ember.TextField.extend({
         var view = this
 
         reader.onload = function(e) {
-            var preview = "<p>File: <strong>" + file.name + "</strong>.<br/> "
-                          + "Size: <strong>"
-                          + Math.round(file.size*100/1024)/100 + " kB</strong></p>"
-                          + "<img src='" + e.target.result + "' />";
+            var preview = "<img src='" + e.target.result + "' />";
             view.$().parents('form').find('.preview').remove();
             view.$().parent().after('<div class="preview">' + preview + '</div>');
         }
         reader.readAsDataURL(file);
         this.set('value', file);
-
     }
 });
 
@@ -284,6 +280,14 @@ App.UploadFileView = Ember.TextField.extend({
             var reader = new FileReader();
             var file = files[i];
             reader.readAsDataURL(file);
+
+            // Replace src of the preview..
+            var view = this;
+            view.$().parents('form').find('.preview').attr('src', '/static/assets/images/loading.gif');
+            reader.onload = function(e) {
+                view.$().parents('form').find('.preview').attr('src',  e.target.result);
+            }
+
             this.get('controller').addFile(file);
         }
         // Clear the input field after uploading.
