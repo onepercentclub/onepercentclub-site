@@ -7,7 +7,6 @@ from apps.blogs.models import BlogPostProxy
 from fluent_contents.models import Placeholder
 
 
-
 class BlogPostCreationMixin(UserTestsMixin):
 
     def create_blogpost(self, title='We make it work', slug=None, language='nl', user=None, post_type='news',
@@ -28,6 +27,7 @@ class BlogPostCreationMixin(UserTestsMixin):
         bp.status = status
         bp.published_date = published_date
         bp.post_type = post_type
+        bp.language = language
         bp.title = title
         bp.slug = slug
         bp.author = user
@@ -46,18 +46,48 @@ class BlogPostApiIntegrationTest(BlogPostCreationMixin, TestCase):
     """
 
     def setUp(self):
-        self.post = self.create_blogpost()
-        self.list_view = BlogPostList.as_view()
-        self.detail_view = BlogPostDetail.as_view()
-        self.post_url = "{0}{1}".format('/i18n/api/blogs/', self.post.slug)
+        self.some_dutch_news = self.create_blogpost(post_type='news', language='nl')
+        self.some_other_dutch_news = self.create_blogpost(post_type='news', language='nl')
+        self.third_dutch_news = self.create_blogpost(post_type='news', language='nl')
 
+        self.some_dutch_blog = self.create_blogpost(post_type='blog', language='nl')
+        self.some_other_dutch_blog = self.create_blogpost(post_type='blog', language='nl')
 
-    def test_blog_post_retrieve(self):
+        # next_weeh = now().
+        # self.some_future_dutch_blog = self.create_blogpost(post_type='blog', language='nl', )
+
+        self.some_english_news = self.create_blogpost(post_type='news', language='nl')
+        self.some_other_english_news = self.create_blogpost(post_type='news', language='nl')
+        self.some_unpublished_english_news = self.create_blogpost(post_type='news', language='nl', published=False)
+
+        self.some_english_blog = self.create_blogpost(post_type='blog', language='en')
+
+        self.blog_url =  '/i18n/api/blogs/'
+
+    def test_news_retrieve(self):
         """
-        Test retrieving a BlogPost.
+        Test retrieving a news item.
         """
 
-        # Retrieve reaction.
-        response = self.client.get(self.post_url)
+        # Check that we have 3 dutch news items
+        response = self.client.get(self.blog_url, {'post_type': 'news', 'language': 'nl'})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['title'], self.post.title)
+        self.assertEqual(response.data['count'], 3)
+
+        # Retrieve first news items.
+        post_url = "{0}{1}".format(self.blog_url, self.some_dutch_news.slug)
+        response = self.client.get(self.post_url, {'post_type': 'news', 'language': 'nl'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['title'], self.some_dutch_news.title)
+
+        # Check that we have 2 english news items
+        response = self.client.get(self.blog_url, {'post_type': 'news', 'language': 'nl'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 2)
+
+        # Check that we have 2 dutch blog items
+        response = self.client.get(self.blog_url, {'post_type': 'blog', 'language': 'nl'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 3)
+
+
