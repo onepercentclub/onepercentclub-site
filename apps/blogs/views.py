@@ -1,3 +1,4 @@
+from apps.blogs.models import NewsPostProxy, BlogPostProxy
 from apps.blogs.serializers import BlogPostPreviewSerializer
 from rest_framework import generics
 from rest_framework import permissions
@@ -5,23 +6,45 @@ from .models import BlogPost
 from .serializers import BlogPostSerializer
 
 
-class BlogPostPreviewList(generics.ListAPIView):
-    model = BlogPost
+class NewsPostPreviewList(generics.ListAPIView):
+    model = NewsPostProxy
     serializer_class = BlogPostPreviewSerializer
     paginate_by = 10
-    filter_fields = ('post_type', 'language')
+    filter_fields = ('language', )
 
     def get_queryset(self, *args, **kwargs):
-        qs = super(BlogPostPreviewList, self).get_queryset()
+        qs = super(NewsPostPreviewList, self).get_queryset()
+        qs = qs.published()
+        return qs
+
+
+class NewsPostList(generics.ListAPIView):
+    model = NewsPostProxy
+    serializer_class = BlogPostSerializer
+    paginate_by = 10
+    filter_fields = ('language', )
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(NewsPostList, self).get_queryset()
+        qs = qs.published()
+        return qs
+
+
+class NewsPostDetail(generics.RetrieveAPIView):
+    model = NewsPostProxy
+    serializer_class = BlogPostSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(NewsPostDetail, self).get_queryset()
         qs = qs.published()
         return qs
 
 
 class BlogPostList(generics.ListAPIView):
-    model = BlogPost
+    model = BlogPostProxy
     serializer_class = BlogPostSerializer
     paginate_by = 10
-    filter_fields = ('post_type', 'language')
+    filter_fields = ('language', )
 
     def get_queryset(self, *args, **kwargs):
         qs = super(BlogPostList, self).get_queryset()
@@ -30,7 +53,7 @@ class BlogPostList(generics.ListAPIView):
 
 
 class BlogPostDetail(generics.RetrieveAPIView):
-    model = BlogPost
+    model = BlogPostProxy
     serializer_class = BlogPostSerializer
 
     def get_queryset(self, *args, **kwargs):

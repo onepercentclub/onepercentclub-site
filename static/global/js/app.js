@@ -285,7 +285,7 @@ App.ApplicationController = Ember.Controller.extend({
     display_message: false,
 
     news: function(){
-        return App.NewsPreview.find({language: App.get('language'), post_type: 'news'});
+        return App.NewsPreview.find({language: App.get('language')});
     }.property(),
 
 
@@ -1505,7 +1505,7 @@ App.NewsRoute = Ember.Route.extend({
 
 App.NewsListRoute = Ember.Route.extend({
     model: function(params) {
-        return App.News.find({language: App.get('language'), post_type: 'news'});
+        return App.News.find({language: App.get('language')});
     }
 });
 

@@ -1,7 +1,7 @@
 /* Models */
 
 App.News = DS.Model.extend({
-    url: 'blogs/posts',
+    url: 'blogs/news',
     slug: DS.attr('string'),
     title: DS.attr('string'),
     body: DS.attr('string'),
@@ -10,7 +10,7 @@ App.News = DS.Model.extend({
 });
 
 App.NewsPreview = DS.Model.extend({
-    url: 'blogs/previews',
+    url: 'blogs/preview/news',
     slug: DS.attr('string'),
     title: DS.attr('string'),
     publicationDate: DS.attr('date')

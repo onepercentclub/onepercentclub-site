@@ -21,7 +21,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BlogPost
-        fields = ('id', 'title', 'body', 'main_image', 'author', 'publication_date', 'allow_comments')
+        fields = ('id', 'title', 'body', 'main_image', 'author', 'publication_date', 'allow_comments', 'post_type', 'language')
 
 
 class BlogPostPreviewSerializer(serializers.ModelSerializer):
