@@ -135,12 +135,14 @@
                                     </li>
 
                                     <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
-                                    <li>
-                                        {{#linkTo currentOrder.donationList classNames="nav-cart"}}
-                                            <span class="nav-cart-count">{{ controllers.currentOrderDonationList.length }}</span>
-                                            {% trans "Donations" %}
-                                        {{/linkTo}}
-                                    </li>
+                                    {{#if  controllers.currentOrderDonationList.length }}
+                                        <li>
+                                            {{#linkTo currentOrder.donationList classNames="nav-cart"}}
+                                                <span class="nav-cart-count">{{ controllers.currentOrderDonationList.length }}</span>
+                                                {% trans "Donations" %}
+                                            {{/linkTo}}
+                                        </li>
+                                    {{/if}}
                                 {{else}}
                                     <li><a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a></li>
                                     <li>
