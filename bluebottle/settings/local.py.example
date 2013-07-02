@@ -4,7 +4,7 @@ except ImportError:
     import sys
     sys.exit('secrets.py settings file not found. Please run `prepare.sh` to create one.')
 
-from .defaults import *
+from .base import *
 
 #
 # Put your local settings overrides below. There are some commented out defaults to get you started.
