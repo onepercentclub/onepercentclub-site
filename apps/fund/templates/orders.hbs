@@ -63,7 +63,7 @@
                 {% endcomment %}
 
                 {{#view App.OrderNavView classNames="payment"}}
-                    {{#linkTo "payment"}}{% trans "Finish" %}{{/linkTo}}
+                    {{#linkTo "paymentSelect"}}{% trans "Finish" %}{{/linkTo}}
                 {{/view}}
             </ul>
 
@@ -425,7 +425,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "payment" %}
+{% tplhandlebars "paymentSelect" %}
 
     <div class="intro">
 

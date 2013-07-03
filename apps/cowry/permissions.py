@@ -6,7 +6,11 @@ class IsOrderCreator(permissions.BasePermission):
     Allows the access to a payment only if the user created the Order that the payment belongs to.
     """
     def has_object_permission(self, request, view, obj):
-        order = obj.orders.all()[0]
+        # Use duck typing to check if we have an order or a payment.
+        if hasattr(obj, 'user'):
+            order = obj
+        else:
+            order = obj.orders.all()[0]
 
         # Case 1: Authenticated user.
         if request.user.is_authenticated():
