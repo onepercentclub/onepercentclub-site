@@ -11,6 +11,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     payment_submethod = serializers.CharField(source='payment_submethod_id', required=False)
     available_payment_methods = serializers.SerializerMethodField(method_name='get_available_payment_methods')
     payment_url = serializers.SerializerMethodField(method_name='get_payment_url')
+    status = serializers.ChoiceField(read_only=True)
 
     def get_available_payment_methods(self, payment):
         order = payment.orders.all()[0]
@@ -36,4 +37,4 @@ class PaymentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Payment
-        fields = ('id', 'payment_method', 'payment_submethod', 'available_payment_methods', 'payment_url')
+        fields = ('id', 'payment_method', 'payment_submethod', 'available_payment_methods', 'payment_url', 'status')

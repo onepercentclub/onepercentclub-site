@@ -1,12 +1,10 @@
 from django.conf.urls import patterns, include, url
 from surlex.dj import surl
-from .views import (FundApi, OrderList, OrderDetail, OrderDonationDetail, PaymentProfileCurrent, VoucherDetail,
+from .views import (OrderList, OrderDetail, OrderDonationDetail, PaymentProfileCurrent, VoucherDetail,
                     OrderVoucherList, OrderVoucherDetail, VoucherDonationList, VoucherDonationDetail,
                     CustomVoucherRequestList, OrderDonationList, DocDataDirectDebitCurrent)
 
 urlpatterns = patterns('',
-    url(r'^$', FundApi.as_view()),
-
     # Orders
     url(r'^orders/$', OrderList.as_view(), name='fund-order-list'),
     surl(r'^orders/<pk:#>$', OrderDetail.as_view(), name='fund-order-detail'),

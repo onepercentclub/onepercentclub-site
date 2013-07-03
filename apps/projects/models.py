@@ -8,7 +8,7 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-from apps.fund.models import Donation
+from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
 
 
@@ -65,14 +65,14 @@ class Project(models.Model):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = Donation.objects.filter(project=self)
-        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
         donations = donations.filter(user__isnull=False)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
             donations = Donation.objects.filter(project=self)
-            donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+            donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
             donations = donations.filter(user__isnull=True)
             count = count + len(donations.all())
         return count
@@ -227,14 +227,14 @@ class ProjectCampaign(models.Model):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
         donations = donations.filter(user__isnull=False)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
             donations = Donation.objects.filter(project=self.project)
-            donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+            donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
             donations = donations.filter(user__isnull=True)
             count += len(donations.all())
         return count
@@ -245,7 +245,7 @@ class ProjectCampaign(models.Model):
         if self.money_asked == 0:
             return 0
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress, Donation.DonationStatuses.pending])
+        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress, DonationStatuses.pending])
         total = donations.aggregate(sum=Sum('amount'))
         if not total['sum']:
             return 0
@@ -264,7 +264,7 @@ class ProjectCampaign(models.Model):
         if self.money_asked == 0:
             return 0
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[Donation.DonationStatuses.paid])
+        donations = donations.filter(status__in=[DonationStatuses.paid])
         total = donations.aggregate(sum=Sum('amount'))
         if not total['sum']:
             return 0
