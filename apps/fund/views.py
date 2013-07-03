@@ -1,5 +1,6 @@
 import threading
 from apps.cowry import payments
+from apps.cowry.permissions import IsOrderCreator
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataWebDirectDirectDebitSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -104,36 +105,22 @@ class CurrentOrderMixin(object):
         return order
 
 
-# Some API views we still need to implement
-
-class FundApi(CurrentOrderMixin, ListAPIView):
-    # TODO: Implement
-    """
-    Show available API methods
-    """
-    permission_classes = (AllowNone,)
-    paginate_by = 10
-
-
-class OrderList(ListAPIView):
-    # TODO: Implement
-    model = Order
-    permission_classes = (AllowNone,)
-    paginate_by = 10
-
-# End: Unimplemented API views
-
-
 # Order views.
 
 no_active_order_error_msg = _(u"No active order")
 
 
+class OrderList(ListAPIView):
+    model = Order
+    # TODO Implement and remove AllowNone.
+    permission_classes = (AllowNone, IsOrderCreator)
+    paginate_by = 10
+
+
 class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
     serializer_class = OrderSerializer
-    # FIXME: make sure right permissions are set.
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsOrderCreator,)
 
     def get_object(self, queryset=None):
         alias = self.kwargs.get('alias', None)
