@@ -296,9 +296,21 @@ App.MyProject = DS.Model.extend({
     isPhasePitch: function(){
         return this.get('phase') == 'pitch';
     }.property('phase'),
+
     isPhasePlan: function(){
         return this.get('phase') == 'plan';
     }.property('phase'),
+
+    isPublic: function(){
+        if (this.get('phase') == 'pitch') {
+            return false;
+        }
+        if (this.get('phase') == null) {
+            return false;
+        }
+        return true;
+    }.property('phase'),
+
 
     inProgress: function(){
         var phase = this.get('phase');

@@ -1281,19 +1281,9 @@ App.MyProjectListRoute = Ember.Route.extend({
 });
 
 App.MyPitchNewRoute = Ember.Route.extend({
-    redirect: function() {
-        var projects = App.MyProject.find();
-        var route = this;
-        projects.forEach(function(project){
-            if (project.get('inProgress')) {
-                route.transitionTo('myProjectList');
-            }
-        });
-    },
     model: function(){
         var transaction = this.get('store').transaction();
-        var project =  transaction.createRecord(App.MyProject);
-        return project;
+        return  transaction.createRecord(App.MyProject);
     }
 
 });
