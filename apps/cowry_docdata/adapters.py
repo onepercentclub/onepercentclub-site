@@ -189,6 +189,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         billTo.address = address
         billTo.name = name
 
+        order = payment.orders.all()[0]
+        description = order.__unicode__()[:50]
+
         if self.test:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             # A unique code for testing.
@@ -199,7 +202,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Execute create payment order request.
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
-                                           menuPreferences, shopper, amount, billTo)
+                                           menuPreferences, shopper, amount, billTo, description)
         if hasattr(reply, 'createSuccess'):
             payment.payment_order_key = str(reply['createSuccess']['key'])
             self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
@@ -260,7 +263,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             order = payment.orders.all()[0]
             params['return_url_success'] = return_url_base + '#/support/thanks/' + str(order.id)
             params['return_url_pending'] = return_url_base + '#/support/thanks/' + str(order.id)
-            # params['return_url_canceled'] = return_url_base + '#/payment/' + str(payment.id) + '/cancel'
             params['return_url_canceled'] = return_url_base + '#/support/donations'
             params['return_url_error'] = return_url_base + '#/support/payment/error'
 
