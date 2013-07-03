@@ -14,67 +14,54 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "news_index" %}
+
+    {% trans "Loading the latest news" %}
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "news_item" %}
 
-    {{ partial "news_header" }}
+        <header>
+            <h3>{{ title}}</h3>
+            <a {{action openInBigBox "userModal" author}} class="user">
+                <span class="user-img"><img {{ bindAttr src="author.getAvatar" }} width="100%" alt="Avatar"></span>
+                <strong>{{ author.full_name }}</strong>
+            </a>
+            <small class="timestamp">{{ localize publicationDate formatting="X" }}</small>
+        </header>
+
+        <div class="content">
+            {{{ body }}}
+        </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "news" %}
 
     <section class="wrapper">
         <article class="blogpost">
-            <header>
-                <h3>{{ title}}</h3>
-                <a {{action openInBigBox "userModal" author}} class="user">
-                    <span class="user-img"><img {{ bindAttr src="author.getAvatar" }} width="100%" alt="Avatar"></span>
-                    <strong>{{ author.full_name }}</strong>
-                </a>
-                <small class="timestamp">{{ localize publicationDate formatting="X" }}</small>
-            </header>
-
-            <div class="content">
-                {{{ body }}}
-            </div>
+            {{outlet}}
         </article>
 
         <sidebar class="blogpost-filter">
-            {{#linkTo "newsList"}}
-                {% trans "All news items" %}
-            {{/linkTo}}
+            <ul>
+                {{#each model}}
+                    <li>
+                        <a {{action showNews this.id}}>
+                            <strong>{{title}}</strong>
+                        </a>
+                        <br/>
+                        <em>{{localize publicationDate formatting="X"}}</em>
+                    </li>
+                {{else}}
+                    <li>{% trans "No news items found" %}</li>
+                {{/each}}
+            </ul>
         </sidebar>
     </section>
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "news_item_preview" %}
-
-    {{#linkTo news this}}
-        <h3>{{title}}</h3>
-    {{/linkTo}}
-    {% trans "Published: " %}
-    <span class="date">{{localize "publicationDate" formatting="X"}}</span>
-    <br />
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "news_list" %}
-
-    {{ partial "news_header" }}
-
-    <div class="container">
-        <section class="wrapper">
-            <article>
-                <ul>
-                    {{#each model}}
-                        <li>
-                            {{view "App.NewsItemPreviewView"}}
-                        </li>
-                    {{else}}
-                        <li>{% trans "No news items found" %}</li>
-                    {{/each}}
-                </ul>
-            </article>
-        </section>
-    </div>
 
 {% endtplhandlebars %}
 
