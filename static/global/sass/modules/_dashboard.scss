@@ -1,5 +1,5 @@
 .dashboard {
-    @include rem(margin-top, 12px);
+    @include rem(margin, 12px auto 24px);
     .menu-sidebar {
         @include grid(12, 1, 0);
         .menu {
@@ -41,6 +41,11 @@ form {
         }
 
     }
+}
+
+.pitch-start {
+    //@include grid(24, 0, 1);
+    position: relative;
 }
 
 .map-picker {
@@ -171,6 +176,21 @@ ul.manage-steps {
         &.sixth {
             z-index: 5;
         }
+    }
+}
+
+.my-project {
+    @include rem(padding, 12px 0px);
+    @include rem(margin, 12px 0px);
+    @include clearfix;
+    border-bottom: 5px solid $color-back;
+    h2 {
+        @include rem(padding, 4px 8px 0px);
+        @include rem(font-size, 20px);
+    }
+    img {
+        float:left;
+        @include rem(margin-right, 12px);
     }
 }
 

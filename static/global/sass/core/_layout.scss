@@ -41,7 +41,8 @@ body {
     padding: 0 16px;
 }
 
-.wrapper > header, .wrapper > .main-title {
+.wrapper > header, .wrapper > .main-title,
+.wrapper > h1, .wrapper > h2, .wrapper > h3 {
     @include grid(48, 1);
 }
 
