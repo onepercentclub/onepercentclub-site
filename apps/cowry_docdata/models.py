@@ -24,8 +24,8 @@ class DocDataPaymentOrder(Payment):
 
     @property
     def latest_docdata_payment(self):
-        if self.docdatapayment_set.all():
-            return self.docdatapayment_set.order_by('-created').all()[0]
+        if self.docdata_payments.all():
+            return self.docdata_payments.order_by('-created').all()[0]
         return None
 
 
@@ -39,7 +39,7 @@ class DocDataPayment(PolymorphicModel):
                 'CONFIRMED_CHARGEDBACK', 'CLOSED_SUCCESS', 'CLOSED_CANCELLED')
 
     status = models.CharField(_("status"), max_length=25, default='NEW')
-    docdata_payment_order = models.ForeignKey(DocDataPaymentOrder)
+    docdata_payment_order = models.ForeignKey(DocDataPaymentOrder, related_name='docdata_payments')
     payment_id = models.CharField(_("payment id"), max_length=100, default='', blank=True)
     # This is the payment method id from DocData (e.g. IDEAL, MASTERCARD, etc)
     docdata_payment_method = models.CharField(max_length=20, default='', blank=True)

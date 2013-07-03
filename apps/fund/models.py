@@ -12,18 +12,18 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices import DjangoChoices, ChoiceItem
 
 
+class DonationStatuses(DjangoChoices):
+    new = ChoiceItem('new', label=_("New"))
+    in_progress = ChoiceItem('in_progress', label=_("In progress"))
+    pending = ChoiceItem('pending', label=_("Pending"))
+    paid = ChoiceItem('paid', label=_("Paid"))
+    failed = ChoiceItem('failed', label=_("Failed"))
+
 class Donation(models.Model):
     """
     Donation of an amount from a user to a project. A Donation can have a generic foreign key from OrderItem when
     it's used in the order process but it can also be used without this GFK when it's used to cash in a Voucher.
     """
-    class DonationStatuses(DjangoChoices):
-        new = ChoiceItem('new', label=_("New"))
-        in_progress = ChoiceItem('in_progress', label=_("In progress"))
-        pending = ChoiceItem('pending', label=_("Pending"))
-        paid = ChoiceItem('paid', label=_("Paid"))
-        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
-
     class DonationTypes(DjangoChoices):
         one_off = ChoiceItem('one_off', label=_("One-off"))
         monthly = ChoiceItem('monthly', label=_("Monthly"))
@@ -59,15 +59,13 @@ class Donation(models.Model):
 
 class OrderStatuses(DjangoChoices):
     """
-        Current: Shopping cart.
-        Monthly: Monthly order that can change until it's processed on the 1st day of the month.
-        In Progress: User is directed to payment provider (i.e. the payment is in progress).
-        Closed: An order that has a payment that's paid, cancelled or failed.
+    Current: The single donation shopping cart (editable).
+    Monthly: The monthly donation shopping cart (editable).
+    Closed:  Has a payment that's paid, cancelled or failed (not editable).
     """
     # TODO: add validation rules for statuses.
     current = ChoiceItem('current', label=_("Current"))
     monthly = ChoiceItem('monthly', label=_("Monthly"))
-    in_progress = ChoiceItem('in_progress', label=_("In progress"))
     closed = ChoiceItem('closed', label=_("Closed"))
 
 
@@ -205,7 +203,7 @@ class CustomVoucherRequest(models.Model):
 
 def process_voucher_order_in_progress(voucher):
     def generate_voucher_code():
-        # Upper case letters without d, o, l and i. Numbers without 0 and 1.
+        # Upper case letters without D, O, L and I; Numbers without 0 and 1.
         char_set = 'ABCEFGHJKMNPQRSTUVWXYZ23456789'
         return ''.join(random.choice(char_set) for i in range(8))
 
@@ -224,44 +222,17 @@ def set_voucher_cancelled(voucher):
     voucher.save()
 
 
-def set_donation_in_progress(donation):
-    donation.status = Donation.DonationStatuses.in_progress
-    donation.save()
-    project = donation.project
-    # Progress project to act phase if it's fully funded
-    if project.projectcampaign.money_needed <= 0:
-        project.phase = 'act'
+def _adjust_project_phase(project):
+    from apps.projects.models import ProjectPhases
+
+    # Change project act phase if it's fully funded and still in fund phase.
+    if project.projectcampaign.money_needed <= 0 and project.phase == ProjectPhases.campaign:
+        project.phase = ProjectPhases.act
         project.save()
 
-
-def set_donation_cancelled(donation):
-    donation.status = Donation.DonationStatuses.cancelled
-    donation.save()
-    project = donation.project
-    # Change project back to fund phase if it's not fully funded
-    if project.projectcampaign.money_needed > 0:
-        project.phase = 'campaign'
-        project.save()
-
-
-def set_donation_pending(donation):
-    # Note the similarity to set_donation_paid().
-    donation.status = Donation.DonationStatuses.pending
-    donation.save()
-    project = donation.project
-    # Change project act phase if it's fully funded and still in fund phase
-    if project.projectcampaign.money_needed <= 0 and project.phase == 'campaign':
-        project.phase = 'act'
-        project.save()
-
-
-def set_donation_paid(donation):
-    donation.status = Donation.DonationStatuses.paid
-    donation.save()
-    project = donation.project
-    # Change project act phase if it's fully funded and still in fund phase
-    if project.projectcampaign.money_needed <= 0 and project.phase == 'campaign':
-        project.phase = 'act'
+    # Change project campaign phase if it still needs money and is in act phase.
+    elif project.projectcampaign.money_needed > 0 and project.phase == ProjectPhases.act:
+        project.phase = ProjectPhases.campaign
         project.save()
 
 
@@ -275,6 +246,8 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     #                   cancelled
     #                   refunded
 
+    print 'old_status: ' + old_status + ' -> new_status: ' + new_status
+
     # Ignore status changes on payments that don't have an Order. This is needed to run the Cowry unit tests.
     # We could remove this check if we changed the unit tests to only test the full Order and Payment system.
     if instance.orders.all():
@@ -282,34 +255,80 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     else:
         return
 
+    #
     # Payment: new -> in_progress
+    #
     if old_status == PaymentStatuses.new and new_status == PaymentStatuses.in_progress:
-        order.status = OrderStatuses.in_progress
-        order.save()
+        # Donations.
         for donation in order.donations:
-            set_donation_in_progress(donation)
+            donation.status = DonationStatuses.in_progress
+            donation.save()
+            _adjust_project_phase(donation.project)
+
+        # Vouchers.
         for voucher in order.vouchers:
             process_voucher_order_in_progress(voucher)
 
+    #
+    # Payment: in_progress -> cancelled
+    #
+    if old_status == PaymentStatuses.in_progress and new_status == PaymentStatuses.cancelled:
+        # TODO verify that order status is still current, change and print warning if not??
+        # Donations.
+        for donation in order.donations:
+            donation.status = DonationStatuses.new
+            donation.save()
+            _adjust_project_phase(donation.project)
+
+        # Vouchers.
+        # TODO Implement vouchers.
+
+    #
     # Payment: -> pending
+    #
     if new_status == PaymentStatuses.pending:
         order.status = OrderStatuses.closed
         order.save()
-        for donation in order.donations:
-            set_donation_pending(donation)
 
+        # Donations.
+        for donation in order.donations:
+            donation.status = DonationStatuses.pending
+            donation.save()
+            _adjust_project_phase(donation.project)
+
+        # Vouchers.
+        # TODO Implement vouchers.
+
+    #
     # Payment: -> paid
+    #
     if new_status == PaymentStatuses.paid:
         order.status = OrderStatuses.closed
         order.save()
-        for donation in order.donations:
-            set_donation_paid(donation)
 
-    # Payment: -> failed or cancelled or refunded
-    if new_status in [PaymentStatuses.failed, PaymentStatuses.cancelled, PaymentStatuses.refunded]:
-        order.status = OrderStatuses.in_progress
-        order.save()
+        # Donations.
         for donation in order.donations:
-            set_donation_cancelled(donation)
+            donation.status = DonationStatuses.paid
+            donation.save()
+            _adjust_project_phase(donation.project)
+
+        # Vouchers.
+        # TODO Implement vouchers.
+
+    #
+    # Payment: -> failed or refunded
+    #
+    if new_status in [PaymentStatuses.failed, PaymentStatuses.refunded]:
+        # FIXME Since we're using the 'current' alias instead of PKs there could be two order with current.
+        order.status = OrderStatuses.current
+        order.save()
+
+        # Donations.
+        for donation in order.donations:
+            donation.status = DonationStatuses.failed
+            donation.save()
+            _adjust_project_phase(donation.project)
+
+        # Vouchers.
         for voucher in order.vouchers:
             set_voucher_cancelled(voucher)

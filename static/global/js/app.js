@@ -202,7 +202,7 @@ App.loadTemplates = function() {
         jQuery.ajax(hash);
 
     });
-}
+};
 
 App.loadTemplates();
 
@@ -325,7 +325,7 @@ App.Adapter.map('App.Project', {
     country: {embedded: 'load'}
 });
 App.Adapter.map('App.ProjectPreview', {
-    campaign: {embedded: 'load'},
+    campaign: {embedded: 'load'}
 });
 App.Adapter.map('App.DonationPreview', {
     project: {embedded: 'load'},
@@ -482,10 +482,13 @@ App.Router.map(function() {
         this.route('voucherList', {path: '/giftcards'});
 
         this.resource('paymentProfile', {path: '/details'});
-        this.resource('payment', {path: '/payment'});
+        this.resource('paymentSelect', {path: '/payment'});
     });
 
     this.resource('orderThanks', {path: '/support/thanks/:order_id'});
+//    this.resource('payment', {path: '/payment/:payment_id'}, function() {
+//        this.route('cancel');
+//    });
 
     this.resource('voucherStart', {path: '/giftcards'});
     this.resource('customVoucherRequest', {path: '/giftcards/custom'});
@@ -509,7 +512,7 @@ App.Router.map(function() {
     this.route('userActivate', {path: '/activate/:activation_key'});
     this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
 
-    this.resource('myPitch', {path: '/my/pitches/:my_pitch_id'}, function(){
+    this.resource('myPitch', {path: '/my/pitches/:my_pitch_id'}, function() {
         this.route('index');
         this.route('basics');
         this.route('description');
@@ -517,7 +520,7 @@ App.Router.map(function() {
         this.route('media');
     });
 
-    this.resource('myProject', {path: '/my/projects/:my_project_id'}, function(){
+    this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
         this.resource('myProjectPlan', {path: 'plan'},function(){
             this.route('index');
             this.route('basics');
@@ -537,9 +540,9 @@ App.Router.map(function() {
 
         });
 
-        this.resource('myProjectPlanReview', {path: 'plan/review'})
-        this.resource('myProjectPlanApproved', {path: 'plan/approved'})
-        this.resource('myProjectPlanRejected', {path: 'plan/rejected'})
+        this.resource('myProjectPlanReview', {path: 'plan/review'});
+        this.resource('myProjectPlanApproved', {path: 'plan/approved'});
+        this.resource('myProjectPlanRejected', {path: 'plan/rejected'});
 
         this.resource('myProjectPitch', {path: 'pitch'}, function(){
             this.route('index');
@@ -549,8 +552,8 @@ App.Router.map(function() {
 
             this.route('submit');
         });
-        this.resource('myProjectPitchReview', {path: 'pitch/review'})
-        this.resource('myProjectPitchApproved', {path: 'pitch/approved'})
+        this.resource('myProjectPitchReview', {path: 'pitch/review'});
+        this.resource('myProjectPitchApproved', {path: 'pitch/approved'});
         this.resource('myProjectPitchRejected', {path: 'pitch/rejected'})
     });
 
@@ -560,7 +563,7 @@ App.Router.map(function() {
 });
 
 
-App.ApplicationRoute = Ember.Route.extend({
+App.ApplicationRoute = Em.Route.extend({
 
     events: {
         selectLanguage: function(language) {
@@ -650,18 +653,18 @@ App.ApplicationRoute = Ember.Route.extend({
  * Project Routes
  */
 
-App.ProjectListRoute = Ember.Route.extend({
+App.ProjectListRoute = Em.Route.extend({
     model: function() {
         return App.ProjectPreview.find({phase: 'campaign'});
     }
 });
 
 
-App.ProjectRoute = Ember.Route.extend({
+App.ProjectRoute = Em.Route.extend({
     model: function(params) {
         var page =  App.Project.find(params.project_id);
         var route = this;
-        page.on('becameError', function(){
+        page.on('becameError', function() {
             //route.transitionTo('error.notFound');
             route.transitionTo('projectList');
         });
@@ -682,8 +685,8 @@ App.ProjectRoute = Ember.Route.extend({
 
 
 // This is the 'ProjectWallPostListRoute'
-App.ProjectIndexRoute = Ember.Route.extend({
-    model: function(params){
+App.ProjectIndexRoute = Em.Route.extend({
+    model: function(params) {
         return this.modelFor('project');
     },
 
@@ -699,8 +702,8 @@ App.ProjectIndexRoute = Ember.Route.extend({
 });
 
 
-App.ProjectPlanRoute = Ember.Route.extend({
-    model: function(params){
+App.ProjectPlanRoute = Em.Route.extend({
+    model: function(params) {
         return this.modelFor('project').get('plan');
     }
 });
@@ -708,17 +711,17 @@ App.ProjectPlanRoute = Ember.Route.extend({
 
 // Tasks
 
-App.ProjectTaskListRoute = Ember.Route.extend({
+App.ProjectTaskListRoute = Em.Route.extend({
     model: function(params) {
         return Em.A();
     },
 
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this._super(controller, model);
         var project = this.modelFor('project');
         var tasks = App.Task.find({project: project.get('id')});
         tasks.addObserver('isLoaded', function(){
-            tasks.forEach(function(record){
+            tasks.forEach(function(record) {
                 if (record.get('isLoaded')) {
                     controller.get('content').pushObject(record);
                 }
@@ -728,7 +731,7 @@ App.ProjectTaskListRoute = Ember.Route.extend({
 });
 
 
-App.ProjectTaskRoute = Ember.Route.extend({
+App.ProjectTaskRoute = Em.Route.extend({
     model: function(params) {
         return App.Task.find(params.task_id);
     },
@@ -830,14 +833,14 @@ App.ProjectTaskRoute = Ember.Route.extend({
                 }
             });
         },
-        stopWorkingOnTask: function(task){
+        stopWorkingOnTask: function(task) {
             alert('Not implemented. Sorry!');
         }
     }
 });
 
 
-App.ProjectTaskNewRoute = Ember.Route.extend({
+App.ProjectTaskNewRoute = Em.Route.extend({
 
     setupController: function(controller, model){
         this._super(controller, model);
@@ -848,7 +851,7 @@ App.ProjectTaskNewRoute = Ember.Route.extend({
 });
 
 
-App.ProjectTaskEditRoute = Ember.Route.extend({
+App.ProjectTaskEditRoute = Em.Route.extend({
     model: function(params) {
         return App.Task.find(params.task_id);
     },
@@ -869,24 +872,35 @@ App.ProjectTaskEditRoute = Ember.Route.extend({
  * Current Order Routes
  */
 
-App.CurrentOrderRoute = Ember.Route.extend({
-    model: function(params) {
-        console.log('currentOrder model');
-        return App.CurrentOrder.find('current');
-    }
-});
-
-
 // Redirect to the donations list if somebody tries load '/support'.
-App.CurrentOrderIndexRoute = Ember.Route.extend({
+App.CurrentOrderIndexRoute = Em.Route.extend({
     redirect: function() {
         this.transitionTo('currentOrder.donationList');
     }
 });
 
 
-App.CurrentOrderDonationListRoute = Ember.Route.extend({
+App.CurrentOrderRoute = Em.Route.extend({
     model: function(params) {
+        console.log('model() CurrentOrder');
+
+        var order = App.CurrentOrder.find('current');
+        // Always load the CurrentOrder so that the payment id is correct. This should go away when we switch to
+        // creating an order instead of loading 'current'.
+        if (order.get('isLoading')) {
+            // 'current' Order is being loaded for the first time so just return it.
+            return order;
+        }
+        // 'current' Order is already loaded. Unload it and get it again.
+        order.unloadRecord();
+        return App.CurrentOrder.find('current');
+    }
+});
+
+
+App.CurrentOrderDonationListRoute = Em.Route.extend({
+    model: function(params) {
+        console.log('model() CurrentOrderDonationList');
         var order = this.modelFor('currentOrder');
         return order.get('donations');
     },
@@ -903,7 +917,7 @@ App.CurrentOrderDonationListRoute = Ember.Route.extend({
 // missing something. More investigation is needed if we want to get rid of this route.
 // Note: This route allows us to publish urls like; '/support/donations/add/<project slug>'
 // which will add a donation the project in the current user's cart.
-App.CurrentOrderAddDonationRoute = Ember.Route.extend({
+App.CurrentOrderAddDonationRoute = Em.Route.extend({
     setupController: function (controller, project) {
         var route = this;
         this.modelFor('currentOrder').then(function(order) {
@@ -930,7 +944,7 @@ App.CurrentOrderAddDonationRoute = Ember.Route.extend({
 });
 
 
-App.CurrentOrderVoucherListRoute = Ember.Route.extend({
+App.CurrentOrderVoucherListRoute = Em.Route.extend({
     model: function(params) {
         return App.CurrentOrder.find('current').get('vouchers');
     },
@@ -946,32 +960,30 @@ App.CurrentOrderVoucherListRoute = Ember.Route.extend({
  * Payment for Current Order Routes
  */
 
-App.PaymentProfileRoute = Ember.Route.extend({
+App.PaymentProfileRoute = Em.Route.extend({
     model: function(params) {
+        console.log('model() PaymentProfile');
         return App.PaymentProfile.find('current');
-    },
-
-    setupController: function(controller, paymentProfile) {
-        this._super(controller, paymentProfile);
     }
 });
 
 
-App.PaymentRoute = Ember.Route.extend({
+App.PaymentSelectRoute = Em.Route.extend({
+
     model: function(params) {
+        console.log('model() PaymentSelect');
+        // For some reason currentOrder is not loaded from the server but is loaded from the browser when you use
+        // the back button from the DocDataPage.
         var order = this.modelFor('currentOrder');
-        var payment = order.get('payment');
-        console.log('payment id ' + payment.get('id'));
-        return payment;
+        return order.get('payment');
     }
 });
-
 
 /**
  * Vouchers Redeem Routes
  */
 
-App.CustomVoucherRequestRoute = Ember.Route.extend({
+App.CustomVoucherRequestRoute = Em.Route.extend({
     setupController: function(controller, context) {
         // TODO: Find out why init() doesn't run automatically.
         controller.init();
@@ -979,7 +991,7 @@ App.CustomVoucherRequestRoute = Ember.Route.extend({
 });
 
 
-App.VoucherRedeemCodeRoute = Ember.Route.extend({
+App.VoucherRedeemCodeRoute = Em.Route.extend({
     model: function(params) {
         var voucher = App.Voucher.find(params['code']);
         // We don't get the code from the server, but we want it to return it to the user here.
@@ -993,7 +1005,7 @@ App.VoucherRedeemCodeRoute = Ember.Route.extend({
 });
 
 
-App.VoucherRedeemAddRoute = Ember.Route.extend({
+App.VoucherRedeemAddRoute = Em.Route.extend({
 
     setupController: function (controller, project) {
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
@@ -1029,7 +1041,7 @@ App.VoucherRedeemAddRoute = Ember.Route.extend({
     }
 });
 
-App.VoucherRedeemRoute = Ember.Route.extend({
+App.VoucherRedeemRoute = Em.Route.extend({
 
     events: {
         addDonation: function (voucher, project) {
@@ -1053,14 +1065,14 @@ App.VoucherRedeemRoute = Ember.Route.extend({
     }
 });
 
-App.UserIndexRoute = Ember.Route.extend({
+App.UserIndexRoute = Em.Route.extend({
     redirect: function() {
         this.transitionTo('userProfile');
     }
 });
 
 
-App.UserProfileRoute = Ember.Route.extend({
+App.UserProfileRoute = Em.Route.extend({
     model: function() {
         var route = this;
 
@@ -1088,7 +1100,7 @@ App.UserProfileRoute = Ember.Route.extend({
 });
 
 
-App.UserSettingsRoute = Ember.Route.extend({
+App.UserSettingsRoute = Em.Route.extend({
 
     model: function() {
         var route = this;
@@ -1117,7 +1129,7 @@ App.UserSettingsRoute = Ember.Route.extend({
 });
 
 
-App.UserActivateRoute = Ember.Route.extend({
+App.UserActivateRoute = Em.Route.extend({
     reloadRecord: function(record) {
         // Put the record in the load.saved state if it's in the error state.
         if (record.get('isError')) {
@@ -1176,7 +1188,7 @@ App.UserActivateRoute = Ember.Route.extend({
 });
 
 
-App.SignupRoute = Ember.Route.extend({
+App.SignupRoute = Em.Route.extend({
     redirect: function() {
         if (this.controllerFor('currentUser').get('isAuthenticated')) {
             this.transitionTo('home');
@@ -1192,7 +1204,7 @@ App.SignupRoute = Ember.Route.extend({
 });
 
 
-App.PasswordResetRoute = Ember.Route.extend({
+App.PasswordResetRoute = Em.Route.extend({
     model: function(params) {
         var route = this;
 
@@ -1272,14 +1284,15 @@ App.LoginController = Em.Controller.extend({
  */
 
 App.MyProjectListRoute = Ember.Route.extend({
-    model: function(params){
+    model: function(params) {
         return App.MyProject.find();
     },
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this._super(controller, model);
     }
 
 });
+
 
 App.MyPitchNewRoute = Ember.Route.extend({
     model: function(){
@@ -1306,7 +1319,7 @@ App.MyProjectPitchRoute =  Ember.Route.extend({
 App.MyProjectPitchSubRoute = Ember.Route.extend({
     redirect: function() {
         var status = this.modelFor('myProject').get('pitch.status');
-        switch(status){
+        switch(status) {
             case 'submitted':
                 this.transitionTo('myProjectPitchReview');
                 break;
@@ -1333,15 +1346,16 @@ App.MyProjectPitchSubRoute = Ember.Route.extend({
 
 });
 
-App.MyProjectPitchBasicsRoute =  App.MyProjectPitchSubRoute.extend({});
-App.MyProjectPitchLocationRoute =  App.MyProjectPitchSubRoute.extend({});
-App.MyProjectPitchMediaRoute =  App.MyProjectPitchSubRoute.extend({});
-App.MyProjectPitchSubmitRoute =  App.MyProjectPitchSubRoute.extend({});
 
-App.MyProjectPitchIndexRoute =  Ember.Route.extend({
+App.MyProjectPitchBasicsRoute = App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchLocationRoute = App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchMediaRoute = App.MyProjectPitchSubRoute.extend({});
+App.MyProjectPitchSubmitRoute = App.MyProjectPitchSubRoute.extend({});
+
+App.MyProjectPitchIndexRoute =  Em.Route.extend({
     redirect: function() {
         var status = this.modelFor('myProject').get('pitch.status');
-        switch(status){
+        switch(status) {
             case 'submitted':
                 this.transitionTo('myProjectPitchReview');
                 break;
@@ -1359,7 +1373,7 @@ App.MyProjectPitchIndexRoute =  Ember.Route.extend({
 });
 
 
-App.MyProjectPitchReviewRoute =  Ember.Route.extend({
+App.MyProjectPitchReviewRoute = Ember.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('pitch');
     }
@@ -1368,7 +1382,7 @@ App.MyProjectPitchReviewRoute =  Ember.Route.extend({
 
 // My ProjectPlan routes
 
-App.MyProjectPlanRoute =  Ember.Route.extend({
+App.MyProjectPlanRoute = Ember.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('plan');
     }
@@ -1389,32 +1403,34 @@ App.MyProjectPlanSubRoute = Ember.Route.extend({
                 break;
         }
     },
+
     model: function(params) {
         return this.modelFor('myProject').get('plan');
     },
+
     setupController: function(controller, model){
         this._super(controller, model);
         controller.startEditing();
     },
+
     exit: function(){
         if (this.get('controller')) {
             this.get('controller').stopEditing();
         }
     }
-
 });
 
-App.MyProjectPlanBasicsRoute =  App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanDescriptionRoute =  App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanLocationRoute =  App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanMediaRoute =  App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanAmbassadorsRoute =  App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanSubmitRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanBasicsRoute = App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanDescriptionRoute = App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanLocationRoute = App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanMediaRoute = App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanAmbassadorsRoute = App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanSubmitRoute = App.MyProjectPlanSubRoute.extend({});
 
-App.MyProjectPlanCampaignRoute =  App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanBudgetRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanCampaignRoute = App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanBudgetRoute = App.MyProjectPlanSubRoute.extend({});
 
-App.MyProjectPlanOrganisationRoute =  App.MyProjectPlanSubRoute.extend({
+App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
     setupController: function(controller, model){
         this._super(controller, model);
         controller.set('organizations', App.MyOrganization.find());
@@ -1424,10 +1440,10 @@ App.MyProjectPlanOrganisationRoute =  App.MyProjectPlanSubRoute.extend({
 App.MyProjectPlanBankRoute = App.MyProjectPlanSubRoute.extend({});
 
 
-App.MyProjectPlanLegalRoute =  App.MyProjectPlanSubRoute.extend({});
+App.MyProjectPlanLegalRoute = App.MyProjectPlanSubRoute.extend({});
 
 
-App.MyProjectPlanIndexRoute =  Ember.Route.extend({
+App.MyProjectPlanIndexRoute = Ember.Route.extend({
     redirect: function() {
         var status = this.modelFor('myProject').get('plan.status');
         switch(status){
@@ -1442,13 +1458,14 @@ App.MyProjectPlanIndexRoute =  Ember.Route.extend({
                 break;
         }
     },
+
     model: function(params) {
         return this.modelFor('myProject').get('plan');
     }
 });
 
 
-App.MyProjectPlanReviewRoute =  Ember.Route.extend({
+App.MyProjectPlanReviewRoute = Ember.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('plan');
     }
@@ -1457,12 +1474,11 @@ App.MyProjectPlanReviewRoute =  Ember.Route.extend({
 
 /* Home Page */
 
-
 App.HomeRoute = Ember.Route.extend({
-
     model: function(params) {
         return App.HomePage.find(App.get('language'));
     },
+
     setupController: function(controller, model) {
         this._super(controller, model);
         controller.set('projectIndex', 0).loadProject();
@@ -1505,6 +1521,7 @@ App.NewsRoute = Ember.Route.extend({
     }
 });
 
+
 App.NewsIndexRoute = Ember.Route.extend({
     model: function(params) {
         return App.NewsPreview.find({language: App.get('language')});
@@ -1516,13 +1533,12 @@ App.NewsIndexRoute = Ember.Route.extend({
 });
 
 
-
-
 /* Views */
 
 App.LanguageView = Ember.View.extend({
     templateName: 'language'
 });
+
 
 App.LanguageSwitchView = Ember.CollectionView.extend({
     tagName: 'ul',
@@ -1534,7 +1550,7 @@ App.LanguageSwitchView = Ember.CollectionView.extend({
 
 App.LoginView = Em.View.extend({
     templateName: 'login',
-    next: function(){
+    next: function() {
         return  String(window.location);
     }.property()
 });

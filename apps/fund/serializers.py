@@ -65,8 +65,10 @@ class PaymentPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
         super(PaymentPrimaryKeyRelatedField, self).__init__(*args, **kwargs)
 
     def field_to_native(self, obj, field_name):
-        return self.to_native(getattr(obj, self.source or field_name).id)
-
+        payment = getattr(obj, self.source or field_name)
+        if payment:
+            return self.to_native(payment.id)
+        return None
 
 class OrderSerializer(serializers.ModelSerializer):
     total = EuroField(read_only=True)
