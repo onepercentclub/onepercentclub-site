@@ -273,6 +273,9 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         if (xhr.status === 400) {
             var data = JSON.parse(xhr.responseText);
             store.recordWasInvalid(record, data);
+        } else if (xhr.status === 403) {
+            var data = JSON.parse(xhr.responseText);
+            store.recordWasInvalid(record, data);
         } else {
             // TODO: what does this do? Do we want the console log?
             this._super.apply(this, arguments);

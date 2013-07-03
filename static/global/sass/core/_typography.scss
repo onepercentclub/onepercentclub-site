@@ -52,6 +52,9 @@ h1 {
     @include rem(font-size, 30px);
     text-transform: uppercase;
     font-weight: 600;
+    &.pink {
+        color: $pink;
+    }
 }
 
 .main-title  {
@@ -180,7 +183,12 @@ figure {
 }
 
 ul, ol { margin: 0 0 $margin 1.5em; }
-ul { list-style: disc; }
+ul.list li:before {
+    margin-right: 1.5em;
+    font-family: 'FontAwesome';
+    color: $gray;
+    content: "\f054";
+}
 ol { list-style: decimal; }
 
 dl {
