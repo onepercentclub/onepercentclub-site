@@ -21,19 +21,20 @@ App.NewsPreview = DS.Model.extend({
 
 /* Views */
 
-App.NewsView = Em.View.extend({
+App.NewsItemView = Em.View.extend({
     templateName: 'news_item'
 });
 
-App.NewsItemPreviewView = Em.View.extend({
-    templateName: 'news_item_preview',
-    templateFile: 'blog_list'
-    
+App.NewsIndexView = Em.View.extend({
+    templateName: 'news_index'
 });
 
-App.NewsListView = Em.View.extend({
-    templateName: 'news_list',
-    emptyViewClass: 'App.BlogNoItemsView',
-    itemViewClass: 'App.BlogPreviewView'
+
+App.NewsItemPreviewView = Em.View.extend({
+    templateName: 'news_item_preview'
+});
+
+App.NewsView = Em.View.extend({
+    templateName: 'news'
 });
 
