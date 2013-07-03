@@ -43,10 +43,10 @@ class ProjectPreviewList(generics.ListAPIView):
 
         text = self.request.QUERY_PARAMS.get('text', None)
         if text:
-            qs = qs.filter(Q(title__contains=text) |
-                           Q(projectplan__pitch__contains=text) |
-                           Q(projectplan__description__contains=text) |
-                           Q(projectplan__title__contains=text))
+            qs = qs.filter(Q(title__icontains=text) |
+                           Q(projectplan__pitch__icontains=text) |
+                           Q(projectplan__description__icontains=text) |
+                           Q(projectplan__title__icontains=text))
 
 
         ordering = self.request.QUERY_PARAMS.get('ordering', None)

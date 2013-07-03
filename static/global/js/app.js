@@ -462,8 +462,9 @@ App.Router.map(function() {
     });
 
 
-    this.resource('newsList', {path: '/news'});
-    this.resource('news', {path: '/news/:news_id'});
+    this.resource('news', {path: '/news'}, function(){
+        this.resource('newsItem', {path: '/:news_id'});
+    });
 
     this.resource('page', {path: '/pages/:slug'});
 
@@ -637,7 +638,7 @@ App.ApplicationRoute = Ember.Route.extend({
         showNews: function(news_id) {
             var route = this;
             App.News.find(news_id).then(function(news){
-                route.transitionTo('news', news);
+                route.transitionTo('newsItem', news);
                 window.scrollTo(0);
             });
         }
@@ -1283,9 +1284,8 @@ App.MyProjectListRoute = Ember.Route.extend({
 App.MyPitchNewRoute = Ember.Route.extend({
     model: function(){
         var transaction = this.get('store').transaction();
-        return  transaction.createRecord(App.MyProject);
+        return transaction.createRecord(App.MyProject);
     }
-
 });
 
 App.MyProjectRoute = Ember.Route.extend({
@@ -1487,7 +1487,7 @@ App.PageRoute = Ember.Route.extend({
 
 /* Blogs & News */
 
-App.NewsRoute = Ember.Route.extend({
+App.NewsItemRoute = Ember.Route.extend({
     model: function(params) {
         var newsItem =  App.News.find(params.news_id);
         var route = this;
@@ -1499,11 +1499,22 @@ App.NewsRoute = Ember.Route.extend({
 });
 
 
-App.NewsListRoute = Ember.Route.extend({
+App.NewsRoute = Ember.Route.extend({
     model: function(params) {
-        return App.News.find({language: App.get('language')});
+        return App.NewsPreview.find({language: App.get('language')});
     }
 });
+
+App.NewsIndexRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.NewsPreview.find({language: App.get('language')});
+    },
+    // Redirect to the latest news item
+    setupController: function(controller, model){
+        this.send('showNews', model.objectAt(0).get('id'));
+    }
+});
+
 
 
 
