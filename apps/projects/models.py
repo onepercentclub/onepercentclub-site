@@ -338,7 +338,7 @@ def progress_project_phase(sender, instance, created, **kwargs):
     except ProjectPitch.DoesNotExist:
         instance.projectpitch = ProjectPitch(project=instance)
         instance.projectpitch.title = instance.title
-        if instance.phase ==  ProjectPhases.pitch:
+        if instance.phase == ProjectPhases.pitch:
             instance.projectpitch.status = ProjectPitch.PitchStatuses.new
             instance.projectpitch.save()
 
@@ -381,7 +381,7 @@ def progress_project_phase(sender, instance, created, **kwargs):
 
     # If phase progresses to 'campaign' we should change status on ProjectPlan.
     if instance.phase == ProjectPhases.campaign:
-        if instance.projectplan == None:
+        if instance.projectplan is None:
             Exception(_("There's no ProjectPlan for this Project. Can't jump to 'campaign' without a plan."))
         else:
             # Set the correct statuses and save pitch and plan
