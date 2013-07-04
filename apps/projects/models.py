@@ -44,9 +44,9 @@ class ProjectPhases(DjangoChoices):
 class Project(models.Model):
     """ The base Project model. """
 
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("owner"), related_name="owner")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("initiator"), help_text=_("Project owner"), related_name="owner")
 
-    coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("project team member"), related_name="team_member", null=True, blank=True)
+    coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
 
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
@@ -343,14 +343,13 @@ def progress_project_phase(sender, instance, created, **kwargs):
         instance.projectpitch.status = ProjectPitch.PitchStatuses.new
         instance.projectpitch.save()
 
-    if instance.phase is ProjectPhases.pitch:
+    if instance.phase == ProjectPhases.pitch:
         if instance.projectpitch.phase == ProjectPitch.PitchStatuses.approved:
             instance.projectpitch.phase = ProjectPitch.PitchStatuses.new
             instance.projectpitch.save()
 
-
     # If phase progresses to 'plan' we should create and populate a ProjectPlan.
-    if instance.phase is ProjectPhases.plan:
+    if instance.phase == ProjectPhases.plan:
         try:
             instance.projectplan
         except ProjectPlan.DoesNotExist:
@@ -375,8 +374,9 @@ def progress_project_phase(sender, instance, created, **kwargs):
                 # This would normally only happen during migrations, so please ignore.
                 pass
 
+
     # If phase progresses to 'campaign' we should change status on ProjectPlan.
-    if instance.phase is ProjectPhases.campaign:
+    if instance.phase == ProjectPhases.campaign:
         try:
             # Set the correct statuses and save pitch and plan
             if instance.projectplan.status != ProjectPlan.PlanStatuses.approved:
@@ -389,7 +389,6 @@ def progress_project_phase(sender, instance, created, **kwargs):
         except ProjectPlan.DoesNotExist:
             # This would normally only happen during migrations, so please ignore.
             pass
-
 
         # If we don't have a Campaign then create one
         try:

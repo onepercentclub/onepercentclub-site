@@ -44,6 +44,12 @@ class ProjectPitchAdmin(admin.ModelAdmin):
 admin.site.register(ProjectPitch, ProjectPitchAdmin)
 
 
+class ProjectBudgetInline(admin.TabularInline):
+    
+    model = ProjectBudgetLine
+    extra = 0
+    
+
 class ProjectPlanAdmin(admin.ModelAdmin):
 
     model = ProjectPlan
@@ -53,6 +59,8 @@ class ProjectPlanAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'created')
 
     readonly_fields = ('edit_project', 'project')
+
+    inlines = (ProjectBudgetInline, )
 
     def edit_project(self, obj):
         object = obj.project
@@ -67,7 +75,7 @@ class ProjectPlanAdmin(admin.ModelAdmin):
             url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
             return HttpResponseRedirect(url)
         else:
-            return super(ProjectPitchAdmin, self).response_change(request, obj)
+            return super(ProjectPlanAdmin, self).response_change(request, obj)
 
 admin.site.register(ProjectPlan, ProjectPlanAdmin)
 
