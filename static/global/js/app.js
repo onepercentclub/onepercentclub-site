@@ -956,6 +956,25 @@ App.CurrentOrderVoucherListRoute = Em.Route.extend({
 });
 
 
+App.OrderThanksRoute = Em.Route.extend({
+    model: function(params) {
+        console.log("order thanks")
+        var route = this;
+        var order = App.Order.find(params.order_id);
+        order.one('becameError', function() {
+            route.controllerFor('application').setProperties({
+                display_message: true,
+                isError: true,
+                message_title: "",
+                message_content: "Sorry, we can't find your order."
+            });
+            route.replaceWith('home');
+        });
+        return order;
+    }
+});
+
+
 /**
  * Payment for Current Order Routes
  */

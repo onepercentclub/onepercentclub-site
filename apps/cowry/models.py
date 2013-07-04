@@ -13,6 +13,7 @@ class PaymentStatuses(DjangoChoices):
     failed = ChoiceItem('failed', label=_("Failed"))
     cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
     refunded = ChoiceItem('refunded', label=_("Refunded"))
+    unknown = ChoiceItem('unknown', label=_("Unknown"))  # Payments with this status have not been mapped.
 
 
 class Payment(PolymorphicModel):
