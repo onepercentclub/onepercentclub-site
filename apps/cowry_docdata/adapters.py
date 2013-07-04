@@ -1,5 +1,6 @@
 # coding=utf-8
 import logging
+from urllib2 import URLError
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry.models import PaymentStatuses
 from django.conf import settings
@@ -93,10 +94,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         'dd-webmenu': DocDataPayment,
     }
 
-    def __init__(self):
-        # TODO Make setting for this.
-        self.test = True
-
+    def _init_docdata(self):
         # Create the soap client.
         if self.test:
             # Test API URL.
@@ -105,12 +103,22 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # Live API URL.
             url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
 
-        self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
-        # Setup the merchant soap object for use in all requests.
-        self.merchant = self.client.factory.create('ns0:merchant')
-        # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).
-        self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
-        self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", None)
+        try:
+            self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
+        except URLError as e:
+            self.client = None
+            payment_logger.warn('Could not connect to DocData: ' + str(e))
+        else:
+            # Setup the merchant soap object for use in all requests.
+            self.merchant = self.client.factory.create('ns0:merchant')
+            # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).
+            self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
+            self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", None)
+
+    def __init__(self):
+        # TODO Make setting for this.
+        self.test = True
+        self._init_docdata()
 
     def get_payment_methods(self):
         # Override the payment_methods if they're set. This isn't in __init__ because
@@ -147,6 +155,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             raise DocDataPaymentException('ERROR', 'Cannot create two remote DocData Payment orders for same payment.')
         if not payment.payment_method_id:
             raise DocDataPaymentException('ERROR', 'payment_method_id is not set')
+
+        # We can't do anything if DocData isn't available.
+        if not self.client:
+            self._init_docdata()
+            if not self.client:
+                return
 
         # Preferences for the DocData system
         paymentPreferences = self.client.factory.create('ns0:paymentPreferences')
@@ -189,8 +203,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         billTo.address = address
         billTo.name = name
 
-        order = payment.orders.all()[0]
-        description = order.__unicode__()[:50]
+        # Set the description if there's an order.
+        description = "1%CLUB"
+        orders = payment.orders.all()
+        if orders:
+            description = orders[0].__unicode__()[:50]
 
         if self.test:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
