@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 #
 # Run with:
-# ./manage.py synctosalesforce -v 2 --settings=bluebottle.settings.salesforcesync
+# ./manage.py sync_to_salesforce -v 2 --settings=bluebottle.settings.salesforcesync
 #
 
 class Command(BaseCommand):
