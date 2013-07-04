@@ -349,7 +349,26 @@ App.CurrentOrderController = Em.ObjectController.extend({
         transaction.add(order);
         order.set('recurring', (this.get('donationType') == 'monthly'));
         transaction.commit();
-    }.observes('donationType')
+    }.observes('donationType'),
+
+    // Display messages inline similar to the message display in the ApplicationController.
+    display_message: false,
+    isError: false,
+    autoHideMessage: false,
+
+    displayMessage: (function() {
+        if (this.get('display_message') == true) {
+            if (this.get('autoHideMessage')) {
+                Ember.run.later(this, function() {
+                    this.hideMessage();
+                }, 10000);
+            }
+        }
+    }).observes('display_message'),
+
+    hideMessage: function() {
+        this.set('display_message', false);
+    }
 });
 
 

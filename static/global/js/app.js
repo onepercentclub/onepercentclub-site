@@ -288,14 +288,13 @@ App.ApplicationController = Ember.Controller.extend({
         return App.NewsPreview.find({language: App.get('language')});
     }.property(),
 
-
     displayMessage: (function() {
         if (this.get('display_message') == true) {
             Ember.run.later(this, function() {
                 this.hideMessage();
             }, 10000);
         }
-    }).observes('this.display_message'),
+    }).observes('display_message'),
 
     hideMessage: function() {
         this.set('display_message', false);
@@ -481,14 +480,15 @@ App.Router.map(function() {
         this.route('addDonation', {path: '/donations/add/:project_id'});
         this.route('voucherList', {path: '/giftcards'});
 
+
+
         this.resource('paymentProfile', {path: '/details'});
-        this.resource('paymentSelect', {path: '/payment'});
+        this.resource('paymentSelect', {path: '/payment'}, function() {
+            this.route('PaymentError', {path: '/error'});
+        });
     });
 
     this.resource('orderThanks', {path: '/support/thanks/:order_id'});
-//    this.resource('payment', {path: '/payment/:payment_id'}, function() {
-//        this.route('cancel');
-//    });
 
     this.resource('voucherStart', {path: '/giftcards'});
     this.resource('customVoucherRequest', {path: '/giftcards/custom'});
@@ -969,7 +969,6 @@ App.PaymentProfileRoute = Em.Route.extend({
 
 
 App.PaymentSelectRoute = Em.Route.extend({
-
     model: function(params) {
         console.log('model() PaymentSelect');
         // For some reason currentOrder is not loaded from the server but is loaded from the browser when you use
@@ -978,6 +977,20 @@ App.PaymentSelectRoute = Em.Route.extend({
         return order.get('payment');
     }
 });
+
+
+App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
+    redirect: function() {
+        console.log('redirect() PaymentError');
+        this.controllerFor('currentOrder').setProperties({
+            display_message: true,
+            isError: true,
+            autoHideMessage: false,
+            message_content: 'There was an error with your payment. Please try again.'
+        });
+    }
+});
+
 
 /**
  * Vouchers Redeem Routes

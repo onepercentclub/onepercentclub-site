@@ -19,6 +19,7 @@ class DonationStatuses(DjangoChoices):
     paid = ChoiceItem('paid', label=_("Paid"))
     failed = ChoiceItem('failed', label=_("Failed"))
 
+
 class Donation(models.Model):
     """
     Donation of an amount from a user to a project. A Donation can have a generic foreign key from OrderItem when
@@ -30,7 +31,7 @@ class Donation(models.Model):
         voucher = ChoiceItem('voucher', label=_("Voucher"))
 
     amount = models.PositiveIntegerField(_("Amount"))
-    currency = models.CharField(_("currency"), blank=True, max_length=3)
+    currency = models.CharField(_("currency"), max_length=3)
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
     project = models.ForeignKey('projects.Project', verbose_name=_("Project"))

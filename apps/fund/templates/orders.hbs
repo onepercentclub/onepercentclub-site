@@ -67,6 +67,16 @@
                 {{/view}}
             </ul>
 
+            {{#if display_message}}
+                <div {{bindAttr class=":order-message isError"}}>
+                    <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
+
+                    <div class="message-content">
+                        {{ message_content }}
+                    </div>
+                </div>
+            {{/if}}
+
             {{ outlet }}
 
             <div class="sidebar tip">
