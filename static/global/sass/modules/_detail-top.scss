@@ -2,6 +2,7 @@
   
     position: relative;
     @include rem(padding, 32px 0 0 0);
+<<<<<<< HEAD
 
     .darken-background {
         background-color: rgba(0, 0, 0, 0.7);
@@ -9,13 +10,31 @@
         height: 100%;
         top: 0px;
         left: 0px;
+=======
+    background-color: $heading-black;
+    
+    /*
+    &:after {
+        content: "";
+        background: #444444 url('../dummy/project-detail-back.jpg') no-repeat 50% 50%;
+        background-size: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+>>>>>>> Project Detail Changes
         position: absolute;
     }
+<<<<<<< HEAD
 
     .wrapper {
         position: relative;
     }
 
+=======
+    */
+    
+>>>>>>> Project Detail Changes
     figure.media {
         @include grid(24,1,0);
         margin-bottom: $margin;
@@ -23,12 +42,10 @@
         background-color: #ccc;
         overflow: hidden;
         @include box-shadow(inset 0px 1px 6px rgba($black, 0.1));
-        
     }
     
     article {
       @include grid(24, 1);
-      background-color: rgba(0, 0, 0, 0.6);
       color: $text-white;
       @include rem(padding, 16px 32px);
       @include rem(font-size, 16px);
@@ -43,15 +60,6 @@
     sidebar {
         margin-bottom: $margin;
     }
-}
-
-.phase {
-    @include rem(font-size, 14px);
-    @include border-radius(2px 0 0 2px);
-    vertical-align: top;
-    color: $text-white;
-    padding: 0.3em 1.2em 0.3em 0.8em;
-    background: #ccc url('../images/phase-back.png') no-repeat right center;
 }
 
 .project-meta {
