@@ -203,8 +203,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         billTo.address = address
         billTo.name = name
 
-        order = payment.orders.all()[0]
-        description = order.__unicode__()[:50]
+        # Set the description if there's an order.
+        description = "1%CLUB"
+        orders = payment.orders.all()
+        if orders:
+            description = orders[0].__unicode__()[:50]
 
         if self.test:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
