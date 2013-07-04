@@ -23,8 +23,7 @@ def get_payment_url(payment, return_url_base=None):
 
 
 def cancel_payment(payment):
-    adapter = _adapter_for_payment_method(payment.payment_method_id)
-    adapter.cancel_payment(payment)
+    raise NotImplementedError
 
 
 def refund_payment(payment):

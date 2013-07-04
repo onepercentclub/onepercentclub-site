@@ -25,7 +25,7 @@ class DonationSerializer(serializers.ModelSerializer):
     def save(self, **kwargs):
         # Set default currency.
         self.object.currency = 'EUR'
-        return super(DonationSerializer, self).save(**kwargs)
+        return super(DonationSerializer, self).save()
 
     class Meta:
         model = Donation
@@ -65,10 +65,7 @@ class PaymentPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
         super(PaymentPrimaryKeyRelatedField, self).__init__(*args, **kwargs)
 
     def field_to_native(self, obj, field_name):
-        payment = getattr(obj, self.source or field_name)
-        if payment:
-            return self.to_native(payment.id)
-        return None
+        return self.to_native(getattr(obj, self.source or field_name).id)
 
 
 class OrderSerializer(serializers.ModelSerializer):
