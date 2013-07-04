@@ -36,7 +36,7 @@ class DocDataPaymentTests(TestCase):
         payments.create_remote_payment_order(payment)
 
         # Check that the order key has been saved.
-        self.assertTrue(payment.payment_order_key)
+        self.assertTrue(payment.payment_order_id)
 
         # Test that the payment url works.
         payment_url = payments.get_payment_url(payment)

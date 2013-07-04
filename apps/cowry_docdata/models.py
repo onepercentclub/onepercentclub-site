@@ -8,7 +8,7 @@ from polymorphic import PolymorphicModel
 
 class DocDataPaymentOrder(Payment):
     # Payment information.
-    payment_order_key = models.CharField(max_length=200, default='', blank=True)
+    payment_order_id = models.CharField(max_length=200, default='', blank=True)
     merchant_order_reference = models.CharField(max_length=100, default='', blank=True)
 
     # Order profile information.

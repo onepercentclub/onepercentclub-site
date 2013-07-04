@@ -151,7 +151,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     def create_remote_payment_order(self, payment):
         # Some preconditions.
-        if payment.payment_order_key:
+        if payment.payment_order_id:
             raise DocDataPaymentException('ERROR', 'Cannot create two remote DocData Payment orders for same payment.')
         if not payment.payment_method_id:
             raise DocDataPaymentException('ERROR', 'payment_method_id is not set')
@@ -221,7 +221,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
                                            menuPreferences, shopper, amount, billTo, description)
         if hasattr(reply, 'createSuccess'):
-            payment.payment_order_key = str(reply['createSuccess']['key'])
+            payment.payment_order_id = str(reply['createSuccess']['key'])
             self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
         elif hasattr(reply, 'createError'):
             payment.save()
@@ -234,13 +234,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     def cancel_payment(self, payment):
         # Some preconditions.
-        if not payment.payment_order_key:
+        if not payment.payment_order_id:
             order = payment.orders.all()[0]
-            payment_logger.warn('Attempt to cancel payment on Order id {0} which no payment_order_key.'.format(order.id))
+            payment_logger.warn('Attempt to cancel payment on Order id {0} which no payment_order_id.'.format(order.id))
             return
 
         # Execute create payment order request.
-        reply = self.client.service.cancel(self.merchant, payment.payment_order_key)
+        reply = self.client.service.cancel(self.merchant, payment.payment_order_id)
         if hasattr(reply, 'cancelSuccess'):
             for docdata_payment in payment.docdata_payments.all():
                 docdata_payment.status = 'CANCELLED'
@@ -260,12 +260,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 not self.id_to_model_mapping[payment.payment_method_id] == DocDataPayment:
             return None
 
-        if not payment.payment_order_key:
+        if not payment.payment_order_id:
             self.create_remote_payment_order(payment)
 
         # The basic parameters.
         params = {
-            'payment_cluster_key': payment.payment_order_key,
+            'payment_cluster_key': payment.payment_order_id,
             'merchant_name': self.merchant._name,
             'client_language': payment.language,
         }
@@ -303,12 +303,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         return payment_url_base + '?' + urlencode(params)
 
     def update_payment_status(self, payment, status_changed_notification=False):
-        # Don't do anything if there's no payment or payment_order_key.
-        if not payment or not payment.payment_order_key:
+        # Don't do anything if there's no payment or payment_order_id.
+        if not payment or not payment.payment_order_id:
             return
 
         # Execute status request.
-        reply = self.client.service.status(self.merchant, payment.payment_order_key)
+        reply = self.client.service.status(self.merchant, payment.payment_order_id)
         if hasattr(reply, 'statusSuccess'):
             report = reply['statusSuccess']['report']
         elif hasattr(reply, 'statusError'):
@@ -323,7 +323,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             if status_changed_notification:
                 status_logger.warn(
                     "Status changed notification received for {0} but status report had no payment reports.".format(
-                        payment.payment_order_key))
+                        payment.payment_order_id))
             return
 
         statusChanged = False
@@ -345,7 +345,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                     #       MASTERCARD, etc) in the report.
                     status_logger.error(
                         "Cannot determine where to save the payment report for payment order key: {0}".format(
-                            payment.payment_order_key))
+                            payment.payment_order_id))
                     continue
 
                 # Save some information from the report.
@@ -356,7 +356,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.docdata_payment_method:
                 status_logger.warn(
-                    "Payment methods do not match: {0} - {1}".format(payment.payment_order_key, ddpayment.payment_id))
+                    "Payment methods do not match: {0} - {1}".format(payment.payment_order_id, ddpayment.payment_id))
                 ddpayment.docdata_payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
@@ -379,7 +379,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if status_changed_notification and not statusChanged:
             status_logger.warn(
                 "Status changed notification received for {0} but no payment status change detected.".format(
-                    payment.payment_order_key))
+                    payment.payment_order_id))
             return
 
         # Use the latest DocDataPayment status to set the status on the Cowry Payment.
@@ -395,7 +395,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if old_status != new_status:
             status_logger.info(
                 "DocDataPaymentOrder status changed for payment order key {0}: {1} -> {2}".format(
-                    payment.payment_order_key,
+                    payment.payment_order_id,
                     old_status,
                     new_status))
             self._change_status(payment, new_status)  # Note: change_status calls payment.save().

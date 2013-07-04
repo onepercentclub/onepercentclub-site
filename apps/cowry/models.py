@@ -21,7 +21,7 @@ class Payment(PolymorphicModel):
     """
     # The amount in the minor unit for the given currency (e.g. for EUR in cents).
     amount = models.PositiveIntegerField(_("amount"), default=0)
-    currency = models.CharField(max_length=3, default='', blank=True)
+    currency = models.CharField(max_length=3, default='')
 
     # The transaction cost that is taken by the payment service provider.
     fee = models.PositiveIntegerField(_("payment service fee"), default=0)
