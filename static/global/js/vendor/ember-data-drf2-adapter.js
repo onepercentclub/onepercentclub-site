@@ -138,6 +138,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             if (record.get(key) instanceof File) {
                 hasFile = true;
             }
+
         }
         if (hasFile) {
             var formdata = new FormData();
@@ -211,7 +212,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
                     if (record.get(key) instanceof File) {
                         var file = record.get(key);
                         formdata.append(key, file);
-                    } else if (Em.typeOf(data[key]) == 'array'){
+                    } else if (Em.isArray(record.get(key))){
                         // Take care of nested resources, e.g. tags
                         formdata.append(key, JSON.stringify(data[key]));
                     } else {
@@ -275,7 +276,13 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             store.recordWasInvalid(record, data);
         } else if (xhr.status === 403) {
             var data = JSON.parse(xhr.responseText);
+            console.log(data)
             store.recordWasInvalid(record, data);
+        } else if (xhr.status === 500) {
+            // Server error! rollback transaction so the application won't break.
+            record.get('stateManager').goToState('invalid');
+            // record.get('stateManager').goToState('error');
+            // record.set('errors', {server: xhr.responseText[0]})
         } else {
             // TODO: what does this do? Do we want the console log?
             this._super.apply(this, arguments);

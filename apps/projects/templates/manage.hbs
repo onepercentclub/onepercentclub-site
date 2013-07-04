@@ -591,14 +591,14 @@
 
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFile valueBinding="image" name="image" accept="image/*" id="image"}}
+                        {{view App.UploadFileView valueBinding="image" name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
                     <br />
                     {{#if image}}
-                        <div class="preview">
-                            <img {{bindAttr src="image.large"}} />
+                        <div>
+                            <img {{bindAttr src="image.large"}} class="preview" />
                         </div>
                     {{/if}}
                 </div>
