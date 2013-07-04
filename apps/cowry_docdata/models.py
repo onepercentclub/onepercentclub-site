@@ -35,10 +35,10 @@ class DocDataPayment(PolymorphicModel):
     """
     # Statuses from: Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 35
     # Note; We're not using DjangoChoices here so that we can write unknown statuses if they are presented by DocData.
-    statuses = ('NEW', 'STARTED', 'AUTHORIZED', 'PAID', 'CANCELLED', 'CHARGED-BACK', 'CONFIRMED_PAID',
-                'CONFIRMED_CHARGEDBACK', 'CLOSED_SUCCESS', 'CLOSED_CANCELLED')
+    statuses = ('NEW', 'STARTED', 'AUTHORIZED', 'AUTHORIZATION_REQUESTED', 'PAID', 'CANCELLED', 'CHARGED-BACK',
+                'CONFIRMED_PAID', 'CONFIRMED_CHARGEDBACK', 'CLOSED_SUCCESS', 'CLOSED_CANCELLED')
 
-    status = models.CharField(_("status"), max_length=25, default='NEW')
+    status = models.CharField(_("status"), max_length=30, default='NEW')
     docdata_payment_order = models.ForeignKey(DocDataPaymentOrder, related_name='docdata_payments')
     payment_id = models.CharField(_("payment id"), max_length=100, default='', blank=True)
     # This is the payment method id from DocData (e.g. IDEAL, MASTERCARD, etc)

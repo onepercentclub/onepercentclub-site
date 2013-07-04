@@ -74,16 +74,17 @@ class DocDataAPIVersionPlugin(MessagePlugin):
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
     # Mapping of DocData statuses to Cowry statuses.
     status_mapping = {
-        'NEW': 'new',
-        'STARTED': 'in_progress',
-        'AUTHORIZED': 'pending',
-        'PAID': 'pending',  # TODO: Is pending correct for this?
-        'CANCELLED': 'cancelled',
-        'CHARGED-BACK': 'cancelled',
-        'CONFIRMED_PAID': 'paid',
-        'CONFIRMED_CHARGEDBACK': 'cancelled',
-        'CLOSED_SUCCESS': 'paid',
-        'CLOSED_CANCELLED': 'cancelled',
+        'NEW': PaymentStatuses.new,
+        'STARTED': PaymentStatuses.in_progress,
+        'AUTHORIZED': PaymentStatuses.pending,
+        'AUTHORIZATION_REQUESTED': PaymentStatuses.pending,
+        'PAID':  PaymentStatuses.pending,
+        'CANCELLED':  PaymentStatuses.cancelled,
+        'CHARGED-BACK': PaymentStatuses.cancelled,
+        'CONFIRMED_PAID': PaymentStatuses.paid,
+        'CONFIRMED_CHARGEDBACK': PaymentStatuses.cancelled,
+        'CLOSED_SUCCESS': PaymentStatuses.paid,
+        'CLOSED_CANCELLED': PaymentStatuses.cancelled,
     }
 
     # TODO: Create defaults for this like the payment_methods
@@ -395,11 +396,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         new_status = self._map_status(latest_ddpayment.status, report.approximateTotals,
                                       latest_payment_report.authorization)
         if old_status != new_status:
-            status_logger.info(
-                "DocDataPaymentOrder status changed for payment order key {0}: {1} -> {2}".format(
-                    payment.payment_order_id,
-                    old_status,
-                    new_status))
+            status_logger.info("DocDataPaymentOrder status changed for payment order key {0}: {1} -> {2}".format(
+                payment.payment_order_id,
+                old_status,
+                new_status))
+
+            if new_status not in PaymentStatuses.values:
+                new_status = PaymentStatuses.unknown
             self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
     def _map_status(self, status, totals=None, authorization=None):
