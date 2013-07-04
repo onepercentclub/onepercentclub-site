@@ -121,12 +121,14 @@
                     margin-left: $grid-column * 9;
                     width: 20%;
                     
+                    /*
                     background-image: $icons;
                     background-repeat: no-repeat;
                     background-position: sprite-position($icons, reactions, 0, 4px);
+                    */
                     
                     &:hover, &.is-active {
-                        background-position: sprite-position($icons, reactions-hover, 0, 4px);
+                        //background-position: sprite-position($icons, reactions-hover, 0, 4px);
                         color: $black;
                     }
                 }
@@ -135,22 +137,24 @@
                     @include rem(padding-left, 33px);
                     width: 20%;
                    
+                    /*
                     background-image: $icons;
                     background-repeat: no-repeat;
                     background-position: sprite-position($icons, love, 0, 4px);
+                    */
                     
                     &:hover {
-                        background-position: sprite-position($icons, love-hover, 0, 4px);
+                        //background-position: sprite-position($icons, love-hover, 0, 4px);
                         color: $pink;
                     }
                     
                     &.is-active:hover {
-                        background-position: sprite-position($icons, loved, 0, 4px);
+                        //background-position: sprite-position($icons, loved, 0, 4px);
                         color: $black;
                     }
                     
                     &.is-active, &.is-activated, &.is-activated:hover {
-                        background-position: sprite-position($icons, unlove, 0, 4px);
+                        //background-position: sprite-position($icons, unlove, 0, 4px);
                         color: $pink;
                     }
                 }
@@ -161,12 +165,14 @@
                 strong {
                     @include rem(padding-left, 30px);
                     
+                    /*
                     background-image: $icons;
                     background-repeat: no-repeat;
                     background-position: sprite-position($icons, share, 0, 4px);
+                    */
                     
                     &:hover, &.is-active {
-                        background-position: sprite-position($icons, share-hover, 0, 4px);
+                        //background-position: sprite-position($icons, share-hover, 0, 4px);
                         color: $green;
                     }
                 }
