@@ -136,7 +136,7 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
 
         # Only try to update the status if we're not using the 'current' alias and the statuses match our expectations.
         if alias != 'current':
-            if order.status == OrderStatuses.current and order.latest_payment.payment_order_key and order.latest_payment.status == PaymentStatuses.in_progress:
+            if order.status == OrderStatuses.current and order.latest_payment.payment_order_id and order.latest_payment.status == PaymentStatuses.in_progress:
                 payments.update_payment_status(order.latest_payment)
 
         return order
