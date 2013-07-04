@@ -8,8 +8,10 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-from apps.fund.models import Donation, DonationStatuses
+from apps.fund.models import Donation
 from django.template.defaultfilters import slugify
+from django.utils import timezone
+
 
 
 class ProjectTheme(models.Model):
@@ -42,9 +44,9 @@ class ProjectPhases(DjangoChoices):
 class Project(models.Model):
     """ The base Project model. """
 
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("owner"), related_name="owner")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("initiator"), help_text=_("Project owner"), related_name="owner")
 
-    coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("project team member"), related_name="team_member", null=True, blank=True)
+    coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
 
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
@@ -65,14 +67,14 @@ class Project(models.Model):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = Donation.objects.filter(project=self)
-        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
         donations = donations.filter(user__isnull=False)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
             donations = Donation.objects.filter(project=self)
-            donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+            donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
             donations = donations.filter(user__isnull=True)
             count = count + len(donations.all())
         return count
@@ -214,27 +216,27 @@ class ProjectCampaign(models.Model):
     project = models.OneToOneField("projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=CampaignStatuses.choices)
 
+    deadline = models.DateTimeField(null=True)
+
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField(_('updated'))
 
     currency = models.CharField(max_length="10", default='EUR')
     money_asked = models.PositiveIntegerField(default=0)
-    #money_donated = models.PositiveIntegerField(default=0)
-    #money_secure = models.PositiveIntegerField(default=0)
 
     @property
     def supporters_count(self, with_guests=True):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
         donations = donations.filter(user__isnull=False)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
             donations = Donation.objects.filter(project=self.project)
-            donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+            donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
             donations = donations.filter(user__isnull=True)
             count += len(donations.all())
         return count
@@ -245,7 +247,7 @@ class ProjectCampaign(models.Model):
         if self.money_asked == 0:
             return 0
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress, DonationStatuses.pending])
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress, Donation.DonationStatuses.pending])
         total = donations.aggregate(sum=Sum('amount'))
         if not total['sum']:
             return 0
@@ -264,7 +266,7 @@ class ProjectCampaign(models.Model):
         if self.money_asked == 0:
             return 0
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[DonationStatuses.paid])
+        donations = donations.filter(status__in=[Donation.DonationStatuses.paid])
         total = donations.aggregate(sum=Sum('amount'))
         if not total['sum']:
             return 0
@@ -319,7 +321,7 @@ class ProjectBudgetLine(models.Model):
     project_plan = models.ForeignKey(ProjectPlan)
     description = models.CharField(_("description"), max_length=255, blank=True)
     currency = models.CharField(max_length=10, default='EUR')
-    amount = models.PositiveIntegerField(_("money amount"))
+    amount = models.PositiveIntegerField(_("Amount (in cents)"))
 
     class Meta:
         verbose_name = _("budget line")
@@ -338,68 +340,90 @@ def progress_project_phase(sender, instance, created, **kwargs):
     except ProjectPitch.DoesNotExist:
         instance.projectpitch = ProjectPitch(project=instance)
         instance.projectpitch.title = instance.title
-        if instance.phase == ProjectPhases.pitch:
-            instance.projectpitch.status = ProjectPitch.PitchStatuses.new
-            instance.projectpitch.save()
+        instance.projectpitch.status = ProjectPitch.PitchStatuses.new
+        instance.projectpitch.save()
 
     if instance.phase == ProjectPhases.pitch:
-        try:
-            instance.projectpitch.status = ProjectPitch.PitchStatuses.new
+        if instance.projectpitch.phase == ProjectPitch.PitchStatuses.approved:
+            instance.projectpitch.phase = ProjectPitch.PitchStatuses.new
             instance.projectpitch.save()
-        except ProjectPitch.DoesNotExist:
-            pass
-        try:
-            instance.projectplan.status = ProjectPlan.PlanStatuses.new
-        except ProjectPlan.DoesNotExist:
-            pass
 
     # If phase progresses to 'plan' we should create and populate a ProjectPlan.
     if instance.phase == ProjectPhases.plan:
-        # Create a ProjectPlan if it's not there yet
         try:
             instance.projectplan
         except ProjectPlan.DoesNotExist:
+            # Create a ProjectPlan if it's not there yet
             instance.projectplan = ProjectPlan.objects.create(project=instance)
-        if instance.projectpitch == None:
-            Exception(_("There's no ProjectPitch for this Project. Can't create a ProjectPlan without a pitch."))
-        for field in ['country', 'title', 'description', 'image', 'latitude', 'longitude', 'need', 'pitch', 'image',
-                      'video_url', 'theme']:
-            setattr(instance.projectplan, field, getattr(instance.projectpitch, field))
-            for tag in instance.projectpitch.tags.all():
-                instance.projectplan.tags.add(tag.name)
-
-        # Set the correct statuses and save pitch and plan
-        if instance.projectplan.status == ProjectPlan.PlanStatuses.submitted:
-            instance.projectplan.status = ProjectPlan.PlanStatuses.needs_work
-        else:
             instance.projectplan.status = ProjectPlan.PlanStatuses.new
-        instance.projectplan.save()
+            # Get the Pitch and copy over all fields to the new Plan
+            try:
+                for field in ['country', 'title', 'description', 'image', 'latitude', 'longitude', 'need', 'pitch',
+                              'image', 'video_url', 'theme']:
+                    setattr(instance.projectplan, field, getattr(instance.projectpitch, field))
+                instance.projectplan.save()
+                # After the plan is saved we can add tags
+                for tag in instance.projectpitch.tags.all():
+                    instance.projectplan.tags.add(tag.name)
 
-        if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
-            instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
-            instance.projectpitch.save()
+                if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
+                    instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
+                    instance.projectpitch.save()
+
+            except ProjectPitch.DoesNotExist:
+                # This would normally only happen during migrations, so please ignore.
+                pass
+
 
     # If phase progresses to 'campaign' we should change status on ProjectPlan.
     if instance.phase == ProjectPhases.campaign:
-        if instance.projectplan is None:
-            Exception(_("There's no ProjectPlan for this Project. Can't jump to 'campaign' without a plan."))
-        else:
+        try:
             # Set the correct statuses and save pitch and plan
-            instance.projectplan.status = ProjectPlan.PlanStatuses.approved
-            instance.projectplan.save()
+            if instance.projectplan.status != ProjectPlan.PlanStatuses.approved:
+                instance.projectplan.status = ProjectPlan.PlanStatuses.approved
+                instance.projectplan.save()
 
-        if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
-            instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
-            instance.projectpitch.save()
+            if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
+                instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
+                instance.projectpitch.save()
+        except ProjectPlan.DoesNotExist:
+            # This would normally only happen during migrations, so please ignore.
+            pass
 
+        # If we don't have a Campaign then create one
+        try:
+            instance.projectcampaign
+        except ProjectCampaign.DoesNotExist:
+            instance.projectcampaign = ProjectCampaign.objects.create(project=instance)
+            instance.projectcampaign.status = ProjectCampaign.CampaignStatuses.running
+            instance.projectcampaign.deadline = timezone.now() + timezone.timedelta(days=180)
+
+        budget = instance.projectplan.projectbudgetline_set.aggregate(sum=Sum('amount'))['sum']
+        if not budget:
+            budget = 0
+        instance.projectcampaign.money_asked = budget
+        instance.projectcampaign.currency = 'EUR'
+        instance.projectcampaign.save()
 
 
 @receiver(post_save, weak=False, sender=ProjectPitch)
-def pitch_status_status(sender, instance, created, **kwargs):
+def pitch_status_status_changed(sender, instance, created, **kwargs):
 
-    if instance.status is ProjectPitch.PitchStatuses.approved and instance.project.phase is ProjectPhases.pitch:
-        instance.project.phase = ProjectPhases.plan
-        instance.project.save()
+    if instance.status == ProjectPitch.PitchStatuses.approved:
+        if instance.project.phase == ProjectPhases.pitch:
+            instance.project.phase = ProjectPhases.plan
+            instance.project.save()
+
+
+@receiver(post_save, weak=False, sender=ProjectPlan)
+def plan_status_status_changed(sender, instance, created, **kwargs):
+
+    print instance.status
+
+    if instance.status == ProjectPlan.PlanStatuses.approved:
+        if instance.project.phase == ProjectPhases.plan:
+            instance.project.phase = ProjectPhases.campaign
+            instance.project.save()
 
 
 # Change project phase according to donated amount
