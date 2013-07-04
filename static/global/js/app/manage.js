@@ -379,13 +379,7 @@ App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
     imageSelected: false,
 
     addFile: function(file) {
-        var controller = this;
-        this.set('imageSelected', true);
-        var model = this.get('model');
-        model.set('image', file);
-        model.on('didUpdate', function(){
-            controller.set('imageSelected', false);
-        });
+        this.set('image', file);
     }
 });
 

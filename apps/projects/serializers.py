@@ -6,7 +6,7 @@ from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSeri
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from apps.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
-                                              TagSerializer, ImageSerializer)
+                                              TagSerializer, ImageSerializer, TaggableSerializerMixin)
 from apps.geo.models import Country
 from .models import Project
 
@@ -25,7 +25,7 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     country = ProjectCountrySerializer()
     # This can be writable with the version of DRF that we're using.
-    tags = TagSerializer(read_only=True)
+    tags = TagSerializer()
     image = ImageSerializer(required=False)
 
     class Meta:
@@ -34,7 +34,7 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
                   'need', 'status', 'image')
 
 
-class ManageProjectPitchSerializer(ProjectPitchSerializer):
+class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
 
     country = serializers.PrimaryKeyRelatedField(required=False)
     status = serializers.ChoiceField(choices=ProjectPitch.PitchStatuses.choices, required=False)
