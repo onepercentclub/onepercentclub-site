@@ -171,10 +171,6 @@ def sync_users(test_run):
         #contact.number_of_donations
         #contact.support_n_projects
         #contact.total_amount_of_donations
-        # -- 20130530 - Not used: discussed with Suzanne,Ben
-        #contact.total_number_of_received_messages
-        # -- 20130530 - Not used: discussed with Suzanne,Ben
-        #contact.total_number_of_sent_messages
 
         # SF Layout: Administrative (private) section.
         contact.birth_date = user.birthdate
