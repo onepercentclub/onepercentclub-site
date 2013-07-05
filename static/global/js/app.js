@@ -568,7 +568,11 @@ App.ApplicationRoute = Em.Route.extend({
 
     setupController: function(controller, model){
         this.controllerFor('myProjectList').set('model', App.MyProject.find());
-        this.controllerFor('currentOrder').set('model',  App.CurrentOrder.find('current'));
+
+        // FIXME: This totaly breaks donation flow because the unloadRecord trick in CurrrenOrderRoute.model(), somehow.
+        // For now ignore. Donation reminder will only be there if you donated during this session...
+        //this.controllerFor('currentOrder').set('model',  App.CurrentOrder.find('current'));
+
         this._super(controller, model);
     },
 
@@ -906,7 +910,6 @@ App.CurrentOrderRoute = Em.Route.extend({
 
 App.CurrentOrderDonationListRoute = Em.Route.extend({
     model: function(params) {
-        console.log('model() CurrentOrderDonationList');
         var order = this.modelFor('currentOrder');
         return order.get('donations');
     },
@@ -964,7 +967,6 @@ App.CurrentOrderVoucherListRoute = Em.Route.extend({
 
 App.OrderThanksRoute = Em.Route.extend({
     model: function(params) {
-        console.log("order thanks")
         var route = this;
         var order = App.Order.find(params.order_id);
         order.one('becameError', function() {
@@ -987,7 +989,6 @@ App.OrderThanksRoute = Em.Route.extend({
 
 App.PaymentProfileRoute = Em.Route.extend({
     model: function(params) {
-        console.log('model() PaymentProfile');
         return App.PaymentProfile.find('current');
     }
 });
@@ -995,7 +996,6 @@ App.PaymentProfileRoute = Em.Route.extend({
 
 App.PaymentSelectRoute = Em.Route.extend({
     model: function(params) {
-        console.log('model() PaymentSelect');
         // For some reason currentOrder is not loaded from the server but is loaded from the browser when you use
         // the back button from the DocDataPage.
         var order = this.modelFor('currentOrder');
@@ -1006,7 +1006,6 @@ App.PaymentSelectRoute = Em.Route.extend({
 
 App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
     redirect: function() {
-        console.log('redirect() PaymentError');
         this.controllerFor('currentOrder').setProperties({
             display_message: true,
             isError: true,
