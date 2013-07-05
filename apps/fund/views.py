@@ -27,8 +27,19 @@ class CurrentOrderMixin(object):
     """ Mixin to get/create a 'current' Order. """
 
     def _update_payment(self, order):
-        def create_new_payment():
+        """ Create a payment if we need one and update the order total. """
+        def create_new_payment(cancelled_payment=None):
+            """ Creates and new payment and copies over the the payment profile from the cancelled payment."""
+            # TODO See if we can use something like Django-lazy-user so that the payment profile can always be set with date from the user model.
             payment = DocDataPaymentOrder()
+            if cancelled_payment:
+                payment.email = cancelled_payment.email
+                payment.first_name = cancelled_payment.first_name
+                payment.last_name = cancelled_payment.last_name
+                payment.address = cancelled_payment.address
+                payment.postal_code = cancelled_payment.postal_code
+                payment.city = cancelled_payment.city
+                payment.country = cancelled_payment.country
             payment.save()
             order.payments.add(payment)
 
@@ -43,8 +54,9 @@ class CurrentOrderMixin(object):
             latest_payment = order.latest_payment
         elif latest_payment.status != PaymentStatuses.new:
             if latest_payment.status == PaymentStatuses.in_progress:
+                # FIXME Cancel payment can fail and throw an exception. A new order should not be created in this case.
                 payments.cancel_payment(latest_payment)
-                create_new_payment()
+                create_new_payment(latest_payment)
                 latest_payment = order.latest_payment
             else:
                 # TODO Deal with this error somehow.
