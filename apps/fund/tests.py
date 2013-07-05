@@ -12,7 +12,7 @@ from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin
 from apps.projects.models import Project
 from rest_framework import status
-from .models import Donation, Order, OrderStatuses, DonationStatuses
+from .models import Donation, Order, OrderStatuses
 
 
 class CalculateMoneyDonatedTest(ProjectTestsMixin, TestCase):
@@ -36,20 +36,20 @@ class CalculateMoneyDonatedTest(ProjectTestsMixin, TestCase):
 
         # Create a new donation of 15 in status 'new'. project money donated should be 0
         some_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
-                                              status=DonationStatuses.new)
+                                              status=Donation.DonationStatuses.new)
         self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
 
         # Create a new donation of 25 in status 'in_progress'. project money donated should be 25
         another_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=2500,
-                                                 status=DonationStatuses.pending)
+                                                 status=Donation.DonationStatuses.pending)
         self.assertEqual(self.some_project.projectcampaign.money_donated, 2500)
 
         # If we now set the first donation to status 'paid' money donated should be 40
-        some_donation.status = DonationStatuses.paid
+        some_donation.status = Donation.DonationStatuses.paid
         some_donation.save()
         self.assertEqual(self.some_project.projectcampaign.money_donated, 4000)
 
-    def _create_donation(self, user=None, amount=None, project=None, status=DonationStatuses.new):
+    def _create_donation(self, user=None, amount=None, project=None, status=Donation.DonationStatuses.new):
         """ Helper method for creating donations."""
         if not project:
             project = self.create_project()
@@ -83,7 +83,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         self.current_order_url = '/i18n/api/fund/orders/current'
         self.payment_profile_current_url = '/i18n/api/fund/paymentprofiles/current'
         self.payment_url_base = '/i18n/api/fund/payments/'
-        self.order_url_base = '/i18n/api/fund/orders/'
 
         self.some_profile = {'first_name': 'Nijntje',
                              'last_name': 'het Konijnje',
@@ -210,15 +209,14 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['recurring'], True)
 
-        # FIXME: Figure out what to do about this.
-        # # Test that setting a recurring order as anonymous user fails.
-        # self.client.logout()
-        # response = self.client.get(self.current_order_url)
-        # self.assertEqual(response.data['recurring'], False)
-        # response = self.client.put(self.current_order_url, json.dumps({'recurring': True}), 'application/json')
-        # self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        # response = self.client.get(self.current_order_url)
-        # self.assertEqual(response.data['recurring'], False)
+        # Test that setting a recurring order as anonymous user fails.
+        self.client.logout()
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.data['recurring'], False)
+        response = self.client.put(self.current_order_url, json.dumps({'recurring': True}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.data['recurring'], False)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
@@ -279,9 +277,12 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(response.data['payment_url'])  # Not empty payment_url.
 
+        # The status of the Order should now be 'in_progress'.
+        order = Order.objects.filter(user=self.some_user).get()
+        self.assertEqual(order.status, OrderStatuses.in_progress)
+
         # Emulate a status change from DocData. Note we need to use an internal API from COWRY for this but it's hard
         # to avoid because we can't automatically make a DocData payment.
-        order = Order.objects.get(user=self.some_user)
         adapter = _adapter_for_payment_method(order.latest_payment.payment_method_id)
         adapter._change_status(order.latest_payment, PaymentStatuses.pending)
         order = Order.objects.filter(user=self.some_user).get()
@@ -309,16 +310,16 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_payment_permissions(self):
         # 'some_user' should be able to access their payment.
-        order_id = self._make_api_donation(self.some_user, project=self.some_project, amount=50)
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
+        self._make_api_donation(self.some_user, project=self.some_project, amount=50)
+        response = self.client.get(self.current_order_url)
         some_user_payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
         response = self.client.get(some_user_payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.client.logout()
 
         # 'another_user' should be able to access their payment.
-        order_id = self._make_api_donation(self.another_user, project=self.some_project, amount=100)
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
+        self._make_api_donation(self.another_user, project=self.some_project, amount=100)
+        response = self.client.get(self.current_order_url)
         another_user_payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
         response = self.client.get(another_user_payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
@@ -335,16 +336,16 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Anonymous user 1 should be able to access their payment.
-        order_id = self._make_api_donation(None, project=self.some_project, amount=150)  # Anonymous donation.
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
+        self._make_api_donation(None, project=self.some_project, amount=150)  # Anonymous donation.
+        response = self.client.get(self.current_order_url)
         anonymous_payment_url_1 = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
         response = self.client.get(anonymous_payment_url_1)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Anonymous user 2 (from a second client) should be able to access their payment as well.
         secondClient = Client()
-        order_id = self._make_api_donation(None, project=self.some_project, amount=150, client=secondClient)  # Anonymous donation.
-        response = secondClient.get('{0}{1}'.format(self.order_url_base, order_id))
+        self._make_api_donation(None, project=self.some_project, amount=150, client=secondClient)  # Anonymous donation.
+        response = secondClient.get(self.current_order_url)
         anonymous_payment_url_2 = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
         response = secondClient.get(anonymous_payment_url_2)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
@@ -355,61 +356,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 
         # Anonymous user 2 should not be able to access the payment from anonymous user 1.
         response = secondClient.get(anonymous_payment_url_1)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
-
-    @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
-    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
-    def test_order_permissions(self):
-        # Note: This method is very similar to test_payment_permissions but
-        # it's required to test the IsOrderCreator permission class.
-
-        # 'some_user' should be able to access their order.
-        order_id = self._make_api_donation(self.some_user, project=self.some_project, amount=50)
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
-        some_user_order_url = '{0}{1}'.format(self.order_url_base, response.data['id'])
-        response = self.client.get(some_user_order_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.client.logout()
-
-        # 'another_user' should be able to access their order.
-        order_id = self._make_api_donation(self.another_user, project=self.some_project, amount=100)
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
-        another_user_order_url = '{0}{1}'.format(self.order_url_base, response.data['id'])
-        response = self.client.get(another_user_order_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-
-        # 'another_user' should not be able to access the order belonging to 'some_user'.
-        response = self.client.get(some_user_order_url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
-        self.client.logout()
-
-        # Anonymous user shouldn't be able to access the orders from 'some_user' and 'another_user'.
-        response = self.client.get(some_user_order_url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
-        response = self.client.get(another_user_order_url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
-
-        # Anonymous user 1 should be able to access their order.
-        order_id = self._make_api_donation(None, project=self.some_project, amount=150)  # Anonymous donation.
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
-        anonymous_order_url_1 = '{0}{1}'.format(self.order_url_base, response.data['id'])
-        response = self.client.get(anonymous_order_url_1)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-
-        # Anonymous user 2 (from a second client) should be able to access their order as well.
-        secondClient = Client()
-        order_id = self._make_api_donation(None, project=self.some_project, amount=150, client=secondClient)  # Anonymous donation.
-        response = secondClient.get('{0}{1}'.format(self.order_url_base, order_id))
-        anonymous_order_url_2 = '{0}{1}'.format(self.order_url_base, response.data['id'])
-        response = secondClient.get(anonymous_order_url_2)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-
-        # Anonymous user 1 should not be able to access the order from anonymous user 2.
-        response = self.client.get(anonymous_order_url_2)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
-
-        # Anonymous user 2 should not be able to access the payment from anonymous user 1.
-        response = secondClient.get(anonymous_order_url_1)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
     def _format_donation(self, amount):
@@ -436,7 +382,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         response = client.get(self.current_order_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
-        order_id = response.data['id']
 
         # Create a Donation for the current order.
         response = client.post(self.current_donations_url, {'project': project.slug, 'amount': amount})
@@ -476,8 +421,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         # Updating the payment method with a valid value should provide a payment_url.
         response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
         self.assertTrue(response.data['payment_url'].startswith('http'))
-
-        return order_id
 
 
 class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):

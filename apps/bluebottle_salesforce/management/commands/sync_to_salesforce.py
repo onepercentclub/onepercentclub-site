@@ -2,7 +2,7 @@ import logging
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from apps.accounts.models import BlueBottleUser
-from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan
+from apps.projects.models import Project, ProjectBudgetLine
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, Voucher
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 #
 # Run with:
-# ./manage.py sync_to_salesforce -v 2 --settings=bluebottle.settings.salesforcesync
+# ./manage.py synctosalesforce -v 2 --settings=bluebottle.settings.salesforcesync
 #
 
 class Command(BaseCommand):
@@ -58,7 +58,7 @@ def sync_organizations(test_run):
 
         # Find the corresponding SF organization.
         try:
-            sforganization = SalesforceOrganization.objects.get(external_id=organization.id)
+            sforganization = SalesforceOrganization.objects.filter(external_id=organization.id).get()
         except SalesforceOrganization.DoesNotExist:
             sforganization = SalesforceOrganization()
 
@@ -105,7 +105,7 @@ def sync_organizations(test_run):
     # sf_organizations = SalesforceOrganization.objects.all()
     # for sf_organization in sf_organizations:
     #     try:
-    #         Organization.objects.get(id=sf_organization.external_id)
+    #         Organization.objects.filter(id=sf_organization.external_id).get()
     #     except Organization.DoesNotExist:
     #         sf_organization.delete()
 
@@ -119,7 +119,7 @@ def sync_users(test_run):
 
         # Find the corresponding SF user.
         try:
-            contact = SalesforceContact.objects.get(external_id=user.id)
+            contact = SalesforceContact.objects.filter(external_id=user.id).get()
         except SalesforceContact.DoesNotExist:
             contact = SalesforceContact()
 
@@ -154,7 +154,7 @@ def sync_users(test_run):
         contact.location = user.location
         # The default: Organization(Account) will be 'Individual' as current.
         # Future purpose deactivate and put the Organization website group value
-        #contact.organization_account = SalesforceOrganization.objects.get(external_id=contact.organization.id)
+        #contact.organization_account = SalesforceOrganization.objects.filter(external_id=contact.organization.id).get()
         contact.website = user.website
 
         # SF Layout: Contact Information section.
@@ -171,6 +171,10 @@ def sync_users(test_run):
         #contact.number_of_donations
         #contact.support_n_projects
         #contact.total_amount_of_donations
+        # -- 20130530 - Not used: discussed with Suzanne,Ben
+        #contact.total_number_of_received_messages
+        # -- 20130530 - Not used: discussed with Suzanne,Ben
+        #contact.total_number_of_sent_messages
 
         # SF Layout: Administrative (private) section.
         contact.birth_date = user.birthdate
@@ -248,6 +252,14 @@ def sync_users(test_run):
         if not test_run:
             contact.save()
 
+    # Delete SalesforceContact if the correspondig BlueBottleUser doesn't exist.
+    # sf_users = SalesforceContact.objects.all()
+    # for sf_user in sf_users:
+    #     try:
+    #         BlueBottleUser.objects.filter(id=sf_user.external_id).get()
+    #     except BlueBottleUser.DoesNotExist:
+    #         sf_user.delete()
+
 
 def sync_projects(test_run):
     projects = Project.objects.all()
@@ -258,22 +270,16 @@ def sync_projects(test_run):
 
         # Find the corresponding SF project.
         try:
-            sfproject = SalesforceProject.objects.get(external_id=project.id)
+            sfproject = SalesforceProject.objects.filter(external_id=project.id).get()
         except SalesforceProject.DoesNotExist:
             sfproject = SalesforceProject()
 
         # SF Layout: 1%CLUB Project Detail section.
-        try:
-            project_campaign = ProjectCampaign.objects.get(project=project)
-        except ProjectCampaign.DoesNotExist:
-            pass
-        else:
-            sfproject.amount_at_the_moment = project_campaign.money_donated
-            sfproject.amount_requested = project_campaign.money_asked
-            sfproject.amount_still_needed = project_campaign.money_needed
-
+        sfproject.amount_at_the_moment = project.money_safe
+        sfproject.amount_requested = project.money_asked
+        sfproject.amount_still_needed = project.money_needed
         sfproject.project_name = project.title
-        sfproject.project_owner = SalesforceContact.objects.get(external_id=project.owner.id)
+        sfproject.project_owner = SalesforceContact.objects.filter(external_id=project.owner.id).get()
         # -- Not the same as (closed,created, done validated)
         #  -- pitch, campaign, act, closed, failed (if ...else...?)
         sfproject.status_project = project.phase
@@ -281,33 +287,14 @@ def sync_projects(test_run):
         # Unknown: sfproject.target_group_s_of_the_project
 
         # SF Layout: Summary Project Details section.
-        try:
-            project_pitch = ProjectPitch.objects.get(project=project)
-        except ProjectPitch.DoesNotExist:
-            pass
-        else:
-            if project_pitch.country:
-                sfproject.country_in_which_the_project_is_located = project_pitch.country.name
-            sfproject.describe_the_project_in_one_sentence = project_pitch.title
-
+        sfproject.country_in_which_the_project_is_located = str(project.country)
+        sfproject.describe_the_project_in_one_sentence = project.description
         # Unknown error: sfproject.describe_where_the_money_is_needed_for =
         # Unknown error: sfproject.project_url = project.get_absolute_url
 
         # SF Layout: Extensive project information section.
         # Unknown: sfproject.third_half_project =
-        try:
-            project_plan = ProjectPlan.objects.get(project=project)
-        except ProjectPlan.DoesNotExist:
-            pass
-        else:
-            # TODO What should be in target_group?
-            # sfproject.target_group = project.fundphase.impact_group
-            sfproject.number_of_people_reached_direct = project_plan.reach
-            # TODO What should be in number_of_people_reached_indirect?
-            # sfproject.number_of_people_reached_indirect = (project.fundphase.impact_indirect_male +
-            #                                                project.fundphase.impact_indirect_female)
-            sfproject.organization_account = SalesforceOrganization.objects.get(external_id=project_plan.organization.id)
-
+        sfproject.organization_account = SalesforceOrganization.objects.filter(external_id=project.organization.id).get()
         # Unknown: sfproject.comments =
         # Unknown: sfproject.contribution_project_in_reducing_poverty =
         # Unknown: sfproject.earth_charther_project =
@@ -317,16 +304,14 @@ def sync_projects(test_run):
 
         # SF Layout: Project planning and budget section.
         # Unknown: sfproject.additional_explanation_of_budget =
-        # TODO: Implement this.
-        # sfproject.end_date_of_the_project = project.planned_end_date
+        sfproject.end_date_of_the_project = project.planned_end_date
         # Unknown: sfproject.expected_funding_through_other_resources =
         # Unknown: sfproject.expected_project_results =
         # Unknown: sfproject.funding_received_through_other_resources =
         # Unknown: sfproject.need_for_volunteers =
         # Unknown: sfproject.other_way_people_can_contribute =
         # Unknown: sfproject.project_activities_and_timetable =
-        # TODO: Implement this.
-        # sfproject.starting_date_of_the_project = project.planned_start_date
+        sfproject.starting_date_of_the_project = project.planned_start_date
 
         # SF Layout: Millennium Goals section.
         # Unknown - Multipicklist: ?? - sfproject.millennium_goals =
@@ -356,15 +341,22 @@ def sync_projects(test_run):
         # SF Layout: Other section.
         sfproject.external_id = project.id
 
+        if project.fundphase:
+            sfproject.target_group = project.fundphase.impact_group
+            sfproject.number_of_people_reached_direct = (project.fundphase.impact_direct_male +
+                                                         project.fundphase.impact_direct_female)
+            sfproject.number_of_people_reached_indirect = (project.fundphase.impact_indirect_male +
+                                                           project.fundphase.impact_indirect_female)
+
         # Save the SF project.
         if not test_run:
             sfproject.save()
 
-    # # Delete SalesforceProject if the corresponding Project doesn't exist.
+    # # Delete SalesforceProject if the correspondig Project doesn't exist.
     # sf_projects = SalesforceProject.objects.all()
     # for sf_project in sf_projects:
     #     try:
-    #         Project.objects.get(id=sf_project.external_id)
+    #         Project.objects.filter(id=sf_project.external_id).get()
     #     except Project.DoesNotExist:
     #         sf_project.delete()
 
@@ -378,18 +370,17 @@ def sync_budget_lines(test_run):
 
         # Find the corresponding SF budget lines.
         try:
-            sfbudget_line = SalesforceProjectBudget.objects.get(external_id=budget_line.id)
+            sfbudget_line = SalesforceProjectBudget.objects.filter(external_id=budget_line.id).get()
         except SalesforceProjectBudget.DoesNotExist:
             sfbudget_line = SalesforceProjectBudget()
 
         # SF Layout: Information section
         #Unknown: Materialen, Tools, Transport, Training, etc.
         # sfbudget_line.category =
-        sfbudget_line.costs = "%01.2f" % (budget_line.amount / 100)  # Convert to Euros.
+        sfbudget_line.costs = budget_line.money_amount
         sfbudget_line.description = budget_line.description
         sfbudget_line.external_id = budget_line.id
-        # TODO Add ProjectPlan to Salesforce??
-        # sfbudget_line.project = SalesforceProject.objects.get(external_id=budget_line.project_plan.id)
+        sfbudget_line.project = SalesforceProject.objects.filter(external_id=budget_line.project.id).get()
 
         # Save the SF budget lines.
         if not test_run:
@@ -399,7 +390,7 @@ def sync_budget_lines(test_run):
     sfbudget_lines = SalesforceProjectBudget.objects.all()
     for sfbudget_line in sfbudget_lines:
         try:
-            ProjectBudgetLine.objects.get(id=sfbudget_line.external_id)
+            ProjectBudgetLine.objects.filter(id=sfbudget_line.external_id).get()
         except ProjectBudgetLine.DoesNotExist:
             sfbudget_line.delete()
 
@@ -414,20 +405,20 @@ def sync_donations(test_run):
         # Find the corresponding SF donation.
         try:
             donation_id = "donation" + str(donation.id)
-            sfdonation = SalesforceDonation.objects.get(external_id=donation_id)
+            sfdonation = SalesforceDonation.objects.filter(external_id=donation_id).get()
         except SalesforceDonation.DoesNotExist:
             sfdonation = SalesforceDonation()
 
         # Initialize Salesforce objects.
-        sfContact = SalesforceContact.objects.get(external_id=donation.user.id)
-        sfProject = SalesforceProject.objects.get(external_id=donation.project.id)
+        sfContact = SalesforceContact.objects.filter(external_id=donation.user.id).get()
+        sfProject = SalesforceProject.objects.filter(external_id=donation.project.id).get()
 
         # SF Layout: Donation Information section.
         sfdonation.amount = donation.amount
         sfdonation.close_date = donation.created
         sfdonation.name = sfContact.first_name + " " + sfContact.last_name
         # Unknown - sfdonation.payment_method =
-        # Unknown - sfdonation.organization = SalesforceOrganization.objects.get(external_id=1)
+        # Unknown - sfdonation.organization = SalesforceOrganization.objects.filter(external_id=1).get()
         sfdonation.project = sfProject
 
         if donation.status == "new":
@@ -468,7 +459,7 @@ def sync_donations(test_run):
     # sf_donations = SalesforceDonation.objects.all()
     # for sf_donation in sf_donations:
     #     try:
-    #         Donation.objects.get(id=sf_donation.external_id)
+    #         Donation.objects.filter(id=sf_donation.external_id).get()
     #     except Donation.DoesNotExist:
     #         sf_donation.delete()
 
@@ -483,16 +474,16 @@ def sync_vouchers(test_run):
         # Find the corresponding SF vouchers.
         try:
             voucher_id = "voucher"+str(voucher.id)
-            sfvoucher = SalesforceVoucher.objects.get(external_id=voucher_id)
+            sfvoucher = SalesforceVoucher.objects.filter(external_id=voucher_id).get()
         except SalesforceVoucher.DoesNotExist:
             sfvoucher = SalesforceVoucher()
 
         # Initialize Salesforce objects.
         # TODO: There should be a voucher.purchaser.id, else remove from (parent) models
-        sfContactPurchaser = SalesforceContact.objects.get(external_id=1)
+        sfContactPurchaser = SalesforceContact.objects.filter(external_id=1).get()
 
         # TODO: There should be a voucher.project.id, else remove from (parent) models
-        sfProject = SalesforceProject.objects.get(external_id=1)
+        sfProject = SalesforceProject.objects.filter(external_id=1).get()
 
         # SF Layout: Donation Information section.
         # Temporary test fix
@@ -525,7 +516,7 @@ def sync_vouchers(test_run):
 
         # SF Layout: System Information section.
         # TODO: There should be a voucher.receiver.id, , else remove from (parent) models
-        sfvoucher.receiver = SalesforceContact.objects.get(external_id=1)
+        sfvoucher.receiver = SalesforceContact.objects.filter(external_id=1).get()
 
         # SF Other.
         sfvoucher.external_id = "voucher" + str(voucher.id)
@@ -544,12 +535,12 @@ def sync_tasks(test_run):
 
         # Find the corresponding SF tasks.
         try:
-            sftask = SalesforceTask.objects.get(external_id=task.id)
+            sftask = SalesforceTask.objects.filter(external_id=task.id).get()
         except SalesforceTask.DoesNotExist:
             sftask = SalesforceTask()
 
         # SF Layout: Information section.
-        sftask.project = SalesforceProject.objects.get(external_id=task.project.id)
+        sftask.project = SalesforceProject.objects.filter(external_id=task.project.id).get()
         sftask.deadline = task.deadline
         sftask.effort = task.time_needed
         sftask.extended_task_description = task.description
@@ -580,13 +571,13 @@ def sync_task_members(test_run):
 
         # Find the corresponding SF task members.
         try:
-            sftaskmember = SalesforceTaskMembers.objects.get(external_id=task_member.id)
+            sftaskmember = SalesforceTaskMembers.objects.filter(external_id=task_member.id).get()
         except SalesforceTaskMembers.DoesNotExist:
             sftaskmember = SalesforceTaskMembers()
 
         # SF Layout: Information section.
-        sftaskmember.contacts = SalesforceContact.objects.get(external_id=task_member.member.id)
-        sftaskmember.x1_club_task = SalesforceTask.objects.get(external_id=task_member.task.id)
+        sftaskmember.contacts = SalesforceContact.objects.filter(external_id=task_member.member.id).get()
+        sftaskmember.x1_club_task = SalesforceTask.objects.filter(external_id=task_member.task.id).get()
         sftaskmember.external_id = task_member.id
 
         # Save the SF task_member.

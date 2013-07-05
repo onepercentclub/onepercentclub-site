@@ -55,27 +55,16 @@ App.Voucher =  DS.Model.extend({
 });
 
 
-App.Payment = DS.Model.extend({
-    url: 'fund/payments',
-
-    paymentMethod: DS.attr('string'),
-    paymentSubmethod: DS.attr('string'),
-    paymentUrl: DS.attr('string'),
-    availablePaymentMethods: DS.attr('array'),
-    order: DS.belongsTo('App.Order')
-});
-
-
 /* Models with CurrentOrder relations and urls. */
 
-// FIXME Get rid of CurrentOrder models
+// TODO Get rid of CurrentOrder models??
 
 App.CurrentOrder = App.Order.extend({
     url: 'fund/orders',
 
     vouchers: DS.hasMany('App.CurrentOrderVoucher'),
-    donations: DS.hasMany('App.CurrentOrderDonation'),
-    payment: DS.belongsTo('App.CurrentOrderPayment')
+    donations: DS.hasMany('App.CurrentOrderDonation')
+
 });
 
 
@@ -108,9 +97,13 @@ App.PaymentProfile = DS.Model.extend({
 });
 
 
-App.CurrentOrderPayment = App.Payment.extend({
+App.Payment = DS.Model.extend({
     url: 'fund/payments',
 
+    paymentMethod: DS.attr('string'),
+    paymentSubmethod: DS.attr('string'),
+    paymentUrl: DS.attr('string'),
+    availablePaymentMethods: DS.attr('array'),
     order: DS.belongsTo('App.CurrentOrder')
 });
 
@@ -263,7 +256,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
         profile.get('stateManager').goToState('updated');
         var controller = this;
         profile.one('didUpdate', function(record) {
-            controller.transitionToRoute('paymentSelect');
+            controller.transitionToRoute('payment');
         });
         profile.one('becameInvalid', function(record) {
             controller.get('model').set('errors', record.get('errors'));
@@ -273,7 +266,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
     }
 });
 
-App.PaymentSelectController = Em.ObjectController.extend({
+App.PaymentController = Em.ObjectController.extend({
     hasIdeal: function() {
         var availPMs = this.get('availablePaymentMethods');
         if (availPMs) {
@@ -291,13 +284,9 @@ App.PaymentSelectController = Em.ObjectController.extend({
     }.observes('availablePaymentMethods'),
 
     initTransaction: function() {
-        console.log('initTransaction');
-        var model = this.get('model');
-        if (model) {
-            var transaction = this.get('store').transaction();
-            this.set('transaction', transaction);
-            transaction.add(model);
-        }
+        var transaction = this.get('store').transaction();
+        this.set('transaction', transaction);
+        transaction.add(this.get('model'));
     }.observes('model'),
 
     proceedWithPayment: function() {
@@ -349,26 +338,7 @@ App.CurrentOrderController = Em.ObjectController.extend({
         transaction.add(order);
         order.set('recurring', (this.get('donationType') == 'monthly'));
         transaction.commit();
-    }.observes('donationType'),
-
-    // Display messages inline similar to the message display in the ApplicationController.
-    display_message: false,
-    isError: false,
-    autoHideMessage: false,
-
-    displayMessage: (function() {
-        if (this.get('display_message') == true) {
-            if (this.get('autoHideMessage')) {
-                Ember.run.later(this, function() {
-                    this.hideMessage();
-                }, 10000);
-            }
-        }
-    }).observes('display_message'),
-
-    hideMessage: function() {
-        this.set('display_message', false);
-    }
+    }.observes('donationType')
 });
 
 
@@ -482,8 +452,8 @@ App.OrderNavView = Ember.View.extend({
 });
 
 
-App.PaymentSelectView = Em.View.extend({
-    templateName: 'paymentSelect',
+App.PaymentView = Em.View.extend({
+    templateName: 'payment',
     classNames: ['content']
 });
 

@@ -13,7 +13,6 @@ class PaymentStatuses(DjangoChoices):
     failed = ChoiceItem('failed', label=_("Failed"))
     cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
     refunded = ChoiceItem('refunded', label=_("Refunded"))
-    unknown = ChoiceItem('unknown', label=_("Unknown"))  # Payments with this status have not been mapped.
 
 
 class Payment(PolymorphicModel):
@@ -22,7 +21,7 @@ class Payment(PolymorphicModel):
     """
     # The amount in the minor unit for the given currency (e.g. for EUR in cents).
     amount = models.PositiveIntegerField(_("amount"), default=0)
-    currency = models.CharField(max_length=3, default='')
+    currency = models.CharField(max_length=3, default='', blank=True)
 
     # The transaction cost that is taken by the payment service provider.
     fee = models.PositiveIntegerField(_("payment service fee"), default=0)

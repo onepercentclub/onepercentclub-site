@@ -21,9 +21,6 @@ class AbstractPaymentAdapter(object):
     def update_payment_status(self, payment):
         raise NotImplementedError
 
-    def cancel_payment(self, payment):
-        raise NotImplementedError
-
     def _map_status(self, status):
         """
         Maps a PSP status to a Cowry Payment status using the status_mapping dict.
@@ -37,7 +34,7 @@ class AbstractPaymentAdapter(object):
     def _change_status(self, payment, new_status):
         """
         Changes the Cowry Payment status to new_status and sends a single about the change.
-        Subclasses must use this method to change statuses.
+        Subclasses can safely use this method.
         """
         old_status = payment.status
         payment.status = new_status
