@@ -266,17 +266,20 @@ class OrderItemMixin(object):
         order = self.get_current_order()
         if not order:
             raise exceptions.ParseError(detail=no_active_order_error_msg)
-        serializer = self.get_serializer(data=request.DATA)
+        serializer = self.get_serializer(data=request.DATA, files=request.FILES)
+
         if serializer.is_valid():
             self.pre_save(serializer.object)
-            obj = serializer.save()
-
+            self.object = serializer.save(force_insert=True)
             if request.user.is_authenticated():
-                setattr(obj, self.user_field, request.user)
-            obj.save()
-            orderitem = OrderItem.objects.create(content_object=obj, order=order)
+                setattr(self.object, self.user_field, request.user)
+            self.object.save()
+            orderitem = OrderItem.objects.create(content_object=self.object, order=order)
             orderitem.save()
-            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+            self.post_save(self.object, created=True)
+
+            headers = self.get_success_headers(serializer.data)
+            return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, *args, **kwargs):
