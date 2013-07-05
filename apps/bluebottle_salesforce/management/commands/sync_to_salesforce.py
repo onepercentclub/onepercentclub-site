@@ -299,7 +299,6 @@ def sync_projects(test_run):
             project_plan = ProjectPlan.objects.get(project=project)
         except ProjectPlan.DoesNotExist:
             sfproject.organization_account = None
-            pass
         else:
             # TODO What should be in target_group?
             # sfproject.target_group = project.fundphase.impact_group
