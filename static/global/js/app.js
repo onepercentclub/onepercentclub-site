@@ -253,6 +253,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "projects/manage": "projects/manage",
         "projects/pitches/manage": "projects/pitches/manage",
         "projects/plans/manage": "projects/plans/manage",
+        "projects/campaigns/manage": "projects/campaigns/manage",
         "projects/wallposts/media": "projects/wallposts/media",
         "projects/wallposts/text": "projects/wallposts/text",
         "organizations/manage": "organizations/manage",
@@ -281,7 +282,7 @@ App.Adapter.map(
 
 
 App.ApplicationController = Ember.Controller.extend({
-    needs: ['currentUser', 'currentOrderDonationList'],
+    needs: ['currentUser', 'currentOrder', 'myProjectList'],
     display_message: false,
 
     news: function(){
@@ -565,6 +566,13 @@ App.Router.map(function() {
 
 App.ApplicationRoute = Em.Route.extend({
 
+    setupController: function(controller, model){
+        this.controllerFor('myProjectList').set('model', App.MyProject.find());
+        this.controllerFor('currentOrder').set('model',  App.CurrentOrder.find('current'));
+        this._super(controller, model);
+    },
+
+
     events: {
         selectLanguage: function(language) {
             if (language == App.get('language')) {
@@ -614,7 +622,7 @@ App.ApplicationRoute = Em.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            var modalPaneTemplate = ['{{view view.bodyViewClass}}'].join("\n");
+            var modalPaneTemplate = ['<div class="modal-body"><a class="close" rel="close">&times;</a>{{view view.bodyViewClass}}</div>'].join("\n");
 
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
@@ -882,8 +890,6 @@ App.CurrentOrderIndexRoute = Em.Route.extend({
 
 App.CurrentOrderRoute = Em.Route.extend({
     model: function(params) {
-        console.log('model() CurrentOrder');
-
         var order = App.CurrentOrder.find('current');
         // Always load the CurrentOrder so that the payment id is correct. This should go away when we switch to
         // creating an order instead of loading 'current'.
@@ -1267,9 +1273,15 @@ App.PasswordResetRoute = Em.Route.extend({
 App.LoginController = Em.Controller.extend({
 
     requestPasswordReset: function() {
+        // Close previous modal, if any.
+        $('.close').click();
+
+        var modalPaneTemplate = ['<div class="modal-body"><a class="close" rel="close">&times;</a>{{view templateName="request_password_reset"}}</div>'].join("\n");
+
         Bootstrap.ModalPane.popup({
             classNames: ['modal'],
-            defaultTemplate: Em.Handlebars.compile('{{view templateName="request_password_reset"}}'),
+            defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
+
             callback: function(opts, e) {
                 if (opts.secondary) {
                     var $btn        = $(e.target),
@@ -1315,7 +1327,7 @@ App.LoginController = Em.Controller.extend({
  * - Manage your project(s)
  */
 
-App.MyProjectListRoute = Ember.Route.extend({
+App.MyProjectListRoute = Em.Route.extend({
     model: function(params) {
         return App.MyProject.find();
     },
@@ -1326,14 +1338,15 @@ App.MyProjectListRoute = Ember.Route.extend({
 });
 
 
-App.MyPitchNewRoute = Ember.Route.extend({
+App.MyPitchNewRoute = Em.Route.extend({
     model: function(){
         var transaction = this.get('store').transaction();
         return transaction.createRecord(App.MyProject);
     }
 });
 
-App.MyProjectRoute = Ember.Route.extend({
+
+App.MyProjectRoute = Em.Route.extend({
     // Load the Project
     model: function(params) {
         return App.MyProject.find(params.my_project_id);
@@ -1341,7 +1354,7 @@ App.MyProjectRoute = Ember.Route.extend({
 });
 
 
-App.MyProjectPitchRoute =  Ember.Route.extend({
+App.MyProjectPitchRoute =  Em.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('pitch');
     }
@@ -1405,7 +1418,7 @@ App.MyProjectPitchIndexRoute =  Em.Route.extend({
 });
 
 
-App.MyProjectPitchReviewRoute = Ember.Route.extend({
+App.MyProjectPitchReviewRoute = Em.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('pitch');
     }
@@ -1414,13 +1427,13 @@ App.MyProjectPitchReviewRoute = Ember.Route.extend({
 
 // My ProjectPlan routes
 
-App.MyProjectPlanRoute = Ember.Route.extend({
+App.MyProjectPlanRoute = Em.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('plan');
     }
 });
 
-App.MyProjectPlanSubRoute = Ember.Route.extend({
+App.MyProjectPlanSubRoute = Em.Route.extend({
     redirect: function() {
         var status = this.modelFor('myProject').get('plan.status');
         switch(status){
@@ -1497,7 +1510,7 @@ App.MyProjectPlanIndexRoute = Ember.Route.extend({
 });
 
 
-App.MyProjectPlanReviewRoute = Ember.Route.extend({
+App.MyProjectPlanReviewRoute = Em.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('plan');
     }
@@ -1506,7 +1519,7 @@ App.MyProjectPlanReviewRoute = Ember.Route.extend({
 
 /* Home Page */
 
-App.HomeRoute = Ember.Route.extend({
+App.HomeRoute = Em.Route.extend({
     model: function(params) {
         return App.HomePage.find(App.get('language'));
     },
@@ -1521,7 +1534,7 @@ App.HomeRoute = Ember.Route.extend({
 
 /* Static Pages */
 
-App.PageRoute = Ember.Route.extend({
+App.PageRoute = Em.Route.extend({
     model: function(params) {
         var page =  App.Page.find(params.slug);
         var route = this;
@@ -1535,7 +1548,7 @@ App.PageRoute = Ember.Route.extend({
 
 /* Blogs & News */
 
-App.NewsItemRoute = Ember.Route.extend({
+App.NewsItemRoute = Em.Route.extend({
     model: function(params) {
         var newsItem =  App.News.find(params.news_id);
         var route = this;
@@ -1547,14 +1560,14 @@ App.NewsItemRoute = Ember.Route.extend({
 });
 
 
-App.NewsRoute = Ember.Route.extend({
+App.NewsRoute = Em.Route.extend({
     model: function(params) {
         return App.NewsPreview.find({language: App.get('language')});
     }
 });
 
 
-App.NewsIndexRoute = Ember.Route.extend({
+App.NewsIndexRoute = Em.Route.extend({
     model: function(params) {
         return App.NewsPreview.find({language: App.get('language')});
     },
@@ -1567,12 +1580,12 @@ App.NewsIndexRoute = Ember.Route.extend({
 
 /* Views */
 
-App.LanguageView = Ember.View.extend({
+App.LanguageView = Em.View.extend({
     templateName: 'language'
 });
 
 
-App.LanguageSwitchView = Ember.CollectionView.extend({
+App.LanguageSwitchView = Em.CollectionView.extend({
     tagName: 'ul',
     classNames: ['nav-language'],
     content: App.interfaceLanguages,
@@ -1582,7 +1595,7 @@ App.LanguageSwitchView = Ember.CollectionView.extend({
 
 App.LoginView = Em.View.extend({
     templateName: 'login',
-    next: function() {
+    next: function(){
         return  String(window.location);
     }.property()
 });

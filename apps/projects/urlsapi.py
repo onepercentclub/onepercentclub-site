@@ -5,7 +5,7 @@ from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWall
                     ProjectMediaWallPostDetail, ProjectTextWallPostList, ProjectTextWallPostDetail,
                     ProjectMediaWallPostPhotoList, ProjectMediaWallPostPhotoDetail, ProjectDonationList,
                     ManageProjectList, ManageProjectDetail, ManageProjectPitchDetail, ManageProjectPlanDetail,
-                    ProjectPitchDetail, ProjectPlanDetail)
+                    ProjectPitchDetail, ProjectPlanDetail, ManageProjectCampaignDetail)
 
 urlpatterns = patterns('',
     url(r'^projects/$', ProjectList.as_view(), name='project-list'),
@@ -38,6 +38,7 @@ urlpatterns = patterns('',
     surl(r'^manage/<slug:s>$', ManageProjectDetail.as_view(), name='project-manage-detail'),
     surl(r'^pitches/manage/<pk:#>$', ManageProjectPitchDetail.as_view(), name='project-pitch-manage-detail'),
     surl(r'^plans/manage/<pk:#>$', ManageProjectPlanDetail.as_view(), name='project-plan-manage-detail'),
+    surl(r'^campaigns/manage/<pk:#>$', ManageProjectCampaignDetail.as_view(), name='project-campaign-manage-detail'),
 
 
     url(r'^ambassadors/manage/$', ManageProjectAmbassadorList.as_view(), name='project-ambassador-manage-detail'),
