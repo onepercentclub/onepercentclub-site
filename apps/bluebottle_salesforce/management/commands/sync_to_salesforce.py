@@ -298,7 +298,7 @@ def sync_projects(test_run):
         try:
             project_plan = ProjectPlan.objects.get(project=project)
         except ProjectPlan.DoesNotExist:
-            pass
+            sfproject.organization_account = None
         else:
             # TODO What should be in target_group?
             # sfproject.target_group = project.fundphase.impact_group
@@ -358,7 +358,10 @@ def sync_projects(test_run):
 
         # Save the SF project.
         if not test_run:
-            sfproject.save()
+            try:
+                sfproject.save()
+            except Exception as e:
+                logger.error("Exception while saving: " + str(e))
 
     # # Delete SalesforceProject if the corresponding Project doesn't exist.
     # sf_projects = SalesforceProject.objects.all()
