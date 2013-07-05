@@ -118,16 +118,13 @@
                                                     {% trans "Edit my profile & settings" %}
                                                 {{/linkTo }}
                                             </li>
-                                            <li>
-                                                {{#linkTo "myPitchNew" }}
-                                                    {% trans "Pitch New Project" %}
-                                                {{/linkTo}}
-                                            </li>
-                                            <li>
-                                                {{#linkTo "myProjectList" }}
-                                                    {% trans "Manage My Project" %}
-                                                {{/linkTo}}
-                                            </li>
+                                            {{#if controllers.myProjectList.model.length }}
+                                                <li>
+                                                    {{#linkTo "myProjectList" }}
+                                                        {% trans "Manage My Project" %}
+                                                    {{/linkTo}}
+                                                </li>
+                                            {{/if}}
                                             <li>
                                                 {{view "App.LanguageSwitchView"}}
                                             </li>
@@ -142,7 +139,7 @@
                                     <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
                                     {{#if  controllers.currentOrderDonationList.length }}
                                         <li>
-                                            {{#linkTo currentOrder.donationList classNames="nav-cart"}}
+                                            {{#linkTo currentOrder.donationList controllers.currentOrderDonationList classNames="nav-cart"}}
                                                 <span class="nav-cart-count">{{ controllers.currentOrderDonationList.length }}</span>
                                                 {% trans "Donations" %}
                                             {{/linkTo}}
