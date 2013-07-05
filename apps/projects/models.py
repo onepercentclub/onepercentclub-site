@@ -274,6 +274,7 @@ class ProjectCampaign(models.Model):
     status = models.CharField(_("status"), max_length=20, choices=CampaignStatuses.choices)
 
     deadline = models.DateTimeField(null=True)
+    payout_date = models.DateTimeField(null=True)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField(_('updated'))

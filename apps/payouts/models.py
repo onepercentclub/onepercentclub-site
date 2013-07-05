@@ -33,9 +33,9 @@ class Payout(models.Model):
     currency = models.CharField(_("Currency"), max_length=3)
 
     sender_account_number = models.CharField(max_length=100)
-    receiver_account_number = models.CharField(max_length=100)
-    receiver_account_iban = models.CharField(max_length=100)
-    receiver_account_bic = models.CharField(max_length=100)
+    receiver_account_number = models.CharField(max_length=100, blank=True)
+    receiver_account_iban = models.CharField(max_length=100, blank=True)
+    receiver_account_bic = models.CharField(max_length=100, blank=True)
     receiver_account_name = models.CharField(max_length=100)
     receiver_account_city = models.CharField(max_length=100)
     receiver_account_country = models.CharField(max_length=100, null=True)
@@ -52,7 +52,7 @@ class Payout(models.Model):
 
     @property
     def local_amount_safe(self):
-        return '%.2f' % (self.project.money_safe * settings.PROJECT_PAYOUT_RATE / 100)
+        return '%.2f' % (self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE / 100)
 
     @property
     def is_valid(self):
@@ -63,7 +63,7 @@ class Payout(models.Model):
 
     @property
     def amount_safe(self):
-        return int(round(self.project.money_safe * settings.PROJECT_PAYOUT_RATE))
+        return int(round(self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE))
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
@@ -137,17 +137,15 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
     now = timezone.now()
 
     # Check projects in phase Act that have asked for money.
-    if project.phase == ProjectPhases.act and project.campaign.money_asked:
+    if project.phase == ProjectPhases.act and project.projectcampaign.money_asked:
         if now.day <= 15:
             next_date = timezone.datetime(now.year, now.month, 15)
         else:
             next_date = timezone.datetime(now.year, now.month + 1, 1)
 
-        projects = Project.objects.filter(payout_date__isnull=True, phase=ProjectPhases.act).all()
-        i = 0
         day = timezone.datetime.strftime(now, '%d%m%Y')
 
-        amount = round(project.money_donated * settings.PROJECT_PAYOUT_RATE)
+        amount = round(project.projectcampaign.money_donated * settings.PROJECT_PAYOUT_RATE)
         try:
             line = Payout.objects.get(project=project)
             if line.status == Payout.PayoutLineStatuses.new:
