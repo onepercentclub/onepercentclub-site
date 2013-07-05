@@ -63,19 +63,9 @@
                 {% endcomment %}
 
                 {{#view App.OrderNavView classNames="payment"}}
-                    {{#linkTo "paymentSelect"}}{% trans "Finish" %}{{/linkTo}}
+                    {{#linkTo "payment"}}{% trans "Finish" %}{{/linkTo}}
                 {{/view}}
             </ul>
-
-            {{#if display_message}}
-                <div {{bindAttr class=":order-message isError"}}>
-                    <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
-
-                    <div class="message-content">
-                        {{ message_content }}
-                    </div>
-                </div>
-            {{/if}}
 
             {{ outlet }}
 
@@ -435,7 +425,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "paymentSelect" %}
+{% tplhandlebars "payment" %}
 
     <div class="intro">
 

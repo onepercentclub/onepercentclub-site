@@ -1,12 +1,12 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectCampaign
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from apps.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
-                                              TagSerializer, ImageSerializer)
+                                              TagSerializer, ImageSerializer, TaggableSerializerMixin)
 from apps.geo.models import Country
 from .models import Project
 
@@ -25,7 +25,7 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     country = ProjectCountrySerializer()
     # This can be writable with the version of DRF that we're using.
-    tags = TagSerializer(read_only=True)
+    tags = TagSerializer()
     image = ImageSerializer(required=False)
 
     class Meta:
@@ -34,7 +34,7 @@ class ProjectPitchSerializer(serializers.ModelSerializer):
                   'need', 'status', 'image')
 
 
-class ManageProjectPitchSerializer(ProjectPitchSerializer):
+class ManageProjectPitchSerializer(TaggableSerializerMixin, ProjectPitchSerializer):
 
     country = serializers.PrimaryKeyRelatedField(required=False)
     status = serializers.ChoiceField(choices=ProjectPitch.PitchStatuses.choices, required=False)
@@ -99,9 +99,10 @@ class ProjectCampaignSerializer(serializers.ModelSerializer):
     money_asked = EuroField()
     money_donated = EuroField()
 
+
     class Meta:
-        model = ProjectPitch
-        fields = ('id', 'project', 'money_asked', 'money_donated')
+        model = ProjectCampaign
+        fields = ('id', 'project', 'money_asked', 'money_donated', 'deadline', 'status')
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -163,7 +164,7 @@ class ManageProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'url', 'phase', 'pitch', 'plan', 'coach')
+        fields = ('id', 'created', 'title', 'url', 'phase', 'pitch', 'plan', 'campaign', 'coach')
 
 
 # Serializers for ProjectWallPosts:
