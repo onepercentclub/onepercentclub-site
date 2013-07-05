@@ -105,3 +105,7 @@ https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip
 # DKIM to sign e-mails
 pydkim
 dnspython
+
+# Functional testing libraries
+selenium==2.33.0
+splinter==0.5.3

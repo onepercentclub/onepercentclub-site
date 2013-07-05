@@ -540,3 +540,12 @@ DEFAULT_FROM_EMAIL = '<website@onepercentclub.com> 1%CLUB'
 # Django-registration settings
 ACCOUNT_ACTIVATION_DAYS = 4
 HTML_ACTIVATION_EMAIL = True  # Note this setting is from our forked version.
+
+# Functional testing
+# Selenium and Splinter settings
+SELENIUM_TESTS = False
+SELENIUM_WEBDRIVER = 'phantomjs'  # Can be any of chrome, firefox, phantomjs
+
+FIXTURE_DIRS = [
+    os.path.join(DJANGO_PROJECT, 'fixtures')
+]
