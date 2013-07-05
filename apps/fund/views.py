@@ -1,5 +1,7 @@
-import threading
+import logging
 from apps.cowry import payments
+from apps.cowry.permissions import IsOrderCreator
+from apps.cowry.models import PaymentStatuses
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataWebDirectDirectDebitSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -18,23 +20,40 @@ from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVo
 from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer,
                           VoucherRedeemSerializer, CustomVoucherRequestSerializer)
 
-
-# Lock used in the CurrentOrderMixin. It needs to be outside of Mixin so it's created more than once.
-order_lock = threading.Lock()
+logger = logging.getLogger(__name__)
 
 
 class CurrentOrderMixin(object):
-    """
-    Mixin to get/create a 'Current' Order
-    Current Order has status 'new'. It is linked to a user or stored in session (for anonymous users).
-    """
+    """ Mixin to get/create a 'current' Order. """
 
     def _update_payment(self, order):
-            if order.total and order.payments:
-                payment = order.latest_payment  # Need to make this variable assignment to modify the payment.
-                payment.amount = order.total
-                payment.currency = 'EUR'  # The default currency for now.
-                payment.save()
+        def create_new_payment():
+            payment = DocDataPaymentOrder()
+            payment.save()
+            order.payments.add(payment)
+
+        # Create a payment if we need one.
+        # We're currently only using DocData so we can directly connect the DocData payment order to the order.
+        # Note that Order still has a ManyToMany relationship with 'cowry.Payment'. In the future, we can create
+        # the payment at a later stage in the order process using cowry's
+        # 'factory.create_new_payment(amount, currency)'.
+        latest_payment = order.latest_payment
+        if not latest_payment:
+            create_new_payment()
+            latest_payment = order.latest_payment
+        elif latest_payment.status != PaymentStatuses.new:
+            if latest_payment.status == PaymentStatuses.in_progress:
+                payments.cancel_payment(latest_payment)
+                create_new_payment()
+                latest_payment = order.latest_payment
+            else:
+                # TODO Deal with this error somehow.
+                logger.error("CurrentOrder retrieved when latest payment has status: {0}".format(latest_payment.status))
+
+        # Update the payment total.
+        latest_payment.amount = order.total
+        latest_payment.currency = 'EUR'  # The default currency for now.
+        latest_payment.save()
 
     def get_current_order(self):
         if self.request.user.is_authenticated():
@@ -56,84 +75,52 @@ class CurrentOrderMixin(object):
             else:
                 return None
 
-    def get_or_create_current_order(self):
-        created = False
-        if self.request.user.is_authenticated():
-            # Critical section to avoid duplicate orders.
-            with order_lock:
-                with transaction.commit_on_success():
-                    order, created = Order.objects.get_or_create(user=self.request.user, status=OrderStatuses.current)
-
-                # We're currently only using DocData so we can directly connect the DocData payment order to the order.
-                # Note that Order still has a foreign key to 'cowry.Payment'. In the future, we can create the payment
-                # at a later stage in the order process using cowry's 'factory.create_new_payment(amount, currency)'.
-                if created:
-                    payment = DocDataPaymentOrder()
-                    payment.save()
-                    order.payments.add(payment)
-        else:
-            # Critical section to avoid duplicate orders.
-            # FIXME: This is broken.
-            with order_lock:
-                # For an anonymous user the order (cart) might be stored in the session
-                order_id = self.request.session.get('cart_order_id')
-                if order_id:
-                    try:
-                        order = Order.objects.get(id=order_id, status=OrderStatuses.current)
-                    except Order.DoesNotExist:
-                        # Set order_id to None so that a new order is created if it's been cleared
-                        # from our db for some reason.
-                        order_id = None
-
-                if not order_id:
-                    with transaction.commit_on_success():
-                        order = Order()
-                        order.save()
-                        created = True
-                    # See comment above about creating this DocDataPaymentOrder here.
-                    payment = DocDataPaymentOrder()
-                    payment.save()
-                    order.payments.add(payment)
-                    self.request.session['cart_order_id'] = order.id
-                    self.request.session.save()
-
-        # Update the payment amount if needed.
-        if not created:
-            self._update_payment(order)
-
-        return order
-
-
-# Some API views we still need to implement
-
-class FundApi(CurrentOrderMixin, ListAPIView):
-    # TODO: Implement
-    """
-    Show available API methods
-    """
-    permission_classes = (AllowNone,)
-    paginate_by = 10
-
-
-class OrderList(ListAPIView):
-    # TODO: Implement
-    model = Order
-    permission_classes = (AllowNone,)
-    paginate_by = 10
-
-# End: Unimplemented API views
-
 
 # Order views.
 
 no_active_order_error_msg = _(u"No active order")
 
 
+class OrderList(ListAPIView):
+    model = Order
+    # TODO Implement and remove AllowNone.
+    permission_classes = (AllowNone, IsOrderCreator)
+    paginate_by = 10
+
+
 class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     model = Order
     serializer_class = OrderSerializer
-    # FIXME: make sure right permissions are set.
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsOrderCreator,)
+
+    def _create_anonymous_order(self):
+        with transaction.commit_on_success():
+            order = Order()
+            order.save()
+        self.request.session['cart_order_id'] = order.id
+        self.request.session.save()
+        return order
+
+    def get_or_create_current_order(self):
+        if self.request.user.is_authenticated():
+            with transaction.commit_on_success():
+                order, created = Order.objects.get_or_create(user=self.request.user, status=OrderStatuses.current)
+        else:
+            # An anonymous user could have an order (cart) in the session.
+            order_id = self.request.session.get('cart_order_id')
+            if order_id:
+                try:
+                    order = Order.objects.get(id=order_id, status=OrderStatuses.current)
+                except Order.DoesNotExist:
+                    # A new order is created if it's not in the db for some reason.
+                    order = self._create_anonymous_order()
+            else:
+                order = self._create_anonymous_order()
+
+        # Create / update the payment object and amount
+        self._update_payment(order)
+
+        return order
 
     def get_object(self, queryset=None):
         alias = self.kwargs.get('alias', None)
@@ -147,8 +134,10 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
 
-        if order.status == OrderStatuses.in_progress:
-            payments.update_payment_status(order.latest_payment)
+        # Only try to update the status if we're not using the 'current' alias and the statuses match our expectations.
+        if alias != 'current':
+            if order.status == OrderStatuses.current and order.latest_payment.payment_order_id and order.latest_payment.status == PaymentStatuses.in_progress:
+                payments.update_payment_status(order.latest_payment)
 
         return order
 
@@ -165,42 +154,42 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         if not order:
             raise exceptions.ParseError(detail=no_active_order_error_msg)
         self.check_object_permissions(self.request, order)
-        payment = order.latest_payment
+        latest_payment = order.latest_payment
 
         # We're relying on the fact that the Payment is created when the Order is created. This assert
         # verifies this assumption in case the Order creation code changes in the future.
-        assert payment
+        assert latest_payment
 
         # Pre-fill the order profile form if the user is authenticated.
         if self.request.user.is_authenticated():
-            payment.customer_id = self.request.user.id
-            payment.email = self.request.user.email
-            payment.first_name = self.request.user.first_name
-            payment.last_name = self.request.user.last_name
+            latest_payment.customer_id = self.request.user.id
+            latest_payment.email = self.request.user.email
+            latest_payment.first_name = self.request.user.first_name
+            latest_payment.last_name = self.request.user.last_name
 
             # Try to use the address from the profile if it's set.
             address = self.request.user.address
             if address:
-                payment.address = address.line1
-                payment.city = address.city
-                payment.postal_code = address.postal_code
+                latest_payment.address = address.line1
+                latest_payment.city = address.city
+                latest_payment.postal_code = address.postal_code
                 if address.country:
-                    payment.country = address.country.alpha2_code
+                    latest_payment.country = address.country.alpha2_code
 
             # Try to use the language from the User settings if it's set.
             if self.request.user.primary_language:
-                payment.language = self.request.user.primary_language[:2]  # Cut off locale.
+                latest_payment.language = self.request.user.primary_language[:2]  # Cut off locale.
         else:
             # Use Netherlands as the default country for anonymous orders.
             # TODO: This should be replaced with a proper ip -> geo solution.
-            payment.country = 'NL'
+            latest_payment.country = 'NL'
 
         # Set language from request if required.
-        if not payment.language:
-            payment.language = self.request.LANGUAGE_CODE[:2]  # Cut off locale.
+        if not latest_payment.language:
+            latest_payment.language = self.request.LANGUAGE_CODE[:2]  # Cut off locale.
 
-        payment.save()
-        return order.latest_payment
+        latest_payment.save()
+        return latest_payment
 
 
 class DocDataDirectDebitCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):

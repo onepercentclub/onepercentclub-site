@@ -1,9 +1,8 @@
 import logging
 from apps.fund.models import Donation
-from apps.projects.models import ProjectPlan, ProjectCampaign
+from apps.projects.models import ProjectPlan
 from django.contrib.admin.filters import FieldListFilter
 from django.core.urlresolvers import reverse
-from django.http.response import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 
 logger = logging.getLogger(__name__)
@@ -23,32 +22,10 @@ class ProjectPitchAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     list_filter = ('status', )
     list_display = ('title', 'status', 'created')
-
-    readonly_fields = ('edit_project', 'project')
-
-    def edit_project(self, obj):
-        object = obj.project
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
-        return "<a href='%s'>%s</a>" % (str(url), object.title)
-
-    edit_project.allow_tags = True
-
-    def response_change(self, request, obj):
-        if not '_continue' in request.POST:
-            object = obj.project
-            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
-            return HttpResponseRedirect(url)
-        else:
-            return super(ProjectPitchAdmin, self).response_change(request, obj)
+    raw_id_fields = ('project', )
 
 admin.site.register(ProjectPitch, ProjectPitchAdmin)
 
-
-class ProjectBudgetInline(admin.TabularInline):
-    
-    model = ProjectBudgetLine
-    extra = 0
-    
 
 class ProjectPlanAdmin(admin.ModelAdmin):
 
@@ -57,54 +34,9 @@ class ProjectPlanAdmin(admin.ModelAdmin):
     search_fields = ('title', )
     list_filter = ('status', )
     list_display = ('title', 'status', 'created')
-
-    readonly_fields = ('edit_project', 'project')
-
-    inlines = (ProjectBudgetInline, )
-
-    def edit_project(self, obj):
-        object = obj.project
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
-        return "<a href='%s'>%s</a>" % (str(url), object.title)
-
-    edit_project.allow_tags = True
-
-    def response_change(self, request, obj):
-        if not '_continue' in request.POST:
-            object = obj.project
-            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
-            return HttpResponseRedirect(url)
-        else:
-            return super(ProjectPlanAdmin, self).response_change(request, obj)
+    raw_id_fields = ('project', )
 
 admin.site.register(ProjectPlan, ProjectPlanAdmin)
-
-
-class ProjectCampaignAdmin(admin.ModelAdmin):
-
-    model = ProjectCampaign
-    list_filter = ('status', )
-    list_display = ('project', 'status', 'created')
-
-    readonly_fields = ('edit_project', )
-    fields = readonly_fields + ('status', 'deadline', 'money_asked', 'currency')
-
-    def edit_project(self, obj):
-        object = obj.project
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
-        return "<a href='%s'>%s</a>" % (str(url), object.title)
-
-    edit_project.allow_tags = True
-
-    def response_change(self, request, obj):
-        if not '_continue' in request.POST:
-            object = obj.project
-            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
-            return HttpResponseRedirect(url)
-        else:
-            return super(ProjectPitchAdmin, self).response_change(request, obj)
-
-admin.site.register(ProjectCampaign, ProjectCampaignAdmin)
 
 
 class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
@@ -122,7 +54,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     raw_id_fields = ('owner', 'coach')
 
-    readonly_fields = ('pitch_view', 'plan_view', 'campaign_view')
+    readonly_fields = ('pitch_view', 'plan_view')
 
     fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization')
 
@@ -139,13 +71,6 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
         return "<a href='%s'>View/Edit Plan</a>" % str(url)
 
     plan_view.allow_tags = True
-
-    def campaign_view(self, obj):
-        object = obj.projectcampaign
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
-        return "<a href='%s'>View/Edit Campaign</a>" % str(url)
-
-    campaign_view.allow_tags = True
 
 
 admin.site.register(Project, ProjectAdmin)

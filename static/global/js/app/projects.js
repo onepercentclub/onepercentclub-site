@@ -97,13 +97,6 @@ App.ProjectCampaign = DS.Model.extend({
     status: DS.attr('string'),
     money_asked: DS.attr('number'),
     money_donated: DS.attr('number'),
-    deadline: DS.attr('date'),
-
-    daysToGo: function(){
-        var now = new Date();
-        var microseconds = this.get('deadline').getTime() - now.getTime();
-        return Math.ceil(microseconds / (1000 * 60 * 60 * 24));
-    }.property('deadline'),
 
     money_needed: function(){
         var donated = this.get('money_asked') - this.get('money_donated');

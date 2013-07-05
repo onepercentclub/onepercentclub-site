@@ -1,8 +1,8 @@
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases
 from django.db.models.query_utils import Q
 from django.utils.translation import ugettext as _
-from apps.fund.models import Donation
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer
+from apps.fund.models import Donation, DonationStatuses
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -205,7 +205,7 @@ class ProjectDonationList(generics.ListAPIView):
 
         queryset = queryset.filter(project=project)
         queryset = queryset.order_by("-created")
-        queryset = queryset.filter(status__in=[Donation.DonationStatuses.paid, Donation.DonationStatuses.in_progress])
+        queryset = queryset.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
 
         return queryset
 
@@ -267,12 +267,6 @@ class ManageProjectBudgetLinetList(generics.ListCreateAPIView):
 class ManageProjectBudgetLineDetail(generics.RetrieveUpdateDestroyAPIView):
     model = ProjectBudgetLine
     serializer_class = ProjectBudgetLineSerializer
-
-
-class ManageProjectCampaignDetail(generics.RetrieveUpdateAPIView):
-    model = ProjectCampaign
-    serializer_class = ProjectCampaignSerializer
-    permission_classes = (EditablePlanOrReadOnly, IsProjectOwner, )
 
 
 # Django template Views

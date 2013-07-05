@@ -30,3 +30,8 @@
   cursor: pointer;
   line-height: 1;
 }
+
+.order-message {
+  @extend .message;
+  @include grid(32, 1);
+}

@@ -280,18 +280,6 @@ App.MyProjectPlan = DS.Model.extend({
 });
 
 
-App.MyProjectCampaign = DS.Model.extend({
-    url: 'projects/campaigns/manage',
-
-    project: DS.belongsTo('App.MyProject'),
-    status: DS.attr('string'),
-    moneyAsked: DS.attr('number'),
-    moneyDonated: DS.attr('number'),
-    deadline: DS.attr('date')
-
-});
-
-
 App.MyProject = DS.Model.extend({
     url: 'projects/manage',
 
@@ -302,13 +290,8 @@ App.MyProject = DS.Model.extend({
 
     pitch: DS.belongsTo('App.MyProjectPitch'),
     plan: DS.belongsTo('App.MyProjectPlan'),
-    campaign: DS.belongsTo('App.MyProjectCampaign'),
 
     coach: DS.belongsTo('App.User'),
-
-    getProject: function(){
-        return App.Project.find(this.get('id'));
-    }.property('id'),
 
     isPhasePitch: function(){
         return this.get('phase') == 'pitch';
@@ -316,10 +299,6 @@ App.MyProject = DS.Model.extend({
 
     isPhasePlan: function(){
         return this.get('phase') == 'plan';
-    }.property('phase'),
-
-    isPhaseCampaign: function(){
-        return this.get('phase') == 'campaign';
     }.property('phase'),
 
     isPublic: function(){
@@ -400,7 +379,13 @@ App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
     imageSelected: false,
 
     addFile: function(file) {
-        this.set('image', file);
+        var controller = this;
+        this.set('imageSelected', true);
+        var model = this.get('model');
+        model.set('image', file);
+        model.on('didUpdate', function(){
+            controller.set('imageSelected', false);
+        });
     }
 });
 

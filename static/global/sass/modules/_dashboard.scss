@@ -194,36 +194,3 @@ ul.manage-steps {
     }
 }
 
-.toolbox {
-    @include grid(16,1);
-    background-color: $color-back;
-    .title {
-        background-color: $grayLight;
-        @include rem(padding, 24px);
-        color: $white;
-        h3 {
-            color: $grayDarker;
-            text-transform: uppercase;
-            padding: 0;
-            font-weight: 600;
-            @include rem(font-size, 20px);
-        }
-    }
-
-    .body {
-        @include rem(padding, 16px);
-        .tip {
-            .icon {
-                color: $grayLight;
-                @include rem(font-size, 36px);
-                @include rem(padding, 4px 12px 4px 4px);
-                float: left;
-                display: inline-block;
-            }
-            @include rem(font-size, 18px);
-            @include rem(line-height, 22px);
-            @include rem(margin-bottom, 12px);
-
-        }
-    }
-}

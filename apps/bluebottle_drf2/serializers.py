@@ -383,46 +383,9 @@ class TagSerializer(serializers.Serializer):
         if not 'required' in kwargs:
             kwargs['required'] = False
         kwargs['many'] = True
-        # Set it to read-only to avoid DRF2 trying to write the tags.
-        # We'll write tags ourselves.
-        # It seems that DRF2 doesn't know how to handle tags, because they aren't just m2m keys.
-        kwargs['read_only'] = True
         super(TagSerializer, self).__init__(*args, **kwargs)
 
     id = serializers.Field(source='name')
 
     class Meta:
         fields = ('id',)
-
-
-"""
-    Add this mixin to a serializer to have writeable tags
-    Add this to you modelserialzer too:
-    tags = TagSerializer()
-
-    On save object we write the tags with object.tags.add()
-"""
-class TaggableSerializerMixin(object):
-
-    def from_native(self, data, files):
-        """
-        Override the default method to also add tags to a TaggableManager field
-        """
-        # If there are tags sent to the API then store them and wipe them from data
-        # to avoid DRF2 nested serializer trying to store them.
-        instance = super(TaggableSerializerMixin, self).from_native(data, files)
-        if 'tags' in data:
-            self.tag_list = data['tags']
-        if instance:
-            return self.full_clean(instance)
-
-
-    def save_object(self, obj, **kwargs):
-        tags = getattr(obj, 'tags')
-        if hasattr(self, 'tag_list'):
-            tags.clear()
-            if type(self.tag_list) == types.UnicodeType:
-                self.tag_list = json.loads(self.tag_list)
-            for tag in self.tag_list:
-                tags.add(tag['id'])
-        super(TaggableSerializerMixin, self).save_object(obj, **kwargs)

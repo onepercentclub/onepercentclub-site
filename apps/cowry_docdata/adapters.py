@@ -74,16 +74,17 @@ class DocDataAPIVersionPlugin(MessagePlugin):
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
     # Mapping of DocData statuses to Cowry statuses.
     status_mapping = {
-        'NEW': 'new',
-        'STARTED': 'in_progress',
-        'AUTHORIZED': 'pending',
-        'PAID': 'pending',  # TODO: Is pending correct for this?
-        'CANCELLED': 'cancelled',
-        'CHARGED-BACK': 'cancelled',
-        'CONFIRMED_PAID': 'paid',
-        'CONFIRMED_CHARGEDBACK': 'cancelled',
-        'CLOSED_SUCCESS': 'paid',
-        'CLOSED_CANCELLED': 'cancelled',
+        'NEW': PaymentStatuses.new,
+        'STARTED': PaymentStatuses.in_progress,
+        'AUTHORIZED': PaymentStatuses.pending,
+        'AUTHORIZATION_REQUESTED': PaymentStatuses.pending,
+        'PAID':  PaymentStatuses.pending,
+        'CANCELLED':  PaymentStatuses.cancelled,
+        'CHARGED-BACK': PaymentStatuses.cancelled,
+        'CONFIRMED_PAID': PaymentStatuses.paid,
+        'CONFIRMED_CHARGEDBACK': PaymentStatuses.cancelled,
+        'CLOSED_SUCCESS': PaymentStatuses.paid,
+        'CLOSED_CANCELLED': PaymentStatuses.cancelled,
     }
 
     # TODO: Create defaults for this like the payment_methods
@@ -94,10 +95,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         'dd-webmenu': DocDataPayment,
     }
 
-    def __init__(self):
-        # TODO Make setting for this.
-        self.test = True
-
+    def _init_docdata(self):
         # Create the soap client.
         if self.test:
             # Test API URL.
@@ -106,19 +104,22 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # Live API URL.
             url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
 
-        # FIXME: Have a proper solution for this...
-        # Without the try is blocks the entire application when offline (at least in some cases).
         try:
             self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
+        except URLError as e:
+            self.client = None
+            payment_logger.warn('Could not connect to DocData: ' + str(e))
+        else:
             # Setup the merchant soap object for use in all requests.
             self.merchant = self.client.factory.create('ns0:merchant')
             # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).
             self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
             self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", None)
 
-        except URLError:
-            payment_logger.error('Could not connect to DocData')
-
+    def __init__(self):
+        # TODO Make setting for this.
+        self.test = True
+        self._init_docdata()
 
     def get_payment_methods(self):
         # Override the payment_methods if they're set. This isn't in __init__ because
@@ -151,10 +152,16 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     def create_remote_payment_order(self, payment):
         # Some preconditions.
-        if payment.payment_order_key:
+        if payment.payment_order_id:
             raise DocDataPaymentException('ERROR', 'Cannot create two remote DocData Payment orders for same payment.')
         if not payment.payment_method_id:
             raise DocDataPaymentException('ERROR', 'payment_method_id is not set')
+
+        # We can't do anything if DocData isn't available.
+        if not self.client:
+            self._init_docdata()
+            if not self.client:
+                return
 
         # Preferences for the DocData system
         paymentPreferences = self.client.factory.create('ns0:paymentPreferences')
@@ -186,8 +193,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         address = self.client.factory.create('ns0:address')
         address.street = payment.address
         address.houseNumber = 'N/A'
-        # TODO No spaces allowed in postal code. Move to serializer?
-        address.postalCode = payment.postal_code.replace(' ', '')
+        address.postalCode = payment.postal_code.replace(' ', '')  # Spaces aren't allowed in the DocData postal code.
         address.city = payment.city
 
         country = self.client.factory.create('ns0:country')
@@ -197,6 +203,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         billTo = self.client.factory.create('ns0:destination')
         billTo.address = address
         billTo.name = name
+
+        # Set the description if there's an order.
+        description = "1%CLUB"
+        orders = payment.orders.all()
+        if orders:
+            description = orders[0].__unicode__()[:50]
 
         if self.test:
             # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
@@ -208,9 +220,9 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Execute create payment order request.
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
-                                           menuPreferences, shopper, amount, billTo)
+                                           menuPreferences, shopper, amount, billTo, description)
         if hasattr(reply, 'createSuccess'):
-            payment.payment_order_key = str(reply['createSuccess']['key'])
+            payment.payment_order_id = str(reply['createSuccess']['key'])
             self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
         elif hasattr(reply, 'createError'):
             payment.save()
@@ -221,6 +233,27 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             raise DocDataPaymentException('REPLY_ERROR',
                                           'Received unknown reply from DocData. Remote Payment not created.')
 
+    def cancel_payment(self, payment):
+        # Some preconditions.
+        if not payment.payment_order_id:
+            order = payment.orders.all()[0]
+            payment_logger.warn('Attempt to cancel payment on Order id {0} which no payment_order_id.'.format(order.id))
+            return
+
+        # Execute create payment order request.
+        reply = self.client.service.cancel(self.merchant, payment.payment_order_id)
+        if hasattr(reply, 'cancelSuccess'):
+            for docdata_payment in payment.docdata_payments.all():
+                docdata_payment.status = 'CANCELLED'
+                docdata_payment.save()
+            self._change_status(payment, PaymentStatuses.cancelled)  # Note: change_status calls payment.save().
+        elif hasattr(reply, 'cancelError'):
+            error = reply['cancelError']['error']
+            raise DocDataPaymentException(error['_code'], error['value'])
+        else:
+            raise DocDataPaymentException('REPLY_ERROR',
+                                          'Received unknown reply from DocData. Remote Payment not cancelled.')
+
     def get_payment_url(self, payment, return_url_base=None):
         """ Return the Payment URL """
 
@@ -228,12 +261,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 not self.id_to_model_mapping[payment.payment_method_id] == DocDataPayment:
             return None
 
-        if not payment.payment_order_key:
+        if not payment.payment_order_id:
             self.create_remote_payment_order(payment)
 
         # The basic parameters.
         params = {
-            'payment_cluster_key': payment.payment_order_key,
+            'payment_cluster_key': payment.payment_order_id,
             'merchant_name': self.merchant._name,
             'client_language': payment.language,
         }
@@ -247,9 +280,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if return_url_base:
             order = payment.orders.all()[0]
             params['return_url_success'] = return_url_base + '#/support/thanks/' + str(order.id)
-            params['return_url_pending'] = return_url_base + '#/payment/pending'
-            params['return_url_canceled'] = return_url_base + '#/payment/cancel'
-            params['return_url_error'] = return_url_base + '#/payment/error'
+            params['return_url_pending'] = return_url_base + '#/support/thanks/' + str(order.id)
+            # TODO This assumes that the order is always a donation order. These Urls will be used when buying vouchers
+            # TODO too which is incorrect.
+            params['return_url_canceled'] = return_url_base + '#/support/donations'
+            params['return_url_error'] = return_url_base + '#/support/payment/error'
 
         # Special parameters for iDeal.
         if payment.payment_method_id == 'dd-ideal' and payment.payment_submethod_id:
@@ -271,12 +306,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         return payment_url_base + '?' + urlencode(params)
 
     def update_payment_status(self, payment, status_changed_notification=False):
-        # Don't do anything if there's no payment or payment_order_key.
-        if not payment or not payment.payment_order_key:
+        # Don't do anything if there's no payment or payment_order_id.
+        if not payment or not payment.payment_order_id:
             return
 
         # Execute status request.
-        reply = self.client.service.status(self.merchant, payment.payment_order_key)
+        reply = self.client.service.status(self.merchant, payment.payment_order_id)
         if hasattr(reply, 'statusSuccess'):
             report = reply['statusSuccess']['report']
         elif hasattr(reply, 'statusError'):
@@ -291,7 +326,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             if status_changed_notification:
                 status_logger.warn(
                     "Status changed notification received for {0} but status report had no payment reports.".format(
-                        payment.payment_order_key))
+                        payment.payment_order_id))
             return
 
         statusChanged = False
@@ -300,7 +335,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             try:
                 ddpayment = DocDataPayment.objects.get(payment_id=str(payment_report.id))
             except DocDataPayment.DoesNotExist:
-                ddpayment_list = payment.docdatapayment_set.filter(status='NEW')
+                ddpayment_list = payment.docdata_payments.filter(status='NEW')
                 ddpayment_list_len = len(ddpayment_list)
                 if ddpayment_list_len == 0:
                     ddpayment = DocDataPayment()
@@ -313,7 +348,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                     #       MASTERCARD, etc) in the report.
                     status_logger.error(
                         "Cannot determine where to save the payment report for payment order key: {0}".format(
-                            payment.payment_order_key))
+                            payment.payment_order_id))
                     continue
 
                 # Save some information from the report.
@@ -324,7 +359,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.docdata_payment_method:
                 status_logger.warn(
-                    "Payment methods do not match: {0} - {1}".format(payment.payment_order_key, ddpayment.payment_id))
+                    "Payment methods do not match: {0} - {1}".format(payment.payment_order_id, ddpayment.payment_id))
                 ddpayment.docdata_payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
@@ -347,7 +382,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if status_changed_notification and not statusChanged:
             status_logger.warn(
                 "Status changed notification received for {0} but no payment status change detected.".format(
-                    payment.payment_order_key))
+                    payment.payment_order_id))
             return
 
         # Use the latest DocDataPayment status to set the status on the Cowry Payment.
@@ -361,11 +396,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         new_status = self._map_status(latest_ddpayment.status, report.approximateTotals,
                                       latest_payment_report.authorization)
         if old_status != new_status:
-            status_logger.info(
-                "DocDataPaymentOrder status changed for payment order key {0}: {1} -> {2}".format(
-                    payment.payment_order_key,
-                    old_status,
-                    new_status))
+            status_logger.info("DocDataPaymentOrder status changed for payment order key {0}: {1} -> {2}".format(
+                payment.payment_order_id,
+                old_status,
+                new_status))
+
+            if new_status not in PaymentStatuses.values:
+                new_status = PaymentStatuses.unknown
             self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
     def _map_status(self, status, totals=None, authorization=None):
