@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 class IsOrderCreator(permissions.BasePermission):
     """
-    Allows the access to a payment only if the user created the Order that the payment belongs to.
+    Allows the access to a payment or order only if the user created the Order that the payment belongs to.
     """
     def has_object_permission(self, request, view, obj):
         # Use duck typing to check if we have an order or a payment.

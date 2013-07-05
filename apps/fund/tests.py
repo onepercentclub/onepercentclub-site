@@ -210,15 +210,14 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['recurring'], True)
 
-        # FIXME: Figure out what to do about this.
-        # # Test that setting a recurring order as anonymous user fails.
-        # self.client.logout()
-        # response = self.client.get(self.current_order_url)
-        # self.assertEqual(response.data['recurring'], False)
-        # response = self.client.put(self.current_order_url, json.dumps({'recurring': True}), 'application/json')
-        # self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        # response = self.client.get(self.current_order_url)
-        # self.assertEqual(response.data['recurring'], False)
+        # Test that setting a recurring order as anonymous user fails.
+        self.client.logout()
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.data['recurring'], False)
+        response = self.client.put(self.current_order_url, json.dumps({'recurring': True}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.data['recurring'], False)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')

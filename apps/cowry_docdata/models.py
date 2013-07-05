@@ -19,6 +19,7 @@ class DocDataPaymentOrder(Payment):
     address = models.CharField(max_length=200, default='')
     postal_code = models.CharField(max_length=20, default='')
     city = models.CharField(max_length=200, default='')
+    # TODO We should use the DocData Country list here.
     country = CountryField()
     language = models.CharField(max_length=2, default='en')
 

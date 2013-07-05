@@ -27,8 +27,19 @@ class CurrentOrderMixin(object):
     """ Mixin to get/create a 'current' Order. """
 
     def _update_payment(self, order):
-        def create_new_payment():
+        """ Create a payment if we need one and update the order total. """
+        def create_new_payment(cancelled_payment=None):
+            """ Creates and new payment and copies over the the payment profile from the cancelled payment."""
+            # TODO See if we can use something like Django-lazy-user so that the payment profile can always be set with date from the user model.
             payment = DocDataPaymentOrder()
+            if cancelled_payment:
+                payment.email = cancelled_payment.email
+                payment.first_name = cancelled_payment.first_name
+                payment.last_name = cancelled_payment.last_name
+                payment.address = cancelled_payment.address
+                payment.postal_code = cancelled_payment.postal_code
+                payment.city = cancelled_payment.city
+                payment.country = cancelled_payment.country
             payment.save()
             order.payments.add(payment)
 
@@ -43,8 +54,9 @@ class CurrentOrderMixin(object):
             latest_payment = order.latest_payment
         elif latest_payment.status != PaymentStatuses.new:
             if latest_payment.status == PaymentStatuses.in_progress:
+                # FIXME Cancel payment can fail and throw an exception. A new order should not be created in this case.
                 payments.cancel_payment(latest_payment)
-                create_new_payment()
+                create_new_payment(latest_payment)
                 latest_payment = order.latest_payment
             else:
                 # TODO Deal with this error somehow.
@@ -133,6 +145,11 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         if not order:
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
+
+        # Don't allow anonymous users to set recurring orders. This check is here and not in the Serializer
+        # because we need to access the request to see if a user is authenticated or not.
+        if not self.request.user.is_authenticated() and 'recurring' in self.request.DATA and self.request.DATA['recurring']:
+            raise exceptions.PermissionDenied(_("Anonymous users are not permitted to create recurring orders."))
 
         # Only try to update the status if we're not using the 'current' alias and the statuses match our expectations.
         if alias != 'current':
@@ -249,17 +266,20 @@ class OrderItemMixin(object):
         order = self.get_current_order()
         if not order:
             raise exceptions.ParseError(detail=no_active_order_error_msg)
-        serializer = self.get_serializer(data=request.DATA)
+        serializer = self.get_serializer(data=request.DATA, files=request.FILES)
+
         if serializer.is_valid():
             self.pre_save(serializer.object)
-            obj = serializer.save()
-
+            self.object = serializer.save(force_insert=True)
             if request.user.is_authenticated():
-                setattr(obj, self.user_field, request.user)
-            obj.save()
-            orderitem = OrderItem.objects.create(content_object=obj, order=order)
+                setattr(self.object, self.user_field, request.user)
+            self.object.save()
+            orderitem = OrderItem.objects.create(content_object=self.object, order=order)
             orderitem.save()
-            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+            self.post_save(self.object, created=True)
+
+            headers = self.get_success_headers(serializer.data)
+            return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, *args, **kwargs):

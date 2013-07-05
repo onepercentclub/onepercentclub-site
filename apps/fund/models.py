@@ -237,25 +237,6 @@ def process_voucher_order_in_progress(voucher):
     mail_new_voucher(voucher)
 
 
-def set_voucher_cancelled(voucher):
-    voucher.status = Voucher.VoucherStatuses.cancelled
-    voucher.save()
-
-
-def _adjust_project_phase(project):
-    from apps.projects.models import ProjectPhases
-
-    # Change project act phase if it's fully funded and still in fund phase.
-    if project.projectcampaign.money_needed <= 0 and project.phase == ProjectPhases.campaign:
-        project.phase = ProjectPhases.act
-        project.save()
-
-    # Change project campaign phase if it still needs money and is in act phase.
-    elif project.projectcampaign.money_needed > 0 and project.phase == ProjectPhases.act:
-        project.phase = ProjectPhases.campaign
-        project.save()
-
-
 @receiver(payment_status_changed, sender=Payment)
 def process_payment_status_changed(sender, instance, old_status, new_status, **kwargs):
     # Payment statuses: new
@@ -281,7 +262,6 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         for donation in order.donations:
             donation.status = DonationStatuses.in_progress
             donation.save()
-            _adjust_project_phase(donation.project)
 
         # Vouchers.
         for voucher in order.vouchers:
@@ -296,7 +276,6 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         for donation in order.donations:
             donation.status = DonationStatuses.new
             donation.save()
-            _adjust_project_phase(donation.project)
 
         # Vouchers.
         # TODO Implement vouchers.
@@ -312,7 +291,6 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         for donation in order.donations:
             donation.status = DonationStatuses.pending
             donation.save()
-            _adjust_project_phase(donation.project)
 
         # Vouchers.
         # TODO Implement vouchers.
@@ -328,7 +306,6 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         for donation in order.donations:
             donation.status = DonationStatuses.paid
             donation.save()
-            _adjust_project_phase(donation.project)
 
         # Vouchers.
         # TODO Implement vouchers.
@@ -345,8 +322,8 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         for donation in order.donations:
             donation.status = DonationStatuses.failed
             donation.save()
-            _adjust_project_phase(donation.project)
 
         # Vouchers.
         for voucher in order.vouchers:
-            set_voucher_cancelled(voucher)
+            voucher.status = Voucher.VoucherStatuses.cancelled
+            voucher.save()
