@@ -344,8 +344,8 @@ def progress_project_phase(sender, instance, created, **kwargs):
         instance.projectpitch.save()
 
     if instance.phase == ProjectPhases.pitch:
-        if instance.projectpitch.status == ProjectPitch.PitchStatuses.approved:
-            instance.projectpitch.status = ProjectPitch.PitchStatuses.new
+        if instance.projectpitch.phase == ProjectPitch.PitchStatuses.approved:
+            instance.projectpitch.phase = ProjectPitch.PitchStatuses.new
             instance.projectpitch.save()
 
     # If phase progresses to 'plan' we should create and populate a ProjectPlan.
@@ -390,7 +390,7 @@ def progress_project_phase(sender, instance, created, **kwargs):
             # This would normally only happen during migrations, so please ignore.
             pass
 
-        # If we don't have a Campaign then create one and set the deadline and money_asked (based on ProjectBudgetLines)
+        # If we don't have a Campaign then create one
         try:
             instance.projectcampaign
         except ProjectCampaign.DoesNotExist:
@@ -398,12 +398,12 @@ def progress_project_phase(sender, instance, created, **kwargs):
             instance.projectcampaign.status = ProjectCampaign.CampaignStatuses.running
             instance.projectcampaign.deadline = timezone.now() + timezone.timedelta(days=180)
 
-            budget = instance.projectplan.projectbudgetline_set.aggregate(sum=Sum('amount'))['sum']
-            if not budget:
-                budget = 0
-            instance.projectcampaign.money_asked = budget
-            instance.projectcampaign.currency = 'EUR'
-            instance.projectcampaign.save()
+        budget = instance.projectplan.projectbudgetline_set.aggregate(sum=Sum('amount'))['sum']
+        if not budget:
+            budget = 0
+        instance.projectcampaign.money_asked = budget
+        instance.projectcampaign.currency = 'EUR'
+        instance.projectcampaign.save()
 
 
 @receiver(post_save, weak=False, sender=ProjectPitch)
@@ -417,6 +417,8 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
 
 @receiver(post_save, weak=False, sender=ProjectPlan)
 def plan_status_status_changed(sender, instance, created, **kwargs):
+
+    print instance.status
 
     if instance.status == ProjectPlan.PlanStatuses.approved:
         if instance.project.phase == ProjectPhases.plan:

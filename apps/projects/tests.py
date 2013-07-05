@@ -44,15 +44,10 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             project.projectplan.status = 'approved'
             project.projectplan.save()
 
-            project.projectcampaign = ProjectCampaign(status='running')
+            project.projectcampaign = ProjectCampaign(money_asked=money_asked, status='running')
             project.projectcampaign.save()
             project.phase = ProjectPhases.campaign
             project.save()
-
-            # On Project save the Campaign calculates the money from Project Budget.
-            # Since we don't have any budget set we have to overwrite the money_asked after saving the Project.
-            project.projectcampaign.money_asked = money_asked
-            project.projectcampaign.save()
 
         return project
 
