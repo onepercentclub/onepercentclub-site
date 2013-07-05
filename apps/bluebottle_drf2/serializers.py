@@ -401,6 +401,9 @@ class TagSerializer(serializers.Serializer):
     tags = TagSerializer()
 
     On save object we write the tags with object.tags.add()
+
+    This is here because tags behave different from other m2m objects. Please correct if wrong.
+
 """
 class TaggableSerializerMixin(object):
 
@@ -418,6 +421,9 @@ class TaggableSerializerMixin(object):
 
 
     def save_object(self, obj, **kwargs):
+        # First save the object so we can add tags to it.
+        super(TaggableSerializerMixin, self).save_object(obj, **kwargs)
+
         tags = getattr(obj, 'tags')
         if hasattr(self, 'tag_list'):
             tags.clear()
@@ -425,4 +431,3 @@ class TaggableSerializerMixin(object):
                 self.tag_list = json.loads(self.tag_list)
             for tag in self.tag_list:
                 tags.add(tag['id'])
-        super(TaggableSerializerMixin, self).save_object(obj, **kwargs)
