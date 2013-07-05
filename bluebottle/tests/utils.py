@@ -142,3 +142,61 @@ class SeleniumTestCase(LiveServerTestCase):
         # self.assertTrue(self.browser.is_text_present('CHOOSE YOUR PROJECT', wait_time=10),
         #         'Cannot load the homepage. Did you load any data fixtures for testing?')
         return self.browser.is_element_present_by_id('title', wait_time=10)
+
+    def fill_form_by_css(self, form, data):
+        if not isinstance(data, dict):
+            raise RuntimeError('Argument data must be dict.')
+
+        # Fill in the form.
+        for css, val in data.items():
+            form.find_by_css(css).first.fill(val)
+
+    def fill_form_by_label(self, form, data):
+        if not isinstance(data, list):
+            raise RuntimeError('Argument data must be a list of tuples.')
+
+        labels = form.find_by_tag('label')
+        inputs = form.find_by_css('input, textarea, select')
+
+        # Fill in the form.
+        offset = 0
+        for label_text, values in data:
+            if not isinstance(values, list):
+                values = [values]
+
+            for index, form_label in enumerate(labels):
+                if form_label.text.strip('\r\n ') == label_text:
+                    for i, val in enumerate(values):
+                        offset += i
+
+                        if val is None:
+                            continue
+
+                        form_input = inputs[index + offset]
+                        form_input_tag_name = form_input.tag_name
+
+                        if form_input_tag_name == 'input':
+                            form_input_type = form_input['type']
+
+                            if form_input_type == 'file':
+                                form_input.attach_file(val)
+                            elif form_input_type == 'checkbox':
+                                if val:
+                                    form_input.check()
+                                else:
+                                    form_input.uncheck()
+                            elif form_input_type == 'radio':
+                                form_input.choose(val)
+                            else:
+                                form_input.fill(val)
+                        elif form_input_tag_name == 'select':
+                            # Workaround for form_input.select(val) which uses the name attribute to find the options.
+                            # However, some select elements do not have a name attribute.
+                            # TODO: Report issue found in Splinter 0.5.3
+                            for option in form_input.find_by_tag('option'):
+                                if option['value'] == val:
+                                    option.click()
+                                    break
+                        else:
+                            form_input.fill(val)
+                    break
