@@ -82,7 +82,7 @@ def sync_organizations(test_run):
         sforganization.phone = organization.phone_number
         sforganization.website = organization.website
 
-        # # SF Layout: Bank Account section.
+        # SF Layout: Bank Account section.
         sforganization.address_bank = organization.account_bank_address
         sforganization.bank_account_name = organization.account_bank_name
         sforganization.bank_account_number = organization.account_number
@@ -91,10 +91,10 @@ def sync_organizations(test_run):
         sforganization.country_bank = str(organization.account_bank_country)
         sforganization.iban_number = organization.account_iban
 
-        # # SF Layout: Description section.
+        # SF Layout: Description section.
         sforganization.description = organization.description
 
-        # # SF Layout: System Information.
+        # SF Layout: System Information.
         sforganization.created_date = organization.created
 
         # Save the SF project.
