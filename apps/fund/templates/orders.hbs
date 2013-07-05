@@ -108,15 +108,17 @@
             <li class="control-group control-group-lonely">
                 <label class="control-label">{% trans "Donate to projects" %}</label>
 
-                <div class="controls">
-                    {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
-                        {{view view.RadioButton value="single" id="freq_single"}}
-                        <label for="freq_single">{% trans "this time only" %}</label>
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <div class="controls">
+                        {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
+                            {{view view.RadioButton value="single" id="freq_single"}}
+                            <label for="freq_single">{% trans "this time only" %}</label>
 
-                        {{view view.RadioButton value="monthly" id="freq_monthly"}}
-                        <label for="freq_monthly">{% trans "automatically every month" %}</label>
-                    {{/view}}
-                </div>
+                            {{view view.RadioButton value="monthly" id="freq_monthly"}}
+                            <label for="freq_monthly">{% trans "automatically every month" %}</label>
+                        {{/view}}
+                    </div>
+                {{/if}}
             </li>
         </ul>
     </fieldset>

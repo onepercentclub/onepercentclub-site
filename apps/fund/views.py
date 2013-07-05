@@ -134,6 +134,11 @@ class OrderDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
 
+        # Don't allow anonymous users to set recurring orders. This check is here and not in the Serializer
+        # because we need to access the request to see if a user is authenticated or not.
+        if not self.request.user.is_authenticated() and 'recurring' in self.request.DATA and self.request.DATA['recurring']:
+            raise exceptions.PermissionDenied(_("Anonymous users are not permitted to create recurring orders."))
+
         # Only try to update the status if we're not using the 'current' alias and the statuses match our expectations.
         if alias != 'current':
             if order.status == OrderStatuses.current and order.latest_payment.payment_order_id and order.latest_payment.status == PaymentStatuses.in_progress:

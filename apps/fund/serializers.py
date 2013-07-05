@@ -14,9 +14,7 @@ class DonationSerializer(serializers.ModelSerializer):
     amount = EuroField()
 
     def validate_amount(self, attrs, source):
-        """
-        Check the amount
-        """
+        """ Check the amount. """
         value = attrs[source]
         if value < 500:
             raise serializers.ValidationError(_(u"Donations must be at least €5."))
@@ -40,9 +38,7 @@ class VoucherSerializer(serializers.ModelSerializer):
     status = serializers.Field()
 
     def validate_amount(self, attrs, source):
-        """
-        Check the amount
-        """
+        """ Check the amount. """
         value = attrs[source]
         if value not in [1000, 2500, 5000, 10000]:
             raise serializers.ValidationError(_(u"Choose between 1%GIFTCARDS with a value of €10, €25, €50 or €100. Not " + str(value)))
@@ -51,7 +47,7 @@ class VoucherSerializer(serializers.ModelSerializer):
     def save(self, **kwargs):
         # Set default currency.
         self.object.currency = 'EUR'
-        return super(VoucherSerializer, self).save()
+        return super(VoucherSerializer, self).save(**kwargs)
 
     class Meta:
         model = Voucher
