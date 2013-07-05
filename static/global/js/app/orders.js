@@ -130,7 +130,7 @@ App.DocDataDirectDebit = DS.Model.extend({
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
     // The CurrentOrderController is needed for the single / monthly radio buttons.
-    needs: ['currentOrder'],
+    needs: ['currentUser', 'currentOrder'],
 
     total: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
