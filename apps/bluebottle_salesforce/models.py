@@ -206,7 +206,7 @@ class SalesforceProject(SalesforceModel):
 
     # SF Layout: Extensive project information section.
     third_half_project = models.BooleanField(db_column='third_half_project__c')
-    organization_account = models.ForeignKey(SalesforceOrganization, db_column='Organization__c')
+    organization_account = models.ForeignKey(SalesforceOrganization, db_column='Organization__c', null=True)
     comments = models.CharField(max_length=32000, db_column='Comments__c')
     contribution_project_in_reducing_poverty = models.CharField(max_length=32000,
                                                                 db_column='Contribution_project_in_reducing_poverty__c')
