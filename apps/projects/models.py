@@ -343,8 +343,8 @@ def progress_project_phase(sender, instance, created, **kwargs):
         instance.projectpitch.save()
 
     if instance.phase == ProjectPhases.pitch:
-        if instance.projectpitch.phase == ProjectPitch.PitchStatuses.approved:
-            instance.projectpitch.phase = ProjectPitch.PitchStatuses.new
+        if instance.projectpitch.status == ProjectPitch.PitchStatuses.approved:
+            instance.projectpitch.status = ProjectPitch.PitchStatuses.new
             instance.projectpitch.save()
 
     # If phase progresses to 'plan' we should create and populate a ProjectPlan.
