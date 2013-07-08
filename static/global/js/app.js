@@ -977,6 +977,20 @@ App.OrderThanksRoute = Em.Route.extend({
  */
 
 App.PaymentProfileRoute = Em.Route.extend({
+    redirect: function() {
+        var order = this.modelFor('currentOrder');
+        if (order.get('isVoucherOrder')) {
+            if (order.get('vouchers.length') <= 0 ) {
+                this.transitionTo('currentOrder.voucherList')
+            }
+        } else {
+            if (order.get('donations.length') <= 0 ) {
+                this.transitionTo('currentOrder.donationList')
+            }
+        }
+
+    },
+
     model: function(params) {
         return App.PaymentProfile.find('current');
     }
@@ -984,6 +998,13 @@ App.PaymentProfileRoute = Em.Route.extend({
 
 
 App.PaymentSelectRoute = Em.Route.extend({
+    redirect: function() {
+        var order = this.modelFor('currentOrder');
+        if (!order.get('paymentProfileComplete')) {
+            this.transitionTo('paymentProfile')
+        }
+    },
+
     model: function(params) {
         return App.Payment.find('current');
     }
@@ -998,6 +1019,7 @@ App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
             autoHideMessage: false,
             message_content: 'There was an error with your payment. Please try again.'
         });
+
         var order = this.modelFor('currentOrder');
         if (order.get('isVoucherOrder')) {
             this.replaceWith('currentOrder.voucherList')
