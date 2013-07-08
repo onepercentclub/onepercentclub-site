@@ -552,7 +552,10 @@ App.Router.map(function() {
         });
         this.resource('myProjectPitchReview', {path: 'pitch/review'});
         this.resource('myProjectPitchApproved', {path: 'pitch/approved'});
-        this.resource('myProjectPitchRejected', {path: 'pitch/rejected'})
+        this.resource('myProjectPitchRejected', {path: 'pitch/rejected'});
+
+        this.resource('myProjectCampaign', {path: 'campaign'});
+
     });
 
     this.resource('myPitchNew', {path: '/my/pitch/new'});
@@ -1526,6 +1529,12 @@ App.MyProjectPlanIndexRoute = Ember.Route.extend({
 App.MyProjectPlanReviewRoute = Em.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('plan');
+    }
+});
+
+App.MyProjectCampaignRoute = Em.Route.extend({
+    model: function(params) {
+        return this.modelFor('myProject');
     }
 });
 

@@ -58,7 +58,7 @@
                         {{#if project.isPhaseCampaign}}
                             {% trans "Status:" %} <strong>{{project.campaign.status}}</strong>
                             <br/>
-                            {{#linkTo "myProjectPlan" project  tagName="button" class="btn btn-iconed"}}
+                            {{#linkTo "myProjectCampaign" project  tagName="button" class="btn btn-iconed"}}
                                 <span class="icon icon-bullhorn"></span>
                                 {% trans "campaigning" %}
                             {{/linkTo}}
@@ -1616,84 +1616,51 @@
                             {% trans "Project Story" %}
                         </h4>
                     </div>
-                    {{#linkTo "myProjectPlan.basics" class="item"}}
-                        <em {{bindAttr class="validBasics:icon-ok:icon-pencil"}}></em>
-                        {% trans "Project Basics" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPlan.description" class="item"}}
-                        <em {{bindAttr class="validDescription:icon-ok:icon-pencil"}}></em>
-                        {% trans "Project Description" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPlan.location" class="item"}}
-                        <em {{bindAttr class="validLocation:icon-ok:icon-pencil"}}></em>
-                        {% trans "Location" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPlan.media" class="item"}}
-                        <em {{bindAttr class="validMedia:icon-ok:icon-pencil"}}></em>
-                        {% trans "Media" %}
-                    {{/linkTo}}
+                    <div class="body">
+                        Your plan is approved and currently locked. If you need to make any changes: please set a message
+                        to your 1%COACH{{#if coach}}, <strong>{{coach.full_name}}</strong>,{{/if}} at projects@1procentclub.nl.
+                    </div>
                 </div>
+
                 <div class="menu">
                     <div class="title">
                         <h4>
-                            <em class="icon-briefcase"></em>
-                            {% trans "Update Organisation" %}
+                            <em class="icon-money"></em>
+                            {% trans "Funding status" %}
                         </h4>
                     </div>
-                    {{#linkTo "myProjectPlan.organisation" class="item"}}
-                        <em {{bindAttr class="organization.validProfile:icon-ok:icon-pencil"}}></em>
-                        {% trans "Organisation Profile" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPlan.legal" class="item"}}
-                        <em {{bindAttr class="organization.validLegalStatus:icon-ok:icon-pencil"}}></em>
-                        {% trans "Legal Status" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPlan.ambassadors" class="item"}}
-                        <em {{bindAttr class="validAmbassadors:icon-ok:icon-pencil"}}></em>
-                        {% trans "Ambassadors" %}
-                    {{/linkTo}}
-                </div>
-
-                {{#if needsFunding}}
-                    <div class="menu">
-                        <div class="title">
-                            <h4>
-                                <em class="icon-money"></em>
-                                {% trans "Crowdfunding" %}
-                            </h4>
+                    <div class="body">
+                        <div class="project-status">
+                            <div class="donate-status">
+                                <p class="donate-amount">
+                                    &euro;{{campaign.money_donated}}
+                                    {% trans "of" %}
+                                    &euro;{{campaign.money_asked}}
+                                    {% trans "raised" %}
+                                </p>
+                                <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
+                            </div>
                         </div>
-                        {{#linkTo "myProjectPlan.campaign" class="item"}}
-                            <em {{bindAttr class="validCampaign:icon-ok:icon-pencil"}}></em>
-                            {% trans "Start Campaign" %}
-                        {{/linkTo}}
-                        {{#linkTo "myProjectPlan.budget" class="item"}}
-                            <em {{bindAttr class="validBudget:icon-ok:icon-pencil"}}></em>
-                            {% trans "Budget" %}
-                        {{/linkTo}}
-                        {{#linkTo "myProjectPlan.bank" class="item"}}
-                            <em {{bindAttr class="organization.validBank:icon-ok:icon-pencil"}}></em>
-                            {% trans "Bank details" %}
-                        {{/linkTo}}
                     </div>
-                {{/if}}
-
-                <div class="menu">
-                    <div class="title">
-                        <h4>
-                            <em class="icon-circle-arrow-right"></em>
-                            {% trans "Submit Project Plan" %}
-                        </h4>
-                    </div>
-                    {{#linkTo "myProjectPlan.submit" class="item"}}
-                        <em  class="icon-circle-arrow-right"></em>
-                        {% trans "Submit Plan" %}
-                    {{/linkTo}}
                 </div>
 
             </div>
 
             <form>
-                {{ outlet }}
+                <fieldset>
+                    <legend><strong>{% trans "Collect those resources!" %}</strong></legend>
+                        <div class="body">
+                            <div class="project-days-left">
+                                {{#if campaign.deadline}}
+                                    <h3>
+                                        <i class="icon-time"></i>
+                                        <strong>{{campaign.daysToGo}}</strong>
+                                        {% trans "days to go" %}
+                                    </h3>
+                                {{/if}}
+                            </div>
+                        </div>
+                </fieldset>
             </form>
 
             <div class="form">
