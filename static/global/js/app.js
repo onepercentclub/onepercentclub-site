@@ -480,9 +480,6 @@ App.Router.map(function() {
         this.route('donationList', {path: '/donations'});
         this.route('addDonation', {path: '/donations/add/:project_id'});
         this.route('voucherList', {path: '/giftcards'});
-
-
-
         this.resource('paymentProfile', {path: '/details'});
         this.resource('paymentSelect', {path: '/payment'}, function() {
             this.route('PaymentError', {path: '/error'});
@@ -894,15 +891,6 @@ App.CurrentOrderIndexRoute = Em.Route.extend({
 
 App.CurrentOrderRoute = Em.Route.extend({
     model: function(params) {
-        var order = App.CurrentOrder.find('current');
-        // Always load the CurrentOrder so that the payment id is correct. This should go away when we switch to
-        // creating an order instead of loading 'current'.
-        if (order.get('isLoading')) {
-            // 'current' Order is being loaded for the first time so just return it.
-            return order;
-        }
-        // 'current' Order is already loaded. Unload it and get it again.
-        order.unloadRecord();
         return App.CurrentOrder.find('current');
     }
 });
@@ -996,10 +984,7 @@ App.PaymentProfileRoute = Em.Route.extend({
 
 App.PaymentSelectRoute = Em.Route.extend({
     model: function(params) {
-        // For some reason currentOrder is not loaded from the server but is loaded from the browser when you use
-        // the back button from the DocDataPage.
-        var order = this.modelFor('currentOrder');
-        return order.get('payment');
+        return App.Payment.find('current');
     }
 });
 
@@ -1012,6 +997,12 @@ App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
             autoHideMessage: false,
             message_content: 'There was an error with your payment. Please try again.'
         });
+        var order = this.modelFor('currentOrder');
+        if (order.get('isVoucherOrder')) {
+            this.replaceWith('currentOrder.voucherList')
+        } else {
+            this.replaceWith('currentOrder.donationList')
+        }
     }
 });
 

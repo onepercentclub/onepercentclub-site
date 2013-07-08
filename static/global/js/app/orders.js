@@ -9,7 +9,6 @@ App.Order = DS.Model.extend({
     recurring: DS.attr('boolean'),
     vouchers: DS.hasMany('App.Voucher'),
     donations: DS.hasMany('App.Donation'),
-    payment: DS.belongsTo('App.Payment')
 });
 
 
@@ -55,17 +54,6 @@ App.Voucher =  DS.Model.extend({
 });
 
 
-App.Payment = DS.Model.extend({
-    url: 'fund/payments',
-
-    paymentMethod: DS.attr('string'),
-    paymentSubmethod: DS.attr('string'),
-    paymentUrl: DS.attr('string'),
-    availablePaymentMethods: DS.attr('array'),
-    order: DS.belongsTo('App.Order')
-});
-
-
 /* Models with CurrentOrder relations and urls. */
 
 // FIXME Get rid of CurrentOrder models
@@ -108,10 +96,13 @@ App.PaymentProfile = DS.Model.extend({
 });
 
 
-App.CurrentOrderPayment = App.Payment.extend({
+App.Payment = DS.Model.extend({
     url: 'fund/payments',
 
-    order: DS.belongsTo('App.CurrentOrder')
+    paymentMethod: DS.attr('string'),
+    paymentSubmethod: DS.attr('string'),
+    paymentUrl: DS.attr('string'),
+    availablePaymentMethods: DS.attr('array'),
 });
 
 
@@ -274,50 +265,55 @@ App.PaymentProfileController = Em.ObjectController.extend({
 });
 
 App.PaymentSelectController = Em.ObjectController.extend({
-    hasIdeal: function() {
-        var availPMs = this.get('availablePaymentMethods');
-        if (availPMs) {
-            return (availPMs.contains('dd-ideal'));
-        }
-        return false;
-    }.observes('availablePaymentMethods'),
+    needs: ['currentOrder'],
 
-    hasWebMenu: function() {
-        var availPMs = this.get('availablePaymentMethods');
-        if (availPMs) {
-            return (availPMs.contains('dd-direct-debit'));
-        }
-        return false;
-    }.observes('availablePaymentMethods'),
+// Not used for now:
+//    hasIdeal: function() {
+//        var availPMs = this.get('availablePaymentMethods');
+//        if (availPMs) {
+//            return (availPMs.contains('dd-ideal'));
+//        }
+//        return false;
+//    }.observes('availablePaymentMethods'),
+//
+//    hasWebMenu: function() {
+//        var availPMs = this.get('availablePaymentMethods');
+//        if (availPMs) {
+//            return (availPMs.contains('dd-direct-debit'));
+//        }
+//        return false;
+//    }.observes('availablePaymentMethods'),
 
-    initTransaction: function() {
-        console.log('initTransaction');
-        var model = this.get('model');
-        if (model) {
-            var transaction = this.get('store').transaction();
-            this.set('transaction', transaction);
-            transaction.add(model);
-        }
-    }.observes('model'),
+    displayPaymentError: function() {
+        this.get('controllers.currentOrder').setProperties({
+            display_message: true,
+            isError: true,
+            autoHideMessage: true,
+            message_content: 'There was an error sending you to the payment provider. Please try again.'
+        });
+    },
 
     proceedWithPayment: function() {
         this.set('paymentInProgress', true);
+// FIXME Figure out the problem with Ember Data and re-enable this code.
+//        var transaction = this.get('store').transaction();
 //        var payment = this.get('model');
+//        transaction.add(payment);
 //        payment.set('paymentMethod', payment.get('availablePaymentMethods').objectAt(0));
 //        var controller = this;
 //        payment.one('didUpdate', function(record) {
 //            var paymentUrl = record.get('paymentUrl');
 //            if (paymentUrl) {
 //                document.location = paymentUrl;
+//            }
 //        });
 //        this.get('transaction').commit();
 
-        // FIXME Figure out the problem with Ember Data
         // Use jQuery directly to avoid the problems with updating server-side data.
         var payment = this.get('model');
         var controller = this;
         jQuery.ajax({
-            url: '/i18n/api/fund/payments/' + payment.get('id'),
+            url: '/i18n/api/fund/payments/current',
             type: 'PUT',
             data: JSON.stringify({ payment_method:  payment.get('availablePaymentMethods').objectAt(0)}),
             dataType: 'json',
@@ -327,13 +323,14 @@ App.PaymentSelectController = Em.ObjectController.extend({
                 if (json['payment_url']) {
                     document.location = json['payment_url'];
                 } else {
-                    controller.set('paymentError', true);
                     controller.set('paymentInProgress', false);
+                    controller.displayPaymentError();
+
                 }
             },
             error: function(xhr) {
-                controller.set('paymentError', true);
                 controller.set('paymentInProgress', false);
+                controller.displayPaymentError();
             }
         });
     }
