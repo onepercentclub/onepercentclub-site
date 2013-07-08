@@ -943,7 +943,8 @@ App.CurrentOrderAddDonationRoute = Em.Route.extend({
 
 App.CurrentOrderVoucherListRoute = Em.Route.extend({
     model: function(params) {
-        return App.CurrentOrder.find('current').get('vouchers');
+        var order = this.modelFor('currentOrder');
+        return order.get('vouchers');
     },
 
     setupController: function(controller, vouchers) {

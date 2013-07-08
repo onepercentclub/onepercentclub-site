@@ -2,7 +2,8 @@ from apps.cowry_docdata.models import DocDataPaymentOrder
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
-from apps.cowry import factory, payments
+from . import factory, payments
+from .exceptions import PaymentException
 from .models import Payment
 
 
@@ -22,7 +23,12 @@ class PaymentSerializer(serializers.ModelSerializer):
 
     def get_payment_url(self, payment):
         if payment.payment_method_id:
-            return payments.get_payment_url(payment, getattr(settings, "COWRY_RETURN_URL_BASE"))
+            # TODO Remove the try/except when 'current' alias is remove. The correct error response should be returned
+            #      in the view.
+            try:
+                return payments.get_payment_url(payment, getattr(settings, "COWRY_RETURN_URL_BASE"))
+            except PaymentException as e:
+                return None
         return None
 
     def validate_payment_method(self, attrs, source):
