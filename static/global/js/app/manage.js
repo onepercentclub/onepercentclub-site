@@ -280,7 +280,7 @@ App.MyProjectPlan = DS.Model.extend({
 });
 
 
-App.MyProjectCampaign = DS.Model.extend({
+App.MyProjectCampaign = App.ProjectCampaign.extend({
     url: 'projects/campaigns/manage',
 
     project: DS.belongsTo('App.MyProject'),
