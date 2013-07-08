@@ -191,7 +191,6 @@
             <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Next" %}</button>
         {{/if}}
 
-
     </fieldset>
 
 {% endtplhandlebars %}
@@ -405,7 +404,11 @@
         {{/if}}
     </fieldset>
 
-    <button class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans 'Next' %}</button>
+    {{#if isPaymentProfileReady }}
+        <button class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans 'Next' %}</button>
+    {{else}}
+        <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 

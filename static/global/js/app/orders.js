@@ -228,6 +228,8 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 
 
 App.PaymentProfileController = Em.ObjectController.extend({
+    needs: ['currentOrder'],
+
     initTransaction: function() {
         var transaction = this.get('store').transaction();
         this.set('transaction', transaction);
@@ -240,6 +242,8 @@ App.PaymentProfileController = Em.ObjectController.extend({
         profile.get('stateManager').goToState('updated');
         var controller = this;
         profile.one('didUpdate', function(record) {
+            var currentOrder = controller.get('controllers.currentOrder');
+            currentOrder.set('paymentProfileComplete', true);
             controller.transitionToRoute('paymentSelect');
         });
         profile.one('becameInvalid', function(record) {
@@ -247,7 +251,13 @@ App.PaymentProfileController = Em.ObjectController.extend({
             // Note: We're reusing the transaction in this case but it seems to work.
         });
         this.get('transaction').commit();
-    }
+    },
+
+    isPaymentProfileReady: function() {
+        return !Em.isEmpty(this.get('firstName')) && !Em.isEmpty(this.get('lastName')) && !Em.isEmpty(this.get('email')) &&
+               !Em.isEmpty(this.get('address')) && !Em.isEmpty(this.get('postalCode')) && !Em.isEmpty(this.get('city')) &&
+               !Em.isEmpty(this.get('country'));
+    }.property('firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country')
 });
 
 App.PaymentSelectController = Em.ObjectController.extend({

@@ -998,6 +998,13 @@ App.PaymentProfileRoute = Em.Route.extend({
 
 
 App.PaymentSelectRoute = Em.Route.extend({
+    redirect: function() {
+        var order = this.modelFor('currentOrder');
+        if (!order.get('paymentProfileComplete')) {
+            this.transitionTo('paymentProfile')
+        }
+    },
+
     model: function(params) {
         return App.Payment.find('current');
     }
