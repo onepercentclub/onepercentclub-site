@@ -1,5 +1,6 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
+from apps.projects.models import ProjectPhases
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, Order, Voucher, CustomVoucherRequest
@@ -13,10 +14,15 @@ class DonationSerializer(serializers.ModelSerializer):
     amount = EuroField()
 
     def validate_amount(self, attrs, source):
-        """ Check the amount. """
         value = attrs[source]
         if value < 500:
             raise serializers.ValidationError(_(u"Donations must be at least €5."))
+        return attrs
+
+    def validate_project(self, attrs, source):
+        value = attrs[source]
+        if value.phase != ProjectPhases.campaign:
+            raise serializers.ValidationError(_(u"You can only donate a project in the campaign phase."))
         return attrs
 
     def save(self, **kwargs):
