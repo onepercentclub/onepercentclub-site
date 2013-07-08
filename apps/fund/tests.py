@@ -225,48 +225,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         """
         Integration tests for the PaymentProfile and Payment APIs.
         """
-        # FIXME: Use self._make_api_donation() when the order flow is fixed.
-        # Make sure we have a current order.
-        self.client.login(username=self.some_user.email, password='password')
-        response = self.client.get(self.current_order_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['status'], 'current')
-
-        # Create a Donation for the current order.
-        donation_amount = 35
-        formatted_donation_amount = self._format_donation(donation_amount)
-        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': 35})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
-        self.assertEqual(response.data['amount'], formatted_donation_amount)
-        self.assertEqual(response.data['project'], self.some_project.slug)
-        self.assertEqual(response.data['status'], 'new')
-
-        # Now retrieve the current order payment profile.
-        response = self.client.get(self.payment_profile_current_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-
-        # Update the current order payment profile with our information.
-        response = self.client.put(self.payment_profile_current_url, json.dumps(self.some_profile), 'application/json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['first_name'], self.some_profile['first_name'])
-        self.assertEqual(response.data['last_name'], self.some_profile['last_name'])
-        self.assertEqual(response.data['email'], self.some_profile['email'])
-        self.assertEqual(response.data['address'], self.some_profile['address'])
-        self.assertEqual(response.data['postal_code'], self.some_profile['postal_code'])
-        self.assertEqual(response.data['city'], self.some_profile['city'])
-        self.assertEqual(response.data['country'], self.some_profile['country'])
-
-        # Now it's time to pay. Get the order so that we can get the payment.
-        response = self.client.get(self.current_order_url)
-        self.assertEqual(response.data['total'], formatted_donation_amount)
-        self.assertTrue(response.data['payments'][0])
-
-        # Get the payment.
+        # Setup.
+        self._make_api_donation(self.some_user, amount=35, set_payment_method=False)
         payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
         response = self.client.get(payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertFalse(response.data['payment_url'])  # Empty payment_url.
-        self.assertTrue(response.data['available_payment_methods'])
         first_payment_method = response.data['available_payment_methods'][0]
 
         # Updating the payment method with a value not in the available list should fail.
@@ -415,13 +378,13 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         """ Helper method to format donations as they are formatted in the API. """
         return '{0}.{1}'.format(str(amount*100)[:-2], str(amount*100)[-2:])
 
-    def _make_api_donation(self, user, project=None, amount=20, payment_profile=None, client=None):
+    def _make_api_donation(self, user, project=None, amount=20, payment_profile=None, client=None, set_payment_method=True):
         """
         Helper method for making a donation with the api. This creates a donation and tests the full order cycle
         until the URL is generated.
         """
         if not project:
-            project = self.create_project()
+            project = self.create_project(money_asked=500000)
 
         if not payment_profile:
             payment_profile = self.some_profile
@@ -472,9 +435,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         self.assertTrue(response.data['available_payment_methods'])
         first_payment_method = response.data['available_payment_methods'][0]
 
-        # Updating the payment method with a valid value should provide a payment_url.
-        response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
-        self.assertTrue(response.data['payment_url'].startswith('http'))
+        if set_payment_method:
+            # Updating the payment method with a valid value should provide a payment_url.
+            response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
+            self.assertTrue(response.data['payment_url'].startswith('http'))
 
         return order_id
 
