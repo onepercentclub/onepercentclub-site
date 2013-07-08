@@ -354,8 +354,16 @@ App.ProjectView = Em.View.extend(App.AnimateProgressMixin, {
     templateName: 'project',
 
     didInsertElement: function(){
-        this._super();
-        this.$('#detail').css('background', 'url("' + this.get('controller.plan.image.background') + '") 50% 50%');
-        this.$('#detail').css('background-size', '100%');
+
+        var donated = this.get('controller.campaign.money_donated');
+        var asked = this.get('controller.campaign.money_asked');
+        this.$('.donate-progress').css('width', '0px');
+        var width = 0;
+        if (asked > 0) {
+            width = 100 * donated / asked;
+            width += '%';
+        }
+        this.$('.donate-progress').animate({'width': width}, 1000);
+
     }
 });

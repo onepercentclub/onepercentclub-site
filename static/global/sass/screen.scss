@@ -14,7 +14,12 @@
 @import "core/variables";
 @import "mixins/rem";
 @import "mixins/utilities";
-@import "mixins/font-awesome";
+
+// ICONS
+//@import "mixins/font-awesome";
+@import "mixins/flaticons-social";
+@import "mixins/flaticons-solid";
+
 @import "core/base";
 @import "core/grid";
 @import "core/layout";
@@ -27,7 +32,7 @@
 @import "modules/detail-top";
 @import "modules/donation";
 @import "modules/forms";
-@import "modules/icons";
+//@import "modules/icons";
 @import "modules/labels";
 //@import "modules/lightbox";
 @import "modules/media";

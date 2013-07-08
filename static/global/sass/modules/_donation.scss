@@ -32,7 +32,7 @@ sidebar {
       padding: 0.9em 1.2em 0.6em;
       margin-right: 31px;
       
-      background-image: $icons;
+      //background-image: $icons;
       background-repeat: no-repeat;
     }
     
@@ -51,11 +51,11 @@ sidebar {
       a {
         padding-left: 50px;
         //@include border-radius(2px 0 0 2px);
-        background-position: sprite-position($icons, donation-support, 18px, 12px);
+        //background-position: sprite-position($icons, donation-support, 18px, 12px);
       }
       
       &.is-selected a {
-        background-position: sprite-position($icons, donation-support-select, 18px, 12px);
+        //background-position: sprite-position($icons, donation-support-select, 18px, 12px);
       }
       
     }
@@ -65,11 +65,11 @@ sidebar {
       @include grid(16, 0, -2);
       a {
         padding-left: 70px;
-        background-position: sprite-position($icons, donation-details, 38px, 11px);
+        //background-position: sprite-position($icons, donation-details, 38px, 11px);
       }
       
       &.is-selected a {
-        background-position: sprite-position($icons, donation-details-select, 38px, 11px);
+        //background-position: sprite-position($icons, donation-details-select, 38px, 11px);
       }
     }
 
@@ -78,11 +78,11 @@ sidebar {
       @include grid(12, 0, -2);
       a {
         padding-left: 70px;
-        background-position: sprite-position($icons, donation-profile, 38px, 10px);
+        //background-position: sprite-position($icons, donation-profile, 38px, 10px);
       }
 
       &.is-selected a {
-        background-position: sprite-position($icons, donation-profile-select, 38px, 10px);
+        //background-position: sprite-position($icons, donation-profile-select, 38px, 10px);
       }
     }
     
@@ -94,11 +94,11 @@ sidebar {
         padding-left: 70px;
         //@include border-radius(0 2px 2px 0);
         
-        background-position: sprite-position($icons, donation-payment, 38px, 10px);
+        //background-position: sprite-position($icons, donation-payment, 38px, 10px);
       }
       
       &.is-selected a {
-        background-position: sprite-position($icons, donation-payment-select, 38px, 10px);
+        //background-position: sprite-position($icons, donation-payment-select, 38px, 10px);
       }
       
       a {
@@ -245,9 +245,10 @@ sidebar {
     float: left;
     padding-left: 32px;
     color: $grayDarker;
-    background-image: $icons;
+    
+    /*background-image: $icons;
     background-repeat: no-repeat;
-    background-position: sprite-position($icons, add, 2px, 1px);
+    background-position: sprite-position($icons, add, 2px, 1px);*/
     text-transform: uppercase;
     line-height: 24px;
 
