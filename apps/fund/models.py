@@ -112,23 +112,22 @@ class Order(models.Model):
         return Voucher.objects.filter(id__in=order_items.values('object_id'))
 
     def __unicode__(self):
-        max_length = 50
         description = "1%CLUB "
         if not self.donations and self.vouchers:
             if len(self.donations) > 1:
-                description += "GIFTCARDS "
+                description += _("GIFTCARDS")
             else:
-                description += "GIFTCARD "
+                description += _("GIFTCARD")
             description += str(self.id)
         elif self.donations and not self.vouchers:
             if len(self.donations) > 1:
-                description += "DONATIONS "
+                description += _("DONATIONS")
             else:
-                description += "DONATION "
+                description += _("DONATION")
         else:
-            description += "DONATIONS & GIFTCARDS "
-        description += str(self.id) + " "
-        return description[:max_length]
+            description += _("DONATIONS & GIFTCARDS")
+        description += " " + str(self.id) + " " + "- " + _("THANK YOU!")
+        return description
 
 
 class OrderItem(models.Model):
@@ -246,6 +245,7 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     #                   failed
     #                   cancelled
     #                   refunded
+    #                   unknown
 
     # Ignore status changes on payments that don't have an Order. This is needed to run the Cowry unit tests.
     # We could remove this check if we changed the unit tests to only test the full Order and Payment system.
