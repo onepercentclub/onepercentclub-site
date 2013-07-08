@@ -1,7 +1,9 @@
 import logging
+from apps.cowry import factory
 from apps.cowry import payments
 from apps.cowry.permissions import IsOrderCreator
-from apps.cowry.models import PaymentStatuses
+from apps.cowry.models import PaymentStatuses, Payment
+from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder, DocDataWebDirectDirectDebit
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer, DocDataWebDirectDirectDebitSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -207,6 +209,37 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
 
         latest_payment.save()
         return latest_payment
+
+
+class PaymentCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
+    """
+    View for dealing with the Payment for the CurrentOrder.
+    """
+    model = Payment
+    serializer_class = PaymentSerializer
+
+    def get_object(self, queryset=None):
+        order = self.get_current_order()
+        if not order:
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
+        # Use the order for the permissions of the payment. If a user can access the order, they can access the payment.
+        self.check_object_permissions(self.request, order)
+        payment = order.latest_payment
+
+        # We're relying on the fact that the Payment is created when the Order is created. This assert
+        # verifies this assumption in case the Order creation code changes in the future.
+        assert payment
+
+        # Clear the payment method if it's not in the list of available methods.
+        # Using 'payment.country' like this assumes that payment is a DocDataPaymentOrder.
+        assert isinstance(payment, DocDataPaymentOrder)
+        available_payment_methods = factory.get_payment_method_ids(amount=payment.amount, currency=payment.currency,
+                                                                   country=payment.country, recurring=order.recurring)
+        if payment.payment_method_id and not payment.payment_method_id in available_payment_methods:
+            payment.payment_method_id = ''
+            payment.save()
+
+        return payment
 
 
 class DocDataDirectDebitCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
