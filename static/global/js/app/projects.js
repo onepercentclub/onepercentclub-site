@@ -135,31 +135,12 @@ App.Project = DS.Model.extend({
 
     wallposts: DS.hasMany('App.WallPost'),
 
-    isPhasePlan: function(){
-        return this.get('phase') == 'plan';
-    }.property('phase'),
-
-    isPhaseCampaign: function(){
-        return this.get('phase') == 'campaign';
-    }.property('phase'),
-
-    isPhaseAct: function(){
-        return this.get('phase') == 'act';
-    }.property('phase'),
-
-    isPhaseResults: function(){
-        return this.get('phase') == 'results';
-    }.property('phase'),
-
-    isPhaseRealized: function(){
-        return this.get('phase') == 'realized';
-    }.property('phase'),
-
-    isPhaseFailed: function(){
-        return this.get('phase') == 'failed';
-    }.property('phase')
-
-
+    isPhasePlan: Em.computed.equal('phase', 'plan'),
+    isPhaseCampaign: Em.computed.equal('phase', 'campaign'),
+    isPhaseAct: Em.computed.equal('phase', 'act'),
+    isPhaseResults: Em.computed.equal('phase', 'results'),
+    isPhaseRealized: Em.computed.equal('phase', 'realized'),
+    isPhaseFailed: Em.computed.equal('phase', 'failed')
 });
 
 

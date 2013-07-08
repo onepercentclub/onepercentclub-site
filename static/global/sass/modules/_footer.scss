@@ -41,6 +41,11 @@
         position: absolute;
         right: 0;
         bottom: 0;
+
+        &:active {
+            top: auto;
+            bottom: -1px;
+        }
     }
 }
 
@@ -49,7 +54,6 @@
         @include rem(margin-right, 5px);
         float: left;
     }
-
 }
 
 
