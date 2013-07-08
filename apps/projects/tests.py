@@ -41,19 +41,15 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
 
         if money_asked:
 
-            plan = ProjectPlan(title=project.title, project=project)
-            plan.status = 'approved'
-            plan.save()
+            project.projectplan = ProjectPlan(title=project.title, project=project)
+            project.projectplan.status = 'approved'
+            project.projectplan.save()
 
-            budget = ProjectBudgetLine(projecplan=plan, amount=money_asked, description='Nice wheels')
-
-            campaign = ProjectCampaign(status='running', project=project)
-            campaign.save()
+            project.projectcampaign = ProjectCampaign(status='running', project=project, money_asked=money_asked)
+            project.projectcampaign.save()
 
             project.phase = ProjectPhases.campaign
             project.save()
-
-            print project.projectcampaign.money_asked
 
         return project
 
