@@ -334,6 +334,37 @@ App.CurrentOrderController = Em.ObjectController.extend({
         transaction.commit();
     }.observes('donationType'),
 
+    // FIXME Implement a better way to handle vouchers and donations in the order.
+    // Remove donations from voucher orders and remove vouchers from donations.
+    // See: https://onepercentclub.atlassian.net/browse/BB-648
+    removeDonationOrVouchers: function() {
+        if (this.get('isVoucherOrder') == true) {
+            var donations = this.get('model.donations');
+            donations.forEach(function(donation) {
+                var transaction = this.get('store').transaction();
+                transaction.add(donation);
+                // Hack: Remove the donation from the current order so that ember-data doesn't get confused. This needs to be
+                // done because we're not setting the proper order id (i.e. 'current') in the donation json from the server.
+                donations.removeObject(donation);
+                donation.deleteRecord();
+                transaction.commit();
+            }, this);
+
+            console.log(i + ' donations deleted');
+        } else if (this.get('isVoucherOrder') == false) {
+            var vouchers = this.get('model.vouchers');
+            vouchers.forEach(function(voucher) {
+                var transaction = this.get('store').transaction();
+                transaction.add(voucher);
+                // Hack: Remove the voucher from the current order so that ember-data doesn't get confused. This needs to be
+                // done because we're not setting the proper order id (i.e. 'current') in the voucher json from the server.
+                vouchers.removeObject(voucher);
+                voucher.deleteRecord();
+                transaction.commit();
+            }, this);
+        }
+    }.observes('isVoucherOrder'),
+
     // Display messages inline similar to the message display in the ApplicationController.
     display_message: false,
     isError: false,
