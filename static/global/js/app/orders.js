@@ -23,19 +23,6 @@ App.Donation = DS.Model.extend({
 });
 
 
-App.DonationPreview =  DS.Model.extend({
-    url: 'projects/donations',
-
-    project: DS.belongsTo('App.ProjectPreview'),
-    member: DS.belongsTo('App.UserPreview'),
-    date_donated: DS.attr('date'),
-
-    time_since: function(){
-        return Globalize.format(this.get('date_donated'), 'X');
-    }.property('date_donated')
-});
-
-
 App.Voucher =  DS.Model.extend({
     url: 'fund/vouchers',
 
