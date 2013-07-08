@@ -350,8 +350,6 @@ App.CurrentOrderController = Em.ObjectController.extend({
                 donation.deleteRecord();
                 transaction.commit();
             }, this);
-
-            console.log(i + ' donations deleted');
         } else if (this.get('isVoucherOrder') == false) {
             var vouchers = this.get('model.vouchers');
             vouchers.forEach(function(voucher) {
