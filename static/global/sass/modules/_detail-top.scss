@@ -36,43 +36,50 @@
 .project-meta {
     @include rem(margin, 8px 0);
     @include rem(font-size, 14px);
+    color: $green;
     
     .location {
-        float: left;
         display: block;
+        float: left;
         vertical-align: middle;
         @include rem(margin-right, 32px);
         
-        color: $text-grey;
     }
     
     .tags {
         display: block;
+        float: left;
         width: auto;
         
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         
-        color: $green;
-        
-        ul {
-            vertical-align: middle;
-            margin: 0;
-            padding: 0;
-            display: inline;
-            list-style: none;
+ 
+        vertical-align: middle;
+        margin: 0;
+        padding: 0;
+        list-style: none;
             
-            li {
-                color: $green;
-                display: inline;
-                text-transform: capitalize;
-                
-                &.out-of-range {
-                  display: none;
-                }
+        
+        li {
+            display: inline;
+            text-transform: capitalize;
+            
+            &.out-of-range {
+              display: none;
             }
         }
+        
+        
+        li:after {
+		    content: ',';
+		}
+		
+		li:last-child:after {
+		    content:'' !important;
+		}
+     
     }
 }
 

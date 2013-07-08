@@ -7,6 +7,7 @@
 
     {{partial "my_project_top"}}
 
+
     <div class="container">
         <div class="wrapper">
             <div class="content">
@@ -41,67 +42,11 @@
                             <span class="icon icon-lightbulb"></span>
                             {% trans "Pitch your smart idea." %}
                         {{/linkTo}}
-                    </h4>
-                {{/if}}
+
+            	{{else}}
+            		{% trans "You have a project in progress. Once that is finished you can pitch a new idea." %}
+				{{/if}}
             {{/if}}
-            <ul class="content">
-                {{#each project in controller}}
-                    <li class="my-project">
-                        {{#if project.isPhasePitch}}
-                            <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} class="project-image" />
-                        {{else}}
-                            <img {{bindAttr src="project.plan.image.square" alt="project.pitch.title"}} class="project-image" />
-
-                        {{/if}}
-
-                        <h2>
-                            {{ project.title }}
-                        </h2>
-                        {% trans "Phase:" %} <strong>{{ project.phase }}</strong>
-                        <br  />
-
-                        {{#if project.isPhasePitch}}
-                            {% trans "Status:" %} <strong>{{project.pitch.status}}</strong>
-                            <br/>
-                            {{#linkTo "myProjectPitch" project tagName="button" class="btn btn-iconed"}}
-                                <span class="icon icon-pencil"></span>
-                                {% trans "continue pitch" %}
-                            {{/linkTo}}
-                        {{/if}}
-
-                        {{#if project.isPhasePlan}}
-                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong>
-                            <br/>
-                            {{#linkTo "myProjectPlan" project  tagName="button" class="btn btn-iconed"}}
-                                <span class="icon icon-pencil"></span>
-                                {% trans "continue plan" %}
-                            {{/linkTo}}
-                        {{/if}}
-
-                        {{#if project.isPhaseCampaign}}
-                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong>
-                            <br/>
-                            {{#linkTo "myProjectPlan" project  tagName="button" class="btn btn-iconed"}}
-                                <span class="icon icon-bullhorn"></span>
-                                {% trans "campaigning" %}
-                            {{/linkTo}}
-                            <br />
-                        {{/if}}
-                        {{#if project.isPublic}}
-                            <a {{action "showProject" project.id href=true}}>
-                                <span class="icon-eye-open"></span>
-                                {% trans "View public project page" %}
-                            </a>
-                            <br />
-                        {{/if}}
-                    </li>
-                {{/each}}
-            </ul>
-
-                    {{else}}
-                        {% trans "You have a project in progress. Once that is finished you can pitch a new idea." %}
-                    {{/if}}
-                {{/if}}
 
                 <ul>
                     {{#each project in controller}}
@@ -240,13 +185,13 @@
                 <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
                 <div class="profile-actions-meta-title">
                     {% trans "My 1%" %}
+                    
                     {{#if title}}
                         <em>
                             <span class="icon-chevron-right"></span>
                             {{ title }}
                         </em>
                     {{/if}}
-                </div>
             </div>
             
             <sidebar>

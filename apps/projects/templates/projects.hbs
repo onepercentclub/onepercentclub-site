@@ -128,16 +128,13 @@
             <article>
                 <div class="project-meta">
                     <span class="location"><em class="flaticon solid location-pin-1"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
-                    <span class="tags">
-                      <em class="flaticon solid tag-1"></em>
-                    {%comment%}
-                     TODO: add css for comma after tag:
-                     http://stackoverflow.com/questions/10403003/how-do-i-add-a-separator-between-elements-in-an-each-loop-except-after-the
-                    {%endcomment%}
+                    
+                    <em class="flaticon solid tag-1"></em>
+                    <ul class="tags">
                         {{#each tag in plan.tags}}
-                            {{tag.id}}
+                            <li>{{tag.id}}</li>
                         {{/each}}
-                    </span>
+                    </ul>
                 </div>
 
                 <h1 class="project-title">
