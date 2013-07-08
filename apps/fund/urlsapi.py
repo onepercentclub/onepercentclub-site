@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from surlex.dj import surl
 from .views import (OrderList, OrderDetail, OrderDonationDetail, PaymentProfileCurrent, VoucherDetail,
                     OrderVoucherList, OrderVoucherDetail, VoucherDonationList, VoucherDonationDetail,
-                    CustomVoucherRequestList, OrderDonationList, DocDataDirectDebitCurrent)
+                    CustomVoucherRequestList, OrderDonationList, DocDataDirectDebitCurrent, PaymentCurrent)
 
 urlpatterns = patterns('',
     # Orders
@@ -29,5 +29,7 @@ urlpatterns = patterns('',
     # Payments
     url(r'^paymentprofiles/current$', PaymentProfileCurrent.as_view(), name='payment-profile-current'),
     url(r'^docdatadirectdebit/current$', DocDataDirectDebitCurrent.as_view(), name='direct-debit-current'),
+    url(r'^payments/current$', PaymentCurrent.as_view(), name='payment-current'),
+    # The Payment REST API.
     url(r'', include('apps.cowry.urlsapi')),
 )

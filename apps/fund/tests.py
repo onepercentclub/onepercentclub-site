@@ -259,10 +259,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         # Now it's time to pay. Get the order so that we can get the payment.
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['total'], formatted_donation_amount)
-        self.assertTrue(response.data['payment'])
+        self.assertTrue(response.data['payments'][0])
 
         # Get the payment.
-        payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
+        payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
         response = self.client.get(payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertFalse(response.data['payment_url'])  # Empty payment_url.
@@ -310,7 +310,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         # 'some_user' should be able to access their payment.
         order_id = self._make_api_donation(self.some_user, project=self.some_project, amount=50)
         response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
-        some_user_payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
+        some_user_payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
         response = self.client.get(some_user_payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.client.logout()
@@ -318,7 +318,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         # 'another_user' should be able to access their payment.
         order_id = self._make_api_donation(self.another_user, project=self.some_project, amount=100)
         response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
-        another_user_payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
+        another_user_payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
         response = self.client.get(another_user_payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
@@ -336,7 +336,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         # Anonymous user 1 should be able to access their payment.
         order_id = self._make_api_donation(None, project=self.some_project, amount=150)  # Anonymous donation.
         response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
-        anonymous_payment_url_1 = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
+        anonymous_payment_url_1 = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
         response = self.client.get(anonymous_payment_url_1)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
@@ -344,7 +344,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         secondClient = Client()
         order_id = self._make_api_donation(None, project=self.some_project, amount=150, client=secondClient)  # Anonymous donation.
         response = secondClient.get('{0}{1}'.format(self.order_url_base, order_id))
-        anonymous_payment_url_2 = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
+        anonymous_payment_url_2 = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
         response = secondClient.get(anonymous_payment_url_2)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
@@ -463,10 +463,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         response = client.get(self.current_order_url)
         formatted_amount = self._format_donation(amount)
         self.assertEqual(response.data['total'], formatted_amount)
-        self.assertTrue(response.data['payment'])
+        self.assertTrue(response.data['payments'])
 
         # Get the payment.
-        payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payment'])
+        payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
         response = client.get(payment_url)
         self.assertFalse(response.data['payment_url'])  # Empty payment_url.
         self.assertTrue(response.data['available_payment_methods'])
