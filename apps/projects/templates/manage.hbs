@@ -7,83 +7,73 @@
 
     {{partial "my_project_top"}}
 
-
     <div class="container">
         <div class="wrapper">
-            <div class="content">
-                
-                {{#if isLoading}}
-                    {% trans "loading" %}
-                {{else}}
-                    {{#if canPitchNew}}
-                        <h1>Send in your project pitch</h1>
-                        
-                        <p><strong>Do you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare?</strong></p> 
-                        
-                        <p>Well, you came to the right place. We LOVE smart ideas!</p>
-                        
-                        WHEN YOUR SMART IDEA…
-                        
-                        <ul>
-                            <li>Might seem small, but will have a big social impact</li>
-                            <li>Is concrete and thus has a clear start and end</li>
-                            <li>Needs on off investment to make it self-sufficient and sustainable on the long term</li>
-                            <li>Takes place in one of these developing country</li>
-                            <li>Is managed and owned locally</li>
-                            <li>Needs people, special know-how and skills</li>
-                            <li>Needs some cash to get started (up to €5000)</li>
-                        </ul>
-                        
-                        … YOUR IDEA FITS RIGHT IN WITH 1%CLUB! 
-                        
-                        <p>1%CLUB offers you tools to engage your crowd to turn your smart idea in to reality. Are you ready to invest time and effort in succeeding? Double check our FAQ and pitch your smart idea here!</p>
-                        
+            {{#if isLoading}}
+                {% trans "loading" %}
+            {{else}}
+                {{#if canPitchNew}}
+                    <h4>
                         {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
                             <span class="icon icon-lightbulb"></span>
                             {% trans "Pitch your smart idea." %}
                         {{/linkTo}}
-
-            	{{else}}
-            		{% trans "You have a project in progress. Once that is finished you can pitch a new idea." %}
-				{{/if}}
+                    </h4>
+                {{/if}}
             {{/if}}
+            <ul class="content">
+                {{#each project in controller}}
+                    <li class="my-project">
+                        {{#if project.isPhasePitch}}
+                            <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} class="project-image" />
+                        {{else}}
+                            <img {{bindAttr src="project.plan.image.square" alt="project.pitch.title"}} class="project-image" />
 
-                <ul>
-                    {{#each project in controller}}
-                        <li>
-                            <h3>
-                                {{project.title}} <br />
-                            </h3>
-                            {{#if project.isPhasePitch}}
-                                {{#linkTo "myProjectPitch" project tagName="button" class="btn btn-iconed"}}
-                                    <span class="icon icon-pencil"></span>
-                                    {% trans "write pitch" %}
-                                {{/linkTo}}
-                            {{else}}
-                                {{#unless project.isFailed}}
-                                    <a {{action "showProject" project.id href=true}}>
-                                        <span class="icon-eye-open"></span>
-                                        {% trans "VIEW" %}
-                                    </a>
-                                    <br />
-                                {{/unless}}
-                            {{/if}}
-                            {{#if project.isPhasePlan}}
-                                {{#linkTo "myProjectPlan" project  tagName="button" class="btn btn-iconed"}}
-                                    <span class="icon icon-pencil"></span>
-                                    {% trans "write plan" %}
-                                {{/linkTo}}
-                            {{/if}}
-                        </li>
-                    {{/each}}
-                </ul>
-            </div>
-            
-            <sidebar>
-                Movie...
-            </sidebar>
-            
+                        {{/if}}
 
+                        <h2>
+                            {{ project.title }}
+                        </h2>
+                        {% trans "Phase:" %} <strong>{{ project.phase }}</strong>
+                        <br  />
+
+                        {{#if project.isPhasePitch}}
+                            {% trans "Status:" %} <strong>{{project.pitch.status}}</strong>
+                            <br/>
+                            {{#linkTo "myProjectPitch" project tagName="button" class="btn btn-iconed"}}
+                                <span class="icon icon-pencil"></span>
+                                {% trans "continue pitch" %}
+                            {{/linkTo}}
+                        {{/if}}
+
+                        {{#if project.isPhasePlan}}
+                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong>
+                            <br/>
+                            {{#linkTo "myProjectPlan" project  tagName="button" class="btn btn-iconed"}}
+                                <span class="icon icon-pencil"></span>
+                                {% trans "continue plan" %}
+                            {{/linkTo}}
+                        {{/if}}
+
+                        {{#if project.isPhaseCampaign}}
+                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong>
+                            <br/>
+                            {{#linkTo "myProjectPlan" project  tagName="button" class="btn btn-iconed"}}
+                                <span class="icon icon-bullhorn"></span>
+                                {% trans "campaigning" %}
+                            {{/linkTo}}
+                            <br />
+                        {{/if}}
+                        {{#if project.isPublic}}
+                            <a {{action "showProject" project.id href=true}}>
+                                <span class="icon-eye-open"></span>
+                                {% trans "View public project page" %}
+                            </a>
+                            <br />
+                        {{/if}}
+                    </li>
+                {{/each}}
+            </ul>
         </div>
     </div>
 
@@ -179,21 +169,18 @@
 
     <div class="container section">
         <div class="wrapper">
-        
-            
-            <div class="profile-actions-meta">
-                <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
-                <div class="profile-actions-meta-title">
+            <div class="content">
+                <h1 class="main-title">
+                    <img {{bindAttr src="controllers.currentUser.getAvatar" info="owner.first_name"}} width="30" height="30" />
                     {% trans "My 1%" %}
-                    
                     {{#if title}}
                         <em>
                             <span class="icon-chevron-right"></span>
                             {{ title }}
                         </em>
                     {{/if}}
+                </h1>
             </div>
-            
             <sidebar>
                 {{#unless isPhasePitch}}
                     <a {{action "showProject" id href=true}} class="button-link">
@@ -202,14 +189,13 @@
                 {{/unless}}
             </sidebar>
         </div>
-        
         <div class="wrapper">
             <ul class="manage-steps">
                 {{#if isPhasePitch}}
                     {{#linkTo "myProjectPitch"}}
                         <li class="selected first">
                             <div class="inner">
-                                <em class="flaticon solid lightbulb-3"></em>
+                                <em class="icon-ok"></em>
                                 <h4>{% trans "Project Pitch" %}</h4>
                                 {{ pitch.status }}
                             </div>
@@ -218,7 +204,7 @@
                 {{else}}
                     <li class="first">
                         <div class="inner">
-                            <em class="flaticon solid lightbulb-3"></em>
+                            <em class="icon-ok"></em>
                             <h4>{% trans "Project Pitch" %}</h4>
                             {{ pitch.status }}
                         </div>
@@ -1353,48 +1339,6 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "my_pitch_new" %}
-
-    {{partial "my_project_top"}}
-
-    <div class="container">
-        <div class="wrapper dashboard">
-            <form>
-                <fieldset>
-                    <legend>
-                        <strong>
-                            {% trans "Pitch Title" %}
-                        </strong>
-                    </legend>
-                    <ul>
-                        <li class="control-group has-popover" data-content="{% trans "Be short, creative, simple and memorable." %}">
-                            <label class="control-label">{% trans "Title" %}</label>
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="title" placeholder="Title" classBinding="errors.title.length:error"}}
-                            </div>
-
-                            {{#if errors.title }}
-                                <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                    </ul>
-                </fieldset>
-
-                <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}>
-                    <em class="icon icon-star"></em>{% trans "Start pitch" %}
-                </button>
-
-            </form>
-
-        </div>
-    </div>
-
-
-
-{% endtplhandlebars %}
-
-
-
 {% tplhandlebars "my_project_pitch" %}
 
     <div class="container">
@@ -1798,5 +1742,4 @@
     </div>
 
 {% endtplhandlebars %}
-
 
