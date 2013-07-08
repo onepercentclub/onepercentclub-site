@@ -55,21 +55,15 @@ class ProjectPreviewList(generics.ListAPIView):
             qs = qs.order_by('-created')
         elif ordering == 'title':
             qs = qs.order_by('title')
-        elif ordering == 'money_asked':
-            qs = qs.order_by('money_asked')
         elif ordering == 'deadline':
             qs = qs.order_by('deadline')
-        elif ordering == 'money_needed':
+        elif ordering == 'needed':
             qs = qs.order_by('money_needed')
         elif ordering == 'popularity':
             qs = qs.order_by('-popularity')
 
-
         qs = qs.exclude(phase=ProjectPhases.pitch)
         qs = qs.exclude(phase=ProjectPhases.failed)
-
-        for p in qs.all():
-            p.update_popularity()
 
         return qs
 

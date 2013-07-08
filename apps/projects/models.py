@@ -280,8 +280,10 @@ class ProjectCampaign(models.Model):
 
     currency = models.CharField(max_length="10", default='EUR')
 
+    # For convenience and performance we also store money donated and needed here.
     money_asked = models.PositiveIntegerField(default=0)
     money_donated = models.PositiveIntegerField(default=0)
+    money_needed = models.PositiveIntegerField(default=0)
 
     @property
     def supporters_count(self, with_guests=True):
@@ -299,13 +301,6 @@ class ProjectCampaign(models.Model):
             donations = donations.filter(user__isnull=True)
             count += len(donations.all())
         return count
-
-    @property
-    def money_needed(self):
-        needed = self.money_asked - self.money_donated
-        if needed < 0:
-            return 0
-        return needed
 
     # The amount donated that is secure.
     @property
@@ -327,6 +322,9 @@ class ProjectCampaign(models.Model):
             self.money_donated = 0
         else:
             self.money_donated = total['sum']
+        self.money_needed = self.money_asked - self.money_donated
+        if self.money_needed < 0:
+            self.money_needed = 0
         self.save()
 
 class ProjectResult(models.Model):

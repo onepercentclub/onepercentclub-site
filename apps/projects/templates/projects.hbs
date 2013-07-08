@@ -102,12 +102,11 @@
                 {{/if}}
                 <div class="ordering button-lin">
                     {% trans "Sort:" %}
+                    <a {{action sortOrder 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Popularity" %}</a>
                     <a {{action sortOrder 'title'}} {{bindAttr class="orderedByTitle:active"}}>{% trans "Title" %}</a>
                     <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
                     <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
-                    <a {{action sortOrder 'money_asked'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Money asked" %}</a>
-
-                    {# <a {{action sortOrder 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a> #}
+                    <a {{action sortOrder 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a>
                 </div>
 
 
