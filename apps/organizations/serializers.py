@@ -33,14 +33,14 @@ class ManageOrganizationSerializer(OrganizationSerializer):
 
     slug = serializers.SlugField(required=False)
 
-    addresses = OrganizationAddressSerializer(many=True, source='organizationaddress_set')
-    documents = OrganizationDocumentSerializer(many=True, source='organizationdocument_set')
+    addresses = OrganizationAddressSerializer(many=True, source='organizationaddress_set', required=False)
+    documents = OrganizationDocumentSerializer(many=True, source='organizationdocument_set', required=False)
     registration = PrivateFileSerializer(required=False)
 
     name = serializers.CharField(required=True)
     description = serializers.CharField(required=False)
     website = serializers.URLField(required=False)
-    email = serializers.EmailField(required=False)
+    email = serializers.EmailField(required=True)
     twitter = serializers.CharField(required=False)
     facebook = serializers.CharField(required=False)
     skype = serializers.CharField(required=False)
