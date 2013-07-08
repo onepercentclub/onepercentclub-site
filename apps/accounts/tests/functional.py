@@ -48,7 +48,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         self.browser.find_link_by_partial_text('Signup').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('BECOME A 1%MEMBER'),
+        self.assertTrue(self.browser.is_text_present('BECOME A 1%MEMBER', wait_time=10),
                 'Cannot load the signup page.'),
 
         self.assertEqual(self.browser.url, '%s/en/#/signup' % self.live_server_url)
@@ -75,7 +75,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         form.find_by_css('button').first.click()
 
         # After signing up, a message should appear
-        self.assertTrue(self.browser.is_text_present('THANKS FOR SIGNING UP!'))
+        self.assertTrue(self.browser.is_text_present('THANKS FOR SIGNING UP!', wait_time=10))
 
         # And a user should be created.
         self.assertEqual(BlueBottleUser.objects.filter(email='johndoe@example.com').count(), 1)
@@ -124,7 +124,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         self.browser.find_link_by_text('Login').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('LOG IN'),
+        self.assertTrue(self.browser.is_text_present('LOG IN', wait_time=10),
                 'Cannot load the login popup.'),
 
         # Fill in details.
@@ -133,7 +133,7 @@ class AccountSeleniumTests(SeleniumTestCase):
 
         self.browser.find_by_value('Login').first.click()
 
-        self.assertTrue(self.browser.is_text_present('MY 1%'))
+        self.assertTrue(self.browser.is_text_present('MY 1%', wait_time=10))
 
     @skipIf(settings.SELENIUM_WEBDRIVER=='firefox', 'Firefox does not support mouse interactions.')
     def test_edit_profile(self):
@@ -146,7 +146,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('EDIT YOUR PROFILE'))
+        self.assertTrue(self.browser.is_text_present('EDIT YOUR PROFILE', wait_time=10))
 
         form = self.browser.find_by_tag('form').first
 
@@ -164,7 +164,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         form.find_by_css('button').first.click()
 
         # Validate with the message.
-        self.assertTrue(self.browser.is_text_present('Profile saved'))
+        self.assertTrue(self.browser.is_text_present('Profile saved', wait_time=10))
 
         # Reload the user.
         user = BlueBottleUser.objects.get(pk=user.pk)
@@ -191,13 +191,13 @@ class AccountSeleniumTests(SeleniumTestCase):
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('EDIT YOUR PROFILE'))
+        self.assertTrue(self.browser.is_text_present('EDIT YOUR PROFILE', wait_time=10))
 
         # Navigate to account settings.
         self.browser.find_link_by_itext('ACCOUNT\nSETTINGS').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('EDIT YOUR ACCOUNT'))
+        self.assertTrue(self.browser.is_text_present('EDIT YOUR ACCOUNT', wait_time=10))
 
         # Validate current values.
         fieldsets = self.browser.find_by_css('form fieldset')
@@ -228,7 +228,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         self.browser.find_link_by_itext('SAVE').first.click()
 
         # Validate with the message.
-        self.assertTrue(self.browser.is_text_present('Account settings saved'))
+        self.assertTrue(self.browser.is_text_present('Account settings saved', wait_time=10))
 
         # Reload and validate the user.
         user = BlueBottleUser.objects.get(pk=user.pk)
@@ -269,7 +269,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         self.browser.find_link_by_itext('RESET').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('YOU\'VE GOT MAIL!'))
+        self.assertTrue(self.browser.is_text_present('YOU\'VE GOT MAIL!', wait_time=10))
 
         # Do we really have mail?
         self.assertEqual(len(mail.outbox), 1)
@@ -292,7 +292,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         self.browser.visit(reset_link)
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('RESET YOUR PASSWORD'))
+        self.assertTrue(self.browser.is_text_present('RESET YOUR PASSWORD', wait_time=10))
 
         # Fill in the reset form.
         new_password = 'new_secret'
@@ -304,7 +304,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         self.browser.find_by_css('.modal .modal-footer button').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('YOU DID IT!'))
+        self.assertTrue(self.browser.is_text_present('YOU DID IT!', wait_time=10))
 
         # Reload and validate user password in the database.
         user = BlueBottleUser.objects.get(pk=user.pk)
