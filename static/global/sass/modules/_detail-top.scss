@@ -2,39 +2,10 @@
   
     position: relative;
     @include rem(padding, 32px 0 0 0);
-<<<<<<< HEAD
 
-    .darken-background {
-        background-color: rgba(0, 0, 0, 0.7);
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-=======
     background-color: $heading-black;
     
-    /*
-    &:after {
-        content: "";
-        background: #444444 url('../dummy/project-detail-back.jpg') no-repeat 50% 50%;
-        background-size: 100%;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
->>>>>>> Project Detail Changes
-        position: absolute;
-    }
-<<<<<<< HEAD
 
-    .wrapper {
-        position: relative;
-    }
-
-=======
-    */
-    
->>>>>>> Project Detail Changes
     figure.media {
         @include grid(24,1,0);
         margin-bottom: $margin;
