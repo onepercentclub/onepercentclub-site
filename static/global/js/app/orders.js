@@ -274,9 +274,10 @@ App.PaymentSelectController = Em.ObjectController.extend({
         this.get('controllers.currentOrder').setProperties({
             display_message: true,
             isError: true,
-            autoHideMessage: true,
+            autoHideMessage: false,
             message_content: 'There was an error sending you to the payment provider. Please try again.'
         });
+       this.transitionToRoute('paymentProfile')
     },
 
     proceedWithPayment: function() {
