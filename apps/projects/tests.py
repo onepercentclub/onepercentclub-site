@@ -1,6 +1,6 @@
 from decimal import Decimal
 from datetime import timedelta
-from apps.projects.models import ProjectPlan, ProjectCampaign
+from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectBudgetLine
 from django.core.exceptions import ValidationError
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
@@ -40,18 +40,16 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         project.projectpitch.save()
 
         if money_asked:
-            project.projectplan = ProjectPlan(title=project.title)
+
+            project.projectplan = ProjectPlan(title=project.title, project=project)
             project.projectplan.status = 'approved'
             project.projectplan.save()
 
-            project.projectcampaign = ProjectCampaign(status='running')
+            project.projectcampaign = ProjectCampaign(status='running', project=project, money_asked=money_asked)
             project.projectcampaign.save()
+
             project.phase = ProjectPhases.campaign
             project.save()
-            # On Project save the Campaign calculates the money from Project Budget.
-            # Since we don't have any budget set we have to overwrite the money_asked after saving the Project.
-            project.projectcampaign.money_asked = money_asked
-            project.projectcampaign.save()
 
         return project
 
