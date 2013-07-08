@@ -24,7 +24,10 @@ class ProjectSeleniumTests(SeleniumTestCase):
     fixtures = ['demo',]
 
     def visit_project_list_page(self, lang_code=None):
-        self.visit('/projects', lang_code)
+        self.visit_path('/projects', lang_code)
+
+        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project', wait_time=10),
+                'Cannot load the project list page.')
 
     def test_navigate_to_project_list_page(self):
         """
@@ -37,7 +40,7 @@ class ProjectSeleniumTests(SeleniumTestCase):
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_element_present_by_css('.item.item-project', wait_time=10),
-                'Cannot load the project list page.'),
+                'Cannot load the project list page.')
 
         self.assertEqual(self.browser.url, '%s/en/#/projects' % self.live_server_url)
         self.assertEqual(self.browser.title, '1%Club')
