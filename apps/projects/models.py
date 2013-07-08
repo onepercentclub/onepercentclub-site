@@ -452,8 +452,10 @@ def progress_project_phase(sender, instance, created, **kwargs):
             instance.projectcampaign.status = ProjectCampaign.CampaignStatuses.running
             instance.projectcampaign.deadline = timezone.now() + timezone.timedelta(days=180)
 
-            budget = instance.projectplan.projectbudgetline_set.aggregate(sum=Sum('amount'))['sum']
-            if not budget:
+            budget = instance.projectplan.projectbudgetline_set
+            if len(budget.all()):
+                budget = budget.aggregate(sum=Sum('amount'))['sum']
+            else:
                 budget = 0
             instance.projectcampaign.money_asked = budget
             instance.projectcampaign.currency = 'EUR'
@@ -486,8 +488,8 @@ def update_project_after_donation(sender, instance, created, **kwargs):
 
     # Don't look at donations that are just created.
     if instance not in [DonationStatuses.in_progress, DonationStatuses.new]:
-        campaign.update_money_dated()
-        project.update_populatiry()
+        campaign.update_money_donated()
+        project.update_popularity()
 
     if campaign.money_asked <= campaign.money_donated:
         project.phase = ProjectPhases.act
