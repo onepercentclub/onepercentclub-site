@@ -69,9 +69,9 @@ class ProjectPlanSerializer(serializers.ModelSerializer):
     theme = serializers.PrimaryKeyRelatedField()
     tags = TagSerializer()
     organization = serializers.PrimaryKeyRelatedField(source="organization", required=False)
-    ambassadors = ProjectAmbassadorSerializer(many=True, source='projectambassador_set')
+    ambassadors = ProjectAmbassadorSerializer(many=True, source='projectambassador_set', required=False)
 
-    budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set')
+    budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set', required=False)
 
     image = ImageSerializer(required=False)
 
@@ -88,7 +88,7 @@ class ManageProjectPlanSerializer(ProjectPlanSerializer):
 
     def validate_status(self, attrs, source):
         value = attrs[source]
-        if value not in [ProjectPitch.PitchStatuses.submitted, ProjectPitch.PitchStatuses.new]:
+        if value not in [ProjectPlan.PlanStatuses.submitted, ProjectPlan.PlanStatuses.new, ProjectPlan.PlanStatuses.needs_work]:
             raise serializers.ValidationError("You can only change status into 'submitted'")
         return attrs
 
