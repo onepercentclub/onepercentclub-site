@@ -5,7 +5,9 @@ from django.db import transaction
 from django.test import LiveServerTestCase
 from django.test.testcases import connections_support_transactions, disable_transaction_methods, restore_transaction_methods
 
-from splinter import Browser
+from splinter.browser import _DRIVERS
+from splinter.element_list import ElementList
+from splinter.exceptions import DriverNotFoundError
 
 
 def css_dict(style):
@@ -30,6 +32,129 @@ def css_dict(style):
         raise ValueError('Could not parse CSS: %s (%s)' % (style, e))
 
 
+
+def BrowserExt(driver_name='firefox', *args, **kwargs):
+    """
+    Small helper to combine the correct webdriver with some additional methods without cloning the project.
+    """
+    try:
+        driver_class = _DRIVERS[driver_name]
+    except KeyError:
+        raise DriverNotFoundError("No driver for %s" % driver_name)
+
+    new_class = type('BrowserExt', (driver_class, WebDriverAdditionMixin), {})
+
+    return new_class(*args, **kwargs)
+
+
+class WebDriverAdditionMixin(object):
+    """
+    Additional helper methods for the web driver.
+    """
+    def fill_form_by_css(self, form, data):
+        """
+        Fills in a form by finding input elements by CSS.
+
+        :param form: The form ``WebElement``.
+        :param data: A dict in the form ``{'input css': 'value'}``.
+        """
+
+        if not isinstance(data, dict):
+            raise RuntimeError('Argument data must be dict.')
+
+        # Fill in the form.
+        for css, val in data.items():
+            form.find_by_css(css).first.fill(val)
+
+    def fill_form_by_label(self, form, data):
+        """
+        Fills in a form by finding labels.
+
+        NOTE: This function works best if you define all labels and input elements in your data.
+
+        :param form: The form ``WebElement``.
+        :param data: List of tuples in the form ``[('label', 'value'), ...]``. The value can also be a list if multiple
+                     inputs are connected to a single label.
+
+        Example::
+
+            # ...
+            self.fill_form_by_label(
+                self.browser.find_by_tag('form'),
+                [
+                    ('Name', ['John', 'Doe']),
+                    ('Email', 'johndoe@onepercentclub.com'),
+                ]
+            )
+
+        """
+        if not isinstance(data, list):
+            raise RuntimeError('Argument data must be a list of tuples.')
+
+        labels = form.find_by_tag('label')
+        inputs = form.find_by_css('input, textarea, select')
+
+        # Fill in the form. Keep an offset for if multiple inputs are used.
+        offset = 0
+        for label_text, values in data:
+            if not isinstance(values, list):
+                values = [values]
+
+            for index, form_label in enumerate(labels):
+                if form_label.text.strip('\r\n ') == label_text:
+                    for i, val in enumerate(values):
+                        offset += i
+
+                        if val is None:
+                            continue
+
+                        form_input = inputs[index + offset]
+                        form_input_tag_name = form_input.tag_name
+
+                        if form_input_tag_name == 'input':
+                            form_input_type = form_input['type']
+
+                            if form_input_type == 'file':
+                                form_input.attach_file(val)
+                            elif form_input_type == 'checkbox':
+                                if val:
+                                    form_input.check()
+                                else:
+                                    form_input.uncheck()
+                            elif form_input_type == 'radio':
+                                radio_group = form_input['name']
+                                self.choose(radio_group, val)
+                            else:
+                                form_input.fill(val)
+                        elif form_input_tag_name == 'select':
+                            # Workaround for form_input.select(val) which uses the name attribute to find the options.
+                            # However, some select elements do not have a name attribute.
+                            # TODO: Report issue found in Splinter 0.5.3
+                            for option in form_input.find_by_tag('option'):
+                                if option['value'] == val:
+                                    option.click()
+                                    break
+                        else:
+                            form_input.fill(val)
+                    break
+
+    def find_link_by_itext(self, text, exact=False):
+        """
+        Finds a link by text in a more robust way than the default method. Also allows for case sensitive and
+        insensitive matches.
+
+        :param text: The text to search for within a link element.
+        :param exact: ``True`` if the match mut be an exact match. ``False`` (default) for case insensitive matches.
+
+        :return: List of matching elements.
+        """
+        result = []
+        for link in self.find_by_css('a, button, input[type="button"], input[type="submit"]'):
+            if link.text == text or (not exact and link.text.lower() == text.lower()):
+                result.append(link)
+        return ElementList(result, find_by='link by itext', query=text)
+
+
 class SeleniumTestCase(LiveServerTestCase):
     """
     Selenium test cases should inherit from this class.
@@ -46,7 +171,7 @@ class SeleniumTestCase(LiveServerTestCase):
         if not hasattr(settings, 'SELENIUM_WEBDRIVER'):
             raise ImproperlyConfigured('Define SELENIUM_WEBDRIVER in your settings.py.')
 
-        cls.browser = Browser(settings.SELENIUM_WEBDRIVER)
+        cls.browser = BrowserExt(settings.SELENIUM_WEBDRIVER)
 
         super(SeleniumTestCase, cls).setUpClass()
 
@@ -159,87 +284,3 @@ class SeleniumTestCase(LiveServerTestCase):
         #         'Cannot load the homepage. Did you load any data fixtures for testing?')
         return self.browser.is_element_present_by_id('title', wait_time=10)
 
-    def fill_form_by_css(self, form, data):
-        """
-
-        :param form: The form ``WebElement``.
-        :param data: A dict in the form ``{'input css': 'value'}``.
-        """
-
-        if not isinstance(data, dict):
-            raise RuntimeError('Argument data must be dict.')
-
-        # Fill in the form.
-        for css, val in data.items():
-            form.find_by_css(css).first.fill(val)
-
-    def fill_form_by_label(self, form, data):
-        """
-        Fills in a form by label.
-
-        NOTE: This function works best if you define all labels and input elements in your data.
-
-        :param form: The form ``WebElement``.
-        :param data: List of tuples in the form ``[('label', 'value'), ...]``. The value can also be a list if multiple
-                     inputs are connected to a single label.
-
-        Example::
-
-            # ...
-            self.fill_form_by_label(
-                self.browser.find_by_tag('form'),
-                [
-                    ('Name', ['John', 'Doe']),
-                    ('Email', 'johndoe@onepercentclub.com'),
-                ]
-            )
-
-        """
-        if not isinstance(data, list):
-            raise RuntimeError('Argument data must be a list of tuples.')
-
-        labels = form.find_by_tag('label')
-        inputs = form.find_by_css('input, textarea, select')
-
-        # Fill in the form. Keep an offset for if multiple inputs are used.
-        offset = 0
-        for label_text, values in data:
-            if not isinstance(values, list):
-                values = [values]
-
-            for index, form_label in enumerate(labels):
-                if form_label.text.strip('\r\n ') == label_text:
-                    for i, val in enumerate(values):
-                        offset += i
-
-                        if val is None:
-                            continue
-
-                        form_input = inputs[index + offset]
-                        form_input_tag_name = form_input.tag_name
-
-                        if form_input_tag_name == 'input':
-                            form_input_type = form_input['type']
-
-                            if form_input_type == 'file':
-                                form_input.attach_file(val)
-                            elif form_input_type == 'checkbox':
-                                if val:
-                                    form_input.check()
-                                else:
-                                    form_input.uncheck()
-                            elif form_input_type == 'radio':
-                                form_input.choose(val)
-                            else:
-                                form_input.fill(val)
-                        elif form_input_tag_name == 'select':
-                            # Workaround for form_input.select(val) which uses the name attribute to find the options.
-                            # However, some select elements do not have a name attribute.
-                            # TODO: Report issue found in Splinter 0.5.3
-                            for option in form_input.find_by_tag('option'):
-                                if option['value'] == val:
-                                    option.click()
-                                    break
-                        else:
-                            form_input.fill(val)
-                    break
