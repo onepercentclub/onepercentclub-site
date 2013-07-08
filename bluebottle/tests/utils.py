@@ -180,9 +180,9 @@ class SeleniumTestCase(LiveServerTestCase):
         """
         Make sure the browser quits afterwards.
         """
-        super(SeleniumTestCase, cls).tearDownClass()
-
         cls.browser.quit()
+
+        super(SeleniumTestCase, cls).tearDownClass()
 
     def _fixture_setup(self):
         """
