@@ -174,7 +174,7 @@ App.ProjectSearch = DS.Model.extend({
     text: DS.attr('string'),
     country: DS.attr('number'),
     theme:  DS.attr('number'),
-    ordering: DS.attr('string', {defaultValue: 'title'}),
+    ordering: DS.attr('string', {defaultValue: 'popularity'}),
     phase: DS.attr('string', {defaultValue: 'campaign'}),
     page: DS.attr('number', {defaultValue: 1})
 
@@ -231,6 +231,9 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
         this.set('ordering', order);
     },
 
+    orderedByPopularity: function(){
+        return (this.get('ordering') == 'popularity');
+    }.property('ordering'),
     orderedByTitle: function(){
         return (this.get('ordering') == 'title');
     }.property('ordering'),

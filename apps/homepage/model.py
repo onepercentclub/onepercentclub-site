@@ -14,7 +14,7 @@ class HomePage(object):
         self.slides = Slide.objects.published().filter(language=language)
         stats = Statistic.objects.order_by('-creation_date').all()
         if len(stats) > 0:
-            self.stats = stats
+            self.stats = stats[0]
         else:
             self.stats = None
         projects = Project.objects.filter(phase='campaign').order_by('?')

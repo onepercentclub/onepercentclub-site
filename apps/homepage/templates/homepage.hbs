@@ -102,10 +102,12 @@
 
                             <div class="project-status">
                                 <div class="project-days-left">
-                                    <p>
-                                        <i class="icon-time"></i> <em><strong>??</strong></em>
-                                    </p>
-                                    {% trans "days to go" %}
+                                    {{#if project.campaign.deadline}}
+                                        <p>
+                                            <i class="icon-time"></i> <em><strong>{{project.campaign.daysToGo}}</strong></em>
+                                        </p>
+                                        {% trans "days to go" %}
+                                    {{/if}}
                                 </div>
 
                                 <div class="donate-status">

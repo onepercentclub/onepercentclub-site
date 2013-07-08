@@ -275,8 +275,18 @@
                             <h3>{% trans "It all starts with 1%" %}</h3>
                             <ul>
                                 <li>{% trans "What is 1%CLUB?" %}</li>
-                                <li>{% trans "1%PROJECTS" %}</li>
+                                <li>
+                                    {{#linkTo projectList}}
+                                        {% trans "1%PROJECTS" %}
+                                    {{/linkTo}}
+                                </li>
                                 <li>{% trans "Get involved" %}</li>
+                                <li>{% trans "What is 1%CLUB?" %}</li>
+                                <li>
+                                    {{#linkTo myPitchNew}}
+                                        {% trans "Start your project" %}
+                                    {{/linkTo}}
+                                </li>
                             </ul>
                         </li>
 
