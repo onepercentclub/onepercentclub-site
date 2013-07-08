@@ -99,6 +99,13 @@ class SeleniumTestCase(LiveServerTestCase):
             transaction.leave_transaction_management(using=db)
 
     def login(self, username, password):
+        """
+        Perform login operation on the website.
+
+        :param username: The user's email address.
+        :param password: The user's password
+        :return: ``True`` if login was successful.
+        """
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
@@ -117,6 +124,12 @@ class SeleniumTestCase(LiveServerTestCase):
         return self.browser.is_text_present('MY 1%', wait_time=10)
 
     def visit_path(self, path, lang_code=None):
+        """
+        Visits a relative path of the website.
+
+        :param path: The relative URL path.
+        :param lang_code: A two letter language code as used in the URL.
+        """
         if lang_code is None:
             lang_code = 'en'
 
@@ -133,6 +146,9 @@ class SeleniumTestCase(LiveServerTestCase):
     def visit_homepage(self, lang_code=None):
         """
         Convenience function to open the homepage.
+
+        :param lang_code: A two letter language code as used in the URL.
+        :return: ``True`` if the homepage could be visited.
         """
         # Open the homepage, in the specified language.
         self.visit_path('', lang_code)
@@ -144,6 +160,12 @@ class SeleniumTestCase(LiveServerTestCase):
         return self.browser.is_element_present_by_id('title', wait_time=10)
 
     def fill_form_by_css(self, form, data):
+        """
+
+        :param form: The form ``WebElement``.
+        :param data: A dict in the form ``{'input css': 'value'}``.
+        """
+
         if not isinstance(data, dict):
             raise RuntimeError('Argument data must be dict.')
 
@@ -152,13 +174,34 @@ class SeleniumTestCase(LiveServerTestCase):
             form.find_by_css(css).first.fill(val)
 
     def fill_form_by_label(self, form, data):
+        """
+        Fills in a form by label.
+
+        NOTE: This function works best if you define all labels and input elements in your data.
+
+        :param form: The form ``WebElement``.
+        :param data: List of tuples in the form ``[('label', 'value'), ...]``. The value can also be a list if multiple
+                     inputs are connected to a single label.
+
+        Example::
+
+            # ...
+            self.fill_form_by_label(
+                self.browser.find_by_tag('form'),
+                [
+                    ('Name', ['John', 'Doe']),
+                    ('Email', 'johndoe@onepercentclub.com'),
+                ]
+            )
+
+        """
         if not isinstance(data, list):
             raise RuntimeError('Argument data must be a list of tuples.')
 
         labels = form.find_by_tag('label')
         inputs = form.find_by_css('input, textarea, select')
 
-        # Fill in the form.
+        # Fill in the form. Keep an offset for if multiple inputs are used.
         offset = 0
         for label_text, values in data:
             if not isinstance(values, list):
