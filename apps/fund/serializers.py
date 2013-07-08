@@ -5,11 +5,10 @@ from rest_framework import serializers
 from .models import Donation, Order, Voucher, CustomVoucherRequest
 
 
+# FIXME: This Serializer only works with the current order: '/fund/orders/current/donations/'.
 class DonationSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
-
-    # FIXME: This field makes the Donation serializer tied to '/fund/orders/current'.
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-donation-detail')
     amount = EuroField()
 
