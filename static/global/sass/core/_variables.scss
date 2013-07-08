@@ -37,7 +37,6 @@ $text-white:                #f4f4f4;
 // Typography
 // --------------------------------
 $font-family:               'Futura Alt', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$font-family-condensed:     'Futura Alt Condensed', 'Trebuchet MS', Helvetica, Arial, sans-serif;
 $alt-font-family:           'Trebuchet MS', Helvetica, Arial, sans-serif;
 
 $font-size:                 14px;
@@ -71,4 +70,4 @@ $padding:                   16px;
 
 // Icons
 // ----------------------------------
-$icons:                     sprite-map("sprites/icons/*.png", $spacing: 20px);
+// $icons:                     sprite-map("sprites/icons/*.png", $spacing: 20px);
