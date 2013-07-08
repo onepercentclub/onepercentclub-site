@@ -127,9 +127,9 @@
 
             <article>
                 <div class="project-meta">
-                    <span class="location"><em class="icon-globe"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
+                    <span class="location"><em class="flaticon solid location-pin-1"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
                     <span class="tags">
-                      <em class="icon-tag"></em>
+                      <em class="flaticon solid tag-1"></em>
                     {%comment%}
                      TODO: add css for comma after tag:
                      http://stackoverflow.com/questions/10403003/how-do-i-add-a-separator-between-elements-in-an-each-loop-except-after-the
@@ -160,7 +160,9 @@
                         </div>
 
                         <p class="donate-days-left">
-                            <strong><em class="icon-time"></em> {{campaign.daysToGo}} </strong>
+
+                            <strong><em class="flaticon solid clock-1"></em> ??</strong>
+
                             <em>{% trans "days to go" %}</em>
                         </p>
                     </div>
@@ -181,7 +183,7 @@
             <ul class="tabs">
                 <li class="tab-updates">
                     {{#linkTo "project.index"}}
-                        <em class="tab-icon amount">{{wallposts.length}}</em>
+                        <span class="tab-icon amount">{{wallposts.length}}</span>
                         <strong class="tab-title">
                             {% trans "Project Updates" %}
 
@@ -199,13 +201,13 @@
                 </li>
                 <li class="tab-tasks">
                     {{#linkTo "projectTaskList"}}
-                        <em class="tab-icon amount"><span class="icon-wrench"></span></em>
+                        <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
                         <strong class="tab-title">Tasks <em class="tab-subtitle">Expertise needed</em></strong>
                     {{/linkTo}}
                 </li>
                 <li class="tab-plan">
                     {{#linkTo "projectPlan"}}
-                        <em class="tab-icon icon-file-alt"></em>
+                        <span class="tab-icon"><em class="flaticon solid document-2"></em></span>
                         <strong class="tab-title">Project Plan <em class="tab-subtitle">Read full plan</em></strong>
                     {{/linkTo}}
                 </li>
