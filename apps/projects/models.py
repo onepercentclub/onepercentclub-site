@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.aggregates import Count, Sum
+from django.db.models.expressions import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
@@ -40,6 +41,37 @@ class ProjectPhases(DjangoChoices):
     failed = ChoiceItem('failed', label=_("Failed"))
 
 
+class ProjectManager(models.Manager):
+
+    def order_by(self, field):
+
+        if field == 'money_asked':
+            qs = self.get_query_set()
+            qs = qs.filter(phase__in=[ProjectPhases.campaign, ProjectPhases.act, ProjectPhases.results, ProjectPhases.realized])
+            qs = qs.order_by('projectcampaign__money_asked')
+            return qs
+
+        if field == 'deadline':
+            qs = self.get_query_set()
+            qs = qs.filter(phase=ProjectPhases.campaign)
+            qs = qs.order_by('projectcampaign__deadline')
+            return qs
+
+        if field == 'money_needed':
+            qs = self.get_query_set()
+            qs = qs.order_by('projectcampaign__money_asked')
+            return qs
+
+        if field == 'donations':
+            qs = self.get_query_set()
+            qs = qs.order_by('popularity')
+            return qs
+
+
+        qs = super(ProjectManager, self).order_by(field)
+        return qs
+
+
 class Project(models.Model):
     """ The base Project model. """
 
@@ -56,10 +88,36 @@ class Project(models.Model):
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
 
+    popularity = models.FloatField(null=True)
+
+    objects = ProjectManager()
+
     def __unicode__(self):
         if self.title:
             return self.title
         return self.slug
+
+    def update_popularity(self):
+        last_month = timezone.now() - timezone.timedelta(days=30)
+        donations = Donation.objects.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+        donations = donations.exclude(donation_type='monthly')
+        donations = donations.filter(created__gte=last_month)
+
+        # For all projects.
+        total_recent_donors = len(donations)
+        total_recent_donations = donations.aggregate(sum=Sum('amount'))['sum']
+        # For this project
+        donations = donations.filter(project=self)
+        recent_donors = len(donations)
+        recent_donations = donations.aggregate(sum=Sum('amount'))['sum']
+
+        if recent_donors and recent_donations:
+            self.popularity = 50 * (float(recent_donors) / float(total_recent_donors)) + 50 * (float(recent_donations) / float(total_recent_donations))
+        else:
+            self.popularity = 0
+        self.save()
+
+
 
     @property
     def supporters_count(self, with_guests=True):
@@ -221,36 +279,26 @@ class ProjectCampaign(models.Model):
     updated = ModificationDateTimeField(_('updated'))
 
     currency = models.CharField(max_length="10", default='EUR')
+
     money_asked = models.PositiveIntegerField(default=0)
+    money_donated = models.PositiveIntegerField(default=0)
 
     @property
     def supporters_count(self, with_guests=True):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
         donations = donations.filter(user__isnull=False)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
             donations = Donation.objects.filter(project=self.project)
-            donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+            donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
             donations = donations.filter(user__isnull=True)
             count += len(donations.all())
         return count
-
-    # This is here to provide a consistent way to get money_donated.
-    @property
-    def money_donated(self):
-        if self.money_asked == 0:
-            return 0
-        donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress, DonationStatuses.pending])
-        total = donations.aggregate(sum=Sum('amount'))
-        if not total['sum']:
-            return 0
-        return total['sum']
 
     @property
     def money_needed(self):
@@ -271,6 +319,15 @@ class ProjectCampaign(models.Model):
             return 0
         return total['sum']
 
+    def update_money_donated(self):
+        donations = Donation.objects.filter(project=self.project)
+        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
+        total = donations.aggregate(sum=Sum('amount'))
+        if not total['sum']:
+            self.money_donated = 0
+        else:
+            self.money_donated = total['sum']
+        self.save()
 
 class ProjectResult(models.Model):
 
@@ -428,12 +485,19 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
 def update_project_after_donation(sender, instance, created, **kwargs):
     project = instance.project
     campaign = project.projectcampaign
+
+    # Don't look at donations that are just created.
+    if instance not in [DonationStatuses.in_progress, DonationStatuses.new]:
+        campaign.update_money_dated()
+        project.update_populatiry()
+
     if campaign.money_asked <= campaign.money_donated:
         project.phase = ProjectPhases.act
         project.save()
     else:
         project.phase = ProjectPhases.campaign
         project.save()
+
 
 
 
