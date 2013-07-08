@@ -8,7 +8,7 @@ App.Order = DS.Model.extend({
     status: DS.attr('string'),
     recurring: DS.attr('boolean'),
     vouchers: DS.hasMany('App.Voucher'),
-    donations: DS.hasMany('App.Donation'),
+    donations: DS.hasMany('App.Donation')
 });
 
 
@@ -49,8 +49,7 @@ App.CurrentOrder = App.Order.extend({
     url: 'fund/orders',
 
     vouchers: DS.hasMany('App.CurrentOrderVoucher'),
-    donations: DS.hasMany('App.CurrentOrderDonation'),
-    payment: DS.belongsTo('App.CurrentOrderPayment')
+    donations: DS.hasMany('App.CurrentOrderDonation')
 });
 
 
