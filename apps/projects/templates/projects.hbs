@@ -116,6 +116,11 @@
 
 {% endtplhandlebars %}
 
+{# TODO: Since this is a view that can be used anywhere in the application, should be moved to someother file. #}
+{% tplhandlebars "social_share" %}
+    <a {{action shareOnFacebook target="view"}}><i class="flaticon social facebook-4"></i></a>
+    <a {{action shareOnTwitter target="view"}}><i class="flaticon social twitter-4"></i></a>
+{% endtplhandlebars %}
 
 {% tplhandlebars "project" %}
 
@@ -127,15 +132,23 @@
             </figure>
 
             <article>
+                <ul class="project-phase">
+                    <li class="item"><i class="flaticon solid checkmark-3"></i> {% trans "pitch" %}</li>
+                    <li {{bindAttr class=":item isPhasePlan:project-phase-is-current" }}>{% trans "plan" %}</li>
+                    <li {{bindAttr class=":item isPhaseCampaign:project-phase-is-current" }}>{% trans "campaign" %}</li>
+                    <li {{bindAttr class=":item isPhaseAct:project-phase-is-current" }}>{% trans "act" %}</li>
+                    <li {{bindAttr class=":item isPhaseResults:project-phase-is-current" }}>{% trans "results" %}</li>
+                </ul>
+
                 <div class="project-meta">
                     <span class="location"><em class="flaticon solid location-pin-1"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
-                    
-                    <em class="flaticon solid tag-1"></em>
-                    <ul class="tags">
+
+                    <span class="tags" data-title="Tags" {{bindAttr data-content="allTags"}}>
+                        <em class="flaticon solid tag-1"></em>
                         {{#each tag in plan.tags}}
-                            <li>{{tag.id}}</li>
+                            {{tag.id}}
                         {{/each}}
-                    </ul>
+                    </span>
                 </div>
 
                 <h1 class="project-title">
@@ -144,40 +157,56 @@
 
                 <p class="project-description">{{plan.pitch}}</p>
 
+                <div class="project-plan">
+                    {{#linkTo "projectPlan"}}
+                        <i class="flaticon solid open-book-4"></i>
+                        {% trans "Read full project plan" %}
+                    {{/linkTo}}
+                </div>
 
-                {{#if isFundable}}
-                    <div class="status-box">
-                        <div class="donate-status">
-                            <p class="donate-amount">
-                                    <span class="donated">&euro;{{localize campaign.money_donated}}</span>
-                                    {% trans "of" %}
-                                    <span class="asked">&euro;{{localize campaign.money_asked}}</span>
-                                    {% trans "raised" %}
-                            </p>
-                            <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
-                        </div>
-
-                        <p class="donate-days-left">
-                            {{#if campaign.deadline}}
-                                <strong><em class="flaticon solid clock-1"></em> {{campaign.daysToGo}} </strong>
-                            {{/if}}
-                            <em>{% trans "days to go" %}</em>
-                        </p>
-                    </div>
-                {{/if}}
-
+                {{view App.SocialShareView classNames="project-share"}}
             </article>
-
-        {{view App.ProjectMembersView}}
-
         </section>
 
+        {{#if isFundable}}
+            <section class="wrapper">
+                <div class="status-box">
+                    <p class="donate-days-left">
+
+                            <strong><i class="icon flaticon solid clock-1"></i> 127 </strong>
+                            <em>{% trans "days to go" %}</em>
+
+                    </p>
+
+                    <div class="donate-status">
+                        <p class="donate-amount">
+                                <span class="donated">&euro;{{localize campaign.money_donated}}</span>
+                                {% trans "of" %}
+                                <span class="asked">&euro;{{localize campaign.money_asked}}</span>
+                                {% trans "raised" %}
+                        </p>
+                        <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
+                    </div>
+
+                    <div class="donate-call-to-action">
+                        {{#linkTo "currentOrder.addDonation" this class="btn btn-primary btn-iconed right"}}
+                            <em class="icon flaticon solid money-1"></em> {% trans "Support this project" %}
+                        {{/linkTo}}
+                    </div>
+                </div>
+            </section>
+        {{/if}}
     </div>
 
-    <nav id="project-actions" class="section">
+    <div class="section">
+        <div class="wrapper">
+            {{view App.ProjectMembersView}}
+        </div>
+    </div>
+
+    <nav id="project-actions" class="">
 
         <div class="wrapper">
-
             <ul class="tabs">
                 <li class="tab-updates">
                     {{#linkTo "project.index"}}
@@ -210,18 +239,7 @@
                     {{/linkTo}}
                 </li>
             </ul>
-
-            <div class="project-action">
-                {{#if isFundable}}
-                    {{#linkTo "currentOrder.addDonation" this class="btn btn-primary btn-iconed right"}}
-                        <em class="icon icon-money"></em> {% trans "Support this project" %}
-                    {{/linkTo}}
-                {{else}}
-                {{/if}}
-            </div>
-
         </div>
-
     </nav>
     {{ outlet }}
 

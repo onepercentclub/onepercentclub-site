@@ -253,9 +253,16 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
 
 
 App.ProjectController = Em.ObjectController.extend({
-    isFundable: function(){
-        return this.get('phase') == 'campaign';
-    }.property('phase')
+    isFundable: Em.computed.equal('phase', 'campaign'),
+
+    allTags: function() {
+        var tags = this.get('plan.tags');
+
+        return tags.reduce(function(previousValue, tag, index) {
+            var separator = (index == 0 ? " " : ", ");
+            return previousValue + separator + tag.id;
+        }, "");
+    }.property('tags.@each')
 
 });
 
@@ -338,10 +345,43 @@ App.ProjectView = Em.View.extend(App.AnimateProgressMixin, {
     templateName: 'project',
 
     didInsertElement: function(){
-
         this._super();
-        this.$('#detail').css('background', 'url("' + this.get('controller.plan.image.background') + '") 50% 50%');
-        this.$('#detail').css('background-size', '100%');
-
+        this.$('.tags').popover({trigger: 'hover', placement: 'top', width: '100px'});
+        /**
+         * Commented out because the new design does not have background image.
+         */
+        // this.$('#detail').css('background', 'url("' + this.get('controller.plan.image.background') + '") 50% 50%');
+        // this.$('#detail').css('background-size', '100%');
     }
 });
+
+/**
+ * Generic view to plug-in social sharing functionality anywhere in the app.
+ * e.g. {{view App.SocialShareView classNames="your-styling-class-name"}}
+ *
+ * Gets the entire current URL to share.
+ * TODO: Move somewhere else suitable.
+ *
+ * @class SocialShareView
+ * @namespace App
+ * @extends Ember.View
+ */
+App.SocialShareView = Em.View.extend({
+    templateName: 'social_share',
+    dialogW: 626,
+    dialogH: 436,
+
+    shareOnFacebook: function() {
+        this.showDialog('https://www.facebook.com/sharer/sharer.php?u=', 'facebook');
+    },
+
+    shareOnTwitter: function() {
+        this.showDialog('https://twitter.com/home?status=', 'twitter');
+    },
+
+    showDialog: function(shareUrl, type) {
+        var currentLink = encodeURIComponent(location.href);
+
+        window.open(shareUrl + currentLink, type + '-share-dialog', 'width=' + this.get('dialogW') + ',height=' + this.get('dialogH'));
+    }
+})
