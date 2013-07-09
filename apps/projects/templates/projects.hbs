@@ -158,9 +158,9 @@
                         </div>
 
                         <p class="donate-days-left">
-
-                            <strong><em class="flaticon solid clock-1"></em> ??</strong>
-
+                            {{#if campaign.deadline}}
+                                <strong><em class="flaticon solid clock-1"></em> {{campaign.daysToGo}} </strong>
+                            {{/if}}
                             <em>{% trans "days to go" %}</em>
                         </p>
                     </div>
