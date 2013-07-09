@@ -1,5 +1,5 @@
 import logging
-from apps.payouts.models import create_sepa_xml, create_upcoming_payouts
+from apps.payouts.models import create_sepa_xml
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.utils import timezone
@@ -13,11 +13,6 @@ from .models import Payout
 
 
 class PayoutAdmin(admin.ModelAdmin):
-
-    def __init__(self, model, admin_site):
-        # FIXME: Make sure this works and re-enable
-        # create_upcoming_payouts()
-        super(PayoutAdmin, self).__init__(model, admin_site)
 
     model = Payout
     can_delete = False

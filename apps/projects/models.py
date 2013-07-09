@@ -274,6 +274,7 @@ class ProjectCampaign(models.Model):
     status = models.CharField(_("status"), max_length=20, choices=CampaignStatuses.choices)
 
     deadline = models.DateTimeField(null=True)
+    payout_date = models.DateTimeField(null=True)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField(_('updated'))
@@ -397,7 +398,9 @@ def progress_project_phase(sender, instance, created, **kwargs):
         instance.projectpitch.status = ProjectPitch.PitchStatuses.new
         instance.projectpitch.save()
 
+
     if instance.phase == ProjectPhases.pitch:
+        #If project is rolled back to Pitch (e.g. from Plan) then adjust Pitch status.
         if instance.projectpitch.status == ProjectPitch.PitchStatuses.approved:
             instance.projectpitch.status = ProjectPitch.PitchStatuses.new
             instance.projectpitch.save()
@@ -448,6 +451,7 @@ def progress_project_phase(sender, instance, created, **kwargs):
         try:
             instance.projectcampaign
         except ProjectCampaign.DoesNotExist:
+            # Set Campaign to running and set the Deadline and MoneyAsked (based on ProjectBudgetLines).
             instance.projectcampaign = ProjectCampaign.objects.create(project=instance)
             instance.projectcampaign.status = ProjectCampaign.CampaignStatuses.running
             instance.projectcampaign.deadline = timezone.now() + timezone.timedelta(days=180)
@@ -465,6 +469,7 @@ def progress_project_phase(sender, instance, created, **kwargs):
 @receiver(post_save, weak=False, sender=ProjectPitch)
 def pitch_status_status_changed(sender, instance, created, **kwargs):
 
+    # If Pitch is approved, move Project to PLan phase.
     if instance.status == ProjectPitch.PitchStatuses.approved:
         if instance.project.phase == ProjectPhases.pitch:
             instance.project.phase = ProjectPhases.plan
@@ -474,6 +479,7 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
 @receiver(post_save, weak=False, sender=ProjectPlan)
 def plan_status_status_changed(sender, instance, created, **kwargs):
 
+    # If plan is approved the move Project to Campaign phase.
     if instance.status == ProjectPlan.PlanStatuses.approved:
         if instance.project.phase == ProjectPhases.plan:
             instance.project.phase = ProjectPhases.campaign
