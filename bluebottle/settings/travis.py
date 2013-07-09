@@ -14,3 +14,5 @@ from .base import *
 #
 # Put the travis-ci environment specific overrides below.
 #
+
+SELENIUM_TESTS = True
