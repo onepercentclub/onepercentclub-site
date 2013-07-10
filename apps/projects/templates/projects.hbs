@@ -104,6 +104,12 @@
                     <em class="icon icon-filter"></em>
                     {{view App.ProjectPhaseSelectView valueBinding="phase" }}
                 </div>
+                <div class="clear-form">
+                    <a {{action clearForm}}>
+                        <span class="flaticon solid x-3"></span>
+                        {% trans "clear filters" %}
+                    </a>
+                </div>
             </article>
         </section>
     </div>

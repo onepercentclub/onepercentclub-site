@@ -208,6 +208,14 @@
             font-weight: 300;
         }
     }
+    .clear-form {
+        @include rem(margin, 8px 24px 0px);
+        float: right;
+        a {
+            color: $grayDark;
+        }
+        text-transform: uppercase;
+    }
 }
 
 .navigation {

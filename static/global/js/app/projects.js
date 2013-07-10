@@ -228,6 +228,12 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
         return (this.get('ordering') == 'deadline');
     }.property('ordering'),
 
+    clearForm: function(sender, key) {
+        this.set('model.text', '');
+        this.set('model.country', null);
+        this.set('model.theme', null);
+        this.set('model.phase', null);
+    },
 
     updateSearch: function(sender, key){
         if (key != 'page') {
@@ -244,7 +250,10 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
                 'text': this.get('text'),
                 'theme': this.get('theme')
             };
-            list.set('model', App.ProjectPreview.find(query));
+            var projects = App.ProjectPreview.find(query);
+            projects.on('didLoad', function(records){
+                list.set('model', projects);
+            });
         }
     }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering')
 

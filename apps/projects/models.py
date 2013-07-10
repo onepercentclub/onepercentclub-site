@@ -88,7 +88,7 @@ class Project(models.Model):
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
 
-    popularity = models.FloatField(null=True)
+    popularity = models.FloatField(null=False, default=0)
 
     objects = ProjectManager()
 
