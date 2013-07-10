@@ -156,6 +156,8 @@ MIDDLEWARE_CLASSES = [
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+
+    'apps.crawlable.middleware.HashbangMiddleware',
 ]
 
 # Browsers will block our pages from loading in an iframe no matter which site
@@ -538,3 +540,11 @@ DEFAULT_FROM_EMAIL = 'website@onepercentclub.com'
 # Django-registration settings
 ACCOUNT_ACTIVATION_DAYS = 4
 HTML_ACTIVATION_EMAIL = True  # Note this setting is from our forked version.
+
+# PhantomJS for flat page generation.
+# NOTE: This has nothing to do with testing against phantomjs.
+CRAWLABLE_PHANTOMJS_DEDICATED_MODE = False
+# If dedicated mode is enabled, configure these settings:
+#CRAWLABLE_PHANTOMJS_DEDICATED_PORT = 8910
+# If dedicated mode is disabled, you can specify arguments to start phantomjs.
+CRAWLABLE_PHANTOMJS_ARGS = []
