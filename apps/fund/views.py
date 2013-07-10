@@ -1,6 +1,7 @@
 import logging
 from apps.cowry import factory
 from apps.cowry import payments
+from apps.cowry.exceptions import PaymentException
 from apps.cowry.permissions import IsOrderCreator
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.serializers import PaymentSerializer
@@ -18,7 +19,7 @@ from rest_framework import generics
 from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
-from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest
+from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest, VoucherStatuses
 from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer,
                           VoucherRedeemSerializer, CustomVoucherRequestSerializer)
 
@@ -56,10 +57,16 @@ class CurrentOrderMixin(object):
             latest_payment = order.latest_payment
         elif latest_payment.status != PaymentStatuses.new:
             if latest_payment.status == PaymentStatuses.in_progress:
-                # FIXME Cancel payment can fail and throw an exception. A new order should not be created in this case.
-                payments.cancel_payment(latest_payment)
-                create_new_payment(latest_payment)
-                latest_payment = order.latest_payment
+                # FIXME: This is not a great way to handle payment cancel failures because they user won't be notified.
+                # FIXME: Move to RESTful API for payment cancel / order.
+                try:
+                    payments.cancel_payment(latest_payment)
+                except(NotImplementedError, PaymentException) as e:
+                    order.status = OrderStatuses.closed
+                    order.save()
+                else:
+                    create_new_payment(latest_payment)
+                    latest_payment = order.latest_payment
             else:
                 # TODO Deal with this error somehow.
                 logger.error("CurrentOrder retrieved when latest payment has status: {0}".format(latest_payment.status))
@@ -370,7 +377,7 @@ class VoucherMixin(object):
             voucher = Voucher.objects.get(code=code.upper())
         except Voucher.DoesNotExist:
             raise exceptions.ParseError(detail=_(u"No gift card with that code"))
-        if voucher.status != Voucher.VoucherStatuses.paid:
+        if voucher.status != VoucherStatuses.paid:
             raise exceptions.PermissionDenied(detail=_(u"Gift card code already used"))
         return voucher
 
@@ -391,7 +398,7 @@ class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
         mail_voucher_redeemed(obj)
         if self.request.user.is_authenticated():
             obj.receiver = self.request.user
-        if obj.status == Voucher.VoucherStatuses.cashed:
+        if obj.status == VoucherStatuses.cashed:
             for donation in obj.donations.all():
                 donation.status = Donation.DonationStatuses.paid
                 donation.save()

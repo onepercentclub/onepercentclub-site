@@ -112,23 +112,22 @@ class Order(models.Model):
         return Voucher.objects.filter(id__in=order_items.values('object_id'))
 
     def __unicode__(self):
-        max_length = 50
         description = "1%CLUB "
         if not self.donations and self.vouchers:
             if len(self.donations) > 1:
-                description += "GIFTCARDS "
+                description += _("GIFTCARDS")
             else:
-                description += "GIFTCARD "
+                description += _("GIFTCARD")
             description += str(self.id)
         elif self.donations and not self.vouchers:
             if len(self.donations) > 1:
-                description += "DONATIONS "
+                description += _("DONATIONS")
             else:
-                description += "DONATION "
+                description += _("DONATION")
         else:
-            description += "DONATIONS & GIFTCARDS "
-        description += str(self.id) + " "
-        return description[:max_length]
+            description += _("DONATIONS & GIFTCARDS")
+        description += " " + str(self.id) + " " + "- " + _("THANK YOU!")
+        return description
 
 
 class OrderItem(models.Model):
@@ -151,14 +150,15 @@ class OrderItem(models.Model):
         return self.content_object.__class__.__name__
 
 
-class Voucher(models.Model):
+class VoucherStatuses(DjangoChoices):
+    new = ChoiceItem('new', label=_("New"))
+    paid = ChoiceItem('paid', label=_("Paid"))
+    cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
+    cashed = ChoiceItem('cashed', label=_("Cashed"))
+    cashed_by_proxy = ChoiceItem('cashed_by_proxy', label=_("Cashed by us"))
 
-    class VoucherStatuses(DjangoChoices):
-        new = ChoiceItem('new', label=_("New"))
-        paid = ChoiceItem('paid', label=_("Paid"))
-        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
-        cashed = ChoiceItem('cashed', label=_("Cashed"))
-        cashed_by_proxy = ChoiceItem('cashed_by_proxy', label=_("Cashed by us"))
+
+class Voucher(models.Model):
 
     class VoucherLanguages(DjangoChoices):
         en = ChoiceItem('en', label=_("English"))
@@ -232,7 +232,7 @@ def process_voucher_order_in_progress(voucher):
         code = generate_voucher_code()
 
     voucher.code = code
-    voucher.status = Voucher.VoucherStatuses.paid
+    voucher.status = VoucherStatuses.paid
     voucher.save()
     mail_new_voucher(voucher)
 
@@ -246,6 +246,7 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     #                   failed
     #                   cancelled
     #                   refunded
+    #                   unknown
 
     # Ignore status changes on payments that don't have an Order. This is needed to run the Cowry unit tests.
     # We could remove this check if we changed the unit tests to only test the full Order and Payment system.
@@ -325,5 +326,5 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
         # Vouchers.
         for voucher in order.vouchers:
-            voucher.status = Voucher.VoucherStatuses.cancelled
+            voucher.status = VoucherStatuses.cancelled
             voucher.save()
