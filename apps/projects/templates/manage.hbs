@@ -650,9 +650,9 @@
                     </a>
                     <br />
                     {{#if image}}
-                        <div>
-                            <img {{bindAttr src="image.large"}} class="preview" />
-                        </div>
+                        <img {{bindAttr src="image.large"}} class="preview" />
+                    {{else}}
+                        <img src="{% get_static_prefix %}images/empty.png" class="preview" />
                     {{/if}}
                 </div>
             </li>
