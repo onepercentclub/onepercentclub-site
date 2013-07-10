@@ -5,7 +5,7 @@ from apps.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, Voucher, VoucherStatuses
+from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses
 from apps.bluebottle_salesforce.models import (SalesforceOrganization, SalesforceContact, SalesforceProject,
                                                SalesforceDonation, SalesforceProjectBudget, SalesforceTask,
                                                SalesforceTaskMembers, SalesforceVoucher)
@@ -433,22 +433,9 @@ def sync_donations(test_run):
         # Unknown - sfdonation.organization = SalesforceOrganization.objects.get(external_id=1)
         sfdonation.project = sfProject
 
-        if donation.status == "new":
-            sfdonation.stage_name = Donation.DonationStatuses.values['new']
-        elif donation.status == "in_progress":
-             sfdonation.stage_name = Donation.DonationStatuses.values['in_progress']
-        elif donation.status == "pending":
-             sfdonation.stage_name = Donation.DonationStatuses.values['pending']
-        elif donation.status == "paid":
-             sfdonation.stage_name = Donation.DonationStatuses.values['paid']
-        elif donation.status == "cancelled":
-             sfdonation.stage_name = Donation.DonationStatuses.values['cancelled']
-
-        # Unknown: There is no "Recurring"?
-        if donation.donation_type == "one_off":
-            sfdonation.opportunity_type = donation.DonationTypes.values['one_off']
-        elif donation.donation_type == "monthly":
-            sfdonation.opportunity_type = donation.DonationTypes.values['monthly']
+        sfdonation.stage_name = DonationStatuses.values[donation.status]
+        # TODO: Should we use "Recurring" instead of Monthly?
+        sfdonation.opportunity_type = donation.DonationTypes.values[donation.donation_type]
 
         # SF Layout: Additional Information section.
 
@@ -507,16 +494,7 @@ def sync_vouchers(test_run):
         # sfvoucher.name exist in production: "NOT YET USED 1%VOUCHER" when stage_name is "In progress"
         # sfvoucher.stage_name exists as state: "In progress", however this has been shifted to Donation?
 
-        if voucher.status == "new":
-            sfvoucher.stage_name = VoucherStatuses.values['new']
-        elif voucher.status == "paid":
-            sfvoucher.stage_name = VoucherStatuses.values['paid']
-        elif voucher.status == "cancelled":
-            sfvoucher.stage_name = VoucherStatuses.values['cancelled']
-        elif voucher.status == "cashed":
-            sfvoucher.stage_name = "Closed"
-        elif voucher.status == "cashed_by_proxy":
-            sfvoucher.stage_name = "ChargedBack"
+        sfvoucher.stage_name = VoucherStatuses.values[voucher.status]
 
         sfvoucher.purchaser = sfContactPurchaser
         sfvoucher.opportunity_type = ""
