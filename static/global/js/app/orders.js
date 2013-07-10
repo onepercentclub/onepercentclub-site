@@ -148,7 +148,7 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
     },
 
     neededAfterDonation: function() {
-        return this.get('project.campaign.money_needed') - this.get('amount');
+        return Math.max(0, this.get('project.campaign.money_needed') - this.get('amount'));
     }.property('amount', 'project.campaign.money_needed')
 });
 
