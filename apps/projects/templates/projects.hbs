@@ -7,25 +7,47 @@
     <li class="item item-project">
         <a {{action showProject project.id href=true}}>
             <div class="header">
-                <div {{bindAttr class=":label phase"}}></div>
                 <img {{bindAttr src="project.image" }} />
-                <h3>
-                    {{project.title}}
-                </h3>
+                <h3>{{project.title}}</h3>
             </div>
         </a>
-        <div class="status">
+        <div {{bindAttr class=":status phase"}}>
             {{#if project.isPhaseCampaign}}
                 <div class="donate-status">
-                    <p class="donate-amount">
-                        <span class="donated">&euro;{{localize project.campaign.money_donated}}</span>
-                        {% trans "of" %}
-                        <span class="asked">&euro;{{localize project.campaign.money_asked}}</span>
-                        {% trans "raised" %}
-                    </p>
                     <span class="donate-slider"><strong style="width: 0;" class="donate-progress">&nbsp;</strong></span>
+                    <p class="donate-amount">
+                        <span class="donated">&euro;{{localize project.campaign.money_needed}}</span>
+                        {% trans "TO GO" %}
+                    </p>
+
+                    {{#if project.campaign.deadline }}
+                        <p class="donate-days-left">
+                            <strong><i class="flaticon solid clock-1"></i> {{ project.campaign.daysToGo }}</strong>
+                            <em>{% trans "days" %}</em>
+                        </p>
+                    {{/if}}
                 </div>
-                {{ project.campaign.daysToGo }} {% trans "days left" %}
+            {{/if}}
+
+            {{#if project.isPhaseResults}}
+                <div class="donate-status">
+                    <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
+                    <p class="donate-amount text-center">
+                        <em>{% trans "Fully funded" %}</em>
+                        &amp; {% trans "being realized" %}
+                    </p>
+                </div>
+            {{/if}}
+
+            {{#if project.isPhaseRealized}}
+                <div class="donate-status">
+                    <p class="donate-amount">
+                        {% trans "Project realized" %}
+                    </p>
+
+                    {# FIXME: Should be a link to route for project's results #}
+                    <a href="#">{% trans "See project results" %}</a>
+                </div>
             {{/if}}
         </div>
     </li>
@@ -63,7 +85,6 @@
 
 {% tplhandlebars "project_search_form" %}
 
-
     <div class="container section">
         <section class="wrapper">
             <article class="search-form">
@@ -80,7 +101,7 @@
                     {{view App.ThemeSelectView valueBinding="theme" placeholder="Text search" }}
                 </div>
                 <div class="control">
-                    <em class="icon icon-cog"></em>
+                    <em class="icon icon-filter"></em>
                     {{view App.ProjectPhaseSelectView valueBinding="phase" }}
                 </div>
             </article>
@@ -91,22 +112,26 @@
         <section class="wrapper">
             <article class="navigation">
                 {{#if hasPreviousPage}}
-                    <a {{action "previousPage"}} class="previous-page button-link">
-                        <em class="icon-chevron-left"></em> {% trans "Previous page" %}
+                    <a {{action "previousPage"}} class="previous-page left button-link">
+                        <i class="flaticon solid left-circle-2"></i>
                     </a>
                 {{/if}}
                 {{#if hasNextPage}}
-                    <a {{action "nextPage"}} class="next-page button-link">
-                        {% trans "Next page" %} <em class="icon-chevron-right"></em>
+                    <a {{action "nextPage"}} class="next-page right button-link">
+                        <i class="flaticon solid right-circle-2"></i>
                     </a>
                 {{/if}}
                 <div class="ordering button-lin">
                     {% trans "Sort:" %}
-                    <a {{action sortOrder 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Popularity" %}</a>
-                    <a {{action sortOrder 'title'}} {{bindAttr class="orderedByTitle:active"}}>{% trans "Title" %}</a>
+                    <a {{action sortOrder 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
+                    {% comment %}
+                        Disabled because the currently approved design does not include sorting by title.
+                        Current design: https://www.dropbox.com/s/n34ndim6cdbm7vz/Project-Search-V2.png
+                        <a {{action sortOrder 'title'}} {{bindAttr class="orderedByTitle:active"}}>{% trans "Title" %}</a>
+                    {% endcomment %}
                     <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
-                    <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
                     <a {{action sortOrder 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a>
+                    <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
                 </div>
 
 
