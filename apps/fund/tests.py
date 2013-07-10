@@ -470,9 +470,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         self.assertTrue(response.data['available_payment_methods'])
         first_payment_method = response.data['available_payment_methods'][0]
 
+        # Updating the payment method with a valid value should provide a payment_url.
         if set_payment_method:
-            # Updating the payment method with a valid value should provide a payment_url.
             response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
+            self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
             self.assertTrue(response.data['payment_url'].startswith('http'))
 
         # Now let's make sure the donations in this order change to pending.
