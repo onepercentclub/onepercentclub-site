@@ -1,6 +1,7 @@
 import logging
 from apps.cowry import factory
 from apps.cowry import payments
+from apps.cowry.exceptions import PaymentException
 from apps.cowry.permissions import IsOrderCreator
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.serializers import PaymentSerializer
@@ -56,10 +57,16 @@ class CurrentOrderMixin(object):
             latest_payment = order.latest_payment
         elif latest_payment.status != PaymentStatuses.new:
             if latest_payment.status == PaymentStatuses.in_progress:
-                # FIXME Cancel payment can fail and throw an exception. A new order should not be created in this case.
-                payments.cancel_payment(latest_payment)
-                create_new_payment(latest_payment)
-                latest_payment = order.latest_payment
+                # FIXME: This is not a great way to handle payment cancel failures because they user won't be notified.
+                # FIXME: Move to RESTful API for payment cancel / order.
+                try:
+                    payments.cancel_payment(latest_payment)
+                except(NotImplementedError, PaymentException) as e:
+                    order.status = OrderStatuses.closed
+                    order.save()
+                else:
+                    create_new_payment(latest_payment)
+                    latest_payment = order.latest_payment
             else:
                 # TODO Deal with this error somehow.
                 logger.error("CurrentOrder retrieved when latest payment has status: {0}".format(latest_payment.status))
