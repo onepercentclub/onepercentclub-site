@@ -228,6 +228,12 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
         return (this.get('ordering') == 'deadline');
     }.property('ordering'),
 
+    clearForm: function(sender, key) {
+        this.set('model.text', '');
+        this.set('model.country', null);
+        this.set('model.theme', null);
+        this.set('model.phase', null);
+    },
 
     updateSearch: function(sender, key){
         if (key != 'page') {
