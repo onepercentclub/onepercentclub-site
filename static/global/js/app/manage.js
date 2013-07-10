@@ -525,13 +525,11 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
         }
     },
     createNewOrganization: function() {
-        // Use the same transaction as the projectplan
-        //var transaction =  this.get('model').transaction;
+        var controller = this;
         var transaction = this.get('store').transaction();
-        var org = transaction.createRecord(App.MyOrganization, {name: ' '});
+        var org = transaction.createRecord(App.MyOrganization, {name: controller.get('model.title')});
         this.set('model.organization', org);
         transaction.commit();
-        this.addAddress();
     }
 });
 

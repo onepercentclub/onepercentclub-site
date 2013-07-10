@@ -21,7 +21,7 @@ class OrganizationTestsMixin(object):
                  slug = generate_random_slug()
 
         organization = Organization(slug=slug)
-
+        organization.save()
         return organization
 
 

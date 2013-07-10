@@ -395,7 +395,7 @@ App.Adapter.map('App.MyProjectPitch', {
     tags: {embedded: 'always'}
 });
 App.Adapter.map('App.MyOrganization', {
-    addresses: {embedded: 'load'},
+    addresses: {embedded: 'both'},
     documents: {embedded: 'load'}
 });
 App.Adapter.map('App.MyOrganizationDocument', {
