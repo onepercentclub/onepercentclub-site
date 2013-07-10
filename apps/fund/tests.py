@@ -15,53 +15,6 @@ from rest_framework import status
 from .models import Donation, Order, OrderStatuses, DonationStatuses
 
 
-class CalculateMoneyDonatedTest(ProjectTestsMixin, TestCase):
-
-    def setUp(self):
-        self.some_project = self.create_project(money_asked=500000)
-        self.another_project = self.create_project(money_asked=500000)
-
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
-
-    def test_donated_amount(self):
-        # Some project have money_asked of 5000000 (cents that is)
-        self.assertEqual(self.some_project.projectcampaign.money_asked, 500000)
-
-        # A project without donations should have money_donated of 0
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
-
-        # Create a new donation of 15 in status 'new'. project money donated should be 0
-        some_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
-                                              status=DonationStatuses.new)
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
-
-        # Create a new donation of 25 in status 'in_progress'. project money donated should be 25
-        another_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=2500,
-                                                 status=DonationStatuses.pending)
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 2500)
-
-        # If we now set the first donation to status 'paid' money donated should be 40
-        some_donation.status = DonationStatuses.paid
-        some_donation.save()
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 4000)
-
-    def _create_donation(self, user=None, amount=None, project=None, status=DonationStatuses.new):
-        """ Helper method for creating donations."""
-        if not project:
-            project = self.create_project()
-            project.save()
-
-        if not user:
-            user = self.create_user()
-
-        if not amount:
-            amount = Decimal('10.00')
-
-        donation = Donation(user=user, amount=amount, status=status, project=project)
-        donation.save()
-
-        return donation
 
 
 # Integration tests for API
