@@ -23,7 +23,7 @@ class OrderAdmin(admin.ModelAdmin):
     model = Order
     list_filter = ('status', 'user')
     list_display = ('created', 'total', 'status')
-    inlines = [OrderItemInline, ]
+    inlines = (OrderItemInline,)
 
 
 admin.site.register(Order, OrderAdmin)
@@ -31,7 +31,7 @@ admin.site.register(Order, OrderAdmin)
 
 class VoucherAdmin(admin.ModelAdmin):
     model = Voucher
-    list_filter = ('status', )
+    list_filter = ('status',)
     list_display = ('created', 'amount_euro', 'status', 'sender_email', 'receiver_email')
     readonly_fields = ('sender', 'receiver', 'donations')
     fields = readonly_fields + ('status', 'amount', 'currency', 'code', 'sender_email', 'receiver_email',

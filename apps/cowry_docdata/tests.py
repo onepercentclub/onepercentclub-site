@@ -44,8 +44,8 @@ class DocDataPaymentTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Test the status changed notification.
-        response = self.client.get('/i18n/api/ddscn/?mor={0}'.format(payment.merchant_order_reference))
-        self.assertTrue(response.status_code, status.HTTP_200_OK)
+        response = self.client.get('/i18n/api/docdatastatuschanged/?order={0}'.format(payment.merchant_order_reference))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_payment_method_restrictions(self):
         # Test country restrictions.

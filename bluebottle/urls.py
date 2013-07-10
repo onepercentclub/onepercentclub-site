@@ -63,7 +63,7 @@ urlpatterns += patterns('',
     url(r'^i18n/api/stats', include('apps.statistics.urlsapi')),
 
     # API for DocData Status Changed Notifications.
-    url(r'^i18n/api/ddscn/', include('apps.cowry_docdata.urlsapi')),
+    url(r'^i18n/api/docdatastatuschanged/', include('apps.cowry_docdata.urlsapi')),
 
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
