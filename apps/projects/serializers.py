@@ -124,14 +124,15 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
     image = SorlImageField('projectplan.image', '247x180', crop='center')
     background_image = SorlImageField('projectplan.image', '600x4000', crop='center')
+    country = ProjectCountrySerializer(source='projectplan.country')
 
     #plan = ProjectPlanSerializer(source='projectplan')
     campaign = ProjectCampaignSerializer(source='projectcampaign')
-
+    task_count = serializers.IntegerField(source='task_count')
 
     class Meta:
         model = Project
-        fields = ('id', 'title', 'image', 'phase', 'campaign', 'popularity')
+        fields = ('id', 'title', 'image', 'phase', 'campaign', 'popularity', 'country', 'task_count')
 
 
 class DonationPreviewSerializer(serializers.ModelSerializer):

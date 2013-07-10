@@ -117,8 +117,6 @@ class Project(models.Model):
             self.popularity = 0
         self.save()
 
-
-
     @property
     def supporters_count(self, with_guests=True):
         # TODO: Replace this with a proper Supporters API
@@ -135,6 +133,10 @@ class Project(models.Model):
             donations = donations.filter(user__isnull=True)
             count = count + len(donations.all())
         return count
+
+    @property
+    def task_count(self):
+        return len(self.task_set.all())
 
     @models.permalink
     def get_absolute_url(self):
