@@ -1,5 +1,6 @@
 from decimal import Decimal
 from datetime import timedelta
+from apps.fund.models import DonationStatuses, Donation
 from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectBudgetLine
 from django.core.exceptions import ValidationError
 from django.test import TestCase, RequestFactory
@@ -523,3 +524,56 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 4)
 
+
+class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
+
+    def setUp(self):
+        self.some_project = self.create_project(money_asked=500000)
+        self.another_project = self.create_project(money_asked=500000)
+
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+
+    def test_donated_amount(self):
+        # Some project have money_asked of 5000000 (cents that is)
+        self.assertEqual(self.some_project.projectcampaign.money_asked, 500000)
+
+        # A project without donations should have money_donated of 0
+        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
+
+        # Create a new donation of 15 in status 'new'. project money donated should be 0
+        first_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
+                                              status=DonationStatuses.new)
+        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
+
+        # Create a new donation of 25 in status 'in_progress'. project money donated should be 0.
+        second_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=2500,
+                                                 status=DonationStatuses.in_progress)
+        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
+
+        # Setting the first donation to status 'paid' money donated should be 1500
+        first_donation.status = DonationStatuses.paid
+        first_donation.save()
+        self.assertEqual(self.some_project.projectcampaign.money_donated, 1500)
+
+        # Setting the second donation to status 'pending' money donated should be 40
+        second_donation.status = DonationStatuses.pending
+        second_donation.save()
+        self.assertEqual(self.some_project.projectcampaign.money_donated, 4000)
+
+    def _create_donation(self, user=None, amount=None, project=None, status=DonationStatuses.new):
+        """ Helper method for creating donations."""
+        if not project:
+            project = self.create_project()
+            project.save()
+
+        if not user:
+            user = self.create_user()
+
+        if not amount:
+            amount = Decimal('10.00')
+
+        donation = Donation(user=user, amount=amount, status=status, project=project)
+        donation.save()
+
+        return donation
