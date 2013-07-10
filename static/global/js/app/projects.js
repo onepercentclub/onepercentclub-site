@@ -250,7 +250,10 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
                 'text': this.get('text'),
                 'theme': this.get('theme')
             };
-            list.set('model', App.ProjectPreview.find(query));
+            var projects = App.ProjectPreview.find(query);
+            projects.on('didLoad', function(records){
+                list.set('model', projects);
+            });
         }
     }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering')
 
