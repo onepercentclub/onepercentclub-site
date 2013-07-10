@@ -5,7 +5,7 @@ from apps.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, Voucher
+from apps.fund.models import Donation, Voucher, VoucherStatuses
 from apps.bluebottle_salesforce.models import (SalesforceOrganization, SalesforceContact, SalesforceProject,
                                                SalesforceDonation, SalesforceProjectBudget, SalesforceTask,
                                                SalesforceTaskMembers, SalesforceVoucher)
@@ -508,11 +508,11 @@ def sync_vouchers(test_run):
         # sfvoucher.stage_name exists as state: "In progress", however this has been shifted to Donation?
 
         if voucher.status == "new":
-            sfvoucher.stage_name = Voucher.VoucherStatuses.values['new']
+            sfvoucher.stage_name = VoucherStatuses.values['new']
         elif voucher.status == "paid":
-            sfvoucher.stage_name = Voucher.VoucherStatuses.values['paid']
+            sfvoucher.stage_name = VoucherStatuses.values['paid']
         elif voucher.status == "cancelled":
-            sfvoucher.stage_name = Voucher.VoucherStatuses.values['cancelled']
+            sfvoucher.stage_name = VoucherStatuses.values['cancelled']
         elif voucher.status == "cashed":
             sfvoucher.stage_name = "Closed"
         elif voucher.status == "cashed_by_proxy":

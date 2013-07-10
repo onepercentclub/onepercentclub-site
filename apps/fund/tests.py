@@ -227,48 +227,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         """
         Integration tests for the PaymentProfile and Payment APIs.
         """
-        # FIXME: Use self._make_api_donation() when the order flow is fixed.
-        # Make sure we have a current order.
-        self.client.login(username=self.some_user.email, password='password')
-        response = self.client.get(self.current_order_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['status'], 'current')
-
-        # Create a Donation for the current order.
-        donation_amount = 35
-        formatted_donation_amount = self._format_donation(donation_amount)
-        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': 35})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
-        self.assertEqual(response.data['amount'], formatted_donation_amount)
-        self.assertEqual(response.data['project'], self.some_project.slug)
-        self.assertEqual(response.data['status'], 'new')
-
-        # Now retrieve the current order payment profile.
-        response = self.client.get(self.payment_profile_current_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-
-        # Update the current order payment profile with our information.
-        response = self.client.put(self.payment_profile_current_url, json.dumps(self.some_profile), 'application/json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['first_name'], self.some_profile['first_name'])
-        self.assertEqual(response.data['last_name'], self.some_profile['last_name'])
-        self.assertEqual(response.data['email'], self.some_profile['email'])
-        self.assertEqual(response.data['address'], self.some_profile['address'])
-        self.assertEqual(response.data['postal_code'], self.some_profile['postal_code'])
-        self.assertEqual(response.data['city'], self.some_profile['city'])
-        self.assertEqual(response.data['country'], self.some_profile['country'])
-
-        # Now it's time to pay. Get the order so that we can get the payment.
-        response = self.client.get(self.current_order_url)
-        self.assertEqual(response.data['total'], formatted_donation_amount)
-        self.assertTrue(response.data['payments'][0])
-
-        # Get the payment.
+        # Setup.
+        self._make_api_donation(self.some_user, amount=35, set_payment_method=False)
         payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
         response = self.client.get(payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertFalse(response.data['payment_url'])  # Empty payment_url.
-        self.assertTrue(response.data['available_payment_methods'])
         first_payment_method = response.data['available_payment_methods'][0]
 
         # Updating the payment method with a value not in the available list should fail.
@@ -285,7 +248,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         order = Order.objects.get(user=self.some_user)
         adapter = _adapter_for_payment_method(order.latest_payment.payment_method_id)
         adapter._change_status(order.latest_payment, PaymentStatuses.pending)
-        order = Order.objects.filter(user=self.some_user).get()
+        order = Order.objects.get(id=order.id)
         self.assertEqual(order.status, OrderStatuses.closed)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
@@ -413,17 +376,87 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         response = secondClient.get(anonymous_order_url_1)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
+    @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
+    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
+    def test_order_closed_api(self):
+        # Setup.
+        order_id = self._make_api_donation(self.some_user, project=self.some_project, amount=10)
+        # Emulate a status change from DocData. Note we need to use an internal API from COWRY for this but it's hard
+        # to avoid because we can't automatically make a DocData payment.
+        order = Order.objects.get(id=order_id)
+        adapter = _adapter_for_payment_method(order.latest_payment.payment_method_id)
+        adapter._change_status(order.latest_payment, PaymentStatuses.pending)
+        order = Order.objects.get(id=order.id)
+        self.assertEqual(order.status, OrderStatuses.closed)
+
+        # Editing the recurring status of a closed order should not be allow.
+        order_detail_url = '{0}{1}'.format(self.order_url_base, order_id)
+        response = self.client.put(order_detail_url, json.dumps({'recurring': True}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # Listing a closed order should be allowed.
+        order_donation_list_url = '{0}{1}'.format(order_detail_url, '/donations/')
+        response = self.client.get(order_donation_list_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 1)
+
+        # Editing a donation with order closed should not be allowed.
+        donation_detail_url = '{0}{1}'.format(order_donation_list_url, response.data['results'][0]['id'])
+        response = self.client.put(donation_detail_url, json.dumps({'project': self.some_project.slug, 'amount': 5}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
+        # Adding a donation to a closed order should not be allowed.
+        response = self.client.post(order_donation_list_url, {'project': self.some_project.slug, 'amount': 10})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
+    @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
+    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
+    def test_payment_flow_with_payment_cancel(self):
+
+        # Setup.
+        first_donation_amount = 20
+        second_donation_amount = 10
+        order_id = self._make_api_donation(self.some_user, amount=first_donation_amount)
+        order = Order.objects.get(id=order_id)
+        first_payment = order.latest_payment
+        self.assertEqual(first_payment.status, PaymentStatuses.in_progress)
+        self.assertEqual(first_payment.amount, order.total)
+
+        # Get the 'current' Order again. This should cancel the 'current' payment.
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        second_payment = order.latest_payment
+        self.assertNotEqual(first_payment.id, second_payment.id)  # Ensure we have a new payment.
+        self.assertEqual(second_payment.status, PaymentStatuses.new)  # Ensure the payment is in status new.
+
+        # Adding a donation to the order should update the payment.
+        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': second_donation_amount})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        # order = Order.objects.get(id=order_id)
+        new_order_total = (first_donation_amount + second_donation_amount) * 100
+        self.assertEqual(order.total, new_order_total)
+
+        # Update the payment.
+        payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
+        response = self.client.get(payment_url)
+        self.assertFalse(response.data['payment_url'])  # Empty payment_url.
+        self.assertTrue(response.data['available_payment_methods'])
+
+        # Check the the payment total is correct.
+        self.assertEqual(order.latest_payment.id, second_payment.id)  # Ensure we don't have a new payment.
+        self.assertEqual(order.latest_payment.amount, new_order_total)
+
     def _format_donation(self, amount):
         """ Helper method to format donations as they are formatted in the API. """
         return '{0}.{1}'.format(str(amount*100)[:-2], str(amount*100)[-2:])
 
-    def _make_api_donation(self, user, project=None, amount=20, payment_profile=None, client=None):
+    def _make_api_donation(self, user, project=None, amount=20, payment_profile=None, client=None, set_payment_method=True):
         """
         Helper method for making a donation with the api. This creates a donation and tests the full order cycle
         until the URL is generated.
         """
         if not project:
-            project = self.create_project()
+            project = self.some_project
 
         if not payment_profile:
             payment_profile = self.some_profile
@@ -475,8 +508,10 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         first_payment_method = response.data['available_payment_methods'][0]
 
         # Updating the payment method with a valid value should provide a payment_url.
-        response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
-        self.assertTrue(response.data['payment_url'].startswith('http'))
+        if set_payment_method:
+            response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
+            self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+            self.assertTrue(response.data['payment_url'].startswith('http'))
 
         # Now let's make sure the donations in this order change to pending.
         order = Order.objects.get(pk=order_id)

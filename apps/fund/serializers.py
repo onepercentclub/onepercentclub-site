@@ -1,5 +1,7 @@
 # coding=utf-8
 from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
+from apps.fund.models import OrderStatuses, DonationStatuses, VoucherStatuses
+from apps.projects.models import ProjectPhases
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, Order, Voucher, CustomVoucherRequest
@@ -12,11 +14,21 @@ class DonationSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-donation-detail')
     amount = EuroField()
 
+    def validate(self, attrs):
+        if self.object and self.object.status != DonationStatuses.new and attrs is not None:
+                raise serializers.ValidationError(_("You cannot modify a Donation that does not have status new."))
+        return attrs
+
     def validate_amount(self, attrs, source):
-        """ Check the amount. """
         value = attrs[source]
         if value < 500:
             raise serializers.ValidationError(_(u"Donations must be at least €5."))
+        return attrs
+
+    def validate_project(self, attrs, source):
+        value = attrs[source]
+        if value.phase != ProjectPhases.campaign:
+            raise serializers.ValidationError(_(u"You can only donate a project in the campaign phase."))
         return attrs
 
     def save(self, **kwargs):
@@ -35,6 +47,11 @@ class VoucherSerializer(serializers.ModelSerializer):
     """
     amount = EuroField()
     status = serializers.Field()
+
+    def validate(self, attrs):
+        if self.object and self.object.status != VoucherStatuses.new and attrs is not None:
+                raise serializers.ValidationError(_("You cannot modify a Gift Card that does not have status new."))
+        return attrs
 
     def validate_amount(self, attrs, source):
         """ Check the amount. """
@@ -61,6 +78,11 @@ class OrderSerializer(serializers.ModelSerializer):
     donations = DonationSerializer(source='donations', many=True, read_only=True)
     vouchers = VoucherSerializer(source='vouchers', many=True, read_only=True)
     payments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    def validate(self, attrs):
+        if self.object.status == OrderStatuses.closed and attrs is not None:
+            raise serializers.ValidationError(_("You cannot modify a closed Order."))
+        return attrs
 
     class Meta:
         model = Order
