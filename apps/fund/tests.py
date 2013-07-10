@@ -409,6 +409,43 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         response = self.client.post(order_donation_list_url, {'project': self.some_project.slug, 'amount': 10})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
+    @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
+    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
+    def test_payment_flow_with_payment_cancel(self):
+
+        # Setup.
+        first_donation_amount = 20
+        second_donation_amount = 10
+        order_id = self._make_api_donation(self.some_user, amount=first_donation_amount)
+        order = Order.objects.get(id=order_id)
+        first_payment = order.latest_payment
+        self.assertEqual(first_payment.status, PaymentStatuses.in_progress)
+        self.assertEqual(first_payment.amount, order.total)
+
+        # Get the 'current' Order again. This should cancel the 'current' payment.
+        response = self.client.get(self.current_order_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        second_payment = order.latest_payment
+        self.assertNotEqual(first_payment.id, second_payment.id)  # Ensure we have a new payment.
+        self.assertEqual(second_payment.status, PaymentStatuses.new)  # Ensure the payment is in status new.
+
+        # Adding a donation to the order should update the payment.
+        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': second_donation_amount})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        # order = Order.objects.get(id=order_id)
+        new_order_total = (first_donation_amount + second_donation_amount) * 100
+        self.assertEqual(order.total, new_order_total)
+
+        # Update the payment.
+        payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
+        response = self.client.get(payment_url)
+        self.assertFalse(response.data['payment_url'])  # Empty payment_url.
+        self.assertTrue(response.data['available_payment_methods'])
+
+        # Check the the payment total is correct.
+        self.assertEqual(order.latest_payment.id, second_payment.id)  # Ensure we don't have a new payment.
+        self.assertEqual(order.latest_payment.amount, new_order_total)
+
     def _format_donation(self, amount):
         """ Helper method to format donations as they are formatted in the API. """
         return '{0}.{1}'.format(str(amount*100)[:-2], str(amount*100)[-2:])
@@ -419,7 +456,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         until the URL is generated.
         """
         if not project:
-            project = self.create_project(money_asked=500000)
+            project = self.some_project
 
         if not payment_profile:
             payment_profile = self.some_profile
