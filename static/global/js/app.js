@@ -665,12 +665,6 @@ App.ApplicationRoute = Em.Route.extend({
  * Project Routes
  */
 
-App.ProjectListRoute = Em.Route.extend({
-    model: function() {
-        return App.ProjectPreview.find({phase: 'campaign'});
-    }
-});
-
 
 App.ProjectRoute = Em.Route.extend({
     model: function(params) {
