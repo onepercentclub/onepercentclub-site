@@ -1,5 +1,5 @@
 #detail {
-  
+    background-color: #222222;
     position: relative;
     @include rem(padding, 32px 0 0 0);
 
@@ -26,10 +26,10 @@
     }
     
     article {
-      @include grid(24, 1);
+      @include grid(24, 2, 1);
       color: $text-white;
-      @include rem(padding, 16px 32px);
       @include rem(font-size, 16px);
+      @include rem(padding, 0);
       
       .project-title {
           @include rem(font-size, 28px);
@@ -40,6 +40,50 @@
     
     sidebar {
         margin-bottom: $margin;
+    }
+}
+
+.project-plan {
+    @include grid(24);
+}
+
+.project-share {
+    @include grid(24);
+    text-align: right;
+    a {
+        color: $gray;
+        text-decoration: none;
+    }
+}
+
+.project-phase {
+    @include clearfix;
+    @include rem(padding-bottom, $padding/2);
+    border-bottom: 1px solid $grayDarker;
+    list-style: none;
+    margin: 0;
+
+    .item {
+        @include grid(10);
+        @include rem(font-size, 12px);
+        @include rem(line-height, 24px);
+        color: $gray;
+        text-transform: uppercase;
+        text-align: center;
+
+        &:first-of-type {
+            text-align: left;
+            width: auto;
+        }
+
+        i {
+            @include rem(font-size, 10px);
+        }
+    }
+
+    .project-phase-is-current {
+        background: $gray;
+        color: $grayDarker;
     }
 }
 
@@ -58,38 +102,31 @@
     
     .tags {
         display: block;
-        float: left;
         width: auto;
-        
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        
- 
-        vertical-align: middle;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-            
-        
-        li {
+
+        color: $green;
+
+        ul {
+            vertical-align: middle;
+            margin: 0;
+            padding: 0;
             display: inline;
-            text-transform: capitalize;
-            
-            &.out-of-range {
-              display: none;
+            list-style: none;
+
+            li {
+                color: $green;
+                display: inline;
+                text-transform: capitalize;
+
+                &.out-of-range {
+                  display: none;
+                }
             }
         }
-        
-        
-        li:after {
-		    content: ',';
-		}
-		
-		li:last-child:after {
-		    content:'' !important;
-		}
-     
     }
 }
 

@@ -1,29 +1,45 @@
 /* =========== Donate box */
 
 .status-box {
-    
-    border-top: 1px solid $text-black;
-    //background-color: $white;
     @include clearfix;
-    @include rem(padding-top, 16px);
+    @include rem(padding, $padding 0);
     color: $text-white;
 }
 
-/* ========================= Responsive ================================== */
+/* =========== Number of supports / Days left */
+.donate-days-left {
+	@include grid(10, 1, 0);
+	color: $text-grey;
+    text-align: center;
+    margin-top: 8px;
 
+	.icon {
+	    @include rem(font-size, 24px);
+        color: $grayLight;
+	}
 
+	strong {
+	    @include rem(font-size, 28px);
+	    color: $text-white;
+	    font-weight: 300;
+	    padding: 0;
+	    line-height: 0.8em;
+	}
 
-/* ======================================================================= */
+	em {
+	    @include rem(font-size, 12px);
+	    text-transform: uppercase;
+	    font-style: normal;
+	}
+}
+
+.donate-call-to-action {
+    @include grid(18, 0, 1);
+}
 
 .donate-status {
-    width: 60%;
-    float: right;
-    clear: both;
-    
-    
+    @include grid(20, 2);
     position: relative;
-    
-    
     color: $text-grey;
     
     .donate-amount {
@@ -87,40 +103,6 @@
             */
         }
     }
-}
-
-
-
-/* =========== Number of supports / Days left */
-
-
-.donate-days-left {
-	float: left;
-	margin: 0;
-	width: 30%;
-	text-align: right;
-	text-align: center;
-	
-	color: $text-grey;
-	
-	.icon-time {
-	    @include rem(font-size, 24px);
-	}
-
-	strong {
-	    @include rem(font-size, 28px);
-	    color: $text-white;
-	    display: block;
-	    font-weight: 300;
-	    padding: 0;
-	    line-height: 0.8em;
-	}
-	
-	em {
-	    @include rem(font-size, 12px);
-	    text-transform: uppercase;
-	    font-style: normal;
-	}
 }
 
 /*

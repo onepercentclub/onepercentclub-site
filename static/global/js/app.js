@@ -1184,47 +1184,31 @@ App.UserSettingsRoute = Em.Route.extend({
 
 
 App.UserActivateRoute = Em.Route.extend({
-    reloadRecord: function(record) {
-        // Put the record in the load.saved state if it's in the error state.
-        if (record.get('isError')) {
-            record.get('stateManager').transitionTo('loaded.saved');
-        }
-        record.reload();
-    },
-
     model: function(params) {
         var route = this;
 
         $.ajax({
-            type: "GET",
             url: "/i18n/api/users/activate/" + params.activation_key,
             success: function() {
                 var currentUser = App.CurrentUser.find('current');
-
+                currentUser.get('stateManager').goToState('loaded');
                 currentUser.one('didReload', function() {
                     // Set a welcome message for the user.
-                    var applicationController = route.controllerFor('application');
-                    var displayName = currentUser.get('first_name') ? currentUser.get('first_name') : currentUser.get('username');
+                    var displayName    = currentUser.get('first_name') ? currentUser.get('first_name') : currentUser.get('username');
                     var messageTitle   = "Hello " + displayName;
                     var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
-                    applicationController.set('message_title', messageTitle);
-                    applicationController.set('message_content', messageContent);
-                    applicationController.set('display_message', true);
+
+                    route.controllerFor('application').setProperties({
+                        display_message: true,
+                        message_title: messageTitle,
+                        message_content: messageContent
+                    });
 
                     // Unload the currentUser record from ember-data so that the UserProfile Route will load properly.
                     currentUser.unloadRecord();
                     route.replaceWith('userProfile');
                 });
-
-                // Wait around a bit if the currentUser is still loading. You can't do reload if the model is in state.
-                // isLoading. This a bit hacky because the 500ms timeout is arbitrary but it seems to work.
-                if (currentUser.get('isLoading')) {
-                    Em.run.later(this, function() {
-                        route.reloadRecord(currentUser)
-                    }, 500);
-                } else {
-                    route.reloadRecord(currentUser)
-                }
+                currentUser.reload();
             },
             error: function() {
                 // Notify user of the problem.

@@ -167,25 +167,27 @@ div.buttons, ul.buttons {
 .btn-iconed {
   @include rem(padding, 0 $padding 0 0);
 
-  .icon {
+  .icon,
+  .flaticon {
     @include rem(margin-right, $padding);
     @include rem(padding, ($padding / 2) $padding);
+    @include rem(font-size, 26px);
 
     display: inline-block;
     background:  darken($green, 5%);
     color: lighten($green, 5%);
     vertical-align:  middle;
     text-align: center;
-    @include rem(font-size, 26px);
     width: auto;
-
+    line-height: 1;
   }
-    &.disabled, &[disabled] {
-        .icon {
-            background:  darken($grayLight, 5%);
-            color:  lighten($white, 5%);
-        }
-    }
+
+  &.disabled, &[disabled] {
+      .icon {
+          background:  darken($grayLight, 5%);
+          color:  lighten($white, 5%);
+      }
+  }
 
   &.btn-primary {
     .icon {
