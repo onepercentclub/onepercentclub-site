@@ -40,7 +40,7 @@ class ManageOrganizationSerializer(OrganizationSerializer):
     name = serializers.CharField(required=True)
     description = serializers.CharField(required=False)
     website = serializers.URLField(required=False)
-    email = serializers.EmailField(required=True)
+    email = serializers.EmailField(required=False)
     twitter = serializers.CharField(required=False)
     facebook = serializers.CharField(required=False)
     skype = serializers.CharField(required=False)

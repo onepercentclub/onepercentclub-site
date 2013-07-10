@@ -174,7 +174,6 @@ class ProjectPitch(models.Model):
         submitted = ChoiceItem('submitted', label=_("Submitted"))
         rejected = ChoiceItem('rejected', label=_("Rejected"))
         approved = ChoiceItem('approved', label=_("Approved"))
-        completed = ChoiceItem('completed', label=_("Completed"))
 
     project = models.OneToOneField("projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=PitchStatuses.choices)
@@ -217,7 +216,6 @@ class ProjectPlan(models.Model):
         rejected = ChoiceItem('rejected', label=_("Rejected"))
         needs_work = ChoiceItem('needs_work', label=_("Needs work"))
         approved = ChoiceItem('approved', label=_("Approved"))
-        completed = ChoiceItem('completed', label=_("Completed"))
 
     project = models.OneToOneField("projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=PlanStatuses.choices)

@@ -62,7 +62,14 @@ class Organization(models.Model):
 
     def full_clean(self, exclude=None):
         if not self.slug:
-            self.slug = slugify(self.name)
+            original_slug = slugify(self.name)
+            slug = original_slug
+            next = 2
+            while not slug or Organization.objects.filter(slug=slug):
+                slug = '%s%s%s' % (original_slug, '-', next)
+                next += 1
+            self.slug = slug
+
 
 
 class OrganizationMember(models.Model):
