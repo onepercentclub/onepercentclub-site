@@ -19,7 +19,8 @@ from rest_framework import generics
 from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
-from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest, VoucherStatuses
+from .models import (Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest, VoucherStatuses,
+                     DonationStatuses)
 from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer,
                           VoucherRedeemSerializer, CustomVoucherRequestSerializer)
 
@@ -400,7 +401,7 @@ class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
             obj.receiver = self.request.user
         if obj.status == VoucherStatuses.cashed:
             for donation in obj.donations.all():
-                donation.status = Donation.DonationStatuses.paid
+                donation.status = DonationStatuses.paid
                 donation.save()
 
 
