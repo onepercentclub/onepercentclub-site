@@ -44,6 +44,9 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
 
             project.projectplan = ProjectPlan(title=project.title, project=project)
             project.projectplan.status = 'approved'
+
+            # add an organization so we can create pay-outs
+            project.projectplan.organization = self.create_organization()
             project.projectplan.save()
 
             project.projectcampaign = ProjectCampaign(status='running', project=project, money_asked=money_asked)
