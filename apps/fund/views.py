@@ -18,7 +18,7 @@ from rest_framework import generics
 from rest_framework import exceptions
 from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
-from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest
+from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest, VoucherStatuses
 from .serializers import (DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer,
                           VoucherRedeemSerializer, CustomVoucherRequestSerializer)
 
@@ -370,7 +370,7 @@ class VoucherMixin(object):
             voucher = Voucher.objects.get(code=code.upper())
         except Voucher.DoesNotExist:
             raise exceptions.ParseError(detail=_(u"No gift card with that code"))
-        if voucher.status != Voucher.VoucherStatuses.paid:
+        if voucher.status != VoucherStatuses.paid:
             raise exceptions.PermissionDenied(detail=_(u"Gift card code already used"))
         return voucher
 
@@ -391,7 +391,7 @@ class VoucherDetail(VoucherMixin, generics.RetrieveUpdateAPIView):
         mail_voucher_redeemed(obj)
         if self.request.user.is_authenticated():
             obj.receiver = self.request.user
-        if obj.status == Voucher.VoucherStatuses.cashed:
+        if obj.status == VoucherStatuses.cashed:
             for donation in obj.donations.all():
                 donation.status = Donation.DonationStatuses.paid
                 donation.save()
