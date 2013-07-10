@@ -150,14 +150,15 @@ class OrderItem(models.Model):
         return self.content_object.__class__.__name__
 
 
-class Voucher(models.Model):
+class VoucherStatuses(DjangoChoices):
+    new = ChoiceItem('new', label=_("New"))
+    paid = ChoiceItem('paid', label=_("Paid"))
+    cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
+    cashed = ChoiceItem('cashed', label=_("Cashed"))
+    cashed_by_proxy = ChoiceItem('cashed_by_proxy', label=_("Cashed by us"))
 
-    class VoucherStatuses(DjangoChoices):
-        new = ChoiceItem('new', label=_("New"))
-        paid = ChoiceItem('paid', label=_("Paid"))
-        cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
-        cashed = ChoiceItem('cashed', label=_("Cashed"))
-        cashed_by_proxy = ChoiceItem('cashed_by_proxy', label=_("Cashed by us"))
+
+class Voucher(models.Model):
 
     class VoucherLanguages(DjangoChoices):
         en = ChoiceItem('en', label=_("English"))
@@ -231,7 +232,7 @@ def process_voucher_order_in_progress(voucher):
         code = generate_voucher_code()
 
     voucher.code = code
-    voucher.status = Voucher.VoucherStatuses.paid
+    voucher.status = VoucherStatuses.paid
     voucher.save()
     mail_new_voucher(voucher)
 
@@ -325,5 +326,5 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
         # Vouchers.
         for voucher in order.vouchers:
-            voucher.status = Voucher.VoucherStatuses.cancelled
+            voucher.status = VoucherStatuses.cancelled
             voucher.save()

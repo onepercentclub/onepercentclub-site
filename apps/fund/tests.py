@@ -248,7 +248,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         order = Order.objects.get(user=self.some_user)
         adapter = _adapter_for_payment_method(order.latest_payment.payment_method_id)
         adapter._change_status(order.latest_payment, PaymentStatuses.pending)
-        order = Order.objects.filter(user=self.some_user).get()
+        order = Order.objects.get(id=order.id)
         self.assertEqual(order.status, OrderStatuses.closed)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
@@ -375,6 +375,39 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         # Anonymous user 2 should not be able to access the payment from anonymous user 1.
         response = secondClient.get(anonymous_order_url_1)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+    @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
+    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
+    def test_order_closed_api(self):
+        # Setup.
+        order_id = self._make_api_donation(self.some_user, project=self.some_project, amount=10)
+        # Emulate a status change from DocData. Note we need to use an internal API from COWRY for this but it's hard
+        # to avoid because we can't automatically make a DocData payment.
+        order = Order.objects.get(id=order_id)
+        adapter = _adapter_for_payment_method(order.latest_payment.payment_method_id)
+        adapter._change_status(order.latest_payment, PaymentStatuses.pending)
+        order = Order.objects.get(id=order.id)
+        self.assertEqual(order.status, OrderStatuses.closed)
+
+        # Editing the recurring status of a closed order should not be allow.
+        order_detail_url = '{0}{1}'.format(self.order_url_base, order_id)
+        response = self.client.put(order_detail_url, json.dumps({'recurring': True}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # Listing a closed order should be allowed.
+        order_donation_list_url = '{0}{1}'.format(order_detail_url, '/donations/')
+        response = self.client.get(order_donation_list_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 1)
+
+        # Editing a donation with order closed should not be allowed.
+        donation_detail_url = '{0}{1}'.format(order_donation_list_url, response.data['results'][0]['id'])
+        response = self.client.put(donation_detail_url, json.dumps({'project': self.some_project.slug, 'amount': 5}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
+        # Adding a donation to a closed order should not be allowed.
+        response = self.client.post(order_donation_list_url, {'project': self.some_project.slug, 'amount': 10})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
     def _format_donation(self, amount):
         """ Helper method to format donations as they are formatted in the API. """
