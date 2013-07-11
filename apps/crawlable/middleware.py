@@ -1,12 +1,13 @@
 import logging
 import time
-from django.conf import settings
 import os
 import urllib
 import urlparse
 import tempfile
 
 from django.http import HttpResponse, HttpResponseServerError
+from django.conf import settings
+from django.utils import html as html_utils
 
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.common.utils import is_connectable
@@ -17,7 +18,7 @@ from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 logger = logging.getLogger(__name__)
 
 
-UNESCAPED_FRAGMENT = '#!'
+HASHBANG = '#!'
 ESCAPED_FRAGMENT = '_escaped_fragment_'
 
 
@@ -32,24 +33,30 @@ class DedicatedWebDriver(RemoteWebDriver):
         if port is None:
             port = 8910
 
-        service_url = 'http://localhost:%d/wd/hub' % port
-
-        try:
-            RemoteWebDriver.__init__(self,
-                command_executor=service_url,
-                desired_capabilities=desired_capabilities)
-        except:
-            self.quit()
-            raise
-
         class DummyService():
+            """Dummy service to accept the same calls as the PhantomJS webdriver."""
             def __init__(self, port):
                 self.port = port
+
+            @property
+            def service_url(self):
+                return 'http://localhost:%d/wd/hub' % port
 
             def stop(self, *args, **kwargs):
                 pass
 
         self.service = DummyService(port)
+
+        # Start the remove web driver.
+        try:
+            RemoteWebDriver.__init__(self,
+                command_executor=self.service.service_url,
+                desired_capabilities=desired_capabilities)
+        except:
+            self.quit()
+            raise
+
+
         self._is_remote = False
 
 
@@ -62,8 +69,7 @@ class WebCache(object):
     _web_driver = None
 
     def __init__(self):
-
-        if settings.CRAWLABLE_PHANTOMJS_ARGS:
+        if hasattr(settings, 'CRAWLABLE_PHANTOMJS_ARGS') and settings.CRAWLABLE_PHANTOMJS_ARGS:
             service_args = settings.CRAWLABLE_PHANTOMJS_ARGS[:]
         else:
             service_args = [
@@ -75,27 +81,45 @@ class WebCache(object):
         self.service_args = service_args
 
     def get_driver(self):
-        launch = False
+        """
+        Only creates the driver if not present and returns it.
 
-        if self._web_driver is None:
-            launch = True
-        elif not is_connectable(self._web_driver.service.port):
-            self._web_driver.service.stop()
-            launch = True
+        :return: ``WebDriver`` instance.
+        """
 
-        if launch:
-            if settings.CRAWLABLE_PHANTOMJS_DEDICATED_MODE:
-                self._web_driver = DedicatedWebDriver(port=settings.CRAWLABLE_PHANTOMJS_DEDICATED_PORT)
-            else:
+        # Dedicated mode
+        if hasattr(settings, 'CRAWLABLE_PHANTOMJS_DEDICATED_MODE') and settings.CRAWLABLE_PHANTOMJS_DEDICATED_MODE:
+            if not self._web_driver:
+                self._web_driver = DedicatedWebDriver(
+                    port=getattr(settings, 'CRAWLABLE_PHANTOMJS_DEDICATED_PORT', 8910)
+                )
+            elif not is_connectable(self._web_driver.service.port):
+                raise RuntimeError('Cannot connect to dedicated PhantomJS instance on: %s' %
+                                    self._web_driver.service.service_url)
+        # Instance based mode (more for testing purposes). When debugging, you can even replace the PhantomJS webdriver
+        # with firefox and remove the arguments to the web driver constructor below.
+        else:
+            if not self._web_driver:
+                self._web_driver = WebDriver(service_args=self.service_args)
+            elif not is_connectable(self._web_driver.service.port):
+                self._web_driver.service.stop()
                 self._web_driver = WebDriver(service_args=self.service_args)
 
         return self._web_driver
 
 
+# Create a single instance per process.
 web_cache = WebCache()
 
 
 class HashbangMiddleware(object):
+    """
+    Middleware that catches requests with escaped fragments, like: http://example.com/?_escaped_fragment_=/projects
+
+    These special cases are most likely requested by search engines that detected hashbangs (#!) in the URL. If such a
+    request is made, the dynamic content is generated in the background, and the generated page source is served to the
+    search engine.
+    """
 
     def process_request(self, request):
         if request.method == 'GET' and ESCAPED_FRAGMENT in request.GET:
@@ -104,7 +128,7 @@ class HashbangMiddleware(object):
 
             # Update URL with hashbang.
             query = dict(urlparse.parse_qsl(parsed_url.query))
-            path = ''.join([parsed_url.path, UNESCAPED_FRAGMENT, query[ESCAPED_FRAGMENT]])
+            path = ''.join([parsed_url.path, HASHBANG, query[ESCAPED_FRAGMENT]])
 
             # Update query string by removing the escaped fragment.
             del query[ESCAPED_FRAGMENT]
@@ -129,8 +153,11 @@ class HashbangMiddleware(object):
                 # is done.
                 time.sleep(3)
 
+                content = driver.page_source
+                # Remove all javascript, since its mostly useless now.
+                content = html_utils.remove_tags(content, 'script')
                 # Update the HTML content with the "escaped fragment"-style URLs.
-                content = driver.page_source.replace('%s' % UNESCAPED_FRAGMENT, '?%s=' % ESCAPED_FRAGMENT)
+                content = content.replace('%s' % HASHBANG, '?%s=' % ESCAPED_FRAGMENT)
             except Exception, e:
                 logger.error('There was an error rendering "%s" for "%s" with the web driver: %s', absolute_url, original_url, e)
                 return HttpResponseServerError()

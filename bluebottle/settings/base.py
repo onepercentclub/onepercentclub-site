@@ -543,8 +543,8 @@ HTML_ACTIVATION_EMAIL = True  # Note this setting is from our forked version.
 
 # PhantomJS for flat page generation.
 # NOTE: This has nothing to do with testing against phantomjs.
-CRAWLABLE_PHANTOMJS_DEDICATED_MODE = False
-# If dedicated mode is enabled, configure these settings:
-#CRAWLABLE_PHANTOMJS_DEDICATED_PORT = 8910
+CRAWLABLE_PHANTOMJS_DEDICATED_MODE = True
+# If dedicated mode is enabled, configure the port:
+CRAWLABLE_PHANTOMJS_DEDICATED_PORT = 8910
 # If dedicated mode is disabled, you can specify arguments to start phantomjs.
 CRAWLABLE_PHANTOMJS_ARGS = []
