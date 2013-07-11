@@ -195,8 +195,10 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
     },
 
     hasNextPage: function(){
-        return (this.get('controllers.projectList.length') == 8);
-    }.property('controllers.projectList.length'),
+        var next = this.get('page') * 8 + 8;
+        var total = this.get('controllers.projectList.model.meta.total');
+        return (next < total);
+    }.property('controllers.projectList.model.meta.total'),
 
     hasPreviousPage: function(){
         return (this.get('page') > 1);
@@ -244,6 +246,8 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
         }
         if (this.get('model.isDirty') ) {
             var list = this.get('controllers.projectList');
+            var controller = this;
+
             var query = {
                 'page': this.get('page'),
                 'ordering': this.get('ordering'),
@@ -253,7 +257,7 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
                 'theme': this.get('theme')
             };
             var projects = App.ProjectPreview.find(query);
-            projects.on('didLoad', function(records){
+            projects.on('didLoad', function(data){
                 list.set('model', projects);
             });
         }
