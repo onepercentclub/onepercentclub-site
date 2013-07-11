@@ -8,7 +8,7 @@ from .models import Slide
 
 class SlideSerializer(serializers.ModelSerializer):
     author = serializers.PrimaryKeyRelatedField()
-    image = SorlImageField('image', '247x180', crop='center')
+    image = SorlImageField('image', '800x600', crop='center')
 
     class Meta:
         model = Slide
