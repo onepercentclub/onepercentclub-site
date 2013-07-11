@@ -101,3 +101,6 @@ https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
 
 # Private uploads
 https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip
+
+# Mock library for testing
+mock==1.0.1
