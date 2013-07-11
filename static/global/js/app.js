@@ -685,10 +685,7 @@ App.ProjectRoute = Em.Route.extend({
         return page;
     },
 
-    setupController: function(controller, model) {
-        console.log(model.toString());
-        var project = App.Project.find(model.get('id'));
-
+    setupController: function(controller, project) {
         this._super(controller, project);
 
         // Set the controller to show Project Supporters
@@ -696,7 +693,6 @@ App.ProjectRoute = Em.Route.extend({
         projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
         projectSupporterListController.set('page', 1);
         projectSupporterListController.set('canLoadMore', true);
-
     }
 });
 

@@ -195,7 +195,7 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
     },
 
     hasNextPage: function(){
-        var next = this.get('page') * 8 + 8;
+        var next = this.get('page') * 8;
         var total = this.get('controllers.projectList.model.meta.total');
         return (next < total);
     }.property('controllers.projectList.model.meta.total'),
@@ -257,7 +257,7 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
                 'theme': this.get('theme')
             };
             var projects = App.ProjectPreview.find(query);
-            projects.on('didLoad', function(data){
+            projects.one('didLoad', function(data){
                 list.set('model', projects);
             });
         }
