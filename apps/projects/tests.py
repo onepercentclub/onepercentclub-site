@@ -17,7 +17,7 @@ from .models import Project,ProjectPhases, ProjectPitch
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
     """ Mixin base class for tests using projects. """
 
-    def create_project(self, organization=None, owner=None, title='', phase='pitch', slug='', money_asked=0):
+    def create_project(self, organization=None, owner=None, title=None, phase='pitch', slug=None, money_asked=0):
         """
         Create a 'default' project with some standard values so it can be
         saved to the database, but allow for overriding.
@@ -36,7 +36,14 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         project = Project(owner=owner, title=title, slug=slug, phase=phase)
         project.save()
 
-        project.projectpitch.title = title,
+        if not title:
+            title = generate_random_slug()
+            while Project.objects.filter(title=title).exists():
+                title = generate_random_slug()
+
+        project.title = title
+
+        project.projectpitch.title = title
         project.projectpitch.status = ProjectPitch.PitchStatuses.new
         project.projectpitch.save()
 
