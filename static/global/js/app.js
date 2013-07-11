@@ -371,7 +371,8 @@ App.Adapter.map('App.Task', {
     author: {embedded: 'load'},
     tags: {embedded: 'always'},
     members: {embedded: 'load'},
-    files: {embedded: 'load'}
+    files: {embedded: 'load'},
+    project: {embedded: 'load'}
 });
 App.Adapter.map('App.TaskMember', {
     member: {embedded: 'load'}
@@ -656,6 +657,13 @@ App.ApplicationRoute = Em.Route.extend({
             App.Project.find(project_id).then(function(project){
                 route.transitionTo('project', project);
                 route.transitionTo('projectTaskList');
+            });
+        },
+        showTask: function(task) {
+            var route = this;
+            App.Project.find(task.get('project.id')).then(function(project){
+                route.transitionTo('project', project);
+                route.transitionTo('projectTask', task);
             });
         },
         showNews: function(news_id) {

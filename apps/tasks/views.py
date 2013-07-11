@@ -15,8 +15,9 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 class TaskList(generics.ListCreateAPIView):
     model = Task
     serializer_class = TaskSerializer
-    paginate_by = 10
+    paginate_by = 8
     permission_classes = (IsProjectOwnerOrReadOnly,)
+    filter_fields = ('status', 'expertise', )
 
     def get_queryset(self):
         queryset = super(TaskList, self).get_queryset()

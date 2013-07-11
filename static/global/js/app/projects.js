@@ -1,3 +1,36 @@
+/*
+ Form Elements
+ */
+
+
+App.ProjectOrderList = [
+    {value: 'title', title: "title"},
+    {value: 'money_needed', title: "money needed"},
+    {value: 'deadline', title: "deadline"}
+];
+
+App.ProjectOrderSelectView = Em.Select.extend({
+    content: App.ProjectOrderList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title"
+});
+
+App.ProjectPhaseList = [
+    {value: 'plan', title: "Writing Plan"},
+    {value: 'campaign', title: "Campaign"},
+    {value: 'act', title: "Act"},
+    {value: 'results', title: "Results"},
+    {value: 'realized', title: "Realised"}
+];
+
+App.ProjectPhaseSelectView = Em.Select.extend({
+    content: App.ProjectPhaseList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title",
+    prompt: "pick a phase"
+
+});
+
 
 /*
  Models
@@ -262,8 +295,6 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
             });
         }
     }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering')
-
-
 });
 
 

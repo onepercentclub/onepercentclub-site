@@ -1,4 +1,23 @@
 /*
+ Form Elements
+ */
+
+App.TaskStatusList = [
+    {value: 'open', title: "open"},
+    {value: 'in progress', title: "in progress"},
+    {value: 'realized', title: "realised"}
+];
+
+App.TaskStatusSelectView = Em.Select.extend({
+    content: App.TaskStatusList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title",
+    prompt: "any status"
+
+});
+
+
+/*
  Models
  */
 
@@ -43,7 +62,7 @@ App.Task = DS.Model.extend({
     end_goal: DS.attr('string'),
     created: DS.attr('date'),
     deadline: DS.attr('date'),
-    project: DS.belongsTo('App.Project'),
+    project: DS.belongsTo('App.ProjectPreview'),
     members: DS.hasMany('App.TaskMember'),
     files: DS.hasMany('App.TaskFile'),
     expertise: DS.attr('string'),
@@ -91,9 +110,93 @@ App.TaskPreview = App.Task.extend({
 });
 
 
+App.TaskSearch = DS.Model.extend({
+
+    text: DS.attr('string'),
+    skill:  DS.attr('string'),
+    ordering: DS.attr('string', {defaultValue: 'newest'}),
+    status: DS.attr('string', {defaultValue: 'open'}),
+    page: DS.attr('number', {defaultValue: 1})
+
+});
+
+
 /*
  Controllers
  */
+
+
+App.TaskListController = Em.ArrayController.extend({
+    needs: ['taskSearchForm']
+});
+
+
+App.TaskSearchFormController = Em.ObjectController.extend({
+    needs: ['taskList'],
+
+    init: function(){
+        var form =  App.TaskSearch.createRecord();
+        this.set('model', form);
+    },
+
+    hasNextPage: function(){
+        var next = this.get('page') * 8;
+        var total = this.get('controllers.taskList.model.meta.total');
+        return (next < total);
+    }.property('controllers.taskList.model.meta.total'),
+
+    hasPreviousPage: function(){
+        return (this.get('page') > 1);
+    }.property('page'),
+
+    nextPage: function(){
+        this.incrementProperty('page');
+    },
+
+    previousPage: function(){
+        this.decrementProperty('page');
+    },
+
+    sortOrder: function(order) {
+        this.set('ordering', order);
+    },
+
+    orderedByNewest: function(){
+        return (this.get('ordering') == 'newest');
+    }.property('ordering'),
+    orderedByDeadline: function(){
+        return (this.get('ordering') == 'deadline');
+    }.property('ordering'),
+
+    clearForm: function(sender, key) {
+        this.set('model.text', '');
+        this.set('model.skill', null);
+        this.set('model.status', null);
+    },
+
+    updateSearch: function(sender, key){
+        if (key != 'page') {
+            // If the query changes we should jump back to page 1
+            this.set('page', 1);
+        }
+        if (this.get('model.isDirty') ) {
+            var list = this.get('controllers.taskList');
+            var controller = this;
+
+            var query = {
+                'page': this.get('page'),
+                'ordering': this.get('ordering'),
+                'status': this.get('status'),
+                'text': this.get('text'),
+                'expertise': this.get('skill')
+            };
+            var tasks = App.Task.find(query);
+            list.set('model', tasks);
+        }
+    }.observes('text', 'skill', 'status', 'page', 'ordering')
+
+
+});
 
 
 App.ProjectTaskListController = Em.ArrayController.extend({
@@ -200,6 +303,10 @@ App.ProjectTaskEditController = App.ProjectTaskNewController.extend({
 });
 
 
+App.TaskPreviewController = Em.ObjectController.extend({
+});
+
+
 App.TaskMemberEditController = Em.ObjectController.extend({
 });
 
@@ -215,8 +322,17 @@ App.TaskFileNewController = Em.ObjectController.extend({
  Views
  */
 
-App.ProjectTaskListView = Em.View.extend({
+App.TaskListView = Em.View.extend({
     templateName: 'task_list'
+});
+
+App.TaskPreviewView = Em.View.extend({
+    templateName: 'task_preview'
+});
+
+
+App.ProjectTaskListView = Em.View.extend({
+    templateName: 'project_task_list'
 });
 
 

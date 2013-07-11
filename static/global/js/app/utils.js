@@ -35,7 +35,6 @@ App.ProjectCountrySelectView = Em.Select.extend({
 
 // TODO: get this list from the server
 App.ExpertiseList = [
-    {value: "unknown", title: "unknown"},
     {value: "research", title: "(online) Research"},
     {value: "agriculture", title: "Agriculture"},
     {value: "engineering", title: "Architecture/Engineering"},
@@ -70,7 +69,8 @@ App.ExpertiseList = [
 App.ExpertiseSelectView = Em.Select.extend({
     content: App.ExpertiseList,
     optionValuePath: "content.value",
-    optionLabelPath: "content.title"
+    optionLabelPath: "content.title",
+    prompt: "no specific skill"
 });
 
 App.TimeNeededList = [
@@ -91,35 +91,6 @@ App.TimeNeededSelectView = Em.Select.extend({
     content: App.TimeNeededList,
     optionValuePath: "content.value",
     optionLabelPath: "content.title"
-});
-
-
-App.ProjectOrderList = [
-    {value: 'title', title: "title"},
-    {value: 'money_needed', title: "money needed"},
-    {value: 'deadline', title: "deadline"}
-];
-
-App.ProjectOrderSelectView = Em.Select.extend({
-    content: App.ProjectOrderList,
-    optionValuePath: "content.value",
-    optionLabelPath: "content.title"
-});
-
-App.ProjectPhaseList = [
-    {value: 'plan', title: "Writing Plan"},
-    {value: 'campaign', title: "Campaign"},
-    {value: 'act', title: "Act"},
-    {value: 'results', title: "Results"},
-    {value: 'realized', title: "Realised"}
-];
-
-App.ProjectPhaseSelectView = Em.Select.extend({
-    content: App.ProjectPhaseList,
-    optionValuePath: "content.value",
-    optionLabelPath: "content.title",
-    prompt: "pick a phase"
-
 });
 
 

@@ -1,5 +1,6 @@
 from apps.bluebottle_drf2.serializers import PrimaryKeyGenericRelatedField, TagSerializer, FileSerializer, TaggableSerializerMixin
 from apps.accounts.serializers import UserPreviewSerializer
+from apps.projects.serializers import ProjectPreviewSerializer
 from apps.tasks.models import Task, TaskMember, TaskFile
 from apps.wallposts.serializers import TextWallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -37,7 +38,7 @@ class TaskFileSerializer(serializers.ModelSerializer):
 class TaskSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
     members = TaskMemberSerializer(many=True, source='taskmember_set', required=False)
     files = TaskFileSerializer(many=True, source='taskfile_set', required=False)
-    project = serializers.SlugRelatedField(slug_field='slug')
+    project = ProjectPreviewSerializer()
     author = UserPreviewSerializer()
 
     tags = TagSerializer()
