@@ -2,16 +2,16 @@
 
 .status-box {
     @include clearfix;
-    @include rem(padding, $padding 0);
+    @include rem(padding-top, $padding);
     color: $text-white;
 }
 
 /* =========== Number of supports / Days left */
 .donate-days-left {
 	@include grid(10, 1, 0);
+    margin-top: 8px;
 	color: $text-grey;
     text-align: center;
-    margin-top: 8px;
 
 	.icon {
 	    @include rem(font-size, 24px);
@@ -20,9 +20,9 @@
 
 	strong {
 	    @include rem(font-size, 28px);
+	    padding: 0;
 	    color: $text-white;
 	    font-weight: 300;
-	    padding: 0;
 	    line-height: 0.8em;
 	}
 
@@ -41,53 +41,53 @@
     @include grid(20, 2);
     position: relative;
     color: $text-grey;
-    
+
     .donate-amount {
-        text-align: center;
-        margin-bottom: 0.5em;
-        text-transform: uppercase;
         @include rem(font-size, 14px);
+        margin-bottom: 0.5em;
+        text-align: center;
+        text-transform: uppercase;
         font-weight: normal;
-        
+
         .donated {
-            color: $text-white;
             @include rem(font-size, 18px);
+            color: $text-white;
             font-weight: 300;
         }
-        
+
         .asked {
             font-weight: 300;
         }
     }
-    
-    
+
+
     .donate-slider {
-        display: block;
-        line-height: 0;
-        background-color: $text-white;
         @include border-radius(1em);
+        display: block;
         overflow: hidden;
         padding: 0;
-        
+        background-color: $text-white;
+        line-height: 0;
+
         .donate-progress {
             position: relative;
             display: block;
-            line-height: 1em;
             border-radius: 1em 0 0 1em;
-            color: $text-white;
             background-color: $green;
-            white-space: nowrap;
+            color: $text-white;
             text-align: right;
-            
+            white-space: nowrap;
+            line-height: 1em;
+
             em {
-                font-style: normal;
                 padding: 0 0.5em;
+                font-style: normal;
             }
-            
+
             .donate-percentage {
                 visibility: hidden;
             }
-            
+
             /* Arrow to top
             &.is-in-progress:before {
                 position: absolute;
@@ -106,29 +106,29 @@
 }
 
 /*
-.donate-supporters em, 
+.donate-supporters em,
 
 .donate-supporters {
 	float: left;
 	margin: 0;
 	width: 50%;
 	text-align: center;
-	
+
 }
 
 .donate-supporters span, .donate-days-left span {
 	display: inline-block;
 	margin-right: 3px;
-	
+
 	@include rem(font-size, 28px);
 	line-height: 1.3em;
 	text-align: center;
 	font-weight: normal;
 	width: 1em;
-	
+
 	@include border-radius(0.2em);
 	@include box-shadow( inset 0 0 0 1px rgba(#fff, 0.9) );
-	
+
 	@include background( linear-gradient(top, #fff, #fff, #d3d3d3) );
 	border: 1px solid rgba(#000, 0.25);
 }
@@ -142,4 +142,3 @@
 	content: '';
 }
 */
-
