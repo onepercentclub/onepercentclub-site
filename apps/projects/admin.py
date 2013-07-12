@@ -1,5 +1,5 @@
 import logging
-from apps.projects.models import ProjectPlan, ProjectCampaign
+from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 
@@ -153,3 +153,8 @@ class PartnerOrganizationAdmin(AdminImageMixin, admin.ModelAdmin):
 admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
 
 
+class ProjectThemeAdmin(admin.ModelAdmin):
+
+    model = ProjectTheme
+
+admin.site.register(ProjectTheme, ProjectThemeAdmin)
