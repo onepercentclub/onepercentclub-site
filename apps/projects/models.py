@@ -80,7 +80,7 @@ class Project(models.Model):
 
     coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
 
-    title = models.CharField(_("title"), max_length=255)
+    title = models.CharField(_("title"), max_length=255, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))

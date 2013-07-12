@@ -35,7 +35,7 @@
         }
 
 
-        &.item-project h3 {
+        .header h3 {
             @include rem(font-size, 14px);
             @include rem(line-height, 16px);
             position: absolute;
@@ -56,7 +56,7 @@
             }
         }
 
-        &.item-task h3 {
+        &.item-task h2 {
             @include rem(font-size, 12px);
             @include rem(line-height, 14px);
             margin: 0px;
@@ -70,20 +70,15 @@
             @include rem (height, 60px);
             @include rem (padding, 8px);
             overflow: hidden;
-            background: rgba(0, 0, 0, 0.8);
             color: white;
-            text-transform: uppercase;
-        }
-
-        .status {
-            @include rem (padding, 12px 16px);
-            position: relative;
             background-color: $white;
             color: $grayDark;
-            text-transform: uppercase;
+            //text-transform: uppercase;
+            font-weight: 300;
         }
 
         &.item-project .status {
+            @include rem (padding, 8px);
             height: 90px;
             background-color: $color-back;
             color: $grayDarker;
@@ -215,13 +210,15 @@
         .footer {
             background-color: $color-back;
             color: $gray;
+            @include rem (padding, 8px);
+            @include clearfix;
             ul {
-                @include rem (padding, 8px);
+                @include clearfix;
                 margin: 0px;
                 list-style: none;
                 text-indent: 0px;
                 li {
-                    margin: 2px;
+                    @include grid(24, 1);
                 }
             }
         }

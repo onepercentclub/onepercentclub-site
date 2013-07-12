@@ -373,6 +373,10 @@ App.Adapter.map('App.Task', {
     members: {embedded: 'load'},
     files: {embedded: 'load'}
 });
+App.Adapter.map('App.TaskPreview', {
+    author: {embedded: 'load'},
+    project: {embedded: 'load'}
+});
 App.Adapter.map('App.TaskMember', {
     member: {embedded: 'load'}
 });
@@ -658,6 +662,13 @@ App.ApplicationRoute = Em.Route.extend({
                 route.transitionTo('projectTaskList');
             });
         },
+        showTask: function(task) {
+            var route = this;
+            App.Project.find(task.get('project.id')).then(function(project){
+                route.transitionTo('project', project);
+                route.transitionTo('projectTask', task);
+            });
+        },
         showNews: function(news_id) {
             var route = this;
             App.News.find(news_id).then(function(news){
@@ -685,10 +696,7 @@ App.ProjectRoute = Em.Route.extend({
         return page;
     },
 
-    setupController: function(controller, model) {
-        console.log(model.toString());
-        var project = App.Project.find(model.get('id'));
-
+    setupController: function(controller, project) {
         this._super(controller, project);
 
         // Set the controller to show Project Supporters
@@ -696,7 +704,6 @@ App.ProjectRoute = Em.Route.extend({
         projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
         projectSupporterListController.set('page', 1);
         projectSupporterListController.set('canLoadMore', true);
-
     }
 });
 

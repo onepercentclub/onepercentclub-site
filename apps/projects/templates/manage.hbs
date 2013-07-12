@@ -1664,7 +1664,6 @@
             </form>
 
             <div class="form">
-
                 <div class="toolbox">
                     <div class="title">
                         <h3>
@@ -1677,7 +1676,7 @@
                             <span class="icon icon-lightbulb"></span>
                             {% trans "Do you need someone to help writing your business plan?" %}
                         </div>
-                        {{#linkTo "projectTaskNew" project.getProject tagName="button" class="btn btn-iconed"}}
+                        {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
                             <span class="icon icon-wrench"></span>
                             {% trans "Create a new task" %}
                         {{/linkTo}}
@@ -1697,7 +1696,7 @@
                             <span class="icon icon-lightbulb"></span>
                             {% trans "Why not? Ask the crowd for feedback on your idea!" %}
                         </div>
-                        {{#linkTo "project" project.getProject tagName="button" class="btn btn-iconed"}}
+                        {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
                             <span class="icon icon-bullhorn"></span>
                             {% trans "Post an Update" %}
                         {{/linkTo}}
