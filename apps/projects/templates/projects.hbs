@@ -29,7 +29,7 @@
 
             {{#if project.isPhaseCampaign}}
                 <div class="donate-status">
-                    {{#if isFundable}}
+                    {{#if project.campaign.money_asked}}
                         <span class="donate-slider"><strong style="width: 0;" class="donate-progress">&nbsp;</strong></span>
                         <p class="donate-amount">
                             <span class="donated">&euro;{{localize project.campaign.money_needed}}</span>

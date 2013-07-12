@@ -17,16 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/admin/base_site.html:4
-msgid "Django site admin"
-msgstr ""
-
-#: templates/admin/base_site.html:15
-#, python-format
-msgid "1%%Club"
-msgstr ""
-
-#: templates/fluent_dashboard/modules/personal_text.html:4
-#, python-format
-msgid "Welcome to the back-office of 1%%CLUB website."
+#: models.py:16
+msgid "creation date"
 msgstr ""
