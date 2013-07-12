@@ -88,7 +88,7 @@ App.Payment = DS.Model.extend({
     paymentMethod: DS.attr('string'),
     paymentSubmethod: DS.attr('string'),
     paymentUrl: DS.attr('string'),
-    availablePaymentMethods: DS.attr('array'),
+    availablePaymentMethods: DS.attr('array')
 });
 
 
@@ -114,25 +114,83 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
             return parseInt(accum) + parseInt(item);
         }, 0);
-    }.property('model.@each.amount', 'model.length')
-});
+    }.property('model.@each.amount', 'model.length'),
 
+    monthly_total: 0,
 
-App.CurrentOrderDonationController = Em.ObjectController.extend({
-    updateDonation: function(newAmount) {
-        var donation = this.get('model');
+    updateMonthlyDonations: function(obj, keyName) {
+        if (!this.get('controllers.currentOrder.recurring')) {
+            return;
+        }
+
+        var donationsTotal = 0;
+        var monthlyTotal = 0;
+        var donations = this.get('model');
+        var numDonations = donations.get('length');
+
+        // Special setup when there's a new donation added.
+        if (keyName == 'model.length' && numDonations > 0 && donations.objectAt(numDonations - 1).get('isNew')) {
+            monthlyTotal = this.get('monthly_total') + App.Donation.prototype.get('amount');
+            this.set('monthly_total', monthlyTotal);
+        } else {
+            donationsTotal = this.get('total');
+            monthlyTotal = this.get('monthly_total');
+        }
+
+        if (monthlyTotal == 0) {
+            monthlyTotal = donationsTotal;
+            this.set('monthly_total', monthlyTotal);
+        }
+
+        if (donationsTotal != monthlyTotal) {
+            var amountPerProject = Math.round(monthlyTotal / numDonations);
+            for (var i = 0; i < numDonations - 1; i++) {
+                this.updateDonation(donations.objectAt(i), amountPerProject)
+            }
+            // Update the last donation with the remaining amount.
+            this.updateDonation(donations.objectAt(numDonations - 1), monthlyTotal - (amountPerProject * (numDonations - 1)));
+        }
+    }.observes('model.length', 'monthly_total', 'controllers.currentOrder.recurring'),
+
+    updateDonation: function(donation, newAmount) {
+        if (donation.get('isNew')) {
+            var controller = this;
+            // Note: resolveOn is a private ember-data method.
+            var donationPromise = donation.resolveOn('didCreate');
+            donationPromise.then(function(donation) {
+                controller.updateCreatedDonation(donation, newAmount)
+            });
+         } else {
+            this.updateCreatedDonation(donation, newAmount)
+        }
+    },
+
+    updateCreatedDonation: function(donation, newAmount) {
+        // Does not work if donation 'isNew' is true.
         donation.set('errors', []);
-        donation.on("becameInvalid", function(record){
+        donation.one('becameInvalid', function(record) {
             donation.set('errors', record.get('errors'));
         });
         // Renew the transaction as needed.
         // If we have an error the record will stay 'dirty' and we can't put it into a new transaction.
-        if (donation.transaction.isDefault) {
+        if (donation.get('transaction.isDefault')) {
             var transaction = this.get('store').transaction();
             transaction.add(donation);
         }
         donation.set('amount', newAmount);
         donation.transaction.commit();
+    }
+
+});
+
+
+App.CurrentOrderDonationController = Em.ObjectController.extend({
+    needs: ['currentOrder', 'currentOrderDonationList'],
+
+    updateDonation: function(newAmount) {
+        var donation = this.get('model');
+        var donationListController = this.get('controllers.currentOrderDonationList');
+        donationListController.updateDonation(donation, newAmount);
     },
 
     deleteDonation: function() {
@@ -337,13 +395,21 @@ App.PaymentSelectController = Em.ObjectController.extend({
 App.CurrentOrderController = Em.ObjectController.extend({
     donationType: 'single',  // The default donation type.
 
-    updateOrder: function() {
+    updateRecurring: function() {
         var order = this.get('model');
         var transaction = this.get('store').transaction();
         transaction.add(order);
         order.set('recurring', (this.get('donationType') == 'monthly'));
         transaction.commit();
     }.observes('donationType'),
+
+    updateDonationType: function() {
+        if (this.get('recurring')) {
+            this.set('donationType', 'monthly')
+        } else {
+            this.set('donationType', 'single')
+        }
+    }.observes('recurring'),
 
     // FIXME Implement a better way to handle vouchers and donations in the order.
     // Remove donations from voucher orders and remove vouchers from donations.
@@ -421,6 +487,15 @@ App.CurrentOrderDonationListView = Em.View.extend({
 
     submit: function(e) {
         e.preventDefault();
+    },
+
+    change: function(e) {
+        // The single / monthly change and the monthly_total change are sent here and
+        // we only want to deal with the monthly_total change.
+        var value = parseInt(Em.get(e, 'target.value'));
+        if (Em.typeOf(value) === 'number' && !isNaN(value)) {
+            this.get('controller').set('monthly_total', value);
+        }
     }
 });
 
