@@ -13,7 +13,7 @@
 
                         <tr>
                             <td valign="top">
-                                <img src="{{ protocol }}://{{ site }}{% get_static_prefix %}images/1procentclub-logo-email.png" width="97" height="35" alt="1%Club" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                <img src="{% if request.is_secure %}https{% else %}http{% endif %}://{{ site }}{% get_static_prefix %}images/1procentclub-logo-email.png" width="97" height="35" alt="1%Club" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
                             </td>
                         </tr>
 
@@ -29,7 +29,7 @@
 
                         <tr>
                             <td valign="top">
-                                {% trans "You recently signed-up at" %} <a href="{{ protocol }}://{{ site }}" target="_blank" style="color: #00c051; text-decoration: underline">{{ site }}</a> {% trans "and your account needs to be activated." %}
+                                {% trans "You recently signed-up at" %} <a href="{% if request.is_secure %}https{% else %}http{% endif %}://{{ site }}" target="_blank" style="color: #00c051; text-decoration: underline">{{ site }}</a> {% trans "and your account needs to be activated." %}
                             </td>
                         </tr>
 
@@ -46,7 +46,7 @@
                         <tr>
                             <td valign="top">
                                 <div class="btn" style="background-color: #ff619a; padding: 12px 16px; text-transform: uppercase; text-align: center; font-size: 16px; font-weight: bold; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border: 1px solid #d95281; float: left;">
-                                    <a href="{{ protocol }}://{{ site }}/#/activate/{{ activation_key }}" target="_blank" style="color: #fff; text-decoration: none;">
+                                    <a href="{% if request.is_secure %}https{% else %}http{% endif %}://{{ site }}/#/activate/{{ activation_key }}" target="_blank" style="color: #fff; text-decoration: none;">
                                         {% trans "activate profile" %}
                                     </a>
                                 </div>
@@ -82,35 +82,35 @@
 
                                         <td width="32" valign="top">
                                             <a href="http://www.facebook.com/onepercentclub" target="_blank">
-                                                <img src="{{ protocol }}://{{ site }}{% get_static_prefix %}images/facebook.png" width="32" height="31" alt="Facebook" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                                <img src="{% if request.is_secure %}https{% else %}http{% endif %}://{{ site }}{% get_static_prefix %}images/facebook.png" width="32" height="31" alt="Facebook" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
                                             </a>
                                         </td>
                                         <td width="8"></td>
 
                                         <td width="32" valign="top">
                                             <a href="http://twitter.com/1procentclub" target="_blank">
-                                                <img src="{{ protocol }}://{{ site }}{% get_static_prefix %}images/twitter.png" width="32" height="31" alt="Twitter" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                                <img src="{% if request.is_secure %}https{% else %}http{% endif %}://{{ site }}{% get_static_prefix %}images/twitter.png" width="32" height="31" alt="Twitter" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
                                             </a>
                                         </td>
                                         <td width="8"></td>
 
                                         <td width="32" valign="top">
                                             <a href="http://www.flickr.com/photos/1procentclub/" target="_blank">
-                                                <img src="{{ protocol }}://{{ site }}{% get_static_prefix %}images/flickr.png" width="32" height="31" alt="Flickr" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                                <img src="{% if request.is_secure %}https{% else %}http{% endif %}://{{ site }}{% get_static_prefix %}images/flickr.png" width="32" height="31" alt="Flickr" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
                                             </a>
                                         </td>
                                         <td width="8"></td>
 
                                         <td width="32" valign="top">
                                             <a href="http://www.linkedin.com/groups?gid=1071287&trk=hb_side_g" target="_blank">
-                                                <img src="{{ protocol }}://{{ site }}{% get_static_prefix %}images/linkedin.png" width="32" height="31" alt="LinkedIn" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                                <img src="{% if request.is_secure %}https{% else %}http{% endif %}://{{ site }}{% get_static_prefix %}images/linkedin.png" width="32" height="31" alt="LinkedIn" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
                                             </a>
                                         </td>
                                         <td width="8"></td>
 
                                         <td width="32" valign="top">
                                             <a href="http://www.youtube.com/user/1Procentclub" target="_blank">
-                                                <img src="{{ protocol }}://{{ site }}{% get_static_prefix %}images/youtube.png" width="32" height="31" alt="Youtube" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                                <img src="{% if request.is_secure %}https{% else %}http{% endif %}://{{ site }}{% get_static_prefix %}images/youtube.png" width="32" height="31" alt="Youtube" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
                                             </a>
                                         </td>
                                     </tr>
