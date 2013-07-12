@@ -45,29 +45,55 @@ App.PageView = Ember.View.extend(App.GoTo, {
 
     setup: function() {
         Ember.run.scheduleOnce('afterRender', this, function() {
-            this.manageSections();
-            $(window).on('resize', $.proxy(this.manageSections, this));
+            if (!Em.none(this.$())) {
+                this.renderSections();
+                this.bindEvents();
+            }
         });
     }.observes('controller.body'),
 
     willDestroyElement: function() {
-        $(window).off('resize', $.proxy(this.manageSections, this));
+        this.unbindEvents();
     },
 
-    manageSections: function(e) {
-        if (this.$('.static')) {
-            var windowHeight = $(window).height();
-            var menuHeight   = this.$('.static-page-nav').height();
+    bindEvents: function() {
+        var $businessProducts = this.$('#businessProducts');
+        $businessProducts.on('mouseenter', '.item', $.proxy(this.popover, this));
+        $businessProducts.on('mouseleave', '.item', $.proxy(this.popout, this));
 
-            this.$('.section').css('height', windowHeight + 'px');
-            this.$('.static-page-section-content').each(function() {
-                var $this = $(this);
-                var sectionContentHeight = $this.height();
+        $(window).on('resize', $.proxy(this.renderSections, this));
+    },
 
-                $this.css({
-                    'padding-top': (((windowHeight - sectionContentHeight) / 2) - menuHeight) + 'px'
-                });
+    unbindEvents: function() {
+        var $businessProducts = this.$('#businessProducts');
+        $businessProducts.off('mouseenter', '.item', $.proxy(this.popover, this));
+        $businessProducts.off('mouseleave', '.item', $.proxy(this.popout, this));
+
+        $(window).off('resize', $.proxy(this.renderSections, this));
+    },
+
+    renderSections: function(e) {
+        var windowHeight = $(window).height();
+        var menuHeight   = this.$('.static-page-nav').height();
+
+        this.$('.section').css('height', windowHeight + 'px');
+        this.$('.static-page-section-content').each(function() {
+            var $this = $(this);
+            var sectionContentHeight = $this.height();
+
+            $this.css({
+                'padding-top': (((windowHeight - sectionContentHeight) / 2) - menuHeight) + 'px'
             });
-        }
+        });
+    },
+
+    popover: function(e) {
+        var content = $(e.target).data('content');
+        this.$('.item-popover').html(content);
+    },
+
+    popout: function() {
+        this.$('.item-popover').empty();
     }
 });
+
