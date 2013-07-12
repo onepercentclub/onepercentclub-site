@@ -4,13 +4,14 @@
 # 
 # Translators:
 # gannetson <loek@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013
 # onepercentclub <webmaster@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
 "POT-Creation-Date: 2013-06-26 12:03+0200\n"
-"PO-Revision-Date: 2013-06-26 14:51+0000\n"
+"PO-Revision-Date: 2013-07-12 12:55+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,15 +22,15 @@ msgstr ""
 
 #: admin.py:61
 msgid "Author"
-msgstr ""
+msgstr "Auteur"
 
 #: models.py:27 models.py:67 models.py:85
 msgid "author"
-msgstr ""
+msgstr "auteur"
 
 #: models.py:28 models.py:68 models.py:86
 msgid "editor"
-msgstr ""
+msgstr "editor"
 
 #: models.py:28
 msgid "The last user to edit this wallpost."
@@ -49,7 +50,7 @@ msgstr "verwijderd"
 
 #: models.py:34 models.py:66 models.py:96
 msgid "IP address"
-msgstr ""
+msgstr "IP-adres"
 
 #: models.py:37
 msgid "content type"
@@ -87,26 +88,26 @@ msgstr "Verwijderen"
 #: templates/reactions.hbs:60 templates/wallposts.hbs:17
 #: templates/wallposts.hbs.py:325
 msgid "Login"
-msgstr "log in"
+msgstr "Inloggen"
 
 #: templates/reactions.hbs:60 templates/wallposts.hbs:17
 #: templates/wallposts.hbs.py:325
 msgid "or become a"
-msgstr "of wordt"
+msgstr "of maak "
 
 #: templates/reactions.hbs:60 templates/wallposts.hbs:17
 #: templates/wallposts.hbs.py:325
 msgid "member"
-msgstr "lid"
+msgstr "een profiel aan"
 
 #: templates/reactions.hbs:60 templates/wallposts.hbs:17
 #: templates/wallposts.hbs.py:325
 msgid "to leave a comment."
-msgstr "om een comment te plaaten"
+msgstr "om een comment te plaatsen."
 
 #: templates/wallposts.hbs:33
 msgid "Name of your update."
-msgstr ""
+msgstr "Titel"
 
 #: templates/wallposts.hbs:47
 msgid "Your update."
@@ -114,7 +115,7 @@ msgstr "Jouw update"
 
 #: templates/wallposts.hbs:61
 msgid "Add link to video"
-msgstr "Voeg een link naar een video toe"
+msgstr "Voeg link naar video toe"
 
 #: templates/wallposts.hbs:75
 msgid "Upload photos"
@@ -122,19 +123,19 @@ msgstr "Upload foto's"
 
 #: templates/wallposts.hbs:76
 msgid "format 620 x 380 minimum for best result"
-msgstr "met een formaat van 620 x 380 voor het beste resultaat"
+msgstr "minimaal 620 x 380 pixels voor het beste resultaat"
 
 #: templates/wallposts.hbs:83
 msgid "Select photos"
-msgstr ""
+msgstr "Selecteer foto's"
 
 #: templates/wallposts.hbs:90
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: templates/wallposts.hbs:107
 msgid "Post Update"
-msgstr ""
+msgstr "Plaats update"
 
 #: templates/wallposts.hbs:116 templates/wallposts.hbs.py:128
 msgid "Comment"
@@ -142,7 +143,7 @@ msgstr "Comment"
 
 #: templates/wallposts.hbs:138
 msgid "Comments & Updates"
-msgstr ""
+msgstr "Laatste updates"
 
 #: templates/wallposts.hbs:155 templates/wallposts.hbs.py:337
 msgid "Show more"
@@ -154,7 +155,7 @@ msgstr "meer"
 
 #: templates/wallposts.hbs:159
 msgid "no more posts to show"
-msgstr "dat was alles"
+msgstr "dat waren alle updates"
 
 #: templates/wallposts.hbs:260
 msgid "Post Comment"

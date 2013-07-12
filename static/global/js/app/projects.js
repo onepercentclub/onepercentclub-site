@@ -401,11 +401,6 @@ App.ProjectView = Em.View.extend(App.AnimateProgressMixin, {
     didInsertElement: function(){
         this._super();
         this.$('.tags').popover({trigger: 'hover', placement: 'top', width: '100px'});
-        /**
-         * Commented out because the new design does not have background image.
-         */
-        // this.$('#detail').css('background', 'url("' + this.get('controller.plan.image.background') + '") 50% 50%');
-        // this.$('#detail').css('background-size', '100%');
     }
 });
 

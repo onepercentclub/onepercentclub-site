@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-26 12:03+0200\n"
+"POT-Creation-Date: 2013-07-12 15:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,65 +17,65 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:16
+#: models.py:14
 msgid "name"
 msgstr ""
 
-#: models.py:19
+#: models.py:17
 msgid "numeric code"
 msgstr ""
 
-#: models.py:20
+#: models.py:18
 msgid "ISO 3166-1 or M.49 numeric code"
 msgstr ""
 
-#: models.py:38 models.py:47
+#: models.py:35 models.py:44
 msgid "region"
 msgstr ""
 
-#: models.py:39
+#: models.py:36
 msgid "regions"
 msgstr ""
 
-#: models.py:51 models.py:61
+#: models.py:48 models.py:57
 msgid "sub region"
 msgstr ""
 
-#: models.py:52
+#: models.py:49
 msgid "sub regions"
 msgstr ""
 
-#: models.py:63
+#: models.py:59
 msgid "alpha2 code"
 msgstr ""
 
-#: models.py:63
+#: models.py:59
 msgid "ISO 3166-1 alpha-2 code"
 msgstr ""
 
-#: models.py:64
+#: models.py:60
 msgid "alpha3 code"
 msgstr ""
 
-#: models.py:64
+#: models.py:60
 msgid "ISO 3166-1 alpha-3 code"
 msgstr ""
 
-#: models.py:66
+#: models.py:62
 msgid "ODA recipient"
 msgstr ""
 
-#: models.py:68
+#: models.py:64
 msgid ""
 "Whether a country is a recipient of Official DevelopmentAssistance from the "
 "OECD's Development Assistance Committee."
 msgstr ""
 
-#: models.py:75
+#: models.py:71
 msgid "country"
 msgstr ""
 
-#: models.py:76
+#: models.py:72
 msgid "countries"
 msgstr ""
 

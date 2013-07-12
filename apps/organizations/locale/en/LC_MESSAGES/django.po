@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-26 12:03+0200\n"
+"POT-Creation-Date: 2013-07-12 15:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,7 +109,7 @@ msgstr ""
 msgid "tags"
 msgstr ""
 
-#: models.py:60 models.py:75 models.py:93 models.py:103
+#: models.py:60 models.py:82 models.py:100 models.py:110
 msgid "organization"
 msgstr ""
 
@@ -117,66 +117,66 @@ msgstr ""
 msgid "organizations"
 msgstr ""
 
-#: models.py:72
+#: models.py:79
 msgid "Owner"
 msgstr ""
 
-#: models.py:73
+#: models.py:80
 msgid "Editor"
 msgstr ""
 
-#: models.py:76
+#: models.py:83
 msgid "user"
 msgstr ""
 
-#: models.py:77
+#: models.py:84
 msgid "function"
 msgstr ""
 
-#: models.py:80
+#: models.py:87
 msgid "organization member"
 msgstr ""
 
-#: models.py:81
+#: models.py:88
 msgid "organization members"
 msgstr ""
 
-#: models.py:88
+#: models.py:95
 msgid "Physical"
 msgstr ""
 
-#: models.py:89
+#: models.py:96
 msgid "Postal"
 msgstr ""
 
-#: models.py:90
+#: models.py:97
 msgid "Other"
 msgstr ""
 
-#: models.py:92
+#: models.py:99
 msgid "type"
 msgstr ""
 
-#: models.py:92
+#: models.py:99
 msgid "Address type."
 msgstr ""
 
-#: models.py:96
+#: models.py:103
 msgid "organization address"
 msgstr ""
 
-#: models.py:97
+#: models.py:104
 msgid "organization addresses"
 msgstr ""
 
-#: models.py:105
+#: models.py:112
 msgid "author"
 msgstr ""
 
-#: models.py:108
+#: models.py:115
 msgid "organization document"
 msgstr ""
 
-#: models.py:109
+#: models.py:116
 msgid "organization documents"
 msgstr ""

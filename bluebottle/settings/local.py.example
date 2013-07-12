@@ -33,6 +33,20 @@ from .base import *
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
+
+# For DKIM signing add a key here.
+# Look at: http://dkimcore.org/tools/keys.html
+# DKIM_PRIVATE_KEY = "-----BEGIN RSA PRIVATE KEY-----\n" \
+#                   "-----END RSA PRIVATE KEY-----"
+
+# DKIM_DOMAIN = ""
+# DKIM_SELECTOR = ""
+
+# EMAIL_BACKEND = 'apps.bluebottle_utils.email_backend.DKIMBackend'
+
+
+
+
 ## We don't want to worry about Celery AND be able to test it. Hence we're
 ## executing tasks synchronously and will use the Django database as a backend.
 ## Make Celery use Django DB as transport
