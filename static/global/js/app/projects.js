@@ -227,6 +227,14 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
         this.set('model', form);
     },
 
+    rangeStart: function(){
+        return this.get('page') * 8 -7;
+    }.property('controllers.projectList.model.length'),
+
+    rangeEnd: function(){
+        return this.get('page') * 8 -8 + this.get('controllers.projectList.model.length');
+    }.property('controllers.projectList.model.length'),
+
     hasNextPage: function(){
         var next = this.get('page') * 8;
         var total = this.get('controllers.projectList.model.meta.total');
@@ -290,16 +298,16 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
                 'theme': this.get('theme')
             };
             var projects = App.ProjectPreview.find(query);
-            projects.one('didLoad', function(data){
-                list.set('model', projects);
-            });
+            list.set('model', projects);
         }
     }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering')
 });
 
 
 App.ProjectController = Em.ObjectController.extend({
-    isFundable: Em.computed.equal('phase', 'campaign'),
+    isFundable: function(){
+        if (this.get('phase') == 'campaign' && this.get('money_asked'));
+    },
 
     allTags: function() {
         var tags = this.get('plan.tags');

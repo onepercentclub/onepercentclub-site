@@ -134,9 +134,8 @@ App.TaskSearchFormController = Em.ObjectController.extend({
         return this.get('page') * 8 -8 + this.get('controllers.taskList.model.length');
     }.property('controllers.taskList.model.length'),
 
-
     hasNextPage: function(){
-        var next = this.get('page') * 8;
+        var next = this.get('page') * 8 -7;
         var total = this.get('controllers.taskList.model.meta.total');
         return (next < total);
     }.property('controllers.taskList.model.meta.total'),

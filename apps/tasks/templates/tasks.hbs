@@ -135,12 +135,13 @@
                     </a>
                 {{/if}}
                 <h2>{% trans "found" %} <em>{{controllers.taskList.model.meta.total}}</em> {% trans "tasks" %}</h2>
-               showing results {{rangeStart}}-{{rangeEnd}}
                 <div class="ordering button-link">
                     {% trans "Sort:" %}
                     <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
                     <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
                 </div>
+                <br />
+               {% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}
 
 
             </article>
