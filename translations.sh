@@ -32,7 +32,9 @@ for dir in $(find $APPS_DIR -maxdepth 1 -type d); do
     fi
 done
 
-#APPS="accounts fund geo organizations projects wallposts reactions"
+echo $APPS
+
+# APPS="accounts fund geo organizations projects wallposts reactions homepage"
 
 case "$1" in
         generate)
