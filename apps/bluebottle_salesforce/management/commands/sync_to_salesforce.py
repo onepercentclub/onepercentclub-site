@@ -1,6 +1,9 @@
 import logging
+import sys
 from optparse import make_option
+from datetime import timedelta
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 from apps.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan
 from apps.organizations.models import Organization, OrganizationAddress
@@ -32,31 +35,54 @@ class Command(BaseCommand):
     }
 
     option_list = BaseCommand.option_list + (
-        make_option('--test-run', action='store_true', dest='test_run', default=False, help='Execute a Salesforce sync without saving to Salesforce.'),
+        make_option('--dry-run', action='store_true', dest='dry_run', default=False,
+                    help='Execute a Salesforce sync without saving to Salesforce.'),
+
+        make_option('--sync-updated', action='store', dest='sync_updated', type='int', metavar='MINUTES',
+                    help="Only sync records that have been updated in the last MINUTES minutes."),
+
+        make_option('--sync-all', action='store_true', dest='sync_all',
+                    help="Sync all records.")
     )
 
     def handle(self, *args, **options):
         # Setup the log level for root logger.
         loglevel = self.verbosity_loglevel.get(options['verbosity'])
-        logging.getLogger().setLevel(loglevel)
+        logger.setLevel(loglevel)
+
+        if options['sync_updated'] and options['sync_all']:
+            logger.error("You cannot set both '--sync-all' and '--sync-updated'.")
+            sys.exit(1)
+        elif not options['sync_updated'] and not options['sync_all']:
+            logger.error("You must set either '--sync-all' or '--sync-updated MINUTES'. See help for more information.")
+            sys.exit(1)
+
+        sync_from_datetime = None
+        if options['sync_updated']:
+            delta = timedelta(minutes=options['sync_updated'])
+            sync_from_datetime = timezone.now() - delta
 
         # The synchronization methods need to be run in a specific order because of foreign key dependencies.
-        sync_organizations(options['test_run'])
-        sync_users(options['test_run'])
-        sync_projects(options['test_run'])
-        sync_budget_lines(options['test_run'])
-        sync_tasks(options['test_run'])
-        sync_task_members(options['test_run'])
-        sync_donations(options['test_run'])
-        sync_vouchers(options['test_run'])
+        sync_organizations(options['dry_run'], sync_from_datetime)
+        sync_users(options['dry_run'], sync_from_datetime)
+        sync_projects(options['dry_run'], sync_from_datetime)
+        sync_budget_lines(options['dry_run'], sync_from_datetime)
+        sync_tasks(options['dry_run'], sync_from_datetime)
+        sync_task_members(options['dry_run'], sync_from_datetime)
+        sync_donations(options['dry_run'], sync_from_datetime)
+        sync_vouchers(options['dry_run'], sync_from_datetime)
 
         logger.info("Synchronization finished with {0} successes and {1} errors.".format(success_count, error_count))
 
 
-def sync_organizations(test_run):
+def sync_organizations(dry_run, sync_from_datetime):
     global error_count
     global success_count
+
     organizations = Organization.objects.all()
+    if sync_from_datetime:
+        organizations = organizations.filter(updated__gte=sync_from_datetime)
+
     logger.info("Syncing {0} Organization objects.".format(organizations.count()))
 
     for organization in organizations:
@@ -113,7 +139,7 @@ def sync_organizations(test_run):
         sforganization.created_date = organization.created
 
         # Save the object to Salesforce
-        if not test_run:
+        if not dry_run:
             try:
                 sforganization.save()
                 success_count += 1
@@ -122,10 +148,15 @@ def sync_organizations(test_run):
                 logger.error("Error while saving organization id {0}: ".format(organization.id) + str(e))
 
 
-def sync_users(test_run):
+def sync_users(dry_run, sync_from_datetime):
     global error_count
     global success_count
+
     users = BlueBottleUser.objects.all()
+
+    if sync_from_datetime:
+        users = users.filter(updated__gte=sync_from_datetime)
+
     logger.info("Syncing {0} User objects.".format(users.count()))
 
     for user in users:
@@ -240,7 +271,7 @@ def sync_users(test_run):
         contact.external_id = user.id
 
         # Save the object to Salesforce
-        if not test_run:
+        if not dry_run:
             try:
                 contact.save()
                 success_count += 1
@@ -249,10 +280,16 @@ def sync_users(test_run):
                 logger.error("Error while saving contact id {0}: ".format(user.id) + str(e))
 
 
-def sync_projects(test_run):
+def sync_projects(dry_run, sync_from_datetime):
     global error_count
     global success_count
+
     projects = Project.objects.all()
+
+    # TODO: Projects is a little more complicated because of all of the related modules.
+    # if sync_from_datetime:
+    #     projects = projects.filter(updated__gte=sync_from_datetime)
+
     logger.info("Syncing {0} Project objects.".format(projects.count()))
 
     for project in projects:
@@ -359,7 +396,7 @@ def sync_projects(test_run):
         sfproject.external_id = project.id
 
         # Save the object to Salesforce
-        if not test_run:
+        if not dry_run:
             try:
                 sfproject.save()
                 success_count += 1
@@ -368,10 +405,15 @@ def sync_projects(test_run):
                 logger.error("Error while saving project id {0}: ".format(project.id) + str(e))
 
 
-def sync_budget_lines(test_run):
+def sync_budget_lines(dry_run, sync_from_datetime):
     global error_count
     global success_count
+
     budget_lines = ProjectBudgetLine.objects.all()
+    # TODO: The ProjectBudgetLine model needs an updated field. Wait for a proper solution for projects.
+    # if sync_from_datetime:
+    #     budget_lines = budget_lines.filter(updated__gte=sync_from_datetime)
+
     logger.info("Syncing {0} BudgetLine objects.".format(budget_lines.count()))
 
     for budget_line in budget_lines:
@@ -393,7 +435,7 @@ def sync_budget_lines(test_run):
         sfbudget_line.project = SalesforceProject.objects.get(external_id=budget_line.project_plan.id)
 
         # Save the object to Salesforce
-        if not test_run:
+        if not dry_run:
             try:
                 sfbudget_line.save()
                 success_count += 1
@@ -402,10 +444,14 @@ def sync_budget_lines(test_run):
                 logger.error("Error while saving budget line id {0}: ".format(budget_line.id) + str(e))
 
 
-def sync_donations(test_run):
+def sync_donations(test_run, sync_from_datetime):
     global error_count
     global success_count
+
     donations = Donation.objects.all()
+    if sync_from_datetime:
+        donations = donations.filter(updated__gte=sync_from_datetime)
+
     logger.info("Syncing {0} Donation objects.".format(donations.count()))
 
     for donation in donations:
@@ -464,10 +510,14 @@ def sync_donations(test_run):
                 logger.error("Error while saving donation id {0}: ".format(donation.id) + str(e))
 
 
-def sync_vouchers(test_run):
+def sync_vouchers(dry_run, sync_from_datetime):
     global error_count
     global success_count
+
     vouchers = Voucher.objects.all()
+    if sync_from_datetime:
+        vouchers = vouchers.filter(updated__gte=sync_from_datetime)
+
     logger.info("Syncing {0} Voucher objects.".format(vouchers.count()))
 
     for voucher in vouchers:
@@ -516,7 +566,7 @@ def sync_vouchers(test_run):
         sfvoucher.record_type = "012A0000000BxfHIAS"
 
         # Save the object to Salesforce
-        if not test_run:
+        if not dry_run:
             try:
                 sfvoucher.save()
                 success_count += 1
@@ -525,10 +575,14 @@ def sync_vouchers(test_run):
                 logger.error("Error while saving voucher id {0}: ".format(voucher.id) + str(e))
 
 
-def sync_tasks(test_run):
+def sync_tasks(dry_run, sync_from_datetime):
     global error_count
     global success_count
+
     tasks = Task.objects.all()
+    if sync_from_datetime:
+        tasks = tasks.filter(updated__gte=sync_from_datetime)
+
     logger.info("Syncing {0} Task objects.".format(tasks.count()))
 
     for task in tasks:
@@ -564,7 +618,7 @@ def sync_tasks(test_run):
         sftask.external_id = task.id
 
         # Save the object to Salesforce
-        if not test_run:
+        if not dry_run:
             try:
                 sftask.save()
                 success_count += 1
@@ -573,10 +627,15 @@ def sync_tasks(test_run):
                 logger.error("Error while saving task id {0}: ".format(task.id) + str(e))
 
 
-def sync_task_members(test_run):
+def sync_task_members(dry_run, sync_from_datetime):
     global error_count
     global success_count
+
     task_members = TaskMember.objects.all()
+    # TODO: Add updated to TaskMember.
+    # if sync_from_datetime:
+    #     task_members = task_members.filter(updated__gte=sync_from_datetime)
+
     logger.info("Syncing {0} TaskMember objects.".format(task_members.count()))
 
     for task_member in task_members:
@@ -601,7 +660,7 @@ def sync_task_members(test_run):
         sftaskmember.external_id = task_member.id
 
         # Save the object to Salesforce
-        if not test_run:
+        if not dry_run:
             try:
                 sftaskmember.save()
                 success_count += 1

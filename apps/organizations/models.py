@@ -11,12 +11,11 @@ from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as
 from apps.bluebottle_utils.models import Address
 from django.core.files.storage import FileSystemStorage
 
+
 class Organization(models.Model):
     """
-    Organizations can run Projects.
-    An organization has one or more members.
+    Organizations can run Projects. An organization has one or more members.
     """
-
     name = models.CharField(_("name"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
@@ -38,7 +37,6 @@ class Organization(models.Model):
     deleted = models.DateTimeField(_("deleted"), null=True, blank=True)
 
     partner_organizations = models.TextField(_("partner organizations"), blank=True)
-
 
     account_bank_name = models.CharField(_("account bank name"), max_length=255, blank=True)
     account_bank_address = models.CharField(_("account bank address"), max_length=255, blank=True)
@@ -69,7 +67,6 @@ class Organization(models.Model):
                 slug = '%s%s%s' % (original_slug, '-', next)
                 next += 1
             self.slug = slug
-
 
 
 class OrganizationMember(models.Model):
