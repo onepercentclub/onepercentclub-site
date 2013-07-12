@@ -18,6 +18,7 @@ class DonationStatuses(DjangoChoices):
     pending = ChoiceItem('pending', label=_("Pending"))
     paid = ChoiceItem('paid', label=_("Paid"))
     failed = ChoiceItem('failed', label=_("Failed"))
+    cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
 
 
 class Donation(models.Model):
