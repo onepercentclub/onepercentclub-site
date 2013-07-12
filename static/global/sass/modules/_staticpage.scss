@@ -21,6 +21,11 @@
             }
         }
 
+        h2 {
+            color: $pink;
+            text-transform: none;
+        }
+
         &:nth-of-type(even) {
             background-color: $white;
 
@@ -77,6 +82,13 @@
             font-weight: 300;
         }
     }
+
+    small {
+        @include rem(margin-bottom, $margin);
+        @include  rem(font-size, 16px);
+
+        color: $grayDarker;
+    }
 }
 
 .static-page-illustration {
@@ -110,6 +122,97 @@
 
     i {
       text-decoration: none;
+    }
+}
+
+.static-page-iconed-list {
+    margin: 0;
+
+    .item {
+        @include rem(margin-bottom, 16px);
+        @include rem(font-size, 22px);
+        display: block;
+
+        i {
+            @include inline-block;
+            @include rem(font-size, 32px);
+            width: 40px;
+            color: $gray;
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        strong {
+            font-weight: 300;
+        }
+
+        a {
+            color: $pink;
+        }
+    }
+}
+
+.static-page-illustrations-list {
+    @include clearfix;
+    position: relative;
+    margin: 0;
+
+    .item {
+        @include grid(9.6, 0, 1);
+        @include rem(padding, 24px);
+        position: relative;
+        overflow: hidden;
+        height: 200px;
+        border: 1px solid $grayLight;
+
+        text-align: center;
+
+        i {
+            @include rem(font-size, 80px);
+            color: $grayLighter;
+            line-height: 1;
+        }
+
+        .h3 {
+            @include rem(font-size, 20px);
+            @include rem(bottom, 8px);
+            position: absolute;
+            right: 0;
+            left: 0;
+            color: $grayDarker;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        &:hover {
+            background-color: $green;
+
+            i,
+            .h3 {
+                color: $white;
+            }
+        }
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+
+    .item-popover {
+        position: absolute;
+        right: 0;
+        bottom: 110%;
+        left: 0;
+        margin-right: 2.08333%;
+        background: $grayLighter;
+
+        &:not(:empty) {
+            @include rem(padding, 56px 16px);
+        }
+
+        p {
+            margin-right: 0;
+        }
     }
 }
 
