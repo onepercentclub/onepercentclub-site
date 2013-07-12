@@ -35,6 +35,7 @@ App.ProjectCountrySelectView = Em.Select.extend({
 
 // TODO: get this list from the server
 App.ExpertiseList = [
+    {value: "none", title: "No specific skill needed"},
     {value: "research", title: "(online) Research"},
     {value: "agriculture", title: "Agriculture"},
     {value: "engineering", title: "Architecture/Engineering"},
@@ -70,11 +71,11 @@ App.ExpertiseSelectView = Em.Select.extend({
     content: App.ExpertiseList,
     optionValuePath: "content.value",
     optionLabelPath: "content.title",
-    prompt: "no specific skill"
+    prompt: "pick a skill"
 });
 
 App.TimeNeededList = [
-    {value: 0.25, title: "up to 15 minutes"},
+    {value: 0.25, title: "15 minutes"},
     {value: 0.5, title: "half an hour"},
     {value: 1, title: "up to one hour"},
     {value: 2, title: "two hours"},

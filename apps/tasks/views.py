@@ -4,13 +4,44 @@ from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
 from apps.tasks.models import Task, TaskMember, TaskFile
 from apps.tasks.permissions import  IsTaskAuthorOrReadOnly
-from apps.tasks.serializers import TaskSerializer, TaskMemberSerializer, TaskWallPostSerializer, TaskFileSerializer
+from apps.tasks.serializers import TaskSerializer, TaskMemberSerializer, TaskWallPostSerializer, TaskFileSerializer, TaskPreviewSerializer
 from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query_utils import Q
 from rest_framework import generics
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+
+class TaskPreviewList(generics.ListAPIView):
+    model = Task
+    serializer_class = TaskPreviewSerializer
+    paginate_by = 8
+    filter_fields = ('status', 'expertise', )
+
+    def get_queryset(self):
+        qs = super(TaskPreviewList, self).get_queryset()
+
+        project_slug = self.request.QUERY_PARAMS.get('project', None)
+        if project_slug:
+            qs = qs.filter(project__slug=project_slug)
+
+        text = self.request.QUERY_PARAMS.get('text', None)
+        if text:
+            qs = qs.filter(Q(title__icontains=text) |
+                           Q(description__icontains=text) |
+                           Q(end_goal__icontains=text))
+
+        ordering = self.request.QUERY_PARAMS.get('ordering', None)
+
+        if ordering == 'newest':
+            qs = qs.order_by('-created')
+        elif ordering == 'deadline':
+            qs = qs.order_by('deadline')
+
+        qs = qs.exclude(status=Task.TaskStatuses.closed)
+
+        return qs
 
 
 class TaskList(generics.ListCreateAPIView):
@@ -43,8 +74,6 @@ class TaskList(generics.ListCreateAPIView):
         qs = qs.exclude(status=Task.TaskStatuses.closed)
 
         return qs
-
-
 
     def pre_save(self, obj):
         obj.author = self.request.user

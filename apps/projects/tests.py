@@ -33,15 +33,13 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             while Project.objects.filter(slug=slug).exists():
                 slug = generate_random_slug()
 
-        project = Project(owner=owner, title=title, slug=slug, phase=phase)
-        project.save()
-
         if not title:
             title = generate_random_slug()
             while Project.objects.filter(title=title).exists():
                 title = generate_random_slug()
 
-        project.title = title
+        project = Project(owner=owner, title=title, slug=slug, phase=phase)
+        project.save()
 
         project.projectpitch.title = title
         project.projectpitch.status = ProjectPitch.PitchStatuses.new

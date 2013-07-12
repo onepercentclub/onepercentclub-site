@@ -9,10 +9,11 @@ from rest_framework import serializers
 
 class TaskPreviewSerializer(serializers.ModelSerializer):
     author = UserPreviewSerializer()
+    project = ProjectPreviewSerializer()
 
     class Meta:
         model = Task
-        fields = ('id', 'title', 'location', 'expertise', 'status', 'created')
+        fields = ('id', 'title', 'location', 'expertise', 'status', 'created', 'project', 'deadline', 'time_needed')
 
 
 class TaskMemberSerializer(serializers.ModelSerializer):
@@ -38,7 +39,7 @@ class TaskFileSerializer(serializers.ModelSerializer):
 class TaskSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
     members = TaskMemberSerializer(many=True, source='taskmember_set', required=False)
     files = TaskFileSerializer(many=True, source='taskfile_set', required=False)
-    project = ProjectPreviewSerializer()
+    project = serializers.SlugRelatedField(slug_field='slug')
     author = UserPreviewSerializer()
 
     tags = TagSerializer()

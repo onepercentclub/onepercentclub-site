@@ -1,23 +1,4 @@
 /*
- Form Elements
- */
-
-App.TaskStatusList = [
-    {value: 'open', title: "open"},
-    {value: 'in progress', title: "in progress"},
-    {value: 'realized', title: "realised"}
-];
-
-App.TaskStatusSelectView = Em.Select.extend({
-    content: App.TaskStatusList,
-    optionValuePath: "content.value",
-    optionLabelPath: "content.title",
-    prompt: "any status"
-
-});
-
-
-/*
  Models
  */
 
@@ -62,7 +43,7 @@ App.Task = DS.Model.extend({
     end_goal: DS.attr('string'),
     created: DS.attr('date'),
     deadline: DS.attr('date'),
-    project: DS.belongsTo('App.ProjectPreview'),
+    project: DS.belongsTo('App.Project'),
     members: DS.hasMany('App.TaskMember'),
     files: DS.hasMany('App.TaskFile'),
     expertise: DS.attr('string'),
@@ -102,11 +83,17 @@ App.Task = DS.Model.extend({
 
 });
 
+App.NewTask = App.Task.extend({
+    project: DS.belongsTo('App.Project')
+});
+
+
 /*
-Preview model that won't contain all the properties.
+Preview model that doesn't contain all the properties.
  */
 App.TaskPreview = App.Task.extend({
-
+    url: 'tasks/previews',
+    project: DS.belongsTo('App.ProjectPreview')
 });
 
 
@@ -190,7 +177,7 @@ App.TaskSearchFormController = Em.ObjectController.extend({
                 'text': this.get('text'),
                 'expertise': this.get('skill')
             };
-            var tasks = App.Task.find(query);
+            var tasks = App.TaskPreview.find(query);
             list.set('model', tasks);
         }
     }.observes('text', 'skill', 'status', 'page', 'ordering')
@@ -265,9 +252,7 @@ App.ProjectTaskNewController = Em.ObjectController.extend({
         var controller = this;
         var task = this.get('content');
         task.set('project', this.get('controllers.project.model'));
-        //task.set('author', this.get('controllers.currentUser.model'));
         task.on('didCreate', function(record) {
-            controller.get('controllers.projectTaskList').unshiftObject(record);
             controller.transitionToRoute('projectTaskList')
         });
         task.on('becameInvalid', function(record) {
@@ -410,5 +395,23 @@ App.TaskDeadLineDatePickerView = Ember.TextField.extend({
     }
 });
 
+
+/*
+ Form Elements
+ */
+
+App.TaskStatusList = [
+    {value: 'open', title: "open"},
+    {value: 'in progress', title: "in progress"},
+    {value: 'realized', title: "realised"}
+];
+
+App.TaskStatusSelectView = Em.Select.extend({
+    content: App.TaskStatusList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title",
+    prompt: "any status"
+
+});
 
 
