@@ -335,6 +335,21 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             url += '/';
         }
         return url;
+    },
+
+    /**
+     * Changes from default:
+     * - Store meta data on record array
+     */
+    didFindQuery: function (store, type, payload, recordArray) {
+        var loader = DS.loaderFor(store);
+
+        loader.populateArray = function (data) {
+            recordArray.load(data);
+            recordArray.set('meta', Em.A({total: payload.count, next: payload.next, previous: payload.previous}));
+        };
+
+        get(this, 'serializer').extractMany(loader, payload, type);
     }
 });
 

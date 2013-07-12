@@ -325,7 +325,8 @@ App.Adapter.map('App.Project', {
     country: {embedded: 'load'}
 });
 App.Adapter.map('App.ProjectPreview', {
-    campaign: {embedded: 'load'}
+    campaign: {embedded: 'load'},
+    country: {embedded: 'load'}
 });
 App.Adapter.map('App.DonationPreview', {
     project: {embedded: 'load'},
@@ -650,6 +651,13 @@ App.ApplicationRoute = Em.Route.extend({
                 route.transitionTo('project', project);
             });
         },
+        showProjectTaskList: function(project_id) {
+            var route = this;
+            App.Project.find(project_id).then(function(project){
+                route.transitionTo('project', project);
+                route.transitionTo('projectTaskList');
+            });
+        },
         showNews: function(news_id) {
             var route = this;
             App.News.find(news_id).then(function(news){
@@ -665,12 +673,6 @@ App.ApplicationRoute = Em.Route.extend({
  * Project Routes
  */
 
-App.ProjectListRoute = Em.Route.extend({
-    model: function() {
-        return App.ProjectPreview.find({phase: 'campaign'});
-    }
-});
-
 
 App.ProjectRoute = Em.Route.extend({
     model: function(params) {
@@ -683,7 +685,10 @@ App.ProjectRoute = Em.Route.extend({
         return page;
     },
 
-    setupController: function(controller, project) {
+    setupController: function(controller, model) {
+        console.log(model.toString());
+        var project = App.Project.find(model.get('id'));
+
         this._super(controller, project);
 
         // Set the controller to show Project Supporters

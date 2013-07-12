@@ -1,3 +1,4 @@
+from apps.tasks.models import Task
 from django.db import models
 from django.db.models.aggregates import Count, Sum
 from django.db.models.expressions import F
@@ -88,7 +89,7 @@ class Project(models.Model):
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
 
-    popularity = models.FloatField(null=True)
+    popularity = models.FloatField(null=False, default=0)
 
     objects = ProjectManager()
 
@@ -136,7 +137,7 @@ class Project(models.Model):
 
     @property
     def task_count(self):
-        return len(self.task_set.all())
+        return len(self.task_set.filter(status=Task.TaskStatuses.open).all())
 
     @models.permalink
     def get_absolute_url(self):

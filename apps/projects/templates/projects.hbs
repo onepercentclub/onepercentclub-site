@@ -8,10 +8,25 @@
         <a {{action showProject project.id href=true}}>
             <div class="header">
                 <img {{bindAttr src="project.image" }} />
-                <h3>{{project.title}}</h3>
+                <h3>
+                    {{project.title}}<br/>
+                    <i class="icon-globe"></i><span class="item-project-country">{{project.country.name}}</span>
+                </h3>
             </div>
         </a>
         <div {{bindAttr class=":status phase"}}>
+            {{#if project.isPhasePlan}}
+                <div class="donate-status">
+                    <p class="donate-amount text-center">
+                        <i class="flaticon solid lightbulb-3"></i>
+                        <em>{% trans "New" %}</em> {% trans "Smart Idea" %}
+                    </p>
+                    {{#unless task_count}}
+                        <a {{action showProject project.id href=true}}>{% trans "Give your feedback" %}</a>
+                    {{/unless}}
+                </div>
+            {{/if}}
+
             {{#if project.isPhaseCampaign}}
                 <div class="donate-status">
                     <span class="donate-slider"><strong style="width: 0;" class="donate-progress">&nbsp;</strong></span>
@@ -29,6 +44,17 @@
                 </div>
             {{/if}}
 
+            {{#if project.isPhaseAct}}
+                <div class="donate-status">
+                    <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
+                    <p class="donate-amount text-center">
+                        <em>{% trans "Fully funded" %}</em>
+                        &amp; {% trans "being realized" %}
+                    </p>
+                </div>
+            {{/if}}
+
+            {# Is the same as phase "Act". So code can be made DRYer. #}
             {{#if project.isPhaseResults}}
                 <div class="donate-status">
                     <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
@@ -45,8 +71,15 @@
                         {% trans "Project realized" %}
                     </p>
 
-                    {# FIXME: Should be a link to route for project's results #}
-                    <a href="#">{% trans "See project results" %}</a>
+                    <a {{action showProject project.id href=true}}>{% trans "See project results" %}</a>
+                </div>
+            {{/if}}
+
+            {{#if task_count}}
+                <div class="project-task">
+                    <a {{action showProjectTaskList project.id}}>
+                        <i class="flaticon solid wrench-1"></i> <em>{{project.task_count}}</em> {% trans "task(s) available" %}
+                    </a>
                 </div>
             {{/if}}
         </div>
@@ -59,7 +92,6 @@
 {% tplhandlebars "project_list" %}
 
     {{render "projectSearchForm" }}
-
     <div class="container">
         <section class="wrapper">
             <article>
@@ -104,6 +136,12 @@
                     <em class="icon icon-filter"></em>
                     {{view App.ProjectPhaseSelectView valueBinding="phase" }}
                 </div>
+                <div class="clear-form">
+                    <a {{action clearForm}}>
+                        <span class="flaticon solid x-3"></span>
+                        {% trans "clear filters" %}
+                    </a>
+                </div>
             </article>
         </section>
     </div>
@@ -121,7 +159,8 @@
                         <i class="flaticon solid right-circle-2"></i>
                     </a>
                 {{/if}}
-                <div class="ordering button-lin">
+                <h2>results <em>{{controllers.projectList.model.meta.total}}</em></h2>
+                <div class="ordering button-link">
                     {% trans "Sort:" %}
                     <a {{action sortOrder 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
                     {% comment %}
@@ -197,10 +236,10 @@
             <section class="wrapper">
                 <div class="status-box">
                     <p class="donate-days-left">
-
-                            <strong><i class="icon flaticon solid clock-1"></i> 127 </strong>
+                        {{#if campaign.deadline }}
+                            <strong><i class="icon flaticon solid clock-1"></i> {{campaign.daysToGo}} </strong>
                             <em>{% trans "days to go" %}</em>
-
+                        {{/if}}
                     </p>
 
                     <div class="donate-status">
@@ -277,11 +316,11 @@
     <div class="member-box">
         <ul>
             <li class="member-initiator">
-                <h4>Initiator</h4>
                 <ul>
                     <li>
                         <a {{action openInBigBox "userModal" owner }} class="member">
                             <img {{bindAttr src="owner.getAvatar" info="owner.first_name"}} width="45" height="45" />
+                            <h4>Initiator</h4>
                             <strong class="member-name">{{owner.full_name}}</strong>
                             <em class="member-organisation">{{organization}}</em>
                         </a>
@@ -388,17 +427,7 @@
             {% endcomment %}
 
             {{#if isPhaseCampaign}}
-                <li class="member-supporters">
-                    <h4>{% trans "Supporters" %}</h4>
-                    {{render "projectSupporterList"}}
-                </li>
-                <li class="show-all-supporters supporters-amount" class="not-implemented">
-                    <a href="#" class="member">
-                        <strong>{{supporters_count}}</strong>
-                        <br/>
-                        <em>Total</em>
-                    </a>
-                </li>
+                {{render "projectSupporterList"}}
             {{/if}}
         </ul>
     </div>
@@ -406,12 +435,25 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "project_supporter_list" %}
-    <ul>
-        {{#each supporter in controller}}
-            {{view "App.ProjectSupporterView" }}
-        {{/each}}
-    </ul>
+    {% tplhandlebars "project_supporter_list" %}
+    {{#if supporters.length}}
+        <li class="show-all-supporters supporters-amount" class="not-implemented">
+            <a href="#" class="member">
+                <strong>{{supporters.length}}</strong>
+                <br/>
+                <em>Total</em>
+            </a>
+        </li>
+
+        <li class="member-supporters">
+            <ul>
+                {{#each supporter in controller}}
+                    {{view "App.ProjectSupporterView" }}
+                {{/each}}
+            </ul>
+            <h4>{% trans "Supporters" %}</h4>
+        </li>
+    {{/if}}
 {% endtplhandlebars %}
 
 

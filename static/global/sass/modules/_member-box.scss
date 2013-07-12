@@ -1,174 +1,168 @@
 /* =========== Project members */
 
 .member-box {
-    @include grid(48, 1, 1);
-    position: relative;
-    padding: 0;
+    @include grid(48, 1);
     @include clearfix;
     @include rem(margin-top, 16px);
-    
+    position: relative;
+    padding: 0;
+
     ul {
-        display: inline;
-        margin: 0;
-        list-style: none;
+        @include  clearfix;
         position: relative;
+        display: inline;
         display: block;
+        margin: 0;
         padding: 0;
-        white-space: nowrap;
         width: 100%;
+        list-style: none;
+        white-space: nowrap;
 
         li {
-            position: relative;
-            vertical-align: top;
-            overflow: visible;
-            display: inline-block;
-            margin: 0 $margin * 2 0 0;
-            padding: 24px 0 0 0;
             @include rem(font-size, 14px);
-            
+            position: relative;
+            display: inline-block;
+            overflow: visible;
+            margin: 0 $margin * 2 0 0;
+            vertical-align: top;
+
             h4 {
+                @include rem(font-size, 14px);
                 position: absolute;
+                bottom: -25px;
                 left: 0;
-                top: 0;
                 margin: 0;
                 padding: 0;
-                color: $text-grey;
-                font-weight: normal;
+                color: $gray;
                 text-transform: uppercase;
-                @include rem(font-size, 14px);
+                font-weight: normal;
             }
-            
-            
-            
+
+
+
             ul {
-            
+
                 li {
                     display: inline;
                     margin: 0;
-                    
+
                     a {
                         position: relative;
                         display: block;
                         float: left;
                         margin-bottom: 1px;
                         line-height: 1em;
-                        
+
                         img {
+                            @include transition(0.1s);
+                            float: left;
                             border-width: 1px 1px 1px 0;
                             border-style: solid;
                             border-color: #fff;
-                            vertical-align: middle;
-                            float: left;
-                            @include transition(0.1s);
-                            color: $text-white;
                             background-color: $mid-grey;
-                        }    
-                        
+                            color: $text-white;
+                            vertical-align: middle;
+                        }
+
                         .member-name {
                             display: block;
-                            padding: 0.3em !important;
+                            padding: 10px 0;
                             font-weight: 300;
                         }
-                        
+
                         .member-organisation {
+                            @include rem(font-size, 12px);
                             display: block;
                             padding: 0 0.3em;
-                            @include rem(font-size, 12px);
                             color: $text-grey;
                             font-style: normal;
                         }
-                    
+
                         &:hover {
-                            
-                            
+
+
                             img {
-                                
-                                
+
+
                             }
                         }
                     }
-                    
+
                     .popup {
-                        left: 0;
                         bottom: 60px;
+                        left: 0;
                     }
-                    
+
                     &:first-child a img {
                         border-left: 1px solid #fff;
                     }
                 }
             }
-            
+
             &.member-initiator {
                 @include grid(12,0,2);
             }
-            
+
             &.member-initiator h4 {
-                color: $text-white;
+                position: relative;
+                bottom: auto;
+                color: $grayDarker;
                 font-weight: 300;
-                left: 75px;
             }
-            
+
             &.member-initiator ul li a {
-                
+
                 margin-right: 3em;
                 text-transform: uppercase;
-                
+
                 img {
                     position: relative;
-                    top: -23px;
+                    margin-right: 0.5em;
                     width: 68px;
                     height: auto;
-                    margin-right: 0.5em;
                 }
             }
-            
+
             &.member-supporters {
                 float: right;
-                ul {
-                    float: right;
-                    width: 474px;
-                }
             }
-            
+
             &.member-project-team a, &.member-coaches a, &.member-promotors a, &.member-supporters a {
                 //@extend .placeholder;
             }
         }
     }
-    
+
     .show-all-supporters {
         display: block;
-        position: absolute;
-        right: 0;
-        top: 24px;
+        float: right;
         margin: 0;
         padding: 0;
-        
+
         a {
-            width: 45px;
-            height: 45px;
-            text-transform: uppercase;
             @include rem(font-size, 10px);
             @include rem(padding-top, 4px);
-            line-height: 1em;
-            display: table-cell; 
-            vertical-align: middle; 
-            text-align: center; 
-            color: $text-black;
-            white-space: normal;
+            display: table-cell;
+            width: 45px;
+            height: 45px;
             background-color: $white;
-            
+            color: $text-black;
+            vertical-align: middle;
+            text-align: center;
+            text-transform: uppercase;
+            white-space: normal;
+            line-height: 1em;
+
             strong {
                 @include rem(font-size, 22px);
                 color: $pink;
                 font-weight: 300;
             }
-            
+
             em {
                 font-style: normal;
             }
-        
+
         }
     }
 }
@@ -177,42 +171,41 @@
 /* =========== Popup */
 
 .popup {
-    visibility: hidden;
-    position: absolute;
-    background: $green;
-    color: $white;
-    z-index: 10;
-    padding: 1em 1.5em;
-    line-height: 1.5em;
     @include border-radius(5px);
     @include box-shadow(2px -2px 2px rgba($black, 0.2));
-    
+    position: absolute;
+    z-index: 10;
+    visibility: hidden;
+    padding: 1em 1.5em;
+    background: $green;
+    color: $white;
+    line-height: 1.5em;
+
     span {
         display: block;
     }
-    
+
     .action {
         text-transform: uppercase;
     }
-    
+
     .comment {
         color: $black;
     }
-    
+
     .profile {
         text-decoration: underline;
     }
 
     &:before {
         position: absolute;
-        width: 0;
         bottom: -27px;
         left: 20px;
+        width: 0;
         height: 10px;
-        content: "";
-        border-right: 15px solid transparent;
         border-top: 20px solid $green;
+        border-right: 15px solid transparent;
+        content: "";
     }
-    
-}
 
+}

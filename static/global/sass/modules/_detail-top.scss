@@ -1,43 +1,42 @@
 #detail {
-    background-color: #222222;
+    @include rem(padding, 32px 0);
     position: relative;
-    @include rem(padding, 32px 0 0 0);
+    background-color: #222222;
 
     .darken-background {
-        background-color: rgba(0, 0, 0, 0.7);
-        width: 100%;
-        height: 100%;
+        position: absolute;
         top: 0px;
         left: 0px;
-        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
     }
-    
+
     .wrapper {
         position: relative;
     }
 
     figure.media {
         @include grid(24,1,0);
-        margin-bottom: $margin;
+        @include box-shadow(inset 0px 1px 6px rgba($black, 0.1));
+        overflow: hidden;
         border: 1px solid #fff;
         background-color: #ccc;
-        overflow: hidden;
-        @include box-shadow(inset 0px 1px 6px rgba($black, 0.1));
     }
-    
+
     article {
       @include grid(24, 2, 1);
-      color: $text-white;
       @include rem(font-size, 16px);
       @include rem(padding, 0);
-      
+      color: $text-white;
+
       .project-title {
           @include rem(font-size, 28px);
           @include rem(padding, 8px 0);
       }
-    
+
     }
-    
+
     sidebar {
         margin-bottom: $margin;
     }
@@ -59,21 +58,22 @@
 .project-phase {
     @include clearfix;
     @include rem(padding-bottom, $padding/2);
+    margin: 0;
     border-bottom: 1px solid $grayDarker;
     list-style: none;
-    margin: 0;
 
     .item {
         @include grid(10);
         @include rem(font-size, 12px);
         @include rem(line-height, 24px);
         color: $gray;
-        text-transform: uppercase;
         text-align: center;
+        text-transform: uppercase;
 
         &:first-of-type {
-            text-align: left;
+            @include rem(margin-right, 16px);
             width: auto;
+            text-align: left;
         }
 
         i {
@@ -91,35 +91,35 @@
     @include rem(margin, 8px 0);
     @include rem(font-size, 14px);
     color: $green;
-    
+
     .location {
+        @include rem(margin-right, 32px);
         display: block;
         float: left;
         vertical-align: middle;
-        @include rem(margin-right, 32px);
-        
+
     }
-    
+
     .tags {
         display: block;
+        overflow: hidden;
         width: auto;
 
-        white-space: nowrap;
-        overflow: hidden;
+        color: $green;
         text-overflow: ellipsis;
 
-        color: $green;
+        white-space: nowrap;
 
         ul {
-            vertical-align: middle;
+            display: inline;
             margin: 0;
             padding: 0;
-            display: inline;
             list-style: none;
+            vertical-align: middle;
 
             li {
-                color: $green;
                 display: inline;
+                color: $green;
                 text-transform: capitalize;
 
                 &.out-of-range {
@@ -131,28 +131,27 @@
 }
 
 #project-actions {
-    
-    border-bottom: 1px solid $text-grey;
-    
+
     @include rem(padding-top, 8px);
-    @include rem(padding-bottom, 8px);    
-    
+    @include rem(padding-bottom, 8px);
+
+    border-bottom: 1px solid $text-grey;
+
     .tabs {
-        
+
         @include grid(28,1);
-        
+
         .tabs li {
             @include grid(16,2,0);
         }
-    
+
     }
-    
+
     .project-action {
         @include grid(20,0,1);
-        
+
         .button-donate {
             float: right;
         }
     }
 }
-
