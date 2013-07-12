@@ -83,10 +83,27 @@ App.Task = DS.Model.extend({
 
 });
 
+App.NewTask = App.Task.extend({
+    project: DS.belongsTo('App.Project')
+});
+
+
 /*
-Preview model that won't contain all the properties.
+Preview model that doesn't contain all the properties.
  */
 App.TaskPreview = App.Task.extend({
+    url: 'tasks/previews',
+    project: DS.belongsTo('App.ProjectPreview')
+});
+
+
+App.TaskSearch = DS.Model.extend({
+
+    text: DS.attr('string'),
+    skill:  DS.attr('string'),
+    ordering: DS.attr('string', {defaultValue: 'newest'}),
+    status: DS.attr('string', {defaultValue: 'open'}),
+    page: DS.attr('number', {defaultValue: 1})
 
 });
 
@@ -94,6 +111,79 @@ App.TaskPreview = App.Task.extend({
 /*
  Controllers
  */
+
+
+App.TaskListController = Em.ArrayController.extend({
+    needs: ['taskSearchForm']
+});
+
+
+App.TaskSearchFormController = Em.ObjectController.extend({
+    needs: ['taskList'],
+
+    init: function(){
+        var form =  App.TaskSearch.createRecord();
+        this.set('model', form);
+    },
+
+    hasNextPage: function(){
+        var next = this.get('page') * 8;
+        var total = this.get('controllers.taskList.model.meta.total');
+        return (next < total);
+    }.property('controllers.taskList.model.meta.total'),
+
+    hasPreviousPage: function(){
+        return (this.get('page') > 1);
+    }.property('page'),
+
+    nextPage: function(){
+        this.incrementProperty('page');
+    },
+
+    previousPage: function(){
+        this.decrementProperty('page');
+    },
+
+    sortOrder: function(order) {
+        this.set('ordering', order);
+    },
+
+    orderedByNewest: function(){
+        return (this.get('ordering') == 'newest');
+    }.property('ordering'),
+    orderedByDeadline: function(){
+        return (this.get('ordering') == 'deadline');
+    }.property('ordering'),
+
+    clearForm: function(sender, key) {
+        this.set('model.text', '');
+        this.set('model.skill', null);
+        this.set('model.status', null);
+    },
+
+    updateSearch: function(sender, key){
+        if (key != 'page') {
+            // If the query changes we should jump back to page 1
+            this.set('page', 1);
+        }
+        if (this.get('model.isDirty') ) {
+            var list = this.get('controllers.taskList');
+            var controller = this;
+
+            var query = {
+                'page': this.get('page'),
+                'ordering': this.get('ordering'),
+                'status': this.get('status'),
+                'text': this.get('text'),
+                'expertise': this.get('skill')
+            };
+            var tasks = App.TaskPreview.find(query);
+            list.set('model', tasks);
+        }
+    }.observes('text', 'skill', 'status', 'page', 'ordering')
+
+
+});
 
 
 App.ProjectTaskListController = Em.ArrayController.extend({
@@ -162,9 +252,7 @@ App.ProjectTaskNewController = Em.ObjectController.extend({
         var controller = this;
         var task = this.get('content');
         task.set('project', this.get('controllers.project.model'));
-        //task.set('author', this.get('controllers.currentUser.model'));
         task.on('didCreate', function(record) {
-            controller.get('controllers.projectTaskList').unshiftObject(record);
             controller.transitionToRoute('projectTaskList')
         });
         task.on('becameInvalid', function(record) {
@@ -200,6 +288,10 @@ App.ProjectTaskEditController = App.ProjectTaskNewController.extend({
 });
 
 
+App.TaskPreviewController = Em.ObjectController.extend({
+});
+
+
 App.TaskMemberEditController = Em.ObjectController.extend({
 });
 
@@ -215,8 +307,17 @@ App.TaskFileNewController = Em.ObjectController.extend({
  Views
  */
 
-App.ProjectTaskListView = Em.View.extend({
+App.TaskListView = Em.View.extend({
     templateName: 'task_list'
+});
+
+App.TaskPreviewView = Em.View.extend({
+    templateName: 'task_preview'
+});
+
+
+App.ProjectTaskListView = Em.View.extend({
+    templateName: 'project_task_list'
 });
 
 
@@ -294,5 +395,23 @@ App.TaskDeadLineDatePickerView = Ember.TextField.extend({
     }
 });
 
+
+/*
+ Form Elements
+ */
+
+App.TaskStatusList = [
+    {value: 'open', title: "open"},
+    {value: 'in progress', title: "in progress"},
+    {value: 'realized', title: "realised"}
+];
+
+App.TaskStatusSelectView = Em.Select.extend({
+    content: App.TaskStatusList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title",
+    prompt: "any status"
+
+});
 
 

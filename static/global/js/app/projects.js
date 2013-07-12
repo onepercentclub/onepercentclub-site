@@ -1,3 +1,36 @@
+/*
+ Form Elements
+ */
+
+
+App.ProjectOrderList = [
+    {value: 'title', title: "title"},
+    {value: 'money_needed', title: "money needed"},
+    {value: 'deadline', title: "deadline"}
+];
+
+App.ProjectOrderSelectView = Em.Select.extend({
+    content: App.ProjectOrderList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title"
+});
+
+App.ProjectPhaseList = [
+    {value: 'plan', title: "Writing Plan"},
+    {value: 'campaign', title: "Campaign"},
+    {value: 'act', title: "Act"},
+    {value: 'results', title: "Results"},
+    {value: 'realized', title: "Realised"}
+];
+
+App.ProjectPhaseSelectView = Em.Select.extend({
+    content: App.ProjectPhaseList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title",
+    prompt: "pick a phase"
+
+});
+
 
 /*
  Models
@@ -195,7 +228,7 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
     },
 
     hasNextPage: function(){
-        var next = this.get('page') * 8 + 8;
+        var next = this.get('page') * 8;
         var total = this.get('controllers.projectList.model.meta.total');
         return (next < total);
     }.property('controllers.projectList.model.meta.total'),
@@ -257,13 +290,11 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
                 'theme': this.get('theme')
             };
             var projects = App.ProjectPreview.find(query);
-            projects.on('didLoad', function(data){
+            projects.one('didLoad', function(data){
                 list.set('model', projects);
             });
         }
     }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering')
-
-
 });
 
 

@@ -2,7 +2,205 @@
 {% load i18n %}
 {% load static %}
 
+
+{% tplhandlebars "task_preview" %}
+
+    <li class="item item-task">
+        <h2>
+            <span class="icon-wrench"></span>
+            {{task.expertise}}
+        </h2>
+        <div class="header">
+            <img {{bindAttr src="project.image" }} />
+            <h3>
+                <b>{{project.title}}<b/>
+                    <br />
+                <i class="icon-globe"></i><span class="item-project-country">{{project.country.name}}, {{project.country.subregion}}</span>
+            </h3>
+        </div>
+
+        <div class="content">
+            {{task.title}}
+        </div>
+        <div class="footer">
+            <ul>
+                <li>
+                    {{#if task.isStatusOpen}}
+                        <span class="icon icon-signin"></span>
+                        {% trans "Open" %}
+                    {{/if}}
+                    {{#if task.isStatusInProgress}}
+                        <span class="icon icon-wrench"></span>
+                        {% trans "In progress" %}
+                    {{/if}}
+                    {{#if task.isStatusClosed}}
+                        <span class="icon icon-off"></span>
+                        {% trans "Closed" %}
+                    {{/if}}
+                    {{#if task.isStatusRealized}}
+                        <span class="icon icon-trophy"></span>
+                        {% trans "Realised" %}
+                    {{/if}}
+
+                </li>
+                <li>
+                    <span class="icon-time" />
+                    {{ task.timeNeeded }}
+                </li>
+                <li>
+                    {{#if task.isStatusRealized}}
+                        <span class="icon-calendar" />
+                        {% trans "Realised" %}
+                    {{else}}
+                        <span class="icon-calendar" />
+                        {{ localize task.deadline formatting="X" }}
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </li>
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "task_list" %}
+
+    {{render "taskSearchForm" }}
+
+    <div class="container">
+        <section class="wrapper">
+            <article>
+                <header>
+                    {{#if model.isLoaded}}
+                        <ul class="results">
+                            {{#each task in model}}
+                                <a {{action showTask task}}>
+                                    {{render "taskPreview" task}}
+                                </a>
+                            {{else}}
+                                <li>{% trans "No tasks found." %}</li>
+                            {{/each}}
+                        </ul>
+                    {{else}}
+                        <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading tasks" %}
+                    {{/if}}
+                </header>
+            </article>
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "task_search_form" %}
+
+    <div class="container section">
+        <section class="wrapper">
+            <article class="search-form">
+                {% comment %}
+                <div class="control">
+                    <em class="icon icon-search"></em>
+                    {{view Em.TextField valueBinding="text" placeholder="Text search" }}
+                </div>
+                {% endcomment %}
+                <div class="control">
+                    <em class="icon icon-leaf"></em>
+                    {{view App.ExpertiseSelectView valueBinding="skill" }}
+                </div>
+                <div class="control">
+                    <em class="icon icon-filter"></em>
+                    {{view App.TaskStatusSelectView valueBinding="status" }}
+                </div>
+                <div class="clear-form">
+                    <a {{action clearForm}}>
+                        <span class="flaticon solid x-3"></span>
+                        {% trans "clear filters" %}
+                    </a>
+                </div>
+            </article>
+        </section>
+    </div>
+
+    <div class="container">
+        <section class="wrapper">
+            <article class="navigation">
+                {{#if hasPreviousPage}}
+                    <a {{action "previousPage"}} class="previous-page left button-link">
+                        <i class="flaticon solid left-circle-2"></i>
+                    </a>
+                {{/if}}
+                {{#if hasNextPage}}
+                    <a {{action "nextPage"}} class="next-page right button-link">
+                        <i class="flaticon solid right-circle-2"></i>
+                    </a>
+                {{/if}}
+                <h2>results <em>{{controllers.taskList.model.meta.total}}</em></h2>
+                <div class="ordering button-link">
+                    {% trans "Sort:" %}
+                    <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
+                    <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
+                </div>
+
+
+            </article>
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_task_preview" %}
+
+    <li class="item item-task">
+        <h2>
+            <span class="icon-wrench"></span>
+            {{task.expertise}}
+        </h2>
+        <div class="content">
+            {{task.title}}
+        </div>
+        <div class="footer">
+            <ul>
+                <li>
+                    {{#if task.isStatusOpen}}
+                        <span class="icon icon-signin"></span>
+                        {% trans "Open" %}
+                    {{/if}}
+                    {{#if task.isStatusInProgress}}
+                        <span class="icon icon-wrench"></span>
+                        {% trans "In progress" %}
+                    {{/if}}
+                    {{#if task.isStatusClosed}}
+                        <span class="icon icon-off"></span>
+                        {% trans "Closed" %}
+                    {{/if}}
+                    {{#if task.isStatusRealized}}
+                        <span class="icon icon-trophy"></span>
+                        {% trans "Realised" %}
+                    {{/if}}
+
+                </li>
+                <li>
+                    <span class="icon-time" />
+                    {{ task.timeNeeded }}
+                </li>
+                <li>
+                    {{#if task.isStatusRealized}}
+                        <span class="icon-calendar" />
+                        {% trans "Realised" %}
+                    {{else}}
+                        <span class="icon-calendar" />
+                        {{ localize task.deadline formatting="X" }}
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </li>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_task_list" %}
 
     <div class="container">
         <section class="wrapper">
@@ -28,51 +226,8 @@
                     <header>
                         <ul class="results">
                             {{#each task in controller}}
-                                {{#linkTo 'projectTask' task}}
-                                    <li class="item item-task">
-                                        <h3>
-                                            <span class="icon-wrench"></span>
-                                            {{task.expertise}}
-                                        </h3>
-                                        <div class="content">
-                                            {{ task.title }}
-                                        </div>
-                                        <div class="status">
-                                            {{#if task.isStatusOpen}}
-                                                <span class="icon icon-signin"></span>
-                                                {% trans "Open" %}
-                                            {{/if}}
-                                            {{#if task.isStatusInProgress}}
-                                                <span class="icon icon-wrench"></span>
-                                                {% trans "In progress" %}
-                                            {{/if}}
-                                            {{#if task.isStatusClosed}}
-                                                <span class="icon icon-off"></span>
-                                                {% trans "Closed" %}
-                                            {{/if}}
-                                            {{#if task.isStatusRealized}}
-                                                <span class="icon icon-trophy"></span>
-                                                {% trans "Realised" %}
-                                            {{/if}}
-                                        </div>
-                                        <div class="footer">
-                                            <ul>
-                                                <li>
-                                                    <span class="icon-time" />
-                                                    {{ task.timeNeeded }}
-                                                </li>
-                                                <li>
-                                                    {{#if task.isStatusRealized}}
-                                                        <span class="icon-calendar" />
-                                                        {% trans "Realised" %}
-                                                    {{else}}
-                                                        <span class="icon-calendar" />
-                                                        {{ localize task.deadline formatting="X" }}
-                                                    {{/if}}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
+                                {{#linkTo "projectTask" task}}
+                                    {{render projectTaskPreview task}}
                                 {{/linkTo}}
                             {{else}}
                                 <li>{% trans "No tasks found." %}</li>
