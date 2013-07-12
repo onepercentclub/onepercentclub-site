@@ -259,8 +259,29 @@ sidebar {
 }
 
 .donation-total {
+    @include rem(padding, $padding);
+
+    margin: 0;
+    clear: both;
+    list-style: none;
+
     .currency {
         font-weight: bold;
+    }
+}
+
+.monthly-donation-total {
+    @extend .donation-total;
+
+    .form-summary {
+        @include grid(30, 1, 0);
+        background-color: $color-back;
+    }
+}
+
+form fieldset {
+    &.monthly-donation {
+        background-color: $white
     }
 }
 

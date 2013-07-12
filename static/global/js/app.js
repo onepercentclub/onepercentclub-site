@@ -1077,7 +1077,7 @@ App.VoucherRedeemAddRoute = Em.Route.extend({
         var voucher = this.controllerFor('voucherRedeem').get('voucher');
         if (!voucher.get('isLoaded')) {
             var route = this;
-            voucher.on("didLoad", function () {
+            voucher.one("didLoad", function () {
                 route.send('addDonation', voucher, project);
             });
         } else {

@@ -138,11 +138,29 @@
         </ul>
     </fieldset>
 
-    <fieldset>
-        <ul class="donation-total">
-            <div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ total }}</span></div>
-        </ul>
-    </fieldset>
+
+    {{#if controllers.currentOrder.recurring }}
+        <fieldset class="monthly-donation">
+            <div class="monthly-donation-total">
+                <div class="form-summary">{% trans "Divide total to projects above" %}</div>
+                <div class="donation-amount">
+                    <div class="monthly-amount-control">
+                        <label for="donation-amount-1">{% trans "Total Amount" %}</label>
+                        <span class="currency"><em>&euro; </em>
+                            <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="monthly_total"}} />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    {{else}}
+        <fieldset>
+            <div class="donation-total">
+                <div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ total }}</span></div>
+            </div>
+        </fieldset>
+    {{/if}}
+
 
     {{#linkTo "projectList" class="button-link"}}<em class="icon-plus-sign"></em> {%trans "Add another project" %}{{/linkTo}}
 
@@ -413,7 +431,6 @@
 {% endtplhandlebars %}
 
 
-{# <!-- wrapper tag: <li class="donation-project"> --> #}
 {% tplhandlebars "current_order_donation" %}
 
     {{#linkTo "project" project}}
@@ -428,15 +445,23 @@
 
     <div class="donation-amount">
         <div class="amount-needed">
-            <strong>&euro; {{neededAfterDonation}}</strong> {% trans "is still needed"%}
+            <strong>&euro; {{ neededAfterDonation }}</strong> {% trans "is still needed"%}
         </div>
 
         <div class="amount-control">
             {{#each error in errors.amount}}
-                <span class="errors">{{error}}</span>
+                <span class="errors">{{ error }}</span>
             {{/each}}
-            <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
-            <span class="currency"><em>&euro; </em><input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} /></span>
+            {{#if controllers.currentOrder.recurring }}
+                <span class="currency"><em>&euro; </em>
+                    {{ amount }}
+                </span>
+            {{else}}
+                <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+                <span class="currency"><em>&euro; </em>
+                    <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} />
+                </span>
+            {{/if}}
         </div>
     </div>
 
