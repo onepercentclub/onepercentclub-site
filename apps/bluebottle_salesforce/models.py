@@ -34,6 +34,7 @@ class SalesforceOrganization(SalesforceModel):
     billing_city = models.CharField(max_length=40, db_column='BillingCity')
     billing_street = models.CharField(max_length=255, db_column='BillingStreet')
     billing_postal_code = models.CharField(max_length=20, db_column='BillingPostalCode')
+    billing_country = models.CharField(max_length=80, db_column='BillingCountry')
     email_address = models.EmailField(max_length=80, db_column='E_mail_address__c')
     phone = models.CharField(max_length=40, db_column='Phone')
     website = models.URLField(max_length=255, db_column='Website')
@@ -271,7 +272,7 @@ class SalesforceProjectBudget(SalesforceModel):
     Custom Salesforce Project_Budget__c model. For Onepercentclub the mapping is named Project Budget.
     """
     class ProjectBudgetCategory(DjangoChoices):
-        contruction = ChoiceItem('Construction materials', label=_("Construction materials"))
+        construction = ChoiceItem('Construction materials', label=_("Construction materials"))
         agriculture = ChoiceItem('Agriculture materials', label=_("Agriculture materials"))
         school_supplies = ChoiceItem('School supplies', label=_("School supplies"))
         communication = ChoiceItem('Communication materials', label=_("Communication materials"))
@@ -318,12 +319,10 @@ class SalesforceOpportunity(SalesforceModel):
                                       db_column='Payment_method__c',
                                       choices=OpportunityPaymentMethod.choices,
                                       help_text=_("PaymentMethod"))
-    project = models.ForeignKey(SalesforceProject, db_column='Project__c')
+    project = models.ForeignKey(SalesforceProject, db_column='Project__c', null=True)
     stage_name = models.CharField(max_length=40,
                                   db_column='StageName')
     record_type = models.CharField(max_length=255, db_column='RecordTypeId')
-
-    # SF Other
 
     class Meta:
         abstract = True
@@ -345,8 +344,8 @@ class SalesforceDonation(SalesforceOpportunity):
     donation_created_date = models.DateField(db_column='Donation_created_date__c')
 
     # SF: Other.
-    external_id = models.CharField(max_length=255, db_column='Donation_External_ID__c')
-    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c')
+    external_id_donation = models.CharField(max_length=255, db_column='Donation_External_ID__c')
+    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c', null=True)
 
     class Meta:
         managed = False
@@ -364,10 +363,10 @@ class SalesforceVoucher(SalesforceOpportunity):
     description = models.CharField(max_length=32000, db_column='Description')
 
     # SF Layout: System Information section.
-    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c', related_name='contact_receivers')
+    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c', related_name='contact_receivers', null=True)
 
     # SF Other.
-    external_id = models.CharField(max_length=255, db_column='Donation_External_ID__c')
+    external_id_voucher = models.CharField(max_length=255, db_column='Voucher_External_ID__c')
 
     class Meta:
         managed = False
