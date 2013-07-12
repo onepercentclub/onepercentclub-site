@@ -1,0 +1,148 @@
+.static-page {
+    .section {
+        @include rem(padding, ($padding * 2) 0);
+        position: relative;
+
+        h1 {
+            @include rem(font-size, 64px);
+            @include rem(margin-bottom, 32px);
+            padding: 0;
+            line-height: 1;
+
+            &.small {
+                @include rem(font-size, 34px);
+                color: $green;
+
+                em {
+                    color: $pink;
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            }
+        }
+
+        &:nth-of-type(even) {
+            background-color: $white;
+
+            .static-page-illustration {
+                color: $grayLighter;
+            }
+        }
+    }
+
+    .wrapper {
+        position: relative;
+    }
+
+    #inFortySeconds,
+    #faq,
+    #contact {
+        h1 {
+            color: $green;
+        }
+    }
+}
+
+.static-page-nav {
+    @include clearfix;
+    @include grid(48, 1);
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 20px;
+
+    > li {
+        @include rem(margin-right, 32px);
+        float: left;
+
+        a {
+            color: $gray;
+            text-transform: uppercase;
+
+            &.active {
+                color: $grayDarker;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.static-page-section-content {
+    @include clearfix;
+
+    p {
+        @include rem(font-size, 22px);
+        margin-right: 100px;
+
+        strong {
+            font-weight: 300;
+        }
+    }
+}
+
+.static-page-illustration {
+    @include rem(font-size, 240px);
+    color: $white;
+
+    &.active {
+        color: $pink;
+    }
+}
+
+.static-page-section-navigator {
+    @include rem(font-size, 40px);
+    position: absolute;
+    right: 15.5%;
+    bottom: 0;
+    color: $pink;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.static-page-calltoaction {
+    a,
+    i {
+        @include rem(font-size, 24px);
+        color: $pink;
+        text-decoration: underline;
+        text-transform: uppercase;
+        font-weight: 300;
+    }
+
+    i {
+      text-decoration: none;
+    }
+}
+
+/*
+ * TODO: This can be a separate module of itself.
+ */
+.numbered-list {
+    @include clearfix;
+    margin-left: 0;
+}
+
+.nl-item-number {
+    @include rem(font-size, 64px);
+    color: $grayLighter;
+    font-weight: 600;
+}
+
+.nl-item-title {
+    @include rem(font-size, 22px);
+    margin-bottom: 0;
+    color: $pink;
+    font-weight: 300;
+
+    em {
+        display: block;
+        color: $green;
+        font-style: normal;
+    }
+}
+
+.nl-item-description {
+    @include rem(font-size, 16px);
+
+    color: $grayDarker;
+    line-height: 1.5;
+}
