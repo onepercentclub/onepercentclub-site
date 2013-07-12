@@ -134,7 +134,8 @@
                         <i class="flaticon solid right-circle-2"></i>
                     </a>
                 {{/if}}
-                <h2>results <em>{{controllers.taskList.model.meta.total}}</em></h2>
+                <h2>{% trans "found" %} <em>{{controllers.taskList.model.meta.total}}</em> {% trans "tasks" %}</h2>
+               showing results {{rangeStart}}-{{rangeEnd}}
                 <div class="ordering button-link">
                     {% trans "Sort:" %}
                     <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
