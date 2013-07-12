@@ -96,6 +96,20 @@ body {
     vertical-align: middle;
 }
 
+.l-full {
+    @include grid(48, 1);
+}
+.l-two-third {
+    @include grid(32, 1);
+}
+.l-half {
+    @include grid(24, 1);
+}
+.l-one-third {
+    @include grid(16, 1);
+}
+.l-first { clear: left; }
+
 /* Example for types.html
 header { @include grid(48, 1); }
 section { 
