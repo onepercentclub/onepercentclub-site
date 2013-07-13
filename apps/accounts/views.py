@@ -51,7 +51,8 @@ class UserCreate(generics.CreateAPIView):
         return "Users"
 
 
-class UserActivate(views.APIView):
+class UserActivate(generics.RetrieveAPIView):
+    serializer_class = CurrentUserSerializer
 
     def login_user(self, request, user):
         """
@@ -71,11 +72,13 @@ class UserActivate(views.APIView):
         activation_key = self.kwargs.get('activation_key', None)
         activated_user = RegistrationProfile.objects.activate_user(activation_key)
         if activated_user:
-            # Return 200 and log the user in when the user has been activated.
+            # Log the user in when the user has been activated and return the current user object.
             self.login_user(request, activated_user)
-            return response.Response(status=status.HTTP_200_OK)
-        # Return 404 when the activation didn't work.
-        return response.Response(status=status.HTTP_404_NOT_FOUND)
+            self.object = activated_user
+            serializer = self.get_serializer(self.object)
+            return response.Response(serializer.data)
+        # Return 400 when the activation didn't work.
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class PasswordReset(views.APIView):

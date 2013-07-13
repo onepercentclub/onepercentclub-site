@@ -128,7 +128,7 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
 
         # A second activation of a used activation code shouldn't work.
         response = self.client.get(new_user_activation_url)
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         # User should not be logged in after second activation attempt.
         new_user_settings_url = "{0}{1}".format(self.user_settings_api_url, user_id)
