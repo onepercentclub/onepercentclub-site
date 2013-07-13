@@ -136,7 +136,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
         registration_profile = RegistrationProfile.objects.create_profile(user)
         site = Site.objects.get_current()
         registration_profile.send_activation_email(site)
-
         return user
 
 

@@ -1195,44 +1195,49 @@ App.UserSettingsRoute = Em.Route.extend({
 });
 
 
+
 App.UserActivateRoute = Em.Route.extend({
+
+    // FIXME: Find a better solution than the run.later construction.
+
     model: function(params) {
+        var currentUser = App.CurrentUser.find('current');
+        console.log(currentUser);
+        var activation = App.UserActivation.find(params.activation_key);
         var route = this;
+        activation.on('becameError', function(record){
+            route.controllerFor('application').setProperties({
+                display_message: true,
+                isError: true,
+                message_title: '',
+                message_content: 'There was a problem activating your account. Please contact us for assistance.'
+            });
+            route.replaceWith('home');
+        });
+        activation.on('didLoad', function(record){
+            var currentUser = App.CurrentUser.find('current');
+            // CurrentUser hasn't been loaded properly. We need to set state 'loaded' here so we can use reload.
+            currentUser.get('stateManager').goToState('loaded');
+            currentUser.one('didReload', function(){
+                // User profile needs to load it's own currentUser apparently so unload this here.
+                currentUser.unloadRecord();
+                route.replaceWith('userProfile');
+            });
 
-        $.ajax({
-            url: "/i18n/api/users/activate/" + params.activation_key,
-            success: function() {
-                var currentUser = App.CurrentUser.find('current');
-                currentUser.get('stateManager').goToState('loaded');
-                currentUser.one('didReload', function() {
-                    // Set a welcome message for the user.
-                    var displayName    = currentUser.get('first_name') ? currentUser.get('first_name') : currentUser.get('username');
-                    var messageTitle   = "Hello " + displayName;
-                    var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
-
-                    route.controllerFor('application').setProperties({
-                        display_message: true,
-                        message_title: messageTitle,
-                        message_content: messageContent
-                    });
-
-                    // Unload the currentUser record from ember-data so that the UserProfile Route will load properly.
-                    currentUser.unloadRecord();
-                    route.replaceWith('userProfile');
-                });
+            // This seems the only way to (more or less) always load the logged in user,
+            Em.run.later(function(){
                 currentUser.reload();
-            },
-            error: function() {
-                // Notify user of the problem.
-                route.controllerFor('application').setProperties({
-                    display_message: true,
-                    isError: true,
-                    message_title: '',
-                    message_content: 'There was a problem activating your account. Please contact us for assistance.'
-                });
+            }, 1500);
 
-                route.replaceWith('home');
-            }
+            var messageTitle   = "Welcome";
+            var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
+
+            route.controllerFor('application').setProperties({
+                display_message: true,
+                message_title: messageTitle,
+                message_content: messageContent
+            });
+
         });
     }
 });
