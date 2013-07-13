@@ -276,7 +276,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             store.recordWasInvalid(record, data);
         } else if (xhr.status === 403) {
             var data = JSON.parse(xhr.responseText);
-            console.log(data)
             store.recordWasInvalid(record, data);
         } else if (xhr.status === 500) {
             // Server error! rollback transaction so the application won't break.
