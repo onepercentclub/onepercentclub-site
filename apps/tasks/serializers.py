@@ -58,15 +58,9 @@ class TaskWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with task specific customizations. """
 
     url = serializers.HyperlinkedIdentityField(view_name='task-twallpost-detail')
-    task = PrimaryKeyGenericRelatedField(to_model=Task)
+    task = PrimaryKeyGenericRelatedField(Task)
 
     class Meta(TextWallPostSerializer.Meta):
         # Add the project slug field.
         fields = TextWallPostSerializer.Meta.fields + ('task', )
-
-    def save(self):
-        # Save the project content type on save.
-        task_type = ContentType.objects.get_for_model(Task)
-        self.object.content_type_id = task_type.id
-        return super(TaskWallPostSerializer, self).save()
 
