@@ -98,6 +98,13 @@ class TaskWallPostMixin(object):
         return queryset
 
     def pre_save(self, obj):
+        # task_id = self.request.QUERY_PARAMS.get('task', None)
+        # task = Task.objects.get(pk=task_id)
+        # obj.content_object = task
+
+        task_type = ContentType.objects.get_for_model(Task)
+        obj.content_type_id = task_type.id
+
         if not obj.author:
             obj.author = self.request.user
         else:

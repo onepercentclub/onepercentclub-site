@@ -306,8 +306,8 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
 
 App.ProjectController = Em.ObjectController.extend({
     isFundable: function(){
-        if (this.get('phase') == 'campaign' && this.get('money_asked'));
-    },
+       return (this.get('phase') == 'campaign' && this.get('campaign.money_asked'));
+    }.property('phase', 'campaign'),
 
     allTags: function() {
         var tags = this.get('plan.tags');
