@@ -26,7 +26,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
     """
     def setUp(self):
         self.projects = dict([(slugify(title), title) for title in [
-            u'Women first', u'Mobile payments for everyone!', u'Schools for children '
+            u'Women first', u'Mobile payments for everyone!', u'Schools for children'
         ]])
 
         for slug, title in self.projects.items():
@@ -98,7 +98,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Create dict of projects in the database.
         expected_projects = []
-        for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('title')[:len(web_projects)]:
+        for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
                 'money_needed': int(round(p.projectcampaign.money_needed / 100.0)),
