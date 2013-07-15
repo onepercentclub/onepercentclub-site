@@ -105,3 +105,7 @@ https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip
 # DKIM to sign e-mails
 pydkim
 dnspython
+
+# Mock library for testing
+mock==1.0.1
+
