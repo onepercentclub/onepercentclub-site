@@ -24,11 +24,6 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
     """
     def setUp(self):
         self.some_project = self.create_project(money_asked=50000)
-
-        # FIXME: Find out why setting this through create_project doesn't work!!
-        self.some_project.projectcampaign.money_needed = 50000
-
-
         self.another_project = self.create_project(money_asked=75000)
 
         self.some_user = self.create_user()
