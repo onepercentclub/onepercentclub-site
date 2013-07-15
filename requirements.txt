@@ -109,3 +109,7 @@ dnspython
 # Mock library for testing
 mock==1.0.1
 
+# Functional testing libraries
+selenium==2.33.0
+splinter==0.5.3
+
