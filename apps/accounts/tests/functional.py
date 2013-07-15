@@ -26,8 +26,6 @@ class AccountSeleniumTests(SeleniumTestCase):
     """
     Selenium tests for account actions.
     """
-    #fixtures = ['demo',]
-
     def setUp(self):
         pass
 
@@ -95,9 +93,7 @@ class AccountSeleniumTests(SeleniumTestCase):
         current_site = Site.objects.get_current()
 
         self.assertTrue(current_site.domain in activation_link)
-        # TODO: Missing http in the link (#448).
-        #activation_link = activation_link.replace(current_site.domain, self.live_server_url[7:])
-        activation_link = activation_link.replace(current_site.domain, self.live_server_url[0:])
+        activation_link = activation_link.replace(current_site.domain, self.live_server_url[7:])
 
         # Visit the activation link.
         self.browser.visit(activation_link)

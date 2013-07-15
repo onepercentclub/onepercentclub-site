@@ -4,24 +4,36 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
+from random import randint
 import time
 
 from decimal import Decimal
 from django.conf import settings
+from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
-from ..models import Project, ProjectPhases
+from ..models import Project, ProjectPhases, ProjectPlan
+from .unittests import ProjectTestsMixin
 
 from bluebottle.tests.utils import SeleniumTestCase, css_dict
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class ProjectSeleniumTests(SeleniumTestCase):
+class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
     """
     Selenium tests for Projects.
     """
-    fixtures = ['demo',]
+    def setUp(self):
+        self.projects = dict([(slugify(title), title) for title in [
+            u'Women first', u'Mobile payments for everyone!', u'Schools for children '
+        ]])
+
+        for slug, title in self.projects.items():
+            project = self.create_project(title=title, slug=slug, money_asked=1000)
+
+            project.projectcampaign.money_donated = randint(0, 1000)
+            project.projectcampaign.save()
 
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
@@ -57,25 +69,29 @@ class ProjectSeleniumTests(SeleniumTestCase):
         def convert_money_to_int(money_text):
             return int(money_text.strip(u'€ ').replace('.', '').replace(',', ''))
 
+        # NOTE: Due to a recent change, its harder to calculate/get the financiel data from the front end.
+        # Hence, these calculations are commented. Perhaps enable in the future if this data becomes available again.
+
         # Create a dict of all projects on the web page.
         web_projects = []
         for p in self.browser.find_by_css('.item.item-project'):
+            # NOTE: donated class name should be read as "to go"...
             donated = convert_money_to_int(p.find_by_css('.donated').first.text)
-            asked = convert_money_to_int(p.find_by_css('.asked').first.text)
+            #asked = convert_money_to_int(p.find_by_css('.asked').first.text)
 
             web_projects.append({
                 'title': p.find_by_css('h3').first.text,
-                'money_donated': donated,
-                'money_asked': asked,
+                'money_needed': donated,
+                #'money_asked': asked,
             })
 
             # Validate the donation slider.
             # NOTE: It's an animation. We expect it to be done after a few seconds.
-            expected_slider_value = ((Decimal('100') / asked) * donated)
-            web_slider_value = Decimal(css_dict(p.find_by_css('.donate-progress').first['style'])['width'].strip('%'))
+            #expected_slider_value = ((Decimal('100') / asked) * donated)
+            #web_slider_value = Decimal(css_dict(p.find_by_css('.donate-progress').first['style'])['width'].strip('%'))
 
             # We allow a small delta to deviate.
-            self.assertAlmostEqual(web_slider_value, expected_slider_value, delta=1)
+            #self.assertAlmostEqual(web_slider_value, expected_slider_value, delta=1)
 
         # Make sure there are some projects to compare.
         self.assertTrue(len(web_projects) > 0)
@@ -85,8 +101,8 @@ class ProjectSeleniumTests(SeleniumTestCase):
         for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('title')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
-                'money_donated': int(round(p.projectcampaign.money_donated / 100.0)),
-                'money_asked': int(round(p.projectcampaign.money_asked / 100.0))
+                'money_needed': int(round(p.projectcampaign.money_needed / 100.0)),
+                #'money_asked': int(round(p.projectcampaign.money_asked / 100.0))
             })
 
         # Compare all projects found on the web page with those in the database, in the same order.
