@@ -156,6 +156,7 @@ MIDDLEWARE_CLASSES = [
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    'apps.redirects.middleware.RedirectFallbackMiddleware'
 ]
 
 # Browsers will block our pages from loading in an iframe no matter which site
@@ -243,6 +244,7 @@ INSTALLED_APPS = (
     'apps.statistics',
     'apps.pages',
     'apps.homepage',
+    'apps.redirects',
 
     # Custom dashboard
     'fluent_dashboard',
