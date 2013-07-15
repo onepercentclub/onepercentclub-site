@@ -98,10 +98,8 @@ class AccountSeleniumTests(SeleniumTestCase):
         # Visit the activation link.
         self.browser.visit(activation_link)
 
-        # TODO: Can't see any message about it on the web site after clicking the link.
         # TODO: After visiting the link, the website is shown in Dutch again.
-        self.assertTrue(self.browser.is_element_present_by_id('title'))
-        time.sleep(1)
+        self.assertTrue(self.browser.is_text_present('Hurray!', wait_time=10))
 
         # Reload the user.
         user = BlueBottleUser.objects.get(pk=user.pk)
@@ -276,7 +274,10 @@ class AccountSeleniumTests(SeleniumTestCase):
 
         # TODO: The email is sent in Dutch, even if I go to the English website (#448).
         #self.assertEqual(reset_mail.subject, 'Password reset for %s' % current_site.domain)
-        self.assertEqual(reset_mail.subject, 'Wachtwoord reset voor %s' % current_site.domain)
+        self.assertTrue(reset_mail.subject in [
+            'Wachtwoord reset voor %s' % current_site.domain,
+            'Password reset for %s' % current_site.domain
+        ])
         self.assertIn(user.email, reset_mail.to)
 
         # Extract reset link and change domain for the test.
