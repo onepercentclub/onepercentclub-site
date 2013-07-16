@@ -505,7 +505,7 @@ def update_project_after_donation(sender, instance, created, **kwargs):
     campaign = project.projectcampaign
 
     # Don't look at donations that are just created.
-    if instance not in [DonationStatuses.in_progress, DonationStatuses.new]:
+    if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
         campaign.update_money_donated()
         project.update_popularity()
 
