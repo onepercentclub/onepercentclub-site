@@ -100,7 +100,7 @@
 }
 
 .profile-actions-meta {
-  @include grid(12, 1);
+  @include grid(18, 1, 0);
 
   img {
     @include grid(10, 0, 2);
@@ -110,12 +110,13 @@
 .profile-actions-meta-title {
   @include grid(34);
   @include rem('font-size', 22px);
+  @include rem('line-height', 22px);
   text-transform: uppercase;
 
   font-weight: 300;
 
 
-  .button-link {
+  small {
     @include rem('font-size', 12px);
     display: block;
     font-weight: normal;

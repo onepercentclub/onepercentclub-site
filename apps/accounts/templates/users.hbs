@@ -8,14 +8,16 @@
     <div id="profile-actions" class="section">
         <div class="wrapper">
             <div class="profile-actions-meta">
-                <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
-                <div class="profile-actions-meta-title">
-                    {% trans "My Profile" %}
-                    <a {{action openInBigBox "userModal" controllers.currentUser.content }} class="button-link">
-                        <i class="icon-eye-open"></i>
-                        {% trans "Preview my profile" %}
-                    </a>
-                </div>
+                <a {{action openInBigBox "userModal" controllers.currentUser.content }} class="button-link">
+                    <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
+                    <div class="profile-actions-meta-title">
+                        {{controllers.currentUser.getUser.full_name}}
+                        <small>
+                            <i class="icon-eye-open"></i>
+                            {% trans "Preview my profile" %}
+                        </small>
+                    </div>
+                </a>
             </div>
 
             <ul class="tabs">

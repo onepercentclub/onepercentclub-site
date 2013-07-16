@@ -3473,16 +3473,16 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 #profile-actions { padding: 8px 0; padding: 0.57143rem 0; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003102}}
-.profile-actions-meta { float: left; width: 20.83333%; margin-left: 2.08333%; margin-right: 2.08333%; }
+.profile-actions-meta { float: left; width: 35.41667%; margin-left: 2.08333%; margin-right: 0%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003105}}
 .profile-actions-meta img { float: left; width: 16.66667%; margin-left: 0%; margin-right: 4.16667%; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003110}}
-.profile-actions-meta-title { float: left; width: 70.83333%; margin-left: 0%; margin-right: 0%; font-size: 22px; font-size: 1.57143rem; text-transform: uppercase; font-weight: 300; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003118}}
-.profile-actions-meta-title .button-link { font-size: 12px; font-size: 0.85714rem; display: block; font-weight: normal; }
+.profile-actions-meta-title { float: left; width: 70.83333%; margin-left: 0%; margin-right: 0%; font-size: 22px; font-size: 1.57143rem; line-height: 22px; line-height: 1.57143rem; text-transform: uppercase; font-weight: 300; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003119}}
+.profile-actions-meta-title small { font-size: 12px; font-size: 0.85714rem; display: block; font-weight: normal; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003127}}
 .profile-pic-uploader img { float: left; width: 14.58333%; margin-left: 0%; margin-right: 2.08333%; }
 
 /* =========== For prototyping only */
