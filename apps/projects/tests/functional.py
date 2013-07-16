@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 """
 Functional tests using Selenium.
 
@@ -32,7 +32,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         for slug, title in self.projects.items():
             project = self.create_project(title=title, slug=slug, money_asked=100000)
 
-            project.projectcampaign.money_donated = randint(0, 100000)
+            project.projectcampaign.money_donated = 0
             project.projectcampaign.save()
 
     def visit_project_list_page(self, lang_code=None):
@@ -54,7 +54,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertTrue(self.browser.is_element_present_by_css('.item.item-project', wait_time=10),
                 'Cannot load the project list page.')
 
-        self.assertEqual(self.browser.url, '%s/en/#/projects' % self.live_server_url)
+        self.assertEqual(self.browser.url, '%s/en/#!/projects' % self.live_server_url)
         self.assertEqual(self.browser.title, '1%Club')
 
     def test_view_project_list_page(self):
