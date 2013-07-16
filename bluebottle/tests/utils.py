@@ -233,9 +233,9 @@ class SeleniumTestCase(LiveServerTestCase):
         :return: ``True`` if login was successful.
         """
         self.visit_homepage()
-
+ 
         # Find the link to the signup button page and click it.
-        self.browser.find_link_by_text('Login').first.click()
+        self.browser.find_link_by_text('Log in').first.click()
 
         # Validate that we are on the intended page.
         if not self.browser.is_text_present('LOG IN', wait_time=10):

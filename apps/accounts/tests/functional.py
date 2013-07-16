@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 """
 Functional tests using Selenium.
 
@@ -47,13 +47,13 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
-        self.browser.find_link_by_partial_text('Signup').first.click()
+        self.browser.find_link_by_partial_text('Sign up').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('BECOME A 1%MEMBER', wait_time=10),
+        self.assertTrue(self.browser.is_text_present('JOIN 1%CLUB', wait_time=10),
                 'Cannot load the signup page.'),
 
-        self.assertEqual(self.browser.url, '%s/en/#/signup' % self.live_server_url)
+        self.assertEqual(self.browser.url, '%s/en/#!/signup' % self.live_server_url)
         self.assertEqual(self.browser.title, '1%Club')
 
         # NOTE: Most ember elements don't have meaningfull names. This makes it hard to find out which element is the
@@ -119,7 +119,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the login button page and click it.
-        self.browser.find_link_by_text('Login').first.click()
+        self.browser.find_link_by_text('Log in').first.click()
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_text_present('LOG IN', wait_time=10),
@@ -254,7 +254,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the login button page and click it.
-        self.browser.find_link_by_text('Login').first.click()
+        self.browser.find_link_by_text('Log in').first.click()
         self.browser.find_link_by_text('I forgot my password').first.click()
 
         # Validate that we are on the intended page.
@@ -278,9 +278,10 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # TODO: The email is sent in Dutch, even if I go to the English website (#448).
         #self.assertEqual(reset_mail.subject, 'Password reset for %s' % current_site.domain)
+
         self.assertTrue(reset_mail.subject in [
             'Wachtwoord reset voor %s' % current_site.domain,
-            'Password reset for %s' % current_site.domain
+            'Password reset on %s' % current_site.domain
         ])
         self.assertIn(user.email, reset_mail.to)
 
