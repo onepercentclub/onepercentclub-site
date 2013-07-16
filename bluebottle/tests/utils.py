@@ -10,6 +10,7 @@ from splinter.browser import _DRIVERS
 from splinter.element_list import ElementList
 from splinter.exceptions import DriverNotFoundError
 
+import time
 
 def css_dict(style):
     """
@@ -47,11 +48,19 @@ def BrowserExt(driver_name='firefox', *args, **kwargs):
 
     return new_class(*args, **kwargs)
 
-
 class WebDriverAdditionMixin(object):
     """
     Additional helper methods for the web driver.
     """
+
+    def phantom_sleep(self, nr_secs):
+        """
+        Only wait when we're using PhantomJS, this due to this driver not
+        properly waiting for the page load to complete before executing events.
+        """
+        if self.driver_name == 'PhantomJS':
+            time.sleep(nr_secs)
+
     def fill_form_by_css(self, form, data):
         """
         Fills in a form by finding input elements by CSS.
@@ -233,7 +242,8 @@ class SeleniumTestCase(LiveServerTestCase):
         :return: ``True`` if login was successful.
         """
         self.visit_homepage()
- 
+        self.browser.phantom_sleep(3)
+
         # Find the link to the signup button page and click it.
         self.browser.find_link_by_text('Log in').first.click()
 

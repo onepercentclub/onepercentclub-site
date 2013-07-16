@@ -45,6 +45,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         6. Validate that user is active
         """
         self.visit_homepage()
+        self.browser.phantom_sleep(3)
 
         # Find the link to the signup button page and click it.
         self.browser.find_link_by_partial_text('Sign up').first.click()
@@ -101,6 +102,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Visit the activation link.
         self.browser.visit(activation_link)
+        self.browser.phantom_sleep(3)
 
         # TODO: After visiting the link, the website is shown in Dutch again.
         self.assertTrue(self.browser.is_text_present('Hurray!', wait_time=10))
@@ -117,6 +119,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret')
 
         self.visit_homepage()
+        self.browser.phantom_sleep(3)
 
         # Find the link to the login button page and click it.
         self.browser.find_link_by_text('Log in').first.click()
@@ -141,6 +144,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.login(user.email, 'secret')
 
         self.browser.find_by_css('.nav-member-my1percent').first.mouse_over()
+        self.browser.phantom_sleep(3)
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
@@ -158,6 +162,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
             ('Location', 'Amsterdam'),
             ('Time available', '5-8_hours_week')
         ])
+        self.browser.phantom_sleep(3)
 
         form.find_by_css('button').first.click()
 
@@ -186,6 +191,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.login(user.email, 'secret')
 
         self.browser.find_by_css('.nav-member-my1percent').first.mouse_over()
+        self.browser.phantom_sleep(3)
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
@@ -234,7 +240,6 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertEqual(user.gender, 'male')
         self.assertTrue(user.share_money)
         self.assertTrue(user.share_time_knowledge)
-        self.assertTrue(user.newsletter)
         self.assertEqual(user.birthdate, datetime.date(1980, 1, 1))
 
         self.assertEqual(user.address.line1, 'Example street 1')
@@ -252,6 +257,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertTrue(check_password(old_password, user.password))
 
         self.visit_homepage()
+        self.browser.phantom_sleep(3)
 
         # Find the link to the login button page and click it.
         self.browser.find_link_by_text('Log in').first.click()
@@ -292,6 +298,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Visit the reset link.
         self.browser.visit(reset_link)
+        self.browser.phantom_sleep(5)
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_text_present('RESET YOUR PASSWORD', wait_time=10))
