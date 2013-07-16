@@ -173,7 +173,13 @@ App.Project = DS.Model.extend({
     isPhaseAct: Em.computed.equal('phase', 'act'),
     isPhaseResults: Em.computed.equal('phase', 'results'),
     isPhaseRealized: Em.computed.equal('phase', 'realized'),
-    isPhaseFailed: Em.computed.equal('phase', 'failed')
+    isPhaseFailed: Em.computed.equal('phase', 'failed'),
+
+    getProject: function(){
+        return App.Project.find(this.get('id'));
+    }.property('id')
+
+
 });
 
 
