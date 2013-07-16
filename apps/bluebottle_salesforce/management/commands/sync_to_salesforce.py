@@ -17,7 +17,6 @@ logger = logging.getLogger(__name__)
 error_count = 0
 success_count = 0
 
-
 #
 # Run with:
 # ./manage.py sync_to_salesforce -v 2 --settings=bluebottle.settings.salesforcesync
@@ -112,7 +111,8 @@ def sync_organizations(dry_run, sync_from_datetime):
             sforganization.billing_postal_code = ''
             sforganization.billing_country = ''
         except OrganizationAddress.MultipleObjectsReturned:
-            logger.warn("Organization id {0} has multiple addresses, this is not supported by the integration.".format(organization.id))
+            logger.warn("Organization id {0} has multiple addresses, this is not supported by the integration.".format(
+                organization.id))
         else:
             sforganization.billing_city = organizationaddress.city
             sforganization.billing_street = organizationaddress.line1 + " " + organizationaddress.line2
@@ -188,6 +188,7 @@ def sync_users(dry_run, sync_from_datetime):
 
         contact.user_name = user.username
         contact.is_active = user.is_active
+        contact.close_date = user.deleted
         contact.member_since = user.date_joined
         contact.why_one_percent_member = user.why
         contact.about_me_us = user.about
@@ -315,7 +316,8 @@ def sync_projects(dry_run, sync_from_datetime):
         try:
             sfproject.project_owner = SalesforceContact.objects.get(external_id=project.owner.id)
         except SalesforceContact.DoesNotExist:
-            logger.error("Unable to find contact id {0} in Salesforce for project id {1}".format(project.owner.id, project.id))
+            logger.error("Unable to find contact id {0} in Salesforce for project id {1}".format(project.owner.id,
+                                                                                                 project.id))
 
         sfproject.project_name = project.title
 
@@ -332,7 +334,6 @@ def sync_projects(dry_run, sync_from_datetime):
                 sfproject.country_in_which_the_project_is_located = project_pitch.country.name
             sfproject.describe_the_project_in_one_sentence = project_pitch.title
 
-
         try:
             project_plan = ProjectPlan.objects.get(project=project)
         except ProjectPlan.DoesNotExist:
@@ -345,9 +346,11 @@ def sync_projects(dry_run, sync_from_datetime):
             # sfproject.number_of_people_reached_indirect = (project.fundphase.impact_indirect_male +
             #                                                project.fundphase.impact_indirect_female)
             try:
-                sfproject.organization_account = SalesforceOrganization.objects.get(external_id=project_plan.organization.id)
+                sfproject.organization_account = SalesforceOrganization.objects.get(
+                    external_id=project_plan.organization.id)
             except SalesforceOrganization.DoesNotExist:
-                logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(project_plan.organization.id, project.id))
+                logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
+                    project_plan.organization.id, project.id))
 
         # SF Layout: Extensive project information section.
         # TODO: Determine extended project information details
@@ -470,13 +473,15 @@ def sync_donations(test_run, sync_from_datetime):
                 sfContact = SalesforceContact.objects.get(external_id=donation.user.id)
                 sfdonation.receiver = sfContact
             except SalesforceContact.DoesNotExist:
-                logger.error("Unable to find contact id {0} in Salesforce for donation id {1}".format(donation.user.id, donation.id))
+                logger.error("Unable to find contact id {0} in Salesforce for donation id {1}".format(
+                    donation.user.id, donation.id))
         if donation.project:
             try:
                 sfProject = SalesforceProject.objects.get(external_id=donation.project.id)
                 sfdonation.project = sfProject
             except SalesforceProject.DoesNotExist:
-                logger.error("Unable to find project id {0} in Salesforce for donation id {1}".format(donation.project.id, donation.id))
+                logger.error("Unable to find project id {0} in Salesforce for donation id {1}".format(
+                    donation.project.id, donation.id))
 
         # SF Layout: Donation Information section.
         sfdonation.amount = "%01.2f" % (float(donation.amount) / 100)
@@ -534,7 +539,8 @@ def sync_vouchers(dry_run, sync_from_datetime):
         try:
             sfvoucher.purchaser = SalesforceContact.objects.get(external_id=voucher.sender_id)
         except SalesforceContact.DoesNotExist:
-            logger.error("Unable to find purchaser contact id {0} in Salesforce for voucher id {1}".format(voucher.sender_id, voucher.id))
+            logger.error("Unable to find purchaser contact id {0} in Salesforce for voucher id {1}".format(
+                voucher.sender_id, voucher.id))
 
         # TODO: There should be a voucher.project.id, else remove from (parent) models
         # sfvoucher.project = SalesforceProject.objects.get(external_id=1)
@@ -614,7 +620,6 @@ def sync_tasks(dry_run, sync_from_datetime):
         for tag in task.tags.all():
             sftask.tags = str(tag) + ", " + sftask.tags
 
-
         # SF: Other
         sftask.external_id = task.id
 
@@ -652,11 +657,13 @@ def sync_task_members(dry_run, sync_from_datetime):
         try:
             sftaskmember.contacts = SalesforceContact.objects.get(external_id=task_member.member.id)
         except SalesforceContact.DoesNotExist:
-            logger.error("Unable to find contact id {0} in Salesforce for task member id {1}".format(task_member.member.id, task_member.id))
+            logger.error("Unable to find contact id {0} in Salesforce for task member id {1}".format(
+                task_member.member.id, task_member.id))
         try:
             sftaskmember.x1_club_task = SalesforceTask.objects.get(external_id=task_member.task.id)
         except SalesforceTask.DoesNotExist:
-            logger.error("Unable to find task id {0} in Salesforce for task member id {1}".format(task_member.member.id, task_member.id))
+            logger.error("Unable to find task id {0} in Salesforce for task member id {1}".format(task_member.member.id,
+                                                                                                  task_member.id))
 
         sftaskmember.external_id = task_member.id
 
