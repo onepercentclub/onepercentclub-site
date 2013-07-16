@@ -1163,7 +1163,7 @@
             <li class="control-group has-popover" data-content="{% trans "What is your crowdfunding strategy? What steps are you going to take? " %}">
                 <label class="control-label">{% trans "Campaign strategy" %}</label>
                 <div class="controls">
-                    {{view Em.TextArea valueBinding="campaign" classBinding="errors.campaign.length:error"}}
+                    {{view Em.TextArea valueBinding="campaign" rows="6" classBinding="errors.campaign.length:error"}}
                 </div>
 
                 {{#if errors.campaign }}
