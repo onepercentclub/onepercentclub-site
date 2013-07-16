@@ -77,8 +77,8 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
 
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project 
+        self.browser.find_by_css('div.donate-call-to-action a').first.click()
 
-        self.browser.find_by_css('div.donate-call-to-action').first.click()
         self.assertTrue(self.browser.is_text_present('SUPPORT ONE OR MORE PROJECTS',
                                                      wait_time=10))
         
@@ -114,6 +114,8 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         self.browser.find_by_css('.btn[href="#/support/details"]').first.click()
         self.assertTrue(self.browser.is_text_present('Your full name',
                                                      wait_time=10))
+
+        # NOTE: making use of fill_form_by_css() might be a better idea
 
         fields = self.browser.find_by_css('input[type=text]')
         firstname = fields[0]
