@@ -61,6 +61,7 @@ class Command(BaseCommand):
         if options['sync_updated']:
             delta = timedelta(minutes=options['sync_updated'])
             sync_from_datetime = timezone.now() - delta
+            logger.info("Syncing only updated records from {0}".format(timezone.localtime(sync_from_datetime)))
 
         # The synchronization methods need to be run in a specific order because of foreign key dependencies.
         sync_organizations(options['dry_run'], sync_from_datetime)
@@ -120,8 +121,8 @@ def sync_organizations(dry_run, sync_from_datetime):
                 sforganization.billing_country = organizationaddress.country.name
             else:
                 sforganization.billing_country = ''
-
-        sforganization.email_address = organization.email
+        # E-mail addresses for organizations are currently left out because source data is not validated
+        # sforganization.email_address = organization.email
         sforganization.phone = organization.phone_number
         sforganization.website = organization.website
 
@@ -609,10 +610,10 @@ def sync_tasks(dry_run, sync_from_datetime):
         sftask.title = task.title
         sftask.task_created_date = task.created
 
-        #for tag in task.tags:
-        #    sftask.tags = sftask.tags + "; " + tag.name
+        sftask.tags = ""
+        for tag in task.tags.all():
+            sftask.tags = str(tag) + ", " + sftask.tags
 
-        #sftask.tags = task.tags.all()
 
         # SF: Other
         sftask.external_id = task.id
@@ -632,9 +633,9 @@ def sync_task_members(dry_run, sync_from_datetime):
     global success_count
 
     task_members = TaskMember.objects.all()
-    # TODO: Add updated to TaskMember.
-    # if sync_from_datetime:
-    #     task_members = task_members.filter(updated__gte=sync_from_datetime)
+
+    if sync_from_datetime:
+        task_members = task_members.filter(updated__gte=sync_from_datetime)
 
     logger.info("Syncing {0} TaskMember objects.".format(task_members.count()))
 
