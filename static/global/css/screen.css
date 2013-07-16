@@ -3473,7 +3473,7 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 #profile-actions { padding: 8px 0; padding: 0.57143rem 0; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003102}}
-.profile-actions-meta { float: left; width: 35.41667%; margin-left: 2.08333%; margin-right: 0%; }
+.profile-actions-meta { float: left; width: 31.25%; margin-left: 2.08333%; margin-right: 0%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\00003105}}
 .profile-actions-meta img { float: left; width: 16.66667%; margin-left: 0%; margin-right: 4.16667%; }
 

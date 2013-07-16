@@ -100,7 +100,7 @@
 }
 
 .profile-actions-meta {
-  @include grid(18, 1, 0);
+  @include grid(16, 1);
 
   img {
     @include grid(10, 0, 2);
