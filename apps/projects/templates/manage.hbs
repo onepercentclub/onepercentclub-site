@@ -400,10 +400,10 @@
 {% tplhandlebars "my_project_plan_index" %}
 
     <fieldset>
-        <legend><strong>{% trans "Woohoo, your pitch was accepted! The world is at your feet now. Start doing your thing!" %}</strong></legend>
+        <legend><strong>{% trans "Woohoo, your pitch was accepted!" %}</strong></legend>
         <div class="form-desc">
             <p>
-                {% trans "To complete your project plan, please fill in the empty areas. Are there still some gaps? Don’t worry! We have a network full of people that are willing to help you.  The only thing you need to do is create a 1%SKILLS task ask for the right expertise." %}
+                {% trans "To complete your project plan, please fill in the empty spaces. Are there still some gaps? Don’t worry! We have a community full of people that are willing to help you.  The only thing you need to do is create a 1%Skills task ask for the right expertise." %}
             </p>
         </div>
     </fieldset>
@@ -425,6 +425,8 @@
             </div>
         </fieldset>
     {{/if}}
+
+    {{#linkTo myProjectPlan.basics class="btn btn-iconed right button"}}<em class="icon icon-star"></em>{% trans "Next" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
