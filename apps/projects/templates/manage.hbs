@@ -603,7 +603,7 @@
 
     <fieldset>
         <ul>
-            <li class="control-group has-popover" data-content="{% trans "Select the country." %}">
+            <li class="control-group has-popover" data-content="{% trans "Country." %}">
                 <label class="control-label">{% trans "Country" %}</label>
                 <div class="controls">
                     {{view App.ProjectCountrySelectView valueBinding="country" classBinding="errors.country.length:error"}}
@@ -1454,6 +1454,8 @@ Need more tips and tricks? Read our FAQ.<br/><br/>
 
     <div class="form-meta">
         <div class="form-label">{% trans "Submit Pitch" %}</div>
+        <div class="form-desc">{% trans "Send your pitch to us, we'll get back to you soon." %}</div>
+
     </div>
 
     <fieldset>
