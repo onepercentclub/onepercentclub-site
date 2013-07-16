@@ -285,7 +285,5 @@ class SeleniumTestCase(LiveServerTestCase):
 
         # # Check if the homepage opened, and the dynamically loaded content appeared.
         # # Remember that
-        # self.assertTrue(self.browser.is_text_present('CHOOSE YOUR PROJECT', wait_time=10),
-        #         'Cannot load the homepage. Did you load any data fixtures for testing?')
-        return self.browser.is_element_present_by_id('title', wait_time=10)
+        return self.browser.is_text_present('CHOOSE YOUR PROJECT', wait_time=10)
 
