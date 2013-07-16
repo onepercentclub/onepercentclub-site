@@ -157,7 +157,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
 
-    'apps.redirects.middleware.RedirectFallbackMiddleware'
+    'apps.redirects.middleware.RedirectFallbackMiddleware',
     'apps.crawlable.middleware.HashbangMiddleware',
 ]
 
