@@ -900,7 +900,10 @@
 
             <li class="control-group has-popover" data-content="{% trans "Please scan and upload your passport or ID and the registration document. Don’t have it? It is also possible to upload the passport of ID of the person named in the registration document." %}">
                 <label class="control-label">
-                    {% trans "Documents" %} ({{organization.documents.length}})
+                    {% trans "Documents" %} ({{organization.documents.length}})<br />
+                    <small>
+                        {% trans ".jpg, .png or .pdf" %}
+                    </small>
                 </label>
 
                 <div class="controls project-pic-uploader">
