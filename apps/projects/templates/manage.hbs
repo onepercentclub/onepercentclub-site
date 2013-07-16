@@ -1648,8 +1648,15 @@
 
             <form>
                 <fieldset>
-                    <legend><strong>{% trans "Collect those resources!" %}</strong></legend>
+                    <legend><strong>{% trans "How is your campaign going?" %}</strong></legend>
                         <div class="body">
+                            {% blocktrans %}
+                            Is money pouring in? No? Our tips & tricks might help you.
+                            Check our FAQ! And remember Einsteins words: "You have to learn the rules
+                            of the game. And then you have to play better than anyone else".
+                            You can do it!
+                            {% endblocktrans %}
+
                             <div class="project-days-left">
                                 {{#if campaign.deadline}}
                                     <h3>
