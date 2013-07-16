@@ -209,12 +209,19 @@
                 <div class="project-meta">
                     <span class="location"><em class="flaticon solid location-pin-1"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
 
+                    <span class="theme">
+                        <em class="flaticon solid feather-1"></em>
+                        {{plan.theme.title}}
+                    </span>
+
+                    {% comment %}
                     <span class="tags" data-title="Tags" {{bindAttr data-content="allTags"}}>
                         <em class="flaticon solid tag-1"></em>
                         {{#each tag in plan.tags}}
                             {{tag.id}}
                         {{/each}}
                     </span>
+                    {% endcomment %}
                 </div>
 
                 <h1 class="project-title">
