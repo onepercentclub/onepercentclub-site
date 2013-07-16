@@ -56,6 +56,7 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
 
             project.projectcampaign = ProjectCampaign(status='running', project=project, money_asked=money_asked)
             project.projectcampaign.save()
+            project.projectcampaign.update_money_donated()
 
             project.phase = ProjectPhases.campaign
             project.save()

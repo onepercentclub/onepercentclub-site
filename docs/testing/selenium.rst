@@ -29,64 +29,27 @@ all Selenium functions, if you want to.
 Getting ready
 -------------
 
+Install `PhantomJS`_ on your development machine or (test) server. Additionally, install the regular browsers you want
+to test in (Chrome, Firefox, Internet Explorer). Finally, if you want to test in Chrome or Internet Explorer, install
+the `Chrome web-driver`_ and/or the `Internet Explorer web-driver`_.
+
+.. note:: Chrome is recommended for development since Firefox does not support mouse interactions.
+
+All these web-drivers need to be present in your path, for the tests to be able to use them.
+
+.. _Chrome web-driver: https://code.google.com/p/chromedriver/downloads/list
+.. _Internet Explorer web-driver: https://code.google.com/p/selenium/downloads/list
+
 Install the requirements, if not already included by the ``requirements.txt`` file::
 
     $ source env/bin/activate
     $ pip install selenium splinter
 
+Configure your Django settings or specifically, your ``bluebottle/settings/local.py``. The following configuration
+options are available::
 
-Creating test data
-------------------
-
-Optionally, we can create a dump of our database (make sure you obfuscate production or sensitive data) with Django. To
-make a usable dump, we use natural keys and leave out some tables that are created and filled during the database
-creation process in our unit tests.
-
-To clean up the database, we can delete everything older than 60 days. In a Python shell:
-
-.. code-block:: python
-   :linenos:
-
-    import datetime
-    delete_date = datetime.datetime.now() - datetime.timedelta(days=60)
-    max_projects = 100
-    max_tags = 100
-    max_wallposts = 100
-
-    from apps.projects.models import Project
-    Project.objects.filter(created__lt=delete_date).delete()
-    Project.objects.exclude(pk__in=Project.objects.values_list('pk', flat=True)[:max_projects]).delete()
-
-    from apps.organizations.models import Organization
-    Organization.objects.filter(projectplan=None).delete()
-
-    from apps.fund.models import Order
-    Order.objects.filter(updated__lt=delete_date).delete()
-
-    from taggit.models import Tag
-    Tag.objects.exclude(pk__in=Tag.objects.all()[:max_tags].values_list('pk', flat=True)).delete()
-
-    # Polymorphic models don't work well with dumpdata/loaddata.
-    from apps.wallposts.models import WallPost, TextWallPost, MediaWallPost, Reaction
-    wallpost_pk_set = WallPost.objects.filter(created__lt=delete_date).values_list('pk', flat=True)[:max_wallposts]
-
-    TextWallPost.objects.exclude(wallpost_ptr__in=wallpost_pk_set).delete()
-    MediaWallPost.objects.filter(wallpost_ptr__in=wallpost_pk_set).delete()
-    WallPost.objects.exclude(pk__in=wallpost_pk_set).delete()
-
-    Reaction.objects.all().delete()
-
-    from apps.accounts.models import BlueBottleUser
-    BlueBottleUser.objects.filter(wallpost_wallpost=None, owner=None, taskmember=None, team_member=None, donation=None).delete()
-
-It may take a while to generate the demo data, make sure it's not already included with the source code::
-
-    $ python manage.py dumpdata --exclude=sessions --exclude=contenttypes --exclude=auth.Permission \
-        --exclude=south --exclude=admin.LogEntry --natural --format=json --indent=2 > bluebottle/fixtures/demo.json
-    $ gzip bluebottle/fixtures/demo.json
-
-You can also create test data inside your test class. However, since we are testing the "real" website, you may find
-yourself creating a lot of data to get anywhere (menu's, users, projects, etc.).
+    SELENIUM_TESTS = True  # Set to False to skip all Selenium tests.
+    SELENIUM_WEBDRIVER = 'firefox' # Can be any of chrome, firefox, phantomjs
 
 
 Writing tests
@@ -108,7 +71,6 @@ Consider the following test case:
     @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
     class ExampleSeleniumTests(SeleniumTestCase):
-        fixtures = ['demo',]
 
         def test_view_homepage(self):
             self.browser.visit(self.live_server_url)
@@ -123,8 +85,9 @@ Furthermore, we extend from ``SeleniumTestCase``. This class is a wrapper around
 the ``self.browser`` property that emulates the browser. Some additional helper functions are also present which will
 not be discussed here.
 
-A fixture is included that holds some basic information on all parts of the website. This makes it possible to test
-something.
+You can use any of the regular test mixins to add some data to your database, to make the tests work.
+
+.. note:: It's not recommended to use a fixture due to the many changes in models, and the long loading times.
 
 The first test is to simply open the homepage, by going to the ``self.live_server_url``, which represents the address
 to the internal webserver. After changing telling the browser to visit this URL, we can check if some dynamically loaded
@@ -136,21 +99,29 @@ text appears earlier, your test will continue as soon as it appears.
 Tips
 ----
 
+A live server test case can be hard to debug. Below are some pointers to help debugging these tests.
+
 1. Check the ``from django.utils.html`` for usefull utility functions, such as ``remove_tags``. With these you can
    manipulate the HTML and make it easier to compare values.
 
+2. Use breakpoints in your IDE, and evaluate lines of code that interact with your browser to write a test. This
+   prevents a lot of time spent on initializing the web driver and running the unit tests repeatedly.
 
-Debugging
----------
-
-A live server test case can be hard to debug. Below are some pointers to help debugging these tests.
-
-1. Remember that you can use an actual browser to help you find problems. In Firefox and Chrome for example, you can use
+3. Remember that you can use an actual browser to help you find problems. In Firefox and Chrome for example, you can use
    the developer tools.
 
-2. You can `override settings`_ that are used in the settings file. For example, to show the uncompressed CSS and JS
+4. You can `override settings`_ that are used in the settings file. For example, to show the uncompressed CSS and JS
    files, append the following line on top of your test function::
 
         @override_settings(COMPRESS_ENABLED=False)
 
 .. _override settings: https://docs.djangoproject.com/en/dev/topics/testing/overview/#django.test.utils.override_settings
+
+
+Common issues
+-------------
+
+You get the WebDriver exception: ``Adapter is either null or does not implement `findHasMany` method``.
+
+    This is actually an Ember exception raised via JavaScript. Most likely, you are missing some data that is "required"
+    on a certain page you are visiting. Launch the test in a non-headless browser and inspect the JavaScript errors.

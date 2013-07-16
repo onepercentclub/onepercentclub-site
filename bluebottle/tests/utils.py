@@ -1,3 +1,4 @@
+from apps.projects.models import Project
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management import call_command
@@ -275,12 +276,14 @@ class SeleniumTestCase(LiveServerTestCase):
         :param lang_code: A two letter language code as used in the URL.
         :return: ``True`` if the homepage could be visited.
         """
+        # TODO: A project should not be needed to visit the homepage.
+        self.assertNotEqual(Project.objects.count(), 0,
+                            'The homepage depends on at least 1 project to be present to prevent JS errors.')
+
         # Open the homepage, in the specified language.
         self.visit_path('', lang_code)
 
         # # Check if the homepage opened, and the dynamically loaded content appeared.
         # # Remember that
-        # self.assertTrue(self.browser.is_text_present('CHOOSE YOUR PROJECT', wait_time=10),
-        #         'Cannot load the homepage. Did you load any data fixtures for testing?')
-        return self.browser.is_element_present_by_id('title', wait_time=10)
+        return self.browser.is_text_present('CHOOSE YOUR PROJECT', wait_time=10)
 
