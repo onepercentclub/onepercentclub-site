@@ -640,15 +640,6 @@ App.ApplicationRoute = Em.Route.extend({
             });
 
         },
-        showTermsAndConditions:  function(){
-            // TODO: Use a proper view (static/cms page?) for the body.
-            Bootstrap.ModalPane.popup({
-                classNames: ['modal'],
-                heading: "General Terms & Conditions",
-                message: "This needs some text....",
-                secondary: 'Close'
-            });
-        },
         showProject: function(project_id) {
             var route = this;
             App.Project.find(project_id).then(function(project){

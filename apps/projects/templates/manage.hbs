@@ -1271,7 +1271,7 @@
                     {{view Em.Checkbox checkedBinding="agreed" classBinding=":left errors.agreed.length:error"}}
                     <span>&nbsp;</span>
                     {% trans "I agree to the " %}
-                    <a {{action "showTermsAndConditions"}}>{% trans "general terms and conditions" %}</a>
+                    <a {{action showPage 'terms-and-conditions'}}>{% trans "general terms and conditions" %}</a>
                 </div>
             </li>
         </ul>
@@ -1468,7 +1468,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Submit Pitch" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     <fieldset>
@@ -1535,7 +1534,7 @@
                     {{view Em.Checkbox checkedBinding="agreed" classBinding=":left errors.agreed.length:error"}}
                     <span>&nbsp;</span>
                     {% trans "I agree to the " %}
-                    <a {{action "showTermsAndConditions"}}>{% trans "general terms and conditions" %}</a>
+                    <a {{action showPage 'terms-and-conditions'}}>{% trans "general terms and conditions" %}</a>
                 </div>
             </li>
         </ul>
