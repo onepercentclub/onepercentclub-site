@@ -12,7 +12,7 @@ from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin
 from apps.projects.models import Project
 from rest_framework import status
-from .models import Donation, Order, OrderStatuses, DonationStatuses
+from ..models import Donation, Order, OrderStatuses, DonationStatuses
 
 
 
