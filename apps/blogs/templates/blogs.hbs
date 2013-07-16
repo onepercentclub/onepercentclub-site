@@ -56,10 +56,21 @@
                         <br/>
                         <em>{{localize publicationDate formatting="X"}}</em>
                     </li>
-                {{else}}
-                    <li>{% trans "No news items found" %}</li>
                 {{/each}}
             </ul>
+            <br /><br />
+            {{#if controller.hasPrevious}}
+                <a {{action previousNews}} class="pager left">
+                    <span class="flaticon solid left-circle-2"></span>
+                    {% trans "Previous" %}
+                </a>
+            {{/if}}
+            {{#if controller.hasNext}}
+                <a {{action nextNews}} class="pager right">
+                    {% trans "Next" %}
+                    <span class="flaticon solid right-circle-2"></span>
+                </a>
+            {{/if}}
         </sidebar>
     </section>
 
