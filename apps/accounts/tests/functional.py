@@ -4,7 +4,6 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
-import time
 import re
 import datetime
 
@@ -16,18 +15,23 @@ from django.utils.unittest.case import skipUnless, skipIf
 
 from bluebottle.tests.utils import SeleniumTestCase, css_dict
 from apps.geo.models import Region
+from apps.projects.tests import ProjectTestsMixin
 from ..models import BlueBottleUser
 
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class AccountSeleniumTests(SeleniumTestCase):
+class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
     """
     Selenium tests for account actions.
     """
     def setUp(self):
-        pass
+
+        # This project is required to make the homepage work without JS errors.
+        project = self.create_project(title='Example', slug='example', money_asked=100000)
+        project.projectcampaign.money_donated = 50000
+        project.projectcampaign.save()
 
     def test_signup(self):
         """

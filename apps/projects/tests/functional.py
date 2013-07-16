@@ -30,9 +30,9 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         ]])
 
         for slug, title in self.projects.items():
-            project = self.create_project(title=title, slug=slug, money_asked=1000)
+            project = self.create_project(title=title, slug=slug, money_asked=100000)
 
-            project.projectcampaign.money_donated = randint(0, 1000)
+            project.projectcampaign.money_donated = randint(0, 100000)
             project.projectcampaign.save()
 
     def visit_project_list_page(self, lang_code=None):
