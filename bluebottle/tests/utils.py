@@ -1,3 +1,4 @@
+from apps.projects.models import Project
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management import call_command
@@ -275,6 +276,10 @@ class SeleniumTestCase(LiveServerTestCase):
         :param lang_code: A two letter language code as used in the URL.
         :return: ``True`` if the homepage could be visited.
         """
+        # TODO: A project should not be needed to visit the homepage.
+        self.assertNotEqual(Project.objects.count(), 0,
+                            'The homepage depends on at least 1 project to be present to prevent JS errors.')
+
         # Open the homepage, in the specified language.
         self.visit_path('', lang_code)
 
