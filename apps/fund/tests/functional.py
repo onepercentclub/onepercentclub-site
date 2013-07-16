@@ -152,8 +152,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         # Proceed with the payment
 
         self.browser.find_by_css('a.btn.payment-link').first.click()
-        time.sleep(2)
-        self.assertFalse(self.browser.is_text_present('There was an error sending you to the payment provider'))
+        self.assertTrue(self.browser.is_text_present('YOUR PAYMENT', wait_time=10))
 
         # NOTE: Firefox pops up a HTTP Auth Basic dialog box here, there doesn't seem to be 
         # an easy way to dismiss it

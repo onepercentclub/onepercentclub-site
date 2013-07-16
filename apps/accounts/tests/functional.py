@@ -156,8 +156,8 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.browser.fill_form_by_label(form, [
             ('Name', ['John', 'Doe']),
             ('Profile Picture', None),
-            ('About Yourself', 'I am John Doe.'),
-            ('Why are you a member?', 'Because I care.'),
+            ('About yourself', 'I am John Doe.'),
+            ('Why did you join 1%Club?', 'Because I care.'),
             ('Your website', 'http://www.onepercentclub.com'),
             ('Location', 'Amsterdam'),
             ('Time available', '5-8_hours_week')
