@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext as _
-from django_extensions.db.fields import CreationDateTimeField
+from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices.choices import DjangoChoices, ChoiceItem
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
@@ -35,6 +35,7 @@ class Task(models.Model):
     project = models.ForeignKey('projects.Project')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='author')
     created = CreationDateTimeField(_("created"), help_text=_("When this task was created?"))
+    updated = ModificationDateTimeField(_("updated"))
 
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
@@ -60,6 +61,7 @@ class TaskMember(models.Model):
     member = models.ForeignKey(settings.AUTH_USER_MODEL)
     status = models.CharField(_("status"), max_length=20, choices=TaskMemberStatuses.choices)
     created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
 
 
 class TaskFile(models.Model):
