@@ -632,7 +632,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Project media" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     <fieldset>
@@ -1271,7 +1270,7 @@
                     {{view Em.Checkbox checkedBinding="agreed" classBinding=":left errors.agreed.length:error"}}
                     <span>&nbsp;</span>
                     {% trans "I agree to the " %}
-                    <a {{action "showTermsAndConditions"}}>{% trans "general terms and conditions" %}</a>
+                    <a {{action showPage 'terms-and-conditions'}}>{% trans "general terms and conditions" %}</a>
                 </div>
             </li>
         </ul>
@@ -1468,7 +1467,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Submit Pitch" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     <fieldset>
@@ -1535,7 +1533,7 @@
                     {{view Em.Checkbox checkedBinding="agreed" classBinding=":left errors.agreed.length:error"}}
                     <span>&nbsp;</span>
                     {% trans "I agree to the " %}
-                    <a {{action "showTermsAndConditions"}}>{% trans "general terms and conditions" %}</a>
+                    <a {{action showPage 'terms-and-conditions'}}>{% trans "general terms and conditions" %}</a>
                 </div>
             </li>
         </ul>
@@ -1617,8 +1615,8 @@
                         </h4>
                     </div>
                     <div class="body">
-                        Your plan is approved and currently locked. If you need to make any changes: please set a message
-                        to your 1%COACH{{#if coach}}, <strong>{{coach.full_name}}</strong>,{{/if}} at projects@1procentclub.nl.
+                        Your plan is approved and currently locked. If you need to make any changes: please sent a message to
+                        {{#if coach}}your 1%COACH, <strong>{{coach.full_name}}</strong>, at{{/if}} projects@1procentclub.nl.
                     </div>
                 </div>
 
@@ -1648,8 +1646,15 @@
 
             <form>
                 <fieldset>
-                    <legend><strong>{% trans "Collect those resources!" %}</strong></legend>
+                    <legend><strong>{% trans "How is your campaign going?" %}</strong></legend>
                         <div class="body">
+                            {% blocktrans %}
+                            Is money pouring in? No? Our tips & tricks might help you.
+                            Check our FAQ! And remember Einsteins words: "You have to learn the rules
+                            of the game. And then you have to play better than anyone else".
+                            You can do it!
+                            {% endblocktrans %}
+
                             <div class="project-days-left">
                                 {{#if campaign.deadline}}
                                     <h3>

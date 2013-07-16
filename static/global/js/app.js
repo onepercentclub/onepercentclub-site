@@ -471,7 +471,7 @@ App.Router.map(function() {
         this.resource('newsItem', {path: '/:news_id'});
     });
 
-    this.resource('page', {path: '/pages/:slug'});
+    this.resource('page', {path: '/pages/:page_id'});
 
     this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
@@ -640,15 +640,6 @@ App.ApplicationRoute = Em.Route.extend({
             });
 
         },
-        showTermsAndConditions:  function(){
-            // TODO: Use a proper view (static/cms page?) for the body.
-            Bootstrap.ModalPane.popup({
-                classNames: ['modal'],
-                heading: "General Terms & Conditions",
-                message: "This needs some text....",
-                secondary: 'Close'
-            });
-        },
         showProject: function(project_id) {
             var route = this;
             App.Project.find(project_id).then(function(project){
@@ -673,6 +664,13 @@ App.ApplicationRoute = Em.Route.extend({
             var route = this;
             App.News.find(news_id).then(function(news){
                 route.transitionTo('newsItem', news);
+                window.scrollTo(0);
+            });
+        },
+        showPage: function(page_id) {
+            var route = this;
+            App.Page.find(page_id).then(function(page){
+                route.transitionTo('page', page);
                 window.scrollTo(0);
             });
         }
@@ -1559,7 +1557,7 @@ App.HomeRoute = Em.Route.extend({
 
 App.PageRoute = Em.Route.extend({
     model: function(params) {
-        var page =  App.Page.find(params.slug);
+        var page =  App.Page.find(params.page_id);
         var route = this;
         page.on('becameError', function(){
             route.transitionTo('error.notFound');

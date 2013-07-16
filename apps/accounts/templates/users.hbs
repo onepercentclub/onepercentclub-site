@@ -8,14 +8,16 @@
     <div id="profile-actions" class="section">
         <div class="wrapper">
             <div class="profile-actions-meta">
-                <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
-                <div class="profile-actions-meta-title">
-                    {% trans "My Profile" %}
-                    <a {{action openInBigBox "userModal" controllers.currentUser.content }} class="button-link">
-                        <i class="icon-eye-open"></i>
-                        {% trans "Preview my profile" %}
-                    </a>
-                </div>
+                <a {{action openInBigBox "userModal" controllers.currentUser.content }} class="button-link">
+                    <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
+                    <div class="profile-actions-meta-title">
+                        {{controllers.currentUser.getUser.full_name}}
+                        <small>
+                            <i class="icon-eye-open"></i>
+                            {% trans "Preview my profile" %}
+                        </small>
+                    </div>
+                </a>
             </div>
 
             <ul class="tabs">
@@ -52,7 +54,7 @@
             <form>
                 <div class="form-meta">
                     <div class="form-label">{% trans "Edit your profile" %}</div>
-                    <div class="form-desc">{% trans "Personalise your account so 1%MEMBERS can get to know you!" %}</div>
+                    <div class="form-desc">{% trans "Personalise your account so 1%Members can get to know you." %}</div>
                 </div>
 
                 <fieldset>
@@ -95,7 +97,7 @@
                     <ul>
                         <li class="control-group">
                             <label class="control-label">
-                                {% trans "About Yourself" %}
+                                {% trans "About yourself" %}
                             </label>
 
                             <div class="controls">
@@ -109,7 +111,7 @@
 
                         <li class="control-group">
                             <label class="control-label">
-                                {% trans "Why are you a member?" %}
+                                {% trans "Why did you join 1%Club?" %}
                             </label>
 
                             <div class="controls">
@@ -233,7 +235,7 @@
                     <ul>
                         <li class="control-group">
                             <label class="control-label">
-                                {% trans "I'd like to receive email about" %}
+                                {% trans "I'd like to receive emails about" %}
                             </label>
 
                             <div class="controls">
@@ -280,7 +282,7 @@
                                 </label>
                                 <label class="checkbox">
                                     {{view Em.Checkbox checkedBinding="share_money" }}
-                                    <span for="optionsCheckboxes1">{% trans "Finances" %}</span>
+                                    <span for="optionsCheckboxes1">{% trans "Money" %}</span>
                                 </label>
                             </div>
                         </li>
@@ -436,10 +438,16 @@
 
 {% tplhandlebars "_signup_content" %}
 <div class="content">
-    <h1>{% trans "Become a 1%Member" %}</h1>
+    <h1>{% trans "Join 1%Club" %}</h1>
 
-    <p>{% trans "1%CLUB is the platform that connects people with smart ideas in developing countries with people, money and knowledge around the world. We are talking about sustainable projects that stimulate the self-reliance of individuals anywhere in the world and improve their standard of living." %}</p>
-
+    <p>
+        {% blocktrans %}
+        1%Club is the global platform where you can share a little and change the world, in your vary
+        own way. We ignite modern society to share 1% and support smart ideas from people in
+        developing countries. We do this in a new, open way, believing in the power of collaboration
+        boosted by today's technical possibilities. If we all share a little, we can change the world.
+        {% endblocktrans %}
+    </p>
     {{#if isUserCreated}}
         <h1>{% trans "Thanks for signing up!" %}</h1>
 
@@ -487,10 +495,21 @@
                 {{/if}}
             </div>
 
-            <button class="btn btn-iconed btn-primary right" {{action 'createUser' model}}>
-                <i class="icon icon-group"></i>
-                {% trans "SIGNUP" %}
-            </button>
+            <div class="control-group">
+                <div class="controls-wide">
+                    <button class="btn btn-iconed btn-primary right" {{action 'createUser' model}}>
+                        <i class="icon icon-group"></i>
+                        {% trans "Sign up" %}
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls-wide">
+                    {% trans "By joining the 1%Club I a hereby agree to the " %}
+                    <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "1%Club Terms of service" %}</a>
+               </div>
+            </div>
         </form>
     {{/if}}
 </div>
@@ -505,7 +524,7 @@
             <strong>{%  trans "ALREADY HAVE AN ACCOUNT?" %}</strong>
         </a>
 
-        <p>{% trans "Login here" %}</p>
+        <p>{% trans "Log in here" %}</p>
     </div>
 
     <div class="widget widget-member-advantage">
@@ -514,15 +533,15 @@
         </div>
 
         <div class="widget-header">
-            {% trans "Why should I join 1%CLUB?" %}
+            {% trans "Why join 1%Club?" %}
         </div>
 
         <div class="widget-body">
-            <ul>
-                <li>{% trans "Receive regular updates on the progress of projects you support" %}</li>
-                <li>{% trans "Donate easily to projects" %}</li>
-                <li>{% trans "Connect with other members" %}</li>
-            </ul>
+            <ol>
+                <li>{% trans "It's easy to find projects you like." %}</li>
+                <li>{% trans "A fun and personal way to share your 1%." %}</li>
+                <li>{% trans "You'll receive updates of the progress of the projects you support." %}</li>
+            </ol>
         </div>
     </div>
 </div>
@@ -544,7 +563,7 @@
         {{/if}}
 
         {{#if why }}
-            <h4>{% trans "IS A 1%MEMBER BECAUSE" %}</h4>
+            <h4>{% trans "Joined 1%Club because" %}</h4>
             <p>{{ why }} </p>
         {{/if}}
 
