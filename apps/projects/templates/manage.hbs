@@ -90,26 +90,30 @@
                 <h1 class="pink"> {% trans "Send in your Project Pitch" %}</h1>
 
                 <strong>
-                    Lorem ipsum doler amit ned hic molores. Ti haset mores catores polem, polem ni lobedim.
-                    Lorem ipsum doler amit ned hic molores. Ti haset mores catores polem, polem ni lobedim.
-                    Lorem ipsum doler amit ned hic molores. Ti haset mores catores polem, polem ni lobedim.
+{% blocktrans %}
+Do you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare?<br/><br/>
+Well, you came to the right place. We LOVE smart ideas!
+{% endblocktrans %}
                 </strong>
 
 
-                <h3>Use the 1%CLUB network smart and follow these five rules</h3>
+                <h3>{% trans "WHEN YOUR SMART IDEA..." %}</h3>
                 <ul class="list">
-                    <li>Do you the best you can</li>
-                    <li>Be all you can be</li>
-                    <li>Géén smeer op smeer!</li>
-                    <li>Begin de dag met een lach</li>
-                    <li>Doe zelf eens lekker nomraal, man.</li>
+                    <li>{% trans "Might seem small, but will have a big social impact" %}</li>
+                    <li>{% trans "Is concrete and thus has a clear start and end" %}</li>
+                    <li>{% trans "Needs on off investment to make it self-sufficient and sustainable on the long term" %}</li>
+                    <li>{% trans "Takes place in one of these developing countries" %}</li>
+                    <li>{% trans "Is managed and owned locally" %}</li>
+                    <li>{% trans "Needs people, special know-how and skills" %}</li>
+                    <li>{% trans "Needs some cash to get started (up to €5000)" %}</li>
                 </ul>
-
+                {% trans "...your idea fits right in with 1%Club!" %}
                 <hr />
-
-                <h3>{% trans "Ready, set, go!" %}</h3>
                 <p>
-                    Come up with a smart, short title for your project and your can start pitching!
+{% blocktrans %}
+1%Club offers you tools to engage your crowd to turn your smart idea in to reality.<br />
+Are you ready to invest time and effort in succeeding? Double check our FAQ and pitch your smart idea here!
+{% endblocktrans %}
                 </p>
                 {{#if controllers.currentUser.isAuthenticated}}
                     {{#if errors.detail}}
@@ -128,7 +132,7 @@
                                 {{#if errors.title }}
                                     <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
                                 {{/if}}
-                                {{view Em.TextField valueBinding="title" placeholder="Title for your project" classBinding="errors.title.length:error"}}
+                                {{view Em.TextField valueBinding="title" name="title" placeholder="Title for your smart idea" classBinding="errors.title.length:error"}}
                             </div>
                             <br />
                             <div class="pitch-start">
@@ -147,8 +151,10 @@
                 {{/if}}
             </div>
             <sidebar>
+                {% comment %}
                 <h3>{% trans "What is a smart pitch?" %}</h3>
                 <iframe width="323" height="242" src="//www.youtube.com/embed/ZNosNWgDMyU" frameborder="0" allowfullscreen></iframe>
+                {% endcomment %}
             </sidebar>
         </div>
     </div>

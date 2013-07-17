@@ -4365,19 +4365,19 @@ ul.manage-steps li.sixth { z-index: 5; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000353}}
 .footer-social-links li { margin-right: 5px; margin-right: 0.35714rem; float: left; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000356}}
-.footer-social-links li .flaticon { background-color: #999999; color: white; display: inline-block; font-size: 18px; font-size: 1.28571rem; width: 30px; width: 2.14286rem; height: 30px; height: 2.14286rem; padding-top: 7px; padding-top: 0.5rem; text-align: center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000365}}
+.footer-social-links li .flaticon { transition: 200ms; background-color: #999999; color: white; display: inline-block; font-size: 18px; font-size: 1.28571rem; width: 30px; width: 2.14286rem; height: 30px; height: 2.14286rem; padding-top: 7px; padding-top: 0.5rem; text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000366}}
 .footer-social-links li .flaticon:hover { background-color: #00c051; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000377}}
 .copyright ul { float: left; width: 95.83333%; margin-left: 2.08333%; margin-right: 2.08333%; font-size: 12px; font-size: 0.85714rem; margin-bottom: 0; color: white; list-style: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000384}}
 .copyright ul li { margin-right: 16px; margin-right: 1.14286rem; padding: 16px 0; padding: 1.14286rem 0; float: left; line-height: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000390}}
 .copyright ul li:last-child { float: right; margin-right: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000395}}
 .copyright ul li a { color: #999999; text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000398}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_footer\.scss}line{font-family:\0000399}}
 .copyright ul li a.feedback { color: #00c051; text-transform: uppercase; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_search\.scss}line{font-family:\000031}}

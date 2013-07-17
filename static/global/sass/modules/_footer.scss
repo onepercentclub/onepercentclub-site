@@ -54,6 +54,7 @@
         @include rem(margin-right, 5px);
         float: left;
         .flaticon {
+            transition: 200ms;
             background-color: $gray;
             color: $white;
             display: inline-block;
