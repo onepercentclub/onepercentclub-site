@@ -5,7 +5,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
 audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
 audio:not([controls]) { display: none; }
 [hidden] { display: none; }
-body { line-height: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { line-height: 1; -webkit-font-smoothing: antialiased; -moz-font-smoothing: antialiased; font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 ol, ul { list-style: none; }
 table { border-collapse: collapse; border-spacing: 0;}
 blockquote, q { quotes: none; }
