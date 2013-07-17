@@ -40,7 +40,7 @@
                         {{#if project.isPhasePitch}}
                             {% trans "Status:" %} <strong>{{project.pitch.status}}</strong>
                             <br/>
-                            {{#linkTo "myProjectPitch" project tagName="button" class="btn btn-iconed"}}
+                            {{#linkTo "myProjectPitch.basics" project tagName="button" class="btn btn-iconed"}}
                                 <span class="icon icon-pencil"></span>
                                 {% trans "continue pitch" %}
                             {{/linkTo}}
@@ -1311,7 +1311,6 @@ Need more tips and tricks? Read our FAQ.<br/><br/>
                     {% trans "Yeah! Your plan has been approved." %}<br/>
                     {% trans "You can start your " %} {{#linkTo myProjectCampaign}}{% trans "Campaign" %}{{/linkTo}}
                 </h2>
-
             </article>
         </div>
     </div>
@@ -1323,8 +1322,10 @@ Need more tips and tricks? Read our FAQ.<br/><br/>
 {% tplhandlebars "my_pitch_index" %}
 
     <fieldset>
-        <legend><strong>{% trans "I looooove my pitches!" %}</strong></legend>
+        <legend><strong>{% trans "Get ready to write your pitch!" %}</strong></legend>
     </fieldset>
+
+    {{#linkTo myProjectPitch.basics class="btn btn-iconed right button"}}<em class="icon icon-star"></em>{% trans "Next" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
