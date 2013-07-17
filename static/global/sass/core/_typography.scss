@@ -122,8 +122,7 @@ p {
 a { 
     color: $green; 
     text-decoration: none; 
-    @include transition(color 0.2s ease-in, color 0.25s ease-out);
-    @include transition(background-color 0.2s ease-in, background-color 0.25s ease-out);
+    @include transition(color 0.2s ease-in, color 0.25s ease-out, background-color 0.2s ease-in, background-color 0.25s ease-out);
 
     &:hover { 
         color: $pink;
