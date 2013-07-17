@@ -9,7 +9,7 @@ from .serializers import BlogPostSerializer
 class NewsPostPreviewList(generics.ListAPIView):
     model = NewsPostProxy
     serializer_class = BlogPostPreviewSerializer
-    paginate_by = 10
+    paginate_by = 5
     filter_fields = ('language', )
 
     def get_queryset(self, *args, **kwargs):
@@ -21,7 +21,7 @@ class NewsPostPreviewList(generics.ListAPIView):
 class NewsPostList(generics.ListAPIView):
     model = NewsPostProxy
     serializer_class = BlogPostSerializer
-    paginate_by = 10
+    paginate_by = 5
     filter_fields = ('language', )
 
     def get_queryset(self, *args, **kwargs):
@@ -43,7 +43,7 @@ class NewsPostDetail(generics.RetrieveAPIView):
 class BlogPostList(generics.ListAPIView):
     model = BlogPostProxy
     serializer_class = BlogPostSerializer
-    paginate_by = 10
+    paginate_by = 5
     filter_fields = ('language', )
 
     def get_queryset(self, *args, **kwargs):

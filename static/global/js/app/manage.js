@@ -4,9 +4,9 @@
 
 App.AddressTypeSelectView = Em.Select.extend({
     content: [
-        {value: 'physical', title: "Physical"},
-        {value: 'postal', title: "Postal"},
-        {value: 'other', title: "Other"}
+        {value: 'physical', title: "Physical address"},
+        {value: 'postal', title: "Postal address"},
+        {value: 'other', title: "Other address"}
     ],
     optionValuePath: "content.value",
     optionLabelPath: "content.title"

@@ -515,14 +515,6 @@ App.Router.map(function() {
     this.route('userActivate', {path: '/activate/:activation_key'});
     this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
 
-    this.resource('myPitch', {path: '/my/pitches/:my_pitch_id'}, function() {
-        this.route('index');
-        this.route('basics');
-        this.route('description');
-        this.route('location');
-        this.route('media');
-    });
-
     this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
         this.resource('myProjectPlan', {path: 'plan'},function(){
             this.route('index');

@@ -14,7 +14,7 @@ class UserPreviewSerializer(serializers.ModelSerializer):
         kwargs['read_only'] = True
         super(UserPreviewSerializer, self).__init__(*args, **kwargs)
 
-    avatar = SorlImageField('picture', '90x90', crop='center', colorspace="GRAY")
+    avatar = SorlImageField('picture', '133x133', crop='center', colorspace="GRAY")
 
     class Meta:
         model = BlueBottleUser

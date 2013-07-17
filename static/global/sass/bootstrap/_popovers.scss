@@ -48,7 +48,6 @@
 
 .popover-content {
   padding: 9px 14px;
-  color: $white;
 }
 
 // Arrows
@@ -116,19 +115,25 @@
     }
   }
 
-  &.left .arrow {
-    top: 50%;
-    right: -$popoverArrowOuterWidth;
-    margin-top: -$popoverArrowOuterWidth;
-    border-right-width: 0;
-    border-left-color: #999; // IE8 fallback
-    border-left-color: $popoverArrowOuterColor;
-    &:after {
-      right: 1px;
-      border-right-width: 0;
-      border-left-color: $popoverArrowColor;
-      bottom: -$popoverArrowWidth;
+  &.left {
+    border: 2px solid $gray;
+    color: $black;
+    background-color: $white;
+    @include rem(font-size, 14px);
+
+    .arrow {
+        top: 50%;
+        right: -$popoverArrowOuterWidth;
+        margin-top: -$popoverArrowOuterWidth;
+        border-right-width: 0;
+        border-left-color: #999; // IE8 fallback
+        border-left-color: $gray;
+        &:after {
+          right: 1px;
+          border-right-width: 0;
+          border-left-color: $gray;
+          bottom: -$popoverArrowWidth;
+        }
     }
   }
-
 }
