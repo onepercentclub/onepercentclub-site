@@ -92,6 +92,16 @@
 
 .blogpost-filter {
     @include rem(margin-top, 32px);
-    @include rem(padding, 8px);
+    @include rem(padding, 24px);
     background-color: $color-back;
+    ul {
+        margin: 0;
+        padding: 0;
+        text-indent: 0;
+    }
+    .pager {
+        color: $gray;
+        text-transform: uppercase;
+
+    }
 }
