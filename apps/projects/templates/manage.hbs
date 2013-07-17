@@ -490,7 +490,10 @@
             {% endcomment %}
 
             <li class="control-group">
-                <label class="control-label">{% trans "Tags" %}</label>
+                <label class="control-label">
+                    {% trans "Tags" %} ({{tags.length}})<br />
+                    <small>{% trans "Between 2 and 5 tags" %}</small>
+                </label>
                 <div class="controls">
                     {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
                 </div>
@@ -1419,7 +1422,11 @@ Need more tips and tricks? Read our FAQ.<br/><br/>
             </li>
 
             <li class="control-group">
-                <label class="control-label">{% trans "Tags" %} ({{tags.length}})</label>
+                <label class="control-label">
+                    {% trans "Tags" %} ({{tags.length}})<br />
+                    <small>{% trans "Between 2 and 5 tags" %}</small>
+                </label>
+
                 <div class="controls">
                     {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
                 </div>
