@@ -38,7 +38,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
 
-        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project', wait_time=10),
+        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),
                 'Cannot load the project list page.')
 
     def test_navigate_to_project_list_page(self):
@@ -51,7 +51,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.browser.find_link_by_text('1%PROJECTS').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project', wait_time=10),
+        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),
                 'Cannot load the project list page.')
 
         self.assertEqual(self.browser.url, '%s/en/#!/projects' % self.live_server_url)

@@ -1,4 +1,5 @@
-from apps.projects.models import Project
+import time
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management import call_command
@@ -10,7 +11,8 @@ from splinter.browser import _DRIVERS
 from splinter.element_list import ElementList
 from splinter.exceptions import DriverNotFoundError
 
-import time
+from apps.projects.models import Project
+
 
 def css_dict(style):
     """
@@ -34,7 +36,6 @@ def css_dict(style):
         raise ValueError('Could not parse CSS: %s (%s)' % (style, e))
 
 
-
 def BrowserExt(driver_name='firefox', *args, **kwargs):
     """
     Small helper to combine the correct webdriver with some additional methods without cloning the project.
@@ -47,6 +48,7 @@ def BrowserExt(driver_name='firefox', *args, **kwargs):
     new_class = type('BrowserExt', (driver_class, WebDriverAdditionMixin), {})
 
     return new_class(*args, **kwargs)
+
 
 class WebDriverAdditionMixin(object):
     """
@@ -181,7 +183,7 @@ class SeleniumTestCase(LiveServerTestCase):
         if not hasattr(settings, 'SELENIUM_WEBDRIVER'):
             raise ImproperlyConfigured('Define SELENIUM_WEBDRIVER in your settings.py.')
 
-        cls.browser = BrowserExt(settings.SELENIUM_WEBDRIVER)
+        cls.browser = BrowserExt(settings.SELENIUM_WEBDRIVER, wait_time=10)
 
         super(SeleniumTestCase, cls).setUpClass()
 
@@ -193,45 +195,6 @@ class SeleniumTestCase(LiveServerTestCase):
         cls.browser.quit()
 
         super(SeleniumTestCase, cls).tearDownClass()
-
-    def _fixture_setup(self):
-        """
-        Implement the same logic as ``django.test.TestCase`` to make fixture loading more smooth.
-        """
-        if not connections_support_transactions():
-            return super(SeleniumTestCase, self)._fixture_setup()
-
-        assert not self.reset_sequences, 'reset_sequences cannot be used on TestCase instances'
-
-        for db_name in self._databases_names():
-            transaction.enter_transaction_management(using=db_name)
-            transaction.managed(True, using=db_name)
-        disable_transaction_methods()
-
-        from django.contrib.sites.models import Site
-        Site.objects.clear_cache()
-
-        for db in self._databases_names(include_mirrors=False):
-            if hasattr(self, 'fixtures'):
-                call_command('loaddata', *self.fixtures,
-                             **{
-                                'verbosity': 0,
-                                'commit': False,
-                                'database': db,
-                                'skip_validation': True,
-                             })
-
-    def _fixture_teardown(self):
-        """
-        Implement the same logic as ``django.test.TestCase`` to make fixture loading more smooth.
-        """
-        if not connections_support_transactions():
-            return super(SeleniumTestCase, self)._fixture_teardown()
-
-        restore_transaction_methods()
-        for db in self._databases_names():
-            transaction.rollback(using=db)
-            transaction.leave_transaction_management(using=db)
 
     def login(self, username, password):
         """

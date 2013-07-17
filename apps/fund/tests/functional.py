@@ -53,7 +53,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
 
-        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project', wait_time=10),
+        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),
                 'Cannot load the project list page.')
 
     def test_view_project_page_with_donation(self):
@@ -152,7 +152,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         # Proceed with the payment
 
         self.browser.find_by_css('a.btn.payment-link').first.click()
-        self.assertTrue(self.browser.is_text_present('YOUR PAYMENT', wait_time=10))
+        self.assertTrue(self.browser.is_text_present('YOUR PAYMENT'))
 
         # NOTE: Firefox pops up a HTTP Auth Basic dialog box here, there doesn't seem to be 
         # an easy way to dismiss it
