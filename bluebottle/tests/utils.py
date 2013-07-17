@@ -2,10 +2,7 @@ import time
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.management import call_command
-from django.db import transaction
 from django.test import LiveServerTestCase
-from django.test.testcases import connections_support_transactions, disable_transaction_methods, restore_transaction_methods
 
 from splinter.browser import _DRIVERS
 from splinter.element_list import ElementList
