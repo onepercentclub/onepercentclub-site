@@ -1,4 +1,12 @@
 .static-page {
+    .text, .image, .oembed, .rawhtml, .title {
+        @include clearfix;
+        min-width: $min-width;
+        max-width: $max-width;
+        margin: auto;
+        padding: 0px 300px 0px 120px;
+    }
+
     .section {
         @include rem(padding, ($padding * 2) 0);
         position: relative;

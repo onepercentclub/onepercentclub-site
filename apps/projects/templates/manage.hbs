@@ -40,7 +40,7 @@
                         {{#if project.isPhasePitch}}
                             {% trans "Status:" %} <strong>{{project.pitch.status}}</strong>
                             <br/>
-                            {{#linkTo "myProjectPitch" project tagName="button" class="btn btn-iconed"}}
+                            {{#linkTo "myProjectPitch.basics" project tagName="button" class="btn btn-iconed"}}
                                 <span class="icon icon-pencil"></span>
                                 {% trans "continue pitch" %}
                             {{/linkTo}}
@@ -90,26 +90,30 @@
                 <h1 class="pink"> {% trans "Send in your Project Pitch" %}</h1>
 
                 <strong>
-                    Lorem ipsum doler amit ned hic molores. Ti haset mores catores polem, polem ni lobedim.
-                    Lorem ipsum doler amit ned hic molores. Ti haset mores catores polem, polem ni lobedim.
-                    Lorem ipsum doler amit ned hic molores. Ti haset mores catores polem, polem ni lobedim.
+{% blocktrans %}
+Do you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare?<br/><br/>
+Well, you came to the right place. We LOVE smart ideas!
+{% endblocktrans %}
                 </strong>
 
 
-                <h3>Use the 1%CLUB network smart and follow these five rules</h3>
+                <h3>{% trans "WHEN YOUR SMART IDEA..." %}</h3>
                 <ul class="list">
-                    <li>Do you the best you can</li>
-                    <li>Be all you can be</li>
-                    <li>Géén smeer op smeer!</li>
-                    <li>Begin de dag met een lach</li>
-                    <li>Doe zelf eens lekker nomraal, man.</li>
+                    <li>{% trans "Might seem small, but will have a big social impact" %}</li>
+                    <li>{% trans "Is concrete and thus has a clear start and end" %}</li>
+                    <li>{% trans "Needs on off investment to make it self-sufficient and sustainable on the long term" %}</li>
+                    <li>{% trans "Takes place in one of these developing countries" %}</li>
+                    <li>{% trans "Is managed and owned locally" %}</li>
+                    <li>{% trans "Needs people, special know-how and skills" %}</li>
+                    <li>{% trans "Needs some cash to get started (up to €5000)" %}</li>
                 </ul>
-
+                {% trans "...your idea fits right in with 1%Club!" %}
                 <hr />
-
-                <h3>{% trans "Ready, set, go!" %}</h3>
                 <p>
-                    Come up with a smart, short title for your project and your can start pitching!
+{% blocktrans %}
+1%Club offers you tools to engage your crowd to turn your smart idea in to reality.<br />
+Are you ready to invest time and effort in succeeding? Double check our FAQ and pitch your smart idea here!
+{% endblocktrans %}
                 </p>
                 {{#if controllers.currentUser.isAuthenticated}}
                     {{#if errors.detail}}
@@ -128,7 +132,7 @@
                                 {{#if errors.title }}
                                     <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
                                 {{/if}}
-                                {{view Em.TextField valueBinding="title" placeholder="Title for your project" classBinding="errors.title.length:error"}}
+                                {{view Em.TextField valueBinding="title" name="title" placeholder="Title for your smart idea" classBinding="errors.title.length:error"}}
                             </div>
                             <br />
                             <div class="pitch-start">
@@ -147,8 +151,10 @@
                 {{/if}}
             </div>
             <sidebar>
+                {% comment %}
                 <h3>{% trans "What is a smart pitch?" %}</h3>
                 <iframe width="323" height="242" src="//www.youtube.com/embed/ZNosNWgDMyU" frameborder="0" allowfullscreen></iframe>
+                {% endcomment %}
             </sidebar>
         </div>
     </div>
@@ -400,10 +406,10 @@
 {% tplhandlebars "my_project_plan_index" %}
 
     <fieldset>
-        <legend><strong>{% trans "Woohoo, your pitch was accepted! The world is at your feet now. Start doing your thing!" %}</strong></legend>
+        <legend><strong>{% trans "Woohoo, your pitch was accepted!" %}</strong></legend>
         <div class="form-desc">
             <p>
-                {% trans "To complete your project plan, please fill in the empty areas. Are there still some gaps? Don’t worry! We have a network full of people that are willing to help you.  The only thing you need to do is create a 1%SKILLS task ask for the right expertise." %}
+                {% trans "To complete your project plan, please fill in the empty spaces. Are there still some gaps? Don’t worry! We have a community full of people that are willing to help you.  The only thing you need to do is create a 1%Skills task ask for the right expertise." %}
             </p>
         </div>
     </fieldset>
@@ -426,6 +432,8 @@
         </fieldset>
     {{/if}}
 
+    {{#linkTo myProjectPlan.basics class="btn btn-iconed right button"}}<em class="icon icon-star"></em>{% trans "Next" %}{{/linkTo}}
+
 {% endtplhandlebars %}
 
 
@@ -433,7 +441,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Project basics" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     <fieldset>
@@ -489,7 +496,10 @@
             {% endcomment %}
 
             <li class="control-group">
-                <label class="control-label">{% trans "Tags" %}</label>
+                <label class="control-label">
+                    {% trans "Tags" %} ({{tags.length}})<br />
+                    <small>{% trans "Between 2 and 5 tags" %}</small>
+                </label>
                 <div class="controls">
                     {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
                 </div>
@@ -525,7 +535,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Project description" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     <fieldset>
@@ -603,7 +612,7 @@
 
     <fieldset>
         <ul>
-            <li class="control-group has-popover" data-content="{% trans "Select the country." %}">
+            <li class="control-group has-popover" data-content="{% trans "Country." %}">
                 <label class="control-label">{% trans "Country" %}</label>
                 <div class="controls">
                     {{view App.ProjectCountrySelectView valueBinding="country" classBinding="errors.country.length:error"}}
@@ -632,19 +641,18 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Project media" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
+        <div class="form-desc">{% trans "Upload a photo" %}</div>
     </div>
-
     <fieldset>
         <ul>
-            <li class="control-group has-popover" data-content="{% trans "Upload the picture that best describes your Smart Idea!" %}">
+            <li class="control-group has-popover" data-content="{% trans "This photo will represent your idea on 1%Club. So make sure it's personal, unique and recognisable for your smart idea and that it looks nice too!" %}">
                 <label class="control-label">
                     {% trans "Project Picture" %}
                 </label>
 
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFileView valueBinding="image" name="image" accept="image/*" id="image"}}
+                        {{view App.UploadFile valueBinding="image" name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
@@ -667,7 +675,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Organisation" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     {{#if organization}}
@@ -787,7 +794,7 @@
         </fieldset>
         <fieldset>
             <legend>
-                <strong>{% trans "Internet" %}</strong>
+                <strong>{% trans "Online" %}</strong>
             </legend>
             <ul>
 
@@ -883,7 +890,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Legal status" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     <fieldset>
@@ -901,7 +907,10 @@
 
             <li class="control-group has-popover" data-content="{% trans "Please scan and upload your passport or ID and the registration document. Don’t have it? It is also possible to upload the passport of ID of the person named in the registration document." %}">
                 <label class="control-label">
-                    {% trans "Documents" %} ({{organization.documents.length}})
+                    {% trans "Documents" %} ({{organization.documents.length}})<br />
+                    <small>
+                        {% trans ".jpg, .png or .pdf" %}
+                    </small>
                 </label>
 
                 <div class="controls project-pic-uploader">
@@ -933,13 +942,9 @@
         <div class="form-label">{% trans "Ambassadors" %}</div>
         <div class="form-desc">
             {% blocktrans %}
-            An ambassador is somebody who can tell something about your smart idea or about you as a person or your
-            organisation. Ambassadors will make your story more credible and will add that little something extra.
-            You probably have lots of people in your network who can act as ambassador, but be sure it is not your
-            mom and the person meets our criteria (see FAQ).
-            <br/>
-            Do you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%Profile and post a
-            short comment on your project page to promote your smart idea.
+An ambassador is somebody who can tell something about your smart idea or about you as a person or your organisation. Ambassadors will make your story more credible and will add that little something extra. You probably have lots of people in your network who can act as ambassador, but be sure it is not your mom and the person meets our criteria (see FAQ).<br /><br />
+Do you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%Profile and post a short comment on your project page to promote your smart idea.<br /><br />
+You've to have at least 3 ambassadors. (more? great!)<br /><br />
             {% endblocktrans %}
         </div>
     </div>
@@ -1008,7 +1013,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Bank details" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     {{#if organization.isLoaded}}
@@ -1133,16 +1137,9 @@
         <div class="form-label">{% trans "Crowndfunding Campaign" %}</div>
         <div class="form-desc">
             {% blocktrans %}
-            Sometimes people are lucky and support for their project directly comes in from all corners of the world.
-            However, for the other 99% it starts with their own network and their networks’ network. This basically
-            means you have to tell your network about your project on 1%CLUB. Once, twice, maybe even trice.
-            Per e-mail, on Facebook, on Twitter, face-to-face, by phone, by poster or in a video message. Whatever
-            you need to do to get them on board! Our advice would be to have some people on board to help you do this.
-            <br />
-            <br />
-            Do realize that you have to put in work to make it work. And remember, hard work tends to pays off.
-            You have six months for this campaign so use it wisely. If you don’t succeed the money will be transferred
-            back to the people who gave it. Need more tips and tricks? Read our FAQ
+Sometimes people are lucky and support for their project directly comes in from all corners of the world. However, for the other 99% it starts with their own network and their networks’ network. This basically means you have to tell your network about your project on 1%Club. Once, twice, maybe even three times. Per e-mail, on Facebook, on Twitter, face-to-face, by phone, by poster or in a video message. Whatever you need to do to get them on board! Our advice would be to have some people on board to help you do this.<br/><br/>
+Do realize that you have to put in work to make it work. And remember, hard work tends to pays off. You have 6 months for this campaign so use it wisely. If you don’t succeed the money will go back to the people who gave it and they will choose another project.<br/><br/>
+Need more tips and tricks? Read our FAQ.<br/><br/>
             {% endblocktrans %}
 
         </div>
@@ -1164,7 +1161,7 @@
             <li class="control-group has-popover" data-content="{% trans "What is your crowdfunding strategy? What steps are you going to take? " %}">
                 <label class="control-label">{% trans "Campaign strategy" %}</label>
                 <div class="controls">
-                    {{view Em.TextArea valueBinding="campaign" classBinding="errors.campaign.length:error"}}
+                    {{view Em.TextArea valueBinding="campaign" rows="6" classBinding="errors.campaign.length:error"}}
                 </div>
 
                 {{#if errors.campaign }}
@@ -1248,7 +1245,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Submit Plan" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     <fieldset>
@@ -1271,7 +1267,7 @@
                     {{view Em.Checkbox checkedBinding="agreed" classBinding=":left errors.agreed.length:error"}}
                     <span>&nbsp;</span>
                     {% trans "I agree to the " %}
-                    <a {{action "showTermsAndConditions"}}>{% trans "general terms and conditions" %}</a>
+                    <a {{action showPage 'terms-and-conditions'}}>{% trans "general terms and conditions" %}</a>
                 </div>
             </li>
         </ul>
@@ -1321,7 +1317,6 @@
                     {% trans "Yeah! Your plan has been approved." %}<br/>
                     {% trans "You can start your " %} {{#linkTo myProjectCampaign}}{% trans "Campaign" %}{{/linkTo}}
                 </h2>
-
             </article>
         </div>
     </div>
@@ -1333,8 +1328,10 @@
 {% tplhandlebars "my_pitch_index" %}
 
     <fieldset>
-        <legend><strong>{% trans "I looooove my pitches!" %}</strong></legend>
+        <legend><strong>{% trans "Get ready to write your pitch!" %}</strong></legend>
     </fieldset>
+
+    {{#linkTo myProjectPitch.basics class="btn btn-iconed right button"}}<em class="icon icon-star"></em>{% trans "Next" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -1383,7 +1380,6 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Pitch basics" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
     </div>
 
     <fieldset>
@@ -1399,7 +1395,7 @@
                 {{/if}}
             </li>
 
-            <li class="control-group has-popover" data-content="{% trans "Pitch your smart idea in one sentence." %}">
+            <li class="control-group has-popover" data-content="{% trans "By reading your pitch many donors already make the decision to donate or not. The explanation must be to the point, because people don't have time to read everything." %}">
                 <label class="control-label">{% trans "Pitch" %}</label>
                 <div class="controls">
                     {{view Em.TextArea valueBinding="pitch" placeholder="Description" classBinding="errors.pitch.length:error"}}
@@ -1410,8 +1406,8 @@
                 {{/if}}
             </li>
 
-            <li class="control-group has-popover" data-content="{% trans "Blow us away with the details!" %}">
-                <label class="control-label">{% trans "Why, what and how" %}</label>
+            <li class="control-group has-popover" data-content="{% trans "A short description should at least tell something about a person, place, mitvation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]." %}">
+                <label class="control-label">{% trans "Short explanation: Why, what and how" %}</label>
                 <div class="controls wide">
                     {{view Em.TextArea valueBinding="description"classBinding="errors.description.length:error" rows=12}}
                 </div>
@@ -1433,7 +1429,11 @@
             </li>
 
             <li class="control-group">
-                <label class="control-label">{% trans "Tags" %} ({{tags.length}})</label>
+                <label class="control-label">
+                    {% trans "Tags" %} ({{tags.length}})<br />
+                    <small>{% trans "Between 2 and 5 tags" %}</small>
+                </label>
+
                 <div class="controls">
                     {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
                 </div>
@@ -1468,7 +1468,8 @@
 
     <div class="form-meta">
         <div class="form-label">{% trans "Submit Pitch" %}</div>
-        <div class="form-desc">{% trans "Need some info here..." %}</div>
+        <div class="form-desc">{% trans "Send your pitch to us, we'll get back to you soon." %}</div>
+
     </div>
 
     <fieldset>
@@ -1535,7 +1536,7 @@
                     {{view Em.Checkbox checkedBinding="agreed" classBinding=":left errors.agreed.length:error"}}
                     <span>&nbsp;</span>
                     {% trans "I agree to the " %}
-                    <a {{action "showTermsAndConditions"}}>{% trans "general terms and conditions" %}</a>
+                    <a {{action showPage 'terms-and-conditions'}}>{% trans "general terms and conditions" %}</a>
                 </div>
             </li>
         </ul>
@@ -1552,7 +1553,10 @@
     <div class="container">
         <div class="wrapper dashboard">
             <article class="content">
-                <h2>{% trans "Your pitch is in review now. We'll get back to you soon!" %}</h2>
+                <h2>
+                    {% trans "Your pitch is in review now." %}<br/>
+                    {% trans "We'll get back to you soon!" %}
+                </h2>
             </article>
         </div>
     </div>
@@ -1566,7 +1570,7 @@
         <div class="wrapper dashboard">
             <article class="content">
                 <h2>
-                    {% trans "We're sorry, your pitch has been rejected." %}
+                    {% trans "We're sorry, your pitch has been rejected." %}<br />
                     {% trans "Please contact us if you need support to define your smart idea." %}
                 </h2>
             </article>
@@ -1583,7 +1587,7 @@
             <article class="content">
                 <h2>
                     {% trans "Yeah! Your pitch has been approved." %}<br/>
-                    {% trans "You can write your {{#linkTo myProjectPlan}}Project Plan{{/linkTo}} now!" %}
+                    {% trans "You can write your {{#linkTo myProjectPlan}}Project Plan{{/linkTo}}!" %}
                 </h2>
 
             </article>
@@ -1617,8 +1621,8 @@
                         </h4>
                     </div>
                     <div class="body">
-                        Your plan is approved and currently locked. If you need to make any changes: please set a message
-                        to your 1%COACH{{#if coach}}, <strong>{{coach.full_name}}</strong>,{{/if}} at projects@1procentclub.nl.
+                        Your plan is approved and currently locked. If you need to make any changes: please sent a message to
+                        {{#if coach}}your 1%COACH, <strong>{{coach.full_name}}</strong>, at{{/if}} projects@1procentclub.nl.
                     </div>
                 </div>
 
@@ -1648,8 +1652,15 @@
 
             <form>
                 <fieldset>
-                    <legend><strong>{% trans "Collect those resources!" %}</strong></legend>
+                    <legend><strong>{% trans "How is your campaign going?" %}</strong></legend>
                         <div class="body">
+                            {% blocktrans %}
+                            Is money pouring in? No? Our tips & tricks might help you.
+                            Check our FAQ! And remember Einsteins words: "You have to learn the rules
+                            of the game. And then you have to play better than anyone else".
+                            You can do it!
+                            {% endblocktrans %}
+
                             <div class="project-days-left">
                                 {{#if campaign.deadline}}
                                     <h3>

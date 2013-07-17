@@ -5,7 +5,7 @@
 {% tplhandlebars "project_preview" %}
 
     <li class="item item-project">
-        <a {{action showProject project.id href=true}}>
+        {{#linkTo project project.getProject}}
             <div class="header">
                 <img {{bindAttr src="project.image" }} />
                 <h3>
@@ -13,7 +13,7 @@
                     <i class="icon-globe"></i><span class="item-project-country">{{project.country.name}}</span>
                 </h3>
             </div>
-        </a>
+        {{/linkTo}}
         <div {{bindAttr class=":status phase"}}>
             {{#if project.isPhasePlan}}
                 <div class="donate-status">
@@ -209,12 +209,19 @@
                 <div class="project-meta">
                     <span class="location"><em class="flaticon solid location-pin-1"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
 
+                    <span class="theme">
+                        <em class="flaticon solid feather-1"></em>
+                        {{plan.theme.title}}
+                    </span>
+
+                    {% comment %}
                     <span class="tags" data-title="Tags" {{bindAttr data-content="allTags"}}>
                         <em class="flaticon solid tag-1"></em>
                         {{#each tag in plan.tags}}
                             {{tag.id}}
                         {{/each}}
                     </span>
+                    {% endcomment %}
                 </div>
 
                 <h1 class="project-title">

@@ -123,10 +123,10 @@
                         <nav class="nav-main">
                             <h1 class="nav-title">Navigation</h1>
                             <ul>
-                                <li><a href="#">{% trans "What is 1%" %}</a></li>
-                                <li>{{#linkTo projectList}}{% trans "1%Projects" %}{{/linkTo}}</li>
-                                <li>{{#linkTo taskList}}{% trans "1%Tasks" %}{{/linkTo}}</li>
-                                <li>{{#linkTo voucherStart}}{% trans "Get involved" %}{{/linkTo}}</li>
+                                <li><a {{action showPage 'about'}} href="/#!/pages/about">{% trans "What is 1%" %}</a></li>
+                                <li>{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
+                                <li>{{#linkTo taskList}}{% trans "1%TASKS" %}{{/linkTo}}</li>
+                                <li><a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">{% trans "Get involved" %}</a></li>
                             </ul>
                         </nav>
                         <nav class="nav-member member-login">
@@ -172,7 +172,7 @@
                                 {{else}}
                                     <li class="nav-member-actions">
                                         {{#linkTo "signup" class="nav-signup"}}
-                                            {% trans "Signup" %}
+                                            {% trans "Sign up" %}
                                         {{/linkTo}}
                                         or
                                         <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
@@ -280,14 +280,22 @@
                         <li>
                             <h3>{% trans "It all starts with 1%" %}</h3>
                             <ul>
-                                <li>{% trans "What is 1%CLUB?" %}</li>
+                                <li>
+                                    <a {{action showPage 'about'}} href="/#!/pages/about">
+                                        {% trans "What is 1%CLUB?" %}
+                                    </a>
+                                </li>
+
                                 <li>
                                     {{#linkTo projectList}}
                                         {% trans "1%Projects" %}
                                     {{/linkTo}}
                                 </li>
-                                <li>{% trans "Get involved" %}</li>
-                                <li>{% trans "What is 1%Club?" %}</li>
+                                <li>
+                                    <a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">
+                                        {% trans "Get involved" %}
+                                    </a>
+                                </li>
                                 <li>
                                     {{#linkTo myPitchNew}}
                                         {% trans "Start your project" %}
@@ -299,12 +307,36 @@
                         <li>
                             <h3>{% trans "About 1%CLUB" %}</h3>
                             <ul>
-                                <li>{% trans "Our story" %}</li>
-                                <li>{% trans "Meet the team" %}</li>
-                                <li>{% trans "Partners" %}</li>
-                                <li>{% trans "Press" %}</li>
-                                <li>{% trans "Work at 1%CLUB" %}</li>
-                                <li>{% trans "Contact" %}</li>
+                                <li>
+                                    <a {{action showPage 'story'}} href="/#!/pages/story">
+                                        {% trans "Our story" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'meet-team'}} href="/#!/pages/meet-team">
+                                        {% trans "Meet the team" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'partners'}} href="/#!/pages/partners">
+                                        {% trans "Partners" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'press'}} href="/#!/pages/press">
+                                        {% trans "Press" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'work'}} href="/#!/pages/work">
+                                        {% trans "Work at 1%CLUB" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'contact'}} href="/#!/pages/contact">
+                                        {% trans "Contact" %}
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -326,19 +358,29 @@
                             <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
                             <ul class="footer-social-links">
                                 <li>
-                                    <a href="http://www.facebook.com/onepercentclub" target="_blank"><img src="{% get_static_prefix %}images/facebook.png" /></a>
+                                    <a href="http://www.facebook.com/onepercentclub" target="_blank">
+                                        <span class="flaticon social facebook-1"></span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="http://twitter.com/1procentclub" target="_blank"><img src="{% get_static_prefix %}images/twitter.png" /></a>
+                                    <a href="http://twitter.com/1procentclub" target="_blank">
+                                        <span class="flaticon social twitter-1"></span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="http://www.flickr.com/photos/1procentclub/" target="_blank"><img src="{% get_static_prefix %}images/flickr.png" /></a>
+                                    <a href="http://www.flickr.com/photos/1procentclub/" target="_blank">
+                                        <span class="flaticon social flickr-1"></span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="http://www.linkedin.com/groups?gid=1071287&trk=hb_side_g" target="_blank"><img src="{% get_static_prefix %}images/youtube.png" /></a>
+                                    <a href="http://www.linkedin.com/groups?gid=1071287&trk=hb_side_g" target="_blank">
+                                        <span class="flaticon social linkedin-1"></span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="http://www.youtube.com/user/1Procentclub" target="_blank"><img src="{% get_static_prefix %}images/linkedin.png" /></a>
+                                    <a href="http://www.youtube.com/user/1Procentclub" target="_blank">
+                                        <span class="flaticon social youtube-1"></span>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -360,8 +402,6 @@
                     </div>
 
                     {{#unless controllers.currentUser.isAuthenticated}}
-                    {{/unless}}
-                    
                     <div class="footer-join-us">
 						<h3>{% trans "Join 1%Club" %}</h3>
 	                    <p>{% trans "1%Club connects smart ideas from developing countries to time, money and expertise from all over the world. It is very easy: " %}</p>    
@@ -372,7 +412,8 @@
 	                    </ul>
 	                    {{#linkTo signup classNames="btn btn-primary"}}{% trans "Join 1%Club" %}{{/linkTo}}
 					</div>
-                    
+					{{/unless}}
+
                 </div>
             </div>
         </div>
@@ -384,13 +425,14 @@
                         &copy;2013 1%Club
                     </li>
                     <li>
-                        <a href="#">General Conditions</a>
-                    </li>
-                    <li>
-                        <a href="#">Privacy Statement</a>
+                        <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">
+                            {% trans "General Conditions" %}
+                        </a>
                     </li>
                     <li class="right" >
-                        <a class="feedback" id="feedbackButton" href="#">Give us feedback</a>
+                        <a class="feedback" id="feedbackButton" href="#">
+                            {%  trans "Give us feedback" %}
+                        </a>
                     </li>
                 </ul>
             </div>

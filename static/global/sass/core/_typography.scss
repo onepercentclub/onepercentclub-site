@@ -123,7 +123,7 @@ a {
     color: $green; 
     text-decoration: none; 
     //@include transition(color 0.1s ease-in, color 0.25s ease-out);
-    
+ 
     &:hover { 
         color: $pink;
     }

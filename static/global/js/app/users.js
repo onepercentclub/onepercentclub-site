@@ -100,20 +100,12 @@ App.UserPreview = DS.Model.extend({
         return this.get('first_name') + ' ' + this.get('last_name');
     }.property('first_name', 'last_name'),
 
-
     getAvatar: function() {
         if (this.get('avatar')) {
             return this.get('avatar')
         }
         return '/static/assets/images/default-avatar.png'
-    }.property('avatar'),
-
-    full_name: function() {
-        if (!this.get('first_name') && !this.get('last_name')) {
-            return this.get('username');
-        }
-        return this.get('first_name') + ' ' + this.get('last_name');
-    }.property('first_name', 'last_name')
+    }.property('avatar')
 
 });
 
@@ -129,6 +121,9 @@ App.UserPreview = DS.Model.extend({
  */
 App.CurrentUser = App.UserPreview.extend({
     url: 'users',
+    getUser: function(){
+        return App.User.find(this.get('id_for_ember'));
+    }.property('id_for_ember'),
 
     // This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
     // App.UserSettingsModel.find(App.CurrentUser.find('current').get('id_for_ember'));

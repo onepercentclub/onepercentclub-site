@@ -4,6 +4,11 @@
 
 {% tplhandlebars "page" %}
     <div class="container">
+        {{#if view.showTitle}}
+            <div class="title">
+                <h1>{{title}}</h1>
+            </div>
+        {{/if}}
         {{{body}}}
     </div>
 
