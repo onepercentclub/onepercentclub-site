@@ -123,10 +123,10 @@
                         <nav class="nav-main">
                             <h1 class="nav-title">Navigation</h1>
                             <ul>
-                                <li><a href="#">{% trans "What is 1%" %}</a></li>
+                                <li><a {{action showPage 'about'}} href="/#!/pages/about">{% trans "What is 1%" %}</a></li>
                                 <li>{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
                                 <li>{{#linkTo taskList}}{% trans "1%TASKS" %}{{/linkTo}}</li>
-                                <li>{{#linkTo voucherStart}}{% trans "Get involved" %}{{/linkTo}}</li>
+                                <li><a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">{% trans "Get involved" %}</a></li>
                             </ul>
                         </nav>
                         <nav class="nav-member member-login">
@@ -298,14 +298,23 @@
                         <li>
                             <h3>{% trans "It all starts with 1%" %}</h3>
                             <ul>
-                                <li>{% trans "What is 1%CLUB?" %}</li>
+                                <li>
+                                    <a {{action showPage 'about'}} href="/#!/pages/about">
+                                        {% trans "What is 1%CLUB?" %}
+                                    </a>
+                                </li>
+
                                 <li>
                                     {{#linkTo projectList}}
                                         {% trans "1%PROJECTS" %}
                                     {{/linkTo}}
                                 </li>
-                                <li>{% trans "Get involved" %}</li>
-                                <li>{% trans "What is 1%CLUB?" %}</li>
+                                <li>
+                                    <a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">
+                                        {% trans "Get involved" %}
+                                    </a>
+                                </li>
+
                                 <li>
                                     {{#linkTo myPitchNew}}
                                         {% trans "Start your project" %}
@@ -317,12 +326,36 @@
                         <li>
                             <h3>{% trans "About 1%CLUB" %}</h3>
                             <ul>
-                                <li>{% trans "Our story" %}</li>
-                                <li>{% trans "Meet the team" %}</li>
-                                <li>{% trans "Partners" %}</li>
-                                <li>{% trans "Press" %}</li>
-                                <li>{% trans "Work at 1%CLUB" %}</li>
-                                <li>{% trans "Contact" %}</li>
+                                <li>
+                                    <a {{action showPage 'story'}} href="/#!/pages/story">
+                                        {% trans "Our story" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'meet-team'}} href="/#!/pages/meet-team">
+                                        {% trans "Meet the team" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'partners'}} href="/#!/pages/partners">
+                                        {% trans "Partners" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'press'}} href="/#!/pages/press">
+                                        {% trans "Press" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'work'}} href="/#!/pages/work">
+                                        {% trans "Work at 1%CLUB" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'contact'}} href="/#!/pages/contact">
+                                        {% trans "Contact" %}
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -406,13 +439,14 @@
                         &copy;2013 1%CLUB
                     </li>
                     <li>
-                        <a href="#">General Conditions</a>
-                    </li>
-                    <li>
-                        <a href="#">Privacy Statement</a>
+                        <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">
+                            {% trans "General Conditions" %}
+                        </a>
                     </li>
                     <li class="right" >
-                        <a class="feedback" id="feedbackButton" href="#">Give us feedback</a>
+                        <a class="feedback" id="feedbackButton" href="#">
+                            {%  trans "Give us feedback" %}
+                        </a>
                     </li>
                 </ul>
             </div>
