@@ -87,13 +87,9 @@ class NoRunningProjectsOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-
         project = Project.objects.filter(owner=request.user)
 
-        if len(project.filter(phase=ProjectPhases.pitch).exclude(projectpitch__status=ProjectPitch.PitchStatuses.rejected).all()):
-            return False
-
-        if len(project.filter(phase=ProjectPhases.plan).exclude(projectpitch__status=ProjectPitch.PitchStatuses.rejected).all()):
+        if len(project.filter(phase__in=[ProjectPhases.pitch, ProjectPhases.plan, ProjectPhases.campaign, ProjectPhases.act, ProjectPhases.results]).all()):
             return False
 
         return True

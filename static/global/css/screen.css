@@ -4535,11 +4535,11 @@ ul.manage-steps li.sixth { z-index: 5; }
 .blogpost-filter .pager { color: #999999; text-transform: uppercase; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_staticpage\.scss}line{font-family:\000032}}
-.static-page .text, .static-page .image, .static-page .oembed, .static-page .rawhtml { *zoom: 1; min-width: 980px; max-width: 81.42857em; margin: auto; padding: 0px 300px 0px 120px; }
+.static-page .text, .static-page .image, .static-page .oembed, .static-page .rawhtml, .static-page .title { *zoom: 1; min-width: 980px; max-width: 81.42857em; margin: auto; padding: 0px 300px 0px 120px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000344}}
-.static-page .text:before, .static-page .text:after, .static-page .image:before, .static-page .image:after, .static-page .oembed:before, .static-page .oembed:after, .static-page .rawhtml:before, .static-page .rawhtml:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
+.static-page .text:before, .static-page .text:after, .static-page .image:before, .static-page .image:after, .static-page .oembed:before, .static-page .oembed:after, .static-page .rawhtml:before, .static-page .rawhtml:after, .static-page .title:before, .static-page .title:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000345}}
-.static-page .text:after, .static-page .image:after, .static-page .oembed:after, .static-page .rawhtml:after { clear: both; }
+.static-page .text:after, .static-page .image:after, .static-page .oembed:after, .static-page .rawhtml:after, .static-page .title:after { clear: both; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_staticpage\.scss}line{font-family:\0000310}}
 .static-page .section { padding: 32px 0; padding: 2.28571rem 0; position: relative; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_staticpage\.scss}line{font-family:\0000314}}

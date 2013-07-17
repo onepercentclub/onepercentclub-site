@@ -666,6 +666,9 @@ App.ApplicationRoute = Em.Route.extend({
                 window.scrollTo(0);
             });
         }
+    },
+    urlForEvent: function(actionName, context){
+        return "/nice/stuff"
     }
 });
 

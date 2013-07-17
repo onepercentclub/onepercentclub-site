@@ -1,5 +1,5 @@
 .static-page {
-    .text, .image, .oembed, .rawhtml {
+    .text, .image, .oembed, .rawhtml, .title {
         @include clearfix;
         min-width: $min-width;
         max-width: $max-width;
