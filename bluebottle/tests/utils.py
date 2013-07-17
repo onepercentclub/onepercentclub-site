@@ -1,4 +1,5 @@
 import time
+import urlparse
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -32,7 +33,6 @@ def css_dict(style):
     except ValueError, e:
         raise ValueError('Could not parse CSS: %s (%s)' % (style, e))
 
-
 def BrowserExt(driver_name='firefox', *args, **kwargs):
     """
     Small helper to combine the correct webdriver with some additional methods without cloning the project.
@@ -42,8 +42,32 @@ def BrowserExt(driver_name='firefox', *args, **kwargs):
     except KeyError:
         raise DriverNotFoundError("No driver for %s" % driver_name)
 
-    new_class = type('BrowserExt', (driver_class, WebDriverAdditionMixin), {})
+    class DriverClassExt(driver_class):
+        def visit(self, url):
+            """
+            Visit and wait for redirect
+            """
 
+            super(DriverClassExt, self).visit(url)
+            
+            if self.driver_name == 'PhantomJS':
+                if self.status_code.code in [302, 301]:
+                    loc = self.response.msg['Location']
+                    redirect_url = urlparse.urlparse(loc)
+                    parsed_url = urlparse.urlparse(self.request_url)
+            
+                    # Build new absolute URL.
+                    absolute_url = urlparse.urlunparse([
+                            redirect_url.scheme,
+                            redirect_url.netloc,
+                            redirect_url.path,
+                            redirect_url.params,
+                            redirect_url.query,
+                            parsed_url.fragment
+                            ])
+                    self.visit(absolute_url) # Pray...
+
+    new_class = type('BrowserExt', (DriverClassExt, WebDriverAdditionMixin), {})
     return new_class(*args, **kwargs)
 
 
@@ -229,15 +253,15 @@ class SeleniumTestCase(LiveServerTestCase):
         if lang_code is None:
             lang_code = 'en'
 
-        if path and not path.startswith('#'):
-            path = '#%s' % path
+        if path and not path.startswith('#!'):
+            path = '#!%s' % path
 
         # Open the homepage (always the starting point), in English.
         return self.browser.visit('%(url)s/%(lang_code)s/%(path)s' % {
             'url': self.live_server_url,
             'lang_code': lang_code,
             'path': path
-        })
+        })        
 
     def visit_homepage(self, lang_code=None):
         """

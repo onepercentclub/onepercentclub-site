@@ -44,7 +44,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         5. Visit activation link
         6. Validate that user is active
         """
-        self.visit_homepage()
+        self.assertTrue(self.visit_homepage())
         self.browser.phantom_sleep(3)
 
         # Find the link to the signup button page and click it.
@@ -102,7 +102,6 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Visit the activation link.
         self.browser.visit(activation_link)
-        self.browser.phantom_sleep(3)
 
         # TODO: After visiting the link, the website is shown in Dutch again.
         self.assertTrue(self.browser.is_text_present('Hurray!'))
@@ -118,7 +117,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         # Create and activate user.
         user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret')
 
-        self.visit_homepage()
+        self.assertTrue(self.visit_homepage())
         self.browser.phantom_sleep(3)
 
         # Find the link to the login button page and click it.
@@ -256,7 +255,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         user = BlueBottleUser.objects.create_user('johndoe@example.com', old_password)
         self.assertTrue(check_password(old_password, user.password))
 
-        self.visit_homepage()
+        self.assertTrue(self.visit_homepage())
         self.browser.phantom_sleep(3)
 
         # Find the link to the login button page and click it.
@@ -298,7 +297,6 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Visit the reset link.
         self.browser.visit(reset_link)
-        self.browser.phantom_sleep(5)
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_text_present('RESET YOUR PASSWORD'))
