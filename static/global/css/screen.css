@@ -6125,8 +6125,8 @@ body .ui-tooltip { border-width: 2px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/bootstrap\/_popovers\.scss}line{font-family:\00003110}}
 .popover.bottom .arrow:after { top: 1px; margin-left: -10px; border-top-width: 0; border-bottom-color: #00c051; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/bootstrap\/_popovers\.scss}line{font-family:\00003118}}
-.popover.left { border: 2px solid #00c051; color: black; background-color: white; font-size: 14px; font-size: 1rem; }
+.popover.left { border: 2px solid #999999; color: black; background-color: white; font-size: 14px; font-size: 1rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/bootstrap\/_popovers\.scss}line{font-family:\00003124}}
-.popover.left .arrow { top: 50%; right: -11px; margin-top: -11px; border-right-width: 0; border-left-color: #999; border-left-color: rgba(0, 0, 0, 0.25); }
+.popover.left .arrow { top: 50%; right: -11px; margin-top: -11px; border-right-width: 0; border-left-color: #999; border-left-color: #999999; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/bootstrap\/_popovers\.scss}line{font-family:\00003131}}
-.popover.left .arrow:after { right: 1px; border-right-width: 0; border-left-color: #00c051; bottom: -10px; }
+.popover.left .arrow:after { right: 1px; border-right-width: 0; border-left-color: #999999; bottom: -10px; }

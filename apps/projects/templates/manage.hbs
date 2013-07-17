@@ -646,7 +646,7 @@
 
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFileView valueBinding="image" name="image" accept="image/*" id="image"}}
+                        {{view App.UploadFile valueBinding="image" name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
@@ -1388,7 +1388,7 @@ Need more tips and tricks? Read our FAQ.<br/><br/>
                 {{/if}}
             </li>
 
-            <li class="control-group has-popover" data-content="{% trans "Pitch your smart idea in one sentence." %}">
+            <li class="control-group has-popover" data-content="{% trans "By reading your pitch many donors already make the decision to donate or not. The explanation must be to the point, because people don't have time to read everything." %}">
                 <label class="control-label">{% trans "Pitch" %}</label>
                 <div class="controls">
                     {{view Em.TextArea valueBinding="pitch" placeholder="Description" classBinding="errors.pitch.length:error"}}
@@ -1399,8 +1399,8 @@ Need more tips and tricks? Read our FAQ.<br/><br/>
                 {{/if}}
             </li>
 
-            <li class="control-group has-popover" data-content="{% trans "Blow us away with the details!" %}">
-                <label class="control-label">{% trans "Why, what and how" %}</label>
+            <li class="control-group has-popover" data-content="{% trans "A short description should at least tell something about a person, place, mitvation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]." %}">
+                <label class="control-label">{% trans "Short explanation: Why, what and how" %}</label>
                 <div class="controls wide">
                     {{view Em.TextArea valueBinding="description"classBinding="errors.description.length:error" rows=12}}
                 </div>
