@@ -448,7 +448,7 @@ def sync_budget_lines(dry_run, sync_from_datetime):
                 logger.error("Error while saving budget line id {0}: ".format(budget_line.id) + str(e))
 
 
-def sync_donations(test_run, sync_from_datetime):
+def sync_donations(dry_run, sync_from_datetime):
     global error_count
     global success_count
 
@@ -504,7 +504,7 @@ def sync_donations(test_run, sync_from_datetime):
         sfdonation.record_type = "012A0000000ZK6FIAW"
 
         # Save the object to Salesforce
-        if not test_run:
+        if not dry_run:
             try:
                 sfdonation.save()
                 success_count += 1
