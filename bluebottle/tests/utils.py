@@ -53,7 +53,7 @@ def BrowserExt(driver_name='firefox', *args, **kwargs):
             super(DriverClassExt, self).visit(url)
             
             if self.driver_name == 'PhantomJS':
-                time.sleep(2) # Allow the page to load correctly.
+                time.sleep(3) # Allow the page to load correctly.
 
                 if self.status_code.code in [302, 301]:
                     loc = self.response.msg['Location']
@@ -72,6 +72,10 @@ def BrowserExt(driver_name='firefox', *args, **kwargs):
                     self.visit(absolute_url)
 
     new_class = type('BrowserExt', (DriverClassExt, WebDriverAdditionMixin), {})
+
+    if driver_name == 'PhantomJS':
+        kwargs.update({'load_images': False})
+
     return new_class(*args, **kwargs)
 
 
