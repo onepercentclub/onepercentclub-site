@@ -467,21 +467,12 @@ def sync_donations(dry_run, sync_from_datetime):
         except SalesforceDonation.DoesNotExist:
             sfdonation = SalesforceDonation()
 
-        # Initialize Salesforce objects.
+        # Set the foreign keys.
         if donation.user:
-            try:
-                sfContact = SalesforceContact.objects.get(external_id=donation.user.id)
-                sfdonation.receiver = sfContact
-            except SalesforceContact.DoesNotExist:
-                logger.error("Unable to find contact id {0} in Salesforce for donation id {1}".format(
-                    donation.user.id, donation.id))
+            sfdonation.receiver_id = donation.user.id
+
         if donation.project:
-            try:
-                sfProject = SalesforceProject.objects.get(external_id=donation.project.id)
-                sfdonation.project = sfProject
-            except SalesforceProject.DoesNotExist:
-                logger.error("Unable to find project id {0} in Salesforce for donation id {1}".format(
-                    donation.project.id, donation.id))
+            sfdonation.project_id = donation.project.id
 
         # SF Layout: Donation Information section.
         sfdonation.amount = "%01.2f" % (float(donation.amount) / 100)
