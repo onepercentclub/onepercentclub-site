@@ -1,7 +1,8 @@
 // FOOTER
 
 .footer {
-	@include rem(font-size, 16px);
+	@include rem(font-size, 14px);
+	line-height: 1.5;
     @include rem(padding, 48px 0);
     color: $gray;
     
@@ -28,7 +29,7 @@
 
 .footer-menu {
     @include clearfix;
-    @include rem(font-size, 14px);
+    
 
     color: $gray;
     text-transform: uppercase;
