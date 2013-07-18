@@ -134,7 +134,13 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
         # Create a RegistrationProfile and email its activation key to the User.
         registration_profile = RegistrationProfile.objects.create_profile(user)
-        site = Site.objects.get_current()
+
+        # FIXME: Find a better solution for this.
+        if Site.objects.get_current().domain in ['localhost:8000', '127.0.0.1:8000']:
+            site = 'http://' + Site.objects.get_current().domain
+        else:
+            site = 'https://' + Site.objects.get_current().domain
+
         registration_profile.send_activation_email(site)
         return user
 

@@ -1,3 +1,6 @@
+{% load i18n %}
+{% load static %}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -5,6 +8,71 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
-{% block content %}{% endblock %}
+    <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" style="color: #424242; font-size: 14px; font-family: Helvetica, Arial, sans-serif; margin:0; padding:0; width:100% !important; line-height: 100% !important;">
+        <tbody>
+            <tr>
+                <td>
+
+                    {% block content %}{% endblock %}
+
+                </td>
+            </tr>
+
+            <tr>
+                <td style="background-color: #e9e9e9;">
+                    <table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 600px; padding-top: 40px; padding-right: 20px; padding-bottom: 40px; padding-left: 20px;">
+                        <tr>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td width="408" valign="top" style="font-size: 12px; color: #999999;">
+                                            <div style="padding-bottom: 3px;"><b>1%CLUB</b></div>
+                                            <div style="padding-bottom: 3px;">'s Gravenhekje 1a</div>
+                                            <div style="padding-bottom: 3px;">1011TG Amsterdam</div>
+                                            <div style="padding-bottom: 3px;">The Netherlands</div>
+                                        </td>
+
+                                        <td width="32" valign="top">
+                                            <a href="http://www.facebook.com/onepercentclub" target="_blank">
+                                                <img src="{{ site }}{% get_static_prefix %}images/facebook.png" width="32" height="31" alt="Facebook" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                            </a>
+                                        </td>
+                                        <td width="8"></td>
+
+                                        <td width="32" valign="top">
+                                            <a href="http://twitter.com/1procentclub" target="_blank">
+                                                <img src="{{ site }}{% get_static_prefix %}images/twitter.png" width="32" height="31" alt="Twitter" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                            </a>
+                                        </td>
+                                        <td width="8"></td>
+
+                                        <td width="32" valign="top">
+                                            <a href="http://www.flickr.com/photos/1procentclub/" target="_blank">
+                                                <img src="{{ site }}{% get_static_prefix %}images/flickr.png" width="32" height="31" alt="Flickr" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                            </a>
+                                        </td>
+                                        <td width="8"></td>
+
+                                        <td width="32" valign="top">
+                                            <a href="http://www.linkedin.com/groups?gid=1071287&trk=hb_side_g" target="_blank">
+                                                <img src="{{ site }}{% get_static_prefix %}images/linkedin.png" width="32" height="31" alt="LinkedIn" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                            </a>
+                                        </td>
+                                        <td width="8"></td>
+
+                                        <td width="32" valign="top">
+                                            <a href="http://www.youtube.com/user/1Procentclub" target="_blank">
+                                                <img src="{{ site }}{% get_static_prefix %}images/youtube.png" width="32" height="31" alt="Youtube" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
