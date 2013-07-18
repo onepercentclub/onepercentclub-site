@@ -7,6 +7,7 @@ class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     list_display = ('created', 'project', 'user', 'local_amount', 'status', 'donation_type')
     list_filter = ('status',)
+    raw_id_fields = ('user', 'project')
     search_fields = (
         'user__first_name', 'user__last_name', 'project__title'
     )
@@ -15,16 +16,12 @@ class DonationAdmin(admin.ModelAdmin):
 admin.site.register(Donation, DonationAdmin)
 
 
-class OrderItemInline(admin.StackedInline):
-    model = OrderItem
-
 
 class OrderAdmin(admin.ModelAdmin):
     model = Order
-    list_filter = ('status', 'user')
+    list_filter = ('status', )
     list_display = ('created', 'total', 'status')
-    inlines = (OrderItemInline,)
-
+    raw_id_fields = ('user', )
 
 admin.site.register(Order, OrderAdmin)
 

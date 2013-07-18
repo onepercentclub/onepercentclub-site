@@ -1,4 +1,11 @@
 .static-page {
+    
+    iframe, object {
+        width: 900px;
+        margin: auto;
+        padding: 0px 400px 0px 40px;
+        display: block;
+    }
     .text, .image, .oembed, .rawhtml, .title {
         @include clearfix;
         min-width: $min-width;
