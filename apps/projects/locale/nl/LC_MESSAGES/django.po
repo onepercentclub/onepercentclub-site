@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
 "POT-Creation-Date: 2013-07-17 16:35+0200\n"
-"PO-Revision-Date: 2013-07-17 14:40+0000\n"
+"PO-Revision-Date: 2013-07-17 21:20+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: models.py:43
 msgid "Failed"
-msgstr ""
+msgstr "Mislukt"
 
 #: models.py:80
 msgid "initiator"
@@ -592,7 +592,7 @@ msgstr ""
 
 #: templates/manage.hbs:436 templates/manage.hbs.py:1336
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
 #: templates/manage.hbs:444
 msgid "Project basics"
@@ -604,7 +604,7 @@ msgstr ""
 
 #: templates/manage.hbs:450 templates/manage.hbs.py:1390
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: templates/manage.hbs:460
 msgid "Pitch your smart idea in one sentence."
@@ -690,7 +690,7 @@ msgstr ""
 
 #: templates/manage.hbs:618 templates/manage.hbs.py:773
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: templates/manage.hbs:626
 msgid ""
@@ -719,12 +719,12 @@ msgstr ""
 
 #: templates/manage.hbs:659
 msgid "Upload picture"
-msgstr ""
+msgstr "Upload foto"
 
 #: templates/manage.hbs:679 templates/manage.hbs.py:864
 #: templates/projects.hbs:522
 msgid "Organisation"
-msgstr ""
+msgstr "Organisatie"
 
 #: templates/manage.hbs:685
 msgid "Name of your organisation"
@@ -732,7 +732,7 @@ msgstr ""
 
 #: templates/manage.hbs:686 templates/manage.hbs.py:959
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: templates/manage.hbs:696
 msgid "Describe your organisation"
@@ -753,7 +753,7 @@ msgstr ""
 
 #: templates/manage.hbs:716
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: templates/manage.hbs:726
 msgid "Street, house number, the place in your city"
@@ -777,11 +777,11 @@ msgstr ""
 
 #: templates/manage.hbs:751
 msgid "City"
-msgstr ""
+msgstr "Woonplaats"
 
 #: templates/manage.hbs:761 templates/manage.hbs.py:762
 msgid "Postal code"
-msgstr ""
+msgstr "Postcode"
 
 #: templates/manage.hbs:772
 msgid "Country or territory"
@@ -817,7 +817,7 @@ msgstr ""
 
 #: templates/manage.hbs:814
 msgid "Email address"
-msgstr ""
+msgstr "E-mailadres"
 
 #: templates/manage.hbs:815 templates/manage.hbs.py:971
 msgid "Email"
@@ -1121,7 +1121,7 @@ msgstr ""
 
 #: templates/manage.hbs:1367
 msgid "Submit"
-msgstr ""
+msgstr "Verzend"
 
 #: templates/manage.hbs:1384
 msgid "Pitch basics"
@@ -1209,7 +1209,7 @@ msgstr ""
 
 #: templates/manage.hbs:1671 templates/projects.hbs:252
 msgid "days to go"
-msgstr ""
+msgstr "dagen te gaan"
 
 #: templates/project_detail.html:20
 msgid "Project"

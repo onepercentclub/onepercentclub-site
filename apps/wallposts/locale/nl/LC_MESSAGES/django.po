@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-06-26 12:03+0200\n"
-"PO-Revision-Date: 2013-07-12 12:55+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-07-17 16:35+0200\n"
+"PO-Revision-Date: 2013-07-17 18:39+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "editor"
 
 #: models.py:28
 msgid "The last user to edit this wallpost."
-msgstr ""
+msgstr "Gebruiker met de laatste wijziging bij wallpost"
 
 #: models.py:31 models.py:93
 msgid "created"
@@ -54,11 +54,11 @@ msgstr "IP-adres"
 
 #: models.py:37
 msgid "content type"
-msgstr ""
+msgstr "content type"
 
 #: models.py:38
 msgid "object ID"
-msgstr ""
+msgstr "object ID"
 
 #: models.py:68
 msgid "The last user to edit this wallpost photo."
@@ -70,15 +70,15 @@ msgstr ""
 
 #: models.py:89
 msgid "reaction text"
-msgstr ""
+msgstr "reactie tekst"
 
 #: models.py:104
 msgid "Reaction"
-msgstr ""
+msgstr "Reactie"
 
 #: models.py:105
 msgid "Reactions"
-msgstr ""
+msgstr "Reacties"
 
 #: templates/reactions.hbs:26 templates/wallposts.hbs:190
 #: templates/wallposts.hbs.py:284
@@ -123,7 +123,7 @@ msgstr "Upload foto's"
 
 #: templates/wallposts.hbs:76
 msgid "format 620 x 380 minimum for best result"
-msgstr "minimaal 620 x 380 pixels voor het beste resultaat"
+msgstr "een formaat van 620 x 380 voor het beste resultaat"
 
 #: templates/wallposts.hbs:83
 msgid "Select photos"
@@ -159,4 +159,4 @@ msgstr "dat waren alle updates"
 
 #: templates/wallposts.hbs:260
 msgid "Post Comment"
-msgstr ""
+msgstr "Reageer"

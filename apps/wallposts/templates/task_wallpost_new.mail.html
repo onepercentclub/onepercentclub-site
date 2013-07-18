@@ -1,0 +1,16 @@
+{% extends "base.mail.html" %}
+
+{% block content %}
+    Hello {{ receiver.first_name }},<br/>
+    <br/>
+    {{ author.first_name }} has left a message on your task page.<br/>
+    <br/>
+    You must be curious what! Don't wait any longer and check it out here:<br/>
+    <br/>
+    {{ link }}<br/>
+    <br/>
+    See you in a bit!<br/>
+    <br/>
+    Liane | 1%CLUB
+{% endblock %}
+
