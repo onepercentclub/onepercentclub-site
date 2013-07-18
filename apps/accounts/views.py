@@ -55,18 +55,9 @@ class UserActivate(generics.RetrieveAPIView):
     serializer_class = CurrentUserSerializer
 
     def login_user(self, request, user):
-        """
-        Log in a user without requiring credentials (using ``login`` from ``django.contrib.auth``, first finding
-        a matching backend).
-        http://djangosnippets.org/snippets/1547/
-        """
-        if not hasattr(user, 'backend'):
-            for backend in settings.AUTHENTICATION_BACKENDS:
-                if user == load_backend(backend).get_user(user.pk):
-                    user.backend = backend
-                    break
-        if hasattr(user, 'backend'):
-            return login(request, user)
+        # Auto login the user after activation
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        return login(request, user)
 
     def get(self, request, *args, **kwargs):
         activation_key = self.kwargs.get('activation_key', None)
@@ -90,7 +81,7 @@ class PasswordReset(views.APIView):
 
     def save(self, password_reset_form, domain_override=None,
              subject_template_name='registration/password_reset_subject.txt',
-             email_template_name='registration/password_reset_email.html', use_https=False,
+             email_template_name='registration/password_reset_email.html', use_https=True,
              token_generator=default_token_generator, from_email=None, request=None):
         """
         Generates a one-use only link for resetting password and sends to the user. This has been ported from the
@@ -104,14 +95,14 @@ class PasswordReset(views.APIView):
                 domain = current_site.domain
             else:
                 site_name = domain = domain_override
+            site = use_https and 'https' or 'http' + '://' + domain
             c = {
                 'email': user.email,
-                'domain': domain,
+                'site': site,
                 'site_name': site_name,
                 'uid': int_to_base36(user.pk),
                 'user': user,
                 'token': token_generator.make_token(user),
-                'protocol': use_https and 'https' or 'http',
             }
             subject = loader.render_to_string(subject_template_name, c)
             # Email subject *must not* contain newlines
