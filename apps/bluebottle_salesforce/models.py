@@ -69,6 +69,7 @@ class SalesforceContact(SalesforceModel):
     member_1_club = models.BooleanField(db_column='Member_1_club__c', default=True)
     user_name = models.CharField(max_length=255, db_column='Username__c')
     is_active = models.BooleanField(db_column='Active__c')
+    close_date = models.DateField(db_column='Deleted__c')
 
     # SF Layout: Profile section.
     first_name = models.CharField(max_length=40, db_column='FirstName')
