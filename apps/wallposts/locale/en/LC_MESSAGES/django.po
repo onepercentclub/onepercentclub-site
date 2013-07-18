@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 16:35+0200\n"
+"POT-Creation-Date: 2013-07-18 10:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,59 +21,69 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: models.py:27 models.py:67 models.py:85
+#: mails.py:32 models.py:135
+#, python-format
+msgid "%(author)s has left a message on your project page."
+msgstr ""
+
+#: mails.py:50 models.py:153
+#, python-format
+msgid "%(author)s has left a message on your task page."
+msgstr ""
+
+#: models.py:36 models.py:76 models.py:94
 msgid "author"
 msgstr ""
 
-#: models.py:28 models.py:68 models.py:86
+#: models.py:37 models.py:77 models.py:95
 msgid "editor"
 msgstr ""
 
-#: models.py:28
+#: models.py:37
 msgid "The last user to edit this wallpost."
 msgstr ""
 
-#: models.py:31 models.py:93
+#: models.py:40 models.py:102
 msgid "created"
 msgstr ""
 
-#: models.py:32 models.py:94
+#: models.py:41 models.py:103
 msgid "updated"
 msgstr ""
 
-#: models.py:33 models.py:65 models.py:95
+#: models.py:42 models.py:74 models.py:104
 msgid "deleted"
 msgstr ""
 
-#: models.py:34 models.py:66 models.py:96
+#: models.py:43 models.py:75 models.py:105
 msgid "IP address"
 msgstr ""
 
-#: models.py:37
+#: models.py:46
 msgid "content type"
 msgstr ""
 
-#: models.py:38
+#: models.py:47
 msgid "object ID"
 msgstr ""
 
-#: models.py:68
+#: models.py:77
 msgid "The last user to edit this wallpost photo."
 msgstr ""
 
-#: models.py:86
+#: models.py:95
 msgid "The last user to edit this reaction."
 msgstr ""
 
-#: models.py:89
+#: models.py:98
 msgid "reaction text"
 msgstr ""
 
-#: models.py:104
+#: models.py:113
 msgid "Reaction"
 msgstr ""
 
-#: models.py:105
+#: models.py:114
 msgid "Reactions"
 msgstr ""
 
