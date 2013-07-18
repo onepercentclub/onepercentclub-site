@@ -200,7 +200,7 @@ class WallPostApiRegressionTests(ProjectWallPostTestsMixin, UserTestsMixin, Test
 
     def setUp(self):
         self.user = self.create_user()
-        self.wallpost = self.create_project_text_wallpost()
+        self.wallpost = self.create_project_text_wallpost(author=self.user)
 
         self.project_media_wallposts_url = '/i18n/api/projects/wallposts/media/'
         self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'

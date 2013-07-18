@@ -1,0 +1,17 @@
+{% extends "base.mail.html" %}
+{% load i18n %}
+
+{% block content %}
+{% blocktrans %}
+Hello {{ receiver.first_name }},<br/>
+<br/>
+Yes, yes, yes! <b>{{ author.first_name }}</b> commented on your wallpost.<br/>
+<br/>
+<a href="{{ site }}{{ link }}">Go to our website</a> and read the reaction.<br/>
+<br/>
+See you in a bit!<br/>
+<br/>
+Liane | 1%CLUB
+{% endblocktrans %}
+{% endblock %}
+

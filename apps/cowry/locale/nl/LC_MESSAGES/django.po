@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-06-26 12:03+0200\n"
-"PO-Revision-Date: 2013-06-26 10:10+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-07-17 16:35+0200\n"
+"PO-Revision-Date: 2013-07-17 21:20+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgstr ""
 
 #: models.py:11
 msgid "Pending"
-msgstr ""
+msgstr "In behandeling"
 
 #: models.py:12
 msgid "Paid"
@@ -35,37 +36,41 @@ msgstr "Betaald"
 
 #: models.py:13
 msgid "Failed"
-msgstr ""
+msgstr "Mislukt"
 
 #: models.py:14
 msgid "Cancelled"
-msgstr ""
+msgstr "Geannuleerd"
 
 #: models.py:15
 msgid "Refunded"
-msgstr ""
+msgstr "Terugbetaald"
 
-#: models.py:23
+#: models.py:16
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: models.py:24
 msgid "amount"
 msgstr "bedrag"
 
-#: models.py:27
+#: models.py:28
 msgid "payment service fee"
-msgstr ""
+msgstr "payment service fee"
 
-#: models.py:33
+#: models.py:34
 msgid "status"
 msgstr "status"
 
-#: models.py:35
+#: models.py:36
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:36
+#: models.py:37
 msgid "updated"
 msgstr "aangepast"
 
-#: serializers.py:35
+#: serializers.py:41
 #, python-format
 msgid "%(payment_method_id)s is not a valid payment method."
-msgstr ""
+msgstr "%(payment_method_id)s is niet een geldige betalingswijze."

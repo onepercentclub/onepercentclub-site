@@ -1,0 +1,16 @@
+{% load i18n %}
+{% blocktrans %}
+Hello {{ receiver.first_name }},
+
+Yes, yes, yes! {{ author.first_name }} commented on your wallpost.
+
+Click the link below to got to our website:
+
+{{ site }}{{ link }}
+
+See you in a bit!
+
+Liane | 1%CLUB
+
+{% endblocktrans %}
+

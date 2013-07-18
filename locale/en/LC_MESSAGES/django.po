@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 16:35+0200\n"
+"POT-Creation-Date: 2013-07-18 12:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -309,27 +309,27 @@ msgstr ""
 msgid "We like you too"
 msgstr ""
 
-#: registration/activation_email.html:24
+#: registration/activation_email.html:20
 msgid "Time to activate your account."
 msgstr ""
 
-#: registration/activation_email.html:32
+#: registration/activation_email.html:28
 msgid "You recently signed-up at"
 msgstr ""
 
-#: registration/activation_email.html:32
+#: registration/activation_email.html:28
 msgid "and your account needs to be activated."
 msgstr ""
 
-#: registration/activation_email.html:40
+#: registration/activation_email.html:36
 msgid "You are almost there, you are just one click away."
 msgstr ""
 
-#: registration/activation_email.html:50
+#: registration/activation_email.html:46
 msgid "activate profile"
 msgstr ""
 
-#: registration/activation_email.html:60
+#: registration/activation_email.html:56
 #, python-format
 msgid "Your activation code will expire in %(expiration_days)s days."
 msgstr ""
@@ -342,18 +342,18 @@ msgstr ""
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 
-#: registration/password_reset_email.html:24
+#: registration/password_reset_email.html:21
 msgid "Click on this link to reset your password."
 msgstr ""
 
-#: registration/password_reset_email.html:34
+#: registration/password_reset_email.html:31
 msgid "Reset"
 msgstr ""
 
-#: registration/password_reset_email.html:44
+#: registration/password_reset_email.html:41
 msgid "See you at"
 msgstr ""
 
-#: registration/password_reset_email.html:44
+#: registration/password_reset_email.html:41
 msgid "in a minute!"
 msgstr ""

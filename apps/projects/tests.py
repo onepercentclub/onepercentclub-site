@@ -73,8 +73,7 @@ class ProjectWallPostTestsMixin(ProjectTestsMixin):
         if not author:
             author = self.create_user()
         content_type = ContentType.objects.get_for_model(Project)
-        wallpost = TextWallPost.objects.create(content_type=content_type, object_id=project.id)
-        wallpost.author = author
+        wallpost = TextWallPost(content_type=content_type, object_id=project.id, author=author)
         wallpost.text = text
         wallpost.save()
         return wallpost
