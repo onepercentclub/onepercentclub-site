@@ -1,0 +1,15 @@
+{% load i18n %}
+
+{% blocktrans %}
+Hello {{ receiver.first_name }},
+
+{{ author.first_name }} has left a message on your project page.
+
+You must be curious what! Don't wait any longer and check it out here:
+
+{{ site }}{{ link }}
+
+See you in a bit!
+
+Liane | 1%CLUB
+{% endblocktrans %}
