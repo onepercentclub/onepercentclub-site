@@ -43,14 +43,18 @@ def BrowserExt(driver_name='firefox', *args, **kwargs):
         raise DriverNotFoundError("No driver for %s" % driver_name)
 
     class DriverClassExt(driver_class):
+        """
+        This class is an extension that overrides certain functions to allow custom behaviour.
+        """
         def visit(self, url):
             """
-            Visit and wait for redirect
+            Visit and wait for redirect. Also performs the redirect.
             """
-
             super(DriverClassExt, self).visit(url)
             
             if self.driver_name == 'PhantomJS':
+                time.sleep(2) # Allow the page to load correctly.
+
                 if self.status_code.code in [302, 301]:
                     loc = self.response.msg['Location']
                     redirect_url = urlparse.urlparse(loc)
@@ -65,7 +69,7 @@ def BrowserExt(driver_name='firefox', *args, **kwargs):
                             redirect_url.query,
                             parsed_url.fragment
                             ])
-                    self.visit(absolute_url) # Pray...
+                    self.visit(absolute_url)
 
     new_class = type('BrowserExt', (DriverClassExt, WebDriverAdditionMixin), {})
     return new_class(*args, **kwargs)
@@ -75,15 +79,6 @@ class WebDriverAdditionMixin(object):
     """
     Additional helper methods for the web driver.
     """
-
-    def phantom_sleep(self, nr_secs):
-        """
-        Only wait when we're using PhantomJS, this due to this driver not
-        properly waiting for the page load to complete before executing events.
-        """
-        if self.driver_name == 'PhantomJS':
-            time.sleep(nr_secs)
-
     def fill_form_by_css(self, form, data):
         """
         Fills in a form by finding input elements by CSS.
@@ -226,7 +221,6 @@ class SeleniumTestCase(LiveServerTestCase):
         :return: ``True`` if login was successful.
         """
         self.visit_homepage()
-        self.browser.phantom_sleep(3)
 
         # Find the link to the signup button page and click it.
         self.browser.find_link_by_text('Log in').first.click()
