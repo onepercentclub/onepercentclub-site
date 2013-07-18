@@ -1,3 +1,6 @@
+from apps.projects.models import Project
+from apps.tasks.models import Task
+from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
@@ -7,6 +10,12 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from django.conf import settings
 from polymorphic import PolymorphicModel
 from .managers import ReactionManager, WallPostManager
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+from django.utils.translation import ugettext as _
 
 
 WALLPOST_TEXT_MAX_LENGTH = getattr(settings, 'WALLPOST_TEXT_MAX_LENGTH', 300)
@@ -107,3 +116,53 @@ class Reaction(models.Model):
     def __unicode__(self):
         s = "{0}: {1}".format(self.author.get_full_name(), self.text)
         return Truncator(s).words(10)
+
+
+
+@receiver(post_save, weak=False, sender=TextWallPost)
+def new_wallpost_notification(sender, instance, created, **kwargs):
+    post = instance
+    domain = Site.objects.get_current().domain
+
+    # Project Wall Post
+    if isinstance(post.content_object, Project):
+        project = post.content_object
+        receiver = project.owner
+        author = post.author
+        link = 'https://{0}/#!/projects/{1}'.format(domain, project.slug)
+
+        # Compose the mail
+        subject = _('%(author)s has left a message on your project page.') % {'author': author.first_name}
+        context = Context({'project': project, 'receiver': receiver, 'author': author, 'link': link})
+        text_content = get_template('project_wallpost_new.mail.txt').render(context)
+        html_content = get_template('project_wallpost_new.mail.html').render(context)
+
+        msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+    # Task Wall Post
+    if isinstance(post.content_object, Task):
+        task = post.content_object
+        receiver = task.author
+        author = post.author
+        domain = Site.objects.get_current().domain
+        link = 'https://{0}/#!/projects/{1}/tasks/{2}'.format(domain, task.project.slug, task.id)
+
+        # Compose the mail
+        subject = _('%(author)s has left a message on your task page.') % {'author': author.first_name}
+        context = Context({'task': task, 'receiver': receiver, 'author': author, 'link': link})
+        text_content = get_template('task_wallpost_new.mail.txt').render(context)
+        html_content = get_template('task_wallpost_new.mail.html').render(context)
+
+        msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+
+
+@receiver(post_save, weak=False, sender=Reaction)
+def new_reaction_notification(sender, instance, created, **kwargs):
+    reaction = instance
+    post = instance.wallpost
+
