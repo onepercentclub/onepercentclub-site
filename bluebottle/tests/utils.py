@@ -219,7 +219,7 @@ class SeleniumTestCase(LiveServerTestCase):
     def _post_teardown(self):
         """
         Allow PhantomJS to close down properly after a test. It can still perform requests after the last test statement
-        was made.
+        was made. 
         """
         time.sleep(3)
 
