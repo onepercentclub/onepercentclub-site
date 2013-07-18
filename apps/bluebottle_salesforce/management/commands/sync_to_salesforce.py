@@ -487,11 +487,8 @@ def sync_donations(test_run, sync_from_datetime):
         sfdonation.amount = "%01.2f" % (float(donation.amount) / 100)
         sfdonation.close_date = donation.created
 
-        if donation.user and sfContact.last_name:
-            if sfContact.first_name:
-                sfdonation.name = sfContact.first_name + " " + sfContact.last_name
-            else:
-                sfdonation.name = sfContact.last_name
+        if donation.user:
+            sfdonation.name = donation.user.get_full_name()
         else:
             sfdonation.name = "1%MEMBER"
 
