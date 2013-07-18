@@ -485,7 +485,7 @@ def sync_donations(dry_run, sync_from_datetime):
 
         # SF Layout: Donation Information section.
         sfdonation.amount = "%01.2f" % (float(donation.amount) / 100)
-        sfdonation.close_date = donation.created
+        sfdonation.close_date = donation.created.date()
 
         if donation.user:
             sfdonation.name = donation.user.get_full_name()
@@ -499,7 +499,7 @@ def sync_donations(dry_run, sync_from_datetime):
         sfdonation.opportunity_type = donation.DonationTypes.values[donation.donation_type]
 
         # SF Layout: System Information section.
-        sfdonation.donation_created_date = donation.created
+        sfdonation.donation_created_date = donation.created.date()
         sfdonation.external_id_donation = donation.id
         sfdonation.record_type = "012A0000000ZK6FIAW"
 
