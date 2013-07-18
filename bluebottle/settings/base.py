@@ -45,7 +45,7 @@ TIME_ZONE = 'Europe/Amsterdam'
 #
 # Default language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 # This is defined here as a do-nothing function because we can't import
 # django.utils.translation -- that module depends on the settings.
@@ -156,6 +156,8 @@ MIDDLEWARE_CLASSES = [
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+
+    'apps.redirects.middleware.RedirectFallbackMiddleware',
     'apps.crawlable.middleware.HashbangMiddleware',
 ]
 
@@ -540,6 +542,15 @@ DEFAULT_FROM_EMAIL = '<website@onepercentclub.com> 1%CLUB'
 # Django-registration settings
 ACCOUNT_ACTIVATION_DAYS = 4
 HTML_ACTIVATION_EMAIL = True  # Note this setting is from our forked version.
+
+# Functional testing
+# Selenium and Splinter settings
+SELENIUM_TESTS = False
+SELENIUM_WEBDRIVER = 'phantomjs'  # Can be any of chrome, firefox, phantomjs
+
+FIXTURE_DIRS = [
+    os.path.join(DJANGO_PROJECT, 'fixtures')
+]
 
 # PhantomJS for flat page generation.
 # NOTE: This has nothing to do with testing against phantomjs.

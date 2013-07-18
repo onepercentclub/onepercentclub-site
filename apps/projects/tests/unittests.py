@@ -11,7 +11,7 @@ from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
 import json
-from .models import Project,ProjectPhases, ProjectPitch
+from ..models import Project,ProjectPhases, ProjectPitch
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):

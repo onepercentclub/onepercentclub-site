@@ -68,3 +68,7 @@ from .base import *
 
 ## Use django-devserver
 #INSTALLED_APPS += ('devserver',)
+
+## Perform Selenium tests
+#SELENIUM_TESTS = True
+#SELENIUM_WEBDRIVER = 'firefox'  # Can be any of chrome, firefox, phantomjs
