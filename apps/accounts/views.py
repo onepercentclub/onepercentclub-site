@@ -55,18 +55,9 @@ class UserActivate(generics.RetrieveAPIView):
     serializer_class = CurrentUserSerializer
 
     def login_user(self, request, user):
-        """
-        Log in a user without requiring credentials (using ``login`` from ``django.contrib.auth``, first finding
-        a matching backend).
-        http://djangosnippets.org/snippets/1547/
-        """
-        if not hasattr(user, 'backend'):
-            for backend in settings.AUTHENTICATION_BACKENDS:
-                if user == load_backend(backend).get_user(user.pk):
-                    user.backend = backend
-                    break
-        if hasattr(user, 'backend'):
-            return login(request, user)
+        # Auto login the user after activation
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        return login(request, user)
 
     def get(self, request, *args, **kwargs):
         activation_key = self.kwargs.get('activation_key', None)
