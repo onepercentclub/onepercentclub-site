@@ -56,7 +56,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertEqual(self.browser.url, '%s/en/#!/signup' % self.live_server_url)
         self.assertEqual(self.browser.title, '1%Club')
 
-        # NOTE: Most ember elements don't have meaningfull names. This makes it hard to find out which element is the
+        # NOTE: Most ember elements don't have meaningful names. This makes it hard to find out which element is the
         # correct one.
         form = self.browser.find_by_css('form.form-signup').first
 
@@ -93,6 +93,10 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Extract activation link and change domain for the test.
         activation_link = re.findall('href="([a-z\:\.\/\#]+\/activate\/[^"]+)', activation_mail.body)[0]
+
+        # Hack for Travis. In Travis activation links contains secure protocol.
+        # TODO: See if we should change activation link generation.
+        activation_link = activation_link.replace('hhtps', 'http')
 
         current_site = Site.objects.get_current()
 
