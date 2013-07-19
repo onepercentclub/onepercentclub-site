@@ -96,7 +96,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Hack for Travis. In Travis activation links contains secure protocol.
         # TODO: See if we should change activation link generation.
-        activation_link = activation_link.replace('hhtps', 'http')
+        activation_link = activation_link.replace('https', 'http')
 
         current_site = Site.objects.get_current()
 
