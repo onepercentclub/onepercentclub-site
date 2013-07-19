@@ -7,6 +7,56 @@ App.Page = DS.Model.extend({
 });
 
 
+App.ContactMessage = DS.Model.extend({
+    url: 'pages/contact',
+
+    name: DS.attr('string'),
+    email: DS.attr('string'),
+    message: DS.attr('string'),
+
+    isComplete: function(){
+        if (this.get('name') && this.get('email') && this.get('message')){
+            return true;
+        }
+        return false;
+    }.property('name', 'email', 'message'),
+
+    isSent: function(){
+        if (this.get('id')){
+            return true;
+        }
+        return false;
+    }.property('id')
+});
+
+
+/* Controllers */
+
+App.ContactMessageController = Em.ObjectController.extend({
+    needs: ['currentUser'],
+
+    startEditing: function() {
+        var record = this.get('model');
+        if (record.transaction.isDefault == true) {
+            this.transaction = this.get('store').transaction();
+            this.transaction.add(record);
+        }
+    },
+
+    updateRecordOnServer: function(){
+        var controller = this;
+        var model = this.get('model');
+        model.one('becameInvalid', function(record){
+            model.set('errors', record.get('errors'));
+        });
+        model.transaction.commit();
+    },
+
+    stopEditing: function() {
+    }
+});
+
+
 /*
    Mixin to enable scrolling from one anchor point to another
    within a same page.
