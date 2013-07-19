@@ -3324,6 +3324,17 @@ input.tag { width: 200px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_forms\.scss}line{font-family:\00003356}}
 .modal-body .control-group:first-child { padding-top: 0; }
 
+/* =========== Icons */
+/*
+.location {  background-image: $icons; background-repeat: no-repeat; background-position: sprite-position($icons, world, 0, 0); @include rem(padding-left, 36px);
+}
+
+.tags { background-image: $icons; background-repeat: no-repeat; background-position: sprite-position($icons, tag, 0, 6px); @include rem(padding-left, 36px);
+}
+*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_icons\.scss}line{font-family:\0000320}}
+.flaticon.large { font-size: 60px; font-size: 4.28571rem; color: #e9e9e9; float: left; width: 6.25%; margin-left: 0%; margin-right: 2.08333%; }
+
 /* =========== Label */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_labels\.scss}line{font-family:\000033}}
 span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight: bold; border: none; -webkit-border-radius: 0.4em; -moz-border-radius: 0.4em; border-radius: 0.4em; background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #666666), color-stop(100%, #000000)); background: -webkit-linear-gradient(top, #666666, #000000); background: -moz-linear-gradient(top, #666666, #000000); background: -o-linear-gradient(top, #666666, #000000); background: linear-gradient(top, #666666, #000000); }
