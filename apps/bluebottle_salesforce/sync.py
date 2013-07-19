@@ -353,7 +353,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
     return success_count, error_count
 
 
-def sync_budget_lines(dry_run, sync_from_datetime, loglevel):
+def sync_projectbudgetlines(dry_run, sync_from_datetime, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
@@ -435,7 +435,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         sfdonation.amount = "%01.2f" % (float(donation.amount) / 100)
         sfdonation.close_date = donation.created.date()
 
-        if donation.user:
+        if donation.user and donation.user.get_full_name() != '':
             sfdonation.name = donation.user.get_full_name()
         else:
             sfdonation.name = "1%MEMBER"
@@ -586,7 +586,7 @@ def sync_tasks(dry_run, sync_from_datetime, loglevel):
     return success_count, error_count
 
 
-def sync_task_members(dry_run, sync_from_datetime, loglevel):
+def sync_taskmembers(dry_run, sync_from_datetime, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
