@@ -73,9 +73,6 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
-
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-
     <script>
         // Requires jQuery!
         jQuery.ajax({
@@ -333,9 +330,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a {{action showPage 'contact'}} href="/#!/pages/contact">
+                                    {{#linkTo contactMessage href=true}}
                                         {% trans "Contact" %}
-                                    </a>
+                                    {{/linkTo}}
                                 </li>
                             </ul>
                         </li>

@@ -159,6 +159,12 @@ App.Editable = Ember.Mixin.create({
         });
 
         model.one('didUpdate', function(){
+            console.log('uppie')
+            controller.startEditing();
+        });
+
+        model.one('didCreate', function(){
+            console.log('crea')
             controller.startEditing();
         });
 

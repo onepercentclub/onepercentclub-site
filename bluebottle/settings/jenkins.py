@@ -57,3 +57,8 @@ JENKINS_TASKS = (
     'django_jenkins.tasks.with_coverage',
     'django_jenkins.tasks.django_tests',
 )
+
+# Selenium tests still disabled by default.
+#SELENIUM_TESTS = True
+# Use headless browser for Selenium tests.
+SELENIUM_WEBDRIVER = 'phantomjs'
