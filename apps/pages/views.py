@@ -1,3 +1,5 @@
+from apps.pages.models import ContactMessage
+from apps.pages.serializers import ContactMessageSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
 from rest_framework import generics
@@ -45,3 +47,12 @@ class PageDetail(generics.RetrieveAPIView):
             raise Http404(_("No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
         return obj
+
+
+class ContactRequestCreate(generics.CreateAPIView):
+    model = ContactMessage
+    serializer_class = ContactMessageSerializer
+
+    def pre_save(self, obj):
+        if self.request.user.is_authenticated():
+            obj.author = self.request.user

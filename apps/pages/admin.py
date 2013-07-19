@@ -1,4 +1,4 @@
-from apps.pages.models import Page
+from apps.pages.models import Page, ContactMessage
 from django.conf import settings
 from django.conf.urls import patterns, url
 from django.contrib import admin
@@ -143,3 +143,14 @@ class PageAdmin(PlaceholderFieldAdmin):
 
 
 admin.site.register(Page, PageAdmin)
+
+
+class ContactMessageAdmin(admin.ModelAdmin):
+
+    model = ContactMessage
+    list_display = ('message', 'name', 'email', 'creation_date', 'status')
+    list_filter = ('status', )
+    search_fields = ('message', 'name', 'email')
+    raw_id_fields = ('author', )
+
+admin.site.register(ContactMessage, ContactMessageAdmin)

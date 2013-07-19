@@ -265,7 +265,8 @@ App.Adapter = DS.DRF2Adapter.extend({
         "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
         "users/passwordset": "users/passwordset",
-        "homepage": "homepage"
+        "homepage": "homepage",
+        "pages/contact": "pages/contact"
     }
 });
 
@@ -414,6 +415,9 @@ App.Adapter.map('App.Quote', {
 App.Adapter.map('App.News', {
     author: {embedded: 'load'}
 });
+App.Adapter.map('App.ContactMessage', {
+    author: {embedded: 'load'}
+});
 
 App.Adapter.map('App.HomePage', {
     projects: {embedded: 'load'},
@@ -472,6 +476,7 @@ App.Router.map(function() {
     });
 
     this.resource('page', {path: '/pages/:page_id'});
+    this.resource('contactMessage', {path: '/contact'});
 
     this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
@@ -1590,6 +1595,26 @@ App.NewsIndexRoute = Em.Route.extend({
     // Redirect to the latest news item
     setupController: function(controller, model){
         this.send('showNews', model.objectAt(0).get('id'));
+    }
+});
+
+/* Contact Page */
+
+App.ContactMessageRoute = Em.Route.extend({
+    model: function(params) {
+        console.log('route');
+        var transaction = this.get('store').transaction();
+        return transaction.createRecord(App.ContactMessage);
+    },
+    setupController: function(controller, model){
+        this._super(controller, model);
+        controller.startEditing();
+    },
+
+    exit: function(){
+        if (this.get('controller')) {
+            this.get('controller').stopEditing();
+        }
     }
 });
 

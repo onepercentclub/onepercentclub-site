@@ -16,3 +16,9 @@
     @include rem(padding-left, 36px);
 }
 */
+
+.flaticon.large {
+    @include rem(font-size, 60px);
+    color: $color-back;
+       @include grid(4, 0, 1);
+}

@@ -1,4 +1,5 @@
 from apps.accounts.serializers import UserPreviewSerializer
+from apps.pages.models import ContactMessage
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
 from .models import Page
@@ -20,3 +21,12 @@ class PageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Page
         fields = ('title', 'id', 'body', 'language')
+
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+
+    author = UserPreviewSerializer()
+
+    class Meta:
+        model = ContactMessage
+        fields = ('id', 'author', 'name', 'email', 'message', 'creation_date')
