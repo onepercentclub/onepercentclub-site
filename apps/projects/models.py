@@ -390,6 +390,9 @@ class ProjectBudgetLine(models.Model):
 
 @receiver(post_save, weak=False, sender=Project)
 def progress_project_phase(sender, instance, created, **kwargs):
+    # Skip all post save logic during fixture loading.
+    if kwargs.get('raw', False):
+        return
 
     # If a new project is created it should have a pitch
     try:
@@ -470,6 +473,9 @@ def progress_project_phase(sender, instance, created, **kwargs):
 
 @receiver(post_save, weak=False, sender=ProjectPitch)
 def pitch_status_status_changed(sender, instance, created, **kwargs):
+    # Skip all post save logic during fixture loading.
+    if kwargs.get('raw', False):
+        return
 
     # If Pitch is approved, move Project to PLan phase.
     if instance.status == ProjectPitch.PitchStatuses.approved:
@@ -491,6 +497,10 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
 # Change project phase according to donated amount
 @receiver(post_save, weak=False, sender=Donation)
 def update_project_after_donation(sender, instance, created, **kwargs):
+    # Skip all post save logic during fixture loading.
+    if kwargs.get('raw', False):
+        return
+
     project = instance.project
     campaign = project.projectcampaign
 
