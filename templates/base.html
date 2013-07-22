@@ -109,8 +109,8 @@
                     <!-- logo -->
                     {{#linkTo "home"}}
                     <span id="logo">
-                        <img src="{% get_static_prefix %}images/1procentclub.png" width="100" height="38" alt="1%Club" />
                         <h1 id="title">1%Club</h1>
+                        <em id="subtitle">Share a little.Change the world</em>
                     </span>
                     {{/linkTo}}
                     <!-- end: logo -->
@@ -132,7 +132,7 @@
                                 {{#if controllers.currentUser.isAuthenticated }}
                                     <li class="nav-member-my1percent">
                                         <a href="#" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
-                                            <strong>{% trans "MY 1%" %} <i class="icon-chevron-down"></i></strong>
+                                            <strong>{% trans "My 1%" %} <em class="flaticon solid down-2"></em></strong>
                                         </a>
                                         <ul class="my-menu">
                                             <li>
@@ -148,33 +148,33 @@
                                                 </li>
                                             {{/if}}
                                             <li>
-                                                {{view "App.LanguageSwitchView"}}
+                                                <a href="/en/accounts/logout/?next=/en/">Logout</a>
                                             </li>
-                                            <li>
-                                                <a href="/en/accounts/logout/?next=/en/" class="nav-logout">
-                                                    <strong>Logout</strong>
-                                                </a >
+                                            <li class="nav-my-language">
+                                                {% trans "Language" %} {{view "App.LanguageSwitchView"}}
                                             </li>
                                         </ul>
                                     </li>
 
                                     <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
                                     {{#if  controllers.currentOrder.donations.length }}
-                                        <li>
-                                            {{#linkTo currentOrder.index classNames="nav-cart"}}
+                                        <li class="nav-cart">
+                                            {{#linkTo currentOrder.index}}
                                                 <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span>
                                                 {% trans "Donations" %}
                                             {{/linkTo}}
+                                            <em class="flaticon solid right-2"></em>
                                         </li>
                                     {{/if}}
                                 {{else}}
-                                    <li><a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a></li>
-                                    <li>
+                                    <li class="nav-member-actions">
                                         {{#linkTo "signup" class="nav-signup"}}
                                             {% trans "Sign up" %}
                                         {{/linkTo}}
+                                        or
+                                        <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
                                     </li>
-                                    <li>{{view "App.LanguageSwitchView"}}</li>
+                                    <li class="nav-switch-lang">{{view "App.LanguageSwitchView"}}</li>
                                 {{/if}}
                             </ul>
                         </nav>
@@ -211,24 +211,6 @@
 
         <!-- end: main content -->
 
-        {% comment %}
-        <!-- main footer -->
-        <div id="footer">
-            <footer>
-                <p>1%CLUB is het crowdfunding platform dat mensen met slimme ideeën in ontwikkelingslanden verbindt met mensen, geld en kennis over de hele wereld. </p>
-                <ul class="social">
-                    <li><a target="_new" href="http://www.facebook.com/onepercentclub"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/facebook.jpg" alt="Facebook" title="Facebook" class="servicelogo"/></a>
-                    <li><a target="_new" href="http://twitter.com/1percentclub"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/twitter.jpg" alt="Twitter" title="Twitter" class="servicelogo"/></a>
-                    <li><a target="_new" href="http://www.flickr.com/photos/1procentclub/"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/flickr.jpg" alt="Flickr" title="Flickr" class="servicelogo"/></a>
-                    <li><a target="_new" href="http://www.linkedin.com/groups?gid=1071287&amp;trk=hb_side_g"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/linkedin.jpg" alt="Linked In" title="Linked In" class="servicelogo"/></a>
-                    <li><a target="_new" href="http://www.youtube.com/onepercentclubmovies"><img src="http://1procentclub.nl/assets/skins/frontoffice/images/social_logos/youtube.jpg" alt="Youtube" title="Youtube" class="servicelogo"/></a>
-                </ul>
-                <br />
-                <br />
-            </footer>
-        </div>
-        <!-- end: main footer -->
-        {% endcomment %}
 
     {% endtplhandlebars %}
 
@@ -250,7 +232,7 @@
 
             <div class="modal-body">
                 {{#if post_password_reset }}
-                    <p>{%  trans "YOU DID IT!" %}</p>
+                    <p>{%  trans "You did it!" %}</p>
                     <p>{%  trans "(Welcome back friend)" %}</p>
 
                     <p>{%  trans "Login here with your email address and password" %}</p>
@@ -288,9 +270,9 @@
 
 
     {% tplhandlebars "_footer" %}
-        <div class="container footer">
+        <div class="container section">
             <div class="wrapper">
-                <section>
+                <section class="footer">
                     <ul class="footer-menu">
                         <li>
                             <h3>{% trans "It all starts with 1%" %}</h3>
@@ -303,7 +285,7 @@
 
                                 <li>
                                     {{#linkTo projectList}}
-                                        {% trans "1%PROJECTS" %}
+                                        {% trans "1%Projects" %}
                                     {{/linkTo}}
                                 </li>
                                 <li>
@@ -311,7 +293,6 @@
                                         {% trans "Get involved" %}
                                     </a>
                                 </li>
-
                                 <li>
                                     {{#linkTo myPitchNew}}
                                         {% trans "Start your project" %}
@@ -359,17 +340,17 @@
                         <li>
                             <h3>{% trans "Discover 1%More" %}</h3>
                             <ul>
-                                <li>{% trans "1%BLOG" %}</li>
-                                <li>{% trans "1%LIVE" %}</li>
-                                <li>{% trans "1%EVENT" %}</li>
-                                <li>{% trans "1%VIDEO" %}</li>
-                                <li>{% trans "1%BUSINESS" %}</li>
-                                <li>{% trans "1%GIFTS" %}</li>
+                                <li>{% trans "1%Blog" %}</li>
+                                <li>{% trans "1%Live" %}</li>
+                                <li>{% trans "1%Event" %}</li>
+                                <li>{% trans "1%Video" %}</li>
+                                <li>{% trans "1%Bsuiness" %}</li>
+                                <li>{% trans "1%Gifts" %}</li>
                             </ul>
                         </li>
 
                         <li>
-                            <h3>{% trans "1%SOCIAL" %}</h3>
+                            <h3>{% trans "1%Social" %}</h3>
                             <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fonepercentclub.com&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=265978350087756" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
                             <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
                             <ul class="footer-social-links">
@@ -402,10 +383,11 @@
                         </li>
                     </ul>
 
-                    <hr>
+                    <hr />
 
-                    <ul class="footer-news">
-                        <h3>1%NEWS</h3>
+                    <div class="footer-news">
+                        <h3>1%News</h3>
+                        <ul>
                         {{#each news}}
                             <li>
                                 <a {{action 'showNews' this.id}}>
@@ -413,18 +395,22 @@
                                 </a>
                             </li>
                         {{/each}}
-                    </ul>
+                        </ul>
+                    </div>
 
-                    <ul class="footer-join-us">
-                        <h3>{% trans "Join 1%CLUB" %}</h3>
-                        <p>{% trans "1%Club connects smart ideas from developing countries to time, money and expertise from all over the world. It is very easy: " %}</p>
-                        <li><i class="icon-chevron-right"></i> {% trans "Select a project or tast" %}</li>
-                        <li><i class="icon-chevron-right"></i> {% trans "Share your skills or money" %}</li>
-                        <li><i class="icon-chevron-right"></i> {% trans "See direct results" %}</li>
-                        {{#unless controllers.currentUser.isAuthenticated}}
-                            {{#linkTo signup classNames="btn btn-primary"}}{% trans "Join 1%Club" %}{{/linkTo}}
-                        {{/unless}}
-                    </ul>
+                    {{#unless controllers.currentUser.isAuthenticated}}
+                    <div class="footer-join-us">
+						<h3>{% trans "Join 1%Club" %}</h3>
+	                    <p>{% trans "1%Club connects smart ideas from developing countries to time, money and expertise from all over the world. It is very easy: " %}</p>    
+	                    <ul>
+	                        <li><i class="icon-chevron-right"></i> {% trans "Select a project or tast" %}</li>
+	                        <li><i class="icon-chevron-right"></i> {% trans "Share your skills or money" %}</li>
+	                        <li><i class="icon-chevron-right"></i> {% trans "See direct results" %}</li>
+	                    </ul>
+	                    {{#linkTo signup classNames="btn btn-primary"}}{% trans "Join 1%Club" %}{{/linkTo}}
+					</div>
+					{{/unless}}
+
                 </div>
             </div>
         </div>
@@ -433,7 +419,7 @@
             <div class="wrapper">
                 <ul>
                     <li>
-                        &copy;2013 1%CLUB
+                        &copy;2013 1%Club
                     </li>
                     <li>
                         <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">

@@ -1,26 +1,26 @@
 @mixin allowremove {
-  position: relative;
+    position: relative;
 
-  &:hover {
-    .remove {
-      display: block;
-    }
-  }
-
-  .remove {
-    cursor: pointer;
-    display: none;
-    z-index: 5;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    @include rem(font-size, 20px);
-    color: $grayDarker;
     &:hover {
-        color: $black;
+        .remove {
+            display: block;
+        }
     }
-    &:active {
-        color: $pink;
+
+    .remove {
+        cursor: pointer;
+        display: none;
+        z-index: 5;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        @include rem(font-size, 20px);
+        color: $grayDarker;
+        &:hover {
+            color: $black;
+        }
+        &:active {
+            color: $pink;
+        }
     }
-  }
 }

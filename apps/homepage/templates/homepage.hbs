@@ -59,8 +59,8 @@
                 <p class="section-subheader">{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
 
                 <div class="projects">
-                    <span {{action previousProject}} class="projects-nav prev"><i class="icon-chevron-left"></i></span>
-                    <span {{action nextProject}} class="projects-nav next"><i class="icon-chevron-right"></i></span>
+                    <span {{action previousProject}} class="projects-nav prev"><em class="flaticon solid left-2"></em></span>
+                    <span {{action nextProject}} class="projects-nav next"><em class="flaticon solid right-2"></em></span>
 
                     <div class="project">
                         <aside>
@@ -70,12 +70,12 @@
                         <article>
                             <div class="project-meta">
                                 <span class="location">
-                                    <em class="icon-map-marker"></em>
+                                    <em class="flaticon solid location-pin-1"></em>
                                     {{project.plan.country.name}}
                                 </span>
 
                                 <span class="tags">
-                                    <em class="icon-tag"></em>
+                                    <em class="flaticon solid tag-1"></em>
 
                                     {{#each tag in project.plan.tags}}
                                         <span>{{tag.id}}</span>
@@ -95,7 +95,7 @@
                                 <div class="project-days-left">
                                     {{#if project.campaign.deadline}}
                                         <p>
-                                            <i class="icon-time"></i> <em><strong>{{project.campaign.daysToGo}}</strong></em>
+                                            <em class="flaticon solid clock-1"></em> <em><strong>{{project.campaign.daysToGo}}</strong></em>
                                         </p>
                                         {% trans "days to go" %}
                                     {{/if}}
@@ -146,17 +146,17 @@
                 </div>
 
                 <a class="btn btn-primary btn-iconed">
-                    <i class="icon icon-money"></i>
+                    <em class="icon icon-money"></em>
                     {% trans "Find projects" %}
                 </a>
 
                 <a class="btn btn-primary btn-iconed disabled">
-                    <i class="icon icon-money"></i>
+                    <em class="icon icon-money"></em>
                     {% trans "Find tasks" %}
                 </a>
 
                 <a class="btn btn-primary btn-iconed disabled">
-                    <i class="icon icon-heart"></i>
+                    <em class="icon icon-heart"></em>
                     {% trans "Befriend us" %}
                 </a>
             </section>
