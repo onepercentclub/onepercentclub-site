@@ -263,7 +263,6 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
 
         sfproject.project_name = project.title
 
-        # TODO: Confirm that this is the correct project status to take
         sfproject.status_project = ProjectPhases.values[project.phase].title()
 
         # SF Layout: Summary Project Details section.
