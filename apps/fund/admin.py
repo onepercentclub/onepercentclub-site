@@ -30,8 +30,8 @@ admin.site.register(Donation, DonationAdmin)
 
 class OrderAdmin(admin.ModelAdmin):
     model = Order
-    list_filter = ('status', )
-    list_display = ('created', 'total', 'status')
+    list_filter = ('status', 'recurring')
+    list_display = ('created', 'total', 'status', 'recurring')
     raw_id_fields = ('user', )
     readonly_fields = ('recurring', 'view_payment')
     fields = readonly_fields + ('user', 'status')
