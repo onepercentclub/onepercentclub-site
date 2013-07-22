@@ -2,9 +2,9 @@ from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.bluebottle_drf2.views import RetrieveUpdateDeleteAPIView
 from apps.bluebottle_utils.utils import get_client_ip
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
-from apps.tasks.models import Task, TaskMember, TaskFile
+from apps.tasks.models import Task, TaskMember, TaskFile, Skill
 from apps.tasks.permissions import  IsTaskAuthorOrReadOnly
-from apps.tasks.serializers import TaskSerializer, TaskMemberSerializer, TaskWallPostSerializer, TaskFileSerializer, TaskPreviewSerializer
+from apps.tasks.serializers import TaskSerializer, TaskMemberSerializer, TaskWallPostSerializer, TaskFileSerializer, TaskPreviewSerializer, SkillSerializer
 from apps.wallposts.models import WallPost
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query_utils import Q
@@ -17,7 +17,7 @@ class TaskPreviewList(generics.ListAPIView):
     model = Task
     serializer_class = TaskPreviewSerializer
     paginate_by = 8
-    filter_fields = ('status', 'expertise', )
+    filter_fields = ('status', 'skill', )
 
     def get_queryset(self):
         qs = super(TaskPreviewList, self).get_queryset()
@@ -162,3 +162,7 @@ class TaskFileDetail(generics.RetrieveUpdateAPIView):
 
     permission_classes = (IsAuthorOrReadOnly, )
 
+
+class SkillList(generics.ListAPIView):
+    model = Skill
+    serializer_class = SkillSerializer
