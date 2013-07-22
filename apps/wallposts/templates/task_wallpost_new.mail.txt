@@ -1,9 +1,11 @@
+{% extends "base.mail.txt" %}
 {% load i18n %}
 
-{% blocktrans %}
-Hello {{ receiver.first_name }},
+{% block content %}
+{% blocktrans with receiver_name=receiver.first_name author_name=author.first_name %}
+Hello {{ receiver_name }},
 
-{{ author.first_name }} has left a message on your task page.
+{{ author_name }} has left a message on your task page.
 
 You must be curious what! Don't wait any longer and check it out here:
 
@@ -13,3 +15,4 @@ See you in a bit!
 
 Liane | 1%CLUB
 {% endblocktrans %}
+{% endblock %}

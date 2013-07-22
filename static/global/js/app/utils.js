@@ -32,48 +32,6 @@ App.ProjectCountrySelectView = Em.Select.extend({
 });
 
 
-
-// TODO: get this list from the server
-App.ExpertiseList = [
-    {value: "none", title: "No specific skill needed"},
-    {value: "research", title: "(online) Research"},
-    {value: "agriculture", title: "Agriculture"},
-    {value: "engineering", title: "Architecture/Engineering"},
-    {value: "blogging", title: "Blogging"},
-    {value: "brainstorming", title: "Brainstorming"},
-    {value: "business_modelling", title: "Business Modelling"},
-    {value: "community_engagement", title: "Community Engagement"},
-    {value: "ict", title: "Computer/ICT"},
-    {value: "copy_writing ", title: "Copy writing"},
-    {value: "design", title: "Design"},
-    {value: "education", title: "Education/Training"},
-    {value: "finance", title: "Finance"},
-    {value: "fund_raising", title: "Fund raising"},
-    {value: "feedback", title: "Giving feedback"},
-    {value: "health_care", title: "Health care"},
-    {value: "hrm", title: "HRM"},
-    {value: "law_and_politics", title: "Law enforcement & politics"},
-    {value: "logistics", title: "Logistics"},
-    {value: "pr", title: "Marketing/PR"},
-    {value: "mobile_phones", title: "Mobile Phones"},
-    {value: "presentations", title: "Presentations"},
-    {value: "project_management", title: "Project Management"},
-    {value: "social_media", title: "Social Media"},
-    {value: "sustainability ", title: "Sustainability"},
-    {value: "tourism", title: "Tourism"},
-    {value: "translations", title: "Translations"},
-    {value: "web_development", title: "Web Development"},
-    {value: "writing_proposals", title: "Writing proposals"}
-
-];
-
-App.ExpertiseSelectView = Em.Select.extend({
-    content: App.ExpertiseList,
-    optionValuePath: "content.value",
-    optionLabelPath: "content.title",
-    prompt: "pick a skill"
-});
-
 App.TimeNeededList = [
     {value: 0.25, title: "15 minutes"},
     {value: 0.5, title: "half an hour"},

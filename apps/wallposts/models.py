@@ -1,6 +1,3 @@
-from apps.projects.models import Project
-from apps.tasks.models import Task
-from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
@@ -10,13 +7,6 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from django.conf import settings
 from polymorphic import PolymorphicModel
 from .managers import ReactionManager, WallPostManager
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import get_template
-from django.template import Context
-from django.utils.translation import ugettext as _
-from django.utils import translation
 
 
 WALLPOST_TEXT_MAX_LENGTH = getattr(settings, 'WALLPOST_TEXT_MAX_LENGTH', 300)
@@ -117,87 +107,4 @@ class Reaction(models.Model):
     def __unicode__(self):
         s = "{0}: {1}".format(self.author.get_full_name(), self.text)
         return Truncator(s).words(10)
-
-
-
-@receiver(post_save, weak=False, sender=TextWallPost)
-def new_wallpost_notification(sender, instance, created, **kwargs):
-    post = instance
-
-    # FIXME: Find a better solution for this.
-    if Site.objects.get_current().domain in ['localhost:8000', '127.0.0.1:8000']:
-        site = 'http://' + Site.objects.get_current().domain
-    else:
-        site = 'https://' + Site.objects.get_current().domain
-
-    # Project Wall Post
-    if isinstance(post.content_object, Project):
-        project = post.content_object
-        receiver = project.owner
-        author = post.author
-        link = '/#!/projects/{0}'.format(project.slug)
-
-        # Compose the mail
-        # Set the language for the receiver
-        translation.activate(receiver.primary_language)
-        subject = _('%(author)s has left a message on your project page.') % {'author': author.first_name}
-        context = Context({'project': project, 'receiver': receiver, 'author': author, 'link': link, 'site': site})
-        text_content = get_template('project_wallpost_new.mail.txt').render(context)
-        html_content = get_template('project_wallpost_new.mail.html').render(context)
-        translation.deactivate()
-        msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-
-    # Task Wall Post
-    if isinstance(post.content_object, Task):
-        task = post.content_object
-        receiver = task.author
-        author = post.author
-
-        link = '/#!/projects/{0}/tasks/{1}'.format(task.project.slug, task.id)
-
-        # Compose the mail
-        translation.activate(receiver.primary_language)
-        subject = _('%(author)s has left a message on your task page.') % {'author': author.first_name}
-        context = Context({'task': task, 'receiver': receiver, 'author': author, 'link': link, 'site': site})
-        text_content = get_template('task_wallpost_new.mail.txt').render(context)
-        html_content = get_template('task_wallpost_new.mail.html').render(context)
-        translation.deactivate()
-
-        msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-
-
-
-@receiver(post_save, weak=False, sender=Reaction)
-def new_reaction_notification(sender, instance, created, **kwargs):
-    reaction = instance
-    post = instance.wallpost
-
-    # FIXME: Find a better solution for this.
-    if Site.objects.get_current().domain in ['localhost:8000', '127.0.0.1:8000']:
-        site = 'http://' + Site.objects.get_current().domain
-    else:
-        site = 'https://' + Site.objects.get_current().domain
-
-    # Project Wall Post
-    if isinstance(post.content_object, Project):
-        project = post.content_object
-        receiver = post.author
-        author = reaction.author
-        link = '/#!/projects/{0}'.format(project.slug)
-
-        # Compose the mail
-        # Set the language for the receiver
-        translation.activate(receiver.primary_language)
-        subject = _('%(author)s commented on your wallpost.') % {'author': author.first_name}
-        context = Context({'project': project, 'receiver': receiver, 'author': author, 'link': link, 'site': site})
-        text_content = get_template('project_wallpost_reaction_new.mail.txt').render(context)
-        html_content = get_template('project_wallpost_reaction_new.mail.html').render(context)
-        translation.deactivate()
-        msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
 
