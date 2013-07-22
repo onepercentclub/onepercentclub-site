@@ -116,6 +116,10 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         }, 0);
     }.property('model.@each.amount', 'model.length'),
 
+    moreThanOneDonation: function() {
+        return this.get('length') > 1;
+    }.property('length'),
+
     monthly_total: 0,
 
     updateMonthlyDonations: function(obj, keyName) {
