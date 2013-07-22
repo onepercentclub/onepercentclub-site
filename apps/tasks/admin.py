@@ -1,5 +1,5 @@
 from apps.accounts.models import BlueBottleUser
-from apps.tasks.models import Task, TaskMember, TaskFile
+from apps.tasks.models import Task, TaskMember, TaskFile, Skill
 from django.contrib import admin
 from django.forms import ModelForm
 from django.forms.models import ModelChoiceField
@@ -46,3 +46,9 @@ class TaskAdmin(admin.ModelAdmin):
         'author__first_name', 'author__last_name'
     )
 admin.site.register(Task, TaskAdmin)
+
+
+class SkillAdmin(admin.ModelAdmin):
+    model=Skill
+
+admin.site.register(Skill, SkillAdmin)
