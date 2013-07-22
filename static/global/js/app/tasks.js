@@ -46,7 +46,7 @@ App.Task = DS.Model.extend({
     project: DS.belongsTo('App.Project'),
     members: DS.hasMany('App.TaskMember'),
     files: DS.hasMany('App.TaskFile'),
-    expertise: DS.attr('string'),
+    skill: DS.attr('string'),
     location: DS.attr('string', {defaultValue: ''}),
     time_needed: DS.attr('number'),
     status: DS.attr('string', {defaultValue: 'open'}),
@@ -85,6 +85,12 @@ App.Task = DS.Model.extend({
 
 App.NewTask = App.Task.extend({
     project: DS.belongsTo('App.Project')
+});
+
+
+App.Skill = DS.Model.extend({
+    url: 'tasks/skills',
+    name: DS.attr('string')
 });
 
 
@@ -183,7 +189,7 @@ App.TaskSearchFormController = Em.ObjectController.extend({
                 'ordering': this.get('ordering'),
                 'status': this.get('status'),
                 'text': this.get('text'),
-                'expertise': this.get('skill')
+                'skill': this.get('skill')
             };
             var tasks = App.TaskPreview.find(query);
             list.set('model', tasks);
@@ -423,3 +429,8 @@ App.TaskStatusSelectView = Em.Select.extend({
 });
 
 
+App.SkillSelectView = Em.Select.extend({
+    optionValuePath: "content.id",
+    optionLabelPath: "content.name",
+    prompt: "pick a skill"
+});
