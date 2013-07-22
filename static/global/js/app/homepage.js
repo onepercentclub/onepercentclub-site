@@ -6,6 +6,7 @@ App.Slide = DS.Model.extend({
     image: DS.attr('string'),
     imageBackground: DS.attr('string'),
     language: DS.attr('string'),
+    style: DS.attr('string'),
     sequence: DS.attr('number'),
     tab_text: DS.attr('string'),
     link_text: DS.attr('string'),
