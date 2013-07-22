@@ -26,12 +26,11 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
     """
     def setUp(self):
         self.projects = dict([(slugify(title), title) for title in [
-            u'Women first', u'Mobile payments for everyone!', u'Schools for children'
+            u'Women first 2', u'Mobile payments for everyone 2!', u'Schools for children 2'
         ]])
 
         for slug, title in self.projects.items():
-            project = self.create_project(title=title, money_asked=100000)
-
+            project = self.create_project(title=title, slug=slug, money_asked=100000)
             project.projectcampaign.money_donated = 0
             project.projectcampaign.save()
 
