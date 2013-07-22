@@ -491,8 +491,6 @@
         <div class="panes vertical payment">
             <h4>{% trans "You're Almost there!" %}</h4>
 
-            {% trans "When you're ready to support your projects, click the button to complete the payment." %}
-
             {{#if paymentInProgress }}
                 <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "processing payment..." %}
             {{else}}
