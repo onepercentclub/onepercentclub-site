@@ -93,7 +93,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         self.assertEqual(self.browser.find_by_css('.amount-control label').first.text,
                          u"I'D LIKE TO GIVE")
         self.assertEqual(self.browser.find_by_css('.amount-needed').first.text,
-                         u'\u20ac 475 IS STILL NEEDED')
+                         u'\u20ac 495 IS STILL NEEDED')
         input_field = self.browser.find_by_css('.amount-control input').first
         self.assertEqual(input_field['name'], u'donation-amount-1')
         self.assertEqual(input_field['value'], u'20')
