@@ -4,33 +4,38 @@
 
 {% tplhandlebars "user" %}
 
-<div class="container">
+<div class="container" id="profile">
     <div id="profile-actions" class="section">
         <div class="wrapper">
             <div class="profile-actions-meta">
-                <a {{action openInBigBox "userModal" controllers.currentUser.content }} class="button-link">
+                <a {{action openInBigBox "userModal" controllers.currentUser.content }}>
                     <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
-                    <div class="profile-actions-meta-title">
-                        {{controllers.currentUser.getUser.full_name}}
+                    <span class="profile-actions-meta-title">
+                        {% trans "My 1%" %}
+                        
+                        <span class="profile-title">
+                            {% trans "Profile" %}
+                        </span>
+
                         <small>
-                            <i class="icon-eye-open"></i>
+                            <em class="flaticon solid eye-1"></em>
                             {% trans "Preview my profile" %}
                         </small>
-                    </div>
+                    </span>
                 </a>
             </div>
 
             <ul class="tabs">
-                <li class="tab-item">
+                <li class="tab-item first">
                     {{#linkTo userProfile }}
-                        <em class="tab-icon amount"><i class="icon-user"></i></em>
-                        <strong class="tab-title">{% trans "Profile info" %} <em class="tab-subtitle">{% trans "Public info" %}</em></strong>
+                        <span class="tab-icon amount"><em class="flaticon solid user-2"></em></span>
+                        <strong class="tab-title">{% trans "Profile" %} <em class="tab-subtitle">{% trans "Public info" %}</em></strong>
                     {{/linkTo}}
                 </li>
 
                 <li class="tab-item">
                     {{#linkTo userSettings }}
-                        <em class="tab-icon amount"><i class="icon-cog"></i></em>
+                        <span class="tab-icon amount"><em class="flaticon solid settings-2"></em></span>
                         <strong class="tab-title">{% trans "Account" %} <em class="tab-subtitle">{% trans "Settings" %}</em></strong>
                     {{/linkTo}}
                 </li>
@@ -83,7 +88,7 @@
 
                                 <a class="btn btn-iconed btn-uploader">
                                     {{view App.UploadFileView contentBinding="this" name="picture" id="picture" accept="image/*"}}
-                                    <i class="icon icon-upload"></i>
+                                    <em class="flaticon solid upload-document-1"></em>
                                     {% trans "Upload picture" %}
                                 </a>
                             </div>
@@ -184,19 +189,21 @@
                 </fieldset>
 
                 {{#if saved}}
-                    <span class="left"><i class="icon-ok"> {% trans "Profile saved" %}</i></span>
+                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Profile saved" %}</em></span>
                 {{/if}}
 
                 <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
-                    <i class="icon icon-star"></i>
+                    <em class="flaticon solid checkmark-1"></em>
                     {{saveButtonText}}
                 </button>
             </form>
-        {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading profile" %}
-        {{/if}}
     </div>
 </section>
+
+
+{{else}}
+    <span class="loading">Loading&#8230;</span>
+{{/if}}
 
 {% endtplhandlebars %}
 
@@ -409,19 +416,20 @@
                 </fieldset>
 
                 {{#if saved}}
-                    <span class="left"><i class="icon-ok"> {% trans "Account settings saved" %}</i></span>
+                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Account settings saved" %}</em></span>
                 {{/if}}
 
                 <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
-                    <i class="icon icon-star"></i>
+                    <em class="flaticon solid checkmark-1"></em>
                     {{saveButtonText}}
                 </button>
             </form>
-        {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading settings" %}
-        {{/if}}
     </div>
 </section>
+
+{{else}}
+	<span class="loading">Loading&#8230;</span>
+{{/if}}
 
 {% endtplhandlebars %}
 
@@ -498,7 +506,7 @@
             <div class="control-group">
                 <div class="controls-wide">
                     <button class="btn btn-iconed btn-primary right" {{action 'createUser' model}}>
-                        <i class="icon icon-group"></i>
+                        <em class="flaticon solid user-1"></em>
                         {% trans "Sign up" %}
                     </button>
                 </div>
@@ -518,10 +526,10 @@
 {% tplhandlebars "_signup_sidebar" %}
 <div class="sidebar">
     <div class="widget widget-login">
-        <i class="icon-lock"></i>
+        <em class="flaticon solid move-left-1"></em>
 
         <a {{action openInBox "login"}} class="highlight">
-            <strong>{%  trans "ALREADY HAVE AN ACCOUNT?" %}</strong>
+            <strong>{%  trans "Already have an account?" %}</strong>
         </a>
 
         <p>{% trans "Log in here" %}</p>
@@ -529,7 +537,7 @@
 
     <div class="widget widget-member-advantage">
         <div class="widget-icon">
-            <i class="icon-heart-empty"></i>
+            <em class="flaticon solid heart-1"></em>
         </div>
 
         <div class="widget-header">
@@ -570,7 +578,7 @@
         <div class="um-list">
             {{#if location }}
                 <div class="um-list-item">
-                    <i class="icon-map-marker"></i>
+                    <em class="flaticon solid location-pin-1"></em>
                     <span class="key">{% trans "Location" %}</span>
                     <span class="value">{{ location }}</span>
                 </div>
@@ -578,7 +586,7 @@
 
             {{#if availability }}
                 <div class="um-list-item">
-                    <i class="icon-time"></i>
+                    <em class="flaticon solid clock-1"></em>
                     <span class="key">{% trans "Time available" %}</span>
                     <span class="value">{{ availability }}</span>
                 </div>
@@ -588,7 +596,7 @@
         <div class="um-meta">
             {{#if website }}
                 <span class="um-meta-item website">
-                    <a {{bindAttr href="website"}} target="_blank"><i class="icon-link"></i>  {{website}}</a>
+                    <a {{bindAttr href="website"}} target="_blank"><em class="flaticon solid link-3"></em>  {{website}}</a>
                 </span>
             {{/if}}
         </div>
@@ -625,7 +633,7 @@
             </p>
 
             <a href="#" class="btn btn-iconed btn-secondary" rel="secondary">
-                <i class="icon icon-ok"></i>
+                <em class="flaticon solid checkmark-1"></em>
                 {% trans "Reset" %}
             </a>
         </div>
@@ -674,7 +682,7 @@
 
     <div class="modal-footer">
         <button class="btn btn-iconed right" {{action 'resetPassword' model}} {{bindAttr disabled="resetDisabled"}}>
-            <i class="icon icon-ok"></i>
+            <em class="flaticon solid checkmark-1"></em>
             {% trans "Reset password" %}
         </button>
     </div>

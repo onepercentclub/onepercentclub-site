@@ -101,7 +101,7 @@
 
 
     {% tplhandlebars "application" %}
-        <!-- main header -->
+    <!-- main header -->
 
         <div class="container" id="navigation">
             <header class="wrapper">
@@ -270,9 +270,10 @@
 
 
     {% tplhandlebars "_footer" %}
-        <div class="container section">
+
+        <div id="footer" class="container section">
             <div class="wrapper">
-                <section class="footer">
+                <section class="footer-content">
                     <ul class="footer-menu">
                         <li>
                             <h3>{% trans "It all starts with 1%" %}</h3>
@@ -411,29 +412,32 @@
 					</div>
 					{{/unless}}
 
-                </div>
-            </div>
+                </section>
+			</div>
+          
+            <div class="container copyright">
+	            <div class="wrapper">
+	                <ul>
+	                    <li>
+	                        &copy;2013 1%Club
+	                    </li>
+	                    <li>
+	                        <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">
+	                            {% trans "General Conditions" %}
+	                        </a>
+	                    </li>
+	                    <li class="right" >
+	                        <a class="feedback" id="feedbackButton" href="#">
+	                            {%  trans "Give us feedback" %}
+	                        </a>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	        
         </div>
 
-        <div class="container copyright">
-            <div class="wrapper">
-                <ul>
-                    <li>
-                        &copy;2013 1%Club
-                    </li>
-                    <li>
-                        <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">
-                            {% trans "General Conditions" %}
-                        </a>
-                    </li>
-                    <li class="right" >
-                        <a class="feedback" id="feedbackButton" href="#">
-                            {%  trans "Give us feedback" %}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        
     {% endtplhandlebars %}
 
 
