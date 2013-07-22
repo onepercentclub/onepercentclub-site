@@ -1,4 +1,4 @@
-from apps.tasks.views import TaskWallPostList, TaskWallPostDetail, TaskMemberList, TaskMemberDetail, TaskFileList, TaskFileDetail, TaskPreviewList
+from apps.tasks.views import TaskWallPostList, TaskWallPostDetail, TaskMemberList, TaskMemberDetail, TaskFileList, TaskFileDetail, TaskPreviewList, SkillList
 from django.conf.urls import patterns, url, include
 from surlex.dj import surl
 from .views import TaskDetail, TaskList
@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     surl(r'^<pk:#>$', TaskDetail.as_view(), name='task-detail'),
 
     url(r'^previews/$', TaskPreviewList.as_view(), name='task-preview-list'),
+
+    url(r'^skills/$', SkillList.as_view(), name='task-skill-list'),
 
     # Task Members
     url(r'^members/$', TaskMemberList.as_view(), name='task-member-list'),
