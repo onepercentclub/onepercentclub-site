@@ -106,7 +106,12 @@
     <fieldset>
         <ul>
             <li class="control-group control-group-lonely">
-                <label class="control-label">{% trans "Donate to projects" %}</label>
+
+                {{#if moreThanOneDonation }}
+                    <label class="control-label">{% trans "Donate to projects" %}</label>
+                {{else}}
+                    <label class="control-label">{% trans "Donate to project" %}</label>
+                {{/if}}
 
                 {{#if controllers.currentUser.isAuthenticated}}
                     <div class="controls">
@@ -119,6 +124,7 @@
                         {{/view}}
                     </div>
                 {{/if}}
+
             </li>
         </ul>
     </fieldset>
