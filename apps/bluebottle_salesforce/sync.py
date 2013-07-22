@@ -1,6 +1,6 @@
 import logging
 from apps.accounts.models import BlueBottleUser
-from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan
+from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectPhases
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses
@@ -109,7 +109,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             contact = SalesforceContact()
 
         # Determine and set user type (person, group, foundation, school, company, ... )
-        contact.category1 = BlueBottleUser.UserType.values[user.user_type]
+        contact.category1 = BlueBottleUser.UserType.values[user.user_type].title()
 
         # SF Layout: Profile section.
         contact.first_name = user.first_name
@@ -119,9 +119,9 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             contact.last_name = "1%MEMBER"
 
         if user.gender == "male":
-            contact.gender = BlueBottleUser.Gender.values['male']
+            contact.gender = BlueBottleUser.Gender.values['male'].title()
         elif user.gender == "female":
-            contact.gender = BlueBottleUser.Gender.values['female']
+            contact.gender = BlueBottleUser.Gender.values['female'].title()
         else:
             contact.gender = ""
 
@@ -264,7 +264,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         sfproject.project_name = project.title
 
         # TODO: Confirm that this is the correct project status to take
-        sfproject.status_project = project.phase
+        sfproject.status_project = ProjectPhases.values[project.phase].title()
 
         # SF Layout: Summary Project Details section.
         try:
@@ -442,9 +442,9 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
 
         # Unknown - sfdonation.payment_method =
 
-        sfdonation.stage_name = DonationStatuses.values[donation.status]
+        sfdonation.stage_name = DonationStatuses.values[donation.status].title()
         # TODO: Should we use "Recurring" instead of Monthly?
-        sfdonation.opportunity_type = donation.DonationTypes.values[donation.donation_type]
+        sfdonation.opportunity_type = donation.DonationTypes.values[donation.donation_type].title()
 
         # SF Layout: System Information section.
         sfdonation.donation_created_date = donation.created.date()
@@ -501,7 +501,7 @@ def sync_vouchers(dry_run, sync_from_datetime, loglevel):
         sfvoucher.close_date = voucher.created
         sfvoucher.description = voucher.message
         # sfvoucher.stage_name exists as state: "In progress", however this has been shifted to Donation?
-        sfvoucher.stage_name = VoucherStatuses.values[voucher.status]
+        sfvoucher.stage_name = VoucherStatuses.values[voucher.status].title()
 
         #sfvoucher.payment_method = ""
 

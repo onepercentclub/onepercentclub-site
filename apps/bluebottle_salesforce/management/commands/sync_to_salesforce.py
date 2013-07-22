@@ -70,7 +70,7 @@ class Command(BaseCommand):
             self.run_with_count_update(generate_projects_csv_file, loglevel)
             self.run_with_count_update(generate_projectbudgetlines_csv_file, loglevel)
             self.run_with_count_update(generate_donations_csv_file, loglevel)
-            self.run_with_count_update(generate_vouchers_csv_file, loglevel)
+            #self.run_with_count_update(generate_vouchers_csv_file, loglevel)
             self.run_with_count_update(generate_tasks_csv_file, loglevel)
             self.run_with_count_update(generate_taskmembers_csv_file, loglevel)
         else:
@@ -82,7 +82,7 @@ class Command(BaseCommand):
             self.run_with_count_update(sync_tasks, options['dry_run'], sync_from_datetime, loglevel)
             self.run_with_count_update(sync_taskmembers, options['dry_run'], sync_from_datetime, loglevel)
             self.run_with_count_update(sync_donations, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_vouchers, options['dry_run'], sync_from_datetime, loglevel)
+            # self.run_with_count_update(sync_vouchers, options['dry_run'], sync_from_datetime, loglevel)
 
         logger.info("Process finished with {0} successes and {1} errors.".format(self.success_count, self.error_count))
 
