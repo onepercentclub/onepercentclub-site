@@ -65,7 +65,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
 
         # Now let's create a task.
         some_task_data = {'project': self.some_project.slug, 'title': 'A nice task!',
-                          'description': 'Well, this is nice', 'time_needed': 5, 'expertise': 'any',
+                          'description': 'Well, this is nice', 'time_needed': 5, 'skill': '1',
                           'location': 'Overthere', 'deadline' : future_date, 'end_goal': 'World peace'}
         response = self.client.post(self.task_url, some_task_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
@@ -74,7 +74,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
 
         # Create a task for a project you don't own should fail...
         another_task_data = {'project': self.another_project.slug, 'title': 'Translate some text.',
-                          'description': 'Wie kan in engels vertalen?', 'time_needed': 5, 'expertise': 'translations',
+                          'description': 'Wie kan in engels vertalen?', 'time_needed': 5, 'skill': '4',
                           'location': 'Tiel', 'deadline' : future_date, 'end_goal': 'World peace'}
         response = self.client.post(self.task_url, another_task_data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
@@ -89,7 +89,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
 
         # Another user that owns another project can create a task for that.
         another_task_data = {'project': self.another_project.slug, 'title': 'Translate some text.',
-                          'description': 'Wie kan Engels vertalen?', 'time_needed': 5, 'expertise': 'translations',
+                          'description': 'Wie kan Engels vertalen?', 'time_needed': 5, 'skill': '12',
                           'location': 'Tiel', 'deadline' : future_date, 'end_goal': 'World peace'}
         response = self.client.post(self.task_url, another_task_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
@@ -98,7 +98,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         # Go wild! Add another task to that project add some tags this time
         # Because we have a nesting here we should properly encode it as json
         third_task_data = {'project': self.another_project.slug, 'title': 'Translate some text.',
-                           'description': 'Wie kan Engels vertalen?', 'time_needed': 5, 'expertise': 'translations',
+                           'description': 'Wie kan Engels vertalen?', 'time_needed': 5, 'skill': '3',
                            'location': 'Tiel', 'deadline': str(future_date), 'end_goal': 'World peace',
                            'tags': [{'id': 'spanish'}, {'id': 'translate'}]}
         response = self.client.post(self.task_url, json.dumps(third_task_data), 'application/json')
@@ -124,7 +124,7 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
 
         # let's create a task.
         some_task_data = {'project': self.some_project.slug, 'title': 'A nice task!',
-                          'description': 'Well, this is nice', 'time_needed': 5, 'expertise': 'any',
+                          'description': 'Well, this is nice', 'time_needed': 5, 'skill': '4',
                           'location': 'Overthere', 'deadline': future_date, 'end_goal': 'World peace'}
         response = self.client.post(self.task_url, some_task_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)

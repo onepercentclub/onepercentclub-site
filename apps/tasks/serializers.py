@@ -21,10 +21,10 @@ class SkillField(serializers.SlugRelatedField):
             raise Exception('Writable related fields must include a `queryset` argument')
 
         try:
-            return self.queryset.get(**{self.pk: data})
+            return self.queryset.get(**{'id': data})
         except ObjectDoesNotExist:
             raise ValidationError(self.error_messages['does_not_exist'] %
-                                  (self.slug_field, smart_text(data)))
+                                  ('id', smart_text(data)))
         except (TypeError, ValueError):
             msg = self.error_messages['invalid']
             raise ValidationError(msg)

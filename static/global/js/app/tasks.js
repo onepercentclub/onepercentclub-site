@@ -46,7 +46,7 @@ App.Task = DS.Model.extend({
     project: DS.belongsTo('App.Project'),
     members: DS.hasMany('App.TaskMember'),
     files: DS.hasMany('App.TaskFile'),
-    skill: DS.belongsTo('App.Skill'),
+    skill: DS.attr('string'),
 
     location: DS.attr('string', {defaultValue: ''}),
     time_needed: DS.attr('number'),
