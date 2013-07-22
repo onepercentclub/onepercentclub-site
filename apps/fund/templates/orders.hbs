@@ -106,19 +106,25 @@
     <fieldset>
         <ul>
             <li class="control-group control-group-lonely">
-                <label class="control-label">{% trans "Donate to projects" %}</label>
+
+                {{#if moreThanOneDonation }}
+                    <label class="control-label">{% trans "Donate to projects" %}</label>
+                {{else}}
+                    <label class="control-label">{% trans "Donate to project" %}</label>
+                {{/if}}
 
                 {{#if controllers.currentUser.isAuthenticated}}
                     <div class="controls">
                         {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
                             {{view view.RadioButton value="single" id="freq_single"}}
-                            <label for="freq_single">{% trans "this time only" %}</label>
+                            <label for="freq_single">{% trans "one-off" %}</label>
 
                             {{view view.RadioButton value="monthly" id="freq_monthly"}}
-                            <label for="freq_monthly">{% trans "automatically every month" %}</label>
+                            <label for="freq_monthly">{% trans "monthly" %}</label>
                         {{/view}}
                     </div>
                 {{/if}}
+
             </li>
         </ul>
     </fieldset>
@@ -484,8 +490,6 @@
 
         <div class="panes vertical payment">
             <h4>{% trans "You're Almost there!" %}</h4>
-
-            {% trans "When you're ready to support your projects, click the button to complete the payment." %}
 
             {{#if paymentInProgress }}
                 <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "processing payment..." %}
