@@ -203,11 +203,7 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
         order.get('donations').removeObject(donation);
         donation.deleteRecord();
         transaction.commit();
-    },
-
-    neededAfterDonation: function() {
-        return Math.max(0, this.get('project.campaign.money_needed') - this.get('amount'));
-    }.property('amount', 'project.campaign.money_needed')
+    }
 });
 
 
