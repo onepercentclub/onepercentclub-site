@@ -117,10 +117,10 @@
                     <div class="controls">
                         {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
                             {{view view.RadioButton value="single" id="freq_single"}}
-                            <label for="freq_single">{% trans "this time only" %}</label>
+                            <label for="freq_single">{% trans "one-off" %}</label>
 
                             {{view view.RadioButton value="monthly" id="freq_monthly"}}
-                            <label for="freq_monthly">{% trans "automatically every month" %}</label>
+                            <label for="freq_monthly">{% trans "monthly" %}</label>
                         {{/view}}
                     </div>
                 {{/if}}
