@@ -1,34 +1,51 @@
 // FOOTER
 
 .footer {
-    @include rem(padding, 64px 0);
+	@include rem(font-size, 14px);
+	line-height: 1.5;
+    @include rem(padding, 48px 0);
     color: $gray;
+    
+    @include grid(48, 1);
 
     hr {
-        @include rem(margin, 32px 0);
+        @include rem(margin, 48px 0);
     }
 
     ul {
         margin: 0;
         list-style: none;
-
-        h3 {
-            @include rem(font-size, 14px);
-            padding-top: 0;
-            color: $grayDarker;
-            font-weight: 600;
-        }
     }
+    
+	h3 {
+	    @include rem(font-size, 16px);
+	    padding: 0;
+	    @include rem(margin, 0 0 8px 0);
+	    color: $grayDarker;
+	    font-weight: 600;
+	    text-transform: uppercase;
+	}
 }
 
 .footer-menu {
-    @include  clearfix;
+    @include clearfix;
+    
 
     color: $gray;
     text-transform: uppercase;
+    
+    a {
+		color: $gray;
+		
+		&:hover, &:active {
+			color: $grayDarker;
+		}
+		
+    }
 
     > li {
         @include grid(12);
+        @include rem(line-height, 20px);
     }
 }
 
@@ -38,15 +55,12 @@
     position: relative;
 
     .btn {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-
-        &:active {
-            top: auto;
-            bottom: -1px;
-        }
+        float: right;
     }
+}
+
+.footer-join-us ul {
+	@include grid(24);
 }
 
 .footer-social-links {
@@ -75,7 +89,7 @@
 
 .copyright {
     ul {
-        @include grid(48, 1);
+        @include grid(48,1);
         @include rem(font-size, 12px);
         margin-bottom: 0;
         color: $white;
@@ -99,6 +113,10 @@
                 &.feedback {
                     color: $green;
                     text-transform: uppercase;
+                }
+                
+                &:hover, &:active {
+	                color: $grayLighter;
                 }
             }
         }
