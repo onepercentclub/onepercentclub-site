@@ -1,0 +1,263 @@
+[
+{
+    "pk": 1, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "- No specific skill needed -", 
+        "name_nl": "- Geen specifieke vaardigheid nodig -"
+    }
+},
+{
+    "pk": 2, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Agriculture", 
+        "name_nl": "Landbouw"
+    }
+},
+{
+    "pk": 3, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Architecture / Engineering", 
+        "name_nl": "Architectuur / Bouwkunde"
+    }
+},
+{
+    "pk": 4, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Brainstorming", 
+        "name_nl": "Brainstorming"
+    }
+},
+{
+    "pk": 5, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Business", 
+        "name_nl": "Business"
+    }
+},
+{
+    "pk": 6, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Community Engagement", 
+        "name_nl": "Community Engagement"
+    }
+},
+{
+    "pk": 7, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Computer / ICT", 
+        "name_nl": "Computer / ICT"
+    }
+},
+{
+    "pk": 8, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Copy writing / Blogging", 
+        "name_nl": "Copy writing / Blogging"
+    }
+},
+{
+    "pk": 9, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Design", 
+        "name_nl": "Design"
+    }
+},
+{
+    "pk": 10, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Education / Training", 
+        "name_nl": "Scholing / Training"
+    }
+},
+{
+    "pk": 11, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Finance", 
+        "name_nl": "Financi\u00ebn"
+    }
+},
+{
+    "pk": 12, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Fundraising", 
+        "name_nl": "Inzamelingsactie"
+    }
+},
+{
+    "pk": 13, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Giving feedback", 
+        "name_nl": "Feedback"
+    }
+},
+{
+    "pk": 14, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Health care", 
+        "name_nl": "Gezondheidszorg"
+    }
+},
+{
+    "pk": 15, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "HRM", 
+        "name_nl": "HRM"
+    }
+},
+{
+    "pk": 16, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Law / politics", 
+        "name_nl": "Rechten / Politiek"
+    }
+},
+{
+    "pk": 17, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Logistics", 
+        "name_nl": "Logistiek"
+    }
+},
+{
+    "pk": 18, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Marketing / PR", 
+        "name_nl": "Marketing / PR"
+    }
+},
+{
+    "pk": 19, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Photo / Video", 
+        "name_nl": "Foto / Video"
+    }
+},
+{
+    "pk": 20, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Presentations", 
+        "name_nl": "Presentatie"
+    }
+},
+{
+    "pk": 21, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Project Management", 
+        "name_nl": "Project Management"
+    }
+},
+{
+    "pk": 22, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Research", 
+        "name_nl": "Onderzoek"
+    }
+},
+{
+    "pk": 23, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Social media", 
+        "name_nl": "Social media"
+    }
+},
+{
+    "pk": 24, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Sports", 
+        "name_nl": "Sport"
+    }
+},
+{
+    "pk": 25, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Sustainability", 
+        "name_nl": "Duurzaamheid"
+    }
+},
+{
+    "pk": 26, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Tourism", 
+        "name_nl": "Toerisme"
+    }
+},
+{
+    "pk": 27, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Translations", 
+        "name_nl": "Vertalingen"
+    }
+},
+{
+    "pk": 28, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Web Development", 
+        "name_nl": "Web Development"
+    }
+},
+{
+    "pk": 29, 
+    "model": "tasks.skill", 
+    "fields": {
+        "description": "", 
+        "name": "Writing proposals", 
+        "name_nl": "Plan schrijven"
+    }
+}
+]

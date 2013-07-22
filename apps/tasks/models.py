@@ -6,9 +6,17 @@ from djchoices.choices import DjangoChoices, ChoiceItem
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
 
-class Skills(models.Model):
+class Skill(models.Model):
 
-    name = models.CharField(_("name"), max_length=100, unique=True)
+    name = models.CharField(_("english name"), max_length=100, unique=True)
+    name_nl = models.CharField(_("dutch name"), max_length=100, unique=True)
+    description = models.TextField(_("description"), blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('id', )
 
 
 class Task(models.Model):
@@ -25,7 +33,8 @@ class Task(models.Model):
     end_goal = models.TextField(_("end goal"))
     location = models.CharField(_("location"), max_length=200)
 
-    expertise = models.CharField(_("expertise"), max_length=200)
+    expertise = models.CharField(_("old expertise"), max_length=200)
+    skill = models.ForeignKey(Skill, verbose_name=_("Skill needed"), null=True)
     time_needed = models.CharField(_("time_needed"), max_length=200, help_text=_("Estimated number of hours needed to perform this task."))
 
     status = models.CharField(_("status"), max_length=20, choices=TaskStatuses.choices, default=TaskStatuses.open)
