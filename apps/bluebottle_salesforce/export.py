@@ -1,14 +1,12 @@
 import csv
 import logging
-from apps.bluebottle_salesforce.models import SalesforceOrganization
-from docutils.nodes import organization
 import os
 from django.utils import timezone
 from django.conf import settings
 from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.accounts.models import BlueBottleUser
-from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine
+from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, ProjectPhases
 from apps.tasks.models import Task, TaskMember
 
 logger = logging.getLogger(__name__)
@@ -130,22 +128,29 @@ def generate_users_csv_file(loglevel):
                 else:
                     last_name = "1%MEMBER"
 
+                gender = ""
                 if user.gender == "male":
-                    gender = BlueBottleUser.Gender.values['male']
+                    gender = BlueBottleUser.Gender.values['male'].title()
                 elif user.gender == "female":
-                    gender = BlueBottleUser.Gender.values['female']
-                else:
-                    gender = ""
+                    gender = BlueBottleUser.Gender.values['female'].title()
+
+                date_deleted = ""
+                if user.deleted:
+                    date_deleted = user.deleted.date()
+
+                date_joined = ""
+                if user.date_joined:
+                    date_joined = user.date_joined.date()
 
                 csvwriter.writerow([user.id,
-                                    user.user_type,
+                                    BlueBottleUser.UserType.values[user.user_type].title(),
                                     user.first_name.encode("utf-8"),
                                     last_name.encode("utf-8"),
                                     gender,
                                     user.username.encode("utf-8"),
                                     user.is_active,
-                                    user.deleted,
-                                    user.date_joined,
+                                    date_deleted,
+                                    date_joined,
                                     user.why.encode("utf-8"),
                                     user.about.encode("utf-8"),
                                     user.location.encode("utf-8"),
@@ -227,7 +232,7 @@ def generate_projects_csv_file(loglevel):
                 csvwriter.writerow([project.id,
                                     project.title.encode("utf-8"),
                                     project.owner.id,
-                                    project.phase,
+                                    ProjectPhases.values[project.phase].title(),
                                     country_in_which_the_project_is_located.encode("utf-8"),
                                     describe_the_project_in_one_sentence.encode("utf-8"),
                                     organization_id,
@@ -310,8 +315,8 @@ def generate_donations_csv_file(loglevel):
                                     '%01.2f' % (float(donation.amount) / 100),              # Amount
                                     donation.created.date(),                                # CloseDate
                                     name.encode("utf-8"),                                   # Name
-                                    DonationStatuses.values[donation.status],               # StageName
-                                    donation.DonationTypes.values[donation.donation_type],  # Type
+                                    DonationStatuses.values[donation.status].title(),       # StageName
+                                    donation.DonationTypes.values[donation.donation_type].title(),  # Type
                                     donation.created.date(),                                # Donation_created_date__c
                                     '',                                                     # Payment_method__c
                                     '012A0000000ZK6FIAW'])                                  # RecordTypeId
@@ -354,7 +359,7 @@ def generate_vouchers_csv_file(loglevel):
                                     voucher.created.date(),                                 # CloseDate
                                     name.encode("utf-8"),                                   # Name
                                     voucher.message.encode("utf-8"),                        # Description
-                                    VoucherStatuses.values[voucher.status],                 # StageName
+                                    VoucherStatuses.values[voucher.status].title(),         # StageName
                                     '012A0000000BxfHIAS'])                                  # RecordTypeId
                 success_count += 1
             except Exception as e:
