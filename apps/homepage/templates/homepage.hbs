@@ -11,7 +11,7 @@
                 <div id="bannerCarousel">
                     <ul>
                         {{#each slides }}
-                            <li>
+                            <li {{bindAttr class=style}}>
                                 <article>
                                     <h4>{{ title }}</h4>
                                     <p>{{{ body }}}</p>
