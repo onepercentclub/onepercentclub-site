@@ -133,7 +133,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.browser.fill('username', user.email)
         self.browser.fill('password', 'secret')
 
-        self.browser.find_by_value('Login').first.click()
+        self.browser.find_by_value('Log in').first.click()
 
         self.assertTrue(self.browser.is_text_present('MY 1%'))
 
