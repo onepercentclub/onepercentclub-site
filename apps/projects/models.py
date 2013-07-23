@@ -89,6 +89,7 @@ class Project(models.Model):
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
+    updated = ModificationDateTimeField()
 
     popularity = models.FloatField(null=False, default=0)
 
@@ -202,7 +203,6 @@ class ProjectPitch(models.Model):
     # Media
     image = ImageField(_("picture"), max_length=255, blank=True, null=True, upload_to='project_images/', help_text=_("Upload the picture that best describes your smart idea!"))
     video_url = models.URLField(_("video"), max_length=100, blank=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
-
 
     def __unicode__(self):
         return self.title
@@ -330,6 +330,7 @@ class ProjectCampaign(models.Model):
             self.money_needed = 0
         self.save()
 
+
 class ProjectResult(models.Model):
 
     class ResultStatuses(DjangoChoices):
@@ -379,6 +380,9 @@ class ProjectBudgetLine(models.Model):
     description = models.CharField(_("description"), max_length=255, blank=True)
     currency = models.CharField(max_length=10, default='EUR')
     amount = models.PositiveIntegerField(_("Amount (in cents)"))
+
+    created = CreationDateTimeField()
+    updated = ModificationDateTimeField()
 
     class Meta:
         verbose_name = _("budget line")
@@ -436,7 +440,6 @@ def progress_project_phase(sender, instance, created, **kwargs):
                 # This would normally only happen during migrations, so please ignore.
                 pass
 
-
     # If phase progresses to 'campaign' we should change status on ProjectPlan.
     if instance.phase == ProjectPhases.campaign:
         try:
@@ -477,21 +480,38 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
     if kwargs.get('raw', False):
         return
 
+    project_saved = False
+
     # If Pitch is approved, move Project to PLan phase.
     if instance.status == ProjectPitch.PitchStatuses.approved:
         if instance.project.phase == ProjectPhases.pitch:
             instance.project.phase = ProjectPhases.plan
             instance.project.save()
 
+    # Ensure the project 'updated' field is updated for the Saleforce sync script.
+    if not project_saved:
+        instance.project.save()
+
 
 @receiver(post_save, weak=False, sender=ProjectPlan)
 def plan_status_status_changed(sender, instance, created, **kwargs):
+
+    project_saved = False
 
     # If plan is approved the move Project to Campaign phase.
     if instance.status == ProjectPlan.PlanStatuses.approved:
         if instance.project.phase == ProjectPhases.plan:
             instance.project.phase = ProjectPhases.campaign
             instance.project.save()
+
+    # Ensure the project 'updated' field is updated for the Saleforce sync script.
+    if not project_saved:
+        instance.project.save()
+
+
+@receiver(post_save, weak=False, sender=ProjectCampaign)
+def plan_status_status_changed(sender, instance, created, **kwargs):
+    instance.project.save()
 
 
 # Change project phase according to donated amount
