@@ -7,8 +7,8 @@
 
     <li class="item item-task">
         <h2>
-            <span class="icon-wrench"></span>
-            {{task.expertise}}
+            <span class="icon icon-leaf"></span>
+            {{task.skill}}
         </h2>
         <div class="header">
             <img {{bindAttr src="project.image" }} />
@@ -105,7 +105,7 @@
                 {% endcomment %}
                 <div class="control">
                     <em class="icon icon-leaf"></em>
-                    {{view App.ExpertiseSelectView valueBinding="skill" }}
+                    {{view App.SkillSelectView valueBinding="skill" }}
                 </div>
                 <div class="control">
                     <em class="icon icon-filter"></em>
@@ -141,9 +141,9 @@
                     <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
                 </div>
                 <br />
-               {% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}
-
-
+                {{#if controllers.taskList.model.meta.total}}
+                    {% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}
+                {{/if}}
             </article>
         </section>
     </div>
@@ -155,8 +155,8 @@
 
     <li class="item item-task">
         <h2>
-            <span class="icon-wrench"></span>
-            {{task.expertise}}
+            <span class="icon icon-leaf"></span>
+            {{task.skill}}
         </h2>
         <div class="content">
             {{task.title}}
@@ -312,9 +312,9 @@
                 <tr>
                     <th>
                         <span class="icon-wrench" />
-                        {% trans "Expertise" %}
+                        {% trans "Skill" %}
                     </th>
-                    <td>{{ expertise }}</td>
+                    <td>{{ skill }}</td>
                 </tr>
                 {% comment %}
                 <tr>
@@ -567,16 +567,16 @@
                     </li>
 
                     <li class="control-group">
-                        <label class="control-label" for="task-expertise">
-                            {% trans "Expertise" %}
+                        <label class="control-label" for="task-skill">
+                            {% trans "Skill" %}
                         </label>
 
                         <div class="controls">
-                            {{view App.ExpertiseSelectView valueBinding="expertise" id="task-expertise" name="task-expertise" classBinding="errors.expertise.length:error"}}
+                            {{view App.SkillSelectView valueBinding="skill" id="task-skill" name="task-skill" classBinding="errors.skill.length:error"}}
                         </div>
 
-                        {{#if errors.expertise }}
-                            <div class="errors">{{#each errors.expertise }}<p>{{this}}</p>{{/each}}</div>
+                        {{#if errors.skill }}
+                            <div class="errors">{{#each errors.skill }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -722,16 +722,16 @@
                     </li>
 
                     <li class="control-group">
-                        <label class="control-label" for="task-expertise">
-                            {% trans "Expertise" %}
+                        <label class="control-label" for="task-skill">
+                            {% trans "Skill" %}
                         </label>
 
                         <div class="controls">
-                            {{view App.ExpertiseSelectView valueBinding="expertise" id="task-expertise" name="task-expertise" classBinding="errors.expertise.length:error"}}
+                            {{view App.SkillSelectView valueBinding="skill" id="task-skill" name="task-skill" classBinding="errors.skill.length:error"}}
                         </div>
 
-                        {{#if errors.expertise }}
-                            <div class="errors">{{#each errors.expertise }}<p>{{this}}</p>{{/each}}</div>
+                        {{#if errors.skill }}
+                            <div class="errors">{{#each errors.skill }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 

@@ -26,12 +26,11 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
     """
     def setUp(self):
         self.projects = dict([(slugify(title), title) for title in [
-            u'Women first', u'Mobile payments for everyone!', u'Schools for children'
+            u'Women first 2', u'Mobile payments for everyone 2!', u'Schools for children 2'
         ]])
 
         for slug, title in self.projects.items():
             project = self.create_project(title=title, slug=slug, money_asked=100000)
-
             project.projectcampaign.money_donated = 0
             project.projectcampaign.save()
 
@@ -48,7 +47,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the Projects page and click it.
-        self.browser.find_link_by_text('1%PROJECTS').first.click()
+        self.browser.find_link_by_text('1%Projects').first.click()
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),

@@ -114,6 +114,13 @@ App = Em.Application.create({
                 content: list
             });
         });
+
+        App.Skill.find().then(function(list){
+            App.SkillSelectView.reopen({
+                content: list
+            });
+        });
+
         App.Country.find().then(function(list){
             App.CountrySelectView.reopen({
                 content: list
@@ -444,7 +451,6 @@ App.SlugRouter = Em.Mixin.create({
         return object;
     }
 });
-
 
 App.Router.reopen({
     location: 'hashbang'

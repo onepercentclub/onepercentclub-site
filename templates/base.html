@@ -121,8 +121,8 @@
                             <h1 class="nav-title">Navigation</h1>
                             <ul>
                                 <li><a {{action showPage 'about'}} href="/#!/pages/about">{% trans "What is 1%" %}</a></li>
-                                <li>{{#linkTo projectList}}{% trans "1%PROJECTS" %}{{/linkTo}}</li>
-                                <li>{{#linkTo taskList}}{% trans "1%TASKS" %}{{/linkTo}}</li>
+                                <li>{{#linkTo projectList}}{% trans "1%Projects" %}{{/linkTo}}</li>
+                                <li>{{#linkTo taskList}}{% trans "1%Skills" %}{{/linkTo}}</li>
                                 <li><a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">{% trans "Get involved" %}</a></li>
                             </ul>
                         </nav>
@@ -170,7 +170,7 @@
                                     <li class="nav-member-actions">
                                         {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
                                         or
-                                        <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
+                                        <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
                                     </li>
                                     <li class="nav-switch-lang">{{view "App.LanguageSwitchView"}}</li>
                                 {{/if}}

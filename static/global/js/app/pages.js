@@ -105,7 +105,7 @@ App.PageView = Ember.View.extend(App.GoTo, {
 
     setup: function() {
         Ember.run.scheduleOnce('afterRender', this, function() {
-            if (!Em.none(this.$())) {
+            if (!Em.isNone(this.$())) {
                 this.renderSections();
                 this.bindEvents();
             }
@@ -117,18 +117,10 @@ App.PageView = Ember.View.extend(App.GoTo, {
     },
 
     bindEvents: function() {
-        //var $businessProducts = this.$('#businessProducts');
-        //$businessProducts.on('mousedown', '.item', $.proxy(this.popover, this));
-        //$businessProducts.on('mousedown', 'body', $.proxy(this.popout, this));
-
         $(window).on('resize', $.proxy(this.renderSections, this));
     },
 
     unbindEvents: function() {
-        //var $businessProducts = this.$('#businessProducts');
-        //$businessProducts.off('mousedown', '.item', $.proxy(this.popover, this));
-        //$businessProducts.off('mousedown', 'body', $.proxy(this.popout, this));
-
         $(window).off('resize', $.proxy(this.renderSections, this));
     },
 
@@ -145,15 +137,6 @@ App.PageView = Ember.View.extend(App.GoTo, {
                 'padding-top': (((windowHeight - sectionContentHeight) / 2) - menuHeight) + 'px'
             });
         });
-    },
-
-    popover: function(e) {
-        var content = $(e.target).data('content');
-        this.$('.item-popover').html(content);
-    },
-
-    popout: function() {
-        this.$('.item-popover').empty();
     }
 });
 

@@ -116,6 +116,10 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         }, 0);
     }.property('model.@each.amount', 'model.length'),
 
+    moreThanOneDonation: function() {
+        return this.get('length') > 1;
+    }.property('length'),
+
     monthly_total: 0,
 
     updateMonthlyDonations: function(obj, keyName) {
@@ -203,11 +207,7 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
         order.get('donations').removeObject(donation);
         donation.deleteRecord();
         transaction.commit();
-    },
-
-    neededAfterDonation: function() {
-        return Math.max(0, this.get('project.campaign.money_needed') - this.get('amount'));
-    }.property('amount', 'project.campaign.money_needed')
+    }
 });
 
 

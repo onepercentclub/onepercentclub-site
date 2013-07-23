@@ -1,0 +1,18 @@
+{% extends "base.mail.txt" %}
+{% load i18n %}
+
+{% block content %}
+{% blocktrans with sender_name=sender.first_name receiver_name=receiver.first_name task_title=task.title %}
+Hi {{ receiver_name }},
+
+Unfortunately the project owner, {{ sender_name }}, found someone else to perform the 1%Task '{{ task_title }}', which you applied for.
+No worries, we have some other really cool tasks that might be the perfect match for your skills.
+
+Take a look right here: {{ site }}/#!/tasks
+
+Good luck!
+
+1%CLUB
+{% endblocktrans %}
+{% endblock %}
+
