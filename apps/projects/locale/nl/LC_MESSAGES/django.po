@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-07-17 16:35+0200\n"
-"PO-Revision-Date: 2013-07-17 21:20+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-07-22 21:51+0200\n"
+"PO-Revision-Date: 2013-07-22 19:30+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,23 +21,23 @@ msgstr ""
 
 #: models.py:22 models.py:23 models.py:349 models.py:367
 msgid "name"
-msgstr "naam"
+msgstr ""
 
 #: models.py:24 models.py:85 models.py:350
 msgid "slug"
-msgstr "slug"
+msgstr ""
 
 #: models.py:25 models.py:369 models.py:379
 msgid "description"
-msgstr "beschrijving"
+msgstr ""
 
 #: models.py:32
 msgid "project theme"
-msgstr "projectthema"
+msgstr ""
 
 #: models.py:33
 msgid "project themes"
-msgstr "projectthema's"
+msgstr ""
 
 #: models.py:37 templates/manage.hbs:461 templates/manage.hbs.py:1401
 msgid "Pitch"
@@ -53,11 +53,11 @@ msgstr ""
 
 #: models.py:40
 msgid "Act"
-msgstr "Doe"
+msgstr ""
 
 #: models.py:41
 msgid "Results"
-msgstr "Resultaat"
+msgstr ""
 
 #: models.py:42
 msgid "Realised"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: models.py:43
 msgid "Failed"
-msgstr "Mislukt"
+msgstr ""
 
 #: models.py:80
 msgid "initiator"
@@ -85,31 +85,31 @@ msgstr ""
 
 #: models.py:84 models.py:189 models.py:231
 msgid "title"
-msgstr "titel"
+msgstr ""
 
 #: models.py:87
 msgid "phase"
-msgstr "fase"
+msgstr ""
 
 #: models.py:87
 msgid "Phase this project is in right now."
-msgstr "Huidige fase voor dit project."
+msgstr ""
 
 #: models.py:91 models.py:185 models.py:227 models.py:281
 msgid "created"
-msgstr "aangemaakt"
+msgstr ""
 
 #: models.py:91 models.py:185 models.py:227 models.py:281
 msgid "When this project was created."
-msgstr "Moment van aanmaken voor dit project."
+msgstr ""
 
 #: models.py:150 models.py:182 models.py:224 models.py:275 models.py:340
 msgid "project"
-msgstr "project"
+msgstr ""
 
 #: models.py:151 templates/projects.hbs:163
 msgid "projects"
-msgstr "projecten"
+msgstr ""
 
 #: models.py:169 templates/manage.hbs:521 templates/manage.hbs.py:1454
 msgid "Skills and expertise"
@@ -125,7 +125,7 @@ msgstr ""
 
 #: models.py:177 models.py:218 templates/projects.hbs:22
 msgid "New"
-msgstr "Nieuw"
+msgstr ""
 
 #: models.py:178 models.py:219
 msgid "Submitted"
@@ -141,11 +141,11 @@ msgstr ""
 
 #: models.py:183 models.py:225 models.py:276 models.py:341
 msgid "status"
-msgstr "status"
+msgstr ""
 
 #: models.py:186 models.py:228 models.py:282
 msgid "updated"
-msgstr "aangepast"
+msgstr ""
 
 #: models.py:189 models.py:231
 msgid "Be short, creative, simple and memorable"
@@ -181,7 +181,7 @@ msgstr ""
 
 #: models.py:195 models.py:236
 msgid "tags"
-msgstr "tags"
+msgstr ""
 
 #: models.py:195 models.py:236
 msgid "Add tags"
@@ -189,15 +189,15 @@ msgstr ""
 
 #: models.py:198 models.py:246
 msgid "latitude"
-msgstr "breedte"
+msgstr ""
 
 #: models.py:199 models.py:247
 msgid "longitude"
-msgstr "lengte"
+msgstr ""
 
 #: models.py:203
 msgid "picture"
-msgstr "afbeelding"
+msgstr ""
 
 #: models.py:203
 msgid "Upload the picture that best describes your smart idea!"
@@ -259,11 +259,11 @@ msgstr ""
 
 #: models.py:251
 msgid "image"
-msgstr "afbeelding"
+msgstr ""
 
 #: models.py:251
 msgid "Main project picture"
-msgstr "Hoofdafbeelding project"
+msgstr ""
 
 #: models.py:254
 msgid "organisation"
@@ -295,19 +295,19 @@ msgstr ""
 
 #: models.py:273 models.py:338
 msgid "Closed"
-msgstr "Gesloten"
+msgstr ""
 
 #: models.py:353
 msgid "partner organization"
-msgstr "partnerorganizatie"
+msgstr ""
 
 #: models.py:354
 msgid "partner organizations"
-msgstr "partnerorganisaties"
+msgstr ""
 
 #: models.py:368
 msgid "email"
-msgstr "email"
+msgstr ""
 
 #: models.py:381
 msgid "Amount (in cents)"
@@ -315,11 +315,11 @@ msgstr ""
 
 #: models.py:384
 msgid "budget line"
-msgstr "budgetregel"
+msgstr ""
 
 #: models.py:385
 msgid "budget lines"
-msgstr "budgetregels"
+msgstr ""
 
 #: views.py:208 views.py:211
 #, python-format
@@ -440,11 +440,11 @@ msgstr "Inloggen"
 
 #: templates/manage.hbs:149
 msgid "or become a"
-msgstr "of maak "
+msgstr ""
 
 #: templates/manage.hbs:149
 msgid "member"
-msgstr "een profiel aan"
+msgstr ""
 
 #: templates/manage.hbs:149
 msgid "to pitch your plan."
@@ -494,7 +494,7 @@ msgstr ""
 #: templates/manage.hbs:1359 templates/project_detail.html:34
 #: templates/projects.hbs:518
 msgid "Location"
-msgstr "Lokatie"
+msgstr ""
 
 #: templates/manage.hbs:293 templates/manage.hbs.py:1363
 msgid "Media"
@@ -592,7 +592,7 @@ msgstr ""
 
 #: templates/manage.hbs:436 templates/manage.hbs.py:1336
 msgid "Next"
-msgstr "Volgende"
+msgstr ""
 
 #: templates/manage.hbs:444
 msgid "Project basics"
@@ -604,7 +604,7 @@ msgstr ""
 
 #: templates/manage.hbs:450 templates/manage.hbs.py:1390
 msgid "Title"
-msgstr "Titel"
+msgstr ""
 
 #: templates/manage.hbs:460
 msgid "Pitch your smart idea in one sentence."
@@ -621,7 +621,7 @@ msgstr ""
 #: templates/manage.hbs:502 templates/manage.hbs.py:1435
 #: templates/project_detail.html:85
 msgid "Tags"
-msgstr "Tags"
+msgstr ""
 
 #: templates/manage.hbs:503 templates/manage.hbs.py:1436
 msgid "Between 2 and 5 tags"
@@ -690,7 +690,7 @@ msgstr ""
 
 #: templates/manage.hbs:618 templates/manage.hbs.py:773
 msgid "Country"
-msgstr "Land"
+msgstr ""
 
 #: templates/manage.hbs:626
 msgid ""
@@ -719,12 +719,12 @@ msgstr ""
 
 #: templates/manage.hbs:659
 msgid "Upload picture"
-msgstr "Upload foto"
+msgstr ""
 
 #: templates/manage.hbs:679 templates/manage.hbs.py:864
 #: templates/projects.hbs:522
 msgid "Organisation"
-msgstr "Organisatie"
+msgstr ""
 
 #: templates/manage.hbs:685
 msgid "Name of your organisation"
@@ -732,7 +732,7 @@ msgstr ""
 
 #: templates/manage.hbs:686 templates/manage.hbs.py:959
 msgid "Name"
-msgstr "Naam"
+msgstr ""
 
 #: templates/manage.hbs:696
 msgid "Describe your organisation"
@@ -741,7 +741,7 @@ msgstr ""
 #: templates/manage.hbs:697 templates/manage.hbs.py:983
 #: templates/project_detail.html:96
 msgid "Description"
-msgstr "Beschrijving"
+msgstr ""
 
 #: templates/manage.hbs:710
 msgid "Address"
@@ -753,7 +753,7 @@ msgstr ""
 
 #: templates/manage.hbs:716
 msgid "Type"
-msgstr "Type"
+msgstr ""
 
 #: templates/manage.hbs:726
 msgid "Street, house number, the place in your city"
@@ -777,11 +777,11 @@ msgstr ""
 
 #: templates/manage.hbs:751
 msgid "City"
-msgstr "Woonplaats"
+msgstr ""
 
 #: templates/manage.hbs:761 templates/manage.hbs.py:762
 msgid "Postal code"
-msgstr "Postcode"
+msgstr ""
 
 #: templates/manage.hbs:772
 msgid "Country or territory"
@@ -817,11 +817,11 @@ msgstr ""
 
 #: templates/manage.hbs:814
 msgid "Email address"
-msgstr "E-mailadres"
+msgstr ""
 
 #: templates/manage.hbs:815 templates/manage.hbs.py:971
 msgid "Email"
-msgstr "Email"
+msgstr ""
 
 #: templates/manage.hbs:825
 msgid "Does your organization have a twitter account?"
@@ -1121,7 +1121,7 @@ msgstr ""
 
 #: templates/manage.hbs:1367
 msgid "Submit"
-msgstr "Verzend"
+msgstr ""
 
 #: templates/manage.hbs:1384
 msgid "Pitch basics"
@@ -1187,11 +1187,11 @@ msgstr ""
 
 #: templates/manage.hbs:1643 templates/projects.hbs:259
 msgid "of"
-msgstr "van"
+msgstr ""
 
 #: templates/manage.hbs:1645 templates/projects.hbs:261
 msgid "raised"
-msgstr "opgehaald"
+msgstr ""
 
 #: templates/manage.hbs:1657
 msgid "How is your campaign going?"
@@ -1209,11 +1209,11 @@ msgstr ""
 
 #: templates/manage.hbs:1671 templates/projects.hbs:252
 msgid "days to go"
-msgstr "dagen te gaan"
+msgstr ""
 
 #: templates/project_detail.html:20
 msgid "Project"
-msgstr "Project"
+msgstr ""
 
 #: templates/project_detail.html:23
 msgid "Project Phase"
@@ -1221,7 +1221,7 @@ msgstr ""
 
 #: templates/project_detail.html:26
 msgid "Organization"
-msgstr "Organisatie"
+msgstr ""
 
 #: templates/project_detail.html:29
 msgid "Project Owner"
@@ -1230,11 +1230,11 @@ msgstr ""
 #: templates/project_detail.html:39 templates/project_detail.html.py:48
 #: templates/project_detail.html:103 templates/project_detail.html.py:114
 msgid "Not specified."
-msgstr "Niet opgegeven."
+msgstr ""
 
 #: templates/project_detail.html:43
 msgid "Costs"
-msgstr "Kosten"
+msgstr ""
 
 #: templates/project_detail.html:52
 msgid "Money Asked"
@@ -1246,20 +1246,20 @@ msgstr ""
 
 #: templates/project_detail.html:62
 msgid "Themes"
-msgstr "Thema's"
+msgstr ""
 
 #: templates/project_detail.html:68 templates/project_detail.html.py:79
 #: templates/project_detail.html:91
 msgid "None specified."
-msgstr "Niet opgegeven."
+msgstr ""
 
 #: templates/project_detail.html:73 templates/projects.hbs:467
 msgid "Supporters"
-msgstr "Supporters"
+msgstr ""
 
 #: templates/project_detail.html:107
 msgid "Funding needed for"
-msgstr "Financiering nodig voor"
+msgstr ""
 
 #: templates/projects.hbs:22
 msgid "Smart Idea"
@@ -1355,7 +1355,7 @@ msgstr ""
 
 #: templates/projects.hbs:268
 msgid "Support this project"
-msgstr "Steun dit project"
+msgstr ""
 
 #: templates/projects.hbs:294
 msgid "Last:"

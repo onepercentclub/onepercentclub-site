@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-18 12:31+0200\n"
+"POT-Creation-Date: 2013-07-22 21:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,111 +17,188 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:11
-msgid "name"
+#: mails.py:32
+#, python-format
+msgid "%(sender)s applied for your task."
 msgstr ""
 
-#: models.py:18 templates/tasks.hbs:30 templates/tasks.hbs.py:170
+#: mails.py:49
+#, python-format
+msgid "%(sender)s found someone else to do the task you applied for."
+msgstr ""
+
+#: mails.py:66
+#, python-format
+msgid "%(sender)s accepted you to complete the tasks you applied for."
+msgstr ""
+
+#: models.py:11
+msgid "english name"
+msgstr ""
+
+#: models.py:12
+msgid "dutch name"
+msgstr ""
+
+#: models.py:13 models.py:32
+msgid "description"
+msgstr ""
+
+#: models.py:26 templates/tasks.hbs:30 templates/tasks.hbs.py:170
 #: templates/tasks.hbs:267 templates/tasks.hbs.py:662
 msgid "Open"
 msgstr ""
 
-#: models.py:19 templates/tasks.hbs:34 templates/tasks.hbs.py:174
+#: models.py:27 templates/tasks.hbs:34 templates/tasks.hbs.py:174
 #: templates/tasks.hbs:271 templates/tasks.hbs.py:666
 msgid "In progress"
 msgstr ""
 
-#: models.py:20 templates/tasks.hbs:38 templates/tasks.hbs.py:178
+#: models.py:28 templates/tasks.hbs:38 templates/tasks.hbs.py:178
 #: templates/tasks.hbs:275 templates/tasks.hbs.py:670
 msgid "Closed"
 msgstr ""
 
-#: models.py:21 models.py:58 templates/tasks.hbs:42 templates/tasks.hbs.py:53
+#: models.py:29 models.py:67 templates/tasks.hbs:42 templates/tasks.hbs.py:53
 #: templates/tasks.hbs:182 templates/tasks.hbs.py:193 templates/tasks.hbs:279
 #: templates/tasks.hbs.py:397 templates/tasks.hbs:417
 #: templates/tasks.hbs.py:503 templates/tasks.hbs:674
 msgid "Realised"
 msgstr ""
 
-#: models.py:23
+#: models.py:31
 msgid "title"
 msgstr ""
 
-#: models.py:24
-msgid "description"
-msgstr ""
-
-#: models.py:25
+#: models.py:33
 msgid "end goal"
 msgstr ""
 
-#: models.py:26
+#: models.py:34
 msgid "location"
 msgstr ""
 
-#: models.py:28
-msgid "expertise"
-msgstr ""
-
-#: models.py:29
-msgid "time_needed"
-msgstr ""
-
-#: models.py:29
-msgid "Estimated number of hours needed to perform this task."
-msgstr ""
-
-#: models.py:31 models.py:62
-msgid "status"
-msgstr ""
-
-#: models.py:33
-msgid "people needed"
-msgstr ""
-
-#: models.py:33
-msgid "How many people are needed for this task?"
-msgstr ""
-
-#: models.py:37 models.py:63 models.py:73
-msgid "created"
+#: models.py:36
+msgid "old expertise"
 msgstr ""
 
 #: models.py:37
+msgid "Skill needed"
+msgstr ""
+
+#: models.py:38
+msgid "time_needed"
+msgstr ""
+
+#: models.py:38
+msgid "Estimated number of hours needed to perform this task."
+msgstr ""
+
+#: models.py:40 models.py:71
+msgid "status"
+msgstr ""
+
+#: models.py:42
+msgid "people needed"
+msgstr ""
+
+#: models.py:42
+msgid "How many people are needed for this task?"
+msgstr ""
+
+#: models.py:46 models.py:72 models.py:82
+msgid "created"
+msgstr ""
+
+#: models.py:46
 msgid "When this task was created?"
 msgstr ""
 
-#: models.py:38 models.py:64
+#: models.py:47 models.py:73
 msgid "updated"
 msgstr ""
 
-#: models.py:40
+#: models.py:49
 msgid "tags"
 msgstr ""
 
-#: models.py:54 templates/tasks.hbs:385 templates/tasks.hbs.py:405
+#: models.py:63 templates/tasks.hbs:385 templates/tasks.hbs.py:405
 #: templates/tasks.hbs:491
 msgid "Applied"
 msgstr ""
 
-#: models.py:55
+#: models.py:64
 msgid "Accepted"
 msgstr ""
 
-#: models.py:56 templates/tasks.hbs:393 templates/tasks.hbs.py:413
+#: models.py:65 templates/tasks.hbs:393 templates/tasks.hbs.py:413
 msgid "Rejected"
 msgstr ""
 
-#: models.py:57
+#: models.py:66
 msgid "Stopped"
 msgstr ""
 
-#: models.py:72
+#: models.py:81
 msgid "file"
 msgstr ""
 
-#: models.py:74
+#: models.py:83
 msgid "Updated"
+msgstr ""
+
+#: templates/task_member_accepted.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"Woohoo, you’re the one! The project owner, %(sender_name)s, assigned the "
+"1%%Task <a href=\"%(site)s%(link)s\">%(task_title)s</a> to you! Good luck "
+"and please keep us updated about the progress!\n"
+"<br/><br/>\n"
+"Start right away? Leave a short first reaction!\n"
+"<br/><br/>\n"
+"<a href=\"%(site)s%(link)s\">Go to 1%%Task</a>.\n"
+"<br/>\n"
+"Good luck!<br/>\n"
+"<br/>\n"
+"1%%CLUB\n"
+msgstr ""
+
+#: templates/task_member_applied.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"%(sender_name)s applied for your task <a href=\"%(site)s%(link)s\">"
+"%(task_title)s</a>.<br />\n"
+"Be sure to follow this up a.s.a.p.! <br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Go to 1%%Task</a>.\n"
+"<br/>\n"
+"Good luck!<br/>\n"
+"<br/>\n"
+"1%%CLUB\n"
+msgstr ""
+
+#: templates/task_member_rejected.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"<br /><br />\n"
+"Unfortunately the project owner, %(sender_name)s, found someone else to "
+"perform the 1%%Task '%(task_title)s', which you applied for.\n"
+"No worries, we have some other really cool tasks that might be the perfect "
+"match for your skills.\n"
+"<br /><br />\n"
+"Take a look right here: %(site)s/#!/tasks\n"
+"<br /><br />\n"
+"Good luck!\n"
+"<br /><br />\n"
+"1%%CLUB\n"
 msgstr ""
 
 #: templates/tasks.hbs:81 templates/tasks.hbs.py:236
@@ -156,7 +233,7 @@ msgstr ""
 msgid "Near deadline"
 msgstr ""
 
-#: templates/tasks.hbs:145
+#: templates/tasks.hbs:146
 msgid "Showing"
 msgstr ""
 
@@ -181,7 +258,7 @@ msgid "Task detail"
 msgstr ""
 
 #: templates/tasks.hbs:316 templates/tasks.hbs.py:574 templates/tasks.hbs:729
-msgid "Expertise"
+msgid "Skill"
 msgstr ""
 
 #: templates/tasks.hbs:333 templates/tasks.hbs.py:546 templates/tasks.hbs:701

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-18 12:31+0200\n"
+"POT-Creation-Date: 2013-07-22 21:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "language"
 msgstr ""
 
-#: models.py:25
+#: models.py:25 models.py:52
 msgid "status"
 msgstr ""
 
@@ -65,21 +65,101 @@ msgstr ""
 msgid "publication end date"
 msgstr ""
 
-#: models.py:30
+#: models.py:30 models.py:54
 msgid "author"
 msgstr ""
 
-#: models.py:31
+#: models.py:31 models.py:59
 msgid "creation date"
 msgstr ""
 
-#: models.py:32
+#: models.py:32 models.py:60
 msgid "last modification"
 msgstr ""
 
-#: views.py:45
+#: models.py:48
+msgid "New"
+msgstr ""
+
+#: models.py:49
+msgid "In progress"
+msgstr ""
+
+#: models.py:50
+msgid "Closed"
+msgstr ""
+
+#: models.py:55 templates/pages.hbs:85
+msgid "Name"
+msgstr ""
+
+#: models.py:56 templates/pages.hbs:97
+msgid "Email"
+msgstr ""
+
+#: models.py:57 templates/pages.hbs:109
+msgid "Message"
+msgstr ""
+
+#: views.py:47
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: templates/pages.hbs:40
+msgid "Contact"
+msgstr ""
+
+#: templates/pages.hbs:45
+msgid ""
+"\n"
+"                    Send us a message or get in touch using the details "
+"below.<br/>\n"
+"                    Talk to you soon!\n"
+"                    "
+msgstr ""
+
+#: templates/pages.hbs:53
+msgid ""
+"\n"
+"                    Email:<a href=\"mailto:info@onepercentclub.com?"
+"subject=Contact\">info@onepercentclub.com</a><br />\n"
+"                     Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br /"
+">\n"
+"                    Facebook: <a href=\"http://www.facebook.com/"
+"onepercentclub\">/onepercentclub  </a>\n"
+"                    "
+msgstr ""
+
+#: templates/pages.hbs:60
+#, python-format
+msgid ""
+"\n"
+"                    1%%Club Foundation <br />\n"
+"                    's Gravenhekje 1a <br />\n"
+"                    1011 TG Amsterdam<br />\n"
+"                    The Netherlands\n"
+"                    "
+msgstr ""
+
+#: templates/pages.hbs:68
+msgid ""
+"\n"
+"                    Bank: Rabobank (Haarlem) <br />\n"
+"                    Account number: NL45 RABO 01322070 44(donations) <br /\n"
+"                    >BIC: RABONL2U<br />\n"
+"                     <br />\n"
+"                    Chamber of Commerce number 34.26.78.95  <br />\n"
+"                    Phone(+31) 20 715 8980\n"
+"                    "
+msgstr ""
+
+#: templates/pages.hbs:80
+msgid "Thanks for your message!. We'll get back to you soon."
+msgstr ""
+
+#: templates/pages.hbs:122
+msgid "Send"
 msgstr ""
 
 #: templates/admin/pages/change_form.html:7
