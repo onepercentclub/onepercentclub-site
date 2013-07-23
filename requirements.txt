@@ -79,7 +79,7 @@ django_countries==1.5
 requests==1.2.3
 #suds-jurko==0.4.1.jurko.4
 # Use a suds-jurko fork with python 2.6 support.
-# http://bitbucket.org/onepercentclub/suds/get/6a98691d1188.zip
+http://bitbucket.org/onepercentclub/suds/get/6a98691d1188.zip
 
 django-iban==0.2.1
 
