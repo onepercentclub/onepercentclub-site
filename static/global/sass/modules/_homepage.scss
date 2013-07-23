@@ -70,7 +70,6 @@
 
             article {
                 @include grid(32, 0, 5);
-
                 line-height: 1.5;
 
                 h4 {
@@ -170,8 +169,8 @@
     text-align: center;
     cursor: pointer;
 
-    i {
-        @include rem(font-size, 26px);
+    em {
+        @include rem(font-size, 40px);
         line-height: 41px;
     }
 
@@ -183,6 +182,17 @@
     &.next {
         right: 0;
         left: auto;
+        
+        em {
+	        padding-right: 4px;
+        }
+    }
+    
+    &.prev {
+    
+        em {
+	        padding-left: 4px;
+        }
     }
 }
 

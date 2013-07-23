@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-18 12:31+0200\n"
+"POT-Creation-Date: 2013-07-23 11:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,84 +21,84 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: mails.py:32 models.py:143
+#: mails.py:34
 #, python-format
 msgid "%(author)s has left a message on your project page."
 msgstr ""
 
-#: mails.py:50 models.py:162
+#: mails.py:53
 #, python-format
 msgid "%(author)s has left a message on your task page."
 msgstr ""
 
-#: models.py:37 models.py:77 models.py:95
+#: mails.py:85
+#, python-format
+msgid "%(author)s commented on your wallpost."
+msgstr ""
+
+#: models.py:27 models.py:67 models.py:85
 msgid "author"
 msgstr ""
 
-#: models.py:38 models.py:78 models.py:96
+#: models.py:28 models.py:68 models.py:86
 msgid "editor"
 msgstr ""
 
-#: models.py:38
+#: models.py:28
 msgid "The last user to edit this wallpost."
 msgstr ""
 
-#: models.py:41 models.py:103
+#: models.py:31 models.py:93
 msgid "created"
 msgstr ""
 
-#: models.py:42 models.py:104
+#: models.py:32 models.py:94
 msgid "updated"
 msgstr ""
 
-#: models.py:43 models.py:75 models.py:105
+#: models.py:33 models.py:65 models.py:95
 msgid "deleted"
 msgstr ""
 
-#: models.py:44 models.py:76 models.py:106
+#: models.py:34 models.py:66 models.py:96
 msgid "IP address"
 msgstr ""
 
-#: models.py:47
+#: models.py:37
 msgid "content type"
 msgstr ""
 
-#: models.py:48
+#: models.py:38
 msgid "object ID"
 msgstr ""
 
-#: models.py:78
+#: models.py:68
 msgid "The last user to edit this wallpost photo."
 msgstr ""
 
-#: models.py:96
+#: models.py:86
 msgid "The last user to edit this reaction."
 msgstr ""
 
-#: models.py:99
+#: models.py:89
 msgid "reaction text"
 msgstr ""
 
-#: models.py:114
+#: models.py:104
 msgid "Reaction"
 msgstr ""
 
-#: models.py:115
+#: models.py:105
 msgid "Reactions"
-msgstr ""
-
-#: models.py:195
-#, python-format
-msgid "%(author)s commented on your wallpost."
 msgstr ""
 
 #: templates/project_wallpost_new.mail.html:5
 #, python-format
 msgid ""
 "\n"
-"Hello %(receiver.first_name)s,<br/>\n"
+"Hello %(receiver_name)s,<br/>\n"
 "<br/>\n"
-"%(author.first_name)s has left a message on your project page.<br/>\n"
+"%(author_name)s has left a message on your project page.<br/>\n"
 "<br/>\n"
 "You must be curious what! Don't wait any longer and check it out <a href="
 "\"%(site)s%(link)s\">here on our website</a>.\n"
@@ -108,14 +108,30 @@ msgid ""
 "Liane | 1%%CLUB\n"
 msgstr ""
 
+#: templates/project_wallpost_new.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"%(author_name)s has left a message on your project page.\n"
+"\n"
+"You must be curious what! Don't wait any longer and check it out here:\n"
+"\n"
+"%(site)s%(link)s\n"
+"\n"
+"See you in a bit!\n"
+"\n"
+"Liane | 1%%CLUB\n"
+msgstr ""
+
 #: templates/project_wallpost_reaction_new.mail.html:5
 #, python-format
 msgid ""
 "\n"
-"Hello %(receiver.first_name)s,<br/>\n"
+"Hello %(receiver_name)s,<br/>\n"
 "<br/>\n"
-"Yes, yes, yes! <b>%(author.first_name)s</b> commented on your wallpost.<br/"
-">\n"
+"Yes, yes, yes! <b>%(author_name)s</b> commented on your wallpost.<br/>\n"
 "<br/>\n"
 "<a href=\"%(site)s%(link)s\">Go to our website</a> and read the reaction.<br/"
 ">\n"
@@ -123,6 +139,24 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%CLUB\n"
+msgstr ""
+
+#: templates/project_wallpost_reaction_new.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"Yes, yes, yes! %(author_name)s commented on your wallpost.\n"
+"\n"
+"Click the link below to got to our website:\n"
+"\n"
+"%(site)s%(link)s\n"
+"\n"
+"See you in a bit!\n"
+"\n"
+"Liane | 1%%CLUB\n"
+"\n"
 msgstr ""
 
 #: templates/reactions.hbs:26 templates/wallposts.hbs:190
@@ -154,15 +188,32 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"Hello %(receiver.first_name)s,<br/>\n"
+"Hello %(receiver_name)s,<br/>\n"
 "<br/>\n"
-"%(author.first_name)s has left a message on your task page.<br/>\n"
+"%(author_name)s has left a message on your task page.<br/>\n"
 "<br/>\n"
 "You must be curious what! Don't wait any longer and check it <a href="
 "\"%(site)s%(link)s\">here on our website</a>.<br/>\n"
 "<br/>\n"
 "See you in a bit!<br/>\n"
 "<br/>\n"
+"Liane | 1%%CLUB\n"
+msgstr ""
+
+#: templates/task_wallpost_new.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"%(author_name)s has left a message on your task page.\n"
+"\n"
+"You must be curious what! Don't wait any longer and check it out here:\n"
+"\n"
+"%(site)s%(link)s\n"
+"\n"
+"See you in a bit!\n"
+"\n"
 "Liane | 1%%CLUB\n"
 msgstr ""
 

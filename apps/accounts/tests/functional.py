@@ -309,7 +309,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.browser.find_by_css('.modal .modal-footer button').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_text_present('YOU DID IT!'))
+        self.assertTrue(self.browser.is_text_present('You did it!'))
 
         # Reload and validate user password in the database.
         user = BlueBottleUser.objects.get(pk=user.pk)

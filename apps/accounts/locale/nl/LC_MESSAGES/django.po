@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-07-17 16:35+0200\n"
-"PO-Revision-Date: 2013-07-17 20:50+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-07-23 10:18+0200\n"
+"PO-Revision-Date: 2013-07-23 08:50+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -458,9 +458,8 @@ msgid "loading settings"
 msgstr "laadt settings"
 
 #: templates/users.hbs:441
-#, python-format
-msgid "Join 1%%Club"
-msgstr "Doe mee met 1%%Club"
+msgid "Join 1%Club"
+msgstr ""
 
 #: templates/users.hbs:444
 #, python-format
@@ -492,14 +491,12 @@ msgid "Sign up"
 msgstr "Registreer"
 
 #: templates/users.hbs:509
-#, python-format
-msgid "By joining the 1%%Club I a hereby agree to the "
-msgstr "Door mee te doen met 1%%Club ga ik akkoord met de"
+msgid "By joining the 1%Club I a hereby agree to the "
+msgstr ""
 
 #: templates/users.hbs:510
-#, python-format
-msgid "1%%Club Terms of service"
-msgstr "Algemene Voorwaarden van 1%%Club"
+msgid "1%Club Terms of service"
+msgstr ""
 
 #: templates/users.hbs:524
 msgid "ALREADY HAVE AN ACCOUNT?"
@@ -510,9 +507,8 @@ msgid "Log in here"
 msgstr "Log hier in"
 
 #: templates/users.hbs:536
-#, python-format
-msgid "Why join 1%%Club?"
-msgstr "Waarom meedoen met 1%%Club?"
+msgid "Why join 1%Club?"
+msgstr "Waarom meedoen met 1%Club?"
 
 #: templates/users.hbs:541
 msgid "It's easy to find projects you like."
@@ -536,9 +532,8 @@ msgid "About"
 msgstr "Over"
 
 #: templates/users.hbs:566
-#, python-format
-msgid "Joined 1%%Club because"
-msgstr "Doet mee met 1%%Club omdat"
+msgid "Joined 1%Club because"
+msgstr ""
 
 #: templates/users.hbs:603
 msgid "Forgot your password?"

@@ -7,7 +7,7 @@ SETTINGS=""
 if [ $2 ]; then
     SETTINGS="--settings=$2"
 fi
-MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs -e html $SETTINGS"
+MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs,html,txt $SETTINGS"
 COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
 APPS_DIR="apps"
 EXCLUDED_APPS=""
@@ -67,6 +67,8 @@ case "$1" in
             for APP_DIR in $APPS; do
                 echo "Compiling PO-file for $APP_DIR"
                 (cd $APP_DIR && $COMPILEMESSAGES)
+
+
             done
 
             echo "Generating PO-file for templates"

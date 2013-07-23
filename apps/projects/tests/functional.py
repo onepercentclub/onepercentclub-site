@@ -47,7 +47,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the Projects page and click it.
-        self.browser.find_link_by_text('1%PROJECTS').first.click()
+        self.browser.find_link_by_text('1%Projects').first.click()
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),
