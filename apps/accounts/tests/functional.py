@@ -92,7 +92,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertIn(user.email, activation_mail.to)
 
         # Extract activation link and change domain for the test.
-        activation_link = re.findall('href="([a-z\:\.\/\#]+\/activate\/[^"]+)', activation_mail.body)[0]
+        activation_link = re.findall('href="([a-z\:\.\/\#\!]+\/activate\/[^"]+)', activation_mail.body)[0]
 
         # Hack for Travis. In Travis activation links contains secure protocol.
         # TODO: See if we should change activation link generation.
