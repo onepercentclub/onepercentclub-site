@@ -97,6 +97,7 @@ App.PageView = Ember.View.extend(App.GoTo, {
         // Don't show title for styled pages
         if (this.get('controller.id') == 'about')return false;
         if (this.get('controller.id') == 'get-involved')return false;
+        if (this.get('controller.id') == 'business')return false;
         return true;
     }.property('controller.id'),
 
@@ -116,17 +117,17 @@ App.PageView = Ember.View.extend(App.GoTo, {
     },
 
     bindEvents: function() {
-        var $businessProducts = this.$('#businessProducts');
-        $businessProducts.on('mouseenter', '.item', $.proxy(this.popover, this));
-        $businessProducts.on('mouseleave', '.item', $.proxy(this.popout, this));
+        //var $businessProducts = this.$('#businessProducts');
+        //$businessProducts.on('mousedown', '.item', $.proxy(this.popover, this));
+        //$businessProducts.on('mousedown', 'body', $.proxy(this.popout, this));
 
         $(window).on('resize', $.proxy(this.renderSections, this));
     },
 
     unbindEvents: function() {
-        var $businessProducts = this.$('#businessProducts');
-        $businessProducts.off('mouseenter', '.item', $.proxy(this.popover, this));
-        $businessProducts.off('mouseleave', '.item', $.proxy(this.popout, this));
+        //var $businessProducts = this.$('#businessProducts');
+        //$businessProducts.off('mousedown', '.item', $.proxy(this.popover, this));
+        //$businessProducts.off('mousedown', 'body', $.proxy(this.popout, this));
 
         $(window).off('resize', $.proxy(this.renderSections, this));
     },

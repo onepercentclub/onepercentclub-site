@@ -22,11 +22,11 @@
     @include prepend(1);
     @include grid(7,1,0);
     height: 40px;
-    @include rem(margin-top, 8px);
+    @include rem(margin-top, 10px);
     background: image-url("1procentclub.png") transparent no-repeat 0 0;
     
     &:hover {
-		background-position: 0 -53px;
+		background-position: 0 -38px;
     }
     
     h1, #subtitle {

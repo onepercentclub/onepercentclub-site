@@ -5,45 +5,39 @@
 
 {% tplhandlebars "home_banner" %}
 
-    <div class="container banner">
-        <div class="wrapper">
-            <section>
-                <div id="bannerCarousel">
-                    <ul>
-                        {{#each slides }}
-                            <li>
-                                <article>
-                                    <h4>{{ title }}</h4>
-                                    <p>{{{ body }}}</p>
-
-                                    {{#if link_text }}
-                                        <a class="btn btn-primary" {{bindAttr href="link_url" }} target="_blank">{{link_text}}</a>
-                                    {{/if}}
-                                </article>
-
-                                {{#if image}}
-                                    <aside>
-                                        <img {{bindAttr src="image"}} width="100%" alt="Photo" />
-                                    </aside>
-                                {{/if}}
-                            </li>
-                        {{/each }}
-                    </ul>
-
-                    <div class="banner-indicators">
-                        <div class="container">
-                            <div class="wrapper">
-                                <ol class="dots">
-                                    {{#each slides}}
-                                        <li {{bindAttr class=":dot isFirst:active" }}>{{ tab_text }}</li>
-                                    {{/each }}
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+	<div class="banner">
+		<div id="bannerCarousel">
+			<ul>
+			{{#each slides }}
+		        <li>
+		        	<div class="container" {{bindAttr id=style}}>
+		        		<div class="wrapper">
+					        <article>
+					            <h4>{{ title }}</h4>
+					            <p>{{{ body }}}</p>
+					
+					            {{#if link_text }}
+					                <a class="btn btn-primary" {{bindAttr href="link_url" }}>{{link_text}}</a>
+					            {{/if}}
+					        </article>
+		        		</div>
+		        	</div>
+		        </li>
+		    {{/each }}
+			</ul>
+			
+		    <div class="banner-indicators">
+		        <div class="container">
+		            <div class="wrapper">
+		                <ol class="dots">
+		                    {{#each slides}}
+		                        <li {{bindAttr class=":dot isFirst:active" }}>{{ tab_text }}</li>
+		                    {{/each }}
+		                </ol>
+		            </div>
+		        </div>
+		    </div>
+		</div>
     </div>
 
 {% endtplhandlebars %}
@@ -59,8 +53,8 @@
                 <p class="section-subheader">{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
 
                 <div class="projects">
-                    <span {{action previousProject}} class="projects-nav prev"><em class="flaticon solid left-2"></em></span>
-                    <span {{action nextProject}} class="projects-nav next"><em class="flaticon solid right-2"></em></span>
+                    <span {{action previousProject}} class="projects-nav prev"></span>
+                    <span {{action nextProject}} class="projects-nav next"></span>
 
                     <div class="project">
                         <aside>
@@ -146,17 +140,17 @@
                 </div>
 
                 <a class="btn btn-primary btn-iconed">
-                    <em class="icon icon-money"></em>
+                    <em class="flaticon">&euro;</em>
                     {% trans "Find projects" %}
                 </a>
 
-                <a class="btn btn-primary btn-iconed disabled">
-                    <em class="icon icon-money"></em>
+                <a class="btn btn-primary btn-iconed">
+                    <em class="flaticon solid wrench-1"></em>
                     {% trans "Find tasks" %}
                 </a>
 
-                <a class="btn btn-primary btn-iconed disabled">
-                    <em class="icon icon-heart"></em>
+                <a class="btn btn-primary btn-iconed">
+                    <em class="flaticon solid heart-1"></em>
                     {% trans "Befriend us" %}
                 </a>
             </section>
@@ -176,31 +170,31 @@
 
                 <ul class="impact">
                     <li>
-                        <i class="icon-group"></i>
+                        <i class="flaticon solid group-2"></i>
                         <em>{{ impact.lives_changed }}</em>
                         {% trans "Lives changed" %}
                     </li>
 
                     <li>
-                        <i class="icon-heart"></i>
+                        <i class="flaticon solid heart-1"></i>
                         <em>{{ impact.projects }}</em>
                         {% trans "Projects" %}
                     </li>
 
                     <li>
-                        <i class="icon-globe"></i>
+                        <i class="flaticon solid earth-1"></i>
                         <em>{{ impact.countries }}</em>
                         {% trans "Countries" %}
                     </li>
 
                     <li>
-                        <i class="icon-time"></i>
+                        <i class="flaticon solid clock-1"></i>
                         <em>{{ impact.hours_spent }}</em>
                         {% trans "Hours spent" %}
                     </li>
 
                     <li>
-                        <i class="icon-money"></i>
+                        <i class="flaticon">&euro;</i>
                         <em>{{ impact.donated }}</em>
                         {% trans "Donated" %}
                     </li>

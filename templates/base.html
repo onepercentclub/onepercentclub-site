@@ -168,9 +168,7 @@
                                     {{/if}}
                                 {{else}}
                                     <li class="nav-member-actions">
-                                        {{#linkTo "signup" class="nav-signup"}}
-                                            {% trans "Sign up" %}
-                                        {{/linkTo}}
+                                        {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
                                         or
                                         <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a>
                                     </li>
