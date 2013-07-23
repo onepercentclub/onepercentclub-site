@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-07-22 21:51+0200\n"
-"PO-Revision-Date: 2013-07-22 19:53+0000\n"
+"POT-Creation-Date: 2013-07-23 10:18+0200\n"
+"PO-Revision-Date: 2013-07-23 08:36+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/bluebottle/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -55,11 +55,13 @@ msgid "What is 1%%"
 msgstr ""
 
 #: base.html:124
-msgid "1\\u0025PROJECTS"
+#, python-format
+msgid "1%%PROJECTS"
 msgstr ""
 
 #: base.html:125
-msgid "1&perc;SKILLS"
+#, python-format
+msgid "1%%SKILLS"
 msgstr ""
 
 #: base.html:126 base.html.py:294

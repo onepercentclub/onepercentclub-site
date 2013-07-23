@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-07-22 21:51+0200\n"
-"PO-Revision-Date: 2013-07-22 19:54+0000\n"
+"POT-Creation-Date: 2013-07-23 10:18+0200\n"
+"PO-Revision-Date: 2013-07-23 08:40+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -56,13 +56,13 @@ msgstr "Als je hulp nodig hebt kun je naar deze fout verwijzen als <strong>%(err
 msgid "What is 1%"
 msgstr "Wat is 1%"
 
-#: base.html:124
-msgid "1%PROJECTS"
-msgstr "1%PROJECTEN"
+#: base.html:124 base.html:289
+msgid "1%Projects"
+msgstr "1%Projecten"
 
 #: base.html:125
-msgid "1%%SKILLS"
-msgstr "1%DOEN"
+msgid "1%Skills"
+msgstr "1%Doen"
 
 #: base.html:126 base.html.py:294
 msgid "Get involved"
@@ -125,28 +125,20 @@ msgid "I forgot my password"
 msgstr "Ik ben m'n wachtwoord vergeten"
 
 #: base.html:279
-#, python-format
-msgid "It all starts with 1%%"
-msgstr "Het start met 1%%"
+msgid "It all starts with 1%"
+msgstr "Het start met 1%"
 
 #: base.html:283
-#, python-format
-msgid "What is 1%%CLUB?"
-msgstr "Wat is 1%%Club?"
-
-#: base.html:289
-#, python-format
-msgid "1%%Projects"
-msgstr ""
+msgid "What is 1%CLUB?"
+msgstr "Wat is 1%Club?"
 
 #: base.html:299
 msgid "Start your project"
 msgstr "Start jouw project"
 
 #: base.html:306
-#, python-format
-msgid "About 1%%CLUB"
-msgstr "Over 1%%Club"
+msgid "About 1%CLUB"
+msgstr "Over 1%Club"
 
 #: base.html:310
 msgid "Our story"
@@ -174,9 +166,8 @@ msgid "Contact"
 msgstr "Contact"
 
 #: base.html:342
-#, python-format
-msgid "Discover 1%%More"
-msgstr "Ontdek 1%%Meer"
+msgid "Discover 1%More"
+msgstr "Ontdek 1%Meer"
 
 #: base.html:344
 #, python-format

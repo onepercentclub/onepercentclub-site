@@ -404,15 +404,13 @@ msgid "Needs some cash to get started (up to €5000)"
 msgstr ""
 
 #: templates/manage.hbs:110
-#, python-format
-msgid "...your idea fits right in with 1%%Club!"
+msgid "...your idea fits right in with 1%Club!"
 msgstr ""
 
 #: templates/manage.hbs:113
-#, python-format
 msgid ""
 "\n"
-"1%%Club offers you tools to engage your crowd to turn your smart idea in to reality.<br />\n"
+"1%Club offers you tools to engage your crowd to turn your smart idea in to reality.<br />\n"
 "Are you ready to invest time and effort in succeeding? Double check our FAQ and pitch your smart idea here!\n"
 msgstr ""
 
@@ -451,8 +449,7 @@ msgid "to pitch your plan."
 msgstr ""
 
 #: templates/manage.hbs:182
-#, python-format
-msgid "My 1%%"
+msgid "My 1%"
 msgstr ""
 
 #: templates/manage.hbs:206 templates/manage.hbs.py:215
@@ -570,11 +567,10 @@ msgid "Woohoo, your pitch was accepted!"
 msgstr ""
 
 #: templates/manage.hbs:413
-#, python-format
 msgid ""
 "To complete your project plan, please fill in the empty spaces. Are there "
 "still some gaps? Don’t worry! We have a community full of people that are "
-"willing to help you.  The only thing you need to do is create a 1%%Skills "
+"willing to help you.  The only thing you need to do is create a 1%Skills "
 "task ask for the right expertise."
 msgstr ""
 
@@ -707,9 +703,8 @@ msgid "Upload a photo"
 msgstr ""
 
 #: templates/manage.hbs:650
-#, python-format
 msgid ""
-"This photo will represent your idea on 1%%Club. So make sure it's personal, "
+"This photo will represent your idea on 1%Club. So make sure it's personal, "
 "unique and recognisable for your smart idea and that it looks nice too!"
 msgstr ""
 
@@ -897,11 +892,10 @@ msgid "Upload scan(s)"
 msgstr ""
 
 #: templates/manage.hbs:946
-#, python-format
 msgid ""
 "\n"
 "An ambassador is somebody who can tell something about your smart idea or about you as a person or your organisation. Ambassadors will make your story more credible and will add that little something extra. You probably have lots of people in your network who can act as ambassador, but be sure it is not your mom and the person meets our criteria (see FAQ).<br /><br />\n"
-"Do you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%%Profile and post a short comment on your project page to promote your smart idea.<br /><br />\n"
+"Do you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%Profile and post a short comment on your project page to promote your smart idea.<br /><br />\n"
 "You've to have at least 3 ambassadors. (more? great!)<br /><br />\n"
 "            "
 msgstr ""
@@ -1015,10 +1009,9 @@ msgid "Crowndfunding Campaign"
 msgstr ""
 
 #: templates/manage.hbs:1141
-#, python-format
 msgid ""
 "\n"
-"Sometimes people are lucky and support for their project directly comes in from all corners of the world. However, for the other 99%% it starts with their own network and their networks’ network. This basically means you have to tell your network about your project on 1%%Club. Once, twice, maybe even three times. Per e-mail, on Facebook, on Twitter, face-to-face, by phone, by poster or in a video message. Whatever you need to do to get them on board! Our advice would be to have some people on board to help you do this.<br/><br/>\n"
+"Sometimes people are lucky and support for their project directly comes in from all corners of the world. However, for the other 99% it starts with their own network and their networks’ network. This basically means you have to tell your network about your project on 1%%Club. Once, twice, maybe even three times. Per e-mail, on Facebook, on Twitter, face-to-face, by phone, by poster or in a video message. Whatever you need to do to get them on board! Our advice would be to have some people on board to help you do this.<br/><br/>\n"
 "Do realize that you have to put in work to make it work. And remember, hard work tends to pays off. You have 6 months for this campaign so use it wisely. If you don’t succeed the money will go back to the people who gave it and they will choose another project.<br/><br/>\n"
 "Need more tips and tricks? Read our FAQ.<br/><br/>\n"
 "            "

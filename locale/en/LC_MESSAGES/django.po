@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 21:51+0200\n"
+"POT-Creation-Date: 2013-07-23 11:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,16 +49,15 @@ msgid ""
 msgstr ""
 
 #: base.html:123
-#, python-format
-msgid "What is 1%%"
+msgid "What is 1%"
 msgstr ""
 
-#: base.html:124
-msgid "1\\u0025PROJECTS"
+#: base.html:124 base.html.py:289
+msgid "1%Projects"
 msgstr ""
 
 #: base.html:125
-msgid "1&perc;SKILLS"
+msgid "1%Skills"
 msgstr ""
 
 #: base.html:126 base.html.py:294
@@ -130,11 +129,6 @@ msgstr ""
 #: base.html:283
 #, python-format
 msgid "What is 1%%CLUB?"
-msgstr ""
-
-#: base.html:289
-#, python-format
-msgid "1%%Projects"
 msgstr ""
 
 #: base.html:299
@@ -362,4 +356,9 @@ msgstr ""
 
 #: registration/password_reset_email.html:41
 msgid "in a minute!"
+msgstr ""
+
+#: registration/password_reset_subject.txt:2
+#, python-format
+msgid "Password reset on %(site_name)s"
 msgstr ""
