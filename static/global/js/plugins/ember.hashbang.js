@@ -19,7 +19,7 @@
 
             Ember.$(window).bind('hashchange.ember-location-'+guid, function() {
             Ember.run(function() {
-                var path = location.hash.substr(2);
+                var path = location.hash.substr(1);
                 if (get(self, 'lastSetURL') === path) { return; }
 
                 set(self, 'lastSetURL', null);

@@ -104,7 +104,7 @@ App.PageView = Ember.View.extend(App.GoTo, {
 
     setup: function() {
         Ember.run.scheduleOnce('afterRender', this, function() {
-            if (!Em.none(this.$())) {
+            if (!Em.isNone(this.$())) {
                 this.renderSections();
                 this.bindEvents();
             }

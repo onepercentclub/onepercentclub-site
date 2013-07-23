@@ -2,55 +2,35 @@
 
 #navigation {
     background-color: $black;
-    /*    position: fixed;
-        opacity:  0.8;
-        margin-bottom: 100px;
-        z-index: 9999;*/
+		
+	/* fixed navigation
+		position: fixed;
+    opacity:  0.8;
+    margin-bottom: 100px;
+    z-index: 9999;
+	
+	*/
 }
 
-#title, .nav-title {
-    // only needed for document-structure
-    display: none;
+.nav-title {
+    display: none; // only needed for document-structure
 }
 
 #logo {
-    @include grid(6, 1, 0);
-    white-space: nowrap;
-    @include rem(margin-top, 10px);
-    text-align: left;
-
-    img {
-        background: $white;
+    display: block;
+    float: left;
+    @include prepend(1);
+    @include grid(7,1,0);
+    height: 40px;
+    @include rem(margin-top, 8px);
+    background: image-url("1procentclub.png") transparent no-repeat 0 0;
+    
+    &:hover {
+		background-position: 0 -53px;
     }
-
-    #subtitle {
-        position: absolute;
-        @include rem(font-size, 10px);
-        display: inline-block !important;
-        font-weight: normal;
-        text-transform: uppercase;
-        color: $green;
-        position: relative;
-        margin: 0;
-        padding: 0;
-        top:  -3px;
-        left: 4px;
-
-        em {
-            font-style: normal;
-            color: $pink;
-        }
-    }
-
-    :hover {
-
-        img {
-            background: $green;
-        }
-
-        #subtitle, #subtitle em {
-            color: $white !important;
-        }
+    
+    h1, #subtitle {
+	    display: none;
     }
 }
 
@@ -59,7 +39,7 @@
     @include rem(font-size, 16px);
 
     ul {
-        margin: 0;
+    	margin: 0;
         padding: 0;
         list-style: none;
 
@@ -69,179 +49,266 @@
     }
 }
 
-// extendible element
-.nav-item {
-    color: $color-deselect;
-    text-transform: uppercase;
-    border-right: 1px solid $black;
-    display: block;
-    float: left;
-    text-align: center;
-    text-decoration: none;
-    @include rem(padding, 28px 12px 10px 12px);
-    overflow: hidden;
-
-    &:hover, &:active, &.is-active {
-        color: $white;
-    }
-}
-
 .nav-main {
-    @include grid(26);
+    @include grid(25);
     position: relative;
-    @include rem(font-size, 16px);
-
+    @include rem(font-size, 13px);
+    
     li a, li a:visited {
-        @extend .nav-item;
-        @include rem(padding, 0 12px);
+    	
+		@include rem(padding, 24px 16px 18px 16px);
         white-space: nowrap;
-        line-height: 60px;
-    }
-}
-
-.nav-member-my1percent {
-    position: relative;
-
-    &:hover .my-menu {
-        display: block;
-        z-index: 999;
+        
+        color: $color-deselect;
+	    text-transform: uppercase;
+	    display: block;
+	    float: left;
+	    text-align: center;
+	    text-decoration: none;
+	    overflow: hidden;
+	
+	    &:hover, &:active, &.is-active {
+	        color: $white;
+	    }
+        
+        
     }
 }
 
 .nav-member {
-    @include rem(margin-top, 15px);
-    @include grid(16, 0, 1);
-    @include rem(font-size, 12px);
-
+    @include rem(margin-top, 17px);
+    @include grid(16, 1, 1);
     color: $white;
-    text-align: center;
-
-    img {
-        width:  30px;
-        height:  30px;
-        float: left;
-        vertical-align: top;
-    }
-
-    a {
-        color: $white;
-        text-transform: uppercase;
-        white-space: nowrap;
-        border-right: 1px solid $black;
-        display: inline-block;
-        float: left;
-        background: $green;
-        width: 100%;
-        height: 30px;
-        line-height: 30px;
-        
-        &:hover, &:active, &.is-selected {
-            color: $black;
-        }
-    }
-
-    .nav-my1percent {
-        @include grid(28, 10, 0);
-        padding: 0;
-
-        img {
-            border-right: 1px solid $black;
-        }
-
-        strong {
-            display: inline-block;
-        }
-    }
-
-    .nav-notifications {
-        width: 65%;
+	text-transform: uppercase;
+			
+	.nav-member-actions {
+		display: inline-block;
+		
+		width: 70%;
+		text-align: left;
+		color: $color-deselect;
+		font-weight: normal;
+		white-space: nowrap;
+		
+		@include rem(margin-top, 5px);
+		
+		@include rem(font-size, 10px);
+			
+		a {
+			font-weight: 600;
+			@include rem(margin, 0 6px);
+			@include rem(font-size, 13px);
+			text-decoration: underline;
+			
+			&:hover, &:active, &.is-active {
+            	color: $white;
+			}
+			
+		}
+		
+		.nav-signup {
+			color: $pink;
+		}
+		
+		.nav-login {
+			color: $green;
+		}
+		
+	}
+	
+    .nav-switch-lang {
+    	display: inline-block;
+    
         font-weight: normal;
+		white-space: nowrap;
+		@include rem(font-size, 10px);
+		
+		@include rem(margin-top, 5px);
         
-        &:hover, &:active {
-
-            .nav-notifications-nr {
-                background-color: $black;
-                color: $white !important;
+        li {
+        	
+        	display: inline;
+        	@include rem(padding, 0 6px);
+        	border-right: 1px solid $color-deselect;
+	        
+	        &:last-child {
+            	border: none;
             }
+            
+            a {
+	            cursor: pointer;
+	            color: $color-deselect;
+	
+				&:hover, &:active, &.is-active {
+                	color: $white;
+				}
+			}
+        }
+
+        
+    }
+	
+	
+    .nav-member-my1percent {
+    	display: block;
+    	float: left;
+    	width: 50%;
+    	margin: 0;
+        padding: 0;
+		@include rem(font-size, 13px);
+		position: relative;
+		
+		.nav-my1percent {
+			display: block;
+			color: $white;
+			background: $green;
+			height: 30px;
+			
+			
+	        img {
+	        	width: 31px;
+				height: 31px;
+				float: left;
+				vertical-align: top;
+	            border-width: 0 1px 1px 0;
+	            border-style: solid;
+	            border-color: $black;
+	        }
+	
+	        strong {
+				font-weight: 600;
+	        	display: inline-block;
+				@include rem(padding, 7px, 22px);
+	        }
+		}
+
+        &:hover {
+        
+		    .my-menu {
+		        display: block !important;
+		        z-index: 1;
+		    }
+
+        	.nav-my1percent {
+	        	background-color: $white !important;
+	        	color: $grayDarker;
+				height: 36px;
+				
+				position: relative;
+				left: -2px;
+				top: -2px;
+				z-index: 2;
+				
+				border-width: 2px 2px 0 2px;
+				border-style: solid;
+				border-color: $green;
+				
+				.flaticon {
+					color: $green;
+				}
+			}
         }
     }
-
-    .nav-cart {
-        @include grid(20);
-        background: $pink;
-    }
-
-    .nav-cart-count {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        line-height: 22px;
-        background:  $white;
-        color: $grayDarker;
-        @include border-radius(10px);
-    }
-
-    .nav-notifications-nr {
-        color: $black;
-        background: $white;
-        line-height: 1em;
-        @include rem(font-size, 12px);
-        @include rem(margin-right, 8px);
-        @include rem(padding, 3px);
-        @include rem(border-radius, 8px);
-    }
-
-    .nav-login, .nav-signup {
-        width: 35%;
-
-        &:hover, &:active, &.is-active {
-            color: $green;
-            background-color: $white;
-        }
-    }
-    .nav-logout {
-        width: 100%;
-        color: $white;
-        background-color: $green;
-    }
-
-    .nav-signup {
-        background-color: $pink;
-    }
-
+    
     .my-menu {
+        top: 32px;
+        left: -2px;
+        
+        z-index: 9;
         display: none;
         position: absolute;
-        width: 200px;
-        background-color: $black;
-        top: 30px;
-        left: 2px;
-        .nav-language {
-            width: 100%;
-            float: none;
+        
+        width: 250px;
+        background-color: $white;
+        
+        border-width: 2px 2px 1px 2px;
+        border-style: solid;
+        border-color: $green;
+        
+        li {
+	        
+	        a {
+		        display: block;
+		        @include rem(padding, 8px, 22px);
+		        border-bottom: 1px solid $green;
+		        color: $grayDarker;
+		        
+		        &:hover {
+			        color: $green !important;
+		        }
+	        }
+	        
         }
+        
+        .nav-my-language {
+	    	
+	    	color: $white;
+	    	font-weight: normal;
+	    	background: $green;
+	    	@include rem(padding, 8px, 22px);
+	    	
+	    	.nav-language {	    		
+	    		display: inline;
+	    		
+	    		ul, li {
+		    		display: inline;
+	    		}
+	    		
+	    		li a {
+	    			width: auto;
+		    		display: inline-block;
+		    		float: none;
+		    		@include rem(font-size, 10px);
+		    		font-weight: 600;
+		    		@include rem(padding, 4px 16px 2px 16px);
+		    		background: $white;
+		    		@include border-radius(8px);
+		    		@include rem(margin, 0 2px);
+		    		
+	    		}
+    		}
+			
+		}       
+       
     }
-
-    .nav-language {
-        width: 25%;
-        float: left;
-        @include rem(font-size, 12px);
-
+	
+    .nav-cart {
+    	
+    	display: block;
+    	float: right;
+    	@include rem(font-size, 13px);
+        font-weight: normal;
+        
+        .nav-cart-count {
+        	@include rem(font-size, 11px);
+	        font-weight: 600;
+	        display: inline-block;
+	        width: 20px;
+	        height: 20px;
+	        line-height: 22px;
+	        background: $white;
+	        color: $grayDarker;
+	        text-align: center;
+	        @include border-radius(10px);
+		}
+        
         a {
-            width: 50%;
-            cursor: pointer;
-            text-align: center;
-            background-color: transparent;
-            color: $color-deselect;
-
-            &#en {
-                border-right: 1px solid $color-deselect;
-            }
-
-            &:hover, &:active, &.is-active {
-                color: $white;
-            }
+        	display: inline-block;
+	    	color: $white;
+			@include rem(padding, 6px 0);
+			//text-decoration: underline;
+        
+			&:hover, &:active {
+				color: $pink;
+				
+				.nav-cart-count {
+					color: $white;
+					background: $pink;
+				}
+			}
         }
-
+        
+        
     }
+
 }

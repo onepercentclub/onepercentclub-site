@@ -452,7 +452,6 @@ App.SlugRouter = Em.Mixin.create({
     }
 });
 
-
 App.Router.reopen({
     location: 'hashbang'
 });
