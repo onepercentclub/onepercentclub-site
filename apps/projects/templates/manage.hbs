@@ -188,11 +188,11 @@ Are you ready to invest time and effort in succeeding? Double check our FAQ and 
                 </h1>
             </div>
             <sidebar>
-                {{#unless isPhasePitch}}
+                {{#if isPublic}}
                     <a {{action "showProject" id href=true}} class="button-link">
                         <em class="icon-eye-open"></em> View public Project Page
                     </a>
-                {{/unless}}
+                {{/if}}
             </sidebar>
         </div>
         <div class="wrapper">
