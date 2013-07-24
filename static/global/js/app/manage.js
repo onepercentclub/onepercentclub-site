@@ -157,7 +157,6 @@ App.MyProjectPitch = DS.Model.extend({
         return false;
     }.property('image'),
 
-
     // Submitting
     status: DS.attr('string'),
     agreed: DS.attr('boolean'),
@@ -397,11 +396,12 @@ App.MyProjectPitchController = Em.ObjectController.extend(App.Editable, {
 App.MyProjectPitchBasicsController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
-    imageSelected: false,
 
-    addFile: function(file) {
-        this.set('image', file);
+    save: function(record) {
+        this._super();
+        this.get('model').reload();
     }
+
 });
 
 App.MyProjectPitchSubmitController = Em.ObjectController.extend(App.Editable, {

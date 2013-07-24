@@ -32,21 +32,31 @@ label {
 // -------------------------
 
 form, .form {
+	
     fieldset {
         background-color: $color-back;
 
         &:last-of-type {
-            @include rem(margin-bottom, 16px);
+            @include rem(padding-bottom, $padding);
+            @include rem(margin-bottom, $padding);
         }
     }
-
+    
     .form-meta {
         @include clearfix;
-        @include rem(padding, $padding);
-
         background-color: $white;
+        @include rem(padding, ($padding * 3/2) 0);
+        
+        .form-label {
+	        margin-left: 0;
+        }
+        
+        .form-desc {
+	        margin-left: 0;
+        }
+        
     }
-
+    
     .form-label {
         @include grid(48, 2, 1);
         @include rem(font-size, $fontSizeLarge);
@@ -60,7 +70,7 @@ form, .form {
         @include grid(48, 2, 1);
         color: $grayDarker;
         p {
-            @include rem(padding, 16px 0 8px);
+            @include rem(padding, $padding 0 8px);
         }
     }
 
@@ -75,8 +85,6 @@ form, .form {
     }
 
     ul {
-        @include rem(padding, $padding);
-
         margin: 0;
         clear: both;
         list-style: none;
@@ -89,11 +97,11 @@ form, .form {
         position: relative;
 
         &:first-child {
-            @include rem(padding-top, 16px);
+            @include rem(padding-top, $padding);
         }
 
         .control-label {
-            @include grid(16, 2, 1);
+            @include grid(12, 2, 1);
             padding: 0.6em 0;
             text-align: left;
             font-weight: 300;
@@ -104,11 +112,14 @@ form, .form {
 
         .controls {
             position: relative;
-            @include grid(32, 1);
+            @include grid(36, 1);
+            
             &.wide {
                 @include grid(48, 2, 1);
             }
+            
             &.budget-line {
+            
                 span.icon {
                     @include grid(4, 0, 1);
                 }
@@ -209,15 +220,16 @@ input[type="radio"] {
     opacity: 0;
     width: 32px;
     height: 32px;
-
-    @include rem(margin-right, 16px);
+	cursor: hand;
+	cursor: pointer;
+    @include rem(margin-right, ($padding / 2));
 }
 
 input[type="checkbox"] + span,
 input[type="radio"] + span {
-    @include rem(margin-bottom, 16px);
-    @include rem(padding-left, 40px);
-
+	cursor: hand;
+	cursor: pointer;
+    @include rem(margin-bottom, $padding);
     display: block;
     line-height: 32px;
     background: url("../images/form-checkbox-default.png") transparent no-repeat 0 0;
@@ -256,6 +268,7 @@ textarea[readonly] {
 }
 
 select,
+option,
 textarea,
 input[type=text],
 input[type=password],
@@ -268,7 +281,7 @@ input[type=url] {
     border: 1px solid $inputBorder;
     font-family: $font-family;
     line-height: 1.5em;
-    padding: 0.6em;
+    padding: 0.6em !important;
     width: 100%;
     background-color: $white;
 
@@ -286,31 +299,11 @@ input[type=url] {
         border-color: $color-error;
     }
 }
-form ul.tags {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    text-indent: 0px;
-    li {
-        display: inline-block;
-        @include rem(padding, 4px);
-        @include rem(margin, 0px 4px 8px 0px);
 
-        border-bottom: 1px solid $gray;
-        border-right: 1px solid $gray;
-        background-color: $white;
-        .delete {
-            color: $gray;
-            cursor: pointer;
-            &:hover {
-                color: $pink;
-            }
-        }
-    }
-}
-
-form input.tag {
-    width: 200px;
+select,
+option {
+	height: 40px;
+	text-indent: 4px;
 }
 
 form textarea {

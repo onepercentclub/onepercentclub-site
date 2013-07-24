@@ -1,281 +1,282 @@
 /* =========== Buttons */
 
 .button-link {
-
-  @include rem(font-size, 16px);
-  color: $text-black;
-  text-transform: uppercase;
-  cursor: hand;
-  cursor: pointer;
-
-  em {
-    @include rem(font-size, 20px);
-  }
-
-  &:hover, &:active {
-    color: $black;
-    text-decoration: underline;
+    @include rem(font-size, 16px);
+    color: $text-black;
+    text-transform: uppercase;
+    cursor: hand;
+    cursor: pointer;
+    background: transparent;
 
     em {
-      text-decoration: none;
+        @include rem(font-size, 20px);
     }
-  }
 
-}
+    &:hover, &:active {
+        color: $black;
+        text-decoration: underline;
 
-
-// Choose a div or ul to group up your buttons
-div.buttons, ul.buttons {
-  @include clearfix;
-  margin: 0 0 $margin 0;
-  li {
-    a.button, a.btn, input[type="submit"], button {
-      @include border-radius(0);
-      float: left;
-      border-left-width: 0;
+        em {
+            text-decoration: none;
+        }
     }
-    &:first-child { a.button, a.btn, input[type="submit"], button { @include border-radius(0.2em 0 0 0.2em); border-left-width: 1px; } }
-    &:last-child { a.button, a.btn, input[type="submit"], button { @include border-radius(0 0.2em 0.2em 0); } }
-  }
 }
-.dropdown-menu { display: none; }
 
-.btn:hover,
-.btn-primary:hover {
-  border-color: darken($grayDarker, 5%);
-  background-color: $grayDarker;
-  color: $white;
-
-  .btn-title,
-  .btn-subtitle {
-    color: $white;
-  }
-}
 
 // The standard button has the $color-brand colors
 .btn {
-  @include rem(font-size, 18px);
-  @include rem(padding, 12px 24px 8px 24px);
-  display: inline-block;
-  margin: 0;
-  border: 1px solid darken($green, 5%);
-  background-color: $green;
-  color: $white;
-  vertical-align: baseline;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 600;
-  cursor: pointer;
+    @include rem(font-size, 18px);
+    @include rem(padding, 8px 16px 8px 16px);
+    @include rem(line-height, 32px);
+    display: inline-block;
+    margin: 0;
+    border: 1px solid darken($green, 5%);
+    background-color: $green;
+    color: $white;
+    vertical-align: baseline;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    @include border-radius(1px);
 
-  &:active {
-
-    top: 0;
-
-    border-color: $black;
-    background: #222;
-    color: darken($white, 25%);
-
-    text-shadow: 0 0 0;
-  }
-
-  &[disabled],&.disabled {
-    border-color: $gray;
-    background-color: $grayLight;
-    color:  $white;
-
-    &:hover {
-      background-color: $grayLight;
-      color:  $white;
+    &:active {
+    	top: 0;
+        background: $heading-black;
+        color: #656565 !important;
+        border-top-width: 5px;
+        border-color: $black !important;
+        @include rem(padding, 8px 16px 4px 16px);
     }
 
-  }
+    &[disabled],&.disabled {
+        border-color: $gray;
+        background-color: $grayLight;
+        color: $white;
 
-  // The dark button
-  &.contrast {
-    @include background( linear-gradient(top, lighten($black, 40%), $black) );
-    border-color: $black;
-    &:hover {
-      @include background( linear-gradient(top, lighten($black, 50%), $black ));
+        &:hover {
+            background-color: $grayLight;
+            color: $white;
+        }
     }
-    &:active, &:focus {
-      background: lighten($black, 20%);
-      color: darken($white, 25%);
+
+    &.next {
+        float: right;
+        padding-right: 42px;
+        border: none;
+        background: $pink;
     }
-  }
-
-  &.next {
-    float: right;
-    padding-right: 42px;
-    border: none;
-
-    background: $pink url('../images/button-next.png') no-repeat right center;
-  }
 }
 
-.btn-content {
-  display: inline-block;
+
+.btn:hover,
+.btn-primary:hover {
+    border-color: darken($grayDarker, 5%);
+    background-color: $grayDarker;
+    color: $white;
+
+    .btn-title,
+    .btn-subtitle {
+        color: $white;
+    }
 }
 
-.btn-title {
-  @include rem(font-size, 26px);
-  text-transform: uppercase;
-}
-
-.btn-subtitle {
-  @include rem(font-size, 16px);
-  color:  darken($green, 15%);
-  text-transform: none;
-  font-weight: 300;
-}
-
-/* ========================= Responsive ================================== */
-
-/* Desktop */
-@media only screen and (min-width: 1140px) {
-  .button-donate {
-    @include rem(font-size, 20px);
-  }
-}
-
-/* ======================================================================= */
 
 .btn-primary {
-  border: 1px solid darken($pink, 5%);
-  background-color: $pink;
+    border: 1px solid darken($pink, 5%);
+    background-color: $pink;
 
-  .btn-subtitle {
-    color:  darken($pink, 40%);
-  }
-
-  .icon {
-    background: darken($pink, 5%);
-    color:  lighten($pink, 10%);
-  }
-}
-
-.btn-large {
-
-  &.btn-iconed {
-    .icon {
-      @include rem(font-size, 80px);
-      width: 20%;
-      vertical-align: baseline;
+    .btn-subtitle {
+        color: darken($pink, 40%);
     }
-  }
+
+    .flaticon, .icon {
+        background: darken($pink, 5%);
+        color: lighten($pink, 10%);
+    }
 }
 
 .btn-iconed {
-  @include rem(padding, 0 $padding 0 0);
-
-  .icon,
-  .flaticon {
-    @include rem(margin-right, $padding);
-    @include rem(padding, ($padding / 2) $padding);
-    @include rem(font-size, 26px);
-
-    display: inline-block;
-    background:  darken($green, 5%);
-    color: lighten($green, 5%);
-    vertical-align:  middle;
-    text-align: center;
-    width: auto;
-    line-height: 1;
-  }
-
-  &.disabled, &[disabled] {
-      .icon {
-          background:  darken($grayLight, 5%);
-          color:  lighten($white, 5%);
-      }
-  }
-
-  &.btn-primary {
-    .icon {
-      background:  darken($pink, 5%);
-      color: lighten($pink, 10%);
+    @include rem(padding, 0 $padding 0 0);
+	@include border-radius(1px 0 0 1px);
+	
+    .flaticon, .icon {
+        @include rem(margin-right, ($padding / 2));
+        @include rem(padding, 10px 8px 8px 8px);
+        @include rem(font-size, 26px);
+        display: inline-block;
+        background: darken($green, 5%);
+        color: lighten($green, 5%);
+        vertical-align: middle;
+        text-align: center;
+        width: auto;
+        
     }
+
     &.disabled, &[disabled] {
-        .icon {
-            background:  darken($grayLight, 5%);
-            color:  lighten($white, 5%);
+        .flaticon, .icon {
+        	background: darken($grayLight, 5%);
+            color: lighten($white, 5%);
         }
     }
-  }
 
-  &:active {
-    @include rem(padding, 0 $padding 0 0);
-  }
+    &.btn-primary {
+        .flaticon, .icon {
+            background: darken($pink, 5%);
+            color: lighten($pink, 10%);
+        }
+        &.disabled, &[disabled] {
+			.flaticon, .icon {
+            	background: darken($grayLight, 5%);
+				color: lighten($white, 5%);
+			}
+        }
+    }
+    
+    &:hover {
+        .flaticon, .icon {
+            background: #333;
+            color: $white;
+        }
+    }
+
+    &:active {
+    	
+        @include rem(padding, 0 $padding 0 0);
+        
+        .flaticon, .icon {
+            background: darken($heading-black, 5%);
+            color: $grayDark;
+            @include rem(padding, 9px 8px 6px 8px);
+        }
+    }
+
+    &[disabled] {
+
+        .flaticon, .icon {
+            background-color: darken($grayLight, 5%);
+            color: darken($white, 5%);
+        }
+
+        &:hover {
+            .flaticon, .icon {
+                background-color: darken($grayLight, 5%);
+                color: darken($white, 5%);
+            }
+
+        }
+    }
+}
+
+
+.btn-uploader {
+	position: relative;
+	
+	border: 1px solid darken($grayLight, 5%);
+	background-color: $grayLight;
+	
+	.flaticon, .icon {
+	    background-color: darken($grayLight, 15%);
+	    color:    $white;
+	}
+	
+	input {
+	    @include opacity(0);
+	    cursor: pointer;
+	    height: 100%;
+	    position: absolute;
+	    left: 0;
+	    right: 0;
+	    top: 0;
+	    z-index: 10;
+	    width: auto;
+	}
+}
+
+/*
+
+@media only screen and (min-width: 1140px) {
+    .button-donate {
+        @include rem(font-size, 20px);
+    }
+}
+
+
+.btn-large {
+    &.btn-iconed {
+        .flaticon, .icon {
+            @include rem(font-size, 80px);
+            width: 20%;
+            vertical-align: baseline;
+        }
+    }
+}
+
+
+
+.btn-content {
+    display: inline-block;
+}
+
+.btn-title {
+    @include rem(font-size, 26px);
+    text-transform: uppercase;
+}
+
+.btn-subtitle {
+    @include rem(font-size, 16px);
+    color: darken($green, 15%);
+    text-transform: none;
+    font-weight: 300;
 }
 
 .btn.btn-iconed {
-  &:hover {
-    .icon {
-      background: #333;
-      color: $white;
-    }
-  }
-
-  &:active {
-    .icon {
-      background: #181818;
-      color: $white;
-    }
-  }
-
-  &[disabled] {
-
-    .icon {
-      background-color: darken($grayLight, 5%);
-      color:  darken($white, 5%);
-    }
-
-
     &:hover {
-      .icon {
-        background-color: darken($grayLight, 5%);
-        color:  darken($white, 5%);
-      }
-
-    }
-  }
-}
-
-.btn-uploader {
-    position: relative;
-
-    border: 1px solid darken($grayLight, 5%);
-    background-color: $grayLight;
-
-    .icon {
-      background-color: darken($grayLight, 15%);
-      color:  $white;
+        .flaticon, .icon {
+            background: #333;
+            color: $white;
+        }
     }
 
-    input {
-      @include opacity(0);
-      cursor: pointer;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      z-index: 10;
-      width: auto;
+    &:active {
+        .flaticon, .icon {
+            background: #181818;
+            color: $white;
+        }
+    }
+
+    &[disabled] {
+
+        .flaticon, .icon {
+            background-color: darken($grayLight, 5%);
+            color:    darken($white, 5%);
+        }
+
+
+        &:hover {
+            .flaticon, .icon {
+                background-color: darken($grayLight, 5%);
+                color:    darken($white, 5%);
+            }
+
+        }
     }
 }
 
 .sidebar .btn {
-  width: 100%;
+    width: 100%;
 }
 
 .btn-minor {
-    background-color: transparent;
-    color: $gray;
-    font-weight: normal;
-    border-width: 0px;
+        background-color: transparent;
+        color: $gray;
+        font-weight: normal;
+        border-width: 0px;
 }
 
 .btn-modest {
-  @include rem(font-size, 14px);
-  @include rem(padding, 9px 12px 8px 12px);
+    @include rem(font-size, 14px);
+    @include rem(padding, 9px 12px 8px 12px);
 }
+
+*/

@@ -22,11 +22,11 @@
     @include prepend(1);
     @include grid(7,1,0);
     height: 40px;
-    @include rem(margin-top, 8px);
+    @include rem(margin-top, 10px);
     background: image-url("1procentclub.png") transparent no-repeat 0 0;
     
     &:hover {
-		background-position: 0 -53px;
+		background-position: 0 -38px;
     }
     
     h1, #subtitle {
@@ -186,7 +186,7 @@
         
 		    .my-menu {
 		        display: block !important;
-		        z-index: 1;
+		        z-index: 15;
 		    }
 
         	.nav-my1percent {
@@ -214,7 +214,7 @@
         top: 32px;
         left: -2px;
         
-        z-index: 9;
+        z-index: 15;
         display: none;
         position: absolute;
         
