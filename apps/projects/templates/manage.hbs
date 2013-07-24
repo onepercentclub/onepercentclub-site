@@ -191,9 +191,9 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             </div>
             <sidebar>
                 {{#if isPublic}}
-                    <a {{action "showProject" id href=true}} class="button-link">
+                    {{#linkTo project getProject class="button-link"}}
                         <em class="icon-eye-open"></em> View public Project Page
-                    </a>
+                    {{/linkTo}}
                 {{/if}}
             </sidebar>
         </div>
