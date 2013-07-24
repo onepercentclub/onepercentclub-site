@@ -29,6 +29,9 @@
                     border: 1px solid $color-back;
                     border-top: 0px;
                 }
+                &.disabled {
+                    color: $gray;
+                }
             }
             .body {
                 @include rem(padding, 16px);

@@ -298,21 +298,23 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     <div class="title">
                         <h4>
                             <em class="icon-briefcase"></em>
-                            {% trans "Update Organisation" %}
+                            {% trans "Organisation" %}
                         </h4>
                     </div>
                     {{#linkTo "myProjectPlan.organisation" class="item"}}
                         <em {{bindAttr class="organization.validProfile:icon-ok:icon-pencil"}}></em>
                         {% trans "Organisation Profile" %}
                     {{/linkTo}}
-                    {{#linkTo "myProjectPlan.legal" class="item"}}
-                        <em {{bindAttr class="organization.validLegalStatus:icon-ok:icon-pencil"}}></em>
-                        {% trans "Legal Status" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPlan.ambassadors" class="item"}}
-                        <em {{bindAttr class="validAmbassadors:icon-ok:icon-pencil"}}></em>
-                        {% trans "Ambassadors" %}
-                    {{/linkTo}}
+                    {{#if organization}}
+                        {{#linkTo "myProjectPlan.legal" class="item"}}
+                            <em {{bindAttr class="organization.validLegalStatus:icon-ok:icon-pencil"}}></em>
+                            {% trans "Legal Status" %}
+                        {{/linkTo}}
+                        {{#linkTo "myProjectPlan.ambassadors" class="item"}}
+                            <em {{bindAttr class="validAmbassadors:icon-ok:icon-pencil"}}></em>
+                            {% trans "Ambassadors" %}
+                        {{/linkTo}}
+                    {{/if}}
                 </div>
 
                 {{#if needsFunding}}
@@ -331,10 +333,12 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                             <em {{bindAttr class="validBudget:icon-ok:icon-pencil"}}></em>
                             {% trans "Budget" %}
                         {{/linkTo}}
-                        {{#linkTo "myProjectPlan.bank" class="item"}}
-                            <em {{bindAttr class="organization.validBank:icon-ok:icon-pencil"}}></em>
-                            {% trans "Bank details" %}
-                        {{/linkTo}}
+                        {{#if organization}}
+                            {{#linkTo "myProjectPlan.bank" class="item"}}
+                                <em {{bindAttr class="organization.validBank:icon-ok:icon-pencil"}}></em>
+                                {% trans "Bank details" %}
+                            {{/linkTo}}
+                        {{/if}}
                     </div>
                 {{/if}}
 
@@ -654,12 +658,11 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFile valueBinding="image" name="image" accept="image/*" id="image"}}
+                        {{view App.UploadFile name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
                     <br />
-                    {{image.value}} | {{image}} | {{image.large}}
                     <div {{bindAttr class=":preview image::empty"}}>
                         {{#if image}}
                             <img {{bindAttr src="image.large"}} />
@@ -671,7 +674,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             </li>
         </ul>
     </fieldset>
-    <button {{bindAttr class=":btn :btn-iconed image::disabled :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed isDirty::disabled :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
 
 {% endtplhandlebars %}
 
