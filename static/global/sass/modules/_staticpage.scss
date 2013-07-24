@@ -1,18 +1,28 @@
 .static-page {
+	position: relative;
 
     iframe, object {
-        width: 900px;
-        margin: auto;
-        padding: 0px 400px 0px 40px;
         display: block;
+        @include prepend(1);
     }
-    .text, .image, .oembed, .rawhtml, .title {
-        @include clearfix;
-        min-width: $min-width;
-        max-width: $max-width;
-        margin: auto;
-        padding: 0px 300px 0px 120px;
+    .text, .image, .oembed, .rawhtml, .title, {
+        @include grid(32, 1);
+        @include rem(font-size, 16px);
     }
+    
+    .align-float-left {
+    	@include grid(16, 1);
+	    float: left;
+    }
+    
+    .align-float-right {
+    	@include grid(16, 1);
+	    float: right;
+    }
+}
+
+
+.static-page {
 
     .section {
         @include rem(padding, ($padding * 2) 0);
@@ -34,11 +44,6 @@
                     font-style: normal;
                 }
             }
-        }
-
-        h2 {
-            color: $pink;
-            text-transform: none;
         }
 
         &:nth-of-type(even) {
@@ -68,7 +73,7 @@
     @include grid(48, 1);
     margin-top: 0;
     margin-bottom: 0;
-    height: 20px;
+    @include rem(height, 40px);
 
     > li {
         @include rem(margin-right, 32px);
@@ -100,7 +105,7 @@
 
     small {
         @include rem(margin-bottom, $margin);
-        @include  rem(font-size, 16px);
+        @include rem(font-size, 16px);
 
         color: $grayDarker;
     }
@@ -119,15 +124,19 @@
     @include rem(font-size, 40px);
     position: absolute;
     right: 15.5%;
-    bottom: 0;
+    bottom: -5%;
     color: $pink;
     line-height: 30px;
     cursor: pointer;
+    
+    &:hover {
+	    @include rem(font-size, 40px);
+    }
 }
 
 .static-page-calltoaction {
     a,
-    i {
+    .flaticon {
         @include rem(font-size, 24px);
         color: $pink;
         text-decoration: underline;
@@ -135,7 +144,7 @@
         font-weight: 300;
     }
 
-    i {
+    .flaticon {
       text-decoration: none;
     }
 }
@@ -148,7 +157,7 @@
         @include rem(font-size, 22px);
         display: block;
 
-        i {
+        .flaticon {
             @include inline-block;
             @include rem(font-size, 32px);
             width: 40px;
@@ -169,20 +178,19 @@
 
 .static-page-illustrations-list {
     @include clearfix;
-    position: relative;
     margin: 0;
+    position: relative;
 
     .item {
-        @include grid(9.6, 0, 1);
+        @include grid(9.6,0,1);
         @include rem(padding, 24px);
-        position: relative;
         overflow: hidden;
         height: 200px;
         border: 1px solid $grayLight;
-
         text-align: center;
+        vertical-align: middle;
 
-        i {
+        .flaticon {
             @include rem(font-size, 80px);
             color: $grayLighter;
             line-height: 1;
@@ -190,10 +198,7 @@
 
         .h3 {
             @include rem(font-size, 20px);
-            @include rem(bottom, 8px);
-            position: absolute;
-            right: 0;
-            left: 0;
+            @include clearfix;
             color: $grayDarker;
             text-transform: uppercase;
             font-weight: 300;
@@ -202,33 +207,46 @@
         &:hover {
             background-color: $green;
 
-            i,
+            .flaticon,
             .h3 {
                 color: $white;
             }
+            
+            .item-popover {
+	        	display: block !important;
+			}
         }
 
         &:last-of-type {
             margin-right: 0;
         }
+        
+        .item-popover {
+        	display: none;
+        	position: absolute;
+			bottom: 100%;
+			left: 0;
+			background: $grayLighter;
+			width: 100%;
+			border-width: $padding 0;
+			border-style: solid;
+			border-color: $white;
+			text-align: left;
+			@include rem(padding, $padding*2 16px);
+			@include rem(font-size, 16px);
+			@include append(1);
+			
+			p {
+            	margin: 0;
+			}
+			
+		}
     }
+}
 
-    .item-popover {
-        position: absolute;
-        right: 0;
-        bottom: 110%;
-        left: 0;
-        margin-right: 2.08333%;
-        background: $grayLighter;
-
-        &:not(:empty) {
-            @include rem(padding, 56px 16px);
-        }
-
-        p {
-            margin-right: 0;
-        }
-    }
+.contact-photo {
+	text-align: center;
+	margin: 0 0 $padding $padding*3;
 }
 
 /*

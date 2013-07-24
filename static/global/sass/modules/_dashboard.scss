@@ -1,51 +1,124 @@
-.dashboard {
-    .body {
-        @include rem(padding, 16px);
-    }
-    @include rem(margin, 12px auto 24px);
+#project-dashboard {
+	
+	#profile-actions {
+		@include rem(margin-bottom, 24px);	
+	}
+	
+	.profile-actions-meta {
+		@include grid(48,1,1);
+	}
+	
+	.tabs {
+		@include grid(48,1,1);
+		
+		li > a, li > span {
+			@include grid(9);
+		}
+	}
+	
     .menu-sidebar {
-        @include grid(12, 1, 0);
+        @include grid(16, 1, 0);
+        
         .menu {
             @include rem(margin-bottom, 24px);
+            @include rem(font-size, 14px);
+            
             .title {
-                @include rem(padding, 12px);
+                @include rem(padding, 6px 12px 4px 12px);
 
                 h4 {
                     text-transform: uppercase;
-                    @include rem(font-size, 15px);
+                    @include rem(font-size, 16px);
+                    font-weight: 600;
+                    
+                    .flaticon {
+	                    @include rem(width, 26px);
+						@include rem(line-height, 28px);
+						@include rem(margin, 0 16px 0 4px);
+						text-align: center;
+                    }
                 }
+                
                 background-color: $green;
                 color: $white;
             }
-            a.item {
+           
+            
+            a {
+            	text-decoration: underline;
                 display: block;
-                @include rem(padding, 8px 12px);
+                @include rem(padding, 8px 12px 6px 12px);
                 background-color: $color-back;
-                color: $black;
+                color: $pink;
                 border-bottom: 1px solid $white;
+                font-weight: 300;
+                
+                .icon {
+		            display: inline-block;
+		            @include rem(font-size, 15px);
+		            background-color: $pink;
+		            @include border-radius(15px);
+		            @include rem(width, 26px);
+		            @include rem(height, 26px);
+		            @include rem(line-height, 28px);
+		            @include rem(margin-right, 12px);
+		            font-weight: 600;
+		            text-align: center;
+		            color: $text-white;
+		            font-style: normal;
+				}
+                
+                em {
+	            	display: inline-block;
+		            width: 26px;
+		            height: 26px;
+					@include rem(margin-right, 12px);
+					vertical-align: middle;
+	            }
+	            
+	            em.is-unfinished {
+		            background-image: $icons;
+					background-repeat: no-repeat;
+					background-position: sprite-position($icons, dashboard-is-unfinished, 0, 0);
+	            }
+	            
+	            em.is-in-progress {
+		            background-image: $icons;
+					background-repeat: no-repeat;
+					background-position: sprite-position($icons, dashboard-is-in-progress, 0, 0);
+	            }
+	            
+	            em.is-finished {
+		            background-image: $icons;
+					background-repeat: no-repeat;
+					background-position: sprite-position($icons, dashboard-is-finished, 0, 0);
+	            }
+	                            
+                &.submit {
+	                background-color: $white;
+                }
+                
                 &.active {
                     background-color: $white;
-                    color: $green;
-                    border: 1px solid $color-back;
-                    border-top: 0px;
+                    color: $black;
+                    text-decoration: none;
                 }
                 &.disabled {
                     color: $gray;
                 }
+                
             }
-            .body {
-                @include rem(padding, 16px);
-                background-color: $color-back;
-            }
-
         }
     }
 
     form {
         @include rem(margin-bottom, 24px);
+        
         .controls {
+        
             .extra-info {
                 padding: 8px 0px;
+                
                 strong {
                     color: $green;
                 }
@@ -57,7 +130,7 @@
 
 }
 
-.dashboard .donate-status {
+#project-dashboard .donate-status {
     width: 100%;
     float: none;
     .donate-amount {
@@ -125,114 +198,49 @@
     }
 }
 
-ul.manage-steps {
-    margin: 16px 0;
-    padding: 0;
-    list-style: none;
-
-    @include grid(50, 1);
-
-    overflow: hidden;
-    li {
-        display: inline-block;
-        background: transparent url('../images/donation-step.png') no-repeat right center;
-        position: relative;
-        @include rem(height, 50px);
-
-        display: block;
-        @include grid(10, 0);
-
-        margin-left: -30px;
-        div.inner {
-            @include rem(height, 50px);
-            padding: 0.6em 0 0.6em 0.6em;
-            padding-left: 30px;
-            background-color: #dcdcdc;
-            margin-right: 30px;
-        }
-        color: $gray;
-        @include rem(font-size, 12px);
-        @include rem(line-height, 12px);
-        text-transform: uppercase;
-
-        h4 {
-            @include rem(font-size, 15px);
-        }
-
-        em {
-            background-color: $gray;
-            float: left;
-            @include rem(font-size,  20px);
-            @include rem(height, 30px);
-            @include rem(width, 30px);
-            @include rem(margin, 2px 6px);
-
-            color: $white;
-            padding: 4px;
-            @include border-radius(50%);
-        }
-        &.selected {
-            background: transparent url('../images/donation-step-select.png') no-repeat right center;
-            div.inner {
-                background-color: $green;
-
-            }
-            em {
-                background-color: $white;
-                color: $black;
-            }
-            color: $white;
-        }
-        &.first {
-            margin-left: 0px;
-            z-index: 10;
-            .inner {
-                padding-left: 0px;
-            }
-            em {
-                @include rem(margin, 2px 10px 2px 6px);
-            }
-        }
-        &.second {
-            z-index: 9;
-        }
-        &.third {
-            z-index: 8;
-        }
-        &.fourth {
-            z-index: 7;
-        }
-        &.fifth {
-            z-index: 6;
-        }
-        &.sixth {
-            z-index: 5;
-        }
-    }
-}
-
 .my-project {
-    @include rem(padding, 12px 0px);
-    @include rem(margin, 12px 0px);
     @include clearfix;
-    border-bottom: 5px solid $color-back;
-    h2 {
-        @include rem(padding, 4px 8px 0px);
-        @include rem(font-size, 20px);
+    border-bottom: 1px solid $color-back;
+    
+    
+    li {
+    	display: block;
+	    border-top: 1px solid $color-back;
+		line-height: 1.5;
+		@include rem(padding, $padding 0);
+		
+	    .project-image {
+	        @include grid(16,0,1);
+	    }
+	    
+	    h2 {
+	    	@include grid(32,0,1);
+	    	@include rem(font-size, 20px);
+	    	padding: 0;
+	    }
+	    
+	    .project-status {
+	        clear: left;
+	        @include grid(16,0,1);
+	    }
+	    
+	    a {
+		    @include grid(16,0,1);
+	    } 
+	    
     }
-    img {
-        float:left;
-        @include rem(margin-right, 12px);
-    }
+	
 }
 
 .toolbox {
-    @include grid(16,1);
+    @include grid(16,1,0);
     background-color: $color-back;
+    
     .title {
         background-color: $grayLight;
-        @include rem(padding, 24px);
+        @include rem(padding, 16px, 24px);
         color: $white;
+        
         h3 {
             color: $grayDarker;
             text-transform: uppercase;
@@ -244,11 +252,13 @@ ul.manage-steps {
 
     .body {
         @include rem(padding, 16px);
+        
         .tip {
-            .icon {
+        
+            .flaticon {
                 color: $grayLight;
                 @include rem(font-size, 36px);
-                @include rem(padding, 4px 12px 4px 4px);
+                @include rem(padding, 4px 16px 4px 4px);
                 float: left;
                 display: inline-block;
             }

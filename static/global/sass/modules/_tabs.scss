@@ -6,63 +6,62 @@ ul.tabs {
     margin: 0;
       
     li {
-        display: inline-block;
-        //@include displayfix;
-        margin-bottom: -2px;
+        display: inline;
         position: relative;
         
-    }
-    a {
-        color: $text-black;
-        display: block;
-        text-decoration: none;
-        overflow: hidden;
-        @include rem(padding, 8px 16px);
-        text-transform: uppercase;
-        border-right: 1px solid $text-grey;
+       	> a, > span {
+	        color: $text-black;
+	        display: block;
+	        text-decoration: none;
+	        overflow: hidden;
+	        @include rem(padding, 12px 16px 12px 16px);
+	        text-transform: uppercase;
+	        border-right: 1px solid $text-grey;
+			margin-right: 1px;
+	        
+	        .tab-icon {
+	            display: block;
+	            @include rem(font-size, 15px);
+	            background-color: $text-black;
+	            @include border-radius(15px);
+	            @include rem(width, 30px);
+	            @include rem(height, 30px);
+	            @include rem(line-height, 34px);
+	            font-weight: 600;
+	            text-align: center;
+	            color: $text-white;
+	            font-style: normal;
+	            float: left;
+	        }
+	        
+	        .tab-title {
+	            @include rem(font-size, 14px);
+	            @include rem(margin-left, 16px);
+	            @include rem(line-height, 16px);
+	            font-weight: 300;
+	            display: block;
+	            float: left;
+	        }
+	        
+	        .tab-subtitle {
+	            @include rem(font-size, 12px);
+	            font-style: normal;
+	            display: block;
+	            font-weight: normal;
+	        }
+	    }
         
-        
-        .tab-icon {
-            display: block;
-            @include rem(font-size, 14px);
-            background-color: $text-black;
-            @include border-radius(15px);
-            
-            @include rem(width, 30px);
-            @include rem(height, 30px);
-            @include rem(line-height, 30px);
-            
-            font-weight: 600;
-            
-            text-align: center;
-            
-            color: $text-white;
-            font-style: normal;
-            float: left;
-        }
-        
-        .tab-title {
-            @include rem(font-size, 16px);
-            @include rem(margin-left, 16px);
-            font-weight: 300 !important;
-            display: block;
-            float: left;
-        }
-        
-        .tab-subtitle {
-            @include rem(font-size, 12px);
-            font-style: normal;
-            display: block;
-            font-weight: normal;
-        }
+        &.first > a, &.first > span {
+			border-left: 1px solid $text-grey;
+		}
+
     }
     
-    li.is-selected a, li a.active, li a:hover, li a:active {
-        background-color: $white;
-        border-color: $white;
         
+    li > a.active, li.is-active > a, li a:hover, li > a:active, li > span.active, li.is-active > span, li > span:hover, li > span:active {
         .tab-icon {
             background-color: $green;
+            color: $white;
         }
         
         .tab-title {
@@ -71,60 +70,78 @@ ul.tabs {
         
         .tab-subtitle {
             color: $text-black;
-        }
-        
-        
+        } 
+    }
+    
+    li.is-active > a, li > a.active, li.is-active > span, li > span.active {
+    	@include rem(padding, 12px 16px 18px 16px);
+    	background-color: $white;
+    	border-color: $white;
+    }
+    
+    &.steps {
+    	margin-bottom: 6px;
+    	@include rem(margin-bottom, 6px);
+    	
+	    li > a, li > span {
+		    @include rem(padding, 12px 16px 12px 16px);
+	    }
+	    
+	   	li.is-active > a, li > a.active, li.is-active > span, li > span.active  {
+			border-color: $green;
+			color: $white;
+			background: image-url("steps-back.png") $green no-repeat 100% 50%;
+			border-right: none;
+			
+			.tab-icon {
+				background-color: $white;
+				color: $black;
+			}
+			
+			.tab-title {
+				color: $white;
+			}
+			
+			.tab-subtitle {
+				color: $white;
+			} 
+			
+		} 
+		
+		li.is-finished > a, li.is-finished > span {
+			background: $white;
+			border-color: $color-back;
+			
+			.tab-icon .flaticon:before {
+				content: "\e1ba"; // replace with ok
+			}
+			
+		}
+		
+		li.is-inactive > a, li.is-inactive > span {
+			
+			.tab-icon {
+				background-color: $grayLight;
+				color: $color-back;
+			}
+			
+			.tab-title {
+				color: $grayLight;
+			}
+			
+			.tab-subtitle {
+				color: $grayLight;
+			} 
+			
+		}
+		
+		li:last-of-type > a, li:last-of-type > span {
+			border-right: none;
+		}
+		
+		
+	    
     }
 }
 
-ul.steps {
-    border-bottom: 1px solid darken($white, 25%);
-    margin: 0 0 $margin 0;
-    li {
-        display: inline-block;
-        //@include displayfix;
-    }
-    a { 
-        color: #666;
-        display: block;
-        padding: 0.75em 1em;
-        text-decoration: none;
-    }
-    li.completed a { color: #333 }
-    li:hover a { color: #333; }
-    li.selected a {  
-        color: #333;
-        font-weight: bold; 
-    }
-}
 
-
-/* vertical tabs with radio button labels */
-
-
-.tabs.vertical {
-    float: left;
-    display: inline-block;
-    width: 25%;
-    label {
-        cursor: pointer;
-        display: block;
-        padding: 10px;
-        font-weight: bold;
-        background-color: $white;
-        margin: 0px 0px 8px;
-        &.selected {
-            background-color: $color-back;
-        }
-    }
-}
-
-
-.panes.vertical {
-    float: left;
-    display: inline-block;
-    width: 75%;
-    background-color: $color-back;
-    padding: 8px;
-    min-height: 300px;
-}
