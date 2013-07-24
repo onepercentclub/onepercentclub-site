@@ -88,11 +88,11 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertEqual(len(mail.outbox), 1)
         activation_mail = mail.outbox[0]
 
-        self.assertEqual(activation_mail.subject, 'Welcome to 1%CLUB')
+        self.assertEqual(activation_mail.subject, 'Welcome to 1%Club')
         self.assertIn(user.email, activation_mail.to)
 
         # Extract activation link and change domain for the test.
-        activation_link = re.findall('href="([a-z\:\.\/\#]+\/activate\/[^"]+)', activation_mail.body)[0]
+        activation_link = re.findall('href="([a-z\:\.\/\#\!]+\/activate\/[^"]+)', activation_mail.body)[0]
 
         # Hack for Travis. In Travis activation links contains secure protocol.
         # TODO: See if we should change activation link generation.
@@ -133,7 +133,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.browser.fill('username', user.email)
         self.browser.fill('password', 'secret')
 
-        self.browser.find_by_value('Login').first.click()
+        self.browser.find_by_value('Log in').first.click()
 
         self.assertTrue(self.browser.is_text_present('MY 1%'))
 
@@ -258,7 +258,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Find the link to the login button page and click it.
         self.browser.find_link_by_text('Log in').first.click()
-        self.browser.find_link_by_text('I forgot my password').first.click()
+        self.browser.find_link_by_text('Forgot your password?').first.click()
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_text_present('FORGOT YOUR PASSWORD?'))
@@ -289,7 +289,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertIn(user.email, reset_mail.to)
 
         # Extract reset link and change domain for the test.
-        reset_link = re.findall('href="([a-z\:\.\/\#]+\/passwordreset\/[^"]+)', reset_mail.body)[0]
+        reset_link = re.findall('href="([a-z\:\.\/\#\!]+\/passwordreset\/[^"]+)', reset_mail.body)[0]
         self.assertTrue(current_site.domain in reset_link)
         reset_link = reset_link.replace(current_site.domain, self.live_server_url[7:])
 
