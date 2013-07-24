@@ -1199,7 +1199,6 @@ App.UserSettingsRoute = Em.Route.extend({
 });
 
 
-
 App.UserActivateRoute = Em.Route.extend({
 
     // FIXME: Find a better solution than the run.later construction.

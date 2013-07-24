@@ -173,7 +173,16 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         // Does not work if donation 'isNew' is true.
         donation.set('errors', []);
         donation.one('becameInvalid', function(record) {
-            donation.set('errors', record.get('errors'));
+            record.set('errors', record.get('errors'));
+
+            // Revert to the value on the server when there's an error.
+            record.get('stateManager').goToState('loaded');
+            record.reload();
+
+            // Clear the error after 10 seconds.
+            Ember.run.later(this, function() {
+                record.set('errors', []);
+            }, 10000);
         });
         // Renew the transaction as needed.
         // If we have an error the record will stay 'dirty' and we can't put it into a new transaction.
@@ -184,7 +193,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         donation.set('amount', newAmount);
         donation.transaction.commit();
     }
-
 });
 
 
@@ -509,7 +517,6 @@ App.CurrentOrderVoucherListView = Em.View.extend({
 App.OrderThanksView = Em.View.extend({
     templateName: 'order_thanks'
 });
-
 
 
 App.CurrentOrderDonationView = Em.View.extend({
