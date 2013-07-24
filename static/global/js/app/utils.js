@@ -117,12 +117,10 @@ App.Editable = Ember.Mixin.create({
         });
 
         model.one('didUpdate', function(){
-            console.log('uppie')
             controller.startEditing();
         });
 
         model.one('didCreate', function(){
-            console.log('crea')
             controller.startEditing();
         });
 
@@ -198,7 +196,9 @@ App.UploadFile = Ember.TextField.extend({
             view.$().parent().after('<div class="preview">' + preview + '</div>');
         }
         reader.readAsDataURL(file);
-        this.set('value', file);
+        // Don't set this value. It will cause an error in some browsers.
+        //this.set('value', file);
+        this.set('controller.image', file);
     }
 });
 

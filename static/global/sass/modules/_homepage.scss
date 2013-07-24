@@ -1,26 +1,41 @@
-.container {
-    &.banner {
-        @include rem(margin-bottom, 50px);
-        position: relative;
-        background: #222222;
+.banner {
+    position: relative;
+    background-color: #323232;
+    @include rem(margin-bottom, 48px);
+    
+    #power-of {
+        background: image-url("home-back-power-of.png") transparent no-repeat 900px -20%;
     }
-
-    &.copyright {
-        background-color: #222222;
+    
+    #new-website {
+        background: image-url("home-back-new-website.png") transparent repeat-x 0 0;
     }
-
-    &.quotes {
-        background-color: #e9e9e9;
+    
+    #find-project {
+        background: image-url("home-back-find-project.png") transparent no-repeat 800px 0;
     }
-
-    &.project {
-        background-color: $white;
-    }
-
-    &.footer {
-        background-color: #e9e9e9;
+    
+    #befriend {
+        background: image-url("home-back-befriend.png") transparent no-repeat 900px 30%;
     }
 }
+
+.copyright {
+    background-color: #222222;
+}
+
+.quotes {
+    background-color: #e9e9e9;
+}
+
+.project {
+    background-color: $white;
+}
+
+.footer {
+    background-color: #e9e9e9;
+}
+
 
 .link-primary {
     display: block;
@@ -31,7 +46,7 @@
 
 #home {
     section {
-        @include grid(48, 1);
+        @include grid(48,1);
         @include rem(padding, 64px 0);
     }
 
@@ -62,21 +77,26 @@
 
         > li {
             @include clearfix;
-            @include rem(font-size, 16px);
             display: block;
             float: left;
-            height: 250px;
             color: $white;
+            
+            .container {
+            	height: 380px;
+	            @include rem(padding, 48px 0 48px 0);
+	            
+            }
 
             article {
-                @include grid(32, 0, 5);
-                line-height: 1.5;
-
+                @include grid(28,1,1);
+				@include rem(font-size, 18px);
+				//background-color: rgba(50,50,50,0.8);
+				@include rem(padding, 16px 16px 16px 0);
+				
                 h4 {
                     @include rem(font-size, 32px);
-                    @include rem(margin-bottom, 16px);
+                    @include rem(margin-bottom, 8px);
                     text-transform: uppercase;
-
                     font-weight: 600;
                     line-height: 1;
                 }
@@ -156,43 +176,38 @@
 }
 
 .projects-nav {
-    @include border-radius(20px);
+    @include border-radius(22px);
     position: absolute;
     top: 45%;
     left: 0;
     z-index: 9;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
 
-    background: #e9e9e9;
+    background-color: #e9e9e9;
     color: $white;
     text-align: center;
     cursor: pointer;
 
-    em {
-        @include rem(font-size, 40px);
-        line-height: 41px;
-    }
-
     &:hover {
-        background: $pink;
+        background-color: $pink;
         color: $white;
     }
 
     &.next {
         right: 0;
         left: auto;
-        
-        em {
-	        padding-right: 4px;
-        }
+        background-image: $icons;
+	    background-position: sprite-position($icons, arrow-right-white, 10px, 6px);
+		background-repeat: no-repeat;
+		
     }
     
     &.prev {
-    
-        em {
-	        padding-left: 4px;
-        }
+	    background-image: $icons;
+		background-repeat: no-repeat;
+		background-position: sprite-position($icons, arrow-left-white, 8px, 6px);
+        
     }
 }
 
@@ -277,7 +292,7 @@
     }
 
     .project-call-to-action {
-        @include grid(16  );
+        @include grid(16);
     }
 }
 

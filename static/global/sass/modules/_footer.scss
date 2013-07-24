@@ -1,6 +1,7 @@
 // FOOTER
 
-.footer {
+
+.footer-content {
 	@include rem(font-size, 14px);
 	line-height: 1.5;
     @include rem(padding, 48px 0);
@@ -88,6 +89,7 @@
 // COPYRIGHT
 
 .copyright {
+	
     ul {
         @include grid(48,1);
         @include rem(font-size, 12px);

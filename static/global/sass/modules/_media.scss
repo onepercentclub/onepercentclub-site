@@ -1,6 +1,7 @@
 /* =========== Video wrapper for responsive video's */
 
 .video {
+	@include clearfix;
     @include rem(margin, 4px 0);
     position: relative;
     padding-bottom: 56.25%;

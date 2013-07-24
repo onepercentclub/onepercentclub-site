@@ -7,72 +7,68 @@
 
 {% tplhandlebars "my_project_list" %}
 
-    {{partial "my_project_top"}}
-
-    <div class="container">
+    <div class="container" id="project-dashboard">
+    
+    	{{partial "my_project_top"}}
+    	
         <div class="wrapper">
             {{#if isLoading}}
-                {% trans "loading" %}
+                <span class="loading"></span>
             {{else}}
                 {{#if canPitchNew}}
-                    <h4>
-                        {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
-                            <span class="icon icon-lightbulb"></span>
-                            {% trans "Pitch your smart idea." %}
-                        {{/linkTo}}
-                    </h4>
+                    {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
+                        <em class="flaticon solid lightbulb-3"></em>
+                        {% trans "Pitch your smart idea." %}
+                    {{/linkTo}}
                 {{/if}}
             {{/if}}
-            <ul class="content">
+            
+            <h1 class="pink">{% trans "My Projects" %}</h1>
+            
+            <ul class="content my-project">
                 {{#each project in controller}}
-                    <li class="my-project">
+                    <li>
+                    	
                         {{#if project.isPhasePitch}}
                             <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} class="project-image" />
                         {{else}}
                             <img {{bindAttr src="project.plan.image.square" alt="project.pitch.title"}} class="project-image" />
-
                         {{/if}}
-
-                        <h2>
-                            {{ project.title }}
-                        </h2>
-                        {% trans "Phase:" %} <strong>{{ project.phase }}</strong>
-                        <br  />
-
-                        {{#if project.isPhasePitch}}
-                            {% trans "Status:" %} <strong>{{project.pitch.status}}</strong>
-                            <br/>
-                            {{#linkTo "myProjectPitch.basics" project tagName="button" class="btn btn-iconed"}}
-                                <span class="icon icon-pencil"></span>
-                                {% trans "continue pitch" %}
-                            {{/linkTo}}
-                        {{/if}}
-
-                        {{#if project.isPhasePlan}}
-                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong>
-                            <br/>
-                            {{#linkTo "myProjectPlan" project  tagName="button" class="btn btn-iconed"}}
-                                <span class="icon icon-pencil"></span>
-                                {% trans "continue plan" %}
-                            {{/linkTo}}
-                        {{/if}}
-
-                        {{#if project.isPhaseCampaign}}
-                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong>
-                            <br/>
-                            {{#linkTo "myProjectCampaign" project  tagName="button" class="btn btn-iconed"}}
-                                <span class="icon icon-bullhorn"></span>
-                                {% trans "campaigning" %}
-                            {{/linkTo}}
-                            <br />
-                        {{/if}}
-                        {{#if project.isPublic}}
-                            <a {{action "showProject" project.id href=true}}>
-                                <span class="icon-eye-open"></span>
-                                {% trans "View public project page" %}
-                            </a>
-                            <br />
-                        {{/if}}
+						
+						<div class="project-item">
+	                        <h2>{{ project.title }}</h2>
+	                        <p class="project-status">{% trans "Phase:" %} <strong>{{ project.phase }}</strong>
+	                        
+	                        {{#if project.isPhasePitch}}
+	                            {% trans "Status:" %} <strong>{{project.pitch.status}}</strong></p>
+	                            {{#linkTo "myProjectPitch.basics" project tagName="a"}}
+	                                <em class="flaticon solid pencil-3"></em>
+	                                {% trans "Continue pitch" %}
+	                            {{/linkTo}}
+	                        {{/if}}
+	
+	                        {{#if project.isPhasePlan}}
+	                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong></p>
+	                            {{#linkTo "myProjectPlan" project tagName="a"}}
+	                                <em class="flaticon solid pencil-3"></em>
+	                                {% trans "Continue plan" %}
+	                            {{/linkTo}}
+	                        {{/if}}
+	
+	                        {{#if project.isPhaseCampaign}}
+	                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong></p>
+	                            {{#linkTo "myProjectCampaign" project tagName="a"}}
+	                                <em class="flaticon solid pencil-3"></em>
+	                                {% trans "Campaigning" %}
+	                            {{/linkTo}}
+	                        {{/if}}
+	                        {{#if project.isPublic}}
+	                            <a {{action "showProject" project.id href=true}}>
+	                                <em class="flaticon solid eye-1"></em>
+	                                {% trans "View public project page" %}
+	                            </a>
+	                        {{/if}}
+						</div>
                     </li>
                 {{/each}}
             </ul>
@@ -84,10 +80,12 @@
 
 {% tplhandlebars "my_pitch_new" %}
 
-    {{partial "my_project_top"}}
 
-    <div class="container">
-        <div class="wrapper dashboard">
+    <div class="container" id="project-dashboard">
+    	
+    	{{partial "my_project_top"}}
+    
+        <div class="wrapper">
             <div class="content">
                 <h1 class="pink"> {% trans "Send in your Project Pitch" %}</h1>
 
@@ -124,7 +122,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </p>
                         {% trans "It looks like you already have started a project in progress. You can manage your project here:" %}
                         {{#linkTo "myProjectList" tagName="button" class="btn btn-primary btn-iconed"}}
-                            <span class="icon icon-wrench"></span>
+                            <em class="flaticon solid pencil-3"></em>
                             {% trans "Manage projects." %}
                         {{/linkTo}}
 
@@ -139,7 +137,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                             <br />
                             <div class="pitch-start">
                                 <button {{bindAttr class=":btn :btn-iconed :btn-primary :right isDirty::disabled"}} {{action updateRecordOnServer}}>
-                                    <em class="icon icon-star"></em>{% trans "write your pitch" %}
+                                    <em class="flaticon solid pencil-3"></em>{% trans "write your pitch" %}
                                 </button>
 
                             </div>
@@ -165,101 +163,99 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
 
 {% tplhandlebars "my_project" %}
-
-    {{partial "my_project_top"}}
-
-    {{ outlet }}
+	
+	<div class="container" id="project-dashboard">
+    	{{partial "my_project_top"}}
+		{{ outlet }}
+	</div>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "_my_project_top" %}
 
-    <div class="container section">
+    <div id="profile-actions" class="section">
         <div class="wrapper">
-            <div class="content">
-                <h1 class="main-title">
-                    <img {{bindAttr src="controllers.currentUser.getAvatar" info="owner.first_name"}} width="30" height="30" />
-                    {% trans "My 1%" %}
-                    {{#if title}}
-                        <em>
-                            <span class="icon-chevron-right"></span>
+            <div class="profile-actions-meta">
+                <a {{action "showProject" id href=true}} class="button-link">
+                    <img {{bindAttr src="controllers.currentUser.getAvatar" info="owner.first_name"}} />
+                    <span class="profile-actions-meta-title">
+                        {% trans "My 1%" %}
+                        
+                        {{#if title}}
+                        <span class="profile-title">
                             {{ title }}
-                        </em>
-                    {{/if}}
-                </h1>
+                        </span>
+						{{/if}}
+						
+						{{#unless isPhasePitch}}
+						<small>
+                            <em class="flaticon solid eye-1"></em>
+							View public Project Page
+                        </small>
+						{{/unless}}
+                    </span>
+                </a>
             </div>
-            <sidebar>
-                {{#if isPublic}}
-                    <a {{action "showProject" id href=true}} class="button-link">
-                        <em class="icon-eye-open"></em> View public Project Page
-                    </a>
-                {{/if}}
-            </sidebar>
-        </div>
-        <div class="wrapper">
-            <ul class="manage-steps">
+        
+            <ul class="tabs steps">
                 {{#if isPhasePitch}}
-                    {{#linkTo "myProjectPitch"}}
-                        <li class="selected first">
-                            <div class="inner">
-                                <em class="icon-ok"></em>
-                                <h4>{% trans "Project Pitch" %}</h4>
-                                {{ pitch.status }}
-                            </div>
+                        <li class="tab-item is-active first">
+                            {{#linkTo "myProjectPitch"}}
+                                <span class="tab-icon"><em class="flaticon solid lightbulb-3"></em></span>
+                                <strong class="tab-title">{% trans "Pitch" %}
+                                <em class="tab-subtitle">{{ pitch.status }}</em></strong>
+							{{/linkTo}}
                         </li>
-                    {{/linkTo}}
                 {{else}}
-                    <li class="first">
-                        <div class="inner">
-                            <em class="icon-ok"></em>
-                            <h4>{% trans "Project Pitch" %}</h4>
-                            {{ pitch.status }}
-                        </div>
+                    <li class="tab-item is-finished first">
+                        <span>
+                            <span class="tab-icon"><em class="flaticon solid lightbulb-3"></em></span>
+                            <strong class="tab-title">{% trans "Pitch" %}
+                            <em class="tab-subtitle">{{ pitch.status }}</em></strong>
+                        </span>
                     </li>
                 {{/if}}
                 {{#if isPhasePlan}}
-                    {{#linkTo "myProjectPlan"}}
-                        <li class="selected second">
-                            <div class="inner">
-                                <em class="icon-pencil"></em>
-                                <h4>{% trans "Project Plan" %}</h4>
-                                {{ plan.status }}
-                            </div>
+                        <li class="tab-item is-active second">
+                            {{#linkTo "myProjectPlan"}}
+                                <span class="tab-icon"><em class="flaticon solid notebook-1"></em></span>
+                                <strong class="tab-title">{% trans "Plan" %}
+                                <em class="tab-subtitle">{{ plan.status }}</em></strong>
+							{{/linkTo}}
                         </li>
-                    {{/linkTo}}
                 {{else}}
-                    <li class="second">
-                        <div class="inner">
-                            <em class="icon-pencil"></em>
-                            <h4>{% trans "Project Plan" %}</h4>
-                            {{ plan.status }}
-                        </div>
+                    <li class="tab-item second">
+                        <span>
+                            <span class="tab-icon"><em class="flaticon solid notebook-1"></em></span>
+                            <strong class="tab-title">{% trans "Plan" %}
+                            <em class="tab-subtitle">{{ plan.status }}</em></strong>
+                        </span>
                     </li>
                 {{/if}}
-                <li class="third">
-                    <div class="inner">
-                        <em class="icon-bullhorn"></em>
-                        <h4>{% trans "Campaign" %}</h4>
-                        {% trans "Not available" %}
-                    </div>
+                <li class="tab-item is-inactive third">
+                    <span>
+                        <span class="tab-icon"><em class="flaticon">&euro;</em></span>
+                        <strong class="tab-title">{% trans "Campaign" %}
+                        <em class="tab-subtitle">{% trans "Not available" %}</em></strong>
+                    </span>
                 </li>
-                <li class="fourth">
-                    <div class="inner">
-                        <em class="icon-wrench"></em>
-                        <h4>{% trans "Execute project" %}</h4>
-                        {% trans "Not available" %}
-                    </div>
+                <li class="tab-item is-inactive fourth">
+                    <span>
+                        <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
+                        <strong class="tab-title">{% trans "Execute" %}
+                        <em class="tab-subtitle">{% trans "Not available" %}</em></strong>
+                    </span>
                 </li>
-                <li class="fifth">
-                    <div class="inner">
-                        <em class="icon-trophy"></em>
-                        <h4>{% trans "Project results" %}</h4>
-                        {% trans "Not available" %}
-                    </div>
+                <li class="tab-item is-inactive fifth">
+                    <span>
+                        <span class="tab-icon"><em class="flaticon solid flag-3"></em></span>
+                        <strong class="tab-title">{% trans "Results" %}
+                        <em class="tab-subtitle">{% trans "Not available" %}</em></strong>
+                    </span>
                 </li>
             </ul>
-        </div>
+		</div>
     </div>
 
 {% endtplhandlebars %}
@@ -267,50 +263,50 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
 {% tplhandlebars "my_project_plan" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
+    
+        <div class="wrapper">
             <div class="menu-sidebar">
                 <div class="menu">
                     <div class="title">
                         <h4>
-                            <em class="icon-book"></em>
+                            <em class="flaticon solid notebook-1"></em>
                             {% trans "Project Story" %}
                         </h4>
                     </div>
-                    {{#linkTo "myProjectPlan.basics" class="item"}}
-                        <em {{bindAttr class="validBasics:icon-ok:icon-pencil"}}></em>
+                    {{#linkTo "myProjectPlan.basics"}}
+                        <em {{bindAttr class="validBasics:is-finished:is-unfinished"}}></em>
                         {% trans "Project Basics" %}
                     {{/linkTo}}
-                    {{#linkTo "myProjectPlan.description" class="item"}}
-                        <em {{bindAttr class="validDescription:icon-ok:icon-pencil"}}></em>
+                    {{#linkTo "myProjectPlan.description"}}
+                        <em {{bindAttr class="validDescription:is-finished:is-unfinished"}}></em>
                         {% trans "Project Description" %}
                     {{/linkTo}}
-                    {{#linkTo "myProjectPlan.location" class="item"}}
-                        <em {{bindAttr class="validLocation:icon-ok:icon-pencil"}}></em>
+                    {{#linkTo "myProjectPlan.location"}}
+                        <em {{bindAttr class="validLocation:is-finished:is-unfinished"}}></em>
                         {% trans "Location" %}
                     {{/linkTo}}
-                    {{#linkTo "myProjectPlan.media" class="item"}}
-                        <em {{bindAttr class="validMedia:icon-ok:icon-pencil"}}></em>
+                    {{#linkTo "myProjectPlan.media"}}
+                        <em {{bindAttr class="validMedia:is-finished:is-unfinished"}}></em>
                         {% trans "Media" %}
                     {{/linkTo}}
                 </div>
                 <div class="menu">
                     <div class="title">
                         <h4>
-                            <em class="icon-briefcase"></em>
-                            {% trans "Update Organisation" %}
+                            <em class="flaticon solid briefcase-1"></em>
+                            {% trans "Organisation" %}
                         </h4>
                     </div>
-                    {{#linkTo "myProjectPlan.organisation" class="item"}}
-                        <em {{bindAttr class="organization.validProfile:icon-ok:icon-pencil"}}></em>
+                    {{#linkTo "myProjectPlan.organisation"}}
+                        <em {{bindAttr class="organization.validProfile:is-finished:is-unfinished"}}></em>
                         {% trans "Organisation Profile" %}
                     {{/linkTo}}
-                    {{#linkTo "myProjectPlan.legal" class="item"}}
-                        <em {{bindAttr class="organization.validLegalStatus:icon-ok:icon-pencil"}}></em>
+                    {{#linkTo "myProjectPlan.legal"}}
+                        <em {{bindAttr class="organization.validLegalStatus:is-finished:is-unfinished"}}></em>
                         {% trans "Legal Status" %}
                     {{/linkTo}}
-                    {{#linkTo "myProjectPlan.ambassadors" class="item"}}
-                        <em {{bindAttr class="validAmbassadors:icon-ok:icon-pencil"}}></em>
+                    {{#linkTo "myProjectPlan.ambassadors"}}
+                        <em {{bindAttr class="validAmbassadors:is-finished:is-unfinished"}}></em>
                         {% trans "Ambassadors" %}
                     {{/linkTo}}
                 </div>
@@ -319,34 +315,28 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     <div class="menu">
                         <div class="title">
                             <h4>
-                                <em class="icon-money"></em>
+                                <em class="flaticon">&euro;</em>
                                 {% trans "Crowdfunding" %}
                             </h4>
                         </div>
-                        {{#linkTo "myProjectPlan.campaign" class="item"}}
-                            <em {{bindAttr class="validCampaign:icon-ok:icon-pencil"}}></em>
+                        {{#linkTo "myProjectPlan.campaign"}}
+                            <em {{bindAttr class="validCampaign:is-finished:is-unfinished"}}></em>
                             {% trans "Start Campaign" %}
                         {{/linkTo}}
-                        {{#linkTo "myProjectPlan.budget" class="item"}}
-                            <em {{bindAttr class="validBudget:icon-ok:icon-pencil"}}></em>
+                        {{#linkTo "myProjectPlan.budget"}}
+                            <em {{bindAttr class="validBudget:is-finished:is-unfinished"}}></em>
                             {% trans "Budget" %}
                         {{/linkTo}}
-                        {{#linkTo "myProjectPlan.bank" class="item"}}
-                            <em {{bindAttr class="organization.validBank:icon-ok:icon-pencil"}}></em>
+                        {{#linkTo "myProjectPlan.bank"}}
+                            <em {{bindAttr class="organization.validBank:is-finished:is-unfinished"}}></em>
                             {% trans "Bank details" %}
                         {{/linkTo}}
                     </div>
                 {{/if}}
 
                 <div class="menu">
-                    <div class="title">
-                        <h4>
-                            <em class="icon-circle-arrow-right"></em>
-                            {% trans "Submit Project Plan" %}
-                        </h4>
-                    </div>
-                    {{#linkTo "myProjectPlan.submit" class="item"}}
-                        <em  class="icon-circle-arrow-right"></em>
+                    {{#linkTo "myProjectPlan.submit" class="submit"}}
+                        <em  class="flaticon solid right-square-4"></em>
                         {% trans "Submit Plan" %}
                     {{/linkTo}}
                 </div>
@@ -358,49 +348,48 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             </form>
 
             <div class="form">
+	            <div class="toolbox">
+	                <div class="title">
+	                    <h3>
+	                        <em class="flaticon solid wrench-1"></em>
+	                        {% trans "Crowdsourcing" %}
+	                    </h3>
+	                </div>
+	                <div class="body">
+	                    <div class="tip tip-iconed">
+	                        <em class="flaticon solid lightbulb-1"></em>
+	                        {% trans "Do you need someone to help writing your business plan?" %}
+	                    </div>
+	                    {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
+	                        <em class="flaticon solid wrench-1"></em>
+	                        {% trans "Create a new task" %}
+	                    {{/linkTo}}
+	                </div>
+	            </div>
+	
+	            <div class="toolbox">
+	                <div class="title">
+	                    <h3>
+	                        <em class="flaticon solid megaphone-1"></em>
+	                        {% trans "Project Updates" %}
+	                    </h3>
+	
+	                </div>
+	                <div class="body">
+	                    <div class="tip tip-iconed">
+	                        <span class="flaticon solid lightbulb-1"></span>
+	                        {% trans "Why not? Ask the crowd for feedback on your idea!" %}
+	                    </div>
+	                    {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
+	                        <span class="flaticon solid megaphone-1"></span>
+	                        {% trans "Post an Update" %}
+	                    {{/linkTo}}
+	                </div>
+	            </div>
+	
+	        </div>
 
-                <div class="toolbox">
-                    <div class="title">
-                        <h3>
-                            <em class="icon-wrench"></em>
-                            {% trans "Crowdsourcing" %}
-                        </h3>
-                    </div>
-                    <div class="body">
-                        <div class="tip tip-iconed">
-                            <span class="icon icon-lightbulb"></span>
-                            {% trans "Do you need someone to help writing your business plan?" %}
-                        </div>
-                        {{#linkTo "projectTaskNew" project.getProject tagName="button" class="btn btn-iconed"}}
-                            <span class="icon icon-wrench"></span>
-                            {% trans "Create a new task" %}
-                        {{/linkTo}}
-                    </div>
-                </div>
-
-                <div class="toolbox">
-                    <div class="title">
-                        <h3>
-                            <em class="icon-wrench"></em>
-                            {% trans "Project Updates" %}
-                        </h3>
-
-                    </div>
-                    <div class="body">
-                        <div class="tip tip-iconed">
-                            <span class="icon icon-lightbulb"></span>
-                            {% trans "Why not? Ask the crowd for feedback on your idea!" %}
-                        </div>
-                        {{#linkTo "project" project.getProject tagName="button" class="btn btn-iconed"}}
-                            <span class="icon icon-bullhorn"></span>
-                            {% trans "Post an Update" %}
-                        {{/linkTo}}
-                    </div>
-                </div>
-
-            </div>
         </div>
-    </div>
 
 {% endtplhandlebars %}
 
@@ -655,11 +644,12 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
                         {{view App.UploadFile valueBinding="image" name="image" accept="image/*" id="image"}}
+                        <em class="icon icon-upload"></em>
+                        {{view App.UploadFile name="image" accept="image/*" id="image"}}
                         <i class="icon icon-upload"></i>
                         {% trans "Upload picture" %}
                     </a>
                     <br />
-                    {{image.value}} | {{image}} | {{image.large}}
                     <div {{bindAttr class=":preview image::empty"}}>
                         {{#if image}}
                             <img {{bindAttr src="image.large"}} />
@@ -671,7 +661,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             </li>
         </ul>
     </fieldset>
-    <button {{bindAttr class=":btn :btn-iconed image::disabled :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed isDirty::disabled :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
 
 {% endtplhandlebars %}
 
@@ -921,7 +911,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 <div class="controls project-pic-uploader">
                     <a class="btn btn-iconed btn-uploader">
                         {{view App.UploadFileView valueBinding="image" name="documents" multiple=true}}
-                        <i class="icon icon-upload"></i>
+                        <em class="icon icon-upload"></em>
                         {% trans "Upload scan(s)" %}
                     </a>
                     <br />
@@ -1286,12 +1276,10 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
 
 {% tplhandlebars "my_project_plan_review" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
-            <article class="content">
-                <h2>{% trans "Your plan is in review now. We'll get back to you soon!" %}</h2>
-            </article>
-        </div>
+    <div class="wrapper">
+        <article class="content">
+            <h2>{% trans "Your plan is in review now. We'll get back to you soon!" %}</h2>
+        </article>
     </div>
 
 {% endtplhandlebars %}
@@ -1299,32 +1287,32 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
 
 {% tplhandlebars "my_project_plan_rejected" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
-            <article class="content">
-                <h2>
-                    {% trans "We're sorry, your plan has been rejected." %}
-                    {% trans "Please contact us if you need support to define your smart idea." %}
-                </h2>
-            </article>
-        </div>
+
+    <div class="wrapper">
+        <article class="content">
+            <h2>
+                {% trans "We're sorry, your plan has been rejected." %}
+                {% trans "Please contact us if you need support to define your smart idea." %}
+            </h2>
+        </article>
     </div>
+
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "my_project_plan_approved" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
-            <article class="content">
-                <h2>
-                    {% trans "Yeah! Your plan has been approved." %}<br/>
-                    {% trans "You can start your " %} {{#linkTo myProjectCampaign}}{% trans "Campaign" %}{{/linkTo}}
-                </h2>
-            </article>
-        </div>
+
+    <div class="wrapper ">
+        <article class="content">
+            <h2>
+                {% trans "Yeah! Your plan has been approved." %}<br/>
+                {% trans "You can start your " %} {{#linkTo myProjectCampaign}}{% trans "Campaign" %}{{/linkTo}}
+            </h2>
+        </article>
     </div>
+
 
 {% endtplhandlebars %}
 
@@ -1333,49 +1321,52 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
 {% tplhandlebars "my_pitch_index" %}
 
     <fieldset>
-        <legend><strong>{% trans "Get ready to write your pitch!" %}</strong></legend>
+        <legend>
+        	<strong>{% trans "Get ready to write your pitch!" %}</strong>
+			<p>Bla</p>
+        </legend>
     </fieldset>
 
-    {{#linkTo myProjectPitch.basics class="btn btn-iconed right button"}}<em class="icon icon-star"></em>{% trans "Next" %}{{/linkTo}}
+    {{#linkTo myProjectPitch.basics class="btn btn-iconed right button"}}<em class="flaticon solid right-1"></em>{% trans "Next" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "my_project_pitch" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
-            <div class="menu-sidebar">
-                <div class="menu">
-                    <div class="title">
-                        <h4>
-                            <em class="icon-lightbulb"></em>
-                            {% trans "Project Pitch" %}
-                        </h4>
-                    </div>
-                    {{#linkTo "myProjectPitch.basics" class="item"}}
-                        <em {{bindAttr class="validBasics:icon-ok:icon-pencil"}}></em>
-                        {% trans "Project Basics" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPitch.location"  class="item"}}
-                        <em {{bindAttr class="validLocation:icon-ok:icon-pencil"}}></em>
-                        {% trans "Location" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPitch.media"  class="item"}}
-                        <em {{bindAttr class="validMedia:icon-ok:icon-pencil"}}></em>
-                        {% trans "Media" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPitch.submit"  class="item"}}
-                        <em class="icon-star"></em>
-                        {% trans "Submit" %}
-                    {{/linkTo}}
+
+    <div class="wrapper">
+        <div class="menu-sidebar">
+            <div class="menu">
+                <div class="title">
+                    <h4>
+                        <em class="flaticon solid lightbulb-3"></em>
+                        {% trans "Project Pitch" %}
+                    </h4>
                 </div>
+                {{#linkTo "myProjectPitch.basics"}}
+                    <em {{bindAttr class="validBasics:is-finished:is-unfinished"}}></em>
+                    {% trans "Project Basics" %}
+                {{/linkTo}}
+                {{#linkTo "myProjectPitch.location"}}
+                    <em {{bindAttr class="validLocation:is-finished:is-unfinished"}}></em>
+                    {% trans "Location" %}
+                {{/linkTo}}
+                {{#linkTo "myProjectPitch.media"}}
+                    <em {{bindAttr class="validMedia:is-finished:is-unfinished"}}></em>
+                    {% trans "Media" %}
+                {{/linkTo}}
+                {{#linkTo "myProjectPitch.submit" class="submit"}}
+                    <span class="icon"><em class="flaticon solid right-square-4"></em></span>
+                    {% trans "Submit Pitch" %}
+                {{/linkTo}}
             </div>
-            <form>
-                {{ outlet }}
-            </form>
         </div>
+        <form>
+            {{ outlet }}
+        </form>
     </div>
+
 
 
 {% endtplhandlebars %}
@@ -1555,31 +1546,28 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
 
 {% tplhandlebars "my_project_pitch_review" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
-            <article class="content">
-                <h2>
-                    {% trans "Your pitch is in review now." %}<br/>
-                    {% trans "We'll get back to you soon!" %}
-                </h2>
-            </article>
-        </div>
+    <div class="wrapper">
+        <article class="content">
+            <h2>
+                {% trans "Your pitch is in review now." %}<br/>
+                {% trans "We'll get back to you soon!" %}
+            </h2>
+        </article>
     </div>
+
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "my_project_pitch_rejected" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
-            <article class="content">
-                <h2>
-                    {% trans "We're sorry, your pitch has been rejected." %}<br />
-                    {% trans "Please contact us if you need support to define your smart idea." %}
-                </h2>
-            </article>
-        </div>
+    <div class="wrapper">
+        <article class="content">
+            <h2>
+                {% trans "We're sorry, your pitch has been rejected." %}<br />
+                {% trans "Please contact us if you need support to define your smart idea." %}
+            </h2>
+        </article>
     </div>
 
 {% endtplhandlebars %}
@@ -1587,16 +1575,14 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
 
 {% tplhandlebars "my_project_pitch_approved" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
-            <article class="content">
-                <h2>
-                    {% trans "Yeah! Your pitch has been approved." %}<br/>
-                    {% trans "You can write your {{#linkTo myProjectPlan}}Project Plan{{/linkTo}}!" %}
-                </h2>
+    <div class="wrapper">
+        <article class="content">
+            <h2>
+                {% trans "Yeah! Your pitch has been approved." %}<br/>
+                {% trans "You can write your {{#linkTo myProjectPlan}}Project Plan{{/linkTo}}!" %}
+            </h2>
 
-            </article>
-        </div>
+        </article>
     </div>
 
 {% endtplhandlebars %}
@@ -1615,111 +1601,109 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
 
 {% tplhandlebars "my_project_campaign" %}
 
-    <div class="container">
-        <div class="wrapper dashboard">
-            <div class="menu-sidebar">
-                <div class="menu">
-                    <div class="title">
-                        <h4>
-                            <em class="icon-lock"></em>
-                            {% trans "Project Story" %}
-                        </h4>
-                    </div>
-                    <div class="body">
-                        Your plan is approved and currently locked. If you need to make any changes: please sent a message to
-                        {{#if coach}}your 1%COACH, <strong>{{coach.full_name}}</strong>, at{{/if}} projects@1procentclub.nl.
-                    </div>
+    <div class="wrapper">
+        <div class="menu-sidebar">
+            <div class="menu">
+                <div class="title">
+                    <h4>
+                        <em class="icon-lock"></em>
+                        {% trans "Project Story" %}
+                    </h4>
                 </div>
-
-                <div class="menu">
-                    <div class="title">
-                        <h4>
-                            <em class="icon-money"></em>
-                            {% trans "Funding status" %}
-                        </h4>
-                    </div>
-                    <div class="body">
-                        <div class="project-status">
-                            <div class="donate-status">
-                                <p class="donate-amount">
-                                    &euro;{{campaign.money_donated}}
-                                    {% trans "of" %}
-                                    &euro;{{campaign.money_asked}}
-                                    {% trans "raised" %}
-                                </p>
-                                <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="body">
+                    Your plan is approved and currently locked. If you need to make any changes: please sent a message to
+                    {{#if coach}}your 1%COACH, <strong>{{coach.full_name}}</strong>, at{{/if}} projects@1procentclub.nl.
                 </div>
-
             </div>
 
-            <form>
-                <fieldset>
-                    <legend><strong>{% trans "How is your campaign going?" %}</strong></legend>
-                        <div class="body">
-                            {% blocktrans %}
-                            Is money pouring in? No? Our tips & tricks might help you.
-                            Check our <a href="/#!/pages/faq-projects">FAQ</a>! And remember Einsteins words: "You have to learn the rules
-                            of the game. And then you have to play better than anyone else".
-                            You can do it!
-                            {% endblocktrans %}
-
-                            <div class="project-days-left">
-                                {{#if campaign.deadline}}
-                                    <h3>
-                                        <i class="icon-time"></i>
-                                        <strong>{{campaign.daysToGo}}</strong>
-                                        {% trans "days to go" %}
-                                    </h3>
-                                {{/if}}
-                            </div>
+            <div class="menu">
+                <div class="title">
+                    <h4>
+                        <em class="icon-money"></em>
+                        {% trans "Funding status" %}
+                    </h4>
+                </div>
+                <div class="body">
+                    <div class="project-status">
+                        <div class="donate-status">
+                            <p class="donate-amount">
+                                &euro;{{campaign.money_donated}}
+                                {% trans "of" %}
+                                &euro;{{campaign.money_asked}}
+                                {% trans "raised" %}
+                            </p>
+                            <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
                         </div>
-                </fieldset>
-            </form>
-
-            <div class="form">
-                <div class="toolbox">
-                    <div class="title">
-                        <h3>
-                            <em class="icon-wrench"></em>
-                            {% trans "Crowdsourcing" %}
-                        </h3>
-                    </div>
-                    <div class="body">
-                        <div class="tip tip-iconed">
-                            <span class="icon icon-lightbulb"></span>
-                            {% trans "Do you need someone to help writing your business plan?" %}
-                        </div>
-                        {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
-                            <span class="icon icon-wrench"></span>
-                            {% trans "Create a new task" %}
-                        {{/linkTo}}
                     </div>
                 </div>
-
-                <div class="toolbox">
-                    <div class="title">
-                        <h3>
-                            <em class="icon-wrench"></em>
-                            {% trans "Project Updates" %}
-                        </h3>
-
-                    </div>
-                    <div class="body">
-                        <div class="tip tip-iconed">
-                            <span class="icon icon-lightbulb"></span>
-                            {% trans "Why not? Ask the crowd for feedback on your idea!" %}
-                        </div>
-                        {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
-                            <span class="icon icon-bullhorn"></span>
-                            {% trans "Post an Update" %}
-                        {{/linkTo}}
-                    </div>
-                </div>
-
             </div>
+
+        </div>
+
+        <form>
+            <fieldset>
+                <legend><strong>{% trans "How is your campaign going?" %}</strong></legend>
+                    <div class="body">
+                        {% blocktrans %}
+                        Is money pouring in? No? Our tips & tricks might help you.
+                        Check our FAQ! And remember Einsteins words: "You have to learn the rules
+                        of the game. And then you have to play better than anyone else".
+                        You can do it!
+                        {% endblocktrans %}
+
+                        <div class="project-days-left">
+                            {{#if campaign.deadline}}
+                                <h3>
+                                    <em class="icon-time"></em>
+                                    <strong>{{campaign.daysToGo}}</strong>
+                                    {% trans "days to go" %}
+                                </h3>
+                            {{/if}}
+                        </div>
+                    </div>
+            </fieldset>
+        </form>
+
+        <div class="form">
+            <div class="toolbox">
+                <div class="title">
+                    <h3>
+                        <em class="flaticon solid wrench-1"></em>
+                        {% trans "Crowdsourcing" %}
+                    </h3>
+                </div>
+                <div class="body">
+                    <div class="tip tip-iconed">
+                        <em class="flaticon solid lightbulb-1"></em>
+                        {% trans "Do you need someone to help writing your business plan?" %}
+                    </div>
+                    {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
+                        <em class="flaticon solid wrench-1"></em>
+                        {% trans "Create a new task" %}
+                    {{/linkTo}}
+                </div>
+            </div>
+
+            <div class="toolbox">
+                <div class="title">
+                    <h3>
+                        <em class="flaticon solid megaphone-1"></em>
+                        {% trans "Project Updates" %}
+                    </h3>
+
+                </div>
+                <div class="body">
+                    <div class="tip tip-iconed">
+                        <span class="flaticon solid lightbulb-1"></span>
+                        {% trans "Why not? Ask the crowd for feedback on your idea!" %}
+                    </div>
+                    {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
+                        <span class="flaticon solid megaphone-1"></span>
+                        {% trans "Post an Update" %}
+                    {{/linkTo}}
+                </div>
+            </div>
+
         </div>
     </div>
 

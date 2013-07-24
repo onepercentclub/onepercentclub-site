@@ -22,6 +22,28 @@ html {
 }
 */
 
+html, body, body > .ember-view:first-of-type {
+  height: 100%;
+}
+#main {
+  min-height: 100%;
+  /* equal to footer height + 14 */
+  margin-bottom: -504px;
+}
+#main:after {
+  content: "";
+  display: block;
+}
+#footer, #main:after {
+  /* .push must be the same height as footer */
+  height: 490px; 
+}
+
+#footer {
+	margin-top: ($padding * 2);
+	clear: both;
+}
+
 body { 
     overflow-y: scroll;
 }
