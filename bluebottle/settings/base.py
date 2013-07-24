@@ -559,3 +559,6 @@ CRAWLABLE_PHANTOMJS_DEDICATED_MODE = True
 CRAWLABLE_PHANTOMJS_DEDICATED_PORT = 8910
 # If dedicated mode is disabled, you can specify arguments to start phantomjs.
 CRAWLABLE_PHANTOMJS_ARGS = []
+
+# Send email to console by default
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
