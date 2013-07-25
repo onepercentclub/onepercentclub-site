@@ -107,21 +107,21 @@ App = Em.Application.create({
         this.initSelectViews();
     },
 
-    initSelectViews: function(){
+    initSelectViews: function() {
         // Pre-load these lists so we avoid race conditions when displaying forms
-        App.Theme.find().then(function(list){
+        App.Theme.find().then(function(list) {
             App.ThemeSelectView.reopen({
                 content: list
             });
         });
 
-        App.Skill.find().then(function(list){
+        App.Skill.find().then(function(list) {
             App.SkillSelectView.reopen({
                 content: list
             });
         });
 
-        App.Country.find().then(function(list){
+        App.Country.find().then(function(list) {
             App.CountrySelectView.reopen({
                 content: list
             });
@@ -130,7 +130,7 @@ App = Em.Application.create({
             });
         });
         // Get a filtered list of countries that can apply for a project ('oda' countries).
-        var filteredList = App.Country.filter(function(item){return item.get('oda')});
+        var filteredList = App.Country.filter(function(item) {return item.get('oda')});
 
         App.ProjectCountrySelectView.reopen({
             content: filteredList
@@ -145,27 +145,27 @@ App = Em.Application.create({
         if (locale != 'en-US') {
             // Try to load locale specifications.
             $.getScript('/static/assets/js/vendor/globalize-cultures/globalize.culture.' + locale + '.js')
-                .fail(function(){
+                .fail(function() {
                     console.log("No globalize culture file for : "+ locale);
                     // Specified locale file not available. Use default locale.
                     locale = App.get('locale');
                     Globalize.culture(locale);
                     App.set('locale', locale);
                 })
-                .success(function(){
+                .success(function() {
                     // Specs loaded. Enable locale.
                     Globalize.culture(locale);
                     App.set('locale', locale);
                 });
             $.getScript('/static/assets/js/vendor/jquery-ui/i18n/jquery.ui.datepicker-' + locale.substr(0, 2) + '.js')
-                .fail(function(){
+                .fail(function() {
                     console.log("No jquery.ui.datepicker file for : "+ locale);
                     // Specified locale file not available. Use default locale.
                     locale = App.get('locale');
                     Globalize.culture(locale);
                     App.set('locale', locale);
                 })
-                .success(function(){
+                .success(function() {
                     // Specs loaded. Enable locale.
                     App.set('locale', locale);
                 });
@@ -185,7 +185,7 @@ App.loadTemplates = function() {
     // Now that we know the language we can load the handlebars templates.
     var readyCount = 0;
     var templates = Em.A(['users', 'homepage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils', 'blogs']);
-    templates.forEach(function(template){
+    templates.forEach(function(template) {
         //loadTemplates(this.templates);
         var hash = {};
         hash.url = '/' + language + '/templates/' + template + '.hbs';
@@ -222,7 +222,7 @@ App.loadTemplates = function() {
         // Now that we know the language we can load the handlebars templates.
         var readyCount = 0;
         var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'pages']);
-        templates.forEach(function(template){
+        templates.forEach(function(template) {
             //loadTemplates(this.templates);
             var hash = {};
             hash.url = '/' + language + '/templates/' + template + '.hbs';
@@ -296,7 +296,7 @@ App.ApplicationController = Ember.Controller.extend({
     needs: ['currentUser', 'currentOrder', 'myProjectList'],
     display_message: false,
 
-    news: function(){
+    news: function() {
         return App.NewsPreview.find({language: App.get('language')});
     }.property(),
 
@@ -480,7 +480,7 @@ App.Router.map(function() {
     });
 
 
-    this.resource('news', {path: '/news'}, function(){
+    this.resource('news', {path: '/news'}, function() {
         this.resource('newsItem', {path: '/:news_id'});
     });
 
@@ -533,7 +533,7 @@ App.Router.map(function() {
     this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
 
     this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
-        this.resource('myProjectPlan', {path: 'plan'}, function(){
+        this.resource('myProjectPlan', {path: 'plan'}, function() {
             this.route('index');
             this.route('basics');
             this.route('location');
@@ -556,7 +556,7 @@ App.Router.map(function() {
         this.resource('myProjectPlanApproved', {path: 'plan/approved'});
         this.resource('myProjectPlanRejected', {path: 'plan/rejected'});
 
-        this.resource('myProjectPitch', {path: 'pitch'}, function(){
+        this.resource('myProjectPitch', {path: 'pitch'}, function() {
             this.route('index');
             this.route('basics');
             this.route('location');
@@ -580,7 +580,7 @@ App.Router.map(function() {
 
 App.ApplicationRoute = Em.Route.extend({
 
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this.controllerFor('myProjectList').set('model', App.MyProject.find());
 
         // FIXME: This totaly breaks donation flow because the unloadRecord trick in CurrrenOrderRoute.model(), somehow.
@@ -610,7 +610,7 @@ App.ApplicationRoute = Em.Route.extend({
             return true;
         },
 
-        openInBigBox: function(name, context){
+        openInBigBox: function(name, context) {
             // Get the controller or create one
             var controller = this.controllerFor(name);
             controller.set('model', context);
@@ -629,7 +629,7 @@ App.ApplicationRoute = Em.Route.extend({
             });
 
         },
-        openInBox: function(name, context){
+        openInBox: function(name, context) {
             // Get the controller or create one
             var controller = this.controllerFor(name);
             if (context) {
@@ -651,40 +651,40 @@ App.ApplicationRoute = Em.Route.extend({
         },
         showProject: function(project_id) {
             var route = this;
-            App.Project.find(project_id).then(function(project){
+            App.Project.find(project_id).then(function(project) {
                 route.transitionTo('project', project);
             });
         },
         showProjectTaskList: function(project_id) {
             var route = this;
-            App.Project.find(project_id).then(function(project){
+            App.Project.find(project_id).then(function(project) {
                 route.transitionTo('project', project);
                 route.transitionTo('projectTaskList');
             });
         },
         showTask: function(task) {
             var route = this;
-            App.Project.find(task.get('project.id')).then(function(project){
+            App.Project.find(task.get('project.id')).then(function(project) {
                 route.transitionTo('project', project);
                 route.transitionTo('projectTask', task);
             });
         },
         showNews: function(news_id) {
             var route = this;
-            App.News.find(news_id).then(function(news){
+            App.News.find(news_id).then(function(news) {
                 route.transitionTo('newsItem', news);
                 window.scrollTo(0);
             });
         },
         showPage: function(page_id) {
             var route = this;
-            App.Page.find(page_id).then(function(page){
+            App.Page.find(page_id).then(function(page) {
                 route.transitionTo('page', page);
                 window.scrollTo(0);
             });
         }
     },
-    urlForEvent: function(actionName, context){
+    urlForEvent: function(actionName, context) {
         return "/nice/stuff"
     }
 });
@@ -753,7 +753,7 @@ App.ProjectTaskListRoute = Em.Route.extend({
         this._super(controller, model);
         var project = this.modelFor('project');
         var tasks = App.Task.find({project: project.get('id')});
-        tasks.addObserver('isLoaded', function(){
+        tasks.addObserver('isLoaded', function() {
             tasks.forEach(function(record) {
                 if (record.get('isLoaded')) {
                     controller.get('content').pushObject(record);
@@ -777,7 +777,7 @@ App.ProjectTaskRoute = Em.Route.extend({
         wallPostController.set('page', 0);
     },
     events: {
-        applyForTask: function(task){
+        applyForTask: function(task) {
             var route = this;
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
@@ -797,7 +797,7 @@ App.ProjectTaskRoute = Em.Route.extend({
                 }
             });
         },
-        uploadFile: function(task){
+        uploadFile: function(task) {
             var route = this;
             var controller = this.controllerFor('taskFileNew');
             var view = App.TaskFileNewView.create();
@@ -824,15 +824,15 @@ App.ProjectTaskRoute = Em.Route.extend({
                 }
             });
         },
-        showMoreWallPosts: function(){
+        showMoreWallPosts: function() {
             var controller = this.get('controller');
             var wallPostController = this.controllerFor('taskWallPostList');
             wallPostController.set('canLoadMore', false);
             var page = wallPostController.incrementProperty('page');
             var task = controller.get('model');
             var wps = App.TaskWallPost.find({task: task.get('id'), page: page});
-            wps.addObserver('isLoaded', function(){
-                wps.forEach(function(record){
+            wps.addObserver('isLoaded', function() {
+                wps.forEach(function(record) {
                     if (record.get('isLoaded')) {
                         wallPostController.get('content').pushObject(record);
                     }
@@ -840,7 +840,7 @@ App.ProjectTaskRoute = Em.Route.extend({
                 wallPostController.set('canLoadMore', true);
             });
         },
-        editTaskMember: function(taskMember){
+        editTaskMember: function(taskMember) {
             var route = this;
             var controller = this.controllerFor('taskMemberEdit');
             controller.set('model', taskMember);
@@ -875,7 +875,7 @@ App.ProjectTaskRoute = Em.Route.extend({
 
 App.ProjectTaskNewRoute = Em.Route.extend({
 
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this._super(controller, model);
         var transaction = this.get('store').transaction();
         model = transaction.createRecord(App.Task);
@@ -889,7 +889,7 @@ App.ProjectTaskEditRoute = Em.Route.extend({
         return App.Task.find(params.task_id);
     },
 
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this._super(controller, model);
         // Only start a new transaction if this model hasn't got its own yet.
         if (model.transaction.isDefault) {
@@ -1099,7 +1099,7 @@ App.RecurringDirectDebitPaymentRoute = Em.Route.extend({
         }
     },
 
-    model: function(){
+    model: function() {
         var route = this;
         return App.RecurringDirectDebitPayment.find({}).then(function(recordList) {
                 var transaction = route.get('store').transaction();
@@ -1167,7 +1167,7 @@ App.VoucherRedeemAddRoute = Em.Route.extend({
                 donation.set('project', project);
                 donation.set('voucher', voucher);
                 // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
-                donation.on('didCreate', function(record){
+                donation.on('didCreate', function(record) {
                     voucher.get('donations').clear();
                     voucher.get('donations').pushObject(record);
                 });
@@ -1191,7 +1191,7 @@ App.VoucherRedeemRoute = Em.Route.extend({
                 donation.set('project', project);
                 donation.set('voucher', voucher);
                 // Ember object embedded isn't updated by server response. Manual update for embedded donation here.
-                donation.on('didCreate', function(record){
+                donation.on('didCreate', function(record) {
                     voucher.get('donations').clear();
                     voucher.get('donations').pushObject(record);
                 });
@@ -1275,7 +1275,7 @@ App.UserActivateRoute = Em.Route.extend({
         console.log(currentUser);
         var activation = App.UserActivation.find(params.activation_key);
         var route = this;
-        activation.on('becameError', function(record){
+        activation.on('becameError', function(record) {
             route.controllerFor('application').setProperties({
                 display_message: true,
                 isError: true,
@@ -1284,18 +1284,18 @@ App.UserActivateRoute = Em.Route.extend({
             });
             route.replaceWith('home');
         });
-        activation.on('didLoad', function(record){
+        activation.on('didLoad', function(record) {
             var currentUser = App.CurrentUser.find('current');
             // CurrentUser hasn't been loaded properly. We need to set state 'loaded' here so we can use reload.
             currentUser.get('stateManager').goToState('loaded');
-            currentUser.one('didReload', function(){
+            currentUser.one('didReload', function() {
                 // User profile needs to load it's own currentUser apparently so unload this here.
                 currentUser.unloadRecord();
                 route.replaceWith('userProfile');
             });
 
             // This seems the only way to (more or less) always load the logged in user,
-            Em.run.later(function(){
+            Em.run.later(function() {
                 currentUser.reload();
             }, 1500);
 
@@ -1395,7 +1395,7 @@ App.LoginController = Em.Controller.extend({
                             $error.removeClass('hidden');
                             $error.fadeIn();
                             $emailInput.addClass('error').val();
-                            $emailInput.keyUp(function(){
+                            $emailInput.keyUp(function() {
                                 $error.fadeOut();
                             });
                         }
@@ -1426,7 +1426,7 @@ App.MyProjectListRoute = Em.Route.extend({
 
 
 App.MyPitchNewRoute = Em.Route.extend({
-    model: function(){
+    model: function() {
         var transaction = this.get('store').transaction();
         return transaction.createRecord(App.MyProject);
     }
@@ -1466,11 +1466,11 @@ App.MyProjectPitchSubRoute = Ember.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('pitch');
     },
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this._super(controller, model);
         controller.startEditing();
     },
-    exit: function(){
+    exit: function() {
         if (this.get('controller')) {
             this.get('controller').stopEditing();
         }
@@ -1523,7 +1523,7 @@ App.MyProjectPlanRoute = Em.Route.extend({
 App.MyProjectPlanSubRoute = Em.Route.extend({
     redirect: function() {
         var status = this.modelFor('myProject').get('plan.status');
-        switch(status){
+        switch(status) {
             case 'submitted':
                 this.transitionTo('myProjectPlanReview');
                 break;
@@ -1540,12 +1540,12 @@ App.MyProjectPlanSubRoute = Em.Route.extend({
         return this.modelFor('myProject').get('plan');
     },
 
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this._super(controller, model);
         controller.startEditing();
     },
 
-    exit: function(){
+    exit: function() {
         if (this.get('controller')) {
             this.get('controller').stopEditing();
         }
@@ -1563,7 +1563,7 @@ App.MyProjectPlanCampaignRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanBudgetRoute = App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this._super(controller, model);
         controller.set('organizations', App.MyOrganization.find());
     }
@@ -1578,7 +1578,7 @@ App.MyProjectPlanLegalRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanIndexRoute = Ember.Route.extend({
     redirect: function() {
         var status = this.modelFor('myProject').get('plan.status');
-        switch(status){
+        switch(status) {
             case 'submitted':
                 this.transitionTo('myProjectPlanReview');
                 break;
@@ -1631,7 +1631,7 @@ App.PageRoute = Em.Route.extend({
     model: function(params) {
         var page =  App.Page.find(params.page_id);
         var route = this;
-        page.on('becameError', function(){
+        page.on('becameError', function() {
             route.transitionTo('error.notFound');
         });
         return page;
@@ -1645,7 +1645,7 @@ App.NewsItemRoute = Em.Route.extend({
     model: function(params) {
         var newsItem =  App.News.find(params.news_id);
         var route = this;
-        newsItem.on('becameError', function(){
+        newsItem.on('becameError', function() {
             route.transitionTo('error.notFound');
         });
         return newsItem;
@@ -1665,7 +1665,7 @@ App.NewsIndexRoute = Em.Route.extend({
         return App.NewsPreview.find({language: App.get('language')});
     },
     // Redirect to the latest news item
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this.send('showNews', model.objectAt(0).get('id'));
     }
 });
@@ -1678,12 +1678,12 @@ App.ContactMessageRoute = Em.Route.extend({
         var transaction = this.get('store').transaction();
         return transaction.createRecord(App.ContactMessage);
     },
-    setupController: function(controller, model){
+    setupController: function(controller, model) {
         this._super(controller, model);
         controller.startEditing();
     },
 
-    exit: function(){
+    exit: function() {
         if (this.get('controller')) {
             this.get('controller').stopEditing();
         }
@@ -1708,7 +1708,7 @@ App.LanguageSwitchView = Em.CollectionView.extend({
 
 App.LoginView = Em.View.extend({
     templateName: 'login',
-    next: function(){
+    next: function() {
         return  String(window.location);
     }.property()
 });

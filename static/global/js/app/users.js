@@ -305,13 +305,13 @@ App.PasswordResetController = Ember.ObjectController.extend({
     needs: ['login'],
 
     resetDisabled: (function() {
-        return this.get('new_password1') || this.get('new_password2');
-    }).property('content.new_password1', 'content.new_password2'),
+        return !(this.get('new_password1') || this.get('new_password2'));
+    }).property('new_password1', 'new_password2'),
 
     resetPassword: function(record) {
         var passwordResetController = this;
 
-        record.on('didUpdate', function() {
+        record.one('didUpdate', function() {
             var loginController = passwordResetController.get('controllers.login');
             var view = App.LoginView.create({
                 next: "/"
