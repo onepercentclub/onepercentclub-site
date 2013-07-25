@@ -230,9 +230,8 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
 
     projects = Project.objects.all()
 
-    # TODO: Projects is a little more complicated because of all of the related modules.
-    # if sync_from_datetime:
-    #     projects = projects.filter(updated__gte=sync_from_datetime)
+    if sync_from_datetime:
+        projects = projects.filter(updated__gte=sync_from_datetime)
 
     logger.info("Syncing {0} Project objects.".format(projects.count()))
 
@@ -358,9 +357,9 @@ def sync_projectbudgetlines(dry_run, sync_from_datetime, loglevel):
     success_count = 0
 
     budget_lines = ProjectBudgetLine.objects.all()
-    # TODO: The ProjectBudgetLine model needs an updated field. Wait for a proper solution for projects.
-    # if sync_from_datetime:
-    #     budget_lines = budget_lines.filter(updated__gte=sync_from_datetime)
+
+    if sync_from_datetime:
+        budget_lines = budget_lines.filter(updated__gte=sync_from_datetime)
 
     logger.info("Syncing {0} BudgetLine objects.".format(budget_lines.count()))
 
@@ -380,7 +379,12 @@ def sync_projectbudgetlines(dry_run, sync_from_datetime, loglevel):
         sfbudget_line.costs = "%01.2f" % (budget_line.amount / 100)
         sfbudget_line.description = budget_line.description
         sfbudget_line.external_id = budget_line.id
-        sfbudget_line.project = SalesforceProject.objects.get(external_id=budget_line.project_plan.id)
+
+        try:
+            sfbudget_line.project = SalesforceProject.objects.get(external_id=budget_line.project_plan.id)
+        except SalesforceProject.DoesNotExist:
+            logger.error("Unable to find project id {0} in Salesforce for budget line id {1}".format(
+                budget_line.project_plan.id, budget_line.id))
 
         # Save the object to Salesforce
         if not dry_run:
