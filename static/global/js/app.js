@@ -662,9 +662,11 @@ App.ApplicationRoute = Em.Route.extend({
         },
         showTask: function(task) {
             var route = this;
-            App.Project.find(task.get('project.id')).then(function(project) {
-                route.transitionTo('project', project);
-                route.transitionTo('projectTask', task);
+            App.Task.find(task.get('id')).then(function(task) {
+                App.Project.find(task.get('project.id')).then(function(project) {
+                    route.transitionTo('project', project);
+                    route.transitionTo('projectTask', task);
+                });
             });
         },
         showNews: function(news_id) {
