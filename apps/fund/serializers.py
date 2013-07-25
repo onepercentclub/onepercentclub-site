@@ -1,18 +1,49 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import ObjectBasedSerializer, EuroField
-from apps.fund.models import OrderStatuses, DonationStatuses, VoucherStatuses
+from apps.bluebottle_drf2.serializers import EuroField
 from apps.projects.models import ProjectPhases
+from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
-from .models import Donation, Order, Voucher, CustomVoucherRequest
+from .models import Donation, DonationStatuses, Order, OrderStatuses, Voucher, VoucherStatuses, CustomVoucherRequest, \
+    RecurringDirectDebitPayment, OrderItem
 
 
-# FIXME: This Serializer only works with the current order: '/fund/orders/current/donations/'.
+# TODO Create a Serializer that takes an order id for the current order to make this resource RESTful.
+#      The model should not have an order though.
+class RecurringDirectDebitPaymentSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='recurring-direct-debit-payment-detail')
+
+    class Meta:
+        model = RecurringDirectDebitPayment
+        fields = ('id', 'url', 'active', 'name', 'city', 'iban', 'bic')
+
+
+class OrderDonationPrimaryKeyRelatedField(serializers.RelatedField):
+    def to_native(self, value):
+        ct = ContentType.objects.get_for_model(Donation)
+        try:
+            order_item = OrderItem.objects.get(object_id=value.pk, content_type=ct)
+        except OrderItem.DoesNotExist:
+            return None
+        else:
+            return order_item.order.id
+
+
 class DonationSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='fund-order-donation-detail')
+    order = OrderDonationPrimaryKeyRelatedField(source='*')
     amount = EuroField()
+    # TODO: Enable url field.
+    # This error is presented when the url field is enabled:
+    #   Could not resolve URL for hyperlinked relationship using view name "fund-order-donation-detail". You may have
+    #   failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on
+    #   this field.
+    # url = serializers.HyperlinkedIdentityField(view_name='fund-order-donation-detail')
+
+    class Meta:
+        model = Donation
+        fields = ('id', 'project', 'amount', 'status', 'order')
 
     def validate(self, attrs):
         if self.object and self.object.status != DonationStatuses.new and attrs is not None:
@@ -28,17 +59,13 @@ class DonationSerializer(serializers.ModelSerializer):
     def validate_project(self, attrs, source):
         value = attrs[source]
         if value.phase != ProjectPhases.campaign:
-            raise serializers.ValidationError(_(u"You can only donate a project in the campaign phase."))
+            raise serializers.ValidationError(_("You can only donate a project in the campaign phase."))
         return attrs
 
     def save(self, **kwargs):
         # Set default currency.
         self.object.currency = 'EUR'
         return super(DonationSerializer, self).save(**kwargs)
-
-    class Meta:
-        model = Donation
-        fields = ('id', 'project', 'amount', 'status', 'url')
 
 
 class VoucherSerializer(serializers.ModelSerializer):
@@ -78,6 +105,7 @@ class OrderSerializer(serializers.ModelSerializer):
     donations = DonationSerializer(source='donations', many=True, read_only=True)
     vouchers = VoucherSerializer(source='vouchers', many=True, read_only=True)
     payments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    url = serializers.HyperlinkedIdentityField(view_name='fund-order-detail')
 
     def validate(self, attrs):
         if self.object.status == OrderStatuses.closed and attrs is not None:
@@ -86,7 +114,34 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'total', 'status', 'recurring', 'donations', 'vouchers', 'payments')
+        fields = ('id', 'url', 'total', 'status', 'recurring', 'donations', 'vouchers', 'payments')
+
+
+#
+# Order 'current' overrides.
+#
+
+class OrderCurrentDonationSerializer(DonationSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')
+
+    class Meta:
+        model = Donation
+        fields = DonationSerializer.Meta.fields + ('url',)
+
+
+class OrderCurrentVoucherSerializer(VoucherSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-voucher-detail')
+
+
+class OrderCurrentSerializer(OrderSerializer):
+    # This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
+    id_for_ember = serializers.IntegerField(source='id', read_only=True)
+    donations = OrderCurrentDonationSerializer(source='donations', many=True, read_only=True)
+    vouchers = OrderCurrentVoucherSerializer(source='vouchers', many=True, read_only=True)
+
+    class Meta:
+        model = Order
+        fields = OrderSerializer.Meta.fields + ('id_for_ember',)
 
 
 class VoucherRedeemSerializer(serializers.ModelSerializer):
@@ -124,31 +179,6 @@ class VoucherDonationSerializer(DonationSerializer):
     class Meta:
         model = Donation
         fields = ('id', 'project')
-
-
-class OrderItemSerializer(ObjectBasedSerializer):
-
-    def convert_object(self, obj):
-        """
-        Override so that we can address orderitem item.
-        """
-        # only show the item on the orderitem
-        obj = obj.content_object
-
-        ret = self._dict_class()
-        ret.fields = {}
-        for field_name, field in self._child_models[obj.__class__].fields.items():
-            key = self.get_field_key(field_name)
-            value = field.field_to_native(obj, field_name)
-            ret[key] = value
-            ret.fields[key] = field
-        return ret
-
-    class Meta:
-        child_models = (
-            (Donation, DonationSerializer),
-            (Voucher, VoucherSerializer),
-        )
 
 
 class CustomVoucherRequestSerializer(serializers.ModelSerializer):

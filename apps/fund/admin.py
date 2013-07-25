@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.contrib.contenttypes.models import ContentType
-from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
+from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment
 
 
 class DonationAdmin(admin.ModelAdmin):
@@ -18,9 +18,9 @@ class DonationAdmin(admin.ModelAdmin):
 
     def view_order(self, obj):
         donation_type = ContentType.objects.get_for_model(obj)
-        object = OrderItem.objects.filter(object_id=obj.id).filter(content_type=donation_type).get()
-        object = object.order
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id])
+        donation = OrderItem.objects.filter(object_id=obj.id).filter(content_type=donation_type).get()
+        order = donation.order
+        url = reverse('admin:%s_%s_change' %(order._meta.app_label,  order._meta.module_name),  args=[order.id])
         return "<a href='%s'>View Order</a>" % (str(url))
 
     view_order.allow_tags = True
@@ -37,8 +37,8 @@ class OrderAdmin(admin.ModelAdmin):
     fields = readonly_fields + ('user', 'status')
 
     def view_payment(self, obj):
-        object = obj.payments.get()
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id])
+        payment = obj.payments.get()
+        url = reverse('admin:%s_%s_change' %(payment._meta.app_label,  payment._meta.module_name),  args=[payment.id])
         return "<a href='%s'>View Payment</a>" % (str(url))
 
     view_payment.allow_tags = True
@@ -66,3 +66,5 @@ class CustomVoucherRequestAdmin(admin.ModelAdmin):
 
 admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
 
+
+admin.site.register(RecurringDirectDebitPayment)
