@@ -59,3 +59,5 @@ reports
 # Cowry DocData
 /cowrylogs/*
 !/cowrylogs/.gitkeep
+
+static/global/compass_app_log.txt

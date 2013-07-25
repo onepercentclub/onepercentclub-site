@@ -7,6 +7,7 @@
         @include rem (margin-bottom, 8px);
         @include grid(12, 0, 1);
         display: inline-block;
+        border: 1px solid $grayDarker;
 
         div.header {
             position: relative;
