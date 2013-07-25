@@ -4189,27 +4189,31 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000345}}
 .my-project:after { clear: both; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003206}}
-.my-project li { display: block; border-top: 1px solid #e9e9e9; line-height: 1.5; padding: 16px 0; padding: 1.14286rem 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003212}}
+.my-project li { *zoom: 1; display: block; border-top: 1px solid #e9e9e9; line-height: 1.5; padding: 16px 0; padding: 1.14286rem 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000344}}
+.my-project li:before, .my-project li:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000345}}
+.my-project li:after { clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003213}}
 .my-project li .project-image { float: left; width: 31.25%; margin-left: 0%; margin-right: 2.08333%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003216}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003217}}
 .my-project li h2 { float: left; width: 64.58333%; margin-left: 0%; margin-right: 2.08333%; font-size: 20px; font-size: 1.42857rem; padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003222}}
-.my-project li .project-status { clear: left; float: left; width: 31.25%; margin-left: 0%; margin-right: 2.08333%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003227}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003223}}
+.my-project li .project-status { float: left; width: 31.25%; margin-left: 0%; margin-right: 2.08333%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003228}}
 .my-project li a { float: left; width: 31.25%; margin-left: 0%; margin-right: 2.08333%; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003235}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003236}}
 .toolbox { float: left; width: 31.25%; margin-left: 2.08333%; margin-right: 0%; background-color: #e9e9e9; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003239}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003240}}
 .toolbox .title { background-color: #cccccc; padding: 16px; padding: 1.14286rem; color: white; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003244}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003245}}
 .toolbox .title h3 { color: #444444; text-transform: uppercase; padding: 0; font-weight: 600; font-size: 20px; font-size: 1.42857rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003253}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003254}}
 .toolbox .body { padding: 16px; padding: 1.14286rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003256}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003257}}
 .toolbox .body .tip { font-size: 18px; font-size: 1.28571rem; line-height: 22px; line-height: 1.57143rem; margin-bottom: 12px; margin-bottom: 0.85714rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003258}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_dashboard\.scss}line{font-family:\00003259}}
 .toolbox .body .tip .flaticon { color: #cccccc; font-size: 36px; font-size: 2.57143rem; padding: 4px 16px 4px 4px; padding: 0.28571rem 1.14286rem 0.28571rem 0.28571rem; float: left; display: inline-block; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/gannetson\/Projects\/bluebottle\/static\/global\/sass\/modules\/_homepage\.scss}line{font-family:\000031}}

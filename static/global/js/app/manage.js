@@ -395,14 +395,7 @@ App.MyProjectPitchController = Em.ObjectController.extend(App.Editable, {
 
 App.MyProjectPitchBasicsController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
-
-    save: function(record) {
-        this._super();
-        this.get('model').reload();
-    }
-
-});
+App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {});
 
 App.MyProjectPitchSubmitController = Em.ObjectController.extend(App.Editable, {
     submitPitch: function(e){
@@ -432,7 +425,7 @@ App.MyProjectPlanBasicsController = Em.ObjectController.extend(App.Editable, {})
 App.MyProjectPlanDescriptionController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {});
 App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPlanMediaController = App.MyProjectPitchMediaController.extend({});
 App.MyProjectPlanCampaignController = Em.ObjectController.extend(App.Editable, {});
 
 App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable, {
