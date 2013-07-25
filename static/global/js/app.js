@@ -1299,7 +1299,6 @@ App.UserActivateRoute = Em.Route.extend({
 
     model: function(params) {
         var currentUser = App.CurrentUser.find('current');
-        console.log(currentUser);
         var activation = App.UserActivation.find(params.activation_key);
         var route = this;
         activation.on('becameError', function(record) {
@@ -1701,7 +1700,6 @@ App.NewsIndexRoute = Em.Route.extend({
 
 App.ContactMessageRoute = Em.Route.extend({
     model: function(params) {
-        console.log('route');
         var transaction = this.get('store').transaction();
         return transaction.createRecord(App.ContactMessage);
     },
