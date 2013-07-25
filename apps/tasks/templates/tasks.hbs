@@ -74,7 +74,7 @@
                     {{#if model.isLoaded}}
                         <ul class="results">
                             {{#each task in model}}
-                                <a {{action showTask task}}>
+                                <a {{action showTask task.getTask}}>
                                     {{render "taskPreview" task}}
                                 </a>
                             {{else}}

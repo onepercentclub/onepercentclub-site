@@ -100,7 +100,10 @@ Preview model that doesn't contain all the properties.
  */
 App.TaskPreview = App.Task.extend({
     url: 'tasks/previews',
-    project: DS.belongsTo('App.ProjectPreview')
+    project: DS.belongsTo('App.ProjectPreview'),
+    getTask: function(){
+        return App.Task.find(this.get('id'));
+    }.property('id')
 });
 
 
