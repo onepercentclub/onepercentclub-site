@@ -9,7 +9,24 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
+from django_iban.fields import SWIFTBICField, IBANField
 from djchoices import DjangoChoices, ChoiceItem
+
+
+class RecurringDirectDebitPayment(models.Model):
+    """
+    Holds the direct debit account information.
+    """
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    active = models.BooleanField(default=False)
+    created = CreationDateTimeField(_("Created"))
+    updated = ModificationDateTimeField(_("Updated"))
+
+    # Bank account.
+    name = models.CharField(max_length=35)  # max_length from DocData
+    city = models.CharField(max_length=35)  # max_length from DocData
+    iban = IBANField()
+    bic = SWIFTBICField()
 
 
 class DonationStatuses(DjangoChoices):
@@ -59,15 +76,9 @@ class Donation(models.Model):
 
 
 class OrderStatuses(DjangoChoices):
-    """
-    Current: The single donation shopping cart (editable).
-    Monthly: The monthly donation shopping cart (editable).
-    Closed:  Has a payment that's paid, cancelled or failed (not editable).
-    """
-    # TODO: add validation rules for statuses.
-    current = ChoiceItem('current', label=_("Current"))
-    monthly = ChoiceItem('monthly', label=_("Monthly"))
-    closed = ChoiceItem('closed', label=_("Closed"))
+    current = ChoiceItem('current', label=_("Current"))  # The single donation 'shopping cart' (editable).
+    recurring = ChoiceItem('recurring', label=_("Recurring"))  # The recurring donation 'shopping cart' (editable).
+    closed = ChoiceItem('closed', label=_("Closed"))     # Order with a paid, cancelled or failed payment (not editable).
 
 
 class Order(models.Model):

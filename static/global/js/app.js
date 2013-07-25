@@ -285,6 +285,9 @@ App.Adapter.configure("plurals", {
 App.Adapter.map(
     'App.Payment', {
         availablePaymentMethods: { readOnly: true }
+    },
+    'App.Order', {
+        total: { readOnly: true }
     }
 );
 
@@ -498,11 +501,13 @@ App.Router.map(function() {
         this.route('voucherList', {path: '/giftcards'});
         this.resource('paymentProfile', {path: '/details'});
         this.resource('paymentSelect', {path: '/payment'}, function() {
-            this.route('PaymentError', {path: '/error'});
+            this.route('paymentError', {path: '/error'});
+            this.resource('recurringDirectDebitPayment', {path: '/recurring'});
         });
     });
 
     this.resource('orderThanks', {path: '/support/thanks/:order_id'});
+    this.resource('recurringOrderThanks', {path: '/support/monthly/thanks'});
 
     this.resource('voucherStart', {path: '/giftcards'});
     this.resource('customVoucherRequest', {path: '/giftcards/custom'});
@@ -521,13 +526,14 @@ App.Router.map(function() {
     this.resource('user', {path: '/member'}, function() {
         this.resource('userProfile', {path: '/profile/'});
         this.resource('userSettings', {path: '/settings'});
+        this.resource('userOrders', {path: '/orders'});
     });
 
     this.route('userActivate', {path: '/activate/:activation_key'});
     this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
 
     this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
-        this.resource('myProjectPlan', {path: 'plan'},function(){
+        this.resource('myProjectPlan', {path: 'plan'}, function(){
             this.route('index');
             this.route('basics');
             this.route('location');
@@ -687,7 +693,6 @@ App.ApplicationRoute = Em.Route.extend({
 /**
  * Project Routes
  */
-
 
 App.ProjectRoute = Em.Route.extend({
     model: function(params) {
@@ -924,6 +929,15 @@ App.CurrentOrderDonationListRoute = Em.Route.extend({
     setupController: function(controller, donations) {
         this._super(controller, donations);
         this.controllerFor('currentOrder').set('isVoucherOrder', false);
+
+        // Set the monthly order.
+        App.Order.find({status: 'recurring'}).then(function(recurringOrders) {
+            if (recurringOrders.get('length') > 0) {
+                controller.set('recurringOrder', recurringOrders.objectAt(0))
+            } else {
+                controller.set('recurringOrder', null)
+            }
+        });
     }
 });
 
@@ -991,20 +1005,46 @@ App.OrderThanksRoute = Em.Route.extend({
 });
 
 
+App.RecurringOrderThanksRoute = Em.Route.extend({
+// FIXME: Enable this when we fix the issue with transitioning to this route without a full page reload.
+//    beforeModel: function() {
+//        if (!this.controllerFor('currentUser').get('isAuthenticated')) {
+//            this.transitionTo('home');
+//        }
+//    },
+
+    model: function(params) {
+        return App.Order.find({status: 'recurring'}).then(function(orders) {
+            if (orders.get('length') > 0) {
+                return orders.objectAt(0);
+            }
+            this.transitionTo('home');
+        });
+    }
+});
+
+
 /**
  * Payment for Current Order Routes
  */
 
 App.PaymentProfileRoute = Em.Route.extend({
-    redirect: function() {
+    beforeModel: function() {
         var order = this.modelFor('currentOrder');
         if (order.get('isVoucherOrder')) {
             if (order.get('vouchers.length') <= 0 ) {
                 this.transitionTo('currentOrder.voucherList')
             }
         } else {
-            if (order.get('donations.length') <= 0 ) {
-                this.transitionTo('currentOrder.donationList')
+            var controller = this.controllerFor('currentOrderDonationList');
+            if (controller.get('editingRecurringOrder')) {
+                if (controller.get('recurringTotal') == 0 && this.get('recurringTotal') == controller.get('recurringOrder.total')) {
+                    this.transitionTo('currentOrder.donationList')
+                }
+            } else {
+                if (order.get('donations.length') <= 0 ) {
+                    this.transitionTo('currentOrder.donationList')
+                }
             }
         }
 
@@ -1017,10 +1057,12 @@ App.PaymentProfileRoute = Em.Route.extend({
 
 
 App.PaymentSelectRoute = Em.Route.extend({
-    redirect: function() {
+    beforeModel: function() {
         var order = this.modelFor('currentOrder');
         if (!order.get('paymentProfileComplete')) {
-            this.transitionTo('paymentProfile')
+            this.replaceWith('paymentProfile');
+        } else if (order.get('recurring')) {
+            this.replaceWith('recurringDirectDebitPayment');
         }
     },
 
@@ -1031,7 +1073,7 @@ App.PaymentSelectRoute = Em.Route.extend({
 
 
 App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
-    redirect: function() {
+    beforeModel: function() {
         this.controllerFor('currentOrder').setProperties({
             display_message: true,
             isError: true,
@@ -1041,10 +1083,35 @@ App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
 
         var order = this.modelFor('currentOrder');
         if (order.get('isVoucherOrder')) {
-            this.replaceWith('currentOrder.voucherList')
+            this.replaceWith('currentOrder.voucherList');
         } else {
-            this.replaceWith('currentOrder.donationList')
+            this.replaceWith('currentOrder.donationList');
         }
+    }
+});
+
+
+App.RecurringDirectDebitPaymentRoute = Em.Route.extend({
+    beforeModel: function() {
+        var order = this.modelFor('currentOrder');
+        if (!order.get('recurring')) {
+            this.transitionTo('paymentSelect');
+        }
+    },
+
+    model: function(){
+        var route = this;
+        return App.RecurringDirectDebitPayment.find({}).then(function(recordList) {
+                var transaction = route.get('store').transaction();
+                if (recordList.get('length') > 0) {
+                    var record = recordList.objectAt(0);
+                    transaction.add(record);
+                    return record;
+                } else {
+                    return transaction.createRecord(App.RecurringDirectDebitPayment);
+                }
+            }
+        )
     }
 });
 

@@ -8,7 +8,8 @@ App.Order = DS.Model.extend({
     status: DS.attr('string'),
     recurring: DS.attr('boolean'),
     vouchers: DS.hasMany('App.Voucher'),
-    donations: DS.hasMany('App.Donation')
+    donations: DS.hasMany('App.Donation'),
+    total: DS.attr('number')
 });
 
 
@@ -49,7 +50,11 @@ App.CurrentOrder = App.Order.extend({
     url: 'fund/orders',
 
     vouchers: DS.hasMany('App.CurrentOrderVoucher'),
-    donations: DS.hasMany('App.CurrentOrderDonation')
+    donations: DS.hasMany('App.CurrentOrderDonation'),
+
+    // This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
+    // App.UserSettingsModel.find(App.CurrentUser.find('current').get('id_for_ember'));
+    id_for_ember: DS.attr('number')
 });
 
 
@@ -92,12 +97,15 @@ App.Payment = DS.Model.extend({
 });
 
 
-App.DocDataDirectDebit = DS.Model.extend({
-    url: 'fund/docdatadirectdebit',
+App.RecurringDirectDebitPayment = DS.Model.extend({
+    url: 'fund/recurringdirectdebitpayments',
 
-    bank_account_number: DS.attr('string'),
-    bank_account_name: DS.attr('string'),
-    bank_account_city: DS.attr('string')
+    active: DS.attr('boolean'),
+
+    name: DS.attr('string'),
+    city: DS.attr('string'),
+    iban: DS.attr('string'),
+    bic: DS.attr('string')
 });
 
 
@@ -106,10 +114,10 @@ App.DocDataDirectDebit = DS.Model.extend({
  */
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
-    // The CurrentOrderController is needed for the single / monthly radio buttons.
+    // The CurrentOrderController is needed for the single / recurring radio buttons.
     needs: ['currentUser', 'currentOrder'],
 
-    total: function() {
+    client_side_total: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
             // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
             return parseInt(accum) + parseInt(item);
@@ -120,48 +128,97 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         return this.get('length') > 1;
     }.property('length'),
 
-    monthly_total: 0,
+    readyForPayment: function() {
+        if (this.get('length') > 0) {
+            return true;
+        }
+        if (this.get('editingRecurringOrder')) {
+            if (this.get('recurringTotal') != 0 && this.get('recurringTotal') != this.get('recurringOrder.total')) {
+                return true;
+            }
+        }
+        return false;
+    }.property('length', 'editingRecurringOrder', 'recurringTotal'),
 
-    updateMonthlyDonations: function(obj, keyName) {
+    recurringTotal: 0,
+
+    updateRecurringDonations: function(obj, keyName) {
         if (!this.get('controllers.currentOrder.recurring')) {
             return;
         }
 
-        var donationsTotal = 0;
-        var monthlyTotal = 0;
-        var donations = this.get('model');
-        var numDonations = donations.get('length');
+        var numDonations = 0,
+            amountPerProject = 0,
+            donations = null;
 
-        // Special setup when there's a new donation added.
-        if (keyName == 'model.length' && numDonations > 0 && donations.objectAt(numDonations - 1).get('isNew')) {
-            monthlyTotal = this.get('monthly_total') + App.Donation.prototype.get('amount');
-            this.set('monthly_total', monthlyTotal);
-        } else {
-            donationsTotal = this.get('total');
-            monthlyTotal = this.get('monthly_total');
-        }
+        var numRecurringDonations = this.get('recurringOrder.donations.length');
+        if (numRecurringDonations > 0) {
+            // The user already has a recurring order set.
+            if (this.get('recurringTotal') == 0) {
+                this.set('recurringTotal', this.get('recurringOrder.total'));
+            }
 
-        if (monthlyTotal == 0) {
-            monthlyTotal = donationsTotal;
-            this.set('monthly_total', monthlyTotal);
-        }
+            // Create a donations list with the new and monthly donations.
+            donations = Em.A();
+            donations.addObjects(this.get('model'));
+            this.get('recurringOrder.donations').forEach(function(donation) {
+                // Don't include donations set to 0 as they have been 'deleted'.
+                if (donation.get('tempRecurringAmount') != 0) {
+                    donations.addObject(donation);
+                }
+            });
+            numDonations =  donations.get('length');
 
-        if (donationsTotal != monthlyTotal) {
-            var amountPerProject = Math.round(monthlyTotal / numDonations);
-            for (var i = 0; i < numDonations - 1; i++) {
-                this.updateDonation(donations.objectAt(i), amountPerProject)
+            // Set the updated monthly totals in a
+            amountPerProject = Math.round(this.get('recurringTotal') / numDonations);
+            for (var i = 0; i <  donations.get('length') - 1; i++) {
+                donations.objectAt(i).set('tempRecurringAmount', amountPerProject);
             }
             // Update the last donation with the remaining amount.
-            this.updateDonation(donations.objectAt(numDonations - 1), monthlyTotal - (amountPerProject * (numDonations - 1)));
+            donations.objectAt(donations.get('length') - 1).set('tempRecurringAmount', this.get('recurringTotal') - (amountPerProject * (numDonations - 1)));
+
+        } else {
+            // The user does not already have a recurring order set.
+            var donationsTotal = 0,
+                recurringTotal = 0;
+            donations = this.get('model');
+            numDonations = donations.get('length');
+
+            // Special setup when there's a new donation added.
+
+            if (keyName == 'model.length' && numDonations > 0 && donations.objectAt(numDonations - 1).get('isNew')) {
+                recurringTotal = this.get('recurringTotal') + App.Donation.prototype.get('amount');
+                this.set('recurringTotal', recurringTotal);
+            } else {
+                donationsTotal = this.get('client_side_total');
+                recurringTotal = this.get('recurringTotal');
+            }
+
+            if (recurringTotal == 0) {
+                recurringTotal = donationsTotal;
+                this.set('recurringTotal', donationsTotal);
+            }
+
+            if (donationsTotal != recurringTotal) {
+                amountPerProject = Math.round(recurringTotal / numDonations);
+                for (var j = 0; j < numDonations - 1; j++) {
+                    this.updateDonation(donations.objectAt(j), amountPerProject)
+                }
+                // Update the last donation with the remaining amount.
+                this.updateDonation(donations.objectAt(numDonations - 1), recurringTotal - (amountPerProject * (numDonations - 1)));
+            }
         }
-    }.observes('model.length', 'monthly_total', 'controllers.currentOrder.recurring'),
+    }.observes('model.length', 'recurringTotal', 'controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
+
+    editingRecurringOrder: function(obj, keyName) {
+        return this.get('controllers.currentOrder.recurring') && this.get('recurringOrder.donations.length') > 0;
+    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
 
     updateDonation: function(donation, newAmount) {
         if (donation.get('isNew')) {
             var controller = this;
             // Note: resolveOn is a private ember-data method.
-            var donationPromise = donation.resolveOn('didCreate');
-            donationPromise.then(function(donation) {
+            donation.resolveOn('didCreate').then(function(donation) {
                 controller.updateCreatedDonation(donation, newAmount)
             });
          } else {
@@ -218,9 +275,17 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
     }
 });
 
+App.CurrentRecurringDonationController = App.CurrentOrderDonationController.extend({
+    deleteDonation: function() {
+        var donation = this.get('model');
+        donation.set('tempRecurringAmount', 0);
+        this.get('controllers.currentOrderDonationList').updateRecurringDonations()
+    }
+});
+
 
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
-    total: function() {
+    client_side_total: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
             // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
             return parseInt(accum) + parseInt(item);
@@ -319,32 +384,16 @@ App.PaymentProfileController = Em.ObjectController.extend({
         this.get('transaction').commit();
     },
 
-    isPaymentProfileReady: function() {
+    isFormReady: function() {
         return !Em.isEmpty(this.get('firstName')) && !Em.isEmpty(this.get('lastName')) && !Em.isEmpty(this.get('email')) &&
                !Em.isEmpty(this.get('address')) && !Em.isEmpty(this.get('postalCode')) && !Em.isEmpty(this.get('city')) &&
                !Em.isEmpty(this.get('country'));
     }.property('firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country')
 });
 
+
 App.PaymentSelectController = Em.ObjectController.extend({
     needs: ['currentOrder'],
-
-// Not used for now:
-//    hasIdeal: function() {
-//        var availPMs = this.get('availablePaymentMethods');
-//        if (availPMs) {
-//            return (availPMs.contains('dd-ideal'));
-//        }
-//        return false;
-//    }.observes('availablePaymentMethods'),
-//
-//    hasWebMenu: function() {
-//        var availPMs = this.get('availablePaymentMethods');
-//        if (availPMs) {
-//            return (availPMs.contains('dd-direct-debit'));
-//        }
-//        return false;
-//    }.observes('availablePaymentMethods'),
 
     displayPaymentError: function() {
         this.get('controllers.currentOrder').setProperties({
@@ -400,6 +449,91 @@ App.PaymentSelectController = Em.ObjectController.extend({
 });
 
 
+App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
+    needs: ['currentOrder', 'currentOrderDonationList'],
+
+    setRecurringOrder: function() {
+        this.set('paymentInProgress', true);
+        function transitionToThanks(controller){
+            // FIXME: Ember has a hard time dealing with the current order changing. A sever-side post_save action to
+            // the RecurringDirectDebitPayment moves the donations from 'current' Order to the recurring order. A reload
+            // of the 'current' Order and a transition doesn't seem to work. This could be fixed if we move to a RESTful
+            // Order process.
+            //   controller.get('controllers.currentOrder.model').reload();
+            //   controller.transitionToRoute('recurringOrderThanks');
+            var thanksUrl = document.location.origin + document.location.pathname + document.location.hash.split('/')[0] + '/support/monthly/thanks';
+
+            if (controller.get('controllers.currentOrderDonationList.editingRecurringOrder')) {
+                var donations = Em.A();
+                donations.addObjects(controller.get('controllers.currentOrderDonationList.model'));
+                donations.addObjects(controller.get('controllers.currentOrderDonationList.recurringOrder.donations'));
+
+                donations.forEach(function(donation) {
+                    if (donation.get('amount') != donation.get('tempRecurringAmount')) {
+                        // The donation won't be in current order anymore so we need to use the generic donations api.
+                        if (donation.get('url').indexOf('current') !== -1) {
+                            donation.set('url', donation.get('url').replace('orders/current/', ''));
+                        }
+
+                        // Update or delete the donations.
+                        if (donation.get('tempRecurringAmount') == 0) {
+                            // Delete donations set to 0.
+                            var transaction = controller.get('store').transaction();
+                            transaction.add(donation);
+                            donation.deleteRecord();
+                            transaction.commit();
+                        } else {
+                            // Update donation when amount is greater than 0.
+                            controller.get('controllers.currentOrderDonationList').updateDonation(donation, donation.get('tempRecurringAmount'))
+                        }
+                    }
+                });
+                // FIXME: Need to only load thanks page when all donations update successfully. No time to implement this.
+                // FIXME: Set payment error error message when there's an error updating the donation.
+                Em.run.later(function(){
+                    document.location = thanksUrl;
+                    document.location.reload();
+                }, 5000);
+            } else {
+                document.location = thanksUrl;
+                document.location.reload();
+            }
+        }
+
+        var controller = this;
+        var recurringDirectDebitPayment = this.get('model');
+        recurringDirectDebitPayment.set('active', true);
+
+        recurringDirectDebitPayment.one('becameInvalid', function(record) {
+            // FIXME: turn off didCreate, didUpdate
+            controller.set('paymentInProgress', false);
+            controller.get('model').set('errors', record.get('errors'));
+            record.get('stateManager').goToState('created');
+        });
+        recurringDirectDebitPayment.one('didCreate', function(record) {
+            // FIXME: turn off becameInvalid, didUpdate
+            transitionToThanks(controller)
+        });
+        recurringDirectDebitPayment.one('didUpdate', function(record) {
+            // FIXME: turn off didCreate, becameInvalid
+            transitionToThanks(controller)
+        });
+
+        if(!recurringDirectDebitPayment.get('isNew')) {
+            // Set recurringDirectDebitPayment model to the 'updated' state so that the 'didUpdate' callback will always be run.
+            recurringDirectDebitPayment.get('stateManager').goToState('updated');
+        }
+
+        recurringDirectDebitPayment.transaction.commit();
+    },
+
+    isFormReady: function() {
+        return !Em.isEmpty(this.get('name')) && !Em.isEmpty(this.get('city')) && !Em.isEmpty(this.get('iban')) &&
+               !Em.isEmpty(this.get('bic'));
+    }.property('name', 'city', 'iban', 'bic')
+});
+
+
 App.CurrentOrderController = Em.ObjectController.extend({
     donationType: 'single',  // The default donation type.
 
@@ -424,7 +558,7 @@ App.CurrentOrderController = Em.ObjectController.extend({
     // See: https://onepercentclub.atlassian.net/browse/BB-648
     removeDonationOrVouchers: function() {
         if (this.get('isVoucherOrder') == true) {
-            var donations = this.get('model.donations');
+            var donations = this.get('donations');
             donations.forEach(function(donation) {
                 var transaction = this.get('store').transaction();
                 transaction.add(donation);
@@ -435,7 +569,7 @@ App.CurrentOrderController = Em.ObjectController.extend({
                 transaction.commit();
             }, this);
         } else if (this.get('isVoucherOrder') == false) {
-            var vouchers = this.get('model.vouchers');
+            var vouchers = this.get('vouchers');
             vouchers.forEach(function(voucher) {
                 var transaction = this.get('store').transaction();
                 transaction.add(voucher);
@@ -469,17 +603,21 @@ App.CurrentOrderController = Em.ObjectController.extend({
 });
 
 
+App.OrderThanksController = Em.ObjectController.extend({
+    needs: ['currentUser']
+});
+
+
+App.RecurringOrderThanksController = Em.ObjectController.extend({
+    needs: ['currentUser']
+});
+
+
 /*
  Views
  */
 
-App.CurrentOrderView = Em.View.extend({
-    templateName: 'current_order'
-});
-
-
 App.PaymentProfileView = Em.View.extend({
-    templateName: 'payment_profile',
     tagName: 'form',
 
     submit: function(e) {
@@ -498,11 +636,11 @@ App.CurrentOrderDonationListView = Em.View.extend({
     },
 
     change: function(e) {
-        // The single / monthly change and the monthly_total change are sent here and
-        // we only want to deal with the monthly_total change.
+        // The "single" / "monthly" change (strings) and the recurringTotal change (number) are sent here and
+        // we only want to deal with the recurringTotal change.
         var value = parseInt(Em.get(e, 'target.value'));
         if (Em.typeOf(value) === 'number' && !isNaN(value)) {
-            this.get('controller').set('monthly_total', value);
+            this.get('controller').set('recurringTotal', value);
         }
     }
 });
@@ -514,13 +652,7 @@ App.CurrentOrderVoucherListView = Em.View.extend({
 });
 
 
-App.OrderThanksView = Em.View.extend({
-    templateName: 'order_thanks'
-});
-
-
 App.CurrentOrderDonationView = Em.View.extend({
-    templateName: 'current_order_donation',
     tagName: 'li',
     classNames: 'donation-project control-group',
 
@@ -533,6 +665,16 @@ App.CurrentOrderDonationView = Em.View.extend({
         this.$().slideUp(500, function() {
             controller.deleteDonation();
         });
+    }
+});
+
+
+App.CurrentRecurringDonationView = App.CurrentOrderDonationView.extend({
+    templateName: 'currentOrderDonation',
+
+    delete: function(item) {
+        var controller = this.get('controller');
+        controller.deleteDonation();
     }
 });
 
@@ -588,27 +730,18 @@ App.OrderNavView = Ember.View.extend({
 
 
 App.PaymentSelectView = Em.View.extend({
-    templateName: 'paymentSelect',
     classNames: ['content']
 });
 
 
-App.IdealPaymentMethodInfoView = Em.View.extend({
-    templateName: 'ideal_payment_method_info',
+App.RecurringDirectDebitPaymentView = Em.View.extend({
     tagName: 'form',
 
     submit: function(e) {
         e.preventDefault();
+        this.get('controller').setRecurringOrder();
     }
 });
 
 
-App.DirectDebitPaymentMethodInfoView = Em.View.extend({
-    templateName: 'direct_debit_payment_method_info',
-    tagName: 'form',
-
-    submit: function(e){
-        e.preventDefault();
-    }
-});
 

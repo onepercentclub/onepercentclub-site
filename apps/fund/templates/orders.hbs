@@ -3,7 +3,7 @@
 {% load static %}
 
 
-{% tplhandlebars "current_order" %}
+{% tplhandlebars "currentOrder" %}
 
     {{#if controller.isVoucherOrder}}
         <div class="container section">
@@ -86,7 +86,7 @@
                     {{#linkTo "customVoucherRequest"}}{% trans "Contact us." %}{{/linkTo}}
                 {{else}}
                     {% comment %}
-                    No implemented at this point.
+                    Not implemented at this point.
                     <h3>{% trans "Did you know?" %}</h3>
                     <p>{% trans "The average donated amount is €22? The previous donation was: €50. (really, we cheer with every single donation..)" %}</p>
                     <p><a href="#">Read some more</a></p>
@@ -131,8 +131,8 @@
 
     <fieldset>
         <ul id="donation-projects">
-            {{#each donation in controller itemController="currentOrderDonation"}}
-                {{view "App.CurrentOrderDonationView" content=donation}}
+            {{#each donation in controller }}
+                {{render "currentOrderDonation" donation}}
             {{else}}
                 {{#linkTo "projectList"}}
                     <div class="form-meta">
@@ -145,6 +145,18 @@
     </fieldset>
 
     {{#if controllers.currentOrder.recurring }}
+        {{#if recurringOrder.donations.length }}
+            <h2>Current Monthly Donation</h2>
+            <fieldset>
+                <ul id="donation-projects">
+
+                    {{#each donation in recurringOrder.donations }}
+                        {{render "currentRecurringDonation" donation}}
+                    {{/each}}
+                </ul>
+            </fieldset>
+        {{/if}}
+
         <fieldset class="monthly-donation">
             <div class="monthly-donation-total">
                 <div class="form-summary">{% trans "Divide total to projects above" %}</div>
@@ -152,7 +164,7 @@
                     <div class="monthly-amount-control">
                         <label for="donation-amount-1">{% trans "Total Amount" %}</label>
                         <span class="currency"><em>&euro; </em>
-                            <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="monthly_total"}} />
+                            <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
                         </span>
                     </div>
                 </div>
@@ -161,7 +173,7 @@
     {{else}}
         <fieldset>
             <div class="donation-total">
-                <div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ total }}</span></div>
+                <div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ client_side_total }}</span></div>
             </div>
         </fieldset>
     {{/if}}
@@ -169,7 +181,7 @@
 
     {{#linkTo "projectList" class="button-link"}}<em class="icon-plus-sign"></em> {%trans "Add another project" %}{{/linkTo}}
 
-    {{#if length }}
+    {{#if readyForPayment }}
         {{#linkTo "paymentProfile" class="btn btn-iconed right"}}<i class="icon icon-chevron-right"></i>{% trans "Next" %}{{/linkTo}}
     {{else}}
         <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Next" %}</button>
@@ -194,7 +206,7 @@
                         {{ length }} {% trans "1%GIFTCARDS will be sent out with a total value of" %}
                     </div>
                     <div class="amount">
-                        <h4 class="right">&euro;{{ total }}</h4>
+                        <h4 class="right">&euro;{{ client_side_total }}</h4>
                     </div>
                 </li>
             {{else}}
@@ -355,7 +367,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "payment_profile" %}
+{% tplhandlebars "paymentProfile" %}
 
     <fieldset>
         {{#if model.isLoaded}}
@@ -363,7 +375,7 @@
                 <li class="control-group">
                     <label class="control-label">{% trans "Your full name" %}</label>
                     <div class="controls">
-                        {{view Ember.TextField valueBinding="firstName" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+                        {{view Em.TextField valueBinding="firstName" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
                         {{view Em.TextField valueBinding="lastName" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
                     </div>
                 </li>
@@ -426,7 +438,7 @@
         {{/if}}
     </fieldset>
 
-    {{#if isPaymentProfileReady }}
+    {{#if isFormReady }}
         <button class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans 'Next' %}</button>
     {{else}}
         <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Next" %}</button>
@@ -435,7 +447,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "current_order_donation" %}
+{% tplhandlebars "currentOrderDonation" %}
 
     {{#linkTo "project" project}}
         <img {{bindAttr src="project.plan.image.square" alt="project.title"}} class="project-image" />
@@ -458,7 +470,11 @@
             {{/each}}
             {{#if controllers.currentOrder.recurring }}
                 <span class="currency"><em>&euro; </em>
-                    {{ amount }}
+                 {{#if controllers.currentOrderDonationList.editingRecurringOrder }}
+                        {{ tempRecurringAmount }}
+                   {{else}}
+                        {{ amount }}
+                    {{/if}}
                 </span>
             {{else}}
                 <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
@@ -490,11 +506,15 @@
 
         <div class="panes vertical payment">
             <h4>{% trans "You're Almost there!" %}</h4>
-
-            {{#if paymentInProgress }}
-                <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "processing payment..." %}
+            
+            {{#if controllers.currentOrder.recurring }}
+                {{ outlet }}
             {{else}}
-                <a href="#" {{action "proceedWithPayment"}} class="btn payment-link">{% trans "Proceed with Payment" %}</a>
+                {{#if paymentInProgress }}
+                    <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "processing payment..." %}
+                {{else}}
+                    <a href="#" {{action "proceedWithPayment"}} class="btn payment-link">{% trans "Proceed with Payment" %}</a>
+                {{/if}}
             {{/if}}
         </div>
     </fieldset>
@@ -502,6 +522,69 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "recurringDirectDebitPayment" %}
+
+    <fieldset>
+        <ul>
+            <li class="control-group">
+                <label class="control-label">{% trans "Bank Account Name" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="name" placeholder="Bank Account Name" classBinding="errors.name.length:error"}}
+                </div>
+                {{#if errors.name }}
+                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group">
+                <label class="control-label">{% trans "Bank Account City" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="city" placeholder="Bank Account City" classBinding="errors.city.length:error"}}
+                </div>
+                {{#if errors.city }}
+                    <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group">
+                <label class="control-label">{% trans "IBAN" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="iban" placeholder="IBAN" classBinding="errors.iban.length:error"}}
+                </div>
+                {{#if errors.iban }}
+                    <div class="errors">{{#each errors.iban }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group">
+                <label class="control-label">{% trans "BIC" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="bic" placeholder="BIC" classBinding="errors.bic.length:error"}}
+                </div>
+                {{#if errors.bic }}
+                    <div class="errors">{{#each errors.bic }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+        </ul>
+    </fieldset>
+
+    {% trans "By clicking submit, I authorize 1%CLUB to withdraw money every month." %}
+
+    {{#if isFormReady }}
+        {{#if paymentInProgress }}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "Updating monthly donation ..." %}
+        {{else}}
+            <button class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Submit" %}</button>
+        {{/if}}
+    {{else}}
+        <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Submit" %}</button>
+    {{/if}}
+
+{% endtplhandlebars %}
+
+
+{% comment %}
 {# TODO This isn't currently used but we want to be. #}
 {% tplhandlebars "payment_multi" %}
 
@@ -541,77 +624,10 @@
     </fieldset>
 
 {% endtplhandlebars %}
+{% endcomment %}
 
 
-{% tplhandlebars "payment_method_info" %}
-
-    <fieldset>
-        {{#if content.isLoaded}}
-            {{#if view.parentView.parentView.controller.isIdeal}}
-                {{view App.IdealPaymentMethodInfoView}}
-            {{else}}
-                {{#if view.parentView.parentView.controller.isDirectDebit}}
-                    {{view App.DirectDebitPaymentMethodInfoView}}
-                {{else}}
-                    {{#if payment_url}}
-                        <a {{bindAttr href="payment_url"}} class="btn right">{% trans "Pay" %}</a>
-                    {{else}}
-                        <button class="btn right">{% trans "Next" %}</button>
-                    {{/if}}
-                {{/if}}
-            {{/if}}
-
-        {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "Hang on tiger! Loading information..." %}
-        {{/if}}
-    </fieldset>
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "ideal_payment_method_info" %}
-
-    <fieldset>
-        {{#if content.isLoaded}}
-            {{view Em.Select contentBinding="App.bankList"
-                             optionValuePath="content.value"
-                             optionLabelPath="content.title"
-                             valueBinding="view.parentView.parentView.parentView.controller.content.payment_submethod_id"}}
-            {{#if payment_url}}
-                <a {{bindAttr href="payment_url"}} class="btn right">{% trans "Pay" %}</a>
-            {{else}}
-                <button>{% trans "Next" %}</button>
-            {{/if}}
-        {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
-        {{/if}}
-    </fieldset>
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "direct_debit_payment_method_info" %}
-
-    <fieldset>
-        {{#if content.isLoaded}}
-            {{#each errors.bank_account_number}}<span class="error">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="bank_account_number" placeholder="Bank account number" classBinding="errors.bank_account_number.length:error"}}
-            {{#each errors.bank_account_name}}<span class="error">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="bank_account_name" placeholder="Bank account holder name" classBinding="errors.bank_account_name.length:error"}}
-
-            {{#each errors.bank_account_city}}<span class="error">{{this}}</span>{{/each}}
-            {{view Em.TextField valueBinding="bank_account_city" placeholder="Bank account city" classBinding="errors.bank_account_city.length:error :clear"}}
-
-            <button>{% trans "Next" %}</button>
-        {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading information..." %}
-        {{/if}}
-    </fieldset>
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "order_thanks" %}
+{% tplhandlebars "orderThanks" %}
     <div class="container section">
         <header class="wrapper">
             <div class="content">
@@ -629,9 +645,15 @@
                 your own personalised page!
                 {% endblocktrans %}
                 <br />
-                {{#linkTo "userProfile" class="profile-link" }}
-                    {% trans "Complete your profile" %}
-                {{/linkTo }}
+                {{#if controllers.currentUser.isAuthenticated }}
+                    {{#linkTo "userProfile" class="profile-link" }}
+                        {% trans "Complete your profile" %}
+                    {{/linkTo }}
+                {{else}}
+                    {{#linkTo "signup" class="profile-link" }}
+                        {% trans "Become 1%CLUB member" %}
+                    {{/linkTo }}
+                {{/if}}
 
             </sidebar>
         </header>
@@ -691,6 +713,77 @@
             </ul>
         </section>
     </div>
-
 {% endtplhandlebars %}
 
+
+{% tplhandlebars "recurringOrderThanks" %}
+    <div class="container section">
+        <header class="wrapper">
+            {# Note: This is similar to orderThanks above. #}
+            <div class="content">
+                <h1 class="main-title">{% trans "Your monthly donation is Set!" %}</h1>
+                {% blocktrans %}
+                Thank you so much for your support. 1% makes a difference.
+                If everybody shares a little. together we can get a lot done.
+                So share this with your friends.
+                {% endblocktrans %}
+            </div>
+            {# Note: This is the same as orderThanks above. Maybe this could be extracted to a partial. #}
+            <sidebar>
+                <h2 class="green">{% trans "Personalise your 1%" %}</h2>
+                {% blocktrans %}
+                Following projects are now even easier and you'll have
+                your own personalised page!
+                {% endblocktrans %}
+                <br />
+                {{#if controllers.currentUser.isAuthenticated }}
+                    {{#linkTo "userProfile" class="profile-link" }}
+                        {% trans "Complete your profile" %}
+                    {{/linkTo }}
+                {{else}}
+                    {{#linkTo "signup" class="profile-link" }}
+                        {% trans "Become 1%CLUB member" %}
+                    {{/linkTo }}
+                {{/if}}
+
+            </sidebar>
+        </header>
+    </div>
+
+    <div class="container">
+        <section class="wrapper">
+
+            <ul id="donation-projects" class="content">
+
+                {{#if donations.length }}
+                    <h3 class="green">{% trans "Your monthly donation will be deducted from your account at the beginning of each month." %}</h3> <strong>
+                {{/if}}
+
+                <div>
+                    {% trans "Monthly donation total:" %} &euro;{{ total }}
+                </div>
+
+                {{#each donation in donations }}
+                    <li class="donation-project">
+                        {{#linkTo "project" donation.project}}
+                            <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
+                            <h2>
+                                {{ donation.project.title }}
+                                <em class="country">
+                                    <i class="icon-globe"></i> {{ donation.project.plan.country.name }}, {{ donation.project.plan.country.subregion }}
+                                </em>
+                            </h2>
+                        {{/linkTo}}
+
+                        <p class="donation-amount">
+                            <span class="amount-needed">
+                                <strong>&euro; {{ donation.project.campaign.money_needed }}</strong>
+                                {% trans "still needed" %}
+                            </span>
+                        </p>
+                    </li>
+                {{/each}}
+            </ul>
+        </section>
+    </div>
+{% endtplhandlebars %}

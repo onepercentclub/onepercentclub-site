@@ -29,8 +29,8 @@ class Organization(models.Model):
     facebook = models.CharField(_("facebook"), max_length=255, blank=True)
     skype = models.CharField(_("skype"), max_length=255, blank=True)
 
-    legal_status =  models.CharField(max_length=255, blank=True)
-    registration =  models.FileField(upload_to='organizations/registrations', storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT), null=True, blank=True)
+    legal_status = models.CharField(max_length=255, blank=True)
+    registration = models.FileField(upload_to='organizations/registrations', storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT), null=True, blank=True)
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))

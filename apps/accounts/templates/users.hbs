@@ -39,17 +39,25 @@
                         <strong class="tab-title">{% trans "Account" %} <em class="tab-subtitle">{% trans "Settings" %}</em></strong>
                     {{/linkTo}}
                 </li>
+
+                <li class="tab-item">
+                    {{#linkTo userOrders }}
+                        <em class="tab-icon amount"><i class="icon-cog"></i></em>
+                        <strong class="tab-title">{% trans "Orders" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
+                    {{/linkTo}}
+                </li>
             </ul>
         </div>
     </div>
 
-    {# Outlet for user/profile and user/settings #}
+    {# Outlet for user/profile, user/settings and user/orders #}
     {{ outlet }}
 
     <br>
 </div>
 
 {% endtplhandlebars %}
+
 
 {% tplhandlebars "userProfile" %}
 
@@ -71,7 +79,6 @@
 
                             <div class="controls">
                                 {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
-
                                 {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
                             </div>
 
@@ -206,6 +213,7 @@
 {{/if}}
 
 {% endtplhandlebars %}
+
 
 {% tplhandlebars "userSettings" %}
 
@@ -433,6 +441,73 @@
 
 {% endtplhandlebars %}
 
+
+{% tplhandlebars "userOrders" %}
+
+<section class="wrapper">
+    <div class="content">
+        {{#if isLoaded }}
+            {{#if recurringOrder }}
+                {{#if recurringPayment }}
+                    <h2>Current Monthly donation: €{{ recurringOrder.total }}</h2>
+                    <div>
+                        <h3>Projects</h3>
+                        <ul>
+                            {{#each donation in recurringOrder.donations}}
+                                <li>{{ donation.project.title }} €{{ donation.amount }}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                    <ul>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Active" %}
+                            </label>
+
+                            <div class="controls">
+                                {{#view Em.RadioButtonGroup name="active" selectedValueBinding="recurringPaymentActive" class="radio-group-horizontal"}}
+                                    <div class="radio3">{{view view.RadioButton value="on"}}<span>{% trans "On" %}</span></div>
+                                    <div class="radio3">{{view view.RadioButton value="off"}}<span>{% trans "Off" %}</span></div>
+                                {{/view}}
+                            </div>
+                        </li>
+                    </ul>
+                {{/if }}
+
+                {# TODO: Use event to set recurring to true before sending user to donation list. Use same for below #}
+                {{#linkTo currentOrder.donationList }}
+                    Add a project to your monthly donation!
+                {{/linkTo }}
+
+            {{ else }}
+                {# TODO: Use event to set recurring to true before sending user to donation list. #}
+                {{#linkTo currentOrder.donationList }}
+                    Become a monthly member!
+                {{/linkTo }}
+            {{/if}}
+
+            <h2>Order History</h2>
+                <ul>
+                    {{#each order in model}}
+                        <li>
+                            Total: €{{ order.total }}
+                            Type: {{#if order.recurring }} {% trans "Monthly" %} {{ else }} {% trans "Single" %} {{/if}}
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+
+        {{else}}
+            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading order history" %}
+        {{/if}}
+    </div>
+</section>
+
+{% endtplhandlebars %}
+
+
+
 {% tplhandlebars "signup" %}
 
 <div class="container section">
@@ -443,6 +518,7 @@
 </div>
 
 {% endtplhandlebars %}
+
 
 {% tplhandlebars "_signup_content" %}
 <div class="content">

@@ -103,7 +103,7 @@ App.Editable = Ember.Mixin.create({
 
     startEditing: function() {
         var record = this.get('model');
-        if (record.transaction.isDefault == true) {
+        if (record.get('transaction.isDefault') == true) {
             this.transaction = this.get('store').transaction();
             this.transaction.add(record);
         }

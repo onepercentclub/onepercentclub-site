@@ -60,24 +60,22 @@ DS.DRF2Serializer = DS.RESTSerializer.extend({
 
         this.extractMeta(loader, type, json);
 
-        if (json['results'] || !Em.isEmpty(json)) {
-            var references = [];
-            var objects = json['results'] ? json['results'] : json;
+        var references = [];
+        var objects = json['results'] ? json['results'] : json;
 
-            if (records) {
-                records = records.toArray();
-            }
-
-            for (var i = 0; i < objects.length; i++) {
-                if (records) {
-                    loader.updateId(records[i], objects[i]);
-                }
-                var reference = this.extractRecordRepresentation(loader, type, objects[i]);
-                references.push(reference);
-            }
-
-            loader.populateArray(references);
+        if (records) {
+            records = records.toArray();
         }
+
+        for (var i = 0; i < objects.length; i++) {
+            if (records) {
+                loader.updateId(records[i], objects[i]);
+            }
+            var reference = this.extractRecordRepresentation(loader, type, objects[i]);
+            references.push(reference);
+        }
+
+        loader.populateArray(references);
     },
 
     /**
@@ -193,7 +191,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
      */
     updateRecord: function(store, type, record) {
         var id = get(record, 'id');
-        var root = this.rootForType(type);
+        var root = this.rootForType(type, record);
 
         var data = {};
         data = this.serialize(record);
@@ -297,7 +295,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
      */
     rootForType: function(type, record) {
         if (record !== undefined && record.hasOwnProperty('url')) {
-            return record.url;
+            return record.get('url');
         }
         if (type.url) {
             return type.url;
