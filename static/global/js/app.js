@@ -268,8 +268,6 @@ App.Adapter = DS.DRF2Adapter.extend({
         "organizations/documents/manage": "organizations/documents/manage",
         "projects/ambassadors/manage": "projects/ambassadors/manage",
         "projects/budgetlines/manage": "projects/budgetlines/manage",
-        "fund/paymentinfo": "fund/paymentinfo",
-        "fund/paymentmethodinfo": "fund/paymentmethodinfo",
         "users/activate": "users/activate",
         "users/passwordset": "users/passwordset",
         "homepage": "homepage",
@@ -1266,13 +1264,41 @@ App.UserSettingsRoute = Em.Route.extend({
 });
 
 
+App.UserOrdersRoute = Em.Route.extend({
+    model: function(params) {
+        return App.Order.find({status: 'closed'});
+    },
+
+    setupController: function(controller, closedOrders) {
+        this._super(controller, closedOrders);
+
+        // Set the monthly order.
+        App.Order.find({status: 'recurring'}).then(function(recurringOrders) {
+            if (recurringOrders.get('length') > 0) {
+                controller.set('recurringOrder', recurringOrders.objectAt(0))
+            } else {
+                controller.set('recurringOrder', null)
+            }
+        });
+
+        // Set the payment.
+        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
+            if (recurringPayments.get('length') > 0) {
+                controller.set('recurringPayment', recurringPayments.objectAt(0));
+            } else {
+                controller.set('recurringPayment', null);
+            }
+        });
+    }
+});
+
+
 App.UserActivateRoute = Em.Route.extend({
 
     // FIXME: Find a better solution than the run.later construction.
 
     model: function(params) {
         var currentUser = App.CurrentUser.find('current');
-        console.log(currentUser);
         var activation = App.UserActivation.find(params.activation_key);
         var route = this;
         activation.on('becameError', function(record) {
@@ -1674,7 +1700,6 @@ App.NewsIndexRoute = Em.Route.extend({
 
 App.ContactMessageRoute = Em.Route.extend({
     model: function(params) {
-        console.log('route');
         var transaction = this.get('store').transaction();
         return transaction.createRecord(App.ContactMessage);
     },

@@ -674,7 +674,9 @@ App.CurrentRecurringDonationView = App.CurrentOrderDonationView.extend({
 
     delete: function(item) {
         var controller = this.get('controller');
-        controller.deleteDonation();
+        this.$().slideUp(500, function() {
+            controller.deleteDonation();
+        });
     }
 });
 
