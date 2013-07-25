@@ -3,7 +3,8 @@ from apps.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectPhases
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses
+from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses, OrderItem
+from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
 
@@ -443,7 +444,14 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         else:
             sfdonation.name = "1%MEMBER"
 
-        # Unknown - sfdonation.payment_method =
+        # Get the payment method from the associated order / payment
+        oi = OrderItem.objects.filter(object_id=donation.id).get(
+            content_type=ContentType.objects.get_for_model(Donation))
+        lp = oi.order.latest_payment
+        if lp:
+            sfdonation.payment_method = lp.latest_docdata_payment.docdata_payment_method
+        else:
+            sfdonation.payment_method = ''
 
         sfdonation.stage_name = DonationStatuses.values[donation.status].title()
         # TODO: Should we use "Recurring" instead of Monthly?
