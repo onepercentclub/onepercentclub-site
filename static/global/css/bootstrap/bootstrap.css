@@ -1,13 +1,13 @@
 /*
 Syntax error: Undefined mixin 'rem'.
-        on line 122 of /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/_popovers.scss, in `rem'
-        from line 122 of /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/_popovers.scss
-        from line 52 of /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/bootstrap.scss
+        on line 122 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss, in `rem'
+        from line 122 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss
+        from line 52 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss
 
 Backtrace:
-/Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/_popovers.scss:122:in `rem'
-/Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/_popovers.scss:122
-/Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/bootstrap.scss:52
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss:122:in `rem'
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss:122
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss:52
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
 org/jruby/RubyKernel.java:2109:in `send'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `visit'
@@ -83,4 +83,4 @@ file:/Applications/compass.app/Contents/Resources/Java/compass-app.jar!/main.rb:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'rem'.\A         on line 122 of /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/_popovers.scss, in `rem'\A         from line 122 of /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/_popovers.scss\A         from line 52 of /Users/FransTwisk/Dropbox/Webserver/1procentclub/static/global/sass/bootstrap/bootstrap.scss"; }
+  content: "Syntax error: Undefined mixin 'rem'.\A         on line 122 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss, in `rem'\A         from line 122 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss\A         from line 52 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss"; }
