@@ -3,7 +3,8 @@ import logging
 import os
 from django.utils import timezone
 from django.conf import settings
-from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses
+from django.contrib.contenttypes.models import ContentType
+from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, OrderItem
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, ProjectPhases
@@ -309,6 +310,15 @@ def generate_donations_csv_file(loglevel):
                 else:
                     name = "1%MEMBER"
 
+                # Get the payment method from the associated order / payment
+                oi = OrderItem.objects.filter(object_id=donation.id).get(
+                    content_type=ContentType.objects.get_for_model(Donation))
+                lp = oi.order.latest_payment
+                if lp:
+                    payment_method = lp.latest_docdata_payment.docdata_payment_method
+                else:
+                    payment_method = ''
+
                 csvwriter.writerow([donation.id,                                            # Donation_External_ID__c
                                     receiver_id,                                            # Receiver__c
                                     project_id,                                             # Project__c
@@ -318,7 +328,7 @@ def generate_donations_csv_file(loglevel):
                                     DonationStatuses.values[donation.status].title(),       # StageName
                                     donation.DonationTypes.values[donation.donation_type].title(),  # Type
                                     donation.created.date(),                                # Donation_created_date__c
-                                    '',                                                     # Payment_method__c
+                                    payment_method.encode("utf-8"),                         # Payment_method__c
                                     '012A0000000ZK6FIAW'])                                  # RecordTypeId
 
                 success_count += 1
