@@ -25,7 +25,7 @@ class DocDataPaymentOrder(Payment):
 
     @property
     def latest_docdata_payment(self):
-        if self.docdata_payments.all():
+        if self.docdata_payments.count() != 0:
             return self.docdata_payments.order_by('-created').all()[0]
         return None
 
