@@ -105,6 +105,9 @@ form, .form {
             padding: 0.6em 0;
             text-align: left;
             font-weight: 300;
+            &.wide {
+                @include grid(48, 2, 1);
+            }
         }
 
         .controls {

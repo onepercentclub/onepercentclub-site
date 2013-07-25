@@ -80,7 +80,6 @@ App.HomeController = Ember.ObjectController.extend({
     loadProject: function() {
         var controller = this;
         var projectId = this.get('projects').objectAt(this.get('projectIndex')).get('id');
-
         App.Project.find(projectId).then(function(project) {
             controller.set('project', project);
         });

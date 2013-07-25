@@ -103,6 +103,9 @@
                     color: $black;
                     text-decoration: none;
                 }
+                &.disabled {
+                    color: $gray;
+                }
                 
             }
         }
@@ -172,9 +175,18 @@
 }
 
 .project-pic-uploader {
-    img {
-        width: 100%;
+    .preview {
         @include rem(margin-top, 12px);
+        margin-top: 12px;
+        width: 412px;
+        height: 206px;
+        overflow: hidden;
+        &.empty {
+            border: 1px dotted $gray;
+        }
+        img {
+            width: 100%;
+        }
     }
 }
 

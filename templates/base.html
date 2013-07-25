@@ -33,7 +33,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/jquery-ui/jquery.ui.datepicker.js"></script>
 
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/handlebars-1.0.0-rc.4.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-1.0.0-rc.5.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-1.0.0-rc.6.js"></script>
         {# This specific version works with ember rc5 and still supports didUpdate which seems broken in v0.13 #}
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-7c01dd5.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-drf2-adapter.js"></script>
@@ -225,7 +225,7 @@
         <form action="/en/accounts/login/" method="post">
 
             <div class="modal-header">
-                <h3>{% trans "Log in" %}</h3>
+                <h3>{% trans "Log in to 1%Club" %}</h3>
             </div>
 
             <div class="modal-body">
@@ -257,8 +257,8 @@
             </div>
 
             <div class="modal-footer">
-                <a class="left" {{ action requestPasswordReset }}>{% trans "I forgot my password" %}</a>
-                <input class="btn right" type="submit" value="Login">
+                <a class="left" {{ action requestPasswordReset }}>{% trans "Forgot your password?" %}</a>
+                <input class="btn right" type="submit" value="Log in">
                 <input type="hidden" name="next" {{bindAttr value="view.next"}}>
             </div>
 
