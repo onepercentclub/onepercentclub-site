@@ -53,7 +53,8 @@ App.User = DS.Model.extend({
 
     user_since: function() {
         return Globalize.format(this.get('date_joined'), 'd');
-    }.property('date_joined')
+    }.property('date_joined'),
+
 });
 
 /*
@@ -206,7 +207,6 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
 
     },
 
-
     save: function(record) {
         var self = this;
         var record = record;
@@ -229,7 +229,7 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
 });
 
 
-App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
+App.UserSettingsController = Em.ObjectController.extend(App.Editable, {
     userTypeList: (function() {
         var list = Em.A();
         list.addObject({ name: 'Person', value: 'person'});
@@ -239,6 +239,31 @@ App.UserSettingsController = Ember.ObjectController.extend(App.Editable, {
         list.addObject({ name: 'Company', value: 'company'});
         return list;
     }).property()
+});
+
+
+App.UserOrdersController = Em.ObjectController.extend({
+
+    recurringPaymentActive: '',
+
+    // Initialized recurringPaymentActive
+    initRecurringPaymentActive: function() {
+        if (this.get('recurringPayment.isLoaded') && this.get('recurringPaymentActive') == '') {
+            if (this.get('recurringPayment.active')) {
+                this.set('recurringPaymentActive', 'on')
+            } else {
+                this.set('recurringPaymentActive', 'off')
+            }
+        }
+    }.observes('recurringPayment.isLoaded'),
+
+    updateRecurringPayment: function() {
+        var recurringPayment = this.get('recurringPayment');
+        var transaction = this.get('store').transaction();
+        transaction.add(recurringPayment);
+        recurringPayment.set('active', (this.get('recurringPaymentActive') == 'on'));
+        transaction.commit();
+    }.observes('recurringPaymentActive')
 });
 
 
@@ -280,11 +305,7 @@ App.PasswordResetController = Ember.ObjectController.extend({
     needs: ['login'],
 
     resetDisabled: (function() {
-        if (this.get('new_password1') || this.get('new_password2')) {
-            return false;
-        }
-
-        return true;
+        return this.get('new_password1') || this.get('new_password2');
     }).property('content.new_password1', 'content.new_password2'),
 
     resetPassword: function(record) {

@@ -1,5 +1,4 @@
 import json
-from decimal import Decimal
 from apps.cowry.factory import _adapter_for_payment_method
 from apps.cowry.models import PaymentStatuses
 from apps.cowry_docdata.adapters import default_payment_methods
@@ -12,12 +11,9 @@ from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin
 from apps.projects.models import Project
 from rest_framework import status
-from ..models import Donation, Order, OrderStatuses, DonationStatuses
+from ..models import Order, OrderStatuses, DonationStatuses
 
 
-
-
-# Integration tests for API
 class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case).
@@ -346,16 +342,16 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         order_donation_list_url = '{0}{1}'.format(order_detail_url, '/donations/')
         response = self.client.get(order_donation_list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(len(response.data), 1)
 
         # Editing a donation with order closed should not be allowed.
-        donation_detail_url = '{0}{1}'.format(order_donation_list_url, response.data['results'][0]['id'])
+        donation_detail_url = '{0}{1}'.format(order_donation_list_url, response.data[0]['id'])
         response = self.client.put(donation_detail_url, json.dumps({'project': self.some_project.slug, 'amount': 5}), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Adding a donation to a closed order should not be allowed.
         response = self.client.post(order_donation_list_url, {'project': self.some_project.slug, 'amount': 10})
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')

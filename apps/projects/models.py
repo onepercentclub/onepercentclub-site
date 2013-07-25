@@ -69,7 +69,6 @@ class ProjectManager(models.Manager):
             qs = qs.order_by('popularity')
             return qs
 
-
         qs = super(ProjectManager, self).order_by(field)
         return qs
 
