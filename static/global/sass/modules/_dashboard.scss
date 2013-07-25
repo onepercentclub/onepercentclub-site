@@ -204,6 +204,7 @@
     
     
     li {
+        @include clearfix;
     	display: block;
 	    border-top: 1px solid $color-back;
 		line-height: 1.5;
@@ -220,7 +221,7 @@
 	    }
 	    
 	    .project-status {
-	        clear: left;
+	        //clear: left;
 	        @include grid(16,0,1);
 	    }
 	    
