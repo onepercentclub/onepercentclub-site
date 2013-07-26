@@ -44,7 +44,7 @@ class Donation(models.Model):
     """
     class DonationTypes(DjangoChoices):
         one_off = ChoiceItem('one_off', label=_("One-off"))
-        monthly = ChoiceItem('monthly', label=_("Monthly"))
+        recurring = ChoiceItem('recurring', label=_("Recurring"))
         voucher = ChoiceItem('voucher', label=_("Voucher"))
 
     amount = models.PositiveIntegerField(_("Amount"))
