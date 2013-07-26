@@ -684,11 +684,12 @@
 
     <div class="form">
         <div class="modal-header">
+            <a class="close" rel="close">&times;</a>
             <h3>{% trans "Forgot your password?" %}</h3>
         </div>
 
         <div class="modal-body">
-            <p>{% trans "Leave your email address and we'll send you a link to set a new password." %}</p>
+            <p>{% trans "Enter your email address and we'll send you an email so you can set a new password." %}</p>
             <div class="control-group">
                 <div class="alert alert-error hidden" id="passwordResetError">
                     {{error}}
@@ -703,14 +704,9 @@
         </div>
 
         <div class="modal-footer">
-            <p class="left">
-                {% trans "Need help?" %}
-                <a href="mailto:info@1procentclub.nl">{% trans "Contact us!" %}</a>
-            </p>
-
             <a href="#" class="btn btn-iconed btn-secondary" rel="secondary">
                 <em class="flaticon solid checkmark-1"></em>
-                {% trans "Reset" %}
+                {% trans "Reset password" %}
             </a>
         </div>
     </div>
