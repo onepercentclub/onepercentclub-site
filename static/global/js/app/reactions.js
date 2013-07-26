@@ -71,10 +71,10 @@ App.WallPostReactionView = Em.View.extend({
     deleteReaction: function() {
         var view = this;
         Bootstrap.ModalPane.popup({
-            heading: "Really?",
-            message: "Are you sure you want to delete this reaction?",
-            primary: "Yes",
-            secondary: "Cancel",
+            heading: gettext("Really?"),
+            message: gettext("Are you sure you want to delete this reaction?"),
+            primary: gettext("Yes"),
+            secondary: gettext("Cancel"),
             callback: function(opts, e) {
                 e.preventDefault();
                 if (opts.primary) {

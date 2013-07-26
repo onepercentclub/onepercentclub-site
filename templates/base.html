@@ -27,6 +27,7 @@
 
     {# Scripts #}
     {% compress js %}
+
         {# The Ember stack. #}
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/jquery-1.8.3.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/jquery-ui/jquery.ui.core.js"></script>
@@ -40,6 +41,10 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/globalize.js"></script>
 
         {# Other libs #}
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/globalize.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}jsi18n/{{ LANGUAGE_CODE }}/djangojs.js"></script>
+
+
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-transition.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-modal.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-tooltip.js"></script>

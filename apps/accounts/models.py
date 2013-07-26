@@ -91,10 +91,10 @@ class BlueBottleUser(AbstractBaseUser, PermissionsMixin):
 
     class UserType(DjangoChoices):
         person = ChoiceItem('person', label=_("Person"))
-        group = ChoiceItem('group', label=_("Group"))
+        company = ChoiceItem('company', label=_("Company"))
         foundation = ChoiceItem('foundation', label=_("Foundation"))
         school = ChoiceItem('school', label=_("School"))
-        company = ChoiceItem('company', label=_("Company"))
+        group = ChoiceItem('group', label=_("Club / association"))
 
     email = models.EmailField(_("email address"), max_length=254, unique=True, db_index=True)
     username = models.SlugField(_("username"), unique=True)

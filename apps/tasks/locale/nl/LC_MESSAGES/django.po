@@ -1,0 +1,427 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2013-07-26 13:55+0200\n"
+"PO-Revision-Date: 2013-07-26 12:04+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: mails.py:32
+#, python-format
+msgid "%(sender)s applied for your task."
+msgstr ""
+
+#: mails.py:49
+#, python-format
+msgid "%(sender)s found someone else to do the task you applied for."
+msgstr ""
+
+#: mails.py:66
+#, python-format
+msgid "%(sender)s accepted you to complete the tasks you applied for."
+msgstr ""
+
+#: models.py:11
+msgid "english name"
+msgstr ""
+
+#: models.py:12
+msgid "dutch name"
+msgstr ""
+
+#: models.py:13 models.py:32
+msgid "description"
+msgstr ""
+
+#: models.py:26 templates/tasks.hbs:30 templates/tasks.hbs.py:170
+#: templates/tasks.hbs:267 templates/tasks.hbs.py:662
+msgid "Open"
+msgstr ""
+
+#: models.py:27 templates/tasks.hbs:34 templates/tasks.hbs.py:174
+#: templates/tasks.hbs:271 templates/tasks.hbs.py:666
+msgid "In progress"
+msgstr ""
+
+#: models.py:28 templates/tasks.hbs:38 templates/tasks.hbs.py:178
+#: templates/tasks.hbs:275 templates/tasks.hbs.py:670
+msgid "Closed"
+msgstr ""
+
+#: models.py:29 models.py:67 templates/tasks.hbs:42 templates/tasks.hbs.py:53
+#: templates/tasks.hbs:182 templates/tasks.hbs.py:193 templates/tasks.hbs:279
+#: templates/tasks.hbs.py:397 templates/tasks.hbs:417
+#: templates/tasks.hbs.py:503 templates/tasks.hbs:674
+msgid "Realised"
+msgstr ""
+
+#: models.py:31
+msgid "title"
+msgstr ""
+
+#: models.py:33
+msgid "end goal"
+msgstr ""
+
+#: models.py:34
+msgid "location"
+msgstr ""
+
+#: models.py:36
+msgid "old expertise"
+msgstr ""
+
+#: models.py:37
+msgid "Skill needed"
+msgstr ""
+
+#: models.py:38
+msgid "time_needed"
+msgstr ""
+
+#: models.py:38
+msgid "Estimated number of hours needed to perform this task."
+msgstr ""
+
+#: models.py:40 models.py:71
+msgid "status"
+msgstr ""
+
+#: models.py:42
+msgid "people needed"
+msgstr ""
+
+#: models.py:42
+msgid "How many people are needed for this task?"
+msgstr ""
+
+#: models.py:46 models.py:72 models.py:82
+msgid "created"
+msgstr ""
+
+#: models.py:46
+msgid "When this task was created?"
+msgstr ""
+
+#: models.py:47 models.py:73
+msgid "updated"
+msgstr ""
+
+#: models.py:49
+msgid "tags"
+msgstr ""
+
+#: models.py:63 templates/tasks.hbs:385 templates/tasks.hbs.py:405
+#: templates/tasks.hbs:491
+msgid "Applied"
+msgstr ""
+
+#: models.py:64
+msgid "Accepted"
+msgstr ""
+
+#: models.py:65 templates/tasks.hbs:393 templates/tasks.hbs.py:413
+msgid "Rejected"
+msgstr ""
+
+#: models.py:66
+msgid "Stopped"
+msgstr ""
+
+#: models.py:81
+msgid "file"
+msgstr ""
+
+#: models.py:83
+msgid "Updated"
+msgstr ""
+
+#: templates/task_member_accepted.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"Woohoo, you’re the one! The project owner, %(sender_name)s, assigned the 1%%Task <a href=\"%(site)s%(link)s\">%(task_title)s</a> to you! Good luck and please keep us updated about the progress!\n"
+"<br/><br/>\n"
+"Start right away? Leave a short first reaction!\n"
+"<br/><br/>\n"
+"<a href=\"%(site)s%(link)s\">Go to 1%%Task</a>.\n"
+"<br/>\n"
+"Good luck!<br/>\n"
+"<br/>\n"
+"1%%CLUB\n"
+msgstr ""
+
+#: templates/task_member_accepted.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Hi %(receiver_name)s,\n"
+"\n"
+"Woohoo, you’re the one! The project owner, %(sender_name)s, assigned the task to you! Good luck and please keep us updated about the progress!\n"
+"\n"
+"Start right away? Leave a short first reaction!\n"
+"\n"
+"Go to 1%%Task: %(site)s%(link)s.\n"
+"\n"
+"Good luck!\n"
+"\n"
+"1%%CLUB\n"
+msgstr ""
+
+#: templates/task_member_applied.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"%(sender_name)s applied for your task <a href=\"%(site)s%(link)s\">%(task_title)s</a>.<br />\n"
+"Be sure to follow this up a.s.a.p.! <br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Go to 1%%Task</a>.\n"
+"<br/>\n"
+"Good luck!<br/>\n"
+"<br/>\n"
+"1%%CLUB\n"
+msgstr ""
+
+#: templates/task_member_applied.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"%(sender_name)s applied for your task \"%(task_title)s\".\n"
+"Be sure to follow this up a.s.a.p.!\n"
+"\n"
+"Go to 1%%Task: %(site)s%(link)s.\n"
+"\n"
+"Good luck!\n"
+"\n"
+"1%%CLUB\n"
+msgstr ""
+
+#: templates/task_member_rejected.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"<br /><br />\n"
+"Unfortunately the project owner, %(sender_name)s, found someone else to perform the 1%%Task '%(task_title)s', which you applied for.\n"
+"No worries, we have some other really cool tasks that might be the perfect match for your skills.\n"
+"<br /><br />\n"
+"Take a look right here: %(site)s/#!/tasks\n"
+"<br /><br />\n"
+"Good luck!\n"
+"<br /><br />\n"
+"1%%CLUB\n"
+msgstr ""
+
+#: templates/task_member_rejected.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"\n"
+"Unfortunately the project owner, %(sender_name)s, found someone else to perform the 1%%Task '%(task_title)s', which you applied for.\n"
+"No worries, we have some other really cool tasks that might be the perfect match for your skills.\n"
+"\n"
+"Take a look right here: %(site)s/#!/tasks\n"
+"\n"
+"Good luck!\n"
+"\n"
+"1%%CLUB\n"
+msgstr ""
+
+#: templates/tasks.hbs:81 templates/tasks.hbs.py:236
+msgid "No tasks found."
+msgstr ""
+
+#: templates/tasks.hbs:85
+msgid "loading tasks"
+msgstr ""
+
+#: templates/tasks.hbs:118
+msgid "clear filters"
+msgstr ""
+
+#: templates/tasks.hbs:138
+msgid "found"
+msgstr ""
+
+#: templates/tasks.hbs:138
+msgid "tasks"
+msgstr ""
+
+#: templates/tasks.hbs:140
+msgid "Sort:"
+msgstr ""
+
+#: templates/tasks.hbs:141
+msgid "Newest"
+msgstr ""
+
+#: templates/tasks.hbs:142
+msgid "Near deadline"
+msgstr ""
+
+#: templates/tasks.hbs:146
+msgid "Showing"
+msgstr ""
+
+#: templates/tasks.hbs:216
+msgid "View tasks for all project"
+msgstr ""
+
+#: templates/tasks.hbs:222
+msgid "Add a task"
+msgstr ""
+
+#: templates/tasks.hbs:255
+msgid "View all tasks for this project"
+msgstr ""
+
+#: templates/tasks.hbs:289
+msgid "Delete"
+msgstr ""
+
+#: templates/tasks.hbs:311
+msgid "Task detail"
+msgstr ""
+
+#: templates/tasks.hbs:316 templates/tasks.hbs.py:574 templates/tasks.hbs:729
+msgid "Skill"
+msgstr ""
+
+#: templates/tasks.hbs:333 templates/tasks.hbs.py:546 templates/tasks.hbs:701
+msgid "Location"
+msgstr ""
+
+#: templates/tasks.hbs:340
+msgid "Time needed"
+msgstr ""
+
+#: templates/tasks.hbs:347 templates/tasks.hbs.py:687
+msgid "Deadline"
+msgstr ""
+
+#: templates/tasks.hbs:358 templates/tasks.hbs.py:615 templates/tasks.hbs:770
+msgid "Tags"
+msgstr ""
+
+#: templates/tasks.hbs:369
+msgid "Edit task details"
+msgstr ""
+
+#: templates/tasks.hbs:376
+msgid "Task members"
+msgstr ""
+
+#: templates/tasks.hbs:389 templates/tasks.hbs.py:409
+msgid "Started"
+msgstr ""
+
+#: templates/tasks.hbs:443
+msgid "Apply for task"
+msgstr ""
+
+#: templates/tasks.hbs:448
+msgid "Login"
+msgstr ""
+
+#: templates/tasks.hbs:448
+msgid "or become a"
+msgstr ""
+
+#: templates/tasks.hbs:448
+msgid "member"
+msgstr ""
+
+#: templates/tasks.hbs:448
+msgid "to apply for this task."
+msgstr ""
+
+#: templates/tasks.hbs:456
+msgid "Task files"
+msgstr ""
+
+#: templates/tasks.hbs:463
+msgid "get"
+msgstr ""
+
+#: templates/tasks.hbs:476
+msgid "Upload a new file"
+msgstr ""
+
+#: templates/tasks.hbs:495
+msgid "Start"
+msgstr ""
+
+#: templates/tasks.hbs:499
+msgid "Reject"
+msgstr ""
+
+#: templates/tasks.hbs:518 templates/tasks.hbs.py:642
+msgid "Title of your task."
+msgstr ""
+
+#: templates/tasks.hbs:532
+msgid "Dead line"
+msgstr ""
+
+#: templates/tasks.hbs:560 templates/tasks.hbs.py:715
+msgid "Time needed (approximately)"
+msgstr ""
+
+#: templates/tasks.hbs:588
+msgid "Description"
+msgstr ""
+
+#: templates/tasks.hbs:602 templates/tasks.hbs.py:757
+msgid "End goal"
+msgstr ""
+
+#: templates/tasks.hbs:626
+msgid "Post Task"
+msgstr ""
+
+#: templates/tasks.hbs:655
+msgid "Status"
+msgstr ""
+
+#: templates/tasks.hbs:743
+msgid "Description."
+msgstr ""
+
+#: templates/tasks.hbs:781
+msgid "Save Task"
+msgstr ""
+
+#: templates/tasks.hbs:782
+msgid "Cancel changes"
+msgstr ""
+
+#: templates/tasks.hbs:795
+msgid "Title"
+msgstr ""
+
+#: templates/tasks.hbs:808
+msgid "File"
+msgstr ""
+
+#: templates/tasks.hbs:815
+msgid "Upload file"
+msgstr ""

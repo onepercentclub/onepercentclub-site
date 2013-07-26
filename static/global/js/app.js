@@ -662,9 +662,11 @@ App.ApplicationRoute = Em.Route.extend({
         },
         showTask: function(task) {
             var route = this;
-            App.Project.find(task.get('project.id')).then(function(project) {
-                route.transitionTo('project', project);
-                route.transitionTo('projectTask', task);
+            App.Task.find(task.get('id')).then(function(task) {
+                App.Project.find(task.get('project.id')).then(function(project) {
+                    route.transitionTo('project', project);
+                    route.transitionTo('projectTask', task);
+                });
             });
         },
         showNews: function(news_id) {
@@ -793,10 +795,10 @@ App.ProjectTaskRoute = Em.Route.extend({
             var route = this;
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
-                heading: 'Task',
-                message: 'Are you sure you want to apply to this task?',
-                primary: 'Apply',
-                secondary: 'Cancel',
+                heading: gettext('Task'),
+                message: gettext('Are you sure you want to apply to this task?'),
+                primary: gettext('Apply'),
+                secondary: gettext('Cancel'),
                 callback: function(opts, e) {
                     e.preventDefault();
                     if (opts.primary) {

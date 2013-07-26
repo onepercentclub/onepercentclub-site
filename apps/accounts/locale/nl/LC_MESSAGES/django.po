@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-07-23 10:18+0200\n"
-"PO-Revision-Date: 2013-07-23 08:50+0000\n"
+"POT-Creation-Date: 2013-07-26 09:06+0200\n"
+"PO-Revision-Date: 2013-07-26 08:20+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "e-mailadres"
 msgid "Required. 254 characters or fewer. A valid email address."
 msgstr ""
 
-#: admin.py:25 admin.py:63 templates/users.hbs:486
+#: admin.py:25 admin.py:63 templates/users.hbs:570
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -59,11 +59,11 @@ msgstr "Wachtwoorden worden gecodeerd bewaard, deze achterhalen is dus onmogelij
 msgid "Personal info"
 msgstr "Persoonlijke info"
 
-#: admin.py:88
+#: admin.py:88 templates/users.hbs:17
 msgid "Profile"
 msgstr "Profiel"
 
-#: admin.py:89 templates/users.hbs:34
+#: admin.py:89 templates/users.hbs:39
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -79,11 +79,11 @@ msgstr "Permissies"
 msgid "Important dates"
 msgstr "Belangrijke data"
 
-#: models.py:79 templates/users.hbs:389
+#: models.py:79 templates/users.hbs:404
 msgid "Male"
 msgstr "Man"
 
-#: models.py:80 templates/users.hbs:388
+#: models.py:80 templates/users.hbs:403
 msgid "Female"
 msgstr "Vrouw"
 
@@ -124,8 +124,8 @@ msgid "Person"
 msgstr "Persoon"
 
 #: models.py:94
-msgid "Group"
-msgstr "Groep"
+msgid "Company"
+msgstr "Bedrijf"
 
 #: models.py:95
 msgid "Foundation"
@@ -136,8 +136,8 @@ msgid "School"
 msgstr "School"
 
 #: models.py:97
-msgid "Company"
-msgstr "Bedrijf"
+msgid "Club / association"
+msgstr ""
 
 #: models.py:100
 msgid "username"
@@ -285,183 +285,209 @@ msgstr "gebruikersadres"
 msgid "user addresses"
 msgstr "gebruikersadressen"
 
-#: templates/users.hbs:17
+#: templates/users.hbs:14
+#, python-format
+msgid "My 1%%"
+msgstr ""
+
+#: templates/users.hbs:22
 msgid "Preview my profile"
 msgstr "Bekijk mijn profiel"
 
-#: templates/users.hbs:27
-msgid "Profile info"
-msgstr "Profiel info"
+#: templates/users.hbs:32
+msgid "Edit profile"
+msgstr ""
 
-#: templates/users.hbs:27
+#: templates/users.hbs:32
 msgid "Public info"
 msgstr "Openbaar"
 
-#: templates/users.hbs:34
+#: templates/users.hbs:39
 msgid "Account"
 msgstr "Account"
 
-#: templates/users.hbs:56
+#: templates/users.hbs:46
+msgid "Orders"
+msgstr ""
+
+#: templates/users.hbs:69
 msgid "Edit your profile"
 msgstr "Vul je profiel aan"
 
-#: templates/users.hbs:57
+#: templates/users.hbs:70
 #, python-format
 msgid "Personalise your account so 1%%Members can get to know you."
 msgstr "Vul je profiel aan, zodat andere 1%%Leden zien wie je bent."
 
-#: templates/users.hbs:64 templates/users.hbs.py:460
+#: templates/users.hbs:77 templates/users.hbs.py:544
 msgid "Name"
 msgstr "Naam"
 
-#: templates/users.hbs:78
+#: templates/users.hbs:90
 msgid "Profile Picture"
 msgstr "Profielfoto"
 
-#: templates/users.hbs:87
+#: templates/users.hbs:99
 msgid "Upload picture"
 msgstr "Upload foto"
 
-#: templates/users.hbs:100
+#: templates/users.hbs:112
 msgid "About yourself"
 msgstr "Over jezelf"
 
-#: templates/users.hbs:114
+#: templates/users.hbs:126
 #, python-format
 msgid "Why did you join 1%%Club?"
 msgstr "Waarom doe je mee met 1%%Club?"
 
-#: templates/users.hbs:129
+#: templates/users.hbs:141
 msgid "Your website"
 msgstr "Jouw website"
 
-#: templates/users.hbs:143 templates/users.hbs.py:574
+#: templates/users.hbs:155 templates/users.hbs.py:658
 msgid "Location"
 msgstr "Locatie"
 
-#: templates/users.hbs:161
+#: templates/users.hbs:173
 #, python-format
 msgid "1%%SKILLS"
 msgstr "1%%Doen"
 
-#: templates/users.hbs:162
+#: templates/users.hbs:174
 msgid ""
 "If you have any skills or experience that you think could help a smart idea "
 "(For example: if you’re a great graphic designer or an awesome accountant) "
 "please add them here."
 msgstr "Heb jij de skills of ervaring die een slim idee verder kunnen helpen? (bijvoorbeeld: je bent een geweldige grafisch ontwerper of een fantastische accountant). Voeg ze hieronder toe."
 
-#: templates/users.hbs:168 templates/users.hbs.py:582
+#: templates/users.hbs:180 templates/users.hbs.py:666
 msgid "Time available"
 msgstr "Beschikbare tijd"
 
-#: templates/users.hbs:187
+#: templates/users.hbs:199
 msgid "Profile saved"
 msgstr "Profiel opgeslagen"
 
-#: templates/users.hbs:196
-msgid "loading profile"
-msgstr "laadt profiel"
-
-#: templates/users.hbs:210
+#: templates/users.hbs:225
 msgid "Edit your account"
 msgstr "Bewerk je account"
 
-#: templates/users.hbs:211
+#: templates/users.hbs:226
 msgid ""
 "These are the details we currently have for you – update or change them "
 "below."
 msgstr "Onderstaande gegevens kun je aanvullen of aanpassen"
 
-#: templates/users.hbs:218
+#: templates/users.hbs:233
 msgid "Email Address"
 msgstr "E-mailadres"
 
-#: templates/users.hbs:238
+#: templates/users.hbs:253
 msgid "I'd like to receive emails about"
 msgstr "Ik wil e-mails ontvangen over"
 
-#: templates/users.hbs:244
+#: templates/users.hbs:259
 #, python-format
 msgid "1%%Newsletters"
 msgstr "1%%Nieuwsbrieven"
 
-#: templates/users.hbs:257
+#: templates/users.hbs:272
 msgid "Account type"
 msgstr "Type account"
 
-#: templates/users.hbs:275
+#: templates/users.hbs:290
 msgid "I want to share"
 msgstr "Ik wil delen:"
 
-#: templates/users.hbs:281
+#: templates/users.hbs:296
 msgid "Time & Knowledge"
 msgstr "Tijd & kennis"
 
-#: templates/users.hbs:285
+#: templates/users.hbs:300
 msgid "Money"
 msgstr "Geld"
 
-#: templates/users.hbs:296
+#: templates/users.hbs:311
 msgid "Personal Details"
 msgstr "Persoonlijke gegevens"
 
-#: templates/users.hbs:297
+#: templates/users.hbs:312
 #, python-format
 msgid ""
 "Only 1%%CLUB can see your personal details. They won’t be published anywhere"
 " on the 1%%CLUB website."
 msgstr "Alleen 1%%Club kan onderstaande gegevens zien. Ze worden niet getoond op de 1%%Club website."
 
-#: templates/users.hbs:302
+#: templates/users.hbs:317
 msgid "Address Line 1"
 msgstr "Adresregel 1"
 
-#: templates/users.hbs:315
+#: templates/users.hbs:330
 msgid "Address Line 2"
 msgstr "Adresregel 2"
 
-#: templates/users.hbs:328
+#: templates/users.hbs:343
 msgid "City"
 msgstr "Woonplaats"
 
-#: templates/users.hbs:341
+#: templates/users.hbs:356
 msgid "Province / State"
 msgstr "Provincie"
 
-#: templates/users.hbs:354
+#: templates/users.hbs:369
 msgid "Postal Code"
 msgstr "Postcode"
 
-#: templates/users.hbs:369
+#: templates/users.hbs:384
 msgid "Country"
 msgstr "Land"
 
-#: templates/users.hbs:383
+#: templates/users.hbs:398
 msgid "Gender"
 msgstr "Geslacht"
 
-#: templates/users.hbs:390
+#: templates/users.hbs:405
 msgid "Unset"
 msgstr ""
 
-#: templates/users.hbs:397
+#: templates/users.hbs:412
 msgid "Date of birth"
 msgstr "Geboortedatum"
 
-#: templates/users.hbs:412
+#: templates/users.hbs:427
 msgid "Account settings saved"
 msgstr "Wijzigingen opgeslagen"
 
-#: templates/users.hbs:421
-msgid "loading settings"
-msgstr "laadt settings"
-
-#: templates/users.hbs:441
-msgid "Join 1%Club"
+#: templates/users.hbs:465
+msgid "Active"
 msgstr ""
 
-#: templates/users.hbs:444
+#: templates/users.hbs:470
+msgid "On"
+msgstr ""
+
+#: templates/users.hbs:471
+msgid "Off"
+msgstr ""
+
+#: templates/users.hbs:495
+msgid "Monthly"
+msgstr "Maandelijks"
+
+#: templates/users.hbs:495
+msgid "Single"
+msgstr ""
+
+#: templates/users.hbs:502
+msgid "loading order history"
+msgstr ""
+
+#: templates/users.hbs:525
+#, python-format
+msgid "Join 1%%Club"
+msgstr "Doe mee met 1%%Club"
+
+#: templates/users.hbs:528
 #, python-format
 msgid ""
 "\n"
@@ -472,106 +498,110 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/users.hbs:452
+#: templates/users.hbs:536
 msgid "Thanks for signing up!"
 msgstr "Bedankt voor je registratie!"
 
-#: templates/users.hbs:454
+#: templates/users.hbs:538
 msgid ""
 "We've sent you an email. Please click <strong>Activate Profile</strong> in "
 "the email we just sent you."
 msgstr "We hebben je een mail gestuurd. Klik op <strong>Activeer Profiel</strong> in deze mail."
 
-#: templates/users.hbs:472
+#: templates/users.hbs:556
 msgid "Email"
 msgstr "E-mail"
 
-#: templates/users.hbs:502
+#: templates/users.hbs:586
 msgid "Sign up"
 msgstr "Registreer"
 
-#: templates/users.hbs:509
-msgid "By joining the 1%Club I a hereby agree to the "
+#: templates/users.hbs:593
+#, python-format
+msgid "By joining the 1%%Club I a hereby agree to the "
 msgstr ""
 
-#: templates/users.hbs:510
-msgid "1%Club Terms of service"
+#: templates/users.hbs:594
+#, python-format
+msgid "1%%Club Terms of service"
 msgstr ""
 
-#: templates/users.hbs:524
-msgid "ALREADY HAVE AN ACCOUNT?"
-msgstr "Heb je al een profiel?"
+#: templates/users.hbs:608
+msgid "Already have an account?"
+msgstr ""
 
-#: templates/users.hbs:527
+#: templates/users.hbs:611
 msgid "Log in here"
 msgstr "Log hier in"
 
-#: templates/users.hbs:536
-msgid "Why join 1%Club?"
-msgstr "Waarom meedoen met 1%Club?"
+#: templates/users.hbs:620
+#, python-format
+msgid "Why join 1%%Club?"
+msgstr ""
 
-#: templates/users.hbs:541
+#: templates/users.hbs:625
 msgid "It's easy to find projects you like."
 msgstr "Vind makkelijk projecten die jou aanspreken."
 
-#: templates/users.hbs:542
+#: templates/users.hbs:626
 #, python-format
 msgid "A fun and personal way to share your 1%%."
 msgstr "Een leuke & persoonlijke manier om jouw 1%% te delen."
 
-#: templates/users.hbs:543
+#: templates/users.hbs:627
 msgid "You'll receive updates of the progress of the projects you support."
 msgstr "Je ontvangt updates van de voortgang van de projecten die jij steunt."
 
-#: templates/users.hbs:556
+#: templates/users.hbs:640
 msgid "Member since"
 msgstr ""
 
-#: templates/users.hbs:561
+#: templates/users.hbs:645
 msgid "About"
 msgstr "Over"
 
-#: templates/users.hbs:566
-msgid "Joined 1%Club because"
+#: templates/users.hbs:650
+#, python-format
+msgid "Joined 1%%Club because"
 msgstr ""
 
-#: templates/users.hbs:603
+#: templates/users.hbs:687
 msgid "Forgot your password?"
 msgstr "Wachtwoord vergeten?"
 
-#: templates/users.hbs:607
+#: templates/users.hbs:691
 msgid ""
 "Leave your email address and we'll send you a link to set a new password."
 msgstr "Vul je e-mailadres in en we sturen je een link om je wachtwoord opnieuw in te stellen."
 
-#: templates/users.hbs:614
+#: templates/users.hbs:698
 msgid "Email address"
 msgstr "E-mailadres"
 
-#: templates/users.hbs:623
+#: templates/users.hbs:707
 msgid "Need help?"
 msgstr "Hulp nodig?"
 
-#: templates/users.hbs:624
+#: templates/users.hbs:708
 msgid "Contact us!"
 msgstr "Neem contact op!"
 
-#: templates/users.hbs:629
+#: templates/users.hbs:713
 msgid "Reset"
 msgstr "Reset"
 
-#: templates/users.hbs:640
+#: templates/users.hbs:724
 msgid "Reset your password"
 msgstr "Reset je wachtwoord"
 
-#: templates/users.hbs:646
+#: templates/users.hbs:730
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
-#: templates/users.hbs:658
+#: templates/users.hbs:742
 msgid "Confirm new password"
 msgstr "Bevestig wachtwoord"
 
-#: templates/users.hbs:678
+#: templates/users.hbs:762
 msgid "Reset password"
 msgstr "Reset wachtwoord"
