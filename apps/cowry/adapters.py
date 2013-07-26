@@ -1,3 +1,4 @@
+from django.conf import settings
 from .models import Payment
 from .signals import payment_status_changed
 
@@ -6,6 +7,10 @@ class AbstractPaymentAdapter(object):
     """
     This is the abstract base class that should be used by all Payment Adapters.
     """
+
+    def __init__(self):
+        self.test = not getattr(settings, "COWRY_LIVE_PAYMENTS", False)
+
     def get_payment_methods(self):
         raise NotImplementedError
 

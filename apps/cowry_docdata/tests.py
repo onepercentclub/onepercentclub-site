@@ -10,8 +10,8 @@ from .adapters import default_payment_methods
 
 
 try:
-    getattr(settings, 'COWRY_DOCDATA_MERCHANT_NAME')
-    getattr(settings, 'COWRY_DOCDATA_MERCHANT_PASSWORD')
+    getattr(settings, 'COWRY_DOCDATA_TEST_MERCHANT_NAME')
+    getattr(settings, 'COWRY_DOCDATA_TEST_MERCHANT_PASSWORD')
     requests.get('http://www.google.com')
     run_docdata_tests = True
 except (ConnectionError, AttributeError):

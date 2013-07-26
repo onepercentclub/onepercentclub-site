@@ -10,12 +10,13 @@ from .base import *
 # Put testing environment specific overrides below.
 #
 
-DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 INSTALLED_APPS += (
     'gunicorn',
 )
 
 COWRY_RETURN_URL_BASE = 'https://testing.onepercentclub.com'
+COWRY_LIVE_PAYMENTS = False
 

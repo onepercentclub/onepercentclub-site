@@ -13,3 +13,4 @@ INSTALLED_APPS += (
 )
 
 COWRY_RETURN_URL_BASE = 'https://dev.onepercentclub.com'
+COWRY_LIVE_PAYMENTS = False
