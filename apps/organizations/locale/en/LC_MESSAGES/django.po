@@ -1,182 +1,182 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-26 20:26+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-07-27 00:25+0200\n"
+"PO-Revision-Date: 2013-06-26 09:54+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:19
 msgid "name"
-msgstr ""
+msgstr "name"
 
 #: models.py:20
 msgid "slug"
-msgstr ""
+msgstr "slug"
 
 #: models.py:22
 msgid "description"
-msgstr ""
+msgstr "description"
 
 #: models.py:23
 msgid "legal status"
-msgstr ""
+msgstr "legal status"
 
 #: models.py:23
 msgid "The legal status of the organization (e.g. Foundation)."
-msgstr ""
+msgstr "The legal status of the organization (e.g. Foundation)."
 
 #: models.py:24
 msgid "phone number"
-msgstr ""
+msgstr "phone number"
 
 #: models.py:25
 msgid "website"
-msgstr ""
+msgstr "website"
 
 #: models.py:28
 msgid "twitter"
-msgstr ""
+msgstr "twitter"
 
 #: models.py:29
 msgid "facebook"
-msgstr ""
+msgstr "facebook"
 
 #: models.py:30
 msgid "skype"
-msgstr ""
+msgstr "skype"
 
 #: models.py:35
 msgid "created"
-msgstr ""
+msgstr "created"
 
 #: models.py:36
 msgid "updated"
-msgstr ""
+msgstr "updated"
 
 #: models.py:37
 msgid "deleted"
-msgstr ""
+msgstr "deleted"
 
 #: models.py:39
 msgid "partner organizations"
-msgstr ""
+msgstr "partner organizations"
 
 #: models.py:41
 msgid "account bank name"
-msgstr ""
+msgstr "account bank name"
 
 #: models.py:42
 msgid "account bank address"
-msgstr ""
+msgstr "account bank address"
 
 #: models.py:44
 msgid "account IBAN"
-msgstr ""
+msgstr "account IBAN"
 
 #: models.py:45
 msgid "account SWIFT-BIC"
-msgstr ""
+msgstr "account SWIFT-BIC"
 
 #: models.py:46
 msgid "account number"
-msgstr ""
+msgstr "account number"
 
 #: models.py:47
 msgid "account name"
-msgstr ""
+msgstr "account name"
 
 #: models.py:48
 msgid "account city"
-msgstr ""
+msgstr "account city"
 
 #: models.py:49
 msgid "account information that doesn't fit in the other field"
-msgstr ""
+msgstr "account information that doesn't fit in the other field"
 
 #: models.py:51
 msgid "tags"
-msgstr ""
+msgstr "tags"
 
 #: models.py:58 models.py:79 models.py:97 models.py:107
 msgid "organization"
-msgstr ""
+msgstr "organization"
 
 #: models.py:59
 msgid "organizations"
-msgstr ""
+msgstr "organizations"
 
 #: models.py:76
 msgid "Owner"
-msgstr ""
+msgstr "Owner"
 
 #: models.py:77
 msgid "Editor"
-msgstr ""
+msgstr "Editor"
 
 #: models.py:80
 msgid "user"
-msgstr ""
+msgstr "user"
 
 #: models.py:81
 msgid "function"
-msgstr ""
+msgstr "function"
 
 #: models.py:84
 msgid "organization member"
-msgstr ""
+msgstr "organization member"
 
 #: models.py:85
 msgid "organization members"
-msgstr ""
+msgstr "organization members"
 
 #: models.py:92
 msgid "Physical"
-msgstr ""
+msgstr "Physical"
 
 #: models.py:93
 msgid "Postal"
-msgstr ""
+msgstr "Postal"
 
 #: models.py:94
 msgid "Other"
-msgstr ""
+msgstr "Other"
 
 #: models.py:96
 msgid "type"
-msgstr ""
+msgstr "type"
 
 #: models.py:96
 msgid "Address type."
-msgstr ""
+msgstr "Address type."
 
 #: models.py:100
 msgid "organization address"
-msgstr ""
+msgstr "organization address"
 
 #: models.py:101
 msgid "organization addresses"
-msgstr ""
+msgstr "organization addresses"
 
 #: models.py:109
 msgid "author"
-msgstr ""
+msgstr "author"
 
 #: models.py:112
 msgid "organization document"
-msgstr ""
+msgstr "organization document"
 
 #: models.py:113
 msgid "organization documents"
-msgstr ""
+msgstr "organization documents"

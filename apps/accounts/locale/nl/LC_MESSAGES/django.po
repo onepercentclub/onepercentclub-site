@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
 # gannetson <loek@1procentclub.nl>, 2013
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
 # nieja <niels@1procentclub.nl>, 2013
@@ -10,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-07-26 09:06+0200\n"
-"PO-Revision-Date: 2013-07-26 08:20+0000\n"
+"POT-Creation-Date: 2013-07-27 00:08+0200\n"
+"PO-Revision-Date: 2013-07-26 22:20+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -565,43 +566,41 @@ msgstr "Over"
 msgid "Joined 1%%Club because"
 msgstr ""
 
-#: templates/users.hbs:687
+#: templates/users.hbs:688
 msgid "Forgot your password?"
 msgstr "Wachtwoord vergeten?"
 
-#: templates/users.hbs:691
+#: templates/users.hbs:692
 msgid ""
-"Leave your email address and we'll send you a link to set a new password."
-msgstr "Vul je e-mailadres in en we sturen je een link om je wachtwoord opnieuw in te stellen."
+"Enter your email address and we'll send you an email so you can set a new "
+"password."
+msgstr ""
 
-#: templates/users.hbs:698
+#: templates/users.hbs:699
 msgid "Email address"
 msgstr "E-mailadres"
 
-#: templates/users.hbs:707
-msgid "Need help?"
-msgstr "Hulp nodig?"
+#: templates/users.hbs:709 templates/users.hbs.py:758
+msgid "Reset password"
+msgstr "Reset wachtwoord"
 
-#: templates/users.hbs:708
-msgid "Contact us!"
-msgstr "Neem contact op!"
-
-#: templates/users.hbs:713
-msgid "Reset"
-msgstr "Reset"
-
-#: templates/users.hbs:724
+#: templates/users.hbs:720
 msgid "Reset your password"
 msgstr "Reset je wachtwoord"
 
-#: templates/users.hbs:730
+#: templates/users.hbs:726
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
-#: templates/users.hbs:742
+#: templates/users.hbs:738
 msgid "Confirm new password"
 msgstr "Bevestig wachtwoord"
 
-#: templates/users.hbs:762
-msgid "Reset password"
-msgstr "Reset wachtwoord"
+#~ msgid "Need help?"
+#~ msgstr "Need help?"
+
+#~ msgid "Contact us!"
+#~ msgstr "Contact us!"
+
+#~ msgid "Reset"
+#~ msgstr "Reset"
