@@ -495,7 +495,6 @@ App.Router.map(function() {
 
     this.resource('currentOrder', {path: '/support'}, function() {
         this.route('donationList', {path: '/donations'});
-        this.route('addDonation', {path: '/donations/add/:project_id'});
         this.route('voucherList', {path: '/giftcards'});
         this.resource('paymentProfile', {path: '/details'});
         this.resource('paymentSelect', {path: '/payment'}, function() {
@@ -680,8 +679,22 @@ App.ApplicationRoute = Em.Route.extend({
                 route.transitionTo('page', page);
                 window.scrollTo(0);
             });
+        },
+
+        addDonation: function (project) {
+            var route = this;
+            App.CurrentOrder.find('current').then(function(order) {
+                var transaction = route.get('store').transaction();
+                var donation = transaction.createRecord(App.CurrentOrderDonation);
+                transaction.add(donation);
+                donation.set('project', project);
+                donation.set('order', order);
+                transaction.commit();
+                route.transitionTo('currentOrder.donationList');
+            });
         }
     },
+
     urlForEvent: function(actionName, context) {
         return "/nice/stuff"
     }
@@ -936,38 +949,6 @@ App.CurrentOrderDonationListRoute = Em.Route.extend({
                 controller.set('recurringOrder', null)
             }
         });
-    }
-});
-
-
-// This route is not really an application state we want but it doesn't seem possible to send a parameter (e.g. the
-// project) to a route without having a parameter in the URL. This could be a missing feature in Ember or we could be
-// missing something. More investigation is needed if we want to get rid of this route.
-// Note: This route allows us to publish urls like; '/support/donations/add/<project slug>'
-// which will add a donation the project in the current user's cart.
-App.CurrentOrderAddDonationRoute = Em.Route.extend({
-    setupController: function (controller, project) {
-        var route = this;
-        this.modelFor('currentOrder').then(function(order) {
-            route.send('addDonation', order, project);
-        });
-    },
-
-    events: {
-        addDonation: function (order, project) {
-            if (!Em.isNone(project)) {
-                var transaction = this.get('store').transaction();
-                var donation = transaction.createRecord(App.CurrentOrderDonation);
-                transaction.add(donation);
-                donation.set('project', project);
-                donation.set('order', order);
-                transaction.commit();
-            }
-
-            // We're transitioning to the donation list route directly after adding the donation so that the url
-            // doesn't show '/support/donations/add/slug' after the donation has been added.
-            this.replaceWith('currentOrder.donationList');
-        }
     }
 });
 
