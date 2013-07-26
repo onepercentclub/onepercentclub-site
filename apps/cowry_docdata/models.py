@@ -12,7 +12,7 @@ class DocDataPaymentOrder(Payment):
     merchant_order_reference = models.CharField(max_length=100, default='', blank=True)
 
     # Order profile information.
-    customer_id = models.IntegerField(default=0)  # Defaults to 0 for anonymous.
+    customer_id = models.PositiveIntegerField(default=0)  # Defaults to 0 for anonymous.
     email = models.EmailField(max_length=254, default='')
     first_name = models.CharField(max_length=200, default='')
     last_name = models.CharField(max_length=200, default='')
