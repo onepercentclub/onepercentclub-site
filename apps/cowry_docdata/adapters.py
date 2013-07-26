@@ -112,13 +112,15 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             # Setup the merchant soap object for use in all requests.
             self.merchant = self.client.factory.create('ns0:merchant')
-            # TODO: Make this required if adapter is enabled (i.e. throw an error if not set instead of defaulting to dummy).
-            self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
-            self.merchant._password = getattr(settings, "COWRY_DOCDATA_MERCHANT_PASSWORD", None)
+            if self.test:
+                self.merchant._name = getattr(settings, "COWRY_DOCDATA_TEST_MERCHANT_NAME", None)
+                self.merchant._password = getattr(settings, "COWRY_DOCDATA_TEST_MERCHANT_PASSWORD", None)
+            else:
+                self.merchant._name = getattr(settings, "COWRY_DOCDATA_LIVE_MERCHANT_NAME", None)
+                self.merchant._password = getattr(settings, "COWRY_DOCDATA_LIVE_MERCHANT_PASSWORD", None)
 
     def __init__(self):
-        # TODO Make setting for this.
-        self.test = True
+        super(DocdataPaymentAdapter, self).__init__()
         self._init_docdata()
 
     def get_payment_methods(self):
@@ -211,7 +213,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             description = orders[0].__unicode__()[:50]
 
         if self.test:
-            # TODO: Make a setting for the prefix. Note this is also used in status changed notification.
             # A unique code for testing.
             payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[:30].replace(' ', '-')
         else:
