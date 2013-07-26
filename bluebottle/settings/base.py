@@ -566,5 +566,3 @@ CRAWLABLE_PHANTOMJS_ARGS = []
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATICI18N_ROOT = os.path.join(PROJECT_ROOT, 'static', 'global')
-
-print STATICI18N_ROOT

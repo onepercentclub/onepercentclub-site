@@ -11,7 +11,18 @@ function pluralidx(n) {
     return v;
   }
 }
+catalog['Apply'] = 'Aanmelden';
 catalog['Are you sure you want to apply to this task?'] = 'Weet je zeker dat je je wilt aanmelden voor deze taak?';
+catalog['Are you sure you want to delete this comment?'] = 'Wil je dit bericht echt verwijderen?';
+catalog['Are you sure you want to delete this reaction?'] = 'Wil je deze reactie echt verwijderen?';
+catalog['Cancel'] = 'Annuleren';
+catalog['Choose all'] = 'Kies allemaal';
+catalog['Chosen %s'] = 'Gekozen %s';
+catalog['Now'] = 'Nu';
+catalog['Really?'] = 'Zeker weten?';
+catalog['Remove all'] = 'Allemaal verwijderen';
+catalog['Task'] = 'Taak';
+catalog['Yes'] = 'Ja';
 
 
 function gettext(msgid) {

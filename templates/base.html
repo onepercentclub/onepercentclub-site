@@ -4,7 +4,6 @@
 {% load templatetag_handlebars %}
 {% load compress %}
 {% load static %}
-{% load statici18n %}
 
 <!DOCTYPE HTML>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -42,7 +41,8 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/globalize.js"></script>
 
         {# Other libs #}
-        <script src="{% statici18n LANGUAGE_CODE %}"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/globalize.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}jsi18n/{{ LANGUAGE_CODE }}/djangojs.js"></script>
 
 
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-transition.js"></script>
