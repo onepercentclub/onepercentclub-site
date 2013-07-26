@@ -191,14 +191,14 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
     timeAvailableList: (function() {
         var list = Em.A();
         list.addObject({ name: '- - - - - - - - - - - - - - - - - -', value: ''});
-        list.addObject({ name: '1-4 hours per week', value: '1-4_hours_week' });
-        list.addObject({ name: '5-8 hours per week', value: '5-8_hours_week' });
-        list.addObject({ name: '9-16 hours per week', value: '9-16_hours_week' });
-        list.addObject({ name: '1-4 hours per month', value: '1-4_hours_month' });
-        list.addObject({ name: '5-8 hours per month', value: '5-8_hours_month' });
-        list.addObject({ name: '9-16 hours per month', value: '9-16_hours_month' });
-        list.addObject({ name: 'I have all the time in the world. Bring it on :D', value: 'lots_of_time' });
-        list.addObject({ name: 'It depends on the content of the tasks. Challenge me!', value: 'depends' });
+        list.addObject({ name: gettext('1-4 hours per week'), value: '1-4_hours_week' });
+        list.addObject({ name: gettext('5-8 hours per week'), value: '5-8_hours_week' });
+        list.addObject({ name: gettext('9-16 hours per week'), value: '9-16_hours_week' });
+        list.addObject({ name: gettext('1-4 hours per month'), value: '1-4_hours_month' });
+        list.addObject({ name: gettext('5-8 hours per month'), value: '5-8_hours_month' });
+        list.addObject({ name: gettext('9-16 hours per month'), value: '9-16_hours_month' });
+        list.addObject({ name: gettext('I have all the time in the world. Bring it on :D'), value: 'lots_of_time' });
+        list.addObject({ name: gettext('It depends on the content of the tasks. Challenge me!'), value: 'depends' });
         return list;
     }).property(),
 
@@ -232,11 +232,11 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
 App.UserSettingsController = Em.ObjectController.extend(App.Editable, {
     userTypeList: (function() {
         var list = Em.A();
-        list.addObject({ name: 'Person', value: 'person'});
-        list.addObject({ name: 'Group', value: 'group'});
-        list.addObject({ name: 'Foundation', value: 'foundation'});
-        list.addObject({ name: 'School', value: 'school'});
-        list.addObject({ name: 'Company', value: 'company'});
+        list.addObject({ name: gettext('Person'), value: 'person'});
+        list.addObject({ name: gettext('Company'), value: 'company'});
+        list.addObject({ name: gettext('Foundation'), value: 'foundation'});
+        list.addObject({ name: gettext('School'), value: 'school'});
+        list.addObject({ name: gettext('Club / Association'), value: 'group'});
         return list;
     }).property()
 });

@@ -71,6 +71,14 @@ urlpatterns += patterns('',
     url(r'^i18n/', include('django.conf.urls.i18n')),
 )
 
+js_info_dict = {
+    'packages': ('apps.accounts', 'apps.projects'),
+}
+
+urlpatterns += patterns('',
+    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+)
+
 # Serve django-staticfiles (only works in DEBUG)
 # https://docs.djangoproject.com/en/dev/howto/static-files/#serving-static-files-in-development
 urlpatterns += staticfiles_urlpatterns()

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-23 11:11+0200\n"
+"POT-Creation-Date: 2013-07-26 09:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Required. 254 characters or fewer. A valid email address."
 msgstr ""
 
-#: admin.py:25 admin.py:63 templates/users.hbs:486
+#: admin.py:25 admin.py:63 templates/users.hbs:570
 msgid "Password"
 msgstr ""
 
@@ -56,11 +56,11 @@ msgstr ""
 msgid "Personal info"
 msgstr ""
 
-#: admin.py:88
+#: admin.py:88 templates/users.hbs:17
 msgid "Profile"
 msgstr ""
 
-#: admin.py:89 templates/users.hbs:34
+#: admin.py:89 templates/users.hbs:39
 msgid "Settings"
 msgstr ""
 
@@ -76,11 +76,11 @@ msgstr ""
 msgid "Important dates"
 msgstr ""
 
-#: models.py:79 templates/users.hbs:389
+#: models.py:79 templates/users.hbs:404
 msgid "Male"
 msgstr ""
 
-#: models.py:80 templates/users.hbs:388
+#: models.py:80 templates/users.hbs:403
 msgid "Female"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgid "Person"
 msgstr ""
 
 #: models.py:94
-msgid "Group"
+msgid "Company"
 msgstr ""
 
 #: models.py:95
@@ -133,7 +133,7 @@ msgid "School"
 msgstr ""
 
 #: models.py:97
-msgid "Company"
+msgid "Club / association"
 msgstr ""
 
 #: models.py:100
@@ -282,184 +282,209 @@ msgstr ""
 msgid "user addresses"
 msgstr ""
 
-#: templates/users.hbs:17
+#: templates/users.hbs:14
+#, python-format
+msgid "My 1%%"
+msgstr ""
+
+#: templates/users.hbs:22
 msgid "Preview my profile"
 msgstr ""
 
-#: templates/users.hbs:27
-msgid "Profile info"
+#: templates/users.hbs:32
+msgid "Edit profile"
 msgstr ""
 
-#: templates/users.hbs:27
+#: templates/users.hbs:32
 msgid "Public info"
 msgstr ""
 
-#: templates/users.hbs:34
+#: templates/users.hbs:39
 msgid "Account"
 msgstr ""
 
-#: templates/users.hbs:56
+#: templates/users.hbs:46
+msgid "Orders"
+msgstr ""
+
+#: templates/users.hbs:69
 msgid "Edit your profile"
 msgstr ""
 
-#: templates/users.hbs:57
+#: templates/users.hbs:70
 #, python-format
 msgid "Personalise your account so 1%%Members can get to know you."
 msgstr ""
 
-#: templates/users.hbs:64 templates/users.hbs.py:460
+#: templates/users.hbs:77 templates/users.hbs.py:544
 msgid "Name"
 msgstr ""
 
-#: templates/users.hbs:78
+#: templates/users.hbs:90
 msgid "Profile Picture"
 msgstr ""
 
-#: templates/users.hbs:87
+#: templates/users.hbs:99
 msgid "Upload picture"
 msgstr ""
 
-#: templates/users.hbs:100
+#: templates/users.hbs:112
 msgid "About yourself"
 msgstr ""
 
-#: templates/users.hbs:114
+#: templates/users.hbs:126
 #, python-format
 msgid "Why did you join 1%%Club?"
 msgstr ""
 
-#: templates/users.hbs:129
+#: templates/users.hbs:141
 msgid "Your website"
 msgstr ""
 
-#: templates/users.hbs:143 templates/users.hbs.py:574
+#: templates/users.hbs:155 templates/users.hbs.py:658
 msgid "Location"
 msgstr ""
 
-#: templates/users.hbs:161
+#: templates/users.hbs:173
 #, python-format
 msgid "1%%SKILLS"
 msgstr ""
 
-#: templates/users.hbs:162
+#: templates/users.hbs:174
 msgid ""
 "If you have any skills or experience that you think could help a smart idea "
 "(For example: if you’re a great graphic designer or an awesome accountant) "
 "please add them here."
 msgstr ""
 
-#: templates/users.hbs:168 templates/users.hbs.py:582
+#: templates/users.hbs:180 templates/users.hbs.py:666
 msgid "Time available"
 msgstr ""
 
-#: templates/users.hbs:187
+#: templates/users.hbs:199
 msgid "Profile saved"
 msgstr ""
 
-#: templates/users.hbs:196
-msgid "loading profile"
-msgstr ""
-
-#: templates/users.hbs:210
+#: templates/users.hbs:225
 msgid "Edit your account"
 msgstr ""
 
-#: templates/users.hbs:211
+#: templates/users.hbs:226
 msgid ""
 "These are the details we currently have for you – update or change them "
 "below."
 msgstr ""
 
-#: templates/users.hbs:218
+#: templates/users.hbs:233
 msgid "Email Address"
 msgstr ""
 
-#: templates/users.hbs:238
+#: templates/users.hbs:253
 msgid "I'd like to receive emails about"
 msgstr ""
 
-#: templates/users.hbs:244
+#: templates/users.hbs:259
 #, python-format
 msgid "1%%Newsletters"
 msgstr ""
 
-#: templates/users.hbs:257
+#: templates/users.hbs:272
 msgid "Account type"
 msgstr ""
 
-#: templates/users.hbs:275
+#: templates/users.hbs:290
 msgid "I want to share"
 msgstr ""
 
-#: templates/users.hbs:281
+#: templates/users.hbs:296
 msgid "Time & Knowledge"
 msgstr ""
 
-#: templates/users.hbs:285
+#: templates/users.hbs:300
 msgid "Money"
 msgstr ""
 
-#: templates/users.hbs:296
+#: templates/users.hbs:311
 msgid "Personal Details"
 msgstr ""
 
-#: templates/users.hbs:297
+#: templates/users.hbs:312
 #, python-format
 msgid ""
 "Only 1%%CLUB can see your personal details. They won’t be published anywhere "
 "on the 1%%CLUB website."
 msgstr ""
 
-#: templates/users.hbs:302
+#: templates/users.hbs:317
 msgid "Address Line 1"
 msgstr ""
 
-#: templates/users.hbs:315
+#: templates/users.hbs:330
 msgid "Address Line 2"
 msgstr ""
 
-#: templates/users.hbs:328
+#: templates/users.hbs:343
 msgid "City"
 msgstr ""
 
-#: templates/users.hbs:341
+#: templates/users.hbs:356
 msgid "Province / State"
 msgstr ""
 
-#: templates/users.hbs:354
+#: templates/users.hbs:369
 msgid "Postal Code"
 msgstr ""
 
-#: templates/users.hbs:369
+#: templates/users.hbs:384
 msgid "Country"
 msgstr ""
 
-#: templates/users.hbs:383
+#: templates/users.hbs:398
 msgid "Gender"
 msgstr ""
 
-#: templates/users.hbs:390
+#: templates/users.hbs:405
 msgid "Unset"
 msgstr ""
 
-#: templates/users.hbs:397
+#: templates/users.hbs:412
 msgid "Date of birth"
 msgstr ""
 
-#: templates/users.hbs:412
+#: templates/users.hbs:427
 msgid "Account settings saved"
 msgstr ""
 
-#: templates/users.hbs:421
-msgid "loading settings"
+#: templates/users.hbs:465
+msgid "Active"
 msgstr ""
 
-#: templates/users.hbs:441
+#: templates/users.hbs:470
+msgid "On"
+msgstr ""
+
+#: templates/users.hbs:471
+msgid "Off"
+msgstr ""
+
+#: templates/users.hbs:495
+msgid "Monthly"
+msgstr ""
+
+#: templates/users.hbs:495
+msgid "Single"
+msgstr ""
+
+#: templates/users.hbs:502
+msgid "loading order history"
+msgstr ""
+
+#: templates/users.hbs:525
 #, python-format
 msgid "Join 1%%Club"
 msgstr ""
 
-#: templates/users.hbs:444
+#: templates/users.hbs:528
 #, python-format
 msgid ""
 "\n"
@@ -474,110 +499,110 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/users.hbs:452
+#: templates/users.hbs:536
 msgid "Thanks for signing up!"
 msgstr ""
 
-#: templates/users.hbs:454
+#: templates/users.hbs:538
 msgid ""
 "We've sent you an email. Please click <strong>Activate Profile</strong> in "
 "the email we just sent you."
 msgstr ""
 
-#: templates/users.hbs:472
+#: templates/users.hbs:556
 msgid "Email"
 msgstr ""
 
-#: templates/users.hbs:502
+#: templates/users.hbs:586
 msgid "Sign up"
 msgstr ""
 
-#: templates/users.hbs:509
+#: templates/users.hbs:593
 #, python-format
 msgid "By joining the 1%%Club I a hereby agree to the "
 msgstr ""
 
-#: templates/users.hbs:510
+#: templates/users.hbs:594
 #, python-format
 msgid "1%%Club Terms of service"
 msgstr ""
 
-#: templates/users.hbs:524
-msgid "ALREADY HAVE AN ACCOUNT?"
+#: templates/users.hbs:608
+msgid "Already have an account?"
 msgstr ""
 
-#: templates/users.hbs:527
+#: templates/users.hbs:611
 msgid "Log in here"
 msgstr ""
 
-#: templates/users.hbs:536
+#: templates/users.hbs:620
 #, python-format
 msgid "Why join 1%%Club?"
 msgstr ""
 
-#: templates/users.hbs:541
+#: templates/users.hbs:625
 msgid "It's easy to find projects you like."
 msgstr ""
 
-#: templates/users.hbs:542
+#: templates/users.hbs:626
 #, python-format
 msgid "A fun and personal way to share your 1%%."
 msgstr ""
 
-#: templates/users.hbs:543
+#: templates/users.hbs:627
 msgid "You'll receive updates of the progress of the projects you support."
 msgstr ""
 
-#: templates/users.hbs:556
+#: templates/users.hbs:640
 msgid "Member since"
 msgstr ""
 
-#: templates/users.hbs:561
+#: templates/users.hbs:645
 msgid "About"
 msgstr ""
 
-#: templates/users.hbs:566
+#: templates/users.hbs:650
 #, python-format
 msgid "Joined 1%%Club because"
 msgstr ""
 
-#: templates/users.hbs:603
+#: templates/users.hbs:687
 msgid "Forgot your password?"
 msgstr ""
 
-#: templates/users.hbs:607
+#: templates/users.hbs:691
 msgid ""
 "Leave your email address and we'll send you a link to set a new password."
 msgstr ""
 
-#: templates/users.hbs:614
+#: templates/users.hbs:698
 msgid "Email address"
 msgstr ""
 
-#: templates/users.hbs:623
+#: templates/users.hbs:707
 msgid "Need help?"
 msgstr ""
 
-#: templates/users.hbs:624
+#: templates/users.hbs:708
 msgid "Contact us!"
 msgstr ""
 
-#: templates/users.hbs:629
+#: templates/users.hbs:713
 msgid "Reset"
 msgstr ""
 
-#: templates/users.hbs:640
+#: templates/users.hbs:724
 msgid "Reset your password"
 msgstr ""
 
-#: templates/users.hbs:646
+#: templates/users.hbs:730
 msgid "New password"
 msgstr ""
 
-#: templates/users.hbs:658
+#: templates/users.hbs:742
 msgid "Confirm new password"
 msgstr ""
 
-#: templates/users.hbs:678
+#: templates/users.hbs:762
 msgid "Reset password"
 msgstr ""

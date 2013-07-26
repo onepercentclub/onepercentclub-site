@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-23 11:11+0200\n"
+"POT-Creation-Date: 2013-07-26 09:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,184 +48,188 @@ msgid ""
 "%(error_id)s</strong>."
 msgstr ""
 
-#: base.html:123
-msgid "What is 1%"
+#: base.html:126
+#, python-format
+msgid "What is 1%%"
 msgstr ""
 
-#: base.html:124 base.html.py:289
-msgid "1%Projects"
+#: base.html:127 base.html.py:290
+#, python-format
+msgid "1%%Projects"
 msgstr ""
 
-#: base.html:125
-msgid "1%Skills"
+#: base.html:128
+#, python-format
+msgid "1%%Skills"
 msgstr ""
 
-#: base.html:126 base.html.py:294
+#: base.html:129 base.html.py:295
 msgid "Get involved"
 msgstr ""
 
-#: base.html:135
+#: base.html:138
 #, python-format
 msgid "My 1%%"
 msgstr ""
 
-#: base.html:140
+#: base.html:143
 msgid "Edit my profile & settings"
 msgstr ""
 
-#: base.html:146
+#: base.html:149
 msgid "Manage My Project"
 msgstr ""
 
-#: base.html:154
+#: base.html:157
 msgid "Language"
 msgstr ""
 
-#: base.html:164
+#: base.html:167
 msgid "Donations"
 msgstr ""
 
-#: base.html:172
+#: base.html:174
 msgid "Sign up"
 msgstr ""
 
-#: base.html:175
-msgid "Login"
-msgstr ""
-
-#: base.html:231 registration/login.html:10
+#: base.html:176 registration/login.html:10
 msgid "Log in"
 msgstr ""
 
-#: base.html:236
-msgid "You did it!"
+#: base.html:232
+#, python-format
+msgid "Log in to 1%%Club"
 msgstr ""
 
 #: base.html:237
+msgid "You did it!"
+msgstr ""
+
+#: base.html:238
 msgid "(Welcome back friend)"
 msgstr ""
 
-#: base.html:239
+#: base.html:240
 msgid "Login here with your email address and password"
 msgstr ""
 
-#: base.html:244 registration/login.html:19
+#: base.html:245 registration/login.html:19
 msgid "Email"
 msgstr ""
 
-#: base.html:253 registration/login.html:28
+#: base.html:254 registration/login.html:28
 msgid "Password"
 msgstr ""
 
-#: base.html:263
-msgid "I forgot my password"
+#: base.html:264
+msgid "Forgot your password?"
 msgstr ""
 
-#: base.html:279
+#: base.html:280
 #, python-format
 msgid "It all starts with 1%%"
 msgstr ""
 
-#: base.html:283
+#: base.html:284
 #, python-format
 msgid "What is 1%%CLUB?"
 msgstr ""
 
-#: base.html:299
+#: base.html:300
 msgid "Start your project"
 msgstr ""
 
-#: base.html:306
+#: base.html:307
 #, python-format
 msgid "About 1%%CLUB"
 msgstr ""
 
-#: base.html:310
+#: base.html:311
 msgid "Our story"
 msgstr ""
 
-#: base.html:315
+#: base.html:316
 msgid "Meet the team"
 msgstr ""
 
-#: base.html:320 footer.html:13
+#: base.html:321 footer.html:13
 msgid "Partners"
 msgstr ""
 
-#: base.html:325
+#: base.html:326
 msgid "Press"
 msgstr ""
 
-#: base.html:330
+#: base.html:331
 #, python-format
 msgid "Work at 1%%CLUB"
 msgstr ""
 
-#: base.html:335 footer.html:18 footer.html.py:38
+#: base.html:336 footer.html:18 footer.html.py:38
 msgid "Contact"
 msgstr ""
 
-#: base.html:342
+#: base.html:343
 #, python-format
 msgid "Discover 1%%More"
 msgstr ""
 
-#: base.html:344
+#: base.html:345
 #, python-format
 msgid "1%%Blog"
 msgstr ""
 
-#: base.html:345
+#: base.html:346
 #, python-format
 msgid "1%%Live"
 msgstr ""
 
-#: base.html:346
+#: base.html:347
 #, python-format
 msgid "1%%Event"
 msgstr ""
 
-#: base.html:347
+#: base.html:348
 #, python-format
 msgid "1%%Video"
 msgstr ""
 
-#: base.html:348
+#: base.html:349
 #, python-format
 msgid "1%%Bsuiness"
 msgstr ""
 
-#: base.html:349
+#: base.html:350
 #, python-format
 msgid "1%%Gifts"
 msgstr ""
 
-#: base.html:354
+#: base.html:355
 #, python-format
 msgid "1%%Social"
 msgstr ""
 
-#: base.html:404 base.html.py:411
+#: base.html:405 base.html.py:412
 #, python-format
 msgid "Join 1%%Club"
 msgstr ""
 
-#: base.html:405
+#: base.html:406
 #, python-format
 msgid ""
 "1%%Club connects smart ideas from developing countries to time, money and "
 "expertise from all over the world. It is very easy: "
 msgstr ""
 
-#: base.html:407
+#: base.html:408
 msgid "Select a project or tast"
 msgstr ""
 
-#: base.html:408
+#: base.html:409
 msgid "Share your skills or money"
 msgstr ""
 
-#: base.html:409
+#: base.html:410
 msgid "See direct results"
 msgstr ""
 

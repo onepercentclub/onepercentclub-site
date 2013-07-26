@@ -170,6 +170,7 @@ X_FRAME_OPTIONS = 'DENY'
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     # Makes the 'request' variable (the current HttpRequest) available in templates.
     'django.core.context_processors.request',
+    'django.core.context_processors.i18n'
 )
 
 ROOT_URLCONF = 'bluebottle.urls'
@@ -220,6 +221,7 @@ INSTALLED_APPS = (
     'django_wysiwyg',
     'tinymce',
     'social_auth',
+    'statici18n',
 
     # Cowry Payments
     'apps.cowry',
@@ -562,3 +564,7 @@ CRAWLABLE_PHANTOMJS_ARGS = []
 
 # Send email to console by default
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+STATICI18N_ROOT = os.path.join(PROJECT_ROOT, 'static', 'global')
+
+print STATICI18N_ROOT

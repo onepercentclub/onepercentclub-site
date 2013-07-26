@@ -112,3 +112,7 @@ splinter==0.5.3
 
 # Mock library for testing
 mock==1.0.1
+
+
+# JS translation with static files
+django-statici18n==0.4.5

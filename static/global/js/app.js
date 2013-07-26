@@ -795,10 +795,10 @@ App.ProjectTaskRoute = Em.Route.extend({
             var route = this;
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
-                heading: 'Task',
-                message: 'Are you sure you want to apply to this task?',
-                primary: 'Apply',
-                secondary: 'Cancel',
+                heading: gettext('Task'),
+                message: gettext('Are you sure you want to apply to this task?'),
+                primary: gettext('Apply'),
+                secondary: gettext('Cancel'),
                 callback: function(opts, e) {
                     e.preventDefault();
                     if (opts.primary) {
