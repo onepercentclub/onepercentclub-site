@@ -1373,7 +1373,7 @@ App.LoginController = Em.Controller.extend({
         // Close previous modal, if any.
         $('.close').click();
 
-        var modalPaneTemplate = ['<div class="modal-body"><a class="close" rel="close">&times;</a>{{view templateName="request_password_reset"}}</div>'].join("\n");
+        var modalPaneTemplate = ['<div class="modal-header"><a class="close" rel="close">&times;</a><div><div class="modal-body">{{view templateName="request_password_reset"}}</div>'].join("\n");
 
         Bootstrap.ModalPane.popup({
             classNames: ['modal'],
@@ -1394,7 +1394,8 @@ App.LoginController = Em.Controller.extend({
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: function() {
-                            var $success = $("<p>YOU'VE GOT MAIL!</p><p>We've sent you a link to reset your password, so check your mailbox.</p><br><p>(No mail? It might have ended up in your spam folder)</p>");
+                            var message = gettext("<p>YOU'VE GOT MAIL!</p><p>We've sent you a link to reset your password, so check your mailbox.</p><br><p>(No mail? It might have ended up in your spam folder)</p>");
+                            var $success = $(message);
 
                             $modal.find('.modal-body').html($success);
                             $btn.remove();
