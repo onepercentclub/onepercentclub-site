@@ -184,7 +184,7 @@ App.loadTemplates = function() {
     // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
     // Now that we know the language we can load the handlebars templates.
     var readyCount = 0;
-    var templates = Em.A(['users', 'homepage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'utils', 'blogs']);
+    var templates = Em.A(['users', 'homepage', 'wallposts', 'reactions', 'tasks', 'projects', 'orders', 'utils', 'blogs']);
     templates.forEach(function(template) {
         //loadTemplates(this.templates);
         var hash = {};
@@ -506,15 +506,16 @@ App.Router.map(function() {
     this.resource('orderThanks', {path: '/support/thanks/:order_id'});
     this.resource('recurringOrderThanks', {path: '/support/monthly/thanks'});
 
-    this.resource('voucherStart', {path: '/giftcards'});
-    this.resource('customVoucherRequest', {path: '/giftcards/custom'});
-    this.route('customVoucherRequestDone', {path: '/giftcards/custom/done'});
-
-    this.resource('voucherRedeem', {path: '/giftcards/redeem'}, function() {
-        this.route('add', {path: '/add/:project_id'});
-        this.route('code', {path: '/:code'});
-    });
-    this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
+//    Voucher code is disabled for now.
+//    this.resource('voucherStart', {path: '/giftcards'});
+//    this.resource('customVoucherRequest', {path: '/giftcards/custom'});
+//    this.route('customVoucherRequestDone', {path: '/giftcards/custom/done'});
+//
+//    this.resource('voucherRedeem', {path: '/giftcards/redeem'}, function() {
+//        this.route('add', {path: '/add/:project_id'});
+//        this.route('code', {path: '/:code'});
+//    });
+//    this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
 
     this.resource('taskList', {path: '/tasks'});
 

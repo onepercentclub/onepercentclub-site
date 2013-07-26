@@ -24,11 +24,14 @@
                 <div class="content">
                     <h1 class="main-title">{% trans "Support one or more projects!" %}</h1>
                 </div>
+                {%comment%}
+                Voucher code is disabled for now.
                 <sidebar>
                     {{#linkTo "voucherRedeem" tagName="a" class="button-link"}}
                         <em class="icon-credit-card"></em> {% trans "I have a 1%GIFTCARD" %}
                     {{/linkTo}}
                 </sidebar>
+                {%endcomment%}
             </div>
         </div>
     {{/if}}
@@ -39,9 +42,12 @@
 
             <ul class="donation-steps">
                 {{#if controller.isVoucherOrder}}
+                    {%comment%}
+                    Voucher code is disabled for now.
                     {{#view App.OrderNavView classNames="support"}}
                         {{#linkTo "currentOrder.voucherList"}}{% trans "Gift Cards" %}{{/linkTo}}
                     {{/view}}
+                    {%endcomment%}
                 {{else}}
                     {# Hack: This span needs to be here to get the 'Support' to replace 'Gift Cards'. #}
                     <span></span>
