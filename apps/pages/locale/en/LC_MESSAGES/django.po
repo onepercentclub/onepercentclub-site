@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-23 11:11+0200\n"
+"POT-Creation-Date: 2013-07-26 15:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,15 +89,15 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
-#: models.py:55 templates/pages.hbs:85
+#: models.py:55 templates/pages.hbs:89
 msgid "Name"
 msgstr ""
 
-#: models.py:56 templates/pages.hbs:97
+#: models.py:56 templates/pages.hbs:101
 msgid "Email"
 msgstr ""
 
-#: models.py:57 templates/pages.hbs:109
+#: models.py:57 templates/pages.hbs:113
 msgid "Message"
 msgstr ""
 
@@ -106,11 +106,11 @@ msgstr ""
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
-#: templates/pages.hbs:40
+#: templates/pages.hbs:44
 msgid "Contact"
 msgstr ""
 
-#: templates/pages.hbs:45
+#: templates/pages.hbs:49
 msgid ""
 "\n"
 "                    Send us a message or get in touch using the details "
@@ -119,7 +119,7 @@ msgid ""
 "                    "
 msgstr ""
 
-#: templates/pages.hbs:53
+#: templates/pages.hbs:57
 msgid ""
 "\n"
 "                    Email:<a href=\"mailto:info@onepercentclub.com?"
@@ -131,7 +131,7 @@ msgid ""
 "                    "
 msgstr ""
 
-#: templates/pages.hbs:60
+#: templates/pages.hbs:64
 #, python-format
 msgid ""
 "\n"
@@ -142,7 +142,7 @@ msgid ""
 "                    "
 msgstr ""
 
-#: templates/pages.hbs:68
+#: templates/pages.hbs:72
 msgid ""
 "\n"
 "                    Bank: Rabobank (Haarlem) <br />\n"
@@ -154,11 +154,11 @@ msgid ""
 "                    "
 msgstr ""
 
-#: templates/pages.hbs:80
+#: templates/pages.hbs:84
 msgid "Thanks for your message!. We'll get back to you soon."
 msgstr ""
 
-#: templates/pages.hbs:122
+#: templates/pages.hbs:126
 msgid "Send"
 msgstr ""
 
