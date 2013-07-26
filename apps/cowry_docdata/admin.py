@@ -9,11 +9,10 @@ class DocDataPaymentInline(admin.StackedInline):
     extra = 0
 
 
-
 class DocDataPaymentOrderAdmin(admin.ModelAdmin):
     list_display = ('created', 'amount', 'currency', 'status')
     model = DocDataPaymentOrder
-    inlines = (DocDataPaymentInline, )
+    inlines = (DocDataPaymentInline,)
 
 
 admin.site.register(DocDataPaymentOrder, DocDataPaymentOrderAdmin)

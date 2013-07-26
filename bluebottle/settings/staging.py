@@ -11,10 +11,11 @@ from .base import *
 #
 
 DEBUG = False
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = DEBUG
 
 INSTALLED_APPS += (
     'gunicorn',
 )
 
 COWRY_RETURN_URL_BASE = 'https://staging.onepercentclub.com'
+COWRY_LIVE_PAYMENTS = False
