@@ -1355,7 +1355,7 @@ App.PasswordResetRoute = Em.Route.extend({
                 display_message: true,
                 isError: true,
                 message_title: '',
-                message_content: 'The token you provided is expired. Please reset your password again.'
+                message_content: gettext('The token you provided is expired. Please reset your password again.')
             });
 
             route.replaceWith('home');
