@@ -1247,7 +1247,7 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
                     <h4>{% trans "Check!" %}</h4>
                     {% blocktrans %}
                         Make sure that you filled out the entire form and that all items to the left have a <span class="icon-ok"></span> check sign.
-                        If one of the items still shows a <span class="icon-pencil"></span> pencil then that still needs some work.
+                        If one of the items still shows a <span class="icon-circle"></span> circle then that still needs some work.
                     {% endblocktrans %}
                 </div>
             </li>
@@ -1263,8 +1263,11 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
         </ul>
 
     </fieldset>
-
-    <button {{bindAttr class=":btn :btn-iconed :right :btn-primary submit::disabled agreed::disabled"}} {{action submitPlan}}><em class="icon icon-star"></em>{% trans "Submit plan" %}</button>
+    {{#if agreed}}
+        <button {{bindAttr class=":btn :btn-iconed :right :btn-primary"}} {{action submitPlan}}><em class="icon icon-star"></em>{% trans "Submit plan" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :right :disabled"}}><em class="icon icon-star"></em>{% trans "Submit plan" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 
@@ -1533,8 +1536,12 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
         </ul>
 
     </fieldset>
+    {{#if agreed}}
+        <button {{bindAttr class=":btn :btn-iconed :right :btn-primary submit::disabled"}} {{action submitPitch}}><em class="icon icon-star"></em>{% trans "Submit pitch" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :right :btn-primary :disabled"}}><em class="icon icon-star"></em>{% trans "Submit pitch" %}</button>
+    {{/if}}
 
-    <button {{bindAttr class=":btn :btn-iconed :right :btn-primary submit::disabled agreed::disabled"}} {{action submitPitch}}><em class="icon icon-star"></em>{% trans "Submit pitch" %}</button>
 
 {% endtplhandlebars %}
 

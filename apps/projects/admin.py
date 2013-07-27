@@ -1,7 +1,8 @@
 import logging
-from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme
+from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme, ProjectPhases
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
+from django.utils.translation import ugettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,6 @@ class ProjectPitchAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     list_filter = ('status', )
     list_display = ('title', 'status', 'created')
-
     readonly_fields = ('edit_project', 'project', 'project_owner')
 
     def project_owner(self, obj):
@@ -129,13 +129,14 @@ admin.site.register(ProjectCampaign, ProjectCampaignAdmin)
 class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     date_hierarchy = 'created'
-
+    ordering = ('-created',)
     save_on_top = True
+    actions = ('set_failed', )
 
     prepopulated_fields = {"slug": ("title",)}
 
     list_filter = ('phase', 'partner_organization')
-    list_display = ('title', 'owner', 'coach', 'phase')
+    list_display = ('title', 'owner', 'coach', 'phase', 'created')
 
     search_fields = ('title', 'owner__first_name', 'owner__last_name')
 
@@ -173,6 +174,17 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     campaign_view.allow_tags = True
 
+    def set_failed(self, request, queryset):
+        rows_updated = queryset.update(phase=ProjectPhases.failed)
+
+        if rows_updated == 1:
+            message = "one project was marked as failed."
+        else:
+            message = "{0} projects were marked as failed.".format(rows_updated)
+        self.message_user(request, message)
+
+
+    set_failed.short_description = _("Mark selected projects as failed")
 
 admin.site.register(Project, ProjectAdmin)
 
