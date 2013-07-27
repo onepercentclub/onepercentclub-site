@@ -416,12 +416,15 @@
                                 {{/if}}
                             </span>
                         {{/if}}
-
-                        <img class="user-img" {{bindAttr src="this.member.getAvatar"}} />
-                        <div class="detail">
-                            <strong>{{this.member.full_name}}</strong><br/>
-                            <em>{{localize this.created formatting="X"}}</em>
-                        </div>
+                        <a {{action openInBigBox "userModal" this.member }} class="member">
+                            <img class="user-img" {{bindAttr src="this.member.getAvatar"}} />
+                        </a>
+                        <a {{action openInBigBox "userModal" this.member }} class="member">
+                            <div class="detail">
+                                <strong>{{this.member.full_name}}</strong><br/>
+                                <em>{{localize this.created formatting="X"}}</em>
+                            </div>
+                        </a>
                     </li>
                 {{/each}}
             </ul>

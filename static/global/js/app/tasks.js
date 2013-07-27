@@ -5,7 +5,7 @@
 App.TaskMember = DS.Model.extend({
     url: 'tasks/members',
 
-    member: DS.belongsTo('App.User'),
+    member: DS.belongsTo('App.UserPreview'),
     created: DS.attr('date'),
     status: DS.attr('string', {defaultValue: 'applied'}),
     task: DS.belongsTo('App.Task'),
