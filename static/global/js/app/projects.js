@@ -1,38 +1,4 @@
 /*
- Form Elements
- */
-
-
-App.ProjectOrderList = [
-    {value: 'title', title: "title"},
-    {value: 'money_needed', title: "money needed"},
-    {value: 'deadline', title: "deadline"}
-];
-
-App.ProjectOrderSelectView = Em.Select.extend({
-    content: App.ProjectOrderList,
-    optionValuePath: "content.value",
-    optionLabelPath: "content.title"
-});
-
-App.ProjectPhaseList = [
-    {value: 'plan', title: "Writing Plan"},
-    {value: 'campaign', title: "Campaign"},
-    {value: 'act', title: "Act"},
-    {value: 'results', title: "Results"},
-    {value: 'realized', title: "Realised"}
-];
-
-App.ProjectPhaseSelectView = Em.Select.extend({
-    content: App.ProjectPhaseList,
-    optionValuePath: "content.value",
-    optionLabelPath: "content.title",
-    prompt: "pick a phase"
-
-});
-
-
-/*
  Models
  */
 
@@ -168,6 +134,8 @@ App.Project = DS.Model.extend({
 
     wallposts: DS.hasMany('App.WallPost'),
 
+    taskCount: DS.attr('number'),
+
     isPhasePlan: Em.computed.equal('phase', 'plan'),
     isPhaseCampaign: Em.computed.equal('phase', 'campaign'),
     isPhaseAct: Em.computed.equal('phase', 'act'),
@@ -186,7 +154,6 @@ App.Project = DS.Model.extend({
 App.ProjectPreview = App.Project.extend({
     url: 'projects/previews',
     image: DS.attr('string'),
-    task_count: DS.attr('number'),
     country: DS.belongsTo('App.ProjectCountry')
 });
 
@@ -440,3 +407,38 @@ App.SocialShareView = Em.View.extend({
         window.open(shareUrl + currentLink, type + '-share-dialog', 'width=' + this.get('dialogW') + ',height=' + this.get('dialogH'));
     }
 })
+
+/*
+ Form Elements
+ */
+
+
+App.ProjectOrderList = [
+    {value: 'title', title: "title"},
+    {value: 'money_needed', title: "money needed"},
+    {value: 'deadline', title: "deadline"}
+];
+
+App.ProjectOrderSelectView = Em.Select.extend({
+    content: App.ProjectOrderList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title"
+});
+
+App.ProjectPhaseList = [
+    {value: 'plan', title: "Writing Plan"},
+    {value: 'campaign', title: "Campaign"},
+    {value: 'act', title: "Act"},
+    {value: 'results', title: "Results"},
+    {value: 'realized', title: "Realised"}
+];
+
+App.ProjectPhaseSelectView = Em.Select.extend({
+    content: App.ProjectPhaseList,
+    optionValuePath: "content.value",
+    optionLabelPath: "content.title",
+    prompt: "pick a phase"
+
+});
+
+

@@ -11,24 +11,11 @@ function pluralidx(n) {
     return v;
   }
 }
-catalog['1-4 hours per month'] = '1-4 uur per maand';
-catalog['1-4 hours per week'] = '1-4 uur per week';
-catalog['5-8 hours per month'] = '5-8 uur per maand';
-catalog['5-8 hours per week'] = '5-8 uur per week';
-catalog['9-16 hours per month'] = '9-16 uur per maand';
-catalog['9-16 hours per week'] = '9-16 uur per week';
 catalog['Cancel'] = 'Annuleren';
 catalog['Choose all'] = 'Kies allemaal';
 catalog['Chosen %s'] = 'Gekozen %s';
-catalog['Club / Association'] = 'Vereniging';
-catalog['Company'] = 'Bedrijf';
-catalog['Foundation'] = 'Stichting';
-catalog['I have all the time in the world. Bring it on :D'] = 'Ik heb alle tijd van de wereld. Kom maar op!';
-catalog['It depends on the content of the tasks. Challenge me!'] = 'Dat hangt van de taak af. Kom maar op met die uitdaging!';
 catalog['Now'] = 'Nu';
-catalog['Person'] = 'Persoon';
 catalog['Remove all'] = 'Allemaal verwijderen';
-catalog['School'] = 'School';
 
 
 function gettext(msgid) {

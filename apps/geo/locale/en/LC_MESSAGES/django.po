@@ -1,92 +1,94 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-26 15:56+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"PO-Revision-Date: 2012-08-31 10:08+0000\n"
+"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:14
 msgid "name"
-msgstr ""
+msgstr "name"
 
 #: models.py:17
 msgid "numeric code"
-msgstr ""
+msgstr "numeric code"
 
 #: models.py:18
 msgid "ISO 3166-1 or M.49 numeric code"
-msgstr ""
+msgstr "ISO 3166-1 or M.49 numeric code"
 
 #: models.py:35 models.py:44
 msgid "region"
-msgstr ""
+msgstr "region"
 
 #: models.py:36
 msgid "regions"
-msgstr ""
+msgstr "regions"
 
 #: models.py:48 models.py:57
 msgid "sub region"
-msgstr ""
+msgstr "sub region"
 
 #: models.py:49
 msgid "sub regions"
-msgstr ""
+msgstr "sub regions"
 
 #: models.py:59
 msgid "alpha2 code"
-msgstr ""
+msgstr "alpha2 code"
 
 #: models.py:59
 msgid "ISO 3166-1 alpha-2 code"
-msgstr ""
+msgstr "ISO 3166-1 alpha-2 code"
 
 #: models.py:60
 msgid "alpha3 code"
-msgstr ""
+msgstr "alpha3 code"
 
 #: models.py:60
 msgid "ISO 3166-1 alpha-3 code"
-msgstr ""
+msgstr "ISO 3166-1 alpha-3 code"
 
 #: models.py:62
 msgid "ODA recipient"
-msgstr ""
+msgstr "ODA recipient"
 
 #: models.py:64
 msgid ""
 "Whether a country is a recipient of Official DevelopmentAssistance from the "
 "OECD's Development Assistance Committee."
 msgstr ""
+"Whether a country is a recipient of Official DevelopmentAssistance from the "
+"OECD's Development Assistance Committee."
 
 #: models.py:71
 msgid "country"
-msgstr ""
+msgstr "country"
 
 #: models.py:72
 msgid "countries"
-msgstr ""
+msgstr "countries"
 
 #: validators.py:8
 msgid "Enter 3 numeric characters."
-msgstr ""
+msgstr "Enter 3 numeric characters."
 
 #: validators.py:11
 msgid "Enter 2 capital letters."
-msgstr ""
+msgstr "Enter 2 capital letters."
 
 #: validators.py:14
 msgid "Enter 3 capital letters."
-msgstr ""
+msgstr "Enter 3 capital letters."
