@@ -1355,7 +1355,7 @@ App.PasswordResetRoute = Em.Route.extend({
                 display_message: true,
                 isError: true,
                 message_title: '',
-                message_content: 'The token you provided is expired. Please reset your password again.'
+                message_content: gettext('The token you provided is expired. Please reset your password again.')
             });
 
             route.replaceWith('home');
@@ -1373,7 +1373,7 @@ App.LoginController = Em.Controller.extend({
         // Close previous modal, if any.
         $('.close').click();
 
-        var modalPaneTemplate = ['<div class="modal-body"><a class="close" rel="close">&times;</a>{{view templateName="request_password_reset"}}</div>'].join("\n");
+        var modalPaneTemplate = '<div>{{view templateName="request_password_reset"}}</div>';
 
         Bootstrap.ModalPane.popup({
             classNames: ['modal'],
@@ -1394,7 +1394,8 @@ App.LoginController = Em.Controller.extend({
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: function() {
-                            var $success = $("<p>YOU'VE GOT MAIL!</p><p>We've sent you a link to reset your password, so check your mailbox.</p><br><p>(No mail? It might have ended up in your spam folder)</p>");
+                            var message = gettext("YOU'VE GOT MAIL!<br /><br />We've sent you a link to reset your password, so check your mailbox.<br /><br />(No mail? It might have ended up in your spam folder)");
+                            var $success = $("<p>" + message +"</p>");
 
                             $modal.find('.modal-body').html($success);
                             $btn.remove();
@@ -1688,6 +1689,7 @@ App.ContactMessageRoute = Em.Route.extend({
         return transaction.createRecord(App.ContactMessage);
     },
     setupController: function(controller, model) {
+        window.scrollTo(0);
         this._super(controller, model);
         controller.startEditing();
     },

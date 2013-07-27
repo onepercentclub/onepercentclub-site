@@ -655,7 +655,10 @@ App.MyProjectView = Em.View.extend({
 // Project Pitch Phase
 
 App.MyPitchNewView = Em.View.extend({
-    templateName: 'my_pitch_new'
+    templateName: 'my_pitch_new',
+    didInsertElement: function(){
+        window.scrollTo(0);
+    }
 
 });
 

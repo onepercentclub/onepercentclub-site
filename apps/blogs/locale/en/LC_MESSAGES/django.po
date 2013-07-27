@@ -1,172 +1,172 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-26 15:56+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"PO-Revision-Date: 2013-07-17 14:10+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:36
 msgid "Publication settings"
-msgstr ""
+msgstr "Publication settings"
 
 #: admin.py:39
 msgid "Taxonomy"
-msgstr ""
+msgstr "Taxonomy"
 
 #: admin.py:190
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: admin.py:203
 msgid "Mark selected entries as published"
-msgstr ""
+msgstr "Mark selected entries as published"
 
 #: models.py:14 models.py:39
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 #: models.py:17
 msgid "Blog category"
-msgstr ""
+msgstr "Blog category"
 
 #: models.py:18
 msgid "Blog categories"
-msgstr ""
+msgstr "Blog categories"
 
 #: models.py:31
 msgid "Published"
-msgstr ""
+msgstr "Published"
 
 #: models.py:32
 msgid "Draft"
-msgstr ""
+msgstr "Draft"
 
 #: models.py:35
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: models.py:36 models.py:103 models.py:104
 msgid "News"
-msgstr ""
+msgstr "News"
 
 #: models.py:38
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: models.py:40
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: models.py:43
 msgid "Main photo"
-msgstr ""
+msgstr "Main photo"
 
 #: models.py:44
 msgid "language"
-msgstr ""
+msgstr "language"
 
 #: models.py:48
 msgid "status"
-msgstr ""
+msgstr "status"
 
 #: models.py:49
 msgid "publication date"
-msgstr ""
+msgstr "publication date"
 
 #: models.py:49
 msgid "When the entry should go live, status must be \"Published\"."
-msgstr ""
+msgstr "When the entry should go live, status must be \"Published\"."
 
 #: models.py:50
 msgid "publication end date"
-msgstr ""
+msgstr "publication end date"
 
 #: models.py:51
 msgid "Allow comments"
-msgstr ""
+msgstr "Allow comments"
 
 #: models.py:54
 msgid "author"
-msgstr ""
+msgstr "author"
 
 #: models.py:55
 msgid "creation date"
-msgstr ""
+msgstr "creation date"
 
 #: models.py:56
 msgid "last modification"
-msgstr ""
+msgstr "last modification"
 
 #: models.py:59
 msgid "Categories"
-msgstr ""
+msgstr "Categories"
 
 #: models.py:61
 msgid "Countries"
-msgstr ""
+msgstr "Countries"
 
 #: models.py:66 models.py:86
 msgid "Blog post"
-msgstr ""
+msgstr "Blog post"
 
 #: models.py:67 models.py:87
 msgid "Blog posts"
-msgstr ""
+msgstr "Blog posts"
 
 #: templates/blogs.hbs:9
 #, python-format
 msgid "1%%NEWS"
-msgstr ""
+msgstr "1%%NEWS"
 
 #: templates/blogs.hbs:19
 msgid "Loading the latest news"
-msgstr ""
+msgstr "Loading the latest news"
 
 #: templates/blogs.hbs:65
 msgid "previous 5"
-msgstr ""
+msgstr "previous 5"
 
 #: templates/blogs.hbs:70
 msgid "next 5"
-msgstr ""
+msgstr "next 5"
 
 #: templates/admin/blogs/change_form.html:7
 #: templates/admin/blogs/change_form.html:47
 msgid "Preview"
-msgstr ""
+msgstr "Preview"
 
 #: templates/admin/blogs/change_form.html:101
 msgid "Internal CMS error: failed to fetch preview data!"
-msgstr ""
+msgstr "Internal CMS error: failed to fetch preview data!"
 
 #: templates/admin/blogs/change_form.html:119
 msgid "Publish"
-msgstr ""
+msgstr "Publish"
 
 #: templates/admin/blogs/change_form.html:120
 msgid "Publish and add another"
-msgstr ""
+msgstr "Publish and add another"
 
 #: templates/admin/blogs/change_form.html:121
 msgid "Publish and continue editing"
-msgstr ""
+msgstr "Publish and continue editing"
 
 #: templates/admin/blogs/preview_canvas.html:22
 msgid "Blog post preview"
-msgstr ""
+msgstr "Blog post preview"
 
 #: templates/admin/blogs/preview_canvas.html:23
 msgid "now"
-msgstr ""
+msgstr "now"

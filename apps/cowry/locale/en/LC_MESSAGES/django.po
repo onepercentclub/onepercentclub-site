@@ -1,75 +1,75 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-26 15:56+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"PO-Revision-Date: 2013-07-12 13:17+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:9
 msgid "New"
-msgstr ""
+msgstr "New"
 
 #: models.py:10
 msgid "In Progress"
-msgstr ""
+msgstr "In Progress"
 
 #: models.py:11
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 #: models.py:12
 msgid "Paid"
-msgstr ""
+msgstr "Paid"
 
 #: models.py:13
 msgid "Failed"
-msgstr ""
+msgstr "Failed"
 
 #: models.py:14
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelled"
 
 #: models.py:15
 msgid "Refunded"
-msgstr ""
+msgstr "Refunded"
 
 #: models.py:16
 msgid "Unknown"
-msgstr ""
+msgstr "Unknown"
 
 #: models.py:24
 msgid "amount"
-msgstr ""
+msgstr "amount"
 
 #: models.py:28
 msgid "payment service fee"
-msgstr ""
+msgstr "payment service fee"
 
 #: models.py:34
 msgid "status"
-msgstr ""
+msgstr "status"
 
 #: models.py:36
 msgid "created"
-msgstr ""
+msgstr "created"
 
 #: models.py:37
 msgid "updated"
-msgstr ""
+msgstr "updated"
 
 #: serializers.py:41
 #, python-format
 msgid "%(payment_method_id)s is not a valid payment method."
-msgstr ""
+msgstr "%(payment_method_id)s is not a valid payment method."

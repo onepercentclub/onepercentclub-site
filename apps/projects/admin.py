@@ -1,7 +1,8 @@
 import logging
-from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme
+from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme, ProjectPhases
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
+from django.utils.translation import ugettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -19,8 +20,14 @@ class ProjectPitchAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     list_filter = ('status', )
     list_display = ('title', 'status', 'created')
+    readonly_fields = ('edit_project', 'project', 'project_owner')
 
-    readonly_fields = ('edit_project', 'project')
+    def project_owner(self, obj):
+        object = obj.project.owner
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
+
+    project_owner.allow_tags = True
 
     def edit_project(self, obj):
         object = obj.project
@@ -29,6 +36,7 @@ class ProjectPitchAdmin(admin.ModelAdmin):
 
     edit_project.allow_tags = True
 
+
     def response_change(self, request, obj):
         if not '_continue' in request.POST:
             object = obj.project
@@ -36,6 +44,7 @@ class ProjectPitchAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(url)
         else:
             return super(ProjectPitchAdmin, self).response_change(request, obj)
+
 
 admin.site.register(ProjectPitch, ProjectPitchAdmin)
 
@@ -54,7 +63,7 @@ class ProjectPlanAdmin(admin.ModelAdmin):
     list_filter = ('status', )
     list_display = ('title', 'status', 'created')
 
-    readonly_fields = ('edit_project', 'project')
+    readonly_fields = ('edit_project', 'project', 'project_owner')
 
     inlines = (ProjectBudgetInline, )
 
@@ -64,6 +73,13 @@ class ProjectPlanAdmin(admin.ModelAdmin):
         return "<a href='%s'>%s</a>" % (str(url), object.title)
 
     edit_project.allow_tags = True
+
+    def project_owner(self, obj):
+        object = obj.project.owner
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
+
+    project_owner.allow_tags = True
 
     def response_change(self, request, obj):
         if not '_continue' in request.POST:
@@ -82,7 +98,7 @@ class ProjectCampaignAdmin(admin.ModelAdmin):
     list_filter = ('status', )
     list_display = ('project', 'status', 'created')
 
-    readonly_fields = ('edit_project', )
+    readonly_fields = ('edit_project', 'project_owner')
     fields = readonly_fields + ('status', 'deadline', 'money_asked', 'currency')
 
     def edit_project(self, obj):
@@ -91,6 +107,13 @@ class ProjectCampaignAdmin(admin.ModelAdmin):
         return "<a href='%s'>%s</a>" % (str(url), object.title)
 
     edit_project.allow_tags = True
+
+    def project_owner(self, obj):
+        object = obj.project.owner
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
+
+    project_owner.allow_tags = True
 
     def response_change(self, request, obj):
         if not '_continue' in request.POST:
@@ -106,21 +129,29 @@ admin.site.register(ProjectCampaign, ProjectCampaignAdmin)
 class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     date_hierarchy = 'created'
-
+    ordering = ('-created',)
     save_on_top = True
+    actions = ('set_failed', )
 
     prepopulated_fields = {"slug": ("title",)}
 
     list_filter = ('phase', 'partner_organization')
-    list_display = ('title', 'owner', 'coach', 'phase')
+    list_display = ('title', 'owner', 'coach', 'phase', 'created')
 
     search_fields = ('title', 'owner__first_name', 'owner__last_name')
 
     raw_id_fields = ('owner', 'coach')
 
-    readonly_fields = ('pitch_view', 'plan_view', 'campaign_view')
+    readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view')
 
     fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization')
+
+    def project_owner(self, obj):
+        object = obj.owner
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
+
+    project_owner.allow_tags = True
 
     def pitch_view(self, obj):
         object = obj.projectpitch
@@ -143,6 +174,17 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     campaign_view.allow_tags = True
 
+    def set_failed(self, request, queryset):
+        rows_updated = queryset.update(phase=ProjectPhases.failed)
+
+        if rows_updated == 1:
+            message = "one project was marked as failed."
+        else:
+            message = "{0} projects were marked as failed.".format(rows_updated)
+        self.message_user(request, message)
+
+
+    set_failed.short_description = _("Mark selected projects as failed")
 
 admin.site.register(Project, ProjectAdmin)
 

@@ -267,7 +267,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Fill in email and hit reset.
         self.browser.find_by_css('input#passwordResetEmail').first.fill(user.email)
-        self.browser.find_link_by_itext('RESET').first.click()
+        self.browser.find_link_by_itext('Reset password').first.click()
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_text_present('YOU\'VE GOT MAIL!'))

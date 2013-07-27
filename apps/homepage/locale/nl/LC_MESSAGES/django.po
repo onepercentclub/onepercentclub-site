@@ -94,6 +94,5 @@ msgid "Donated"
 msgstr "Gedoneerd"
 
 #: templates/homepage.hbs:210
-#, python-format
-msgid "Join us. Sign up and share your 1%%"
-msgstr "Doe ook mee. Meld je aan en deel jouw 1%%"
+msgid "Join us. Sign up and share your 1%"
+msgstr "Doe ook mee. Meld je aan en deel jouw 1%"

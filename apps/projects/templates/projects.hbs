@@ -300,15 +300,22 @@
                     {{/linkTo}}
                 </li>
                 <li class="tab-tasks">
-                    {{#linkTo "projectTaskList"}}
-                        <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
-                        <strong class="tab-title">Tasks <em class="tab-subtitle">Expertise needed</em></strong>
-                    {{/linkTo}}
+                    {{#if taskCount}}
+                        {{#linkTo "projectTaskList"}}
+                            <span class="tab-icon">{{taskCount}}</span>
+                            <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "Skills needed" %}</em></strong>
+                        {{/linkTo}}
+                    {{else}}
+                        {{#linkTo "projectTaskList"}}
+                            <span class="tab-icon">-</span>
+                            <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "No skills needed" %}</em></strong>
+                        {{/linkTo}}
+                    {{/if}}
                 </li>
                 <li class="tab-plan">
                     {{#linkTo "projectPlan"}}
                         <span class="tab-icon"><em class="flaticon solid document-2"></em></span>
-                        <strong class="tab-title">Project Plan <em class="tab-subtitle">Read full plan</em></strong>
+                        <strong class="tab-title">Project Plan <em class="tab-subtitle">{% trans "Read full plan" %}</em></strong>
                     {{/linkTo}}
                 </li>
             </ul>

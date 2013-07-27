@@ -1,49 +1,49 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-26 15:56+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"PO-Revision-Date: 2013-07-26 08:04+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:20
 msgid "A user with that email already exists."
-msgstr ""
+msgstr "A user with that email already exists."
 
 #: admin.py:21
 msgid "The two password fields didn't match."
-msgstr ""
+msgstr "The two password fields didn't match."
 
 #: admin.py:23 admin.py:61 models.py:99
 msgid "email address"
-msgstr ""
+msgstr "email address"
 
 #: admin.py:24 admin.py:62
 msgid "Required. 254 characters or fewer. A valid email address."
-msgstr ""
+msgstr "Required. 254 characters or fewer. A valid email address."
 
 #: admin.py:25 admin.py:63 templates/users.hbs:570
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: admin.py:27
 msgid "Password confirmation"
-msgstr ""
+msgstr "Password confirmation"
 
 #: admin.py:29
 msgid "Enter the same password as above, for verification."
-msgstr ""
+msgstr "Enter the same password as above, for verification."
 
 #: admin.py:64
 msgid ""
@@ -51,446 +51,448 @@ msgid ""
 "password, but you can change the password using <a href=\"password/\">this "
 "form</a>."
 msgstr ""
+"Raw passwords are not stored, so there is no way to see this user's "
+"password, but you can change the password using <a href=\"password/\">this "
+"form</a>."
 
 #: admin.py:87
 msgid "Personal info"
-msgstr ""
+msgstr "Personal info"
 
 #: admin.py:88 templates/users.hbs:17
 msgid "Profile"
-msgstr ""
+msgstr "Profile"
 
 #: admin.py:89 templates/users.hbs:39
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: admin.py:90
 msgid "Data from old website"
-msgstr ""
+msgstr "Data from old website"
 
 #: admin.py:91
 msgid "Permissions"
-msgstr ""
+msgstr "Permissions"
 
 #: admin.py:92
 msgid "Important dates"
-msgstr ""
+msgstr "Important dates"
 
 #: models.py:79 templates/users.hbs:404
 msgid "Male"
-msgstr ""
+msgstr "Male"
 
 #: models.py:80 templates/users.hbs:403
 msgid "Female"
-msgstr ""
+msgstr "Female"
 
 #: models.py:83
 msgid "1-4 hours per week"
-msgstr ""
+msgstr "1-4 hours per week"
 
 #: models.py:84
 msgid "5-8 hours per week"
-msgstr ""
+msgstr "5-8 hours per week"
 
 #: models.py:85
 msgid "9-16 hours per week"
-msgstr ""
+msgstr "9-16 hours per week"
 
 #: models.py:86
 msgid "1-4 hours per month"
-msgstr ""
+msgstr "1-4 hours per month"
 
 #: models.py:87
 msgid "5-8 hours per month"
-msgstr ""
+msgstr "5-8 hours per month"
 
 #: models.py:88
 msgid "9-16 hours per month"
-msgstr ""
+msgstr "9-16 hours per month"
 
 #: models.py:89
 msgid "I have all the time in the world. Bring it on :D"
-msgstr ""
+msgstr "I have all the time in the world. Bring it on :D"
 
 #: models.py:90
 msgid "It depends on the content of the tasks. Challenge me!"
-msgstr ""
+msgstr "It depends on the content of the tasks. Challenge me!"
 
 #: models.py:93
 msgid "Person"
-msgstr ""
+msgstr "Person"
 
 #: models.py:94
 msgid "Company"
-msgstr ""
+msgstr "Company"
 
 #: models.py:95
 msgid "Foundation"
-msgstr ""
+msgstr "Foundation"
 
 #: models.py:96
 msgid "School"
-msgstr ""
+msgstr "School"
 
 #: models.py:97
 msgid "Club / association"
-msgstr ""
+msgstr "Club / association"
 
 #: models.py:100
 msgid "username"
-msgstr ""
+msgstr "username"
 
 #: models.py:101
 msgid "staff status"
-msgstr ""
+msgstr "staff status"
 
 #: models.py:101
 msgid "Designates whether the user can log into this admin site."
-msgstr ""
+msgstr "Designates whether the user can log into this admin site."
 
 #: models.py:102
 msgid "active"
-msgstr ""
+msgstr "active"
 
 #: models.py:102
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
 
 #: models.py:103
 msgid "date joined"
-msgstr ""
+msgstr "date joined"
 
 #: models.py:105
 msgid "deleted"
-msgstr ""
+msgstr "deleted"
 
 #: models.py:106
 msgid "Member Type"
-msgstr ""
+msgstr "Member Type"
 
 #: models.py:109
 msgid "first name"
-msgstr ""
+msgstr "first name"
 
 #: models.py:110
 msgid "last name"
-msgstr ""
+msgstr "last name"
 
 #: models.py:111
 msgid "location"
-msgstr ""
+msgstr "location"
 
 #: models.py:112
 msgid "website"
-msgstr ""
+msgstr "website"
 
 #: models.py:114
 msgid "picture"
-msgstr ""
+msgstr "picture"
 
 #: models.py:115
 msgid "about"
-msgstr ""
+msgstr "about"
 
 #: models.py:116
 msgid "why"
-msgstr ""
+msgstr "why"
 
 #: models.py:117
 msgid "availability"
-msgstr ""
+msgstr "availability"
 
 #: models.py:120
 msgid "primary language"
-msgstr ""
+msgstr "primary language"
 
 #: models.py:120
 msgid "Language used for website and emails."
-msgstr ""
+msgstr "Language used for website and emails."
 
 #: models.py:121
 msgid "share time and knowledge"
-msgstr ""
+msgstr "share time and knowledge"
 
 #: models.py:122
 msgid "share money"
-msgstr ""
+msgstr "share money"
 
 #: models.py:123
 msgid "newsletter"
-msgstr ""
+msgstr "newsletter"
 
 #: models.py:123
 msgid "Subscribe to newsletter."
-msgstr ""
+msgstr "Subscribe to newsletter."
 
 #: models.py:124
 msgid "phone number"
-msgstr ""
+msgstr "phone number"
 
 #: models.py:125
 msgid "gender"
-msgstr ""
+msgstr "gender"
 
 #: models.py:126
 msgid "birthdate"
-msgstr ""
+msgstr "birthdate"
 
 #: models.py:129
 msgid "available_time"
-msgstr ""
+msgstr "available_time"
 
 #: models.py:130
 msgid "contribution"
-msgstr ""
+msgstr "contribution"
 
 #: models.py:131
 msgid "tags"
-msgstr ""
+msgstr "tags"
 
 #: models.py:142
 msgid "member"
-msgstr ""
+msgstr "member"
 
 #: models.py:143
 msgid "members"
-msgstr ""
+msgstr "members"
 
 #: models.py:237
 msgid "Primary"
-msgstr ""
+msgstr "Primary"
 
 #: models.py:238
 msgid "Secondary"
-msgstr ""
+msgstr "Secondary"
 
 #: models.py:240
 msgid "address type"
-msgstr ""
+msgstr "address type"
 
 #: models.py:241
 msgid "user"
-msgstr ""
+msgstr "user"
 
 #: models.py:244
 msgid "user address"
-msgstr ""
+msgstr "user address"
 
 #: models.py:245
 msgid "user addresses"
-msgstr ""
+msgstr "user addresses"
 
 #: templates/users.hbs:14
 #, python-format
 msgid "My 1%%"
-msgstr ""
+msgstr "My 1%%"
 
 #: templates/users.hbs:22
 msgid "Preview my profile"
-msgstr ""
+msgstr "Preview my profile"
 
 #: templates/users.hbs:32
 msgid "Edit profile"
-msgstr ""
+msgstr "Edit profile"
 
 #: templates/users.hbs:32
 msgid "Public info"
-msgstr ""
+msgstr "Public info"
 
 #: templates/users.hbs:39
 msgid "Account"
-msgstr ""
+msgstr "Account"
 
 #: templates/users.hbs:46
 msgid "Orders"
-msgstr ""
+msgstr "Orders"
 
 #: templates/users.hbs:69
 msgid "Edit your profile"
-msgstr ""
+msgstr "Edit your profile"
 
 #: templates/users.hbs:70
 #, python-format
 msgid "Personalise your account so 1%%Members can get to know you."
-msgstr ""
+msgstr "Personalise your account so 1%%Members can get to know you."
 
 #: templates/users.hbs:77 templates/users.hbs.py:544
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: templates/users.hbs:90
 msgid "Profile Picture"
-msgstr ""
+msgstr "Profile Picture"
 
 #: templates/users.hbs:99
 msgid "Upload picture"
-msgstr ""
+msgstr "Upload picture"
 
 #: templates/users.hbs:112
 msgid "About yourself"
-msgstr ""
+msgstr "About yourself"
 
 #: templates/users.hbs:126
 #, python-format
 msgid "Why did you join 1%%Club?"
-msgstr ""
+msgstr "Why did you join 1%%Club?"
 
 #: templates/users.hbs:141
 msgid "Your website"
-msgstr ""
+msgstr "Your website"
 
 #: templates/users.hbs:155 templates/users.hbs.py:658
 msgid "Location"
-msgstr ""
+msgstr "Location"
 
 #: templates/users.hbs:173
 #, python-format
 msgid "1%%SKILLS"
-msgstr ""
+msgstr "1%%SKILLS"
 
 #: templates/users.hbs:174
 msgid ""
-"If you have any skills or experience that you think could help a smart idea "
-"(For example: if you’re a great graphic designer or an awesome accountant) "
-"please add them here."
+"How much time are you willing to spend your 1%Skills?<br/>Let us know so we "
+"can provide you with some matching tasks from our projects."
 msgstr ""
 
 #: templates/users.hbs:180 templates/users.hbs.py:666
 msgid "Time available"
-msgstr ""
+msgstr "Time available"
 
 #: templates/users.hbs:199
 msgid "Profile saved"
-msgstr ""
+msgstr "Profile saved"
 
 #: templates/users.hbs:225
 msgid "Edit your account"
-msgstr ""
+msgstr "Edit your account"
 
 #: templates/users.hbs:226
 msgid ""
 "These are the details we currently have for you – update or change them "
 "below."
 msgstr ""
+"These are the details we currently have for you – update or change them "
+"below."
 
 #: templates/users.hbs:233
 msgid "Email Address"
-msgstr ""
+msgstr "Email Address"
 
 #: templates/users.hbs:253
 msgid "I'd like to receive emails about"
-msgstr ""
+msgstr "I'd like to receive emails about"
 
 #: templates/users.hbs:259
-#, python-format
-msgid "1%%Newsletters"
-msgstr ""
+msgid "1%Newsletters"
+msgstr "1%Newsletters"
 
 #: templates/users.hbs:272
 msgid "Account type"
-msgstr ""
+msgstr "Account type"
 
 #: templates/users.hbs:290
 msgid "I want to share"
-msgstr ""
+msgstr "I want to share"
 
 #: templates/users.hbs:296
 msgid "Time & Knowledge"
-msgstr ""
+msgstr "Time & Knowledge"
 
 #: templates/users.hbs:300
 msgid "Money"
-msgstr ""
+msgstr "Money"
 
 #: templates/users.hbs:311
 msgid "Personal Details"
-msgstr ""
+msgstr "Personal Details"
 
 #: templates/users.hbs:312
-#, python-format
 msgid ""
-"Only 1%%CLUB can see your personal details. They won’t be published anywhere "
-"on the 1%%CLUB website."
+"Only 1%CLUB can see your personal details. They won’t be published anywhere "
+"on the 1%CLUB website."
 msgstr ""
 
 #: templates/users.hbs:317
 msgid "Address Line 1"
-msgstr ""
+msgstr "Address Line 1"
 
 #: templates/users.hbs:330
 msgid "Address Line 2"
-msgstr ""
+msgstr "Address Line 2"
 
 #: templates/users.hbs:343
 msgid "City"
-msgstr ""
+msgstr "City"
 
 #: templates/users.hbs:356
 msgid "Province / State"
-msgstr ""
+msgstr "Province / State"
 
 #: templates/users.hbs:369
 msgid "Postal Code"
-msgstr ""
+msgstr "Postal Code"
 
 #: templates/users.hbs:384
 msgid "Country"
-msgstr ""
+msgstr "Country"
 
 #: templates/users.hbs:398
 msgid "Gender"
-msgstr ""
+msgstr "Gender"
 
 #: templates/users.hbs:405
 msgid "Unset"
-msgstr ""
+msgstr "Unset"
 
 #: templates/users.hbs:412
 msgid "Date of birth"
-msgstr ""
+msgstr "Date of birth"
 
 #: templates/users.hbs:427
 msgid "Account settings saved"
-msgstr ""
+msgstr "Account settings saved"
 
 #: templates/users.hbs:465
 msgid "Active"
-msgstr ""
+msgstr "Active"
 
 #: templates/users.hbs:470
 msgid "On"
-msgstr ""
+msgstr "On"
 
 #: templates/users.hbs:471
 msgid "Off"
-msgstr ""
+msgstr "Off"
 
 #: templates/users.hbs:495
 msgid "Monthly"
-msgstr ""
+msgstr "Monthly"
 
 #: templates/users.hbs:495
 msgid "Single"
-msgstr ""
+msgstr "Single"
 
 #: templates/users.hbs:502
 msgid "loading order history"
-msgstr ""
+msgstr "loading order history"
 
 #: templates/users.hbs:525
-#, python-format
-msgid "Join 1%%Club"
-msgstr ""
+msgid "Join 1%Club"
+msgstr "Join 1%Club"
 
 #: templates/users.hbs:528
-#, python-format
 msgid ""
 "\n"
-"        1%%Club is the global platform where you can share a little and "
+"        1%Club is the global platform where you can share a little and "
 "change the world, in your vary\n"
-"        own way. We ignite modern society to share 1%% and support smart "
+"        own way. We ignite modern society to share 1% and support smart "
 "ideas from people in\n"
 "        developing countries. We do this in a new, open way, believing in "
 "the power of collaboration\n"
@@ -501,108 +503,119 @@ msgstr ""
 
 #: templates/users.hbs:536
 msgid "Thanks for signing up!"
-msgstr ""
+msgstr "Thanks for signing up!"
 
 #: templates/users.hbs:538
 msgid ""
 "We've sent you an email. Please click <strong>Activate Profile</strong> in "
 "the email we just sent you."
 msgstr ""
+"We've sent you an email. Please click <strong>Activate Profile</strong> in "
+"the email we just sent you."
 
 #: templates/users.hbs:556
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/users.hbs:586
 msgid "Sign up"
-msgstr ""
+msgstr "Sign up"
 
 #: templates/users.hbs:593
 #, python-format
 msgid "By joining the 1%%Club I a hereby agree to the "
-msgstr ""
+msgstr "By joining the 1%%Club I a hereby agree to the "
 
 #: templates/users.hbs:594
 #, python-format
 msgid "1%%Club Terms of service"
-msgstr ""
+msgstr "1%%Club Terms of service"
 
 #: templates/users.hbs:608
 msgid "Already have an account?"
-msgstr ""
+msgstr "Already have an account?"
 
 #: templates/users.hbs:611
 msgid "Log in here"
-msgstr ""
+msgstr "Log in here"
 
 #: templates/users.hbs:620
 #, python-format
 msgid "Why join 1%%Club?"
-msgstr ""
+msgstr "Why join 1%%Club?"
 
 #: templates/users.hbs:625
 msgid "It's easy to find projects you like."
-msgstr ""
+msgstr "It's easy to find projects you like."
 
 #: templates/users.hbs:626
 #, python-format
 msgid "A fun and personal way to share your 1%%."
-msgstr ""
+msgstr "A fun and personal way to share your 1%%."
 
 #: templates/users.hbs:627
 msgid "You'll receive updates of the progress of the projects you support."
-msgstr ""
+msgstr "You'll receive updates of the progress of the projects you support."
 
 #: templates/users.hbs:640
 msgid "Member since"
-msgstr ""
+msgstr "Member since"
 
 #: templates/users.hbs:645
 msgid "About"
-msgstr ""
+msgstr "About"
 
 #: templates/users.hbs:650
 #, python-format
 msgid "Joined 1%%Club because"
-msgstr ""
+msgstr "Joined 1%%Club because"
 
-#: templates/users.hbs:687
+#: templates/users.hbs:688
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Forgot your password?"
 
-#: templates/users.hbs:691
+#: templates/users.hbs:692
+#, fuzzy
 msgid ""
+"Enter your email address and we'll send you an email so you can set a new "
+"password."
+msgstr ""
 "Leave your email address and we'll send you a link to set a new password."
-msgstr ""
 
-#: templates/users.hbs:698
+#: templates/users.hbs:699
 msgid "Email address"
-msgstr ""
+msgstr "Email address"
 
-#: templates/users.hbs:707
-msgid "Need help?"
-msgstr ""
-
-#: templates/users.hbs:708
-msgid "Contact us!"
-msgstr ""
-
-#: templates/users.hbs:713
-msgid "Reset"
-msgstr ""
-
-#: templates/users.hbs:724
-msgid "Reset your password"
-msgstr ""
-
-#: templates/users.hbs:730
-msgid "New password"
-msgstr ""
-
-#: templates/users.hbs:742
-msgid "Confirm new password"
-msgstr ""
-
-#: templates/users.hbs:762
+#: templates/users.hbs:709 templates/users.hbs.py:758
 msgid "Reset password"
-msgstr ""
+msgstr "Reset password"
+
+#: templates/users.hbs:720
+msgid "Reset your password"
+msgstr "Reset your password"
+
+#: templates/users.hbs:726
+msgid "New password"
+msgstr "New password"
+
+#: templates/users.hbs:738
+msgid "Confirm new password"
+msgstr "Confirm new password"
+
+#~ msgid ""
+#~ "If you have any skills or experience that you think could help a smart "
+#~ "idea (For example: if you’re a great graphic designer or an awesome "
+#~ "accountant) please add them here."
+#~ msgstr ""
+#~ "If you have any skills or experience that you think could help a smart "
+#~ "idea (For example: if you’re a great graphic designer or an awesome "
+#~ "accountant) please add them here."
+
+#~ msgid "Need help?"
+#~ msgstr "Need help?"
+
+#~ msgid "Contact us!"
+#~ msgstr "Contact us!"
+
+#~ msgid "Reset"
+#~ msgstr "Reset"

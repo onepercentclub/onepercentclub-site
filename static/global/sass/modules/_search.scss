@@ -12,10 +12,9 @@
         div.header {
             position: relative;
             height: 180px;
-            //overflow: hidden;
+            overflow: hidden;
             img {
-                width: 247px;
-                height: 180px;
+                width: 100%;
             }
             .label {
                 position: absolute;

@@ -8,7 +8,9 @@ if [ $2 ]; then
     SETTINGS="--settings=$2"
 fi
 MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs,html,txt $SETTINGS"
+MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -d djangojs $SETTINGS"
 COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
+COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"
 EXCLUDED_APPS=""
 
@@ -58,7 +60,7 @@ case "$1" in
 
         pull)
             echo "Fetching PO files from Transifex"
-            tx pull -l=nl
+            tx pull -l nl
 
             ;;
 
@@ -73,6 +75,8 @@ case "$1" in
 
             echo "Generating PO-file for templates"
             $COMPILEMESSAGES
+            echo "Generating PO-file for javascript"
+            $COMPILEJSMESSAGES
 
             ;;
 
