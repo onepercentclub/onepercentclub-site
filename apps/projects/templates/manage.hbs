@@ -360,7 +360,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 	                        <em class="flaticon solid lightbulb-1"></em>
 	                        {% trans "Do you need someone to help writing your business plan?" %}
 	                    </div>
-	                    {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
+	                    {{#linkTo "projectTaskNew" project.getProject tagName="button" class="btn btn-iconed"}}
 	                        <em class="flaticon solid wrench-1"></em>
 	                        {% trans "Create a new task" %}
 	                    {{/linkTo}}
@@ -380,7 +380,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 	                        <span class="flaticon solid lightbulb-1"></span>
 	                        {% trans "Why not? Ask the crowd for feedback on your idea!" %}
 	                    </div>
-	                    {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
+	                    {{#linkTo "project" project.getProject tagName="button" class="btn btn-iconed"}}
 	                        <span class="flaticon solid megaphone-1"></span>
 	                        {% trans "Post an Update" %}
 	                    {{/linkTo}}
