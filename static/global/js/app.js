@@ -1689,6 +1689,7 @@ App.ContactMessageRoute = Em.Route.extend({
         return transaction.createRecord(App.ContactMessage);
     },
     setupController: function(controller, model) {
+        window.scrollTo(0);
         this._super(controller, model);
         controller.startEditing();
     },
