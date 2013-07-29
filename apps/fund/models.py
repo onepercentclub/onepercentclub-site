@@ -92,12 +92,9 @@ class Order(models.Model):
 
     recurring = models.BooleanField(default=False)
 
-    # Note this is a ManyToMany so that there is no Order FK on the Payment. Payments don't have multiple Orders.
-    payments = models.ManyToManyField('cowry.Payment', related_name='orders')
-
     @property
     def latest_payment(self):
-        if self.payments.all():
+        if self.payments.count() > 0:
             return self.payments.order_by('-created').all()[0]
         return None
 
@@ -258,12 +255,7 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     #                   refunded
     #                   unknown
 
-    # Ignore status changes on payments that don't have an Order. This is needed to run the Cowry unit tests.
-    # We could remove this check if we changed the unit tests to only test the full Order and Payment system.
-    if instance.orders.all():
-        order = instance.orders.all()[0]
-    else:
-        return
+    order = instance.order
 
     #
     # Payment: new -> in_progress
