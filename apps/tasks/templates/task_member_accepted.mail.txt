@@ -6,7 +6,8 @@
 
 Hi {{ receiver_name }},
 
-Woohoo, you’re the one! The project owner, {{ sender_name }}, assigned the task to you! Good luck and please keep us updated about the progress!
+Woohoo, you’re the one! The project owner, {{ sender_name }}, assigned the task to you!
+Good luck and please keep us updated about the progress!
 
 Start right away? Leave a short first reaction!
 
