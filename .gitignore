@@ -60,4 +60,16 @@ reports
 /cowrylogs/*
 !/cowrylogs/.gitkeep
 
+# Salesforce Dataloader
+!**/.gitkeep
+/dataloader/prd/Bin/DataLoader20/*
+/dataloader/uat/Bin/DataLoader20/*
+/dataloader/*/*/*/read/
+/dataloader/*/*/*/write/
+/dataloader/*/*/*/log/
+/dataloader/*/*/log/
+/dataloader/*/*/archive/
+/dataloader/*/Input/
+/dataloader/*/Output/
+
 static/global/compass_app_log.txt
