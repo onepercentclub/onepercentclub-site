@@ -39,7 +39,8 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
         # TODO: Determine if and how organization type should be entered
         # sforganization.organization_type =
 
-        # SF Layout: Contact Information section. Intentionally ignore the address type as it is not used.
+        # SF Layout: Contact Information section. Ignore address type and only use first address.
+        # When multiple address types are supported in the website, extend this function
         try:
             organizationaddress = OrganizationAddress.objects.get(organization=organization)
         except OrganizationAddress.DoesNotExist:
@@ -454,7 +455,6 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
             sfdonation.payment_method = ''
 
         sfdonation.stage_name = DonationStatuses.values[donation.status].title()
-        # TODO: Should we use "Recurring" instead of Monthly?
         sfdonation.opportunity_type = donation.DonationTypes.values[donation.donation_type].title()
 
         # SF Layout: System Information section.

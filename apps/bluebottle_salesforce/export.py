@@ -34,6 +34,8 @@ def generate_organizations_csv_file(loglevel):
 
         logger.info("Exporting {0} Organization objects to {1}".format(organizations.count(), filename))
 
+        # Ignore address type and only use first address.
+        # When multiple address types are supported in the website, extend this function
         for organization in organizations:
             try:
                 billing_city = ''
