@@ -435,8 +435,7 @@
                     <div class="controls">
                         {{view App.CountryCodeSelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
                     </div>
-
-                    {{#if error.country}}
+                    {{#if errors.country}}
                         <div class="errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
@@ -535,7 +534,7 @@
             <li class="control-group">
                 <label class="control-label">{% trans "Bank Account Name" %}</label>
                 <div class="controls">
-                    {{view Em.TextField valueBinding="name" placeholder="Bank Account Name" classBinding="errors.name.length:error"}}
+                    {{view Em.TextField valueBinding="name" placeholder="N D Janssen" classBinding="errors.name.length:error"}}
                 </div>
                 {{#if errors.name }}
                     <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
@@ -545,7 +544,7 @@
             <li class="control-group">
                 <label class="control-label">{% trans "Bank Account City" %}</label>
                 <div class="controls">
-                    {{view Em.TextField valueBinding="city" placeholder="Bank Account City" classBinding="errors.city.length:error"}}
+                    {{view Em.TextField valueBinding="city" placeholder="Amsterdam" classBinding="errors.city.length:error"}}
                 </div>
                 {{#if errors.city }}
                     <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
@@ -553,22 +552,12 @@
             </li>
 
             <li class="control-group">
-                <label class="control-label">{% trans "IBAN" %}</label>
+                <label class="control-label">{% trans "Bank Account" %}</label>
                 <div class="controls">
-                    {{view Em.TextField valueBinding="iban" placeholder="IBAN" classBinding="errors.iban.length:error"}}
+                    {{view Em.TextField valueBinding="account" placeholder="1234567891" classBinding="errors.account.length:error"}}
                 </div>
-                {{#if errors.iban }}
-                    <div class="errors">{{#each errors.iban }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-
-            <li class="control-group">
-                <label class="control-label">{% trans "BIC" %}</label>
-                <div class="controls">
-                    {{view Em.TextField valueBinding="bic" placeholder="BIC" classBinding="errors.bic.length:error"}}
-                </div>
-                {{#if errors.bic }}
-                    <div class="errors">{{#each errors.bic }}<p>{{this}}</p>{{/each}}</div>
+                {{#if errors.account }}
+                    <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 

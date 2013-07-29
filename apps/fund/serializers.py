@@ -15,7 +15,7 @@ class RecurringDirectDebitPaymentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RecurringDirectDebitPayment
-        fields = ('id', 'url', 'active', 'name', 'city', 'iban', 'bic')
+        fields = ('id', 'url', 'active', 'name', 'city', 'account')
 
 
 class OrderDonationPrimaryKeyRelatedField(serializers.RelatedField):

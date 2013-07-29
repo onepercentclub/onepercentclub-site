@@ -1,4 +1,5 @@
 import random
+from apps.fund.fields import DutchBankAccountField
 from django.conf import settings
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.signals import payment_status_changed
@@ -9,7 +10,6 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
-from django_iban.fields import SWIFTBICField, IBANField
 from djchoices import DjangoChoices, ChoiceItem
 
 
@@ -25,8 +25,7 @@ class RecurringDirectDebitPayment(models.Model):
     # Bank account.
     name = models.CharField(max_length=35)  # max_length from DocData
     city = models.CharField(max_length=35)  # max_length from DocData
-    iban = IBANField()
-    bic = SWIFTBICField()
+    account = DutchBankAccountField()
 
 
 class DonationStatuses(DjangoChoices):

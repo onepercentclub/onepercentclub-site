@@ -104,8 +104,7 @@ App.RecurringDirectDebitPayment = DS.Model.extend({
 
     name: DS.attr('string'),
     city: DS.attr('string'),
-    iban: DS.attr('string'),
-    bic: DS.attr('string')
+    account: DS.attr('string')
 });
 
 
@@ -182,6 +181,10 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             var donationsTotal = 0,
                 recurringTotal = 0;
             donations = this.get('model');
+            if (Em.isNone(donations)) {
+                // This happens sometimes when loading the donations list from a bookmark.
+                return;
+            }
             numDonations = donations.get('length');
 
             // Special setup when there's a new donation added.
@@ -528,9 +531,8 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
     },
 
     isFormReady: function() {
-        return !Em.isEmpty(this.get('name')) && !Em.isEmpty(this.get('city')) && !Em.isEmpty(this.get('iban')) &&
-               !Em.isEmpty(this.get('bic'));
-    }.property('name', 'city', 'iban', 'bic')
+        return !Em.isEmpty(this.get('name')) && !Em.isEmpty(this.get('city')) && !Em.isEmpty(this.get('account'));
+    }.property('name', 'city', 'account')
 });
 
 
