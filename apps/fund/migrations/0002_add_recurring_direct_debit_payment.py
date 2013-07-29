@@ -17,8 +17,7 @@ class Migration(SchemaMigration):
             ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=35)),
             ('city', self.gf('django.db.models.fields.CharField')(max_length=35)),
-            ('iban', self.gf('django_iban.fields.IBANField')(max_length=34)),
-            ('bic', self.gf('django_iban.fields.SWIFTBICField')(max_length=11)),
+            ('account', self.gf('apps.fund.fields.DutchBankAccountField')(max_length=10)),
         ))
         db.send_create_signal(u'fund', ['RecurringDirectDebitPayment'])
 
@@ -142,11 +141,10 @@ class Migration(SchemaMigration):
         },
         u'fund.recurringdirectdebitpayment': {
             'Meta': {'object_name': 'RecurringDirectDebitPayment'},
+            'account': ('apps.fund.fields.DutchBankAccountField', [], {'max_length': '10'}),
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'bic': ('django_iban.fields.SWIFTBICField', [], {'max_length': '11'}),
             'city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'iban': ('django_iban.fields.IBANField', [], {'max_length': '34'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -187,7 +185,8 @@ class Migration(SchemaMigration):
             'phase': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'popularity': ('django.db.models.fields.FloatField', [], {'default': '0'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'}),
-            'title': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
+            'title': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
         u'taggit.tag': {
             'Meta': {'object_name': 'Tag'},
