@@ -1,0 +1,8 @@
+This is the binary directory within the dataloader directory. Please make sure that the following binaries are present in this directory:
+
+For Linux (Java 1.6+ required):
+- Put the Salesforce Apex Dataloader version 20 JAR file in the DataLoader20\ directory for the script to work.
+
+For Windows:
+- Put all the Salesforce Apex Dataloader binaries (complete contents from the installation directory) in the DataLoader20\ directory so that DataLoader20\ApexDataLoader.exe can be called from the script.
+- Put a valid 7Zip distribution in the 7z\ directory so that 7Z\7z.exe can be called from the script

@@ -1,0 +1,13 @@
+#Mapping values
+#Mon Jul 22 10:11:21 GMT 2013
+Effort__c=Effort__c
+Title__c=Title__c
+Project__c=Project__r\:Project_External_ID__c
+Task_expertise__c=Task_expertise__c
+Extended_task_description__c=Extended_task_description__c
+Task_status__c=Task_status__c
+Location_of_the_task__c=Location_of_the_task__c
+Tags__c=Tags__c
+Task_External_ID__c=Task_External_ID__c
+Task_created_date__c=Task_created_date__c
+Deadline__c=Deadline__c

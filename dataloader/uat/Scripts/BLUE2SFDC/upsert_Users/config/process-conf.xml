@@ -1,0 +1,38 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="upsert_Users" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+		<description>Created by Jelle Terpstra</description>
+		<property name="name" value="upsert_Users"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="dataAccess.name" value="read/upsert_Users.csv"/>
+				<entry key="dataAccess.readUTF8" value="true"/>
+				<entry key="dataAccess.type" value="csvRead"/>
+				<entry key="dataAccess.writeUTF8" value="false"/>
+				<entry key="process.enableExtractSuccessOutput" value="true"/>
+				<entry key="process.enableLastRunOutput" value="true"/>
+				<entry key="process.lastRunOutputDirectory" value="log"/>
+				<entry key="process.mappingFile" value="config/upsert_Users.sdl"/>
+				<entry key="process.operation" value="upsert"/>
+				<entry key="process.statusOutputDirectory" value="log"/>
+				<entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
+				<entry key="sfdc.bulkApiSerialMode" value="5000"/>
+				<entry key="sfdc.debugMessages" value="false"/>
+				<entry key="sfdc.enableRetries" value="true"/>
+				<entry key="sfdc.endpoint" value="https://test.salesforce.com/services/Soap/u/20.0"/>
+				<entry key="sfdc.entity" value="Contact"/>
+				<entry key="sfdc.externalIdField" value="Contact_External_ID__c"/>
+				<entry key="sfdc.extractionRequestSize" value="500"/>
+				<entry key="sfdc.insertNulls" value="false"/>
+				<entry key="sfdc.loadBatchSize" value="2000"/>
+				<entry key="sfdc.maxRetries" value="3"/>
+				<entry key="sfdc.minRetrySleepSecs" value="2"/>
+				<entry key="sfdc.noCompression" value="false"/>
+				<entry key="sfdc.password" value="dbc043e1455a87473e67545058a9b08a08282661f74f0f584aa4747ce0d8f662eb06aa8f98555f5b7195d6c6a997a23df80a8187cf4eec85"/>
+				<entry key="sfdc.timeoutSecs" value="300"/>
+				<entry key="sfdc.useBulkApi" value="true"/>
+				<entry key="sfdc.username" value="jelle.terpstra@1procentclub.nl.uat"/>
+			</map>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,6 @@
+#Mapping values
+#Mon Jul 22 10:05:20 GMT 2013
+Project_Budget_External_ID__c=Project_Budget_External_ID__c
+Project__c=Project__r\:Project_External_ID__c
+Costs__c=Costs__c
+Description__c=Description__c
