@@ -245,8 +245,9 @@ class CurrentOrderMixin(object):
                 payment.postal_code = cancelled_payment.postal_code
                 payment.city = cancelled_payment.city
                 payment.country = cancelled_payment.country
+
+            payment.order = order
             payment.save()
-            order.payments.add(payment)
 
         # Create a payment if we need one.
         # We're currently only using DocData so we can directly connect the DocData payment order to the order.

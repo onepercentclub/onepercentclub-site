@@ -37,6 +37,8 @@ class Payment(PolymorphicModel):
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
+    order = models.ForeignKey('fund.Order', related_name='payments')
+
 
 class PaymentLogTypes(DjangoChoices):
     status_update = ChoiceItem('status_update', label=_("STATUS_UPDATE"))

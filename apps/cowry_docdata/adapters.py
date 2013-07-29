@@ -154,10 +154,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         return self._payment_methods
 
-    def create_payment_object(self, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
-        payment = DocDataPaymentOrder.objects.create(payment_method_id=payment_method_id,
-                                                     payment_submethod_id=payment_submethod_id,
-                                                     amount=amount, currency=currency)
+    def create_payment_object(self, order, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
+        payment = DocDataPaymentOrder(payment_method_id=payment_method_id,
+                                      payment_submethod_id=payment_submethod_id,
+                                      amount=amount, currency=currency)
+        payment.order = order
         payment.save()
         return payment
 
@@ -216,10 +217,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         billTo.name = name
 
         # Set the description if there's an order.
-        description = "1%CLUB"
-        orders = payment.orders.all()
-        if orders:
-            description = orders[0].__unicode__()[:50]
+        description = payment.order.__unicode__()[:50]
+        if not description:
+            # TODO Add a setting for default description.
+            description = "1%CLUB"
 
         if self.test:
             # A unique code for testing.
@@ -245,8 +246,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     def cancel_payment(self, payment):
         # Some preconditions.
         if not payment.payment_order_id:
-            order = payment.orders.all()[0]
-            logger.warn('Attempt to cancel payment on Order id {0} which has no payment_order_id.'.format(order.id))
+            logger.warn('Attempt to cancel payment on Order id {0} which has no payment_order_id.'.format(payment.order.id))
             return
 
         # Execute create payment order request.
@@ -287,9 +287,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Add return urls.
         if return_url_base:
-            order = payment.orders.all()[0]
-            params['return_url_success'] = return_url_base + '#/support/thanks/' + str(order.id)
-            params['return_url_pending'] = return_url_base + '#/support/thanks/' + str(order.id)
+            params['return_url_success'] = return_url_base + '#/support/thanks/' + str(payment.order.id)
+            params['return_url_pending'] = return_url_base + '#/support/thanks/' + str(payment.order.id)
             # TODO This assumes that the order is always a donation order. These Urls will be used when buying vouchers
             # TODO too which is incorrect.
             params['return_url_canceled'] = return_url_base + '#/support/donations'

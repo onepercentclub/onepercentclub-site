@@ -19,6 +19,8 @@ class DocDataPaymentInline(admin.TabularInline):
 
 class DocDataPaymentOrderAdmin(admin.ModelAdmin):
     list_display = ('created', 'amount', 'currency', 'status')
+    model = DocDataPaymentOrder
+    raw_id_fields = ('order',)
     inlines = (DocDataPaymentInline, DocDataPaymentLogEntryInine)
 
 admin.site.register(DocDataPaymentOrder, DocDataPaymentOrderAdmin)

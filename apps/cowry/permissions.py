@@ -10,7 +10,7 @@ class IsOrderCreator(permissions.BasePermission):
         if hasattr(obj, 'user'):
             order = obj
         else:
-            order = obj.orders.all()[0]
+            order = obj.order
 
         # Case 1: Authenticated user.
         if request.user.is_authenticated():
