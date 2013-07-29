@@ -273,10 +273,6 @@ LOGGING = {
             'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
             'datefmt': "%d/%b/%Y %H:%M:%S"
         },
-        'docdata-status-log': {
-            'format': "[%(asctime)s] %(levelname)s [%(filename)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
     },
     'filters': {
         'require_debug_false': {
@@ -289,25 +285,12 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'docdata-status-logfile': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': PROJECT_ROOT + "/cowrylogs/cowry-docdata-status.log",
-            'maxBytes': 1024 * 1024 * 5, # 5 MB
-            'formatter': 'docdata-status-log',
-        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
-        # This configuration is inspired by:
-        # http://stackoverflow.com/questions/5739830/simple-log-to-file-example-for-django-1-3
-        'cowry-docdata.status': {
-            'handlers': ['docdata-status-logfile'],
-            'level': 'INFO',
         },
     }
 }

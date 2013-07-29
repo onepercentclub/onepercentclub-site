@@ -1,5 +1,5 @@
 from django.conf import settings
-from .models import Payment
+from .models import Payment, PaymentStatuses
 from .signals import payment_status_changed
 
 
@@ -45,6 +45,11 @@ class AbstractPaymentAdapter(object):
         Subclasses must use this method to change statuses.
         """
         old_status = payment.status
-        payment.status = new_status
-        payment.save()
-        payment_status_changed.send(sender=Payment, instance=payment, old_status=old_status, new_status=new_status)
+        if old_status != new_status:
+            if new_status not in PaymentStatuses.values:
+                new_status = PaymentStatuses.unknown
+
+            payment.status = new_status
+            payment.save()
+
+            payment_status_changed.send(sender=Payment, instance=payment, old_status=old_status, new_status=new_status)
