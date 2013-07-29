@@ -1,0 +1,37 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="export_Organizations" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+		<description>Created by Jelle Terpstra</description>
+		<property name="name" value="export_Organizations"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="dataAccess.name" value="write/export_Organizations.csv"/>
+				<entry key="dataAccess.readUTF8" value="true"/>
+				<entry key="dataAccess.type" value="csvWrite"/>
+				<entry key="dataAccess.writeUTF8" value="false"/>
+				<entry key="process.enableExtractSuccessOutput" value="true"/>
+				<entry key="process.enableLastRunOutput" value="true"/>
+				<entry key="process.lastRunOutputDirectory" value="log"/>
+				<entry key="process.operation" value="extract"/>
+				<entry key="process.statusOutputDirectory" value="log"/>
+				<entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
+				<entry key="sfdc.bulkApiSerialMode" value="5000"/>
+				<entry key="sfdc.debugMessages" value="false"/>
+				<entry key="sfdc.enableRetries" value="true"/>
+				<entry key="sfdc.endpoint" value="https://test.salesforce.com/services/Soap/u/20.0"/>
+				<entry key="sfdc.entity" value="Account"/>
+				<entry key="sfdc.extractionRequestSize" value="500"/>
+				<entry key="sfdc.extractionSOQL" value="Select Id, IsDeleted, MasterRecordId, Name, Type, RecordTypeId, ParentId, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry, ShippingStreet, ShippingCity, ShippingState, ShippingPostalCode, ShippingCountry, Phone, Fax, AccountNumber, Website, Sic, Industry, AnnualRevenue, NumberOfEmployees, Ownership, TickerSymbol, Description, Rating, Site, OwnerId, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastActivityDate, npe01__One2OneContact__c, npe01__SYSTEMIsIndividual__c, npe01__FirstDonationDate__c, npe01__LastDonationDate__c, npe01__LifetimeDonationHistory_Amount__c, npe01__LifetimeDonationHistory_Number__c, npe01__SYSTEM_AccountType__c, Legal_status__c, E_mail_address__c, Bank_account_name__c, Bank_account_number__c, IBAN_number__c, BIC_SWIFT__c, Bankname__c, Address_bank__c, Country_bank__c, Organization_External_ID__c, Organization_created_date__c, TypeNON_MEMBER__c, X1_EVENT__c, X24_UUR_ACTIE__c, Co_Creation__c, IndustryOfOrganization__c, NumberOfEmployees__c, NumberPartnershipsOtherCompanies__c, PartnerCompanies__c, TypeOfCustomers__c, HasECommerce__c, HasFormalizedCSR__c, IsInnovative__c, HasInternationalFocus__c, PracticesSustainableBusiness__c, OffersLuxuryProducts__c, Primary_contact_name__c, Primary_contact_responsible_for__c, Acquisition_channel__c, Network__c, Partner__c, Interested_in_theme__c, Interested_in_target_group__c, End_date_partnership__c, Start_date_partnership__c, Active_partnership_contract__c FROM Account"/>
+				<entry key="sfdc.insertNulls" value="false"/>
+				<entry key="sfdc.loadBatchSize" value="2000"/>
+				<entry key="sfdc.maxRetries" value="3"/>
+				<entry key="sfdc.minRetrySleepSecs" value="2"/>
+				<entry key="sfdc.noCompression" value="false"/>
+				<entry key="sfdc.password" value="dbc043e1455a87473e67545058a9b08a08282661f74f0f584aa4747ce0d8f662eb06aa8f98555f5b7195d6c6a997a23df80a8187cf4eec85"/>
+				<entry key="sfdc.timeoutSecs" value="300"/>
+				<entry key="sfdc.useBulkApi" value="true"/>
+				<entry key="sfdc.username" value="jelle.terpstra@1procentclub.nl.uat"/>
+			</map>
+		</property>
+	</bean>
+</beans>
