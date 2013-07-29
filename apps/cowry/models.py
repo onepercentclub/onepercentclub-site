@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import Truncator
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
@@ -35,3 +36,43 @@ class Payment(PolymorphicModel):
 
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
+
+    order = models.ForeignKey('fund.Order', related_name='payments')
+
+
+class PaymentLogTypes(DjangoChoices):
+    status_update = ChoiceItem('status_update', label=_("STATUS_UPDATE"))
+    status_change = ChoiceItem('status_change', label=_("STATUS_CHANGE"))
+
+
+class PaymentLogLevels(DjangoChoices):
+    info = ChoiceItem('info', label=_("INFO"))
+    warn = ChoiceItem('warn', label=_("WARN"))
+    error = ChoiceItem('error', label=_("ERROR"))
+
+
+# TODO: Add fields for: source file, source line number, source version, IP
+class PaymentLogEntry(models.Model):
+    message = models.CharField(max_length=200)
+    level = models.CharField(max_length=15, choices=PaymentLogLevels.choices)
+    type = models.CharField(max_length=15, choices=PaymentLogTypes.choices)
+    timestamp = ModificationDateTimeField()
+    # TODO: Enable when not abstract.
+    # payment = models.ForeignKey(Payment, related_name='log_entries')
+
+    class Meta:
+        # TODO: This shouldn't be abstract but for various reasons it's harder to deal with in the admin.
+        abstract = True
+        ordering = ('-timestamp',)
+        verbose_name = _("Payment Log")
+        verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        # TODO: Hide __unicode__() output in TabularAdmin for instead of returning an empty string.
+        # http://stackoverflow.com/questions/5086537/how-to-omit-object-name-from-djangos-tabularinline-admin-view
+        # return '{0}: {1}'.format(self.get_message_type_display(), Truncator(self.message).words(5))
+        return ''
+
+    def log_entry(self):
+        return '[{0}]  {1: <5}  {2 <5}  {3}'.format(self.timestamp.strftime("%d/%b/%Y %H:%M:%S"),
+                                                    self.get_type_display(), self.get_level_display(), self.message)

@@ -1,4 +1,4 @@
-from apps.cowry.models import Payment
+from apps.cowry.models import Payment, PaymentLogEntry
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
@@ -25,9 +25,15 @@ class DocDataPaymentOrder(Payment):
 
     @property
     def latest_docdata_payment(self):
-        if self.docdata_payments.count() != 0:
+        if self.docdata_payments.count() > 0:
             return self.docdata_payments.order_by('-created').all()[0]
         return None
+
+    def __unicode__(self):
+        if self.payment_order_id:
+            return self.payment_order_id
+        else:
+            return 'NEW'
 
 
 class DocDataPayment(PolymorphicModel):
@@ -43,9 +49,12 @@ class DocDataPayment(PolymorphicModel):
     docdata_payment_order = models.ForeignKey(DocDataPaymentOrder, related_name='docdata_payments')
     payment_id = models.CharField(_("payment id"), max_length=100, default='', blank=True)
     # This is the payment method id from DocData (e.g. IDEAL, MASTERCARD, etc)
-    docdata_payment_method = models.CharField(max_length=20, default='', blank=True)
+    payment_method = models.CharField(max_length=60, default='', blank=True)
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
+
+    def __unicode__(self):
+        return self.payment_id
 
 
 class DocDataWebDirectDirectDebit(DocDataPayment):
@@ -53,3 +62,11 @@ class DocDataWebDirectDirectDebit(DocDataPayment):
     bank_account_name = models.CharField(max_length=100, default='', blank=True)
     bank_account_city = models.CharField(max_length=100, default='', blank=True)
 
+
+# TODO: Remove and use only PaymentLogEntry.
+class DocDataPaymentLogEntry(PaymentLogEntry):
+    docdata_payment_order = models.ForeignKey(DocDataPaymentOrder, related_name='log_entries')
+
+    class Meta:
+        verbose_name = _("DocData Payment Log")
+        verbose_name_plural = verbose_name

@@ -56,10 +56,6 @@ reports
 # Espresso
 *.esproj
 
-# Cowry DocData
-/cowrylogs/*
-!/cowrylogs/.gitkeep
-
 # Salesforce Dataloader
 !**/.gitkeep
 /dataloader/prd/Bin/DataLoader20/*
@@ -73,3 +69,5 @@ reports
 /dataloader/*/*/Output/
 
 static/global/compass_app_log.txt
+
+ghostdriver.log

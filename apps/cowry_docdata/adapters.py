@@ -2,17 +2,16 @@
 import logging
 from urllib2 import URLError
 from apps.cowry.adapters import AbstractPaymentAdapter
-from apps.cowry.models import PaymentStatuses
+from apps.cowry.models import PaymentStatuses, PaymentLogTypes, PaymentLogLevels
 from django.conf import settings
 from django.utils.http import urlencode
 from django.utils import timezone
 from suds.client import Client
 from suds.plugin import MessagePlugin
 from .exceptions import DocDataPaymentException
-from .models import DocDataPaymentOrder, DocDataPayment
+from .models import DocDataPaymentOrder, DocDataPayment, DocDataPaymentLogEntry
 
-status_logger = logging.getLogger('cowry-docdata.status')
-payment_logger = logging.getLogger('cowry-docdata.payment')
+logger = logging.getLogger(__name__)
 
 
 # These defaults can be overridden with the COWRY_PAYMENT_METHODS setting.
@@ -59,6 +58,16 @@ default_payment_methods = {
         'supports_recurring': True,
     }
 }
+
+
+def log_status_update(payment, level, message):
+    log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level=level, message=message, type=PaymentLogTypes.status_update)
+    log_entry.save()
+
+
+def log_status_change(payment, level, message):
+    log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level=level, message=message, type=PaymentLogTypes.status_change)
+    log_entry.save()
 
 
 class DocDataAPIVersionPlugin(MessagePlugin):
@@ -108,7 +117,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
         except URLError as e:
             self.client = None
-            payment_logger.warn('Could not connect to DocData: ' + str(e))
+            logger.warn('Could not connect to DocData: ' + str(e))
         else:
             # Setup the merchant soap object for use in all requests.
             self.merchant = self.client.factory.create('ns0:merchant')
@@ -145,10 +154,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         return self._payment_methods
 
-    def create_payment_object(self, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
-        payment = DocDataPaymentOrder.objects.create(payment_method_id=payment_method_id,
-                                                     payment_submethod_id=payment_submethod_id,
-                                                     amount=amount, currency=currency)
+    def create_payment_object(self, order, payment_method_id='', payment_submethod_id='', amount=0, currency=''):
+        payment = DocDataPaymentOrder(payment_method_id=payment_method_id,
+                                      payment_submethod_id=payment_submethod_id,
+                                      amount=amount, currency=currency)
+        payment.order = order
         payment.save()
         return payment
 
@@ -207,10 +217,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         billTo.name = name
 
         # Set the description if there's an order.
-        description = "1%CLUB"
-        orders = payment.orders.all()
-        if orders:
-            description = orders[0].__unicode__()[:50]
+        description = payment.order.__unicode__()[:50]
+        if not description:
+            # TODO Add a setting for default description.
+            description = "1%CLUB"
 
         if self.test:
             # A unique code for testing.
@@ -236,8 +246,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     def cancel_payment(self, payment):
         # Some preconditions.
         if not payment.payment_order_id:
-            order = payment.orders.all()[0]
-            payment_logger.warn('Attempt to cancel payment on Order id {0} which no payment_order_id.'.format(order.id))
+            logger.warn('Attempt to cancel payment on Order id {0} which has no payment_order_id.'.format(payment.order.id))
             return
 
         # Execute create payment order request.
@@ -278,9 +287,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Add return urls.
         if return_url_base:
-            order = payment.orders.all()[0]
-            params['return_url_success'] = return_url_base + '#/support/thanks/' + str(order.id)
-            params['return_url_pending'] = return_url_base + '#/support/thanks/' + str(order.id)
+            params['return_url_success'] = return_url_base + '#/support/thanks/' + str(payment.order.id)
+            params['return_url_pending'] = return_url_base + '#/support/thanks/' + str(payment.order.id)
             # TODO This assumes that the order is always a donation order. These Urls will be used when buying vouchers
             # TODO too which is incorrect.
             params['return_url_canceled'] = return_url_base + '#/support/donations'
@@ -316,18 +324,17 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             report = reply['statusSuccess']['report']
         elif hasattr(reply, 'statusError'):
             error = reply['statusError']['error']
-            status_logger.error("{0}: {1} {2}".format(payment.payment_order_id, error['_code'], error['value']))
+            log_status_update(payment, PaymentLogLevels.error, "{1} {2}".format(error['_code'], error['value']))
             return
         else:
-            status_logger.error(
-                "{0}: REPLY_ERROR Received unknown status reply from DocData.".format(payment.payment_order_id))
+            log_status_update(payment, PaymentLogLevels.error,
+                              "REPLY_ERROR Received unknown status reply from DocData.")
             return
 
         if not hasattr(report, 'payment'):
             if status_changed_notification:
-                status_logger.warn(
-                    "{0}: Status changed notification received but status report had no payment reports.".format(
-                        payment.payment_order_id))
+                log_status_update(payment, PaymentLogLevels.warn,
+                                  "Status changed notification received but status report had no payment reports.")
             return
 
         statusChanged = False
@@ -344,8 +351,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 elif ddpayment_list_len == 1:
                     ddpayment = ddpayment_list[0]
                 else:
-                    status_logger.error(
-                        "{0}: Cannot determine where to save the payment report.".format(payment.payment_order_id))
+                    log_status_update(payment, PaymentLogLevels.error,
+                                      "Cannot determine where to save the payment report.")
                     continue
 
                 # Save some information from the report.
@@ -355,34 +362,32 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.docdata_payment_method:
-                status_logger.warn("{0}: Payment method from DocData doesn't match saved payment method.".format(
-                    payment.payment_order_id))
-                status_logger.warn(
-                    "{0}: Storing the payment method received from DocData for payment id {1}: {2}".format(
-                        payment.payment_order_id, ddpayment.payment_id, payment_report.paymentMethod))
+                log_status_update(payment, PaymentLogLevels.warn,
+                                  "Payment method from DocData doesn't match saved payment method." \
+                                  "Storing the payment method received from DocData for payment id {0}: {1}".format(
+                                      ddpayment.payment_id, payment_report.paymentMethod))
                 ddpayment.docdata_payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
             if not payment_report.authorization.status in DocDataPayment.statuses:
                 # Note: We continue to process the payment status change on this error.
-                status_logger.error(
-                    "{0}: Received unknown payment status from DocData: {1}".format(payment.payment_order_id,
-                                                                                    payment_report.authorization.status))
+                log_status_update(payment, PaymentLogLevels.error,
+                                  "Received unknown payment status from DocData: {0}".format(
+                                      payment_report.authorization.status))
 
             # Update the DocDataPayment status.
             if ddpayment.status != payment_report.authorization.status:
-                status_logger.info("{0}: DocData payment status changed for payment id {1}: {2} -> {3}".format(
-                    payment.payment_order_id, payment_report.id, ddpayment.status,
-                    payment_report.authorization.status))
+                log_status_change(payment, PaymentLogLevels.info,
+                                  "DocData payment status changed for payment id {0}: {1} -> {2}".format(
+                                      payment_report.id, ddpayment.status, payment_report.authorization.status))
                 ddpayment.status = str(payment_report.authorization.status)
                 ddpayment.save()
                 statusChanged = True
 
         # Log a warning if we've received a status change notification and have no status changes.
         if status_changed_notification and not statusChanged:
-            status_logger.warn(
-                "{0}: Status changed notification received but no payment status change detected.".format(
-                    payment.payment_order_id))
+            log_status_update(payment, PaymentLogLevels.warn,
+                              "Status changed notification received but no payment status change detected.")
             return
 
         # Use the latest DocDataPayment status to set the status on the Cowry Payment.
@@ -395,37 +400,41 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         old_status = payment.status
         new_status = self._map_status(latest_ddpayment.status, report.approximateTotals,
                                       latest_payment_report.authorization)
-        if old_status != new_status:
-            status_logger.info("{0}: Payment status changed {1} -> {2}".format(
-                payment.payment_order_id,
-                old_status,
-                new_status))
 
+        # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
+        if old_status != new_status:
             if new_status not in PaymentStatuses.values:
-                new_status = PaymentStatuses.unknown
-            self._change_status(payment, new_status)  # Note: change_status calls payment.save().
+                log_status_change(payment, PaymentLogLevels.warn,
+                                  "Payment status changed {1} -> {2}".format(old_status, PaymentStatuses.unknown))
+            else:
+                log_status_change(payment, PaymentLogLevels.info,
+                                  "Payment status changed {1} -> {2}".format(old_status, new_status))
+
+        self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
     def _map_status(self, status, totals=None, authorization=None):
         return super(DocdataPaymentAdapter, self)._map_status(status)
 
-        # TODO Use status change log to investigate if these overrides are needed.
-        # Some status mapping overrides.
-
-        # Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 33:
-        # Safe route: The safest route to check whether all payments were made is for the merchants
-        # to refer to the “Total captured” amount to see whether this equals the “Total registered
-        # amount”. While this may be the safest indicator, the downside is that it can sometimes take a
-        # long time for acquirers or shoppers to actually have the money transferred and it can be
-        # captured.
-        # if totals.totalRegistered == totals.totalCaptured:
-        #     new_status = 'paid'
-
-        # These overrides are really just guessing.
-        # latest_capture = authorization.capture[-1]
-        # if status == 'AUTHORIZED':
-        #     if hasattr(authorization, 'refund') or hasattr(authorization, 'chargeback'):
-        #         new_status = 'cancelled'
-        #     if latest_capture.status == 'FAILED' or latest_capture == 'ERROR':
-        #         new_status = 'failed'
-        #     elif latest_capture.status == 'CANCELLED':
-        #         new_status = 'cancelled'
+    # TODO Use status change log to investigate if these overrides are needed.
+    #     super(DocdataPaymentAdapter, self)._map_status(status)
+    #
+    #     # Some status mapping overrides.
+    #
+    #     # Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 33:
+    #     # Safe route: The safest route to check whether all payments were made is for the merchants
+    #     # to refer to the “Total captured” amount to see whether this equals the “Total registered
+    #     # amount”. While this may be the safest indicator, the downside is that it can sometimes take a
+    #     # long time for acquirers or shoppers to actually have the money transferred and it can be
+    #     # captured.
+    #     if totals.totalRegistered == totals.totalCaptured:
+    #         new_status = 'paid'
+    #
+    #     # These overrides are really just guessing.
+    #     latest_capture = authorization.capture[-1]
+    #     if status == 'AUTHORIZED':
+    #         if hasattr(authorization, 'refund') or hasattr(authorization, 'chargeback'):
+    #             new_status = 'cancelled'
+    #         if latest_capture.status == 'FAILED' or latest_capture == 'ERROR':
+    #             new_status = 'failed'
+    #         elif latest_capture.status == 'CANCELLED':
+    #             new_status = 'cancelled'

@@ -1,5 +1,6 @@
 import requests
 from apps.cowry import factory, payments
+from apps.fund.models import Order
 from django.conf import settings
 from django.test.testcases import TestCase
 from django.test.utils import override_settings
@@ -24,7 +25,9 @@ class DocDataPaymentTests(TestCase):
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_basic_payment(self):
         # Create the payment.
-        payment = factory.create_payment_object('dd-creditcard', amount=2000, currency='EUR')
+        order = Order()
+        order.save()
+        payment = factory.create_payment_object(order, 'dd-creditcard', amount=2000, currency='EUR')
         payment.country = 'NL'
         payment.city = 'Amsterdam'
         payment.address = 'Dam'

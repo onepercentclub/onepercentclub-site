@@ -27,9 +27,9 @@ def _adapter_for_payment_method(payment_method_id):
     raise PaymentMethodNotFound(payment_method_id)
 
 
-def create_payment_object(payment_method_id, payment_submethod='', amount='', currency=''):
+def create_payment_object(order, payment_method_id, payment_submethod='', amount='', currency=''):
     adapter = _adapter_for_payment_method(payment_method_id)
-    payment = adapter.create_payment_object(payment_method_id, payment_submethod, amount, currency)
+    payment = adapter.create_payment_object(order, payment_method_id, payment_submethod, amount, currency)
     payment.save()
     return payment
 

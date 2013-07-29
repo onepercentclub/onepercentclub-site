@@ -1,3 +1,4 @@
+from apps.cowry_docdata.models import DocDataPaymentOrder
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -12,9 +13,7 @@ class DonationAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', 'project')
     readonly_fields = ('donation_type', 'amount', 'currency', 'view_order')
     fields = readonly_fields + ('status', 'user', 'project')
-    search_fields = (
-        'user__first_name', 'user__last_name', 'project__title'
-    )
+    search_fields = ('user__first_name', 'user__last_name', 'project__title')
 
     def view_order(self, obj):
         donation_type = ContentType.objects.get_for_model(obj)
@@ -28,20 +27,28 @@ class DonationAdmin(admin.ModelAdmin):
 admin.site.register(Donation, DonationAdmin)
 
 
+class DocDataPaymentOrderInline(admin.TabularInline):
+    model = DocDataPaymentOrder
+    extra = 0
+    max_num = 0
+    fields = ('payment', 'currency', 'amount', 'status',)
+    readonly_fields = fields
+
+    def payment(self, obj):
+        url = reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.module_name), args=[obj.id])
+        return "<a href='%s'>%s</a>" % (str(url), obj)
+
+    payment.allow_tags = True
+
+
 class OrderAdmin(admin.ModelAdmin):
     model = Order
     list_filter = ('status', 'recurring')
     list_display = ('created', 'total', 'status', 'recurring')
-    raw_id_fields = ('user', )
-    readonly_fields = ('recurring', 'view_payment')
+    raw_id_fields = ('user',)
+    readonly_fields = ('recurring',)
     fields = readonly_fields + ('user', 'status')
-
-    def view_payment(self, obj):
-        payment = obj.payments.get()
-        url = reverse('admin:%s_%s_change' %(payment._meta.app_label,  payment._meta.module_name),  args=[payment.id])
-        return "<a href='%s'>View Payment</a>" % (str(url))
-
-    view_payment.allow_tags = True
+    inlines = (DocDataPaymentOrderInline,)
 
 admin.site.register(Order, OrderAdmin)
 

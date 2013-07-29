@@ -15,11 +15,10 @@ class PaymentSerializer(serializers.ModelSerializer):
     status = serializers.ChoiceField(read_only=True)
 
     def get_available_payment_methods(self, payment):
-        order = payment.orders.all()[0]
         # Using 'payment.country' like this assumes that payment is a DocDataPaymentOrder.
         assert isinstance(payment, DocDataPaymentOrder)
         return factory.get_payment_method_ids(amount=payment.amount, currency=payment.currency, country=payment.country,
-                                              recurring=order.recurring)
+                                              recurring=payment.order.recurring)
 
     def get_payment_url(self, payment):
         if payment.payment_method_id:
