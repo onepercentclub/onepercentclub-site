@@ -58,15 +58,15 @@ reports
 
 # Salesforce Dataloader
 !**/.gitkeep
-/salesforce/dataloader_prd/Bin/DataLoader20/*
-/salesforce/dataloader_uat/Bin/DataLoader20/*
-/salesforce/*/*/*/*/read/
-/salesforce/*/*/*/*/write/
-/salesforce/*/*/*/*/log/
-/salesforce/*/*/*/log/
-/salesforce/*/*/*/archive/
-/salesforce/*/Data/Input/*
-/salesforce/*/Data/Output/*
+salesforce/dataloader_prd/Bin/DataLoader20/*
+salesforce/dataloader_uat/Bin/DataLoader20/*
+salesforce/*/*/*/*/read/
+salesforce/*/*/*/*/write/
+salesforce/*/*/*/*/log/
+salesforce/*/*/*/log/
+salesforce/*/*/*/archive/
+salesforce/*/Data/Input/*
+salesforce/*/Data/Output/*
 
 static/global/compass_app_log.txt
 
