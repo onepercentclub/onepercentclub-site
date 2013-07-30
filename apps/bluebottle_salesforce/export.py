@@ -2,7 +2,6 @@ import csv
 import logging
 import os
 from django.utils import timezone
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, OrderItem
 from apps.organizations.models import Organization, OrganizationAddress
@@ -15,13 +14,13 @@ logger = logging.getLogger(__name__)
 # TODO get field names from model for csv header from SalesforceDonation._meta.fields
 
 
-def generate_organizations_csv_file(loglevel):
+def generate_organizations_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
 
     filename = 'BLUE2SFDC_Organizations_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
-    with open(os.path.join(settings.PROJECT_ROOT, filename), 'wb') as csv_outfile:
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Organization_External_Id__c", "Name", "Legal_status__c", "Description", "BillingCity",
@@ -89,20 +88,21 @@ def generate_organizations_csv_file(loglevel):
     return success_count, error_count
 
 
-def generate_users_csv_file(loglevel):
+def generate_users_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
 
     filename = 'BLUE2SFDC_Users_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
-    with open(os.path.join(settings.PROJECT_ROOT, filename), 'wb') as csv_outfile:
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Contact_External_Id__c", "Category1__c", "FirstName", "LastName", "Gender__c",
                             "Username__c", "Active__c", "Deleted__c", "Member_since__c", "Why_onepercent_member__c",
                             "About_me_us__c", "Location__c", "Birthdate", "Email", "Website__c", "MailingCity",
                             "MailingStreet", "MailingCountry", "MailingPostalCode", "MailingState",
-                            "Receive_newsletter__c", "Primary_language__c"])
+                            "Receive_newsletter__c", "Primary_language__c", "Available_to_share_time_and_knowledge__c",
+                            "Available_to_donate__c", "Availability__c"])
 
         users = BlueBottleUser.objects.all()
 
@@ -145,6 +145,10 @@ def generate_users_csv_file(loglevel):
                 if user.date_joined:
                     date_joined = user.date_joined.date()
 
+                availability = ""
+                if user.availability:
+                    availability = BlueBottleUser.Availability.values[user.availability].title()
+
                 csvwriter.writerow([user.id,
                                     BlueBottleUser.UserType.values[user.user_type].title(),
                                     user.first_name.encode("utf-8"),
@@ -166,7 +170,10 @@ def generate_users_csv_file(loglevel):
                                     mailing_postal_code.encode("utf-8"),
                                     mailing_state.encode("utf-8"),
                                     user.newsletter,
-                                    user.primary_language.encode("utf-8")])
+                                    user.primary_language.encode("utf-8"),
+                                    user.share_time_knowledge,
+                                    user.share_money,
+                                    availability])
                 success_count += 1
             except Exception as e:
                 error_count += 1
@@ -175,13 +182,13 @@ def generate_users_csv_file(loglevel):
     return success_count, error_count
 
 
-def generate_projects_csv_file(loglevel):
+def generate_projects_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
 
     filename = 'BLUE2SFDC_Projects_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
-    with open(os.path.join(settings.PROJECT_ROOT, filename), 'wb') as csv_outfile:
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Project_External_ID__c", "Project_name__c", "Project_Owner__c", "Status_project__c",
@@ -252,13 +259,13 @@ def generate_projects_csv_file(loglevel):
     return success_count, error_count
 
 
-def generate_projectbudgetlines_csv_file(loglevel):
+def generate_projectbudgetlines_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
 
     filename = 'BLUE2SFDC_Projectbudgetlines_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
-    with open(os.path.join(settings.PROJECT_ROOT, filename), 'wb') as csv_outfile:
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Project_Budget_External_ID__c", "Project__c", "Costs__c", "Description__c"])
@@ -281,13 +288,13 @@ def generate_projectbudgetlines_csv_file(loglevel):
     return success_count, error_count
 
 
-def generate_donations_csv_file(loglevel):
+def generate_donations_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
 
     filename = 'BLUE2SFDC_Donations_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
-    with open(os.path.join(settings.PROJECT_ROOT, filename), 'wb') as csv_outfile:
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Donation_External_ID__c", "Receiver__c", "Project__c", "Amount", "CloseDate", "Name",
@@ -341,13 +348,13 @@ def generate_donations_csv_file(loglevel):
     return success_count, error_count
 
 
-def generate_vouchers_csv_file(loglevel):
+def generate_vouchers_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
 
     filename = 'BLUE2SFDC_Vouchers_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
-    with open(os.path.join(settings.PROJECT_ROOT, filename), 'wb') as csv_outfile:
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Voucher_External_ID__c", "Purchaser__c", "Amount", "CloseDate", "Name", "Description",
@@ -381,13 +388,13 @@ def generate_vouchers_csv_file(loglevel):
     return success_count, error_count
 
 
-def generate_tasks_csv_file(loglevel):
+def generate_tasks_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
 
     filename = 'BLUE2SFDC_Tasks_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
-    with open(os.path.join(settings.PROJECT_ROOT, filename), 'wb') as csv_outfile:
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Task_External_ID__c", "Project__c", "Deadline__c", "Effort__c",
@@ -424,13 +431,13 @@ def generate_tasks_csv_file(loglevel):
     return success_count, error_count
 
 
-def generate_taskmembers_csv_file(loglevel):
+def generate_taskmembers_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
     success_count = 0
 
     filename = 'BLUE2SFDC_Taskmembers_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
-    with open(os.path.join(settings.PROJECT_ROOT, filename), 'wb') as csv_outfile:
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Task_Member_External_ID__c", "Contacts__c", "X1_CLUB_Task__c"])

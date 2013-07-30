@@ -127,6 +127,11 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         else:
             contact.gender = ""
 
+        if user.availability:
+            contact.availability = BlueBottleUser.Availability.values[user.availability].title()
+        else:
+            contact.availability = ""
+
         contact.user_name = user.username
         contact.is_active = user.is_active
         contact.close_date = user.deleted
@@ -135,10 +140,8 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         contact.about_me_us = user.about
         contact.location = user.location
         contact.birth_date = user.birthdate
-        # TODO: check field contact.available_time = user.available_time ?
-        # contact.which_1_would_you_like_to_contribute =
-        # TODO: contact.tags - should be copied? - 20130530 - discussed with Suzanne, check with Liane
-        # contact.tags = user.tags.get()
+        contact.available_to_share_time_and_knowledge = user.share_time_knowledge
+        contact.available_to_donate = user.share_money
 
         # SF Layout: Contact Information section.
         contact.email = user.email
@@ -181,34 +184,6 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         # SF Layout: My Settings section.
         contact.receive_newsletter = user.newsletter
         contact.primary_language = user.primary_language
-
-        # TODO: contact expertise on website by web-team (20130530)
-        #contact.administration_finance =
-        #contact.agriculture_environment
-        #contact.architecture
-        #contact.computer_ict
-        #contact.design
-        #contact.economy_business
-        #contact.education
-        #contact.fund_raising
-        #contact.graphic_design
-        #contact.health
-        #contact.internet_research
-        #contact.law_and_politics
-        #contact.marketing_pr
-        #contact.online_marketing
-        #contact.photo_video
-        #contact.physics_technique
-        #contact.presentations
-        #contact.project_management
-        #contact.psychology
-        #contact.social_work
-        #contact.sport_and_development
-        #contact.tourism
-        #contact.trade_transport
-        #contact.translating_writing
-        #contact.web_development
-        #contact.writing_proposals
 
         # SF: Other
         contact.external_id = user.id

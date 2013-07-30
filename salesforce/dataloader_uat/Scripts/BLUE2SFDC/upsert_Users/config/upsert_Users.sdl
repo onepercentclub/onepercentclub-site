@@ -22,3 +22,6 @@ Email=Email
 MailingStreet=MailingStreet
 MailingCity=MailingCity
 Category1__c=Category1__c
+Available_to_donate__c=Available_to_donate__c
+Available_to_share_time_and_knowledge__c=Available_to_share_time_and_knowledge__c
+Availability__c=Availability__c
