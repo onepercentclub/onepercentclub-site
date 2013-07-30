@@ -428,14 +428,32 @@ App.MyProjectPlanController = Em.ObjectController.extend(App.Editable, {
 
 });
 
-App.MyProjectPlanBasicsController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanDescriptionController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPlanBasicsController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.description'
+});
+App.MyProjectPlanDescriptionController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.location'
+});
+App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.media'
+});
 App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanCampaignController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.organisation'
+});
+App.MyProjectPlanCampaignController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.budget'
+});
 
 App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable, {
+    nextStep: function(){
+        if (this.get('need') == 'skills') {
+            return 'myProjectPlan.submit'
+        } else {
+            return 'myProjectPlan.campaign'
+        }
+    }.property('need'),
+
     shouldSave: function(){
         // Determine if any part is dirty, project plan or any of the ambassadors
         if (this.get('isDirty')) {
@@ -466,6 +484,8 @@ App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable
 });
 
 App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editable, {
+
+    nextStep: 'myProjectPlan.legal',
 
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses
@@ -537,6 +557,8 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
 
 App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
 
+    nextStep: 'myProjectPlan.submit',
+
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses
         if (this.get('isDirty')) {
@@ -552,6 +574,8 @@ App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
 
 
 App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
+
+    nextStep: 'myProjectPlan.bank',
 
     shouldSave: function(){
         // Determine if any part is dirty, project plan or any of the budget_lines
@@ -584,6 +608,8 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
 
 
 App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
+
+    nextStep: 'myProjectPlan.ambassadors',
 
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses

@@ -63,11 +63,10 @@ msgstr ""
 #: base.html:128
 #, fuzzy, python-format
 msgid "What is 1%%"
-msgstr "Wat is 1%"
+msgstr "Wat is 1%%"
 
 #: base.html:129 base.html.py:292
-#, fuzzy, python-format
-msgid "1%%Projects"
+msgid "1%Projects"
 msgstr "1%Projecten"
 
 #: base.html:130

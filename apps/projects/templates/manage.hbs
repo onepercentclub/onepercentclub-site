@@ -298,14 +298,16 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         <em {{bindAttr class="organization.validProfile:is-finished:is-unfinished"}}></em>
                         {% trans "Organisation Profile" %}
                     {{/linkTo}}
-                    {{#linkTo "myProjectPlan.legal"}}
-                        <em {{bindAttr class="organization.validLegalStatus:is-finished:is-unfinished"}}></em>
-                        {% trans "Legal Status" %}
-                    {{/linkTo}}
-                    {{#linkTo "myProjectPlan.ambassadors"}}
-                        <em {{bindAttr class="validAmbassadors:is-finished:is-unfinished"}}></em>
-                        {% trans "Ambassadors" %}
-                    {{/linkTo}}
+                    {{#if organization}}
+                        {{#linkTo "myProjectPlan.legal"}}
+                            <em {{bindAttr class="organization.validLegalStatus:is-finished:is-unfinished"}}></em>
+                            {% trans "Legal Status" %}
+                        {{/linkTo}}
+                        {{#linkTo "myProjectPlan.ambassadors"}}
+                            <em {{bindAttr class="validAmbassadors:is-finished:is-unfinished"}}></em>
+                            {% trans "Ambassadors" %}
+                        {{/linkTo}}
+                    {{/if}}
                 </div>
 
                 {{#if needsFunding}}
@@ -324,10 +326,12 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                             <em {{bindAttr class="validBudget:is-finished:is-unfinished"}}></em>
                             {% trans "Budget" %}
                         {{/linkTo}}
-                        {{#linkTo "myProjectPlan.bank"}}
-                            <em {{bindAttr class="organization.validBank:is-finished:is-unfinished"}}></em>
-                            {% trans "Bank details" %}
-                        {{/linkTo}}
+                        {{#if organization}}
+                            {{#linkTo "myProjectPlan.bank"}}
+                                <em {{bindAttr class="organization.validBank:is-finished:is-unfinished"}}></em>
+                                {% trans "Bank details" %}
+                            {{/linkTo}}
+                        {{/if}}
                     </div>
                 {{/if}}
 
@@ -514,7 +518,8 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+
+    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
@@ -585,7 +590,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
@@ -620,7 +625,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
@@ -656,7 +661,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             </li>
         </ul>
     </fieldset>
-    <button {{bindAttr class=":btn :btn-iconed isDirty::disabled :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed isDirty::disabled :right"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
@@ -844,7 +849,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </li>
             </ul>
         </fieldset>
-        <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+        <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
     {{else}}
         <fieldset>
             <ul>
@@ -926,7 +931,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
@@ -999,7 +1004,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
@@ -1113,7 +1118,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                 </li>
             </ul>
         </fieldset>
-        <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+        <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
     {{else}}
         {{#if organization}}
@@ -1166,7 +1171,7 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
@@ -1231,7 +1236,7 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
@@ -1457,7 +1462,7 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :right isDirty::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 
