@@ -6,12 +6,13 @@ from apps.cowry_docdata.tests import run_docdata_tests
 from django.test import TestCase
 from django.test.client import Client
 from django.utils import unittest
+from django.utils import timezone
 from django.test.utils import override_settings
 from apps.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin
 from apps.projects.models import Project
 from rest_framework import status
-from ..models import Order, OrderStatuses, DonationStatuses
+from ..models import Order, OrderStatuses, DonationStatuses, RecurringDirectDebitPayment
 
 
 class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
@@ -552,3 +553,27 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 #         self.some_voucher_data['sender_email'] = None
 #         response = self.client.post(self.current_vouchers_url, self.some_voucher_data)
 #         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
+
+class RecurringPaymentTest(UserTestsMixin, TestCase):
+    def setUp(self):
+        self.user = self.create_user()
+
+    def test_post_save_disabled(self):
+        recurring_payment = RecurringDirectDebitPayment(user=self.user, active=True, name="ABC", city="DEF", account=123)
+        recurring_payment.save()
+
+        self.assertTrue(recurring_payment.active)
+        self.user.deleted = timezone.now()
+        self.user.save()
+        recurring_payment = RecurringDirectDebitPayment.objects.get(user=self.user)
+        self.assertFalse(recurring_payment.active)
+
+    def test_post_delete_removed(self):
+        recurring_payment = RecurringDirectDebitPayment(user=self.user, active=True, name="GHI", city="JKL", account=456)
+        recurring_payment.save()
+
+        self.assertTrue(recurring_payment.active)
+        self.user.delete()
+        recurring_payment = RecurringDirectDebitPayment.objects.filter(user=self.user)
+        self.assertEqual(len(recurring_payment), 0)

@@ -146,8 +146,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         # Click on the NEXT button
 
         self.browser.find_by_css('button.btn.right').first.click()
-        self.assertTrue(self.browser.is_text_present('You\'re Almost there!',
-                                                     wait_time=10))
+        self.assertTrue(self.browser.is_text_present('You\'re almost there!', wait_time=10))
         
         # Proceed with the payment
 
