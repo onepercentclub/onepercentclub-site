@@ -71,3 +71,7 @@ salesforce/*/Data/Output/*
 static/global/compass_app_log.txt
 
 ghostdriver.log
+
+static/global/compass_app_log.txt
+
+static/global/css/screen.css
