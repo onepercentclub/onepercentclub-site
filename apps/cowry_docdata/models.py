@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from django_countries import CountryField
+from django_iban.fields import IBANField, SWIFTBICField
 from polymorphic import PolymorphicModel
 
 
@@ -58,9 +59,10 @@ class DocDataPayment(PolymorphicModel):
 
 
 class DocDataWebDirectDirectDebit(DocDataPayment):
-    bank_account_number = models.CharField(max_length=10, default='', blank=True)
-    bank_account_name = models.CharField(max_length=100, default='', blank=True)
-    bank_account_city = models.CharField(max_length=100, default='', blank=True)
+    account_name = models.CharField(max_length=35)  # max_length from DocData
+    account_city = models.CharField(max_length=35)  # max_length from DocData
+    iban = IBANField()
+    bic = SWIFTBICField()
 
 
 # TODO: Remove and use only PaymentLogEntry.
