@@ -1,16 +1,18 @@
 import random
-from apps.fund.fields import DutchBankAccountField
+from apps.accounts.models import BlueBottleUser
 from django.conf import settings
-from apps.cowry.models import PaymentStatuses, Payment
-from apps.cowry.signals import payment_status_changed
-from apps.fund.mails import mail_new_voucher
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
+from apps.cowry.models import PaymentStatuses, Payment
+from apps.cowry.signals import payment_status_changed
+from .fields import DutchBankAccountField
+from .mails import mail_new_voucher
 
 
 class RecurringDirectDebitPayment(models.Model):
@@ -26,6 +28,25 @@ class RecurringDirectDebitPayment(models.Model):
     name = models.CharField(max_length=35)  # max_length from DocData
     city = models.CharField(max_length=35)  # max_length from DocData
     account = DutchBankAccountField()
+
+
+@receiver(post_save, weak=False, sender=BlueBottleUser)
+def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwargs):
+    if created:
+        return
+
+    if hasattr(instance, 'recurringdirectdebitpayment')and instance.deleted:
+        recurring_payment = instance.recurringdirectdebitpayment
+        recurring_payment.active = False
+        recurring_payment.save()
+
+
+@receiver(post_delete, weak=False, sender=BlueBottleUser)
+def cancel_recurring_payment_user_delete(sender, instance, **kwargs):
+
+    if hasattr(instance, 'recurringdirectdebitpayment'):
+        recurring_payment = instance.recurringdirectdebitpayment
+        recurring_payment.delete()
 
 
 class DonationStatuses(DjangoChoices):

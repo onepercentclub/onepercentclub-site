@@ -261,8 +261,23 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
 
     updateDonation: function(newAmount) {
         var donation = this.get('model');
-        var donationListController = this.get('controllers.currentOrderDonationList');
-        donationListController.updateDonation(donation, newAmount);
+
+        var intRegex = /^\d+$/;
+        if(intRegex.test(newAmount)) {
+            var donationListController = this.get('controllers.currentOrderDonationList');
+            donationListController.updateDonation(donation, newAmount);
+        } else {
+            donation.set('errors', {amount: ["Please use whole numbers for your donation."]});
+
+            // Revert to the value on the server when there's an error.
+            donation.get('stateManager').goToState('loaded');
+            donation.reload();
+
+            // Clear the error after 10 seconds.
+            Ember.run.later(this, function() {
+                donation.set('errors', []);
+            }, 10000);
+        }
     },
 
     deleteDonation: function() {

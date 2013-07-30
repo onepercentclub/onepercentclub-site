@@ -1,7 +1,6 @@
 from apps.tasks.models import Task
 from django.db import models
 from django.db.models.aggregates import Count, Sum
-from django.db.models.expressions import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
