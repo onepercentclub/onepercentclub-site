@@ -287,12 +287,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Add return urls.
         if return_url_base:
-            params['return_url_success'] = return_url_base + '#/support/thanks/' + str(payment.order.id)
-            params['return_url_pending'] = return_url_base + '#/support/thanks/' + str(payment.order.id)
+            params['return_url_success'] = return_url_base + '#!/support/thanks/' + str(payment.order.id)
+            params['return_url_pending'] = return_url_base + '#!/support/thanks/' + str(payment.order.id)
             # TODO This assumes that the order is always a donation order. These Urls will be used when buying vouchers
             # TODO too which is incorrect.
-            params['return_url_canceled'] = return_url_base + '#/support/donations'
-            params['return_url_error'] = return_url_base + '#/support/payment/error'
+            params['return_url_canceled'] = return_url_base + '#!/support/donations'
+            params['return_url_error'] = return_url_base + '#!/support/payment/error'
 
         # Special parameters for iDeal.
         if payment.payment_method_id == 'dd-ideal' and payment.payment_submethod_id:
