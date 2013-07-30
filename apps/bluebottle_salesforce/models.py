@@ -107,9 +107,15 @@ class SalesforceContact(SalesforceModel):
     mailing_state = models.CharField(max_length=80, db_column='MailingState')
 
     # SF Layout: My Skills section.
-    which_1_would_you_like_to_contribute = models.CharField(max_length=32000, db_column='Which_1_would_you_like_to_contribute__c')
+    # The field 'Which_1_would_you_like_to_contribute__c' has been replaced by 'available_to_share_knowledge' and
+    # 'available_to_donate'
+    # which_1_would_you_like_to_contribute = models.CharField(max_length=32000, db_column=
+    # 'Which_1_would_you_like_to_contribute__c')
     available_time = models.CharField(max_length=255, db_column='Available_time__c')
     where = models.CharField(max_length=255, db_column='Where__c')
+    available_to_donate = models.BooleanField(db_column='Available_to_donate__c')
+    available_to_share_time_and_knowledge = models.BooleanField(db_column='Available_to_share_time_and_knowledge__c')
+    availability = models.CharField(max_length=255, db_column='Availability__c')
 
     # SF Layout: My Settings section.
     receive_emails_for_friend_invitations = models.BooleanField(db_column='Receive_emails_for_friend_invitations__c')
@@ -152,9 +158,6 @@ class SalesforceContact(SalesforceModel):
 
     # SF: Additional requirement not implemented yet - SFDC - Sheet 1
     amount_of_available_time = models.CharField(max_length=255, db_column='Amount_of_available_time__c')
-    available_to_share_knowledge = models.BooleanField(db_column='Available_to_share_knowledge__c')
-    available_to_donate = models.BooleanField(db_column='Available_to_donate__c')
-    available_to_share_time = models.BooleanField(db_column='Available_to_share_time__c')
     industry_employed_in = models.CharField(max_length=255, db_column='Industry_employed_in__c')
     nationality = models.CharField(max_length=255, db_column='Nationality__c')
     follows_1_club_at_twitter = models.BooleanField(db_column='Follows_1_CLUB_at_Twitter__c')

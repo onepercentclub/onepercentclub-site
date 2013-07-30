@@ -1,9 +1,11 @@
 import logging
 import sys
+import os
 from optparse import make_option
 from datetime import timedelta
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+from django.conf import settings
 from ...export import generate_donations_csv_file, generate_organizations_csv_file, generate_users_csv_file, \
     generate_projects_csv_file, generate_projectbudgetlines_csv_file, generate_vouchers_csv_file, \
     generate_tasks_csv_file, generate_taskmembers_csv_file
@@ -55,7 +57,8 @@ class Command(BaseCommand):
             logger.error("You cannot set both '--sync-all' and '--sync-updated'.")
             sys.exit(1)
         elif not options['csv_export'] and not options['sync_updated'] and not options['sync_all']:
-            logger.error("You must set either '--sync-all' or '--sync-updated MINUTES'. See help for more information.")
+            logger.error("You must set either '--csv-export', '--sync-all' or '--sync-updated MINUTES'. "
+                         "See help for more information.")
             sys.exit(1)
 
         sync_from_datetime = None
@@ -65,14 +68,15 @@ class Command(BaseCommand):
             logger.info("Filtering only updated records from {0}".format(timezone.localtime(sync_from_datetime)))
 
         if options['csv_export']:
-            self.run_with_count_update(generate_organizations_csv_file, loglevel)
-            self.run_with_count_update(generate_users_csv_file, loglevel)
-            self.run_with_count_update(generate_projects_csv_file, loglevel)
-            self.run_with_count_update(generate_projectbudgetlines_csv_file, loglevel)
-            self.run_with_count_update(generate_donations_csv_file, loglevel)
-            #self.run_with_count_update(generate_vouchers_csv_file, loglevel)
-            self.run_with_count_update(generate_tasks_csv_file, loglevel)
-            self.run_with_count_update(generate_taskmembers_csv_file, loglevel)
+            path = os.path.join(settings.PROJECT_ROOT, "salesforce", "dataloader_uat", "Data", "Input")
+            self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
+            self.run_with_count_update(generate_users_csv_file, path, loglevel)
+            self.run_with_count_update(generate_projects_csv_file, path, loglevel)
+            self.run_with_count_update(generate_projectbudgetlines_csv_file, path, loglevel)
+            self.run_with_count_update(generate_donations_csv_file, path, loglevel)
+            #self.run_with_count_update(generate_vouchers_csv_file, path, loglevel)
+            self.run_with_count_update(generate_tasks_csv_file, path, loglevel)
+            self.run_with_count_update(generate_taskmembers_csv_file, path, loglevel)
         else:
             # The synchronization methods need to be run in a specific order because of foreign key dependencies.
             self.run_with_count_update(sync_organizations, options['dry_run'], sync_from_datetime, loglevel)
