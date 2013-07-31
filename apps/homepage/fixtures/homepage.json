@@ -11,17 +11,15 @@
         "title": "THE POWER OF 1%", 
         "image": "", 
         "link_text": "LEARN MORE", 
-        "sequence": 0, 
+        "sequence": 1, 
         "style": "default", 
         "creation_date": "2013-07-11T13:39:11.771Z", 
         "publication_end_date": null, 
         "status": "published", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "publication_date": "2013-07-11T13:29:39Z", 
         "slug": "", 
-        "modification_date": "2013-07-16T19:08:41.467Z"
+        "modification_date": "2013-07-23T13:30:12.110Z"
     }
 },
 {
@@ -29,24 +27,22 @@
     "model": "banners.slide", 
     "fields": {
         "body": "Hurray! If you've been here before you definitely notice we have a brand new website! We've listened to all input we got from you. And this is the result! (work in progress, of course..)", 
-        "link_url": "/en/#/projects/", 
+        "link_url": "/en/#!/news/whats-new", 
         "background_image": "", 
         "tab_text": "WHAT'S NEW", 
         "language": "en", 
         "title": "NEW WEBSITE!", 
         "image": "banner_slides/tools-skills.png", 
         "link_text": "WHAT'S NEW?", 
-        "sequence": 1, 
+        "sequence": 0, 
         "style": "default", 
         "creation_date": "2013-07-11T13:47:06.322Z", 
         "publication_end_date": null, 
         "status": "published", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "publication_date": "2013-07-11T13:46:57Z", 
         "slug": "", 
-        "modification_date": "2013-07-12T10:43:21.541Z"
+        "modification_date": "2013-07-23T13:32:21.848Z"
     }
 },
 {
@@ -66,9 +62,7 @@
         "creation_date": "2013-07-11T13:52:50.223Z", 
         "publication_end_date": null, 
         "status": "published", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "publication_date": "2013-07-11T13:52:29Z", 
         "slug": "", 
         "modification_date": "2013-07-11T14:59:06.971Z"
@@ -78,7 +72,7 @@
     "pk": 4, 
     "model": "banners.slide", 
     "fields": {
-        "body": "And our friends with great world changing ideas certainly do that. They just need a little support to make a big impact \u2013 and that\u2019s where you come in. \r\n\r\nOur 1%FRIENDS all share a little every month. All their 1%s combine to realise more projects and change more lives for the better. Doesn\u2019t that sound like a truly meaningful friendship?\r\n", 
+        "body": "And our friends with great world changing ideas certainly do that. They just need a little support to make a big impact \u2013 and that\u2019s where you come in. \r\n\r\nOur 1%FRIENDS all share a little every month. Doesn\u2019t that sound like a truly meaningful friendship?\r\n", 
         "link_url": "/en/#/pages/befriend", 
         "background_image": "", 
         "tab_text": "BEFRIEND 1%CLUB", 
@@ -91,12 +85,10 @@
         "creation_date": "2013-07-11T15:03:45.111Z", 
         "publication_end_date": null, 
         "status": "published", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "publication_date": "2013-07-11T15:02:14Z", 
         "slug": "", 
-        "modification_date": "2013-07-11T15:04:19.547Z"
+        "modification_date": "2013-07-23T07:37:36.697Z"
     }
 },
 {
@@ -116,12 +108,10 @@
         "creation_date": "2013-07-11T15:09:36.332Z", 
         "publication_end_date": null, 
         "status": "published", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "publication_date": "2013-07-11T15:08:27Z", 
         "slug": "", 
-        "modification_date": "2013-07-12T09:01:42.936Z"
+        "modification_date": "2013-07-23T07:46:45.290Z"
     }
 },
 {
@@ -141,9 +131,7 @@
         "creation_date": "2013-07-11T15:19:00.765Z", 
         "publication_end_date": null, 
         "status": "published", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "publication_date": "2013-07-11T15:15:52Z", 
         "slug": "", 
         "modification_date": "2013-07-16T20:46:09.128Z"
@@ -154,24 +142,22 @@
     "model": "banners.slide", 
     "fields": {
         "body": "Joepie! Zoals je (ongetwijfeld) ziet hebben we een nieuwe website. \r\nWe hebben ontzettend goed geluisterd naar alle feedback die we hebben gekregen. En dit is het resultaat! (uiteraard,  we zijn nooit klaar...)", 
-        "link_url": "", 
+        "link_url": "/nl/#!/news/wat-is-nieuw", 
         "background_image": "", 
         "tab_text": "WAT IS NIEUW?", 
         "language": "nl", 
         "title": "NIEUWE WEBSITE!", 
         "image": "", 
         "link_text": "WAT IS NIEUW?", 
-        "sequence": 2, 
+        "sequence": 0, 
         "style": "default", 
         "creation_date": "2013-07-11T15:22:17.272Z", 
         "publication_end_date": null, 
         "status": "published", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "publication_date": "2013-07-11T15:22:07Z", 
         "slug": "", 
-        "modification_date": "2013-07-12T08:43:34.979Z"
+        "modification_date": "2013-07-23T13:44:40.173Z"
     }
 },
 {
@@ -186,29 +172,15 @@
         "title": "SHARE A LITTLE. CHANGE THE WORLD.", 
         "image": "", 
         "link_text": "LEES MEER", 
-        "sequence": 0, 
+        "sequence": 1, 
         "style": "default", 
         "creation_date": "2013-07-11T15:24:13.575Z", 
         "publication_end_date": null, 
         "status": "published", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "publication_date": "2013-07-11T15:24:08Z", 
         "slug": "", 
-        "modification_date": "2013-07-16T19:08:50.831Z"
-    }
-},
-{
-    "pk": 1, 
-    "model": "statistics.statistic", 
-    "fields": {
-        "hours_spent": 103, 
-        "countries": 102, 
-        "lives_changed": 100, 
-        "creation_date": "2013-07-09T16:06:42.609Z", 
-        "donated": 104, 
-        "projects": 101
+        "modification_date": "2013-07-23T13:30:38.814Z"
     }
 },
 {
@@ -218,36 +190,12 @@
         "status": "published", 
         "modification_date": "2013-07-12T10:49:21.207Z", 
         "language": "en", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "''Masango likes the infographic I've designed to raise awareness.''", 
         "creation_date": "2013-07-09T16:16:45.613Z", 
         "publication_end_date": null, 
-        "user": [
-            "amyyoung924@gmail.com"
-        ], 
+        "user": 19101, 
         "publication_date": "2013-07-09T16:16:29Z", 
-        "segment": "tasks"
-    }
-},
-{
-    "pk": 2, 
-    "model": "quotes.quote", 
-    "fields": {
-        "status": "published", 
-        "modification_date": "2013-07-09T16:25:25.571Z", 
-        "language": "nl", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
-        "quote": "\u201c1% is wat je geeft maar je krijgt er ontzettend veel voor terug. Wat we nu meemaken is het dubbel en dwars waard!\u201d", 
-        "creation_date": "2013-07-09T16:25:01.634Z", 
-        "publication_end_date": null, 
-        "user": [
-            "hill@hill-ontwerpstudio.nl"
-        ], 
-        "publication_date": "2013-07-09T16:24:53Z", 
         "segment": "tasks"
     }
 },
@@ -258,15 +206,11 @@
         "status": "published", 
         "modification_date": "2013-07-10T19:03:16.652Z", 
         "language": "en", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "''Big thanks to Amy. She seems to be very creative and full of ideas.''", 
         "creation_date": "2013-07-09T16:26:21.853Z", 
         "publication_end_date": null, 
-        "user": [
-            "info@greencameroon.org"
-        ], 
+        "user": 17375, 
         "publication_date": "2013-07-09T16:26:16Z", 
         "segment": "tasks"
     }
@@ -278,37 +222,13 @@
         "status": "published", 
         "modification_date": "2013-07-12T09:19:42.301Z", 
         "language": "nl", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "\u201cBedankt voor een school waar heel Rajarhat blij mee is!\u201d", 
         "creation_date": "2013-07-09T16:29:30.499Z", 
         "publication_end_date": null, 
-        "user": [
-            "hilde@stichtingpani.nl"
-        ], 
+        "user": 10613, 
         "publication_date": "2013-07-09T16:29:03Z", 
         "segment": "tasks"
-    }
-},
-{
-    "pk": 7, 
-    "model": "quotes.quote", 
-    "fields": {
-        "status": "published", 
-        "modification_date": "2013-07-09T16:32:34.430Z", 
-        "language": "en", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
-        "quote": "''One big idea can change the world''", 
-        "creation_date": "2013-07-09T16:32:34.425Z", 
-        "publication_end_date": null, 
-        "user": [
-            "roygerritsen9@gmail.com"
-        ], 
-        "publication_date": "2013-07-09T16:32:31Z", 
-        "segment": "projects"
     }
 },
 {
@@ -318,15 +238,11 @@
         "status": "published", 
         "modification_date": "2013-07-12T09:12:44.792Z", 
         "language": "nl", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "''Waarom ik meedoe? De gerichte aanpak van 1%Club werkt!''", 
         "creation_date": "2013-07-09T16:33:09.678Z", 
         "publication_end_date": null, 
-        "user": [
-            "l.a.vdvlist@gmail.com"
-        ], 
+        "user": 7507, 
         "publication_date": "2013-07-09T16:33:06Z", 
         "segment": "projects"
     }
@@ -338,15 +254,11 @@
         "status": "published", 
         "modification_date": "2013-07-12T09:14:15.562Z", 
         "language": "nl", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "\u201cGoed idee\u00ebn en milieuvriendelijke projecten, dat spreekt mij aan.\u201d", 
         "creation_date": "2013-07-09T16:54:24.989Z", 
         "publication_end_date": null, 
-        "user": [
-            "roland@vanwolleghem.com"
-        ], 
+        "user": 18348, 
         "publication_date": "2013-07-09T16:51:07Z", 
         "segment": "projects"
     }
@@ -358,15 +270,11 @@
         "status": "published", 
         "modification_date": "2013-07-12T12:27:17.422Z", 
         "language": "en", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "''I support a beautiful project in Peru, so children can improve their lives.\u201d ", 
         "creation_date": "2013-07-09T16:56:12.574Z", 
         "publication_end_date": null, 
-        "user": [
-            "jentetimmer@gmail.com"
-        ], 
+        "user": 581, 
         "publication_date": "2013-07-09T16:55:58Z", 
         "segment": "projects"
     }
@@ -378,15 +286,11 @@
         "status": "published", 
         "modification_date": "2013-07-09T16:56:44.555Z", 
         "language": "en", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "''I believe that together with 1%CLUB you can make the difference''", 
         "creation_date": "2013-07-09T16:56:44.550Z", 
         "publication_end_date": null, 
-        "user": [
-            "dinushafrings@yahoo.com"
-        ], 
+        "user": 2697, 
         "publication_date": "2013-07-09T16:56:41Z", 
         "segment": "befriend"
     }
@@ -398,15 +302,11 @@
         "status": "published", 
         "modification_date": "2013-07-12T09:18:55.565Z", 
         "language": "nl", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "\u201cZoveel initiatiefnemers en goeie verhalen. Zeer inspirerend.\u201d", 
         "creation_date": "2013-07-09T16:57:44.749Z", 
         "publication_end_date": null, 
-        "user": [
-            "resoul@latrib.nl"
-        ], 
+        "user": 3921, 
         "publication_date": "2013-07-09T16:57:35Z", 
         "segment": "befriend"
     }
@@ -418,37 +318,25 @@
         "status": "published", 
         "modification_date": "2013-07-09T17:09:44.254Z", 
         "language": "en", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
+        "author": 1338, 
         "quote": "\u201cYou can actually see where your money is going!\u201d", 
         "creation_date": "2013-07-09T17:09:44.249Z", 
         "publication_end_date": null, 
-        "user": [
-            "snow4flo@gmail.com"
-        ], 
+        "user": 4514, 
         "publication_date": "2013-07-09T17:09:39Z", 
         "segment": "befriend"
     }
 },
 {
-    "pk": 14, 
-    "model": "quotes.quote", 
+    "pk": 1, 
+    "model": "statistics.statistic", 
     "fields": {
-        "status": "published", 
-        "modification_date": "2013-07-09T17:10:51.021Z", 
-        "language": "nl", 
-        "author": [
-            "niels@1procentclub.nl"
-        ], 
-        "quote": "\u201cZo simpel en toch zo goed. Fijn ook dat je zelf je project kunt kiezen en ziet waar je geld heen gaat.\u201d", 
-        "creation_date": "2013-07-09T17:10:51.017Z", 
-        "publication_end_date": null, 
-        "user": [
-            "rnoijen@hotmail.com"
-        ], 
-        "publication_date": "2013-07-09T17:10:47Z", 
-        "segment": "befriend"
+        "hours_spent": 6546, 
+        "countries": 69, 
+        "lives_changed": 67154, 
+        "creation_date": "2013-07-09T16:06:42.609Z", 
+        "donated": 917197, 
+        "projects": 485
     }
 }
 ]
