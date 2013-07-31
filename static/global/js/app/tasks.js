@@ -46,7 +46,8 @@ App.Task = DS.Model.extend({
     project: DS.belongsTo('App.Project'),
     members: DS.hasMany('App.TaskMember'),
     files: DS.hasMany('App.TaskFile'),
-    skill: DS.attr('string'),
+    // skill: DS.attr('string'),
+    skill: DS.belongsTo('App.Skill'),
 
     location: DS.attr('string', {defaultValue: ''}),
     time_needed: DS.attr('number'),
@@ -431,7 +432,7 @@ App.TaskStatusSelectView = Em.Select.extend({
 
 
 App.SkillSelectView = Em.Select.extend({
-    optionValuePath: "content.id",
+    optionValuePath: "content",
     optionLabelPath: "content.name",
     prompt: "pick a skill"
 });
