@@ -143,6 +143,19 @@
                 </ul>
             </fieldset>
 	        {{/if}}
+	        
+        <fieldset class="donation-monthly-total">
+        	<div class="form-summary">{% trans "Divide to projects" %}</div>
+            <div class="donation-amount">
+                <div class="amount-control">
+                    <label for="donation-amount-1">{% trans "Total Amount" %}</label>
+                    <span class="currency"><em>&euro; </em>
+                        <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
+                    </span>
+                </div>
+            </div>
+        </fieldset>
+	        
 	    {{else}}
 	        <fieldset class="donation-total">
 	        	<div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ singleTotal }}</span></div>
