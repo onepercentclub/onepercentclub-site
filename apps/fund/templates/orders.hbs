@@ -68,7 +68,7 @@
     {{/if}}
 
     <div class="container">
-        <section class="wrapper content">
+        <section class="wrapper">
 
             {{#if display_message}}
                 <div {{bindAttr class=":order-message isError"}}>
@@ -90,365 +90,190 @@
 
 
 {% tplhandlebars "current_order_donation_list" %}
-<form>
+<div class="content">
+	<form>
+	    <fieldset class="donate-time">
+	        <ul>
+	            <li class="control-group control-group-lonely">
+	                {{#if moreThanOneDonation }}
+	                    <label class="control-label">{% trans "Donate to projects" %}</label>
+	                {{else}}
+	                    <label class="control-label">{% trans "Donate to project" %}</label>
+	                {{/if}}
+	
+	                {{#if controllers.currentUser.isAuthenticated}}
+	                    <div class="controls">
+	                        {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
+	                            {{view view.RadioButton value="single" id="freq_single"}}
+	                            <label for="freq_single">{% trans "one-off" %}</label>
+	
+	                            {{view view.RadioButton value="monthly" id="freq_monthly"}}
+	                            <label for="freq_monthly">{% trans "monthly" %}</label>
+	                        {{/view}}
+	                    </div>
+	                {{/if}}
+	
+	            </li>
+	        </ul>
+	    </fieldset>
+	
+	    <fieldset>
+	        <ul id="donation-projects">
+	            {{#each donation in controller }}
+	                {{render "currentOrderDonation" donation}}
+	            {{else}}
+	                {{#linkTo "projectList"}}
+	                    <div class="form-meta">
+	                        <p class="form-label">{% trans "Choose a project to support" %}</p>
+	                        <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list." %}</p>
+	                    </div>
+	                {{/linkTo}}
+	            {{/each}}
+	        </ul>
+	    </fieldset>
+	
+	    {{#if controllers.currentOrder.recurring }}
+	        {{#if recurringOrder.donations.length }}
+	            <h2>Current Monthly Donation</h2>
+	            <fieldset>
+	                <ul id="donation-projects">
+	                    {{#each donation in recurringOrder.donations }}
+	                        {{render "currentRecurringDonation" donation}}
+	                    {{/each}}
+	                </ul>
+	            </fieldset>
+	        {{/if}}
+	
+	        <fieldset class="donation-monthly-total">
+	        	<div class="form-summary">{% trans "Divide to projects" %}</div>
+	            <div class="donation-amount">
+	                <div class="amount-control">
+	                    <label for="donation-amount-1">{% trans "Total Amount" %}</label>
+	                    <span class="currency"><em>&euro; </em>
+	                        <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
+	                    </span>
+	                </div>
+	            </div>
+	        </fieldset>
+	    {{else}}
+	        <fieldset class="donation-total">
+	        	<div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ singleTotal }}</span></div>
+	        </fieldset>
+	    {{/if}}
+	
+	    {{#linkTo "projectList" class="button-link add-project"}}<em class="flaticon solid plus-2"></em> {%trans "Add another project" %}{{/linkTo}}
+	
+	    {{#if readyForPayment }}
+	        {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
+	    {{else}}
+	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
+	    {{/if}}
+	
+	</form>
+</div>
 
-    <fieldset class="donate-time">
-        <ul>
-            <li class="control-group control-group-lonely">
-
-                {{#if moreThanOneDonation }}
-                    <label class="control-label">{% trans "Donate to projects" %}</label>
-                {{else}}
-                    <label class="control-label">{% trans "Donate to project" %}</label>
-                {{/if}}
-
-                {{#if controllers.currentUser.isAuthenticated}}
-                    <div class="controls">
-                        {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
-                            {{view view.RadioButton value="single" id="freq_single"}}
-                            <label for="freq_single">{% trans "one-off" %}</label>
-
-                            {{view view.RadioButton value="monthly" id="freq_monthly"}}
-                            <label for="freq_monthly">{% trans "monthly" %}</label>
-                        {{/view}}
-                    </div>
-                {{/if}}
-
-            </li>
-        </ul>
-    </fieldset>
-
-    <fieldset>
-        <ul id="donation-projects">
-            {{#each donation in controller }}
-                {{render "currentOrderDonation" donation}}
-            {{else}}
-                {{#linkTo "projectList"}}
-                    <div class="form-meta">
-                        <p class="form-label">{% trans "Choose a project to support" %}</p>
-                        <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list." %}</p>
-                    </div>
-                {{/linkTo}}
-            {{/each}}
-        </ul>
-    </fieldset>
-
-    {{#if controllers.currentOrder.recurring }}
-        {{#if recurringOrder.donations.length }}
-            <h2>Current Monthly Donation</h2>
-            <fieldset>
-                <ul id="donation-projects">
-                    {{#each donation in recurringOrder.donations }}
-                        {{render "currentRecurringDonation" donation}}
-                    {{/each}}
-                </ul>
-            </fieldset>
-        {{/if}}
-
-        <fieldset class="donation-monthly-total">
-        	<div class="form-summary">{% trans "Divide to projects" %}</div>
-            <div class="donation-amount">
-                <div class="amount-control">
-                    <label for="donation-amount-1">{% trans "Total Amount" %}</label>
-                    <span class="currency"><em>&euro; </em>
-                        <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
-                    </span>
-                </div>
-            </div>
-        </fieldset>
-    {{else}}
-        <fieldset class="donation-total">
-        	<div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ client_side_total }}</span></div>
-        </fieldset>
-    {{/if}}
-
-
-    {{#linkTo "projectList" class="button-link add-project"}}<em class="flaticon solid plus-2"></em> {%trans "Add another project" %}{{/linkTo}}
-
-    {{#if readyForPayment }}
-        {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
-    {{else}}
-        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
-    {{/if}}
-
-</form>
-
-
+<div class="sidebar tip">
+	<em class="flaticon solid info-2"></em>
+	<h3>{% trans "Did you know?" %}</h3>
 	{{#if controllers.currentOrder.recurring }}
-		<div class="sidebar tip">
-		    <h3>{% trans "Did you know?" %}</h3>
-		    <p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every monthly? How? Choose 'monthly and become a 1%Friend" %}</p>
-		</div>
+    <p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!" %}</p>
 	{{else}}
-		<div class="sidebar tip">
-		    <h3>{% trans "Did you know?" %}</h3>
-		    <p>{% trans "Yay!! We're happy to welcome you as a monthly donator, which we rather call 1%Friend. Friends make life better!" %}</p>
-		</div>
+    <p>{% trans "Yay! We're happy to welcome you as a 1%Friend. After all, friends make life better!" %}</p>
 	{{/if}}
+</div>
 
 {% endtplhandlebars %}
 
-
-{% tplhandlebars "current_order_voucher_list" %}
-
-    <fieldset>
-
-        {{ render "currentOrderVoucherNew" }}
-
-        <ul class="voucher-list">
-            {{#each controller itemController=currentOrderVoucher }}
-                {{ view "App.CurrentOrderVoucherView" }}
-            {{/each}}
-
-            {{#if length }}
-                <li>
-                    <div class="summary">
-                        {{ length }} {% trans "1%GIFTCARDS will be sent out with a total value of" %}
-                    </div>
-                    <div class="amount">
-                        <h4 class="right">&euro;{{ client_side_total }}</h4>
-                    </div>
-                </li>
-            {{else}}
-                <li>
-                    <div class="summary">
-                        {% trans "No gift cards in shopping basket" %}
-                    </div>
-                </li>
-            {{/if}}
-        </ul>
-
-
-        {{#if length }}
-            {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
-        {{else}}
-            <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
-        {{/if}}
-
-    </fieldset>
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "current_order_voucher_new" %}
-
-    <div class="form-meta">
-        <p class="form-label">{% trans "Choose value & personalize 1%GIFTCARD" %}</p>
-    </div>
-
-    <fieldset>
-        <ul>
-            <li class="control-group">
-                <label class="control-label">{% trans "Language" %}</label>
-
-                <div class="controls">
-                    {{#view Em.RadioButtonGroup class="big-radio radio2" name="language" selectedValueBinding="language"}}
-                        {{view view.RadioButton value="en" id="lang_en"}}
-                        <label for="lang_en">{% trans "English" %}</label>
-
-                        {{view view.RadioButton value="nl" id="lang_nl"}}
-                        <label for="lang_nl">{% trans "Dutch" %}</label>
-                    {{/view}}
-                </div>
-            </li>
-
-            <li class="control-group">
-                <label class="control-label">{% trans "Value" %}</label>
-
-                <div class="controls">
-                    {{#view Em.RadioButtonGroup class="big-radio radio4" name="amount" selectedValueBinding="amount"}}
-                        {{view view.RadioButton value=10 id="amount_10"}}
-                        <label for="amount_10">
-                            &euro;10
-                        </label>
-                        {{view view.RadioButton value=25 id="amount_25"}}
-                        <label for="amount_25">
-                            &euro;25
-                        </label>
-                        {{view view.RadioButton value=50 id="amount_50"}}
-                        <label for="amount_50">
-                            &euro;50
-                        </label>
-                        {{view view.RadioButton value=100 id="amount_100"}}
-                        <label for="amount_100">
-                            &euro;100
-                        </label>
-                    {{/view}}
-                </div>
-            </li>
-
-            <li class="control-group">
-                <label class="control-label">{% trans "Your name" %}</label>
-
-                <div class="controls">
-                    {{view Em.TextField valueBinding="sender_name" classBinding="errors.sender_name.length:error"}}
-                </div>
-
-                {{#if errors.sender_name }}
-                    <div class="errors">{{#each errors.sender_name}}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-
-            <li class="control-group">
-                <label class="control-label">{% trans "Your email" %}</label>
-
-                <div class="controls">
-                    {{view Em.TextField valueBinding="sender_email" classBinding="errors.sender_email.length:error"}}
-                </div>
-
-                {{#if errors.sender_email }}
-                    <div class="errors">{{#each errors.sender_email}}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-        </ul>
-    </fieldset>
-
-    <hr class="form-divider">
-
-    <fieldset>
-        <legend><strong>{% trans "This gift card is for:" %}</strong></legend>
-
-        <ul>
-            <li class="control-group">
-                <label class="control-label">{% trans "Name" %}</label>
-
-                <div class="controls">
-                    {{view Em.TextField valueBinding="receiver_name" classBinding="errors.receiver_name.length:error"}}
-                </div>
-
-                {{#if errors.receiver_name }}
-                    <div class="errors">{{#each errors.receiver_name}}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-
-            <li class="control-group">
-                <label class="control-label">{% trans "Email" %}</label>
-
-                <div class="controls">
-                    {{view Em.TextField valueBinding="receiver_email" classBinding="errors.receiver_email.length:error"}}
-                </div>
-
-                {{#if errors.receiver_email}}
-                    <div class="errors">{{#each errors.receiver_email}}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-
-            <li class="control-group">
-                <label class="control-label">{% trans "Personal message" %}</label>
-
-                <div class="controls">
-                    {{view Em.TextArea valueBinding="message" placeholder="Your message that will appear on the digital voucher." classBinding="errors.message.length:error"}}
-                </div>
-
-                {{#if errors.message}}
-                    <div class="errors">{{#each errors.message}}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-        </ul>
-    </fieldset>
-
-    <a {{action "addVoucher"}} class="right btn">{% trans "Add" %}</a>
-    <br class="clear">
-
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "current_order_voucher" %}
-
-    <div class="name">
-        <h4>{{receiver_name}}</h4>
-    </div>
-    <div class="mail">{{receiver_email}}</div>
-    <div class="amount right">
-        <span class="right">&euro;{{amount}}</span>
-    </div>
-    <div class="actions manage-remove"><a {{action "delete" target="view"}} class="right">{% trans "Delete" %}</a></div>
-
-{% endtplhandlebars %}
 
 
 {% tplhandlebars "paymentProfile" %}
-
-<form>
-
-    <fieldset>
-        {{#if model.isLoaded}}
-            <ul>
-                <li class="control-group">
-                    <label class="control-label">{% trans "Your full name" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="firstName" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
-                        {{view Em.TextField valueBinding="lastName" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
-                    </div>
-                </li>
-
-                <li class="control-group">
-                    <label class="control-label">{% trans "Email" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="email" placeholder="Email" classBinding="errors.email.length:error"}}
-                    </div>
-
-                    {{#if errors.email }}
-                        <div class="errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-
-                <li class="control-group">
-                    <label class="control-label">{% trans "Address" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="address" placeholder="Address" classBinding="errors.address.length:error"}}
-                    </div>
-
-                    {{#if errors.address }}
-                        <div class="errors">{{#each errors.address }}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-
-                <li class="control-group">
-                    <label class="control-label">{% trans "Postal code" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="postalCode" placeholder="Postal code" classBinding="errors.postal_code.length:error"}}
-                    </div>
-
-                    {{#if errors.postal_code }}
-                        <div class="errors">{{#each errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-
-                <li class="control-group">
-                    <label class="control-label">{% trans "City" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
-                    </div>
-
-                    {{#if errors.city }}
-                        <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-
-                <li class="control-group">
-                    <label class="control-label">{% trans "Country" %}</label>
-                    <div class="controls">
-                        {{view App.CountryCodeSelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
-                    </div>
-                    {{#if errors.country}}
-                        <div class="errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-            </ul>
-        {{/if}}
-    </fieldset>
-
-    {{#if isFormReady }}
-        <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans 'Next Step' %}</button>
-    {{else}}
-        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
-    {{/if}}
-
-</form>
+<div class="content">
+	<form>
+	    <fieldset>
+	        {{#if model.isLoaded}}
+	            <ul>
+	                <li class="control-group">
+	                    <label class="control-label">{% trans "Your full name" %}</label>
+	                    <div class="controls">
+	                        {{view Em.TextField valueBinding="firstName" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+	                        {{view Em.TextField valueBinding="lastName" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
+	                    </div>
+	                </li>
+	
+	                <li class="control-group">
+	                    <label class="control-label">{% trans "Email" %}</label>
+	                    <div class="controls">
+	                        {{view Em.TextField valueBinding="email" placeholder="Email" classBinding="errors.email.length:error"}}
+	                    </div>
+	
+	                    {{#if errors.email }}
+	                        <div class="errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
+	                    {{/if}}
+	                </li>
+	
+	                <li class="control-group">
+	                    <label class="control-label">{% trans "Address" %}</label>
+	                    <div class="controls">
+	                        {{view Em.TextField valueBinding="address" placeholder="Address" classBinding="errors.address.length:error"}}
+	                    </div>
+	
+	                    {{#if errors.address }}
+	                        <div class="errors">{{#each errors.address }}<p>{{this}}</p>{{/each}}</div>
+	                    {{/if}}
+	                </li>
+	
+	                <li class="control-group">
+	                    <label class="control-label">{% trans "Postal code" %}</label>
+	                    <div class="controls">
+	                        {{view Em.TextField valueBinding="postalCode" placeholder="Postal code" classBinding="errors.postal_code.length:error"}}
+	                    </div>
+	
+	                    {{#if errors.postal_code }}
+	                        <div class="errors">{{#each errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
+	                    {{/if}}
+	                </li>
+	
+	                <li class="control-group">
+	                    <label class="control-label">{% trans "City" %}</label>
+	                    <div class="controls">
+	                        {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
+	                    </div>
+	
+	                    {{#if errors.city }}
+	                        <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+	                    {{/if}}
+	                </li>
+	
+	                <li class="control-group">
+	                    <label class="control-label">{% trans "Country" %}</label>
+	                    <div class="controls">
+	                        {{view App.CountryCodeSelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+	                    </div>
+	                    {{#if errors.country}}
+	                        <div class="errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
+	                    {{/if}}
+	                </li>
+	            </ul>
+	        {{/if}}
+	    </fieldset>
+	
+	    {{#if isFormReady }}
+	        <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans 'Next Step' %}</button>
+	    {{else}}
+	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
+	    {{/if}}
+	
+	</form>
+</div>
 
 <div class="sidebar tip">
-
+	<em class="flaticon solid info-2"></em>
+	<h3>{% trans "Did you know?" %}</h3>
+	{{#if controllers.currentUser.isAuthenticated }}
+    <p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps." %}</p>   
+	{{else}}
+	<p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached we'll make sure your donation will support a similar project." %}</p>
+	{{/if}}
 </div>
 
 {% endtplhandlebars %}
@@ -501,11 +326,13 @@
 
 {% tplhandlebars "paymentSelect" %}
 
-	<form>
-	    
-	    {{#if controllers.currentOrder.recurring }}
-	        {{ outlet }}
-	    {{else}}
+{{#if controllers.currentOrder.recurring }}
+
+	{{ outlet }}
+	
+{{else}}
+	<div class="content">
+		<form>
 	    	<div class="form-meta">
 				<div class="form-label">{% trans "You're almost there!" %}</div>
 				<div class="form-desc">{% trans "We'll redirect you through our payment provider where you can finish your donation securily." %}</div>
@@ -517,79 +344,78 @@
 	        {{else}}
 	            <button class="btn btn-primary btn-iconed right" {{action "proceedWithPayment"}}><em class="flaticon solid right-2"></em>{% trans "Proceed with Payment" %}</button>
 	        {{/if}}
-	    {{/if}}
-	</form>
-
-
-	<div class="sidebar tip">
-
+		</form>
 	</div>
+{{/if}}
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "recurringDirectDebitPayment" %}
-
-<form>
-
-	<div class="form-meta">
-    	<div class="form-label">{% trans "You're almost there!" %}</div>
-        <div class="form-desc">{% trans "Add or edit your bank account information and submit to set your monthly donations." %}</div>
-    </div>
-    
-    <fieldset>
-        <ul>
-            <li class="control-group">
-                <label class="control-label">{% trans "Bank Account Name" %}</label>
-                <div class="controls">
-                    {{view Em.TextField valueBinding="name" classBinding="errors.name.length:error"}}
-                </div>
-                {{#if errors.name }}
-                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-
-            <li class="control-group">
-                <label class="control-label">{% trans "Bank Account City" %}</label>
-                <div class="controls">
-                    {{view Em.TextField valueBinding="city" classBinding="errors.city.length:error"}}
-                </div>
-                {{#if errors.city }}
-                    <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-
-            <li class="control-group">
-                <label class="control-label">{% trans "Bank Account" %}</label>
-                <div class="controls">
-                    {{view Em.TextField valueBinding="account" placeholder="7 digits" classBinding="errors.account.length:error"}}
-                </div>
-                {{#if errors.account }}
-                    <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-
-        </ul>
-    </fieldset>
-
-    <p class="authorisation">{% trans "By clicking submit, I authorize 1%CLUB to withdraw money every month." %}</p>
-
-    {{#if isFormReady }}
-        {{#if paymentInProgress }}
-	        <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" height="16px"  /> {% trans "Updating monthly donation ..." %}</span>
-	        <button disabled class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
-        {{else}}
-            <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
-        {{/if}}
-    {{else}}
-        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
-    {{/if}}
-
-</form>
-
-<div class="sidebar tip">
-
+<div class="content">
+	<form>
+	
+		<div class="form-meta">
+	    	<div class="form-label">{% trans "You're almost there!" %}</div>
+	        <div class="form-desc">{% trans "Add or edit your bank account information and submit to set your monthly donations." %}</div>
+	    </div>
+	    
+	    <fieldset>
+	        <ul>
+	            <li class="control-group">
+	                <label class="control-label">{% trans "Bank Account Name" %}</label>
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="name" classBinding="errors.name.length:error"}}
+	                </div>
+	                {{#if errors.name }}
+	                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+	                {{/if}}
+	            </li>
+	
+	            <li class="control-group">
+	                <label class="control-label">{% trans "Bank Account City" %}</label>
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="city" classBinding="errors.city.length:error"}}
+	                </div>
+	                {{#if errors.city }}
+	                    <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+	                {{/if}}
+	            </li>
+	
+	            <li class="control-group">
+	                <label class="control-label">{% trans "Bank Account" %}</label>
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="account" placeholder="7 digits" classBinding="errors.account.length:error"}}
+	                </div>
+	                {{#if errors.account }}
+	                    <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
+	                {{/if}}
+	            </li>
+	
+	        </ul>
+	    </fieldset>
+	
+	    <p class="authorisation">{% trans "By clicking submit, I authorize 1%Club to withdraw money every month." %}</p>
+	
+	    {{#if isFormReady }}
+	        {{#if paymentInProgress }}
+		        <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" height="16px"  /> {% trans "Updating monthly donation ..." %}</span>
+		        <button disabled class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+	        {{else}}
+	            <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+	        {{/if}}
+	    {{else}}
+	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+	    {{/if}}
+	
+	</form>
 </div>
+	
+<div class="sidebar tip">
+	<em class="flaticon solid info-2"></em>
+	<h3>{% trans "Your monthly donation" %}</h3>
+	<p>{% trans "Thank you 1%Friend! You're about to make set your monthly donation amount to &euro;" %} {{controllers.currentOrderDonationList.recurringTotal}}</p>
+</div>	
 
 {% endtplhandlebars %}
 
@@ -796,4 +622,185 @@
             </ul>
         </section>
     </div>
+{% endtplhandlebars %}
+
+
+
+
+
+{% tplhandlebars "current_order_voucher_list" %}
+
+    <fieldset>
+
+        {{ render "currentOrderVoucherNew" }}
+
+        <ul class="voucher-list">
+            {{#each controller itemController=currentOrderVoucher }}
+                {{ view "App.CurrentOrderVoucherView" }}
+            {{/each}}
+
+            {{#if length }}
+                <li>
+                    <div class="summary">
+                        {{ length }} {% trans "1%GIFTCARDS will be sent out with a total value of" %}
+                    </div>
+                    <div class="amount">
+                        <h4 class="right">&euro;{{ singleTotal }}</h4>
+                    </div>
+                </li>
+            {{else}}
+                <li>
+                    <div class="summary">
+                        {% trans "No gift cards in shopping basket" %}
+                    </div>
+                </li>
+            {{/if}}
+        </ul>
+
+
+        {{#if length }}
+            {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
+        {{else}}
+            <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
+        {{/if}}
+
+    </fieldset>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "current_order_voucher_new" %}
+
+    <div class="form-meta">
+        <p class="form-label">{% trans "Choose value & personalize 1%GIFTCARD" %}</p>
+    </div>
+
+    <fieldset>
+        <ul>
+            <li class="control-group">
+                <label class="control-label">{% trans "Language" %}</label>
+
+                <div class="controls">
+                    {{#view Em.RadioButtonGroup class="big-radio radio2" name="language" selectedValueBinding="language"}}
+                        {{view view.RadioButton value="en" id="lang_en"}}
+                        <label for="lang_en">{% trans "English" %}</label>
+
+                        {{view view.RadioButton value="nl" id="lang_nl"}}
+                        <label for="lang_nl">{% trans "Dutch" %}</label>
+                    {{/view}}
+                </div>
+            </li>
+
+            <li class="control-group">
+                <label class="control-label">{% trans "Value" %}</label>
+
+                <div class="controls">
+                    {{#view Em.RadioButtonGroup class="big-radio radio4" name="amount" selectedValueBinding="amount"}}
+                        {{view view.RadioButton value=10 id="amount_10"}}
+                        <label for="amount_10">
+                            &euro;10
+                        </label>
+                        {{view view.RadioButton value=25 id="amount_25"}}
+                        <label for="amount_25">
+                            &euro;25
+                        </label>
+                        {{view view.RadioButton value=50 id="amount_50"}}
+                        <label for="amount_50">
+                            &euro;50
+                        </label>
+                        {{view view.RadioButton value=100 id="amount_100"}}
+                        <label for="amount_100">
+                            &euro;100
+                        </label>
+                    {{/view}}
+                </div>
+            </li>
+
+            <li class="control-group">
+                <label class="control-label">{% trans "Your name" %}</label>
+
+                <div class="controls">
+                    {{view Em.TextField valueBinding="sender_name" classBinding="errors.sender_name.length:error"}}
+                </div>
+
+                {{#if errors.sender_name }}
+                    <div class="errors">{{#each errors.sender_name}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group">
+                <label class="control-label">{% trans "Your email" %}</label>
+
+                <div class="controls">
+                    {{view Em.TextField valueBinding="sender_email" classBinding="errors.sender_email.length:error"}}
+                </div>
+
+                {{#if errors.sender_email }}
+                    <div class="errors">{{#each errors.sender_email}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+        </ul>
+    </fieldset>
+
+    <hr class="form-divider">
+
+    <fieldset>
+        <legend><strong>{% trans "This gift card is for:" %}</strong></legend>
+
+        <ul>
+            <li class="control-group">
+                <label class="control-label">{% trans "Name" %}</label>
+
+                <div class="controls">
+                    {{view Em.TextField valueBinding="receiver_name" classBinding="errors.receiver_name.length:error"}}
+                </div>
+
+                {{#if errors.receiver_name }}
+                    <div class="errors">{{#each errors.receiver_name}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group">
+                <label class="control-label">{% trans "Email" %}</label>
+
+                <div class="controls">
+                    {{view Em.TextField valueBinding="receiver_email" classBinding="errors.receiver_email.length:error"}}
+                </div>
+
+                {{#if errors.receiver_email}}
+                    <div class="errors">{{#each errors.receiver_email}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group">
+                <label class="control-label">{% trans "Personal message" %}</label>
+
+                <div class="controls">
+                    {{view Em.TextArea valueBinding="message" placeholder="Your message that will appear on the digital voucher." classBinding="errors.message.length:error"}}
+                </div>
+
+                {{#if errors.message}}
+                    <div class="errors">{{#each errors.message}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+        </ul>
+    </fieldset>
+
+    <a {{action "addVoucher"}} class="right btn">{% trans "Add" %}</a>
+    <br class="clear">
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "current_order_voucher" %}
+
+    <div class="name">
+        <h4>{{receiver_name}}</h4>
+    </div>
+    <div class="mail">{{receiver_email}}</div>
+    <div class="amount right">
+        <span class="right">&euro;{{amount}}</span>
+    </div>
+    <div class="actions manage-remove"><a {{action "delete" target="view"}} class="right">{% trans "Delete" %}</a></div>
+
 {% endtplhandlebars %}

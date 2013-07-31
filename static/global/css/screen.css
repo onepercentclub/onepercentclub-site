@@ -2700,7 +2700,7 @@ body { overflow-y: scroll; }
 .wrapper > form { float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_layout\.scss}line{font-family:\0000376}}
-.wrapper > .sidebar, .wrapper > sidebar { float: left; width: 29.16667%; margin-left: 4.16667%; margin-right: 0%; }
+.wrapper .sidebar, .wrapper sidebar { float: left; width: 29.16667%; margin-left: 4.16667%; margin-right: 0%; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_layout\.scss}line{font-family:\0000381}}
 .sidebar.grey { background-color: #e9e9e9; padding: 12px 24px; padding: 0.85714rem 1.71429rem; color: #999999; margin-bottom: 24px; margin-bottom: 1.71429rem; }
@@ -2708,9 +2708,9 @@ body { overflow-y: scroll; }
 .sidebar.grey h3 { padding: 0px; font-size: 16px; font-size: 1.14286rem; line-height: 16px; line-height: 1.14286rem; text-transform: uppercase; font-weight: 300; color: #666666; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_layout\.scss}line{font-family:\0000396}}
-.wrapper > .content { float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
+.wrapper .content { float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_layout\.scss}line{font-family:\0000398}}
-.wrapper > .content.gray { background-color: #e9e9e9; }
+.wrapper .content.gray { background-color: #e9e9e9; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_layout\.scss}line{font-family:\00003103}}
 .wrapper > .body { float: left; width: 95.83333%; margin-left: 2.08333%; margin-right: 2.08333%; }
