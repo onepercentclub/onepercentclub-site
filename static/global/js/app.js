@@ -998,6 +998,9 @@ App.RecurringOrderThanksRoute = Em.Route.extend({
     model: function(params) {
         return App.Order.find({status: 'recurring'}).then(function(orders) {
             if (orders.get('length') > 0) {
+
+
+
                 return orders.objectAt(0);
             }
             this.transitionTo('home');
@@ -1024,7 +1027,7 @@ App.PaymentProfileRoute = Em.Route.extend({
                     this.transitionTo('currentOrder.donationList')
                 }
             } else {
-                if (order.get('donations.length') <= 0 ) {
+                if (!order.get('recurring') && order.get('donations.length') <= 0 ) {
                     this.transitionTo('currentOrder.donationList')
                 }
             }
