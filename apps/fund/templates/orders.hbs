@@ -380,9 +380,9 @@
 	    <fieldset>
 	        <ul>
 	            <li class="control-group">
-	                <label class="control-label">{% trans "Bank Account Name" %}</label>
+	                <label class="control-label">{% trans "Account Name" %}</label>
 	                <div class="controls">
-	                    {{view Em.TextField valueBinding="name" classBinding="errors.name.length:error"}}
+	                    {{view Em.TextField valueBinding="name" placeholder="Full name as it appears on your bank account" classBinding="errors.name.length:error"}}
 	                </div>
 	                {{#if errors.name }}
 	                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
@@ -390,9 +390,9 @@
 	            </li>
 	
 	            <li class="control-group">
-	                <label class="control-label">{% trans "Bank Account City" %}</label>
+	                <label class="control-label">{% trans "Account City" %}</label>
 	                <div class="controls">
-	                    {{view Em.TextField valueBinding="city" classBinding="errors.city.length:error"}}
+	                    {{view Em.TextField valueBinding="city" placeholder="City registered on your bank account" classBinding="errors.city.length:error"}}
 	                </div>
 	                {{#if errors.city }}
 	                    <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
@@ -400,15 +400,14 @@
 	            </li>
 	
 	            <li class="control-group">
-	                <label class="control-label">{% trans "Bank Account" %}</label>
+	                <label class="control-label">{% trans "Account Number" %}</label>
 	                <div class="controls">
-	                    {{view Em.TextField valueBinding="account" placeholder="7 digits" classBinding="errors.account.length:error"}}
+	                    {{view Em.TextField valueBinding="account" placeholder="Your bank account number" classBinding="errors.account.length:error"}}
 	                </div>
 	                {{#if errors.account }}
 	                    <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
 	                {{/if}}
 	            </li>
-	
 	        </ul>
 	    </fieldset>
 	
