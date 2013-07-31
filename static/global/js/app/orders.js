@@ -562,13 +562,14 @@ App.CurrentOrderController = Em.ObjectController.extend({
         transaction.commit();
     }.observes('donationType'),
 
+    // Ensures the single / monthly toggle is initialized correctly when loading donations from bookmark.
     updateDonationType: function() {
         if (this.get('recurring')) {
             this.set('donationType', 'monthly')
         } else {
             this.set('donationType', 'single')
         }
-    }.observes('recurring'),
+    }.observes('model'),
 
     // FIXME Implement a better way to handle vouchers and donations in the order.
     // Remove donations from voucher orders and remove vouchers from donations.
