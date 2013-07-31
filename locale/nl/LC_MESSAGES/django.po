@@ -61,17 +61,15 @@ msgstr ""
 "%(error_id)s</strong>."
 
 #: base.html:128
-#, fuzzy, python-format
-msgid "What is 1%%"
-msgstr "Wat is 1%%"
+msgid "What is 1%"
+msgstr "Wat is 1%"
 
 #: base.html:129 base.html.py:292
 msgid "1%Projects"
 msgstr "1%Projecten"
 
 #: base.html:130
-#, fuzzy, python-format
-msgid "1%%Skills"
+msgid "1%Skills"
 msgstr "1%Doen"
 
 #: base.html:131 base.html.py:297
@@ -108,9 +106,8 @@ msgid "Log in"
 msgstr "Log in"
 
 #: base.html:234
-#, fuzzy, python-format
-msgid "Log in to 1%%Club"
-msgstr "Doe mee met 1%%Club"
+msgid "Log in to 1%Club"
+msgstr "Doe mee met 1%Club"
 
 #: base.html:239
 msgid "You did it!"
@@ -143,8 +140,7 @@ msgid "It all starts with 1%%"
 msgstr "Het start met 1%"
 
 #: base.html:286
-#, fuzzy, python-format
-msgid "What is 1%%CLUB?"
+msgid "What is 1%CLUB?"
 msgstr "Wat is 1%Club?"
 
 #: base.html:302
@@ -173,27 +169,23 @@ msgid "Press"
 msgstr "Pers"
 
 #: base.html:333
-#, python-format
-msgid "Work at 1%%CLUB"
-msgstr "Werken bij 1%%Club"
+msgid "Work at 1%Club"
+msgstr "Werken bij 1%Club"
 
 #: base.html:338 footer.html:18 footer.html.py:38
 msgid "Contact"
 msgstr "Contact"
 
 #: base.html:345
-#, fuzzy, python-format
-msgid "Discover 1%%More"
+msgid "Discover 1%More"
 msgstr "Ontdek 1%Meer"
 
 #: base.html:347
-#, python-format
-msgid "1%%Blog"
+msgid "1%Blog"
 msgstr ""
 
 #: base.html:348
-#, python-format
-msgid "1%%Live"
+msgid "1%Live"
 msgstr ""
 
 #: base.html:349
@@ -222,17 +214,15 @@ msgid "1%%Social"
 msgstr ""
 
 #: base.html:407 base.html.py:414
-#, python-format
-msgid "Join 1%%Club"
-msgstr "Doe mee met 1%%Club"
+msgid "Join 1%Club"
+msgstr "Doe mee met 1%Club"
 
 #: base.html:408
-#, python-format
 msgid ""
-"1%%Club connects smart ideas from developing countries to time, money and "
+"1%Club connects smart ideas from developing countries to time, money and "
 "expertise from all over the world. It is very easy: "
 msgstr ""
-"1%%Club is jouw plek om je kennis, tijd en geld te delen met mensen met "
+"1%Club is jouw plek om je kennis, tijd en geld te delen met mensen met "
 "slimme ideeën in ontwikkelingslanden."
 
 #: base.html:410

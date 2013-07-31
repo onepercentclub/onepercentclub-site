@@ -49,18 +49,15 @@ msgid ""
 msgstr ""
 
 #: base.html:128
-#, python-format
-msgid "What is 1%%"
+msgid "What is 1%"
 msgstr ""
 
 #: base.html:129 base.html.py:292
-#, python-format
-msgid "1%%Projects"
+msgid "1%Projects"
 msgstr ""
 
 #: base.html:130
-#, python-format
-msgid "1%%Skills"
+msgid "1%Skills"
 msgstr ""
 
 #: base.html:131 base.html.py:297
@@ -97,8 +94,7 @@ msgid "Log in"
 msgstr ""
 
 #: base.html:234
-#, python-format
-msgid "Log in to 1%%Club"
+msgid "Log in to 1%Club"
 msgstr ""
 
 #: base.html:239
