@@ -82,21 +82,6 @@
 
             {{ outlet }}
 
-            <div class="sidebar tip">
-                {{#if controller.isVoucherOrder}}
-                    <h3>{% trans "Want customised 1%GIFTCARDS or buy a bulk of 1%GIFTCARDS?" %}</h3>
-                    <br />
-                    {{#linkTo "customVoucherRequest"}}{% trans "Contact us." %}{{/linkTo}}
-                {{else}}
-                    {% comment %}
-                    Not implemented at this point.
-                    <h3>{% trans "Did you know?" %}</h3>
-                    <p>{% trans "The average donated amount is €22? The previous donation was: €50. (really, we cheer with every single donation..)" %}</p>
-                    <p><a href="#">Read some more</a></p>
-                    {% endcomment %}
-                {{/if}}
-            </div>
-
         </section>
 
     </div>
@@ -105,6 +90,7 @@
 
 
 {% tplhandlebars "current_order_donation_list" %}
+<form>
 
     <fieldset class="donate-time">
         <ul>
@@ -184,6 +170,24 @@
     {{else}}
         <button disabled class="btn btn-iconed right"><i class="flaticon solid right-2"></i>{% trans "Next Step" %}</button>
     {{/if}}
+
+</form>
+
+<div class="sidebar tip">
+    {{#if controller.isVoucherOrder}}
+        <h3>{% trans "Want customised 1%GIFTCARDS or buy a bulk of 1%GIFTCARDS?" %}</h3>
+        <br />
+        {{#linkTo "customVoucherRequest"}}{% trans "Contact us." %}{{/linkTo}}
+    {{else}}
+        {% comment %}
+        Not implemented at this point.
+        <h3>{% trans "Did you know?" %}</h3>
+        <p>{% trans "The average donated amount is €22? The previous donation was: €50. (really, we cheer with every single donation..)" %}</p>
+        <p><a href="#">Read some more</a></p>
+        {% endcomment %}
+    {{/if}}
+</div>
+
 {% endtplhandlebars %}
 
 
@@ -367,6 +371,8 @@
 
 {% tplhandlebars "paymentProfile" %}
 
+<form>
+
     <fieldset>
         {{#if model.isLoaded}}
             <ul>
@@ -441,6 +447,12 @@
         <button disabled class="btn btn-iconed right"><i class="flaticon solid right-2"></i>{% trans "Next Step" %}</button>
     {{/if}}
 
+</form>
+
+<div class="sidebar tip">
+
+</div>
+
 {% endtplhandlebars %}
 
 
@@ -491,6 +503,8 @@
 
 {% tplhandlebars "paymentSelect" %}
 
+<div class="content">
+
     <div class="intro">
 
     </div>
@@ -516,10 +530,18 @@
         </div>
     </fieldset>
 
+</div>
+
+<div class="sidebar tip">
+
+</div>
+
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "recurringDirectDebitPayment" %}
+
+<form>
 
     <fieldset>
         <ul>
@@ -567,6 +589,12 @@
     {{else}}
         <button disabled class="btn btn-iconed right"><i class="flaticon solid right-2"></i>{% trans "Submit" %}</button>
     {{/if}}
+
+</form>
+
+<div class="sidebar tip">
+
+</div>
 
 {% endtplhandlebars %}
 
