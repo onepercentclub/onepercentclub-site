@@ -197,61 +197,54 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </span>
                 </a>
             </div>
-        
-            <ul class="tabs steps">
-                {{#if isPhasePitch}}
-                        <li class="tab-item is-active first">
-                            {{#linkTo "myProjectPitch"}}
-                                <span class="tab-icon"><em class="flaticon solid lightbulb-3"></em></span>
-                                <strong class="tab-title">{% trans "Pitch" %}
-                                <em class="tab-subtitle">{{ pitch.status }}</em></strong>
-							{{/linkTo}}
-                        </li>
-                {{else}}
-                    <li class="tab-item is-finished first">
+            {{#if id}}
+
+                <ul class="tabs steps">
+                    <li {{bindAttr class=":tab-item :first isPhasePitch:is-active:is-inactive"}}>
                         <span>
                             <span class="tab-icon"><em class="flaticon solid lightbulb-3"></em></span>
-                            <strong class="tab-title">{% trans "Pitch" %}
-                            <em class="tab-subtitle">{{ pitch.status }}</em></strong>
+                            <strong class="tab-title">
+                                {% trans "Pitch" %}
+                                <em class="tab-subtitle">{{ pitch.status }}</em>
+                            </strong>
                         </span>
                     </li>
-                {{/if}}
-                {{#if isPhasePlan}}
-                        <li class="tab-item is-active second">
-                            {{#linkTo "myProjectPlan"}}
-                                <span class="tab-icon"><em class="flaticon solid notebook-1"></em></span>
-                                <strong class="tab-title">{% trans "Plan" %}
-                                <em class="tab-subtitle">{{ plan.status }}</em></strong>
-							{{/linkTo}}
-                        </li>
-                {{else}}
-                    <li class="tab-item second">
+                    <li  {{bindAttr class=":tab-item :second isPhasePlan:is-active:is-inactive"}}>
                         <span>
                             <span class="tab-icon"><em class="flaticon solid notebook-1"></em></span>
-                            <strong class="tab-title">{% trans "Plan" %}
-                            <em class="tab-subtitle">{{ plan.status }}</em></strong>
+                            <strong class="tab-title">
+                                {% trans "Plan" %}
+                                <em class="tab-subtitle">{{ plan.status }}</em>
+                            </strong>
                         </span>
                     </li>
-                {{/if}}
-                <li class="tab-item is-inactive third">
-                    <span>
-                        <span class="tab-icon"><em class="flaticon">&euro;</em></span>
-                        <strong class="tab-title">{% trans "Campaign" %}
-                    </span>
-                </li>
-                <li class="tab-item is-inactive fourth">
-                    <span>
-                        <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
-                        <strong class="tab-title">{% trans "Execute" %}
-                    </span>
-                </li>
-                <li class="tab-item is-inactive fifth">
-                    <span>
-                        <span class="tab-icon"><em class="flaticon solid flag-3"></em></span>
-                        <strong class="tab-title">{% trans "Results" %}
-                    </span>
-                </li>
-            </ul>
+                    <li {{bindAttr class=":tab-item :third isPhaseCampaign:is-active:is-inactive"}}>
+                        <span>
+                            <span class="tab-icon"><em class="flaticon">&euro;</em></span>
+                            <strong class="tab-title">
+                                {% trans "Campaign" %}
+                                <em class="tab-subtitle">{{ campaign.status }}</em>
+                            </strong>
+                        </span>
+                    </li>
+                    <li {{bindAttr class=":tab-item :fourth isPhaseAct:is-active:is-inactive"}}>
+                        <span>
+                            <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
+                            <strong class="tab-title">{% trans "Execute" %}
+                                <em class="tab-subtitle">{{ act.status }}</em>
+                            </strong>
+                        </span>
+                    </li>
+                    <li {{bindAttr class=":tab-item :fifth isPhaseResults:is-active:is-inactive"}}>
+                        <span>
+                            <span class="tab-icon"><em class="flaticon solid flag-3"></em></span>
+                            <strong class="tab-title">{% trans "Results" %}
+                                <em class="tab-subtitle">{{ results.status }}</em>
+                            </strong>
+                        </span>
+                    </li>
+                </ul>
+            {{/if}}
 		</div>
     </div>
 

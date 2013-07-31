@@ -309,17 +309,11 @@ App.MyProject = DS.Model.extend({
         return App.Project.find(this.get('id'));
     }.property('id'),
 
-    isPhasePitch: function(){
-        return this.get('phase') == 'pitch';
-    }.property('phase'),
-
-    isPhasePlan: function(){
-        return this.get('phase') == 'plan';
-    }.property('phase'),
-
-    isPhaseCampaign: function(){
-        return this.get('phase') == 'campaign';
-    }.property('phase'),
+    isPhasePitch: Em.computed.equal('phase', 'pitch'),
+    isPhasePlan: Em.computed.equal('phase', 'plan'),
+    isPhaseCampaign: Em.computed.equal('phase', 'campaign'),
+    isPhaseAct: Em.computed.equal('phase', 'act'),
+    isPhaseResults: Em.computed.equal('phase', 'results'),
 
     isPublic: function(){
         if (this.get('phase') == 'pitch') {
