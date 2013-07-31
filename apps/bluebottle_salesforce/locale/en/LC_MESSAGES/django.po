@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"POT-Creation-Date: 2013-07-31 15:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,118 +49,118 @@ msgstr ""
 msgid "Media / PR"
 msgstr ""
 
-#: models.py:184 models.py:384
+#: models.py:187 models.py:387
 msgid "Closed"
 msgstr ""
 
-#: models.py:185
+#: models.py:188
 msgid "Created"
 msgstr ""
 
-#: models.py:186
+#: models.py:189
 msgid "Done"
 msgstr ""
 
-#: models.py:187
+#: models.py:190
 msgid "Validated"
 msgstr ""
 
-#: models.py:199
+#: models.py:202
 msgid "Status project"
 msgstr ""
 
-#: models.py:276
+#: models.py:279
 msgid "Construction materials"
 msgstr ""
 
-#: models.py:277
+#: models.py:280
 msgid "Agriculture materials"
 msgstr ""
 
-#: models.py:278
+#: models.py:281
 msgid "School supplies"
 msgstr ""
 
-#: models.py:279
+#: models.py:282
 msgid "Communication materials"
 msgstr ""
 
-#: models.py:280
+#: models.py:283
 msgid "Other materials"
 msgstr ""
 
-#: models.py:281
+#: models.py:284
 msgid "Tools"
 msgstr ""
 
-#: models.py:282
+#: models.py:285
 msgid "Transport"
 msgstr ""
 
-#: models.py:283
+#: models.py:286
 msgid "Training"
 msgstr ""
 
-#: models.py:284
+#: models.py:287
 msgid "Labor"
 msgstr ""
 
-#: models.py:285
+#: models.py:288
 msgid "Marketing/Communcation"
 msgstr ""
 
-#: models.py:286
+#: models.py:289
 msgid "Adminstration Costs"
 msgstr ""
 
-#: models.py:287
+#: models.py:290
 msgid "Overhead"
 msgstr ""
 
-#: models.py:288
+#: models.py:291
 msgid "Other"
 msgstr ""
 
-#: models.py:291
+#: models.py:294
 msgid "Category"
 msgstr ""
 
-#: models.py:307
+#: models.py:310
 msgid "Direct Debit (Online)"
 msgstr ""
 
-#: models.py:308
+#: models.py:311
 msgid "iDEAL"
 msgstr ""
 
-#: models.py:309
+#: models.py:312
 msgid "Mastercard"
 msgstr ""
 
-#: models.py:310
+#: models.py:313
 msgid "Overboeking"
 msgstr ""
 
-#: models.py:311
+#: models.py:314
 msgid "VISA"
 msgstr ""
 
-#: models.py:322
+#: models.py:325
 msgid "PaymentMethod"
 msgstr ""
 
-#: models.py:382
+#: models.py:385
 msgid "Open"
 msgstr ""
 
-#: models.py:383
+#: models.py:386
 msgid "Running"
 msgstr ""
 
-#: models.py:385
+#: models.py:388
 msgid "Realized"
 msgstr ""
 
-#: models.py:395
+#: models.py:398
 msgid "TaskStatus"
 msgstr ""

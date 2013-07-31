@@ -64,8 +64,7 @@ class TaskSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
     members = TaskMemberSerializer(many=True, source='taskmember_set', required=False)
     files = TaskFileSerializer(many=True, source='taskfile_set', required=False)
     project = serializers.SlugRelatedField(slug_field='slug')
-    skill = SkillField()
-
+    skill = serializers.PrimaryKeyRelatedField()
     author = UserPreviewSerializer()
 
     tags = TagSerializer()

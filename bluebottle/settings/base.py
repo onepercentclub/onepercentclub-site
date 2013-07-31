@@ -242,6 +242,7 @@ INSTALLED_APPS = (
     'apps.wallposts',
     'apps.payouts',
     'apps.sepa',
+
     'apps.tasks',
     'apps.banners',
     'apps.quotes',

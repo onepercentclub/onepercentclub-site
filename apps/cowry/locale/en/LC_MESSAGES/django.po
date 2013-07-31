@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"POT-Creation-Date: 2013-07-31 15:22+0200\n"
 "PO-Revision-Date: 2013-07-12 13:17+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,59 +17,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:9
+#: models.py:10
 msgid "New"
 msgstr "New"
 
-#: models.py:10
+#: models.py:11
 msgid "In Progress"
 msgstr "In Progress"
 
-#: models.py:11
+#: models.py:12
 msgid "Pending"
 msgstr "Pending"
 
-#: models.py:12
+#: models.py:13
 msgid "Paid"
 msgstr "Paid"
 
-#: models.py:13
+#: models.py:14
 msgid "Failed"
 msgstr "Failed"
 
-#: models.py:14
+#: models.py:15
 msgid "Cancelled"
 msgstr "Cancelled"
 
-#: models.py:15
+#: models.py:16
 msgid "Refunded"
 msgstr "Refunded"
 
-#: models.py:16
+#: models.py:17
 msgid "Unknown"
 msgstr "Unknown"
 
-#: models.py:24
+#: models.py:25
 msgid "amount"
 msgstr "amount"
 
-#: models.py:28
+#: models.py:29
 msgid "payment service fee"
 msgstr "payment service fee"
 
-#: models.py:34
+#: models.py:35
 msgid "status"
 msgstr "status"
 
-#: models.py:36
+#: models.py:37
 msgid "created"
 msgstr "created"
 
-#: models.py:37
+#: models.py:38
 msgid "updated"
 msgstr "updated"
 
-#: serializers.py:41
+#: models.py:44
+msgid "STATUS_UPDATE"
+msgstr ""
+
+#: models.py:45
+msgid "STATUS_CHANGE"
+msgstr ""
+
+#: models.py:49
+msgid "INFO"
+msgstr ""
+
+#: models.py:50
+msgid "WARN"
+msgstr ""
+
+#: models.py:51
+msgid "ERROR"
+msgstr ""
+
+#: models.py:67
+msgid "Payment Log"
+msgstr ""
+
+#: serializers.py:40
 #, python-format
 msgid "%(payment_method_id)s is not a valid payment method."
 msgstr "%(payment_method_id)s is not a valid payment method."

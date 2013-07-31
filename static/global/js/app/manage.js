@@ -309,17 +309,11 @@ App.MyProject = DS.Model.extend({
         return App.Project.find(this.get('id'));
     }.property('id'),
 
-    isPhasePitch: function(){
-        return this.get('phase') == 'pitch';
-    }.property('phase'),
-
-    isPhasePlan: function(){
-        return this.get('phase') == 'plan';
-    }.property('phase'),
-
-    isPhaseCampaign: function(){
-        return this.get('phase') == 'campaign';
-    }.property('phase'),
+    isPhasePitch: Em.computed.equal('phase', 'pitch'),
+    isPhasePlan: Em.computed.equal('phase', 'plan'),
+    isPhaseCampaign: Em.computed.equal('phase', 'campaign'),
+    isPhaseAct: Em.computed.equal('phase', 'act'),
+    isPhaseResults: Em.computed.equal('phase', 'results'),
 
     isPublic: function(){
         if (this.get('phase') == 'pitch') {
@@ -428,14 +422,32 @@ App.MyProjectPlanController = Em.ObjectController.extend(App.Editable, {
 
 });
 
-App.MyProjectPlanBasicsController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanDescriptionController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPlanBasicsController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.description'
+});
+App.MyProjectPlanDescriptionController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.location'
+});
+App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.media'
+});
 App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPlanCampaignController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.organisation'
+});
+App.MyProjectPlanCampaignController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPlan.budget'
+});
 
 App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable, {
+    nextStep: function(){
+        if (this.get('need') == 'skills') {
+            return 'myProjectPlan.submit'
+        } else {
+            return 'myProjectPlan.campaign'
+        }
+    }.property('need'),
+
     shouldSave: function(){
         // Determine if any part is dirty, project plan or any of the ambassadors
         if (this.get('isDirty')) {
@@ -452,6 +464,18 @@ App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable
         return dirty;
     }.property('isDirty', 'ambassadors.@each.isDirty'),
 
+
+    updateRecordOnServer: function(){
+        var controller = this;
+        var model = this.get('model');
+        model.transaction.commit();
+
+        if (model.get('validAmbassadors')) {
+            controller.transitionToRoute(controller.get('nextStep'));
+        }
+
+    },
+
     addAmbassador: function(){
         // Use the same transaction as the projectplan
         var transaction =  this.get('model').transaction;
@@ -466,6 +490,8 @@ App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable
 });
 
 App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editable, {
+
+    nextStep: 'myProjectPlan.legal',
 
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses
@@ -504,12 +530,13 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
         model.one('becameInvalid', function(record){
             model.set('errors', record.get('errors'));
         });
-        model.one('didCreate', function(){
-            controller.startEditing();
-        });
-
         model.one('didUpdate', function(){
-            controller.startEditing();
+            controller.transitionToRoute(controller.get('nextStep'));
+            window.scrollTo(0);
+        });
+        model.one('didCreate', function(){
+            controller.transitionToRoute(controller.get('nextStep'));
+            window.scrollTo(0);
         });
 
         model.transaction.commit();
@@ -537,6 +564,26 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
 
 App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
 
+    nextStep: 'myProjectPlan.submit',
+
+    updateRecordOnServer: function(){
+        var controller = this;
+        var model = this.get('model.organization');
+        model.one('becameInvalid', function(record){
+            model.set('errors', record.get('errors'));
+        });
+        model.one('didUpdate', function(){
+            controller.transitionToRoute(controller.get('nextStep'));
+            window.scrollTo(0);
+        });
+        model.one('didCreate', function(){
+            controller.transitionToRoute(controller.get('nextStep'));
+            window.scrollTo(0);
+        });
+
+        model.transaction.commit();
+    },
+
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses
         if (this.get('isDirty')) {
@@ -552,6 +599,8 @@ App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
 
 
 App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
+
+    nextStep: 'myProjectPlan.bank',
 
     shouldSave: function(){
         // Determine if any part is dirty, project plan or any of the budget_lines
@@ -569,6 +618,15 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
         return dirty;
     }.property('isDirty', 'budgetLines.@each.isDirty'),
 
+    updateRecordOnServer: function(){
+        var controller = this;
+        var model = this.get('model');
+        model.transaction.commit();
+        if (model.get('validBudget')) {
+            controller.transitionToRoute(controller.get('nextStep'));
+        }
+    },
+
     addBudgetLine: function(){
         // Use the same transaction as the projectplan
         var transaction =  this.get('model').transaction;
@@ -584,6 +642,8 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
 
 
 App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
+
+    nextStep: 'myProjectPlan.ambassadors',
 
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses

@@ -108,8 +108,8 @@ class BlueBottleAdmin(UserAdmin):
     form = BlueBottleUserChangeForm
     add_form = BlueBottleUserCreationForm
 
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
-    ordering = ('email',)
+    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'date_joined', 'is_active')
+    ordering = ('-date_joined', 'email',)
 
 
 admin.site.register(BlueBottleUser, BlueBottleAdmin)

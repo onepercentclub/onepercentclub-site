@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"POT-Creation-Date: 2013-07-31 15:22+0200\n"
 "PO-Revision-Date: 2013-07-26 08:04+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,9 +288,8 @@ msgid "user addresses"
 msgstr "user addresses"
 
 #: templates/users.hbs:14
-#, python-format
-msgid "My 1%%"
-msgstr "My 1%%"
+msgid "My 1%"
+msgstr "My 1%"
 
 #: templates/users.hbs:22
 msgid "Preview my profile"
@@ -317,9 +316,8 @@ msgid "Edit your profile"
 msgstr "Edit your profile"
 
 #: templates/users.hbs:70
-#, python-format
-msgid "Personalise your account so 1%%Members can get to know you."
-msgstr "Personalise your account so 1%%Members can get to know you."
+msgid "Personalise your account so 1%Members can get to know you."
+msgstr "Personalise your account so 1%Members can get to know you."
 
 #: templates/users.hbs:77 templates/users.hbs.py:544
 msgid "Name"
@@ -338,9 +336,8 @@ msgid "About yourself"
 msgstr "About yourself"
 
 #: templates/users.hbs:126
-#, python-format
-msgid "Why did you join 1%%Club?"
-msgstr "Why did you join 1%%Club?"
+msgid "Why did you join 1%Club?"
+msgstr "Why did you join 1%Club?"
 
 #: templates/users.hbs:141
 msgid "Your website"
@@ -351,9 +348,8 @@ msgid "Location"
 msgstr "Location"
 
 #: templates/users.hbs:173
-#, python-format
-msgid "1%%SKILLS"
-msgstr "1%%SKILLS"
+msgid "1%SKILLS"
+msgstr "1%SKILLS"
 
 #: templates/users.hbs:174
 msgid ""
@@ -391,7 +387,7 @@ msgstr "I'd like to receive emails about"
 
 #: templates/users.hbs:259
 msgid "1%Newsletters"
-msgstr "1%Newsletters"
+msgstr ""
 
 #: templates/users.hbs:272
 msgid "Account type"
@@ -415,8 +411,8 @@ msgstr "Personal Details"
 
 #: templates/users.hbs:312
 msgid ""
-"Only 1%CLUB can see your personal details. They won’t be published anywhere "
-"on the 1%CLUB website."
+"We'd like to match you to projects and events based on your location & a "
+"personal thank you in your mailbox."
 msgstr ""
 
 #: templates/users.hbs:317
@@ -522,14 +518,12 @@ msgid "Sign up"
 msgstr "Sign up"
 
 #: templates/users.hbs:593
-#, python-format
-msgid "By joining the 1%%Club I a hereby agree to the "
-msgstr "By joining the 1%%Club I a hereby agree to the "
+msgid "By joining the 1%Club I a hereby agree to the "
+msgstr "By joining the 1%Club I a hereby agree to the "
 
 #: templates/users.hbs:594
-#, python-format
-msgid "1%%Club Terms of service"
-msgstr "1%%Club Terms of service"
+msgid "1%Club Terms of service"
+msgstr "1%Club Terms of service"
 
 #: templates/users.hbs:608
 msgid "Already have an account?"
@@ -540,18 +534,16 @@ msgid "Log in here"
 msgstr "Log in here"
 
 #: templates/users.hbs:620
-#, python-format
-msgid "Why join 1%%Club?"
-msgstr "Why join 1%%Club?"
+msgid "Why join 1%Club?"
+msgstr "Why join 1%Club?"
 
 #: templates/users.hbs:625
 msgid "It's easy to find projects you like."
 msgstr "It's easy to find projects you like."
 
 #: templates/users.hbs:626
-#, python-format
-msgid "A fun and personal way to share your 1%%."
-msgstr "A fun and personal way to share your 1%%."
+msgid "A fun and personal way to share your 1%."
+msgstr "A fun and personal way to share your 1%."
 
 #: templates/users.hbs:627
 msgid "You'll receive updates of the progress of the projects you support."
@@ -566,9 +558,8 @@ msgid "About"
 msgstr "About"
 
 #: templates/users.hbs:650
-#, python-format
-msgid "Joined 1%%Club because"
-msgstr "Joined 1%%Club because"
+msgid "Joined 1%Club because"
+msgstr "Joined 1%Club because"
 
 #: templates/users.hbs:688
 msgid "Forgot your password?"

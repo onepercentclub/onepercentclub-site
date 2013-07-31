@@ -117,11 +117,19 @@ App.Editable = Ember.Mixin.create({
         });
 
         model.one('didUpdate', function(){
-            controller.startEditing();
+            if (controller.get('nextStep')) {
+                controller.transitionToRoute(controller.get('nextStep'));
+            } else {
+                controller.startEditing();
+            }
         });
 
         model.one('didCreate', function(){
-            controller.startEditing();
+            if (controller.get('nextStep')) {
+                controller.transitionToRoute(controller.get('nextStep'));
+            } else {
+                controller.startEditing();
+            }
         });
 
         model.transaction.commit();

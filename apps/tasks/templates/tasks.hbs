@@ -8,7 +8,7 @@
     <li class="item item-task">
         <h2>
             <span class="icon icon-leaf"></span>
-            {{task.skill}}
+            {{task.skill.name}}
         </h2>
         <div class="header">
             <img {{bindAttr src="project.image" }} />
@@ -156,7 +156,7 @@
     <li class="item item-task">
         <h2>
             <span class="icon icon-leaf"></span>
-            {{task.skill}}
+            {{task.skill.name}}
         </h2>
         <div class="content">
             {{task.title}}
@@ -314,7 +314,7 @@
                         <span class="icon-wrench" />
                         {% trans "Skill" %}
                     </th>
-                    <td>{{ skill }}</td>
+                    <td>{{ skill.name }}</td>
                 </tr>
                 {% comment %}
                 <tr>

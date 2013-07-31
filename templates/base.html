@@ -344,12 +344,31 @@
                         <li>
                             <h3>{% trans "Discover 1%More" %}</h3>
                             <ul>
-                                <li>{% trans "1%Blog" %}</li>
-                                <li>{% trans "1%Live" %}</li>
-                                <li>{% trans "1%Event" %}</li>
-                                <li>{% trans "1%Video" %}</li>
-                                <li>{% trans "1%Bsuiness" %}</li>
-                                <li>{% trans "1%Gifts" %}</li>
+                                <li>
+                                    <a href="http://onepercentblog.com/" target="_blank">
+                                        {% trans "1%Blog" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://onepercentlive.com/" target="_blank">
+                                        {% trans "1%Live" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://onepercentevent.com/" target="_blank">
+                                        {% trans "1%Event" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.youtube.com/user/1Procentclub" target="_blank">
+                                        {% trans "1%Video" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a {{action showPage 'business'}} href="/#!/pages/business">
+                                        {% trans "1%Business" %}
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
