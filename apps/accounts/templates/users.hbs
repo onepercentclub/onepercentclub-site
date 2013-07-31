@@ -443,12 +443,11 @@
 
 
 {% tplhandlebars "userOrders" %}
-
 <section class="wrapper">
     <div class="content">
         {{#if isLoaded }}
             {{#if recurringOrder }}
-                {{#if recurringPayment }}
+                {{#if model }}
                     <h2>Current Monthly donation: €{{ recurringOrder.total }}</h2>
                     <div>
                         <h3>Projects</h3>
@@ -459,20 +458,75 @@
                         </ul>
                     </div>
 
-                    <ul>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Active" %}
-                            </label>
+                    <fieldset>
+                        <ul>
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Bank Account Name" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="name" classBinding="errors.name.length:error"}}
+                                </div>
+                                {{#if errors.name }}
+                                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
 
-                            <div class="controls">
-                                {{#view Em.RadioButtonGroup name="active" selectedValueBinding="recurringPaymentActive" class="radio-group-horizontal"}}
-                                    <div class="radio3">{{view view.RadioButton value="on"}}<span>{% trans "On" %}</span></div>
-                                    <div class="radio3">{{view view.RadioButton value="off"}}<span>{% trans "Off" %}</span></div>
-                                {{/view}}
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Bank Account City" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="city" classBinding="errors.city.length:error"}}
+                                </div>
+                                {{#if errors.city }}
+                                    <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
+
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Bank Account" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="account" placeholder="7 digits" classBinding="errors.account.length:error"}}
+                                </div>
+                                {{#if errors.account }}
+                                    <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
+
+                            <li class="control-group">
+                                <label class="control-label">
+                                    {% trans "Active" %}
+                                </label>
+
+                                <div class="controls">
+                                    {{#view Em.RadioButtonGroup name="active" selectedValueBinding="recurringPaymentActive" class="radio-group-horizontal"}}
+                                        <div class="radio3">{{view view.RadioButton value="on"}}<span>{% trans "On" %}</span></div>
+                                        <div class="radio3">{{view view.RadioButton value="off"}}<span>{% trans "Off" %}</span></div>
+                                    {{/view}}
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+
+                    <fieldset class="donation-monthly-total">
+                        <div class="donation-amount">
+                            <div class="amount-control">
+                                <label for="donation-amount-1">{% trans "Amount" %}</label>
+                                <span class="currency"><em>&euro; </em>
+                                    {{input  type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" value=amount}}
+                                </span>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </fieldset>
+
+                    <p class="authorisation">{% trans "By clicking save, I authorize 1%Club to withdraw money every month." %}</p>
+
+                    {{#if saved }}
+                        <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Monthly donation saved" %}</em></span>
+                    {{/if}}
+
+                    <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
+                        <em class="flaticon solid checkmark-1"></em>
+                        {{saveButtonText}}
+                    </button>
+
                 {{/if }}
 
                 {# TODO: Use event to set recurring to true before sending user to donation list. Use same for below #}
@@ -489,7 +543,7 @@
 
             <h2>Order History</h2>
                 <ul>
-                    {{#each order in model}}
+                    {{#each order in closedOrders}}
                         <li>
                             Total: €{{ order.total }}
                             Type: {{#if order.recurring }} {% trans "Monthly" %} {{ else }} {% trans "Single" %} {{/if}}
