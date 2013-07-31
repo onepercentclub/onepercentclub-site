@@ -128,6 +128,10 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         return this.get('length') > 1;
     }.property('length'),
 
+    showTopThreeProjects: function() {
+        return this.get('controllers.currentOrder.recurring') && !this.get('editingRecurringOrder');
+    }.property('editingRecurringOrder', 'controllers.currentOrder.recurring'),
+
     readyForPayment: function() {
         if (this.get('length') > 0) {
             return true;
@@ -178,12 +182,12 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             numDonations =  donations.get('length');
 
             // Set the updated monthly totals in a
-            amountPerProject = Math.round(controller.get('recurringTotal') / numDonations);
+            amountPerProject = Math.floor(controller.get('recurringTotal') / numDonations);
             for (var i = 0; i <  donations.get('length') - 1; i++) {
                 donations.objectAt(i).set('tempRecurringAmount', amountPerProject);
             }
             // Update the last donation with the remaining amount.
-            donations.objectAt(donations.get('length') - 1).set('tempRecurringAmount', this.get('recurringTotal') - (amountPerProject * (numDonations - 1)));
+            donations.objectAt(donations.get('length') - 1).set('tempRecurringAmount', controller.get('recurringTotal') - (amountPerProject * (numDonations - 1)));
 
         } else {
             // The user does not already have a recurring order set.
@@ -214,7 +218,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             }
 
             if (donationsTotal != recurringTotal) {
-                amountPerProject = Math.round(recurringTotal / numDonations);
+                amountPerProject = Math.floor(recurringTotal / numDonations);
                 for (var j = 0; j < numDonations - 1; j++) {
                     this.updateDonation(donations.objectAt(j), amountPerProject)
                 }

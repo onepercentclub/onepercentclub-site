@@ -122,9 +122,15 @@
 	            {{#each donation in controller }}
 	                {{render "currentOrderDonation" donation}}
 	            {{else}}
-                    {{#if controllers.currentOrder.recurring }}
-                        {# TODO: show first three projects from here: previews/?ordering=popularity&phase=campaign #}
+                    {{#if showTopThreeProjects }}
                         Support the top 3 projects with your monthly donation.
+                        <ul>
+                            {{#each projectPreview in topThreeProjects }}
+                                <li>
+                                    {{ projectPreview.title }}
+                                </li>
+                            {{/each}}
+                        </ul>
                     {{else}}
                         {{#linkTo "projectList"}}
                             <div class="form-meta">
