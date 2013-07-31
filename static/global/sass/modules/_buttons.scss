@@ -46,13 +46,14 @@
     }
 
     &[disabled],&.disabled {
-        border-color: $gray;
+        border-color: $grayLight;
         background-color: $grayLight;
-        color: $white;
+        color: $color-back;
 
         &:hover {
+        	border-color: $grayLight;
             background-color: $grayLight;
-            color: $white;
+            color: $color-back;
         }
     }
 
@@ -151,13 +152,13 @@
 
         .flaticon, .icon {
             background-color: darken($grayLight, 5%);
-            color: darken($white, 5%);
+            color: $color-back;
         }
 
         &:hover {
             .flaticon, .icon {
                 background-color: darken($grayLight, 5%);
-                color: darken($white, 5%);
+                color: $color-back;
             }
 
         }
