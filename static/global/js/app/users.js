@@ -242,27 +242,22 @@ App.UserSettingsController = Em.ObjectController.extend(App.Editable, {
 });
 
 
-App.UserOrdersController = Em.ObjectController.extend({
-
+App.UserOrdersController = Em.ObjectController.extend(App.Editable, {
     recurringPaymentActive: '',
 
     // Initialized recurringPaymentActive
     initRecurringPaymentActive: function() {
-        if (this.get('recurringPayment.isLoaded') && this.get('recurringPaymentActive') == '') {
+        if (this.get('isLoaded') && this.get('recurringPaymentActive') == '') {
             if (this.get('recurringPayment.active')) {
                 this.set('recurringPaymentActive', 'on')
             } else {
                 this.set('recurringPaymentActive', 'off')
             }
         }
-    }.observes('recurringPayment.isLoaded'),
+    }.observes('isLoaded'),
 
-    updateRecurringPayment: function() {
-        var recurringPayment = this.get('recurringPayment');
-        var transaction = this.get('store').transaction();
-        transaction.add(recurringPayment);
-        recurringPayment.set('active', (this.get('recurringPaymentActive') == 'on'));
-        transaction.commit();
+    updateRecurringPaymentActive: function() {
+        this.set('active', (this.get('recurringPaymentActive') == 'on'));
     }.observes('recurringPaymentActive')
 });
 

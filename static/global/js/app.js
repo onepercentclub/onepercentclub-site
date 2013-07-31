@@ -1253,11 +1253,23 @@ App.UserSettingsRoute = Em.Route.extend({
 
 App.UserOrdersRoute = Em.Route.extend({
     model: function(params) {
-        return App.Order.find({status: 'closed'});
+        var route = this;
+
+        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
+            var controller = route.controllerFor('userOrders');
+            if (recurringPayments.get('length') > 0) {
+                // Set the model here instead of the promise in setupController so that the model can be used in the
+                // startEditing() method.
+                controller.set('model', recurringPayments.objectAt(0));
+                controller.startEditing();
+            } else {
+                controller.set('model', null);
+            }
+        });
     },
 
-    setupController: function(controller, closedOrders) {
-        this._super(controller, closedOrders);
+    setupController: function(controller, recurringPayment) {
+        // Don't set the model here because we're setting it after the promise is resolved.
 
         // Set the monthly order.
         App.Order.find({status: 'recurring'}).then(function(recurringOrders) {
@@ -1268,14 +1280,15 @@ App.UserOrdersRoute = Em.Route.extend({
             }
         });
 
-        // Set the payment.
-        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
-            if (recurringPayments.get('length') > 0) {
-                controller.set('recurringPayment', recurringPayments.objectAt(0));
-            } else {
-                controller.set('recurringPayment', null);
-            }
+        // Set the closed orders.
+        App.Order.find({status: 'closed'}).then(function(closedOrders) {
+            controller.set('closedOrders', closedOrders);
         });
+    },
+
+    exit: function() {
+        this._super();
+        this.controllerFor('userOrders').stopEditing();
     }
 });
 
