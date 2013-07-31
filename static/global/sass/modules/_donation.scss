@@ -4,6 +4,10 @@
 		padding-bottom: 0;
 	}
 	
+	.content {
+		padding-top: 6px;
+	}
+	
 	.tabs {
 		@include grid(32,1,1);
 		margin-bottom: 2px;
@@ -16,7 +20,6 @@
 	
 	.donate-time {
 		@include rem(font-size, 16px);
-		margin-top: 6px;
 		@include rem(padding, $padding 0);
 		
 		label {
@@ -72,7 +75,7 @@
             &:hover {
                 border-color: $color-back !important;
                 
-                h1 {
+                h2 {
                     color: $pink;
                 }
             }
@@ -192,6 +195,16 @@
 			    float: right !important;
 		    }
 	    }
+	}
+	
+	.loading-small {
+		@include rem(font-size, 16px);
+		font-weight: 300;
+		
+		img {
+			width: 20px;
+			height: 20px;
+		}
 	}
 }
 
