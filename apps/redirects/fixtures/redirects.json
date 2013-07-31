@@ -1,0 +1,123 @@
+[
+    {
+        "pk": 1,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": false,
+            "new_path": "/#!/pages/about",
+            "old_path": "/about"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": true,
+            "new_path": "/#!/news/$1-$2",
+            "old_path": "/news/index/news/(.*)/(.*)/"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": true,
+            "new_path": "/#!/projects/$1",
+            "old_path": "/projects/(.*)"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": false,
+            "new_path": "/#!/pages/get-involved",
+            "old_path": "/why-1-percent"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": false,
+            "new_path": "/#!/pages/business",
+            "old_path": "/business"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": false,
+            "new_path": "/#!/pages/meet-team",
+            "old_path": "/whoweare"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": false,
+            "new_path": "/#!/pages/faq",
+            "old_path": "/faq"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": false,
+            "new_path": "/#!/pages/legal",
+            "old_path": "/termsandconditions"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": false,
+            "new_path": "/#!/contact",
+            "old_path": "/contact"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": false,
+            "new_path": "/#!/pages/work",
+            "old_path": "/vacancies"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "redirects.redirect",
+        "fields": {
+            "fallback_redirect": false,
+            "nr_times_visited": 0,
+            "regular_expression": true,
+            "new_path": "/#!/$1",
+            "old_path": "/go/(.*)"
+        }
+    }
+]
