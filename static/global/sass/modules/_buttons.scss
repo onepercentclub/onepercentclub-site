@@ -1,25 +1,21 @@
 /* =========== Buttons */
 
 .button-link {
-    @include rem(font-size, 16px);
+    @include rem(font-size, 18px);
     color: $text-black;
+    font-weight: 300;
     text-transform: uppercase;
     cursor: hand;
     cursor: pointer;
     background: transparent;
 
-    em {
-        @include rem(font-size, 20px);
+    .flaticon {
+     	@include rem(margin-right, $padding/4);
     }
 
     &:hover, &:active {
-        color: $black;
-        text-decoration: underline;
-
-        em {
-            text-decoration: none;
-        }
-    }
+        color: $green;
+    } 
 }
 
 

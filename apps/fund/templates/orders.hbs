@@ -4,7 +4,7 @@
 
 
 {% tplhandlebars "currentOrder" %}
-
+<div id="donate">
     {{#if controller.isVoucherOrder}}
         <div class="container section">
             <div class="wrapper">
@@ -32,46 +32,43 @@
                     {{/linkTo}}
                 </sidebar>
                 {%endcomment%}
+                
+                <ul class="tabs steps">
+	                {{#if controller.isVoucherOrder}}
+	                    {%comment%}
+	                    Voucher code is disabled for now.
+	                    {{#view App.OrderNavView classNames="support"}}
+	                        {{#linkTo "currentOrder.voucherList"}}{% trans "Gift Cards" %}{{/linkTo}}
+	                    {{/view}}
+	                    {%endcomment%}
+	                {{else}}
+	                    {{#view App.OrderNavView classNames="support"}}
+	                        {{#linkTo "currentOrder.donationList"}}<em class="flaticon solid menu-list-1"></em> {% trans "Projects" %}{{/linkTo}}
+	                    {{/view}}
+	                {{/if}}
+	
+	                {{#view App.OrderNavView classNames="details"}}
+	                    {{#linkTo "paymentProfile"}}<em class="flaticon solid notebook-2"></em> {% trans "Details" %}{{/linkTo}}
+	                {{/view}}
+	
+	                {% comment %}
+	                Disable Profile tab until we have time to implement it properly.
+	                The donations-steps css class will need to be changed when this is enabled (that changed this line).
+	                {{#view App.OrderNavView classNames="profile"}}
+	                    <a>{% trans "Profile" %}</a>
+	                {{/view}}
+	                {% endcomment %}
+	
+	                {{#view App.OrderNavView classNames="payment"}}
+	                    {{#linkTo "paymentSelect"}}<em class="flaticon solid wallet-1"></em> {% trans "Payment" %}{{/linkTo}}
+	                {{/view}}
+				</ul>
             </div>
         </div>
     {{/if}}
 
     <div class="container">
-
         <section class="wrapper">
-
-            <ul class="donation-steps">
-                {{#if controller.isVoucherOrder}}
-                    {%comment%}
-                    Voucher code is disabled for now.
-                    {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrder.voucherList"}}{% trans "Gift Cards" %}{{/linkTo}}
-                    {{/view}}
-                    {%endcomment%}
-                {{else}}
-                    {# Hack: This span needs to be here to get the 'Support' to replace 'Gift Cards'. #}
-                    <span></span>
-                    {{#view App.OrderNavView classNames="support"}}
-                        {{#linkTo "currentOrder.donationList"}}{% trans "Support" %}{{/linkTo}}
-                    {{/view}}
-                {{/if}}
-
-                {{#view App.OrderNavView classNames="details"}}
-                    {{#linkTo "paymentProfile"}}{% trans "Details" %}{{/linkTo}}
-                {{/view}}
-
-                {% comment %}
-                Disable Profile tab until we have time to implement it properly.
-                The donations-steps css class will need to be changed when this is enabled (that changed this line).
-                {{#view App.OrderNavView classNames="profile"}}
-                    <a>{% trans "Profile" %}</a>
-                {{/view}}
-                {% endcomment %}
-
-                {{#view App.OrderNavView classNames="payment"}}
-                    {{#linkTo "paymentSelect"}}{% trans "Finish" %}{{/linkTo}}
-                {{/view}}
-            </ul>
 
             {{#if display_message}}
                 <div {{bindAttr class=":order-message isError"}}>
@@ -103,13 +100,13 @@
         </section>
 
     </div>
-
+</div>
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "current_order_donation_list" %}
 
-    <fieldset>
+    <fieldset class="donate-time">
         <ul>
             <li class="control-group control-group-lonely">
 
@@ -155,7 +152,6 @@
             <h2>Current Monthly Donation</h2>
             <fieldset>
                 <ul id="donation-projects">
-
                     {{#each donation in recurringOrder.donations }}
                         {{render "currentRecurringDonation" donation}}
                     {{/each}}
@@ -163,34 +159,30 @@
             </fieldset>
         {{/if}}
 
-        <fieldset class="monthly-donation">
-            <div class="monthly-donation-total">
-                <div class="form-summary">{% trans "Divide total to projects above" %}</div>
-                <div class="donation-amount">
-                    <div class="monthly-amount-control">
-                        <label for="donation-amount-1">{% trans "Total Amount" %}</label>
-                        <span class="currency"><em>&euro; </em>
-                            <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
-                        </span>
-                    </div>
+        <fieldset class="donation-monthly-total">
+        	<div class="form-summary">{% trans "Divide to projects" %}</div>
+            <div class="donation-amount">
+                <div class="amount-control">
+                    <label for="donation-amount-1">{% trans "Total Amount" %}</label>
+                    <span class="currency"><em>&euro; </em>
+                        <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
+                    </span>
                 </div>
             </div>
         </fieldset>
     {{else}}
-        <fieldset>
-            <div class="donation-total">
-                <div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ client_side_total }}</span></div>
-            </div>
+        <fieldset class="donation-total">
+        	<div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ client_side_total }}</span></div>
         </fieldset>
     {{/if}}
 
 
-    {{#linkTo "projectList" class="button-link"}}<em class="icon-plus-sign"></em> {%trans "Add another project" %}{{/linkTo}}
+    {{#linkTo "projectList" class="button-link add-project"}}<em class="flaticon solid plus-2"></em> {%trans "Add another project" %}{{/linkTo}}
 
     {{#if readyForPayment }}
-        {{#linkTo "paymentProfile" class="btn btn-iconed right"}}<i class="icon icon-chevron-right"></i>{% trans "Next" %}{{/linkTo}}
+        {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<i class="flaticon solid right-2"></i>{% trans "Next Step" %}{{/linkTo}}
     {{else}}
-        <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Next" %}</button>
+        <button disabled class="btn btn-iconed right"><i class="flaticon solid right-2"></i>{% trans "Next Step" %}</button>
     {{/if}}
 {% endtplhandlebars %}
 
@@ -226,9 +218,9 @@
 
 
         {{#if length }}
-            {{#linkTo "paymentProfile" class="btn btn-iconed right"}}<i class="icon icon-chevron-right"></i>{% trans "Next" %}{{/linkTo}}
+            {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<i class="flaticon solid right-2"></i>{% trans "Next Step" %}{{/linkTo}}
         {{else}}
-            <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Next" %}</button>
+            <button disabled class="btn btn-iconed right"><i class="flaticon solid right-2"></i>{% trans "Next Step" %}</button>
         {{/if}}
 
     </fieldset>
@@ -444,9 +436,9 @@
     </fieldset>
 
     {{#if isFormReady }}
-        <button class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans 'Next' %}</button>
+        <button class="btn btn-primary btn-iconed right"><i class="flaticon solid right-2"></i>{% trans 'Next Step' %}</button>
     {{else}}
-        <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Next" %}</button>
+        <button disabled class="btn btn-iconed right"><i class="flaticon solid right-2"></i>{% trans "Next Step" %}</button>
     {{/if}}
 
 {% endtplhandlebars %}
@@ -459,7 +451,7 @@
         <h2>
             {{ project.title }}
             <em class="country">
-                <i class="icon-globe"></i> {{ project.plan.country.name }}, {{ project.plan.country.subregion }}
+                <i class="flaticon solid location-pin-1"></i> {{ project.plan.country.name }}, {{ project.plan.country.subregion }}
             </em>
         </h2>
     {{/linkTo}}
@@ -474,7 +466,7 @@
                 <span class="errors">{{ error }}</span>
             {{/each}}
             {{#if controllers.currentOrder.recurring }}
-                <span class="currency"><em>&euro; </em>
+                <span class="divided-amount">&euro; 
                  {{#if controllers.currentOrderDonationList.editingRecurringOrder }}
                         {{ tempRecurringAmount }}
                    {{else}}
@@ -491,7 +483,7 @@
     </div>
 
     <a class="remove" {{action "delete" this target="view" }}>
-        <span class="flaticon solid x-2"></span>
+        <em class="flaticon solid x-2"></em>
     </a>
 
 {% endtplhandlebars %}
@@ -570,10 +562,10 @@
         {{#if paymentInProgress }}
             <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "Updating monthly donation ..." %}
         {{else}}
-            <button class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Submit" %}</button>
+            <button class="btn btn-iconed right"><i class="flaticon solid right-2"></i>{% trans "Submit" %}</button>
         {{/if}}
     {{else}}
-        <button disabled class="btn btn-iconed right"><i class="icon icon-chevron-right"></i>{% trans "Submit" %}</button>
+        <button disabled class="btn btn-iconed right"><i class="flaticon solid right-2"></i>{% trans "Submit" %}</button>
     {{/if}}
 
 {% endtplhandlebars %}

@@ -138,14 +138,14 @@
     border-bottom: 1px solid $text-grey;
 
     .tabs {
-
-        @include grid(28,1);
-
-        .tabs li {
-            @include grid(16,2,0);
-        }
-
-    }
+		@include grid(32,1,1);
+		margin-bottom: 2px;
+		@include rem(margin-top, $padding/2);
+		
+		li > a, li > span {
+			@include grid(16,0,0);
+		}
+	}
 
     .project-action {
         @include grid(20,0,1);
