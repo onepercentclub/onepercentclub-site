@@ -223,7 +223,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             }
         }
 
-        }, 800);
+        }, 1000);
 
     }.observes('model.length', 'recurringTotal', 'controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
 
