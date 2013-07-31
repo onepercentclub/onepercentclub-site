@@ -487,7 +487,7 @@ msgstr "Join 1%Club"
 msgid ""
 "\n"
 "        1%Club is the global platform where you can share a little and "
-"change the world, in your vary\n"
+"change the world, in your very\n"
 "        own way. We ignite modern society to share 1% and support smart "
 "ideas from people in\n"
 "        developing countries. We do this in a new, open way, believing in "
@@ -543,7 +543,7 @@ msgstr "It's easy to find projects you like."
 
 #: templates/users.hbs:626
 msgid "A fun and personal way to share your 1%."
-msgstr "A fun and personal way to share your 1%."
+msgstr ""
 
 #: templates/users.hbs:627
 msgid "You'll receive updates of the progress of the projects you support."

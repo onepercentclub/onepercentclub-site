@@ -85,7 +85,7 @@ class BlueBottleAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'username', 'gender', 'birthdate', 'phone_number')}),
-        (_("Profile"), {'fields': ('picture', 'about', 'why', 'availability', 'location', 'website')}),
+        (_("Profile"), {'fields': ('user_type', 'picture', 'about', 'why', 'availability', 'location', 'website')}),
         (_("Settings"), {'fields': ['primary_language', 'newsletter']}),
         (_("Data from old website"), {'fields': ('available_time', 'contribution', 'tags')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
@@ -107,6 +107,8 @@ class BlueBottleAdmin(UserAdmin):
 
     form = BlueBottleUserChangeForm
     add_form = BlueBottleUserCreationForm
+
+    list_filter = ('user_type', 'is_active', 'is_staff', 'is_superuser')
 
     list_display = ('email', 'first_name', 'last_name', 'is_staff', 'date_joined', 'is_active')
     ordering = ('-date_joined', 'email',)

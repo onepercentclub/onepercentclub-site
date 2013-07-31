@@ -402,7 +402,7 @@
                                 {{#view Em.RadioButtonGroup name="gender" selectedValueBinding="gender" class="radio-group-horizontal"}}
                                     <div class="radio3">{{view view.RadioButton value="female"}}<span>{% trans "Female" %}</span></div>
                                     <div class="radio3">{{view view.RadioButton value="male"}}<span>{% trans "Male" %}</span></div>
-                                    <div class="radio3">{{view view.RadioButton value=""}}<span>{% trans "Unset" %}</span></div>
+                                    <div class="radio3 hidden">{{view view.RadioButton value=""}}<span>{% trans "Unset" %}</span></div>
                                 {{/view}}
                             </div>
                         </li>
