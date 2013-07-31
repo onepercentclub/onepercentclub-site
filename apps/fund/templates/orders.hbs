@@ -122,12 +122,17 @@
 	            {{#each donation in controller }}
 	                {{render "currentOrderDonation" donation}}
 	            {{else}}
-	                {{#linkTo "projectList"}}
-	                    <div class="form-meta">
-	                        <p class="form-label">{% trans "Choose a project to support" %}</p>
-	                        <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list." %}</p>
-	                    </div>
-	                {{/linkTo}}
+                    {{#if controllers.currentOrder.recurring }}
+                        {# TODO: show first three projects from here: previews/?ordering=popularity&phase=campaign #}
+                        Support the top 3 projects with your monthly donation.
+                    {{else}}
+                        {{#linkTo "projectList"}}
+                            <div class="form-meta">
+                                <p class="form-label">{% trans "Choose a project to support" %}</p>
+                                <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list." %}</p>
+                            </div>
+                        {{/linkTo}}
+                    {{/if}}
 	            {{/each}}
 	        </ul>
 	    </fieldset>
@@ -149,7 +154,13 @@
 	        </fieldset>
 	    {{/if}}
 	
-	    {{#linkTo "projectList" class="button-link add-project"}}<em class="flaticon solid plus-2"></em> {%trans "Add another project" %}{{/linkTo}}
+        {{#linkTo "projectList" class="button-link add-project"}}<em class="flaticon solid plus-2"></em>
+            {{#if length }}
+                {%trans "Add another project" %}
+            {{else}}
+                {%trans "Add a project" %}
+            {{/if}}
+        {{/linkTo}}
 	
 	    {{#if readyForPayment }}
 	        {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}

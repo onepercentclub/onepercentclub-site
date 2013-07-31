@@ -12,10 +12,16 @@ from .models import Donation, DonationStatuses, Order, OrderStatuses, Voucher, V
 #      The model should not have an order though.
 class RecurringDirectDebitPaymentSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='recurring-direct-debit-payment-detail')
+    amount = EuroField()
 
     class Meta:
         model = RecurringDirectDebitPayment
-        fields = ('id', 'url', 'active', 'name', 'city', 'account')
+        fields = ('id', 'url', 'active', 'amount', 'name', 'city', 'account')
+
+    def save(self, **kwargs):
+        # Set default currency.
+        self.object.currency = 'EUR'
+        return super(RecurringDirectDebitPaymentSerializer, self).save(**kwargs)
 
 
 class OrderDonationPrimaryKeyRelatedField(serializers.RelatedField):

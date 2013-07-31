@@ -101,6 +101,7 @@ App.RecurringDirectDebitPayment = DS.Model.extend({
     url: 'fund/recurringdirectdebitpayments',
 
     active: DS.attr('boolean'),
+    amount: DS.attr('number'),
 
     name: DS.attr('string'),
     city: DS.attr('string'),
@@ -132,9 +133,12 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             return true;
         }
         if (this.get('editingRecurringOrder')) {
-            if (this.get('recurringTotal') != 0 && this.get('recurringTotal') != this.get('recurringOrder.total')) {
+            if (this.get('recurringTotal') != this.get('recurringOrder.total')) {
                 return true;
             }
+        }
+        if (this.get('recurringTotal') > 0) {
+            return true;
         }
         return false;
     }.property('length', 'editingRecurringOrder', 'recurringTotal'),
@@ -219,7 +223,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             }
         }
 
-        }, 1500);
+        }, 800);
 
     }.observes('model.length', 'recurringTotal', 'controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
 
@@ -536,6 +540,8 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
         var controller = this;
         var recurringDirectDebitPayment = this.get('model');
         recurringDirectDebitPayment.set('active', true);
+        console.log('recurringTotal ' + controller.get('controllers.currentOrderDonationList.recurringTotal'));
+        recurringDirectDebitPayment.set('amount', controller.get('controllers.currentOrderDonationList.recurringTotal'));
 
         recurringDirectDebitPayment.one('becameInvalid', function(record) {
             // FIXME: turn off didCreate, didUpdate
