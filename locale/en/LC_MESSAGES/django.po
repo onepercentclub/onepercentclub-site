@@ -65,8 +65,7 @@ msgid "Get involved"
 msgstr ""
 
 #: base.html:140
-#, python-format
-msgid "My 1%%"
+msgid "My 1%"
 msgstr ""
 
 #: base.html:145
@@ -122,13 +121,11 @@ msgid "Forgot your password?"
 msgstr ""
 
 #: base.html:282
-#, python-format
-msgid "It all starts with 1%%"
+msgid "It all starts with 1%"
 msgstr ""
 
 #: base.html:286
-#, python-format
-msgid "What is 1%%CLUB?"
+msgid "What is 1%CLUB?"
 msgstr ""
 
 #: base.html:302
@@ -136,8 +133,7 @@ msgid "Start your project"
 msgstr ""
 
 #: base.html:309
-#, python-format
-msgid "About 1%%CLUB"
+msgid "About 1%CLUB"
 msgstr ""
 
 #: base.html:313
@@ -157,8 +153,7 @@ msgid "Press"
 msgstr ""
 
 #: base.html:333
-#, python-format
-msgid "Work at 1%%CLUB"
+msgid "Work at 1%CLUB"
 msgstr ""
 
 #: base.html:338 footer.html:18 footer.html.py:38
@@ -166,54 +161,44 @@ msgid "Contact"
 msgstr ""
 
 #: base.html:345
-#, python-format
-msgid "Discover 1%%More"
+msgid "Discover 1%More"
 msgstr ""
 
 #: base.html:347
-#, python-format
-msgid "1%%Blog"
+msgid "1%Blog"
 msgstr ""
 
 #: base.html:348
-#, python-format
-msgid "1%%Live"
+msgid "1%Live"
 msgstr ""
 
 #: base.html:349
-#, python-format
-msgid "1%%Event"
+msgid "1%Event"
 msgstr ""
 
 #: base.html:350
-#, python-format
-msgid "1%%Video"
+msgid "1%Video"
 msgstr ""
 
 #: base.html:351
-#, python-format
-msgid "1%%Bsuiness"
+msgid "1%Bsuiness"
 msgstr ""
 
 #: base.html:352
-#, python-format
-msgid "1%%Gifts"
+msgid "1%Gifts"
 msgstr ""
 
 #: base.html:357
-#, python-format
-msgid "1%%Social"
+msgid "1%Social"
 msgstr ""
 
 #: base.html:407 base.html.py:414
-#, python-format
-msgid "Join 1%%Club"
+msgid "Join 1%Club"
 msgstr ""
 
 #: base.html:408
-#, python-format
 msgid ""
-"1%%Club connects smart ideas from developing countries to time, money and "
+"1%Club connects smart ideas from developing countries to time, money and "
 "expertise from all over the world. It is very easy: "
 msgstr ""
 

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-07-17 16:35+0200\n"
-"PO-Revision-Date: 2013-07-17 18:19+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-07-31 15:22+0200\n"
+"PO-Revision-Date: 2013-07-31 13:28+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,81 +19,81 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/homepage.hbs:58
+#: templates/homepage.hbs:52
 msgid "Choose your project"
 msgstr "Kies je project"
 
-#: templates/homepage.hbs:59
+#: templates/homepage.hbs:53
 msgid ""
 "Support it with your time, knowledge or money and receive real-time updates."
 msgstr "Steun het met je tijd, kennis of geld. En ontvang updates over de voortgang."
 
-#: templates/homepage.hbs:100
+#: templates/homepage.hbs:94
 msgid "days to go"
-msgstr "dagen te gaan"
+msgstr "dagen"
 
-#: templates/homepage.hbs:107
+#: templates/homepage.hbs:101
 msgid "of"
 msgstr "van"
 
-#: templates/homepage.hbs:109
+#: templates/homepage.hbs:103
 msgid "raised"
 msgstr "opgehaald"
 
-#: templates/homepage.hbs:116
+#: templates/homepage.hbs:110
 msgid "Support"
 msgstr "Steun"
 
-#: templates/homepage.hbs:135
+#: templates/homepage.hbs:129
 msgid "Share a little."
 msgstr "Share a little."
 
-#: templates/homepage.hbs:135
+#: templates/homepage.hbs:129
 msgid "Change the world."
 msgstr "Change the world."
 
-#: templates/homepage.hbs:150
+#: templates/homepage.hbs:144
 msgid "Find projects"
 msgstr "Kies project"
 
-#: templates/homepage.hbs:155
+#: templates/homepage.hbs:149
 msgid "Find tasks"
 msgstr "Deel je kennis"
 
-#: templates/homepage.hbs:160
+#: templates/homepage.hbs:154
 msgid "Befriend us"
-msgstr "Word 1%Friend"
+msgstr "Word 1&perc;Friend"
 
-#: templates/homepage.hbs:174
+#: templates/homepage.hbs:168
 msgid "Our impact"
 msgstr "Onze impact"
 
-#: templates/homepage.hbs:175
+#: templates/homepage.hbs:169
 msgid ""
 "We believe that if we all share a little, together we can change the world. "
 "We got this far already."
 msgstr "Als we allemaal een beetje delen, dan veranderen we de wereld. Dit is onze impact, tot nu toe."
 
-#: templates/homepage.hbs:181
+#: templates/homepage.hbs:175
 msgid "Lives changed"
 msgstr "Mensen bereikt"
 
-#: templates/homepage.hbs:187
+#: templates/homepage.hbs:181
 msgid "Projects"
 msgstr "Projecten"
 
-#: templates/homepage.hbs:193
+#: templates/homepage.hbs:187
 msgid "Countries"
 msgstr "Landen"
 
-#: templates/homepage.hbs:199
+#: templates/homepage.hbs:193
 msgid "Hours spent"
 msgstr "Uren gedeeld"
 
-#: templates/homepage.hbs:205
+#: templates/homepage.hbs:199
 msgid "Donated"
 msgstr "Gedoneerd"
 
-#: templates/homepage.hbs:210
+#: templates/homepage.hbs:204
 msgid "Join us. Sign up and share your 1%"
-msgstr "Doe ook mee. Meld je aan en deel jouw 1%"
+msgstr ""

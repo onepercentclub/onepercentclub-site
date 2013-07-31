@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # gannetson <loek@1procentclub.nl>, 2013
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
@@ -10,16 +10,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-26 23:05+0200\n"
-"PO-Revision-Date: 2013-07-23 08:40+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"PO-Revision-Date: 2013-07-31 13:50+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/"
-"language/nl/)\n"
-"Language: nl\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: 404.html:5 404.html.py:8
@@ -33,8 +32,7 @@ msgstr "De opgevraagde pagina kon niet gevonden worden op deze website."
 #: 404.html:12
 #, python-format
 msgid "Click <a href=\"%(home_url)s\">here</a> to return to the homepage."
-msgstr ""
-"Klik <a href=\"%(home_url)s\">hier</a> om terug te gaan naar de homepage."
+msgstr "Klik <a href=\"%(home_url)s\">hier</a> om terug te gaan naar de homepage."
 
 #: 500.html:5 500.html.py:8
 msgid "Internal server error"
@@ -45,20 +43,14 @@ msgid ""
 "There was an error while trying to serve the requested page. Please try "
 "again. If the error persists, please contact the webmaster about it. In any "
 "case, we have been notified of this error."
-msgstr ""
-"Er heeft zich een interne serverfout voorgedaan tijdens het ophalen van de "
-"verzochte pagina. Probeer het nog eens. Als de fout zich blijft voordoen, "
-"neem dan contact op met de webmaster. Hoe dan ook zijn wij op de hoogte "
-"gebracht van deze fout."
+msgstr "Er heeft zich een interne serverfout voorgedaan tijdens het ophalen van de verzochte pagina. Probeer het nog eens. Als de fout zich blijft voordoen, neem dan contact op met de webmaster. Hoe dan ook zijn wij op de hoogte gebracht van deze fout."
 
 #: 500.html:12
 #, python-format
 msgid ""
-"If you need assistance, you may reference this error as <strong>"
-"%(error_id)s</strong>."
-msgstr ""
-"Als je hulp nodig hebt kun je naar deze fout verwijzen als <strong>"
-"%(error_id)s</strong>."
+"If you need assistance, you may reference this error as "
+"<strong>%(error_id)s</strong>."
+msgstr "Als je hulp nodig hebt kun je naar deze fout verwijzen als <strong>%(error_id)s</strong>."
 
 #: base.html:128
 msgid "What is 1%"
@@ -77,8 +69,7 @@ msgid "Get involved"
 msgstr "Doe mee"
 
 #: base.html:140
-#, fuzzy, python-format
-msgid "My 1%%"
+msgid "My 1%"
 msgstr "Mijn 1%"
 
 #: base.html:145
@@ -107,7 +98,7 @@ msgstr "Log in"
 
 #: base.html:234
 msgid "Log in to 1%Club"
-msgstr "Doe mee met 1%Club"
+msgstr "Inloggen bij 1%Club"
 
 #: base.html:239
 msgid "You did it!"
@@ -130,26 +121,23 @@ msgid "Password"
 msgstr "Wachtwoord"
 
 #: base.html:266
-#, fuzzy
 msgid "Forgot your password?"
-msgstr "Ik ben m'n wachtwoord vergeten"
+msgstr "Wachtwoord vergeten?"
 
 #: base.html:282
-#, fuzzy, python-format
-msgid "It all starts with 1%%"
-msgstr "Het start met 1%"
+msgid "It all starts with 1%"
+msgstr "Het begint allemaal met 1%"
 
 #: base.html:286
 msgid "What is 1%CLUB?"
-msgstr "Wat is 1%Club?"
+msgstr "Wat is 1%Club"
 
 #: base.html:302
 msgid "Start your project"
 msgstr "Start jouw project"
 
 #: base.html:309
-#, fuzzy, python-format
-msgid "About 1%%CLUB"
+msgid "About 1%CLUB"
 msgstr "Over 1%Club"
 
 #: base.html:313
@@ -169,7 +157,7 @@ msgid "Press"
 msgstr "Pers"
 
 #: base.html:333
-msgid "Work at 1%Club"
+msgid "Work at 1%CLUB"
 msgstr "Werken bij 1%Club"
 
 #: base.html:338 footer.html:18 footer.html.py:38
@@ -182,36 +170,31 @@ msgstr "Ontdek 1%Meer"
 
 #: base.html:347
 msgid "1%Blog"
-msgstr ""
+msgstr "1%Blog"
 
 #: base.html:348
 msgid "1%Live"
 msgstr ""
 
 #: base.html:349
-#, python-format
-msgid "1%%Event"
+msgid "1%Event"
 msgstr ""
 
 #: base.html:350
-#, python-format
-msgid "1%%Video"
-msgstr ""
+msgid "1%Video"
+msgstr "1%Video"
 
 #: base.html:351
-#, python-format
-msgid "1%%Bsuiness"
-msgstr ""
+msgid "1%Bsuiness"
+msgstr "1%Business"
 
 #: base.html:352
-#, python-format
-msgid "1%%Gifts"
-msgstr ""
+msgid "1%Gifts"
+msgstr "1%Gifts"
 
 #: base.html:357
-#, python-format
-msgid "1%%Social"
-msgstr ""
+msgid "1%Social"
+msgstr "1%Social"
 
 #: base.html:407 base.html.py:414
 msgid "Join 1%Club"
@@ -222,8 +205,6 @@ msgid ""
 "1%Club connects smart ideas from developing countries to time, money and "
 "expertise from all over the world. It is very easy: "
 msgstr ""
-"1%Club is jouw plek om je kennis, tijd en geld te delen met mensen met "
-"slimme ideeën in ontwikkelingslanden."
 
 #: base.html:410
 msgid "Select a project or tast"
@@ -348,8 +329,7 @@ msgstr "Uitgelogd."
 
 #: registration/login.html:38
 msgid "Your username and password didn't match. Please try again."
-msgstr ""
-"Gebruikersnaam en wachtwoord kwamen niet overeen. Probeer het nog eens."
+msgstr "Gebruikersnaam en wachtwoord kwamen niet overeen. Probeer het nog eens."
 
 #: registration/password_reset_email.html:21
 msgid "Click on this link to reset your password."
@@ -371,6 +351,3 @@ msgstr ""
 #, python-format
 msgid "Password reset on %(site_name)s"
 msgstr ""
-
-#~ msgid "Login"
-#~ msgstr "Inloggen"
