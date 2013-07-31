@@ -146,21 +146,26 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             return;
         }
 
+        // 'current' order id hack: Need to run in background because of race condition cause by donation not having the
+        // right order id (in this case 'current'). Without this, donations can't be removed (DELETE) from recurring orders.
+        // This can be removed when we have a RESTful Order API.
+        var controller = this;
+        Ember.run.later(this, function() {
         var numDonations = 0,
             amountPerProject = 0,
             donations = null;
 
-        var numRecurringDonations = this.get('recurringOrder.donations.length');
+        var numRecurringDonations = controller.get('recurringOrder.donations.length');
         if (numRecurringDonations > 0) {
             // The user already has a recurring order set.
-            if (this.get('recurringTotal') == 0) {
-                this.set('recurringTotal', this.get('recurringOrder.total'));
+            if (controller.get('recurringTotal') == 0) {
+                this.set('recurringTotal', controller.get('recurringOrder.total'));
             }
 
             // Create a donations list with the new and monthly donations.
             donations = Em.A();
-            donations.addObjects(this.get('model'));
-            this.get('recurringOrder.donations').forEach(function(donation) {
+            donations.addObjects(controller.get('model'));
+            controller.get('recurringOrder.donations').forEach(function(donation) {
                 // Don't include donations set to 0 as they have been 'deleted'.
                 if (donation.get('tempRecurringAmount') != 0) {
                     donations.addObject(donation);
@@ -169,7 +174,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             numDonations =  donations.get('length');
 
             // Set the updated monthly totals in a
-            amountPerProject = Math.round(this.get('recurringTotal') / numDonations);
+            amountPerProject = Math.round(controller.get('recurringTotal') / numDonations);
             for (var i = 0; i <  donations.get('length') - 1; i++) {
                 donations.objectAt(i).set('tempRecurringAmount', amountPerProject);
             }
@@ -180,21 +185,23 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             // The user does not already have a recurring order set.
             var donationsTotal = 0,
                 recurringTotal = 0;
-            donations = this.get('model');
+            donations = controller.get('model');
+
+            // This happens sometimes when loading the donations list from a bookmark.
             if (Em.isNone(donations)) {
-                // This happens sometimes when loading the donations list from a bookmark.
                 return;
             }
+
             numDonations = donations.get('length');
 
             // Special setup when there's a new donation added.
 
             if (keyName == 'model.length' && numDonations > 0 && donations.objectAt(numDonations - 1).get('isNew')) {
-                recurringTotal = this.get('recurringTotal') + App.Donation.prototype.get('amount');
+                recurringTotal = controller.get('recurringTotal') + App.Donation.prototype.get('amount');
                 this.set('recurringTotal', recurringTotal);
             } else {
-                donationsTotal = this.get('client_side_total');
-                recurringTotal = this.get('recurringTotal');
+                donationsTotal = controller.get('client_side_total');
+                recurringTotal = controller.get('recurringTotal');
             }
 
             if (recurringTotal == 0) {
@@ -211,6 +218,9 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
                 this.updateDonation(donations.objectAt(numDonations - 1), recurringTotal - (amountPerProject * (numDonations - 1)));
             }
         }
+
+        }, 1500);
+
     }.observes('model.length', 'recurringTotal', 'controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
 
     editingRecurringOrder: function(obj, keyName) {
@@ -218,6 +228,11 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
     }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
 
     updateDonation: function(donation, newAmount) {
+        // 'current' order id hack: This can be removed when we have a RESTful Order API.
+        if (Em.isNone(donation)) {
+            return;
+        }
+
         if (donation.get('isNew')) {
             var controller = this;
             // Note: resolveOn is a private ember-data method.
@@ -562,13 +577,14 @@ App.CurrentOrderController = Em.ObjectController.extend({
         transaction.commit();
     }.observes('donationType'),
 
+    // Ensures the single / monthly toggle is initialized correctly when loading donations from bookmark.
     updateDonationType: function() {
         if (this.get('recurring')) {
             this.set('donationType', 'monthly')
         } else {
             this.set('donationType', 'single')
         }
-    }.observes('recurring'),
+    }.observes('model'),
 
     // FIXME Implement a better way to handle vouchers and donations in the order.
     // Remove donations from voucher orders and remove vouchers from donations.
@@ -635,8 +651,6 @@ App.RecurringOrderThanksController = Em.ObjectController.extend({
  */
 
 App.PaymentProfileView = Em.View.extend({
-    tagName: 'form',
-
     submit: function(e) {
         e.preventDefault();
         this.get('controller').updateProfile();
@@ -646,7 +660,6 @@ App.PaymentProfileView = Em.View.extend({
 
 App.CurrentOrderDonationListView = Em.View.extend({
     templateName: 'current_order_donation_list',
-    tagName: 'form',
 
     submit: function(e) {
         e.preventDefault();
@@ -748,14 +761,7 @@ App.OrderNavView = Ember.View.extend({
 });
 
 
-App.PaymentSelectView = Em.View.extend({
-    classNames: ['content']
-});
-
-
 App.RecurringDirectDebitPaymentView = Em.View.extend({
-    tagName: 'form',
-
     submit: function(e) {
         e.preventDefault();
         this.get('controller').setRecurringOrder();
