@@ -116,7 +116,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
     // The CurrentOrderController is needed for the single / recurring radio buttons.
     needs: ['currentUser', 'currentOrder'],
 
-    client_side_total: function() {
+    singleTotal: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
             // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
             return parseInt(accum) + parseInt(item);
@@ -200,7 +200,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
                 recurringTotal = controller.get('recurringTotal') + App.Donation.prototype.get('amount');
                 this.set('recurringTotal', recurringTotal);
             } else {
-                donationsTotal = controller.get('client_side_total');
+                donationsTotal = controller.get('singleTotal');
                 recurringTotal = controller.get('recurringTotal');
             }
 
@@ -318,7 +318,7 @@ App.CurrentRecurringDonationController = App.CurrentOrderDonationController.exte
 
 
 App.CurrentOrderVoucherListController = Em.ArrayController.extend({
-    client_side_total: function() {
+    singleTotal: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
             // Use parseInt like this so we don't have a temporary string concatenation briefly displaying in the UI.
             return parseInt(accum) + parseInt(item);

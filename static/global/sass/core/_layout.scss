@@ -73,7 +73,7 @@ body {
 }
 
 
-.wrapper > .sidebar, .wrapper > sidebar  {
+.wrapper .sidebar, .wrapper sidebar  {
     @include grid(16, 2, 0);
     //@include rem(padding, 32px );
 }
@@ -93,7 +93,7 @@ body {
   }
 }
 
-.wrapper > .content {
+.wrapper .content {
     @include grid(32, 1);
     &.gray {
         background-color: $color-back;
