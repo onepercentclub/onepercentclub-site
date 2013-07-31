@@ -209,7 +209,7 @@
 
 
 {{else}}
-    <span class="loading">Loading&#8230;</span>
+    <span class="loading-big">Loading&#8230;</span>
 {{/if}}
 
 {% endtplhandlebars %}
@@ -424,7 +424,7 @@
                 </fieldset>
 
                 {{#if saved}}
-                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Account settings saved" %}</em></span>
+                    <span class="settings-saved"><em class="flaticon solid checkmark-1"> {% trans "Account settings saved" %}</em></span>
                 {{/if}}
 
                 <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
@@ -436,7 +436,7 @@
 </section>
 
 {{else}}
-	<span class="loading">Loading&#8230;</span>
+	<span class="loading-big">Loading&#8230;</span>
 {{/if}}
 
 {% endtplhandlebars %}
@@ -446,24 +446,20 @@
 <section class="wrapper">
     <div class="content">
         {{#if isLoaded }}
+        	<form>
+	        	<div class="form-meta">
+	                <div class="form-label">{% trans "Edit your payment info" %}</div>
+	                <div class="form-desc">{% trans "Here you can change your bank account info if you're a 1%Friend or view your order history." %}</div>
+	            </div>
+	        	
             {{#if recurringOrder }}
                 {{#if model }}
-                    <h2>Current Monthly donation: €{{ recurringOrder.total }}</h2>
-                    <div>
-                        <h3>Projects</h3>
-                        <ul>
-                            {{#each donation in recurringOrder.donations}}
-                                <li>{{ donation.project.title }} €{{ donation.amount }}</li>
-                            {{/each}}
-                        </ul>
-                    </div>
-
                     <fieldset>
                         <ul>
                             <li class="control-group">
-                                <label class="control-label">{% trans "Bank Account Name" %}</label>
+                                <label class="control-label">{% trans "Account Name" %}</label>
                                 <div class="controls">
-                                    {{view Em.TextField valueBinding="name" classBinding="errors.name.length:error"}}
+                                    {{view Em.TextField valueBinding="name" placeholder="Full name as it appears on your bank account" classBinding="errors.name.length:error"}}
                                 </div>
                                 {{#if errors.name }}
                                     <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
@@ -471,9 +467,9 @@
                             </li>
 
                             <li class="control-group">
-                                <label class="control-label">{% trans "Bank Account City" %}</label>
+                                <label class="control-label">{% trans "Account City" %}</label>
                                 <div class="controls">
-                                    {{view Em.TextField valueBinding="city" classBinding="errors.city.length:error"}}
+                                    {{view Em.TextField valueBinding="city" placeholder="City registered on your bank account" classBinding="errors.city.length:error"}}
                                 </div>
                                 {{#if errors.city }}
                                     <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
@@ -481,67 +477,52 @@
                             </li>
 
                             <li class="control-group">
-                                <label class="control-label">{% trans "Bank Account" %}</label>
+                                <label class="control-label">{% trans "Account Number" %}</label>
                                 <div class="controls">
-                                    {{view Em.TextField valueBinding="account" placeholder="7 digits" classBinding="errors.account.length:error"}}
+                                    {{view Em.TextField valueBinding="account" placeholder="Your bank account number" classBinding="errors.account.length:error"}}
                                 </div>
                                 {{#if errors.account }}
                                     <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
                                 {{/if}}
                             </li>
+						</ul>
+                    </fieldset>    
+                    
+                    <hr class="form-divider">
 
+					<fieldset>
+                    	<ul>
                             <li class="control-group">
                                 <label class="control-label">
-                                    {% trans "Active" %}
+                                    {% trans "Monthly donations" %}
                                 </label>
 
                                 <div class="controls">
                                     {{#view Em.RadioButtonGroup name="active" selectedValueBinding="recurringPaymentActive" class="radio-group-horizontal"}}
                                         <div class="radio3">{{view view.RadioButton value="on"}}<span>{% trans "On" %}</span></div>
                                         <div class="radio3">{{view view.RadioButton value="off"}}<span>{% trans "Off" %}</span></div>
+                                        {{#linkTo currentOrder.donationList class="left" }}
+											<strong>{% trans "View or edit montly projects" %}</strong>
+										{{/linkTo }}
                                     {{/view}}
                                 </div>
                             </li>
                         </ul>
                     </fieldset>
 
-                    <fieldset class="donation-monthly-total">
-                        <div class="donation-amount">
-                            <div class="amount-control">
-                                <label for="donation-amount-1">{% trans "Amount" %}</label>
-                                <span class="currency"><em>&euro; </em>
-                                    {{input  type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" value=amount}}
-                                </span>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <p class="authorisation">{% trans "By clicking save, I authorize 1%Club to withdraw money every month." %}</p>
-
                     {{#if saved }}
-                        <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Monthly donation saved" %}</em></span>
+                        <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Monthly settings saved" %}</em></span>
                     {{/if}}
 
                     <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
                         <em class="flaticon solid checkmark-1"></em>
                         {{saveButtonText}}
                     </button>
-
-                {{/if }}
-
-                {# TODO: Use event to set recurring to true before sending user to donation list. Use same for below #}
-                {{#linkTo currentOrder.donationList }}
-                    Add a project to your monthly donation!
-                {{/linkTo }}
-
-            {{ else }}
-                {# TODO: Use event to set recurring to true before sending user to donation list. #}
-                {{#linkTo currentOrder.donationList }}
-                    Become a monthly member!
-                {{/linkTo }}
+				{{/if }}
             {{/if}}
-
-            <h2>Order History</h2>
+			
+			<div class="order-history lined-list">
+            	<h2>Order History</h2>
                 <ul>
                     {{#each order in closedOrders}}
                         <li>
@@ -551,9 +532,9 @@
                     {{/each}}
                 </ul>
             </div>
-
+		</form>
         {{else}}
-            <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading order history" %}
+            <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Loading order history" %}</span>
         {{/if}}
     </div>
 </section>
