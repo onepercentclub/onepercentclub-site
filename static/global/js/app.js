@@ -952,6 +952,13 @@ App.CurrentOrderDonationListRoute = Em.Route.extend({
                 controller.set('recurringOrder', null)
             }
         });
+
+        // Set the top three projects
+        if (controller.get('showTopThreeProjects')) {
+            App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects){
+                controller.set('topThreeProjects', projects.slice(0, 3));
+            })
+        }
     }
 });
 
