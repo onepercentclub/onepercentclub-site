@@ -635,8 +635,6 @@ App.RecurringOrderThanksController = Em.ObjectController.extend({
  */
 
 App.PaymentProfileView = Em.View.extend({
-    tagName: 'form',
-
     submit: function(e) {
         e.preventDefault();
         this.get('controller').updateProfile();
@@ -646,7 +644,6 @@ App.PaymentProfileView = Em.View.extend({
 
 App.CurrentOrderDonationListView = Em.View.extend({
     templateName: 'current_order_donation_list',
-    tagName: 'form',
 
     submit: function(e) {
         e.preventDefault();
@@ -748,14 +745,7 @@ App.OrderNavView = Ember.View.extend({
 });
 
 
-App.PaymentSelectView = Em.View.extend({
-    classNames: ['content']
-});
-
-
 App.RecurringDirectDebitPaymentView = Em.View.extend({
-    tagName: 'form',
-
     submit: function(e) {
         e.preventDefault();
         this.get('controller').setRecurringOrder();
