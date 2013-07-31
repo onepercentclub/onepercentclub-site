@@ -80,7 +80,7 @@ form, .form {
     }
 
     .form-summary {
-        @include rem(font-size, 30px);
+        @include rem(font-size, 28px);
         color: $gray;
     }
 
