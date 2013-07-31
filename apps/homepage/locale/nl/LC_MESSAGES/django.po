@@ -62,7 +62,7 @@ msgstr "Deel je kennis"
 
 #: templates/homepage.hbs:154
 msgid "Befriend us"
-msgstr "Word 1&perc;Friend"
+msgstr "Word 1%Friend"
 
 #: templates/homepage.hbs:168
 msgid "Our impact"
@@ -96,4 +96,4 @@ msgstr "Gedoneerd"
 
 #: templates/homepage.hbs:204
 msgid "Join us. Sign up and share your 1%"
-msgstr ""
+msgstr "Doe mee. Meld je aan een deel jouw 1%"
