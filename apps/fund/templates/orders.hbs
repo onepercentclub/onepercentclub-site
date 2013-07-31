@@ -105,10 +105,10 @@
 	                    <div class="controls">
 	                        {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
 	                            {{view view.RadioButton value="single" id="freq_single"}}
-	                            <label for="freq_single">{% trans "one-off" %}</label>
+	                            <label for="freq_single">{% trans "One time only" %}</label>
 	
 	                            {{view view.RadioButton value="monthly" id="freq_monthly"}}
-	                            <label for="freq_monthly">{% trans "monthly" %}</label>
+	                            <label for="freq_monthly">{% trans "Monthly" %}</label>
 	                        {{/view}}
 	                    </div>
 	                {{/if}}
@@ -116,9 +116,9 @@
 	            </li>
 	        </ul>
 	    </fieldset>
-	
+		
 	    <fieldset>
-	        <ul id="donation-projects">
+	        <ul class="donation-projects">
 	            {{#each donation in controller }}
 	                {{render "currentOrderDonation" donation}}
 	            {{else}}
@@ -133,28 +133,16 @@
 	    </fieldset>
 	
 	    {{#if controllers.currentOrder.recurring }}
-	        {{#if recurringOrder.donations.length }}
-	            <h2>Current Monthly Donation</h2>
-	            <fieldset>
-	                <ul id="donation-projects">
-	                    {{#each donation in recurringOrder.donations }}
-	                        {{render "currentRecurringDonation" donation}}
-	                    {{/each}}
-	                </ul>
-	            </fieldset>
+	        {{#if recurringOrder.donations.length }}	            
+            <fieldset class="donation-recurring">
+            	<div class="donation-recurring-title"><h2>Current Monthly Donation</h2></div>
+                <ul class="donation-projects">
+                    {{#each donation in recurringOrder.donations }}
+                        {{render "currentRecurringDonation" donation}}
+                    {{/each}}
+                </ul>
+            </fieldset>
 	        {{/if}}
-	
-	        <fieldset class="donation-monthly-total">
-	        	<div class="form-summary">{% trans "Divide to projects" %}</div>
-	            <div class="donation-amount">
-	                <div class="amount-control">
-	                    <label for="donation-amount-1">{% trans "Total Amount" %}</label>
-	                    <span class="currency"><em>&euro; </em>
-	                        <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
-	                    </span>
-	                </div>
-	            </div>
-	        </fieldset>
 	    {{else}}
 	        <fieldset class="donation-total">
 	        	<div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ singleTotal }}</span></div>
@@ -173,12 +161,12 @@
 </div>
 
 <div class="sidebar tip">
-	<em class="flaticon solid info-2"></em>
-	<h3>{% trans "Did you know?" %}</h3>
 	{{#if controllers.currentOrder.recurring }}
-    <p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!" %}</p>
-	{{else}}
+	<h3>{% trans "Donate monthly to be a 1%Friend." %}</h3>
     <p>{% trans "Yay! We're happy to welcome you as a 1%Friend. After all, friends make life better!" %}</p>
+	{{else}}
+	<h3>{% trans "Why not donate monthly?" %}</h3>
+	<p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!" %}</p>
 	{{/if}}
 </div>
 
@@ -267,8 +255,7 @@
 </div>
 
 <div class="sidebar tip">
-	<em class="flaticon solid info-2"></em>
-	<h3>{% trans "Did you know?" %}</h3>
+	<h3>{% trans "About monthly donations." %}</h3>
 	{{#if controllers.currentUser.isAuthenticated }}
     <p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps." %}</p>   
 	{{else}}
@@ -412,7 +399,6 @@
 </div>
 	
 <div class="sidebar tip">
-	<em class="flaticon solid info-2"></em>
 	<h3>{% trans "Your monthly donation" %}</h3>
 	<p>{% trans "Thank you 1%Friend! You're about to make set your monthly donation amount to &euro;" %} {{controllers.currentOrderDonationList.recurringTotal}}</p>
 </div>	
