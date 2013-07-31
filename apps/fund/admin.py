@@ -74,4 +74,7 @@ class CustomVoucherRequestAdmin(admin.ModelAdmin):
 admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
 
 
-admin.site.register(RecurringDirectDebitPayment)
+class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
+    raw_id_fields = ('user',)
+
+admin.site.register(RecurringDirectDebitPayment, RecurringDirectDebitPaymentAdmin)

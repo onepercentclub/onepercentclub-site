@@ -17,25 +17,35 @@ from .mails import mail_new_voucher
 
 class RecurringDirectDebitPayment(models.Model):
     """
-    Holds the direct debit account information.
+    Holds the direct debit account and payment information.
     """
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     active = models.BooleanField(default=False)
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
+    # The amount in the minor unit for the given currency (e.g. for EUR in cents).
+    amount = models.PositiveIntegerField(_("amount"), default=0)
+    currency = models.CharField(max_length=3, default='')
+
     # Bank account.
     name = models.CharField(max_length=35)  # max_length from DocData
     city = models.CharField(max_length=35)  # max_length from DocData
     account = DutchBankAccountField()
 
+    def __unicode__(self):
+        if self.active:
+            postfix = ' - active'
+        else:
+            postfix = ' - inactive'
+        return str(self.user) + ' ' + str(self.amount) + postfix
 
 @receiver(post_save, weak=False, sender=BlueBottleUser)
 def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwargs):
     if created:
         return
 
-    if hasattr(instance, 'recurringdirectdebitpayment')and instance.deleted:
+    if hasattr(instance, 'recurringdirectdebitpayment') and instance.deleted:
         recurring_payment = instance.recurringdirectdebitpayment
         recurring_payment.active = False
         recurring_payment.save()
