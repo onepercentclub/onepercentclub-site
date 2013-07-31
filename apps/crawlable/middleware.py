@@ -155,9 +155,9 @@ class HashbangMiddleware(object):
 
                 content = driver.page_source
                 # Remove all javascript, since its mostly useless now.
-                #content = html_utils.remove_tags(content, 'script')
+                content = html_utils.remove_tags(content, 'script')
                 # Update the HTML content with the "escaped fragment"-style URLs.
-                #content = content.replace('%s' % HASHBANG, '?%s=' % ESCAPED_FRAGMENT)
+                content = content.replace('%s' % HASHBANG, '?%s=' % ESCAPED_FRAGMENT)
             except Exception, e:
                 logger.error('There was an error rendering "%s" for "%s" with the web driver: %s', absolute_url, original_url, e)
                 return HttpResponseServerError()
