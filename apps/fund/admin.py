@@ -6,7 +6,6 @@ from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, R
 
 
 class DonationAdmin(admin.ModelAdmin):
-    model = Donation
     date_hierarchy = 'created'
     list_display = ('created', 'project', 'user', 'local_amount', 'status', 'donation_type')
     list_filter = ('status',)
@@ -27,6 +26,13 @@ class DonationAdmin(admin.ModelAdmin):
 admin.site.register(Donation, DonationAdmin)
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0
+    fields = ('type', 'content_object',)
+    readonly_fields = fields
+
+
 class DocDataPaymentOrderInline(admin.TabularInline):
     model = DocDataPaymentOrder
     extra = 0
@@ -42,39 +48,37 @@ class DocDataPaymentOrderInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    model = Order
     list_filter = ('status', 'recurring')
     list_display = ('created', 'total', 'status', 'recurring')
     raw_id_fields = ('user',)
     readonly_fields = ('recurring',)
     fields = readonly_fields + ('user', 'status')
-    inlines = (DocDataPaymentOrderInline,)
+    inlines = (OrderItemInline, DocDataPaymentOrderInline,)
 
 admin.site.register(Order, OrderAdmin)
 
 
 class VoucherAdmin(admin.ModelAdmin):
-    model = Voucher
     list_filter = ('status',)
     list_display = ('created', 'amount_euro', 'status', 'sender_email', 'receiver_email')
     readonly_fields = ('sender', 'receiver', 'donations')
     fields = readonly_fields + ('status', 'amount', 'currency', 'code', 'sender_email', 'receiver_email',
                                 'receiver_name', 'sender_name', 'message')
 
-
 admin.site.register(Voucher, VoucherAdmin)
 
 
 class CustomVoucherRequestAdmin(admin.ModelAdmin):
-    model = Voucher
     list_filter = ('status', 'organization')
     list_display = ('created', 'number', 'status', 'contact_name', 'contact_email', 'organization')
-
 
 admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
 
 
 class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'active', 'amount', 'currency')
+    list_filter = ('active',)
+    search_fields = ('user__email', 'user__username', 'user__first_name', 'user__last_name')
     raw_id_fields = ('user',)
 
 admin.site.register(RecurringDirectDebitPayment, RecurringDirectDebitPaymentAdmin)
