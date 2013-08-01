@@ -544,7 +544,9 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
         var controller = this;
         var recurringDirectDebitPayment = this.get('model');
         recurringDirectDebitPayment.set('active', true);
-        console.log('recurringTotal ' + controller.get('controllers.currentOrderDonationList.recurringTotal'));
+        if (window.console) {
+            console.log('recurringTotal ' + controller.get('controllers.currentOrderDonationList.recurringTotal'));
+        }
         recurringDirectDebitPayment.set('amount', controller.get('controllers.currentOrderDonationList.recurringTotal'));
 
         recurringDirectDebitPayment.one('becameInvalid', function(record) {
@@ -700,7 +702,7 @@ App.CurrentOrderDonationView = Em.View.extend({
         this.get('controller').updateDonation(Em.get(e, 'target.value'));
     },
 
-    delete: function(item) {
+    'delete': function(item) {
         var controller = this.get('controller');
         this.$().slideUp(500, function() {
             controller.deleteDonation();
@@ -712,7 +714,7 @@ App.CurrentOrderDonationView = Em.View.extend({
 App.CurrentRecurringDonationView = App.CurrentOrderDonationView.extend({
     templateName: 'currentOrderDonation',
 
-    delete: function(item) {
+    'delete': function(item) {
         var controller = this.get('controller');
         this.$().slideUp(500, function() {
             controller.deleteDonation();
@@ -726,7 +728,7 @@ App.CurrentOrderVoucherView = Em.View.extend({
     tagName: 'li',
     classNames: ['voucher-item'],
 
-    delete: function() {
+    'delete': function() {
         var controller = this.get('controller');
         this.$().slideUp(500, function() {
             controller.deleteVoucher()
