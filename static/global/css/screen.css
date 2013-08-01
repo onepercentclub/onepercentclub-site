@@ -3025,65 +3025,57 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 
 */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\000031}}
-#detail { padding: 32px 0; padding: 2.28571rem 0; position: relative; background-color: #222222; }
+#detail { padding: 32px 0; padding: 2.28571rem 0; position: relative; background-color: #323232; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\000036}}
-#detail .darken-background { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000315}}
 #detail .wrapper { position: relative; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000319}}
-#detail figure.media { float: left; width: 47.91667%; margin-left: 2.08333%; margin-right: 0%; -webkit-box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.1); -moz-box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.1); box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.1); overflow: hidden; border: 1px solid #fff; background-color: #ccc; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000310}}
+#detail figure.media { float: left; width: 47.91667%; margin-left: 2.08333%; margin-right: 0%; -webkit-box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.1); -moz-box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.1); box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.1); overflow: hidden; border: 1px solid #999999; background-color: #ccc; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000318}}
 #detail article { float: left; width: 43.75%; margin-left: 4.16667%; margin-right: 2.08333%; font-size: 16px; font-size: 1.14286rem; padding: 0; padding: 0; color: #f4f4f4; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000333}}
-#detail article .project-title { font-size: 28px; font-size: 2rem; padding: 8px 0; padding: 0.57143rem 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000324}}
+#detail article .project-phase { *zoom: 1; padding-bottom: 16px; padding-bottom: 1.14286rem; margin: 0 0 8px 0; margin: 0 0 0.57143rem 0; border-bottom: 1px solid #444444; list-style: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000344}}
+#detail article .project-phase:before, #detail article .project-phase:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000345}}
+#detail article .project-phase:after { clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000331}}
+#detail article .project-phase .item { float: left; width: 20.83333%; margin-left: 0%; margin-right: 0%; font-size: 12px; font-size: 0.85714rem; line-height: 28px; line-height: 2rem; color: #999999; text-align: center; text-transform: uppercase; padding-right: 8px; padding-right: 0.57143rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000340}}
+#detail article .project-phase .item:first-of-type { margin-right: 16px; margin-right: 1.14286rem; width: auto; text-align: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000346}}
+#detail article .project-phase .item.is-current { background: url('../images/steps-phase-back.png?1375364929') no-repeat #999999 100% 50%; color: #444444; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000353}}
+#detail article .project-meta { margin: 16px 0 8px; margin: 1.14286rem 0 0.57143rem; font-size: 14px; font-size: 1rem; color: #00c051; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000358}}
+#detail article .project-meta .location { margin-right: 32px; margin-right: 2.28571rem; display: block; float: left; vertical-align: middle; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000366}}
+#detail article .project-meta .tags { display: block; overflow: hidden; width: auto; color: #00c051; text-overflow: ellipsis; white-space: nowrap; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000376}}
+#detail article .project-meta .tags ul { display: inline; margin: 0; padding: 0; list-style: none; vertical-align: middle; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000383}}
+#detail article .project-meta .tags ul li { display: inline; color: #00c051; text-transform: capitalize; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000388}}
+#detail article .project-meta .tags ul li.out-of-range { display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000396}}
+#detail article .project-title { font-size: 28px; font-size: 2rem; padding: 8px 0; padding: 0.57143rem 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003102}}
+#detail article .project-plan { float: left; width: 50%; margin-left: 0%; margin-right: 0%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003106}}
+#detail article .project-share { text-align: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003109}}
+#detail article .project-share a { color: #999999; text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003116}}
 #detail sidebar { margin-bottom: 1.25em; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000345}}
-.project-plan { float: left; width: 50%; margin-left: 0%; margin-right: 0%; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000349}}
-.project-share { float: left; width: 50%; margin-left: 0%; margin-right: 0%; text-align: right; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000352}}
-.project-share a { color: #999999; text-decoration: none; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000358}}
-.project-phase { *zoom: 1; padding-bottom: 8px; padding-bottom: 0.57143rem; margin: 0; border-bottom: 1px solid #444444; list-style: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000344}}
-.project-phase:before, .project-phase:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/core\/_grid\.scss}line{font-family:\0000345}}
-.project-phase:after { clear: both; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000365}}
-.project-phase .item { float: left; width: 20.83333%; margin-left: 0%; margin-right: 0%; font-size: 12px; font-size: 0.85714rem; line-height: 24px; line-height: 1.71429rem; color: #999999; text-align: center; text-transform: uppercase; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000373}}
-.project-phase .item:first-of-type { margin-right: 16px; margin-right: 1.14286rem; width: auto; text-align: left; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000379}}
-.project-phase .item i { font-size: 10px; font-size: 0.71429rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000384}}
-.project-phase .project-phase-is-current { background: #999999; color: #444444; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000390}}
-.project-meta { margin: 8px 0; margin: 0.57143rem 0; font-size: 14px; font-size: 1rem; color: #00c051; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000395}}
-.project-meta .location { margin-right: 32px; margin-right: 2.28571rem; display: block; float: left; vertical-align: middle; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003103}}
-.project-meta .tags { display: block; overflow: hidden; width: auto; color: #00c051; text-overflow: ellipsis; white-space: nowrap; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003113}}
-.project-meta .tags ul { display: inline; margin: 0; padding: 0; list-style: none; vertical-align: middle; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003120}}
-.project-meta .tags ul li { display: inline; color: #00c051; text-transform: capitalize; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003125}}
-.project-meta .tags ul li.out-of-range { display: none; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003123}}
 #project-actions { padding-top: 8px; padding-top: 0.57143rem; padding-bottom: 8px; padding-bottom: 0.57143rem; border-bottom: 1px solid #cccccc; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003130}}
 #project-actions .tabs { float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; margin-bottom: 2px; margin-top: 8px; margin-top: 0.57143rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003145}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003135}}
 #project-actions .tabs li > a, #project-actions .tabs li > span { float: left; width: 33.33333%; margin-left: 0%; margin-right: 0%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003150}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003140}}
 #project-actions .project-action { float: left; width: 39.58333%; margin-left: 0%; margin-right: 2.08333%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\00003143}}
 #project-actions .project-action .button-donate { float: right; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_donation\.scss}line{font-family:\000031}}
