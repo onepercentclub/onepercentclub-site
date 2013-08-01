@@ -92,11 +92,12 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertIn(user.email, activation_mail.to)
 
         # Extract activation link and change domain for the test.
-        activation_link = re.findall('href="([a-z\:\.\/\#\!]+\/activate\/[^"]+)', activation_mail.body)[0]
+        activation_link = re.findall('href="([a-z\:\.\/go]+\/activate\/[^"]+)', activation_mail.body)[0]
 
         # Hack for Travis. In Travis activation links contains secure protocol.
         # TODO: See if we should change activation link generation.
         activation_link = activation_link.replace('https', 'http')
+        activation_link = activation_link.replace('/go', '/#!')
 
         current_site = Site.objects.get_current()
 
@@ -289,7 +290,9 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertIn(user.email, reset_mail.to)
 
         # Extract reset link and change domain for the test.
-        reset_link = re.findall('href="([a-z\:\.\/\#\!]+\/passwordreset\/[^"]+)', reset_mail.body)[0]
+        reset_link = re.findall('href="([a-z\:\.\/go]+\/passwordreset\/[^"]+)', reset_mail.body)[0]
+        reset_link = reset_link.replace('https', 'http')
+        reset_link = reset_link.replace('/go', '/#!')
         self.assertTrue(current_site.domain in reset_link)
         reset_link = reset_link.replace(current_site.domain, self.live_server_url[7:])
 
