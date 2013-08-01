@@ -93,7 +93,9 @@ App.PageView = Ember.View.extend(App.GoTo, {
     templateName: 'page',
 
     showTitle: function(){
-        console.log(this.get('controller.id'));
+        if (window.console) {
+            console.log(this.get('controller.id'));
+        }
         // Don't show title for styled pages
         if (this.get('controller.id') == 'about')return false;
         if (this.get('controller.id') == 'get-involved')return false;
