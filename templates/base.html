@@ -108,113 +108,110 @@
 
     {% tplhandlebars "application" %}
     <!-- main header -->
+        <div id="content">
+            <div class="container" id="navigation">
+                <header class="wrapper">
+                    <div class="header-main">
+                        <!-- logo -->
+                        {{#linkTo "home"}}
+                        <span id="logo">
+                            <h1 id="title">1%Club</h1>
+                            <em id="subtitle">Share a little.Change the world</em>
+                        </span>
+                        {{/linkTo}}
+                        <!-- end: logo -->
 
-        <div class="container" id="navigation">
-            <header class="wrapper">
-                <div class="header-main">
-                    <!-- logo -->
-                    {{#linkTo "home"}}
-                    <span id="logo">
-                        <h1 id="title">1%Club</h1>
-                        <em id="subtitle">Share a little. Change the world</em>
-                    </span>
-                    {{/linkTo}}
-                    <!-- end: logo -->
-
-                    <!-- main navigation -->
-                    <div class="nav">
-                        <nav class="nav-main">
-                            <h1 class="nav-title">Navigation</h1>
-                            <ul>
-                                <li><a {{action showPage 'about'}} href="/#!/pages/about">{% trans "What is 1%" %}</a></li>
-                                <li>{{#linkTo projectList}}{% trans "1%Projects" %}{{/linkTo}}</li>
-                                <li>{{#linkTo taskList}}{% trans "1%Skills" %}{{/linkTo}}</li>
-                                <li><a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">{% trans "Get involved" %}</a></li>
-                            </ul>
-                        </nav>
-                        <nav class="nav-member member-login">
-                            <h1 class="nav-title">Profile</h1>
-                            <ul>
-                                {{#if controllers.currentUser.isAuthenticated }}
-                                    <li class="nav-member-my1percent">
-                                        <a href="#" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
-                                            <strong>{% trans "My 1%" %} <em class="flaticon solid down-2"></em></strong>
-                                        </a>
-                                        <ul class="my-menu">
-                                            <li>
-                                                {{#linkTo "userProfile" }}
-                                                    {% trans "Edit my profile & settings" %}
-                                                {{/linkTo }}
-                                            </li>
-                                            {{#if controllers.myProjectList.model.length }}
+                        <!-- main navigation -->
+                        <div class="nav">
+                            <nav class="nav-main">
+                                <h1 class="nav-title">Navigation</h1>
+                                <ul>
+                                    <li><a {{action showPage 'about'}} href="/#!/pages/about">{% trans "What is 1%" %}</a></li>
+                                    <li>{{#linkTo projectList}}{% trans "1%Projects" %}{{/linkTo}}</li>
+                                    <li>{{#linkTo taskList}}{% trans "1%Skills" %}{{/linkTo}}</li>
+                                    <li><a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">{% trans "Get involved" %}</a></li>
+                                </ul>
+                            </nav>
+                            <nav class="nav-member member-login">
+                                <h1 class="nav-title">Profile</h1>
+                                <ul>
+                                    {{#if controllers.currentUser.isAuthenticated }}
+                                        <li class="nav-member-my1percent">
+                                            <a href="#" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
+                                                <strong>{% trans "My 1%" %} <em class="flaticon solid down-2"></em></strong>
+                                            </a>
+                                            <ul class="my-menu">
                                                 <li>
-                                                    {{#linkTo "myProjectList" }}
-                                                        {% trans "Manage My Project" %}
-                                                    {{/linkTo}}
+                                                    {{#linkTo "userProfile" }}
+                                                        {% trans "Edit my profile & settings" %}
+                                                    {{/linkTo }}
                                                 </li>
-                                            {{/if}}
-                                            <li>
-                                                <a href="/en/accounts/logout/?next=/en/">Logout</a>
-                                            </li>
-                                            <li class="nav-my-language">
-                                                {% trans "Language" %} {{view "App.LanguageSwitchView"}}
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
-                                    {{#if  controllers.currentOrder.donations.length }}
-                                        <li class="nav-cart">
-                                            {{#linkTo currentOrder.index}}
-                                                <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span>
-                                                {% trans "Donations" %}
-                                            {{/linkTo}}
-                                            <em class="flaticon solid right-2"></em>
+                                                {{#if controllers.myProjectList.model.length }}
+                                                    <li>
+                                                        {{#linkTo "myProjectList" }}
+                                                            {% trans "Manage My Project" %}
+                                                        {{/linkTo}}
+                                                    </li>
+                                                {{/if}}
+                                                <li>
+                                                    <a href="/en/accounts/logout/?next=/en/">Logout</a>
+                                                </li>
+                                                <li class="nav-my-language">
+                                                    {% trans "Language" %} {{view "App.LanguageSwitchView"}}
+                                                </li>
+                                            </ul>
                                         </li>
+
+                                        <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
+                                        {{#if  controllers.currentOrder.donations.length }}
+                                            <li class="nav-cart">
+                                                {{#linkTo currentOrder.index}}
+                                                    <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span>
+                                                    {% trans "Donations" %}
+                                                {{/linkTo}}
+                                                <em class="flaticon solid right-2"></em>
+                                            </li>
+                                        {{/if}}
+                                    {{else}}
+                                        <li class="nav-member-actions">
+                                            {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
+                                            or
+                                            <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
+                                        </li>
+                                        <li class="nav-switch-lang">{{view "App.LanguageSwitchView"}}</li>
                                     {{/if}}
-                                {{else}}
-                                    <li class="nav-member-actions">
-                                        {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
-                                        or
-                                        <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
-                                    </li>
-                                    <li class="nav-switch-lang">{{view "App.LanguageSwitchView"}}</li>
-                                {{/if}}
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- end: main navigation -->
-                </div>
-
-                {{#if display_message}}
-
-                    <div {{bindAttr class=":message isError"}}>
-                        <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
-
-                        <div class="message-title">
-                            {{ message_title }}
+                                </ul>
+                            </nav>
                         </div>
-
-                        <div class="message-content">
-                            {{ message_content }}
-                        </div>
+                        <!-- end: main navigation -->
                     </div>
 
-                {{/if}}
-            </header>
-        </div>
+                    {{#if display_message}}
 
-        <!-- end: main header -->
+                        <div {{bindAttr class=":message isError"}}>
+                            <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
 
-        <!-- main content -->
-        <div>
+                            <div class="message-title">
+                                {{ message_title }}
+                            </div>
+
+                            <div class="message-content">
+                                {{ message_content }}
+                            </div>
+                        </div>
+
+                    {{/if}}
+                </header>
+            </div>
+
+            <!-- end: main header -->
+
+            <!-- main content -->
             {{outlet}}
+			<!-- end: main content -->
+			
         </div>
-
         {{partial "footer" }}
-
-        <!-- end: main content -->
-
 
     {% endtplhandlebars %}
 
@@ -459,7 +456,6 @@
 	        
         </div>
 
-        
     {% endtplhandlebars %}
 
 
@@ -478,10 +474,8 @@
         { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); }
         )();
     </script>
-
     {% block content %}
     {% endblock %}
+
 </body>
 </html>
-
-
