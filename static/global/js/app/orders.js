@@ -192,6 +192,9 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
                 donations.objectAt(donations.get('length') - 1).set('tempRecurringAmount', controller.get('recurringTotal') - (amountPerProject * (numDonations - 1)));
 
             } else if(controller.get('showTopThreeProjects')) {
+                if (!Em.isNone(controller.get('recurringPayment'))) {
+                    controller.set('recurringTotal', controller.get('recurringPayment.amount'))
+                }
                 if (controller.get('recurringTotal') == 0) {
                     controller.set('recurringTotal', App.Donation.proto().get('amount'))
                 }

@@ -936,8 +936,7 @@ App.CurrentOrderRoute = Em.Route.extend({
 
 App.CurrentOrderDonationListRoute = Em.Route.extend({
     model: function(params) {
-        var order = this.modelFor('currentOrder');
-        return order.get('donations');
+        return this.modelFor('currentOrder').get('donations');
     },
 
     setupController: function(controller, donations) {
@@ -954,9 +953,19 @@ App.CurrentOrderDonationListRoute = Em.Route.extend({
         });
 
         // Set the top three projects
-        App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects){
+        App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects) {
             controller.set('topThreeProjects', projects.slice(0, 3));
-        })
+        });
+
+        // set the recurring payment
+        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
+            if (recurringPayments.get('length') > 0) {
+                controller.set('recurringPayment', recurringPayments.objectAt(0));
+            }else {
+                controller.set('recurringPayment', null);
+            }
+        });
+
     }
 });
 
