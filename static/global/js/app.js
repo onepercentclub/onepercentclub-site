@@ -1260,23 +1260,24 @@ App.UserSettingsRoute = Em.Route.extend({
 
 App.UserOrdersRoute = Em.Route.extend({
     model: function(params) {
-        var route = this;
-
-        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
-            var controller = route.controllerFor('userOrders');
+        return App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
             if (recurringPayments.get('length') > 0) {
-                // Set the model here instead of the promise in setupController so that the model can be used in the
-                // startEditing() method.
-                controller.set('model', recurringPayments.objectAt(0));
-                controller.startEditing();
-            } else {
-                controller.set('model', null);
+                return recurringPayments.objectAt(0);
+            }else {
+                return null;
             }
         });
     },
 
     setupController: function(controller, recurringPayment) {
         // Don't set the model here because we're setting it after the promise is resolved.
+        if (!Em.isNone(recurringPayment)) {
+            this._super(controller, recurringPayment);
+            controller.startEditing();
+        } else {
+            // Ember doesn't let you add other things to the controller when a record hasn't been set.
+            this._super(controller, App.RecurringDirectDebitPayment.createRecord({fakeRecord: true}));
+        }
 
         // Set the monthly order.
         App.Order.find({status: 'recurring'}).then(function(recurringOrders) {

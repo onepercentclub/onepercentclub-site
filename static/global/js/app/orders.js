@@ -132,6 +132,10 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         return this.get('controllers.currentOrder.recurring') && !this.get('editingRecurringOrder');
     }.property('editingRecurringOrder', 'controllers.currentOrder.recurring'),
 
+    editingRecurringOrder: function(obj, keyName) {
+        return this.get('controllers.currentOrder.recurring') && this.get('recurringOrder.donations.length') > 0;
+    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
+
     readyForPayment: function() {
         if (this.get('length') > 0) {
             return true;
@@ -189,6 +193,10 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             // Update the last donation with the remaining amount.
             donations.objectAt(donations.get('length') - 1).set('tempRecurringAmount', controller.get('recurringTotal') - (amountPerProject * (numDonations - 1)));
 
+        } else if(controller.get('showTopThreeProjects')) {
+            if (controller.get('recurringTotal') == 0) {
+                controller.set('recurringTotal', App.Donation.proto().get('amount'))
+            }
         } else {
             // The user does not already have a recurring order set.
             var donationsTotal = 0,
@@ -203,7 +211,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             numDonations = donations.get('length');
 
             // Special setup when there's a new donation added.
-
             if (keyName == 'model.length' && numDonations > 0 && donations.objectAt(numDonations - 1).get('isNew')) {
                 recurringTotal = controller.get('recurringTotal') + App.Donation.prototype.get('amount');
                 this.set('recurringTotal', recurringTotal);
@@ -230,10 +237,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         }, 1000);
 
     }.observes('model.length', 'recurringTotal', 'controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
-
-    editingRecurringOrder: function(obj, keyName) {
-        return this.get('controllers.currentOrder.recurring') && this.get('recurringOrder.donations.length') > 0;
-    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
 
     updateDonation: function(donation, newAmount) {
         // 'current' order id hack: This can be removed when we have a RESTful Order API.

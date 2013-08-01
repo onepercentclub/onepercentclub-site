@@ -243,6 +243,15 @@ App.UserSettingsController = Em.ObjectController.extend(App.Editable, {
 
 
 App.UserOrdersController = Em.ObjectController.extend(App.Editable, {
+
+    // Don't prompt the user to save if the 'fakeRecord' is set.
+    stopEditing: function() {
+        var record = this.get('model');
+        if (!record.get('fakeRecord')) {
+            this._super()
+        }
+    },
+
     recurringPaymentActive: '',
 
     // Initialized recurringPaymentActive
