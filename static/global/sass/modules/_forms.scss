@@ -5,12 +5,11 @@
 
 legend {
     @include rem(padding, ($padding * 3/2) ($padding * 2));
-
     width: 100%;
     background-color: $grayLight;
 
     strong {
-        @include rem(font-size, $fontSizeLarge);
+        @include rem(font-size, 24px);
         @include rem(margin-bottom, 8px);
         color: $white;
         text-transform: uppercase;
@@ -33,11 +32,13 @@ label {
 
 form, .form {
 	
+    @include rem(font-size, 16px);
+	
     fieldset {
         background-color: $color-back;
 
         &:last-of-type {
-            @include rem(padding-bottom, $padding);
+            @include rem(padding-bottom, 0);
             @include rem(margin-bottom, $padding);
         }
     }
@@ -59,7 +60,7 @@ form, .form {
     
     .form-label {
         @include grid(48, 2, 1);
-        @include rem(font-size, $fontSizeLarge);
+        @include rem(font-size, 24px);
         color: $green;
         text-transform: uppercase;
         font-weight: 300;
@@ -69,6 +70,7 @@ form, .form {
     .form-desc {
         @include grid(48, 2, 1);
         color: $grayDarker;
+        
         p {
             @include rem(padding, $padding 0 8px);
         }
@@ -175,8 +177,6 @@ form, .form {
     .big-radio {
         label {
             @include rem(padding, 8px 0);
-            @include rem(font-size, $font-size);
-
             color: white;
             cursor: pointer;
 
@@ -281,7 +281,8 @@ input[type=url] {
     border: 1px solid $inputBorder;
     font-family: $font-family;
     line-height: 1.5em;
-    padding: 0.6em !important;
+    @include rem(font-size, 16px);
+    padding: 10px 12px !important;
     width: 100%;
     background-color: $white;
 

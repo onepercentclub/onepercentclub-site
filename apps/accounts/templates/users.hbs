@@ -29,7 +29,7 @@
                 <li class="tab-item first">
                     {{#linkTo userProfile }}
                         <span class="tab-icon amount"><em class="flaticon solid user-2"></em></span>
-                        <strong class="tab-title">{% trans "Edit profile" %} <em class="tab-subtitle">{% trans "Public info" %}</em></strong>
+                        <strong class="tab-title">{% trans "Profile" %} <em class="tab-subtitle">{% trans "Public info" %}</em></strong>
                     {{/linkTo}}
                 </li>
 
@@ -42,8 +42,8 @@
 
                 <li class="tab-item">
                     {{#linkTo userOrders }}
-                        <em class="tab-icon amount"><i class="icon-cog"></i></em>
-                        <strong class="tab-title">{% trans "Orders" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
+                        <em class="tab-icon amount"><i class="flaticon solid wallet-1"></i></em>
+                        <strong class="tab-title">{% trans "Payment" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
                     {{/linkTo}}
                 </li>
             </ul>
@@ -501,7 +501,7 @@
                                     {{#view Em.RadioButtonGroup name="active" selectedValueBinding="recurringPaymentActive" class="radio-group-horizontal"}}
                                         <div class="radio3">{{view view.RadioButton value="on"}}<span>{% trans "On" %}</span></div>
                                         <div class="radio3">{{view view.RadioButton value="off"}}<span>{% trans "Off" %}</span></div>
-                                        {{#linkTo currentOrder.donationList class="left" }}
+                                        {{#linkTo currentOrder.donationList class="edit-monthly-donations" }}
 											<strong>{% trans "View or edit montly projects" %}</strong>
 										{{/linkTo }}
                                     {{/view}}
@@ -522,12 +522,11 @@
             {{/if}}
 			
 			<div class="order-history lined-list">
-            	<h2>Order History</h2>
+            	<h2 class="form-summary">Order History</h2>
                 <ul>
                     {{#each order in closedOrders}}
                         <li>
-                            Total: €{{ order.total }}
-                            Type: {{#if order.recurring }} {% trans "Monthly" %} {{ else }} {% trans "Single" %} {{/if}}
+                            {{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}} <strong> &euro;{{ order.total }},-</strong>
                         </li>
                     {{/each}}
                 </ul>
@@ -545,7 +544,7 @@
 
 {% tplhandlebars "signup" %}
 
-<div class="container section">
+<div class="container">
     <div class="wrapper">
         {{partial signup_content}}
         {{partial signup_sidebar}}

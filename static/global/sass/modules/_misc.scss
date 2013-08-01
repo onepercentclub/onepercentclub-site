@@ -42,4 +42,32 @@
 		line-height: 1.5;
 	}
 	
+	a {
+		font-weight: 300;
+		display: block;
+	}
+	
+}
+
+.lined-list {
+	
+	h2 {
+		
+	}
+	
+	ul {
+		
+		li {	
+			@include clearfix;
+			text-transform: uppercase;
+			@include rem(padding, 12px $padding 0 0);
+			border-bottom: 1px solid $color-back;
+			
+			strong {
+				float: right;
+			}
+		}
+		
+	}
+	
 }
