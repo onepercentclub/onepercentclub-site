@@ -1,44 +1,44 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # gannetson <loek@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-27 00:31+0200\n"
-"PO-Revision-Date: 2013-07-26 22:20+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/"
-"language/nl/)\n"
-"Language: nl\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2013-07-27 00:30+0200\n"
+"PO-Revision-Date: 2013-08-01 10:00+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:45
 #, c-format
 msgid "Available %s"
-msgstr ""
+msgstr "Beschikbaar %s"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:46
 #, c-format
 msgid ""
 "This is the list of available %s. You may choose some by selecting them in "
 "the box below and then clicking the \"Choose\" arrow between the two boxes."
-msgstr ""
+msgstr "Dit is de lijst van beschikbare %s. Je kan kiezen door ze te selecteren in het vakje en dan op de \"Kies\" pijl tussen de twee vakjes te klikken."
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:53
 #, c-format
 msgid "Type into this box to filter down the list of available %s."
-msgstr ""
+msgstr "Typ in het vakje om de lijst van beschikbare %s te zien."
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:57
 msgid "Filter"
-msgstr ""
+msgstr "Kies"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:61
 msgid "Choose all"
@@ -47,15 +47,15 @@ msgstr "Kies allemaal"
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:61
 #, c-format
 msgid "Click to choose all %s at once."
-msgstr ""
+msgstr "Klik om alle %s tegelijk te selecteren."
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:67
 msgid "Choose"
-msgstr ""
+msgstr "Kies"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:69
 msgid "Remove"
-msgstr ""
+msgstr "Verwijder"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:75
 #, c-format
@@ -67,7 +67,7 @@ msgstr "Gekozen %s"
 msgid ""
 "This is the list of chosen %s. You may remove some by selecting them in the "
 "box below and then clicking the \"Remove\" arrow between the two boxes."
-msgstr ""
+msgstr "Dit is de lijst van gekozen %s. Je kan verwijderen door ze te selecteren in het vakje en dan op de \"Verwijder\" pijl tussen de twee vakjes te klikken."
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:80
 msgid "Remove all"
@@ -76,21 +76,21 @@ msgstr "Allemaal verwijderen"
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:80
 #, c-format
 msgid "Click to remove all chosen %s at once."
-msgstr ""
+msgstr "Klik om alle %s tegelijk te verwijderen."
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:18
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:1
 msgid "%(sel)s of %(cnt)s selected"
 msgid_plural "%(sel)s of %(cnt)s selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(sel)s of %(cnt)s selected"
+msgstr[1] "%(sel)s of %(cnt)s geselecteerd"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:109
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:5
 msgid ""
 "You have unsaved changes on individual editable fields. If you run an "
 "action, your unsaved changes will be lost."
-msgstr ""
+msgstr "Je hebt wijzigingen niet opgeslagen. Als je een actie uitvoert, dan gaan je niet opgeslagen wijzigingen verloren."
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:121
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:5
@@ -98,7 +98,7 @@ msgid ""
 "You have selected an action, but you haven't saved your changes to "
 "individual fields yet. Please click OK to save. You'll need to re-run the "
 "action."
-msgstr ""
+msgstr "Je hebt een actie geselecteerd, maar je hebt je wijzigingen nog niet opgeslagen. Klik op Ok om op te slaan. Je moet de actie opnieuw uitvoeren. "
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:123
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:6
@@ -106,28 +106,28 @@ msgid ""
 "You have selected an action, and you haven't made any changes on individual "
 "fields. You're probably looking for the Go button rather than the Save "
 "button."
-msgstr ""
+msgstr "Je hebt een actie geselecteerd, en je hebt geen wijzigingen uitgevoerd. Je zoekt waarschijnlijk de GO knop in plaats van de Save knop. "
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:26
 msgid ""
-"January February March April May June July August September October November "
-"December"
-msgstr ""
+"January February March April May June July August September October November"
+" December"
+msgstr "januari februari maart april mei juni juli augustus september oktober november december"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:27
 msgid "S M T W T F S"
-msgstr ""
+msgstr "Z M D W D F Z"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:8
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:19
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.min.js:1
 msgid "Show"
-msgstr ""
+msgstr "Bekijk"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:15
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.min.js:1
 msgid "Hide"
-msgstr ""
+msgstr "Verberg"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:49
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:85
@@ -136,23 +136,23 @@ msgstr "Nu"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:53
 msgid "Clock"
-msgstr ""
+msgstr "Uur"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:81
 msgid "Choose a time"
-msgstr ""
+msgstr "Kies een tijd"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:86
 msgid "Midnight"
-msgstr ""
+msgstr "Middernacht"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:87
 msgid "6 a.m."
-msgstr ""
+msgstr "6 uur"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:88
 msgid "Noon"
-msgstr ""
+msgstr "12 uur"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:92
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:204
@@ -164,54 +164,54 @@ msgstr "Annuleren"
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:144
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:197
 msgid "Today"
-msgstr ""
+msgstr "Vandaag"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:148
 msgid "Calendar"
-msgstr ""
+msgstr "Kalender"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:195
 msgid "Yesterday"
-msgstr ""
+msgstr "Gisteren"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:199
 msgid "Tomorrow"
-msgstr ""
+msgstr "Morgen"
 
 #: static/global/js/app.js:784
 msgid "Task"
-msgstr ""
+msgstr "Taak"
 
 #: static/global/js/app.js:785
 msgid "Are you sure you want to apply to this task?"
-msgstr ""
+msgstr "Weet je zeker dat je je wilt aanmelden voor deze taak?"
 
 #: static/global/js/app.js:786
 msgid "Apply"
-msgstr ""
+msgstr "Aanmelden"
 
 #: static/global/js/app.js:1376
 msgid "The token you provided is expired. Please reset your password again."
-msgstr ""
+msgstr "De code die je opgeeft is verlopen. Stel je wachtwoord opnieuw in. "
 
 #: static/global/js/app.js:1415
 msgid ""
-"YOU'VE GOT MAIL!<br /><br />We've sent you a link to reset your password, so "
-"check your mailbox.<br /><br />(No mail? It might have ended up in your spam "
-"folder)"
-msgstr ""
+"YOU'VE GOT MAIL!<br /><br />We've sent you a link to reset your password, so"
+" check your mailbox.<br /><br />(No mail? It might have ended up in your "
+"spam folder)"
+msgstr "YOU'VE GOT MAIL!<br /><br />We hebben je een link gestuurd om je wachtwoord te wijzigen.<br /><br />(Geen email? Kijk dan even in je spam folder)"
 
 #: static/global/js/app/reactions.js:74 static/global/js/app/wallposts.js:294
 msgid "Really?"
-msgstr ""
+msgstr "Zeker weten?"
 
 #: static/global/js/app/reactions.js:75
 msgid "Are you sure you want to delete this reaction?"
-msgstr ""
+msgstr "Wil je deze reactie echt verwijderen?"
 
 #: static/global/js/app/reactions.js:76 static/global/js/app/wallposts.js:296
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: static/global/js/app/users.js:194
 msgid "1-4 hours per week"
@@ -267,4 +267,4 @@ msgstr "Vereniging"
 
 #: static/global/js/app/wallposts.js:295
 msgid "Are you sure you want to delete this comment?"
-msgstr ""
+msgstr "Wil je dit bericht echt verwijderen?"

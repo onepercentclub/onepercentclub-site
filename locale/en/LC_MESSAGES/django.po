@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-27 15:38+0200\n"
+"POT-Creation-Date: 2013-08-01 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,177 +48,191 @@ msgid ""
 "%(error_id)s</strong>."
 msgstr ""
 
-#: base.html:128
-msgid "What is 1%"
+#: base.html:129
+#, python-format
+msgid "What is 1%%"
 msgstr ""
 
-#: base.html:129 base.html.py:292
-msgid "1%Projects"
+#: base.html:130 base.html.py:290
+#, python-format
+msgid "1%%Projects"
 msgstr ""
 
-#: base.html:130
-msgid "1%Skills"
+#: base.html:131
+#, python-format
+msgid "1%%Skills"
 msgstr ""
 
-#: base.html:131 base.html.py:297
+#: base.html:132 base.html.py:295
 msgid "Get involved"
 msgstr ""
 
-#: base.html:140
-msgid "My 1%"
+#: base.html:141
+#, python-format
+msgid "My 1%%"
 msgstr ""
 
-#: base.html:145
+#: base.html:146
 msgid "Edit my profile & settings"
 msgstr ""
 
-#: base.html:151
+#: base.html:152
 msgid "Manage My Project"
 msgstr ""
 
-#: base.html:159
+#: base.html:160
 msgid "Language"
 msgstr ""
 
-#: base.html:169
+#: base.html:170
 msgid "Donations"
 msgstr ""
 
-#: base.html:176
+#: base.html:177
 msgid "Sign up"
 msgstr ""
 
-#: base.html:178 registration/login.html:10
+#: base.html:179 registration/login.html:10
 msgid "Log in"
 msgstr ""
 
-#: base.html:234
-msgid "Log in to 1%Club"
+#: base.html:232
+#, python-format
+msgid "Log in to 1%%Club"
 msgstr ""
 
-#: base.html:239
+#: base.html:237
 msgid "You did it!"
 msgstr ""
 
-#: base.html:240
+#: base.html:238
 msgid "(Welcome back friend)"
 msgstr ""
 
-#: base.html:242
+#: base.html:240
 msgid "Login here with your email address and password"
 msgstr ""
 
-#: base.html:247 registration/login.html:19
+#: base.html:245 registration/login.html:19
 msgid "Email"
 msgstr ""
 
-#: base.html:256 registration/login.html:28
+#: base.html:254 registration/login.html:28
 msgid "Password"
 msgstr ""
 
-#: base.html:266
+#: base.html:264
 msgid "Forgot your password?"
 msgstr ""
 
-#: base.html:282
-msgid "It all starts with 1%"
+#: base.html:280
+#, python-format
+msgid "It all starts with 1%%"
 msgstr ""
 
-#: base.html:286
-msgid "What is 1%CLUB?"
+#: base.html:284
+#, python-format
+msgid "What is 1%%CLUB?"
 msgstr ""
 
-#: base.html:302
+#: base.html:300
 msgid "Start your project"
 msgstr ""
 
-#: base.html:309
-msgid "About 1%CLUB"
+#: base.html:307
+#, python-format
+msgid "About 1%%CLUB"
 msgstr ""
 
-#: base.html:313
+#: base.html:311
 msgid "Our story"
 msgstr ""
 
-#: base.html:318
+#: base.html:316
 msgid "Meet the team"
 msgstr ""
 
-#: base.html:323 footer.html:13
+#: base.html:321 footer.html:13
 msgid "Partners"
 msgstr ""
 
-#: base.html:328
+#: base.html:326
 msgid "Press"
 msgstr ""
 
-#: base.html:333
-msgid "Work at 1%CLUB"
+#: base.html:331
+#, python-format
+msgid "Work at 1%%CLUB"
 msgstr ""
 
-#: base.html:338 footer.html:18 footer.html.py:38
+#: base.html:336 footer.html:18 footer.html.py:38
 msgid "Contact"
 msgstr ""
 
-#: base.html:345
-msgid "Discover 1%More"
+#: base.html:343
+#, python-format
+msgid "Discover 1%%More"
 msgstr ""
 
 #: base.html:347
-msgid "1%Blog"
-msgstr ""
-
-#: base.html:348
-msgid "1%Live"
-msgstr ""
-
-#: base.html:349
-msgid "1%Event"
-msgstr ""
-
-#: base.html:350
-msgid "1%Video"
-msgstr ""
-
-#: base.html:351
-msgid "1%Bsuiness"
+#, python-format
+msgid "1%%Blog"
 msgstr ""
 
 #: base.html:352
-msgid "1%Gifts"
+#, python-format
+msgid "1%%Live"
 msgstr ""
 
 #: base.html:357
-msgid "1%Social"
+#, python-format
+msgid "1%%Event"
 msgstr ""
 
-#: base.html:407 base.html.py:414
-msgid "Join 1%Club"
+#: base.html:362
+#, python-format
+msgid "1%%Video"
 msgstr ""
 
-#: base.html:408
+#: base.html:367
+#, python-format
+msgid "1%%Business"
+msgstr ""
+
+#: base.html:374
+#, python-format
+msgid "1%%Social"
+msgstr ""
+
+#: base.html:424 base.html.py:431
+#, python-format
+msgid "Join 1%%Club"
+msgstr ""
+
+#: base.html:425
+#, python-format
 msgid ""
-"1%Club connects smart ideas from developing countries to time, money and "
+"1%%Club connects smart ideas from developing countries to time, money and "
 "expertise from all over the world. It is very easy: "
 msgstr ""
 
-#: base.html:410
+#: base.html:427
 msgid "Select a project or tast"
 msgstr ""
 
-#: base.html:411
+#: base.html:428
 msgid "Share your skills or money"
 msgstr ""
 
-#: base.html:412
+#: base.html:429
 msgid "See direct results"
 msgstr ""
 
-#: base.html:429
+#: base.html:446
 msgid "General Conditions"
 msgstr ""
 
-#: base.html:434
+#: base.html:451
 msgid "Give us feedback"
 msgstr ""
 
