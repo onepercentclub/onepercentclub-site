@@ -26,7 +26,7 @@ def new_wallpost_notification(sender, instance, created, **kwargs):
         project = post.content_object
         receiver = project.owner
         author = post.author
-        link = '/#!/projects/{0}'.format(project.slug)
+        link = '/go/projects/{0}'.format(project.slug)
 
         # Compose the mail
         # Set the language for the receiver
@@ -46,7 +46,7 @@ def new_wallpost_notification(sender, instance, created, **kwargs):
         receiver = task.author
         author = post.author
 
-        link = '/#!/projects/{0}/tasks/{1}'.format(task.project.slug, task.id)
+        link = '/go/projects/{0}/tasks/{1}'.format(task.project.slug, task.id)
 
         # Compose the mail
         translation.activate(receiver.primary_language)
@@ -77,7 +77,7 @@ def new_reaction_notification(sender, instance, created, **kwargs):
         project = post.content_object
         receiver = post.author
         author = reaction.author
-        link = '/#!/projects/{0}'.format(project.slug)
+        link = '/go/projects/{0}'.format(project.slug)
 
         # Compose the mail
         # Set the language for the receiver
