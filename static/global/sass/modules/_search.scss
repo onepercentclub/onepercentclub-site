@@ -1,102 +1,99 @@
-.results {
-
+#results {
     @include grid(48, 1, 0);
     
-    .item {
-        @include rem (margin-top, 8px);
-        @include rem (margin-bottom, 8px);
+    .item a {
+        @include rem (margin-top, $padding/2);
+        @include rem (margin-bottom, $padding/2);
         @include grid(12, 0, 1);
-        display: inline-block;
-        border: 1px solid $grayDarker;
+        border: 1px solid $grayLight;
 
-        div.header {
+		@include transition(border 0.1s);
+		
+        .item-header {
+        	display: block;
             position: relative;
-            height: 180px;
             overflow: hidden;
-            img {
-                width: 100%;
+            
+            
+            .item-image {
+            	position: relative;
+            	display: block;
+            	overflow: hidden;
+            	height: 160px;
+            	text-align: center;
+            	background: $black;
+            	
+            	img {
+            		position: absolute;
+					top: 0;
+					left: 0;
+            		@include transition(top 0.2s);
+				}
             }
-            .label {
-                position: absolute;
-                top: -1px;
-                left: -1px;
-                margin: 0px;
-                padding: 0px;
-                width: 87px;
-                height: 87px;
-                //background-image: url(../images/projects/label-green.png);
-                &.act, &.results {
-                    background-image: url(../images/projects/label-funded.png);
-                }
-                &.realized {
-                    background-image: url(../images/projects/label-realised.png);
-                }
-
-            }
+            
+			.item-project-title {
+				display: block;
+				width: 100%;
+				position: absolute;
+				bottom: 0;
+				@include rem (padding, $padding);
+				background-color: rgba(0, 0, 0, 0.7);
+				color: $white;
+				text-transform: uppercase;
+				
+				h3 {
+					padding: 0;
+					margin: 0;
+            		@include rem(font-size, 14px);
+            		line-height: 1.1;
+					font-weight: 600;
+					@include transition(color 0.1s);
+				}
+				
+				.item-project-country {
+                	@include rem(font-size, 12px);
+					text-transform: none;
+				}
+			}
         }
-
-
-        .header h3 {
-            @include rem(font-size, 14px);
-            @include rem(line-height, 16px);
-            position: absolute;
-            bottom: 0px;
-            margin: 0px;
-            padding: 12px;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            text-transform: uppercase;
-            font-weight: 300;
-
-            .item-project-country {
-                @include rem(font-size, 12px);
-              
-                font-weight: normal;
-                text-transform: none;
-            }
-        }
-
-        &.item-task h2 {
-            @include rem(font-size, 12px);
-            @include rem(line-height, 14px);
-            margin: 0px;
-            padding: 8px;
-            background-color: $green;
-            color: white;
-            text-transform: uppercase;
-        }
-
-        .content {
-            @include rem (height, 60px);
-            @include rem (padding, 8px);
-            overflow: hidden;
-            color: white;
-            background-color: $white;
-            color: $grayDark;
-            //text-transform: uppercase;
-            font-weight: 300;
-        }
-
-        &.item-project .status {
-            @include rem (padding, 8px);
+     
+	    &:hover, &:active {
+			border-color: $black;
+			
+			h3 {
+				color: $pink;
+			}
+			
+			img {
+				top: -20px !important;
+			}
+	    }
+    }
+    
+    
+    
+    /* item project */
+    .item-project a {
+    
+     	.item-status {
+        	display: block;
+            @include rem (padding, 12px 16px);
             height: 90px;
             background-color: $color-back;
             color: $grayDarker;
             position: relative;
+            
             .donate-status {
-                float: none;
+            	display: block;
                 margin: 0 auto;
                 width: 100%;
                 color: $grayDark;
 
                 .donate-amount {
+                	display: block;
                     @include rem(font-size, 12px);
-                    @include rem(margin-top, 5px);
-
-                    text-align: left;
+                    @include rem(margin-top, 8px);
                 }
-
                 .donated {
                     @include rem(font-size, 12px);
                     color: $grayDarker;
@@ -104,7 +101,6 @@
             }
 
             .donate-days-left {
-                float: right;
                 width: auto;
                 color: $gray;
                 line-height: 1;
@@ -113,7 +109,7 @@
                     @include rem(font-size, 12px);
                     color: $grayDarker;
 
-                    i {
+                    .flaticon {
                         color: $gray;
                     }
                 }
@@ -121,19 +117,22 @@
 
             .project-task {
                 @include rem(font-size, 12px);
+                text-transform: uppercase;
                 position: absolute;
                 right: 0;
                 bottom: 0;
                 left: 0;
+                line-height: 35px;
                 height: 35px;
                 background: $white;
                 color: $gray;
                 text-align: center;
-                line-height: 35px;
+                
                 a {
                     color: $gray;
                 }
-                em {
+                
+                strong {
                     color: $grayDarker;
                     font-weight: bold;
                     font-style: normal;
@@ -173,21 +172,25 @@
                 float: none;
                 margin: 0;
                 width: 100%;
-
+				
                 .donate-progress-finished {
                     @extend .donate-progress;
                 }
 
-                .donate-amount em {
-                    color: $green;
-                    font-weight: 300;
-                    font-style: normal;
-                }
+                .donate-amount {
+                	text-align: center;
+                
+                	em {
+                    	color: $green;
+						font-weight: 300;
+						font-style: normal;
+					}
+				}
             }
 
             &.realized {
                 padding: 0;
-
+				
                 .donate-status {
                     position: absolute;
                     top: 27px;
@@ -208,19 +211,51 @@
                 }
             }
         }
+    }
+    
+    
+    
+    /* item tasks */
+    .item-task a {
+    
+         h2 {
+            @include rem(font-size, 12px);
+            @include rem(line-height, $padding);
+            margin: 0px;
+            @include rem(padding, $padding/2);
+            background-color: $green;
+            color: $white;
+            text-transform: uppercase;
+        }
+        
+        h4 {
+	        @include rem(font-size, 12px);
+	        color: $gray;
+        }
 
-        .footer {
+        .item-footer {
             background-color: $color-back;
             color: $gray;
-            @include rem (padding, 8px);
+            padding: 0;
             @include clearfix;
+            @include rem(padding, $padding);
+            text-transform: uppercase;
+                	
             ul {
                 @include clearfix;
-                margin: 0px;
                 list-style: none;
-                text-indent: 0px;
+                text-indent: 0;
+                margin: 0;
+                
                 li {
-                    @include grid(24, 1);
+                    @include grid(24,0,0);
+                    @include rem(padding, 4px 0);
+					@include rem(font-size, 11px);
+                    
+                    .flaticon {
+                    	@include rem(font-size, 12px);
+	                    @include rem(margin-right, 4px);
+                    }
                 }
             }
         }
@@ -230,38 +265,60 @@
 .search-form {
     @include grid(48, 1, 0);
     @include rem(padding-top, $padding);
-
-    .control {
-        @include grid(12,0,1);
-        .icon {
-            @include grid(7,0,0);
+	
+	.search-field {
+		@include grid(12,0,1);
+		position: relative;
+		
+		.flaticon {
+			position: absolute;
+			top: 2px;
+			left: 10px;
             @include rem(font-size, 22px);
             display: block;
+            color: $grayDarker;
+            text-align: center;
+            line-height: 40px;
+		}
+		
+		input {
+			height: 40px;
+			text-indent: 30px;
+		}
+		
+	}
+	
+    .control {
+        @include grid(12,0,1);
+        
+        .flaticon {
+            @include grid(7,0,0);
+            @include rem(font-size, 22px);
             background-color: $grayLight;
             color: $grayDarker;
             text-align: center;
-            font-size: 22px;
             line-height: 40px;
         }
-        input, select {
+        
+        select {
             @include grid(40,0,0);
             height: 40px;
-            text-transform: uppercase;
-            &:placeholder {
-                text-transform: uppercase;
-            }
         }
+        
         select option:first-child {
             color: $gray;
             text-transform: none;
         }
+        
         select option:selected {
             font-weight: 300;
         }
     }
+    
     .clear-form {
         @include rem(margin, 8px 24px 0px);
         float: right;
+        
         a {
             color: $grayDark;
         }
@@ -269,38 +326,78 @@
     }
 }
 
-.navigation {
+#search-navigation {
+	
     @include clearfix;
-    @include grid(48, 1);
+    @include grid(48,1);
     @include rem(padding, ($padding * 2) 0 $padding);
-    .next-page,
-    .previous-page {
-        @include rem(font-size, 24px);
-    }
-
-    // Results header
-    h2 {
-        padding: 0px;
-        @include rem(margin-left, 8px);
-        display: inline;
-        em {
-            font-style: normal;
-            color: $gray
-        }
-    }
-
-    .ordering {
-        display: inline;
-        float: right;
-        margin: 0px 20px;
-        line-height: 24px;
+	text-transform: uppercase;
+	
+	.search-results {
+		@include grid(8,0);
+		
+	    h2 {
+	        padding: 0;
+	        margin: 0;
+	        
+	        em {
+	            font-style: normal;
+	            color: $gray
+	        }
+	    }
+	}
+	
+    .search-sort {
+    	@include grid(28,0,0);
+    	@include rem(margin-top, 4px);
+        @include rem(font-size, 16px);
+        text-align: center;
+		
         a {
-            margin:0px 8px;
+            @include rem(margin-left, $padding/2);
+            
             &.active {
                 text-decoration: underline;
                 font-weight: 300;
             }
         }
     }
-
+    
+    .search-pagination {
+    	@include grid(12,1,0);
+    	text-align: right;
+    	vertical-align: middle;
+    	line-height: 1;
+		
+    	.search-showing {
+    		@include rem(margin-right, $padding);
+	    	@include rem(font-size, 14px);
+	    	position: relative;
+	    	top: -3px;
+    	}
+    	
+    	.search-pages-control {
+			
+    	}
+    	
+    	.next-page,
+    	.previous-page {
+	    	@include rem(font-size, 24px);
+    	}
+	
+    	span.next-page,
+		span.previous-page {
+			color: $color-back !important;
+		}
+		
+		a.next-page,
+		a.previous-page {
+			
+			color: $black;
+		
+			&:hover, &:active {
+		    	color: $pink;
+		    }
+	    }
+    }
 }
