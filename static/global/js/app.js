@@ -1748,3 +1748,8 @@ App.LoginView = Em.View.extend({
 });
 
 
+App.ApplicationView = Em.View.extend({
+    elementId: 'site'
+});
+
+

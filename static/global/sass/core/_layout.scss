@@ -22,21 +22,21 @@ html {
 }
 */
 
-html, body, body > .ember-view:first-of-type {
-  height: 100%;
+html, body, #site {
+  	height: 100%;
 }
-#main {
-  min-height: 100%;
-  /* equal to footer height + 14 */
-  margin-bottom: -504px;
+#content {
+  	min-height: 100%;
+  	/* equal to footer height + 2x padding */
+  	margin-bottom: -522px;
 }
-#main:after {
-  content: "";
-  display: block;
+#content:after {
+  	content: "";
+  	display: block;
 }
-#footer, #main:after {
-  /* .push must be the same height as footer */
-  height: 490px; 
+#footer, #content:after {
+  	/* .push must be the same height as footer */
+  	height: 490px; 
 }
 
 #footer {
