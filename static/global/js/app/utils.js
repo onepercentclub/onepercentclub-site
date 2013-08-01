@@ -12,7 +12,7 @@ App.CountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
     optionLabelPath: "content.name",
-    prompt: "pick a country"
+    prompt: "Pick a country"
 });
 
 
@@ -20,7 +20,7 @@ App.CountryCodeSelectView = Em.Select.extend({
     content:  [{"code": "0", "name": "--loading--"}],
     optionValuePath: "content.code",
     optionLabelPath: "content.name",
-    prompt: "pick a country"
+    prompt: "Pick a country"
 });
 
 
@@ -28,7 +28,7 @@ App.ProjectCountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
     optionLabelPath: "content.name",
-    prompt: "pick a country"
+    prompt: "Pick a country"
 });
 
 
@@ -66,7 +66,7 @@ App.ThemeSelectView = Em.Select.extend({
     content: App.ThemeList,
     optionValuePath: "content.id",
     optionLabelPath: "content.title",
-    prompt: "pick a theme"
+    prompt: "Pick a theme"
 });
 
 

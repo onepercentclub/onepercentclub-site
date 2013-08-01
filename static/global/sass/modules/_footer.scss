@@ -52,6 +52,10 @@
 	    }
 	}
 	
+	.footer-news {
+		text-transform: uppercase;
+	}
+	
 	.footer-news,
 	.footer-join-us {
 	    @include grid(24);
