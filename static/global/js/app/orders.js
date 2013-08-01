@@ -531,7 +531,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
             // Order process.
             //   controller.get('controllers.currentOrder.model').reload();
             //   controller.transitionToRoute('recurringOrderThanks');
-            var thanksUrl = document.location.origin + document.location.pathname + document.location.hash.split('/')[0] + '/support/monthly/thanks';
+            var thanksUrl = window.location.origin + window.location.pathname + window.location.hash.split('/')[0] + '/support/monthly/thanks';
 
             if (controller.get('controllers.currentOrderDonationList.editingRecurringOrder')) {
                 var donations = Em.A();
@@ -561,21 +561,18 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
                 // FIXME: Need to only load thanks page when all donations update successfully. No time to implement this.
                 // FIXME: Set payment error error message when there's an error updating the donation.
                 Em.run.later(function(){
-                    document.location = thanksUrl;
-                    document.location.reload();
+                    window.location = thanksUrl;
+                    window.location.reload(true);
                 }, 5000);
             } else {
-                document.location = thanksUrl;
-                document.location.reload();
+                window.location = thanksUrl;
+                window.location.reload(true);
             }
         }
 
         var controller = this;
         var recurringDirectDebitPayment = this.get('model');
         recurringDirectDebitPayment.set('active', true);
-        if (window.console) {
-            console.log('recurringTotal ' + controller.get('controllers.currentOrderDonationList.recurringTotal'));
-        }
         recurringDirectDebitPayment.set('amount', controller.get('controllers.currentOrderDonationList.recurringTotal'));
 
         recurringDirectDebitPayment.one('becameInvalid', function(record) {
