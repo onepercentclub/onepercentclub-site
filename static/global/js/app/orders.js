@@ -129,12 +129,14 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
     }.property('length'),
 
     showTopThreeProjects: function() {
-        return this.get('controllers.currentOrder.recurring') && !this.get('editingRecurringOrder') && this.get('length') == 0;
-    }.property('editingRecurringOrder', 'controllers.currentOrder.recurring', 'length'),
+        // TODO when all from recurringOrder.donations are set to 0 (soft delete), showTopThreeProjects should be true.
+        return this.get('controllers.currentOrder.recurring') && this.get('recurringOrder.donations.length') == 0 && this.get('length') == 0;
+    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length', 'length'),
 
     editingRecurringOrder: function(obj, keyName) {
-        return this.get('controllers.currentOrder.recurring') && this.get('recurringOrder.donations.length') > 0;
-    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
+        // True when modifying an existing order that has donations. False otherwise (including when modifying a top three projects recurringPayment).
+        return this.get('controllers.currentOrder.recurring') && (this.get('recurringOrder.donations.length') > 0);
+    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length', 'recurringPayment'),
 
     readyForPayment: function() {
         if (this.get('length') > 0) {
@@ -150,26 +152,55 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 
     recurringTotal: 0,
 
+    initRecurringTotal: function(obj, keyName) {
+        if (this.get('recurringPayment.isLoaded') && this.get('recurringTotal') == 0) {
+            this.set('recurringTotal', this.get('recurringPayment.amount'))
+        }
+    }.observes('recurringPayment.isLoaded'),
+
     updateRecurringDonations: function(obj, keyName) {
         if (!this.get('controllers.currentOrder.recurring')) {
             return;
         }
 
+        // Validation:
+        var controller = this;
+        if (keyName == 'recurringTotal') {
+            var intRegex = /^\d+$/;
+            if(!intRegex.test(this.get('recurringTotal'))) {
+                this.set('errors', {recurringTotal: ["Please use whole numbers for your donation."]});
+            } else if (this.get('recurringTotal') < 5) {
+                this.set('errors', {recurringTotal: ["Monthly donations must be above €5."]});
+            }
+
+            // TODO Validate minimum €2 per project.
+
+            if (this.get('errors.recurringTotal')) {
+                // Clear the error after 10 seconds.
+                Ember.run.later(this, function() {
+                    controller.set('errors', []);
+                }, 10000);
+                console.log("ERROR");
+                // TODO Revert old value for recurringTotal.
+                return;
+            }
+        }
+
         // 'current' order id hack: Need to run in background because of race condition cause by donation not having the
         // right order id (in this case 'current'). Without this, donations can't be removed (DELETE) from recurring orders.
         // This can be removed when we have a RESTful Order API.
-        var controller = this;
+
         Ember.run.later(this, function() {
 
             var numDonations = 0,
                 amountPerProject = 0,
-                donations = null;
+                donations = null,
+                lastDonation = null;
 
-            var numRecurringDonations = controller.get('recurringOrder.donations.length');
-            if (numRecurringDonations > 0) {
+            if (controller.get('editingRecurringOrder')) {
                 // The user already has a recurring order set.
                 if (controller.get('recurringTotal') == 0) {
-                    this.set('recurringTotal', controller.get('recurringOrder.total'));
+                    controller.set('recurringTotal', controller.get('recurringOrder.total'));
                 }
 
                 // Create a donations list with the new and monthly donations.
@@ -188,18 +219,13 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
                 for (var i = 0; i <  donations.get('length') - 1; i++) {
                     donations.objectAt(i).set('tempRecurringAmount', amountPerProject);
                 }
-                // Update the last donation with the remaining amount.
-                donations.objectAt(donations.get('length') - 1).set('tempRecurringAmount', controller.get('recurringTotal') - (amountPerProject * (numDonations - 1)));
-
-            } else if(controller.get('showTopThreeProjects')) {
-                if (!Em.isNone(controller.get('recurringPayment'))) {
-                    controller.set('recurringTotal', controller.get('recurringPayment.amount'))
-                }
-                if (controller.get('recurringTotal') == 0) {
-                    controller.set('recurringTotal', App.Donation.proto().get('amount'))
+                // Update the last donation with the remaining amount if it hasn't been deleted.
+                lastDonation = donations.objectAt(donations.get('length') - 1);
+                if (!Em.isNone(lastDonation)) {
+                    lastDonation.set('tempRecurringAmount', controller.get('recurringTotal') - (amountPerProject * (numDonations - 1)));
                 }
             } else {
-                // The user does not already have a recurring order set.
+                // The user does not already have a recurring order set or the user is support the top three projects.
                 var donationsTotal = 0,
                     recurringTotal = 0;
                 donations = controller.get('model');
@@ -230,14 +256,17 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
                     for (var j = 0; j < numDonations - 1; j++) {
                         this.updateDonation(donations.objectAt(j), amountPerProject)
                     }
-                    // Update the last donation with the remaining amount.
-                    this.updateDonation(donations.objectAt(numDonations - 1), recurringTotal - (amountPerProject * (numDonations - 1)));
+                    // Update the last donation with the remaining amount if it hasn't been deleted.
+                    lastDonation = donations.objectAt(numDonations - 1);
+                    if (!Em.isNone(lastDonation)) {
+                        this.updateDonation(lastDonation, recurringTotal - (amountPerProject * (numDonations - 1)));
+                    }
                 }
             }
 
         }, 1000);
 
-    }.observes('model.length', 'recurringTotal', 'controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
+    }.observes('length', 'recurringTotal', 'controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
 
     updateDonation: function(donation, newAmount) {
         // 'current' order id hack: This can be removed when we have a RESTful Order API.
@@ -679,15 +708,6 @@ App.CurrentOrderDonationListView = Em.View.extend({
 
     submit: function(e) {
         e.preventDefault();
-    },
-
-    change: function(e) {
-        // The "single" / "monthly" change (strings) and the recurringTotal change (number) are sent here and
-        // we only want to deal with the recurringTotal change.
-        var value = parseInt(Em.get(e, 'target.value'));
-        if (Em.typeOf(value) === 'number' && !isNaN(value)) {
-            this.get('controller').set('recurringTotal', value);
-        }
     }
 });
 
