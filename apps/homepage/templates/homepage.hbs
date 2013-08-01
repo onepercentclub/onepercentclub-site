@@ -122,6 +122,7 @@
 
 
 {% tplhandlebars "home_quotes" %}
+	
 
     <div class="container quotes">
         <div class="wrapper">
@@ -156,6 +157,7 @@
             </section>
         </div>
     </div>
+    
 
 {% endtplhandlebars %}
 
@@ -221,7 +223,7 @@
         {{/if }}
 
         {{#if quote }}
-            {{view App.HomeQuotesView }}
+            {# {view App.HomeQuotesView } #}
         {{/if }}
 
         {{#if impact }}
