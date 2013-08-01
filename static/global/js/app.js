@@ -457,6 +457,20 @@ App.Router.reopen({
     location: 'hashbang'
 });
 
+App.Router.reopen({
+    /**
+     * Tracks pageviews if google analytics is used
+	 * Source: http://www.randomshouting.com/2013/05/04/Ember-and-Google-Analytics.html
+	 */
+	didTransition: function(infos) {
+		this._super(infos);
+		if (window._gaq === undefined) { return; }
+		
+		Ember.run.next(function(){
+			_gaq.push(['_trackPageview', window.location.hash.substr(1)]);
+		});
+	}
+});
 
 App.Router.map(function() {
 
