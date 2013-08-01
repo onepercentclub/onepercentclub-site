@@ -110,7 +110,7 @@
         
     }
 
-    &.disabled, &[disabled] {
+    &.disabled, &[disabled], &.disabled:hover, &[disabled]:hover, &.disabled:active, &[disabled]:active {
         .flaticon, .icon {
         	background: darken($grayLight, 5%);
             color: lighten($white, 5%);

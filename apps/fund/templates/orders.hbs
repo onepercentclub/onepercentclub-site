@@ -117,7 +117,7 @@
 	        </ul>
 	    </fieldset>
 		
-	    <fieldset>
+	    <div>
 	        <ul class="donation-projects">
 	            {{#each donation in controller }}
 	                {{render "currentOrderDonation" donation}}
@@ -141,18 +141,18 @@
                     {{/if}}
 	            {{/each}}
 	        </ul>
-	    </fieldset>
+	    </div>
 	
 	    {{#if controllers.currentOrder.recurring }}
 	        {{#if recurringOrder.donations.length }}	            
-            <fieldset class="donation-recurring">
-            	<div class="donation-recurring-title"><h2>Current Monthly Donation</h2></div>
+            <div class="donation-recurring">
+            	<div class="donation-recurring-title"><h3><em class="flaticon solid menu-list-3"></em> Current Monthly Donation</h3></div>
                 <ul class="donation-projects">
                     {{#each donation in recurringOrder.donations }}
                         {{render "currentRecurringDonation" donation}}
                     {{/each}}
                 </ul>
-            </fieldset>
+            </div>
 	        {{/if}}
 	        
         <fieldset class="donation-monthly-total">
@@ -478,90 +478,84 @@
 {% endcomment %}
 
 
+
 {% tplhandlebars "orderThanks" %}
-    <div class="container section">
+
+	<div class="container section">
         <header class="wrapper">
+            {# Note: This is similar to orderThanks above. #}
             <div class="content">
                 <h1 class="main-title">{% trans "Donation Successful!" %}</h1>
-                {% blocktrans %}
-                Thank you so much for your support. 1% makes a difference.
-                If everybody shares a little. together we can get a lot done.
-                So share this with your friends.
-                {% endblocktrans %}
-            </div>
-            <sidebar>
-                <h2 class="green">{% trans "Personalise your 1%" %}</h2>
-                {% blocktrans %}
-                Following projects are now even easier and you'll have
-                your own personalised page!
-                {% endblocktrans %}
-                <br />
                 {{#if controllers.currentUser.isAuthenticated }}
-                    {{#linkTo "userProfile" class="profile-link" }}
-                        {% trans "Complete your profile" %}
-                    {{/linkTo }}
+                	{% blocktrans %}
+					Thanks for your support! Your 1% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! 
+					{% endblocktrans %}
                 {{else}}
-                    {{#linkTo "signup" class="profile-link" }}
-                        {% trans "Become 1%CLUB member" %}
-                    {{/linkTo }}
+                	{% blocktrans %}
+					Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
+					{% endblocktrans %}
                 {{/if}}
-
+            </div>
+            
+            {# Note: This is the same as orderThanks above. Maybe this could be extracted to a partial. #}
+            <sidebar>
             </sidebar>
         </header>
     </div>
 
     <div class="container">
         <section class="wrapper">
-
-            <ul id="donation-projects" class="content">
-
-                {{#if donations.length}}
-                    <h3 class="green">{% trans "You just supported" %}</h3>
+			<div class="content">
+			
+				<div class="intro">
+	            	<h1>{% trans "You just supported these projects" %}.</h1>
+	           </div>
+	
+	            <ul class="donation-projects">
+	                {{#each donation in donations }}
+	                    <li class="donation-project">
+	                        {{#linkTo "project" donation.project}}
+	                            <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
+	                            <h2>
+	                                {{ donation.project.title }}
+	                                <em class="country">
+	                                    <em class="flaticon solid location-pin-1"></em> {{ donation.project.plan.country.name }}, {{ donation.project.plan.country.subregion }}
+	                                </em>
+	                            </h2>
+	                        {{/linkTo}}
+	
+	                        <p class="donation-amount">
+	                            <span class="amount-needed">
+	                                <strong>&euro; {{ donation.project.campaign.money_needed }}</strong>
+	                                {% trans "still needed" %}
+	                            </span>
+	                        </p>
+	                    </li>
+	                {{/each}}
+	            </ul>
+            </div>
+            
+            <sidebar class="sidebar tip">
+            	
+            	{{#if controllers.currentUser.isAuthenticated }}
+            		<h3>{% trans "Personalise profile" %}</h2>
+            		<p>{% blocktrans %}
+					Following projects are now even easier and you'll have your own personalised page!
+					{% endblocktrans %}</p>
+                    {{#linkTo "userProfile" class="profile-link" }}
+                        {% trans "Complete your profile" %} &#8250;
+                    {{/linkTo }}
+                {{else}}
+                	<h3>{% trans "Become a member" %}</h2>
+                	<p>{% blocktrans %}
+					Following projects are now even easier and you'll have your own personalised page!
+					{% endblocktrans %}</p>
+                    {{#linkTo "signup" class="profile-link" }}
+                        {% trans "Become 1%Club member" %} &#8250;
+                    {{/linkTo }}
                 {{/if}}
-                {{#each donation in donations}}
-                    <li class="donation-project">
-                        {{#linkTo "project" donation.project}}
-                            <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
-                            <h2>
-                                {{ donation.project.title }}
-                                <em class="country">
-                                    <em class="icon-globe"></em> {{ donation.project.plan.country.name }}, {{ donation.project.plan.country.subregion }}
-                                </em>
-                            </h2>
-                        {{/linkTo}}
-
-                        <p class="donation-amount">
-                            <span class="amount-needed">
-                                <strong>&euro; {{donation.project.campaign.money_needed}}</strong>
-                                {% trans "still needed" %}
-                            </span>
-                        </p>
-                    </li>
-                {{/each}}
-
-                {{#if vouchers.length}}
-                    <h1>{% trans "Vouchers" %}</h1>
-                {{/if}}
-                {{#each voucher in vouchers}}
-                    <li class="donation-project">
-                        {{#if voucher.receiver_name}}
-                            <h3>
-                                {{voucher.receiver_name}}
-                            </h3>
-                            <em class="country">{{voucher.receiver_email}}</em>
-
-                        {{else}}
-                            <h3>
-                                {{voucher.receiver_email}}
-                            </h3>
-                        {{/if}}
-                        <p>{{voucher.message}}</p>
-                        <p class="donation-amount">
-                            <span class="big currency">&euro; {{voucher.amount}}</span>
-                        </p>
-                    </li>
-                {{/each}}
-            </ul>
+                
+            </sidebar>
         </section>
     </div>
 {% endtplhandlebars %}
@@ -572,69 +566,80 @@
         <header class="wrapper">
             {# Note: This is similar to orderThanks above. #}
             <div class="content">
-                <h1 class="main-title">{% trans "Your monthly donation is Set!" %}</h1>
-                {% blocktrans %}
-                Thank you so much for your support. 1% makes a difference.
-                If everybody shares a little. together we can get a lot done.
-                So share this with your friends.
-                {% endblocktrans %}
+                <h1 class="main-title">{% trans "Your monthly donation is set!" %}</h1>
+                {{#if controllers.currentUser.isAuthenticated }}
+                	{% blocktrans %}
+					Thanks for your support! Your 1% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! 
+					{% endblocktrans %}
+                {{else}}
+                	{% blocktrans %}
+					Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
+					{% endblocktrans %}
+                {{/if}}
             </div>
+            
             {# Note: This is the same as orderThanks above. Maybe this could be extracted to a partial. #}
             <sidebar>
-                <h2 class="green">{% trans "Personalise your 1%" %}</h2>
-                {% blocktrans %}
-                Following projects are now even easier and you'll have
-                your own personalised page!
-                {% endblocktrans %}
-                <br />
-                {{#if controllers.currentUser.isAuthenticated }}
-                    {{#linkTo "userProfile" class="profile-link" }}
-                        {% trans "Complete your profile" %}
-                    {{/linkTo }}
-                {{else}}
-                    {{#linkTo "signup" class="profile-link" }}
-                        {% trans "Become 1%CLUB member" %}
-                    {{/linkTo }}
-                {{/if}}
-
             </sidebar>
         </header>
     </div>
 
     <div class="container">
         <section class="wrapper">
-
-            <ul id="donation-projects" class="content">
-
-                {{#if donations.length }}
-                    <h3 class="green">{% trans "Your monthly donation will be deducted from your account at the beginning of each month." %}</h3> <strong>
+			<div class="content">
+			
+				<div class="intro">
+	            	<h1>{% trans "Monthly donation total:" %} &euro;{{ total }}</h1>
+		            {{#if donations.length }}
+		            	<p><strong>{% trans "Your monthly donation will be deducted from your account at the beginning of each month." %}</strong></p>
+		            {{/if}}
+	           </div>
+	
+	            <ul class="donation-projects">
+	                {{#each donation in donations }}
+	                    <li class="donation-project">
+	                        {{#linkTo "project" donation.project}}
+	                            <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
+	                            <h2>
+	                                {{ donation.project.title }}
+	                                <em class="country">
+	                                    <em class="flaticon solid location-pin-1"></em> {{ donation.project.plan.country.name }}, {{ donation.project.plan.country.subregion }}
+	                                </em>
+	                            </h2>
+	                        {{/linkTo}}
+	
+	                        <p class="donation-amount">
+	                            <span class="amount-needed">
+	                                <strong>&euro; {{ donation.project.campaign.money_needed }}</strong>
+	                                {% trans "still needed" %}
+	                            </span>
+	                        </p>
+	                    </li>
+	                {{/each}}
+	            </ul>
+            </div>
+            
+            <sidebar class="sidebar tip">
+            	
+            	{{#if controllers.currentUser.isAuthenticated }}
+            		<h3>{% trans "Personalise profile" %}</h2>
+            		<p>{% blocktrans %}
+					Following projects are now even easier and you'll have your own personalised page!
+					{% endblocktrans %}</p>
+                    {{#linkTo "userProfile" class="profile-link" }}
+                        {% trans "Complete your profile" %} &#8250;
+                    {{/linkTo }}
+                {{else}}
+                	<h3>{% trans "Become a member" %}</h2>
+                	<p>{% blocktrans %}
+					Following projects are now even easier and you'll have your own personalised page!
+					{% endblocktrans %}</p>
+                    {{#linkTo "signup" class="profile-link" }}
+                        {% trans "Become 1%Club member" %} &#8250;
+                    {{/linkTo }}
                 {{/if}}
-
-                <div>
-                    {% trans "Monthly donation total:" %} &euro;{{ total }}
-                </div>
-
-                {{#each donation in donations }}
-                    <li class="donation-project">
-                        {{#linkTo "project" donation.project}}
-                            <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
-                            <h2>
-                                {{ donation.project.title }}
-                                <em class="country">
-                                    <em class="icon-globe"></em> {{ donation.project.plan.country.name }}, {{ donation.project.plan.country.subregion }}
-                                </em>
-                            </h2>
-                        {{/linkTo}}
-
-                        <p class="donation-amount">
-                            <span class="amount-needed">
-                                <strong>&euro; {{ donation.project.campaign.money_needed }}</strong>
-                                {% trans "still needed" %}
-                            </span>
-                        </p>
-                    </li>
-                {{/each}}
-            </ul>
+                
+            </sidebar>
         </section>
     </div>
 {% endtplhandlebars %}

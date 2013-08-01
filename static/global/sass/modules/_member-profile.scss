@@ -69,6 +69,18 @@
 	}
 }
 
+.order-history {
+	@include clearfix;
+	clear: both;
+}
+
+.edit-monthly-donations {
+	position: absolute;
+	right: 24px;
+	top: 8px;
+	font-weight: normal;
+}
+
 .user-modal-sidebar {
 	@include rem(padding, $padding + 8);
 	position: absolute;
