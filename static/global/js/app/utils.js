@@ -196,13 +196,13 @@ App.UploadFile = Ember.TextField.extend({
         var files = evt.target.files;
         var reader = new FileReader();
         var file = files[0];
-        var view = this
+        var view = this;
 
         reader.onload = function(e) {
             var preview = "<img src='" + e.target.result + "' />";
             view.$().parents('form').find('.preview').remove();
             view.$().parent().after('<div class="preview">' + preview + '</div>');
-        }
+        };
         reader.readAsDataURL(file);
         // Don't set this value. It will cause an error in some browsers.
         //this.set('value', file);

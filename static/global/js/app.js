@@ -954,8 +954,7 @@ App.CurrentOrderRoute = Em.Route.extend({
 
 App.CurrentOrderDonationListRoute = Em.Route.extend({
     model: function(params) {
-        var order = this.modelFor('currentOrder');
-        return order.get('donations');
+        return this.modelFor('currentOrder').get('donations');
     },
 
     setupController: function(controller, donations) {
@@ -972,11 +971,19 @@ App.CurrentOrderDonationListRoute = Em.Route.extend({
         });
 
         // Set the top three projects
-        if (controller.get('showTopThreeProjects')) {
-            App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects){
-                controller.set('topThreeProjects', projects.slice(0, 3));
-            })
-        }
+        App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects) {
+            controller.set('topThreeProjects', projects.slice(0, 3));
+        });
+
+        // set the recurring payment
+        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
+            if (recurringPayments.get('length') > 0) {
+                controller.set('recurringPayment', recurringPayments.objectAt(0));
+            }else {
+                controller.set('recurringPayment', null);
+            }
+        });
+
     }
 });
 
@@ -1023,12 +1030,26 @@ App.RecurringOrderThanksRoute = Em.Route.extend({
     model: function(params) {
         return App.Order.find({status: 'recurring'}).then(function(orders) {
             if (orders.get('length') > 0) {
-
-
-
                 return orders.objectAt(0);
             }
             this.transitionTo('home');
+        });
+    },
+
+    setupController: function(controller, order) {
+        this._super(controller, order);
+
+        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
+            if (recurringPayments.get('length') > 0) {
+                controller.set('recurringPayment', recurringPayments.objectAt(0));
+            }else {
+                controller.set('recurringPayment', null);
+            }
+        });
+
+        // Set the top three projects
+        App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects) {
+            controller.set('topThreeProjects', projects.slice(0, 3));
         });
     }
 });
@@ -1278,23 +1299,24 @@ App.UserSettingsRoute = Em.Route.extend({
 
 App.UserOrdersRoute = Em.Route.extend({
     model: function(params) {
-        var route = this;
-
-        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
-            var controller = route.controllerFor('userOrders');
+        return App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
             if (recurringPayments.get('length') > 0) {
-                // Set the model here instead of the promise in setupController so that the model can be used in the
-                // startEditing() method.
-                controller.set('model', recurringPayments.objectAt(0));
-                controller.startEditing();
-            } else {
-                controller.set('model', null);
+                return recurringPayments.objectAt(0);
+            }else {
+                return null;
             }
         });
     },
 
     setupController: function(controller, recurringPayment) {
         // Don't set the model here because we're setting it after the promise is resolved.
+        if (!Em.isNone(recurringPayment)) {
+            this._super(controller, recurringPayment);
+            controller.startEditing();
+        } else {
+            // Ember doesn't let you add other things to the controller when a record hasn't been set.
+            this._super(controller, App.RecurringDirectDebitPayment.createRecord({fakeRecord: true}));
+        }
 
         // Set the monthly order.
         App.Order.find({status: 'recurring'}).then(function(recurringOrders) {

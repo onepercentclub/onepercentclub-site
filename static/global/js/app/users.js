@@ -243,12 +243,21 @@ App.UserSettingsController = Em.ObjectController.extend(App.Editable, {
 
 
 App.UserOrdersController = Em.ObjectController.extend(App.Editable, {
+
+    // Don't prompt the user to save if the 'fakeRecord' is set.
+    stopEditing: function() {
+        var record = this.get('model');
+        if (!record.get('fakeRecord')) {
+            this._super()
+        }
+    },
+
     recurringPaymentActive: '',
 
-    // Initialized recurringPaymentActive
+    // Initialize recurringPaymentActive
     initRecurringPaymentActive: function() {
-        if (this.get('isLoaded') && this.get('recurringPaymentActive') == '') {
-            if (this.get('recurringPayment.active')) {
+        if (this.get('isLoaded')) {
+            if (this.get('active')) {
                 this.set('recurringPaymentActive', 'on')
             } else {
                 this.set('recurringPaymentActive', 'off')
@@ -256,8 +265,10 @@ App.UserOrdersController = Em.ObjectController.extend(App.Editable, {
         }
     }.observes('isLoaded'),
 
-    updateRecurringPaymentActive: function() {
-        this.set('active', (this.get('recurringPaymentActive') == 'on'));
+    updateActive: function() {
+        if (this.get('recurringPaymentActive') != '') {
+            this.set('active', (this.get('recurringPaymentActive') == 'on'));
+        }
     }.observes('recurringPaymentActive')
 });
 
