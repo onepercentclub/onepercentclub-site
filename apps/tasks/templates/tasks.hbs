@@ -4,60 +4,61 @@
 
 
 {% tplhandlebars "task_preview" %}
-
+	
     <li class="item item-task">
-        <h2>
-            <span class="icon icon-leaf"></span>
-            {{task.skill.name}}
-        </h2>
-        <div class="header">
-            <img {{bindAttr src="project.image" }} />
-            <h3>
-                <b>{{project.title}}<b/>
-                    <br />
-                <i class="icon-globe"></i><span class="item-project-country">{{project.country.name}}, {{project.country.subregion}}</span>
-            </h3>
-        </div>
-
-        <div class="content">
-            {{task.title}}
-        </div>
-        <div class="footer">
-            <ul>
-                <li>
-                    {{#if task.isStatusOpen}}
-                        <span class="icon icon-signin"></span>
-                        {% trans "Open" %}
-                    {{/if}}
-                    {{#if task.isStatusInProgress}}
-                        <span class="icon icon-wrench"></span>
-                        {% trans "In progress" %}
-                    {{/if}}
-                    {{#if task.isStatusClosed}}
-                        <span class="icon icon-off"></span>
-                        {% trans "Closed" %}
-                    {{/if}}
-                    {{#if task.isStatusRealized}}
-                        <span class="icon icon-trophy"></span>
-                        {% trans "Realised" %}
-                    {{/if}}
-
-                </li>
-                <li>
-                    <span class="icon-time" />
-                    {{ task.timeNeeded }}
-                </li>
-                <li>
-                    {{#if task.isStatusRealized}}
-                        <span class="icon-calendar" />
-                        {% trans "Realised" %}
-                    {{else}}
-                        <span class="icon-calendar" />
-                        {{ localize task.deadline formatting="X" }}
-                    {{/if}}
-                </li>
-            </ul>
-        </div>
+    	<a {{action showTask task}}>
+    	
+	        <h2><em class="flaticon solid wrench-1"></em>{{task.skill.name}}</h2>
+	        
+	        <span class="item-header">
+            	<span class="item-image">
+                	<img {{bindAttr src="project.image" }} />
+            	</span>
+                <span class="item-project-title">
+                	<h3>{{task.title}}</h3>
+                	<h4>{{project.title}}</h4>                   
+                </span>
+            </span>
+            
+	        <div class="item-footer">
+	            <ul>
+	                <li>
+	                    {{#if task.isStatusOpen}}
+	                        <span class="flaticon solid inbox-3"></span>
+	                        {% trans "Open" %}
+	                    {{/if}}
+	                    {{#if task.isStatusInProgress}}
+	                        <span class="flaticon solid inbox-5"></span>
+	                        {% trans "In progress" %}
+	                    {{/if}}
+	                    {{#if task.isStatusClosed}}
+	                        <span class="flaticon solid inbox-1"></span>
+	                        {% trans "Closed" %}
+	                    {{/if}}
+	                    {{#if task.isStatusRealized}}
+	                        <span class="flaticon solid inbox-2"></span>
+	                        {% trans "Realised" %}
+	                    {{/if}}
+	
+	                </li>
+	                <li>
+	                    {{#if task.isStatusRealized}}
+	                    {{else}}
+	                        <em class="flaticon solid calendar-1"></em>
+	                        {{ localize task.deadline formatting="X" }}
+	                    {{/if}}
+	                </li>
+	                <li>
+	                    <span class="flaticon solid clock-1" />
+	                    {{ task.timeNeeded }}
+	                </li>
+	                <li>
+	                	<em class="flaticon solid location-pin-1"></em>
+	                	{{project.country.name}}
+	                </li>
+	            </ul>
+	        </div>
+    	</a>
     </li>
 
 {% endtplhandlebars %}
@@ -72,17 +73,15 @@
             <article>
                 <header>
                     {{#if model.isLoaded}}
-                        <ul class="results">
+                        <ul id="results">
                             {{#each task in model}}
-                                <a {{action showTask task}}>
-                                    {{render "taskPreview" task}}
-                                </a>
+                            	{{render "taskPreview" task}}
                             {{else}}
                                 <li>{% trans "No tasks found." %}</li>
                             {{/each}}
                         </ul>
                     {{else}}
-                        <img src="{% get_static_prefix %}images/loading.gif" height="16px" /> {% trans "loading tasks" %}
+                        <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "loading tasks" %}</span>
                     {{/if}}
                 </header>
             </article>
@@ -97,67 +96,78 @@
     <div class="container section">
         <section class="wrapper">
             <article class="search-form">
-                {% comment %}
                 <div class="control">
-                    <em class="icon icon-search"></em>
-                    {{view Em.TextField valueBinding="text" placeholder="Text search" }}
-                </div>
-                {% endcomment %}
-                <div class="control">
-                    <em class="icon icon-leaf"></em>
+                    <em class="flaticon solid skill-1"></em>
                     {{view App.SkillSelectView valueBinding="skill" }}
                 </div>
                 <div class="control">
-                    <em class="icon icon-filter"></em>
+                    <em class="flaticon solid inbox-6"></em>
                     {{view App.TaskStatusSelectView valueBinding="status" }}
                 </div>
                 <div class="clear-form">
                     <a {{action clearForm}}>
-                        <span class="flaticon solid x-3"></span>
+                        <span class="flaticon solid x-2"></span>
                         {% trans "clear filters" %}
                     </a>
                 </div>
             </article>
         </section>
     </div>
-
+    
     <div class="container">
         <section class="wrapper">
-            <article class="navigation">
-                {{#if hasPreviousPage}}
-                    <a {{action "previousPage"}} class="previous-page left button-link">
-                        <i class="flaticon solid left-circle-2"></i>
-                    </a>
-                {{/if}}
-                {{#if hasNextPage}}
-                    <a {{action "nextPage"}} class="next-page right button-link">
-                        <i class="flaticon solid right-circle-2"></i>
-                    </a>
-                {{/if}}
-                <h2>{% trans "found" %} <em>{{controllers.taskList.model.meta.total}}</em> {% trans "tasks" %}</h2>
-                <div class="ordering button-link">
-                    {% trans "Sort:" %}
+            <article id="search-navigation">
+            	
+            	<div class="search-results">
+                	<h2>{% trans "Results" %} <em>{{controllers.taskList.model.meta.total}}</em></h2>
+            	</div>
+                
+                <div class="search-sort">
+                    <strong>{% trans "Sort:" %}</strong>
                     <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
                     <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
                 </div>
-                <br />
-                {{#if controllers.taskList.model.meta.total}}
-                    {% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}
-                {{/if}}
+                
+                <div class="search-pagination">
+                	<span class="search-showing">{{#if controllers.taskList.model.meta.total}}{% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}{{/if}}</span>
+                	<span class="search-pages-control">
+		                {{#if hasPreviousPage}}
+		                    <a {{action "previousPage"}} class="previous-page">
+		                        <em class="flaticon solid left-circle-2"></em>
+		                    </a>
+		                {{else}}
+		                	<span class="previous-page"><em class="flaticon solid left-circle-2"></em></span>
+		                {{/if}}
+		                
+		                {{#if hasNextPage}}
+		                    <a {{action "nextPage"}} class="next-page">
+		                        <em class="flaticon solid right-circle-2"></em>
+		                    </a>
+		                {{else}}
+		                	<span class="next-page"><em class="flaticon solid right-circle-2"></em></span>
+		                {{/if}}
+                	</span>
+                </div>
+                
             </article>
         </section>
     </div>
-
+    
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "project_task_preview" %}
 
     <li class="item item-task">
+    	
+    	
+    	
         <h2>
             <span class="icon icon-leaf"></span>
             {{task.skill.name}}
         </h2>
+        
+        
         <div class="content">
             {{task.title}}
         </div>

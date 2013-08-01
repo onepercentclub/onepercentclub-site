@@ -437,7 +437,7 @@ App.ProjectPhaseSelectView = Em.Select.extend({
     content: App.ProjectPhaseList,
     optionValuePath: "content.value",
     optionLabelPath: "content.title",
-    prompt: "pick a phase"
+    prompt: "Pick a phase"
 
 });
 
