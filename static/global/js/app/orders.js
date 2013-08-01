@@ -208,7 +208,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 
                 numDonations = donations.get('length');
 
-                // Special setup when the length changes.
+                // Special setup when the number of donations changes.
                 if (keyName == 'model.length' && numDonations > 0) {
                     recurringTotal = Math.max(controller.get('singleTotal'), controller.get('recurringTotal'));
                     this.set('recurringTotal', recurringTotal);
