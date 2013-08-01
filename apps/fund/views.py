@@ -208,6 +208,8 @@ class RecurringDirectDebitPaymentMixin(object):
         # Update monthly order.
         with transaction.commit_on_success():
             monthly_order, created = Order.objects.get_or_create(user=self.request.user, status=OrderStatuses.recurring)
+            monthly_order.recurring = True
+            monthly_order.save()
 
         ct = ContentType.objects.get_for_model(Donation)
         for donation in current_order.donations:

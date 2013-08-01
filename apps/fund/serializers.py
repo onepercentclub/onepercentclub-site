@@ -58,8 +58,17 @@ class DonationSerializer(serializers.ModelSerializer):
 
     def validate_amount(self, attrs, source):
         value = attrs[source]
-        if value < 500:
-            raise serializers.ValidationError(_(u"Donations must be at least €5."))
+
+        order_item = None
+        if self.object:
+            order_item = OrderItem.objects.get(object_id=self.object.id, content_type=ContentType.objects.get_for_model(Donation))
+
+        if order_item and order_item.order.recurring:
+                if value < 200:
+                    raise serializers.ValidationError(_(u"Donations must be at least €2."))
+        else:
+            if value < 500:
+                raise serializers.ValidationError(_(u"Donations must be at least €5."))
         return attrs
 
     def validate_project(self, attrs, source):

@@ -149,24 +149,30 @@
             	<div class="donation-recurring-title"><h3><em class="flaticon solid menu-list-3"></em> Current Monthly Donation</h3></div>
                 <ul class="donation-projects">
                     {{#each donation in recurringOrder.donations }}
-                        {{render "currentRecurringDonation" donation}}
+                        {{#if donation.tempRecurringAmount }}
+                            {{render "currentRecurringDonation" donation}}
+                        {{/if}}
                     {{/each}}
                 </ul>
             </div>
 	        {{/if}}
-	        
-        <fieldset class="donation-monthly-total">
-        	<div class="form-summary">{% trans "Divide to projects" %}</div>
-            <div class="donation-amount">
-                <div class="amount-control">
-                    <label for="donation-amount-1">{% trans "Total Amount" %}</label>
-                    <span class="currency"><em>&euro; </em>
-                        <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
-                    </span>
+
+            <fieldset class="donation-monthly-total">
+                <div class="form-summary">{% trans "Divide to projects" %}</div>
+                <div class="donation-amount">
+                    <div class="amount-control">
+                        {# TODO: This doesn't display. #}
+                        {{#each error in errors.recurringTotal }}
+                            <span class="errors">{{ error }}</span>
+                        {{/each}}
+                        <label for="donation-amount-1">{% trans "Total Amount" %}</label>
+                        <span class="currency"><em>&euro; </em>
+                            {{ input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" value=recurringTotal }}
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-	        
+            </fieldset>
+
 	    {{else}}
 	        <fieldset class="donation-total">
 	        	<div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ singleTotal }}</span></div>
@@ -352,7 +358,7 @@
 		<form>
 	    	<div class="form-meta">
 				<div class="form-label">{% trans "You're almost there!" %}</div>
-				<div class="form-desc">{% trans "We'll redirect you through our payment provider where you can finish your donation securily." %}</div>
+				<div class="form-desc">{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</div>
 			</div>
 	    	
 	        {{#if paymentInProgress }}
