@@ -149,7 +149,7 @@ App.VoucherDonationView = Em.View.extend({
         return '';
     }.property('project', 'voucher'),
 
-    delete: function(item){
+    'delete': function(item){
         var controller = this.get('controller');
         this.$().slideUp(500, function() {
             controller.deleteOrderItem(item)

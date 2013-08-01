@@ -146,7 +146,9 @@ App = Em.Application.create({
             // Try to load locale specifications.
             $.getScript('/static/assets/js/vendor/globalize-cultures/globalize.culture.' + locale + '.js')
                 .fail(function() {
-                    console.log("No globalize culture file for : "+ locale);
+                    if (window.console) {
+                        console.log("No globalize culture file for : "+ locale);
+                    }
                     // Specified locale file not available. Use default locale.
                     locale = App.get('locale');
                     Globalize.culture(locale);
@@ -159,7 +161,9 @@ App = Em.Application.create({
                 });
             $.getScript('/static/assets/js/vendor/jquery-ui/i18n/jquery.ui.datepicker-' + locale.substr(0, 2) + '.js')
                 .fail(function() {
-                    console.log("No jquery.ui.datepicker file for : "+ locale);
+                    if (window.console) {
+                        console.log("No jquery.ui.datepicker file for : "+ locale);
+                    }
                     // Specified locale file not available. Use default locale.
                     locale = App.get('locale');
                     Globalize.culture(locale);
@@ -457,6 +461,20 @@ App.Router.reopen({
     location: 'hashbang'
 });
 
+App.Router.reopen({
+    /**
+     * Tracks pageviews if google analytics is used
+	 * Source: http://www.randomshouting.com/2013/05/04/Ember-and-Google-Analytics.html
+	 */
+	didTransition: function(infos) {
+		this._super(infos);
+		if (window._gaq === undefined) { return; }
+		
+		Ember.run.next(function(){
+			_gaq.push(['_trackPageview', window.location.hash.substr(1)]);
+		});
+	}
+});
 
 App.Router.map(function() {
 
