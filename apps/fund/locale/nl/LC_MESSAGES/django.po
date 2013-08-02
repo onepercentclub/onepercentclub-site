@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-02 14:44+0200\n"
-"PO-Revision-Date: 2013-08-02 12:45+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-08-02 15:47+0200\n"
+"PO-Revision-Date: 2013-08-02 13:41+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -289,7 +289,7 @@ msgstr "Je kunt geen donatie aanpassen die geen status nieuw heeft."
 
 #: serializers.py:68
 msgid "Donations must be at least €2."
-msgstr ""
+msgstr "Het minimumbedrag is €5."
 
 #: serializers.py:71
 msgid "Donations must be at least €5."
@@ -397,13 +397,13 @@ msgstr "Maandelijks"
 #: templates/orders.hbs:132
 #, python-format
 msgid "Become a 1%%Friend"
-msgstr ""
+msgstr "Word lid van 1%%Club"
 
 #: templates/orders.hbs:133
 msgid ""
 "Support the top 3 projects with your monthly donation, or choose your own "
 "project to support monthly."
-msgstr ""
+msgstr "Steun de top 3 projecten met jouw maandelijkse donatie, of kies je eigen project om maandelijks te steunen."
 
 #: templates/orders.hbs:138
 msgid "Choose a project to support"
@@ -428,7 +428,7 @@ msgstr "Totaal"
 
 #: templates/orders.hbs:188
 msgid "Choose a project"
-msgstr ""
+msgstr "Kies ander project"
 
 #: templates/orders.hbs:191
 msgid "Add another project"
@@ -447,7 +447,7 @@ msgstr "Volgende"
 #: templates/orders.hbs:210
 #, python-format
 msgid "Donate monthly to<br /> become a 1%%Friend."
-msgstr ""
+msgstr "Doorneer maandelijks<br /> en wordt 1%%Friend."
 
 #: templates/orders.hbs:211
 #, python-format
@@ -472,13 +472,13 @@ msgstr "Je staat op het punt om jouw 1%% met een project te delen. Super! Wist j
 msgid ""
 "You're about to support a 1%%Project. Great! Did you know you can also share"
 " a little every month? How? By becoming a 1%%Member and choosin' monthly."
-msgstr ""
+msgstr "Je staat op het punt om jouw 1%% met een project te delen. Super! Wist je dat je er ook voor kan kiezen om elke maand een beetje te delen? Hoe? Door op 'maandelijks' te klikken en 1%%Friend te worden."
 
 #: templates/orders.hbs:219 templates/orders.hbs.py:522
 #: templates/orders.hbs:582
 #, python-format
 msgid "Become a 1%%Member"
-msgstr ""
+msgstr "Word lid van 1%%Club"
 
 #: templates/orders.hbs:234
 msgid "Your full name"
@@ -506,7 +506,7 @@ msgstr "Land"
 
 #: templates/orders.hbs:308
 msgid "Did you know?"
-msgstr ""
+msgstr "Wist je dat?"
 
 #: templates/orders.hbs:310
 #, python-format
@@ -541,7 +541,7 @@ msgstr "Je bent er bijna!"
 msgid ""
 "We'll redirect you through our payment provider where you can finish your "
 "donation securely."
-msgstr ""
+msgstr "We sturen je door naar onze betaalservice waar je je donatie veilig kan afronden. "
 
 #: templates/orders.hbs:379
 msgid "Processing payment..."
@@ -593,7 +593,7 @@ msgstr "Jouw maandelijkse donatie is ingesteld!"
 msgid ""
 "Thank you 1%%Friend! You're about to set your monthly donation amount to "
 "&euro;"
-msgstr ""
+msgstr "Bedankt 1%%Friend! Je hebt nu bijna een maandelijkse donatie ter hoogte van &euro; ingesteld"
 
 #: templates/orders.hbs:513 templates/orders.hbs.py:573
 msgid "Donation Successful!"
@@ -605,7 +605,7 @@ msgid ""
 "\n"
 "\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! \n"
 "\t\t\t\t\t"
-msgstr ""
+msgstr "\n\t\t\t\t\tBedankt voor je support!  Jouw 1%% heeft dit project weer een stapje dichterbij hun doel gebracht! Vergeet niet om af en toe te kijken hoe het met je project gaat! \n\t\t\t\t\t"
 
 #: templates/orders.hbs:519
 #, python-format
@@ -613,7 +613,7 @@ msgid ""
 "\n"
 "\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
 "\t\t\t\t\t"
-msgstr ""
+msgstr "\n\t\t\t\t\tBedankt voor je support! Als je wil, houden we je graag op de hoogte van de status van de projecten die jij hebt gesteund. Waarom? Omdat het een makkelijke en leuke manier is om te zien wat er met jouw 1%% gebeurt! \nKlinkt goed toch? Meld je aan als 1%%Lid!\n\t\t\t\t\t"
 
 #: templates/orders.hbs:536 templates/orders.hbs.py:605
 msgid "You just supported these projects"
@@ -621,18 +621,18 @@ msgstr "Je hebt bijgedragen aan"
 
 #: templates/orders.hbs:548
 msgid "Your donation is set"
-msgstr ""
+msgstr "Jouw maandelijkse donatie is ingesteld!"
 
 #: templates/orders.hbs:549
 msgid ""
 "\n"
 "\t\t\t\tYour donation will be deducted from your account.\n"
 "\t\t\t\t"
-msgstr ""
+msgstr "Je maandelijkse donatie wordt aan het begin van iedere maand ingehouden van je bankrekening."
 
 #: templates/orders.hbs:552
 msgid "Donation total:"
-msgstr ""
+msgstr "Maandelijkse donatie totaal:"
 
 #: templates/orders.hbs:575
 #, python-format
@@ -640,7 +640,7 @@ msgid ""
 "\n"
 "\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! \n"
 "\t\t\t\t\t\t"
-msgstr ""
+msgstr "\n\t\t\t\t\tBedankt voor je support!  Jouw 1%% heeft dit project weer een stapje dichterbij hun doel gebracht! Vergeet niet om af en toe te kijken hoe het met je project gaat! \n\t\t\t\t\t"
 
 #: templates/orders.hbs:579
 #, python-format
@@ -648,11 +648,11 @@ msgid ""
 "\n"
 "\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
 "\t\t\t\t\t\t"
-msgstr ""
+msgstr "\n\t\t\t\t\tBedankt voor je support! Als je wil, houden we je graag op de hoogte van de status van de projecten die jij hebt gesteund. Waarom? Omdat het een makkelijke en leuke manier is om te zien wat er met jouw 1%% gebeurt! \nKlinkt goed toch? Meld je aan als 1%%Lid!\n\t\t\t\t\t"
 
 #: templates/orders.hbs:588
 msgid "No donation set..."
-msgstr ""
+msgstr "Jouw maandelijkse donatie is ingesteld!"
 
 #: templates/orders.hbs:590
 msgid "Create or enable your monthly donation"
@@ -660,7 +660,7 @@ msgstr "Maak je maandelijkse donatie aan"
 
 #: templates/orders.hbs:625
 msgid "Your monthly donation is set"
-msgstr ""
+msgstr "Jouw maandelijkse donatie is ingesteld!"
 
 #: templates/orders.hbs:627
 msgid ""
