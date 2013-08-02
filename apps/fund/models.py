@@ -1,5 +1,5 @@
 import random
-from apps.accounts.models import BlueBottleUser
+import logging
 from django.conf import settings
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -9,10 +9,13 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
+from apps.accounts.models import BlueBottleUser
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.signals import payment_status_changed
 from .fields import DutchBankAccountField
 from .mails import mail_new_voucher
+
+logger = logging.getLogger(__name__)
 
 
 class RecurringDirectDebitPayment(models.Model):
@@ -167,6 +170,9 @@ class Order(models.Model):
         description += " " + str(self.id) + " " + "- " + _("THANK YOU!")
         return description
 
+    class Meta:
+        ordering = ('-created',)
+
 
 class OrderItem(models.Model):
     """
@@ -292,6 +298,11 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     # Payment: new -> in_progress
     #
     if old_status == PaymentStatuses.new and new_status == PaymentStatuses.in_progress:
+        # Order should still be current when payment is in progress.
+        if order.status != OrderStatuses.current:
+            logger.error("Order should have status 'current' not {0}".format(order.status))
+            # TODO Change to current?? Big problems with double current orders could happen.
+
         # Donations.
         for donation in order.donations:
             donation.status = DonationStatuses.in_progress
@@ -305,7 +316,11 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     # Payment: in_progress -> cancelled
     #
     if old_status == PaymentStatuses.in_progress and new_status == PaymentStatuses.cancelled:
-        # TODO verify that order status is still current, change and print warning if not??
+        # Order should still be current when payment is in progress -> cancelled.
+        if order.status != OrderStatuses.current:
+            logger.error("Order should have status 'current' not {0}".format(order.status))
+            # TODO Change to current?? Big problems with double current orders could happen.
+
         # Donations.
         for donation in order.donations:
             donation.status = DonationStatuses.new
@@ -318,8 +333,9 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     # Payment: -> pending
     #
     if new_status == PaymentStatuses.pending:
-        order.status = OrderStatuses.closed
-        order.save()
+        if order.status != OrderStatuses.closed:
+            order.status = OrderStatuses.closed
+            order.save()
 
         # Donations.
         for donation in order.donations:
@@ -333,8 +349,9 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     # Payment: -> paid
     #
     if new_status == PaymentStatuses.paid:
-        order.status = OrderStatuses.closed
-        order.save()
+        if order.status != OrderStatuses.closed:
+            order.status = OrderStatuses.closed
+            order.save()
 
         # Donations.
         for donation in order.donations:
@@ -348,9 +365,9 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     # Payment: -> failed or refunded
     #
     if new_status in [PaymentStatuses.failed, PaymentStatuses.refunded]:
-        # FIXME Since we're using the 'current' alias instead of PKs there could be two order with current.
-        order.status = OrderStatuses.current
-        order.save()
+        if order.status != OrderStatuses.closed:
+            order.status = OrderStatuses.closed
+            order.save()
 
         # Donations.
         for donation in order.donations:
