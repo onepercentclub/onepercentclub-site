@@ -274,7 +274,7 @@
                     </div>
 
                     <div class="donate-call-to-action">
-                        <a href='#' {{action 'addDonation' this}} class="btn btn-primary btn-iconed right">
+                        <a href='#' {{action 'addDonation' this}} class="btn btn-primary btn-iconed">
                             <em class="flaticon">&euro;</em> {% trans "Support this project" %}
                         </a>
                     </div>
@@ -283,13 +283,13 @@
         {{/if}}
     </div>
 
-    <div class="section">
+    <div class="section" id="member-box">
         <div class="wrapper">
             {{view App.ProjectMembersView}}
         </div>
     </div>
 
-    <nav id="project-actions" class="">
+    <nav id="project-actions" class="section">
 
         <div class="wrapper">
             <ul class="tabs">
@@ -341,7 +341,7 @@
 
 {% tplhandlebars "project_members" %}
 
-    <div class="member-box">
+    <div class="member-list">
         <ul>
             <li class="member-initiator">
                 <ul>
