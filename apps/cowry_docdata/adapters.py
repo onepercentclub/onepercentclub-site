@@ -384,12 +384,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 ddpayment.save()
                 statusChanged = True
 
-        # Log a warning if we've received a status change notification and have no status changes.
-        if status_changed_notification and not statusChanged:
-            log_status_update(payment, PaymentLogLevels.warn,
-                              "Status changed notification received but no payment status change detected.")
-            return
-
         # Use the latest DocDataPayment status to set the status on the Cowry Payment.
         latest_ddpayment = payment.latest_docdata_payment
         latest_payment_report = None
@@ -398,7 +392,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 latest_payment_report = payment_report
                 break
         old_status = payment.status
-        new_status = self._map_status(latest_ddpayment.status, report.approximateTotals,
+        new_status = self._map_status(latest_ddpayment.status, payment, report.approximateTotals,
                                       latest_payment_report.authorization)
 
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
@@ -412,23 +406,27 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
-    def _map_status(self, status, totals=None, authorization=None):
-        return super(DocdataPaymentAdapter, self)._map_status(status)
+    def _map_status(self, status, payment=None, totals=None, authorization=None):
+        new_status = super(DocdataPaymentAdapter, self)._map_status(status)
+
+        # Some status mapping overrides.
+        #
+        # Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 33:
+        #
+        # Safe route: The safest route to check whether all payments were made is for the merchants
+        # to refer to the “Total captured” amount to see whether this equals the “Total registered
+        # amount”. While this may be the safest indicator, the downside is that it can sometimes take a
+        # long time for acquirers or shoppers to actually have the money transferred and it can be
+        # captured.
+        #
+        log_status_update(payment, PaymentLogLevels.info,
+                          "Total Registered: {0} Total Captured: {1}".format(totals.totalRegistered, totals.totalCaptured))
+        if totals.totalRegistered == totals.totalCaptured:
+            new_status = PaymentStatuses.paid
+
+        return new_status
 
     # TODO Use status change log to investigate if these overrides are needed.
-    #     super(DocdataPaymentAdapter, self)._map_status(status)
-    #
-    #     # Some status mapping overrides.
-    #
-    #     # Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 33:
-    #     # Safe route: The safest route to check whether all payments were made is for the merchants
-    #     # to refer to the “Total captured” amount to see whether this equals the “Total registered
-    #     # amount”. While this may be the safest indicator, the downside is that it can sometimes take a
-    #     # long time for acquirers or shoppers to actually have the money transferred and it can be
-    #     # captured.
-    #     if totals.totalRegistered == totals.totalCaptured:
-    #         new_status = 'paid'
-    #
     #     # These overrides are really just guessing.
     #     latest_capture = authorization.capture[-1]
     #     if status == 'AUTHORIZED':
