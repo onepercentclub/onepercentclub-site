@@ -7,17 +7,17 @@
     <div id="wallpost-form">
         {{#if controllers.currentUser.isAuthenticated }}
             {{#if isProjectOwner }}
-            	<h3>Write an update.</h3>
-            	<p>Write an update of your project to inform your crowd.</p>
+            	<h3>{% trans "Write an update" %}</h3>
+            	<p>{% trans "Write an update of your project to inform your crowd." %}</p>
                 {{view App.MediaWallPostNewView content=content}}
             {{else}}
-            	<h3>Write a comment.</h3>
-            	<p>Write an comment to place on the project's wall.</p>
+            	<h3>{% trans "Write a comment" %}</h3>
+            	<p>{% trans "Write an comment to place on the project's wall." %}</p>
                 {{view App.TextWallPostNewView content=content}}
             {{/if}}
         {{else}}
-        	<h3>Write a comment.</h3>
-        	<p>{% trans "You have to" %} <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a> or {{#linkTo "signup"}}{% trans "become a 1%Member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+        	<h3>{% trans "Write a comment" %}</h3>
+        	<p>{% trans "You have to" %} <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a> or {{#linkTo "signup"}}{% trans "become a 1%Member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
         {{/if}}
     </div>
 
@@ -137,7 +137,7 @@
     <section class="wrapper">
     	
     	<div id="wallposts">
-    	
+
 	        {{#each item in items itemController="wallPost"}}
 	            {{#if item.isLoaded}}
 	                {{view "App.ProjectWallPostView"}}
@@ -153,7 +153,7 @@
                 {# trans "no more posts to show" #}
             {{/if}}
 			</article>
-        	
+
     	</div>
 
         <sidebar class="sidebar tip">
