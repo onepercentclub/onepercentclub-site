@@ -2,6 +2,7 @@
 	@include rem(padding, 16px 0);
 	list-style: none;
 	background-color: $white;
+	margin: 0;
 
     .donation-project {
     
@@ -214,5 +215,51 @@
 		    }
 	    }
 	}
+}
+
+#thankyou {
+	
+	figure {
+		@include grid(16,0,1);
+		@include rem(padding, $padding);
+		
+		img {
+			width: 145px !important;
+			text-align: center;
+		}
+	}
+	
+	header {
+		@include grid(32,0,1);
+		
+		p {
+			@include rem(font-size, 16px);
+		}
+	}
+	
+	.donation-projects {
+		@include clearfix;
+		@include prepend(1);
+	}
+	
+	.intro {
+		@include rem(padding, $padding);
+		background: $green;
+		@include prepend(1);
+		@include rem(margin-top, $padding*2);
+		
+		h3 {
+		
+			.flaticon {
+				@include rem(margin-right, $padding/2);
+			}
+			
+			padding: 0;
+			margin: 0;
+			text-transform: uppercase;
+			color: $white;
+		}
+	}
+	
 }
 
