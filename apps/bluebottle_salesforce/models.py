@@ -69,6 +69,7 @@ class SalesforceContact(SalesforceModel):
     member_1_club = models.BooleanField(db_column='Member_1_club__c', default=True)
     user_name = models.CharField(max_length=255, db_column='Username__c')
     is_active = models.BooleanField(db_column='Active__c')
+    has_activated = models.BooleanField(db_column='Has_Activated_Account__c')
     close_date = models.DateField(db_column='Deleted__c')
 
     # SF Layout: Profile section.
@@ -82,6 +83,13 @@ class SalesforceContact(SalesforceModel):
     # - Future purpose deactivate and put the Organization website group value
     #   organization_account = models.ForeignKey(SalesforceOrganization, db_column='AccountId')
     website = models.CharField(max_length=255, db_column='Website__c')
+    last_login = models.DateTimeField(db_column='Date_Last_Login__c')
+    date_joined = models.DateTimeField(db_column='Date_Joined__c')
+
+    # Bank details
+    bank_account_number = models.CharField(max_length=30, db_column='Account_number__c')
+    bank_account_holder = models.CharField(max_length=60, db_column='Account_holder__c')
+    bank_account_city = models.CharField(max_length=50, db_column='Account_city__c')
 
     # SF Layout: Contact Information section.
     activity_number = models.CharField(max_length=255, db_column='Activity_number__c')
