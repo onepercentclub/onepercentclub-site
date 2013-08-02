@@ -1798,11 +1798,11 @@ html { color: #444444; font-family: "Futura Alt", "Trebuchet MS", Helvetica, Ari
 */
 html, body, #site { height: 100%; }
 
-#content { min-height: 100%; /* equal to footer height + 2x padding */ margin-bottom: -522px; padding-bottom: 32px; padding-bottom: 2.28571rem; }
+#content { min-height: 100%; /* equal to footer height + 2x padding */ margin-bottom: -542px; padding-bottom: 32px; padding-bottom: 2.28571rem; }
 
 #content:after { content: ""; display: block; }
 
-#footer, #content:after { /* .push must be the same height as footer */ height: 490px; }
+#footer, #content:after { /* .push must be the same height as footer */ height: 510px; }
 
 #footer { margin-top: 32px; clear: both; }
 
@@ -2319,9 +2319,10 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 .manage li a:hover, .manage li a:active { color: black; text-decoration: underline; }
 .manage li a:hover em, .manage li a:active em { text-decoration: none; }
 
-.sidebar.tip h3 { font-weight: 600; color: #00c051; text-transform: uppercase; }
+.sidebar.tip h3 { font-size: 18px; font-size: 1.28571rem; font-weight: 600; color: #444444; text-transform: uppercase; }
 .sidebar.tip p { font-size: 18px; font-size: 1.28571rem; color: #999999; line-height: 1.5; }
-.sidebar.tip a { font-weight: 300; display: block; }
+.sidebar.tip a { text-transform: uppercase; display: block; text-decoration: underline; font-size: 14px; font-size: 1rem; }
+.sidebar.tip a .flaticon { line-height: 1.4; }
 
 .lined-list ul li { *zoom: 1; text-transform: uppercase; padding: 12px 16px 0 0; padding: 0.85714rem 1.14286rem 0 0; border-bottom: 1px solid #e9e9e9; }
 .lined-list ul li:before, .lined-list ul li:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
@@ -2387,9 +2388,9 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 .reaction-box .reaction-form:after { clear: both; }
 .reaction-box .reaction-form fieldset, .reaction-box .reaction-form fieldset ul, .reaction-box .reaction-form fieldset ul li { margin: 0; padding: 0; }
 .reaction-box .reaction-form label { top: 28px; top: 2rem; float: left; width: 75%; margin-left: 25%; margin-right: 0%; padding: 0; }
-.reaction-box .reaction-form .user-img { top: 12px; top: 0.85714rem; left: 12px; left: 0.85714rem; width: 34px; position: absolute; margin: 0; }
+.reaction-box .reaction-form .user-img { top: 12px; top: 0.85714rem; left: 12px; left: 0.85714rem; width: 40px; position: absolute; margin: 0; }
 .reaction-box .reaction-form .user-img img { float: left; }
-.reaction-box .reaction-form textarea { padding-left: 8.33333%; overflow: hidden; height: 34px; height: 2.42857rem; min-height: 34px; min-height: 2.42857rem; padding-top: 7px; padding-top: 0.5rem; margin: 0; }
+.reaction-box .reaction-form textarea { padding-left: 10.41667% !important; overflow: hidden; height: 40px; height: 2.85714rem; min-height: 34px; min-height: 2.42857rem; padding-top: 7px; padding-top: 0.5rem; margin: 0; font-size: 14px; font-size: 1rem; }
 .reaction-box .reaction-form button { position: absolute; z-index: 2; float: right; display: none; bottom: 12px; right: 12px; font-size: 14px; font-size: 1rem; padding: 4px 12px 2px 12px; padding: 0.28571rem 0.85714rem 0.14286rem 0.85714rem; }
 .reaction-box .reaction-form button:active { top: auto; }
 .reaction-box .reaction-form.is-selected .user-img img { border-color: #00c051; }

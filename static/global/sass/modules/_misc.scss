@@ -31,8 +31,9 @@
 .sidebar.tip {
 	
 	h3 {
+		@include rem(font-size, 18px);
 		font-weight: 600;
-		color: $green;
+		color: $text-black;
 		text-transform: uppercase;
 	}
 	
@@ -43,8 +44,15 @@
 	}
 	
 	a {
-		font-weight: 300;
+		text-transform: uppercase;
 		display: block;
+		text-decoration: underline;
+		@include rem(font-size, 14px);
+		
+		.flaticon {
+			line-height: 1.4;
+		}
+		
 	}
 	
 }
