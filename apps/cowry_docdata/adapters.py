@@ -357,16 +357,16 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
                 # Save some information from the report.
                 ddpayment.payment_id = str(payment_report.id)
-                ddpayment.docdata_payment_method = str(payment_report.paymentMethod)
+                ddpayment.payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
             # Some additional checks.
-            if not payment_report.paymentMethod == ddpayment.docdata_payment_method:
+            if not payment_report.paymentMethod == ddpayment.payment_method:
                 log_status_update(payment, PaymentLogLevels.warn,
                                   "Payment method from DocData doesn't match saved payment method." \
                                   "Storing the payment method received from DocData for payment id {0}: {1}".format(
                                       ddpayment.payment_id, payment_report.paymentMethod))
-                ddpayment.docdata_payment_method = str(payment_report.paymentMethod)
+                ddpayment.payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
             if not payment_report.authorization.status in DocDataPayment.statuses:
