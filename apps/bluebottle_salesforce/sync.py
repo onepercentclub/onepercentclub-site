@@ -1,7 +1,8 @@
 import logging
 from registration.models import RegistrationProfile
 from apps.accounts.models import BlueBottleUser
-from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectPhases
+from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
+    ProjectPhases, ProjectAmbassador
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses, OrderItem, \
@@ -263,6 +264,8 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
                 sfproject.country_in_which_the_project_is_located = project_pitch.country.name
             sfproject.describe_the_project_in_one_sentence = project_pitch.pitch[:5000]
             sfproject.extensive_project_description = project_pitch.description
+
+            sfproject.tags = ""
             for tag in project_pitch.tags.all():
                 sfproject.tags = str(tag) + ", " + sfproject.tags
 
@@ -277,6 +280,24 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject.sustainability = project_plan.future
             sfproject.contribution_project_in_reducing_poverty = project_plan.effects
 
+            # Project referrals (ambassador) - expected are three or less related values
+            try:
+                project_ambs = ProjectAmbassador.objects.filter(project_plan=project_plan)
+                if project_ambs.count() > 0:
+                    sfproject.name_referral_1 = project_ambs[0].name
+                    sfproject.description_referral_1 = project_ambs[0].description
+                    sfproject.email_address_referral_1 = project_ambs[0].email
+                if project_ambs.count() > 1:
+                    sfproject.name_referral_2 = project_ambs[1].name
+                    sfproject.description_referral_2 = project_ambs[1].description
+                    sfproject.email_address_referral_2 = project_ambs[1].email
+                if project_ambs.count() > 2:
+                    sfproject.name_referral_3 = project_ambs[2].name
+                    sfproject.description_referral_3 = project_ambs[2].description
+                    sfproject.email_address_referral_3 = project_ambs[2].email
+            except ProjectAmbassador.DoesNotExist:
+                pass
+
             # TODO: determine what should be in project number_of_people_reached_indirect?
             # sfproject.number_of_people_reached_indirect = (project.fundphase.impact_indirect_male +
             #                                                project.fundphase.impact_indirect_female)
@@ -287,28 +308,13 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
                 logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
                     project_plan.organization.id, project.id))
 
-        sfproject.project_url = project.get_absolute_url
+        sfproject.project_url = "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug)
 
         # Unknown: sfproject.third_half_project =
         # Unknown: sfproject.earth_charther_project =
 
         # SF Layout: Project planning and budget section.
         # TODO: add dates
-
-        # SF Layout: Referrals section.
-        # TODO: Determine project referral section integration
-        # Unknown: sfproject.name_referral_1 = project.referral.name
-        # Unknown: sfproject.name_referral_2 =
-        # Unknown: sfproject.name_referral_3 =
-        # Unknown: sfproject.description_referral_1 = project.referral.description
-        # Unknown: sfproject.description_referral_2 =
-        # Unknown: sfproject.description_referral_3 =
-        # Unknown: sfproject.email_address_referral_1 = project.referral.email
-        # Unknown: sfproject.email_address_referral_2 =
-        # Unknown: sfproject.email_address_referral_3 =
-        # Unknown: sfproject.relation_referral_1_with_project_org =
-        # Unknown: sfproject.relation_referral_2_with_project_org =
-        # Unknown: sfproject.relation_referral_3_with_project_org =
 
         # SF Layout: Project Team Information section.
         sfproject.project_created_date = project.created
