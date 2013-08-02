@@ -1,23 +1,26 @@
 #wallpost-form {
-
+	
+	fieldset {
+		@include rem(padding, 0 $padding);
+	}
+	
     ul {
       padding: 0;
     }
-
-	.btn {
-		margin-right: 2.08333%;
-	}
-
-    .sidebar {
-        @include rem(padding, 16px);
-        border: 1px solid $green;
-        background: $white;
-        
-        h3 {
-            margin: 0;  
-        }
+    
+    .control-group {
+	    
+	    .control-label {
+		    @include grid(48,1,1);
+	    }
+	    
+	    .controls {
+		    @include clearfix;
+		    @include grid(48,1,1);
+	    }
+	    
     }
-
+    
     .wallpost-photos {
         @include rem(margin-top, 16px);
         @include clearfix;

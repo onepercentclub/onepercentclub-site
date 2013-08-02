@@ -56,7 +56,7 @@
                     {{view "Em.TextArea" placeholder="Comment"  valueBinding="newReaction.text" name="reaction" class="newReaction"}}
                 </li>
             {{else}}
-                <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
+                <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a> or {{#linkTo "signup"}}{% trans "signup" %}{{/linkTo}} {% trans "to leave a comment" %}.
             {{/if}}
 
         </ul>

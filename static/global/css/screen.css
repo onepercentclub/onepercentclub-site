@@ -1818,7 +1818,7 @@ body { overflow-y: scroll; }
 
 .wrapper > form { float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
 
-.wrapper .sidebar, .wrapper sidebar { float: left; width: 29.16667%; margin-left: 4.16667%; margin-right: 0%; }
+.wrapper .sidebar, .wrapper sidebar { float: left; width: 27.08333%; margin-left: 4.16667%; margin-right: 2.08333%; }
 
 .sidebar.grey { background-color: #e9e9e9; padding: 12px 24px; padding: 0.85714rem 1.71429rem; color: #999999; margin-bottom: 24px; margin-bottom: 1.71429rem; }
 .sidebar.grey h3 { padding: 0px; font-size: 16px; font-size: 1.14286rem; line-height: 16px; line-height: 1.14286rem; text-transform: uppercase; font-weight: 300; color: #666666; }
@@ -2321,8 +2321,8 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 
 .sidebar.tip h3 { font-size: 18px; font-size: 1.28571rem; font-weight: 600; color: #444444; text-transform: uppercase; }
 .sidebar.tip p { font-size: 18px; font-size: 1.28571rem; color: #999999; line-height: 1.5; }
-.sidebar.tip a { text-transform: uppercase; display: block; text-decoration: underline; font-size: 14px; font-size: 1rem; }
-.sidebar.tip a .flaticon { line-height: 1.4; }
+.sidebar.tip .action-link a { text-transform: uppercase; display: block; text-decoration: underline; font-size: 14px; font-size: 1rem; }
+.sidebar.tip .action-link a .flaticon { line-height: 1.4; }
 
 .lined-list ul li { *zoom: 1; text-transform: uppercase; padding: 12px 16px 0 0; padding: 0.85714rem 1.14286rem 0 0; border-bottom: 1px solid #e9e9e9; }
 .lined-list ul li:before, .lined-list ul li:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
@@ -2434,7 +2434,7 @@ background-position: sprite-position($icons, share, 0, 4px);
 .reactions:after { clear: both; }
 .reactions .manage { float: right; }
 .reactions li { padding-bottom: 8px; padding-bottom: 0.57143rem; position: relative; display: block; overflow: auto; }
-.reactions li .user-img { float: left; width: 10.41667%; margin-left: 0%; margin-right: 0%; position: absolute; margin: 0; }
+.reactions li .user-img { float: left; width: 10.41667%; margin-left: 0%; margin-right: 0%; position: absolute; margin: 0 !important; }
 .reactions li.initiator .reaction { border-color: #00c051; }
 .reactions li.initiator .reaction::after { background: url("../images/reaction-back-arrow.png") transparent no-repeat 10px -6px; }
 .reactions li .reaction { float: left; width: 83.33333%; margin-left: 16.66667%; margin-right: 0%; padding: 16px; padding: 1.14286rem; position: relative; background: white; color: #333; vertical-align: baseline; word-wrap: break-word; }
@@ -2448,14 +2448,15 @@ background-position: sprite-position($icons, share, 0, 4px);
 .status-box:after { clear: both; }
 
 /* =========== Number of supports / Days left */
-.donate-days-left { float: left; width: 18.75%; margin-left: 2.08333%; margin-right: 0%; margin-top: 8px; color: #cccccc; text-align: center; }
+.donate-days-left { float: left; width: 22.91667%; margin-left: 2.08333%; margin-right: 0%; margin-top: 8px; color: #cccccc; text-align: center; }
 .donate-days-left .icon { font-size: 24px; font-size: 1.71429rem; color: #cccccc; }
 .donate-days-left strong { font-size: 28px; font-size: 2rem; padding: 0; color: #f4f4f4; font-weight: 300; line-height: 0.8em; }
 .donate-days-left em { font-size: 12px; font-size: 0.85714rem; text-transform: uppercase; font-style: normal; }
 
-.donate-call-to-action { float: left; width: 35.41667%; margin-left: 0%; margin-right: 2.08333%; }
+.donate-call-to-action { float: left; width: 35.41667%; margin-left: 0%; margin-right: 2.08333%; text-align: right; }
+.donate-call-to-action .btn { float: right; }
 
-.donate-status { float: left; width: 33.33333%; margin-left: 4.16667%; margin-right: 4.16667%; position: relative; color: #cccccc; }
+.donate-status { float: left; width: 29.16667%; margin-left: 4.16667%; margin-right: 4.16667%; position: relative; color: #cccccc; }
 .donate-status .donate-amount { font-size: 14px; font-size: 1rem; margin-bottom: 0.5em; text-align: center; text-transform: uppercase; font-weight: normal; }
 .donate-status .donate-amount .donated { font-size: 18px; font-size: 1.28571rem; color: #f4f4f4; font-weight: 300; }
 .donate-status .donate-amount .asked { font-weight: 300; }
@@ -2574,10 +2575,12 @@ ul.voucher-list li .mail { float: left; width: 29.16667%; margin-left: 0%; margi
 ul.voucher-list li .actions { float: left; width: 25%; margin-left: 0%; margin-right: 0%; }
 ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin-right: 4.16667%; }
 
+#wallpost-form fieldset { padding: 0 16px; padding: 0 1.14286rem; }
 #wallpost-form ul { padding: 0; }
-#wallpost-form .btn { margin-right: 2.08333%; }
-#wallpost-form .sidebar { padding: 16px; padding: 1.14286rem; border: 1px solid #00c051; background: white; }
-#wallpost-form .sidebar h3 { margin: 0; }
+#wallpost-form .control-group .control-label { float: left; width: 95.83333%; margin-left: 2.08333%; margin-right: 2.08333%; }
+#wallpost-form .control-group .controls { *zoom: 1; float: left; width: 95.83333%; margin-left: 2.08333%; margin-right: 2.08333%; }
+#wallpost-form .control-group .controls:before, #wallpost-form .control-group .controls:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
+#wallpost-form .control-group .controls:after { clear: both; }
 #wallpost-form .wallpost-photos { margin-top: 16px; margin-top: 1.14286rem; *zoom: 1; clear: none; }
 #wallpost-form .wallpost-photos:before, #wallpost-form .wallpost-photos:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 #wallpost-form .wallpost-photos:after { clear: both; }

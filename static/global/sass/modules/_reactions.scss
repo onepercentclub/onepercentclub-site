@@ -242,7 +242,7 @@
         .user-img {
             @include grid(5);
             position: absolute;
-            margin: 0;
+            margin: 0 !important;
         } 
         
         &.initiator .reaction {
