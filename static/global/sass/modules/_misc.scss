@@ -43,8 +43,15 @@
 	}
 	
 	a {
-		font-weight: 300;
+		text-transform: uppercase;
 		display: block;
+		text-decoration: underline;
+		@include rem(font-size, 14px);
+		
+		.flaticon {
+			line-height: 1.4;
+		}
+		
 	}
 	
 }
