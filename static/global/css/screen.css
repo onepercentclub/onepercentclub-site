@@ -2049,7 +2049,7 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 #detail article .project-phase:after { clear: both; }
 #detail article .project-phase .item { float: left; width: 20.83333%; margin-left: 0%; margin-right: 0%; font-size: 12px; font-size: 0.85714rem; line-height: 28px; line-height: 2rem; color: #999999; text-align: center; text-transform: uppercase; padding-right: 8px; padding-right: 0.57143rem; }
 #detail article .project-phase .item:first-of-type { margin-right: 16px; margin-right: 1.14286rem; width: auto; text-align: left; }
-#detail article .project-phase .item.is-current { background: url('../images/steps-phase-back.png?1375428831') no-repeat #999999 100% 50%; color: #444444; }
+#detail article .project-phase .item.is-current { background: url('../images/steps-phase-back.png?1375428969') no-repeat #999999 100% 50%; color: #444444; }
 #detail article .project-meta { margin: 16px 0 8px; margin: 1.14286rem 0 0.57143rem; font-size: 14px; font-size: 1rem; color: #00c051; }
 #detail article .project-meta .location { margin-right: 32px; margin-right: 2.28571rem; display: block; float: left; vertical-align: middle; }
 #detail article .project-meta .tags { display: block; overflow: hidden; width: auto; color: #00c051; text-overflow: ellipsis; white-space: nowrap; }
@@ -2068,7 +2068,7 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 #project-actions .project-action { float: left; width: 39.58333%; margin-left: 0%; margin-right: 2.08333%; }
 #project-actions .project-action .button-donate { float: right; }
 
-.donation-projects { padding: 16px 0; padding: 1.14286rem 0; list-style: none; background-color: white; }
+.donation-projects { padding: 16px 0; padding: 1.14286rem 0; list-style: none; background-color: white; margin: 0; }
 .donation-projects .donation-project { position: relative; padding: 16px; padding: 1.14286rem; *zoom: 1; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white; border-bottom: 1px solid #e9e9e9; }
 .donation-projects .donation-project:hover .remove { display: block; }
 .donation-projects .donation-project .remove { cursor: pointer; display: none; z-index: 5; position: absolute; top: -30px; right: -30px; font-size: 20px; font-size: 1.42857rem; padding: 20px; color: #444444; }
@@ -2109,6 +2109,17 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 #donate .donation-monthly-total .donation-amount { float: left; width: 33.33333%; margin-left: 0%; margin-right: 0%; float: right !important; }
 #donate .donation-monthly-total .donation-amount .amount-control { margin-top: 0; }
 #donate .donation-monthly-total .donation-amount .currency { float: right !important; }
+
+#thankyou figure { float: left; width: 31.25%; margin-left: 0%; margin-right: 2.08333%; padding: 16px; padding: 1.14286rem; }
+#thankyou figure img { width: 145px !important; text-align: center; }
+#thankyou header { float: left; width: 64.58333%; margin-left: 0%; margin-right: 2.08333%; }
+#thankyou header p { font-size: 16px; font-size: 1.14286rem; }
+#thankyou .donation-projects { *zoom: 1; margin-left: 2.08333%; }
+#thankyou .donation-projects:before, #thankyou .donation-projects:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
+#thankyou .donation-projects:after { clear: both; }
+#thankyou .intro { padding: 16px; padding: 1.14286rem; background: #00c051; margin-left: 2.08333%; margin-top: 32px; margin-top: 2.28571rem; }
+#thankyou .intro h3 { padding: 0; margin: 0; text-transform: uppercase; color: white; }
+#thankyou .intro h3 .flaticon { margin-right: 8px; margin-right: 0.57143rem; }
 
 /* =========== Forms */
 legend { padding: 24px 32px; padding: 1.71429rem 2.28571rem; width: 100%; background-color: #cccccc; }
