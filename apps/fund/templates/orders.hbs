@@ -167,7 +167,7 @@
                         {{/each}}
                         <label for="donation-amount-1">{% trans "Total Amount" %}</label>
                         <span class="currency"><em>&euro; </em>
-                            {{ input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" value=recurringTotal }}
+                            <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
                         </span>
                     </div>
                 </div>
