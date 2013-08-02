@@ -8,7 +8,7 @@
 
 /* =========== Number of supports / Days left */
 .donate-days-left {
-	@include grid(10, 1, 0);
+	@include grid(12, 1, 0);
     margin-top: 8px;
 	color: $text-grey;
     text-align: center;
@@ -35,10 +35,15 @@
 
 .donate-call-to-action {
     @include grid(18, 0, 1);
+    text-align: right;
+    
+    .btn {
+	    float: right;
+    }
 }
 
 .donate-status {
-    @include grid(20, 2);
+    @include grid(18, 2);
     position: relative;
     color: $text-grey;
 
