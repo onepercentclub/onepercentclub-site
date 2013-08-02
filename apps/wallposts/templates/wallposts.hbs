@@ -4,11 +4,12 @@
 
 {% tplhandlebars "project_wallpost_new" %}
 	
+
     <div id="wallpost-form">
         {{#if controllers.currentUser.isAuthenticated }}
             {{#if isProjectOwner }}
             	<h3>Write an update.</h3>
-            	<p>Write an update of your project to inform your crowd.</p>
+            	<p>Write an update of your project to inform your crowd<./p>
                 {{view App.MediaWallPostNewView content=content}}
             {{else}}
             	<h3>Write a comment.</h3>
@@ -135,7 +136,6 @@
     <section class="wrapper">
     	
     	<div id="wallposts">
-    	
 	        {{#each item in items itemController="wallPost"}}
 	            {{#if item.isLoaded}}
 	                {{view "App.ProjectWallPostView"}}
@@ -151,7 +151,7 @@
                 {# trans "no more posts to show" #}
             {{/if}}
 			</article>
-        	
+
     	</div>
 
         <sidebar class="sidebar tip">
