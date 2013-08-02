@@ -3043,7 +3043,7 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000340}}
 #detail article .project-phase .item:first-of-type { margin-right: 16px; margin-right: 1.14286rem; width: auto; text-align: left; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000346}}
-#detail article .project-phase .item.is-current { background: url('../images/steps-phase-back.png?1375364929') no-repeat #999999 100% 50%; color: #444444; }
+#detail article .project-phase .item.is-current { background: url('../images/steps-phase-back.png?1375371336') no-repeat #999999 100% 50%; color: #444444; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000353}}
 #detail article .project-meta { margin: 16px 0 8px; margin: 1.14286rem 0 0.57143rem; font-size: 14px; font-size: 1rem; color: #00c051; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_detail-top\.scss}line{font-family:\0000358}}
@@ -3432,9 +3432,9 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 #profile-actions a:hover small, #profile-actions a:active small { text-decoration: underline; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000363}}
-#profile .profile-actions-meta { float: left; width: 29.16667%; margin-left: 2.08333%; margin-right: 0%; }
+#profile .profile-actions-meta { float: left; width: 27.08333%; margin-left: 2.08333%; margin-right: 0%; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000367}}
-#profile .tabs li > a { float: left; width: 16.66667%; margin-left: 0%; margin-right: 0%; }
+#profile .tabs li > a { float: left; width: 20.83333%; margin-left: 0%; margin-right: 0%; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/franstwisk\/Dropbox\/Repositories\/1procentclub\/static\/global\/sass\/modules\/_member-profile\.scss}line{font-family:\0000372}}
 .order-history { *zoom: 1; clear: both; }

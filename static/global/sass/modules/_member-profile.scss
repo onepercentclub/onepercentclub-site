@@ -61,11 +61,11 @@
 #profile {
 	
 	.profile-actions-meta {
-		@include grid(15,1,0);
+		@include grid(14,1,0);
 	}
 	
 	.tabs li > a {
-		@include grid(8);
+		@include grid(10);
 	}
 }
 
