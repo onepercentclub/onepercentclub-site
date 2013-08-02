@@ -129,16 +129,17 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
     }.property('length'),
 
     showTopThreeProjects: function() {
-        var tempTotal = -1;
-        if (!Em.isNone(this.get('recurringOrder.donations'))) {
-            tempTotal = 0;
+        var recurringOrderEmpty = true;
+        if (!Em.isNone(this.get('recurringOrder'))) {
+            // Monthly donation order already set.
+            var tempTotal = 0;
             this.get('recurringOrder.donations').forEach(function(donation) {
                 tempTotal += donation.get('tempRecurringAmount');
             });
+            recurringOrderEmpty = this.get('recurringOrder.donations.length') == 0 || tempTotal == 0;
         }
-        return this.get('controllers.currentOrder.recurring') && this.get('length') == 0 &&
-            (this.get('recurringOrder.donations.length') == 0 || tempTotal == 0);
-    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length', 'recurringOrder.donations.@each.tempRecurringAmount', 'length'),
+        return this.get('controllers.currentOrder.recurring') && this.get('length') == 0 && recurringOrderEmpty;
+    }.property('controllers.currentOrder.recurring', 'length', 'recurringOrder.donations.length', 'recurringOrder.donations.@each.tempRecurringAmount'),
 
     editingRecurringOrder: function(obj, keyName) {
         // True when modifying an existing order that has donations. False otherwise (including when modifying a top three projects recurringPayment).
