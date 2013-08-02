@@ -4,12 +4,11 @@
 
 {% tplhandlebars "project_wallpost_new" %}
 	
-	
     <div id="wallpost-form">
         {{#if controllers.currentUser.isAuthenticated }}
             {{#if isProjectOwner }}
             	<h3>Write an update.</h3>
-            	<p>Write an update of your project to inform your crowd<./p>
+            	<p>Write an update of your project to inform your crowd.</p>
                 {{view App.MediaWallPostNewView content=content}}
             {{else}}
             	<h3>Write a comment.</h3>
@@ -18,8 +17,7 @@
             {{/if}}
         {{else}}
         	<h3>Write a comment.</h3>
-        	 {% trans "You have to" %} {{#linkTo "login"}}{% trans "Login" %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }} or
-        	{{#linkTo "signup"}}{% trans "become a 1%Member" %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }} {% trans "to leave a comment." %}
+        	<p>{% trans "You have to" %} <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>{% trans "Login" %}{{/action}} or {{#linkTo "signup"}}{% trans "become a 1%Member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
         {{/if}}
     </div>
 
@@ -133,10 +131,11 @@
 
 
 {% tplhandlebars "project_wallpost_list" %}
-	
+
     <section class="wrapper">
     	
     	<div id="wallposts">
+    	
 	        {{#each item in items itemController="wallPost"}}
 	            {{#if item.isLoaded}}
 	                {{view "App.ProjectWallPostView"}}
@@ -152,6 +151,7 @@
                 {# trans "no more posts to show" #}
             {{/if}}
 			</article>
+        	
     	</div>
 
         <sidebar class="sidebar tip">
