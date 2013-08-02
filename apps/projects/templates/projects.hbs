@@ -127,7 +127,7 @@
                     {{view App.ProjectCountrySelectView valueBinding="country" }}
                 </div>
                 <div class="control">
-                    <em class="flaticon solid tree-1"></em>
+                    <em class="flaticon solid tag-1"></em>
                     {{view App.ThemeSelectView valueBinding="theme" }}
                 </div>
                 <div class="control">
@@ -202,27 +202,26 @@
 {% tplhandlebars "project" %}
 
     <div class="section" id="detail">
-        <div class="darken-background"></div>
         <section class="wrapper">
+        
             <figure class="media">
                 <img {{bindAttr src="plan.image.large"}} width="100%" alt="Photo" />
             </figure>
 
             <article>
                 <ul class="project-phase">
-                    <li class="item"><i class="flaticon solid checkmark-3"></i> {% trans "pitch" %}</li>
-                    <li {{bindAttr class=":item isPhasePlan:project-phase-is-current" }}>{% trans "plan" %}</li>
-                    <li {{bindAttr class=":item isPhaseCampaign:project-phase-is-current" }}>{% trans "campaign" %}</li>
-                    <li {{bindAttr class=":item isPhaseAct:project-phase-is-current" }}>{% trans "act" %}</li>
-                    <li {{bindAttr class=":item isPhaseResults:project-phase-is-current" }}>{% trans "results" %}</li>
+                    <li class="item">{% trans "Pitch" %}</li>
+                    <li {{bindAttr class=":item isPhasePlan:is-current" }}>{% trans "Plan" %}</li>
+                    <li {{bindAttr class=":item isPhaseCampaign:is-current" }}>{% trans "Campaign" %}</li>
+                    <li {{bindAttr class=":item isPhaseAct:is-current" }}>{% trans "Act" %}</li>
+                    <li {{bindAttr class=":item isPhaseResults:is-current" }}>{% trans "Results" %}</li>
                 </ul>
 
                 <div class="project-meta">
                     <span class="location"><em class="flaticon solid location-pin-1"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
 
                     <span class="theme">
-                        <em class="flaticon solid feather-1"></em>
-                        {{plan.theme.title}}
+                        <em class="flaticon solid tag-1"></em>{{plan.theme.title}}
                     </span>
 
                     {% comment %}
@@ -240,13 +239,15 @@
                 </h1>
 
                 <p class="project-description">{{plan.pitch}}</p>
-
+				
+				{% comment %}
                 <div class="project-plan">
                     {{#linkTo "projectPlan"}}
                         <i class="flaticon solid open-book-4"></i>
                         {% trans "Read full project plan" %}
                     {{/linkTo}}
                 </div>
+                {% endcomment %}
 
                 {{view App.SocialShareView classNames="project-share"}}
             </article>
@@ -274,7 +275,7 @@
 
                     <div class="donate-call-to-action">
                         <a href='#' {{action 'addDonation' this}} class="btn btn-primary btn-iconed right">
-                            <em class="icon flaticon solid money-1"></em> {% trans "Support this project" %}
+                            <em class="flaticon">&euro;</em> {% trans "Support this project" %}
                         </a>
                     </div>
                 </div>
