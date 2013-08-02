@@ -139,7 +139,7 @@
             {{/if}}
         	</div>
         {{/each}}
-
+        
 	    {{#if controllers.currentOrder.recurring }}
 	        {{#if recurringOrder.donations.length }}	            
             <div class="donation-recurring">
@@ -153,7 +153,7 @@
                 </ul>
             </div>
 	        {{/if}}
-
+			
             <fieldset class="donation-monthly-total">
             	{{#if showTopThreeProjects }}
                 	<div class="form-summary">&nbsp;</div>
@@ -202,12 +202,18 @@
 </div>
 
 <div class="sidebar tip">
-	{{#if controllers.currentOrder.recurring }}
-	<h3>{% trans "Donate monthly to be a 1%Friend." %}</h3>
-    <p>{% trans "Yay! We're happy to welcome you as a 1%Friend. After all, friends make life better!" %}</p>
+	{{#if controllers.currentUser.isAuthenticated}}
+		{{#if controllers.currentOrder.recurring }}
+		<h3>{% trans "Donate monthly to<br /> become a 1%Friend." %}</h3>
+	    <p>{% trans "Yay! We're happy to welcome you as a 1%Friend. After all, friends make life better!" %}</p>
+		{{else}}
+		<h3>{% trans "Why not donate monthly?" %}</h3>
+		<p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!" %}</p>
+		{{/if}}	
 	{{else}}
-	<h3>{% trans "Why not donate monthly?" %}</h3>
-	<p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!" %}</p>
+		<h3>Did you know?</h3>
+		<p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly." %}
+		<p>{{#linkTo "signup"}}{% trans "Become a 1%Member" %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>      
 	{{/if}}
 </div>
 
@@ -510,6 +516,7 @@
                 		<p>{% blocktrans %}
 						Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
 					{% endblocktrans %}</p>
+					<p>{{#linkTo "signup"}}{% trans "Become a 1%Member" %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>  
 					{{/if}}
             	</header>
             
@@ -569,6 +576,7 @@
 	                		<p>{% blocktrans %}
 							Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
 						{% endblocktrans %}</p>
+						<p>{{#linkTo "signup"}}{% trans "Become a 1%Member" %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>  
 						{{/if}}
 	            	</header>
             	
