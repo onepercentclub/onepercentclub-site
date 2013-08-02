@@ -7,7 +7,8 @@ from django.contrib.contenttypes.models import ContentType
 from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, OrderItem, RecurringDirectDebitPayment
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.accounts.models import BlueBottleUser
-from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, ProjectPhases
+from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, \
+    ProjectAmbassador, ProjectPhases
 from apps.tasks.models import Task, TaskMember
 
 logger = logging.getLogger(__name__)
@@ -234,7 +235,10 @@ def generate_projects_csv_file(path, loglevel):
                             "Target_group_s_of_the_project__c", "Describe_where_the_money_is_needed_for__c",
                             "Projecturl__c", "Tags__c",
                             "Contribution_project_in_reducing_poverty__c", "Sustainability__c",
-                            "Extensive_project_description__c"])
+                            "Extensive_project_description__c", "Name_referral_1__c", "Description_referral_1__c",
+                            "E_mail_address_referral_1__c", "Name_referral_2__c", "Description_referral_2__c",
+                            "E_mail_address_referral_2__c", "Name_referral_3__c", "Description_referral_3__c",
+                            "E_mail_address_referral_3__c"])
 
         projects = Project.objects.all()
 
@@ -269,6 +273,15 @@ def generate_projects_csv_file(path, loglevel):
                     extensive_project_description = ''
 
                 organization_id = ''
+                name_referral_1 = ''
+                description_referral_1 = ''
+                email_address_referral_1 = ''
+                name_referral_2 = ''
+                description_referral_2 = ''
+                email_address_referral_2 = ''
+                name_referral_3 = ''
+                description_referral_3 = ''
+                email_address_referral_3 = ''
                 try:
                     project_plan = ProjectPlan.objects.get(project=project)
                     for_who = project_plan.for_who
@@ -278,6 +291,23 @@ def generate_projects_csv_file(path, loglevel):
                     sustainability = project_plan.future
                     if project_plan.organization:
                         organization_id = project_plan.organization.id
+                                # Project referrals (ambassador) - expected are three or less related values
+                    try:
+                        project_ambs = ProjectAmbassador.objects.filter(project_plan=project_plan)
+                        if project_ambs.count() > 0:
+                            name_referral_1 = project_ambs[0].name
+                            description_referral_1 = project_ambs[0].description
+                            email_address_referral_1 = project_ambs[0].email
+                        if project_ambs.count() > 1:
+                            name_referral_2 = project_ambs[1].name
+                            description_referral_2 = project_ambs[1].description
+                            email_address_referral_2 = project_ambs[1].email
+                        if project_ambs.count() > 2:
+                            name_referral_3 = project_ambs[2].name
+                            description_referral_3 = project_ambs[2].description
+                            email_address_referral_3 = project_ambs[2].email
+                    except ProjectAmbassador.DoesNotExist:
+                        pass
                 except ProjectPlan.DoesNotExist:
                     for_who = ''
                     money_needed_for = ''
@@ -299,11 +329,20 @@ def generate_projects_csv_file(path, loglevel):
                                     project.created.date(),
                                     for_who.encode("utf-8"),
                                     money_needed_for.encode("utf-8"),
-                                    project.get_absolute_url,
+                                    "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug),
                                     tags,
                                     contribution_project_in_reducing_poverty.encode("utf-8"),
                                     sustainability.encode("utf-8"),
-                                    extensive_project_description.encode("utf-8")])
+                                    extensive_project_description.encode("utf-8"),
+                                    name_referral_1.encode("utf-8"),
+                                    description_referral_1.encode("utf-8"),
+                                    email_address_referral_1.encode("utf-8"),
+                                    name_referral_2.encode("utf-8"),
+                                    description_referral_2.encode("utf-8"),
+                                    email_address_referral_2.encode("utf-8"),
+                                    name_referral_3.encode("utf-8"),
+                                    description_referral_3.encode("utf-8"),
+                                    email_address_referral_3.encode("utf-8")])
                 success_count += 1
             except Exception as e:
                 error_count += 1
