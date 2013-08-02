@@ -1,9 +1,10 @@
 import csv
 import logging
 import os
+from registration.models import RegistrationProfile
 from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
-from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, OrderItem
+from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, OrderItem, RecurringDirectDebitPayment
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, ProjectPhases
@@ -43,7 +44,7 @@ def generate_organizations_csv_file(path, loglevel):
                 billing_country = ''
                 try:
                     organizationaddress = OrganizationAddress.objects.get(organization=organization)
-                    billing_city = organizationaddress.city
+                    billing_city = organizationaddress.city[:40]
                     billing_street = organizationaddress.line1 + " " + organizationaddress.line2
                     billing_postal_code = organizationaddress.postal_code
                     if organizationaddress.country:
@@ -102,7 +103,9 @@ def generate_users_csv_file(path, loglevel):
                             "About_me_us__c", "Location__c", "Birthdate", "Email", "Website__c", "MailingCity",
                             "MailingStreet", "MailingCountry", "MailingPostalCode", "MailingState",
                             "Receive_newsletter__c", "Primary_language__c", "Available_to_share_time_and_knowledge__c",
-                            "Available_to_donate__c", "Availability__c"])
+                            "Available_to_donate__c", "Availability__c", "Has_Activated_Account__c",
+                            "Date_Joined__c", "Date_Last_Login__c", "Account_number__c", "Account_holder__c",
+                            "Account_city__c"])
 
         users = BlueBottleUser.objects.all()
 
@@ -142,8 +145,35 @@ def generate_users_csv_file(path, loglevel):
                     date_deleted = user.deleted.date()
 
                 date_joined = ""
+                member_since = ""
                 if user.date_joined:
-                    date_joined = user.date_joined.date()
+                    member_since = user.date_joined.date()
+                    date_joined = user.date_joined.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+                last_login = ""
+                if user.last_login:
+                    last_login = user.last_login.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+                has_activated = False
+                try:
+                    rp = RegistrationProfile.objects.get(id=user.id)
+                    if rp.activation_key == RegistrationProfile.ACTIVATED:
+                        has_activated = True
+                except RegistrationProfile.DoesNotExist:
+                    if not user.is_active and user.date_joined == user.last_login:
+                        has_activated = False
+                    else:
+                        has_activated = True
+
+                try:
+                    recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
+                    bank_account_city = recurring_payment.city
+                    bank_account_holder = recurring_payment.name
+                    bank_account_number = recurring_payment.account
+                except RecurringDirectDebitPayment.DoesNotExist:
+                    bank_account_city = ''
+                    bank_account_holder = ''
+                    bank_account_number = ''
 
                 availability = ""
                 if user.availability:
@@ -157,7 +187,7 @@ def generate_users_csv_file(path, loglevel):
                                     user.username.encode("utf-8"),
                                     user.is_active,
                                     date_deleted,
-                                    date_joined,
+                                    member_since,
                                     user.why.encode("utf-8"),
                                     user.about.encode("utf-8"),
                                     user.location.encode("utf-8"),
@@ -173,7 +203,13 @@ def generate_users_csv_file(path, loglevel):
                                     user.primary_language.encode("utf-8"),
                                     user.share_time_knowledge,
                                     user.share_money,
-                                    availability])
+                                    availability,
+                                    has_activated,
+                                    date_joined,
+                                    last_login,
+                                    bank_account_number,
+                                    bank_account_holder.encode("utf-8"),
+                                    bank_account_city.encode("utf-8")])
                 success_count += 1
             except Exception as e:
                 error_count += 1
@@ -194,7 +230,11 @@ def generate_projects_csv_file(path, loglevel):
         csvwriter.writerow(["Project_External_ID__c", "Project_name__c", "Project_Owner__c", "Status_project__c",
                             "Country_in_which_the_project_is_located__c", "Describe_the_project_in_one_sentence__c",
                             "Organization__c", "NumberOfPeopleReachedDirect__c", "Amount_at_the_moment__c",
-                            "Amount_requested__c", "Amount_still_needed__c", "Project_created_date__c"])
+                            "Amount_requested__c", "Amount_still_needed__c", "Project_created_date__c",
+                            "Target_group_s_of_the_project__c", "Describe_where_the_money_is_needed_for__c",
+                            "Projecturl__c", "Tags__c",
+                            "Contribution_project_in_reducing_poverty__c", "Sustainability__c",
+                            "Extensive_project_description__c"])
 
         projects = Project.objects.all()
 
@@ -212,32 +252,38 @@ def generate_projects_csv_file(path, loglevel):
                     amount_requested = ''
                     amount_still_needed = ''
 
+                tags = ''
                 try:
                     project_pitch = ProjectPitch.objects.get(project=project)
                     if project_pitch.country:
                         country_in_which_the_project_is_located = project_pitch.country.name
                     else:
                         country_in_which_the_project_is_located = ''
-                    describe_the_project_in_one_sentence = project_pitch.title
+                    describe_the_project_in_one_sentence = project_pitch.pitch[:5000]
+                    extensive_project_description = project_pitch.description
+                    for tag in project_pitch.tags.all():
+                        tags = str(tag) + ", " + tags
                 except ProjectPitch.DoesNotExist:
                     country_in_which_the_project_is_located = ''
                     describe_the_project_in_one_sentence = ''
-
-                try:
-                    project_plan = ProjectPlan.objects.get(project=project)
-                    # TODO: determine what should be in project target_group?
-                    # sfproject.target_group = project.fundphase.impact_group
-                    number_of_people_reached_direct = project_plan.reach
-                except ProjectPlan.DoesNotExist:
-                    number_of_people_reached_direct = ''
+                    extensive_project_description = ''
 
                 organization_id = ''
                 try:
                     project_plan = ProjectPlan.objects.get(project=project)
+                    for_who = project_plan.for_who
+                    money_needed_for = project_plan.money_needed
+                    number_of_people_reached_direct = project_plan.reach
+                    contribution_project_in_reducing_poverty = project_plan.effects
+                    sustainability = project_plan.future
                     if project_plan.organization:
                         organization_id = project_plan.organization.id
                 except ProjectPlan.DoesNotExist:
-                    pass
+                    for_who = ''
+                    money_needed_for = ''
+                    number_of_people_reached_direct = ''
+                    contribution_project_in_reducing_poverty = ''
+                    sustainability = ''
 
                 csvwriter.writerow([project.id,
                                     project.title.encode("utf-8"),
@@ -250,7 +296,14 @@ def generate_projects_csv_file(path, loglevel):
                                     amount_at_the_moment,
                                     amount_requested,
                                     amount_still_needed,
-                                    project.created.date()])
+                                    project.created.date(),
+                                    for_who.encode("utf-8"),
+                                    money_needed_for.encode("utf-8"),
+                                    project.get_absolute_url,
+                                    tags,
+                                    contribution_project_in_reducing_poverty.encode("utf-8"),
+                                    sustainability.encode("utf-8"),
+                                    extensive_project_description.encode("utf-8")])
                 success_count += 1
             except Exception as e:
                 error_count += 1
@@ -324,7 +377,7 @@ def generate_donations_csv_file(path, loglevel):
                     content_type=ContentType.objects.get_for_model(Donation))
                 lp = oi.order.latest_payment
                 if lp:
-                    payment_method = lp.latest_docdata_payment.docdata_payment_method
+                    payment_method = lp.latest_docdata_payment.payment_method
                 else:
                     payment_method = ''
 
