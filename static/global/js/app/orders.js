@@ -168,11 +168,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             // Clear the previous error.
             this.set('errors', {recurringTotal: []});
 
-            // Don't do anything if it's an empty string - the user is editing the recurring total.
-            if (this.get('recurringTotal') == "") {
-                return;
-            }
-
             var intRegex = /^\d+$/;
             if(!intRegex.test(this.get('recurringTotal'))) {
                 this.set('errors', {recurringTotal: ["Please use whole numbers for your donation."]});
@@ -701,6 +696,15 @@ App.CurrentOrderDonationListView = Em.View.extend({
 
     submit: function(e) {
         e.preventDefault();
+    },
+
+    change: function(e) {
+        // The "single" / "monthly" change (strings) and the recurringTotal change (number) are sent here and
+        // we only want to deal with the recurringTotal change.
+        var value = parseInt(Em.get(e, 'target.value'));
+        if (Em.typeOf(value) === 'number' && !isNaN(value)) {
+            this.get('controller').set('recurringTotal', value);
+        }
     }
 });
 
