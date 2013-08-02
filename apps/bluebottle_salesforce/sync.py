@@ -1,9 +1,11 @@
 import logging
+from registration.models import RegistrationProfile
 from apps.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectPhases
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses, OrderItem
+from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses, OrderItem, \
+    RecurringDirectDebitPayment
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
@@ -52,7 +54,7 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
             logger.warn("Organization id {0} has multiple addresses, this is not supported by the integration.".format(
                 organization.id))
         else:
-            sforganization.billing_city = organizationaddress.city
+            sforganization.billing_city = organizationaddress.city[:40]
             sforganization.billing_street = organizationaddress.line1 + " " + organizationaddress.line2
             sforganization.billing_postal_code = organizationaddress.postal_code
             if organizationaddress.country:
@@ -136,6 +138,8 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         contact.is_active = user.is_active
         contact.close_date = user.deleted
         contact.member_since = user.date_joined
+        contact.date_joined = user.date_joined
+        contact.last_login = user.last_login
         contact.why_one_percent_member = user.why
         contact.about_me_us = user.about
         contact.location = user.location
@@ -146,6 +150,30 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         # SF Layout: Contact Information section.
         contact.email = user.email
         contact.website = user.website
+
+        # Bank details of recurring payments
+        try:
+            recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
+            contact.bank_account_city = recurring_payment.city
+            contact.bank_account_holder = recurring_payment.name
+            contact.bank_account_number = recurring_payment.account
+        except RecurringDirectDebitPayment.DoesNotExist:
+            contact.bank_account_city = ''
+            contact.bank_account_holder = ''
+            contact.bank_account_number = ''
+
+        # Determine if the user has activated himself, by default assume not
+        # if this is a legacy record, by default assume it has activated
+        contact.has_activated = False
+        try:
+            rp = RegistrationProfile.objects.get(id=user.id)
+            if rp.activation_key == RegistrationProfile.ACTIVATED:
+                contact.has_activated = True
+        except RegistrationProfile.DoesNotExist:
+            if not user.is_active and user.date_joined == user.last_login:
+                contact.has_activated = False
+            else:
+                contact.has_activated = True
 
         if user.address:
             contact.mailing_city = user.address.city
@@ -165,21 +193,6 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
 
         # The default: Organization(Account) will be 'Individual' without setting a specific value
         # contact.organization_account = SalesforceOrganization.objects.get(external_id=contact.organization.id)
-
-        # Note: Fill with the number of activities of a member
-        # contact.activity_number = user.
-
-        # SF Layout: Contact Activity section.
-        # -- back-end calculations with Ben
-        #contact.amount_of_single_donations
-
-        # -- 20130530 - Not used: discussed with Suzanne,Ben
-        #contact.has_n_friends
-        #contact.has_given_n_vouchers
-        #contact.is_doing_n_tasks
-        #contact.number_of_donations
-        #contact.support_n_projects
-        #contact.total_amount_of_donations
 
         # SF Layout: My Settings section.
         contact.receive_newsletter = user.newsletter
@@ -238,7 +251,6 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
                                                                                                  project.id))
 
         sfproject.project_name = project.title
-
         sfproject.status_project = ProjectPhases.values[project.phase].title()
 
         # SF Layout: Summary Project Details section.
@@ -249,16 +261,22 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         else:
             if project_pitch.country:
                 sfproject.country_in_which_the_project_is_located = project_pitch.country.name
-            sfproject.describe_the_project_in_one_sentence = project_pitch.title
+            sfproject.describe_the_project_in_one_sentence = project_pitch.pitch[:5000]
+            sfproject.extensive_project_description = project_pitch.description
+            for tag in project_pitch.tags.all():
+                sfproject.tags = str(tag) + ", " + sfproject.tags
 
         try:
             project_plan = ProjectPlan.objects.get(project=project)
         except ProjectPlan.DoesNotExist:
             sfproject.organization_account = None
         else:
-            # TODO: determine what should be in project target_group?
-            # sfproject.target_group = project.fundphase.impact_group
+            sfproject.target_group_s_of_the_project = project_plan.for_who
             sfproject.number_of_people_reached_direct = project_plan.reach
+            sfproject.describe_where_the_money_is_needed_for = project_plan.money_needed
+            sfproject.sustainability = project_plan.future
+            sfproject.contribution_project_in_reducing_poverty = project_plan.effects
+
             # TODO: determine what should be in project number_of_people_reached_indirect?
             # sfproject.number_of_people_reached_indirect = (project.fundphase.impact_indirect_male +
             #                                                project.fundphase.impact_indirect_female)
@@ -269,31 +287,13 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
                 logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
                     project_plan.organization.id, project.id))
 
-        # SF Layout: Extensive project information section.
-        # TODO: Determine extended project information details
-        # Unknown error: sfproject.describe_where_the_money_is_needed_for =
-        # Unknown error: sfproject.project_url = project.get_absolute_url
+        sfproject.project_url = project.get_absolute_url
+
         # Unknown: sfproject.third_half_project =
-        # Unknown: sfproject.comments =
-        # Unknown: sfproject.contribution_project_in_reducing_poverty =
         # Unknown: sfproject.earth_charther_project =
-        # Unknown: sfproject.extensive_project_description =
-        # Unknown: sfproject.project_goals =
-        # Unknown: sfproject.sustainability =
-        # sfproject.starting_date_of_the_project = project.planned_start_date
-        # Unknown - Multipicklist: ?? - sfproject.millennium_goals =
-        # Note: Not used like contact?-  sfproject.tags =
 
         # SF Layout: Project planning and budget section.
-        # TODO: Determine project budget details
-        # Unknown: sfproject.additional_explanation_of_budget =
-        # sfproject.end_date_of_the_project = project.planned_end_date
-        # Unknown: sfproject.expected_funding_through_other_resources =
-        # Unknown: sfproject.expected_project_results =
-        # Unknown: sfproject.funding_received_through_other_resources =
-        # Unknown: sfproject.need_for_volunteers =
-        # Unknown: sfproject.other_way_people_can_contribute =
-        # Unknown: sfproject.project_activities_and_timetable =
+        # TODO: add dates
 
         # SF Layout: Referrals section.
         # TODO: Determine project referral section integration
@@ -350,9 +350,6 @@ def sync_projectbudgetlines(dry_run, sync_from_datetime, loglevel):
             sfbudget_line = SalesforceProjectBudget()
 
         # SF Layout: Information section
-        # Unknown: Materialen, Tools, Transport, Training, etc.
-        # sfbudget_line.category =
-
         sfbudget_line.costs = "%01.2f" % (budget_line.amount / 100)
         sfbudget_line.description = budget_line.description
         sfbudget_line.external_id = budget_line.id
@@ -425,7 +422,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
             content_type=ContentType.objects.get_for_model(Donation))
         lp = oi.order.latest_payment
         if lp:
-            sfdonation.payment_method = lp.latest_docdata_payment.docdata_payment_method
+            sfdonation.payment_method = lp.latest_docdata_payment.payment_method
         else:
             sfdonation.payment_method = ''
 
