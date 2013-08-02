@@ -129,9 +129,16 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
     }.property('length'),
 
     showTopThreeProjects: function() {
-        // TODO when all from recurringOrder.donations are set to 0 (soft delete), showTopThreeProjects should be true.
-        return this.get('controllers.currentOrder.recurring') && this.get('recurringOrder.donations.length') == 0 && this.get('length') == 0;
-    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length', 'length'),
+        var tempTotal = -1;
+        if (!Em.isNone(this.get('recurringOrder.donations'))) {
+            tempTotal = 0;
+            this.get('recurringOrder.donations').forEach(function(donation) {
+                tempTotal += donation.get('tempRecurringAmount');
+            });
+        }
+        return this.get('controllers.currentOrder.recurring') && this.get('length') == 0 &&
+            (this.get('recurringOrder.donations.length') == 0 || tempTotal == 0);
+    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length', 'recurringOrder.donations.@each.tempRecurringAmount', 'length'),
 
     editingRecurringOrder: function(obj, keyName) {
         // True when modifying an existing order that has donations. False otherwise (including when modifying a top three projects recurringPayment).
