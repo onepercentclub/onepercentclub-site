@@ -405,10 +405,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if old_status != new_status:
             if new_status not in PaymentStatuses.values:
                 log_status_change(payment, PaymentLogLevels.warn,
-                                  "Payment status changed {1} -> {2}".format(old_status, PaymentStatuses.unknown))
+                                  "Payment status changed {0} -> {1}".format(old_status, PaymentStatuses.unknown))
             else:
                 log_status_change(payment, PaymentLogLevels.info,
-                                  "Payment status changed {1} -> {2}".format(old_status, new_status))
+                                  "Payment status changed {0} -> {1}".format(old_status, new_status))
 
         self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
