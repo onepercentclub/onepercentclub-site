@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-01 16:52+0200\n"
-"PO-Revision-Date: 2013-08-01 14:52+0000\n"
+"POT-Creation-Date: 2013-08-02 14:44+0200\n"
+"PO-Revision-Date: 2013-08-02 12:45+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -47,239 +47,239 @@ msgstr "heeft een 1%Project gesteund met jouw 1%Giftcard"
 msgid "has a custom 1%GIFTCARD request"
 msgstr "heeft een speciaal 1%Giftcard verzoek"
 
-#: models.py:24 models.py:87 models.py:121 models.py:213
+#: models.py:27 models.py:90 models.py:124 models.py:219
 msgid "Created"
 msgstr "Aangemaakt"
 
-#: models.py:25 models.py:88 models.py:122 models.py:214
+#: models.py:28 models.py:91 models.py:125 models.py:220
 msgid "Updated"
 msgstr "Gewijzigd"
 
-#: models.py:28
+#: models.py:31
 msgid "amount"
-msgstr ""
+msgstr "Bedrag"
 
-#: models.py:63 models.py:192 models.py:244
+#: models.py:66 models.py:198 models.py:250
 msgid "New"
 msgstr "Nieuw"
 
-#: models.py:64 models.py:245
+#: models.py:67 models.py:251
 msgid "In progress"
 msgstr "In behandeling"
 
-#: models.py:65
+#: models.py:68
 msgid "Pending"
 msgstr "In behandeling"
 
-#: models.py:66 models.py:193
+#: models.py:69 models.py:199
 msgid "Paid"
 msgstr "Betaald"
 
-#: models.py:67
+#: models.py:70
 msgid "Failed"
 msgstr "Mislukt"
 
-#: models.py:76
+#: models.py:79
 msgid "One-off"
 msgstr "Eenmalig"
 
-#: models.py:77 models.py:110
+#: models.py:80 models.py:113
 msgid "Recurring"
 msgstr "Periodieke"
 
-#: models.py:78
+#: models.py:81
 msgid "Voucher"
 msgstr "Bonnen"
 
-#: models.py:80 models.py:205
+#: models.py:83 models.py:211
 msgid "Amount"
 msgstr "Bedrag"
 
-#: models.py:81
+#: models.py:84
 msgid "currency"
 msgstr "valuta"
 
-#: models.py:83
+#: models.py:86
 msgid "User"
 msgstr "Gebruiker"
 
-#: models.py:84
+#: models.py:87
 msgid "Project"
 msgstr "Project"
 
-#: models.py:86 models.py:212
+#: models.py:89 models.py:218
 msgid "Status"
 msgstr "Status"
 
-#: models.py:90
+#: models.py:93
 msgid "Type"
 msgstr "Type"
 
-#: models.py:101
+#: models.py:104
 msgid "donation"
 msgstr "donatie"
 
-#: models.py:102
+#: models.py:105
 msgid "donations"
 msgstr "donaties"
 
-#: models.py:109
+#: models.py:112
 msgid "Current"
 msgstr "Huidig"
 
-#: models.py:111
+#: models.py:114
 msgid "Closed"
 msgstr "Gesloten"
 
-#: models.py:118
+#: models.py:121
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:119 models.py:258
+#: models.py:122 models.py:264
 msgid "status"
 msgstr "status"
 
-#: models.py:156
+#: models.py:159
 msgid "GIFTCARDS"
 msgstr "GIFTCARDS"
 
-#: models.py:158
+#: models.py:161
 msgid "GIFTCARD"
 msgstr "GIFTCARD"
 
-#: models.py:162
+#: models.py:165
 msgid "DONATIONS"
 msgstr "DONATIES"
 
-#: models.py:164
+#: models.py:167
 msgid "DONATION"
 msgstr "DONATIE"
 
-#: models.py:166
+#: models.py:169
 msgid "DONATIONS & GIFTCARDS"
 msgstr "DONATIES & GIFTCARDS"
 
-#: models.py:167
+#: models.py:170
 msgid "THANK YOU!"
 msgstr "BEDANKT!"
 
-#: models.py:194
+#: models.py:200
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-#: models.py:195
+#: models.py:201
 msgid "Cashed"
 msgstr "Geïncasseerd"
 
-#: models.py:196
+#: models.py:202
 msgid "Cashed by us"
 msgstr "Geïncasseerd door ons"
 
-#: models.py:202 templates/orders.hbs:702
+#: models.py:208 templates/orders.hbs:747
 msgid "English"
 msgstr "English"
 
-#: models.py:203 templates/orders.hbs:705
+#: models.py:209 templates/orders.hbs:750
 msgid "Dutch"
 msgstr "Dutch"
 
-#: models.py:206
+#: models.py:212
 msgid "Currency"
 msgstr "valuta"
 
-#: models.py:208 templates/orders.hbs:697
+#: models.py:214 templates/orders.hbs:742
 msgid "Language"
 msgstr "Taal"
 
-#: models.py:209
+#: models.py:215
 msgid "Message"
 msgstr "Bericht"
 
-#: models.py:210
+#: models.py:216
 msgid "Code"
 msgstr "Code"
 
-#: models.py:216
+#: models.py:222
 msgid "Sender"
 msgstr "Verzender"
 
-#: models.py:217
+#: models.py:223
 msgid "Sender email"
 msgstr "E-mail verzender"
 
-#: models.py:218
+#: models.py:224
 msgid "Sender name"
 msgstr "Naam verzender"
 
-#: models.py:220
+#: models.py:226
 msgid "Receiver"
 msgstr "Ontvanger"
 
-#: models.py:221
+#: models.py:227
 msgid "Receiver email"
 msgstr "Naam ontvanger"
 
-#: models.py:222
+#: models.py:228
 msgid "Receiver name"
 msgstr "Naam ontvanger"
 
-#: models.py:232
+#: models.py:238
 msgid "Gift Card"
 msgstr "Giftcard"
 
-#: models.py:233
+#: models.py:239
 msgid "Gift Cards"
 msgstr "Giftcards"
 
-#: models.py:239
+#: models.py:245
 msgid "Card"
 msgstr "Kaart"
 
-#: models.py:240
+#: models.py:246
 msgid "Digital"
 msgstr "Digitaal"
 
-#: models.py:241
+#: models.py:247
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: models.py:246
+#: models.py:252
 msgid "Finished"
 msgstr "Voltooid"
 
-#: models.py:248 templates/orders.hbs:711
+#: models.py:254 templates/orders.hbs:756
 msgid "Value"
 msgstr "Waarde"
 
-#: models.py:249
+#: models.py:255
 msgid "Number"
 msgstr "Nummer"
 
-#: models.py:250
+#: models.py:256
 msgid "Contact member"
 msgstr "Contact lid"
 
-#: models.py:251 models.py:252
+#: models.py:257 models.py:258
 msgid "Contact email"
 msgstr "Contact e-mail"
 
-#: models.py:253
+#: models.py:259
 msgid "Contact phone"
 msgstr "Contact telefoon"
 
-#: models.py:254 templates/vouchers.hbs:287
+#: models.py:260 templates/vouchers.hbs:287
 msgid "Organisation"
 msgstr "Organisatie"
 
-#: models.py:255
+#: models.py:261
 msgid "message"
 msgstr "bericht"
 
-#: models.py:257
+#: models.py:263
 msgid "type"
 msgstr "type"
 
-#: models.py:259
+#: models.py:265
 msgid "created"
 msgstr "aangemaakt"
 
@@ -287,28 +287,32 @@ msgstr "aangemaakt"
 msgid "You cannot modify a Donation that does not have status new."
 msgstr "Je kunt geen donatie aanpassen die geen status nieuw heeft."
 
-#: serializers.py:62
+#: serializers.py:68
+msgid "Donations must be at least €2."
+msgstr ""
+
+#: serializers.py:71
 msgid "Donations must be at least €5."
 msgstr "Het minimumbedrag is €5."
 
-#: serializers.py:68
+#: serializers.py:77
 msgid "You can only donate a project in the campaign phase."
 msgstr "Je kunt alleen doneren aan een project in de 'campaign-fase'."
 
-#: serializers.py:86
+#: serializers.py:95
 msgid "You cannot modify a Gift Card that does not have status new."
 msgstr "Je kunt geen Giftcard aanpassen die geen status nieuw heeft."
 
-#: serializers.py:93
+#: serializers.py:102
 #, python-format
 msgid "Choose between 1%GIFTCARDS with a value of €10, €25, €50 or €100. Not "
 msgstr "Kies een 1%Giftcard met een waarde van €10, €25, €50 of €100. Niet"
 
-#: serializers.py:118
+#: serializers.py:127
 msgid "You cannot modify a closed Order."
 msgstr "Je kunt een closed Order niet aanpassen."
 
-#: serializers.py:169
+#: serializers.py:178
 msgid "Only allowed to change status to 'cashed'"
 msgstr "Alleen mogelijk status naar 'geïncasseerd' te wijzigen"
 
@@ -328,31 +332,31 @@ msgstr "Geen betaling opgegeven"
 msgid "You cannot add a donation to a closed Order."
 msgstr "Je kunt geen donatie toevoegen aan een closed Order."
 
-#: views.py:346
+#: views.py:348
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr "Geen  %(verbose_name)s gevonden"
 
-#: views.py:352
+#: views.py:354
 msgid "Anonymous users are not permitted to create recurring orders."
 msgstr "Anonieme gebruikers kunnen geen maandelijkse donatie aanmaken."
 
-#: views.py:482
+#: views.py:484
 msgid "No gift card code supplied"
 msgstr "Geen giftcard code verstrekt"
 
-#: views.py:486
+#: views.py:488
 msgid "No gift card with that code"
 msgstr "Geen giftcard met deze code"
 
-#: views.py:488
+#: views.py:490
 msgid "Gift card code already used"
 msgstr "Giftcard code al gebruikt"
 
 #: templates/orders.hbs:12
 #, python-format
 msgid "Order digital 1%%GIFTCARDS"
-msgstr ""
+msgstr "Bestel 1%%Giftcards"
 
 #: templates/orders.hbs:16 templates/vouchers.hbs:92
 msgid "Switch to donations"
@@ -372,7 +376,7 @@ msgstr "Details"
 
 #: templates/orders.hbs:66
 msgid "Payment"
-msgstr ""
+msgstr "Betaling"
 
 #: templates/orders.hbs:102
 msgid "Donate to projects"
@@ -384,307 +388,333 @@ msgstr "Steun project"
 
 #: templates/orders.hbs:111
 msgid "One time only"
-msgstr ""
+msgstr "Eenmalig"
 
 #: templates/orders.hbs:114
 msgid "Monthly"
 msgstr "Maandelijks"
 
-#: templates/orders.hbs:140
+#: templates/orders.hbs:132
+#, python-format
+msgid "Become a 1%%Friend"
+msgstr ""
+
+#: templates/orders.hbs:133
+msgid ""
+"Support the top 3 projects with your monthly donation, or choose your own "
+"project to support monthly."
+msgstr ""
+
+#: templates/orders.hbs:138
 msgid "Choose a project to support"
 msgstr "Kies je project om te steunen"
 
-#: templates/orders.hbs:141
+#: templates/orders.hbs:139
 msgid ""
 "Choose a project and click 'Support this project' to add it to your list."
-msgstr "Kies een project en klik op 'steun'"
+msgstr "Kies een project en klik op 'Support'"
 
-#: templates/orders.hbs:162
+#: templates/orders.hbs:164
 msgid "Divide to projects"
-msgstr ""
+msgstr "Doneer aan projecten"
 
-#: templates/orders.hbs:165
+#: templates/orders.hbs:172
 msgid "Total Amount"
 msgstr "Totaalbedrag"
 
-#: templates/orders.hbs:175 templates/vouchers.hbs:140
+#: templates/orders.hbs:182 templates/vouchers.hbs:140
 msgid "Total"
 msgstr "Totaal"
 
-#: templates/orders.hbs:181
+#: templates/orders.hbs:188
+msgid "Choose a project"
+msgstr ""
+
+#: templates/orders.hbs:191
 msgid "Add another project"
 msgstr "Voeg project toe"
 
-#: templates/orders.hbs:183
+#: templates/orders.hbs:193
 msgid "Add a project"
-msgstr ""
+msgstr "Voeg project toe"
 
-#: templates/orders.hbs:188 templates/orders.hbs.py:190
-#: templates/orders.hbs:282 templates/orders.hbs.py:284
-#: templates/orders.hbs:678 templates/orders.hbs.py:680
+#: templates/orders.hbs:199 templates/orders.hbs.py:201
+#: templates/orders.hbs:299 templates/orders.hbs.py:301
+#: templates/orders.hbs:723 templates/orders.hbs.py:725
 msgid "Next Step"
 msgstr "Volgende"
 
-#: templates/orders.hbs:198
+#: templates/orders.hbs:210
 #, python-format
-msgid "Donate monthly to be a 1%%Friend."
+msgid "Donate monthly to<br /> become a 1%%Friend."
 msgstr ""
 
-#: templates/orders.hbs:199
+#: templates/orders.hbs:211
 #, python-format
 msgid ""
 "Yay! We're happy to welcome you as a 1%%Friend. After all, friends make life"
 " better!"
-msgstr ""
+msgstr "Yes! Jij bent nu officieel een 1%%Friend en daar zijn wij erg blij mee! Want vrienden maken het leven een stuk leuker!"
 
-#: templates/orders.hbs:201
+#: templates/orders.hbs:213
 msgid "Why not donate monthly?"
-msgstr ""
+msgstr "Maandelijks doneren?"
 
-#: templates/orders.hbs:202
+#: templates/orders.hbs:214
 #, python-format
 msgid ""
 "You're about to support a 1%%Project. Great! Did you know you can also share"
 " a little every month? How? Choose 'monthly' and become a 1%%Friend!"
+msgstr "Je staat op het punt om jouw 1%% met een project te delen. Super! Wist je dat je er ook voor kan kiezen om elke maand een beetje te delen? Hoe? Door op ‘maandelijks’ te klikken en een 1%%Friend te worden."
+
+#: templates/orders.hbs:218
+#, python-format
+msgid ""
+"You're about to support a 1%%Project. Great! Did you know you can also share"
+" a little every month? How? By becoming a 1%%Member and choosin' monthly."
 msgstr ""
 
-#: templates/orders.hbs:217
+#: templates/orders.hbs:219 templates/orders.hbs.py:522
+#: templates/orders.hbs:582
+#, python-format
+msgid "Become a 1%%Member"
+msgstr ""
+
+#: templates/orders.hbs:234
 msgid "Your full name"
 msgstr "Jouw naam"
 
-#: templates/orders.hbs:225 templates/orders.hbs.py:780
+#: templates/orders.hbs:242 templates/orders.hbs.py:825
 msgid "Email"
 msgstr "E-mail"
 
-#: templates/orders.hbs:236
+#: templates/orders.hbs:253
 msgid "Address"
 msgstr "Adres"
 
-#: templates/orders.hbs:247
+#: templates/orders.hbs:264
 msgid "Postal code"
 msgstr "Postcode"
 
-#: templates/orders.hbs:258
+#: templates/orders.hbs:275
 msgid "City"
 msgstr "Woonplaats"
 
-#: templates/orders.hbs:269
+#: templates/orders.hbs:286
 msgid "Country"
 msgstr "Land"
 
-#: templates/orders.hbs:291
-msgid "About monthly donations."
+#: templates/orders.hbs:308
+msgid "Did you know?"
 msgstr ""
 
-#: templates/orders.hbs:293
+#: templates/orders.hbs:310
 #, python-format
 msgid ""
 "You're about to make a big impact! Did you know that every 1%%Project has 6 "
 "months to reach its target? And, if the target isn't reached you will be "
 "able to support another project with this donation. If this is the case, "
 "you'll receive an email from us explaining the next steps."
-msgstr ""
+msgstr "Je staat op het punt om een groot verschil te maken! Wist je dat elk 1%%Project 6 maanden de tijd heeft om het gewenste bedrag op te halen? Mocht dat niet lukken, dan is het mogelijk om je donatie aan een ander project te geven. Als dit het geval is, dan ontvang je van ons een e-mail met daarin de volgende stappen."
 
-#: templates/orders.hbs:295
+#: templates/orders.hbs:312
 #, python-format
 msgid ""
 "You're about to make a big impact! Did you know that every 1%%Project has 6 "
 "months to reach its target? And, if the target isn't reached we'll make sure"
 " your donation will support a similar project."
-msgstr ""
+msgstr "Je staat op het punt om een groot verschil te maken! Wist je dat elk 1%%Project 6 maanden de tijd heeft om het gewenste bedrag op te halen? Mocht dat niet lukken, dan zorgen wij ervoor dat jouw donatie naar een soortgelijk project gaat."
 
-#: templates/orders.hbs:316 templates/vouchers.hbs:219
+#: templates/orders.hbs:333 templates/vouchers.hbs:219
 msgid "is still needed"
 msgstr "nog nodig"
 
-#: templates/orders.hbs:332
+#: templates/orders.hbs:349
 msgid "I'd like to give"
 msgstr "Ik doneer graag"
 
-#: templates/orders.hbs:357 templates/orders.hbs.py:379
+#: templates/orders.hbs:374 templates/orders.hbs.py:396
 msgid "You're almost there!"
 msgstr "Je bent er bijna!"
 
-#: templates/orders.hbs:358
+#: templates/orders.hbs:375
 msgid ""
 "We'll redirect you through our payment provider where you can finish your "
-"donation securily."
+"donation securely."
 msgstr ""
 
-#: templates/orders.hbs:362
+#: templates/orders.hbs:379
 msgid "Processing payment..."
-msgstr ""
+msgstr "Verwerken betaling..."
 
-#: templates/orders.hbs:363 templates/orders.hbs.py:365
+#: templates/orders.hbs:380 templates/orders.hbs.py:382
 msgid "Proceed with Payment"
 msgstr "Ga door met betaling"
 
-#: templates/orders.hbs:380
+#: templates/orders.hbs:397
 msgid ""
 "Add or edit your bank account information and submit to set your monthly "
 "donations."
-msgstr ""
+msgstr "Vul je betaal gegevens aan en druk op verzend om je maandelijkse betaling in te stellen."
 
-#: templates/orders.hbs:386
+#: templates/orders.hbs:403
 msgid "Account Name"
-msgstr ""
+msgstr "Naam rekeninghouder"
 
-#: templates/orders.hbs:396
+#: templates/orders.hbs:413
 msgid "Account City"
-msgstr ""
+msgstr "Plaats bank"
 
-#: templates/orders.hbs:406
+#: templates/orders.hbs:423
 msgid "Account Number"
-msgstr ""
+msgstr "Naam rekeninghouder"
 
-#: templates/orders.hbs:417
+#: templates/orders.hbs:434
 #, python-format
 msgid "By clicking submit, I authorize 1%%Club to withdraw money every month."
-msgstr ""
+msgstr "Door op verzend te klikken, ga ik akkoord met een maandelijkse afschrijving van mijn rekening door 1%%CLUB."
 
-#: templates/orders.hbs:421
+#: templates/orders.hbs:438
 msgid "Updating monthly donation ..."
 msgstr "Bijwerken maandelijkse donaties ..."
 
-#: templates/orders.hbs:422 templates/orders.hbs.py:424
-#: templates/orders.hbs:427 templates/vouchers.hbs:156
+#: templates/orders.hbs:439 templates/orders.hbs.py:441
+#: templates/orders.hbs:444 templates/vouchers.hbs:156
 #: templates/vouchers.hbs.py:161 templates/vouchers.hbs:186
 msgid "Submit"
 msgstr "Verzend"
 
-#: templates/orders.hbs:434
+#: templates/orders.hbs:451
 msgid "Your monthly donation"
-msgstr ""
+msgstr "Jouw maandelijkse donatie is ingesteld!"
 
-#: templates/orders.hbs:435
+#: templates/orders.hbs:452
 #, python-format
 msgid ""
-"Thank you 1%%Friend! You're about to make set your monthly donation amount "
-"to &euro;"
+"Thank you 1%%Friend! You're about to set your monthly donation amount to "
+"&euro;"
 msgstr ""
 
-#: templates/orders.hbs:490
+#: templates/orders.hbs:513 templates/orders.hbs.py:573
 msgid "Donation Successful!"
 msgstr "Donatie geslaagd!"
 
-#: templates/orders.hbs:492
+#: templates/orders.hbs:515
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! \n"
+"\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! \n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: templates/orders.hbs:496
+#: templates/orders.hbs:519
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
+"\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: templates/orders.hbs:512
+#: templates/orders.hbs:536 templates/orders.hbs.py:605
 msgid "You just supported these projects"
+msgstr "Je hebt bijgedragen aan"
+
+#: templates/orders.hbs:548
+msgid "Your donation is set"
 msgstr ""
 
-#: templates/orders.hbs:525 templates/orders.hbs.py:601
-msgid "Personalise profile"
-msgstr ""
-
-#: templates/orders.hbs:526 templates/orders.hbs.py:534
-#: templates/orders.hbs:602 templates/orders.hbs.py:610
+#: templates/orders.hbs:549
 msgid ""
 "\n"
-"\t\t\t\t\tFollowing projects are now even easier and you'll have your own personalised page!\n"
-"\t\t\t\t\t"
+"\t\t\t\tYour donation will be deducted from your account.\n"
+"\t\t\t\t"
 msgstr ""
 
-#: templates/orders.hbs:530 templates/orders.hbs.py:606
-msgid "Complete your profile"
-msgstr "Vul je profiel aan"
-
-#: templates/orders.hbs:533 templates/orders.hbs.py:609
-msgid "Become a member"
-msgstr ""
-
-#: templates/orders.hbs:538 templates/orders.hbs.py:614
-#, python-format
-msgid "Become 1%%Club member"
-msgstr ""
-
-#: templates/orders.hbs:553
-msgid "Your monthly donation is set!"
-msgstr ""
-
-#: templates/orders.hbs:554
-#, python-format
-msgid ""
-"\n"
-"                    Thanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n"
-"                    "
-msgstr ""
-
-#: templates/orders.hbs:558
-msgid "No monthly donation is set."
-msgstr ""
-
-#: templates/orders.hbs:560
-msgid "Create or enable your monthly donation"
+#: templates/orders.hbs:552
+msgid "Donation total:"
 msgstr ""
 
 #: templates/orders.hbs:575
-msgid "Monthly donation total:"
-msgstr "Maandelijkse donatie totaal:"
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! \n"
+"\t\t\t\t\t\t"
+msgstr ""
 
-#: templates/orders.hbs:577
+#: templates/orders.hbs:579
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/orders.hbs:588
+msgid "No donation set..."
+msgstr ""
+
+#: templates/orders.hbs:590
+msgid "Create or enable your monthly donation"
+msgstr "Maak je maandelijkse donatie aan"
+
+#: templates/orders.hbs:625
+msgid "Your monthly donation is set"
+msgstr ""
+
+#: templates/orders.hbs:627
 msgid ""
 "Your monthly donation will be deducted from your account at the beginning of"
 " each month."
 msgstr "Je maandelijkse donatie wordt aan het begin van iedere maand ingehouden van je bankrekening."
 
-#: templates/orders.hbs:640
+#: templates/orders.hbs:629
+msgid "Monthly donation total:"
+msgstr "Maandelijkse donatie totaal:"
+
+#: templates/orders.hbs:685
 msgid "still needed"
 msgstr "nog nodig"
 
-#: templates/orders.hbs:661
+#: templates/orders.hbs:706
 #, python-format
 msgid "1%%GIFTCARDS will be sent out with a total value of"
-msgstr ""
+msgstr "1%%Giftcards worden verstuurd met een totale waarde van"
 
-#: templates/orders.hbs:670
+#: templates/orders.hbs:715
 msgid "No gift cards in shopping basket"
 msgstr "Geen giftcards in mandje"
 
-#: templates/orders.hbs:691
+#: templates/orders.hbs:736
 #, python-format
 msgid "Choose value & personalize 1%%GIFTCARD"
-msgstr ""
+msgstr "Kies bedrag & laat een bericht achter op de 1%%Giftcard"
 
-#: templates/orders.hbs:736 templates/vouchers.hbs:267
+#: templates/orders.hbs:781 templates/vouchers.hbs:267
 msgid "Your name"
 msgstr "Naam"
 
-#: templates/orders.hbs:748 templates/vouchers.hbs:277
+#: templates/orders.hbs:793 templates/vouchers.hbs:277
 msgid "Your email"
 msgstr "E-mail"
 
-#: templates/orders.hbs:764
+#: templates/orders.hbs:809
 msgid "This gift card is for:"
 msgstr "Deze giftcard is voor:"
 
-#: templates/orders.hbs:768
+#: templates/orders.hbs:813
 msgid "Name"
 msgstr "Naam"
 
-#: templates/orders.hbs:792
+#: templates/orders.hbs:837
 msgid "Personal message"
 msgstr "Persoonlijk bericht"
 
-#: templates/orders.hbs:805
+#: templates/orders.hbs:850
 msgid "Add"
 msgstr "Voeg toe"
 
-#: templates/orders.hbs:820
+#: templates/orders.hbs:865
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -707,12 +737,12 @@ msgstr "Geef een"
 #: templates/vouchers.hbs:15
 #, python-format
 msgid "1%%GIFTCARD"
-msgstr ""
+msgstr "1%%Giftcard"
 
 #: templates/vouchers.hbs:25
 #, python-format
 msgid "I received a 1%%GIFTCARD"
-msgstr ""
+msgstr "Ik heb een 1%%Giftcard ontvangen"
 
 #: templates/vouchers.hbs:26
 msgid "Support a project by cashing your voucher"
@@ -721,7 +751,7 @@ msgstr "Steun een project door je bon in te leveren."
 #: templates/vouchers.hbs:36
 #, python-format
 msgid "I'd like to buy a 1%%GIFTCARD"
-msgstr ""
+msgstr "Ik wil een 1%%Giftcard kopen"
 
 #: templates/vouchers.hbs:37
 msgid "Order your digital email-vouchers right here!"
@@ -746,7 +776,7 @@ msgstr "Volg"
 #: templates/vouchers.hbs:88
 #, python-format
 msgid "Redeem your 1%%GIFTCARD and support a project!"
-msgstr ""
+msgstr "Wissel je 1%%Giftcard in en steun een project!"
 
 #: templates/vouchers.hbs:107
 msgid "Profile"
@@ -781,7 +811,7 @@ msgstr "Helaas konden wij geen giftcard vinden met deze code. Probeer de code op
 #: templates/vouchers.hbs:234
 #, python-format
 msgid "Contact us for 1%%GIFTCARDS"
-msgstr ""
+msgstr "Neem contact met ons op voor 1%%Giftcards"
 
 #: templates/vouchers.hbs:235
 msgid ""
@@ -816,6 +846,28 @@ msgstr "Bedankt voor je verzoek. We nemen zo snel mogelijk contact met je op!"
 #: templates/vouchers.hbs:328
 msgid "YOU MAKE IT WORK!"
 msgstr "YOU MAKE IT WORK!"
+
+#~ msgid "About monthly donations."
+#~ msgstr "Your monthly donation is Set!"
+
+#~ msgid "Personalise profile"
+#~ msgstr "Personalise your 1%%"
+
+#~ msgid ""
+#~ "\n"
+#~ "\t\t\t\t\tFollowing projects are now even easier and you'll have your own personalised page!\n"
+#~ "\t\t\t\t\t"
+#~ msgstr ""
+#~ "\n"
+#~ "                Following projects are now even easier and you'll have\n"
+#~ "                your own personalised page!\n"
+#~ "                "
+
+#~ msgid "Complete your profile"
+#~ msgstr "Complete your profile"
+
+#~ msgid "Become 1%%Club member"
+#~ msgstr "Become 1%%CLUB member"
 
 #~ msgid "Support"
 #~ msgstr "Support"
