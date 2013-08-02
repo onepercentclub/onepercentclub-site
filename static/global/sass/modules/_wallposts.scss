@@ -4,9 +4,9 @@
       padding: 0;
     }
 
-  .btn {
-    margin-right: 2.08333%;
-  }
+	.btn {
+		margin-right: 2.08333%;
+	}
 
     .sidebar {
         @include rem(padding, 16px);
@@ -109,6 +109,7 @@
           @include rem(font-size, 40px);
           margin-top: 4px;
         }
+        
         @include rem(height, 70px);
         background-color: $grayDark;
         color: $white;

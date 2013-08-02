@@ -31,8 +31,9 @@
 .sidebar.tip {
 	
 	h3 {
+		@include rem(font-size, 18px);
 		font-weight: 600;
-		color: $green;
+		color: $text-black;
 		text-transform: uppercase;
 	}
 	
