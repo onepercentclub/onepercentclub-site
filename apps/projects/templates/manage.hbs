@@ -13,8 +13,9 @@
     	
         <div class="wrapper">
             {{#if isLoading}}
-                <span class="loading"></span>
+                <span class="loading-big"></span>
             {{else}}
+            	<h1 class="pink">{% trans "My Projects" %}</h1>
                 {{#if canPitchNew}}
                     {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
                         <em class="flaticon solid lightbulb-3"></em>
@@ -23,25 +24,32 @@
                 {{/if}}
             {{/if}}
             
-            <h1 class="pink">{% trans "My Projects" %}</h1>
-            
-            <ul class="content my-project">
-                {{#each project in controller}}
-                    <li>
-                    	
-                        {{#if project.isPhasePitch}}
-                            <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} class="project-image" />
-                        {{else}}
-                            <img {{bindAttr src="project.plan.image.square" alt="project.pitch.title"}} class="project-image" />
-                        {{/if}}
-						
-						<div class="project-item">
-	                        <h2>{{ project.title }}</h2>
-	                        <p class="project-status">{% trans "Phase:" %} <strong>{{ project.phase }}</strong>
-	                        
-	                        {{#if project.isPhasePitch}}
-	                            {% trans "Status:" %} <strong>{{project.pitch.status}}</strong></p>
-	                            {{#linkTo "myProjectPitch.basics" project tagName="a"}}
+            <div class="content">
+	            <ul class="donation-projects">
+	            	{{#each project in controller}}
+	                <li class="donation-project">
+				            {{#if project.isPhasePitch}}
+	                            <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} class="project-image" />
+	                        {{else}}
+	                            <img {{bindAttr src="project.plan.image.square" alt="project.pitch.title"}} class="project-image" />
+	                        {{/if}}
+				            <h2>
+				                {{ project.title }}
+				                <em class="project-status">
+			                        {{#if project.isPublic}}
+			                            <a {{action "showProject" project.id href=true}}>
+			                                <em class="flaticon solid eye-1"></em>
+			                                {% trans "View public page" %}
+			                            </a>
+			                        {{/if}}
+				                </em>
+				            </h2>
+				
+				        <p class="project-actions">
+				        	{% trans "Phase" %}: <strong>{{ project.phase }}</strong> | 
+			                {{#if project.isPhasePitch}}
+			                	{% trans "Status:" %} <strong>{{project.plan.status}}</strong></p>
+	                            {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed right"}}
 	                                <em class="flaticon solid pencil-3"></em>
 	                                {% trans "Continue pitch" %}
 	                            {{/linkTo}}
@@ -49,7 +57,7 @@
 	
 	                        {{#if project.isPhasePlan}}
 	                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong></p>
-	                            {{#linkTo "myProjectPlan" project tagName="a"}}
+	                            {{#linkTo "myProjectPlan" project tagName="a" class="btn btn-iconed right"}}
 	                                <em class="flaticon solid pencil-3"></em>
 	                                {% trans "Continue plan" %}
 	                            {{/linkTo}}
@@ -57,21 +65,16 @@
 	
 	                        {{#if project.isPhaseCampaign}}
 	                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong></p>
-	                            {{#linkTo "myProjectCampaign" project tagName="a"}}
+	                            {{#linkTo "myProjectCampaign" project tagName="a" class="btn btn-iconed right"}}
 	                                <em class="flaticon solid pencil-3"></em>
 	                                {% trans "Campaigning" %}
 	                            {{/linkTo}}
 	                        {{/if}}
-	                        {{#if project.isPublic}}
-	                            <a {{action "showProject" project.id href=true}}>
-	                                <em class="flaticon solid eye-1"></em>
-	                                {% trans "View public project page" %}
-	                            </a>
-	                        {{/if}}
-						</div>
-                    </li>
-                {{/each}}
-            </ul>
+				        </p>
+				    </li>
+					{{/each}}
+	            </ul>
+			</div>
         </div>
     </div>
 
