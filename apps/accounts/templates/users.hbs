@@ -561,112 +561,95 @@
 
 
 {% tplhandlebars "_signup_content" %}
-<div class="content">
-    <h1>{% trans "Join 1%Club" %}</h1>
+<div class="content" id="signup">
 
-    <p>
-        {% blocktrans %}
-        1%Club is the global platform where you can share a little and change the world, in your vary
-        own way. We ignite modern society to share 1% and support smart ideas from people in
-        developing countries. We do this in a new, open way, believing in the power of collaboration
-        boosted by today's technical possibilities. If we all share a little, we can change the world.
-        {% endblocktrans %}
-    </p>
+    <h1>{% trans "Join 1%Club" %}</h1>
+    <p>{% blocktrans %} 1%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world.{% endblocktrans %}</p>
+        
     {{#if isUserCreated}}
         <h1>{% trans "Thanks for signing up!" %}</h1>
-
         <p>{% trans "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you." %}</p>
 
     {{else}}
-        <form class="form-signup">
-            <div class="control-group">
-                <label class="control-label">
-                    {% trans "Name" %}
-                </label>
-
-                <div class="controls">
-                    {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
-
-                    {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label">
-                    {% trans "Email" %}
-                </label>
-
-                <div class="controls">
-                    {{view Em.TextField valueBinding="email" type="email" classBinding="errors.email.length:error"}}
-                </div>
-
-                {{#if errors.email}}
-                    <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </div>
-
-            <div class="control-group">
-                <label class="control-label">
-                    {% trans "Password" %}
-                </label>
-
-                <div class="controls">
-                    {{view Em.TextField valueBinding="password" type="password" classBinding="errors.password.length:error"}}
-                </div>
-
-                {{#if errors.password}}
-                    <div class="errors">{{#each errors.password}}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </div>
-
-            <div class="control-group">
-                <div class="controls-wide">
-                    <button class="btn btn-iconed btn-primary right" {{action 'createUser' model}}>
-                        <em class="flaticon solid user-1"></em>
-                        {% trans "Sign up" %}
-                    </button>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="controls-wide">
-                    {% trans "By joining the 1%Club I a hereby agree to the " %}
-                    <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "1%Club Terms of service" %}</a>
-               </div>
-            </div>
+        <form class="signup-form">
+        	<fieldset>
+	            <div class="control-group">
+	                <label class="control-label">
+	                    {% trans "Name" %}
+	                </label>
+	
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+	
+	                    {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
+	                </div>
+	            </div>
+	
+	            <div class="control-group">
+	                <label class="control-label">
+	                    {% trans "Email" %}
+	                </label>
+	
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="email" type="email" classBinding="errors.email.length:error"}}
+	                </div>
+	
+	                {{#if errors.email}}
+	                    <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
+	                {{/if}}
+	            </div>
+	
+	            <div class="control-group">
+	                <label class="control-label">
+	                    {% trans "Password" %}
+	                </label>
+	
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="password" type="password" classBinding="errors.password.length:error"}}
+	                </div>
+	
+	                {{#if errors.password}}
+	                    <div class="errors">{{#each errors.password}}<p>{{this}}</p>{{/each}}</div>
+	                {{/if}}
+	            </div>
+        	</fieldset>
+        	
+            <div class="signup-agree">
+                {% trans "By joining 1%Club I hereby agree to the " %}
+                <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "1%Club Terms of service" %}</a>
+           </div>
+           
+            <button class="btn btn-iconed btn-primary" {{action 'createUser' model}}>
+                <em class="flaticon solid user-1"></em>
+                {% trans "Sign up" %}
+            </button>
         </form>
     {{/if}}
 </div>
 {% endtplhandlebars %}
 
 {% tplhandlebars "_signup_sidebar" %}
-<div class="sidebar">
-    <div class="widget widget-login">
-        <em class="flaticon solid move-left-1"></em>
 
+<div class="sidebar tip" id="members">
+
+    <div class="login-link">
         <a {{action openInBox "login"}} class="highlight">
+        	<em class="flaticon solid unlock-3"></em>
             <strong>{%  trans "Already have an account?" %}</strong>
+            <em>{% trans "Log in here, fast & easy" %}</em>
         </a>
-
-        <p>{% trans "Log in here" %}</p>
     </div>
 
-    <div class="widget widget-member-advantage">
-        <div class="widget-icon">
-            <em class="flaticon solid heart-1"></em>
-        </div>
-
-        <div class="widget-header">
-            {% trans "Why join 1%Club?" %}
-        </div>
-
-        <div class="widget-body">
-            <ol>
-                <li>{% trans "It's easy to find projects you like." %}</li>
-                <li>{% trans "A fun and personal way to share your 1%." %}</li>
-                <li>{% trans "You'll receive updates of the progress of the projects you support." %}</li>
-            </ol>
-        </div>
+    <div class="members-advantage">
+    
+        <em class="flaticon solid heart-1"></em>
+        
+    	<h3>{% trans "Why join 1%Club?" %}</h3>
+        <ol>
+            <li>{% trans "It's easy to find projects you like." %}</li>
+            <li>{% trans "A fun and personal way to share your 1%." %}</li>
+            <li>{% trans "You'll receive updates on the progress of the projects you support." %}</li>
+        </ol>
     </div>
 </div>
 {% endtplhandlebars %}

@@ -1818,7 +1818,7 @@ body { overflow-y: scroll; }
 
 .wrapper > form { float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
 
-.wrapper .sidebar, .wrapper sidebar { float: left; width: 27.08333%; margin-left: 4.16667%; margin-right: 2.08333%; }
+.wrapper .sidebar, .wrapper sidebar { float: left; width: 29.16667%; margin-left: 2.08333%; margin-right: 2.08333%; }
 
 .sidebar.grey { background-color: #e9e9e9; padding: 12px 24px; padding: 0.85714rem 1.71429rem; color: #999999; margin-bottom: 24px; margin-bottom: 1.71429rem; }
 .sidebar.grey h3 { padding: 0px; font-size: 16px; font-size: 1.14286rem; line-height: 16px; line-height: 1.14286rem; text-transform: uppercase; font-weight: 300; color: #666666; }
@@ -2380,14 +2380,14 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 .nav-member .nav-cart a:hover .nav-cart-count, .nav-member .nav-cart a:active .nav-cart-count { color: white; background: #ff619a; }
 
 /* =========== Reactions */
-.reaction-box { *zoom: 1; float: left; width: 77.08333%; margin-left: 22.91667%; margin-right: 0%; clear: both; }
+.reaction-box { *zoom: 1; float: left; width: 75%; margin-left: 22.91667%; margin-right: 2.08333%; clear: both; }
 .reaction-box:before, .reaction-box:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 .reaction-box:after { clear: both; }
 .reaction-box .reaction-form { padding: 12px; padding: 0.85714rem; border-top: 1px solid white; margin: 0; font-size: 14px; font-size: 1rem; position: relative; background-color: #e9e9e9; *zoom: 1; }
 .reaction-box .reaction-form:before, .reaction-box .reaction-form:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 .reaction-box .reaction-form:after { clear: both; }
 .reaction-box .reaction-form fieldset, .reaction-box .reaction-form fieldset ul, .reaction-box .reaction-form fieldset ul li { margin: 0; padding: 0; }
-.reaction-box .reaction-form label { top: 28px; top: 2rem; float: left; width: 75%; margin-left: 25%; margin-right: 0%; padding: 0; }
+.reaction-box .reaction-form label { top: 28px; top: 2rem; float: left; width: 75%; margin-left: 22.91667%; margin-right: 2.08333%; padding: 0; }
 .reaction-box .reaction-form .user-img { top: 12px !important; left: 12px !important; width: 40px !important; position: absolute !important; margin: 0 !important; }
 .reaction-box .reaction-form .user-img img { float: left !important; }
 .reaction-box .reaction-form textarea { padding-left: 10.41667% !important; overflow: hidden; height: 40px; height: 2.85714rem; min-height: 34px; min-height: 2.42857rem; padding-top: 7px; padding-top: 0.5rem; margin: 0; font-size: 14px; font-size: 1rem; }
@@ -2590,17 +2590,17 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 #wallpost-form .wallpost-photos li .remove:hover { color: #ff619a; }
 #wallpost-form .wallpost-photos li .remove:active { color: #ff619a; }
 
-#wallposts { float: left; width: 64.58333%; margin-left: 2.08333%; margin-right: 0%; }
+#wallposts { float: left; width: 62.5%; margin-left: 2.08333%; margin-right: 2.08333%; }
 #wallposts .wallpost { *zoom: 1; position: relative; margin: 48px 0; margin: 3.42857rem 0; }
 #wallposts .wallpost:before, #wallposts .wallpost:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 #wallposts .wallpost:after { clear: both; }
 #wallposts .wallpost:hover .manage { display: block; }
-#wallposts .wallpost .show-more { float: left; width: 77.08333%; margin-left: 22.91667%; margin-right: 0%; }
+#wallposts .wallpost .show-more { float: left; width: 75%; margin-left: 22.91667%; margin-right: 2.08333%; }
 #wallposts .wallpost .post-comment { background-color: #e9e9e9; padding: 12px; }
-#wallposts .wallpost header { float: left; width: 77.08333%; margin-left: 22.91667%; margin-right: 0%; }
+#wallposts .wallpost header { float: left; width: 75%; margin-left: 22.91667%; margin-right: 2.08333%; }
 #wallposts .wallpost header h3 { font-size: 18px; font-size: 1.28571rem; line-height: 24px; line-height: 1.71429rem; font-weight: 600; color: #222222; margin: 0px; margin-top: 12px; margin-top: 0.85714rem; padding: 0; text-transform: uppercase; }
 #wallposts .wallpost header .manage { float: right; }
-#wallposts .wallpost .content { float: left; width: 77.08333%; margin-left: 22.91667%; margin-right: 0%; position: relative; margin-top: 8px; margin-top: 0.57143rem; margin-bottom: 8px; margin-bottom: 0.57143rem; word-wrap: break-word; }
+#wallposts .wallpost .content { float: left; width: 75%; margin-left: 22.91667%; margin-right: 2.08333%; position: relative; margin-top: 8px; margin-top: 0.57143rem; margin-bottom: 8px; margin-bottom: 0.57143rem; word-wrap: break-word; }
 #wallposts .wallpost .content p { margin: 0; padding: 0; }
 #wallposts .wallpost .reaction-box { position: relative; display: block; }
 #wallposts .wallpost .user-img, #wallposts .wallpost .header-img { width: 70px; width: 5rem; position: absolute; top: 0; left: 0; margin-left: 8.33333%; }
@@ -2646,14 +2646,17 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 .task-detail .members .detail .tiny, .task-detail .files .detail .tiny { font-size: 9px; font-size: 0.64286rem; }
 .task-detail .files .detail { margin-left: 0px; }
 
-.form-signup .control-group .controls { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0%; }
+#signup .signup-agree { font-size: 14px; font-size: 1rem; color: #999999; float: left; padding-top: 16px; padding-top: 1.14286rem; }
+#signup .signup-agree a { color: #999999; text-decoration: underline; }
+#signup button { float: right; }
 
-.widget-login { margin-top: 32px; margin-top: 2.28571rem; }
-
-.widget-member-advantage { margin-top: 32px; margin-top: 2.28571rem; padding: 16px; padding: 1.14286rem; background: white; }
-.widget-member-advantage .widget-icon { font-size: 200px; font-size: 14.28571rem; text-align: center; color: #eeeeee; line-height: 1; }
-.widget-member-advantage .widget-header { color: #00c051; text-transform: uppercase; font-weight: 300; }
-.widget-member-advantage .widget-body { font-size: 14px; font-size: 1rem; color: #999999; }
+#members .login-link { margin-top: 32px; margin-top: 2.28571rem; background: white; }
+#members .login-link strong { text-transform: uppercase; text-decoration: underline; }
+#members .login-link em { color: #999999; display: block; text-indent: 18px; text-indent: 1.28571rem; font-style: normal; }
+#members .login-link .flaticon { display: inline; }
+#members .members-advantage { padding: 16px 32px; padding: 1.14286rem 2.28571rem; margin-top: 16px; margin-top: 1.14286rem; background: #e9e9e9; }
+#members .members-advantage .flaticon { display: inline-block; width: 100%; font-size: 200px; font-size: 14.28571rem; text-align: center; color: white; line-height: 1; }
+#members .members-advantage h3 { padding-top: 0; color: #00c051; }
 
 .header-main { *zoom: 1; }
 .header-main:before, .header-main:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }

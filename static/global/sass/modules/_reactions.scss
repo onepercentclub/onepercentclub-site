@@ -2,7 +2,7 @@
 
 .reaction-box {
     @include clearfix;
-    @include grid(48, 11, 0);
+    @include grid(48, 11, 1);
     clear: both;
     
     .reaction-form {
@@ -22,7 +22,7 @@
         
         label {
             @include rem(top, 28px);
-            @include grid(48, 12, 0);
+            @include grid(48, 11, 1);
             padding: 0;
         }
         
