@@ -91,7 +91,6 @@
 		white-space: nowrap;
 		
 		@include rem(margin-top, 5px);
-		
 		@include rem(font-size, 10px);
 			
 		a {
@@ -103,7 +102,6 @@
 			&:hover, &:active, &.is-active {
             	color: $white;
 			}
-			
 		}
 		
 		.nav-signup {
@@ -118,11 +116,9 @@
 	
     .nav-switch-lang {
     	display: inline-block;
-    
         font-weight: normal;
 		white-space: nowrap;
 		@include rem(font-size, 10px);
-		
 		@include rem(margin-top, 5px);
         
         li {
@@ -144,15 +140,12 @@
 				}
 			}
         }
-
-        
     }
 	
 	
     .nav-member-my1percent {
     	display: block;
     	float: left;
-    	width: 50%;
     	margin: 0;
         padding: 0;
 		@include rem(font-size, 13px);
@@ -186,7 +179,7 @@
         
 		    .my-menu {
 		        display: block !important;
-		        z-index: 15;
+		        z-index: 1;
 		    }
 
         	.nav-my1percent {

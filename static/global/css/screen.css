@@ -2359,11 +2359,11 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 .nav-member .nav-switch-lang li:last-child { border: none; }
 .nav-member .nav-switch-lang li a { cursor: pointer; color: #bfbfbf; }
 .nav-member .nav-switch-lang li a:hover, .nav-member .nav-switch-lang li a:active, .nav-member .nav-switch-lang li a.is-active { color: white; }
-.nav-member .nav-member-my1percent { display: block; float: left; width: 50%; margin: 0; padding: 0; font-size: 13px; font-size: 0.92857rem; position: relative; }
+.nav-member .nav-member-my1percent { display: block; float: left; margin: 0; padding: 0; font-size: 13px; font-size: 0.92857rem; position: relative; }
 .nav-member .nav-member-my1percent .nav-my1percent { display: block; color: white; background: #00c051; height: 30px; }
 .nav-member .nav-member-my1percent .nav-my1percent img { width: 31px; height: 31px; float: left; vertical-align: top; border-width: 0 1px 1px 0; border-style: solid; border-color: black; }
 .nav-member .nav-member-my1percent .nav-my1percent strong { font-weight: 600; display: inline-block; padding: 7px; padding: 0.5rem; }
-.nav-member .nav-member-my1percent:hover .my-menu { display: block !important; z-index: 15; }
+.nav-member .nav-member-my1percent:hover .my-menu { display: block !important; z-index: 1; }
 .nav-member .nav-member-my1percent:hover .nav-my1percent { background-color: white !important; color: #444444; height: 36px; position: relative; left: -2px; top: -2px; z-index: 2; border-width: 2px 2px 0 2px; border-style: solid; border-color: #00c051; }
 .nav-member .nav-member-my1percent:hover .nav-my1percent .flaticon { color: #00c051; }
 .nav-member .my-menu { top: 32px; left: -2px; z-index: 15; display: none; position: absolute; width: 250px; background-color: white; border-width: 2px 2px 1px 2px; border-style: solid; border-color: #00c051; }
