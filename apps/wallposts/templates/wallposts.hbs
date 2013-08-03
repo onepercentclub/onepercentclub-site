@@ -104,7 +104,7 @@
         </ul>
     </fieldset>
 
-    <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Post Update" %}</button>
+    <button class="btn btn-iconed right" type="submit"><i class="flaticon solid thinking-comment-1"></i>{% trans "Post Update" %}</button>
 
 {% endtplhandlebars %}
 
@@ -127,7 +127,7 @@
     </ul>
 </fieldset>
 
-    <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Comment" %}</button>
+    <button class="btn btn-iconed right" type="submit"><i class="flaticon solid thinking-comment-1"></i>{% trans "Comment" %}</button>
 
 {% endtplhandlebars %}
 
@@ -147,7 +147,7 @@
         	<article class="wallpost">
             {{#if canLoadMore}}
                 <a {{action "showMore"}} class="show-more button-link">
-                    <em class="icon-plus-sign"></em> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
+                    <em class="flaticon solid plus-2"></em> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
                 </a>
             {{else}}
                 {# trans "no more posts to show" #}

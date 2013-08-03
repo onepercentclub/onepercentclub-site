@@ -9,7 +9,9 @@
 /* =========== Number of supports / Days left */
 .donate-days-left {
 	@include grid(12, 1, 0);
-    margin-top: 8px;
+    @include rem(margin-top, 18px);
+    margin-bottom: 0;
+        
 	color: $text-grey;
     text-align: center;
 
