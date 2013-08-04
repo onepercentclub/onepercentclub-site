@@ -25,9 +25,33 @@
 }
 
 #task-detail {
+	
+	
+	
+	#wallposts {
+		
+		form {
+			
+			@include clearfix;
+			@include rem(margin-bottom, $padding*2);
+		}
+		
+		#comment-box {
+			
+		}
+		
+	}
+	
+	
 
 	article {
 		@include clearfix;
+		
+	}
+	
+	.task-list {
+		font-weight: 300;
+		text-transform: uppercase;
 	}
 	
 	#task-status {
@@ -51,9 +75,10 @@
     
 	.task-description {
 		@include grid(38,1,1);
+		@include rem(padding-top, $padding*2);
 		
 		h1 {
-			@include rem(margin-top, $padding);
+			@include rem(padding-top, $padding/2);
 			@include rem(font-size, 28px);
 		}
 		
@@ -94,7 +119,8 @@
 			}
 			
 			dl {
-				clear: both;
+				@include clearfix;
+				@include rem(margin-bottom, 4px);
 				
 				dt {
 					text-transform: uppercase;
@@ -111,7 +137,6 @@
 				
 				dd {
 					@include grid(28,0,0);
-					@include rem(padding-bottom, $padding/2);
 				}
 			}
 		}
@@ -148,32 +173,26 @@
 						font-weight: 300;
 						text-transform: uppercase;
 						
+						
 						.user-img {
 							width: 40px;
 							@include rem(margin-right, $padding/2);
 							padding: 0;
 							float: left;
-							
 						}
 					}
 					
 					.task-status {
-						
-				        .flaticon {
-				            @include rem(font-size, 13px);
-				            color: $white;
-				        }
-				        
-				        @include rem(padding, 6px 8px 4px 8px);
-				        @include rem(font-size, 11px);
+				        @include rem(margin-right, 4px);
 						font-weight: 300;
-				        background-color: $green;
-				        color: $white;
+				        color: $pink;
 				        text-transform: uppercase;
-				        position: absolute;
-				        top: 0;
-				        right: 0;
 					}
+					
+			        .edit-task-status {
+						color: $black;
+						text-transform: uppercase;
+			        }
 					
 					.file-size, .file-author, .time-applied {
 						@include rem(font-size, 12px);
@@ -199,6 +218,9 @@
 	}
 }
 
+#task-form {
+	@include rem(margin-top, $padding*2);
+}
 
 
 

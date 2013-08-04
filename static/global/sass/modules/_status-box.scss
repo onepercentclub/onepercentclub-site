@@ -15,7 +15,7 @@
 	color: $text-grey;
     text-align: center;
 
-	.icon {
+	.flaticon {
 	    @include rem(font-size, 24px);
         color: $grayLight;
 	}
@@ -94,19 +94,6 @@
                 visibility: hidden;
             }
 
-            /* Arrow to top
-            &.is-in-progress:before {
-                position: absolute;
-                width: 0;
-                top: -17px;
-                right: 5px;
-                height: 10px;
-                content: "";
-                border-right: 6px solid transparent;
-                border-bottom: 10px solid $green;
-                border-left: 6px solid transparent;
-            }
-            */
         }
     }
 }

@@ -79,7 +79,7 @@
                 <div class="controls">
                     <a class="btn btn-iconed btn-uploader">
                         {{view App.UploadFileView valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
-                        <i class="icon icon-upload"></i>
+                        <i class="flaticon solid upload-document-1"></i>
                         {% trans "Select photos" %}
                     </a>
 
@@ -111,21 +111,21 @@
 
 {% tplhandlebars "text_wallpost_new" %}
 	
-<fieldset>
-   <ul>
-        <li class="control-group">
-            <label for="wallpost-update" class="control-label">{% trans "Comment" %}</label>
-
-            <div class="controls">
-                {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
-            </div>
-
-            {{#if errors.text }}
-                <div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
-            {{/if}}
-        </li>
-    </ul>
-</fieldset>
+	<fieldset>
+	   <ul>
+	        <li class="control-group">
+	            <label for="wallpost-update" class="control-label">{% trans "Comment" %}</label>
+	
+	            <div class="controls">
+	                {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+	            </div>
+	
+	            {{#if errors.text }}
+	                <div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
+	            {{/if}}
+	        </li>
+	    </ul>
+	</fieldset>
 
     <button class="btn btn-iconed right" type="submit"><i class="flaticon solid thinking-comment-1"></i>{% trans "Comment" %}</button>
 
@@ -247,20 +247,26 @@
 
 
 {% tplhandlebars "task_wallpost_new" %}
-
-    <article class="wallpost">
-        <span class="user-img">
-            <img {{bindAttr src="controllers.currentUser.getAvatar"}} width="100%" alt="Avatar" />
-        </span>
-        <div class="content post-comment">
-            {{view Ember.TextArea valueBinding="text" placeholder="Comment" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
-            <br/>
-            {{#if errors.text }}
-                <div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
-            {{/if}}
-            <button {{action "addTextWallPost" }} class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Post Comment" %}</button>
-        </div>
-    </article>
+    
+    <form id="comment-box">
+	    <fieldset>
+		   <ul>
+		        <li class="control-group">
+		            <label for="wallpost-update" class="control-label">{% trans "Comment" %}</label>
+		
+		            <div class="controls">
+		                {{view Ember.TextArea valueBinding="text" placeholder="Comment" cols="50" rows="2" name="wallpost-update" id="wallpost-update"}}
+		            </div>
+		
+		            {{#if errors.text }}
+	                	<div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
+					{{/if}}
+		        </li>
+		    </ul>
+		</fieldset>
+	
+	    <button {{action "addTextWallPost" }} class="btn btn-iconed right" type="submit"><em class="flaticon solid thinking-comment-1"></em>{% trans "Comment" %}</button>
+    </form>
 
 {% endtplhandlebars %}
 

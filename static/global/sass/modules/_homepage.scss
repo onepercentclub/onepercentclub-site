@@ -203,7 +203,7 @@
         right: 0;
         left: auto;
         background-image: $icons;
-	    background-position: sprite-position($icons, arrow-right-white, 10px, 6px);
+	    background-position: sprite-position($icons, arrow-right-white, 12px, 6px);
 		background-repeat: no-repeat;
 		
     }
@@ -219,85 +219,57 @@
 .project {
     @include rem(margin-top, 32px);
     @include clearfix;
-
-    aside {
-        @include grid(22, 4, 0);
-
-        img {
-            border: 1px solid $grayDarker;
-        }
+    
+    .project-top {
+	    
+	    figure {
+	        @include grid(22, 4, 0);
+	    }
+	
+	    article {
+	        @include grid(26, 1, 4);
+		    @include rem(height, 230px);
+		    overflow: hidden;
+	    }
+	    
+	    .project-title {
+	        color: $grayDarker;
+	        
+	        a {
+				color: $grayDarker;
+				
+				&:hover, &:active {
+					color: $pink;
+				}
+			}	
+	    }
     }
 
-    article {
-        @include grid(26, 1, 4);
+    .status-box {
+        @include grid(48, 4, 3);
     }
 
-    .project-meta {
-        margin-top: 0;
+    .donate-days-left {
+        color: $gray !important;
 
-        .location,
-        .tags {
-            color: $gray;
+        .flaticon {
+			color: $gray !important;
+		}
 
-            span:after {
-                content: ",";
-
-                &:last-of-type:after {
-                    content: "";
-                }
-            }
-        }
-    }
-
-    .project-title {
-        @include rem(font-size, 28px);
-        @include rem(padding-top, 8px);
-        color: $grayDarker;
-        text-transform: uppercase;
-        font-weight: 600;
-    }
-
-    .project-status {
-        @include clearfix;
-    }
-
-    .project-days-left {
-        @include grid(8);
-        @include rem(font-size, 12px);
-        color: $gray;
-        text-transform: uppercase;
-
-        p {
-            @include rem(font-size, 18px);
-            @include rem(margin, 0 0 0 5px);
-            line-height: 1;
-        }
-
-        em {
-            @include rem(font-size, 24px);
-            color: $grayDarker;
-            vertical-align: middle;
-            font-style: normal;
-        }
+		strong {
+		    color: $grayDarker !important;
+		}
     }
 
     .donate-status {
-        @include grid(24, 2, 0);
-        clear: none;
-
+		
         .donate-amount {
-            @include rem(font-size, 12px);
             color: $gray;
         }
 
         .donated {
-            @include rem(font-size, 14px);
             color: $grayDarker;
         }
-    }
-
-    .project-call-to-action {
-        @include grid(16);
     }
 }
 
@@ -316,7 +288,7 @@
     }
 
     section {
-        background: url('../images/world.gif') center center no-repeat;
+        background: image-url("world.gif") center center no-repeat;
         background-size: cover;
     }
 
