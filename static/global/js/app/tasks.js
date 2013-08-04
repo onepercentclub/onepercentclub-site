@@ -202,8 +202,7 @@ App.TaskSearchFormController = Em.ObjectController.extend({
 });
 
 
-App.ProjectTaskListController = Em.ArrayController.extend({
-    needs: ['currentUser', 'project'],
+App.IsProjectOwnerMixin = Em.Mixin.create({
     isProjectOwner: function() {
         var username = this.get('controllers.currentUser.username');
         var ownername = this.get('controllers.project.model.owner.username');
@@ -215,18 +214,13 @@ App.ProjectTaskListController = Em.ArrayController.extend({
 });
 
 
-App.ProjectTaskController = Em.ObjectController.extend({
+App.ProjectTaskListController = Em.ArrayController.extend(App.IsProjectOwnerMixin, {
+    needs: ['currentUser', 'project']
+});
+
+
+App.ProjectTaskController = Em.ObjectController.extend(App.IsProjectOwnerMixin, App.IsAuthorMixin, {
     needs: ['currentUser', 'project'],
-
-
-    isAuthor: function() {
-        var username = this.get('controllers.currentUser.username');
-        var author_name = this.get('author.username');
-        if (username) {
-            return (username == author_name);
-        }
-        return false;
-    }.property('author.username', 'controllers.currentUser.username'),
 
     isMember: function() {
         var user = this.get('controllers.currentUser.username');
