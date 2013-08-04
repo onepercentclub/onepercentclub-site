@@ -1233,9 +1233,22 @@ App.VoucherRedeemRoute = Em.Route.extend({
     }
 });
 
+
 App.UserIndexRoute = Em.Route.extend({
-    redirect: function() {
+    beforeModel: function() {
         this.transitionTo('userProfile');
+    }
+});
+
+
+// TODO Delete this Route when we implement Order history.
+App.UserRoute = Em.Route.extend({
+    setupController: function(controller, model) {
+        this._super(controller, model);
+
+        return App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
+            controller.set('showPaymentsTab', recurringPayments.get('length') > 0)
+        });
     }
 });
 
@@ -1309,7 +1322,6 @@ App.UserOrdersRoute = Em.Route.extend({
     },
 
     setupController: function(controller, recurringPayment) {
-        // Don't set the model here because we're setting it after the promise is resolved.
         if (!Em.isNone(recurringPayment)) {
             this._super(controller, recurringPayment);
             controller.startEditing();
