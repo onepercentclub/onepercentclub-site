@@ -58,61 +58,62 @@
                     <span {{action nextProject}} class="projects-nav next"></span>
 
                     <div class="project">
-                        <aside>
-                            <img {{bindAttr src="project.plan.image.large" }} width="100%" alt="Photo" />
-                        </aside>
+                    
+                    	<div class="project-top">
+                    
+	                        <figure class="media">
+	                            <img {{bindAttr src="project.plan.image.large" }} width="100%" alt="Photo" />
+	                        </figure>
+	
+	                        <article>
+	                            
+	                            <div class="project-meta">
+				                    <span class="location">
+				                    	<em class="flaticon solid location-pin-1"></em> {{project.plan.country.name}}
+				                    </span>
+				
+				                    <span class="theme">
+				                        <em class="flaticon solid tag-1"></em>{{project.plan.theme.title}}
+				                    </span>
+				
+				                </div>
+	                            
+	                            <h2 class="project-title">
+	                                <a href="">{{project.title}}</a>
+	                            </h2>
+	
+	                            <p class="project-description">
+	                                {{project.plan.pitch}}
+	                            </p>
+	                            
+	                        </article>
+	                        
+                    	</div>
 
-                        <article>
-                            <div class="project-meta">
-                                <span class="location">
-                                    <em class="flaticon solid location-pin-1"></em>
-                                    {{project.plan.country.name}}
-                                </span>
+                        <div class="status-box">
+                            <p class="donate-days-left">
+								{{#if project.campaign.deadline}}
+								<strong><em class="icon flaticon solid clock-1"></em> {{project.campaign.daysToGo}}</strong>
+								<em>{% trans "days to go" %}</em>
+								{{/if}}
+							</p>
 
-                                <span class="tags">
-                                    <em class="flaticon solid tag-1"></em>
-
-                                    {{#each tag in project.plan.tags}}
-                                        <span>{{tag.id}}</span>
-                                    {{/each}}
-                                </span>
+                            <div class="donate-status">
+                                <p class="donate-amount">
+                                    <span class="donated">&euro;{{localize project.campaign.money_donated}}</span>
+                                    {% trans "of" %}
+                                    <span class="asked">&euro;{{localize project.campaign.money_asked}}</span>
+                                    {% trans "raised" %}
+                                </p>
+                                <span class="donate-slider"><strong style="width: 0%;" class="donate-progress is-in-progress"><em class="donate-percentage"></em></strong></span>
                             </div>
 
-                            <h2 class="project-title">
-                                {{project.title}}
-                            </h2>
-
-                            <p class="project-description">
-                                {{project.plan.pitch}}
-                            </p>
-
-                            <div class="project-status">
-                                <div class="project-days-left">
-                                    {{#if project.campaign.deadline}}
-                                        <p>
-                                            <em class="flaticon solid clock-1"></em> <em><strong>{{project.campaign.daysToGo}}</strong></em>
-                                        </p>
-                                        {% trans "days to go" %}
-                                    {{/if}}
-                                </div>
-
-                                <div class="donate-status">
-                                    <p class="donate-amount">
-                                        <span class="donated">&euro;{{localize project.campaign.money_donated}}</span>
-                                        {% trans "of" %}
-                                        <span class="asked">&euro;{{localize project.campaign.money_asked}}</span>
-                                        {% trans "raised" %}
-                                    </p>
-                                    <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
-                                </div>
-
-                                <div class="project-call-to-action">
-                                    <a href='#' {{ action 'addDonation' project }}  class="btn btn-primary right">
-                                        {% trans "Support" %}
-                                    </a>
-                                </div>
-                            </div>
-                        </article>
+                            <div class="donate-call-to-action">
+								<a href='#' {{action 'addDonation' this}} class="btn btn-primary btn-iconed">
+								<em class="flaticon">&euro;</em> {% trans "Support" %}</a>
+							</div>
+                        </div>
+                            
                     </div>
                 </div>
             </section>
@@ -224,7 +225,7 @@
         {{/if }}
 
         {{#if quote }}
-            {# {view App.HomeQuotesView } #}
+            {{view App.HomeQuotesView }}
         {{/if }}
 
         {{#if impact }}

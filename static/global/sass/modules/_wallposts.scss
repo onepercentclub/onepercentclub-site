@@ -36,6 +36,8 @@
 }
 
 #wallposts {
+	@include clearfix;
+	clear: both;
 	
 	.wallpost {
 	    @include clearfix;
