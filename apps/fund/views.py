@@ -8,6 +8,7 @@ from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.signals import user_logged_in
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.http import Http404
@@ -27,6 +28,8 @@ logger = logging.getLogger(__name__)
 #
 # Mixins.
 #
+
+anon_order_id_session_key = 'cart_order_id'
 
 no_active_order_error_msg = _(u"No active order")
 
@@ -290,7 +293,7 @@ class CurrentOrderMixin(object):
             except Order.DoesNotExist:
                 return None
         else:
-            order_id = self.request.session.get('cart_order_id')
+            order_id = self.request.session.get(anon_order_id_session_key)
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id, status=OrderStatuses.current)
@@ -311,7 +314,7 @@ class OrderCurrentDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         with transaction.commit_on_success():
             order = Order()
             order.save()
-        self.request.session['cart_order_id'] = order.id
+        self.request.session[anon_order_id_session_key] = order.id
         self.request.session.save()
         return order
 
@@ -321,7 +324,7 @@ class OrderCurrentDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                 order, created = Order.objects.get_or_create(user=self.request.user, status=OrderStatuses.current)
         else:
             # An anonymous user could have an order (cart) in the session.
-            order_id = self.request.session.get('cart_order_id')
+            order_id = self.request.session.get(anon_order_id_session_key)
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id, status=OrderStatuses.current)
@@ -452,6 +455,36 @@ class OrderCurrentDonationList(OrderItemMixin, CurrentOrderMixin, generics.ListC
 class OrderCurrentDonationDetail(OrderItemMixin, OrderItemDestroyMixin, CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
     model = Donation
     serializer_class = OrderCurrentDonationSerializer
+
+
+def adjust_anonymous_current_order(sender, request, user, **kwargs):
+    if request.session.has_key(anon_order_id_session_key):
+        try:
+            anon_current_order = Order.objects.get(id=request.session.pop(anon_order_id_session_key))
+        except Order.DoesNotExist:
+            pass
+        else:
+            if anon_current_order.status == OrderStatuses.current:
+                # Anonymous order has status 'current' - copy over to user's 'current' order.
+                try:
+                    user_current_order = Order.objects.get(user=user, status=OrderStatuses.current)
+                except Order.DoesNotExist:
+                    # There isn't a current order for the so we just need to assign it to the user.
+                    anon_current_order.user = user
+                    anon_current_order.save()
+                else:
+                    # Copy the order items from the anonymous 'current' order to the user 'current' order and remove it.
+                    for order_item in anon_current_order.orderitem_set.all():
+                        order_item.order = user_current_order
+                        order_item.save()
+
+                    anon_current_order.delete()
+            else:
+                # Anonymous cart order does not have status 'current' - just assign it to the user.
+                anon_current_order.user = user
+                anon_current_order.save()
+
+user_logged_in.connect(adjust_anonymous_current_order)
 
 
 class OrderVoucherList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPIView):
