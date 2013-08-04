@@ -71,19 +71,16 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         self.browser.find_by_css('h3').first.click() # First project in the list
         self.assertTrue(self.browser.is_text_present('WOMEN FIRST',
                                                      wait_time=10))
-        self.assertEqual(self.browser.find_by_css('h1.project-title').first.text,
-                         u'WOMEN FIRST')
-        self.assertEqual(self.browser.find_by_css('p.donate-amount').first.text,
-                         u'\u20ac5 OF \u20ac500 RAISED')  # Leading EUR-sign
-        self.assertEqual(self.browser.find_by_css('div.donate-call-to-action').first.text,
-                         u'\u20ac SUPPORT THIS PROJECT')  # Leading EUR-sign
+        self.assertEqual(self.browser.find_by_css('h1.project-title').first.text, u'WOMEN FIRST')
+        donation_status_text = self.browser.find_by_css('p.donate-amount').first.text
+        self.assertTrue(u'5 OF' in donation_status_text and u'500 RAISED' in donation_status_text)
+        self.assertTrue(u'SUPPORT PROJECT' in self.browser.find_by_css('div.donate-call-to-action').first.text)
 
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project 
         self.browser.find_by_css('div.donate-call-to-action a').first.click()
 
-        self.assertTrue(self.browser.is_text_present('SUPPORT ONE OR MORE PROJECTS',
-                                                     wait_time=10))
+        self.assertTrue(self.browser.is_text_present('SUPPORT ONE OR MORE PROJECTS', wait_time=10))
         
         # TODO: Note that the browser back-button doesn't yet work from support-page back to project detail page
 
@@ -92,8 +89,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
 
         self.assertEqual(self.browser.find_by_css('.amount-control label').first.text,
                          u"I'D LIKE TO GIVE")
-        self.assertEqual(self.browser.find_by_css('.amount-needed').first.text,
-                         u'\u20ac 495 IS STILL NEEDED')
+        self.assertTrue(u'495 IS STILL NEEDED' in self.browser.find_by_css('.amount-needed').first.text)
         input_field = self.browser.find_by_css('.amount-control input').first
         self.assertEqual(input_field['name'], u'donation-amount-1')
         self.assertEqual(input_field['value'], u'20')
