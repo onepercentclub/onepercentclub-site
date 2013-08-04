@@ -154,7 +154,11 @@ class Order(models.Model):
         return Voucher.objects.filter(id__in=order_items.values('object_id'))
 
     def __unicode__(self):
-        description = self.order_number + " - 1%Club "
+        description = ''
+        if self.order_number:
+            description += self.order_number + " - "
+
+        description += "1%Club "
         if not self.donations and self.vouchers:
             if len(self.donations) > 1:
                 description += _("GIFTCARDS")
