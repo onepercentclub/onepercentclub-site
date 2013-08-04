@@ -432,7 +432,7 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 
 
 App.PaymentProfileController = Em.ObjectController.extend({
-    needs: ['currentOrder'],
+    needs: ['currentOrder', 'currentUser'],
 
     initTransaction: function() {
         var transaction = this.get('store').transaction();
@@ -683,7 +683,11 @@ App.OrderThanksController = Em.ObjectController.extend({
 
 
 App.RecurringOrderThanksController = Em.ObjectController.extend({
-    needs: ['currentUser']
+    needs: ['currentUser'],
+
+    moreThanOneDonation: function() {
+        return this.get('donations.length') > 1;
+    }.property('length')
 });
 
 
