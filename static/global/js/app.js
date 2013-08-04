@@ -1042,7 +1042,7 @@ App.RecurringOrderThanksRoute = Em.Route.extend({
         App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
             if (recurringPayments.get('length') > 0) {
                 controller.set('recurringPayment', recurringPayments.objectAt(0));
-            }else {
+            } else {
                 controller.set('recurringPayment', null);
             }
         });
