@@ -37,8 +37,6 @@
 
 #wallposts {
 	
-	@include grid(32, 1, 1);
-	
 	.wallpost {
 	    @include clearfix;
 	    position: relative;
@@ -107,40 +105,5 @@
 	        left: 0;
 	        @include prepend(4);
 	    }
-	    .header-img {
-	    
-	        .icon {
-	          @include rem(line-height, 50px);
-	          @include rem(font-size, 40px);
-	          margin-top: 4px;
-	        }
-	        
-	        @include rem(height, 70px);
-	        background-color: $grayDark;
-	        color: $white;
-	        text-align: center;
-	        text-transform: uppercase;
-	    }
 	}
-
-	
 }
-
-
-.wall {
-    @include grid(32, 1, 0);
-    position: relative;
-    @include rem(margin, 0px 0 32px 0);
-    .wallpost {
-      width: 100%;
-    }
-
-}
-
-
-.wallpost-filter {
-    @include rem(margin-top, 32px);
-    background-color: $color-back;
-}
-
-

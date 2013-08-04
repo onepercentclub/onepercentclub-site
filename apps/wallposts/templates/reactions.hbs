@@ -22,7 +22,7 @@
                 {% comment %}
                     <li class=" not-implemented"><a href="#"><em class="icon-edit"></em> {% trans "Edit" %}</a></li>
                 {% endcomment %}
-                <li class="manage-remove"><a {{ action "deleteReaction" target="view" }}><em class="icon-trash"></em> {% trans "Delete" %}</a></li>
+                <li class="manage-remove"><a {{ action "deleteReaction" target="view" }}><em class="flaticon solid trash-2"></em> {% trans "Delete" %}</a></li>
             </ul>
         {{/if}}
 		{{{ text }}}
@@ -56,7 +56,7 @@
                     {{view "Em.TextArea" placeholder="Comment"  valueBinding="newReaction.text" name="reaction" class="newReaction"}}
                 </li>
             {{else}}
-                <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a> or {{#linkTo "signup"}}{% trans "signup" %}{{/linkTo}} {% trans "to leave a comment" %}.
+                <a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a reaction" %}.
             {{/if}}
 
         </ul>

@@ -136,7 +136,7 @@
 
     <section class="wrapper">
     	
-    	<div id="wallposts">
+    	<div id="wallposts" class="content">
 
 	        {{#each item in items itemController="wallPost"}}
 	            {{#if item.isLoaded}}
@@ -188,7 +188,7 @@
             {{#if isAuthor}}
                 <ul class="manage">
                     {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}
-                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
+                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}><em class="flaticon solid trash-2"></em> {% trans "Delete" %}</a></li>
                 </ul>
             {{/if}}
         </header>
@@ -282,7 +282,7 @@
             {{#if isAuthor}}
                 <ul class="manage">
                     {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}
-                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}>{% trans "Delete" %}</a></li>
+                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}><em class="flaticon solid trash-2"></em> {% trans "Delete" %}</a></li>
                 </ul>
             {{/if}}
         </header>
