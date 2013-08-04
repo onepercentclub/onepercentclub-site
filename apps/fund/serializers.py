@@ -138,6 +138,10 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class OrderCurrentDonationSerializer(DonationSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')
+    order = serializers.SerializerMethodField('get_current_order_ember_id')
+
+    def get_current_order_ember_id(self, donation):
+        return 'current'
 
     class Meta:
         model = Donation
