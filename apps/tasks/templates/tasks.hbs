@@ -246,7 +246,7 @@
     
     	
         {# TODO: Make dry #}
-		
+		{{# if isProjectOwner}}
             <div class="project-owner-actions">
             	<header>
             		<h3>{% trans "You're the project owner" %}</h3>
@@ -263,6 +263,7 @@
                 {{/linkTo}}
             	
             </div>
+         {{else}}
 			 
 			{{#if isAuthor}}  
 			
@@ -284,6 +285,7 @@
 	            </div>
 		    	 
 			{{/if}}
+		{{/if}}
     
         <div class="content">
             <article>
