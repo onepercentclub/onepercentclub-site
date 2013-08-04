@@ -1,5 +1,5 @@
-import random
 import logging
+import random
 from django.conf import settings
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -16,6 +16,7 @@ from .fields import DutchBankAccountField
 from .mails import mail_new_voucher
 
 logger = logging.getLogger(__name__)
+random.seed()
 
 
 class RecurringDirectDebitPayment(models.Model):
@@ -119,12 +120,12 @@ class Order(models.Model):
     Order holds OrderItems (Donations/Vouchers).
     """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), blank=True, null=True)
-    status = models.CharField(_("status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
+    status = models.CharField(_("Status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
+    recurring = models.BooleanField(default=False)
+    order_number = models.CharField(_("Order Number"), max_length=30, db_index=True, unique=True, help_text="Used to reference the Order from external systems.")
 
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
-
-    recurring = models.BooleanField(default=False)
 
     @property
     def latest_payment(self):
@@ -153,7 +154,7 @@ class Order(models.Model):
         return Voucher.objects.filter(id__in=order_items.values('object_id'))
 
     def __unicode__(self):
-        description = "1%CLUB "
+        description = self.order_number + " - 1%Club "
         if not self.donations and self.vouchers:
             if len(self.donations) > 1:
                 description += _("GIFTCARDS")
@@ -167,11 +168,26 @@ class Order(models.Model):
                 description += _("DONATION")
         else:
             description += _("DONATIONS & GIFTCARDS")
-        description += " " + str(self.id) + " " + "- " + _("THANK YOU!")
+        description += " - " + _("THANK YOU!")
         return description
 
     class Meta:
         ordering = ('-created',)
+
+    # http://stackoverflow.com/questions/2076838
+    def save(self, *args, **kwargs):
+        if not self.order_number:
+            loop_num = 0
+            max_number = 1000000000  # 1 billion
+            order_number = str(random.randint(0, max_number))
+            while Order.objects.filter(order_number=order_number).exists():
+                if loop_num > 1000:
+                    raise ValueError(_("Couldn't generate a unique order number."))
+                else:
+                    order_number = str(random.randint(0, max_number))
+                    loop_num += 1
+            self.order_number = order_number
+        super(Order, self).save(*args, **kwargs)
 
 
 class OrderItem(models.Model):
