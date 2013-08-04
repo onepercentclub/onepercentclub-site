@@ -36,16 +36,18 @@ class DocDataPaymentOrder(Payment):
         else:
             return 'NEW'
 
+    class Meta:
+        ordering = ('-created', '-updated')
+        verbose_name = _("DocData Payment")
+        verbose_name_plural = _("DocData Payments")
+
+
 
 class DocDataPayment(PolymorphicModel):
     """
     The base model for a docdata payment. The model can be used for a web menu payment.
     """
-    # Statuses from: Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 35
-    # Note; We're not using DjangoChoices here so that we can write unknown statuses if they are presented by DocData.
-    statuses = ('NEW', 'STARTED', 'AUTHORIZED', 'AUTHORIZATION_REQUESTED', 'PAID', 'CANCELLED', 'CHARGED-BACK',
-                'CONFIRMED_PAID', 'CONFIRMED_CHARGEDBACK', 'CLOSED_SUCCESS', 'CLOSED_CANCELLED')
-
+    # Note: We're not using DjangoChoices here so that we can write unknown statuses if they are presented by DocData.
     status = models.CharField(_("status"), max_length=30, default='NEW')
     docdata_payment_order = models.ForeignKey(DocDataPaymentOrder, related_name='docdata_payments')
     payment_id = models.CharField(_("payment id"), max_length=100, default='', blank=True)
@@ -56,6 +58,9 @@ class DocDataPayment(PolymorphicModel):
 
     def __unicode__(self):
         return self.payment_id
+
+    class Meta:
+        ordering = ('-created', '-updated')
 
 
 class DocDataWebDirectDirectDebit(DocDataPayment):
@@ -70,5 +75,6 @@ class DocDataPaymentLogEntry(PaymentLogEntry):
     docdata_payment_order = models.ForeignKey(DocDataPaymentOrder, related_name='log_entries')
 
     class Meta:
+        ordering = ('-timestamp',)
         verbose_name = _("DocData Payment Log")
-        verbose_name_plural = verbose_name
+        verbose_name_plural = _("DocData Payment Logs")
