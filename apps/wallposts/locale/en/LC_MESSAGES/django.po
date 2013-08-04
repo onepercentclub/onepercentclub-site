@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-02 15:47+0200\n"
+"POT-Creation-Date: 2013-08-04 23:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,20 +160,21 @@ msgid ""
 msgstr ""
 
 #: templates/reactions.hbs:26 templates/wallposts.hbs:191
-#: templates/wallposts.hbs.py:285
+#: templates/wallposts.hbs.py:291
 msgid "Delete"
 msgstr ""
 
-#: templates/reactions.hbs:60
-msgid "Log in"
-msgstr ""
-
-#: templates/reactions.hbs:60
-msgid "signup"
-msgstr ""
-
 #: templates/reactions.hbs:60 templates/wallposts.hbs:20
-msgid "to leave a comment"
+#: templates/wallposts.hbs.py:332
+msgid "Login"
+msgstr ""
+
+#: templates/reactions.hbs:60 templates/wallposts.hbs:332
+msgid "member"
+msgstr ""
+
+#: templates/reactions.hbs:60
+msgid "to leave a reaction"
 msgstr ""
 
 #: templates/task_wallpost_new.mail.html:5
@@ -229,13 +230,13 @@ msgstr ""
 msgid "You have to"
 msgstr ""
 
-#: templates/wallposts.hbs:20 templates/wallposts.hbs.py:326
-msgid "Login"
-msgstr ""
-
 #: templates/wallposts.hbs:20
 #, python-format
 msgid "become a 1%%Member"
+msgstr ""
+
+#: templates/wallposts.hbs:20
+msgid "to leave a comment"
 msgstr ""
 
 #: templates/wallposts.hbs:33
@@ -271,10 +272,11 @@ msgid "Post Update"
 msgstr ""
 
 #: templates/wallposts.hbs:117 templates/wallposts.hbs.py:130
+#: templates/wallposts.hbs:255 templates/wallposts.hbs.py:268
 msgid "Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:338
+#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:344
 msgid "Show more"
 msgstr ""
 
@@ -282,18 +284,10 @@ msgstr ""
 msgid "more"
 msgstr ""
 
-#: templates/wallposts.hbs:261
-msgid "Post Comment"
-msgstr ""
-
-#: templates/wallposts.hbs:326
+#: templates/wallposts.hbs:332
 msgid "or become a"
 msgstr ""
 
-#: templates/wallposts.hbs:326
-msgid "member"
-msgstr ""
-
-#: templates/wallposts.hbs:326
+#: templates/wallposts.hbs:332
 msgid "to leave a comment."
 msgstr ""

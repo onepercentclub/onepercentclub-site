@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-02 15:47+0200\n"
+"POT-Creation-Date: 2013-08-04 23:04+0200\n"
 "PO-Revision-Date: 2013-02-26 17:11+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:49
+#: models.py:41
+msgid "DocData Payment"
+msgstr ""
+
+#: models.py:42
+msgid "DocData Payments"
+msgstr ""
+
+#: models.py:51
 msgid "status"
 msgstr "status"
 
-#: models.py:51
+#: models.py:53
 msgid "payment id"
 msgstr "payment id"
 
-#: models.py:54
+#: models.py:56
 msgid "created"
 msgstr "created"
 
-#: models.py:55
+#: models.py:57
 msgid "updated"
 msgstr "updated"
 
-#: models.py:73
+#: models.py:79
 msgid "DocData Payment Log"
+msgstr ""
+
+#: models.py:80
+msgid "DocData Payment Logs"
 msgstr ""

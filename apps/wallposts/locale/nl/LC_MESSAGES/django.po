@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-02 15:47+0200\n"
-"PO-Revision-Date: 2013-08-02 13:48+0000\n"
+"POT-Creation-Date: 2013-08-04 23:04+0200\n"
+"PO-Revision-Date: 2013-08-04 21:05+0000\n"
 "Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -161,20 +161,21 @@ msgid ""
 msgstr "\nHallo %(receiver_name)s,\n\nJa, Ja! %(author_name)s heeft gereageerd op jouw bericht.\n\nKlik op onderstaande link om naar de website te gaan en de reactie te lezen:\n\n%(site)s%(link)s\n\nTot zo!\n\nLiane | 1%%CLUB\n\n"
 
 #: templates/reactions.hbs:26 templates/wallposts.hbs:191
-#: templates/wallposts.hbs.py:285
+#: templates/wallposts.hbs.py:291
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: templates/reactions.hbs:60
-msgid "Log in"
-msgstr ""
-
-#: templates/reactions.hbs:60
-msgid "signup"
-msgstr ""
-
 #: templates/reactions.hbs:60 templates/wallposts.hbs:20
-msgid "to leave a comment"
+#: templates/wallposts.hbs.py:332
+msgid "Login"
+msgstr "Inloggen"
+
+#: templates/reactions.hbs:60 templates/wallposts.hbs:332
+msgid "member"
+msgstr "een profiel aan"
+
+#: templates/reactions.hbs:60
+msgid "to leave a reaction"
 msgstr ""
 
 #: templates/task_wallpost_new.mail.html:5
@@ -229,13 +230,13 @@ msgstr ""
 msgid "You have to"
 msgstr ""
 
-#: templates/wallposts.hbs:20 templates/wallposts.hbs.py:326
-msgid "Login"
-msgstr "Inloggen"
-
 #: templates/wallposts.hbs:20
 #, python-format
 msgid "become a 1%%Member"
+msgstr ""
+
+#: templates/wallposts.hbs:20
+msgid "to leave a comment"
 msgstr ""
 
 #: templates/wallposts.hbs:33
@@ -271,10 +272,11 @@ msgid "Post Update"
 msgstr "Plaats update"
 
 #: templates/wallposts.hbs:117 templates/wallposts.hbs.py:130
+#: templates/wallposts.hbs:255 templates/wallposts.hbs.py:268
 msgid "Comment"
 msgstr "Reactie"
 
-#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:338
+#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:344
 msgid "Show more"
 msgstr "Meer"
 
@@ -282,18 +284,10 @@ msgstr "Meer"
 msgid "more"
 msgstr "meer"
 
-#: templates/wallposts.hbs:261
-msgid "Post Comment"
-msgstr "Reageer"
-
-#: templates/wallposts.hbs:326
+#: templates/wallposts.hbs:332
 msgid "or become a"
 msgstr "of maak  "
 
-#: templates/wallposts.hbs:326
-msgid "member"
-msgstr "een profiel aan"
-
-#: templates/wallposts.hbs:326
+#: templates/wallposts.hbs:332
 msgid "to leave a comment."
 msgstr "om een reactie te plaatsen."
