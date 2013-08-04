@@ -134,11 +134,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         else:
             # Setup the merchant soap object for use in all requests.
             self.merchant = self.client.factory.create('ns0:merchant')
+            self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
             if self.test:
-                self.merchant._name = getattr(settings, "COWRY_DOCDATA_TEST_MERCHANT_NAME", None)
                 self.merchant._password = getattr(settings, "COWRY_DOCDATA_TEST_MERCHANT_PASSWORD", None)
             else:
-                self.merchant._name = getattr(settings, "COWRY_DOCDATA_LIVE_MERCHANT_NAME", None)
                 self.merchant._password = getattr(settings, "COWRY_DOCDATA_LIVE_MERCHANT_PASSWORD", None)
 
     def __init__(self):

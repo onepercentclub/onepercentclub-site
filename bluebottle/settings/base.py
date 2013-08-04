@@ -490,7 +490,8 @@ COWRY_PAYMENT_METHODS = {
     'dd-webmenu': {
         'profile': 'webmenu',
         'name': 'Web Menu',
-        'supports_recurring': True,
+        'supports_recurring': False,
+        'supports_single': True,
     },
 
     'dd-direct-debit': {
