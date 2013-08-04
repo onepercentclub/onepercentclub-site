@@ -339,10 +339,6 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
         var transaction = this.get('store').transaction();
         var donation = this.get('model');
         transaction.add(donation);
-        // Hack: Remove the donation from the current order so that ember-data doesn't get confused. This needs to be
-        // done because we're not setting the proper order id (i.e. 'current') in the donation json from the server.
-        var order = App.CurrentOrder.find('current');
-        order.get('donations').removeObject(donation);
         donation.deleteRecord();
         transaction.commit();
     }
@@ -372,10 +368,6 @@ App.CurrentOrderVoucherController = Em.ObjectController.extend({
         var transaction = this.get('store').transaction();
         var voucher = this.get('model');
         transaction.add(voucher);
-        // Hack: Remove the voucher from the current order so that ember-data doesn't get confused. This needs to be
-        // done because we're not setting the proper order id (i.e. 'current') in the voucher json from the server.
-        var order = App.CurrentOrder.find('current');
-        order.get('vouchers').removeObject(voucher);
         voucher.deleteRecord();
         transaction.commit();
     }
@@ -636,9 +628,6 @@ App.CurrentOrderController = Em.ObjectController.extend({
             donations.forEach(function(donation) {
                 var transaction = this.get('store').transaction();
                 transaction.add(donation);
-                // Hack: Remove the donation from the current order so that ember-data doesn't get confused. This needs to be
-                // done because we're not setting the proper order id (i.e. 'current') in the donation json from the server.
-                donations.removeObject(donation);
                 donation.deleteRecord();
                 transaction.commit();
             }, this);
@@ -647,9 +636,6 @@ App.CurrentOrderController = Em.ObjectController.extend({
             vouchers.forEach(function(voucher) {
                 var transaction = this.get('store').transaction();
                 transaction.add(voucher);
-                // Hack: Remove the voucher from the current order so that ember-data doesn't get confused. This needs to be
-                // done because we're not setting the proper order id (i.e. 'current') in the voucher json from the server.
-                vouchers.removeObject(voucher);
                 voucher.deleteRecord();
                 transaction.commit();
             }, this);
