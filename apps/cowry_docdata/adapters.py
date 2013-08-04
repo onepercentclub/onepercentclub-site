@@ -1,5 +1,6 @@
 # coding=utf-8
 import logging
+from decimal import Decimal, ROUND_HALF_UP
 from urllib2 import URLError
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry.models import PaymentStatuses, PaymentLogTypes, PaymentLogLevels
@@ -81,6 +82,7 @@ class DocDataAPIVersionPlugin(MessagePlugin):
 
 
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
+
     # Mapping of DocData statuses to Cowry statuses.
     status_mapping = {
         'NEW': PaymentStatuses.new,
@@ -358,7 +360,35 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 # Save some information from the report.
                 ddpayment.payment_id = str(payment_report.id)
                 ddpayment.payment_method = str(payment_report.paymentMethod)
+                docdata_fees = getattr(settings, "COWRY_DOCDATA_FEES", None)
                 ddpayment.save()
+
+                # Set the payment fee.
+                if docdata_fees:
+                    if ddpayment.payment_method in docdata_fees:
+                        payment_cost_setting = str(docdata_fees[ddpayment.payment_method])
+                        if '%' in payment_cost_setting:
+                            # Note: This assumes that the amount in the payment method will cover the full cost of the
+                            # payment order. It seems that DocData allows multiple payments to make up the full order
+                            # total. The method used here should be ok for 1%CLUB but it may not be suitable for others.
+                            cost_percent = Decimal(payment_cost_setting.replace('%', '')) / 100
+                            payment_cost = cost_percent * payment.amount
+                        else:
+                            payment_cost = Decimal(payment_cost_setting) * 100
+
+                        # TODO: Check if this is the rounding rule for the Netherlands / the Euro.
+                        payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP)
+                        payment.save()
+
+                    else:
+                        log_status_update(payment, PaymentLogLevels.warn,
+                                          "Can't set payment fee for {0} because payment method is not in COWRY_DOCDATA_FEES.".format(
+                                          ddpayment.payment_id))
+                else:
+                    log_status_update(payment, PaymentLogLevels.warn,
+                                      "Can't set payment fee for {0} because COWRY_DOCDATA_FEES is not in set.".format(
+                                          ddpayment.payment_id))
+
 
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.payment_method:
