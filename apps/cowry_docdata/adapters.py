@@ -238,7 +238,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # A unique code for testing.
             payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[:30].replace(' ', '-')
         else:
-            payment.merchant_order_reference = str(payment.id)
+            payment.merchant_order_reference = str(payment.order.order_number)
 
         # Execute create payment order request.
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
@@ -258,7 +258,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     def cancel_payment(self, payment):
         # Some preconditions.
         if not payment.payment_order_id:
-            logger.warn('Attempt to cancel payment on Order id {0} which has no payment_order_id.'.format(payment.order.id))
+            logger.warn('Attempt to cancel payment on Order id {0} which has no payment_order_id.'.format(payment.payment_order_id))
             return
 
         # Execute create payment order request.
