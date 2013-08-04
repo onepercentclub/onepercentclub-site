@@ -218,11 +218,16 @@
                 </ul>
 
                 <div class="project-meta">
-                    <span class="location"><em class="flaticon solid location-pin-1"></em> {{plan.country.name}}, {{plan.country.subregion}}</span>
+                    <span class="location">
+                    	<em class="flaticon solid location-pin-1"></em> 
+						{{plan.country.name}}
+					</span>
 
                     <span class="theme">
                         <em class="flaticon solid tag-1"></em>{{plan.theme.title}}
                     </span>
+                    
+                    {{view App.SocialShareView classNames="project-share"}}
 
                     {% comment %}
                     <span class="tags" data-title="Tags" {{bindAttr data-content="allTags"}}>
@@ -248,8 +253,7 @@
                     {{/linkTo}}
                 </div>
                 {% endcomment %}
-
-                {{view App.SocialShareView classNames="project-share"}}
+                
             </article>
         </section>
 
@@ -258,7 +262,7 @@
                 <div class="status-box">
                     <p class="donate-days-left">
                         {{#if campaign.deadline }}
-                            <strong><i class="icon flaticon solid clock-1"></i> {{campaign.daysToGo}} </strong>
+                            <strong><em class="icon flaticon solid clock-1"></em> {{campaign.daysToGo}}</strong>
                             <em>{% trans "days to go" %}</em>
                         {{/if}}
                     </p>
@@ -270,7 +274,7 @@
                                 <span class="asked">&euro;{{localize campaign.money_asked}}</span>
                                 {% trans "raised" %}
                         </p>
-                        <span class="donate-slider"><strong style="width: 40%;" class="donate-progress is-in-progress"><em class="donate-percentage">40%</em></strong></span>
+                        <span class="donate-slider"><strong style="width: 0%;" class="donate-progress is-in-progress"><em class="donate-percentage"></em></strong></span>
                     </div>
 
                     <div class="donate-call-to-action">

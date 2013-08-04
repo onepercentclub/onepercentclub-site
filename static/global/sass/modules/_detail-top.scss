@@ -50,66 +50,8 @@
 		    }
 		}
     
-		.project-meta {
-			@include rem(margin, $padding 0 $padding/2);
-			@include rem(font-size, 14px);
-			color: $green;
-			
-			.location {
-			    @include rem(margin-right, 32px);
-			    display: block;
-			    float: left;
-			    vertical-align: middle;
-			
-			}
-			
-			.tags {
-			    display: block;
-			    overflow: hidden;
-			    width: auto;
-			
-			    color: $green;
-			    text-overflow: ellipsis;
-			
-			    white-space: nowrap;
-			
-			    ul {
-			        display: inline;
-			        margin: 0;
-			        padding: 0;
-			        list-style: none;
-			        vertical-align: middle;
-			
-			        li {
-			            display: inline;
-			            color: $green;
-			            text-transform: capitalize;
-			
-			            &.out-of-range {
-			              display: none;
-			            }
-			        }
-			    }
-			}
-		}
-		
-		.project-title {
-			@include rem(font-size, 28px);
-			@include rem(padding, 8px 0);
-		}
-		
-      
 		.project-plan {
 			@include grid(24);
-		}
-		
-		.project-share {
-		    text-align: left;
-		    
-		    a {
-		        color: $gray;
-		        text-decoration: none;
-		    }
 		}
     }
 
@@ -117,6 +59,86 @@
 		margin-bottom: $margin;
     }
 }
+
+.project-title {
+	clear: both;
+	@include rem(font-size, 28px);
+	@include rem(padding, $padding 0 $padding/2 0);
+}
+
+.project-meta {
+	@include rem(margin, $padding 0 $padding/2);
+	@include rem(font-size, 14px);
+	color: $green;
+	
+	.location {
+		float: left;
+	    @include rem(margin-right, $padding*2);
+	    display: block;
+	    vertical-align: middle;
+	}
+	
+	.theme {
+		float: left;
+	    @include rem(margin-right, $padding*2);
+	    display: block;
+	    vertical-align: middle;
+	}
+	
+	.tags {
+		float: left; 
+	    display: block;
+	    overflow: hidden;
+	    width: auto;
+	    color: $green;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	
+	    ul {
+	        display: inline;
+	        margin: 0;
+	        padding: 0;
+	        list-style: none;
+	        vertical-align: middle;
+	
+	        li {
+	            display: inline;
+	            color: $green;
+	            text-transform: capitalize;
+	
+	            &.out-of-range {
+	              display: none;
+	            }
+	        }
+	    }
+	}
+	
+	.project-share {
+		@include rem(margin-right, $padding);
+	    float: right;
+	    text-align: right;
+	    
+	    a {
+	        color: $gray;
+	        text-decoration: none;
+	        
+	        strong {
+		        display: none;
+	        }
+	        
+	        &:hover, &:active {
+	        	
+	        	color: $white;
+	        	
+	        	strong {
+		        	display: inline;
+	        	}
+	        }
+	    }
+	}
+	
+}
+
 
 
 

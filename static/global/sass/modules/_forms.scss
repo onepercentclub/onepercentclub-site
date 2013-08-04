@@ -169,7 +169,7 @@ form, .form {
             left: -14px;
             width: 14px;
             height: 23px;
-            background: url("../images/form-error-back-arrow.png") transparent no-repeat 0 0;
+            background: image-url("form-error-back-arrow.png") transparent no-repeat 0 0;
             content: ' ';
         }
     }
@@ -232,19 +232,27 @@ input[type="radio"] + span {
     @include rem(margin-bottom, $padding);
     display: block;
     line-height: 32px;
-    background: url("../images/form-checkbox-default.png") transparent no-repeat 0 0;
+    background-image: $icons;
+	background-position: sprite-position($icons, form-checkbox-default, 0, 0);
+	background-repeat: no-repeat;
 }
 
 input[type="radio"] + span {
-    background: url("../images/form-radio-default.png") transparent no-repeat 0 0;
+    background-image: $icons;
+	background-position: sprite-position($icons, form-radio-default, 0, 0);
+	background-repeat: no-repeat;
 }
 
 input[type="checkbox"]:checked + span {
-    background: url("../images/form-checkbox-checked.png") transparent no-repeat 0 0;
+    background-image: $icons;
+	background-position: sprite-position($icons, form-checkbox-checked, 0, 0);
+	background-repeat: no-repeat;
 }
 
 input[type="radio"]:checked + span {
-    background: url("../images/form-radio-checked.png") transparent no-repeat 0 0;
+    background-image: $icons;
+	background-position: sprite-position($icons, form-radio-checked, 0, 0);
+	background-repeat: no-repeat;
 }
 
 .radio-group-horizontal {

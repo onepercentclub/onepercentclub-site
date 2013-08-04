@@ -345,7 +345,6 @@ App.TaskMenuView = Em.View.extend({
 
 App.ProjectTaskNewView = Em.View.extend({
     templateName: 'task_new',
-    tagName: 'form',
 
     submit: function(e) {
         e.preventDefault();
@@ -356,7 +355,6 @@ App.ProjectTaskNewView = Em.View.extend({
 
 App.ProjectTaskEditView = Em.View.extend({
     templateName: 'task_edit',
-    tagName: 'form',
 
     submit: function(e) {
         e.preventDefault();
