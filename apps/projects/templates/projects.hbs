@@ -275,7 +275,7 @@
 
                     <div class="donate-call-to-action">
                         <a href='#' {{action 'addDonation' this}} class="btn btn-primary btn-iconed">
-                            <em class="flaticon">&euro;</em> {% trans "Support this project" %}
+                            <em class="flaticon">&euro;</em> {% trans "Support project" %}
                         </a>
                     </div>
                 </div>
@@ -466,8 +466,8 @@
 {% tplhandlebars "project_supporter_list" %}
 
     {{#if supporters.length}}
-        <li class="show-all-supporters supporters-amount" class="not-implemented">
-            <a href="#" class="member">
+        <li class="show-all-supporters supporters-amount">
+            <a class="member">
                 <strong>{{supporters.length}}</strong>
                 <br/>
                 <em>Total</em>

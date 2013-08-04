@@ -24,19 +24,19 @@
 	            <ul>
 	                <li>
 	                    {{#if task.isStatusOpen}}
-	                        <span class="flaticon solid inbox-3"></span>
+	                        <span class="flaticon solid clipboard-1"></span>
 	                        {% trans "Open" %}
 	                    {{/if}}
 	                    {{#if task.isStatusInProgress}}
-	                        <span class="flaticon solid inbox-5"></span>
+	                        <span class="flaticon solid upload-to-clipboard-1"></span>
 	                        {% trans "In progress" %}
 	                    {{/if}}
 	                    {{#if task.isStatusClosed}}
-	                        <span class="flaticon solid inbox-1"></span>
+	                        <span class="flaticon solid delete-from-clipboard-1"></span>
 	                        {% trans "Closed" %}
 	                    {{/if}}
 	                    {{#if task.isStatusRealized}}
-	                        <span class="flaticon solid inbox-2"></span>
+	                        <span class="flaticon solid clipboard-checkmark-1"></span>
 	                        {% trans "Realised" %}
 	                    {{/if}}
 	
@@ -49,7 +49,7 @@
 	                    {{/if}}
 	                </li>
 	                <li>
-	                    <span class="flaticon solid clock-1" />
+	                    <span class="flaticon solid watch-1" />
 	                    {{ task.timeNeeded }}
 	                </li>
 	                <li>
@@ -77,7 +77,7 @@
                             {{#each task in model}}
                             	{{render "taskPreview" task}}
                             {{else}}
-                                <li>{% trans "No tasks found." %}</li>
+                                <li class="no-results">{% trans "No tasks found." %}</li>
                             {{/each}}
                         </ul>
                     {{else}}
@@ -159,54 +159,50 @@
 {% tplhandlebars "project_task_preview" %}
 
     <li class="item item-task">
+    	{{#linkTo "projectTask" task}}
     	
-    	
-    	
-        <h2>
-            <span class="icon icon-leaf"></span>
-            {{task.skill.name}}
-        </h2>
-        
-        
-        <div class="content">
-            {{task.title}}
-        </div>
-        <div class="footer">
-            <ul>
-                <li>
-                    {{#if task.isStatusOpen}}
-                        <span class="icon icon-signin"></span>
-                        {% trans "Open" %}
-                    {{/if}}
-                    {{#if task.isStatusInProgress}}
-                        <span class="icon icon-wrench"></span>
-                        {% trans "In progress" %}
-                    {{/if}}
-                    {{#if task.isStatusClosed}}
-                        <span class="icon icon-off"></span>
-                        {% trans "Closed" %}
-                    {{/if}}
-                    {{#if task.isStatusRealized}}
-                        <span class="icon icon-trophy"></span>
-                        {% trans "Realised" %}
-                    {{/if}}
-
-                </li>
-                <li>
-                    <span class="icon-time" />
-                    {{ task.timeNeeded }}
-                </li>
-                <li>
-                    {{#if task.isStatusRealized}}
-                        <span class="icon-calendar" />
-                        {% trans "Realised" %}
-                    {{else}}
-                        <span class="icon-calendar" />
-                        {{ localize task.deadline formatting="X" }}
-                    {{/if}}
-                </li>
-            </ul>
-        </div>
+	        <h2><em class="flaticon solid wrench-1"></em>{{task.skill.name}}</h2>
+	        
+	        <span class="item-header">
+                <span class="item-task-title">
+                	<h3>{{task.title}}</h3>                 
+                </span>
+            </span>
+            
+	        <div class="item-footer">
+	            <ul>
+	                <li>
+	                    {{#if task.isStatusOpen}}
+	                        <span class="flaticon solid clipboard-1"></span>
+	                        {% trans "Open" %}
+	                    {{/if}}
+	                    {{#if task.isStatusInProgress}}
+	                        <span class="flaticon solid upload-to-clipboard-1"></span>
+	                        {% trans "In progress" %}
+	                    {{/if}}
+	                    {{#if task.isStatusClosed}}
+	                        <span class="flaticon solid delete-from-clipboard-1"></span>
+	                        {% trans "Closed" %}
+	                    {{/if}}
+	                    {{#if task.isStatusRealized}}
+	                        <span class="flaticon solid clipboard-checkmark-1"></span>
+	                        {% trans "Realised" %}
+	                    {{/if}}
+	                </li>
+	                <li>
+	                    {{#if task.isStatusRealized}}
+	                    {{else}}
+	                        <em class="flaticon solid calendar-1"></em>
+	                        {{ localize task.deadline formatting="X" }}
+	                    {{/if}}
+	                </li>
+	                <li>
+	                    <span class="flaticon solid watch-1" />
+	                    {{ task.timeNeeded }}
+	                </li>
+	            </ul>
+	        </div>
+		{{/linkTo}}
     </li>
 
 {% endtplhandlebars %}
@@ -216,38 +212,29 @@
 
     <div class="container">
         <section class="wrapper">
-            <div class="body">
-                <article class="wallpost">
-                    <header>
-                        {{#linkTo 'taskList'}}
-                            <strong>
-                                <span class="icon-chevron-left"></span>
-                                {% trans "View tasks for all project" %}
-                            </strong>
-                        {{/linkTo}}
-                        {{# if isProjectOwner}}
-                            {{#linkTo 'projectTaskNew' class="btn btn-primary btn-iconed"}}
-                                <em class="icon icon-plus"></em>
-                                {% trans "Add a task" %}
-                            {{/linkTo}}
-                        {{/if}}
-                    </header>
-                </article>
-
-                <article>
-                    <header>
-                        <ul class="results">
-                            {{#each task in controller}}
-                                {{#linkTo "projectTask" task}}
-                                    {{render projectTaskPreview task}}
-                                {{/linkTo}}
-                            {{else}}
-                                <li>{% trans "No tasks found." %}</li>
-                            {{/each}}
-                        </ul>
-                    </header>
-                </article>
+ 
+            <ul id="results">
+                {{#each task in controller}}
+                    {{render projectTaskPreview task}}
+                {{else}}
+                    <li class="no-results">{% trans "No tasks currently available for this project" %}.</li>
+                {{/each}}
+            </ul>
+            
+            {{# if isProjectOwner}}
+            <div class="project-owner-actions">
+            	
+            	<header>
+            		<h3>{% trans "You're the project owner" %}</h3>
+					<p>{% trans "You can add a new task" %}.</p>
+            	</header>
+	            {{#linkTo 'projectTaskNew' class="btn btn-primary btn-iconed link-action task-add"}}
+	                <em class="flaticon solid plus-1"></em>
+	                {% trans "Add a task" %}
+	            {{/linkTo}}
             </div>
+			{{/if}}
+            
         </section>
     </div>
 {% endtplhandlebars %}
@@ -255,237 +242,243 @@
 
 {% tplhandlebars "task" %}
 
-    <section class="wrapper">
-        <article class="wallpost">
-            <header>
-                {{#linkTo 'projectTaskList'}}
-                    <strong>
-                        <span class="icon-chevron-left"></span>
-                        {% trans "View all tasks for this project" %}
-                    </strong>
+    <section class="wrapper" id="task-detail">
+    
+    	
+        {# TODO: Make dry #}
+		{{# if isProjectOwner}}
+            <div class="project-owner-actions">
+            	<header>
+            		<h3>{% trans "You're the project owner" %}</h3>
+					<p>{% trans "You can edit or remove this task" %}.</p>
+            	</header>
+            	
+				<a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
+	                <em class="flaticon solid trash-2"></em>
+	                {% trans "Delete task" %}
+	            </a>
+	            
+                {{#linkTo projectTaskEdit controller.model class="btn btn-primary btn-iconed task-edit"}}
+                    <em class="flaticon solid pencil-3"></em> {% trans "Edit Task" %}
                 {{/linkTo}}
-            </header>
-        </article>
-        <div class="wall">
-            <article class="task">
-                <header>
-                    <h3>{{title}}</h3>
-                    <span class="header-img">
-                        {{#if isStatusOpen}}
-                            <span class="icon icon-signin"></span>
-                            {% trans "Open" %}
-                        {{/if}}
-                        {{#if isStatusInProgress}}
-                            <span class="icon icon-wrench"></span>
-                            {% trans "In progress" %}
-                        {{/if}}
-                        {{#if isStatusClosed}}
-                            <span class="icon icon-off"></span>
-                            {% trans "Closed" %}
-                        {{/if}}
-                        {{#if isStatusRealized}}
-                            <span class="icon icon-trophy"></span>
-                            {% trans "Realised" %}
-                        {{/if}}
-                    </span>
-                    </a>
+            	
+            </div>
+         {{else}}
+			 
+			{{#if isAuthor}}  
+			
+		    	<div class="project-owner-actions">
+	            	<header>
+	            		<h3>{% trans "You're the project owner" %}</h3>
+						<p>{% trans "You can edit or remove this task" %}.</p>
+	            	</header>
+	            	
+					<a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
+		                <em class="flaticon solid trash-2"></em>
+		                {% trans "Delete task" %}
+		            </a>
+		            
+	                {{#linkTo projectTaskEdit controller.model class="btn btn-primary btn-iconed task-edit"}}
+	                    <em class="flaticon solid pencil-3"></em> {% trans "Edit Task" %}
+	                {{/linkTo}}
+	            	
+	            </div>
+		    	 
+			{{/if}}
+		{{/if}}
+    
+        <div class="content">
+            <article>
+                <header id="task-status">
+                    {{#if isStatusOpen}}
+                        <em class="flaticon solid clipboard-1"></em>
+                        {% trans "Open" %}
+                    {{/if}}
+                    {{#if isStatusInProgress}}
+                        <em class="flaticon solid upload-to-clipboard-1"></em>
+                        {% trans "In progress" %}
+                    {{/if}}
+                    {{#if isStatusClosed}}
+                        <em class="flaticon solid delete-from-clipboard-1"></em>
+                        {% trans "Closed" %}
+                    {{/if}}
+                    {{#if isStatusRealized}}
+                        <em class="flaticon solid clipboard-checkmark-1"></em>
+                        {% trans "Realised" %}
+                    {{/if}}
+                </header>
+                
+                <div class="task-description">
+                	
+                    <h1>{{title}}</h1>
+                    
                     <a {{action openInBigBox "memberProfile" author}} class="user">
                         <strong class="user-name">{{author.full_name}}</strong>
                         <em class="timestamp">{{ localize created formatting="X" }}</em>
                     </a>
-                    {{#if isOwner}}
-                        <ul class="manage">
-                            <li class="manage-remove"><a {{action "deleteTask" target="view"}}>{% trans "Delete" %}</a></li>
-                        </ul>
+                    
+                	{{#if description}}
+                	<h2>{% trans "Task Description" %}</h2>
+                	<p>{{description}}</p>
+                	{{/if}}
+                	
+                	{{#if end_goal}}
+                	<h2>{% trans "End goal" %}</h2>
+                    <p>{{end_goal}}</p>
                     {{/if}}
-                </header>
-                <div class="content">
-                    <p>
-                        <strong>Description</strong> {{description}}
-                    </p>
-                </div>
-                <div class="content">
-                    <p>
-                       <strong>End goal</strong>  {{end_goal}}
-                    </p>
+                    
                 </div>
             </article>
-
-            {{ render "taskWallPostList" }}
-
+            
+			<div id="wallposts">
+        		{{ render "taskWallPostList" }}
+			</div>			
+			
         </div>
-
-
-        <div class="sidebar grey task-detail">
-            <h3>{% trans "Task detail" %}</h3>
-            <table>
-                <tr>
-                    <th>
-                        <span class="icon-wrench" />
-                        {% trans "Skill" %}
-                    </th>
-                    <td>{{ skill.name }}</td>
-                </tr>
-                {% comment %}
-                <tr>
-                    <th>
-                        <span class="icon-tag" />
-                        {% trans "Tags" %}
-                    </th>
-                    <td></td>
-                </tr>
-                {% endcomment %}
-                <tr>
-                    <th>
-                        <span class="icon-pushpin" />
-                        {% trans "Location" %}
-                    </th>
-                    <td>{{ location }}</td>
-                </tr>
-                <tr>
-                    <th>
-                        <span class="icon-time" />
-                        {% trans "Time needed" %}
-                    </th>
-                    <td>{{ timeNeeded }}</td>
-                </tr>
-                <tr>
-                    <th>
-                        <span class="icon-calendar" />
-                        {% trans "Deadline" %}
-                    </th>
-                    {{# if deadline }}
-                        <td>{{localize deadline formatting="X"}}</td>
-                    {{else}}
-                        <td>--</td>
-                    {{/if}}
-                </tr>
-                <tr>
-                    <th>
-                        <span class="icon-tags" />
-                        {% trans "Tags" %}
-                    </th>
-                    <td>
-                        {{#each tag in tags}}
-                            {{tag.id}}
-                        {{/each}}
-                    </td>
-                </tr>
-            </table>
-            {{#if isAuthor}}
-                {{#linkTo projectTaskEdit controller.model class="edit"}}
-                    <span class="icon icon-edit"></span> {% trans "Edit task details" %}
-                {{/linkTo}}
-                <br />
-            {{/if}}
-        </div>
-
-        <div class="sidebar grey task-detail">
-            <h3>{% trans "Task members" %}</h3>
-            <ul class="members">
-                {{#each members}}
-                    <li>
-                        {{#if controller.isAuthor}}
-                            <a {{action "editTaskMember" this}} class="action">
-                                <span class="status">
-                                    {{#if isStatusApplied}}
-                                        <span class="icon icon-signin"></span>
+               	
+		
+		<sidebar class="sidebar">
+	        <div class="task-meta">
+	            <h3>{% trans "Task details" %}</h3>
+	            <dl>
+	                <dt>
+	                    <em class="flaticon solid wrench-1"></em>
+	                    {% trans "Skill" %}
+	                </dt>
+	                <dd>{{ skill.name }}</dd>
+	            </dl>
+	            <dl>
+	                <dt>
+	                    <em class="flaticon solid location-pin-1"></em>
+	                    {% trans "Location" %}
+	                </dt>
+	                <dd>{{ location }}</dd>
+	            </dl>
+	            <dl>
+	                <dt>
+	                    <em class="flaticon solid watch-1"></em>
+	                    {% trans "Time needed" %}
+	                </dt>
+	                <dd>{{ timeNeeded }}</dd>
+	            </dl>
+	            <dl>
+	                <dt>
+	                    <em class="flaticon solid calendar-1"></em>
+	                    {% trans "Deadline" %}
+	                </dt>         
+	                {{# if deadline }}
+	                    <dd>{{localize deadline formatting="X"}}</dd>
+	                {{else}}
+	                    <dd>{% trans "No deadline" %}</dd>
+	                {{/if}}
+	            </dl>
+	            <dl>          
+	                <dt>
+	                    <em class="flaticon solid tag-1"></em>
+	                    {% trans "Tags" %}
+	                </dt>
+	                <dd>
+	                    {{#each tag in tags}}
+	                        {{tag.id}}
+	                    {{/each}}
+	                </dd>
+	            </dl>
+	        </div>
+	
+	        <div class="task-members">
+	            <h3>{% trans "Task members" %}</h3>
+	            {{#if members}}
+	            <ul class="members">
+	                {{#each members}}
+	                    <li class="item">
+	                        <span class="member">
+	                        	
+	                        	<a {{action openInBigBox "userModal" this.member }}>
+	                            	<img class="user-img" {{bindAttr src="this.member.getAvatar"}} />
+									<strong class="user-name">{{this.member.full_name}}</strong><br/>
+									<em class="time-applied">{{localize this.created formatting="X"}}</em>
+	                        	</a>
+	                        	
+								<span class="task-status">
+								    {{#if isStatusApplied}}
+                                        <em class="flaticon solid clipboard-1"></em>
                                         {% trans "Applied" %}
                                     {{/if}}
                                     {{#if isStatusAccepted}}
-                                        <span class="icon icon-wrench"></span>
+                                        <em class="flaticon solid upload-to-clipboard-1"></em>
                                         {% trans "Started" %}
                                     {{/if}}
                                     {{#if isStatusRejected}}
-                                        <span class="icon icon-ban-circle"></span>
+                                        <em class="flaticon solid delete-from-clipboard-1"></em>
                                         {% trans "Rejected" %}
                                     {{/if}}
                                     {{#if isStatusRealized}}
-                                        <span class="icon icon-trophy"></span>
+                                        <em class="flaticon solid clipboard-checkmark-1"></em>
                                         {% trans "Realised" %}
                                     {{/if}}
-                                </span>
-                            </a>
-                        {{else}}
-                            <span class="status">
-                                {{#if isStatusApplied}}
-                                    <span class="icon icon-signin"></span>
-                                    {% trans "Applied" %}
-                                {{/if}}
-                                {{#if isStatusAccepted}}
-                                    <span class="icon icon-wrench"></span>
-                                    {% trans "Started" %}
-                                {{/if}}
-                                {{#if isStatusRejected}}
-                                    <span class="icon icon-ban-circle"></span>
-                                    {% trans "Rejected" %}
-                                {{/if}}
-                                {{#if isStatusRealized}}
-                                    <span class="icon icon-trophy"></span>
-                                    {% trans "Realised" %}
-                                {{/if}}
-                            </span>
-                        {{/if}}
-                        <a {{action openInBigBox "userModal" this.member }} class="member">
-                            <img class="user-img" {{bindAttr src="this.member.getAvatar"}} />
-                        </a>
-                        <a {{action openInBigBox "userModal" this.member }} class="member">
-                            <div class="detail">
-                                <strong>{{this.member.full_name}}</strong><br/>
-                                <em>{{localize this.created formatting="X"}}</em>
-                            </div>
-                        </a>
-                    </li>
-                {{/each}}
-            </ul>
-            {{#if isMember}}
-                {% comment %}
-                <a {{action stopWorkingOnTask this }} class="edit">
-                    <span class="icon-check"></span>
-                    {% trans "Done working on this task" %}
-                </a>
-                {% endcomment %}
-            {{else}}
-                {{#if controllers.currentUser.isAuthenticated }}
-                    {{#if isStatusRealized}}
-                    {{else}}
-                        <a {{action applyForTask this }} class="btn btn-secondary btn-iconed"}}>
-                            <em class="icon icon-signin"></em> {% trans "Apply for task" %}
-                        </a>
-                    {{/if}}
-                {{else}}
-                    <form>
-                        <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to apply for this task." %}
-                    </form>
-                {{/if}}
-            {{/if}}
-
-        </div>
-
-        <div class="sidebar grey task-detail">
-            <h3>{% trans "Task files" %}</h3>
-            <ul class="files">
-                {{#each files}}
-                    <li>
-                        <a {{bindAttr href=this.file.url}} target="file">
-                            <span class="status action">
-                                <span class="icon icon-download-alt" />
-                                {% trans "get" %}
-                            </span>
-                        </a>
-                        <div class="detail">
-                            <strong>{{this.title}}</strong><br />
-                            <span class="tiny">{{this.file.size}}<br/></span>
-                            <em>{{this.author.full_name}}</em>
-                        </div>
-                    </li>
-                {{/each}}
-            </ul>
-            <a {{action uploadFile this}} class="edit">
-                <span class="icon-check"></span>
-                {% trans "Upload a new file" %}
-            </a>
-        </div>
+								</span>
+		                        {{#if controller.isAuthor}}
+		                            <a {{action "editTaskMember" this}} class="">
+		                                {% trans "Edit" %}
+		                            </a>
+		                        {{/if}}
+	                        </span>
+	                        
+	                    </li>
+	                {{/each}}
+				</ul>
+				{{else}}
+					<p>{% trans "No member assigned to this task yet" %}.</p>
+				{{/if}}
+				
+				
+				{{#if isMember}}
+	            {% comment %}
+	            <a {{action stopWorkingOnTask this }} class="button-link">
+	                <em class="flaticon solid clipboard-checkmark-1"></em>
+	                {% trans "Done working on this task" %}
+	            </a>
+	            {% endcomment %}
+		        {{else}}
+		            {{#if controllers.currentUser.isAuthenticated }}
+		                {{#if isStatusRealized}}
+		                {{else}}
+		                    <a {{action applyForTask this }} class="btn btn-primary btn-iconed"}}>
+		                        <em class="flaticon solid add-to-clipboard-1"></em> {% trans "Apply for task" %}
+		                    </a>
+		                {{/if}}
+		            {{else}}
+		            	<a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to apply for this task" %}.
+		            {{/if}}
+		        {{/if}}
+				
+	        </div>
+	        
+	        
+	        <div class="task-files">
+	            <h3>{% trans "Task files" %}</h3>
+	            
+	            <ul class="task-files">
+	                {{#each files}}
+	                    <li>
+	                        <a {{bindAttr href=this.file.url}} target="file" class="item">
+	                        	<em class="flaticon solid download-document-1"></em>
+								<strong class="file-name">{{this.title}}</strong>
+								<small class="file-size">({{this.file.size}})</small>
+	                            <em class="file-author">{% trans "by" %} {{this.author.full_name}}</em>
+	                        </a>
+	                    </li>
+	                {{/each}}
+	            </ul>
+	            
+	            <a {{action uploadFile this}} class="btn btn-iconed btn-uploader">
+	                <em class="flaticon solid upload-document-1"></em>
+	                {% trans "Upload a file" %}
+	            </a>
+	        </div>
+	       	      
+	        
+        </sidebar>
 
     </section>
 
@@ -522,9 +515,10 @@
 
 {% tplhandlebars "task_new" %}
 
-    <div class="container section">
+    <div class="container">
         <section class="wrapper">
-            <fieldset class="content" id="wallpost-form">
+        	<div class="content">
+            <fieldset id="task-form">
                 <ul>
                     <li class="control-group">
                         <label class="control-label" for="task-title">
@@ -634,10 +628,10 @@
                             <div class="errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
-
                 </ul>
-                <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Post Task" %}</button>
             </fieldset>
+            <button class="btn btn-primary btn-iconed right" type="submit"><em class="flaticon solid wrench-1"></em>{% trans "Create Task" %}</button>
+        	</div>
         </section>
     </div>
 
@@ -646,9 +640,10 @@
 
 {% tplhandlebars "task_edit" %}
 
-    <div class="container section">
+     <div class="container">
         <section class="wrapper">
-            <fieldset class="content" id="wallpost-form">
+        	<div class="content">
+            <fieldset id="task-form">
                 <ul>
                     <li class="control-group">
                         <label class="control-label" for="task-title">
@@ -791,10 +786,14 @@
                     </li>
 
                 </ul>
-                <button class="btn btn-iconed right" type="submit"><i class="icon icon-chevron-right"></i>{% trans "Save Task" %}</button>
-                <button class="btn right btn-minor" {{action cancelChangesToTask this}}><i class="icon icon-ban-circle"></i> {% trans "Cancel changes" %}</button>
             </fieldset>
-       </section>
+            
+            
+                <button class="btn btn-primary btn-iconed right" type="submit"><em class="flaticon solid wrench-1"></em>{% trans "Save Task" %}</button>
+                <button class="btn right btn-minor" {{action cancelChangesToTask this}}><em class="flaticon stroke x-2"></em> {% trans "Cancel changes" %}</button>
+            
+           </div>
+        </section>
     </div>
 
 {% endtplhandlebars %}
@@ -802,8 +801,26 @@
 {% endlanguage %}
 
 {% tplhandlebars "task_file_new" %}
-    <fieldset class="content" id="wallpost-form">
+    <fieldset id="task-form">
         <ul>
+            <li class="control-group">
+                <label class="control-label" for="tile-file">
+                    {% trans "File" %}
+                </label>
+
+                <div class="controls">
+                    <a class="btn btn-iconed btn-uploader">
+                        {{view App.UploadFileView valueBinding="file" name="file" id="file"}}
+                        <em class="flaticon solid upload-document-1"></em>
+                        {% trans "Upload file" %}
+                    </a>
+                </div>
+                 
+		        {{#if errors.file }}
+		            <div class="errors">{{#each errors.file }}<p>{{this}}</p>{{/each}}</div>
+		        {{/if}}
+            </li>
+                
             <li class="control-group">
                 <label class="control-label" for="tile-title">
                     {% trans "Title" %}
@@ -815,23 +832,6 @@
 
                 {{#if errors.title }}
                     <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-            <li class="control-group">
-                <label class="control-label" for="tile-file">
-                    {% trans "File" %}
-                </label>
-
-                <div class="controls">
-                    <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFileView valueBinding="file" name="file" id="file"}}
-                        <em class="icon icon-upload"></em>
-                        {% trans "Upload file" %}
-                    </a>
-                </div>
-
-                {{#if errors.file }}
-                    <div class="errors">{{#each errors.file }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
         </ul>
