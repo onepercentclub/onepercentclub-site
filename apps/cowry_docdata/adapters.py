@@ -83,19 +83,30 @@ class DocDataAPIVersionPlugin(MessagePlugin):
 
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
-    # Mapping of DocData statuses to Cowry statuses.
+    # Mapping of DocData statuses to Cowry statuses. Statuses are from:
+    #
+    #   Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 35
+    #
+    # The documentation is incorrect for the following statuses:
+    #
+    #   Documented          Actual
+    #   ==========          ======
+    #
+    #   CANCELLED           CANCELED
+    #   CLOSED_CANCELED     CLOSED_CANCELED (guessed based on old api)
+    #
     status_mapping = {
         'NEW': PaymentStatuses.new,
         'STARTED': PaymentStatuses.in_progress,
         'AUTHORIZED': PaymentStatuses.pending,
         'AUTHORIZATION_REQUESTED': PaymentStatuses.pending,
         'PAID': PaymentStatuses.pending,
-        'CANCELLED': PaymentStatuses.cancelled,
+        'CANCELED': PaymentStatuses.cancelled,
         'CHARGED-BACK': PaymentStatuses.cancelled,
         'CONFIRMED_PAID': PaymentStatuses.paid,
         'CONFIRMED_CHARGEDBACK': PaymentStatuses.cancelled,
         'CLOSED_SUCCESS': PaymentStatuses.paid,
-        'CLOSED_CANCELLED': PaymentStatuses.cancelled,
+        'CLOSED_CANCELED': PaymentStatuses.cancelled,
     }
 
     # TODO: Create defaults for this like the payment_methods
@@ -399,7 +410,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 ddpayment.payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
-            if not payment_report.authorization.status in DocDataPayment.statuses:
+            if not payment_report.authorization.status in self.status_mapping:
                 # Note: We continue to process the payment status change on this error.
                 log_status_update(payment, PaymentLogLevels.error,
                                   "Received unknown payment status from DocData: {0}".format(
