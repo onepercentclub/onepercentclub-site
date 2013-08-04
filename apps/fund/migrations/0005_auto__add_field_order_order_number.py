@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Order.order_number'
         db.add_column(u'fund_order', 'order_number',
-                      self.gf('django.db.models.fields.CharField')(default=None, unique=True, max_length=20, db_index=True),
+                      self.gf('django.db.models.fields.CharField')(default=None, unique=True, max_length=30, db_index=True),
                       keep_default=False)
 
 
@@ -105,7 +105,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('-created',)", 'object_name': 'Order'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order_number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '20', 'db_index': 'True'}),
+            'order_number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30', 'db_index': 'True'}),
             'recurring': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'status': ('django.db.models.fields.CharField', [], {'default': "'current'", 'max_length': '20', 'db_index': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
