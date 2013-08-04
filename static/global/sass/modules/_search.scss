@@ -1,5 +1,6 @@
 #results {
     @include grid(48, 1, 0);
+    @include rem(margin-top, $padding * 2);
     
     .item a {
         @include rem (margin-top, $padding/2);
@@ -13,7 +14,8 @@
         	display: block;
             position: relative;
             overflow: hidden;
-            
+            min-height: 50px;
+            background: $black;
             
             .item-image {
             	position: relative;
@@ -21,7 +23,6 @@
             	overflow: hidden;
             	height: 160px;
             	text-align: center;
-            	background: $black;
             	
             	img {
             		position: absolute;
@@ -31,11 +32,14 @@
 				}
             }
             
-			.item-project-title {
-				display: block;
-				width: 100%;
+            .item-project-title {
+	            width: 100%;
 				position: absolute;
 				bottom: 0;
+            }
+            
+			.item-project-title, .item-task-title {
+				display: block;
 				@include rem (padding, $padding);
 				background-color: rgba(0, 0, 0, 0.7);
 				color: $white;
@@ -330,7 +334,7 @@
 	
     @include clearfix;
     @include grid(48,1);
-    @include rem(padding, ($padding * 2) 0 $padding);
+    @include rem(padding-top, $padding * 2);
 	text-transform: uppercase;
 	
 	.search-results {

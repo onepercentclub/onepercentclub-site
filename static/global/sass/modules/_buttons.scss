@@ -22,8 +22,8 @@
 // The standard button has the $color-brand colors
 .btn {
     @include rem(font-size, 18px);
-    @include rem(padding, 8px 16px 8px 16px);
-    @include rem(line-height, 32px);
+    @include rem(padding, 12px 16px 8px 16px);
+    @include rem(line-height, 36px);
     display: inline-block;
     margin: 0;
     border: 1px solid darken($green, 5%);
@@ -68,10 +68,10 @@
 
 .btn:hover,
 .btn-primary:hover {
-    border-color: darken($grayDarker, 5%);
+    border-color: $black;
     background-color: $grayDarker;
     color: $white;
-
+	
     .btn-title,
     .btn-subtitle {
         color: $white;
@@ -98,15 +98,15 @@
 	@include border-radius(1px 0 0 1px);
 	
     .flaticon, .icon {
-        @include rem(margin-right, ($padding / 2));
+        @include rem(margin-right, 12px);
         @include rem(padding, 10px 8px 8px 8px);
+        @include rem(width, 50px);
         @include rem(font-size, 26px);
         display: inline-block;
         background: darken($green, 5%);
         color: lighten($green, 5%);
         vertical-align: middle;
         text-align: center;
-        width: auto;
         
     }
 
@@ -131,6 +131,7 @@
     }
     
     &:hover {
+    	
         .flaticon, .icon {
             background: #333;
             color: $white;

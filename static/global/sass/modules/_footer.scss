@@ -71,8 +71,10 @@
 	}
 	
 	.footer-social-links {
+		@include rem(margin-top, $padding/2);
+		
 	    li {
-	        @include rem(margin-right, 5px);
+	        @include rem(margin-right, 8px);
 	        float: left;
 	        .flaticon {
 	            transition: 200ms;
@@ -85,7 +87,7 @@
 	            @include rem(padding-top, 7px);
 	            text-align: center;
 	            &:hover {
-	                background-color: $green;
+	                background-color: $text-black;
 	            }
 	        }
 	    }

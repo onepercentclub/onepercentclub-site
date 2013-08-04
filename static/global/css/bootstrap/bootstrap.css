@@ -1,25 +1,14 @@
 /*
-Syntax error: Undefined mixin 'rem'.
-        on line 122 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss, in `rem'
-        from line 122 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss
+Syntax error: Undefined variable: "$text-black".
+        on line 48 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss
         from line 52 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss
 
 Backtrace:
-/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss:122:in `rem'
-/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss:122
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss:48
 /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss:52
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
-org/jruby/RubyKernel.java:2109:in `send'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:100:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-org/jruby/RubyArray.java:2339:in `collect'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:109:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/script/variable.rb:49:in `_perform'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/script/node.rb:40:in `perform'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:298:in `visit_prop'
 org/jruby/RubyKernel.java:2109:in `send'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `visit'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.8/lib/sass/tree/visitors/perform.rb:100:in `visit'
@@ -97,4 +86,4 @@ org/jruby/RubyProc.java:224:in `call'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'rem'.\A         on line 122 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss, in `rem'\A         from line 122 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss\A         from line 52 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss"; }
+  content: "Syntax error: Undefined variable: \"$text-black\".\A         on line 48 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss\A         from line 52 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss"; }

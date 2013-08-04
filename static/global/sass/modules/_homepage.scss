@@ -3,20 +3,20 @@
     background-color: #323232;
     @include rem(margin-bottom, 48px);
     
-    #power-of {
-        background: image-url("home-back-power-of.png") transparent no-repeat 900px -20%;
+    #power-of .banner-image {
+        background: image-url("home-back-power-of.png") transparent no-repeat 100px -20%;
     }
     
     #new-website {
         background: image-url("home-back-new-website.png") transparent repeat-x 0 0;
     }
     
-    #find-project {
-        background: image-url("home-back-find-project.jpg") transparent no-repeat 800px 0;
+    #find-project .banner-image {
+        background: image-url("home-back-find-project.jpg") transparent no-repeat 0 0;
     }
     
-    #befriend {
-        background: image-url("home-back-befriend.png") transparent no-repeat 900px 30%;
+    #befriend .banner-image {
+        background: image-url("home-back-befriend.png") transparent no-repeat 100px 50%;
     }
 }
 
@@ -70,6 +70,8 @@
 
 #bannerCarousel {
     margin: 0;
+    height: 380px !important;
+    overflow: hidden;
 
     > ul {
         @include clearfix;
@@ -82,16 +84,16 @@
             color: $white;
             
             .container {
-            	height: 380px;
 	            @include rem(padding, 48px 0 48px 0);
-	            
             }
-
+            
             article {
+            	position: relative;
                 @include grid(28,1,1);
 				@include rem(font-size, 18px);
-				//background-color: rgba(50,50,50,0.8);
 				@include rem(padding, 16px 16px 16px 0);
+				height: 300px;
+				z-index: 2;
 				
                 h4 {
                     @include rem(font-size, 32px);
@@ -102,12 +104,15 @@
                 }
             }
 
-            aside {
-                @include grid(16);
-
-                img {
-                    width: 100%;
-                }
+            .banner-image {
+            	@include clearfix;
+            	position: relative;
+            	top: -348px;
+                overflow: auto;
+	            width: 50%;
+	            float: right;
+				height: 380px;
+				z-index: 1;
             }
         }
     }

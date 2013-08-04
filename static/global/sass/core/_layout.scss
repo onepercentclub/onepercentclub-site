@@ -75,7 +75,7 @@ body {
 
 
 .wrapper .sidebar, .wrapper sidebar  {
-    @include grid(16, 2, 1);
+    @include grid(16, 1, 1);
     //@include rem(padding, 32px );
 }
 

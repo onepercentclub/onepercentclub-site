@@ -28,7 +28,7 @@
             color: $heading-black;
         }
 
-        .country {
+        .country, .project-status {
             @include rem(font-size, 14px);
 			@include rem(margin-top, $padding/2);
             color: $gray;
@@ -38,7 +38,7 @@
             text-transform: none;
         }
 
-        .donation-amount {
+        .donation-amount, .project-actions {
             @include grid(16);
             text-align: right;
         }

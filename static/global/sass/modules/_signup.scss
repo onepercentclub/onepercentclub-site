@@ -1,33 +1,67 @@
-.form-signup {
-	.control-group .controls {
-		@include grid(32, 0);
-	}
-}
-
-.widget-login {
-	@include rem('margin-top', 32px);
-}
-
-.widget-member-advantage {
-	@include rem('margin-top', 32px);
-	@include rem('padding', $padding);
-	background: $white;
-
-	.widget-icon {
-		@include rem('font-size', 200px);
-		text-align: center;
-		color: $grayLighter;
-		line-height: 1;
-	}
-
-	.widget-header {
-		color: $green;
-		text-transform: uppercase;
-		font-weight: 300;
-	}
-
-	.widget-body {
-		@include rem('font-size', 14px);
+#signup {
+	
+	.signup-agree {
+		@include rem(font-size, 14px);
 		color: $gray;
+		float: left;
+		@include rem('padding-top', $padding);
+		
+		a {
+			color: $gray;
+			text-decoration: underline;
+		}
+	}	
+	
+	button {
+		float: right;
 	}
+	
+}
+
+#members {
+	
+	
+	.login-link {
+		@include rem('margin-top', $padding*2);
+		background: $white;
+		
+		strong {
+			text-transform: uppercase;
+			text-decoration: underline;
+		}
+		
+		em {
+			color: $gray;
+			display: block;
+			@include rem(text-indent, 18px);
+			font-style: normal;
+		}
+		
+		.flaticon {
+			display: inline;
+		}
+	}
+	
+	.members-advantage {
+		
+		@include rem('padding', $padding $padding*2);
+		@include rem('margin-top', $padding);
+		background: $color-back;
+		
+		.flaticon {
+			display: inline-block;
+			width: 100%;
+			@include rem('font-size', 200px);
+			text-align: center;
+			color: $white;
+			line-height: 1;
+		}
+	
+		h3 {
+			padding-top: 0;
+			color: $green;
+		}
+	
+	}
+	
 }
