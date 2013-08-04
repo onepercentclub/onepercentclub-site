@@ -14,7 +14,11 @@ class DocDataPaymentLogEntryInine(admin.TabularInline):
 
 class DocDataPaymentInline(admin.TabularInline):
     model = DocDataPayment
+    can_delete = False
     extra = 0
+    max_num = 0
+    fields = ('payment_method', 'status', 'created', 'updated')
+    readonly_fields = fields
 
 
 class DocDataPaymentOrderAdmin(admin.ModelAdmin):
