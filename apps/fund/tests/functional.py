@@ -74,9 +74,9 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         self.assertEqual(self.browser.find_by_css('h1.project-title').first.text,
                          u'WOMEN FIRST')
         self.assertEqual(self.browser.find_by_css('p.donate-amount').first.text,
-                         u'\u20ac5 OF \u20ac500 RAISED') # Leading EUR-sign
+                         u'\u20ac5 OF \u20ac500 RAISED')  # Leading EUR-sign
         self.assertEqual(self.browser.find_by_css('div.donate-call-to-action').first.text,
-                         u'SUPPORT THIS PROJECT')
+                         u'\u20ac SUPPORT THIS PROJECT')  # Leading EUR-sign
 
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project 
