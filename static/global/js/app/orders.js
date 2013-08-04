@@ -432,7 +432,7 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 
 
 App.PaymentProfileController = Em.ObjectController.extend({
-    needs: ['currentOrder'],
+    needs: ['currentOrder', 'currentUser'],
 
     initTransaction: function() {
         var transaction = this.get('store').transaction();

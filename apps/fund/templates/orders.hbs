@@ -302,12 +302,12 @@
 </div>
 
 <div class="sidebar tip">
-	<h3>{% trans "Did you know?" %}</h3>
-	{{#if controllers.currentUser.isAuthenticated }}
-    <p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps." %}</p>   
-	{{else}}
-	<p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached we'll make sure your donation will support a similar project." %}</p>
-	{{/if}}
+    <h3>{% trans "Did you know?" %}</h3>
+    {{#if controllers.currentUser.isAuthenticated }}
+        <p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps." %}</p>
+    {{else}}
+        <p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached we'll make sure your donation will support a similar project." %}</p>
+    {{/if}}
 </div>
 
 {% endtplhandlebars %}
