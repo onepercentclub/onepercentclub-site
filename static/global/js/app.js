@@ -995,7 +995,6 @@ App.CurrentOrderDonationListRoute = Em.Route.extend({
                 controller.set('recurringPayment', null);
             }
         });
-
     }
 });
 
