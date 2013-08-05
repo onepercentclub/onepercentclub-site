@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
 "POT-Creation-Date: 2013-08-04 23:04+0200\n"
-"PO-Revision-Date: 2013-08-04 21:05+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"PO-Revision-Date: 2013-08-05 10:30+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +137,7 @@ msgstr "gebruiker"
 
 #: models.py:125
 msgid "Order Number"
-msgstr ""
+msgstr "Aantal"
 
 #: models.py:164
 msgid "GIFTCARDS"
@@ -165,7 +165,7 @@ msgstr "BEDANKT!"
 
 #: models.py:189
 msgid "Couldn't generate a unique order number."
-msgstr ""
+msgstr "Kon geen unieke order number genereren"
 
 #: models.py:220
 msgid "Cancelled"
@@ -388,11 +388,11 @@ msgstr "Betaling"
 
 #: templates/orders.hbs:102
 msgid "Donate to projects"
-msgstr "Steun project(en)"
+msgstr "Support project(en)"
 
 #: templates/orders.hbs:104
 msgid "Donate to project"
-msgstr "Steun project"
+msgstr "Support project"
 
 #: templates/orders.hbs:111
 msgid "One time only"
@@ -428,7 +428,7 @@ msgstr "Doneer aan projecten"
 
 #: templates/orders.hbs:172
 msgid "Total Amount"
-msgstr "Totaalbedrag"
+msgstr "Totaal "
 
 #: templates/orders.hbs:182 templates/vouchers.hbs:140
 msgid "Total"
@@ -539,7 +539,7 @@ msgstr "nog nodig"
 
 #: templates/orders.hbs:349
 msgid "I'd like to give"
-msgstr "Ik doneer graag"
+msgstr "Ik doneer"
 
 #: templates/orders.hbs:374 templates/orders.hbs.py:396
 msgid "You're almost there!"
@@ -668,11 +668,11 @@ msgstr "Maak je maandelijkse donatie aan"
 
 #: templates/orders.hbs:608
 msgid "You just supported this project"
-msgstr ""
+msgstr "Je hebt zojuist gesteund"
 
 #: templates/orders.hbs:611
 msgid "You just supported the top three projects."
-msgstr ""
+msgstr "Je hebt bijgedragen aan"
 
 #: templates/orders.hbs:632
 msgid "Your monthly donation is set"

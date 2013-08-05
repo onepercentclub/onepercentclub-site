@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-04 23:04+0200\n"
+"POT-Creation-Date: 2013-08-05 14:00+0200\n"
 "PO-Revision-Date: 2013-07-26 08:04+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -351,9 +351,9 @@ msgid "Location"
 msgstr "Location"
 
 #: templates/users.hbs:176
-#, fuzzy, python-format
-msgid "1%%SKILLS"
-msgstr "1%SKILLS"
+#, python-format
+msgid "1%%SKills"
+msgstr ""
 
 #: templates/users.hbs:177
 #, python-format
@@ -392,7 +392,7 @@ msgstr "I'd like to receive emails about"
 
 #: templates/users.hbs:262
 #, fuzzy, python-format
-msgid "1%%Newsletters"
+msgid "1%%News"
 msgstr "newsletter"
 
 #: templates/users.hbs:275
@@ -628,6 +628,10 @@ msgstr "New password"
 #: templates/users.hbs:765
 msgid "Confirm new password"
 msgstr "Confirm new password"
+
+#, fuzzy
+#~ msgid "1%%SKILLS"
+#~ msgstr "1%SKILLS"
 
 #, fuzzy
 #~ msgid "Monthly Donation"
