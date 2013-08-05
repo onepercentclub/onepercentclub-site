@@ -17,7 +17,7 @@
             {{/if}}
         {{else}}
         	<h3>{% trans "Write a comment" %}</h3>
-        	<p>{% trans "You have to" %} <a {{action openInBox "login"}} class="nav-login">{%  trans "login" %}</a> or {{#linkTo "signup"}}{% trans "become a 1%Member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+        	<p>{% trans "You have to" %} <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a> or {{#linkTo "signup"}}{% blocktrans %}become a 1%Member{% endblocktrans %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
         {{/if}}
     </div>
 
