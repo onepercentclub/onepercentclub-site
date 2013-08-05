@@ -22,7 +22,7 @@
 // The standard button has the $color-brand colors
 .btn {
     @include rem(font-size, 18px);
-    @include rem(padding, 10px 16px 4px 16px);
+    @include rem(padding, 9px 16px 5px 16px);
     @include rem(line-height, 32px);
     display: inline-block;
     margin: 0;
@@ -43,7 +43,7 @@
         color: #656565 !important;
         border-top-width: 5px;
         border-color: $black !important;
-        @include rem(padding, 9px 16px 1px 16px);
+        @include rem(padding, 8px 16px 2px 16px);
     }
 
     &.disabled, &[disabled], &.disabled:hover, &[disabled]:hover, &.disabled:active, &[disabled]:active {
@@ -104,7 +104,8 @@
         background: darken($green, 5%);
         color: lighten($green, 5%);
         text-align: center;
-		vertical-align: middle;
+		vertical-align: sub;
+		line-height: 0.85;
     }
     
     
