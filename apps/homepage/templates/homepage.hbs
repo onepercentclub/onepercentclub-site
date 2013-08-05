@@ -79,7 +79,7 @@
 				                </div>
 	                            
 	                            <h2 class="project-title">
-	                                <a href="">{{project.title}}</a>
+	                                {{#linkTo project project.getProject }}{{project.title}}{{/linkTo}}
 	                            </h2>
 	
 	                            <p class="project-description">

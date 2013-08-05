@@ -1,0 +1,37 @@
+#project-detail {
+	
+	header {
+		@include grid(48, 1, 1);
+	}
+	
+	@include rem(font-size, 16px);
+	
+	article {
+		@include grid(24, 1, 1);
+		clear: none !important;
+		
+		br {   
+			content: " " !important;
+			display: block !important;
+			margin-bottom: 1.5em !important;
+		}
+		
+		img {
+			width: 100%;
+		}
+	}
+	
+	h1 {
+		
+	}
+	
+	h2 {
+		color: $green;
+	}
+	
+	.sidebar {
+		@include grid(16, 1, 1);
+	}
+	
+	
+}

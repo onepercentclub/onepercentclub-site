@@ -17,7 +17,7 @@
             {{/if}}
         {{else}}
         	<h3>{% trans "Write a comment" %}</h3>
-        	<p>{% trans "You have to" %} <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a> or {{#linkTo "signup"}}{% trans "become a 1%Member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+        	<p>{% trans "You have to" %} <a {{action openInBox "login"}} class="nav-login">{%  trans "login" %}</a> or {{#linkTo "signup"}}{% trans "become a 1%Member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
         {{/if}}
     </div>
 
@@ -324,14 +324,17 @@
 
 
 {% tplhandlebars "task_wallpost_list" %}
-
-    {{#if controllers.currentUser.isAuthenticated }}
-        {{ render "taskWallPostNew" }}
-    {{else}}
-        <form>
-            <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
-        </form>
-    {{/if}}
+	
+	
+	    {{#if controllers.currentUser.isAuthenticated }}
+	    	<div id="comment-box">
+	        {{ render "taskWallPostNew" }}
+			</div>
+	    {{else}}
+	        <div class="login-form">
+	            <a {{action openInBox "login"}} class="nav-login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
+	        </div>
+	    {{/if}}
 
     {{#each item in items itemController="wallPost"}}
         {{#if item.isLoaded}}

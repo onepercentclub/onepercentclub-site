@@ -26,27 +26,22 @@
 
 #task-detail {
 	
-	
-	
 	#wallposts {
 		
-		form {
-			
-			@include clearfix;
-			@include rem(margin-bottom, $padding*2);
+		.login-form {
+			background: $color-back;
+			@include rem (padding, $padding $padding*2);
 		}
 		
 		#comment-box {
-			
+			@include clearfix;
+			@include append(1);
+			@include prepend(11);
 		}
-		
 	}
 	
-	
-
 	article {
 		@include clearfix;
-		
 	}
 	
 	.task-list {
@@ -63,6 +58,7 @@
             @include rem(font-size, 40px);
             display: block;
         }
+        
         @include rem(padding, $padding 0);
         @include rem(font-size, 16px);
 		font-weight: 600;
@@ -152,6 +148,11 @@
 			p {
 				background: $color-back;
 				@include rem(padding, 0 $padding*2 $padding*2 $padding*2);
+			}
+			
+			.login-signup {
+				background: $white;
+				@include rem(padding, 0 $padding*2);
 			}
 			
 			ul {

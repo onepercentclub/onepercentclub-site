@@ -323,7 +323,7 @@
                         {{/linkTo}}
                     {{else}}
                         {{#linkTo "projectTaskList"}}
-                            <span class="tab-icon">-</span>
+                            <span class="tab-icon">0</span>
                             <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "No skills needed" %}</em></strong>
                         {{/linkTo}}
                     {{/if}}
@@ -509,67 +509,91 @@
 {% tplhandlebars "project_plan" %}
 
     <section class="wrapper">
-        <div class="wall">
-            <article>
-                <h3>{% trans "Project plan" %}</h3>
-                {{theme.title}}<br/>
-                {{#each tag in tags}}
-                    <a>
-                        {{tag.id}}
-                    </a>
-                {{/each}}
+        <div id="project-detail">
+            
+            <header>
+            	<h1>{% trans "Project Plan" %}</h1>
+            </header>
+           
+            {{#if description}}
+            	<article>
+            	<h2>{% trans "Why, what and how?" %}</h2>
+				<p>{{{description}}}</p>
+				</article>
+			{{/if}}
+			
+			{{#if effects}}
+				<article>
+            	<h2>{% trans "Effects" %}</h3>
+            	<p>{{{effects}}}</p>
+            	</article>
+            {{/if}}
+			
+			{{#if future}}
+            	<article>
+            	<h2>{% trans "Future" %}</h2>
+				<p>{{{future}}}</p>
+            	</article>
+			{{/if}}
+				
+			{{#if forWho}}
+				<article>
+            	<h2>{% trans "For who?" %}</h2>
+				<p>{{{forWho}}}</p>
+				</article>
+			{{/if}}
+			
+			{{#if reached}}
+				<article>
+            	<h2>{% trans "People reached" %}</h2>
+				<p>{{{reached}}}</p>
+				</article>
+			{{/if}}
 
-                <h3>{% trans "Why, what and how?" %}</h3>
-                {{{description}}}
-
-                <h3>{% trans "Effects" %}</h3>
-                {{{effects}}}
-
-                <h3>{% trans "Future" %}</h3>
-                {{{future}}}
-
-                <h3>{% trans "For who?" %}</h3>
-                {{{forWho}}}
-
-                <h3>{% trans "People reached" %}</h3>
-                {{{reached}}}
-
-                <h3>{% trans "Why, what, how?" %}</h3>
-                {{{description}}}
-
-                <h3>{% trans "Location" %}</h3>
-                {{country.name}}, {{country.subregion}}<br />
-                <img {{bindAttr src="view.staticMap"}} />
-
-                <h3>{% trans "Organisation" %}</h3>
-                {{organization.name}}<br/>
-                {{organization.description}}<br/>
+			{{#if country.name}}
+				<article>
+            	<h2>{% trans "Location" %}</h3>
+				<p>{{country.name}}, {{country.subregion}}</p>
+				<img {{bindAttr src="view.staticMap"}} />
+				</article>
+			{{/if}}
+			
+			{{#if organization.name}}
+				<article>
+            	<h2>{% trans "Organisation" %}</h2>
+				<h3>{{organization.name}}</h3>
+				<p>{{organization.description}}</p>
+				
+				<ul>
                 {{#if organization.website}}
-                    <span class="icon-link"></span> {{organization.website}}<br/>
+                    <li><a hef="{{organization.website}}"><em class="flaticon solid link-1"></em> {{organization.website}}</a><li>
                 {{/if}}
                 {{#if organization.twitter}}
-                    <span class="icon-twitter"></span> {{organization.twitter}}<br/>
+                    <li><a hef="http://twitter.com/{{organization.twitter}}"><em class="flaticon social twitter-3"> {{organization.twitter}}</a></em> {{organization.twitter}}</a><li>
                 {{/if}}
                 {{#if organization.facebook}}
-                    <span class="icon-facebook"></span> {{organization.facebook}}<br/>
+                    <li><a hef="http://facebook.com/{{organization.facebook}}"><em class="flaticon social facebook-3"> {{organization.facebook}}</a></em> {{organization.facebook}}</a><li>
                 {{/if}}
                 {{#if organization.skype}}
-                    <span class="icon-skype"></span> {{organization.skype}}<br/>
+                    <li><a hef="callto:{{organization.skype}}"><em class="flaticon social skype-2"></em> {{organization.skype}}</a><li>
                 {{/if}}
-
-            </article>
+				</article>	
+            {{/if}}
+                
         </div>
 
-        {% comment %}
-        <div class="sidebar grey task-detail">
-            <h3>{{ controller.model.length }} {% trans "Project Plan" %}</h3>
-            <ul>
-                <li>Description</li>
-                <li>Budget</li>
-                <li>Theme</li>
-            </ul>
+     
+        <div class="sidebar">
+            
+            {{theme.title}}<br/>
+            {{#each tag in tags}}
+                <a>
+                    {{tag.id}}
+                </a>
+            {{/each}}
+
         </div>
-        {% endcomment %}
+        
 
     </section>
 
