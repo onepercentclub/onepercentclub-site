@@ -1986,7 +1986,9 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 .btn-primary .flaticon, .btn-primary .icon { background: #ff478a; color: #ff94bb; }
 
 .btn-iconed { padding: 0 16px 0 0; padding: 0 1.14286rem 0 0; vertical-align: text-bottom; }
-.btn-iconed .flaticon, .btn-iconed .icon { margin-right: 12px; margin-right: 0.85714rem; padding: 10px 8px 8px 8px; padding: 0.71429rem 0.57143rem 0.57143rem 0.57143rem; width: 50px; width: 3.57143rem; font-size: 26px; font-size: 1.85714rem; display: inline-block; background: #00a746; color: #00da5c; text-align: center; vertical-align: sub; line-height: 0.85; }
+.btn-iconed .flaticon, .btn-iconed .icon { margin-right: 12px; margin-right: 0.85714rem; padding: 10px 8px 8px 8px; padding: 0.71429rem 0.57143rem 0.57143rem 0.57143rem; width: 50px; width: 3.57143rem; display: inline-block; background: #00a746; color: #00da5c; text-align: center; vertical-align: sub; line-height: 0.85; }
+.btn-iconed .flaticon { font-size: 26px; font-size: 1.85714rem; }
+.btn-iconed .icon { font-size: 32px; font-size: 2.28571rem; font-style: normal; font-weight: 600; }
 .btn-iconed.btn-primary .flaticon, .btn-iconed.btn-primary .icon { background: #ff478a; color: #ff94bb; }
 .btn-iconed:hover .flaticon, .btn-iconed:hover .icon { background: #333; color: white; }
 .btn-iconed:active { padding: 0 16px 0 0; padding: 0 1.14286rem 0 0; }
