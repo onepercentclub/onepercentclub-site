@@ -85,7 +85,7 @@ App = Em.Application.create({
         // Read locale from browser with fallback to default.
         var locale = navigator.language || navigator.userLanguage || this.get('locale');
         if (locale.substr(0, 2) != language) {
-            // Some overrides to have a sound expereince, at least for dutch speaking and dutch based users.
+            // Some overrides to have a sound experience, at least for dutch speaking and dutch based users.
 
             if (language == 'nl') {
                 // For dutch language always overwrite locale. Always use dutch locale.
@@ -216,7 +216,6 @@ App.loadTemplates = function() {
 };
 
 App.loadTemplates();
-
 
 App.deferReadiness();
 
@@ -812,7 +811,11 @@ App.ProjectTaskRoute = Em.Route.extend({
         applyForTask: function(task) {
             var route = this;
             Bootstrap.ModalPane.popup({
-                classNames: ['modal'],
+                headerViewClass: Ember.View.extend({
+                    tagName: 'p',
+                    classNames: ['modal-title'],
+                    template: Ember.Handlebars.compile('{{view.parentView.heading}}')
+                }),
                 heading: gettext('Task'),
                 message: gettext('Are you sure you want to apply to this task?'),
                 primary: gettext('Apply'),
@@ -841,6 +844,11 @@ App.ProjectTaskRoute = Em.Route.extend({
 
             Bootstrap.ModalPane.popup({
                 classNames: ['modal', 'large'],
+                headerViewClass: Ember.View.extend({
+                    tagName: 'p',
+                    classNames: ['modal-title'],
+                    template: Ember.Handlebars.compile('{{view.parentView.heading}}')
+                }),
                 heading: task.get('title'),
                 bodyViewClass: view,
                 primary: 'Save',
@@ -882,7 +890,11 @@ App.ProjectTaskRoute = Em.Route.extend({
             transaction.add(taskMember);
 
             Bootstrap.ModalPane.popup({
-                classNames: ['modal'],
+                headerViewClass: Ember.View.extend({
+                    tagName: 'p',
+                    classNames: ['modal-title'],
+                    template: Ember.Handlebars.compile('{{view.parentView.heading}}')
+                }),
                 heading: taskMember.get('member.full_name'),
                 bodyViewClass: view,
                 primary: 'Save',
