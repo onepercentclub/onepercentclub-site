@@ -97,6 +97,7 @@
                 	display: block;
                     @include rem(font-size, 12px);
                     @include rem(margin-top, 8px);
+					float: left;
                 }
                 .donated {
                     @include rem(font-size, 12px);
@@ -108,6 +109,8 @@
                 width: auto;
                 color: $gray;
                 line-height: 1;
+                float: right;
+                @include rem(margin-top, 8px);
 
                 strong {
                     @include rem(font-size, 12px);
@@ -115,11 +118,13 @@
 
                     .flaticon {
                         color: $gray;
+                        @include rem(font-size, 12px);
                     }
                 }
             }
 
             .project-task {
+            	clear: both;
                 @include rem(font-size, 12px);
                 text-transform: uppercase;
                 position: absolute;
@@ -222,7 +227,7 @@
     /* item tasks */
     .item-task a {
     
-         h2 {
+        h2 {
             @include rem(font-size, 12px);
             @include rem(line-height, $padding);
             margin: 0px;
@@ -230,11 +235,16 @@
             background-color: $green;
             color: $white;
             text-transform: uppercase;
+            overflow: hidden;
         }
         
         h4 {
 	        @include rem(font-size, 12px);
-	        color: $gray;
+	        color: $white;
+        }
+        
+        .item-task-title {
+	        height: 76px;
         }
 
         .item-footer {
@@ -244,6 +254,7 @@
             @include clearfix;
             @include rem(padding, $padding);
             text-transform: uppercase;
+            height: 76px;
                 	
             ul {
                 @include clearfix;

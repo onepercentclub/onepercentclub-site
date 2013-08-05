@@ -2071,6 +2071,14 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 #project-actions .project-action { float: left; width: 39.58333%; margin-left: 0%; margin-right: 2.08333%; }
 #project-actions .project-action .button-donate { float: right; }
 
+#project-detail { font-size: 16px; font-size: 1.14286rem; }
+#project-detail header { float: left; width: 95.83333%; margin-left: 2.08333%; margin-right: 2.08333%; }
+#project-detail article { float: left; width: 45.83333%; margin-left: 2.08333%; margin-right: 2.08333%; clear: none !important; }
+#project-detail article br { content: " " !important; display: block !important; margin-bottom: 1.5em !important; }
+#project-detail article img { width: 100%; }
+#project-detail h2 { color: #00c051; }
+#project-detail .sidebar { float: left; width: 29.16667%; margin-left: 2.08333%; margin-right: 2.08333%; }
+
 .donation-projects { padding: 16px 0; padding: 1.14286rem 0; list-style: none; background-color: white; margin: 0; }
 .donation-projects .donation-project { position: relative; padding: 16px; padding: 1.14286rem; *zoom: 1; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white; border-bottom: 1px solid #e9e9e9; }
 .donation-projects .donation-project:hover .remove { display: block; }
@@ -2296,7 +2304,7 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 .um-list-item:after { clear: both; }
 .um-list-item:first-of-type { padding-top: 20px; padding-top: 1.42857rem; border-top: 1px solid #cccccc; }
 .um-list-item:last-of-type { padding-bottom: 20px; padding-bottom: 1.42857rem; border-bottom: 1px solid #cccccc; }
-.um-list-item [class^="icon-"] { float: left; width: 4.16667%; margin-left: 0%; margin-right: 2.08333%; font-size: 16px; font-size: 1.14286rem; text-align: center; }
+.um-list-item .flaticon { float: left; width: 4.16667%; margin-left: 0%; margin-right: 2.08333%; font-size: 16px; font-size: 1.14286rem; text-align: center; }
 .um-list-item .key { float: left; width: 25%; margin-left: 0%; margin-right: 2.08333%; text-transform: uppercase; }
 .um-list-item .value { float: left; width: 56.25%; margin-left: 10.41667%; margin-right: 0%; color: #00c051; }
 
@@ -2505,7 +2513,7 @@ ul.tabs li > a .tab-icon, ul.tabs li > span .tab-icon { display: block; font-siz
 ul.tabs li > a .tab-title, ul.tabs li > span .tab-title { font-size: 14px; font-size: 1rem; margin-left: 16px; margin-left: 1.14286rem; line-height: 16px; line-height: 1.14286rem; font-weight: 300; display: block; float: left; }
 ul.tabs li > a .tab-subtitle, ul.tabs li > span .tab-subtitle { font-size: 12px; font-size: 0.85714rem; font-style: normal; display: block; font-weight: normal; }
 ul.tabs li.first > a, ul.tabs li.first > span { border-left: 1px solid #cccccc; }
-ul.tabs li > a.active .tab-icon, ul.tabs li.is-active > a .tab-icon, ul.tabs li a:hover .tab-icon, ul.tabs li > a:active .tab-icon, ul.tabs li > span.active .tab-icon, ul.tabs li.is-active > span .tab-icon, ul.tabs li > span:hover .tab-icon, ul.tabs li > span:active .tab-icon { background-color: #00c051; color: white; }
+ul.tabs li > a.active .tab-icon, ul.tabs li.is-active > a .tab-icon, ul.tabs li a:hover .tab-icon, ul.tabs li > a:active .tab-icon, ul.tabs li > span.active .tab-icon, ul.tabs li.is-active > span .tab-icon, ul.tabs li > span:hover .tab-icon, ul.tabs li > span:active .tab-icon { background-color: #00c051; color: white; letter-spacing: -0.2; }
 ul.tabs li > a.active .tab-title, ul.tabs li.is-active > a .tab-title, ul.tabs li a:hover .tab-title, ul.tabs li > a:active .tab-title, ul.tabs li > span.active .tab-title, ul.tabs li.is-active > span .tab-title, ul.tabs li > span:hover .tab-title, ul.tabs li > span:active .tab-title { color: #00c051; }
 ul.tabs li > a.active .tab-subtitle, ul.tabs li.is-active > a .tab-subtitle, ul.tabs li a:hover .tab-subtitle, ul.tabs li > a:active .tab-subtitle, ul.tabs li > span.active .tab-subtitle, ul.tabs li.is-active > span .tab-subtitle, ul.tabs li > span:hover .tab-subtitle, ul.tabs li > span:active .tab-subtitle { color: #444444; }
 ul.tabs li.is-active > a, ul.tabs li > a.active, ul.tabs li.is-active > span, ul.tabs li > span.active { padding: 12px 16px 18px 16px; padding: 0.85714rem 1.14286rem 1.28571rem 1.14286rem; background-color: white; border-color: white; }
@@ -2604,9 +2612,10 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 .project-owner-actions header h3 { padding-top: 16px; padding-top: 1.14286rem; font-size: 16px; font-size: 1.14286rem; font-weight: 600; text-transform: uppercase; }
 .project-owner-actions .btn { margin: 8px 0 8px 8px; margin: 0.57143rem 0 0.57143rem 0.57143rem; float: right; }
 
-#task-detail #wallposts form { *zoom: 1; margin-bottom: 32px; margin-bottom: 2.28571rem; }
-#task-detail #wallposts form:before, #task-detail #wallposts form:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
-#task-detail #wallposts form:after { clear: both; }
+#task-detail #wallposts .login-form { background: #e9e9e9; padding: 16px 32px; padding: 1.14286rem 2.28571rem; }
+#task-detail #wallposts #comment-box { *zoom: 1; margin-right: 2.08333%; margin-left: 22.91667%; }
+#task-detail #wallposts #comment-box:before, #task-detail #wallposts #comment-box:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
+#task-detail #wallposts #comment-box:after { clear: both; }
 #task-detail article { *zoom: 1; }
 #task-detail article:before, #task-detail article:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 #task-detail article:after { clear: both; }
@@ -2630,6 +2639,7 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 #task-detail .sidebar .task-members, #task-detail .sidebar .task-files { clear: both; }
 #task-detail .sidebar .task-members h3, #task-detail .sidebar .task-files h3 { background: #e9e9e9; padding: 32px 32px 16px 32px; padding: 2.28571rem 2.28571rem 1.14286rem 2.28571rem; }
 #task-detail .sidebar .task-members p, #task-detail .sidebar .task-files p { background: #e9e9e9; padding: 0 32px 32px 32px; padding: 0 2.28571rem 2.28571rem 2.28571rem; }
+#task-detail .sidebar .task-members .login-signup, #task-detail .sidebar .task-files .login-signup { background: white; padding: 0 32px; padding: 0 2.28571rem; }
 #task-detail .sidebar .task-members ul, #task-detail .sidebar .task-files ul { background: #e9e9e9; padding: 0; margin: 0; border-top: 1px solid white; margin-bottom: 16px; margin-bottom: 1.14286rem; }
 #task-detail .sidebar .task-members ul .item, #task-detail .sidebar .task-files ul .item { clear: both; position: relative; display: block; border-bottom: 1px solid white; padding: 16px 32px; padding: 1.14286rem 2.28571rem; }
 #task-detail .sidebar .task-members ul .item .member, #task-detail .sidebar .task-files ul .item .member { font-weight: 300; text-transform: uppercase; }
@@ -2848,12 +2858,12 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 #results .item a:hover img, #results .item a:active img { top: -20px !important; }
 #results .item-project a .item-status { display: block; padding: 12px 16px; padding: 0.85714rem 1.14286rem; height: 90px; background-color: #e9e9e9; color: #444444; position: relative; }
 #results .item-project a .item-status .donate-status { display: block; margin: 0 auto; width: 100%; color: #666666; }
-#results .item-project a .item-status .donate-status .donate-amount { display: block; font-size: 12px; font-size: 0.85714rem; margin-top: 8px; margin-top: 0.57143rem; }
+#results .item-project a .item-status .donate-status .donate-amount { display: block; font-size: 12px; font-size: 0.85714rem; margin-top: 8px; margin-top: 0.57143rem; float: left; }
 #results .item-project a .item-status .donate-status .donated { font-size: 12px; font-size: 0.85714rem; color: #444444; }
-#results .item-project a .item-status .donate-days-left { width: auto; color: #999999; line-height: 1; }
+#results .item-project a .item-status .donate-days-left { width: auto; color: #999999; line-height: 1; float: right; margin-top: 8px; margin-top: 0.57143rem; }
 #results .item-project a .item-status .donate-days-left strong { font-size: 12px; font-size: 0.85714rem; color: #444444; }
-#results .item-project a .item-status .donate-days-left strong .flaticon { color: #999999; }
-#results .item-project a .item-status .project-task { font-size: 12px; font-size: 0.85714rem; text-transform: uppercase; position: absolute; right: 0; bottom: 0; left: 0; line-height: 35px; height: 35px; background: white; color: #999999; text-align: center; }
+#results .item-project a .item-status .donate-days-left strong .flaticon { color: #999999; font-size: 12px; font-size: 0.85714rem; }
+#results .item-project a .item-status .project-task { clear: both; font-size: 12px; font-size: 0.85714rem; text-transform: uppercase; position: absolute; right: 0; bottom: 0; left: 0; line-height: 35px; height: 35px; background: white; color: #999999; text-align: center; }
 #results .item-project a .item-status .project-task a { color: #999999; }
 #results .item-project a .item-status .project-task strong { color: #444444; font-weight: bold; font-style: normal; }
 #results .item-project a .item-status.plan .donate-status { text-align: center; }
@@ -2868,9 +2878,10 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 #results .item-project a .item-status.realized .donate-status { position: absolute; top: 27px; text-align: center; }
 #results .item-project a .item-status.realized .donate-amount { font-size: 18px; font-size: 1.28571rem; margin: 0; color: #ff619a; text-align: center; }
 #results .item-project a .item-status.realized a { font-size: 12px; font-size: 0.85714rem; color: #444444; font-weight: 300; }
-#results .item-task a h2 { font-size: 12px; font-size: 0.85714rem; line-height: 16px; line-height: 1.14286rem; margin: 0px; padding: 8px; padding: 0.57143rem; background-color: #00c051; color: white; text-transform: uppercase; }
-#results .item-task a h4 { font-size: 12px; font-size: 0.85714rem; color: #999999; }
-#results .item-task a .item-footer { background-color: #e9e9e9; color: #999999; padding: 0; *zoom: 1; padding: 16px; padding: 1.14286rem; text-transform: uppercase; }
+#results .item-task a h2 { font-size: 12px; font-size: 0.85714rem; line-height: 16px; line-height: 1.14286rem; margin: 0px; padding: 8px; padding: 0.57143rem; background-color: #00c051; color: white; text-transform: uppercase; overflow: hidden; }
+#results .item-task a h4 { font-size: 12px; font-size: 0.85714rem; color: white; }
+#results .item-task a .item-task-title { height: 76px; }
+#results .item-task a .item-footer { background-color: #e9e9e9; color: #999999; padding: 0; *zoom: 1; padding: 16px; padding: 1.14286rem; text-transform: uppercase; height: 76px; }
 #results .item-task a .item-footer:before, #results .item-task a .item-footer:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 #results .item-task a .item-footer:after { clear: both; }
 #results .item-task a .item-footer ul { *zoom: 1; list-style: none; text-indent: 0; margin: 0; }
@@ -2908,24 +2919,23 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 #search-navigation .search-pagination a.next-page:hover, #search-navigation .search-pagination a.next-page:active, #search-navigation .search-pagination a.previous-page:hover, #search-navigation .search-pagination a.previous-page:active { color: #ff619a; }
 
 /* Copy pasted from wallpost.scss */
-.blogpost { clear: both; float: left; width: 64.58333%; margin-left: 2.08333%; margin-right: 0%; position: relative; margin: 24px 0 24px 0; margin: 1.71429rem 0 1.71429rem 0; }
+.blogpost { clear: both; float: left; width: 64.58333%; margin-left: 2.08333%; margin-right: 0%; position: relative; margin: 32px 0; margin: 2.28571rem 0; }
 .blogpost:hover .manage { display: block; }
-.blogpost .show-more { float: left; width: 75%; margin-left: 25%; margin-right: 0%; }
-.blogpost .post-comment { background-color: #e9e9e9; padding: 12px; }
-.blogpost header { float: left; width: 75%; margin-left: 25%; margin-right: 0%; }
-.blogpost header h3 { font-size: 18px; font-size: 1.28571rem; line-height: 24px; line-height: 1.71429rem; font-weight: 600; color: #222222; margin: 0px; margin-top: 12px; margin-top: 0.85714rem; padding: 0; text-transform: uppercase; }
+.blogpost .show-more { float: left; width: 72.91667%; margin-left: 25%; margin-right: 2.08333%; }
+.blogpost header { float: left; width: 72.91667%; margin-left: 25%; margin-right: 2.08333%; }
+.blogpost header h3 { font-size: 28px; font-size: 2rem; font-weight: 600; color: #222222; margin: 0px; margin-top: 12px; margin-top: 0.85714rem; padding: 0; text-transform: uppercase; }
+.blogpost header .timestamp { text-transform: uppercase; }
 .blogpost header .manage { float: right; }
-.blogpost .text, .blogpost .oembed { margin-bottom: 12px; margin-bottom: 0.85714rem; }
-.blogpost .content { float: left; width: 75%; margin-left: 25%; margin-right: 0%; position: relative; margin-top: 8px; margin-top: 0.57143rem; margin-bottom: 8px; margin-bottom: 0.57143rem; word-wrap: break-word; }
-.blogpost .content p { margin: 0; padding: 0; }
-.blogpost .reaction-box { position: relative; display: block; }
-.blogpost .user-img, .blogpost .header-img { width: 70px; width: 5rem; position: absolute; top: 0; left: 0; margin-left: 10.41667%; }
-.blogpost .header-img { height: 70px; height: 5rem; background-color: #666666; color: white; text-align: center; text-transform: uppercase; }
-.blogpost .header-img .icon { line-height: 50px; line-height: 3.57143rem; font-size: 40px; font-size: 2.85714rem; margin-top: 4px; }
+.blogpost .text, .blogpost .oembed, .blogpost .video { margin-bottom: 12px; margin-bottom: 0.85714rem; }
+.blogpost .content { float: left; width: 72.91667%; margin-left: 25%; margin-right: 2.08333%; position: relative; margin-top: 8px; margin-top: 0.57143rem; margin-bottom: 8px; margin-bottom: 0.57143rem; word-wrap: break-word; }
+.blogpost .user-img { width: 70px; width: 5rem; position: absolute; top: 0; left: 0; margin-left: 10.41667%; }
 
-.blogpost-filter { margin-top: 32px; margin-top: 2.28571rem; padding: 24px; padding: 1.71429rem; background-color: #e9e9e9; }
-.blogpost-filter ul { margin: 0; padding: 0; text-indent: 0; }
-.blogpost-filter .pager { color: #999999; text-transform: uppercase; }
+.blogpost-filter { float: right !important; margin-top: 32px; margin-top: 2.28571rem; }
+.blogpost-filter ul { background: #e9e9e9; padding: 0; margin: 0; border-top: 1px solid white; margin-bottom: 16px; margin-bottom: 1.14286rem; }
+.blogpost-filter ul .item { clear: both; position: relative; display: block; border-bottom: 1px solid white; padding: 16px 32px; padding: 1.14286rem 2.28571rem; text-transform: uppercase; }
+.blogpost-filter ul .item .timestamp { font-size: 12px; font-size: 0.85714rem; text-transform: uppercase; font-style: normal; color: #999999; }
+.blogpost-filter .pager { color: #444444; text-transform: uppercase; }
+.blogpost-filter .pager .flaticon { margin: 0 4px; margin: 0 0.28571rem; font-size: 16px; font-size: 1.14286rem; vertical-align: middle; }
 
 .static-page { position: relative; }
 .static-page iframe, .static-page object { display: block; margin-left: 2.08333%; }
@@ -3927,8 +3937,9 @@ body .ui-tooltip { border-width: 2px; }
 .modal-header { *zoom: 1; padding: 9px 15px; }
 .modal-header:before, .modal-header:after { display: table; content: ""; line-height: 0; }
 .modal-header:after { clear: both; }
-.modal-header .close { margin-top: 2px; cursor: pointer; float: right; font-size: 20px; }
-.modal-header h3 { margin: 0; line-height: 30px; padding: 16px 0 0; font-size: 30px; font-weight: 600; color: #ff619a; text-transform: uppercase; }
+.modal-header .close { margin-top: 2px; cursor: pointer; float: right; font-size: 20px; color: #999999; }
+.modal-header .close:hover, .modal-header .close:active { color: black; }
+.modal-header h, .modal-header h3, .modal-header .modal-title { margin: 0; line-height: 30px; padding: 16px 0 0; font-size: 30px; font-weight: 600; color: #ff619a; text-transform: uppercase; }
 
 .modal-body { position: relative; overflow-y: auto; max-height: 400px; padding: 15px; }
 .modal-body .modal-body { margin: -15px; }
