@@ -121,16 +121,16 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         # Create the soap client.
         if self.test:
             # Test API URL.
-            url = 'https://test.tripledeal.com/ps/services/paymentservice/1_0?wsdl'
+            url = 'https://test.docdatapayments.com/ps/services/paymentservice/1_0?wsdl'
         else:
             # Live API URL.
-            url = 'https://tripledeal.com/ps/services/paymentservice/1_0?wsdl'
+            url = 'https://secure.docdatapayments.com/ps/services/paymentservice/1_0?wsdl'
 
         try:
             self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
         except URLError as e:
             self.client = None
-            logger.warn('Could not connect to DocData: ' + str(e))
+            logger.warn('Could not create Suds client to connect to DocData: ' + str(e))
         else:
             # Setup the merchant soap object for use in all requests.
             self.merchant = self.client.factory.create('ns0:merchant')
@@ -185,6 +185,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         if not self.client:
             self._init_docdata()
             if not self.client:
+                logger.error("Suds client is not configured. Can't create a remote DocData payment order.")
                 return
 
         # Preferences for the DocData system
@@ -256,7 +257,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                                           'Received unknown reply from DocData. Remote Payment not created.')
 
     def cancel_payment(self, payment):
+
         # Some preconditions.
+        if not self.client:
+            logger.error("Suds client is not configured. Can't cancel a DocData payment order.")
+            return
+
         if not payment.payment_order_id:
             logger.warn('Attempt to cancel payment on Order id {0} which has no payment_order_id.'.format(payment.payment_order_id))
             return
