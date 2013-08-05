@@ -123,6 +123,7 @@
             	{{render "currentOrderDonation" donation}}
 			</ul>
         {{else}}
+        
         	<div class="donation-empty">
             {{#if showTopThreeProjects }}
             	<em class="flaticon solid heart-1"></em>
@@ -155,7 +156,8 @@
                 </ul>
             </div>
 	        {{/if}}
-			
+	        
+	      
             <fieldset class="donation-monthly-total">
             	{{#if showTopThreeProjects }}
                 	<div class="form-summary">&nbsp;</div>
@@ -181,6 +183,16 @@
 	        	<div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ singleTotal }}</span></div>
 	        </fieldset>
 	    {{/if}}
+	    
+		{{#if controllers.currentOrder.recurring }}
+			{{#if recurringPayment.active }}
+			{{else}}
+		        <div class="donations-turned-off">
+		            <h3>{% trans "You turned off monthly donations" %}</h3>
+		            <p>{% trans "It will be automatically turned on again if you follow through the next steps" %}.</p>
+		        </div>
+		    {{/if}}
+		{{/if}}
 	
         {{#linkTo "projectList" class="button-link add-project"}}<em class="flaticon solid plus-2"></em>
             {{#if showTopThreeProjects }}
@@ -193,12 +205,15 @@
 	            {{/if}}
 	        {{/if}}
         {{/linkTo}}
-	
+        
 	    {{#if readyForPayment }}
 	        {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
 	    {{else}}
 	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
 	    {{/if}}
+	    
+	    
+     
 	
 	</form>
 </div>
