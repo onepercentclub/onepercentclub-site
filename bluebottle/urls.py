@@ -38,7 +38,11 @@ urlpatterns = i18n_patterns('',
     url(r'^documents/', include('apps.bluebottle_utils.urls')),
 
     # handlebar templates
-    url(r'^templates/', include('apps.hbtemplates.urls'))
+    url(r'^templates/', include('apps.hbtemplates.urls')),
+
+    # Urls for partner sites
+    url(r'^partners/', include('apps.partners.urls'))
+
 )
 
 urlpatterns += patterns('',

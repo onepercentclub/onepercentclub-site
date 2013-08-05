@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-04 23:04+0200\n"
+"POT-Creation-Date: 2013-08-05 22:44+0200\n"
 "PO-Revision-Date: 2013-08-05 10:30+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
@@ -166,11 +166,11 @@ msgid "Delete"
 msgstr "Verwijderen"
 
 #: templates/reactions.hbs:60 templates/wallposts.hbs:20
-#: templates/wallposts.hbs.py:332
+#: templates/wallposts.hbs.py:335
 msgid "Login"
 msgstr "Inloggen"
 
-#: templates/reactions.hbs:60 templates/wallposts.hbs:332
+#: templates/reactions.hbs:60 templates/wallposts.hbs:335
 msgid "member"
 msgstr "een profiel aan"
 
@@ -276,7 +276,7 @@ msgstr "Plaats update"
 msgid "Comment"
 msgstr "Reactie"
 
-#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:344
+#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:347
 msgid "Show more"
 msgstr "Meer"
 
@@ -284,10 +284,10 @@ msgstr "Meer"
 msgid "more"
 msgstr "meer"
 
-#: templates/wallposts.hbs:332
+#: templates/wallposts.hbs:335
 msgid "or become a"
 msgstr "of maak  "
 
-#: templates/wallposts.hbs:332
+#: templates/wallposts.hbs:335
 msgid "to leave a comment."
 msgstr "om een reactie te plaatsen."

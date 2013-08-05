@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Translators:
 # gannetson <loek@1procentclub.nl>, 2013
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
 # nieja <niels@1procentclub.nl>, 2013
@@ -11,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-05 14:00+0200\n"
-"PO-Revision-Date: 2013-08-05 12:10+0000\n"
+"POT-Creation-Date: 2013-08-05 22:44+0200\n"
+"PO-Revision-Date: 2013-08-05 21:20+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -289,7 +288,7 @@ msgstr "gebruikersadressen"
 #: templates/users.hbs:14
 #, python-format
 msgid "My 1%%"
-msgstr "Mijn 1%"
+msgstr "Mijn 1%%"
 
 #: templates/users.hbs:22
 msgid "Preview my profile"
@@ -339,7 +338,7 @@ msgstr "Over jezelf"
 #: templates/users.hbs:129
 #, python-format
 msgid "Why did you join 1%%Club?"
-msgstr "Waarom doe je mee met 1%Club?"
+msgstr "Waarom doe je mee met 1%%Club?"
 
 #: templates/users.hbs:144
 msgid "Your website"
@@ -515,7 +514,7 @@ msgid ""
 "support smart ideas from people in developing countries. We do this in a "
 "new, open way, believing in the power of collaboration boosted by today's "
 "technical possibilities. If we all share a little, we can change the world."
-msgstr "Word nu lid en realiseer samen met de 1%%Crowd slimme ideeen in ontwikkelingslanden!\nMaak een profiel aan, kies een project en support het met 1% van je kennis, tijd of geld. De projecteigenaren houden je op de hoogte van de voortgang. \nZie hoe jouw 1%% het verschil maakt!\n        "
+msgstr "Word nu lid en realiseer samen met de crowd slimme ideeen in ontwikkelingslanden!\nMaak een profiel aan, kies een project en support het met 1%% van je kennis, tijd of geld. De projecteigenaren houden je op de hoogte van de voortgang. \nZie hoe jouw 1%% het verschil maakt!\n        "
 
 #: templates/users.hbs:574
 msgid "Thanks for signing up!"
@@ -534,12 +533,12 @@ msgstr "E-mail"
 #: templates/users.hbs:622
 #, python-format
 msgid "By joining 1%%Club I hereby agree to the "
-msgstr "Door mee te doen met 1%Club ik verklaar het eens te zijn met "
+msgstr "Door mee te doen met 1%%Club ik verklaar het eens te zijn met "
 
 #: templates/users.hbs:623
 #, python-format
 msgid "1%%Club Terms of service"
-msgstr "1%Club Servicevoorwaarden"
+msgstr "1%%Club Servicevoorwaarden"
 
 #: templates/users.hbs:628
 msgid "Sign up"
@@ -556,7 +555,7 @@ msgstr "Log hier in"
 #: templates/users.hbs:651
 #, python-format
 msgid "Why join 1%%Club?"
-msgstr "Waarom meedoen met 1%Club?"
+msgstr "Waarom meedoen met 1%%Club?"
 
 #: templates/users.hbs:653
 msgid "It's easy to find projects you like."
@@ -582,7 +581,7 @@ msgstr "Over"
 #: templates/users.hbs:677
 #, python-format
 msgid "Joined 1%%Club because"
-msgstr "Doet mee met 1%Club omdat"
+msgstr "Doet mee met 1%%Club omdat"
 
 #: templates/users.hbs:715
 msgid "Forgot your password?"
@@ -613,39 +612,3 @@ msgstr "Nieuw wachtwoord"
 #: templates/users.hbs:765
 msgid "Confirm new password"
 msgstr "Bevestig wachtwoord"
-
-#~ msgid "1%%SKILLS"
-#~ msgstr "1%SKILLS"
-
-#~ msgid "Monthly Donation"
-#~ msgstr "Monthly"
-
-#~ msgid "Single Donation"
-#~ msgstr "location"
-
-#~ msgid "Edit profile"
-#~ msgstr "Edit profile"
-
-#~ msgid "Active"
-#~ msgstr "Active"
-
-#~ msgid "Single"
-#~ msgstr "Single"
-
-#~ msgid ""
-#~ "If you have any skills or experience that you think could help a smart idea "
-#~ "(For example: if you’re a great graphic designer or an awesome accountant) "
-#~ "please add them here."
-#~ msgstr ""
-#~ "If you have any skills or experience that you think could help a smart idea "
-#~ "(For example: if you’re a great graphic designer or an awesome accountant) "
-#~ "please add them here."
-
-#~ msgid "Need help?"
-#~ msgstr "Need help?"
-
-#~ msgid "Contact us!"
-#~ msgstr "Contact us!"
-
-#~ msgid "Reset"
-#~ msgstr "Reset"

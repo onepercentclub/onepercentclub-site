@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-05 14:00+0200\n"
+"POT-Creation-Date: 2013-08-05 22:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,9 +22,7 @@ msgid "redirect from"
 msgstr ""
 
 #: models.py:7
-msgid ""
-"This should be an absolute path, excluding the domain name. Example: '/"
-"events/search/'."
+msgid "This should be an absolute path, excluding the domain name. Example: '/events/search/'."
 msgstr ""
 
 #: models.py:8
@@ -32,9 +30,7 @@ msgid "redirect to"
 msgstr ""
 
 #: models.py:9
-msgid ""
-"This can be either an absolute path (as above) or a full URL starting with "
-"'http://'."
+msgid "This can be either an absolute path (as above) or a full URL starting with 'http://'."
 msgstr ""
 
 #: models.py:10
@@ -42,13 +38,7 @@ msgid "Match using regular expressions"
 msgstr ""
 
 #: models.py:12
-msgid ""
-"If checked, the redirect-from and redirect-to fields will also be processed "
-"using regular expressions when matching incoming requests.<br>Example: "
-"<strong>/projects/.* -> /#!/projects</strong> will redirect everyone "
-"visiting a page starting with /projects/<br>Example: <strong>/projects/(.*) -"
-"> /#!/projects/$1</strong> will turn /projects/myproject into /#!/projects/"
-"myproject<br><br>Invalid regular expressions will be ignored."
+msgid "If checked, the redirect-from and redirect-to fields will also be processed using regular expressions when matching incoming requests.<br>Example: <strong>/projects/.* -> /#!/projects</strong> will redirect everyone visiting a page starting with /projects/<br>Example: <strong>/projects/(.*) -> /#!/projects/$1</strong> will turn /projects/myproject into /#!/projects/myproject<br><br>Invalid regular expressions will be ignored."
 msgstr ""
 
 #: models.py:14
@@ -56,10 +46,7 @@ msgid "Fallback redirect"
 msgstr ""
 
 #: models.py:16
-msgid ""
-"This redirect is only matched after all other redirects have failed to match."
-"<br>This allows us to define a general 'catch-all' that is only used as a "
-"fallback after more specific redirects have been attempted."
+msgid "This redirect is only matched after all other redirects have failed to match.<br>This allows us to define a general 'catch-all' that is only used as a fallback after more specific redirects have been attempted."
 msgstr ""
 
 #: models.py:19
