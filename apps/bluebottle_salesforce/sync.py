@@ -265,6 +265,16 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject.describe_the_project_in_one_sentence = project_pitch.pitch[:5000]
             sfproject.extensive_project_description = project_pitch.description
 
+            # Set pitch status dates
+            if project_pitch.status == ProjectPitch.PitchStatuses.new and not sfproject.date_pitch_created:
+                sfproject.date_pitch_created = project_pitch.created
+            elif project_pitch.status == ProjectPitch.PitchStatuses.submitted and not sfproject.date_pitch_submitted:
+                sfproject.date_pitch_submitted = project_pitch.updated
+            elif project_pitch.status == ProjectPitch.PitchStatuses.approved and not sfproject.date_pitch_approved:
+                sfproject.date_pitch_approved = project_pitch.updated
+            elif project_pitch.status == ProjectPitch.PitchStatuses.rejected and not sfproject.date_pitch_created:
+                sfproject.date_pitch_created = project_pitch.updated
+
             sfproject.tags = ""
             for tag in project_pitch.tags.all():
                 sfproject.tags = str(tag) + ", " + sfproject.tags
@@ -279,6 +289,14 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject.describe_where_the_money_is_needed_for = project_plan.money_needed
             sfproject.sustainability = project_plan.future
             sfproject.contribution_project_in_reducing_poverty = project_plan.effects
+
+            # Set plan status dates
+            if project_plan.status == ProjectPlan.PlanStatuses.submitted and not sfproject.date_plan_submitted:
+                sfproject.date_plan_submitted = project_plan.updated
+            elif project_plan.status == ProjectPlan.PlanStatuses.approved and not sfproject.date_plan_approved:
+                sfproject.date_plan_approved = project_plan.updated
+            elif project_plan.status == ProjectPlan.PlanStatuses.rejected and not sfproject.date_plan_rejected:
+                sfproject.date_plan_rejected = project_plan.updated
 
             # Project referrals (ambassador) - expected are three or less related values
             try:
@@ -313,11 +331,16 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         # Unknown: sfproject.third_half_project =
         # Unknown: sfproject.earth_charther_project =
 
-        # SF Layout: Project planning and budget section.
-        # TODO: add dates
-
-        # SF Layout: Project Team Information section.
+        # Set project status dates
         sfproject.project_created_date = project.created
+        if project.phase == ProjectPhases.act and not sfproject.date_project_act:
+            sfproject.date_project_act = project.updated
+        elif project.phase == ProjectPhases.realized and not sfproject.date_project_realized:
+            sfproject.date_project_realized = project.updated
+        elif project.phase == ProjectPhases.failed and not sfproject.date_project_failed:
+            sfproject.date_project_failed = project.updated
+        elif project.phase == ProjectPhases.results and not sfproject.date_project_result:
+            sfproject.date_project_result = project.updated
 
         # SF Layout: Other section.
         sfproject.external_id = project.id

@@ -238,7 +238,10 @@ def generate_projects_csv_file(path, loglevel):
                             "Extensive_project_description__c", "Name_referral_1__c", "Description_referral_1__c",
                             "E_mail_address_referral_1__c", "Name_referral_2__c", "Description_referral_2__c",
                             "E_mail_address_referral_2__c", "Name_referral_3__c", "Description_referral_3__c",
-                            "E_mail_address_referral_3__c"])
+                            "E_mail_address_referral_3__c", "Date_pitch_created__c", "Date_pitch_submitted__c",
+                            "Date_pitch_approved__c", "Date_pitch_rejected__c", "Date_plan_submitted__c",
+                            "Date_plan_approved__c", "Date_plan_rejected__c", "Date_project_act__c",
+                            "Date_project_realized__c", "Date_project_failed__c", "Date_project_result__c"])
 
         projects = Project.objects.all()
 
@@ -246,6 +249,19 @@ def generate_projects_csv_file(path, loglevel):
 
         for project in projects:
             try:
+                date_project_act = ''
+                date_project_realized = ''
+                date_project_failed = ''
+                date_project_result = ''
+                if project.phase == ProjectPhases.act:
+                    date_project_act = project.updated
+                elif project.phase == ProjectPhases.realized:
+                    date_project_realized = project.updated
+                elif project.phase == ProjectPhases.failed:
+                    date_project_failed = project.updated
+                elif project.phase == ProjectPhases.results:
+                    date_project_result = project.updated
+
                 try:
                     project_campaign = ProjectCampaign.objects.get(project=project)
                     amount_at_the_moment = project_campaign.money_donated
@@ -257,6 +273,10 @@ def generate_projects_csv_file(path, loglevel):
                     amount_still_needed = ''
 
                 tags = ''
+                date_pitch_created = ''
+                date_pitch_submitted = ''
+                date_pitch_approved = ''
+                date_pitch_rejected = ''
                 try:
                     project_pitch = ProjectPitch.objects.get(project=project)
                     if project_pitch.country:
@@ -265,6 +285,16 @@ def generate_projects_csv_file(path, loglevel):
                         country_in_which_the_project_is_located = ''
                     describe_the_project_in_one_sentence = project_pitch.pitch[:5000]
                     extensive_project_description = project_pitch.description
+
+                    if project_pitch.status == ProjectPitch.PitchStatuses.new:
+                        date_pitch_created = project_pitch.created
+                    elif project_pitch.status == ProjectPitch.PitchStatuses.submitted:
+                        date_pitch_submitted = project_pitch.updated
+                    elif project_pitch.status == ProjectPitch.PitchStatuses.approved:
+                        date_pitch_approved = project_pitch.updated
+                    elif project_pitch.status == ProjectPitch.PitchStatuses.rejected:
+                        date_pitch_created = project_pitch.updated
+
                     for tag in project_pitch.tags.all():
                         tags = str(tag) + ", " + tags
                 except ProjectPitch.DoesNotExist:
@@ -282,6 +312,9 @@ def generate_projects_csv_file(path, loglevel):
                 name_referral_3 = ''
                 description_referral_3 = ''
                 email_address_referral_3 = ''
+                date_plan_submitted = ''
+                date_plan_approved = ''
+                date_plan_rejected = ''
                 try:
                     project_plan = ProjectPlan.objects.get(project=project)
                     for_who = project_plan.for_who
@@ -289,6 +322,14 @@ def generate_projects_csv_file(path, loglevel):
                     number_of_people_reached_direct = project_plan.reach
                     contribution_project_in_reducing_poverty = project_plan.effects
                     sustainability = project_plan.future
+
+                    if project_plan.status == ProjectPlan.PlanStatuses.submitted:
+                        date_plan_submitted = project_plan.updated
+                    elif project_plan.status == ProjectPlan.PlanStatuses.approved:
+                        date_plan_approved = project_plan.updated
+                    elif project_plan.status == ProjectPlan.PlanStatuses.rejected:
+                        date_plan_rejected = project_plan.updated
+
                     if project_plan.organization:
                         organization_id = project_plan.organization.id
                                 # Project referrals (ambassador) - expected are three or less related values
@@ -342,7 +383,18 @@ def generate_projects_csv_file(path, loglevel):
                                     email_address_referral_2.encode("utf-8"),
                                     name_referral_3.encode("utf-8"),
                                     description_referral_3.encode("utf-8"),
-                                    email_address_referral_3.encode("utf-8")])
+                                    email_address_referral_3.encode("utf-8"),
+                                    date_pitch_created,
+                                    date_pitch_submitted,
+                                    date_pitch_approved,
+                                    date_pitch_rejected,
+                                    date_plan_submitted,
+                                    date_plan_approved,
+                                    date_plan_rejected,
+                                    date_project_act,
+                                    date_project_realized,
+                                    date_project_failed,
+                                    date_project_result])
                 success_count += 1
             except Exception as e:
                 error_count += 1
