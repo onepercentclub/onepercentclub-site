@@ -166,9 +166,8 @@
                                             <li class="nav-cart">
                                                 {{#linkTo currentOrder.index}}
                                                     <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span>
-                                                    {% trans "Donations" %}
+                                                    {% trans "Donations" %} <em class="flaticon solid right-2"></em>
                                                 {{/linkTo}}
-                                                <em class="flaticon solid right-2"></em>
                                             </li>
                                         {{/if}}
                                     {{else}}
