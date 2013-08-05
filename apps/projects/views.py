@@ -7,6 +7,7 @@ from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 import django_filters
 from rest_framework import generics
 from rest_framework import permissions
@@ -289,4 +290,16 @@ class ProjectDetailView(DetailView):
     """ This is the project view that search engines will use. """
     model = Project
     template_name = 'project_detail.html'
+
+
+# class MacroMicroListView(ListView):
+#     model = Project
+#     queryset = Project.objects.filter(partner_organization__slug='macro_micro')
+#
+#
+#     def render_to_response(self, context, **response_kwargs):
+#         return super(MacroMicroListView, self).render_to_response(
+#             context,
+#             mimetype='application/xml',
+#             **response_kwargs)
 

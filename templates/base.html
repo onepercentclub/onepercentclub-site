@@ -125,9 +125,9 @@
                             <nav class="nav-main">
                                 <h1 class="nav-title">Navigation</h1>
                                 <ul>
-                                    <li><a {{action showPage 'about'}} href="/#!/pages/about">{% trans "What is 1%" %}</a></li>
-                                    <li>{{#linkTo projectList}}{% trans "1%Projects" %}{{/linkTo}}</li>
-                                    <li>{{#linkTo taskList}}{% trans "1%Skills" %}{{/linkTo}}</li>
+                                    <li><a {{action showPage 'about'}} href="/#!/pages/about">{% blocktrans %}What is 1%{% endblocktrans %}</a></li>
+                                    <li>{{#linkTo projectList}}{% blocktrans %}1%Projects{% endblocktrans %}{{/linkTo}}</li>
+                                    <li>{{#linkTo taskList}}{% blocktrans %}1%Skills{% endblocktrans %}{{/linkTo}}</li>
                                     <li><a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">{% trans "Get involved" %}</a></li>
                                 </ul>
                             </nav>
@@ -137,7 +137,7 @@
                                     {{#if controllers.currentUser.isAuthenticated }}
                                         <li class="nav-member-my1percent">
                                             <a href="#" class="nav-my1percent"><img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
-                                                <strong>{% trans "My 1%" %} <em class="flaticon solid down-2"></em></strong>
+                                                <strong>{% blocktrans %}My 1%{% endblocktrans %}<em class="flaticon solid down-2"></em></strong>
                                             </a>
                                             <ul class="my-menu">
                                                 <li>
@@ -227,7 +227,7 @@
         <form action="/en/accounts/login/" method="post">
 
             <div class="modal-header">
-                <h3>{% trans "Log in to 1%Club" %}</h3>
+                <h3>{% blocktrans %}Log in to 1%Club{% endblocktrans %}</h3>
             </div>
 
             <div class="modal-body">
@@ -275,17 +275,17 @@
                 <section class="footer-content">
                     <ul class="footer-menu">
                         <li>
-                            <h3>{% trans "It all starts with 1%" %}</h3>
+                            <h3>{% blocktrans %}It all starts with 1%{% endblocktrans %}</h3>
                             <ul>
                                 <li>
                                     <a {{action showPage 'about'}} href="/#!/pages/about">
-                                        {% trans "What is 1%CLUB?" %}
+                                        {% blocktrans %}What is 1%CLUB?{% endblocktrans %}
                                     </a>
                                 </li>
 
                                 <li>
                                     {{#linkTo projectList}}
-                                        {% trans "1%Projects" %}
+                                        {% blocktrans %}1%Projects{% endblocktrans %}
                                     {{/linkTo}}
                                 </li>
                                 <li>
@@ -302,7 +302,7 @@
                         </li>
 
                         <li>
-                            <h3>{% trans "About 1%CLUB" %}</h3>
+                            <h3>{% blocktrans %}About 1%CLUB{% endblocktrans %}</h3>
                             <ul>
                                 <li>
                                     <a {{action showPage 'story'}} href="/#!/pages/story">
@@ -326,7 +326,7 @@
                                 </li>
                                 <li>
                                     <a {{action showPage 'work'}} href="/#!/pages/work">
-                                        {% trans "Work at 1%CLUB" %}
+                                        {% blocktrans %}Work at 1%CLUB{% endblocktrans %}
                                     </a>
                                 </li>
                                 <li>
@@ -369,7 +369,7 @@
                         </li>
 
                         <li>
-                            <h3>{% trans "1%Social" %}</h3>
+                            <h3>{% blocktrans %}1%Social{% endblocktrans %}</h3>
                             <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fonepercentclub.com&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=265978350087756" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
                             <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
                             <ul class="footer-social-links">
@@ -405,7 +405,7 @@
                     <hr />
 
                     <div class="footer-news">
-                        <h3>1%News</h3>
+                        <h3>{% blocktrans %}1%News{% endblocktrans %}</h3>
                         <ul>
                         {{#each news}}
                             <li>
@@ -419,14 +419,14 @@
 
                     {{#unless controllers.currentUser.isAuthenticated}}
                     <div class="footer-join-us">
-						<h3>{% trans "Join 1%Club" %}</h3>
-	                    <p>{% trans "1%Club connects smart ideas from developing countries to time, money and expertise from all over the world. It is very easy: " %}</p>    
+						<h3>{% blocktrans %}Join 1%Club{% endblocktrans %}</h3>
+	                    <p>{% blocktrans %}1%Club connects smart ideas from developing countries to time, money and expertise from all over the world. It is very easy:{% endblocktrans %}</p>
 	                    <ul>
 	                        <li><i class="icon-chevron-right"></i> {% trans "Select a project or tast" %}</li>
 	                        <li><i class="icon-chevron-right"></i> {% trans "Share your skills or money" %}</li>
 	                        <li><i class="icon-chevron-right"></i> {% trans "See direct results" %}</li>
 	                    </ul>
-	                    {{#linkTo signup classNames="btn btn-primary"}}{% trans "Join 1%Club" %}{{/linkTo}}
+	                    {{#linkTo signup classNames="btn btn-primary"}}{% blocktrans %}Join 1%Club{% endblocktrans %}{{/linkTo}}
 					</div>
 					{{/unless}}
 

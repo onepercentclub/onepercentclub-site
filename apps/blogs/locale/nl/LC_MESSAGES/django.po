@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Translators:
+# gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-01 16:52+0200\n"
-"PO-Revision-Date: 2013-08-01 14:52+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-08-05 14:00+0200\n"
+"PO-Revision-Date: 2013-08-05 12:12+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,7 +131,7 @@ msgstr "Blog postst"
 #: templates/blogs.hbs:9
 #, python-format
 msgid "1%%NEWS"
-msgstr ""
+msgstr "1%%Nieuws"
 
 #: templates/blogs.hbs:19
 msgid "Loading the latest news"
