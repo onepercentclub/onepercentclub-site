@@ -1973,8 +1973,8 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 .button-link .flaticon { margin-right: 4px; margin-right: 0.28571rem; }
 .button-link:hover, .button-link:active { color: #00c051; }
 
-.btn { font-size: 18px; font-size: 1.28571rem; padding: 10px 16px 4px 16px; padding: 0.71429rem 1.14286rem 0.28571rem 1.14286rem; line-height: 32px; line-height: 2.28571rem; display: inline-block; margin: 0; border: 1px solid #00a746; background-color: #00c051; color: white; vertical-align: baseline; text-decoration: none; text-transform: uppercase; font-weight: 600; cursor: pointer; -webkit-border-radius: 1px; -moz-border-radius: 1px; border-radius: 1px; vertical-align: top; }
-.btn:active { top: 0; background: #222222; color: #656565 !important; border-top-width: 5px; border-color: black !important; padding: 9px 16px 1px 16px; padding: 0.64286rem 1.14286rem 0.07143rem 1.14286rem; }
+.btn { font-size: 18px; font-size: 1.28571rem; padding: 9px 16px 5px 16px; padding: 0.64286rem 1.14286rem 0.35714rem 1.14286rem; line-height: 32px; line-height: 2.28571rem; display: inline-block; margin: 0; border: 1px solid #00a746; background-color: #00c051; color: white; vertical-align: baseline; text-decoration: none; text-transform: uppercase; font-weight: 600; cursor: pointer; -webkit-border-radius: 1px; -moz-border-radius: 1px; border-radius: 1px; vertical-align: top; }
+.btn:active { top: 0; background: #222222; color: #656565 !important; border-top-width: 5px; border-color: black !important; padding: 8px 16px 2px 16px; padding: 0.57143rem 1.14286rem 0.14286rem 1.14286rem; }
 .btn.disabled, .btn[disabled], .btn.disabled:hover, .btn[disabled]:hover, .btn.disabled:active, .btn[disabled]:active { padding: 10px 16px 4px 16px !important; padding: 0.71429rem 1.14286rem 0.28571rem 1.14286rem !important; border-top-width: 1px !important; top: auto !important; border-color: #cccccc !important; background-color: #cccccc !important; color: #e9e9e9 !important; }
 .btn.next { float: right; padding-right: 42px; border: none; background: #ff619a; }
 
@@ -1986,7 +1986,7 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 .btn-primary .flaticon, .btn-primary .icon { background: #ff478a; color: #ff94bb; }
 
 .btn-iconed { padding: 0 16px 0 0; padding: 0 1.14286rem 0 0; vertical-align: text-bottom; }
-.btn-iconed .flaticon, .btn-iconed .icon { margin-right: 12px; margin-right: 0.85714rem; padding: 10px 8px 8px 8px; padding: 0.71429rem 0.57143rem 0.57143rem 0.57143rem; width: 50px; width: 3.57143rem; font-size: 26px; font-size: 1.85714rem; display: inline-block; background: #00a746; color: #00da5c; text-align: center; vertical-align: middle; }
+.btn-iconed .flaticon, .btn-iconed .icon { margin-right: 12px; margin-right: 0.85714rem; padding: 10px 8px 8px 8px; padding: 0.71429rem 0.57143rem 0.57143rem 0.57143rem; width: 50px; width: 3.57143rem; font-size: 26px; font-size: 1.85714rem; display: inline-block; background: #00a746; color: #00da5c; text-align: center; vertical-align: sub; line-height: 0.85; }
 .btn-iconed.btn-primary .flaticon, .btn-iconed.btn-primary .icon { background: #ff478a; color: #ff94bb; }
 .btn-iconed:hover .flaticon, .btn-iconed:hover .icon { background: #333; color: white; }
 .btn-iconed:active { padding: 0 16px 0 0; padding: 0 1.14286rem 0 0; }
@@ -2215,8 +2215,6 @@ form ul.tags li .delete { color: #999999; cursor: pointer; }
 form ul.tags li .delete:hover { color: #ff619a; }
 
 input.tag { width: 200px; }
-
-.modal-body .control-group:first-child { padding-top: 0; }
 
 /* =========== Icons */
 .flaticon.large { font-size: 60px; font-size: 4.28571rem; color: #e9e9e9; float: left; width: 6.25%; margin-left: 0%; margin-right: 2.08333%; }
