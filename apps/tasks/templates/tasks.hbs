@@ -425,11 +425,6 @@
                                     {{/if}}
 								</span>
 								
-								<a {{action "editTaskMember" this}} class="edit-task-status">
-                            		<em class="flaticon solid pencil-3"></em>
-									{% trans "Edit Status" %}
-								</a>
-								
 								{# TODO: Make dry #}
 		                        {{# if controller.isProjectOwner}}
 									<a {{action "editTaskMember" this}} class="edit-task-status">
@@ -498,15 +493,24 @@
 					<p>{% trans "No files have been uploaded yet" %}.</p>
 				{{/if}}
 	            
-	            <a {{action uploadFile this}} class="btn btn-iconed btn-uploader">
-	                <em class="flaticon solid upload-document-1"></em>
-	                {% trans "Upload a file" %}
-	            </a>
+	            {# TODO: Make dry & make task member part of this? #}
+                {{# if controller.isProjectOwner}}
+					<a {{action uploadFile this}} class="btn btn-iconed btn-uploader">
+		                <em class="flaticon solid upload-document-1"></em>
+		                {% trans "Upload a file" %}
+		            </a>
+				{{else}}
+				 
+					{{#if controller.isAuthor}}  
+						<a {{action uploadFile this}} class="btn btn-iconed btn-uploader">
+			                <em class="flaticon solid upload-document-1"></em>
+			                {% trans "Upload a file" %}
+			            </a>
+					{{/if}}
+					
+				{{/if}}
 	        </div>
-	       	      
-	        
         </sidebar>
-
     </section>
 
 
@@ -550,7 +554,7 @@
 		                <ul>
 		                    <li class="control-group">
 		                        <label class="control-label" for="task-title">
-		                            {% trans "Title of your task." %}
+		                            {% trans "Title of your task" %}
 		                        </label>
 		
 		                        <div class="controls">
@@ -818,7 +822,7 @@
 		                </ul>
 		            </fieldset>
 	                <button class="btn btn-primary btn-iconed right" type="submit"><em class="flaticon solid wrench-1"></em>{% trans "Save Task" %}</button>
-	                <button class="btn right btn-minor" {{action cancelChangesToTask this}}><em class="flaticon stroke x-2"></em> {% trans "Cancel changes" %}</button>
+	                <button class="btn btn-uploader left" {{action cancelChangesToTask this}}><em class="flaticon stroke x-2"></em> {% trans "Cancel Changes" %}</button>
 	        	</form>
            </div>
         </section>
@@ -829,7 +833,7 @@
 {% endlanguage %}
 
 {% tplhandlebars "task_file_new" %}
-    <fieldset id="task-form">
+    <fieldset>
         <ul>
             <li class="control-group">
                 <label class="control-label" for="tile-file">
