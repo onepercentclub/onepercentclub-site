@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-04 23:05+0200\n"
+"POT-Creation-Date: 2013-08-05 14:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,6 +204,11 @@ msgstr ""
 msgid "1%%Social"
 msgstr ""
 
+#: base.html:410
+#, python-format
+msgid "1%%News"
+msgstr ""
+
 #: base.html:424 base.html.py:431
 #, python-format
 msgid "Join 1%%Club"
@@ -213,7 +218,7 @@ msgstr ""
 #, python-format
 msgid ""
 "1%%Club connects smart ideas from developing countries to time, money and "
-"expertise from all over the world. It is very easy: "
+"expertise from all over the world. It is very easy:"
 msgstr ""
 
 #: base.html:427

@@ -1962,7 +1962,7 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 .is-cleared:before, .is-cleared:after { display: block; height: 0 !important; line-height: 0; overflow: hidden; visibility: hidden; content: "."; }
 .is-cleared:after { clear: both; }
 
-.loading-big { display: block; width: 100%; height: 350px; background: url('../images/loading.gif?1374758247') transparent no-repeat 50% 50%; text-indent: -119988px; overflow: hidden; text-align: left; }
+.loading-big { display: block; width: 100%; height: 350px; background: url('../images/loading.gif?1374868972') transparent no-repeat 50% 50%; text-indent: -119988px; overflow: hidden; text-align: left; }
 
 .loading-small { font-size: 16px; font-size: 1.14286rem; font-weight: 300; }
 .loading-small img { width: 20px; height: 20px; vertical-align: middle; }
@@ -2046,7 +2046,7 @@ dl.advanced dd { float: left; width: 66.66667%; margin-left: 0%; margin-right: 0
 #detail article .project-phase:after { clear: both; }
 #detail article .project-phase .item { float: left; width: 20.83333%; margin-left: 0%; margin-right: 0%; font-size: 12px; font-size: 0.85714rem; line-height: 28px; line-height: 2rem; color: #999999; text-align: center; text-transform: uppercase; padding-right: 8px; padding-right: 0.57143rem; }
 #detail article .project-phase .item:first-of-type { margin-right: 16px; margin-right: 1.14286rem; width: auto; text-align: left; }
-#detail article .project-phase .item.is-current { background: url('../images/steps-phase-back.png?1375428969') no-repeat #999999 100% 50%; color: #444444; }
+#detail article .project-phase .item.is-current { background: url('../images/steps-phase-back.png?1375705348') no-repeat #999999 100% 50%; color: #444444; }
 #detail article .project-plan { float: left; width: 50%; margin-left: 0%; margin-right: 0%; }
 #detail sidebar { margin-bottom: 1.25em; }
 
@@ -2171,7 +2171,7 @@ form .control-group .controls .inline-append, .form .control-group .controls .in
 form .control-group.control-group-lonely, .form .control-group.control-group-lonely { padding: 0; }
 form .errors, .form .errors { float: left; width: 50%; margin-left: 0%; margin-right: 0%; position: absolute; right: -57%; background-color: #b84040; border: 1px solid #933333; padding: 0.6em; color: white; }
 form .errors p, .form .errors p { margin: 0; }
-form .errors:after, .form .errors:after { top: 7px; top: 0.5rem; position: absolute; display: block; left: -14px; width: 14px; height: 23px; background: url('../images/form-error-back-arrow.png?1374758247') transparent no-repeat 0 0; content: ' '; }
+form .errors:after, .form .errors:after { top: 7px; top: 0.5rem; position: absolute; display: block; left: -14px; width: 14px; height: 23px; background: url('../images/form-error-back-arrow.png?1374868972') transparent no-repeat 0 0; content: ' '; }
 form .big-radio label, .form .big-radio label { padding: 8px 0; padding: 0.57143rem 0; color: white; cursor: pointer; text-align: center; background-color: #cccccc; border: 1px solid #bfbfbf; }
 form .big-radio input[type=radio], .form .big-radio input[type=radio] { display: none; }
 form .big-radio input[type=radio]:checked + label, .form .big-radio input[type=radio]:checked + label { background-color: #00c051; border-color: #00a746; font-weight: 300; }
@@ -2342,7 +2342,7 @@ span.label { color: white; font-size: 0.85em; padding: 0.1em 0.3em; font-weight:
 
 .nav-title { display: none; }
 
-#logo { display: block; float: left; margin-left: 2.08333%; float: left; width: 12.5%; margin-left: 2.08333%; margin-right: 0%; height: 40px; margin-top: 10px; margin-top: 0.71429rem; background: url('../images/1procentclub.png?1374758247') transparent no-repeat 0 0; }
+#logo { display: block; float: left; margin-left: 2.08333%; float: left; width: 12.5%; margin-left: 2.08333%; margin-right: 0%; height: 40px; margin-top: 10px; margin-top: 0.71429rem; background: url('../images/1procentclub.png?1374868972') transparent no-repeat 0 0; }
 #logo:hover { background-position: 0 -38px; }
 #logo h1, #logo #subtitle { display: none; }
 
@@ -2520,13 +2520,13 @@ ul.tabs li > a.active .tab-title, ul.tabs li.is-active > a .tab-title, ul.tabs l
 ul.tabs li > a.active .tab-subtitle, ul.tabs li.is-active > a .tab-subtitle, ul.tabs li a:hover .tab-subtitle, ul.tabs li > a:active .tab-subtitle, ul.tabs li > span.active .tab-subtitle, ul.tabs li.is-active > span .tab-subtitle, ul.tabs li > span:hover .tab-subtitle, ul.tabs li > span:active .tab-subtitle { color: #444444; }
 ul.tabs li.is-active > a, ul.tabs li > a.active, ul.tabs li.is-active > span, ul.tabs li > span.active { padding: 12px 16px 18px 16px; padding: 0.85714rem 1.14286rem 1.28571rem 1.14286rem; background-color: white; border-color: white; }
 ul.tabs.steps { margin-bottom: 6px; margin-bottom: 6px; margin-bottom: 0.42857rem; }
-ul.tabs.steps li > a, ul.tabs.steps li > span { display: block; padding: 20px 16px 16px 16px; padding: 1.42857rem 1.14286rem 1.14286rem 1.14286rem; background: url('../images/steps-back.png?1375265448') white no-repeat 100% 50%; border: none; font-weight: 300; font-size: 18px; font-size: 1.28571rem; color: #e9e9e9; }
+ul.tabs.steps li > a, ul.tabs.steps li > span { display: block; padding: 20px 16px 16px 16px; padding: 1.42857rem 1.14286rem 1.14286rem 1.14286rem; background: url('../images/steps-back.png?1375705348') white no-repeat 100% 50%; border: none; font-weight: 300; font-size: 18px; font-size: 1.28571rem; color: #e9e9e9; }
 ul.tabs.steps li > a .flaticon, ul.tabs.steps li > span .flaticon { margin: 0 6px; margin: 0 0.42857rem; }
 ul.tabs.steps li > a:hover, ul.tabs.steps li > a:active, ul.tabs.steps li > span:hover, ul.tabs.steps li > span:active { color: #999999; }
-ul.tabs.steps li.is-selected > a, ul.tabs.steps li.is-selected > span { background: url('../images/steps-back-selected.png?1375265448') #00c051 no-repeat 100% 50%; }
+ul.tabs.steps li.is-selected > a, ul.tabs.steps li.is-selected > span { background: url('../images/steps-back-selected.png?1375705348') #00c051 no-repeat 100% 50%; }
 ul.tabs.steps li.is-selected > a .tab-icon .flaticon:before, ul.tabs.steps li.is-selected > span .tab-icon .flaticon:before { content: "\e1ba"; }
 ul.tabs.steps li.is-selected > a:hover, ul.tabs.steps li.is-selected > a:active, ul.tabs.steps li.is-selected > span:hover, ul.tabs.steps li.is-selected > span:active { color: #444444; }
-ul.tabs.steps li > a.active, ul.tabs.steps li > span.active { border-color: #00c051; color: white; background: url('../images/steps-back-active.png?1375265448') #00c051 no-repeat 100% 50%; }
+ul.tabs.steps li > a.active, ul.tabs.steps li > span.active { border-color: #00c051; color: white; background: url('../images/steps-back-active.png?1375705348') #00c051 no-repeat 100% 50%; }
 ul.tabs.steps li > a.active .tab-icon, ul.tabs.steps li > span.active .tab-icon { background-color: white; color: black; }
 ul.tabs.steps li > a.active .tab-title, ul.tabs.steps li > span.active .tab-title { color: white; }
 ul.tabs.steps li > a.active .tab-subtitle, ul.tabs.steps li > span.active .tab-subtitle { color: white; }
@@ -2734,9 +2734,9 @@ ul.voucher-list li .summary { float: left; width: 62.5%; margin-left: 0%; margin
 .toolbox .body .tip .flaticon { color: #cccccc; font-size: 36px; font-size: 2.57143rem; padding: 4px 16px 4px 4px; padding: 0.28571rem 1.14286rem 0.28571rem 0.28571rem; float: left; display: inline-block; }
 
 .banner { position: relative; background-color: #323232; margin-bottom: 48px; margin-bottom: 3.42857rem; }
-.banner #power-of .banner-image { background: url('../images/home-back-power-of.png?1374758247') transparent no-repeat 100px -20%; }
-.banner #new-website { background: url('../images/home-back-new-website.png?1374758247') transparent repeat-x 0 0; }
-.banner #find-project .banner-image { background: url('../images/home-back-find-project.jpg?1374758247') transparent no-repeat 0 0; }
+.banner #power-of .banner-image { background: url('../images/home-back-power-of.png?1374868972') transparent no-repeat 100px -20%; }
+.banner #new-website { background: url('../images/home-back-new-website.png?1374868972') transparent repeat-x 0 0; }
+.banner #find-project .banner-image { background: url('../images/home-back-find-project.jpg?1374868972') transparent no-repeat 0 0; }
 .banner #befriend .banner-image { background: url('../images/home-back-befriend.png') transparent no-repeat 100px 50%; }
 
 .copyright { background-color: #222222; }
