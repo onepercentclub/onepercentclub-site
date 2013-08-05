@@ -18,7 +18,7 @@
 				<entry key="sfdc.bulkApiSerialMode" value="5000"/>
 				<entry key="sfdc.debugMessages" value="false"/>
 				<entry key="sfdc.enableRetries" value="true"/>
-				<entry key="sfdc.endpoint" value="https://test.salesforce.com/services/Soap/u/20.0"/>
+				<entry key="sfdc.endpoint" value="https://login.salesforce.com/services/Soap/u/20.0"/>
 				<entry key="sfdc.entity" value="Task"/>
 				<entry key="sfdc.extractionRequestSize" value="500"/>
 				<entry key="sfdc.extractionSOQL" value="Select Id, WhoId, WhatId, Subject, ActivityDate, Status, Priority, OwnerId, Description, IsDeleted, AccountId, IsClosed, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, IsArchived, CallDurationInSeconds, CallType, CallDisposition, CallObject, ReminderDateTime, IsReminderSet, RecurrenceActivityId, IsRecurrence, RecurrenceStartDateOnly, RecurrenceEndDateOnly, RecurrenceTimeZoneSidKey, RecurrenceType, RecurrenceInterval, RecurrenceDayOfWeekMask, RecurrenceDayOfMonth, RecurrenceInstance, RecurrenceMonthOfYear, GoalOfContactMoment__c, ContactInitiator__c, Last_Contact_Date__c, Topic__c FROM Task"/>
@@ -27,10 +27,10 @@
 				<entry key="sfdc.maxRetries" value="3"/>
 				<entry key="sfdc.minRetrySleepSecs" value="2"/>
 				<entry key="sfdc.noCompression" value="false"/>
-				<entry key="sfdc.password" value="dbc043e1455a87473e67545058a9b08a08282661f74f0f584aa4747ce0d8f662eb06aa8f98555f5b7195d6c6a997a23df80a8187cf4eec85"/>
+				<entry key="sfdc.password" value="780301748d3076058a8b082f629e1a79feae1e010076d5cce42681339acb315a943550b9e5da2034a44c14a1540c1d2cbf0f89c52b9951d3f80a8187cf4eec85"/>
 				<entry key="sfdc.timeoutSecs" value="300"/>
 				<entry key="sfdc.useBulkApi" value="true"/>
-				<entry key="sfdc.username" value="jelle.terpstra@1procentclub.nl.uat"/>
+				<entry key="sfdc.username" value="bluebottle.integration@1procentclub.nl"/>
 			</map>
 		</property>
 	</bean>
