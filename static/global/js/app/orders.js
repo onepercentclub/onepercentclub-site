@@ -481,7 +481,8 @@ App.PaymentSelectController = Em.ObjectController.extend({
 //        payment.one('didUpdate', function(record) {
 //            var paymentUrl = record.get('paymentUrl');
 //            if (paymentUrl) {
-//                document.location = paymentUrl;
+//                    window.location = json['payment_url'];
+//                    window.location.reload(true);
 //            }
 //        });
 //        this.get('transaction').commit();
@@ -498,7 +499,8 @@ App.PaymentSelectController = Em.ObjectController.extend({
             context: this,
             success: function(json) {
                 if (json['payment_url']) {
-                    document.location = json['payment_url'];
+                    window.location = json['payment_url'];
+                    window.location.reload(true);
                 } else {
                     controller.set('paymentInProgress', false);
                     controller.displayPaymentError();
