@@ -260,10 +260,21 @@ class SalesforceProject(SalesforceModel):
     relation_referral_2_with_project_org = models.CharField(max_length=32000, db_column='Relation_referral_2_with_project_org__c')
     relation_referral_3_with_project_org = models.CharField(max_length=32000, db_column='Relation_referral_3_with_project_org__c')
 
+    # Phase dates
+    date_pitch_created = models.DateField(db_column='Date_pitch_created__c')
+    date_pitch_submitted = models.DateField(db_column='Date_pitch_submitted__c')
+    date_pitch_approved = models.DateField(db_column='Date_pitch_approved__c')
+    date_pitch_rejected = models.DateField(db_column='Date_pitch_rejected__c')
+    date_plan_submitted = models.DateField(db_column='Date_plan_submitted__c')
+    date_plan_approved = models.DateField(db_column='Date_plan_approved__c')
+    date_plan_rejected = models.DateField(db_column='Date_plan_rejected__c')
+    date_project_act = models.DateField(db_column='Date_project_act__c')
+    date_project_realized = models.DateField(db_column='Date_project_realized__c')
+    date_project_failed = models.DateField(db_column='Date_project_failed__c')
+    date_project_result = models.DateField(db_column='Date_project_result__c')
+
     # SF Layout: Project Team Information section.
     project_created_date = models.DateField(db_column='Project_created_date__c')
-
-    # SF Layout: International Payment section.
 
     # SF Layout: Other section.
     external_id = models.CharField(max_length=255, db_column='Project_External_ID__c')
