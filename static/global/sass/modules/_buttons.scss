@@ -99,7 +99,6 @@
         @include rem(margin-right, 12px);
         @include rem(padding, 10px 8px 8px 8px);
         @include rem(width, 50px);
-        @include rem(font-size, 26px);
         display: inline-block;
         background: darken($green, 5%);
         color: lighten($green, 5%);
@@ -107,6 +106,16 @@
 		vertical-align: sub;
 		line-height: 0.85;
     }
+    
+    .flaticon {
+        @include rem(font-size, 26px);
+    }
+    
+     .icon {
+     	@include rem(font-size, 32px);
+     	font-style: normal;
+     	font-weight: 600;
+     }
     
     
     &.btn-primary {
