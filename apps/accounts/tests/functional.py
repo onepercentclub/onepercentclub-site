@@ -58,7 +58,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # NOTE: Most ember elements don't have meaningful names. This makes it hard to find out which element is the
         # correct one.
-        form = self.browser.find_by_css('form.form-signup').first
+        form = self.browser.find_by_css('form.signup-form').first
 
         # Fill in the form.
         form_data = {
