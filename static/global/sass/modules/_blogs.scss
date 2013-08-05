@@ -2,7 +2,7 @@
 
 .blogpost {
     clear: both;
-    @include grid(32, 1, 1);
+    @include grid(32, 1, 0);
     position: relative;
     @include rem(margin, $padding*2 0);
 
@@ -59,7 +59,7 @@
 }
 
 .blogpost-filter {
-    padding: 0;
+	float: right !important;
     @include rem(margin-top, $padding*2);
     
     ul {
