@@ -22,5 +22,5 @@ COWRY_LIVE_PAYMENTS = False
 
 
 # Send email for real
-EMAIL_BACKEND = 'django.core.mail.backends.sendmail.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

@@ -7,8 +7,8 @@ SETTINGS=""
 if [ $2 ]; then
     SETTINGS="--settings=$2"
 fi
-MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -e hbs,html,txt $SETTINGS"
-MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE -d djangojs $SETTINGS"
+MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -e hbs,html,txt $SETTINGS"
+MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -d djangojs $SETTINGS"
 COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
 COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"

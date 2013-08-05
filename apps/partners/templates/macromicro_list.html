@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<projects>
+    {% for project in object_list %}
+        <project>
+            <title>{{ project.title }}</title>
+            <link>https://onepercentclub.com/go/projects/{{ project.slug }}</link>
+            <created>{{ project.projectplan.date_created }}</created>
+            <slug>{{ project.slug }}</slug>
+            <supportlink>https://onepercentclub.com/support/{{ project.slug }}</supportlink>
+            <image>{{ project.projectplan.image }}</image>
+            <location>
+                <country>{{ project.projectplan.country.name }}</country>
+                <region>{{ project.projectplan.country.subregion.name }}</region>
+                <latitude>{{ project.projectplan.latitude }}</latitude>
+                <longitude>{{ project.projectplan.longitude }}</longitude>
+            </location>
+            <money>
+                <asked>{{ project.projectcampaign.money_asked }}</asked>
+                <donated>{{ project.projectcampaign.money_donated }}</donated>
+                <needed>{{ project.projectcampaign.money_needed }}</needed>
+            </money>
+        </project>
+    {%  endfor  %}
+</projects>

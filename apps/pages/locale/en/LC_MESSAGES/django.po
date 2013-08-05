@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-05 14:00+0200\n"
+"POT-Creation-Date: 2013-08-05 22:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,15 +89,15 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
-#: models.py:55 templates/pages.hbs:89
+#: models.py:55 templates/pages.hbs:61
 msgid "Name"
 msgstr ""
 
-#: models.py:56 templates/pages.hbs:101
+#: models.py:56 templates/pages.hbs:73
 msgid "Email"
 msgstr ""
 
-#: models.py:57 templates/pages.hbs:113
+#: models.py:57 templates/pages.hbs:85
 msgid "Message"
 msgstr ""
 
@@ -106,60 +106,69 @@ msgstr ""
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
-#: templates/pages.hbs:44
+#: templates/pages.hbs:45
 msgid "Contact"
 msgstr ""
 
-#: templates/pages.hbs:49
+#: templates/pages.hbs:47
 msgid ""
 "\n"
-"                    Send us a message or get in touch using the details "
-"below.<br/>\n"
-"                    Talk to you soon!\n"
+"                    Send us a message or get in touch using the details below. Talk to you soon!\n"
 "                    "
 msgstr ""
 
-#: templates/pages.hbs:57
+#: templates/pages.hbs:55
+msgid "Thanks for your message!. We'll get back to you soon"
+msgstr ""
+
+#: templates/pages.hbs:98
+msgid "Send Message"
+msgstr ""
+
+#: templates/pages.hbs:105
+msgid "Other ways to contact"
+msgstr ""
+
+#: templates/pages.hbs:107
 msgid ""
 "\n"
-"                    Email:<a href=\"mailto:info@onepercentclub.com?"
-"subject=Contact\">info@onepercentclub.com</a><br />\n"
-"                     Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br /"
-">\n"
-"                    Facebook: <a href=\"http://www.facebook.com/"
-"onepercentclub\">/onepercentclub  </a>\n"
+"                    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n"
+"                    \n"
+"Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n"
+"                    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub\n"
+"\n"
+"</a>\n"
 "                    "
 msgstr ""
 
-#: templates/pages.hbs:64
+#: templates/pages.hbs:117
 #, python-format
 msgid ""
 "\n"
-"                    1%%Club Foundation <br />\n"
-"                    's Gravenhekje 1a <br />\n"
+"                    1%%Club Foundation\n"
+"<br />\n"
+"                    's Gravenhekje 1a\n"
+"<br />\n"
 "                    1011 TG Amsterdam<br />\n"
 "                    The Netherlands\n"
 "                    "
 msgstr ""
 
-#: templates/pages.hbs:72
+#: templates/pages.hbs:127
 msgid ""
 "\n"
-"                    Bank: Rabobank (Haarlem) <br />\n"
-"                    Account number: NL45 RABO 01322070 44(donations) <br /\n"
+"                    Bank: Rabobank (Haarlem)\n"
+"<br />\n"
+"                    Account number: NL45 RABO 01322070 44(donations)\n"
+"<br /\n"
 "                    >BIC: RABONL2U<br />\n"
-"                     <br />\n"
-"                    Chamber of Commerce number 34.26.78.95  <br />\n"
+"                    \n"
+"<br />\n"
+"                    Chamber of Commerce number 34.26.78.95\n"
+"\n"
+"<br />\n"
 "                    Phone(+31) 20 715 8980\n"
 "                    "
-msgstr ""
-
-#: templates/pages.hbs:84
-msgid "Thanks for your message!. We'll get back to you soon."
-msgstr ""
-
-#: templates/pages.hbs:126
-msgid "Send"
 msgstr ""
 
 #: templates/admin/pages/change_form.html:7
