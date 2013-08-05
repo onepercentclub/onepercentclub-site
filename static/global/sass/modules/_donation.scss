@@ -155,6 +155,22 @@
         }
 	}
 	
+	.donation-empty {
+		
+		
+		.flaticon, .icon {
+			@include grid(12,1,1);
+			text-align: center;
+			@include rem(font-size, 72px);
+			color: $color-back;
+			@include rem(padding-top, 22px);
+		}
+		
+		.form-meta {
+			@include grid(36,1,1);
+		}
+	}
+	
 	.add-project {
 	    @include rem(margin, $padding/2 $padding);
 	    @include rem(line-height, 32px);
