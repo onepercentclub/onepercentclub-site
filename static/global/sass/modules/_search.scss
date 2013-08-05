@@ -318,6 +318,7 @@
         select {
             @include grid(40,0,0);
             height: 40px;
+            text-transform: capitalize;
         }
         
         select option:first-child {

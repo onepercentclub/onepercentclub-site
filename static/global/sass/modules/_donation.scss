@@ -157,6 +157,7 @@
 	
 	.donation-empty {
 		
+		@include clearfix;
 		
 		.flaticon, .icon {
 			@include grid(12,1,1);
@@ -172,6 +173,7 @@
 	}
 	
 	.add-project {
+		float: left;
 	    @include rem(margin, $padding/2 $padding);
 	    @include rem(line-height, 32px);
 	}
@@ -230,6 +232,26 @@
 			    float: right !important;
 		    }
 	    }
+	}
+	
+	.donations-turned-off {
+		clear: both;
+		@include rem(font-size,14px);
+		@include rem(padding, $padding $padding);
+		@include rem(margin-bottom, $padding);
+		color: $white;
+		background: $color-error;
+		
+		h3 {
+			font-weight: 300;
+			padding: 0;
+			text-transform: uppercase;
+			@include rem(font-size,16px);
+		}
+		
+		p {
+			margin: 0;
+		}
 	}
 }
 
