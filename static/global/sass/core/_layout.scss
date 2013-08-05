@@ -28,7 +28,7 @@ html, body, #site {
 #content {
   	min-height: 100%;
   	/* equal to footer height + 2x padding */
-  	margin-bottom: -542px;
+  	margin-bottom: -562px;
   	@include rem(padding-bottom, $padding * 2);
 }
 #content:after {
@@ -37,7 +37,7 @@ html, body, #site {
 }
 #footer, #content:after {
   	/* .push must be the same height as footer */
-  	height: 510px; 
+  	height: 530px; 
 }
 
 #footer {

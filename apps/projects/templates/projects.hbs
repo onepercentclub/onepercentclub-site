@@ -494,7 +494,7 @@
 {% tplhandlebars "project_supporter" %}
 
     {{#if supporter.member}}
-        <a class="member" {{bindAttr data-title="supporter.member.full_name" data-content="supporter.time_since"}}>
+        <a class="member"  {{bindAttr data-title="supporter.member.full_name" data-content="supporter.time_since"}}>
             <img {{bindAttr src="supporter.member.getAvatar"}} width="45" height="45" alt="Photo" />
         </a>
     {{else}}
@@ -581,20 +581,6 @@
             {{/if}}
                 
         </div>
-
-     
-        <div class="sidebar">
-            
-            {{theme.title}}<br/>
-            {{#each tag in tags}}
-                <a>
-                    {{tag.id}}
-                </a>
-            {{/each}}
-
-        </div>
-        
-
     </section>
 
 {% endtplhandlebars %}

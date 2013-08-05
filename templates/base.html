@@ -287,12 +287,16 @@
                                         {% blocktrans %}1%Projects{% endblocktrans %}
                                     {{/linkTo}}
                                 </li>
+                                <li>{{#linkTo taskList}}
+                                		{% blocktrans %}1%Skills{% endblocktrans %}
+                                	{{/linkTo}}
+                                </li>
                                 <li>
                                     <a {{action showPage 'get-involved'}} href="/#!/pages/get-involved">
                                         {% trans "Get involved" %}
                                     </a>
                                 </li>
-                                <li>
+                                <li class="start-your-project">
                                     {{#linkTo myPitchNew}}
                                         {% trans "Start your project" %}
                                     {{/linkTo}}
@@ -339,31 +343,22 @@
                         <li>
                             <h3>{% trans "Discover 1%More" %}</h3>
                             <ul>
+                            	<li>
+                                    <a {{action showPage 'business'}} href="/#!/pages/business">
+                                        {% trans "1%Business" %}
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="http://onepercentblog.com/" target="_blank">
                                         {% trans "1%Blog" %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://onepercentlive.com/" target="_blank">
-                                        {% trans "1%Live" %}
+                                    <a  href="http://github.com/onepercentclub">
+                                        {% trans "1%Github" %}
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="http://onepercentevent.com/" target="_blank">
-                                        {% trans "1%Event" %}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="http://www.youtube.com/user/1Procentclub" target="_blank">
-                                        {% trans "1%Video" %}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a {{action showPage 'business'}} href="/#!/pages/business">
-                                        {% trans "1%Business" %}
-                                    </a>
-                                </li>
+                                
                             </ul>
                         </li>
 
@@ -409,7 +404,7 @@
                         {{#each news}}
                             <li>
                                 <a {{action 'showNews' this.id}}>
-                                    <span class="icon-chevron-right"></span> {{ title }}
+                                    <span class="flaticon solid right-2"></span> {{ title }}
                                 </a>
                             </li>
                         {{/each}}
@@ -419,11 +414,11 @@
                     {{#unless controllers.currentUser.isAuthenticated}}
                     <div class="footer-join-us">
 						<h3>{% blocktrans %}Join 1%Club{% endblocktrans %}</h3>
-	                    <p>{% blocktrans %}1%Club connects smart ideas from developing countries to time, money and expertise from all over the world. It is very easy:{% endblocktrans %}</p>
+	                    <p>{% blocktrans %}1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online. {% endblocktrans %}</p>
 	                    <ul>
-	                        <li><i class="icon-chevron-right"></i> {% trans "Select a project or tast" %}</li>
-	                        <li><i class="icon-chevron-right"></i> {% trans "Share your skills or money" %}</li>
-	                        <li><i class="icon-chevron-right"></i> {% trans "See direct results" %}</li>
+	                        <li><i class="flaticon solid right-2"></i> {% trans "Select a project or task" %}</li>
+	                        <li><i class="flaticon solid right-2"></i> {% trans "Share your skills or money" %}</li>
+	                        <li><i class="flaticon solid right-2"></i> {% trans "See direct results" %}</li>
 	                    </ul>
 	                    {{#linkTo signup classNames="btn btn-primary"}}{% blocktrans %}Join 1%Club{% endblocktrans %}{{/linkTo}}
 					</div>
@@ -443,11 +438,13 @@
 	                            {% trans "General Conditions" %}
 	                        </a>
 	                    </li>
+	                    {% comment %}
 	                    <li class="right" >
 	                        <a class="feedback" id="feedbackButton" href="#">
 	                            {%  trans "Give us feedback" %}
 	                        </a>
 	                    </li>
+	                    {% endcomment %}
 	                </ul>
 	            </div>
 	        </div>

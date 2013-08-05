@@ -50,6 +50,11 @@
 	        @include grid(12);
 	        @include rem(line-height, 20px);
 	    }
+	    
+	    .start-your-project {
+		    @include rem(margin-top, 18px);
+		    font-weight: 300;
+	    }
 	}
 	
 	.footer-news {
