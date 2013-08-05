@@ -2,10 +2,9 @@
 
 .blogpost {
     clear: both;
-
     @include grid(32, 1, 0);
     position: relative;
-    @include rem(margin, 24px 0 24px 0);
+    @include rem(margin, $padding*2 0);
 
 
     &:hover .manage {
@@ -13,20 +12,14 @@
     }
 
     .show-more {
-       @include grid(48, 12, 0);
-    }
-
-    .post-comment {
-      background-color: $color-back;
-      padding: 12px;
+       @include grid(48, 12, 1);
     }
 
     header {
-        @include grid(48, 12, 0);
+        @include grid(48, 12, 1);
 
         h3 {
-          @include rem(font-size, 18px);
-          @include rem(line-height, 24px);
+          @include rem(font-size, 28px);
           font-weight: 600;
           color: $heading-black;
           margin: 0px;
@@ -34,74 +27,73 @@
           padding: 0;
           text-transform: uppercase;
         }
+        
+        .timestamp {
+	        text-transform: uppercase;
+        }
 
         .manage {
             float: right;
         }
     }
 
-    .text, .oembed  {
+    .text, .oembed, .video  {
         @include rem(margin-bottom, 12px);
     }
 
-
     .content {
-        @include grid(48, 12, 0);
+        @include grid(48, 12, 1);
         position: relative;
-        @include rem(margin-top, 8px);
-        @include rem(margin-bottom, 8px);
+        @include rem(margin-top, $padding/2);
+        @include rem(margin-bottom, $padding/2);
         word-wrap: break-word;
-
-        p {
-          margin: 0;
-          padding: 0;
-          //display: inline;
-        }
-
-        br {
-          //display: none !important;
-        }
-
     }
 
-    .reaction-box {
-        position: relative;
-        display: block;
-    }
-
-    .user-img, .header-img {
+    .user-img {
         @include rem(width, 70px);
         position: absolute;
         top: 0;
         left: 0;
         @include prepend(5);
     }
-    .header-img {
-        .icon {
-          @include rem(line-height, 50px);
-          @include rem(font-size, 40px);
-          margin-top: 4px;
-        }
-        @include rem(height, 70px);
-        background-color: $grayDark;
-        color: $white;
-        text-align: center;
-        text-transform: uppercase;
-    }
 }
 
 .blogpost-filter {
-    @include rem(margin-top, 32px);
-    @include rem(padding, 24px);
-    background-color: $color-back;
+	float: right !important;
+    @include rem(margin-top, $padding*2);
+    
     ul {
-        margin: 0;
-        padding: 0;
-        text-indent: 0;
-    }
+		background: $color-back;
+		padding: 0;
+		margin: 0;
+		border-top: 1px solid $white;
+		@include rem(margin-bottom, $padding);
+		
+		.item {
+			clear: both;
+			position: relative;
+			display: block;
+			border-bottom: 1px solid $white;
+			@include rem(padding, $padding $padding*2);
+			text-transform: uppercase;
+			
+			.timestamp {
+				@include rem(font-size, 12px);
+				text-transform: uppercase;
+				font-style: normal;
+				color: $gray;
+			}
+		}
+	}
+    
     .pager {
-        color: $gray;
+        color: $text-black;
         text-transform: uppercase;
-
+        
+        .flaticon {
+	        @include rem(margin, 0 4px);
+	        @include rem(font-size, 16px);
+	        vertical-align: middle;
+        }
     }
 }

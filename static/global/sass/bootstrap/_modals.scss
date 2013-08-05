@@ -65,9 +65,13 @@
     cursor: pointer;
     float: right;
     font-size: 20px;
+    color: $gray;
+    &:hover, &:active {
+	    color: $black;
+    }
   }
   // Heading
-  h3 {
+  h, h3, .modal-title {
     margin: 0;
     line-height: 30px;
     padding: 16px 0 0;
