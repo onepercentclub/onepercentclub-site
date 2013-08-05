@@ -125,12 +125,14 @@
         {{else}}
         	<div class="donation-empty">
             {{#if showTopThreeProjects }}
+            	<em class="flaticon solid heart-1"></em>
                 <div class="form-meta">
                     <p class="form-label">{% trans "Become a 1%Friend" %}</p>
                     <p class="form-desc">{% trans "Support the top 3 projects with your monthly donation, or choose your own project to support monthly." %}</p>
                 </div>
             {{else}}
                 {{#linkTo "projectList"}}
+                	<em class="flaticon solid plus-2"></em>
                     <div class="form-meta">
                         <p class="form-label">{% trans "Choose a project to support" %}</p>
                         <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list." %}</p>
@@ -529,8 +531,11 @@
 			<div class="content">
 			
 				<div class="intro">
-                	{# TODO: Set this to two states: single project, multiple projects #}
-					<h3>{% trans "You just supported these projects" %}</h3>
+                	{{#if moreThanOneDonation }}
+                        <h3>{% trans "You just supported these projects" %}</h3>
+                    {{ else }}
+                        <h3>{% trans "You just supported this project" %}</h3>
+                    {{/if}}
                 </div>
 	
 	            <ul class="donation-projects">
@@ -612,6 +617,10 @@
                     <ul class="donation-projects">
                         {{#each donation in donations }}
                             {{partial "thanksDonation"}}
+                        {{/each}}
+                            
+                            
+                        {% comment %}    
                         {{ else }}
                             {{#each projectPreview in topThreeProjects }}
                             	{# TODO: Show same project preview for top 3 projects #}
@@ -619,7 +628,7 @@
                                     {{ projectPreview.title }}
                                 </li>
                             {{/each}}
-                        {{/each}}
+                        {% endcomment %}
                     </ul>
                 {{/if}}
             </div>
