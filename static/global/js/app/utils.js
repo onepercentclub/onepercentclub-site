@@ -12,7 +12,7 @@ App.CountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
     optionLabelPath: "content.name",
-    prompt: "Pick a country"
+    prompt: gettext("Pick a country")
 });
 
 
@@ -20,7 +20,7 @@ App.CountryCodeSelectView = Em.Select.extend({
     content:  [{"code": "0", "name": "--loading--"}],
     optionValuePath: "content.code",
     optionLabelPath: "content.name",
-    prompt: "Pick a country"
+    prompt: gettext("Pick a country")
 });
 
 
@@ -28,21 +28,21 @@ App.ProjectCountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
     optionValuePath: "content.id",
     optionLabelPath: "content.name",
-    prompt: "Pick a country"
+    prompt: gettext("Pick a country")
 });
 
 
 App.TimeNeededList = [
-    {value: 0.25, title: "15 minutes"},
-    {value: 0.5, title: "half an hour"},
-    {value: 1, title: "up to one hour"},
-    {value: 2, title: "two hours"},
-    {value: 4, title: "half a day"},
-    {value: 8, title: "one day"},
-    {value: 16, title: "two days"},
-    {value: 40, title: "one week"},
-    {value: 80, title: "two weeks"},
-    {value: 160, title: "one month"}
+    {value: 0.25, title: gettext("15 minutes")},
+    {value: 0.5, title: gettext("half an hour")},
+    {value: 1, title: gettext("up to one hour")},
+    {value: 2, title: gettext("two hours")},
+    {value: 4, title: gettext("half a day")},
+    {value: 8, title: gettext("one day")},
+    {value: 16, title: gettext("two days")},
+    {value: 40, title: gettext("one week")},
+    {value: 80, title: gettext("two weeks")},
+    {value: 160, title: gettext("one month")}
 
 ];
 
@@ -59,7 +59,7 @@ App.Theme = DS.Model.extend({
 });
 
 App.ThemeList = [
-    {id: "0", title: "--loading--"}
+    {id: "0", title: gettext("--loading--")}
 ];
 
 App.ThemeSelectView = Em.Select.extend({
@@ -143,10 +143,10 @@ App.Editable = Ember.Mixin.create({
         if (record.get('isDirty')) {
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
-                heading: 'Save changed data?',
-                message: 'You have some unsaved changes. Do you want to save before you leave?',
-                primary: 'Save',
-                secondary: 'Cancel',
+                heading: gettext('Save changed data?'),
+                message: gettext('You have some unsaved changes. Do you want to save before you leave?'),
+                primary: gettext('Save'),
+                secondary: gettext('Cancel'),
                 callback: function(opts, e) {
                     e.preventDefault();
 
@@ -181,10 +181,10 @@ App.Editable = Ember.Mixin.create({
 
     saveButtonText: (function() {
         if (this.get('saving')) {
-            return 'Saving';
+            return gettext('Saving');
         }
 
-        return 'Save';
+        return gettext('Save');
     }).property('saving')
 });
 

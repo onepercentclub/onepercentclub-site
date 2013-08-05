@@ -426,18 +426,18 @@ App.ProjectOrderSelectView = Em.Select.extend({
 });
 
 App.ProjectPhaseList = [
-    {value: 'plan', title: "Writing Plan"},
-    {value: 'campaign', title: "Campaign"},
-    {value: 'act', title: "Act"},
-    {value: 'results', title: "Results"},
-    {value: 'realized', title: "Realised"}
+    {value: 'plan', title: gettext("Writing Plan")},
+    {value: 'campaign', title: gettext("Campaign")},
+    {value: 'act', title: gettext("Act")},
+    {value: 'results', title: gettext("Results")},
+    {value: 'realized', title: gettext("Realised")}
 ];
 
 App.ProjectPhaseSelectView = Em.Select.extend({
     content: App.ProjectPhaseList,
     optionValuePath: "content.value",
     optionLabelPath: "content.title",
-    prompt: "Pick a phase"
+    prompt: gettext("Pick a phase")
 
 });
 
