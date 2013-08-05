@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-05 14:00+0200\n"
+"POT-Creation-Date: 2013-08-05 22:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,7 @@ msgid "Choose your project"
 msgstr ""
 
 #: templates/homepage.hbs:54
-msgid ""
-"Support it with your time, knowledge or money and receive real-time updates."
+msgid "Support it with your time, knowledge or money and receive real-time updates."
 msgstr ""
 
 #: templates/homepage.hbs:97
@@ -67,9 +66,7 @@ msgid "Our impact"
 msgstr ""
 
 #: templates/homepage.hbs:173
-msgid ""
-"We believe that if we all share a little, together we can change the world. "
-"We got this far already."
+msgid "We believe that if we all share a little, together we can change the world. We got this far already."
 msgstr ""
 
 #: templates/homepage.hbs:179

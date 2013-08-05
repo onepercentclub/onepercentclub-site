@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-05 14:00+0200\n"
+"POT-Creation-Date: 2013-08-05 22:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,8 +100,7 @@ msgid ""
 "<br/>\n"
 "%(author_name)s has left a message on your project page.<br/>\n"
 "<br/>\n"
-"You must be curious what! Don't wait any longer and check it out <a href="
-"\"%(site)s%(link)s\">here on our website</a>.\n"
+"You must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n"
 "<br/>\n"
 "See you in a bit!<br/>\n"
 "<br/>\n"
@@ -133,8 +132,7 @@ msgid ""
 "<br/>\n"
 "Yes, yes, yes! <b>%(author_name)s</b> commented on your wallpost.<br/>\n"
 "<br/>\n"
-"<a href=\"%(site)s%(link)s\">Go to our website</a> and read the reaction.<br/"
-">\n"
+"<a href=\"%(site)s%(link)s\">Go to our website</a> and read the reaction.<br/>\n"
 "<br/>\n"
 "See you in a bit!<br/>\n"
 "<br/>\n"
@@ -165,11 +163,11 @@ msgid "Delete"
 msgstr ""
 
 #: templates/reactions.hbs:60 templates/wallposts.hbs:20
-#: templates/wallposts.hbs.py:332
+#: templates/wallposts.hbs.py:335
 msgid "Login"
 msgstr ""
 
-#: templates/reactions.hbs:60 templates/wallposts.hbs:332
+#: templates/reactions.hbs:60 templates/wallposts.hbs:335
 msgid "member"
 msgstr ""
 
@@ -185,8 +183,7 @@ msgid ""
 "<br/>\n"
 "%(author_name)s has left a message on your task page.<br/>\n"
 "<br/>\n"
-"You must be curious what! Don't wait any longer and check it <a href="
-"\"%(site)s%(link)s\">here on our website</a>.<br/>\n"
+"You must be curious what! Don't wait any longer and check it <a href=\"%(site)s%(link)s\">here on our website</a>.<br/>\n"
 "<br/>\n"
 "See you in a bit!<br/>\n"
 "<br/>\n"
@@ -276,7 +273,7 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:344
+#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:347
 msgid "Show more"
 msgstr ""
 
@@ -284,10 +281,10 @@ msgstr ""
 msgid "more"
 msgstr ""
 
-#: templates/wallposts.hbs:332
+#: templates/wallposts.hbs:335
 msgid "or become a"
 msgstr ""
 
-#: templates/wallposts.hbs:332
+#: templates/wallposts.hbs:335
 msgid "to leave a comment."
 msgstr ""

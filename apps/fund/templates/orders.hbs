@@ -128,8 +128,8 @@
             {{#if showTopThreeProjects }}
             	<em class="flaticon solid heart-1"></em>
                 <div class="form-meta">
-                    <p class="form-label">{% trans "Become a 1%Friend" %}</p>
-                    <p class="form-desc">{% trans "Support the top 3 projects with your monthly donation" %}.</p>
+                    <p class="form-label">{% blocktrans %}Become a 1%Friend{% endblocktrans %}</p>
+                    <p class="form-desc">{% trans "Support the top 3 projects with your monthly donation." %}</p>
                 </div>
             {{else}}
                 {{#linkTo "projectList"}}
@@ -221,16 +221,16 @@
 <div class="sidebar tip">
 	{{#if controllers.currentUser.isAuthenticated}}
 		{{#if controllers.currentOrder.recurring }}
-		<h3>{% trans "Donate monthly to<br /> become a 1%Friend." %}</h3>
-	    <p>{% trans "Yay! We're happy to welcome you as a 1%Friend. After all, friends make life better!" %}</p>
+		<h3>{% blocktrans %}Donate monthly to<br /> become a 1%Friend.{% endblocktrans %}</h3>
+	    <p>{% blocktrans %}Yay! We're happy to welcome you as a 1%Friend. After all, friends make life better!{% endblocktrans %}</p>
 		{{else}}
 		<h3>{% trans "Why not donate monthly?" %}</h3>
-		<p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!" %}</p>
+		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!{% endblocktrans %}</p>
 		{{/if}}	
 	{{else}}
 		<h3>Did you know?</h3>
-		<p>{% trans "You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly." %}
-		<p class="action-link">{{#linkTo "signup"}}{% trans "Become a 1%Member" %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>      
+		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly.{% endblocktrans %}
+		<p class="action-link">{{#linkTo "signup"}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>
 	{{/if}}
 </div>
 
@@ -321,9 +321,9 @@
 <div class="sidebar tip">
     <h3>{% trans "Did you know?" %}</h3>
     {{#if controllers.currentUser.isAuthenticated }}
-        <p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps." %}</p>
+        <p>{% blocktrans %}"You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps.{% endblocktrans %}</p>
     {{else}}
-        <p>{% trans "You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached we'll make sure your donation will support a similar project." %}</p>
+        <p>{% blocktrans %}You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached we'll make sure your donation will support a similar project.{% endblocktrans %}</p>
     {{/if}}
 </div>
 
@@ -445,7 +445,7 @@
 	        </ul>
 	    </fieldset>
 	
-	    <p class="authorisation">{% trans "By clicking submit, I authorize 1%Club to withdraw money every month." %}</p>
+	    <p class="authorisation">{% blocktrans %}By clicking submit, I authorize 1%Club to withdraw money every month.{% endblocktrans %}</p>
 	
 	    {{#if isFormReady }}
 	        {{#if paymentInProgress }}
@@ -463,7 +463,7 @@
 	
 <div class="sidebar tip">
 	<h3>{% trans "Your monthly donation" %}</h3>
-	<p>{% trans "Thank you 1%Friend! You're about to set your monthly donation amount to &euro;" %} {{controllers.currentOrderDonationList.recurringTotal}}</p>
+	<p>{% blocktrans %}Thank you 1%Friend! You're about to set your monthly donation amount to &euro;{% endblocktrans %} {{controllers.currentOrderDonationList.recurringTotal}}</p>
 </div>	
 
 {% endtplhandlebars %}
@@ -533,7 +533,7 @@
                 		<p>{% blocktrans %}
 						Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
 					{% endblocktrans %}</p>
-					<p>{{#linkTo "signup"}}{% trans "Become a 1%Member" %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>  
+					<p>{{#linkTo "signup"}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>
 					{{/if}}
             	</header>
             
@@ -596,7 +596,7 @@
 	                		<p>{% blocktrans %}
 							Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
 						{% endblocktrans %}</p>
-						<p>{{#linkTo "signup"}}{% trans "Become a 1%Member" %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>  
+						<p>{{#linkTo "signup"}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>
 						{{/if}}
 	            	</header>
             	
@@ -673,7 +673,7 @@
 					Following projects are now even easier and you'll have your own personalised page!
 					{% endblocktrans %}</p>
                     {{#linkTo "signup" class="profile-link" }}
-                        {% trans "Become 1%Club member" %} &#8250;
+                        {% blocktrans %}Become 1%Club member{% endblocktrans %} &#8250;
                     {{/linkTo }}
                 {{/if}}
                 

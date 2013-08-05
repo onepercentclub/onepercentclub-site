@@ -3,15 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Translators:
 # nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-04 23:04+0200\n"
-"PO-Revision-Date: 2013-08-04 21:05+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-08-05 22:44+0200\n"
+"PO-Revision-Date: 2013-08-05 07:50+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,11 +20,11 @@ msgstr ""
 
 #: models.py:41
 msgid "DocData Payment"
-msgstr ""
+msgstr "DocData Payment"
 
 #: models.py:42
 msgid "DocData Payments"
-msgstr ""
+msgstr "DocData Payments"
 
 #: models.py:51
 msgid "status"
@@ -49,4 +48,4 @@ msgstr "DocData Payment Log"
 
 #: models.py:80
 msgid "DocData Payment Logs"
-msgstr ""
+msgstr "DocData Payment Logs"
