@@ -257,7 +257,7 @@ App.loadTemplates();
  * The Ember Data Adapter and Store configuration.
  */
 App.Adapter = DS.DRF2Adapter.extend({
-    namespace: "i18n/api",
+    namespace: "api",
 
     plurals: {
         "projects/manage": "projects/manage",
@@ -436,6 +436,9 @@ App.Adapter.map('App.HomePage', {
     quotes: {embedded: 'load'},
     impact: {embedded: 'load'}
 });
+App.Adapter.map('App.PartnerOrganization', {
+    projects: {embedded: 'load'}
+});
 
 
 App.Store = DS.Store.extend({
@@ -589,6 +592,7 @@ App.Router.map(function() {
 
     this.resource('myPitchNew', {path: '/my/pitch/new'});
     this.resource('myProjectList', {path: '/my/projects'});
+    this.resource('partner', {path: '/partners/:partner_organization_id'});
 
 });
 
@@ -1475,7 +1479,7 @@ App.LoginController = Em.Controller.extend({
 
                     $.ajax({
                         type: 'PUT',
-                        url: '/i18n/api/users/passwordreset',
+                        url: '/api/users/passwordreset',
                         data: JSON.stringify({email: email}),
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',

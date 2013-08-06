@@ -144,3 +144,23 @@ Twitter:<a href="https://twitter.com/1percentclub">@1percentclub</a><br />
     </div>
 
 {% endtplhandlebars %}
+
+
+{% tplhandlebars "partner" %}
+    <div class="container">
+        <section class="wrapper">
+            <header class="title">
+                <h1>{{name}}</h1>
+            </header>
+            <header>
+                <ul id="results">
+                    {{#each project in projects}}
+                        {{render "projectPreview" project}}
+                    {{else}}
+                        <li>{% trans "No projects found." %}</li>
+                    {{/each}}
+                </ul>
+            </header>
+        </section>
+    </div>
+{% endtplhandlebars %}

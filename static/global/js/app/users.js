@@ -125,6 +125,7 @@ App.CurrentUser = App.UserPreview.extend({
     getUser: function(){
         return App.User.find(this.get('id_for_ember'));
     }.property('id_for_ember'),
+    primary_language: DS.attr('string'),
 
     // This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
     // App.UserSettingsModel.find(App.CurrentUser.find('current').get('id_for_ember'));

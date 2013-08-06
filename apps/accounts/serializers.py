@@ -31,7 +31,7 @@ class CurrentUserSerializer(UserPreviewSerializer):
 
     class Meta:
         model = BlueBottleUser
-        fields = UserPreviewSerializer.Meta.fields + ('id_for_ember',)
+        fields = UserPreviewSerializer.Meta.fields + ('id_for_ember', 'primary_language')
 
 
 class UserProfileSerializer(serializers.ModelSerializer):

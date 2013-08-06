@@ -87,8 +87,8 @@ class BlogPostApiIntegrationTest(BlogPostCreationMixin, TestCase):
 
         self.some_english_blog = self.create_blog_post(language='en')
 
-        self.news_url = '/i18n/api/blogs/news/'
-        self.blog_url = '/i18n/api/blogs/posts/'
+        self.news_url = '/api/blogs/news/'
+        self.blog_url = '/api/blogs/posts/'
 
 
     def test_news_retrieve(self):

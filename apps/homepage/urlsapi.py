@@ -4,5 +4,5 @@ from surlex.dj import surl
 
 
 urlpatterns = patterns('',
-    surl(r'^/<language:s>$', HomePageDetail.as_view(), name='stats'),
+    surl(r'^<language:s>$', HomePageDetail.as_view(), name='stats'),
 )
