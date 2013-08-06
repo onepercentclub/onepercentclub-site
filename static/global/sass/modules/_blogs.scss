@@ -1,12 +1,13 @@
 /* Copy pasted from wallpost.scss */
 
 .blogpost {
-    
+
     &:hover .manage {
         display: block;
     }
 
     .show-more {
+
        @include grid(48, 11, 0);
     }
 
@@ -40,6 +41,7 @@
         @include rem(top, $padding*3);
         left: 0;
         @include prepend(2);
+
     }
 }
 
