@@ -158,16 +158,17 @@
 	        {{/if}}
 	        
 	        {{#if controllers.currentOrder.recurring }}
-				{{#if recurringPayment.active }}
-				{{else}}
-			        <div class="donations-turned-off">
-			            <h3>{% trans "You turned off monthly donations" %}</h3>
-			            <p>{% trans "It will be automatically turned on again if you follow through the next steps" %}.</p>
-			        </div>
-			    {{/if}}
+                {# Both recurringPayment and recurringPayment.active checks are required #}
+                {{#if recurringPayment }}
+                    {{#unless recurringPayment.active }}
+                        <div class="donations-turned-off">
+                            <h3>{% trans "You turned off monthly donations" %}</h3>
+                            <p>{% trans "It will be automatically turned on again if you follow through the next steps" %}.</p>
+                        </div>
+                    {{/unless}}
+                {{/if}}
 			{{/if}}
-	        
-	      
+
             <fieldset class="donation-monthly-total">
             	{{#if showTopThreeProjects }}
                 	<div class="form-summary">&nbsp;</div>
@@ -212,9 +213,6 @@
 	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
 	    {{/if}}
 	    
-	    
-     
-	
 	</form>
 </div>
 
