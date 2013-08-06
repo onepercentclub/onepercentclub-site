@@ -1,0 +1,19 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "page" %}
+    <div class="container">
+        {{#if view.showTitle}}
+        	<section class="wrapper">
+            	<header class="title">
+                	<h1>{{title}}</h1>
+				</header>
+				{{{body}}}
+        	</section>
+        {{else}}
+        	{{{body}}}
+        {{/if}}
+    </div>
+
+{% endtplhandlebars %}

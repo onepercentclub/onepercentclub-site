@@ -14,13 +14,13 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
     def setUp(self):
         self.some_user = self.create_user(email='nijntje@hetkonijnje.nl', first_name='Nijntje')
         self.another_user = self.create_user()
-        self.current_user_api_url = '/i18n/api/users/current'
-        self.user_create_api_url = '/i18n/api/users/'
-        self.user_profile_api_url = '/i18n/api/users/profiles/'
-        self.user_settings_api_url = '/i18n/api/users/settings/'
-        self.user_activation_api_url = '/i18n/api/users/activate/'
-        self.user_password_reset_api_url = '/i18n/api/users/passwordreset'
-        self.user_password_set_api_url = '/i18n/api/users/passwordset/'
+        self.current_user_api_url = '/api/users/current'
+        self.user_create_api_url = '/api/users/'
+        self.user_profile_api_url = '/api/users/profiles/'
+        self.user_settings_api_url = '/api/users/settings/'
+        self.user_activation_api_url = '/api/users/activate/'
+        self.user_password_reset_api_url = '/api/users/passwordreset'
+        self.user_password_set_api_url = '/api/users/passwordset/'
 
     def test_user_profile_retrieve_and_update(self):
         """

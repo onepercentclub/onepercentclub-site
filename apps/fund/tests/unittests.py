@@ -26,11 +26,11 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         self.some_user = self.create_user()
         self.another_user = self.create_user()
 
-        self.current_donations_url = '/i18n/api/fund/orders/current/donations/'
-        self.current_order_url = '/i18n/api/fund/orders/current'
-        self.payment_profile_current_url = '/i18n/api/fund/paymentprofiles/current'
-        self.payment_url_base = '/i18n/api/fund/payments/'
-        self.order_url_base = '/i18n/api/fund/orders/'
+        self.current_donations_url = '/api/fund/orders/current/donations/'
+        self.current_order_url = '/api/fund/orders/current'
+        self.payment_profile_current_url = '/api/fund/paymentprofiles/current'
+        self.payment_url_base = '/api/fund/payments/'
+        self.order_url_base = '/api/fund/orders/'
 
         self.some_profile = {'first_name': 'Nijntje',
                              'last_name': 'het Konijnje',
@@ -480,9 +480,9 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 #         self.another_project = self.create_project()
 #         self.some_user = self.create_user()
 #         self.another_user = self.create_user()
-#         self.current_vouchers_url = '/i18n/api/fund/orders/current/vouchers/'
-#         self.vouchers_url = '/i18n/api/fund/vouchers/'
-#         self.current_order_url = '/i18n/api/fund/orders/current'
+#         self.current_vouchers_url = '/api/fund/orders/current/vouchers/'
+#         self.vouchers_url = '/api/fund/vouchers/'
+#         self.current_order_url = '/api/fund/orders/current'
 #         self.some_voucher_data = {
 #             'amount': 25, 'text': 'Look at this!',
 #             'receiver_name': 'Bart', 'receiver_email': 'bart@1procentclub.nl',

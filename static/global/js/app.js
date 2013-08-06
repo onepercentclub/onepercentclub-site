@@ -257,7 +257,7 @@ App.loadTemplates();
  * The Ember Data Adapter and Store configuration.
  */
 App.Adapter = DS.DRF2Adapter.extend({
-    namespace: "i18n/api",
+    namespace: "api",
 
     plurals: {
         "projects/manage": "projects/manage",
@@ -616,6 +616,15 @@ App.ApplicationRoute = Em.Route.extend({
             for (i in languages) {
                 // Check if the selected language is available.
                 if (languages[i].code == language) {
+                    user.one('didLoad', function(){
+
+                    });
+                    user.one('didLoad', function(){
+
+                    });
+                    var user = App.CurrentUser.find('current');
+
+
                     document.location = '/' + language + document.location.hash;
                     return true;
                 }
@@ -1475,7 +1484,7 @@ App.LoginController = Em.Controller.extend({
 
                     $.ajax({
                         type: 'PUT',
-                        url: '/i18n/api/users/passwordreset',
+                        url: '/api/users/passwordreset',
                         data: JSON.stringify({email: email}),
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',

@@ -107,7 +107,7 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
                 project.phase = ProjectPhases.plan
                 project.save()
 
-        self.projects_url = '/i18n/api/projects/projects/'
+        self.projects_url = '/api/projects/projects/'
 
     def test_project_list_view(self):
         """
@@ -157,8 +157,8 @@ class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.some_user = self.create_user()
         self.another_user = self.create_user()
 
-        self.manage_projects_url = '/i18n/api/projects/manage/'
-        self.manage_pitches_url = '/i18n/api/projects/pitches/manage/'
+        self.manage_projects_url = '/api/projects/manage/'
+        self.manage_pitches_url = '/api/projects/pitches/manage/'
 
     def test_pitch_create(self):
         """
@@ -254,11 +254,11 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.some_photo = 'apps/projects/test_images/loading.gif'
         self.another_photo = 'apps/projects/test_images/upload.png'
 
-        self.project_media_wallposts_url = '/i18n/api/projects/wallposts/media/'
-        self.project_media_wallpost_photos_url = '/i18n/api/projects/wallposts/media/photos/'
+        self.project_media_wallposts_url = '/api/projects/wallposts/media/'
+        self.project_media_wallpost_photos_url = '/api/projects/wallposts/media/photos/'
 
-        self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'
-        self.project_wallposts_url = '/i18n/api/projects/wallposts/'
+        self.project_text_wallposts_url = '/api/projects/wallposts/text/'
+        self.project_wallposts_url = '/api/projects/wallposts/'
 
     def test_project_media_wallpost_crud(self):
         """

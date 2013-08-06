@@ -49,8 +49,8 @@ class TaskApiIntegrationTests(TestCase, TaskTestsMixin):
         self.some_project = self.create_project(owner=self.some_user)
         self.another_project = self.create_project(owner=self.another_user)
 
-        self.task_url = '/i18n/api/tasks/'
-        self.task_members_url = '/i18n/api/tasks/members/'
+        self.task_url = '/api/tasks/'
+        self.task_members_url = '/api/tasks/members/'
 
     def test_create_task(self):
 

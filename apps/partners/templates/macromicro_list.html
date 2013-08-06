@@ -1,13 +1,18 @@
 <?xml version="1.0"?>
+{% load thumbnail %}
 <projects>
     {% for project in object_list %}
         <project>
             <title>{{ project.title }}</title>
-            <link>https://onepercentclub.com/go/projects/{{ project.slug }}</link>
+            <link>{{ site }}/go/projects/{{ project.slug }}</link>
             <created>{{ project.projectplan.date_created }}</created>
             <slug>{{ project.slug }}</slug>
-            <supportlink>https://onepercentclub.com/support/{{ project.slug }}</supportlink>
-            <image>{{ project.projectplan.image }}</image>
+            <supportlink>{{ site }}/go/projects/{{ project.slug }}</supportlink>
+            <image>
+                    {% thumbnail project.projectplan.image "200x110" as im %}
+                    <img src="{{ site }}{{ im.url }}" />
+                    {% endthumbnail %}
+            </image>
             <location>
                 <country>{{ project.projectplan.country.name }}</country>
                 <region>{{ project.projectplan.country.subregion.name }}</region>
@@ -15,9 +20,9 @@
                 <longitude>{{ project.projectplan.longitude }}</longitude>
             </location>
             <money>
-                <asked>{{ project.projectcampaign.money_asked }}</asked>
-                <donated>{{ project.projectcampaign.money_donated }}</donated>
-                <needed>{{ project.projectcampaign.money_needed }}</needed>
+                <asked>{{ project.projectcampaign.local_money_asked }}</asked>
+                <donated>{{ project.projectcampaign.local_money_donated }}</donated>
+                <needed>{{ project.projectcampaign.local_money_needed }}</needed>
             </money>
         </project>
     {%  endfor  %}
