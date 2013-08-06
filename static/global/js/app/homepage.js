@@ -141,12 +141,6 @@ App.HomeQuotesView = Ember.View.extend({
 
             controller.loadQuote();
 
-            var $activeBtn = view.$('.btn:not(.disabled)');
-            $activeBtn.addClass('disabled');
-
-            var $nextBtn = $activeBtn.next('.btn');
-            $nextBtn = ($nextBtn.length) ? $nextBtn : $activeBtn.prevAll('.btn').last();
-            $nextBtn.removeClass('disabled');
         }, 5000);
 
         this.set('quoteIntervalId', quoteIntervalId);
