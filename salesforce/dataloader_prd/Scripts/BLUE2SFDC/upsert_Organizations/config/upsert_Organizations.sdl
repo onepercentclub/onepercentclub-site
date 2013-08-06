@@ -1,0 +1,21 @@
+#Mapping values
+#Mon Jul 22 07:13:54 GMT 2013
+Legal_status__c=Legal_status__c
+BIC_SWIFT__c=BIC_SWIFT__c
+BillingPostalCode=BillingPostalCode
+BillingCountry=BillingCountry
+Name=Name
+Organization_created_date__c=Organization_created_date__c
+E_mail_address__c=
+Phone=Phone
+Address_bank__c=Address_bank__c
+BillingCity=BillingCity
+IBAN_number__c=IBAN_number__c
+Website=Website
+Bank_account_name__c=Bank_account_name__c
+Country_bank__c=Country_bank__c
+BillingStreet=BillingStreet
+Bankname__c=Bankname__c
+Bank_account_number__c=Bank_account_number__c
+Description=Description
+Organization_External_Id__c=Organization_External_ID__c

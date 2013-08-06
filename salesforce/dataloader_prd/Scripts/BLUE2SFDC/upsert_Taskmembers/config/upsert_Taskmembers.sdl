@@ -1,0 +1,5 @@
+#Mapping values
+#Mon Jul 22 10:14:08 GMT 2013
+Contacts__c=Contacts__r\:Contact_External_ID__c
+X1_CLUB_Task__c=X1_CLUB_Task__r\:Task_External_ID__c
+Task_Member_External_ID__c=Task_Member_External_ID__c

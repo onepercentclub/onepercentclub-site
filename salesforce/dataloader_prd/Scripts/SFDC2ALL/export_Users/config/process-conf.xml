@@ -1,0 +1,37 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="export_Users" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+		<description>Created by Jelle Terpstra</description>
+		<property name="name" value="export_Users"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="dataAccess.name" value="write/export_Users.csv"/>
+				<entry key="dataAccess.readUTF8" value="true"/>
+				<entry key="dataAccess.type" value="csvWrite"/>
+				<entry key="dataAccess.writeUTF8" value="false"/>
+				<entry key="process.enableExtractSuccessOutput" value="true"/>
+				<entry key="process.enableLastRunOutput" value="true"/>
+				<entry key="process.lastRunOutputDirectory" value="log"/>
+				<entry key="process.operation" value="extract"/>
+				<entry key="process.statusOutputDirectory" value="log"/>
+				<entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
+				<entry key="sfdc.bulkApiSerialMode" value="5000"/>
+				<entry key="sfdc.debugMessages" value="false"/>
+				<entry key="sfdc.enableRetries" value="true"/>
+				<entry key="sfdc.endpoint" value="https://login.salesforce.com/services/Soap/u/20.0"/>
+				<entry key="sfdc.entity" value="Contact"/>
+				<entry key="sfdc.extractionRequestSize" value="500"/>
+				<entry key="sfdc.extractionSOQL" value="Select Id, IsDeleted, MasterRecordId, AccountId, LastName, FirstName, Salutation, Name, RecordTypeId, OtherStreet, OtherCity, OtherState, OtherPostalCode, OtherCountry, MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry, Phone, Fax, MobilePhone, HomePhone, OtherPhone, AssistantPhone, ReportsToId, Email, Title, Department, AssistantName, LeadSource, Birthdate, Description, OwnerId, HasOptedOutOfEmail, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastActivityDate, LastCURequestDate, LastCUUpdateDate, EmailBouncedReason, EmailBouncedDate, npe01__AlternateEmail__c, npe01__HomeEmail__c, npe01__Home_Address__c, npe01__Last_Donation_Date__c, npe01__Lifetime_Giving_History_Amount__c, npe01__Organization_Type__c, npe01__Other_Address__c, npe01__PreferredPhone__c, npe01__Preferred_Email__c, npe01__Primary_Address_Type__c, npe01__Private__c, npe01__Secondary_Address_Type__c, npe01__SystemAccountProcessor__c, npe01__WorkEmail__c, npe01__WorkPhone__c, npe01__Work_Address__c, Geen_juichemail_ontvangen__c, Rol_1EVENT_2009__c, Category1__c, Username__c, About_me_us__c, Why_onepercent_member__c, Receive_newsletter__c, npe01__Type_of_Account__c, Administration_Finance__c, Account_holder__c, Account_number__c, Account_city__c, Primary_language__c, Secondary_language__c, Receive_emails_for_friend_invitations__c, Email_after_a_new_message__c, Email_after_a_new_public_message__c, Member_since__c, Location__c, Website__c, Which_1_would_you_like_to_contribute__c, Tags__c, Available_time__c, Where__c, All_expertises__c, Outlook_contact__c, Member_1_club__c, Activity_number__c, X1_EVENT_2009__c, Actief__c, Gender__c, Architecture__c, Computer_ICT__c, Economy_Business__c, Photo_Video__c, Fundraising__c, Health__c, Graphic_Design__c, Trade_Transport__c, Internet_Research__c, Agriculture_Environment__c, Marketing_PR__c, Physics_Technique__c, Education__c, Online_Marketing__c, Design__c, Presentations__c, Project_Management__c, Psychology__c, Law_and_Politics__c, Social_Work__c, Sport_and_Development__c, Tourism__c, Translating_Writing__c, Writing_proposals__c, Web_development__c, How_1_member_found_out_about_the_1_Club__c, IIf_you_choose_other_please_specify__c, X24_uur_actie_2009__c, Support_n_projects__c, Has_n_friends__c, Has_given_n_1_VOUCHERS__c, Is_doing_n_tasks__c, Total_number_of_received_messages__c, Total_number_of_sent_messages__c, Total_amount_of_donations__c, Number_of_donations__c, Amount_of_single_donations__c, Subtype_24UA_2009__c, Co_Creatie__c, Contact_External_ID__c, Donating_member__c, Active__c, Deleted__c, X1_EVENT_2010__c, Twitter__c, Type__c, Rol_1_EVENT_2010__c, X1_EVENT_2011__c, Rol_1_EVENT_2011__c, X24_uur_actie_2010__c, Rol_24UA_2010__c, X24_uur_actie_2011__c, Rol_24UA_2011__c, Language__c, X1_COACH_Team__c, Comments__c, Phone_Number__c, Age__c, Place__c, Preference_Countries__c, Preferred_Language__c, When_available__c, Other_Preferences__c, Expertise__c, Confidential__c, Other_website__c, Total_amount_of_donations_number__c, Week_van_de_nieuwe_rijken_2011__c, Rol_Week_van_de_nieuwe_rijken_2012__c, X1_FACTORY_2012__c, Rol_1_FACTORY__c, NIET_bellen__c, Amount_of_available_time__c, Available_to_share_knowledge__c, Available_to_donate__c, Available_to_share_time__c, Date_of_last_donation__c, Reason_to_join_1_CLUB__c, Months_in_membership__c, NewMemberShowMe__c, IsDoingNTasksNUMBER__c, NewMemberFromSmartIdea__c, StartDateVolunteer__c, EndDateVolunteer__c, Average_value_per_donation__c, Total_hours_spent_on_tasks__c, Full_name__c, Active_donating_member__c, Number_of_received_campaigns__c, Total_amount_of_one_off_donation__c, Number_of_one_off_donations__c, Total_amount_of_recurring_donations__c, Number_of_recurring_donation__c, Average_value_per_one_off_donation__c, Average_value_per_recurring_donation__c, Change_date_to_Active_donating_member__c, Nationality__c, Follows_1_CLUB_at_Twitter__c, Likes_1_CLUB_at_Facebook__c, Interested_in_theme__c, Interested_in_target_group__c, Preferred_channel_for_interaction__c, Industry_employed_in__c, Number_of_referrals__c, Monthly_automatic_payment__c, Amount_of_monthly_automatic_payment__c, Start_date_monthly_automatic_payment__c, Change_date_monthly_automatic_payment__c, End_date_monthly_automatic_payment__c, Number_of_1_VOUCHERS_spent__c, Value_of_1_VOUCHERS_bought__c, Value_of_1_VOUCHERS_spent__c, Login_history__c, Number_of_website_visits_in_past_3_month__c, Number_of_website_visits_in_past_year__c, Average_number_of_pages_per_visit__c, Average_time_per_visit__c, Social_media_account_Facebook__c, Number_of_donations_in_last_month__c, Number_of_donations_in_last_3_months__c, Number_of_donations_in_last_6_months__c, Number_of_donations_in_last_year__c, Number_of_donations_in_last_2_years__c, A_B_random__c, Themes_of_supported_projects__c FROM Contact"/>
+				<entry key="sfdc.insertNulls" value="false"/>
+				<entry key="sfdc.loadBatchSize" value="2000"/>
+				<entry key="sfdc.maxRetries" value="3"/>
+				<entry key="sfdc.minRetrySleepSecs" value="2"/>
+				<entry key="sfdc.noCompression" value="false"/>
+				<entry key="sfdc.password" value="780301748d3076058a8b082f629e1a79feae1e010076d5cce42681339acb315a943550b9e5da2034a44c14a1540c1d2cbf0f89c52b9951d3f80a8187cf4eec85"/>
+				<entry key="sfdc.timeoutSecs" value="300"/>
+				<entry key="sfdc.useBulkApi" value="true"/>
+				<entry key="sfdc.username" value="bluebottle.integration@1procentclub.nl"/>
+			</map>
+		</property>
+	</bean>
+</beans>

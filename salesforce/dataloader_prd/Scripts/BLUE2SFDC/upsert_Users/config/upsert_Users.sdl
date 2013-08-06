@@ -1,0 +1,33 @@
+#Mapping values
+#Mon Jul 22 07:20:28 GMT 2013
+Why_onepercent_member__c=Why_onepercent_member__c
+Birthdate=Birthdate
+About_me_us__c=About_me_us__c
+MailingCountry=MailingCountry
+Member_since__c=Member_since__c
+MailingPostalCode=MailingPostalCode
+Location__c=Location__c
+Receive_newsletter__c=Receive_newsletter__c
+Username__c=Username__c
+Website__c=Website__c
+Deleted__c=Deleted__c
+LastName=LastName
+Active__c=Active__c
+FirstName=FirstName
+Primary_language__c=Primary_language__c
+Gender__c=Gender__c
+Contact_External_Id__c=Contact_External_ID__c
+MailingState=MailingState
+Email=Email
+MailingStreet=MailingStreet
+MailingCity=MailingCity
+Category1__c=Category1__c
+Available_to_donate__c=Available_to_donate__c
+Available_to_share_time_and_knowledge__c=Available_to_share_time_and_knowledge__c
+Availability__c=Availability__c
+Has_Activated_Account__c=Has_Activated_Account__c
+Date_Joined__c=Date_Joined__c
+Date_Last_Login__c=Date_Last_Login__c
+Account_number__c=Account_number__c
+Account_holder__c=Account_holder__c
+Account_city__c=Account_city__c

@@ -1,0 +1,13 @@
+#Mapping values
+#Mon Jul 22 10:07:50 GMT 2013
+Type=Type
+Donation_created_date__c=Donation_created_date__c
+Project__c=Project__r\:Project_External_ID__c
+Payment_method__c=Payment_method__c
+Name=Name
+Amount=Amount
+Receiver__c=Receiver__r\:Contact_External_ID__c
+RecordTypeId=RecordTypeId
+Donation_External_ID__c=Donation_External_ID__c
+StageName=StageName
+CloseDate=CloseDate

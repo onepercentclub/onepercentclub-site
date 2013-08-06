@@ -1,0 +1,37 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="export_Projects" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+		<description>Created by Jelle Terpstra</description>
+		<property name="name" value="export_Projects"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="dataAccess.name" value="write/export_Projects.csv"/>
+				<entry key="dataAccess.readUTF8" value="true"/>
+				<entry key="dataAccess.type" value="csvWrite"/>
+				<entry key="dataAccess.writeUTF8" value="false"/>
+				<entry key="process.enableExtractSuccessOutput" value="true"/>
+				<entry key="process.enableLastRunOutput" value="true"/>
+				<entry key="process.lastRunOutputDirectory" value="log"/>
+				<entry key="process.operation" value="extract"/>
+				<entry key="process.statusOutputDirectory" value="log"/>
+				<entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
+				<entry key="sfdc.bulkApiSerialMode" value="5000"/>
+				<entry key="sfdc.debugMessages" value="false"/>
+				<entry key="sfdc.enableRetries" value="true"/>
+				<entry key="sfdc.endpoint" value="https://login.salesforce.com/services/Soap/u/20.0"/>
+				<entry key="sfdc.entity" value="Project__c"/>
+				<entry key="sfdc.extractionRequestSize" value="500"/>
+				<entry key="sfdc.extractionSOQL" value="Select Id, OwnerId, IsDeleted, Name, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, Project_name__c, Describe_the_project_in_one_sentence__c, Describe_where_the_money_is_needed_for__c, Projecturl__c, Country_in_which_the_project_is_located__c, Extensive_project_description__c, Project_goals__c, Target_group_s_of_the_project__c, Contribution_project_in_reducing_poverty__c, Sustainability__c, Earth_Charther_project__c, Starting_date_of_the_project__c, End_date_of_the_project__c, Project_activities_and_timetable__c, Expected_project_results__c, Additional_explanation_of_budget__c, Funding_received_through_other_resources__c, Expected_funding_through_other_resources__c, Amount_requested__c, Need_for_volunteers__c, Other_way_people_can_contribute__c, Millennium_Goals__c, Tags__c, Name_referral_1__c, E_mail_address_referral_1__c, Description_referral_1__c, Relation_referral_1_with_project_org__c, Name_referral_2__c, E_mail_address_referral_2__c, Description_referral_2__c, Relation_referral_2_with_project_org__c, Name_referral_3__c, E_mail_address_referral_3__c, Description_referral_3__c, Relation_referral_3_with_project_org__c, Status_project__c, Comments__c, Amount_still_needed__c, Amount_at_the_moment__c, Total_amount_needed__c, Project_External_ID__c, Project_Owner__c, Project_budget1__c, Project_created_date__c, Organization__c, third_half_project__c, International_Payment__c, Date_Realized_Proj__c, Date_received_1_CLUB__c, Date_online__c, X1_COACH__c, Active_1_MEMBERS__c, Date_1_COACH__c, Days_Being_Created__c, Days_before_coach__c, Days_check__c, Days_Online__c, DueDateProject__c, NumberOfPeopleReachedDirect__c, NumberOfPeopleReachedIndirect__c, X80OfAmountRequested__c, Evaluation__c, GrassrootReport__c, RealizedAt__c, SmartIdeaIsInnovative__c, SkillsToSucceed__c, Amount_initial__c, Theme__c, Target_group__c FROM Project__c"/>
+				<entry key="sfdc.insertNulls" value="false"/>
+				<entry key="sfdc.loadBatchSize" value="2000"/>
+				<entry key="sfdc.maxRetries" value="3"/>
+				<entry key="sfdc.minRetrySleepSecs" value="2"/>
+				<entry key="sfdc.noCompression" value="false"/>
+				<entry key="sfdc.password" value="780301748d3076058a8b082f629e1a79feae1e010076d5cce42681339acb315a943550b9e5da2034a44c14a1540c1d2cbf0f89c52b9951d3f80a8187cf4eec85"/>
+				<entry key="sfdc.timeoutSecs" value="300"/>
+				<entry key="sfdc.useBulkApi" value="true"/>
+				<entry key="sfdc.username" value="bluebottle.integration@1procentclub.nl"/>
+			</map>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,38 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="upsert_Projects" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+		<description>Created by Jelle Terpstra</description>
+		<property name="name" value="upsert_Projects"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="dataAccess.name" value="read/upsert_Projects.csv"/>
+				<entry key="dataAccess.readUTF8" value="true"/>
+				<entry key="dataAccess.type" value="csvRead"/>
+				<entry key="dataAccess.writeUTF8" value="false"/>
+				<entry key="process.enableExtractSuccessOutput" value="true"/>
+				<entry key="process.enableLastRunOutput" value="true"/>
+				<entry key="process.lastRunOutputDirectory" value="log"/>
+				<entry key="process.mappingFile" value="config/upsert_Projects.sdl"/>
+				<entry key="process.operation" value="upsert"/>
+				<entry key="process.statusOutputDirectory" value="log"/>
+				<entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
+				<entry key="sfdc.bulkApiSerialMode" value="5000"/>
+				<entry key="sfdc.debugMessages" value="false"/>
+				<entry key="sfdc.enableRetries" value="true"/>
+				<entry key="sfdc.endpoint" value="https://login.salesforce.com/services/Soap/u/20.0"/>
+				<entry key="sfdc.entity" value="Project__c"/>
+				<entry key="sfdc.externalIdField" value="Project_External_ID__c"/>
+				<entry key="sfdc.extractionRequestSize" value="500"/>
+				<entry key="sfdc.insertNulls" value="false"/>
+				<entry key="sfdc.loadBatchSize" value="2000"/>
+				<entry key="sfdc.maxRetries" value="3"/>
+				<entry key="sfdc.minRetrySleepSecs" value="2"/>
+				<entry key="sfdc.noCompression" value="false"/>
+				<entry key="sfdc.password" value="780301748d3076058a8b082f629e1a79feae1e010076d5cce42681339acb315a943550b9e5da2034a44c14a1540c1d2cbf0f89c52b9951d3f80a8187cf4eec85"/>
+				<entry key="sfdc.timeoutSecs" value="300"/>
+				<entry key="sfdc.useBulkApi" value="true"/>
+				<entry key="sfdc.username" value="bluebottle.integration@1procentclub.nl"/>
+			</map>
+		</property>
+	</bean>
+</beans>

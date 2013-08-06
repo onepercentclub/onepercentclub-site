@@ -60,12 +60,13 @@ reports
 !**/.gitkeep
 salesforce/dataloader_prd/Bin/DataLoader20/*
 salesforce/dataloader_uat/Bin/DataLoader20/*
-salesforce/*/*/*/*/read/
-salesforce/*/*/*/*/write/
-salesforce/*/*/*/*/log/
+salesforce/*/*/*/*/read/*
+salesforce/*/*/*/*/write/*
+salesforce/*/*/*/*/log/*
 salesforce/*/*/*/*/active_job.properties
-salesforce/*/*/*/log/
-salesforce/*/*/*/archive/
+salesforce/*/*/*/*/*/*lastRun.properties
+salesforce/*/*/*/log/*
+salesforce/*/*/*/archive/*
 salesforce/*/Data/Input/*
 salesforce/*/Data/Output/*
 
