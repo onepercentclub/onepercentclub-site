@@ -6,10 +6,12 @@
     <div class="container">
         {{#if view.showTitle}}
         	<section class="wrapper">
-            	<header class="title">
-                	<h1>{{title}}</h1>
-				</header>
-				{{{body}}}
+        		<div id="page" {{bindAttr class=id}}>
+	            	<header class="title">
+	                	<h1>{{title}}</h1>
+					</header>
+					{{{body}}}
+        		</div>
         	</section>
         {{else}}
         	{{{body}}}
@@ -39,9 +41,8 @@
 {% tplhandlebars "contact_message" %}
 
     <div class="container">
-        <div class="wrapper dashboard">
-        
-            <div class="content">
+        <div class="wrapper">
+            <div class="content" id="page">
                 <h1>{% trans "Contact" %}</h1>
                 <p>
                     {% blocktrans %}

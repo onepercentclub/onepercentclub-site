@@ -307,7 +307,7 @@
                                 {{#if wallposts.firstObject.isLoaded}}
                                     <em class="tab-subtitle">{% trans "Last:" %} {{localize wallposts.firstObject.created formatting="X"}} </em>
                                 {{else}}
-                                    <em class="tab-subtitle">{% trans "..." %}</em>
+                                    <em class="tab-subtitle">{% trans "Loading&#8230;" %}</em>
                                 {{/if}}
                             {{else}}
                                 <em class="tab-subtitle">{% trans "No updates yet" %}</em>

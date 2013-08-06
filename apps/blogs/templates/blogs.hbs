@@ -24,7 +24,7 @@
 {% tplhandlebars "news_item" %}
 
         <header>
-            <h3>{{ title}}</h3>
+            <h1>{{ title}}</h1>
             <a {{action openInBigBox "userModal" author}} class="user">
                 <span class="user-img"><img {{ bindAttr src="author.getAvatar" }} width="100%" alt="Avatar"></span>
                 <strong>{{ author.full_name }}</strong>
@@ -44,7 +44,7 @@
 
     <section class="wrapper">
     
-        <article class="blogpost">
+        <article class="blogpost" id="page">
             {{outlet}}
         </article>
 

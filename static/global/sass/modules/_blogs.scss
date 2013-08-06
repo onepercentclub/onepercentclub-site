@@ -2,21 +2,25 @@
 
 .blogpost {
     clear: both;
-    @include grid(32, 1, 0);
+    @include grid(32, 1, 1);
     position: relative;
-    @include rem(margin, $padding*2 0);
-
-
+	
+	.text, .video, .image, .oembed, .rawhtml, .title {
+        width: auto !important;
+        margin: 0 !important;
+        @include rem(margin-bottom, $padding*2);
+    }
+	
     &:hover .manage {
         display: block;
     }
 
     .show-more {
-       @include grid(48, 12, 1);
+       @include grid(48, 11, 1);
     }
 
     header {
-        @include grid(48, 12, 1);
+        @include grid(48, 11, 1);
 
         h3 {
           @include rem(font-size, 28px);
@@ -37,12 +41,8 @@
         }
     }
 
-    .text, .oembed, .video  {
-        @include rem(margin-bottom, 12px);
-    }
-
     .content {
-        @include grid(48, 12, 1);
+        @include grid(48, 11, 1);
         position: relative;
         @include rem(margin-top, $padding/2);
         @include rem(margin-bottom, $padding/2);
@@ -52,18 +52,18 @@
     .user-img {
         @include rem(width, 70px);
         position: absolute;
-        top: 0;
+        @include rem(top, $padding*3);
         left: 0;
-        @include prepend(5);
+        @include prepend(4);
     }
 }
 
 .blogpost-filter {
 	float: right !important;
-    @include rem(margin-top, $padding*2);
+    @include rem(margin-top, $padding*3);
     
     ul {
-		background: $color-back;
+		
 		padding: 0;
 		margin: 0;
 		border-top: 1px solid $white;
@@ -73,15 +73,24 @@
 			clear: both;
 			position: relative;
 			display: block;
-			border-bottom: 1px solid $white;
+			border-left: 1px solid $color-back;
 			@include rem(padding, $padding $padding*2);
 			text-transform: uppercase;
+			color: $gray;
 			
 			.timestamp {
 				@include rem(font-size, 12px);
 				text-transform: uppercase;
 				font-style: normal;
 				color: $gray;
+			}
+		}
+		
+		&:hover .item {
+			color: $green;
+			
+			&:hover, &:active {
+				color: $pink;
 			}
 		}
 	}
