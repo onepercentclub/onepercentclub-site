@@ -155,7 +155,8 @@ hr {
     border: solid darken($white, 25%);
     border-width: 1px 0 0; 
     clear: both; 
-    margin: 2em $margin; 
+    margin: $padding*2 0 0 0;
+    padding: 0; 
 }
 
 blockquote { 
@@ -179,24 +180,5 @@ figure {
     }
     figcaption {
         color: blue;
-    }
-}
-
-ul, ol { margin: 0 0 $margin 1.5em; }
-ul.list li:before {
-    margin-right: 1.5em;
-    font-family: 'FontAwesome';
-    color: $gray;
-    content: "\f054";
-}
-ol { list-style: decimal; }
-
-dl {
-    margin-bottom: $margin;
-    dt { font-weight: bold; }
-    dd { margin-left: $margin; }
-    &.advanced {
-        dt { @include grid(16, 0, 1); }
-        dd { @include grid(32); }
     }
 }

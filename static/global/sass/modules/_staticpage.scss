@@ -6,89 +6,202 @@
     
 }
 
-
 /* rendered pages from backed */
 
 #page {
-
-	@include rem(font-size, 16px);
-	@include rem(padding-top, $padding*3);
+	@include grid(48,1,1);
 	
-	.title {
-		margin-bottom: 0 !important;
-	}
-	
-    .text, .video, .image, .oembed, .rawhtml, .title {
-        @include grid(32,1,2);
-        @include rem(margin-bottom, $padding*2);
-        margin-top: 0;
-        
-        iframe, object, img, embed {
-		    width: 100%;
-		    @include rem(margin-bottom, $padding*2);
-			margin-top: 0;
-			
-			/*debug*/
-			border: 1px solid #000;
-	    }	
-        	
-    }
-    
-    .text, .video {
-	    
-    }
-    
-    .align-float-left {
-    	@include grid(16,1);
-	    float: left;
-	    clear: both;
-	    
-	    img {
-	    	position: relative;
-			@include rem(top, -$padding);
-	    }
-    }
-    
-    .align-float-right {
-    	@include grid(16,1);
-	    float: right;
-	    clear: both;
-	    	
-	    img {
-	    	position: relative;
-			@include rem(top, -$padding);
-	    }
-    }
-	
-	h1 {
-		@include rem(font-size, 42px);
-		color: $pink;
-		margin: 0;
-		padding: 0;
-	}
-	
-	ul {
-		@include rem(margin-left, $padding*2);
+	#page-header {
+		@include rem(padding-top, $padding*3);
 		
-		li {
-			@include rem(padding-left, $padding*2);
-			@include rem(margin, $padding 0);
-			background: image-url("list-item.png") transparent no-repeat 0 0;
+		h1 {
+			@include rem(font-size, 42px);
+			color: $pink;
+			padding-top: 0;
+			line-height: 1.2;
 		}
 	}
 	
-	h2 {
-		@include rem(font-size, 28px);
-		color: $green;
-		text-transform: uppercase;
-		font-weight: 600;
+	#page-content {
+		@include grid(32,0,2);
+		@include rem(font-size, 16px);
+		line-height: 1.5;
+		
+	    .text, .video, .image, .oembed, .rawhtml {
+	    	clear: both;
+	    	@include rem(margin-top, $padding);
+	    	@include rem(margin-bottom, $padding);
+	    }
+	    
+	    /* =========== Video wrapper for responsive video's */
+		
+		object, embed, iframe {
+			width: 100% !important
+		}
+		
+		.video, .oembed {
+			@include clearfix;
+		    position: relative !important;
+		    padding-bottom: 56.25% !important;
+		    padding-top: 30px !important; 
+		    height: 0 !important; 
+		    overflow: hidden !important;
+		}
+		
+		.video iframe, 
+		.oembed iframe,
+		.video object, 
+		.oembed object,
+		.video embed, 
+		.oembed embed {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100% !important;
+		    height: 100% !important;
+		}
+		
+		img {
+			//height: 200px;
+		    //border: 1px solid red;
+		}
+		
+		.text.align-float-left {
+			@include grid(24,0,2);
+		    float: left;
+		}
+		
+		.text.align-float-right {
+			@include grid(24,0,2);
+		    float: right;
+		}
+		
+		text.align-center {
+		
+		}
+	    
+	    .image.align-float-left {
+	    	@include grid(16,0,2);
+		    float: left;
+		    clear: both;
+		    
+		    img {
+		    	width: 100%;
+		    	position: relative;
+		    	vertical-align: middle;
+		    }
+		    
+		    + .text {
+		    	clear: right !important;
+			    @include grid(32,0); 
+			    
+				h3 {
+					padding-top: 0 !important;
+				}
+		    }
+	    }
+	    
+	    .image.align-float-right {
+	    	@include grid(16,1);
+		    float: right;
+		    clear: both;
+		    	
+		    img {
+		    	width: 100%;
+		    	position: relative;
+		    	vertical-align: middle;
+		    }
+		    
+		    + .text {
+		    	clear: left !important;
+			    @include grid(32,0); 
+				
+				h3 {
+					padding-top: 0 !important;
+				}
+		    }
+	    }
+	    
+	    image.align-center {
+		    
+		    img {
+			    width: 100%;
+		    }
+		    
+	    }
+		
+		ul {
+			@include rem(margin, $padding 0 $padding*2 $padding*2);
+			
+			li {
+				color: $grayDark;
+				@include rem(padding-left, $padding*2);
+				@include rem(margin, $padding 0);
+				background: image-url("list-item.png") transparent no-repeat 0 0;
+			}
+		}
+		
+		ol { 
+			@include rem(margin, $padding 0 $padding*2 $padding*4);
+			
+			li {
+				color: $grayDark;
+				list-style: decimal;
+				@include rem(margin, $padding/4 0);
+			}
+			
+		}
+		
+		dl {
+		    margin-bottom: $margin;
+		    dt { font-weight: bold; }
+		    dd { margin-left: $margin; }
+		    &.advanced {
+		        dt { @include grid(16, 0, 1); }
+		        dd { @include grid(32); }
+		    }
+		}
+		
+		h2 {
+			clear: both;
+			@include rem(font-size, 28px);
+			color: $green;
+			text-transform: uppercase;
+			font-weight: 600;
+			@include rem(padding-top, $padding*2);
+			line-height: 1.1;
+		}
+		
+		h3 {
+			clear: both;
+			@include rem(font-size, 22px);
+			color: $grayDark;
+			text-transform: uppercase;
+			font-weight: 300;
+			@include rem(padding-top, $padding*2);
+			line-height: 1.1;
+		}
 	}
 	
-	h3 {
-		@include rem(font-size, 22px);
-		color: $grayDark;
-		text-transform: uppercase;
-		font-weight: 300;
+	&.partners #page-content {
+		
+		@include grid(48,0,0);
+		
+		
+		.text {
+			@include grid(24,0,2);
+			clear: none;
+		}
+		
+		.text:first-of-type {
+			@include grid(48,0,0);
+			@include clearfix;
+		}
+		
+	}
+	
+	&.associates #page-content {
+		
 	}
 }
 
@@ -101,7 +214,7 @@
     .section {
         @include rem(padding, ($padding * 2) 0);
         position: relative;
-
+		
         h1 {
             @include rem(font-size, 64px);
             @include rem(margin-bottom, 32px);
@@ -179,6 +292,10 @@
         strong {
             font-weight: 300;
         }
+    }
+    
+    img {
+	    width: 100%;
     }
 
     small {
@@ -323,6 +440,7 @@
 }
 
 .contact-photo {
+	width: 150px !important;
 	text-align: center;
 	margin: 0 0 $padding $padding*3;
 }

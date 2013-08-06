@@ -1,35 +1,20 @@
 /* Copy pasted from wallpost.scss */
 
 .blogpost {
-    clear: both;
-    @include grid(32, 1, 1);
-    position: relative;
-	
-	.text, .video, .image, .oembed, .rawhtml, .title {
-        width: auto !important;
-        margin: 0 !important;
-        @include rem(margin-bottom, $padding*2);
-    }
-	
+    
     &:hover .manage {
         display: block;
     }
 
     .show-more {
-       @include grid(48, 11, 1);
+       @include grid(48, 11, 0);
     }
 
     header {
-        @include grid(48, 11, 1);
+        @include grid(48, 11, 0);
 
-        h3 {
-          @include rem(font-size, 28px);
-          font-weight: 600;
-          color: $heading-black;
-          margin: 0px;
-          @include rem(margin-top, 12px);
-          padding: 0;
-          text-transform: uppercase;
+        h1 {
+          @include rem(font-size, 28px !important);
         }
         
         .timestamp {
@@ -42,7 +27,7 @@
     }
 
     .content {
-        @include grid(48, 11, 1);
+        @include grid(48, 11, 0);
         position: relative;
         @include rem(margin-top, $padding/2);
         @include rem(margin-bottom, $padding/2);
@@ -54,7 +39,7 @@
         position: absolute;
         @include rem(top, $padding*3);
         left: 0;
-        @include prepend(4);
+        @include prepend(2);
     }
 }
 
