@@ -8,11 +8,33 @@ from django.conf import settings
 from django.utils.http import urlencode
 from django.utils import timezone
 from suds.client import Client
-from suds.plugin import MessagePlugin
+from suds.plugin import MessagePlugin, DocumentPlugin
 from .exceptions import DocDataPaymentException
 from .models import DocDataPaymentOrder, DocDataPayment, DocDataPaymentLogEntry
 
 logger = logging.getLogger(__name__)
+
+
+# Workaround for SSL problem on Debain Wheezy connecting to DocData live payment address.
+#
+# if getattr(settings, "COWRY_LIVE_PAYMENTS", False):
+#     import ssl
+#     from ssl import SSLSocket
+#
+#     def wrap_socket(sock, keyfile=None, certfile=None,
+#                     server_side=False, cert_reqs=ssl.CERT_NONE,
+#                     ssl_version=ssl.PROTOCOL_SSLv3, ca_certs=None,
+#                     do_handshake_on_connect=True,
+#                     suppress_ragged_eofs=True, ciphers=None):
+#
+#         return SSLSocket(sock, keyfile=keyfile, certfile=certfile,
+#                          server_side=server_side, cert_reqs=cert_reqs,
+#                          ssl_version=ssl_version, ca_certs=ca_certs,
+#                          do_handshake_on_connect=do_handshake_on_connect,
+#                          suppress_ragged_eofs=suppress_ragged_eofs,
+#                          ciphers=ciphers)
+#
+#     ssl.wrap_socket = wrap_socket
 
 
 # These defaults can be overridden with the COWRY_PAYMENT_METHODS setting.
@@ -81,6 +103,15 @@ class DocDataAPIVersionPlugin(MessagePlugin):
         request.set('version', '1.0')
 
 
+class DocDataBrokenWSDLPlugin(DocumentPlugin):
+    def parsed(self, context):
+        """ Called after parsing a WSDL or XSD document. The context contains the url & document root. """
+        # The WSDL for the live payments API incorrectly references the wrong location.
+        if len(context.document.children) == 19 and len(context.document.children[18]) > 0:
+            location_attribute = context.document.children[18].children[0].getChild('address').attributes[0]
+            location_attribute.setValue('https://secure.docdatapayments.com:443/ps/services/paymentservice/1_0')
+
+
 class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
     # Mapping of DocData statuses to Cowry statuses. Statuses are from:
@@ -118,26 +149,35 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     }
 
     def _init_docdata(self):
-        # Create the soap client.
+        """ Creates the DocData test or live Suds client. """
+        error_message = 'Could not create Suds client to connect to DocData.'
         if self.test:
-            # Test API URL.
-            url = 'https://test.docdatapayments.com/ps/services/paymentservice/1_0?wsdl'
-        else:
-            # Live API URL.
-            url = 'https://secure.docdatapayments.com/ps/services/paymentservice/1_0?wsdl'
-
-        try:
-            self.client = Client(url, plugins=[DocDataAPIVersionPlugin()])
-        except URLError as e:
-            self.client = None
-            logger.warn('Could not create Suds client to connect to DocData: ' + str(e))
-        else:
-            # Setup the merchant soap object for use in all requests.
-            self.merchant = self.client.factory.create('ns0:merchant')
-            self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
-            if self.test:
-                self.merchant._password = getattr(settings, "COWRY_DOCDATA_TEST_MERCHANT_PASSWORD", None)
+            # Test API.
+            test_url = 'https://test.docdatapayments.com/ps/services/paymentservice/1_0?wsdl'
+            logger.info('Using the test DocData API: {0}'.format(test_url))
+            try:
+                self.client = Client(test_url, plugins=[DocDataAPIVersionPlugin()])
+            except URLError as e:
+                self.client = None
+                logger.error('{0} {1}'.format(error_message, str(e)))
             else:
+                # Setup the merchant soap object with the test password for use in all requests.
+                self.merchant = self.client.factory.create('ns0:merchant')
+                self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
+                self.merchant._password = getattr(settings, "COWRY_DOCDATA_TEST_MERCHANT_PASSWORD", None)
+        else:
+            # Live API.
+            live_url = 'https://secure.docdatapayments.com/ps/services/paymentservice/1_0?wsdl'
+            logger.info('Using the live DocData API: {0}'.format(live_url))
+            try:
+                self.client = Client(live_url, plugins=[DocDataAPIVersionPlugin(), DocDataBrokenWSDLPlugin()])
+            except URLError as e:
+                self.client = None
+                logger.error('{0} {1}'.format(error_message, str(e)))
+            else:
+                # Setup the merchant soap object for use in all requests.
+                self.merchant = self.client.factory.create('ns0:merchant')
+                self.merchant._name = getattr(settings, "COWRY_DOCDATA_MERCHANT_NAME", None)
                 self.merchant._password = getattr(settings, "COWRY_DOCDATA_LIVE_MERCHANT_PASSWORD", None)
 
     def __init__(self):
@@ -250,11 +290,14 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         elif hasattr(reply, 'createError'):
             payment.save()
             error = reply['createError']['error']
+            error_message = "{0} {1}".format(error['_code'], error['value'])
+            logger.error(error_message)
             raise DocDataPaymentException(error['_code'], error['value'])
         else:
             payment.save()
-            raise DocDataPaymentException('REPLY_ERROR',
-                                          'Received unknown reply from DocData. Remote Payment not created.')
+            error_message = 'Received unknown reply from DocData. Remote Payment not created.'
+            logger.error(error_message)
+            raise DocDataPaymentException('REPLY_ERROR', error_message)
 
     def cancel_payment(self, payment):
 
@@ -276,10 +319,13 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             self._change_status(payment, PaymentStatuses.cancelled)  # Note: change_status calls payment.save().
         elif hasattr(reply, 'cancelError'):
             error = reply['cancelError']['error']
+            error_message = "{0} {1}".format(error['_code'], error['value'])
+            logger.error(error_message)
             raise DocDataPaymentException(error['_code'], error['value'])
         else:
-            raise DocDataPaymentException('REPLY_ERROR',
-                                          'Received unknown reply from DocData. Remote Payment not cancelled.')
+            error_message = 'Received unknown reply from DocData. Remote Payment not cancelled.'
+            logger.error(error_message)
+            raise DocDataPaymentException('REPLY_ERROR', error_message)
 
     def get_payment_url(self, payment, return_url_base=None):
         """ Return the Payment URL """
@@ -342,11 +388,14 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             report = reply['statusSuccess']['report']
         elif hasattr(reply, 'statusError'):
             error = reply['statusError']['error']
-            log_status_update(payment, PaymentLogLevels.error, "{1} {2}".format(error['_code'], error['value']))
+            error_message = "{0} {1}".format(error['_code'], error['value'])
+            logger.error(error_message)
+            log_status_update(payment, PaymentLogLevels.error, error_message)
             return
         else:
-            log_status_update(payment, PaymentLogLevels.error,
-                              "REPLY_ERROR Received unknown status reply from DocData.")
+            error_message = "REPLY_ERROR Received unknown status reply from DocData."
+            logger.error(error_message)
+            log_status_update(payment, PaymentLogLevels.error, error_message)
             return
 
         if not hasattr(report, 'payment'):

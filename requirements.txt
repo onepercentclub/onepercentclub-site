@@ -77,9 +77,8 @@ django-templatetag-handlebars==1.2.0
 # Cowry dependencies.
 django_countries==1.5
 requests==1.2.3
-#suds-jurko==0.4.1.jurko.4
-# Use a suds-jurko fork with python 2.6 support.
-http://bitbucket.org/onepercentclub/suds/get/6a98691d1188.zip
+# This should be considered suds-jurko 0.4.1 jurko pre 5
+https://bitbucket.org/jurko/suds/get/afe727f50704.zip
 
 django-iban==0.2.1
 
