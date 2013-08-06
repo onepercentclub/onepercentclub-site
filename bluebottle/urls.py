@@ -10,7 +10,39 @@ admin.autodiscover()
 
 handler500 = 'bluebottle.views.handler500'
 
-urlpatterns = i18n_patterns('',
+
+urlpatterns = patterns('',
+    # Put language-independent-views here.
+
+    # The api urls are in the / url namespace so that they're not redirected to /en/.
+    url(r'^api/projects/', include('apps.projects.urlsapi')),
+    url(r'^api/blogs/', include('apps.blogs.urlsapi')),
+    url(r'^api/users/', include('apps.accounts.urlsapi')),
+    url(r'^api/wallposts/', include('apps.wallposts.urlsapi')),
+    url(r'^api/fund/', include('apps.fund.urlsapi')),
+    url(r'^api/utils/', include('apps.bluebottle_utils.urlsapi')),
+    url(r'^api/geo/', include('apps.geo.urlsapi')),
+    url(r'^api/tasks/', include('apps.tasks.urlsapi')),
+    url(r'^api/organizations/', include('apps.organizations.urlsapi')),
+    url(r'^api/pages/', include('apps.pages.urlsapi')),
+    url(r'^api/partners/', include('apps.partners.urlsapi')),
+
+    # Homepage API urls
+    url(r'^api/homepage/', include('apps.homepage.urlsapi')),
+    url(r'^api/banners/', include('apps.banners.urlsapi')),
+    url(r'^api/quotes/', include('apps.quotes.urlsapi')),
+    url(r'^api/stats', include('apps.statistics.urlsapi')),
+
+    # API for DocData Status Changed Notifications.
+    url(r'^api/docdatastatuschanged/', include('apps.cowry_docdata.urlsapi')),
+
+    # Needed for the self-documenting API in Django Rest Framework.
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^', include('django.conf.urls.i18n')),
+)
+
+urlpatterns += i18n_patterns('',
 
     url(r'social/', include('social_auth.urls')),
 
@@ -45,42 +77,12 @@ urlpatterns = i18n_patterns('',
 
 )
 
-urlpatterns += patterns('',
-    # Put language-independent-views here.
-
-    # The api urls are in the /i18n/ url namespace so that they're not redirected to /en/.
-    url(r'^i18n/api/projects/', include('apps.projects.urlsapi')),
-    url(r'^i18n/api/blogs/', include('apps.blogs.urlsapi')),
-    url(r'^i18n/api/users/', include('apps.accounts.urlsapi')),
-    url(r'^i18n/api/wallposts/', include('apps.wallposts.urlsapi')),
-    url(r'^i18n/api/fund/', include('apps.fund.urlsapi')),
-    url(r'^i18n/api/utils/', include('apps.bluebottle_utils.urlsapi')),
-    url(r'^i18n/api/geo/', include('apps.geo.urlsapi')),
-    url(r'^i18n/api/tasks/', include('apps.tasks.urlsapi')),
-    url(r'^i18n/api/organizations/', include('apps.organizations.urlsapi')),
-    url(r'^i18n/api/pages', include('apps.pages.urlsapi')),
-
-    # Homepage API urls
-    url(r'^i18n/api/homepage', include('apps.homepage.urlsapi')),
-    url(r'^i18n/api/banners/', include('apps.banners.urlsapi')),
-    url(r'^i18n/api/quotes/', include('apps.quotes.urlsapi')),
-    url(r'^i18n/api/stats', include('apps.statistics.urlsapi')),
-
-    # API for DocData Status Changed Notifications.
-    url(r'^i18n/api/docdatastatuschanged/', include('apps.cowry_docdata.urlsapi')),
-
-    # Needed for the self-documenting API in Django Rest Framework.
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
-    url(r'^i18n/', include('django.conf.urls.i18n')),
-)
-
 js_info_dict = {
     'packages': ('apps.accounts', 'apps.projects'),
 }
 
 urlpatterns += patterns('',
-    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog'),
+    (r'^js$', 'django.views.i18n.javascript_catalog'),
 )
 
 # Serve django-staticfiles (only works in DEBUG)

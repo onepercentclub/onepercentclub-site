@@ -287,6 +287,21 @@ class ProjectCampaign(models.Model):
     money_needed = models.PositiveIntegerField(default=0)
 
     @property
+    def local_money_asked(self, currency='EUR'):
+        # TODO: Make this currency aware and move it to a more sensible place like view.
+        return self.money_asked / 100
+
+    @property
+    def local_money_donated(self, currency='EUR'):
+        # TODO: Make this currency aware and move it to a more sensible place like view.
+        return self.money_donated / 100
+
+    @property
+    def local_money_needed(self, currency='EUR'):
+        # TODO: Make this currency aware and move it to a more sensible place like view.
+        return self.money_needed / 100
+
+    @property
     def supporters_count(self, with_guests=True):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
@@ -347,6 +362,10 @@ class PartnerOrganization(models.Model):
     """
     name = models.CharField(_("name"), max_length=255, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
+
+    @property
+    def projects(self):
+        return self.project_set.exclude(phase__in=['pitch', 'failed']).all()
 
     class Meta:
         verbose_name = _("partner organization")

@@ -15,8 +15,8 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
         self.another_wallpost = self.create_project_text_wallpost()
         self.some_user = self.create_user()
         self.another_user = self.create_user()
-        self.wallpost_reaction_url = '/i18n/api/wallposts/reactions/'
-        self.project_text_wallpost_url = '/i18n/api/projects/wallposts/text/'
+        self.wallpost_reaction_url = '/api/wallposts/reactions/'
+        self.project_text_wallpost_url = '/api/projects/wallposts/text/'
 
 
     def test_wallpost_reaction_crud(self):
@@ -202,10 +202,10 @@ class WallPostApiRegressionTests(ProjectWallPostTestsMixin, UserTestsMixin, Test
         self.user = self.create_user()
         self.wallpost = self.create_project_text_wallpost(author=self.user)
 
-        self.project_media_wallposts_url = '/i18n/api/projects/wallposts/media/'
-        self.project_text_wallposts_url = '/i18n/api/projects/wallposts/text/'
-        self.project_wallposts_url = '/i18n/api/projects/wallposts/'
-        self.wallpost_reaction_url = '/i18n/api/wallposts/reactions/'
+        self.project_media_wallposts_url = '/api/projects/wallposts/media/'
+        self.project_text_wallposts_url = '/api/projects/wallposts/text/'
+        self.project_wallposts_url = '/api/projects/wallposts/'
+        self.wallpost_reaction_url = '/api/wallposts/reactions/'
 
     def test_html_javascript_propperly_escaped(self):
         """
