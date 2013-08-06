@@ -7,7 +7,7 @@
 
     <ul class="tags">
         {{#each tags}}
-            <li class="tag"><span class="icon-tag"></span> {{this.id}} <span {{action removeTag this target="view" }} class="delete icon-trash"></span></li>
+            <li class="tag"><em class="flaticon solid tag-2"></em> {{this.id}} <em {{action removeTag this target="view" }} class="flaticon solid x-1 delete"></em></li>
         {{/each}}
     </ul>
 
