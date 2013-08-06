@@ -6,10 +6,15 @@
     <div class="container">
         {{#if view.showTitle}}
         	<section class="wrapper">
-            	<header class="title">
-                	<h1>{{title}}</h1>
-				</header>
-				{{{body}}}
+        		<div id="page" {{bindAttr class=id}}>
+					<div id="page-content">
+		            	<header id="page-header" class="title">
+		                	<h1>{{title}}</h1>
+						</header>
+					
+						{{{body}}} 
+					</div>
+        		</div>
         	</section>
         {{else}}
         	{{{body}}}
@@ -22,15 +27,15 @@
 {% tplhandlebars "error/not_found" %}
 
     <section class="wrapper">
-        <article class="wallpost">
-            <header>
-                <h2>Something went wrong here...</h2>
-            </header>
+        <article id="page" class="error">
+			<div id="page-content">
+	            <header id="page-header" class="title">
+	                <h1>{% trans "Something went wrong" %}</h1>
+	            </header>
+	            
+            	<p>{% trans "The page you are looking for couldn't be found." %}</p>
+			</div>
         </article>
-
-        <div class="wall">
-            The page or object you were looking for couldn't be found.
-        </div>
     </section>
 
 {% endtplhandlebars %}
@@ -39,107 +44,108 @@
 {% tplhandlebars "contact_message" %}
 
     <div class="container">
-        <div class="wrapper dashboard">
-        
-            <div class="content">
-                <h1>{% trans "Contact" %}</h1>
-                <p>
-                    {% blocktrans %}
-                    Send us a message or get in touch using the details below. Talk to you soon!
-                    {% endblocktrans %}
-                </p>
-            
-	            <form id="contact-form">
-	                {{#if isSent}}
-	                	<div class="form-meta">
-							<div class="form-label">{% trans "Thanks for your message!. We'll get back to you soon" %}.</div>
-						</div>
-	                {{else}}
-	                    <fieldset>
-	                        <ul>
-	                            <li class="control-group">
-	                                <label class="control-label">{% trans "Name" %}</label>
-	                                <div class="controls">
-	                                    {{view Em.TextField valueBinding="name" classBinding="errors.name.length:error"}}
-	                                </div>
+        <section class="wrapper">
+            <article class="contact" id="page">
+            	<div id="page-content">
+            	
+	            	<header id="page-header" class="title">
+		                <h1>{% trans "Contact" %}</h1>
+		                <p>
+		                    {% blocktrans %}
+		                    Send us a message or get in touch using the details below. Talk to you soon!
+		                    {% endblocktrans %}
+		                </p>
+	            	</header>
+            	
+		            <form id="contact-form">
+		                {{#if isSent}}
+		                	<div class="form-meta">
+								<div class="form-label">{% trans "Thanks for your message!. We'll get back to you soon" %}.</div>
+							</div>
+		                {{else}}
+		                    <fieldset>
+		                        <ul>
+		                            <li class="control-group">
+		                                <label class="control-label">{% trans "Name" %}</label>
+		                                <div class="controls">
+		                                    {{view Em.TextField valueBinding="name" classBinding="errors.name.length:error"}}
+		                                </div>
+		
+		                                {{#if errors.name }}
+		                                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+		                                {{/if}}
+		
+		                            </li>
+		
+		                            <li class="control-group">
+		                                <label class="control-label">{% trans "Email" %}</label>
+		                                <div class="controls">
+		                                    {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
+		                                </div>
+		
+		                                {{#if errors.email }}
+		                                    <div class="errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
+		                                {{/if}}
+		
+		                            </li>
+		
+		                            <li class="control-group">
+		                                <label class="control-label">{% trans "Message" %}</label>
+		                                <div class="controls">
+		                                    {{view Em.TextArea valueBinding="message" rows="6" classBinding="errors.message.length:error"}}
+		                                </div>
+		
+		                                {{#if errors.message }}
+		                                    <div class="errors">{{#each errors.message }}<p>{{this}}</p>{{/each}}</div>
+		                                {{/if}}
+		
+		                            </li>
+		
+		                        </ul>
+		                    </fieldset>
+		                    <button {{bindAttr class=":btn :btn-iconed :right :btn-primary"}} {{action updateRecordOnServer}}><em class="flaticon icon solid envelope-1"></em>{% trans "Send Message" %}</button>
+		                {{/if}}
+		            </form>
+            	</div>
+            	
+	            <sidebar class="sidebar tip">
+	            	<h3>{% trans "Other ways to contact" %}</h3>
+	                <p>
+	                    {% blocktrans %}
+	                    Email:<a href="mailto:info@onepercentclub.com?subject=Contact">info@onepercentclub.com</a><br />
+	                    
+						Twitter:<a href="https://twitter.com/1percentclub">@1percentclub</a><br />
+	                    Facebook: <a href="http://www.facebook.com/onepercentclub">/onepercentclub</a>
+	                    {% endblocktrans %}
+	                </p>
+	                <p>
+	                    {% blocktrans %}
+	                    1%Club Foundation
+	<br />
+	                    's Gravenhekje 1a
+	<br />
+	                    1011 TG Amsterdam<br />
+	                    The Netherlands
+	                    {% endblocktrans %}
+	                </p>
+	                <p>
+	                    {% blocktrans %}
+	                    Bank: Rabobank (Haarlem)
+	<br />
+	                    Account number: NL45 RABO 01322070 44(donations)
+	<br /
+	                    >BIC: RABONL2U<br />
+	                    
+	<br />
+	                    Chamber of Commerce number 34.26.78.95
 	
-	                                {{#if errors.name }}
-	                                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
-	                                {{/if}}
-	
-	                            </li>
-	
-	                            <li class="control-group">
-	                                <label class="control-label">{% trans "Email" %}</label>
-	                                <div class="controls">
-	                                    {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
-	                                </div>
-	
-	                                {{#if errors.email }}
-	                                    <div class="errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
-	                                {{/if}}
-	
-	                            </li>
-	
-	                            <li class="control-group">
-	                                <label class="control-label">{% trans "Message" %}</label>
-	                                <div class="controls">
-	                                    {{view Em.TextArea valueBinding="message" rows="6" classBinding="errors.message.length:error"}}
-	                                </div>
-	
-	                                {{#if errors.message }}
-	                                    <div class="errors">{{#each errors.message }}<p>{{this}}</p>{{/each}}</div>
-	                                {{/if}}
-	
-	                            </li>
-	
-	                        </ul>
-	                    </fieldset>
-	                    <button {{bindAttr class=":btn :btn-iconed :right :btn-primary"}} {{action updateRecordOnServer}}><em class="flaticon icon solid envelope-1"></em>{% trans "Send Message" %}</button>
-	                {{/if}}
-	            </form>
-	        </div>
-                        
-            
-            <sidebar class="sidebar tip">
-            	<h3>{% trans "Other ways to contact" %}</h3>
-                <p>
-                    {% blocktrans %}
-                    Email:<a href="mailto:info@onepercentclub.com?subject=Contact">info@onepercentclub.com</a><br />
-                    
-Twitter:<a href="https://twitter.com/1percentclub">@1percentclub</a><br />
-                    Facebook: <a href="http://www.facebook.com/onepercentclub">/onepercentclub
-
-</a>
-                    {% endblocktrans %}
-                </p>
-                <p>
-                    {% blocktrans %}
-                    1%Club Foundation
-<br />
-                    's Gravenhekje 1a
-<br />
-                    1011 TG Amsterdam<br />
-                    The Netherlands
-                    {% endblocktrans %}
-                </p>
-                <p>
-                    {% blocktrans %}
-                    Bank: Rabobank (Haarlem)
-<br />
-                    Account number: NL45 RABO 01322070 44(donations)
-<br /
-                    >BIC: RABONL2U<br />
-                    
-<br />
-                    Chamber of Commerce number 34.26.78.95
-
-<br />
-                    Phone(+31) 20 715 8980
-                    {% endblocktrans %}
-                </p>
-            </sidebar>
-            
+	<br />
+	                    Phone(+31) 20 715 8980
+	                    {% endblocktrans %}
+	                </p>
+	            </sidebar>
+	            
+	        </article>
         </section>
     </div>
 

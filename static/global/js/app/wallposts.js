@@ -279,8 +279,8 @@ App.ProjectWallPostView = Em.View.extend({
         Em.run.later(function(){
             this.$('.gallery-picture').colorbox({
                 rel: this.toString(),
-                next: '<span class="icon-chevron-right"></span>',
-                previous: '<span class="icon-chevron-left"></span>',
+                next: '<span class="flaticon solid right-2"></span>',
+                previous: '<span class="flaticon solid left-2"></span>',
                 close: '×'
             });
         }, 500);
