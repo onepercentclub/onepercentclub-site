@@ -436,6 +436,9 @@ App.Adapter.map('App.HomePage', {
     quotes: {embedded: 'load'},
     impact: {embedded: 'load'}
 });
+App.Adapter.map('App.PartnerOrganization', {
+    projects: {embedded: 'load'}
+});
 
 
 App.Store = DS.Store.extend({
@@ -589,6 +592,7 @@ App.Router.map(function() {
 
     this.resource('myPitchNew', {path: '/my/pitch/new'});
     this.resource('myProjectList', {path: '/my/projects'});
+    this.resource('partner', {path: '/partners/:partner_organization_id'});
 
 });
 

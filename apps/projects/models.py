@@ -363,6 +363,10 @@ class PartnerOrganization(models.Model):
     name = models.CharField(_("name"), max_length=255, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
+    @property
+    def projects(self):
+        return self.project_set.exclude(phase__in=['pitch', 'failed']).all()
+
     class Meta:
         verbose_name = _("partner organization")
         verbose_name_plural = _("partner organizations")

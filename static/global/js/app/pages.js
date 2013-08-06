@@ -1,5 +1,6 @@
 /* Models */
 
+
 App.Page = DS.Model.extend({
     url: 'pages',
     title: DS.attr('string'),
@@ -29,6 +30,12 @@ App.ContactMessage = DS.Model.extend({
     }.property('id')
 });
 
+
+App.PartnerOrganization = DS.Model.extend({
+    url: 'partners',
+    name: DS.attr('string'),
+    projects: DS.hasMany('App.ProjectPreview')
+});
 
 /* Controllers */
 

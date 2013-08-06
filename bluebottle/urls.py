@@ -24,10 +24,11 @@ urlpatterns = patterns('',
     url(r'^api/geo/', include('apps.geo.urlsapi')),
     url(r'^api/tasks/', include('apps.tasks.urlsapi')),
     url(r'^api/organizations/', include('apps.organizations.urlsapi')),
-    url(r'^api/pages', include('apps.pages.urlsapi')),
+    url(r'^api/pages/', include('apps.pages.urlsapi')),
+    url(r'^api/partners/', include('apps.partners.urlsapi')),
 
     # Homepage API urls
-    url(r'^api/homepage', include('apps.homepage.urlsapi')),
+    url(r'^api/homepage/', include('apps.homepage.urlsapi')),
     url(r'^api/banners/', include('apps.banners.urlsapi')),
     url(r'^api/quotes/', include('apps.quotes.urlsapi')),
     url(r'^api/stats', include('apps.statistics.urlsapi')),
