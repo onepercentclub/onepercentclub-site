@@ -42,7 +42,6 @@ class DocDataPaymentOrder(Payment):
         verbose_name_plural = _("DocData Payments")
 
 
-
 class DocDataPayment(PolymorphicModel):
     """
     The base model for a docdata payment. The model can be used for a web menu payment.

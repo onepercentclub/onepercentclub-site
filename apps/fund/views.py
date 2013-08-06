@@ -116,6 +116,15 @@ class OrderDetail(generics.RetrieveUpdateAPIView):
     serializer_class = OrderSerializer
     permission_classes = (IsOrderCreator,)
 
+    def get_object(self, queryset=None):
+        order = super(OrderDetail, self).get_object(queryset=queryset)
+        # Do a status check with DocData when we don't know the status of in_progress orders.
+        if order and order.id and order.status == OrderStatuses.current:
+            latest_payment = order.latest_payment
+            if latest_payment.payment_order_id and latest_payment.status == PaymentStatuses.in_progress:
+                payments.update_payment_status(order.latest_payment)
+        return order
+
 
 class NestedDonationList(OrderItemMixin, generics.ListCreateAPIView):
     model = Donation
@@ -256,8 +265,7 @@ class CurrentOrderMixin(object):
 
         # Create a payment if we need one.
         # We're currently only using DocData so we can directly connect the DocData payment order to the order.
-        # Note that Order still has a ManyToMany relationship with 'cowry.Payment'. In the future, we can create
-        # the payment at a later stage in the order process using cowry's
+        # In the future, we can create the payment at a later stage in the order process using cowry's
         # 'factory.create_new_payment(amount, currency)'.
         latest_payment = order.latest_payment
         if not latest_payment:

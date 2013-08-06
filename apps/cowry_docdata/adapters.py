@@ -430,10 +430,10 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 # Save some information from the report.
                 ddpayment.payment_id = str(payment_report.id)
                 ddpayment.payment_method = str(payment_report.paymentMethod)
-                docdata_fees = getattr(settings, "COWRY_DOCDATA_FEES", None)
                 ddpayment.save()
 
                 # Set the payment fee.
+                docdata_fees = getattr(settings, "COWRY_DOCDATA_FEES", None)
                 if docdata_fees:
                     if ddpayment.payment_method in docdata_fees:
                         payment_cost_setting = str(docdata_fees[ddpayment.payment_method])
@@ -446,7 +446,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                         else:
                             payment_cost = Decimal(payment_cost_setting) * 100
 
-                        # TODO: Check if this is the rounding rule for the Netherlands / the Euro.
                         payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP)
                         payment.save()
 
