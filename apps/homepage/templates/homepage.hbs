@@ -93,7 +93,7 @@
                         <div class="status-box">
                             <p class="donate-days-left">
 								{{#if project.campaign.deadline}}
-								<strong><em class="icon flaticon solid clock-1"></em> {{project.campaign.daysToGo}}</strong>
+								<strong><em class="flaticon solid clock-1"></em> {{project.campaign.daysToGo}}</strong>
 								<em>{% trans "days to go" %}</em>
 								{{/if}}
 							</p>
@@ -110,7 +110,7 @@
 
                             <div class="donate-call-to-action">
 								<a href='#' {{ action 'addDonation' project }} class="btn btn-primary btn-iconed">
-								<em class="flaticon">&euro;</em> {% trans "Support" %}</a>
+								<em class="icon">&euro;</em> {% trans "Support" %}</a>
 							</div>
                         </div>
                             
@@ -137,22 +137,22 @@
                     </aside>
 
                     <article>
-                        <p>{{ quote.user.full_name }}</p>
-                        <q>{{ quote.quote }}</q>
+                        <p class="quote-name">{{ quote.user.full_name }}</p>
+                        <p class="quote-quote">{{ quote.quote }}</p>
                     </article>
                 </div>
 
-                <a class="btn btn-primary btn-iconed">
-                    <em class="flaticon">&euro;</em>
+                <a class="btn btn-iconed first" href="/#!/projects">
+                    <em class="icon">&euro;</em>
                     {% trans "Find projects" %}
                 </a>
 
-                <a class="btn btn-primary btn-iconed">
+                <a class="btn btn-iconed second" href="/#!/tasks">
                     <em class="flaticon solid wrench-1"></em>
                     {% trans "Find tasks" %}
                 </a>
 
-                <a class="btn btn-primary btn-iconed">
+                <a class="btn btn-iconed third" href="/#!/pages/befriend">
                     <em class="flaticon solid heart-1"></em>
                     {% trans "Befriend us" %}
                 </a>
@@ -199,7 +199,7 @@
 
                     <li>
                         <i class="flaticon">&euro;</i>
-                        <em>{{ impact.donated }}</em>
+                        <em>&euro; {{ impact.donated }},-</em>
                         {% trans "Donated" %}
                     </li>
                 </ul>
