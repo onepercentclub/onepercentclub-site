@@ -60,7 +60,7 @@ case "$1" in
 
         pull)
             echo "Fetching PO files from Transifex"
-            tx pull -l nl
+            tx pull -f -l nl
 
             ;;
 
