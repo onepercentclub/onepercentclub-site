@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-05 22:44+0200\n"
-"PO-Revision-Date: 2013-08-05 21:20+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-08-06 18:55+0200\n"
+"PO-Revision-Date: 2013-08-06 18:30+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,198 +52,186 @@ msgid ""
 "<strong>%(error_id)s</strong>."
 msgstr "Als je hulp nodig hebt kun je naar deze fout verwijzen als <strong>%(error_id)s</strong>."
 
-#: base.html:128
+#: base.html:126
 #, python-format
 msgid "What is 1%%"
 msgstr "Wat is 1%%"
 
-#: base.html:129 base.html.py:288
+#: base.html:127 base.html.py:286
 #, python-format
 msgid "1%%Projects"
 msgstr "1%%Projecten"
 
-#: base.html:130
+#: base.html:128 base.html.py:290
 #, python-format
 msgid "1%%Skills"
 msgstr "1%%Doen"
 
-#: base.html:131 base.html.py:293
+#: base.html:129 base.html.py:295
 msgid "Get involved"
 msgstr "Doe mee"
 
-#: base.html:140
+#: base.html:138
 #, python-format
 msgid "My 1%%"
 msgstr "Mijn 1%%"
 
-#: base.html:145
+#: base.html:143
 msgid "Edit my profile & settings"
 msgstr "Profiel & instellingen"
 
-#: base.html:151
+#: base.html:149
 msgid "Manage My Project"
 msgstr "Manage mijn project"
 
-#: base.html:159
+#: base.html:157
 msgid "Language"
 msgstr "Taal"
 
-#: base.html:169
+#: base.html:167
 msgid "Donations"
 msgstr "Donaties"
 
-#: base.html:175
+#: base.html:173
 msgid "Sign up"
 msgstr "Registreer"
 
-#: base.html:177 registration/login.html:10
+#: base.html:175 registration/login.html:10
 msgid "Log in"
 msgstr "Log in"
 
-#: base.html:230
+#: base.html:228
 #, python-format
 msgid "Log in to 1%%Club"
 msgstr "Aanmelden bij 1%%Club"
 
-#: base.html:235
+#: base.html:233
 msgid "You did it!"
 msgstr "Gelukt!"
 
-#: base.html:236
+#: base.html:234
 msgid "(Welcome back friend)"
 msgstr "(Welcome terug)"
 
-#: base.html:238
+#: base.html:236
 msgid "Login here with your email address and password"
 msgstr "Log hier in met je e-mailadres en wachtwoord"
 
-#: base.html:243 registration/login.html:19
+#: base.html:241 registration/login.html:19
 msgid "Email"
 msgstr "Email"
 
-#: base.html:252 registration/login.html:28
+#: base.html:250 registration/login.html:28
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: base.html:262
+#: base.html:260
 msgid "Forgot your password?"
 msgstr "Wachtwoord vergeten?"
 
-#: base.html:278
+#: base.html:276
 #, python-format
 msgid "It all starts with 1%%"
 msgstr "Het begint met 1%%"
 
-#: base.html:282
+#: base.html:280
 #, python-format
 msgid "What is 1%%CLUB?"
 msgstr "Wat is 1%%CLUB?"
 
-#: base.html:298
+#: base.html:300
 msgid "Start your project"
 msgstr "Start jouw project"
 
-#: base.html:305
+#: base.html:307
 #, python-format
 msgid "About 1%%CLUB"
 msgstr "Over 1%%CLUB"
 
-#: base.html:309
+#: base.html:311
 msgid "Our story"
 msgstr "Ons verhaal"
 
-#: base.html:314
+#: base.html:316
 msgid "Meet the team"
 msgstr "Wie zijn wij"
 
-#: base.html:319 footer.html:13
+#: base.html:321 footer.html:13
 msgid "Partners"
 msgstr "Partners"
 
-#: base.html:324
+#: base.html:326
 msgid "Press"
 msgstr "Pers"
 
-#: base.html:329
+#: base.html:331
 #, python-format
 msgid "Work at 1%%CLUB"
 msgstr "Werken bij 1%%CLUB"
 
-#: base.html:334 footer.html:18 footer.html.py:38
+#: base.html:336 footer.html:18 footer.html.py:38
 msgid "Contact"
 msgstr "Contact"
 
-#: base.html:341
+#: base.html:343
 #, python-format
 msgid "Discover 1%%More"
 msgstr "Ontdek 1%%Meer"
 
-#: base.html:345
-#, python-format
-msgid "1%%Blog"
-msgstr "1%%Blog"
-
-#: base.html:350
-#, python-format
-msgid "1%%Live"
-msgstr "1%%Live"
-
-#: base.html:355
-#, python-format
-msgid "1%%Event"
-msgstr "1%%Event"
-
-#: base.html:360
-#, python-format
-msgid "1%%Video"
-msgstr "1%%Video"
-
-#: base.html:365
+#: base.html:347
 #, python-format
 msgid "1%%Business"
 msgstr "1%%Business"
 
-#: base.html:372
+#: base.html:352
+#, python-format
+msgid "1%%Blog"
+msgstr "1%%Blog"
+
+#: base.html:357
+#, python-format
+msgid "1%%Github"
+msgstr "1%%Github"
+
+#: base.html:365
 #, python-format
 msgid "1%%Social"
 msgstr "1%%Social"
 
-#: base.html:408
+#: base.html:401
 #, python-format
 msgid "1%%News"
 msgstr "1%%Nieuws"
 
-#: base.html:422 base.html.py:429
+#: base.html:415 base.html.py:422
 #, python-format
 msgid "Join 1%%Club"
 msgstr "Doe mee met 1%%Club"
 
-#: base.html:423
+#: base.html:416
 #, python-format
 msgid ""
-"1%%Club connects smart ideas from developing countries to time, money and "
-"expertise from all over the world. It is very easy:"
-msgstr "1%%Club is jouw plek om je kennis, tijd en geld te delen met mensen met slimme ideeën in ontwikkelingslanden. Zo simpel is het:"
+"1%%Club is the global crowdfunding and crowdsourcing platform where you can "
+"share a little and change the world, in your very own way. Pick any project "
+"you like, support it with 1%% of your knowledge, money or time and follow "
+"the progress online. "
+msgstr "1%%Club is het crowdfunding en crowdsourcing platform waar je door een beetje te delen, een wereld van verschil kan maken. Kies een project dat bij je past, support het met 1%% van je kennis, geld of tijd en volg de voortgang online."
 
-#: base.html:425
-msgid "Select a project or tast"
-msgstr "Kies een project"
+#: base.html:418
+msgid "Select a project or task"
+msgstr "Selecteer een project of taak"
 
-#: base.html:426
+#: base.html:419
 msgid "Share your skills or money"
 msgstr "Steun het met je tijd, kennis of geld"
 
-#: base.html:427
+#: base.html:420
 msgid "See direct results"
 msgstr "Volg de voortgang"
 
-#: base.html:444
+#: base.html:437
 msgid "General Conditions"
 msgstr "Algemene voorwaarden"
-
-#: base.html:449
-msgid "Give us feedback"
-msgstr "Geef feedback"
 
 #: footer.html:6
 msgid "Menu"
@@ -318,20 +306,17 @@ msgid "We like you too"
 msgstr "We like you too"
 
 #: registration/activation_email.html:20
-msgid "Time to activate your account."
-msgstr "Tijd om je account te activeren."
+msgid "Confirm your registration"
+msgstr "Bevestig je aanmelding"
 
 #: registration/activation_email.html:28
-msgid "You recently signed-up at"
-msgstr "Je hebt je onlangs aangemeld bij"
-
-#: registration/activation_email.html:28
-msgid "and your account needs to be activated."
-msgstr "en je account moet nog worden geactiveerd."
+#, python-format
+msgid "Great! We can almost welcome you at 1%%Club!"
+msgstr "Leuk! We kunnen je bijna verwelkomen bij 1%%Club!"
 
 #: registration/activation_email.html:36
-msgid "You are almost there, you are just one click away."
-msgstr "Je bent er bijna!"
+msgid "Click the link below to confirm your registration"
+msgstr "Klik op onderstaande link om je aanmelding te bevestigen."
 
 #: registration/activation_email.html:46
 msgid "activate profile"
