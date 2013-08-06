@@ -38,10 +38,14 @@
 
 
 .link-primary {
+	@include rem(margin-top, $padding*4);
+	font-weight: 300;
+	@include rem(font-size, 16px);
     display: block;
     color: $pink;
     text-align: center;
     text-decoration: underline;
+    text-transform: uppercase;
 }
 
 #home {
