@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-05 22:44+0200\n"
-"PO-Revision-Date: 2013-08-05 21:20+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-08-06 18:55+0200\n"
+"PO-Revision-Date: 2013-08-06 18:33+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -350,7 +350,7 @@ msgstr "Locatie"
 
 #: templates/users.hbs:176
 #, python-format
-msgid "1%%SKills"
+msgid "1%%Skills"
 msgstr "1%%Doen"
 
 #: templates/users.hbs:177
