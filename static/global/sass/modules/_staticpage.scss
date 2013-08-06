@@ -1,26 +1,100 @@
-.static-page {
-	position: relative;
+/* all static pages */
 
-    iframe, object {
-        display: block;
-        @include prepend(1);
+.static-page, #page {
+	position: relative;
+	
+    
+}
+
+
+/* rendered pages from backed */
+
+#page {
+
+	@include rem(font-size, 16px);
+	@include rem(padding-top, $padding*3);
+	
+	.title {
+		margin-bottom: 0 !important;
+	}
+	
+    .text, .video, .image, .oembed, .rawhtml, .title {
+        @include grid(32,1,2);
+        @include rem(margin-bottom, $padding*2);
+        margin-top: 0;
+        
+        iframe, object, img, embed {
+		    width: 100%;
+		    @include rem(margin-bottom, $padding*2);
+			margin-top: 0;
+			
+			/*debug*/
+			border: 1px solid #000;
+	    }	
+        	
     }
-    .text, .image, .oembed, .rawhtml, .title, {
-        @include grid(32, 1);
-        @include rem(font-size, 16px);
+    
+    .text, .video {
+	    
     }
     
     .align-float-left {
-    	@include grid(16, 1);
+    	@include grid(16,1);
 	    float: left;
+	    clear: both;
+	    
+	    img {
+	    	position: relative;
+			@include rem(top, -$padding);
+	    }
     }
     
     .align-float-right {
-    	@include grid(16, 1);
+    	@include grid(16,1);
 	    float: right;
+	    clear: both;
+	    	
+	    img {
+	    	position: relative;
+			@include rem(top, -$padding);
+	    }
     }
+	
+	h1 {
+		@include rem(font-size, 42px);
+		color: $pink;
+		margin: 0;
+		padding: 0;
+	}
+	
+	ul {
+		@include rem(margin-left, $padding*2);
+		
+		li {
+			@include rem(padding-left, $padding*2);
+			@include rem(margin, $padding 0);
+			background: image-url("list-item.png") transparent no-repeat 0 0;
+		}
+	}
+	
+	h2 {
+		@include rem(font-size, 28px);
+		color: $green;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+	
+	h3 {
+		@include rem(font-size, 22px);
+		color: $grayDark;
+		text-transform: uppercase;
+		font-weight: 300;
+	}
 }
 
+
+
+/* full page view */
 
 .static-page {
 
@@ -83,6 +157,10 @@
             color: $gray;
             text-transform: uppercase;
 
+            &:hover {
+	            color: $grayDarker;
+            }
+            
             &.active {
                 color: $grayDarker;
                 text-decoration: underline;

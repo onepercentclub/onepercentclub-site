@@ -87,9 +87,15 @@ form, .form {
     }
 
     ul {
-        margin: 0;
+        margin: 0 !important;
         clear: both;
         list-style: none;
+        
+        li {
+        	margin: 0 !important; 
+        	padding-left: 0 !important;
+	        background: none !important;
+        }
     }
 
     .control-group {
