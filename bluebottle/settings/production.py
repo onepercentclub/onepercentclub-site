@@ -18,4 +18,7 @@ INSTALLED_APPS += (
 )
 
 COWRY_RETURN_URL_BASE = 'https://production.onepercentclub.com'
-COWRY_LIVE_PAYMENTS = False
+COWRY_LIVE_PAYMENTS = True
+
+# Send email for real
+EMAIL_BACKEND = 'apps.bluebottle_utils.email_backend.DKIMBackend'

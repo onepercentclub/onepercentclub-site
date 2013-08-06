@@ -20,7 +20,5 @@ INSTALLED_APPS += (
 COWRY_RETURN_URL_BASE = 'https://testing.onepercentclub.com'
 COWRY_LIVE_PAYMENTS = False
 
-
 # Send email for real
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
+EMAIL_BACKEND = 'apps.bluebottle_utils.email_backend.DKIMBackend'
