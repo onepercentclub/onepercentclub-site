@@ -6,7 +6,6 @@ from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry.models import PaymentStatuses, PaymentLogTypes, PaymentLogLevels
 from django.conf import settings
 from django.utils.http import urlencode
-from django.utils import timezone
 from suds.client import Client
 from suds.plugin import MessagePlugin, DocumentPlugin
 from .exceptions import DocDataPaymentException
@@ -214,6 +213,16 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         payment.save()
         return payment
 
+    def _generate_merchant_order_reference(self, payment):
+        other_payments = DocDataPaymentOrder.objects.filter(order=payment.order).exclude(id=payment.id).order_by('-merchant_order_reference')
+        if not other_payments:
+            return '{0}-0'.format(payment.order.order_number)
+        else:
+            latest_mor = other_payments[0].merchant_order_reference
+            order_payment_nums = latest_mor.split('-')
+            payment_num = int(order_payment_nums[1]) + 1
+            return '{0}-{1}'.format(payment.order.order_number, payment_num)
+
     def create_remote_payment_order(self, payment):
         # Some preconditions.
         if payment.payment_order_id:
@@ -275,11 +284,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # TODO Add a setting for default description.
             description = "1%CLUB"
 
-        if self.test:
-            # A unique code for testing.
-            payment.merchant_order_reference = ('COWRY-' + str(timezone.now()))[:30].replace(' ', '-')
-        else:
-            payment.merchant_order_reference = str(payment.order.order_number)
+        payment.merchant_order_reference = self._generate_merchant_order_reference(payment)
 
         # Execute create payment order request.
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
