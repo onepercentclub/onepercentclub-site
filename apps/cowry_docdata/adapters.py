@@ -446,7 +446,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                         else:
                             payment_cost = Decimal(payment_cost_setting) * 100
 
-                        payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP)
+                        # 20 cents is the DocData fee.
+                        payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP) + 20
                         payment.save()
 
                     else:
