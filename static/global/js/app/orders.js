@@ -482,7 +482,6 @@ App.PaymentSelectController = Em.ObjectController.extend({
 //            var paymentUrl = record.get('paymentUrl');
 //            if (paymentUrl) {
 //                    window.location = json['payment_url'];
-//                    window.location.reload(true);
 //            }
 //        });
 //        this.get('transaction').commit();
@@ -500,11 +499,9 @@ App.PaymentSelectController = Em.ObjectController.extend({
             success: function(json) {
                 if (json['payment_url']) {
                     window.location = json['payment_url'];
-                    window.location.reload(true);
                 } else {
                     controller.set('paymentInProgress', false);
                     controller.displayPaymentError();
-
                 }
             },
             error: function(xhr) {
@@ -559,11 +556,9 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
                 // FIXME: Set payment error error message when there's an error updating the donation.
                 Em.run.later(function(){
                     window.location = thanksUrl;
-                    window.location.reload(true);
                 }, 5000);
             } else {
                 window.location = thanksUrl;
-                window.location.reload(true);
             }
         }
 

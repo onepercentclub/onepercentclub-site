@@ -28,6 +28,7 @@ fi
 if [ ! -d $ENVDIR ]; then
     echo "Preparing virtualenv environment in $ENVDIR directory"
     $VIRTUALENV $ENVDIR
+    $ENVDIR/bin/pip install --upgrade setuptools
 fi
 
 echo 'Installing required packages'

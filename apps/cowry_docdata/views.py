@@ -1,5 +1,4 @@
 import re
-from django.conf import settings
 from apps.cowry import payments
 from apps.cowry.models import PaymentLogLevels, PaymentLogTypes
 from rest_framework import generics
@@ -7,11 +6,8 @@ from rest_framework import response
 from rest_framework import status
 from .models import DocDataPaymentOrder, DocDataPaymentLogEntry
 
-
 import logging
 logger = logging.getLogger(__name__)
-
-testing = not getattr(settings, "COWRY_LIVE_PAYMENTS", False)
 
 
 # TODO: limit status change notifications to docdata IPs
@@ -19,12 +15,7 @@ class StatusChangedNotificationView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         if 'order' in request.QUERY_PARAMS:
             order = request.QUERY_PARAMS['order']
-            if testing:
-                # Example: COWRY-2013-07-20-12:09:10.9835
-                order_regex = '^COWRY-'
-            else:
-                order_regex = '^[0-9]+$'
-            if re.match(order_regex, order):
+            if re.match('^[0-9]+-[0-9]+$', order):
                 # Try to find the payment for this order.
                 try:
                     payment = DocDataPaymentOrder.objects.get(merchant_order_reference=order)
