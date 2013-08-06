@@ -620,15 +620,6 @@ App.ApplicationRoute = Em.Route.extend({
             for (i in languages) {
                 // Check if the selected language is available.
                 if (languages[i].code == language) {
-                    user.one('didLoad', function(){
-
-                    });
-                    user.one('didLoad', function(){
-
-                    });
-                    var user = App.CurrentUser.find('current');
-
-
                     document.location = '/' + language + document.location.hash;
                     return true;
                 }
