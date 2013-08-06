@@ -57,18 +57,18 @@ reports
 *.esproj
 
 # Salesforce Dataloader
-#!**/.gitkeep
+!**/.gitkeep
 salesforce/dataloader_prd/Bin/DataLoader20/*
 salesforce/dataloader_uat/Bin/DataLoader20/*
-#salesforce/*/*/*/*/read/*
-#salesforce/*/*/*/*/write/*
-#salesforce/*/*/*/*/log/*
+salesforce/*/*/*/*/read/*
+salesforce/*/*/*/*/write/*
+salesforce/*/*/*/*/log/*
 salesforce/*/*/*/*/active_job.properties
 salesforce/*/*/*/*/*/*lastRun.properties
-#salesforce/*/*/*/log/*
-#salesforce/*/*/*/archive/*
-#salesforce/*/Data/Input/*
-#salesforce/*/Data/Output/*
+salesforce/*/*/*/log/*
+salesforce/*/*/*/archive/*
+salesforce/*/Data/Input/*
+salesforce/*/Data/Output/*
 
 static/global/compass_app_log.txt
 
