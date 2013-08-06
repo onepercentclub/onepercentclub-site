@@ -120,7 +120,7 @@
 		    }
 	    }
 	    
-	    image.align-center {
+	    .image.align-center {
 		    
 		    img {
 			    width: 100%;
@@ -181,6 +181,7 @@
 		}
 	}
 	
+	/*
 	&.partners #page-content {
 		
 		@include grid(48,0,0);
@@ -201,6 +202,56 @@
 	&.associates #page-content {
 		
 	}
+	*/
+	
+	.pages-nav {
+		
+		@include rem(margin-top, $padding*2);
+		border-left: 1px solid $color-back;
+		
+		h3 {
+			@include rem(font-size, 22px);
+			text-transform: uppercase;
+			color: $gray;
+			font-weight: 600;
+			@include rem(margin, $padding/2 $padding*2);
+		}
+		
+	    ul {
+			
+			padding: 0;
+			margin: 0;
+			border-top: 1px solid $white;
+			@include rem(margin-bottom, $padding);
+			
+			li {
+				
+				ul {
+					@include rem(margin-left, $padding);
+				}
+				
+				a {
+					clear: both;
+					position: relative;
+					display: block;
+					@include rem(padding, $padding/2 $padding*2);
+					text-transform: uppercase;
+					color: $gray;
+				}
+			}
+			
+			&:hover li a {
+				color: $text-black;
+				
+				&:hover, &:active {
+					color: $white;
+					background: $green;
+				}
+			}
+		}
+		
+	}
+	
 }
 
 
