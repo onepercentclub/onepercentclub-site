@@ -50,6 +50,11 @@ $.ajaxSetup({
 });
 
 
+// Create a mock 'File' class so things won't break to awfully in IE8&9
+// FIXME: Use a polyfill for this!!
+if (Em.isNone(File)) {
+    var File = function(){};
+}
 
 Em.TextField.reopen({
     // Update attributeBinding with 'step' and 'multiple'
@@ -710,7 +715,6 @@ App.ApplicationRoute = Em.Route.extend({
             App.CurrentOrder.find('current').then(function(order) {
                 var transaction = route.get('store').transaction();
                 var donation = transaction.createRecord(App.CurrentOrderDonation);
-                transaction.add(donation);
                 donation.set('project', project);
                 donation.set('order', order);
                 transaction.commit();

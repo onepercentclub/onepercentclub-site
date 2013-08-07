@@ -142,17 +142,17 @@
                     </article>
                 </div>
 
-                <a class="btn btn-iconed first" href="/#!/projects">
+                {{#linkTo projectList class="btn btn-iconed first"}}
                     <em class="icon">&euro;</em>
                     {% trans "Find projects" %}
-                </a>
+                {{/linkTo}}
 
-                <a class="btn btn-iconed second" href="/#!/tasks">
+				{{#linkTo projectList class="btn btn-iconed second"}}
                     <em class="flaticon solid wrench-1"></em>
                     {% trans "Find tasks" %}
-                </a>
+                {{/linkTo}}
 
-                <a class="btn btn-iconed third" href="/#!/pages/befriend">
+                <a class="btn btn-iconed third" {{action showPage 'befriend'}} href="/#!/pages/befriend">
                     <em class="flaticon solid heart-1"></em>
                     {% trans "Befriend us" %}
                 </a>
