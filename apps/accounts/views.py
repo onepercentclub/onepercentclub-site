@@ -132,6 +132,7 @@ class PasswordReset(views.APIView):
                 'uid': int_to_base36(user.pk),
                 'user': user,
                 'token': token_generator.make_token(user),
+                'LANGUAGE_CODE': self.request.LANGUAGE_CODE[:2]
             }
             subject = loader.render_to_string(subject_template_name, c)
             # Email subject *must not* contain newlines
