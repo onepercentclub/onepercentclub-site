@@ -710,7 +710,6 @@ App.ApplicationRoute = Em.Route.extend({
             App.CurrentOrder.find('current').then(function(order) {
                 var transaction = route.get('store').transaction();
                 var donation = transaction.createRecord(App.CurrentOrderDonation);
-                transaction.add(donation);
                 donation.set('project', project);
                 donation.set('order', order);
                 transaction.commit();
