@@ -128,25 +128,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
         model = BlueBottleUser
         fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password')
 
-    def save(self, **kwargs):
-        """
-        Setup the newly created user for activation. We're not using
-        'RegistrationProfile.objects.create_inactive_user()' from django-registration because it requires a username.
-        """
-        user = super(UserCreateSerializer, self).save()
-
-        # Create a RegistrationProfile and email its activation key to the User.
-        registration_profile = RegistrationProfile.objects.create_profile(user)
-
-        # FIXME: Find a better solution for this.
-        if Site.objects.get_current().domain in ['localhost:8000', '127.0.0.1:8000']:
-            site = 'http://' + Site.objects.get_current().domain
-        else:
-            site = 'https://' + Site.objects.get_current().domain
-
-        registration_profile.send_activation_email(site)
-        return user
-
 
 class PasswordResetSerializer(serializers.Serializer):
     """

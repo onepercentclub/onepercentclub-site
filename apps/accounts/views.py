@@ -1,5 +1,5 @@
 from apps.bluebottle_drf2.permissions import IsCurrentUserOrReadOnly, IsCurrentUser
-from django.contrib.auth import load_backend, login, get_user_model
+from django.contrib.auth import login, get_user_model
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sites.models import get_current_site
@@ -13,7 +13,6 @@ from rest_framework import generics
 from rest_framework import response
 from rest_framework import status
 from rest_framework import views
-from django.utils.translation import ugettext_lazy as _
 from .models import BlueBottleUser
 from .serializers import (CurrentUserSerializer, UserProfileSerializer, UserSettingsSerializer, UserCreateSerializer,
                           PasswordResetSerializer, PasswordSetSerializer)
@@ -49,6 +48,36 @@ class UserCreate(generics.CreateAPIView):
 
     def get_name(self):
         return "Users"
+
+    def post_save(self, obj, created=False):
+        # Create a RegistrationProfile and email its activation key to the User.
+        registration_profile = RegistrationProfile.objects.create_profile(obj)
+
+        if created:
+            current_site = get_current_site(self.request)
+            site_name = current_site.name
+            domain = current_site.domain
+            site = self.request.is_secure() and 'https' or 'http' + '://' + domain
+            c = {
+                'email': obj.email,
+                'site': site,
+                'site_name': site_name,
+                'user': obj,
+                'activation_key': registration_profile.activation_key,
+                'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
+                'LANGUAGE_CODE': self.request.LANGUAGE_CODE[:2]
+            }
+            subject_template_name = 'registration/activation_email_subject.txt'
+
+            extension = getattr(settings, 'HTML_ACTIVATION_EMAIL', False) and  'html' or 'txt'
+            email_template_name = 'registration/activation_email.' + extension
+
+            subject = loader.render_to_string(subject_template_name, c)
+            # Email subject *must not* contain newlines
+            subject = ''.join(subject.splitlines())
+            email = loader.render_to_string(email_template_name, c)
+
+            obj.email_user(subject, email)
 
 
 class UserActivate(generics.RetrieveAPIView):
