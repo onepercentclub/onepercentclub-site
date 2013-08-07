@@ -26,7 +26,7 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
     logger.info("Syncing {0} Organization objects.".format(organizations.count()))
 
     for organization in organizations:
-        logger.info("Syncing Organization: {0}".format(organization.id))
+        logger.debug("Syncing Organization: {0}".format(organization.id))
 
         # Find the corresponding SF organization.
         try:
@@ -38,9 +38,6 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
         sforganization.name = organization.name
         sforganization.legal_status = organization.legal_status
         sforganization.description = organization.description
-
-        # TODO: Determine if and how organization type should be entered
-        # sforganization.organization_type =
 
         # SF Layout: Contact Information section. Ignore address type and only use first address.
         # When multiple address types are supported in the website, extend this function
@@ -105,7 +102,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
     logger.info("Syncing {0} User objects.".format(users.count()))
 
     for user in users:
-        logger.info("Syncing User: {0}".format(user.id))
+        logger.debug("Syncing User: {0}".format(user.id))
 
         # Find the corresponding SF user.
         try:
@@ -227,7 +224,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
     logger.info("Syncing {0} Project objects.".format(projects.count()))
 
     for project in projects:
-        logger.info("Syncing Project: {0}".format(project.id))
+        logger.debug("Syncing Project: {0}".format(project.id))
 
         # Find the corresponding SF project.
         try:
@@ -370,7 +367,7 @@ def sync_projectbudgetlines(dry_run, sync_from_datetime, loglevel):
     logger.info("Syncing {0} BudgetLine objects.".format(budget_lines.count()))
 
     for budget_line in budget_lines:
-        logger.info("Syncing BudgetLine: {0}".format(budget_line.id))
+        logger.debug("Syncing BudgetLine: {0}".format(budget_line.id))
 
         # Find the corresponding SF budget lines.
         try:
@@ -413,7 +410,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
     logger.info("Syncing {0} Donation objects.".format(donations.count()))
 
     for donation in donations:
-        logger.info("Syncing Donation: {0}".format(donation.id))
+        logger.debug("Syncing Donation: {0}".format(donation.id))
 
         # Find the corresponding SF donation.
         try:
@@ -487,7 +484,7 @@ def sync_vouchers(dry_run, sync_from_datetime, loglevel):
     logger.info("Syncing {0} Voucher objects.".format(vouchers.count()))
 
     for voucher in vouchers:
-        logger.info("Syncing Voucher: {0}".format(voucher.id))
+        logger.debug("Syncing Voucher: {0}".format(voucher.id))
 
         # Find the corresponding SF vouchers.
         try:
@@ -556,7 +553,7 @@ def sync_tasks(dry_run, sync_from_datetime, loglevel):
     logger.info("Syncing {0} Task objects.".format(tasks.count()))
 
     for task in tasks:
-        logger.info("Syncing Task: {0}".format(task.id))
+        logger.debug("Syncing Task: {0}".format(task.id))
 
         # Find the corresponding SF tasks.
         try:
@@ -611,7 +608,7 @@ def sync_taskmembers(dry_run, sync_from_datetime, loglevel):
     logger.info("Syncing {0} TaskMember objects.".format(task_members.count()))
 
     for task_member in task_members:
-        logger.info("Syncing TaskMember: {0}".format(task_member.id))
+        logger.debug("Syncing TaskMember: {0}".format(task_member.id))
 
         # Find the corresponding SF task members.
         try:
