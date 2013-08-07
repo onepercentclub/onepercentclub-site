@@ -490,7 +490,7 @@ App.PaymentSelectController = Em.ObjectController.extend({
         var payment = this.get('model');
         var controller = this;
         jQuery.ajax({
-            url: '/i18n/api/fund/payments/current',
+            url: '/api/fund/payments/current',
             type: 'PUT',
             data: JSON.stringify({ payment_method:  payment.get('availablePaymentMethods').objectAt(0)}),
             dataType: 'json',
