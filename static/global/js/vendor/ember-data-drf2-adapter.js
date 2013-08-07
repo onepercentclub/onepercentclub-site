@@ -131,6 +131,10 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
         var data = {};
         data = this.serialize(record, { includeId: true });
+        if (Em.isNone(File)) {
+            var File = function(){};
+        }
+
         var hasFile = false;
         for (key in data) {
             if (record.get(key) instanceof File) {
