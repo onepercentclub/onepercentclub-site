@@ -469,6 +469,32 @@
 
     <!--[if lt IE 9]>
         <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <div class="banner">
+            <div class="container" >
+                <div class="wrapper">
+                <article style="color:white">
+                    <h1 style="color:white">Oops!</h1>
+                    <p style="color:white">
+                        {% blocktrans %}
+                        Our new website currently does not work well with older versions of Internet Explorer.<br/>
+                        Please install Internet Explorer 10 or use another browser such as Firefox or Chrome!<br/>
+                        {% endblocktrans %}
+                        <ul>
+                            <li>
+                                <a href="http://windows.microsoft.com/nl-nl/internet-explorer/download-ie">Download: Internet Explorer 10</a>
+                            </li>
+                            <li>
+                                <a href="http://www.mozilla.org/nl/firefox/new/">Download: Firefox</a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/intl/nl/chrome/browser/">Download: Chrome</a>
+                            </li>
+                        </ul>
+                    </p>
+                </article>
+                </div>
+            </div>
+        </div>
     <![endif]-->
 
     {% block content %}
