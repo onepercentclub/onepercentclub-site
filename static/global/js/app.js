@@ -1369,46 +1369,49 @@ App.UserOrdersRoute = Em.Route.extend({
 
 App.UserActivateRoute = Em.Route.extend({
 
-    // FIXME: Find a better solution than the run.later construction.
-
     model: function(params) {
         var currentUser = App.CurrentUser.find('current');
-        var activation = App.UserActivation.find(params.activation_key);
+        return App.UserActivation.find(params.activation_key);
+    },
+
+    // FIXME: Find a better solution than the run.later construction.
+    setupController: function(controller, activation) {
+
+        var currentUser = App.CurrentUser.find('current');
+        // CurrentUser hasn't been loaded properly. We need to set state 'loaded' here so we can use reload.
+        currentUser.get('stateManager').goToState('loaded');
         var route = this;
-        activation.on('becameError', function(record) {
-            route.controllerFor('application').setProperties({
+        currentUser.one('didReload', function() {
+            // User profile needs to load it's own currentUser apparently so unload this here.
+            currentUser.unloadRecord();
+            route.transitionTo('userProfile');
+        });
+
+        // This seems the only way to (more or less) always load the logged in user,
+        Em.run.later(function() {
+            currentUser.reload();
+        }, 3000);
+
+        var messageTitle   = "Welcome";
+        var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
+
+        this.controllerFor('application').setProperties({
+            display_message: true,
+            message_title: messageTitle,
+            message_content: messageContent
+        });
+    },
+
+    events: {
+        error: function (reason, transition) {
+            this.controllerFor('application').setProperties({
                 display_message: true,
                 isError: true,
                 message_title: '',
                 message_content: 'There was a problem activating your account. Please contact us for assistance.'
             });
-            route.replaceWith('home');
-        });
-        activation.on('didLoad', function(record) {
-            var currentUser = App.CurrentUser.find('current');
-            // CurrentUser hasn't been loaded properly. We need to set state 'loaded' here so we can use reload.
-            currentUser.get('stateManager').goToState('loaded');
-            currentUser.one('didReload', function() {
-                // User profile needs to load it's own currentUser apparently so unload this here.
-                currentUser.unloadRecord();
-                route.replaceWith('userProfile');
-            });
-
-            // This seems the only way to (more or less) always load the logged in user,
-            Em.run.later(function() {
-                currentUser.reload();
-            }, 1500);
-
-            var messageTitle   = "Welcome";
-            var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
-
-            route.controllerFor('application').setProperties({
-                display_message: true,
-                message_title: messageTitle,
-                message_content: messageContent
-            });
-
-        });
+            this.transitionTo('home');
+        }
     }
 });
 
