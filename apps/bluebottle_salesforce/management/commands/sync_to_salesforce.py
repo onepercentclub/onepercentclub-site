@@ -68,7 +68,7 @@ class Command(BaseCommand):
             logger.info("Filtering only updated records from {0}".format(timezone.localtime(sync_from_datetime)))
 
         if options['csv_export']:
-            path = os.path.join(settings.PROJECT_ROOT, "salesforce", "dataloader_uat", "Data", "Input")
+            path = os.path.join(settings.PROJECT_ROOT, "salesforce", "dataloader_prd", "Data", "Input")
             self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
             self.run_with_count_update(generate_users_csv_file, path, loglevel)
             self.run_with_count_update(generate_projects_csv_file, path, loglevel)
