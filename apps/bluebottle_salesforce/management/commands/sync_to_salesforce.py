@@ -67,6 +67,8 @@ class Command(BaseCommand):
             sync_from_datetime = timezone.now() - delta
             logger.info("Filtering only updated records from {0}".format(timezone.localtime(sync_from_datetime)))
 
+        logger.info("Process starting at {0}.".format(timezone.localtime(timezone.now())))
+
         if options['csv_export']:
             path = os.path.join(settings.PROJECT_ROOT, "salesforce", "dataloader_prd", "Data", "Input")
             self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
@@ -88,7 +90,10 @@ class Command(BaseCommand):
             self.run_with_count_update(sync_donations, options['dry_run'], sync_from_datetime, loglevel)
             # self.run_with_count_update(sync_vouchers, options['dry_run'], sync_from_datetime, loglevel)
 
-        logger.info("Process finished with {0} successes and {1} errors.".format(self.success_count, self.error_count))
+        logger.info("Process finished at {2} with {0} successes and {1} errors.".format(self.success_count,
+                                                                                        self.error_count,
+                                                                                        timezone.localtime(
+                                                                                            timezone.now())))
 
     def run_with_count_update(self, function, *args, **kwargs):
         cur_success_count, cur_error_count = function(*args, **kwargs)

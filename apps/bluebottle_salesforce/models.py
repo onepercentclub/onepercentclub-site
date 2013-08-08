@@ -321,17 +321,35 @@ class SalesforceProjectBudget(SalesforceModel):
         managed = False
 
 
+payment_method_mapping = {
+    'IDEAL': 'iDEAL',
+    'MASTERCARD': 'Mastercard',
+    'VISA': 'Visa',
+    'DIRECT_DEBIT': 'Direct debit',
+    'ideal-rabobank-1procentclub_nl': 'iDEAL',
+    'paypal-1procentclub_nl': 'PayPal',
+    'omnipay-ems-visa-1procentclub_nl': 'Visa',
+    'banksys-mrcash-1procentclub_nl': 'Other',
+    'ing-ideal-1procentclub_nl': 'iDEAL',
+    'SOFORT_UEBERWEISUNG-SofortUeberweisung-1procentclub_nl': 'Other',
+    'ideal-ing-1procentclub_nl': 'iDEAL',
+    'system-banktransfer-nl': 'Bank transfer',
+    'directdebitnc-online-nl': 'Direct debit',
+    'directdebitnc2-online-nl': 'Direct debit',
+    'omnipay-ems-maestro-1procentclub_nl': 'Other',
+    '': 'Unknown',
+    'omnipay-ems-mc-1procentclub_nl': 'Mastercard',
+    'EBANKING': 'Other',
+    'SOFORT_UEBERWEISUNG': 'Other',
+    'MAESTRO': 'Other',
+    'MISTERCASH': 'Other',
+}
+
+
 class SalesforceOpportunity(SalesforceModel):
     """
     Default abstract Salesforce Opportunity model. Used for Donation(s) / Voucher(s).
     """
-    class OpportunityPaymentMethod(DjangoChoices):
-        dire = ChoiceItem('Direct Debit (Online)', label=_("Direct Debit (Online)"))
-        idea = ChoiceItem('iDEAL', label=_("iDEAL"))
-        mass = ChoiceItem('Mastercard', label=_("Mastercard"))
-        over = ChoiceItem('Overboeking', label=_("Overboeking"))
-        visa = ChoiceItem('VISA', label=_("VISA"))
-
     # SF Layout: Donation Information section.
     amount = models.CharField(max_length=255, db_column='Amount')
     close_date = models.DateField(db_column='CloseDate')
@@ -340,7 +358,6 @@ class SalesforceOpportunity(SalesforceModel):
     name = models.CharField(max_length=120, db_column='Name')
     payment_method = models.CharField(max_length=255,
                                       db_column='Payment_method__c',
-                                      choices=OpportunityPaymentMethod.choices,
                                       help_text=_("PaymentMethod"))
     project = models.ForeignKey(SalesforceProject, db_column='Project__c', null=True)
     stage_name = models.CharField(max_length=40,
