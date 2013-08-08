@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-06 18:55+0200\n"
+"POT-Creation-Date: 2013-08-08 18:54+0200\n"
 "PO-Revision-Date: 2013-08-05 07:50+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
@@ -26,26 +26,26 @@ msgstr "DocData Payment"
 msgid "DocData Payments"
 msgstr "DocData Payments"
 
-#: models.py:51
+#: models.py:50
 msgid "status"
 msgstr "status"
 
-#: models.py:53
+#: models.py:52
 msgid "payment id"
 msgstr "payment id"
 
-#: models.py:56
+#: models.py:55
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:57
+#: models.py:56
 msgid "updated"
 msgstr "aangepast"
 
-#: models.py:79
+#: models.py:78
 msgid "DocData Payment Log"
 msgstr "DocData Payment Log"
 
-#: models.py:80
+#: models.py:79
 msgid "DocData Payment Logs"
 msgstr "DocData Payment Logs"

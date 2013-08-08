@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-05 22:44+0200\n"
+"POT-Creation-Date: 2013-08-08 18:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,15 +89,15 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
-#: models.py:55 templates/pages.hbs:61
+#: models.py:55 templates/pages.hbs:69
 msgid "Name"
 msgstr ""
 
-#: models.py:56 templates/pages.hbs:73
+#: models.py:56 templates/pages.hbs:81
 msgid "Email"
 msgstr ""
 
-#: models.py:57 templates/pages.hbs:85
+#: models.py:57 templates/pages.hbs:93
 msgid "Message"
 msgstr ""
 
@@ -106,69 +106,79 @@ msgstr ""
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
-#: templates/pages.hbs:45
+#: templates/pages.hbs:33
+msgid "Something went wrong"
+msgstr ""
+
+#: templates/pages.hbs:36
+msgid "The page you are looking for couldn't be found."
+msgstr ""
+
+#: templates/pages.hbs:52
 msgid "Contact"
 msgstr ""
 
-#: templates/pages.hbs:47
+#: templates/pages.hbs:54
 msgid ""
 "\n"
-"                    Send us a message or get in touch using the details below. Talk to you soon!\n"
-"                    "
+"\t\t                    Send us a message or get in touch using the details below. Talk to you soon!\n"
+"\t\t                    "
 msgstr ""
 
-#: templates/pages.hbs:55
+#: templates/pages.hbs:63
 msgid "Thanks for your message!. We'll get back to you soon"
 msgstr ""
 
-#: templates/pages.hbs:98
+#: templates/pages.hbs:106
 msgid "Send Message"
 msgstr ""
 
-#: templates/pages.hbs:105
+#: templates/pages.hbs:112
 msgid "Other ways to contact"
 msgstr ""
 
-#: templates/pages.hbs:107
+#: templates/pages.hbs:114
 msgid ""
 "\n"
-"                    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n"
-"                    \n"
-"Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n"
-"                    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub\n"
-"\n"
-"</a>\n"
-"                    "
+"\t                    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n"
+"\t                    \n"
+"\t\t\t\t\t\tTwitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n"
+"\t                    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>\n"
+"\t                    "
 msgstr ""
 
-#: templates/pages.hbs:117
+#: templates/pages.hbs:122
 #, python-format
 msgid ""
 "\n"
-"                    1%%Club Foundation\n"
-"<br />\n"
-"                    's Gravenhekje 1a\n"
-"<br />\n"
-"                    1011 TG Amsterdam<br />\n"
-"                    The Netherlands\n"
-"                    "
+"\t                    1%%Club Foundation\n"
+"\t<br />\n"
+"\t                    's Gravenhekje 1a\n"
+"\t<br />\n"
+"\t                    1011 TG Amsterdam<br />\n"
+"\t                    The Netherlands\n"
+"\t                    "
 msgstr ""
 
-#: templates/pages.hbs:127
+#: templates/pages.hbs:132
 msgid ""
 "\n"
-"                    Bank: Rabobank (Haarlem)\n"
-"<br />\n"
-"                    Account number: NL45 RABO 01322070 44(donations)\n"
-"<br /\n"
-"                    >BIC: RABONL2U<br />\n"
-"                    \n"
-"<br />\n"
-"                    Chamber of Commerce number 34.26.78.95\n"
-"\n"
-"<br />\n"
-"                    Phone(+31) 20 715 8980\n"
-"                    "
+"\t                    Bank: Rabobank (Haarlem)\n"
+"\t<br />\n"
+"\t                    Account number: NL45 RABO 01322070 44(donations)\n"
+"\t<br /\n"
+"\t                    >BIC: RABONL2U<br />\n"
+"\t                    \n"
+"\t<br />\n"
+"\t                    Chamber of Commerce number 34.26.78.95\n"
+"\t\n"
+"\t<br />\n"
+"\t                    Phone(+31) 20 715 8980\n"
+"\t                    "
+msgstr ""
+
+#: templates/pages.hbs:166
+msgid "No projects found."
 msgstr ""
 
 #: templates/admin/pages/change_form.html:7
