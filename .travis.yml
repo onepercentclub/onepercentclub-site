@@ -9,10 +9,10 @@ env:
   - DJANGO=https://github.com/django/django/archive/master.zip
 
 install:
+  - "pip install --upgrade setuptools --use-mirrors"
   - "pip install $DJANGO --use-mirrors"
   - "pip install -r requirements.txt --use-mirrors"
   - "pip install Pillow --use-mirrors"
-  - "touch bluebottle/settings/local.py"
   - "touch bluebottle/settings/secrets.py"
 
 matrix:

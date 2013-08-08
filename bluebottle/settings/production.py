@@ -17,7 +17,7 @@ INSTALLED_APPS += (
     'gunicorn',
 )
 
-COWRY_RETURN_URL_BASE = 'https://production.onepercentclub.com'
+COWRY_RETURN_URL_BASE = 'https://onepercentclub.com'
 COWRY_LIVE_PAYMENTS = True
 
 # Send email for real
