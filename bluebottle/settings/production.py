@@ -22,3 +22,6 @@ COWRY_LIVE_PAYMENTS = True
 
 # Send email for real
 EMAIL_BACKEND = 'apps.bluebottle_utils.email_backend.DKIMBackend'
+
+# Ensure users stay logged in across subdomains (www. production. and without).
+SESSION_COOKIE_DOMAIN=".onepercentclub.com"
