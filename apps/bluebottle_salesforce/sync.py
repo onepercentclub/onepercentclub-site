@@ -11,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, payment_method_mapping
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('bluebottle.salesforce')
 
 
 def sync_organizations(dry_run, sync_from_datetime, loglevel):

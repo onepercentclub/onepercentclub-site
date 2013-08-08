@@ -1,5 +1,6 @@
 from apps.accounts.models import BlueBottleUser
 from apps.bluebottle_drf2.serializers import SorlImageField, ImageSerializer
+from apps.bluebottle_utils.validators import validate_postal_code
 from django import forms
 from django.contrib.sites.models import Site
 from registration.models import RegistrationProfile
@@ -93,6 +94,19 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     state = serializers.CharField(source='address.state', max_length=100, required=False)
     country = serializers.RelatedField(source='address.country.alpha2_code', required=False)
     postal_code = serializers.CharField(source='address.postal_code', max_length=20, required=False)
+
+    def validate_postal_code(self, attrs, source):
+        value = attrs[source]
+        if value:
+            country_code = ''
+            if 'country' in attrs:
+                country_code = attrs['country']
+            elif self.object and self.object.address and self.object.address.country:
+                country_code = self.object.address.country.alpha2_code
+
+            if country_code:
+                validate_postal_code(value, country_code)
+        return attrs
 
     class Meta:
         model = BlueBottleUser

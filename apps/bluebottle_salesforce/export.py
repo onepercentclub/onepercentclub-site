@@ -11,7 +11,7 @@ from apps.projects.models import Project, ProjectCampaign, ProjectPitch, Project
     ProjectAmbassador, ProjectPhases
 from apps.tasks.models import Task, TaskMember
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('bluebottle.salesforce')
 
 # TODO get field names from model for csv header from SalesforceDonation._meta.fields
 

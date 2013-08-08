@@ -226,6 +226,7 @@ INSTALLED_APPS = (
     # Cowry Payments
     'apps.cowry',
     'apps.cowry_docdata',
+    'apps.cowry_docdata_legacy',
 
     # bluebottle apps
     'apps.blogs',
@@ -294,12 +295,17 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'bluebottle.salesforce': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 
 # log errors & warnings
 import logging
-logging.basicConfig(level=logging.WARNING, format='%(levelname)-8s %(message)s')
+logging.basicConfig(level=logging.WARNING, format='[%(asctime)s] %(levelname)-8s %(message)s', datefmt="%d/%b/%Y %H:%M:%S")
 
 
 # Django Celery - asynchronous task server

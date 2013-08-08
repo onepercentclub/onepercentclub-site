@@ -15,7 +15,7 @@ class DutchBankAccountFieldValidator(RegexValidator):
 
     def __call__(self, value):
         super(DutchBankAccountFieldValidator, self).__call__(value)
-        if len(value) != 9 and len(value) != 10  and not 1 <= len(value) <= 7:
+        if len(value) != 9 and len(value) != 10 and not 1 <= len(value) <= 7:
             raise ValidationError(self.main_message)
 
         # Perform the eleven test validation on non-PostBank numbers.

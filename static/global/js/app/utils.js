@@ -112,7 +112,8 @@ App.Editable = Ember.Mixin.create({
     updateRecordOnServer: function(){
         var controller = this;
         var model = this.get('model');
-        model.one('becameInvalid', function(record){
+        model.one('becameInvalid', function(record) {
+            controller.set('saving', false);
             model.set('errors', record.get('errors'));
         });
 
@@ -163,7 +164,7 @@ App.Editable = Ember.Mixin.create({
     },
 
     save: function(record) {
-        var self = this;
+        var controller = this;
 
         if (record.get('isDirty')) {
             this.set('saving', true);
@@ -172,8 +173,8 @@ App.Editable = Ember.Mixin.create({
 
         record.one('didUpdate', function() {
             // record was saved
-            self.set('saving', false);
-            self.set('saved', true);
+            controller.set('saving', false);
+            controller.set('saved', true);
         });
 
         record.get('transaction').commit();

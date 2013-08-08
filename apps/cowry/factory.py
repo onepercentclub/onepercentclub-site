@@ -24,7 +24,7 @@ def _adapter_for_payment_method(payment_method_id):
         for pmi in adapter.get_payment_methods():
             if payment_method_id == pmi:
                 return adapter
-    raise PaymentMethodNotFound(payment_method_id)
+    raise PaymentMethodNotFound('', payment_method_id)
 
 
 def create_payment_object(order, payment_method_id, payment_submethod='', amount='', currency=''):
