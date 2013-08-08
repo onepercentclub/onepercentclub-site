@@ -9,7 +9,7 @@ from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuse
     RecurringDirectDebitPayment
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
-    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
+    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, payment_method_mapping
 
 logger = logging.getLogger(__name__)
 
@@ -66,9 +66,9 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
 
         # SF Layout: Bank Account section.
         sforganization.address_bank = organization.account_bank_address
-        sforganization.bank_account_name = organization.account_bank_name
+        sforganization.bank_account_name = organization.name
         sforganization.bank_account_number = organization.account_number
-        sforganization.bank_name = organization.name
+        sforganization.bank_name = organization.account_bank_name
         sforganization.bic_swift = organization.account_bic
         sforganization.country_bank = str(organization.account_bank_country)
         sforganization.iban_number = organization.account_iban
@@ -447,10 +447,13 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         oi = OrderItem.objects.filter(object_id=donation.id).get(
             content_type=ContentType.objects.get_for_model(Donation))
         lp = oi.order.latest_payment
-        if lp:
-            sfdonation.payment_method = lp.latest_docdata_payment.payment_method
+        if lp and lp.latest_docdata_payment:
+            if lp.latest_docdata_payment.payment_method in payment_method_mapping:
+                sfdonation.payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
+            else:
+                sfdonation.payment_method = 'Unknown'
         else:
-            sfdonation.payment_method = ''
+            sfdonation.payment_method = 'Unknown'
 
         sfdonation.stage_name = DonationStatuses.values[donation.status].title()
         sfdonation.opportunity_type = donation.DonationTypes.values[donation.donation_type].title()
