@@ -214,7 +214,7 @@ class ProjectDonationList(generics.ListAPIView):
 
         queryset = queryset.filter(project=project)
         queryset = queryset.order_by("-created")
-        queryset = queryset.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+        queryset = queryset.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
 
         return queryset
 

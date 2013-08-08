@@ -12,7 +12,7 @@ from ...export import generate_donations_csv_file, generate_organizations_csv_fi
 from ...sync import sync_organizations, sync_users, sync_projects, sync_projectbudgetlines, sync_tasks, sync_taskmembers, \
     sync_donations, sync_vouchers
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('bluebottle.salesforce')
 
 
 #

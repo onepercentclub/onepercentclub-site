@@ -375,8 +375,8 @@
                                 {{view Em.TextField valueBinding="postal_code" classBinding="errors.postal_code.length:error"}}
                             </div>
 
-                            {{#if errors.state}}
-                                <div class="errors">{{#each errors.state}}<p>{{this}}</p>{{/each}}</div>
+                            {{#if errors.postal_code}}
+                                <div class="errors">{{#each errors.postal_code}}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
 
                         </li>
