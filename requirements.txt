@@ -1,5 +1,7 @@
 Django==1.5.1
 
+django-localflavor==1.0
+
 django_extensions==1.1.1
 
 django_debug_toolbar
