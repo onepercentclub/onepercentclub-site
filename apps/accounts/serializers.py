@@ -96,8 +96,8 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     postal_code = serializers.CharField(source='address.postal_code', max_length=20, required=False)
 
     def validate_postal_code(self, attrs, source):
-        value = attrs[source]
-        if value:
+        if source in attrs:
+            value = attrs[source]
             country_code = ''
             if 'country' in attrs:
                 country_code = attrs['country']
