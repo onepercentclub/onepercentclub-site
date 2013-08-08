@@ -49,10 +49,11 @@ class DocDataPaymentOrderInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'recurring')
-    list_display = ('created', 'total', 'status', 'recurring')
+    list_display = ('user', 'created', 'total', 'status', 'recurring')
     raw_id_fields = ('user',)
     readonly_fields = ('recurring', 'total')
     fields = readonly_fields + ('user', 'status', 'order_number')
+    search_fields = ('user__first_name', 'user__last_name', 'user__email')
     inlines = (OrderItemInline, DocDataPaymentOrderInline,)
 
 admin.site.register(Order, OrderAdmin)
