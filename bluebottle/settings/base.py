@@ -294,6 +294,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'bluebottle.salesforce': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 
