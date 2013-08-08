@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-05 22:44+0200\n"
+"POT-Creation-Date: 2013-08-08 18:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "Mark selected projects as failed"
 msgstr ""
 
-#: models.py:21 models.py:22 models.py:348 models.py:366
+#: models.py:21 models.py:22 models.py:363 models.py:385
 msgid "name"
 msgstr ""
 
-#: models.py:23 models.py:83 models.py:349
+#: models.py:23 models.py:83 models.py:364
 msgid "slug"
 msgstr ""
 
-#: models.py:24 models.py:368 models.py:378
+#: models.py:24 models.py:387 models.py:397
 msgid "description"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 msgid "When this project was created."
 msgstr ""
 
-#: models.py:149 models.py:181 models.py:222 models.py:273 models.py:339
+#: models.py:149 models.py:181 models.py:222 models.py:273 models.py:354
 msgid "project"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Approved"
 msgstr ""
 
-#: models.py:182 models.py:223 models.py:274 models.py:340
+#: models.py:182 models.py:223 models.py:274 models.py:355
 msgid "status"
 msgstr ""
 
@@ -284,39 +284,39 @@ msgstr ""
 msgid "plans"
 msgstr ""
 
-#: models.py:269 models.py:335
+#: models.py:269 models.py:350
 msgid "Running"
 msgstr ""
 
-#: models.py:270 models.py:336
+#: models.py:270 models.py:351
 msgid "Realized"
 msgstr ""
 
-#: models.py:271 models.py:337
+#: models.py:271 models.py:352
 msgid "Closed"
 msgstr ""
 
-#: models.py:352
+#: models.py:371
 msgid "partner organization"
 msgstr ""
 
-#: models.py:353
+#: models.py:372
 msgid "partner organizations"
 msgstr ""
 
-#: models.py:367
+#: models.py:386
 msgid "email"
 msgstr ""
 
-#: models.py:380
+#: models.py:399
 msgid "Amount (in cents)"
 msgstr ""
 
-#: models.py:386
+#: models.py:405
 msgid "budget line"
 msgstr ""
 
-#: models.py:387
+#: models.py:406
 msgid "budget lines"
 msgstr ""
 
@@ -1291,7 +1291,7 @@ msgid "Last:"
 msgstr ""
 
 #: templates/projects.hbs:313
-msgid "..."
+msgid "Loading&#8230;"
 msgstr ""
 
 #: templates/projects.hbs:316
