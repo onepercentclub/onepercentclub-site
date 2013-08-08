@@ -100,7 +100,7 @@ class Project(models.Model):
 
     def update_popularity(self):
         last_month = timezone.now() - timezone.timedelta(days=30)
-        donations = Donation.objects.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+        donations = Donation.objects.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
         donations = donations.exclude(donation_type='recurring')
         donations = donations.filter(created__gte=last_month)
 
