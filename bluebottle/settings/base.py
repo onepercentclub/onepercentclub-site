@@ -226,6 +226,7 @@ INSTALLED_APPS = (
     # Cowry Payments
     'apps.cowry',
     'apps.cowry_docdata',
+    'apps.cowry_docdata_legacy',
 
     # bluebottle apps
     'apps.blogs',
