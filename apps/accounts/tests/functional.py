@@ -54,7 +54,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
                 'Cannot load the signup page.'),
 
         self.assertEqual(self.browser.url, '%s/en/#!/signup' % self.live_server_url)
-        self.assertEqual(self.browser.title, '1%Club')
+        self.assertEqual(self.browser.title, '1%Club - Share a little change the world')
 
         # NOTE: Most ember elements don't have meaningful names. This makes it hard to find out which element is the
         # correct one.
