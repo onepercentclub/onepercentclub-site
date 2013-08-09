@@ -34,7 +34,9 @@ App.ContactMessage = DS.Model.extend({
 App.PartnerOrganization = DS.Model.extend({
     url: 'partners',
     name: DS.attr('string'),
-    projects: DS.hasMany('App.ProjectPreview')
+    projects: DS.hasMany('App.ProjectPreview'),
+    description: DS.attr('string'),
+    image: DS.attr('image')
 });
 
 /* Controllers */
