@@ -128,8 +128,13 @@
             {{#if showTopThreeProjects }}
             	<em class="flaticon solid heart-1"></em>
                 <div class="form-meta">
-                    <p class="form-label">{% blocktrans %}Become a 1%Friend{% endblocktrans %}</p>
-                    <p class="form-desc">{% trans "Support the top 3 projects with your monthly donation." %}</p>
+                    {{#if recurringPayment.active }}
+                        <p class="form-label">{% blocktrans %}You are a 1%Friend{% endblocktrans %}</p>
+                        <p class="form-desc">{% trans "You currently support the top 3 projects with your monthly donation." %}</p>
+                    {{ else }}
+                        <p class="form-label">{% blocktrans %}Become a 1%Friend{% endblocktrans %}</p>
+                        <p class="form-desc">{% trans "Support the top 3 projects with your monthly donation." %}</p>
+                    {{/if}}
                 </div>
             {{else}}
                 {{#linkTo "projectList"}}
@@ -636,7 +641,6 @@
                         {% comment %}    
                         {{ else }}
                             {{#each projectPreview in topThreeProjects }}
-                            	{# TODO: Show same project preview for top 3 projects #}
                                 <li>
                                     {{ projectPreview.title }}
                                 </li>
@@ -686,6 +690,7 @@
         </section>
     </div>
 </div>
+
 {% endtplhandlebars %}
 
 
