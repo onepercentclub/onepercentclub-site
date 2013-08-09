@@ -241,6 +241,8 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject.amount_at_the_moment = project_campaign.money_donated
             sfproject.amount_requested = project_campaign.money_asked
             sfproject.amount_still_needed = project_campaign.money_needed
+            if project.phase == ProjectPhases.campaign:
+                sfproject.date_project_deadline = project_campaign.deadline
 
         try:
             sfproject.project_owner = SalesforceContact.objects.get(external_id=project.owner.id)

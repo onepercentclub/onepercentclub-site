@@ -241,7 +241,8 @@ def generate_projects_csv_file(path, loglevel):
                             "E_mail_address_referral_3__c", "Date_pitch_created__c", "Date_pitch_submitted__c",
                             "Date_pitch_approved__c", "Date_pitch_rejected__c", "Date_plan_submitted__c",
                             "Date_plan_approved__c", "Date_plan_rejected__c", "Date_project_act__c",
-                            "Date_project_realized__c", "Date_project_failed__c", "Date_project_result__c"])
+                            "Date_project_realized__c", "Date_project_failed__c", "Date_project_result__c",
+                            "Date_project_deadline__c"])
 
         projects = Project.objects.all()
 
@@ -253,6 +254,7 @@ def generate_projects_csv_file(path, loglevel):
                 date_project_realized = ''
                 date_project_failed = ''
                 date_project_result = ''
+                date_project_deadline = ''
                 if project.phase == ProjectPhases.act:
                     date_project_act = project.updated
                 elif project.phase == ProjectPhases.realized:
@@ -267,6 +269,8 @@ def generate_projects_csv_file(path, loglevel):
                     amount_at_the_moment = project_campaign.money_donated
                     amount_requested = project_campaign.money_asked
                     amount_still_needed = project_campaign.money_needed
+                    if project.phase == ProjectPhases.campaign:
+                        date_project_deadline = project_campaign.deadline.date()
                 except ProjectCampaign.DoesNotExist:
                     amount_at_the_moment = ''
                     amount_requested = ''
@@ -332,7 +336,8 @@ def generate_projects_csv_file(path, loglevel):
 
                     if project_plan.organization:
                         organization_id = project_plan.organization.id
-                                # Project referrals (ambassador) - expected are three or less related values
+
+                    # Project referrals (ambassador) - expected are three or less related values
                     try:
                         project_ambs = ProjectAmbassador.objects.filter(project_plan=project_plan)
                         if project_ambs.count() > 0:
@@ -394,7 +399,8 @@ def generate_projects_csv_file(path, loglevel):
                                     date_project_act,
                                     date_project_realized,
                                     date_project_failed,
-                                    date_project_result])
+                                    date_project_result,
+                                    date_project_deadline])
                 success_count += 1
             except Exception as e:
                 error_count += 1
