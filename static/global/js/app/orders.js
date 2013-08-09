@@ -597,7 +597,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
-    donationType: 'single',  // The default donation type.
+    donationType: '',
 
     updateRecurring: function() {
         var order = this.get('model');
@@ -607,14 +607,16 @@ App.CurrentOrderController = Em.ObjectController.extend({
         transaction.commit();
     }.observes('donationType'),
 
-    // Ensures the single / monthly toggle is initialized correctly when loading donations from bookmark.
-    updateDonationType: function() {
-        if (this.get('recurring')) {
-            this.set('donationType', 'monthly')
-        } else {
-            this.set('donationType', 'single')
+    // Initialize donationType
+    initDonationType: function() {
+        if (this.get('isLoaded')) {
+            if (this.get('recurring')) {
+                this.set('donationType', 'monthly')
+            } else {
+                this.set('donationType', 'single')
+            }
         }
-    }.observes('model'),
+    }.observes('isLoaded'),
 
     // FIXME Implement a better way to handle vouchers and donations in the order.
     // Remove donations from voucher orders and remove vouchers from donations.

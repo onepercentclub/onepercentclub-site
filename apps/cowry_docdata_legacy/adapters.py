@@ -35,7 +35,7 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
     def update_payment_status(self, payment, status_changed_notification=False):
         # We can't do anything if DocData Legacy credentials aren't available.
         if not self.merchant_name or not self.merchant_password:
-            logger.error("DocData Legacy credentials aren't set. Can't create a remote DocData payment order.")
+            logger.error("DocData Legacy credentials aren't set. Can't update payment status.")
             return
 
         # Don't do anything if there's no payment or payment_order_id.
@@ -51,12 +51,6 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
                                                                       merchant_password=self.merchant_password,
                                                                       payment_cluster_key=payment.payment_order_id,
                                                                       report_type='xml_std')
-
-        # print self.payment_interface.show_payment_cluster_url(merchant_name=self.merchant_name,
-        #                                                               merchant_password=self.merchant_password,
-        #                                                               payment_cluster_key=payment.payment_order_id,
-        #                                                           report_type='xml_all', command='status_payment_cluster')
-        # return
 
         # Example status replies:
         #
