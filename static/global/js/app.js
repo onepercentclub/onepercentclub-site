@@ -1368,14 +1368,6 @@ App.UserOrdersRoute = Em.Route.extend({
     exit: function() {
         this._super();
         this.controllerFor('userOrders').stopEditing();
-    },
-
-    events: {
-        viewRecurringOrder: function() {
-            var controller = this.controllerFor('currentOrder');
-            controller.set('donationType', 'monthly');
-            this.transitionTo('currentOrder.donationList')
-        }
     }
 });
 
