@@ -74,7 +74,7 @@ urlpatterns += i18n_patterns('',
     url(r'^templates/', include('apps.hbtemplates.urls')),
 
     # Urls for partner sites
-    url(r'^partners/', include('apps.partners.urls'))
+    url(r'^pp/', include('apps.partners.urls'))
 
 )
 
