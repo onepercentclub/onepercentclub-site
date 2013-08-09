@@ -143,8 +143,8 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 
     editingRecurringOrder: function(obj, keyName) {
         // True when modifying an existing order that has donations. False otherwise (including when modifying a top three projects recurringPayment).
-        return this.get('controllers.currentOrder.recurring') && (this.get('recurringOrder.donations.length') > 0);
-    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length', 'recurringPayment'),
+        return this.get('controllers.currentOrder.recurring') && this.get('recurringOrder.donations.length') > 0;
+    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length', 'recurringPayment', 'isLoaded'),
 
     readyForPayment: function() {
         if (this.get('length') > 0) {
@@ -556,9 +556,11 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
                 // FIXME: Set payment error error message when there's an error updating the donation.
                 Em.run.later(function(){
                     window.location = thanksUrl;
+                    window.location.reload(true);
                 }, 5000);
             } else {
                 window.location = thanksUrl;
+                window.location.reload(true);
             }
         }
 
@@ -597,22 +599,26 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
-    donationType: 'single',  // The default donation type.
+    donationType: '',
 
     updateRecurring: function() {
         var order = this.get('model');
-        var transaction = this.get('store').transaction();
-        transaction.add(order);
-        order.set('recurring', (this.get('donationType') == 'monthly'));
-        transaction.commit();
+        if (!Em.isNone(order)) {
+            var transaction = this.get('store').transaction();
+            transaction.add(order);
+            order.set('recurring', (this.get('donationType') == 'monthly'));
+            transaction.commit();
+        }
     }.observes('donationType'),
 
     // Ensures the single / monthly toggle is initialized correctly when loading donations from bookmark.
-    updateDonationType: function() {
-        if (this.get('recurring')) {
-            this.set('donationType', 'monthly')
-        } else {
-            this.set('donationType', 'single')
+    initDonationType: function() {
+        if (this.get('donationType') == '') {
+            if (this.get('recurring')) {
+                this.set('donationType', 'monthly')
+            } else {
+                this.set('donationType', 'single')
+            }
         }
     }.observes('model'),
 
