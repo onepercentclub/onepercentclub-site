@@ -15,17 +15,23 @@ class MediaWallPostPhotoInline(AdminImageMixin, admin.StackedInline):
 class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
     raw_id_fields = ('author', 'editor')
+    list_display = ('text', 'created', 'author', 'content_type')
+    ordering =  ('-created', )
     inlines = (MediaWallPostPhotoInline,)
 
 
 class TextWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
+    list_display = ('created', 'author', 'content_type', 'text')
     raw_id_fields = ('author', 'editor')
+    ordering =  ('-created', )
 
 
 class WallPostParentAdmin(PolymorphicParentModelAdmin):
     """ The parent model admin """
     base_model = WallPost
+    list_display = ('created', 'author', 'content_type')
+    ordering =  ('-created', )
     child_models = (
         (MediaWallPost, MediaWallPostAdmin),
         (TextWallPost, TextWallPostAdmin),
@@ -33,6 +39,9 @@ class WallPostParentAdmin(PolymorphicParentModelAdmin):
 
 # Only the parent needs to be registered:
 admin.site.register(WallPost, WallPostParentAdmin)
+
+admin.site.register(MediaWallPost, MediaWallPostAdmin)
+admin.site.register(TextWallPost, TextWallPostAdmin)
 
 
 class ReactionAdmin(admin.ModelAdmin):
