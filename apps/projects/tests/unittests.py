@@ -542,6 +542,24 @@ class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
         self.some_user = self.create_user()
         self.another_user = self.create_user()
 
+    def test_nr_days_remaining(self):
+        import datetime
+        today = datetime.datetime.now()
+        self.assertEqual(self.some_project.projectcampaign.nr_days_remaining, 0)
+        self.some_project.projectcampaign.deadline = today + datetime.timedelta(days=15)
+        self.assertEqual(self.some_project.projectcampaign.nr_days_remaining, 15)
+
+    def test_percentage_funded(self):
+        """ Check that the percentages are calculated correctly """
+        self.assertEqual(self.some_project.projectcampaign.percentage_funded, 0.0)
+        campaign = self.some_project.projectcampaign
+        campaign.money_donated = 10000
+        self.assertEqual(campaign.percentage_funded, 2.0)
+        campaign.money_donated = 500000
+        self.assertEqual(campaign.percentage_funded, 100.0)
+        campaign.money_donated = 1000000
+        self.assertEqual(campaign.percentage_funded, 100.0)
+
     def test_donated_amount(self):
         # Some project have money_asked of 5000000 (cents that is)
         self.assertEqual(self.some_project.projectcampaign.money_asked, 500000)
@@ -553,6 +571,7 @@ class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
         first_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
                                               status=DonationStatuses.new)
         self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
+        
 
         # Create a new donation of 25 in status 'in_progress'. project money donated should be 0.
         second_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=2500,
