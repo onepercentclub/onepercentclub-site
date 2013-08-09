@@ -238,9 +238,9 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         except ProjectCampaign.DoesNotExist:
             pass
         else:
-            sfproject.amount_at_the_moment = project_campaign.money_donated
-            sfproject.amount_requested = project_campaign.money_asked
-            sfproject.amount_still_needed = project_campaign.money_needed
+            sfproject.amount_at_the_moment = "%01.2f" % (project_campaign.money_donated / 100)
+            sfproject.amount_requested = "%01.2f" % (project_campaign.money_asked / 100)
+            sfproject.amount_still_needed = "%01.2f" % (project_campaign.money_needed / 100)
             if project.phase == ProjectPhases.campaign:
                 sfproject.date_project_deadline = project_campaign.deadline
 
