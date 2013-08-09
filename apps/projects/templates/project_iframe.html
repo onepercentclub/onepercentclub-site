@@ -20,17 +20,31 @@
         
 	    <span class="item-status campaign">
 	        <div class="donate-status">
-	            <span class="donate-slider"><strong class="donate-progress" style="width: {{ object.projectcampaign.percentage_funded|floatformat:'2' }}%;">&nbsp;</strong></span>
-	            <p class="donate-amount">
-	                <span class="donated">€ {{ object.projectcampaign.local_money_needed|floatformat:"0" }}</span>
+			   {% with money_needed=object.projectcampaign.local_money_needed %}
+
+				  {% if money_needed %}
+	              <span class="donate-slider"><strong class="donate-progress" style="width: {{ object.projectcampaign.percentage_funded|floatformat:'2' }}%;">&nbsp;</strong></span>
+	              <p class="donate-amount">
+	                <span class="donated">€ {{ money_needed|floatformat:"0" }}</span>
 	                {% trans "To go" %}
-	            </p>
-				{% if object.projectcampaign.nr_days_remaining %}
-	            <p class="donate-days-left">
+	              </p>
+				  {% if object.projectcampaign.nr_days_remaining %}
+	              <p class="donate-days-left">
 	                <strong><i class="flaticon solid clock-1"></i>{{ object.projectcampaign.nr_days_remaining }}</strong>
 	                <em>{% trans "days" %}</em>
-	            </p>
+	              </p>
+				  {% endif %}
+				{% else %}
+				  <span class="donate-status">
+	                  <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
+	                  <p class="donate-amount">
+	                      <em>{% trans "Fully funded" %}</em>
+	                      &amp; {% trans "being realized" %}
+	                  </p>
+	              </span>
 				{% endif %}
+
+			  {% endwith %}
 	        </div>
 
 			{% if object.task_count %}
