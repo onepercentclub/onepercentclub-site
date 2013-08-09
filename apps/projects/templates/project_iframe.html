@@ -20,7 +20,6 @@
         
 	    <span class="item-status campaign">
 	        <div class="donate-status">
-<<<<<<< HEAD
 			   {% with money_needed=object.projectcampaign.local_money_needed %}
 
 				  {% if money_needed %}
@@ -44,21 +43,7 @@
 	                  </p>
 	              </span>
 				{% endif %}
-
 			  {% endwith %}
-=======
-	            <span class="donate-slider"><strong class="donate-progress" style="width: {{ object.projectcampaign.percentage_funded|floatformat:'2' }}%;">&nbsp;</strong></span>
-	            <p class="donate-amount">
-	                <span class="donated">€ {{ object.projectcampaign.local_money_needed|floatformat:"0" }}</span>
-	                {% trans "To go" %}
-	            </p>
-				{% if object.projectcampaign.nr_days_remaining %}
-	            <p class="donate-days-left">
-	                <strong><i class="flaticon solid clock-1"></i>{{ object.projectcampaign.nr_days_remaining }}</strong>
-	                <em>{% trans "days" %}</em>
-	            </p>
-				{% endif %}
->>>>>>> ddf4465...  * adding project iframe DetailView (BB-1268)
 	        </div>
 
 			{% if object.task_count %}
