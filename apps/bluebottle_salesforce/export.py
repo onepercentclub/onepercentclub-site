@@ -266,9 +266,9 @@ def generate_projects_csv_file(path, loglevel):
 
                 try:
                     project_campaign = ProjectCampaign.objects.get(project=project)
-                    amount_at_the_moment = project_campaign.money_donated
-                    amount_requested = project_campaign.money_asked
-                    amount_still_needed = project_campaign.money_needed
+                    amount_at_the_moment = "%01.2f" % (project_campaign.money_donated / 100)
+                    amount_requested = "%01.2f" % (project_campaign.money_asked / 100)
+                    amount_still_needed = "%01.2f" % (project_campaign.money_needed / 100)
                     if project.phase == ProjectPhases.campaign:
                         date_project_deadline = project_campaign.deadline.date()
                 except ProjectCampaign.DoesNotExist:
