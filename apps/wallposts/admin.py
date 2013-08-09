@@ -15,7 +15,7 @@ class MediaWallPostPhotoInline(AdminImageMixin, admin.StackedInline):
 class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
     raw_id_fields = ('author', 'editor')
-    list_display = ('text', 'created', 'author', 'content_type')
+    list_display = ('created', 'author', 'content_type', 'text')
     ordering =  ('-created', )
     inlines = (MediaWallPostPhotoInline,)
 
