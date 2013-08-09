@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>*</members>
+        <name>ReportType</name>
+    </types>
+    <types>
+        <members>X1_CLUB_Dashboards</members>
+        <members>X1_CLUB_Dashboards/Dashboard_1_CLUB</members>
+        <name>Dashboard</name>
+    </types>
+    <version>28.0</version>
+</Package>

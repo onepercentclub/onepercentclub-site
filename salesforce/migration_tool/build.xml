@@ -1,0 +1,453 @@
+<project name="1PCT Club Salesforce Ant tasks" default="test" basedir="." xmlns:sf="antlib:com.salesforce">
+
+    <property file="build.properties"/>
+    <property environment="env"/>
+	
+	<!-- Retrieve all metadata from all environments -->
+	<target name="retrieve_all">
+	  <antcall target="retrieve_var_dev"/>
+	  <antcall target="retrieve_obj_dev"/>
+	  <antcall target="retrieve_rep_dev"/>
+	  <antcall target="retrieve_apx_dev"/>
+	  <antcall target="retrieve_var_uat"/>
+	  <antcall target="retrieve_obj_uat"/>
+	  <antcall target="retrieve_rep_uat"/>
+	  <antcall target="retrieve_apx_uat"/>
+	  <antcall target="retrieve_var_prd"/>
+	  <antcall target="retrieve_obj_prd"/>
+	  <antcall target="retrieve_rep_prd"/>
+	  <antcall target="retrieve_apx_prd"/>
+	</target>
+	
+	<!-- Remove data from all retrieve directories -->
+	<target name="empty_retrieve">
+		<delete includeemptydirs="true">
+			<fileset dir="retrieve_var_dev" includes="**/*"/>
+			<fileset dir="retrieve_obj_dev" includes="**/*"/>
+			<fileset dir="retrieve_rep_dev" includes="**/*"/>
+			<fileset dir="retrieve_apx_dev" includes="**/*"/>
+			<fileset dir="retrieve_var_uat" includes="**/*"/>
+			<fileset dir="retrieve_obj_uat" includes="**/*"/>
+			<fileset dir="retrieve_rep_uat" includes="**/*"/>
+			<fileset dir="retrieve_apx_uat" includes="**/*"/>
+			<fileset dir="retrieve_var_prd" includes="**/*"/>
+			<fileset dir="retrieve_obj_prd" includes="**/*"/>
+			<fileset dir="retrieve_rep_prd" includes="**/*"/>
+			<fileset dir="retrieve_apx_prd" includes="**/*"/>
+		</delete>
+	</target>
+	
+	<!-- Remove data from all prepare directories -->
+	<target name="empty_prepare">
+		<delete includeemptydirs="true">
+			<fileset dir="prepare_var_dev" includes="**/*"/>
+			<fileset dir="prepare_obj_dev" includes="**/*"/>
+			<fileset dir="prepare_rep_dev" includes="**/*"/>
+			<fileset dir="prepare_apx_dev" includes="**/*"/>
+			<fileset dir="prepare_var_uat" includes="**/*"/>
+			<fileset dir="prepare_obj_uat" includes="**/*"/>
+			<fileset dir="prepare_rep_uat" includes="**/*"/>
+			<fileset dir="prepare_apx_uat" includes="**/*"/>
+			<fileset dir="prepare_var_prd" includes="**/*"/>
+			<fileset dir="prepare_obj_prd" includes="**/*"/>
+			<fileset dir="prepare_rep_prd" includes="**/*"/>
+			<fileset dir="prepare_apx_prd" includes="**/*"/>
+		</delete>
+	</target>
+
+	<!-- Prepare deployment directories for DEV -->
+	<target name="prepare_dev">
+		<copy todir="prepare_var_dev"><fileset dir="retrieve_var_dev"/></copy>
+		<copy todir="prepare_obj_dev"><fileset dir="retrieve_obj_dev"/></copy>
+		<copy todir="prepare_rep_dev"><fileset dir="retrieve_rep_dev"/></copy>
+		<copy todir="prepare_apx_dev"><fileset dir="retrieve_apx_dev"/></copy>
+	</target>
+	
+	<!-- Prepare deployment directories for UAT -->
+	<target name="prepare_uat">
+		<copy todir="prepare_var_uat"><fileset dir="retrieve_var_uat"/></copy>
+		<copy todir="prepare_obj_uat"><fileset dir="retrieve_obj_uat"/></copy>
+		<copy todir="prepare_rep_uat"><fileset dir="retrieve_rep_uat"/></copy>
+		<copy todir="prepare_apx_uat"><fileset dir="retrieve_apx_uat"/></copy>
+	</target>
+
+	<!-- Prepare deployment directories for PRD -->
+	<target name="prepare_prd">
+		<copy todir="prepare_var_prd"><fileset dir="retrieve_var_prd"/></copy>
+		<copy todir="prepare_obj_prd"><fileset dir="retrieve_obj_prd"/></copy>
+		<copy todir="prepare_rep_prd"><fileset dir="retrieve_rep_prd"/></copy>
+		<copy todir="prepare_apx_prd"><fileset dir="retrieve_apx_prd"/></copy>
+	</target>
+	
+	<!-- Retrieve and layout, workflow, tab and email template metadata from DEV environment -->
+    <target name="retrieve_var_dev">
+      <mkdir dir="retrieve_var_dev"/>
+	  <mkdir dir="retrieve_var_dev/EmailTemplate"/>
+      <sf:retrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_var_dev" unpackaged="package/package_var_dev.xml"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_var_dev/EmailTemplate" metadataType="EmailTemplate" containingFolder="unfiled$public"/>
+    </target>
+	
+	<!-- Retrieve object metadata from DEV environment -->
+    <target name="retrieve_obj_dev">
+      <mkdir dir="retrieve_obj_dev"/>
+      <sf:retrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_obj_dev" unpackaged="package/package_obj_dev.xml"/>
+    </target>
+	
+	<!-- Retrieve report metadata from DEV environment. Specify what report folders to retrieve in bulk -->
+    <target name="retrieve_rep_dev">
+      <mkdir dir="retrieve_rep_dev"/>
+	  <mkdir dir="retrieve_rep_dev/BI1DONATIONS"/>
+	  <mkdir dir="retrieve_rep_dev/BI1MAILINGS"/>
+	  <mkdir dir="retrieve_rep_dev/BI1MEMBERS"/>
+	  <mkdir dir="retrieve_rep_dev/BI1PROJECTS"/>
+	  <mkdir dir="retrieve_rep_dev/BI1TASKS"/>
+	  <mkdir dir="retrieve_rep_dev/BIDashboard"/>
+	  <mkdir dir="retrieve_rep_dev/BI_1_BUSINESS"/>
+	  <mkdir dir="retrieve_rep_dev/Marketing_Campagne"/>
+	  <mkdir dir="retrieve_rep_dev/Testmailing"/>
+	  <mkdir dir="retrieve_rep_dev/X1_CLUB_Juichemails"/>
+	  <mkdir dir="retrieve_rep_dev/X1_CLUB_Project_Team"/>
+	  <mkdir dir="retrieve_rep_dev/X1_CLUB_WVDR_2012"/>
+	  <sf:retrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_rep_dev" unpackaged="package/package_rep_dev.xml"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/BI1DONATIONS" metadataType="Report" containingFolder="BI1DONATIONS"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/BI1MAILINGS" metadataType="Report" containingFolder="BI1MAILINGS"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/BI1MEMBERS" metadataType="Report" containingFolder="BI1MEMBERS"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/BI1PROJECTS" metadataType="Report" containingFolder="BI1PROJECTS"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/BI1TASKS" metadataType="Report" containingFolder="BI1TASKS"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/BIDashboard" metadataType="Report" containingFolder="BIDashboard"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/BI_1_BUSINESS" metadataType="Report" containingFolder="BI_1_BUSINESS"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/Marketing_Campagne" metadataType="Report" containingFolder="Marketing_Campagne"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/Testmailing" metadataType="Report" containingFolder="Testmailing"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/X1_CLUB_Juichemails" metadataType="Report" containingFolder="X1_CLUB_Juichemails"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/X1_CLUB_Project_Team" metadataType="Report" containingFolder="X1_CLUB_Project_Team"/>
+	  <sf:bulkRetrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_dev/X1_CLUB_WVDR_2012" metadataType="Report" containingFolder="X1_CLUB_WVDR_2012"/>
+    </target>
+
+	<!-- Retrieve apex code from DEV environment -->
+    <target name="retrieve_apx_dev">
+      <mkdir dir="retrieve_apx_dev"/>
+      <sf:retrieve username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_apx_dev" unpackaged="package/package_apx_dev.xml"/>
+    </target>
+	
+	<!-- Retrieve and layout, workflow, tab and email template metadata from UAT environment -->
+    <target name="retrieve_var_uat">
+      <mkdir dir="retrieve_var_uat"/>
+	  <mkdir dir="retrieve_var_uat/EmailTemplate"/>
+      <sf:retrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_var_uat" unpackaged="package/package_var_uat.xml"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_var_uat/EmailTemplate" metadataType="EmailTemplate" containingFolder="unfiled$public"/>
+    </target>
+	
+	<!-- Retrieve object metadata from UAT environment -->
+    <target name="retrieve_obj_uat">
+      <mkdir dir="retrieve_obj_uat"/>
+      <sf:retrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_obj_uat" unpackaged="package/package_obj_uat.xml"/>
+    </target>
+	
+	<!-- Retrieve report metadata from UAT environment. Specify what report folders to retrieve in bulk -->
+    <target name="retrieve_rep_uat">
+      <mkdir dir="retrieve_rep_uat"/>
+	  <mkdir dir="retrieve_rep_uat/BI1DONATIONS"/>
+	  <mkdir dir="retrieve_rep_uat/BI1MAILINGS"/>
+	  <mkdir dir="retrieve_rep_uat/BI1MEMBERS"/>
+	  <mkdir dir="retrieve_rep_uat/BI1PROJECTS"/>
+	  <mkdir dir="retrieve_rep_uat/BI1TASKS"/>
+	  <mkdir dir="retrieve_rep_uat/BIDashboard"/>
+	  <mkdir dir="retrieve_rep_uat/BI_1_BUSINESS"/>
+	  <mkdir dir="retrieve_rep_uat/Marketing_Campagne"/>
+	  <mkdir dir="retrieve_rep_uat/Testmailing"/>
+	  <mkdir dir="retrieve_rep_uat/X1_CLUB_Juichemails"/>
+	  <mkdir dir="retrieve_rep_uat/X1_CLUB_Project_Team"/>
+	  <mkdir dir="retrieve_rep_uat/X1_CLUB_WVDR_2012"/>
+	  <sf:retrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_rep_uat" unpackaged="package/package_rep_uat.xml"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/BI1DONATIONS" metadataType="Report" containingFolder="BI1DONATIONS"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/BI1MAILINGS" metadataType="Report" containingFolder="BI1MAILINGS"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/BI1MEMBERS" metadataType="Report" containingFolder="BI1MEMBERS"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/BI1PROJECTS" metadataType="Report" containingFolder="BI1PROJECTS"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/BI1TASKS" metadataType="Report" containingFolder="BI1TASKS"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/BIDashboard" metadataType="Report" containingFolder="BIDashboard"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/BI_1_BUSINESS" metadataType="Report" containingFolder="BI_1_BUSINESS"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/Marketing_Campagne" metadataType="Report" containingFolder="Marketing_Campagne"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/Testmailing" metadataType="Report" containingFolder="Testmailing"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/X1_CLUB_Juichemails" metadataType="Report" containingFolder="X1_CLUB_Juichemails"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/X1_CLUB_Project_Team" metadataType="Report" containingFolder="X1_CLUB_Project_Team"/>
+	  <sf:bulkRetrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" retrieveTarget="retrieve_rep_uat/X1_CLUB_WVDR_2012" metadataType="Report" containingFolder="X1_CLUB_WVDR_2012"/>
+    </target>
+
+	<!-- Retrieve apex code from UAT environment -->
+    <target name="retrieve_apx_uat">
+      <mkdir dir="retrieve_apx_uat"/>
+      <sf:retrieve username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_apx_uat" unpackaged="package/package_apx_uat.xml"/>
+    </target>
+	
+	<!-- Retrieve and layout, workflow, tab and email template metadata from PRD environment -->
+	<target name="retrieve_var_prd">
+      <mkdir dir="retrieve_var_prd"/>
+	  <mkdir dir="retrieve_var_prd/EmailTemplate"/>
+      <sf:retrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_var_prd" unpackaged="package/package_var_prd.xml"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_var_prd/EmailTemplate" metadataType="EmailTemplate" containingFolder="unfiled$public"/>
+    </target>
+	
+	<!-- Retrieve object metadata from PRD environment -->
+    <target name="retrieve_obj_prd">
+      <mkdir dir="retrieve_obj_prd"/>
+      <sf:retrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_obj_prd" unpackaged="package/package_obj_prd.xml"/>
+    </target>
+	
+	<!-- Retrieve report metadata from PRD environment. Specify what report folders to retrieve in bulk -->
+    <target name="retrieve_rep_prd">
+      <mkdir dir="retrieve_rep_prd"/>
+	  <mkdir dir="retrieve_rep_prd/BI1DONATIONS"/>
+	  <mkdir dir="retrieve_rep_prd/BI1MAILINGS"/>
+	  <mkdir dir="retrieve_rep_prd/BI1MEMBERS"/>
+	  <mkdir dir="retrieve_rep_prd/BI1PROJECTS"/>
+	  <mkdir dir="retrieve_rep_prd/BI1TASKS"/>
+	  <mkdir dir="retrieve_rep_prd/BIDashboard"/>
+	  <mkdir dir="retrieve_rep_prd/BI_1_BUSINESS"/>
+	  <mkdir dir="retrieve_rep_prd/Marketing_Campagne"/>
+	  <mkdir dir="retrieve_rep_prd/Testmailing"/>
+	  <mkdir dir="retrieve_rep_prd/X1_CLUB_Juichemails"/>
+	  <mkdir dir="retrieve_rep_prd/X1_CLUB_Project_Team"/>
+	  <mkdir dir="retrieve_rep_prd/X1_CLUB_WVDR_2012"/>
+	  <sf:retrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_rep_prd" unpackaged="package/package_rep_prd.xml"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/BI1DONATIONS" metadataType="Report" containingFolder="BI1DONATIONS"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/BI1MAILINGS" metadataType="Report" containingFolder="BI1MAILINGS"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/BI1MEMBERS" metadataType="Report" containingFolder="BI1MEMBERS"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/BI1PROJECTS" metadataType="Report" containingFolder="BI1PROJECTS"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/BI1TASKS" metadataType="Report" containingFolder="BI1TASKS"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/BIDashboard" metadataType="Report" containingFolder="BIDashboard"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/BI_1_BUSINESS" metadataType="Report" containingFolder="BI_1_BUSINESS"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/Marketing_Campagne" metadataType="Report" containingFolder="Marketing_Campagne"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/Testmailing" metadataType="Report" containingFolder="Testmailing"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/X1_CLUB_Juichemails" metadataType="Report" containingFolder="X1_CLUB_Juichemails"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/X1_CLUB_Project_Team" metadataType="Report" containingFolder="X1_CLUB_Project_Team"/>
+	  <sf:bulkRetrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" retrieveTarget="retrieve_rep_prd/X1_CLUB_WVDR_2012" metadataType="Report" containingFolder="X1_CLUB_WVDR_2012"/>
+    </target>
+
+	<!-- Retrieve apex code from PRD environment -->
+    <target name="retrieve_apx_prd">
+      <mkdir dir="retrieve_apx_prd"/>
+      <sf:retrieve username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="retrieve_apx_prd" unpackaged="package/package_apx_prd.xml"/>
+    </target>
+	
+	<!-- UAT to DEV deploy targets -->
+    <target name="deploy_var_uat2dev">
+	  <delete file="retrieve_var_uat/Workflows/Question.workflow"/>
+	  <delete file="retrieve_var_uat/Workflows/Reply.workflow"/>
+	  <delete file="retrieve_var_uat/Workflows/SocialPost.workflow"/>
+	  <delete file="retrieve_var_uat/Workflows/SocialPersona.workflow"/>
+      <sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_var_uat"/>
+	  <sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_var_uat/EmailTemplate"/>
+    </target>
+	
+    <target name="deploy_obj_uat2dev">
+      <sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_obj_uat"/>
+    </target>
+	
+    <target name="deploy_apx_uat2dev">
+      <sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_apx_uat"/>
+    </target>
+	
+    <target name="deploy_rep_uat2dev">
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1DONATIONS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1MAILINGS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1MEMBERS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1PROJECTS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1TASKS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BIDashboard"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI_1_BUSINESS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/Marketing_Campagne"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/Testmailing"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/X1_CLUB_Juichemails"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/X1_CLUB_Project_Team"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/X1_CLUB_WVDR_2012"/>
+    </target>
+	
+	<!-- UAT to PRD deploy targets -->
+    <target name="deploy_obj_uat2prd">
+      <sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_obj_uat"/>
+    </target>
+	
+    <target name="deploy_apx_uat2prd">
+      <sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_apx_uat"/>
+    </target>
+
+	<target name="deploy_var_uat2prd">
+	  <delete file="retrieve_var_uat/Workflows/Question.workflow"/>
+	  <delete file="retrieve_var_uat/Workflows/Reply.workflow"/>
+	  <delete file="retrieve_var_uat/Workflows/SocialPost.workflow"/>
+	  <delete file="retrieve_var_uat/Workflows/SocialPersona.workflow"/>
+      <sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_var_uat"/>
+	  <sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_var_uat/EmailTemplate"/>
+    </target>
+
+    <target name="deploy_rep_uat2prd">
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1DONATIONS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1MAILINGS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1MEMBERS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1PROJECTS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI1TASKS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BIDashboard"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/BI_1_BUSINESS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/Marketing_Campagne"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/Testmailing"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/X1_CLUB_Juichemails"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/X1_CLUB_Project_Team"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_uat/X1_CLUB_WVDR_2012"/>
+    </target>
+	
+	<!-- DEV to UAT deploy targets -->
+	<target name="deploy_var_dev2uat">
+	  <delete file="retrieve_var_dev/Workflows/Question.workflow"/>
+	  <delete file="retrieve_var_dev/Workflows/Reply.workflow"/>
+	  <delete file="retrieve_var_dev/Workflows/SocialPost.workflow"/>
+	  <delete file="retrieve_var_dev/Workflows/SocialPersona.workflow"/>
+      <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_var_dev"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_var_dev/EmailTemplate"/>
+    </target>
+	
+    <target name="deploy_obj_dev2uat">
+      <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_obj_dev"/>
+    </target>	
+	
+    <target name="deploy_apx_dev2uat">
+      <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_apx_dev"/>
+    </target>
+
+    <target name="deploy_rep_dev2uat">
+      <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/BI1DONATIONS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/BI1MAILINGS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/BI1MEMBERS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/BI1PROJECTS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/BI1TASKS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/BIDashboard"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/BI_1_BUSINESS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/Marketing_Campagne"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/Testmailing"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/X1_CLUB_Juichemails"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/X1_CLUB_Project_Team"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_dev/X1_CLUB_WVDR_2012"/>
+    </target>
+	
+	<!-- PRD to UAT deploy targets -->
+    <target name="deploy_rep_prd2uat">
+      <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/BI1DONATIONS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/BI1MAILINGS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/BI1MEMBERS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/BI1PROJECTS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/BI1TASKS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/BIDashboard"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/BI_1_BUSINESS"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/Marketing_Campagne"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/Testmailing"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/X1_CLUB_Juichemails"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/X1_CLUB_Project_Team"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve_rep_prd/X1_CLUB_WVDR_2012"/>
+    </target>
+
+	<!-- PRD deploy targets (from prepare) -->
+    <target name="deploy_obj_prd">
+      <sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_obj_prd" runalltests="false"/>
+    </target>
+	
+    <target name="deploy_apx_prd">
+      <sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_apx_prd"/>
+    </target>
+
+	<target name="deploy_var_prd">
+	  <delete file="prepare_var_prd/Workflows/Question.workflow"/>
+	  <delete file="prepare_var_prd/Workflows/Reply.workflow"/>
+	  <delete file="prepare_var_prd/Workflows/SocialPost.workflow"/>
+	  <delete file="prepare_var_prd/Workflows/SocialPersona.workflow"/>
+      <sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_var_prd"/>
+	  <sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_var_prd/EmailTemplate"/>
+    </target>
+
+    <target name="deploy_rep_prd">
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1DONATIONS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1MAILINGS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1MEMBERS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1PROJECTS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1TASKS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BIDashboard"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI_1_BUSINESS"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/Marketing_Campagne"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/Testmailing"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/X1_CLUB_Juichemails"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/X1_CLUB_Project_Team"/>
+		<sf:deploy username="${sf.prd.username}" password="${sf.prd.password}" serverurl="${sf.prd.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/X1_CLUB_WVDR_2012"/>
+    </target>
+	
+	<!-- UAT deploy targets (from prepare) -->
+    <target name="deploy_obj_uat">
+      <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.uat.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_obj_uat" runalltests="false"/>
+    </target>
+	
+    <target name="deploy_apx_uat">
+      <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.uat.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_apx_uat"/>
+    </target>
+
+	<target name="deploy_var_uat">
+	  <delete file="prepare_var_uat/Workflows/Question.workflow"/>
+	  <delete file="prepare_var_uat/Workflows/Reply.workflow"/>
+	  <delete file="prepare_var_uat/Workflows/SocialPost.workflow"/>
+	  <delete file="prepare_var_uat/Workflows/SocialPersona.workflow"/>
+      <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.uat.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_var_uat"/>
+	  <sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.uat.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_var_uat/EmailTemplate"/>
+    </target>
+
+    <target name="deploy_rep_uat">
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1DONATIONS"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1MAILINGS"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1MEMBERS"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1PROJECTS"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI1TASKS"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BIDashboard"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/BI_1_BUSINESS"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/Marketing_Campagne"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/Testmailing"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/X1_CLUB_Juichemails"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/X1_CLUB_Project_Team"/>
+		<sf:deploy username="${sf.uat.username}" password="${sf.uat.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_uat/X1_CLUB_WVDR_2012"/>
+    </target>
+
+	<!-- DEV deploy targets (from prepare) -->
+    <target name="deploy_obj_dev">
+      <sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.dev.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_obj_dev" runalltests="false"/>
+    </target>
+	
+    <target name="deploy_apx_dev">
+      <sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.dev.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_apx_dev"/>
+    </target>
+
+	<target name="deploy_var_dev">
+	  <delete file="prepare_var_dev/Workflows/Question.workflow"/>
+	  <delete file="prepare_var_dev/Workflows/Reply.workflow"/>
+	  <delete file="prepare_var_dev/Workflows/SocialPost.workflow"/>
+	  <delete file="prepare_var_dev/Workflows/SocialPersona.workflow"/>
+      <sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.dev.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_var_dev"/>
+	  <sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.dev.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_var_dev/EmailTemplate"/>
+    </target>
+
+    <target name="deploy_rep_dev">
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/BI1DONATIONS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/BI1MAILINGS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/BI1MEMBERS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/BI1PROJECTS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/BI1TASKS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/BIDashboard"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/BI_1_BUSINESS"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/Marketing_Campagne"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/Testmailing"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/X1_CLUB_Juichemails"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/X1_CLUB_Project_Team"/>
+		<sf:deploy username="${sf.dev.username}" password="${sf.dev.password}" serverurl="${sf.test.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="prepare_rep_dev/X1_CLUB_WVDR_2012"/>
+    </target>
+	
+</project>
