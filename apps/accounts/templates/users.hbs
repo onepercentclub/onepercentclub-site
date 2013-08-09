@@ -502,9 +502,9 @@
                                 {{#view Em.RadioButtonGroup name="active" selectedValueBinding="recurringPaymentActive" class="radio-group-horizontal"}}
                                     <div class="radio3">{{view view.RadioButton value="on"}}<span>{% trans "On" %}</span></div>
                                     <div class="radio3">{{view view.RadioButton value="off"}}<span>{% trans "Off" %}</span></div>
-                                    {{#linkTo currentOrder.donationList class="edit-monthly-donations" }}
+                                    <a href="#" class="ember-view edit-monthly-donations" {{ action 'viewRecurringOrder' }} >
                                         <strong>{% trans "View or edit monthly projects" %}</strong>
-                                    {{/linkTo }}
+                                    </a>
                                 {{/view}}
                             </div>
                         </li>

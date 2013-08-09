@@ -275,6 +275,7 @@ class SalesforceProject(SalesforceModel):
 
     # SF Layout: Project Team Information section.
     project_created_date = models.DateField(db_column='Project_created_date__c')
+    date_project_deadline = models.DateField(db_column='Date_project_deadline__c')
 
     # SF Layout: Other section.
     external_id = models.CharField(max_length=255, db_column='Project_External_ID__c')
