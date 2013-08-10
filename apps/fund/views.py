@@ -85,7 +85,6 @@ class OrderItemMixin(mixins.CreateModelMixin):
                 setattr(self.object, self.user_field, request.user)
             self.object.save()
             orderitem = OrderItem.objects.create(content_object=self.object, order=order)
-            orderitem.save()
             self.post_save(self.object, created=True)
 
             headers = self.get_success_headers(serializer.data)
@@ -162,7 +161,6 @@ class NestedDonationList(OrderItemMixin, generics.ListCreateAPIView):
         if created:
             order_id = self.kwargs.get('order_pk')
             orderitem = OrderItem.objects.create(content_object=self.object, order_id=order_id)
-            orderitem.save()
 
 
 class NestedDonationDetail(OrderItemDestroyMixin, generics.RetrieveUpdateDestroyAPIView):
