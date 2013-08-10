@@ -43,8 +43,9 @@ class OrderItemDestroyMixin(mixins.DestroyModelMixin):
         order_item = OrderItem.objects.filter(object_id=obj.id, content_type=ct)
         if order_item:
             order_item.delete()
-        obj.delete()
-        return response.Response(status=status.HTTP_204_NO_CONTENT)
+            obj.delete()
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
+        return response.Response(status=status.HTTP_412_PRECONDITION_FAILED)
 
 
 class OrderItemMixin(mixins.CreateModelMixin):
