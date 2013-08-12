@@ -35,7 +35,7 @@
 		        color: $gray;
 		        text-align: center;
 		        text-transform: uppercase;
-				@include rem(padding-right, $padding/2);
+						@include rem(padding-right, $padding/2);
 				
 		        &:first-of-type {
 		            @include rem(margin-right, 16px);
