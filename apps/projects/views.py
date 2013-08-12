@@ -291,6 +291,9 @@ class ProjectDetailView(DetailView):
     model = Project
     template_name = 'project_detail.html'
 
+class ProjectIframeView(DetailView):
+    model = Project
+    template_name = 'project_iframe.html'
 
 # class MacroMicroListView(ListView):
 #     model = Project

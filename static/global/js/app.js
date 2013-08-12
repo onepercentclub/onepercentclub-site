@@ -598,7 +598,7 @@ App.Router.map(function() {
 
     this.resource('myPitchNew', {path: '/my/pitch/new'});
     this.resource('myProjectList', {path: '/my/projects'});
-    this.resource('partner', {path: '/partners/:partner_organization_id'});
+    this.resource('pp', {path: '/partners/:partner_organization_id'});
 
 });
 
@@ -700,14 +700,14 @@ App.ApplicationRoute = Em.Route.extend({
             var route = this;
             App.News.find(news_id).then(function(news) {
                 route.transitionTo('newsItem', news);
-                window.scrollTo(0);
+                window.scrollTo(0, 0);
             });
         },
         showPage: function(page_id) {
             var route = this;
             App.Page.find(page_id).then(function(page) {
                 route.transitionTo('page', page);
-                window.scrollTo(0);
+                window.scrollTo(0, 0);
             });
         },
 
@@ -1795,7 +1795,7 @@ App.ContactMessageRoute = Em.Route.extend({
         return transaction.createRecord(App.ContactMessage);
     },
     setupController: function(controller, model) {
-        window.scrollTo(0);
+        window.scrollTo(0, 0);
         this._super(controller, model);
         controller.startEditing();
     },

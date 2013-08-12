@@ -147,7 +147,8 @@ TEMPLATE_LOADERS = [
 # Note: The first three middleware classes need to be in this order: Session, Locale, Common
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
+    'apps.bluebottle_utils.middleware.SubDomainSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -158,7 +159,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.transaction.TransactionMiddleware',
 
     'apps.redirects.middleware.RedirectFallbackMiddleware',
-    'apps.crawlable.middleware.HashbangMiddleware',
+    'apps.crawlable.middleware.HashbangMiddleware'
 ]
 
 # Browsers will block our pages from loading in an iframe no matter which site
@@ -558,3 +559,6 @@ CRAWLABLE_PHANTOMJS_ARGS = []
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATICI18N_ROOT = os.path.join(PROJECT_ROOT, 'static', 'global')
+
+SESSION_COOKIE_NAME = 'bb-session-id'
+
