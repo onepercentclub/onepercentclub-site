@@ -20,6 +20,7 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
         'paid': PaymentStatuses.pending,
         'canceled': PaymentStatuses.cancelled,
         'charged-back': PaymentStatuses.cancelled,
+        'chargedback': PaymentStatuses.cancelled,
         'confirmed_paid': PaymentStatuses.paid,
         'confirmed_chargedback': PaymentStatuses.cancelled,
         'closed_success': PaymentStatuses.paid,

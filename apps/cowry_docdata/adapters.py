@@ -495,6 +495,12 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         new_status = self._map_status(latest_ddpayment.status, payment, report.approximateTotals,
                                       latest_payment_report.authorization)
 
+        # Detect a nasty error condition that needs to be manually fixed.
+        if report.approximateTotals.totalRegistered != payment.amount:
+            log_status_update(payment, PaymentLogLevels.error,
+                              "Payment amount: {0} does not equal Total Registered: {1}. This needs to be fixed.".format(
+                                  report.approximateTotals.totalRegistered, payment.amount))
+
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
             if new_status not in PaymentStatuses.values:
