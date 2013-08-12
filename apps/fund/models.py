@@ -207,7 +207,9 @@ class OrderItem(models.Model):
     # Calculate properties for ease of use (e.g. in serializers).
     @property
     def amount(self):
-        return self.content_object.amount
+        if self.content_object:
+            return self.content_object.amount
+        return 0
 
     @property
     def type(self):

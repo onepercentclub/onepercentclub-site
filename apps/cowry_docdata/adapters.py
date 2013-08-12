@@ -459,7 +459,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                                       "Can't set payment fee for {0} because COWRY_DOCDATA_FEES is not in set.".format(
                                           ddpayment.payment_id))
 
-
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.payment_method:
                 log_status_update(payment, PaymentLogLevels.warn,
@@ -496,10 +495,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                                       latest_payment_report.authorization)
 
         # Detect a nasty error condition that needs to be manually fixed.
-        if report.approximateTotals.totalRegistered != payment.amount:
+        total_registered = report.approximateTotals.totalRegistered
+        if total_registered != payment.amount or total_registered != payment.order.total:
             log_status_update(payment, PaymentLogLevels.error,
-                              "Payment amount: {0} does not equal Total Registered: {1}. This needs to be fixed.".format(
-                                  report.approximateTotals.totalRegistered, payment.amount))
+                              "Payment amount: {0} or Order total: {1} does not equal Total Registered: {2}.".format(
+                                  payment.amount, payment.order.total, report.approximateTotals.totalRegistered))
 
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
