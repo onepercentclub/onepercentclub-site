@@ -9,31 +9,10 @@ from django.utils.encoding import smart_text
 from rest_framework import serializers
 
 
-class SkillField(serializers.SlugRelatedField):
-
-    def __init__(self, *args, **kwargs):
-        if not hasattr(kwargs, 'slug_field'):
-            kwargs['slug_field'] = 'name'
-        super(SkillField, self).__init__(*args, **kwargs)
-
-    def from_native(self, data):
-        if self.queryset is None:
-            raise Exception('Writable related fields must include a `queryset` argument')
-
-        try:
-            return self.queryset.get(**{'id': data})
-        except ObjectDoesNotExist:
-            raise ValidationError(self.error_messages['does_not_exist'] %
-                                  ('id', smart_text(data)))
-        except (TypeError, ValueError):
-            msg = self.error_messages['invalid']
-            raise ValidationError(msg)
-
-
 class TaskPreviewSerializer(serializers.ModelSerializer):
     author = UserPreviewSerializer()
     project = ProjectPreviewSerializer()
-    skill = SkillField()
+    skill = serializers.PrimaryKeyRelatedField()
 
     class Meta:
         model = Task

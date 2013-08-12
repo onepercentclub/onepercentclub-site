@@ -10,7 +10,7 @@
             <supportlink>{{ site }}/go/projects/{{ project.slug }}</supportlink>
             <image>
                     {% thumbnail project.projectplan.image "200x110" as im %}
-                    <img src="{{ site }}{{ im.url }}" />
+                    {{ site }}{{ im.url }}
                     {% endthumbnail %}
             </image>
             <location>

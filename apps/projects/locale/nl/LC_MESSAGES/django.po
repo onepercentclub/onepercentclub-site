@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-08 18:54+0200\n"
-"PO-Revision-Date: 2013-08-08 08:40+0000\n"
+"POT-Creation-Date: 2013-08-09 15:01+0200\n"
+"PO-Revision-Date: 2013-08-09 12:41+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -714,7 +714,7 @@ msgstr "Naam van je organisatie"
 
 #: templates/manage.hbs:677 templates/manage.hbs.py:955
 msgid "Name"
-msgstr "Naam"
+msgstr "Name"
 
 #: templates/manage.hbs:687
 msgid "Describe your organisation"
@@ -723,7 +723,7 @@ msgstr "Describe your organisation ENG"
 #: templates/manage.hbs:688 templates/manage.hbs.py:979
 #: templates/project_detail.html:96
 msgid "Description"
-msgstr "Beschrijving"
+msgstr "Description"
 
 #: templates/manage.hbs:701
 msgid "Address"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-08 18:54+0200\n"
-"PO-Revision-Date: 2013-08-08 14:55+0000\n"
-"Last-Translator: benkonrath1pc <ben@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-08-09 15:01+0200\n"
+"PO-Revision-Date: 2013-08-09 12:41+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -271,7 +271,7 @@ msgstr "Secondary"
 
 #: models.py:240
 msgid "address type"
-msgstr "adrestype"
+msgstr "adres"
 
 #: models.py:241
 msgid "user"
@@ -467,11 +467,11 @@ msgstr "Hier kun je je betaalgegevens en maandelijkse donaties aanpassen. "
 
 #: templates/users.hbs:461
 msgid "Account Name"
-msgstr "Type account"
+msgstr "Naam rekeninghouder"
 
 #: templates/users.hbs:471
 msgid "Account City"
-msgstr "Type account"
+msgstr "Plaats"
 
 #: templates/users.hbs:481
 msgid "Account Number"

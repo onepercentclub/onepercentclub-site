@@ -175,13 +175,13 @@
                 <ul class="impact">
                     <li>
                         <i class="flaticon solid group-2"></i>
-                        <em>{{ impact.lives_changed }}</em>
+                        <em>{{localize impact.lives_changed }}</em>
                         {% trans "Lives changed" %}
                     </li>
 
                     <li>
                         <i class="flaticon solid heart-1"></i>
-                        <em>{{ impact.projects }}</em>
+                        <em>{{localize impact.projects }}</em>
                         {% trans "Projects" %}
                     </li>
 
@@ -193,13 +193,13 @@
 
                     <li>
                         <i class="flaticon solid clock-1"></i>
-                        <em>{{ impact.hours_spent }}</em>
+                        <em>{{localize impact.hours_spent }}</em>
                         {% trans "Hours spent" %}
                     </li>
 
                     <li>
                         <i class="flaticon">&euro;</i>
-                        <em>&euro; {{ impact.donated }},-</em>
+                        <em>&euro; {{localize impact.donated }}</em>
                         {% trans "Donated" %}
                     </li>
                 </ul>

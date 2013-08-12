@@ -46,7 +46,6 @@ App.Task = DS.Model.extend({
     project: DS.belongsTo('App.Project'),
     members: DS.hasMany('App.TaskMember'),
     files: DS.hasMany('App.TaskFile'),
-    // skill: DS.attr('string'),
     skill: DS.belongsTo('App.Skill'),
 
     location: DS.attr('string', {defaultValue: ''}),
@@ -108,7 +107,7 @@ App.TaskPreview = App.Task.extend({
 App.TaskSearch = DS.Model.extend({
 
     text: DS.attr('string'),
-    skill:  DS.attr('string'),
+    skill: DS.attr('string'),
     ordering: DS.attr('string', {defaultValue: 'newest'}),
     status: DS.attr('string', {defaultValue: 'open'}),
     page: DS.attr('number', {defaultValue: 1})
@@ -191,7 +190,7 @@ App.TaskSearchFormController = Em.ObjectController.extend({
                 'ordering': this.get('ordering'),
                 'status': this.get('status'),
                 'text': this.get('text'),
-                'skill': this.get('skill')
+                'skill': this.get('skill.id')
             };
             var tasks = App.TaskPreview.find(query);
             list.set('model', tasks);

@@ -1,3 +1,4 @@
+import datetime
 from apps.tasks.models import Task
 from django.db import models
 from django.db.models.aggregates import Count, Sum
@@ -285,6 +286,25 @@ class ProjectCampaign(models.Model):
     money_asked = models.PositiveIntegerField(default=0)
     money_donated = models.PositiveIntegerField(default=0)
     money_needed = models.PositiveIntegerField(default=0)
+
+    @property
+    def nr_days_remaining(self):
+        """ Return the number of days that remain before the deadline passes """
+        if not self.deadline:
+            return 0
+        days = (self.deadline.date() - datetime.date.today()).days
+        if days < 0:
+            return 0
+        return days
+
+    @property
+    def percentage_funded(self):
+        """ Return a float containing the percentage of funds still required for this campaign """
+        if not self.money_donated or not self.money_asked:
+            return 0.0
+        if self.status != 'running' or self.money_donated > self.money_asked:
+            return 100.0
+        return self.money_donated / (self.money_asked / 100.0)
 
     @property
     def local_money_asked(self, currency='EUR'):
