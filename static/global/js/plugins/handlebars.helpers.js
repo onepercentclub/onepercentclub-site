@@ -27,3 +27,16 @@ Em.Handlebars.registerBoundHelper('localize', function (value, options) {
     }
     return new Handlebars.SafeString(Globalize.format(value));
 });
+
+Em.Handlebars.registerBoundHelper('linebreaks', function(value, options) {
+    if(!value) return ''
+
+    var formatting = options.hash['formatting'];
+    if (!formatting || formatting == 'br') {
+        return new Handlebars.SafeString(value.replace(/\n\r?/g, '<br />'));
+    }
+    else {
+        return new Handlebars.SafeString('<p>' + value.replace(/\n\r?/g, '</p><p>') + '</p>');
+    }
+});
+

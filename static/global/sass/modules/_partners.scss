@@ -1,0 +1,20 @@
+#partner-detail {
+    @include rem(padding, 32px 0);
+
+    figure.media {
+        @include grid(24,1,0);
+        @include box-shadow(inset 0px 1px 6px rgba($black, 0.1));
+        overflow: hidden;
+        border: 1px solid $gray;
+        background-color: #ccc;
+    }
+
+    h1 { padding-top: 0; }
+
+    article {
+		@include grid(24, 2, 1);
+		@include rem(font-size, 16px);
+		@include rem(padding, 0);
+		color: $text-black;
+    }
+}

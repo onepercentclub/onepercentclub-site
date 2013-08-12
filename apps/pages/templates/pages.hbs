@@ -153,20 +153,27 @@
 
 
 {% tplhandlebars "partner" %}
-    <div class="container">
+    <div class="container" id="partner-detail">
         <section class="wrapper">
-            <header class="title">
+
+            <figure class="media">
+                <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+            </figure>
+
+            <article>
                 <h1>{{name}}</h1>
-            </header>
-            <header>
-                <ul id="results">
-                    {{#each project in projects}}
-                        {{render "projectPreview" project}}
-                    {{else}}
-                        <li>{% trans "No projects found." %}</li>
-                    {{/each}}
-                </ul>
-            </header>
+                <p>{{linebreaks description formatting='br'}}</p>
+            </article>
+        </section>
+
+        <section class="wrapper">
+            <ul id="results">
+                {{#each project in projects}}
+                    {{render "projectPreview" project}}
+                {{else}}
+                    <li>{% trans "No projects found." %}</li>
+                {{/each}}
+            </ul>
         </section>
     </div>
 {% endtplhandlebars %}
