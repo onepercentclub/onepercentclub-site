@@ -382,6 +382,8 @@ class PartnerOrganization(models.Model):
     """
     name = models.CharField(_("name"), max_length=255, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
+    description = models.TextField(_("description"))
+    image = ImageField(_("image"), max_length=255, blank=True, null=True, upload_to='partner_images/', help_text=_("Main partner picture"))
 
     @property
     def projects(self):
