@@ -43,8 +43,9 @@ class OrderItemDestroyMixin(mixins.DestroyModelMixin):
         order_item = OrderItem.objects.filter(object_id=obj.id, content_type=ct)
         if order_item:
             order_item.delete()
-        obj.delete()
-        return response.Response(status=status.HTTP_204_NO_CONTENT)
+            obj.delete()
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
+        return response.Response(status=status.HTTP_412_PRECONDITION_FAILED)
 
 
 class OrderItemMixin(mixins.CreateModelMixin):
@@ -84,7 +85,6 @@ class OrderItemMixin(mixins.CreateModelMixin):
                 setattr(self.object, self.user_field, request.user)
             self.object.save()
             orderitem = OrderItem.objects.create(content_object=self.object, order=order)
-            orderitem.save()
             self.post_save(self.object, created=True)
 
             headers = self.get_success_headers(serializer.data)
@@ -161,7 +161,6 @@ class NestedDonationList(OrderItemMixin, generics.ListCreateAPIView):
         if created:
             order_id = self.kwargs.get('order_pk')
             orderitem = OrderItem.objects.create(content_object=self.object, order_id=order_id)
-            orderitem.save()
 
 
 class NestedDonationDetail(OrderItemDestroyMixin, generics.RetrieveUpdateDestroyAPIView):
