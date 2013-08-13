@@ -458,9 +458,9 @@
 
             {% endcomment %}
 
-            {{#if isPhaseCampaign}}
+            {{#unless isPhasePlan}}
                 {{render "projectSupporterList"}}
-            {{/if}}
+            {{/unless}}
         </ul>
     </div>
 
