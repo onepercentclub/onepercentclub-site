@@ -89,7 +89,9 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
             ddpayment.docdata_payment_order = payment
 
         # Save some information from the report.
-        ddpayment.payment_method = status_report['last_partial_payment_method']
+        if 'last_partial_payment_method' in status_report:
+            ddpayment.payment_method = status_report['last_partial_payment_method']
+
         ddpayment.save()
 
         if not status_report['last_partial_payment_process'] in self.status_mapping:
@@ -100,7 +102,7 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
         # Update the DocDataPayment status.
         if ddpayment.status != status_report['last_partial_payment_process']:
             log_status_change(payment, PaymentLogLevels.info, "DocData Payment: {0} -> {1}".format(ddpayment.status,
-                                                                                                  status_report['last_partial_payment_process']))
+                                                                                                   status_report['last_partial_payment_process']))
             ddpayment.status = status_report['last_partial_payment_process']
             ddpayment.save()
 
