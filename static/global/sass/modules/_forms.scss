@@ -156,7 +156,6 @@ form, .form {
 
     .errors {
         @include grid(24);
-
         position: absolute;
         right: -57%;
         background-color: $color-error;

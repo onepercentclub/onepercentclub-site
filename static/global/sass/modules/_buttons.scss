@@ -36,6 +36,8 @@
     cursor: pointer;
     @include border-radius(1px);
     vertical-align: top;
+    @include rem(height, 51px);
+    overflow: hidden;
 
     &:active {
     	top: 0;
@@ -69,7 +71,7 @@
     border-color: $black;
     background-color: $grayDarker;
     color: $white;
-	
+
     .btn-title,
     .btn-subtitle {
         color: $white;
@@ -94,17 +96,18 @@
 .btn-iconed {
     @include rem(padding, 0 $padding 0 0);
 	vertical-align: text-bottom;
-	
+	line-height: 1;
+
     .flaticon, .icon {
         @include rem(margin-right, 12px);
         @include rem(padding, 10px 8px 8px 8px);
         @include rem(width, 50px);
+		@include rem(height, 50px);
         display: inline-block;
         background: darken($green, 5%);
         color: lighten($green, 5%);
         text-align: center;
-		vertical-align: sub;
-		line-height: 0.85;
+		vertical-align: middle;
     }
     
     .flaticon {
@@ -159,15 +162,15 @@
 
 .btn-uploader {
 	position: relative;
-	
+
 	border: 1px solid darken($grayLight, 5%);
 	background-color: $grayLight;
-	
+
 	.flaticon, .icon {
 	    background-color: darken($grayLight, 15%);
 	    color:    $white;
 	}
-	
+
 	input {
 	    @include opacity(0);
 	    cursor: pointer;
