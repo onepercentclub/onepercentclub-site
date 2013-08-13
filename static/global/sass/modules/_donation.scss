@@ -30,7 +30,7 @@
 
         .country, .project-status {
             @include rem(font-size, 14px);
-			@include rem(margin-top, $padding/2);
+						@include rem(margin-top, $padding/2);
             color: $gray;
             display: block;
             font-style: normal;
@@ -89,7 +89,7 @@
 	}
 	
 	.donation-amount {
-	
+		
 	    .amount-needed {
 	        @include rem(font-size, 16px);
 	        color: $grayLight;
@@ -97,7 +97,7 @@
 	    }
 	
 	    .amount-control {
-	        float:right;
+	        float: right;
 	        width: 210px;
 	        height: 60px;
 	        margin-top: $margin;
@@ -150,8 +150,8 @@
         	height: 54px;
 	        line-height: 54px;
 	        @include rem(font-size, 28px);
-			color: $gray;
-			font-weight: 600;
+					color: $gray;
+					font-weight: 600;
         }
 	}
 	
@@ -209,6 +209,7 @@
 	}
 	
 	.donation-monthly-total {
+		position: relative;
 		background: none;
 		padding: 0;
 		@include rem(margin-bottom, 14px);

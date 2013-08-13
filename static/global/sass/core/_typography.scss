@@ -182,3 +182,22 @@ figure {
         color: blue;
     }
 }
+
+ul, ol { margin: 0 0 $margin 1.5em; }
+ul.list li:before {
+    margin-right: 1.5em;
+    font-family: 'Flaticons Solid';
+    color: $gray;
+    content: "\e1c3";
+}
+ol { list-style: decimal; }
+
+dl {
+    margin-bottom: $margin;
+    dt { font-weight: bold; }
+    dd { margin-left: $margin; }
+    &.advanced {
+        dt { @include grid(16, 0, 1); }
+        dd { @include grid(32); }
+    }
+}

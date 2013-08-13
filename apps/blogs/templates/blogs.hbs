@@ -48,7 +48,8 @@
 	            {{outlet}}
 	        </article>
     	
-	        <sidebar class="blogpost-filter">
+	        <sidebar class="pages-nav">
+            <h3>{% trans "More news" %}</h3>
 	            <ul>
 	                {{#each model}}
 	                    <li>
@@ -59,7 +60,7 @@
 	                {{/each}}
 	            </ul>
 	            
-	            <div class="blogpost-pagination">
+	            <div class="pagination">
 		            {{#if controller.hasPrevious}}
 		                <a {{action previousNews}} class="pager left">
 		                    <span class="flaticon solid left-circle-2"></span>
