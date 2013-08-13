@@ -1,6 +1,11 @@
 from django.contrib import admin
 from .models import Organization, OrganizationAddress, OrganizationMember
+from .models import OrganizationDocument
 
+
+class OrganizationDocumentInline(admin.StackedInline):
+    model = OrganizationDocument
+    extra = 0
 
 class OrganizationAddressInline(admin.StackedInline):
     model = OrganizationAddress
@@ -16,7 +21,7 @@ class OrganizationMemberInline(admin.StackedInline):
 class OrganizationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
-    inlines = (OrganizationAddressInline, OrganizationMemberInline)
+    inlines = (OrganizationAddressInline, OrganizationMemberInline, OrganizationDocumentInline)
 
     search_fields = ('name', 'description')
 
