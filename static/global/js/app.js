@@ -1829,6 +1829,9 @@ App.LanguageSwitchView = Em.CollectionView.extend({
 
 App.LoginView = Em.View.extend({
     templateName: 'login',
+	didInsertElement: function() {
+		$("#login-form").validate();
+	},
     next: function() {
         return  String(window.location);
     }.property()
