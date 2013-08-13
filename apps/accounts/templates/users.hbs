@@ -24,7 +24,7 @@
                     </span>
                 </a>
             </div>
-
+            <br />
             <ul class="tabs">
                 <li class="tab-item first">
                     {{#linkTo userProfile }}
@@ -40,15 +40,12 @@
                     {{/linkTo}}
                 </li>
 
-                {# TODO Remove this conditional when Order history is in place. #}
-                {{#if showPaymentsTab }}
-                    <li class="tab-item">
-                        {{#linkTo userOrders }}
-                            <em class="tab-icon amount"><i class="flaticon solid wallet-1"></i></em>
-                            <strong class="tab-title">{% trans "Payment" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
-                        {{/linkTo}}
-                    </li>
-                {{/if}}
+                <li class="tab-item">
+                    {{#linkTo userOrders }}
+                        <em class="tab-icon amount"><i class="flaticon solid wallet-1"></i></em>
+                        <strong class="tab-title">{% trans "Payment" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
+                    {{/linkTo}}
+                </li>
             </ul>
         </div>
     </div>
@@ -521,7 +518,6 @@
                 </button>
             {{/if }}
 
-		{% comment %}
             <div class="order-history lined-list">
             <h2 class="form-summary">Order History</h2>
                 {{#if closedOrders.isLoaded }}
@@ -529,6 +525,16 @@
                         {{#each order in closedOrders}}
                             <li>
                                 {{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}} <strong> &euro;{{ order.total }},-</strong>
+                                <br />
+                                <small>{{localize order.created formatting='d'}}</small>
+                                <ul>
+                                    {{#each donation in order.donations}}
+                                        <li>
+                                            {{donation.project.title}}
+                                            <strong> &euro;{{ donation.amount }},-</strong>
+                                        </li>
+                                    {{/each}}
+                                </ul>
                             </li>
                         {{/each}}
                     </ul>
@@ -536,8 +542,7 @@
                     <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Loading order history" %}</span>
                 {{/if}}
             </div>
-		{% endcomment %}
-			
+
 		</form>
     </div>
 </section>

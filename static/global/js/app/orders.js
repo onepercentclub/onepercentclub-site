@@ -9,6 +9,7 @@ App.Order = DS.Model.extend({
     recurring: DS.attr('boolean'),
     vouchers: DS.hasMany('App.Voucher'),
     donations: DS.hasMany('App.Donation'),
+    created: DS.attr('date'),
     total: DS.attr('number')
 });
 
