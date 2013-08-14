@@ -149,7 +149,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     {{/if}}
                 {{else}}
                     <form>
-                        <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to pitch your plan." %}
+                        <a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to pitch your plan." %}
                     </form>
                 {{/if}}
             </div>
