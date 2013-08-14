@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-09 15:01+0200\n"
+"POT-Creation-Date: 2013-08-14 14:40+0200\n"
 "PO-Revision-Date: 2013-08-05 10:30+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
@@ -24,17 +24,17 @@ msgstr ""
 msgid "Author"
 msgstr "Auteur"
 
-#: mails.py:34
+#: mails.py:30
 #, python-format
 msgid "%(author)s has left a message on your project page."
 msgstr "%(author)s heeft een bericht op jouw project pagina geplaatst."
 
-#: mails.py:53
+#: mails.py:49
 #, python-format
 msgid "%(author)s has left a message on your task page."
 msgstr "%(author)s heeft een bericht op de pagina van je taak geplaatst."
 
-#: mails.py:85
+#: mails.py:77
 #, python-format
 msgid "%(author)s commented on your wallpost."
 msgstr "%(author)s heeft op je wallpost gereageerd."
