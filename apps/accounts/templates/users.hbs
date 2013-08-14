@@ -524,14 +524,15 @@
                     <ul>
                         {{#each order in closedOrders}}
                             <li>
-                                {{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}} <strong> &euro;{{ order.total }},-</strong>
-                                <br />
                                 <small>{{localize order.created formatting='d'}}</small>
-                                <ul>
+                                {{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}} <strong> &euro;{{ order.total }},-</strong>
+                                <ul class="order-donations">
                                     {{#each donation in order.donations}}
                                         <li>
-                                            {{donation.project.title}}
-                                            <strong> &euro;{{ donation.amount }},-</strong>
+                                            <a {{action showProject project}}>
+                                                {{donation.project.title}}
+                                            </a>
+                                            <small> &euro;{{ donation.amount }},-</small>
                                         </li>
                                     {{/each}}
                                 </ul>
