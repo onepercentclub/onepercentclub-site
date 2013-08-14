@@ -114,7 +114,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
         # TODO: Add * password update using password field.
         #           * Facebook connect
         fields = ('id', 'email', 'share_time_knowledge', 'share_money', 'newsletter', 'gender', 'birthdate',
-                  'user_type', 'line1', 'line2', 'city', 'state', 'postal_code', 'country')
+                  'user_type', 'line1', 'line2', 'city', 'state', 'postal_code', 'country', 'primary_language')
 
     def restore_object(self, attrs, instance=None):
         """ Overridden to enable address write."""
