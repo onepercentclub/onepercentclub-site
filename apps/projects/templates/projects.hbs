@@ -219,12 +219,11 @@
 
                 <div class="project-meta">
                     <span class="location">
-                    	<em class="flaticon solid location-pin-1"></em> 
-						{{plan.country.name}}
-					</span>
+                    	<em class="flaticon solid location-pin-1"></em> {{plan.country.name}}
+										</span>
 
                     <span class="theme">
-                        <em class="flaticon solid tag-1"></em>{{plan.theme.title}}
+                        <em class="flaticon solid tag-1"></em> {{plan.theme.title}}
                     </span>
                     
                     {{view App.SocialShareView classNames="project-share"}}
@@ -301,11 +300,11 @@
                     {{#linkTo "project.index"}}
                         <span class="tab-icon amount">{{wallposts.length}}</span>
                         <strong class="tab-title">
-                            {% trans "Project Updates" %}
+                            {% trans "Updates" %}
 
                             {{#if wallposts.length}}
                                 {{#if wallposts.firstObject.isLoaded}}
-                                    <em class="tab-subtitle">{% trans "Last:" %} {{localize wallposts.firstObject.created formatting="X"}} </em>
+                                    <em class="tab-subtitle">{{localize wallposts.firstObject.created formatting="X"}}</em>
                                 {{else}}
                                     <em class="tab-subtitle">{% trans "Loading&#8230;" %}</em>
                                 {{/if}}
