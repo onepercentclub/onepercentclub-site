@@ -15,11 +15,7 @@ from django.utils.translation import ugettext_lazy as _
 def new_wallpost_notification(sender, instance, created, **kwargs):
     post = instance
 
-    # FIXME: Find a better solution for this.
-    if Site.objects.get_current().domain in ['localhost:8000', '127.0.0.1:8000']:
-        site = 'http://' + Site.objects.get_current().domain
-    else:
-        site = 'https://' + Site.objects.get_current().domain
+    site = 'https://' + Site.objects.get_current().domain
 
     # Project Wall Post
     if isinstance(post.content_object, Project):
@@ -66,11 +62,7 @@ def new_reaction_notification(sender, instance, created, **kwargs):
     reaction = instance
     post = instance.wallpost
 
-    # FIXME: Find a better solution for this.
-    if Site.objects.get_current().domain in ['localhost:8000', '127.0.0.1:8000']:
-        site = 'http://' + Site.objects.get_current().domain
-    else:
-        site = 'https://' + Site.objects.get_current().domain
+    site = 'https://' + Site.objects.get_current().domain
 
     # Project Wall Post
     if isinstance(post.content_object, Project):
