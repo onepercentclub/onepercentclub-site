@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-08 18:54+0200\n"
+"POT-Creation-Date: 2013-08-14 14:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,15 +89,15 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
-#: models.py:55 templates/pages.hbs:69
+#: models.py:55 templates/pages.hbs:89
 msgid "Name"
 msgstr ""
 
-#: models.py:56 templates/pages.hbs:81
+#: models.py:56 templates/pages.hbs:101
 msgid "Email"
 msgstr ""
 
-#: models.py:57 templates/pages.hbs:93
+#: models.py:57 templates/pages.hbs:113
 msgid "Message"
 msgstr ""
 
@@ -106,38 +106,80 @@ msgstr ""
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
-#: templates/pages.hbs:33
-msgid "Something went wrong"
+#: templates/pages.hbs:19
+#, python-format
+msgid "About 1%%Club"
 msgstr ""
 
-#: templates/pages.hbs:36
-msgid "The page you are looking for couldn't be found."
+#: templates/pages.hbs:21
+msgid "Our Story"
 msgstr ""
 
-#: templates/pages.hbs:52
+#: templates/pages.hbs:22
+msgid "Meet the team"
+msgstr ""
+
+#: templates/pages.hbs:23
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: templates/pages.hbs:24
+msgid "Partners"
+msgstr ""
+
+#: templates/pages.hbs:26
+msgid "Associates"
+msgstr ""
+
+#: templates/pages.hbs:27
+msgid "Innovators"
+msgstr ""
+
+#: templates/pages.hbs:28
+msgid "Investors"
+msgstr ""
+
+#: templates/pages.hbs:31
+msgid "Press"
+msgstr ""
+
+#: templates/pages.hbs:32
+#, python-format
+msgid "Work at 1%%Club"
+msgstr ""
+
+#: templates/pages.hbs:33 templates/pages.hbs.py:72
 msgid "Contact"
 msgstr ""
 
-#: templates/pages.hbs:54
+#: templates/pages.hbs:53
+msgid "Something went wrong"
+msgstr ""
+
+#: templates/pages.hbs:56
+msgid "The page you are looking for couldn't be found."
+msgstr ""
+
+#: templates/pages.hbs:74
 msgid ""
 "\n"
 "\t\t                    Send us a message or get in touch using the details below. Talk to you soon!\n"
 "\t\t                    "
 msgstr ""
 
-#: templates/pages.hbs:63
+#: templates/pages.hbs:83
 msgid "Thanks for your message!. We'll get back to you soon"
 msgstr ""
 
-#: templates/pages.hbs:106
+#: templates/pages.hbs:126
 msgid "Send Message"
 msgstr ""
 
-#: templates/pages.hbs:112
+#: templates/pages.hbs:132
 msgid "Other ways to contact"
 msgstr ""
 
-#: templates/pages.hbs:114
+#: templates/pages.hbs:134
 msgid ""
 "\n"
 "\t                    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n"
@@ -147,7 +189,7 @@ msgid ""
 "\t                    "
 msgstr ""
 
-#: templates/pages.hbs:122
+#: templates/pages.hbs:142
 #, python-format
 msgid ""
 "\n"
@@ -160,7 +202,7 @@ msgid ""
 "\t                    "
 msgstr ""
 
-#: templates/pages.hbs:132
+#: templates/pages.hbs:152
 msgid ""
 "\n"
 "\t                    Bank: Rabobank (Haarlem)\n"
@@ -177,7 +219,7 @@ msgid ""
 "\t                    "
 msgstr ""
 
-#: templates/pages.hbs:166
+#: templates/pages.hbs:194
 msgid "No projects found."
 msgstr ""
 

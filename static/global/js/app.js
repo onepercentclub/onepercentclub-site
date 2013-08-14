@@ -1752,6 +1752,10 @@ App.PageRoute = Em.Route.extend({
             route.transitionTo('error.notFound');
         });
         return page;
+    },
+    setupController: function(controller, model) {
+        this._super(controller, model);
+        window.scrollTo(0,0);
     }
 });
 

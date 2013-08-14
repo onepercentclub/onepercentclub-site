@@ -564,13 +564,13 @@
             </div>
             
             <sidebar class="sidebar tip">
-            	
+            	{{#if recurring}}
                 <h3>{% trans "Your donation is set" %}</h3>
         		<p>{% blocktrans %}
 				Your donation will be deducted from your account.
 				{% endblocktrans %}</p>
 				<p>{% trans "Donation total:" %} <strong>&euro; {{ total }},-</strong></p>
-					
+				{{/if}}
             </sidebar>
         </section>
     </div>
