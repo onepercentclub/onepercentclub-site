@@ -53,9 +53,9 @@ $.ajaxSetup({
 // Create a mock 'File' class so things won't break to awfully in IE8&9
 // FIXME: Use a polyfill for this!!
 // https://github.com/francois2metz/html5-formdata
-//if (Em.isNone(File)) {
-//    var File = function(){};
-//}
+if (Em.isNone(File)) {
+    var File = function(){};
+}
 
 Em.TextField.reopen({
     // Update attributeBinding with 'step' and 'multiple'
