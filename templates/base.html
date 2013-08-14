@@ -15,9 +15,11 @@
 
     <title>{% block title %}{% endblock %}1%Club - Share a little change the world</title>
     <meta name="description" content="{% blocktrans %}1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online.{% endblocktrans %}" />
-    <meta name="author" content="" />
-	<meta name="keywords" content="{% blocktrans %}crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity{% endblocktrans %}" />
+    <meta name="author" content="1%Club" />
+		<meta name="keywords" content="{% blocktrans %}crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity{% endblocktrans %}" />
 
+		<link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}/static/assets/favicon.ico">
+		
     {# Stylesheets #}
     {% compress css %}
         <link rel="stylesheet" href="{{ STATIC_URL }}css/screen.css" media="screen" />
