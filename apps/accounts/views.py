@@ -57,7 +57,7 @@ class UserCreate(generics.CreateAPIView):
             current_site = get_current_site(self.request)
             site_name = current_site.name
             domain = current_site.domain
-            site = self.request.is_secure() and 'https' or 'http' + '://' + domain
+            site = 'https://' + domain
             c = {
                 'email': obj.email,
                 'site': site,
@@ -124,7 +124,7 @@ class PasswordReset(views.APIView):
                 domain = current_site.domain
             else:
                 site_name = domain = domain_override
-            site = use_https and 'https' or 'http' + '://' + domain
+            site = 'https://' + domain
             c = {
                 'email': user.email,
                 'site': site,
@@ -145,7 +145,8 @@ class PasswordReset(views.APIView):
         serializer = PasswordResetSerializer(password_reset_form=password_reset_form, data=request.DATA)
         if serializer.is_valid():
             opts = {
-                'use_https': request.is_secure(),
+                # Always use https
+                'use_https': True,
                 'from_email': settings.DEFAULT_FROM_EMAIL,
                 'request': request,
             }

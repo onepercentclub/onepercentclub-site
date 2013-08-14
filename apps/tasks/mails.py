@@ -14,11 +14,7 @@ def new_reaction_notification(sender, instance, created, **kwargs):
     task_member = instance
     task = instance.task
 
-    # FIXME: Find a better solution for this.
-    if Site.objects.get_current().domain in ['localhost:8000', '127.0.0.1:8000']:
-        site = 'http://' + Site.objects.get_current().domain
-    else:
-        site = 'https://' + Site.objects.get_current().domain
+    site = 'https://' + Site.objects.get_current().domain
 
     # Project Wall Post
     if task_member.status == TaskMember.TaskMemberStatuses.applied:

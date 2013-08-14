@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-08 18:54+0200\n"
+"POT-Creation-Date: 2013-08-14 14:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,21 +17,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:61
+#: admin.py:70
 msgid "Author"
 msgstr ""
 
-#: mails.py:34
+#: mails.py:30
 #, python-format
 msgid "%(author)s has left a message on your project page."
 msgstr ""
 
-#: mails.py:53
+#: mails.py:49
 #, python-format
 msgid "%(author)s has left a message on your task page."
 msgstr ""
 
-#: mails.py:85
+#: mails.py:77
 #, python-format
 msgid "%(author)s commented on your wallpost."
 msgstr ""

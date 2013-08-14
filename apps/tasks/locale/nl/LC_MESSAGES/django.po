@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-09 15:01+0200\n"
+"POT-Creation-Date: 2013-08-14 14:40+0200\n"
 "PO-Revision-Date: 2013-08-09 12:41+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
@@ -19,17 +19,17 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: mails.py:32
+#: mails.py:28
 #, python-format
 msgid "%(sender)s applied for your task."
 msgstr "%(sender)s heeft zich aangemeld voor jouw taak."
 
-#: mails.py:49
+#: mails.py:45
 #, python-format
 msgid "%(sender)s found someone else to do the task you applied for."
 msgstr "%(sender)s heeft iemand anders gevonden voor de taak waar jij je voor hebt aangemeld."
 
-#: mails.py:66
+#: mails.py:62
 #, python-format
 msgid "%(sender)s accepted you to complete the tasks you applied for."
 msgstr "%(sender)s heeft jouw uitgekozen om de taak uit te voeren waar jij je voor hebt aangemeld. "
