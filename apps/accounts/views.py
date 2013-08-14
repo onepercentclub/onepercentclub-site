@@ -146,7 +146,7 @@ class PasswordReset(views.APIView):
         if serializer.is_valid():
             opts = {
                 # Always use https
-                'use_https': true,
+                'use_https': True,
                 'from_email': settings.DEFAULT_FROM_EMAIL,
                 'request': request,
             }
