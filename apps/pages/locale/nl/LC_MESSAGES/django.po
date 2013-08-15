@@ -1,183 +1,184 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-15 16:27+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2013-08-15 15:28+0200\n"
+"PO-Revision-Date: 2013-08-15 13:20+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:30
 msgid "Publication settings"
-msgstr ""
+msgstr "Publicatie setting"
 
 #: admin.py:128
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: admin.py:141
 msgid "Mark selected entries as published"
-msgstr ""
+msgstr "Markeer geselecteerde berichten als gepubliceerd"
 
 #: models.py:14
 msgid "Published"
-msgstr ""
+msgstr "Gepubliceerd"
 
 #: models.py:15
 msgid "Draft"
-msgstr ""
+msgstr "Draft"
 
 #: models.py:17
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: models.py:18
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: models.py:21
 msgid "language"
-msgstr ""
+msgstr "taal"
 
 #: models.py:25 models.py:52
 msgid "status"
-msgstr ""
+msgstr "status"
 
 #: models.py:26
 msgid "publication date"
-msgstr ""
+msgstr "publicatie datum"
 
 #: models.py:26
 msgid "When the entry should go live, status must be \"Published\"."
-msgstr ""
+msgstr "Als je deze invoer live wil zien, moet de status \"Published\" zijn. "
 
 #: models.py:27
 msgid "publication end date"
-msgstr ""
+msgstr "Einddatum publicatie"
 
 #: models.py:30 models.py:54
 msgid "author"
-msgstr ""
+msgstr "auteur"
 
 #: models.py:31 models.py:59
 msgid "creation date"
-msgstr ""
+msgstr "aanmaakdatum"
 
 #: models.py:32 models.py:60
 msgid "last modification"
-msgstr ""
+msgstr "laatste wijziging"
 
 #: models.py:48
 msgid "New"
-msgstr ""
+msgstr "Nieuw"
 
 #: models.py:49
 msgid "In progress"
-msgstr ""
+msgstr "In progress"
 
 #: models.py:50
 msgid "Closed"
-msgstr ""
+msgstr "Gesloten"
 
 #: models.py:55 templates/pages.hbs:89
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: models.py:56 templates/pages.hbs:101
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: models.py:57 templates/pages.hbs:113
 msgid "Message"
-msgstr ""
+msgstr "Bericht"
 
 #: views.py:47
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
-msgstr ""
+msgstr "Geen  %(verbose_name)s gevonden die voldoet aan deze zoekopdracht"
 
 #: templates/pages.hbs:19
 #, python-format
 msgid "About 1%%Club"
-msgstr ""
+msgstr "Over 1%%Club"
 
 #: templates/pages.hbs:21
 msgid "Our Story"
-msgstr ""
+msgstr "Ons verhaal"
 
 #: templates/pages.hbs:22
 msgid "Meet the team"
-msgstr ""
+msgstr "Wie zijn wij"
 
 #: templates/pages.hbs:23
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Veelgestelde vragen"
 
 #: templates/pages.hbs:24
 msgid "Partners"
-msgstr ""
+msgstr "Partners"
 
 #: templates/pages.hbs:26
 msgid "Associates"
-msgstr ""
+msgstr "Associates"
 
 #: templates/pages.hbs:27
 msgid "Innovators"
-msgstr ""
+msgstr "Innovators"
 
 #: templates/pages.hbs:28
 msgid "Investors"
-msgstr ""
+msgstr "Investors"
 
 #: templates/pages.hbs:31
 msgid "Press"
-msgstr ""
+msgstr "Pers"
 
 #: templates/pages.hbs:32
 #, python-format
 msgid "Work at 1%%Club"
-msgstr ""
+msgstr "Werken bij 1%%Club"
 
 #: templates/pages.hbs:33 templates/pages.hbs.py:72
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #: templates/pages.hbs:53
 msgid "Something went wrong"
-msgstr ""
+msgstr "Oeps, er ging iets mis"
 
 #: templates/pages.hbs:56
 msgid "The page you are looking for couldn't be found."
-msgstr ""
+msgstr "Helaas, de pagina die je zoekt is niet gevonden"
 
 #: templates/pages.hbs:74
 msgid ""
 "\n"
 "\t\t                    Send us a message or get in touch using the details below. Talk to you soon!\n"
 "\t\t                    "
-msgstr ""
+msgstr "\n\n⇥⇥ Stuur ons een bericht. Hiernaast vind je op welke manieren dat kan.⏎\n⇥⇥"
 
 #: templates/pages.hbs:83
 msgid "Thanks for your message!. We'll get back to you soon"
-msgstr ""
+msgstr "Bedankt voor je bericht. We nemen zo snel mogelijk contact met je op!"
 
 #: templates/pages.hbs:126
 msgid "Send Message"
-msgstr ""
+msgstr "Verstuur"
 
 #: templates/pages.hbs:132
 msgid "Other ways to contact"
-msgstr ""
+msgstr "Contact details"
 
 #: templates/pages.hbs:133
 #, python-format
@@ -202,25 +203,25 @@ msgid ""
 "    Chamber of Commerce number 34.26.78.95<br />\n"
 "    Phone(+31) 20 715 8980<br />\n"
 "</p>\n"
-msgstr ""
+msgstr "\n<p>⏎\nEmail:<a href=\"mailto:info@1procentclub.nl?subject=Contact\">info@1procentclub.nl</a><br />⏎\nTwitter:<a href=\"https://twitter.com/1procentclub\">@1procentclub</a><br />⏎\nFacebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>⏎\n</p>⏎\n<p>⏎\nStichting 1%%Club<br />⏎\n's Gravenhekje 1a<br />⏎\n1011 TG Amsterdam<br />⏎\n</p>⏎\n<p>⏎\nBank: Rabobank (Haarlem)<br />⏎\nAccount number: NL45 RABO 01322070 44 (Stg. 1%Club donaties)<br />⏎\nBIC: RABONL2U<br />⏎\n<br />⏎\nKamer van Koophandel 34.26.78.95<br />⏎\nTelefoon 020 715 8980<br />⏎\n</p>⏎\n"
 
 #: templates/pages.hbs:182
 msgid "No projects found."
-msgstr ""
+msgstr "Geen projecten gevonden."
 
 #: templates/admin/pages/change_form.html:7
 #: templates/admin/pages/change_form.html:70
 msgid "Preview"
-msgstr ""
+msgstr "Preview"
 
 #: templates/admin/pages/change_form.html:127
 msgid "Publish"
-msgstr ""
+msgstr "Publish"
 
 #: templates/admin/pages/change_form.html:128
 msgid "Publish and add another"
-msgstr ""
+msgstr "Publish en voeg andere toe"
 
 #: templates/admin/pages/change_form.html:129
 msgid "Publish and continue editing"
-msgstr ""
+msgstr "Publish en ga door met editen"

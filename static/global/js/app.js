@@ -598,7 +598,7 @@ App.Router.map(function() {
 
     this.resource('myPitchNew', {path: '/my/pitch/new'});
     this.resource('myProjectList', {path: '/my/projects'});
-    this.resource('pp', {path: '/partners/:partner_organization_id'});
+    this.resource('partner', {path: '/pp/:partner_organization_id'});
 
 });
 
@@ -1829,6 +1829,17 @@ App.LanguageSwitchView = Em.CollectionView.extend({
 
 App.LoginView = Em.View.extend({
     templateName: 'login',
+	didInsertElement: function() {
+		$("#login-form").validate({
+            messages: {
+                username: {
+                    email: gettext("Please use your email address to log in.")
+                }
+            },
+            onfocusout: true
+
+        });
+	},
     next: function() {
         return  String(window.location);
     }.property()
