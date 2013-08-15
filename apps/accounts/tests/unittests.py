@@ -5,9 +5,10 @@ from django.test import TestCase
 from apps.bluebottle_utils.tests import UserTestsMixin
 from registration.models import RegistrationProfile
 from rest_framework import status
+from apps.geo.tests import GeoTestsMixin
 
 
-class UserApiIntegrationTest(UserTestsMixin, TestCase):
+class UserApiIntegrationTest(UserTestsMixin, GeoTestsMixin, TestCase):
     """
     Integration tests for the User API.
     """
@@ -85,6 +86,28 @@ class UserApiIntegrationTest(UserTestsMixin, TestCase):
         response = self.client.put(some_user_settings_url, json.dumps({'newsletter': True}), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(response.data['newsletter'])
+
+        self.client.logout()
+
+    def test_user_settings_country(self):
+        """
+        Regression test: BB-1333 (Country is not saved).
+        """
+        # Make sure there is a country.
+        country = self.create_country('Netherlands', '1', alpha2_code='NL')
+
+        self.client.login(username=self.some_user.email, password='password')
+
+        # Retrieve current settings.
+        some_user_settings_url = "{0}{1}".format(self.user_settings_api_url, self.some_user.id)
+        response = self.client.get(some_user_settings_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['country'], None)
+
+        # Test that the settings can be updated.
+        response = self.client.put(some_user_settings_url, json.dumps({'country': country.alpha2_code}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['country'], country.alpha2_code)
 
         self.client.logout()
 
