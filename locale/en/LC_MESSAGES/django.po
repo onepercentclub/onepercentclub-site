@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-15 13:29+0200\n"
+"POT-Creation-Date: 2013-08-15 16:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,184 +52,184 @@ msgstr ""
 msgid "crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity"
 msgstr ""
 
-#: base.html:127
+#: base.html:131
 #, python-format
 msgid "What is 1%%"
 msgstr ""
 
-#: base.html:128 base.html.py:287
+#: base.html:132 base.html.py:291
 #, python-format
 msgid "1%%Projects"
 msgstr ""
 
-#: base.html:129 base.html.py:291
+#: base.html:133 base.html.py:295
 #, python-format
 msgid "1%%Skills"
 msgstr ""
 
-#: base.html:130 base.html.py:296
+#: base.html:134 base.html.py:300
 msgid "Get involved"
 msgstr ""
 
-#: base.html:139
+#: base.html:143
 #, python-format
 msgid "My 1%%"
 msgstr ""
 
-#: base.html:144
+#: base.html:148
 msgid "Edit my profile & settings"
 msgstr ""
 
-#: base.html:150
+#: base.html:154
 msgid "Manage My Project"
 msgstr ""
 
-#: base.html:158
+#: base.html:162
 msgid "Language"
 msgstr ""
 
-#: base.html:168
+#: base.html:172
 msgid "Donations"
 msgstr ""
 
-#: base.html:174
+#: base.html:178
 msgid "Sign up"
 msgstr ""
 
-#: base.html:176 registration/login.html:10
+#: base.html:180 registration/login.html:10
 msgid "Log in"
 msgstr ""
 
-#: base.html:229
+#: base.html:233
 #, python-format
 msgid "Log in to 1%%Club"
 msgstr ""
 
-#: base.html:234
+#: base.html:238
 msgid "You did it!"
 msgstr ""
 
-#: base.html:235
+#: base.html:239
 msgid "(Welcome back friend)"
 msgstr ""
 
-#: base.html:237
+#: base.html:241
 msgid "Login here with your email address and password"
 msgstr ""
 
-#: base.html:242 registration/login.html:19
+#: base.html:246 registration/login.html:19
 msgid "Email"
 msgstr ""
 
-#: base.html:251 registration/login.html:28
+#: base.html:255 registration/login.html:28
 msgid "Password"
 msgstr ""
 
-#: base.html:261
+#: base.html:265
 msgid "Forgot your password?"
-msgstr ""
-
-#: base.html:277
-#, python-format
-msgid "It all starts with 1%%"
 msgstr ""
 
 #: base.html:281
 #, python-format
+msgid "It all starts with 1%%"
+msgstr ""
+
+#: base.html:285
+#, python-format
 msgid "What is 1%%CLUB?"
 msgstr ""
 
-#: base.html:301
+#: base.html:305
 msgid "Start your project"
 msgstr ""
 
-#: base.html:308
+#: base.html:312
 #, python-format
 msgid "About 1%%CLUB"
 msgstr ""
 
-#: base.html:312
+#: base.html:316
 msgid "Our story"
 msgstr ""
 
-#: base.html:317
+#: base.html:321
 msgid "Meet the team"
 msgstr ""
 
-#: base.html:322 footer.html:13
+#: base.html:326 footer.html:13
 msgid "Partners"
 msgstr ""
 
-#: base.html:327
+#: base.html:331
 msgid "Press"
 msgstr ""
 
-#: base.html:332
+#: base.html:336
 #, python-format
 msgid "Work at 1%%CLUB"
 msgstr ""
 
-#: base.html:337 footer.html:18 footer.html.py:38
+#: base.html:341 footer.html:18 footer.html.py:38
 msgid "Contact"
-msgstr ""
-
-#: base.html:344
-#, python-format
-msgid "Discover 1%%More"
 msgstr ""
 
 #: base.html:348
 #, python-format
+msgid "Discover 1%%More"
+msgstr ""
+
+#: base.html:352
+#, python-format
 msgid "1%%Business"
 msgstr ""
 
-#: base.html:353
+#: base.html:357
 #, python-format
 msgid "1%%Blog"
 msgstr ""
 
-#: base.html:358
+#: base.html:362
 #, python-format
 msgid "1%%Github"
 msgstr ""
 
-#: base.html:366
+#: base.html:370
 #, python-format
 msgid "1%%Social"
 msgstr ""
 
-#: base.html:402
+#: base.html:406
 #, python-format
 msgid "1%%News"
 msgstr ""
 
-#: base.html:416 base.html.py:423
+#: base.html:420 base.html.py:427
 #, python-format
 msgid "Join 1%%Club"
 msgstr ""
 
-#: base.html:417
+#: base.html:421
 #, python-format
 msgid "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online. "
 msgstr ""
 
-#: base.html:419
+#: base.html:423
 msgid "Select a project or task"
 msgstr ""
 
-#: base.html:420
+#: base.html:424
 msgid "Share your skills or money"
 msgstr ""
 
-#: base.html:421
+#: base.html:425
 msgid "See direct results"
 msgstr ""
 
-#: base.html:438
+#: base.html:442
 msgid "General Conditions"
 msgstr ""
 
-#: base.html:481
+#: base.html:488
 msgid ""
 "\n"
 "                        Our new website currently does not work well with older versions of Internet Explorer.<br/>\n"
@@ -336,7 +336,11 @@ msgid "Logged out."
 msgstr ""
 
 #: registration/login.html:38
-msgid "Your username and password didn't match. Please try again."
+msgid "Please use your email address to log in."
+msgstr ""
+
+#: registration/login.html:39
+msgid "Your email address and password didn't match. Please try again."
 msgstr ""
 
 #: registration/password_reset_email.html:21

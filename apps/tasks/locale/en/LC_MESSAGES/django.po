@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-15 13:29+0200\n"
+"POT-Creation-Date: 2013-08-15 16:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: mails.py:32
+#: mails.py:28
 #, python-format
 msgid "%(sender)s applied for your task."
 msgstr ""
 
-#: mails.py:49
+#: mails.py:45
 #, python-format
 msgid "%(sender)s found someone else to do the task you applied for."
 msgstr ""
 
-#: mails.py:66
+#: mails.py:62
 #, python-format
 msgid "%(sender)s accepted you to complete the tasks you applied for."
 msgstr ""

@@ -8,7 +8,7 @@ if [ $2 ]; then
     SETTINGS="--settings=$2"
 fi
 MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -e hbs,html,txt $SETTINGS"
-MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -d djangojs $SETTINGS"
+MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -e js -i compressed -d djangojs $SETTINGS"
 COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
 COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"
@@ -48,6 +48,9 @@ case "$1" in
 
             echo "Generating PO-file for templates"
             mv locale templates/ && cd templates/ && $MAKEMESSAGES
+            echo "Generating PO-file for javascripts"
+            $MAKEJSMESSAGES
+
             mv locale ../
 
             ;;
