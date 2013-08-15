@@ -245,8 +245,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertEqual(user.address.line2, '')
         self.assertEqual(user.address.city, 'Amsterdam')
         self.assertEqual(user.address.state, 'North-Holland')
-        # TODO: This does not work yet (#453).
-        #self.assertEqual(user.address.country, country)
+        self.assertEqual(user.address.country, country)
         self.assertEqual(user.address.postal_code, '1234 AB')
 
     def test_forgot_password(self):
