@@ -57,7 +57,7 @@ class ProjectPreviewList(generics.ListAPIView):
         elif ordering == 'title':
             qs = qs.order_by('title')
         elif ordering == 'deadline':
-            qs = qs.order_by('deadline')
+            qs = qs.order_by('projectcampaign__deadline')
         elif ordering == 'needed':
             qs = qs.order_by('money_needed')
         elif ordering == 'popularity':

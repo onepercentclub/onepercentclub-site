@@ -78,7 +78,6 @@ class ProjectWallPostTestsMixin(ProjectTestsMixin):
         wallpost.save()
         return wallpost
 
-
 # RequestFactory used for integration tests.
 factory = RequestFactory()
 
@@ -134,6 +133,22 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), 10)
+
+        # Test that ordering works
+        response = self.client.get(self.projects_url + '?ordering=newest')
+        self.assertEquals(response.status_code, 200)
+        response = self.client.get(self.projects_url + '?ordering=title')
+        self.assertEquals(response.status_code, 200)
+        response = self.client.get(self.projects_url + '?ordering=deadline')
+        self.assertEquals(response.status_code, 200)
+        response = self.client.get(self.projects_url + '?ordering=needed')
+        self.assertEquals(response.status_code, 200)
+        response = self.client.get(self.projects_url + '?ordering=popularity')
+        self.assertEquals(response.status_code, 200)
+
+        # Test that combination of arguments works
+        response = self.client.get(self.projects_url + '?ordering=deadline&phase=campaign&country=101')
+        self.assertEquals(response.status_code, 200)                                   
 
     def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
