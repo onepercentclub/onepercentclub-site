@@ -35,7 +35,7 @@ class HashbangMiddlewareTests(TestCase):
         result = self.middleware.process_request(request)
 
         self.assertIsInstance(result, HttpResponse)
-        self.assertContains(result, escape_url(self.test_url))
+        self.assertContains(result, self.test_url)
 
         self.assertEqual(mock_get_driver.call_count, 1)
 

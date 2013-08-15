@@ -13,6 +13,7 @@ Contents:
 
    projects/index.rst
    testing/index.rst
+   phantomjs.rst
 
 
 Indices and tables
