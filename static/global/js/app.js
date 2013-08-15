@@ -598,7 +598,7 @@ App.Router.map(function() {
 
     this.resource('myPitchNew', {path: '/my/pitch/new'});
     this.resource('myProjectList', {path: '/my/projects'});
-    this.resource('partner', {path: '/pp/:partner_organization_id'});
+    this.resource('partner', {path: '/partners/:partner_organization_id'});
 
 });
 
@@ -1752,10 +1752,6 @@ App.PageRoute = Em.Route.extend({
             route.transitionTo('error.notFound');
         });
         return page;
-    },
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        window.scrollTo(0,0);
     }
 });
 
