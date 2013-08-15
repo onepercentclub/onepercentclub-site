@@ -143,7 +143,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     raw_id_fields = ('owner', 'coach')
 
-    readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view')
+    readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view', 'funded')
 
     fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization')
 
