@@ -1,4 +1,5 @@
 import logging
+import re
 import time
 import os
 import urllib
@@ -128,10 +129,11 @@ class HashbangMiddleware(object):
 
             # Update URL with hashbang.
             query = dict(urlparse.parse_qsl(parsed_url.query))
-            path = ''.join([parsed_url.path, HASHBANG, query[ESCAPED_FRAGMENT]])
+            path = ''.join([parsed_url.path, HASHBANG, query.get(ESCAPED_FRAGMENT, '')])
 
             # Update query string by removing the escaped fragment.
-            del query[ESCAPED_FRAGMENT]
+            if ESCAPED_FRAGMENT in query:
+                del query[ESCAPED_FRAGMENT]
             query = urllib.urlencode(query)
 
             # Build new absolute URL.
@@ -155,9 +157,8 @@ class HashbangMiddleware(object):
 
                 content = driver.page_source
                 # Remove all javascript, since its mostly useless now.
-                content = html_utils.remove_tags(content, 'script')
-                # Update the HTML content with the "escaped fragment"-style URLs.
-                content = content.replace('%s' % HASHBANG, '?%s=' % ESCAPED_FRAGMENT)
+                script_tags_template = re.compile(r'<script([^/]*/>|(\s+[^>]*><\/script>))', re.U)
+                content = script_tags_template.sub('', content)
             except Exception, e:
                 logger.error('There was an error rendering "%s" for "%s" with the web driver: %s', absolute_url, original_url, e)
                 return HttpResponseServerError()
