@@ -1,0 +1,227 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# nieja <niels@1procentclub.nl>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Bluebottle\n"
+"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
+"POT-Creation-Date: 2013-08-15 15:28+0200\n"
+"PO-Revision-Date: 2013-08-15 13:20+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:30
+msgid "Publication settings"
+msgstr "Publicatie setting"
+
+#: admin.py:128
+msgid "Status"
+msgstr "Status"
+
+#: admin.py:141
+msgid "Mark selected entries as published"
+msgstr "Markeer geselecteerde berichten als gepubliceerd"
+
+#: models.py:14
+msgid "Published"
+msgstr "Gepubliceerd"
+
+#: models.py:15
+msgid "Draft"
+msgstr "Draft"
+
+#: models.py:17
+msgid "Title"
+msgstr "Titel"
+
+#: models.py:18
+msgid "Slug"
+msgstr "Slug"
+
+#: models.py:21
+msgid "language"
+msgstr "taal"
+
+#: models.py:25 models.py:52
+msgid "status"
+msgstr "status"
+
+#: models.py:26
+msgid "publication date"
+msgstr "publicatie datum"
+
+#: models.py:26
+msgid "When the entry should go live, status must be \"Published\"."
+msgstr "Als je deze invoer live wil zien, moet de status \"Published\" zijn. "
+
+#: models.py:27
+msgid "publication end date"
+msgstr "Einddatum publicatie"
+
+#: models.py:30 models.py:54
+msgid "author"
+msgstr "auteur"
+
+#: models.py:31 models.py:59
+msgid "creation date"
+msgstr "aanmaakdatum"
+
+#: models.py:32 models.py:60
+msgid "last modification"
+msgstr "laatste wijziging"
+
+#: models.py:48
+msgid "New"
+msgstr "Nieuw"
+
+#: models.py:49
+msgid "In progress"
+msgstr "In progress"
+
+#: models.py:50
+msgid "Closed"
+msgstr "Gesloten"
+
+#: models.py:55 templates/pages.hbs:89
+msgid "Name"
+msgstr "Name"
+
+#: models.py:56 templates/pages.hbs:101
+msgid "Email"
+msgstr "Email"
+
+#: models.py:57 templates/pages.hbs:113
+msgid "Message"
+msgstr "Bericht"
+
+#: views.py:47
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "Geen  %(verbose_name)s gevonden die voldoet aan deze zoekopdracht"
+
+#: templates/pages.hbs:19
+#, python-format
+msgid "About 1%%Club"
+msgstr "Over 1%%Club"
+
+#: templates/pages.hbs:21
+msgid "Our Story"
+msgstr "Ons verhaal"
+
+#: templates/pages.hbs:22
+msgid "Meet the team"
+msgstr "Wie zijn wij"
+
+#: templates/pages.hbs:23
+msgid "Frequently Asked Questions"
+msgstr "Veelgestelde vragen"
+
+#: templates/pages.hbs:24
+msgid "Partners"
+msgstr "Partners"
+
+#: templates/pages.hbs:26
+msgid "Associates"
+msgstr "Associates"
+
+#: templates/pages.hbs:27
+msgid "Innovators"
+msgstr "Innovators"
+
+#: templates/pages.hbs:28
+msgid "Investors"
+msgstr "Investors"
+
+#: templates/pages.hbs:31
+msgid "Press"
+msgstr "Pers"
+
+#: templates/pages.hbs:32
+#, python-format
+msgid "Work at 1%%Club"
+msgstr "Werken bij 1%%Club"
+
+#: templates/pages.hbs:33 templates/pages.hbs.py:72
+msgid "Contact"
+msgstr "Contact"
+
+#: templates/pages.hbs:53
+msgid "Something went wrong"
+msgstr "Oeps, er ging iets mis"
+
+#: templates/pages.hbs:56
+msgid "The page you are looking for couldn't be found."
+msgstr "Helaas, de pagina die je zoekt is niet gevonden"
+
+#: templates/pages.hbs:74
+msgid ""
+"\n"
+"\t\t                    Send us a message or get in touch using the details below. Talk to you soon!\n"
+"\t\t                    "
+msgstr "\n\n⇥⇥ Stuur ons een bericht. Hiernaast vind je op welke manieren dat kan.⏎\n⇥⇥"
+
+#: templates/pages.hbs:83
+msgid "Thanks for your message!. We'll get back to you soon"
+msgstr "Bedankt voor je bericht. We nemen zo snel mogelijk contact met je op!"
+
+#: templates/pages.hbs:126
+msgid "Send Message"
+msgstr "Verstuur"
+
+#: templates/pages.hbs:132
+msgid "Other ways to contact"
+msgstr "Contact details"
+
+#: templates/pages.hbs:133
+#, python-format
+msgid ""
+"\n"
+"<p>\n"
+"    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n"
+"    Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n"
+"    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>\n"
+"</p>\n"
+"<p>\n"
+"    1%%Club Foundation<br />\n"
+"    's Gravenhekje 1a<br />\n"
+"    1011 TG Amsterdam<br />\n"
+"    The Netherlands<br />\n"
+"</p>\n"
+"<p>\n"
+"    Bank: Rabobank (Haarlem)<br />\n"
+"    Account number: NL45 RABO 01322070 44(donations)<br />\n"
+"    BIC: RABONL2U<br />\n"
+"    <br />\n"
+"    Chamber of Commerce number 34.26.78.95<br />\n"
+"    Phone(+31) 20 715 8980<br />\n"
+"</p>\n"
+msgstr "\n<p>⏎\nEmail:<a href=\"mailto:info@1procentclub.nl?subject=Contact\">info@1procentclub.nl</a><br />⏎\nTwitter:<a href=\"https://twitter.com/1procentclub\">@1procentclub</a><br />⏎\nFacebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>⏎\n</p>⏎\n<p>⏎\nStichting 1%%Club<br />⏎\n's Gravenhekje 1a<br />⏎\n1011 TG Amsterdam<br />⏎\n</p>⏎\n<p>⏎\nBank: Rabobank (Haarlem)<br />⏎\nAccount number: NL45 RABO 01322070 44 (Stg. 1%Club donaties)<br />⏎\nBIC: RABONL2U<br />⏎\n<br />⏎\nKamer van Koophandel 34.26.78.95<br />⏎\nTelefoon 020 715 8980<br />⏎\n</p>⏎\n"
+
+#: templates/pages.hbs:182
+msgid "No projects found."
+msgstr "Geen projecten gevonden."
+
+#: templates/admin/pages/change_form.html:7
+#: templates/admin/pages/change_form.html:70
+msgid "Preview"
+msgstr "Preview"
+
+#: templates/admin/pages/change_form.html:127
+msgid "Publish"
+msgstr "Publish"
+
+#: templates/admin/pages/change_form.html:128
+msgid "Publish and add another"
+msgstr "Publish en voeg andere toe"
+
+#: templates/admin/pages/change_form.html:129
+msgid "Publish and continue editing"
+msgstr "Publish en ga door met editen"

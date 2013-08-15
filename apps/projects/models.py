@@ -57,11 +57,13 @@ class ProjectManager(models.Manager):
             qs = self.get_query_set()
             qs = qs.filter(phase=ProjectPhases.campaign)
             qs = qs.order_by('projectcampaign__deadline')
+            qs = qs.filter(phase='campaign')
             return qs
 
         if field == 'money_needed':
             qs = self.get_query_set()
             qs = qs.order_by('projectcampaign__money_asked')
+            qs = qs.filter(phase='campaign')
             return qs
 
         if field == 'donations':

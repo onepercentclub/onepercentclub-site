@@ -73,6 +73,12 @@ source_file = apps/homepage/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
+[bluebottle.pages_django]
+file_filter = apps/pages/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/pages/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
 [bluebottle.wallposts_django]
 file_filter = apps/wallposts/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/wallposts/locale/en/LC_MESSAGES/django.po

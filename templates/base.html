@@ -53,6 +53,8 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap/bootstrap-typeahead.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-bootstrap-df3e710.js"></script>
 
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/jquery-validation/jquery.validate.js"></script>
+
         {# Plugins #}
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-radio-button.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.colorbox.js"></script>
@@ -224,7 +226,7 @@
                 </a>
         {% endcomment %}
 
-        <form action="/en/accounts/login/" method="post">
+        <form id="login-form" action="/en/accounts/login/" method="post">
 
             <div class="modal-header">
                 <h3>{% blocktrans %}Log in to 1%Club{% endblocktrans %}</h3>
@@ -244,7 +246,7 @@
 
                         <div class="controls">
                             {# The key for the login needs to be 'username' for logins to work. #}
-                            <input id="id_email" type="text" name="username" maxlength="254" placeholder="your@email.com" />
+                            <input id="id_email" type="email" name="username" maxlength="254" placeholder="your@email.com" />
                         </div>
                     </div>
 
@@ -365,8 +367,8 @@
 
                         <li>
                             <h3>{% blocktrans %}1%Social{% endblocktrans %}</h3>
-                            <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fonepercentclub.com&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=265978350087756" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
-                            <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
+                            <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fonepercentclub&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=265978350087756" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+                            <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
                             <ul class="footer-social-links">
                                 <li>
                                     <a href="http://www.facebook.com/onepercentclub" target="_blank">

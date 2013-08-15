@@ -10,7 +10,7 @@
         </div>
 
         <div class="modal-body">
-            <form method="post" action="{% url 'login' %}">
+            <form id="login-form" method="post" action="{% url 'login' %}">
                 <div class="modal-body">
                     {% csrf_token %}
                     <div>
@@ -19,7 +19,7 @@
 
                             <div class="controls">
                                 {# The key for the login needs to be 'username' for logins to work. #}
-                                <input id="id_email" type="text" name="username" maxlength="254">
+                                <input id="id_email" type="email" name="username" maxlength="254">
                             </div>
                         </div>
 
@@ -34,7 +34,8 @@
 
                     {% if form.errors %}
                         <p class="alert alert-error">
-                            {% trans "Your username and password didn't match. Please try again." %}
+							{% trans "Please use your email address to log in." %}<br />
+                            {% trans "Your email address and password didn't match. Please try again." %}
                         </p>
                     {% endif %}
                 </div>
@@ -51,6 +52,7 @@
     <script type="text/javascript">
         (function($) {
             $(document).ready(function() {
+                $('#login-form').validate();
                 $('#loginModal').modal().on('hidden', function() {
                     window.location.replace('/');
                 });
