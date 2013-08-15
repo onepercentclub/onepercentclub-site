@@ -32,8 +32,22 @@ class ProjectPreviewList(generics.ListAPIView):
     filter_fields = ('phase', )
 
     def get_queryset(self):
-        #qs = super(ProjectPreviewList, self).get_queryset()
         qs = Project.objects
+
+        # For some reason the query fails if the country filter is defined before this.
+        ordering = self.request.QUERY_PARAMS.get('ordering', None)
+
+        if ordering == 'newest':
+            qs = qs.order_by('-created')
+        elif ordering == 'title':
+            qs = qs.order_by('title')
+        elif ordering == 'deadline':
+            qs = qs.order_by('projectcampaign__deadline')
+        elif ordering == 'needed':
+            qs = qs.order_by('money_needed')
+        elif ordering == 'popularity':
+            qs = qs.order_by('-popularity')
+
 
         country = self.request.QUERY_PARAMS.get('country', None)
         if country:
@@ -49,19 +63,6 @@ class ProjectPreviewList(generics.ListAPIView):
                            Q(projectplan__pitch__icontains=text) |
                            Q(projectplan__description__icontains=text) |
                            Q(projectplan__title__icontains=text))
-
-        ordering = self.request.QUERY_PARAMS.get('ordering', None)
-
-        if ordering == 'newest':
-            qs = qs.order_by('-created')
-        elif ordering == 'title':
-            qs = qs.order_by('title')
-        elif ordering == 'deadline':
-            qs = qs.order_by('projectcampaign__deadline')
-        elif ordering == 'needed':
-            qs = qs.order_by('money_needed')
-        elif ordering == 'popularity':
-            qs = qs.order_by('-popularity')
 
         qs = qs.exclude(phase=ProjectPhases.pitch)
         qs = qs.exclude(phase=ProjectPhases.failed)
