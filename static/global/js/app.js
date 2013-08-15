@@ -1837,7 +1837,6 @@ App.LoginView = Em.View.extend({
                 }
             },
             onfocusout: true
-
         });
 	},
     next: function() {
