@@ -1,6 +1,7 @@
 from apps.accounts.models import BlueBottleUser
 from apps.bluebottle_drf2.serializers import SorlImageField, ImageSerializer
 from apps.bluebottle_utils.validators import validate_postal_code
+from apps.geo.models import Country
 from django import forms
 from django.contrib.sites.models import Site
 from registration.models import RegistrationProfile
@@ -92,7 +93,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     line2 = serializers.CharField(source='address.line2', max_length=100, required=False)
     city = serializers.CharField(source='address.city', max_length=100, required=False)
     state = serializers.CharField(source='address.state', max_length=100, required=False)
-    country = serializers.RelatedField(source='address.country.alpha2_code', required=False)
+    country = serializers.CharField(source='address.country.alpha2_code', required=False)
     postal_code = serializers.CharField(source='address.postal_code', max_length=20, required=False)
 
     def validate_postal_code(self, attrs, source):
@@ -123,7 +124,11 @@ class UserSettingsSerializer(serializers.ModelSerializer):
         address = instance.address
         if address is not None:
             for key, val in address_fields.items():
-                setattr(address, key, val)
+                if key == 'country.alpha2_code':
+                    if val:
+                        address.country = Country.objects.get(alpha2_code=val)
+                else:
+                    setattr(address, key, val)
             address.save()
 
         return instance
