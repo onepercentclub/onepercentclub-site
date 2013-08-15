@@ -1,11 +1,13 @@
 from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign
 from django.db.models.query_utils import Q
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation, DonationStatuses
 from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 import django_filters
@@ -291,9 +293,14 @@ class ProjectDetailView(DetailView):
     model = Project
     template_name = 'project_detail.html'
 
+
 class ProjectIframeView(DetailView):
     model = Project
     template_name = 'project_iframe.html'
+
+    @method_decorator(xframe_options_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(ProjectIframeView, self).dispatch(*args, **kwargs)
 
 # class MacroMicroListView(ListView):
 #     model = Project
