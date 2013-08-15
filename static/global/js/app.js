@@ -1830,7 +1830,15 @@ App.LanguageSwitchView = Em.CollectionView.extend({
 App.LoginView = Em.View.extend({
     templateName: 'login',
 	didInsertElement: function() {
-		$("#login-form").validate();
+		$("#login-form").validate({
+            messages: {
+                username: {
+                    email: gettext("Please use your email address to log in.")
+                }
+            },
+            onfocusout: true
+
+        });
 	},
     next: function() {
         return  String(window.location);
