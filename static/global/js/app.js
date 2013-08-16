@@ -1826,7 +1826,15 @@ App.ContactMessageRoute = Em.Route.extend({
 /* Views */
 
 App.LanguageView = Em.View.extend({
-    templateName: 'language'
+    templateName: 'language',
+    classNameBindings: ['isSelected:active'],
+    isSelected: function(){
+        if (this.get('content.code') == App.language) {
+            return true;
+        }
+        return false;
+    }.property('content.code')
+
 });
 
 
