@@ -1,3 +1,4 @@
+from django.conf import settings
 from apps.accounts.models import BlueBottleUser
 from apps.bluebottle_drf2.serializers import SorlImageField, ImageSerializer
 from apps.bluebottle_utils.validators import validate_postal_code
@@ -87,6 +88,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     #        in our ember-data adapter. This could cause birthdate's to not be savable in some cases.
     birthdate = serializers.DateTimeField(required=False)
     email = serializers.EmailField(required=False)
+    primary_language = serializers.ChoiceField(choices=settings.LANGUAGES, default='en', required=False)
 
     # Address
     line1 = serializers.CharField(source='address.line1', max_length=100, required=False)
@@ -95,6 +97,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     state = serializers.CharField(source='address.state', max_length=100, required=False)
     country = serializers.CharField(source='address.country.alpha2_code', required=False)
     postal_code = serializers.CharField(source='address.postal_code', max_length=20, required=False)
+
 
     def validate_postal_code(self, attrs, source):
         if source in attrs:
