@@ -64,7 +64,11 @@ class ProjectPlanAdmin(admin.ModelAdmin):
     list_filter = ('status', )
     list_display = ('title', 'status', 'created')
 
-    readonly_fields = ('edit_project', 'project', 'project_owner')
+    readonly_fields = ('edit_project', 'project_owner', 'project_organization')
+
+    fields = readonly_fields + ('status', 'title', 'pitch', 'need', 'theme', 'description', 'effects', 'for_who',
+                                'future', 'reach', 'latitude', 'longitude', 'country', 'image', 'video_url',
+                                'money_needed', 'campaign', 'tags')
 
     inlines = (ProjectBudgetInline, )
 
@@ -81,6 +85,14 @@ class ProjectPlanAdmin(admin.ModelAdmin):
         return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
 
     project_owner.allow_tags = True
+
+    def project_organization(self, obj):
+        object = obj.organization
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        return "<a href='%s'>%s</a>" % (str(url), object.name)
+
+    project_organization.allow_tags = True
+
 
     def response_change(self, request, obj):
         if not '_continue' in request.POST:

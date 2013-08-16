@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import slugify
@@ -107,6 +109,11 @@ class OrganizationDocument(models.Model):
     organization = models.ForeignKey(Organization, verbose_name=_("organization"))
     file = models.FileField(upload_to='organizations/documents', storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('author'), blank=True, null=True)
+
+    @property
+    def document_url(self):
+        content_type = ContentType.objects.get_for_model(OrganizationDocument).id
+        return reverse('document-download-detail', kwargs={'content_type': content_type, 'pk': self.pk})
 
     class Meta:
         verbose_name = _("organization document")
