@@ -25,20 +25,20 @@
 			* @style heading 1
 			*/
 			h1{
-				color:#404040;
+				/*@editable*/ color:#FF619A;
 				display:block;
-				font-family:Helvetica;
-				font-size:26px;
-				font-style:normal;
-				font-weight:bold;
-				line-height:100%;
-				letter-spacing:normal;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:32px;
+				/*@editable*/ font-style:normal;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
 				text-transform: uppercase;
 				margin-top:8px;
 				margin-right:0;
 				margin-bottom:4px;
 				margin-left:0;
-				text-align:left;
+				/*@editable*/ text-align:left;
 			}
 
 			/**
@@ -48,20 +48,20 @@
 			* @style heading 2
 			*/
 			h2{
-				color:#FF619A;
+				/*@editable*/ color:#404040;
 				display:block;
-				font-family:Helvetica;
-				font-size:18px;
-				font-style:normal;
-				font-weight:bold;
-				line-height:100%;
-				letter-spacing:normal;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:26px;
+				/*@editable*/ font-style:normal;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
 				text-transform: uppercase;
 				margin-top:8px;
 				margin-right:0;
 				margin-bottom:4px;
 				margin-left:0;
-				text-align:left;
+				/*@editable*/ text-align:left;
 			}
 
 			/**
@@ -71,53 +71,44 @@
 			* @style heading 3
 			*/
 			h3{
-				color:#00C051;
+				/*@editable*/ color:#606060;
 				display:block;
-				font-family:Helvetica;
-				font-size:18px;
-				font-style:normal;
-				font-weight:normal;
-				line-height:100%;
-				letter-spacing:normal;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:22px;
+				/*@editable*/ font-style:normal;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
 				text-transform: uppercase;
 				margin-top:8px;
 				margin-right:0;
 				margin-bottom:4px;
 				margin-left:0;
-				text-align:left;
-			}
-			
-			/**
-			* @tab Page
-			* @section button
-			* @tip Set the styling for your email's main content buttons. Choose a color that helps them stand out from your text.
-			*/
-			.button{
-				display: inline-block;
-				width:auto;
-				color:#FFFFFF !important;
-				text-decoration: none !important;
-				font-family:Helvetica;
-				font-size:18px !important;
-				line-height:150% !important;
-				text-align:center;
-				font-weight:bold !important;
-				padding-top:12px !important;
-				padding-right:16px !important;
-				padding-bottom:12px !important;
-				padding-left:16px !important;
-				
-				margin-top:8px !important;
-				margin-right:0 !important;
-				margin-bottom:4px !important;
-				margin-left:0 !important;
-				background-color:#FF619A !important;
-				text-transform:uppercase !important;
-				border-color:#DB5384 !important;
-				border-width:1px !important;
-				border-style:solid !important;
+				/*@editable*/ text-align:left;
 			}
 
+			/**
+			* @tab Page
+			* @section heading 4
+			* @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
+			* @style heading 4
+			*/
+			h4{
+				/*@editable*/ color:#808080;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:18px;
+				/*@editable*/ font-style:normal;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:8px;
+				margin-right:0;
+				margin-bottom:4px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+			
 			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: PREHEADER /\/\/\/\/\/\/\/\/\/\ */
 			
 			/**
@@ -127,8 +118,8 @@
 			* @theme page
 			*/
 			#templatePreheader{
-				background-color:#E9E9E9;
-				border-bottom:0;
+				/*@editable*/ background-color:#E9E9E9;
+				/*@editable*/ border-bottom:0;
 			}
 			
 			/**
@@ -137,11 +128,11 @@
 			* @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
 			*/
 			.preheaderContent{
-				color:#999999;
-				font-family:Helvetica;
-				font-size:10px;
-				line-height:125%;
-				text-align:left;
+				/*@editable*/ color:#999999;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:10px;
+				/*@editable*/ line-height:125%;
+				/*@editable*/ text-align:left;
 			}
 			
 			/**
@@ -150,9 +141,9 @@
 			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
 			*/
 			.preheaderContent a:link, .preheaderContent a:visited, /* Yahoo! Mail Override */ .preheaderContent a .yshortcuts /* Yahoo! Mail Override */{
-				color:#00C051;
-				font-weight:normal;
-				text-decoration:underline;
+				/*@editable*/ color:#00C051;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
 			}
 
 			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: HEADER /\/\/\/\/\/\/\/\/\/\ */
@@ -164,18 +155,11 @@
 			* @theme header
 			*/
 			#templateHeader{
-				background-color:#FFFFFF;
-				border-top:0;
-				border-bottom:0;
-				background-image: url("https://www.onepercentclub.com/static/assets/images/mailing/flags.png");
-				background-repeat: repeat-x;
-			}
-			
-			#headerLogo {
-				padding-top:40px;
-				padding-right:0;
-				padding-bottom:6px;
-				padding-left:0;
+				/*@editable*/ background-color:#FFFFFF;
+				/*@editable*/ border-top:0;
+				/*@editable*/ border-bottom:0;
+				/*@editable*/ background-image: url("http://testing.onepercentclub.com/static/assets/images/mailing/flags.png");
+				/*@editable*/ background-repeat: repeat-x;
 			}
 			
 			/**
@@ -184,16 +168,17 @@
 			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
 			*/
 			.headerContent{
-				color:#999999;
-				font-family:Helvetica;
-				font-size:18px;
-				line-height:100%;
-				text-align:left;
-				vertical-align:middle;
-				padding-top:0;
-				padding-right:0;
-				padding-bottom:30px;
-				padding-left:0;
+				/*@editable*/ color:#999999;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:20px;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ padding-top:80px;
+				/*@editable*/ padding-right:0;
+				/*@editable*/ padding-bottom:20px;
+				/*@editable*/ padding-left:0;
+				/*@editable*/ text-align:left;
+				/*@editable*/ vertical-align:middle;
 			}
 			
 			/**
@@ -202,9 +187,9 @@
 			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
 			*/
 			.headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
-				color:#26ABE2;
-				font-weight:normal;
-				text-decoration:underline;
+				/*@editable*/ color:#26ABE2;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
 			}
 			
 			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: MAIN BODY /\/\/\/\/\/\/\/\/\/\ */
@@ -215,9 +200,9 @@
 			* @tip Set the background color for your email's body area.
 			*/
 			#templateBody{
-				background-color:#FFFFFF;
-				border-top:0;
-				border-bottom:0;
+				/*@editable*/ background-color:#FFFFFF;
+				/*@editable*/ border-top:0;
+				/*@editable*/ border-bottom:0;
 				padding-bottom:40px;
 			}
 			
@@ -228,11 +213,42 @@
 			* @theme main
 			*/
 			.bodyContent{
-				color:#505050;
-				font-family:Helvetica;
-				font-size:15px;
+				/*@editable*/ color:#505050;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:15px;
+				/*@editable*/ line-height:150%;
+				/*@editable*/ text-align:left;
+			}
+			
+			/**
+			* @tab Body
+			* @section body button
+			* @tip Set the styling for your email's main content buttons. Choose a color that helps them stand out from your text.
+			*/
+			.button{
+				display: inline-block;
+				width:auto;
+				/*@editable*/ color:#FFFFFF !important;
+				text-decoration: none !important;
+				/*@editable*/ font-family:Helvetica;
+				font-size:18px;
 				line-height:150%;
-				text-align:left;
+				text-align:center;
+				font-weight:bold;
+				padding-top:12px;
+				padding-right:16px;
+				padding-bottom:12px;
+				padding-left:16px;
+				
+				margin-top:8px;
+				margin-right:0;
+				margin-bottom:4px;
+				margin-left:0;
+				/*@editable*/ background-color:#FF619A;
+				text-transform:uppercase;
+				/*@editable*/ border-color:#DB5384;
+				/*@editable*/ border-width:1px;
+				border-style:solid;
 			}
 			
 			/**
@@ -243,9 +259,9 @@
 			hr {
 				display:block;
 				height: 1px;
-				color: #E9E9E9;
+				/*@editable*/ color: #E9E9E9;
 				background-color: #E9E9E9; 
-				border: 0px;
+				/*@editable*/ border: 0px;
 				margin-top:8px;
 				margin-right:0;
 				margin-bottom:4px;
@@ -258,9 +274,9 @@
 			* @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
 			*/
 			.bodyContent a:link, .bodyContent a:visited, /* Yahoo! Mail Override */ .bodyContent a .yshortcuts /* Yahoo! Mail Override */{
-				color:#00C051;
-				font-weight:normal;
-				text-decoration:underline;
+				/*@editable*/ color:#00C051;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
 			}
 			
 			.bodyContent img{
@@ -278,7 +294,7 @@
 			* @theme footer
 			*/
 			#templateFooter{
-				border-top:0;
+				/*@editable*/ border-top:0;
 				padding:20px;
 			}
 	
@@ -289,7 +305,7 @@
 			* @theme footer
 			*/
 			body, #bodyTable{
-				background-color:#F4F4F4;
+				/*@editable*/ background-color:#F4F4F4;
 			}
 	
 			/**
@@ -299,11 +315,11 @@
 			* @theme footer
 			*/
 			.footerContent{
-				color:#808080;
-				font-family:Helvetica;
-				font-size:10px;
-				line-height:150%;
-				text-align:left;
+				/*@editable*/ color:#808080;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:10px;
+				/*@editable*/ line-height:150%;
+				/*@editable*/ text-align:left;
 			}
 			
 			/**
@@ -312,9 +328,9 @@
 			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
 			*/
 			.footerContent a:link, .footerContent a:visited, /* Yahoo! Mail Override */ .footerContent a .yshortcuts /* Yahoo! Mail Override */{
-				color:#606060;
-				font-weight:normal;
-				text-decoration:underline;
+				/*@editable*/ color:#606060;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
 			}
 			
 			.footerContent img{
@@ -339,8 +355,7 @@
 				* @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work, set width to 300px instead.
 				*/
 				table[class="templateContainer"]{
-					max-width:600px !important;
-					width:100% !important;
+					/*@editable*/ width:100% !important;
 				}
 				
 				table[id="templatePreheader"]{ /* Hide the template preheader to save space */
@@ -353,8 +368,8 @@
 				* @tip Make the first-level headings larger in size for better readability on small screens.
 				*/
 				h1{
-					font-size:26px !important;
-					line-height:100% !important;
+					/*@editable*/ font-size:28px !important;
+					/*@editable*/ line-height:100% !important;
 				}
 				
 				/**
@@ -363,8 +378,8 @@
 				* @tip Make the second-level headings larger in size for better readability on small screens.
 				*/
 				h2{
-					font-size:22px !important;
-					line-height:100% !important;
+					/*@editable*/ font-size:24px !important;
+					/*@editable*/ line-height:100% !important;
 				}
 				
 				/**
@@ -373,12 +388,22 @@
 				* @tip Make the third-level headings larger in size for better readability on small screens.
 				*/
 				h3{
-					font-size:22px !important;
-					line-height:100% !important;
+					/*@editable*/ font-size:20px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+				
+				/**
+				* @tab Mobile Styles
+				* @section heading 4
+				* @tip Make the fourth-level headings larger in size for better readability on small screens.
+				*/
+				h4{
+					/*@editable*/ font-size:16px !important;
+					/*@editable*/ line-height:100% !important;
 				}
 				
 				.button {
-					font-size:22px !important;
+					/*@editable*/ font-size:22px !important;
 				}
 				
 				/**
@@ -386,72 +411,44 @@
 				* @section header image
 				* @tip Make the main header image fluid for portrait or landscape view adaptability. If a fluid layout doesn't work, set width to 300px or half-size instead.
 				*/
-				img[id="headerLogo"]{
+				img[id="headerImage"]{
 					height:auto !important;
-					max-width:150px !important;
-					width:100% !important;
+					/*@editable*/ max-width:180px !important;
+					/*@editable*/ width:100% !important;
 				}
 				
 				/**
 				* @tab Mobile Styles
-				* @section header style
-				* @tip Set the background color and border for your email's header area.
-				* @theme header
-				*/
-				#templateHeader{
-					background-image: none !important;
-				}
-				
-					
-				#headerLogo {
-					padding-top:20px !important;
-					padding-right:5px !important;
-					padding-bottom:6px !important;
-					padding-left:5px !important;
-				}
-				
-				/**
-				* @tab Header
 				* @section header text
-				* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+				* @tip Make the header content text larger in size for better readability on small screens.
 				*/
 				.headerContent{
-						font-size:20px !important;
-						line-height:150% !important;
-						padding-top: 0 !important;
-						padding-right:10px !important;
-						padding-bottom:20px !important;
-						padding-left:10px !important;
+					/*@editable*/ font-size:22px !important;
+					/*@editable*/ line-height:150% !important;
+					/*@editable*/ padding-top:80px !important;
+					/*@editable*/ padding-right:10px !important;
+					/*@editable*/ padding-bottom:20px !important;
+					/*@editable*/ padding-left:10px !important;
 				}
-
+				
 				/**
 				* @tab Mobile Styles
 				* @section body text
 				* @tip Make the body content text larger in size for better readability on small screens.
 				*/
 				.bodyContent{
-					font-size:17px !important;
-					line-height:150% !important;
+					/*@editable*/ font-size:18px !important;
+					/*@editable*/ line-height:150% !important;
 				}
 				
-				/**
-				* @tab Mobile Styles
-				* @section body image
-				* @tip Make the main images fluid for portrait or landscape view adaptability. If a fluid layout doesn't work, set width to 300px or half-size instead.
-				*/
-				.bodyContent img {
-					max-width:600px !important;
-					width:100% !important;
-				}
-								
 				/**
 				* @tab Mobile Styles
 				* @section footer text
 				* @tip Make the footer content text larger in size for better readability on small screens.
 				*/
 				.footerContent{
-					font-size:12px !important;
-					line-height:150% !important;
+					/*@editable*/ font-size:12px !important;
+					/*@editable*/ line-height:150% !important;
 				}
 				
 				td[class="footerContent"] a { 
@@ -496,14 +493,8 @@
                                     	<tr>
                                         	<td align="center" valign="top" id="templateHeader">
                                             	<table border="0" cellpadding="0" cellspacing="0" width="600" class="templateContainer">
-                                                	<tr>
-                                                				<td id="headerLogo">
-                                                							<img src="https://www.onepercentclub.com/static/assets/images/mailing/onepercentclub.png" style="max-width:110px;" id="headerLogo" />
-                                                				</td>
-                                                	</tr>
-                                                	<tr>
-                                                        <td class="headerContent" id="headerIntro" mc:allowtext>
-                                                        		Place your introtext here.
+                                                        <td class="headerContent">
+                                                            <img src="http://localhost:8000/static/assets/images/mailing/onepercentclub.png" style="max-width:130px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -522,6 +513,10 @@
                                             	<table border="0" cellpadding="0" cellspacing="0" width="600" class="templateContainer">
                                                 	<tr>
                                                         <td valign="top" class="bodyContent" mc:edit="body_content">
+                                                        	
+                                                        	After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "styles" drop down box.																											
+                                                        	<br>
+                                                        	<br>
                                                         	<h1>Heading 1</h1>
                                                         	After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "styles" drop down box.
                                                           <br>
@@ -531,13 +526,15 @@
                                                           <br>
                                                           <br>
                                                           <a href="#" class="button">Call to action</a>
-                                                          <br>
+                                                          <hr>
                                                           <br>
                                                           <h3>Heading 3</h3>
                                                           After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "styles" drop down box.
                                                           <br>
                                                           <br>
-                                                          <hr>
+                                                          <h4>Heading 4</h4>
+                                                          <strong>Getting started:</strong> Customize your template by clicking on the style editor tabs up above. Set your fonts, colors, and styles. After setting your styling is all done you can click here in this area, delete the text, and start adding your own awesome content!
+                                                          <br>
                                                           <br>
                                                           After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "styles" drop down box. Want to <a href="http://www.mailchimp.com/kb/article/im-using-the-style-designer-and-i-cant-get-my-formatting-to-change" target="_blank">get rid of styling on a bit of text</a>, but having trouble doing it? Just use the "clear styles" button to strip the text of any formatting and reset your style.
                                                           
@@ -565,11 +562,11 @@
                                                             *|HTML:LIST_ADDRESS_HTML|* *|END:IF|*
                                                         </td>
 																												<td valign="top" width="50%" class="footerContent" mc:edit="footer_social" style="padding-top:20px; padding-bottom:20px;text-align:right;">
-                                                        		<a href="*|FACEBOOK:PROFILEURL|*"><img src="https://www.onepercentclub.com/static/assets/images/mailing/facebook.png" width="31" height="31" style="" alt="Facebook"></a>
-                                                            <a href="*|TWITTER:PROFILEURL|*"><img src="https://www.onepercentclub.com/static/assets/images/mailing/twitter.png" width="31" height="31" style="" alt="Twitter"></a>
-                                                            <a href="http://www.flickr.com/photos/1procentclub/"><img src="https://www.onepercentclub.com/static/assets/images/mailing/flickr.png" width="31" height="31" style="" alt="Flickr"></a>
-                                                            <a href="http://www.youtube.com/user/1Procentclub"><img src="https://www.onepercentclub.com/static/assets/images/mailing/youtube.png" width="31" height="31" style="" alt="YouTube"></a>
-                                                            <a href="http://www.linkedin.com/groups/1-CLUB-1071287?gid=1071287&trk=hb_side_g"><img src="https://www.onepercentclub.com/static/assets/images/mailing/linkedin.png" width="31" height="31" style="" alt="LinkedIn"></a>
+                                                        		<a href="*|FACEBOOK:PROFILEURL|*"><img src="https://testing.onepercentclub.com/static/assets/images/mailing/facebook.png" width="31" height="31" style="" alt="Facebook"></a>
+                                                            <a href="*|TWITTER:PROFILEURL|*"><img src="https://testing.onepercentclub.com/static/assets/images/mailing/twitter.png" width="31" height="31" style="" alt="Twitter"></a>
+                                                            <a href="http://www.flickr.com/photos/1procentclub/"><img src="https://testing.onepercentclub.com/static/assets/images/mailing/flickr.png" width="31" height="31" style="" alt="Flickr"></a>
+                                                            <a href="http://www.youtube.com/user/1Procentclub"><img src="https://testing.onepercentclub.com/static/assets/images/mailing/youtube.png" width="31" height="31" style="" alt="YouTube"></a>
+                                                            <a href="http://www.linkedin.com/groups/1-CLUB-1071287?gid=1071287&trk=hb_side_g"><img src="https://testing.onepercentclub.com/static/assets/images/mailing/linkedin.png" width="31" height="31" style="" alt="LinkedIn"></a>
                                                         </td>
                                                   </tr>
                                                   <tr>
