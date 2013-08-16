@@ -119,7 +119,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         Test user can login.
         """
         # Create and activate user.
-        user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret')
+        user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
 
         self.assertTrue(self.visit_homepage())
 
