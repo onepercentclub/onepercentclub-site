@@ -59,6 +59,6 @@ JENKINS_TASKS = (
 )
 
 # Selenium tests still disabled by default.
-#SELENIUM_TESTS = True
+SELENIUM_TESTS = True
 # Use headless browser for Selenium tests.
-SELENIUM_WEBDRIVER = 'phantomjs'
+SELENIUM_WEBDRIVER = 'firefox'
