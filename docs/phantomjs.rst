@@ -10,7 +10,7 @@ Install PhantomJS as binary (or compile if you're on a development machine). Pay
 
     $ bunzip2 phantomjs-1.9.1-linux-x86_64.tar.bz2
     $ tar -xf phantomjs-1.9.1-linux-x86_64.tar
-    $ sudo mv phantomjs-1.9.1-linux-x86_64 /usr/local/bin/
+    $ sudo mv phantomjs-1.9.1-linux-x86_64/bin/phantomjs /usr/local/bin/
 
 Add to Supervisor::
 
@@ -47,3 +47,4 @@ For example, in Nginx::
     satisfy any;
     allow 127.0.0.1
     # allow <machine ip>
+
