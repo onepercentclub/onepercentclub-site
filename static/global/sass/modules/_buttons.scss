@@ -21,6 +21,7 @@
 
 // The standard button has the $color-brand colors
 .btn {
+		position: relative;
     @include rem(font-size, 18px);
     @include rem(padding, 9px 16px 5px 16px);
     @include rem(line-height, 32px);
@@ -38,6 +39,15 @@
     vertical-align: top;
     @include rem(height, 51px);
     overflow: hidden;
+    
+    &:before {
+	    content: '';
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+		}
 
     &:active {
     	top: 0;
