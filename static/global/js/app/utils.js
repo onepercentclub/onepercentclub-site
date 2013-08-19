@@ -255,6 +255,7 @@ App.DatePickerWidget = Ember.TextField.extend({
     didInsertElement: function(){
         this.$().datepicker({ changeMonth: true, changeYear: true});
         this.$().datepicker('setDate', this.get('date'));
+        this.$().datepicker('option', 'yearRange', "c-100:c+10");
     },
 
     change: function(){
