@@ -7,7 +7,7 @@ from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, R
 
 class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ('created', 'project', 'user', 'local_amount', 'status', 'donation_type')
+    list_display = ('created', 'project', 'user', 'local_amount', 'status', 'donation_type', 'payment_method')
     list_filter = ('status',)
     raw_id_fields = ('user', 'project')
     readonly_fields = ('donation_type', 'amount', 'currency', 'view_order')

@@ -101,6 +101,18 @@ class Donation(models.Model):
     def local_amount(self):
         return "%01.2f" % (self.amount / 100)
 
+    @property
+    def payment_method(self):
+        ctype = ContentType.objects.get_for_model(Donation)
+        order_ids = OrderItem.objects.filter(content_type__pk=ctype.id,
+                                             object_id=self.id).values_list('order_id', flat=True)
+        payments = Payment.objects.filter(order_id__in = order_ids)
+        for payment in payments:
+            if getattr(payment, 'docdata_payments', False):
+                docdata_payments = payment.docdata_payments.all()
+                if docdata_payments:
+                    return ", ".join([p.payment_method for p in docdata_payments])
+
     class Meta:
         verbose_name = _("donation")
         verbose_name_plural = _("donations")
