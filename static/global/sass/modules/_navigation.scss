@@ -247,6 +247,10 @@
 		    		display: inline;
 	    		}
 	    		
+                li.active a {
+                    color: $white;
+                    background: $grayDarker;
+                }
 	    		li a {
 	    			width: auto;
 		    		display: inline-block;
@@ -257,7 +261,7 @@
 		    		background: $white;
 		    		@include border-radius(8px);
 		    		@include rem(margin, 0 2px);
-		    		
+
 	    		}
     		}
 			
