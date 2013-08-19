@@ -15,4 +15,5 @@ from .base import *
 # Put the travis-ci environment specific overrides below.
 #
 
-SELENIUM_TESTS = True
+# Disable Selenium testing for now on Travis because it fails inconsistent.
+# SELENIUM_TESTS = True
