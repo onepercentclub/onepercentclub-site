@@ -286,6 +286,24 @@
 
                         <li class="control-group">
                             <label class="control-label">
+                                {% trans "Primary language" %}
+                            </label>
+
+                            <div class="controls">
+                                {{view Em.Select
+                                    contentBinding="App.interfaceLanguages"
+                                    optionValuePath="content.code"
+                                    optionLabelPath="content.name"
+                                    valueBinding="primary_language"}}
+                            </div>
+
+                            {{#if errors.user_type}}
+                                <div class="errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">
                                 {% trans "I want to share" %}
                             </label>
 

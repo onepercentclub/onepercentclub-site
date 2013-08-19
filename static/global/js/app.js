@@ -82,6 +82,12 @@ App = Em.Application.create({
     ready: function() {
         // Read language string from url.
         var language = window.location.pathname.split('/')[1];
+        App.CurrentUser.find('current').then(function(user){
+            var primaryLanguage = user.get('primary_language');
+            if (primaryLanguage != language) {
+                document.location = '/' + primaryLanguage + document.location.hash;
+            }
+        });
         // We don't have to check if it's one of the languages available. Django will have thrown an error before this.
         this.set('language', language);
 
@@ -618,6 +624,10 @@ App.ApplicationRoute = Em.Route.extend({
 
     events: {
         selectLanguage: function(language) {
+            var user = App.CurrentUser.find('current');
+            var transaction = this.get('store').transaction();
+            var settings = App.UserSettings.find(App.CurrentUser.find('current').get('id_for_ember'));
+            transaction.add(settings);
             if (language == App.get('language')) {
                 // Language already set. Don't do anything;
                 return true;
@@ -626,11 +636,16 @@ App.ApplicationRoute = Em.Route.extend({
             for (i in languages) {
                 // Check if the selected language is available.
                 if (languages[i].code == language) {
+                    settings.set('primary_language', language);
+                    transaction.commit();
                     document.location = '/' + language + document.location.hash;
                     return true;
                 }
             }
             language = 'en';
+            settings.set('primary_language', language);
+
+            transaction.commit();
             document.location = '/' + language + document.location.hash;
             return true;
         },
@@ -1811,7 +1826,15 @@ App.ContactMessageRoute = Em.Route.extend({
 /* Views */
 
 App.LanguageView = Em.View.extend({
-    templateName: 'language'
+    templateName: 'language',
+    classNameBindings: ['isSelected:active'],
+    isSelected: function(){
+        if (this.get('content.code') == App.language) {
+            return true;
+        }
+        return false;
+    }.property('content.code')
+
 });
 
 

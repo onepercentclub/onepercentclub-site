@@ -74,6 +74,7 @@ App.UserSettings = DS.Model.extend({
     gender: DS.attr('string'),
     birthdate: DS.attr('date'),
     user_type: DS.attr('string'),
+    primary_language: DS.attr('string'),
 
     // Address
     line1: DS.attr('string'),
