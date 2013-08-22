@@ -49,10 +49,16 @@
 				        	{% trans "Phase" %}: <strong>{{ project.phase }}</strong> | 
 			                {{#if project.isPhasePitch}}
 			                	{% trans "Status:" %} <strong>{{project.plan.status}}</strong></p>
-	                            {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed right"}}
+                                {{#if project.pitch.isBeingReviewed}}
+								{% trans "Your pitch is in review now." %}
+								  <br/>
+								  {% trans "We'll get back to you soon!" %} 
+								{{else}}
+	                              {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed right"}}
 	                                <em class="flaticon solid pencil-3"></em>
 	                                {% trans "Continue pitch" %}
-	                            {{/linkTo}}
+	                              {{/linkTo}}
+								{{/if}}
 	                        {{/if}}
 	
 	                        {{#if project.isPhasePlan}}
