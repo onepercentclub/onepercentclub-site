@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="donate-call-to-action">
-								<a href='#' class="btn btn-primary btn-iconed">
+								<a href='/en/#!/projects/{{ project.slug }}' class="btn btn-primary btn-iconed">
 								<em class="icon">&euro;</em> {% trans "Support" %}</a>
 							</div>
 							<div style='clear: both;'> </div>
@@ -72,7 +72,7 @@
 								{% for task in project.get_open_tasks %}
 								<div class="task">
 								  <p>{{ task }}</p>
-								  <a href='#' class="btn">
+								  <a href='/en/#!/projects/{{ project.slug }}/tasks/{{ task.id }}' class="btn">
 									  {% trans "Apply for task" %}</a>
 								</div>
 								{% endfor %}
