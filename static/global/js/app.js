@@ -626,8 +626,10 @@ App.ApplicationRoute = Em.Route.extend({
         selectLanguage: function(language) {
             var user = App.CurrentUser.find('current');
             var transaction = this.get('store').transaction();
-            var settings = App.UserSettings.find(App.CurrentUser.find('current').get('id_for_ember'));
-            transaction.add(settings);
+            var settings = App.UserSettings.find(App.CurrentUser.find('current').get('id_for_ember')).objectAt(0);
+			if (settings) {
+				transaction.add(settings);
+			}
             if (language == App.get('language')) {
                 // Language already set. Don't do anything;
                 return true;
@@ -636,14 +638,18 @@ App.ApplicationRoute = Em.Route.extend({
             for (i in languages) {
                 // Check if the selected language is available.
                 if (languages[i].code == language) {
-                    settings.set('primary_language', language);
+					if (settings) {
+						settings.set('primary_language', language);
+					}
                     transaction.commit();
                     document.location = '/' + language + document.location.hash;
                     return true;
                 }
             }
             language = 'en';
-            settings.set('primary_language', language);
+			if (settings) {
+				settings.set('primary_language', language);
+			}
 
             transaction.commit();
             document.location = '/' + language + document.location.hash;
