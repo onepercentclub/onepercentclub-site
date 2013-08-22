@@ -283,6 +283,29 @@
                     </div>
                 </div>
             </section>
+        {{else}}
+          {{#unless isPhasePlan}}
+             <section class="wrapper">
+                <div class="status-box">
+                    <p class="donate-days-left">
+                    </p>
+
+                    <div class="donate-status">
+	                    <p class="donate-amount">
+						{{#if project.isPhaseRealized}}
+						    {% trans "Project realized" %}
+	                        <br />{% trans "See project results" %}
+						{{else }}
+	                        <em>{% trans "Fully funded" %}</em>
+	                        &amp; {% trans "being realized" %}
+						{{/if}}
+	                    </p>
+                        <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
+                    </div>
+
+                </div>
+            </section>
+		  {{/unless}}
         {{/if}}
     </div>
 

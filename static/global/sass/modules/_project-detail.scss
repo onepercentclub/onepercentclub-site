@@ -33,5 +33,17 @@
 		@include grid(16, 1, 1);
 	}
 	
-	
+}
+#detail {
+    .donate-progress-finished {
+        @extend .donate-progress;
+    }
+    .donate-amount {
+        text-align: center;
+		em {
+            color: $green;
+			font-weight: 300;
+			font-style: normal;
+		}
+	}
 }
