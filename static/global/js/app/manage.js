@@ -161,6 +161,13 @@ App.MyProjectPitch = DS.Model.extend({
     status: DS.attr('string'),
     agreed: DS.attr('boolean'),
 
+	isBeingReviewed: function(){
+        if (this.get('status') == 'reviewed') {
+            return true;
+        }
+        return false;
+	}.property('status'),
+
     created: DS.attr('date')
 });
 
