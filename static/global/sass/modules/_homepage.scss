@@ -4,19 +4,19 @@
     @include rem(margin-bottom, 48px);
     
     #power-of .banner-image {
-        background: image-url("home-back-power-of.png") transparent no-repeat 100px -20%;
+        
     }
     
-    #new-website {
-        background: image-url("home-back-new-website.png") transparent repeat-x 0 0;
+    #new-website .banner-image {
+        background: image-url("homepage/home-back-new-website.png") transparent no-repeat  120px 50%;
     }
     
     #find-project .banner-image {
-        background: image-url("home-back-find-project.jpg") transparent no-repeat 0 0;
+        background: image-url("homepage/home-back-find-project.jpg") transparent no-repeat 0 0;
     }
     
     #befriend .banner-image {
-        background: image-url("home-back-befriend.png") transparent no-repeat 120px 50%;
+        background: image-url("homepage/home-back-befriend.png") transparent no-repeat 120px 0;
     }
 }
 
@@ -375,13 +375,37 @@
         color: $gray;
         text-align: center;
         text-transform: uppercase;
+		
+		.icon {
+			display: block;
+			margin: 0 auto 16px auto;
+			width: 120px;
+			height: 140px;
+        	background-image: $icons;
+            background-repeat: no-repeat;
+		}
+		
+		&.impact-lives .icon {
+            background-position: sprite-position($icons, icon-lives-changed-green, 0, 10px);
+		}
+		
+		&.impact-projects .icon {
+            background-position: sprite-position($icons, icon-smart-ideas-pink, 0, 0);
+		}
+		
+		&.impact-countries .icon {
+            background-position: sprite-position($icons, icon-countries-green, 0, 10px);
+		}
+		
+		&.impact-hours .icon {
+            background-position: sprite-position($icons, icon-hours-pink, 0, 10px);
+		}
+		
+		&.impact-donated .icon {
+            background-position: sprite-position($icons, icon-donated-green, 0, 10px);
+		}
 
-        i {
-            @include rem(font-size, 100px);
-            color: $gray;
-        }
-
-        em {
+        strong {
             @include rem(font-size, 22px);
             @include rem(margin, 8px 0);
             display: block;
