@@ -55,9 +55,9 @@
 
                             <div class="donate-status">
                                 <p class="donate-amount">
-                                    <span class="donated">&euro;{{ project.projectcampaign.money_donated }}</span>
+                                    <span class="donated">&euro;{{ project.projectcampaign.local_money_donated }}</span>
                                     {% trans "of" %}
-                                    <span class="asked">&euro;{{ project.projectcampaign.money_asked }}</span>
+                                    <span class="asked">&euro;{{ project.projectcampaign.local_money_asked }}</span>
                                     {% trans "raised" %}
                                 </p>
                                 <span class="donate-slider"><strong style="width: {{ project.projectcampaign.percentage_funded }}%;" class="donate-progress is-in-progress"><em class="donate-percentage"></em></strong></span>
