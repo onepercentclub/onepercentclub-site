@@ -13,12 +13,21 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width" />
 
-    <title>{% block title %}{% endblock %}1%Club - Share a little change the world</title>
+    <title>{% block title %}{% endblock %}1%Club - Share a little. Change the world</title>
     <meta name="description" content="{% blocktrans %}1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online.{% endblocktrans %}" />
     <meta name="author" content="1%Club" />
-		<meta name="keywords" content="{% blocktrans %}crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity{% endblocktrans %}" />
+	<meta name="keywords" content="{% blocktrans %}crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity{% endblocktrans %}" />
 
-		<link rel="shortcut icon" href="{{ STATIC_URL }}/favicon.ico">
+	<link rel="shortcut icon" href="http://www.onepercentclub.com{{ STATIC_URL }}favicon.ico">
+	
+	<meta property="og:title" content="1%Club - Share a little. Change the world" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="http://www.onepercentclub.com{{ STATIC_URL }}images/1procentclub-facebook.png" />
+	<meta property="og:url" content="http://www.onepercentclub.com" />
+	<meta property="og:description" content="{% blocktrans %}1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online.{% endblocktrans %}" />
+	<meta property="og:site_name" content="1%Club - Share a little. Change the world" />
+	<meta property="fb:admins" content="ENTER YOUR FACEBOOK USER ID HERE" />
+	<meta property="fb:page_id" content="298248659856" />
 		
     {# Stylesheets #}
     {% compress css %}
@@ -316,10 +325,14 @@
                                     </a>
                                 </li>
                                 <li>
+                                	<a {{action showPage 'faq'}} href="/#!/pages/faq">{% trans "Frequently Asked Questions" %}</a>
+                                </li>
+                                <li>
                                     <a {{action showPage 'meet-team'}} href="/#!/pages/meet-team">
                                         {% trans "Meet the team" %}
                                     </a>
                                 </li>
+                                
                                 <li>
                                     <a {{action showPage 'partners'}} href="/#!/pages/partners">
                                         {% trans "Partners" %}
@@ -437,17 +450,14 @@
 	                        &copy;2013 1%Club
 	                    </li>
 	                    <li>
-	                        <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">
-	                            {% trans "General Conditions" %}
-	                        </a>
+	                        <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "General Conditions" %}</a>&nbsp;
+	                        <a {{action showPage 'privacy'}} href="/#!/pages/privacy">{% trans "Privacy Policy" %}</a>
 	                    </li>
-	                    {% comment %}
-	                    <li class="right" >
-	                        <a class="feedback" id="feedbackButton" href="#">
-	                            {%  trans "Give us feedback" %}
-	                        </a>
+	                    <li>
+                            {{#linkTo contactMessage href=true class=feedback}}
+                                {% trans "Give us feedback" %}
+                            {{/linkTo}}
 	                    </li>
-	                    {% endcomment %}
 	                </ul>
 	            </div>
 	        </div>
