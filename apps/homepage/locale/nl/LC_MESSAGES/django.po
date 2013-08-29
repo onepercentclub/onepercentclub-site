@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-15 15:28+0200\n"
+"POT-Creation-Date: 2013-08-29 15:52+0200\n"
 "PO-Revision-Date: 2013-08-14 16:30+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
@@ -78,23 +78,23 @@ msgstr "Als we allemaal een beetje delen, dan veranderen we de wereld. Dit is on
 msgid "Lives changed"
 msgstr "Mensen bereikt"
 
-#: templates/homepage.hbs:185
+#: templates/homepage.hbs:184
 msgid "Projects"
 msgstr "Projecten"
 
-#: templates/homepage.hbs:191
+#: templates/homepage.hbs:189
 msgid "Countries"
 msgstr "Landen"
 
-#: templates/homepage.hbs:197
+#: templates/homepage.hbs:194
 msgid "Hours spent"
 msgstr "Uren gedeeld"
 
-#: templates/homepage.hbs:203
+#: templates/homepage.hbs:199
 msgid "Donated"
 msgstr "Gedoneerd"
 
-#: templates/homepage.hbs:208
+#: templates/homepage.hbs:204
 #, python-format
 msgid "Join us. Sign up and share your 1%%"
 msgstr "Doe ook mee. Meld je aan en deel jouw 1%%"
