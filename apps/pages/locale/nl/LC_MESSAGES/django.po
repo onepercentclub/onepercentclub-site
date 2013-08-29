@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-15 15:28+0200\n"
-"PO-Revision-Date: 2013-08-15 13:20+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-08-29 15:52+0200\n"
+"PO-Revision-Date: 2013-08-29 13:55+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,15 +90,15 @@ msgstr "In progress"
 msgid "Closed"
 msgstr "Gesloten"
 
-#: models.py:55 templates/pages.hbs:89
+#: models.py:55 templates/pages.hbs:83
 msgid "Name"
 msgstr "Name"
 
-#: models.py:56 templates/pages.hbs:101
+#: models.py:56 templates/pages.hbs:95
 msgid "Email"
 msgstr "Email"
 
-#: models.py:57 templates/pages.hbs:113
+#: models.py:57 templates/pages.hbs:107
 msgid "Message"
 msgstr "Bericht"
 
@@ -117,70 +117,58 @@ msgid "Our Story"
 msgstr "Ons verhaal"
 
 #: templates/pages.hbs:22
-msgid "Meet the team"
-msgstr "Wie zijn wij"
-
-#: templates/pages.hbs:23
 msgid "Frequently Asked Questions"
 msgstr "Veelgestelde vragen"
+
+#: templates/pages.hbs:23
+msgid "Meet the team"
+msgstr "Wie zijn wij"
 
 #: templates/pages.hbs:24
 msgid "Partners"
 msgstr "Partners"
 
-#: templates/pages.hbs:26
-msgid "Associates"
-msgstr "Associates"
-
-#: templates/pages.hbs:27
-msgid "Innovators"
-msgstr "Innovators"
-
-#: templates/pages.hbs:28
-msgid "Investors"
-msgstr "Investors"
-
-#: templates/pages.hbs:31
+#: templates/pages.hbs:25
 msgid "Press"
 msgstr "Pers"
 
-#: templates/pages.hbs:32
+#: templates/pages.hbs:26
 #, python-format
 msgid "Work at 1%%Club"
 msgstr "Werken bij 1%%Club"
 
-#: templates/pages.hbs:33 templates/pages.hbs.py:72
+#: templates/pages.hbs:27 templates/pages.hbs.py:66
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/pages.hbs:53
+#: templates/pages.hbs:47
 msgid "Something went wrong"
 msgstr "Oeps, er ging iets mis"
 
-#: templates/pages.hbs:56
+#: templates/pages.hbs:50
 msgid "The page you are looking for couldn't be found."
 msgstr "Helaas, de pagina die je zoekt is niet gevonden"
 
-#: templates/pages.hbs:74
+#: templates/pages.hbs:68
 msgid ""
 "\n"
 "\t\t                    Send us a message or get in touch using the details below. Talk to you soon!\n"
 "\t\t                    "
-msgstr "\n\n⇥⇥ Stuur ons een bericht. Hiernaast vind je op welke manieren dat kan.⏎\n⇥⇥"
+msgstr "\n\nStuur ons een bericht. Hiernaast vind je op welke manieren dat kan."
 
-#: templates/pages.hbs:83
+#: templates/pages.hbs:77
 msgid "Thanks for your message!. We'll get back to you soon"
 msgstr "Bedankt voor je bericht. We nemen zo snel mogelijk contact met je op!"
 
-#: templates/pages.hbs:126
+#: templates/pages.hbs:120
 msgid "Send Message"
 msgstr "Verstuur"
 
-#: templates/pages.hbs:132
+#: templates/pages.hbs:126
 msgid "Other ways to contact"
 msgstr "Contact details"
 
-#: templates/pages.hbs:133
+#: templates/pages.hbs:127
 #, python-format
 msgid ""
 "\n"
@@ -205,9 +193,29 @@ msgid ""
 "</p>\n"
 msgstr "\n<p>⏎\nEmail:<a href=\"mailto:info@1procentclub.nl?subject=Contact\">info@1procentclub.nl</a><br />⏎\nTwitter:<a href=\"https://twitter.com/1procentclub\">@1procentclub</a><br />⏎\nFacebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>⏎\n</p>⏎\n<p>⏎\nStichting 1%%Club<br />⏎\n's Gravenhekje 1a<br />⏎\n1011 TG Amsterdam<br />⏎\n</p>⏎\n<p>⏎\nBank: Rabobank (Haarlem)<br />⏎\nAccount number: NL45 RABO 01322070 44 (Stg. 1%Club donaties)<br />⏎\nBIC: RABONL2U<br />⏎\n<br />⏎\nKamer van Koophandel 34.26.78.95<br />⏎\nTelefoon 020 715 8980<br />⏎\n</p>⏎\n"
 
-#: templates/pages.hbs:182
+#: templates/pages.hbs:176
 msgid "No projects found."
 msgstr "Geen projecten gevonden."
+
+#: templates/project_snippet.html:52
+msgid "days to go"
+msgstr ""
+
+#: templates/project_snippet.html:59
+msgid "of"
+msgstr ""
+
+#: templates/project_snippet.html:61
+msgid "raised"
+msgstr ""
+
+#: templates/project_snippet.html:68
+msgid "Support"
+msgstr ""
+
+#: templates/project_snippet.html:76
+msgid "Apply for task"
+msgstr ""
 
 #: templates/admin/pages/change_form.html:7
 #: templates/admin/pages/change_form.html:70
