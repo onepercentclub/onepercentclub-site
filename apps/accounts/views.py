@@ -8,11 +8,15 @@ from django.template import loader
 from django.contrib.auth.tokens import default_token_generator
 from django.http import Http404
 from django.utils.http import base36_to_int, int_to_base36
+from django.utils import translation
+
 from registration.models import RegistrationProfile
 from rest_framework import generics
 from rest_framework import response
 from rest_framework import status
 from rest_framework import views
+import re
+
 from .models import BlueBottleUser
 from .serializers import (CurrentUserSerializer, UserProfileSerializer, UserSettingsSerializer, UserCreateSerializer,
                           PasswordResetSerializer, PasswordSetSerializer)
@@ -55,6 +59,17 @@ class UserCreate(generics.CreateAPIView):
 
         if created:
             current_site = get_current_site(self.request)
+
+            # Check the referer to determine the visitor's language. If not available
+            # use the default request language (English)
+            referer = self.request.META['HTTP_REFERER']
+            if referer:
+                referer = re.sub('^https?:\/\/', '', referer).split('/')
+                referer_path = u'/' + u'/'.join(referer[1:])
+                language = translation.get_language_from_path(referer_path)
+            else:
+                language = self.request.LANGUAGE_CODE[:2]
+            translation.activate(language)
             site_name = current_site.name
             domain = current_site.domain
             site = 'https://' + domain
@@ -65,7 +80,7 @@ class UserCreate(generics.CreateAPIView):
                 'user': obj,
                 'activation_key': registration_profile.activation_key,
                 'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
-                'LANGUAGE_CODE': self.request.LANGUAGE_CODE[:2]
+                'LANGUAGE_CODE': language
             }
             subject_template_name = 'registration/activation_email_subject.txt'
 
@@ -78,7 +93,8 @@ class UserCreate(generics.CreateAPIView):
             email = loader.render_to_string(email_template_name, c)
 
             obj.email_user(subject, email)
-
+            # Don't forget to deactivate, otherwise we switch the language for subsequent users of this thread!
+            translation.deactivate() 
 
 class UserActivate(generics.RetrieveAPIView):
     serializer_class = CurrentUserSerializer
