@@ -142,6 +142,10 @@ class Project(models.Model):
     def task_count(self):
         return len(self.task_set.filter(status=Task.TaskStatuses.open).all())
 
+    @property
+    def get_open_tasks(self):
+        return self.task_set.filter(status=Task.TaskStatuses.open).all()
+
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
