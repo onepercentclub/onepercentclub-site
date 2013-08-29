@@ -367,6 +367,10 @@
     }
 }
 
+img.static-page-illustration {
+	margin-left: 5px;
+}
+
 .static-page-section-navigator {
     @include rem(font-size, 40px);
     position: absolute;
@@ -430,25 +434,29 @@
 
     .item {
         @include grid(9.6,0,1);
-        @include rem(padding, 24px);
+        @include rem(padding, 16px 22px 16px 22px);
         overflow: hidden;
         height: 200px;
         border: 1px solid $grayLight;
         text-align: center;
         vertical-align: middle;
 
-        .flaticon {
-            @include rem(font-size, 80px);
-            color: $grayLighter;
-            line-height: 1;
+        .icon {
+            padding: 0;
+            margin: 0;
         }
 
         .h3 {
+        	position: relative;
+        	top: -50px;
+        	@include rem(margin-top, 16px); 
+        	display: inline-block;
             @include rem(font-size, 20px);
             @include clearfix;
             color: $grayDarker;
             text-transform: uppercase;
             font-weight: 300;
+            line-height: 1;
         }
 
         &:hover {
