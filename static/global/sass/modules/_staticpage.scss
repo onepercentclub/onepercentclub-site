@@ -505,6 +505,40 @@ img.static-page-illustration {
 	margin: 0 0 $padding $padding*3;
 }
 
+
+
+/* FMO Page */
+
+#page.fmo {
+
+	/* page structure overruling */
+	#page { margin-left: 0; width: 100%; }
+	#page #page-content { width: 100%; }
+	#page #page-content ul li { background: none; }
+	section.wrapper { margin-left: 0; }
+	sidebar.pages-nav { display: none; }
+	section.wrapper { padding: 0; margin: 0; max-width: 100%; }
+	article { color: white; }
+	
+	#page #page-header { padding-top: 1em; }
+	#page #page-header h1 { padding-left: 2em; }
+	
+	/* Slider changes */
+	div.banner-indicators { max-height: 80px; }
+	div.banner { margin-bottom: 100px; }
+	#bannerCarousel>ul>li article { width: auto; }
+	
+	/* Project snippet */
+	.project { margin-top: 5em; }
+	.project article { color: rgb(68, 68, 68) !important; }
+	.project .tasks-box { padding-top: 2em; }
+	.project .task { width: 20%; padding: 10px; float: left; }
+	.project .task p { color: rgb(68, 68, 68) !important; }
+
+
+}
+
+
 /*
  * TODO: This can be a separate module of itself.
  */
