@@ -106,6 +106,7 @@ App.PageView = Ember.View.extend(App.GoTo, {
         if (this.get('controller.id') == 'about')return false;
         if (this.get('controller.id') == 'get-involved')return false;
         if (this.get('controller.id') == 'business')return false;
+        if (this.get('controller.id') == 'fmo')return false;
         return true;
     }.property('controller.id'),
 
