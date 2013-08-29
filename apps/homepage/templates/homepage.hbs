@@ -173,33 +173,29 @@
                 <p class="section-subheader">{% trans "We believe that if we all share a little, together we can change the world. We got this far already." %}</p>
 
                 <ul class="impact">
-                    <li>
-                        <i class="flaticon solid group-2"></i>
-                        <em>{{localize impact.lives_changed }}</em>
+                    <li class="impact-lives">
+                    	<span class="icon"></span>
+                        <strong>{{localize impact.lives_changed }}</strong>
                         {% trans "Lives changed" %}
                     </li>
-
-                    <li>
-                        <i class="flaticon solid heart-1"></i>
-                        <em>{{localize impact.projects }}</em>
+                    <li class="impact-projects">
+                    	<span class="icon"></span>
+                        <strong>{{localize impact.projects }}</strong>
                         {% trans "Projects" %}
                     </li>
-
-                    <li>
-                        <i class="flaticon solid earth-1"></i>
-                        <em>{{ impact.countries }}</em>
+                    <li class="impact-countries">
+                    	<span class="icon"></span>
+                        <strong>{{ impact.countries }}</strong>
                         {% trans "Countries" %}
-                    </li>
-
-                    <li>
-                        <i class="flaticon solid clock-1"></i>
-                        <em>{{localize impact.hours_spent }}</em>
+                    </li>                    
+                    <li class="impact-hours">
+                    	<span class="icon"></span>
+                        <strong>{{localize impact.hours_spent }}</strong>
                         {% trans "Hours spent" %}
                     </li>
-
-                    <li>
-                        <i class="flaticon">&euro;</i>
-                        <em>&euro; {{localize impact.donated }}</em>
+                    <li class="impact-donated">
+                    	<span class="icon"></span>
+                        <strong>&euro; {{localize impact.donated }}</strong>
                         {% trans "Donated" %}
                     </li>
                 </ul>
