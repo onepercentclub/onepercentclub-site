@@ -16,7 +16,9 @@
                     	<div class="project-top">
                     
 	                        <figure class="media">
+	                            {% if project.projectpitch.image %}
 	                            <img src="{{ project.projectpitch.image.url }}" width="100%" alt="Photo" />
+	                            {% endif %}
 	                        </figure>
 	
 	                        <article>
