@@ -1,3 +1,5 @@
+from django.template import Context, Template
+
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.pages.models import ContactMessage
 from fluent_contents.rendering import render_placeholder
@@ -10,6 +12,7 @@ class PageContentsField(serializers.Field):
     def to_native(self, obj):
         request = self.context.get('request', None)
         contents_html = render_placeholder(request, obj)
+        contents_html = Template(contents_html).render(Context({}))
         return contents_html
 
 

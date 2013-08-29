@@ -148,6 +148,10 @@ App.PageView = Ember.View.extend(App.GoTo, {
     },
 
     didInsertElement: function(e){
+		this.$().find('#bannerCarousel').unslider({
+            dots: true,
+            delay: 10000
+        });
         if (this.get('controller.id') == 'meet-team') {
             var typeKeys = [72, 69, 76, 76, 79],
                 something_index = 0,
