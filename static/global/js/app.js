@@ -626,33 +626,34 @@ App.ApplicationRoute = Em.Route.extend({
         selectLanguage: function(language) {
             var user = App.CurrentUser.find('current');
             var transaction = this.get('store').transaction();
-            var settings = App.UserSettings.find(App.CurrentUser.find('current').get('id_for_ember')).objectAt(0);
-			if (settings) {
-				transaction.add(settings);
-			}
+            App.UserSettings.find(App.CurrentUser.find('current').get('id_for_ember')).then(function(settings){
+				if (settings.get('id')) {
+                    transaction.add(settings);
+                }
+                var languages = App.get('interfaceLanguages');
+                for (i in languages) {
+                    // Check if the selected language is available.
+                    if (languages[i].code == language) {
+                        if (settings.get('id')) {
+                            settings.set('primary_language', language);
+                        }
+                        transaction.commit();
+                        document.location = '/' + language + document.location.hash;
+                        return true;
+                    }
+                }
+                language = 'en';
+                if (settings.get('id')) {
+                    settings.set('primary_language', language);
+                }
+
+                transaction.commit();
+                document.location = '/' + language + document.location.hash;
+            });
             if (language == App.get('language')) {
                 // Language already set. Don't do anything;
                 return true;
             }
-            var languages = App.get('interfaceLanguages');
-            for (i in languages) {
-                // Check if the selected language is available.
-                if (languages[i].code == language) {
-					if (settings) {
-						settings.set('primary_language', language);
-					}
-                    transaction.commit();
-                    document.location = '/' + language + document.location.hash;
-                    return true;
-                }
-            }
-            language = 'en';
-			if (settings) {
-				settings.set('primary_language', language);
-			}
-
-            transaction.commit();
-            document.location = '/' + language + document.location.hash;
             return true;
         },
 
