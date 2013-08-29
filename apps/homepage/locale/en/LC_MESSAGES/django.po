@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-15 16:27+0200\n"
+"POT-Creation-Date: 2013-08-29 15:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,23 +73,23 @@ msgstr ""
 msgid "Lives changed"
 msgstr ""
 
-#: templates/homepage.hbs:185
+#: templates/homepage.hbs:184
 msgid "Projects"
 msgstr ""
 
-#: templates/homepage.hbs:191
+#: templates/homepage.hbs:189
 msgid "Countries"
 msgstr ""
 
-#: templates/homepage.hbs:197
+#: templates/homepage.hbs:194
 msgid "Hours spent"
 msgstr ""
 
-#: templates/homepage.hbs:203
+#: templates/homepage.hbs:199
 msgid "Donated"
 msgstr ""
 
-#: templates/homepage.hbs:208
+#: templates/homepage.hbs:204
 #, python-format
 msgid "Join us. Sign up and share your 1%%"
 msgstr ""

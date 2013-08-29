@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-15 16:27+0200\n"
+"POT-Creation-Date: 2013-08-29 15:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,15 +89,15 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
-#: models.py:55 templates/pages.hbs:89
+#: models.py:55 templates/pages.hbs:83
 msgid "Name"
 msgstr ""
 
-#: models.py:56 templates/pages.hbs:101
+#: models.py:56 templates/pages.hbs:95
 msgid "Email"
 msgstr ""
 
-#: models.py:57 templates/pages.hbs:113
+#: models.py:57 templates/pages.hbs:107
 msgid "Message"
 msgstr ""
 
@@ -116,70 +116,58 @@ msgid "Our Story"
 msgstr ""
 
 #: templates/pages.hbs:22
-msgid "Meet the team"
+msgid "Frequently Asked Questions"
 msgstr ""
 
 #: templates/pages.hbs:23
-msgid "Frequently Asked Questions"
+msgid "Meet the team"
 msgstr ""
 
 #: templates/pages.hbs:24
 msgid "Partners"
 msgstr ""
 
-#: templates/pages.hbs:26
-msgid "Associates"
-msgstr ""
-
-#: templates/pages.hbs:27
-msgid "Innovators"
-msgstr ""
-
-#: templates/pages.hbs:28
-msgid "Investors"
-msgstr ""
-
-#: templates/pages.hbs:31
+#: templates/pages.hbs:25
 msgid "Press"
 msgstr ""
 
-#: templates/pages.hbs:32
+#: templates/pages.hbs:26
 #, python-format
 msgid "Work at 1%%Club"
 msgstr ""
 
-#: templates/pages.hbs:33 templates/pages.hbs.py:72
+#: templates/pages.hbs:27 templates/pages.hbs.py:66
 msgid "Contact"
 msgstr ""
 
-#: templates/pages.hbs:53
+#: templates/pages.hbs:47
 msgid "Something went wrong"
 msgstr ""
 
-#: templates/pages.hbs:56
+#: templates/pages.hbs:50
 msgid "The page you are looking for couldn't be found."
 msgstr ""
 
-#: templates/pages.hbs:74
+#: templates/pages.hbs:68
 msgid ""
 "\n"
 "\t\t                    Send us a message or get in touch using the details below. Talk to you soon!\n"
 "\t\t                    "
 msgstr ""
 
-#: templates/pages.hbs:83
+#: templates/pages.hbs:77
 msgid "Thanks for your message!. We'll get back to you soon"
 msgstr ""
 
-#: templates/pages.hbs:126
+#: templates/pages.hbs:120
 msgid "Send Message"
 msgstr ""
 
-#: templates/pages.hbs:132
+#: templates/pages.hbs:126
 msgid "Other ways to contact"
 msgstr ""
 
-#: templates/pages.hbs:133
+#: templates/pages.hbs:127
 #, python-format
 msgid ""
 "\n"
@@ -204,8 +192,28 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: templates/pages.hbs:182
+#: templates/pages.hbs:176
 msgid "No projects found."
+msgstr ""
+
+#: templates/project_snippet.html:52
+msgid "days to go"
+msgstr ""
+
+#: templates/project_snippet.html:59
+msgid "of"
+msgstr ""
+
+#: templates/project_snippet.html:61
+msgid "raised"
+msgstr ""
+
+#: templates/project_snippet.html:68
+msgid "Support"
+msgstr ""
+
+#: templates/project_snippet.html:76
+msgid "Apply for task"
 msgstr ""
 
 #: templates/admin/pages/change_form.html:7

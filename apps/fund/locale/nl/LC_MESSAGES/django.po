@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-15 15:28+0200\n"
+"POT-Creation-Date: 2013-08-29 15:52+0200\n"
 "PO-Revision-Date: 2013-08-15 11:50+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
@@ -47,11 +47,11 @@ msgstr "heeft een 1%Project gesteund met jouw 1%Giftcard"
 msgid "has a custom 1%GIFTCARD request"
 msgstr "heeft een speciaal 1%Giftcard verzoek"
 
-#: models.py:28 models.py:91 models.py:127 models.py:241
+#: models.py:28 models.py:91 models.py:139 models.py:253
 msgid "Created"
 msgstr "Aangemaakt"
 
-#: models.py:29 models.py:92 models.py:128 models.py:242
+#: models.py:29 models.py:92 models.py:140 models.py:254
 msgid "Updated"
 msgstr "Gewijzigd"
 
@@ -59,11 +59,11 @@ msgstr "Gewijzigd"
 msgid "amount"
 msgstr "Bedrag"
 
-#: models.py:67 models.py:220 models.py:272
+#: models.py:67 models.py:232 models.py:284
 msgid "New"
 msgstr "Nieuw"
 
-#: models.py:68 models.py:273
+#: models.py:68 models.py:285
 msgid "In progress"
 msgstr "In behandeling"
 
@@ -71,7 +71,7 @@ msgstr "In behandeling"
 msgid "Pending"
 msgstr "In behandeling"
 
-#: models.py:70 models.py:221
+#: models.py:70 models.py:233
 msgid "Paid"
 msgstr "Betaald"
 
@@ -83,7 +83,7 @@ msgstr "Mislukt"
 msgid "One-off"
 msgstr "Eenmalig"
 
-#: models.py:81 models.py:114
+#: models.py:81 models.py:126
 msgid "Recurring"
 msgstr "Periodieke"
 
@@ -91,7 +91,7 @@ msgstr "Periodieke"
 msgid "Voucher"
 msgstr "Bonnen"
 
-#: models.py:84 models.py:233
+#: models.py:84 models.py:245
 msgid "Amount"
 msgstr "Bedrag"
 
@@ -107,7 +107,7 @@ msgstr "Gebruiker"
 msgid "Project"
 msgstr "Project"
 
-#: models.py:90 models.py:123 models.py:240
+#: models.py:90 models.py:135 models.py:252
 msgid "Status"
 msgstr "Status"
 
@@ -115,179 +115,179 @@ msgstr "Status"
 msgid "Type"
 msgstr "Type"
 
-#: models.py:105
+#: models.py:117
 msgid "donation"
 msgstr "donatie"
 
-#: models.py:106
+#: models.py:118
 msgid "donations"
 msgstr "donaties"
 
-#: models.py:113
+#: models.py:125
 msgid "Current"
 msgstr "Huidig"
 
-#: models.py:115
+#: models.py:127
 msgid "Closed"
 msgstr "Gesloten"
 
-#: models.py:122
+#: models.py:134
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:125
+#: models.py:137
 msgid "Order Number"
 msgstr "Aantal"
 
-#: models.py:164
+#: models.py:176
 msgid "GIFTCARDS"
 msgstr "GIFTCARDS"
 
-#: models.py:166
+#: models.py:178
 msgid "GIFTCARD"
 msgstr "GIFTCARD"
 
-#: models.py:170
+#: models.py:182
 msgid "DONATIONS"
 msgstr "DONATIES"
 
-#: models.py:172
+#: models.py:184
 msgid "DONATION"
 msgstr "DONATIE"
 
-#: models.py:174
+#: models.py:186
 msgid "DONATIONS & GIFTCARDS"
 msgstr "DONATIES & GIFTCARDS"
 
-#: models.py:175
+#: models.py:187
 msgid "THANK YOU!"
 msgstr "BEDANKT!"
 
-#: models.py:189
+#: models.py:201
 msgid "Couldn't generate a unique order number."
 msgstr "Kon geen unieke order number genereren"
 
-#: models.py:222
+#: models.py:234
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-#: models.py:223
+#: models.py:235
 msgid "Cashed"
 msgstr "Geïncasseerd"
 
-#: models.py:224
+#: models.py:236
 msgid "Cashed by us"
 msgstr "Geïncasseerd door ons"
 
-#: models.py:230 templates/orders.hbs:780
+#: models.py:242 templates/orders.hbs:780
 msgid "English"
 msgstr "English"
 
-#: models.py:231 templates/orders.hbs:783
+#: models.py:243 templates/orders.hbs:783
 msgid "Dutch"
 msgstr "Dutch"
 
-#: models.py:234
+#: models.py:246
 msgid "Currency"
 msgstr "valuta"
 
-#: models.py:236 templates/orders.hbs:775
+#: models.py:248 templates/orders.hbs:775
 msgid "Language"
 msgstr "Taal"
 
-#: models.py:237
+#: models.py:249
 msgid "Message"
 msgstr "Bericht"
 
-#: models.py:238
+#: models.py:250
 msgid "Code"
 msgstr "Code"
 
-#: models.py:244
+#: models.py:256
 msgid "Sender"
 msgstr "Verzender"
 
-#: models.py:245
+#: models.py:257
 msgid "Sender email"
 msgstr "E-mail verzender"
 
-#: models.py:246
+#: models.py:258
 msgid "Sender name"
 msgstr "Naam verzender"
 
-#: models.py:248
+#: models.py:260
 msgid "Receiver"
 msgstr "Ontvanger"
 
-#: models.py:249
+#: models.py:261
 msgid "Receiver email"
 msgstr "Naam ontvanger"
 
-#: models.py:250
+#: models.py:262
 msgid "Receiver name"
 msgstr "Naam ontvanger"
 
-#: models.py:260
+#: models.py:272
 msgid "Gift Card"
 msgstr "Giftcard"
 
-#: models.py:261
+#: models.py:273
 msgid "Gift Cards"
 msgstr "Giftcards"
 
-#: models.py:267
+#: models.py:279
 msgid "Card"
 msgstr "Kaart"
 
-#: models.py:268
+#: models.py:280
 msgid "Digital"
 msgstr "Digitaal"
 
-#: models.py:269
+#: models.py:281
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: models.py:274
+#: models.py:286
 msgid "Finished"
 msgstr "Voltooid"
 
-#: models.py:276 templates/orders.hbs:789
+#: models.py:288 templates/orders.hbs:789
 msgid "Value"
 msgstr "Waarde"
 
-#: models.py:277
+#: models.py:289
 msgid "Number"
 msgstr "Nummer"
 
-#: models.py:278
+#: models.py:290
 msgid "Contact member"
 msgstr "Contact lid"
 
-#: models.py:279 models.py:280
+#: models.py:291 models.py:292
 msgid "Contact email"
 msgstr "Contact e-mail"
 
-#: models.py:281
+#: models.py:293
 msgid "Contact phone"
 msgstr "Contact telefoon"
 
-#: models.py:282 templates/vouchers.hbs:287
+#: models.py:294 templates/vouchers.hbs:287
 msgid "Organisation"
 msgstr "Organisatie"
 
-#: models.py:283
+#: models.py:295
 msgid "message"
 msgstr "bericht"
 
-#: models.py:285
+#: models.py:297
 msgid "type"
 msgstr "type"
 
-#: models.py:286
+#: models.py:298
 msgid "status"
 msgstr "status"
 
-#: models.py:287
+#: models.py:299
 msgid "created"
 msgstr "aangemaakt"
 
