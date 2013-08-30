@@ -84,7 +84,7 @@ App = Em.Application.create({
         var language = window.location.pathname.split('/')[1];
         App.CurrentUser.find('current').then(function(user){
             var primaryLanguage = user.get('primary_language');
-            if (primaryLanguage != language) {
+            if (primaryLanguage && primaryLanguage != language) {
                 document.location = '/' + primaryLanguage + document.location.hash;
             }
         });
@@ -627,6 +627,11 @@ App.ApplicationRoute = Em.Route.extend({
             var user = App.CurrentUser.find('current');
             var transaction = this.get('store').transaction();
             App.UserSettings.find(App.CurrentUser.find('current').get('id_for_ember')).then(function(settings){
+                if (language == App.get('language')) {
+                    // Language already set. Don't do anything;
+                    return true;
+                }
+
 				if (settings.get('id')) {
                     transaction.add(settings);
                 }
@@ -648,12 +653,9 @@ App.ApplicationRoute = Em.Route.extend({
                 }
 
                 transaction.commit();
+
                 document.location = '/' + language + document.location.hash;
             });
-            if (language == App.get('language')) {
-                // Language already set. Don't do anything;
-                return true;
-            }
             return true;
         },
 
