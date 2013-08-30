@@ -22,3 +22,5 @@ COWRY_LIVE_PAYMENTS = False
 
 # Send email for real
 EMAIL_BACKEND = 'apps.bluebottle_utils.email_backend.DKIMBackend'
+
+SESSION_COOKIE_NAME = 'bb-testing-session-id'
