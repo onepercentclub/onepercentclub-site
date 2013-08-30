@@ -2,22 +2,22 @@
 {% load i18n %}
 {% load static %}
 
+{#  {{bindAttr class=id + "l-section"}} #}
+
 {% tplhandlebars "page" %}
-    <div class="container">
+    <div id="page" class="l-section">
         {{#if view.showTitle}}
-        	<section class="wrapper">
-        		<div id="page" {{bindAttr class=id}}>
-					<div id="page-content">
-		            	<header id="page-header" class="title">
+        	<section class="l-wrapper">
+					<article class="l-content">
+						<header class="page-header">
 		                	<h1>{{title}}</h1>
 						</header>
-					
 						{{{body}}} 
-					</div>
+					</article>
 					
-					<sidebar class="pages-nav">
+					<sidebar class="l-sidebar">
 						<h3>{% trans "About 1%Club" %}</h3>
-						<ul>
+						<ul class="page-nav">
 							<li><a {{action showPage 'story'}} href="/#!/pages/story">{% trans "Our Story" %}</a></li>
 							<li><a {{action showPage 'faq'}} href="/#!/pages/faq">{% trans "Frequently Asked Questions" %}</a></li>
 							<li><a {{action showPage 'meet-team'}} href="/#!/pages/meet-team">{% trans "Meet the team" %}</a></li>
@@ -39,19 +39,16 @@
 
 
 {% tplhandlebars "error/not_found" %}
-
-    <section class="wrapper">
-        <article id="page" class="error">
-			<div id="page-content">
-	            <header id="page-header" class="title">
-	                <h1>{% trans "Something went wrong" %}</h1>
-	            </header>
-	            
-            	<p>{% trans "The page you are looking for couldn't be found." %}</p>
-			</div>
-        </article>
-    </section>
-
+	
+	<div id="page" class="l-section page-error">
+		<section class="l-wrapper">
+			<article class="l-content">
+				<header class="page-header">
+	            	<h1>{% trans "Something went wrong" %}</h1>
+				</header>
+				<p>{% trans "The page you are looking for couldn't be found." %}</p> 
+			</article>
+		</section>
 {% endtplhandlebars %}
 
 
@@ -156,12 +153,11 @@
 
 {% tplhandlebars "partner" %}
     <div class="container" id="partner-detail">
+        
         <section class="wrapper">
-
             <figure class="media">
                 <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
             </figure>
-
             <article>
                 <h1>{{name}}</h1>
                 <p>{{linebreaks description formatting='br'}}</p>
