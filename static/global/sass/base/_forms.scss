@@ -1,0 +1,352 @@
+/* =========== Forms */
+
+form {
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+	
+    fieldset {	
+        background-color: $form-background;
+        padding: $base-padding/2 0;
+        margin-bottom: 1px;
+
+        &:last-of-type {
+        	padding-bottom: $base-padding;
+            margin-bottom: $base-margin;
+        }
+    }
+    
+    legend {
+    	padding: $base-padding*3/2 $base-padding*2;
+		background-color: $gray-light;
+		width: 100%;
+			
+		strong {
+			display: block;
+			font-family: $font-family-bold;
+			font-size: $font-size-medium;
+	        color: $white;
+	        text-transform: uppercase;
+	    }
+	
+	    p {
+	        margin: 0;
+	    }
+	    
+	    &.form-intro {
+		    background: $white;
+		    
+		    strong {
+			    color: $color-secondary;
+		    }
+		    
+	    }
+	}
+
+    .control-group {
+        @include clearfix;
+        padding-bottom: $base-padding/2;
+        position: relative;
+
+        &:first-child {
+            padding-top: $base-padding;
+        }
+
+        .control-label {
+            @include grid(12, 2, 1);
+            padding: $base-padding/2 0;
+            font-family: $font-family-heavy;
+            
+            &.wide {
+                @include grid(48, 1, 1);
+            }
+        }
+
+        .controls {
+            position: relative;
+            @include grid(36,1,2);
+            
+            &.wide {
+                @include grid(48, 1, 1);
+            }
+            
+            // TODO move, this is specific
+            &.budget-line {
+            
+                span.icon {
+                    @include grid(4, 0, 1);
+                }
+                
+                .description {
+                    @include grid(36, 0, 1);
+                }
+                
+                .amount {
+                    @include grid(8, 0, 0);
+                    text-align: right;
+                }
+            }
+
+            .inline-prepend {
+                @include grid(24, 0, 1);
+            }
+
+            .inline-append {
+                @include grid(24, 1, 0);
+            }
+        }
+
+        &.control-group-lonely {
+            padding: 0;
+        }
+    }
+
+    .errors {
+        @include grid(24);
+        position: absolute;
+        right: -57%;
+        background-color: $color-error;
+        border: 1px solid darken($color-error, 10%);
+        padding: $base-padding/2 $base-padding;
+        color: $white;
+        font-size: $font-size-small;
+        font-family: $font-family-heavy;
+		
+        p {
+            margin: 0;
+        }
+
+        &:after {
+            @include rem(top, 7px);
+            position: absolute;
+            display: block;
+            left: -14px;
+            width: 14px;
+            height: 23px;
+            background: image-url("form-error-back-arrow.png") transparent no-repeat 0 0;
+            content: ' ';
+        }
+    }
+
+    .big-radio {
+        label {
+            @include rem(padding, 8px 0);
+            color: white;
+            cursor: pointer;
+
+            text-align: center;
+            background-color: $form-background;
+        }
+        input[type=radio] {
+            display: none;
+        }
+        input[type=radio]:checked+label {
+            background-color: $color-secondary;
+            font-family: $font-family-heavy;
+        }
+        &.radio2 {
+            label{
+                @include grid(24);
+            }
+        }
+        &.radio3 {
+            label{
+                @include grid(16);
+            }
+        }
+        &.radio4 {
+            label {
+                @include grid(12);
+            }
+        }
+    }
+}
+
+
+// Inputs & Textareas
+// -------------------------
+
+select,
+option,
+textarea,
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=email],
+input[type=tel],
+input[type=url] {
+    color: $gray-darker;
+    border: 1px solid $input-border;
+    font-family: $base-font-family;
+    width: 100%;
+    padding: $base-padding/2 $base-padding;
+    background-color: $white;
+    @include transition(border 0.1s);
+    @include box-shadow(inset 2px 2px 0 rgba($black, 0.05));
+
+    &:focus {
+        border-color: $color-secondary;
+        outline: 0;
+        color: $gray-darker;
+        @include box-shadow(none);
+    }
+
+    &.error {
+        border-color: $color-error;
+    }
+}
+
+textarea {
+    overflow: auto;
+    resize: none;
+    vertical-align: top;
+    display: block;
+}
+
+select {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+	-webkit-box-shadow: none;
+	-webkit-padding-end: $base-padding;
+	-webkit-padding-start: $base-padding;
+	-webkit-user-select: none;
+	background-image: image-url("select-arrow.png");
+	background-position: center right;
+	background-repeat: no-repeat;
+	
+	&:hover, &:focus {
+		border-color: $color-secondary;
+		background-image: image-url("select-arrow-hover.png");
+	}
+}
+
+::-webkit-input-placeholder { color: $gray-light; }
+::-moz-placeholder { color: $gray-light; }
+:-ms-input-placeholder { color: $gray-light; }
+input:-moz-placeholder { color: $gray-light; }
+textarea:-moz-placeholder { color: $gray-light; }
+
+
+// Tags
+// -------------------------
+
+.tags {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    text-indent: 0px;
+    
+    li {
+        display: inline-block;
+        @include rem(padding, 4px);
+        @include rem(margin, 0px 4px 8px 0px);
+
+        border-bottom: 1px solid $gray;
+        border-right: 1px solid $gray;
+        background-color: $white;
+        
+        .delete {
+            color: $gray;
+            cursor: pointer;
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+}
+
+input.tag {
+    width: 200px;
+}
+
+
+// Checkboxes & Radios
+// -------------------------
+
+// We got our own fancy checkbox & radio, so hide the fugly ones.
+input[type="checkbox"],
+input[type="radio"] {
+    float: left;
+    opacity: 0;
+    width: 32px;
+    height: 32px;
+	cursor: hand;
+	cursor: pointer;
+    margin-right: $base-margin/2;
+}
+
+input[type="checkbox"] + span,
+input[type="radio"] + span {
+	cursor: hand;
+	cursor: pointer;
+    display: block;
+    line-height: 32px;
+    
+    margin-bottom: $base-margin/2;
+    background-image: $icons;
+	background-position: sprite-position($icons, form-checkbox-default, 0, 0);
+	background-repeat: no-repeat;
+}
+
+input[type="radio"] + span {
+    background-image: $icons;
+	background-position: sprite-position($icons, form-radio-default, 0, 0);
+	background-repeat: no-repeat;
+}
+
+input[type="checkbox"]:checked + span {
+    background-image: $icons;
+	background-position: sprite-position($icons, form-checkbox-checked, 0, 0);
+	background-repeat: no-repeat;
+}
+
+input[type="radio"]:checked + span {
+    background-image: $icons;
+	background-position: sprite-position($icons, form-radio-checked, 0, 0);
+	background-repeat: no-repeat;
+}
+
+.radio-group-horizontal {
+	
+	.radio2 {
+		
+		label {
+			
+		}
+		
+	}
+	
+    .radio3 {
+        @include grid(16);
+        
+        label {
+	        
+        }
+        
+    }
+    
+    .radio4 {
+	    
+	    label {
+		    
+	    }
+	    
+    }
+}
+
+// Disabled state
+// -------------------------
+
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+    cursor: not-allowed;
+    background-color: $input-disabled-background;
+}

@@ -1,0 +1,321 @@
+//
+// Typography
+// --------------------------------------------------
+
+
+// Body text
+// -------------------------
+
+body {
+	line-height: $base-line-height;
+	font-family: $font-family;
+	font-size: $base-font-size;
+	color: $color-text;
+	
+	-webkit-font-smoothing: antialiased; 
+	-moz-font-smoothing: antialiased; 
+	font-smoothing: antialiased; 
+}  
+
+p {
+  	margin: 0 0 $base-line-height / 2;
+}
+
+.lead {
+  	margin-bottom: $base-line-height;
+  	font-size: $base-font-size * 1.5;
+  	font-weight: 200;
+  	line-height: $base-line-height * 1.5;
+}
+
+// Emphasis & misc
+// -------------------------
+
+small	{ font-size: $font-size-smallest }
+
+strong	{ font-weight: bold; }
+em		{ font-style: italic; }
+cite	{ font-style: normal; }
+
+.text-left			 { text-align: left; }
+.text-right			 { text-align: right; }
+.text-center		 { text-align: center; }
+
+
+// Headings
+// -------------------------
+
+h1, h2, h3, h4, h5, h6 {
+	margin: ($base-line-height / 2) 0;
+	font-family: $font-family-bold;
+	text-transform: uppercase;
+	font-weight: 600;
+	line-height: 1.2;
+	text-rendering: optimizelegibility; // Fix the character spacing for headings
+	
+	small {
+		font-weight: normal;
+		line-height: 1;
+		color: $gray-light;
+	}
+}
+
+h1,
+h2,
+h3 { 
+	//line-height: $base-line-height * 2; 
+	
+}
+
+h1 { 
+	font-size: $base-font-size * 2.25; // ~38px
+	color: $color-primary;
+} 
+
+h2 {
+	font-size: $base-font-size * 2; // ~32px
+	color: $color-secondary;
+} 
+
+h3 { 
+	font-size: $base-font-size * 1.4; // ~24px
+	color: $color-heading;
+} 
+h4 { 
+	font-size: $base-font-size * 1.25; 
+} 
+h5 { 
+	font-size: $base-font-size; // ~18px
+}
+
+h6 { 
+	font-size: $base-font-size * 0.85; // ~12px
+}
+
+h1 small { font-size: $base-font-size * 1.75; } // ~24px
+h2 small { font-size: $base-font-size * 1.25; } // ~18px
+h3 small { font-size: $base-font-size; }
+h4 small { font-size: $base-font-size; }
+
+
+// Links
+// -------------------------
+
+a {
+	color: $color-link;
+	text-decoration: underline;
+	cursor: hand;
+	cursor: pointer;
+	
+	a:visited {
+		color: $color-link;	
+	}
+	
+	&:hover {
+		color: $color-link-hover;
+	}
+	
+	&:active {
+		position: relative;
+		top: 1px;
+		color: $color-text;
+	}
+}
+
+
+
+#content {
+
+	// Page header
+	// -------------------------
+	
+	.page-header {
+	  	padding-bottom: ($base-line-height / 2) - 1;
+	  	margin: $base-line-height 0 ($base-line-height * 1.5);
+	}
+	
+	// Lists
+	// --------------------------------------------------
+
+	// Unordered and Ordered lists
+	ul, ol {
+	  	padding: 0;
+	  	margin: 0 0 $base-line-height / 2 25px;
+	}
+	ul ul,
+	ul ol,
+	ol ol,
+	ol ul {
+	  	margin-bottom: 0;
+	}
+	li {
+	  	line-height: $base-line-height;
+	}
+	
+	// Remove default list styles
+	ul.unstyled,
+	ol.unstyled {
+	  	margin-left: 0;
+	  	list-style: none;
+	}
+	
+	// Single-line list items
+	ul.inline,
+	ol.inline {
+	  	margin-left: 0;
+	  	list-style: none;
+		> li {
+			display: inline-block;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	}
+	
+	// Description Lists
+	dl {
+	  	margin-bottom: $base-line-height;
+	}
+	dt,
+	dd {
+	  	line-height: $base-line-height;
+	}
+	dt {
+	  	font-weight: bold;
+	}
+	dd {
+	  	margin-left: $base-line-height / 2;
+	}
+	// Horizontal layout (like forms)
+	.dl-horizontal {
+		@include clearfix(); // Ensure dl clears floats if empty dd elements present
+		dt {
+			float: left;
+			//width: $horizontalComponentOffset - 20;
+			clear: left;
+			text-align: right;
+			//@include text-overflow();
+		}
+		dd {
+			//margin-left: $horizontalComponentOffset;
+		}
+	}
+	
+
+
+
+	ul {
+		margin: $base-margin 0 $base-margin*2 $base-margin*2;
+	
+		li {
+			padding-left: $base-padding*2;
+			margin: $base-margin 0;
+			background: image-url("list-item.png") transparent no-repeat 0 0;
+		}
+	}
+	
+	ol { 
+		margin: $base-padding 0 $base-padding*2 $base-padding*4;
+	
+		li {
+			list-style: decimal;
+			margin: $base-margin/4 0;
+		}
+	
+	}
+	
+	dl {
+	    margin-bottom: $base-margin;
+	    dt { font-weight: bold; }
+	    dd { margin-left: $base-margin; }
+	    &.advanced {
+	        dt { @include grid(16, 0, 1); }
+	        dd { @include grid(32); }
+	    }
+	}
+
+
+	
+	
+	
+	// MISC
+	// ----
+	
+	// Horizontal rules
+	hr {
+		margin: $base-line-height 0;
+		border: 0;
+		border-top: 1px solid $gray-light;
+		border-bottom: 1px solid $white;
+	}
+	
+	// Abbreviations and acronyms
+	abbr[title],
+	// Added data-* attribute to help out our tooltip plugin, per https://github.com/twitter/bootstrap/issues/5257
+	abbr[data-original-title] {
+	  	cursor: help;
+	  	border-bottom: 1px dotted $gray-light;
+	}
+	abbr.initialism {
+	  	font-size: 90%;
+	  	text-transform: uppercase;
+	}
+	
+	// Blockquotes
+	blockquote {
+		padding: 0 0 0 15px;
+		margin: 0 0 $base-line-height;
+		border-left: 5px solid $gray-lighter;
+		p {
+			margin-bottom: 0;
+			font-size: $base-font-size * 1.25;
+			font-weight: 300;
+			line-height: 1.25;
+		}
+		small {
+			display: block;
+			line-height: $base-line-height;
+			color: $gray-light;
+			&:before {
+		  		content: '\2014 \00A0';
+		  	}
+		}
+		
+		// Float right with text-align: right
+		&.pull-right {
+			float: right;
+			padding-right: 15px;
+			padding-left: 0;
+			border-right: 5px solid $gray-lighter;
+			border-left: 0;
+			p,
+			small {
+				text-align: right;
+			}
+			small {
+				&:before {
+					content: '';
+				}
+				&:after {
+					content: '\00A0 \2014';
+				}
+			}
+		}
+	}
+	
+	// Quotes
+	q:before,
+	q:after,
+	blockquote:before,
+	blockquote:after {
+	  	content: "";
+	}
+	
+	// Addresses
+	address {
+	  	display: block;
+	  	margin-bottom: $base-line-height;
+	  	font-style: normal;
+	  	line-height: $base-line-height;
+	}
+	
+}

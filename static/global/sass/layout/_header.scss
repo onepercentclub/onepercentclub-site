@@ -1,0 +1,276 @@
+/* =========== Main Header & Navigation */
+
+#header {
+	background-color: $black;
+}
+
+#logo {
+    display: block;
+    @include grid(6,1,0);
+    @include rem(margin-top, 10px);
+    
+    .logo-image {
+	    @include opacity(0.95);
+	    @include transition(all, 0.2s);
+	    
+	    &:hover {
+		    @include opacity(1);
+	    }
+    }
+    
+    .logo-subtitle {
+	    display: none;
+    }
+}
+
+#nav {
+	text-transform: uppercase;
+	min-height: 64px;
+	font-size: $font-size-small;
+	font-family: $font-family-bold;
+	
+    > ul {
+    	margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+	
+	.nav-main {
+	    @include grid(26,0,0);
+	    margin-top: $base-margin;
+	    
+	    > li a, > li a:visited {
+			padding: $base-margin/4 $base-padding;
+	        white-space: nowrap;
+	        color: $gray-light;
+		    text-transform: uppercase;
+		    display: block;
+		    float: left;
+		    text-align: center;
+		    text-decoration: none;
+		    overflow: hidden;
+		
+		    &:hover, &:active, &.is-active {
+		        color: $white;
+		    }
+	    }
+	}
+	
+	.nav-actions {
+	    margin-top: $base-margin;
+	    @include grid(16, 1, 1);
+	    color: $white;
+				
+		.nav-signup-login {
+			display: inline-block;
+			text-align: left;
+			color: $color-deselect;
+			font-weight: normal;
+			white-space: nowrap;
+			padding: $base-margin/4 0;
+				
+			a {
+				margin: 0 $base-margin/2;
+				text-decoration: underline;
+				
+				&:hover, &:active, &.is-active {
+	            	color: $white;
+				}
+			}
+			
+			.nav-signup {
+				color: $color-primary;
+			}
+			
+			.nav-login {
+				color: $color-secondary;
+			}
+			
+		}
+		
+	    .nav-switch-language {
+	    	display: inline-block;
+	        font-weight: normal;
+			white-space: nowrap;
+			@include rem(font-size, 10px);
+			@include rem(margin-top, 5px);
+	        
+	        li {
+	        	display: inline;
+	        	@include rem(padding, 0 6px);
+	        	border-right: 1px solid $color-deselect;
+		        
+		        &:last-child {
+	            	border: none;
+	            }
+	            
+	            > a {
+	            	display: inline;
+		            cursor: pointer;
+		            color: $color-deselect;
+		
+					&:hover, &:active, &.is-active {
+	                	color: $white;
+					}
+				}
+	        }
+	    }
+		
+		
+	    .nav-member {
+	    	position: relative;
+	    	display: inline-block;
+	    	
+			.nav-member-dropdown {
+				position: relative;
+				z-index: 999;
+				display: inline-block;
+				height: 32px;
+				
+				color: $white;
+				background: $color-secondary;
+				
+		        img {
+		        	width: 33px;
+					height: 33px;
+					float: left;
+					vertical-align: top;
+		            border-width: 0 1px 1px 0;
+		            border-style: solid;
+		            border-color: $black;
+		        }
+		
+		        strong {
+					font-weight: 600;
+		        	display: inline-block;
+					padding: $base-margin/4 $base-padding;
+					//@include rem(padding, 8px, 16px);
+		        }
+			}
+	
+		    .nav-member-dropdown-menu {
+		    	font-family: $font-family-heavy;	
+		    	display: none;
+		        position: absolute;
+		        z-index: 998;
+		        top: 30px;
+		        left: -2px;
+		        width: 250px;
+		        margin: 0;
+		    	padding: 0;
+		        background-color: $white;
+		        border-width: 2px 2px 1px 2px;
+		        border-style: solid;
+		        border-color: $color-secondary;
+		        
+		        > li {
+			        
+			        > a {
+				        display: block;
+				        @include rem(padding, 8px, 16px);
+				        border-bottom: 1px solid $color-secondary;
+				        color: $gray-darker;
+				        text-decoration: none;
+				        
+				        &:hover {
+					        color: $color-secondary;
+				        }
+			        }
+			        
+		        }
+		        
+		        .nav-member-switch-language {
+			    	color: $white;
+			    	font-weight: normal;
+			    	background: $color-secondary;
+			    	@include rem(padding, 8px, 22px);
+			    	
+			    	.nav-language {	    		
+			    		display: inline;
+			    		
+			    		li {
+				    		display: inline;
+				    		
+				    		a {
+				    			width: auto;
+					    		display: inline-block;
+					    		float: none;
+					    		font-weight: 600;
+					    		@include rem(padding, 2px 16px 2px 16px);
+					    		background: $white;
+					    		@include border-radius(8px);
+					    		@include rem(margin, 0 2px);
+				    		}
+				    		
+			                &.active a {
+			                    color: $white;
+			                    background: $gray-darker;
+			                }
+			            }
+		    		}
+					
+				}       
+		       
+		    }
+		    
+		    &:hover {
+			 
+			 	.nav-member-dropdown {
+		        	background-color: $white;
+		        	color: $gray-darker;
+					height: 34px;
+					
+					position: relative;
+					left: -2px;
+					top: -2px;
+					
+					border-width: 2px 2px 0 2px;
+					border-style: solid;
+					border-color: $color-secondary;
+					
+					.flaticon {
+						color: $color-secondary;
+					}
+				}
+								
+	        	.nav-member-dropdown-menu {
+			    	display: block !important;
+				}
+	        }
+		    
+		    .nav-cart {
+		    	display: block;
+		    	float: left;
+		        font-weight: normal;
+		        
+		        .nav-cart-count {
+		        	@include rem(font-size, $font-size-smallest);
+			        font-weight: 600;
+			        display: inline-block;
+			        width: 20px;
+			        height: 20px;
+			        line-height: 22px;
+			        background: $white;
+			        color: $gray-darker;
+			        text-align: center;
+			        @include border-radius(10px);
+				}
+		        
+		        a {
+		        	display: inline-block;
+			    	color: $white;
+					@include rem(padding, 6px 0);
+					
+					&:hover, &:active {
+						color: $color-primary;
+						
+						.nav-cart-count {
+							color: $white;
+							background: $color-primary;
+						}
+					}
+		        }
+		    }
+		}
+	}
+}
