@@ -29,7 +29,7 @@ admin.site.register(Donation, DonationAdmin)
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
-    fields = ('type', 'content_object',)
+    fields = ('type', 'content_object')
     readonly_fields = fields
 
 
@@ -49,11 +49,11 @@ class DocDataPaymentOrderInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'recurring')
-    list_display = ('user', 'created', 'total', 'status', 'recurring')
+    list_display = ('order_number', 'user', 'created', 'total', 'status', 'recurring')
     raw_id_fields = ('user',)
-    readonly_fields = ('recurring', 'total')
-    fields = readonly_fields + ('user', 'status', 'order_number')
-    search_fields = ('user__first_name', 'user__last_name', 'user__email')
+    readonly_fields = ('recurring', 'total', 'order_number')
+    fields = readonly_fields + ('user', 'status')
+    search_fields = ('user__first_name', 'user__last_name', 'user__email', 'order_number')
     inlines = (OrderItemInline, DocDataPaymentOrderInline,)
 
 admin.site.register(Order, OrderAdmin)
