@@ -146,6 +146,41 @@ section {
 }
  */
 
+.text, .video, .image, .oembed, .rawhtml {
+	clear: both;
+	@include rem(margin-top, $padding);
+	@include rem(margin-bottom, $padding);
+}
+
+/* =========== Video wrapper for responsive video's */
+
+object, embed, iframe {
+	width: 100% !important
+}
+
+.video, .oembed {
+	@include clearfix;
+    position: relative !important;
+    padding-bottom: 56.25% !important;
+    height: 0 !important; 
+    overflow: hidden !important;
+}
+
+.video iframe, 
+.oembed iframe,
+.video object, 
+.oembed object,
+.video embed, 
+.oembed embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+ 
+ 
+
 /* ========================= Responsive ================================== */
 
 
