@@ -74,7 +74,7 @@
 
 #bannerCarousel {
     margin: 0;
-    height: 380px !important;
+    height: 400px !important;
     overflow: hidden;
 
     > ul {
@@ -90,13 +90,12 @@
             .container {
 	            @include rem(padding, 48px 0 48px 0);
             }
-            
             article {
             	position: relative;
                 @include grid(28,1,1);
 				@include rem(font-size, 18px);
 				@include rem(padding, 16px 16px 16px 0);
-				height: 300px;
+				height: 310px;
 				z-index: 2;
 				
                 h4 {
@@ -107,15 +106,26 @@
                     line-height: 1;
                 }
             }
+            
+            .has-video {
+	            
+	            .video {
+	            	@include grid(24,1,2);
+				}
+				
+				article {
+					@include grid(24,2,1);
+				}
+            }
 
             .banner-image {
             	@include clearfix;
             	position: relative;
-            	top: -348px;
+            	top: -358px;
                 overflow: auto;
 	            width: 50%;
 	            float: right;
-				height: 380px;
+				height: 400px;
 				z-index: 1;
             }
         }
