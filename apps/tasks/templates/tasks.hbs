@@ -322,7 +322,10 @@
                         <strong class="user-name">{{author.full_name}}</strong>
                         <em class="timestamp">{{ localize created formatting="X" }}</em>
                     </a>
-                    
+
+                    {{view App.SocialShareView classNames="task-share"}}
+
+
                 	{{#if description}}
                 	<h2>{% trans "Task Description" %}</h2>
                 	<p>{{linebreaks description}}</p>
@@ -332,7 +335,7 @@
                 	<h2>{% trans "End goal" %}</h2>
                     <p>{{linebreaks end_goal}}</p>
                     {{/if}}
-                    
+
                 </div>
                 
             </article>
@@ -519,7 +522,7 @@
 
 {% tplhandlebars "task_member_edit" %}
 
-    {{member.full_name}} {% trans "said:" %} <br/>
+    {{member.first_name}} {% trans "said:" %} <br/>
     <em>{{ motivation }}</em>
 
     {{#view Em.RadioButtonGroup class="big-radio radio4" name="status" selectedValueBinding="status"}}
