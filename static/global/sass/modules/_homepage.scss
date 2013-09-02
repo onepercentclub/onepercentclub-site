@@ -110,11 +110,15 @@
             .has-video {
 	            
 	            .video {
-	            	@include grid(24,1,2);
+	            	@include grid(24,1,1);
+	            	
+	            	iframe {
+		            	height: 286px !important;
+	            	}
 				}
 				
 				article {
-					@include grid(24,2,1);
+					@include grid(24,1,1);
 				}
             }
 
