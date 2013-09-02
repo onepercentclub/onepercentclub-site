@@ -8,6 +8,7 @@ App.TaskMember = DS.Model.extend({
     member: DS.belongsTo('App.UserPreview'),
     created: DS.attr('date'),
     status: DS.attr('string', {defaultValue: 'applied'}),
+    motivation: DS.attr('string'),
     task: DS.belongsTo('App.Task'),
     isStatusApplied: function(){
         return (this.get('status') == 'applied');
@@ -370,6 +371,12 @@ App.TaskMemberEdit = Em.View.extend({
         e.preventDefault();
         this.get('controller').updateTaskMember();
     }
+});
+
+App.TaskMemberApplyView = Em.View.extend({
+    templateName: 'task_member_apply',
+    tagName: 'form',
+    motivation: ''
 });
 
 

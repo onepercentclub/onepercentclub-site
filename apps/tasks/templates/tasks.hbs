@@ -519,6 +519,9 @@
 
 {% tplhandlebars "task_member_edit" %}
 
+    {{member.full_name}} {% trans "said:" %} <br/>
+    <em>{{ motivation }}</em>
+
     {{#view Em.RadioButtonGroup class="big-radio radio4" name="status" selectedValueBinding="status"}}
         {{view view.RadioButton value="applied" id="status_applied"}}
         <label for="status_applied">
@@ -870,5 +873,17 @@
     </fieldset>
 
 {% endtplhandlebars %}
+
+
+{% tplhandlebars "task_member_apply" %}
+
+    {% trans "Are you sure you want to apply to this task?" %}
+
+    <br/><br/>
+    {% trans "Motivation" %} <br/>
+    {{view Ember.TextArea valueBinding="view.motivation" name="motivation" classBinding="errors.motivation.length:error"}}
+
+{% endtplhandlebars %}
+
 
 
