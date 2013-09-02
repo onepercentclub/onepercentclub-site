@@ -11,19 +11,22 @@
 			{{#each slides }}
 		        <li>
 		        	<div class="container" {{bindAttr id=style}}>
-		        		<div class="wrapper">
-					        <article>
+                    {{#if video}}
+						<div class="wrapper has-video">
+							<div class="video">
+                    			{{{video}}}
+							</div>
+					{{else}}
+	        			<div class="wrapper">
+					{{/if}}
+	                    	<article>
 					            <h4>{{ title }}</h4>
 					            <p>{{{ body }}}</p>
-					
 					            {{#if link_text }}
 					                <a class="btn btn-primary" {{bindAttr href="link_url" }}>{{link_text}}</a>
 					            {{/if}}
 					        </article>
 		        		</div>
-                        {{#if video}}
-                            {{{video}}}
-                        {{/if}}
 		        		<aside class="banner-image"></aside>
 		        	</div>
 		        </li>
@@ -150,7 +153,7 @@
                     {% trans "Find projects" %}
                 {{/linkTo}}
 
-								{{#linkTo taskList class="btn btn-iconed second"}}
+				{{#linkTo taskList class="btn btn-iconed second"}}
                     <em class="flaticon solid wrench-1"></em>
                     {% trans "Find tasks" %}
                 {{/linkTo}}
