@@ -547,7 +547,7 @@
                                 <ul class="order-donations">
                                     {{#each donation in order.donations}}
                                         <li>
-                                            <a {{action showProject project}}>
+                                            <a {{action showProject donation.project.id}}>
                                                 {{donation.project.title}}
                                             </a>
                                             <small> &euro;{{ donation.amount }},-</small>
