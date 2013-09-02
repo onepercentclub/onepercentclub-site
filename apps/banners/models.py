@@ -35,6 +35,8 @@ class Slide(models.Model):
     body = models.TextField(_("Body text"), blank=True)
     image = ImageField(_("Image"), max_length=255, blank=True, null=True, upload_to='banner_slides/')
     background_image = ImageField(_("Background image"), max_length=255, blank=True, null=True, upload_to='banner_slides/')
+    video_url = models.URLField(_("Video url"), max_length=100, blank=True, default='')
+
     link_text = models.CharField(_("Link text"), max_length=400, help_text=_("This is the text on the button inside the banner."), blank=True)
     link_url = models.CharField(_("Link url"), max_length=400, help_text=_("This is the link for the button inside the banner."), blank=True)
     style = models.CharField(_("Style"), max_length=40, help_text=_("Styling class name"), default='default', blank=True)

@@ -28,7 +28,7 @@ class SlideAdmin(admin.ModelAdmin):
             'fields': ('language', 'sequence', 'tab_text'),
         }),
         (_('Contents'), {
-            'fields': ('title', 'body', 'image', 'background_image', 'link_text', 'link_url', 'style'),
+            'fields': ('title', 'body', 'image', 'background_image', 'video_url', 'link_text', 'link_url', 'style'),
         }),
         (_('Publication settings'), {
             'fields': ('status', 'publication_date', 'publication_end_date'),
