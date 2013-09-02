@@ -5,6 +5,8 @@ App.Slide = DS.Model.extend({
     body: DS.attr('string'),
     image: DS.attr('string'),
     imageBackground: DS.attr('string'),
+    video: DS.attr('string'),
+
     language: DS.attr('string'),
     style: DS.attr('string'),
     sequence: DS.attr('number'),
