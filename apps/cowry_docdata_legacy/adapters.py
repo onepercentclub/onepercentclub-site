@@ -25,6 +25,7 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
         'confirmed_chargedback': PaymentStatuses.cancelled,
         'closed_success': PaymentStatuses.paid,
         'closed_canceled': PaymentStatuses.cancelled,
+        'closed_expired': PaymentStatuses.cancelled,
     }
 
     def __init__(self, *args, **kwargs):
@@ -94,16 +95,22 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
 
         ddpayment.save()
 
-        if not status_report['last_partial_payment_process'] in self.status_mapping:
+        # Figure out which key to use for the status.
+        if 'last_partial_payment_process' in status_report:
+            status_key = 'last_partial_payment_process'
+        else:
+            status_key = 'payment_cluster_process'
+
+        if not status_report[status_key] in self.status_mapping:
             # Note: We continue to process the payment status change on this error.
             log_status_update(payment, PaymentLogLevels.error,
-                              "Received unknown payment status from DocData: {0}".format(status_report['last_partial_payment_process']))
+                              "Received unknown payment status from DocData: {0}".format(status_report[status_key]))
 
         # Update the DocDataPayment status.
-        if ddpayment.status != status_report['last_partial_payment_process']:
+        if ddpayment.status != status_report[status_key]:
             log_status_change(payment, PaymentLogLevels.info, "DocData Payment: {0} -> {1}".format(ddpayment.status,
-                                                                                                   status_report['last_partial_payment_process']))
-            ddpayment.status = status_report['last_partial_payment_process']
+                                                                                                   status_report[status_key]))
+            ddpayment.status = status_report[status_key]
             ddpayment.save()
 
         old_status = payment.status
