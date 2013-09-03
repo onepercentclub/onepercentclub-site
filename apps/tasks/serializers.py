@@ -23,10 +23,11 @@ class TaskMemberSerializer(serializers.ModelSerializer):
     member = UserPreviewSerializer()
     task = serializers.PrimaryKeyRelatedField()
     status = serializers.ChoiceField(choices=TaskMember.TaskMemberStatuses.choices, required=False, default=TaskMember.TaskMemberStatuses.applied)
+    motivation = serializers.CharField(required=False)
 
     class Meta:
         model = TaskMember
-        fields = ('id', 'member', 'task', 'status', 'created')
+        fields = ('id', 'member', 'task', 'status', 'created', 'motivation')
 
 
 class TaskFileSerializer(serializers.ModelSerializer):

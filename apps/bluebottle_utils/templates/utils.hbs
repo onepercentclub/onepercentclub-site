@@ -14,3 +14,12 @@
     {{view App.TagField valueBinding="view.new_tag" placeholder="Add a tag" class="tag"}} <button class="btn btn-modest" {{action addTag target=view}}>Add</button>
 
 {% endtplhandlebars %}
+
+
+{% tplhandlebars "social_share" %}
+
+    <a {{action shareOnFacebook target="view"}}><i class="flaticon social facebook-4"></i></a>
+    <a {{action shareOnTwitter target="view"}}><i class="flaticon social twitter-4"></i></a>
+
+{% endtplhandlebars %}
+

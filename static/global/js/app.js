@@ -847,23 +847,24 @@ App.ProjectTaskRoute = Em.Route.extend({
     events: {
         applyForTask: function(task) {
             var route = this;
+            var transaction = route.get('store').transaction();
+            var taskMember = transaction.createRecord(App.TaskMember);
+            var view = App.TaskMemberApplyView.create();
+            //view.set('model', taskMember);
+            transaction.add(taskMember);
+
+
             Bootstrap.ModalPane.popup({
-                headerViewClass: Ember.View.extend({
-                    tagName: 'p',
-                    classNames: ['modal-title'],
-                    template: Ember.Handlebars.compile('{{view.parentView.heading}}')
-                }),
-                heading: gettext('Task'),
-                message: gettext('Are you sure you want to apply to this task?'),
+                heading: gettext('Apply for task'),
+                bodyViewClass: view,
                 primary: gettext('Apply'),
                 secondary: gettext('Cancel'),
                 callback: function(opts, e) {
                     e.preventDefault();
                     if (opts.primary) {
-                        var transaction = route.get('store').transaction();
-                        var member = transaction.createRecord(App.TaskMember);
-                        member.set('task', task);
-                        member.set('created', new Date());
+                        taskMember.set('task', task);
+                        taskMember.set('motivation', view.get('motivation'));
+                        taskMember.set('created', new Date());
                         transaction.commit();
                     }
                 }

@@ -69,6 +69,10 @@ class TaskMember(models.Model):
     task = models.ForeignKey('Task')
     member = models.ForeignKey(settings.AUTH_USER_MODEL)
     status = models.CharField(_("status"), max_length=20, choices=TaskMemberStatuses.choices)
+
+    motivation = models.TextField(_("Motivation"), help_text=_("Motivation by applicant."), blank=True)
+    comment = models.TextField(_("Comment"), help_text=_("Comment by task owner."), blank=True)
+
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("updated"))
 
