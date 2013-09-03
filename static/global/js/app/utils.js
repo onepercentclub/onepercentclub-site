@@ -251,11 +251,12 @@ App.DatePickerValue = Ember.TextField.extend({
 App.DatePickerWidget = Ember.TextField.extend({
 
     dateBinding: "parentView.value",
+    configBinding: "parentView.config",
 
     didInsertElement: function(){
-        this.$().datepicker({ changeMonth: true, changeYear: true});
+        var config = this.get('config');
+        this.$().datepicker(config);
         this.$().datepicker('setDate', this.get('date'));
-        this.$().datepicker('option', 'yearRange', "c-100:c+10");
     },
 
     change: function(){
@@ -267,6 +268,7 @@ App.DatePickerWidget = Ember.TextField.extend({
 // On click it will use jQuery UI date picker dialog so the user can select a date.
 // valueBinding should bind to a  DS.attr('date') property of an Ember model.
 App.DatePicker = Ember.ContainerView.extend({
+    config: {changeMonth: true, changeYear: true, yearRange: "c-100:c+10"},
     childViews: [App.DatePickerValue, App.DatePickerWidget]
 });
 

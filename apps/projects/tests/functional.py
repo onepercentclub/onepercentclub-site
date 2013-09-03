@@ -54,7 +54,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
                 'Cannot load the project list page.')
 
         self.assertEqual(self.browser.url, '%s/en/#!/projects' % self.live_server_url)
-        self.assertEqual(self.browser.title, '1%Club - Share a little change the world')
+        self.assertEqual(self.browser.title, '1%Club - Share a little. Change the world')
 
     def test_view_project_list_page(self):
         """
