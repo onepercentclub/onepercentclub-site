@@ -384,22 +384,8 @@ App.TaskFileNewView = Em.View.extend({
 });
 
 
-App.TaskDeadLineDatePickerView = Ember.TextField.extend({
-    classNames: ['ember-text-field', 'input-small'],
-
-
-    didInsertElement: function(){
-        // TODO: fix date formatting, make this prop a 'date' on Task model
-        // Idea: Render a hidden field to hold the actual date and a text field to
-        // show it in the localized style.
-        // Remove dateFormat here will result in locale aware date.
-        this.$().datepicker({minDate: 0, maxDate: "+3M", dateFormat: 'yy-mm-dd'});
-    },
-    change: function(){
-        // TODO: This gets a date object,,,
-        //this.set('value', this.$().datepicker('getDate'));
-
-    }
+App.TaskDeadLineDatePicker = App.DatePicker.extend({
+    config: {minDate: 0, maxDate: "+3M"}
 });
 
 
