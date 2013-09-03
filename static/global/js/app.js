@@ -642,8 +642,10 @@ App.ApplicationRoute = Em.Route.extend({
                         if (settings.get('id')) {
                             settings.set('primary_language', language);
                         }
+                        settings.on('didUpdate', function(){
+                            document.location = '/' + language + document.location.hash;
+                        });
                         transaction.commit();
-                        document.location = '/' + language + document.location.hash;
                         return true;
                     }
                 }
@@ -652,9 +654,11 @@ App.ApplicationRoute = Em.Route.extend({
                     settings.set('primary_language', language);
                 }
 
+                settings.on('didUpdate', function(){
+                    document.location = '/' + language + document.location.hash;
+                });
                 transaction.commit();
-
-                document.location = '/' + language + document.location.hash;
+                return true;
             });
             return true;
         },
