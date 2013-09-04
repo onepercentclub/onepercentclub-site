@@ -74,22 +74,3 @@ class CrawlableTests(ProjectTestsMixin, LiveServerTestCase):
         for slug, title in self.projects.items():
             self.assertNotContains(response, title)
 
-    @override_settings(CRAWLABLE_PHANTOMJS_DEDICATED_MODE=False)
-    def test_project_list_via_escaped_fragment(self):
-        """
-        Since the ``StoppableWSGIServer`` (used in this test case) can only handle one request at a time, the process is
-        blocked forever. For this reason, we use a custom client instance that calls the Django internals (including the
-        middleware). The ``HashbangMiddleware`` calls the ``LiveServerThread`` which uses PhantomJS.
-
-        In short: You cannot do something like ``requests.get`` or ``urllib.urlopen`` because those actually connect to
-        the live server.
-
-        See: https://code.djangoproject.com/ticket/20238#comment:3
-        """
-        response = self.client.get(escape_url(self.project_url))
-
-        self.assertTrue(ESCAPED_FRAGMENT in response.request['QUERY_STRING'])
-        for slug, title in self.projects.items():
-            self.assertContains(response, title)
-            # TODO: It seems the URL is not actually mentioned in the code... Ember action href=true?
-            #self.assertContains(response, '?%s=/projects/%s' % (ESCAPED_FRAGMENT, slug))
