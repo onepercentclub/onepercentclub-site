@@ -10,15 +10,18 @@
 @import "compass/reset";
 @import "compass/css3";
 
+
 /* Variables & Mixins */
 @import "variables";
 @import "mixins/grid";
 @import "mixins/rem";
 @import "mixins/utilities";
 
+
 // Icons
 @import "icons/flaticons-social";
 @import "icons/flaticons-solid";
+
 
 /* Base */
 @import "base/reset";
@@ -32,11 +35,28 @@
 @import "layout/header";
 @import "layout/footer";
 @import "base/forms";
+<<<<<<< HEAD
+=======
+@import "base/buttons";
+>>>>>>> WIP Refactor Homepage
 
 /* States */
 @import "states/states";
 
+
 /* Modules */
+@import "modules/carousel";
+
+
+@import "modules/project-detail";
+@import "modules/project-preview";
+
+/* Pages */
+@import "pages/home";
+@import "pages/static";
+
+
+
 // @import "modules/buttons";
 // @import "modules/detail-top";
 // @import "modules/project-detail";

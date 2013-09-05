@@ -4,23 +4,31 @@
 	background-color: $black;
 }
 
+
 #logo {
-    display: block;
-    @include grid(6,1,0);
-    @include rem(margin-top, 10px);
+    @include grid(6,1,1);
+    padding: $base-padding/2;
     
-    .logo-image {
-	    @include opacity(0.95);
-	    @include transition(all, 0.2s);
+    .logo-link {
+	    display: block;
 	    
-	    &:hover {
-		    @include opacity(1);
+	    // Fix for making linkable
+	    object {
+		    pointer-events: none;
 	    }
+	   	    
+	    .logo-image {
+	    	display: block;
+		    width: 100%;
+		    height: auto;
+	    }
+	    
+	    .logo-subtitle {
+		    display: none;
+	    }
+	    
     }
     
-    .logo-subtitle {
-	    display: none;
-    }
 }
 
 #nav {

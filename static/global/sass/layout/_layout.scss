@@ -4,8 +4,72 @@ body {
     overflow-y: scroll;
 }
 
+// Global Layout Elements
+// -------------------------
 
-/* =========== Sticky Footer */
+#main {
+	
+}
+
+#content {
+	@include clearfix;
+	//padding: $base-padding*3 0;
+}
+
+.l-section {
+	@include clearfix;
+	width: 100%;
+}
+
+.l-wrapper {
+	@include clearfix;
+	position: relative;
+	min-width: $min-width;
+	max-width: $max-width;
+	margin: 0 auto;
+}
+
+.l-content {
+	@include grid(32,1,1);
+}
+
+.l-sidebar {
+	@include grid(16,1,1);
+}
+
+.l-results {
+	
+}
+
+.l-results-item {
+	
+}
+
+/* =========== Content Layout */
+
+// Specific Layout Elements
+// -------------------------
+
+.l-full {
+	@include grid(48,1,1);
+}
+
+.l-half {
+	@include grid(24,1,1);
+}
+
+.l-quarter {
+	@include grid(12,1,1);
+}
+
+.l-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+// Sticky Footer
+// -------------------------
 
 html, body {
   	height: 100%;
@@ -31,46 +95,10 @@ html, body {
 	clear: both;
 }
 
-/* =========== Layout Elements */
 
-
-#main {
-	
-}
-
-#content {
-	@include clearfix;
-	padding: $base-padding*3 0;
-}
-
-.l-section {
-	@include clearfix;
-	width: 100%;
-}
-
-.l-wrapper {
-	@include grid(48,1,1);
-	@include clearfix;
-}
-
-.l-content {
-	@include grid(32,1,1);
-}
-
-.l-sidebar {
-	@include grid(16,1,1);
-}
-
-.l-results {
-	
-}
-
-.l-results-item {
-	
-}
-
-/* =========== Content Layout */
-
+// Reusable layout for content 
+// (classes are assigned by backend)
+// -------------------------
 
 .image {
 	

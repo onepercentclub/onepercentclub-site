@@ -15,10 +15,11 @@ body {
 	-webkit-font-smoothing: antialiased; 
 	-moz-font-smoothing: antialiased; 
 	font-smoothing: antialiased; 
+	text-rendering: optimizelegibility;
 }  
 
 p {
-  	margin: 0 0 $base-line-height / 2;
+  	margin: 0 0 $base-line-height;
 }
 
 .lead {
@@ -33,7 +34,7 @@ p {
 
 small	{ font-size: $font-size-smallest }
 
-strong	{ font-weight: bold; }
+strong	{ font-family: $font-family-heavy; font-weight: bold; }
 em		{ font-style: italic; }
 cite	{ font-style: normal; }
 
@@ -46,15 +47,12 @@ cite	{ font-style: normal; }
 // -------------------------
 
 h1, h2, h3, h4, h5, h6 {
-	margin: ($base-line-height / 2) 0;
-	font-family: $font-family-bold;
-	text-transform: uppercase;
-	font-weight: 600;
-	line-height: 1.2;
-	text-rendering: optimizelegibility; // Fix the character spacing for headings
+	margin: ($base-line-height / 6) 0;
+	line-height: $base-line-height;
+	font-family: $font-family-heavy;
+	//text-transform: uppercase;
 	
 	small {
-		font-weight: normal;
 		line-height: 1;
 		color: $gray-light;
 	}
@@ -68,17 +66,17 @@ h3 {
 }
 
 h1 { 
-	font-size: $base-font-size * 2.25; // ~38px
+	font-size: $base-font-size * 3; // ~38px
 	color: $color-primary;
 } 
 
 h2 {
-	font-size: $base-font-size * 2; // ~32px
+	font-size: $base-font-size * 2.25; // ~32px
 	color: $color-secondary;
 } 
 
 h3 { 
-	font-size: $base-font-size * 1.4; // ~24px
+	font-size: $base-font-size * 2; // ~24px
 	color: $color-heading;
 } 
 h4 { 

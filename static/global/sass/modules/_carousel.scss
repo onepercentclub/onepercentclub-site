@@ -1,0 +1,121 @@
+//
+// Full width carousel with (optional) navigation
+//
+// Uses jquery.unslider.js and must be 
+// triggered specifically
+// --------------------------------------------------
+
+.carousel {
+	background: $gray-darkest;
+	@include clearfix;
+	position: relative;
+	@include clearfix;
+	
+	ul, li {
+		@include clearfix;
+		 margin: 0;
+		 padding: 0;
+		 list-style: none;
+		 background: none;
+	}
+	
+	.carousel-item {
+		font-size: $font-size-large;
+		display: block;
+		color: $white;
+		float: left;
+		padding: $base-padding*2 0 $base-padding*5 0; // push down carousel nav
+		overflow: hidden;
+		
+		.carousel-content {
+			
+			
+			h1 {
+				color: $white;
+			}
+			
+			/*
+			.container {
+				 @include rem(padding, 48px 0 48px 0);
+			}
+			
+			article {
+				position: relative;
+				@include grid(28,1,1);
+				@include rem(font-size, 18px);
+				@include rem(padding, 16px 16px 16px 0);
+				height: 300px;
+				z-index: 2;
+				
+				h4 {
+					@include rem(font-size, 32px);
+					@include rem(margin-bottom, 8px);
+					text-transform: uppercase;
+					font-weight: 600;
+					line-height: 1;
+				}
+			}
+
+			.banner-image {
+				@include clearfix;
+				position: relative;
+				top: -348px;
+				overflow: auto;
+				 width: 50%;
+				 float: right;
+				height: 380px;
+				z-index: 1;
+			}
+			*/
+		}
+	}
+}
+
+.carousel-nav-section {
+	background-color: $gray-lighter;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	font-family: $font-family-heavy;
+	z-index: 10;
+	
+	.carousel-nav {
+		margin-top: 0;
+		margin-bottom: 0;
+		list-style: none;
+		background-color: $gray-lighter;
+		
+		.carousel-nav-item {
+			@include grid(12);
+			padding: $base-padding 0;
+			border-right: 1px solid $white;
+			text-align: center;
+			cursor: pointer;
+			position: relative;
+		
+			&.is-active {
+				position: relative;
+				background: $gray-light;
+				color: $white;
+				
+				// TODO add arrow on top
+				&:after {
+					position: absolute;
+					border: solid transparent;
+					content: ' ';
+					height: 0;
+					bottom: 100%;
+					width: 0;
+					border-width: 12px;
+					border-bottom-color: $gray-light;
+				}
+			}
+			
+			&:first-of-type {
+				border-left: 1px solid $white;
+			}
+			
+		}
+	}
+}
