@@ -20,7 +20,6 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ADMINS = (
-    ('Ben Konrath', 'ben@1procentclub.nl'),
     ('Loek van Gent', 'loek@1procentclub.nl'),
 )
 
