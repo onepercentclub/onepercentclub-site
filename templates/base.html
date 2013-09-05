@@ -44,7 +44,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/jquery-ui/minified/jquery.ui.datepicker.min.js"></script>
 
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/handlebars-1.0.0-rc.4.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-1.0.0-rc.6.1.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-1.0.0-rc.6.1.min.js"></script>
         {# This specific version works with ember rc5 and still supports didUpdate which seems broken in v0.13 #}
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-7c01dd5.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/vendor/ember-data-drf2-adapter.js"></script>
@@ -85,7 +85,18 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/pages.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/homepage.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/app/blogs.js"></script>
+
     {% endcompress %}
+
+    {% include  "users.hbs" %}
+    {% include  "homepage.hbs" %}
+    {% include  "wallposts.hbs" %}
+    {% include  "reactions.hbs" %}
+    {% include  "tasks.hbs" %}
+    {% include  "projects.hbs" %}
+    {% include  "orders.hbs" %}
+    {% include  "utils.hbs" %}
+    {% include  "blogs.hbs" %}
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 

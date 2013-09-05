@@ -192,6 +192,7 @@ App = Em.Application.create({
     }
 });
 
+/*
 // Now halt the App because we first want to load all templates
 App.deferReadiness();
 
@@ -228,42 +229,7 @@ App.loadTemplates = function() {
 };
 
 App.loadTemplates();
-
-App.deferReadiness();
-
-App.loadTemplates = function() {
-        var language = window.location.pathname.split('/')[1];
-        // TODO: Make sure to avoid race conditions. See if we can dynamically load this as needed.
-        // Now that we know the language we can load the handlebars templates.
-        var readyCount = 0;
-        var templates = Em.A(['users', 'manage', 'wallposts', 'reactions', 'vouchers', 'tasks', 'projects', 'orders', 'pages']);
-        templates.forEach(function(template) {
-            //loadTemplates(this.templates);
-            var hash = {};
-            hash.url = '/' + language + '/templates/' + template + '.hbs';
-            hash.type = 'GET';
-            hash.contentType = 'application/json';
-            hash.success = function(data) {
-                // Iterate through handlebar tags
-                $(data).filter('script[type="text/x-handlebars"]').each(function() {
-                    var templateName = $(this).attr('data-template-name');
-                    var raw = $(this).html();
-                    Em.TEMPLATES[templateName] = Em.Handlebars.compile(raw);
-                });
-                readyCount++;
-                if (readyCount == templates.length) {
-                    App.advanceReadiness();
-                }
-            };
-            hash.error = function(jqXHR, textStatus, errorThrown) {
-                throw errorThrown + ' ' + hash.url;
-            };
-            jQuery.ajax(hash);
-        });
-};
-
-App.loadTemplates();
-
+*/
 
 /*
  * The Ember Data Adapter and Store configuration.
