@@ -2,7 +2,8 @@
 
 // Grays
 // --------------------------------
-$black:								#000 !default;				
+$black:								#000 !default;	
+$gray-darkest:						#323232 !default;			
 $gray-darker:						#444 !default;
 $gray-dark:							#666 !default;
 $gray:								#999 !default;
@@ -30,7 +31,7 @@ $font-family-small:					'Trebuchet MS', Helvetica, Arial, sans-serif;
 
 $base-font-size:					16px !default;
 $base-font-family:					$font-family !default;
-$base-line-height:					1.5 !default;
+$base-line-height:					1.5em !default;
 
 
 // Scaffolding
@@ -62,8 +63,7 @@ $form-background:					$gray-lighter !default;
 // ---------------------------------
 $grid-columns:						48 !default;
 $min-width:							980px !default;
-$max-width:							1140px !default;
-$grid-max-width:					($max-width / $base-font-size) + em !default;
+$max-width:							1440px !default;
 
 // Component sizing
 // ---------------------------------

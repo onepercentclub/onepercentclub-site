@@ -1,0 +1,195 @@
+//
+// BUTTONS
+// --------------------------------------------------
+
+// Default button
+.btn {
+	position: relative;
+	font-family: $font-family-heavy;
+    font-size: 22px;
+    line-height: $base-line-height;
+    padding: $base-padding/2 $base-padding*2;
+    display: inline-block;
+    border: 1px solid darken($color-secondary, 5%);
+    background-color: $color-secondary;
+    color: $white;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    
+    &.btn-primary {
+    	border: 1px solid darken($color-primary, 5%);
+		background-color: $color-primary;
+	}
+
+	&:hover {
+    	border-color: $black;
+    	background-color: $gray-darker;
+    	color: $white;
+	}
+
+    &:active {
+    	top: 0;
+        background: $gray-darkest;
+        color: $gray-dark;
+        border-top-width: 5px;
+        border-color: $black;
+        padding: $base-padding/2 $base-padding $base-padding/4 $base-padding;
+    }
+    
+    // Needed for position changing on active
+    &:before {
+	    content: '';
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	}
+	
+	// Button with an icon
+	&.btn-iconed {
+		position: relative;
+		padding-left: $base-padding*5;
+		
+		.flaticon, .icon {
+			
+			padding: $base-padding/4 $base-padding $base-padding $base-padding;
+			position: absolute;
+			top: 0;
+			left: 0;
+	        display: inline-block;
+	        background: darken($color-secondary, 5%);
+	        color: lighten($color-secondary, 5%);
+	        text-align: center;
+			vertical-align: middle;
+	    }
+	    
+	    .flaticon {
+	        font-size: 28px;
+	        line-height: 1.6em;
+	    }
+	    
+	    .icon {
+	    	font-family: $font-family-bold;
+	    	line-height: 1.3em;
+	    	font-size: 32px;
+	    	font-style: normal;
+	    }
+	    
+	    &.btn-primary {
+	    
+		    .flaticon, .icon {
+				background: darken($color-primary, 5%);
+				color: lighten($color-primary, 10%);
+			}
+	    }
+	    
+	    &:hover {
+    	
+        	.flaticon, .icon {
+            	background: #333;
+            	color: $white;
+			}
+		}
+
+		&:active {
+		
+			.flaticon, .icon {
+				padding-top: 5px;
+            	background: darken($black, 5%);
+				color: $gray-darker;
+			}
+		
+		}
+	}
+	
+	// Primary buttons
+	
+	
+	
+	
+	// Disabled buttons
+    &.disabled, &[disabled], &.disabled:hover, &[disabled]:hover, &.disabled:active, &[disabled]:active {
+	    padding: $base-padding/2 $base-padding;
+	    border-top-width: 1px;
+    	top: auto;
+        border-color: $gray-light;
+        background-color: $gray-light;
+        color: $gray-lighter;
+    }
+}
+
+
+
+
+
+/*
+
+
+
+.button-link {
+    @include rem(font-size, 18px);
+    color: $text-black;
+    font-weight: 300;
+    text-transform: uppercase;
+    cursor: hand;
+    cursor: pointer;
+    background: transparent;
+
+    .flaticon {
+     	@include rem(margin-right, $padding/4);
+    }
+
+    &:hover, &:active {
+        color: $green;
+    } 
+}
+
+
+// The standard button has the $color-brand colors
+
+
+.btn:hover,
+.btn-primary:hover {
+    border-color: $black;
+    background-color: $grayDarker;
+    color: $white;
+
+    .btn-title,
+    .btn-subtitle {
+        color: $white;
+    }
+}
+
+
+
+
+    
+
+
+.btn-uploader {
+	position: relative;
+
+	border: 1px solid darken($grayLight, 5%);
+	background-color: $grayLight;
+
+	.flaticon, .icon {
+	    background-color: darken($grayLight, 15%);
+	    color:    $white;
+	}
+
+	input {
+	    @include opacity(0);
+	    cursor: pointer;
+	    height: 100%;
+	    position: absolute;
+	    left: 0;
+	    right: 0;
+	    top: 0;
+	    z-index: 10;
+	    width: auto;
+	}
+}
+*/
