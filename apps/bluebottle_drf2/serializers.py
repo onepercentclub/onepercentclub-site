@@ -284,9 +284,13 @@ class ObjectBasedSerializer(serializers.Serializer):
 class EuroField(serializers.WritableField):
     # Note: You need to override save and set the currency to 'EUR' in the Serializer where this is used.
     def to_native(self, value):
+        # Convert model instance int -> text for reading.
         return '{0}.{1}'.format(str(value)[:-2], str(value)[-2:])
 
     def from_native(self, value):
+        # Convert text -> model instance int for writing.
+        if not value:
+            return 0
         return int(decimal.Decimal(value) * 100)
 
 
