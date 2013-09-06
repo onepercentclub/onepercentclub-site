@@ -8,6 +8,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
+from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
 from apps.accounts.models import BlueBottleUser
 from apps.cowry.models import PaymentStatuses, Payment
@@ -37,12 +38,18 @@ class RecurringDirectDebitPayment(models.Model):
     city = models.CharField(max_length=35)  # max_length from DocData
     account = DutchBankAccountField()
 
+    # IBAN fields required for DocData recurring donation processing.
+    # These are not required because we will be filling these in manually (for now) and not presenting them to users.
+    iban = IBANField(blank=True, default='')
+    bic = SWIFTBICField(blank=True, default='')
+
     def __unicode__(self):
         if self.active:
             postfix = ' - active'
         else:
             postfix = ' - inactive'
         return str(self.user) + ' ' + str(self.amount) + postfix
+
 
 @receiver(post_save, weak=False, sender=BlueBottleUser)
 def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwargs):
@@ -106,7 +113,7 @@ class Donation(models.Model):
         ctype = ContentType.objects.get_for_model(Donation)
         order_ids = OrderItem.objects.filter(content_type__pk=ctype.id,
                                              object_id=self.id).values_list('order_id', flat=True)
-        payments = Payment.objects.filter(order_id__in = order_ids)
+        payments = Payment.objects.filter(order_id__in=order_ids)
         for payment in payments:
             if getattr(payment, 'docdata_payments', False):
                 docdata_payments = payment.docdata_payments.all()
