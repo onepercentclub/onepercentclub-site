@@ -592,6 +592,14 @@ App.ApplicationRoute = Em.Route.extend({
         selectLanguage: function(language) {
             var user = App.CurrentUser.find('current');
             var transaction = this.get('store').transaction();
+            if (!user.get('id_for_ember')) {
+                if (language == App.get('language')) {
+                    // Language already set. Don't do anything;
+                    return true;
+                }
+                document.location = '/' + language + document.location.hash;
+            }
+
             App.UserSettings.find(App.CurrentUser.find('current').get('id_for_ember')).then(function(settings){
                 if (language == App.get('language')) {
                     // Language already set. Don't do anything;
