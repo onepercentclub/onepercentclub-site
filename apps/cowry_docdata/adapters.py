@@ -226,7 +226,10 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
     # TODO Find a way to use UTF-8 / unicode strings with Suds to make this truly international.
     def convert_to_ascii(self, value):
         """ Normalize / convert unicode characters to ascii equivalents. """
-        return unicodedata.normalize('NFKD', value).encode('ascii','ignore')
+        if isinstance(value, unicode):
+            return unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
+        else:
+            return value
 
     def create_remote_payment_order(self, payment):
         # Some preconditions.
