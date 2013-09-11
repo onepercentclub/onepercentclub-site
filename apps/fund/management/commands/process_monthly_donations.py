@@ -404,11 +404,13 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
     logger.info("Total number of recurring donations: {0}".format(recurring_payments_queryset.count()))
     logger.info("Number of recurring Orders successfully processed: {0}".format(donation_count))
     logger.info("Number of errors: {0}".format(len(recurring_donation_errors)))
-    logger.info("")
-    logger.info("Detailed Error List")
-    logger.info("===================")
-    logger.info("")
-    for error in recurring_donation_errors:
-        logger.info("RecurringDirectDebitPayment: {0} {1}".format(error.recurring_payment.id, error.recurring_payment))
-        logger.info("Error: {0}".format(error.error_message))
-        logger.info("--")
+
+    if len(recurring_donation_errors) > 0:
+        logger.info("")
+        logger.info("Detailed Error List")
+        logger.info("===================")
+        logger.info("")
+        for error in recurring_donation_errors:
+            logger.info("RecurringDirectDebitPayment: {0} {1}".format(error.recurring_payment.id, error.recurring_payment))
+            logger.info("Error: {0}".format(error.error_message))
+            logger.info("--")
