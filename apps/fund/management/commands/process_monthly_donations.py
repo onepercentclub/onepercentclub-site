@@ -157,17 +157,19 @@ def process_monthly_donations(recurring_payments_queryset):
     error_count = 0
     donation_count = 0
 
-    webdirect_payment_adapter = WebDirectDocDataPaymentAdapter()  # Used near the end of this method.
+    # The adapter is used after the recurring Order and donations have been adjusted. It's created here so that we can
+    # reuse it to process all recurring donations.
+    webdirect_payment_adapter = WebDirectDocDataPaymentAdapter()
 
     # Fixed lists of the popular projects.
     popular_projects_all = list(Project.objects.filter(phase=ProjectPhases.campaign).order_by('popularity'))
     top_three_projects = popular_projects_all[:3]
     popular_projects_rest = popular_projects_all[3:]
 
-    num_recurring_payments = recurring_payments_queryset.count()
-
+    # The main loop that processes each monthly donation.
     for recurring_payment in recurring_payments_queryset:
         top_three_donation = False
+        user_selected_projects = []
 
         # Check if there is a monthly shopping cart (Order status is 'recurring') for this recurring_payment user.
         try:
@@ -204,8 +206,13 @@ def process_monthly_donations(recurring_payments_queryset):
                 donation.delete()
 
         if recurring_order.donations.count() > 0:
-            # There are donations in the recurring Order and we need to redistribute / correct the donation
-            # amounts.
+            # There are donations in the recurring Order and we need to redistribute / correct the donation amounts.
+
+            # Save a copy of the projects that have been selected by the user so that the monthly shopping cart can
+            # recreated after the payment has been successfully started.
+            for donation in recurring_order.donations:
+                user_selected_projects.append(donation.project)
+
             correct_donation_amounts(popular_projects_all, recurring_order, recurring_payment)
         else:
             # There are no donations in the recurring Order so we need to create a monthly shopping cart to support the
@@ -330,24 +337,57 @@ def process_monthly_donations(recurring_payments_queryset):
         except DocDataPaymentException as e:
             logger.error("Problem creating remote payment order:")
             logger.error(e.message)
+
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
+
             error_count += 1
             continue
+        else:
+            recurring_order.status = OrderStatuses.closed
+            recurring_order.save()
 
         try:
             webdirect_payment_adapter.start_payment(payment, recurring_payment)
         except DocDataPaymentException as e:
             logger.error("Problem starting payment:")
             logger.error(e.message)
+
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
+            else:
+                recurring_order.status = OrderStatuses.recurring
+                recurring_order.save()
+
             error_count += 1
             continue
-        else:
-            logger.debug("Payment for '{0}' started.".format(recurring_payment))
-            donation_count += 1
+
+        logger.debug("Payment for '{0}' started.".format(recurring_payment))
+        donation_count += 1
+
+        # Create a new recurring Order (monthly shopping cart) for donations that are not to the 'Top Three'.
+        if not top_three_donation and len(user_selected_projects) > 0:
+            new_recurring_order = create_recurring_order(recurring_payment.user, user_selected_projects)
+
+            # Adjust donation amounts in a simple way for the recurring Order (the monthly donations shopping cart).
+            num_donations = new_recurring_order.donations.count()
+            amount_per_project = math.floor(recurring_payment.amount / num_donations)
+            donations = new_recurring_order.donations
+            for i in range(0, num_donations - 1):
+                donation = donations[i]
+                donation.amount = amount_per_project
+                donation.save()
+            # Update the last donation with the remaining amount.
+            donation = donations[num_donations - 1]
+            donation.amount = recurring_payment.amount - (amount_per_project * (num_donations - 1))
+            donation.save()
 
     logger.info("")
     logger.info("Recurring Donation Processing Summary")
     logger.info("=====================================")
     logger.info("")
-    logger.info("Total number of recurring donations: ".format(num_recurring_payments))
+    logger.info("Total number of recurring donations: {0}".format(recurring_payments_queryset.count()))
     logger.info("Number of recurring Orders successfully processed: {0}".format(donation_count))
     logger.info("Number of errors: {0}".format(error_count))
