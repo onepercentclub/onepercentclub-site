@@ -142,6 +142,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
     }
 
     id_to_model_mapping = {
+        'dd-ideal': DocDataPayment,
         'dd-webdirect': DocDataWebDirectDirectDebit,
         'dd-webmenu': DocDataPayment,
     }
@@ -414,15 +415,15 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
 
         statusChanged = False
         for payment_report in report.payment:
-            # Find or create the DocDataPayment for current report.
+            # Find or create the correct payment object for current report.
+            payment_class = self.id_to_model_mapping[payment.payment_method_id]
             try:
-                # FIXME generify.
-                ddpayment = DocDataPayment.objects.get(payment_id=str(payment_report.id))
-            except DocDataPayment.DoesNotExist:
+                ddpayment = payment_class.objects.get(payment_id=str(payment_report.id))
+            except payment_class.DoesNotExist:
                 ddpayment_list = payment.docdata_payments.filter(status='NEW')
                 ddpayment_list_len = len(ddpayment_list)
                 if ddpayment_list_len == 0:
-                    ddpayment = DocDataPayment()
+                    ddpayment = payment_class()
                     ddpayment.docdata_payment_order = payment
                 elif ddpayment_list_len == 1:
                     ddpayment = ddpayment_list[0]
