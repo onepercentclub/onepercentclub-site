@@ -1,5 +1,7 @@
 # coding=utf-8
 import logging
+import time
+import unicodedata
 from decimal import Decimal, ROUND_HALF_UP
 from urllib2 import URLError
 from apps.cowry.adapters import AbstractPaymentAdapter
@@ -9,7 +11,7 @@ from django.utils.http import urlencode
 from suds.client import Client
 from suds.plugin import MessagePlugin, DocumentPlugin
 from .exceptions import DocDataPaymentException
-from .models import DocDataPaymentOrder, DocDataPayment, DocDataPaymentLogEntry
+from .models import DocDataPaymentOrder, DocDataPayment, DocDataWebDirectDirectDebit, DocDataPaymentLogEntry
 
 logger = logging.getLogger(__name__)
 
@@ -111,7 +113,7 @@ class DocDataBrokenWSDLPlugin(DocumentPlugin):
             location_attribute.setValue('https://secure.docdatapayments.com:443/ps/services/paymentservice/1_0')
 
 
-class DocdataPaymentAdapter(AbstractPaymentAdapter):
+class DocDataPaymentAdapter(AbstractPaymentAdapter):
 
     # Mapping of DocData statuses to Cowry statuses. Statuses are from:
     #
@@ -139,11 +141,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         'CLOSED_CANCELED': PaymentStatuses.cancelled,
     }
 
-    # TODO: Create defaults for this like the payment_methods
     id_to_model_mapping = {
-        'dd-ideal': DocDataPayment,
-        'dd-direct-debit': DocDataPayment,
-        'dd-creditcard': DocDataPayment,
+        'dd-webdirect': DocDataWebDirectDirectDebit,
         'dd-webmenu': DocDataPayment,
     }
 
@@ -180,7 +179,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 self.merchant._password = getattr(settings, "COWRY_DOCDATA_LIVE_MERCHANT_PASSWORD", None)
 
     def __init__(self):
-        super(DocdataPaymentAdapter, self).__init__()
+        super(DocDataPaymentAdapter, self).__init__()
         self._init_docdata()
 
     def get_payment_methods(self):
@@ -213,7 +212,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         payment.save()
         return payment
 
-    def _generate_merchant_order_reference(self, payment):
+    def generate_merchant_order_reference(self, payment):
         other_payments = DocDataPaymentOrder.objects.filter(order=payment.order).exclude(id=payment.id).order_by('-merchant_order_reference')
         if not other_payments:
             return '{0}-0'.format(payment.order.order_number)
@@ -222,6 +221,11 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             order_payment_nums = latest_mor.split('-')
             payment_num = int(order_payment_nums[1]) + 1
             return '{0}-{1}'.format(payment.order.order_number, payment_num)
+
+    # TODO Find a way to use UTF-8 / unicode strings with Suds to make this truly international.
+    def convert_to_ascii(self, value):
+        """ Normalize / convert unicode characters to ascii equivalents. """
+        return unicodedata.normalize('NFKD', value).encode('ascii','ignore')
 
     def create_remote_payment_order(self, payment):
         # Some preconditions.
@@ -237,7 +241,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
                 logger.error("Suds client is not configured. Can't create a remote DocData payment order.")
                 return
 
-        # Preferences for the DocData system
+        # Preferences for the DocData system.
         paymentPreferences = self.client.factory.create('ns0:paymentPreferences')
         paymentPreferences.profile = self.get_payment_methods()[payment.payment_method_id]['profile'],
         paymentPreferences.numberOfDaysToPay = 5
@@ -253,8 +257,8 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         language._code = payment.language
 
         name = self.client.factory.create('ns0:name')
-        name.first = payment.first_name
-        name.last = payment.last_name
+        name.first = self.convert_to_ascii(payment.first_name)
+        name.last = self.convert_to_ascii(payment.last_name)
 
         shopper = self.client.factory.create('ns0:shopper')
         shopper.gender = "U"  # Send unknown gender.
@@ -265,7 +269,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
 
         # Billing information.
         address = self.client.factory.create('ns0:address')
-        address.street = payment.address
+        address.street = self.convert_to_ascii(payment.address)
         address.houseNumber = 'N/A'
         address.postalCode = payment.postal_code.replace(' ', '')  # Spaces aren't allowed in the DocData postal code.
         address.city = payment.city
@@ -284,7 +288,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             # TODO Add a setting for default description.
             description = "1%CLUB"
 
-        payment.merchant_order_reference = self._generate_merchant_order_reference(payment)
+        payment.merchant_order_reference = self.generate_merchant_order_reference(payment)
 
         # Execute create payment order request.
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
@@ -305,7 +309,6 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
             raise DocDataPaymentException('REPLY_ERROR', error_message)
 
     def cancel_payment(self, payment):
-
         # Some preconditions.
         if not self.client:
             logger.error("Suds client is not configured. Can't cancel a DocData payment order.")
@@ -413,6 +416,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         for payment_report in report.payment:
             # Find or create the DocDataPayment for current report.
             try:
+                # FIXME generify.
                 ddpayment = DocDataPayment.objects.get(payment_id=str(payment_report.id))
             except DocDataPayment.DoesNotExist:
                 ddpayment_list = payment.docdata_payments.filter(status='NEW')
@@ -513,7 +517,7 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
         self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
     def _map_status(self, status, payment=None, totals=None, authorization=None):
-        new_status = super(DocdataPaymentAdapter, self)._map_status(status)
+        new_status = super(DocDataPaymentAdapter, self)._map_status(status)
 
         # Some status mapping overrides.
         #
@@ -542,3 +546,75 @@ class DocdataPaymentAdapter(AbstractPaymentAdapter):
     #             new_status = 'failed'
     #         elif latest_capture.status == 'CANCELLED':
     #             new_status = 'cancelled'
+
+
+class WebDirectDocDataPaymentAdapter(DocDataPaymentAdapter):
+
+    def get_payment_url(self, payment, return_url_base=None):
+        raise NotImplementedError
+
+    def generate_merchant_order_reference(self, payment):
+        if self.test:
+            # For testing we need unique merchant order references that are not based on the order number.
+            return str(time.time()).replace('.', '-')
+        else:
+            return super(WebDirectDocDataPaymentAdapter, self).generate_merchant_order_reference(payment)
+
+    def start_payment(self, payment, recurring_payment):
+        # Some preconditions.
+        if not self.client:
+            raise DocDataPaymentException('ERROR',
+                                          "Suds client is not configured. Can't start a DocData WebDirect payment.")
+        if not payment.payment_order_id:
+            raise DocDataPaymentException('ERROR',
+                                          "Attempt to start WebDirect payment on Order id {0} which has no payment_order_id.".format(
+                                              payment.payment_order_id))
+
+        paymentRequestInput = self.client.factory.create('ns0:paymentRequestInput')
+
+        # We only need to set amount because of bug in suds library. Otherwise it defaults to order amount.
+        amount = self.client.factory.create('ns0:amount')
+        amount.value = str(payment.amount)
+        amount._currency = payment.currency
+        paymentRequestInput.paymentAmount = amount
+
+        paymentRequestInput.paymentMethod = 'DIRECT_DEBIT'
+
+        directDebitPaymentInput = self.client.factory.create('ddp:directDebitPaymentInput')
+        directDebitPaymentInput.iban = recurring_payment.iban
+        directDebitPaymentInput.bic = recurring_payment.bic
+        directDebitPaymentInput.holderCity = self.convert_to_ascii(recurring_payment.city)
+        directDebitPaymentInput.holderName = self.convert_to_ascii(recurring_payment.name)
+
+        country = self.client.factory.create('ns0:country')
+        country._code = payment.country
+        directDebitPaymentInput.holderCountry = country
+
+        paymentRequestInput.directDebitPaymentInput = directDebitPaymentInput
+
+        # Execute start payment request.
+        reply = self.client.service.start(self.merchant, payment.payment_order_id, paymentRequestInput)
+        if hasattr(reply, 'startSuccess'):
+            # Create the DocDataPayment object to save the info and statuses for the WebDirect payment.
+            ddpayment = DocDataWebDirectDirectDebit()
+            ddpayment.account_city = recurring_payment.city
+            ddpayment.account_name = recurring_payment.name
+            ddpayment.iban = recurring_payment.iban
+            ddpayment.bic = recurring_payment.bic
+            ddpayment.docdata_payment_order = payment
+            ddpayment.payment_method = 'DIRECT_DEBIT'
+            ddpayment.payment_id = str(reply['startSuccess']['paymentId'])
+            ddpayment.save()
+
+            self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
+
+        elif hasattr(reply, 'startError'):
+            error = reply['startError']['error']
+            error_message = "{0} {1}".format(error['_code'], error['value'])
+            logger.error(error_message)
+            raise DocDataPaymentException(error['_code'], error['value'])
+
+        else:
+            error_message = 'Received unknown reply from DocData. WebDirect payment not created.'
+            logger.error(error_message)
+            raise DocDataPaymentException('REPLY_ERROR', error_message)

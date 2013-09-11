@@ -496,16 +496,14 @@ COWRY_RETURN_URL_BASE = 'http://127.0.0.1:8000'
 COWRY_PAYMENT_METHODS = {
     'dd-webmenu': {
         'profile': 'webmenu',
-        'name': 'Web Menu',
+        'name': 'DocData Web Menu',
         'supports_recurring': False,
         'supports_single': True,
     },
 
-    'dd-direct-debit': {
-        'id': 'DIRECT_DEBIT',
-        'profile': 'directdebit',
-        'name': 'Direct Debit',
-        'max_amount': 10000,  # €100
+    'dd-webdirect': {
+        'profile': 'webdirect',
+        'name': 'DocData WebDirect Direct Debit',
         'restricted_countries': ('NL',),
         'supports_recurring': True,
         'supports_single': False,

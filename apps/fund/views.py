@@ -84,7 +84,7 @@ class OrderItemMixin(mixins.CreateModelMixin):
             if request.user.is_authenticated():
                 setattr(self.object, self.user_field, request.user)
             self.object.save()
-            orderitem = OrderItem.objects.create(content_object=self.object, order=order)
+            OrderItem.objects.create(content_object=self.object, order=order)
             self.post_save(self.object, created=True)
 
             headers = self.get_success_headers(serializer.data)
