@@ -161,6 +161,10 @@ class Order(models.Model):
         return total
 
     @property
+    def total_euro(self):
+        return "%01.2f" % (self.total / 100)
+
+    @property
     def donations(self):
         content_type = ContentType.objects.get_for_model(Donation)
         order_items = self.orderitem_set.filter(content_type=content_type)
