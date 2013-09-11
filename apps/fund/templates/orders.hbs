@@ -242,6 +242,15 @@
 
 
 {% tplhandlebars "paymentProfile" %}
+
+{{#unless controllers.currentUser.isAuthenticated}}
+    <div class="content">
+        {% trans "Already have an account?" %}
+        <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
+        {% trans "to load your profile!" %}
+    </div>
+{{/unless}}
+
 <div class="content">
 	<form>
 	    <fieldset>
