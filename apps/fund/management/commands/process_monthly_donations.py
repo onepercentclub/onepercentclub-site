@@ -14,6 +14,7 @@ from apps.cowry_docdata.adapters import WebDirectDocDataPaymentAdapter
 from apps.cowry_docdata.exceptions import DocDataPaymentException
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.projects.models import Project, ProjectPhases
+from ...mails import mail_monthly_donation_processed_notification
 from ...models import RecurringDirectDebitPayment, Order, OrderStatuses, Donation, OrderItem
 
 logger = logging.getLogger(__name__)
@@ -366,6 +367,9 @@ def process_monthly_donations(recurring_payments_queryset):
 
         logger.debug("Payment for '{0}' started.".format(recurring_payment))
         donation_count += 1
+
+        # Send an email to the user.
+        mail_monthly_donation_processed_notification(recurring_payment, recurring_order)
 
         # Create a new recurring Order (monthly shopping cart) for donations that are not to the 'Top Three'.
         if not top_three_donation and len(user_selected_projects) > 0:
