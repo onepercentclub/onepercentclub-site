@@ -86,7 +86,7 @@ def generate_monthly_donations_csv(recurring_payments_queryset):
     with open(csv_path, 'wb') as csv_file:
         csvwriter = csv.writer(csv_file, dialect='excel')
         csvwriter.writerow(['Member', 'Active', 'Amount'])
-        for rp in recurring_payments_queryset.filter(amount__gt=113):
+        for rp in recurring_payments_queryset:
             csvwriter.writerow([rp.user.email, rp.active, rp.amount])
 
 
