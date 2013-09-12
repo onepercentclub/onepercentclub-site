@@ -71,7 +71,7 @@ def mail_monthly_donation_processed_notification(recurring_payment, recurring_or
                        'date': format_date(locale='nl_NL'),
                        'amount': format_currency(recurring_payment.amount / 100, 'EUR', locale='nl_NL'),
                        'site': site})
-    subject = "Bedankt voor je maandelijkse 1%"
+    subject = "Bedankt voor je maandelijkse support"
     text_content = get_template('monthly_donation.mail.txt').render(context)
     html_content = get_template('monthly_donation.mail.html').render(context)
     msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
