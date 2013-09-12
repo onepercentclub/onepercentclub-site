@@ -109,6 +109,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
         # The remaining amount won't fill up the project or we have no more projects to try. We're done.
         logger.debug(u"Donation is less than project '{0}' needs. No further adjustments are needed.".format(project.title))
         donation.amount = remaining_amount
+        donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
         return
 
@@ -117,13 +118,15 @@ def update_last_donation(donation, remaining_amount, popular_projects):
         # Fill up the project.
         logger.debug(u"Donation is more than project '{0}' needs. Filling up project and creating new donation.".format(project.title))
         donation.amount = project.projectcampaign.money_asked - project.projectcampaign.money_donated
+        donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
 
         # Create a new Donation and recursively update it with the remaining amount.
         ct = ContentType.objects.get_for_model(donation)
         order = OrderItem.ojects.get(content_type=ct, content_object=donation)
         new_project = popular_projects.pop(0)
-        new_donation = Donation.objects.create(user=donation.user, project=new_project, amount=0, currency='EUR')
+        new_donation = Donation.objects.create(user=donation.user, project=new_project, amount=0, currency='EUR',
+                                               donation_type=Donation.DonationTypes.recurring)
         OrderItem.objects.create(content_object=new_donation, order=order)
         update_last_donation(new_donation, remaining_amount - donation.amount, popular_projects)
 
@@ -136,7 +139,8 @@ def create_recurring_order(user, projects, order=None):
         order = Order.objects.create(status=OrderStatuses.recurring, user=user, recurring=True)
 
     for p in projects:
-        donation = Donation.objects.create(user=user, project=p, amount=0, currency='EUR')
+        donation = Donation.objects.create(user=user, project=p, amount=0, currency='EUR',
+                                           donation_type=Donation.DonationTypes.recurring)
         OrderItem.objects.create(content_object=donation, order=order)
 
     return order
@@ -158,6 +162,7 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
             donation.amount = project.projectcampaign.money_asked - project.projectcampaign.money_donated
         else:
             donation.amount = amount_per_project
+        donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
         remaining_amount -= donation.amount
 
@@ -430,10 +435,12 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
             for i in range(0, num_donations - 1):
                 donation = donations[i]
                 donation.amount = amount_per_project
+                donation.donation_type = Donation.DonationTypes.recurring
                 donation.save()
             # Update the last donation with the remaining amount.
             donation = donations[num_donations - 1]
             donation.amount = recurring_payment.amount - (amount_per_project * (num_donations - 1))
+            donation.donation_type = Donation.DonationTypes.recurring
             donation.save()
 
     logger.info("")
