@@ -161,6 +161,10 @@ class Order(models.Model):
         return total
 
     @property
+    def total_euro(self):
+        return "%01.2f" % (self.total / 100)
+
+    @property
     def donations(self):
         content_type = ContentType.objects.get_for_model(Donation)
         order_items = self.orderitem_set.filter(content_type=content_type)
@@ -339,11 +343,6 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     # Payment: new -> in_progress
     #
     if old_status == PaymentStatuses.new and new_status == PaymentStatuses.in_progress:
-        # Order should still be current when payment is in progress.
-        if order.status != OrderStatuses.current:
-            logger.error("Order should have status 'current' not {0}".format(order.status))
-            # TODO Change to current?? Big problems with double current orders could happen.
-
         # Donations.
         for donation in order.donations:
             donation.status = DonationStatuses.in_progress
@@ -357,11 +356,6 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     # Payment: in_progress -> cancelled
     #
     if old_status == PaymentStatuses.in_progress and new_status == PaymentStatuses.cancelled:
-        # Order should still be current when payment is in progress -> cancelled.
-        if order.status != OrderStatuses.current:
-            logger.error("Order should have status 'current' not {0}".format(order.status))
-            # TODO Change to current?? Big problems with double current orders could happen.
-
         # Donations.
         for donation in order.donations:
             donation.status = DonationStatuses.new
