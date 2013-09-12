@@ -1,0 +1,27 @@
+{% extends "base.mail.html" %}
+{% load i18n %}
+
+{% block content %}
+
+Hi {{ receiver_first_name }},<br/>
+<br/>
+Bedankt voor je maandelijkse 1%. Jouw bijdrage maakt een wereld van verschil!
+<br/>
+Op {{ date }} is een bedrag {{ amount }} van je rekening afgeschreven. Hieronder een overzicht van welk(e) project(en) jij de afgelopen maand hebt gesteund:
+<br/><br/>
+
+{% for donation in order.donations %}
+    <a href="{{ site }}/#!/projects/{{ donation.project.slug }}">{{ donation.project.title }}</a>
+    in {{ donation.project.projectplan.country.name }}.<br/>
+{%  endfor %}
+
+<br/><br/>
+Mede dankzij jouw support hebben we samen al heel veel projecten gerealiseerd.<br/>
+If we all share a little, together we can change the world.<br/>
+<br/>
+See you in a bit!<br/>
+<br/>
+Liane | 1%CLUB
+
+{% endblock %}
+

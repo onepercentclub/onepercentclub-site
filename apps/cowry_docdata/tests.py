@@ -27,7 +27,7 @@ class DocDataPaymentTests(TestCase):
         # Create the payment.
         order = Order()
         order.save()
-        payment = factory.create_payment_object(order, 'dd-creditcard', amount=2000, currency='EUR')
+        payment = factory.create_payment_object(order, 'dd-webmenu', amount=2000, currency='EUR')
         payment.country = 'NL'
         payment.city = 'Amsterdam'
         payment.address = 'Dam'

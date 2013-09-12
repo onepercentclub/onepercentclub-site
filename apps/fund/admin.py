@@ -79,7 +79,8 @@ admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
 class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
     list_display = ('user', 'active', 'amount', 'currency')
     list_filter = ('active',)
-    search_fields = ('user__email', 'user__username', 'user__first_name', 'user__last_name')
+    search_fields = ('user__email', 'user__username', 'user__first_name', 'user__last_name', 'account', 'iban', 'bic')
     raw_id_fields = ('user',)
+    readonly_fields = ('created', 'updated')
 
 admin.site.register(RecurringDirectDebitPayment, RecurringDirectDebitPaymentAdmin)

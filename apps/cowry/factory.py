@@ -11,7 +11,7 @@ def _load_from_module(path):
 # TODO read django settings to find out what adapters to load.
 # TODO Ensure not duplicate payment method names.
 # ADAPTERS = getattr(settings, 'COWRY_ADAPTERS')
-ADAPTERS = ('apps.cowry_docdata.adapters.DocdataPaymentAdapter',)
+ADAPTERS = ('apps.cowry_docdata.adapters.DocDataPaymentAdapter',)
 
 _adapters = []
 for adapter_str in ADAPTERS:
