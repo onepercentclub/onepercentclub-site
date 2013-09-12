@@ -11,7 +11,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from apps.cowry_docdata.adapters import WebDirectDocDataPaymentAdapter
+from apps.cowry_docdata.adapters import WebDirectDocDataDirectDebitPaymentAdapter
 from apps.cowry_docdata.exceptions import DocDataPaymentException
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.projects.models import Project, ProjectPhases
@@ -61,11 +61,17 @@ class Command(BaseCommand):
         loglevel = self.verbosity_loglevel.get(options['verbosity'])
         logger.setLevel(loglevel)
 
-        # TODO Implement --dry-run.
-
         if options['dry_run'] and options['csv_export']:
             logger.error("You cannot set both '--dry-run' and '--csv-export'.")
             sys.exit(1)
+
+        send_email = not options['no_email']
+
+        if options['dry_run']:
+            # TODO Implement --dry-run.
+            logger.warn("Config: --dry-run not fully implemented yet. Database records and payments will be created.")
+            logger.info("Config: Not sending emails.")
+            send_email = False
 
         recurring_payments_queryset = RecurringDirectDebitPayment.objects.filter(active=True)
         if options['csv_export']:
@@ -74,7 +80,7 @@ class Command(BaseCommand):
             if options['process_payment_id']:
                 recurring_payments_queryset = recurring_payments_queryset.filter(id=options['process_payment_id'])
             try:
-                process_monthly_donations(recurring_payments_queryset, not options['no_email'], options['use_openiban'])
+                process_monthly_donations(recurring_payments_queryset, send_email, options['use_openiban'])
             except:
                 print traceback.format_exc()
 
@@ -164,21 +170,41 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
 
     recurring_donation_errors = []
     RecurringDonationError = namedtuple('RecurringDonationError', 'recurring_payment error_message')
+    skipped_recurring_payments = []
+    SkippedRecurringPayment = namedtuple('SkippedRecurringPayment', 'recurring_payment orders')
     donation_count = 0
 
     # The adapter is used after the recurring Order and donations have been adjusted. It's created here so that we can
     # reuse it to process all recurring donations.
-    webdirect_payment_adapter = WebDirectDocDataPaymentAdapter()
+    webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
 
     # Fixed lists of the popular projects.
     popular_projects_all = list(Project.objects.filter(phase=ProjectPhases.campaign).order_by('-popularity'))
     top_three_projects = popular_projects_all[:3]
     popular_projects_rest = popular_projects_all[3:]
 
+    logger.info("Config: Using these projects as 'Top Three':")
+    for project in top_three_projects:
+        logger.info("  {0}".format(project.title))
+
     # The main loop that processes each monthly donation.
     for recurring_payment in recurring_payments_queryset:
         top_three_donation = False
         user_selected_projects = []
+
+        # Skip payment if there has been a recurring Order recently.
+        ten_days_ago = timezone.now() + timezone.timedelta(days=-10)
+        recent_closed_recurring_orders = Order.objects.filter(user=recurring_payment.user, status=OrderStatuses.closed,
+                                                              recurring=True, updated__gt=ten_days_ago)
+        if recent_closed_recurring_orders.count() > 0:
+            skipped_recurring_payments.append(SkippedRecurringPayment(recurring_payment, list(recent_closed_recurring_orders)))
+            logger.warn(
+                "Skipping '{0}' because it looks like it has been processed recently with one of these Orders:".format(
+                    recurring_payment))
+
+            for closed_order in recent_closed_recurring_orders:
+                logger.warn("  Order Number: {0}".format(closed_order.order_number))
+            continue
 
         # Check if there is a monthly shopping cart (Order status is 'recurring') for this recurring_payment user.
         try:
@@ -417,8 +443,10 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
     logger.info("Total number of recurring donations: {0}".format(recurring_payments_queryset.count()))
     logger.info("Number of recurring Orders successfully processed: {0}".format(donation_count))
     logger.info("Number of errors: {0}".format(len(recurring_donation_errors)))
+    logger.info("Number of skipped payments: {0}".format(len(skipped_recurring_payments)))
 
     if len(recurring_donation_errors) > 0:
+        logger.info("")
         logger.info("")
         logger.info("Detailed Error List")
         logger.info("===================")
@@ -427,3 +455,15 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
             logger.info("RecurringDirectDebitPayment: {0} {1}".format(error.recurring_payment.id, error.recurring_payment))
             logger.info("Error: {0}".format(error.error_message))
             logger.info("--")
+
+    if len(skipped_recurring_payments) > 0:
+        logger.info("")
+        logger.info("")
+        logger.info("Skipped Recurring Payments")
+        logger.info("==========================")
+        logger.info("")
+        for skipped_payment in skipped_recurring_payments:
+            logger.info("RecurringDirectDebitPayment: {0} {1}".format(skipped_payment.recurring_payment.id, skipped_payment.recurring_payment))
+            for closed_order in skipped_payment.orders:
+                logger.info("Order Number: {0}".format(closed_order.order_number))
+                logger.info("--")

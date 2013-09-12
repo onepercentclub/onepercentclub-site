@@ -552,7 +552,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
     #             new_status = 'cancelled'
 
 
-class WebDirectDocDataPaymentAdapter(DocDataPaymentAdapter):
+class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
 
     def get_payment_url(self, payment, return_url_base=None):
         raise NotImplementedError
@@ -562,7 +562,7 @@ class WebDirectDocDataPaymentAdapter(DocDataPaymentAdapter):
             # For testing we need unique merchant order references that are not based on the order number.
             return str(time.time()).replace('.', '-')
         else:
-            return super(WebDirectDocDataPaymentAdapter, self).generate_merchant_order_reference(payment)
+            return super(WebDirectDocDataDirectDebitPaymentAdapter, self).generate_merchant_order_reference(payment)
 
     def start_payment(self, payment, recurring_payment):
         # Some preconditions.
