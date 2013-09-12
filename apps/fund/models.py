@@ -102,11 +102,11 @@ class Donation(models.Model):
 
     @property
     def amount_euro(self):
-        return "%01.2f" % (self.amount / 100)
+        return "%01.2f" % (float(self.amount) / 100)
 
     @property
     def local_amount(self):
-        return "%01.2f" % (self.amount / 100)
+        return "%01.2f" % (float(self.amount) / 100)
 
     @property
     def payment_method(self):

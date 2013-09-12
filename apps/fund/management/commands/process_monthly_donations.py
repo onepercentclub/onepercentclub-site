@@ -133,7 +133,7 @@ def create_recurring_order(user, projects, order=None):
     Creates a recurring Order with donations to the supplied projects.
     """
     if not order:
-        order = Order.objects.create(status=OrderStatuses.recurring, user=user)
+        order = Order.objects.create(status=OrderStatuses.recurring, user=user, recurring=True)
 
     for p in projects:
         donation = Donation.objects.create(user=user, project=p, amount=0, currency='EUR')
