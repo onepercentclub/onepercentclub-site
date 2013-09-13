@@ -10,7 +10,6 @@ class DKIMBackend(EmailBackend):
             return False
         try:
             message_string = email_message.message().as_string()
-            print settings.DKIM_PRIVATE_KEY
             signature = dkim.sign(message_string,
                                   settings.DKIM_SELECTOR,
                                   settings.DKIM_DOMAIN,
