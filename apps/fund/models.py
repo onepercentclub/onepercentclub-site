@@ -182,7 +182,10 @@ class Order(models.Model):
             description += self.order_number + " - "
 
         description += "1%Club "
-        if not self.donations and self.vouchers:
+        if self.recurring:
+            # TODO Use English / Dutch based on user primary_language.
+            description += "MAANDELIJK DONATIE"
+        elif not self.donations and self.vouchers:
             if len(self.donations) > 1:
                 description += _("GIFTCARDS")
             else:
