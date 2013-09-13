@@ -249,6 +249,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
 
         # Check if we're above the DocData minimum for direct debit.
         if recurring_payment.amount < 113:
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
             error_message = "Payment amount for '{0}' is less than the DocData minimum for direct debit (113). Skipping.".format(
                 recurring_payment)
             logger.error(error_message)
@@ -290,6 +293,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
         # Safety check to ensure the modifications to the donations in the recurring result in an Order total that
         # matches the RecurringDirectDebitPayment.
         if recurring_payment.amount != recurring_order.total:
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
             error_message = "RecurringDirectDebitPayment amount: {0} does not equal recurring Order amount: {1} for '{2}'. Not processing this recurring donation.".format(
                 recurring_payment.amount, recurring_order.total, recurring_payment)
             logger.error(error_message)
@@ -302,6 +308,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
                 recurring_payment.bic[:4] != recurring_payment.iban[4:8]:
 
             if not use_openiban:
+                # Cleanup the Order if there's an error.
+                if top_three_donation:
+                    recurring_order.delete()
                 # Not using OpenIBAN therefore this recurring payment can't be processed.
                 error_message = "Cannot create payment because the IBAN and/or BIC are not available."
                 logger.error(error_message)
@@ -313,6 +322,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
 
                 json = response.json()
                 if 'error' in json:
+                    # Cleanup the Order if there's an error.
+                    if top_three_donation:
+                        recurring_order.delete()
                     error_message = "Received IBAN conversion error from openiban.nl:"
                     logger.error(error_message)
                     openiban_error_message = json['error']
@@ -329,6 +341,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
                 if recurring_payment.iban == '' or recurring_payment.bic == '' or \
                         not recurring_payment.iban.endswith(recurring_payment.account) or \
                         recurring_payment.bic[:4] != recurring_payment.iban[4:8]:
+                    # Cleanup the Order if there's an error.
+                    if top_three_donation:
+                        recurring_order.delete()
                     error_message = "IBAN conversion failed for '{0}', account {1}. Cannot create payment.".format(recurring_payment, recurring_payment.account)
                     logger.error(error_message)
                     recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
@@ -365,6 +380,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
         # Try to use the address from the profile if it's set.
         address = recurring_payment.user.address
         if not address:
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
             error_message = "Cannot create a payment for '{0}' because user does not have an address set.".format(recurring_payment)
             logger.error(error_message)
             recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
