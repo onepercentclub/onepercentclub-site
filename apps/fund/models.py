@@ -184,7 +184,7 @@ class Order(models.Model):
         description += "1%Club "
         if self.recurring:
             # TODO Use English / Dutch based on user primary_language.
-            description += "MAANDELIJK DONATIE"
+            description += "MAANDELIJKSE DONATIE"
         elif not self.donations and self.vouchers:
             if len(self.donations) > 1:
                 description += _("GIFTCARDS")
