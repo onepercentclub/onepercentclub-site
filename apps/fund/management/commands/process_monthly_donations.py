@@ -10,6 +10,8 @@ from optparse import make_option
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
+from django.db import connection
+from django.db import transaction
 from django.utils import timezone
 from apps.cowry_docdata.adapters import WebDirectDocDataDirectDebitPaymentAdapter
 from apps.cowry_docdata.exceptions import DocDataPaymentException
@@ -170,6 +172,21 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     update_last_donation(donations[num_donations - 1], remaining_amount, popular_projects)
 
 
+def set_order_created_datetime(recurring_order, order_created_datetime):
+    """ Uses custom SQL to set the created time of Order to a consistent value. """
+    db_table = recurring_order._meta.db_table
+    pk_name = recurring_order._meta.pk.name
+    logger.debug("Setting created and updated to {0} on Order {1}.".format(order_created_datetime, recurring_order.id))
+    cursor = connection.cursor()
+    sql_statement = "UPDATE {0} SET created = '{1}' WHERE {2} = {3}".format(db_table, order_created_datetime,
+                                                                            pk_name, recurring_order.pk)
+    cursor.execute(sql_statement)
+    sql_statement = "UPDATE {0} SET updated = '{1}' WHERE {2} = {3}".format(db_table, order_created_datetime,
+                                                                            pk_name, recurring_order.pk)
+    cursor.execute(sql_statement)
+    transaction.commit_unless_managed()
+
+
 def process_monthly_donations(recurring_payments_queryset, send_email, use_openiban):
     """ The starting point for creating DocData payments for the monthly donations. """
 
@@ -182,6 +199,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
     # The adapter is used after the recurring Order and donations have been adjusted. It's created here so that we can
     # reuse it to process all recurring donations.
     webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
+
+    # A consistent created time to use for the created recurring Orders.
+    order_created_datetime = timezone.now()
 
     # Fixed lists of the popular projects.
     popular_projects_all = list(Project.objects.filter(phase=ProjectPhases.campaign).order_by('-popularity'))
@@ -206,7 +226,6 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
             logger.warn(
                 "Skipping '{0}' because it looks like it has been processed recently with one of these Orders:".format(
                     recurring_payment))
-
             for closed_order in recent_closed_recurring_orders:
                 logger.warn("  Order Number: {0}".format(closed_order.order_number))
             continue
@@ -442,6 +461,8 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
             donation.amount = recurring_payment.amount - (amount_per_project * (num_donations - 1))
             donation.donation_type = Donation.DonationTypes.recurring
             donation.save()
+
+        set_order_created_datetime(recurring_order, order_created_datetime)
 
     logger.info("")
     logger.info("Recurring Donation Processing Summary")
