@@ -10,6 +10,8 @@ from optparse import make_option
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
+from django.db import connection
+from django.db import transaction
 from django.utils import timezone
 from apps.cowry_docdata.adapters import WebDirectDocDataDirectDebitPaymentAdapter
 from apps.cowry_docdata.exceptions import DocDataPaymentException
@@ -109,6 +111,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
         # The remaining amount won't fill up the project or we have no more projects to try. We're done.
         logger.debug(u"Donation is less than project '{0}' needs. No further adjustments are needed.".format(project.title))
         donation.amount = remaining_amount
+        donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
         return
 
@@ -117,13 +120,15 @@ def update_last_donation(donation, remaining_amount, popular_projects):
         # Fill up the project.
         logger.debug(u"Donation is more than project '{0}' needs. Filling up project and creating new donation.".format(project.title))
         donation.amount = project.projectcampaign.money_asked - project.projectcampaign.money_donated
+        donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
 
         # Create a new Donation and recursively update it with the remaining amount.
         ct = ContentType.objects.get_for_model(donation)
         order = OrderItem.ojects.get(content_type=ct, content_object=donation)
         new_project = popular_projects.pop(0)
-        new_donation = Donation.objects.create(user=donation.user, project=new_project, amount=0, currency='EUR')
+        new_donation = Donation.objects.create(user=donation.user, project=new_project, amount=0, currency='EUR',
+                                               donation_type=Donation.DonationTypes.recurring)
         OrderItem.objects.create(content_object=new_donation, order=order)
         update_last_donation(new_donation, remaining_amount - donation.amount, popular_projects)
 
@@ -136,7 +141,8 @@ def create_recurring_order(user, projects, order=None):
         order = Order.objects.create(status=OrderStatuses.recurring, user=user, recurring=True)
 
     for p in projects:
-        donation = Donation.objects.create(user=user, project=p, amount=0, currency='EUR')
+        donation = Donation.objects.create(user=user, project=p, amount=0, currency='EUR',
+                                           donation_type=Donation.DonationTypes.recurring)
         OrderItem.objects.create(content_object=donation, order=order)
 
     return order
@@ -158,11 +164,27 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
             donation.amount = project.projectcampaign.money_asked - project.projectcampaign.money_donated
         else:
             donation.amount = amount_per_project
+        donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
         remaining_amount -= donation.amount
 
     # Update the last donation with the remaining amount.
     update_last_donation(donations[num_donations - 1], remaining_amount, popular_projects)
+
+
+def set_order_created_datetime(recurring_order, order_created_datetime):
+    """ Uses custom SQL to set the created time of Order to a consistent value. """
+    db_table = recurring_order._meta.db_table
+    pk_name = recurring_order._meta.pk.name
+    logger.debug("Setting created and updated to {0} on Order {1}.".format(order_created_datetime, recurring_order.id))
+    cursor = connection.cursor()
+    sql_statement = "UPDATE {0} SET created = '{1}' WHERE {2} = {3}".format(db_table, order_created_datetime,
+                                                                            pk_name, recurring_order.pk)
+    cursor.execute(sql_statement)
+    sql_statement = "UPDATE {0} SET updated = '{1}' WHERE {2} = {3}".format(db_table, order_created_datetime,
+                                                                            pk_name, recurring_order.pk)
+    cursor.execute(sql_statement)
+    transaction.commit_unless_managed()
 
 
 def process_monthly_donations(recurring_payments_queryset, send_email, use_openiban):
@@ -177,6 +199,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
     # The adapter is used after the recurring Order and donations have been adjusted. It's created here so that we can
     # reuse it to process all recurring donations.
     webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
+
+    # A consistent created time to use for the created recurring Orders.
+    order_created_datetime = timezone.now()
 
     # Fixed lists of the popular projects.
     popular_projects_all = list(Project.objects.filter(phase=ProjectPhases.campaign).order_by('-popularity'))
@@ -201,7 +226,6 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
             logger.warn(
                 "Skipping '{0}' because it looks like it has been processed recently with one of these Orders:".format(
                     recurring_payment))
-
             for closed_order in recent_closed_recurring_orders:
                 logger.warn("  Order Number: {0}".format(closed_order.order_number))
             continue
@@ -225,6 +249,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
 
         # Check if we're above the DocData minimum for direct debit.
         if recurring_payment.amount < 113:
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
             error_message = "Payment amount for '{0}' is less than the DocData minimum for direct debit (113). Skipping.".format(
                 recurring_payment)
             logger.error(error_message)
@@ -266,6 +293,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
         # Safety check to ensure the modifications to the donations in the recurring result in an Order total that
         # matches the RecurringDirectDebitPayment.
         if recurring_payment.amount != recurring_order.total:
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
             error_message = "RecurringDirectDebitPayment amount: {0} does not equal recurring Order amount: {1} for '{2}'. Not processing this recurring donation.".format(
                 recurring_payment.amount, recurring_order.total, recurring_payment)
             logger.error(error_message)
@@ -278,6 +308,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
                 recurring_payment.bic[:4] != recurring_payment.iban[4:8]:
 
             if not use_openiban:
+                # Cleanup the Order if there's an error.
+                if top_three_donation:
+                    recurring_order.delete()
                 # Not using OpenIBAN therefore this recurring payment can't be processed.
                 error_message = "Cannot create payment because the IBAN and/or BIC are not available."
                 logger.error(error_message)
@@ -289,6 +322,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
 
                 json = response.json()
                 if 'error' in json:
+                    # Cleanup the Order if there's an error.
+                    if top_three_donation:
+                        recurring_order.delete()
                     error_message = "Received IBAN conversion error from openiban.nl:"
                     logger.error(error_message)
                     openiban_error_message = json['error']
@@ -305,6 +341,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
                 if recurring_payment.iban == '' or recurring_payment.bic == '' or \
                         not recurring_payment.iban.endswith(recurring_payment.account) or \
                         recurring_payment.bic[:4] != recurring_payment.iban[4:8]:
+                    # Cleanup the Order if there's an error.
+                    if top_three_donation:
+                        recurring_order.delete()
                     error_message = "IBAN conversion failed for '{0}', account {1}. Cannot create payment.".format(recurring_payment, recurring_payment.account)
                     logger.error(error_message)
                     recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
@@ -341,6 +380,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
         # Try to use the address from the profile if it's set.
         address = recurring_payment.user.address
         if not address:
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
             error_message = "Cannot create a payment for '{0}' because user does not have an address set.".format(recurring_payment)
             logger.error(error_message)
             recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
@@ -430,11 +472,15 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
             for i in range(0, num_donations - 1):
                 donation = donations[i]
                 donation.amount = amount_per_project
+                donation.donation_type = Donation.DonationTypes.recurring
                 donation.save()
             # Update the last donation with the remaining amount.
             donation = donations[num_donations - 1]
             donation.amount = recurring_payment.amount - (amount_per_project * (num_donations - 1))
+            donation.donation_type = Donation.DonationTypes.recurring
             donation.save()
+
+        set_order_created_datetime(recurring_order, order_created_datetime)
 
     logger.info("")
     logger.info("Recurring Donation Processing Summary")

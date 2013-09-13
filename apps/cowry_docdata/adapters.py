@@ -599,18 +599,11 @@ class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
         # Execute start payment request.
         reply = self.client.service.start(self.merchant, payment.payment_order_id, paymentRequestInput)
         if hasattr(reply, 'startSuccess'):
-            # Create the DocDataPayment object to save the info and statuses for the WebDirect payment.
-            ddpayment = DocDataWebDirectDirectDebit()
-            ddpayment.account_city = recurring_payment.city
-            ddpayment.account_name = recurring_payment.name
-            ddpayment.iban = recurring_payment.iban
-            ddpayment.bic = recurring_payment.bic
-            ddpayment.docdata_payment_order = payment
-            ddpayment.payment_method = 'DIRECT_DEBIT'
-            ddpayment.payment_id = str(reply['startSuccess']['paymentId'])
-            ddpayment.save()
 
             self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
+
+            update_docdata_webdirect_direct_debit_payment(payment, str(reply['startSuccess']['paymentId']),
+                                                          recurring_payment)
 
         elif hasattr(reply, 'startError'):
             error = reply['startError']['error']
@@ -622,3 +615,24 @@ class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
             error_message = 'Received unknown reply from DocData. WebDirect payment not created.'
             logger.error(error_message)
             raise DocDataPaymentException('REPLY_ERROR', error_message)
+
+
+# TODO This method (and delay) should be processed asynchronously by celery.
+def update_docdata_webdirect_direct_debit_payment(payment, payment_id, recurring_payment):
+    # The delay is here to give DocData some time to call our status changed API which creates the
+    # DocDataWebDirectDirectDebit object.
+    time.sleep(6)
+    try:
+        ddpayment = DocDataWebDirectDirectDebit.objects.get(payment_id=payment_id)
+    except DocDataWebDirectDirectDebit.DoesNotExist:
+        # Create the DocDataPayment object to save the info and statuses for the WebDirect payment.
+        ddpayment = DocDataWebDirectDirectDebit()
+        ddpayment.docdata_payment_order = payment
+        ddpayment.payment_method = 'DIRECT_DEBIT'
+        ddpayment.payment_id = payment_id
+
+    ddpayment.account_city = recurring_payment.city
+    ddpayment.account_name = recurring_payment.name
+    ddpayment.iban = recurring_payment.iban
+    ddpayment.bic = recurring_payment.bic
+    ddpayment.save()

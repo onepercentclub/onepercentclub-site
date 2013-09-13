@@ -51,7 +51,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'recurring')
     list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'recurring')
     raw_id_fields = ('user',)
-    readonly_fields = ('recurring', 'total', 'order_number')
+    readonly_fields = ('recurring', 'total', 'order_number', 'created', 'updated')
     fields = readonly_fields + ('user', 'status')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'order_number')
     inlines = (OrderItemInline, DocDataPaymentOrderInline,)
