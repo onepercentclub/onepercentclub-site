@@ -140,14 +140,16 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         city.fill(self.donate_details['city'])
 
         # Click on the NEXT button
-
         self.browser.find_by_css('button.btn.right').first.click()
+        time.sleep(2)
+        # Don't sign up. Skip this form.
+        self.browser.find_link_by_partial_text('Skip').first.click()
+
         self.assertTrue(self.browser.is_text_present("YOU'RE ALMOST THERE!", wait_time=10))
         
         # Proceed with the payment
 
-        # TODO: There should not be a restricted URL on the staging server. This prevents testing.
-        # self.browser.find_by_css('a.btn.payment-link').first.click()
+        # self.browser.find_link_by_partial_text('Proceed').first.click()
         # self.assertTrue(self.browser.is_text_present('YOUR PAYMENT'))
         # self.assertTrue(self.browser.url.find('https://test.docdatapayments.com/') != -1)
         #

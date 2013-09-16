@@ -215,6 +215,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         ])
         self.browser.fill_form_by_label(fieldsets[2], [
             ('Account type', 'person'),
+            ('Primary language', 'en'),
             ('I want to share', [True, True]),
         ])
         self.browser.fill_form_by_label(fieldsets[3], [
@@ -222,7 +223,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
             ('Address Line 2', ''),
             ('City', 'Amsterdam'),
             ('Province / State', 'North-Holland'),
-            ('Postal Code', '1234 AB'),
+            ('Postal Code', '1234AB'),
             ('Country', 'NL'),
             ('Gender', [None, 'male', None]),
             ('Date of birth', '01/01/1980')
@@ -246,7 +247,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.assertEqual(user.address.city, 'Amsterdam')
         self.assertEqual(user.address.state, 'North-Holland')
         self.assertEqual(user.address.country, country)
-        self.assertEqual(user.address.postal_code, '1234 AB')
+        self.assertEqual(user.address.postal_code, '1234AB')
 
     def test_forgot_password(self):
         # Create and activate user.

@@ -495,6 +495,7 @@ App.Router.map(function() {
         this.route('donationList', {path: '/donations'});
         this.route('voucherList', {path: '/giftcards'});
         this.resource('paymentProfile', {path: '/details'});
+        this.resource('paymentSignup', {path: '/signup'});
         this.resource('paymentSelect', {path: '/payment'}, function() {
             this.route('paymentError', {path: '/error'});
             this.resource('recurringDirectDebitPayment', {path: '/recurring'});
@@ -1106,6 +1107,19 @@ App.PaymentProfileRoute = Em.Route.extend({
 
     model: function(params) {
         return App.PaymentProfile.find('current');
+    }
+});
+
+
+App.PaymentSignupRoute = Em.Route.extend({
+    model: function(params) {
+        var model = App.UserCreate.createRecord();
+        return App.PaymentProfile.find('current').then(function(profile){
+            model.set('email', profile.get('email'));
+            model.set('first_name', profile.get('firstName'));
+            model.set('last_name', profile.get('lastName'));
+            return model;
+        });
     }
 });
 
