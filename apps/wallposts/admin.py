@@ -1,6 +1,7 @@
 from apps.bluebottle_utils.utils import set_author_editor_ip
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from apps.wallposts.models import SystemWallPost
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 from sorl.thumbnail.admin.compat import AdminImageMixin
 from .models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
@@ -27,6 +28,13 @@ class TextWallPostAdmin(PolymorphicChildModelAdmin):
     ordering =  ('-created', )
 
 
+class SystemWallPostAdmin(PolymorphicChildModelAdmin):
+    base_model = WallPost
+    list_display = ('created', 'author', 'content_type', 'related_type', 'text')
+    raw_id_fields = ('author', 'editor')
+    ordering =  ('-created', )
+
+
 class WallPostParentAdmin(PolymorphicParentModelAdmin):
     """ The parent model admin """
     base_model = WallPost
@@ -35,6 +43,7 @@ class WallPostParentAdmin(PolymorphicParentModelAdmin):
     child_models = (
         (MediaWallPost, MediaWallPostAdmin),
         (TextWallPost, TextWallPostAdmin),
+        (SystemWallPost, SystemWallPostAdmin),
     )
 
 # Only the parent needs to be registered:
@@ -42,6 +51,7 @@ admin.site.register(WallPost, WallPostParentAdmin)
 
 admin.site.register(MediaWallPost, MediaWallPostAdmin)
 admin.site.register(TextWallPost, TextWallPostAdmin)
+admin.site.register(SystemWallPost, SystemWallPostAdmin)
 
 
 class ReactionAdmin(admin.ModelAdmin):

@@ -1,10 +1,13 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch.dispatcher import receiver
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django.conf import settings
+from apps.fund.models import Donation, DonationStatuses
 from polymorphic import PolymorphicModel
 from .managers import ReactionManager, WallPostManager
 
@@ -76,6 +79,19 @@ class TextWallPost(WallPost):
         return Truncator(self.text).words(10)
 
 
+class SystemWallPost(WallPost):
+    # The content of the wall post.
+    text = models.TextField(max_length=WALLPOST_REACTION_MAX_LENGTH, blank=True)
+
+    # Generic foreign key so we can connect any object to it.
+    related_type = models.ForeignKey(ContentType, verbose_name=_('related type'))
+    related_id = models.PositiveIntegerField(_('related ID'))
+    related_object = generic.GenericForeignKey('related_type', 'related_id')
+
+    def __unicode__(self):
+        return Truncator(self.text).words(10)
+
+
 class Reaction(models.Model):
     """
     A user reaction or comment to a WallPost. This model is based on the Comments model from django.contrib.comments.
@@ -107,4 +123,21 @@ class Reaction(models.Model):
     def __unicode__(self):
         s = "{0}: {1}".format(self.author.get_full_name(), self.text)
         return Truncator(s).words(10)
+
+
+@receiver(post_save, weak=False, sender=Donation)
+def create_donation_post(sender, instance, **kwargs):
+    donation = instance
+    if donation.status in [DonationStatuses.paid, DonationStatuses.pending]:
+        try:
+            donation_type = ContentType.objects.get_for_model(donation)
+            post = SystemWallPost.objects.filter(related_id=donation.id).filter(related_type=donation_type).get()
+        except SystemWallPost.DoesNotExist:
+            if donation.donation_type == Donation.DonationTypes.one_off:
+                post = SystemWallPost()
+                post.content_object = donation.project
+                post.related_object = donation
+                post.author = donation.user
+                post.ip = '127.0.0.1'
+                post.save()
 
