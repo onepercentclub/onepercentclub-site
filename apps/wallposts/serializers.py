@@ -1,6 +1,6 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField, ImageSerializer, PhotoSerializer
-from apps.wallposts.models import WallPost
+from apps.wallposts.models import WallPost, SystemWallPost
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
@@ -93,10 +93,25 @@ class TextWallPostSerializer(WallPostSerializerBase):
         fields = WallPostSerializerBase.Meta.fields + ('text',)
 
 
+class SystemWallPostSerializer(WallPostSerializerBase):
+    """
+    Serializer for TextWallPosts. This should not be used directly but instead should be subclassed for the specific
+    model it's a WallPost about. See ProjectTextWallPost for an example.
+    """
+    type = WallPostTypeField(type='system')
+    text = ContentTextField()
+    related_type = serializers.CharField(source='related_type.name')
+
+    class Meta:
+        model = TextWallPost
+        fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type')
+
+
 class WallPostSerializer(PolymorphicSerializer):
 
     class Meta:
         child_models = (
             (TextWallPost, TextWallPostSerializer),
             (MediaWallPost, MediaWallPostSerializer),
+            (SystemWallPost, SystemWallPostSerializer),
         )

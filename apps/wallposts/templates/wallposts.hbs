@@ -140,7 +140,11 @@
 
 	        {{#each item in items itemController="wallPost"}}
 	            {{#if item.isLoaded}}
-	                {{view "App.ProjectWallPostView"}}
+                    {{#if item.isSystemWallPost}}
+    	                {{view "App.SystemWallPostView"}}
+                    {{else}}
+    	                {{view "App.ProjectWallPostView"}}
+                    {{/if}}
 	            {{/if}}
 	        {{/each}}
         	
@@ -222,21 +226,7 @@
 
         <!-- reaction-box -->
         <div class="reaction-box">
-            <ul class="reaction-actions not-implemented">
-                <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">{{reactions.length}} Comments</a></li>
-                <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
-                <li class="share">
-                    <strong>Share this</strong>
-                    <ul class="share-actions">
-                        <li class="share-facebook">Share on Facebook</li>
-                        <li class="share-twitter"><a href="#">Share on Twitter</a></li>
-                        <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
-                    </ul>
-                </li>
-            </ul>
-
             {{render "wallPostReactionList" reactions}}
-
         </div>
         <!-- end: reaction-box -->
 
@@ -244,6 +234,46 @@
 
 
 {% endtplhandlebars %}
+
+
+{% tplhandlebars "system_wallpost" %}
+
+    <article class="wallpost system-wallpost">
+        <header class="user">
+
+            <span class="post-type-icon">
+                <em class="flaticon solid">&euro;</em>
+                Donation
+            </span>
+            {{#if author}}
+                <a {{action openInBigBox "userModal" author}} class="initiator">
+                    <strong class="user-name">{{author.full_name}}</strong>
+                </a>
+                {% trans "Made a donation" %}
+            {{else}}
+                {% trans "Someone made a donation" %}
+            {{/if}}
+            {{#if created}}
+                <em class="timestamp">{{ localize created formatting="X" }}</em>
+            {{/if}}
+
+            {{#if isAuthor}}
+                <ul class="manage">
+                    {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}
+                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}><em class="flaticon solid trash-2"></em> {% trans "Delete" %}</a></li>
+                </ul>
+            {{/if}}
+        </header>
+
+        <div class="reaction-box">
+            {{render "wallPostReactionList" reactions}}
+        </div>
+
+    </article>
+
+
+{% endtplhandlebars %}
+
 
 
 {% tplhandlebars "task_wallpost_new" %}
@@ -299,21 +329,7 @@
 
         <!-- reaction-box -->
         <div class="reaction-box">
-            <ul class="reaction-actions not-implemented">
-                <li><a class="toggle-reactions" data-content="2 Comments" data-content-hover="Show comments" data-content-toggled="2 Comments" data-content-toggled-hover="Hide comments">{{reactions.length}} Comments</a></li>
-                <li><a class="toggle-love" data-content="22 love this" data-content-hover="Show your love!" data-content-toggled="23 - You loved this" data-content-toggled-hover="Unlove?">22 love this</a></li>
-                <li class="share">
-                    <strong>Share this</strong>
-                    <ul class="share-actions">
-                        <li class="share-facebook">Share on Facebook</li>
-                        <li class="share-twitter"><a href="#">Share on Twitter</a></li>
-                        <li class="share-url"><code>http://1pr.cc/237429/</code><a href="#" class="share-url-copy">Copy</a></li>
-                    </ul>
-                </li>
-            </ul>
-
             {{render "wallPostReactionList" reactions}}
-
         </div>
         <!-- end: reaction-box -->
 

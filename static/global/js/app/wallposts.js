@@ -18,12 +18,17 @@ App.WallPost = DS.Model.extend({
     author: DS.belongsTo('App.UserPreview'),
     title: DS.attr('string'),
     text: DS.attr('string'),
+    type: DS.attr('string'),
     created: DS.attr('date'),
     reactions: DS.hasMany('App.WallPostReaction'),
 
     video_url: DS.attr('string'),
     video_html: DS.attr('string'),
-    photos: DS.hasMany('App.ProjectWallPostPhoto')
+    photos: DS.hasMany('App.ProjectWallPostPhoto'),
+
+    isSystemWallPost: function(){
+        return (this.get('type') == 'system');
+    }.property('type')
 });
 
 
@@ -267,6 +272,11 @@ App.TextWallPostNewView = Em.View.extend({
     didInsertElement: function() {
         this.get('controller').clearWallPost();
     }
+});
+
+
+App.SystemWallPostView = Em.View.extend({
+    templateName: 'system_wallpost'
 });
 
 
