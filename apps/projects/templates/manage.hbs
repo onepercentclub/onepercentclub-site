@@ -907,7 +907,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 {{/if}}
             </li>
 
-            <li class="control-group has-popover" data-content="{% trans "Please scan and upload your passport or ID and the registration document. Don’t have it? It is also possible to upload the passport of ID of the person named in the registration document." %}">
+            <li class="control-group has-popover" data-content="{% trans "please upload a copy of your passport. Make sure it's a valid one and we can read it clearly!" %}">
                 <label class="control-label">
                     {% trans "Documents" %} ({{organization.documents.length}})<br />
                     <small>
@@ -1183,13 +1183,15 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
     <div class="form-meta">
         <div class="form-label">{% trans "Budget needed" %}</div>
         <div class="form-desc">
-            {% blocktrans %}
-            Time to let us know how the money that you will be raising will be spent! Be sure to give us a
-            detailed insight in your budget as it will only make your credibility go up. Just one little suggestion
-            before you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a
-            large amount and have nothing in the end. Also, there are certain things not allowed to ask money for.
-            Check them in our <a href="/#!/pages/faq-projects">FAQ</a>.
-            {% endblocktrans %}
+{% blocktrans %}
+Time to let us know how the money that you will be raising will be spent! Be sure to give us a
+detailed insight in your budget as it will only make your credibility go up. Just one little suggestion
+before you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a
+large amount and have nothing in the end. Also, there are certain things not allowed to ask money for.
+Check them in our <a href="/#!/pages/faq-projects">FAQ</a>.
+<br/>
+Please add 5% administration fee to your budget. The total amount, including the fee, cannot exceed 5.000 Euro.
+{% endblocktrans %}
         </div>
     </div>
 
