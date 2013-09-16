@@ -412,83 +412,99 @@
 
 {% tplhandlebars "paymentSignup" %}
 
-<div class="content">
-	<form>
+{{#if controllers.currentUser.isAuthenticated}}
+    <div class="content">
+        <form>
 
-		<div class="form-meta">
-	    	<div class="form-label">{% trans "Stay up to date!" %}</div>
-	        <div class="form-desc">
-                {% blocktrans %}Join 1%Club and we'll keep you updated with the projects you supported.{% endblocktrans %}<br />
-                {{#unless controllers.currentUser.isAuthenticated}}
-                    {% trans "Already have an account?" %}
-                    <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
-                    {% trans "to load your profile." %}
-                {{/unless}}
+            <div class="form-meta">
+                <div class="form-label">{% trans "We'll keep you up to date!" %}</div>
+                <div class="form-desc">
+                    {% blocktrans %}You already have an account. Great! We'll keep you updated with the progress of the projects you support.{% endblocktrans %}<br />
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+{{else}}
+    <div class="content">
+        <form>
+
+            <div class="form-meta">
+                <div class="form-label">{% trans "Stay up to date!" %}</div>
+                <div class="form-desc">
+                    {% blocktrans %}Join 1%Club and we'll keep you updated with the projects you supported.{% endblocktrans %}<br />
+                    {{#unless controllers.currentUser.isAuthenticated}}
+                        {% trans "Already have an account?" %}
+                        <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
+                        {% trans "to load your profile." %}
+                    {{/unless}}
+                </div>
+
+
             </div>
 
+            <fieldset>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">{% trans "Your full name" %}</label>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+                            {{view Em.TextField valueBinding="last_name" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
+                        </div>
+                    </li>
+                    <li class="control-group">
+                        <label class="control-label">{% trans "Email" %}</label>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
+                        </div>
+                        {{#if errors.email }}
+                            <div class="errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
 
-	    </div>
+                    <li class="control-group">
+                        <label class="control-label">{% trans "Password" %}</label>
+                        <div class="controls">
+                            {{view Em.TextField type="password" valueBinding="password" classBinding="errors.password.length:error"}}
+                        </div>
+                        {{#if errors.password }}
+                            <div class="errors">{{#each errors.password }}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
 
-	    <fieldset>
-	        <ul>
-                <li class="control-group">
-                    <label class="control-label">{% trans "Your full name" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
-                        {{view Em.TextField valueBinding="last_name" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
-                    </div>
-                </li>
-	            <li class="control-group">
-	                <label class="control-label">{% trans "Email" %}</label>
-	                <div class="controls">
-	                    {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
-	                </div>
-	                {{#if errors.email }}
-	                    <div class="errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
-	                {{/if}}
-	            </li>
+                    <li class="control-group">
+                        <label class="control-label">{% trans "Password again" %}</label>
+                        <div class="controls">
+                            {{view Em.TextField type="password" valueBinding="password2" classBinding="errors.password2.length:error"}}
+                        </div>
+                        {{#if errors.password2 }}
+                            <div class="errors">{{#each errors.password2 }}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
 
-	            <li class="control-group">
-	                <label class="control-label">{% trans "Password" %}</label>
-	                <div class="controls">
-	                    {{view Em.TextField type="password" valueBinding="password" classBinding="errors.password.length:error"}}
-	                </div>
-	                {{#if errors.password }}
-	                    <div class="errors">{{#each errors.password }}<p>{{this}}</p>{{/each}}</div>
-	                {{/if}}
-	            </li>
+                </ul>
+            </fieldset>
 
-	            <li class="control-group">
-	                <label class="control-label">{% trans "Password again" %}</label>
-	                <div class="controls">
-	                    {{view Em.TextField type="password" valueBinding="password2" classBinding="errors.password2.length:error"}}
-	                </div>
-	                {{#if errors.password2 }}
-	                    <div class="errors">{{#each errors.password2 }}<p>{{this}}</p>{{/each}}</div>
-	                {{/if}}
-	            </li>
+            <div class="signup-agree">
+                {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
+                <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
+            </div>
+            {{#linkTo 'paymentSelect' class="skip"}}<em class="flaticon solid right-2"></em>Skip this step{{/linkTo}}
 
-	        </ul>
-	    </fieldset>
+            {{#if isFormReady }}
+                <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+            {{else}}
+                <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+            {{/if}}
 
-        <div class="signup-agree">
-            {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
-            <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
-        </div>
-        {{#linkTo 'paymentSelect' class="skip"}}<em class="flaticon solid right-2"></em>Skip this step{{/linkTo}}
+        </form>
+    </div>
 
-	    {{#if isFormReady }}
-            <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
-	    {{else}}
-	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
-	    {{/if}}
-
-	</form>
-</div>
-
-<div class="sidebar tip">
-	<h3>{% trans "Get involved" %}</h3>
-</div>
+    <div class="sidebar tip">
+        <h3>{% trans "Get involved" %}</h3>
+    </div>
+{{/if}}
 
 {% endtplhandlebars %}
 

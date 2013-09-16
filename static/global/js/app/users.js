@@ -128,6 +128,10 @@ App.CurrentUser = App.UserPreview.extend({
     }.property('id_for_ember'),
     primary_language: DS.attr('string'),
 
+    isAuthenticated: function(){
+        return (this.get('username')) ? true : false;
+    }.property('username'),
+
     // This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
     // App.UserSettingsModel.find(App.CurrentUser.find('current').get('id_for_ember'));
     id_for_ember: DS.attr('number')
@@ -176,11 +180,7 @@ App.CurrentUserController = Em.ObjectController.extend({
     init: function() {
         this._super();
         this.set("model", App.CurrentUser.find('current'));
-    },
-
-    isAuthenticated: function(){
-        return (this.get('username')) ? true : false;
-    }.property('username')
+    }
 });
 
 
