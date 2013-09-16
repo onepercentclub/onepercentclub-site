@@ -67,6 +67,12 @@
         color: $color-back !important;
     }
 
+    &.alternate {
+        border-color: transparent !important;
+        background-color: transparent !important;
+        color: $grayLight !important;
+    }
+
     &.next {
         float: right;
         padding-right: 42px;

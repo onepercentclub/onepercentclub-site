@@ -435,13 +435,18 @@ App.PaymentProfileController = Em.ObjectController.extend({
 
     updateProfile: function() {
         var profile = this.get('model');
+        var user = this.get('controllers.currentUser.model');
         // Set profile model to the 'updated' state so that the 'didUpdate' callback will always be run.
         profile.get('stateManager').goToState('updated');
         var controller = this;
         profile.one('didUpdate', function(record) {
             var currentOrder = controller.get('controllers.currentOrder');
             currentOrder.set('paymentProfileComplete', true);
-            controller.transitionToRoute('paymentSelect');
+            if (user.get('isAuthenticated')) {
+                controller.transitionToRoute('paymentSelect');
+            } else {
+                controller.transitionToRoute('paymentSignup');
+            }
         });
         profile.one('becameInvalid', function(record) {
             controller.get('model').set('errors', record.get('errors'));
@@ -455,6 +460,35 @@ App.PaymentProfileController = Em.ObjectController.extend({
                !Em.isEmpty(this.get('address')) && !Em.isEmpty(this.get('postalCode')) && !Em.isEmpty(this.get('city')) &&
                !Em.isEmpty(this.get('country'));
     }.property('firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country')
+});
+
+
+App.PaymentSignupController = Em.ObjectController.extend({
+    needs: ['paymentProfile', 'currentUser'],
+
+    initTransaction: function() {
+        var transaction = this.get('store').transaction();
+        this.set('transaction', transaction);
+        transaction.add(this.get('model'));
+    }.observes('model'),
+
+    createUser: function() {
+        var user = this.get('model');
+        var controller = this;
+        user.one('didCreate', function(user) {
+            controller.transitionToRoute('paymentSelect');
+        });
+        user.one('becameInvalid', function(record) {
+            controller.get('model').set('errors', record.get('errors'));
+            // Note: We're reusing the transaction in this case but it seems to work.
+        });
+        this.get('transaction').commit();
+    },
+
+    isFormReady: function() {
+        return !Em.isEmpty(this.get('email')) && !Em.isEmpty(this.get('password')) && !Em.isEmpty(this.get('password2'))
+        && this.get('password') == this.get('password2');
+    }.property('email', 'password', 'password2')
 });
 
 
@@ -689,6 +723,13 @@ App.PaymentProfileView = Em.View.extend({
     submit: function(e) {
         e.preventDefault();
         this.get('controller').updateProfile();
+    }
+});
+
+App.PaymentSignupView = Em.View.extend({
+    submit: function(e) {
+        e.preventDefault();
+        this.get('controller').createUser();
     }
 });
 
