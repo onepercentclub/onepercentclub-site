@@ -76,6 +76,19 @@ class TextWallPost(WallPost):
         return Truncator(self.text).words(10)
 
 
+class SystemWallPost(WallPost):
+    # The content of the wall post.
+    text = models.TextField(max_length=WALLPOST_REACTION_MAX_LENGTH, blank=True)
+
+    # Generic foreign key so we can connect any object to it.
+    related_type = models.ForeignKey(ContentType, verbose_name=_('related type'))
+    related_id = models.PositiveIntegerField(_('related ID'))
+    related_object = generic.GenericForeignKey('related_type', 'related_id')
+
+    def __unicode__(self):
+        return Truncator(self.text).words(10)
+
+
 class Reaction(models.Model):
     """
     A user reaction or comment to a WallPost. This model is based on the Comments model from django.contrib.comments.

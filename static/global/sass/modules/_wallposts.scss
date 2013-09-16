@@ -32,7 +32,6 @@
             @include allowremove;
         }
     }
-    
 }
 
 #wallposts {
@@ -75,6 +74,10 @@
 	            float: right;
 	        }
 	    }
+        &.system-wallpost {
+            header {
+            }
+        }
 	    
 	    .content {
 	        @include grid(48, 11, 1);
@@ -99,13 +102,26 @@
 	        position: relative;
 	        display: block;
 	    }
-	 
-	    .user-img, .header-img {
+
+	    .user-img, .header-img, .post-type-icon {
 	        @include rem(width, 70px);
+	        @include rem(height, 70px);
 	        position: absolute;
 	        top: 0;
 	        left: 0;
 	        @include prepend(4);
 	    }
+        .post-type-icon {
+            .flaticon {
+                @include rem(font-size, 40px);
+                display: block;
+            }
+            @include rem(padding, $padding 0);
+            font-weight: 600;
+            background-color: $color-back;
+            color: $white;
+            text-align: center;
+            text-transform: uppercase;
+        }
 	}
 }
