@@ -475,7 +475,7 @@
             {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
             <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
         </div>
-        {{#linkTo 'paymentSelect'}}<em class="flaticon solid right-2"></em>Skip this step{{/linkTo}}
+        {{#linkTo 'paymentSelect' class="skip"}}<em class="flaticon solid right-2"></em>Skip this step{{/linkTo}}
 
 	    {{#if isFormReady }}
             <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
