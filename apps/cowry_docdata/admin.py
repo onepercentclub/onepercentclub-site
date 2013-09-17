@@ -1,5 +1,7 @@
+from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
+from django.utils import translation
 from .models import DocDataPaymentOrder, DocDataPayment, DocDataPaymentLogEntry
 
 
@@ -23,10 +25,16 @@ class DocDataPaymentInline(admin.TabularInline):
 
 class DocDataPaymentOrderAdmin(admin.ModelAdmin):
     list_filter = ('status',)
-    list_display = ('created', 'amount', 'currency', 'status')
+    list_display = ('created', 'amount_override', 'status')
     raw_id_fields = ('order',)
-    search_fields = ('payment_order_id', 'merchant_order_reference',)
+    search_fields = ('payment_order_id', 'merchant_order_reference')
     inlines = (DocDataPaymentInline, DocDataPaymentLogEntryInine)
+
+    def amount_override(self, obj):
+        language = translation.get_language()
+        return format_currency(obj.amount / 100, obj.currency, locale=language)
+
+    amount_override.short_description = 'amount'
 
 admin.site.register(DocDataPaymentOrder, DocDataPaymentOrderAdmin)
 

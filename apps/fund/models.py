@@ -1,11 +1,13 @@
 import logging
 import random
+from babel.numbers import format_currency
 from django.conf import settings
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.utils import translation
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
@@ -101,14 +103,6 @@ class Donation(models.Model):
     donation_type = models.CharField(_("Type"), max_length=20, choices=DonationTypes.choices, default=DonationTypes.one_off, db_index=True)
 
     @property
-    def amount_euro(self):
-        return "%01.2f" % (float(self.amount) / 100)
-
-    @property
-    def local_amount(self):
-        return "%01.2f" % (float(self.amount) / 100)
-
-    @property
     def payment_method(self):
         ctype = ContentType.objects.get_for_model(Donation)
         order_ids = OrderItem.objects.filter(content_type__pk=ctype.id,
@@ -125,7 +119,9 @@ class Donation(models.Model):
         verbose_name_plural = _("donations")
 
     def __unicode__(self):
-        return str(self.id) + ' : ' + self.project.title + ' : EUR ' + str(self.amount_euro)
+        language = translation.get_language()
+        return u'{0} : {1} : {2}'.format(str(self.id), self.project.title,
+                                         format_currency(self.amount / 100, self.currency, locale=language))
 
 
 class OrderStatuses(DjangoChoices):
@@ -276,10 +272,6 @@ class Voucher(models.Model):
     receiver_name = models.CharField(_("Receiver name"), blank=True, default="", max_length=100)
 
     donations = models.ManyToManyField('Donation')
-
-    @property
-    def amount_euro(self):
-        return self.amount / 100
 
     class Meta:
         # Note: This can go back to 'Voucher' when we figure out a proper way to do EN -> EN translations for branding.
