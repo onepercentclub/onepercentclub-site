@@ -98,8 +98,8 @@ class UserSettingsSerializer(serializers.ModelSerializer):
         if source in attrs:
             value = attrs[source]
             country_code = ''
-            if 'country' in attrs:
-                country_code = attrs['country']
+            if 'address.country.alpha2_code' in attrs:
+                country_code = attrs['address.country.alpha2_code']
             elif self.object and self.object.address and self.object.address.country:
                 country_code = self.object.address.country.alpha2_code
 
