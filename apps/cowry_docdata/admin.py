@@ -22,17 +22,16 @@ class DocDataPaymentInline(admin.TabularInline):
 
 
 class DocDataPaymentOrderAdmin(admin.ModelAdmin):
+    list_filter = ('status',)
     list_display = ('created', 'amount', 'currency', 'status')
-    model = DocDataPaymentOrder
     raw_id_fields = ('order',)
+    search_fields = ('payment_order_id', 'merchant_order_reference',)
     inlines = (DocDataPaymentInline, DocDataPaymentLogEntryInine)
 
 admin.site.register(DocDataPaymentOrder, DocDataPaymentOrderAdmin)
 
 
 class DocDataPaymentLogEntryAdmin(admin.ModelAdmin):
-    model = DocDataPaymentLogEntry
-
     # List view.
     list_display = ('payment', 'type', 'level', 'message')
     list_filter = ('type', 'level', 'timestamp')
