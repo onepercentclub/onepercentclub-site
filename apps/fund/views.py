@@ -465,7 +465,7 @@ class OrderCurrentDonationDetail(OrderItemMixin, OrderItemDestroyMixin, CurrentO
 
 
 def adjust_anonymous_current_order(sender, request, user, **kwargs):
-    if request.session.has_key(anon_order_id_session_key):
+    if anon_order_id_session_key in request.session:
         try:
             anon_current_order = Order.objects.get(id=request.session.pop(anon_order_id_session_key))
         except Order.DoesNotExist:
@@ -485,6 +485,21 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
                         order_item.order = user_current_order
                         order_item.save()
 
+                    # Cancel the payments on the anonymous 'current' order and move them to the the user 'current' order.
+                    if anon_current_order.payments.count() > 0:
+                        for payment in anon_current_order.payments.all():
+                            payment.order = user_current_order
+                            payment.save()
+
+                            if payment.status != PaymentStatuses.new:
+                                try:
+                                    payments.cancel_payment(payment)
+                                except(NotImplementedError, PaymentException) as e:
+                                    logger.warn(
+                                        "Problem cancelling payment on anonymous cart Order when transferring user cart Order {0}: {1}".format(
+                                            user_current_order.id, e))
+
+                    # Finally delete the anonymous 'current' order.
                     anon_current_order.delete()
             else:
                 # Anonymous cart order does not have status 'current' - just assign it to the user.

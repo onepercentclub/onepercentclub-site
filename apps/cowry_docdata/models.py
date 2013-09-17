@@ -76,4 +76,4 @@ class DocDataPaymentLogEntry(PaymentLogEntry):
     class Meta:
         ordering = ('-timestamp',)
         verbose_name = _("DocData Payment Log")
-        verbose_name_plural = _("DocData Payment Logs")
+        verbose_name_plural = verbose_name
