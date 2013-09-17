@@ -140,7 +140,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 0)
 
-        # Login as the first user and cart should 2 donations - one that was there and the one from
+        # Login as the first user and cart should have 2 donations - one that was there and the one from
         # the anonymous cart that was automatically added.
         self.client.login(username=self.some_user.email, password='password')
         response = self.client.get(self.current_donations_url)

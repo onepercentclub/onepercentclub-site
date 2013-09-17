@@ -4,7 +4,7 @@ from docdata.interface import PaymentInterface
 from django.conf import settings
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry.models import PaymentStatuses, PaymentLogLevels
-from apps.cowry_docdata.adapters import log_status_update, log_status_change
+from apps.cowry_docdata.adapters import log_status
 from apps.cowry_docdata.models import DocDataPayment
 
 logger = logging.getLogger(__name__)
@@ -77,8 +77,8 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
         #  u'payout_process': u'new'}
 
         if not status_report and status_changed_notification:
-            log_status_update(payment, PaymentLogLevels.warn,
-                              "Status changed notification received but status report was empty.")
+            log_status(payment, PaymentLogLevels.warn,
+                       "Status changed notification received but status report was empty.")
             return
 
         # Find or create the DocDataPayment for current report.
@@ -103,13 +103,13 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
 
         if not status_report[status_key] in self.status_mapping:
             # Note: We continue to process the payment status change on this error.
-            log_status_update(payment, PaymentLogLevels.error,
-                              "Received unknown payment status from DocData: {0}".format(status_report[status_key]))
+            log_status(payment, PaymentLogLevels.error,
+                       "Received unknown payment status from DocData: {0}".format(status_report[status_key]))
 
         # Update the DocDataPayment status.
         if ddpayment.status != status_report[status_key]:
-            log_status_change(payment, PaymentLogLevels.info, "DocData Payment: {0} -> {1}".format(ddpayment.status,
-                                                                                                   status_report[status_key]))
+            log_status(payment, PaymentLogLevels.info, "DocData Payment: {0} -> {1}".format(ddpayment.status,
+                                                                                            status_report[status_key]))
             ddpayment.status = status_report[status_key]
             ddpayment.save()
 
@@ -119,11 +119,11 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
             if new_status not in PaymentStatuses.values:
-                log_status_change(payment, PaymentLogLevels.warn,
-                                  "Payment {0} -> {1}".format(old_status, PaymentStatuses.unknown))
+                log_status(payment, PaymentLogLevels.warn,
+                           "Payment {0} -> {1}".format(old_status, PaymentStatuses.unknown))
             else:
-                log_status_change(payment, PaymentLogLevels.info,
-                                  "Payment {0} -> {1}".format(old_status, new_status))
+                log_status(payment, PaymentLogLevels.info,
+                           "Payment {0} -> {1}".format(old_status, new_status))
 
         self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
@@ -158,7 +158,7 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
 
         # Status mapping override.
         if status_report[u'meta_considered_safe'] == u'true':
-            log_status_update(payment, PaymentLogLevels.info, "meta_considered_safe = true")
+            log_status(payment, PaymentLogLevels.info, "meta_considered_safe = true")
             new_status = PaymentStatuses.paid
 
         return new_status

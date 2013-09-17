@@ -318,12 +318,13 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             # TODO: determine what should be in project number_of_people_reached_indirect?
             # sfproject.number_of_people_reached_indirect = (project.fundphase.impact_indirect_male +
             #                                                project.fundphase.impact_indirect_female)
-            try:
-                sfproject.organization_account = SalesforceOrganization.objects.get(
-                    external_id=project_plan.organization.id)
-            except SalesforceOrganization.DoesNotExist:
-                logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
-                    project_plan.organization.id, project.id))
+            if project_plan.organization:
+                try:
+                    sfproject.organization_account = SalesforceOrganization.objects.get(
+                        external_id=project_plan.organization.id)
+                except SalesforceOrganization.DoesNotExist:
+                    logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
+                        project_plan.organization.id, project.id))
 
         sfproject.project_url = "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug)
 
