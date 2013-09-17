@@ -506,7 +506,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
             if new_status not in PaymentStatuses.values:
-                log_status(payment, PaymentLogLevels.warn,
+                log_status(payment, PaymentLogLevels.error,
                            "Payment status changed {0} -> {1}".format(old_status, PaymentStatuses.unknown))
             else:
                 log_status(payment, PaymentLogLevels.info,
