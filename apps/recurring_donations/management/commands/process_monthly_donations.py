@@ -85,7 +85,7 @@ class Command(BaseCommand):
 
 
 def generate_monthly_donations_csv(recurring_payments_queryset):
-    csv_path = os.path.join(settings.PROJECT_ROOT, 'monthly-donors-{0}.csv'.format(timezone.now().date()))
+    csv_path = os.path.expanduser('~/monthly-donors-{0}.csv'.format(timezone.now().date()))
     logger.info("Saving monthly donations CSV file to:")
     logger.info("  {0}".format(csv_path))
     with open(csv_path, 'wb') as csv_file:
