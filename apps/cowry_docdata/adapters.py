@@ -125,6 +125,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
     status_mapping = {
         'NEW': PaymentStatuses.new,
         'STARTED': PaymentStatuses.in_progress,
+        'REDIRECTED_FOR_AUTHENTICATION': PaymentStatuses.in_progress,
         'AUTHORIZED': PaymentStatuses.pending,
         'AUTHORIZATION_REQUESTED': PaymentStatuses.pending,
         'PAID': PaymentStatuses.pending,
