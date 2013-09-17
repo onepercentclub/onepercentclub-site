@@ -496,11 +496,12 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
                                       latest_payment_report.authorization)
 
         # Detect a nasty error condition that needs to be manually fixed.
-        total_registered = report.approximateTotals.totalRegistered
-        if total_registered != payment.amount or total_registered != payment.order.total:
-            log_status(payment, PaymentLogLevels.error,
-                       "Payment amount: {0} or Order total: {1} does not equal Total Registered: {2}.".format(
-                           payment.amount, payment.order.total, report.approximateTotals.totalRegistered))
+        if new_status != PaymentStatuses.cancelled:
+            total_registered = report.approximateTotals.totalRegistered
+            if total_registered != payment.amount or total_registered != payment.order.total:
+                log_status(payment, PaymentLogLevels.error,
+                           "Payment amount: {0} or Order total: {1} does not equal Total Registered: {2}.".format(
+                               payment.amount, payment.order.total, report.approximateTotals.totalRegistered))
 
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
