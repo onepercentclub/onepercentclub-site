@@ -130,9 +130,9 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         'AUTHORIZATION_REQUESTED': PaymentStatuses.pending,
         'PAID': PaymentStatuses.pending,
         'CANCELED': PaymentStatuses.cancelled,
-        'CHARGED-BACK': PaymentStatuses.cancelled,
+        'CHARGED-BACK': PaymentStatuses.refunded,
         'CONFIRMED_PAID': PaymentStatuses.paid,
-        'CONFIRMED_CHARGEDBACK': PaymentStatuses.cancelled,
+        'CONFIRMED_CHARGEDBACK': PaymentStatuses.refunded,
         'CLOSED_SUCCESS': PaymentStatuses.paid,
         'CLOSED_CANCELED': PaymentStatuses.cancelled,
     }
