@@ -407,9 +407,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             return
 
         if not hasattr(report, 'payment'):
-            if status_changed_notification:
-                log_status(payment, PaymentLogLevels.warn,
-                           "Status changed notification received but status report had no payment reports.")
+            log_status(payment, PaymentLogLevels.info, "DocData status report has no payment reports.")
             return
 
         statusChanged = False
