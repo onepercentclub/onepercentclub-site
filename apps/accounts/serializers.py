@@ -4,8 +4,6 @@ from apps.bluebottle_drf2.serializers import SorlImageField, ImageSerializer
 from apps.bluebottle_utils.validators import validate_postal_code
 from apps.geo.models import Country
 from django import forms
-from django.contrib.sites.models import Site
-from registration.models import RegistrationProfile
 from rest_framework import serializers
 
 

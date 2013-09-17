@@ -1,16 +1,14 @@
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectFollower
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign
 from django.db.models.query_utils import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation, DonationStatuses
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectFollowerSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
-import django_filters
 from rest_framework import generics
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
@@ -285,28 +283,6 @@ class ManageProjectCampaignDetail(generics.RetrieveUpdateAPIView):
     model = ProjectCampaign
     serializer_class = ProjectCampaignSerializer
     permission_classes = (EditablePlanOrReadOnly, IsProjectOwner, )
-
-
-class ProjectFollowerList(generics.ListCreateAPIView):
-    model = ProjectFollower
-    serializer_class = ProjectFollowerSerializer
-    filter_fields = ('project', 'user')
-
-    def pre_save(self, obj):
-        obj.user = self.request.user
-
-
-class ProjectFollowerLDetail(generics.RetrieveDestroyAPIView):
-    model = ProjectFollower
-    serializer_class = ProjectFollowerSerializer
-
-    def get_queryset(self):
-        """
-        Only show object for current user
-        """
-        queryset = super(ProjectFollowerLDetail, self).get_queryset()
-        queryset = queryset.filter(user=self.request.user)
-        return queryset
 
 # Django template Views
 

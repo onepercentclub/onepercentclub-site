@@ -1,6 +1,6 @@
 from apps.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectCampaign, ProjectFollower
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectCampaign
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -212,13 +212,3 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
             (TextWallPost, ProjectTextWallPostSerializer),
             (MediaWallPost, ProjectMediaWallPostSerializer),
         )
-
-
-class ProjectFollowerSerializer(serializers.ModelSerializer):
-
-    project = serializers.SlugRelatedField(slug_field='slug')
-    user = UserPreviewSerializer()
-    filter_fields = ('project', 'user')
-
-    class Meta:
-        model = ProjectFollower

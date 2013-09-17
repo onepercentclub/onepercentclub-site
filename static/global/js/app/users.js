@@ -135,6 +135,7 @@ App.CurrentUser = App.UserPreview.extend({
     // This is a hack to work around an issue with Ember-Data keeping the id as 'current'.
     // App.UserSettingsModel.find(App.CurrentUser.find('current').get('id_for_ember'));
     id_for_ember: DS.attr('number')
+
 });
 
 

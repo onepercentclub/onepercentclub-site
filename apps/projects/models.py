@@ -437,11 +437,6 @@ class ProjectBudgetLine(models.Model):
         return self.description + " : " + str(self.amount)
 
 
-class ProjectFollower(models.Model):
-    project = models.ForeignKey(Project)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-
-
 @receiver(post_save, weak=False, sender=Project)
 def progress_project_phase(sender, instance, created, **kwargs):
     # Skip all post save logic during fixture loading.

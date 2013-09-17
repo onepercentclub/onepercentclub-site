@@ -1,5 +1,5 @@
 import logging
-from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme, ProjectPhases, ProjectFollower
+from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme, ProjectPhases
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.utils.html import escape
@@ -240,10 +240,3 @@ class ProjectThemeAdmin(admin.ModelAdmin):
 
 admin.site.register(ProjectTheme, ProjectThemeAdmin)
 
-
-class ProjectFollowerAdmin(admin.ModelAdmin):
-    list_display = ('project', 'user')
-    model = ProjectFollower
-    raw_id_fields = ('project', 'user')
-
-admin.site.register(ProjectFollower, ProjectFollowerAdmin)

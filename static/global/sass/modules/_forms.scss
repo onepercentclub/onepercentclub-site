@@ -228,6 +228,18 @@ input[type="radio"] {
 	cursor: hand;
 	cursor: pointer;
     @include rem(margin-right, ($padding / 2));
+    &.small {
+        opacity: 100;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+input[type="checkbox"].small + label,
+input[type="radio"].small + label {
+	cursor: hand;
+	cursor: pointer;
+    display: inline;
 }
 
 input[type="checkbox"] + span,
@@ -241,6 +253,7 @@ input[type="radio"] + span {
 	background-position: sprite-position($icons, form-checkbox-default, 0, 0);
 	background-repeat: no-repeat;
 }
+
 
 input[type="radio"] + span {
     background-image: $icons;
