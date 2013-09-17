@@ -47,10 +47,6 @@ class Command(BaseCommand):
         make_option('--no-email', action='store_true', dest='no_email', default=False,
                     help="Don't send the monthly donation email to users."),
 
-        make_option('--use-openiban', action='store_true', dest='use_openiban', default=False,
-                    help=("Use the OpenIBAN test service to convert Dutch accounts to IBAN / BIC. "
-                          "This option defaults to False because the test service contains incorrect data.")),
-
         make_option('--csv-export', action='store_true', dest='csv_export', default=False,
                     help="Generate CSV export of monthly donors with donations amounts."),
 
@@ -83,7 +79,7 @@ class Command(BaseCommand):
             if options['process_payment_id']:
                 recurring_payments_queryset = recurring_payments_queryset.filter(id=options['process_payment_id'])
             try:
-                process_monthly_donations(recurring_payments_queryset, send_email, options['use_openiban'])
+                process_monthly_donations(recurring_payments_queryset, send_email)
             except:
                 print traceback.format_exc()
 
@@ -188,7 +184,7 @@ def set_order_created_datetime(recurring_order, order_created_datetime):
     transaction.commit_unless_managed()
 
 
-def process_monthly_donations(recurring_payments_queryset, send_email, use_openiban):
+def process_monthly_donations(recurring_payments_queryset, send_email):
     """ The starting point for creating DocData payments for the monthly donations. """
 
     recurring_donation_errors = []
@@ -303,52 +299,19 @@ def process_monthly_donations(recurring_payments_queryset, send_email, use_openi
             recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
             continue
 
-        # Try to get the IBAN / BIC if it isn't stored correctly on the RecurringDirectDebitPayment.
+        # Check if the IBAN / BIC is stored correctly on the RecurringDirectDebitPayment.
         if recurring_payment.iban == '' or recurring_payment.bic == '' or \
                 not recurring_payment.iban.endswith(recurring_payment.account) or \
                 recurring_payment.bic[:4] != recurring_payment.iban[4:8]:
 
-            if not use_openiban:
-                # Cleanup the Order if there's an error.
-                if top_three_donation:
-                    recurring_order.delete()
-                # Not using OpenIBAN therefore this recurring payment can't be processed.
-                error_message = "Cannot create payment because the IBAN and/or BIC are not available."
-                logger.error(error_message)
-                recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
-                continue
-            else:
-                # Try to convert account.
-                response = requests.get('http://www.openiban.nl/?rekeningnummer={0}&output=json'.format(recurring_payment.account))
+            # Cleanup the Order if there's an error.
+            if top_three_donation:
+                recurring_order.delete()
 
-                json = response.json()
-                if 'error' in json:
-                    # Cleanup the Order if there's an error.
-                    if top_three_donation:
-                        recurring_order.delete()
-                    error_message = "Received IBAN conversion error from openiban.nl:"
-                    logger.error(error_message)
-                    openiban_error_message = json['error']
-                    logger.error(openiban_error_message)
-                    recurring_donation_errors.append(RecurringDonationError(recurring_payment, "{0} {1}".format(error_message, openiban_error_message)))
-                    continue
-                else:
-                    logger.debug("Adding IBAN and BIC to RecurringDirectDebitPayment {0}.".format(recurring_payment.id))
-                    recurring_payment.iban = json['iban']
-                    recurring_payment.bic = json['bic']
-                    recurring_payment.save()
-
-                # Re-run the same check to see if the conversion worked.
-                if recurring_payment.iban == '' or recurring_payment.bic == '' or \
-                        not recurring_payment.iban.endswith(recurring_payment.account) or \
-                        recurring_payment.bic[:4] != recurring_payment.iban[4:8]:
-                    # Cleanup the Order if there's an error.
-                    if top_three_donation:
-                        recurring_order.delete()
-                    error_message = "IBAN conversion failed for '{0}', account {1}. Cannot create payment.".format(recurring_payment, recurring_payment.account)
-                    logger.error(error_message)
-                    recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
-                    continue
+            error_message = "Cannot create payment because the IBAN and/or BIC are not available."
+            logger.error(error_message)
+            recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
+            continue
 
         # Create and fill in the DocDataPaymentOrder.
         payment = DocDataPaymentOrder()
