@@ -40,11 +40,6 @@ class Payment(PolymorphicModel):
     order = models.ForeignKey('fund.Order', related_name='payments')
 
 
-class PaymentLogTypes(DjangoChoices):
-    status_update = ChoiceItem('status_update', label=_("STATUS_UPDATE"))
-    status_change = ChoiceItem('status_change', label=_("STATUS_CHANGE"))
-
-
 class PaymentLogLevels(DjangoChoices):
     info = ChoiceItem('info', label=_("INFO"))
     warn = ChoiceItem('warn', label=_("WARN"))
@@ -55,8 +50,7 @@ class PaymentLogLevels(DjangoChoices):
 class PaymentLogEntry(models.Model):
     message = models.CharField(max_length=200)
     level = models.CharField(max_length=15, choices=PaymentLogLevels.choices)
-    type = models.CharField(max_length=15, choices=PaymentLogTypes.choices)
-    timestamp = ModificationDateTimeField()
+    timestamp = CreationDateTimeField()
     # TODO: Enable when not abstract.
     # payment = models.ForeignKey(Payment, related_name='log_entries')
 

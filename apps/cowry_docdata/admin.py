@@ -8,7 +8,7 @@ class DocDataPaymentLogEntryInine(admin.TabularInline):
     can_delete = False
     extra = 0
     max_num = 0
-    fields = ('timestamp', 'type', 'level', 'message')
+    fields = ('timestamp', 'level', 'message')
     readonly_fields = fields
 
 
@@ -33,8 +33,8 @@ admin.site.register(DocDataPaymentOrder, DocDataPaymentOrderAdmin)
 
 class DocDataPaymentLogEntryAdmin(admin.ModelAdmin):
     # List view.
-    list_display = ('payment', 'type', 'level', 'message')
-    list_filter = ('type', 'level', 'timestamp')
+    list_display = ('payment', 'level', 'message')
+    list_filter = ('level', 'timestamp')
     search_fields = ('message',)
 
     def payment(self, obj):

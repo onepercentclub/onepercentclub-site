@@ -5,7 +5,7 @@ import unicodedata
 from decimal import Decimal, ROUND_HALF_UP
 from urllib2 import URLError
 from apps.cowry.adapters import AbstractPaymentAdapter
-from apps.cowry.models import PaymentStatuses, PaymentLogTypes, PaymentLogLevels
+from apps.cowry.models import PaymentStatuses, PaymentLogLevels
 from django.conf import settings
 from django.utils.http import urlencode
 from suds.client import Client
@@ -84,13 +84,8 @@ default_payment_methods = {
 }
 
 
-def log_status_update(payment, level, message):
-    log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level=level, message=message, type=PaymentLogTypes.status_update)
-    log_entry.save()
-
-
-def log_status_change(payment, level, message):
-    log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level=level, message=message, type=PaymentLogTypes.status_change)
+def log_status(payment, level, message):
+    log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level=level, message=message)
     log_entry.save()
 
 
@@ -402,18 +397,18 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             error = reply['statusError']['error']
             error_message = "{0} {1}".format(error['_code'], error['value'])
             logger.error(error_message)
-            log_status_update(payment, PaymentLogLevels.error, error_message)
+            log_status(payment, PaymentLogLevels.error, error_message)
             return
         else:
             error_message = "REPLY_ERROR Received unknown status reply from DocData."
             logger.error(error_message)
-            log_status_update(payment, PaymentLogLevels.error, error_message)
+            log_status(payment, PaymentLogLevels.error, error_message)
             return
 
         if not hasattr(report, 'payment'):
             if status_changed_notification:
-                log_status_update(payment, PaymentLogLevels.warn,
-                                  "Status changed notification received but status report had no payment reports.")
+                log_status(payment, PaymentLogLevels.warn,
+                           "Status changed notification received but status report had no payment reports.")
             return
 
         statusChanged = False
@@ -431,8 +426,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
                 elif ddpayment_list_len == 1:
                     ddpayment = ddpayment_list[0]
                 else:
-                    log_status_update(payment, PaymentLogLevels.error,
-                                      "Cannot determine where to save the payment report.")
+                    log_status(payment, PaymentLogLevels.error, "Cannot determine where to save the payment report.")
                     continue
 
                 # Save some information from the report.
@@ -459,34 +453,34 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
                         payment.save()
 
                     else:
-                        log_status_update(payment, PaymentLogLevels.warn,
-                                          "Can't set payment fee for {0} because payment method is not in COWRY_DOCDATA_FEES.".format(
-                                          ddpayment.payment_id))
+                        log_status(payment, PaymentLogLevels.warn,
+                                   "Can't set payment fee for {0} because payment method is not in COWRY_DOCDATA_FEES.".format(
+                                       ddpayment.payment_id))
                 else:
-                    log_status_update(payment, PaymentLogLevels.warn,
-                                      "Can't set payment fee for {0} because COWRY_DOCDATA_FEES is not in set.".format(
-                                          ddpayment.payment_id))
+                    log_status(payment, PaymentLogLevels.warn,
+                               "Can't set payment fee for {0} because COWRY_DOCDATA_FEES is not in set.".format(
+                                   ddpayment.payment_id))
 
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.payment_method:
-                log_status_update(payment, PaymentLogLevels.warn,
-                                  "Payment method from DocData doesn't match saved payment method." \
-                                  "Storing the payment method received from DocData for payment id {0}: {1}".format(
-                                      ddpayment.payment_id, payment_report.paymentMethod))
+                log_status(payment, PaymentLogLevels.warn,
+                           "Payment method from DocData doesn't match saved payment method. "
+                           "Storing the payment method received from DocData for payment id {0}: {1}".format(
+                               ddpayment.payment_id, payment_report.paymentMethod))
                 ddpayment.payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
             if not payment_report.authorization.status in self.status_mapping:
                 # Note: We continue to process the payment status change on this error.
-                log_status_update(payment, PaymentLogLevels.error,
-                                  "Received unknown payment status from DocData: {0}".format(
-                                      payment_report.authorization.status))
+                log_status(payment, PaymentLogLevels.error,
+                           "Received unknown payment status from DocData: {0}".format(
+                               payment_report.authorization.status))
 
             # Update the DocDataPayment status.
             if ddpayment.status != payment_report.authorization.status:
-                log_status_change(payment, PaymentLogLevels.info,
-                                  "DocData payment status changed for payment id {0}: {1} -> {2}".format(
-                                      payment_report.id, ddpayment.status, payment_report.authorization.status))
+                log_status(payment, PaymentLogLevels.info,
+                           "DocData payment status changed for payment id {0}: {1} -> {2}".format(
+                               payment_report.id, ddpayment.status, payment_report.authorization.status))
                 ddpayment.status = str(payment_report.authorization.status)
                 ddpayment.save()
                 statusChanged = True
@@ -505,18 +499,18 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         # Detect a nasty error condition that needs to be manually fixed.
         total_registered = report.approximateTotals.totalRegistered
         if total_registered != payment.amount or total_registered != payment.order.total:
-            log_status_update(payment, PaymentLogLevels.error,
-                              "Payment amount: {0} or Order total: {1} does not equal Total Registered: {2}.".format(
-                                  payment.amount, payment.order.total, report.approximateTotals.totalRegistered))
+            log_status(payment, PaymentLogLevels.error,
+                       "Payment amount: {0} or Order total: {1} does not equal Total Registered: {2}.".format(
+                           payment.amount, payment.order.total, report.approximateTotals.totalRegistered))
 
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
             if new_status not in PaymentStatuses.values:
-                log_status_change(payment, PaymentLogLevels.warn,
-                                  "Payment status changed {0} -> {1}".format(old_status, PaymentStatuses.unknown))
+                log_status(payment, PaymentLogLevels.warn,
+                           "Payment status changed {0} -> {1}".format(old_status, PaymentStatuses.unknown))
             else:
-                log_status_change(payment, PaymentLogLevels.info,
-                                  "Payment status changed {0} -> {1}".format(old_status, new_status))
+                log_status(payment, PaymentLogLevels.info,
+                           "Payment status changed {0} -> {1}".format(old_status, new_status))
 
         self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
@@ -533,8 +527,8 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         # long time for acquirers or shoppers to actually have the money transferred and it can be
         # captured.
         #
-        log_status_update(payment, PaymentLogLevels.info,
-                          "Total Registered: {0} Total Captured: {1}".format(totals.totalRegistered, totals.totalCaptured))
+        log_status(payment, PaymentLogLevels.info,
+                   "Total Registered: {0} Total Captured: {1}".format(totals.totalRegistered, totals.totalCaptured))
         if totals.totalRegistered == totals.totalCaptured:
             new_status = PaymentStatuses.paid
 

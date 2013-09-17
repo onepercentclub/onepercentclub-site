@@ -1,7 +1,6 @@
 import logging
 import re
-from apps.cowry import payments
-from apps.cowry.models import PaymentLogLevels, PaymentLogTypes
+from apps.cowry.models import PaymentLogLevels
 from rest_framework import generics
 from rest_framework import response
 from rest_framework import status
@@ -27,7 +26,7 @@ class StatusChangedNotificationLegacyView(generics.GenericAPIView):
                     return response.Response(status=status.HTTP_403_FORBIDDEN)
 
                 # Update the status for the payment.
-                status_log = DocDataPaymentLogEntry(docdata_payment_order=payment, level=PaymentLogLevels.info, type=PaymentLogTypes.status_update)
+                status_log = DocDataPaymentLogEntry(docdata_payment_order=payment, level=PaymentLogLevels.info)
                 status_log.message = 'Received status changed notification for merchant_order_reference {0}.'.format(order)
                 status_log.save()
                 payment_adapter.update_payment_status(payment, status_changed_notification=True)
