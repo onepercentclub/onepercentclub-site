@@ -29,3 +29,6 @@ INSTALLED_APPS += (
     'salesforce',
     'apps.bluebottle_salesforce',
 )
+
+# Send email for real
+EMAIL_BACKEND = 'apps.bluebottle_utils.email_backend.DKIMBackend'
