@@ -3,13 +3,14 @@ from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin.templatetags.admin_static import static
 from django.utils import translation
 from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment
 
 
 class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'donation_type', 'payment_method')
+    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method')
     list_filter = ('status',)
     raw_id_fields = ('user', 'project')
     readonly_fields = ('view_order',)
@@ -30,6 +31,16 @@ class DonationAdmin(admin.ModelAdmin):
         return format_currency(obj.amount / 100, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
+
+    def type(self, obj):
+        recurring = obj.donation_type == Donation.DonationTypes.recurring
+        icon_url = static(
+            'fund/icon-{0}.png'.format({True: 'recurring-donation', False: 'one-time-donation'}[recurring]))
+        alt_text = {True: 'Recurring', False: 'One-time'}[recurring]
+        return '<img alt="{0}" src="{1}" />'.format(alt_text, icon_url)
+
+    type.allow_tags = True
+    type.short_description = 'type'
 
 admin.site.register(Donation, DonationAdmin)
 
@@ -63,9 +74,9 @@ class DocDataPaymentOrderInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'recurring')
-    list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'recurring')
+    list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'type')
     raw_id_fields = ('user',)
-    readonly_fields = ('recurring', 'total', 'order_number', 'created', 'updated')
+    readonly_fields = ('type', 'total', 'order_number', 'created', 'updated')
     fields = readonly_fields + ('user', 'status')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'order_number')
     inlines = (OrderItemInline, DocDataPaymentOrderInline,)
@@ -73,6 +84,15 @@ class OrderAdmin(admin.ModelAdmin):
     def total(self, obj):
         language = translation.get_language()
         return format_currency(obj.total / 100, 'EUR', locale=language)
+
+    def type(self, obj):
+        icon_url = static(
+            'fund/icon-{0}.png'.format({True: 'recurring-donation', False: 'one-time-donation'}[obj.recurring]))
+        alt_text = {True: 'Recurring', False: 'One-time'}[obj.recurring]
+        return '<img alt="{0}" src="{1}" />'.format(alt_text, icon_url)
+
+    type.allow_tags = True
+    type.short_description = 'type'
 
 admin.site.register(Order, OrderAdmin)
 
