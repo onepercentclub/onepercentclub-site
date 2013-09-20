@@ -348,9 +348,10 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
             process_voucher_order_in_progress(voucher)
 
     #
-    # Payment: in_progress -> cancelled
+    # Payment: -> cancelled; Order is 'current'
     #
-    if old_status == PaymentStatuses.in_progress and new_status == PaymentStatuses.cancelled:
+    if new_status == PaymentStatuses.cancelled and order.status == OrderStatuses.current:
+
         # Donations.
         for donation in order.donations:
             donation.status = DonationStatuses.new
@@ -358,6 +359,28 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
         # Vouchers.
         # TODO Implement vouchers.
+
+    #
+    # Payment: -> cancelled; Order is 'closed'
+    #
+    elif new_status == PaymentStatuses.cancelled and order.status == OrderStatuses.closed:
+        if order.status != OrderStatuses.closed:
+            order.status = OrderStatuses.closed
+            order.save()
+
+        # Donations.
+        for donation in order.donations:
+            donation.status = DonationStatuses.failed
+            donation.save()
+
+        # Vouchers.
+        # TODO Implement vouchers.
+
+    #
+    # Payment: -> cancelled; Order is not 'closed' or 'current'
+    #
+    elif new_status == PaymentStatuses.cancelled:
+        logger.error("PaymentStatuses.cancelled when Order {0} has status {1}.".format(order.id, order.status))
 
     #
     # Payment: -> pending
