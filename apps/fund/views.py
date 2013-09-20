@@ -479,11 +479,17 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
                     # There isn't a current order for the so we just need to assign it to the user.
                     anon_current_order.user = user
                     anon_current_order.save()
+                    for donation in anon_current_order.donations:
+                        donation.user = user
+                        donation.save()
                 else:
                     # Copy the order items from the anonymous 'current' order to the user 'current' order and remove it.
                     for order_item in anon_current_order.orderitem_set.all():
                         order_item.order = user_current_order
                         order_item.save()
+                    for donation in user_current_order.donations:
+                        donation.user = user
+                        donation.save()
 
                     # Cancel the payments on the anonymous 'current' order and move them to the the user 'current' order.
                     if anon_current_order.payments.count() > 0:
@@ -505,6 +511,9 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
                 # Anonymous cart order does not have status 'current' - just assign it to the user.
                 anon_current_order.user = user
                 anon_current_order.save()
+                for donation in anon_current_order.donations:
+                    donation.user = user
+                    donation.save()
 
 user_logged_in.connect(adjust_anonymous_current_order)
 
