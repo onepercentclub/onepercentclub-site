@@ -14475,65 +14475,15 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 =======
 =======
 /*
-Syntax error: File to import not found or unreadable: shared.
-              Load paths:
-                /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass
-                /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets
-                /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets
-                /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-0.10.4/stylesheets
-                /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp-0.1.1/stylesheets
-                /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-normalize-1.4.3/stylesheets
-                /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.3.2.1/vendor/assets/stylesheets
-                /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.9/sass
-                /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-4.3.1/scss
-                Compass::SpriteImporter
-                /vendor/assets/stylesheets
-                /vendor/assets/stylesheets
-                /vendor/assets/stylesheets
-        on line 1 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/compass/css3/_images.scss
-        from line 9 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/compass/_css3.scss
-        from line 11 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss
-
-1: /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss
+Syntax error: Invalid CSS after "...t "base/forms";": expected selector or at-rule, was "<<<<<<< HEAD"
+        on line 38 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss
 
 Backtrace:
-/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/compass/css3/_images.scss:1
-/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/compass/_css3.scss:9
-/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss:11
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/import_node.rb:67:in `import'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/import_node.rb:65:in `import'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/import_node.rb:28:in `imported_file'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/import_node.rb:36:in `css_import?'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:217:in `visit_import'
-org/jruby/RubyKernel.java:2109:in `send'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:227:in `visit_import'
-org/jruby/RubyArray.java:2339:in `collect'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:227:in `visit_import'
-org/jruby/RubyKernel.java:2109:in `send'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:227:in `visit_import'
-org/jruby/RubyArray.java:2339:in `collect'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:227:in `visit_import'
-org/jruby/RubyKernel.java:2109:in `send'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-org/jruby/RubyArray.java:2339:in `collect'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:109:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
-org/jruby/RubyKernel.java:2109:in `send'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
-org/jruby/RubyKernel.java:2109:in `send'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:7:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/root_node.rb:20:in `render'
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss:38
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:1146:in `expected'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:1083:in `expected'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:28:in `parse'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/engine.rb:342:in `_to_tree'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/engine.rb:315:in `_render'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/engine.rb:262:in `render'
 file:/Applications/compass.app/Contents/Resources/Java/compass-app.jar!/compass_patch.rb:60:in `compile'
@@ -14577,6 +14527,13 @@ org/jruby/RubyProc.java:224:in `call'
 body:before {
   white-space: pre;
   font-family: monospace;
+<<<<<<< HEAD
   content: "Syntax error: File to import not found or unreadable: shared.\A               Load paths:\A                 /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-0.10.4/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp-0.1.1/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-normalize-1.4.3/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.3.2.1/vendor/assets/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.9/sass\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-4.3.1/scss\A                 Compass::SpriteImporter\A                 /vendor/assets/stylesheets\A                 /vendor/assets/stylesheets\A                 /vendor/assets/stylesheets\A         on line 1 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/compass/css3/_images.scss\A         from line 9 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/compass/_css3.scss\A         from line 11 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss\A \A 1: /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss"; }
 >>>>>>> First attempt for SVG logo
+<<<<<<< HEAD
 >>>>>>> First attempt for SVG logo
+=======
+=======
+  content: "Syntax error: Invalid CSS after \"...t \"base/forms\";\": expected selector or at-rule, was \"<<<<<<< HEAD\"\A         on line 38 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss"; }
+>>>>>>> Fix alignment buttons
+>>>>>>> Fix alignment buttons
