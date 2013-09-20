@@ -634,6 +634,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
+    needs: ['currentUser'],
     donationType: '',
 
     updateRecurring: function() {

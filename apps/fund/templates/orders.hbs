@@ -33,7 +33,12 @@
                 </sidebar>
                 {%endcomment%}
                 
-                <ul class="tabs steps">
+                {{#if controllers.currentUser.isAuthenticated}}
+                	<ul class="tabs steps three">
+                {{else}}
+                	<ul class="tabs steps four">
+                {{/if}}
+                
 	                {{#if controller.isVoucherOrder}}
 	                    {%comment%}
 	                    Voucher code is disabled for now.
@@ -50,10 +55,12 @@
 	                {{#view App.OrderNavView classNames="details"}}
 	                    {{#linkTo "paymentProfile"}}<em class="flaticon solid house-2"></em> {% trans "Details" %}{{/linkTo}}
 	                {{/view}}
-	
-	                {{#view App.OrderNavView classNames="profile"}}
-	                    {{#linkTo "paymentSignup"}}<em class="flaticon solid user-2"></em> {% trans "Profile" %}{{/linkTo}}
-	                {{/view}}
+	                
+					{{#unless controllers.currentUser.isAuthenticated}}
+	                	{{#view App.OrderNavView classNames="profile"}}
+	                   		{{#linkTo "paymentSignup"}}<em class="flaticon solid user-2"></em> {% trans "Profile" %}{{/linkTo}}
+					   	{{/view}}
+					{{/unless}}
 
 	                {{#view App.OrderNavView classNames="payment"}}
 	                    {{#linkTo "paymentSelect"}}<em class="flaticon solid wallet-1"></em> {% trans "Payment" %}{{/linkTo}}
@@ -333,9 +340,7 @@
 <div class="sidebar tip">
 
 	{{#unless controllers.currentUser.isAuthenticated}}
-	    <div class="login">
-	        <a {{action openInBox "login"}} class="nav-login"><strong>{% trans "Have an account?" %}</strong> {%  trans "Log in here" %}</a>
-	    </div>
+		<a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
 	{{/unless}}
 
     <h3>{% trans "Did you know?" %}</h3>
@@ -487,17 +492,18 @@
                 </ul>
             </fieldset>
 
-            <div class="signup-agree">
+            <div class="user-agree">
                 {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
                 <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
             </div>
-            {{#linkTo 'paymentSelect' class="skip"}}<em class="flaticon solid right-2"></em>Skip this step{{/linkTo}}
-
+            
             {{#if isFormReady }}
                 <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
             {{else}}
                 <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
             {{/if}}
+            
+            {{#linkTo 'paymentSelect' class="btn-skip"}}Skip this step{{/linkTo}}
 
         </form>
     </div>
@@ -505,9 +511,7 @@
     <div class="sidebar tip">
     
     	{{#unless controllers.currentUser.isAuthenticated}}
-		    <div class="login">
-		        <a {{action openInBox "login"}} class="nav-login"><strong>{% trans "Have an account?" %}</strong> {%  trans "Log in here" %}</a>
-		    </div>
+		    <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
 		{{/unless}}
 		
     </div>
