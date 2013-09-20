@@ -258,6 +258,7 @@
 	    	{{else}}
 				<div class="form-label">{% trans "Please to meet you" %}</div>
 				<div class="form-desc">{% trans "To process your donation we need some information." %}</div>
+                <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
 	    	{{/if}}
 	    	</div>
 	    	
@@ -338,10 +339,6 @@
 </div>
 
 <div class="sidebar tip">
-
-	{{#unless controllers.currentUser.isAuthenticated}}
-		<a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
-	{{/unless}}
 
     <h3>{% trans "Did you know?" %}</h3>
     {{#if controllers.currentUser.isAuthenticated }}
@@ -451,6 +448,7 @@
 			<div class="form-meta">
 				<div class="form-label">{% trans "Follow the progress?" %}</div>
 				<div class="form-desc">{% trans "Sign up for an account and we keep you updated on the projects progress" %}.</div>
+				<a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
 			</div>
 
             <fieldset>
@@ -512,11 +510,7 @@
     </div>
 
     <div class="sidebar tip">
-    
-    	{{#unless controllers.currentUser.isAuthenticated}}
-		    <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
-		{{/unless}}
-		
+		    
     </div>
 {{/if}}
 

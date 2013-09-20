@@ -60,6 +60,17 @@
 
 
 #donate {
+    
+    form {
+        position: relative;
+    }
+    
+    .btn-login {
+        top: 0;
+        right: 0;
+        position: absolute;
+        float: right;
+    }
 	
 	.section {
 		padding-bottom: 0;
@@ -90,7 +101,6 @@
 		}
 		
 	}
-	
 	
 	.donate-time {
 		@include rem(font-size, 16px);
