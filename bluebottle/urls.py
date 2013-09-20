@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     url(r'^api/banners/', include('apps.banners.urlsapi')),
     url(r'^api/quotes/', include('apps.quotes.urlsapi')),
     url(r'^api/stats', include('apps.statistics.urlsapi')),
+    url(r'^api/likes', include('apps.likes.urlsapi')),
 
     # API for DocData Status Changed Notifications.
     url(r'^api/docdatastatuschanged/', include('apps.cowry_docdata.urlsapi')),

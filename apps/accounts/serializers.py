@@ -4,8 +4,6 @@ from apps.bluebottle_drf2.serializers import SorlImageField, ImageSerializer
 from apps.bluebottle_utils.validators import validate_postal_code
 from apps.geo.models import Country
 from django import forms
-from django.contrib.sites.models import Site
-from registration.models import RegistrationProfile
 from rest_framework import serializers
 
 
@@ -98,8 +96,8 @@ class UserSettingsSerializer(serializers.ModelSerializer):
         if source in attrs:
             value = attrs[source]
             country_code = ''
-            if 'country' in attrs:
-                country_code = attrs['country']
+            if 'address.country.alpha2_code' in attrs:
+                country_code = attrs['address.country.alpha2_code']
             elif self.object and self.object.address and self.object.address.country:
                 country_code = self.object.address.country.alpha2_code
 

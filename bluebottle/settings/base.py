@@ -234,7 +234,7 @@ INSTALLED_APPS = (
     'apps.bluebottle_utils',
     'apps.contentplugins',
     'apps.accounts',
-    'apps.love',
+    'apps.likes',
     'apps.organizations',
     'apps.projects',
     'apps.fund',

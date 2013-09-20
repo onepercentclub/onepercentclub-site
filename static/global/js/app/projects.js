@@ -183,6 +183,12 @@ App.DonationPreview =  DS.Model.extend({
 });
 
 
+App.ProjectFollower = DS.Model.extend({
+    url: 'projects/followers',
+    project: DS.belongsTo('App.ProjectPreview'),
+    member: DS.belongsTo('App.UserPreview')
+});
+
 /*
  Controllers
  */
@@ -278,6 +284,8 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
 
 
 App.ProjectController = Em.ObjectController.extend({
+    needs: ['currentUser'],
+
     isFundable: function(){
        return (this.get('phase') == 'campaign' && this.get('campaign.money_asked'));
     }.property('phase', 'campaign'),
@@ -374,6 +382,7 @@ App.ProjectView = Em.View.extend(App.AnimateProgressMixin, {
     didInsertElement: function(){
         this._super();
         this.$('.tags').popover({trigger: 'hover', placement: 'top', width: '100px'});
+        this.$('.has-popover').popover({trigger: 'hover', placement: 'top', width: '100px'})
     }
 });
 

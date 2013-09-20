@@ -213,13 +213,19 @@
                 <div class="project-meta">
                     <span class="location">
                     	<em class="flaticon solid location-pin-1"></em> {{plan.country.name}}
-										</span>
+                    </span>
 
                     <span class="theme">
                         <em class="flaticon solid tag-1"></em> {{plan.theme.title}}
                     </span>
-                    
+
                     {{view App.SocialShareView classNames="project-share"}}
+                    {% comment %}
+                    {{view Em.Checkbox checkedBinding="isFollowing" id="follow" class="small"}}
+                    <label for="follow" class="has-popover" data-title="{% trans "Follow this project" %}" data-content="{% trans "We'll notify you with all updates for this project." %}">
+                        {% blocktrans %}Follow{% endblocktrans %}
+                    </label>
+                    {% endcomment %}
 
                     {% comment %}
                     <span class="tags" data-title="Tags" {{bindAttr data-content="allTags"}}>

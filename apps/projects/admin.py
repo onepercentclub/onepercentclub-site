@@ -236,7 +236,7 @@ admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
 
 
 class ProjectThemeAdmin(admin.ModelAdmin):
-
     model = ProjectTheme
 
 admin.site.register(ProjectTheme, ProjectThemeAdmin)
+

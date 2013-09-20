@@ -9,8 +9,6 @@ from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
-import django_filters
 from rest_framework import generics
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
@@ -285,7 +283,6 @@ class ManageProjectCampaignDetail(generics.RetrieveUpdateAPIView):
     model = ProjectCampaign
     serializer_class = ProjectCampaignSerializer
     permission_classes = (EditablePlanOrReadOnly, IsProjectOwner, )
-
 
 # Django template Views
 
