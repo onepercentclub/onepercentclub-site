@@ -239,17 +239,21 @@
 
 {% tplhandlebars "paymentProfile" %}
 
-{{#unless controllers.currentUser.isAuthenticated}}
-    <div class="content">
-        {% trans "Already have an account?" %}
-        <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
-        {% trans "to load your profile." %}
-    </div>
-{{/unless}}
 
 <div class="content">
 	<form>
 	    <fieldset>
+	    	
+	    	<div class="form-meta">
+	    	{{#if controllers.currentUser.isAuthenticated}}
+	    		<div class="form-label">{% trans "Great your doing another donation!" %}</div>
+				<div class="form-desc">{% trans "To process your donation, please check if your information is still correct." %}</div>
+	    	{{else}}
+				<div class="form-label">{% trans "Please to meet you" %}</div>
+				<div class="form-desc">{% trans "To process your donation we need some information." %}</div>
+	    	{{/if}}
+	    	</div>
+	    	
 	        {{#if model.isLoaded}}
 	            <ul>
 	                <li class="control-group">
@@ -327,6 +331,13 @@
 </div>
 
 <div class="sidebar tip">
+
+	{{#unless controllers.currentUser.isAuthenticated}}
+	    <div class="login">
+	        <a {{action openInBox "login"}} class="nav-login"><strong>{% trans "Have an account?" %}</strong> {%  trans "Log in here" %}</a>
+	    </div>
+	{{/unless}}
+
     <h3>{% trans "Did you know?" %}</h3>
     {{#if controllers.currentUser.isAuthenticated }}
         <p>{% blocktrans %}"You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps.{% endblocktrans %}</p>
@@ -418,31 +429,21 @@
 
             <div class="form-meta">
                 <div class="form-label">{% trans "We'll keep you up to date!" %}</div>
-                <div class="form-desc">
-                    {% blocktrans %}You already have an account. Great! We'll keep you updated with the progress of the projects you support.{% endblocktrans %}<br />
-                </div>
-
-
+                <div class="form-desc">{% blocktrans %}You already have an account. Great! We'll keep you updated with the progress of the projects you support{% endblocktrans %}.<br /></div>
+                
             </div>
         </form>
     </div>
+    
 {{else}}
+	
     <div class="content">
         <form>
-
-            <div class="form-meta">
-                <div class="form-label">{% trans "Stay up to date!" %}</div>
-                <div class="form-desc">
-                    {% blocktrans %}Join 1%Club and we'll keep you updated with the projects you supported.{% endblocktrans %}<br />
-                    {{#unless controllers.currentUser.isAuthenticated}}
-                        {% trans "Already have an account?" %}
-                        <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
-                        {% trans "to load your profile." %}
-                    {{/unless}}
-                </div>
-
-
-            </div>
+        
+			<div class="form-meta">
+				<div class="form-label">{% trans "Follow the progress?" %}</div>
+				<div class="form-desc">{% trans "Sign up for an account and we keep you updated on the projects progress" %}.</div>
+			</div>
 
             <fieldset>
                 <ul>
@@ -502,7 +503,13 @@
     </div>
 
     <div class="sidebar tip">
-        <h3>{% trans "Get involved" %}</h3>
+    
+    	{{#unless controllers.currentUser.isAuthenticated}}
+		    <div class="login">
+		        <a {{action openInBox "login"}} class="nav-login"><strong>{% trans "Have an account?" %}</strong> {%  trans "Log in here" %}</a>
+		    </div>
+		{{/unless}}
+		
     </div>
 {{/if}}
 
