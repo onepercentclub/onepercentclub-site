@@ -3,13 +3,17 @@ from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin import SimpleListFilter
+from django.contrib.admin.templatetags.admin_static import static
 from django.utils import translation
-from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment
+from django.utils.translation import ugettext_lazy as _
+from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment, \
+    OrderStatuses
 
 
 class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'donation_type', 'payment_method')
+    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method')
     list_filter = ('status',)
     raw_id_fields = ('user', 'project')
     readonly_fields = ('view_order',)
@@ -30,6 +34,16 @@ class DonationAdmin(admin.ModelAdmin):
         return format_currency(obj.amount / 100, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
+
+    def type(self, obj):
+        recurring = obj.donation_type == Donation.DonationTypes.recurring
+        icon_url = static(
+            'fund/icon-{0}.png'.format({True: 'recurring-donation', False: 'one-time-donation'}[recurring]))
+        alt_text = {True: 'Recurring', False: 'One-time'}[recurring]
+        return '<img alt="{0}" src="{1}" />'.format(alt_text, icon_url)
+
+    type.allow_tags = True
+    type.short_description = 'type'
 
 admin.site.register(Donation, DonationAdmin)
 
@@ -61,11 +75,37 @@ class DocDataPaymentOrderInline(admin.TabularInline):
     payment.allow_tags = True
 
 
+# Inspiration from:
+# http://stackoverflow.com/a/16556771
+class OrderStatusFilter(SimpleListFilter):
+    title = _('Status')
+
+    parameter_name = 'status__exact'
+    default_status = OrderStatuses.closed
+
+    def lookups(self, request, model_admin):
+        return (('all', _('All')),) + OrderStatuses.choices
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup if self.value() else lookup == self.default_status,
+                'query_string': cl.get_query_string({self.parameter_name: lookup}, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        if self.value() in OrderStatuses.values:
+            return queryset.filter(status=self.value())
+        elif self.value() is None:
+            return queryset.filter(status=self.default_status)
+
+
 class OrderAdmin(admin.ModelAdmin):
-    list_filter = ('status', 'recurring')
-    list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'recurring')
+    list_filter = (OrderStatusFilter, 'recurring')
+    list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'type')
     raw_id_fields = ('user',)
-    readonly_fields = ('recurring', 'total', 'order_number', 'created', 'updated')
+    readonly_fields = ('type', 'total', 'order_number', 'created', 'updated')
     fields = readonly_fields + ('user', 'status')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'order_number')
     inlines = (OrderItemInline, DocDataPaymentOrderInline,)
@@ -73,6 +113,15 @@ class OrderAdmin(admin.ModelAdmin):
     def total(self, obj):
         language = translation.get_language()
         return format_currency(obj.total / 100, 'EUR', locale=language)
+
+    def type(self, obj):
+        icon_url = static(
+            'fund/icon-{0}.png'.format({True: 'recurring-donation', False: 'one-time-donation'}[obj.recurring]))
+        alt_text = {True: 'Recurring', False: 'One-time'}[obj.recurring]
+        return '<img alt="{0}" src="{1}" />'.format(alt_text, icon_url)
+
+    type.allow_tags = True
+    type.short_description = 'type'
 
 admin.site.register(Order, OrderAdmin)
 
