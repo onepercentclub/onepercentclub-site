@@ -76,10 +76,6 @@ class PasswordField(serializers.CharField):
         return self.hidden_password_string
 
 
-class CountryRelatedField(serializers.RelatedField):
-    pass
-
-
 class UserSettingsSerializer(serializers.ModelSerializer):
     """
     Serializer for viewing and editing a user's settings. This should only be accessible to authenticated users.
@@ -97,7 +93,6 @@ class UserSettingsSerializer(serializers.ModelSerializer):
     state = serializers.CharField(source='address.state', max_length=100, required=False)
     country = serializers.CharField(source='address.country.alpha2_code', required=False)
     postal_code = serializers.CharField(source='address.postal_code', max_length=20, required=False)
-
 
     def validate_postal_code(self, attrs, source):
         if source in attrs:
