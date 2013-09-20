@@ -3,9 +3,12 @@ from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin import SimpleListFilter
 from django.contrib.admin.templatetags.admin_static import static
 from django.utils import translation
-from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment
+from django.utils.translation import ugettext_lazy as _
+from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment, \
+    OrderStatuses
 
 
 class DonationAdmin(admin.ModelAdmin):
@@ -72,8 +75,34 @@ class DocDataPaymentOrderInline(admin.TabularInline):
     payment.allow_tags = True
 
 
+# Inspiration from:
+# http://stackoverflow.com/a/16556771
+class OrderStatusFilter(SimpleListFilter):
+    title = _('Status')
+
+    parameter_name = 'status__exact'
+    default_status = OrderStatuses.closed
+
+    def lookups(self, request, model_admin):
+        return (('all', _('All')),) + OrderStatuses.choices
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup if self.value() else lookup == self.default_status,
+                'query_string': cl.get_query_string({self.parameter_name: lookup}, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        if self.value() in OrderStatuses.values:
+            return queryset.filter(status=self.value())
+        elif self.value() is None:
+            return queryset.filter(status=self.default_status)
+
+
 class OrderAdmin(admin.ModelAdmin):
-    list_filter = ('status', 'recurring')
+    list_filter = (OrderStatusFilter, 'recurring')
     list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'type')
     raw_id_fields = ('user',)
     readonly_fields = ('type', 'total', 'order_number', 'created', 'updated')
