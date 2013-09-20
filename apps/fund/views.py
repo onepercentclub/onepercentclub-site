@@ -487,7 +487,6 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
                                 except(NotImplementedError, PaymentException) as e:
                                     logger.warn("Problem cancelling payment on closed user Order {0}: {1}".format(
                                         user_current_order.id, e))
-
                 except Order.DoesNotExist:
                     # There isn't a current order so we don't need to close it.
                     pass
