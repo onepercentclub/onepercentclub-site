@@ -18,6 +18,31 @@
     } 
 }
 
+.btn-login {
+	display: inline-block;
+	@include rem(margin, $padding*2 0);
+	color: $grayDark;
+	
+	.flaticon {
+		
+	}
+	
+	strong {
+		color: $green;
+	}
+	
+	&:hover, &:hover strong {
+		color: $pink;
+	}
+}
+
+.btn-skip {
+	clear: left;
+	float: left;
+	display: block;
+	@include rem(margin, $padding 0);
+}
+
 
 // The standard button has the $color-brand colors
 .btn {
