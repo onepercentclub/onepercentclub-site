@@ -60,7 +60,7 @@
 
 
 #donate {
-
+	
 	.section {
 		padding-bottom: 0;
 	}
@@ -74,10 +74,23 @@
 		margin-bottom: 2px;
 		@include rem(margin-top, $padding/2);
 		
-		li > a, li > span {
-			@include grid(12,0,0);
+		&.three {
+		
+			li > a, li > span {
+				@include grid(16,0,0);
+			}
+			
 		}
+		
+		&.four {
+		
+			li > a, li > span {
+				@include grid(12,0,0);
+			}
+		}
+		
 	}
+	
 	
 	.donate-time {
 		@include rem(font-size, 16px);
