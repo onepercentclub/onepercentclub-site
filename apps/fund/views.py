@@ -502,7 +502,7 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
                                     payments.cancel_payment(payment)
                                 except(NotImplementedError, PaymentException) as e:
                                     logger.warn(
-                                        "Problem cancelling payment on anonymous cart Order when transferring user cart Order {0}: {1}".format(
+                                        "Problem cancelling payment on anonymous cart Order when transferring to user cart Order {0}: {1}".format(
                                             user_current_order.id, e))
 
                     # Finally delete the anonymous 'current' order.
