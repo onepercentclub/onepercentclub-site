@@ -133,23 +133,18 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
 
-        # Login and out again... The anonymous cart should NOT be returned
+        # Login as the first user and cart should only have the one donation from  the anonymous cart.
         self.client.login(username=self.some_user.email, password='password')
+        response = self.client.get(self.current_donations_url)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(response.data['results'][0]['amount'], '71.00')
+        self.assertEqual(response.data['results'][0]['project'], self.some_project.slug)
+
+        # Log out again... The anonymous cart should NOT be returned
         self.client.logout()
         self.client.get(self.current_order_url)
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 0)
-
-        # Login as the first user and cart should have 2 donations - one that was there and the one from
-        # the anonymous cart that was automatically added.
-        self.client.login(username=self.some_user.email, password='password')
-        response = self.client.get(self.current_donations_url)
-        self.assertEqual(response.data['count'], 2)
-        self.assertEqual(response.data['results'][0]['amount'], '12.50')
-        self.assertEqual(response.data['results'][0]['project'], self.another_project.slug)
-        self.assertEqual(response.data['results'][1]['amount'], '71.00')
-        self.assertEqual(response.data['results'][1]['project'], self.some_project.slug)
-        self.client.logout()
 
     def test_current_order_monthly(self):
         # Test setting a recurring order as logged in user.
