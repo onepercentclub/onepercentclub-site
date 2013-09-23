@@ -6,7 +6,7 @@
 {% tplhandlebars "home_banner" %}
 
 	<div class="l-section">
-		<section class="carousel home-carousel">
+		<section class="carousel">
 			<ul>
 			{{#each slides }}
 		        <li class="carousel-item" {{bindAttr id=style}}>
@@ -21,9 +21,6 @@
 				            <p>{{{ body }}}</p>
 				            {{#if link_text }}
 				                <a class="btn btn-primary" {{bindAttr href="link_url" }}>{{link_text}}</a>
-				                {{#linkTo projectList class="btn btn-iconed first"}}
-									<span class="icon">&euro;</span> {% trans "Find projects" %}
-								{{/linkTo}}
 				            {{/if}}
 				        </article>
 		        	</div>
@@ -50,11 +47,11 @@
 {% tplhandlebars "home_project" %}
 
     <div class="l-section">
-        <section class="l-wrapper home-project-slider">
+        <section class="l-wrapper">
         	
             <div class="project-slider">
             	
-	        	<header class="">
+	        	<header>
 	            	<h2>{% trans "Choose your project" %}</h2>
 					<p>{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
 	        	</header>
@@ -108,35 +105,37 @@
 {% tplhandlebars "home_quotes" %}
 	
 
-    <div class="container quotes">
-        <div class="wrapper">
-            <section>
-                <h2 class="section-header">{% trans "Share a little." %} <em>{%  trans "Change the world." %}</em></h2>
+    <div class="l-section quotes">
+        <section class="l-wrapper">
+            
+            <header>
+            	<h2>{% trans "Share a little." %} <em>{%  trans "Change the world." %}</em></h2>
+        	</header>
 
-                <div class="quote">
-                    <aside>
-                        <img {{ bindAttr src="quote.user.getAvatar" alt="quote.user.full_name" }} width="100%" />
-                    </aside>
+            <div class="quote">
+                <figure>
+                    <img {{ bindAttr src="quote.user.getAvatar" alt="quote.user.full_name" }} />
+                </figure>
 
-                    <article>
-                        <p class="quote-name">{{ quote.user.full_name }}</p>
-                        <p class="quote-quote">{{ quote.quote }}</p>
-                    </article>
-                </div>
+                <article>
+                    <p class="quote-name">{{ quote.user.full_name }}</p>
+                    <p class="quote-content">{{ quote.quote }}</p>
+                </article>
+            </div>
 
-                {{#linkTo projectList class="btn btn-iconed first"}}
-                    <span class="icon">&euro;</span> {% trans "Find projects" %}
-                {{/linkTo}}
+            {{#linkTo projectList class="btn btn-iconed"}}
+                <span class="icon">&euro;</span> {% trans "Find projects" %}
+            {{/linkTo}}
 
-				{{#linkTo taskList class="btn btn-iconed second"}}
-                    <span class="flaticon solid wrench-1"></span> {% trans "Find tasks" %}
-                {{/linkTo}}
+			{{#linkTo taskList class="btn btn-iconed"}}
+                <span class="flaticon solid wrench-1"></span> {% trans "Find tasks" %}
+            {{/linkTo}}
 
-                <a class="btn btn-iconed third" {{action showPage 'befriend'}} href="/#!/pages/befriend">
-                    <span class="flaticon solid heart-1"></span> {% trans "Befriend us" %}
-                </a>
-            </section>
-        </div>
+            <a class="btn btn-iconed" {{action showPage 'befriend'}} href="/#!/pages/befriend">
+                <span class="flaticon solid heart-1"></span> {% trans "Befriend us" %}
+            </a>
+
+        </section>
     </div>
     
 
@@ -145,35 +144,37 @@
 
 {% tplhandlebars "home_impact" %}
 
-    <div class="container">
-        <div class="wrapper">
-            <section>
-                <h2 class="section-header">{% trans "Our impact" %}</h2>
-                <p class="section-subheader">{% trans "We believe that if we all share a little, together we can change the world. We got this far already." %}</p>
+    <div class="l-section ">
+        <section class="l-wrapper">
+        
+                <header>
+            	    <h2>{% trans "Our impact" %}</h2>
+            	    <p>{% trans "We believe that if we all share a little, together we can change the world. We got this far already." %}</p>
+                </header>
 
                 <ul class="impact">
                     <li class="impact-lives">
-                    	<span class="icon"></span>
+                    	
                         <strong>{{localize impact.lives_changed }}</strong>
                         {% trans "Lives changed" %}
                     </li>
                     <li class="impact-projects">
-                    	<span class="icon"></span>
+                    	
                         <strong>{{localize impact.projects }}</strong>
                         {% trans "Projects" %}
                     </li>
                     <li class="impact-countries">
-                    	<span class="icon"></span>
+                    	<object type="image/svg+xml" data="/static/assets/images/illustrations/countries-green.svg" class="logo-image"><img src="{{ STATIC_URL }}images/global/countries-green.png" alt="Countries" /></object>
                         <strong>{{ impact.countries }}</strong>
                         {% trans "Countries" %}
                     </li>                    
                     <li class="impact-hours">
-                    	<span class="icon"></span>
+                    	
                         <strong>{{localize impact.hours_spent }}</strong>
                         {% trans "Hours spent" %}
                     </li>
                     <li class="impact-donated">
-                    	<span class="icon"></span>
+                    	
                         <strong>&euro; {{localize impact.donated }}</strong>
                         {% trans "Donated" %}
                     </li>
@@ -182,8 +183,7 @@
                 {{#unless controllers.currentUser.isAuthenticated}}
                     {{#linkTo 'signup' classNames="link-primary"}}{% blocktrans %}Join us. Sign up and share your 1%{% endblocktrans %}{{/linkTo}}
                 {{/unless}}
-            </section>
-        </div>
+        </section>
     </div>
 
 {% endtplhandlebars %}
@@ -200,16 +200,13 @@
             {{view App.HomeProjectView }}
         {{/if }}
         
-		
         {{#if quote }}
             {{view App.HomeQuotesView }}
         {{/if }}
 		
-		<!--
         {{#if impact }}
             {{view App.HomeImpactView }}
         {{/if }}
-        -->
     </div>
 
 {% endtplhandlebars %}

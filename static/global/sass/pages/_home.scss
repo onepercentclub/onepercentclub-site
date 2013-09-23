@@ -5,17 +5,16 @@
 #home {
 	
 	.carousel .carousel-item {
-		min-height: 400px;
+		min-height: 460px;
 	}
 	
 	// QUOTE
-
 	.quotes {
 		background-image: image-url("world.png");
 		background-repeat: no-repeat;
 		background-position: 50% $base-padding;
-	
-	    
+        background-color: $gray-lighter;
+        
 	    h2 {
 	        @include rem(margin-bottom, 32px);
 	
@@ -90,6 +89,37 @@
 	    }
 	
 	}
+	
+	// Impact overview
+    .impact {
+        @include clearfix;
+        list-style: none;
+    
+        li {
+            @include grid(9.6, 0, 1);
+            @include rem(font-size, 16px);
+            color: $gray;
+            text-align: center;
+            text-transform: uppercase;
+    		
+    		img {
+    			display: block;
+    			margin: 0 auto 16px auto;
+    			width: 120px;
+            	background-image: $icons;
+                background-repeat: no-repeat;
+    		}
+    
+            strong {
+                @include rem(font-size, 22px);
+                @include rem(margin, 8px 0);
+                display: block;
+                color: $gray-darker;
+                font-weight: 300;
+                font-style: normal;
+            }
+        }
+    }
 
 	
 }
