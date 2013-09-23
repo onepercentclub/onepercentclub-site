@@ -9,6 +9,7 @@ from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.signals import user_logged_in
+from registration.signals import user_registered
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.http import Http404
@@ -21,6 +22,7 @@ from .permissions import IsUser
 from .serializers import DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer, \
     VoucherRedeemSerializer, CustomVoucherRequestSerializer, RecurringDirectDebitPaymentSerializer, \
     OrderCurrentSerializer, OrderCurrentDonationSerializer
+
 
 logger = logging.getLogger(__name__)
 
@@ -468,45 +470,25 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
     if anon_order_id_session_key in request.session:
         try:
             anon_current_order = Order.objects.get(id=request.session.pop(anon_order_id_session_key))
-        except Order.DoesNotExist:
-            pass
-        else:
             if anon_current_order.status == OrderStatuses.current:
+
                 # Anonymous order has status 'current' - copy over to user's 'current' order.
                 try:
                     user_current_order = Order.objects.get(user=user, status=OrderStatuses.current)
+                    # Close old order by this user.
+                    user_current_order.status = OrderStatuses.closed
+                    user_current_order.save()
                 except Order.DoesNotExist:
-                    # There isn't a current order for the so we just need to assign it to the user.
-                    anon_current_order.user = user
-                    anon_current_order.save()
-                    for donation in anon_current_order.donations:
-                        donation.user = user
-                        donation.save()
-                else:
-                    # Copy the order items from the anonymous 'current' order to the user 'current' order and remove it.
-                    for order_item in anon_current_order.orderitem_set.all():
-                        order_item.order = user_current_order
-                        order_item.save()
-                    for donation in user_current_order.donations:
-                        donation.user = user
-                        donation.save()
+                    # There isn't a current order for the so we don't need to cancel it.
+                    pass
+                # Assign the anon order to this user.
+                anon_current_order.user = user
+                anon_current_order.save()
+                # Move all donations to this user too.
+                for donation in anon_current_order.donations:
+                    donation.user = user
+                    donation.save()
 
-                    # Cancel the payments on the anonymous 'current' order and move them to the the user 'current' order.
-                    if anon_current_order.payments.count() > 0:
-                        for payment in anon_current_order.payments.all():
-                            payment.order = user_current_order
-                            payment.save()
-
-                            if payment.status != PaymentStatuses.new:
-                                try:
-                                    payments.cancel_payment(payment)
-                                except(NotImplementedError, PaymentException) as e:
-                                    logger.warn(
-                                        "Problem cancelling payment on anonymous cart Order when transferring to user cart Order {0}: {1}".format(
-                                            user_current_order.id, e))
-
-                    # Finally delete the anonymous 'current' order.
-                    anon_current_order.delete()
             else:
                 # Anonymous cart order does not have status 'current' - just assign it to the user.
                 anon_current_order.user = user
@@ -514,8 +496,31 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
                 for donation in anon_current_order.donations:
                     donation.user = user
                     donation.save()
+        except Order.DoesNotExist:
+            pass
 
 user_logged_in.connect(adjust_anonymous_current_order)
+
+
+def link_anonymous_donations(sender, user, request, **kwargs):
+    """
+    Search for anonymous donations with the same email address as this user and connect them.
+    """
+    print "Connect to " + user.email
+    dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
+    print "Found orders " + str(len(dd_orders))
+    for dd_order in dd_orders:
+        dd_order.customer_id = user.id
+        dd_order.save()
+        dd_order.order.user = user
+        dd_order.order.save()
+        for donation in dd_order.order.donations:
+            donation.user = user
+            donation.save()
+            # TODO: Also link donation Wall Post to this user
+
+# On account activation try to connect anonymous donations to this user.
+user_registered.connect(link_anonymous_donations)
 
 
 class OrderVoucherList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPIView):

@@ -486,8 +486,7 @@ App.PaymentSignupController = Em.ObjectController.extend({
     },
 
     isFormReady: function() {
-        return !Em.isEmpty(this.get('email')) && !Em.isEmpty(this.get('password')) && !Em.isEmpty(this.get('password2'))
-        && this.get('password') == this.get('password2');
+        return !Em.isEmpty(this.get('email')) && !Em.isEmpty(this.get('password')) && !Em.isEmpty(this.get('password2'));
     }.property('email', 'password', 'password2')
 });
 

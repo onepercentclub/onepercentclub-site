@@ -81,21 +81,6 @@ class UserCreate(generics.CreateAPIView):
             obj.email_user(subject, email)
 
 
-def link_anonymous_donations(user):
-    """
-    Search for anonymous donations with the same email address as this user and connect them to this user.
-    """
-    dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
-    for dd_order in dd_orders:
-        dd_order.customer_id = user.id
-        dd_order.save()
-        dd_order.order.user = user
-        dd_order.order.save()
-        for donation in dd_order.order.donations:
-            donation.user = user
-            donation.save()
-
-
 class UserActivate(generics.RetrieveAPIView):
     serializer_class = CurrentUserSerializer
 
@@ -108,9 +93,6 @@ class UserActivate(generics.RetrieveAPIView):
         activation_key = self.kwargs.get('activation_key', None)
         activated_user = RegistrationProfile.objects.activate_user(activation_key)
         if activated_user:
-            # search for anonymous doantions that we can connect to this user.
-            link_anonymous_donations(activated_user)
-
             # Log the user in when the user has been activated and return the current user object.
             self.login_user(request, activated_user)
             self.object = activated_user
