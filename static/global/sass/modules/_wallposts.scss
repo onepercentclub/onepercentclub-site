@@ -111,17 +111,20 @@
 	        left: 0;
 	        @include prepend(4);
 	    }
+	    
         .post-type-icon {
-            .flaticon {
-                @include rem(font-size, 40px);
-                display: block;
-            }
             @include rem(padding, $padding 0);
             font-weight: 600;
             background-color: $color-back;
             color: $white;
             text-align: center;
             text-transform: uppercase;
+            
+            
+            .flaticon {
+                @include rem(font-size, 40px);
+                display: block;
+            }
         }
 	}
 }

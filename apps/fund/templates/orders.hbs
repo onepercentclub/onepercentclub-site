@@ -48,17 +48,17 @@
 	                    {%endcomment%}
 	                {{else}}
 	                    {{#view App.OrderNavView classNames="support"}}
-	                        {{#linkTo 'currentOrder.donationList'}}<em class="flaticon solid menu-list-1"></em> {% trans "Projects" %}{{/linkTo}}
+	                        {{#linkTo 'currentOrder.donationList'}}<em class="flaticon solid menu-list-4"></em> {% trans "Projects" %}{{/linkTo}}
 	                    {{/view}}
 	                {{/if}}
 	
 	                {{#view App.OrderNavView classNames="details"}}
-	                    {{#linkTo 'paymentProfile'}}<em class="flaticon solid house-2"></em> {% trans "Details" %}{{/linkTo}}
+	                    {{#linkTo 'paymentProfile'}}<em class="flaticon solid mail-3"></em> {% trans "Details" %}{{/linkTo}}
 	                {{/view}}
 	                
 					{{#unless controllers.currentUser.isAuthenticated}}
 	                	{{#view App.OrderNavView classNames="profile"}}
-	                   		{{#linkTo 'paymentSignup'}}<em class="flaticon solid user-2"></em> {% trans "Profile" %}{{/linkTo}}
+	                   		{{#linkTo 'paymentSignup'}}<em class="flaticon solid user-1"></em> {% trans "Profile" %}{{/linkTo}}
 					   	{{/view}}
 					{{/unless}}
 
