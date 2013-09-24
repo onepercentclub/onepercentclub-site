@@ -529,7 +529,7 @@ DATABASE_ROUTERS = [
 ]
 
 # E-mail settings
-DEFAULT_FROM_EMAIL = '<website@onepercentclub.com> Onepercentclub'
+DEFAULT_FROM_EMAIL = '<website@onepercentclub.com> 1%Club'
 
 
 # Django-registration settings
