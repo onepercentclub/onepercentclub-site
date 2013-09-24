@@ -1,4 +1,4 @@
-from apps.bluebottle_utils.tests import UserTestsMixin
+from bluebottle.bluebottle_utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectWallPostTestsMixin
 from django.test import TestCase
 from rest_framework import status

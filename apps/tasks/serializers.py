@@ -1,5 +1,5 @@
-from apps.bluebottle_drf2.serializers import PrimaryKeyGenericRelatedField, TagSerializer, FileSerializer, TaggableSerializerMixin
-from apps.accounts.serializers import UserPreviewSerializer
+from bluebottle.bluebottle_drf2.serializers import PrimaryKeyGenericRelatedField, TagSerializer, FileSerializer, TaggableSerializerMixin
+from bluebottle.accounts.serializers import UserPreviewSerializer
 from apps.projects.serializers import ProjectPreviewSerializer
 from apps.tasks.models import Task, TaskMember, TaskFile, Skill
 from apps.wallposts.serializers import TextWallPostSerializer, WallPostListSerializer

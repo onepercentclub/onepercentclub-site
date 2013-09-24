@@ -8,7 +8,7 @@ from .views import HomeView
 
 admin.autodiscover()
 
-handler500 = 'bluebottle.views.handler500'
+handler500 = 'onepercentclub.views.handler500'
 
 
 urlpatterns = patterns('',
@@ -17,11 +17,11 @@ urlpatterns = patterns('',
     # The api urls are in the / url namespace so that they're not redirected to /en/.
     url(r'^api/projects/', include('apps.projects.urlsapi')),
     url(r'^api/blogs/', include('apps.blogs.urlsapi')),
-    url(r'^api/users/', include('apps.accounts.urlsapi')),
+    url(r'^api/users/', include('bluebottle.accounts.urlsapi')),
     url(r'^api/wallposts/', include('apps.wallposts.urlsapi')),
     url(r'^api/fund/', include('apps.fund.urlsapi')),
-    url(r'^api/utils/', include('apps.bluebottle_utils.urlsapi')),
-    url(r'^api/geo/', include('apps.geo.urlsapi')),
+    url(r'^api/utils/', include('bluebottle.bluebottle_utils.urlsapi')),
+    url(r'^api/geo/', include('bluebottle.geo.urlsapi')),
     url(r'^api/tasks/', include('apps.tasks.urlsapi')),
     url(r'^api/organizations/', include('apps.organizations.urlsapi')),
     url(r'^api/pages/', include('apps.pages.urlsapi')),
@@ -68,7 +68,7 @@ urlpatterns += i18n_patterns('',
     url(r'^projects/', include('apps.projects.urls')),
 
     # Organization urls for downloading private documents
-    url(r'^documents/', include('apps.bluebottle_utils.urls')),
+    url(r'^documents/', include('bluebottle.bluebottle_utils.urls')),
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls')),

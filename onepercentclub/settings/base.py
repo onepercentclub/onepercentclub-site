@@ -147,7 +147,7 @@ TEMPLATE_LOADERS = [
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
-    'apps.bluebottle_utils.middleware.SubDomainSessionMiddleware',
+    'bluebottle.bluebottle_utils.middleware.SubDomainSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -235,15 +235,15 @@ INSTALLED_APPS = (
     # bluebottle apps
     'apps.blogs',
     'apps.bluebottle_dashboard',
-    'apps.bluebottle_utils',
+    'bluebottle.bluebottle_utils',
     'apps.contentplugins',
-    'apps.accounts',
+    'bluebottle.accounts',
     'apps.love',
     'apps.organizations',
     'apps.projects',
     'apps.fund',
     'apps.recurring_donations',
-    'apps.geo',
+    'bluebottle.geo',
     'apps.hbtemplates',
     'apps.wallposts',
     'apps.payouts',
@@ -452,7 +452,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'models': (
             'django.contrib.auth.*',
             'registration.*',
-            'apps.accounts.*',
+            'bluebottle.accounts.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -637,3 +637,6 @@ SESSION_COOKIE_NAME = 'bb-session-id'
 PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
     'legacyauth.hashers.LegacyPasswordHasher',
 )
+#
+# BlueBottle
+#

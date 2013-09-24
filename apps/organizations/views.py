@@ -1,6 +1,6 @@
 import os
 from django.http import HttpResponseForbidden
-from apps.bluebottle_utils.utils import get_client_ip
+from bluebottle.bluebottle_utils.utils import get_client_ip
 from apps.organizations.models import Organization, OrganizationMember, OrganizationAddress, OrganizationDocument
 from apps.organizations.permissions import IsOrganizationMember
 from apps.organizations.serializers import OrganizationSerializer, ManageOrganizationSerializer, OrganizationAddressSerializer, OrganizationDocumentSerializer

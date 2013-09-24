@@ -1,4 +1,7 @@
+-e git://github.com/maykinmedia/bluebottle.git@bb-core#egg=bluebottle
+
 Django==1.5.4
+Pillow==2.1.0
 
 django-localflavor==1.0
 
