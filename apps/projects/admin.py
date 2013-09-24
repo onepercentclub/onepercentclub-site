@@ -25,14 +25,14 @@ class ProjectPitchAdmin(admin.ModelAdmin):
 
     def project_owner(self, obj):
         object = obj.project.owner
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
 
     project_owner.allow_tags = True
 
     def edit_project(self, obj):
         object = obj.project
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object.title)
 
     edit_project.allow_tags = True
@@ -41,7 +41,7 @@ class ProjectPitchAdmin(admin.ModelAdmin):
     def response_change(self, request, obj):
         if not '_continue' in request.POST:
             object = obj.project
-            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
             return HttpResponseRedirect(url)
         else:
             return super(ProjectPitchAdmin, self).response_change(request, obj)
@@ -74,30 +74,29 @@ class ProjectPlanAdmin(admin.ModelAdmin):
 
     def edit_project(self, obj):
         object = obj.project
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object.title)
 
     edit_project.allow_tags = True
 
     def project_owner(self, obj):
         object = obj.project.owner
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
 
     project_owner.allow_tags = True
 
     def project_organization(self, obj):
         object = obj.organization
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object.name)
 
     project_organization.allow_tags = True
 
-
     def response_change(self, request, obj):
         if not '_continue' in request.POST:
             object = obj.project
-            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
             return HttpResponseRedirect(url)
         else:
             return super(ProjectPlanAdmin, self).response_change(request, obj)
@@ -116,14 +115,14 @@ class ProjectCampaignAdmin(admin.ModelAdmin):
 
     def edit_project(self, obj):
         object = obj.project
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label, object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object.title)
 
     edit_project.allow_tags = True
 
     def project_owner(self, obj):
         object = obj.project.owner
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
 
     project_owner.allow_tags = True
@@ -131,7 +130,7 @@ class ProjectCampaignAdmin(admin.ModelAdmin):
     def response_change(self, request, obj):
         if not '_continue' in request.POST:
             object = obj.project
-            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
             return HttpResponseRedirect(url)
         else:
             return super(ProjectPitchAdmin, self).response_change(request, obj)
@@ -188,28 +187,28 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     def project_owner(self, obj):
         object = obj.owner
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
 
     project_owner.allow_tags = True
 
     def pitch_view(self, obj):
         object = obj.projectpitch
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>View/Edit Pitch</a>" % str(url)
 
     pitch_view.allow_tags = True
 
     def plan_view(self, obj):
         object = obj.projectplan
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>View/Edit Plan</a>" % str(url)
 
     plan_view.allow_tags = True
 
     def campaign_view(self, obj):
         object = obj.projectcampaign
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
         return "<a href='%s'>View/Edit Campaign</a>" % str(url)
 
     campaign_view.allow_tags = True
