@@ -394,9 +394,14 @@ App.MyProjectPitchController = Em.ObjectController.extend(App.Editable, {
 
 });
 
-App.MyProjectPitchBasicsController = Em.ObjectController.extend(App.Editable, {});
-App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, {});
+App.MyProjectPitchBasicsController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPitch.location'
+});
+App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPitch.media'
+});
 App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
+    nextStep: 'myProjectPitch.submit',
 
     save: function(record) {
         this._super();
