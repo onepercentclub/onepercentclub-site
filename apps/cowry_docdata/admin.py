@@ -31,7 +31,7 @@ class DocDataPaymentOrderAdmin(admin.ModelAdmin):
     inlines = (DocDataPaymentInline, DocDataPaymentLogEntryInine)
 
     def amount_override(self, obj):
-        language = translation.get_language()
+        language = translation.get_language().split('-')[0]
         return format_currency(obj.amount / 100, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
