@@ -119,7 +119,7 @@ class Donation(models.Model):
         verbose_name_plural = _("donations")
 
     def __unicode__(self):
-        language = translation.get_language()
+        language = translation.get_language().split('-')[0]
         return u'{0} : {1} : {2}'.format(str(self.id), self.project.title,
                                          format_currency(self.amount / 100, self.currency, locale=language))
 
