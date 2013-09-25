@@ -30,7 +30,7 @@ class DonationAdmin(admin.ModelAdmin):
     view_order.allow_tags = True
 
     def amount_override(self, obj):
-        language = translation.get_language()
+        language = translation.get_language().split('-')[0]
         return format_currency(obj.amount / 100, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
@@ -63,7 +63,7 @@ class DocDataPaymentOrderInline(admin.TabularInline):
     readonly_fields = fields
 
     def amount_override(self, obj):
-        language = translation.get_language()
+        language = translation.get_language().split('-')[0]
         return format_currency(obj.amount / 100, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
@@ -111,7 +111,7 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = (OrderItemInline, DocDataPaymentOrderInline,)
 
     def total(self, obj):
-        language = translation.get_language()
+        language = translation.get_language().split('-')[0]
         return format_currency(obj.total / 100, 'EUR', locale=language)
 
     def type(self, obj):
@@ -134,7 +134,7 @@ class VoucherAdmin(admin.ModelAdmin):
                                 'receiver_name', 'sender_name', 'message')
 
     def amount_override(self, obj):
-        language = translation.get_language()
+        language = translation.get_language().split('-')[0]
         return format_currency(obj.amount / 100, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
@@ -157,7 +157,7 @@ class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
 
     def amount_override(self, obj):
-        language = translation.get_language()
+        language = translation.get_language().split('-')[0]
         return format_currency(obj.amount / 100, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
