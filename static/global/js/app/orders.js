@@ -437,7 +437,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
         var profile = this.get('model');
         var user = this.get('controllers.currentUser');
         // Set profile model to the 'updated' state so that the 'didUpdate' callback will always be run.
-        profile.get('stateManager').goToState('updated');
+        profile.transitionTo('updated.uncommitted');;
         var controller = this;
         profile.one('didUpdate', function(record) {
             var currentOrder = controller.get('controllers.currentOrder');

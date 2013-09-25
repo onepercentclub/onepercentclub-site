@@ -127,10 +127,12 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
      * - Add support for multipart/form-data form submission.
      */
     createRecord: function(store, type, record) {
-        var root = this.rootForType(type, record);
 
+        var root = this.rootForType(type, record);
         var data = {};
+        var adapter = this;
         data = this.serialize(record, { includeId: true });
+
         var hasFile = false;
         for (key in data) {
             if (record.get(key) instanceof File) {
@@ -169,18 +171,14 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
 
         } else {
             // Regular json POST (i.e. not multipart/form-data POST).
-            this.ajax(this.buildURL(root), "POST", {
-                data: data,
-                context: this,
-                success: function(json) {
-                    Ember.run(this, function() {
-                        this.didCreateRecord(store, type, record, json);
-                    });
-                },
-                error: function(xhr) {
-                    this.didError(store, type, record, xhr);
-                }
-            });
+            return this.ajax(this.buildURL(root), "POST", {
+              data: data
+            }).then(function(json){
+              adapter.didCreateRecord(store, type, record, json);
+            }, function(xhr) {
+              adapter.didError(store, type, record, xhr);
+              throw xhr;
+            }).then(null, DS.rejectionHandler);
         }
     },
 
@@ -192,6 +190,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
     updateRecord: function(store, type, record) {
         var id = get(record, 'id');
         var root = this.rootForType(type, record);
+        var adapter = this;
 
         var data = {};
         data = this.serialize(record);
@@ -233,18 +232,28 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
                 }
             });
         } else {
-            this.ajax(this.buildURL(root, id), "PUT", {
-                data: data,
-                context: this,
-                success: function(json) {
-                    Ember.run(this, function() {
-                        this.didSaveRecord(store, type, record, json);
-                    });
-                },
-                error: function(xhr) {
-                    this.didError(store, type, record, xhr);
-                }
-            });
+//            this.ajax(this.buildURL(root, id), "PUT", {
+//                data: data,
+//                context: this,
+//                success: function(json) {
+//                    Ember.run(this, function() {
+//                        this.didSaveRecord(store, type, record, json);
+//                    });
+//                },
+//                error: function(xhr) {
+//                    this.didError(store, type, record, xhr);
+//                }
+//            });
+//
+            return this.ajax(this.buildURL(root, id), "PUT", {
+              data: data
+            }).then(function(json){
+              adapter.didSaveRecord(store, type, record, json);
+            }, function(xhr) {
+              adapter.didError(store, type, record, xhr);
+              throw xhr;
+            }).then(null, DS.rejectionHandler);
+
         }
     },
 
