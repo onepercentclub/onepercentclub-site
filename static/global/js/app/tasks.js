@@ -132,6 +132,7 @@ App.TaskSearchFormController = Em.ObjectController.extend({
     init: function(){
         var form =  App.TaskSearch.createRecord();
         this.set('model', form);
+        this.updateSearch();
     },
 
     rangeStart: function(){

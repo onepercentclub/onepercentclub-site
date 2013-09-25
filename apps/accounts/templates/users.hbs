@@ -27,21 +27,21 @@
             <br />
             <ul class="tabs">
                 <li class="tab-item first">
-                    {{#linkTo userProfile }}
+                    {{#linkTo 'userProfile'}}
                         <span class="tab-icon amount"><em class="flaticon solid user-2"></em></span>
                         <strong class="tab-title">{% trans "Profile" %} <em class="tab-subtitle">{% trans "Public info" %}</em></strong>
                     {{/linkTo}}
                 </li>
 
                 <li class="tab-item">
-                    {{#linkTo userSettings }}
+                    {{#linkTo 'userSettings'}}
                         <span class="tab-icon amount"><em class="flaticon solid settings-2"></em></span>
                         <strong class="tab-title">{% trans "Account" %} <em class="tab-subtitle">{% trans "Settings" %}</em></strong>
                     {{/linkTo}}
                 </li>
 
                 <li class="tab-item">
-                    {{#linkTo userOrders }}
+                    {{#linkTo 'userOrders'}}
                         <em class="tab-icon amount"><i class="flaticon solid wallet-1"></i></em>
                         <strong class="tab-title">{% trans "Payment" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
                     {{/linkTo}}

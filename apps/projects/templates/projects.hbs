@@ -5,7 +5,7 @@
 {% tplhandlebars "project_preview" %}
 
     <li class="item item-project">
-        {{#linkTo project project.getProject }}
+        {{#linkTo 'project' project.getProject }}
             <span class="item-header">
             	<span class="item-image">
                 	<img {{bindAttr src="project.image" }} />
@@ -239,7 +239,7 @@
 				
 				{% comment %}
                 <div class="project-plan">
-                    {{#linkTo "projectPlan"}}
+                    {{#linkTo 'projectPlan'}}
                         <i class="flaticon solid open-book-4"></i>
                         {% trans "Read full project plan" %}
                     {{/linkTo}}
@@ -313,7 +313,7 @@
         <div class="wrapper">
             <ul class="tabs">
                 <li class="tab-updates">
-                    {{#linkTo "project.index"}}
+                    {{#linkTo 'project.index'}}
                         <span class="tab-icon amount">{{wallposts.length}}</span>
                         <strong class="tab-title">
                             {% trans "Updates" %}
@@ -332,19 +332,19 @@
                 </li>
                 <li class="tab-tasks">
                     {{#if taskCount}}
-                        {{#linkTo "projectTaskList"}}
+                        {{#linkTo 'projectTaskList'}}
                             <span class="tab-icon">{{taskCount}}</span>
                             <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "Skills needed" %}</em></strong>
                         {{/linkTo}}
                     {{else}}
-                        {{#linkTo "projectTaskList"}}
+                        {{#linkTo 'projectTaskList'}}
                             <span class="tab-icon">0</span>
                             <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "No skills needed" %}</em></strong>
                         {{/linkTo}}
                     {{/if}}
                 </li>
                 <li class="tab-plan">
-                    {{#linkTo "projectPlan"}}
+                    {{#linkTo 'projectPlan'}}
                         <span class="tab-icon"><em class="flaticon solid document-2"></em></span>
                         <strong class="tab-title">Project Plan <em class="tab-subtitle">{% trans "Read full plan" %}</em></strong>
                     {{/linkTo}}
