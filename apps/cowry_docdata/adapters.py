@@ -2,7 +2,6 @@
 import logging
 import time
 import unicodedata
-from decimal import Decimal, ROUND_HALF_UP
 from urllib2 import URLError
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry.models import PaymentStatuses, PaymentLogLevels
@@ -84,7 +83,7 @@ default_payment_methods = {
 }
 
 
-def log_status(payment, level, message):
+def docdata_payment_logger(payment, level, message):
     log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level=level, message=message)
     log_entry.save()
 
@@ -93,6 +92,7 @@ class DocDataAPIVersionPlugin(MessagePlugin):
     """
     This adds the API version number to the body element. This is required for the DocData soap API.
     """
+
     def marshalled(self, context):
         body = context.envelope.getChild('Body')
         request = body[0]
@@ -109,7 +109,6 @@ class DocDataBrokenWSDLPlugin(DocumentPlugin):
 
 
 class DocDataPaymentAdapter(AbstractPaymentAdapter):
-
     # Mapping of DocData statuses to Cowry statuses. Statuses are from:
     #
     #   Integration Manual Order API 1.0 - Document version 1.0, 08-12-2012 - Page 35
@@ -398,19 +397,18 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             error = reply['statusError']['error']
             error_message = "{0} {1}".format(error['_code'], error['value'])
             logger.error(error_message)
-            log_status(payment, PaymentLogLevels.error, error_message)
+            docdata_payment_logger(payment, PaymentLogLevels.error, error_message)
             return
         else:
             error_message = "REPLY_ERROR Received unknown status reply from DocData."
             logger.error(error_message)
-            log_status(payment, PaymentLogLevels.error, error_message)
+            docdata_payment_logger(payment, PaymentLogLevels.error, error_message)
             return
 
         if not hasattr(report, 'payment'):
-            log_status(payment, PaymentLogLevels.info, "DocData status report has no payment reports.")
+            docdata_payment_logger(payment, PaymentLogLevels.info, "DocData status report has no payment reports.")
             return
 
-        statusChanged = False
         for payment_report in report.payment:
             # Find or create the correct payment object for current report.
             payment_class = self.id_to_model_mapping[payment.payment_method_id]
@@ -425,7 +423,8 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
                 elif ddpayment_list_len == 1:
                     ddpayment = ddpayment_list[0]
                 else:
-                    log_status(payment, PaymentLogLevels.error, "Cannot determine where to save the payment report.")
+                    docdata_payment_logger(payment, PaymentLogLevels.error,
+                                           "Cannot determine where to save the payment report.")
                     continue
 
                 # Save some information from the report.
@@ -433,56 +432,28 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
                 ddpayment.payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
-                # Set the payment fee.
-                docdata_fees = getattr(settings, "COWRY_DOCDATA_FEES", None)
-                if docdata_fees:
-                    if ddpayment.payment_method in docdata_fees:
-                        payment_cost_setting = str(docdata_fees[ddpayment.payment_method])
-                        if '%' in payment_cost_setting:
-                            # Note: This assumes that the amount in the payment method will cover the full cost of the
-                            # payment order. It seems that DocData allows multiple payments to make up the full order
-                            # total. The method used here should be ok for 1%CLUB but it may not be suitable for others.
-                            cost_percent = Decimal(payment_cost_setting.replace('%', '')) / 100
-                            payment_cost = cost_percent * payment.amount
-                        else:
-                            payment_cost = Decimal(payment_cost_setting) * 100
-
-                        # 20 cents is the DocData fee.
-                        payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP) + 20
-                        payment.save()
-
-                    else:
-                        log_status(payment, PaymentLogLevels.warn,
-                                   "Can't set payment fee for {0} because payment method is not in COWRY_DOCDATA_FEES.".format(
-                                       ddpayment.payment_id))
-                else:
-                    log_status(payment, PaymentLogLevels.warn,
-                               "Can't set payment fee for {0} because COWRY_DOCDATA_FEES is not in set.".format(
-                                   ddpayment.payment_id))
-
             # Some additional checks.
             if not payment_report.paymentMethod == ddpayment.payment_method:
-                log_status(payment, PaymentLogLevels.warn,
-                           "Payment method from DocData doesn't match saved payment method. "
-                           "Storing the payment method received from DocData for payment id {0}: {1}".format(
-                               ddpayment.payment_id, payment_report.paymentMethod))
+                docdata_payment_logger(payment, PaymentLogLevels.warn,
+                                       "Payment method from DocData doesn't match saved payment method. "
+                                       "Storing the payment method received from DocData for payment id {0}: {1}".format(
+                                           ddpayment.payment_id, payment_report.paymentMethod))
                 ddpayment.payment_method = str(payment_report.paymentMethod)
                 ddpayment.save()
 
             if not payment_report.authorization.status in self.status_mapping:
                 # Note: We continue to process the payment status change on this error.
-                log_status(payment, PaymentLogLevels.error,
-                           "Received unknown payment status from DocData: {0}".format(
-                               payment_report.authorization.status))
+                docdata_payment_logger(payment, PaymentLogLevels.error,
+                                       "Received unknown payment status from DocData: {0}".format(
+                                           payment_report.authorization.status))
 
             # Update the DocDataPayment status.
             if ddpayment.status != payment_report.authorization.status:
-                log_status(payment, PaymentLogLevels.info,
-                           "DocData payment status changed for payment id {0}: {1} -> {2}".format(
-                               payment_report.id, ddpayment.status, payment_report.authorization.status))
+                docdata_payment_logger(payment, PaymentLogLevels.info,
+                                       "DocData payment status changed for payment id {0}: {1} -> {2}".format(
+                                           payment_report.id, ddpayment.status, payment_report.authorization.status))
                 ddpayment.status = str(payment_report.authorization.status)
                 ddpayment.save()
-                statusChanged = True
 
         # Use the latest DocDataPayment status to set the status on the Cowry Payment.
         latest_ddpayment = payment.latest_docdata_payment
@@ -499,20 +470,26 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         if new_status != PaymentStatuses.cancelled:
             total_registered = report.approximateTotals.totalRegistered
             if total_registered != payment.amount or total_registered != payment.order.total:
-                log_status(payment, PaymentLogLevels.error,
-                           "Payment amount: {0} or Order total: {1} does not equal Total Registered: {2}.".format(
-                               payment.amount, payment.order.total, report.approximateTotals.totalRegistered))
+                docdata_payment_logger(payment, PaymentLogLevels.error,
+                                       "Payment amount: {0} or Order total: {1} does not equal Total Registered: {2}.".format(
+                                           payment.amount, payment.order.total,
+                                           report.approximateTotals.totalRegistered))
 
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
             if new_status not in PaymentStatuses.values:
-                log_status(payment, PaymentLogLevels.error,
-                           "Payment status changed {0} -> {1}".format(old_status, PaymentStatuses.unknown))
+                docdata_payment_logger(payment, PaymentLogLevels.error,
+                                       "Payment status changed {0} -> {1}".format(old_status, PaymentStatuses.unknown))
             else:
-                log_status(payment, PaymentLogLevels.info,
-                           "Payment status changed {0} -> {1}".format(old_status, new_status))
+                docdata_payment_logger(payment, PaymentLogLevels.info,
+                                       "Payment status changed {0} -> {1}".format(old_status, new_status))
 
         self._change_status(payment, new_status)  # Note: change_status calls payment.save().
+
+        # Set the payment fee when Payment status is pending or paid.
+        if payment.status == PaymentStatuses.pending or payment.status == PaymentStatuses.paid:
+            self.update_payment_fee(payment, payment.latest_docdata_payment.payment_method, 'COWRY_DOCDATA_FEES',
+                                    docdata_payment_logger)
 
     def _map_status(self, status, payment=None, totals=None, authorization=None):
         new_status = super(DocDataPaymentAdapter, self)._map_status(status)
@@ -527,27 +504,27 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         # long time for acquirers or shoppers to actually have the money transferred and it can be
         # captured.
         #
-        log_status(payment, PaymentLogLevels.info,
-                   "Total Registered: {0} Total Captured: {1}".format(totals.totalRegistered, totals.totalCaptured))
+        docdata_payment_logger(payment, PaymentLogLevels.info,
+                               "Total Registered: {0} Total Captured: {1}".format(totals.totalRegistered,
+                                                                                  totals.totalCaptured))
         if totals.totalRegistered == totals.totalCaptured:
             new_status = PaymentStatuses.paid
 
         return new_status
 
-    # TODO Use status change log to investigate if these overrides are needed.
-    #     # These overrides are really just guessing.
-    #     latest_capture = authorization.capture[-1]
-    #     if status == 'AUTHORIZED':
-    #         if hasattr(authorization, 'refund') or hasattr(authorization, 'chargeback'):
-    #             new_status = 'cancelled'
-    #         if latest_capture.status == 'FAILED' or latest_capture == 'ERROR':
-    #             new_status = 'failed'
-    #         elif latest_capture.status == 'CANCELLED':
-    #             new_status = 'cancelled'
+        # TODO Use status change log to investigate if these overrides are needed.
+        # # These overrides are really just guessing.
+        # latest_capture = authorization.capture[-1]
+        # if status == 'AUTHORIZED':
+        #     if hasattr(authorization, 'refund') or hasattr(authorization, 'chargeback'):
+        #         new_status = 'cancelled'
+        #     if latest_capture.status == 'FAILED' or latest_capture == 'ERROR':
+        #         new_status = 'failed'
+        #     elif latest_capture.status == 'CANCELLED':
+        #         new_status = 'cancelled'
 
 
 class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
-
     def get_payment_url(self, payment, return_url_base=None):
         raise NotImplementedError
 

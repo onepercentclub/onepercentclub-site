@@ -4,7 +4,7 @@ from docdata.interface import PaymentInterface
 from django.conf import settings
 from apps.cowry.adapters import AbstractPaymentAdapter
 from apps.cowry.models import PaymentStatuses, PaymentLogLevels
-from apps.cowry_docdata.adapters import log_status
+from apps.cowry_docdata.adapters import docdata_payment_logger
 from apps.cowry_docdata.models import DocDataPayment
 
 logger = logging.getLogger(__name__)
@@ -77,8 +77,8 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
         #  u'payout_process': u'new'}
 
         if not status_report and status_changed_notification:
-            log_status(payment, PaymentLogLevels.warn,
-                       "Status changed notification received but status report was empty.")
+            docdata_payment_logger(payment, PaymentLogLevels.warn,
+                                   "Status changed notification received but status report was empty.")
             return
 
         # Find or create the DocDataPayment for current report.
@@ -103,13 +103,13 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
 
         if not status_report[status_key] in self.status_mapping:
             # Note: We continue to process the payment status change on this error.
-            log_status(payment, PaymentLogLevels.error,
-                       "Received unknown payment status from DocData: {0}".format(status_report[status_key]))
+            docdata_payment_logger(payment, PaymentLogLevels.error,
+                                   "Received unknown payment status from DocData: {0}".format(status_report[status_key]))
 
         # Update the DocDataPayment status.
         if ddpayment.status != status_report[status_key]:
-            log_status(payment, PaymentLogLevels.info, "DocData Payment: {0} -> {1}".format(ddpayment.status,
-                                                                                            status_report[status_key]))
+            docdata_payment_logger(payment, PaymentLogLevels.info,
+                                   "DocData Payment: {0} -> {1}".format(ddpayment.status, status_report[status_key]))
             ddpayment.status = status_report[status_key]
             ddpayment.save()
 
@@ -119,46 +119,25 @@ class DocdataLegacyPaymentAdapter(AbstractPaymentAdapter):
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
             if new_status not in PaymentStatuses.values:
-                log_status(payment, PaymentLogLevels.warn,
-                           "Payment {0} -> {1}".format(old_status, PaymentStatuses.unknown))
+                docdata_payment_logger(payment, PaymentLogLevels.warn,
+                                       "Payment {0} -> {1}".format(old_status, PaymentStatuses.unknown))
             else:
-                log_status(payment, PaymentLogLevels.info,
-                           "Payment {0} -> {1}".format(old_status, new_status))
+                docdata_payment_logger(payment, PaymentLogLevels.info,
+                                       "Payment {0} -> {1}".format(old_status, new_status))
 
         self._change_status(payment, new_status)  # Note: change_status calls payment.save().
 
-        # TODO # Set the payment fee.
-        # docdata_fees = getattr(settings, 'COWRY_DOCDATA_LEGACY_FEES', None)
-        # if docdata_fees:
-        #     if ddpayment.payment_method in docdata_fees:
-        #         payment_cost_setting = str(docdata_fees[ddpayment.payment_method])
-        #         if '%' in payment_cost_setting:
-        #             # Note: This assumes that the amount in the payment method will cover the full cost of the
-        #             # payment order. It seems that DocData allows multiple payments to make up the full order
-        #             # total. The method used here should be ok for 1%CLUB but it may not be suitable for others.
-        #             cost_percent = Decimal(payment_cost_setting.replace('%', '')) / 100
-        #             payment_cost = cost_percent * payment.amount
-        #         else:
-        #             payment_cost = Decimal(payment_cost_setting) * 100
-        #
-        #         payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP) + 20
-        #         payment.save()
-        #
-        #     else:
-        #         log_status_update(payment, PaymentLogLevels.warn,
-        #                           "Can't set payment fee for {0} because payment method is not in COWRY_DOCDATA_LEGACY_FEES.".format(
-        #                           ddpayment.payment_id))
-        # else:
-        #     log_status_update(payment, PaymentLogLevels.warn,
-        #                       "Can't set payment fee for {0} because COWRY_DOCDATA_LEGACY_FEES is not in set.".format(
-        #                           ddpayment.payment_id))
+        # Set the payment fee when Payment status is pending or paid.
+        if payment.status == PaymentStatuses.pending or payment.status == PaymentStatuses.paid:
+            self.update_payment_fee(payment, payment.latest_docdata_payment.payment_method, 'COWRY_DOCDATA_LEGACY_FEES',
+                                    docdata_payment_logger)
 
     def _map_status(self, status, payment=None, status_report=None):
         new_status = super(DocdataLegacyPaymentAdapter, self)._map_status(status)
 
         # Status mapping override.
         if status_report[u'meta_considered_safe'] == u'true':
-            log_status(payment, PaymentLogLevels.info, "meta_considered_safe = true")
+            docdata_payment_logger(payment, PaymentLogLevels.info, "meta_considered_safe = true")
             new_status = PaymentStatuses.paid
 
         return new_status
