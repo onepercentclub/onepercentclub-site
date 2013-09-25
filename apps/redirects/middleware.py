@@ -5,6 +5,7 @@ from apps.redirects.models import Redirect
 from django.contrib.sites.models import get_current_site
 from django.core.exceptions import ImproperlyConfigured
 from django import http
+from django.utils import translation
 
 import re
 
@@ -34,7 +35,9 @@ class RedirectFallbackMiddleware(object):
             if request.is_secure():
                 http_host = 'https://' + http_host
             else:
-                http_host = 'http://' + http_host 
+                http_host = 'http://' + http_host
+
+        language = translation.get_language()
 
         redirects = Redirect.objects.all().order_by('fallback_redirect')
         for redirect in redirects:
@@ -42,7 +45,7 @@ class RedirectFallbackMiddleware(object):
             if redirect.old_path == full_path:
                 redirect.nr_times_visited += 1
                 redirect.save()
-                return http.HttpResponsePermanentRedirect(http_host + redirect.new_path)
+                return http.HttpResponsePermanentRedirect(http_host + '/' + language + redirect.new_path)
 
             if settings.APPEND_SLASH and not request.path.endswith('/'):
                 # Try appending a trailing slash.
@@ -52,7 +55,7 @@ class RedirectFallbackMiddleware(object):
                 if redirect.old_path == slashed_full_path:
                     redirect.nr_times_visited += 1
                     redirect.save()
-                    return http.HttpResponsePermanentRedirect(http_host + redirect.new_path)
+                    return http.HttpResponsePermanentRedirect(http_host + '/' + language + redirect.new_path)
 
         # Attempt all regular expression redirects
         reg_redirects = Redirect.objects.filter(regular_expression=True).order_by('fallback_redirect')
@@ -70,7 +73,7 @@ class RedirectFallbackMiddleware(object):
                 replaced_path = re.sub(old_path, new_path, full_path)
                 redirect.nr_times_visited += 1
                 redirect.save()
-                return http.HttpResponsePermanentRedirect(http_host + replaced_path)
+                return http.HttpResponsePermanentRedirect(http_host + '/' + language + replaced_path)
 
         # No redirect was found. Return the response.
         return response
