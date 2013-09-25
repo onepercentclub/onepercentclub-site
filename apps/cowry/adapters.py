@@ -1,5 +1,6 @@
+from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
-from .models import Payment, PaymentStatuses
+from .models import Payment, PaymentStatuses, PaymentLogLevels
 from .signals import payment_status_changed
 
 
@@ -28,6 +29,33 @@ class AbstractPaymentAdapter(object):
 
     def cancel_payment(self, payment):
         raise NotImplementedError
+
+    def update_payment_fee(self, payment, payment_method, payment_fees_setting, payment_logger):
+        payment_fees = getattr(settings, payment_fees_setting, None)
+        if payment_fees:
+            if payment_method in payment_fees:
+                payment_cost_setting = str(payment_fees[payment_method])
+                if '%' in payment_cost_setting:
+                    # Note: This assumes that the amount in the payment method will cover the full cost of the
+                    # payment order. It seems that at least DocData allows multiple payments to make up the full
+                    # order total. The method used here should be ok for 1%Club but it may not be suitable for others.
+                    cost_percent = Decimal(payment_cost_setting.replace('%', '')) / 100
+                    payment_cost = cost_percent * payment.amount
+                else:
+                    payment_cost = Decimal(payment_cost_setting) * 100
+
+                # Set the base transaction fee.
+                payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP) + payment_fees['transaction_fee']
+                payment.save()
+
+            else:
+                payment_logger(payment, PaymentLogLevels.warn,
+                               "Can't set payment fee for {0} because payment method is not in {1} config.".format(
+                                   payment_method, payment_fees_setting))
+        else:
+            payment_logger(payment, PaymentLogLevels.warn,
+                           "Can't set payment fee for {0} because {1} config is not in set.".format(
+                               payment_method, payment_fees_setting))
 
     def _map_status(self, status):
         """
