@@ -45,7 +45,8 @@ class AbstractPaymentAdapter(object):
                     payment_cost = Decimal(payment_cost_setting) * 100
 
                 # Set the base transaction fee.
-                payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP) + payment_fees['transaction_fee']
+                transaction_fee = Decimal(str(payment_fees['transaction_fee']))
+                payment.fee = payment_cost.quantize(Decimal('1.'), rounding=ROUND_HALF_UP) + transaction_fee
                 payment.save()
 
             else:
