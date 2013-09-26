@@ -194,13 +194,8 @@ App.WallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
 
     deleteRecordOnServer: function(){
         var model = this.get('model');
-        var transaction = this.get('store').transaction();
-        transaction.add(model);
-        model.get('reactions').forEach(function(reaction){
-            reaction.deleteRecord();
-        });
         model.deleteRecord();
-        transaction.commit();
+        model.save();
     }
 });
 

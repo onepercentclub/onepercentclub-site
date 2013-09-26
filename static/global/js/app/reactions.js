@@ -31,10 +31,9 @@ App.WallPostReactionListController = Em.ArrayController.extend({
     },
 
     createNewReaction: function() {
-        var transaction = this.get('store').transaction();
-        var reaction =  transaction.createRecord(App.WallPostReaction);
+        var store = this.get('store');
+        var reaction =  store.createRecord(App.WallPostReaction);
         this.set('newReaction', reaction);
-        this.set('transaction', transaction);
     },
 
     addReaction: function() {
@@ -45,15 +44,15 @@ App.WallPostReactionListController = Em.ArrayController.extend({
         var controller = this;
         reaction.on('didCreate', function(record) {
             controller.createNewReaction();
+            // remove is-selected from all input roms
+            $('form.is-selected').removeClass('is-selected');
         });
         reaction.on('becameInvalid', function(record) {
             controller.createNewReaction();
             controller.set('errors', record.get('errors'));
             record.deleteRecord();
         });
-
-        this.get('transaction').commit();
-        // TODO: remove is-selected class from form
+        reaction.save();
     }
 });
 

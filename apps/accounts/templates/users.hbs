@@ -94,7 +94,7 @@
                                 <img {{bindAttr src="getAvatar"}} class="preview" />
 
                                 <a class="btn btn-iconed btn-uploader">
-                                    {{view App.UploadFileView contentBinding="this" name="picture" id="picture" accept="image/*"}}
+                                    {{view App.UploadFile contentBinding="this" fileBinding="picture" name="picture" id="picture" accept="image/*"}}
                                     <em class="flaticon solid upload-document-1"></em>
                                     {% trans "Upload picture" %}
                                 </a>
@@ -194,8 +194,12 @@
                     </ul>
                 </fieldset>
 
-                {{#if saved}}
-                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Profile saved" %}</em></span>
+                {{#if isDirty}}
+                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Changes not saved" %}</em></span>
+                {{else}}
+                    {{#if saved}}
+                        <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Profile saved" %}</em></span>
+                    {{/if}}
                 {{/if}}
 
                 <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>

@@ -155,17 +155,16 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
                 }
             }
 
-            this.ajaxFormData(this.buildURL(root), "POST", {
+            return this.ajaxFormData(this.buildURL(root), "POST", {
                 data: formdata,
-                context: this,
                 success: function(json) {
                     Ember.run(this, function() {
-                        this.didCreateRecord(store, type, record, json);
+                        adapter.didCreateRecord(store, type, record, json);
                     });
                 },
                 // Make sure we parse any errors.
                 error: function(xhr) {
-                    this.didError(store, type, record, xhr);
+                    adapter.didError(store, type, record, xhr);
                 }
             });
 
@@ -191,9 +190,6 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
         var id = get(record, 'id');
         var root = this.rootForType(type, record);
         var adapter = this;
-
-        var data = {};
-        data = this.serialize(record);
         var data = {};
         data = this.serialize(record, { includeId: true });
         var hasFile = false;
@@ -218,33 +214,19 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
                 }
             }
 
-            this.ajaxFormData(this.buildURL(root, id), "POST", {
+            return this.ajaxFormData(this.buildURL(root, id), "POST", {
                 data: formdata,
-                context: this,
                 headers: {'X-HTTP-Method-Override': 'PUT'},
                 success: function(json) {
                     Ember.run(this, function() {
-                        this.didSaveRecord(store, type, record, json);
+                        adapter.didSaveRecord(store, type, record, json);
                     });
                 },
                 error: function(xhr) {
-                    this.didError(store, type, record, xhr);
+                    adapter.didError(store, type, record, xhr);
                 }
             });
         } else {
-//            this.ajax(this.buildURL(root, id), "PUT", {
-//                data: data,
-//                context: this,
-//                success: function(json) {
-//                    Ember.run(this, function() {
-//                        this.didSaveRecord(store, type, record, json);
-//                    });
-//                },
-//                error: function(xhr) {
-//                    this.didError(store, type, record, xhr);
-//                }
-//            });
-//
             return this.ajax(this.buildURL(root, id), "PUT", {
               data: data
             }).then(function(json){

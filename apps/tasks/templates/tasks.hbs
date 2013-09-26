@@ -250,14 +250,15 @@
             <div class="project-owner-actions">
             	<header>
             		<h3>{% trans "You're the project owner" %}</h3>
-					<p>{% trans "You can edit or remove this task" %}.</p>
             	</header>
-            	
-				<a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
-	                <em class="flaticon solid trash-2"></em>
-	                {% trans "Delete task" %}
-	            </a>
-	            
+
+                {% comment %}
+                    <a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
+                        <em class="flaticon solid trash-2"></em>
+                        {% trans "Delete task" %}
+                    </a>
+                {% endcomment %}
+
                 {{#linkTo 'projectTaskEdit' controller.model class="btn btn-primary btn-iconed task-edit"}}
                     <em class="flaticon solid pencil-3"></em> {% trans "Edit Task" %}
                 {{/linkTo}}
@@ -270,13 +271,14 @@
 		    	<div class="project-owner-actions">
 	            	<header>
 	            		<h3>{% trans "You're the project owner" %}</h3>
-						<p>{% trans "You can edit or remove this task" %}.</p>
 	            	</header>
 	            	
-					<a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
-		                <em class="flaticon solid trash-2"></em>
-		                {% trans "Delete task" %}
-		            </a>
+                    {% comment %}
+                        <a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
+                            <em class="flaticon solid trash-2"></em>
+                            {% trans "Delete task" %}
+                        </a>
+                    {% endcomment %}
 		            
 	                {{#linkTo 'projectTaskEdit' controller.model class="btn btn-primary btn-iconed task-edit"}}
 	                    <em class="flaticon solid pencil-3"></em> {% trans "Edit Task" %}

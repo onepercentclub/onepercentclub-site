@@ -269,7 +269,7 @@ App.ProjectTaskNewController = Em.ObjectController.extend({
         task.on('becameInvalid', function(record) {
             controller.set('errors', record.get('errors'));
         });
-        task.transaction.commit();
+        task.save();
     }
 });
 
@@ -288,11 +288,11 @@ App.ProjectTaskEditController = App.ProjectTaskNewController.extend({
         task.on('becameInvalid', function(record) {
             controller.set('errors', record.get('errors'));
         });
-        task.transaction.commit();
+        task.save();
     },
     cancelChangesToTask: function(event){
         var task = this.get('content');
-        task.transaction.rollback();
+        task.rollback();
         this.transitionToRoute('projectTask', task);
     }
 
