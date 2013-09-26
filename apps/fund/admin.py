@@ -24,14 +24,14 @@ class DonationAdmin(admin.ModelAdmin):
         donation_type = ContentType.objects.get_for_model(obj)
         donation = OrderItem.objects.filter(object_id=obj.id).filter(content_type=donation_type).get()
         order = donation.order
-        url = reverse('admin:%s_%s_change' % (order._meta.app_label,  order._meta.module_name),  args=[order.id])
+        url = reverse('admin:%s_%s_change' % (order._meta.app_label, order._meta.module_name),  args=[order.id])
         return "<a href='%s'>View Order</a>" % (str(url))
 
     view_order.allow_tags = True
 
     def amount_override(self, obj):
         language = translation.get_language().split('-')[0]
-        return format_currency(obj.amount / 100, obj.currency, locale=language)
+        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
 
@@ -64,7 +64,7 @@ class DocDataPaymentOrderInline(admin.TabularInline):
 
     def amount_override(self, obj):
         language = translation.get_language().split('-')[0]
-        return format_currency(obj.amount / 100, obj.currency, locale=language)
+        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
 
@@ -112,7 +112,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     def total(self, obj):
         language = translation.get_language().split('-')[0]
-        return format_currency(obj.total / 100, 'EUR', locale=language)
+        return format_currency(obj.total / 100.0, 'EUR', locale=language)
 
     def type(self, obj):
         icon_url = static(
@@ -135,7 +135,7 @@ class VoucherAdmin(admin.ModelAdmin):
 
     def amount_override(self, obj):
         language = translation.get_language().split('-')[0]
-        return format_currency(obj.amount / 100, obj.currency, locale=language)
+        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
 
@@ -158,7 +158,7 @@ class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
 
     def amount_override(self, obj):
         language = translation.get_language().split('-')[0]
-        return format_currency(obj.amount / 100, obj.currency, locale=language)
+        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
 
