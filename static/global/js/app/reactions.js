@@ -66,23 +66,26 @@ App.WallPostReactionView = Em.View.extend({
     templateName: 'wallpost_reaction',
     tagName: 'li',
     classNames: ['initiator'],
-
-    deleteReaction: function() {
-        var view = this;
-        Bootstrap.ModalPane.popup({
-            heading: gettext("Really?"),
-            message: gettext("Are you sure you want to delete this reaction?"),
-            primary: gettext("Yes"),
-            secondary: gettext("Cancel"),
-            callback: function(opts, e) {
-                e.preventDefault();
-                if (opts.primary) {
-                    view.$().fadeOut(500, function() {
-                        view.get('controller').deleteRecordOnServer()
-                    });
+    actions: {
+        deleteReaction: function() {
+            var view = this;
+            var model = this.get('controller.model');
+            Bootstrap.ModalPane.popup({
+                heading: gettext("Really?"),
+                message: gettext("Are you sure you want to delete this reaction?"),
+                primary: gettext("Yes"),
+                secondary: gettext("Cancel"),
+                callback: function(opts, e) {
+                    e.preventDefault();
+                    if (opts.primary) {
+                        view.$().fadeOut(500, function() {
+                            model.deleteRecord();
+                            model.save();
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 });
 

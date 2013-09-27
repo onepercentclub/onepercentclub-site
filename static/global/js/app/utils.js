@@ -362,17 +362,18 @@ App.ShowMoreItemsMixin = Em.Mixin.create({
     loadInitial: function(){
         // If no items have been load yet, please do.
         if (this.get('items').length == 0) {
-            this.showMore();
+            this.send('showMore');
         }
     }.observes('model.isLoaded'),
 
-    showMore: function() {
-        var start = this.get('page') * this.get('perPage');
-        this.incrementProperty('page');
-        var end = this.get('page') * this.get('perPage');
-        this.get('items').pushObjects(this.get('model').slice(start, end));
+    actions: {
+        showMore: function() {
+            var start = this.get('page') * this.get('perPage');
+            this.incrementProperty('page');
+            var end = this.get('page') * this.get('perPage');
+            this.get('items').pushObjects(this.get('model').slice(start, end));
+        }
     }
-
 });
 
 App.PopOverMixin = Em.Mixin.create({
