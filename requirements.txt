@@ -53,6 +53,10 @@ coverage==3.6
 django-taggit==0.10a1
 django-taggit-autocomplete-modified==0.1.0b4
 
+
+# Gunicorn WSGI server
+gunicorn
+
 # Embedding videos and other media
 # https://github.com/coleifer/micawber
 micawber==0.2.6
