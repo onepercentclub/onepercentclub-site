@@ -173,7 +173,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.i18n'
 )
 
-ROOT_URLCONF = 'bluebottle.urls'
+ROOT_URLCONF = 'onepercentclub.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'bluebottle.wsgi.application'

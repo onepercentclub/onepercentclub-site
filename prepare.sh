@@ -11,11 +11,11 @@ VIRTUALENV="virtualenv --system-site-packages --distribute --prompt=($BASEPATH)"
 PIP="pip --timeout 30 -q --use-mirrors"
 ENVDIR=env
 
-SETTINGS_DIR=$PWD/bluebottle/settings
+SETTINGS_DIR=$PWD/onepercentclub/settings
 MANAGE_PY="$ENVDIR/bin/python ./manage.py"
 
 echo "Checking PIP and virtualenv availability"
-pip install 'pip>=1.0' 'virtualenv>=1.7.1.2'
+#pip install 'pip>=1.0' 'virtualenv>=1.7.1.2'
 
 if [ $? -eq 0 ]; then
     echo 'PIP and virtualenv available'
