@@ -12,7 +12,7 @@
             	</span>
                 <span class="item-project-title">
                 	<h3>{{project.title}}</h3>
-                    <span class="item-project-country"><em class="flaticon solid location-pin-1"></em> {{project.country.name}}</span> 
+                    <span class="item-project-country"><span class="flaticon solid location-pin-1"></span> {{project.country.name}}</span> 
                 </span>
             </span>
         
@@ -20,7 +20,7 @@
 	            {{#if project.isPhasePlan}}
 	                <span class="donate-status">
 	                    <p class="donate-amount">
-	                        <em class="flaticon solid lightbulb-3"></em>
+	                        <span class="flaticon solid lightbulb-3"></span>
 	                        <em>{% trans "New" %}</em> {% trans "Smart Idea" %}
 	                    </p>
 	                </span>
@@ -37,7 +37,7 @@
 	                    {{/if}}
 	                    {{#if project.campaign.deadline }}
 	                        <p class="donate-days-left">
-	                            <strong><i class="flaticon solid clock-1"></i> {{ project.campaign.daysToGo }}</strong>
+	                            <strong><span class="flaticon solid clock-1"></span> {{ project.campaign.daysToGo }}</strong>
 	                            <em>{% trans "days" %}</em>
 	                        </p>
 	                    {{/if}}
@@ -76,7 +76,7 @@
 	
 	            {{#if taskCount}}
 	                <span class="project-task">
-	                	<em class="flaticon solid wrench-1"></em> <strong>{{project.taskCount}}</strong> {% trans "task(s) available" %}
+	                	<span class="flaticon solid wrench-1"></span> <strong>{{project.taskCount}}</strong> {% trans "task(s) available" %}
 	                </span>
 	            {{/if}}
 	        </span>
@@ -90,23 +90,20 @@
 {% tplhandlebars "project_list" %}
 
     {{render "projectSearchForm" }}
-    <div class="container">
-        <section class="wrapper">
+    <div class="l-section">
+        <section class="l-wrapper">
             <article>
-                <header>
-                    {{#if model.isLoaded}}
-                        <ul id="results">
-                            {{#each project in model}}
-                                {{render "projectPreview" project}}
-                            {{else}}
-                                <li>{% trans "No projects found." %}</li>
-                            {{/each}}
-                        </ul>
+            {{#if model.isLoaded}}
+                <ul id="results">
+                    {{#each project in model}}
+                        {{render "projectPreview" project}}
                     {{else}}
-                        <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "loading projects" %}</span>
-                    {{/if}}
-                </header>
-            </article>
+                        <li>{% trans "No projects found." %}</li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "loading projects" %}</span>
+            {{/if}}
         </section>
     </div>
 
@@ -115,23 +112,23 @@
 
 {% tplhandlebars "project_search_form" %}
 
-    <div class="container section">
-        <section class="wrapper">
-            <article class="search-form">
+    <div class="l-section">
+        <section class="l-wrapper">
+            <form class="search-form">
                 <div class="search-field">
-                    <em class="flaticon solid zoom-1"></em>
+                    <span class="flaticon solid zoom-1"></span>
                     {{view Em.TextField valueBinding="text" placeholder="Search keyword"}}
                 </div>
                 <div class="control">
-                    <em class="flaticon solid earth-1"></em>
+                    <span class="flaticon solid earth-1"></span>
                     {{view App.ProjectCountrySelectView valueBinding="country" }}
                 </div>
                 <div class="control">
-                    <em class="flaticon solid tag-1"></em>
+                    <span class="flaticon solid tag-1"></span>
                     {{view App.ThemeSelectView valueBinding="theme" }}
                 </div>
                 <div class="control">
-                    <em class="flaticon solid flag-1"></em>
+                    <span class="flaticon solid flag-1"></span>
                     {{view App.ProjectPhaseSelectView valueBinding="phase" }}
                 </div>
                 <div class="clear-form">
@@ -140,17 +137,17 @@
                         {% trans "clear filters" %}
                     </a>
                 </div>
-            </article>
+            </form>
         </section>
     </div>
 
-    <div class="container">
-        <section class="wrapper">
+    <div class="l-section">
+        <section class="l-wrapper">
             <article id="search-navigation">
             	
-            	<div class="search-results">
+            	<header class="search-results">
                 	<h2>{% trans "Results" %} <em>{{controllers.projectList.model.meta.total}}</em></h2>
-            	</div>
+            	</header>
                 
                 <div class="search-sort">
                     <strong>{% trans "Sort:" %}</strong>
@@ -194,8 +191,8 @@
 
 {% tplhandlebars "project" %}
 
-    <div class="section" id="detail">
-        <section class="wrapper">
+    <div class="l-section" id="detail">
+        <section class="l-wrapper">
         
             <figure class="media">
                 <img {{bindAttr src="plan.image.large"}} width="100%" alt="Photo" />
@@ -302,15 +299,15 @@
         {{/if}}
     </div>
 
-    <div class="section" id="member-box">
-        <div class="wrapper">
+    <div class="l-section" id="member-box">
+        <section class="l-wrapper">
             {{view App.ProjectMembersView}}
         </div>
     </div>
 
-    <nav id="project-actions" class="section">
-
-        <div class="wrapper">
+    <nav class="l-section" id="project-actions">
+        <div class="l-wrapper">
+        
             <ul class="tabs">
                 <li class="tab-updates">
                     {{#linkTo 'project.index'}}
@@ -344,12 +341,13 @@
                     {{/if}}
                 </li>
                 <li class="tab-plan">
-                    {{#linkTo 'projectPlan'}}
-                        <span class="tab-icon"><em class="flaticon solid document-2"></em></span>
+                    {{#linkTo "projectPlan"}}
+                        <span class="tab-icon"><span class="flaticon solid document-2"></span></span>
                         <strong class="tab-title">Project Plan <em class="tab-subtitle">{% trans "Read full plan" %}</em></strong>
                     {{/linkTo}}
                 </li>
             </ul>
+            
         </div>
     </nav>
     {{ outlet }}
@@ -523,7 +521,7 @@
 
 {% tplhandlebars "project_plan" %}
 
-    <section class="wrapper">
+    <section class="l-wrapper">
         <div id="project-detail">
             
             <header>
@@ -581,16 +579,16 @@
 				
 				<ul>
                 {{#if organization.website}}
-                    <li><a hef="{{organization.website}}"><em class="flaticon solid link-1"></em> {{organization.website}}</a><li>
+                    <li><a hef="{{organization.website}}"><span class="flaticon solid link-1"></span> {{organization.website}}</a><li>
                 {{/if}}
                 {{#if organization.twitter}}
-                    <li><a hef="http://twitter.com/{{organization.twitter}}"><em class="flaticon social twitter-3"> {{organization.twitter}}</a></em> {{organization.twitter}}</a><li>
+                    <li><a hef="http://twitter.com/{{organization.twitter}}"><span class="flaticon social twitter-3"></span> {{organization.twitter}}</a><li>
                 {{/if}}
                 {{#if organization.facebook}}
-                    <li><a hef="http://facebook.com/{{organization.facebook}}"><em class="flaticon social facebook-3"> {{organization.facebook}}</a></em> {{organization.facebook}}</a><li>
+                    <li><a hef="http://facebook.com/{{organization.facebook}}"><span class="flaticon social facebook-3"></span> {{organization.facebook}}</a><li>
                 {{/if}}
                 {{#if organization.skype}}
-                    <li><a hef="callto:{{organization.skype}}"><em class="flaticon social skype-2"></em> {{organization.skype}}</a><li>
+                    <li><a hef="callto:{{organization.skype}}"><span class="flaticon social skype-2"></</span>> {{organization.skype}}</a><li>
                 {{/if}}
 				</article>	
             {{/if}}

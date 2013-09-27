@@ -1,22 +1,25 @@
-/* =========== Main Header & Navigation */
+//
+// Header & main navigation
+// --------------------------------------------------
 
 #header {
 	background-color: $black;
+	overflow: hidden;
 }
 
-
 #logo {
-    @include grid(6,1,1);
-    padding: $base-padding/2;
+    @include grid(6,1,0);
     
     .logo-link {
 	    display: block;
-	    
+        padding: $base-padding $base-padding/2;
+        //@include transition(opacity, 0.5s, ease-out);
+        
 	    // Fix for making linkable
 	    object {
 		    pointer-events: none;
 	    }
-	   	    
+	    
 	    .logo-image {
 	    	display: block;
 		    width: 100%;
@@ -27,15 +30,20 @@
 		    display: none;
 	    }
 	    
+        &:hover {
+            @include opacity(0.8);
+        }
     }
     
 }
 
+// Main navigation
+// -------------------------
+
 #nav {
-	text-transform: uppercase;
-	min-height: 64px;
-	font-size: $font-size-small;
-	font-family: $font-family-bold;
+	//text-transform: uppercase;
+	//min-height: 64px;
+	//font-size: $font-size-small;
 	
     > ul {
     	margin: 0;
@@ -44,14 +52,16 @@
     }
 	
 	.nav-main {
-	    @include grid(26,0,0);
-	    margin-top: $base-margin;
+	    @include grid(26,1,0);
 	    
 	    > li a, > li a:visited {
-			padding: $base-margin/4 $base-padding;
+			padding: $base-padding $base-padding;
 	        white-space: nowrap;
-	        color: $gray-light;
-		    text-transform: uppercase;
+	        color: $gray-lighter;
+		    //text-transform: uppercase;
+            font-family: $font-family-bold;
+            font-size: $font-size-large;
+            line-height: 2.5em;
 		    display: block;
 		    float: left;
 		    text-align: center;
@@ -60,6 +70,7 @@
 		
 		    &:hover, &:active, &.is-active {
 		        color: $white;
+		        text-decoration: underline;
 		    }
 	    }
 	}

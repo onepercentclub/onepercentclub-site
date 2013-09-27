@@ -17,6 +17,8 @@
     text-transform: uppercase;
     cursor: pointer;
     overflow: hidden;
+    vertical-align: top;
+    @include transition(all, 0.15s, ease-out);
     
     &.btn-primary {
     	border: 1px solid darken($color-primary, 5%);
