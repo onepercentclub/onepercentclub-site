@@ -68,6 +68,28 @@ Alternately you can specify the settings manually when you use `./manage.py`::
 
 
 
+Deployment
+----------
+For deployment, we're using `Fabric
+<http://docs.fabfile.org/en/1.4.3/index.html>`_. In order to deploy, the user
+should have his/her SSH public key authorized for the user `onepercentadmin`
+on the development, testing, staging and production environments. After this
+has been done, make sure you use the environment and run::
+
+    fab --list
+
+This will display all the available Fabric commands, which are defined in `fabfile.py <https://github.com/onepercentclub/bluebottle/blob/onepercentsite/fabfile.py>`_.
+
+To deploy the latest version on dev to testing:
+    
+    fab deploy_testing
+
+To deploy an older version to staging, say we want to revert to staging-66:
+  
+    fab deploy_staging:revspec=staging-66
+
+Same goes for production
+
 Fixtures
 --------
 Some models have default data which can be loaded after you run syncdb
