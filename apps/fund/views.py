@@ -472,30 +472,34 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
             anon_current_order = Order.objects.get(id=request.session.pop(anon_order_id_session_key))
             if anon_current_order.status == OrderStatuses.current:
 
-                # Anonymous order has status 'current' - copy over to user's 'current' order.
                 try:
                     user_current_order = Order.objects.get(user=user, status=OrderStatuses.current)
                     # Close old order by this user.
                     user_current_order.status = OrderStatuses.closed
                     user_current_order.save()
-                except Order.DoesNotExist:
-                    # There isn't a current order for the so we don't need to cancel it.
-                    pass
-                # Assign the anon order to this user.
-                anon_current_order.user = user
-                anon_current_order.save()
-                # Move all donations to this user too.
-                for donation in anon_current_order.donations:
-                    donation.user = user
-                    donation.save()
 
-            else:
-                # Anonymous cart order does not have status 'current' - just assign it to the user.
-                anon_current_order.user = user
-                anon_current_order.save()
-                for donation in anon_current_order.donations:
-                    donation.user = user
-                    donation.save()
+                    # Cancel the payments on the closed order.
+                    if user_current_order.payments.count() > 0:
+                        for payment in anon_current_order.payments.all():
+                            if payment.status != PaymentStatuses.new:
+                                try:
+                                    payments.cancel_payment(payment)
+                                except(NotImplementedError, PaymentException) as e:
+                                    logger.warn("Problem cancelling payment on closed user Order {0}: {1}".format(
+                                        user_current_order.id, e))
+
+                except Order.DoesNotExist:
+                    # There isn't a current order so we don't need to close it.
+                    pass
+
+            # Assign the anon order to this user.
+            anon_current_order.user = user
+            anon_current_order.save()
+            # Move all donations to this user too.
+            for donation in anon_current_order.donations:
+                donation.user = user
+                donation.save()
+
         except Order.DoesNotExist:
             pass
 
