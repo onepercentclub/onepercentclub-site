@@ -38,8 +38,8 @@ pip-log.txt
 !/static/assets/.gitkeep
 
 # Local settings overrides
-bluebottle/settings/local.py
-bluebottle/settings/secrets.py
+onepercentclub/settings/local.py
+onepercentclub/settings/secrets.py
 
 # Misc stuff
 env

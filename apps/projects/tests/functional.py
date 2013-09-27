@@ -4,18 +4,16 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
-from random import randint
 import time
 
-from decimal import Decimal
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
-from ..models import Project, ProjectPhases, ProjectPlan
+from ..models import Project, ProjectPhases
 from .unittests import ProjectTestsMixin
 
-from bluebottle.tests.utils import SeleniumTestCase, css_dict
+from onepercentclub.tests.utils import SeleniumTestCase
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),

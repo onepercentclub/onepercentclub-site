@@ -13,11 +13,11 @@ install:
   - "pip install $DJANGO --use-mirrors"
   - "pip install -r requirements.txt --use-mirrors"
   - "pip install Pillow --use-mirrors"
-  - "touch bluebottle/settings/secrets.py"
+  - "touch onepercentclub/settings/secrets.py"
 
 matrix:
   allow_failures:
     - env: DJANGO=https://github.com/django/django/archive/master.zip
 
 script:
-  - python ./manage.py test --settings=bluebottle.settings.travis -v 2
+  - python ./manage.py test --settings=onepercentclub.settings.travis -v 2

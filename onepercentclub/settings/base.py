@@ -173,7 +173,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.i18n'
 )
 
-ROOT_URLCONF = 'bluebottle.urls'
+ROOT_URLCONF = 'onepercentclub.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'bluebottle.wsgi.application'
@@ -227,6 +227,9 @@ INSTALLED_APPS = (
     'apps.cowry',
     'apps.cowry_docdata',
     'apps.cowry_docdata_legacy',
+
+    # Password auth from old PHP site.
+    'legacyauth',
 
     # bluebottle apps
     'apps.blogs',
@@ -560,3 +563,7 @@ STATICI18N_ROOT = os.path.join(PROJECT_ROOT, 'static', 'global')
 
 SESSION_COOKIE_NAME = 'bb-session-id'
 
+# Support legacy passwords
+PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
+    'legacyauth.hashers.LegacyPasswordHasher',
+)

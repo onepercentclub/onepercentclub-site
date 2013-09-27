@@ -1,11 +1,11 @@
-Project Bluebottle
-==================
+1%Club's website 
+================
 
-The repository for Project Bluebottle, the crowdsourcing framework initiated
-by the 1%CLUB.
+This is 1%Club's website. This site is proudly built using `BlueBottle
+<https://github.com/onepercentclub/bluebottle>`_, the crowdfundning and
+crowdsourcing framework developed by the 1%Club.
 
-:build status:
-.. image:: https://travis-ci.org/onepercentclub/onepercentclub-site.png?branch=master 
+.. image:: https://travis-ci.org/onepercentclub/onepercentclub-site.png?branch=master
    :target: https://travis-ci.org/onepercentclub/onepercentclub-site
 
 Getting started
@@ -19,7 +19,7 @@ Getting started
 
     ./prepare.sh
 
-#. Configure your database in `bluebottle/settings/secrets.py`.
+#. Configure your database in `onepercentclub/settings/secrets.py`.
 #. Activate the newly created environment in `env`::
 
     source env/bin/activate
@@ -46,7 +46,7 @@ collaborate at the
 Settings
 --------
 Bluebottle has different settings for different environments as described in the "Settings and Requirements Files"
-chapter of `2 Scoops of Django <https://django.2scoops.org/>`_. The settings can be found in `bluebottle/settings`:
+chapter of `2 Scoops of Django <https://django.2scoops.org/>`_. The settings can be found in `onepercentclub/settings`:
 
     * `base.py`: Project defaults used in any settings environment.
     * `secrets.py`: Used for storing passwords, API keys etc. This is not stored in Git.
@@ -58,15 +58,35 @@ chapter of `2 Scoops of Django <https://django.2scoops.org/>`_. The settings can
     * `production.py`: Settings for the testing server.
 
 Specific settings can be used by setting the environment variable `DJANGO_SETTINGS_MODULE` to
-`bluebottle.settings.<settings name>`::
+`onepercentclub.settings.<settings name>`::
 
-    export DJANGO_SETTINGS_MODULE=bluebottle.settings.local
+    export DJANGO_SETTINGS_MODULE=onepercentclub.settings.local
 
 Alternately you can specify the settings manually when you use `./manage.py`::
 
-    ./manage.py runserver --settings=bluebottle.settings.local
+    ./manage.py runserver --settings=onepercentclub.settings.local
 
+Deployment
+----------
+For deployment, we're using `Fabric
+<http://docs.fabfile.org/en/1.4.3/index.html>`_. In order to deploy, the user
+should have his/her SSH public key authorized for the user `onepercentadmin`
+on the development, testing, staging and production environments. After this
+has been done, make sure you use the environment and run::
 
+    fab --list
+
+This will display all the available Fabric commands, which are defined in `fabfile.py <https://github.com/onepercentclub/onepercentclub-site/blob/onepercentsite/fabfile.py>`_.
+
+To deploy the latest version on dev to testing:
+    
+    fab deploy_testing
+
+To deploy an older version to staging, say we want to revert to staging-66:
+  
+    fab deploy_staging:revspec=staging-66
+
+Same goes for production
 
 Fixtures
 --------
@@ -79,7 +99,7 @@ For example, this command loads the data for the Bluebottle geo app::
 
     ./manage.py loaddata region_subregion_country_data
 
-You can find a list of data files with this command run from the bluebottle
+You can find a list of data files with this command run from the onepercentclub-site
 directory::
 
     find apps -name \*.json
@@ -87,4 +107,4 @@ directory::
 License
 -------
 Project Bluebottle is distributed under a 3-clause BSD license. For more
-information, please refer to the `license <https://github.com/onepercentclub/bluebottle/blob/master/LICENSE>`_.
+information, please refer to the `license <https://github.com/onepercentclub/onepercentclub-site/blob/master/LICENSE>`_.

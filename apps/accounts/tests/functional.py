@@ -13,7 +13,7 @@ from django.conf import settings
 from django.core import mail
 from django.utils.unittest.case import skipUnless, skipIf
 
-from bluebottle.tests.utils import SeleniumTestCase, css_dict
+from onepercentclub.tests.utils import SeleniumTestCase, css_dict
 from apps.geo.models import Region
 from apps.projects.tests import ProjectTestsMixin
 from ..models import BlueBottleUser
