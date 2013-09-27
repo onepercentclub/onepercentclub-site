@@ -159,7 +159,7 @@
 {% tplhandlebars "project_task_preview" %}
 
     <li class="item item-task">
-    	{{#linkTo "projectTask" task}}
+    	{{#linkTo 'projectTask' task}}
     	
 	        <h2><em class="flaticon solid wrench-1"></em>{{task.skill.name}}</h2>
 	        
@@ -250,15 +250,16 @@
             <div class="project-owner-actions">
             	<header>
             		<h3>{% trans "You're the project owner" %}</h3>
-					<p>{% trans "You can edit or remove this task" %}.</p>
             	</header>
-            	
-				<a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
-	                <em class="flaticon solid trash-2"></em>
-	                {% trans "Delete task" %}
-	            </a>
-	            
-                {{#linkTo projectTaskEdit controller.model class="btn btn-primary btn-iconed task-edit"}}
+
+                {% comment %}
+                    <a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
+                        <em class="flaticon solid trash-2"></em>
+                        {% trans "Delete task" %}
+                    </a>
+                {% endcomment %}
+
+                {{#linkTo 'projectTaskEdit' controller.model class="btn btn-primary btn-iconed task-edit"}}
                     <em class="flaticon solid pencil-3"></em> {% trans "Edit Task" %}
                 {{/linkTo}}
             	
@@ -270,15 +271,16 @@
 		    	<div class="project-owner-actions">
 	            	<header>
 	            		<h3>{% trans "You're the project owner" %}</h3>
-						<p>{% trans "You can edit or remove this task" %}.</p>
 	            	</header>
 	            	
-					<a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
-		                <em class="flaticon solid trash-2"></em>
-		                {% trans "Delete task" %}
-		            </a>
+                    {% comment %}
+                        <a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
+                            <em class="flaticon solid trash-2"></em>
+                            {% trans "Delete task" %}
+                        </a>
+                    {% endcomment %}
 		            
-	                {{#linkTo projectTaskEdit controller.model class="btn btn-primary btn-iconed task-edit"}}
+	                {{#linkTo 'projectTaskEdit' controller.model class="btn btn-primary btn-iconed task-edit"}}
 	                    <em class="flaticon solid pencil-3"></em> {% trans "Edit Task" %}
 	                {{/linkTo}}
 	            	
@@ -469,7 +471,7 @@
 		                    </a>
 		                {{/if}}
 		            {{else}}
-		            	<p class="login-signup"><a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to apply for this task" %}.</p>
+		            	<p class="login-signup"><a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a> or become a {{#linkTo 'signup'}}{% trans "member" %}{{/linkTo}} {% trans "to apply for this task" %}.</p>
 		            {{/if}}
 		        {{/if}}
 				
@@ -848,7 +850,7 @@
 
                 <div class="controls">
                     <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadFileView valueBinding="file" name="file" id="file"}}
+                        {{view App.UploadFile fileBinding="file" name="file" id="file"}}
                         <em class="flaticon solid upload-document-1"></em>
                         {% trans "Upload file" %}
                     </a>

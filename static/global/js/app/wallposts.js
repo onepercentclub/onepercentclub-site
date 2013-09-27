@@ -192,15 +192,12 @@ App.WallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
         return transaction.createRecord(App.WallPostReaction, {'wallpost': this.get('model')});
     }.property('model'),
 
-    deleteRecordOnServer: function(){
-        var model = this.get('model');
-        var transaction = this.get('store').transaction();
-        transaction.add(model);
-        model.get('reactions').forEach(function(reaction){
-            reaction.deleteRecord();
-        });
-        model.deleteRecord();
-        transaction.commit();
+    actions: {
+        deleteRecordOnServer: function(){
+            var model = this.get('model');
+            model.deleteRecord();
+            model.save();
+        }
     }
 });
 
@@ -296,25 +293,28 @@ App.ProjectWallPostView = Em.View.extend({
         }, 500);
     },
 
-    // TODO: Delete reactions to WallPost as well?
-    deleteWallPost: function() {
-        var view = this;
-
-        Bootstrap.ModalPane.popup({
-            heading: gettext("Really?"),
-            message: gettext("Are you sure you want to delete this comment?"),
-            primary: gettext("Yes"),
-            secondary: gettext("Cancel"),
-            callback: function(opts, e) {
-                e.preventDefault();
-                if (opts.primary) {
-                    view.$().fadeOut(500, function() {
-                        view.get('controller').deleteRecordOnServer()
-                    });
+    actions: {
+        deleteWallPost: function() {
+            var view = this;
+            var wallpost = this.get('controller.model');
+            Bootstrap.ModalPane.popup({
+                heading: gettext("Really?"),
+                message: gettext("Are you sure you want to delete this comment?"),
+                primary: gettext("Yes"),
+                secondary: gettext("Cancel"),
+                callback: function(opts, e) {
+                    e.preventDefault();
+                    if (opts.primary) {
+                        view.$().fadeOut(500, function() {
+                            wallpost.deleteRecord();
+                            wallpost.save();
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
+
 });
 
 

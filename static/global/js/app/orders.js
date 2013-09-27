@@ -292,7 +292,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             record.set('errors', record.get('errors'));
 
             // Revert to the value on the server when there's an error.
-            record.get('stateManager').goToState('loaded');
+            record.transitionTo('loaded');
             record.reload();
 
             // Clear the error after 10 seconds.
@@ -300,14 +300,8 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
                 record.set('errors', []);
             }, 10000);
         });
-        // Renew the transaction as needed.
-        // If we have an error the record will stay 'dirty' and we can't put it into a new transaction.
-        if (donation.get('transaction.isDefault')) {
-            var transaction = this.get('store').transaction();
-            transaction.add(donation);
-        }
         donation.set('amount', newAmount);
-        donation.transaction.commit();
+        donation.save();
     }
 });
 
@@ -326,7 +320,7 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
             donation.set('errors', {amount: ["Please use whole numbers for your donation."]});
 
             // Revert to the value on the server when there's an error.
-            donation.get('stateManager').goToState('loaded');
+            donation.transitionTo('loaded');
             donation.reload();
 
             // Clear the error after 10 seconds.
@@ -337,11 +331,9 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
     },
 
     deleteDonation: function() {
-        var transaction = this.get('store').transaction();
         var donation = this.get('model');
-        transaction.add(donation);
         donation.deleteRecord();
-        transaction.commit();
+        donation.save();
     }
 });
 
@@ -366,11 +358,9 @@ App.CurrentOrderVoucherListController = Em.ArrayController.extend({
 
 App.CurrentOrderVoucherController = Em.ObjectController.extend({
     deleteVoucher: function() {
-        var transaction = this.get('store').transaction();
         var voucher = this.get('model');
-        transaction.add(voucher);
         voucher.deleteRecord();
-        transaction.commit();
+        voucher.save();
     }
 });
 
@@ -384,14 +374,13 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
     },
 
     createNewVoucher: function() {
-        var transaction = this.get('store').transaction();
-        var voucher =  transaction.createRecord(App.CurrentOrderVoucher);
+        var store = this.get('store');
+        var voucher =  store.createRecord(App.CurrentOrderVoucher);
         voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
         voucher.set('sender_email', this.get('controllers.currentUser.email'));
         voucher.set('receiver_name', '');
         voucher.set('receiver_email', '');
         this.set('model', voucher);
-        this.set('transaction', transaction);
     },
 
     updateSender: function(){
@@ -419,7 +408,7 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
             record.deleteRecord();
         });
 
-        this.get('transaction').commit();
+        voucher.save();
     }
 });
 
@@ -427,17 +416,13 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 App.PaymentProfileController = Em.ObjectController.extend({
     needs: ['currentOrder', 'currentUser'],
 
-    initTransaction: function() {
-        var transaction = this.get('store').transaction();
-        this.set('transaction', transaction);
-        transaction.add(this.get('model'));
-    }.observes('model'),
-
     updateProfile: function() {
         var profile = this.get('model');
         var user = this.get('controllers.currentUser');
+
         // Set profile model to the 'updated' state so that the 'didUpdate' callback will always be run.
-        profile.get('stateManager').goToState('updated');
+        profile.transitionTo('updated.uncommitted');
+
         var controller = this;
         profile.one('didUpdate', function(record) {
             var currentOrder = controller.get('controllers.currentOrder');
@@ -448,11 +433,12 @@ App.PaymentProfileController = Em.ObjectController.extend({
                 controller.transitionToRoute('paymentSignup');
             }
         });
+
         profile.one('becameInvalid', function(record) {
             controller.get('model').set('errors', record.get('errors'));
-            // Note: We're reusing the transaction in this case but it seems to work.
         });
-        this.get('transaction').commit();
+
+        profile.save();
     },
 
     isFormReady: function() {
@@ -466,12 +452,6 @@ App.PaymentProfileController = Em.ObjectController.extend({
 App.PaymentSignupController = Em.ObjectController.extend({
     needs: ['paymentProfile', 'currentUser'],
 
-    initTransaction: function() {
-        var transaction = this.get('store').transaction();
-        this.set('transaction', transaction);
-        transaction.add(this.get('model'));
-    }.observes('model'),
-
     createUser: function() {
         var user = this.get('model');
         var controller = this;
@@ -480,9 +460,8 @@ App.PaymentSignupController = Em.ObjectController.extend({
         });
         user.one('becameInvalid', function(record) {
             controller.get('model').set('errors', record.get('errors'));
-            // Note: We're reusing the transaction in this case but it seems to work.
         });
-        this.get('transaction').commit();
+        user.save();
     },
 
     isFormReady: function() {
@@ -504,45 +483,48 @@ App.PaymentSelectController = Em.ObjectController.extend({
        this.transitionToRoute('paymentProfile')
     },
 
-    proceedWithPayment: function() {
-        this.set('paymentInProgress', true);
-// FIXME Figure out the problem with Ember Data and re-enable this code.
-//        var transaction = this.get('store').transaction();
-//        var payment = this.get('model');
-//        transaction.add(payment);
-//        payment.set('paymentMethod', payment.get('availablePaymentMethods').objectAt(0));
-//        var controller = this;
-//        payment.one('didUpdate', function(record) {
-//            var paymentUrl = record.get('paymentUrl');
-//            if (paymentUrl) {
-//                    window.location = json['payment_url'];
-//            }
-//        });
-//        this.get('transaction').commit();
+    actions: {
 
-        // Use jQuery directly to avoid the problems with updating server-side data.
-        var payment = this.get('model');
-        var controller = this;
-        jQuery.ajax({
-            url: '/api/fund/payments/current',
-            type: 'PUT',
-            data: JSON.stringify({ payment_method:  payment.get('availablePaymentMethods').objectAt(0)}),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            context: this,
-            success: function(json) {
-                if (json['payment_url']) {
-                    window.location = json['payment_url'];
-                } else {
+        proceedWithPayment: function() {
+            this.set('paymentInProgress', true);
+    // FIXME Figure out the problem with Ember Data and re-enable this code.
+    //        var transaction = this.get('store').transaction();
+    //        var payment = this.get('model');
+    //        transaction.add(payment);
+    //        payment.set('paymentMethod', payment.get('availablePaymentMethods').objectAt(0));
+    //        var controller = this;
+    //        payment.one('didUpdate', function(record) {
+    //            var paymentUrl = record.get('paymentUrl');
+    //            if (paymentUrl) {
+    //                    window.location = json['payment_url'];
+    //            }
+    //        });
+    //        this.get('transaction').commit();
+
+            // Use jQuery directly to avoid the problems with updating server-side data.
+            var payment = this.get('model');
+            var controller = this;
+            jQuery.ajax({
+                url: '/api/fund/payments/current',
+                type: 'PUT',
+                data: JSON.stringify({ payment_method:  payment.get('availablePaymentMethods').objectAt(0)}),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                context: this,
+                success: function(json) {
+                    if (json['payment_url']) {
+                        window.location = json['payment_url'];
+                    } else {
+                        controller.set('paymentInProgress', false);
+                        controller.displayPaymentError();
+                    }
+                },
+                error: function(xhr) {
                     controller.set('paymentInProgress', false);
                     controller.displayPaymentError();
                 }
-            },
-            error: function(xhr) {
-                controller.set('paymentInProgress', false);
-                controller.displayPaymentError();
-            }
-        });
+            });
+        }
     }
 });
 
@@ -576,10 +558,8 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
                         // Update or delete the donations.
                         if (donation.get('tempRecurringAmount') == 0) {
                             // Delete donations set to 0.
-                            var transaction = controller.get('store').transaction();
-                            transaction.add(donation);
                             donation.deleteRecord();
-                            transaction.commit();
+                            donation.save();
                         } else {
                             // Update donation when amount is greater than 0.
                             controller.get('controllers.currentOrderDonationList').updateDonation(donation, donation.get('tempRecurringAmount'))
@@ -607,7 +587,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
             // FIXME: turn off didCreate, didUpdate
             controller.set('paymentInProgress', false);
             controller.get('model').set('errors', record.get('errors'));
-            record.get('stateManager').goToState('created');
+            record.transitionTo('created');
         });
         recurringDirectDebitPayment.one('didCreate', function(record) {
             // FIXME: turn off becameInvalid, didUpdate
@@ -620,10 +600,10 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
         if(!recurringDirectDebitPayment.get('isNew')) {
             // Set recurringDirectDebitPayment model to the 'updated' state so that the 'didUpdate' callback will always be run.
-            recurringDirectDebitPayment.get('stateManager').goToState('updated');
+            recurringDirectDebitPayment.transitionTo('updated');
         }
 
-        recurringDirectDebitPayment.transaction.commit();
+        recurringDirectDebitPayment.save();
     },
 
     isFormReady: function() {
@@ -639,10 +619,8 @@ App.CurrentOrderController = Em.ObjectController.extend({
     updateRecurring: function() {
         var order = this.get('model');
         if (!Em.isNone(order)) {
-            var transaction = this.get('store').transaction();
-            transaction.add(order);
             order.set('recurring', (this.get('donationType') == 'monthly'));
-            transaction.commit();
+            order.save();
         }
     }.observes('donationType'),
 
@@ -664,18 +642,14 @@ App.CurrentOrderController = Em.ObjectController.extend({
         if (this.get('isVoucherOrder') == true) {
             var donations = this.get('donations');
             donations.forEach(function(donation) {
-                var transaction = this.get('store').transaction();
-                transaction.add(donation);
                 donation.deleteRecord();
-                transaction.commit();
+                donation.save();
             }, this);
         } else if (this.get('isVoucherOrder') == false) {
             var vouchers = this.get('vouchers');
             vouchers.forEach(function(voucher) {
-                var transaction = this.get('store').transaction();
-                transaction.add(voucher);
                 voucher.deleteRecord();
-                transaction.commit();
+                voucher.save();
             }, this);
         }
     }.observes('isVoucherOrder'),

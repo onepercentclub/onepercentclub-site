@@ -204,26 +204,6 @@ App.UserProfileController = Ember.ObjectController.extend(App.Editable, {
         return list;
     }).property(),
 
-    addFile: function(file, src){
-        this.set('picture', file);
-
-    },
-
-    save: function(record) {
-        var self = this;
-        var record = record;
-
-        this._super(record);
-
-        record.one('didUpdate', function() {
-            // Delay is added to workaround the bug that the store
-            // hasn't finished loading new data to the record when
-            // the "didUpdate" event is triggered. Promise API can be
-            // used in newer versions of ember, so we can remove the delay then.
-            Ember.run.later(self, 'updateCurrentUser', record, 1000);
-        });
-    },
-
     updateCurrentUser: function(record) {
         var currentUser = App.CurrentUser.find('current');
         currentUser.reload();
@@ -304,7 +284,7 @@ App.SignupController = Ember.ObjectController.extend({
 
         // Change the model URL to the User creation API.
         user.set('url', 'users');
-        user.get('transaction').commit();
+        user.save();
     }
 });
 
@@ -337,7 +317,7 @@ App.PasswordResetController = Ember.ObjectController.extend({
             });
         });
 
-        record.get('transaction').commit();
+        record.save();
     }
 });
 

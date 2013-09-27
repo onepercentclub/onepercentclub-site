@@ -198,6 +198,7 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
     init: function(){
         var form =  App.ProjectSearch.createRecord();
         this.set('model', form);
+        this.updateSearch();
     },
 
     rangeStart: function(){
