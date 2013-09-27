@@ -53,6 +53,12 @@ coverage==3.6
 django-taggit==0.10a1
 django-taggit-autocomplete-modified==0.1.0b4
 
+# Legacy authentication module for authenticating users from the old PHP site.
+https://github.com/onepercentclub/legacyauth/archive/3f2406c50dead25a748fb2433de55b73a9162f18.zip
+
+# Gunicorn WSGI server
+gunicorn
+
 # Embedding videos and other media
 # https://github.com/coleifer/micawber
 micawber==0.2.6
@@ -69,6 +75,12 @@ html5lib==0.95
 # Admin dashboard improvements
 django-fluent-dashboard==0.3.2
 django-admin-tools==0.5.1
+
+# Fabric deployment helper
+# WARNING: Make sure it's installed in your environment and not system-wide!
+#          The Fabric script depends on gitpython which needs to be available.
+fabric
+gitpython
 
 # Transifex - for translations!
 transifex-client==0.9
