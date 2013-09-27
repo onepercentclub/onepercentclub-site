@@ -53,6 +53,8 @@ coverage==3.6
 django-taggit==0.10a1
 django-taggit-autocomplete-modified==0.1.0b4
 
+# Legacy authentication module for authenticating users from the old PHP site.
+https://github.com/onepercentclub/legacyauth/archive/3f2406c50dead25a748fb2433de55b73a9162f18.zip
 
 # Gunicorn WSGI server
 gunicorn

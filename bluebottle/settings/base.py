@@ -228,6 +228,9 @@ INSTALLED_APPS = (
     'apps.cowry_docdata',
     'apps.cowry_docdata_legacy',
 
+    # Password auth from old PHP site.
+    'legacyauth',
+
     # bluebottle apps
     'apps.blogs',
     'apps.bluebottle_dashboard',
@@ -560,3 +563,7 @@ STATICI18N_ROOT = os.path.join(PROJECT_ROOT, 'static', 'global')
 
 SESSION_COOKIE_NAME = 'bb-session-id'
 
+# Support legacy passwords
+PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
+    'legacyauth.hashers.LegacyPasswordHasher',
+)
