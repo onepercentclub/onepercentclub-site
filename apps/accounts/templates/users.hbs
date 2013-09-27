@@ -27,21 +27,21 @@
             <br />
             <ul class="tabs">
                 <li class="tab-item first">
-                    {{#linkTo userProfile }}
+                    {{#linkTo 'userProfile'}}
                         <span class="tab-icon amount"><em class="flaticon solid user-2"></em></span>
                         <strong class="tab-title">{% trans "Profile" %} <em class="tab-subtitle">{% trans "Public info" %}</em></strong>
                     {{/linkTo}}
                 </li>
 
                 <li class="tab-item">
-                    {{#linkTo userSettings }}
+                    {{#linkTo 'userSettings'}}
                         <span class="tab-icon amount"><em class="flaticon solid settings-2"></em></span>
                         <strong class="tab-title">{% trans "Account" %} <em class="tab-subtitle">{% trans "Settings" %}</em></strong>
                     {{/linkTo}}
                 </li>
 
                 <li class="tab-item">
-                    {{#linkTo userOrders }}
+                    {{#linkTo 'userOrders'}}
                         <em class="tab-icon amount"><i class="flaticon solid wallet-1"></i></em>
                         <strong class="tab-title">{% trans "Payment" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
                     {{/linkTo}}
@@ -94,7 +94,7 @@
                                 <img {{bindAttr src="getAvatar"}} class="preview" />
 
                                 <a class="btn btn-iconed btn-uploader">
-                                    {{view App.UploadFileView contentBinding="this" name="picture" id="picture" accept="image/*"}}
+                                    {{view App.UploadFile contentBinding="this" fileBinding="picture" name="picture" id="picture" accept="image/*"}}
                                     <em class="flaticon solid upload-document-1"></em>
                                     {% trans "Upload picture" %}
                                 </a>
@@ -194,8 +194,12 @@
                     </ul>
                 </fieldset>
 
-                {{#if saved}}
-                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Profile saved" %}</em></span>
+                {{#if isDirty}}
+                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Changes not saved" %}</em></span>
+                {{else}}
+                    {{#if saved}}
+                        <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Profile saved" %}</em></span>
+                    {{/if}}
                 {{/if}}
 
                 <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>

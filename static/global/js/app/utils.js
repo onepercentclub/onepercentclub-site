@@ -109,31 +109,52 @@ App.Editable = Ember.Mixin.create({
         }
     },
 
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model');
-        model.one('becameInvalid', function(record) {
-            controller.set('saving', false);
-            model.set('errors', record.get('errors'));
-        });
+    actions : {
+        save: function(record) {
+            var controller = this;
 
-        model.one('didUpdate', function(){
-            if (controller.get('nextStep')) {
-                controller.transitionToRoute(controller.get('nextStep'));
-            } else {
-                controller.startEditing();
+            if (record.get('isDirty')) {
+                this.set('saving', true);
+                this.set('saved', false);
             }
-        });
 
-        model.one('didCreate', function(){
-            if (controller.get('nextStep')) {
-                controller.transitionToRoute(controller.get('nextStep'));
-            } else {
-                controller.startEditing();
-            }
-        });
+            record.one('didUpdate', function() {
+                // record was saved
+                controller.set('saving', false);
+                controller.set('saved', true);
+            });
 
-        model.transaction.commit();
+            record.save();
+        },
+
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model');
+
+            model.one('becameInvalid', function(record) {
+                controller.set('saving', false);
+                model.set('errors', record.get('errors'));
+            });
+
+            model.one('didUpdate', function(){
+                if (controller.get('nextStep')) {
+                    controller.transitionToRoute(controller.get('nextStep'));
+                } else {
+                    controller.startEditing();
+                }
+            });
+
+            model.one('didCreate', function(){
+                if (controller.get('nextStep')) {
+                    controller.transitionToRoute(controller.get('nextStep'));
+                } else {
+                    controller.startEditing();
+                }
+            });
+
+            model.save();
+        }
+
     },
 
     stopEditing: function() {
@@ -152,32 +173,15 @@ App.Editable = Ember.Mixin.create({
                     e.preventDefault();
 
                     if (opts.primary) {
-                        self.save(record);
+                        record.save();
                     }
 
                     if (opts.secondary) {
-                        transaction.rollback();
+                        record.rollback();
                     }
                 }
             });
         }
-    },
-
-    save: function(record) {
-        var controller = this;
-
-        if (record.get('isDirty')) {
-            this.set('saving', true);
-            this.set('saved', false);
-        }
-
-        record.one('didUpdate', function() {
-            // record was saved
-            controller.set('saving', false);
-            controller.set('saved', true);
-        });
-
-        record.get('transaction').commit();
     },
 
     saveButtonText: (function() {
@@ -205,21 +209,21 @@ App.UploadFile = Ember.TextField.extend({
             view.$().parent().after('<div class="preview">' + preview + '</div>');
         };
         reader.readAsDataURL(file);
-        // Don't set this value. It will cause an error in some browsers.
-        //this.set('value', file);
-        this.set('controller.image', file);
+        var model = this.get('parentView.controller.model');
+        this.set('file', file);
     }
 });
 
 
-App.UploadFileView = Ember.TextField.extend({
+App.UploadMultipleFiles = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept'],
 
     contentBinding: 'parentView.controller.content',
 
     change: function(e) {
-        var controller = this.get('controller');
+        var controller = this.get('parentView.controller');
+        //var controller = this.get('parentView.controller');
         var files = e.target.files;
         for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
@@ -232,11 +236,8 @@ App.UploadFileView = Ember.TextField.extend({
             reader.onload = function(e) {
                 view.$().parents('form').find('.preview').attr('src',  e.target.result);
             }
-
-            this.get('controller').addFile(file);
+            controller.addFile(file);
         }
-        // Clear the input field after uploading.
-        e.target.value = null;
     }
 });
 
@@ -298,23 +299,25 @@ App.TagField = Em.TextField.extend({
 
 App.TagWidget = Em.View.extend({
     templateName: 'tag_widget',
-    addTag: function(){
-        if (this.get('new_tag')) {
-            var new_tag = this.get('new_tag').toLowerCase();
-            var tags = this.get('tags');
-            // Try to create a new tag, it will fail if it's already in the local store, so catch that.
-            try {
-                var tag = App.Tag.createRecord({'id': new_tag});
-            } catch(err) {
-                var tag = App.Tag.find(new_tag);
+    actions: {
+        addTag: function(){
+            if (this.get('new_tag')) {
+                var new_tag = this.get('new_tag').toLowerCase();
+                var tags = this.get('tags');
+                // Try to create a new tag, it will fail if it's already in the local store, so catch that.
+                try {
+                    var tag = App.Tag.createRecord({'id': new_tag});
+                } catch(err) {
+                    var tag = App.Tag.find(new_tag);
+                }
+                tags.pushObject(tag);
+                this.set('new_tag', '');
             }
-            tags.pushObject(tag);
-            this.set('new_tag', '');
+        },
+        removeTag: function(tag) {
+            var tags = this.get('tags');
+            tags.removeObject(tag);
         }
-    },
-    removeTag: function(tag) {
-        var tags = this.get('tags');
-        tags.removeObject(tag);
     },
     didInsertElement: function(){
         this.$('.tag').typeahead({
@@ -359,17 +362,18 @@ App.ShowMoreItemsMixin = Em.Mixin.create({
     loadInitial: function(){
         // If no items have been load yet, please do.
         if (this.get('items').length == 0) {
-            this.showMore();
+            this.send('showMore');
         }
     }.observes('model.isLoaded'),
 
-    showMore: function() {
-        var start = this.get('page') * this.get('perPage');
-        this.incrementProperty('page');
-        var end = this.get('page') * this.get('perPage');
-        this.get('items').pushObjects(this.get('model').slice(start, end));
+    actions: {
+        showMore: function() {
+            var start = this.get('page') * this.get('perPage');
+            this.incrementProperty('page');
+            var end = this.get('page') * this.get('perPage');
+            this.get('items').pushObjects(this.get('model').slice(start, end));
+        }
     }
-
 });
 
 App.PopOverMixin = Em.Mixin.create({

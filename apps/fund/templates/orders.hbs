@@ -12,7 +12,7 @@
                     <h1 class="main-title">{% trans "Order digital 1%GIFTCARDS" %}</h1>
                 </div>
                 <sidebar>
-                    {{#linkTo "currentOrder.donationList" tagName="a" class="button-link"}}
+                    {{#linkTo 'currentOrder.donationList' tagName="a" class="button-link"}}
                         <em class="flaticon solid credit-card-1"></em> {% trans "Switch to donations" %}
                     {{/linkTo}}
                 </sidebar>
@@ -27,7 +27,7 @@
                 {%comment%}
                 Voucher code is disabled for now.
                 <sidebar>
-                    {{#linkTo "voucherRedeem" tagName="a" class="button-link"}}
+                    {{#linkTo 'voucherRedeem' tagName="a" class="button-link"}}
                         <em class="flaticon solid credit-card-1"></em> {% trans "I have a 1%GIFTCARD" %}
                     {{/linkTo}}
                 </sidebar>
@@ -43,27 +43,27 @@
 	                    {%comment%}
 	                    Voucher code is disabled for now.
 	                    {{#view App.OrderNavView classNames="support"}}
-	                        {{#linkTo "currentOrder.voucherList"}}{% trans "Gift Cards" %}{{/linkTo}}
+	                        {{#linkTo 'currentOrder.voucherList'}}{% trans "Gift Cards" %}{{/linkTo}}
 	                    {{/view}}
 	                    {%endcomment%}
 	                {{else}}
 	                    {{#view App.OrderNavView classNames="support"}}
-	                        {{#linkTo "currentOrder.donationList"}}<em class="flaticon solid menu-list-1"></em> {% trans "Projects" %}{{/linkTo}}
+	                        {{#linkTo 'currentOrder.donationList'}}<em class="flaticon solid menu-list-1"></em> {% trans "Projects" %}{{/linkTo}}
 	                    {{/view}}
 	                {{/if}}
 	
 	                {{#view App.OrderNavView classNames="details"}}
-	                    {{#linkTo "paymentProfile"}}<em class="flaticon solid house-2"></em> {% trans "Details" %}{{/linkTo}}
+	                    {{#linkTo 'paymentProfile'}}<em class="flaticon solid house-2"></em> {% trans "Details" %}{{/linkTo}}
 	                {{/view}}
 	                
 					{{#unless controllers.currentUser.isAuthenticated}}
 	                	{{#view App.OrderNavView classNames="profile"}}
-	                   		{{#linkTo "paymentSignup"}}<em class="flaticon solid user-2"></em> {% trans "Profile" %}{{/linkTo}}
+	                   		{{#linkTo 'paymentSignup'}}<em class="flaticon solid user-2"></em> {% trans "Profile" %}{{/linkTo}}
 					   	{{/view}}
 					{{/unless}}
 
 	                {{#view App.OrderNavView classNames="payment"}}
-	                    {{#linkTo "paymentSelect"}}<em class="flaticon solid wallet-1"></em> {% trans "Payment" %}{{/linkTo}}
+	                    {{#linkTo 'paymentSelect'}}<em class="flaticon solid wallet-1"></em> {% trans "Payment" %}{{/linkTo}}
 	                {{/view}}
 				</ul>
             </div>
@@ -140,7 +140,7 @@
                     {{/if}}
                 </div>
             {{else}}
-                {{#linkTo "projectList"}}
+                {{#linkTo 'projectList'}}
                 	<em class="flaticon solid plus-2"></em>
                     <div class="form-meta">
                         <p class="form-label">{% trans "Choose a project to support" %}</p>
@@ -203,7 +203,7 @@
 	        </fieldset>
 	    {{/if}}
 	    
-        {{#linkTo "projectList" class="button-link add-project"}}<em class="flaticon solid plus-2"></em>
+        {{#linkTo 'projectList' class="button-link add-project"}}<em class="flaticon solid plus-2"></em>
             {{#if showTopThreeProjects }}
             	{%trans "Choose a project" %}
             {{else}}
@@ -216,7 +216,7 @@
         {{/linkTo}}
         
 	    {{#if readyForPayment }}
-	        {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
+	        {{#linkTo 'paymentProfile' class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
 	    {{else}}
 	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
 	    {{/if}}
@@ -236,7 +236,7 @@
 	{{else}}
 		<h3>Did you know?</h3>
 		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly.{% endblocktrans %}
-		<p class="action-link">{{#linkTo "signup"}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>
+		<p class="action-link">{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo}}</p>
 	{{/if}}
 </div>
 
@@ -356,7 +356,7 @@
 
 {% tplhandlebars "currentOrderDonation" %}
 
-    {{#linkTo "project" project}}
+    {{#linkTo 'project' project}}
         <img {{bindAttr src="project.plan.image.square" alt="project.title"}} class="project-image" />
         <h2>
             {{ project.title }}
@@ -654,7 +654,7 @@
                 		<p>{% blocktrans %}
 						Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
 					{% endblocktrans %}</p>
-					<p>{{#linkTo "signup"}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>
+					<p>{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo}}</p>
 					{{/if}}
             	</header>
             
@@ -717,14 +717,14 @@
 	                		<p>{% blocktrans %}
 							Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
 						{% endblocktrans %}</p>
-						<p>{{#linkTo "signup"}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo }}</p>
+						<p>{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo}}</p>
 						{{/if}}
 	            	</header>
             	
                 {{else}}
                 	<header>
                     	<h1 class="main-title">{% trans "No donation set..." %}</h1>
-						{{#linkTo currentOrder.donationList class="edit-monthly-donations" }}
+						{{#linkTo 'currentOrder.donationList' class="edit-monthly-donations" }}
                         	<strong>{% trans "Create or enable your monthly donation" %}</strong>
 						{{/linkTo }}
                 	</header>
@@ -784,7 +784,7 @@
             		<p>{% blocktrans %}
 					Following projects are now even easier and you'll have your own personalised page!
 					{% endblocktrans %}</p>
-                    {{#linkTo "userProfile" class="profile-link" }}
+                    {{#linkTo 'userProfile' class="profile-link" }}
                         {% trans "Complete your profile" %} &#8250;
                     {{/linkTo }}
                 {{else}}
@@ -792,12 +792,12 @@
                 	<p>{% blocktrans %}
 					Following projects are now even easier and you'll have your own personalised page!
 					{% endblocktrans %}</p>
-                    {{#linkTo "signup" class="profile-link" }}
+                    {{#linkTo 'signup' class="profile-link" }}
                         {% blocktrans %}Become 1%Club member{% endblocktrans %} &#8250;
                     {{/linkTo }}
                 {{/if}}
                 
-                {{#linkTo "userProfile" class="profile-link" }}
+                {{#linkTo 'userProfile' class="profile-link" }}
                         {% trans "Complete your profile" %} &#8250;
                     {{/linkTo }}
                 {% endcomment %}
@@ -815,7 +815,7 @@
 {% tplhandlebars "_thanksDonation" %}
 
     <li class="donation-project">
-        {{#linkTo "project" donation.project}}
+        {{#linkTo 'project' donation.project}}
             <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
             <h2>
                 {{ donation.project.title }}
@@ -866,7 +866,7 @@
 
 
         {{#if length }}
-            {{#linkTo "paymentProfile" class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
+            {{#linkTo 'paymentProfile' class="btn btn-primary btn-iconed right"}}<em class="flaticon solid right-2"></em>{% trans "Next Step" %}{{/linkTo}}
         {{else}}
             <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
         {{/if}}
