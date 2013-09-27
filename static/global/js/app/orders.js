@@ -292,7 +292,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             record.set('errors', record.get('errors'));
 
             // Revert to the value on the server when there's an error.
-            record.get('stateManager').goToState('loaded');
+            record.transitionTo('loaded');
             record.reload();
 
             // Clear the error after 10 seconds.
@@ -320,7 +320,7 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
             donation.set('errors', {amount: ["Please use whole numbers for your donation."]});
 
             // Revert to the value on the server when there's an error.
-            donation.get('stateManager').goToState('loaded');
+            donation.transitionTo('loaded');
             donation.reload();
 
             // Clear the error after 10 seconds.
@@ -587,7 +587,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
             // FIXME: turn off didCreate, didUpdate
             controller.set('paymentInProgress', false);
             controller.get('model').set('errors', record.get('errors'));
-            record.get('stateManager').goToState('created');
+            record.transitionTo('created');
         });
         recurringDirectDebitPayment.one('didCreate', function(record) {
             // FIXME: turn off becameInvalid, didUpdate
@@ -600,7 +600,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
         if(!recurringDirectDebitPayment.get('isNew')) {
             // Set recurringDirectDebitPayment model to the 'updated' state so that the 'didUpdate' callback will always be run.
-            recurringDirectDebitPayment.get('stateManager').goToState('updated');
+            recurringDirectDebitPayment.transitionTo('updated');
         }
 
         recurringDirectDebitPayment.save();
