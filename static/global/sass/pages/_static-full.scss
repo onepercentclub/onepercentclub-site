@@ -1,224 +1,67 @@
 //
-// GLOBAL STATIC PAGES FULLSCREEN (Presentation style)
+// Global static onepage
 // --------------------------------------------------
 
-/* full page view */
-
-.static-page-full {
-
-    .section {
-        @include rem(padding, ($padding * 2) 0);
-        position: relative;
-
-        h1 {
-            @include rem(font-size, 64px);
-            @include rem(margin-bottom, 32px);
+.static-onepage {
+    
+    .static-onepage-nav {
+        @include clearfix;
+        @include grid(48,0);
+        margin-top: 0;
+        margin-bottom: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        background-color: rgba(255, 255, 255, 0.8);
+    
+        > li {
+            @include rem(margin-right, 32px);
+            float: left;
+            background-image: none;
+            list-style: none;
             padding: 0;
-            line-height: 1;
-
-            &.small {
-                @include rem(font-size, 34px);
-                color: $green;
-
-                em {
-                    color: $pink;
-                    font-weight: normal;
-                    font-style: normal;
+    
+            a {
+                color: $gray;
+                text-transform: uppercase;
+    
+                &:hover {
+    	            color: $gray-darker;
+                }
+                
+                &.is-active {
+                    color: $gray-darker;
+                    text-decoration: underline;
                 }
             }
         }
-
-        &:nth-of-type(even) {
-            background-color: $white;
-
-            .static-page-illustration {
-                color: $grayLighter;
-            }
-        }
     }
 
-    .wrapper {
-        position: relative;
-    }
-
-    #inFortySeconds,
-    #faq,
-    #contact {
-        h1 {
-            color: $green;
-        }
-    }
-}
-
-.static-page-nav {
-    @include clearfix;
-    @include grid(48, 1);
-    margin-top: 0;
-    margin-bottom: 0;
-    @include rem(height, 40px);
-
-    > li {
-        @include rem(margin-right, 32px);
-        float: left;
-
-        a {
-            color: $gray;
-            text-transform: uppercase;
-
-            &:hover {
-	            color: $grayDarker;
-            }
-            
-            &.active {
-                color: $grayDarker;
-                text-decoration: underline;
-            }
-        }
-    }
-}
-
-.static-page-section-content {
-    @include clearfix;
-
-    p {
-        @include rem(font-size, 22px);
-        margin-right: 100px;
-
-        strong {
-            font-weight: 300;
-        }
-    }
+    .static-onepage-section {
     
-    img {
-	    width: 100%;
-    }
-
-    small {
-        @include rem(margin-bottom, $margin);
-        @include rem(font-size, 16px);
-
-        color: $grayDarker;
-    }
-}
-
-.static-page-illustration {
-    @include rem(font-size, 240px);
-    color: $white;
-
-    &.active {
-        color: $pink;
-    }
-}
-
-img.static-page-illustration {
-	margin-left: 5px;
-}
-
-.static-page-section-navigator {
-    @include rem(font-size, 40px);
-    position: absolute;
-    right: 15.5%;
-    bottom: -5%;
-    color: $pink;
-    line-height: 30px;
-    cursor: pointer;
-    
-    &:hover {
-	    @include rem(font-size, 40px);
-    }
-}
-
-.static-page-calltoaction {
-    a,
-    .flaticon {
-        @include rem(font-size, 24px);
-        color: $pink;
-        text-decoration: underline;
-        text-transform: uppercase;
-        font-weight: 300;
-    }
-
-    .flaticon {
-      text-decoration: none;
-    }
-}
-
-.static-page-iconed-list {
-    margin: 0;
-
-    .item {
-        @include rem(margin-bottom, 16px);
-        @include rem(font-size, 22px);
-        display: block;
-
-        .flaticon {
-            @include inline-block;
-            @include rem(font-size, 32px);
-            width: 40px;
-            color: $gray;
-            vertical-align: middle;
-            line-height: 1;
-        }
-
-        strong {
-            font-weight: 300;
-        }
-
-        a {
-            color: $pink;
-        }
-    }
-}
-
-.static-page-illustrations-list {
-    @include clearfix;
-    margin: 0;
-    position: relative;
-
-    .item {
-        @include grid(9.6,0,1);
-        @include rem(padding, 16px 22px 16px 22px);
-        overflow: hidden;
-        height: 200px;
-        border: 1px solid $grayLight;
-        text-align: center;
-        vertical-align: middle;
-
-        .icon {
-            padding: 0;
-            margin: 0;
-        }
-
-        .h3 {
-        	position: relative;
-        	top: -50px;
-        	@include rem(margin-top, 16px); 
-        	display: inline-block;
-            @include rem(font-size, 20px);
+        .static-onepage-content {
             @include clearfix;
-            color: $grayDarker;
-            text-transform: uppercase;
-            font-weight: 300;
-            line-height: 1;
-        }
-
-        &:hover {
-            background-color: $green;
-
-            .flaticon,
-            .h3 {
-                color: $white;
-            }
-            
-            .item-popover {
-	        	display: block !important;
-			}
-        }
-
-        &:last-of-type {
-            margin-right: 0;
+            margin: auto;
+            top: -100px;
+            left: 0;
+            bottom: 0;
+            right: 0;
         }
         
+        .illustration {
+            @include rem(font-size, 240px);
+            color: $gray-lighter;
+        }
+        
+        &:nth-of-type(odd) {
+            background-color: $gray-lighter;
+    
+            .illustration {
+                color: $white;
+            }
+        }
+
         .item-popover {
         	display: none;
         	position: absolute;

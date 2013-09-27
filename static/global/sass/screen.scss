@@ -35,10 +35,7 @@
 @import "layout/header";
 @import "layout/footer";
 @import "base/forms";
-<<<<<<< HEAD
-=======
 @import "base/buttons";
->>>>>>> WIP Refactor Homepage
 
 /* States */
 @import "states/states";
@@ -54,7 +51,8 @@
 /* Pages */
 @import "pages/home";
 @import "pages/static";
-
+@import "pages/static-onepage";
+@import "pages/search";
 
 
 // @import "modules/buttons";

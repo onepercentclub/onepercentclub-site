@@ -68,17 +68,14 @@ App.PageView = Ember.View.extend(App.GoTo, {
 
     renderSections: function(e) {
         var windowHeight = $(window).height();
-        var menuHeight   = this.$('.static-page-nav').height();
-
-        this.$('.section').css('height', windowHeight + 'px');
-        this.$('.static-page-section-content').each(function() {
-            var $this = $(this);
-            var sectionContentHeight = $this.height();
-
-            $this.css({
-                'padding-top': (((windowHeight - sectionContentHeight) / 2) - menuHeight) + 'px'
+        this.$('.l-section').css('height', windowHeight + 'px');
+        this.$('.static-onepage-content').each(function() {
+            $(this).css({
+                'height' : $(this).height() + 'px',
+                'position' : 'absolute'
             });
         });
+        
     },
 
     didInsertElement: function(e){
