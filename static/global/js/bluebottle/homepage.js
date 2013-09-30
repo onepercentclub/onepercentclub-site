@@ -120,13 +120,13 @@ App.HomeProjectView = Ember.View.extend({
     didInsertElement: function() {
         var donated = this.get('controller.project.campaign.money_donated');
         var asked = this.get('controller.project.campaign.money_asked');
-        this.$('.slider').css('width', '0px');
+        this.$('.slider-progress').css('width', '0px');
         var width = 0;
         if (asked > 0) {
             width = 100 * donated / asked;
             width += '%';
         }
-        this.$('.slider').animate({'width': width}, 1000);
+        this.$('.slider-progress').animate({'width': width}, 1000);
     }.observes('controller.project')
 });
 

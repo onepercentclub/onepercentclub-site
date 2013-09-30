@@ -1,0 +1,131 @@
+//
+// Global elements for projects
+// --------------------------------------------------
+
+
+
+/*
+.project-title {
+	
+	color: $color-heading;
+	font-size: $font-size-largest;
+	
+	a {
+		color: $color-heading;
+		text-decoration: none;
+	}
+}
+*/
+
+.project-phase {
+	@include clearfix;
+	padding-bottom: $base-padding;
+	margin: 0 0 $base-margin/2 0;
+	border-bottom: 1px solid $gray-darker;
+
+    > li {
+        @include grid(10);
+        font-size: $font-size-smallest;
+        background-image: none;
+        color: $gray;
+        text-align: center;
+        text-transform: uppercase;
+		padding-right: $base-padding/2;
+		
+        &:first-of-type {
+            margin-right: $base-margin;
+            width: auto;
+            text-align: left;
+        }
+
+        &.is-current {
+			background: image-url('steps-phase-back.png') no-repeat $gray 100% 50%;
+			color: $gray-darker;
+		}
+    }
+}
+
+.project-location, .project-theme {
+	margin-right: $base-margin*2;
+	line-height: $base-line-height*2;
+	color: $color-secondary;
+	
+	.flaticon {
+	    margin-right: $base-margin/4;
+    }
+}
+
+
+
+.project-days-left {
+	color: $gray-dark;
+	text-transform: uppercase;
+	
+	.flaticon {	
+	    //font-size: 24px;
+        //color: $gray-light;
+	}
+
+	strong {
+	    //font-size: 28px;
+	    padding: 0;
+	    //line-height: 0.8em;
+	}
+
+	em {
+	    //font-size: 12px;
+	    font-style: normal;
+	    //color: $gray-light;
+	}
+}
+
+.project-fund-amount {
+	color: $gray-dark;
+    text-transform: uppercase;
+    margin-bottom: $base-margin/2;
+
+    .amount-donated {
+        
+    }
+
+    .amount-asked {
+    
+    }
+    
+    strong {
+        
+    }
+    
+    em {
+        font-style: normal;
+    }
+}
+
+.project-fund-amount-slider {
+    @include border-radius(1em);
+    display: block;
+    overflow: hidden;
+    margin: 0 0 $base-margin/2 0;
+    background-color: $gray-lighter;
+    line-height: 0;
+
+    .slider-progress {
+        position: relative;
+        display: block;
+        border-radius: 1em 0 0 1em;
+        background-color: $color-primary;
+        color: $white;
+        text-align: right;
+        white-space: nowrap;
+        line-height: 1em;
+
+        .slider {
+            padding: 0 0.5em;
+            font-style: normal;
+        }
+
+        .slider-percentage {
+            visibility: hidden;
+        }
+    }
+}

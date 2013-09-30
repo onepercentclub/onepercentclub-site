@@ -185,14 +185,22 @@ input[type=url] {
     width: 100%;
     padding: $base-padding/2 $base-padding;
     background-color: $white;
-    @include transition(border 0.1s);
+    @include transition(all 0.2s ease-out);
     @include box-shadow(inset 2px 2px 0 rgba($black, 0.05));
+    
+    & + .flaticon {
+        @include transition(all 0.2s ease-out);
+    }
 
-    &:focus {
+    &:hover, &:focus {
         border-color: $color-secondary;
         outline: 0;
         color: $gray-darker;
         @include box-shadow(none);
+        
+        & + .flaticon {
+            color: $color-secondary !important;
+        }
     }
 
     &.error {

@@ -1,0 +1,74 @@
+//
+// Project detail
+// --------------------------------------------------
+
+#project-detail {
+    
+    @include clearfix;
+    padding-top: $base-padding*2;
+    background-color: $gray-darkest;
+    color: $color-text-light;
+    
+    header {
+        h1 {
+            color: $white;
+            line-height: 1.2;
+        }
+    }
+    
+    .project-status {
+        margin-top: $base-margin;
+        margin-bottom: $base-margin;
+        
+        .project-days-left {
+            @include grid(12,0,2);
+            text-align: center;
+        	color: $gray-light;
+        	margin-top: $base-margin;
+        	
+        	.flaticon {	
+        	    font-size: 1em;
+                color: $gray-light;
+        	}
+        
+        	strong {
+        	    font-size: 1.5em;
+        	    color: $gray-lighter;
+        	}
+        
+        	em {
+        	
+        	}
+        }
+        
+        .project-fund {
+            @include grid(20,0,2);
+            text-align: center;
+            
+            .project-fund-amount {
+            	color: $gray-light;
+            
+                .amount-donated {
+                    font-size: 1.5em;
+                    color: $gray-lighter;
+                }
+            
+                .amount-asked {
+                
+                }
+                
+                strong {
+                    
+                }
+                
+                em {
+                    
+                }
+            }
+        }
+        
+        .btn-primary {
+            @include grid(16,0,0);
+        }
+    }
+}
