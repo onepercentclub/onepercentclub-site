@@ -6,7 +6,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from .views import HomeView
 
-
 admin.autodiscover()
 
 handler500 = 'onepercentclub.views.handler500'
