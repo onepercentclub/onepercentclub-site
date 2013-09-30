@@ -176,7 +176,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 ROOT_URLCONF = 'onepercentclub.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'bluebottle.wsgi.application'
+WSGI_APPLICATION = 'onepercentclub.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates".
