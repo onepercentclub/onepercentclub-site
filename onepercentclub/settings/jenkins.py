@@ -26,6 +26,7 @@ PROJECT_APPS = list(INSTALLED_APPS)
 # Some of these tests fail, and it's not our fault
 # https://code.djangoproject.com/ticket/17966
 PROJECT_APPS.remove('django.contrib.auth')
+PROJECT_APPS.remove('legacyauth')
 
 # This app fails with a strange error:
 # DatabaseError: no such table: django_comments
