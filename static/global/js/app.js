@@ -1,3 +1,4 @@
+// TODO: move to a separate js lib file, this pollutes the app
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -14,13 +15,16 @@ function getCookie(name) {
     return cookieValue;
 }
 
+// TODO: move to a separate js lib file, this pollutes the app
 var csrf_token = getCookie('csrftoken');
 
+// TODO: move to a separate js lib file, this pollutes the app
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
+// TODO: move to a separate js lib file, this pollutes the app
 function sameOrigin(url) {
     // If url starts with / it's relative and same origin
     if (url.substr(0, 1) == '/') {
@@ -38,6 +42,7 @@ function sameOrigin(url) {
     // or any other URL that isn't scheme relative or absolute i.e relative. !(/^(\/\/|http:|https:).*/.test(url));
 }
 
+// TODO: move to a separate js lib file, this pollutes the app
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -50,7 +55,7 @@ $.ajaxSetup({
 });
 
 
-// Create a mock 'File' class so things won't break to awfully in IE8&9
+// Create a mock 'File' class so things won't break too awfully in IE8&9
 // FIXME: Use a polyfill for this!!
 // https://github.com/francois2metz/html5-formdata
 if (Em.isNone(File)) {
@@ -63,7 +68,6 @@ Em.TextField.reopen({
 });
 
 
-// TODO Rename App to BlueBottle, BB or BBApp.
 App = Em.Application.create({
     VERSION: '1.0.0',
 
@@ -297,12 +301,6 @@ App.ApplicationController = Ember.Controller.extend({
 });
 
 
-App.ProfileController = Ember.ObjectController.extend({
-    addPhoto: function(file) {
-        this.set('model.file', file);
-    }
-});
-
 // Embedded Model Mapping
 //
 // http://stackoverflow.com/questions/14320925/how-to-make-embedded-hasmany-relationships-work-with-ember-data/14324532#14324532
@@ -448,16 +446,16 @@ App.Router.reopen({
 App.Router.reopen({
     /**
      * Tracks pageviews if google analytics is used
-	 * Source: http://www.randomshouting.com/2013/05/04/Ember-and-Google-Analytics.html
-	 */
-	didTransition: function(infos) {
-		this._super(infos);
-		if (window._gaq === undefined) { return; }
-		
-		Ember.run.next(function(){
-			_gaq.push(['_trackPageview', window.location.hash.substr(1)]);
-		});
-	}
+     * Source: http://www.randomshouting.com/2013/05/04/Ember-and-Google-Analytics.html
+     */
+    didTransition: function(infos) {
+        this._super(infos);
+        if (window._gaq === undefined) { return; }
+        
+        Ember.run.next(function(){
+            _gaq.push(['_trackPageview', window.location.hash.substr(1)]);
+        });
+    }
 });
 
 App.Router.map(function() {
@@ -522,16 +520,8 @@ App.Router.map(function() {
 
     this.resource('taskList', {path: '/tasks'});
 
-    this.resource('signup');
-
-    this.resource('user', {path: '/member'}, function() {
-        this.resource('userProfile', {path: '/profile/'});
-        this.resource('userSettings', {path: '/settings'});
-        this.resource('userOrders', {path: '/orders'});
-    });
-
-    this.route('userActivate', {path: '/activate/:activation_key'});
-    this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
+    // users/accounts routing, moved to static files in the accounts app
+    accounts_router.call(this);
 
     this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
         this.resource('myProjectPlan', {path: 'plan'}, function() {
@@ -734,7 +724,6 @@ App.ApplicationRoute = Em.Route.extend({
         return "/nice/stuff"
     }
 });
-
 
 /**
  * Project Routes
@@ -1260,13 +1249,7 @@ App.VoucherRedeemRoute = Em.Route.extend({
 });
 
 
-App.UserIndexRoute = Em.Route.extend({
-    beforeModel: function() {
-        this.transitionTo('userProfile');
-    }
-});
-
-
+// donations related
 // TODO Delete this Route when we implement Order history.
 App.UserRoute = Em.Route.extend({
     setupController: function(controller, model) {
@@ -1277,258 +1260,6 @@ App.UserRoute = Em.Route.extend({
         });
     }
 });
-
-
-App.UserProfileRoute = Em.Route.extend({
-    model: function() {
-        var route = this;
-
-        return App.CurrentUser.find('current').then(function(user) {
-            var profile = App.User.find(user.get('id_for_ember'));
-            var controller = route.controllerFor('userProfile');
-
-            // Set the model here instead of the promise in setupController so that the model can be used in the
-            // startEditing() method.
-            controller.set('model', profile);
-            controller.startEditing();
-
-            return profile;
-        });
-    },
-
-    setupController: function(controller, profile) {
-        // Don't set the model here because we're setting it after the promise is resolved.
-    },
-
-    exit: function() {
-        this._super();
-        this.controllerFor('userProfile').stopEditing();
-    }
-});
-
-
-App.UserSettingsRoute = Em.Route.extend({
-
-    model: function() {
-        var route = this;
-
-        return App.CurrentUser.find('current').then(function(user) {
-            var settings = App.UserSettings.find(user.get('id_for_ember'));
-            var controller = route.controllerFor('userSettings');
-
-            // Set the model here instead of the promise in setupController so that the model can be used in the
-            // startEditing() method.
-            controller.set('model', settings);
-            controller.startEditing();
-
-            return settings;
-        });
-    },
-
-    setupController: function(controller, profile) {
-        // Don't set the model here because we're setting it after the promise is resolved.
-    },
-
-    exit: function() {
-        this._super();
-        this.controllerFor('userSettings').stopEditing();
-    }
-});
-
-
-App.UserOrdersRoute = Em.Route.extend({
-    model: function(params) {
-        return App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
-            if (recurringPayments.get('length') > 0) {
-                return recurringPayments.objectAt(0);
-            }else {
-                return null;
-            }
-        });
-    },
-
-    setupController: function(controller, recurringPayment) {
-        if (!Em.isNone(recurringPayment)) {
-            this._super(controller, recurringPayment);
-            controller.startEditing();
-        } else {
-            // Ember doesn't let you add other things to the controller when a record hasn't been set.
-            this._super(controller, App.RecurringDirectDebitPayment.createRecord({fakeRecord: true}));
-        }
-
-        // Set the monthly order.
-        App.Order.find({status: 'recurring'}).then(function(recurringOrders) {
-            if (recurringOrders.get('length') > 0) {
-                controller.set('recurringOrder', recurringOrders.objectAt(0))
-            } else {
-                controller.set('recurringOrder', null)
-            }
-        });
-
-        // Set the closed orders.
-        App.Order.find({status: 'closed'}).then(function(closedOrders) {
-            controller.set('closedOrders', closedOrders);
-        });
-    },
-
-    exit: function() {
-        this._super();
-        this.controllerFor('userOrders').stopEditing();
-    },
-
-    events: {
-        viewRecurringOrder: function() {
-            var controller = this.controllerFor('currentOrder');
-            controller.set('donationType', 'monthly');
-            this.transitionTo('currentOrder.donationList')
-        }
-    }
-});
-
-
-App.UserActivateRoute = Em.Route.extend({
-
-    model: function(params) {
-        var currentUser = App.CurrentUser.find('current');
-        return App.UserActivation.find(params.activation_key);
-    },
-
-    // FIXME: Find a better solution than the run.later construction.
-    setupController: function(controller, activation) {
-
-        var currentUser = App.CurrentUser.find('current');
-
-        var route = this;
-        currentUser.one('didReload', function() {
-            // User profile needs to load it's own currentUser apparently so unload this here.
-            currentUser.unloadRecord();
-            route.transitionTo('userProfile');
-        });
-
-        // This seems the only way to (more or less) always load the logged in user,
-        Em.run.later(function() {
-            currentUser.transitionTo('loaded.saved');
-            currentUser.reload();
-        }, 3000);
-
-        var messageTitle   = "Welcome";
-        var messageContent = "Hurray! We're very happy that you joined 1%CLUB, welcome on board! You can start by filling in your profile.";
-
-        this.controllerFor('application').setProperties({
-            display_message: true,
-            message_title: messageTitle,
-            message_content: messageContent
-        });
-    },
-
-    events: {
-        error: function (reason, transition) {
-            this.controllerFor('application').setProperties({
-                display_message: true,
-                isError: true,
-                message_title: '',
-                message_content: 'There was a problem activating your account. Please contact us for assistance.'
-            });
-            this.transitionTo('home');
-        }
-    }
-});
-
-
-App.SignupRoute = Em.Route.extend({
-    redirect: function() {
-        if (this.controllerFor('currentUser').get('isAuthenticated')) {
-            this.transitionTo('home');
-        }
-    },
-
-    model: function() {
-        var store = this.get('store');
-        // FIXME We need to set the first and last name to an empty string or we'll get a 500 error.
-        // FIXME This is a workaround for a bug in DRF2.
-        return store.createRecord(App.UserCreate, {first_name: '', last_name: ''});
-    }
-});
-
-
-App.PasswordResetRoute = Em.Route.extend({
-    model: function(params) {
-        var route = this;
-
-        var record = App.PasswordReset.createRecord({
-            id: params.reset_token
-        });
-
-        // Need this so that the adapter makes a PUT instead of POST
-        record.transitionTo('loaded.saved');
-
-        record.on('becameError', function() {
-            route.controllerFor('application').setProperties({
-                display_message: true,
-                isError: true,
-                message_title: '',
-                message_content: gettext('The token you provided is expired. Please reset your password again.')
-            });
-
-            route.replaceWith('home');
-        });
-        return record;
-    }
-});
-
-
-App.LoginController = Em.Controller.extend({
-
-    requestPasswordReset: function() {
-        // Close previous modal, if any.
-        $('.close').click();
-
-        var modalPaneTemplate = '<div>{{view templateName="request_password_reset"}}</div>';
-
-        Bootstrap.ModalPane.popup({
-            classNames: ['modal'],
-            defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
-
-            callback: function(opts, e) {
-                if (opts.secondary) {
-                    var $btn        = $(e.target),
-                        $modal      = $btn.closest('.modal'),
-                        $emailInput = $modal.find('#passwordResetEmail'),
-                        $error      = $modal.find('#passwordResetError'),
-                        email       = $emailInput.val();
-
-                    $.ajax({
-                        type: 'PUT',
-                        url: '/api/users/passwordreset',
-                        data: JSON.stringify({email: email}),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function() {
-                            var message = gettext("YOU'VE GOT MAIL!<br /><br />We've sent you a link to reset your password, so check your mailbox.<br /><br />(No mail? It might have ended up in your spam folder)");
-                            var $success = $("<p>" + message +"</p>");
-
-                            $modal.find('.modal-body').html($success);
-                            $btn.remove();
-                        },
-                        error: function(xhr) {
-                            var error = $.parseJSON(xhr.responseText);
-                            $error.html(error.email);
-                            $error.removeClass('hidden');
-                            $error.fadeIn();
-                            $emailInput.addClass('error').val();
-                            $emailInput.keyUp(function() {
-                                $error.fadeOut();
-                            });
-                        }
-                    });
-
-                    return false;
-                }
-            }
-        })
-    }
-});
-
 
 /**
  * My Projects
@@ -1832,25 +1563,6 @@ App.LanguageSwitchView = Em.CollectionView.extend({
     classNames: ['nav-language'],
     content: App.interfaceLanguages,
     itemViewClass: App.LanguageView
-});
-
-
-App.LoginView = Em.View.extend({
-    templateName: 'login',
-	didInsertElement: function() {
-		$("#login-form").validate({
-            messages: {
-                username: {
-                    email: gettext("Please use your email address to log in.")
-                }
-            },
-            onfocusout: true
-
-        });
-	},
-    next: function() {
-        return  String(window.location);
-    }.property()
 });
 
 

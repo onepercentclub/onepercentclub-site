@@ -6,6 +6,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from .views import HomeView
 
+from django.views.generic import TemplateView
+
 admin.autodiscover()
 
 handler500 = 'onepercentclub.views.handler500'
@@ -13,6 +15,9 @@ handler500 = 'onepercentclub.views.handler500'
 
 urlpatterns = patterns('',
     # Put language-independent-views here.
+
+    # TESTING
+    url(r'^TEST/', TemplateView.as_view(template_name = 'accounts/signup.html'), name='test'),
 
     # The api urls are in the / url namespace so that they're not redirected to /en/.
     url(r'^api/projects/', include('apps.projects.urlsapi')),

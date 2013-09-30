@@ -133,6 +133,7 @@ STATICFILES_FINDERS = [
 TEMPLATE_LOADERS = [
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'apptemplates.Loader', # extend AND override templates
     # 'django.template.loaders.eggs.Loader',
 ]
 
@@ -233,11 +234,14 @@ INSTALLED_APPS = (
     'legacyauth',
 
     # bluebottle apps
+    'bluebottle.accounts',
+    # 'app' without models to hold the site-wide bluebottle templates (base.html for example)
+    'bluebottle.bluebottle',
+
     'apps.blogs',
     'apps.bluebottle_dashboard',
     'bluebottle.bluebottle_utils',
     'apps.contentplugins',
-    'bluebottle.accounts',
     'apps.love',
     'apps.organizations',
     'apps.projects',
@@ -611,7 +615,7 @@ HTML_ACTIVATION_EMAIL = True  # Note this setting is from our forked version.
 
 # Functional testing
 # Selenium and Splinter settings
-SELENIUM_TESTS = False
+SELENIUM_TESTS = True
 SELENIUM_WEBDRIVER = 'phantomjs'  # Can be any of chrome, firefox, phantomjs
 
 FIXTURE_DIRS = [
