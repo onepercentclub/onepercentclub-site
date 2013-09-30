@@ -1,0 +1,28 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load i18n %}
+{% load humanize %}
+{% block module_content %}
+<ul>
+    {% spaceless %}
+    {% for task in module.children %}
+    <li class="{% cycle 'odd' 'even' %}">
+        <a href="{{ admin_url }}tasks/task/{{ task.id }}">{{ task.title }}</a>
+        <ul>
+            <li>
+                <b>{{ task.status }}</b>
+            </li>
+            <li>
+                {{ task.created|date }}
+            </li>
+        </ul>
+    </li>
+    {% endfor %}
+    {% endspaceless %}
+</ul>
+<div class="dashboard-module-content">
+    <p>
+        <a href="{{ admin_url }}tasks/task/">{%  trans "View all tasks" %}</a>
+    </p>
+</div>
+
+{% endblock %}
