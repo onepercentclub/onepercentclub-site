@@ -1,49 +1,28 @@
 //
-// Search
+// Global search 
 // --------------------------------------------------
 
-.search-form {
-    @include grid(48, 1, 0);
-    @include rem(padding-top, $base-padding);
-	
-	.search-field {
-		@include grid(12,0,1);
-		position: relative;
-		
-		.flaticon {
-			position: absolute;
-			top: 2px;
-			left: 10px;
-            @include rem(font-size, 22px);
-            display: block;
-            color: $gray-darker;
-            text-align: center;
-            line-height: 40px;
-		}
-		
-		input {
+#search {
+    background-color: $gray-lighter;
+}
+
+#search-form {
+    @include grid(48,1,1);
+    padding-top: $base-padding;
+    	
+    .control {
+        @include grid(12,0,1);
+        position: relative;
+        
+        input {
 			height: 40px;
 			text-indent: 30px;
 		}
-		
-	}
-	
-    .control {
-        @include grid(12,0,1);
-        
-        .flaticon {
-            @include grid(7,0,0);
-            @include rem(font-size, 22px);
-            background-color: $gray-light;
-            color: $gray-darker;
-            text-align: center;
-            line-height: 40px;
-        }
         
         select {
-            @include grid(40,0,0);
             height: 40px;
             text-transform: capitalize;
+            text-indent: 30px;
         }
         
         select option:first-child {
@@ -54,48 +33,63 @@
         select option:selected {
             font-weight: 300;
         }
+        
+        .flaticon {
+    		position: absolute;
+    		top: 2px;
+    		left: 10px;
+            font-size: 22px;
+            display: block;
+            color: $gray-light;
+            text-align: center;
+            line-height: 40px;
+        }
     }
     
     .clear-form {
-        @include rem(margin, 8px 24px 0px);
+        @include grid(12,1);
         float: right;
+        text-transform: uppercase;
+        font-size: $font-size-smallest;
         
         a {
             color: $gray-dark;
+            float: right;
         }
-        text-transform: uppercase;
     }
 }
 
 #search-navigation {
-	
     @include clearfix;
-    @include grid(48,1);
-    @include rem(padding-top, $base-padding * 2);
+    @include grid(48,1,1);
+    padding-top: $base-padding*2;
 	text-transform: uppercase;
 	
-	.search-results {
-		@include grid(8,0);
-		
-	    h2 {
-	        padding: 0;
-	        margin: 0;
-	        
-	        em {
-	            font-style: normal;
-	            color: $gray
-	        }
-	    }
+	header {
+    	@include grid(8,0,0);
+    	
+    	h2 {
+        	margin: 0;
+        	padding: 0;
+        	color: $color-heading;
+        	
+        	em {
+            	color: $gray-light;
+                font-style: normal;
+        	}
+    	}
 	}
-	
+    
     .search-sort {
     	@include grid(28,0,0);
-    	@include rem(margin-top, 4px);
-        @include rem(font-size, 16px);
+    	margin-top: $base-margin;
         text-align: center;
+		font-size: $font-size-small;
+        color: $gray;
 		
         a {
             @include rem(margin-left, $base-padding/2);
+            text-decoration: none;
             
             &.active {
                 text-decoration: underline;
@@ -105,40 +99,43 @@
     }
     
     .search-pagination {
-    	@include grid(12,1,0);
+    	@include grid(11,1,0);
     	text-align: right;
     	vertical-align: middle;
-    	line-height: 1;
+    	margin-top: $base-margin;
+		font-size: $font-size-small;
 		
     	.search-showing {
-    		@include rem(margin-right, $base-padding);
-	    	@include rem(font-size, 14px);
+    		margin-right: $base-padding;
 	    	position: relative;
-	    	top: -3px;
-    	}
-    	
-    	.search-pages-control {
-			
     	}
     	
     	.next-page,
     	.previous-page {
-	    	@include rem(font-size, 24px);
-    	}
-	
-    	span.next-page,
-		span.previous-page {
+	    	font-size: 1.5em;
 			color: $gray-lighter;
+	    	text-decoration: none;
+	    	vertical-align: middle;
 		}
 		
 		a.next-page,
 		a.previous-page {
+			color: $gray-darker;
 			
-			color: $black;
-		
 			&:hover, &:active {
 		    	color: $color-primary;
 		    }
 	    }
+    }
+}
+
+#search-results {
+    @include grid(48,1,1);
+    margin-top: $base-margin*2;
+    
+    li {
+        background-image: none;
+        padding: 0;
+        @include grid(12,0,1);
     }
 }

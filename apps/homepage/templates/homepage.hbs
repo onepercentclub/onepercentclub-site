@@ -70,7 +70,7 @@
                         <p class="project-description">{{project.plan.pitch}}</p>
                     </article>
                     
-                    <div class="project-phase-box l-full">
+                    <div class="project-status l-full">
                     
                     	{{#if project.campaign.deadline}}
                         <p class="project-days-left">
@@ -86,7 +86,7 @@
                             {% trans "raised" %}
                         </p>
                         
-                        <div class="project-fund-amount-slider"><strong style="width: 40%;" class="slider-progress is-in-progress"><em class="slider-percentage">40%</em></strong></div>
+                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
                         
 						<a href='#' {{ action 'addDonation' project }} class="btn btn-primary btn-iconed"><span class="icon">&euro;</span> {% trans "Support" %}</a>
 					</div>

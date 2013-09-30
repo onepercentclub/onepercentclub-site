@@ -1,4 +1,39 @@
+<<<<<<< HEAD
 @mixin allowremove {
+=======
+//
+// Reusable mixin's & classes for rapid development
+// --------------------------------------------------
+
+.left { float: left; }
+.right { float: right; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.nowrap { white-space: nowrap; }
+
+@mixin clear {
+    &:after, &:before {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    & {
+        *zoom: 1;
+    }
+}
+
+@mixin resetList {
+    padding: 0;
+    margin: 0;
+    text-indent: 0;
+    background: none;
+}
+
+@mixin allowRemove {
+>>>>>>> Project Search & Project Detail WIP
     position: relative;
 
     &:hover {

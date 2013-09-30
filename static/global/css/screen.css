@@ -14475,22 +14475,18 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 =======
 =======
 /*
-Syntax error: Invalid CSS after "}": expected "}", was ""
-        on line 272 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/base/_media.scss
-        from line 30 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss
+Syntax error: Invalid CSS after "": expected selector or at-rule, was "<<<<<<< HEAD"
+        on line 1 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/mixins/_utilities.scss
+        from line 18 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss
+
+1: /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss
 
 Backtrace:
-/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/base/_media.scss:272
-/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss:30
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/mixins/_utilities.scss:1
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss:18
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:1146:in `expected'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:1083:in `expected'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:1078:in `tok!'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:535:in `block'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:528:in `ruleset'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:552:in `block_child'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:542:in `block_contents'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:82:in `stylesheet'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:27:in `parse'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/scss/parser.rb:28:in `parse'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/engine.rb:342:in `_to_tree'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/engine.rb:272:in `to_tree'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:225:in `visit_import'
@@ -14556,6 +14552,7 @@ body:before {
   font-family: monospace;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   content: "Syntax error: File to import not found or unreadable: shared.\A               Load paths:\A                 /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/blueprint/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/frameworks/compass/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-960-plugin-0.10.4/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-h5bp-0.1.1/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/compass-normalize-1.4.3/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/bootstrap-sass-2.3.2.1/vendor/assets/stylesheets\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/susy-1.0.9/sass\A                 /Applications/compass.app/Contents/Resources/lib/ruby/compass_extensions/zurb-foundation-4.3.1/scss\A                 Compass::SpriteImporter\A                 /vendor/assets/stylesheets\A                 /vendor/assets/stylesheets\A                 /vendor/assets/stylesheets\A         on line 1 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/compass/css3/_images.scss\A         from line 9 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/compass/_css3.scss\A         from line 11 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss\A \A 1: /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss"; }
 >>>>>>> First attempt for SVG logo
 <<<<<<< HEAD
@@ -14570,4 +14567,10 @@ body:before {
 =======
   content: "Syntax error: Invalid CSS after \"}\": expected \"}\", was \"\"\A         on line 272 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/base/_media.scss\A         from line 30 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss"; }
 >>>>>>> Static pages & Search Updates
+<<<<<<< HEAD
 >>>>>>> Static pages & Search Updates
+=======
+=======
+  content: "Syntax error: Invalid CSS after \"\": expected selector or at-rule, was \"<<<<<<< HEAD\"\A         on line 1 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/mixins/_utilities.scss\A         from line 18 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss\A \A 1: /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/screen.scss"; }
+>>>>>>> Project Search & Project Detail WIP
+>>>>>>> Project Search & Project Detail WIP

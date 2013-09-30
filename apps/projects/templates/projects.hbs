@@ -4,83 +4,58 @@
 
 {% tplhandlebars "project_preview" %}
 
-    <li class="item item-project">
+    <li class="project-item">
+    
         {{#linkTo 'project' project.getProject }}
-            <span class="item-header">
-            	<span class="item-image">
+            <span class="project-header">
+            
+            	<figure class="project-image">
                 	<img {{bindAttr src="project.image" }} />
-            	</span>
-                <span class="item-project-title">
+            	</figure>
+            	
+                <span class="project-title">
                 	<h3>{{project.title}}</h3>
-                    <span class="item-project-country"><span class="flaticon solid location-pin-1"></span> {{project.country.name}}</span> 
+                    <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{project.country.name}}</span> 
                 </span>
             </span>
-        
-	        <span {{bindAttr class=":item-status phase"}}>
+            
+	        <span {{bindAttr class=":project-status phase"}}>
 	            {{#if project.isPhasePlan}}
-	                <span class="donate-status">
-	                    <p class="donate-amount">
-	                        <span class="flaticon solid lightbulb-3"></span>
-	                        <em>{% trans "New" %}</em> {% trans "Smart Idea" %}
-	                    </p>
-	                </span>
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "New" %}</strong> <em>{% trans "Smart Idea" %}</em></span> 
 	            {{/if}}
 	
 	            {{#if project.isPhaseCampaign}}
-	                <div class="donate-status">
-	                    {{#if project.campaign.money_asked}}
-	                        <span class="donate-slider"><strong style="width: 0;" class="donate-progress">&nbsp;</strong></span>
-	                        <p class="donate-amount">
-	                            <span class="donated">&euro;{{localize project.campaign.money_needed}}</span>
-	                            {% trans "To go" %}
-	                        </p>
-	                    {{/if}}
-	                    {{#if project.campaign.deadline }}
-	                        <p class="donate-days-left">
-	                            <strong><span class="flaticon solid clock-1"></span> {{ project.campaign.daysToGo }}</strong>
-	                            <em>{% trans "days" %}</em>
-	                        </p>
-	                    {{/if}}
-	                </div>
+                    {{#if project.campaign.money_asked}}
+                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                        <span class="project-fund-amount"><strong>&euro;{{localize project.campaign.money_needed}}</strong> <em>{% trans "To go" %}</em></span>
+                    {{/if}}
+                    {{#if project.campaign.deadline }}
+                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{project.campaign.daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+                    {{/if}}
 	            {{/if}}
 	
 	            {{#if project.isPhaseAct}}
-	                <span class="donate-status">
-	                    <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
-	                    <p class="donate-amount">
-	                        <em>{% trans "Fully funded" %}</em>
-	                        &amp; {% trans "being realized" %}
-	                    </p>
-	                </span>
+                    <div class="project-fund-amount-slider"><strong style="width: 100%;" class="slider-progress is-finished"><em class="slider-percentage">100%</em></strong></div>
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong> <em>{% trans "Being realized" %}</em></strong>
 	            {{/if}}
-	
-	            {# Is the same as phase "Act". So code can be made DRYer. #}
+	            
 	            {{#if project.isPhaseResults}}
-	                <span class="donate-status">
-	                    <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
-	                    <p class="donate-amount">
-	                        <em>{% trans "Fully funded" %}</em>
-	                        &amp; {% trans "being realized" %}
-	                    </p>
-	                </span>
+                    <div class="project-fund-amount-slider"><strong style="width: 100%;" class="slider-progress is-finished"><em class="slider-percentage">100%</em></strong></div>
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong> <em>{% trans "Being realized" %}</em></span>
 	            {{/if}}
-	
+	            
 	            {{#if project.isPhaseRealized}}
-	                <span class="donate-status">
-	                    <p class="donate-amount">
-	                        {% trans "Project realized" %}
-	                        <br />{% trans "See project results" %}
-	                    </p>
-	                </span>
-	            {{/if}}
-	
-	            {{#if taskCount}}
-	                <span class="project-task">
-	                	<span class="flaticon solid wrench-1"></span> <strong>{{project.taskCount}}</strong> {% trans "task(s) available" %}
-	                </span>
+	                <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project realized" %}</strong> <em>{% trans "See results" %}</em></span>
 	            {{/if}}
 	        </span>
+	        
+            <span class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed aliquam lacus, at luctus lacus. Pellentesque pellentesque nibh ac lacus mollis, nec fringilla nunc pharetra. Suspendisse et metus at lacus interdum pharetra ac aliquet libero. Donec dignissim et nunc vel gravida. </span>
+	        
         {{/linkTo}}
+        	        
+        {{#if taskCount}}
+            <a class="project-tasks"><span class="flaticon solid wrench-1"></span> <strong>{{project.taskCount}}</strong> <em>{% trans "task(s) available" %}</em></a>
+        {{/if}}
     </li>
 
 
@@ -94,15 +69,15 @@
         <section class="l-wrapper">
             <article>
             {{#if model.isLoaded}}
-                <ul id="results">
+                <ul id="search-results">
                     {{#each project in model}}
                         {{render "projectPreview" project}}
                     {{else}}
-                        <li>{% trans "No projects found." %}</li>
+                        <li class="no-results">{% trans "No projects found." %}</li>
                     {{/each}}
                 </ul>
             {{else}}
-                <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "loading projects" %}</span>
+                <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Loading projects" %}</span>
             {{/if}}
         </section>
     </div>
@@ -112,29 +87,28 @@
 
 {% tplhandlebars "project_search_form" %}
 
-    <div class="l-section">
+    <div class="l-section" id="search">
         <section class="l-wrapper">
-            <form class="search-form">
-                <div class="search-field">
-                    <span class="flaticon solid zoom-1"></span>
-                    {{view Em.TextField valueBinding="text" placeholder="Search keyword"}}
+            <form id="search-form">
+                <div class="control">
+                    {{view Em.TextField valueBinding="text" placeholder="Search"}}
+                    <span class="flaticon stroke zoom-2"></span>
                 </div>
                 <div class="control">
-                    <span class="flaticon solid earth-1"></span>
                     {{view App.ProjectCountrySelectView valueBinding="country" }}
+                    <span class="flaticon solid earth-1"></span>
                 </div>
                 <div class="control">
-                    <span class="flaticon solid tag-1"></span>
                     {{view App.ThemeSelectView valueBinding="theme" }}
+                    <span class="flaticon stroke tag-2"></span>
                 </div>
                 <div class="control">
-                    <span class="flaticon solid flag-1"></span>
                     {{view App.ProjectPhaseSelectView valueBinding="phase" }}
+                    <span class="flaticon stroke flag-1"></span>
                 </div>
                 <div class="clear-form">
                     <a {{action clearForm}}>
-                        <span class="flaticon solid x-2"></span>
-                        {% trans "clear filters" %}
+                        <span class="flaticon solid x-2"></span> {% trans "Reset" %}
                     </a>
                 </div>
             </form>
@@ -145,12 +119,12 @@
         <section class="l-wrapper">
             <article id="search-navigation">
             	
-            	<header class="search-results">
+            	<header>
                 	<h2>{% trans "Results" %} <em>{{controllers.projectList.model.meta.total}}</em></h2>
             	</header>
                 
                 <div class="search-sort">
-                    <strong>{% trans "Sort:" %}</strong>
+                    {% trans "Sort:" %}
                     <a {{action sortOrder 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
                     {% comment %}
                         Disabled because the currently approved design does not include sorting by title.
@@ -191,115 +165,64 @@
 
 {% tplhandlebars "project" %}
 
-    <div class="l-section" id="detail">
+    <div class="l-section" id="project-detail">
         <section class="l-wrapper">
         
-            <figure class="media">
+            <figure class="project-image l-half">
                 <img {{bindAttr src="plan.image.large"}} width="100%" alt="Photo" />
             </figure>
 
-            <article>
+            <article class="l-half">
+            
                 <ul class="project-phase">
-                    <li class="item">{% trans "Pitch" %}</li>
-                    <li {{bindAttr class=":item isPhasePlan:is-current" }}>{% trans "Plan" %}</li>
-                    <li {{bindAttr class=":item isPhaseCampaign:is-current" }}>{% trans "Campaign" %}</li>
-                    <li {{bindAttr class=":item isPhaseAct:is-current" }}>{% trans "Act" %}</li>
-                    <li {{bindAttr class=":item isPhaseResults:is-current" }}>{% trans "Results" %}</li>
+                    <li>{% trans "Pitch" %}</li>
+                    <li {{bindAttr class="isPhasePlan:is-current" }}>{% trans "Plan" %}</li>
+                    <li {{bindAttr class="isPhaseCampaign:is-current" }}>{% trans "Campaign" %}</li>
+                    <li {{bindAttr class="isPhaseAct:is-current" }}>{% trans "Act" %}</li>
+                    <li {{bindAttr class="isPhaseResults:is-current" }}>{% trans "Results" %}</li>
                 </ul>
-
-                <div class="project-meta">
-                    <span class="location">
-                    	<em class="flaticon solid location-pin-1"></em> {{plan.country.name}}
-										</span>
-
-                    <span class="theme">
-                        <em class="flaticon solid tag-1"></em> {{plan.theme.title}}
-                    </span>
-                    
+                
+                <header class="project-title">
+                    {{#if plan.country.name}}<span class="project-location"><span class="flaticon solid location-pin-1"></span> {{plan.country.name}}</span>{{/if}}
+                    {{#if plan.theme.title}}<span class="project-theme"><span class="flaticon solid tag-2"></span> {{plan.theme.title}}</span>{{/if}}
                     {{view App.SocialShareView classNames="project-share"}}
-
-                    {% comment %}
-                    <span class="tags" data-title="Tags" {{bindAttr data-content="allTags"}}>
-                        <em class="flaticon solid tag-1"></em>
-                        {{#each tag in plan.tags}}
-                            {{tag.id}}
-                        {{/each}}
-                    </span>
-                    {% endcomment %}
-                </div>
-
-                <h1 class="project-title">
-                    {{plan.title}}
-                </h1>
+                	<h1>{{plan.title}}</h1>
+                </header>
 
                 <p class="project-description">{{plan.pitch}}</p>
-				
-				{% comment %}
-                <div class="project-plan">
-                    {{#linkTo 'projectPlan'}}
-                        <i class="flaticon solid open-book-4"></i>
-                        {% trans "Read full project plan" %}
-                    {{/linkTo}}
-                </div>
-                {% endcomment %}
                 
             </article>
         </section>
 
         {{#if isFundable}}
-            <section class="wrapper">
-                <div class="status-box">
-                    <p class="donate-days-left">
-                        {{#if campaign.deadline }}
-                            <strong><em class="flaticon solid clock-1"></em> {{campaign.daysToGo}}</strong>
-                            <em>{% trans "days to go" %}</em>
-                        {{/if}}
-                    </p>
-
-                    <div class="donate-status">
-                        <p class="donate-amount">
-                                <span class="donated">&euro;{{localize campaign.money_donated}}</span>
-                                {% trans "of" %}
-                                <span class="asked">&euro;{{localize campaign.money_asked}}</span>
-                                {% trans "raised" %}
+            <section class="l-wrapper">
+                <div class="project-status l-full">
+                    
+                	{{#if campaign.deadline}}
+                    <div class="project-days-left">
+						<strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}}</strong>
+						<em>{% trans "days to go" %}</em>
+					</div>
+					{{/if}}
+					
+					<div class="project-fund">
+                        <p class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize campaign.money_donated}}</strong>
+                            {% trans "of" %}
+                            <strong class="amount-asked">&euro;{{localize campaign.money_asked}}</strong>
+                            {% trans "raised" %}
                         </p>
-                        <span class="donate-slider"><strong style="width: 0%;" class="donate-progress is-in-progress"><em class="donate-percentage"></em></strong></span>
-                    </div>
-
-                    <div class="donate-call-to-action">
-                        <a href='#' {{action 'addDonation' this}} class="btn btn-primary btn-iconed">
-                            <em class="icon">&euro;</em> {% trans "Support project" %}
-                        </a>
-                    </div>
-                </div>
+                    
+                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+					</div>
+                    
+					<a href='#' {{ action 'addDonation' project }} class="btn btn-primary btn-iconed"><span class="icon">&euro;</span> {% trans "Support project" %}</a>
+				</div>
             </section>
-        {{else}}
-          {{#unless isPhasePlan}}
-             <section class="wrapper">
-                <div class="status-box">
-                    <p class="donate-days-left">
-                    </p>
-
-                    <div class="donate-status">
-	                    <p class="donate-amount">
-						{{#if project.isPhaseRealized}}
-						    {% trans "Project realized" %}
-	                        <br />{% trans "See project results" %}
-						{{else }}
-	                        <em>{% trans "Fully funded" %}</em>
-	                        &amp; {% trans "being realized" %}
-						{{/if}}
-	                    </p>
-                        <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
-                    </div>
-
-                </div>
-            </section>
-		  {{/unless}}
         {{/if}}
     </div>
 
-    <div class="l-section" id="member-box">
+    <div class="l-section" class="project-fund-list">
         <section class="l-wrapper">
             {{view App.ProjectMembersView}}
         </div>
@@ -522,7 +445,7 @@
 {% tplhandlebars "project_plan" %}
 
     <section class="l-wrapper">
-        <div id="project-detail">
+        <div id="project-plan">
             
             <header>
             	<h1>{% trans "Project Plan" %}</h1>
