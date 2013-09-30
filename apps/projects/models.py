@@ -380,6 +380,9 @@ class ProjectResult(models.Model):
     project = models.OneToOneField("projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=ResultStatuses.choices)
 
+    created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
+    updated = ModificationDateTimeField(_('updated'))
+
 
 class PartnerOrganization(models.Model):
     """

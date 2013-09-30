@@ -1,0 +1,14 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load i18n %}
+{% block module_content %}
+<ul>
+    {% spaceless %}
+    {% for project in module.children %}
+    <li class="{% cycle 'odd' 'even' %}">
+        <span class="float-right">{{ project.created|date }}</span>
+        <a href="{{ admin_url }}{{ project.get_admin_url }}" >{{ project.title }}</a>
+    </li>
+    {% endfor %}
+    {% endspaceless %}
+</ul>
+{% endblock %}

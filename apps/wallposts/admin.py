@@ -16,9 +16,25 @@ class MediaWallPostPhotoInline(AdminImageMixin, admin.StackedInline):
 class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
     raw_id_fields = ('author', 'editor')
-    list_display = ('created', 'author', 'content_type', 'text')
-    ordering =  ('-created', )
+    list_display = ('created', 'view_project_online', 'get_text', 'video_url', 'photos', 'author')
+    ordering = ('-created', )
     inlines = (MediaWallPostPhotoInline,)
+
+    def get_text(self, obj):
+        if len(obj.text) > 150:
+            return u'<span title="{text}">{short_text} [...]</span>'.format(text=obj.text, short_text=obj.text[:145])
+    get_text.allow_tags = True
+
+    def photos(self, obj):
+        photos = MediaWallPostPhoto.objects.filter(mediawallpost=obj)
+        if len(photos):
+            return len(photos)
+        return '-'
+
+    def view_project_online(self, obj):
+        return u'<a href="/go/projects/{slug}">{title}</a>'.format(slug=obj.content_object.slug, title=obj.content_object.title)
+    view_project_online.allow_tags = True
+
 
 
 class TextWallPostAdmin(PolymorphicChildModelAdmin):
@@ -32,14 +48,14 @@ class SystemWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
     list_display = ('created', 'author', 'content_type', 'related_type', 'text')
     raw_id_fields = ('author', 'editor')
-    ordering =  ('-created', )
+    ordering = ('-created', )
 
 
 class WallPostParentAdmin(PolymorphicParentModelAdmin):
     """ The parent model admin """
     base_model = WallPost
     list_display = ('created', 'author', 'content_type')
-    ordering =  ('-created', )
+    ordering = ('-created', )
     child_models = (
         (MediaWallPost, MediaWallPostAdmin),
         (TextWallPost, TextWallPostAdmin),

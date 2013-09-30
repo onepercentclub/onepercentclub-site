@@ -1,5 +1,5 @@
 import logging
-from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme, ProjectPhases
+from apps.projects.models import ProjectPlan, ProjectCampaign, ProjectTheme, ProjectPhases, ProjectResult
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.utils.html import escape
@@ -136,6 +136,40 @@ class ProjectCampaignAdmin(admin.ModelAdmin):
             return super(ProjectPitchAdmin, self).response_change(request, obj)
 
 admin.site.register(ProjectCampaign, ProjectCampaignAdmin)
+
+
+class ProjectResultAdmin(admin.ModelAdmin):
+
+    model = ProjectResult
+    list_filter = ('status', )
+    list_display = ('project', 'status', 'created')
+
+    readonly_fields = ('edit_project', 'project_owner')
+    fields = readonly_fields + ('status', )
+
+    def edit_project(self, obj):
+        object = obj.project
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object.title)
+
+    edit_project.allow_tags = True
+
+    def project_owner(self, obj):
+        object = obj.project.owner
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object.first_name + ' ' + object.last_name)
+
+    project_owner.allow_tags = True
+
+    def response_change(self, request, obj):
+        if not '_continue' in request.POST:
+            object = obj.project
+            url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
+            return HttpResponseRedirect(url)
+        else:
+            return super(ProjectResultAdmin, self).response_change(request, obj)
+
+admin.site.register(ProjectResult, ProjectResultAdmin)
 
 
 class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):

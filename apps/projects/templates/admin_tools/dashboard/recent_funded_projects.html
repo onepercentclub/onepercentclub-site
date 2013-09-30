@@ -1,0 +1,21 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load i18n humanize %}
+{% block module_content %}
+<div class="dashboard-module-content">
+    <p>
+        {% blocktrans %}
+            Recently funded projects that are now in 'result' phase.
+        {% endblocktrans %}
+    </p>
+</div>
+<ul>
+    {% spaceless %}
+    {% for projectresult in module.children %}
+    <li class="{% cycle 'odd' 'even' %}">
+        <span class="float-right">{{ projectresult.created|date }}</span>
+        <a href="{{ admin_url }}projects/projectresult/{{ projectresult.id }}" >{{ projectresult.project.title }}</a>
+    </li>
+    {% endfor %}
+    {% endspaceless %}
+</ul>
+{% endblock %}
