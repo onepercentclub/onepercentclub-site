@@ -1,6 +1,6 @@
 from admin_tools.dashboard.modules import DashboardModule
 from django.utils.translation import ugettext_lazy as _
-from apps.projects.models import Project, ProjectPitch, ProjectPlan, ProjectResult
+from apps.projects.models import Project, ProjectPitch, ProjectPlan, ProjectResult, ProjectCampaign
 
 
 class RecentProjects(DashboardModule):
@@ -54,6 +54,25 @@ class SubmittedPlans(DashboardModule):
         self.children = qs[:self.limit]
         if not len(self.children):
             self.pre_content = _('No submitted plans.')
+        self._initialized = True
+
+
+class StartedCampaigns(DashboardModule):
+    title = _('Recently Started Campaigns')
+    template = 'admin_tools/dashboard/started_campaigns.html'
+    limit = 10
+
+    def __init__(self, title=None, limit=10,**kwargs):
+        kwargs.update({'limit': limit})
+        super(StartedCampaigns, self).__init__(title, **kwargs)
+
+    def init_with_context(self, context):
+        qs = ProjectCampaign.objects.order_by('-created')
+        qs = qs.filter(status=ProjectCampaign.CampaignStatuses.running)
+
+        self.children = qs[:self.limit]
+        if not len(self.children):
+            self.pre_content = _('No campaigns.')
         self._initialized = True
 
 
