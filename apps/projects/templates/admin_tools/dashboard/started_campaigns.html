@@ -1,0 +1,21 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load i18n %}
+{% block module_content %}
+<ul>
+    {% spaceless %}
+    {% for campaign in module.children %}
+    <li class="{% cycle 'odd' 'even' %}">
+        <span class="float-right">{{ campaign.created|date }}</span>
+        <a href="{{ admin_url }}projects/projectcampaign/{{ campaign.id }}" >{{ campaign.project.title }}</a>
+    </li>
+    {% endfor %}
+    {% endspaceless %}
+</ul>
+
+<div class="dashboard-module-content">
+    <p>
+        <a href="{{ admin_url }}projects/projectcampaign/">{%  trans "View all campaigns" %}</a>
+    </p>
+</div>
+
+{% endblock %}

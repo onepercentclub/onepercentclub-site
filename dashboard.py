@@ -1,5 +1,5 @@
 from fluent_dashboard.dashboard import FluentIndexDashboard
-from apps.projects.dashboard import SubmittedPitches, SubmittedPlans, FundedProjects
+from apps.projects.dashboard import SubmittedPitches, SubmittedPlans, FundedProjects, StartedCampaigns
 from apps.tasks.dashboard import RecentTasks
 
 
@@ -12,6 +12,6 @@ class CustomIndexDashboard(FluentIndexDashboard):
     def init_with_context(self, context):
         self.children.append(SubmittedPitches())
         self.children.append(SubmittedPlans())
+        self.children.append(StartedCampaigns())
         self.children.append(FundedProjects())
-
         self.children.append(RecentTasks())
