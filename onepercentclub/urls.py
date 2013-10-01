@@ -62,7 +62,7 @@ urlpatterns += i18n_patterns('',
     url(r'^admin/utils/admintools/', include('admin_tools.urls')),
 
     # account login/logout, password reset, and password change
-    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
 
     # Project view that search engines will use.
     url(r'^projects/', include('apps.projects.urls')),
