@@ -19,7 +19,7 @@
 
 
 {% block_verbatim user_agreement %}
-    {% blocktrans with action="{{action showPage 'terms-and-conditions'}}" href="/#!/pages/terms-and-conditions" %}
+    {% blocktrans with action="{{action 'showPage' 'terms-and-conditions'}}" href="/#!/pages/terms-and-conditions" %}
     By joining 1%Club I hereby agree to the <a {{ action }} href="{{ href }}"> 1%Club Terms of service</a>
     {% endblocktrans %}
 {% endblock_verbatim user_agreement %}

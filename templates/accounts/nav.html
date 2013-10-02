@@ -32,7 +32,7 @@
     <li class="nav-member-actions">
         {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
         {% trans "or" %}
-        <a {{action openInBox "login"}} class="nav-login">{%  trans "Log in" %}</a>
+        <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
     </li>
 
 {% endblock_verbatim anonymous_user %}

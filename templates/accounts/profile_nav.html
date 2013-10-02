@@ -19,7 +19,7 @@
 {% block_verbatim extra_profile_nav_tabs %}
     
     <li class="tab-item">
-        {{#linkTo userOrders }}
+        {{#linkTo "userOrders" }}
             <em class="tab-icon amount"><i class="flaticon solid wallet-1"></i></em>
             <strong class="tab-title">{% trans "Payment" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
         {{/linkTo}}

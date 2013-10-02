@@ -16,7 +16,7 @@
 
 {% block_verbatim login_footer %}
                         
-    <a class="left" {{ action requestPasswordReset }}>{% trans "Forgot your password?" %}</a>
+    <a class="left" {{ action "requestPasswordReset" }}>{% trans "Forgot your password?" %}</a>
     <input class="btn right" type="submit" value="{% trans "Log in" %}">
     <input type="hidden" name="next" {{bindAttr value="view.next"}}>
 
