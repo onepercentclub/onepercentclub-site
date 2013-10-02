@@ -122,198 +122,195 @@ a {
 
 
 
-#content {
+// Page header
+// -------------------------
 
-	// Page header
-	// -------------------------
-	
-	.page-header {
-	  	padding-bottom: ($base-line-height / 2) - 1;
-	  	margin: $base-line-height 0 ($base-line-height * 1.5);
-	}
-	
-	// Lists
-	// --------------------------------------------------
+.page-header {
+  	padding-bottom: ($base-line-height / 2) - 1;
+  	margin: $base-line-height 0 ($base-line-height * 1.5);
+}
 
-	// Unordered and Ordered lists
-	ul, ol {
-	  	padding: 0;
-	  	margin: 0 0 $base-line-height / 2 25px;
+// Lists
+// --------------------------------------------------
+
+// Unordered and Ordered lists
+ul, ol {
+  	padding: 0;
+  	margin: 0 0 $base-line-height / 2 25px;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  	margin-bottom: 0;
+}
+li {
+  	line-height: $base-line-height;
+}
+
+// Remove default list styles
+ul.unstyled,
+ol.unstyled {
+  	margin-left: 0;
+  	list-style: none;
+}
+
+// Single-line list items
+ul.inline,
+ol.inline {
+  	margin-left: 0;
+  	list-style: none;
+	> li {
+		display: inline-block;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
-	ul ul,
-	ul ol,
-	ol ol,
-	ol ul {
-	  	margin-bottom: 0;
-	}
-	li {
-	  	line-height: $base-line-height;
-	}
-	
-	// Remove default list styles
-	ul.unstyled,
-	ol.unstyled {
-	  	margin-left: 0;
-	  	list-style: none;
-	}
-	
-	// Single-line list items
-	ul.inline,
-	ol.inline {
-	  	margin-left: 0;
-	  	list-style: none;
-		> li {
-			display: inline-block;
-			padding-left: 5px;
-			padding-right: 5px;
-		}
-	}
-	
-	// Description Lists
-	dl {
-	  	margin-bottom: $base-line-height;
-	}
-	dt,
-	dd {
-	  	line-height: $base-line-height;
-	}
+}
+
+// Description Lists
+dl {
+  	margin-bottom: $base-line-height;
+}
+dt,
+dd {
+  	line-height: $base-line-height;
+}
+dt {
+  	font-weight: bold;
+}
+dd {
+  	margin-left: $base-line-height / 2;
+}
+// Horizontal layout (like forms)
+.dl-horizontal {
+	@include clearfix(); // Ensure dl clears floats if empty dd elements present
 	dt {
-	  	font-weight: bold;
+		float: left;
+		//width: $horizontalComponentOffset - 20;
+		clear: left;
+		text-align: right;
+		//@include text-overflow();
 	}
 	dd {
-	  	margin-left: $base-line-height / 2;
+		//margin-left: $horizontalComponentOffset;
 	}
-	// Horizontal layout (like forms)
-	.dl-horizontal {
-		@include clearfix(); // Ensure dl clears floats if empty dd elements present
-		dt {
-			float: left;
-			//width: $horizontalComponentOffset - 20;
-			clear: left;
+}
+
+
+
+
+ul {
+	margin: $base-margin 0 $base-margin*2 $base-margin*2;
+
+	li {
+		padding-left: $base-padding*2;
+		margin: $base-margin 0;
+		background: image-url("list-item.png") transparent no-repeat 0 0;
+	}
+}
+
+ol { 
+	margin: $base-padding 0 $base-padding*2 $base-padding*4;
+
+	li {
+		list-style: decimal;
+		margin: $base-margin/4 0;
+	}
+
+}
+
+dl {
+    margin-bottom: $base-margin;
+    dt { font-weight: bold; }
+    dd { margin-left: $base-margin; }
+    &.advanced {
+        dt { @include grid(16, 0, 1); }
+        dd { @include grid(32); }
+    }
+}
+
+
+
+
+
+// MISC
+// ----
+
+// Horizontal rules
+hr {
+	margin: $base-line-height 0;
+	border: 0;
+	border-top: 1px solid $gray-light;
+	border-bottom: 1px solid $white;
+}
+
+// Abbreviations and acronyms
+abbr[title],
+// Added data-* attribute to help out our tooltip plugin, per https://github.com/twitter/bootstrap/issues/5257
+abbr[data-original-title] {
+  	cursor: help;
+  	border-bottom: 1px dotted $gray-light;
+}
+abbr.initialism {
+  	font-size: 90%;
+  	text-transform: uppercase;
+}
+
+// Blockquotes
+blockquote {
+	padding: 0 0 0 15px;
+	margin: 0 0 $base-line-height;
+	border-left: 5px solid $gray-lighter;
+	p {
+		margin-bottom: 0;
+		font-size: $base-font-size * 1.25;
+		font-weight: 300;
+		line-height: 1.25;
+	}
+	small {
+		display: block;
+		line-height: $base-line-height;
+		color: $gray-light;
+		&:before {
+	  		content: '\2014 \00A0';
+	  	}
+	}
+	
+	// Float right with text-align: right
+	&.pull-right {
+		float: right;
+		padding-right: 15px;
+		padding-left: 0;
+		border-right: 5px solid $gray-lighter;
+		border-left: 0;
+		p,
+		small {
 			text-align: right;
-			//@include text-overflow();
-		}
-		dd {
-			//margin-left: $horizontalComponentOffset;
-		}
-	}
-	
-
-
-
-	ul {
-		margin: $base-margin 0 $base-margin*2 $base-margin*2;
-	
-		li {
-			padding-left: $base-padding*2;
-			margin: $base-margin 0;
-			background: image-url("list-item.png") transparent no-repeat 0 0;
-		}
-	}
-	
-	ol { 
-		margin: $base-padding 0 $base-padding*2 $base-padding*4;
-	
-		li {
-			list-style: decimal;
-			margin: $base-margin/4 0;
-		}
-	
-	}
-	
-	dl {
-	    margin-bottom: $base-margin;
-	    dt { font-weight: bold; }
-	    dd { margin-left: $base-margin; }
-	    &.advanced {
-	        dt { @include grid(16, 0, 1); }
-	        dd { @include grid(32); }
-	    }
-	}
-
-
-	
-	
-	
-	// MISC
-	// ----
-	
-	// Horizontal rules
-	hr {
-		margin: $base-line-height 0;
-		border: 0;
-		border-top: 1px solid $gray-light;
-		border-bottom: 1px solid $white;
-	}
-	
-	// Abbreviations and acronyms
-	abbr[title],
-	// Added data-* attribute to help out our tooltip plugin, per https://github.com/twitter/bootstrap/issues/5257
-	abbr[data-original-title] {
-	  	cursor: help;
-	  	border-bottom: 1px dotted $gray-light;
-	}
-	abbr.initialism {
-	  	font-size: 90%;
-	  	text-transform: uppercase;
-	}
-	
-	// Blockquotes
-	blockquote {
-		padding: 0 0 0 15px;
-		margin: 0 0 $base-line-height;
-		border-left: 5px solid $gray-lighter;
-		p {
-			margin-bottom: 0;
-			font-size: $base-font-size * 1.25;
-			font-weight: 300;
-			line-height: 1.25;
 		}
 		small {
-			display: block;
-			line-height: $base-line-height;
-			color: $gray-light;
 			&:before {
-		  		content: '\2014 \00A0';
-		  	}
-		}
-		
-		// Float right with text-align: right
-		&.pull-right {
-			float: right;
-			padding-right: 15px;
-			padding-left: 0;
-			border-right: 5px solid $gray-lighter;
-			border-left: 0;
-			p,
-			small {
-				text-align: right;
+				content: '';
 			}
-			small {
-				&:before {
-					content: '';
-				}
-				&:after {
-					content: '\00A0 \2014';
-				}
+			&:after {
+				content: '\00A0 \2014';
 			}
 		}
 	}
-	
-	// Quotes
-	q:before,
-	q:after,
-	blockquote:before,
-	blockquote:after {
-	  	content: "";
-	}
-	
-	// Addresses
-	address {
-	  	display: block;
-	  	margin-bottom: $base-line-height;
-	  	font-style: normal;
-	  	line-height: $base-line-height;
-	}
-	
 }
+
+// Quotes
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  	content: "";
+}
+
+// Addresses
+address {
+  	display: block;
+  	margin-bottom: $base-line-height;
+  	font-style: normal;
+  	line-height: $base-line-height;
+}
+

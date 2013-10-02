@@ -4,11 +4,12 @@
 
 #home {
 	
+	// Carousel overwrite
 	.carousel .carousel-item {
 		min-height: 460px;
 	}
 	
-	// QUOTE
+	// Quotes
 	.quotes {
 		background-image: image-url("world.png");
 		background-repeat: no-repeat;

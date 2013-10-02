@@ -79,7 +79,7 @@
                 <div class="controls">
                     <a class="btn btn-iconed btn-uploader">
                         {{view App.UploadMultipleFiles valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
-                        <i class="flaticon solid upload-document-1"></i>
+                        <span class="flaticon solid upload-document-1"></span>
                         {% trans "Select photos" %}
                     </a>
 
@@ -104,7 +104,7 @@
         </ul>
     </fieldset>
 
-    <button class="btn btn-iconed right" type="submit"><i class="flaticon solid thinking-comment-1"></i>{% trans "Post Update" %}</button>
+    <button class="btn btn-iconed" type="submit"><span class="flaticon solid thinking-comment-1"></span>{% trans "Post Update" %}</button>
 
 {% endtplhandlebars %}
 
@@ -127,44 +127,43 @@
 	    </ul>
 	</fieldset>
 
-    <button class="btn btn-iconed right" type="submit"><i class="flaticon solid thinking-comment-1"></i>{% trans "Comment" %}</button>
+    <button class="btn btn-iconed" type="submit"><span class="flaticon solid thinking-comment-1"></span>{% trans "Comment" %}</button>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "project_wallpost_list" %}
 
-    <section class="wrapper">
-    	
-    	<div id="wallposts" class="content">
-
-	        {{#each item in items itemController="wallPost"}}
-	            {{#if item.isLoaded}}
-                    {{#if item.isSystemWallPost}}
-    	                {{view "App.SystemWallPostView"}}
-                    {{else}}
-    	                {{view "App.ProjectWallPostView"}}
-                    {{/if}}
-	            {{/if}}
-	        {{/each}}
-        	
-        	<article class="wallpost">
-            {{#if canLoadMore}}
-                <a {{action "showMore"}} class="show-more button-link">
-                    <em class="flaticon solid plus-2"></em> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
-                </a>
-            {{else}}
-                {# trans "no more posts to show" #}
-            {{/if}}
-			</article>
-
-    	</div>
-
-        <sidebar class="sidebar tip">
-        	{{ render "projectWallPostNew" }}
-        </sidebar>
-        
-    </section>
+    <div id="l-section">
+        <section class="l-wrapper">
+        	<div class="l-content" id="wallposts">
+    
+    	        {{#each item in items itemController="wallPost"}}
+    	            {{#if item.isLoaded}}
+                        {{#if item.isSystemWallPost}}
+        	                {{view "App.SystemWallPostView"}}
+                        {{else}}
+        	                {{view "App.ProjectWallPostView"}}
+                        {{/if}}
+    	            {{/if}}
+    	        {{/each}}
+            	
+                {{#if canLoadMore}}
+                    <a {{action "showMore"}} class="show-more">
+                        <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
+                    </a>
+                {{else}}
+                    {# trans "no more posts to show" #}
+                {{/if}}
+    
+        	</div>
+    
+            <sidebar class="l-sidebar">
+            	{{ render "projectWallPostNew" }}
+            </sidebar>
+            
+        </section>
+    </div>
     
 {% endtplhandlebars %}
 
@@ -172,63 +171,63 @@
 {% tplhandlebars "project_wallpost" %}
 
     <article class="wallpost">
-        <header>
-
-            <a {{action openInBigBox "userModal" author}} class="user initiator">
-                <span class="user-img">
-                    <img {{bindAttr src="author.getAvatar"}} width="100%" alt="Avatar" />
-                </span>
-                {# <em class="user-type not-implemented">{% trans "Project Initiator" %}</em> #}
-                <strong class="user-name">{{author.full_name}}</strong>
-                {{#if created}}
-                    <em class="timestamp">{{ localize created formatting="X" }}</em>
+    
+        <header class="wallpost-header">
+        
+            <div class="wallpost-member">
+                <a {{action openInBigBox "userModal" author}} class="member">
+                    <span class="member-avatar">
+                        <img {{bindAttr src="author.getAvatar"}} alt="{{author.full_name}}" />
+                    </span>
+                    <strong class="member-name">{{author.full_name}}</strong>
+                </a>
+            </div>
+            
+            <div class="wallpost-meta">
+                 {{#if created}}
+                    <em class="wallpost-timestamp">{{ localize created formatting="X" }}</em>
                 {{/if}}
-            </a>
-
-            {{#if title}}
-                <h3>{{title}}</h3>
-            {{/if}}
-
+            </div>
+            
             {{#if isAuthor}}
                 <ul class="manage">
-                    {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}
-                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}><em class="flaticon solid trash-2"></em> {% trans "Delete" %}</a></li>
+                    {# <li class="manage-edit"><a href="#">{% trans "Edit" %}</a></li> #}
+                    <li class="manage-delete"><a {{action "deleteWallPost" target="view"}}><span class="flaticon solid trash-2"></span> {% trans "Delete" %}</a></li>
                 </ul>
             {{/if}}
         </header>
 
-        <div class="content">
-
+        <div class="wallpost-content">            
+            {{#if title}}
+                <h3 class="wallpost-title">{{title}}</h3>
+            {{/if}}
+            
             {{#if video_html}}
                 <div class="video">{{{video_html}}}</div>
             {{/if}}
 
-            {{{text}}}
+            <div class="text">{{{text}}}</div>
 
             {# This is temporary and will go away when we figure out how to upload related photos. #}
             {{#if photo}}
-                <div class="photo-viewer">
-                    <span class="photo"><img {{bindAttr src="photo"}} width="100%" alt="Gallery" /></span>
-                </div>
+                <ul class="photo-viewer">
+                    <li class="photo"><img {{bindAttr src="photo"}} /></li>
+                </ul>
             {{/if}}
 
             {{#if photos.length}}
-                <div class="photo-viewer">
-                    <ul>
-                        {{#each photo in photos}}
-                            <li><a {{bindAttr href="photo.photo.full"}} class="gallery-picture" title="picture"><img {{bindAttr src="photo.photo.small"}} width="100%" alt="Thumbnail" /></a></li>
-                        {{/each}}
-                    </ul>
-                </div>
+                <ul class="photo-viewer">
+                    {{#each photo in photos}}
+                        <li class="photo"><a {{bindAttr href="photo.photo.full"}} title="picture"><img {{bindAttr src="photo.photo.small"}} /></a></li>
+                    {{/each}}
+                </ul>
             {{/if}}
 
 	    </div>
-
-        <!-- reaction-box -->
-        <div class="reaction-box">
+        
+        <div class="wallpost-reactions">
             {{render "wallPostReactionList" reactions}}
         </div>
-        <!-- end: reaction-box -->
 
     </article>
 
@@ -239,19 +238,19 @@
 {% tplhandlebars "system_wallpost" %}
 
     <article class="wallpost system-wallpost">
-        <header class="user">
-
-            <span class="post-type-icon">
-                <em class="flaticon solid">&euro;</em>
-                Donation
+        <header class="member">
+            
+            <span class="system-wallpost-icon">
+                <span class="icon">&euro;</span> {% trans "Donation" %}
             </span>
+            
             {{#if author}}
-                <a {{action openInBigBox "userModal" author}} class="initiator">
-                    <strong class="user-name">{{author.full_name}}</strong>
+                <a {{action openInBigBox "userModal" author}} class="member">
+                    <strong class="member-name">{{author.full_name}}</strong>
                 </a>
                 {% trans "Made a donation" %}
             {{else}}
-                {% trans "Someone made a donation" %}
+                <span class="member member-guest"><strong class="member-name">{% trans "Someone made a donation" %}</strong></span>
             {{/if}}
             {{#if created}}
                 <em class="timestamp">{{ localize created formatting="X" }}</em>
@@ -259,13 +258,13 @@
 
             {{#if isAuthor}}
                 <ul class="manage">
-                    {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}
-                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}><em class="flaticon solid trash-2"></em> {% trans "Delete" %}</a></li>
+                    {# <li class="manage-edit"><a href="#">{% trans "Edit" %}</a></li> #}
+                    <li class="manage-delete"><a {{action "deleteWallPost" target="view"}}><span class="flaticon solid trash-2"></span> {% trans "Delete" %}</a></li>
                 </ul>
             {{/if}}
         </header>
 
-        <div class="reaction-box">
+        <div class="reactions">
             {{render "wallPostReactionList" reactions}}
         </div>
 
@@ -278,7 +277,7 @@
 
 {% tplhandlebars "task_wallpost_new" %}
     
-    <form id="comment-box">
+    <form class="comment-form">
 	    <fieldset>
 		   <ul>
 		        <li class="control-group">
@@ -295,7 +294,7 @@
 		    </ul>
 		</fieldset>
 	
-	    <button {{action "addTextWallPost" }} class="btn btn-iconed right" type="submit"><em class="flaticon solid thinking-comment-1"></em>{% trans "Comment" %}</button>
+	    <button {{action "addTextWallPost" }} class="btn btn-iconed right" type="submit"><span class="flaticon solid thinking-comment-1"></span>{% trans "Comment" %}</button>
     </form>
 
 {% endtplhandlebars %}
@@ -306,32 +305,30 @@
     <article class="wallpost">
         <header>
 
-            <a {{action openInBigBox "memberProfile" author}} class="user initiator">
-                <span class="user-img">
-                    <img {{bindAttr src="author.getAvatar"}} width="100%" alt="Avatar" />
+            <a {{action openInBigBox "memberProfile" author}} class="member initiator">
+                <span class="member-avatar">
+                    <img {{bindAttr src="author.getAvatar"}} alt="{{author.full_name}}" />
                 </span>
                 {# <em class="user-type not-implemented">{% trans "Project Initiator" %}</em> #}
-                <strong class="user-name">{{author.full_name}}</strong>
-                <em class="timestamp">{{ localize created formatting="X" }}</em>
+                <strong class="member-name">{{author.full_name}}</strong>
+                <em class="wallpost-timestamp">{{ localize created formatting="X" }}</em>
             </a>
 
             {{#if isAuthor}}
                 <ul class="manage">
-                    {# <li class="manage-edit not-implemented"><a href="#">{% trans "Edit" %}</a></li> #}
-                    <li class="manage-remove"><a {{action "deleteWallPost" target="view"}}><em class="flaticon solid trash-2"></em> {% trans "Delete" %}</a></li>
+                    {# <li class="manage-edit"><a href="#">{% trans "Edit" %}</a></li> #}
+                    <li class="manage-delete"><a {{action "deleteWallPost" target="view"}}><span class="flaticon solid trash-2"></span> {% trans "Delete" %}</a></li>
                 </ul>
             {{/if}}
         </header>
 
-        <div class="content">
-            {{{text}}}
+        <div class="wallpost-content">
+            <div class="text">{{{text}}}</div>
 	    </div>
 
-        <!-- reaction-box -->
-        <div class="reaction-box">
+        <div class="reactions">
             {{render "wallPostReactionList" reactions}}
         </div>
-        <!-- end: reaction-box -->
 
     </article>
 
@@ -343,9 +340,7 @@
 	
 	
 	    {{#if controllers.currentUser.isAuthenticated }}
-	    	<div id="comment-box">
 	        {{ render "taskWallPostNew" }}
-			</div>
 	    {{else}}
 	        <div class="login-form">
 	            <a {{action openInBox "login"}} class="nav-login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
@@ -358,10 +353,8 @@
         {{/if}}
     {{/each}}
 
-    <article class="wallpost">
-        {{#if canLoadMore}}
-            <a {{action "showMore"}} class="show-more button-link"><em class="flaticon solid plus-2"></em> {% trans "Show more" %}</a>
-        {{/if}}
-    </article>
+    {{#if canLoadMore}}
+        <a {{action "showMore"}} class="show-more"><span class="flaticon solid plus-2"></span> {% trans "Show more" %}</a>
+    {{/if}}
 
 {% endtplhandlebars %}
