@@ -1,15 +1,18 @@
 /* Compass */
 @import "compass/utilities";
 @import "compass/reset";
-//@import "compass/css3";
+@import "compass/css3";
 
 /* Core & mixins */
 @import "core/variables";
 @import "mixins/rem";
-//@import "mixins/utilities";
+@import "mixins/utilities";
 
 @import "core/grid";
 @import "core/typography";
+
+@import "mixins/flaticons-social";
+@import "mixins/flaticons-solid";
 
 body {
     font-family: "Futura Alt","Trebuchet MS",Helvetica,Arial,sans-serif;
@@ -35,6 +38,7 @@ body {
 .dashboard .dashboard-module {
     border: 2px solid black;
     border-radius: 0px;
+    padding: 0;
 
     ul.fluent-dashboard-appiconlist {
         margin: 0;
@@ -57,9 +61,12 @@ body {
 }
 
 .dashboard-module h2 {
-    background: $light-grey;
+    background: $gray;
     font-size: 18px;
     font-weight: bold;
-    color: $black;
+    color: $white;
     text-transform: uppercase;
+
 }
+
+
