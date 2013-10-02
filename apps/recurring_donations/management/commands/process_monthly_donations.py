@@ -122,7 +122,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
 
         # Create a new Donation and recursively update it with the remaining amount.
         ct = ContentType.objects.get_for_model(donation)
-        order = OrderItem.ojects.get(content_type=ct, content_object=donation)
+        order = OrderItem.objects.get(content_type=ct, content_object=donation)
         new_project = popular_projects.pop(0)
         new_donation = Donation.objects.create(user=donation.user, project=new_project, amount=0, currency='EUR',
                                                donation_type=Donation.DonationTypes.recurring)
@@ -138,9 +138,11 @@ def create_recurring_order(user, projects, order=None):
         order = Order.objects.create(status=OrderStatuses.recurring, user=user, recurring=True)
 
     for p in projects:
-        donation = Donation.objects.create(user=user, project=p, amount=0, currency='EUR',
-                                           donation_type=Donation.DonationTypes.recurring)
-        OrderItem.objects.create(content_object=donation, order=order)
+        project = Project.objects.get(id=p.id)
+        if project.phase == ProjectPhases.campaign:
+            donation = Donation.objects.create(user=user, project=project, amount=0, currency='EUR',
+                                    donation_type=Donation.DonationTypes.recurring)
+            OrderItem.objects.create(content_object=donation, order=order)
 
     return order
 
@@ -257,10 +259,10 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
 
         # Remove donations to projects that are no longer in the campaign phase.
         for donation in recurring_order.donations:
-            project = Project.objects.get(id=donation.project_id)
+            project = Project.objects.get(id=donation.project.id)
             if project.phase != ProjectPhases.campaign:
                 ctype = ContentType.objects.get_for_model(donation)
-                order_item = OrderItem.objects.filter(object_id=donation.id, content_type=ctype)
+                order_item = OrderItem.objects.get(object_id=donation.id, content_type=ctype)
                 order_item.delete()
                 donation.delete()
 
@@ -277,6 +279,13 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
             # There are no donations in the recurring Order so we need to create a monthly shopping cart to support the
             # top three projects and redistribute / correct the donation amounts.
             create_recurring_order(recurring_payment.user, top_three_projects, recurring_order)
+
+            if recurring_order.donations.count() == 0:
+                logger.debug("The top three donations are full. Using next three projects for top three.")
+                top_three_projects = popular_projects_rest[:3]
+                popular_projects_rest = popular_projects_rest[3:]
+                create_recurring_order(recurring_payment.user, top_three_projects, recurring_order)
+
             correct_donation_amounts(popular_projects_rest, recurring_order, recurring_payment)
             top_three_donation = True
 
