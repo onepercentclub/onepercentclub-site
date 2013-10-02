@@ -17,7 +17,7 @@ from django.http import Http404
 from rest_framework import mixins, exceptions, status, permissions, response, generics
 from django.utils.translation import ugettext as _
 from .mails import mail_voucher_redeemed, mail_custom_voucher_request
-from .models import Donation, OrderItem, Order, OrderStatuses, Voucher, CustomVoucherRequest, VoucherStatuses, \
+from .models import Donation, Order, OrderStatuses, Voucher, CustomVoucherRequest, VoucherStatuses, \
     DonationStatuses, RecurringDirectDebitPayment
 from .permissions import IsUser
 from .serializers import DonationSerializer, OrderSerializer, VoucherSerializer, VoucherDonationSerializer, \
@@ -35,64 +35,6 @@ logger = logging.getLogger(__name__)
 anon_order_id_session_key = 'cart_order_id'
 
 no_active_order_error_msg = _(u"No active order")
-
-
-class OrderItemDestroyMixin(mixins.DestroyModelMixin):
-
-    def destroy(self, request, *args, **kwargs):
-        # Tidy up! Delete related OrderItem, if any.
-        obj = self.get_object()
-        ct = ContentType.objects.get_for_model(obj)
-        order_item = OrderItem.objects.filter(object_id=obj.id, content_type=ct)
-        if order_item:
-            order_item.delete()
-            obj.delete()
-            return response.Response(status=status.HTTP_204_NO_CONTENT)
-        return response.Response(status=status.HTTP_412_PRECONDITION_FAILED)
-
-
-class OrderItemMixin(mixins.CreateModelMixin):
-
-    def get_queryset(self):
-        # Filter queryset for the current order
-        alias = self.kwargs.get('alias', None)
-        order_id = self.kwargs.get('order_pk', None)
-
-        # Deal with the 'current' alias.
-        if alias == 'current':
-            order = self.get_current_order()
-        elif order_id:
-            try:
-                order = Order.objects.get(user=self.request.user, id=order_id)
-            except Order.DoesNotExist:
-                raise exceptions.ParseError(detail=_(u"Order not found."))
-        else:
-            raise exceptions.ParseError(detail=_(u"No order specified."))
-        if not order:
-            raise exceptions.ParseError(detail=_(u"Order not found."))
-        order_items = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(self.model))
-        queryset = self.model.objects.filter(id__in=order_items.values('object_id'))
-        return queryset
-
-    def create(self, request, *args, **kwargs):
-        """ Note; Only used with 'current' Order. """
-        order = self.get_current_order()
-        if not order:
-            raise exceptions.ParseError(detail=no_active_order_error_msg)
-        serializer = self.get_serializer(data=request.DATA, files=request.FILES)
-
-        if serializer.is_valid():
-            self.pre_save(serializer.object)
-            self.object = serializer.save(force_insert=True)
-            if request.user.is_authenticated():
-                setattr(self.object, self.user_field, request.user)
-            self.object.save()
-            OrderItem.objects.create(content_object=self.object, order=order)
-            self.post_save(self.object, created=True)
-
-            headers = self.get_success_headers(serializer.data)
-            return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #
@@ -129,7 +71,7 @@ class OrderDetail(generics.RetrieveUpdateAPIView):
         return order
 
 
-class NestedDonationList(OrderItemMixin, generics.ListCreateAPIView):
+class NestedDonationList(generics.ListCreateAPIView):
     model = Donation
     serializer_class = DonationSerializer
     permission_classes = (IsUser,)
@@ -139,15 +81,8 @@ class NestedDonationList(OrderItemMixin, generics.ListCreateAPIView):
         qs = super(NestedDonationList, self).get_queryset().filter(user=self.request.user)
 
         # Second filter the queryset by the order.
-        # TODO put this in OrderItemMixin when 'current' Order goes away.
         order_id = self.kwargs.get('order_pk')
-        order = Order.objects.get(id=order_id)
-        order_items = order.orderitem_set.filter(content_type=ContentType.objects.get_for_model(self.model))
-        return self.model.objects.filter(id__in=order_items.values('object_id'))
-
-    # FIXME: Remove this override when 'current' Order goes away. create shouldn't be overridden, only pre and post save.
-    def create(self, request, *args, **kwargs):
-        return super(OrderItemMixin, self).create(request, *args, **kwargs)
+        return qs.filter(order_id=order_id)
 
     def pre_save(self, obj):
         # Don't allow donations to be added to closed orders. This check is here and not in the Serializer
@@ -160,13 +95,8 @@ class NestedDonationList(OrderItemMixin, generics.ListCreateAPIView):
         if self.request.user.is_authenticated():
             obj.user = self.request.user
 
-    def post_save(self, obj, created=False):
-        if created:
-            order_id = self.kwargs.get('order_pk')
-            orderitem = OrderItem.objects.create(content_object=self.object, order_id=order_id)
 
-
-class NestedDonationDetail(OrderItemDestroyMixin, generics.RetrieveUpdateDestroyAPIView):
+class NestedDonationDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Donation
     serializer_class = DonationSerializer
     permission_classes = (IsUser,)
@@ -186,7 +116,7 @@ class DonationList(generics.ListAPIView):
         return qs.filter(user=self.request.user)
 
 
-class DonationDetail(OrderItemDestroyMixin, generics.RetrieveUpdateDestroyAPIView):
+class DonationDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Donation
     serializer_class = DonationSerializer
     permission_classes = (IsUser,)
@@ -225,11 +155,9 @@ class RecurringDirectDebitPaymentMixin(object):
             monthly_order.recurring = True
             monthly_order.save()
 
-        ct = ContentType.objects.get_for_model(Donation)
-        for donation in current_order.donations:
-            order_item = OrderItem.objects.get(object_id=donation.id, content_type=ct)
-            order_item.order = monthly_order
-            order_item.save()
+        for donation in current_order.donations.all():
+            donation.order = monthly_order
+            donation.save()
 
 
 class RecurringDirectDebitPaymentList(RecurringDirectDebitPaymentMixin, generics.ListCreateAPIView):
@@ -313,6 +241,46 @@ class CurrentOrderMixin(object):
                     return None
             else:
                 return None
+
+    def get_queryset(self):
+        # Filter queryset for the current order
+        alias = self.kwargs.get('alias', None)
+        order_id = self.kwargs.get('order_pk', None)
+
+        # Deal with the 'current' alias.
+        if alias == 'current':
+            order = self.get_current_order()
+        elif order_id:
+            try:
+                order = Order.objects.get(user=self.request.user, id=order_id)
+            except Order.DoesNotExist:
+                raise exceptions.ParseError(detail=_(u"Order not found."))
+        else:
+            raise exceptions.ParseError(detail=_(u"No order specified."))
+        if not order:
+            raise exceptions.ParseError(detail=_(u"Order not found."))
+        queryset = self.model.objects.filter(order=order)
+        return queryset
+
+
+    def create(self, request, *args, **kwargs):
+        order = self.get_current_order()
+        if not order:
+            raise exceptions.ParseError(detail=no_active_order_error_msg)
+        serializer = self.get_serializer(data=request.DATA, files=request.FILES)
+
+        if serializer.is_valid():
+            self.pre_save(serializer.object)
+            self.object = serializer.save(force_insert=True)
+            if request.user.is_authenticated():
+                setattr(self.object, self.user_field, request.user)
+            self.object.order = order
+            self.object.save()
+            self.post_save(self.object, created=True)
+
+            headers = self.get_success_headers(serializer.data)
+            return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class OrderCurrentDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
@@ -455,14 +423,14 @@ class PaymentCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         return payment
 
 
-class OrderCurrentDonationList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPIView):
+class OrderCurrentDonationList(CurrentOrderMixin, generics.ListCreateAPIView):
     model = Donation
     serializer_class = OrderCurrentDonationSerializer
     paginate_by = 50
     user_field = 'user'
 
 
-class OrderCurrentDonationDetail(OrderItemMixin, OrderItemDestroyMixin, CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
+class OrderCurrentDonationDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
     model = Donation
     serializer_class = OrderCurrentDonationSerializer
 
@@ -497,7 +465,7 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
             anon_current_order.user = user
             anon_current_order.save()
             # Move all donations to this user too.
-            for donation in anon_current_order.donations:
+            for donation in anon_current_order.donations.all():
                 donation.user = user
                 donation.save()
 
@@ -528,7 +496,7 @@ def link_anonymous_donations(sender, user, request, **kwargs):
 user_registered.connect(link_anonymous_donations)
 
 
-class OrderVoucherList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPIView):
+class OrderVoucherList(CurrentOrderMixin, generics.ListCreateAPIView):
     """
     Resource for ordering Vouchers
     """
@@ -539,7 +507,7 @@ class OrderVoucherList(OrderItemMixin, CurrentOrderMixin, generics.ListCreateAPI
     user_field = 'sender'
 
 
-class OrderVoucherDetail(OrderItemMixin, OrderItemDestroyMixin, CurrentOrderMixin,generics.RetrieveUpdateDestroyAPIView):
+class OrderVoucherDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
     """
     Resource for changing a Voucher order
     """
