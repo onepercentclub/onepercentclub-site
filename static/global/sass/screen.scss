@@ -30,12 +30,19 @@
 @import "base/media";
 
 
+
+
 /* Main Layout */
 @import "layout/layout";
 @import "layout/header";
 @import "layout/footer";
+
+
+
 @import "base/forms";
 @import "base/buttons";
+
+@import "base/tabs";
 
 /* States */
 @import "states/states";
@@ -43,11 +50,13 @@
 
 /* Modules */
 @import "modules/carousel";
-
 @import "modules/project-items";
 @import "modules/project-preview";
 @import "modules/project-result";
 @import "modules/task-result";
+@import "modules/project-member-list";
+@import "modules/wallposts";
+@import "modules/reactions";
 
 /* Pages */
 @import "pages/home";

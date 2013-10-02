@@ -23,7 +23,7 @@
 	margin: 0 0 $base-margin/2 0;
 	border-bottom: 1px solid $gray-darker;
 
-    > li {
+    li {
         @include grid(10);
         font-size: $font-size-smallest;
         background-image: none;

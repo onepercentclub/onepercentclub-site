@@ -1,0 +1,164 @@
+//
+// Tabs
+// --------------------------------------------------
+
+ul.tabs {
+    padding: 0;
+    margin: 0;
+      
+    li {
+        @include resetlist;
+        display: inline;
+        position: relative;
+        
+       	> a, > span {
+	        color: $color-text;
+	        display: block;
+	        text-decoration: none;
+	        overflow: hidden;
+	        @include rem(padding, 12px 16px 12px 16px);
+	        text-transform: uppercase;
+	        border-right: 1px solid $gray;
+			margin-right: 1px;
+	        
+	        .tab-icon {
+	            display: block;
+	            background-color: $color-text;
+	            @include border-radius(15px);
+	            width: 30px;
+	            height: 30px;
+	            font-family: $font-family-bold;
+	            text-align: center;
+	            color: $color-text-light;
+	            font-style: normal;
+	            float: left;
+	        }
+	        
+	        .tab-title {
+	            font-size: $font-size-small;
+	            margin-left: $base-margin;
+	            display: block;
+	            float: left;
+	        }
+	        
+	        .tab-subtitle {
+	            
+	            font-style: normal;
+	            display: block;
+	            font-family: $base-font-family;
+	        }
+	    }
+        
+        &.first > a, &.first > span {
+			border-left: 1px solid $gray;
+		}
+
+    }
+    
+        
+    li > a.active, li.is-active > a, li a:hover, li > a:active, li > span.active, li.is-active > span, li > span:hover, li > span:active {
+        .tab-icon {
+            background-color: $color-secondary;
+            color: $white;
+            letter-spacing: -0.2;
+        }
+        
+        .tab-title {
+            color: $color-secondary;
+        }
+        
+        .tab-subtitle {
+            color: $color-text;
+        } 
+    }
+    
+    li.is-active > a, li > a.active, li.is-active > span, li > span.active {
+    	@include rem(padding, 12px 16px 18px 16px);
+    	background-color: $white;
+    	border-color: $white;
+    }
+    
+    &.steps {
+    	margin-bottom: 6px;
+    	@include rem(margin-bottom, 6px);
+    	
+	    li > a, li > span {
+	    	display: block;
+		    @include rem(padding, 20px 16px 16px 16px);
+		    background: image-url("steps-back.png") $white no-repeat 100% 50%;
+		    border: none;
+		    font-weight: 300;
+		    @include rem(font-size, 18px);
+		    color: $gray-lighter;
+		    
+		    .flaticon {
+			    @include rem(margin, 0 6px);
+		    }
+		    
+		    &:hover, &:active {
+			    color: $gray;
+		    }
+	    }
+	    
+		li.is-selected > a, li.is-selected > span {
+			
+			background: image-url("steps-back-selected.png") $color-secondary no-repeat 100% 50%;
+			
+			.tab-icon .flaticon:before {
+				content: "\e1ba"; // replace with ok
+			}
+			
+			&:hover, &:active {
+				color: $color-text;
+			}
+			
+		}
+	    
+	   	li > a.active, li > span.active  {
+			border-color: $color-secondary;
+			color: $white;
+			background: image-url("steps-back-active.png") $color-secondary no-repeat 100% 50%;
+			
+			.tab-icon {
+				background-color: $white;
+				color: $black;
+			}
+			
+			.tab-title {
+				color: $white;
+			}
+			
+			.tab-subtitle {
+				color: $white;
+			} 
+			
+		} 
+		
+		li.is-inactive > a, li.is-inactive > span {
+			
+			.tab-icon {
+				background-color: $gray-light;
+				color: $gray-lighter;
+			}
+			
+			.tab-title {
+				color: $gray-light;
+			}
+			
+			.tab-subtitle {
+				color: $gray-light;
+			} 
+			
+		}
+		
+		li:last-of-type > a, li:last-of-type > span {
+			background: $white;
+		}
+		
+		li:last-of-type > a.active, li:last-of-type > span.active {
+			background: $color-secondary;
+		}
+    }
+}
+
+

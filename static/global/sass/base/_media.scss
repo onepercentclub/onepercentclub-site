@@ -2,134 +2,6 @@
 // MEDIA: Wrappers for images, videos, embeds, etc
 // --------------------------------------------------
 
-#content {
-
-	.text, .video, .image, .oembed, .rawhtml {
-		clear: both;
-		@include rem(margin-top, $base-margin);
-		@include rem(margin-bottom, $base-margin);
-	}
-	
-	
-	// Wrapper for responsive media
-	// -------------------------
-	
-	object, embed, iframe {
-		width: 100% !important
-	}
-	
-	.video, .oembed {
-		@include clearfix;
-	    position: relative !important;
-	    padding-bottom: 56.3% !important;
-	    height: 0 !important; 
-	    overflow: hidden !important;
-	}
-	
-	.video iframe, 
-	.oembed iframe,
-	.video object, 
-	.oembed object,
-	.video embed, 
-	.oembed embed {
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    width: 100% !important;
-	    height: 100% !important;
-	}
-	
-	
-	// Photo viewer (currently wallpost only)
-	// -------------------------
-	
-	.photo-viewer {
-	    @include rem(margin, 4px 0);
-	    @include clearfix;
-	    
-	    
-	    ul {
-	        
-	        padding: 0;
-	        list-style: none;
-	        @include clearfix;
-	        margin: 0;
-	        
-	        li {
-	            @include rem(margin, 8px 0 0 0);
-	        
-	            display: block;
-	            @include grid(8, 0, 1);
-	            overflow: hidden;
-	            
-	            img {
-	                border: 1px solid #999;
-	            }
-	            
-	            &:hover img {
-	                border-color: $color-secondary;
-	            }
-	            
-	            &:first-child {
-	                @include grid(48, 0, 0);
-	                border-color: $color-primary;
-	            }
-	        
-	            &.more {
-	                display: block;
-	            
-	                @include grid(8, 0, 0);
-	            
-	                background-color: $color-secondary;
-	                
-	                
-	                a {
-	                    display: block;
-	                    color: $white;
-	                }
-	            }
-	        }
-	    }
-	    
-	}
->>>>>>> Static pages & Search Updates
-
-.text, .video, .image, .oembed, .rawhtml {
-	clear: both;
-	@include rem(margin-top, $base-margin);
-	@include rem(margin-bottom, $base-margin);
-}
-
-/* =========== Wrapper for responsive media */
-
-object, embed, iframe {
-	width: 100% !important
-}
-
-.video, .oembed {
-	@include clearfix;
-    position: relative !important;
-    padding-bottom: 56.25% !important;
-    padding-top: 30px !important; 
-    height: 0 !important; 
-    overflow: hidden !important;
-}
-
-.video iframe, 
-.oembed iframe,
-.video object, 
-.oembed object,
-.video embed, 
-.oembed embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-
-/* =========== Photo viewer */
 .text, .video, .image, .oembed, .rawhtml {
 	clear: both;
 	@include rem(margin-top, $base-margin);
@@ -145,9 +17,9 @@ object, embed, iframe {
 }
 
 .video, .oembed {
-	@include clearfix;
+	@include clear;
     position: relative !important;
-    padding-bottom: 56.25% !important;
+    padding-bottom: 56.3% !important;
     height: 0 !important; 
     overflow: hidden !important;
 }
@@ -170,102 +42,37 @@ object, embed, iframe {
 // -------------------------
 
 .photo-viewer {
-    @include rem(margin, 4px 0);
-    @include clearfix;
+    @include clear;
+    margin: 0;
+    padding: 0;
+
+    li {
+        @include resetlist;
+        @include grid(8,0,1);
+        overflow: hidden;
+        
+        img {
+            border: 1px solid $gray-dark;
+        }
+        
+        &:hover img {
+            border-color: $color-secondary;
+        }
+        
+        &:first-child {
+            @include grid(48, 0, 0);
+            border-color: $color-primary;
+        }
     
-    
-    ul {
-        
-        padding: 0;
-        list-style: none;
-        @include clearfix;
-        margin: 0;
-        
-        li {
-            @include rem(margin, 8px 0 0 0);
-        
+        &.more {
             display: block;
-            @include grid(8, 0, 1);
-            overflow: hidden;
+            @include grid(8, 0, 0);
+            background-color: $color-secondary;
             
-            img {
-                border: 1px solid #999;
-            }
-            
-            &:hover img {
-                border-color: $color-secondary;
-            }
-            
-            &:first-child {
-                @include grid(48, 0, 0);
-                border-color: $color-primary;
-            }
-        
-            &.more {
+            a {
                 display: block;
-            
-                @include grid(8, 0, 0);
-            
-                background-color: $color-secondary;
-                
-                
-                a {
-                    display: block;
-                    color: $white;
-                }
+                color: $white;
             }
         }
     }
-    
 }
-
-.photo-viewer {
-    @include rem(margin, 4px 0);
-    @include clearfix;
-    
-    
-    ul {
-        
-        padding: 0;
-        list-style: none;
-        @include clearfix;
-        margin: 0;
-        
-        li {
-            @include rem(margin, 8px 0 0 0);
-        
-            display: block;
-            @include grid(8, 0, 1);
-            overflow: hidden;
-            
-            img {
-                border: 1px solid #999;
-            }
-            
-            &:hover img {
-                border-color: $color-secondary;
-            }
-            
-            &:first-child {
-                @include grid(48, 0, 0);
-                border-color: $color-primary;
-            }
-        
-            &.more {
-                display: block;
-            
-                @include grid(8, 0, 0);
-            
-                background-color: $color-secondary;
-                
-                
-                a {
-                    display: block;
-                    color: $white;
-                }
-            }
-        }
-    }
-    
-}
-

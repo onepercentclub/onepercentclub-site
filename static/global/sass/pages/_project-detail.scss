@@ -10,6 +10,7 @@
     color: $color-text-light;
     
     header {
+    
         h1 {
             color: $white;
             line-height: 1.2;
@@ -67,8 +68,38 @@
             }
         }
         
-        .btn-primary {
+        .project-action {
             @include grid(16,0,0);
+            
+            .btn {
+                float: right;
+            }
         }
     }
 }
+
+#project-members {
+    padding: $base-padding 0;
+    background-color: $gray-lighter;
+    
+    .project-member-list {
+        @include grid(48,1,1);
+    }
+}
+
+#project-actions {
+    padding-top: $base-padding;
+    background-color: $gray-lighter;
+    
+    .tabs {
+        @include grid(48,1,1);
+        
+        li {
+            @include grid(12,0,0);
+        }
+    } 
+}
+
+
+
+

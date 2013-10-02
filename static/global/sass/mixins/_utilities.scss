@@ -1,16 +1,6 @@
-<<<<<<< HEAD
-@mixin allowremove {
-=======
 //
 // Reusable mixin's & classes for rapid development
 // --------------------------------------------------
-
-.left { float: left; }
-.right { float: right; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-.text-center { text-align: center; }
-.nowrap { white-space: nowrap; }
 
 @mixin clear {
     &:after, &:before {
@@ -25,15 +15,14 @@
     }
 }
 
-@mixin resetList {
+@mixin resetlist {
     padding: 0;
     margin: 0;
     text-indent: 0;
-    background: none;
+    background-image: none;
 }
 
 @mixin allowRemove {
->>>>>>> Project Search & Project Detail WIP
     position: relative;
 
     &:hover {
@@ -51,12 +40,12 @@
         right: -30px;
         @include rem(font-size, 20px);
         padding: 20px;
-        color: $grayDarker;
+        color: $gray-darker;
         &:hover {
-            color: $pink;
+            color: $color-primary;
         }
         &:active {
-            color: $pink;
+            color: $color-primary;
         }
     }
 }
