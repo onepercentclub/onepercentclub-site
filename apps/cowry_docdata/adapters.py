@@ -129,9 +129,9 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         'AUTHORIZATION_REQUESTED': PaymentStatuses.pending,
         'PAID': PaymentStatuses.pending,
         'CANCELED': PaymentStatuses.cancelled,
-        'CHARGED-BACK': PaymentStatuses.refunded,
+        'CHARGED-BACK': PaymentStatuses.chargedback,
         'CONFIRMED_PAID': PaymentStatuses.paid,
-        'CONFIRMED_CHARGEDBACK': PaymentStatuses.refunded,
+        'CONFIRMED_CHARGEDBACK': PaymentStatuses.chargedback,
         'CLOSED_SUCCESS': PaymentStatuses.paid,
         'CLOSED_CANCELED': PaymentStatuses.cancelled,
     }
@@ -467,13 +467,11 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
                                       latest_payment_report.authorization)
 
         # Detect a nasty error condition that needs to be manually fixed.
-        if new_status != PaymentStatuses.cancelled:
-            total_registered = report.approximateTotals.totalRegistered
-            if total_registered != payment.amount or total_registered != payment.order.total:
-                docdata_payment_logger(payment, PaymentLogLevels.error,
-                                       "Payment amount: {0} or Order total: {1} does not equal Total Registered: {2}.".format(
-                                           payment.amount, payment.order.total,
-                                           report.approximateTotals.totalRegistered))
+        total_registered = report.approximateTotals.totalRegistered
+        if new_status != PaymentStatuses.cancelled and total_registered != payment.order.total:
+            docdata_payment_logger(payment, PaymentLogLevels.error,
+                                   "Order total: {0} does not equal Total Registered: {1}.".format(payment.order.total,
+                                                                                                   total_registered))
 
         # TODO: Move this logging to AbstractPaymentAdapter when PaymentLogEntry is not abstract.
         if old_status != new_status:
@@ -504,11 +502,55 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         # long time for acquirers or shoppers to actually have the money transferred and it can be
         # captured.
         #
-        docdata_payment_logger(payment, PaymentLogLevels.info,
-                               "Total Registered: {0} Total Captured: {1}".format(totals.totalRegistered,
-                                                                                  totals.totalCaptured))
-        if totals.totalRegistered == totals.totalCaptured:
-            new_status = PaymentStatuses.paid
+        if status == 'AUTHORIZED':
+            registered_captured_logged = False
+
+            if totals.totalRegistered == totals.totalCaptured:
+
+                payment_sum = totals.totalCaptured - totals.totalChargedback - totals.totalRefunded
+
+                if payment_sum > 0:
+                    new_status = PaymentStatuses.paid
+
+                elif payment_sum == 0:
+                    docdata_payment_logger(payment, PaymentLogLevels.info,
+                                           "Total Registered: {0} Total Captured: {1} Total Chargedback: {2} Total Refunded: {3}".format(
+                                               totals.totalRegistered, totals.totalCaptured, totals.totalChargedback, totals.totalRefunded))
+                    registered_captured_logged = True
+
+                    # FIXME: Add chargeback fee somehow (currently €0.50).
+                    # Chargeback.
+                    if totals.totalCaptured == totals.totalChargedback:
+                        if hasattr(authorization, 'chargeback') and len(authorization['chargeback']) > 0:
+                            if hasattr(authorization['chargeback'][0], 'reason'):
+                                docdata_payment_logger(payment, PaymentLogLevels.info,
+                                                       "Payment chargedback: {0}".format(authorization['chargeback'][0]['reason']))
+                        else:
+                            docdata_payment_logger(payment, PaymentLogLevels.info, "Payment chargedback.")
+                        new_status = PaymentStatuses.chargedback
+
+                    # Refund.
+                    # TODO: Log more info from refund when we have an example.
+                    if totals.totalCaptured == totals.totalRefunded:
+                        docdata_payment_logger(payment, PaymentLogLevels.info, "Payment refunded.")
+                        new_status = PaymentStatuses.refunded
+
+                    payment.amount = 0
+                    payment.save()
+
+                else:
+                    docdata_payment_logger(payment, PaymentLogLevels.error,
+                                           "Total Registered: {0} Total Captured: {1} Total Chargedback: {2} Total Refunded: {3}".format(
+                                               totals.totalRegistered, totals.totalCaptured, totals.totalChargedback, totals.totalRefunded))
+                    registered_captured_logged = True
+                    docdata_payment_logger(payment, PaymentLogLevels.error,
+                                           "Captured, chargeback and refunded sum is negative. Please investigate.")
+                    new_status = PaymentStatuses.unknown
+
+            if not registered_captured_logged:
+                docdata_payment_logger(payment, PaymentLogLevels.info,
+                                       "Total Registered: {0} Total Captured: {1}".format(totals.totalRegistered,
+                                                                                          totals.totalCaptured))
 
         return new_status
 

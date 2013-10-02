@@ -12,6 +12,7 @@ class PaymentStatuses(DjangoChoices):
     paid = ChoiceItem('paid', label=_("Paid"))
     failed = ChoiceItem('failed', label=_("Failed"))
     cancelled = ChoiceItem('cancelled', label=_("Cancelled"))
+    chargedback = ChoiceItem('chargedback', label=_("Chargedback"))
     refunded = ChoiceItem('refunded', label=_("Refunded"))
     unknown = ChoiceItem('unknown', label=_("Unknown"))  # Payments with this status have not been mapped.
 
