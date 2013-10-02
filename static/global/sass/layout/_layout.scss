@@ -111,6 +111,13 @@ html, body {
     }
 }
 
+.text {
+    white-space: pre-line;
+}
+
+.text a {
+    
+}
 
 .text.align-float-left {
 	@include grid(24,0,2);
