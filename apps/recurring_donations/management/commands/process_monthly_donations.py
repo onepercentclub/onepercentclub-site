@@ -1,13 +1,12 @@
 import csv
-import os
 import math
 import logging
 import traceback
-import requests
 import sys
 from collections import namedtuple
 from optparse import make_option
-from django.conf import settings
+
+import os
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.db import connection
@@ -147,6 +146,15 @@ def create_recurring_order(user, projects, order=None):
     return order
 
 
+def remove_order(order):
+    ctype = ContentType.objects.get_for_model(Donation)
+    for donation in order.donations:
+        order_item = OrderItem.objects.get(object_id=donation.id, content_type=ctype)
+        order_item.delete()
+        donation.delete()
+    order.delete()
+
+
 def correct_donation_amounts(popular_projects, recurring_order, recurring_payment):
     """
     Divides the total amount for the monthly donation across all projects. This method deals with the case of a
@@ -250,7 +258,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
         if recurring_payment.amount < 113:
             # Cleanup the Order if there's an error.
             if top_three_donation:
-                recurring_order.delete()
+                remove_order(recurring_order)
             error_message = "Payment amount for '{0}' is less than the DocData minimum for direct debit (113). Skipping.".format(
                 recurring_payment)
             logger.error(error_message)
@@ -301,7 +309,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
         if recurring_payment.amount != recurring_order.total:
             # Cleanup the Order if there's an error.
             if top_three_donation:
-                recurring_order.delete()
+                remove_order(recurring_order)
             error_message = "RecurringDirectDebitPayment amount: {0} does not equal recurring Order amount: {1} for '{2}'. Not processing this recurring donation.".format(
                 recurring_payment.amount, recurring_order.total, recurring_payment)
             logger.error(error_message)
@@ -315,7 +323,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
 
             # Cleanup the Order if there's an error.
             if top_three_donation:
-                recurring_order.delete()
+                remove_order(recurring_order)
 
             error_message = "Cannot create payment because the IBAN and/or BIC are not available."
             logger.error(error_message)
@@ -355,7 +363,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
         if not address:
             # Cleanup the Order if there's an error.
             if top_three_donation:
-                recurring_order.delete()
+                remove_order(recurring_order)
             error_message = "Cannot create a payment for '{0}' because user does not have an address set.".format(recurring_payment)
             logger.error(error_message)
             recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
@@ -399,7 +407,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
         except DocDataPaymentException as e:
             # Cleanup the Order if there's an error.
             if top_three_donation:
-                recurring_order.delete()
+                remove_order(recurring_order)
 
             error_message = "Problem creating remote payment order."
             logger.error(error_message)
@@ -416,7 +424,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
 
             # Cleanup the Order if there's an error.
             if top_three_donation:
-                recurring_order.delete()
+                remove_order(recurring_order)
             else:
                 recurring_order.status = OrderStatuses.recurring
                 recurring_order.save()
