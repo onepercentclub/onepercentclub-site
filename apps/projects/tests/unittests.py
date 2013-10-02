@@ -6,7 +6,7 @@ from apps.projects.models import ProjectPlan, ProjectCampaign
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
-from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
+from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
 from ..models import Project,ProjectPhases, ProjectPitch

@@ -12,7 +12,7 @@ from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
-from apps.accounts.models import BlueBottleUser
+from bluebottle.accounts.models import BlueBottleUser
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.signals import payment_status_changed
 from .fields import DutchBankAccountField

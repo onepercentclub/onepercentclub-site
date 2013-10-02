@@ -1,0 +1,111 @@
+{% load i18n bb_ember static %}
+
+
+{% tplhandlebars "userOrders" %}
+<section class="wrapper">
+    <div class="content">
+
+        <form>
+            {{#if model }}
+                <div class="form-meta">
+                    <div class="form-label">{% trans "Edit your payment info" %}</div>
+                    <div class="form-desc">{% trans "Here you can change your bank account info and monthly donations." %}</div>
+                </div>
+
+                <fieldset>
+                    <ul>
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Account Name" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="name" placeholder="Full name as it appears on your bank account" classBinding="errors.name.length:error"}}
+                            </div>
+                            {{#if errors.name }}
+                                <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Account City" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="city" placeholder="City registered on your bank account" classBinding="errors.city.length:error"}}
+                            </div>
+                            {{#if errors.city }}
+                                <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Account Number" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="account" placeholder="Your bank account number" classBinding="errors.account.length:error"}}
+                            </div>
+                            {{#if errors.account }}
+                                <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <hr class="form-divider">
+
+                <fieldset>
+                    <ul>
+                        <li class="control-group">
+                            <label class="control-label">
+                                {% trans "Monthly donations" %}
+                            </label>
+
+                            <div class="controls">
+                                {{#view Em.RadioButtonGroup name="active" selectedValueBinding="recurringPaymentActive" class="radio-group-horizontal"}}
+                                    <div class="radio3">{{view view.RadioButton value="on"}}<span>{% trans "On" %}</span></div>
+                                    <div class="radio3">{{view view.RadioButton value="off"}}<span>{% trans "Off" %}</span></div>
+                                    <a href="#" class="ember-view edit-monthly-donations" {{ action 'viewRecurringOrder' }} >
+                                        <strong>{% trans "View or edit monthly projects" %}</strong>
+                                    </a>
+                                {{/view}}
+                            </div>
+                        </li>
+                    </ul>
+                </fieldset>
+
+                {{#if saved }}
+                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Monthly settings saved" %}</em></span>
+                {{/if}}
+
+                <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
+                    <em class="flaticon solid checkmark-1"></em>
+                    {{saveButtonText}}
+                </button>
+            {{/if }}
+
+            <div class="order-history lined-list">
+                <h2 class="form-summary">{% trans "Order History" %}</h2>
+                {{#if closedOrders.isLoaded }}
+                    <ul>
+                        {{#each order in closedOrders}}
+                            <li>
+                                <small>{{localize order.created formatting='d'}}</small>
+                                {{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}} <strong> &euro;{{ order.total }},-</strong>
+                                <ul class="order-donations">
+                                    {{#each donation in order.donations}}
+                                        <li>
+                                            <a {{action showProject donation.project.id}}>
+                                                {{donation.project.title}}
+                                            </a>
+                                            <small> &euro;{{ donation.amount }},-</small>
+                                        </li>
+                                    {{/each}}
+                                </ul>
+                            </li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Loading order history" %}</span>
+                {{/if}}
+            </div>
+
+        </form>
+    </div>
+</section>
+
+{% endtplhandlebars %}

@@ -1,4 +1,4 @@
-from apps.bluebottle_utils.utils import set_author_editor_ip
+from bluebottle.bluebottle_utils.utils import set_author_editor_ip
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from apps.wallposts.models import SystemWallPost

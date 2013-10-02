@@ -143,7 +143,7 @@
     }
 	
 	
-    .nav-member-my1percent {
+    .nav-member-profile {
     	display: block;
     	float: left;
     	margin: 0;
@@ -151,7 +151,7 @@
 		@include rem(font-size, 13px);
 		position: relative;
 		
-		.nav-my1percent {
+		.nav-profile {
 			display: block;
 			color: $white;
 			background: $green;
@@ -182,7 +182,7 @@
 		        z-index: 998;
 		    }
 
-        	.nav-my1percent {
+        	.nav-profile {
 	        	background-color: $white !important;
 	        	color: $grayDarker;
 				height: 36px;

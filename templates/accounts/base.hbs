@@ -1,0 +1,6 @@
+{% extends "accounts:accounts/base.hbs" %}
+
+{% block extra_templates %}
+    {# related to RecurringDirectDebitPayment #}
+    {% include "fund/user_orders.html" %}
+{% endblock extra_templates %}

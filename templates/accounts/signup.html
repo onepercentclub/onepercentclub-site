@@ -1,0 +1,44 @@
+{% extends "accounts:accounts/signup.html" %}
+{% load i18n bb_ember %}
+
+
+{% block signup_form_top %}
+<h1>{% trans "Join 1%Club" %}</h1>
+<p>
+    {% trans "1%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world." %}
+</p>
+{% endblock signup_form_top %}
+
+
+{% block user_created_message %}
+    <h1>{% trans "Thanks for signing up!" %}</h1>
+    <p>
+        {% trans "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you." %}
+    </p>
+{% endblock user_created_message %}
+
+
+{% block_verbatim user_agreement %}
+    {% blocktrans with action="{{action 'showPage' 'terms-and-conditions'}}" href="/#!/pages/terms-and-conditions" %}
+    By joining 1%Club I hereby agree to the <a {{ action }} href="{{ href }}"> 1%Club Terms of service</a>
+    {% endblocktrans %}
+{% endblock_verbatim user_agreement %}
+
+
+{% block login_text %}
+    <em class="flaticon solid unlock-3"></em>
+    <strong>{%  trans "Already have an account?" %}</strong>
+    <em>{% trans "Log in here, fast & easy" %}</em>
+{% endblock login_text %}
+
+
+{% block member_advantages %}
+    <em class="flaticon solid heart-1"></em>
+
+    <h3>{% blocktrans %}Why join 1%Club?{% endblocktrans %}</h3>
+    <ol>
+        <li>{% trans "It's easy to find projects you like." %}</li>
+        <li>{% trans "A fun and personal way to share your 1%." %}</li>
+        <li>{% trans "You'll receive updates on the progress of the projects you support." %}</li>
+    </ol>
+{% endblock member_advantages %}

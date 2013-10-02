@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Payment.order'
         db.add_column(u'cowry_payment', 'order',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default=None, related_name='payments', to=orm['fund.Order']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=None, null=True, related_name='payments', to=orm['fund.Order']),
                       keep_default=False)
 
 

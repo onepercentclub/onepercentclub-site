@@ -1,4 +1,4 @@
-from apps.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
+from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from django.test import TestCase
 from django.utils.timezone import now
 from rest_framework import status

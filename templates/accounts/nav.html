@@ -1,0 +1,38 @@
+{% extends "accounts:accounts/nav.html" %}
+{% load bb_ember i18n %}
+
+{% block_verbatim profile_anchor %}
+    <a href="#" class="nav-profile">
+        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
+        <strong>
+            {% trans "My 1%" %}
+            <em class="flaticon solid down-2"></em>
+        </strong>
+    </a>
+{% endblock_verbatim profile_anchor %}
+
+
+{% block_verbatim donations_anchor %}
+    <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
+    {{#if controllers.currentOrder.donations.length }}
+        <li class="nav-cart">
+            {{#linkTo 'currentOrder.index'}}
+                <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span>
+                {% trans "Donations" %} 
+                <em class="flaticon solid right-2"></em>
+            {{/linkTo}}
+        </li>
+    {{/if}}
+
+{% endblock_verbatim donations_anchor %}
+
+
+{% block_verbatim anonymous_user %}
+
+    <li class="nav-member-actions">
+        {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
+        {% trans "or" %}
+        <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
+    </li>
+
+{% endblock_verbatim anonymous_user %}
