@@ -13,7 +13,7 @@ from django.utils.unittest.case import skipUnless
 from ..models import Project, ProjectPhases
 from .unittests import ProjectTestsMixin
 
-from onepercentclub.tests.utils import SeleniumTestCase
+from bluebottle.tests.utils import SeleniumTestCase
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),

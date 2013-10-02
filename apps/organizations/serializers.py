@@ -1,5 +1,5 @@
-from apps.bluebottle_drf2.serializers import PrivateFileSerializer
-from apps.bluebottle_utils.serializers import AddressSerializer
+from bluebottle.bluebottle_drf2.serializers import PrivateFileSerializer
+from bluebottle.bluebottle_utils.serializers import AddressSerializer
 from apps.organizations.models import OrganizationAddress, OrganizationDocument
 from django_iban.validators import iban_validator, swift_bic_validator
 from rest_framework import serializers

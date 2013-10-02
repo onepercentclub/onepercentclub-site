@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from apps.bluebottle_utils.tests import generate_random_slug
+from bluebottle.bluebottle_utils.tests import generate_random_slug
 
 from .models import Organization
 

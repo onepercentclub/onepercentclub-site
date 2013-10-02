@@ -133,6 +133,7 @@ STATICFILES_FINDERS = [
 TEMPLATE_LOADERS = [
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'apptemplates.Loader', # extend AND override templates
     # 'django.template.loaders.eggs.Loader',
 ]
 
@@ -147,7 +148,7 @@ TEMPLATE_LOADERS = [
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
-    'apps.bluebottle_utils.middleware.SubDomainSessionMiddleware',
+    'bluebottle.bluebottle_utils.middleware.SubDomainSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -233,17 +234,20 @@ INSTALLED_APPS = (
     'legacyauth',
 
     # bluebottle apps
+    'bluebottle.accounts',
+    # 'app' without models to hold the site-wide bluebottle templates (base.html for example)
+    'bluebottle.common',
+
     'apps.blogs',
     'apps.bluebottle_dashboard',
-    'apps.bluebottle_utils',
+    'bluebottle.bluebottle_utils',
     'apps.contentplugins',
-    'apps.accounts',
     'apps.love',
     'apps.organizations',
     'apps.projects',
     'apps.fund',
     'apps.recurring_donations',
-    'apps.geo',
+    'bluebottle.geo',
     'apps.hbtemplates',
     'apps.wallposts',
     'apps.payouts',
@@ -452,7 +456,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'models': (
             'django.contrib.auth.*',
             'registration.*',
-            'apps.accounts.*',
+            'bluebottle.accounts.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -611,7 +615,7 @@ HTML_ACTIVATION_EMAIL = True  # Note this setting is from our forked version.
 
 # Functional testing
 # Selenium and Splinter settings
-SELENIUM_TESTS = False
+SELENIUM_TESTS = True
 SELENIUM_WEBDRIVER = 'phantomjs'  # Can be any of chrome, firefox, phantomjs
 
 FIXTURE_DIRS = [
@@ -637,3 +641,6 @@ SESSION_COOKIE_NAME = 'bb-session-id'
 PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
     'legacyauth.hashers.LegacyPasswordHasher',
 )
+#
+# BlueBottle
+#

@@ -1,5 +1,5 @@
 # coding=utf-8
-from apps.bluebottle_drf2.serializers import EuroField
+from bluebottle.bluebottle_drf2.serializers import EuroField
 from apps.projects.models import ProjectPhases
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext as _

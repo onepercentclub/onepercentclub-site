@@ -1,9 +1,9 @@
 """
 Tests for the love app concerning model data.
 """
-from apps.accounts.models import BlueBottleUser
+from bluebottle.accounts.models import BlueBottleUser
 from apps.love.models import LoveDeclaration
-from apps.bluebottle_utils.tests import CustomSettingsTestCase
+from bluebottle.bluebottle_utils.tests import CustomSettingsTestCase
 from .models import TestBlogPost
 
 

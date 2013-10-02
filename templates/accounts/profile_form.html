@@ -1,0 +1,100 @@
+{% extends "accounts:accounts/profile_form.html" %}
+{% load i18n bb_ember %}
+
+
+{% block form_meta %}
+    <div class="form-label">{% trans "Edit your profile" %}</div>
+    <div class="form-desc">{% trans "Personalise your account so 1%Members can get to know you." %}</div>
+{% endblock form_meta %}
+
+
+{% block_verbatim profile_fields %}
+    
+    <li class="control-group">
+        <label class="control-label">
+            {% trans "About yourself" %}
+        </label>
+
+        <div class="controls">
+            {{view Em.TextArea valueBinding="about" maxlength="265" placeholder="Tell us a bit about yourself so we can get to know you!" classBinding="errors.about.length:error"}}
+        </div>
+
+        {{#if errors.about}}
+            <div class="errors">{{#each errors.about}}<p>{{this}}</p>{{/each}}</div>
+        {{/if}}
+    </li>
+
+    <li class="control-group">
+        <label class="control-label">
+            {% blocktrans %}Why did you join 1%Club?{% endblocktrans %}
+        </label>
+
+        <div class="controls">
+            {{view Em.TextArea valueBinding="why" maxlength="265" placeholder="Tell the world why you chose to join 1%CLUB!" classBinding="errors.why.length:error"}}
+        </div>
+
+        {{#if errors.why}}
+            <div class="errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
+        {{/if}}
+    </li>
+
+    <li class="control-group">
+        <label class="control-label">
+            {% trans "Your website" %}
+        </label>
+
+        <div class="controls">
+            {{view Em.TextField valueBinding="website" placeholder="http://" classBinding="errors.website.length:error"}}
+        </div>
+
+        {{#if errors.website}}
+            <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
+        {{/if}}
+    </li>
+
+    <li class="control-group">
+        <label class="control-label">
+            {% trans "Location" %}
+        </label>
+
+        <div class="controls">
+            {{view Em.TextField valueBinding="location" classBinding="errors.location.length:error"}}
+        </div>
+
+        {{#if errors.location}}
+            <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
+        {{/if}}
+    </li>
+
+{% endblock_verbatim profile_fields %}
+
+
+{% block_verbatim extra_fieldsets %}
+    <hr class="form-divider">
+    <fieldset>
+        <legend>
+            <strong>{% trans "1%Skills" %}</strong>
+            <p>{% blocktrans %}How much time are you willing to spend your 1%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects.{% endblocktrans %}</p>
+        </legend>
+
+        <ul>
+            <li class="control-group">
+                <label class="control-label">
+                    {% trans "Time available" %}
+                </label>
+
+                <div class="controls">
+                    {{view Em.Select
+                        contentBinding="timeAvailableList"
+                        optionValuePath="content.value"
+                        optionLabelPath="content.name"
+                        valueBinding="availability"}}
+                </div>
+
+                {{#if errors.availability}}
+                    <div class="errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+        </ul>
+    </fieldset>
+{% endblock_verbatim extra_fieldsets %}

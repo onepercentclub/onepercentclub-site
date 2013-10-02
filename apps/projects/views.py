@@ -14,10 +14,10 @@ import django_filters
 from rest_framework import generics
 from rest_framework import permissions
 from django.contrib.contenttypes.models import ContentType
-from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
-from apps.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
+from bluebottle.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
+from bluebottle.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
 from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
-from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly
+from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
 from .models import Project
 from rest_framework.permissions import IsAuthenticated

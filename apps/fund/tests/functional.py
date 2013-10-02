@@ -15,7 +15,7 @@ from django.utils.unittest.case import skipUnless
 from apps.projects.models import Project
 from .unittests import ProjectTestsMixin, UserTestsMixin
 
-from onepercentclub.tests.utils import SeleniumTestCase, css_dict
+from bluebottle.tests.utils import SeleniumTestCase, css_dict
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),

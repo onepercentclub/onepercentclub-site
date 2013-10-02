@@ -1,5 +1,5 @@
-from apps.accounts.serializers import UserPreviewSerializer
-from apps.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField, ImageSerializer, PhotoSerializer
+from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField, ImageSerializer, PhotoSerializer
 from apps.wallposts.models import WallPost, SystemWallPost
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers

@@ -1,7 +1,7 @@
-from apps.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
-from apps.bluebottle_utils.utils import set_author_editor_ip
+from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
+from bluebottle.bluebottle_utils.utils import set_author_editor_ip
 from rest_framework import permissions
-from apps.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
+from bluebottle.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from .models import WallPost, Reaction
 from .serializers import ReactionSerializer, WallPostSerializer
 

@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, OrderItem, RecurringDirectDebitPayment
 from apps.organizations.models import Organization, OrganizationAddress
-from apps.accounts.models import BlueBottleUser
+from bluebottle.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, \
     ProjectAmbassador, ProjectPhases
 from apps.tasks.models import Task, TaskMember

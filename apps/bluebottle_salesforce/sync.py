@@ -1,6 +1,6 @@
 import logging
 from registration.models import RegistrationProfile
-from apps.accounts.models import BlueBottleUser
+from bluebottle.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
     ProjectPhases, ProjectAmbassador
 from apps.organizations.models import Organization, OrganizationAddress

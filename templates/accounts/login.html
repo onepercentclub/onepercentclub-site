@@ -1,0 +1,23 @@
+{% extends "accounts:accounts/login.html" %}
+{% load i18n bb_ember %}
+
+
+{% block login_header %}
+    <h3>{% trans "Log in to 1% Club" %}</h3>
+{% endblock login_header %}
+
+
+{% block password_reset_success %}
+    <p>{%  trans "You did it!" %}</p>
+    <p>{%  trans "(Welcome back friend)" %}</p>
+    <p>{%  trans "Login here with your email address and password" %}</p>
+{% endblock password_reset_success %}
+
+
+{% block_verbatim login_footer %}
+                        
+    <a class="left" {{ action "requestPasswordReset" }}>{% trans "Forgot your password?" %}</a>
+    <input class="btn right" type="submit" value="{% trans "Log in" %}">
+    <input type="hidden" name="next" {{bindAttr value="view.next"}}>
+
+{% endblock_verbatim login_footer %}
