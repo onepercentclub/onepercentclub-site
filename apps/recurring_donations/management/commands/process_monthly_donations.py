@@ -122,7 +122,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
 
         # Create a new Donation and recursively update it with the remaining amount.
         ct = ContentType.objects.get_for_model(donation)
-        order = OrderItem.ojects.get(content_type=ct, content_object=donation)
+        order = OrderItem.objects.get(content_type=ct, content_object=donation)
         new_project = popular_projects.pop(0)
         new_donation = Donation.objects.create(user=donation.user, project=new_project, amount=0, currency='EUR',
                                                donation_type=Donation.DonationTypes.recurring)
