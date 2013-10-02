@@ -481,22 +481,72 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
 )
 
+ADMIN_TOOLS_THEMING_CSS = 'css/admin/dashboard.css'
+
 # Icon filenames can either be relative to the theme directory (if no path separators are used),
 # or be a relative to the STATIC_URL (if path separators are used in the icon name)
 # The dictionary key is appname/modelname, identical to the slugs used in the admin page URLs
 # django-fluent-dashboard ships with a set of commonly useful icons. To get the whole Oxygen set,
 # download http://download.kde.org/stable/4.9.0/src/oxygen-icons-4.9.0.tar.xz It's LGPL3 licensed.
 FLUENT_DASHBOARD_APP_ICONS = {
-    'accounts/userprofile': 'user-identity.png',
-    'blogs/blogpostproxy': 'view-pim-journal.png',
-    'blogs/newspostproxy': 'view-calendar-list.png',
-    'media/album': 'folder-image.png',
-    'donations/donation': 'help-donate.png',
-    'organizations/organization': 'x-office-address-book.png',
-    'organizations/organizationmember': 'x-office-contact.png',
-    'projects/message': 'accessories-text-editor.png',  # 'view-conversation-balloon.png',
-    'projects/testimonial': 'help-feedback.png',
-    'projects/project': 'view-time-schedule.png',
+    # Members
+    'accounts/bluebottleuser': 'icons/flaticons_stroke/SVGs/user-1.svg',
+    'auth/group': 'icons/flaticons_stroke/SVGs/group-1.svg',
+    'registration/registrationprofile': 'icons/flaticons_stroke/SVGs/add-user-1.svg',
+
+
+    # Projects
+    'projects/project': 'icons/flaticons_stroke/SVGs/notebook-1.svg',
+    'projects/projectpitch': 'icons/flaticons_stroke/SVGs/lightbulb-3.svg',
+    'projects/projectplan': 'icons/flaticons_stroke/SVGs/notebook-3.svg',
+    'projects/projecttheme': 'icons/flaticons_stroke/SVGs/leaf-1.svg',
+    'projects/projectcampaign': 'icons/flaticons_stroke/SVGs/megaphone-1.svg',
+    'projects/projectresult': 'icons/flaticons_stroke/SVGs/trophy-1.svg',
+
+    'organizations/organization': 'icons/flaticons_stroke/SVGs/suitcase-1.svg',
+    'organizations/organizationmember': 'icons/flaticons_stroke/SVGs/group-1.svg',
+    'projects/partnerorganization': 'icons/flaticons_stroke/SVGs/compose-3.svg',
+
+    # Wall Posts
+    'wallposts/wallpost': 'icons/flaticons_stroke/SVGs/paragraph-text-1.svg',
+    'wallposts/systemwallpost': 'icons/flaticons_stroke/SVGs/paragraph-text-1.svg',
+    'wallposts/textwallpost': 'icons/flaticons_stroke/SVGs/paragraph-text-1.svg',
+    'wallposts/mediawallpost': 'icons/flaticons_stroke/SVGs/photo-gallery-1.svg',
+    'wallposts/reaction': 'icons/flaticons_stroke/SVGs/comment-2.svg',
+
+    # Donations
+    'fund/donation': 'icons/flaticons_stroke/SVGs/money-2.svg',
+    'fund/voucher': 'icons/flaticons_stroke/SVGs/gift-2.svg',
+    'fund/order': 'icons/flaticons_stroke/SVGs/cart-1.svg',
+    'fund/recurringdirectdebitpayment': 'icons/flaticons_stroke/SVGs/repeat-2.svg',
+    'fund/customvoucherrequest': 'icons/flaticons_stroke/SVGs/mail-2.svg',
+
+    # Tasks
+    'tasks/task': 'icons/flaticons_stroke/SVGs/work-1.svg',
+    'tasks/skill': 'icons/flaticons_stroke/SVGs/toolbox-1.svg',
+
+    # Finances
+    'payouts/payout': 'icons/flaticons_stroke/SVGs/bag-1.svg',
+    'payouts/bankmutation': 'icons/flaticons_stroke/SVGs/menu-2.svg',
+    'payouts/bankmutationline': 'icons/flaticons_stroke/SVGs/menu-2.svg',
+    'cowry_docdata/docdatapaymentorder': 'icons/flaticons_stroke/SVGs/wallet-1.svg',
+    'cowry_docdata/docdatapaymentlogentry': 'icons/flaticons_stroke/SVGs/menu-list-3.svg',
+
+    # Site Content
+    'banners/slide': 'icons/flaticons_stroke/SVGs/id-1.svg',
+    'blogs/blogpostproxy': 'icons/flaticons_stroke/SVGs/newspaper-2.svg',
+    'blogs/newspostproxy': 'icons/flaticons_stroke/SVGs/newspaper-2.svg',
+    'pages/page': 'icons/flaticons_stroke/SVGs/paragraph-text-1.svg',
+    'pages/contactmessage': 'icons/flaticons_stroke/SVGs/mail-2.svg',
+    'quotes/quote': 'icons/flaticons_stroke/SVGs/post-comment-2.svg',
+    'statistics/statistic': 'icons/flaticons_stroke/SVGs/graph-1.svg',
+
+    # Site Settings
+    'sites/site': 'icons/flaticons_stroke/SVGs/browser-2.svg',
+    'redirects/redirect': 'icons/flaticons_stroke/SVGs/next-3.svg',
+
+
+
 }
 
 # Required for handlebars_template to work properly
