@@ -36,6 +36,8 @@ PROJECT_APPS.remove('django.contrib.sites')
 # https://github.com/django-extensions/django-extensions/issues/154
 PROJECT_APPS.remove('django_extensions')
 PROJECT_APPS.remove('django_extensions.tests')
+PROJECT_APPS.remove('django.contrib.messages')
+
 
 # FIXME: We need to fix the django_polymorphic tests
 PROJECT_APPS.remove('polymorphic')
