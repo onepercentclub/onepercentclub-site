@@ -417,9 +417,9 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         # TODO Implement vouchers.
 
     #
-    # Payment: -> failed or refunded
+    # Payment: -> failed, refunded or chargedback
     #
-    if new_status in [PaymentStatuses.failed, PaymentStatuses.refunded]:
+    if new_status in [PaymentStatuses.failed, PaymentStatuses.refunded, PaymentStatuses.chargedback]:
         if order.status != OrderStatuses.closed:
             order.status = OrderStatuses.closed
             order.save()
