@@ -1,0 +1,65 @@
+/* Compass */
+@import "compass/utilities";
+@import "compass/reset";
+//@import "compass/css3";
+
+/* Core & mixins */
+@import "core/variables";
+@import "mixins/rem";
+//@import "mixins/utilities";
+
+@import "core/grid";
+@import "core/typography";
+
+body {
+    font-family: "Futura Alt","Trebuchet MS",Helvetica,Arial,sans-serif;
+    font-size: 12px;
+}
+
+#header ul#navigation-menu li {
+    ul {
+        border: 1px solid $grayDark;
+        background-color: white;
+        a:hover {
+            background-color: $light-grey;
+        }
+}
+}
+
+#header #branding h1#site-name {
+    height: 50px;
+    width: 100px;
+    text-indent: -1000px;
+}
+
+.dashboard .dashboard-module {
+    border: 2px solid black;
+    border-radius: 0px;
+
+    ul.fluent-dashboard-appiconlist {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li {
+            width: 120px;
+            height: 90px;
+            .fluent-dashboard-icon-caption {
+                line-height: 14px;
+                font-weight: bold;
+                color: black;
+            }
+            &:hover {
+                background-color: $light-grey;
+            }
+        }
+
+    }
+}
+
+.dashboard-module h2 {
+    background: $light-grey;
+    font-size: 18px;
+    font-weight: bold;
+    color: $black;
+    text-transform: uppercase;
+}
