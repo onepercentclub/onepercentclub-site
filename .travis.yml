@@ -5,8 +5,8 @@ python:
   - "2.7"
 
 env:
-  - DJANGO=django==1.5.4
   - DJANGO=https://github.com/django/django/archive/master.zip
+  - DJANGO=django==1.5.4
 
 install:
   - "pip install --upgrade setuptools --use-mirrors"
