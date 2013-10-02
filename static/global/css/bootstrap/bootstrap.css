@@ -1,5 +1,6 @@
 /*
 Syntax error: Undefined variable: "$text-black".
+<<<<<<< HEAD
         on line 48 of /home/bbt/coding/.virtualenvs/bb_onepercent/onepercentclub/static/global/sass/bootstrap/_popovers.scss
         from line 52 of /home/bbt/coding/.virtualenvs/bb_onepercent/onepercentclub/static/global/sass/bootstrap/bootstrap.scss
 
@@ -64,8 +65,96 @@ Backtrace:
 /home/bbt/.rvm/gems/ruby-2.0.0-p247@django_sass/bin/compass:23:in `<main>'
 /home/bbt/.rvm/gems/ruby-2.0.0-p247@django_sass/bin/ruby_noexec_wrapper:14:in `eval'
 /home/bbt/.rvm/gems/ruby-2.0.0-p247@django_sass/bin/ruby_noexec_wrapper:14:in `<main>'
+=======
+        on line 48 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss
+        from line 52 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss
+
+Backtrace:
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss:48
+/Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss:52
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/script/variable.rb:49:in `_perform'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/script/node.rb:40:in `perform'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:298:in `visit_prop'
+org/jruby/RubyKernel.java:2109:in `send'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+org/jruby/RubyArray.java:2339:in `collect'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:109:in `visit_children'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+org/jruby/RubyKernel.java:2109:in `send'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:227:in `visit_import'
+org/jruby/RubyArray.java:2339:in `collect'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:227:in `visit_import'
+org/jruby/RubyKernel.java:2109:in `send'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+org/jruby/RubyArray.java:2339:in `collect'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:109:in `visit_children'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
+org/jruby/RubyKernel.java:2109:in `send'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
+org/jruby/RubyKernel.java:2109:in `send'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/tree/root_node.rb:20:in `render'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/engine.rb:315:in `_render'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_common/sass-3.2.10/lib/sass/engine.rb:262:in `render'
+file:/Applications/compass.app/Contents/Resources/Java/compass-app.jar!/compass_patch.rb:60:in `compile'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/lib/compass/compiler.rb:126:in `timed'
+file:/Applications/compass.app/Contents/Resources/Java/compass-app.jar!/compass_patch.rb:59:in `compile'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/lib/compass/logger.rb:45:in `red'
+file:/Applications/compass.app/Contents/Resources/Java/compass-app.jar!/compass_patch.rb:58:in `compile'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/lib/compass/compiler.rb:118:in `compile_if_required'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/lib/compass/compiler.rb:103:in `run'
+org/jruby/RubyArray.java:1620:in `each'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/lib/compass/compiler.rb:101:in `run'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/lib/compass/compiler.rb:126:in `timed'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/compass-0.12.2/lib/compass/compiler.rb:100:in `run'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/backport_from_0.13/lib/compass/watcher/compiler.rb:25:in `compile'
+org/jruby/RubyKernel.java:2105:in `send'
+(__FORWARDABLE__):3:in `compile'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/backport_from_0.13/lib/compass/watcher/project_watcher.rb:92:in `sass_modified'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/backport_from_0.13/lib/compass/watcher/project_watcher.rb:85:in `sass_callback'
+org/jruby/RubyMethod.java:133:in `call'
+org/jruby/RubyProc.java:270:in `call'
+org/jruby/RubyProc.java:220:in `call'
+/Applications/compass.app/Contents/Resources/lib/ruby/compass_0.12/backport_from_0.13/lib/compass/watcher/watch.rb:17:in `run_callback'
+file:/Applications/compass.app/Contents/Resources/Java/compass-app.jar!/app_watcher.rb:32:in `listen_callback'
+org/jruby/RubyArray.java:1620:in `each'
+file:/Applications/compass.app/Contents/Resources/Java/compass-app.jar!/app_watcher.rb:27:in `listen_callback'
+org/jruby/RubyArray.java:1620:in `each'
+file:/Applications/compass.app/Contents/Resources/Java/compass-app.jar!/app_watcher.rb:26:in `listen_callback'
+org/jruby/RubyMethod.java:133:in `call'
+org/jruby/RubyProc.java:270:in `call'
+org/jruby/RubyProc.java:220:in `call'
+/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-0.7.3/lib/listen/listener.rb:212:in `on_change'
+/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-0.7.3/lib/listen/listener.rb:221:in `initialize_adapter'
+org/jruby/RubyProc.java:270:in `call'
+org/jruby/RubyProc.java:220:in `call'
+/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-0.7.3/lib/listen/adapter.rb:198:in `report_changes'
+/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-0.7.3/lib/listen/adapter.rb:210:in `poll_changed_dirs'
+/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-0.7.3/lib/listen/adapters/darwin.rb:38:in `start'
+org/jruby/RubyProc.java:270:in `call'
+org/jruby/RubyProc.java:224:in `call'
+>>>>>>> Regenerate CSS
 */
 body:before {
   white-space: pre;
   font-family: monospace;
+<<<<<<< HEAD
   content: "Syntax error: Undefined variable: \"$text-black\".\A         on line 48 of /home/bbt/coding/.virtualenvs/bb_onepercent/onepercentclub/static/global/sass/bootstrap/_popovers.scss\A         from line 52 of /home/bbt/coding/.virtualenvs/bb_onepercent/onepercentclub/static/global/sass/bootstrap/bootstrap.scss"; }
+=======
+  content: "Syntax error: Undefined variable: \"$text-black\".\A         on line 48 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/_popovers.scss\A         from line 52 of /Users/franstwisk/Dropbox/Repositories/1procentclub/static/global/sass/bootstrap/bootstrap.scss"; }
+>>>>>>> Regenerate CSS
