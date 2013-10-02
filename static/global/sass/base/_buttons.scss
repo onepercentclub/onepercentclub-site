@@ -123,6 +123,26 @@
     }
 }
 
+.show-more {
+    font-family: $font-family-heavy;
+    font-size: $font-size-large;
+    color: $color-text;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    .flaticon {
+     	font-size: 1.2em;
+     	
+    }
+    
+    small {
+        
+    }
+    
+    &:hover, &:active {
+        color: $color-secondary;
+    }
+}
 
 
 
