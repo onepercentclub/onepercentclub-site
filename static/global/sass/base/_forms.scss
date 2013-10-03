@@ -6,6 +6,10 @@ form {
         margin: 0;
         padding: 0;
         list-style: none;
+        
+        li {
+            @include resetlist();
+        }
     }
 	
     fieldset {	
@@ -98,10 +102,6 @@ form {
                 @include grid(24, 1, 0);
             }
         }
-
-        &.control-group-lonely {
-            padding: 0;
-        }
     }
 
     .errors {
@@ -131,33 +131,40 @@ form {
         }
     }
 
-    .big-radio {
+    .radio-select {
         label {
-            @include rem(padding, 8px 0);
-            color: white;
+            padding: $base-padding/2 0;
+            color: $white;
+            border: 1px solid darken($gray-light, 5%);
+            background-color: $gray-light;
             cursor: pointer;
-
             text-align: center;
-            background-color: $form-background;
+            @include border-radius(1px);
         }
+        
         input[type=radio] {
             display: none;
         }
+        
         input[type=radio]:checked+label {
             background-color: $color-secondary;
+            border-color: darken($color-secondary, 5%);
             font-family: $font-family-heavy;
         }
-        &.radio2 {
+        
+        &.two {
             label{
                 @include grid(24);
             }
         }
-        &.radio3 {
+        
+        &.three {
             label{
                 @include grid(16);
             }
         }
-        &.radio4 {
+        
+        &.four {
             label {
                 @include grid(12);
             }

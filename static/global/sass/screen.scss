@@ -37,21 +37,19 @@
 @import "layout/header";
 @import "layout/footer";
 
-
-
 @import "base/forms";
 @import "base/buttons";
-
 @import "base/tabs";
 
 /* States */
-@import "states/states";
+// @import "states/states";
 
 
 /* Modules */
 @import "modules/carousel";
 @import "modules/project-items";
 @import "modules/project-preview";
+@import "modules/project-list";
 @import "modules/project-result";
 @import "modules/task-result";
 @import "modules/project-member-list";
@@ -64,7 +62,7 @@
 @import "pages/static-onepage";
 @import "pages/search";
 @import "pages/project-detail";
-
+@import "pages/fund";
 
 // @import "modules/buttons";
 // @import "modules/detail-top";
