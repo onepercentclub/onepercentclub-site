@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-29 15:52+0200\n"
+"POT-Creation-Date: 2013-10-03 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,212 +43,6 @@ msgstr ""
 msgid "If you need assistance, you may reference this error as <strong>%(error_id)s</strong>."
 msgstr ""
 
-#: base.html:17 base.html.py:27
-#, python-format
-msgid "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online."
-msgstr ""
-
-#: base.html:19
-msgid "crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity"
-msgstr ""
-
-#: base.html:140
-#, python-format
-msgid "What is 1%%"
-msgstr ""
-
-#: base.html:141 base.html.py:300
-#, python-format
-msgid "1%%Projects"
-msgstr ""
-
-#: base.html:142 base.html.py:304
-#, python-format
-msgid "1%%Skills"
-msgstr ""
-
-#: base.html:143 base.html.py:309
-msgid "Get involved"
-msgstr ""
-
-#: base.html:152
-#, python-format
-msgid "My 1%%"
-msgstr ""
-
-#: base.html:157
-msgid "Edit my profile & settings"
-msgstr ""
-
-#: base.html:163
-msgid "Manage My Project"
-msgstr ""
-
-#: base.html:171
-msgid "Language"
-msgstr ""
-
-#: base.html:181
-msgid "Donations"
-msgstr ""
-
-#: base.html:187
-msgid "Sign up"
-msgstr ""
-
-#: base.html:189 registration/login.html:10
-msgid "Log in"
-msgstr ""
-
-#: base.html:242
-#, python-format
-msgid "Log in to 1%%Club"
-msgstr ""
-
-#: base.html:247
-msgid "You did it!"
-msgstr ""
-
-#: base.html:248
-msgid "(Welcome back friend)"
-msgstr ""
-
-#: base.html:250
-msgid "Login here with your email address and password"
-msgstr ""
-
-#: base.html:255 registration/login.html:19
-msgid "Email"
-msgstr ""
-
-#: base.html:264 registration/login.html:28
-msgid "Password"
-msgstr ""
-
-#: base.html:274
-msgid "Forgot your password?"
-msgstr ""
-
-#: base.html:290
-#, python-format
-msgid "It all starts with 1%%"
-msgstr ""
-
-#: base.html:294
-#, python-format
-msgid "What is 1%%CLUB?"
-msgstr ""
-
-#: base.html:314
-msgid "Start your project"
-msgstr ""
-
-#: base.html:321
-#, python-format
-msgid "About 1%%CLUB"
-msgstr ""
-
-#: base.html:325
-msgid "Our story"
-msgstr ""
-
-#: base.html:329
-msgid "Frequently Asked Questions"
-msgstr ""
-
-#: base.html:333
-msgid "Meet the team"
-msgstr ""
-
-#: base.html:339 footer.html:13
-msgid "Partners"
-msgstr ""
-
-#: base.html:344
-msgid "Press"
-msgstr ""
-
-#: base.html:349
-#, python-format
-msgid "Work at 1%%CLUB"
-msgstr ""
-
-#: base.html:354 footer.html:18 footer.html.py:38
-msgid "Contact"
-msgstr ""
-
-#: base.html:361
-#, python-format
-msgid "Discover 1%%More"
-msgstr ""
-
-#: base.html:365
-#, python-format
-msgid "1%%Business"
-msgstr ""
-
-#: base.html:370
-#, python-format
-msgid "1%%Blog"
-msgstr ""
-
-#: base.html:375
-#, python-format
-msgid "1%%Github"
-msgstr ""
-
-#: base.html:383
-#, python-format
-msgid "1%%Social"
-msgstr ""
-
-#: base.html:419
-#, python-format
-msgid "1%%News"
-msgstr ""
-
-#: base.html:433 base.html.py:440
-#, python-format
-msgid "Join 1%%Club"
-msgstr ""
-
-#: base.html:434
-#, python-format
-msgid "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online. "
-msgstr ""
-
-#: base.html:436
-msgid "Select a project or task"
-msgstr ""
-
-#: base.html:437
-msgid "Share your skills or money"
-msgstr ""
-
-#: base.html:438
-msgid "See direct results"
-msgstr ""
-
-#: base.html:454
-msgid "General Conditions"
-msgstr ""
-
-#: base.html:455
-msgid "Privacy Policy"
-msgstr ""
-
-#: base.html:459
-msgid "Give us feedback"
-msgstr ""
-
-#: base.html:497
-msgid ""
-"\n"
-"                        Our new website currently does not work well with older versions of Internet Explorer.<br/>\n"
-"                        Please install Internet Explorer 10 or use another browser such as Firefox or Chrome!<br/>\n"
-"                        "
-msgstr ""
-
 #: footer.html:6
 msgid "Menu"
 msgstr ""
@@ -277,6 +71,10 @@ msgstr ""
 msgid "Organizations"
 msgstr ""
 
+#: footer.html:13
+msgid "Partners"
+msgstr ""
+
 #: footer.html:14
 msgid "Business"
 msgstr ""
@@ -291,6 +89,10 @@ msgstr ""
 
 #: footer.html:17 footer.html.py:37
 msgid "FAQ"
+msgstr ""
+
+#: footer.html:18 footer.html.py:38
+msgid "Contact"
 msgstr ""
 
 #: footer.html:21
@@ -309,7 +111,7 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: footer.html:34
+#: footer.html:34 accounts/profile_public.html:7
 msgid "About"
 msgstr ""
 
@@ -319,6 +121,166 @@ msgstr ""
 
 #: footer.html:44
 msgid "We like you too"
+msgstr ""
+
+#: accounts/account_settings.html:5
+#, python-format
+msgid "1%% News"
+msgstr ""
+
+#: accounts/login.html:6
+#, python-format
+msgid "Log in to 1%% Club"
+msgstr ""
+
+#: accounts/login.html:11
+msgid "You did it!"
+msgstr ""
+
+#: accounts/login.html:12
+msgid "(Welcome back friend)"
+msgstr ""
+
+#: accounts/login.html:13
+msgid "Login here with your email address and password"
+msgstr ""
+
+#: accounts/login.html:19
+msgid "Forgot your password?"
+msgstr ""
+
+#: accounts/login.html:20 accounts/nav.html:35 registration/login.html:10
+msgid "Log in"
+msgstr ""
+
+#: accounts/nav.html:8 accounts/profile_nav.html:7
+#, python-format
+msgid "My 1%%"
+msgstr ""
+
+#: accounts/nav.html:21
+msgid "Donations"
+msgstr ""
+
+#: accounts/nav.html:33
+msgid "Sign up"
+msgstr ""
+
+#: accounts/nav.html:34
+msgid "or"
+msgstr ""
+
+#: accounts/profile_form.html:6
+msgid "Edit your profile"
+msgstr ""
+
+#: accounts/profile_form.html:7
+#, python-format
+msgid "Personalise your account so 1%%Members can get to know you."
+msgstr ""
+
+#: accounts/profile_form.html:15
+msgid "About yourself"
+msgstr ""
+
+#: accounts/profile_form.html:29
+#, python-format
+msgid "Why did you join 1%%Club?"
+msgstr ""
+
+#: accounts/profile_form.html:43
+msgid "Your website"
+msgstr ""
+
+#: accounts/profile_form.html:57 accounts/profile_public.html:20
+msgid "Location"
+msgstr ""
+
+#: accounts/profile_form.html:76
+#, python-format
+msgid "1%%Skills"
+msgstr ""
+
+#: accounts/profile_form.html:77
+#, python-format
+msgid "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
+msgstr ""
+
+#: accounts/profile_form.html:83 accounts/profile_public.html:28
+msgid "Time available"
+msgstr ""
+
+#: accounts/profile_nav.html:9
+msgid "Profile"
+msgstr ""
+
+#: accounts/profile_nav.html:13
+msgid "Preview my profile"
+msgstr ""
+
+#: accounts/profile_nav.html:24
+msgid "Payment"
+msgstr ""
+
+#: accounts/profile_nav.html:24
+msgid "Orders"
+msgstr ""
+
+#: accounts/profile_public.html:12
+#, python-format
+msgid "Joined 1%%Club because"
+msgstr ""
+
+#: accounts/signup.html:6
+#, python-format
+msgid "Join 1%%Club"
+msgstr ""
+
+#: accounts/signup.html:8
+#, python-format
+msgid "1%%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1%% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world."
+msgstr ""
+
+#: accounts/signup.html:14
+msgid "Thanks for signing up!"
+msgstr ""
+
+#: accounts/signup.html:16
+msgid "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you."
+msgstr ""
+
+#: accounts/signup.html:22
+#, python-format
+msgid ""
+"\n"
+"    By joining 1%%Club I hereby agree to the <a %(action)s href=\"%(href)s\"> 1%%Club Terms of service</a>\n"
+"    "
+msgstr ""
+
+#: accounts/signup.html:30
+msgid "Already have an account?"
+msgstr ""
+
+#: accounts/signup.html:31
+msgid "Log in here, fast & easy"
+msgstr ""
+
+#: accounts/signup.html:38
+#, python-format
+msgid "Why join 1%%Club?"
+msgstr ""
+
+#: accounts/signup.html:40
+msgid "It's easy to find projects you like."
+msgstr ""
+
+#: accounts/signup.html:41
+#, python-format
+msgid "A fun and personal way to share your 1%%."
+msgstr ""
+
+#: accounts/signup.html:42
+msgid "You'll receive updates on the progress of the projects you support."
 msgstr ""
 
 #: registration/activation_email.html:20
@@ -345,6 +307,14 @@ msgstr ""
 
 #: registration/logged_out.html:9
 msgid "Logged out."
+msgstr ""
+
+#: registration/login.html:19
+msgid "Email"
+msgstr ""
+
+#: registration/login.html:28
+msgid "Password"
 msgstr ""
 
 #: registration/login.html:38

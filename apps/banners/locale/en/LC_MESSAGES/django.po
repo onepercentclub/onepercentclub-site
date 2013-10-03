@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-29 15:52+0200\n"
+"POT-Creation-Date: 2013-10-03 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,54 +74,58 @@ msgid "Background image"
 msgstr ""
 
 #: models.py:38
+msgid "Video url"
+msgstr ""
+
+#: models.py:40
 msgid "Link text"
 msgstr ""
 
-#: models.py:38
+#: models.py:40
 msgid "This is the text on the button inside the banner."
 msgstr ""
 
-#: models.py:39
+#: models.py:41
 msgid "Link url"
 msgstr ""
 
-#: models.py:39
+#: models.py:41
 msgid "This is the link for the button inside the banner."
 msgstr ""
 
-#: models.py:40
+#: models.py:42
 msgid "Style"
 msgstr ""
 
-#: models.py:40
+#: models.py:42
 msgid "Styling class name"
 msgstr ""
 
-#: models.py:44
+#: models.py:46
 msgid "status"
 msgstr ""
 
-#: models.py:45
+#: models.py:47
 msgid "publication date"
 msgstr ""
 
-#: models.py:45
+#: models.py:47
 msgid "When the entry should go live, status must be \"Published\"."
 msgstr ""
 
-#: models.py:46
+#: models.py:48
 msgid "publication end date"
 msgstr ""
 
-#: models.py:50
+#: models.py:52
 msgid "author"
 msgstr ""
 
-#: models.py:51
+#: models.py:53
 msgid "creation date"
 msgstr ""
 
-#: models.py:52
+#: models.py:54
 msgid "last modification"
 msgstr ""
 

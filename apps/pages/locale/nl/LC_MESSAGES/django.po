@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
 "POT-Creation-Date: 2013-08-29 15:52+0200\n"
-"PO-Revision-Date: 2013-08-29 13:55+0000\n"
+"PO-Revision-Date: 2013-08-29 14:10+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -199,23 +199,23 @@ msgstr "Geen projecten gevonden."
 
 #: templates/project_snippet.html:52
 msgid "days to go"
-msgstr ""
+msgstr "dagen"
 
 #: templates/project_snippet.html:59
 msgid "of"
-msgstr ""
+msgstr "van"
 
 #: templates/project_snippet.html:61
 msgid "raised"
-msgstr ""
+msgstr "opgehaald"
 
 #: templates/project_snippet.html:68
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: templates/project_snippet.html:76
 msgid "Apply for task"
-msgstr ""
+msgstr "Doe deze taak"
 
 #: templates/admin/pages/change_form.html:7
 #: templates/admin/pages/change_form.html:70
