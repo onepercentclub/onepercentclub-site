@@ -54,7 +54,7 @@ App.TimeNeededSelectView = Em.Select.extend({
 
 
 App.Theme = DS.Model.extend({
-    url:'utils/themes',
+    url:'projects/themes',
     title: DS.attr('string')
 });
 
