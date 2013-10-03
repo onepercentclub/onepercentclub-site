@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-29 15:52+0200\n"
+"POT-Creation-Date: 2013-10-03 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:70
+#: admin.py:96
 msgid "Author"
 msgstr ""
 
@@ -36,59 +36,67 @@ msgstr ""
 msgid "%(author)s commented on your wallpost."
 msgstr ""
 
-#: models.py:27 models.py:67 models.py:85
+#: models.py:30 models.py:70 models.py:101
 msgid "author"
 msgstr ""
 
-#: models.py:28 models.py:68 models.py:86
+#: models.py:31 models.py:71 models.py:102
 msgid "editor"
 msgstr ""
 
-#: models.py:28
+#: models.py:31
 msgid "The last user to edit this wallpost."
 msgstr ""
 
-#: models.py:31 models.py:93
+#: models.py:34 models.py:109
 msgid "created"
 msgstr ""
 
-#: models.py:32 models.py:94
+#: models.py:35 models.py:110
 msgid "updated"
 msgstr ""
 
-#: models.py:33 models.py:65 models.py:95
+#: models.py:36 models.py:68 models.py:111
 msgid "deleted"
 msgstr ""
 
-#: models.py:34 models.py:66 models.py:96
+#: models.py:37 models.py:69 models.py:112
 msgid "IP address"
 msgstr ""
 
-#: models.py:37
+#: models.py:40
 msgid "content type"
 msgstr ""
 
-#: models.py:38
+#: models.py:41
 msgid "object ID"
 msgstr ""
 
-#: models.py:68
+#: models.py:71
 msgid "The last user to edit this wallpost photo."
 msgstr ""
 
-#: models.py:86
+#: models.py:87
+msgid "related type"
+msgstr ""
+
+#: models.py:88
+msgid "related ID"
+msgstr ""
+
+#: models.py:102
 msgid "The last user to edit this reaction."
 msgstr ""
 
-#: models.py:89
+#: models.py:105
 msgid "reaction text"
 msgstr ""
 
-#: models.py:104
+#: models.py:120
 msgid "Reaction"
 msgstr ""
 
-#: models.py:105
+#: models.py:121
 msgid "Reactions"
 msgstr ""
 
@@ -157,17 +165,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: templates/reactions.hbs:26 templates/wallposts.hbs:191
-#: templates/wallposts.hbs.py:291
+#: templates/reactions.hbs:26 templates/wallposts.hbs:195
+#: templates/wallposts.hbs.py:263 templates/wallposts.hbs:321
 msgid "Delete"
 msgstr ""
 
 #: templates/reactions.hbs:60 templates/wallposts.hbs:20
-#: templates/wallposts.hbs.py:335
+#: templates/wallposts.hbs.py:351
 msgid "Login"
 msgstr ""
 
-#: templates/reactions.hbs:60 templates/wallposts.hbs:335
+#: templates/reactions.hbs:60 templates/wallposts.hbs:351
 msgid "member"
 msgstr ""
 
@@ -269,22 +277,30 @@ msgid "Post Update"
 msgstr ""
 
 #: templates/wallposts.hbs:117 templates/wallposts.hbs.py:130
-#: templates/wallposts.hbs:255 templates/wallposts.hbs.py:268
+#: templates/wallposts.hbs:285 templates/wallposts.hbs.py:298
 msgid "Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:150 templates/wallposts.hbs.py:347
+#: templates/wallposts.hbs:154 templates/wallposts.hbs.py:363
 msgid "Show more"
 msgstr ""
 
-#: templates/wallposts.hbs:150
+#: templates/wallposts.hbs:154
 msgid "more"
 msgstr ""
 
-#: templates/wallposts.hbs:335
+#: templates/wallposts.hbs:252
+msgid "Made a donation"
+msgstr ""
+
+#: templates/wallposts.hbs:254
+msgid "Someone made a donation"
+msgstr ""
+
+#: templates/wallposts.hbs:351
 msgid "or become a"
 msgstr ""
 
-#: templates/wallposts.hbs:335
+#: templates/wallposts.hbs:351
 msgid "to leave a comment."
 msgstr ""

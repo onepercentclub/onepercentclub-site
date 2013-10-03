@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-29 15:52+0200\n"
+"POT-Creation-Date: 2013-10-03 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,79 +17,79 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/homepage.hbs:53
+#: templates/homepage.hbs:59
 msgid "Choose your project"
 msgstr ""
 
-#: templates/homepage.hbs:54
+#: templates/homepage.hbs:60
 msgid "Support it with your time, knowledge or money and receive real-time updates."
 msgstr ""
 
-#: templates/homepage.hbs:97
+#: templates/homepage.hbs:103
 msgid "days to go"
 msgstr ""
 
-#: templates/homepage.hbs:104
+#: templates/homepage.hbs:110
 msgid "of"
 msgstr ""
 
-#: templates/homepage.hbs:106
+#: templates/homepage.hbs:112
 msgid "raised"
 msgstr ""
 
-#: templates/homepage.hbs:113
+#: templates/homepage.hbs:119
 msgid "Support"
 msgstr ""
 
-#: templates/homepage.hbs:132
+#: templates/homepage.hbs:138
 msgid "Share a little."
 msgstr ""
 
-#: templates/homepage.hbs:132
+#: templates/homepage.hbs:138
 msgid "Change the world."
 msgstr ""
 
-#: templates/homepage.hbs:147
+#: templates/homepage.hbs:153
 msgid "Find projects"
 msgstr ""
 
-#: templates/homepage.hbs:152
+#: templates/homepage.hbs:158
 msgid "Find tasks"
 msgstr ""
 
-#: templates/homepage.hbs:157
+#: templates/homepage.hbs:163
 msgid "Befriend us"
 msgstr ""
 
-#: templates/homepage.hbs:172
+#: templates/homepage.hbs:178
 msgid "Our impact"
 msgstr ""
 
-#: templates/homepage.hbs:173
+#: templates/homepage.hbs:179
 msgid "We believe that if we all share a little, together we can change the world. We got this far already."
 msgstr ""
 
-#: templates/homepage.hbs:179
+#: templates/homepage.hbs:185
 msgid "Lives changed"
 msgstr ""
 
-#: templates/homepage.hbs:184
+#: templates/homepage.hbs:190
 msgid "Projects"
 msgstr ""
 
-#: templates/homepage.hbs:189
+#: templates/homepage.hbs:195
 msgid "Countries"
 msgstr ""
 
-#: templates/homepage.hbs:194
+#: templates/homepage.hbs:200
 msgid "Hours spent"
 msgstr ""
 
-#: templates/homepage.hbs:199
+#: templates/homepage.hbs:205
 msgid "Donated"
 msgstr ""
 
-#: templates/homepage.hbs:204
+#: templates/homepage.hbs:210
 #, python-format
 msgid "Join us. Sign up and share your 1%%"
 msgstr ""
