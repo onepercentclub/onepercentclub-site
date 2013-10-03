@@ -4,22 +4,19 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
-from random import randint
 import time
 
-from decimal import Decimal
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
-from apps.projects.models import Project
 from .unittests import ProjectTestsMixin, UserTestsMixin
 
-from bluebottle.tests.utils import SeleniumTestCase, css_dict
+from bluebottle.tests.utils import SeleniumTestCase
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
-        'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
+            'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase):
     """
     Selenium tests for Projects.

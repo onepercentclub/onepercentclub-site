@@ -13,15 +13,15 @@ from django.conf import settings
 from django.core import mail
 from django.utils.unittest.case import skipUnless, skipIf
 
-from onepercentclub.tests.utils import SeleniumTestCase, css_dict
-from apps.geo.models import Region
-from apps.projects.tests import ProjectTestsMixin
-from ..models import BlueBottleUser
+from bluebottle.accounts.models import BlueBottleUser
+from bluebottle.geo.models import Region
+from bluebottle.tests.utils import SeleniumTestCase
 
+from apps.projects.tests import ProjectTestsMixin
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
-        'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
+            'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
     """
     Selenium tests for account actions.
