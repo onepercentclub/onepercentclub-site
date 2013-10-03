@@ -8,13 +8,38 @@ from django.contrib.admin.templatetags.admin_static import static
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment, \
-    OrderStatuses
+    OrderStatuses, DonationStatuses
+
+
+# http://stackoverflow.com/a/16556771
+class DonationStatusFilter(SimpleListFilter):
+    title = _('Status')
+
+    parameter_name = 'status__exact'
+    default_status = DonationStatuses.paid
+
+    def lookups(self, request, model_admin):
+        return (('all', _('All')),) + DonationStatuses.choices
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup if self.value() else lookup == self.default_status,
+                'query_string': cl.get_query_string({self.parameter_name: lookup}, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        if self.value() in DonationStatuses.values:
+            return queryset.filter(status=self.value())
+        elif self.value() is None:
+            return queryset.filter(status=self.default_status)
 
 
 class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     list_display = ('created', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method')
-    list_filter = ('status',)
+    list_filter = (DonationStatusFilter,)
     raw_id_fields = ('user', 'project')
     readonly_fields = ('view_order',)
     fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project')
@@ -24,7 +49,7 @@ class DonationAdmin(admin.ModelAdmin):
         donation_type = ContentType.objects.get_for_model(obj)
         donation = OrderItem.objects.filter(object_id=obj.id).filter(content_type=donation_type).get()
         order = donation.order
-        url = reverse('admin:%s_%s_change' % (order._meta.app_label, order._meta.module_name),  args=[order.id])
+        url = reverse('admin:%s_%s_change' % (order._meta.app_label, order._meta.module_name), args=[order.id])
         return "<a href='%s'>View Order</a>" % (str(url))
 
     view_order.allow_tags = True
@@ -75,7 +100,6 @@ class DocDataPaymentOrderInline(admin.TabularInline):
     payment.allow_tags = True
 
 
-# Inspiration from:
 # http://stackoverflow.com/a/16556771
 class OrderStatusFilter(SimpleListFilter):
     title = _('Status')
