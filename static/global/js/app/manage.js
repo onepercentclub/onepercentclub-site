@@ -418,7 +418,7 @@ App.MyProjectPitchSubmitController = Em.ObjectController.extend(App.Editable, {
         model.on('didUpdate', function(){
             controller.transitionToRoute('myProjectPitchReview');
         });
-        this.updateRecordOnServer();
+        model.save();
     },
     exit: function(){
         this.set('model.status', 'new');
@@ -698,7 +698,7 @@ App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {
         model.on('didUpdate', function(){
             controller.transitionToRoute('myProjectPlanReview');
         });
-        this.updateRecordOnServer();
+        model.save();
     },
     exit: function(){
         this.set('model.status', 'new');

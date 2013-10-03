@@ -32,10 +32,12 @@ class RedirectFallbackMiddleware(object):
         current_site = get_current_site(request)
         http_host = request.META.get('HTTP_HOST', '')
         if http_host:
-            if request.is_secure():
-                http_host = 'https://' + http_host
-            else:
+            # Crappy workaround for localhost.
+            # Always default to https if not on local machine. This will hopefully fix Safari problems.
+            if current_site in ['localhost', 'localhost:8000', '127.0.0.1:8000', '127.0.0.1']:
                 http_host = 'http://' + http_host
+            else:
+                http_host = 'https://' + http_host
 
         language = translation.get_language()
 

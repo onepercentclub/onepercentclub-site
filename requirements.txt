@@ -1,4 +1,5 @@
--e git://github.com/onepercentclub/bluebottle.git#egg=bluebottle
+# -e git://github.com/onepercentclub/bluebottle.git#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@v0.0.2#egg=bluebottle
 
 Django==1.5.4
 Pillow==2.1.0
@@ -57,7 +58,8 @@ django-taggit==0.10a1
 django-taggit-autocomplete-modified==0.1.0b4
 
 # Legacy authentication module for authenticating users from the old PHP site.
-https://github.com/onepercentclub/legacyauth/archive/3f2406c50dead25a748fb2433de55b73a9162f18.zip
+# https://github.com/onepercentclub/legacyauth/archive/3f2406c50dead25a748fb2433de55b73a9162f18.zip
+-e git://github.com/onepercentclub/legacyauth.git@3f2406c50dead25a748fb2433de55b73a9162f18#egg=legacyauth
 
 # Gunicorn WSGI server
 gunicorn
@@ -109,7 +111,8 @@ django-social-auth==0.7.23
 # django-salesforce==0.1.6.2
 # setup.py doesn't seem to be working properly so we're using a fixed version.
 # https://github.com/freelancersunion/django-salesforce/issues/4
-https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e9590fb27cbf08853da5599.zip
+# https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e9590fb27cbf08853da5599.zip
+-e git://github.com/onepercentclub/django-salesforce.git@1e54beb7bcc15a893e9590fb27cbf08853da5599#egg=django-salesforce
 
 # There hasn't been a release of django-registration is a while and we need the 1.5 custom user support.
 # Official: https://bitbucket.org/ubernostrum/django-registration/
@@ -137,7 +140,8 @@ mock==1.0.1
 django-statici18n==0.4.5
 
 # Communication with the old DocData account.
-https://github.com/onepercentclub/django-docdata/archive/120ae5b8a1da6152d43d4601edc8832268e05515.zip
+# https://github.com/onepercentclub/django-docdata/archive/120ae5b8a1da6152d43d4601edc8832268e05515.zip
+-e git://github.com/onepercentclub/django-docdata.git@120ae5b8a1da6152d43d4601edc8832268e05515#egg=django-docdata
 pycurl==7.19.0
 
 # Date and Currency formatting.

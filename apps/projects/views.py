@@ -1,9 +1,9 @@
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
 from django.db.models.query_utils import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from apps.fund.models import Donation, DonationStatuses
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
@@ -313,4 +313,15 @@ class ProjectIframeView(DetailView):
 #             context,
 #             mimetype='application/xml',
 #             **response_kwargs)
+
+
+class ProjectThemeList(generics.ListAPIView):
+    model = ProjectTheme
+    serializer_class = ProjectThemeSerializer
+
+
+
+class ProjectThemeDetail(generics.RetrieveAPIView):
+    model = ProjectTheme
+    serializer_class = ProjectThemeSerializer
 

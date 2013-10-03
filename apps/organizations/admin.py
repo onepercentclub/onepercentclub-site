@@ -8,8 +8,8 @@ class OrganizationDocumentInline(admin.StackedInline):
     model = OrganizationDocument
     extra = 0
     raw_id_fields = ('author', )
-    readonly_fields = ('download_url', )
-    fields = readonly_fields + ('file', 'author')
+    readonly_fields = ('download_url', 'file')
+    fields = readonly_fields + ('author', )
 
     def download_url(self, obj):
         return "<a href='%s'>%s</a>" % (str(obj.document_url), 'Download')
