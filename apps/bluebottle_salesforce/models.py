@@ -322,31 +322,6 @@ class SalesforceProjectBudget(SalesforceModel):
         managed = False
 
 
-payment_method_mapping = {
-    'IDEAL': 'iDEAL',
-    'MASTERCARD': 'Mastercard',
-    'VISA': 'Visa',
-    'DIRECT_DEBIT': 'Direct debit',
-    'ideal-rabobank-1procentclub_nl': 'iDEAL',
-    'paypal-1procentclub_nl': 'PayPal',
-    'omnipay-ems-visa-1procentclub_nl': 'Visa',
-    'banksys-mrcash-1procentclub_nl': 'Other',
-    'ing-ideal-1procentclub_nl': 'iDEAL',
-    'SOFORT_UEBERWEISUNG-SofortUeberweisung-1procentclub_nl': 'Other',
-    'ideal-ing-1procentclub_nl': 'iDEAL',
-    'system-banktransfer-nl': 'Bank transfer',
-    'directdebitnc-online-nl': 'Direct debit',
-    'directdebitnc2-online-nl': 'Direct debit',
-    'omnipay-ems-maestro-1procentclub_nl': 'Other',
-    '': 'Unknown',
-    'omnipay-ems-mc-1procentclub_nl': 'Mastercard',
-    'EBANKING': 'Other',
-    'SOFORT_UEBERWEISUNG': 'Other',
-    'MAESTRO': 'Other',
-    'MISTERCASH': 'Other',
-}
-
-
 class SalesforceOpportunity(SalesforceModel):
     """
     Default abstract Salesforce Opportunity model. Used for Donation(s) / Voucher(s).

@@ -1,6 +1,7 @@
 import logging
 from registration.models import RegistrationProfile
 from bluebottle.accounts.models import BlueBottleUser
+from apps.cowry_docdata.models import payment_method_mapping
 from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
     ProjectPhases, ProjectAmbassador
 from apps.organizations.models import Organization, OrganizationAddress
@@ -9,7 +10,7 @@ from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuse
     RecurringDirectDebitPayment
 from django.contrib.contenttypes.models import ContentType
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
-    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, payment_method_mapping
+    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
 
 logger = logging.getLogger('bluebottle.salesforce')
 
