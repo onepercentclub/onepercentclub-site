@@ -1,6 +1,6 @@
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from apps.fund.models import Donation
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectCampaign
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectCampaign, ProjectTheme
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -214,3 +214,9 @@ class ProjectWallPostSerializer(PolymorphicSerializer):
         )
 
 
+class ProjectThemeSerializer(serializers.ModelSerializer):
+    title = serializers.Field(source='name')
+
+    class Meta:
+        model = ProjectTheme
+        fields = ('id', 'title')
