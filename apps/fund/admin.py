@@ -1,4 +1,4 @@
-from apps.cowry_docdata.models import DocDataPaymentOrder
+from apps.cowry_docdata.models import DocDataPaymentOrder, payment_method_mapping
 from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
@@ -36,10 +36,18 @@ class DonationStatusFilter(SimpleListFilter):
             return queryset.filter(status=self.default_status)
 
 
+payment_method_icon_mapping = {
+    'iDeal': 'fund/icon-ideal.svg',
+    'Direct debit': 'fund/icon-direct-debit.png',
+    'Mastercard': 'fund/icon-mastercard.svg',
+    'Visa': 'fund/icon-visa.svg',
+}
+
+
 class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method')
-    list_filter = (DonationStatusFilter,)
+    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
+    list_filter = (DonationStatusFilter, 'donation_type')
     raw_id_fields = ('user', 'project')
     readonly_fields = ('view_order',)
     fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project')
@@ -63,12 +71,23 @@ class DonationAdmin(admin.ModelAdmin):
     def type(self, obj):
         recurring = obj.donation_type == Donation.DonationTypes.recurring
         icon_url = static(
-            'fund/icon-{0}.png'.format({True: 'recurring-donation', False: 'one-time-donation'}[recurring]))
+            'fund/icon-{0}.svg'.format({True: 'recurring-donation', False: 'one-time-donation'}[recurring]))
         alt_text = {True: 'Recurring', False: 'One-time'}[recurring]
-        return '<img alt="{0}" src="{1}" />'.format(alt_text, icon_url)
+        return '<img alt="{0}" src="{1}" height="16px" />'.format(alt_text, icon_url)
 
     type.allow_tags = True
     type.short_description = 'type'
+
+    def payment_method_override(self, obj):
+        payment_method = payment_method_mapping[obj.payment_method]
+
+        if payment_method in payment_method_icon_mapping:
+            icon_url = static(payment_method_icon_mapping[payment_method])
+            return '<img src="{0}" height="16px" />&nbsp;{1}'.format(icon_url, payment_method)
+        return payment_method
+
+    payment_method_override.allow_tags = True
+    payment_method_override.short_description = 'payment method'
 
 admin.site.register(Donation, DonationAdmin)
 
@@ -140,9 +159,9 @@ class OrderAdmin(admin.ModelAdmin):
 
     def type(self, obj):
         icon_url = static(
-            'fund/icon-{0}.png'.format({True: 'recurring-donation', False: 'one-time-donation'}[obj.recurring]))
+            'fund/icon-{0}.svg'.format({True: 'recurring-donation', False: 'one-time-donation'}[obj.recurring]))
         alt_text = {True: 'Recurring', False: 'One-time'}[obj.recurring]
-        return '<img alt="{0}" src="{1}" />'.format(alt_text, icon_url)
+        return '<img alt="{0}" src="{1}" height="16px" />'.format(alt_text, icon_url)
 
     type.allow_tags = True
     type.short_description = 'type'
