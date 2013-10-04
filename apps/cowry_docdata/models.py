@@ -7,6 +7,31 @@ from django_iban.fields import IBANField, SWIFTBICField
 from polymorphic import PolymorphicModel
 
 
+# Maps a payment method to a consistent, human readable name.
+payment_method_mapping = {
+    'IDEAL': 'iDeal',
+    'MASTERCARD': 'Mastercard',
+    'VISA': 'Visa',
+    'DIRECT_DEBIT': 'Direct debit',
+    'ideal-rabobank-1procentclub_nl': 'iDeal',
+    'paypal-1procentclub_nl': 'PayPal',
+    'omnipay-ems-visa-1procentclub_nl': 'Visa',
+    'banksys-mrcash-1procentclub_nl': 'Other',
+    'ing-ideal-1procentclub_nl': 'iDeal',
+    'SOFORT_UEBERWEISUNG-SofortUeberweisung-1procentclub_nl': 'Other',
+    'ideal-ing-1procentclub_nl': 'iDeal',
+    'system-banktransfer-nl': 'Bank transfer',
+    'directdebitnc-online-nl': 'Direct debit',
+    'directdebitnc2-online-nl': 'Direct debit',
+    'omnipay-ems-maestro-1procentclub_nl': 'Other',
+    '': 'Unknown',
+    'omnipay-ems-mc-1procentclub_nl': 'Mastercard',
+    'EBANKING': 'Other',
+    'SOFORT_UEBERWEISUNG': 'Other',
+    'MAESTRO': 'Other',
+    'MISTERCASH': 'Other',
+}
+
 class DocDataPaymentOrder(Payment):
     # Payment information.
     payment_order_id = models.CharField(max_length=200, default='', blank=True)

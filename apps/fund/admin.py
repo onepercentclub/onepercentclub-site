@@ -1,4 +1,4 @@
-from apps.cowry_docdata.models import DocDataPaymentOrder
+from apps.cowry_docdata.models import DocDataPaymentOrder, payment_method_mapping
 from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
@@ -8,13 +8,46 @@ from django.contrib.admin.templatetags.admin_static import static
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment, \
-    OrderStatuses
+    OrderStatuses, DonationStatuses
+
+
+# http://stackoverflow.com/a/16556771
+class DonationStatusFilter(SimpleListFilter):
+    title = _('Status')
+
+    parameter_name = 'status__exact'
+    default_status = DonationStatuses.paid
+
+    def lookups(self, request, model_admin):
+        return (('all', _('All')),) + DonationStatuses.choices
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup if self.value() else lookup == self.default_status,
+                'query_string': cl.get_query_string({self.parameter_name: lookup}, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        if self.value() in DonationStatuses.values:
+            return queryset.filter(status=self.value())
+        elif self.value() is None:
+            return queryset.filter(status=self.default_status)
+
+
+payment_method_icon_mapping = {
+    'iDeal': 'fund/icon-ideal.svg',
+    'Direct debit': 'fund/icon-direct-debit.png',
+    'Mastercard': 'fund/icon-mastercard.svg',
+    'Visa': 'fund/icon-visa.svg',
+}
 
 
 class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method')
-    list_filter = ('status',)
+    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
+    list_filter = (DonationStatusFilter, 'donation_type')
     raw_id_fields = ('user', 'project')
     readonly_fields = ('view_order',)
     fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project')
@@ -24,7 +57,7 @@ class DonationAdmin(admin.ModelAdmin):
         donation_type = ContentType.objects.get_for_model(obj)
         donation = OrderItem.objects.filter(object_id=obj.id).filter(content_type=donation_type).get()
         order = donation.order
-        url = reverse('admin:%s_%s_change' % (order._meta.app_label, order._meta.module_name),  args=[order.id])
+        url = reverse('admin:%s_%s_change' % (order._meta.app_label, order._meta.module_name), args=[order.id])
         return "<a href='%s'>View Order</a>" % (str(url))
 
     view_order.allow_tags = True
@@ -38,12 +71,23 @@ class DonationAdmin(admin.ModelAdmin):
     def type(self, obj):
         recurring = obj.donation_type == Donation.DonationTypes.recurring
         icon_url = static(
-            'fund/icon-{0}.png'.format({True: 'recurring-donation', False: 'one-time-donation'}[recurring]))
+            'fund/icon-{0}.svg'.format({True: 'recurring-donation', False: 'one-time-donation'}[recurring]))
         alt_text = {True: 'Recurring', False: 'One-time'}[recurring]
-        return '<img alt="{0}" src="{1}" />'.format(alt_text, icon_url)
+        return '<img alt="{0}" src="{1}" height="16px" />'.format(alt_text, icon_url)
 
     type.allow_tags = True
     type.short_description = 'type'
+
+    def payment_method_override(self, obj):
+        payment_method = payment_method_mapping[obj.payment_method]
+
+        if payment_method in payment_method_icon_mapping:
+            icon_url = static(payment_method_icon_mapping[payment_method])
+            return '<img src="{0}" height="16px" />&nbsp;{1}'.format(icon_url, payment_method)
+        return payment_method
+
+    payment_method_override.allow_tags = True
+    payment_method_override.short_description = 'payment method'
 
 admin.site.register(Donation, DonationAdmin)
 
@@ -75,7 +119,6 @@ class DocDataPaymentOrderInline(admin.TabularInline):
     payment.allow_tags = True
 
 
-# Inspiration from:
 # http://stackoverflow.com/a/16556771
 class OrderStatusFilter(SimpleListFilter):
     title = _('Status')
@@ -116,9 +159,9 @@ class OrderAdmin(admin.ModelAdmin):
 
     def type(self, obj):
         icon_url = static(
-            'fund/icon-{0}.png'.format({True: 'recurring-donation', False: 'one-time-donation'}[obj.recurring]))
+            'fund/icon-{0}.svg'.format({True: 'recurring-donation', False: 'one-time-donation'}[obj.recurring]))
         alt_text = {True: 'Recurring', False: 'One-time'}[obj.recurring]
-        return '<img alt="{0}" src="{1}" />'.format(alt_text, icon_url)
+        return '<img alt="{0}" src="{1}" height="16px" />'.format(alt_text, icon_url)
 
     type.allow_tags = True
     type.short_description = 'type'
@@ -149,9 +192,36 @@ class CustomVoucherRequestAdmin(admin.ModelAdmin):
 admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
 
 
+# http://stackoverflow.com/a/16556771
+class ActiveFilter(SimpleListFilter):
+    title = _('Active')
+
+    parameter_name = 'active__exact'
+    active_choices = (('1', _('Yes')),
+                      ('0', _('No')),)
+    default = '1'
+
+    def lookups(self, request, model_admin):
+        return (('all', _('All')),) + self.active_choices
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup if self.value() else lookup == self.default,
+                'query_string': cl.get_query_string({self.parameter_name: lookup}, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        if self.value() in ('0', '1'):
+            return queryset.filter(active=self.value())
+        elif self.value() is None:
+            return queryset.filter(active=self.default)
+
+
 class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
     list_display = ('user', 'active', 'amount_override')
-    list_filter = ('active',)
+    list_filter = (ActiveFilter,)
     search_fields = ('user__email', 'user__username', 'user__first_name', 'user__last_name', 'account', 'iban', 'bic')
     raw_id_fields = ('user',)
     readonly_fields = ('created', 'updated')
