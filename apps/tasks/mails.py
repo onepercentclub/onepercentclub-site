@@ -26,7 +26,8 @@ def new_reaction_notification(sender, instance, created, **kwargs):
         # Set the language for the receiver
         translation.activate(receiver.primary_language)
         subject = _('%(sender)s applied for your task.') % {'sender': sender.first_name}
-        ctx = Context({'task': task, 'receiver': receiver, 'sender': sender, 'link': link, 'site': site})
+        ctx = Context({'task': task, 'receiver': receiver, 'sender': sender, 'link': link, 'site': site,
+                       'motivation': task_member.motivation})
         text_content = render_to_string('task_member_applied.mail.txt', context_instance=ctx)
         html_content = render_to_string('task_member_applied.mail.html', context_instance=ctx)
         translation.deactivate()
