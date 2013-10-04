@@ -2,11 +2,14 @@
 {% load i18n %}
 
 {% block content %}
-{% blocktrans with sender_name=sender.first_name receiver_name=receiver.first_name task_title=task.title %}
+{% blocktrans with sender_name=sender.first_name receiver_name=receiver.first_name task_title=task.title motivation=motivation %}
 Hello {{ receiver_name }},
 
 {{ sender_name }} applied for your task "{{ task_title }}".
 Be sure to follow this up a.s.a.p.!
+
+As motivation {{ sender_name }} wrote:
+{{ motivation }}
 
 Go to 1%Task: {{ site }}{{ link }}.
 

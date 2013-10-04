@@ -268,7 +268,7 @@ DS.DRF2Adapter = DS.RESTAdapter.extend({
             store.recordWasInvalid(record, data);
         } else if (xhr.status === 500) {
             // Server error! rollback transaction so the application won't break.
-            record.get('stateManager').goToState('invalid');
+            record.transitionTo('invalid');
             // record.get('stateManager').goToState('error');
             // record.set('errors', {server: xhr.responseText[0]})
         } else {

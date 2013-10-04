@@ -46,6 +46,9 @@ urlpatterns = patterns('',
 
 urlpatterns += i18n_patterns('',
 
+    # account login/logout, password reset, and password change
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+
     url(r'social/', include('social_auth.urls')),
 
     # These URL's will be automatically prefixed with the locale (e.g. '/nl/')
