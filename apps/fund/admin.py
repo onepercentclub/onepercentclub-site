@@ -192,9 +192,36 @@ class CustomVoucherRequestAdmin(admin.ModelAdmin):
 admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
 
 
+# http://stackoverflow.com/a/16556771
+class ActiveFilter(SimpleListFilter):
+    title = _('Active')
+
+    parameter_name = 'active__exact'
+    active_choices = (('1', _('Yes')),
+                      ('0', _('No')),)
+    default = '1'
+
+    def lookups(self, request, model_admin):
+        return (('all', _('All')),) + self.active_choices
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup if self.value() else lookup == self.default,
+                'query_string': cl.get_query_string({self.parameter_name: lookup}, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        if self.value() in ('0', '1'):
+            return queryset.filter(active=self.value())
+        elif self.value() is None:
+            return queryset.filter(active=self.default)
+
+
 class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
     list_display = ('user', 'active', 'amount_override')
-    list_filter = ('active',)
+    list_filter = (ActiveFilter,)
     search_fields = ('user__email', 'user__username', 'user__first_name', 'user__last_name', 'account', 'iban', 'bic')
     raw_id_fields = ('user',)
     readonly_fields = ('created', 'updated')
