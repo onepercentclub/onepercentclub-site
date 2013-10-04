@@ -104,15 +104,16 @@ class Donation(models.Model):
 
     @property
     def payment_method(self):
+        """ The DocData payment method. """
         ctype = ContentType.objects.get_for_model(Donation)
-        order_ids = OrderItem.objects.filter(content_type__pk=ctype.id,
-                                             object_id=self.id).values_list('order_id', flat=True)
-        payments = Payment.objects.filter(order_id__in=order_ids)
-        for payment in payments:
-            if getattr(payment, 'docdata_payments', False):
-                docdata_payments = payment.docdata_payments.all()
-                if docdata_payments:
-                    return ", ".join([p.payment_method for p in docdata_payments])
+        order_item = OrderItem.objects.get(object_id=self.id, content_type=ctype)
+        latest_payment = order_item.order.latest_payment
+        if latest_payment:
+            if getattr(latest_payment, 'docdata_payments', False):
+                latest_docdata_payment = latest_payment.latest_docdata_payment
+                if latest_docdata_payment:
+                    return latest_docdata_payment.payment_method
+        return _("None")
 
     class Meta:
         verbose_name = _("donation")
