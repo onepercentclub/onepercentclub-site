@@ -210,8 +210,8 @@ App.TaskWallPostNewController = Em.ObjectController.extend({
     needs: ['currentUser', 'taskWallPostList', 'projectTask'],
     init: function() {
         this._super();
-        var transaction = this.get('store').transaction();
-        var wallPost = transaction.createRecord(App.TaskWallPost);
+        var store = this.get('store');
+        var wallPost = store.createRecord(App.TaskWallPost);
         this.set('content', wallPost);
     },
     addTextWallPost: function() {
@@ -233,7 +233,7 @@ App.TaskWallPostNewController = Em.ObjectController.extend({
 //            TODO: The record needs need to be deleted somehow.
 //            record.deleteRecord();
         });
-        wallpost.transaction.commit();
+        wallpost.save();
     }
 
 });

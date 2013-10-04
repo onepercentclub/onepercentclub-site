@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-{% blocktrans with sender_name=sender.first_name receiver_name=receiver.first_name task_title=task.title task_motivation=task.motivation %}
+{% blocktrans with sender_name=sender.first_name receiver_name=receiver.first_name task_title=task.title motivation=motivation %}
 Hello {{ receiver_name }},<br/>
 <br/>
 {{ sender_name }} applied for your task <a href="{{ site }}{{ link }}">{{ task_title }}</a>.<br />
@@ -12,7 +12,7 @@ Be sure to follow this up a.s.a.p.! <br/>
 <br/>
 As motivation {{ sender_name }} wrote:<br/>
 <br/><br/>
-<i>{{ task_motivation }}</i>
+<i>{{ motivation }}</i>
 <br/><br/>
 Good luck!<br/>
 <br/>
