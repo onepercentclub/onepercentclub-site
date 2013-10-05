@@ -113,7 +113,7 @@ class Donation(models.Model):
                 latest_docdata_payment = latest_payment.latest_docdata_payment
                 if latest_docdata_payment:
                     return latest_docdata_payment.payment_method
-        return _("None")
+        return ''
 
     class Meta:
         verbose_name = _("donation")
