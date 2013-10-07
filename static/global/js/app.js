@@ -415,6 +415,11 @@ App.Adapter.map('App.PartnerOrganization', {
     projects: {embedded: 'load'}
 });
 
+App.Adapter.map('App.Ticker', {
+    project: {embedded: 'load'},
+    user: {embedded: 'load'}
+});
+
 
 App.Store = DS.Store.extend({
     adapter: 'App.Adapter'
@@ -571,6 +576,8 @@ App.Router.map(function() {
     this.resource('myPitchNew', {path: '/my/pitch/new'});
     this.resource('myProjectList', {path: '/my/projects'});
     this.resource('partner', {path: '/pp/:partner_organization_id'});
+
+    this.resource('ticker', {path: '/latest-donations'});
 
 });
 
@@ -1552,6 +1559,13 @@ App.ContactMessageRoute = Em.Route.extend({
         if (this.get('controller')) {
             this.get('controller').stopEditing();
         }
+    }
+});
+
+// Show the latest donations
+App.TickerRoute = Em.Route.extend({
+    model: function(params) {
+        return  App.Ticker.find();
     }
 });
 

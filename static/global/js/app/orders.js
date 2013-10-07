@@ -25,6 +25,16 @@ App.Donation = DS.Model.extend({
 });
 
 
+App.Ticker = DS.Model.extend({
+    url: 'fund/latest-donations',
+    project: DS.belongsTo('App.ProjectPreview'),
+    user: DS.belongsTo('App.UserPreview'),
+    amount: DS.attr('number'),
+    created: DS.attr('date')
+});
+
+
+
 App.Voucher =  DS.Model.extend({
     url: 'fund/vouchers',
 
@@ -688,6 +698,32 @@ App.RecurringOrderThanksController = Em.ObjectController.extend({
     }.property('length')
 });
 
+
+App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
+
+    sortProperties: ['created'],
+    sortAscending: false,
+    init: function(){
+        this._super();
+        var controller = this;
+        window.setTimeout(function(){
+            controller.refresh();
+            console.log('reloading');
+        }, 5000);
+    },
+
+    refresh: function(){
+        var controller = this;
+        App.Ticker.find();
+        window.setTimeout(function(){
+            controller.refresh();
+            console.log('reloading');
+        }, 20000);
+
+    }
+
+
+});
 
 /*
  Views
