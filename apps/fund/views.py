@@ -7,6 +7,7 @@ from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
+from apps.fund.serializers import DonationInfoSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.signals import user_logged_in
 from registration.signals import user_registered
@@ -644,3 +645,16 @@ class CustomVoucherRequestList(generics.ListCreateAPIView):
 
     def pre_save(self, obj):
         mail_custom_voucher_request(obj)
+
+
+# For showing the latest donations
+class TickerList(generics.ListAPIView):
+    model = Donation
+    serializer_class = DonationInfoSerializer
+    permission_classes = (permissions.IsAdminUser,)
+    paginate_by = 20
+
+    def get_queryset(self):
+        qs = super(TickerList, self).get_queryset()
+        qs = qs.order_by('-created')
+        return qs.filter(status__in=[DonationStatuses.pending, DonationStatuses.paid])
