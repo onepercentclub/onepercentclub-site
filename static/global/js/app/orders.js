@@ -855,4 +855,13 @@ App.RecurringDirectDebitPaymentView = Em.View.extend({
 });
 
 
+App.TickerView = Em.View.extend({
+    // Remove header/footer for this view.
+    didInsertElement: function () {
+        this._super();
+        $('body').css('overflow', 'hidden');
+        $('#navigation').remove();
+        $('#footer').remove();
+    }
+});
 
