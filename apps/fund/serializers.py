@@ -1,4 +1,6 @@
 # coding=utf-8
+from apps.projects.serializers import ProjectPreviewSerializer
+from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField
 from apps.projects.models import ProjectPhases
 from django.contrib.contenttypes.models import ContentType
@@ -207,3 +209,13 @@ class CustomVoucherRequestSerializer(serializers.ModelSerializer):
         model = CustomVoucherRequest
         fields = ('id', 'status', 'number', 'contact_name', 'contact_email', 'organization', 'message',
                   'contact_phone', 'type')
+
+# For showing the latest donations
+class DonationInfoSerializer(serializers.ModelSerializer):
+    project = ProjectPreviewSerializer()
+    user = UserPreviewSerializer()
+    amount = EuroField()
+
+    class Meta:
+        model = Donation
+        fields = ('id', 'project', 'amount', 'user', 'created')

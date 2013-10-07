@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-03 09:48+0200\n"
+"POT-Creation-Date: 2013-10-04 16:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,12 +30,12 @@ msgstr ""
 msgid "%(sender)s applied for your task."
 msgstr ""
 
-#: mails.py:45
+#: mails.py:46
 #, python-format
 msgid "%(sender)s found someone else to do the task you applied for."
 msgstr ""
 
-#: mails.py:62
+#: mails.py:63
 #, python-format
 msgid "%(sender)s accepted you to complete the tasks you applied for."
 msgstr ""
@@ -221,7 +221,7 @@ msgid ""
 "<br/>\n"
 "As motivation %(sender_name)s wrote:<br/>\n"
 "<br/><br/>\n"
-"<i>%(task_motivation)s</i>\n"
+"<i>%(motivation)s</i>\n"
 "<br/><br/>\n"
 "Good luck!<br/>\n"
 "<br/>\n"
@@ -236,6 +236,9 @@ msgid ""
 "\n"
 "%(sender_name)s applied for your task \"%(task_title)s\".\n"
 "Be sure to follow this up a.s.a.p.!\n"
+"\n"
+"As motivation %(sender_name)s wrote:\n"
+"%(motivation)s\n"
 "\n"
 "Go to 1%%Task: %(site)s%(link)s.\n"
 "\n"

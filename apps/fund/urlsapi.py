@@ -3,7 +3,7 @@ from surlex.dj import surl
 from .views import OrderList, OrderDetail, OrderCurrentDetail, PaymentProfileCurrent,  VoucherDetail, \
     OrderVoucherList, OrderVoucherDetail, VoucherDonationList, VoucherDonationDetail,  CustomVoucherRequestList, \
     PaymentCurrent, RecurringDirectDebitPaymentList, RecurringDirectDebitPaymentDetail, OrderCurrentDonationDetail, \
-    OrderCurrentDonationList, NestedDonationDetail, NestedDonationList, DonationList, DonationDetail
+    OrderCurrentDonationList, NestedDonationDetail, NestedDonationList, DonationList, DonationDetail, TickerList
 
 
 urlpatterns = patterns('',
@@ -19,6 +19,9 @@ urlpatterns = patterns('',
     # Donations
     surl(r'^donations/$', DonationList.as_view(), name='fund-donation-list'),
     surl(r'^donations/<pk:#>$', DonationDetail.as_view(), name='fund-donation-detail'),
+
+    # Latest Donations
+    surl(r'^latest-donations/$', TickerList.as_view(), name='fund-ticker-list'),
 
     # Current Order (i.e. the server-side shopping cart).
     url(r'^orders/current$', OrderCurrentDetail.as_view(), {'alias': 'current'}, name='fund-order-current-detail'),

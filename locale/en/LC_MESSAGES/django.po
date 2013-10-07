@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-03 09:48+0200\n"
+"POT-Creation-Date: 2013-10-04 16:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,7 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr ""
 
-#: accounts/login.html:20 accounts/nav.html:35 registration/login.html:10
+#: accounts/login.html:20 accounts/nav.html:35
 msgid "Log in"
 msgstr ""
 
@@ -307,22 +307,6 @@ msgstr ""
 
 #: registration/logged_out.html:9
 msgid "Logged out."
-msgstr ""
-
-#: registration/login.html:19
-msgid "Email"
-msgstr ""
-
-#: registration/login.html:28
-msgid "Password"
-msgstr ""
-
-#: registration/login.html:38
-msgid "Please use your email address to log in."
-msgstr ""
-
-#: registration/login.html:39
-msgid "Your email address and password didn't match. Please try again."
 msgstr ""
 
 #: registration/password_reset_email.html:21
