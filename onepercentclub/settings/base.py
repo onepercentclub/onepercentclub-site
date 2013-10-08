@@ -272,7 +272,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 )
 
-LOGGING_DIR = os.path.join(PROJECT_ROOT, 'log')
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -298,12 +297,6 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'project': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGGING_DIR, 'project.log'),
-            'formatter': 'verbose'
-        },
     },
     'loggers': {
         'django.request': {
@@ -314,11 +307,6 @@ LOGGING = {
         'bluebottle.salesforce': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
-            'propagate': True,
-        },
-        'apps.crawlable': {
-            'handlers': ['project'],
-            'level': 'DEBUG',
             'propagate': True,
         },
     }
