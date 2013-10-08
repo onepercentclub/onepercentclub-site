@@ -41,9 +41,7 @@ class DonationSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(_("You cannot modify a Donation that does not have status new."))
         return attrs
 
-    # Not using the serailizer's validation because the donation needs to be
     def validate_amount(self, attrs, source):
-        #self.context.request
         value = attrs[source]
 
         if self.object:
@@ -64,6 +62,10 @@ class DonationSerializer(serializers.ModelSerializer):
         if value.phase != ProjectPhases.campaign:
             raise serializers.ValidationError(_("You can only donate a project in the campaign phase."))
         return attrs
+
+
+class NestedDonationSerializer(DonationSerializer):
+    order = serializers.PrimaryKeyRelatedField(read_only=True)
 
 
 class VoucherSerializer(serializers.ModelSerializer):
