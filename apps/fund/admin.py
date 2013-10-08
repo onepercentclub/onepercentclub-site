@@ -1,13 +1,13 @@
 from apps.cowry_docdata.models import DocDataPaymentOrder, payment_method_mapping
+from apps.projects.models import Project, ProjectPhases
 from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin import SimpleListFilter
 from django.contrib.admin.templatetags.admin_static import static
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
-from .models import Donation, Order, OrderItem, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment, \
+from .models import Donation, Order, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment, \
     OrderStatuses, DonationStatuses
 
 
@@ -138,39 +138,22 @@ class DonationAdminInline(admin.TabularInline):
     model = Donation
     extra = 0
     raw_id_fields = ('project',)
-    readonly_fields = ('status', 'amount_override', 'donation_type', 'edit_donation')
-    fields = ('project', 'status', 'donation_type', 'amount_override', 'edit_donation')
-
-    # TODO post_save add user if order has user
-    # TODO Also set type.
-    # TODO Ensure adding a donation works. - google search for add with edit, inline.
-
-    def amount_override(self, obj):
-        language = translation.get_language().split('-')[0]
-        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
-
-    amount_override.short_description = 'amount'
-
-    def edit_donation(self, obj):
-        url = reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.module_name), args=[obj.id])
-        return "<a href='%s'>Edit</a>" % (str(url))
-
-    edit_donation.allow_tags = True
-    edit_donation.short_description = 'Edit?'
+    fields = ('project', 'status', 'amount', 'currency')
 
 
-# TODO Implement this.
+# TODO Implement this when vouchers are added to the site.
 #class VoucherAdminInline(admin.TabularInline):
 #    model = Voucher
 #    extra = 0
+#    raw_id_fields = ('sender',)
 
 
 class OrderAdmin(admin.ModelAdmin):
     list_filter = (OrderStatusFilter, 'recurring')
     list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'type')
     raw_id_fields = ('user',)
-    readonly_fields = ('type', 'total', 'order_number', 'created', 'updated')
-    fields = readonly_fields + ('user', 'status')
+    readonly_fields = ('total', 'order_number', 'created', 'updated')
+    fields = ('recurring',) + readonly_fields + ('user', 'status')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'order_number')
     inlines = (DonationAdminInline, DocDataPaymentOrderInline,)
 
@@ -195,7 +178,8 @@ class VoucherAdmin(admin.ModelAdmin):
     list_display = ('created', 'amount_override', 'status', 'sender_email', 'receiver_email')
     readonly_fields = ('sender', 'receiver')
     fields = readonly_fields + ('status', 'amount', 'currency', 'code', 'sender_email', 'receiver_email',
-                                'receiver_name', 'sender_name', 'message', 'donations')
+                                'receiver_name', 'sender_name', 'message')
+    inlines = (DonationAdminInline,)
 
     def amount_override(self, obj):
         language = translation.get_language().split('-')[0]

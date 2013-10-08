@@ -7,7 +7,7 @@ from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
-from apps.fund.serializers import DonationInfoSerializer
+from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.signals import user_logged_in
 from registration.signals import user_registered
@@ -71,14 +71,16 @@ class OrderDetail(generics.RetrieveUpdateAPIView):
         return order
 
 
-class NestedDonationList(generics.ListCreateAPIView):
+class NestedDonationMixin(object):
     model = Donation
-    serializer_class = DonationSerializer
+    serializer_class = NestedDonationSerializer
     permission_classes = (IsUser,)
 
     def get_queryset(self):
+        qs = super(NestedDonationMixin, self).get_queryset()
+
         # First filter the default queryset by user.
-        qs = super(NestedDonationList, self).get_queryset().filter(user=self.request.user)
+        qs = qs.filter(user=self.request.user)
 
         # Second filter the queryset by the order.
         order_id = self.kwargs.get('order_pk')
@@ -95,15 +97,14 @@ class NestedDonationList(generics.ListCreateAPIView):
         if self.request.user.is_authenticated():
             obj.user = self.request.user
 
+        obj.order = order
 
-class NestedDonationDetail(generics.RetrieveUpdateDestroyAPIView):
-    model = Donation
-    serializer_class = DonationSerializer
-    permission_classes = (IsUser,)
 
-    def get_queryset(self):
-        qs = super(NestedDonationDetail, self).get_queryset()
-        return qs.filter(user=self.request.user)
+class NestedDonationList(NestedDonationMixin, generics.ListCreateAPIView):
+    pass
+
+class NestedDonationDetail(NestedDonationMixin, generics.RetrieveUpdateDestroyAPIView):
+    pass
 
 
 class DonationList(generics.ListAPIView):
