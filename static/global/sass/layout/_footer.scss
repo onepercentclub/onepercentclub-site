@@ -4,7 +4,14 @@
 	position: relative;
 	background-color: $gray-lighter;
 	font-size: $font-size-small;
-
+    
+    ul, li {
+    	margin: 0;
+        padding: 0;
+        list-style: none;
+        background-image: none;
+    }
+    
 	.footer-content {
 	    @include grid(48,1);
 	    padding: $base-padding*4 0;
