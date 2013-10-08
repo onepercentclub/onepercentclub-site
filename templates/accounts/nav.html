@@ -34,5 +34,7 @@
         {% trans "or" %}
         <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
     </li>
-
+    <li class="nav-switch-lang">
+        {{view "App.LanguageSwitchView"}}
+    </li>
 {% endblock_verbatim anonymous_user %}
