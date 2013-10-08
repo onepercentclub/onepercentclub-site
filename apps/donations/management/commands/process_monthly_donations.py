@@ -70,7 +70,7 @@ class Command(BaseCommand):
             logger.info("Config: Not sending emails.")
             send_email = False
 
-        recurring_payments_queryset = RecurringDirectDebitPayment.objects.filter(active=True)
+        recurring_payments_queryset = RecurringDirectDebitPayment.objects.filter(active=True, manually_process=False)
         if options['csv_export']:
             generate_monthly_donations_csv(recurring_payments_queryset)
         else:
@@ -135,8 +135,8 @@ def create_recurring_order(user, projects, order=None):
     for p in projects:
         project = Project.objects.get(id=p.id)
         if project.phase == ProjectPhases.campaign:
-            donation = Donation.objects.create(user=user, project=project, amount=0, currency='EUR',
-                                               donation_type=Donation.DonationTypes.recurring, order=order)
+            Donation.objects.create(user=user, project=project, amount=0, currency='EUR',
+                                    donation_type=Donation.DonationTypes.recurring, order=order)
     return order
 
 
