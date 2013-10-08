@@ -171,7 +171,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
         Integration tests for the PaymentProfile and Payment APIs.
         """
         # Setup.
-        self._make_api_donation(self.some_user, amount=35, set_payment_method=False)
+        order_id = self._make_api_donation(self.some_user, amount=35, set_payment_method=False)
         payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
         response = self.client.get(payment_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
@@ -188,7 +188,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 
         # Emulate a status change from DocData. Note we need to use an internal API from COWRY for this but it's hard
         # to avoid because we can't automatically make a DocData payment.
-        order = Order.objects.get(user=self.some_user)
+        order = Order.objects.get(id=order_id)
         adapter = _adapter_for_payment_method(order.latest_payment.payment_method_id)
         adapter._change_status(order.latest_payment, PaymentStatuses.pending)
         order = Order.objects.get(id=order.id)
@@ -458,7 +458,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 
         # Now let's make sure the donations in this order change to pending.
         order = Order.objects.get(pk=order_id)
-        for donation in order.donations:
+        for donation in order.donations.all():
             donation.status = DonationStatuses.pending
             donation.save()
 
