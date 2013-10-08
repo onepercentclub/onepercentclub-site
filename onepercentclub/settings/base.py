@@ -272,6 +272,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 )
 
+LOGGING_DIR = os.path.join(PROJECT_ROOT, 'log')
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -297,6 +298,12 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
+        'project': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'project.log'),
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django.request': {
@@ -307,6 +314,11 @@ LOGGING = {
         'bluebottle.salesforce': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
+            'propagate': True,
+        },
+        'apps.crawlable': {
+            'handlers': ['project'],
+            'level': 'DEBUG',
             'propagate': True,
         },
     }
@@ -629,6 +641,8 @@ CRAWLABLE_PHANTOMJS_DEDICATED_MODE = True
 CRAWLABLE_PHANTOMJS_DEDICATED_PORT = 8910
 # If dedicated mode is disabled, you can specify arguments to start phantomjs.
 CRAWLABLE_PHANTOMJS_ARGS = []
+# Use HTTPS for PhantomJS requests.
+CRAWLABLE_FORCE_HTTPS = True
 
 # Send email to console by default
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
