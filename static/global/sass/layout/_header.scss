@@ -4,7 +4,6 @@
 
 #header {
 	background-color: $black;
-	overflow: hidden;
 }
 
 #logo {
@@ -45,10 +44,11 @@
 	//min-height: 64px;
 	//font-size: $font-size-small;
 	
-    > ul {
+    ul, li {
     	margin: 0;
         padding: 0;
         list-style: none;
+        background-image: none;
     }
 	
 	.nav-main {

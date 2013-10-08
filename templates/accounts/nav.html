@@ -54,17 +54,15 @@
             {{#linkTo 'currentOrder.index'}}
                 <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span>
                 {% trans "Donations" %} 
-                <em class="flaticon solid right-2"></em>
+                <span class="flaticon solid right-2"></span>
             {{/linkTo}}
         </li>
     {{/if}}
-
 {% endblock_verbatim donations_anchor %}
 
 
 {% block_verbatim anonymous_user %}
-
-    <li class="nav-member-actions">
+    <li class="nav-signup-login">
         {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
         {% trans "or" %}
         <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
