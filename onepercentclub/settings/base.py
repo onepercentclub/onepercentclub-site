@@ -356,7 +356,6 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--detailed-errors',
     '--nologcapture',
-    '-e=bluebottle',
 ]
 
 SKIP_BB_FUNCTIONAL_TESTS = True
