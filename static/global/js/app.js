@@ -549,19 +549,6 @@ App.Router.map(function() {
 
     this.resource('taskList', {path: '/tasks'});
 
-    accounts_router.call(this);
-
-    // this.resource('signup');
-
-    // this.resource('user', {path: '/member'}, function() {
-    //     this.resource('userProfile', {path: '/profile/'});
-    //     this.resource('userSettings', {path: '/settings'});
-    //     this.resource('userOrders', {path: '/orders'});
-    // });
-
-    // this.route('userActivate', {path: '/activate/:activation_key'});
-    // this.resource('passwordReset', {path: '/passwordreset/:reset_token'});
-
     this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
         this.resource('myProjectPlan', {path: 'plan'}, function() {
             this.route('index');
