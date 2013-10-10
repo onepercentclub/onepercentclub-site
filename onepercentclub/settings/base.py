@@ -207,7 +207,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'taggit',
     'taggit_autocomplete_modified',
-    'micawber.contrib.mcdjango', # Embedding videos
+    'micawber.contrib.mcdjango',  # Embedding videos
     'templatetag_handlebars',
     'rest_framework',
     'polymorphic',
@@ -246,7 +246,7 @@ INSTALLED_APPS = (
     'apps.organizations',
     'apps.projects',
     'apps.fund',
-    'apps.recurring_donations',
+    'apps.donations',
     'bluebottle.geo',
     'apps.hbtemplates',
     'apps.wallposts',

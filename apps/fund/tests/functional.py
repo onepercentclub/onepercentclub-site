@@ -30,9 +30,9 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         ]])
 
         for slug, title in self.projects.items():
-            project = self.create_project(title=title, slug=slug, money_asked=50000) # EUR 500.00
+            project = self.create_project(title=title, slug=slug, money_asked=50000)  # EUR 500.00
 
-            project.projectcampaign.money_donated = 500 # EUR 5.00
+            project.projectcampaign.money_donated = 500  # EUR 5.00
             project.projectcampaign.save()
             project.phase = 'campaign'
 
@@ -51,7 +51,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         self.visit_path('/projects', lang_code)
 
         self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),
-                'Cannot load the project list page.')
+                        'Cannot load the project list page.')
 
     def test_view_project_page_with_donation(self):
         """
@@ -65,10 +65,10 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         # Click through to the project and verify we can support the project
         # and the fundraising values we expect
 
-        self.browser.find_by_css('h3').first.click() # First project in the list
-        self.assertTrue(self.browser.is_text_present('WOMEN FIRST',
-                                                     wait_time=10))
+        self.browser.find_by_css('h3').first.click()  # First project in the list
+        self.assertTrue(self.browser.is_text_present('WOMEN FIRST', wait_time=10))
         self.assertEqual(self.browser.find_by_css('h1.project-title').first.text, u'WOMEN FIRST')
+
         donation_status_text = self.browser.find_by_css('p.donate-amount').first.text
         self.assertTrue(u'5 OF' in donation_status_text and u'500 RAISED' in donation_status_text)
         self.assertTrue(u'SUPPORT PROJECT' in self.browser.find_by_css('div.donate-call-to-action').first.text)
