@@ -1,11 +1,10 @@
 import csv
 import logging
-
 import os
 from registration.models import RegistrationProfile
 from django.utils import timezone
-from apps.cowry_docdata.models import payment_method_mapping
-from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, RecurringDirectDebitPayment
+from django.contrib.contenttypes.models import ContentType
+from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, OrderItem, RecurringDirectDebitPayment
 from apps.organizations.models import Organization, OrganizationAddress
 from bluebottle.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, \
@@ -471,12 +470,13 @@ def generate_donations_csv_file(path, loglevel):
                     name = "1%MEMBER"
 
                 # Get the payment method from the associated order / payment
-                payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
-                if donation.order:
-                    lp = donation.order.latest_payment
-                    if lp and lp.latest_docdata_payment:
-                        if lp.latest_docdata_payment.payment_method in payment_method_mapping:
-                            payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
+                oi = OrderItem.objects.filter(object_id=donation.id).get(
+                    content_type=ContentType.objects.get_for_model(Donation))
+                lp = oi.order.latest_payment
+                if lp:
+                    payment_method = lp.latest_docdata_payment.payment_method
+                else:
+                    payment_method = ''
 
                 csvwriter.writerow([donation.id,                                            # Donation_External_ID__c
                                     receiver_id,                                            # Receiver__c

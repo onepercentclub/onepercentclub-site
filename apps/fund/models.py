@@ -2,6 +2,8 @@ import logging
 import random
 from babel.numbers import format_currency
 from django.conf import settings
+from django.contrib.contenttypes.generic import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
@@ -87,9 +89,7 @@ class DonationStatuses(DjangoChoices):
 
 
 class Donation(models.Model):
-    """
-    Donation of an amount from a user to a project. A Donation can be connected to an Order or a Voucher but not both.
-    """
+    """ Donation of an amount from a user to a project. """
     class DonationTypes(DjangoChoices):
         one_off = ChoiceItem('one_off', label=_("One-off"))
         recurring = ChoiceItem('recurring', label=_("Recurring"))
@@ -98,7 +98,6 @@ class Donation(models.Model):
     amount = models.PositiveIntegerField(_("Amount"))
     currency = models.CharField(_("currency"), max_length=3, default='EUR')
 
-    # User is more or less a cache of the order user or the voucher receiver depending on which is being used.
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
     project = models.ForeignKey('projects.Project', verbose_name=_("Project"))
 
@@ -110,20 +109,27 @@ class Donation(models.Model):
 
     # A Donation can be paid with an Order or a Voucher but not both.
     order = models.ForeignKey('Order', verbose_name=_("Order"), related_name='donations', null=True)
-    voucher = models.ForeignKey('Voucher', verbose_name=_("Voucher"), related_name='donations', null=True)
+    # TODO: Add 'related_name='donations'.
+    voucher = models.ForeignKey('Voucher', verbose_name=_("Voucher"), null=True)
+
+    # https://github.com/tomchristie/django-rest-framework/issues/821
+    # def clean(self):
+    #     if self.order and self.voucher:
+    #         raise ValidationError(_("A Donation cannot have both an Order and a Gift Card associated with it."))
+    #     if not self.order and not self.voucher:
+    #         raise ValidationError(_("A Donation needs to be connected to an Order or a Gift Card."))
 
     @property
     def payment_method(self):
         """ The DocData payment method. """
-        if self.order:
-            latest_payment = self.order.latest_payment
-            if latest_payment:
-                if getattr(latest_payment, 'docdata_payments', False):
-                    latest_docdata_payment = latest_payment.latest_docdata_payment
-                    if latest_docdata_payment:
-                        return latest_docdata_payment.payment_method
-        elif self.voucher:
-            return _("Gift Card")
+        ctype = ContentType.objects.get_for_model(Donation)
+        order_item = OrderItem.objects.get(object_id=self.id, content_type=ctype)
+        latest_payment = order_item.order.latest_payment
+        if latest_payment:
+            if getattr(latest_payment, 'docdata_payments', False):
+                latest_docdata_payment = latest_payment.latest_docdata_payment
+                if latest_docdata_payment:
+                    return latest_docdata_payment.payment_method
         return ''
 
     class Meta:
@@ -137,27 +143,6 @@ class Donation(models.Model):
         return u'{0} - {1} - {2}'.format(str(self.id), self.project.title,
                                          format_currency(self.amount / 100.0, self.currency, locale=language))
 
-    # FIXME: This needs to be implemented. There is an idea about how to workaround the problem in this issue.
-    # https://github.com/tomchristie/django-rest-framework/issues/821
-    #def clean(self):
-    #     if self.order and self.voucher:
-    #         raise ValidationError(_("A Donation cannot have both an Order and a Gift Card associated with it."))
-    #     if not self.order and not self.voucher:
-    #         raise ValidationError(_("A Donation needs to be connected to an Order or a Gift Card."))
-
-    def save(self, *args, **kwargs):
-        # Automatically set the user and donation_type based on the order. This is required so that donations always
-        # have the correct user and donation_type regardless of how they are created. User is more or less a cache of
-        # the order user or the voucher receiver.
-        if self.order:
-            if self.order.user != self.user:
-                self.user = self.order.user
-            if self.order.recurring and self.donation_type != self.DonationTypes.recurring:
-                self.donation_type = self.DonationTypes.recurring
-            elif not self.order.recurring and self.donation_type != self.DonationTypes.one_off:
-                self.donation_type = self.DonationTypes.one_off
-        super(Donation, self).save(*args, **kwargs)
-
 
 class OrderStatuses(DjangoChoices):
     current = ChoiceItem('current', label=_("Current"))  # The single donation 'shopping cart' (editable).
@@ -167,7 +152,7 @@ class OrderStatuses(DjangoChoices):
 
 class Order(models.Model):
     """
-    An order is a collection of Donations and vouchers with a connected payment.
+    Order holds OrderItems (Donations/Vouchers).
     """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), blank=True, null=True)
     status = models.CharField(_("Status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
@@ -240,6 +225,28 @@ class Order(models.Model):
         super(Order, self).save(*args, **kwargs)
 
 
+class OrderItem(models.Model):
+    """
+    This connects a Donation or a Voucher to an Order. It's generic so that Donations don't have to know about Orders
+    and so that we can add more Order types easily.
+    """
+    order = models.ForeignKey(Order)
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    # Calculate properties for ease of use (e.g. in serializers).
+    @property
+    def amount(self):
+        if self.content_object:
+            return self.content_object.amount
+        return 0
+
+    @property
+    def type(self):
+        return self.content_object.__class__.__name__
+
+
 class VoucherStatuses(DjangoChoices):
     new = ChoiceItem('new', label=_("New"))
     paid = ChoiceItem('paid', label=_("Paid"))
@@ -273,6 +280,7 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("Receiver email"))
     receiver_name = models.CharField(_("Receiver name"), blank=True, default="", max_length=100)
 
+    donations = models.ManyToManyField('Donation', related_name='vouchers_temp')
     order = models.ForeignKey(Order, verbose_name=_("Order"), related_name='vouchers', null=True)
 
     class Meta:
@@ -331,7 +339,6 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
     #                   paid
     #                   failed
     #                   cancelled
-    #                   chargedback
     #                   refunded
     #                   unknown
 

@@ -458,7 +458,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 
         # Now let's make sure the donations in this order change to pending.
         order = Order.objects.get(pk=order_id)
-        for donation in order.donations.all():
+        for donation in order.donations:
             donation.status = DonationStatuses.pending
             donation.save()
 
