@@ -3,11 +3,12 @@
 // --------------------------------------------------
 
 .tabs {
+    @include grid(48,1,1);
     @include clear;
-    clear: both;
+    margin-bottom: 0;
+    margin-top: 0;
     padding: 0;
-    margin: 0;
-     
+    
     &.two li {
         @include grid(24,0,0);
     } 
@@ -26,55 +27,74 @@
         position: relative;
         
        	> a, > span {
-	        color: $color-text;
-	        display: block;
-	        text-decoration: none;
-	        overflow: hidden;
-	        @include rem(padding, 12px 16px 12px 16px);
-	        text-transform: uppercase;
-	        border-right: 1px solid $gray;
-			margin-right: 1px;
+       	    @include transition(color 0.2s ease-out, background-color 0.2s ease-out);
+            color: $gray-dark;
+            display: block;
+            overflow: hidden;
+            text-decoration: none;
+            padding: $base-padding;
+            text-transform: uppercase;
+            border-right: 1px dotted $gray-light;
+            
+            .tab-icon {
+                @include transition(all 0.2s ease-out);
+                display: block;
+                float: left;
+                background-color: $gray-light;
+                @include border-radius(16px);
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+                font-family: $font-family-heavy;
+                text-align: center;
+                color: $color-text-light;
+            }
+            
+            .tab-title {
+                display: block;
+                font-size: $font-size-small;
+                line-height: 1.3em;
+                margin-left: 32px + $base-margin;
+            }
+            
+            .tab-subtitle {
+                display: block;
+                font-size: $font-size-smallest;
+                font-style: normal;
+                font-family: $base-font-family;
+            }
+            
+            &:hover {
+                color: $color-text;
+                background-color: $gray-light;
+                
+                .tab-icon {
+                    background-color: $color-text;
+                    @include scale(1.2);
+                }
+                
+            }
+            
+            &:active {
+                
+            }
 	        
-	        .tab-icon {
-	            display: block;
-	            background-color: $color-text;
-	            @include border-radius(15px);
-	            width: 30px;
-	            height: 30px;
-	            font-family: $font-family-bold;
-	            text-align: center;
-	            color: $color-text-light;
-	            font-style: normal;
-	            float: left;
-	        }
-	        
-	        .tab-title {
-	            font-size: $font-size-small;
-	            margin-left: $base-margin;
-	            display: block;
-	            float: left;
-	        }
-	        
-	        .tab-subtitle {
-	            
-	            font-style: normal;
-	            display: block;
-	            font-family: $base-font-family;
-	        }
 	    }
         
-        &.first > a, &.first > span {
-			border-left: 1px solid $gray;
+        &:first-of-type > a, &:first-of-type > span {
+			border-left: 1px dotted $gray-light;
 		}
 
     }
     
-        
-    li > a.active, li.is-active > a, li a:hover, li > a:active, li > span.active, li.is-active > span, li > span:hover, li > span:active {
-        .tab-icon {
+    // TODO create only one type for active state: li.is-active
+    li.is-active > a, li > a.active, li.is-active > span, li > span.active {
+    	background-color: $white;
+    	border-color: $white;
+    	
+    	.tab-icon {
             background-color: $color-secondary;
             color: $white;
-            letter-spacing: -0.2;
         }
         
         .tab-title {
@@ -84,12 +104,6 @@
         .tab-subtitle {
             color: $color-text;
         } 
-    }
-    
-    li.is-active > a, li > a.active, li.is-active > span, li > span.active {
-    	@include rem(padding, 12px 16px 18px 16px);
-    	background-color: $white;
-    	border-color: $white;
     }
     
     &.steps {

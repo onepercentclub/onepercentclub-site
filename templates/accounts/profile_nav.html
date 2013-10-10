@@ -1,29 +1,22 @@
 {% extends "accounts:accounts/profile_nav.html" %}
 {% load bb_ember i18n %}
 
-
 {% block profile_text_preview %}
-    
-    {% trans "My 1%" %}
-    <span class="profile-title">
-        {% trans "Profile" %}
-    </span>
-    <small>
-        <em class="flaticon solid eye-1"></em>
-        {% trans "Preview my profile" %}
-    </small>
-
+    <header class="account-member-preview">
+        <h1 class="account-title">{% trans "My 1%" %}</h1>
+        <strong>{% trans "My profile" %}</strong>
+        <em><span class="flaticon solid eye-1"></span> {% trans "Preview" %}</em>
+    </header>
 {% endblock profile_text_preview %}
 
     
 {% block_verbatim extra_profile_nav_tabs %}
     
     <li class="tab-item">
-        {{#linkTo "userOrders" }}
-            <em class="tab-icon amount"><i class="flaticon solid wallet-1"></i></em>
+        {{#linkTo 'userOrders' }}
+            <span class="tab-icon"><span class="flaticon solid wallet-1"></span></span>
             <strong class="tab-title">{% trans "Payment" %} <em class="tab-subtitle">{% trans "Orders" %}</em></strong>
         {{/linkTo}}
     </li>
 
 {% endblock_verbatim extra_profile_nav_tabs %}
-

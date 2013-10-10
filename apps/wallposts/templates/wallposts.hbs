@@ -17,7 +17,7 @@
             {{/if}}
         {{else}}
         	<h3>{% trans "Write a comment" %}</h3>
-        	<p>{% trans "You have to" %} <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a> or {{#linkTo "signup"}}{% blocktrans %}become a 1%Member{% endblocktrans %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+        	<a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
         {{/if}}
     </div>
 
@@ -342,9 +342,7 @@
 	    {{#if controllers.currentUser.isAuthenticated }}
 	        {{ render "taskWallPostNew" }}
 	    {{else}}
-	        <div class="login-form">
-	            <a {{action openInBox "login"}} class="nav-login">{% trans "Login" %}</a> {% trans "or become a" %} <a href="/accounts/signup">{% trans "member" %}</a> {% trans "to leave a comment." %}
-	        </div>
+	        <div class="login-box"><a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a reaction" %}.</div>
 	    {{/if}}
 
     {{#each item in items itemController="wallPost"}}
@@ -354,7 +352,7 @@
     {{/each}}
 
     {{#if canLoadMore}}
-        <a {{action "showMore"}} class="show-more"><span class="flaticon solid plus-2"></span> {% trans "Show more" %}</a>
+        <a {{action "showMore"}} class="btn-show-more"><span class="flaticon solid plus-2"></span> {% trans "Show more" %}</a>
     {{/if}}
 
 {% endtplhandlebars %}

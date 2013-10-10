@@ -2,6 +2,8 @@
 // Reactions
 // --------------------------------------------------
 
+
+
 .reaction-form {
     @include clear;
     @include prepend(10);
@@ -30,7 +32,7 @@
     }
     
     textarea {
-        padding-left: 40px + $base-padding;
+        padding-left: 40px;
         overflow: hidden;
         height: 40px;
     }
@@ -59,7 +61,7 @@
         
         textarea {
             height: 70px;
-            padding-left: 70px + $base-padding;
+            padding-left: 70px;
         }
         
         button {

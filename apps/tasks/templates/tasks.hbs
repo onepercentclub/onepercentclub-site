@@ -5,22 +5,22 @@
 
 {% tplhandlebars "task_preview" %}
 	
-    <li class="item item-task">
-    	<a {{action showTask task}}>
+    <li class="task-item">
+    	<a {{action 'showTask' task}}>
     	
-	        <h2><em class="flaticon solid wrench-1"></em> {{task.skill.name}}</h2>
-	        
-	        <span class="item-header">
-            	<span class="item-image">
+    	    <h2 class="task-category"><span class="flaticon solid wrench-1"></span> {{task.skill.name}}</h2>
+    	
+    	    <span class="task-header">
+                <span class="task-image">
                 	<img {{bindAttr src="project.image" }} />
             	</span>
-                <span class="item-project-title">
+                <span class="task-title">
                 	<h3>{{task.title}}</h3>
-                	<h4>{{project.title}}</h4>                   
+                	<h4>{{project.title}}</h4> 
                 </span>
             </span>
             
-	        <div class="item-footer">
+	        <div class="task-status">
 	            <ul>
 	                <li>
 	                    {{#if task.isStatusOpen}}
@@ -41,19 +41,18 @@
 	                    {{/if}}
 	
 	                </li>
-	                {{#if task.isStatusRealized}}
-	                {{else}}
+	                {{#unless task.isStatusRealized}}
 	                <li>
-	                	<em class="flaticon solid calendar-1"></em>
+	                	<span class="flaticon solid calendar-1"></span>
 	                    {{ localize task.deadline formatting="X" }}
 	                </li>
-	                {{/if}}
+	                {{/unless}}
 	                <li>
-	                    <em class="flaticon solid watch-1"></em>
+	                    <span class="flaticon solid watch-1"></span>
 	                    {{ task.timeNeeded }}
 	                </li>
 	                <li>
-	                	<em class="flaticon solid location-pin-1"></em>
+	                	<span class="flaticon solid location-pin-1"></span>
 	                	{{project.country.name}}
 	                </li>
 	            </ul>
@@ -67,61 +66,57 @@
 {% tplhandlebars "task_list" %}
 
     {{render "taskSearchForm" }}
-
-    <div class="container">
-        <section class="wrapper">
+    
+    <div class="l-section">
+        <section class="l-wrapper">
             <article>
-                <header>
-                    {{#if model.isLoaded}}
-                        <ul id="results">
-                            {{#each task in model}}
-                            	{{render "taskPreview" task}}
-                            {{else}}
-                                <li class="no-results">{% trans "No tasks found." %}</li>
-                            {{/each}}
-                        </ul>
+            {{#if model.isLoaded}}
+                <ul id="search-results">
+                    {{#each task in model}}
+                        {{render "taskPreview" task}}
                     {{else}}
-                        <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "loading tasks" %}</span>
-                    {{/if}}
-                </header>
-            </article>
+                        <li class="no-results">{% trans "No tasks found." %}</li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Loading projects" %}</span>
+            {{/if}}
         </section>
     </div>
-
+    
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "task_search_form" %}
 
-    <div class="container section">
-        <section class="wrapper">
-            <article class="search-form">
+    <div class="l-section" id="search">
+        <section class="l-wrapper">
+            <form id="search-form">
                 <div class="control">
-                    <em class="flaticon solid skill-1"></em>
+                    <span class="flaticon stroke skill-1"></span>
                     {{view App.SkillSelectView valueBinding="skill" }}
                 </div>
                 <div class="control">
-                    <em class="flaticon solid inbox-6"></em>
+                    <span class="flaticon stroke inbox-6"></span>
                     {{view App.TaskStatusSelectView valueBinding="status" }}
                 </div>
                 <div class="clear-form">
-                    <a {{action clearForm}}>
-                        <span class="flaticon solid x-2"></span>
-                        {% trans "clear filters" %}
+                    <a {{action 'clearForm'}}>
+                        <span class="flaticon solid x-2"></span> {% trans "Reset" %}
                     </a>
                 </div>
-            </article>
+            </form>
         </section>
     </div>
     
-    <div class="container">
-        <section class="wrapper">
+    <div class="l-section">
+        <section class="l-wrapper">
             <article id="search-navigation">
             	
-            	<div class="search-results">
+            	<header>
                 	<h2>{% trans "Results" %} <em>{{controllers.taskList.model.meta.total}}</em></h2>
-            	</div>
-                
+            	</header>
+            	
                 <div class="search-sort">
                     <strong>{% trans "Sort:" %}</strong>
                     <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
@@ -133,18 +128,18 @@
                 	<span class="search-pages-control">
 		                {{#if hasPreviousPage}}
 		                    <a {{action "previousPage"}} class="previous-page">
-		                        <em class="flaticon solid left-circle-2"></em>
+		                        <span class="flaticon solid left-circle-2"></span>
 		                    </a>
 		                {{else}}
-		                	<span class="previous-page"><em class="flaticon solid left-circle-2"></em></span>
+		                	<span class="previous-page"><span class="flaticon solid left-circle-2"></span></span>
 		                {{/if}}
 		                
 		                {{#if hasNextPage}}
 		                    <a {{action "nextPage"}} class="next-page">
-		                        <em class="flaticon solid right-circle-2"></em>
+		                        <span class="flaticon solid right-circle-2"></span>
 		                    </a>
 		                {{else}}
-		                	<span class="next-page"><em class="flaticon solid right-circle-2"></em></span>
+		                	<span class="next-page"><span class="flaticon solid right-circle-2"></span></span>
 		                {{/if}}
                 	</span>
                 </div>
@@ -158,18 +153,18 @@
 
 {% tplhandlebars "project_task_preview" %}
 
-    <li class="item item-task">
+    <li class="task-item">
     	{{#linkTo 'projectTask' task}}
     	
-	        <h2><em class="flaticon solid wrench-1"></em>{{task.skill.name}}</h2>
+	        <h2><span class="flaticon solid wrench-1"></span>{{task.skill.name}}</h2>
 	        
-	        <span class="item-header">
-                <span class="item-task-title">
+	        <span class="task-header">
+                <span class="task-title">
                 	<h3>{{task.title}}</h3>                 
                 </span>
             </span>
             
-	        <div class="item-footer">
+	        <div class="task-status">
 	            <ul>
 	                <li>
 	                    {{#if task.isStatusOpen}}
