@@ -14,8 +14,8 @@
                     </header>
                 </div>
                 <sidebar class="l-sidebar">
-                    {{#linkTo 'currentOrder.donationList' tagName="a" class="button-link"}}
-                        <em class="flaticon solid credit-card-1"></em> {% trans "Switch to donations" %}
+                    {{#linkTo 'currentOrder.donationList' tagName="a" class="btn-link"}}
+                        <span class="flaticon solid credit-card-1"></span> {% trans "Switch to donations" %}
                     {{/linkTo}}
                 </sidebar>
             </section>
@@ -236,7 +236,7 @@
 	{{else}}
 		<h3>Did you know?</h3>
 		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly.{% endblocktrans %}
-		<p class="action-link">{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo}}</p>
+		<p class="btn-link">{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <span class="flaticon solid right-angle-quote-1"></span>{{/linkTo}}</p>
 	{{/if}}
 </div>
 
@@ -251,15 +251,15 @@
 	<form>
 	    <fieldset>
 	    	
-	    	<div class="form-meta">
+	    	<legend>
 	    	{{#if controllers.currentUser.isAuthenticated}}
-	    		<div class="form-label">{% trans "Great your doing another donation!" %}</div>
-				<div class="form-desc">{% trans "To process your donation, please check if your information is still correct." %}</div>
+	    		<strong>{% trans "Great your doing another donation!" %}</strong>
+				<p>{% trans "To process your donation, please check if your information is still correct." %}</p>
 	    	{{else}}
-				<div class="form-label">{% trans "Please to meet you" %}</div>
-				<div class="form-desc">{% trans "To process your donation we need some information." %}</div>
+				<strong>{% trans "Please to meet you" %}</strong>
+				<p>{% trans "To process your donation we need some information." %}</p>
 	    	{{/if}}
-	    	</div>
+	    	</legend>
 	    	
 	        {{#if model.isLoaded}}
 	            <ul>
@@ -329,9 +329,9 @@
 	    </fieldset>
 	
 	    {{#if isFormReady }}
-	        <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans 'Next Step' %}</button>
+	        <button class="btn btn-primary btn-iconed"><span class="flaticon solid right-2"></span>{% trans 'Next Step' %}</button>
 	    {{else}}
-	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next Step" %}</button>
+	        <button disabled class="btn btn-iconed"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
 	    {{/if}}
 	
 	</form>
@@ -356,27 +356,26 @@
 
 {% tplhandlebars "currentOrderDonation" %}
 
-    {{#linkTo 'project' project}}
-        <img {{bindAttr src="project.plan.image.square" alt="project.title"}} class="project-image" />
-        <h2>
+    {{#linkTo 'project' project  class="project-header" }}
+        <figure class="project-image">
+            <img {{bindAttr src="project.plan.image.square" alt="project.title"}} />
+        </figure>
+        <h2 class="project-title">
             {{ project.title }}
-            <em class="country">
-                <em class="flaticon solid location-pin-1"></em> {{ project.plan.country.name }}, {{ project.plan.country.subregion }}
+            <em class="project-location">
+                <span class="flaticon solid location-pin-1"></span> {{ project.plan.country.name }}
             </em>
         </h2>
     {{/linkTo}}
 
-    <div class="donation-amount">
-        <div class="amount-needed">
-            <strong>&euro; {{ project.campaign.money_needed }}</strong> {% trans "is still needed"%}
-        </div>
-
-        <div class="amount-control">
+    <div class="fund-amount">
+        <strong class="fund-amount-needed">&euro; {{ project.campaign.money_needed }}</strong> {% trans "is still needed"%}
+        <div class="fund-amount-control">
             {{#each error in errors.amount}}
                 <span class="errors">{{ error }}</span>
             {{/each}}
             {{#if controllers.currentOrder.recurring }}
-                <span class="divided-amount">&euro; 
+                <span class="fund-monthly-amount">&euro; 
                  {{#if controllers.currentOrderDonationList.editingRecurringOrder }}
                         {{ tempRecurringAmount }}
                    {{else}}
@@ -384,16 +383,16 @@
                     {{/if}}
                 </span>
             {{else}}
-                <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+                <label for="fund-amount-1">{% trans "I'd like to give" %}</label>
                 <span class="currency"><em>&euro; </em>
-                    <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} />
+                    <input type="number" class="fund-amount-input" id="fund-amount-1" step="5" name="fund-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} />
                 </span>
             {{/if}}
         </div>
     </div>
 
-    <a class="remove" {{action "deleteDonation" this target="view" }}>
-        <em class="flaticon solid x-2"></em>
+    <a class="project-delete" {{action "delete" this target="view" }}>
+        <span class="flaticon solid x-2"></span>
     </a>
 
 {% endtplhandlebars %}
@@ -406,18 +405,18 @@
 	{{ outlet }}
 	
 {{else}}
-	<div class="content">
+	<div class="l-content">
 		<form>
-	    	<div class="form-meta">
-				<div class="form-label">{% trans "You're almost there!" %}</div>
-				<div class="form-desc">{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</div>
-			</div>
+	    	<label>
+				<strong>{% trans "You're almost there!" %}</strong>
+				<p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+			</label>
 	    	
 	        {{#if paymentInProgress }}
 	            <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Processing payment..." %}</span>
-	            <button disabled class="btn btn-primary btn-iconed right" {{action "proceedWithPayment"}}><em class="flaticon solid right-2"></em>{% trans "Proceed with Payment" %}</button>
+	            <button disabled class="btn btn-primary btn-iconed right" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
 	        {{else}}
-	            <button class="btn btn-primary btn-iconed right" {{action "proceedWithPayment"}}><em class="flaticon solid right-2"></em>{% trans "Proceed with Payment" %}</button>
+	            <button class="btn btn-primary btn-iconed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
 	        {{/if}}
 		</form>
 	</div>
@@ -429,31 +428,29 @@
 {% tplhandlebars "paymentSignup" %}
 
 {{#if controllers.currentUser.isAuthenticated}}
-    <div class="content">
+    <div class="l-content">
         <form>
-
-            <div class="form-meta">
-                <div class="form-label">{% trans "We'll keep you up to date!" %}</div>
-                <div class="form-desc">{% blocktrans %}You already have an account. Great! We'll keep you updated with the progress of the projects you support{% endblocktrans %}.<br /></div>
+            <label>
+                <strong>{% trans "We'll keep you up to date!" %}</strong>
+                <p>{% blocktrans %}You already have an account. Great! We'll keep you updated with the progress of the projects you support{% endblocktrans %}.<br /></div>
                 
-            </div>
+            </label>
         </form>
         {{#linkTo 'paymentSelect'}}
-            <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Next" %}</button>
+            <button class="btn btn-primary btn-iconed"><em class="flaticon solid right-2"></em>{% trans "Next" %}</button>
         {{/linkTo}}
     </div>
     
 {{else}}
 	
-    <div class="content">
+    <div class="l-content">
         <form>
-        
-			<div class="form-meta">
-				<div class="form-label">{% trans "Follow the progress?" %}</div>
-				<div class="form-desc">{% trans "Sign up for an account and we keep you updated on the projects progress" %}.</div>
-			</div>
+            <fieldset>        
+    			<label>
+    				<strong>{% trans "Follow the progress?" %}</strong>
+    				<p>{% trans "Sign up for an account and we keep you updated on the projects progress" %}.</p>
+    			</label>
 
-            <fieldset>
                 <ul>
                     <li class="control-group">
                         <label class="control-label">{% trans "Your full name" %}</label>
@@ -495,15 +492,15 @@
                 </ul>
             </fieldset>
 
-            <div class="user-agree">
+            <p class="authorisation">
                 {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
                 <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
-            </div>
+            </p>
             
             {{#if isFormReady }}
-                <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+                <button class="btn btn-primary btn-iconed"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
             {{else}}
-                <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+                <button disabled class="btn btn-iconed"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
             {{/if}}
             
             {{#linkTo 'paymentSelect' class="btn-skip"}}Skip this step{{/linkTo}}
@@ -511,7 +508,7 @@
         </form>
     </div>
 
-    <div class="sidebar tip">
+    <div class="l-sidebar">
     
     	{{#unless controllers.currentUser.isAuthenticated}}
 		    <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
@@ -524,15 +521,15 @@
 
 
 {% tplhandlebars "recurringDirectDebitPayment" %}
-<div class="content">
+<div class="l-content">
 	<form>
-	
-		<div class="form-meta">
-	    	<div class="form-label">{% trans "You're almost there!" %}</div>
-	        <div class="form-desc">{% trans "Add or edit your bank account information and submit to set your monthly donations." %}</div>
-	    </div>
-	    
 	    <fieldset>
+	    	    
+    		<label>
+    	    	<strong>{% trans "You're almost there!" %}</strong>
+    	        <p>{% trans "Add or edit your bank account information and submit to set your monthly donations." %}</p>
+    	    </label>
+	    
 	        <ul>
 	            <li class="control-group">
 	                <label class="control-label">{% trans "Account Name" %}</label>
@@ -571,18 +568,18 @@
 	    {{#if isFormReady }}
 	        {{#if paymentInProgress }}
 		        <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" height="16px"  /> {% trans "Updating monthly donation ..." %}</span>
-		        <button disabled class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+		        <button disabled class="btn btn-primary btn-iconed"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
 	        {{else}}
-	            <button class="btn btn-primary btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+	            <button class="btn btn-primary btn-iconed"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
 	        {{/if}}
 	    {{else}}
-	        <button disabled class="btn btn-iconed right"><em class="flaticon solid right-2"></em>{% trans "Submit" %}</button>
+	        <button disabled class="btn btn-iconed"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
 	    {{/if}}
 	
 	</form>
 </div>
 	
-<div class="sidebar tip">
+<div class="l-sidebar">
 	<h3>{% trans "Your monthly donation" %}</h3>
 	<p>{% blocktrans %}Thank you 1%Friend! You're about to set your monthly donation amount to &euro;{% endblocktrans %} {{controllers.currentOrderDonationList.recurringTotal}}</p>
 </div>	
@@ -594,10 +591,11 @@
 {# TODO This isn't currently used but we want to be. #}
 {% tplhandlebars "payment_multi" %}
 
-    <div class="intro">
+    <header>
         <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
         {% trans "Choose the payment method you prefer to donate." %}
-    </div>
+    </header>
+    
     <fieldset>
         <div class="tabs vertical">
             {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="paymentMethod"}}
@@ -645,7 +643,7 @@
 				</figure>
             	
             	<header>
-                	<h1 class="main-title">{% trans "Donation Successful!" %}</h1>
+                	<h1>{% trans "Donation Successful!" %}</h1>
 					{{#if controllers.currentUser.isAuthenticated }}
                 		<p>{% blocktrans %}
 						Thanks for your support! Your 1% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! 
@@ -666,22 +664,22 @@
         <section class="l-wrapper">
 			<div class="l-content">
 			
-				<div class="intro">
+				<header>
                 	{{#if moreThanOneDonation }}
                         <h3>{% trans "You just supported these projects" %}</h3>
                     {{ else }}
                         <h3>{% trans "You just supported this project" %}</h3>
                     {{/if}}
-                </div>
+                </header>
 	
-	            <ul class="donation-projects">
+	            <ul class="project-list">
 	                {{#each donation in donations }}
                         {{partial "thanksDonation"}}
 	                {{/each}}
 	            </ul>
             </div>
             
-            <sidebar class="sidebar tip">
+            <sidebar class="l-sidebar">
             	{{#if recurring}}
                 <h3>{% trans "Your donation is set" %}</h3>
         		<p>{% blocktrans %}
@@ -708,7 +706,7 @@
                 	</figure>
                 	
                 	<header>
-	                	<h1 class="main-title">{% trans "Donation Successful!" %}</h1>
+	                	<h1>{% trans "Donation Successful!" %}</h1>
 						{{#if controllers.currentUser.isAuthenticated }}
 	                		<p>{% blocktrans %}
 							Thanks for your support! Your 1% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! 
@@ -723,7 +721,7 @@
             	
                 {{else}}
                 	<header>
-                    	<h1 class="main-title">{% trans "No donation set..." %}</h1>
+                    	<h1>{% trans "No donation set..." %}</h1>
 						{{#linkTo 'currentOrder.donationList' class="edit-monthly-donations" }}
                         	<strong>{% trans "Create or enable your monthly donation" %}</strong>
 						{{/linkTo }}
@@ -738,7 +736,7 @@
 			<div class="l-content">
                 {{#if recurringPayment.active}}
 
-                   <div class="intro">
+                   <header>
                         {{#if donations}}
                             {{#if moreThanOneDonation }}
                                 <h3>{% trans "You just supported these projects" %}</h3>
@@ -748,9 +746,9 @@
                         {{ else }}
                             <h3>{% trans "You just supported the top three projects." %}</h3>
                         {{/if}}
-                   </div>
+                   </header>
 
-                    <ul class="donation-projects">
+                    <ul class="project-list">
                         {{#each donation in donations }}
                             {{partial "thanksDonation"}}
                         {{/each}}
@@ -775,8 +773,6 @@
                 	<p>{% trans "Your monthly donation will be deducted from your account at the beginning of each month." %}</p>
                 {{/if}}
 				<p>{% trans "Monthly donation total:" %} <strong>&euro; {{ recurringPayment.amount }},-</strong></p>
-				
-				
 				
             	{% comment %}
             	{{#if controllers.currentUser.isAuthenticated }}
@@ -811,19 +807,21 @@
 
 {% tplhandlebars "_thanksDonation" %}
 
-    <li class="donation-project">
+    <li class="project-item">
         {{#linkTo 'project' donation.project}}
-            <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} class="project-image" />
+            <figure class="project-image">
+                <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
+            </figure>
             <h2>
                 {{ donation.project.title }}
-                <em class="country">
-                    <em class="flaticon solid location-pin-1"></em> {{ donation.project.plan.country.name }}
+                <em class="project-location">
+                    <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
                 </em>
             </h2>
         {{/linkTo}}
 
-        <p class="donation-amount">
-            <span class="amount-needed">
+        <p class="fund-amount">
+            <span class="fund-amount-needed">
                 <strong>&euro; {{ donation.project.campaign.money_needed }}</strong>
                 {% trans "still needed" %}
             </span>
@@ -1005,7 +1003,7 @@
     <div class="amount right">
         <span class="right">&euro;{{amount}}</span>
     </div>
-    <div class="actions manage-remove"><a {{action "delete" target="view"}} class="right">{% trans "Delete" %}</a></div>
+    <div class="actions manage-delete"><a {{action "delete" target="view"}} class="right">{% trans "Delete" %}</a></div>
 
 {% endtplhandlebars %}
 

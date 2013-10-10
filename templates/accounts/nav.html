@@ -2,11 +2,11 @@
 {% load bb_ember i18n %}
 
 {% block_verbatim profile_anchor %}
-    <a href="#" class="nav-profile">
-        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
+    <a href="#" class="nav-member-dropdown">
+        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Your Avatar" />
         <strong>
             {% trans "My 1%" %}
-            <em class="flaticon solid down-2"></em>
+            <span class="flaticon solid down-2"></span>
         </strong>
     </a>
 {% endblock_verbatim profile_anchor %}
@@ -67,7 +67,7 @@
         {% trans "or" %}
         <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
     </li>
-    <li class="nav-switch-lang">
+    <li class="nav-switch-language">
         {{view "App.LanguageSwitchView"}}
     </li>
 {% endblock_verbatim anonymous_user %}

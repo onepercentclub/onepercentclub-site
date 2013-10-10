@@ -7,12 +7,11 @@
 
 .carousel {
 	background: $gray-darkest;
-	@include clearfix;
+	@include clear;
 	position: relative;
-	@include clearfix;
 	
 	ul, li {
-		@include clearfix;
+		@include clear;
 		 margin: 0;
 		 padding: 0;
 		 list-style: none;
@@ -28,7 +27,6 @@
 		overflow: hidden;
 		
 		.carousel-content {
-			
 			
 			h1 {
 				color: $white;

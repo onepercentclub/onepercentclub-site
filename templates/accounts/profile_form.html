@@ -3,8 +3,8 @@
 
 
 {% block form_meta %}
-    <div class="form-label">{% trans "Edit your profile" %}</div>
-    <div class="form-desc">{% trans "Personalise your account so 1%Members can get to know you." %}</div>
+    <strong>{% trans "Edit your profile" %}</strong>
+    <p>{% trans "Personalise your account so 1%Members can get to know you." %}</p>
 {% endblock form_meta %}
 
 
@@ -16,11 +16,11 @@
         </label>
 
         <div class="controls">
-            {{view Em.TextArea valueBinding="about" maxlength="265" placeholder="Tell us a bit about yourself so we can get to know you!" classBinding="errors.about.length:error"}}
+            {{view Em.TextArea valueBinding="about" maxlength="265" rows="4" placeholder="Tell us a bit about yourself so we can get to know you!" classBinding="errors.about.length:error"}}
         </div>
 
         {{#if errors.about}}
-            <div class="errors">{{#each errors.about}}<p>{{this}}</p>{{/each}}</div>
+            <div class="has-errors">{{#each errors.about}}<p>{{this}}</p>{{/each}}</div>
         {{/if}}
     </li>
 
@@ -34,7 +34,7 @@
         </div>
 
         {{#if errors.why}}
-            <div class="errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
+            <div class="has-errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
         {{/if}}
     </li>
 
@@ -48,7 +48,7 @@
         </div>
 
         {{#if errors.website}}
-            <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
+            <div class="has-errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
         {{/if}}
     </li>
 
@@ -62,7 +62,7 @@
         </div>
 
         {{#if errors.location}}
-            <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
+            <div class="has-errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
         {{/if}}
     </li>
 
@@ -70,8 +70,8 @@
 
 
 {% block_verbatim extra_fieldsets %}
-    <hr class="form-divider">
     <fieldset>
+    
         <legend>
             <strong>{% trans "1%Skills" %}</strong>
             <p>{% blocktrans %}How much time are you willing to spend your 1%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects.{% endblocktrans %}</p>
@@ -92,7 +92,7 @@
                 </div>
 
                 {{#if errors.availability}}
-                    <div class="errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
         </ul>

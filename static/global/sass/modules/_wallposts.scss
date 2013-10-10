@@ -109,6 +109,19 @@
         .wallpost-reactions {
             @include clear;
         }
+        
+        .login-box {
+            @include prepend(10);
+            opacity: 0;
+            @include transition(opacity 0.2s ease-out);
+            background-color: $gray-lighter;
+            padding: $base-padding;
+        }
+        
+        &:hover .login-box {
+            opacity: 1;
+        }
+        
 	    
 	    /*
         

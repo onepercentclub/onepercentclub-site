@@ -66,7 +66,7 @@
 		                    <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{project.plan.country.name}}</span>
 		                    <span class="project-theme"><span class="flaticon solid tag-1"></span> {{project.plan.theme.title}}</span>
 		                </div>
-                        <h3 class="project-title">{{#linkTo project project.getProject }}{{project.title}}{{/linkTo}}</h3>
+                        <h3 class="project-title">{{#linkTo 'project' project.getProject }}{{project.title}}{{/linkTo}}</h3>
                         <p class="project-description">{{project.plan.pitch}}</p>
                     </article>
                     

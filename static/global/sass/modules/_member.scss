@@ -3,3 +3,46 @@
 //
 // --------------------------------------------------
 
+.member {
+    position: relative;
+    display: block;
+    float: left;
+    text-decoration: none;
+    width: 100%;
+    
+    .member-avatar {
+        
+        img {
+            float: left;
+            border-width: 1px;
+            border-style: solid;
+            border-color: $white;
+            background-color: $gray-lighter;
+            color: $color-text-light;
+            vertical-align: middle;
+        }
+        
+    }
+    
+    .member-name {
+        display: block;
+    }
+    
+    .member-organisation {
+        font-size: $font-size-smallest;
+        display: block;
+        color: $gray;
+        font-style: normal;
+    }
+    
+    &:hover {
+    
+        img {
+    
+        }
+    }
+}
+
+.member-navigation {
+    
+}
