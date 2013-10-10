@@ -71,7 +71,6 @@ App.CurrentOrder = App.Order.extend({
 
 App.CurrentOrderDonation = App.Donation.extend({
     url: 'fund/orders/current/donations',
-
     order: DS.belongsTo('App.CurrentOrder')
 });
 
@@ -318,7 +317,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 
 App.CurrentOrderDonationController = Em.ObjectController.extend({
     needs: ['currentOrder', 'currentOrderDonationList'],
-
     updateDonation: function(newAmount) {
         var donation = this.get('model');
 
@@ -339,9 +337,11 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
             }, 10000);
         }
     },
-
     deleteDonation: function() {
         var donation = this.get('model');
+        // Fix because reverse relations aren't cleared.
+        // See: http://stackoverflow.com/questions/18806533/deleterecord-does-not-remove-record-from-hasmany
+        donation.get('order.donations').removeObject(donation);
         donation.deleteRecord();
         donation.save();
     }
@@ -775,12 +775,13 @@ App.CurrentOrderDonationView = Em.View.extend({
     change: function(e) {
         this.get('controller').updateDonation(Em.get(e, 'target.value'));
     },
-
-    'delete': function(item) {
-        var controller = this.get('controller');
-        this.$().slideUp(500, function() {
-            controller.deleteDonation();
-        });
+    actions: {
+        deleteDonation: function(item) {
+            var controller = this.get('controller');
+            this.$().slideUp(500, function() {
+                controller.deleteDonation();
+            });
+        }
     }
 });
 
