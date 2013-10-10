@@ -69,7 +69,6 @@ body {
 
 }
 
-
 #changelist table tbody td, #changelist table tbody th {
     padding: 4px;
 }
@@ -78,3 +77,11 @@ h1, h2, h3, h4, h5, h6 {
     padding: 8px 0 8px 0;
     line-height: 1;
 }
+
+.inline-group .tabular tr td.original {
+    display: block;
+    p {
+        width: 100%;
+    }
+}
+
