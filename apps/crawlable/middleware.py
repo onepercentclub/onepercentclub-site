@@ -137,8 +137,10 @@ class HashbangMiddleware(object):
             query = urllib.urlencode(query)
 
             # Build new absolute URL.
+            # NOTE: Django behind a certain web/WSGI-server configuration cannot determine if a request was made using
+            # HTTPS or HTTP. We consult a special setting for that.
             absolute_url = urlparse.urlunparse([
-                parsed_url.scheme,
+                'https' if settings.CRAWLABLE_FORCE_HTTPS else parsed_url.scheme,
                 parsed_url.netloc,
                 path,
                 parsed_url.params,
@@ -148,7 +150,8 @@ class HashbangMiddleware(object):
 
             try:
                 driver = web_cache.get_driver()
-                logger.debug('Generating flat content from "%s" for "%s".', absolute_url, original_url)
+                logger.debug('Generating flat content from "%s" for "%s"%s.', absolute_url, original_url,
+                             ' (forced HTTPS)' if settings.CRAWLABLE_FORCE_HTTPS else '')
                 driver.get(absolute_url)
 
                 # TODO: This should be replaced with something smart that waits for a certain trigger that all JS

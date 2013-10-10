@@ -48,3 +48,57 @@ For example, in Nginx::
     allow 127.0.0.1
     # allow <machine ip>
 
+
+Debugging PhantomJS
+-------------------
+
+#. SSH to the webserver.
+#. Validate if the webserver can access itself::
+
+    $ wget 'https://<subdomain>.onepercentclub.com/nl/#!/projects'
+
+#. If the error ``ERROR: cannot verify [...]`` appears, turn it into a warning with::
+
+    $ wget --no-check-certificate 'https://<subdomain>.onepercentclub.com/nl/#!/projects'
+
+#. If the response is ``Authorization failed.``, configure Nginx to allow local
+   access without a password, for example::
+
+    server {
+        # ...
+
+        satisfy any;
+
+        # Allow PhantomJS to access the webserver locally.
+        allow 127.0.0.1;
+        allow <server IP address>
+
+        # ...
+    }
+
+#. Save the following snipet as ``checklocal.js``::
+
+    var page = require('webpage').create(),
+        system = require('system'),
+        t, address;
+
+    if (system.args.length === 1) {
+        console.log('Usage: loadspeed.js <some URL>');
+        phantom.exit();
+    }
+
+    page.open(system.args[1], function () {
+        page.render('preview.png');
+        phantom.exit();
+    });
+
+#. To see what PhantomJS sees, you can generate a screenshot. Run::
+
+    $ phantomjs --debug=true checklocal.js 'https://<subdomain>.onepercentclub.com/nl/#!/projects'
+
+#. Finally, you can run PhantomJS, as you would with Supervisor::
+
+    phantomjs --wd --ignore-ssl-errors=true --debug=true
+
+#. Launch a server instance, or use the runserver command and request a URL
+   with an escaped fragment.
