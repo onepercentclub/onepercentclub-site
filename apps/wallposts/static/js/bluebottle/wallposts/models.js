@@ -1,3 +1,36 @@
+/**
+ * Embedded mapping
+ */
+
+App.Adapter.map('App.WallPost', {
+    author: {embedded: 'load'},
+    photos: {embedded: 'load'},
+    reactions: {embedded: 'load'}
+});
+App.Adapter.map('App.ProjectWallPost', {
+    author: {embedded: 'load'},
+    photos: {embedded: 'load'},
+    reactions: {embedded: 'load'}
+});
+App.Adapter.map('App.ProjectTextWallPost', {
+    author: {embedded: 'load'},
+    photos: {embedded: 'load'},
+    reactions: {embedded: 'load'}
+});
+App.Adapter.map('App.ProjectMediaWallPost', {
+    author: {embedded: 'load'},
+    photos: {embedded: 'load'},
+    reactions: {embedded: 'load'}
+});
+App.Adapter.map('App.TaskWallPost', {
+    author: {embedded: 'load'},
+    reactions: {embedded: 'load'}
+});
+App.Adapter.map('App.WallPostReaction', {
+    author: {embedded: 'load'}
+});
+
+
 /*
  Models
  */

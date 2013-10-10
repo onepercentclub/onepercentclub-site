@@ -1,3 +1,25 @@
+/**
+ * Embedded mappings
+ */
+
+App.Adapter.map('App.Task', {
+    author: {embedded: 'load'},
+    tags: {embedded: 'always'},
+    members: {embedded: 'load'},
+    files: {embedded: 'load'}
+});
+App.Adapter.map('App.TaskPreview', {
+    author: {embedded: 'load'},
+    project: {embedded: 'load'}
+});
+App.Adapter.map('App.TaskMember', {
+    member: {embedded: 'load'}
+});
+App.Adapter.map('App.TaskFile', {
+    author: {embedded: 'load'}
+});
+
+
 /*
  Models
  */

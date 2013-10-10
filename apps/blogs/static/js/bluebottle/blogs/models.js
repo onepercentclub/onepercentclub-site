@@ -1,4 +1,15 @@
-/* Models */
+/**
+ * Embedded mappings
+ */
+
+App.Adapter.map('App.News', {
+    author: {embedded: 'load'}
+});
+
+
+/**
+ * Models
+ */
 
 App.News = DS.Model.extend({
     url: 'blogs/news',

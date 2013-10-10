@@ -36,31 +36,31 @@
 {% endblock handlebars_templates %}
 
 {% block ember_scripts %}
-    {% include "accounts/ember_scripts.html" %}
+    {{ block.super }}
 
-    <script type="text/javascript" src="{% static "js/projects/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/projects/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/projects/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/projects/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/projects/models.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/projects/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/projects/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/projects/routes.js" %}"></script>
 
-    <script type="text/javascript" src="{% static "js/wallposts/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/wallposts/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/wallposts/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/wallposts/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/models.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/routes.js" %}"></script>
 
-    <script type="text/javascript" src="{% static "js/blogs/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/blogs/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/blogs/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/blogs/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/blogs/models.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/blogs/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/blogs/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/blogs/routes.js" %}"></script>
 
-    <script type="text/javascript" src="{% static "js/tasks/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/tasks/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/tasks/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/tasks/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/tasks/models.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/tasks/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/tasks/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/tasks/routes.js" %}"></script>
 
 
-    <script type="text/javascript" src="{{ STATIC_URL }}js/app/orders.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/app/vouchers.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/app/pages.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/app/homepage.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/orders.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/vouchers.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/pages.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/homepage.js"></script>
 {% endblock %}
