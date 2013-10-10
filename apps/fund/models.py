@@ -31,8 +31,6 @@ class RecurringDirectDebitPayment(models.Model):
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
-    manually_process = models.BooleanField(default=False, help_text="Whether or not to process the monthly donation manually instead of with the automatic script.")
-
     # The amount in the minor unit for the given currency (e.g. for EUR in cents).
     amount = models.PositiveIntegerField(_("amount"), default=0)
     currency = models.CharField(max_length=3, default='')
@@ -48,17 +46,11 @@ class RecurringDirectDebitPayment(models.Model):
     bic = SWIFTBICField(blank=True, default='')
 
     def __unicode__(self):
-        active_status = 'inactive'
         if self.active:
-            active_status = 'active'
-
-        language = translation.get_language().split('-')[0]
-        if not language:
-            language = 'en'
-
-        return u'{0} - {1} - {2}'.format(str(self.user),
-                                         format_currency(self.amount / 100.0, self.currency, locale=language),
-                                         active_status)
+            postfix = ' - active'
+        else:
+            postfix = ' - inactive'
+        return str(self.user) + ' ' + str(self.amount) + postfix
 
 
 @receiver(post_save, weak=False, sender=BlueBottleUser)
@@ -131,7 +123,7 @@ class Donation(models.Model):
         language = translation.get_language().split('-')[0]
         if not language:
             language = 'en'
-        return u'{0} - {1} - {2}'.format(str(self.id), self.project.title,
+        return u'{0} : {1} : {2}'.format(str(self.id), self.project.title,
                                          format_currency(self.amount / 100.0, self.currency, locale=language))
 
 
