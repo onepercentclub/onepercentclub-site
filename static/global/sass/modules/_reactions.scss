@@ -139,8 +139,8 @@
             p {
                 margin: 0;
                 padding: 0;
-                line-height: 1.6em;
-                @include rem(margin-top, 6px);
+                //line-height: 1.6em;
+                margin-top: $base-margin/2;
             }
         }
     }

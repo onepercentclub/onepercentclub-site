@@ -7,12 +7,13 @@
 }
 
 #logo {
-    @include grid(6,1,0);
+    @include grid(6,1,1);
     
     .logo-link {
 	    display: block;
-        padding: $base-padding $base-padding/2;
+        padding: $base-padding 0 0 0;
         //@include transition(opacity, 0.5s, ease-out);
+        //@include opacity(0.95);
         
 	    // Fix for making linkable
 	    object {
@@ -21,7 +22,7 @@
 	    
 	    .logo-image {
 	    	display: block;
-		    width: 100%;
+		    width: 60%;
 		    height: auto;
 	    }
 	    
@@ -30,7 +31,7 @@
 	    }
 	    
         &:hover {
-            @include opacity(0.8);
+            //@include opacity(1);
         }
     }
     
@@ -40,7 +41,7 @@
 // -------------------------
 
 #nav {
-	//text-transform: uppercase;
+	text-transform: uppercase;
 	//min-height: 64px;
 	//font-size: $font-size-small;
 	
@@ -52,71 +53,78 @@
     }
 	
 	.nav-main {
-	    @include grid(26,1,0);
+	    @include grid(26,0,0);
+	    padding: $base-padding*2 0 $base-padding 0;
 	    
 	    > li a, > li a:visited {
-			padding: $base-padding $base-padding;
+	        //@include transition(all 0.2s ease-in);
+			padding: 0 $base-padding;
+			//border-top: $base-padding solid $black;
 	        white-space: nowrap;
 	        color: $gray-lighter;
 		    //text-transform: uppercase;
             font-family: $font-family-bold;
-            line-height: 2.5em;
 		    display: block;
 		    float: left;
 		    text-align: center;
 		    text-decoration: none;
 		    overflow: hidden;
+		    //border: 1px solid red;
 		
 		    &:hover, &:active, &.is-active {
-		        color: $white;
-		        text-decoration: underline;
+		        color: $black;
+		        background-color: $white;
 		    }
 	    }
 	}
 	
 	.nav-actions {
-	    margin-top: $base-margin;
-	    @include grid(16, 1, 1);
+	    //margin-top: $base-margin;
+	    @include grid(16,0,0);
+	    padding: $base-padding*1.5 $base-padding $base-padding $base-padding;
 	    color: $white;
 				
 		.nav-signup-login {
-			display: inline-block;
+		    float: left;
 			text-align: left;
 			color: $color-deselect;
-			font-weight: normal;
 			white-space: nowrap;
-			padding: $base-margin/4 0;
 				
 			a {
+			    padding: $base-padding/4 $base-padding/2;
 				margin: 0 $base-margin/2;
 				text-decoration: underline;
-				
+				text-decoration: none;
+			    font-family: $font-family-heavy;
+			    
 				&:hover, &:active, &.is-active {
-	            	color: $white;
+	            	color: $color-text;
+	            	background-color: $white;
 				}
 			}
 			
 			.nav-signup {
-				color: $color-primary;
+				color: $white;
+                background-color: $color-primary;
 			}
 			
 			.nav-login {
-				color: $color-secondary;
+				color: $white;
+                background-color: $color-secondary;
 			}
 			
 		}
 		
 	    .nav-switch-language {
-	    	display: inline-block;
-	        font-weight: normal;
+	        float: right;
 			white-space: nowrap;
-			@include rem(font-size, 10px);
-			@include rem(margin-top, 5px);
+			//font-size: $font-size-smallest;
+			margin-top: $base-margin/2;
 	        
 	        li {
 	        	display: inline;
-	        	@include rem(padding, 0 6px);
-	        	border-right: 1px solid $color-deselect;
+	        	padding: 0 $base-padding/2;
+	        	//border-right: 1px solid $color-deselect;
 		        
 		        &:last-child {
 	            	border: none;
@@ -185,7 +193,7 @@
 			        
 			        > a {
 				        display: block;
-				        @include rem(padding, 8px, 16px);
+				        padding: $base-padding/2;
 				        border-bottom: 1px solid $color-secondary;
 				        color: $gray-darker;
 				        text-decoration: none;
@@ -201,7 +209,7 @@
 			    	color: $white;
 			    	font-weight: normal;
 			    	background: $color-secondary;
-			    	@include rem(padding, 8px, 22px);
+			    	padding: $base-padding/2 $base-padding;
 			    	
 			    	.nav-language {	    		
 			    		display: inline;
@@ -214,10 +222,10 @@
 					    		display: inline-block;
 					    		float: none;
 					    		font-weight: 600;
-					    		@include rem(padding, 2px 16px 2px 16px);
+					    		padding: $base-padding/4 $base-padding;
 					    		background: $white;
 					    		@include border-radius(8px);
-					    		@include rem(margin, 0 2px);
+					    		margin: 0 $base-margin/4;
 				    		}
 				    		
 			                &.active a {
@@ -262,7 +270,7 @@
 		        font-weight: normal;
 		        
 		        .nav-cart-count {
-		        	@include rem(font-size, $font-size-smallest);
+		        	font-size: $font-size-smallest;
 			        font-weight: 600;
 			        display: inline-block;
 			        width: 20px;
@@ -277,7 +285,7 @@
 		        a {
 		        	display: inline-block;
 			    	color: $white;
-					@include rem(padding, 6px 0);
+					padding: $base-padding/2 0;
 					
 					&:hover, &:active {
 						color: $color-primary;

@@ -4,8 +4,8 @@
 
 .text, .video, .image, .oembed, .rawhtml {
 	clear: both;
-	@include rem(margin-top, $base-margin);
-	@include rem(margin-bottom, $base-margin);
+	margin-top: $base-margin;
+	margin-bottom: $base-margin;
 }
 
 

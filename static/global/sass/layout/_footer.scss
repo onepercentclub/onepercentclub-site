@@ -52,7 +52,7 @@
 	    }
 	    
 	    .start-your-project {
-		    @include rem(margin-top, 18px);
+		    margin-top: $base-margin;
 		    font-family: $font-family-heavy;
 	    }
 	}

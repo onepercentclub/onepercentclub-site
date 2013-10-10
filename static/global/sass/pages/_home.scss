@@ -17,7 +17,7 @@
         background-color: $gray-lighter;
         
 	    h2 {
-	        @include rem(margin-bottom, 32px);
+	        margin-bottom: $base-margin*2;
 	
 	        em {
 	            color: $color-primary;
@@ -30,8 +30,8 @@
 	        
 	        .quote {
 			    @include clearfix;
-			    @include rem(margin-bottom, 32px);
-			    @include rem(height, 220px);
+			    margin-bottom: $base-margin*2;
+			    height: 220px;
 			
 			    aside {
 			        @include grid(12,4,2);
@@ -39,7 +39,7 @@
 			
 			    article {
 			        @include grid(32);
-			        @include rem(padding, $base-padding*2);
+			        padding: $base-padding*2;
 			        position: relative;
 			        background: $white;
 			
@@ -60,15 +60,14 @@
 			    }
 			
 			    .quote-name {
-			        @include rem(font-size, 18px);
-			        @include rem(margin-bottom, $base-padding/2);
+			        font-size: $font-size-larger;
+			        margin-bottom: $base-margin/2;
 			        color: $color-secondary;
-			        font-weight: 600;
 			        text-transform: uppercase;
 			    }
 			
 			    .quote-quote {
-			        @include rem(font-size, 32px);
+			        font-size: $font-size-largest;
 			        color: $black;
 			        margin: 0;
 			        text-transform: uppercase;
@@ -98,7 +97,6 @@
     
         li {
             @include grid(9.6, 0, 1);
-            @include rem(font-size, 16px);
             color: $gray;
             text-align: center;
             text-transform: uppercase;
@@ -112,12 +110,10 @@
     		}
     
             strong {
-                @include rem(font-size, 22px);
-                @include rem(margin, 8px 0);
+                font-size: $font-size-larger;
+                margin: $base-margin/2 0;
                 display: block;
                 color: $gray-darker;
-                font-weight: 300;
-                font-style: normal;
             }
         }
     }

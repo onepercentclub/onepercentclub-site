@@ -108,10 +108,10 @@
 	    }
       
         .divided-amount {
-        	@include rem(padding, 0 20px);
+        	//@include rem(padding, 0 20px);
         	height: 54px;
 	        line-height: 54px;
-	        @include rem(font-size, 28px);
+	        //@include rem(font-size, 28px);
             color: $gray;
             font-weight: 600;
         }

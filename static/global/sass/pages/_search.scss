@@ -88,7 +88,7 @@
         color: $gray;
 		
         a {
-            @include rem(margin-left, $base-padding/2);
+            margin-left: $base-padding/2;
             text-decoration: none;
             
             &.active {

@@ -109,9 +109,9 @@
             line-height: 1em;
 
             strong {
-                @include rem(font-size, 22px);
+                //@include rem(font-size, 22px);
                 color: $color-primary;
-                font-weight: 300;
+                //font-weight: 300;
             }
 
             em {

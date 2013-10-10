@@ -108,19 +108,17 @@
     
     &.steps {
     	margin-bottom: 6px;
-    	@include rem(margin-bottom, 6px);
     	
 	    li > a, li > span {
 	    	display: block;
-		    @include rem(padding, 20px 16px 16px 16px);
+		    //@include rem(padding, 20px 16px 16px 16px);
 		    background: image-url("steps-back.png") $white no-repeat 100% 50%;
 		    border: none;
 		    font-weight: 300;
-		    @include rem(font-size, 18px);
 		    color: $gray-lighter;
 		    
 		    .flaticon {
-			    @include rem(margin, 0 6px);
+			    //@include rem(margin, 0 6px);
 		    }
 		    
 		    &:hover, &:active {

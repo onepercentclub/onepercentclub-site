@@ -97,13 +97,13 @@
 				background: $gray-light;
 				color: $white;
 				
-				// TODO add arrow on top
 				&:after {
 					position: absolute;
 					border: solid transparent;
 					content: ' ';
 					height: 0;
 					bottom: 100%;
+					left: 49%;
 					width: 0;
 					border-width: 12px;
 					border-bottom-color: $gray-light;
