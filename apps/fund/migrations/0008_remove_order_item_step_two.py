@@ -21,26 +21,6 @@ class Migration(DataMigration):
             for order_item in donation_order_items:
                 order_item.delete()
 
-            content_type = ContentType.objects.get_for_model(orm.Voucher)
-            voucher_order_items = order.orderitem_set.filter(content_type=content_type)
-            vouchers = orm.Voucher.objects.filter(id__in=voucher_order_items.values('object_id'))
-
-            for voucher in vouchers:
-                voucher.order = order
-                voucher.save()
-
-            for order_item in voucher_order_items:
-                order_item.delete()
-
-        # Remove m2m vouchers x donations.
-        for voucher in orm.Voucher.objects.all():
-            for donation in voucher.donations.all():
-                donation.order = None
-                donation.voucher = voucher
-                donations.save()
-
-                voucher.donations.remove(donation)
-
     def backwards(self, orm):
         # Re-add OrderItem
         from django.contrib.contenttypes.models import ContentType
@@ -52,21 +32,6 @@ class Migration(DataMigration):
                 orm.OrderItem.objects.create(order=order, object_id=donation.id, content_type=donation_ct)
                 donation.order = None
                 donation.save()
-
-            vouchers = orm.Donation.objects.filter(order=order)
-            for voucher in vouchers:
-                orm.OrderItem.objects.create(order=order, object_id=voucher.id, content_type=voucher_ct)
-                voucher.order = None
-                voucher.save()
-
-        # Re-add m2m vouchers x donations.
-        for voucher in orm.Voucher.objects.all():
-            for donation in voucher.donation_set.all():
-                donation.order = None
-                donation.voucher = None
-                donation.save()
-
-                voucher.donations.add(donation)
 
     models = {
         u'accounts.bluebottleuser': {
