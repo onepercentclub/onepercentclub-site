@@ -6,9 +6,7 @@ from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, Pr
     ProjectPhases, ProjectAmbassador
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses, OrderItem, \
-    RecurringDirectDebitPayment
-from django.contrib.contenttypes.models import ContentType
+from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses, RecurringDirectDebitPayment
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
 
@@ -448,16 +446,12 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
             sfdonation.name = "1%MEMBER"
 
         # Get the payment method from the associated order / payment
-        oi = OrderItem.objects.filter(object_id=donation.id).get(
-            content_type=ContentType.objects.get_for_model(Donation))
-        lp = oi.order.latest_payment
-        if lp and lp.latest_docdata_payment:
-            if lp.latest_docdata_payment.payment_method in payment_method_mapping:
-                sfdonation.payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
-            else:
-                sfdonation.payment_method = 'Unknown'
-        else:
-            sfdonation.payment_method = 'Unknown'
+        sfdonation.payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
+        if donation.order:
+            lp = donation.order.latest_payment
+            if lp and lp.latest_docdata_payment:
+                if lp.latest_docdata_payment.payment_method in payment_method_mapping:
+                    sfdonation.payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
 
         sfdonation.stage_name = DonationStatuses.values[donation.status].title()
         sfdonation.opportunity_type = donation.DonationTypes.values[donation.donation_type].title()
