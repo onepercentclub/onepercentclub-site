@@ -306,16 +306,6 @@ App.ApplicationController = Ember.Controller.extend({
 //   always: The child records are embedded when loading, and are saved embedded in the same record. This,
 //           of course, affects the dirtiness of the records (if the child record changes, the adapter will
 //           mark the parent record as dirty).
-App.Adapter.map('App.Project', {
-    owner: {embedded: 'load'},
-    campaign: {embedded: 'load'},
-    plan: {embedded: 'load'},
-    country: {embedded: 'load'}
-});
-App.Adapter.map('App.ProjectPreview', {
-    campaign: {embedded: 'load'},
-    country: {embedded: 'load'}
-});
 App.Adapter.map('App.DonationPreview', {
     project: {embedded: 'load'},
     member: {embedded: 'load'}
@@ -371,29 +361,6 @@ App.Adapter.map('App.TaskMember', {
 App.Adapter.map('App.TaskFile', {
     author: {embedded: 'load'}
 });
-App.Adapter.map('App.ProjectPlan', {
-    tags: {embedded: 'load'},
-    country: {embedded: 'load'}
-});
-App.Adapter.map('App.ProjectPitch', {
-    tags: {embedded: 'load'},
-    country: {embedded: 'load'}
-});
-App.Adapter.map('App.MyProjectPlan', {
-    ambassadors: {embedded: 'load'},
-    budgetLines: {embedded: 'load'},
-    tags: {embedded: 'always'}
-});
-App.Adapter.map('App.MyProjectPitch', {
-    tags: {embedded: 'always'}
-});
-App.Adapter.map('App.MyOrganization', {
-    addresses: {embedded: 'both'},
-    documents: {embedded: 'load'}
-});
-App.Adapter.map('App.MyOrganizationDocument', {
-    file: {embedded: 'load'}
-});
 
 App.Adapter.map('App.Quote', {
     user: {embedded: 'load'}
@@ -404,16 +371,6 @@ App.Adapter.map('App.News', {
 });
 App.Adapter.map('App.ContactMessage', {
     author: {embedded: 'load'}
-});
-
-App.Adapter.map('App.HomePage', {
-    projects: {embedded: 'load'},
-    slides: {embedded: 'load'},
-    quotes: {embedded: 'load'},
-    impact: {embedded: 'load'}
-});
-App.Adapter.map('App.PartnerOrganization', {
-    projects: {embedded: 'load'}
 });
 
 App.Adapter.map('App.Ticker', {
@@ -468,31 +425,13 @@ App.Router.map(function() {
 
     this.route("home", { path: "/" });
 
-    this.resource('projectList', {path: '/projects'}, function() {
-        this.route('new');
-        this.route('search');
-    });
-
     this.resource('error', {path: '/error'}, function() {
         this.route('notFound', {path: '/not-found'});
         this.route('notAllowed', {path: '/not-allowed'});
     });
 
-
-    this.resource('news', {path: '/news'}, function() {
-        this.resource('newsItem', {path: '/:news_id'});
-    });
-
     this.resource('page', {path: '/pages/:page_id'});
     this.resource('contactMessage', {path: '/contact'});
-
-    this.resource('project', {path: '/projects/:project_id'}, function() {
-        this.resource('projectPlan', {path: '/plan'});
-        this.resource('projectTaskList', {path: '/tasks'});
-        this.resource('projectTaskNew', {path: '/tasks/new'});
-        this.resource('projectTask', {path: '/tasks/:task_id'});
-        this.resource('projectTaskEdit', {path: '/tasks/:task_id/edit'});
-    });
 
     this.resource('currentOrder', {path: '/support'}, function() {
         this.route('donationList', {path: '/donations'});
@@ -508,6 +447,13 @@ App.Router.map(function() {
     this.resource('orderThanks', {path: '/support/thanks/:order_id'});
     this.resource('recurringOrderThanks', {path: '/support/monthly/thanks'});
 
+    this.resource('ticker', {path: '/latest-donations'});
+
+});
+
+// Voucher routes
+App.Router.map(function(){
+
 //    Voucher code is disabled for now.
 //    this.resource('voucherStart', {path: '/giftcards'});
 //    this.resource('customVoucherRequest', {path: '/giftcards/custom'});
@@ -518,69 +464,15 @@ App.Router.map(function() {
 //        this.route('code', {path: '/:code'});
 //    });
 //    this.resource('voucherRedeemDone', {path: '/giftcards/redeem/done'});
-
-    this.resource('taskList', {path: '/tasks'});
-
-    this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
-        this.resource('myProjectPlan', {path: 'plan'}, function() {
-            this.route('index');
-            this.route('basics');
-            this.route('location');
-            this.route('description');
-            this.route('media');
-
-            this.route('organisation');
-            this.route('legal');
-            this.route('ambassadors');
-
-            this.route('bank');
-            this.route('campaign');
-            this.route('budget');
-
-            this.route('submit');
-
-        });
-
-        this.resource('myProjectPlanReview', {path: 'plan/review'});
-        this.resource('myProjectPlanApproved', {path: 'plan/approved'});
-        this.resource('myProjectPlanRejected', {path: 'plan/rejected'});
-
-        this.resource('myProjectPitch', {path: 'pitch'}, function() {
-            this.route('index');
-            this.route('basics');
-            this.route('location');
-            this.route('media');
-
-            this.route('submit');
-        });
-        this.resource('myProjectPitchReview', {path: 'pitch/review'});
-        this.resource('myProjectPitchApproved', {path: 'pitch/approved'});
-        this.resource('myProjectPitchRejected', {path: 'pitch/rejected'});
-
-        this.resource('myProjectCampaign', {path: 'campaign'});
-
-    });
-
-    this.resource('myPitchNew', {path: '/my/pitch/new'});
-    this.resource('myProjectList', {path: '/my/projects'});
-    this.resource('partner', {path: '/pp/:partner_organization_id'});
-
-    this.resource('ticker', {path: '/latest-donations'});
-
 });
 
 
 App.ApplicationRoute = Em.Route.extend({
 
-    setupController: function(controller, model) {
-        this.controllerFor('myProjectList').set('model', App.MyProject.find());
-
-        // FIXME: This totaly breaks donation flow because the unloadRecord trick in CurrrenOrderRoute.model(), somehow.
-        // For now ignore. Donation reminder will only be there if you donated during this session...
-        //this.controllerFor('currentOrder').set('model',  App.CurrentOrder.find('current'));
-
-        this._super(controller, model);
-    },
+//    setupController: function(controller, model) {
+//        this.controllerFor('myProjectList').set('model', App.MyProject.find());
+//        this._super(controller, model);
+//    },
 
 
     actions: {
@@ -722,217 +614,6 @@ App.ApplicationRoute = Em.Route.extend({
 
     urlForEvent: function(actionName, context) {
         return "/nice/stuff"
-    }
-});
-
-
-/**
- * Project Routes
- */
-
-App.ProjectRoute = Em.Route.extend({
-    model: function(params) {
-        var page =  App.Project.find(params.project_id);
-        var route = this;
-        page.on('becameError', function() {
-            //route.transitionTo('error.notFound');
-            route.transitionTo('projectList');
-        });
-        return page;
-    },
-
-    setupController: function(controller, project) {
-        this._super(controller, project);
-
-        // Set the controller to show Project Supporters
-        var projectSupporterListController = this.controllerFor('projectSupporterList');
-        projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
-        projectSupporterListController.set('page', 1);
-        projectSupporterListController.set('canLoadMore', true);
-    }
-});
-
-
-// This is the 'ProjectWallPostListRoute'
-App.ProjectIndexRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('project');
-    },
-
-    setupController: function(controller, model) {
-        // Empty the items and set page to 0 if project changes so we don't show wall posts from previous project
-        if (this.get('model_id') != model.get('id')) {
-            controller.set('items', Em.A());
-            controller.set('page', 0);
-        }
-        this.set('model_id', model.get('id'));
-        this._super(controller, model.get('wallposts'));
-    }
-});
-
-
-App.ProjectPlanRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('project').get('plan');
-    }
-});
-
-
-// Tasks
-
-App.ProjectTaskListRoute = Em.Route.extend({
-    model: function(params) {
-        return Em.A();
-    },
-
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        var project = this.modelFor('project');
-        var tasks = App.Task.find({project: project.get('id')});
-        tasks.addObserver('isLoaded', function() {
-            tasks.forEach(function(record) {
-                if (record.get('isLoaded')) {
-                    controller.get('content').pushObject(record);
-                }
-            });
-        });
-    }
-});
-
-
-App.ProjectTaskRoute = Em.Route.extend({
-    model: function(params) {
-        return App.Task.find(params.task_id);
-    },
-    setupController: function(controller, model) {
-        this._super(controller, model);
-
-        var wallPostController = this.controllerFor('taskWallPostList');
-        wallPostController.set('model', model.get('wallposts'));
-        wallPostController.set('items', Em.A());
-        wallPostController.set('page', 0);
-    },
-    actions: {
-        applyForTask: function(task) {
-            var route = this;
-            var store = route.get('store');
-            var taskMember = store.createRecord(App.TaskMember);
-            var view = App.TaskMemberApplyView.create();
-
-
-            Bootstrap.ModalPane.popup({
-                heading: gettext('Apply for task'),
-                bodyViewClass: view,
-                primary: gettext('Apply'),
-                secondary: gettext('Cancel'),
-                callback: function(opts, e) {
-                    e.preventDefault();
-                    if (opts.primary) {
-                        taskMember.set('task', task);
-                        taskMember.set('motivation', view.get('motivation'));
-                        taskMember.set('created', new Date());
-                        taskMember.save();
-                    }
-                }
-            });
-        },
-        uploadFile: function(task) {
-            var route = this;
-            var controller = this.controllerFor('taskFileNew');
-            var view = App.TaskFileNewView.create();
-            view.set('controller', controller);
-            var store = route.get('store');
-            var file = store.createRecord(App.TaskFile);
-            controller.set('model', file);
-            file.set('task', task);
-
-            Bootstrap.ModalPane.popup({
-                classNames: ['modal', 'large'],
-                headerViewClass: Ember.View.extend({
-                    tagName: 'p',
-                    classNames: ['modal-title'],
-                    template: Ember.Handlebars.compile('{{view.parentView.heading}}')
-                }),
-                heading: task.get('title'),
-                bodyViewClass: view,
-                primary: 'Save',
-                secondary: 'Cancel',
-                callback: function(opts, e) {
-                    e.preventDefault();
-                    if (opts.primary) {
-                        file.save();
-                    }
-                    if (opts.secondary) {
-                        file.deleteRecord();
-                    }
-                }
-            });
-        },
-        showMoreWallPosts: function() {
-            var controller = this.get('controller');
-            var wallPostController = this.controllerFor('taskWallPostList');
-            wallPostController.set('canLoadMore', false);
-            var page = wallPostController.incrementProperty('page');
-            var task = controller.get('model');
-            var wps = App.TaskWallPost.find({task: task.get('id'), page: page});
-            wps.addObserver('isLoaded', function() {
-                wps.forEach(function(record) {
-                    if (record.get('isLoaded')) {
-                        wallPostController.get('content').pushObject(record);
-                    }
-                });
-                wallPostController.set('canLoadMore', true);
-            });
-        },
-        editTaskMember: function(taskMember) {
-            var route = this;
-            var controller = this.controllerFor('taskMemberEdit');
-            controller.set('model', taskMember);
-            var view = App.TaskMemberEdit.create();
-            view.set('controller', controller);
-
-            Bootstrap.ModalPane.popup({
-                headerViewClass: Ember.View.extend({
-                    tagName: 'p',
-                    classNames: ['modal-title'],
-                    template: Ember.Handlebars.compile('{{view.parentView.heading}}')
-                }),
-                heading: taskMember.get('member.full_name'),
-                bodyViewClass: view,
-                primary: 'Save',
-                secondary: 'Cancel',
-                callback: function(opts, e) {
-                    e.preventDefault();
-                    if (opts.primary) {
-                        taskMember.save();
-                    }
-                    if (opts.secondary) {
-                        taskMember.rollback();
-                    }
-                }
-            });
-        },
-        stopWorkingOnTask: function(task) {
-            alert('Not implemented. Sorry!');
-        }
-    }
-});
-
-
-App.ProjectTaskNewRoute = Em.Route.extend({
-
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        var store = this.get('store');
-        var model = store.createRecord(App.Task);
-        controller.set('content', model);
-    }
-});
-
-
-App.ProjectTaskEditRoute = Em.Route.extend({
-    model: function(params) {
-        return App.Task.find(params.task_id);
     }
 });
 
@@ -1268,208 +949,6 @@ App.UserRoute = Em.Route.extend({
     }
 });
 
-
-/**
- * My Projects
- * - Manage your project(s)
- */
-
-App.MyProjectListRoute = Em.Route.extend({
-    model: function(params) {
-        return App.MyProject.find();
-    },
-    setupController: function(controller, model) {
-        this._super(controller, model);
-    }
-
-});
-
-
-App.MyPitchNewRoute = Em.Route.extend({
-    model: function() {
-        var store = this.get('store');
-        return store.createRecord(App.MyProject);
-    }
-});
-
-
-App.MyProjectRoute = Em.Route.extend({
-    // Load the Project
-    model: function(params) {
-        return App.MyProject.find(params.my_project_id);
-    }
-});
-
-
-App.MyProjectPitchRoute =  Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('myProject').get('pitch');
-    }
-});
-
-
-App.MyProjectPitchSubRoute = Ember.Route.extend({
-    redirect: function() {
-        var status = this.modelFor('myProject').get('pitch.status');
-        switch(status) {
-            case 'submitted':
-                this.transitionTo('myProjectPitchReview');
-                break;
-            case 'rejected':
-                this.transitionTo('myProjectPitchRejected');
-                break;
-            case 'approved':
-                this.transitionTo('myProjectPitchApproved');
-                break;
-        }
-    },
-    model: function(params) {
-        return this.modelFor('myProject').get('pitch');
-    },
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        controller.startEditing();
-    },
-    exit: function() {
-        if (this.get('controller')) {
-            this.get('controller').stopEditing();
-        }
-    }
-
-});
-
-
-App.MyProjectPitchBasicsRoute = App.MyProjectPitchSubRoute.extend({});
-App.MyProjectPitchLocationRoute = App.MyProjectPitchSubRoute.extend({});
-App.MyProjectPitchMediaRoute = App.MyProjectPitchSubRoute.extend({});
-App.MyProjectPitchSubmitRoute = App.MyProjectPitchSubRoute.extend({});
-
-App.MyProjectPitchIndexRoute =  Em.Route.extend({
-    redirect: function() {
-        var status = this.modelFor('myProject').get('pitch.status');
-        switch(status) {
-            case 'submitted':
-                this.transitionTo('myProjectPitchReview');
-                break;
-            case 'rejected':
-                this.transitionTo('myProjectPitchRejected');
-                break;
-            case 'approved':
-                this.transitionTo('myProjectPitchApproved');
-                break;
-        }
-    },
-    model: function(params) {
-        return this.modelFor('myProject').get('pitch');
-    }
-});
-
-
-App.MyProjectPitchReviewRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('myProject').get('pitch');
-    }
-});
-
-
-// My ProjectPlan routes
-
-App.MyProjectPlanRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('myProject').get('plan');
-    }
-});
-
-App.MyProjectPlanSubRoute = Em.Route.extend({
-    redirect: function() {
-        var status = this.modelFor('myProject').get('plan.status');
-        switch(status) {
-            case 'submitted':
-                this.transitionTo('myProjectPlanReview');
-                break;
-            case 'rejected':
-                this.transitionTo('myProjectPlanRejected');
-                break;
-            case 'approved':
-                this.transitionTo('myProjectPlanApproved');
-                break;
-        }
-    },
-
-    model: function(params) {
-        return this.modelFor('myProject').get('plan');
-    },
-
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        controller.startEditing();
-    },
-
-    exit: function() {
-        if (this.get('controller')) {
-            this.get('controller').stopEditing();
-        }
-    }
-});
-
-App.MyProjectPlanBasicsRoute = App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanDescriptionRoute = App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanLocationRoute = App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanMediaRoute = App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanAmbassadorsRoute = App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanSubmitRoute = App.MyProjectPlanSubRoute.extend({});
-
-App.MyProjectPlanCampaignRoute = App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanBudgetRoute = App.MyProjectPlanSubRoute.extend({});
-
-App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        controller.set('organizations', App.MyOrganization.find());
-    }
-});
-
-App.MyProjectPlanBankRoute = App.MyProjectPlanSubRoute.extend({});
-
-
-App.MyProjectPlanLegalRoute = App.MyProjectPlanSubRoute.extend({});
-
-
-App.MyProjectPlanIndexRoute = Ember.Route.extend({
-    redirect: function() {
-        var status = this.modelFor('myProject').get('plan.status');
-        switch(status) {
-            case 'submitted':
-                this.transitionTo('myProjectPlanReview');
-                break;
-            case 'rejected':
-                this.transitionTo('myProjectPlanRejected');
-                break;
-            case 'approved':
-                this.transitionTo('myProjectPlanApproved');
-                break;
-        }
-    },
-
-    model: function(params) {
-        return this.modelFor('myProject').get('plan');
-    }
-});
-
-
-App.MyProjectPlanReviewRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('myProject').get('plan');
-    }
-});
-
-App.MyProjectCampaignRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('myProject');
-    }
-});
-
-
 /* Home Page */
 
 App.HomeRoute = Em.Route.extend({
@@ -1495,38 +974,6 @@ App.PageRoute = Em.Route.extend({
             route.transitionTo('error.notFound');
         });
         return page;
-    }
-});
-
-
-/* Blogs & News */
-
-App.NewsItemRoute = Em.Route.extend({
-    model: function(params) {
-        var newsItem =  App.News.find(params.news_id);
-        var route = this;
-        newsItem.on('becameError', function() {
-            route.transitionTo('error.notFound');
-        });
-        return newsItem;
-    }
-});
-
-
-App.NewsRoute = Em.Route.extend({
-    model: function(params) {
-        return App.NewsPreview.find({language: App.get('language')});
-    }
-});
-
-
-App.NewsIndexRoute = Em.Route.extend({
-    model: function(params) {
-        return App.NewsPreview.find({language: App.get('language')});
-    },
-    // Redirect to the latest news item
-    setupController: function(controller, model) {
-        this.send('showNews', model.objectAt(0).get('id'));
     }
 });
 
