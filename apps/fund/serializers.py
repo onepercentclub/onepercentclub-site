@@ -3,11 +3,10 @@ from apps.projects.serializers import ProjectPreviewSerializer
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField
 from apps.projects.models import ProjectPhases
-from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, DonationStatuses, Order, OrderStatuses, Voucher, VoucherStatuses, CustomVoucherRequest, \
-    RecurringDirectDebitPayment, OrderItem
+    RecurringDirectDebitPayment
 
 
 # TODO Create a Serializer that takes an order id for the current order to make this resource RESTful.
@@ -20,27 +19,11 @@ class RecurringDirectDebitPaymentSerializer(serializers.ModelSerializer):
         model = RecurringDirectDebitPayment
         fields = ('id', 'url', 'active', 'amount', 'name', 'city', 'account')
 
-    def save(self, **kwargs):
-        # Set default currency.
-        self.object.currency = 'EUR'
-        return super(RecurringDirectDebitPaymentSerializer, self).save(**kwargs)
-
-
-class OrderDonationPrimaryKeyRelatedField(serializers.RelatedField):
-    def to_native(self, value):
-        ct = ContentType.objects.get_for_model(Donation)
-        try:
-            order_item = OrderItem.objects.get(object_id=value.pk, content_type=ct)
-        except OrderItem.DoesNotExist:
-            return None
-        else:
-            return order_item.order.id
-
 
 class DonationSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
-    order = OrderDonationPrimaryKeyRelatedField(source='*')
+    order = serializers.PrimaryKeyRelatedField()
     amount = EuroField()
     # TODO: Enable url field.
     # This error is presented when the url field is enabled:
@@ -58,19 +41,22 @@ class DonationSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(_("You cannot modify a Donation that does not have status new."))
         return attrs
 
+    # Not using the serailizer's validation because the donation needs to be
     def validate_amount(self, attrs, source):
+        #self.context.request
         value = attrs[source]
 
-        order_item = None
         if self.object:
-            order_item = OrderItem.objects.get(object_id=self.object.id, content_type=ContentType.objects.get_for_model(Donation))
-
-        if order_item and order_item.order.recurring:
+            if self.object.order and self.object.order.recurring:
                 if value < 200:
                     raise serializers.ValidationError(_(u"Donations must be at least €2."))
+            else:
+                if value < 500:
+                    raise serializers.ValidationError(_(u"Donations must be at least €5."))
         else:
             if value < 500:
                 raise serializers.ValidationError(_(u"Donations must be at least €5."))
+
         return attrs
 
     def validate_project(self, attrs, source):
@@ -78,11 +64,6 @@ class DonationSerializer(serializers.ModelSerializer):
         if value.phase != ProjectPhases.campaign:
             raise serializers.ValidationError(_("You can only donate a project in the campaign phase."))
         return attrs
-
-    def save(self, **kwargs):
-        # Set default currency.
-        self.object.currency = 'EUR'
-        return super(DonationSerializer, self).save(**kwargs)
 
 
 class VoucherSerializer(serializers.ModelSerializer):
@@ -103,11 +84,6 @@ class VoucherSerializer(serializers.ModelSerializer):
         if value not in [1000, 2500, 5000, 10000]:
             raise serializers.ValidationError(_(u"Choose between 1%GIFTCARDS with a value of €10, €25, €50 or €100. Not " + str(value)))
         return attrs
-
-    def save(self, **kwargs):
-        # Set default currency.
-        self.object.currency = 'EUR'
-        return super(VoucherSerializer, self).save(**kwargs)
 
     class Meta:
         model = Voucher
