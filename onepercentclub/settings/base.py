@@ -247,7 +247,6 @@ INSTALLED_APPS = (
     'apps.projects',
     'apps.fund',
     'apps.donations',
-    'apps.vouchers',
     'bluebottle.geo',
     'apps.hbtemplates',
     'apps.wallposts',
