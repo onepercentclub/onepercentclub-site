@@ -65,6 +65,8 @@ from .base import *
 ## Render dummy thumbnails when real images are not available
 # THUMBNAIL_DUMMY = False
 
+# Prevent PhantomJS from converting HTTP to HTTPS.
+CRAWLABLE_FORCE_HTTPS = False
 
 ## Use django-devserver
 #INSTALLED_APPS += ('devserver',)
