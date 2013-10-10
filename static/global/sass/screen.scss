@@ -15,7 +15,7 @@
 /* Variables & Mixins */
 @import "variables";
 @import "mixins/grid";
-@import "mixins/rem";
+//@import "mixins/rem";
 @import "mixins/utilities";
 
 
@@ -41,8 +41,6 @@
 @import "base/buttons";
 @import "base/tabs";
 
-/* States */
-// @import "states/states";
 
 /* Modules */
 @import "modules/carousel";

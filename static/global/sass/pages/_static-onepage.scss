@@ -16,7 +16,7 @@
         background-color: rgba(255, 255, 255, 0.8);
     
         > li {
-            @include rem(margin-right, 32px);
+            margin-right: $base-margin*2;
             float: left;
             background-image: none;
             list-style: none;
@@ -50,7 +50,7 @@
         }
         
         .illustration {
-            @include rem(font-size, 240px);
+            font-size: 240px;
             color: $gray-lighter;
         }
         

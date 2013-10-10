@@ -111,7 +111,7 @@ form {
         }
 
         &:after {
-            @include rem(top, 7px);
+            top: 7px;
             position: absolute;
             display: block;
             left: -14px;
@@ -206,8 +206,8 @@ form {
         
         li {
             display: inline-block;
-            @include rem(padding, 4px);
-            @include rem(margin, 0px 4px 8px 0px);
+            padding: $base-padding/2;
+            margin: 0 $base-margin/4 $base-margin/2 0;
     
             border-bottom: 1px solid $gray;
             border-right: 1px solid $gray;

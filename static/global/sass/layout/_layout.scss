@@ -12,22 +12,23 @@ body {
 }
 
 #content {
-	@include clearfix;
+	@include clear;
 	//padding: $base-padding*3 0;
 }
 
 .l-section {
-	@include clearfix;
+	@include clear;
 	width: 100%;
 }
 
 .l-wrapper {
-	@include clearfix;
+	@include clear;
 	position: relative;
 	min-width: $min-width;
 	max-width: $max-width;
 	margin: 0 auto;
 	height: 100%;
+	border: 1px dotted red;
 }
 
 .l-content, .l-header {
@@ -92,7 +93,7 @@ html, body {
 }
 
 #footer {
-	margin-top: ($base-margin * 2);
+	margin-top: $base-margin*2;
 	clear: both;
 }
 
@@ -180,7 +181,12 @@ text.align-center {
 
 }
 
-
+.left { float: left; }
+.right { float: right; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.nowrap { white-space: nowrap; }
 
 /*
 

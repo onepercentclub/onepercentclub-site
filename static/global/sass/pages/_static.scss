@@ -31,7 +31,6 @@
     }
     
     .nl-item-description {
-        @include rem(font-size, 16px);
         line-height: 1.5;
     }
 }
@@ -39,12 +38,12 @@
 
 
 .sidebar-nav {
-	@include rem(margin-top, $base-margin*2);
+	margin-top: $base-margin*2;
 	border-left: 1px solid $gray-lighter;
 	
 	h3 {
 		color: $gray;
-		@include rem(margin, $base-margin/2 $base-margin*2);
+		margin: $base-margin/2 $base-margin*2;
 	}
 
 	ul{ 
@@ -53,7 +52,7 @@
 		list-style: none;
 		background: none;
 		border-top: 1px solid $white;
-		@include rem(margin-bottom, $base-padding);
+		margin-bottom: $base-padding;
 	
 		li {
 			padding: 0;
@@ -62,14 +61,14 @@
 			background: none;
 			
 			ul {
-				@include rem(margin-left, $base-padding);
+				margin-left: $base-padding;
 			}
 	
 			a {
 				clear: both;
 				position: relative;
 				display: block;
-				@include rem(padding, $base-padding/2 $base-padding*2);
+				padding: $base-padding/2 $base-padding*2;
 				text-transform: uppercase;
 				color: $gray;
 				text-decoration: none;

@@ -31,14 +31,14 @@
         }
     }
 
-    .remove {
+    .delete {
         cursor: pointer;
         display: none;
         z-index: 5;
         position: absolute;
         top: -30px;
         right: -30px;
-        @include rem(font-size, 20px);
+        //@include rem(font-size, 20px);
         padding: 20px;
         color: $gray-darker;
         &:hover {
@@ -49,10 +49,3 @@
         }
     }
 }
-
-.left { float: left; }
-.right { float: right; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-.text-center { text-align: center; }
-.nowrap { white-space: nowrap; }

@@ -10,7 +10,7 @@
 	font-family: $font-family-heavy;
     font-size: 22px;
     line-height: $base-line-height;
-    padding: $base-padding/2 $base-padding*2;
+    padding: $base-padding/2 $base-padding;
     display: inline-block;
     border: 1px solid darken($color-secondary, 5%);
     background-color: $color-secondary;
@@ -27,10 +27,12 @@
 		padding-left: $base-padding*4;
 		
 		.flaticon, .icon {
-			padding: $base-padding/4 $base-padding $base-padding $base-padding;
+			padding: $base-padding/4 $base-padding/2 $base-padding $base-padding/2;
 			position: absolute;
 			top: 0;
 			left: 0;
+			width: 50px;
+			height: 50px;
 	        display: inline-block;
 	        background: darken($color-secondary, 5%);
 	        color: lighten($color-secondary, 5%);

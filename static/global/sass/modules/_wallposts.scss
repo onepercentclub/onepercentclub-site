@@ -6,7 +6,7 @@
 #wallpost-form {
 	
 	fieldset {
-		@include rem(padding, 0 $base-padding);
+		padding: 0 $base-padding;
 	}
 	
     ul {
@@ -28,7 +28,7 @@
     
     .wallpost-photos {
         margin-top: $base-margin;
-        @include clearfix;
+        @include clear;
         clear: none;
 
         li {
