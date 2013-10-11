@@ -401,18 +401,66 @@
 
 {% tplhandlebars "paymentSelect" %}
 
-{{#if controllers.currentOrder.recurring }}
+{# Inline style until Frans finishes CSS clean-up #}
 
+<style>
+    #donate .payment-select .tabs {
+        width: 50%;
+        float: left;
+        padding: 0px;
+        margin: 0px;
+    }
+    .payment-select .tabs .radio {
+        background-color: #e9e9e9;
+        padding: 8px 16px;
+        margin-bottom: 4px;
+        cursor: pointer;
+    }
+    .payment-select .tabs .radio input {
+        display: none;
+        opacity: 0;
+    }
+    .payment-select .tabs .radio.selected,
+    .payment-select .tabs .radio > input:checked {
+        background-color: #00c051;
+        color: white;
+    }
+
+</style>
+
+{{#if controllers.currentOrder.recurring }}
 	{{ outlet }}
-	
 {{else}}
-	<div class="content">
+	<div class="content payment-select">
 		<form>
 	    	<div class="form-meta">
 				<div class="form-label">{% trans "You're almost there!" %}</div>
 				<div class="form-desc">{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</div>
 			</div>
-	    	
+
+	    	<div class="form-meta">
+                <div class="tabs">
+                    {{#view Em.RadioButtonGroup name="paymentMethod" selectedValueBinding="redirectPaymentMethod" class="radio-group-tabbed"}}
+                        {{#each redirectPaymentMethods}}
+                            <label>
+                                <div class="radio">{{view view.RadioButton valueBinding=id}} {{name}}</div>
+                            </label>
+                        {{/each}}
+                    {{/view}}
+                </div>
+                <div class="tabs">
+                    {{#if isIdeal}}
+                        {{#view Em.RadioButtonGroup name="issuerId" selectedValueBinding="idealIssuerId" class="radio-group-tabbed"}}
+                            {{#each idealIssuers}}
+                                <label>
+                                    <div class="radio">{{view view.RadioButton valueBinding=id}} {{name}}</div>
+                                </label>
+                            {{/each}}
+                        {{/view}}
+
+                    {{/if}}
+                </div>
+            </div>
 	        {{#if paymentInProgress }}
 	            <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Processing payment..." %}</span>
 	            <button disabled class="btn btn-primary btn-iconed right" {{action "proceedWithPayment"}}><em class="flaticon solid right-2"></em>{% trans "Proceed with Payment" %}</button>
