@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils import translation
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
@@ -102,8 +103,11 @@ class Donation(models.Model):
     project = models.ForeignKey('projects.Project', verbose_name=_("Project"))
 
     status = models.CharField(_("Status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
+
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
+    # The timestamp the donation changed to pending or paid. This is auto-set in the save() method.
+    ready = models.DateTimeField(_("Ready"), blank=True, editable=False, null=True)
 
     donation_type = models.CharField(_("Type"), max_length=20, choices=DonationTypes.choices, default=DonationTypes.one_off, db_index=True)
 
@@ -145,6 +149,13 @@ class Donation(models.Model):
             self.donation_type = self.DonationTypes.recurring
         elif not self.order.recurring and self.donation_type != self.DonationTypes.one_off:
             self.donation_type = self.DonationTypes.one_off
+
+        # Set the datetime when the Donation became 'ready'. This is used for the donation time on the frontend.
+        if not self.ready and self.status in (DonationStatuses.pending, DonationStatuses.paid):
+            self.ready = timezone.now()
+        elif self.ready and self.status not in (DonationStatuses.pending, DonationStatuses.paid):
+            self.ready = None
+
         super(Donation, self).save(*args, **kwargs)
 
 
