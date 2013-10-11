@@ -8,7 +8,7 @@ from .models import CustomVoucherRequest, Voucher
 class VoucherAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     list_display = ('created', 'amount_override', 'status', 'sender_email', 'receiver_email')
-    raw_id_fields = ('receiver', 'receiver')
+    raw_id_fields = ('sender', 'receiver')
     readonly_fields = ('view_order',)
     fields = readonly_fields + ('sender', 'receiver', 'status', 'amount', 'currency', 'code', 'sender_email',
                                 'receiver_email', 'receiver_name', 'sender_name', 'message')
