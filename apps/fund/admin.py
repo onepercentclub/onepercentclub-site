@@ -49,7 +49,7 @@ class DonationAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', 'project')
     readonly_fields = ('view_order',)
     fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project')
-    search_fields = ('user__first_name', 'user__last_name', 'project__title')
+    search_fields = ('user__first_name', 'user__last_name', 'user__email', 'project__title')
 
     def view_order(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.order._meta.app_label, obj.order._meta.module_name), args=[obj.order.id])
@@ -148,7 +148,7 @@ class DonationAdminInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_filter = (OrderStatusFilter, 'recurring')
-    list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'type')
+    list_display = ('order_number', 'user', 'updated', 'total', 'status', 'type')
     raw_id_fields = ('user',)
     readonly_fields = ('total', 'order_number', 'created', 'updated')
     fields = ('recurring',) + readonly_fields + ('user', 'status')

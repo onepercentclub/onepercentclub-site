@@ -99,6 +99,7 @@ class NestedDonationMixin(object):
 class NestedDonationList(NestedDonationMixin, generics.ListCreateAPIView):
     pass
 
+
 class NestedDonationDetail(NestedDonationMixin, generics.RetrieveUpdateDestroyAPIView):
     pass
 
