@@ -1,5 +1,4 @@
 from apps.cowry_docdata.models import DocDataPaymentOrder, payment_method_mapping
-from apps.projects.models import Project, ProjectPhases
 from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
@@ -7,8 +6,7 @@ from django.contrib.admin import SimpleListFilter
 from django.contrib.admin.templatetags.admin_static import static
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
-from .models import Donation, Order, Voucher, CustomVoucherRequest, RecurringDirectDebitPayment, \
-    OrderStatuses, DonationStatuses
+from .models import Donation, Order, RecurringDirectDebitPayment, OrderStatuses, DonationStatuses
 
 
 # http://stackoverflow.com/a/16556771
@@ -171,30 +169,6 @@ class OrderAdmin(admin.ModelAdmin):
     type.short_description = 'type'
 
 admin.site.register(Order, OrderAdmin)
-
-
-class VoucherAdmin(admin.ModelAdmin):
-    list_filter = ('status',)
-    list_display = ('created', 'amount_override', 'status', 'sender_email', 'receiver_email')
-    readonly_fields = ('sender', 'receiver')
-    fields = readonly_fields + ('status', 'amount', 'currency', 'code', 'sender_email', 'receiver_email',
-                                'receiver_name', 'sender_name', 'message')
-    inlines = (DonationAdminInline,)
-
-    def amount_override(self, obj):
-        language = translation.get_language().split('-')[0]
-        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
-
-    amount_override.short_description = 'amount'
-
-admin.site.register(Voucher, VoucherAdmin)
-
-
-class CustomVoucherRequestAdmin(admin.ModelAdmin):
-    list_filter = ('status', 'organization')
-    list_display = ('created', 'number', 'status', 'contact_name', 'contact_email', 'organization')
-
-admin.site.register(CustomVoucherRequest, CustomVoucherRequestAdmin)
 
 
 # http://stackoverflow.com/a/16556771
