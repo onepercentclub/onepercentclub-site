@@ -114,7 +114,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
 
         # SF Layout: Profile section.
         contact.first_name = user.first_name
-        if user.last_name:
+        if user.last_name.strip():
             contact.last_name = user.last_name
         else:
             contact.last_name = "1%MEMBER"

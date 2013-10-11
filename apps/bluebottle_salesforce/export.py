@@ -131,7 +131,7 @@ def generate_users_csv_file(path, loglevel):
                     mailing_postal_code = ''
                     mailing_state = ''
 
-                if user.last_name:
+                if user.last_name.strip():
                     last_name = user.last_name
                 else:
                     last_name = "1%MEMBER"
