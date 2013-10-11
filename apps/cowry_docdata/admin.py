@@ -41,7 +41,7 @@ admin.site.register(DocDataPaymentOrder, DocDataPaymentOrderAdmin)
 
 class DocDataPaymentLogEntryAdmin(admin.ModelAdmin):
     # List view.
-    list_display = ('payment', 'level', 'message')
+    list_display = ('payment', 'timestamp', 'level', 'message')
     list_filter = ('level', 'timestamp')
     search_fields = ('message',)
 
