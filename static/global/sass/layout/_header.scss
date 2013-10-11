@@ -3,7 +3,21 @@
 // --------------------------------------------------
 
 #header {
-	background-color: $black;
+    /*
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+	*/
+	//background-color: $black;
+	@include transition(background 0.2s ease-out);
+	background-color: $gray-darkest;
+	border-bottom: 1px solid $black;
+	//@include opacity(0.8);
+	
+	&:hover {
+    	background-color: $black;
+	}
 }
 
 #logo {
