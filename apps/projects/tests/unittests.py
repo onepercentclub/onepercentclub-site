@@ -1,7 +1,7 @@
 from decimal import Decimal
 import json
 
-from apps.fund.models import DonationStatuses, Donation
+from apps.fund.models import DonationStatuses, Donation, Order
 from apps.projects.models import ProjectPlan, ProjectCampaign
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
@@ -582,13 +582,13 @@ class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
 
         # Create a new donation of 15 in status 'new'. project money donated should be 0
         first_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
-                                              status=DonationStatuses.new)
+                                               status=DonationStatuses.new)
         self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
         
 
         # Create a new donation of 25 in status 'in_progress'. project money donated should be 0.
         second_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=2500,
-                                                 status=DonationStatuses.in_progress)
+                                                status=DonationStatuses.in_progress)
         self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
 
         # Setting the first donation to status 'paid' money donated should be 1500
@@ -613,7 +613,7 @@ class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
         if not amount:
             amount = Decimal('10.00')
 
-        donation = Donation(user=user, amount=amount, status=status, project=project)
-        donation.save()
+        order = Order.objects.create()
+        donation = Donation.objects.create(user=user, amount=amount, status=status, project=project, order=order)
 
         return donation

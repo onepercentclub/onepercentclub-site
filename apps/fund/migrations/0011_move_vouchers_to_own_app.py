@@ -1,70 +1,31 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import DataMigration
+from south.v2 import SchemaMigration
 from django.db import models
 
-class Migration(DataMigration):
+
+class Migration(SchemaMigration):
+
+    needed_by = (
+        ('vouchers', '0001_initial'),
+    )
 
     def forwards(self, orm):
-        # Remove OrderItem.
-        for order in orm.Order.objects.all():
-            content_type = orm['contenttypes.contenttype'].objects.get(app_label='fund', model='donation')
-            donation_order_items = order.orderitem_set.filter(content_type=content_type)
-            donations = orm.Donation.objects.filter(id__in=donation_order_items.values('object_id'))
+        # Deleting field 'Donation.voucher'
+        db.delete_column(u'fund_donation', 'voucher_id')
 
-            for donation in donations:
-                donation.order = order
-                donation.save()
-
-            for order_item in donation_order_items:
-                order_item.delete()
-
-            content_type = orm['contenttypes.contenttype'].objects.get(app_label='fund', model='voucher')
-            voucher_order_items = order.orderitem_set.filter(content_type=content_type)
-            vouchers = orm.Voucher.objects.filter(id__in=voucher_order_items.values('object_id'))
-
-            for voucher in vouchers:
-                voucher.order = order
-                voucher.save()
-
-            for order_item in voucher_order_items:
-                order_item.delete()
-
-        # Remove m2m vouchers x donations.
-        for voucher in orm.Voucher.objects.all():
-            for donation in voucher.donations.all():
-                donation.order = None
-                donation.voucher = voucher
-                donation.save()
-
-                voucher.donations.remove(donation)
+        # Changing field 'Donation.order'
+        db.alter_column(u'fund_donation', 'order_id', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['fund.Order']))
 
     def backwards(self, orm):
-        # Re-add OrderItem
-        donation_ct = orm['contenttypes.contenttype'].objects.get(app_label='fund', model='donation')
-        voucher_ct = orm['contenttypes.contenttype'].objects.get(app_label='fund', model='voucher')
-        for order in orm.Order.objects.all():
-            donations = orm.Donation.objects.filter(order=order)
-            for donation in donations:
-                orm.OrderItem.objects.create(order=order, object_id=donation.id, content_type=donation_ct)
-                donation.order = None
-                donation.save()
+        # Adding field 'Donation.voucher'
+        db.add_column(u'fund_donation', 'voucher',
+                      self.gf('django.db.models.fields.related.ForeignKey')(related_name='donations', null=True, to=orm['fund.Voucher']),
+                      keep_default=False)
 
-            vouchers = orm.Voucher.objects.filter(order=order)
-            for voucher in vouchers:
-                orm.OrderItem.objects.create(order=order, object_id=voucher.id, content_type=voucher_ct)
-                voucher.order = None
-                voucher.save()
-
-        # Re-add m2m vouchers x donations.
-        for voucher in orm.Voucher.objects.all():
-            for donation in voucher.donation_set.all():
-                donation.order = None
-                donation.voucher = None
-                donation.save()
-
-                voucher.donations.add(donation)
+        # Changing field 'Donation.order'
+        db.alter_column(u'fund_donation', 'order_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['fund.Order']))
 
     models = {
         u'accounts.bluebottleuser': {
@@ -121,21 +82,6 @@ class Migration(DataMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'fund.customvoucherrequest': {
-            'Meta': {'object_name': 'CustomVoucherRequest'},
-            'contact': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.BlueBottleUser']", 'null': 'True'}),
-            'contact_email': ('django.db.models.fields.EmailField', [], {'default': "''", 'max_length': '75', 'blank': 'True'}),
-            'contact_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'contact_phone': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'message': ('django.db.models.fields.TextField', [], {'default': "''", 'max_length': '500', 'blank': 'True'}),
-            'number': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'organization': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200', 'blank': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
-            'type': ('django.db.models.fields.CharField', [], {'default': "'unknown'", 'max_length': '20'}),
-            'value': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'})
-        },
         u'fund.donation': {
             'Meta': {'object_name': 'Donation'},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
@@ -143,12 +89,11 @@ class Migration(DataMigration):
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
             'donation_type': ('django.db.models.fields.CharField', [], {'default': "'one_off'", 'max_length': '20', 'db_index': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'donations'", 'null': 'True', 'to': u"orm['fund.Order']"}),
+            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'donations'", 'to': u"orm['fund.Order']"}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
             'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.BlueBottleUser']", 'null': 'True', 'blank': 'True'}),
-            'voucher': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['fund.Voucher']", 'null': 'True'})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.BlueBottleUser']", 'null': 'True', 'blank': 'True'})
         },
         u'fund.order': {
             'Meta': {'ordering': "('-created',)", 'object_name': 'Order'},
@@ -159,13 +104,6 @@ class Migration(DataMigration):
             'status': ('django.db.models.fields.CharField', [], {'default': "'current'", 'max_length': '20', 'db_index': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.BlueBottleUser']", 'null': 'True', 'blank': 'True'})
-        },
-        u'fund.orderitem': {
-            'Meta': {'object_name': 'OrderItem'},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['fund.Order']"})
         },
         u'fund.recurringdirectdebitpayment': {
             'Meta': {'object_name': 'RecurringDirectDebitPayment'},
@@ -178,29 +116,10 @@ class Migration(DataMigration):
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
             'iban': ('django_iban.fields.IBANField', [], {'default': "''", 'max_length': '34', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'manually_process': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['accounts.BlueBottleUser']", 'unique': 'True'})
-        },
-        u'fund.voucher': {
-            'Meta': {'object_name': 'Voucher'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            'donations': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'vouchers_temp'", 'symmetrical': 'False', 'to': u"orm['fund.Donation']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '2'}),
-            'message': ('django.db.models.fields.TextField', [], {'default': "''", 'max_length': '500', 'blank': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'vouchers'", 'null': 'True', 'to': u"orm['fund.Order']"}),
-            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'receiver'", 'null': 'True', 'to': u"orm['accounts.BlueBottleUser']"}),
-            'receiver_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'receiver_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'sender': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'sender'", 'null': 'True', 'to': u"orm['accounts.BlueBottleUser']"}),
-            'sender_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'sender_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
         u'projects.partnerorganization': {
             'Meta': {'object_name': 'PartnerOrganization'},
@@ -239,4 +158,3 @@ class Migration(DataMigration):
     }
 
     complete_apps = ['fund']
-    symmetrical = True
