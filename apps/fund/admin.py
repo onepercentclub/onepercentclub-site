@@ -148,7 +148,7 @@ class DonationAdminInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_filter = (OrderStatusFilter, 'recurring')
-    list_display = ('order_number', 'user', 'created', 'updated', 'total', 'status', 'type')
+    list_display = ('order_number', 'user', 'updated', 'total', 'status', 'type')
     raw_id_fields = ('user',)
     readonly_fields = ('total', 'order_number', 'created', 'updated')
     fields = ('recurring',) + readonly_fields + ('user', 'status')

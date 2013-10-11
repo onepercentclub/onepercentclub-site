@@ -142,7 +142,7 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
     """
     member = UserPreviewSerializer(source='user')
     project = ProjectPreviewSerializer(source='project')
-    date_donated = serializers.DateTimeField(source='created')
+    date_donated = serializers.DateTimeField(source='updated')
 
     class Meta:
         model = Donation

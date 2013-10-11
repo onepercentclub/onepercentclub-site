@@ -97,7 +97,7 @@ class Donation(models.Model):
     amount = models.PositiveIntegerField(_("Amount"))
     currency = models.CharField(_("currency"), max_length=3, default='EUR')
 
-    # User is more or less a cache of the order user or the voucher receiver depending on which is being used.
+    # User is just a cache of the order user.
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
     project = models.ForeignKey('projects.Project', verbose_name=_("Project"))
 
@@ -137,7 +137,7 @@ class Donation(models.Model):
 
     def save(self, *args, **kwargs):
         # Automatically set the user and donation_type based on the order. This is required so that donations always
-        # have the correct user and donation_type regardless of how they are created. User just a cache of the order
+        # have the correct user and donation_type regardless of how they are created. User is just a cache of the order
         # user.
         if self.order.user != self.user:
             self.user = self.order.user
@@ -211,7 +211,7 @@ class Order(models.Model):
         return description
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('-updated',)
 
     # http://stackoverflow.com/questions/2076838
     def save(self, *args, **kwargs):
