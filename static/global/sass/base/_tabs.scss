@@ -3,8 +3,8 @@
 // --------------------------------------------------
 
 .tabs {
-    @include grid(48,1,1);
     @include clear;
+    @include grid(48,1,1);
     margin-bottom: 0;
     margin-top: 0;
     padding: 0;

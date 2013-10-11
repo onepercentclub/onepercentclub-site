@@ -3,6 +3,7 @@
 // --------------------------------------------------
 
 .project-slider {
+	border: 1px solid red;
 	
 	.project-slider-prev, .project-slider-next {
 		position: absolute;
@@ -20,10 +21,10 @@
         	background-color: $color-primary;
 			color: $white;
 		}
-
 	}
 	
 	.project-slider-prev {
+		@include prepend(1);
 		left: 0;
 		background-image: $icons;
 	    background-position: sprite-position($icons, arrow-left-white, 10px, 6px);
@@ -31,6 +32,7 @@
 	}
 	
 	.project-slider-next {
+		@include append(1);
 		right: 0;
 		background-image: $icons;
 		background-repeat: no-repeat;
@@ -42,6 +44,14 @@
 	
 	.image {
 	
+	}
+	
+	.project-info {
+    	
+	}
+	
+	project-status {
+    	
 	}
 	
 }

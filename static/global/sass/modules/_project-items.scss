@@ -56,49 +56,65 @@
     }
 }
 
-
-
-.project-days-left {
-	color: $gray-dark;
-	text-transform: uppercase;
-	
-	.flaticon {	
-	    //font-size: 24px;
-        //color: $gray-light;
-	}
-
-	strong {
-	    //font-size: 28px;
-	    padding: 0;
-	    //line-height: 0.8em;
-	}
-
-	em {
-	    //font-size: 12px;
-	    font-style: normal;
-	    //color: $gray-light;
-	}
-}
-
-.project-fund-amount {
-	color: $gray-dark;
-    text-transform: uppercase;
-    margin-bottom: $base-margin/2;
-
-    .amount-donated {
+.project-status {
+    margin-top: $base-margin;
+    margin-bottom: $base-margin;
+    
+    .project-days-left {
+        @include grid(12,0,2);
+        text-align: center;
+    	color: $gray-dark;
+    	text-transform: uppercase;
+    	margin-top: $base-margin;
+    	
+    	.flaticon {	
+    	    font-size: 1em;
+            color: $gray-light;
+    	}
+    
+    	strong {
+    	    
+    	    padding: 0;
+    	}
+    
+    	em {
+    	    font-style: normal;
+    	}
+    }
+    
+    .project-fund {
+        @include grid(20,0,2);
+        text-align: center;
         
-    }
-
-    .amount-asked {
-    
-    }
-    
-    strong {
+        .project-fund-amount {
+        	color: $gray-dark;
+            text-transform: uppercase;
+            margin-bottom: $base-margin/2;
         
+            .amount-donated {
+                
+            }
+        
+            .amount-asked {
+            
+            }
+            
+            strong {
+                
+            }
+            
+            em {
+                
+            }
+        }
     }
     
-    em {
-        font-style: normal;
+    .project-action {
+        @include grid(16,0,0);
+        
+        .btn {
+            float: right;
+        }
     }
 }
 
@@ -130,3 +146,5 @@
         }
     }
 }
+
+

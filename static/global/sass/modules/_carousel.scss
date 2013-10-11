@@ -23,48 +23,14 @@
 		display: block;
 		color: $white;
 		float: left;
-		padding: $base-padding*2 0 $base-padding*5 0; // push down carousel nav
 		overflow: hidden;
 		
 		.carousel-content {
+		    position: relative;
 			
 			h1 {
 				color: $white;
 			}
-			
-			/*
-			.container {
-				 @include rem(padding, 48px 0 48px 0);
-			}
-			
-			article {
-				position: relative;
-				@include grid(28,1,1);
-				@include rem(font-size, 18px);
-				@include rem(padding, 16px 16px 16px 0);
-				height: 300px;
-				z-index: 2;
-				
-				h4 {
-					@include rem(font-size, 32px);
-					@include rem(margin-bottom, 8px);
-					text-transform: uppercase;
-					font-weight: 600;
-					line-height: 1;
-				}
-			}
-
-			.banner-image {
-				@include clearfix;
-				position: relative;
-				top: -348px;
-				overflow: auto;
-				 width: 50%;
-				 float: right;
-				height: 380px;
-				z-index: 1;
-			}
-			*/
 		}
 	}
 }
