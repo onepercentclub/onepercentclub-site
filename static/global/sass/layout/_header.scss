@@ -12,7 +12,7 @@
 	//background-color: $black;
 	@include transition(background 0.2s ease-out);
 	background-color: $gray-darkest;
-	border-bottom: 1px solid $black;
+	//border-bottom: 1px solid $black;
 	//@include opacity(0.8);
 	
 	&:hover {

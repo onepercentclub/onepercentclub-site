@@ -12,16 +12,17 @@
 // Wrapper for responsive media
 // -------------------------
 
+
+
 object, embed, iframe {
 	width: 100% !important;
 }
 
-.carousel-video, .video, .oembed {
+.video, .oembed {
     position: relative;
-	padding-bottom: 56.25%; /* 16:9 */
+	padding-bottom: 56.25%; // 16:9
 }
 
-.carousel-video iframe,
 .video iframe, 
 .oembed iframe,
 .video object, 
