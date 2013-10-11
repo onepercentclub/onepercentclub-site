@@ -8,9 +8,8 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         # Remove OrderItem.
-        from django.contrib.contenttypes.models import ContentType
         for order in orm.Order.objects.all():
-            content_type = ContentType.objects.get_for_model(orm.Donation)
+            content_type = orm['contenttypes.contenttype'].objects.get(app_label='fund', model='donation')
             donation_order_items = order.orderitem_set.filter(content_type=content_type)
             donations = orm.Donation.objects.filter(id__in=donation_order_items.values('object_id'))
 
@@ -21,7 +20,7 @@ class Migration(DataMigration):
             for order_item in donation_order_items:
                 order_item.delete()
 
-            content_type = ContentType.objects.get_for_model(orm.Voucher)
+            content_type = orm['contenttypes.contenttype'].objects.get(app_label='fund', model='voucher')
             voucher_order_items = order.orderitem_set.filter(content_type=content_type)
             vouchers = orm.Voucher.objects.filter(id__in=voucher_order_items.values('object_id'))
 
@@ -43,9 +42,8 @@ class Migration(DataMigration):
 
     def backwards(self, orm):
         # Re-add OrderItem
-        from django.contrib.contenttypes.models import ContentType
-        donation_ct = ContentType.objects.get_for_model(orm.Donation)
-        voucher_ct = ContentType.objects.get_for_model(orm.Voucher)
+        donation_ct = orm['contenttypes.contenttype'].objects.get(app_label='fund', model='donation')
+        voucher_ct = orm['contenttypes.contenttype'].objects.get(app_label='fund', model='voucher')
         for order in orm.Order.objects.all():
             donations = orm.Donation.objects.filter(order=order)
             for donation in donations:
