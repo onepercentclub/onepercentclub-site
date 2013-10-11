@@ -19,8 +19,6 @@ object, embed, iframe {
 .carousel-video, .video, .oembed {
     position: relative;
 	padding-bottom: 56.25%; /* 16:9 */
-	height: 0 !important;
-	border: 1px solid red;
 }
 
 .carousel-video iframe,
