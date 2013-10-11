@@ -17,63 +17,39 @@
         }
     }
     
-    .project-status {
-        margin-top: $base-margin;
-        margin-bottom: $base-margin;
-        
-        .project-days-left {
-            @include grid(12,0,2);
-            text-align: center;
-        	color: $gray-light;
-        	margin-top: $base-margin;
-        	
-        	.flaticon {	
-        	    font-size: 1em;
-                color: $gray-light;
-        	}
-        
-        	strong {
-        	    font-size: 1.5em;
-        	    color: $gray-lighter;
-        	}
-        
-        	em {
-        	
-        	}
+    .project-days-left {
+    	color: $gray-light;
+    	
+    	.flaticon {	
+    	    font-size: 1.5em;
+    	}
+    
+    	strong {
+    	    font-size: 1.5em;
+    	    color: $gray-lighter;
+    	}
+    
+    	em {
+    	}
+    }
+    
+    .project-fund-amount {
+    	color: $gray-light;
+    
+        .amount-donated {
+            font-size: 1.5em;
+        }
+    
+        .amount-asked {
+            
         }
         
-        .project-fund {
-            @include grid(20,0,2);
-            text-align: center;
-            
-            .project-fund-amount {
-            	color: $gray-light;
-            
-                .amount-donated {
-                    font-size: 1.5em;
-                    color: $gray-lighter;
-                }
-            
-                .amount-asked {
-                
-                }
-                
-                strong {
-                    
-                }
-                
-                em {
-                    
-                }
-            }
+        strong {
+            color: $gray-lighter;
         }
         
-        .project-action {
-            @include grid(16,0,0);
-            
-            .btn {
-                float: right;
-            }
+        em {
+            font-style: normal;
         }
     }
 }
@@ -89,15 +65,7 @@
 
 #project-actions {
     padding-top: $base-padding;
-    background-color: $gray-lighter;
-    
-    .tabs {
-        @include grid(48,1,1);
-        
-        li {
-            @include grid(12,0,0);
-        }
-    } 
+    background-color: $gray-lighter; 
 }
 
 
