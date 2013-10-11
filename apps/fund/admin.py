@@ -49,7 +49,7 @@ class DonationAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', 'project')
     readonly_fields = ('view_order',)
     fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project')
-    search_fields = ('user__first_name', 'user__last_name', 'project__title')
+    search_fields = ('user__first_name', 'user__last_name', 'user__email', 'project__title')
 
     def view_order(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.order._meta.app_label, obj.order._meta.module_name), args=[obj.order.id])
