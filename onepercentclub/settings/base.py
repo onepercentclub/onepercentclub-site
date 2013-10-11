@@ -247,6 +247,7 @@ INSTALLED_APPS = (
     'apps.projects',
     'apps.fund',
     'apps.donations',
+    'apps.vouchers',
     'bluebottle.geo',
     'apps.hbtemplates',
     'apps.wallposts',
@@ -520,10 +521,10 @@ FLUENT_DASHBOARD_APP_ICONS = {
 
     # Donations
     'fund/donation': 'icons/flaticons_stroke/SVGs/money-2.svg',
-    'fund/voucher': 'icons/flaticons_stroke/SVGs/gift-2.svg',
     'fund/order': 'icons/flaticons_stroke/SVGs/cart-1.svg',
     'fund/recurringdirectdebitpayment': 'icons/flaticons_stroke/SVGs/repeat-2.svg',
-    'fund/customvoucherrequest': 'icons/flaticons_stroke/SVGs/mail-2.svg',
+    'vouchers/voucher': 'icons/flaticons_stroke/SVGs/gift-2.svg',
+    'vouchers/customvoucherrequest': 'icons/flaticons_stroke/SVGs/mail-2.svg',
 
     # Tasks
     'tasks/task': 'icons/flaticons_stroke/SVGs/work-1.svg',
