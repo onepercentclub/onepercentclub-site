@@ -216,7 +216,7 @@ class ProjectDonationList(generics.ListAPIView):
                           {'verbose_name': queryset.model._meta.verbose_name})
 
         queryset = queryset.filter(project=project)
-        queryset = queryset.order_by("-created")
+        queryset = queryset.order_by("-ready")
         queryset = queryset.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
 
         return queryset

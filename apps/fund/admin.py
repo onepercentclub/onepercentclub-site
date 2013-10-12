@@ -43,11 +43,12 @@ payment_method_icon_mapping = {
 
 
 class DonationAdmin(admin.ModelAdmin):
-    date_hierarchy = 'created'
-    list_display = ('created', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
+    date_hierarchy = 'updated'
+    list_display = ('updated', 'ready', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
     list_filter = (DonationStatusFilter, 'donation_type')
+    ordering = ('-ready', '-updated')
     raw_id_fields = ('user', 'project')
-    readonly_fields = ('view_order',)
+    readonly_fields = ('view_order', 'created', 'updated', 'ready')
     fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'project__title')
 
@@ -147,6 +148,7 @@ class DonationAdminInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
+    date_hierarchy = 'updated'
     list_filter = (OrderStatusFilter, 'recurring')
     list_display = ('order_number', 'user', 'updated', 'total', 'status', 'type')
     raw_id_fields = ('user',)
