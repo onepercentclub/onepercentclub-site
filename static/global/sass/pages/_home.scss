@@ -5,7 +5,6 @@
 #home {
 	
 	// Global
-	
 	header {
     	text-align: center;
 	}
@@ -14,7 +13,6 @@
 	    @include clear;
     	padding: $base-padding*2 0;
 	}
-	
 	
 	// Carousel overwrite
 	.carousel .carousel-item {
@@ -75,16 +73,16 @@
 	    section {
 	        
 	        .quote {
-			    @include clearfix;
+			    @include clear;
 			    margin-bottom: $base-margin*2;
 			    height: 220px;
 			
-			    aside {
-			        @include grid(12,4,2);
+			    figure {
+			        @include grid(12,4,1);
 			    }
 			
 			    article {
-			        @include grid(32);
+			        @include grid(36,0,4);
 			        padding: $base-padding*2;
 			        position: relative;
 			        background: $white;
@@ -103,32 +101,33 @@
 			            content: " ";
 			            pointer-events: none;
 			        }
-			    }
-			
-			    .quote-name {
-			        font-size: $font-size-larger;
-			        margin-bottom: $base-margin/2;
-			        color: $color-secondary;
-			        text-transform: uppercase;
-			    }
-			
-			    .quote-quote {
-			        font-size: $font-size-largest;
-			        color: $black;
-			        margin: 0;
-			        text-transform: uppercase;
+			     			
+    			    .quote-name {
+    			        font-size: $font-size-larger;
+    			        margin-bottom: $base-margin/2;
+    			        color: $color-secondary;
+    			        //text-transform: uppercase;
+    			    }
+    			
+    			    .quote-content {
+    			        font-size: $font-size-largest;
+    			        color: $black;
+    			        margin: 0;
+    			        text-transform: uppercase;
+    			        line-height: $base-line-height;
+    			    }
 			    }
 			}
 	
-		    .btn.first {
+		    .btn.one {
 		        @include grid(16,4,0);
 		    }
 		    
-		    .btn.second {
+		    .btn.two {
 			    @include grid(16,2,2);
 		    }
 		    
-		    .btn.third {
+		    .btn.three {
 			    @include grid(16,0,4);
 		    }
 	     
@@ -149,10 +148,10 @@
             text-align: center;
             text-transform: uppercase;
     		
-    		.image, img {
-    			display: block;
-    			margin: 0 auto 16px auto;
-    			width: 120px !important;
+    		.image {
+    		    padding: 0 $base-padding*2;
+    			margin: 0 auto $base-margin auto;
+    			
     		}
     
             strong {
@@ -163,6 +162,4 @@
             }
         }
     }
-
-	
 }

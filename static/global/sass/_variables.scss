@@ -31,7 +31,7 @@ $font-family-bold:					'Futura W01 Bold', 'Trebuchet MS', Helvetica, Arial, sans
 	
 $font-family-small:					'Trebuchet MS', Helvetica, Arial, sans-serif;
 
-$base-font-size:					16px !default;
+$base-font-size:					1em !default;
 $base-font-family:					$font-family !default;
 $base-line-height:					1.5em !default;
 
@@ -79,10 +79,10 @@ $font-size-medium:					$base-font-size * 1.125 !default; // ~18px
 $font-size-small:					$base-font-size * 0.875 !default; // ~14px
 $font-size-smallest:				$base-font-size * 0.75 !default; // ~12px
 
-$base-margin:						16px !default;
-$base-padding:						16px !default;
+$base-margin:						1em !default;
+$base-padding:						1em !default;
 
 
 // Icons
 // ----------------------------------
-$icons:								sprite-map("sprites/icons/*.png", $spacing: 20px) !default;
+$icons:								sprite-map("sprites/icons/*.png", $spacing: 30px) !default;
