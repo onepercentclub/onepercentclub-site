@@ -69,6 +69,11 @@
 	.nav-main {
 	    @include grid(26,0,0);
 	    padding: $base-padding*2 0 $base-padding 0;
+	    text-align: center;
+	    
+	    > li {
+	        display: inline;
+	    }
 	    
 	    > li a, > li a:visited {
 	        //@include transition(all 0.2s ease-in);
@@ -78,12 +83,9 @@
 	        color: $gray-lighter;
 		    //text-transform: uppercase;
             font-family: $font-family-bold;
-		    display: block;
-		    float: left;
+		    display: inline-block;
 		    text-align: center;
 		    text-decoration: none;
-		    overflow: hidden;
-		    //border: 1px solid red;
 		
 		    &:hover, &:active, &.is-active {
 		        color: $black;
@@ -160,19 +162,20 @@
 	    .nav-member {
 	    	position: relative;
 	    	display: inline-block;
+	    	float: right;
 	    	
 			.nav-member-dropdown {
 				position: relative;
 				z-index: 999;
 				display: inline-block;
-				height: 32px;
+				height: 2em;
 				
 				color: $white;
 				background: $color-secondary;
 				
 		        img {
-		        	width: 33px;
-					height: 33px;
+		        	width: 2em;
+					height: 2em;
 					float: left;
 					vertical-align: top;
 		            border-width: 0 1px 1px 0;
@@ -181,7 +184,6 @@
 		        }
 		
 		        strong {
-					font-weight: 600;
 		        	display: inline-block;
 					padding: $base-margin/4 $base-padding;
 					//@include rem(padding, 8px, 16px);
@@ -194,10 +196,8 @@
 		        position: absolute;
 		        z-index: 998;
 		        top: 30px;
-		        left: -2px;
-		        width: 250px;
-		        margin: 0;
-		    	padding: 0;
+		        right: -2px;
+		        width: 20em;
 		        background-color: $white;
 		        border-width: 2px 2px 1px 2px;
 		        border-style: solid;
@@ -261,7 +261,7 @@
 					height: 34px;
 					
 					position: relative;
-					left: -2px;
+					right: -2px;
 					top: -2px;
 					
 					border-width: 2px 2px 0 2px;
