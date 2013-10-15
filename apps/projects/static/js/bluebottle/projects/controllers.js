@@ -7,6 +7,15 @@ App.ProjectListController = Em.ArrayController.extend({
 App.ProjectSearchFormController = Em.ObjectController.extend({
     needs: ['projectList'],
 
+    // Number of results to show on one page
+    pageSize: 8,
+
+
+    // Have a property for this so we can easily use another list controller if we extend this.
+    listController: function(){
+        return this.get('controllers.projectList');
+    }.property(),
+
     init: function(){
         var form =  App.ProjectSearch.createRecord();
         this.set('model', form);
@@ -14,18 +23,18 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
     },
 
     rangeStart: function(){
-        return this.get('page') * 8 -7;
-    }.property('controllers.projectList.model.length'),
+        return this.get('page') * this.get('pageSize') - this.get('pageSize') + 1;
+    }.property('list.model.length'),
 
     rangeEnd: function(){
-        return this.get('page') * 8 -8 + this.get('controllers.projectList.model.length');
-    }.property('controllers.projectList.model.length'),
+        return this.get('page') * this.get('pageSize') - this.get('pageSize') + this.get('listController.model.length');
+    }.property('listController.model.length'),
 
     hasNextPage: function(){
-        var next = this.get('page') * 8;
-        var total = this.get('controllers.projectList.model.meta.total');
+        var next = this.get('page') * this.get('pageSize');
+        var total = this.get('listController.model.meta.total');
         return (next < total);
-    }.property('controllers.projectList.model.meta.total'),
+    }.property('listController.model.meta.total'),
 
     hasPreviousPage: function(){
         return (this.get('page') > 1);
@@ -72,10 +81,11 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
             this.set('page', 1);
         }
         if (this.get('model.isDirty') ) {
-            var list = this.get('controllers.projectList');
+            var list = this.get('listController');
             var controller = this;
 
             var query = {
+                'page_size': this.get('pageSize'),
                 'page': this.get('page'),
                 'ordering': this.get('ordering'),
                 'phase': this.get('phase'),

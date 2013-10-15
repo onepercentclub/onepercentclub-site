@@ -12,6 +12,41 @@
 {% endblock_verbatim profile_anchor %}
 
 
+{% block_verbatim my_menu %}
+
+    <li>
+        {{#linkTo "userProfile" }}
+            {% trans "Edit my profile & settings" %}
+        {{/linkTo }}
+    </li>
+        <li>
+            {{#linkTo "userMonthlyProjects" }}
+                {% trans "My Donations" %}
+            {{/linkTo}}
+        </li>
+
+
+    {{#if controllers.myProjectList.model.length }}
+        <li>
+            {{#linkTo "myProjectList" }}
+                {% trans "Manage My Project" %}
+            {{/linkTo}}
+        </li>
+    {{/if}}
+
+    <li>
+        {% block logout_anchor %}
+            <a href="{% url 'accounts:logout' %}?next=/{{ LANGUAGE_CODE }}/">Logout</a>
+        {% endblock logout_anchor %}
+    </li>
+
+    <li class="nav-my-language">
+        {% trans "Language" %} {{view "App.LanguageSwitchView"}}
+    </li>
+
+{% endblock_verbatim my_menu %}
+
+
 {% block_verbatim donations_anchor %}
     <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
     {{#if controllers.currentOrder.donations.length }}
