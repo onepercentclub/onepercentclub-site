@@ -257,10 +257,6 @@ App.Router.map(function() {
         this.route('notFound', {path: '/not-found'});
         this.route('notAllowed', {path: '/not-allowed'});
     });
-
-    this.resource('page', {path: '/pages/:page_id'});
-    this.resource('contactMessage', {path: '/contact'});
-
 });
 
 
@@ -446,47 +442,6 @@ App.HomeRoute = Em.Route.extend({
         this._super(controller, model);
         controller.set('projectIndex', 0).loadProject();
         controller.set('quoteIndex', 0).loadQuote();
-    }
-});
-
-
-/* Static Pages */
-
-App.PageRoute = Em.Route.extend({
-    model: function(params) {
-        var page =  App.Page.find(params.page_id);
-        var route = this;
-        page.on('becameError', function() {
-            route.transitionTo('error.notFound');
-        });
-        return page;
-    }
-});
-
-/* Contact Page */
-
-App.ContactMessageRoute = Em.Route.extend({
-    model: function(params) {
-        var store = this.get('store');
-        return store.createRecord(App.ContactMessage);
-    },
-    setupController: function(controller, model) {
-        window.scrollTo(0, 0);
-        this._super(controller, model);
-        controller.startEditing();
-    },
-
-    exit: function() {
-        if (this.get('controller')) {
-            this.get('controller').stopEditing();
-        }
-    }
-});
-
-// Show the latest donations
-App.TickerRoute = Em.Route.extend({
-    model: function(params) {
-        return  App.Ticker.find();
     }
 });
 
