@@ -1,8 +1,13 @@
-from bluebottle.bluebottle_utils.tests import UserTestsMixin
-from apps.projects.tests import ProjectWallPostTestsMixin
-from django.test import TestCase
-from rest_framework import status
 import json
+
+from django.core import mail
+from django.test import TestCase
+
+from rest_framework import status
+from bluebottle.bluebottle_utils.tests import UserTestsMixin
+
+from apps.projects.tests import ProjectWallPostTestsMixin
+from .models import Reaction
 
 
 class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
@@ -234,3 +239,161 @@ class WallPostApiRegressionTests(ProjectWallPostTestsMixin, UserTestsMixin, Test
         response = self.client.post(self.wallpost_reaction_url, {'text': reaction_text, 'wallpost': self.wallpost.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(escaped_reaction_text, response.data['text'])
+
+
+class WallpostMailTests(ProjectWallPostTestsMixin, UserTestsMixin, TestCase):
+    def setUp(self):
+        self.user_a = self.create_user(email='a@example.com')
+        self.user_b = self.create_user(email='b@example.com')
+        self.user_c = self.create_user(email='c@example.com')
+
+        self.project = self.create_project(owner=self.user_a)
+
+    def test_new_wallpost_by_a_on_project_by_a(self):
+        """
+        Project by A + Wallpost by A => No mails.
+        """
+        # Object by A
+        # |
+        # +-- Wallpost by A (+)
+
+        self.create_project_text_wallpost(project=self.project, author=self.user_a)
+
+        # Mailbox should not contain anything.
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_new_wallpost_by_b_on_project_by_a(self):
+        """
+        Project by A + Wallpost by B => Mail to (project owner) A
+        """
+        # Object by A
+        # |
+        # +-- Wallpost by B (+)
+
+        self.create_project_text_wallpost(project=self.project, author=self.user_b)
+
+        # Mailbox should contain an email to project owner.
+        self.assertEqual(len(mail.outbox), 1)
+        m = mail.outbox[0]
+
+        self.assertEqual(m.to, [self.user_a.email])
+
+    def test_new_reaction_by_a_on_wallpost_a_on_project_by_a(self):
+        """
+        Project by A + Wallpost by A + Reaction by A => No mails.
+        """
+        # Object by A
+        # |
+        # +-- Wallpost by A
+        # |   |
+        # |   +-- Reaction by A (+)
+
+        w = self.create_project_text_wallpost(project=self.project, author=self.user_a)
+
+        # Empty outbox.
+        mail.outbox = []
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_a)
+
+        # Mailbox should not contain anything.
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_new_reaction_by_b_on_wallpost_a_on_project_by_a(self):
+        """
+        Project by A + Wallpost by A + Reaction by B => Mail to (reaction author) A.
+        """
+        # Object by A
+        # |
+        # +-- Wallpost by A
+        # |   |
+        # |   +-- Reaction by A
+        # |   |
+        # |   +-- Reaction by B (+)
+
+        w = self.create_project_text_wallpost(project=self.project, author=self.user_a)
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_a)
+
+        # Empty outbox.
+        mail.outbox = []
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_b)
+
+        # Mailbox should contain an email to author of reaction a.
+        self.assertEqual(len(mail.outbox), 1)
+        m = mail.outbox[0]
+
+        self.assertEqual(m.to, [self.user_a.email])
+
+    def test_new_reaction_by_a_on_wallpost_b_on_project_by_a(self):
+        """
+        Project by A + Wallpost by B + Reaction by A => Mail to (reaction author) B.
+        """
+        # Object by A
+        # |
+        # +-- Wallpost by B
+        #     |
+        #     +-- Reaction by A (+)
+
+        w = self.create_project_text_wallpost(project=self.project, author=self.user_b)
+
+        # Empty outbox.
+        mail.outbox = []
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_a)
+
+        # Mailbox should contain an email to author of reaction b.
+        self.assertEqual(len(mail.outbox), 1)
+        m = mail.outbox[0]
+
+        self.assertEqual(m.to, [self.user_b.email])
+
+    def test_new_reaction_by_b_on_wallpost_b_on_project_by_a(self):
+        """
+        Project by A + Wallpost by B + Reaction by B => Mail to (project owner) A.
+        """
+        # Object by A
+        # |
+        # +-- Wallpost by B
+        #     |
+        #     +-- Reaction by A
+        #     |
+        #     +-- Reaction by B (+)
+
+        w = self.create_project_text_wallpost(project=self.project, author=self.user_b)
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_a)
+
+        # Empty outbox.
+        mail.outbox = []
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_b)
+
+        # Mailbox should contain an email to project owner.
+        self.assertEqual(len(mail.outbox), 1)
+        m = mail.outbox[0]
+
+        self.assertEqual(m.to, [self.user_a.email])
+
+    def test_new_reaction_by_c_on_wallpost_b_on_project_by_a(self):
+        """
+        Project by A + Wallpost by B + Reaction by C => Mail to (project owner) A + Mail to (reaction author) B
+        """
+        # Object by A
+        # |
+        # +-- Wallpost by B
+        #     |
+        #     +-- Reaction by A
+        #     |
+        #     +-- Reaction by B
+        #     |
+        #     +-- Reaction by C (+)
+
+        w = self.create_project_text_wallpost(project=self.project, author=self.user_b)
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_a)
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_b)
+
+        # Empty outbox.
+        mail.outbox = []
+        Reaction.objects.create(text='Hello world', wallpost=w, author=self.user_c)
+
+        # Mailbox should contain an email to project owner.
+        self.assertEqual(len(mail.outbox), 2)
+        m1 = mail.outbox[0]
+        m2 = mail.outbox[1]
+
+        self.assertListEqual([m2.to[0], m1.to[0]], [self.user_a.email, self.user_b.email])
