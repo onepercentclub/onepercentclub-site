@@ -378,7 +378,7 @@ DS.DRF2Adapter.registerTransform("date", {
  * This is used in accounts/models.js
  * TODO: find cleaner approach?
  */
-DS.RF2Adapter.registerTransform("birthdate", {
+DS.DRF2Adapter.registerTransform("birthdate", {
     deserialize: function(serialized) {
         if (serialized == undefined) {
             return null;
