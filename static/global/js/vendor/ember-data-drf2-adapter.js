@@ -372,3 +372,31 @@ DS.DRF2Adapter.registerTransform("date", {
         return utcYear + "-" + pad(utcMonth) + "-" + pad(utcDayOfMonth) + "T" + pad(utcHours) + ":" + pad(utcMinutes) + ":" + pad(utcSeconds) + "Z";
     }
 });
+
+/* Dates are incorrectly interpreted as DateTimes, with timezone issues.
+ * Register birthdate as a date with 'no' time and unlocalized date.
+ * This is used in accounts/models.js
+ * TODO: find cleaner approach?
+ */
+DS.RF2Adapter.registerTransform("birthdate", {
+    deserialize: function(serialized) {
+        if (serialized == undefined) {
+            return null;
+        }
+        return new Date(serialized);
+    },
+
+    serialize: function(date) {
+        if (date == null) {
+            return null;
+        }
+        var pad = function (num) {
+            return num < 10 ? "0" + num : "" + num;
+        };
+        var Year = date.getFullYear(),
+            Month = date.getMonth() +1,
+            DayOfMonth = date.getDate();
+
+        return Year + "-" + pad(Month) + "-" + pad(DayOfMonth) + "T00:00:00Z";
+    }
+});

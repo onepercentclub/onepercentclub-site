@@ -359,6 +359,8 @@ NOSE_ARGS = [
     '--nologcapture',
 ]
 
+SKIP_BB_FUNCTIONAL_TESTS = True
+
 
 SOUTH_TESTS_MIGRATE = False  # Make south shut up during tests
 
