@@ -2,11 +2,11 @@
 {% load bb_ember i18n %}
 
 {% block_verbatim profile_anchor %}
-    <a href="#" class="nav-member-dropdown">
-        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Your Avatar" />
+    <a href="#" class="nav-profile">
+        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
         <strong>
             {% trans "My 1%" %}
-            <span class="flaticon solid down-2"></span>
+            <em class="flaticon solid down-2"></em>
         </strong>
     </a>
 {% endblock_verbatim profile_anchor %}
@@ -54,29 +54,22 @@
             {{#linkTo 'currentOrder.index'}}
                 <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span>
                 {% trans "Donations" %} 
-                <span class="flaticon solid right-2"></span>
+                <em class="flaticon solid right-2"></em>
             {{/linkTo}}
         </li>
     {{/if}}
+
 {% endblock_verbatim donations_anchor %}
 
-{% block_verbatim profile_anchor %}
-    <a href="#" class="nav-member-dropdown">
-        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Your Avatar" />
-        <strong>
-            {% trans "My 1%" %}
-            <span class="flaticon solid down-2"></span>
-        </strong>
-    </a>
-{% endblock_verbatim profile_anchor %}
 
 {% block_verbatim anonymous_user %}
-    <li class="nav-signup-login">
+
+    <li class="nav-member-actions">
         {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
         {% trans "or" %}
-        <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Login" %}</a>
+        <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
     </li>
-    <li class="nav-switch-language">
+    <li class="nav-switch-lang">
         {{view "App.LanguageSwitchView"}}
     </li>
 {% endblock_verbatim anonymous_user %}

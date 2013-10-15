@@ -98,7 +98,11 @@
     <section class="wrapper">
         <div class="content">
             <form>
+<<<<<<< HEAD
                 {{#if model}}
+=======
+                {{#if model }}
+>>>>>>> 44a267a... Create separate page for monthly donation
                     <div class="form-meta">
                         <div class="form-label">{% trans "Edit your payment info" %}</div>
                         <div class="form-desc">{% trans "Here you can change your bank account info and monthly donations." %}</div>
@@ -158,6 +162,7 @@
 {% tplhandlebars "userMonthlyProjects" %}
     <section class="wrapper" id="donate">
         <div class="content">
+<<<<<<< HEAD
             {{#unless payment.active}}
                 <h2>
                     <a {{action 'toggleActive'}}><em class="icon flaticon solid checkmark-1"></em> Start monthly donation</a>
@@ -302,6 +307,70 @@
                 {{/if}}
 
                 <button {{bindAttr class=":btn :btn-iconed :btn-primary :right shouldSave::disabled"}} {{action 'save' model}}>
+=======
+            <form>
+                {{render "monthlyDonationList"}}
+
+                {{#each donation in order.donations }}
+                    <ul class="donation-projects">
+                        {{render "monthlyDonation" donation}}
+                    </ul>
+                {{else}}
+                    <div class="donation-empty">
+                        <em class="flaticon solid heart-1"></em>
+                        <div class="form-meta">
+                            {{#if active }}
+                                <p class="form-label">{% blocktrans %}You are a 1%Friend{% endblocktrans %}</p>
+                                <p class="form-desc">{% trans "You currently support the top 3 projects with your monthly donation." %}</p>
+                            {{ else }}
+                                <p class="form-label">{% blocktrans %}Become a 1%Friend{% endblocktrans %}</p>
+                                <p class="form-desc">{% trans "Support the top 3 projects with your monthly donation." %}</p>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/each}}
+                <fieldset class="donation-monthly-total">
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Monthly donations" %}
+                        </label>
+
+                        <div class="controls">
+                            {{#view Em.RadioButtonGroup name="active" selectedValueBinding="active" class="radio-group-horizontal"}}
+                                <div class="radio3">{{view view.RadioButton value=true}}<span>{% trans "On" %}</span></div>
+                                <div class="radio3">{{view view.RadioButton value=false}}<span>{% trans "Off" %}</span></div>
+                            {{/view}}
+                        </div>
+                    </li>
+                    {{#if showTopThreeProjects }}
+                        <div class="form-summary">&nbsp;</div>
+                    {{else}}
+                        <div class="form-summary">{% trans "Divide to projects" %}</div>
+                    {{/if}}
+                    <div class="donation-amount">
+                        <div class="amount-control">
+                            {# TODO: This doesn't display. #}
+                            {{#each error in errors.recurringTotal }}
+                                <span class="errors">{{ error }}</span>
+                            {{/each}}
+                            <label for="donation-amount-1">{% trans "Total Amount" %}</label>
+                            <span class="currency"><em>&euro; </em>
+                                {{view Em.TextField type="number" step="5" name="donation-amount" size="8" maxlength="3" valueBinding="amount"}}
+                            </span>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <a {{action 'addMonthlyProject'}}>
+                    {{#if length }}
+                        {%trans "Add another project" %}
+                    {{else}}
+                        {%trans "Add a project" %}
+                    {{/if}}
+                </a>
+
+                <button {{bindAttr class=":btn :btn-iconed :btn-primary :right isDirty::disabled"}} {{action 'save' model}}>
+>>>>>>> 44a267a... Create separate page for monthly donation
                     <em class="flaticon solid checkmark-1"></em>
                     {% trans "Save" %}
                 </button>
@@ -316,6 +385,7 @@
         </div>
     </section>
 
+<<<<<<< HEAD
     {{#bb-modal id="projectPicker" class="hidden" closeButton=true}}
         <div style="zoom: 80%">
             {{render "monthlyProjectList" }}
@@ -348,6 +418,13 @@
             </div>
         {{/if}}
     </div>
+=======
+    <section class="wrapper">
+        <div class="content">
+            {{render "monthlyProjectList" }}
+        </div>
+    </section>
+>>>>>>> 44a267a... Create separate page for monthly donation
 {% endtplhandlebars %}
 
 
