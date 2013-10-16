@@ -176,6 +176,8 @@ class Order(models.Model):
 
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
+    # The timestamp the order changed to closed. This is auto-set in the save() method.
+    closed = models.DateTimeField(_("Closed"), blank=True, editable=False, null=True)
 
     @property
     def latest_payment(self):
@@ -237,6 +239,13 @@ class Order(models.Model):
                     order_number = str(random.randint(0, max_number))
                     loop_num += 1
             self.order_number = order_number
+
+        # Set the datetime when the Order became 'closed'. This is used for sorting the Order in the admin.
+        if not self.closed and self.status == OrderStatuses.closed:
+            self.closed = timezone.now()
+        elif self.closed and self.status != OrderStatuses.closed:
+            self.closed = None
+
         super(Order, self).save(*args, **kwargs)
 
 
