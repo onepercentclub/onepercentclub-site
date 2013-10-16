@@ -310,6 +310,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'cowry.docdata': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 
