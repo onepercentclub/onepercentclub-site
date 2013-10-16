@@ -201,13 +201,10 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
 =======
         if (this.get('editingRecurringOrder')) {
             // The user already has a recurring order set.
-            if (this.get('amount') == 0) {
-                this.set('amount', this.get('recurringOrder.total'));
-            }
 
             // Create a donations list with the new and monthly donations.
             donations = Em.A();
-            donations.addObjects(this.get('model'));
+            donations.addObjects(this.get('order.donations'));
             this.get('order.donations').forEach(function(donation) {
                 // Don't include donations set to 0 as they have been 'deleted'.
                 if (donation.get('tempRecurringAmount') != 0) {
