@@ -7,8 +7,8 @@
 }
 
 #search-form {
-    @include grid(48,1,1);
-    padding-top: $base-padding;
+    @include grid(48,1,0);
+    padding: $base-padding 0;
     	
     .control {
         @include grid(12,0,1);
@@ -45,25 +45,13 @@
             line-height: 40px;
         }
     }
-    
-    .clear-form {
-        @include grid(12,1);
-        float: right;
-        text-transform: uppercase;
-        font-size: $font-size-smallest;
-        
-        a {
-            color: $gray-dark;
-            float: right;
-        }
-    }
 }
 
 #search-navigation {
     @include clearfix;
-    @include grid(48,1,1);
+    @include grid(48,1,0);
     padding-top: $base-padding*2;
-	text-transform: uppercase;
+    text-transform: uppercase;
 	
 	header {
     	@include grid(8,0,0);
@@ -79,7 +67,13 @@
         	}
     	}
 	}
-    
+	
+    .search-reset {
+        font-size: $font-size-smallest;
+        color: $gray;
+        text-decoration: none;
+    }
+        
     .search-sort {
     	@include grid(28,0,0);
     	margin-top: $base-margin;
@@ -130,7 +124,7 @@
 }
 
 #search-results {
-    @include grid(48,1,1);
+    @include grid(48,1,0);
     margin-top: $base-margin*2;
     
     li {

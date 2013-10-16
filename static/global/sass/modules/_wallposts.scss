@@ -41,11 +41,13 @@
 
 #wallposts {
 	@include clear;
+	padding-top: $base-padding*2;
 	
 	.wallpost {
 	    @include clear;
 	    position: relative;
-	    margin: $base-margin*3 0;
+	    padding: $base-padding 0 $base-padding/2 0;
+	    //border-bottom: 1px solid $gray-lighter;
 	    
 	    header {
             @include clear;
@@ -65,12 +67,15 @@
             }
             
             .wallpost-meta {
-                @include grid(16,1,0);
+                float: right;
                 text-align: right;
-                
-                .wallpost-timestamp {
-                    color: $gray;
-                }  
+            }
+            
+            .wallpost-timestamp, .reaction-timestamp {
+                color: $gray;
+                font-style: normal;
+                font-size: $font-size-smallest;
+                text-transform: uppercase;
             }
                             
             .manage {
@@ -99,10 +104,11 @@
             p {
                 margin: 0;
                 padding: 0;
+                display: inline;
             }   
         
             br {
-              //display: none !important;
+                display: none !important;
             }
         }
         
@@ -112,15 +118,46 @@
         
         .login-box {
             @include prepend(10);
-            opacity: 0;
-            @include transition(opacity 0.2s ease-out);
-            background-color: $gray-lighter;
+            color: $gray;
+            //opacity: 0;
+            //@include transition(opacity 0.2s ease-out);
+            //background-color: $gray-lighter;
             padding: $base-padding;
         }
         
         &:hover .login-box {
-            opacity: 1;
+            //opacity: 1;
         }
+        
+        &.wallpost-system {
+            
+            .wallpost-member {
+                padding-bottom: $base-padding;
+                
+                .member {
+                    display: inline;
+                    float: none;
+                    
+                    .member-name {
+                        font-family: $base-font-family;
+                    }
+                }
+            }
+            
+            .wallpost-system-type {
+                position: absolute;
+                left: 0;
+                top: 0;
+                @include prepend(1);
+                color: $gray-light;
+                padding: $base-padding 0 $base-padding/2 0;
+            }
+            
+            .login-box {
+                display: none;
+            }
+        }
+        
         
 	    
 	    /*

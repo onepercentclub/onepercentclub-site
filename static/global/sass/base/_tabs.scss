@@ -4,10 +4,8 @@
 
 .tabs {
     @include clear;
-    @include grid(48,1,1);
-    margin-bottom: 0;
-    margin-top: 0;
     padding: 0;
+    margin: 0;
     
     &.two li {
         @include grid(24,0,0);

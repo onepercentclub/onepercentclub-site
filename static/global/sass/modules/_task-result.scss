@@ -18,7 +18,11 @@
     }
     
     .task-category {
-        
+        background-color: $color-secondary;
+        color: $white;
+        padding: $base-padding/2 $base-padding;
+        margin: 0;
+        font-size: $base-font-size;
     }
     
     .task-header {
@@ -76,10 +80,26 @@
         padding: $base-padding;
         background-color: $gray-lighter;
         display: block;
-        color: $gray-darker;
-        
-                
+        color: $gray-darker;        
     }
+    
+    .task-meta {
+        color: $gray;
+        @include clear;
+        text-transform: uppercase;
+        @include clear;
+        margin: 0;
+        font-size: $font-size-smallest;
+        
+        li {
+			@include resetlist;
+            @include grid(24,0,0);
+			
+            .flaticon {
+            
+            }
+        }
+    }    
     
     .task-description {
         @include transition(all 0.2s ease-out);

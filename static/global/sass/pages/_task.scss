@@ -1,0 +1,222 @@
+//
+// Task detail page
+// --------------------------------------------------
+
+
+
+
+
+/*
+.project-owner-actions {
+
+	@include grid(48,1,1);
+	background: $gray-lighter;
+	padding: $base-padding/2 $base-padding;
+	margin-top: $base-padding;
+	
+	header {
+		@include grid(16,0,1);
+		float: left;
+	}
+	
+	.btn {
+		float: right;
+	}
+}
+
+#task-detail {
+	
+	#wallposts {
+		
+		.login-form {
+			background: $gray-lighter;
+			padding: $base-padding $base-padding*2;
+		}
+		
+		#comment-box {
+			@include clear;
+			@include append(1);
+			@include prepend(11);
+		}
+	}
+	
+	article {
+		@include clear;
+	}
+	
+	.task-list {
+		text-transform: uppercase;
+	}
+	
+	#task-status {
+		display: block;
+		@include grid(10,0,1);
+		margin-top: $base-padding*2;
+		
+        .flaticon {
+            font-size: 40px;
+            display: block;
+        }
+        
+        padding: $base-padding 0;
+        background-color: $gray-lighter;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+        
+    }
+    
+	.task-description {
+		@include grid(38,1,1);
+		////@include rem(padding-top, $base-padding*2);
+		
+		h1 {
+			////@include rem(padding-top, $base-padding/2);
+			////@include rem(font-size, 28px);
+		}
+		
+		h2 {
+			////@include rem(font-size, 22px);
+			color: $gray;
+			font-weight: 300;
+		}
+	}
+	
+	.sidebar {
+		////@include rem(padding-top, $base-padding);
+		
+		.btn {
+			float: right;
+			display: block;
+			width: 100% !important;
+			//@include rem(margin-bottom, $base-padding*2);
+		}
+		
+		h3 {
+			//@include rem(font-size, 18px);
+			//@include rem(padding-top, 0);
+			font-weight: 600;
+			color: $color-text;
+			text-transform: uppercase;
+		}
+		
+		.task-meta {
+			clear: both;
+			background: $gray-lighter;
+			//@include rem(padding, $base-padding*2);
+			//@include rem(margin, $base-padding 0);
+
+			p {
+				color: $gray;
+				line-height: 1.5;
+			}
+			
+			dl {
+				@include clear;
+				//@include rem(margin-bottom, 4px);
+				
+				dt {
+					text-transform: uppercase;
+					color: $gray;
+					@include grid(20,0,1);
+					font-weight: normal;
+					//@include rem(font-size, 12px);
+					
+					.flaticon {
+						//@include rem(margin-right, 4px);
+					}
+					
+				}
+				
+				dd {
+					@include grid(28,0,0);
+				}
+			}
+		}
+		
+		.task-members, .task-files {
+			clear: both;
+			
+			h3 {
+				background: $gray-lighter;
+				//@include rem(padding, $base-padding*2 $base-padding*2 $base-padding $base-padding*2);
+			}
+			
+			p {
+				background: $gray-lighter;
+				//@include rem(padding, 0 $base-padding*2 $base-padding*2 $base-padding*2);
+			}
+			
+			.login-signup {
+				background: $white;
+				//@include rem(padding, 0 $base-padding*2);
+			}
+			
+			ul {
+				background: $gray-lighter;
+				padding: 0;
+				margin: 0;
+				border-top: 1px solid $white;
+				//@include rem(margin-bottom, $base-padding);
+				
+				.item {
+					clear: both;
+					position: relative;
+					display: block;
+					border-bottom: 1px solid $white;
+					//@include rem(padding, $base-padding $base-padding*2);
+					
+					.member {
+						
+						font-weight: 300;
+						text-transform: uppercase;
+						
+						
+						.user-img {
+							width: 40px;
+							//@include rem(margin-right, $base-padding/2);
+							padding: 0;
+							float: left;
+						}
+					}
+					
+					.task-status {
+				        //@include rem(margin-right, 4px);
+						font-weight: 300;
+				        color: $color-primary;
+				        text-transform: uppercase;
+					}
+					
+			        .edit-task-status {
+						color: $black;
+						text-transform: uppercase;
+			        }
+					
+					.file-size, .file-author, .time-applied {
+						//@include rem(font-size, 12px);
+						text-transform: uppercase;
+						font-style: normal;
+						color: $gray;
+					}
+				}
+			}
+		}
+		
+		.task-files {
+								
+			.item .flaticon {
+				color: $color-text;
+				//@include rem(font-size, 18px);
+				display: block;
+				//@include rem(margin-right, 8px);
+				float: left;
+			}
+		}
+	
+	}
+}
+
+#task-form {
+	//@include rem(margin-top, $base-padding*2);
+}
+*/

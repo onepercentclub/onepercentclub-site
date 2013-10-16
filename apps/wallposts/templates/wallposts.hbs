@@ -237,34 +237,44 @@
 
 {% tplhandlebars "system_wallpost" %}
 
-    <article class="wallpost system-wallpost">
-        <header class="member">
+    <article class="wallpost wallpost-system">
+    
+        <header class="wallpost-header">
             
-            <span class="system-wallpost-icon">
-                <span class="icon">&euro;</span> {% trans "Donation" %}
+            <span class="wallpost-system-type">
+                <span class="flaticon solid wallet-1"></span> {% trans "Donation" %}
             </span>
             
-            {{#if author}}
+            <div class="wallpost-member">
+                {{#if author}}
                 <a {{action openInBigBox "userModal" author}} class="member">
                     <strong class="member-name">{{author.full_name}}</strong>
                 </a>
-                {% trans "Made a donation" %}
-            {{else}}
-                <span class="member member-guest"><strong class="member-name">{% trans "Someone made a donation" %}</strong></span>
-            {{/if}}
+                {{else}}
+                <span class="member">
+                    <span class="member member-guest"><strong class="member-name">{% trans "Someone" %}</strong></span>
+                </span>
+                {{/if}}
+                <span class="wallpost-system-action">{% trans "Made a donation" %}</span>
+            </div>
+            
+            
             {{#if created}}
-                <em class="timestamp">{{ localize created formatting="X" }}</em>
+            <div class="wallpost-meta">
+                <em class="wallpost-timestamp">{{ localize created formatting="X" }}</em>
+            </div>
             {{/if}}
-
+            
             {{#if isAuthor}}
                 <ul class="manage">
                     {# <li class="manage-edit"><a href="#">{% trans "Edit" %}</a></li> #}
                     <li class="manage-delete"><a {{action "deleteWallPost" target="view"}}><span class="flaticon solid trash-2"></span> {% trans "Delete" %}</a></li>
                 </ul>
             {{/if}}
+            
         </header>
 
-        <div class="reactions">
+        <div class="wallpost-reactions">
             {{render "wallPostReactionList" reactions}}
         </div>
 

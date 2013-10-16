@@ -5,7 +5,6 @@
 
 /* ========================= Includes ============================= */
 
-
 /* Compass */
 @import "compass/utilities";
 @import "compass/reset";
@@ -15,7 +14,7 @@
 /* Variables & Mixins */
 @import "variables";
 @import "mixins/grid";
-//@import "mixins/rem";
+@import "mixins/rem";
 @import "mixins/utilities";
 
 
@@ -41,6 +40,7 @@
 @import "base/buttons";
 @import "base/tabs";
 
+@import "base/modals";
 
 /* Modules */
 @import "modules/carousel";
@@ -61,6 +61,7 @@
 @import "pages/static-onepage";
 @import "pages/search";
 @import "pages/project-detail";
+@import "pages/task";
 @import "pages/fund";
 @import "pages/account";
 

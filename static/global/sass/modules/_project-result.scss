@@ -69,7 +69,7 @@
     
     .project-status {
         height: 100px;
-        padding: $base-padding;
+        padding: 0 $base-padding;
         background-color: $gray-lighter;
         display: block;
         color: $gray-darker;
@@ -86,6 +86,7 @@
         .project-days-left {
             font-size: $font-size-smallest;
             float: right;
+            width: auto;
         }
         
         .project-phase {
@@ -110,10 +111,10 @@
         padding: $base-padding;
     }
     
-    &:hover, &:active {
+    &:hover {
         background: $color-secondary;
         
-        .project-image, .project-country, .project-status {
+        .project-header, .project-image, .project-location, .project-status {
             display: none;
         }
         
@@ -133,13 +134,13 @@
         position: absolute;
         bottom: 0;
         width: 100%;
+        padding: $base-padding/4;
         text-align: center;
         text-transform: uppercase;
         background: $white;
         border: 1px solid $gray-lighter;
         color: $gray;
         font-size: $font-size-smallest;
-        line-height: 2;
         
         strong {
             color: $gray-darker;
@@ -149,6 +150,15 @@
         
         em {
             font-style: normal;
+        }
+        
+        &:hover, &:active {
+            
+            color: $gray-darker;
+            
+            strong {
+                
+            }
         }
     }
 }

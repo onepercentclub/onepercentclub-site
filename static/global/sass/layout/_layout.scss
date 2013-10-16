@@ -13,7 +13,6 @@ body {
 
 #content {
 	@include clear;
-	//padding: $base-padding*3 0;
 }
 
 .l-section {
@@ -28,7 +27,7 @@ body {
 	max-width: $max-width;
 	margin: 0 auto;
 	height: 100%;
-    border: 1px dotted red;
+    //border: 1px dotted red;
 }
 
 .l-content, .l-header {
@@ -47,6 +46,23 @@ body {
 	
 }
 
+.is-loading-big {
+    @include clear;
+    display: block;
+    width: 100%;
+    padding: $base-padding/10 0;
+    text-align: center;
+    
+    img {
+        width: 100px;
+    }
+    
+    em {
+        display: none;
+    }
+    
+}
+
 /* =========== Content Layout */
 
 // Specific Layout Elements
@@ -58,6 +74,10 @@ body {
 
 .l-half {
 	@include grid(24,1,1);
+}
+
+.l-one-third {
+	@include grid(16,1,1);
 }
 
 .l-quarter {
@@ -112,7 +132,7 @@ html, body {
 }
 
 .text {
-    white-space: pre-line;
+    //white-space: pre-line;
 }
 
 .text a {
@@ -188,156 +208,10 @@ text.align-center {
 .text-center { text-align: center; }
 .nowrap { white-space: nowrap; }
 
-/*
 
-
-html { 
-    color: $text-black;
-    font-family: $font-family;
-    font-size: $font-size;
-}
-
-
-@media only screen and (min-width: 1080px) {
-    
-    html {
-        font-size: 15px;
-    }
-}
-
-@media only screen and (min-width: 1180px) {
-    
-    html {
-        font-size: 16px;
-    }
-}
-
-
-html, body, #site {
-  	height: 100%;
-}
-#content {
-  	min-height: 100%;
-  	//equal to footer height + 2x padding
-  	margin-bottom: -562px;
-  	@include rem(padding-bottom, $padding * 2);
-}
-#content:after {
-  	content: "";
-  	display: block;
-}
-#footer, #content:after {
-  	//.push must be the same height as footer
-  	height: 530px; 
-}
-
-#footer {
-	margin-top: ($padding * 2);
-	clear: both;
-}
-
-body { 
-    overflow-y: scroll;
-}
-
-// full width container
-.container, .section {
-    width: 100%;
-    min-width: $min-width;
-}
-
-// wraps grid min & max size
-.wrapper {
-    @include clearfix;  
-    min-width: $min-width;
-    max-width: $max-width;
-    margin: auto;
-    padding: 0 16px;
-}
-
-.wrapper > header, .wrapper > .main-title,
-.wrapper > h1, .wrapper > h2, .wrapper > h3 {
-    @include grid(48, 1);
-}
-
-.wrapper > form {
-    @include grid(32, 1);
-}
-
-
-.wrapper .sidebar, .wrapper sidebar  {
-    @include grid(16, 1, 1);
-    //@include rem(padding, 32px );
-}
-
-.sidebar.grey {
-  background-color: $color-back;
-  @include rem(padding, 12px 24px );
-  color: $gray;
-  @include rem(margin-bottom, 24px);
-  
-  h3 {
-      padding: 0px;
-      @include rem(font-size, 16px);
-      @include rem(line-height, 16px);
-      text-transform: uppercase;
-      font-weight: 300;
-      color: $grayDark;
-  }
-}
-
-.wrapper .content {
-    @include grid(32, 1);
-    &.gray {
-        background-color: $color-back;
-    }
-}
-
-.wrapper > .body {
-    @include grid(48, 1);
-    &.gray {
-        background-color: $color-back;
-    }
-}
-
-.section {
-    background-color: $color-back;
-    @include rem(padding, 0 0 16px 0);
-}
-
-.top {
-    background-color: $black;
-    color: $white;
-    vertical-align: middle;
-}
-
-.l-full {
-    @include grid(48, 1);
-}
-.l-two-third {
-    @include grid(32, 1);
-}
-.l-half {
-    @include grid(24, 1);
-}
-.l-one-third {
-    @include grid(16, 1);
-}
-.l-first { clear: left; }
-
-/* Example for types.html
-header { @include grid(48, 1); }
-section { 
-    @include clearfix;
-    margin-bottom: $margin-bottom;
-    @include grid(48, 1);
-    
-    &.half { @include grid(24, 1); }
-    &.one-third { @include grid(16, 1); }
-}
- */
-
-/* ========================= Responsive ================================== */
+// Responsive 
+// TODO ?
+// -------------------------
 
 
 /* Tablets */
