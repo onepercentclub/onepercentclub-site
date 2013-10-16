@@ -63,7 +63,6 @@
 		    padding-left: $base-padding*3.5;
 		    
 			.flaticon, .icon {
-				padding-top: 0.25em;
             	background: darken($black, 5%);
 				color: $gray-darker;
 			}
@@ -139,12 +138,30 @@
 	
 	// Disabled buttons
     &.disabled, &[disabled], &.disabled:hover, &[disabled]:hover, &.disabled:active, &[disabled]:active {
-	    padding: $base-padding/2 $base-padding;
+        
 	    border-top-width: 1px;
     	top: auto;
         border-color: $gray-light;
         background-color: $gray-light;
         color: $gray-lighter;
+        cursor: default;
+        
+        .flaticon, .icon {
+			background: darken($gray-light, 5%);
+			color: $gray-lighter;
+		}
+    }
+}
+
+.btn-link {
+    display: inline-block;
+    font-size: $font-size-large;
+    font-family: $font-family-heavy;
+    color: $color-primary;
+    margin: $base-margin*2 0;
+    
+    &:hover, &:active {
+        color: $color-secondary;
     }
 }
 
@@ -175,75 +192,3 @@
     position: absolute;
     float: right;
 }
-
-
-
-
-/*
-
-
-
-.button-link {
-    @include rem(font-size, 18px);
-    color: $text-black;
-    font-weight: 300;
-    text-transform: uppercase;
-    cursor: hand;
-    cursor: pointer;
-    background: transparent;
-
-    .flaticon {
-     	@include rem(margin-right, $padding/4);
-    }
-
-    &:hover, &:active {
-        color: $green;
-    } 
-}
-
-
-// The standard button has the $color-brand colors
-
-
-.btn:hover,
-.btn-primary:hover {
-    border-color: $black;
-    background-color: $grayDarker;
-    color: $white;
-
-    .btn-title,
-    .btn-subtitle {
-        color: $white;
-    }
-}
-
-
-
-
-    
-
-
-.btn-uploader {
-	position: relative;
-
-	border: 1px solid darken($grayLight, 5%);
-	background-color: $grayLight;
-
-	.flaticon, .icon {
-	    background-color: darken($grayLight, 15%);
-	    color:    $white;
-	}
-
-	input {
-	    @include opacity(0);
-	    cursor: pointer;
-	    height: 100%;
-	    position: absolute;
-	    left: 0;
-	    right: 0;
-	    top: 0;
-	    z-index: 10;
-	    width: auto;
-	}
-}
-*/

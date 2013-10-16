@@ -1,17 +1,6 @@
 {% extends "accounts:accounts/nav.html" %}
 {% load bb_ember i18n %}
 
-{% block_verbatim profile_anchor %}
-    <a href="#" class="nav-member-dropdown">
-        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Your Avatar" />
-        <strong>
-            {% trans "My 1%" %}
-            <span class="flaticon solid down-2"></span>
-        </strong>
-    </a>
-{% endblock_verbatim profile_anchor %}
-
-
 {% block_verbatim donations_anchor %}
     <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
     {{#if controllers.currentOrder.donations.length }}
@@ -25,6 +14,15 @@
     {{/if}}
 {% endblock_verbatim donations_anchor %}
 
+{% block_verbatim profile_anchor %}
+    <a href="#" class="nav-member-dropdown">
+        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Your Avatar" />
+        <strong>
+            {% trans "My 1%" %}
+            <span class="flaticon solid down-2"></span>
+        </strong>
+    </a>
+{% endblock_verbatim profile_anchor %}
 
 {% block_verbatim anonymous_user %}
     <li class="nav-signup-login">

@@ -17,9 +17,20 @@
 }
 */
 
+.project-info {
+}
+
+.project-title {
+    text-transform: capitalize;
+    
+    a {
+        text-decoration: none;
+    }
+}
+
 .project-phase {
-	@include clearfix;
-	padding-bottom: $base-padding;
+	@include clear;
+	padding-bottom: $base-padding/2;
 	margin: 0 0 $base-margin/2 0;
 	border-bottom: 1px solid $gray-darker;
 
@@ -28,14 +39,13 @@
         font-size: $font-size-smallest;
         background-image: none;
         color: $gray;
-        text-align: center;
         text-transform: uppercase;
-		padding-right: $base-padding/2;
+		padding: $base-padding/2 $base-padding/2 $base-padding/2 $base-padding/4;
+		text-align: center;
 		
         &:first-of-type {
             margin-right: $base-margin;
             width: auto;
-            text-align: left;
         }
 
         &.is-current {
@@ -61,11 +71,9 @@
     margin-bottom: $base-margin;
     
     .project-days-left {
-        @include grid(12,0,2);
         text-align: center;
     	color: $gray-dark;
     	text-transform: uppercase;
-    	margin-top: $base-margin;
     	
     	.flaticon {	
     	    font-size: 1em;
@@ -73,7 +81,6 @@
     	}
     
     	strong {
-    	    
     	    padding: 0;
     	}
     
@@ -83,34 +90,34 @@
     }
     
     .project-fund {
-        @include grid(20,0,2);
         text-align: center;
         
-        .project-fund-amount {
-        	color: $gray-dark;
-            text-transform: uppercase;
-            margin-bottom: $base-margin/2;
         
-            .amount-donated {
-                
-            }
+    }
+    
+    .project-fund-amount {
+    	color: $gray-dark;
+        text-transform: uppercase;
+        margin-bottom: $base-margin/2;
+    
+        .amount-donated {
+            
+        }
+    
+        .amount-asked {
         
-            .amount-asked {
+        }
+        
+        strong {
             
-            }
-            
-            strong {
-                
-            }
-            
-            em {
-                
-            }
+        }
+        
+        em {
+            font-style: normal;
         }
     }
     
     .project-action {
-        @include grid(16,0,0);
         
         .btn {
             float: right;
@@ -130,7 +137,7 @@
         position: relative;
         display: block;
         border-radius: 1em 0 0 1em;
-        background-color: $color-primary;
+        background-color: $color-secondary;
         color: $white;
         text-align: right;
         white-space: nowrap;

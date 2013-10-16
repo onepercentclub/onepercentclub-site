@@ -21,11 +21,11 @@
 }
 
 #logo {
-    @include grid(6,1,1);
+    @include grid(6,1,0);
     
     .logo-link {
 	    display: block;
-        padding: $base-padding 0 0 0;
+        padding: $base-padding*1.2 0 0 0;
         //@include transition(opacity, 0.5s, ease-out);
         //@include opacity(0.95);
         
@@ -55,9 +55,8 @@
 // -------------------------
 
 #nav {
+    @include clear;
 	text-transform: uppercase;
-	//min-height: 64px;
-	//font-size: $font-size-small;
 	
     ul, li {
     	margin: 0;
@@ -68,7 +67,6 @@
 	
 	.nav-main {
 	    @include grid(26,0,0);
-	    padding: $base-padding*2 0 $base-padding 0;
 	    text-align: center;
 	    
 	    > li {
@@ -76,31 +74,28 @@
 	    }
 	    
 	    > li a, > li a:visited {
-	        //@include transition(all 0.2s ease-in);
-			padding: 0 $base-padding;
-			//border-top: $base-padding solid $black;
+	        @include transition(all 0.2s ease-in);
+			padding: $base-padding*2 2%;
 	        white-space: nowrap;
 	        color: $gray-lighter;
-		    //text-transform: uppercase;
             font-family: $font-family-bold;
 		    display: inline-block;
 		    text-align: center;
 		    text-decoration: none;
 		
 		    &:hover, &:active, &.is-active {
-		        color: $black;
-		        background-color: $white;
+		        color: $white;
+		        background-color: $gray-darkest;
 		    }
 	    }
 	}
 	
 	.nav-actions {
-	    //margin-top: $base-margin;
-	    @include grid(16,0,0);
-	    padding: $base-padding*1.5 $base-padding $base-padding $base-padding;
+	    @include grid(16,0,1);
 	    color: $white;
 				
 		.nav-signup-login {
+	        padding: $base-margin*2 0 0 0;
 		    float: left;
 			text-align: left;
 			color: $color-deselect;
@@ -109,7 +104,6 @@
 			a {
 			    padding: $base-padding/4 $base-padding/2;
 				margin: 0 $base-margin/2;
-				text-decoration: underline;
 				text-decoration: none;
 			    font-family: $font-family-heavy;
 			    
@@ -131,47 +125,56 @@
 			
 		}
 		
-	    .nav-switch-language {
-	        float: right;
-			white-space: nowrap;
-			//font-size: $font-size-smallest;
-			margin-top: $base-margin/2;
-	        
-	        li {
-	        	display: inline;
-	        	padding: 0 $base-padding/2;
-	        	//border-right: 1px solid $color-deselect;
-		        
-		        &:last-child {
-	            	border: none;
-	            }
-	            
-	            > a {
-	            	display: inline;
-		            cursor: pointer;
-		            color: $color-deselect;
-		
-					&:hover, &:active, &.is-active {
-	                	color: $white;
-					}
-				}
-	        }
-	    }
-		
-		
+	    .nav-language {	
+        	padding: $base-margin*2.1 0 0 0;
+        	
+        	li {
+        		display: inline;
+        		text-align: right;
+        		font-size: $font-size-smallest;
+        		
+        		a {
+        			width: auto;
+            		display: inline-block;
+            		float: none;
+            		float: right;
+            		margin: 0 $base-margin/6;
+            		padding: $base-padding/6 $base-padding/2;
+            		border: 1px solid transparent;
+            		color: $gray-light;
+            		text-decoration: none;
+            		
+            		&:hover, &:active {
+                		color: $white;
+                		border-color: $white;
+            		}
+        		}
+        		
+                &.active a {
+                    color: $black;
+                    background-color: $gray-light;
+                    
+                    &:hover, &:active {
+                		background-color: $white;
+            		}
+                }
+            }
+        }
+
 	    .nav-member {
-	    	position: relative;
-	    	display: inline-block;
-	    	float: right;
-	    	
+	        position: relative;
+    	    height: 2em;
+    	    margin: $base-margin*1.8 0 0 0;
+    	    float: right;
+    	    
 			.nav-member-dropdown {
 				position: relative;
 				z-index: 999;
 				display: inline-block;
-				height: 2em;
-				
 				color: $white;
 				background: $color-secondary;
+				margin: 0;
+                padding: 0;
 				
 		        img {
 		        	width: 2em;
@@ -186,25 +189,26 @@
 		        strong {
 		        	display: inline-block;
 					padding: $base-margin/4 $base-padding;
-					//@include rem(padding, 8px, 16px);
 		        }
 			}
 	
 		    .nav-member-dropdown-menu {
-		    	font-family: $font-family-heavy;	
 		    	display: none;
 		        position: absolute;
 		        z-index: 998;
-		        top: 30px;
+		        top: 2em;
 		        right: -2px;
-		        width: 20em;
+		        width: 16em;
+		        margin-top: -2px;
+		    	font-family: $font-family-heavy;
 		        background-color: $white;
 		        border-width: 2px 2px 1px 2px;
 		        border-style: solid;
 		        border-color: $color-secondary;
 		        
 		        > li {
-			        
+		            font-size: $font-size-small;
+		            
 			        > a {
 				        display: block;
 				        padding: $base-padding/2;
@@ -223,38 +227,38 @@
 			    	color: $white;
 			    	font-weight: normal;
 			    	background: $color-secondary;
-			    	padding: $base-padding/2 $base-padding;
+			    	padding: $base-padding/2;
+			    	@include clear;
 			    	
-			    	.nav-language {	    		
-			    		display: inline;
-			    		
-			    		li {
-				    		display: inline;
-				    		
-				    		a {
-				    			width: auto;
-					    		display: inline-block;
-					    		float: none;
-					    		font-weight: 600;
-					    		padding: $base-padding/4 $base-padding;
-					    		background: $white;
-					    		@include border-radius(8px);
-					    		margin: 0 $base-margin/4;
-				    		}
-				    		
-			                &.active a {
-			                    color: $white;
-			                    background: $gray-darker;
-			                }
-			            }
-		    		}
-					
-				}       
-		       
+			    	.nav-language li {	
+        			    	
+                		a {
+                			color: $white;
+                    		
+                    		&:hover, &:active {
+                        		color: $black;
+                        		border-color: $black;
+                    		}
+                		}
+                		
+                        &.active a {
+                            color: $color-secondary;
+                            background-color: $white;
+                            
+                            &:hover, &:active {
+                        		background-color: $black;
+                    		}
+                        }
+    		    	}
+                } 
 		    }
 		    
 		    &:hover {
-			 
+			    
+			    .nav-member-dropdown img {
+    			    border-color: $color-secondary;
+			    }
+			    
 			 	.nav-member-dropdown {
 		        	background-color: $white;
 		        	color: $gray-darker;
@@ -277,40 +281,37 @@
 			    	display: block !important;
 				}
 	        }
-		    
-		    .nav-cart {
-		    	display: block;
-		    	float: left;
-		        font-weight: normal;
-		        
-		        .nav-cart-count {
-		        	font-size: $font-size-smallest;
-			        font-weight: 600;
-			        display: inline-block;
-			        width: 20px;
-			        height: 20px;
-			        line-height: 22px;
-			        background: $white;
-			        color: $gray-darker;
-			        text-align: center;
-			        @include border-radius(10px);
-				}
-		        
-		        a {
-		        	display: inline-block;
-			    	color: $white;
-					padding: $base-padding/2 0;
-					
-					&:hover, &:active {
-						color: $color-primary;
-						
-						.nav-cart-count {
-							color: $white;
-							background: $color-primary;
-						}
-					}
-		        }
-		    }
 		}
+		
+		.nav-cart {
+	    	display: block;
+	        margin: $base-margin*1.8;
+	        
+	        .nav-cart-count {
+		        display: inline-block;
+		        width: 1.5em;
+		        height: 1.5em;
+		        line-height: 1.5em;
+		        background: $color-primary;
+		        color: $white;
+		        text-align: center;
+		        @include border-radius(1.5em);
+			}
+	        
+	        a {
+	        	display: inline-block;
+		    	color: $color-primary;
+				padding: 0.2em 0;
+				text-decoration: none;
+				font-family: $font-family-heavy;
+				
+				&:hover, &:active {
+					color: $white;
+					
+					.nav-cart-count {
+					}
+				}
+	        }
+	    }
 	}
 }
