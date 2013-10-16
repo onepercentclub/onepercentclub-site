@@ -445,3 +445,33 @@ App.MapPicker = Em.View.extend({
 
 });
 
+
+/**
+ * Generic view to plug-in social sharing functionality anywhere in the app.
+ * e.g. {{view App.SocialShareView classNames="your-styling-class-name"}}
+ *
+ * Gets the entire current URL to share.
+ *
+ * @class SocialShareView
+ * @namespace App
+ * @extends Ember.View
+ */
+App.SocialShareView = Em.View.extend({
+    templateName: 'social_share',
+    dialogW: 626,
+    dialogH: 436,
+
+    shareOnFacebook: function() {
+        this.showDialog('https://www.facebook.com/sharer/sharer.php?u=', 'facebook');
+    },
+
+    shareOnTwitter: function() {
+        this.showDialog('https://twitter.com/home?status=', 'twitter');
+    },
+
+    showDialog: function(shareUrl, type) {
+        var currentLink = encodeURIComponent(location.href);
+
+        window.open(shareUrl + currentLink, type + '-share-dialog', 'width=' + this.get('dialogW') + ',height=' + this.get('dialogH'));
+    }
+})

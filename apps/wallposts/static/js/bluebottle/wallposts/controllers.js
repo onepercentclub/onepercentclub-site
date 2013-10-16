@@ -1,62 +1,4 @@
 /*
- Models
- */
-
-App.ProjectWallPostPhoto = DS.Model.extend({
-    url: 'projects/wallposts/media/photos',
-    photo: DS.attr('image'),
-    mediawallpost: DS.belongsTo('App.ProjectWallPost')
-});
-
-
-
-// This is union of all different wallposts.
-App.WallPost = DS.Model.extend({
-    url: 'wallposts',
-
-    // Model fields
-    author: DS.belongsTo('App.UserPreview'),
-    title: DS.attr('string'),
-    text: DS.attr('string'),
-    type: DS.attr('string'),
-    created: DS.attr('date'),
-    reactions: DS.hasMany('App.WallPostReaction'),
-
-    video_url: DS.attr('string'),
-    video_html: DS.attr('string'),
-    photos: DS.hasMany('App.ProjectWallPostPhoto'),
-
-    isSystemWallPost: function(){
-        return (this.get('type') == 'system');
-    }.property('type')
-});
-
-
-App.ProjectWallPost = App.WallPost.extend({
-    url: 'projects/wallposts',
-    project: DS.belongsTo('App.Project')
-});
-
-
-App.NewProjectWallPost = App.ProjectWallPost.extend({
-    url: 'projects/wallposts'
-});
-
-App.ProjectMediaWallPost = App.ProjectWallPost.extend({
-    url: 'projects/wallposts/media'
-});
-
-App.ProjectTextWallPost = App.ProjectWallPost.extend({
-    url: 'projects/wallposts/text'
-});
-
-
-App.TaskWallPost = App.WallPost.extend({
-    url: 'tasks/wallposts',
-    task: DS.belongsTo('App.Task')
-});
-
-/*
  Controllers
  */
 
@@ -238,112 +180,44 @@ App.TaskWallPostNewController = Em.ObjectController.extend({
 
 });
 
-/*
- Views
- */
 
-App.MediaWallPostNewView = Em.View.extend({
-    templateName: 'media_wallpost_new',
-    tagName: 'form',
+/* Reactions */
 
-    submit: function(e) {
-        e.preventDefault();
-        this.get('controller').addMediaWallPost();
+App.WallPostReactionController = Em.ObjectController.extend(App.IsAuthorMixin, App.DeleteModelMixin, {
+    needs: ['currentUser']
+});
+
+
+App.WallPostReactionListController = Em.ArrayController.extend({
+    needs: ['currentUser'],
+
+    init: function() {
+        this._super();
+        this.createNewReaction();
     },
 
-    didInsertElement: function() {
-        this.get('controller').clearWallPost();
-    }
-});
-
-
-App.TextWallPostNewView = Em.View.extend({
-    templateName: 'text_wallpost_new',
-    tagName: 'form',
-
-    submit: function(e){
-        e.preventDefault();
-        this.get('controller').addTextWallPost();
+    createNewReaction: function() {
+        var store = this.get('store');
+        var reaction =  store.createRecord(App.WallPostReaction);
+        this.set('newReaction', reaction);
     },
 
-    didInsertElement: function() {
-        this.get('controller').clearWallPost();
+    addReaction: function() {
+        var reaction = this.get('newReaction');
+        // Set the wallpost that this reaction is related to.
+        reaction.set('wallpost', this.get('target.model'));
+        reaction.set('created', new Date());
+        var controller = this;
+        reaction.on('didCreate', function(record) {
+            controller.createNewReaction();
+            // remove is-selected from all input roms
+            $('form.is-selected').removeClass('is-selected');
+        });
+        reaction.on('becameInvalid', function(record) {
+            controller.createNewReaction();
+            controller.set('errors', record.get('errors'));
+            record.deleteRecord();
+        });
+        reaction.save();
     }
 });
-
-
-App.SystemWallPostView = Em.View.extend({
-    templateName: 'system_wallpost'
-});
-
-
-App.ProjectWallPostView = Em.View.extend({
-    templateName: 'project_wallpost',
-
-    didInsertElement: function(){
-        // Give it some time to really render...
-        // Hack to make sure photo viewer works for new wallposts
-        Em.run.later(function(){
-            this.$('.gallery-picture').colorbox({
-                rel: this.toString(),
-                next: '<span class="flaticon solid right-2"></span>',
-                previous: '<span class="flaticon solid left-2"></span>',
-                close: '×'
-            });
-        }, 500);
-    },
-
-    actions: {
-        deleteWallPost: function() {
-            var view = this;
-            var wallpost = this.get('controller.model');
-            Bootstrap.ModalPane.popup({
-                heading: gettext("Really?"),
-                message: gettext("Are you sure you want to delete this comment?"),
-                primary: gettext("Yes"),
-                secondary: gettext("Cancel"),
-                callback: function(opts, e) {
-                    e.preventDefault();
-                    if (opts.primary) {
-                        view.$().fadeOut(500, function() {
-                            wallpost.deleteRecord();
-                            wallpost.save();
-                        });
-                    }
-                }
-            });
-        }
-    }
-
-});
-
-
-App.TaskWallPostView = App.ProjectWallPostView.extend({
-    templateName: 'task_wallpost'
-
-});
-
-// This is the view toi display the wallpost list
-// Idea of how to have child views with different templates:
-// http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
-App.ProjectIndexView = Em.View.extend({
-    templateName: 'project_wallpost_list'
-});
-
-
-App.ProjectWallPostNewView = Em.View.extend({
-    templateName: 'project_wallpost_new'
-});
-
-
-App.TaskWallPostListView = Em.View.extend({
-    templateName: 'task_wallpost_list'
-
-});
-
-
-App.TaskWallPostNewView = Em.View.extend({
-    templateName: 'task_wallpost_new',
-    tagName: 'form'
-});
-

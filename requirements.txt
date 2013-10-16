@@ -1,5 +1,7 @@
-# -e git://github.com/onepercentclub/bluebottle.git#egg=bluebottle
--e git://github.com/onepercentclub/bluebottle.git@v0.0.4#egg=bluebottle
+# Use the remove-onepercent-js branch for this version
+# FIXME: Make this into a tag
+-e git://github.com/onepercentclub/bluebottle.git@a4ad88a16c549e5e6bbe8dc564e242a2c5527a99#egg=bluebottle
+
 
 Django==1.5.4
 Pillow==2.1.0

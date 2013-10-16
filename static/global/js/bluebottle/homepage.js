@@ -50,6 +50,14 @@ App.HomePage = DS.Model.extend({
 
 });
 
+App.Adapter.map('App.HomePage', {
+    projects: {embedded: 'load'},
+    slides: {embedded: 'load'},
+    quotes: {embedded: 'load'},
+    impact: {embedded: 'load'}
+});
+
+
 /* Controllers */
 
 App.HomeController = Ember.ObjectController.extend({
