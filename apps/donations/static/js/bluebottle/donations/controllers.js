@@ -3,12 +3,6 @@ App.UserDonationController = Em.ObjectController.extend({
 });
 
 App.UserMonthlyController = Em.ObjectController.extend({
-    isActive: function(){
-        if (this.get('active')) {
-            return 'on';
-        }
-        return 'off';
-    }.property('active'),
 
     initamount: function(obj, keyName) {
         if (this.get('recurringPayment.isLoaded') && this.get('amount') == 0) {
@@ -111,13 +105,16 @@ App.UserMonthlyController = Em.ObjectController.extend({
 
     }.observes('amount', 'order.donations.length'),
 
-    toggleActive: function(sender, value){
-        if (value == 'on') this.set('active', true);
-        if (value == 'off') this.set('active', false);
-    }.observes('activeValue'),
-
     actions: {
         save: function(){
+            this.get('model').save();
+        },
+        toggleActive: function(sender, value){
+            if (this.get('active')) {
+                this.set('active', false);
+            } else {
+                this.set('active', true);
+            }
             this.get('model').save();
         },
         addProjectToMonthly: function(project){
@@ -151,9 +148,6 @@ App.MonthlyProjectListController = App.ProjectListController.extend({});
 App.MonthlyDonationController = Em.ObjectController.extend({
     deleteDonation: function() {
         var donation = this.get('model');
-        // Fix because reverse relations aren't cleared.
-        // See: http://stackoverflow.com/questions/18806533/deleterecord-does-not-remove-record-from-hasmany
-        donation.get('order.donations').removeObject(donation);
         donation.deleteRecord();
         donation.save();
     }

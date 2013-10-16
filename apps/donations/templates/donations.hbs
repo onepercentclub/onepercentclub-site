@@ -158,7 +158,13 @@
 {% tplhandlebars "userMonthlyProjects" %}
     <section class="wrapper" id="donate">
         <div class="content">
-            <form>
+            {{#if active}}
+                <a {{action 'toggleActive'}}>Stop monthly donation</a>
+            {{else}}
+                <a {{action 'toggleActive'}}>Start monthly donation</a>
+            {{/if}}
+            <style>form.disabled { opacity: 0.3; }</style>
+            <form {{bindAttr class="active::disabled"}}>
                 {{render "monthlyDonationList"}}
 
                 {{#each donation in order.donations }}
@@ -180,18 +186,6 @@
                     </div>
                 {{/each}}
                 <fieldset class="donation-monthly-total">
-                    <li class="control-group">
-                        <label class="control-label">
-                            {% trans "Monthly donations" %}
-                        </label>
-
-                        <div class="controls">
-                            {{#view Em.RadioButtonGroup name="active" selectedValueBinding="active" class="radio-group-horizontal"}}
-                                <div class="radio3">{{view view.RadioButton value=true}}<span>{% trans "On" %}</span></div>
-                                <div class="radio3">{{view view.RadioButton value=false}}<span>{% trans "Off" %}</span></div>
-                            {{/view}}
-                        </div>
-                    </li>
                     {{#if showTopThreeProjects }}
                         <div class="form-summary">&nbsp;</div>
                     {{else}}
