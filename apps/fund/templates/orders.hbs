@@ -95,31 +95,6 @@
 {% tplhandlebars "current_order_donation_list" %}
 <div class="content">
 	<form>
-	    <fieldset class="donate-time">
-	        <ul>
-	            <li class="control-group control-group-lonely">
-	                {{#if moreThanOneDonation }}
-	                    <label class="control-label">{% trans "Donate to projects" %}</label>
-	                {{else}}
-	                    <label class="control-label">{% trans "Donate to project" %}</label>
-	                {{/if}}
-	
-	                {{#if controllers.currentUser.isAuthenticated}}
-	                    <div class="controls">
-	                        {{#view Em.RadioButtonGroup class="big-radio radio2" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
-	                            {{view view.RadioButton value="single" id="freq_single"}}
-	                            <label for="freq_single">{% trans "One time only" %}</label>
-	
-	                            {{view view.RadioButton value="monthly" id="freq_monthly"}}
-	                            <label for="freq_monthly">{% trans "Monthly" %}</label>
-	                        {{/view}}
-	                    </div>
-	                {{/if}}
-	
-	            </li>
-	        </ul>
-	    </fieldset>
-		
 
         {{#each donation in controller }}
 			<ul class="donation-projects">
@@ -128,91 +103,27 @@
         {{else}}
         
         	<div class="donation-empty">
-            {{#if showTopThreeProjects }}
-            	<em class="flaticon solid heart-1"></em>
+            {{#linkTo 'projectList'}}
+                <em class="flaticon solid plus-2"></em>
                 <div class="form-meta">
-                    {{#if recurringPayment.active }}
-                        <p class="form-label">{% blocktrans %}You are a 1%Friend{% endblocktrans %}</p>
-                        <p class="form-desc">{% trans "You currently support the top 3 projects with your monthly donation." %}</p>
-                    {{ else }}
-                        <p class="form-label">{% blocktrans %}Become a 1%Friend{% endblocktrans %}</p>
-                        <p class="form-desc">{% trans "Support the top 3 projects with your monthly donation." %}</p>
-                    {{/if}}
+                    <p class="form-label">{% trans "Choose a project to support" %}</p>
+                    <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list" %}.</p>
                 </div>
-            {{else}}
-                {{#linkTo 'projectList'}}
-                	<em class="flaticon solid plus-2"></em>
-                    <div class="form-meta">
-                        <p class="form-label">{% trans "Choose a project to support" %}</p>
-                        <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list" %}.</p>
-                    </div>
-                {{/linkTo}}
-            {{/if}}
+            {{/linkTo}}
         	</div>
         {{/each}}
         
-	    {{#if controllers.currentOrder.recurring }}
-	        {{#if recurringOrder.donations.length }}	            
-            <div class="donation-recurring">
-            	<div class="donation-recurring-title"><h3><em class="flaticon solid menu-list-3"></em> Current Monthly Donation</h3></div>
-                <ul class="donation-projects">
-                    {{#each donation in recurringOrder.donations }}
-                        {{#if donation.tempRecurringAmount }}
-                            {{render "currentRecurringDonation" donation}}
-                        {{/if}}
-                    {{/each}}
-                </ul>
-            </div>
-	        {{/if}}
-	        
-	        {{#if controllers.currentOrder.recurring }}
-                {# Both recurringPayment and recurringPayment.active checks are required #}
-                {{#if recurringPayment }}
-                    {{#unless recurringPayment.active }}
-                        <div class="donations-turned-off">
-                            <h3>{% trans "You turned off monthly donations" %}</h3>
-                            <p>{% trans "It will be automatically turned on again if you follow through the next steps" %}.</p>
-                        </div>
-                    {{/unless}}
-                {{/if}}
-			{{/if}}
 
-            <fieldset class="donation-monthly-total">
-            	{{#if showTopThreeProjects }}
-                	<div class="form-summary">&nbsp;</div>
-                {{else}}
-                	<div class="form-summary">{% trans "Divide to projects" %}</div>
-                {{/if}}
-                <div class="donation-amount">
-                    <div class="amount-control">
-                        {# TODO: This doesn't display. #}
-                        {{#each error in errors.recurringTotal }}
-                            <span class="errors">{{ error }}</span>
-                        {{/each}}
-                        <label for="donation-amount-1">{% trans "Total Amount" %}</label>
-                        <span class="currency"><em>&euro; </em>
-                            <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
-                        </span>
-                    </div>
-                </div>
-            </fieldset>
+        <fieldset class="donation-total">
+            <div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ singleTotal }}</span></div>
+        </fieldset>
 
-	    {{else}}
-	        <fieldset class="donation-total">
-	        	<div class="form-summary">{% trans "Total" %}<span class="currency right">&euro; {{ singleTotal }}</span></div>
-	        </fieldset>
-	    {{/if}}
-	    
         {{#linkTo 'projectList' class="button-link add-project"}}<em class="flaticon solid plus-2"></em>
-            {{#if showTopThreeProjects }}
-            	{%trans "Choose a project" %}
+            {{#if length }}
+                {%trans "Add another project" %}
             {{else}}
-	            {{#if length }}
-	                {%trans "Add another project" %}
-	            {{else}}
-	                {%trans "Add a project" %}
-	            {{/if}}
-	        {{/if}}
+                {%trans "Add a project" %}
+            {{/if}}
         {{/linkTo}}
         
 	    {{#if readyForPayment }}
@@ -226,13 +137,8 @@
 
 <div class="sidebar tip">
 	{{#if controllers.currentUser.isAuthenticated}}
-		{{#if controllers.currentOrder.recurring }}
-		<h3>{% blocktrans %}Donate monthly to<br /> become a 1%Friend.{% endblocktrans %}</h3>
-	    <p>{% blocktrans %}Yay! We're happy to welcome you as a 1%Friend. After all, friends make life better!{% endblocktrans %}</p>
-		{{else}}
 		<h3>{% trans "Why not donate monthly?" %}</h3>
 		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!{% endblocktrans %}</p>
-		{{/if}}	
 	{{else}}
 		<h3>Did you know?</h3>
 		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly.{% endblocktrans %}
@@ -375,20 +281,10 @@
             {{#each error in errors.amount}}
                 <span class="errors">{{ error }}</span>
             {{/each}}
-            {{#if controllers.currentOrder.recurring }}
-                <span class="divided-amount">&euro; 
-                 {{#if controllers.currentOrderDonationList.editingRecurringOrder }}
-                        {{ tempRecurringAmount }}
-                   {{else}}
-                        {{ amount }}
-                    {{/if}}
-                </span>
-            {{else}}
-                <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
-                <span class="currency"><em>&euro; </em>
-                    <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} />
-                </span>
-            {{/if}}
+            <label for="donation-amount-1">{% trans "I'd like to give" %}</label>
+            <span class="currency"><em>&euro; </em>
+                <input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} />
+            </span>
         </div>
     </div>
 
