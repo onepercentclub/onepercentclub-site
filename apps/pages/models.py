@@ -5,7 +5,7 @@ from django_extensions.db.fields import CreationDateTimeField, ModificationDateT
 from djchoices import DjangoChoices, ChoiceItem
 from fluent_contents.models import PlaceholderField
 
-
+# NOTE: how about (html) metadata for static pages? keywords, description...?
 class Page(models.Model):
     """
     Slides for homepage

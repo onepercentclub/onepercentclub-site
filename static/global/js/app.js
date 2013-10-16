@@ -70,6 +70,9 @@ App = Em.Application.create({
     // TODO: Remove this in production builds.
     LOG_TRANSITIONS: true,
 
+    // attribute for SEO
+    currentUrl: window.location.href,
+
 
     // We store language & locale here because they need to be available before loading templates.
     language: 'en',
@@ -294,7 +297,20 @@ App.ApplicationController = Ember.Controller.extend({
 
     hideMessage: function() {
         this.set('display_message', false);
-    }
+    },
+
+    // This only detects path changes, so not /projects/foo to /projects/bar
+    // it also seems to be lagging behind one step
+    // currentPathDidChange: function() {
+    //     path = this.get('currentPath');
+    //     console.log('path changed to: ', window.location.href);
+    //     App.currentUrl = window.location.href;
+    // }.observes('currentPath')
+});
+
+// Solution that works always
+$(window).on('hashchange', function(){
+    App.currentUrl = window.location.href;
 });
 
 // Embedded Model Mapping
@@ -475,6 +491,7 @@ DS.Model.reopen({
     page_title: DS.attr('string'),
     page_description: DS.attr('string'),
     page_keywords: DS.attr('string'),
+    page_image: DS.attr('image'),
 });
 
 
@@ -760,7 +777,11 @@ Em.Route.reopen({
 
     metaKeywords: function(){
         return this.get('context.page_keywords');
-    }.property('context.page_keywords')
+    }.property('context.page_keywords'),
+
+    metaImage: function(){
+        return this.get('context.page_image');
+    }.property('context.page_image')
 });
 
 App.ProjectRoute = Em.Route.extend({

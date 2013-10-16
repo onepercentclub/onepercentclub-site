@@ -113,6 +113,11 @@ class ProjectCampaignSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(MetaModelSerializer):
+    # this depends on the phase of the project!
+    page_description_field_name = 'projectplan__description'
+    page_keywords_field_name = 'projectplan__tags'
+    page_image_source = 'projectplan.image'
+
     id = serializers.CharField(source='slug', read_only=True)
 
     owner = UserPreviewSerializer()

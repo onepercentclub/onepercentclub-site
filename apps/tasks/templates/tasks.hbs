@@ -320,7 +320,7 @@
                 	
                     <h1>{{title}}</h1>
                     
-                    <a {{action openInBigBox "memberProfile" author}} class="user">
+                    <a {{action 'openInBigBox' "userModal" author}} class="user">
                         <strong class="user-name">{{author.full_name}}</strong>
                         <em class="timestamp">{{ localize created formatting="X" }}</em>
                     </a>

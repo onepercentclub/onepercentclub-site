@@ -24,18 +24,23 @@ Ember.onLoad('Ember.Application', function(Application) {
         title: null,
         description: null,
         keywords: null,
+        url: null,
+        image: null,
    
         // dom elements (jQuery objects)
         _ogTitle: null,
         _description: null,
         _ogDescription: null,
         _ogKeywords: null,
+        _ogUrl: null,
+        _ogImage: null,
    
         // defaults, set by the base template
         defaults: {
           title: default_title,
           description: default_description,
-          keywords: default_keywords
+          keywords: default_keywords,
+          image: null
         },
    
         summary: Ember.computed(function() {
@@ -62,6 +67,15 @@ Ember.onLoad('Ember.Application', function(Application) {
           this.get('_ogKeywords').attr('content', this.get('keywords'));
           this.notifyPropertyChange('_ogkeywords');
         }, 'keywords'),
+
+        urlChanged: Ember.observer(function() {
+          this.get('_ogUrl').attr('content', this.get('url'));
+          this.notifyPropertyChange('_ogUrl');
+        }, 'url'),
+
+        imageChanged: Ember.observer(function() {
+          this.get('_ogImage').attr('content', this.get('image'));
+        }, 'image'),
    
         init: function() {
           this._super();
@@ -73,6 +87,7 @@ Ember.onLoad('Ember.Application', function(Application) {
             newTitle,
             newDescription,
             newKeywords,
+            newImage,
             i = handlers.length;
           // walk through handlers until we have title and description
           // take the first ones that are not empty
@@ -92,6 +107,9 @@ Ember.onLoad('Ember.Application', function(Application) {
             if(!newKeywords){
               newKeywords = Ember.get(handler, 'metaKeywords');
             }
+            if(!newImage){
+              newImage = Ember.get(handler, 'metaImage');
+            }
           }
           // save changes or snap back to defaults
           if (newTitle) {
@@ -109,6 +127,12 @@ Ember.onLoad('Ember.Application', function(Application) {
           } else if (this.get('defaults.keywords')) {
             this.set('keywords', this.get('defaults.keywords'));
           }
+          if(newImage){
+            this.set('image', newImage.small);
+          } else if (this.get('defaults.keywords')) {
+            this.set('image', this.get('defaults.image'));
+          }
+          this.set('url', window.location.href);
           this.trigger('didReloadDataFromRoutes');
         }
       });
@@ -128,6 +152,14 @@ Ember.onLoad('Ember.Application', function(Application) {
         _ogTitle = $(_ogTitle);
       }
       meta.set('_ogTitle', _ogTitle);
+
+      var _ogUrl = _getTag('meta', 'property', 'og:url');
+      if (!_ogUrl) {
+        _ogUrl = $(document.createElement('meta'));
+        $('head').append(_ogUrl);
+        _ogUrl.attr('property', 'og:url');
+      }
+      meta.set('_ogUrl', _ogUrl);
    
       // description
       var _description = _getTag('meta', 'name', 'description');
@@ -176,6 +208,16 @@ Ember.onLoad('Ember.Application', function(Application) {
         meta.set('defaults.keywords', _ogKeywords.attr('content'));
       }
       meta.set('_ogKeywords', _ogKeywords);
+
+      var _ogImage = _getTag('meta', 'property', 'og:image');
+      if(!_ogImage){
+        _ogImage = $(document.createElement('meta'));
+        $('head').append(_ogImage);
+        _ogImage.attr('property', 'og:image');
+      } else {
+        meta.set('defaults.image', _ogImage.attr('content'));
+      }
+      meta.set('_ogImage', _ogImage);
 
       // save object to app
       application.set('meta', meta);

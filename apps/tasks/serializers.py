@@ -1,5 +1,8 @@
 from bluebottle.bluebottle_drf2.serializers import PrimaryKeyGenericRelatedField, TagSerializer, FileSerializer, TaggableSerializerMixin
 from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bluebottle_utils.serializers import MetaModelSerializer
+
+
 from apps.projects.serializers import ProjectPreviewSerializer
 from apps.tasks.models import Task, TaskMember, TaskFile, Skill
 from apps.wallposts.serializers import TextWallPostSerializer, WallPostListSerializer
@@ -40,7 +43,7 @@ class TaskFileSerializer(serializers.ModelSerializer):
         fields = ('id', 'author', 'task', 'file', 'created', 'title')
 
 
-class TaskSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
+class TaskSerializer(TaggableSerializerMixin, MetaModelSerializer):
     members = TaskMemberSerializer(many=True, source='taskmember_set', required=False)
     files = TaskFileSerializer(many=True, source='taskfile_set', required=False)
     project = serializers.SlugRelatedField(slug_field='slug')

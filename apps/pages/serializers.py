@@ -1,6 +1,9 @@
 from django.template import Context, Template
 
 from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bluebottle_utils.serializers import MetaModelSerializer
+
+
 from apps.pages.models import ContactMessage
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
@@ -16,7 +19,10 @@ class PageContentsField(serializers.Field):
         return contents_html
 
 
-class PageSerializer(serializers.ModelSerializer):
+class PageSerializer(MetaModelSerializer):
+    page_description_field_name = None
+    page_keywords_field_name = None
+
     id = serializers.CharField(source='slug', read_only=True)
     body = PageContentsField(source='body')
     author = UserPreviewSerializer()
