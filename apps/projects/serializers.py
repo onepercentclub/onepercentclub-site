@@ -1,13 +1,21 @@
+from django.contrib.contenttypes.models import ContentType
+
+
+from rest_framework import serializers
+
+
 from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
+                                              TagSerializer, ImageSerializer, TaggableSerializerMixin)
+from bluebottle.geo.models import Country
+from bluebottle.bluebottle_utils.serializers import MetaModelSerializer
+
+
 from apps.fund.models import Donation
 from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectCampaign, ProjectTheme
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
-from django.contrib.contenttypes.models import ContentType
-from rest_framework import serializers
-from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
-                                              TagSerializer, ImageSerializer, TaggableSerializerMixin)
-from bluebottle.geo.models import Country
+
 from .models import Project
 
 
@@ -104,7 +112,12 @@ class ProjectCampaignSerializer(serializers.ModelSerializer):
         fields = ('id', 'project', 'money_asked', 'money_donated', 'deadline', 'status')
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class ProjectSerializer(MetaModelSerializer):
+    # this depends on the phase of the project!
+    page_description_field_name = 'projectplan__description'
+    page_keywords_field_name = 'projectplan__tags'
+    page_image_source = 'projectplan.image'
+
     id = serializers.CharField(source='slug', read_only=True)
 
     owner = UserPreviewSerializer()

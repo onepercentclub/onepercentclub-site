@@ -1,9 +1,16 @@
 {% extends "bluebottle/base.html" %}
 {% load static from staticfiles %}
+{% load i18n %}
 
 {% block title %}1%Club - Share a little. Change the world{% endblock %}
 
 {% block meta %}
+    <script type="text/javascript">
+        var default_title = '1%Club - Share a little. Change the world';
+        var default_description = '{% blocktrans %}1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online.{% endblocktrans %}';
+        var default_keywords = '{% blocktrans %}crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity{% endblocktrans %}';
+    </script>
+
     <meta name="description" content="1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online." />
     <meta name="author" content="1%Club" />
 	<meta name="keywords" content="crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity" />
@@ -35,7 +42,7 @@
     {% include  "pages.hbs" %}
 {% endblock handlebars_templates %}
 
-{% block ember_scripts %}
+{% block ember_app_scripts %}
     <script type="text/javascript" src="{% static "js/bluebottle/presets.js" %}"></script>
     {{ block.super }}
 

@@ -244,6 +244,16 @@ App.Router.reopen({
     }
 });
 
+App.Router.reopen({
+    didTransition: function(infos) {
+        this._super(infos);
+        Ember.run.next(function() {
+            // the meta module will now go trough the routes and look for data
+            App.meta.trigger('reloadDataFromRoutes');
+        });
+    }
+});
+
 App.Router.map(function() {
 
     this.resource('language', {path:'/:lang'});
@@ -259,6 +269,30 @@ App.Router.map(function() {
     });
 });
 
+DS.Model.reopen({
+    page_title: DS.attr('string'),
+    page_description: DS.attr('string'),
+    page_keywords: DS.attr('string'),
+});
+
+
+Em.Route.reopen({
+    metaTitle: function(){
+        return this.get('context.page_title');
+    }.property('context.page_title'),
+
+    metaDescription: function(){
+        return this.get('context.page_description');
+    }.property('context.page_description'),
+
+    metaKeywords: function(){
+        return this.get('context.page_keywords');
+    }.property('context.page_keywords'),
+
+    metaImage: function(){
+        return this.get('context.page_image');
+    }.property('context.page_image')
+});
 
 
 App.ApplicationRoute = Em.Route.extend({
