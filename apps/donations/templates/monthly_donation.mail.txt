@@ -18,6 +18,6 @@ If we all share a little, together we can change the world.
 
 See you in a bit!
 
-Liane | 1%CLUB
+Liane | 1%Club
 {% endblock %}
 

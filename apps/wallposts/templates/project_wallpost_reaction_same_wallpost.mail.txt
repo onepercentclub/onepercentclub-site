@@ -10,6 +10,6 @@ Hi {{ receiver_name }},
 Read the comment here:
 {{ site }}{{ link }}
 
-Liane | 1%CLUB
+Liane | 1%Club
 {% endblocktrans %}
 {% endblock %}

@@ -13,7 +13,7 @@ Click the link below to go to our website:
 
 See you in a bit!
 
-Liane | 1%CLUB
+Liane | 1%Club
 
 {% endblocktrans %}
 {% endblock %}
