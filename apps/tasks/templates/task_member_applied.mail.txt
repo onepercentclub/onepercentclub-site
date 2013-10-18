@@ -15,7 +15,7 @@ Go to 1%Task: {{ site }}{{ link }}.
 
 Good luck!
 
-1%CLUB
+1%Club
 {% endblocktrans %}
 {% endblock %}
 

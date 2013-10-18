@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 cowry_docdata_logger = logging.getLogger('cowry.docdata')
 
 
-# Workaround for SSL problem on Debain Wheezy connecting to DocData live payment address.
+# Workaround for SSL problem on Debian Wheezy connecting to DocData live payment address.
 #
 # if getattr(settings, "COWRY_LIVE_PAYMENTS", False):
 #     import ssl
