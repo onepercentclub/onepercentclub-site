@@ -8,7 +8,7 @@ from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
                                               TagSerializer, ImageSerializer, TaggableSerializerMixin)
 from bluebottle.geo.models import Country
-from bluebottle.bluebottle_utils.serializers import MetaModelSerializer
+from bluebottle.bluebottle_utils.serializers import MetaField
 
 
 from apps.fund.models import Donation
@@ -112,12 +112,7 @@ class ProjectCampaignSerializer(serializers.ModelSerializer):
         fields = ('id', 'project', 'money_asked', 'money_donated', 'deadline', 'status')
 
 
-class ProjectSerializer(MetaModelSerializer):
-    # this depends on the phase of the project!
-    page_description_field_name = 'projectplan__description'
-    page_keywords_field_name = 'projectplan__tags'
-    page_image_source = 'projectplan.image'
-
+class ProjectSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
 
     owner = UserPreviewSerializer()
@@ -129,9 +124,19 @@ class ProjectSerializer(MetaModelSerializer):
     wallpost_ids = WallPostListSerializer()
     task_count = serializers.IntegerField(source='task_count')
 
+    meta_data = MetaField(
+            title = 'title', 
+            description = 'projectplan__description',
+            keywords = 'projectplan__tags',
+            image_source = 'projectplan__image'
+            )
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectSerializer, self).__init__(*args, **kwargs)
+
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity', 'task_count')
+        fields = ('id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity', 'task_count', 'meta_data')
 
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):

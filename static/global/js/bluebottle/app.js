@@ -269,11 +269,18 @@ App.Router.map(function() {
     });
 });
 
+
 DS.Model.reopen({
-    page_title: DS.attr('string'),
-    page_description: DS.attr('string'),
-    page_keywords: DS.attr('string'),
+    meta_data: DS.attr('object')
 });
+
+
+Em.Route.reopen({
+    meta_data: function(){
+        return this.get('context.meta_data');
+    }.property('context.meta_data')
+});
+
 
 App.ApplicationRoute = Em.Route.extend({
 
