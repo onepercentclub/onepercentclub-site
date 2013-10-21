@@ -13,9 +13,10 @@ from .exceptions import DocDataPaymentException
 from .models import DocDataPaymentOrder, DocDataPayment, DocDataWebDirectDirectDebit, DocDataPaymentLogEntry
 
 logger = logging.getLogger(__name__)
+cowry_docdata_logger = logging.getLogger('cowry.docdata')
 
 
-# Workaround for SSL problem on Debain Wheezy connecting to DocData live payment address.
+# Workaround for SSL problem on Debian Wheezy connecting to DocData live payment address.
 #
 # if getattr(settings, "COWRY_LIVE_PAYMENTS", False):
 #     import ssl
@@ -84,6 +85,8 @@ default_payment_methods = {
 
 
 def docdata_payment_logger(payment, level, message):
+    if level == PaymentLogLevels.error:
+        cowry_docdata_logger.error("{0} - {1}".format(payment, message))
     log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level=level, message=message)
     log_entry.save()
 
