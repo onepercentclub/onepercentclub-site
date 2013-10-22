@@ -44,7 +44,7 @@ App.CurrentOrderVoucherListView = Em.View.extend({
 
 App.CurrentOrderDonationView = Em.View.extend({
     tagName: 'li',
-    classNames: 'donation-project control-group',
+    classNames: 'project-list-item',
 
     change: function(e) {
         this.get('controller').updateDonation(Em.get(e, 'target.value'));

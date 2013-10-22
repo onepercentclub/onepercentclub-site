@@ -326,7 +326,7 @@ App.ApplicationRoute = Em.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            var modalPaneTemplate = ['<div class="modal-body"><a class="close" rel="close">&times;</a>{{view view.bodyViewClass}}</div>'].join("\n");
+            var modalPaneTemplate = ['<div class="modal-wrapper"><a class="modal-close" rel="close">&times;</a>{{view view.bodyViewClass}}</div>'].join("\n");
 
             Bootstrap.ModalPane.popup({
                 classNames: ['modal', 'large'],
@@ -347,7 +347,7 @@ App.ApplicationRoute = Em.Route.extend({
             var view = App[name.classify() + 'View'].create();
             view.set('controller', controller);
 
-            var modalPaneTemplate = ['<div class="modal-body"><a class="close" rel="close">&times;</a>{{view view.bodyViewClass}}</div>'].join("\n");
+            var modalPaneTemplate = ['<div class="modal-wrapper"><a class="modal-close" rel="close">&times;</a>{{view view.bodyViewClass}}</div>'].join("\n");
 
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
