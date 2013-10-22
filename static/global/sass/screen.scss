@@ -5,6 +5,7 @@
 
 /* ========================= Includes ============================= */
 
+
 /* Compass */
 @import "compass/utilities";
 @import "compass/reset";
@@ -44,16 +45,11 @@
 
 /* Modules */
 @import "modules/carousel";
-@import "modules/member";
-@import "modules/project-items";
-@import "modules/project-preview";
-@import "modules/project-list";
-@import "modules/project-result";
-@import "modules/task-result";
-@import "modules/project-member-list";
+@import "modules/members";
+@import "modules/projects";
 @import "modules/wallposts";
 @import "modules/reactions";
-
+@import "modules/tasks";
 
 /* Pages */
 @import "pages/home";
