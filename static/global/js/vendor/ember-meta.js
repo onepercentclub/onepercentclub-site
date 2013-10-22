@@ -107,7 +107,7 @@ Ember.onLoad('Ember.Application', function(Application) {
               if(!newKeywords){
                 newKeywords = meta_data.keywords;
               }
-              if (!newImage) {
+              if (!newImage && meta_data.image) {
                 newImage = meta_data.image.full;
               }
             }
