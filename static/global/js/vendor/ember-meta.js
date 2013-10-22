@@ -22,12 +22,16 @@ Ember.onLoad('Ember.Application', function(Application) {
         title: null,
         description: null,
         keywords: null,
+        url: null,
+        image: null,
    
         // dom elements (jQuery objects)
         _ogTitle: null,
         _description: null,
         _ogDescription: null,
         _ogKeywords: null,
+        _ogUrl: null,
+        _ogImage: null,
    
         // defaults, set by the base template
         defaults: {
@@ -60,6 +64,15 @@ Ember.onLoad('Ember.Application', function(Application) {
           this.get('_ogKeywords').attr('content', this.get('keywords'));
           this.notifyPropertyChange('_ogkeywords');
         }, 'keywords'),
+
+        urlChanged: Ember.observer(function() {
+          this.get('_ogUrl').attr('content', this.get('url'));
+          this.notifyPropertyChange('_ogUrl');
+        }, 'url'),
+
+        imageChanged: Ember.observer(function() {
+          this.get('_ogImage').attr('content', this.get('image'));
+        }, 'image'),
    
         init: function() {
           this._super();
@@ -71,6 +84,7 @@ Ember.onLoad('Ember.Application', function(Application) {
             newTitle,
             newDescription,
             newKeywords,
+            newImage,
             i = handlers.length;
           // walk through handlers until we have title and description
           // take the first ones that are not empty
@@ -78,19 +92,24 @@ Ember.onLoad('Ember.Application', function(Application) {
             var handler = handlers[i].handler;
             var meta_data = Ember.get(handler, 'meta_data');
 
-            if (!newTitle) {
-              var handlerTitle = meta_data.title;
-              if(handlerTitle){
-                newTitle = handlerTitle + ' | ' + this.get('defaults.title');
-              } else {
-                newTitle = this.get('defaults.title');
+            if(meta_data){
+              if (!newTitle) {
+                var handlerTitle = meta_data.title;
+                if(handlerTitle){
+                  newTitle = handlerTitle + ' | ' + this.get('defaults.title');
+                } else {
+                  newTitle = this.get('defaults.title');
+                }
               }
-            }
-            if (!newDescription) {
-              newDescription = meta_data.description;
-            }
-            if(!newKeywords){
-              newKeywords = meta_data.keywords;
+              if (!newDescription) {
+                newDescription = meta_data.description;
+              }
+              if(!newKeywords){
+                newKeywords = meta_data.keywords;
+              }
+              if (!newImage) {
+                newImage = meta_data.image.full;
+              }
             }
           }
           // save changes or snap back to defaults
@@ -109,6 +128,15 @@ Ember.onLoad('Ember.Application', function(Application) {
           } else if (this.get('defaults.keywords')) {
             this.set('keywords', this.get('defaults.keywords'));
           }
+          if(newImage) {
+            this.set('image', newImage);
+          } else if (this.get('defaults.image')) {
+            this.set('image', this.get('defaults.image'));
+          }
+
+          this.set('url', window.location.href);
+
+
           this.trigger('didReloadDataFromRoutes');
         }
       });
@@ -127,6 +155,14 @@ Ember.onLoad('Ember.Application', function(Application) {
         _ogTitle = $(_ogTitle);
       }
       meta.set('_ogTitle', _ogTitle);
+
+      var _ogUrl = _getTag('meta', 'property', 'og:url');
+      if (!_ogUrl) {
+        _ogUrl = $(document.createElement('meta'));
+        $('head').append(_ogUrl);
+        _ogUrl.attr('property', 'og:url');
+      }
+      meta.set('_ogUrl', _ogUrl);
    
       // description
       var _description = _getTag('meta', 'name', 'description');
@@ -171,6 +207,19 @@ Ember.onLoad('Ember.Application', function(Application) {
         _ogKeywords = $(_ogKeywords);
       }
       meta.set('_ogKeywords', _ogKeywords);
+
+      // ogImage
+      var _ogImage = _getTag('meta', 'property', 'og:image');
+      if (!_ogImage) {
+        _ogImage = document.createElement('meta');
+        _ogImage.setAttribute('property', 'og:image');
+        document.head.appendChild(_ogImage);
+        _ogImage = $(_ogImage);
+      } else {
+        meta.set('defaults.ogImage', _ogImage.attr('content'));
+      }
+      meta.set('_ogImage', _ogImage);
+
 
       // save object to app
       application.set('meta', meta);

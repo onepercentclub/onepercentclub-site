@@ -53,12 +53,12 @@ class TaskSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
     tags = TagSerializer()
     wallpost_ids = WallPostListSerializer()
 
-    # meta = MetaField()
+    meta_data = MetaField()
 
     class Meta:
         model = Task
         fields = ('id', 'title', 'project', 'description', 'end_goal', 'members', 'files', 'location', 'skill',
-                  'time_needed', 'author', 'status', 'created', 'deadline', 'tags', 'wallpost_ids')
+                  'time_needed', 'author', 'status', 'created', 'deadline', 'tags', 'wallpost_ids', 'meta_data')
 
 
 class SkillSerializer(serializers.ModelSerializer):

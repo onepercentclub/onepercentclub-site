@@ -25,11 +25,11 @@ class PageSerializer(serializers.ModelSerializer):
     body = PageContentsField(source='body')
     author = UserPreviewSerializer()
 
-    # meta = MetaField(description_field_name=None, keywords_field_name=None)
+    meta_data = MetaField(description=None, keywords=None)
 
     class Meta:
         model = Page
-        fields = ('title', 'id', 'body', 'language')
+        fields = ('title', 'id', 'body', 'language', 'meta_data')
 
 
 class ContactMessageSerializer(serializers.ModelSerializer):
