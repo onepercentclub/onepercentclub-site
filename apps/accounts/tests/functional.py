@@ -20,6 +20,9 @@ from bluebottle.tests.utils import SeleniumTestCase
 from apps.projects.tests import ProjectTestsMixin
 
 
+import os
+
+
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
@@ -32,6 +35,47 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         project = self.create_project(title='Example', slug='example', money_asked=100000)
         project.projectcampaign.money_donated = 50000
         project.projectcampaign.save()
+
+    # TODO: extend SeleniumTestCase and override these functions with onepercent-specifics
+    def login(self, username, password):
+        """
+        Perform login operation on the website.
+
+        :param username: The user's email address.
+        :param password: The user's password
+        :return: ``True`` if login was successful.
+        """
+        self.visit_homepage()
+
+        # Find the link to the signup button page and click it.
+        self.browser.find_link_by_itext('log in').first.click()
+
+        # Validate that we are on the intended page.
+        if not self.browser.is_text_present('LOG IN', wait_time=10):
+            return False
+
+        # Fill in details.
+        self.browser.fill('username', username)
+        self.browser.fill('password', password)
+
+        self.browser.find_by_value('Log in').first.click()
+
+        return self.browser.is_text_present('MY 1%', wait_time=10)
+
+# TODO: extend SeleniumTestCase and override these functions with onepercent-specifics
+    def visit_homepage(self, lang_code=None):
+        """
+        Convenience function to open the homepage.
+
+        :param lang_code: A two letter language code as used in the URL.
+        :return: ``True`` if the homepage could be visited.
+        """
+        
+        self.visit_path('', lang_code)
+
+        # # Check if the homepage opened, and the dynamically loaded content appeared.
+        # # Remember that
+        return self.browser.is_text_present('CHOOSE YOUR PROJECT', wait_time=10)
 
     def test_signup(self):
         """
@@ -145,7 +189,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         
         self.login(user.email, 'secret')
 
-        self.browser.find_by_css('.nav-member-my1percent').first.mouse_over()
+        self.browser.find_by_css('.nav-member-profile').first.mouse_over()
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
@@ -190,7 +234,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         self.login(user.email, 'secret')
 
-        self.browser.find_by_css('.nav-member-my1percent').first.mouse_over()
+        self.browser.find_by_css('.nav-member-profile').first.mouse_over()
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
@@ -318,3 +362,30 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         user = BlueBottleUser.objects.get(pk=user.pk)
         self.assertFalse(check_password(old_password, user.password))
         self.assertTrue(check_password(new_password, user.password))
+
+    def test_upload_profile_picture(self):
+        """ Test that profile picture uploads work. """
+        
+        # Create and activate user.
+        user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret')
+        self.login(user.email, 'secret')
+
+        # navigation itself has been tested before...
+        self.visit_path('/member/profile')
+        
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        self.browser.attach_file('picture', file_path)
+
+        # test if preview is there
+        preview = self.browser.find_by_css('div.preview')
+        preview.find_by_tag('img')
+        self.assertTrue(preview.visible)
+
+        # save
+        self.browser.find_link_by_itext('SAVE').first.click()
+
+        # check that the avatar is not the default image
+        self.visit_homepage()
+
+        avatar_src = self.browser.find_by_css('li.nav-member-profile a.nav-profile img').first['src']
+        self.assertNotEqual(avatar_src, '%simages/default-avatar.png' % settings.STATIC_URL)
