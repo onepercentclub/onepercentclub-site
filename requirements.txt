@@ -1,6 +1,6 @@
 # Use the remove-onepercent-js branch for this version
 # -e git://github.com/onepercentclub/bluebottle.git@v0.0.6#egg=bluebottle
--e gi://github.com/onepercentclub/bluebottle.git@meta-seo-2#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@meta-seo-2#egg=bluebottle
 
 Django==1.5.4
 Pillow==2.1.0
