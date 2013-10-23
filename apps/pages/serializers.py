@@ -25,7 +25,7 @@ class PageSerializer(serializers.ModelSerializer):
     body = PageContentsField(source='body')
     author = UserPreviewSerializer()
 
-    meta_data = MetaField(description=None, keywords=None)
+    meta_data = MetaField(description='get_meta_description', keywords=None)
 
     class Meta:
         model = Page

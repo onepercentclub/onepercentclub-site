@@ -125,8 +125,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     task_count = serializers.IntegerField(source='task_count')
 
     meta_data = MetaField(
-            title = 'title', 
-            description = 'projectplan__description',
+            title = 'get_meta_title', 
+            description = 'projectplan__pitch',
             keywords = 'projectplan__tags',
             image_source = 'projectplan__image'
             )
