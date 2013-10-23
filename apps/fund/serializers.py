@@ -23,7 +23,9 @@ class RecurringDirectDebitPaymentSerializer(serializers.ModelSerializer):
 class DonationSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(source='project', slug_field='slug')
     status = serializers.ChoiceField(read_only=True)
+
     order = serializers.PrimaryKeyRelatedField()
+
     amount = EuroField()
     # TODO: Enable url field.
     # This error is presented when the url field is enabled:
@@ -64,6 +66,54 @@ class DonationSerializer(serializers.ModelSerializer):
         return attrs
 
 
+class RecurringDonationSerializer(serializers.ModelSerializer):
+
+    project = serializers.SlugRelatedField(source='project', slug_field='slug')
+    status = serializers.ChoiceField(read_only=True)
+    order = serializers.PrimaryKeyRelatedField()
+    amount = EuroField()
+
+    class Meta:
+        model = Donation
+        fields = ('id', 'project', 'amount', 'status', 'order')
+
+    def validate(self, attrs):
+        if self.object and self.object.status != DonationStatuses.new and attrs is not None:
+                raise serializers.ValidationError(_("You cannot modify a Donation that does not have status new."))
+        return attrs
+
+    def validate_amount(self, attrs, source):
+        value = attrs[source]
+
+        if self.object:
+            if self.object.order and self.object.order.recurring:
+                if value < 200:
+                    raise serializers.ValidationError(_(u"Donations must be at least €2."))
+            else:
+                if value < 500:
+                    raise serializers.ValidationError(_(u"Donations must be at least €5."))
+        else:
+            if value < 500:
+                raise serializers.ValidationError(_(u"Donations must be at least €5."))
+
+        return attrs
+
+    def validate_project(self, attrs, source):
+        value = attrs[source]
+        if value.phase != ProjectPhases.campaign:
+            raise serializers.ValidationError(_("You can only donate a project in the campaign phase."))
+        return attrs
+
+    def validate_order(self, attrs, source):
+        order = attrs[source]
+        if not order.recurring:
+            raise serializers.ValidationError(_("Can only Recurring Donations to a Recurring Order."))
+        if not order.status == OrderStatuses.recurring:
+            raise serializers.ValidationError(_("Can only Recurring Donations to an active Recurring Order (status recurring)."))
+        return attrs
+
+
+
 class NestedDonationSerializer(DonationSerializer):
     order = serializers.PrimaryKeyRelatedField(read_only=True)
 
@@ -87,9 +137,20 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ('id', 'url', 'total', 'status', 'recurring', 'donations', 'vouchers', 'payments', 'created')
 
 
+class RecurringOrderSerializer(serializers.ModelSerializer):
+    total = EuroField(read_only=True)
+    status = serializers.ChoiceField(read_only=True, default=OrderStatuses.recurring)
+    donations = DonationSerializer(source='donations', many=True, required=False)
+    recurring = serializers.BooleanField(read_only=True, default=True)
+
+    class Meta:
+        model = Order
+        fields = ('id', 'total', 'status', 'donations', 'created')
+
 #
 # Order 'current' overrides.
 #
+
 
 class OrderCurrentDonationSerializer(DonationSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-current-donation-detail')

@@ -7,7 +7,7 @@ from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
-from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer
+from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer, RecurringOrderSerializer, RecurringDonationSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.signals import user_logged_in
 from registration.signals import user_registered
@@ -60,7 +60,7 @@ class OrderDetail(generics.RetrieveUpdateAPIView):
     def get_object(self, queryset=None):
         order = super(OrderDetail, self).get_object(queryset=queryset)
         # Do a status check with DocData when we don't know the status of in_progress orders.
-        if order and order.id and order.status == OrderStatuses.current:
+        if order and order.id and order.status == OrderStatuses.current and order.recurring == False:
             latest_payment = order.latest_payment
             if latest_payment.payment_order_id and latest_payment.status == PaymentStatuses.in_progress:
                 payments.update_payment_status(order.latest_payment)
@@ -119,8 +119,84 @@ class DonationDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DonationSerializer
     permission_classes = (IsUser,)
 
+
+# Recurring Orders
+
+class RecurringOrderList(generics.ListCreateAPIView):
+    model = Order
+    serializer_class = RecurringOrderSerializer
+    permission_classes = (permissions.IsAuthenticated, IsOrderCreator,)
+    filter_fields = ('status',)
+    paginate_by = 10
+
     def get_queryset(self):
-        qs = super(DonationDetail, self).get_queryset()
+        qs = self.model.objects
+        qs = qs.filter(recurring=True)
+        user = self.request.user
+        if isinstance(user, AnonymousUser):
+            return qs.none()
+        else:
+            return qs.filter(user=user)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.DATA, files=request.FILES)
+        # Check if there's already an active recurring order
+        orders = Order.objects.filter(user=request.user).filter(recurring=True).filter(status=OrderStatuses.recurring)
+        if orders.count():
+            return response.Response(serializer.errors, status=status.HTTP_403_FORBIDDEN)
+        return super(RecurringOrderList, self).create(request, *args, **kwargs)
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        obj.recurring = True
+        obj.status = OrderStatuses.recurring
+
+
+class RecurringOrderDetail(generics.RetrieveUpdateAPIView):
+    model = Order
+    serializer_class = RecurringOrderSerializer
+    permission_classes = (IsOrderCreator,)
+
+    def get_queryset(self):
+        qs = self.model.objects
+        qs = qs.filter(recurring=True)
+        user = self.request.user
+        if isinstance(user, AnonymousUser):
+            return qs.none()
+        else:
+            return qs.filter(user=user)
+
+    def get_object(self, queryset=None):
+        order = super(RecurringOrderDetail, self).get_object(queryset=queryset)
+
+        # Do a status check with DocData when we don't know the status of in_progress orders.
+        if order and order.status == OrderStatuses.recurring and order.recurring == True:
+            latest_payment = order.latest_payment
+            if latest_payment.payment_order_id and latest_payment.status == PaymentStatuses.in_progress:
+                payments.update_payment_status(order.latest_payment)
+        return order
+
+
+class RecurringDonationList(generics.ListCreateAPIView):
+    model = Donation
+    serializer_class = RecurringDonationSerializer
+    permission_classes = (IsUser,)
+    paginate_by = 10
+
+    def get_queryset(self):
+        qs = super(RecurringDonationList, self).get_queryset()
+        qs = qs.filter(donation_type=Donation.DonationTypes.recurring)
+        return qs.filter(user=self.request.user)
+
+
+class RecurringDonationDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Donation
+    serializer_class = RecurringDonationSerializer
+    permission_classes = (IsUser,)
+
+    def get_queryset(self):
+        qs = super(RecurringDonationDetail, self).get_queryset()
+        qs = qs.filter(donation_type=Donation.DonationTypes.recurring)
         return qs.filter(user=self.request.user)
 
 
@@ -141,7 +217,7 @@ class RecurringDirectDebitPaymentMixin(object):
     def post_save(self, obj, created=False):
         # TODO: Get the order id from the client for the current order.
         try:
-            current_order = Order.objects.get(user=self.request.user, status=OrderStatuses.current)
+            order = Order.objects.get(user=self.request.user, status=OrderStatuses.recurring)
         except Order.DoesNotExist:
             if created:
                 obj.delete()
@@ -153,7 +229,7 @@ class RecurringDirectDebitPaymentMixin(object):
             monthly_order.recurring = True
             monthly_order.save()
 
-        for donation in current_order.donations.all():
+        for donation in monthly_order.donations.all():
             donation.order = monthly_order
             donation.save()
 
@@ -177,7 +253,7 @@ class CurrentOrderMixin(object):
         """ Create a payment if we need one and update the order total. """
         def create_new_payment(cancelled_payment=None):
             """ Creates and new payment and copies over the the payment profile from the cancelled payment."""
-            # TODO See if we can use something like Django-lazy-user so that the payment profile can always be set with date from the user model.
+            # TODO See if we can use something like Django-lazy-user so that the payment profile can always be set with data from the user model.
             payment = DocDataPaymentOrder()
             if cancelled_payment:
                 payment.email = cancelled_payment.email
@@ -223,7 +299,7 @@ class CurrentOrderMixin(object):
     def get_current_order(self):
         if self.request.user.is_authenticated():
             try:
-                order = Order.objects.get(user=self.request.user, status=OrderStatuses.current)
+                order = Order.objects.get(user=self.request.user, recurring=False, status=OrderStatuses.current)
                 self._update_payment(order)
                 return order
             except Order.DoesNotExist:
@@ -232,7 +308,7 @@ class CurrentOrderMixin(object):
             order_id = self.request.session.get(anon_order_id_session_key)
             if order_id:
                 try:
-                    order = Order.objects.get(id=order_id, status=OrderStatuses.current)
+                    order = Order.objects.get(id=order_id, recurring=False, status=OrderStatuses.current)
                     self._update_payment(order)
                     return order
                 except Order.DoesNotExist:
@@ -250,7 +326,7 @@ class CurrentOrderMixin(object):
             order = self.get_current_order()
         elif order_id:
             try:
-                order = Order.objects.get(user=self.request.user, id=order_id)
+                order = Order.objects.get(user=self.request.user, recurring=False, id=order_id)
             except Order.DoesNotExist:
                 raise exceptions.ParseError(detail=_(u"Order not found."))
         else:
@@ -295,13 +371,13 @@ class OrderCurrentDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
     def get_or_create_current_order(self):
         if self.request.user.is_authenticated():
             with transaction.commit_on_success():
-                order, created = Order.objects.get_or_create(user=self.request.user, status=OrderStatuses.current)
+                order, created = Order.objects.get_or_create(user=self.request.user, recurring=False, status=OrderStatuses.current)
         else:
             # An anonymous user could have an order (cart) in the session.
             order_id = self.request.session.get(anon_order_id_session_key)
             if order_id:
                 try:
-                    order = Order.objects.get(id=order_id, status=OrderStatuses.current)
+                    order = Order.objects.get(id=order_id, recurring=False, status=OrderStatuses.current)
                 except Order.DoesNotExist:
                     # A new order is created if it's not in the db for some reason.
                     order = self._create_anonymous_order()
@@ -438,7 +514,7 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
             if anon_current_order.status == OrderStatuses.current:
 
                 try:
-                    user_current_order = Order.objects.get(user=user, status=OrderStatuses.current)
+                    user_current_order = Order.objects.get(user=user, recurring=False, status=OrderStatuses.current)
                     # Close old order by this user.
                     user_current_order.status = OrderStatuses.closed
                     user_current_order.save()

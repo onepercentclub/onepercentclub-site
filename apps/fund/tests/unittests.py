@@ -487,3 +487,53 @@ class RecurringPaymentTest(UserTestsMixin, TestCase):
         self.user.delete()
         recurring_payment = RecurringDirectDebitPayment.objects.filter(user=self.user)
         self.assertEqual(len(recurring_payment), 0)
+
+
+class RecurringOrderApiTest(ProjectTestsMixin, TestCase):
+
+    def setUp(self):
+        self.some_project = self.create_project(money_asked=50000)
+        self.another_project = self.create_project(money_asked=75000)
+
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
+
+        self.recurring_order_url_base = '/api/fund/recurring/orders/'
+
+        self.some_profile = {'first_name': 'Nijntje',
+                             'last_name': 'het Konijnje',
+                             'email': 'nijntje@hetkonijnje.nl',
+                             'address': 'Dam',
+                             'postal_code': '1001AM',
+                             'city': 'Amsterdam',
+                             'country': 'NL',
+                             'account': '123456789'}
+
+    def test_create_recurring_order(self):
+
+        # Creating a Recurring Order doesn't need any data. An empty post request should work.
+
+        # Anonymous users can't create a Recurring Order
+        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Create a Recurring Order for a authenticated user works.
+        self.client.login(username=self.some_user.email, password='password')
+        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+
+        # Creating a recurring Order fails if one already exitsts for this user.
+        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
+        # Let's check that this user has one Recurring order now.
+        response = self.client.get(self.recurring_order_url_base)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(response.data['results'][0]['status'], 'recurring')
+
+        # Let's add a donation
+
+
+        
+

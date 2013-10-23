@@ -7,41 +7,40 @@ App.ProjectListController = Em.ArrayController.extend({
 App.ProjectSearchFormController = Em.ObjectController.extend({
     needs: ['projectList'],
 
+    // Number of results to show on one page
+    pageSize: 8,
+
+
+    // Have a property for this so we can easily use another list controller if we extend this.
+    listController: function(){
+        return this.get('controllers.projectList');
+    }.property(),
+
     init: function(){
-        var form =  App.ProjectSearch.createRecord();
+        // Make sure this record is in it's own transaction so it will never pollute other commits.
+        var transaction = this.get('store').transaction();
+        var form =  transaction.createRecord(App.ProjectSearch);
         this.set('model', form);
         this.updateSearch();
     },
 
     rangeStart: function(){
-        return this.get('page') * 8 -7;
-    }.property('controllers.projectList.model.length'),
+        return this.get('page') * this.get('pageSize') - this.get('pageSize') + 1;
+    }.property('listController.model.length'),
 
     rangeEnd: function(){
-        return this.get('page') * 8 -8 + this.get('controllers.projectList.model.length');
-    }.property('controllers.projectList.model.length'),
+        return this.get('page') * this.get('pageSize') - this.get('pageSize') + this.get('listController.model.length');
+    }.property('listController.model.length'),
 
     hasNextPage: function(){
-        var next = this.get('page') * 8;
-        var total = this.get('controllers.projectList.model.meta.total');
+        var next = this.get('page') * this.get('pageSize');
+        var total = this.get('listController.model.meta.total');
         return (next < total);
-    }.property('controllers.projectList.model.meta.total'),
+    }.property('listController.model.meta.total'),
 
     hasPreviousPage: function(){
         return (this.get('page') > 1);
     }.property('page'),
-
-    nextPage: function(){
-        this.incrementProperty('page');
-    },
-
-    previousPage: function(){
-        this.decrementProperty('page');
-    },
-
-    sortOrder: function(order) {
-        this.set('ordering', order);
-    },
 
     orderedByPopularity: function(){
         return (this.get('ordering') == 'popularity');
@@ -59,23 +58,17 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
         return (this.get('ordering') == 'deadline');
     }.property('ordering'),
 
-    clearForm: function(sender, key) {
-        this.set('model.text', '');
-        this.set('model.country', null);
-        this.set('model.theme', null);
-        this.set('model.phase', null);
-    },
-
     updateSearch: function(sender, key){
         if (key != 'page') {
             // If the query changes we should jump back to page 1
             this.set('page', 1);
         }
         if (this.get('model.isDirty') ) {
-            var list = this.get('controllers.projectList');
+            var list = this.get('listController');
             var controller = this;
 
             var query = {
+                'page_size': this.get('pageSize'),
                 'page': this.get('page'),
                 'ordering': this.get('ordering'),
                 'phase': this.get('phase'),
@@ -86,7 +79,28 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
             var projects = App.ProjectPreview.find(query);
             list.set('model', projects);
         }
-    }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering')
+    }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering'),
+
+    actions: {
+        nextPage: function(){
+            this.incrementProperty('page');
+        },
+
+        previousPage: function(){
+            this.decrementProperty('page');
+        },
+
+        sortOrder: function(order) {
+            this.set('ordering', order);
+        },
+        clearForm: function(sender, key) {
+            this.set('model.text', '');
+            this.set('model.country', null);
+            this.set('model.theme', null);
+            this.set('model.phase', null);
+        }
+
+    }
 });
 
 
