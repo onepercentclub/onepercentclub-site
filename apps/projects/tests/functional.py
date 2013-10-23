@@ -120,7 +120,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         
         # create project (with pitch)
         slug = 'picture-upload'
-        project = self.create_project(title='Test picture upload', owner=user, phase='pitch', slug=slug)
+        project = self.create_project(title='Test picture upload', owner=self.user, phase='pitch', slug=slug)
         pitch = project.projectpitch # raises error if no pitch is present
         # create theme
         pitch.theme = ProjectTheme.objects.create(name='Tests', name_nl='Testen', slug='tests')
