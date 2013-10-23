@@ -33,8 +33,12 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
             u'Women first 2', u'Mobile payments for everyone 2!', u'Schools for children 2'
         ]])
 
+        User = get_user_model()
+        # Create and activate user.
+        self.user = User.objects.create_user('johndoe@example.com', 'secret')
+
         for slug, title in self.projects.items():
-            project = self.create_project(title=title, slug=slug, money_asked=100000)
+            project = self.create_project(title=title, slug=slug, money_asked=100000, owner=self.user)
             project.projectcampaign.money_donated = 0
             project.projectcampaign.save()
 
@@ -111,11 +115,9 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # Compare all projects found on the web page with those in the database, in the same order.
         self.assertListEqual(web_projects, expected_projects)
 
-    def test_upload_profile_picture(self):
-        """ Test that profile picture uploads work. """
-        User = get_user_model()
-        # Create and activate user.
-        user = User.objects.create_user('johndoe@example.com', 'secret')
+    def test_upload_pitch_picture(self):
+        """ Test that pitch picture uploads work. """
+        
         # create project (with pitch)
         slug = 'picture-upload'
         project = self.create_project(title='Test picture upload', owner=user, phase='pitch', slug=slug)
@@ -138,7 +140,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
 
 
-        self.login(user.email, 'secret')
+        self.login(self.user.email, 'secret')
         # navigation itself has been tested before...
         self.visit_path('/my/projects/')
 
@@ -168,3 +170,42 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # check that the src of the image is correctly set (no base64 stuff)
         src = self.browser.find_by_css('div.preview').first.find_by_tag('img').first['src']
         self.assertEqual('.jpg', src[-4:])
+
+    @skipUnless(False, 'Broken in firefox due to FK constraints') # FIXME: bad request in firefox
+    def test_upload_multiple_wallpost_images(self):
+        """ Test uploading multiple images in a media wallpost """
+
+        self.login(self.user.email, 'secret')
+        self.visit_project_list_page()
+
+        # pick a project
+        self.browser.find_by_css('.item.item-project').first.find_by_tag('a').first.click()
+
+        form = self.browser.find_by_css('form.ember-view')
+        form_data = {
+            'input[placeholder="Keep it short and simple"]': 'My wallpost',
+            'textarea[name="wallpost-update"]': 'These are some sample pictures from this non-existent project!',
+        }
+        self.browser.fill_form_by_css(form, form_data)
+
+        # verify that no previews are there yet
+        ul = form.find_by_css('ul.wallpost-photos').first
+        previews = ul.find_by_css('li')
+        self.assertEqual(0, len(previews))
+
+
+        # attach file
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        self.browser.attach_file('wallpost-photo', file_path)
+
+        # wait a bit, processing...
+
+        # verify that one picture was added
+        previews = ul.find_by_css('li')
+
+        self.assertEqual(1, len(previews))
+
+        # verify that a second picture was added
+        self.browser.attach_file('wallpost-photo', file_path)
+        previews = ul.find_by_css('li')
+        self.assertEqual(2, len(previews))
