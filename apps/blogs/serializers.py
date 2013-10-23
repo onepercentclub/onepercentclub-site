@@ -1,7 +1,12 @@
-from bluebottle.accounts.serializers import UserPreviewSerializer
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
+
+
+from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import SorlImageField
+from bluebottle.bluebottle_utils.serializers import MetaField
+
+
 from .models import BlogPost
 
 
@@ -19,9 +24,14 @@ class BlogPostSerializer(serializers.ModelSerializer):
     main_image = SorlImageField('main_image', '300x200',)
     author = UserPreviewSerializer()
 
+    meta_data = MetaField(
+        description = 'get_meta_description',
+        image_source = 'main_image',
+        )
+
     class Meta:
         model = BlogPost
-        fields = ('id', 'title', 'body', 'main_image', 'author', 'publication_date', 'allow_comments', 'post_type', 'language')
+        fields = ('id', 'title', 'body', 'main_image', 'author', 'publication_date', 'allow_comments', 'post_type', 'language', 'meta_data')
 
 
 class BlogPostPreviewSerializer(serializers.ModelSerializer):

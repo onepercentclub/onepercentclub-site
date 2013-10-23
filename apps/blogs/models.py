@@ -1,12 +1,21 @@
 from django.conf import settings
 from django.db import models
+from django.template.defaultfilters import truncatechars
 from django.utils.translation import ugettext_lazy as _
+
+
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from fluent_contents.models import PlaceholderField
-from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
+from fluent_contents.rendering import render_placeholder
 from sorl.thumbnail import ImageField
+from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
+
+
+from bluebottle.bluebottle_utils.serializers import MLStripper
 from bluebottle.geo.models import Country
+
+
 from .managers import BlogPostManager, BlogPostProxyManager
 
 
@@ -70,6 +79,12 @@ class BlogPost(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_meta_description(self, **kwargs):
+        request = kwargs.get('request')
+        s = MLStripper()
+        s.feed(render_placeholder(request, self.contents))
+        return truncatechars(s.get_data(), 250)
 
 
 # The proxy models are only here to have a separation in the Django admin interface.

@@ -5,7 +5,6 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices.choices import DjangoChoices, ChoiceItem
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
-
 class Skill(models.Model):
 
     name = models.CharField(_("english name"), max_length=100, unique=True)
@@ -52,6 +51,19 @@ class Task(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_meta_title(self, **kwargs):
+        from apps.projects.models import ProjectPlan
+        try:
+            plan = self.project.projectplan
+            country = plan.country.name if plan.country else ''
+        except ProjectPlan.DoesNotExist:
+            country = ''
+        return u"%(task_name)s | %(expertise)s | %(country)s" % {
+            'task_name': self.title,
+            'expertise': self.skill.name if self.skill else '',
+            'country': country,
+        }
 
     class Meta:
         ordering = ['-created']

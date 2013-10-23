@@ -2,7 +2,8 @@ App.Adapter.map('App.Project', {
     owner: {embedded: 'load'},
     campaign: {embedded: 'load'},
     plan: {embedded: 'load'},
-    country: {embedded: 'load'}
+    country: {embedded: 'load'},
+    meta: {embedded: 'load'}
 });
 App.Adapter.map('App.ProjectPreview', {
     campaign: {embedded: 'load'},

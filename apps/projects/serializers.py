@@ -1,13 +1,21 @@
+from django.contrib.contenttypes.models import ContentType
+
+
+from rest_framework import serializers
+
+
 from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
+                                              TagSerializer, ImageSerializer, TaggableSerializerMixin)
+from bluebottle.geo.models import Country
+from bluebottle.bluebottle_utils.serializers import MetaField
+
+
 from apps.fund.models import Donation
 from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectCampaign, ProjectTheme
 from apps.wallposts.models import TextWallPost, MediaWallPost
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
-from django.contrib.contenttypes.models import ContentType
-from rest_framework import serializers
-from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
-                                              TagSerializer, ImageSerializer, TaggableSerializerMixin)
-from bluebottle.geo.models import Country
+
 from .models import Project
 
 
@@ -116,9 +124,19 @@ class ProjectSerializer(serializers.ModelSerializer):
     wallpost_ids = WallPostListSerializer()
     task_count = serializers.IntegerField(source='task_count')
 
+    meta_data = MetaField(
+            title = 'get_meta_title', 
+            description = 'projectplan__pitch',
+            keywords = 'projectplan__tags',
+            image_source = 'projectplan__image'
+            )
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectSerializer, self).__init__(*args, **kwargs)
+
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity', 'task_count')
+        fields = ('id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity', 'task_count', 'meta_data')
 
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
