@@ -1,4 +1,3 @@
-
 /*
  Controllers
  */
@@ -234,7 +233,39 @@ App.PaymentSignupController = Em.ObjectController.extend({
 
 
 App.PaymentSelectController = Em.ObjectController.extend({
-    needs: ['currentOrder'],
+    needs: ['paymentProfile', 'currentOrder'],
+
+    redirectPaymentMethods: function(){
+        if (this.get('controllers.paymentProfile.country') == 'NL') {
+            return [
+                {'id':'IDEAL', 'name': 'IDEAL'},
+                {'id':'DIRECT_DEBIT', 'name': 'Automatische Incasso'},
+                {'id':'MASTERCARD', 'name': 'Mastercard'},
+                {'id':'VISA', 'name': 'Visa'}
+            ];
+        } else {
+            return [
+                {'id':'MASTERCARD', 'name': 'Mastercard'},
+                {'id':'VISA', 'name': 'Visa'}
+            ];
+
+        }
+    }.property('controllers.paymentProfile.country'),
+
+    idealIssuers: [
+        {'id':'0031', 'name': 'ABN Amro Bank'},
+        {'id':'0761', 'name': 'ASN Bank'},
+        {'id':'0091', 'name': 'Friesland Bank'},
+        {'id':'0721', 'name': 'ING Bank'},
+        {'id':'0801', 'name': 'Knab'},
+        {'id':'0161', 'name': 'van Landschot Bankiers'},
+        {'id':'0021', 'name': 'Rabobank'},
+        {'id':'0771', 'name': 'Regio Bank'},
+        {'id':'0511', 'name': 'Triodos Bank'},
+        {'id':'0751', 'name': 'SNS Bank'},
+    ],
+
+    isIdeal: Em.computed.equal('redirectPaymentMethod', 'IDEAL'),
 
     displayPaymentError: function() {
         this.get('controllers.currentOrder').setProperties({
@@ -276,7 +307,15 @@ App.PaymentSelectController = Em.ObjectController.extend({
                 context: this,
                 success: function(json) {
                     if (json['payment_url']) {
-                        window.location = json['payment_url'];
+                        var url = json['payment_url'];
+                        if (controller.get('redirectPaymentMethod')) {
+                            url += '&default_pm=' + controller.get('redirectPaymentMethod');
+                            if (controller.get('idealIssuerId')) {
+                                url += '&ideal_issuer_id=' + controller.get('idealIssuerId');
+                                url += '&default_act=true'
+                            }
+                        }
+                        window.location =  url;
                     } else {
                         controller.set('paymentInProgress', false);
                         controller.displayPaymentError();
