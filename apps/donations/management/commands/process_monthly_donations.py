@@ -152,7 +152,7 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     remaining_amount = recurring_payment.amount
     num_donations = recurring_order.donations.count()
     amount_per_project = math.floor(recurring_payment.amount / num_donations)
-    donations = recurring_order.donations
+    donations = recurring_order.donations.all()
     for i in range(0, num_donations - 1):
         donation = donations[i]
         project = Project.objects.get(id=donation.project_id)
@@ -417,7 +417,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
             # Adjust donation amounts in a simple way for the recurring Order (the monthly donations shopping cart).
             num_donations = new_recurring_order.donations.count()
             amount_per_project = math.floor(recurring_payment.amount / num_donations)
-            donations = new_recurring_order.donations
+            donations = new_recurring_order.donations.all()
             for i in range(0, num_donations - 1):
                 donation = donations[i]
                 donation.amount = amount_per_project

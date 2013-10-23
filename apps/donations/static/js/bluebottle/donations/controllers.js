@@ -4,13 +4,38 @@ App.UserDonationController = Em.ObjectController.extend({
 
 App.UserMonthlyController = Em.ObjectController.extend({
 
-    initamount: function(obj, keyName) {
-        if (this.get('recurringPayment.isLoaded') && this.get('amount') == 0) {
-            this.set('amount', this.get('recurringPayment.amount'))
-        }
-    }.observes('recurringPayment.isLoaded'),
+});
 
-    updateRecurringDonations: function(obj, keyName) {
+App.UserMonthlyProfileController = Em.ObjectController.extend({
+    actions: {
+        save: function(){
+            this.get('model').save();
+        }
+    }
+});
+
+App.UserMonthlyProjectsController = Em.ObjectController.extend({
+
+    initamount: function(obj, keyName) {
+        if (this.get('payment.isLoaded') && this.get('amount') == 0) {
+            this.set('amount', this.get('payment.amount'))
+        }
+    }.observes('payment.isLoaded'),
+
+    shouldSave: function(obj, keyName){
+        var dirty = false;
+        this.get('model.donations').forEach(function(record){
+            if (record.get('isDirty')){
+                dirty = true;
+            }
+        });
+        if (this.get('model.isDirty') || this.get('payment.isDirty')) {
+            dirty = true;
+        }
+        return dirty;
+    }.property('isDirty', 'payment.isDirty', 'model.donations.@each.isDirty'),
+
+    updateDonations: function(obj, keyName) {
 
         // Validation:
         if (keyName == 'amount') {
@@ -39,99 +64,107 @@ App.UserMonthlyController = Em.ObjectController.extend({
             donations = null,
             lastDonation = null;
 
-        if (this.get('editingRecurringOrder')) {
-            // The user already has a recurring order set.
+        var donationsTotal = 0,
+            amount = 0;
+        donations = this.get('donations');
 
-            // Create a donations list with the new and monthly donations.
-            donations = Em.A();
-            donations.addObjects(this.get('order.donations'));
-            this.get('order.donations').forEach(function(donation) {
-                // Don't include donations set to 0 as they have been 'deleted'.
-                if (donation.get('tempRecurringAmount') != 0) {
-                    donations.addObject(donation);
-                }
-            });
-            numDonations =  donations.get('length');
+        // This happens sometimes when loading the donations list from a bookmark.
+        if (Em.isNone(donations)) {
+            return;
+        }
 
-            // Set the updated monthly totals in a
-            amountPerProject = Math.floor(this.get('amount') / numDonations);
-            for (var i = 0; i <  donations.get('length') - 1; i++) {
-                donations.objectAt(i).set('tempRecurringAmount', amountPerProject);
+        numDonations = donations.get('length');
+
+        // Special setup when the number of donations changes.
+        if (keyName == 'model.length' && numDonations > 0) {
+            amount = Math.max(this.get('singleTotal'), this.get('amount'));
+            this.set('payment.amount', amount);
+        } else {
+            donationsTotal = this.get('singleTotal');
+            amount = this.get('payment.amount');
+        }
+
+        if (amount == 0) {
+            amount = donationsTotal;
+            this.set('payment.amount', donationsTotal);
+        }
+
+        if (donationsTotal != amount) {
+            var order = this.get('model');
+            amountPerProject = Math.floor(amount / numDonations);
+            for (var j = 0; j < numDonations - 1; j++) {
+                donations.objectAt(j).set('amount', amountPerProject);
+                order.transaction.add(donations.objectAt(j));
             }
             // Update the last donation with the remaining amount if it hasn't been deleted.
-            lastDonation = donations.objectAt(donations.get('length') - 1);
+            lastDonation = donations.objectAt(numDonations - 1);
             if (!Em.isNone(lastDonation)) {
-                lastDonation.set('tempRecurringAmount', this.get('amount') - (amountPerProject * (numDonations - 1)));
-            }
-        } else {
-            // The user does not already have a recurring order set or the user is support the top three projects.
-            var donationsTotal = 0,
-                amount = 0;
-            donations = this.get('order.donations');
-
-            // This happens sometimes when loading the donations list from a bookmark.
-            if (Em.isNone(donations)) {
-                return;
-            }
-
-            numDonations = donations.get('length');
-
-            // Special setup when the number of donations changes.
-            if (keyName == 'model.length' && numDonations > 0) {
-                amount = Math.max(this.get('singleTotal'), this.get('amount'));
-                this.set('amount', amount);
-            } else {
-                donationsTotal = this.get('singleTotal');
-                amount = this.get('amount');
-            }
-
-            if (amount == 0) {
-                amount = donationsTotal;
-                this.set('amount', donationsTotal);
-            }
-
-            if (donationsTotal != amount) {
-                amountPerProject = Math.floor(amount / numDonations);
-                for (var j = 0; j < numDonations - 1; j++) {
-                    donations.objectAt(j).set('amount', amountPerProject);
-                }
-                // Update the last donation with the remaining amount if it hasn't been deleted.
-                lastDonation = donations.objectAt(numDonations - 1);
-                if (!Em.isNone(lastDonation)) {
-                    lastDonation.set('amount', amount - (amountPerProject * (numDonations - 1)));
-                }
+                lastDonation.set('amount', amount - (amountPerProject * (numDonations - 1)));
+                order.transaction.add(lastDonation);
             }
         }
 
-    }.observes('amount', 'order.donations.length'),
+    }.observes('payment.amount', 'donations.length'),
+
+    startEditing: function() {
+        var record = this.get('model');
+        if (record.get('transaction.isDefault') == true) {
+            this.transaction = this.get('store').transaction();
+            this.transaction.add(record);
+        }
+    },
+
+    stopEditing: function(){
+        var self = this;
+        var record = this.get('model');
+        var transaction = record.get('transaction');
+
+        if (this.get('shouldSave')) {
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: gettext('Save changed data?'),
+                message: gettext('You have some unsaved changes. Do you want to save before you leave?'),
+                primary: gettext('Save'),
+                secondary: gettext('Cancel'),
+                callback: function(opts, e) {
+                    e.preventDefault();
+                    if (opts.primary) {
+                        transaction.commit();
+                    }
+                    if (opts.secondary) {
+                        transaction.rollback();
+                    }
+                }
+            });
+        }
+    },
 
     actions: {
         save: function(){
-            this.get('model').save();
+            this.get('model').transaction.commit();
         },
         toggleActive: function(sender, value){
-            if (this.get('active')) {
-                this.set('active', false);
+            if (this.get('payment.active')) {
+                this.set('payment.active', false);
             } else {
-                this.set('active', true);
+                this.set('payment.active', true);
             }
-            this.get('model').save();
         },
         addProjectToMonthly: function(project){
             var store = this.get('store');
-            var order = this.get('order');
-            var donation = store.createRecord(App.MonthlyOrderDonation);
+            var order = this.get('model');
+            var donation = store.createRecord(App.RecurringDonation);
+            order.transaction.add(donation);
             donation.set('project', project);
             donation.set('order', order);
-            donation.save();
+
+            // Close the modal
+            this.send('closeAllModals');
+
         }
     }
 
 });
-
-App.UserMonthlyProfileController = App.UserMonthlyController.extend({});
-
-App.UserMonthlyProjectsController = App.UserMonthlyController.extend({});
 
 
 App.MonthlyProjectSearchFormController = App.ProjectSearchFormController.extend({
@@ -148,7 +181,7 @@ App.MonthlyProjectListController = App.ProjectListController.extend({});
 App.MonthlyDonationController = Em.ObjectController.extend({
     deleteDonation: function() {
         var donation = this.get('model');
+        donation.get('order').transaction.add(donation);
         donation.deleteRecord();
-        donation.save();
     }
 });

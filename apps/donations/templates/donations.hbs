@@ -98,7 +98,7 @@
     <section class="wrapper">
         <div class="content">
             <form>
-                {{#if model }}
+                {{#if model}}
                     <div class="form-meta">
                         <div class="form-label">{% trans "Edit your payment info" %}</div>
                         <div class="form-desc">{% trans "Here you can change your bank account info and monthly donations." %}</div>
@@ -158,33 +158,73 @@
 {% tplhandlebars "userMonthlyProjects" %}
     <section class="wrapper" id="donate">
         <div class="content">
-            {{#if active}}
-                <a {{action 'toggleActive'}}>Stop monthly donation</a>
-            {{else}}
-                <a {{action 'toggleActive'}}>Start monthly donation</a>
-            {{/if}}
-            <style>form.disabled { opacity: 0.3; }</style>
-            <form {{bindAttr class="active::disabled"}}>
-                {{render "monthlyDonationList"}}
+            {{#unless payment.active}}
+                <h2>
+                    <a {{action 'toggleActive'}}><em class="icon flaticon solid checkmark-1"></em> Start monthly donation</a>
+                </h2>
+            {{/unless}}
+            <style>
+                form.disabled .donation-projects,
+                form.disabled .donation-monthly-total,
+                form.disabled .account-info,
+                form.disabled a {
+                    opacity: 0.5;
+                    -webkit-filter: blur(2px);
+                    filter: url(#blur-effect-1);
+                    pointer-events: none;
+                    cursor: default;
+                }
+                #donate .monthly-order .button-link {
+                    float: none;
+                }
+            </style>
+            <form {{bindAttr class="payment.active::disabled :monthly-order"}}>
 
-                {{#each donation in order.donations }}
-                    <ul class="donation-projects">
+                <ul class="donation-projects">
+                    {{#each donation in donations }}
                         {{render "monthlyDonation" donation}}
-                    </ul>
-                {{else}}
-                    <div class="donation-empty">
-                        <em class="flaticon solid heart-1"></em>
-                        <div class="form-meta">
-                            {{#if active }}
-                                <p class="form-label">{% blocktrans %}You are a 1%Friend{% endblocktrans %}</p>
-                                <p class="form-desc">{% trans "You currently support the top 3 projects with your monthly donation." %}</p>
-                            {{ else }}
-                                <p class="form-label">{% blocktrans %}Become a 1%Friend{% endblocktrans %}</p>
-                                <p class="form-desc">{% trans "Support the top 3 projects with your monthly donation." %}</p>
-                            {{/if}}
+                    {{else}}
+                        <div class="donation-empty">
+                            <p class="form-label">{% blocktrans %}You are a 1%Friend{% endblocktrans %}</p>
+                            <p class="form-desc">{% trans "You currently support the top 3 projects with your monthly donation." %}</p>
+                            <p class="form-desc">{% trans "The 3 most popular projects at this moment are:." %}</p>
+                            <ul id="results">
+                            {{#each project in topThreeProjects }}
+                                <li class="donation-project control-group">
+                                    <a {{action "showProject" project.getProject}}>
+                                        <img {{bindAttr src="project.image" }} />
+                                        <h2>
+                                            {{project.title}}
+                                            <em class="country">
+                                                {{project.country.name}}
+                                            </em>
+                                        </h2>
+                                    </a>
+
+                                    <div class="donation-amount">
+                                        <div class="amount-needed">
+                                            <strong>€ {{project.campaign.money_needed}} </strong> is still needed
+                                        </div>
+                                    </div>
+                                </li>
+                            {{/each}}
+                            </ul>
                         </div>
-                    </div>
-                {{/each}}
+                    {{/each}}
+                    <li>
+                        <a {{action 'openModal' 'projectPicker'}} class="add-project button-link">
+                            <em class="flaticon solid plus-2"></em>
+                            {{#if length }}
+                                {%trans "Add another project" %}
+                            {{else}}
+                                {%trans "Add a project" %}
+                            {{/if}}
+                        </a>
+
+                    </li>
+                </ul>
+
+
                 <fieldset class="donation-monthly-total">
                     {{#if showTopThreeProjects }}
                         <div class="form-summary">&nbsp;</div>
@@ -193,27 +233,67 @@
                     {{/if}}
                     <div class="donation-amount">
                         <div class="amount-control">
-                            {# TODO: This doesn't display. #}
-                            {{#each error in errors.recurringTotal }}
+                            {{#each error in payment.errors.amount }}
                                 <span class="errors">{{ error }}</span>
                             {{/each}}
                             <label for="donation-amount-1">{% trans "Total Amount" %}</label>
                             <span class="currency"><em>&euro; </em>
-                                {{view Em.TextField type="number" step="5" name="donation-amount" size="8" maxlength="3" valueBinding="amount"}}
+                                {{view Em.TextField type="number" step="5" name="donation-amount" size="8" maxlength="3" valueBinding="payment.amount"}}
                             </span>
                         </div>
                     </div>
                 </fieldset>
 
-                <a {{action 'addMonthlyProject'}}>
-                    {{#if length }}
-                        {%trans "Add another project" %}
-                    {{else}}
-                        {%trans "Add a project" %}
-                    {{/if}}
-                </a>
+                {{#if payment.isIncomplete}}
+                    <fieldset class="account-info">
+                        <ul>
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Account Name" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="payment.name" placeholder="Full name as it appears on your bank account" classBinding="payment.errors.name.length:error"}}
+                                </div>
+                                {{#if payment.errors.name }}
+                                    <div class="errors">{{#each payment.errors.name }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
 
-                <button {{bindAttr class=":btn :btn-iconed :btn-primary :right isDirty::disabled"}} {{action 'save' model}}>
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Account City" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="payment.city" placeholder="City registered on your bank account" classBinding="payment.errors.city.length:error"}}
+                                </div>
+                                {{#if payment.errors.city }}
+                                    <div class="errors">{{#each payment.errors.city }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
+
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Account Number" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="payment.account" placeholder="Your bank account number" classBinding="payment.errors.account.length:error"}}
+                                </div>
+                                {{#if payment.errors.account }}
+                                    <div class="errors">{{#each payment.errors.account }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
+
+                        </ul>
+                    </fieldset>
+
+                {{else}}
+                    {{#linkTo 'userMonthlyProfile' class="add-project button-link"}}
+                        <em class="flaticon solid credit-card-1"></em>
+                        {% trans "Edit bank details" %}
+                    {{/linkTo}}
+                {{/if}}
+                {{#if payment.active}}
+                    <button class=" button-link" {{action 'toggleActive'}}>
+                        <em class="flaticon solid x-2"></em>
+                        {% trans "Stop monthly donation" %}
+                    </button>
+                {{/if}}
+
+                <button {{bindAttr class=":btn :btn-iconed :btn-primary :right shouldSave::disabled"}} {{action 'save' model}}>
                     <em class="flaticon solid checkmark-1"></em>
                     {% trans "Save" %}
                 </button>
@@ -228,11 +308,38 @@
         </div>
     </section>
 
-    <section class="wrapper">
-        <div class="content">
+    {{#bb-modal id="projectPicker" class="hidden" closeButton=true}}
+        <div style="zoom: 80%">
             {{render "monthlyProjectList" }}
         </div>
-    </section>
+    {{/bb-modal}}
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "components/bb-modal" %}
+    <div class="modal large">
+        {{#if header}}
+            <div class="modal-header">
+                {{header}}
+            </div>
+            <a class="close" {{action 'close'}} rel="close">×</a>
+        {{/if}}
+        <div class="modal-body">
+            {{#unless header}}
+                <a class="close"  {{action 'close'}} rel="close">×</a>
+            {{/unless}}
+            {{ yield }}
+        </div>
+        {{#if closeButton}}
+            <div class="modal-footer">
+                <button {{action 'close'}} class="btn btn-iconed btn-primary right">
+                    <em class="flaticon solid x-2"></em>
+                    Close
+                </button>
+            </div>
+        {{/if}}
+    </div>
 {% endtplhandlebars %}
 
 

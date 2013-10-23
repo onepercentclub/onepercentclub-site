@@ -268,7 +268,6 @@ App.ApplicationRoute = Em.Route.extend({
 //        this._super(controller, model);
 //    },
 
-
     actions: {
         selectLanguage: function(language) {
             var user = App.CurrentUser.find('current');
@@ -317,6 +316,22 @@ App.ApplicationRoute = Em.Route.extend({
             return true;
         },
 
+        openModal: function(name) {
+            var route = this;
+            $('#' + name).addClass('modal-active').removeClass('hidden');
+            $('body').append('<div class="modal-backdrop"></div>');
+            $('.modal-backdrop').click(function(){
+                route.send('closeAllModals');
+            });
+        },
+
+        closeAllModals: function(){
+            $('.modal-active').removeClass('modal-active').addClass('hidden');
+            $('.modal-backdrop').fadeOut(200, function(){
+                this.remove();
+            });
+        },
+
         openInBigBox: function(name, context) {
             // Get the controller or create one
             var controller = this.controllerFor(name);
@@ -336,6 +351,7 @@ App.ApplicationRoute = Em.Route.extend({
             });
 
         },
+
         openInBox: function(name, context) {
             // Get the controller or create one
             var controller = this.controllerFor(name);
@@ -445,6 +461,19 @@ App.HomeRoute = Em.Route.extend({
     }
 });
 
+/* Components */
+
+App.BbModalComponent = Ember.Component.extend({
+    actions: {
+        close: function() {
+            this.$().removeClass('modal-active').addClass('hidden');
+            $('.modal-backdrop').fadeOut(200, function(){
+                this.remove();
+            });
+        }
+    }
+});
+
 
 /* Views */
 
@@ -471,4 +500,5 @@ App.LanguageSwitchView = Em.CollectionView.extend({
 App.ApplicationView = Em.View.extend({
     elementId: 'site'
 });
+
 

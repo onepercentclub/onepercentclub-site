@@ -6,8 +6,8 @@
  * Embedded objects
  */
 App.Adapter.map('App.DonationPreview', {
-    project: {embedded: 'load'},
-    member: {embedded: 'load'}
+    project: {embedded: 'both'},
+    member: {embedded: 'both'}
 });
 App.Adapter.map('App.Order', {
     donations: {embedded: 'load'},
@@ -125,17 +125,5 @@ App.Payment = DS.Model.extend({
     paymentSubmethod: DS.attr('string'),
     paymentUrl: DS.attr('string'),
     availablePaymentMethods: DS.attr('array')
-});
-
-
-App.RecurringDirectDebitPayment = DS.Model.extend({
-    url: 'fund/recurringdirectdebitpayments',
-
-    active: DS.attr('boolean'),
-    amount: DS.attr('number'),
-
-    name: DS.attr('string'),
-    city: DS.attr('string'),
-    account: DS.attr('string')
 });
 

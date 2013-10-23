@@ -17,14 +17,16 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
     }.property(),
 
     init: function(){
-        var form =  App.ProjectSearch.createRecord();
+        // Make sure this record is in it's own transaction so it will never pollute other commits.
+        var transaction = this.get('store').transaction();
+        var form =  transaction.createRecord(App.ProjectSearch);
         this.set('model', form);
         this.updateSearch();
     },
 
     rangeStart: function(){
         return this.get('page') * this.get('pageSize') - this.get('pageSize') + 1;
-    }.property('list.model.length'),
+    }.property('listController.model.length'),
 
     rangeEnd: function(){
         return this.get('page') * this.get('pageSize') - this.get('pageSize') + this.get('listController.model.length');
@@ -39,18 +41,6 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
     hasPreviousPage: function(){
         return (this.get('page') > 1);
     }.property('page'),
-
-    nextPage: function(){
-        this.incrementProperty('page');
-    },
-
-    previousPage: function(){
-        this.decrementProperty('page');
-    },
-
-    sortOrder: function(order) {
-        this.set('ordering', order);
-    },
 
     orderedByPopularity: function(){
         return (this.get('ordering') == 'popularity');
@@ -67,13 +57,6 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
     orderedByDeadline: function(){
         return (this.get('ordering') == 'deadline');
     }.property('ordering'),
-
-    clearForm: function(sender, key) {
-        this.set('model.text', '');
-        this.set('model.country', null);
-        this.set('model.theme', null);
-        this.set('model.phase', null);
-    },
 
     updateSearch: function(sender, key){
         if (key != 'page') {
@@ -96,7 +79,28 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
             var projects = App.ProjectPreview.find(query);
             list.set('model', projects);
         }
-    }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering')
+    }.observes('text', 'country', 'theme', 'phase', 'page', 'ordering'),
+
+    actions: {
+        nextPage: function(){
+            this.incrementProperty('page');
+        },
+
+        previousPage: function(){
+            this.decrementProperty('page');
+        },
+
+        sortOrder: function(order) {
+            this.set('ordering', order);
+        },
+        clearForm: function(sender, key) {
+            this.set('model.text', '');
+            this.set('model.country', null);
+            this.set('model.theme', null);
+            this.set('model.phase', null);
+        }
+
+    }
 });
 
 

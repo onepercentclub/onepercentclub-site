@@ -10,7 +10,7 @@ Bedankt voor je maandelijkse 1%. Jouw bijdrage maakt een wereld van verschil!
 Op {{ date }} is een bedrag {{ amount }} van je rekening afgeschreven. Hieronder een overzicht van welk(e) project(en) jij de afgelopen maand hebt gesteund:
 <br/><br/>
 
-{% for donation in order.donations %}
+{% for donation in order.donations.all %}
     <a href="{{ site }}/#!/projects/{{ donation.project.slug }}">{{ donation.project.title }}</a>
     in {{ donation.project.projectplan.country.name }}.<br/>
 {%  endfor %}
