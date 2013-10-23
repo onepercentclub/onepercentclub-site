@@ -23,20 +23,7 @@ from apps.projects.tests import ProjectTestsMixin
 import os
 
 
-@skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
-            'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
-    """
-    Selenium tests for account actions.
-    """
-    def setUp(self):
-
-        # This project is required to make the homepage work without JS errors.
-        project = self.create_project(title='Example', slug='example', money_asked=100000)
-        project.projectcampaign.money_donated = 50000
-        project.projectcampaign.save()
-
-    # TODO: extend SeleniumTestCase and override these functions with onepercent-specifics
+class OnePercentSeleniumTestCase(SeleniumTestCase):
     def login(self, username, password):
         """
         Perform login operation on the website.
@@ -62,7 +49,6 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         return self.browser.is_text_present('MY 1%', wait_time=10)
 
-# TODO: extend SeleniumTestCase and override these functions with onepercent-specifics
     def visit_homepage(self, lang_code=None):
         """
         Convenience function to open the homepage.
@@ -76,6 +62,20 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         # # Check if the homepage opened, and the dynamically loaded content appeared.
         # # Remember that
         return self.browser.is_text_present('CHOOSE YOUR PROJECT', wait_time=10)
+
+
+@skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
+            'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
+class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
+    """
+    Selenium tests for account actions.
+    """
+    def setUp(self):
+
+        # This project is required to make the homepage work without JS errors.
+        project = self.create_project(title='Example', slug='example', money_asked=100000)
+        project.projectcampaign.money_donated = 50000
+        project.projectcampaign.save()
 
     def test_signup(self):
         """

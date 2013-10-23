@@ -362,7 +362,6 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--detailed-errors',
     '--nologcapture',
-    '-i=*AccountSeleniumTests', # perform onepercent account tests
 ]
 
 SKIP_BB_FUNCTIONAL_TESTS = True
