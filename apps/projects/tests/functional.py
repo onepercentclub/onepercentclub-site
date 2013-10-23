@@ -4,21 +4,27 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
-import time
-
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
-from ..models import Project, ProjectPhases
+
+from bluebottle.geo import models as geo_models
+from onepercentclub.tests.utils import OnePercentSeleniumTestCase
+
+
+from ..models import Project, ProjectPhases, ProjectPitch, ProjectTheme
 from .unittests import ProjectTestsMixin
 
-from bluebottle.tests.utils import SeleniumTestCase
+
+import os
+import time
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
+class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
@@ -104,3 +110,61 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Compare all projects found on the web page with those in the database, in the same order.
         self.assertListEqual(web_projects, expected_projects)
+
+    def test_upload_profile_picture(self):
+        """ Test that profile picture uploads work. """
+        User = get_user_model()
+        # Create and activate user.
+        user = User.objects.create_user('johndoe@example.com', 'secret')
+        # create project (with pitch)
+        slug = 'picture-upload'
+        project = self.create_project(title='Test picture upload', owner=user, phase='pitch', slug=slug)
+        pitch = project.projectpitch # raises error if no pitch is present
+        # create theme
+        pitch.theme = ProjectTheme.objects.create(name='Tests', name_nl='Testen', slug='tests')
+        # create country etc.
+        region = geo_models.Region.objects.create(name='Foo', numeric_code=123)
+        subregion = geo_models.SubRegion.objects.create(name='Bar', numeric_code=456, region=region)
+        pitch.country = geo_models.Country.objects.create(
+                            name='baz', 
+                            subregion=subregion,
+                            numeric_code=789,
+                            alpha2_code='AF',
+                            oda_recipient=True)
+
+        pitch.latitude = '52.3731'
+        pitch.longitude = '4.8922'
+        pitch.save()
+
+
+
+        self.login(user.email, 'secret')
+        # navigation itself has been tested before...
+        self.visit_path('/my/projects/')
+
+        self.browser.find_link_by_itext('continue pitch').first.click()
+
+        self.browser.find_link_by_itext('Media').first.click()
+        
+        # get preview div
+        self.assertTrue(self.browser.find_by_css('div.preview').has_class('empty'))
+        
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        self.browser.attach_file('image', file_path)
+
+        # test if preview is there
+        preview = self.browser.find_by_css('div.preview')
+        self.assertFalse(preview.has_class('empty'))
+        img = preview.find_by_tag('img').first
+        self.assertNotEqual(img['src'], '%simages/empty.png' % settings.STATIC_URL)
+
+        # save
+        self.browser.find_by_tag('form').first.find_by_tag('button').first.click()
+
+        # return to media form
+        time.sleep(2) # link has to update
+        self.browser.find_link_by_itext('media').first.click()
+        
+        # check that the src of the image is correctly set (no base64 stuff)
+        src = self.browser.find_by_css('div.preview').first.find_by_tag('img').first['src']
+        self.assertEqual('.jpg', src[-4:])
