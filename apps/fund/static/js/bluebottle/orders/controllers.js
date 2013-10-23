@@ -658,6 +658,7 @@ App.CurrentOrderDonationView = Em.View.extend({
     actions: {
         deleteDonation: function(item) {
             var controller = this.get('controller');
+            this.$().find('.delete').hide();
             this.$().slideUp(500, function() {
                 controller.deleteDonation();
             });

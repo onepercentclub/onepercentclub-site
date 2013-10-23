@@ -52,8 +52,8 @@ cite {
 
 h1, h2, h3, h4, h5, h6 {
 	margin: $base-margin/2 0 0 0;
-	font-family: $font-family-heavy;
-	line-height: $base-line-height/1.2;
+	font-family: $font-family-bold;
+	line-height: $base-line-height;
 	text-transform: uppercase;
 	
 	small {
@@ -116,78 +116,22 @@ a {
 // -------------------------
 
 .page-header {
-  	padding-bottom: ($base-line-height / 2) - 1;
-  	margin: $base-line-height 0 ($base-line-height * 1.5);
+  	margin: $base-margin*2 0 $base-margin 0;
 }
 
 // Lists
 // --------------------------------------------------
 
-// Unordered and Ordered lists
-ul, ol {
-  	padding: 0;
-  	margin: 0 0 $base-line-height / 2 25px;
-}
-ul ul,
-ul ol,
-ol ol,
-ol ul {
-  	margin-bottom: 0;
-}
-li {
-  	line-height: $base-line-height;
-}
-
-// Remove default list styles
-ul.unstyled,
-ol.unstyled {
-  	margin-left: 0;
-  	list-style: none;
-}
-
-// Single-line list items
-ul.inline,
-ol.inline {
-  	margin-left: 0;
-  	list-style: none;
-	> li {
-		display: inline-block;
-		padding-left: 5px;
-		padding-right: 5px;
-	}
-}
-
-// Description Lists
-dl {
-  	margin-bottom: $base-line-height;
-}
-dt,
-dd {
-  	line-height: $base-line-height;
-}
-dt {
-  	font-weight: bold;
-}
-dd {
-  	margin-left: $base-line-height / 2;
-}
 // Horizontal layout (like forms)
 .dl-horizontal {
-	@include clearfix(); // Ensure dl clears floats if empty dd elements present
+	@include clear; // Ensure dl clears floats if empty dd elements present
+	
 	dt {
 		float: left;
-		//width: $horizontalComponentOffset - 20;
 		clear: left;
 		text-align: right;
-		//@include text-overflow();
-	}
-	dd {
-		//margin-left: $horizontalComponentOffset;
 	}
 }
-
-
-
 
 ul {
 	margin: $base-margin 0 $base-margin*2 $base-margin*2;
@@ -200,7 +144,7 @@ ul {
 }
 
 ol { 
-	margin: $base-padding 0 $base-padding*2 $base-padding*4;
+	margin: $base-padding 0 $base-padding*2 $base-padding*2;
 
 	li {
 		list-style: decimal;
@@ -218,9 +162,6 @@ dl {
         dd { @include grid(32); }
     }
 }
-
-
-
 
 
 // MISC

@@ -3,15 +3,101 @@
 // --------------------------------------------------
 
 #fund {
+
+    .l-content {
+        position: relative;
+        
+        .btn-login {
+            z-index: 10;
+        }
+    }
     
     .fund-header {
         background-color: $gray-lighter;
+        padding-top: $base-padding;
+        
+        h1 {
+            color: $color-heading;
+        }
     }
     
-    .fund-frequency {
-		padding: 0;
-	}
+    // Placeholder when donation list is empty
+    .fund-empty {
+        @include clear;
+        @include transition(all 0.2s ease-out);
+        margin: $base-margin 0;
+        padding: $base-padding 0;
+        
+        .flaticon, .icon {
+			@include grid(12,1,1);
+			@include transition(all 0.2s ease-out);
+			text-align: center;
+			font-size: 5em;
+			line-height: 1em;
+			color: $gray-lighter;
+		}
+        
+        legend, a {
+			@include grid(36,1,1);
+            color: $color-text;
+            text-decoration: none;
+			
+			strong {
+    			text-transform: uppercase;
+    			color: $color-primary;
+    			@include transition(all 0.2s ease-out);
+			}
+        }
+        
+        a:hover, a:active {
+            
+            .flaticon {
+                color: $gray;
+            }
+            
+            strong {
+                color: $color-secondary;
+            }
+            
+        }
+    }
     
+    // Total amount bar
+	.fund-total {
+	    @include clear;
+	    clear: both;
+	    color: $gray;
+	    padding: $base-padding/2 $base-padding $base-padding/2 $base-padding/2;
+		text-transform: uppercase;
+    	font-size: $font-size-larger;
+		
+		.fund-total-label {
+            line-height: normal;
+            padding: 0 $base-padding/1.5;
+		}
+		
+		.fund-total-amount {
+		    position: relative;
+		    @include grid(7);
+            text-align: right;
+            float: right;
+            font-family: $font-family-bold;
+            line-height: normal;
+            
+            .currency {
+                font-style: normal;
+            }
+		}
+    }
     
+    .btn-login {
+        top: 0;
+        right: 0;
+        position: absolute;
+        float: right;
+    }
     
+    .is-loading-small {
+        @include prepend(2);
+    }
 }

@@ -20,7 +20,7 @@
 	    }
 	    
 	    .controls {
-		    @include clearfix;
+		    @include clear;
 		    @include grid(48,1,1);
 	    }
 	    
@@ -29,12 +29,11 @@
     .wallpost-photos {
         margin-top: $base-margin;
         @include clear;
-        clear: none;
 
         li {
             display: block;
-            @include grid(6, 0, 1);
-            @include allowRemove;
+            @include grid(6,0,1);
+            @include allowdelete;
         }
     }
 }

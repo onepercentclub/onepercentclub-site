@@ -138,43 +138,88 @@
 	
 	// Disabled buttons
     &.disabled, &[disabled], &.disabled:hover, &[disabled]:hover, &.disabled:active, &[disabled]:active {
-        
 	    border-top-width: 1px;
     	top: auto;
         border-color: $gray-light;
         background-color: $gray-light;
         color: $gray-lighter;
         cursor: default;
+        padding: $base-padding/2 $base-padding;
         
         .flaticon, .icon {
 			background: darken($gray-light, 5%);
 			color: $gray-lighter;
 		}
+		
+		&.btn-iconed {
+		    padding-left: $base-padding*3.5;
+		}
     }
 }
+
+// Allignment
+
+.btn-submit {
+    float: right;
+}
+
+.btn-next {
+    float: right;
+}
+
+.btn-cancel {
+    float: left;
+}
+
+.btn-add {
+    
+}
+
+.btn-show-more {
+    
+}
+
+btn-login {
+    
+}
+
+.btn-login {
+	display: inline-block;
+	padding: $base-padding/2 0;
+	color: $color-text;
+	font-size: $base-font-size;
+	text-decoration: none;
+	margin: $base-margin 0;
+	
+	.flaticon {
+		float: left;
+		margin-right: $base-margin/2;
+	}
+	
+	strong {
+		color: $color-secondary;
+	}
+	
+	&:hover, &:hover strong {
+		color: $color-primary;
+	}
+}
+
+
+// Other buttons (links)
+
 
 .btn-link {
     display: inline-block;
     font-size: $font-size-large;
-    font-family: $font-family-heavy;
-    color: $color-primary;
-    margin: $base-margin*2 0;
-    
-    &:hover, &:active {
-        color: $color-secondary;
-    }
-}
-
-.btn-show-more {
-    font-family: $font-family-heavy;
-    font-size: $font-size-large;
     color: $color-text;
     text-transform: uppercase;
     cursor: pointer;
+    text-decoration: none;
+    padding: $base-padding/2 0;
 
     .flaticon {
-     	font-size: 1.2em;
-     	
+     	margin-right: $base-margin/4;
     }
     
     small {
@@ -184,11 +229,4 @@
     &:hover, &:active {
         color: $color-secondary;
     }
-}
-
-.btn-login {
-    top: 0;
-    right: 0;
-    position: absolute;
-    float: right;
 }
