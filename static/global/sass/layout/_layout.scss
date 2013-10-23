@@ -36,6 +36,7 @@ body {
 
 .l-sidebar {
 	@include grid(16,1,1);
+	margin-top: $base-padding*2;
 }
 
 .l-results {
@@ -45,24 +46,6 @@ body {
 .l-results-item {
 	
 }
-
-.is-loading-big {
-    @include clear;
-    display: block;
-    width: 100%;
-    padding: $base-padding/10 0;
-    text-align: center;
-    
-    img {
-        width: 100px;
-    }
-    
-    em {
-        display: none;
-    }
-    
-}
-
 /* =========== Content Layout */
 
 // Specific Layout Elements

@@ -22,11 +22,11 @@
     background-image: none;
 }
 
-@mixin allowRemove {
+@mixin allowdelete {
     position: relative;
 
     &:hover {
-        .remove {
+        .delete {
             display: block;
         }
     }
@@ -41,9 +41,12 @@
         //@include rem(font-size, 20px);
         padding: 20px;
         color: $gray-darker;
+        text-decoration: none;
+        
         &:hover {
             color: $color-primary;
         }
+        
         &:active {
             color: $color-primary;
         }

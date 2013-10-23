@@ -67,7 +67,8 @@
 }
 
 #project-actions {
-    padding-top: $base-padding;
+    border-top: 1px solid $gray-light;
+    //padding-top: $base-padding/2;
     background-color: $gray-lighter; 
     
     .tabs {

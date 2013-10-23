@@ -7,3 +7,34 @@
 	-webkit-box-sizing: border-box; 
 	box-sizing: border-box; 
 }
+
+.is-loading-small {
+    float: left;
+    padding: $base-padding/2 0;
+    
+    img {
+        width: 16px;
+        margin-right: $base-margin/2;
+    }
+    
+    em {
+        font-style: normal;
+    }
+}
+
+.is-loading-big {
+    @include clear;
+    display: block;
+    width: 100%;
+    padding: $base-padding*4 0;
+    text-align: center;
+    
+    img {
+        width: 100px;
+    }
+    
+    em {
+        display: none;
+    }
+    
+}

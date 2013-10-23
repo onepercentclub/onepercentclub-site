@@ -10,8 +10,8 @@
     background-color: $gray-lighter;
     
     fieldset {
-        padding: 0 !important;
-        margin: $base-margin !important;
+        padding: 0;
+        margin: $base-margin;
         
         ul, li {
             position: relative;
@@ -26,11 +26,11 @@
         width: 40px;
         position: absolute;
         border: 1px solid $input-border;
-        @include transition(all 0.2s ease-in);
+        @include transition(all 0.1s ease-out);
     }
     
     textarea {
-        padding-left: 40px;
+        padding-left: 50px;
         overflow: hidden;
         height: 40px;
     }
@@ -43,7 +43,7 @@
         bottom: 0;
         right: 0;
         font-size: $base-font-size;
-        @include transition(opacity 0.2s ease-out);
+        @include transition(opacity 0.1s ease-out);
         
         &:active {
             top: auto; // overwrite default behavior
@@ -59,7 +59,7 @@
         
         textarea {
             height: 70px;
-            padding-left: 70px;
+            padding-left: 80px;
         }
         
         button {
