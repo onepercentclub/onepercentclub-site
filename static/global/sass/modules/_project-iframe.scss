@@ -1,0 +1,28 @@
+//
+// Include for project iframe include
+//
+// --------------------------------------------------
+
+.project-iframe {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    
+    .item a {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        
+        .item-header {
+            height: 70%;	
+              
+            .item-image img {
+               width: 100%;
+            }
+        }
+        
+        .item-status {
+            height: 30%;
+        }
+    }
+}
