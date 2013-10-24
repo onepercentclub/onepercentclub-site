@@ -1,9 +1,12 @@
 import logging
+from babel.numbers import format_currency
+from django.contrib import admin
 from django.core.urlresolvers import reverse
+from django.db.models.aggregates import Sum
 from django.http.response import HttpResponseRedirect
 from django.utils.html import escape
+from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
-from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 from .models import Project, ProjectBudgetLine, PartnerOrganization, ProjectPitch, ProjectPlan, ProjectCampaign, \
     ProjectTheme, ProjectPhases, ProjectResult
@@ -54,13 +57,10 @@ class ProjectPlanAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     list_filter = ('status',)
     list_display = ('title', 'status', 'created')
-
-    readonly_fields = ('edit_project', 'project_owner', 'project_organization')
-
-    fields = readonly_fields + ('status', 'title', 'pitch', 'need', 'theme', 'description', 'effects', 'for_who',
-                                'future', 'reach', 'latitude', 'longitude', 'country', 'image', 'video_url',
-                                'money_needed', 'campaign', 'tags')
-
+    fields = ('edit_project', 'project_owner', 'project_organization', 'status', 'title', 'pitch', 'need', 'theme',
+              'description', 'effects', 'for_who', 'future', 'reach', 'latitude', 'longitude', 'country', 'image',
+              'video_url', 'money_needed', 'campaign', 'tags', 'budget_total')
+    readonly_fields = ('edit_project', 'project_owner', 'project_organization', 'budget_total')
     inlines = (ProjectBudgetInline,)
 
     def edit_project(self, obj):
@@ -91,6 +91,17 @@ class ProjectPlanAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(url)
         else:
             return super(ProjectPlanAdmin, self).response_change(request, obj)
+
+    def budget_total(self, obj):
+            budget_lines = obj.projectbudgetline_set
+            language = translation.get_language().split('-')[0]
+            if budget_lines.count() > 0:
+                # Assumes all budget lines use the same currency.
+                currency = budget_lines.all()[0].currency
+                budget_total = budget_lines.aggregate(Sum('amount'))['amount__sum']
+                return format_currency(budget_total / 100.0, currency, locale=language)
+            else:
+                return format_currency(0, 'EUR', locale=language)
 
 
 admin.site.register(ProjectPlan, ProjectPlanAdmin)
