@@ -398,7 +398,7 @@
     .project-list-item {
         @include clear;
         @include resetlist;
-        @include allowdelete;
+        @include allowmanage;
         position: relative;
         text-decoration: none;
         padding: $base-padding $base-padding $base-padding 0;

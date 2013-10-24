@@ -2,7 +2,6 @@
 // Wallposts
 // --------------------------------------------------
 
-
 #wallpost-form {
     @include clear;
 	background-color: $gray-lighter;
@@ -37,7 +36,7 @@
         li {
             display: block;
             @include grid(6,0,1);
-            @include allowdelete;
+            @include allowmanage;
         }
     }
     
@@ -51,6 +50,7 @@
 	padding-top: $base-padding*2;
 	
 	.wallpost {
+	    @include allowmanage;
 	    @include clear;
 	    position: relative;
 	    padding: $base-padding 0 $base-padding/2 0;

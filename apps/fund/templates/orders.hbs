@@ -390,11 +390,12 @@
             {{/if}}
         </div>
     </div>
-
-    <a class="project-delete delete" {{action "deleteDonation" this target="view" }}>
-        <span class="flaticon solid x-2"></span>
-    </a>
-
+    
+    <ul class="manage">
+        {# <li class="manage-edit"><a href="#"><span class="flaticon solid pencil-3"></span> <strong>{% trans "Edit" %}</strong></a></li> #}
+        <li class="manage-delete"><a {{ action "deleteDonation" target="view" }}><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
+    </ul>
+    
 {% endtplhandlebars %}
 
 
@@ -1011,7 +1012,7 @@
     <div class="amount right">
         <span class="right">&euro;{{amount}}</span>
     </div>
-    <div class="actions manage-delete"><a {{action "delete" target="view"}} class="right">{% trans "Delete" %}</a></div>
+    <div class="actions manage-delete"><a {{action "delete" target="view"}}>{% trans "Delete" %}</a></div>
 
 {% endtplhandlebars %}
 

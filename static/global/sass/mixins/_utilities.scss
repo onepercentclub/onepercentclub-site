@@ -22,33 +22,47 @@
     background-image: none;
 }
 
-@mixin allowdelete {
+@mixin allowmanage {
     position: relative;
-
-    &:hover {
-        .delete {
-            display: block;
+    
+    .manage {
+    
+        .manage-edit, .manage-delete {
+            
+            strong {
+                display: none;
+            }
         }
+    
+        .manage-edit {
+            display: none;
+        }
+    
+        .manage-delete a {
+            cursor: pointer;
+            display: none;
+            z-index: 5;
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            padding: 20px;
+            color: $gray-darker;
+            text-decoration: none;
+            
+            &:hover {
+                color: $color-primary;
+            }
+            
+            &:active {
+                color: $color-primary;
+            }
+        }
+        
     }
-
-    .delete {
-        cursor: pointer;
-        display: none;
-        z-index: 5;
-        position: absolute;
-        top: -30px;
-        right: -30px;
-        //@include rem(font-size, 20px);
-        padding: 20px;
-        color: $gray-darker;
-        text-decoration: none;
-        
-        &:hover {
-            color: $color-primary;
-        }
-        
-        &:active {
-            color: $color-primary;
+    
+    &:hover {
+        .manage-delete a {
+            display: block;
         }
     }
 }

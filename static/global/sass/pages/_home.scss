@@ -69,69 +69,64 @@
 	            font-style: normal;
 	        }
 	    }
-	
-	    section {
 	        
-	        .quote {
-			    @include clear;
-			    margin-bottom: $base-margin*2;
-			    height: 220px;
-			
-			    figure {
-			        @include grid(12,4,1);
+        .quote {
+		    @include clear;
+		    margin: $base-margin*2 0;
+		    height: 180px;
+		
+		    figure {
+		        @include grid(12,4,1);
+		    }
+		
+		    article {
+		        @include grid(36,0,4);
+		        padding: $base-padding*2;
+		        position: relative;
+		        background: $white;
+		
+		        &:after {
+		            position: absolute;
+		            top: 32px;
+		            right: 100%;
+		            margin-top: -16px;
+		            width: 0;
+		            height: 0;
+		            border: solid transparent;
+		            border-width: 16px;
+		            border-color: rgba(255, 255, 255, 0);
+		            border-right-color: #ffffff;
+		            content: " ";
+		            pointer-events: none;
+		        }
+		     			
+			    .quote-name {
+			        font-size: $font-size-larger;
+			        margin-bottom: $base-margin/2;
+			        color: $color-secondary;
 			    }
 			
-			    article {
-			        @include grid(36,0,4);
-			        padding: $base-padding*2;
-			        position: relative;
-			        background: $white;
-			
-			        &:after {
-			            position: absolute;
-			            top: 32px;
-			            right: 100%;
-			            margin-top: -16px;
-			            width: 0;
-			            height: 0;
-			            border: solid transparent;
-			            border-width: 16px;
-			            border-color: rgba(255, 255, 255, 0);
-			            border-right-color: #ffffff;
-			            content: " ";
-			            pointer-events: none;
-			        }
-			     			
-    			    .quote-name {
-    			        font-size: $font-size-larger;
-    			        margin-bottom: $base-margin/2;
-    			        color: $color-secondary;
-    			        //text-transform: uppercase;
-    			    }
-    			
-    			    .quote-content {
-    			        font-size: $font-size-largest;
-    			        color: $black;
-    			        margin: 0;
-    			        text-transform: uppercase;
-    			        line-height: $base-line-height;
-    			    }
+			    .quote-content {
+			        font-size: $font-size-larger;
+			        color: $black;
+			        margin: 0;
+			        line-height: $base-line-height;
 			    }
-			}
-	
-		    .btn.one {
-		        @include grid(16,4,0);
 		    }
-		    
-		    .btn.two {
-			    @include grid(16,2,2);
-		    }
-		    
-		    .btn.three {
-			    @include grid(16,0,4);
-		    }
-	     
+		}
+
+	    .btn.one {
+	        @include grid(16,4,0);
 	    }
+	    
+	    .btn.two {
+		    @include grid(16,2,2);
+	    }
+	    
+	    .btn.three {
+		    @include grid(16,0,4);
+	    }
+	     
 	
 	}
 	

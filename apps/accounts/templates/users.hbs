@@ -116,7 +116,7 @@
                         </div>
 
                         {{#if errors.about}}
-                            <div class="errors">{{#each errors.about}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.about}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -130,7 +130,7 @@
                         </div>
 
                         {{#if errors.why}}
-                            <div class="errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -144,7 +144,7 @@
                         </div>
 
                         {{#if errors.website}}
-                            <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -158,7 +158,7 @@
                         </div>
 
                         {{#if errors.location}}
-                            <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
                 </ul>
@@ -185,7 +185,7 @@
                         </div>
 
                         {{#if errors.availability}}
-                            <div class="errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
                 </ul>
@@ -234,7 +234,7 @@
                         </div>
 
                         {{#if errors.email}}
-                            <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
                 </ul>
@@ -273,7 +273,7 @@
                         </div>
 
                         {{#if errors.user_type}}
-                            <div class="errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -291,7 +291,7 @@
                         </div>
 
                         {{#if errors.user_type}}
-                            <div class="errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -330,7 +330,7 @@
                         </div>
 
                         {{#if errors.line1}}
-                            <div class="errors">{{#each errors.line1}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.line1}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
                     <li class="control-group">
@@ -343,7 +343,7 @@
                         </div>
 
                         {{#if errors.line2}}
-                            <div class="errors">{{#each errors.line2}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.line2}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
                     <li class="control-group">
@@ -356,7 +356,7 @@
                         </div>
 
                         {{#if errors.city}}
-                            <div class="errors">{{#each errors.city}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.city}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
                     <li class="control-group">
@@ -369,7 +369,7 @@
                         </div>
 
                         {{#if errors.state}}
-                            <div class="errors">{{#each errors.state}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.state}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
                     <li class="control-group">
@@ -382,7 +382,7 @@
                         </div>
 
                         {{#if errors.postal_code}}
-                            <div class="errors">{{#each errors.postal_code}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.postal_code}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
 
                     </li>
@@ -397,7 +397,7 @@
                         </div>
 
                         {{#if error.country}}
-                            <div class="errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -408,9 +408,9 @@
 
                         <div class="controls">
                             {{#view Em.RadioButtonGroup name="gender" selectedValueBinding="gender" class="radio-group-horizontal"}}
-                                <label class="radio3" for="female">{{view view.RadioButton value="female" id="female"}}<span>{% trans "Female" %}</span></label>
-                                <label class="radio3" for="male">{{view view.RadioButton value="male" id="male"}}<span>{% trans "Male" %}</span></label>
-                                <label class="radio3" for="unset">{{view view.RadioButton value="" id="unset"}}<span>{% trans "Unset" %}</span></label>
+                                <label class="radio" for="female">{{view view.RadioButton value="female" id="female"}}<span>{% trans "Female" %}</span></label>
+                                <label class="radio" for="male">{{view view.RadioButton value="male" id="male"}}<span>{% trans "Male" %}</span></label>
+                                <label class="radio" for="unset">{{view view.RadioButton value="" id="unset"}}<span>{% trans "Unset" %}</span></label>
                             {{/view}}
                         </div>
                     </li>
@@ -425,7 +425,7 @@
                         </div>
 
                         {{#if errors.birthdate}}
-                            <div class="errors">{{#each errors.birthdate}}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each errors.birthdate}}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
                 </ul>
@@ -468,7 +468,7 @@
                                 {{view Em.TextField valueBinding="name" placeholder="Full name as it appears on your bank account" classBinding="errors.name.length:error"}}
                             </div>
                             {{#if errors.name }}
-                                <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+                                <div class="has-errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
                         </li>
 
@@ -478,7 +478,7 @@
                                 {{view Em.TextField valueBinding="city" placeholder="City registered on your bank account" classBinding="errors.city.length:error"}}
                             </div>
                             {{#if errors.city }}
-                                <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                                <div class="has-errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
                         </li>
 
@@ -488,7 +488,7 @@
                                 {{view Em.TextField valueBinding="account" placeholder="Your bank account number" classBinding="errors.account.length:error"}}
                             </div>
                             {{#if errors.account }}
-                                <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
+                                <div class="has-errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
                         </li>
                     </ul>
@@ -607,7 +607,7 @@
                 </div>
 
                 {{#if errors.email}}
-                    <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </div>
 
@@ -621,7 +621,7 @@
                 </div>
 
                 {{#if errors.password}}
-                    <div class="errors">{{#each errors.password}}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.password}}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </div>
     	</fieldset>
@@ -765,7 +765,7 @@
                 </div>
 
                 {{#if errors.new_password1}}
-                    <div class="errors">{{#each errors.new_password1}}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.new_password1}}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </div>
 
