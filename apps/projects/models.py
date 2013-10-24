@@ -1,9 +1,11 @@
 import datetime
 from apps.tasks.models import Task
+from babel.numbers import format_currency
 from django.db import models
 from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import translation
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
@@ -437,7 +439,11 @@ class ProjectBudgetLine(models.Model):
         verbose_name_plural = _("budget lines")
 
     def __unicode__(self):
-        return self.description + " : " + str(self.amount)
+        language = translation.get_language().split('-')[0]
+        if not language:
+            language = 'en'
+        return u'{0} - {1}'.format(self.description,
+                                   format_currency(self.amount / 100.0, self.currency, locale=language))
 
 
 @receiver(post_save, weak=False, sender=Project)
