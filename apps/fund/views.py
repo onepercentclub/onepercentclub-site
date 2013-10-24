@@ -188,6 +188,14 @@ class RecurringDonationList(generics.ListCreateAPIView):
         qs = qs.filter(donation_type=Donation.DonationTypes.recurring)
         return qs.filter(user=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.DATA, files=request.FILES)
+        try:
+            order = Order.objects.filter(user=request.user, id=request.DATA.get('order')).get()
+        except Order.DoesNotExist:
+            return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return super(RecurringDonationList, self).create(request, *args, **kwargs)
+
 
 class RecurringDonationDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Donation

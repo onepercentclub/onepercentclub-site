@@ -547,12 +547,12 @@ class RecurringOrderApiTest(ProjectTestsMixin, TestCase):
 
         # Let's add a donation
         # For now the amount doesn't realy matter because the amount on recurring-payment has precedence.
-        some_donation = {"project": self.some_project.slug, "amount": 1000, "status": "new", "order": order_id}
+        some_donation = {"project": self.some_project.slug, "amount": 10, "status": "new", "order": order_id}
         response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
         # Add another donation
-        another_donation = {"project": self.another_project.slug, "amount": 1000, "status": "new", "order": order_id}
+        another_donation = {"project": self.another_project.slug, "amount": 10, "status": "new", "order": order_id}
         response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
@@ -561,6 +561,46 @@ class RecurringOrderApiTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(len(response.data['results'][0]['donations']), 2)
+        donation_id = response.data['results'][0]['donations'][0]['id']
+
+        # Ok let's check the total. This total will be overwritten by Recurring Payment amount though.
+        self.assertEqual(response.data['results'][0]['total'], '20.00')
+
+        # Remove the first donation
+        donation_url = "{0}{1}".format(self.recurring_donation_url_base, donation_id)
+        response = self.client.delete(donation_url)
+
+        # Now the order should have just one donation
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response.data)
+        response = self.client.get(self.recurring_order_url_base)
+        self.assertEqual(len(response.data['results'][0]['donations']), 1)
+        # Create some urls later use
+        order_id = response.data['results'][0]['id']
+        order_url = "{0}{1}".format(self.recurring_donation_url_base, order_id)
+        donation_id = response.data['results'][0]['donations'][0]['id']
+        donation_url = "{0}{1}".format(self.recurring_donation_url_base, donation_id)
+
+        # Login as another user and try to load the order/donation for first user.
+        self.client.logout()
+        self.client.login(username=self.another_user.email, password='password')
+        response = self.client.get(order_url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
+        response = self.client.get(donation_url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
+
+        # Adding a donation to the other users donation shouldn't work
+        another_donation = {"project": self.another_project.slug, "amount": 10, "status": "new", "order": order_id}
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+
+        # This user should have no recurring order.
+        response = self.client.get(self.recurring_order_url_base)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 0)
+
+
+
+
 
 
 
