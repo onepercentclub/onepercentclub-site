@@ -4,24 +4,28 @@
 
 
 #wallpost-form {
+    @include clear;
+	background-color: $gray-lighter;
+	padding: $base-padding $base-padding*2;
 	
 	fieldset {
-		padding: 0 $base-padding;
+        padding: 0;
 	}
 	
     ul {
-      padding: 0;
+        padding: 0;
     }
     
     .control-group {
 	    
 	    .control-label {
+	        display: none;
 		    @include grid(48,1,1);
 	    }
 	    
 	    .controls {
 		    @include clear;
-		    @include grid(48,1,1);
+		    @include grid(48,0,0);
 	    }
 	    
     }
@@ -36,6 +40,10 @@
             @include allowdelete;
         }
     }
+    
+    .btn {
+        float: right;
+    }
 }
 
 #wallposts {
@@ -49,23 +57,27 @@
 	    //border-bottom: 1px solid $gray-lighter;
 	    
 	    header {
-            @include clear;
+            position: relative;
             
             .wallpost-member {
-                @include grid(32,0,0);
+                @include clear;
                 
                 .member-avatar {
-                    @include grid(12,2,0);
+                    @include grid(12,2,4);
                     position: absolute;
                     left: 0;
+                    background: red;
                 }
             
                 .member-name {
-                    @include prepend(15);
+                    @include prepend(12);
                 }
             }
             
             .wallpost-meta {
+                position: absolute;
+                top: 0;
+                right: 0;
                 float: right;
                 text-align: right;
             }
@@ -95,7 +107,7 @@
         }
 	    
         .wallpost-content {
-            @include prepend(10);
+            @include grid(48,12,0);
             margin-top: $base-margin/2;
             margin-bottom: $base-margin/2;
             word-wrap: break-word;
@@ -113,10 +125,11 @@
         
         .wallpost-reactions {
             @include clear;
+            @include grid(48,12,0);
         }
         
         .login-box {
-            @include prepend(10);
+            @include grid(48,12,0);
             color: $gray;
             //opacity: 0;
             //@include transition(opacity 0.2s ease-out);
@@ -156,47 +169,5 @@
                 display: none;
             }
         }
-        
-        
-	    
-	    /*
-        
-	    .user-img, .header-img, .post-type-icon {
-	        @include rem(width, 70px);
-	        @include rem(height, 70px);
-	        position: absolute;
-	        top: 0;
-	        left: 0;
-	        @include prepend(4);
-	    }
-	    
-	    .show-more {
-	       @include grid(48, 11, 1);
-	    }
-	    
-	    &.system-wallpost {
-            header {
-            }
-        }
-	    
-	    .reactions {
-	        position: relative;
-	    }
-	    
-        .post-type-icon {
-            .flaticon {
-                @include rem(font-size, 40px);
-                display: block;
-            }
-            @include rem(padding, $base-padding 0);
-            font-weight: 600;
-            background-color: $gray-lighter;
-            color: $white;
-            text-align: center;
-            text-transform: uppercase;
-        }
-        */
 	}
 }
-/*
-*/

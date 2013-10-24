@@ -66,18 +66,28 @@
     max-height: 400px;
     
     // Reset form margins
-    form {
+    form, fieldset, legend {
         padding: 0;
         margin: 0;
-        background-color: none;
+        background: none;
     }
     
     .control-label {
         @include grid(16,0,0);
+        
+        &.wide {
+            width: 100% !important;
+            margin: 0 !important;
+        }
     }
     
     .controls {
         @include grid(32,0,0);
+        
+        &.wide {
+            width: 100% !important;
+            margin: 0 !important;
+        }
     }
     
     .has-errors {
