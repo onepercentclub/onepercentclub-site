@@ -481,17 +481,14 @@ HEADER
 }
 
 #logo {
-	float: left;
-	margin-top: 16px;
-	margin-right: 0;
-	margin-left: 2.08333%;
-	width: 10.41667%;
-	text-align: left;
-	white-space: nowrap;
-}
-
-#logo img {
-	background: #fff;
+    background: url("https://onepercentclub.com/static/assets/images/1procentclub.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    float: left;
+    height: 40px;
+    margin-left: 2.08333%;
+    margin-right: 0;
+    margin-top: 1.785745rem;
+    width: 12.5%;
 }
 
 #title {
@@ -500,11 +497,12 @@ HEADER
 
 #logo #subtitle {
 	position: relative;
-	top: -4px;
-	top: -0.25rem;
+	top: 40px;
+	top: 2.9rem;
 	display: inline-block !important;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 4px;
+	padding: 0 0 0 0.25rem;
 	color: #00c051;
 	text-transform: uppercase;
 	font-weight: normal;
@@ -853,28 +851,28 @@ TYPOGRAPHY
 @font-face {
   font-weight: normal;
   font-family: 'Futura Alt';
-  src: url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-book-webfont.eot');
-  src: url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-book-webfont.eot?#iefix') format('embedded-opentype'),
-       url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-book-webfont.woff') format('woff'),
-       url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-book-webfont.ttf') format('truetype');
+  src: url('https://onepercentclub.com/static/assets/fonts/futura-alt-book-webfont.eot');
+  src: url('https://onepercentclub.com/static/assets/fonts/futura-alt-book-webfont.eot?#iefix') format('embedded-opentype'),
+       url('https://onepercentclub.com/static/assets/fonts/futura-alt-book-webfont.woff') format('woff'),
+       url('https://onepercentclub.com/static/assets/fonts/futura-alt-book-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-weight: 300;
   font-family: 'Futura Alt';
-  src: url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-heavy-webfont.eot');
-  src: url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-heavy-webfont.eot?#iefix') format('embedded-opentype'),
-       url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-heavy-webfont.woff') format('woff'),
-       url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-heavy-webfont.ttf') format('truetype');
+  src: url('https://onepercentclub.com/static/assets/fonts/futura-alt-heavy-webfont.eot');
+  src: url('https://onepercentclub.com/static/assets/fonts/futura-alt-heavy-webfont.eot?#iefix') format('embedded-opentype'),
+       url('https://onepercentclub.com/static/assets/fonts/futura-alt-heavy-webfont.woff') format('woff'),
+       url('https://onepercentclub.com/static/assets/fonts/futura-alt-heavy-webfont.ttf') format('truetype');
 }
 
 @font-face {
   font-weight: 600;
   font-family: 'Futura Alt';
-  src: url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-bold-webfont.eot');
-  src: url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-bold-webfont.eot?#iefix') format('embedded-opentype'),
-       url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-bold-webfont.woff') format('woff'),
-       url('https://staging.onepercentclub.com/static/assets/fonts/futura-alt-bold-webfont.ttf') format('truetype');
+  src: url('https://onepercentclub.com/static/assets/fonts/futura-alt-bold-webfont.eot');
+  src: url('https://onepercentclub.com/static/assets/fonts/futura-alt-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('https://onepercentclub.com/static/assets/fonts/futura-alt-bold-webfont.woff') format('woff'),
+       url('https://onepercentclub.com/static/assets/fonts/futura-alt-bold-webfont.ttf') format('truetype');
 }
 
 /*--------------------------------------------------------------
