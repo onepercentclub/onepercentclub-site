@@ -130,6 +130,14 @@ App.RecurringDirectDebitPaymentView = Em.View.extend({
 });
 
 
+App.PaymentSelectView = Em.View.extend({
+    change: function () {
+        $('.radio').removeClass('selected');
+        $('.radio:has(input:checked)').addClass('selected');
+    }
+});
+
+
 App.TickerView = Em.View.extend({
     // Remove header/footer for this view.
     didInsertElement: function () {

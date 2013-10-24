@@ -97,123 +97,33 @@
 
 {% tplhandlebars "current_order_donation_list" %}
 	<form class="l-content">
-	    
-	    {{#if controllers.currentUser.isAuthenticated}}
-	    <fieldset class="fund-frequency">
-	        <ul>
-	            <li class="control-group">
-	                {{#if moreThanOneDonation }}
-	                    <label class="control-label">{% trans "Donate to projects" %}</label>
-	                {{else}}
-	                    <label class="control-label">{% trans "Donate to project" %}</label>
-	                {{/if}}
-	                
-                    <div class="controls">
-                        {{#view Em.RadioButtonGroup class="radio-select two" name="frequency" selectedValueBinding="controllers.currentOrder.donationType"}}
-                            {{view view.RadioButton value="single" id="freq_single"}}
-                            <label for="freq_single">{% trans "One time only" %}</label>
-
-                            {{view view.RadioButton value="monthly" id="freq_monthly"}}
-                            <label for="freq_monthly">{% trans "Monthly" %}</label>
-                        {{/view}}
-                    </div>
-	            </li>
-	        </ul>
-	    </fieldset>
-	    {{/if}}
-	    
-        {{#if controllers.currentOrder.donations.length}}
-			<ul class="project-list">
-            {{#each donation in controller }}
-            	{{render 'currentOrderDonation' donation}}
-            {{/each}}
+        {{#each donation in controller }}
+			<ul class="projects-list">
+            	{{render "currentOrderDonation" donation}}
 			</ul>
         {{else}}
-        	<div class="fund-empty">
-            {{#if showTopThreeProjects }}
-            	<span class="flaticon solid heart-1"></span>
-                <legend>
-                    {{#if recurringPayment.active }}
-                        <strong>{% blocktrans %}You are a 1%Friend{% endblocktrans %}</strong>
-                        <p>{% trans "You currently support the top 3 projects with your monthly donation." %}</p>
-                    {{ else }}
-                        <strong>{% blocktrans %}Become a 1%Friend{% endblocktrans %}</strong>
-                        <p>{% trans "Support the top 3 projects with your monthly donation." %}</p>
-                    {{/if}}
-                </class>
-            {{else}}
-                {{#linkTo 'projectList'}}
-                	<span class="flaticon solid plus-2"></span>
-                    <strong>{% trans "Choose a project to support" %}</strong>
-                    <p>{% trans "Choose a project and click 'Support this project' to add it to your list" %}.</p>
-                {{/linkTo}}
-                </
-            {{/if}}
-        	</div>
-        {{/if}}
         
-	    {{#if controllers.currentOrder.recurring }}
-	        {{#if recurringOrder.donations.length }}	            
-            <div class="fund-monthly">
-            	<div class="fund-monthly-title">
-            	    <h3><span class="flaticon solid menu-list-3"></span> Current Monthly Donation</h3>
+        	<div class="fund-empty">
+            {{#linkTo 'projectList'}}
+                <em class="flaticon solid plus-2"></em>
+                <div class="form-meta">
+                    <p class="form-label">{% trans "Choose a project to support" %}</p>
+                    <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list" %}.</p>
                 </div>
-                <ul class="project-list">
-                    {{#each donation in recurringOrder.donations }}
-                        {{#if donation.tempRecurringAmount }}
-                            {{render "currentRecurringDonation" donation}}
-                        {{/if}}
-                    {{/each}}
-                </ul>
-            </div>
-	        {{/if}}
-	        
-	        {{#if controllers.currentOrder.recurring }}
-                {# Both recurringPayment and recurringPayment.active checks are required #}
-                {{#if recurringPayment }}
-                    {{#unless recurringPayment.active }}
-                        <div class="fund-monthly-status">
-                            <h3>{% trans "You turned off monthly donations" %}</h3>
-                            <p>{% trans "It will be automatically turned on again if you follow through the next steps" %}.</p>
-                        </div>
-                    {{/unless}}
-                {{/if}}
-			{{/if}}
+            {{/linkTo}}
+        	</div>
+        {{/each}}
+        
+        <fieldset class="fund-total">
+            <div class="fund-total-label">{% trans "Total" %}<span class="fund-total-amount"><em class="currency">&euro;</em> {{ singleTotal }}</span></div>
+        </fieldset>
 
-            <fieldset class="fund-total">
-            	{{#if showTopThreeProjects }}
-                	<div class="fund-total-label">&nbsp;</div>
-                {{else}}
-                	<div class="fund-total-label">{% trans "Divide to projects" %}</div>
-                {{/if}}
-                <div class="fund-total-amount">
-                    <div class="fund-total-amount-control">
-                        {# TODO: This doesn't display. #}
-                        {{#each error in errors.recurringTotal }}
-                            <span class="has-errors">{{ error }}</span>
-                        {{/each}}
-                        <label for="donation-amount-1">{% trans "Total Amount" %}</label>
-                        <em>&euro; </em><input type="number" id="donation-amount-1" step="5" name="donation-amount-1" size="8" maxlength="3" {{bindAttr value="recurringTotal"}} />
-                    </div>
-                </div>
-            </fieldset>
-
-	    {{else}}
-	        <fieldset class="fund-total">
-	        	<div class="fund-total-label">{% trans "Total" %}<span class="fund-total-amount"><em class="currency">&euro;</em> {{ singleTotal }}</span></div>
-	        </fieldset>
-	    {{/if}}
-	    
-        {{#linkTo 'projectList' class="btn-link btn-add"}}<span class="flaticon solid plus-2"></span>
-            {{#if showTopThreeProjects }}
-            	{%trans "Choose a project" %}
+        {{#linkTo 'projectList' class="btn-link btn-add"}}<em class="flaticon solid plus-2"></em>
+            {{#if length }}
+                {%trans "Add another project" %}
             {{else}}
-	            {{#if length }}
-	                {%trans "Add another project" %}
-	            {{else}}
-	                {%trans "Add a project" %}
-	            {{/if}}
-	        {{/if}}
+                {%trans "Add a project" %}
+            {{/if}}
         {{/linkTo}}
         
 	    {{#if readyForPayment }}
@@ -226,13 +136,8 @@
 
 <div class="l-sidebar">
 	{{#if controllers.currentUser.isAuthenticated}}
-		{{#if controllers.currentOrder.recurring }}
-		<h3>{% blocktrans %}Donate monthly to<br /> become a 1%Friend.{% endblocktrans %}</h3>
-	    <p>{% blocktrans %}Yay! We're happy to welcome you as a 1%Friend. After all, friends make life better!{% endblocktrans %}</p>
-		{{else}}
 		<h3>{% trans "Why not donate monthly?" %}</h3>
 		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!{% endblocktrans %}</p>
-		{{/if}}	
 	{{else}}
 		<h3>Did you know?</h3>
 		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly.{% endblocktrans %}
@@ -343,6 +248,10 @@
 
 <div class="l-sidebar">
 
+	{{#unless controllers.currentUser.isAuthenticated}}
+		<a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
+	{{/unless}}
+
     <h3>{% trans "Did you know?" %}</h3>
     {{#if controllers.currentUser.isAuthenticated }}
         <p>{% blocktrans %}"You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps.{% endblocktrans %}</p>
@@ -374,20 +283,10 @@
             {{#each error in errors.amount}}
                 <span class="has-errors">{{ error }}</span>
             {{/each}}
-            {{#if controllers.currentOrder.recurring }}
-                <span class="fund-monthly-amount">&euro; 
-                 {{#if controllers.currentOrderDonationList.editingRecurringOrder }}
-                        {{ tempRecurringAmount }}
-                   {{else}}
-                        {{ amount }}
-                    {{/if}}
-                </span>
-            {{else}}
-                <label for="fund-amount-1">{% trans "I'd like to give" %}</label>
-                <span class="currency"><em>&euro; </em>
-                    <input type="number" class="fund-amount-input" id="fund-amount-1" step="5" name="fund-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} />
-                </span>
-            {{/if}}
+            <label for="fund-amount-1">{% trans "I'd like to give" %}</label>
+            <span class="currency"><em>&euro; </em>
+                <input type="number" class="fund-amount-input" id="fund-amount-1" step="5" name="fund-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} />
+            </span>            
         </div>
     </div>
     
@@ -401,18 +300,66 @@
 
 {% tplhandlebars "paymentSelect" %}
 
-{{#if controllers.currentOrder.recurring }}
+{# Inline style until Frans finishes CSS clean-up #}
 
+<style>
+    #donate .payment-select .tabs {
+        width: 50%;
+        float: left;
+        padding: 0px;
+        margin: 0px;
+    }
+    .payment-select .tabs .radio {
+        background-color: #e9e9e9;
+        padding: 8px 16px;
+        margin-bottom: 4px;
+        cursor: pointer;
+    }
+    .payment-select .tabs .radio input {
+        display: none;
+        opacity: 0;
+    }
+    .payment-select .tabs .radio.selected,
+    .payment-select .tabs .radio > input:checked {
+        background-color: #00c051;
+        color: white;
+    }
+
+</style>
+
+{{#if controllers.currentOrder.recurring }}
 	{{ outlet }}
-	
 {{else}}
-	<div class="l-content">
+	<div class="l-content payment-select">
 		<form>
-	    	<legend>
-				<strong>{% trans "You're almost there!" %}</strong>
-				<p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
-			</legend>
-	    	
+	    	<div class="form-meta">
+				<div class="form-label">{% trans "You're almost there!" %}</div>
+				<div class="form-desc">{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</div>
+			</div>
+
+	    	<div class="form-meta">
+                <div class="tabs">
+                    {{#view Em.RadioButtonGroup name="paymentMethod" selectedValueBinding="redirectPaymentMethod" class="radio-group-tabbed"}}
+                        {{#each redirectPaymentMethods}}
+                            <label>
+                                <div class="radio">{{view view.RadioButton valueBinding=id}} {{name}}</div>
+                            </label>
+                        {{/each}}
+                    {{/view}}
+                </div>
+                <div class="tabs">
+                    {{#if isIdeal}}
+                        {{#view Em.RadioButtonGroup name="issuerId" selectedValueBinding="idealIssuerId" class="radio-group-tabbed"}}
+                            {{#each idealIssuers}}
+                                <label>
+                                    <div class="radio">{{view view.RadioButton valueBinding=id}} {{name}}</div>
+                                </label>
+                            {{/each}}
+                        {{/view}}
+
+                    {{/if}}
+                </div>
+            </div>
 	        {{#if paymentInProgress }}
 	            <span class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><em>{% trans "Processing payment..." %}</em></span>
 	            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>

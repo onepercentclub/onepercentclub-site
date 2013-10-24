@@ -12,7 +12,6 @@ App.Router.map(function() {
         this.resource('paymentSignup', {path: '/signup'});
         this.resource('paymentSelect', {path: '/payment'}, function() {
             this.route('paymentError', {path: '/error'});
-            this.resource('recurringDirectDebitPayment', {path: '/recurring'});
         });
     });
 

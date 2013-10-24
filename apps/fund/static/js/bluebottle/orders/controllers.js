@@ -1,4 +1,3 @@
-
 /*
  Controllers
  */
@@ -18,24 +17,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         return this.get('length') > 1;
     }.property('length'),
 
-    showTopThreeProjects: function() {
-        var recurringOrderEmpty = true;
-        if (!Em.isNone(this.get('recurringOrder'))) {
-            // Monthly donation order already set.
-            var tempTotal = 0;
-            this.get('recurringOrder.donations').forEach(function(donation) {
-                tempTotal += donation.get('tempRecurringAmount');
-            });
-            recurringOrderEmpty = this.get('recurringOrder.donations.length') == 0 || tempTotal == 0;
-        }
-        return this.get('controllers.currentOrder.recurring') && this.get('length') == 0 && recurringOrderEmpty;
-    }.property('controllers.currentOrder.recurring', 'length', 'recurringOrder.donations.length', 'recurringOrder.donations.@each.tempRecurringAmount'),
-
-    editingRecurringOrder: function(obj, keyName) {
-        // True when modifying an existing order that has donations. False otherwise (including when modifying a top three projects recurringPayment).
-        return this.get('controllers.currentOrder.recurring') && this.get('recurringOrder.donations.length') > 0;
-    }.property('controllers.currentOrder.recurring', 'recurringOrder.donations.length', 'recurringPayment', 'isLoaded'),
-
     readyForPayment: function() {
         if (this.get('length') > 0) {
             return true;
@@ -47,115 +28,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         }
         return this.get('recurringTotal') > 0;
     }.property('length', 'editingRecurringOrder', 'recurringTotal'),
-
-    recurringTotal: 0,
-
-    initRecurringTotal: function(obj, keyName) {
-        if (this.get('recurringPayment.isLoaded') && this.get('recurringTotal') == 0) {
-            this.set('recurringTotal', this.get('recurringPayment.amount'))
-        }
-    }.observes('recurringPayment.isLoaded'),
-
-    updateRecurringDonations: function(obj, keyName) {
-        if (!this.get('controllers.currentOrder.recurring')) {
-            return;
-        }
-
-        // Validation:
-        if (keyName == 'recurringTotal') {
-            // Clear the previous error.
-            this.set('errors', {recurringTotal: []});
-
-            var intRegex = /^\d+$/;
-            if(!intRegex.test(this.get('recurringTotal'))) {
-                this.set('errors', {recurringTotal: ["Please use whole numbers for your donation."]});
-            } else if (this.get('recurringTotal') < 5) {
-                this.set('errors', {recurringTotal: ["Monthly donations must be above €5."]});
-            }
-
-            // TODO Validate minimum €2 per project.
-
-            // TODO Revert old value for recurringTotal.
-
-            // Don't continue if there's an error.
-            if (this.get('errors.recurringTotal.length') != 0) {
-                return;
-            }
-        }
-
-        var numDonations = 0,
-            amountPerProject = 0,
-            donations = null,
-            lastDonation = null;
-
-        if (this.get('editingRecurringOrder')) {
-            // The user already has a recurring order set.
-            if (this.get('recurringTotal') == 0) {
-                this.set('recurringTotal', this.get('recurringOrder.total'));
-            }
-
-            // Create a donations list with the new and monthly donations.
-            donations = Em.A();
-            donations.addObjects(this.get('model'));
-            this.get('recurringOrder.donations').forEach(function(donation) {
-                // Don't include donations set to 0 as they have been 'deleted'.
-                if (donation.get('tempRecurringAmount') != 0) {
-                    donations.addObject(donation);
-                }
-            });
-            numDonations =  donations.get('length');
-
-            // Set the updated monthly totals in a
-            amountPerProject = Math.floor(this.get('recurringTotal') / numDonations);
-            for (var i = 0; i <  donations.get('length') - 1; i++) {
-                donations.objectAt(i).set('tempRecurringAmount', amountPerProject);
-            }
-            // Update the last donation with the remaining amount if it hasn't been deleted.
-            lastDonation = donations.objectAt(donations.get('length') - 1);
-            if (!Em.isNone(lastDonation)) {
-                lastDonation.set('tempRecurringAmount', this.get('recurringTotal') - (amountPerProject * (numDonations - 1)));
-            }
-        } else {
-            // The user does not already have a recurring order set or the user is support the top three projects.
-            var donationsTotal = 0,
-                recurringTotal = 0;
-            donations = this.get('model');
-
-            // This happens sometimes when loading the donations list from a bookmark.
-            if (Em.isNone(donations)) {
-                return;
-            }
-
-            numDonations = donations.get('length');
-
-            // Special setup when the number of donations changes.
-            if (keyName == 'model.length' && numDonations > 0) {
-                recurringTotal = Math.max(this.get('singleTotal'), this.get('recurringTotal'));
-                this.set('recurringTotal', recurringTotal);
-            } else {
-                donationsTotal = this.get('singleTotal');
-                recurringTotal = this.get('recurringTotal');
-            }
-
-            if (recurringTotal == 0) {
-                recurringTotal = donationsTotal;
-                this.set('recurringTotal', donationsTotal);
-            }
-
-            if (donationsTotal != recurringTotal) {
-                amountPerProject = Math.floor(recurringTotal / numDonations);
-                for (var j = 0; j < numDonations - 1; j++) {
-                    this.updateDonation(donations.objectAt(j), amountPerProject)
-                }
-                // Update the last donation with the remaining amount if it hasn't been deleted.
-                lastDonation = donations.objectAt(numDonations - 1);
-                if (!Em.isNone(lastDonation)) {
-                    this.updateDonation(lastDonation, recurringTotal - (amountPerProject * (numDonations - 1)));
-                }
-            }
-        }
-
-    }.observes('length', 'recurringTotal', 'controllers.currentOrder.recurring', 'recurringOrder.donations.length'),
 
     updateDonation: function(donation, newAmount) {
         // 'current' order id hack: This can be removed when we have a RESTful Order API.
@@ -361,7 +233,39 @@ App.PaymentSignupController = Em.ObjectController.extend({
 
 
 App.PaymentSelectController = Em.ObjectController.extend({
-    needs: ['currentOrder'],
+    needs: ['paymentProfile', 'currentOrder'],
+
+    redirectPaymentMethods: function(){
+        if (this.get('controllers.paymentProfile.country') == 'NL') {
+            return [
+                {'id':'IDEAL', 'name': 'IDEAL'},
+                {'id':'DIRECT_DEBIT', 'name': 'Automatische Incasso'},
+                {'id':'MASTERCARD', 'name': 'Mastercard'},
+                {'id':'VISA', 'name': 'Visa'}
+            ];
+        } else {
+            return [
+                {'id':'MASTERCARD', 'name': 'Mastercard'},
+                {'id':'VISA', 'name': 'Visa'}
+            ];
+
+        }
+    }.property('controllers.paymentProfile.country'),
+
+    idealIssuers: [
+        {'id':'0031', 'name': 'ABN Amro Bank'},
+        {'id':'0761', 'name': 'ASN Bank'},
+        {'id':'0091', 'name': 'Friesland Bank'},
+        {'id':'0721', 'name': 'ING Bank'},
+        {'id':'0801', 'name': 'Knab'},
+        {'id':'0161', 'name': 'van Landschot Bankiers'},
+        {'id':'0021', 'name': 'Rabobank'},
+        {'id':'0771', 'name': 'Regio Bank'},
+        {'id':'0511', 'name': 'Triodos Bank'},
+        {'id':'0751', 'name': 'SNS Bank'},
+    ],
+
+    isIdeal: Em.computed.equal('redirectPaymentMethod', 'IDEAL'),
 
     displayPaymentError: function() {
         this.get('controllers.currentOrder').setProperties({
@@ -403,7 +307,15 @@ App.PaymentSelectController = Em.ObjectController.extend({
                 context: this,
                 success: function(json) {
                     if (json['payment_url']) {
-                        window.location = json['payment_url'];
+                        var url = json['payment_url'];
+                        if (controller.get('redirectPaymentMethod')) {
+                            url += '&default_pm=' + controller.get('redirectPaymentMethod');
+                            if (controller.get('idealIssuerId')) {
+                                url += '&ideal_issuer_id=' + controller.get('idealIssuerId');
+                                url += '&default_act=true'
+                            }
+                        }
+                        window.location =  url;
                     } else {
                         controller.set('paymentInProgress', false);
                         controller.displayPaymentError();

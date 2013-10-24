@@ -79,3 +79,16 @@ class RedirectFallbackMiddleware(object):
 
         # No redirect was found. Return the response.
         return response
+
+
+class RedirectHashCompatMiddleware(object):
+    """
+    Compatability middleware to make Safari 6 and Internet Explorer < 10 work with the hash after a redirect.
+    """
+    def process_response(self, request, response):
+        if response.status_code in [301, 302]:
+            hash_part = request.COOKIES.get('hash_compat')
+            if hash_part and hash_part.startswith('#') and '#' not in response['Location']:
+                response['Location'] += hash_part
+
+        return response

@@ -1,8 +1,10 @@
 import logging
 from apps.payouts.models import create_sepa_xml
 from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.utils import timezone
+from django.utils.translation import ugettext as _
 from .models import BankMutation, BankMutationLine
 
 logger = logging.getLogger(__name__)
@@ -24,7 +26,7 @@ class PayoutAdmin(admin.ModelAdmin):
     list_display = ['payout', 'ok', 'donation_overview', 'project', 'local_amount', 'local_amount_safe',
                     'receiver_account_number', 'invoice_reference', 'status']
 
-    readonly_fields = ['donation_overview', 'project', 'local_amount', 'local_amount_safe']
+    readonly_fields = ['donation_overview', 'project_link', 'local_amount', 'local_amount_safe']
     fields = readonly_fields + ['status', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
                                 'receiver_account_country', 'invoice_reference', 'description_line1',
                                 'description_line2', 'description_line3', 'description_line4']
@@ -33,6 +35,14 @@ class PayoutAdmin(admin.ModelAdmin):
         return "<a href='/admin/fund/donation/?project=%s'>Donations</a>" % str(obj.project.id)
 
     donation_overview.allow_tags = True
+
+    def project_link(self, obj):
+        object = obj.project
+        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object.title)
+
+    project_link.allow_tags = True
+    project_link.short_description = _('project')
 
     def ok(self, obj):
         if obj.is_valid:
