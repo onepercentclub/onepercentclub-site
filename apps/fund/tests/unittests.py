@@ -545,12 +545,22 @@ class RecurringOrderApiTest(ProjectTestsMixin, TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '75.00')
 
-        # Let's add a 'donation'
+        # Let's add a donation
         # For now the amount doesn't realy matter because the amount on recurring-payment has precedence.
         some_donation = {"project": self.some_project.slug, "amount": 1000, "status": "new", "order": order_id}
-        response = self.client.post(self.recurring_order_url_base, json.dumps(some_donation), 'application/json')
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
+        # Add another donation
+        another_donation = {"project": self.another_project.slug, "amount": 1000, "status": "new", "order": order_id}
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+
+        # Order should contain two donations now
+        response = self.client.get(self.recurring_order_url_base)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(len(response.data['results'][0]['donations']), 2)
 
 
 
