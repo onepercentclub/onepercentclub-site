@@ -20,6 +20,7 @@
 	
 	.carousel-item {
 		font-size: $font-size-large;
+		line-height: $base-line-height;
 		display: block;
 		color: $white;
 		float: left;
@@ -31,6 +32,7 @@
 			
 			h1 {
 				color: $white;
+				font-size: $font-size-larger;
 			}
 		}
 	}

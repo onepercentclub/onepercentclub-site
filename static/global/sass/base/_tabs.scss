@@ -42,7 +42,7 @@
                 display: block;
                 float: left;
                 background-color: $gray-dark;
-                //@include border-radius(16px);
+                @include border-radius(16px);
                 width: 32px;
                 height: 32px;
                 line-height: 32px;

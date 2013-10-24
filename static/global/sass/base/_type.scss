@@ -2,7 +2,6 @@
 // Typography
 // --------------------------------------------------
 
-
 // Body text
 // -------------------------
 
@@ -69,6 +68,11 @@ h1, h2, h3, h4, h5, h6 {
 h1 { 
 	font-size: $font-size-largest;
 	color: $color-primary;
+	
+	em {
+	    font-family: $base-font-family;
+    	color: $color-secondary;
+	}
 } 
 
 h2 {
@@ -177,11 +181,13 @@ hr {
 
 // Abbreviations and acronyms
 abbr[title],
+
 // Added data-* attribute to help out our tooltip plugin, per https://github.com/twitter/bootstrap/issues/5257
 abbr[data-original-title] {
   	cursor: help;
   	border-bottom: 1px dotted $gray-light;
 }
+
 abbr.initialism {
   	font-size: 90%;
   	text-transform: uppercase;
@@ -192,12 +198,14 @@ blockquote {
 	padding: 0 0 0 15px;
 	margin: 0 0 $base-line-height;
 	border-left: 5px solid $gray-lighter;
+	
 	p {
 		margin-bottom: 0;
 		font-size: $base-font-size * 1.25;
 		font-weight: 300;
 		line-height: 1.25;
 	}
+	
 	small {
 		display: block;
 		line-height: $base-line-height;
@@ -237,11 +245,35 @@ blockquote:after {
   	content: "";
 }
 
-// Addresses
-address {
-  	display: block;
-  	margin-bottom: $base-line-height;
-  	font-style: normal;
-  	line-height: $base-line-height;
+/*
+figure {
+    display: inline-block;
+    max-width: 100%;
+    img { 
+        display: block;
+        width: 100%;
+    }
+    figcaption {
+        color: blue;
+    }
 }
 
+ul, ol { margin: 0 0 $base-margin 1.5em; }
+ul.list li:before {
+    margin-right: 1.5em;
+    font-family: 'Flaticons Solid';
+    color: $gray;
+    content: "\e1c3";
+}
+ol { list-style: decimal; }
+
+dl {
+    margin-bottom: $base-margin;
+    dt { font-weight: bold; }
+    dd { margin-left: $base-margin; }
+    &.advanced {
+        dt { @include grid(16, 0, 1); }
+        dd { @include grid(32); }
+    }
+}
+*/

@@ -29,7 +29,7 @@ $font-family:						'Futura W01 Book', 'Trebuchet MS', Helvetica, Arial, sans-ser
 $font-family-heavy:					'Futura W02 Heavy', 'Trebuchet MS', Helvetica, Arial, sans-serif;			
 $font-family-bold:					'Futura W01 Bold', 'Trebuchet MS', Helvetica, Arial, sans-serif;
 	
-$font-family-small:					'Trebuchet MS', Helvetica, Arial, sans-serif;
+//$font-family-small:					'Trebuchet MS', Helvetica, Arial, sans-serif;
 
 $base-font-size:					1em !default;
 $base-font-family:					$font-family !default;
@@ -72,12 +72,12 @@ $max-width:							1440px !default;
 
 // Component sizing
 // ---------------------------------
-$font-size-largest:					$base-font-size * 2 !default; // ~32px
-$font-size-larger:					$base-font-size * 1.5 !default;	// ~24px
-$font-size-large:					$base-font-size * 1.25 !default; // ~20px
-$font-size-medium:					$base-font-size * 1.125 !default; // ~18px
-$font-size-small:					$base-font-size * 0.875 !default; // ~14px
-$font-size-smallest:				$base-font-size * 0.75 !default; // ~12px
+$font-size-largest:					$base-font-size * 2.5 !default;
+$font-size-larger:					$base-font-size * 1.75 !default;
+$font-size-large:					$base-font-size * 1.25 !default;
+$font-size-medium:					$base-font-size * 1.225 !default;
+$font-size-small:					$base-font-size * 0.875 !default;
+$font-size-smallest:				$base-font-size * 0.75 !default;
 
 $base-margin:						1em !default;
 $base-padding:						1em !default;
