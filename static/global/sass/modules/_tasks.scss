@@ -48,13 +48,14 @@
 			    color: $white;
 				padding: 0;
 				margin: 0;
-				font-weight: 600;
-				@include transition(color 0.1s);
 			}
 			
 			h4 {
             	font-size: $font-size-small;
 				text-transform: none;
+				padding: 0;
+				margin: 0;
+				font-family: $base-font-family;
 			}
         }
         
@@ -102,87 +103,176 @@
     }    
     
     .task-description {
-        @include transition(all 0.2s ease-out);
-        display: none;
+        @include transition(height 0.2s ease-in);
+        display: block;
         color: $white;
+        font-family: $font-family-heavy;
         width: 100%;
+        height: 0;
         padding: $base-padding;
+        background-color: $color-secondary;
+        overflow: hidden;
     }
     
     &:hover, &:active {
-        background: $color-secondary;
         
-        .task-image, .task-country, .task-status {
+        .task-header, .task-image, .task-country, .task-status {
             display: none;
         }
         
-        .task-title {
-            position: relative;
-            background: none;
-        }
-        
         .task-description {
+            height: 500px;
+        }
+    }
+}
+
+
+.project-owner-actions {
+	@include grid(48,1,1);
+	background: $gray-lighter;
+	padding: $base-padding/2 $base-padding;
+	margin-top: $base-padding;
+	
+	header {
+		@include grid(16,0,1);
+		float: left;
+		
+		h3 {
+			padding-top: $base-padding;
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+	}
+	
+	.btn {
+		margin: $base-padding/2 0 $base-padding/2 $base-padding/2;
+		float: right;
+	}
+	
+}
+
+#task-detail {
+	margin-top: $base-padding*2;
+	padding-top: $base-margin;
+	
+	.task-status {
+		display: block;
+		@include grid(12,2,4);
+		
+	   .flaticon {
+            font-size: 40px;
             display: block;
-    	    @include opacity(1);
         }
+        
+        padding: $base-padding 0;
+        background-color: $gray-lighter;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+        
     }
-}
-
-
-/*
-#results {
-  
-
-    .item-task a {
     
-        h2 {
-            @include rem(font-size, 12px);
-            @include rem(line-height, $base-padding);
-            margin: 0px;
-            @include rem(padding, $base-padding/2);
-            background-color: $color-secondary;
-            color: $white;
-            text-transform: uppercase;
-            overflow: hidden;
-        }
-        
-        h4 {
-	        @include rem(font-size, 12px);
-	        color: $white;
-        }
-        
-        .item-task-title {
-	        height: 76px;
-        }
+	.task-description {
+		@include grid(36,0,0);
+	}
+	
+	// Wallposts
+	
+	#wallposts {
+	
+	    #wallpost-form {
+    	    
+	    }
+	    
+	}
+	
+	
+	// Sidebar
+	
+	.task-section {
+	    @include clear;
+	    background-color: $gray-lighter;
+	    margin-bottom: $base-margin;
+		
+		
+	}
+	
+	.task-meta {
 
-        .item-footer {
-            background-color: $gray-lighter;
-            color: $gray;
-            padding: 0;
-            @include clearfix;
-            @include rem(padding, $base-padding);
-            text-transform: uppercase;
-            height: 76px;
-                	
-            ul {
-                @include clearfix;
-                list-style: none;
-                text-indent: 0;
-                margin: 0;
-                
-                li {
-                    @include grid(24,0,0);
-                    @include rem(padding, 4px 0);
-					@include rem(font-size, 11px);
-                    
-                    .flaticon {
-                    	@include rem(font-size, 12px);
-	                    @include rem(margin-right, 4px);
-                    }
-                }
-            }
-        }
-    }
+		p {
+			color: $gray;
+		}
+		
+		dl {
+			@include clear;
+			font-size: $font-size-small;
+			
+			dt {
+				text-transform: uppercase;
+				color: $gray;
+				@include grid(20,0,1);
+				font-weight: normal;
+								
+				.flaticon {
+					margin-right: $base-margin/4;
+				}
+				
+			}
+			
+			dd {
+				@include grid(28,0,0);
+			}
+		}
+	}
+	
+	.task-members, .task-files {
+	    margin: 0;
+				
+		.item {
+		    @include resetlist;
+			@include clear;
+			position: relative;
+			display: block;
+			border-bottom: 1px solid $white;
+			
+			.member {
+				text-transform: uppercase;
+				
+				.member-avatar {
+				    display: inline-block;
+					width: 40px;
+					padding: 0;
+					float: left;
+				}
+			}
+			
+			.task-status {
+		        margin-right: 4px;
+				font-weight: 300;
+		        color: $color-primary;
+		        text-transform: uppercase;
+			}
+			
+	        .edit-task-status {
+				color: $black;
+				text-transform: uppercase;
+	        }
+			
+			.file-size, .file-author, .time-applied {
+				font-size: $font-size-smallest;
+				text-transform: uppercase;
+				font-style: normal;
+				color: $gray;
+			}
+		}
+	}
+	
+	.task-files {
+							
+		.item .flaticon {
+			color: $color-text;
+			display: block;
+			float: left;
+		}
+	}
 }
-*/
-

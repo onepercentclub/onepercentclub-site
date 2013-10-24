@@ -33,7 +33,7 @@
 	    object {
 		    pointer-events: none;
 	    }
-	    
+	   
 	    .logo-image {
 	    	display: block;
 		    width: 60%;
@@ -228,27 +228,30 @@
 			    	font-weight: normal;
 			    	background: $color-secondary;
 			    	padding: $base-padding/2;
-			    	@include clear;
 			    	
-			    	.nav-language li {	
-        			    	
-                		a {
-                			color: $white;
+			    	.nav-language {
+    			    	display: inline;
+    			    	
+    			    	    li {	
+            			    	
+                    		a {
+                    			color: $white;
+                        		
+                        		&:hover, &:active {
+                            		color: $black;
+                            		border-color: $black;
+                        		}
+                    		}
                     		
-                    		&:hover, &:active {
-                        		color: $black;
-                        		border-color: $black;
-                    		}
-                		}
-                		
-                        &.active a {
-                            color: $color-secondary;
-                            background-color: $white;
-                            
-                            &:hover, &:active {
-                        		background-color: $black;
-                    		}
-                        }
+                            &.active a {
+                                color: $color-secondary;
+                                background-color: $white;
+                                
+                                &:hover, &:active {
+                            		background-color: $black;
+                        		}
+                            }
+        		    	}
     		    	}
                 } 
 		    }

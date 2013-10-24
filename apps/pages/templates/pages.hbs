@@ -5,7 +5,7 @@
 {#  {{bindAttr class=id + "l-section"}} #}
 
 {% tplhandlebars "page" %}
-    <div id="page" class="l-section">
+    <div class="l-section"id="page" >
         {{#if view.showTitle}}
         	<section class="l-wrapper">
 					<article class="l-content">
@@ -54,25 +54,24 @@
 
 {% tplhandlebars "contact_message" %}
 
-    <div class="container">
-        <section class="wrapper">
-            <article class="contact" id="page">
-            	<div id="page-content">
-            	
-	            	<header id="page-header" class="title">
-		                <h1>{% trans "Contact" %}</h1>
-		                <p>
-		                    {% blocktrans %}
-		                    Send us a message or get in touch using the details below. Talk to you soon!
-		                    {% endblocktrans %}
-		                </p>
-	            	</header>
-            	
+    <div class="l-section" id="page">
+        <section class="l-wrapper">
+        
+            	<article class="l-content">
+                    <header class="page-header">
+                        <h1>{% trans "Contact" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                            Send us a message or get in touch using the details below. Talk to you soon!
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+					
 		            <form id="contact-form">
 		                {{#if isSent}}
-		                	<div class="form-meta">
-								<div class="form-label">{% trans "Thanks for your message!. We'll get back to you soon" %}.</div>
-							</div>
+		                	<legend>
+								<strong>{% trans "Thanks for your message!. We'll get back to you soon" %}.</strong>
+							</legend>
 		                {{else}}
 		                    <fieldset>
 		                        <ul>
@@ -83,9 +82,8 @@
 		                                </div>
 		
 		                                {{#if errors.name }}
-		                                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+		                                    <div class="has-errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
 		                                {{/if}}
-		
 		                            </li>
 		
 		                            <li class="control-group">
@@ -95,7 +93,7 @@
 		                                </div>
 		
 		                                {{#if errors.email }}
-		                                    <div class="errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
+		                                    <div class="has-errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
 		                                {{/if}}
 		
 		                            </li>
@@ -107,19 +105,19 @@
 		                                </div>
 		
 		                                {{#if errors.message }}
-		                                    <div class="errors">{{#each errors.message }}<p>{{this}}</p>{{/each}}</div>
+		                                    <div class="has-errors">{{#each errors.message }}<p>{{this}}</p>{{/each}}</div>
 		                                {{/if}}
 		
 		                            </li>
 		
 		                        </ul>
 		                    </fieldset>
-		                    <button {{bindAttr class=":btn :btn-iconed :right :btn-primary"}} {{action updateRecordOnServer}}><em class="flaticon icon solid envelope-1"></em>{% trans "Send Message" %}</button>
+		                    <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-submit"}} {{action updateRecordOnServer}}><span class="flaticon solid envelope-1"></span>{% trans "Send Message" %}</button>
 		                {{/if}}
 		            </form>
-            	</div>
+            	</article>
             	
-	            <sidebar class="sidebar tip">
+	            <sidebar class="l-sidebar">
 	            	<h3>{% trans "Other ways to contact" %}</h3>
 {% blocktrans %}
 <p>
@@ -144,7 +142,6 @@
 {% endblocktrans %}
 	            </sidebar>
 	            
-	        </article>
         </section>
     </div>
 
@@ -152,24 +149,26 @@
 
 
 {% tplhandlebars "partner" %}
-    <div class="container" id="partner-detail">
+    <div class="l-section" id="partner-detail">
+        <section class="l-wrapper">
         
-        <section class="wrapper">
-            <figure class="media">
-                <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+            <figure class="image">
+                <img {{bindAttr src="image.large"}} />
             </figure>
+            
             <article>
                 <h1>{{name}}</h1>
                 <p>{{linebreaks description formatting='br'}}</p>
             </article>
+            
         </section>
 
-        <section class="wrapper">
-            <ul id="results">
+        <section class="l-wrapper">
+            <ul id="search-results">
                 {{#each project in projects}}
                     {{render "projectPreview" project}}
                 {{else}}
-                    <li>{% trans "No projects found." %}</li>
+                    <li class="no-results">{% trans "No projects found." %}</li>
                 {{/each}}
             </ul>
         </section>

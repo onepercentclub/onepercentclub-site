@@ -45,11 +45,11 @@ App.ProjectWallPostView = Em.View.extend({
         // Give it some time to really render...
         // Hack to make sure photo viewer works for new wallposts
         Em.run.later(function(){
-            this.$('.gallery-picture').colorbox({
+            this.$('.photo-viewer a').colorbox({
                 rel: this.toString(),
                 next: '<span class="flaticon solid right-2"></span>',
                 previous: '<span class="flaticon solid left-2"></span>',
-                close: '×'
+                close: 'x'
             });
         }, 500);
     },
@@ -104,8 +104,7 @@ App.TaskWallPostListView = Em.View.extend({
 
 
 App.TaskWallPostNewView = Em.View.extend({
-    templateName: 'task_wallpost_new',
-    tagName: 'form'
+    templateName: 'task_wallpost_new'
 });
 
 
@@ -113,8 +112,8 @@ App.TaskWallPostNewView = Em.View.extend({
 
 App.WallPostReactionView = Em.View.extend({
     templateName: 'wallpost_reaction',
-    tagName: 'li',
-    classNames: ['initiator'],
+    //tagName: 'li',
+    //classNames: ['reaction'],
     actions: {
         deleteReaction: function() {
             var view = this;

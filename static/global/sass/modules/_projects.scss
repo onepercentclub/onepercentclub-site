@@ -208,7 +208,6 @@
 			    color: $white;
 				padding: 0;
 				margin: 0;
-				@include transition(color 0.1s);
 			}
 			
 			.project-location {
@@ -274,10 +273,11 @@
         @include transition(height 0.2s ease-in);
         display: block;
         color: $white;
+        font-family: $font-family-heavy;
         width: 100%;
         height: 0;
         padding: $base-padding;
-        background-color: $gray-darker;
+        background-color: $color-secondary;
         overflow: hidden;
     }
     
@@ -513,5 +513,31 @@
         &:last-of-type {
             border-bottom-color: $white;
         }
+	}
+}
+
+// Full project plan
+
+#project-plan {
+	
+	header {
+	    margin-top: $base-margin*2;
+		@include grid(48,1,1);
+	}
+	
+	article {
+	    margin-bottom: $base-margin;
+		@include grid(24,1,1);
+		clear: none !important;
+		
+		br {
+			content: " " !important;
+			display: block !important;
+			margin-bottom: 1.5em !important;
+		}
+		
+		img {
+			width: 100%;
+		}
 	}
 }

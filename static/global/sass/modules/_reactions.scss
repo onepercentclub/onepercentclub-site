@@ -4,7 +4,6 @@
 
 .reaction-form {
     @include clear;
-    @include prepend(10);
     position: relative;
     padding: 0;
     background-color: $gray-lighter;
@@ -81,7 +80,6 @@
         display: block;
         position: relative;
         margin-bottom: 1px;
-        @include grid(48,10,0);
         background-color: $gray-lighter;
         padding: $base-padding;
         
