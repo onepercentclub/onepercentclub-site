@@ -1,0 +1,167 @@
+//
+// Reusable member items
+//
+// --------------------------------------------------
+
+.member {
+    position: relative;
+    display: block;
+    float: left;
+    text-decoration: none;
+    width: 100%;
+    
+    .member-avatar {
+        
+        img {
+            float: left;
+            border-width: 1px;
+            border-style: solid;
+            border-color: $white;
+            background-color: $gray-lighter;
+            color: $color-text-light;
+            vertical-align: middle;
+        }
+        
+    }
+    
+    .member-name {
+        display: inline-block;
+    }
+    
+    .member-organisation {
+        font-size: $font-size-smallest;
+        display: block;
+        color: $gray;
+        font-style: normal;
+    }
+    
+    &:hover {
+    
+        img {
+    
+        }
+    }
+}
+
+//
+// Horizontal list of members (who supported project fi)
+
+.project-member-list {
+    @include clear;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+
+    li {
+        @include resetlist;
+        position: relative;
+        display: inline-block;
+        margin: 0 $base-margin*2 0 0;
+        overflow: visible;
+        font-size: $font-size-small;
+        vertical-align: top;
+
+        h4 {
+            font-size: $font-size-small;
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            color: $gray;
+            text-transform: uppercase;
+        }
+
+        ul {
+            margin: 0;
+            
+            li {
+                display: inline;
+                margin: 0;
+
+                .member {
+                
+                    .member-avatar {
+                        border-width: 1px 1px 1px 0;
+                    }
+                    
+                }
+
+                .popover {
+                    display: none !important;
+                    bottom: 60px;
+                    left: 0;
+                }
+
+                &:first-child a img {
+                    border-left: 1px solid $white;
+                }
+            }
+        }
+
+        &.project-member-initiator {
+            @include grid(12,0,1);
+        
+            h4 {
+                position: relative;
+                bottom: auto;
+                color: $gray-darker;
+                font-weight: 300;
+            }
+    
+            ul li a {
+                margin-right: 3em;
+                text-transform: uppercase;
+    
+                img {
+                    position: relative;
+                    margin-right: 0.5em;
+                    width: 68px;
+                    height: auto;
+                }
+            }
+        }
+        
+        &.project-member-supporters {
+            @include grid(36,0,1);
+            margin-right: 0;
+        }
+    }
+
+    .project-member-supporters, .project-member-supporters-total {
+        display: none;
+        display: block;
+        float: right;
+        margin: 0;
+        padding: 0;
+
+        a {
+            padding-top: $base-padding/4;
+            width: 45px;
+            height: 45px;
+            background-color: $white;
+            color: $color-text;
+            vertical-align: middle;
+            text-align: center;
+            text-transform: uppercase;
+            white-space: normal;
+            line-height: 1em;
+
+            strong {
+                //@include rem(font-size, 22px);
+                color: $color-primary;
+                //font-weight: 300;
+            }
+
+            em {
+                font-style: normal;
+            }
+
+        }
+    }
+    
+    .project-member-supporters-total {
+        
+    }
+}

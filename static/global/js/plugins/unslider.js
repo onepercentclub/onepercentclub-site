@@ -122,7 +122,7 @@
 
 			if(!this.ul.is(':animated')) {
 				//  Handle those pesky dots
-				_.el.find('.dot:eq(' + index + ')').addClass('active').siblings().removeClass('active');
+				_.el.find('.carousel-nav-item:eq(' + index + ')').addClass('is-active').siblings().removeClass('is-active');
 
 				this.el.animate(obj, speed) && this.ul.animate($.extend({left: '-' + index + '00%'}, obj), speed, function(data) {
 					_.current = index;
@@ -166,18 +166,8 @@
 		this.prev = function() { return _.stop().move(_.current - 1) };
 
 		this.dots = function() {
-			//  Create the HTML
-			/* var html = '<ol class="dots">';
-				$.each(this.items, function(index) { html += '<li class="dot' + (index < 1 ? ' active' : '') + '">' + (index + 1) + '</li>'; });
-				html += '</ol>';
-
-			//  Add it to the Unslider
-			this.el.addClass('has-dots').append(html).find('.dot').click(function() {
-				_.move($(this).index());
-			}); */
-
-            this.el.addClass('has-dots').find('.dot').click(function() {
-                _.move($(this).index('.dot'));
+            this.el.addClass('has-nav').find('.carousel-nav-item').click(function() {
+                _.move($(this).index('.carousel-nav-item'));
             });
 		};
 	};

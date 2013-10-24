@@ -1,27 +1,54 @@
-@mixin allowremove {
+//
+// Reusable mixin's & classes for rapid development
+// --------------------------------------------------
+
+@mixin clear {
+    &:after, &:before {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    & {
+        *zoom: 1;
+    }
+}
+
+@mixin resetlist {
+    padding: 0;
+    margin: 0;
+    text-indent: 0;
+    background-image: none;
+}
+
+@mixin allowdelete {
     position: relative;
 
     &:hover {
-        .remove {
+        .delete {
             display: block;
         }
     }
 
-    .remove {
+    .delete {
         cursor: pointer;
         display: none;
         z-index: 5;
         position: absolute;
         top: -30px;
         right: -30px;
-        @include rem(font-size, 20px);
+        //@include rem(font-size, 20px);
         padding: 20px;
-        color: $grayDarker;
+        color: $gray-darker;
+        text-decoration: none;
+        
         &:hover {
-            color: $pink;
+            color: $color-primary;
         }
+        
         &:active {
-            color: $pink;
+            color: $color-primary;
         }
     }
 }

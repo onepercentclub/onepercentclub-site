@@ -5,7 +5,7 @@
 
 // TABLETS AND BELOW
 // -----------------
-@media {
+@media (max-width: $navbarCollapseWidth) {
 
   // UNFIX THE TOPBAR
   // ----------------
@@ -170,12 +170,15 @@
     padding-left:  10px;
     padding-right: 10px;
   }
+
+
 }
+
 
 // DEFAULT DESKTOP
 // ---------------
 
-@media {
+@media (min-width: $navbarCollapseDesktopWidth) {
 
   // Required to make the collapsing navbar work on regular desktops
   .nav-collapse.collapse {

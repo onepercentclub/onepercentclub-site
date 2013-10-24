@@ -1,0 +1,77 @@
+//
+// Project detail
+// --------------------------------------------------
+
+#project-detail {
+    
+    @include clearfix;
+    padding-top: $base-padding;
+    background-color: $gray-darkest;
+    color: $color-text-light;
+    
+    .project-title {
+        color: $white;
+    }
+    
+    .project-status {
+        @include clear;
+        padding: $base-padding/3 0;
+    }
+    
+    
+    .project-days-left {
+    	color: $gray-light;
+    	
+    	.flaticon {	
+    	    font-size: 1.5em;
+    	}
+    
+    	strong {
+    	    font-size: 1.5em;
+    	    color: $gray-lighter;
+    	}
+    
+    	em {
+    	
+    	}
+    }
+    
+    .project-fund-amount {
+    	color: $gray-light;
+    
+        .amount-donated {
+            font-size: 1.5em;
+        }
+    
+        .amount-asked {
+            
+        }
+        
+        strong {
+            color: $gray-lighter;
+        }
+        
+        em {
+            
+        }
+    }
+}
+
+#project-members {
+    padding: $base-padding 0;
+    background-color: $gray-lighter;
+    
+    .project-member-list {
+        @include grid(48,1,1);
+    }
+}
+
+#project-actions {
+    border-top: 1px solid $gray-light;
+    //padding-top: $base-padding/2;
+    background-color: $gray-lighter; 
+    
+    .tabs {
+        @include grid(48,1,1);
+    }
+}
