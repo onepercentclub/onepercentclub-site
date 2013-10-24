@@ -1,6 +1,6 @@
 # Use the remove-onepercent-js branch for this version
 # FIXME: Make this into a tag
--e git://github.com/onepercentclub/bluebottle.git@a4ad88a16c549e5e6bbe8dc564e242a2c5527a99#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@redo-css#egg=bluebottle
 
 
 Django==1.5.4
