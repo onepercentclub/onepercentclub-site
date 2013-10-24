@@ -15,15 +15,16 @@ class Migration(SchemaMigration):
                       keep_default=False)
 
         # Set the value of 'Donation.ready' to be the value of 'Donation.updated' if the donation is pending or paid.
-        for donation in orm.Donation.objects.all():
-            if donation.status in ('pending', 'paid'):
-                cursor = connection.cursor()
-                sql_statement = "UPDATE {0} SET ready = '{1}' WHERE {2} = {3}".format(donation._meta.db_table,
-                                                                                      donation.updated,
-                                                                                      donation._meta.pk.name,
-                                                                                      donation.pk)
-                cursor.execute(sql_statement)
-                transaction.commit_unless_managed()
+        if not db.dry_run:
+            for donation in orm['fund.Donation'].objects.all():
+                if donation.status in ('pending', 'paid'):
+                    cursor = connection.cursor()
+                    sql_statement = "UPDATE {0} SET ready = '{1}' WHERE {2} = {3}".format(donation._meta.db_table,
+                                                                                          donation.updated,
+                                                                                          donation._meta.pk.name,
+                                                                                          donation.pk)
+                    cursor.execute(sql_statement)
+                    transaction.commit_unless_managed()
 
 
     def backwards(self, orm):

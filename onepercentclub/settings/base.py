@@ -147,6 +147,7 @@ TEMPLATE_LOADERS = [
 # Note: The first three middleware classes need to be in this order: Session, Locale, Common
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
+    'apps.redirects.middleware.RedirectHashCompatMiddleware',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
     'bluebottle.bluebottle_utils.middleware.SubDomainSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
