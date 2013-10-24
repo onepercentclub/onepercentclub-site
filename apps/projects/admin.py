@@ -51,6 +51,18 @@ admin.site.register(ProjectPitch, ProjectPitchAdmin)
 class ProjectBudgetInline(admin.TabularInline):
     model = ProjectBudgetLine
     extra = 0
+    fields = ('description', 'amount_override', 'amount', 'currency')
+    readonly_fields = ('amount_override',)
+    verbose_name_plural = _("Budget")
+
+    def amount_override(self, obj):
+        language = translation.get_language().split('-')[0]
+        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
+
+    amount_override.short_description = 'amount'
+
+    class Media:
+        css = {"all": ("css/admin/hide_admin_original.css",)}
 
 
 class ProjectPlanAdmin(admin.ModelAdmin):
@@ -259,7 +271,6 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
         else:
             message = "{0} projects were marked as failed.".format(rows_updated)
         self.message_user(request, message)
-
 
     set_failed.short_description = _("Mark selected projects as failed")
 

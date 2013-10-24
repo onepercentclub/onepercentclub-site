@@ -1,0 +1,13 @@
+.dynamic-log_entries td.original p,
+.dynamic-projectbudgetline_set td.original p,
+.dynamic-payments td.original p,
+.dynamic-donations td.original p {
+    display: none;
+}
+
+.inline-group .tabular tr.dynamic-log_entries td,
+.inline-group .tabular tr.dynamic-projectbudgetline_set td,
+.inline-group .tabular tr.dynamic-donations td,
+.inline-group .tabular tr.dynamic-payments td {
+    padding-top: 0.5em;
+}

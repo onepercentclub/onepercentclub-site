@@ -425,9 +425,9 @@ class ProjectBudgetLine(models.Model):
     website.
     """
     project_plan = models.ForeignKey(ProjectPlan)
-    description = models.CharField(_("description"), max_length=255, blank=True)
-    currency = models.CharField(max_length=10, default='EUR')
-    amount = models.PositiveIntegerField(_("amount"))
+    description = models.CharField(_("description"), max_length=255, default='')
+    currency = models.CharField(max_length=3, default='EUR')
+    amount = models.PositiveIntegerField(_("amount (in cents)"))
 
     created = CreationDateTimeField()
     updated = ModificationDateTimeField()

@@ -137,7 +137,17 @@ class DonationAdminInline(admin.TabularInline):
     model = Donation
     extra = 0
     raw_id_fields = ('project',)
-    fields = ('project', 'status', 'amount', 'currency')
+    fields = ('project', 'status', 'amount_override', 'amount', 'currency')
+    readonly_fields = ('amount_override',)
+
+    def amount_override(self, obj):
+        language = translation.get_language().split('-')[0]
+        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
+
+    amount_override.short_description = 'amount'
+
+    class Media:
+        css = {"all": ("css/admin/hide_admin_original.css",)}
 
 
 # TODO Implement this when vouchers are added to the site.

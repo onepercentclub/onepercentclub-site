@@ -13,6 +13,9 @@ class DocDataPaymentLogEntryInine(admin.TabularInline):
     fields = ('timestamp', 'level', 'message')
     readonly_fields = fields
 
+    class Media:
+        css = {"all": ("css/admin/hide_admin_original.css",)}
+
 
 class DocDataPaymentInline(admin.TabularInline):
     model = DocDataPayment
