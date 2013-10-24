@@ -1,0 +1,66 @@
+//
+// Global static onepage
+// --------------------------------------------------
+
+.static-onepage {
+    
+    .static-onepage-nav {
+        @include clearfix;
+        @include grid(48,0);
+        margin-top: 0;
+        margin-bottom: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        background-color: rgba(255, 255, 255, 0.8);
+    
+        > li {
+            margin-right: $base-margin*2;
+            float: left;
+            background-image: none;
+            list-style: none;
+            padding: 0;
+    
+            a {
+                color: $gray;
+                text-transform: uppercase;
+    
+                &:hover {
+    	            color: $gray-darker;
+                }
+                
+                &.is-active {
+                    color: $gray-darker;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .static-onepage-section {
+    
+        .static-onepage-content {
+            @include clearfix;
+            margin: auto;
+            top: -100px;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+        
+        .illustration {
+            font-size: 240px;
+            color: $gray-lighter;
+        }
+        
+        &:nth-of-type(odd) {
+            background-color: $gray-lighter;
+    
+            .illustration {
+                color: $white;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,46 @@
+//
+// Account page (overwrites modules)
+// --------------------------------------------------
+
+.account-header {
+    background-color: $gray-lighter;
+    
+    .account-title {
+        
+    }
+    
+    .account-member {
+        @include grid(48,1,1);
+        text-decoration: none;
+        
+        .account-member-avatar {
+            width: 64px;
+            float: left;
+        }
+        
+        .account-member-preview {
+            float: left;
+        }
+        
+        .account-member-action {
+            
+            strong {
+                
+            }
+            
+            em {
+                
+            }
+            
+        }
+        
+    }
+}
+
+#account {
+
+    .tabs {
+        
+    }
+    
+}
