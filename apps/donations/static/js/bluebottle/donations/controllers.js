@@ -145,7 +145,26 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
         },
         toggleActive: function(sender, value){
             if (this.get('payment.active')) {
-                this.set('payment.active', false);
+                var payment = this.get('payment');
+                Bootstrap.ModalPane.popup({
+                    classNames: ['modal'],
+                    heading: gettext('Stop monthly support?'),
+                    message: gettext('Are you sure you want to stop your monthly support?'),
+                    primary: gettext('Yes, stop it'),
+                    secondary: gettext('No, continue'),
+                    callback: function(opts, e) {
+                        e.preventDefault();
+
+                        if (opts.primary) {
+                            payment.set('active', false)
+                            payment.save();
+                        }
+
+                        if (opts.secondary) {
+                            payment.set('active', true)
+                        }
+                    }
+                });
             } else {
                 this.set('payment.active', true);
             }

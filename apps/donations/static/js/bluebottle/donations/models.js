@@ -4,9 +4,9 @@ App.Adapter.map('App.RecurringOrder', {
 
 
 App.RecurringDirectDebitPayment = DS.Model.extend({
-    url: 'fund/recurringdirectdebitpayments',
+    url: 'fund/recurring/directdebitpayments',
 
-    active: DS.attr('boolean', {defaultValue: true}),
+    active: DS.attr('boolean', {defaultValue: false}),
     amount: DS.attr('number', {defaultValue: 20}),
 
     name: DS.attr('string'),

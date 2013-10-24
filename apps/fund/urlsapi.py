@@ -39,8 +39,8 @@ urlpatterns = patterns('',
 
     # The Payment REST API.
     url(r'', include('apps.cowry.urlsapi')),
-    url(r'^recurringdirectdebitpayments/$', RecurringDirectDebitPaymentList.as_view(), name='recurring-direct-debit-payment-list'),
-    surl(r'^recurringdirectdebitpayments/<pk:#>$', RecurringDirectDebitPaymentDetail.as_view(), name='recurring-direct-debit-payment-detail'),
+    url(r'^recurring/directdebitpayments/$', RecurringDirectDebitPaymentList.as_view(), name='recurring-direct-debit-payment-list'),
+    surl(r'^recurring/directdebitpayments/<pk:#>$', RecurringDirectDebitPaymentDetail.as_view(), name='recurring-direct-debit-payment-detail'),
 
 
 )
