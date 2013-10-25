@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import Truncator
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
@@ -62,10 +63,7 @@ class PaymentLogEntry(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        # TODO: Hide __unicode__() output in TabularAdmin for instead of returning an empty string.
-        # http://stackoverflow.com/questions/5086537/how-to-omit-object-name-from-djangos-tabularinline-admin-view
-        # return '{0}: {1}'.format(self.get_message_type_display(), Truncator(self.message).words(5))
-        return ''
+        return '{0} {1}'.format(self.get_level_display(), Truncator(self.message).words(6))
 
     def log_entry(self):
         return '[{0}]  {1: <5}  {2 <5}  {3}'.format(self.timestamp.strftime("%d/%b/%Y %H:%M:%S"),

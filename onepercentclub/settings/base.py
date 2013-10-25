@@ -515,7 +515,6 @@ FLUENT_DASHBOARD_APP_ICONS = {
     'projects/projecttheme': 'icons/flaticons_stroke/SVGs/leaf-1.svg',
     'projects/projectcampaign': 'icons/flaticons_stroke/SVGs/megaphone-1.svg',
     'projects/projectresult': 'icons/flaticons_stroke/SVGs/trophy-1.svg',
-
     'organizations/organization': 'icons/flaticons_stroke/SVGs/suitcase-1.svg',
     'organizations/organizationmember': 'icons/flaticons_stroke/SVGs/group-1.svg',
     'projects/partnerorganization': 'icons/flaticons_stroke/SVGs/compose-3.svg',
@@ -557,9 +556,6 @@ FLUENT_DASHBOARD_APP_ICONS = {
     # Site Settings
     'sites/site': 'icons/flaticons_stroke/SVGs/browser-2.svg',
     'redirects/redirect': 'icons/flaticons_stroke/SVGs/next-3.svg',
-
-
-
 }
 
 # Required for handlebars_template to work properly

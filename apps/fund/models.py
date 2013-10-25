@@ -95,7 +95,7 @@ class Donation(models.Model):
         recurring = ChoiceItem('recurring', label=_("Recurring"))
         voucher = ChoiceItem('voucher', label=_("Voucher"))
 
-    amount = models.PositiveIntegerField(_("Amount"))
+    amount = models.PositiveIntegerField(_("amount (in cents)"))
     currency = models.CharField(_("currency"), max_length=3, default='EUR')
 
     # User is just a cache of the order user.
