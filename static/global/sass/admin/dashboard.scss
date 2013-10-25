@@ -78,10 +78,14 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1;
 }
 
-.inline-group .tabular tr td.original {
+.inline-group .tabular tr {
+  td {
+    padding: 0.5em;
+  }
+  td.original {
     display: block;
     p {
-        width: 100%;
+      width: 100%;
     }
+  }
 }
-
