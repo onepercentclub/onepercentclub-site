@@ -32,6 +32,7 @@ payment_method_mapping = {
     'MISTERCASH': 'Other',
 }
 
+
 class DocDataPaymentOrder(Payment):
     # Payment information.
     payment_order_id = models.CharField(max_length=200, default='', blank=True)
