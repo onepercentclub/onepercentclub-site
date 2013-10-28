@@ -93,7 +93,7 @@ App.ProjectIndexView = Em.View.extend({
 
 
 App.ProjectWallPostNewView = Em.View.extend({
-    templateName: 'project_wallpost_new'
+    templateName: 'project_wallpost_new',
 });
 
 

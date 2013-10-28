@@ -4,7 +4,7 @@
 
 {% tplhandlebars "project_wallpost_new" %}
 	
-    <form id="wallpost-form">
+    <div id="wallpost-form"> <!-- FIXME: Ember already injects a form tag, leading to an invalid DOM -->
         {{#if controllers.currentUser.isAuthenticated }}
             {{#if isProjectOwner }}
             	<h3>{% trans "Write an update" %}</h3>
@@ -19,7 +19,7 @@
         	<h3>{% trans "Write a comment" %}</h3>
         	<a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
         {{/if}}
-    </form>
+    </div>
 
 {% endtplhandlebars %}
 
