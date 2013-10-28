@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 App.Adapter.map('App.RecurringOrder', {
     donations: {embedded: 'load'}
 });
@@ -39,9 +38,3 @@ App.RecurringDonation = App.Donation.extend({
     order: DS.belongsTo('App.RecurringOrder')
 });
 
-=======
-App.MonthlyOrderDonation = App.Donation.extend({
-    url: 'fund/orders/current/donations',
-    order: DS.belongsTo('App.Order')
-});
->>>>>>> 44a267a... Create separate page for monthly donation
