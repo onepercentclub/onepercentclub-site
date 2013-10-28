@@ -35,7 +35,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
 
-        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),
+        self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                 'Cannot load the project list page.')
 
     def test_navigate_to_project_list_page(self):
@@ -48,7 +48,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.browser.find_link_by_text('1%Projects').first.click()
 
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),
+        self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                 'Cannot load the project list page.')
 
         self.assertEqual(self.browser.url, '%s/en/#!/projects' % self.live_server_url)
@@ -64,21 +64,21 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         time.sleep(2)
 
         def convert_money_to_int(money_text):
-            return int(money_text.strip(u'€ ').replace('.', '').replace(',', ''))
+            return int(money_text.strip(u' To go').strip(u'€ ').replace('.', '').replace(',', ''))
 
         # NOTE: Due to a recent change, its harder to calculate/get the financiel data from the front end.
         # Hence, these calculations are commented. Perhaps enable in the future if this data becomes available again.
 
         # Create a dict of all projects on the web page.
         web_projects = []
-        for p in self.browser.find_by_css('.item.item-project'):
+        for p in self.browser.find_by_css('.project-item'):
             # NOTE: donated class name should be read as "to go"...
-            donated = convert_money_to_int(p.find_by_css('.donated').first.text)
+            needed = convert_money_to_int(p.find_by_css('.project-fund-amount').first.text)
             #asked = convert_money_to_int(p.find_by_css('.asked').first.text)
 
             web_projects.append({
                 'title': p.find_by_css('h3').first.text,
-                'money_needed': donated,
+                'money_needed': needed,
                 #'money_asked': asked,
             })
 
@@ -97,9 +97,8 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         expected_projects = []
         for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
-                'title': p.title.upper(),  # Uppercase the title for comparison.
+                'title': p.title,  # Uppercase the title for comparison.
                 'money_needed': int(round(p.projectcampaign.money_needed / 100.0)),
-                #'money_asked': int(round(p.projectcampaign.money_asked / 100.0))
             })
 
         # Compare all projects found on the web page with those in the database, in the same order.
