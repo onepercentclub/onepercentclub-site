@@ -104,7 +104,6 @@ App.ProjectPhaseSelectView = Em.Select.extend({
 
 App.MyProjectListView = Em.View.extend({
     templateName: 'my_project_list'
-
 });
 
 App.MyProjectView = Em.View.extend({
@@ -116,11 +115,7 @@ App.MyProjectView = Em.View.extend({
 // Project Pitch Phase
 
 App.MyPitchNewView = Em.View.extend({
-    templateName: 'my_pitch_new',
-    didInsertElement: function(){
-        window.scrollTo(0);
-    }
-
+    templateName: 'my_pitch_new'
 });
 
 App.MyProjectPitchView = Em.View.extend({
@@ -156,13 +151,10 @@ App.MyProjectPitchSubmitView = Em.View.extend(App.PopOverMixin, {
 
 App.MyProjectPlanView = Em.View.extend({
     templateName: 'my_project_plan'
-
 });
-
 
 App.MyProjectPlanIndexView = Em.View.extend({
     templateName: 'my_project_plan_index'
-
 });
 
 App.MyProjectPlanBasicsView = Em.View.extend(App.PopOverMixin, {
